@@ -19,7 +19,7 @@ jobs:
       - name: Read latest
         id: read_latest
         run: |
-          echo "release=$(gh api -H 'Accept: application/vnd.github+json' -H 'X-GitHub-Api-Version: 2022-11-28' -q '.[0].tag_name' /repos/CycloneDX/cdxgen/releases)" > $GITHUB_OUTPUT
+          echo "release=$(gh api -H 'Accept: application/vnd.github+json' -H 'X-GitHub-Api-Version: 2022-11-28' -q '.[0].tag_name' /repos/cdxgen/cdxgen/releases)" > $GITHUB_OUTPUT
         env:
           GH_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
       - name: Rebuild latest
@@ -34,7 +34,7 @@ jobs:
       - name: Read previous
         id: read_previous
         run: |
-          echo "release=$(gh api -H 'Accept: application/vnd.github+json' -H 'X-GitHub-Api-Version: 2022-11-28' -q '.[1].tag_name' /repos/CycloneDX/cdxgen/releases)" > $GITHUB_OUTPUT
+          echo "release=$(gh api -H 'Accept: application/vnd.github+json' -H 'X-GitHub-Api-Version: 2022-11-28' -q '.[1].tag_name' /repos/cdxgen/cdxgen/releases)" > $GITHUB_OUTPUT
         env:
           GH_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
       - name: Rebuild previous
