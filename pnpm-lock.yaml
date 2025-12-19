@@ -5,7 +5,7 @@ settings:
   excludeLinksFromLockfile: false
 
 overrides:
-  '@appthreat/atom': 2.4.3
+  '@appthreat/atom': 2.4.5
   '@appthreat/atom-common': 1.0.12
   '@appthreat/atom-parsetools': 1.0.12
   '@appthreat/cdx-proto': 1.2.0
@@ -314,8 +314,6 @@ overrides:
   yargs-parser: 22.0.0
   yoctocolors: 2.1.2
 
-pnpmfileChecksum: sha256-nfOeuxPm0PLhmHqhdzVKpjFk27e1GEgHAqcQJ7ot+gg=
-
 importers:
 
   .:
@@ -449,8 +447,8 @@ importers:
         version: 5.9.3
     optionalDependencies:
       '@appthreat/atom':
-        specifier: 2.4.3
-        version: 2.4.3
+        specifier: 2.4.5
+        version: 2.4.5
       '@appthreat/cdx-proto':
         specifier: 1.2.0
         version: 1.2.0
@@ -516,8 +514,8 @@ packages:
     engines: {node: '>=16.0.0'}
     hasBin: true
 
-  '@appthreat/atom@2.4.3':
-    resolution: {integrity: sha512-xOfXDQbRVoworcxaKPYtXJaaBct4GUkDxKseBgxvvK4deqK7lkW3QYBybaQqNynzEmb1yCaqdFcLQYw5bhEyvA==}
+  '@appthreat/atom@2.4.5':
+    resolution: {integrity: sha512-m9PTAM31+q+ND5uTLq81IsJrpBLFM1DghdUMyjGd8WER1DuavyvlBj9K64oR/1V8MktNvNwevqDSpnk4ACN+1w==}
     engines: {node: '>=16.0.0'}
     hasBin: true
 
@@ -658,7 +656,6 @@ packages:
     resolution: {integrity: sha512-KCZVGPh8XPPIvKQwPIYvfHb+jjCMKmPtGd9lC2LH5QfrC8jvDsu+4n+8GKTzBOYxbk18sSy+W6XjHzIcHMSvpg==}
     cpu: [ppc64]
     os: [linux]
-    libc: glibc
 
   '@cyclonedx/cdxgen-plugins-bin-linuxmusl-amd64@1.8.0':
     resolution: {integrity: sha512-FO3bQ6LWKrf6iYpa2qgUmSTl1Yi7T1cPTizXfOnzqg3dBxmksb0RjKFiCKeLNULfFT/vbQcz7065JKAt0oE/5w==}
@@ -1753,7 +1750,7 @@ snapshots:
       yargs: 18.0.0
     optional: true
 
-  '@appthreat/atom@2.4.3':
+  '@appthreat/atom@2.4.5':
     dependencies:
       '@appthreat/atom-common': 1.0.12
       '@appthreat/atom-parsetools': 1.0.12

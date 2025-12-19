@@ -110,7 +110,7 @@
     "watch": "poku --watch"
   },
   "overrides": {
-    "@appthreat/atom": "2.4.3",
+    "@appthreat/atom": "2.4.5",
     "@appthreat/atom-common": "1.0.12",
     "@appthreat/atom-parsetools": "1.0.12",
     "@appthreat/cdx-proto": "1.2.0",
@@ -466,7 +466,7 @@
     "typescript": "5.9.3"
   },
   "optionalDependencies": {
-    "@appthreat/atom": "2.4.3",
+    "@appthreat/atom": "2.4.5",
     "@appthreat/cdx-proto": "1.2.0",
     "@bufbuild/protobuf": "2.10.1",
     "@cyclonedx/cdxgen-plugins-bin": "1.8.0",
@@ -497,7 +497,7 @@
       "@biomejs/biome"
     ],
     "overrides": {
-      "@appthreat/atom": "2.4.3",
+      "@appthreat/atom": "2.4.5",
       "@appthreat/atom-common": "1.0.12",
       "@appthreat/atom-parsetools": "1.0.12",
       "@appthreat/cdx-proto": "1.2.0",
