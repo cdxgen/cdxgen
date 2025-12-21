@@ -201,7 +201,7 @@ jobs:
           node-version-file: .nvmrc
       - uses: denoland/setup-deno@e95548e56dfa95d4e1a28d6f422fafe75c4c26fb # v2.0.3
         with:
-          deno-version: 2.6.1
+          deno-version: 2.6.3
       - uses: oven-sh/setup-bun@735343b667d3e6f658f44d0eca948eb6282f2b76 # v2.0.2
         with:
           bun-version: 1.3.5
