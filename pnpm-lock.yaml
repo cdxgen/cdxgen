@@ -160,7 +160,7 @@ overrides:
   http-proxy-agent: 7.0.2
   http2-wrapper: 2.2.1
   https-proxy-agent: 7.0.6
-  iconv-lite: 0.7.0
+  iconv-lite: 0.7.1
   imurmurhash: 0.1.4
   inherits: 2.0.4
   ini: 6.0.0
@@ -314,8 +314,6 @@ overrides:
   yargs-parser: 22.0.0
   yoctocolors: 2.1.2
 
-pnpmfileChecksum: sha256-nfOeuxPm0PLhmHqhdzVKpjFk27e1GEgHAqcQJ7ot+gg=
-
 importers:
 
   .:
@@ -372,8 +370,8 @@ importers:
         specifier: 14.6.5
         version: 14.6.5
       iconv-lite:
-        specifier: 0.7.0
-        version: 0.7.0
+        specifier: 0.7.1
+        version: 0.7.1
       json-stringify-nice:
         specifier: 1.1.4
         version: 1.1.4
@@ -658,7 +656,6 @@ packages:
     resolution: {integrity: sha512-KCZVGPh8XPPIvKQwPIYvfHb+jjCMKmPtGd9lC2LH5QfrC8jvDsu+4n+8GKTzBOYxbk18sSy+W6XjHzIcHMSvpg==}
     cpu: [ppc64]
     os: [linux]
-    libc: glibc
 
   '@cyclonedx/cdxgen-plugins-bin-linuxmusl-amd64@1.8.0':
     resolution: {integrity: sha512-FO3bQ6LWKrf6iYpa2qgUmSTl1Yi7T1cPTizXfOnzqg3dBxmksb0RjKFiCKeLNULfFT/vbQcz7065JKAt0oE/5w==}
@@ -1161,8 +1158,8 @@ packages:
     resolution: {integrity: sha512-vK9P5/iUfdl95AI+JVyUuIcVtd4ofvtrOr3HNtM2yxC9bnMbEdp3x01OhQNnjb8IJYi38VlTE3mBXwcfvywuSw==}
     engines: {node: '>= 14'}
 
-  iconv-lite@0.7.0:
-    resolution: {integrity: sha512-cf6L2Ds3h57VVmkZe+Pn+5APsT7FpqJtEhhieDCvrE2MK5Qk9MyffgQyuxQTm6BChfeZNtcOLHp9IcWRVcIcBQ==}
+  iconv-lite@0.7.1:
+    resolution: {integrity: sha512-2Tth85cXwGFHfvRgZWszZSvdo+0Xsqmw8k8ZwxScfcBneNUraK+dxRxRm24nszx80Y0TVio8kKLt5sLE7ZCLlw==}
     engines: {node: '>=0.10.0'}
 
   imurmurhash@0.1.4:
@@ -2056,7 +2053,7 @@ snapshots:
       content-type: 1.0.5
       debug: 4.4.3
       http-errors: 2.0.1
-      iconv-lite: 0.7.0
+      iconv-lite: 0.7.1
       on-finished: 2.4.1
       qs: 6.14.0
       raw-body: 3.0.2
@@ -2261,12 +2258,12 @@ snapshots:
 
   encoding-sniffer@0.2.1:
     dependencies:
-      iconv-lite: 0.7.0
+      iconv-lite: 0.7.1
       whatwg-encoding: 3.1.1
 
   encoding@0.1.13:
     dependencies:
-      iconv-lite: 0.7.0
+      iconv-lite: 0.7.1
     optional: true
 
   end-of-stream@1.4.5:
@@ -2473,7 +2470,7 @@ snapshots:
       - supports-color
     optional: true
 
-  iconv-lite@0.7.0:
+  iconv-lite@0.7.1:
     dependencies:
       safer-buffer: 2.1.2
 
@@ -2791,7 +2788,7 @@ snapshots:
     dependencies:
       bytes: 3.1.2
       http-errors: 2.0.1
-      iconv-lite: 0.7.0
+      iconv-lite: 0.7.1
       unpipe: 1.0.0
     optional: true
 
@@ -3069,7 +3066,7 @@ snapshots:
 
   whatwg-encoding@3.1.1:
     dependencies:
-      iconv-lite: 0.7.0
+      iconv-lite: 0.7.1
 
   whatwg-mimetype@4.0.0: {}
 
