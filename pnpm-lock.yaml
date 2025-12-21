@@ -28,7 +28,7 @@ overrides:
   '@biomejs/cli-linux-x64-musl': 2.3.10
   '@biomejs/cli-win32-arm64': 2.3.10
   '@biomejs/cli-win32-x64': 2.3.10
-  '@bufbuild/protobuf': 2.10.1
+  '@bufbuild/protobuf': 2.10.2
   '@cyclonedx/cdxgen-plugins-bin': 1.8.0
   '@cyclonedx/cdxgen-plugins-bin-darwin-amd64': 1.8.0
   '@cyclonedx/cdxgen-plugins-bin-darwin-arm64': 1.8.0
@@ -314,8 +314,6 @@ overrides:
   yargs-parser: 22.0.0
   yoctocolors: 2.1.2
 
-pnpmfileChecksum: sha256-nfOeuxPm0PLhmHqhdzVKpjFk27e1GEgHAqcQJ7ot+gg=
-
 importers:
 
   .:
@@ -455,8 +453,8 @@ importers:
         specifier: 1.2.0
         version: 1.2.0
       '@bufbuild/protobuf':
-        specifier: 2.10.1
-        version: 2.10.1
+        specifier: 2.10.2
+        version: 2.10.2
       '@cyclonedx/cdxgen-plugins-bin':
         specifier: 1.8.0
         version: 1.8.0
@@ -623,8 +621,8 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@bufbuild/protobuf@2.10.1':
-    resolution: {integrity: sha512-ckS3+vyJb5qGpEYv/s1OebUHDi/xSNtfgw1wqKZo7MR9F2z+qXr0q5XagafAG/9O0QPVIUfST0smluYSTpYFkg==}
+  '@bufbuild/protobuf@2.10.2':
+    resolution: {integrity: sha512-uFsRXwIGyu+r6AMdz+XijIIZJYpoWeYzILt5yZ2d3mCjQrWUTVpVD9WL/jZAbvp+Ed04rOhrsk7FiTcEDseB5A==}
 
   '@cyclonedx/cdxgen-plugins-bin-darwin-amd64@1.8.0':
     resolution: {integrity: sha512-0c4+VXkRtq0zNWXsKEt8Qv4PFeWAS3j4TL+yeaDXmcpLEu42UvjVtNZg7k00T5ijlV05rIWsz9mavuq+G3wOGw==}
@@ -658,7 +656,6 @@ packages:
     resolution: {integrity: sha512-KCZVGPh8XPPIvKQwPIYvfHb+jjCMKmPtGd9lC2LH5QfrC8jvDsu+4n+8GKTzBOYxbk18sSy+W6XjHzIcHMSvpg==}
     cpu: [ppc64]
     os: [linux]
-    libc: glibc
 
   '@cyclonedx/cdxgen-plugins-bin-linuxmusl-amd64@1.8.0':
     resolution: {integrity: sha512-FO3bQ6LWKrf6iYpa2qgUmSTl1Yi7T1cPTizXfOnzqg3dBxmksb0RjKFiCKeLNULfFT/vbQcz7065JKAt0oE/5w==}
@@ -1761,7 +1758,7 @@ snapshots:
 
   '@appthreat/cdx-proto@1.2.0':
     dependencies:
-      '@bufbuild/protobuf': 2.10.1
+      '@bufbuild/protobuf': 2.10.2
     optional: true
 
   '@appthreat/sqlite3@7.0.2':
@@ -1859,7 +1856,7 @@ snapshots:
   '@biomejs/cli-win32-x64@2.3.10':
     optional: true
 
-  '@bufbuild/protobuf@2.10.1':
+  '@bufbuild/protobuf@2.10.2':
     optional: true
 
   '@cyclonedx/cdxgen-plugins-bin-darwin-amd64@1.8.0':
