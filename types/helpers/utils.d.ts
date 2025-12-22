@@ -832,6 +832,14 @@ export function parseFlakeLock(flakeLockFile: string): any;
 export function parseNuspecData(nupkgFile: string, nuspecData: string): any;
 export function parseCsPkgData(pkgData: any, pkgFile: any): any[];
 /**
+ * Method to find all text nodes in PropertyGroup elements in .props files.
+ *
+ * @param {String} propsFiles .props files in this project
+ *
+ * @returns {Object} Containing text nodes from PropertyGroup elements and their values
+ */
+export function getPropertyGroupTextNodes(propsFiles: string): any;
+/**
  * Method to parse .csproj like xml files
  *
  * @param {String} csProjData Raw data
@@ -840,7 +848,7 @@ export function parseCsPkgData(pkgData: any, pkgFile: any): any[];
  *
  * @returns {Object} Containing parent component, package, and dependencies
  */
-export function parseCsProjData(csProjData: string, projFile: string, pkgNameVersions?: any): any;
+export function parseCsProjData(csProjData: string, projFile: string, pkgNameVersions?: any, msbuildInstalled?: boolean, pkgVersionLabelCandidates?: {}): any;
 export function parseCsProjAssetsData(csProjData: any, assetsJsonFile: any): {
     pkgList: any[];
     dependenciesList: any[];

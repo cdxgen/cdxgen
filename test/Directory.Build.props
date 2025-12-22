@@ -1,0 +1,6 @@
+<Project>
+    <PropertyGroup>
+        <Test_MicrosoftAspNetCore_PackageVersion>4.8.0</Test_MicrosoftAspNetCore_PackageVersion>
+        <Test_AdaptiveCards_PackageVersion>1.0.3</Test_AdaptiveCards_PackageVersion>
+    </PropertyGroup>
+</Project>
