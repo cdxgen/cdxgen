@@ -265,7 +265,7 @@ jobs:
           hash -r
       - uses: ruby/setup-ruby@ed55d55e820a01da7d3e4863a8c51a61d73c3228 # v1.274.0
         with:
-          ruby-version: '3.4.7'
+          ruby-version: '3.4.8'
       - name: Set up Python
         uses: actions/setup-python@83679a892e2d95755f2dac6acb0bfd1e9ac5d548 # v6.1.0
         with:
@@ -1046,7 +1046,7 @@ jobs:
           python-version: '3.13'
       - uses: ruby/setup-ruby@ed55d55e820a01da7d3e4863a8c51a61d73c3228 # v1.274.0
         with:
-          ruby-version: '3.4.7'
+          ruby-version: '3.4.8'
       - name: pip install custom-json-diff
         run: |
           pip install custom-json-diff
