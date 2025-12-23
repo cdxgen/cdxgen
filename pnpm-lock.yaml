@@ -448,7 +448,7 @@ importers:
         specifier: 2.3.10
         version: 2.3.10
       esmock:
-        specifier: ^2.7.3
+        specifier: 2.7.3
         version: 2.7.3
       poku:
         specifier: 3.0.2

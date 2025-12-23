@@ -468,7 +468,7 @@
   },
   "devDependencies": {
     "@biomejs/biome": "2.3.10",
-    "esmock": "^2.7.3",
+    "esmock": "2.7.3",
     "poku": "3.0.2",
     "sinon": "21.0.0",
     "typescript": "5.9.3"
