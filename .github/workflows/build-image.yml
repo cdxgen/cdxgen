@@ -13,7 +13,7 @@ permissions: {}
 
 jobs:
   filter:
-    if: github.repository == 'CycloneDX/cdxgen'
+    if: github.repository == 'cdxgen/cdxgen'
     runs-on: ubuntu-24.04
     outputs:
       imagefiles: ${{ steps.changed.outputs.files }}
@@ -38,7 +38,7 @@ jobs:
 
             core.setOutput("files", JSON.stringify(files));
   image:
-    if: github.repository == 'CycloneDX/cdxgen'
+    if: github.repository == 'cdxgen/cdxgen'
     needs: filter
     strategy:
       fail-fast: false

@@ -1,5 +1,5 @@
 # Base-image
-FROM python:3.13.10-alpine@sha256:65fe04ddc51a8ccbf14ecb882903251e4a124914673001b03c393eb65dd9502a AS base
+FROM python:3.13.11-alpine@sha256:e7e041128ffc3e3600509f508e44d34ab08ff432bdb62ec508d01dfc5ca459f7 AS base
 
 ARG ALPINE_REPO
 ARG NODEJS_DIST_URL

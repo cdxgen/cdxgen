@@ -1,2 +1,2 @@
 # renovate: datasource=maven depName=org.apache.maven:maven
-3.9.11
+3.9.12

@@ -12,7 +12,7 @@ permissions: {}
 
 jobs:
   build:
-    if: github.repository == 'CycloneDX/cdxgen'
+    if: github.repository == 'cdxgen/cdxgen'
     strategy:
       fail-fast: false
       matrix:

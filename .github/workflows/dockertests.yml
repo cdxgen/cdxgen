@@ -141,7 +141,7 @@ jobs:
       - name: ostests
         run: |
           bin/cdxgen.js -t os -o bomresults/bom-os.json --fail-on-error
-      - uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4 # v5.0.0
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0
         if: matrix.os == 'ubuntu-24.04-arm'
         with:
           name: bomresults-os
@@ -169,7 +169,7 @@ jobs:
         run: |
           node bin/cdxgen.js -t os -o bomresults/bom-win.json --fail-on-error
           dir bomresults
-      - uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4 # v5.0.0
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0
         with:
           name: bomresults-win
           path: bomresults
