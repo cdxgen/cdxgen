@@ -1,0 +1,139 @@
+
+name: CycloneDX cdxgen - Copilot Setup
+description: >
+  Setup instructions and development workflow context for GitHub Copilot
+  to assist with cdxgen development, testing, and contributions.
+
+---
+
+## 🧩 Project Overview
+project:
+  name: CycloneDX cdxgen
+  purpose: Universal SBOM generator supporting CycloneDX specification (v1.4–v1.7)
+  language: [JavaScript, TypeScript]
+  runtime: Node.js
+  package_manager: pnpm
+  cli_entry: bin/cdxgen.js
+  repo: https://github.com/CycloneDX/cdxgen
+
+---
+
+## ⚙️ Build Configuration
+build:
+  prerequisites:
+    - Node.js >= 20
+    - pnpm (enabled via Corepack)
+  setup_steps:
+    - corepack enable pnpm
+    - pnpm install:frozen
+    - pnpm run gen-types
+    - pnpm run lint
+  output: |
+    Compiled JS and Type Definitions generated in ./lib and ./types directories
+
+---
+
+## 🧪 Testing Configuration
+test:
+  framework: Jest
+  commands:
+    - pnpm test
+  coverage: true
+  goal: Ensure all modules (CLI, library, and server) are validated before merging.
+
+---
+
+## 🧰 Development Tools
+dev_tools:
+  - name: Biome
+    purpose: Code formatting, linting, and autofix
+    config: biome.json
+  - name: Renovate
+    purpose: Automated dependency updates
+    config: renovate.json
+  - name: Codacy
+    purpose: Code quality and security scanning
+    config: .codacy.yml
+  - name: VSCode DevContainer
+    purpose: Containerized local dev environment
+    config: .devcontainer.json
+
+---
+
+## 🧾 Configuration Files
+config_files:
+  root_level:
+    - package.json
+    - tsconfig.json
+    - pnpm-workspace.yaml
+    - biome.json
+    - renovate.json
+    - .codacy.yml
+    - .nvmrc
+    - .dockerignore
+    - .npmignore
+    - .gitignore
+  application_level:
+    - bin/cdxgen.js
+    - lib/helpers/config.js
+    - lib/server/server.js
+  ci_cd:
+    - .github/workflows/
+    - ci/Dockerfile
+    - docker-compose.yml
+
+---
+
+## 🧠 Copilot Context Suggestions
+context:
+  include:
+    - README.md
+    - docs/
+    - lib/
+    - bin/
+    - test/
+    - contrib/
+  exclude:
+    - node_modules/
+    - dist/
+    - coverage/
+    - tmp/
+  summary: >
+    Include source, CLI, and documentation files for better Copilot completions.
+    Exclude build artifacts, temp files, and generated dependencies.
+
+---
+
+## 🚀 Common Commands Reference
+commands:
+  build: |
+    corepack enable pnpm
+    pnpm install:frozen
+    pnpm run gen-types
+    pnpm run lint
+  test: pnpm test
+  run-cli: npx cdxgen -r -o bom.json
+  start-server: npx cdxgen --server
+  docker-run: |
+    docker run --rm -v $(pwd):/app:rw -t ghcr.io/cyclonedx/cdxgen -r /app -o /app/bom.json
+
+---
+
+## 📦 Key Outputs
+outputs:
+  - bom.json
+  - bom.cdx
+  - bom.json.map
+  - logs/cdxgen-debug.log
+  - signature/public.key
+  - signature/private.key
+
+---
+
+## 🧩 Notes for Copilot
+notes:
+  - Prefer pnpm over npm for installs.
+  - Always run `pnpm run gen-types` before testing to ensure TypeScript definitions exist.
+  - Use Node.js >= 20 for ESM compatibility.
+  - For debugging, run CLI with `CDXGEN_DEBUG_MODE=debug`.
+  - Use Docker or Deno variants for environment isolation if local build fails.
