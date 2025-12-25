@@ -1,0 +1,46 @@
+name: Run tests on repository
+description: |
+  Clone a repository, checkout the given branch/tag and run cdxgen on it.
+
+inputs:
+  command:
+    description: |
+      The command(s) needed to run the test -- these may include any and all
+      pre- and post-test commands and command-specific environment variables
+      
+      Use '$REPO_DIR' as placeholder for the path to the repository, as it is
+      generated here!
+    required: true
+  ref:
+    description: The branch, tag or even commit to checkout and run cdxgen on -- uses the default branch if not set (not recommended!)
+    default: ''
+  repository:
+    description: The name of the repository to clone
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - name: Validate
+      shell: bash
+      run: |
+        if [[ -d $REPO_DIR ]]
+        then
+          echo "Directory '$REPO_DIR' already exists --> duplicate repotest!"
+          false
+        else
+          mkdir -p $REPO_DIR
+        fi
+      env:
+        REPO_DIR: ${{ inputs.repository }}_${{ inputs.ref }}
+    - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+      with:
+        path: ${{ inputs.repository }}_${{ inputs.ref }}
+        persist-credentials: false
+        ref: ${{ inputs.ref }}
+        repository: ${{ inputs.repository }}
+    - name: Run command
+      shell: bash
+      run: ${{ inputs.command }}
+      env:
+        REPO_DIR: ${{ inputs.repository }}_${{ inputs.ref }}

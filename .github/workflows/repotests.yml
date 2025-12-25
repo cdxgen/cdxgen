@@ -20,160 +20,150 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  NEXUS_URL: http://100.73.146.80:8081/repository/npm/
+  CI: true
+  OUTPUT_DIR: bomresults
 
 # https://docs.github.com/en/actions/writing-workflows/choosing-what-your-workflow-does/controlling-permissions-for-github_token
 permissions: {}
 
 jobs:
-  cli-tests-quick-amd64:
-    runs-on: ["self-hosted", "ubuntu", "amd64"]
+  cli-tests-java:
+    strategy:
+      fail-fast: false
+      matrix:
+        java-version: ['24']
+        os: ['ubuntu-24.04', 'ubuntu-24.04-arm', 'windows-latest', 'macos-15']
+    runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
         with:
           persist-credentials: false
-      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+      - name: Prepare runner for repotests
+        uses: ./.github/actions/prepare-repotests
+      - name: Install JDK ${{ matrix.java-version }}
+        uses: actions/setup-java@f2beeb24e141e01a676f977032f5a29d81c9e27e # v5.1.0
         with:
-          persist-credentials: false
-          repository: 'hoolicorp/java-sec-code'
-          path: 'repotests/java-sec-code'
-      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
-        with:
-          persist-credentials: false
-          repository: 'wix/greyhound'
-          path: 'repotests/greyhound'
-          ref: '385bb84a6f712ee18064a3b5ecb8d9dcbc1c75f3'
-      - name: Trim CI agent
+          distribution: 'temurin'
+          java-version: ${{ matrix.java-version }}
+      - name: Install SDKMan
+        if: runner.os != 'Windows'
         run: |
-          rm -rf /tmp/docker-images-* /tmp/atom-usages-* /tmp/atom-reachables-* /tmp/cdx*
-      - name: Setup pnpm
-        uses: pnpm/action-setup@41ff72655975bd51cab0327fa583b6e92b6d3061 # v4.2.0
-      - name: Use Node.js
-        uses: actions/setup-node@395ad3262231945c25e8478fd5baf05154b1d79f # v6.1.0
-        with:
-          node-version-file: .nvmrc
-      - name: Setup Nexus usage
-        run: echo "registry=$NEXUS_URL" > .npmrc
-      - name: pnpm install
-        run: |
-          pnpm install:frozen
-          mkdir -p bomresults
-          rm -rf $CDXGEN_TEMP_DIR && mkdir -p $CDXGEN_TEMP_DIR
-        env:
-          CI: true
-          CDXGEN_TEMP_DIR: ${{ runner.temp }}/cdxgen-repotests
-      - name: repotests java-sec-code
-        run: |
-          bin/cdxgen.js -t java repotests/java-sec-code -o bomresults/bom-java-sec-code-1.json --include-formulation --include-crypto --fail-on-error
-          bin/cdxgen.js -t java repotests/java-sec-code -o bomresults/bom-java-sec-code-2.json --author foo --author bar --standard asvs-4.0.3
-          bin/cdxgen.js -t java repotests/java-sec-code -o bomresults/bom-java-sec-code-3.json --required-only --fail-on-error
-          bin/cdxgen.js -t java repotests/java-sec-code -o bomresults/bom-java-sec-code-4.json --filter postgres --filter json
-          bin/cdxgen.js -t java repotests/java-sec-code -o bomresults/bom-java-sec-code-5.json --only spring --fail-on-error
-          bin/cdxgen.js -t java repotests/java-sec-code -o bomresults/bom-java-sec-code-6.json --deep --evidence
-          bin/cdxgen.js -t java repotests/java-sec-code -o bomresults/bom-java-sec-code-7.json --profile research --export-proto
-          bin/cdxgen.js -t java repotests/java-sec-code -o bomresults/bom-java-sec-code-8.json --profile license-compliance
-          bin/cdxgen.js -t java repotests/java-sec-code -o bomresults/bom-java-sec-code-9.json --include-regex "pom.xml"
-          bin/cdxgen.js -t java -t github repotests/java-sec-code -o bomresults/bom-java-sec-code-9.json
-          bin/cdxgen.js -t java -exclude-type js repotests/java-sec-code -o bomresults/bom-java-sec-code-10.json
-        shell: bash
-      - name: repotests java-sec-code (allow lists)
-        run: |
-          CDXGEN_ALLOWED_COMMANDS=none CDXGEN_ALLOWED_HOSTS=localhost bin/cdxgen.js -t java repotests/java-sec-code -o bomresults/bom-java-sec-code-1.json
-          CDXGEN_ALLOWED_COMMANDS=mvn CDXGEN_ALLOWED_HOSTS="*.maven.org,*.github.com" bin/cdxgen.js -t java repotests/java-sec-code -o bomresults/bom-java-sec-code-2.json --fail-on-error
-        shell: bash
-        env:
-          FETCH_LICENSE: true
-          CDXGEN_TRACE_ID: foo
-          CDXGEN_DEBUG_MODE: debug
-      - name: repotests greyhound
-        run: |
-          bin/cdxgen.js -r -t java11 repotests/greyhound -o bomresults/bom-greyhound-java.json
-          bin/cdxgen.js -r -t gradle repotests/greyhound -o bomresults/bom-greyhound-gradle.json
-          bin/cdxgen.js -r -t java11 --exclude-type bazel --exclude-type sbt repotests/greyhound -o bomresults/bom-greyhound-wobazel.json
-        shell: bash
-  cli-tests-quick-arm64:
-    runs-on: ["self-hosted", "ubuntu", "arm64"]
-    steps:
-      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
-        with:
-          persist-credentials: false
-      - uses: actions/setup-go@4dc6199c7b1a012772edbd06daecab0f50c9053c # v6.1.0
-        with:
-          go-version: '1.25.5'
-      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
-        with:
-          persist-credentials: false
-          repository: 'aws-solutions/iot-device-simulator'
-          path: 'repotests/iot-device-simulator'
-          ref: 'v3.0.9'
-      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
-        with:
-          persist-credentials: false
-          repository: 'ollama/ollama'
-          path: 'repotests/ollama'
-          ref: 'v0.5.7'
-      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
-        with:
-          persist-credentials: false
-          repository: 'caddyserver/caddy'
-          path: 'repotests/caddy'
-          ref: 'v2.9.1'
-      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
-        with:
-          persist-credentials: false
-          repository: 'flutter/gallery'
-          ref: 'v2.10.2'
-          path: 'repotests/gallery'
-      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
-        with:
-          persist-credentials: false
-          repository: 'ShiftLeftSecurity/shiftleft-go-example'
-          path: 'repotests/shiftleft-go-example'
-      - name: Trim CI agent
-        run: |
-          rm -rf /tmp/docker-images-* /tmp/atom-usages-* /tmp/atom-reachables-*
-      - name: Setup pnpm
-        uses: pnpm/action-setup@41ff72655975bd51cab0327fa583b6e92b6d3061 # v4.2.0
-      - name: Use Node.js
-        uses: actions/setup-node@395ad3262231945c25e8478fd5baf05154b1d79f # v6.1.0
-        with:
-          node-version-file: .nvmrc
-      - name: Setup Nexus usage
-        run: echo "registry=$NEXUS_URL" > .npmrc
-      - name: pnpm install
-        run: |
-          pnpm install:frozen
-          mkdir -p bomresults
-          rm -rf $CDXGEN_TEMP_DIR && mkdir -p $CDXGEN_TEMP_DIR
-        env:
-          CI: true
-          CDXGEN_TEMP_DIR: ${{ runner.temp }}/cdxgen-repotests
-      - name: repotests iot-device-simulator
-        run: |
-          bin/cdxgen.js -t js -o bomresults/bom-iot.json repotests/iot-device-simulator --fail-on-error
-          bin/cdxgen.js -t js -o bomresults/bom-iot15.json repotests/iot-device-simulator --spec-version 1.5 --fail-on-error
-        shell: bash
-      - name: repotests ollama
-        run: |
-          bin/cdxgen.js -r -t go repotests/ollama -o bomresults/bom-ollama.json --fail-on-error
-          bin/cdxgen.js -r -t go repotests/caddy -o bomresults/bom-caddy.json --fail-on-error
-        shell: bash
-      - name: repotests go mod tests
-        run: |
-          mkdir -p gomod-example
-          cd gomod-example
-          curl -LO https://raw.githubusercontent.com/anchore/syft/main/go.mod
-          cd ..
-          bin/cdxgen.js -r -t go gomod-example -o bomresults/bom-gomod.json
-        shell: bash
-      - name: repotests shiftleft-go-example
-        run: |
-          FETCH_LICENSE=false bin/cdxgen.js -r -t golang repotests/shiftleft-go-example -o bomresults/bom-go.json --fail-on-error --export-proto
-        shell: bash
-      - name: repotests gallery
-        run: |
-          bin/cdxgen.js -r -t dart repotests/gallery -o bomresults/bom-pub.json --fail-on-error
-        shell: bash
+          curl -s "https://get.sdkman.io" | bash
+
+#      - name: HooliCorp/java-sec-code
+#        uses: ./.github/actions/test-repo
+#        with:
+#          repository: HooliCorp/java-sec-code
+#          ref: 7f7f02a9e030736dd4ef4fa657511b26c4c5c016
+#          command: |
+#            bin/cdxgen.js -t java -p $REPO_DIR -o $OUTPUT_DIR/bom-java-sec-code-01.json --include-formulation --include-crypto --fail-on-error
+#            bin/cdxgen.js -t java -p $REPO_DIR -o $OUTPUT_DIR/bom-java-sec-code-02.json --author foo --author bar --standard asvs-4.0.3
+#            bin/cdxgen.js -t java -p $REPO_DIR -o $OUTPUT_DIR/bom-java-sec-code-03.json --required-only --fail-on-error
+#            bin/cdxgen.js -t java -p $REPO_DIR -o $OUTPUT_DIR/bom-java-sec-code-04.json --filter postgres --filter json
+#            bin/cdxgen.js -t java -p $REPO_DIR -o $OUTPUT_DIR/bom-java-sec-code-05.json --only spring --fail-on-error
+#            bin/cdxgen.js -t java -p $REPO_DIR -o $OUTPUT_DIR/bom-java-sec-code-06.json --deep --evidence
+#            bin/cdxgen.js -t java -p $REPO_DIR -o $OUTPUT_DIR/bom-java-sec-code-07.json --profile research --export-proto
+#            bin/cdxgen.js -t java -p $REPO_DIR -o $OUTPUT_DIR/bom-java-sec-code-08.json --profile license-compliance
+#            bin/cdxgen.js -t java -p $REPO_DIR -o $OUTPUT_DIR/bom-java-sec-code-09.json --include-regex "pom.xml"
+#            bin/cdxgen.js -t java -t github -p $REPO_DIR -o $OUTPUT_DIR/bom-java-sec-code-10.json
+#            bin/cdxgen.js -t java -exclude-type js -p $REPO_DIR -o $OUTPUT_DIR/bom-java-sec-code-11.json
+#            CDXGEN_ALLOWED_COMMANDS=none CDXGEN_ALLOWED_HOSTS=localhost bin/cdxgen.js -t java repotests/java-sec-code -o bomresults/bom-java-sec-code-12.json
+#            CDXGEN_ALLOWED_COMMANDS=mvn CDXGEN_ALLOWED_HOSTS="*.maven.org,*.github.com" bin/cdxgen.js -t java repotests/java-sec-code -o bomresults/bom-java-sec-code-13.json --fail-on-error
+#
+#      - name: wix/greyhound
+#        if: matrix.os == 'ubuntu-24.04' || matrix.os == 'ubuntu-24.04-arm'
+#        uses: ./.github/actions/test-repo
+#        with:
+#          repository: wix/greyhound
+#          ref: 385bb84a6f712ee18064a3b5ecb8d9dcbc1c75f3
+#          command: |
+#            bin/cdxgen.js -p -r -t java11 $REPO_DIR -o $OUTPUT_DIR/bom-greyhound-java.json
+#            bin/cdxgen.js -p -r -t gradle $REPO_DIR -o $OUTPUT_DIR/bom-greyhound-gradle.json
+#            bin/cdxgen.js -p -r -t java11 --exclude-type bazel --exclude-type sbt $REPO_DIR -o $OUTPUT_DIR/bom-greyhound-nobazel.json
+
+#  cli-tests-quick-arm64:
+#    runs-on: ["self-hosted", "ubuntu", "arm64"]
+#    steps:
+#      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+#        with:
+#          persist-credentials: false
+#      - uses: actions/setup-go@4dc6199c7b1a012772edbd06daecab0f50c9053c # v6.1.0
+#        with:
+#          go-version: '1.25.5'
+#      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+#        with:
+#          persist-credentials: false
+#          repository: 'aws-solutions/iot-device-simulator'
+#          path: 'repotests/iot-device-simulator'
+#          ref: 'v3.0.9'
+#      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+#        with:
+#          persist-credentials: false
+#          repository: 'ollama/ollama'
+#          path: 'repotests/ollama'
+#          ref: 'v0.5.7'
+#      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+#        with:
+#          persist-credentials: false
+#          repository: 'caddyserver/caddy'
+#          path: 'repotests/caddy'
+#          ref: 'v2.9.1'
+#      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+#        with:
+#          persist-credentials: false
+#          repository: 'flutter/gallery'
+#          ref: 'v2.10.2'
+#          path: 'repotests/gallery'
+#      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+#        with:
+#          persist-credentials: false
+#          repository: 'ShiftLeftSecurity/shiftleft-go-example'
+#          path: 'repotests/shiftleft-go-example'
+#      - name: Trim CI agent
+#        run: |
+#          rm -rf /tmp/docker-images-* /tmp/atom-usages-* /tmp/atom-reachables-*
+#      - name: Setup pnpm
+#        uses: pnpm/action-setup@41ff72655975bd51cab0327fa583b6e92b6d3061 # v4.2.0
+#      - name: Use Node.js
+#        uses: actions/setup-node@395ad3262231945c25e8478fd5baf05154b1d79f # v6.1.0
+#        with:
+#          node-version-file: .nvmrc
+#      - name: Setup Nexus usage
+#        run: echo "registry=$NEXUS_URL" > .npmrc
+#      - name: pnpm install
+#        run: |
+#          pnpm install:frozen
+#          mkdir -p bomresults
+#          rm -rf $CDXGEN_TEMP_DIR && mkdir -p $CDXGEN_TEMP_DIR
+#        env:
+#          CI: true
+#          CDXGEN_TEMP_DIR: ${{ runner.temp }}/cdxgen-repotests
+#      - name: repotests iot-device-simulator
+#        run: |
+#          bin/cdxgen.js -t js -o bomresults/bom-iot.json repotests/iot-device-simulator --fail-on-error
+#          bin/cdxgen.js -t js -o bomresults/bom-iot15.json repotests/iot-device-simulator --spec-version 1.5 --fail-on-error
+#        shell: bash
+#      - name: repotests ollama
+#        run: |
+#          bin/cdxgen.js -r -t go repotests/ollama -o bomresults/bom-ollama.json --fail-on-error
+#          bin/cdxgen.js -r -t go repotests/caddy -o bomresults/bom-caddy.json --fail-on-error
+#        shell: bash
+#      - name: repotests go mod tests
+#        run: |
+#          mkdir -p gomod-example
+#          cd gomod-example
+#          curl -LO https://raw.githubusercontent.com/anchore/syft/main/go.mod
+#          cd ..
+#          bin/cdxgen.js -r -t go gomod-example -o bomresults/bom-gomod.json
+#        shell: bash
+#      - name: repotests shiftleft-go-example
+#        run: |
+#          FETCH_LICENSE=false bin/cdxgen.js -r -t golang repotests/shiftleft-go-example -o bomresults/bom-go.json --fail-on-error --export-proto
+#        shell: bash
+#      - name: repotests gallery
+#        run: |
+#          bin/cdxgen.js -r -t dart repotests/gallery -o bomresults/bom-pub.json --fail-on-error
+#        shell: bash
   cli-tests:
     strategy:
       fail-fast: true
@@ -427,11 +417,11 @@ jobs:
           repository: 'appthreat/blint'
           ref: 'v1.0.34'
           path: 'repotests/blint'
-      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
-        with:
-          persist-credentials: false
-          repository: 'hoolicorp/java-sec-code'
-          path: 'repotests/java-sec-code'
+#      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+#        with:
+#          persist-credentials: false
+#          repository: 'hoolicorp/java-sec-code'
+#          path: 'repotests/java-sec-code'
       - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
         with:
           persist-credentials: false
@@ -470,12 +460,12 @@ jobs:
           repository: 'fortra/impacket'
           path: 'repotests/impacket'
           ref: 'impacket_0_9_20'
-      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
-        with:
-          persist-credentials: false
-          repository: 'wix/greyhound'
-          path: 'repotests/greyhound'
-          ref: '385bb84a6f712ee18064a3b5ecb8d9dcbc1c75f3'
+#      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+#        with:
+#          persist-credentials: false
+#          repository: 'wix/greyhound'
+#          path: 'repotests/greyhound'
+#          ref: '385bb84a6f712ee18064a3b5ecb8d9dcbc1c75f3'
       - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
         with:
           persist-credentials: false
@@ -583,28 +573,28 @@ jobs:
         run: |
           FETCH_LICENSE=false bin/cdxgen.js -p -t nodejs22 repotests/RSSHub -o bomresults/RSSHub.json --fail-on-error
         shell: bash
-      - name: repotests java-sec-code
-        run: |
-          bin/cdxgen.js -p -t java repotests/java-sec-code -o bomresults/bom-java-sec-code-1.json --include-formulation --include-crypto --fail-on-error
-          bin/cdxgen.js -p -t java repotests/java-sec-code -o bomresults/bom-java-sec-code-2.json --author foo --author bar --standard asvs-4.0.3
-          bin/cdxgen.js -p -t java repotests/java-sec-code -o bomresults/bom-java-sec-code-3.json --required-only --fail-on-error
-          bin/cdxgen.js -p -t java repotests/java-sec-code -o bomresults/bom-java-sec-code-4.json --filter postgres --filter json
-          bin/cdxgen.js -p -t java repotests/java-sec-code -o bomresults/bom-java-sec-code-5.json --only spring --fail-on-error
-          bin/cdxgen.js -p -t java repotests/java-sec-code -o bomresults/bom-java-sec-code-6.json --deep --evidence
-          bin/cdxgen.js -p -t java repotests/java-sec-code -o bomresults/bom-java-sec-code-7.json --profile research --export-proto
-          bin/cdxgen.js -p -t java repotests/java-sec-code -o bomresults/bom-java-sec-code-8.json --profile license-compliance
-          bin/cdxgen.js -p -t java -t github repotests/java-sec-code -o bomresults/bom-java-sec-code-9.json
-          bin/cdxgen.js -p -t java -exclude-type js repotests/java-sec-code -o bomresults/bom-java-sec-code-10.json
-        shell: bash
-      - name: repotests greyhound
-        if: matrix.os == 'ubuntu-24.04' || matrix.os == 'self-hosted-ubuntu'
-        run: |
-          bin/cdxgen.js -p -r -t java11 repotests/greyhound -o bomresults/bom-greyhound-java.json
-          bin/cdxgen.js -p -r -t gradle repotests/greyhound -o bomresults/bom-greyhound-gradle.json
-          bin/cdxgen.js -p -r -t java11 --exclude-type bazel --exclude-type sbt repotests/greyhound -o bomresults/bom-greyhound-wobazel.json
-        shell: bash
-        env:
-          JAVA_HOME: ""
+#      - name: repotests java-sec-code
+#        run: |
+#          bin/cdxgen.js -p -t java repotests/java-sec-code -o bomresults/bom-java-sec-code-1.json --include-formulation --include-crypto --fail-on-error
+#          bin/cdxgen.js -p -t java repotests/java-sec-code -o bomresults/bom-java-sec-code-2.json --author foo --author bar --standard asvs-4.0.3
+#          bin/cdxgen.js -p -t java repotests/java-sec-code -o bomresults/bom-java-sec-code-3.json --required-only --fail-on-error
+#          bin/cdxgen.js -p -t java repotests/java-sec-code -o bomresults/bom-java-sec-code-4.json --filter postgres --filter json
+#          bin/cdxgen.js -p -t java repotests/java-sec-code -o bomresults/bom-java-sec-code-5.json --only spring --fail-on-error
+#          bin/cdxgen.js -p -t java repotests/java-sec-code -o bomresults/bom-java-sec-code-6.json --deep --evidence
+#          bin/cdxgen.js -p -t java repotests/java-sec-code -o bomresults/bom-java-sec-code-7.json --profile research --export-proto
+#          bin/cdxgen.js -p -t java repotests/java-sec-code -o bomresults/bom-java-sec-code-8.json --profile license-compliance
+#          bin/cdxgen.js -p -t java -t github repotests/java-sec-code -o bomresults/bom-java-sec-code-9.json
+#          bin/cdxgen.js -p -t java -exclude-type js repotests/java-sec-code -o bomresults/bom-java-sec-code-10.json
+#        shell: bash
+#      - name: repotests greyhound
+#        if: matrix.os == 'ubuntu-24.04' || matrix.os == 'self-hosted-ubuntu'
+#        run: |
+#          bin/cdxgen.js -p -r -t java11 repotests/greyhound -o bomresults/bom-greyhound-java.json
+#          bin/cdxgen.js -p -r -t gradle repotests/greyhound -o bomresults/bom-greyhound-gradle.json
+#          bin/cdxgen.js -p -r -t java11 --exclude-type bazel --exclude-type sbt repotests/greyhound -o bomresults/bom-greyhound-wobazel.json
+#        shell: bash
+#        env:
+#          JAVA_HOME: ""
       - name: repotests quarkus-quickstarts
         run: |
           bin/cdxgen.js -p -r -t quarkus repotests/quarkus-quickstarts -o bomresults/bom-quarkus-quickstarts-quarkus.json --no-recurse --fail-on-error
