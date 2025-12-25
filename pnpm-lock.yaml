@@ -222,7 +222,7 @@ overrides:
   once: 1.4.0
   p-cancelable: 4.0.1
   p-map: 7.0.4
-  packageurl-js: 1.0.2
+  packageurl-js: 2.0.1
   parse-conflict-json: 5.0.1
   parse5: 8.0.0
   parse5-htmlparser2-tree-adapter: 8.0.0
@@ -314,8 +314,6 @@ overrides:
   yargs-parser: 22.0.0
   yoctocolors: 2.1.2
 
-pnpmfileChecksum: sha256-nfOeuxPm0PLhmHqhdzVKpjFk27e1GEgHAqcQJ7ot+gg=
-
 importers:
 
   .:
@@ -390,8 +388,8 @@ importers:
         specifier: 13.0.2
         version: 13.0.2
       packageurl-js:
-        specifier: 1.0.2
-        version: 1.0.2
+        specifier: 2.0.1
+        version: 2.0.1
       parse-conflict-json:
         specifier: 5.0.1
         version: 5.0.1
@@ -658,7 +656,6 @@ packages:
     resolution: {integrity: sha512-KCZVGPh8XPPIvKQwPIYvfHb+jjCMKmPtGd9lC2LH5QfrC8jvDsu+4n+8GKTzBOYxbk18sSy+W6XjHzIcHMSvpg==}
     cpu: [ppc64]
     os: [linux]
-    libc: glibc
 
   '@cyclonedx/cdxgen-plugins-bin-linuxmusl-amd64@1.8.0':
     resolution: {integrity: sha512-FO3bQ6LWKrf6iYpa2qgUmSTl1Yi7T1cPTizXfOnzqg3dBxmksb0RjKFiCKeLNULfFT/vbQcz7065JKAt0oE/5w==}
@@ -1396,8 +1393,8 @@ packages:
     resolution: {integrity: sha512-tkAQEw8ysMzmkhgw8k+1U/iPhWNhykKnSk4Rd5zLoPJCuJaGRPo6YposrZgaxHKzDHdDWWZvE/Sk7hsL2X/CpQ==}
     engines: {node: '>=18'}
 
-  packageurl-js@1.0.2:
-    resolution: {integrity: sha512-fWC4ZPxo80qlh3xN5FxfIoQD3phVY4+EyzTIqyksjhKNDmaicdpxSvkWwIrYTtv9C1/RcUN6pxaTwGmj2NzS6A==}
+  packageurl-js@2.0.1:
+    resolution: {integrity: sha512-N5ixXjzTy4QDQH0Q9YFjqIWd6zH6936Djpl2m9QNFmDv5Fum8q8BjkpAcHNMzOFE0IwQrFhJWex3AN6kS0OSwg==}
 
   parse-conflict-json@5.0.1:
     resolution: {integrity: sha512-ZHEmNKMq1wyJXNwLxyHnluPfRAFSIliBvbK/UiOceROt4Xh9Pz0fq49NytIaeaCUf5VR86hwQ/34FCcNU5/LKQ==}
@@ -2707,7 +2704,7 @@ snapshots:
   p-map@7.0.4:
     optional: true
 
-  packageurl-js@1.0.2: {}
+  packageurl-js@2.0.1: {}
 
   parse-conflict-json@5.0.1:
     dependencies:
