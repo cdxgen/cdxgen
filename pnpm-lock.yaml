@@ -57,7 +57,6 @@ overrides:
   '@npmcli/name-from-folder': 4.0.0
   '@npmcli/package-json': 7.0.4
   '@npmcli/promise-spawn': 9.0.1
-  '@npmcli/query': 5.0.0
   '@sinonjs/commons': 3.0.1
   '@sinonjs/fake-timers': 13.0.5
   '@sinonjs/samsam': 8.0.3
@@ -109,6 +108,7 @@ overrides:
   depd: 2.0.0
   detect-libc: 2.1.2
   detect-node: 2.1.0
+  diff: 7.0.0
   dom-serializer: 2.0.0
   domelementtype: 2.3.0
   domhandler: 5.0.3
@@ -157,6 +157,7 @@ overrides:
   graceful-fs: 4.2.11
   has-property-descriptors: 1.0.2
   has-symbols: 1.1.0
+  has-flag: 4.0.0
   hasown: 2.0.2
   hosted-git-info: 9.0.2
   htmlparser2: 10.0.0
@@ -265,7 +266,7 @@ overrides:
   side-channel-map: 1.0.1
   side-channel-weakmap: 1.0.2
   signal-exit: 4.1.0
-  sinon: 21.0.0
+  sinon: 21.0.1
   simple-concat: 1.0.1
   simple-get: 4.0.1
   slice-ansi: 7.1.2
@@ -283,6 +284,7 @@ overrides:
   string-width: 8.1.0
   strip-ansi: 7.1.2
   strip-json-comments: 5.0.3
+  supports-color: 7.2.0
   table: 6.9.0
   tagged-tag: 1.0.0
   tar: 7.5.2
@@ -293,6 +295,7 @@ overrides:
   toidentifier: 1.0.1
   treeverse: 3.0.0
   tunnel-agent: 0.6.0
+  type-detect: 4.0.8
   type-fest: 5.3.1
   type-is: 2.0.1
   typescript: 5.9.3
@@ -454,8 +457,8 @@ importers:
         specifier: 3.0.2
         version: 3.0.2
       sinon:
-        specifier: 21.0.0
-        version: 21.0.0
+        specifier: 21.0.1
+        version: 21.0.1
       typescript:
         specifier: 5.9.3
         version: 5.9.3
@@ -1578,8 +1581,8 @@ packages:
   simple-get@4.0.1:
     resolution: {integrity: sha512-brv7p5WgH0jmQJr1ZDDfKDOSeWWg+OVypG99A/5vYGPqJ6pxiaHLy8nxtFjBA7oMa01ebA9gfh1uMCFqOuXxvA==}
 
-  sinon@21.0.0:
-    resolution: {integrity: sha512-TOgRcwFPbfGtpqvZw+hyqJDvqfapr1qUlOizROIk4bBLjlsjlB00Pg6wMFXNtJRpu+eCZuVOaLatG7M8105kAw==}
+  sinon@21.0.1:
+    resolution: {integrity: sha512-Z0NVCW45W8Mg5oC/27/+fCqIHFnW8kpkFOq0j9XJIev4Ld0mKmERaZv5DMLAb9fGCevjKwaEeIQz5+MBXfZcDw==}
 
   slice-ansi@7.1.2:
     resolution: {integrity: sha512-iOBWFgUX7caIZiuutICxVgX1SdxwAVFFKwt1EvMYYec/NWO5meOJ6K5uQxhrYBdQJne4KxiqZc+KptFOWFSI9w==}
@@ -1676,11 +1679,7 @@ packages:
     resolution: {integrity: sha512-McnNiV1l8RYeY8tBgEpuodCC1mLUdbSN+CYBL7kJsJNInOP8UjDDEwdk6Mw60vdLLrr5NHKZhMAOSrR2NZuQ+w==}
 
   type-detect@4.0.8:
-    resolution: {integrity: sha512-0fr/mIH1dlO+x7TlcMy+bIDqKPsw/70tVyeHW787goQjhmqaZe10uwLujubK9q9Lg6Fiho1KUKDYz0Z7k7g5/g==, tarball: https://registry.npmjs.org/type-detect/-/type-detect-4.0.8.tgz}
-    engines: {node: '>=4'}
-
-  type-detect@4.1.0:
-    resolution: {integrity: sha512-Acylog8/luQ8L7il+geoSxhEkazvkslg7PSNKOX59mbB9cOveP5aq9h74Y7YU8yDpJwetzQQrfIwtf4Wp4LKcw==}
+    resolution: {integrity: sha512-0fr/mIH1dlO+x7TlcMy+bIDqKPsw/70tVyeHW787goQjhmqaZe10uwLujubK9q9Lg6Fiho1KUKDYz0Z7k7g5/g==}
     engines: {node: '>=4'}
 
   type-fest@5.3.1:
@@ -2037,7 +2036,7 @@ snapshots:
   '@sinonjs/samsam@8.0.3':
     dependencies:
       '@sinonjs/commons': 3.0.1
-      type-detect: 4.1.0
+      type-detect: 4.0.8
 
   '@types/http-cache-semantics@4.0.4': {}
 
@@ -2957,7 +2956,7 @@ snapshots:
       simple-concat: 1.0.1
     optional: true
 
-  sinon@21.0.0:
+  sinon@21.0.1:
     dependencies:
       '@sinonjs/commons': 3.0.1
       '@sinonjs/fake-timers': 13.0.5
@@ -3102,8 +3101,6 @@ snapshots:
     optional: true
 
   type-detect@4.0.8: {}
-
-  type-detect@4.1.0: {}
 
   type-fest@5.3.1:
     dependencies:
