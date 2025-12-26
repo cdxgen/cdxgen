@@ -16,6 +16,8 @@ set -e
 # cmake -B build
 # cmake --build build --config Release -j $(sysctl -n hw.logicalcpu)
 
+# Run 'ollama serve' in a separate terminal
+
 export TOKENIZERS_PARALLELISM=false
 LLAMA_CPP_PATH=/Users/appthreat/work/llama.cpp
 cd $LLAMA_CPP_PATH
@@ -52,12 +54,14 @@ GGUF_MODEL_Q8_0_NAME=${HF_ORG}/${TOOL_BASE_MODEL}-${PARAM_SIZE}-Q8_0-${FORMAT}
 GGUF_MODEL_Q8_0_PATH=${CDXGEN_FT_PATH}/${HF_ORG}/${TOOL_BASE_MODEL}-${PARAM_SIZE}-Q8_0-${FORMAT}
 FUSED_MODEL=${CDXGEN_FT_PATH}/${HF_ORG}/${TOOL_BASE_MODEL}-${TUNING_TOOL}
 
+# Direct conversion to 8-bit from the fused BF16 version
 rm -rf ${GGUF_MODEL_Q8_0_PATH}
 mkdir -p ${GGUF_MODEL_Q8_0_PATH}
 python convert_hf_to_gguf.py --outtype q8_0 --outfile ${CDXGEN_FT_PATH}/${HF_ORG}/${TOOL_BASE_MODEL}-${PARAM_SIZE}-Q8_0-${FORMAT}/${TOOL_BASE_MODEL}-${PARAM_SIZE}-q8_0.gguf --model-name ${GGUF_MODEL_Q8_0_NAME} ${FUSED_MODEL}
 cp ${MODEL_FILE_PATH} ${GGUF_MODEL_Q8_0_PATH}/Modelfile
 cp ${FUSED_MODEL}/*.json ${FUSED_MODEL}/merges.txt ${GGUF_MODEL_Q8_0_PATH}/
 
+# BF16
 GGUF_MODEL_BF16_NAME=${HF_ORG}/${TOOL_BASE_MODEL}-${PARAM_SIZE}-BF16-${FORMAT}
 GGUF_MODEL_BF16_PATH=${CDXGEN_FT_PATH}/${HF_ORG}/${TOOL_BASE_MODEL}-${PARAM_SIZE}-BF16-${FORMAT}
 rm -rf ${GGUF_MODEL_BF16_PATH}
@@ -66,6 +70,16 @@ python convert_hf_to_gguf.py --outtype bf16 --outfile ${CDXGEN_FT_PATH}/${HF_ORG
 cp ${MODEL_FILE_PATH} ${GGUF_MODEL_BF16_PATH}/Modelfile
 sed -i '' 's|./${TOOL_BASE_MODEL}-${PARAM_SIZE}-q8_0.gguf|./${TOOL_BASE_MODEL}-${PARAM_SIZE}-bf16.gguf|g' ${GGUF_MODEL_BF16_PATH}/Modelfile
 cp ${FUSED_MODEL}/*.json ${FUSED_MODEL}/merges.txt ${GGUF_MODEL_BF16_PATH}/
+
+# MXFP4 - MOE only
+GGUF_MODEL_MXFP4_NAME=${HF_ORG}/${TOOL_BASE_MODEL}-${PARAM_SIZE}-MXFP4-${FORMAT}
+GGUF_MODEL_MXFP4_PATH=${CDXGEN_FT_PATH}/${HF_ORG}/${TOOL_BASE_MODEL}-${PARAM_SIZE}-MXFP4-${FORMAT}
+rm -rf ${GGUF_MODEL_MXFP4_PATH}
+mkdir -p ${GGUF_MODEL_MXFP4_PATH}
+llama-quantize ${CDXGEN_FT_PATH}/${HF_ORG}/${TOOL_BASE_MODEL}-${PARAM_SIZE}-BF16-${FORMAT}/${TOOL_BASE_MODEL}-${PARAM_SIZE}-bf16.gguf ${GGUF_MODEL_MXFP4_PATH}/${TOOL_BASE_MODEL}-${PARAM_SIZE}-MXFP4.gguf MXFP4_MOE
+cp ${MODEL_FILE_PATH} ${GGUF_MODEL_MXFP4_PATH}/Modelfile
+sed -i '' 's|./${TOOL_BASE_MODEL}-${PARAM_SIZE}-q8_0.gguf|./${TOOL_BASE_MODEL}-${PARAM_SIZE}-MXFP4.gguf|g' ${GGUF_MODEL_MXFP4_PATH}/Modelfile
+cp ${FUSED_MODEL}/*.json ${FUSED_MODEL}/merges.txt ${GGUF_MODEL_MXFP4_PATH}/
 
 if [ "$TOOL_BASE_MODEL" == "cdx1-mini" ] || [ "$TOOL_BASE_MODEL" == "cdx1-nano" ]; then
   GGUF_MODEL_Q6_K_NAME=${HF_ORG}/${TOOL_BASE_MODEL}-${PARAM_SIZE}-Q6_K-${FORMAT}
@@ -114,6 +128,7 @@ fi
 export HF_HUB_ENABLE_HF_TRANSFER=0
 hf auth whoami
 hf upload --quiet --exclude "**/README.md" --repo-type model ${GGUF_MODEL_Q8_0_NAME} ${GGUF_MODEL_Q8_0_PATH} .
+hf upload --quiet --exclude "**/README.md" --repo-type model ${GGUF_MODEL_MXFP4_NAME} ${GGUF_MODEL_MXFP4_PATH} .
 if [ "$TOOL_BASE_MODEL" == "cdx1-mini" ] || [ "$TOOL_BASE_MODEL" == "cdx1-nano" ]; then
   hf upload --quiet --exclude "**/README.md" --repo-type model ${GGUF_MODEL_Q6_K_NAME} ${GGUF_MODEL_Q6_K_PATH} .
 else
@@ -123,10 +138,17 @@ else
 fi
 hf upload --quiet --exclude "**/README.md" --repo-type model ${GGUF_MODEL_BF16_NAME} ${GGUF_MODEL_BF16_PATH} .
 
+### upload to ollama registry. Move this to a separate script in the future.
+
 ollama pull hf.co/${GGUF_MODEL_Q8_0_NAME}
 ollama cp hf.co/${GGUF_MODEL_Q8_0_NAME} ${GGUF_MODEL_Q8_0_NAME}
 ollama push ${GGUF_MODEL_Q8_0_NAME}
 ollama rm hf.co/${GGUF_MODEL_Q8_0_NAME}
+
+ollama pull hf.co/${GGUF_MODEL_MXFP4_NAME}
+ollama cp hf.co/${GGUF_MODEL_MXFP4_NAME} ${GGUF_MODEL_MXFP4_NAME}
+ollama push ${GGUF_MODEL_MXFP4_NAME}
+ollama rm hf.co/${GGUF_MODEL_MXFP4_NAME}
 
 if [ "$TOOL_BASE_MODEL" == "cdx1-mini" ] || [ "$TOOL_BASE_MODEL" == "cdx1-nano" ]; then
   ollama pull hf.co/${GGUF_MODEL_Q6_K_NAME}

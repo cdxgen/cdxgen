@@ -45,6 +45,7 @@ FUSED_MODEL=${HF_ORG}/${TOOL_BASE_MODEL}-${TUNING_TOOL}
 QUANT_MODEL_8BIT=${HF_ORG}/${TOOL_BASE_MODEL}-${TUNING_TOOL}-8bit
 QUANT_MODEL_6BIT=${HF_ORG}/${TOOL_BASE_MODEL}-${TUNING_TOOL}-6bit
 QUANT_MODEL_4BIT=${HF_ORG}/${TOOL_BASE_MODEL}-${TUNING_TOOL}-4bit
+QUANT_MODEL_MXFP4=${HF_ORG}/${TOOL_BASE_MODEL}-${TUNING_TOOL}-MXFP4
 DWQ_QUANT_MODEL_4BIT=${HF_ORG}/${TOOL_BASE_MODEL}-${TUNING_TOOL}-4bit-DWQ
 
 ### mlx-lm needs train.jsonl and valid.jsonl
@@ -108,6 +109,11 @@ rm -rf ${QUANT_MODEL_6BIT}
 mlx_lm.convert --hf-path ${FUSED_MODEL} --mlx-path ${QUANT_MODEL_6BIT} -q --q-bits 6 --dtype bfloat16
 echo "Test ${QUANT_MODEL_6BIT} with the prompt 'Tell me about cdxgen'. Must yield a better response."
 mlx_lm.generate --model ./${QUANT_MODEL_6BIT} --prompt "Tell me about cdxgen" --temp ${TEMP} --max-tokens ${MAX_TOKENS}
+
+rm -rf ${QUANT_MODEL_MXFP4}
+mlx_lm.convert --hf-path ${FUSED_MODEL} --mlx-path ${QUANT_MODEL_MXFP4} -q --q-bits 4 --q-group-size 32 --q-mode mxfp4 --dtype bfloat16
+echo "Test ${QUANT_MODEL_MXFP4} with the prompt 'Tell me about cdxgen'. Must yield a better response."
+mlx_lm.generate --model ./${QUANT_MODEL_MXFP4} --prompt "Tell me about cdxgen" --temp ${TEMP} --max-tokens ${MAX_TOKENS}
 
 # 4-bit for a small model has very poor performance
 if [ "$TOOL_BASE_MODEL" != "cdx1-mini" ] && [ "$TOOL_BASE_MODEL" != "cdx1-nano" ]; then

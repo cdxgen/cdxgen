@@ -10,6 +10,7 @@ FUSED_MODEL=${HF_ORG}/${TOOL_BASE_MODEL}-${TUNING_TOOL}
 QUANT_MODEL_8BIT=${HF_ORG}/${TOOL_BASE_MODEL}-${TUNING_TOOL}-8bit
 QUANT_MODEL_6BIT=${HF_ORG}/${TOOL_BASE_MODEL}-${TUNING_TOOL}-6bit
 QUANT_MODEL_4BIT=${HF_ORG}/${TOOL_BASE_MODEL}-${TUNING_TOOL}-4bit
+QUANT_MODEL_MXFP4=${HF_ORG}/${TOOL_BASE_MODEL}-${TUNING_TOOL}-MXFP4
 DWQ_QUANT_MODEL_4BIT=${HF_ORG}/${TOOL_BASE_MODEL}-${TUNING_TOOL}-4bit-DWQ
 
 hf auth whoami
@@ -20,12 +21,13 @@ hf upload --quiet --repo-type dataset CycloneDX/cdx-docs ./guides guides
 hf upload --quiet --repo-type dataset CycloneDX/cdx-docs ./semantics semantics
 
 echo "Uploading models. Please wait ..."
-hf upload --quiet --exclude "**/README.md" --repo-type model ${QUANT_MODEL_8BIT} ./${QUANT_MODEL_8BIT} .
-hf upload --quiet --exclude "**/README.md" --repo-type model ${QUANT_MODEL_6BIT} ./${QUANT_MODEL_6BIT} .
+hf upload --quiet --exclude "**/README.md" --repo-type model ${QUANT_MODEL_8BIT} ./${QUANT_MODEL_8BIT} --delete "*.safetensors" .
+hf upload --quiet --exclude "**/README.md" --repo-type model ${QUANT_MODEL_MXFP4} ./${QUANT_MODEL_MXFP4} --delete "*.safetensors" .
+hf upload --quiet --exclude "**/README.md" --repo-type model ${QUANT_MODEL_6BIT} ./${QUANT_MODEL_6BIT} --delete "*.safetensors" .
 if [ "$TOOL_BASE_MODEL" != "cdx1-mini" ] && [ "$TOOL_BASE_MODEL" != "cdx1-nano" ]; then
-  hf upload --quiet --exclude "**/README.md" --repo-type model ${QUANT_MODEL_4BIT} ./${QUANT_MODEL_4BIT} .
+  hf upload --quiet --exclude "**/README.md" --repo-type model ${QUANT_MODEL_4BIT} ./${QUANT_MODEL_4BIT} --delete "*.safetensors" .
 fi
 #if [ "$TOOL_BASE_MODEL" != "cdx1-mini" ]; then
 #  hf upload --quiet --exclude "**/README.md" --repo-type model ${DWQ_QUANT_MODEL_4BIT} ./${DWQ_QUANT_MODEL_4BIT} .
 #fi
-hf upload --quiet --exclude "**/README.md" --repo-type model ${FUSED_MODEL} ./${FUSED_MODEL} .
+hf upload --quiet --exclude "**/README.md" --repo-type model ${FUSED_MODEL} ./${FUSED_MODEL} --delete "*.safetensors" .
