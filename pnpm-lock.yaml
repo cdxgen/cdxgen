@@ -295,7 +295,7 @@ overrides:
   toidentifier: 1.0.1
   treeverse: 3.0.0
   tunnel-agent: 0.6.0
-  type-detect: 4.0.8
+  type-detect: 4.1.0
   type-fest: 5.3.1
   type-is: 2.0.1
   typescript: 5.9.3
@@ -322,8 +322,6 @@ overrides:
   yargs: 18.0.0
   yargs-parser: 22.0.0
   yoctocolors: 2.1.2
-
-pnpmfileChecksum: sha256-nfOeuxPm0PLhmHqhdzVKpjFk27e1GEgHAqcQJ7ot+gg=
 
 importers:
 
@@ -673,7 +671,6 @@ packages:
     resolution: {integrity: sha512-KCZVGPh8XPPIvKQwPIYvfHb+jjCMKmPtGd9lC2LH5QfrC8jvDsu+4n+8GKTzBOYxbk18sSy+W6XjHzIcHMSvpg==}
     cpu: [ppc64]
     os: [linux]
-    libc: glibc
 
   '@cyclonedx/cdxgen-plugins-bin-linuxmusl-amd64@1.8.0':
     resolution: {integrity: sha512-FO3bQ6LWKrf6iYpa2qgUmSTl1Yi7T1cPTizXfOnzqg3dBxmksb0RjKFiCKeLNULfFT/vbQcz7065JKAt0oE/5w==}
@@ -1678,8 +1675,8 @@ packages:
   tunnel-agent@0.6.0:
     resolution: {integrity: sha512-McnNiV1l8RYeY8tBgEpuodCC1mLUdbSN+CYBL7kJsJNInOP8UjDDEwdk6Mw60vdLLrr5NHKZhMAOSrR2NZuQ+w==}
 
-  type-detect@4.0.8:
-    resolution: {integrity: sha512-0fr/mIH1dlO+x7TlcMy+bIDqKPsw/70tVyeHW787goQjhmqaZe10uwLujubK9q9Lg6Fiho1KUKDYz0Z7k7g5/g==}
+  type-detect@4.1.0:
+    resolution: {integrity: sha512-Acylog8/luQ8L7il+geoSxhEkazvkslg7PSNKOX59mbB9cOveP5aq9h74Y7YU8yDpJwetzQQrfIwtf4Wp4LKcw==}
     engines: {node: '>=4'}
 
   type-fest@5.3.1:
@@ -2027,7 +2024,7 @@ snapshots:
 
   '@sinonjs/commons@3.0.1':
     dependencies:
-      type-detect: 4.0.8
+      type-detect: 4.1.0
 
   '@sinonjs/fake-timers@13.0.5':
     dependencies:
@@ -2036,7 +2033,7 @@ snapshots:
   '@sinonjs/samsam@8.0.3':
     dependencies:
       '@sinonjs/commons': 3.0.1
-      type-detect: 4.0.8
+      type-detect: 4.1.0
 
   '@types/http-cache-semantics@4.0.4': {}
 
@@ -3100,7 +3097,7 @@ snapshots:
       safe-buffer: 5.2.1
     optional: true
 
-  type-detect@4.0.8: {}
+  type-detect@4.1.0: {}
 
   type-fest@5.3.1:
     dependencies:
