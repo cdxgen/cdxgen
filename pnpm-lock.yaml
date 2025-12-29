@@ -7,7 +7,7 @@ settings:
 overrides:
   '@appthreat/atom': 2.4.3
   '@appthreat/atom-common': 1.0.12
-  '@appthreat/atom-parsetools': 1.0.12
+  '@appthreat/atom-parsetools': 1.0.16
   '@appthreat/cdx-proto': 1.2.0
   '@appthreat/sqlite3': 7.0.2
   '@babel/code-frame': 7.27.1
@@ -322,8 +322,6 @@ overrides:
   yargs-parser: 22.0.0
   yoctocolors: 2.1.2
 
-pnpmfileChecksum: sha256-nfOeuxPm0PLhmHqhdzVKpjFk27e1GEgHAqcQJ7ot+gg=
-
 importers:
 
   .:
@@ -525,8 +523,8 @@ packages:
   '@appthreat/atom-common@1.0.12':
     resolution: {integrity: sha512-bsy1J/1Ge9uO+/VBUH79F9btmnJfedvytF3jFpDsINabF+x0koWdegXsjYg5sBuI9D8bfODail7vNJCBPl2u0g==}
 
-  '@appthreat/atom-parsetools@1.0.12':
-    resolution: {integrity: sha512-eqU3LYaduUEFCt+tDs58txvYkyhuYLJHQm7+S+RwKaICkO8kJDrrcfBqHXngvNG0Th/TpVe4X9tl5uf5bd2I7g==}
+  '@appthreat/atom-parsetools@1.0.16':
+    resolution: {integrity: sha512-15TSW5F+1WRr/uRT8RR4SMABGlCPprcNUlgTPjW2twwhBchy+Ivl6n6qMKQ3JuqprWxpgYM/MF79giocM1dkIg==}
     engines: {node: '>=16.0.0'}
     hasBin: true
 
@@ -672,7 +670,6 @@ packages:
     resolution: {integrity: sha512-KCZVGPh8XPPIvKQwPIYvfHb+jjCMKmPtGd9lC2LH5QfrC8jvDsu+4n+8GKTzBOYxbk18sSy+W6XjHzIcHMSvpg==}
     cpu: [ppc64]
     os: [linux]
-    libc: glibc
 
   '@cyclonedx/cdxgen-plugins-bin-linuxmusl-amd64@1.8.0':
     resolution: {integrity: sha512-FO3bQ6LWKrf6iYpa2qgUmSTl1Yi7T1cPTizXfOnzqg3dBxmksb0RjKFiCKeLNULfFT/vbQcz7065JKAt0oE/5w==}
@@ -1165,6 +1162,12 @@ packages:
   hasown@2.0.2:
     resolution: {integrity: sha512-0hJU9SCPvmMzIBdZFqNPXWa6dqh7WdH0cII9y+CyS8rG3nL48Bclra9HmKhVVUHyPWNH5Y7xDwAB7bfgSjkUMQ==}
     engines: {node: '>= 0.4'}
+
+  hermes-estree@0.33.1:
+    resolution: {integrity: sha512-7h7PID47RDJ3yBxrIhh7MZUpLm+mmxOg9LQG8fSFhl9pkl9SU1WrPLOfBn5MNLwjWTqKFBXJ1Z9H4SvaI7NOtQ==}
+
+  hermes-parser@0.33.1:
+    resolution: {integrity: sha512-oScC+VJhdSmhxC1kOTcQnzb+rb0VeYmUDTNvj7RQP5RLwt/AQWgvJRc1cJvQJ2s5armOWbQ3VXJObIlQdX9Fbg==}
 
   hosted-git-info@9.0.2:
     resolution: {integrity: sha512-M422h7o/BR3rmCQ8UHi7cyyMqKltdP9Uo+J2fXK+RSAY+wTcKOIRyhTuKv4qn+DJf3g+PL890AzId5KZpX+CBg==}
@@ -1732,6 +1735,7 @@ packages:
   whatwg-encoding@3.1.1:
     resolution: {integrity: sha512-6qN4hJdMwfYBtE3YBTTHhoeuUrDBPZmbQaxWAqSALV/MeEnR5z1xd8UKud2RAkFoPkmB+hli1TZSnyi84xz1vQ==}
     engines: {node: '>=18'}
+    deprecated: Use @exodus/bytes instead for a more spec-conformant and faster implementation
 
   whatwg-mimetype@4.0.0:
     resolution: {integrity: sha512-QaKxh0eNIi2mE9p2vEdzfagOKHCcj1pJ56EEHGQOVxp8r9/iszLUUV7v89x9O1p/T+NlTM5W7jW6+cz4Fq1YVg==}
@@ -1787,10 +1791,11 @@ snapshots:
   '@appthreat/atom-common@1.0.12':
     optional: true
 
-  '@appthreat/atom-parsetools@1.0.12':
+  '@appthreat/atom-parsetools@1.0.16':
     dependencies:
       '@appthreat/atom-common': 1.0.12
       '@babel/parser': 7.28.5
+      hermes-parser: 0.33.1
       typescript: 5.9.3
       yargs: 18.0.0
     optional: true
@@ -1798,7 +1803,7 @@ snapshots:
   '@appthreat/atom@2.4.3':
     dependencies:
       '@appthreat/atom-common': 1.0.12
-      '@appthreat/atom-parsetools': 1.0.12
+      '@appthreat/atom-parsetools': 1.0.16
     optional: true
 
   '@appthreat/cdx-proto@1.2.0':
@@ -2487,6 +2492,14 @@ snapshots:
   hasown@2.0.2:
     dependencies:
       function-bind: 1.1.2
+    optional: true
+
+  hermes-estree@0.33.1:
+    optional: true
+
+  hermes-parser@0.33.1:
+    dependencies:
+      hermes-estree: 0.33.1
     optional: true
 
   hosted-git-info@9.0.2:
