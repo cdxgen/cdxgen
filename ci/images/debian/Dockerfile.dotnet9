@@ -1,5 +1,5 @@
 # Base-image
-FROM mcr.microsoft.com/dotnet/sdk:9.0.308-bookworm-slim@sha256:6c7713b7d107f743015b863f6bb028fca7430192140536779c0464f1ece899bc AS base
+FROM mcr.microsoft.com/dotnet/sdk:9.0.308-bookworm-slim@sha256:51060ced0e5dc1282a587a092783132ba8b0ec25150d3bc61e99bf0ef2d62593 AS base
 
 ARG DEBIAN_REPO
 ARG GITHUB_RAW_URL=https://raw.githubusercontent.com
