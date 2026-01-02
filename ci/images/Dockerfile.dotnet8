@@ -1,5 +1,5 @@
 # Base-image
-FROM registry.suse.com/bci/dotnet-sdk:8.0.22@sha256:513d707e26725858953df5b0783d691b3ab9c951b914513d29545885337dc036 AS base
+FROM registry.suse.com/bci/dotnet-sdk:8.0.22@sha256:ce87b530a4da0ee6449ae9b0aca55924b0c0e233e91ea6537263bfc72326c65d AS base
 
 ARG GITHUB_URL=https://github.com
 ARG NODEJS_DIST_URL
