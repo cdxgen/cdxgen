@@ -496,7 +496,7 @@
     "jsonata": "2.1.0",
     "sqlite3": "npm:@appthreat/sqlite3@7.0.2"
   },
-  "packageManager": "pnpm@10.26.2",
+  "packageManager": "pnpm@10.27.0",
   "engines": {
     "node": "^20 || ^22 || ^24 || ^25",
     "pnpm": ">=10"
