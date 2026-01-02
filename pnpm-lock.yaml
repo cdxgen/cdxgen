@@ -153,7 +153,7 @@ overrides:
   global-agent: 3.0.0
   globalthis: 1.0.4
   gopd: 1.2.0
-  got: 14.6.5
+  got: 14.6.6
   graceful-fs: 4.2.11
   has-property-descriptors: 1.0.2
   has-symbols: 1.1.0
@@ -322,8 +322,6 @@ overrides:
   yargs-parser: 22.0.0
   yoctocolors: 2.1.2
 
-pnpmfileChecksum: sha256-nfOeuxPm0PLhmHqhdzVKpjFk27e1GEgHAqcQJ7ot+gg=
-
 importers:
 
   .:
@@ -377,8 +375,8 @@ importers:
         specifier: 3.0.0
         version: 3.0.0
       got:
-        specifier: 14.6.5
-        version: 14.6.5
+        specifier: 14.6.6
+        version: 14.6.6
       iconv-lite:
         specifier: 0.7.1
         version: 0.7.1
@@ -672,7 +670,6 @@ packages:
     resolution: {integrity: sha512-KCZVGPh8XPPIvKQwPIYvfHb+jjCMKmPtGd9lC2LH5QfrC8jvDsu+4n+8GKTzBOYxbk18sSy+W6XjHzIcHMSvpg==}
     cpu: [ppc64]
     os: [linux]
-    libc: glibc
 
   '@cyclonedx/cdxgen-plugins-bin-linuxmusl-amd64@1.8.0':
     resolution: {integrity: sha512-FO3bQ6LWKrf6iYpa2qgUmSTl1Yi7T1cPTizXfOnzqg3dBxmksb0RjKFiCKeLNULfFT/vbQcz7065JKAt0oE/5w==}
@@ -1148,8 +1145,8 @@ packages:
     resolution: {integrity: sha512-ZUKRh6/kUFoAiTAtTYPZJ3hw9wNxx+BIBOijnlG9PnrJsCcSjs1wyyD6vJpaYtgnzDrKYRSqf3OO6Rfa93xsRg==}
     engines: {node: '>= 0.4'}
 
-  got@14.6.5:
-    resolution: {integrity: sha512-Su87c0NNeg97de1sO02gy9I8EmE7DCJ1gzcFLcgGpYeq2PnLg4xz73MWrp6HjqbSsjb6Glf4UBDW6JNyZA6uSg==}
+  got@14.6.6:
+    resolution: {integrity: sha512-QLV1qeYSo5l13mQzWgP/y0LbMr5Plr5fJilgAIwgnwseproEbtNym8xpLsDzeZ6MWXgNE6kdWGBjdh3zT/Qerg==}
     engines: {node: '>=20'}
 
   graceful-fs@4.2.11:
@@ -2460,7 +2457,7 @@ snapshots:
 
   gopd@1.2.0: {}
 
-  got@14.6.5:
+  got@14.6.6:
     dependencies:
       '@sindresorhus/is': 7.2.0
       byte-counter: 0.1.0
