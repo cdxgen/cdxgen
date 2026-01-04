@@ -263,7 +263,7 @@ jobs:
           ~/.swiftly/bin/swiftly init --quiet-shell-followup && \
           . ~/.swiftly/env.sh && \
           hash -r
-      - uses: ruby/setup-ruby@8a836efbcebe5de0fe86b48a775b7a31b5c70c93 # v1.277.0
+      - uses: ruby/setup-ruby@4c24fa5ec04b2e79eb40571b1cee2a0d2b705771 # v1.278.0
         with:
           ruby-version: '3.4.8'
       - name: Set up Python
@@ -1044,7 +1044,7 @@ jobs:
         uses: actions/setup-python@83679a892e2d95755f2dac6acb0bfd1e9ac5d548 # v6.1.0
         with:
           python-version: '3.13'
-      - uses: ruby/setup-ruby@8a836efbcebe5de0fe86b48a775b7a31b5c70c93 # v1.277.0
+      - uses: ruby/setup-ruby@4c24fa5ec04b2e79eb40571b1cee2a0d2b705771 # v1.278.0
         with:
           ruby-version: '3.4.8'
       - name: pip install custom-json-diff
