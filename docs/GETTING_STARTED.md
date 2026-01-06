@@ -14,7 +14,7 @@ Here are steps to clone and run cdxgen locally.
 Clone `CycloneDX/cdxgen` project repository.
 
 ```bash
-git clone https://github.com/CycloneDX/cdxgen
+git clone https://github.com/cdxgen/cdxgen
 cd cdxgen
 
 corepack enable pnpm

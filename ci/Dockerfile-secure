@@ -2,8 +2,8 @@ FROM ghcr.io/cyclonedx/cdxgen:master@sha256:a9b05bce2a320cbe3916645f4feb59a757b9
 
 LABEL maintainer="cyclonedx" \
       org.opencontainers.image.authors="Prabhu Subramanian <prabhu@appthreat.com>" \
-      org.opencontainers.image.source="https://github.com/cyclonedx/cdxgen" \
-      org.opencontainers.image.url="https://github.com/cyclonedx/cdxgen" \
+      org.opencontainers.image.source="https://github.com/cdxgen/cdxgen" \
+      org.opencontainers.image.url="https://github.com/cdxgen/cdxgen" \
       org.opencontainers.image.version="12.1.x" \
       org.opencontainers.image.vendor="cyclonedx" \
       org.opencontainers.image.licenses="Apache-2.0" \

@@ -2,14 +2,14 @@ openapi: 3.0.3
 info:
   title: CycloneDX Generator (cdxgen) Server
   description: |-
-    [cdxgen](https://github.com/CycloneDX/cdxgen) is a CLI tool, library, REPL, and server to create a valid and compliant CycloneDX Bill of Materials (BOM) containing an aggregate of all project dependencies for C/C++, Node.js, PHP, Python, Ruby, Rust, Java, .Net, Dart, Haskell, Elixir, and Go projects in JSON format.
+    [cdxgen](https://github.com/cdxgen/cdxgen) is a CLI tool, library, REPL, and server to create a valid and compliant CycloneDX Bill of Materials (BOM) containing an aggregate of all project dependencies for C/C++, Node.js, PHP, Python, Ruby, Rust, Java, .Net, Dart, Haskell, Elixir, and Go projects in JSON format.
 
     CycloneDX is a full-stack BOM specification that is easily created, human and machine-readable, and simple to parse.
 
 
     Some useful links:
     - [Documentation](https://cdxgen.github.io/cdxgen/#/)
-    - [Source API definition](https://github.com/CycloneDX/cdxgen/blob/master/lib/server/openapi.yaml)
+    - [Source API definition](https://github.com/cdxgen/cdxgen/blob/master/lib/server/openapi.yaml)
     - [CycloneDX Specification](https://cyclonedx.org/specification/overview/)
     - [CycloneDX JSON Schema Specification](https://github.com/CycloneDX/specification/blob/1.6/schema/bom-1.6.schema.json)
   contact:

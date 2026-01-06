@@ -27,7 +27,7 @@ Use curl or your favorite tool to pass arguments to the `/sbom` route.
 
 ## API Specification
 
-View the latest [cdxgen server API specification](https://github.com/CycloneDX/cdxgen/blob/master/lib/server/openapi.yaml) online via [Swagger Editor](https://editor.swagger.io/?url=https://raw.githubusercontent.com/CycloneDX/cdxgen/master/lib/server/openapi.yaml).
+View the latest [cdxgen server API specification](https://github.com/cdxgen/cdxgen/blob/master/lib/server/openapi.yaml) online via [Swagger Editor](https://editor.swagger.io/?url=https://raw.githubusercontent.com/CycloneDX/cdxgen/master/lib/server/openapi.yaml).
 
 ## Server arguments
 
@@ -132,6 +132,6 @@ curl "http://127.0.0.1:9090/health"
 Use the provided docker-compose file to quickly launch a cdxgen server instance.
 
 ```shell
-git clone https://github.com/cyclonedx/cdxgen.git
+git clone https://github.com/cdxgen/cdxgen.git
 docker compose up
 ```

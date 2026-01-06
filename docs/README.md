@@ -24,7 +24,7 @@ If you are a [Homebrew](https://brew.sh/) user, you can also install [cdxgen](ht
 brew install cdxgen
 ```
 
-For Windows and Linux, Single Application Executable (sae) builds are available from GitHub [Releases](https://github.com/CycloneDX/cdxgen/releases) in two flavours:
+For Windows and Linux, Single Application Executable (sae) builds are available from GitHub [Releases](https://github.com/cdxgen/cdxgen/releases) in two flavours:
 
 - cdxgen.exe - Node 22 runtime + CLI with the optional binary plugins (atom, dosai, etc)
 - cdxgen-slim.exe - Node 22 runtime + CLI
@@ -129,7 +129,7 @@ obom
 # cdxgen -t os
 ```
 
-This feature is powered by osquery, which is [installed](https://github.com/cyclonedx/cdxgen-plugins-bin/blob/main/build.sh#L8) along with the binary plugins. cdxgen would opportunistically try to detect as many components, apps, and extensions as possible using the [default queries](https://github.com/CycloneDX/cdxgen/blob/master/data/queries.json). The process would take several minutes and result in an SBOM file with thousands of components of various types such as operating-system, device-drivers, files, and data.
+This feature is powered by osquery, which is [installed](https://github.com/cdxgen/cdxgen-plugins-bin/blob/main/build.sh#L8) along with the binary plugins. cdxgen would opportunistically try to detect as many components, apps, and extensions as possible using the [default queries](https://github.com/cdxgen/cdxgen/blob/master/data/queries.json). The process would take several minutes and result in an SBOM file with thousands of components of various types such as operating-system, device-drivers, files, and data.
 
 #### **Integrate with Dependency Track**
 
@@ -230,7 +230,7 @@ Minimal example:
 import { createBom, submitBom } from "npm:@cyclonedx/cdxgen@^9.9.0";
 ```
 
-See the [Deno Readme](https://github.com/CycloneDX/cdxgen/blob/master/contrib/deno/README.md) for detailed instructions.
+See the [Deno Readme](https://github.com/cdxgen/cdxgen/blob/master/contrib/deno/README.md) for detailed instructions.
 
 ```javascript
 import { createBom, submitBom } from "@cyclonedx/cdxgen";

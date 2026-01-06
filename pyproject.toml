@@ -25,6 +25,6 @@ classifiers = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/cyclonedx/cdxgen"
-Bug-Tracker = "https://github.com/cyclonedx/cdxgen/issues"
+Homepage = "https://github.com/cdxgen/cdxgen"
+Bug-Tracker = "https://github.com/cdxgen/cdxgen/issues"
 Funding = "https://owasp.org/donate/?reponame=www-project-cyclonedx&title=OWASP+CycloneDX"

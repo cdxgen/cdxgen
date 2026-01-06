@@ -15,13 +15,13 @@
     "appsec",
     "scrm"
   ],
-  "homepage": "http://github.com/cyclonedx/cdxgen",
+  "homepage": "http://github.com/cdxgen/cdxgen",
   "bugs": {
-    "url": "https://github.com/cyclonedx/cdxgen/issues"
+    "url": "https://github.com/cdxgen/cdxgen/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/CycloneDX/cdxgen.git"
+    "url": "git+https://github.com/cdxgen/cdxgen.git"
   },
   "license": "Apache-2.0",
   "author": "Prabhu Subramanian <prabhu@appthreat.com>",

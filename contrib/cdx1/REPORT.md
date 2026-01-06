@@ -14,7 +14,7 @@ During the training phase, the dataset was iteratively refined to ensure the for
 
 ## Benchmarking
 
-The cdx1 models are optimized for xBOM use cases, including BOM summarization, component tagging, validation, and troubleshooting. To evaluate model performance, we developed a custom benchmark suite named [xBOMEval](https://github.com/CycloneDX/cdxgen/tree/master/contrib/xBOMEval).
+The cdx1 models are optimized for xBOM use cases, including BOM summarization, component tagging, validation, and troubleshooting. To evaluate model performance, we developed a custom benchmark suite named [xBOMEval](https://github.com/cdxgen/cdxgen/tree/master/contrib/xBOMEval).
 
 ### Categories
 
@@ -29,7 +29,7 @@ xBOMEval contains tests across the following categories:
 
 ### Scoring
 
-Model responses were scored using a combination of automated evaluation by a high-capability model (Gemini 2.5 Pro) and manual human review. To maintain benchmark integrity, the evaluation set was held out and not included in any model's training data. Detailed results and configurations are available in the `xBOMEval` directory of the [cdxgen repository](https://github.com/CycloneDX/cdxgen).
+Model responses were scored using a combination of automated evaluation by a high-capability model (Gemini 2.5 Pro) and manual human review. To maintain benchmark integrity, the evaluation set was held out and not included in any model's training data. Detailed results and configurations are available in the `xBOMEval` directory of the [cdxgen repository](https://github.com/cdxgen/cdxgen).
 
 ## Benchmark Results - August 2025
 
@@ -217,7 +217,7 @@ Please cite the following resources if you use the datasets, models, or benchmar
   title = {{xBOMEval: A Benchmark for Evaluating Language Models on SBOM Tasks}},
   year = {2025},
   month = {August},
-  howpublished = {\url{https://github.com/CycloneDX/cdxgen}}
+  howpublished = {\url{https://github.com/cdxgen/cdxgen}}
 }
 ```
 

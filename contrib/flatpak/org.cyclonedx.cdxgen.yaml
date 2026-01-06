@@ -53,7 +53,7 @@ modules:
       - setup-separate-locales ${FLATPAK_DEST}/cdxgen
     sources:
       - type: git
-        url: https://github.com/CycloneDX/cdxgen
+        url: https://github.com/cdxgen/cdxgen
         commit: 10237696b97f550acde30e8c565baf1112b5f700
         branch: release/10.x
         # Checkout into a subdirectory so we can copy the whole thing to /app.

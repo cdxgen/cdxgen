@@ -1,7 +1,7 @@
 # Mixed Python/JavaScript Project Example (Jupyter Notebook case)
 
 This contrib example demonstrates how `cdxgen` handles mixed-language projects.
-It reproduces the bug reported in [#2236](https://github.com/CycloneDX/cdxgen/issues/2236),
+It reproduces the bug reported in [#2236](https://github.com/cdxgen/cdxgen/issues/2236),
 where the root `pyproject.toml` caused a crash due to a missing `SrcFile` property.
 
 ## File Structure That Triggers the Bug

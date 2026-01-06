@@ -2,8 +2,8 @@ FROM ghcr.io/cyclonedx/cdxgen-ruby-builder:master
 
 LABEL maintainer="cyclonedx" \
       org.opencontainers.image.authors="Prabhu Subramanian <prabhu@appthreat.com>" \
-      org.opencontainers.image.source="https://github.com/cyclonedx/cdxgen" \
-      org.opencontainers.image.url="https://github.com/cyclonedx/cdxgen" \
+      org.opencontainers.image.source="https://github.com/cdxgen/cdxgen" \
+      org.opencontainers.image.url="https://github.com/cdxgen/cdxgen" \
       org.opencontainers.image.version="12.1.x" \
       org.opencontainers.image.vendor="cyclonedx" \
       org.opencontainers.image.licenses="Apache-2.0" \

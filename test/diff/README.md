@@ -9,7 +9,7 @@ before doing a bulk copy/paste. The html reports or the json diff can be used fo
 
 #### Procedure for local testing
 1. Download the [snapshot BOMs](https://github.com/AppThreat/cdxgen-samples/archive/refs/heads/main.zip). 
-2. Download the zip of cdxgen boms generated for your PR from the [Test BOM Snapshots workflow](https://github.com/CycloneDX/cdxgen/actions/workflows/snapshot-tests.yml).
+2. Download the zip of cdxgen boms generated for your PR from the [Test BOM Snapshots workflow](https://github.com/cdxgen/cdxgen/actions/workflows/snapshot-tests.yml).
 3. Extract zips into separate directories.
 4. Create a python 3.10+ virtual environment.
 5. Install custom-json-diff `pip install -r requirements.txt`
@@ -21,7 +21,7 @@ The snapshot tests utilize the following settings:
 - Allows newer versions in the newly-generated snapshot versus the original from the cdxgen-samples repo.
 - Allows new data in components that is not present in the original (e.g. additional properties)
 - Everything is sorted.
-- Local testing must still use boms generated in CI NOT locally - download these from the artifact produced for your branch in the [Test BOM Snapshots workflow](https://github.com/CycloneDX/cdxgen/actions/workflows/snapshot-tests.yml)
+- Local testing must still use boms generated in CI NOT locally - download these from the artifact produced for your branch in the [Test BOM Snapshots workflow](https://github.com/cdxgen/cdxgen/actions/workflows/snapshot-tests.yml)
 - Includes component properties, licenses, and evidence
 - Excludes:
   - components.externalReferences

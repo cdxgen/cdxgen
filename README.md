@@ -298,7 +298,7 @@ curl -H "Content-Type: application/json" http://localhost:9090/sbom -XPOST -d $'
 ### Docker compose
 
 ```shell
-git clone https://github.com/cyclonedx/cdxgen.git
+git clone https://github.com/cdxgen/cdxgen.git
 docker compose up
 ```
 
@@ -412,7 +412,7 @@ obom
 # cdxgen -t os
 ```
 
-This feature is powered by osquery, which is [installed](https://github.com/cyclonedx/cdxgen-plugins-bin/blob/main/build.sh#L8) along with the binary plugins. cdxgen would opportunistically try to detect as many components, apps, and extensions as possible using the [default queries](data/queries.json). The process would take several minutes and result in an SBOM file with thousands of components of various types, such as operating-system, device-drivers, files, and data.
+This feature is powered by osquery, which is [installed](https://github.com/cdxgen/cdxgen-plugins-bin/blob/main/build.sh#L8) along with the binary plugins. cdxgen would opportunistically try to detect as many components, apps, and extensions as possible using the [default queries](data/queries.json). The process would take several minutes and result in an SBOM file with thousands of components of various types, such as operating-system, device-drivers, files, and data.
 
 ## Generate Cryptography Bill of Materials (CBOM)
 
@@ -567,7 +567,7 @@ Use `pnpm add -g` command to quickly test the main branch.
 ```shell
 corepack pnpm bin -g
 corepack pnpm setup
-corepack pnpm add -g --allow-build @appthreat/sqlite3 https://github.com/CycloneDX/cdxgen
+corepack pnpm add -g --allow-build @appthreat/sqlite3 https://github.com/cdxgen/cdxgen
 cdxgen --help
 ```
 
@@ -600,15 +600,15 @@ pnpm dlx cdxgen --help
 [badge-jsr]: https://img.shields.io/jsr/v/%40cyclonedx/cdxgen
 [badge-npm]: https://img.shields.io/npm/v/%40cyclonedx%2Fcdxgen
 [badge-npm-downloads]: https://img.shields.io/npm/dy/%40cyclonedx%2Fcdxgen
-[badge-swh]: https://archive.softwareheritage.org/badge/origin/https://github.com/CycloneDX/cdxgen/
+[badge-swh]: https://archive.softwareheritage.org/badge/origin/https://github.com/cdxgen/cdxgen/
 
 <!-- cdxgen github project -->
 
-[github-contribute]: https://github.com/CycloneDX/cdxgen/contribute
-[github-contributors]: https://github.com/CycloneDX/cdxgen/graphs/contributors
-[github-issues]: https://github.com/CycloneDX/cdxgen/issues
-[github-license]: https://github.com/cyclonedx/cdxgen/blob/master/LICENSE
-[github-releases]: https://github.com/CycloneDX/cdxgen/releases
+[github-contribute]: https://github.com/cdxgen/cdxgen/contribute
+[github-contributors]: https://github.com/cdxgen/cdxgen/graphs/contributors
+[github-issues]: https://github.com/cdxgen/cdxgen/issues
+[github-license]: https://github.com/cdxgen/cdxgen/blob/master/LICENSE
+[github-releases]: https://github.com/cdxgen/cdxgen/releases
 
 <!-- cdxgen documentation site -->
 
@@ -638,5 +638,5 @@ pnpm dlx cdxgen --help
 [npmjs-cdxgen]: https://www.npmjs.com/package/@cyclonedx/cdxgen
 [podman-github-rootless]: https://github.com/containers/podman/blob/master/docs/tutorials/rootless_tutorial.md
 [podman-github-remote]: https://github.com/containers/podman/blob/master/docs/tutorials/mac_win_client.md
-[swh-cdxgen]: https://archive.softwareheritage.org/browse/origin/?origin_url=https://github.com/CycloneDX/cdxgen
+[swh-cdxgen]: https://archive.softwareheritage.org/browse/origin/?origin_url=https://github.com/cdxgen/cdxgen
 [cdxgen-gpt]: https://chatgpt.com/g/g-673bfeb4037481919be8a2cd1bf868d2-cyclonedx-generator-cdxgen

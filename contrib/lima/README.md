@@ -20,7 +20,7 @@ sudo tar -C /usr/local -xf lima-0.22.0-Linux-x86_64.tar.gz
 ```
 
 ```shell
-git clone https://github.com/CycloneDX/cdxgen.git
+git clone https://github.com/cdxgen/cdxgen.git
 cd cdxgen
 
 # The below command might take several minutes

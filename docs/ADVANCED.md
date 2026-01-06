@@ -477,7 +477,7 @@ This, however, requires the correct version of dotnet SDK to be installed. The o
 docker run --rm -v /tmp:/tmp -v $(pwd):/app:rw -it ghcr.io/cyclonedx/cdxgen -r /app -o bom.json -t dotnet
 ```
 
-If the project requires a different version of the SDK, such as .Net core 3.1 or dotnet 6.0, then try with the below custom [images](https://github.com/CycloneDX/cdxgen/ci/base-images).
+If the project requires a different version of the SDK, such as .Net core 3.1 or dotnet 6.0, then try with the below custom [images](https://github.com/cdxgen/cdxgen/ci/base-images).
 
 ```shell
 docker run --rm -v /tmp:/tmp -v $(pwd):/app:rw -it ghcr.io/cyclonedx/cdxgen-dotnet:v12 -r /app -o bom.json -t dotnet
