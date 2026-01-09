@@ -298,7 +298,7 @@ overrides:
   type-fest: 5.3.1
   type-is: 2.0.1
   typescript: 5.9.3
-  undici: 7.18.0
+  undici: 7.18.2
   unique-filename: 5.0.0
   unique-slug: 6.0.0
   unpipe: 1.0.0
@@ -321,8 +321,6 @@ overrides:
   yargs: 18.0.0
   yargs-parser: 22.0.0
   yoctocolors: 2.1.2
-
-pnpmfileChecksum: sha256-nfOeuxPm0PLhmHqhdzVKpjFk27e1GEgHAqcQJ7ot+gg=
 
 importers:
 
@@ -672,7 +670,6 @@ packages:
     resolution: {integrity: sha512-KCZVGPh8XPPIvKQwPIYvfHb+jjCMKmPtGd9lC2LH5QfrC8jvDsu+4n+8GKTzBOYxbk18sSy+W6XjHzIcHMSvpg==}
     cpu: [ppc64]
     os: [linux]
-    libc: glibc
 
   '@cyclonedx/cdxgen-plugins-bin-linuxmusl-amd64@1.8.0':
     resolution: {integrity: sha512-FO3bQ6LWKrf6iYpa2qgUmSTl1Yi7T1cPTizXfOnzqg3dBxmksb0RjKFiCKeLNULfFT/vbQcz7065JKAt0oE/5w==}
@@ -1690,8 +1687,8 @@ packages:
     engines: {node: '>=14.17'}
     hasBin: true
 
-  undici@7.18.0:
-    resolution: {integrity: sha512-CfPufgPFHCYu0W4h1NiKW9+tNJ39o3kWm7Cm29ET1enSJx+AERfz7A2wAr26aY0SZbYzZlTBQtcHy15o60VZfQ==}
+  undici@7.18.2:
+    resolution: {integrity: sha512-y+8YjDFzWdQlSE9N5nzKMT3g4a5UBX1HKowfdXh0uvAnTaqqwqB92Jt4UXBAeKekDs5IaDKyJFR4X1gYVCgXcw==}
     engines: {node: '>=20.18.1'}
 
   unique-filename@5.0.0:
@@ -2191,7 +2188,7 @@ snapshots:
       parse5: 8.0.0
       parse5-htmlparser2-tree-adapter: 8.0.0
       parse5-parser-stream: 8.0.0
-      undici: 7.18.0
+      undici: 7.18.2
       whatwg-mimetype: 4.0.0
 
   chownr@3.0.0: {}
@@ -3107,7 +3104,7 @@ snapshots:
 
   typescript@5.9.3: {}
 
-  undici@7.18.0: {}
+  undici@7.18.2: {}
 
   unique-filename@5.0.0:
     dependencies:
