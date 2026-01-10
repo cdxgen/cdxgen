@@ -7,7 +7,6 @@ settings:
 overrides:
   '@appthreat/atom': 2.5.0
   '@appthreat/atom-common': 1.0.12
-  '@appthreat/atom-parsetools': 1.0.12
   '@appthreat/cdx-proto': 1.2.0
   '@appthreat/sqlite3': 7.0.2
   '@babel/code-frame': 7.27.1
