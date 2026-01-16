@@ -204,7 +204,7 @@ jobs:
           deno-version: 2.6.4
       - uses: oven-sh/setup-bun@b7a1c7ccf290d58743029c4f6903da283811b979 # v2.1.0
         with:
-          bun-version: 1.3.5
+          bun-version: 1.3.6
       - name: Trim CI agent
         if: matrix.os == 'ubuntu-24.04' || matrix.os == 'ubuntu-24.04-arm'
         run: |
