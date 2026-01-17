@@ -23,7 +23,7 @@ ARG MAVEN_VERSION=3.9.11
 # renovate: datasource=gradle-version depName=gradle
 ARG GRADLE_VERSION=8.14.3
 # renovate: datasource=golang-version depName=golang
-ARG GO_VERSION=1.25.5
+ARG GO_VERSION=1.25.6
 ARG PYTHON_VERSION=3.12
 
 ENV GOPATH=/opt/app-root/go \
