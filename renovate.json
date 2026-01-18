@@ -86,7 +86,8 @@
       "matchUpdateTypes": ["digest"],
       "matchCurrentValue": "latest",
       "automerge": true,
-      "automergeType": "branch"
+      "automergeType": "branch",
+      "minimumReleaseAgeBehaviour": "timestamp-optional"
     },
     {
       "description": "Disable digest pins for cyclonedx/cdxgen-ruby-builder",
