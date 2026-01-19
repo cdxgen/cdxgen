@@ -258,7 +258,7 @@ overrides:
   sax: 1.4.4
   semver: 7.7.3
   semver-compare: 1.0.0
-  serialize-error: 12.0.0
+  serialize-error: 13.0.0
   setprototypeof: 1.2.0
   side-channel: 1.1.0
   side-channel-list: 1.0.0
@@ -321,8 +321,6 @@ overrides:
   yargs: 18.0.0
   yargs-parser: 22.0.0
   yoctocolors: 2.1.2
-
-pnpmfileChecksum: sha256-nfOeuxPm0PLhmHqhdzVKpjFk27e1GEgHAqcQJ7ot+gg=
 
 importers:
 
@@ -672,7 +670,6 @@ packages:
     resolution: {integrity: sha512-KCZVGPh8XPPIvKQwPIYvfHb+jjCMKmPtGd9lC2LH5QfrC8jvDsu+4n+8GKTzBOYxbk18sSy+W6XjHzIcHMSvpg==}
     cpu: [ppc64]
     os: [linux]
-    libc: glibc
 
   '@cyclonedx/cdxgen-plugins-bin-linuxmusl-amd64@1.8.0':
     resolution: {integrity: sha512-FO3bQ6LWKrf6iYpa2qgUmSTl1Yi7T1cPTizXfOnzqg3dBxmksb0RjKFiCKeLNULfFT/vbQcz7065JKAt0oE/5w==}
@@ -1372,6 +1369,10 @@ packages:
     resolution: {integrity: sha512-LN4fydt9TqhZhThkZIVQnF9cwjU3qmUH9h78Mx/K7d3VvfRqqwthLwJEUOEL0QPZ0XQmNN7be5Ggit5+4dq3Bw==}
     engines: {node: '>=0.12.0'}
 
+  non-error@0.1.0:
+    resolution: {integrity: sha512-TMB1uHiGsHRGv1uYclfhivcnf0/PdFp2pNqRxXjncaAsjYMoisaQJI+SSZCqRq+VliwRTC8tsMQfmrWjDMhkPQ==}
+    engines: {node: '>=20'}
+
   nopt@9.0.0:
     resolution: {integrity: sha512-Zhq3a+yFKrYwSBluL4H9XP3m3y5uvQkB/09CwDruCiRmR/UJYnn9W4R48ry0uGC70aeTPKLynBtscP9efFFcPw==}
     engines: {node: ^20.17.0 || >=22.9.0}
@@ -1544,9 +1545,9 @@ packages:
     engines: {node: '>=10'}
     hasBin: true
 
-  serialize-error@12.0.0:
-    resolution: {integrity: sha512-ZYkZLAvKTKQXWuh5XpBw7CdbSzagarX39WyZ2H07CDLC5/KfsRGlIXV8d4+tfqX1M7916mRqR1QfNHSij+c9Pw==}
-    engines: {node: '>=18'}
+  serialize-error@13.0.0:
+    resolution: {integrity: sha512-6V0YA31xQR3jH311iZXOhuIvd6a5eU3LVeHJW9UAM/cHxOFJg668ghUicozo1P8tSRc3Qonoy1g8IVLm3xavow==}
+    engines: {node: '>=20'}
 
   setprototypeof@1.2.0:
     resolution: {integrity: sha512-E5LDX7Wrp85Kil5bhZv46j8jOeboKq5JMmYM3gVGdGH8xFpPWXUMsNrlODCrkoxMEeNi/XZIwuRvY4XNwYMJpw==}
@@ -1655,6 +1656,7 @@ packages:
   tar@7.5.2:
     resolution: {integrity: sha512-7NyxrTE4Anh8km8iEy7o0QYPs+0JKBTj5ZaqHg6B39erLg0qYXN3BijtShwbsNSvQ+LN75+KV+C4QR/f6Gwnpg==}
     engines: {node: '>=18'}
+    deprecated: Old versions of tar are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exhorbitant rates) by contacting i@izs.me
 
   text-decoder@1.2.3:
     resolution: {integrity: sha512-3/o9z3X0X0fTupwsYvR03pJ/DjWuqqrfwBgTQzdWDiQSm9KitAyz/9WqsT2JQW7KV2m+bC2ol/zqpW37NHxLaA==}
@@ -2452,7 +2454,7 @@ snapshots:
       matcher: 6.0.0
       roarr: 2.15.4
       semver: 7.7.3
-      serialize-error: 12.0.0
+      serialize-error: 13.0.0
 
   globalthis@1.0.4:
     dependencies:
@@ -2714,6 +2716,8 @@ snapshots:
 
   node-stream-zip@1.15.0: {}
 
+  non-error@0.1.0: {}
+
   nopt@9.0.0:
     dependencies:
       abbrev: 4.0.0
@@ -2900,8 +2904,9 @@ snapshots:
 
   semver@7.7.3: {}
 
-  serialize-error@12.0.0:
+  serialize-error@13.0.0:
     dependencies:
+      non-error: 0.1.0
       type-fest: 5.4.1
 
   setprototypeof@1.2.0:
