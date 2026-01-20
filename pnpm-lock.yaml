@@ -286,7 +286,7 @@ overrides:
   supports-color: 10.2.2
   table: 6.9.0
   tagged-tag: 1.0.0
-  tar: 7.5.2
+  tar: 7.5.3
   tar-fs: 3.1.1
   tar-stream: 3.1.7
   text-decoder: 1.2.3
@@ -321,8 +321,6 @@ overrides:
   yargs: 18.0.0
   yargs-parser: 22.0.0
   yoctocolors: 2.1.2
-
-pnpmfileChecksum: sha256-nfOeuxPm0PLhmHqhdzVKpjFk27e1GEgHAqcQJ7ot+gg=
 
 importers:
 
@@ -422,8 +420,8 @@ importers:
         specifier: 6.9.0
         version: 6.9.0
       tar:
-        specifier: 7.5.2
-        version: 7.5.2
+        specifier: 7.5.3
+        version: 7.5.3
       treeverse:
         specifier: 3.0.0
         version: 3.0.0
@@ -672,7 +670,6 @@ packages:
     resolution: {integrity: sha512-KCZVGPh8XPPIvKQwPIYvfHb+jjCMKmPtGd9lC2LH5QfrC8jvDsu+4n+8GKTzBOYxbk18sSy+W6XjHzIcHMSvpg==}
     cpu: [ppc64]
     os: [linux]
-    libc: glibc
 
   '@cyclonedx/cdxgen-plugins-bin-linuxmusl-amd64@1.8.0':
     resolution: {integrity: sha512-FO3bQ6LWKrf6iYpa2qgUmSTl1Yi7T1cPTizXfOnzqg3dBxmksb0RjKFiCKeLNULfFT/vbQcz7065JKAt0oE/5w==}
@@ -1652,9 +1649,10 @@ packages:
   tar-stream@3.1.7:
     resolution: {integrity: sha512-qJj60CXt7IU1Ffyc3NJMjh6EkuCFej46zUqJ4J7pqYlThyd9bO0XBTmcOIhSzZJVWfsLks0+nle/j538YAW9RQ==}
 
-  tar@7.5.2:
-    resolution: {integrity: sha512-7NyxrTE4Anh8km8iEy7o0QYPs+0JKBTj5ZaqHg6B39erLg0qYXN3BijtShwbsNSvQ+LN75+KV+C4QR/f6Gwnpg==}
+  tar@7.5.3:
+    resolution: {integrity: sha512-ENg5JUHUm2rDD7IvKNFGzyElLXNjachNLp6RaGf4+JOgxXHkqA+gq81ZAMCUmtMtqBsoU62lcp6S27g1LCYGGQ==}
     engines: {node: '>=18'}
+    deprecated: Old versions of tar are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exhorbitant rates) by contacting i@izs.me
 
   text-decoder@1.2.3:
     resolution: {integrity: sha512-3/o9z3X0X0fTupwsYvR03pJ/DjWuqqrfwBgTQzdWDiQSm9KitAyz/9WqsT2JQW7KV2m+bC2ol/zqpW37NHxLaA==}
@@ -2705,7 +2703,7 @@ snapshots:
       nopt: 9.0.0
       proc-log: 6.1.0
       semver: 7.7.3
-      tar: 7.5.2
+      tar: 7.5.3
       tinyglobby: 0.2.15
       which: 6.0.0
     transitivePeerDependencies:
@@ -3062,7 +3060,7 @@ snapshots:
       - react-native-b4a
     optional: true
 
-  tar@7.5.2:
+  tar@7.5.3:
     dependencies:
       '@isaacs/fs-minipass': 4.0.1
       chownr: 3.0.0
