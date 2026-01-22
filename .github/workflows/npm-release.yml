@@ -23,7 +23,7 @@ jobs:
     permissions:
       id-token: write  # needed for npm provenance attestation
     steps:
-      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           persist-credentials: false
       - name: Setup pnpm
@@ -58,7 +58,7 @@ jobs:
     permissions:
       packages: write  # needed for uploading images to GH package registry
     steps:
-      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           persist-credentials: false
       - name: Set up QEMU
@@ -101,7 +101,7 @@ jobs:
     permissions:
       packages: write  # needed for uploading images to GH package registry
     steps:
-      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           persist-credentials: false
       - name: Set up QEMU
@@ -145,7 +145,7 @@ jobs:
     permissions:
       packages: write  # needed for uploading images to GH package registry
     steps:
-      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           persist-credentials: false
           fetch-depth: 0
@@ -174,7 +174,7 @@ jobs:
       contents: write  # needed for creating GH releases and uploading release assets
       packages: write  # needed for uploading images to GH package registry
     steps:
-      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           persist-credentials: false
       - name: Setup pnpm
@@ -258,7 +258,7 @@ jobs:
       contents: write  # needed for creating GH releases and uploading release assets
       packages: write  # needed for uploading images to GH package registry
     steps:
-      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           persist-credentials: false
       - name: Setup pnpm
@@ -329,7 +329,7 @@ jobs:
       contents: write  # needed for creating GH releases and uploading release assets
       packages: write  # needed for uploading images to GH package registry
     steps:
-      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           persist-credentials: false
       - name: Setup pnpm
@@ -399,7 +399,7 @@ jobs:
     permissions:
       packages: write  # needed for uploading images to GH package registry
     steps:
-      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           persist-credentials: false
       - name: Setup pnpm
@@ -452,7 +452,7 @@ jobs:
       contents: write  # needed for creating GH releases and uploading release assets
       packages: write  # needed for uploading images to GH package registry
     steps:
-      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           persist-credentials: false
       - name: Setup pnpm
