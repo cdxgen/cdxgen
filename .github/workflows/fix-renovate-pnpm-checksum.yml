@@ -46,12 +46,12 @@ jobs:
             echo "\`\`\`" >> _tree.txt
             echo "Output of \`jq\` on components:" >> _tree.txt
             echo "\`\`\`" >> _tree.txt
-            jq --arg dep "${array[3]}" '.components[] | select(."bom-ref" | test($dep))' bom.json >> _tree.txt
+            jq --arg dep "${array[3]}@" '.components[] | select(."bom-ref" | test($dep)) | { group, name, version, purl, licenses }' bom.json >> _tree.txt
             echo "\`\`\`" >> _tree.txt
             echo "Output of \`jq\` on dependencies:" >> _tree.txt
             echo "\`\`\`" >> _tree.txt
-            jq --arg dep "${array[3]}" '.dependencies[] | select(.ref | test($dep))' bom.json >> _tree.txt
-            jq --arg dep "${array[3]}" '.dependencies[] | select(.dependsOn | any(test($dep)))' bom.json >> _tree.txt
+            jq --arg dep "${array[3]}@" '.dependencies[] | select(.ref | test($dep))' bom.json >> _tree.txt
+            jq --arg dep "${array[3]}@" '.dependencies[] | select(.dependsOn | any(test($dep)))' bom.json >> _tree.txt
             echo "\`\`\`" >> _tree.txt
           fi
         env:
