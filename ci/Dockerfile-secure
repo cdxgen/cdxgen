@@ -1,4 +1,4 @@
-FROM ghcr.io/cdxgen/cdxgen:master@sha256:d7bd84cd0c25019f5a7887a260055ad7a03f5621fa418ec8366971262b818f0a
+FROM ghcr.io/cdxgen/cdxgen:master@sha256:b05e6be56734a7b0ed508b7d7c2720af5fa223df58a6862ddb5e69c3dc328f03
 
 LABEL maintainer="cyclonedx" \
       org.opencontainers.image.authors="Prabhu Subramanian <prabhu@appthreat.com>" \
