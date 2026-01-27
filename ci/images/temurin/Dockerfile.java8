@@ -1,5 +1,5 @@
 # Base-image
-FROM eclipse-temurin:8-jdk-ubi9-minimal@sha256:8d07f85b6fee5a2c131ec7319e609eb008e5e622b47bfb6ae6791b3d3f843445 AS base
+FROM eclipse-temurin:8-jdk-ubi9-minimal@sha256:120e49ccfc3b705b93c44f6daa052fcd77d3fd6c4063cf3627e50012eda9bf8f AS base
 
 ARG GITHUB_RAW_URL=https://raw.githubusercontent.com
 ARG GRADLE_8
