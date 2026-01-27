@@ -323,8 +323,6 @@ overrides:
   yargs-parser: 22.0.0
   yoctocolors: 2.1.2
 
-pnpmfileChecksum: sha256-nfOeuxPm0PLhmHqhdzVKpjFk27e1GEgHAqcQJ7ot+gg=
-
 importers:
 
   .:
@@ -518,8 +516,8 @@ importers:
         specifier: 2.1.0
         version: 2.1.0
       sqlite3:
-        specifier: npm:@appthreat/sqlite3@7.0.2
-        version: '@appthreat/sqlite3@7.0.2'
+        specifier: npm:@appthreat/sqlite3@7.0.3
+        version: '@appthreat/sqlite3@7.0.3'
 
 packages:
 
@@ -540,8 +538,8 @@ packages:
     resolution: {integrity: sha512-r2g4CLo2wx16Xz3v6vVdIC8DqpFNXcFM9Fyv1p/8cLGWGqo0NCdUEahqfS0ANTeNbFM6x8faWO72BrPMlVF3LQ==}
     engines: {node: '>=20'}
 
-  '@appthreat/sqlite3@7.0.2':
-    resolution: {integrity: sha512-AMsplY4Z/whvQfcML8bucKtVzSb2KUygvG3rQ0Qn0WjheL8j+cmfA4n0c4jACs5GaEbm25ElnXGlR7afi5ceYg==}
+  '@appthreat/sqlite3@7.0.3':
+    resolution: {integrity: sha512-pJcqUz0FfpJP7yGLcCvlqm9mQuHFPF2xh8Af1B9Z9hr0dBxEJ8MPYrO9Nqst+TZFEskMyPE+x4KVgFoXc+OQgg==}
     engines: {node: '>=20'}
 
   '@babel/code-frame@7.28.6':
@@ -673,7 +671,6 @@ packages:
     resolution: {integrity: sha512-KCZVGPh8XPPIvKQwPIYvfHb+jjCMKmPtGd9lC2LH5QfrC8jvDsu+4n+8GKTzBOYxbk18sSy+W6XjHzIcHMSvpg==}
     cpu: [ppc64]
     os: [linux]
-    libc: glibc
 
   '@cyclonedx/cdxgen-plugins-bin-linuxmusl-amd64@1.8.0':
     resolution: {integrity: sha512-FO3bQ6LWKrf6iYpa2qgUmSTl1Yi7T1cPTizXfOnzqg3dBxmksb0RjKFiCKeLNULfFT/vbQcz7065JKAt0oE/5w==}
@@ -1814,7 +1811,7 @@ snapshots:
       '@bufbuild/protobuf': 2.10.2
     optional: true
 
-  '@appthreat/sqlite3@7.0.2':
+  '@appthreat/sqlite3@7.0.3':
     dependencies:
       node-addon-api: 8.5.0
       prebuild-install: 7.1.3

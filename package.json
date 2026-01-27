@@ -495,7 +495,7 @@
     "compression": "1.8.1",
     "connect": "3.7.0",
     "jsonata": "2.1.0",
-    "sqlite3": "npm:@appthreat/sqlite3@7.0.2"
+    "sqlite3": "npm:@appthreat/sqlite3@7.0.3"
   },
   "packageManager": "pnpm@10.28.1",
   "engines": {
