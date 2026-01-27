@@ -9,7 +9,7 @@ overrides:
   '@appthreat/atom-common': 1.0.12
   '@appthreat/atom-parsetools': 1.0.12
   '@appthreat/cdx-proto': 1.2.0
-  '@appthreat/sqlite3': 7.0.2
+  '@appthreat/sqlite3': 7.0.3
   '@babel/code-frame': 7.28.6
   '@babel/generator': 7.28.6
   '@babel/helper-globals': 7.28.0
@@ -322,8 +322,6 @@ overrides:
   yargs: 18.0.0
   yargs-parser: 22.0.0
   yoctocolors: 2.1.2
-
-pnpmfileChecksum: sha256-nfOeuxPm0PLhmHqhdzVKpjFk27e1GEgHAqcQJ7ot+gg=
 
 importers:
 
@@ -673,7 +671,6 @@ packages:
     resolution: {integrity: sha512-KCZVGPh8XPPIvKQwPIYvfHb+jjCMKmPtGd9lC2LH5QfrC8jvDsu+4n+8GKTzBOYxbk18sSy+W6XjHzIcHMSvpg==}
     cpu: [ppc64]
     os: [linux]
-    libc: glibc
 
   '@cyclonedx/cdxgen-plugins-bin-linuxmusl-amd64@1.8.0':
     resolution: {integrity: sha512-FO3bQ6LWKrf6iYpa2qgUmSTl1Yi7T1cPTizXfOnzqg3dBxmksb0RjKFiCKeLNULfFT/vbQcz7065JKAt0oE/5w==}
