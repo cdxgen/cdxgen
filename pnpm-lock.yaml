@@ -122,7 +122,7 @@ overrides:
   encoding-sniffer: 0.2.1
   end-of-stream: 1.4.5
   entities: 7.0.1
-  env-paths: 3.0.0
+  env-paths: 4.0.0
   err-code: 3.0.1
   es-define-property: 1.0.1
   es-errors: 1.3.0
@@ -322,8 +322,6 @@ overrides:
   yargs: 18.0.0
   yargs-parser: 22.0.0
   yoctocolors: 2.1.2
-
-pnpmfileChecksum: sha256-nfOeuxPm0PLhmHqhdzVKpjFk27e1GEgHAqcQJ7ot+gg=
 
 importers:
 
@@ -673,7 +671,6 @@ packages:
     resolution: {integrity: sha512-KCZVGPh8XPPIvKQwPIYvfHb+jjCMKmPtGd9lC2LH5QfrC8jvDsu+4n+8GKTzBOYxbk18sSy+W6XjHzIcHMSvpg==}
     cpu: [ppc64]
     os: [linux]
-    libc: glibc
 
   '@cyclonedx/cdxgen-plugins-bin-linuxmusl-amd64@1.8.0':
     resolution: {integrity: sha512-FO3bQ6LWKrf6iYpa2qgUmSTl1Yi7T1cPTizXfOnzqg3dBxmksb0RjKFiCKeLNULfFT/vbQcz7065JKAt0oE/5w==}
@@ -1030,9 +1027,9 @@ packages:
     resolution: {integrity: sha512-TWrgLOFUQTH994YUyl1yT4uyavY5nNB5muff+RtWaqNVCAK408b5ZnnbNAUEWLTCpum9w6arT70i1XdQ4UeOPA==}
     engines: {node: '>=0.12'}
 
-  env-paths@3.0.0:
-    resolution: {integrity: sha512-dtJUTepzMW3Lm/NPxRf3wP4642UWhjL2sQxc+ym2YMj1m/H2zDNQOlezafzkHwn6sMstjHTwG6iQQsctDW/b1A==}
-    engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
+  env-paths@4.0.0:
+    resolution: {integrity: sha512-pxP8eL2SwwaTRi/KHYwLYXinDs7gL3jxFcBYmEdYfZmZXbaVDvdppd0XBU8qVz03rDfKZMXg1omHCbsJjZrMsw==}
+    engines: {node: '>=20'}
 
   err-code@3.0.1:
     resolution: {integrity: sha512-GiaH0KJUewYok+eeY05IIgjtAe4Yltygk9Wqp1V5yVWLdhf0hYZchRjNIT9bb0mSwRcIusT3cx7PJUf3zEIfUA==}
@@ -1215,6 +1212,10 @@ packages:
   is-fullwidth-code-point@5.1.0:
     resolution: {integrity: sha512-5XHYaSyiqADb4RnZ1Bdad6cPp8Toise4TzEjcOYDHZkTCbKgiUl7WTUCpNWHuxmDt91wnsZBc9xinNzopv3JMQ==}
     engines: {node: '>=18'}
+
+  is-safe-filename@0.1.0:
+    resolution: {integrity: sha512-sHJhnOtbNZw/t54s31NnbkkcwfHzTOpgi5n1bnlLu+40p/gU3ZHu+JX8CjIsnWUQkqWtvmNpJqCYUyaaKSPLZw==}
+    engines: {node: '>=20'}
 
   is-stream@4.0.1:
     resolution: {integrity: sha512-Dnz92NInDqYckGEUJv689RbRiTSEHCQ7wOVeALbkOz999YpqT46yMRIGtSNl2iCL1waAZSx40+h59NV/EwzV/A==}
@@ -2341,7 +2342,9 @@ snapshots:
 
   entities@7.0.1: {}
 
-  env-paths@3.0.0:
+  env-paths@4.0.0:
+    dependencies:
+      is-safe-filename: 0.1.0
     optional: true
 
   err-code@3.0.1: {}
@@ -2558,6 +2561,9 @@ snapshots:
     dependencies:
       get-east-asian-width: 1.4.0
 
+  is-safe-filename@0.1.0:
+    optional: true
+
   is-stream@4.0.1: {}
 
   isexe@3.1.1: {}
@@ -2704,7 +2710,7 @@ snapshots:
 
   node-gyp@12.1.0:
     dependencies:
-      env-paths: 3.0.0
+      env-paths: 4.0.0
       exponential-backoff: 3.1.3
       graceful-fs: 4.2.11
       make-fetch-happen: 15.0.3
