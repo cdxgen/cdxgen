@@ -63,10 +63,10 @@ jobs:
             runner: macos-14
           - os: linux
             arch: amd64
-            runner: ubuntu-22.04
+            runner: ubuntu-24.04
           - os: linux
             arch: arm64
-            runner: ubuntu-22.04-arm
+            runner: ubuntu-24.04-arm
           - os: windows
             arch: amd64
             runner: windows-2022
@@ -89,11 +89,11 @@ jobs:
           # Set the commands & file-extensions
           - cmd: |
               # Prepare workspace
-              rm -rf node_modules ADVANCED.md ci contrib devenv.* pyproject.toml renovate.json semicolon_delimited_script test tools_config uv.lock cdxgen cdxgen-slim cdx-verify pnpm-workspace.yaml
+              rm -rf ADVANCED.md ci contrib devenv.* pyproject.toml renovate.json semicolon_delimited_script test tools_config uv.lock pnpm-workspace.yaml
               pnpm install:prod --config.node-linker=hoisted
+
               # Generate sbom
               node bin/cdxgen.js -t jar -t js -t php -t ruby -o sbom-postbuild.cdx.json --include-formulation --no-install-deps
-              ls -lh
               # Produce cdxgen binary
               pnpm --package=@appthreat/caxa dlx caxa --input . --output cdxgen -- "{{caxa}}/node_modules/.bin/node" "{{caxa}}/bin/cdxgen.js"
               mv binary-metadata.json .cdxgen-metadata.json
@@ -104,6 +104,7 @@ jobs:
               # Prepare for slim binaries
               rm -rf node_modules sbom-postbuild.cdx.json
               pnpm install:prod --config.node-linker=hoisted --no-optional
+
               # Generate sbom
               node bin/cdxgen.js -t js --required-only --no-recurse -o sbom-postbuild-js.cdx.json --include-formulation
 
@@ -213,8 +214,6 @@ jobs:
 
             # Change the owner to the local user
             chown -R ${{ steps.user_info.outputs.user }} * .*
-        env:
-          CAXA_TEMP_DIR: ${{ runner.temp }}/caxa
       - name: Build for darwin & windows
         if: ${{ matrix.libc == 'gnu' && matrix.os != 'linux' }}
         run: ${{ matrix.cmd }}
@@ -225,20 +224,15 @@ jobs:
           mv cdxgen-slim${{ matrix.ext }} _cdxgen-slim
           mv cdx-verify${{ matrix.ext }} _cdx-verify
 
-          # Rename metadata to temp names
-          mv .cdxgen-metadata.json _cdxgen-metadata.json
-          mv .cdxgen-slim-metadata.json _cdxgen-slim-metadata.json
-          mv .cdx-verify-metadata.json _cdx-verify-metadata.json
-
           # Rename to the correct name
           mv _cdxgen cdxgen-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }}
           mv _cdxgen-slim cdxgen-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}-slim${{ matrix.ext }}
           mv _cdx-verify cdx-verify-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }}
 
           # Rename metadata to correct name
-          mv _cdxgen-metadata.json cdxgen-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}-metadata.json
-          mv _cdxgen-slim-metadata.json cdxgen-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}-slim-metadata.json
-          mv _cdx-verify-metadata.json cdx-verify-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}-metadata.json
+          mv .cdxgen-metadata.json cdxgen-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}-metadata.json
+          mv .cdxgen-slim-metadata.json cdxgen-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}-slim-metadata.json
+          mv .cdx-verify-metadata.json cdx-verify-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}-metadata.json
       - name: Generate checksums for darwin
         if: ${{ matrix.os == 'darwin' }}
         run: |
