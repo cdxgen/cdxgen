@@ -1,5 +1,5 @@
 # Base-image
-FROM mcr.microsoft.com/dotnet/sdk:9.0-alpine@sha256:0d87ce8c349144e72c51c1fca2df049970e36914aaa272fa0e47ab104017a05d AS base
+FROM mcr.microsoft.com/dotnet/sdk:9.0-alpine@sha256:7160be4fac597ecf944138e5f3ec438c4d1cec2b3eb52c9f700aac9916c35156 AS base
 
 ARG ALPINE_REPO
 ARG NODEJS_DIST_URL
