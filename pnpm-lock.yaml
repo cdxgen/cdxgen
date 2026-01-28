@@ -9,7 +9,7 @@ overrides:
   '@appthreat/atom-common': 1.0.12
   '@appthreat/atom-parsetools': 1.0.12
   '@appthreat/cdx-proto': 1.2.0
-  '@appthreat/sqlite3': 7.0.2
+  '@appthreat/sqlite3': 7.0.3
   '@babel/code-frame': 7.28.6
   '@babel/generator': 7.28.6
   '@babel/helper-globals': 7.28.0
@@ -469,6 +469,9 @@ importers:
       '@appthreat/cdx-proto':
         specifier: 1.2.0
         version: 1.2.0
+      '@appthreat/sqlite3':
+        specifier: 7.0.3
+        version: 7.0.3
       '@bufbuild/protobuf':
         specifier: 2.10.2
         version: 2.10.2
@@ -517,9 +520,6 @@ importers:
       jsonata:
         specifier: 2.1.0
         version: 2.1.0
-      sqlite3:
-        specifier: npm:@appthreat/sqlite3@7.0.2
-        version: '@appthreat/sqlite3@7.0.2'
 
 packages:
 
@@ -540,8 +540,8 @@ packages:
     resolution: {integrity: sha512-r2g4CLo2wx16Xz3v6vVdIC8DqpFNXcFM9Fyv1p/8cLGWGqo0NCdUEahqfS0ANTeNbFM6x8faWO72BrPMlVF3LQ==}
     engines: {node: '>=20'}
 
-  '@appthreat/sqlite3@7.0.2':
-    resolution: {integrity: sha512-AMsplY4Z/whvQfcML8bucKtVzSb2KUygvG3rQ0Qn0WjheL8j+cmfA4n0c4jACs5GaEbm25ElnXGlR7afi5ceYg==}
+  '@appthreat/sqlite3@7.0.3':
+    resolution: {integrity: sha512-pJcqUz0FfpJP7yGLcCvlqm9mQuHFPF2xh8Af1B9Z9hr0dBxEJ8MPYrO9Nqst+TZFEskMyPE+x4KVgFoXc+OQgg==}
     engines: {node: '>=20'}
 
   '@babel/code-frame@7.28.6':
@@ -1739,7 +1739,6 @@ packages:
   whatwg-encoding@3.1.1:
     resolution: {integrity: sha512-6qN4hJdMwfYBtE3YBTTHhoeuUrDBPZmbQaxWAqSALV/MeEnR5z1xd8UKud2RAkFoPkmB+hli1TZSnyi84xz1vQ==}
     engines: {node: '>=18'}
-    deprecated: Use @exodus/bytes instead for a more spec-conformant and faster implementation
 
   whatwg-mimetype@4.0.0:
     resolution: {integrity: sha512-QaKxh0eNIi2mE9p2vEdzfagOKHCcj1pJ56EEHGQOVxp8r9/iszLUUV7v89x9O1p/T+NlTM5W7jW6+cz4Fq1YVg==}
@@ -1814,7 +1813,7 @@ snapshots:
       '@bufbuild/protobuf': 2.10.2
     optional: true
 
-  '@appthreat/sqlite3@7.0.2':
+  '@appthreat/sqlite3@7.0.3':
     dependencies:
       node-addon-api: 8.5.0
       prebuild-install: 7.1.3

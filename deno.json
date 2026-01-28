@@ -112,7 +112,7 @@
     "xml-js": "npm:xml-js@^1.6.11",
     "yargs": "npm:yargs@^18.0.0",
     "yoctocolors": "npm:yoctocolors@^2.1.2",
-    "sqlite3": "npm:@appthreat/sqlite3@^7.0.2",
+    "@appthreat/sqlite3": "npm:@appthreat/sqlite3@^7.0.3",
     "body-parser": "npm:body-parser@^2.2.1",
     "compression": "npm:compression@^1.8.1",
     "connect": "npm:connect@^3.7.0",

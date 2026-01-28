@@ -114,7 +114,7 @@
     "@appthreat/atom-common": "1.0.12",
     "@appthreat/atom-parsetools": "1.0.12",
     "@appthreat/cdx-proto": "1.2.0",
-    "@appthreat/sqlite3": "7.0.2",
+    "@appthreat/sqlite3": "7.0.3",
     "@babel/code-frame": "7.28.6",
     "@babel/generator": "7.28.6",
     "@babel/helper-globals": "7.28.0",
@@ -479,6 +479,7 @@
   "optionalDependencies": {
     "@appthreat/atom": "2.4.3",
     "@appthreat/cdx-proto": "1.2.0",
+    "@appthreat/sqlite3": "7.0.3",
     "@bufbuild/protobuf": "2.10.2",
     "@cyclonedx/cdxgen-plugins-bin": "1.8.0",
     "@cyclonedx/cdxgen-plugins-bin-darwin-amd64": "1.8.0",
@@ -494,8 +495,7 @@
     "body-parser": "2.2.2",
     "compression": "1.8.1",
     "connect": "3.7.0",
-    "jsonata": "2.1.0",
-    "sqlite3": "npm:@appthreat/sqlite3@7.0.2"
+    "jsonata": "2.1.0"
   },
   "packageManager": "pnpm@10.28.1",
   "engines": {
@@ -512,7 +512,7 @@
       "@appthreat/atom-common": "1.0.12",
       "@appthreat/atom-parsetools": "1.0.12",
       "@appthreat/cdx-proto": "1.2.0",
-      "@appthreat/sqlite3": "7.0.2",
+      "@appthreat/sqlite3": "7.0.3",
       "@babel/code-frame": "7.28.6",
       "@babel/generator": "7.28.6",
       "@babel/helper-globals": "7.28.0",
