@@ -99,6 +99,7 @@ jobs:
               tar -xvf "upx-5.1.0-${ARCH}_linux.tar.xz"
               chmod +x "upx-5.1.0-${ARCH}_linux/upx"
               cp "upx-5.1.0-${ARCH}_linux/upx" /usr/local/bin/
+              rm -rf "upx-5.1.0-${ARCH}_linux*"
           - os: linux
             libc: musl
             image: php:8.4-alpine3.21
