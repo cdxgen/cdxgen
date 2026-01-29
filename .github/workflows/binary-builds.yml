@@ -64,9 +64,19 @@ jobs:
           - os: linux
             arch: amd64
             runner: ubuntu-24.04
+            prepare: |
+              wget https://github.com/upx/upx/releases/download/v5.1.0/upx-5.1.0-amd64_linux.tar.xz
+              tar -xvf upx-5.1.0-amd64_linux.tar.xz
+              chmod +x upx-5.1.0-amd64_linux/upx
+              sudo cp upx-5.1.0-amd64_linux/upx /usr/local/bin/
           - os: linux
             arch: arm64
             runner: ubuntu-24.04-arm
+            prepare: |
+              wget https://github.com/upx/upx/releases/download/v5.1.0/upx-5.1.0-arm64_linux.tar.xz
+              tar -xvf upx-5.1.0-arm64_linux.tar.xz
+              chmod +x upx-5.1.0-arm64_linux/upx
+              sudo cp upx-5.1.0-arm64_linux/upx /usr/local/bin/
           - os: windows
             arch: amd64
             runner: windows-2022
@@ -74,28 +84,42 @@ jobs:
             arch: arm64
             runner: windows-11-arm
           # Set musl configurations
-          - image: php:8.4-bullseye
+          - os: linux
+            image: php:8.4-bullseye
             libc-suffix: ''
             node-download-url: https://nodejs.org/dist/
             prepare: |
               apt update
-              apt install -y curl
-          - libc: musl
+              apt install -y curl xz-utils
+              ARCH="amd64"
+              if [ "$(uname -m)" = "aarch64" ]; then ARCH="arm64"; fi
+              curl -L -O "https://github.com/upx/upx/releases/download/v5.1.0/upx-5.1.0-${ARCH}_linux.tar.xz"
+              tar -xvf "upx-5.1.0-${ARCH}_linux.tar.xz"
+              chmod +x "upx-5.1.0-${ARCH}_linux/upx"
+              cp "upx-5.1.0-${ARCH}_linux/upx" /usr/local/bin/
+          - os: linux
+            libc: musl
             image: php:8.4-alpine3.21
             libc-suffix: -musl
             node-download-url: https://raw.githubusercontent.com/appthreat/nodejs-unofficial-builds/main/dists/
             prepare: |
-              apk add --no-cache bash curl libstdc++
+              apk add --no-cache bash curl libstdc++ upx
           # Set the commands & file-extensions
           - cmd: |
               # Prepare workspace
-              rm -rf ADVANCED.md ci contrib devenv.* pyproject.toml renovate.json semicolon_delimited_script test tools_config uv.lock pnpm-workspace.yaml
+              rm -rf ADVANCED.md ci contrib devenv.* pyproject.toml renovate.json semicolon_delimited_script test tools_config uv.lock pnpm-workspace.yaml .versions
               pnpm install:prod --config.node-linker=hoisted
+              
+              # Set UPX flag based on uname (Works in Docker and on Host)
+              UPX_FLAG=""
+              if [ "$(uname -s)" = "Linux" ]; then
+                UPX_FLAG="--upx"
+              fi
 
               # Generate sbom
               node bin/cdxgen.js -t jar -t js -t php -t ruby -o sbom-postbuild.cdx.json --include-formulation --no-install-deps
               # Produce cdxgen binary
-              pnpm --package=@appthreat/caxa dlx caxa --input . --output cdxgen -- "{{caxa}}/node_modules/.bin/node" "{{caxa}}/bin/cdxgen.js"
+              pnpm --package=@appthreat/caxa dlx caxa --input . --output cdxgen $UPX_FLAG -- "{{caxa}}/node_modules/.bin/node" "{{caxa}}/bin/cdxgen.js"
               mv binary-metadata.json .cdxgen-metadata.json
               chmod +x cdxgen
               ./cdxgen --version
@@ -109,14 +133,14 @@ jobs:
               node bin/cdxgen.js -t js --required-only --no-recurse -o sbom-postbuild-js.cdx.json --include-formulation
 
               # Produce slim cdxgen binary
-              pnpm --package=@appthreat/caxa dlx caxa --input . --output cdxgen-slim -- "{{caxa}}/node_modules/.bin/node" "{{caxa}}/bin/cdxgen.js"
+              pnpm --package=@appthreat/caxa dlx caxa --input . --output cdxgen-slim $UPX_FLAG -- "{{caxa}}/node_modules/.bin/node" "{{caxa}}/bin/cdxgen.js"
               mv binary-metadata.json .cdxgen-slim-metadata.json
               chmod +x cdxgen-slim
               ./cdxgen-slim --version
               ./cdxgen-slim --help
 
               # Produce verify binary
-              pnpm --package=@appthreat/caxa dlx caxa --input . --output cdx-verify -- "{{caxa}}/node_modules/.bin/node" "{{caxa}}/bin/verify.js"
+              pnpm --package=@appthreat/caxa dlx caxa --input . --output cdx-verify $UPX_FLAG -- "{{caxa}}/node_modules/.bin/node" "{{caxa}}/bin/verify.js"
               mv binary-metadata.json .cdx-verify-metadata.json
               chmod +x cdx-verify
               ./cdx-verify --version
