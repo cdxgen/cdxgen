@@ -107,7 +107,7 @@
     "semver": "npm:semver@^7.7.3",
     "ssri": "npm:ssri@^13.0.0",
     "table": "npm:table@^6.9.0",
-    "tar": "npm:tar@^7.5.2",
+    "tar": "npm:tar@^7.5.7",
     "uuid": "npm:uuid@^13.0.0",
     "xml-js": "npm:xml-js@^1.6.11",
     "yargs": "npm:yargs@^18.0.0",

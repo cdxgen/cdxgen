@@ -108,7 +108,7 @@
     {
       "matchManagers": ["npm"],
       "groupName": "cdxgen plugins",
-      "matchPackageNames": ["@cyclonedx/cdxgen-plugins-bin**"]
+      "matchPackageNames": ["@cdxgen/cdxgen-plugins-bin**"]
     },
     {
       "matchManagers": ["npm"],

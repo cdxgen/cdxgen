@@ -1036,7 +1036,7 @@ jobs:
       - name: pnpm install, build and test
         run: |
           pnpm install:frozen
-          ls -al node_modules/@cyclonedx/cdxgen-plugins-bin*
+          ls -al node_modules/@cdxgen/cdxgen-plugins-bin*
           mkdir -p repotests
           mkdir -p bomresults
         env:

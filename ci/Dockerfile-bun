@@ -17,11 +17,11 @@ ARG SWIFT_BRANCH=swift-6.2.3-release
 ARG SWIFT_VERSION=swift-6.2.3-RELEASE
 ARG SWIFT_WEBROOT=https://download.swift.org
 ARG JAVA_VERSION=25.0.1-tem
-ARG SBT_VERSION=1.11.6
+ARG SBT_VERSION=1.12.1
 # renovate: datasource=maven lookupName=org.apache.maven:maven
 ARG MAVEN_VERSION=3.9.12
 # renovate: datasource=gradle-version depName=gradle
-ARG GRADLE_VERSION=8.14.4
+ARG GRADLE_VERSION=9.3.0
 # renovate: datasource=golang-version depName=golang
 ARG GO_VERSION=1.25.6
 ARG PYTHON_VERSION=3.12
