@@ -69,6 +69,7 @@ jobs:
               tar -xvf upx-5.1.0-amd64_linux.tar.xz
               chmod +x upx-5.1.0-amd64_linux/upx
               sudo cp upx-5.1.0-amd64_linux/upx /usr/local/bin/
+              rm -rf upx-5.1.0-amd64_linux*
           - os: linux
             arch: arm64
             runner: ubuntu-24.04-arm
@@ -77,6 +78,7 @@ jobs:
               tar -xvf upx-5.1.0-arm64_linux.tar.xz
               chmod +x upx-5.1.0-arm64_linux/upx
               sudo cp upx-5.1.0-arm64_linux/upx /usr/local/bin/
+              rm -rf upx-5.1.0-arm64_linux*
           - os: windows
             arch: amd64
             runner: windows-2022
