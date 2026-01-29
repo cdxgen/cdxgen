@@ -352,7 +352,7 @@ cdxgen can retain the dependency tree under the `dependencies` attribute for a s
 cdxgen could be extended with external binary plugins to support more SBOM use cases. These are now installed as an optional dependency.
 
 ```shell
-sudo npm install -g @cyclonedx/cdxgen-plugins-bin
+sudo npm install -g @cdxgen/cdxgen-plugins-bin
 ```
 
 ## Plugins (pnpm)
@@ -361,7 +361,7 @@ sudo npm install -g @cyclonedx/cdxgen-plugins-bin
 These are now installed as optional dependencies and can be used without a global install.
 
 ```shell
-pnpm dlx @cyclonedx/cdxgen-plugins-bin
+pnpm dlx @cdxgen/cdxgen-plugins-bin
 ```
 
 ## Docker / OCI container support

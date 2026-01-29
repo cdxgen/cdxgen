@@ -1517,6 +1517,7 @@ export function isValidDriveRoot(root: string): boolean;
  * Get version and runtime information
  */
 export function retrieveCdxgenVersion(): string;
+export function retrieveCdxgenPluginVersion(): any;
 export const dirNameStr: any;
 export const isSecureMode: any;
 export const isWin: boolean;

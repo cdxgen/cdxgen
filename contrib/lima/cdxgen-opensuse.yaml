@@ -50,8 +50,8 @@ provision:
     #!/bin/bash
     set -e -o pipefail
     export MAVEN_VERSION=3.9.12
-    export SBT_VERSION=1.11.6
-    export GRADLE_VERSION=8.14
+    export SBT_VERSION=1.12.1
+    export GRADLE_VERSION=9.3.0
     export MAVEN_HOME="/.sdkman/candidates/maven/${MAVEN_VERSION}"
     export GRADLE_HOME="/.sdkman/candidates/gradle/${GRADLE_VERSION}"
     export SBT_HOME="/.sdkman/candidates/sbt/${SBT_VERSION}"

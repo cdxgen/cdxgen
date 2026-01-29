@@ -11,11 +11,11 @@ LABEL maintainer="cyclonedx" \
       org.opencontainers.image.description="Container image for cdxgen SBOM generator" \
       org.opencontainers.docker.cmd="docker run --rm -v /tmp:/tmp -p 9090:9090 -v $(pwd):/app:rw -t ghcr.io/cyclonedx/cdxgen-ppc64 -r /app --server"
 
-ARG SBT_VERSION=1.11.6
+ARG SBT_VERSION=1.12.1
 # renovate: datasource=maven lookupName=org.apache.maven:maven
 ARG MAVEN_VERSION=3.9.12
 # renovate: datasource=gradle-version depName=gradle
-ARG GRADLE_VERSION=8.14.4
+ARG GRADLE_VERSION=9.3.0
 # renovate: datasource=golang-version depName=golang
 ARG GO_VERSION=1.25.6
 ARG PYTHON_VERSION=3.12

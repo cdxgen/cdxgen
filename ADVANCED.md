@@ -158,10 +158,10 @@ If a java project uses Maven and gradle, maven is selected for SBOM generation u
 
 cdxgen supports generating container SBOM for Linux images on Windows. Follow the steps listed below.
 
-- Ensure cdxgen-plugins-bin > 1.4.0 is installed.
+- Ensure cdxgen-plugins-bin > 2.0.2 is installed.
 
 ```shell
-npm install -g @cyclonedx/cdxgen-plugins-bin
+npm install -g @cdxgen/cdxgen-plugins-bin
 ```
 
 - Run "Docker for Desktop" as an administrator with the 'Exposing daemon on TCP without TLS' setting turned on.
