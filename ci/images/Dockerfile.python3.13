@@ -4,7 +4,7 @@ FROM registry.suse.com/bci/python:3.13.11@sha256:2b3f00c0e9f9ac0a2e217959ef536da
 ARG GCC_VERSION=14
 ARG GITHUB_RAW_URL=https://raw.githubusercontent.com
 ARG GITHUB_URL=https://github.com
-ARG JAVA_VERSION=24.0.2-tem
+ARG JAVA_VERSION=25.0.1-tem
 ARG MAVEN_3
 ARG MAVEN_VERSION=${MAVEN_3}
 ARG NODE_24

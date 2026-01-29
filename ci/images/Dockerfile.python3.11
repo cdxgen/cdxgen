@@ -7,7 +7,7 @@ ARG GITHUB_URL=https://github.com
 # renovate: datasource=golang-version depName=golang
 ARG GO_VERSION=1.25.6
 ARG GOOGLE_URL=https://dl.google.com
-ARG JAVA_VERSION=24.0.2-tem
+ARG JAVA_VERSION=25.0.1-tem
 ARG MAVEN_3
 ARG MAVEN_VERSION=${MAVEN_3}
 ARG NODE_20
