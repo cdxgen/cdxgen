@@ -112,7 +112,7 @@ jobs:
               # Prepare workspace
               rm -rf ADVANCED.md ci contrib devenv.* pyproject.toml renovate.json semicolon_delimited_script test tools_config uv.lock pnpm-workspace.yaml .versions upx-5.1.0*
               pnpm install:prod --config.node-linker=hoisted
-              
+              rm -rf .pnpm-store
               # Set UPX flag based on uname (Works in Docker and on Host)
               UPX_FLAG=""
               if [ "$(uname -s)" = "Linux" ]; then
