@@ -10,7 +10,7 @@ ARG SBT_VERSION=1.12.1
 # renovate: datasource=maven lookupName=org.apache.maven:maven
 ARG MAVEN_VERSION=3.9.12
 # renovate: datasource=gradle-version depName=gradle
-ARG GRADLE_VERSION=9.3.0
+ARG GRADLE_VERSION=9.3.1
 # renovate: datasource=golang-version depName=golang
 ARG GO_VERSION=1.25.6
 # renovate: datasource=node-version depName=node
