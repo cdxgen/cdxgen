@@ -1,7 +1,7 @@
 # Base-image
 FROM ruby:2.6.10-slim-bullseye@sha256:3d641979a7dc819b4c253dc62d2f74800817053247005f72b871d164498109df AS base
 
-ARG ATOM_RUBY_VERSION=3.4.5
+ARG ATOM_RUBY_VERSION=4.0.1
 ARG DEBIAN_REPO
 ARG GITHUB_RAW_URL=https://raw.githubusercontent.com
 ARG GITHUB_URL=https://github.com
@@ -142,7 +142,6 @@ RUN set -e; \
  && corepack enable \
  && corepack pnpm install:prod \
  && corepack pnpm cache delete \
- && npm install -g --omit=dev @appthreat/atom-parsetools@1.0.4 \
  && mkdir -p ${NODE_COMPILE_CACHE} \
  && node /opt/cdxgen/bin/cdxgen.js --help \
  && rbastgen --help \

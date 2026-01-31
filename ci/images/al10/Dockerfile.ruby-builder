@@ -1,4 +1,4 @@
-FROM almalinux:10.1-minimal@sha256:7e4fd6b1a34ef63762ff03a48cefad1e5ca8660c18d1dc850023d44fde73587c AS ruby-builder
+FROM ghcr.io/almalinux/10-minimal:10.1 AS ruby-builder
 
 LABEL maintainer="cyclonedx" \
       org.opencontainers.image.authors="Prabhu Subramanian <prabhu@appthreat.com>" \
@@ -10,12 +10,12 @@ LABEL maintainer="cyclonedx" \
       org.opencontainers.image.title="cdxgen" \
       org.opencontainers.image.description="Base Ruby builder. Do not use directly."
 
-ARG RUBY_VERSION=3.4.5
+ARG RUBY_VERSION=4.0.1
 
 ENV RUBY_VERSION=$RUBY_VERSION \
     RBENV_ROOT=/opt/.rbenv \
     MAKEFLAGS="-j$(nproc --ignore=2)" \
-    PATH=/opt/bin:/opt/vendor/bin:${PATH}:/usr/local/bin/:/root/.local/bin:/root/.rbenv/bin:/root/.rbenv/versions/3.4.5/bin
+    PATH=/opt/bin:/opt/vendor/bin:${PATH}:/usr/local/bin/:/root/.local/bin:/root/.rbenv/bin:/root/.rbenv/versions/4.0.1/bin
 
 RUN microdnf install -y \
           gcc gcc-c++ make autoconf automake bison libtool \

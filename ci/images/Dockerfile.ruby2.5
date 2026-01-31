@@ -1,7 +1,7 @@
 # Base-image
 FROM registry.suse.com/bci/ruby:2.5@sha256:147c779734508b41babf39812cd81112bcf8b1241f8f795c035954dfa0f334cf AS base
 
-ARG ATOM_RUBY_VERSION=3.4.5
+ARG ATOM_RUBY_VERSION=4.0.1
 ARG NODEJS_DIST_URL
 ARG NPM_REPO
 ARG PIP_CONFIG
@@ -144,7 +144,6 @@ RUN set -e; \
  && corepack enable \
  && corepack pnpm install:prod \
  && corepack pnpm cache delete \
- && npm install -g --omit=dev @appthreat/atom-parsetools@1.0.4 \
  && mkdir -p ${NODE_COMPILE_CACHE} \
  && node /opt/cdxgen/bin/cdxgen.js --help \
  && rbastgen --help \

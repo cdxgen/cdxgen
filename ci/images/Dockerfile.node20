@@ -153,7 +153,6 @@ RUN set -e; \
       -o /usr/local/bin/atom \
  && chmod +x /usr/local/bin/atom \
  && /usr/local/bin/atom --help \
- && npm install -g --omit=dev @appthreat/atom-parsetools@1.0.4 \
  && mkdir -p ${NODE_COMPILE_CACHE} \
  && node /opt/cdxgen/bin/cdxgen.js --help \
  && rm -rf $HOME/.npmrc $HOME/.pip /root/.cache/node \

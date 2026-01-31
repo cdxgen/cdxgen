@@ -1,7 +1,7 @@
 # Base-image
 FROM ruby:3.3.10-slim-trixie@sha256:7ee6178e7a230e428acafcfb7b45e07edbad6d2d7e6678183b29a641b3b20d69 AS base
 
-ARG ATOM_RUBY_VERSION=3.4.5
+ARG ATOM_RUBY_VERSION=4.0.1
 ARG DEBIAN_REPO
 ARG GITHUB_RAW_URL=https://raw.githubusercontent.com
 ARG GITHUB_URL=https://github.com
@@ -146,7 +146,6 @@ RUN set -e; \
  && corepack enable \
  && corepack pnpm install:prod \
  && corepack pnpm cache delete \
- && npm install -g --omit=dev @appthreat/atom-parsetools@1.0.4 \
  && mkdir -p ${NODE_COMPILE_CACHE} \
  && node /opt/cdxgen/bin/cdxgen.js --help \
  && rbastgen --help \

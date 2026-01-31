@@ -110,10 +110,10 @@
     "watch": "poku --watch"
   },
   "overrides": {
-    "@appthreat/atom": "2.4.3",
-    "@appthreat/atom-common": "1.0.12",
-    "@appthreat/atom-parsetools": "1.0.12",
-    "@appthreat/cdx-proto": "1.2.0",
+    "@appthreat/atom": "2.5.2",
+    "@appthreat/atom-common": "1.1.0",
+    "@appthreat/atom-parsetools": "1.1.2",
+    "@appthreat/cdx-proto": "1.2.1",
     "@appthreat/sqlite3": "7.0.3",
     "@babel/code-frame": "7.28.6",
     "@babel/generator": "7.28.6",
@@ -133,7 +133,7 @@
     "@biomejs/cli-linux-x64-musl": "2.3.13",
     "@biomejs/cli-win32-arm64": "2.3.13",
     "@biomejs/cli-win32-x64": "2.3.13",
-    "@bufbuild/protobuf": "2.10.2",
+    "@bufbuild/protobuf": "2.11.0",
     "@cdxgen/cdxgen-plugins-bin": "2.0.2",
     "@cdxgen/cdxgen-plugins-bin-darwin-amd64": "2.0.2",
     "@cdxgen/cdxgen-plugins-bin-darwin-arm64": "2.0.2",
@@ -426,7 +426,9 @@
     "yaml": "2.8.2",
     "yargs": "18.0.0",
     "yargs-parser": "22.0.0",
-    "yoctocolors": "2.1.2"
+    "yoctocolors": "2.1.2",
+    "hermes-parser": "0.33.3",
+    "hermes-estree": "0.33.3"
   },
   "dependencies": {
     "@babel/parser": "7.28.6",
@@ -477,10 +479,11 @@
     "typescript": "5.9.3"
   },
   "optionalDependencies": {
-    "@appthreat/atom": "2.4.3",
-    "@appthreat/cdx-proto": "1.2.0",
+    "@appthreat/atom": "2.5.2",
+    "@appthreat/atom-parsetools": "1.1.2",
+    "@appthreat/cdx-proto": "1.2.1",
     "@appthreat/sqlite3": "7.0.3",
-    "@bufbuild/protobuf": "2.10.2",
+    "@bufbuild/protobuf": "2.11.0",
     "@cdxgen/cdxgen-plugins-bin": "2.0.2",
     "@cdxgen/cdxgen-plugins-bin-darwin-amd64": "2.0.2",
     "@cdxgen/cdxgen-plugins-bin-darwin-arm64": "2.0.2",
@@ -508,10 +511,10 @@
       "@biomejs/biome"
     ],
     "overrides": {
-      "@appthreat/atom": "2.4.3",
-      "@appthreat/atom-common": "1.0.12",
-      "@appthreat/atom-parsetools": "1.0.12",
-      "@appthreat/cdx-proto": "1.2.0",
+      "@appthreat/atom": "2.5.2",
+      "@appthreat/atom-common": "1.1.0",
+      "@appthreat/atom-parsetools": "1.1.2",
+      "@appthreat/cdx-proto": "1.2.1",
       "@appthreat/sqlite3": "7.0.3",
       "@babel/code-frame": "7.28.6",
       "@babel/generator": "7.28.6",
@@ -531,7 +534,7 @@
       "@biomejs/cli-linux-x64-musl": "2.3.13",
       "@biomejs/cli-win32-arm64": "2.3.13",
       "@biomejs/cli-win32-x64": "2.3.13",
-      "@bufbuild/protobuf": "2.10.2",
+      "@bufbuild/protobuf": "2.11.0",
       "@cdxgen/cdxgen-plugins-bin": "2.0.2",
       "@cdxgen/cdxgen-plugins-bin-darwin-amd64": "2.0.2",
       "@cdxgen/cdxgen-plugins-bin-darwin-arm64": "2.0.2",
@@ -824,7 +827,9 @@
       "yaml": "2.8.2",
       "yargs": "18.0.0",
       "yargs-parser": "22.0.0",
-      "yoctocolors": "2.1.2"
+      "yoctocolors": "2.1.2",
+      "hermes-parser": "0.33.3",
+      "hermes-estree": "0.33.3"
     },
     "ignoredBuiltDependencies": [
       "unrs-resolver"

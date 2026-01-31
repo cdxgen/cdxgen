@@ -85,7 +85,7 @@
     "read-package-json-fast": "npm:read-package-json-fast@5.0.0",
     "treeverse": "npm:treeverse@3.0.0",
     "walk-up-path": "npm:walk-up-path@4.0.0",
-    "@appthreat/atom": "npm:@appthreat/atom@2.4.3",
+    "@appthreat/atom": "npm:@appthreat/atom@2.5.2",
     "@appthreat/cdx-proto": "npm:@appthreat/cdx-proto@1.2.0",
     "@bufbuild/protobuf": "npm:@bufbuild/protobuf@2.10.1",
     "@babel/parser": "npm:@babel/parser@^7.28.4",
