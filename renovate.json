@@ -13,10 +13,6 @@
   "gitIgnoredAuthors": [
     "41898282+github-actions[bot]@users.noreply.github.com"
   ],
-  "deno": {
-    "enabled": true,
-    "fileMatch": ["(^|/)deno\\.json$"]
-  },
   "vulnerabilityAlerts": {
     "enabled": true,
     "prCreation": "immediate",
