@@ -10,6 +10,8 @@
   ],
   "labels": ["dependency"],
   "minimumReleaseAge": "1 day",
+  "prCreation": "not-pending",
+  "internalChecksFilter": "strict",
   "gitIgnoredAuthors": [
     "41898282+github-actions[bot]@users.noreply.github.com"
   ],
