@@ -595,8 +595,6 @@ const applyAdvancedOptions = (options) => {
     case "post-build":
       if (
         !options.projectType ||
-        (Array.isArray(options.projectType) &&
-          options.projectType.length > 1) ||
         ![
           "csharp",
           "dotnet",
