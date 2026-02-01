@@ -1582,6 +1582,7 @@ export const PROJECT_TYPE_ALIASES: {
     cocoa: string[];
     scala: string[];
     nix: string[];
+    caxa: string[];
 };
 export namespace PACKAGE_MANAGER_ALIASES {
     let scala: string[];

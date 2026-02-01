@@ -612,6 +612,7 @@ const applyAdvancedOptions = (options) => {
           "rust",
           "rust-lang",
           "cargo",
+          "caxa",
         ].includes(options.projectType[0])
       ) {
         console.log(

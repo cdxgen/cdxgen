@@ -178,6 +178,13 @@ export function createCocoaBom(path: string, options: any): Promise<any>;
  */
 export function createNixBom(path: string, options: any): Promise<any>;
 /**
+ * Function to create bom string for caxa SEA binaries
+ *
+ * @param {string} path to the project
+ * @param {Object} options Parse options from the cli
+ */
+export function createCaxaBom(path: string, options: any): Promise<any>;
+/**
  * Function to create bom string for docker compose
  *
  * @param {string} path to the project
