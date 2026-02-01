@@ -151,7 +151,7 @@ jobs:
           - os: windows
             cmd: |
               # Prepare workspace
-              Remove-Item -Path *.cdx.json ADVANCED.md,ci,contrib,devenv.*,pyproject.toml,renovate.json,test,tools_config,uv.lock,pnpm-workspace.yaml -Force -Recurse
+              Remove-Item -Path ADVANCED.md,ci,contrib,devenv.*,pyproject.toml,renovate.json,test,tools_config,uv.lock,pnpm-workspace.yaml -Force -Recurse
               pnpm install:prod --config.node-linker=hoisted
               # Produce cdxgen binary
               pnpm --package=@appthreat/caxa dlx caxa --input . --metadata-file .cdxgen-metadata.json --output cdxgen.exe -- "{{caxa}}/node_modules/.bin/node" "{{caxa}}/bin/cdxgen.js"
