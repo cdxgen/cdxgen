@@ -281,7 +281,7 @@ overrides:
   ssri: 13.0.0
   statuses: 2.0.2
   streamx: 2.23.0
-  string-width: 8.1.0
+  string-width: 8.1.1
   strip-ansi: 7.1.2
   strip-json-comments: 5.0.3
   supports-color: 10.2.2
@@ -324,8 +324,6 @@ overrides:
   yoctocolors: 2.1.2
   hermes-parser: 0.33.3
   hermes-estree: 0.33.3
-
-pnpmfileChecksum: sha256-nfOeuxPm0PLhmHqhdzVKpjFk27e1GEgHAqcQJ7ot+gg=
 
 importers:
 
@@ -678,7 +676,6 @@ packages:
     resolution: {integrity: sha512-OofcMJasdLcWBkI9EljimtSXxN6UlPgNj19nC2rFhpLig+S6984DpHqHpymLz0dI6l/n99bRMmVCftnISWH5Ag==}
     cpu: [ppc64]
     os: [linux]
-    libc: glibc
 
   '@cdxgen/cdxgen-plugins-bin-linuxmusl-amd64@2.0.2':
     resolution: {integrity: sha512-7V0dQUHhl6TbBUxeOncBqIx7rXAF7oP5w3zKBoSGkIEhyt5ViKwzwpZgeK/YOHsrp42sEpzBgCasCnNIdNDzKA==}
@@ -1638,8 +1635,8 @@ packages:
   streamx@2.23.0:
     resolution: {integrity: sha512-kn+e44esVfn2Fa/O0CPFcex27fjIL6MkVae0Mm6q+E6f0hWv578YCERbv+4m02cjxvDsPKLnmxral/rR6lBMAg==}
 
-  string-width@8.1.0:
-    resolution: {integrity: sha512-Kxl3KJGb/gxkaUMOjRsQ8IrXiGW75O4E3RPjFIINOVH8AMl2SQ/yWdTzWwF3FevIX9LcMAjJW+GRwAlAbTSXdg==}
+  string-width@8.1.1:
+    resolution: {integrity: sha512-KpqHIdDL9KwYk22wEOg/VIqYbrnLeSApsKT/bSj6Ez7pn3CftUiLAv2Lccpq1ALcpLV9UX1Ppn92npZWu2w/aw==}
     engines: {node: '>=20'}
 
   strip-ansi@7.1.2:
@@ -1749,6 +1746,7 @@ packages:
   whatwg-encoding@3.1.1:
     resolution: {integrity: sha512-6qN4hJdMwfYBtE3YBTTHhoeuUrDBPZmbQaxWAqSALV/MeEnR5z1xd8UKud2RAkFoPkmB+hli1TZSnyi84xz1vQ==}
     engines: {node: '>=18'}
+    deprecated: Use @exodus/bytes instead for a more spec-conformant and faster implementation
 
   whatwg-mimetype@4.0.0:
     resolution: {integrity: sha512-QaKxh0eNIi2mE9p2vEdzfagOKHCcj1pJ56EEHGQOVxp8r9/iszLUUV7v89x9O1p/T+NlTM5W7jW6+cz4Fq1YVg==}
@@ -2214,7 +2212,7 @@ snapshots:
 
   cliui@9.0.1:
     dependencies:
-      string-width: 8.1.0
+      string-width: 8.1.1
       strip-ansi: 7.1.2
       wrap-ansi: 9.0.2
 
@@ -3041,7 +3039,7 @@ snapshots:
       - react-native-b4a
     optional: true
 
-  string-width@8.1.0:
+  string-width@8.1.1:
     dependencies:
       get-east-asian-width: 1.4.0
       strip-ansi: 7.1.2
@@ -3060,7 +3058,7 @@ snapshots:
       ajv: 8.17.1
       lodash.truncate: 4.4.2
       slice-ansi: 7.1.2
-      string-width: 8.1.0
+      string-width: 8.1.1
       strip-ansi: 7.1.2
 
   tagged-tag@1.0.0: {}
@@ -3179,7 +3177,7 @@ snapshots:
   wrap-ansi@9.0.2:
     dependencies:
       ansi-styles: 6.2.3
-      string-width: 8.1.0
+      string-width: 8.1.1
       strip-ansi: 7.1.2
 
   wrappy@1.0.2:
@@ -3207,7 +3205,7 @@ snapshots:
       cliui: 9.0.1
       escalade: 3.2.0
       get-caller-file: 2.0.5
-      string-width: 8.1.0
+      string-width: 8.1.1
       y18n: 5.0.8
       yargs-parser: 22.0.0
 
