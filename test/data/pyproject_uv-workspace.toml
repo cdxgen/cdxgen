@@ -13,6 +13,9 @@ dev = [
     "ruff >= 0.8.1",
     "pytest >= 8.3.4",
 ]
+all = [
+    { include-group = "dev" },
+]
 
 [tool.uv.sources]
 my-lib = { workspace = true }

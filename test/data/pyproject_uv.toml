@@ -30,6 +30,9 @@ dev = [
     "requests>=2.32.3",
     "ruff>=0.7.1",
 ]
+all = [
+    { include-group = "dev" },
+]
 
 [project.urls]
 Repository = "https://github.com/rednafi/fastapi-nano.git"
