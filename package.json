@@ -454,7 +454,7 @@
     "keyv": "5.6.0",
     "node-stream-zip": "1.15.0",
     "npm-package-arg": "13.0.2",
-    "packageurl-js": "1.0.2",
+    "packageurl-js": "1.2.1",
     "parse-conflict-json": "5.0.1",
     "proc-log": "6.1.0",
     "properties-reader": "2.3.0",
