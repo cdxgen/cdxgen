@@ -296,7 +296,7 @@ overrides:
   treeverse: 3.0.0
   tunnel-agent: 0.6.0
   type-detect: 4.1.0
-  type-fest: 5.4.2
+  type-fest: 5.4.3
   type-is: 2.0.1
   typescript: 5.9.3
   undici: 7.19.2
@@ -324,8 +324,6 @@ overrides:
   yoctocolors: 2.1.2
   hermes-parser: 0.33.3
   hermes-estree: 0.33.3
-
-pnpmfileChecksum: sha256-nfOeuxPm0PLhmHqhdzVKpjFk27e1GEgHAqcQJ7ot+gg=
 
 importers:
 
@@ -678,7 +676,6 @@ packages:
     resolution: {integrity: sha512-OofcMJasdLcWBkI9EljimtSXxN6UlPgNj19nC2rFhpLig+S6984DpHqHpymLz0dI6l/n99bRMmVCftnISWH5Ag==}
     cpu: [ppc64]
     os: [linux]
-    libc: glibc
 
   '@cdxgen/cdxgen-plugins-bin-linuxmusl-amd64@2.0.2':
     resolution: {integrity: sha512-7V0dQUHhl6TbBUxeOncBqIx7rXAF7oP5w3zKBoSGkIEhyt5ViKwzwpZgeK/YOHsrp42sEpzBgCasCnNIdNDzKA==}
@@ -1694,8 +1691,8 @@ packages:
     resolution: {integrity: sha512-Acylog8/luQ8L7il+geoSxhEkazvkslg7PSNKOX59mbB9cOveP5aq9h74Y7YU8yDpJwetzQQrfIwtf4Wp4LKcw==}
     engines: {node: '>=4'}
 
-  type-fest@5.4.2:
-    resolution: {integrity: sha512-FLEenlVYf7Zcd34ISMLo3ZzRE1gRjY1nMDTp+bQRBiPsaKyIW8K3Zr99ioHDUgA9OGuGGJPyYpNcffGmBhJfGg==}
+  type-fest@5.4.3:
+    resolution: {integrity: sha512-AXSAQJu79WGc79/3e9/CR77I/KQgeY1AhNvcShIH4PTcGYyC4xv6H4R4AUOwkPS5799KlVDAu8zExeCrkGquiA==}
     engines: {node: '>=20'}
 
   type-is@2.0.1:
@@ -1749,6 +1746,7 @@ packages:
   whatwg-encoding@3.1.1:
     resolution: {integrity: sha512-6qN4hJdMwfYBtE3YBTTHhoeuUrDBPZmbQaxWAqSALV/MeEnR5z1xd8UKud2RAkFoPkmB+hli1TZSnyi84xz1vQ==}
     engines: {node: '>=18'}
+    deprecated: Use @exodus/bytes instead for a more spec-conformant and faster implementation
 
   whatwg-mimetype@4.0.0:
     resolution: {integrity: sha512-QaKxh0eNIi2mE9p2vEdzfagOKHCcj1pJ56EEHGQOVxp8r9/iszLUUV7v89x9O1p/T+NlTM5W7jW6+cz4Fq1YVg==}
@@ -2489,7 +2487,7 @@ snapshots:
       lowercase-keys: 3.0.0
       p-cancelable: 4.0.1
       responselike: 4.0.2
-      type-fest: 5.4.2
+      type-fest: 5.4.3
 
   graceful-fs@4.2.11:
     optional: true
@@ -2928,7 +2926,7 @@ snapshots:
   serialize-error@13.0.1:
     dependencies:
       non-error: 0.1.0
-      type-fest: 5.4.2
+      type-fest: 5.4.3
 
   setprototypeof@1.2.0:
     optional: true
@@ -3121,7 +3119,7 @@ snapshots:
 
   type-detect@4.1.0: {}
 
-  type-fest@5.4.2:
+  type-fest@5.4.3:
     dependencies:
       tagged-tag: 1.0.0
 
