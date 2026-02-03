@@ -431,8 +431,8 @@
     "hermes-estree": "0.33.3"
   },
   "dependencies": {
-    "@babel/parser": "7.28.6",
-    "@babel/traverse": "7.28.6",
+    "@babel/parser": "7.29.0",
+    "@babel/traverse": "7.29.0",
     "@iarna/toml": "2.2.5",
     "@isaacs/string-locale-compare": "1.1.0",
     "@npmcli/fs": "5.0.0",
