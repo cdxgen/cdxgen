@@ -47,7 +47,6 @@ runs:
           oras discover --format tree --platform ${{ inputs.platform }} "$tag"
           node bin/verify.js -i "$tag" --platform ${{ inputs.platform }} --public-key contrib/bom-signer/public.key
         done
-
         rm sbom-oci-image.cdx.json ${{ runner.temp }}/image.tar
       env:
         CDXGEN_TEMP_DIR: ${{ runner.temp }}/cdxgen-sboms
