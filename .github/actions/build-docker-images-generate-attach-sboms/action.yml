@@ -66,7 +66,7 @@ runs:
         docker-args: ${{ inputs.docker-args }}
         platform: linux/amd64
         signing-key: ${{ inputs.signing-key }}
-        tag: ${{ inputs.main-tag || fromJSON(steps.metadata.outputs.json).tags[0] }}
+        tags: ${{ inputs.tags || steps.metadata.outputs.tags }}
         target: ${{ inputs.target }}
     - name: Generate and attach SBOM for arm64
       if: ${{ inputs.build-arm == 'true' }}
@@ -76,5 +76,5 @@ runs:
         docker-args: ${{ inputs.docker-args }}
         platform: linux/arm64
         signing-key: ${{ inputs.signing-key }}
-        tag: ${{ inputs.main-tag || fromJSON(steps.metadata.outputs.json).tags[0] }}
+        tags: ${{ inputs.tags || steps.metadata.outputs.tags }}
         target: ${{ inputs.target }}

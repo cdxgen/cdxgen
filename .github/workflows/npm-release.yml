@@ -228,12 +228,16 @@ jobs:
       - name: Attach cdx sbom
         run: |
           pnpm install:frozen
-          node bin/cdxgen.js -t docker -o cdxgen-oci-image.cdx.json ${{ fromJSON(steps.meta.outputs.json).tags[0] }}
+          tags="${{ steps.meta.outputs.tags }}"
+          first_tag=$(echo "$tags" | head -n 1)
+          node bin/cdxgen.js -t docker -o cdxgen-oci-image.cdx.json "$first_tag"
           node bin/verify.js -i cdxgen-oci-image.cdx.json --public-key contrib/bom-signer/public.key
-          oras attach --artifact-type sbom/cyclonedx ${{ fromJSON(steps.meta.outputs.json).tags[0] }} ./cdxgen-oci-image.cdx.json:application/json
-          oras discover --format tree ${{ fromJSON(steps.meta.outputs.json).tags[0] }}
-          node bin/verify.js -i ${{ fromJSON(steps.meta.outputs.json).tags[0] }} --public-key contrib/bom-signer/public.key
-        continue-on-error: true
+          for tag in $tags; do
+            echo "Processing tag: $tag"
+            oras attach --artifact-type sbom/cyclonedx "$tag" ./cdxgen-oci-image.cdx.json:application/json
+            oras discover --format tree "$tag"
+            node bin/verify.js -i "$tag" --public-key contrib/bom-signer/public.key
+          done
         env:
           SBOM_SIGN_ALGORITHM: RS512
           SBOM_SIGN_PRIVATE_KEY_BASE64: ${{ secrets.SBOM_SIGN_PRIVATE_KEY }}
@@ -299,12 +303,16 @@ jobs:
       - name: Attach cdx sbom
         run: |
           pnpm install:frozen
-          node bin/cdxgen.js -t docker -o cdxgen-secure-oci-image.cdx.json ${{ fromJSON(steps.meta.outputs.json).tags[0] }}
+          tags="${{ steps.meta.outputs.tags }}"
+          first_tag=$(echo "$tags" | head -n 1)
+          node bin/cdxgen.js -t docker -o cdxgen-secure-oci-image.cdx.json "$first_tag"
           node bin/verify.js -i cdxgen-secure-oci-image.cdx.json --public-key contrib/bom-signer/public.key
-          oras attach --artifact-type sbom/cyclonedx ${{ fromJSON(steps.meta.outputs.json).tags[0] }} ./cdxgen-secure-oci-image.cdx.json:application/json
-          oras discover --format tree ${{ fromJSON(steps.meta.outputs.json).tags[0] }}
-          node bin/verify.js -i ${{ fromJSON(steps.meta.outputs.json).tags[0] }} --public-key contrib/bom-signer/public.key
-        continue-on-error: true
+          for tag in $tags; do
+            echo "Processing tag: $tag"
+            oras attach --artifact-type sbom/cyclonedx "$tag" ./cdxgen-secure-oci-image.cdx.json:application/json
+            oras discover --format tree "$tag"
+            node bin/verify.js -i "$tag" --public-key contrib/bom-signer/public.key
+          done
         env:
           SBOM_SIGN_ALGORITHM: RS512
           SBOM_SIGN_PRIVATE_KEY_BASE64: ${{ secrets.SBOM_SIGN_PRIVATE_KEY }}
@@ -373,12 +381,16 @@ jobs:
       - name: Attach cdx sbom
         run: |
           pnpm install:frozen
-          node bin/cdxgen.js -t docker -o cdxgen-deno-oci-image.cdx.json ${{ fromJSON(steps.meta.outputs.json).tags[0] }}
+          tags="${{ steps.meta.outputs.tags }}"
+          first_tag=$(echo "$tags" | head -n 1)
+          node bin/cdxgen.js -t docker -o cdxgen-deno-oci-image.cdx.json "$first_tag"
           node bin/verify.js -i cdxgen-deno-oci-image.cdx.json --public-key contrib/bom-signer/public.key
-          oras attach --artifact-type sbom/cyclonedx ${{ fromJSON(steps.meta.outputs.json).tags[0] }} ./cdxgen-deno-oci-image.cdx.json:application/json
-          oras discover --format tree ${{ fromJSON(steps.meta.outputs.json).tags[0] }}
-          node bin/verify.js -i ${{ fromJSON(steps.meta.outputs.json).tags[0] }} --public-key contrib/bom-signer/public.key
-        continue-on-error: true
+          for tag in $tags; do
+            echo "Processing tag: $tag"
+            oras attach --artifact-type sbom/cyclonedx "$tag" ./cdxgen-deno-oci-image.cdx.json:application/json
+            oras discover --format tree "$tag"
+            node bin/verify.js -i "$tag" --public-key contrib/bom-signer/public.key
+          done
         env:
           SBOM_SIGN_ALGORITHM: RS512
           SBOM_SIGN_PRIVATE_KEY_BASE64: ${{ secrets.SBOM_SIGN_PRIVATE_KEY }}
@@ -499,12 +511,16 @@ jobs:
       - name: Attach cdx sbom
         run: |
           pnpm install:frozen
-          node bin/cdxgen.js -t docker -o cdxgen-bun-oci-image.cdx.json ${{ fromJSON(steps.meta.outputs.json).tags[0] }}
+          tags="${{ steps.meta.outputs.tags }}"
+          first_tag=$(echo "$tags" | head -n 1)
+          node bin/cdxgen.js -t docker -o cdxgen-bun-oci-image.cdx.json "$first_tag"
           node bin/verify.js -i cdxgen-bun-oci-image.cdx.json --public-key contrib/bom-signer/public.key
-          oras attach --artifact-type sbom/cyclonedx ${{ fromJSON(steps.meta.outputs.json).tags[0] }} ./cdxgen-bun-oci-image.cdx.json:application/json
-          oras discover --format tree ${{ fromJSON(steps.meta.outputs.json).tags[0] }}
-          node bin/verify.js -i ${{ fromJSON(steps.meta.outputs.json).tags[0] }} --public-key contrib/bom-signer/public.key
-        continue-on-error: true
+          for tag in $tags; do
+            echo "Processing tag: $tag"
+            oras attach --artifact-type sbom/cyclonedx "$tag" ./cdxgen-bun-oci-image.cdx.json:application/json
+            oras discover --format tree "$tag"
+            node bin/verify.js -i "$tag" --public-key contrib/bom-signer/public.key
+          done
         env:
           SBOM_SIGN_ALGORITHM: RS512
           SBOM_SIGN_PRIVATE_KEY_BASE64: ${{ secrets.SBOM_SIGN_PRIVATE_KEY }}

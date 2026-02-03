@@ -15,8 +15,8 @@ inputs:
   signing-key:
     description: The key to use for signing the SBOM, base64 encoded
     required: true
-  tag:
-    description: All tags for the image
+  tags:
+    description: All tags for the image (comma or newline separated)
     required: true
   target:
     description: Which stage in the Dockerfile to build
@@ -32,16 +32,22 @@ runs:
         docker-args: ${{ inputs.docker-args }}
         output: type=docker,dest=${{ runner.temp }}/image.tar
         platforms: ${{ inputs.platform }}
-        tags: ${{ inputs.tag }}
+        tags: ${{ inputs.tags }}
         target: ${{ inputs.target }}
     - name: Generate and attach SBOM
       shell: bash
       run: |
         node bin/cdxgen.js -t docker -o sbom-oci-image.cdx.json ${{ runner.temp }}/image.tar
         node bin/verify.js -i sbom-oci-image.cdx.json --public-key contrib/bom-signer/public.key
-        oras attach --artifact-type sbom/cyclonedx --platform ${{ inputs.platform }} ${{ inputs.tag }} ./sbom-oci-image.cdx.json:application/json
-        oras discover --format tree --platform ${{ inputs.platform }} ${{ inputs.tag }}
-        node bin/verify.js -i ${{ inputs.tag }} --platform ${{ inputs.platform }} --public-key contrib/bom-signer/public.key
+        raw_tags="${{ inputs.tags }}"
+        tags_list=$(echo "$raw_tags" | tr ',' ' ' | tr '\n' ' ')
+        for tag in $tags_list; do
+          echo "Attaching SBOM to $tag"
+          oras attach --artifact-type sbom/cyclonedx --platform ${{ inputs.platform }} "$tag" ./sbom-oci-image.cdx.json:application/json
+          oras discover --format tree --platform ${{ inputs.platform }} "$tag"
+          node bin/verify.js -i "$tag" --platform ${{ inputs.platform }} --public-key contrib/bom-signer/public.key
+        done
+
         rm sbom-oci-image.cdx.json ${{ runner.temp }}/image.tar
       env:
         CDXGEN_TEMP_DIR: ${{ runner.temp }}/cdxgen-sboms
