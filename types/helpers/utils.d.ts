@@ -455,11 +455,21 @@ export function guessPypiMatchingVersion(versionsList: any[], versionSpecifiers:
  */
 export function getPyMetadata(pkgList: any[], fetchDepsInfo: boolean): Promise<any[]>;
 /**
- * Method to parse bdist_wheel metadata
+ * Method to parse bdist_wheel metadata (dist-info/METADATA)
  *
- * @param {Object} mData bdist_wheel metadata
+ * @param {string} mDataFile bdist_wheel metadata file
+ * @param {string} rawMetadata Raw metadata
+ *
  */
-export function parseBdistMetadata(mData: any): {}[];
+export function parseBdistMetadata(mDataFile: string, rawMetadata?: string): {
+    name: string;
+    version: string;
+    description: string;
+    author: string;
+    licenses: any[];
+    externalReferences: any[];
+    properties: any[];
+}[];
 /**
  * Method to parse pipfile.lock data
  *
