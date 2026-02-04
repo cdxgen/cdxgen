@@ -55,7 +55,7 @@ java -cp .;indexer-cli-7.1.6-cli.jar DumpEclipse unpacked-index > eclipse_artifa
 Run the Python script to parse the extracted text file and generate the final JSON mapping.
 
 ```bash
-python3 generate_json.py
+python generate_json.py
 ```
 
 This creates `vendor-alias.json`.

@@ -48,10 +48,23 @@ public class DumpEclipse {
             }
 
             if (g != null && a != null) {
-                if (g.startsWith("org.eclipse") ||
+                if (
+                    g.startsWith("org.eclipse") ||
                     g.startsWith("org.apache") ||
                     g.startsWith("org.springframework") ||
-                    g.startsWith("com.fasterxml.jackson")) {
+                    g.startsWith("com.fasterxml.jackson") ||
+                    g.startsWith("org.quartz.") ||
+                    g.startsWith("org.osgi.") ||
+                    g.startsWith("org.opencastproject.") ||
+                    g.startsWith("org.slf4j.") ||
+                    g.startsWith("org.w3c.") ||
+                    g.startsWith("com.sun.") ||
+                    g.contains("scala") ||
+                    g.contains("gradle") ||
+                    g.contains("com.lihaoyi") ||
+                    g.contains("org.checkerframework") ||
+                    g.contains("antlr4")
+                    ) {
 
                     System.out.println(g + "|" + a);
                 }
