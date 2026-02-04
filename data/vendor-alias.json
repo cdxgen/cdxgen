@@ -6,5 +6,7 @@
   "jackson-core": "com.fasterxml.jackson.core",
   "jackson-annotations": "com.fasterxml.jackson.core",
   "jackson-jaxrs-": "com.fasterxml.jackson.jaxrs",
-  "spring.boot": "org.springframework.boot"
+  "spring.boot": "org.springframework.boot",
+  "org.eclipse.osgi": "org.eclipse.platform",
+  "kafka": "org.apache.kafka"
 }
