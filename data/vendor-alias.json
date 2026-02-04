@@ -33754,5 +33754,6 @@
   "commons-": "org.apache.commons",
   "spring-": "org.springframework",
   "jackson-dataformat-": "com.fasterxml.jackson.dataformat",
-  "jackson-jaxrs-": "com.fasterxml.jackson.jaxrs"
+  "jackson-jaxrs-": "com.fasterxml.jackson.jaxrs",
+  "xmlpull": "org.xmlpull"
 }
