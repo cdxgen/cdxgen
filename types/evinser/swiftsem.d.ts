@@ -31,10 +31,10 @@ export function extractCompilerParamsFromBuild(buildOutput: string): any;
  * Method to index a swift file and extract metadata
  *
  * @param {String} filePath Path to .swift file
- * @param {String} compilerArgs Compiler arguments extracted from verbose build log
+ * @param {String|Array<string>} compilerArgs Compiler arguments extracted from verbose build log
  * @returns {undefined|Object} metadata
  */
-export function index(filePath: string, compilerArgs: string): undefined | any;
+export function index(filePath: string, compilerArgs: string | Array<string>): undefined | any;
 /**
  * Parse the data from the index command
  *
@@ -60,10 +60,10 @@ export function parseDumpPackage(dumpJson: any): any | undefined;
  * Retrieve the module information of the swift project
  *
  * @param {String} moduleName Module name
- * @param {String} compilerArgs Compiler arguments extracted from verbose build log
+ * @param {String|Array<string>} compilerArgs Compiler arguments extracted from verbose build log
  * @returns {undefined|Object} JSON representation of the swift module or undefined.
  */
-export function moduleInfo(moduleName: string, compilerArgs: string): undefined | any;
+export function moduleInfo(moduleName: string, compilerArgs: string | Array<string>): undefined | any;
 /**
  * Parse the data from module-info command to replicate the swift interface
  *

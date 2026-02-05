@@ -5,14 +5,14 @@
  *
  * @returns Output from git config or undefined
  */
-export function getGitConfig(configKey: string, dir: string): any;
+export function getGitConfig(configKey: string, dir: string): string;
 /**
  * Retrieves the git origin url
  * @param {string} dir repo directory
  *
  * @returns Output from git config or undefined
  */
-export function getOriginUrl(dir: string): any;
+export function getOriginUrl(dir: string): string;
 /**
  * Retrieves the git branch name
  * @param {string} configKey Git config key
@@ -20,7 +20,7 @@ export function getOriginUrl(dir: string): any;
  *
  * @returns Output from git config or undefined
  */
-export function getBranch(_configKey: any, dir: string): any;
+export function getBranch(_configKey: any, dir: string): string;
 /**
  * Retrieves the tree and parent hash for a git repo
  * @param {string} dir repo directory
@@ -43,7 +43,7 @@ export function listFiles(dir: string): any[];
  *
  * @returns Output from the git command
  */
-export function execGitCommand(dir: string, args: any[]): any;
+export function execGitCommand(dir: string, args: any[]): string;
 /**
  * Collect Java version and installed modules
  *
@@ -53,8 +53,8 @@ export function execGitCommand(dir: string, args: any[]): any;
 export function collectJavaInfo(dir: string): {
     type: string;
     name: string;
-    version: any;
-    description: any;
+    version: string;
+    description: string;
     properties: {
         name: string;
         value: any;
@@ -69,7 +69,7 @@ export function collectJavaInfo(dir: string): {
 export function collectDotnetInfo(dir: string): {
     type: string;
     name: string;
-    version: any;
+    version: string;
     description: any;
 };
 /**
@@ -81,7 +81,7 @@ export function collectDotnetInfo(dir: string): {
 export function collectPythonInfo(dir: string): {
     type: string;
     name: string;
-    version: any;
+    version: string;
     description: any;
 };
 /**
@@ -100,7 +100,7 @@ export function collectNodeInfo(dir: string): any;
 export function collectGccInfo(dir: string): {
     type: string;
     name: string;
-    version: any;
+    version: string;
     description: any;
 };
 /**
@@ -112,8 +112,8 @@ export function collectGccInfo(dir: string): {
 export function collectRustInfo(dir: string): {
     type: string;
     name: string;
-    version: any;
-    description: any;
+    version: string;
+    description: string;
 };
 /**
  * Collect go version
@@ -124,7 +124,7 @@ export function collectRustInfo(dir: string): {
 export function collectGoInfo(dir: string): {
     type: string;
     name: string;
-    version: any;
+    version: string;
 };
 /**
  * Collect swift version
@@ -135,7 +135,7 @@ export function collectGoInfo(dir: string): {
 export function collectSwiftInfo(dir: string): {
     type: string;
     name: string;
-    version: any;
+    version: string;
 };
 /**
  * Collect Ruby version
@@ -146,7 +146,7 @@ export function collectSwiftInfo(dir: string): {
 export function collectRubyInfo(dir: string): {
     type: string;
     name: string;
-    version: any;
+    version: string;
 };
 /**
  * Method to run a swift command
@@ -155,12 +155,12 @@ export function collectRubyInfo(dir: string): {
  * @param {Array} args Command arguments
  * @returns Object containing swift details
  */
-export function runSwiftCommand(dir: string, args: any[]): any;
+export function runSwiftCommand(dir: string, args: any[]): string;
 export function collectEnvInfo(dir: any): {
     type: string;
     name: string;
-    version: any;
-    description: any;
+    version: string;
+    description: string;
     properties: {
         name: string;
         value: any;

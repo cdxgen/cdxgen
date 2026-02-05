@@ -591,7 +591,185 @@ cdxgenRepl.defineCommand("osinfocategories", {
     this.displayPrompt();
   },
 });
-
+cdxgenRepl.defineCommand("licenses", {
+  help: "visualize license distribution",
+  async action() {
+    if (!sbom || !sbom.components) {
+      console.log("⚠ No SBOM loaded.");
+      this.displayPrompt();
+      return;
+    }
+    const licenseCounts = {};
+    let unknown = 0;
+    sbom.components.forEach((c) => {
+      if (c.licenses && c.licenses.length > 0) {
+        c.licenses.forEach((l) => {
+          const name = l.license?.id || l.license?.name || "Unknown";
+          licenseCounts[name] = (licenseCounts[name] || 0) + 1;
+        });
+      } else {
+        unknown++;
+      }
+    });
+    if (unknown > 0) licenseCounts["None/Unknown"] = unknown;
+    const sorted = Object.entries(licenseCounts).sort((a, b) => b[1] - a[1]);
+    const maxVal = sorted[0][1];
+    const maxBarLength = 40;
+    console.log("\n📊 License Distribution:\n");
+    sorted.forEach(([license, count]) => {
+      const barLen = Math.ceil((count / maxVal) * maxBarLength);
+      const bar = "█".repeat(barLen);
+      let icon = "✅";
+      if (["GPL", "AGPL"].some((r) => license.includes(r))) icon = "⚖️ ";
+      if (license === "None/Unknown") icon = "❓";
+      console.log(`${icon} ${license.padEnd(60)} | ${bar} (${count})`);
+    });
+    console.log("");
+    this.displayPrompt();
+  },
+});
+cdxgenRepl.defineCommand("inspect", {
+  help: "view full JSON details of a component: .inspect <name_search_string>",
+  async action(nameStr) {
+    if (sbom?.components) {
+      const found = sbom.components.find(
+        (c) =>
+          c.name.toLowerCase().includes(nameStr.toLowerCase()) ||
+          c.purl?.includes(nameStr),
+      );
+      if (found) {
+        console.log(JSON.stringify(found, null, 2));
+      } else {
+        console.log("❌ Component not found.");
+      }
+    }
+    this.displayPrompt();
+  },
+});
+cdxgenRepl.defineCommand("tagcloud", {
+  help: "generate a text/tag cloud based on component descriptions and tags",
+  action() {
+    if (!sbom || !sbom.components) {
+      console.log("⚠ No SBOM loaded.");
+      this.displayPrompt();
+      return;
+    }
+    const stopWords = new Set([
+      "the",
+      "and",
+      "for",
+      "with",
+      "that",
+      "this",
+      "from",
+      "are",
+      "can",
+      "use",
+      "library",
+      "framework",
+      "package",
+      "component",
+      "module",
+      "application",
+      "software",
+      "tool",
+      "version",
+      "implementation",
+      "support",
+      "based",
+      "provided",
+      "provides",
+      "using",
+      "api",
+      "interface",
+      "data",
+      "system",
+      "http",
+      "https",
+      "com",
+      "org",
+      "net",
+      "git",
+      "source",
+      "code",
+      "file",
+      "project",
+      "open",
+      "free",
+      "web",
+      "runtime",
+      "client",
+      "server",
+      "utils",
+    ]);
+    const wordCounts = new Map();
+    const addWord = (w) => {
+      if (!w) return;
+      const clean = w.toLowerCase().replace(/[^a-z0-9-]/g, "");
+      if (clean.length > 2 && !stopWords.has(clean) && Number.isNaN(clean)) {
+        wordCounts.set(clean, (wordCounts.get(clean) || 0) + 1);
+      }
+    };
+    sbom.components.forEach((c) => {
+      if (c.tags) {
+        c.tags.forEach((t) => {
+          addWord(t);
+          addWord(t);
+        });
+      }
+      if (c.description) {
+        c.description.split(/\s+/).forEach(addWord);
+      }
+      if (c.group) {
+        addWord(c.group);
+      }
+    });
+    if (wordCounts.size === 0) {
+      console.log("⚠ Not enough text data found in Description or Tags.");
+      this.displayPrompt();
+      return;
+    }
+    let sortedWords = Array.from(wordCounts.entries()).sort(
+      (a, b) => b[1] - a[1],
+    );
+    sortedWords = sortedWords.slice(0, 100);
+    const maxCount = sortedWords[0][1];
+    const minCount = sortedWords[sortedWords.length - 1][1];
+    const styles = {
+      tier1: (str) => `\x1b[1;35m${str.toUpperCase()}\x1b[0m`,
+      tier2: (str) => `\x1b[1;36m${str}\x1b[0m`,
+      tier3: (str) => `\x1b[32m${str}\x1b[0m`,
+      tier4: (str) => `\x1b[2m${str}\x1b[0m`,
+    };
+    const cloudNodes = sortedWords.map(([word, count]) => {
+      const score = (count - minCount) / (maxCount - minCount || 1);
+      let styledWord = "";
+      if (score > 0.7) styledWord = styles.tier1(word);
+      else if (score > 0.4) styledWord = styles.tier2(word);
+      else if (score > 0.1) styledWord = styles.tier3(word);
+      else styledWord = styles.tier4(word);
+      return styledWord;
+    });
+    for (let i = cloudNodes.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [cloudNodes[i], cloudNodes[j]] = [cloudNodes[j], cloudNodes[i]];
+    }
+    console.log("\n☁️  Word Cloud\n");
+    const terminalWidth = process.stdout.columns || 80;
+    let currentLine = "";
+    cloudNodes.forEach((node) => {
+      const visualLength = node.replace(/[[0-9;]*m/g, "").length + 1;
+      if (currentLine.length + visualLength > terminalWidth) {
+        console.log(currentLine);
+        currentLine = "";
+      }
+      currentLine += `${node} `;
+    });
+    console.log(currentLine);
+    console.log("\n");
+    this.displayPrompt();
+  },
+});
 // Let's dynamically define more commands from the queries
 [
   "apt_sources",

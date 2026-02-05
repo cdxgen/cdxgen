@@ -1528,6 +1528,14 @@ export function isValidDriveRoot(root: string): boolean;
  */
 export function retrieveCdxgenVersion(): string;
 export function retrieveCdxgenPluginVersion(): any;
+/**
+ * Helper to split a command line string into an array of arguments,
+ * respecting single and double quotes.
+ *
+ * @param {String} commandString The full command line string
+ * @returns {Array<String>} Array of tokens
+ */
+export function splitCommandArgs(commandString: string): Array<string>;
 export const dirNameStr: any;
 export const isSecureMode: any;
 export const isWin: boolean;
@@ -1557,7 +1565,7 @@ export let CARGO_CMD: string;
 export let CLJ_CMD: string;
 export let LEIN_CMD: string;
 export let CDXGEN_TEMP_DIR: string;
-export const SWIFT_CMD: "xcrun swift" | "swift";
+export const SWIFT_CMD: any;
 export const RUBY_CMD: any;
 export const PYTHON_EXCLUDED_COMPONENTS: string[];
 export const PROJECT_TYPE_ALIASES: {
