@@ -42,7 +42,7 @@ overrides:
   '@cdxgen/cdxgen-plugins-bin-windows-arm64': 2.0.2
   '@iarna/toml': 2.2.5
   '@isaacs/balanced-match': 4.0.1
-  '@isaacs/brace-expansion': 5.0.0
+  '@isaacs/brace-expansion': 5.0.1
   '@isaacs/fs-minipass': 4.0.1
   '@isaacs/string-locale-compare': 1.1.0
   '@jridgewell/gen-mapping': 0.3.13
@@ -324,8 +324,6 @@ overrides:
   yoctocolors: 2.1.2
   hermes-parser: 0.33.3
   hermes-estree: 0.33.3
-
-pnpmfileChecksum: sha256-nfOeuxPm0PLhmHqhdzVKpjFk27e1GEgHAqcQJ7ot+gg=
 
 importers:
 
@@ -678,7 +676,6 @@ packages:
     resolution: {integrity: sha512-OofcMJasdLcWBkI9EljimtSXxN6UlPgNj19nC2rFhpLig+S6984DpHqHpymLz0dI6l/n99bRMmVCftnISWH5Ag==}
     cpu: [ppc64]
     os: [linux]
-    libc: glibc
 
   '@cdxgen/cdxgen-plugins-bin-linuxmusl-amd64@2.0.2':
     resolution: {integrity: sha512-7V0dQUHhl6TbBUxeOncBqIx7rXAF7oP5w3zKBoSGkIEhyt5ViKwzwpZgeK/YOHsrp42sEpzBgCasCnNIdNDzKA==}
@@ -713,8 +710,8 @@ packages:
     resolution: {integrity: sha512-yzMTt9lEb8Gv7zRioUilSglI0c0smZ9k5D65677DLWLtWJaXIS3CqcGyUFByYKlnUj6TkjLVs54fBl6+TiGQDQ==}
     engines: {node: 20 || >=22}
 
-  '@isaacs/brace-expansion@5.0.0':
-    resolution: {integrity: sha512-ZT55BDLV0yv0RBm2czMiZ+SqCGO7AvmOM3G/w2xhVPH+te0aKgFjmBvGlL1dH+ql2tgGO3MVrbb3jCKyvpgnxA==}
+  '@isaacs/brace-expansion@5.0.1':
+    resolution: {integrity: sha512-WMz71T1JS624nWj2n2fnYAuPovhv7EUhk69R6i9dsVyzxt5eM3bjwvgk9L+APE1TRscGysAVMANkB0jh0LQZrQ==}
     engines: {node: 20 || >=22}
 
   '@isaacs/fs-minipass@4.0.1':
@@ -1959,7 +1956,7 @@ snapshots:
 
   '@isaacs/balanced-match@4.0.1': {}
 
-  '@isaacs/brace-expansion@5.0.0':
+  '@isaacs/brace-expansion@5.0.1':
     dependencies:
       '@isaacs/balanced-match': 4.0.1
 
@@ -2659,7 +2656,7 @@ snapshots:
 
   minimatch@10.1.1:
     dependencies:
-      '@isaacs/brace-expansion': 5.0.0
+      '@isaacs/brace-expansion': 5.0.1
 
   minimist@1.2.8:
     optional: true
