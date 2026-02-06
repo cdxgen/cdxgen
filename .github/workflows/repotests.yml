@@ -587,14 +587,14 @@ jobs:
         shell: bash
       - name: repotests java-sec-code
         run: |
-          bin/cdxgen.js -p -t java repotests/java-sec-code -o bomresults/bom-java-sec-code-1.json --include-formulation --include-crypto --fail-on-error
-          bin/cdxgen.js -p -t java repotests/java-sec-code -o bomresults/bom-java-sec-code-2.json --author foo --author bar --standard asvs-4.0.3
-          bin/cdxgen.js -p -t java repotests/java-sec-code -o bomresults/bom-java-sec-code-3.json --required-only --fail-on-error
-          bin/cdxgen.js -p -t java repotests/java-sec-code -o bomresults/bom-java-sec-code-4.json --filter postgres --filter json
-          bin/cdxgen.js -p -t java repotests/java-sec-code -o bomresults/bom-java-sec-code-5.json --only spring --fail-on-error
-          bin/cdxgen.js -p -t java repotests/java-sec-code -o bomresults/bom-java-sec-code-6.json --deep --evidence
-          bin/cdxgen.js -p -t java repotests/java-sec-code -o bomresults/bom-java-sec-code-7.json --profile research --export-proto
-          bin/cdxgen.js -p -t java repotests/java-sec-code -o bomresults/bom-java-sec-code-8.json --profile license-compliance
+          bin/cdxgen.js -t java repotests/java-sec-code -o bomresults/bom-java-sec-code-1.json --include-formulation --include-crypto --fail-on-error
+          bin/cdxgen.js -t java repotests/java-sec-code -o bomresults/bom-java-sec-code-2.json --author foo --author bar --standard asvs-4.0.3
+          bin/cdxgen.js -t java repotests/java-sec-code -o bomresults/bom-java-sec-code-3.json --required-only --fail-on-error
+          bin/cdxgen.js -t java repotests/java-sec-code -o bomresults/bom-java-sec-code-4.json --filter postgres --filter json
+          bin/cdxgen.js -t java repotests/java-sec-code -o bomresults/bom-java-sec-code-5.json --only spring --fail-on-error
+          bin/cdxgen.js -t java repotests/java-sec-code -o bomresults/bom-java-sec-code-6.json --deep --evidence
+          bin/cdxgen.js -t java repotests/java-sec-code -o bomresults/bom-java-sec-code-7.json --profile research --export-proto
+          bin/cdxgen.js -t java repotests/java-sec-code -o bomresults/bom-java-sec-code-8.json --profile license-compliance
           bin/cdxgen.js -p -t java -t github repotests/java-sec-code -o bomresults/bom-java-sec-code-9.json
           bin/cdxgen.js -p -t java -exclude-type js repotests/java-sec-code -o bomresults/bom-java-sec-code-10.json
         shell: bash
@@ -958,7 +958,7 @@ jobs:
         run: |
           deno info bin/cdxgen.js
           deno info bin/evinse.js
-          deno run --allow-read --allow-env --allow-run --allow-sys=uid,systemMemoryInfo,gid,homedir --allow-write --allow-net bin/cdxgen.js -p -t java repotests/java-sec-code -o bomresults/bom-java-sec-code-deno.json --deep
+          deno run --allow-read --allow-env --allow-run --allow-sys=uid,systemMemoryInfo,gid,homedir --allow-write --allow-net bin/cdxgen.js -t java repotests/java-sec-code -o bomresults/bom-java-sec-code-deno.json --deep
           deno run --allow-read --allow-env --allow-run --allow-sys=uid,systemMemoryInfo,gid,homedir --allow-write --allow-net bin/cdxgen.js -p -t python repotests/django-DefectDojo -o bomresults/django-DefectDojo-deno.json --deep
         env:
           FETCH_LICENSE: true
@@ -967,7 +967,7 @@ jobs:
         run: |
           rm -rf node_modules
           bun install
-          bun --bun bin/cdxgen.js -p -t java repotests/java-sec-code -o bomresults/bom-java-sec-code-bun.json --deep
+          bun --bun bin/cdxgen.js -t java repotests/java-sec-code -o bomresults/bom-java-sec-code-bun.json --deep
           bun --bun bin/cdxgen.js -p -t python repotests/django-DefectDojo -o bomresults/django-DefectDojo-bun.json
         continue-on-error: true
         shell: bash
