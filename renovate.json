@@ -15,50 +15,10 @@
   "gitIgnoredAuthors": [
     "41898282+github-actions[bot]@users.noreply.github.com"
   ],
-  "vulnerabilityAlerts": {
-    "enabled": true,
-    "prCreation": "immediate",
-    "schedule": ["at any time"],
-    "labels": ["security"]
-  },
   "nuget": {
     "ignorePaths": ["**/test/**"]
   },
   "packageRules": [
-    {
-      "description": "Group devDependencies",
-      "matchDepTypes": ["devDependencies"],
-      "groupName": "devDependencies",
-      "schedule": ["after 1pm on tuesday"]
-    },
-    {
-      "description": "Security updates (Direct)",
-      "matchDepTypes": ["dependencies"],
-      "matchCategories": ["security"],
-      "prCreation": "immediate",
-      "schedule": ["at any time"]
-    },
-    {
-      "description": "Patch updates (Direct)",
-      "matchDepTypes": ["dependencies"],
-      "matchUpdateTypes": ["patch"],
-      "groupName": "Patch Updates",
-      "schedule": ["before 2pm on wednesday"]
-    },
-    {
-      "description": "Minor updates (Direct)",
-      "matchDepTypes": ["dependencies"],
-      "matchUpdateTypes": ["minor"],
-      "groupName": "Minor Updates",
-      "schedule": ["before 2pm on monday"]
-    },
-    {
-      "description": "Major updates (Direct)",
-      "matchDepTypes": ["dependencies"],
-      "matchUpdateTypes": ["major"],
-      "schedule": ["before 3pm on thursday"],
-      "prCreation": "not-pending"
-    },
     {
       "matchDepTypes": ["engines"],
       "rangeStrategy": "auto"
