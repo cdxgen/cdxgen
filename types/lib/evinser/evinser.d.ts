@@ -1,581 +1,68 @@
 /**
- * Method to parse semantic slice data
+ * Function to create the db for the libraries referred in the sbom.
  *
- * @param {String} language Project language.
- * @param {Array} components Components from the input SBOM
- * @param {Object} semanticsSlice Semantic slice data
- * @returns {Object} Parsed metadata
+ * @param {Object} options Command line options
  */
-export function parseSemanticSlices(language: string, components: any[], semanticsSlice: any): any;
 export function prepareDB(options: any): Promise<{
-    sequelize: import("sequelize").Sequelize;
+    sequelize: any;
     Namespaces: {
-        new (values?: import("sequelize").Optional<any, string>, options?: import("sequelize").BuildOptions): {
-            _attributes: any;
-            dataValues: any;
-            _creationAttributes: any;
-            isNewRecord: boolean;
-            sequelize: import("sequelize").Sequelize;
-            where(): object;
-            getDataValue<K extends string | number | symbol>(key: K): any;
-            setDataValue<K extends string | number | symbol>(key: K, value: any): void;
-            get(options?: {
-                plain?: boolean;
-                clone?: boolean;
-            }): any;
-            get<K extends keyof any>(key: K, options?: {
-                plain?: boolean;
-                clone?: boolean;
-            }): any[K];
-            get(key: string, options?: {
-                plain?: boolean;
-                clone?: boolean;
-            }): unknown;
-            set<K extends string | number | symbol>(key: K, value: any, options?: import("sequelize").SetOptions): any;
-            set(keys: Partial<any>, options?: import("sequelize").SetOptions): any;
-            setAttributes<K extends string | number | symbol>(key: K, value: any, options?: import("sequelize").SetOptions): any;
-            setAttributes(keys: Partial<any>, options?: import("sequelize").SetOptions): any;
-            changed<K extends keyof any>(key: K): boolean;
-            changed<K extends keyof any>(key: K, dirty: boolean): void;
-            changed(): false | string[];
-            previous(): Partial<any>;
-            previous<K extends string | number | symbol>(key: K): any;
-            save(options?: import("sequelize").SaveOptions<any>): Promise<any>;
-            reload(options?: import("sequelize").FindOptions<any>): Promise<any>;
-            validate(options?: import("sequelize/types/instance-validator.js").ValidationOptions): Promise<void>;
-            update<K extends string | number | symbol>(key: K, value: any, options?: import("sequelize").InstanceUpdateOptions<any>): Promise<any>;
-            update(keys: {
-                [x: string]: any;
-            }, options?: import("sequelize").InstanceUpdateOptions<any>): Promise<any>;
-            destroy(options?: import("sequelize").InstanceDestroyOptions): Promise<void>;
-            restore(options?: import("sequelize").InstanceRestoreOptions): Promise<void>;
-            increment<K extends string | number | symbol>(fields: Partial<any> | K | readonly K[], options?: import("sequelize").IncrementDecrementOptionsWithBy<any>): Promise<any>;
-            decrement<K extends string | number | symbol>(fields: Partial<any> | K | readonly K[], options?: import("sequelize").IncrementDecrementOptionsWithBy<any>): Promise<any>;
-            equals(other: any): boolean;
-            equalsOneOf(others: readonly any[]): boolean;
-            toJSON<T extends any>(): T;
-            toJSON(): object;
-            isSoftDeleted(): boolean;
-            _model: import("sequelize").Model<any, any>;
-            addHook<K extends keyof import("sequelize/types/hooks.js").SequelizeHooks<import("sequelize").Model<any, any>, any, any>>(hookType: K, name: string, fn: import("sequelize/types/hooks.js").SequelizeHooks<import("sequelize").Model<any, any>, any, any>[K]): any;
-            addHook<K extends keyof import("sequelize/types/hooks.js").SequelizeHooks<import("sequelize").Model<any, any>, any, any>>(hookType: K, fn: import("sequelize/types/hooks.js").SequelizeHooks<import("sequelize").Model<any, any>, any, any>[K]): any;
-            removeHook<K extends keyof import("sequelize/types/hooks.js").SequelizeHooks<import("sequelize").Model<any, any>, any, any>>(hookType: K, name: string): any;
-            hasHook<K extends keyof import("sequelize/types/hooks.js").SequelizeHooks<import("sequelize").Model<any, any>, any, any>>(hookType: K): boolean;
-            hasHooks<K extends keyof import("sequelize/types/hooks.js").SequelizeHooks<import("sequelize").Model<any, any>, any, any>>(hookType: K): boolean;
-        };
-        readonly tableName: string;
-        readonly primaryKeyAttribute: string;
-        readonly primaryKeyAttributes: readonly string[];
-        readonly associations: {
-            [key: string]: import("sequelize").Association;
-        };
-        readonly options: import("sequelize").InitOptions;
-        readonly rawAttributes: {
-            [attribute: string]: import("sequelize").ModelAttributeColumnOptions;
-        };
-        getAttributes<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>): { readonly [Key in keyof import("sequelize").Attributes<M>]: import("sequelize").ModelAttributeColumnOptions; };
-        readonly sequelize?: import("sequelize").Sequelize;
-        init<MS extends import("sequelize").ModelStatic<import("sequelize").Model>, M extends InstanceType<MS>>(this: MS, attributes: import("sequelize").ModelAttributes<M, import("sequelize").Optional<import("sequelize").Attributes<M>, (import("sequelize").Attributes<M> extends infer T_3 ? { [P in keyof T_3]-?: (keyof NonNullable<import("sequelize").Attributes<M>[P]> extends Exclude<keyof NonNullable<import("sequelize").Attributes<M>[P]>, unique symbol> ? false : true) extends true ? P : never; } : never)[keyof import("sequelize").Attributes<M>]>>, options: import("sequelize").InitOptions<M>): MS;
-        removeAttribute(attribute: string): void;
-        sync<M extends import("sequelize").Model>(options?: import("sequelize").SyncOptions): Promise<M>;
-        drop(options?: import("sequelize").DropOptions): Promise<void>;
-        schema<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, schema: string, options?: import("sequelize").SchemaOptions): import("sequelize").ModelCtor<M>;
-        getTableName(): string | {
-            tableName: string;
-            schema: string;
-            delimiter: string;
-        };
-        scope<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, options?: string | import("sequelize").ScopeOptions | readonly (string | import("sequelize").ScopeOptions)[] | import("sequelize").WhereAttributeHash<M>): import("sequelize").ModelCtor<M>;
-        addScope<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, name: string, scope: import("sequelize").FindOptions<import("sequelize").Attributes<M>>, options?: import("sequelize").AddScopeOptions): void;
-        addScope<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, name: string, scope: (...args: readonly any[]) => import("sequelize").FindOptions<import("sequelize").Attributes<M>>, options?: import("sequelize").AddScopeOptions): void;
-        findAll<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, options?: import("sequelize").FindOptions<import("sequelize").Attributes<M>>): Promise<M[]>;
-        findByPk<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, identifier: import("sequelize").Identifier, options: Omit<import("sequelize").NonNullFindOptions<import("sequelize").Attributes<M>>, "where">): Promise<M>;
-        findByPk<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, identifier?: import("sequelize").Identifier, options?: Omit<import("sequelize").FindOptions<import("sequelize").Attributes<M>>, "where">): Promise<M | null>;
-        findOne<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, options: import("sequelize").NonNullFindOptions<import("sequelize").Attributes<M>>): Promise<M>;
-        findOne<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, options?: import("sequelize").FindOptions<import("sequelize").Attributes<M>>): Promise<M | null>;
-        aggregate<T, M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, field: keyof import("sequelize").Attributes<M> | "*", aggregateFunction: string, options?: import("sequelize").AggregateOptions<T, import("sequelize").Attributes<M>>): Promise<T>;
-        count<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, options: import("sequelize").CountWithOptions<import("sequelize").Attributes<M>>): Promise<import("sequelize").GroupedCountResultItem[]>;
-        count<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, options?: Omit<import("sequelize").CountOptions<import("sequelize").Attributes<M>>, "group">): Promise<number>;
-        findAndCountAll<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, options?: Omit<import("sequelize").FindAndCountOptions<import("sequelize").Attributes<M>>, "group">): Promise<{
-            rows: M[];
-            count: number;
-        }>;
-        findAndCountAll<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, options: import("sequelize/types/utils/set-required.js").SetRequired<import("sequelize").FindAndCountOptions<import("sequelize").Attributes<M>>, "group">): Promise<{
-            rows: M[];
-            count: import("sequelize").GroupedCountResultItem[];
-        }>;
-        max<T extends import("sequelize").DataType | unknown, M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, field: keyof import("sequelize").Attributes<M>, options?: import("sequelize").AggregateOptions<T, import("sequelize").Attributes<M>>): Promise<T>;
-        min<T extends import("sequelize").DataType | unknown, M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, field: keyof import("sequelize").Attributes<M>, options?: import("sequelize").AggregateOptions<T, import("sequelize").Attributes<M>>): Promise<T>;
-        sum<T extends import("sequelize").DataType | unknown, M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, field: keyof import("sequelize").Attributes<M>, options?: import("sequelize").AggregateOptions<T, import("sequelize").Attributes<M>>): Promise<number>;
-        build<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, record?: import("sequelize").CreationAttributes<M>, options?: import("sequelize").BuildOptions): M;
-        bulkBuild<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, records: ReadonlyArray<import("sequelize").CreationAttributes<M>>, options?: import("sequelize").BuildOptions): M[];
-        create<M extends import("sequelize").Model, O extends import("sequelize").CreateOptions<import("sequelize").Attributes<M>> = import("sequelize").CreateOptions<import("sequelize").Attributes<M>>>(this: import("sequelize").ModelStatic<M>, values?: import("sequelize").CreationAttributes<M>, options?: O): Promise<O extends {
-            returning: false;
-        } | {
-            ignoreDuplicates: true;
-        } ? void : M>;
-        findOrBuild<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, options: import("sequelize").FindOrBuildOptions<import("sequelize").Attributes<M>, import("sequelize").CreationAttributes<M>>): Promise<[M, boolean]>;
-        findOrCreate<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, options: import("sequelize").FindOrCreateOptions<import("sequelize").Attributes<M>, import("sequelize").CreationAttributes<M>>): Promise<[M, boolean]>;
-        findCreateFind<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, options: import("sequelize").FindOrCreateOptions<import("sequelize").Attributes<M>, import("sequelize").CreationAttributes<M>>): Promise<[M, boolean]>;
-        upsert<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, values: import("sequelize").CreationAttributes<M>, options?: import("sequelize").UpsertOptions<import("sequelize").Attributes<M>>): Promise<[M, boolean | null]>;
-        bulkCreate<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, records: ReadonlyArray<import("sequelize").CreationAttributes<M>>, options?: import("sequelize").BulkCreateOptions<import("sequelize").Attributes<M>>): Promise<M[]>;
-        truncate<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, options?: import("sequelize").TruncateOptions<import("sequelize").Attributes<M>>): Promise<void>;
-        destroy<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, options?: import("sequelize").DestroyOptions<import("sequelize").Attributes<M>>): Promise<number>;
-        restore<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, options?: import("sequelize").RestoreOptions<import("sequelize").Attributes<M>>): Promise<void>;
-        update<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, values: { [key in keyof import("sequelize").Attributes<M>]?: import("sequelize").Attributes<M>[key] | import("sequelize/types/utils.js").Fn | import("sequelize/types/utils.js").Col | import("sequelize/types/utils.js").Literal; }, options: Omit<import("sequelize").UpdateOptions<import("sequelize").Attributes<M>>, "returning"> & {
-            returning: Exclude<import("sequelize").UpdateOptions<import("sequelize").Attributes<M>>["returning"], undefined | false>;
-        }): Promise<[affectedCount: number, affectedRows: M[]]>;
-        update<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, values: { [key in keyof import("sequelize").Attributes<M>]?: import("sequelize").Attributes<M>[key] | import("sequelize/types/utils.js").Fn | import("sequelize/types/utils.js").Col | import("sequelize/types/utils.js").Literal; }, options: import("sequelize").UpdateOptions<import("sequelize").Attributes<M>>): Promise<[affectedCount: number]>;
-        increment<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, fields: import("sequelize").AllowReadonlyArray<keyof import("sequelize").Attributes<M>>, options: import("sequelize").IncrementDecrementOptionsWithBy<import("sequelize").Attributes<M>>): Promise<[affectedRows: M[], affectedCount?: number]>;
-        increment<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, fields: { [key in keyof import("sequelize").Attributes<M>]?: number; }, options: import("sequelize").IncrementDecrementOptions<import("sequelize").Attributes<M>>): Promise<[affectedRows: M[], affectedCount?: number]>;
-        decrement<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, fields: import("sequelize").AllowReadonlyArray<keyof import("sequelize").Attributes<M>>, options: import("sequelize").IncrementDecrementOptionsWithBy<import("sequelize").Attributes<M>>): Promise<[affectedRows: M[], affectedCount?: number]>;
-        decrement<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, fields: { [key in keyof import("sequelize").Attributes<M>]?: number; }, options: import("sequelize").IncrementDecrementOptions<import("sequelize").Attributes<M>>): Promise<[affectedRows: M[], affectedCount?: number]>;
-        describe(): Promise<object>;
-        unscoped<M extends import("sequelize").ModelType>(this: M): M;
-        beforeValidate<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, name: string, fn: (instance: M, options: import("sequelize/types/instance-validator.js").ValidationOptions) => import("sequelize/types/hooks.js").HookReturn): void;
-        beforeValidate<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, fn: (instance: M, options: import("sequelize/types/instance-validator.js").ValidationOptions) => import("sequelize/types/hooks.js").HookReturn): void;
-        afterValidate<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, name: string, fn: (instance: M, options: import("sequelize/types/instance-validator.js").ValidationOptions) => import("sequelize/types/hooks.js").HookReturn): void;
-        afterValidate<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, fn: (instance: M, options: import("sequelize/types/instance-validator.js").ValidationOptions) => import("sequelize/types/hooks.js").HookReturn): void;
-        beforeCreate<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, name: string, fn: (instance: M, options: import("sequelize").CreateOptions<import("sequelize").Attributes<M>>) => import("sequelize/types/hooks.js").HookReturn): void;
-        beforeCreate<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, fn: (instance: M, options: import("sequelize").CreateOptions<import("sequelize").Attributes<M>>) => import("sequelize/types/hooks.js").HookReturn): void;
-        afterCreate<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, name: string, fn: (instance: M, options: import("sequelize").CreateOptions<import("sequelize").Attributes<M>>) => import("sequelize/types/hooks.js").HookReturn): void;
-        afterCreate<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, fn: (instance: M, options: import("sequelize").CreateOptions<import("sequelize").Attributes<M>>) => import("sequelize/types/hooks.js").HookReturn): void;
-        beforeDestroy<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, name: string, fn: (instance: M, options: import("sequelize").InstanceDestroyOptions) => import("sequelize/types/hooks.js").HookReturn): void;
-        beforeDestroy<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, fn: (instance: M, options: import("sequelize").InstanceDestroyOptions) => import("sequelize/types/hooks.js").HookReturn): void;
-        afterDestroy<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, name: string, fn: (instance: M, options: import("sequelize").InstanceDestroyOptions) => import("sequelize/types/hooks.js").HookReturn): void;
-        afterDestroy<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, fn: (instance: M, options: import("sequelize").InstanceDestroyOptions) => import("sequelize/types/hooks.js").HookReturn): void;
-        beforeUpdate<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, name: string, fn: (instance: M, options: import("sequelize").UpdateOptions<import("sequelize").Attributes<M>>) => import("sequelize/types/hooks.js").HookReturn): void;
-        beforeUpdate<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, fn: (instance: M, options: import("sequelize").UpdateOptions<import("sequelize").Attributes<M>>) => import("sequelize/types/hooks.js").HookReturn): void;
-        afterUpdate<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, name: string, fn: (instance: M, options: import("sequelize").UpdateOptions<import("sequelize").Attributes<M>>) => import("sequelize/types/hooks.js").HookReturn): void;
-        afterUpdate<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, fn: (instance: M, options: import("sequelize").UpdateOptions<import("sequelize").Attributes<M>>) => import("sequelize/types/hooks.js").HookReturn): void;
-        beforeSave<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, name: string, fn: (instance: M, options: import("sequelize").UpdateOptions<import("sequelize").Attributes<M>> | import("sequelize").SaveOptions<import("sequelize").Attributes<M>>) => import("sequelize/types/hooks.js").HookReturn): void;
-        beforeSave<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, fn: (instance: M, options: import("sequelize").UpdateOptions<import("sequelize").Attributes<M>> | import("sequelize").SaveOptions<import("sequelize").Attributes<M>>) => import("sequelize/types/hooks.js").HookReturn): void;
-        afterSave<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, name: string, fn: (instance: M, options: import("sequelize").UpdateOptions<import("sequelize").Attributes<M>> | import("sequelize").SaveOptions<import("sequelize").Attributes<M>>) => import("sequelize/types/hooks.js").HookReturn): void;
-        afterSave<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, fn: (instance: M, options: import("sequelize").UpdateOptions<import("sequelize").Attributes<M>> | import("sequelize").SaveOptions<import("sequelize").Attributes<M>>) => import("sequelize/types/hooks.js").HookReturn): void;
-        beforeBulkCreate<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, name: string, fn: (instances: M[], options: import("sequelize").BulkCreateOptions<import("sequelize").Attributes<M>>) => import("sequelize/types/hooks.js").HookReturn): void;
-        beforeBulkCreate<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, fn: (instances: M[], options: import("sequelize").BulkCreateOptions<import("sequelize").Attributes<M>>) => import("sequelize/types/hooks.js").HookReturn): void;
-        afterBulkCreate<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, name: string, fn: (instances: readonly M[], options: import("sequelize").BulkCreateOptions<import("sequelize").Attributes<M>>) => import("sequelize/types/hooks.js").HookReturn): void;
-        afterBulkCreate<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, fn: (instances: readonly M[], options: import("sequelize").BulkCreateOptions<import("sequelize").Attributes<M>>) => import("sequelize/types/hooks.js").HookReturn): void;
-        beforeBulkDestroy<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, name: string, fn: (options: import("sequelize").BulkCreateOptions<import("sequelize").Attributes<M>>) => import("sequelize/types/hooks.js").HookReturn): void;
-        beforeBulkDestroy<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, fn: (options: import("sequelize").BulkCreateOptions<import("sequelize").Attributes<M>>) => import("sequelize/types/hooks.js").HookReturn): void;
-        afterBulkDestroy<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, name: string, fn: (options: import("sequelize").DestroyOptions<import("sequelize").Attributes<M>>) => import("sequelize/types/hooks.js").HookReturn): void;
-        afterBulkDestroy<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, fn: (options: import("sequelize").DestroyOptions<import("sequelize").Attributes<M>>) => import("sequelize/types/hooks.js").HookReturn): void;
-        beforeBulkUpdate<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, name: string, fn: (options: import("sequelize").UpdateOptions<import("sequelize").Attributes<M>>) => import("sequelize/types/hooks.js").HookReturn): void;
-        beforeBulkUpdate<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, fn: (options: import("sequelize").UpdateOptions<import("sequelize").Attributes<M>>) => import("sequelize/types/hooks.js").HookReturn): void;
-        afterBulkUpdate<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, name: string, fn: (options: import("sequelize").UpdateOptions<import("sequelize").Attributes<M>>) => import("sequelize/types/hooks.js").HookReturn): void;
-        afterBulkUpdate<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, fn: (options: import("sequelize").UpdateOptions<import("sequelize").Attributes<M>>) => import("sequelize/types/hooks.js").HookReturn): void;
-        beforeFind<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, name: string, fn: (options: import("sequelize").FindOptions<import("sequelize").Attributes<M>>) => import("sequelize/types/hooks.js").HookReturn): void;
-        beforeFind<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, fn: (options: import("sequelize").FindOptions<import("sequelize").Attributes<M>>) => import("sequelize/types/hooks.js").HookReturn): void;
-        beforeCount<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, name: string, fn: (options: import("sequelize").CountOptions<import("sequelize").Attributes<M>>) => import("sequelize/types/hooks.js").HookReturn): void;
-        beforeCount<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, fn: (options: import("sequelize").CountOptions<import("sequelize").Attributes<M>>) => import("sequelize/types/hooks.js").HookReturn): void;
-        beforeFindAfterExpandIncludeAll<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, name: string, fn: (options: import("sequelize").FindOptions<import("sequelize").Attributes<M>>) => import("sequelize/types/hooks.js").HookReturn): void;
-        beforeFindAfterExpandIncludeAll<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, fn: (options: import("sequelize").FindOptions<import("sequelize").Attributes<M>>) => import("sequelize/types/hooks.js").HookReturn): void;
-        beforeFindAfterOptions<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, name: string, fn: (options: import("sequelize").FindOptions<import("sequelize").Attributes<M>>) => import("sequelize/types/hooks.js").HookReturn): void;
-        beforeFindAfterOptions<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, fn: (options: import("sequelize").FindOptions<import("sequelize").Attributes<M>>) => void): import("sequelize/types/hooks.js").HookReturn;
-        afterFind<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, name: string, fn: (instancesOrInstance: readonly M[] | M | null, options: import("sequelize").FindOptions<import("sequelize").Attributes<M>>) => import("sequelize/types/hooks.js").HookReturn): void;
-        afterFind<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, fn: (instancesOrInstance: readonly M[] | M | null, options: import("sequelize").FindOptions<import("sequelize").Attributes<M>>) => import("sequelize/types/hooks.js").HookReturn): void;
-        beforeBulkSync(name: string, fn: (options: import("sequelize").SyncOptions) => import("sequelize/types/hooks.js").HookReturn): void;
-        beforeBulkSync(fn: (options: import("sequelize").SyncOptions) => import("sequelize/types/hooks.js").HookReturn): void;
-        afterBulkSync(name: string, fn: (options: import("sequelize").SyncOptions) => import("sequelize/types/hooks.js").HookReturn): void;
-        afterBulkSync(fn: (options: import("sequelize").SyncOptions) => import("sequelize/types/hooks.js").HookReturn): void;
-        beforeSync(name: string, fn: (options: import("sequelize").SyncOptions) => import("sequelize/types/hooks.js").HookReturn): void;
-        beforeSync(fn: (options: import("sequelize").SyncOptions) => import("sequelize/types/hooks.js").HookReturn): void;
-        afterSync(name: string, fn: (options: import("sequelize").SyncOptions) => import("sequelize/types/hooks.js").HookReturn): void;
-        afterSync(fn: (options: import("sequelize").SyncOptions) => import("sequelize/types/hooks.js").HookReturn): void;
-        hasOne<M extends import("sequelize").Model, T extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, target: import("sequelize").ModelStatic<T>, options?: import("sequelize").HasOneOptions): import("sequelize").HasOne<M, T>;
-        belongsTo<M extends import("sequelize").Model, T extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, target: import("sequelize").ModelStatic<T>, options?: import("sequelize").BelongsToOptions): import("sequelize").BelongsTo<M, T>;
-        hasMany<M extends import("sequelize").Model, T extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, target: import("sequelize").ModelStatic<T>, options?: import("sequelize").HasManyOptions): import("sequelize").HasMany<M, T>;
-        belongsToMany<M extends import("sequelize").Model, T extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, target: import("sequelize").ModelStatic<T>, options: import("sequelize").BelongsToManyOptions): import("sequelize").BelongsToMany<M, T>;
-        addHook<H extends import("sequelize/types/hooks.js").Hooks, K extends keyof import("sequelize/types/hooks.js").SequelizeHooks<H["_model"], import("sequelize").Attributes<H>, import("sequelize").CreationAttributes<H>>>(this: import("sequelize/types/hooks.js").HooksStatic<H>, hookType: K, name: string, fn: import("sequelize/types/hooks.js").SequelizeHooks<H["_model"], import("sequelize").Attributes<H>, import("sequelize").CreationAttributes<H>>[K]): import("sequelize/types/hooks.js").HooksCtor<H>;
-        addHook<H extends import("sequelize/types/hooks.js").Hooks, K extends keyof import("sequelize/types/hooks.js").SequelizeHooks<H["_model"], import("sequelize").Attributes<H>, import("sequelize").CreationAttributes<H>>>(this: import("sequelize/types/hooks.js").HooksStatic<H>, hookType: K, fn: import("sequelize/types/hooks.js").SequelizeHooks<H["_model"], import("sequelize").Attributes<H>, import("sequelize").CreationAttributes<H>>[K]): import("sequelize/types/hooks.js").HooksCtor<H>;
-        removeHook<H extends import("sequelize/types/hooks.js").Hooks>(this: import("sequelize/types/hooks.js").HooksStatic<H>, hookType: keyof import("sequelize/types/hooks.js").SequelizeHooks<H["_model"], import("sequelize").Attributes<H>, import("sequelize").CreationAttributes<H>>, name: string): import("sequelize/types/hooks.js").HooksCtor<H>;
-        hasHook<H extends import("sequelize/types/hooks.js").Hooks>(this: import("sequelize/types/hooks.js").HooksStatic<H>, hookType: keyof import("sequelize/types/hooks.js").SequelizeHooks<H["_model"], import("sequelize").Attributes<H>, import("sequelize").CreationAttributes<H>>): boolean;
-        hasHooks<H extends import("sequelize/types/hooks.js").Hooks>(this: import("sequelize/types/hooks.js").HooksStatic<H>, hookType: keyof import("sequelize/types/hooks.js").SequelizeHooks<H["_model"], import("sequelize").Attributes<H>, import("sequelize").CreationAttributes<H>>): boolean;
+        db: any;
+        tableName: any;
+        init(): Promise<any>;
+        findByPk(purl: any): Promise<any>;
+        findOrCreate(options: any): Promise<any>;
+        findAll(options: any): Promise<any>;
     };
     Usages: {
-        new (values?: import("sequelize").Optional<any, string>, options?: import("sequelize").BuildOptions): {
-            _attributes: any;
-            dataValues: any;
-            _creationAttributes: any;
-            isNewRecord: boolean;
-            sequelize: import("sequelize").Sequelize;
-            where(): object;
-            getDataValue<K extends string | number | symbol>(key: K): any;
-            setDataValue<K extends string | number | symbol>(key: K, value: any): void;
-            get(options?: {
-                plain?: boolean;
-                clone?: boolean;
-            }): any;
-            get<K extends keyof any>(key: K, options?: {
-                plain?: boolean;
-                clone?: boolean;
-            }): any[K];
-            get(key: string, options?: {
-                plain?: boolean;
-                clone?: boolean;
-            }): unknown;
-            set<K extends string | number | symbol>(key: K, value: any, options?: import("sequelize").SetOptions): any;
-            set(keys: Partial<any>, options?: import("sequelize").SetOptions): any;
-            setAttributes<K extends string | number | symbol>(key: K, value: any, options?: import("sequelize").SetOptions): any;
-            setAttributes(keys: Partial<any>, options?: import("sequelize").SetOptions): any;
-            changed<K extends keyof any>(key: K): boolean;
-            changed<K extends keyof any>(key: K, dirty: boolean): void;
-            changed(): false | string[];
-            previous(): Partial<any>;
-            previous<K extends string | number | symbol>(key: K): any;
-            save(options?: import("sequelize").SaveOptions<any>): Promise<any>;
-            reload(options?: import("sequelize").FindOptions<any>): Promise<any>;
-            validate(options?: import("sequelize/types/instance-validator.js").ValidationOptions): Promise<void>;
-            update<K extends string | number | symbol>(key: K, value: any, options?: import("sequelize").InstanceUpdateOptions<any>): Promise<any>;
-            update(keys: {
-                [x: string]: any;
-            }, options?: import("sequelize").InstanceUpdateOptions<any>): Promise<any>;
-            destroy(options?: import("sequelize").InstanceDestroyOptions): Promise<void>;
-            restore(options?: import("sequelize").InstanceRestoreOptions): Promise<void>;
-            increment<K extends string | number | symbol>(fields: Partial<any> | K | readonly K[], options?: import("sequelize").IncrementDecrementOptionsWithBy<any>): Promise<any>;
-            decrement<K extends string | number | symbol>(fields: Partial<any> | K | readonly K[], options?: import("sequelize").IncrementDecrementOptionsWithBy<any>): Promise<any>;
-            equals(other: any): boolean;
-            equalsOneOf(others: readonly any[]): boolean;
-            toJSON<T extends any>(): T;
-            toJSON(): object;
-            isSoftDeleted(): boolean;
-            _model: import("sequelize").Model<any, any>;
-            addHook<K extends keyof import("sequelize/types/hooks.js").SequelizeHooks<import("sequelize").Model<any, any>, any, any>>(hookType: K, name: string, fn: import("sequelize/types/hooks.js").SequelizeHooks<import("sequelize").Model<any, any>, any, any>[K]): any;
-            addHook<K extends keyof import("sequelize/types/hooks.js").SequelizeHooks<import("sequelize").Model<any, any>, any, any>>(hookType: K, fn: import("sequelize/types/hooks.js").SequelizeHooks<import("sequelize").Model<any, any>, any, any>[K]): any;
-            removeHook<K extends keyof import("sequelize/types/hooks.js").SequelizeHooks<import("sequelize").Model<any, any>, any, any>>(hookType: K, name: string): any;
-            hasHook<K extends keyof import("sequelize/types/hooks.js").SequelizeHooks<import("sequelize").Model<any, any>, any, any>>(hookType: K): boolean;
-            hasHooks<K extends keyof import("sequelize/types/hooks.js").SequelizeHooks<import("sequelize").Model<any, any>, any, any>>(hookType: K): boolean;
-        };
-        readonly tableName: string;
-        readonly primaryKeyAttribute: string;
-        readonly primaryKeyAttributes: readonly string[];
-        readonly associations: {
-            [key: string]: import("sequelize").Association;
-        };
-        readonly options: import("sequelize").InitOptions;
-        readonly rawAttributes: {
-            [attribute: string]: import("sequelize").ModelAttributeColumnOptions;
-        };
-        getAttributes<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>): { readonly [Key in keyof import("sequelize").Attributes<M>]: import("sequelize").ModelAttributeColumnOptions; };
-        readonly sequelize?: import("sequelize").Sequelize;
-        init<MS extends import("sequelize").ModelStatic<import("sequelize").Model>, M extends InstanceType<MS>>(this: MS, attributes: import("sequelize").ModelAttributes<M, import("sequelize").Optional<import("sequelize").Attributes<M>, (import("sequelize").Attributes<M> extends infer T_3 ? { [P in keyof T_3]-?: (keyof NonNullable<import("sequelize").Attributes<M>[P]> extends Exclude<keyof NonNullable<import("sequelize").Attributes<M>[P]>, unique symbol> ? false : true) extends true ? P : never; } : never)[keyof import("sequelize").Attributes<M>]>>, options: import("sequelize").InitOptions<M>): MS;
-        removeAttribute(attribute: string): void;
-        sync<M extends import("sequelize").Model>(options?: import("sequelize").SyncOptions): Promise<M>;
-        drop(options?: import("sequelize").DropOptions): Promise<void>;
-        schema<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, schema: string, options?: import("sequelize").SchemaOptions): import("sequelize").ModelCtor<M>;
-        getTableName(): string | {
-            tableName: string;
-            schema: string;
-            delimiter: string;
-        };
-        scope<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, options?: string | import("sequelize").ScopeOptions | readonly (string | import("sequelize").ScopeOptions)[] | import("sequelize").WhereAttributeHash<M>): import("sequelize").ModelCtor<M>;
-        addScope<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, name: string, scope: import("sequelize").FindOptions<import("sequelize").Attributes<M>>, options?: import("sequelize").AddScopeOptions): void;
-        addScope<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, name: string, scope: (...args: readonly any[]) => import("sequelize").FindOptions<import("sequelize").Attributes<M>>, options?: import("sequelize").AddScopeOptions): void;
-        findAll<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, options?: import("sequelize").FindOptions<import("sequelize").Attributes<M>>): Promise<M[]>;
-        findByPk<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, identifier: import("sequelize").Identifier, options: Omit<import("sequelize").NonNullFindOptions<import("sequelize").Attributes<M>>, "where">): Promise<M>;
-        findByPk<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, identifier?: import("sequelize").Identifier, options?: Omit<import("sequelize").FindOptions<import("sequelize").Attributes<M>>, "where">): Promise<M | null>;
-        findOne<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, options: import("sequelize").NonNullFindOptions<import("sequelize").Attributes<M>>): Promise<M>;
-        findOne<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, options?: import("sequelize").FindOptions<import("sequelize").Attributes<M>>): Promise<M | null>;
-        aggregate<T, M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, field: keyof import("sequelize").Attributes<M> | "*", aggregateFunction: string, options?: import("sequelize").AggregateOptions<T, import("sequelize").Attributes<M>>): Promise<T>;
-        count<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, options: import("sequelize").CountWithOptions<import("sequelize").Attributes<M>>): Promise<import("sequelize").GroupedCountResultItem[]>;
-        count<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, options?: Omit<import("sequelize").CountOptions<import("sequelize").Attributes<M>>, "group">): Promise<number>;
-        findAndCountAll<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, options?: Omit<import("sequelize").FindAndCountOptions<import("sequelize").Attributes<M>>, "group">): Promise<{
-            rows: M[];
-            count: number;
-        }>;
-        findAndCountAll<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, options: import("sequelize/types/utils/set-required.js").SetRequired<import("sequelize").FindAndCountOptions<import("sequelize").Attributes<M>>, "group">): Promise<{
-            rows: M[];
-            count: import("sequelize").GroupedCountResultItem[];
-        }>;
-        max<T extends import("sequelize").DataType | unknown, M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, field: keyof import("sequelize").Attributes<M>, options?: import("sequelize").AggregateOptions<T, import("sequelize").Attributes<M>>): Promise<T>;
-        min<T extends import("sequelize").DataType | unknown, M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, field: keyof import("sequelize").Attributes<M>, options?: import("sequelize").AggregateOptions<T, import("sequelize").Attributes<M>>): Promise<T>;
-        sum<T extends import("sequelize").DataType | unknown, M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, field: keyof import("sequelize").Attributes<M>, options?: import("sequelize").AggregateOptions<T, import("sequelize").Attributes<M>>): Promise<number>;
-        build<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, record?: import("sequelize").CreationAttributes<M>, options?: import("sequelize").BuildOptions): M;
-        bulkBuild<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, records: ReadonlyArray<import("sequelize").CreationAttributes<M>>, options?: import("sequelize").BuildOptions): M[];
-        create<M extends import("sequelize").Model, O extends import("sequelize").CreateOptions<import("sequelize").Attributes<M>> = import("sequelize").CreateOptions<import("sequelize").Attributes<M>>>(this: import("sequelize").ModelStatic<M>, values?: import("sequelize").CreationAttributes<M>, options?: O): Promise<O extends {
-            returning: false;
-        } | {
-            ignoreDuplicates: true;
-        } ? void : M>;
-        findOrBuild<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, options: import("sequelize").FindOrBuildOptions<import("sequelize").Attributes<M>, import("sequelize").CreationAttributes<M>>): Promise<[M, boolean]>;
-        findOrCreate<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, options: import("sequelize").FindOrCreateOptions<import("sequelize").Attributes<M>, import("sequelize").CreationAttributes<M>>): Promise<[M, boolean]>;
-        findCreateFind<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, options: import("sequelize").FindOrCreateOptions<import("sequelize").Attributes<M>, import("sequelize").CreationAttributes<M>>): Promise<[M, boolean]>;
-        upsert<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, values: import("sequelize").CreationAttributes<M>, options?: import("sequelize").UpsertOptions<import("sequelize").Attributes<M>>): Promise<[M, boolean | null]>;
-        bulkCreate<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, records: ReadonlyArray<import("sequelize").CreationAttributes<M>>, options?: import("sequelize").BulkCreateOptions<import("sequelize").Attributes<M>>): Promise<M[]>;
-        truncate<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, options?: import("sequelize").TruncateOptions<import("sequelize").Attributes<M>>): Promise<void>;
-        destroy<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, options?: import("sequelize").DestroyOptions<import("sequelize").Attributes<M>>): Promise<number>;
-        restore<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, options?: import("sequelize").RestoreOptions<import("sequelize").Attributes<M>>): Promise<void>;
-        update<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, values: { [key in keyof import("sequelize").Attributes<M>]?: import("sequelize").Attributes<M>[key] | import("sequelize/types/utils.js").Fn | import("sequelize/types/utils.js").Col | import("sequelize/types/utils.js").Literal; }, options: Omit<import("sequelize").UpdateOptions<import("sequelize").Attributes<M>>, "returning"> & {
-            returning: Exclude<import("sequelize").UpdateOptions<import("sequelize").Attributes<M>>["returning"], undefined | false>;
-        }): Promise<[affectedCount: number, affectedRows: M[]]>;
-        update<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, values: { [key in keyof import("sequelize").Attributes<M>]?: import("sequelize").Attributes<M>[key] | import("sequelize/types/utils.js").Fn | import("sequelize/types/utils.js").Col | import("sequelize/types/utils.js").Literal; }, options: import("sequelize").UpdateOptions<import("sequelize").Attributes<M>>): Promise<[affectedCount: number]>;
-        increment<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, fields: import("sequelize").AllowReadonlyArray<keyof import("sequelize").Attributes<M>>, options: import("sequelize").IncrementDecrementOptionsWithBy<import("sequelize").Attributes<M>>): Promise<[affectedRows: M[], affectedCount?: number]>;
-        increment<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, fields: { [key in keyof import("sequelize").Attributes<M>]?: number; }, options: import("sequelize").IncrementDecrementOptions<import("sequelize").Attributes<M>>): Promise<[affectedRows: M[], affectedCount?: number]>;
-        decrement<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, fields: import("sequelize").AllowReadonlyArray<keyof import("sequelize").Attributes<M>>, options: import("sequelize").IncrementDecrementOptionsWithBy<import("sequelize").Attributes<M>>): Promise<[affectedRows: M[], affectedCount?: number]>;
-        decrement<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, fields: { [key in keyof import("sequelize").Attributes<M>]?: number; }, options: import("sequelize").IncrementDecrementOptions<import("sequelize").Attributes<M>>): Promise<[affectedRows: M[], affectedCount?: number]>;
-        describe(): Promise<object>;
-        unscoped<M extends import("sequelize").ModelType>(this: M): M;
-        beforeValidate<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, name: string, fn: (instance: M, options: import("sequelize/types/instance-validator.js").ValidationOptions) => import("sequelize/types/hooks.js").HookReturn): void;
-        beforeValidate<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, fn: (instance: M, options: import("sequelize/types/instance-validator.js").ValidationOptions) => import("sequelize/types/hooks.js").HookReturn): void;
-        afterValidate<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, name: string, fn: (instance: M, options: import("sequelize/types/instance-validator.js").ValidationOptions) => import("sequelize/types/hooks.js").HookReturn): void;
-        afterValidate<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, fn: (instance: M, options: import("sequelize/types/instance-validator.js").ValidationOptions) => import("sequelize/types/hooks.js").HookReturn): void;
-        beforeCreate<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, name: string, fn: (instance: M, options: import("sequelize").CreateOptions<import("sequelize").Attributes<M>>) => import("sequelize/types/hooks.js").HookReturn): void;
-        beforeCreate<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, fn: (instance: M, options: import("sequelize").CreateOptions<import("sequelize").Attributes<M>>) => import("sequelize/types/hooks.js").HookReturn): void;
-        afterCreate<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, name: string, fn: (instance: M, options: import("sequelize").CreateOptions<import("sequelize").Attributes<M>>) => import("sequelize/types/hooks.js").HookReturn): void;
-        afterCreate<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, fn: (instance: M, options: import("sequelize").CreateOptions<import("sequelize").Attributes<M>>) => import("sequelize/types/hooks.js").HookReturn): void;
-        beforeDestroy<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, name: string, fn: (instance: M, options: import("sequelize").InstanceDestroyOptions) => import("sequelize/types/hooks.js").HookReturn): void;
-        beforeDestroy<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, fn: (instance: M, options: import("sequelize").InstanceDestroyOptions) => import("sequelize/types/hooks.js").HookReturn): void;
-        afterDestroy<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, name: string, fn: (instance: M, options: import("sequelize").InstanceDestroyOptions) => import("sequelize/types/hooks.js").HookReturn): void;
-        afterDestroy<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, fn: (instance: M, options: import("sequelize").InstanceDestroyOptions) => import("sequelize/types/hooks.js").HookReturn): void;
-        beforeUpdate<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, name: string, fn: (instance: M, options: import("sequelize").UpdateOptions<import("sequelize").Attributes<M>>) => import("sequelize/types/hooks.js").HookReturn): void;
-        beforeUpdate<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, fn: (instance: M, options: import("sequelize").UpdateOptions<import("sequelize").Attributes<M>>) => import("sequelize/types/hooks.js").HookReturn): void;
-        afterUpdate<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, name: string, fn: (instance: M, options: import("sequelize").UpdateOptions<import("sequelize").Attributes<M>>) => import("sequelize/types/hooks.js").HookReturn): void;
-        afterUpdate<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, fn: (instance: M, options: import("sequelize").UpdateOptions<import("sequelize").Attributes<M>>) => import("sequelize/types/hooks.js").HookReturn): void;
-        beforeSave<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, name: string, fn: (instance: M, options: import("sequelize").UpdateOptions<import("sequelize").Attributes<M>> | import("sequelize").SaveOptions<import("sequelize").Attributes<M>>) => import("sequelize/types/hooks.js").HookReturn): void;
-        beforeSave<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, fn: (instance: M, options: import("sequelize").UpdateOptions<import("sequelize").Attributes<M>> | import("sequelize").SaveOptions<import("sequelize").Attributes<M>>) => import("sequelize/types/hooks.js").HookReturn): void;
-        afterSave<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, name: string, fn: (instance: M, options: import("sequelize").UpdateOptions<import("sequelize").Attributes<M>> | import("sequelize").SaveOptions<import("sequelize").Attributes<M>>) => import("sequelize/types/hooks.js").HookReturn): void;
-        afterSave<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, fn: (instance: M, options: import("sequelize").UpdateOptions<import("sequelize").Attributes<M>> | import("sequelize").SaveOptions<import("sequelize").Attributes<M>>) => import("sequelize/types/hooks.js").HookReturn): void;
-        beforeBulkCreate<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, name: string, fn: (instances: M[], options: import("sequelize").BulkCreateOptions<import("sequelize").Attributes<M>>) => import("sequelize/types/hooks.js").HookReturn): void;
-        beforeBulkCreate<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, fn: (instances: M[], options: import("sequelize").BulkCreateOptions<import("sequelize").Attributes<M>>) => import("sequelize/types/hooks.js").HookReturn): void;
-        afterBulkCreate<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, name: string, fn: (instances: readonly M[], options: import("sequelize").BulkCreateOptions<import("sequelize").Attributes<M>>) => import("sequelize/types/hooks.js").HookReturn): void;
-        afterBulkCreate<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, fn: (instances: readonly M[], options: import("sequelize").BulkCreateOptions<import("sequelize").Attributes<M>>) => import("sequelize/types/hooks.js").HookReturn): void;
-        beforeBulkDestroy<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, name: string, fn: (options: import("sequelize").BulkCreateOptions<import("sequelize").Attributes<M>>) => import("sequelize/types/hooks.js").HookReturn): void;
-        beforeBulkDestroy<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, fn: (options: import("sequelize").BulkCreateOptions<import("sequelize").Attributes<M>>) => import("sequelize/types/hooks.js").HookReturn): void;
-        afterBulkDestroy<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, name: string, fn: (options: import("sequelize").DestroyOptions<import("sequelize").Attributes<M>>) => import("sequelize/types/hooks.js").HookReturn): void;
-        afterBulkDestroy<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, fn: (options: import("sequelize").DestroyOptions<import("sequelize").Attributes<M>>) => import("sequelize/types/hooks.js").HookReturn): void;
-        beforeBulkUpdate<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, name: string, fn: (options: import("sequelize").UpdateOptions<import("sequelize").Attributes<M>>) => import("sequelize/types/hooks.js").HookReturn): void;
-        beforeBulkUpdate<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, fn: (options: import("sequelize").UpdateOptions<import("sequelize").Attributes<M>>) => import("sequelize/types/hooks.js").HookReturn): void;
-        afterBulkUpdate<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, name: string, fn: (options: import("sequelize").UpdateOptions<import("sequelize").Attributes<M>>) => import("sequelize/types/hooks.js").HookReturn): void;
-        afterBulkUpdate<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, fn: (options: import("sequelize").UpdateOptions<import("sequelize").Attributes<M>>) => import("sequelize/types/hooks.js").HookReturn): void;
-        beforeFind<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, name: string, fn: (options: import("sequelize").FindOptions<import("sequelize").Attributes<M>>) => import("sequelize/types/hooks.js").HookReturn): void;
-        beforeFind<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, fn: (options: import("sequelize").FindOptions<import("sequelize").Attributes<M>>) => import("sequelize/types/hooks.js").HookReturn): void;
-        beforeCount<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, name: string, fn: (options: import("sequelize").CountOptions<import("sequelize").Attributes<M>>) => import("sequelize/types/hooks.js").HookReturn): void;
-        beforeCount<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, fn: (options: import("sequelize").CountOptions<import("sequelize").Attributes<M>>) => import("sequelize/types/hooks.js").HookReturn): void;
-        beforeFindAfterExpandIncludeAll<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, name: string, fn: (options: import("sequelize").FindOptions<import("sequelize").Attributes<M>>) => import("sequelize/types/hooks.js").HookReturn): void;
-        beforeFindAfterExpandIncludeAll<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, fn: (options: import("sequelize").FindOptions<import("sequelize").Attributes<M>>) => import("sequelize/types/hooks.js").HookReturn): void;
-        beforeFindAfterOptions<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, name: string, fn: (options: import("sequelize").FindOptions<import("sequelize").Attributes<M>>) => import("sequelize/types/hooks.js").HookReturn): void;
-        beforeFindAfterOptions<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, fn: (options: import("sequelize").FindOptions<import("sequelize").Attributes<M>>) => void): import("sequelize/types/hooks.js").HookReturn;
-        afterFind<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, name: string, fn: (instancesOrInstance: readonly M[] | M | null, options: import("sequelize").FindOptions<import("sequelize").Attributes<M>>) => import("sequelize/types/hooks.js").HookReturn): void;
-        afterFind<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, fn: (instancesOrInstance: readonly M[] | M | null, options: import("sequelize").FindOptions<import("sequelize").Attributes<M>>) => import("sequelize/types/hooks.js").HookReturn): void;
-        beforeBulkSync(name: string, fn: (options: import("sequelize").SyncOptions) => import("sequelize/types/hooks.js").HookReturn): void;
-        beforeBulkSync(fn: (options: import("sequelize").SyncOptions) => import("sequelize/types/hooks.js").HookReturn): void;
-        afterBulkSync(name: string, fn: (options: import("sequelize").SyncOptions) => import("sequelize/types/hooks.js").HookReturn): void;
-        afterBulkSync(fn: (options: import("sequelize").SyncOptions) => import("sequelize/types/hooks.js").HookReturn): void;
-        beforeSync(name: string, fn: (options: import("sequelize").SyncOptions) => import("sequelize/types/hooks.js").HookReturn): void;
-        beforeSync(fn: (options: import("sequelize").SyncOptions) => import("sequelize/types/hooks.js").HookReturn): void;
-        afterSync(name: string, fn: (options: import("sequelize").SyncOptions) => import("sequelize/types/hooks.js").HookReturn): void;
-        afterSync(fn: (options: import("sequelize").SyncOptions) => import("sequelize/types/hooks.js").HookReturn): void;
-        hasOne<M extends import("sequelize").Model, T extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, target: import("sequelize").ModelStatic<T>, options?: import("sequelize").HasOneOptions): import("sequelize").HasOne<M, T>;
-        belongsTo<M extends import("sequelize").Model, T extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, target: import("sequelize").ModelStatic<T>, options?: import("sequelize").BelongsToOptions): import("sequelize").BelongsTo<M, T>;
-        hasMany<M extends import("sequelize").Model, T extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, target: import("sequelize").ModelStatic<T>, options?: import("sequelize").HasManyOptions): import("sequelize").HasMany<M, T>;
-        belongsToMany<M extends import("sequelize").Model, T extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, target: import("sequelize").ModelStatic<T>, options: import("sequelize").BelongsToManyOptions): import("sequelize").BelongsToMany<M, T>;
-        addHook<H extends import("sequelize/types/hooks.js").Hooks, K extends keyof import("sequelize/types/hooks.js").SequelizeHooks<H["_model"], import("sequelize").Attributes<H>, import("sequelize").CreationAttributes<H>>>(this: import("sequelize/types/hooks.js").HooksStatic<H>, hookType: K, name: string, fn: import("sequelize/types/hooks.js").SequelizeHooks<H["_model"], import("sequelize").Attributes<H>, import("sequelize").CreationAttributes<H>>[K]): import("sequelize/types/hooks.js").HooksCtor<H>;
-        addHook<H extends import("sequelize/types/hooks.js").Hooks, K extends keyof import("sequelize/types/hooks.js").SequelizeHooks<H["_model"], import("sequelize").Attributes<H>, import("sequelize").CreationAttributes<H>>>(this: import("sequelize/types/hooks.js").HooksStatic<H>, hookType: K, fn: import("sequelize/types/hooks.js").SequelizeHooks<H["_model"], import("sequelize").Attributes<H>, import("sequelize").CreationAttributes<H>>[K]): import("sequelize/types/hooks.js").HooksCtor<H>;
-        removeHook<H extends import("sequelize/types/hooks.js").Hooks>(this: import("sequelize/types/hooks.js").HooksStatic<H>, hookType: keyof import("sequelize/types/hooks.js").SequelizeHooks<H["_model"], import("sequelize").Attributes<H>, import("sequelize").CreationAttributes<H>>, name: string): import("sequelize/types/hooks.js").HooksCtor<H>;
-        hasHook<H extends import("sequelize/types/hooks.js").Hooks>(this: import("sequelize/types/hooks.js").HooksStatic<H>, hookType: keyof import("sequelize/types/hooks.js").SequelizeHooks<H["_model"], import("sequelize").Attributes<H>, import("sequelize").CreationAttributes<H>>): boolean;
-        hasHooks<H extends import("sequelize/types/hooks.js").Hooks>(this: import("sequelize/types/hooks.js").HooksStatic<H>, hookType: keyof import("sequelize/types/hooks.js").SequelizeHooks<H["_model"], import("sequelize").Attributes<H>, import("sequelize").CreationAttributes<H>>): boolean;
+        db: any;
+        tableName: any;
+        init(): Promise<any>;
+        findByPk(purl: any): Promise<any>;
+        findOrCreate(options: any): Promise<any>;
+        findAll(options: any): Promise<any>;
     };
     DataFlows: {
-        new (values?: import("sequelize").Optional<any, string>, options?: import("sequelize").BuildOptions): {
-            _attributes: any;
-            dataValues: any;
-            _creationAttributes: any;
-            isNewRecord: boolean;
-            sequelize: import("sequelize").Sequelize;
-            where(): object;
-            getDataValue<K extends string | number | symbol>(key: K): any;
-            setDataValue<K extends string | number | symbol>(key: K, value: any): void;
-            get(options?: {
-                plain?: boolean;
-                clone?: boolean;
-            }): any;
-            get<K extends keyof any>(key: K, options?: {
-                plain?: boolean;
-                clone?: boolean;
-            }): any[K];
-            get(key: string, options?: {
-                plain?: boolean;
-                clone?: boolean;
-            }): unknown;
-            set<K extends string | number | symbol>(key: K, value: any, options?: import("sequelize").SetOptions): any;
-            set(keys: Partial<any>, options?: import("sequelize").SetOptions): any;
-            setAttributes<K extends string | number | symbol>(key: K, value: any, options?: import("sequelize").SetOptions): any;
-            setAttributes(keys: Partial<any>, options?: import("sequelize").SetOptions): any;
-            changed<K extends keyof any>(key: K): boolean;
-            changed<K extends keyof any>(key: K, dirty: boolean): void;
-            changed(): false | string[];
-            previous(): Partial<any>;
-            previous<K extends string | number | symbol>(key: K): any;
-            save(options?: import("sequelize").SaveOptions<any>): Promise<any>;
-            reload(options?: import("sequelize").FindOptions<any>): Promise<any>;
-            validate(options?: import("sequelize/types/instance-validator.js").ValidationOptions): Promise<void>;
-            update<K extends string | number | symbol>(key: K, value: any, options?: import("sequelize").InstanceUpdateOptions<any>): Promise<any>;
-            update(keys: {
-                [x: string]: any;
-            }, options?: import("sequelize").InstanceUpdateOptions<any>): Promise<any>;
-            destroy(options?: import("sequelize").InstanceDestroyOptions): Promise<void>;
-            restore(options?: import("sequelize").InstanceRestoreOptions): Promise<void>;
-            increment<K extends string | number | symbol>(fields: Partial<any> | K | readonly K[], options?: import("sequelize").IncrementDecrementOptionsWithBy<any>): Promise<any>;
-            decrement<K extends string | number | symbol>(fields: Partial<any> | K | readonly K[], options?: import("sequelize").IncrementDecrementOptionsWithBy<any>): Promise<any>;
-            equals(other: any): boolean;
-            equalsOneOf(others: readonly any[]): boolean;
-            toJSON<T extends any>(): T;
-            toJSON(): object;
-            isSoftDeleted(): boolean;
-            _model: import("sequelize").Model<any, any>;
-            addHook<K extends keyof import("sequelize/types/hooks.js").SequelizeHooks<import("sequelize").Model<any, any>, any, any>>(hookType: K, name: string, fn: import("sequelize/types/hooks.js").SequelizeHooks<import("sequelize").Model<any, any>, any, any>[K]): any;
-            addHook<K extends keyof import("sequelize/types/hooks.js").SequelizeHooks<import("sequelize").Model<any, any>, any, any>>(hookType: K, fn: import("sequelize/types/hooks.js").SequelizeHooks<import("sequelize").Model<any, any>, any, any>[K]): any;
-            removeHook<K extends keyof import("sequelize/types/hooks.js").SequelizeHooks<import("sequelize").Model<any, any>, any, any>>(hookType: K, name: string): any;
-            hasHook<K extends keyof import("sequelize/types/hooks.js").SequelizeHooks<import("sequelize").Model<any, any>, any, any>>(hookType: K): boolean;
-            hasHooks<K extends keyof import("sequelize/types/hooks.js").SequelizeHooks<import("sequelize").Model<any, any>, any, any>>(hookType: K): boolean;
-        };
-        readonly tableName: string;
-        readonly primaryKeyAttribute: string;
-        readonly primaryKeyAttributes: readonly string[];
-        readonly associations: {
-            [key: string]: import("sequelize").Association;
-        };
-        readonly options: import("sequelize").InitOptions;
-        readonly rawAttributes: {
-            [attribute: string]: import("sequelize").ModelAttributeColumnOptions;
-        };
-        getAttributes<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>): { readonly [Key in keyof import("sequelize").Attributes<M>]: import("sequelize").ModelAttributeColumnOptions; };
-        readonly sequelize?: import("sequelize").Sequelize;
-        init<MS extends import("sequelize").ModelStatic<import("sequelize").Model>, M extends InstanceType<MS>>(this: MS, attributes: import("sequelize").ModelAttributes<M, import("sequelize").Optional<import("sequelize").Attributes<M>, (import("sequelize").Attributes<M> extends infer T_3 ? { [P in keyof T_3]-?: (keyof NonNullable<import("sequelize").Attributes<M>[P]> extends Exclude<keyof NonNullable<import("sequelize").Attributes<M>[P]>, unique symbol> ? false : true) extends true ? P : never; } : never)[keyof import("sequelize").Attributes<M>]>>, options: import("sequelize").InitOptions<M>): MS;
-        removeAttribute(attribute: string): void;
-        sync<M extends import("sequelize").Model>(options?: import("sequelize").SyncOptions): Promise<M>;
-        drop(options?: import("sequelize").DropOptions): Promise<void>;
-        schema<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, schema: string, options?: import("sequelize").SchemaOptions): import("sequelize").ModelCtor<M>;
-        getTableName(): string | {
-            tableName: string;
-            schema: string;
-            delimiter: string;
-        };
-        scope<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, options?: string | import("sequelize").ScopeOptions | readonly (string | import("sequelize").ScopeOptions)[] | import("sequelize").WhereAttributeHash<M>): import("sequelize").ModelCtor<M>;
-        addScope<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, name: string, scope: import("sequelize").FindOptions<import("sequelize").Attributes<M>>, options?: import("sequelize").AddScopeOptions): void;
-        addScope<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, name: string, scope: (...args: readonly any[]) => import("sequelize").FindOptions<import("sequelize").Attributes<M>>, options?: import("sequelize").AddScopeOptions): void;
-        findAll<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, options?: import("sequelize").FindOptions<import("sequelize").Attributes<M>>): Promise<M[]>;
-        findByPk<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, identifier: import("sequelize").Identifier, options: Omit<import("sequelize").NonNullFindOptions<import("sequelize").Attributes<M>>, "where">): Promise<M>;
-        findByPk<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, identifier?: import("sequelize").Identifier, options?: Omit<import("sequelize").FindOptions<import("sequelize").Attributes<M>>, "where">): Promise<M | null>;
-        findOne<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, options: import("sequelize").NonNullFindOptions<import("sequelize").Attributes<M>>): Promise<M>;
-        findOne<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, options?: import("sequelize").FindOptions<import("sequelize").Attributes<M>>): Promise<M | null>;
-        aggregate<T, M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, field: keyof import("sequelize").Attributes<M> | "*", aggregateFunction: string, options?: import("sequelize").AggregateOptions<T, import("sequelize").Attributes<M>>): Promise<T>;
-        count<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, options: import("sequelize").CountWithOptions<import("sequelize").Attributes<M>>): Promise<import("sequelize").GroupedCountResultItem[]>;
-        count<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, options?: Omit<import("sequelize").CountOptions<import("sequelize").Attributes<M>>, "group">): Promise<number>;
-        findAndCountAll<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, options?: Omit<import("sequelize").FindAndCountOptions<import("sequelize").Attributes<M>>, "group">): Promise<{
-            rows: M[];
-            count: number;
-        }>;
-        findAndCountAll<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, options: import("sequelize/types/utils/set-required.js").SetRequired<import("sequelize").FindAndCountOptions<import("sequelize").Attributes<M>>, "group">): Promise<{
-            rows: M[];
-            count: import("sequelize").GroupedCountResultItem[];
-        }>;
-        max<T extends import("sequelize").DataType | unknown, M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, field: keyof import("sequelize").Attributes<M>, options?: import("sequelize").AggregateOptions<T, import("sequelize").Attributes<M>>): Promise<T>;
-        min<T extends import("sequelize").DataType | unknown, M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, field: keyof import("sequelize").Attributes<M>, options?: import("sequelize").AggregateOptions<T, import("sequelize").Attributes<M>>): Promise<T>;
-        sum<T extends import("sequelize").DataType | unknown, M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, field: keyof import("sequelize").Attributes<M>, options?: import("sequelize").AggregateOptions<T, import("sequelize").Attributes<M>>): Promise<number>;
-        build<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, record?: import("sequelize").CreationAttributes<M>, options?: import("sequelize").BuildOptions): M;
-        bulkBuild<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, records: ReadonlyArray<import("sequelize").CreationAttributes<M>>, options?: import("sequelize").BuildOptions): M[];
-        create<M extends import("sequelize").Model, O extends import("sequelize").CreateOptions<import("sequelize").Attributes<M>> = import("sequelize").CreateOptions<import("sequelize").Attributes<M>>>(this: import("sequelize").ModelStatic<M>, values?: import("sequelize").CreationAttributes<M>, options?: O): Promise<O extends {
-            returning: false;
-        } | {
-            ignoreDuplicates: true;
-        } ? void : M>;
-        findOrBuild<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, options: import("sequelize").FindOrBuildOptions<import("sequelize").Attributes<M>, import("sequelize").CreationAttributes<M>>): Promise<[M, boolean]>;
-        findOrCreate<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, options: import("sequelize").FindOrCreateOptions<import("sequelize").Attributes<M>, import("sequelize").CreationAttributes<M>>): Promise<[M, boolean]>;
-        findCreateFind<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, options: import("sequelize").FindOrCreateOptions<import("sequelize").Attributes<M>, import("sequelize").CreationAttributes<M>>): Promise<[M, boolean]>;
-        upsert<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, values: import("sequelize").CreationAttributes<M>, options?: import("sequelize").UpsertOptions<import("sequelize").Attributes<M>>): Promise<[M, boolean | null]>;
-        bulkCreate<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, records: ReadonlyArray<import("sequelize").CreationAttributes<M>>, options?: import("sequelize").BulkCreateOptions<import("sequelize").Attributes<M>>): Promise<M[]>;
-        truncate<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, options?: import("sequelize").TruncateOptions<import("sequelize").Attributes<M>>): Promise<void>;
-        destroy<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, options?: import("sequelize").DestroyOptions<import("sequelize").Attributes<M>>): Promise<number>;
-        restore<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, options?: import("sequelize").RestoreOptions<import("sequelize").Attributes<M>>): Promise<void>;
-        update<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, values: { [key in keyof import("sequelize").Attributes<M>]?: import("sequelize").Attributes<M>[key] | import("sequelize/types/utils.js").Fn | import("sequelize/types/utils.js").Col | import("sequelize/types/utils.js").Literal; }, options: Omit<import("sequelize").UpdateOptions<import("sequelize").Attributes<M>>, "returning"> & {
-            returning: Exclude<import("sequelize").UpdateOptions<import("sequelize").Attributes<M>>["returning"], undefined | false>;
-        }): Promise<[affectedCount: number, affectedRows: M[]]>;
-        update<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, values: { [key in keyof import("sequelize").Attributes<M>]?: import("sequelize").Attributes<M>[key] | import("sequelize/types/utils.js").Fn | import("sequelize/types/utils.js").Col | import("sequelize/types/utils.js").Literal; }, options: import("sequelize").UpdateOptions<import("sequelize").Attributes<M>>): Promise<[affectedCount: number]>;
-        increment<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, fields: import("sequelize").AllowReadonlyArray<keyof import("sequelize").Attributes<M>>, options: import("sequelize").IncrementDecrementOptionsWithBy<import("sequelize").Attributes<M>>): Promise<[affectedRows: M[], affectedCount?: number]>;
-        increment<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, fields: { [key in keyof import("sequelize").Attributes<M>]?: number; }, options: import("sequelize").IncrementDecrementOptions<import("sequelize").Attributes<M>>): Promise<[affectedRows: M[], affectedCount?: number]>;
-        decrement<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, fields: import("sequelize").AllowReadonlyArray<keyof import("sequelize").Attributes<M>>, options: import("sequelize").IncrementDecrementOptionsWithBy<import("sequelize").Attributes<M>>): Promise<[affectedRows: M[], affectedCount?: number]>;
-        decrement<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, fields: { [key in keyof import("sequelize").Attributes<M>]?: number; }, options: import("sequelize").IncrementDecrementOptions<import("sequelize").Attributes<M>>): Promise<[affectedRows: M[], affectedCount?: number]>;
-        describe(): Promise<object>;
-        unscoped<M extends import("sequelize").ModelType>(this: M): M;
-        beforeValidate<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, name: string, fn: (instance: M, options: import("sequelize/types/instance-validator.js").ValidationOptions) => import("sequelize/types/hooks.js").HookReturn): void;
-        beforeValidate<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, fn: (instance: M, options: import("sequelize/types/instance-validator.js").ValidationOptions) => import("sequelize/types/hooks.js").HookReturn): void;
-        afterValidate<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, name: string, fn: (instance: M, options: import("sequelize/types/instance-validator.js").ValidationOptions) => import("sequelize/types/hooks.js").HookReturn): void;
-        afterValidate<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, fn: (instance: M, options: import("sequelize/types/instance-validator.js").ValidationOptions) => import("sequelize/types/hooks.js").HookReturn): void;
-        beforeCreate<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, name: string, fn: (instance: M, options: import("sequelize").CreateOptions<import("sequelize").Attributes<M>>) => import("sequelize/types/hooks.js").HookReturn): void;
-        beforeCreate<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, fn: (instance: M, options: import("sequelize").CreateOptions<import("sequelize").Attributes<M>>) => import("sequelize/types/hooks.js").HookReturn): void;
-        afterCreate<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, name: string, fn: (instance: M, options: import("sequelize").CreateOptions<import("sequelize").Attributes<M>>) => import("sequelize/types/hooks.js").HookReturn): void;
-        afterCreate<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, fn: (instance: M, options: import("sequelize").CreateOptions<import("sequelize").Attributes<M>>) => import("sequelize/types/hooks.js").HookReturn): void;
-        beforeDestroy<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, name: string, fn: (instance: M, options: import("sequelize").InstanceDestroyOptions) => import("sequelize/types/hooks.js").HookReturn): void;
-        beforeDestroy<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, fn: (instance: M, options: import("sequelize").InstanceDestroyOptions) => import("sequelize/types/hooks.js").HookReturn): void;
-        afterDestroy<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, name: string, fn: (instance: M, options: import("sequelize").InstanceDestroyOptions) => import("sequelize/types/hooks.js").HookReturn): void;
-        afterDestroy<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, fn: (instance: M, options: import("sequelize").InstanceDestroyOptions) => import("sequelize/types/hooks.js").HookReturn): void;
-        beforeUpdate<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, name: string, fn: (instance: M, options: import("sequelize").UpdateOptions<import("sequelize").Attributes<M>>) => import("sequelize/types/hooks.js").HookReturn): void;
-        beforeUpdate<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, fn: (instance: M, options: import("sequelize").UpdateOptions<import("sequelize").Attributes<M>>) => import("sequelize/types/hooks.js").HookReturn): void;
-        afterUpdate<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, name: string, fn: (instance: M, options: import("sequelize").UpdateOptions<import("sequelize").Attributes<M>>) => import("sequelize/types/hooks.js").HookReturn): void;
-        afterUpdate<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, fn: (instance: M, options: import("sequelize").UpdateOptions<import("sequelize").Attributes<M>>) => import("sequelize/types/hooks.js").HookReturn): void;
-        beforeSave<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, name: string, fn: (instance: M, options: import("sequelize").UpdateOptions<import("sequelize").Attributes<M>> | import("sequelize").SaveOptions<import("sequelize").Attributes<M>>) => import("sequelize/types/hooks.js").HookReturn): void;
-        beforeSave<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, fn: (instance: M, options: import("sequelize").UpdateOptions<import("sequelize").Attributes<M>> | import("sequelize").SaveOptions<import("sequelize").Attributes<M>>) => import("sequelize/types/hooks.js").HookReturn): void;
-        afterSave<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, name: string, fn: (instance: M, options: import("sequelize").UpdateOptions<import("sequelize").Attributes<M>> | import("sequelize").SaveOptions<import("sequelize").Attributes<M>>) => import("sequelize/types/hooks.js").HookReturn): void;
-        afterSave<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, fn: (instance: M, options: import("sequelize").UpdateOptions<import("sequelize").Attributes<M>> | import("sequelize").SaveOptions<import("sequelize").Attributes<M>>) => import("sequelize/types/hooks.js").HookReturn): void;
-        beforeBulkCreate<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, name: string, fn: (instances: M[], options: import("sequelize").BulkCreateOptions<import("sequelize").Attributes<M>>) => import("sequelize/types/hooks.js").HookReturn): void;
-        beforeBulkCreate<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, fn: (instances: M[], options: import("sequelize").BulkCreateOptions<import("sequelize").Attributes<M>>) => import("sequelize/types/hooks.js").HookReturn): void;
-        afterBulkCreate<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, name: string, fn: (instances: readonly M[], options: import("sequelize").BulkCreateOptions<import("sequelize").Attributes<M>>) => import("sequelize/types/hooks.js").HookReturn): void;
-        afterBulkCreate<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, fn: (instances: readonly M[], options: import("sequelize").BulkCreateOptions<import("sequelize").Attributes<M>>) => import("sequelize/types/hooks.js").HookReturn): void;
-        beforeBulkDestroy<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, name: string, fn: (options: import("sequelize").BulkCreateOptions<import("sequelize").Attributes<M>>) => import("sequelize/types/hooks.js").HookReturn): void;
-        beforeBulkDestroy<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, fn: (options: import("sequelize").BulkCreateOptions<import("sequelize").Attributes<M>>) => import("sequelize/types/hooks.js").HookReturn): void;
-        afterBulkDestroy<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, name: string, fn: (options: import("sequelize").DestroyOptions<import("sequelize").Attributes<M>>) => import("sequelize/types/hooks.js").HookReturn): void;
-        afterBulkDestroy<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, fn: (options: import("sequelize").DestroyOptions<import("sequelize").Attributes<M>>) => import("sequelize/types/hooks.js").HookReturn): void;
-        beforeBulkUpdate<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, name: string, fn: (options: import("sequelize").UpdateOptions<import("sequelize").Attributes<M>>) => import("sequelize/types/hooks.js").HookReturn): void;
-        beforeBulkUpdate<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, fn: (options: import("sequelize").UpdateOptions<import("sequelize").Attributes<M>>) => import("sequelize/types/hooks.js").HookReturn): void;
-        afterBulkUpdate<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, name: string, fn: (options: import("sequelize").UpdateOptions<import("sequelize").Attributes<M>>) => import("sequelize/types/hooks.js").HookReturn): void;
-        afterBulkUpdate<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, fn: (options: import("sequelize").UpdateOptions<import("sequelize").Attributes<M>>) => import("sequelize/types/hooks.js").HookReturn): void;
-        beforeFind<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, name: string, fn: (options: import("sequelize").FindOptions<import("sequelize").Attributes<M>>) => import("sequelize/types/hooks.js").HookReturn): void;
-        beforeFind<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, fn: (options: import("sequelize").FindOptions<import("sequelize").Attributes<M>>) => import("sequelize/types/hooks.js").HookReturn): void;
-        beforeCount<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, name: string, fn: (options: import("sequelize").CountOptions<import("sequelize").Attributes<M>>) => import("sequelize/types/hooks.js").HookReturn): void;
-        beforeCount<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, fn: (options: import("sequelize").CountOptions<import("sequelize").Attributes<M>>) => import("sequelize/types/hooks.js").HookReturn): void;
-        beforeFindAfterExpandIncludeAll<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, name: string, fn: (options: import("sequelize").FindOptions<import("sequelize").Attributes<M>>) => import("sequelize/types/hooks.js").HookReturn): void;
-        beforeFindAfterExpandIncludeAll<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, fn: (options: import("sequelize").FindOptions<import("sequelize").Attributes<M>>) => import("sequelize/types/hooks.js").HookReturn): void;
-        beforeFindAfterOptions<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, name: string, fn: (options: import("sequelize").FindOptions<import("sequelize").Attributes<M>>) => import("sequelize/types/hooks.js").HookReturn): void;
-        beforeFindAfterOptions<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, fn: (options: import("sequelize").FindOptions<import("sequelize").Attributes<M>>) => void): import("sequelize/types/hooks.js").HookReturn;
-        afterFind<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, name: string, fn: (instancesOrInstance: readonly M[] | M | null, options: import("sequelize").FindOptions<import("sequelize").Attributes<M>>) => import("sequelize/types/hooks.js").HookReturn): void;
-        afterFind<M extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, fn: (instancesOrInstance: readonly M[] | M | null, options: import("sequelize").FindOptions<import("sequelize").Attributes<M>>) => import("sequelize/types/hooks.js").HookReturn): void;
-        beforeBulkSync(name: string, fn: (options: import("sequelize").SyncOptions) => import("sequelize/types/hooks.js").HookReturn): void;
-        beforeBulkSync(fn: (options: import("sequelize").SyncOptions) => import("sequelize/types/hooks.js").HookReturn): void;
-        afterBulkSync(name: string, fn: (options: import("sequelize").SyncOptions) => import("sequelize/types/hooks.js").HookReturn): void;
-        afterBulkSync(fn: (options: import("sequelize").SyncOptions) => import("sequelize/types/hooks.js").HookReturn): void;
-        beforeSync(name: string, fn: (options: import("sequelize").SyncOptions) => import("sequelize/types/hooks.js").HookReturn): void;
-        beforeSync(fn: (options: import("sequelize").SyncOptions) => import("sequelize/types/hooks.js").HookReturn): void;
-        afterSync(name: string, fn: (options: import("sequelize").SyncOptions) => import("sequelize/types/hooks.js").HookReturn): void;
-        afterSync(fn: (options: import("sequelize").SyncOptions) => import("sequelize/types/hooks.js").HookReturn): void;
-        hasOne<M extends import("sequelize").Model, T extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, target: import("sequelize").ModelStatic<T>, options?: import("sequelize").HasOneOptions): import("sequelize").HasOne<M, T>;
-        belongsTo<M extends import("sequelize").Model, T extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, target: import("sequelize").ModelStatic<T>, options?: import("sequelize").BelongsToOptions): import("sequelize").BelongsTo<M, T>;
-        hasMany<M extends import("sequelize").Model, T extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, target: import("sequelize").ModelStatic<T>, options?: import("sequelize").HasManyOptions): import("sequelize").HasMany<M, T>;
-        belongsToMany<M extends import("sequelize").Model, T extends import("sequelize").Model>(this: import("sequelize").ModelStatic<M>, target: import("sequelize").ModelStatic<T>, options: import("sequelize").BelongsToManyOptions): import("sequelize").BelongsToMany<M, T>;
-        addHook<H extends import("sequelize/types/hooks.js").Hooks, K extends keyof import("sequelize/types/hooks.js").SequelizeHooks<H["_model"], import("sequelize").Attributes<H>, import("sequelize").CreationAttributes<H>>>(this: import("sequelize/types/hooks.js").HooksStatic<H>, hookType: K, name: string, fn: import("sequelize/types/hooks.js").SequelizeHooks<H["_model"], import("sequelize").Attributes<H>, import("sequelize").CreationAttributes<H>>[K]): import("sequelize/types/hooks.js").HooksCtor<H>;
-        addHook<H extends import("sequelize/types/hooks.js").Hooks, K extends keyof import("sequelize/types/hooks.js").SequelizeHooks<H["_model"], import("sequelize").Attributes<H>, import("sequelize").CreationAttributes<H>>>(this: import("sequelize/types/hooks.js").HooksStatic<H>, hookType: K, fn: import("sequelize/types/hooks.js").SequelizeHooks<H["_model"], import("sequelize").Attributes<H>, import("sequelize").CreationAttributes<H>>[K]): import("sequelize/types/hooks.js").HooksCtor<H>;
-        removeHook<H extends import("sequelize/types/hooks.js").Hooks>(this: import("sequelize/types/hooks.js").HooksStatic<H>, hookType: keyof import("sequelize/types/hooks.js").SequelizeHooks<H["_model"], import("sequelize").Attributes<H>, import("sequelize").CreationAttributes<H>>, name: string): import("sequelize/types/hooks.js").HooksCtor<H>;
-        hasHook<H extends import("sequelize/types/hooks.js").Hooks>(this: import("sequelize/types/hooks.js").HooksStatic<H>, hookType: keyof import("sequelize/types/hooks.js").SequelizeHooks<H["_model"], import("sequelize").Attributes<H>, import("sequelize").CreationAttributes<H>>): boolean;
-        hasHooks<H extends import("sequelize/types/hooks.js").Hooks>(this: import("sequelize/types/hooks.js").HooksStatic<H>, hookType: keyof import("sequelize/types/hooks.js").SequelizeHooks<H["_model"], import("sequelize").Attributes<H>, import("sequelize").CreationAttributes<H>>): boolean;
+        db: any;
+        tableName: any;
+        init(): Promise<any>;
+        findByPk(purl: any): Promise<any>;
+        findOrCreate(options: any): Promise<any>;
+        findAll(options: any): Promise<any>;
     };
 }>;
 export function catalogMavenDeps(dirPath: any, purlsJars: any, Namespaces: any, options?: {}): Promise<void>;
 export function catalogGradleDeps(dirPath: any, purlsJars: any, Namespaces: any): Promise<void>;
 export function createAndStoreSlice(purl: any, purlsJars: any, Usages: any, options?: {}): Promise<any>;
-export function createSlice(purlOrLanguages: any, filePath: any, sliceType?: string, options?: {}): {
+export function createSlice(purlOrLanguages: any, filePath: any, sliceType?: string, options?: {}): Promise<{
+    tempDir?: undefined;
+    slicesFile?: undefined;
+    atomFile?: undefined;
+    openapiSpecFile?: undefined;
+    semanticsSlicesFile?: undefined;
+} | {
     tempDir: any;
     slicesFile: any;
     atomFile?: undefined;
+    openapiSpecFile?: undefined;
+    semanticsSlicesFile?: undefined;
 } | {
     tempDir: any;
     slicesFile: any;
     atomFile: any;
-};
+    openapiSpecFile: any;
+    semanticsSlicesFile: any;
+}>;
 export function purlToLanguage(purl: any, filePath: any): string;
 export function initFromSbom(components: any, language: any): {
     purlLocationMap: {};
     purlImportsMap: {};
 };
+/**
+ * Function to analyze the project
+ *
+ * @param {Object} dbObjMap DB and model instances
+ * @param {Object} options Command line options
+ */
 export function analyzeProject(dbObjMap: any, options: any): Promise<{
     atomFile: any;
     usagesSlicesFile: any;
@@ -589,16 +76,79 @@ export function analyzeProject(dbObjMap: any, options: any): Promise<{
     userDefinedTypesMap: {};
     cryptoComponents: any[];
     cryptoGeneratePurls: {};
+    openapiSpecFile: any;
 }>;
-export function parseObjectSlices(language: any, usageSlice: any, dbObjMap: any, servicesMap?: {}, purlLocationMap?: {}, purlImportsMap?: {}): Promise<{}>;
+export function parseObjectSlices(language: any, usageSlice: any, dbObjMap: any, servicesMap?: {}, purlLocationMap?: {}, purlImportsMap?: {}, openapiSpecFile?: any): Promise<{}>;
+/**
+ * The implementation of this function is based on the logic proposed in the atom slices specification
+ * https://github.com/AppThreat/atom/blob/main/specification/docs/slices.md#use
+ *
+ * @param {string} language Application language
+ * @param {Object} userDefinedTypesMap User Defined types in the application
+ * @param {Array} slice Usages array for each objectSlice
+ * @param {Object} dbObjMap DB Models
+ * @param {Object} purlLocationMap Object to track locations where purls are used
+ * @param {Object} purlImportsMap Object to track package urls and their import aliases
+ * @returns
+ */
 export function parseSliceUsages(language: string, userDefinedTypesMap: any, slice: any[], dbObjMap: any, purlLocationMap: any, purlImportsMap: any): Promise<void>;
+/**
+ * Method to parse semantic slice data. Currently supported for swift and scala languages.
+ *
+ * @param {String} language Project language.
+ * @param {Array} components Components from the input SBOM
+ * @param {Object} semanticsSlice Semantic slice data
+ * @returns {Object} Parsed metadata
+ */
+export function parseSemanticSlices(language: string, components: any[], semanticsSlice: any): any;
 export function isFilterableType(language: any, userDefinedTypesMap: any, typeFullName: any): boolean;
+export function detectServicesFromOpenAPI(_language: any, openapiSpecFile: any, servicesMap: any): void;
+/**
+ * Method to detect services from annotation objects in the usage slice
+ *
+ * @param {string} language Application language
+ * @param {Array} slice Usages array for each objectSlice
+ * @param {Object} servicesMap Existing service map
+ */
 export function detectServicesFromUsages(language: string, slice: any[], servicesMap?: any): any[];
+/**
+ * Method to detect services from user defined types in the usage slice
+ *
+ * @param {string} language Application language
+ * @param {Array} userDefinedTypes User defined types
+ * @param {Object} servicesMap Existing service map
+ */
 export function detectServicesFromUDT(language: string, userDefinedTypes: any[], servicesMap: any): void;
 export function constructServiceName(_language: any, slice: any): string;
 export function extractEndpoints(language: any, code: any): any;
+/**
+ * Method to create the SBOM with evidence file called evinse file.
+ *
+ * @param {Object} sliceArtefacts Various artefacts from the slice operation
+ * @param {Object} options Command line options
+ * @returns
+ */
 export function createEvinseFile(sliceArtefacts: any, options: any): any;
+/**
+ * Method to convert dataflow slice into usable callstack frames
+ * Implemented based on the logic proposed here - https://github.com/AppThreat/atom/blob/main/specification/docs/slices.md#data-flow-slice
+ *
+ * @param {string} language Application language
+ * @param {Object} userDefinedTypesMap User Defined types in the application
+ * @param {Object} dataFlowSlice Data flow slice object from atom
+ * @param {Object} dbObjMap DB models
+ * @param {Object} _purlLocationMap Object to track locations where purls are used
+ * @param {Object} purlImportsMap Object to track package urls and their import aliases
+ */
 export function collectDataFlowFrames(language: string, userDefinedTypesMap: any, dataFlowSlice: any, dbObjMap: any, _purlLocationMap: any, purlImportsMap: any): Promise<{}>;
+/**
+ * Method to convert reachable slice into usable callstack frames and crypto components
+ *
+ * Implemented based on the logic proposed here - https://github.com/AppThreat/atom/blob/main/specification/docs/slices.md#data-flow-slice
+ *
+ * @param {string} _language Application language
+ * @param {Object} reachablesSlice Reachables slice object from atom
+ */
 export function collectReachableFrames(_language: string, reachablesSlice: any): {
     dataFlowFrames: {};
     cryptoComponents: {
@@ -613,7 +163,19 @@ export function collectReachableFrames(_language: string, reachablesSlice: any):
     }[];
     cryptoGeneratePurls: {};
 };
+/**
+ * Method to pick a callstack frame as an evidence. This method is required since CycloneDX 1.5 accepts only a single frame as evidence.
+ *
+ * @param {Array} dfFrames Data flow frames
+ * @returns
+ */
 export function framePicker(dfFrames: any[]): any;
+/**
+ * Method to simplify types. For example, arrays ending with [] could be simplified.
+ *
+ * @param {string} typeFullName Full name of the type to simplify
+ * @returns Simplified type string
+ */
 export function simplifyType(typeFullName: string): string;
 export function getClassTypeFromSignature(language: any, typeFullName: any): string;
 //# sourceMappingURL=evinser.d.ts.map

@@ -4,7 +4,7 @@
  * @param {String} filePath File path
  * @Boolean True if the path exists. False otherwise
  */
-export function safeExistsSync(filePath: string): boolean;
+export function safeExistsSync(filePath: string): any;
 /**
  * Safely create a directory without crashing due to a lack of permissions
  *
@@ -12,15 +12,10 @@ export function safeExistsSync(filePath: string): boolean;
  * @param options {Options} mkdir options
  * @Boolean True if the path exists. False otherwise
  */
-export function safeMkdirSync(filePath: string, options: Options): string;
-export function safeSpawnSync(command: any, args: any, options: any): import("child_process").SpawnSyncReturns<string> | {
-    status: number;
-    stdout: any;
-    stderr: any;
-    error: Error;
-};
-export function shouldFetchLicense(): boolean;
-export function shouldFetchVCS(): boolean;
+export function safeMkdirSync(filePath: string, options: Options): any;
+export function safeSpawnSync(command: any, args: any, options: any): any;
+export function shouldFetchLicense(): any;
+export function shouldFetchVCS(): any;
 export function getJavaCommand(): string;
 export function getPythonCommand(): string;
 /**
@@ -123,7 +118,7 @@ export function addLicenseText(pkg: any, l: any, licenseContent: any): void;
  * content-type attribute, if not default. Returns the license text object.
  */
 export function readLicenseText(licenseFilepath: any, licenseContentType: any): {
-    content: string;
+    content: any;
 };
 export function getSwiftPackageMetadata(pkgList: any): Promise<any[]>;
 /**
@@ -162,8 +157,13 @@ export function yarnLockToIdentMap(lockData: string): {};
  * Parse nodejs yarn lock file
  *
  * @param {string} yarnLockFile yarn.lock file
+ * @param {Object} parentComponent parent component
+ * @param {Array[String]} workspacePackages Workspace packages
+ * @param {Object} workspaceSrcFiles Workspace package.json files
+ * @param {Object} _workspaceDirectDeps Direct dependencies of each workspace
+ * @param {Object} depsWorkspaceRefs Workspace references for each dependency
  */
-export function parseYarnLock(yarnLockFile: string, parentComponent?: any, workspacePackages?: any, workspaceSrcFiles?: any, _workspaceDirectDeps?: {}, depsWorkspaceRefs?: any): Promise<{
+export function parseYarnLock(yarnLockFile: string, parentComponent?: any, workspacePackages?: any, workspaceSrcFiles?: any, _workspaceDirectDeps?: any, depsWorkspaceRefs?: any): Promise<{
     pkgList: any[];
     dependenciesList: any[];
 }>;
@@ -180,6 +180,19 @@ export function parseNodeShrinkwrap(swFile: string): Promise<any[]>;
  * @returns {object} Object containing packages and catalogs
  */
 export function parsePnpmWorkspace(workspaceFile: string): object;
+/**
+ * Helper function to create a properly encoded workspace PURL
+ *
+ * @param {string} packageName - Package name (e.g., "@babel/core")
+ * @param {string} version - Package version
+ * @returns {string} Encoded PURL string
+ */
+export function createNpmWorkspacePurl(packageName: string, version: string): string;
+export function parseYarnWorkspace(packageJsonFile: any): {
+    packages?: undefined;
+} | {
+    packages: any;
+};
 /**
  * Helper function to find a package path in pnpm node_modules structure
  *
@@ -300,7 +313,7 @@ export function parseLeinMap(node: any, keys_cache: any, deps: any): any;
  */
 export function parseGradleProjects(rawOutput: string): {
     rootProject: string;
-    projects: any[];
+    projects: any;
 };
 /**
  * Parse gradle properties output
@@ -310,7 +323,7 @@ export function parseGradleProjects(rawOutput: string): {
  */
 export function parseGradleProperties(rawOutput: string, gradleModuleName?: string): {
     rootProject: string;
-    projects: any[];
+    projects: any;
     metadata: {
         group: string;
         version: string;
@@ -442,11 +455,21 @@ export function guessPypiMatchingVersion(versionsList: any[], versionSpecifiers:
  */
 export function getPyMetadata(pkgList: any[], fetchDepsInfo: boolean): Promise<any[]>;
 /**
- * Method to parse bdist_wheel metadata
+ * Method to parse bdist_wheel metadata (dist-info/METADATA)
  *
- * @param {Object} mData bdist_wheel metadata
+ * @param {string} mDataFile bdist_wheel metadata file
+ * @param {string} rawMetadata Raw metadata
+ *
  */
-export function parseBdistMetadata(mData: any): {}[];
+export function parseBdistMetadata(mDataFile: string, rawMetadata?: string): {
+    name: string;
+    version: string;
+    description: string;
+    author: string;
+    licenses: any[];
+    externalReferences: any[];
+    properties: any[];
+}[];
 /**
  * Method to parse pipfile.lock data
  *
@@ -498,6 +521,13 @@ export function parsePyLockData(lockData: any, lockFile: string, pyProjectFile: 
  */
 export function parseReqFile(reqFile: string, fetchDepsInfo?: boolean): any;
 /**
+ * Parse environment markers into structured format
+ *
+ * @param {String} markersStr Raw markers string
+ * @returns {Array<Object>} Structured markers array
+ */
+export function parseReqEnvMarkers(markersStr: string): Array<any>;
+/**
  * Method to find python modules by parsing the imports and then checking with PyPI to obtain the latest version
  *
  * @param {string} src directory
@@ -519,7 +549,7 @@ export function getPyModules(src: string, epkgList: any[], options: any): Promis
  *
  * @param {Object} setupPyData Contents of setup.py
  */
-export function parseSetupPyFile(setupPyData: any): Promise<any>;
+export function parseSetupPyFile(setupPyData: any): Promise<any[]>;
 /**
  * Method to parse pixi.lock data
  *
@@ -640,7 +670,7 @@ export function parseGoModGraph(rawOutput: string, goModFile: string, gosumMap: 
     pkgList: any[];
     dependenciesList: {
         ref: string;
-        dependsOn: any[];
+        dependsOn: any;
     }[];
     parentComponent: any;
     rootList: any;
@@ -701,7 +731,7 @@ export function parseGemfileLockData(gemLockData: object, lockFile: string): Pro
     pkgList: any[];
     dependenciesList: {
         ref: string;
-        dependsOn: any[];
+        dependsOn: any;
     }[];
     rootList: any[];
 }>;
@@ -760,9 +790,7 @@ export function parsePubLockData(pubLockData: any, lockFile: any): any;
 export function parsePubYamlData(pubYamlData: any): any[];
 export function parseHelmYamlData(helmData: any): any[];
 export function recurseImageNameLookup(keyValueObj: any, pkgList: any, imgList: any): any;
-export function parseContainerFile(fileContents: any): {
-    image: any;
-}[];
+export function parseContainerFile(fileContents: any): any;
 export function parseBitbucketPipelinesFile(fileContents: any): {
     image: any;
 }[];
@@ -772,10 +800,14 @@ export function parsePrivadoFile(f: any): any[];
 export function parseOpenapiSpecData(oaData: any): any[];
 export function parseCabalData(cabalData: any): any[];
 export function parseMixLockData(mixData: any): any[];
-export function parseGitHubWorkflowData(ghwData: any): any[];
+export function parseGitHubWorkflowData(f: any): any[];
 export function parseCloudBuildData(cbwData: any): any[];
 export function mapConanPkgRefToPurlStringAndNameAndVersion(conanPkgRef: any): any[];
-export function parseConanLockData(conanLockData: any): any[];
+export function parseConanLockData(conanLockData: any): {
+    pkgList: any[];
+    dependencies: {};
+    parentComponentDependencies: any[];
+};
 export function parseConanData(conanData: any): any[];
 export function parseLeiningenData(leinData: any): any[];
 export function parseEdnData(rawEdnData: any): any[];
@@ -810,6 +842,14 @@ export function parseFlakeLock(flakeLockFile: string): any;
 export function parseNuspecData(nupkgFile: string, nuspecData: string): any;
 export function parseCsPkgData(pkgData: any, pkgFile: any): any[];
 /**
+ * Method to find all text nodes in PropertyGroup elements in .props files.
+ *
+ * @param {String} propsFiles .props files in this project
+ *
+ * @returns {Object} Containing text nodes from PropertyGroup elements and their values
+ */
+export function getPropertyGroupTextNodes(propsFiles: string): any;
+/**
  * Method to parse .csproj like xml files
  *
  * @param {String} csProjData Raw data
@@ -818,7 +858,7 @@ export function parseCsPkgData(pkgData: any, pkgFile: any): any[];
  *
  * @returns {Object} Containing parent component, package, and dependencies
  */
-export function parseCsProjData(csProjData: string, projFile: string, pkgNameVersions?: any): any;
+export function parseCsProjData(csProjData: string, projFile: string, pkgNameVersions?: any, msbuildInstalled?: boolean, pkgVersionLabelCandidates?: {}): any;
 export function parseCsProjAssetsData(csProjData: any, assetsJsonFile: any): {
     pkgList: any[];
     dependenciesList: any[];
@@ -848,8 +888,8 @@ export function parseComposerJson(composerJsonFile: string): any;
  */
 export function parseComposerLock(pkgLockFile: string, rootRequires: any[]): any[] | {
     pkgList: {
-        group: string;
-        name: string;
+        group: any;
+        name: any;
         purl: string;
         "bom-ref": string;
         version: any;
@@ -875,11 +915,11 @@ export function parseComposerLock(pkgLockFile: string, rootRequires: any[]): any
     }[];
     dependenciesList: {
         ref: string;
-        dependsOn: any[];
+        dependsOn: any;
     }[];
     rootList: {
-        group: string;
-        name: string;
+        group: any;
+        name: any;
         purl: string;
         "bom-ref": string;
         version: any;
@@ -944,35 +984,35 @@ export function parseSbtLock(pkgLockFile: string): {
  * @param {string} pkgName deb package name
  * @returns
  */
-export function executeDpkgList(pkgName: string): string[];
+export function executeDpkgList(pkgName: string): any;
 /**
  * Method to execute dnf repoquery to determine the files provided by a given package
  *
  * @param {string} pkgName deb package name
  * @returns
  */
-export function executeRpmList(pkgName: string): string[];
+export function executeRpmList(pkgName: string): any;
 /**
  * Method to execute apk -L info to determine the files provided by a given package
  *
  * @param {string} pkgName deb package name
  * @returns
  */
-export function executeApkList(pkgName: string): string[];
+export function executeApkList(pkgName: string): any;
 /**
  * Method to execute alpm -Ql to determine the files provided by a given package
  *
  * @param {string} pkgName deb package name
  * @returns
  */
-export function executeAlpmList(pkgName: string): string[];
+export function executeAlpmList(pkgName: string): any;
 /**
  * Method to execute equery files to determine the files provided by a given package
  *
  * @param {string} pkgName deb package name
  * @returns
  */
-export function executeEqueryList(pkgName: string): string[];
+export function executeEqueryList(pkgName: string): any;
 /**
  * Convert OS query results
  *
@@ -992,6 +1032,7 @@ export function convertOSQueryResults(queryCategory: string, queryObj: any, resu
     scope: any;
     type: any;
 }[];
+export function purlFromUrlString(type: any, repoUrl: any, version: any): PackageURL;
 /**
  * Parse swift dependency tree output json object
  *
@@ -1164,7 +1205,7 @@ export function cleanupPlugin(projectPath: string, originalPluginsFile: string):
  *
  * @param {string} projectPath Path to the SBT project
  */
-export function sbtPluginsPath(projectPath: string): string;
+export function sbtPluginsPath(projectPath: string): any;
 /**
  * Method to read a single file entry from a zip file
  *
@@ -1222,7 +1263,7 @@ export function splitOutputByGradleProjects(rawOutput: string, relevantTasks: st
  * @param {String} projectPath The path to the project root
  * @returns {Map} Map of all dependencies with their direct dependencies
  */
-export function parsePodfileLock(podfileLock: any, projectPath: string): Map<any, any>;
+export function parsePodfileLock(podfileLock: any, projectPath: string): Map;
 /**
  * Parse all targets and their direct dependencies from the 'Podfile'
  *
@@ -1230,7 +1271,7 @@ export function parsePodfileLock(podfileLock: any, projectPath: string): Map<any
  * @param {Map} allDependencies The map containing all parsed direct dependencies for a target
  * @param {String} [prefix=undefined] Prefix to add to the targets name
  */
-export function parsePodfileTargets(target: any, allDependencies: Map<any, any>, prefix?: string): void;
+export function parsePodfileTargets(target: any, allDependencies: Map, prefix?: string): void;
 /**
  * Parse a single line representing a dependency
  *
@@ -1355,7 +1396,7 @@ export function parseCmakeDotFile(dotFile: any, pkgType: any, options?: {}): {
     pkgList: any[];
     dependenciesList: {
         ref: string;
-        dependsOn: any[];
+        dependsOn: any;
     }[];
 };
 export function parseCmakeLikeFile(cmakeListFile: any, pkgType: any, options?: {}): {
@@ -1482,22 +1523,35 @@ export function hasDangerousUnicode(str: string): boolean;
  * @returns {boolean} true if valid drive format
  */
 export function isValidDriveRoot(root: string): boolean;
-export const dirNameStr: string;
+/**
+ * Get version and runtime information
+ */
+export function retrieveCdxgenVersion(): string;
+export function retrieveCdxgenPluginVersion(): any;
+/**
+ * Helper to split a command line string into an array of arguments,
+ * respecting single and double quotes.
+ *
+ * @param {String} commandString The full command line string
+ * @returns {Array<String>} Array of tokens
+ */
+export function splitCommandArgs(commandString: string): Array<string>;
+export const dirNameStr: any;
 export const isSecureMode: any;
 export const isWin: boolean;
 export const isMac: boolean;
-export let ATOM_DB: string;
-export const commandsExecuted: Set<any>;
+export let ATOM_DB: any;
+export const commandsExecuted: any;
 export const frameworksList: any;
 export const CDXGEN_VERSION: any;
-export const DEBUG_MODE: boolean;
-export const TIMEOUT_MS: number;
-export const MAX_BUFFER: number;
+export const DEBUG_MODE: any;
+export const TIMEOUT_MS: any;
+export const MAX_BUFFER: any;
 export let metadata_cache: {};
-export const includeMavenTestScope: boolean;
+export const includeMavenTestScope: any;
 export const PREFER_MAVEN_DEPS_TREE: boolean;
-export const FETCH_LICENSE: boolean;
-export const SEARCH_MAVEN_ORG: boolean;
+export const FETCH_LICENSE: any;
+export const SEARCH_MAVEN_ORG: any;
 export const JAVA_CMD: string;
 export const PYTHON_CMD: string;
 export let DOTNET_CMD: string;
@@ -1511,7 +1565,7 @@ export let CARGO_CMD: string;
 export let CLJ_CMD: string;
 export let LEIN_CMD: string;
 export let CDXGEN_TEMP_DIR: string;
-export const SWIFT_CMD: "xcrun swift" | "swift";
+export const SWIFT_CMD: any;
 export const RUBY_CMD: any;
 export const PYTHON_EXCLUDED_COMPONENTS: string[];
 export const PROJECT_TYPE_ALIASES: {
@@ -1546,11 +1600,13 @@ export const PROJECT_TYPE_ALIASES: {
     cocoa: string[];
     scala: string[];
     nix: string[];
+    caxa: string[];
 };
 export namespace PACKAGE_MANAGER_ALIASES {
     let scala: string[];
 }
-export const remoteHostsAccessed: Set<any>;
+export const remoteHostsAccessed: any;
 export const cdxgenAgent: any;
 export const RUBY_PLATFORM_PREFIXES: string[];
+import { PackageURL } from "packageurl-js";
 //# sourceMappingURL=utils.d.ts.map

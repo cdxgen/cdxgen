@@ -1,4 +1,4 @@
-export function getCargoAuditableInfo(src: any): string;
+export function getCargoAuditableInfo(src: any): any;
 /**
  * Execute sourcekitten plugin with the given arguments
  *
