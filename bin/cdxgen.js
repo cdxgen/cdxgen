@@ -2,10 +2,11 @@
 import { Buffer } from "node:buffer";
 import crypto from "node:crypto";
 import fs from "node:fs";
+import http from "node:http";
+import https from "node:https";
 import { basename, dirname, join, resolve } from "node:path";
 import process from "node:process";
 
-import globalAgent from "global-agent";
 import jws from "jws";
 import { parse as _load } from "yaml";
 import yargs from "yargs";
@@ -29,7 +30,10 @@ import {
   commandsExecuted,
   DEBUG_MODE,
   getTmpDir,
+  isBun,
+  isDeno,
   isMac,
+  isNode,
   isSecureMode,
   isWin,
   remoteHostsAccessed,
@@ -404,13 +408,34 @@ if (args.help) {
   process.exit(0);
 }
 
-if (process.env.GLOBAL_AGENT_HTTP_PROXY || process.env.HTTP_PROXY) {
-  // Support standard HTTP_PROXY variable if the user doesn't override the namespace
-  if (!process.env.GLOBAL_AGENT_ENVIRONMENT_VARIABLE_NAMESPACE) {
-    process.env.GLOBAL_AGENT_ENVIRONMENT_VARIABLE_NAMESPACE = "";
+// Native Enterprise Network Configuration (Node.js v22.21+, Bun, Deno)
+// https://nodejs.org/en/learn/http/enterprise-network-configuration
+// https://docs.deno.com/runtime/reference/env_variables/#special-environment-variables
+// https://bun.com/docs/guides/http/proxy#environment-variables
+if (process.env.HTTP_PROXY || process.env.HTTPS_PROXY) {
+  if (isNode && !isBun && !isDeno) {
+    process.env.NODE_USE_ENV_PROXY = "1";
+    try {
+      const proxyEnv = {
+        HTTP_PROXY: process.env.HTTP_PROXY,
+        HTTPS_PROXY: process.env.HTTPS_PROXY,
+        NO_PROXY: process.env.NO_PROXY,
+      };
+      http.globalAgent = new http.Agent({ proxyEnv });
+      https.globalAgent = new https.Agent({ proxyEnv });
+      thoughtLog("Configured native Node.js global agents for HTTP proxy. 🌐");
+    } catch (_e) {
+      console.warn(
+        "Warning: Native proxy configuration failed. Please use Node.js v22.21.0+ for proxy support.",
+      );
+    }
+  } else {
+    thoughtLog("Using runtime-native (Deno/Bun) proxy support. 🌐");
   }
-  globalAgent.bootstrap();
-  thoughtLog("Using the configured HTTP proxy. 🌐");
+}
+
+if (!process.env.NODE_USE_SYSTEM_CA) {
+  process.env.NODE_USE_SYSTEM_CA = "1";
 }
 
 const filePath = args._[0] || process.cwd();
