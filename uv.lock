@@ -1,5 +1,5 @@
 version = 1
-revision = 2
+revision = 3
 requires-python = ">=3.10"
 
 [[package]]
@@ -165,7 +165,7 @@ wheels = [
 
 [[package]]
 name = "cdxgen"
-version = "12.1.0a0"
+version = "12.1.0b2"
 source = { virtual = "." }
 dependencies = [
     { name = "atom-tools" },
