@@ -239,6 +239,8 @@ jobs:
             node bin/verify.js -i "$tag" --public-key contrib/bom-signer/public.key
           done
         env:
+          CDXGEN_TEMP_DIR: ${{ runner.temp }}/cdxgen-sboms
+          DOCKER_USE_CLI: true
           SBOM_SIGN_ALGORITHM: RS512
           SBOM_SIGN_PRIVATE_KEY_BASE64: ${{ secrets.SBOM_SIGN_PRIVATE_KEY }}
       - name: Attach cdx sbom to release
@@ -314,6 +316,8 @@ jobs:
             node bin/verify.js -i "$tag" --public-key contrib/bom-signer/public.key
           done
         env:
+          CDXGEN_TEMP_DIR: ${{ runner.temp }}/cdxgen-sboms
+          DOCKER_USE_CLI: true
           SBOM_SIGN_ALGORITHM: RS512
           SBOM_SIGN_PRIVATE_KEY_BASE64: ${{ secrets.SBOM_SIGN_PRIVATE_KEY }}
       - name: Attach cdx secure sbom to release
@@ -392,6 +396,8 @@ jobs:
             node bin/verify.js -i "$tag" --public-key contrib/bom-signer/public.key
           done
         env:
+          CDXGEN_TEMP_DIR: ${{ runner.temp }}/cdxgen-sboms
+          DOCKER_USE_CLI: true
           SBOM_SIGN_ALGORITHM: RS512
           SBOM_SIGN_PRIVATE_KEY_BASE64: ${{ secrets.SBOM_SIGN_PRIVATE_KEY }}
       - name: Attach cdx deno sbom to release
@@ -522,6 +528,8 @@ jobs:
             node bin/verify.js -i "$tag" --public-key contrib/bom-signer/public.key
           done
         env:
+          CDXGEN_TEMP_DIR: ${{ runner.temp }}/cdxgen-sboms
+          DOCKER_USE_CLI: true
           SBOM_SIGN_ALGORITHM: RS512
           SBOM_SIGN_PRIVATE_KEY_BASE64: ${{ secrets.SBOM_SIGN_PRIVATE_KEY }}
       - name: Attach cdx bun sbom to release
