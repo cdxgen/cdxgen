@@ -100,7 +100,7 @@
   ],
   "scripts": {
     "dependencies": "node bin/dependencies.js",
-    "gen-types": "npx -p typescript tsc",
+    "gen-types": "pnpm exec tsc",
     "install:frozen": "pnpm install --config.strict-dep-builds=true --frozen-lockfile --package-import-method copy",
     "install:prod": "pnpm install --config.strict-dep-builds=true --frozen-lockfile --package-import-method copy --prod",
     "lint": "biome check --write",
