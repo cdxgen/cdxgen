@@ -1,6 +1,6 @@
 {
   "name": "@cyclonedx/cdxgen",
-  "version": "12.1.0-beta.2",
+  "version": "12.1.0",
   "exports": "./lib/cli/index.js",
   "compilerOptions": {
     "lib": ["deno.window"],

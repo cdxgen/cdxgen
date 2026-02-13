@@ -39,7 +39,7 @@ jobs:
         if: startsWith(github.ref, 'refs/tags/')
         run: |
           pnpm install:frozen
-          NPM_CONFIG_PROVENANCE=true pnpm publish --tag beta --access=public --no-git-checks
+          NPM_CONFIG_PROVENANCE=true pnpm publish --access=public --no-git-checks
       - name: jsr publish
         if: startsWith(github.ref, 'refs/tags/')
         run: |

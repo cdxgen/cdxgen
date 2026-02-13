@@ -1,6 +1,6 @@
 {
   "name": "@cyclonedx/cdxgen",
-  "version": "12.1.0-beta.2",
+  "version": "12.1.0",
   "description": "Creates CycloneDX Software Bill of Materials (SBOM) from source or container image",
   "keywords": [
     "sbom",

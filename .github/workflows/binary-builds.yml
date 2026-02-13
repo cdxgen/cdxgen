@@ -202,28 +202,40 @@ jobs:
         run: |
           echo -n "user=$(id -u):$(id -g)" >> $GITHUB_OUTPUT
       - name: Build for linux
-        uses: maus007/docker-run-action-fork@v1
         if: ${{ matrix.os == 'linux' }}
-        with:
-          image: ${{ matrix.image }}
-          options: |
-            -e NVM_NODEJS_ORG_MIRROR=${{ matrix.node-download-url }}
-            -e FETCH_LICENSE=true
-            --network host
-            -v ${{ github.workspace }}:${{ github.workspace }}
-            -w ${{ github.workspace }}
-          run: |
-            ${{ matrix.prepare }}
-            NVM_VERSION=`awk 'BEGIN {ORS=""}; FNR==2 {print $1}' .versions/nvm`
-            curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/$NVM_VERSION/install.sh | bash
-            export NVM_DIR="$HOME/.nvm"
+        run: |
+          cat << "EOF" > build-in-docker.sh
+          #!/bin/sh
+          set -e
+          ${{ matrix.prepare }}
+          exec bash << "BASH_EOF"
+          set -e
+          export NVM_DIR="$HOME/.nvm"
+          mkdir -p "$NVM_DIR"
+          touch "$HOME/.bashrc" "$HOME/.profile"
+          NVM_VERSION=$(awk 'BEGIN {ORS=""}; FNR==2 {print $1}' .versions/nvm)
+          curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/$NVM_VERSION/install.sh | bash
+          if [[ "${{ matrix.libc }}" == "musl" ]]; then
             sed -i 's/x64-musl/"${NVM_ARCH}-musl"/g' "$NVM_DIR/nvm.sh"
-            [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-            nvm install
-            npm install --global pnpm
-            curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
-            ${{ matrix.cmd }}
-            chown -R ${{ steps.user_info.outputs.user }} * .*
+          fi
+          [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" --no-use
+          nvm install
+          npm install --global pnpm
+          curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+          ${{ matrix.cmd }}
+          chown -R ${{ steps.user_info.outputs.user }} .
+          BASH_EOF
+          EOF
+          chmod +x build-in-docker.sh
+          
+          docker run --rm \
+            --network host \
+            -v "${{ github.workspace }}:${{ github.workspace }}" \
+            -w "${{ github.workspace }}" \
+            -e NVM_NODEJS_ORG_MIRROR="${{ matrix.node-download-url }}" \
+            -e FETCH_LICENSE=true \
+            ${{ matrix.image }} \
+            /bin/sh build-in-docker.sh
       - name: Build for darwin & windows
         if: ${{ matrix.libc == 'gnu' && matrix.os != 'linux' }}
         run: ${{ matrix.cmd }}

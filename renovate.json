@@ -79,16 +79,6 @@
       "matchUpdateTypes": ["major", "minor", "patch"]
     },
     {
-      "description": "Pin GitHub Actions digests to major version - for those actions which don't support semver",
-      "extends": ["helpers:pinGitHubActionDigests"],
-      "matchPackageNames": ["maus007/docker-run-action-fork"],
-      "extractVersion": "^(?<version>v?\\d+)$",
-      "versioning": "regex:^v?(?<major>\\d+)(\\.(?<minor>\\d+)\\.(?<patch>\\d+))?$",
-      "automerge": true,
-      "automergeType": "pr",
-      "rebaseWhen": "conflicted"
-    },
-    {
       "description": "Automerge all GitHub Actions",
       "extends": ["helpers:pinGitHubActionDigests"],
       "automerge": true,

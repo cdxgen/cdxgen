@@ -1,5 +1,5 @@
 version = 1
-revision = 3
+revision = 2
 requires-python = ">=3.10"
 
 [[package]]
@@ -165,7 +165,7 @@ wheels = [
 
 [[package]]
 name = "cdxgen"
-version = "12.1.0b2"
+version = "12.1.0"
 source = { virtual = "." }
 dependencies = [
     { name = "atom-tools" },
@@ -647,15 +647,15 @@ wheels = [
 
 [[package]]
 name = "oras"
-version = "0.2.38"
+version = "0.2.39"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "jsonschema" },
     { name = "requests" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/c3/78/16f3847ef31a3b1410c401712336a9c5d90fa97c3cc1f4bacd9dcfced9b7/oras-0.2.38.tar.gz", hash = "sha256:58482f78275cb5cc9fdf135248ca878a19204428a51bd3a1ca24c32714d35341", size = 44755, upload-time = "2025-09-08T13:45:29.372Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/d0/79/804ad8eb314929aa37a4d88f1dcfb683fc0d93f6e270739d07da4d8f5dee/oras-0.2.39.tar.gz", hash = "sha256:cf6103f35ae59227e6a5185479b5eda319aae57c6b8bacc35218ee551db647c3", size = 55504, upload-time = "2026-02-11T17:44:17.013Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/92/a4/f98db9c8498b11d8e82fccb343f189880a8fc33d496e7f8f9c0bbcbfbf64/oras-0.2.38-py3-none-any.whl", hash = "sha256:a97658086cea1e1ebb412a5b504005480c70de5d2e81a160d33e60fc187d42f4", size = 50249, upload-time = "2025-09-08T13:45:27.785Z" },
+    { url = "https://files.pythonhosted.org/packages/06/88/de8b9a57cad9fc33e8b0ae8816126b7b02d2d52a9fa9cf2094a0b04a22f0/oras-0.2.39-py3-none-any.whl", hash = "sha256:5764a57af95b4fe1bfac82f5d20065f9bace3a0b1fc5f8db0410da61212cab6d", size = 68663, upload-time = "2026-02-11T17:44:15.882Z" },
 ]
 
 [[package]]
