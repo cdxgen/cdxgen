@@ -74,7 +74,7 @@ jobs:
             ghcr.io/cdxgen/cdxgen-ruby-builder
           flavor: latest=false,suffix=-amd64
       - name: Build and push Docker images
-        uses: docker/build-push-action@263435318d21b8e681c14492fe198d362a7d2c83 # v6.18.0
+        uses: docker/build-push-action@10e90e3645eae34f1e60eeb005ba3a3d33f178e8 # v6.19.2
         id: build
         with:
           context: .
@@ -117,7 +117,7 @@ jobs:
             ghcr.io/cdxgen/cdxgen-ruby-builder
           flavor: latest=false,suffix=-arm64
       - name: Build and push Docker images
-        uses: docker/build-push-action@263435318d21b8e681c14492fe198d362a7d2c83 # v6.18.0
+        uses: docker/build-push-action@10e90e3645eae34f1e60eeb005ba3a3d33f178e8 # v6.19.2
         id: build
         with:
           context: .
@@ -204,7 +204,7 @@ jobs:
           images: |
             ghcr.io/cdxgen/cdxgen
       - name: Build and push Docker images
-        uses: docker/build-push-action@263435318d21b8e681c14492fe198d362a7d2c83 # v6.18.0
+        uses: docker/build-push-action@10e90e3645eae34f1e60eeb005ba3a3d33f178e8 # v6.19.2
         with:
           context: .
           file: ci/Dockerfile
@@ -294,7 +294,7 @@ jobs:
           images: |
             ghcr.io/cdxgen/cdxgen-secure
       - name: Build and push Docker images
-        uses: docker/build-push-action@263435318d21b8e681c14492fe198d362a7d2c83 # v6.18.0
+        uses: docker/build-push-action@10e90e3645eae34f1e60eeb005ba3a3d33f178e8 # v6.19.2
         with:
           context: .
           file: ci/Dockerfile-secure
@@ -374,7 +374,7 @@ jobs:
           images: |
             ghcr.io/cdxgen/cdxgen-deno
       - name: Build and push Docker images
-        uses: docker/build-push-action@263435318d21b8e681c14492fe198d362a7d2c83 # v6.18.0
+        uses: docker/build-push-action@10e90e3645eae34f1e60eeb005ba3a3d33f178e8 # v6.19.2
         with:
           context: .
           file: ci/Dockerfile-deno
@@ -450,7 +450,7 @@ jobs:
           images: |
             ghcr.io/cdxgen/cdxgen-ppc64
       - name: Build and push Docker images
-        uses: docker/build-push-action@263435318d21b8e681c14492fe198d362a7d2c83 # v6.18.0
+        uses: docker/build-push-action@10e90e3645eae34f1e60eeb005ba3a3d33f178e8 # v6.19.2
         with:
           context: .
           file: ci/Dockerfile-ppc64
@@ -506,7 +506,7 @@ jobs:
           images: |
             ghcr.io/cdxgen/cdxgen-bun
       - name: Build and push Docker images
-        uses: docker/build-push-action@263435318d21b8e681c14492fe198d362a7d2c83 # v6.18.0
+        uses: docker/build-push-action@10e90e3645eae34f1e60eeb005ba3a3d33f178e8 # v6.19.2
         with:
           context: .
           file: ci/Dockerfile-bun
