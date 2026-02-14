@@ -153,7 +153,7 @@ jobs:
         id: metadata
         with:
           images: ghcr.io/${{ github.repository }}
-      - uses: int128/docker-manifest-create-action@a39573caa37b6a8a03302d43b57c3f48635096e2 # v2.13.0
+      - uses: int128/docker-manifest-create-action@026bef1df859420bddb6913facd33ba62290f054 # v2.15.0
         id: build
         with:
           index-annotations: ${{ steps.metadata.outputs.labels }}
