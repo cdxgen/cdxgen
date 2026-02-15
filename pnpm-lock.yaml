@@ -143,7 +143,7 @@ overrides:
   get-proto: 1.0.1
   get-stream: 9.0.1
   github-from-package: 0.0.0
-  glob: 13.0.1
+  glob: 13.0.3
   gopd: 1.2.0
   got: 14.6.6
   graceful-fs: 4.2.11
@@ -308,8 +308,6 @@ overrides:
   hermes-parser: 0.33.3
   hermes-estree: 0.33.3
 
-pnpmfileChecksum: sha256-nfOeuxPm0PLhmHqhdzVKpjFk27e1GEgHAqcQJ7ot+gg=
-
 importers:
 
   .:
@@ -357,8 +355,8 @@ importers:
         specifier: 1.1.2
         version: 1.1.2
       glob:
-        specifier: 13.0.1
-        version: 13.0.1
+        specifier: 13.0.3
+        version: 13.0.3
       got:
         specifier: 14.6.6
         version: 14.6.6
@@ -658,7 +656,6 @@ packages:
     resolution: {integrity: sha512-OofcMJasdLcWBkI9EljimtSXxN6UlPgNj19nC2rFhpLig+S6984DpHqHpymLz0dI6l/n99bRMmVCftnISWH5Ag==}
     cpu: [ppc64]
     os: [linux]
-    libc: glibc
 
   '@cdxgen/cdxgen-plugins-bin-linuxmusl-amd64@2.0.2':
     resolution: {integrity: sha512-7V0dQUHhl6TbBUxeOncBqIx7rXAF7oP5w3zKBoSGkIEhyt5ViKwzwpZgeK/YOHsrp42sEpzBgCasCnNIdNDzKA==}
@@ -1096,8 +1093,8 @@ packages:
   github-from-package@0.0.0:
     resolution: {integrity: sha512-SyHy3T1v2NUXn29OsWdxmK6RwHD+vkj3v8en8AOBZ1wBQ/hCAQ5bAQTD02kW4W9tUp/3Qh6J8r9EvntiyCmOOw==}
 
-  glob@13.0.1:
-    resolution: {integrity: sha512-B7U/vJpE3DkJ5WXTgTpTRN63uV42DseiXXKMwG14LQBXmsdeIoHAPbU/MEo6II0k5ED74uc2ZGTC6MwHFQhF6w==}
+  glob@13.0.3:
+    resolution: {integrity: sha512-/g3B0mC+4x724v1TgtBlBtt2hPi/EWptsIAmXUx9Z2rvBYleQcsrmaOzd5LyL50jf/Soi83ZDJmw2+XqvH/EeA==}
     engines: {node: 20 || >=22}
 
   gopd@1.2.0:
@@ -1933,7 +1930,7 @@ snapshots:
     dependencies:
       '@npmcli/name-from-folder': 4.0.0
       '@npmcli/package-json': 7.0.4
-      glob: 13.0.1
+      glob: 13.0.3
       minimatch: 10.1.2
 
   '@npmcli/name-from-folder@4.0.0': {}
@@ -1941,7 +1938,7 @@ snapshots:
   '@npmcli/package-json@7.0.4':
     dependencies:
       '@npmcli/git': 7.0.1
-      glob: 13.0.1
+      glob: 13.0.3
       hosted-git-info: 9.0.2
       json-parse-even-better-errors: 5.0.0
       proc-log: 6.1.0
@@ -2069,7 +2066,7 @@ snapshots:
     dependencies:
       '@npmcli/fs': 5.0.0
       fs-minipass: 3.0.3
-      glob: 13.0.1
+      glob: 13.0.3
       lru-cache: 11.2.5
       minipass: 7.1.2
       minipass-collect: 2.0.1
@@ -2355,7 +2352,7 @@ snapshots:
   github-from-package@0.0.0:
     optional: true
 
-  glob@13.0.1:
+  glob@13.0.3:
     dependencies:
       minimatch: 10.1.2
       minipass: 7.1.2
