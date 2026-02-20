@@ -104,7 +104,7 @@ jobs:
             libc: musl
             image: php:8.4-alpine3.21
             libc-suffix: -musl
-            node-download-url: https://raw.githubusercontent.com/appthreat/nodejs-unofficial-builds/main/dists/
+            node-download-url: https://unofficial-builds.nodejs.org/download/release/
             prepare: |
               apk add --no-cache bash curl libstdc++ upx
           # Set the commands & file-extensions
