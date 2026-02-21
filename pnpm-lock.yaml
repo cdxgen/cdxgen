@@ -144,7 +144,7 @@ overrides:
   get-proto: 1.0.1
   get-stream: 9.0.1
   github-from-package: 0.0.0
-  glob: 13.0.1
+  glob: 13.0.5
   gopd: 1.2.0
   got: 14.6.6
   graceful-fs: 4.2.11
@@ -359,8 +359,8 @@ importers:
         specifier: 1.1.2
         version: 1.1.2
       glob:
-        specifier: 13.0.1
-        version: 13.0.1
+        specifier: 13.0.5
+        version: 13.0.5
       got:
         specifier: 14.6.6
         version: 14.6.6
@@ -1102,8 +1102,8 @@ packages:
   github-from-package@0.0.0:
     resolution: {integrity: sha512-SyHy3T1v2NUXn29OsWdxmK6RwHD+vkj3v8en8AOBZ1wBQ/hCAQ5bAQTD02kW4W9tUp/3Qh6J8r9EvntiyCmOOw==}
 
-  glob@13.0.1:
-    resolution: {integrity: sha512-B7U/vJpE3DkJ5WXTgTpTRN63uV42DseiXXKMwG14LQBXmsdeIoHAPbU/MEo6II0k5ED74uc2ZGTC6MwHFQhF6w==}
+  glob@13.0.5:
+    resolution: {integrity: sha512-BzXxZg24Ibra1pbQ/zE7Kys4Ua1ks7Bn6pKLkVPZ9FZe4JQS6/Q7ef3LG1H+k7lUf5l4T3PLSyYyYJVYUvfgTw==}
     engines: {node: 20 || >=22}
 
   gopd@1.2.0:
@@ -1941,7 +1941,7 @@ snapshots:
     dependencies:
       '@npmcli/name-from-folder': 4.0.0
       '@npmcli/package-json': 7.0.4
-      glob: 13.0.1
+      glob: 13.0.5
       minimatch: 10.2.1
 
   '@npmcli/name-from-folder@4.0.0': {}
@@ -1949,7 +1949,7 @@ snapshots:
   '@npmcli/package-json@7.0.4':
     dependencies:
       '@npmcli/git': 7.0.1
-      glob: 13.0.1
+      glob: 13.0.5
       hosted-git-info: 9.0.2
       json-parse-even-better-errors: 5.0.0
       proc-log: 6.1.0
@@ -2085,7 +2085,7 @@ snapshots:
     dependencies:
       '@npmcli/fs': 5.0.0
       fs-minipass: 3.0.3
-      glob: 13.0.1
+      glob: 13.0.5
       lru-cache: 11.2.5
       minipass: 7.1.2
       minipass-collect: 2.0.1
@@ -2371,7 +2371,7 @@ snapshots:
   github-from-package@0.0.0:
     optional: true
 
-  glob@13.0.1:
+  glob@13.0.5:
     dependencies:
       minimatch: 10.2.1
       minipass: 7.1.2

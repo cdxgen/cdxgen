@@ -249,7 +249,7 @@
     "get-proto": "1.0.1",
     "get-stream": "9.0.1",
     "github-from-package": "0.0.0",
-    "glob": "13.0.1",
+    "glob": "13.0.5",
     "gopd": "1.2.0",
     "got": "14.6.6",
     "graceful-fs": "4.2.11",
@@ -430,7 +430,7 @@
     "cheerio": "1.2.0",
     "common-ancestor-path": "1.0.1",
     "edn-data": "1.1.2",
-    "glob": "13.0.1",
+    "glob": "13.0.5",
     "got": "14.6.6",
     "iconv-lite": "0.7.2",
     "json-stringify-nice": "1.1.4",
@@ -484,7 +484,7 @@
     "connect": "3.7.0",
     "jsonata": "2.1.0"
   },
-  "packageManager": "pnpm@10.29.3",
+  "packageManager": "pnpm@10.30.0",
   "engines": {
     "node": "^20 || ^22 || ^24 || ^25",
     "pnpm": ">=10"
@@ -634,7 +634,7 @@
       "get-proto": "1.0.1",
       "get-stream": "9.0.1",
       "github-from-package": "0.0.0",
-      "glob": "13.0.1",
+      "glob": "13.0.5",
       "gopd": "1.2.0",
       "got": "14.6.6",
       "graceful-fs": "4.2.11",
