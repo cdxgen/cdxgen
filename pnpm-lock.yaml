@@ -164,7 +164,7 @@ overrides:
   ip-address: 10.1.0
   is-fullwidth-code-point: 5.1.0
   is-stream: 4.0.1
-  isexe: 3.1.1
+  isexe: 4.0.0
   jackspeak: 4.2.3
   js-tokens: 10.0.0
   jsesc: 3.1.0
@@ -310,8 +310,6 @@ overrides:
   yoctocolors: 2.1.2
   hermes-parser: 0.33.3
   hermes-estree: 0.33.3
-
-pnpmfileChecksum: sha256-nfOeuxPm0PLhmHqhdzVKpjFk27e1GEgHAqcQJ7ot+gg=
 
 importers:
 
@@ -661,7 +659,6 @@ packages:
     resolution: {integrity: sha512-OofcMJasdLcWBkI9EljimtSXxN6UlPgNj19nC2rFhpLig+S6984DpHqHpymLz0dI6l/n99bRMmVCftnISWH5Ag==}
     cpu: [ppc64]
     os: [linux]
-    libc: glibc
 
   '@cdxgen/cdxgen-plugins-bin-linuxmusl-amd64@2.0.2':
     resolution: {integrity: sha512-7V0dQUHhl6TbBUxeOncBqIx7rXAF7oP5w3zKBoSGkIEhyt5ViKwzwpZgeK/YOHsrp42sEpzBgCasCnNIdNDzKA==}
@@ -1185,9 +1182,9 @@ packages:
     resolution: {integrity: sha512-Dnz92NInDqYckGEUJv689RbRiTSEHCQ7wOVeALbkOz999YpqT46yMRIGtSNl2iCL1waAZSx40+h59NV/EwzV/A==}
     engines: {node: '>=18'}
 
-  isexe@3.1.1:
-    resolution: {integrity: sha512-LpB/54B+/2J5hqQ7imZHfdU31OlgQqx7ZicVlkm9kzg9/w8GKLEcFfJl/t7DCEDueOyBAD6zCCwTO6Fzs0NoEQ==}
-    engines: {node: '>=16'}
+  isexe@4.0.0:
+    resolution: {integrity: sha512-FFUtZMpoZ8RqHS3XeXEmHWLA4thH+ZxCv2lOiPIn1Xc7CxrqhWzNSDzD+/chS/zbYezmiwWLdQC09JdQKmthOw==}
+    engines: {node: '>=20'}
 
   jackspeak@4.2.3:
     resolution: {integrity: sha512-ykkVRwrYvFm1nb2AJfKKYPr0emF6IiXDYUaFx4Zn9ZuIH7MrzEZ3sD5RlqGXNRpHtvUHJyOnCEFxOlNDtGo7wg==}
@@ -2482,7 +2479,7 @@ snapshots:
 
   is-stream@4.0.1: {}
 
-  isexe@3.1.1: {}
+  isexe@4.0.0: {}
 
   jackspeak@4.2.3:
     dependencies:
@@ -3063,7 +3060,7 @@ snapshots:
 
   which@6.0.1:
     dependencies:
-      isexe: 3.1.1
+      isexe: 4.0.0
 
   wrap-ansi@9.0.2:
     dependencies:
