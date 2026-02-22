@@ -203,7 +203,7 @@ overrides:
   node-gyp: 12.2.0
   node-stream-zip: 1.15.0
   nopt: 9.0.0
-  normalize-url: 8.1.1
+  normalize-url: 9.0.0
   npm-install-checks: 8.0.0
   npm-normalize-package-bin: 5.0.0
   npm-package-arg: 13.0.2
@@ -308,8 +308,6 @@ overrides:
   yoctocolors: 2.1.2
   hermes-parser: 0.33.3
   hermes-estree: 0.33.3
-
-pnpmfileChecksum: sha256-nfOeuxPm0PLhmHqhdzVKpjFk27e1GEgHAqcQJ7ot+gg=
 
 importers:
 
@@ -659,7 +657,6 @@ packages:
     resolution: {integrity: sha512-OofcMJasdLcWBkI9EljimtSXxN6UlPgNj19nC2rFhpLig+S6984DpHqHpymLz0dI6l/n99bRMmVCftnISWH5Ag==}
     cpu: [ppc64]
     os: [linux]
-    libc: glibc
 
   '@cdxgen/cdxgen-plugins-bin-linuxmusl-amd64@2.0.2':
     resolution: {integrity: sha512-7V0dQUHhl6TbBUxeOncBqIx7rXAF7oP5w3zKBoSGkIEhyt5ViKwzwpZgeK/YOHsrp42sEpzBgCasCnNIdNDzKA==}
@@ -1330,9 +1327,9 @@ packages:
     engines: {node: ^20.17.0 || >=22.9.0}
     hasBin: true
 
-  normalize-url@8.1.1:
-    resolution: {integrity: sha512-JYc0DPlpGWB40kH5g07gGTrYuMqV653k3uBKY6uITPWds3M0ov3GaWGp9lbE3Bzngx8+XkfzgvASb9vk9JDFXQ==}
-    engines: {node: '>=14.16'}
+  normalize-url@9.0.0:
+    resolution: {integrity: sha512-z9nC87iaZXXySbWWtTHfCFJyFvKaUAW6lODhikG7ILSbVgmwuFjUqkgnheHvAUcGedO29e2QGBRXMUD64aurqQ==}
+    engines: {node: '>=20'}
 
   npm-install-checks@8.0.0:
     resolution: {integrity: sha512-ScAUdMpyzkbpxoNekQ3tNRdFI8SJ86wgKZSQZdUxT+bj0wVFpsEMWnkXP0twVe1gJyNF5apBWDJhhIbgrIViRA==}
@@ -2096,7 +2093,7 @@ snapshots:
       http-cache-semantics: 4.2.0
       keyv: 5.6.0
       mimic-response: 4.0.0
-      normalize-url: 8.1.1
+      normalize-url: 9.0.0
       responselike: 4.0.2
 
   call-bind-apply-helpers@1.0.2:
@@ -2627,7 +2624,7 @@ snapshots:
       abbrev: 4.0.0
     optional: true
 
-  normalize-url@8.1.1: {}
+  normalize-url@9.0.0: {}
 
   npm-install-checks@8.0.0:
     dependencies:
