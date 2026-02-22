@@ -257,7 +257,6 @@ overrides:
   smart-buffer: 4.2.0
   socks: 2.8.7
   socks-proxy-agent: 8.0.5
-  spdx-correct: 3.2.0
   spdx-exceptions: 2.5.0
   spdx-expression-parse: 4.0.0
   spdx-license-ids: 3.0.22
@@ -289,7 +288,6 @@ overrides:
   unpipe: 1.0.0
   utils-merge: 1.0.1
   uuid: 13.0.0
-  validate-npm-package-license: 3.0.4
   validate-npm-package-name: 7.0.2
   vary: 1.1.2
   walk-up-path: 4.0.0
