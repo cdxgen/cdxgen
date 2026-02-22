@@ -53,7 +53,7 @@ overrides:
   '@npmcli/git': 7.0.1
   '@npmcli/map-workspaces': 5.0.3
   '@npmcli/name-from-folder': 4.0.0
-  '@npmcli/package-json': 7.0.4
+  '@npmcli/package-json': 7.0.5
   '@npmcli/promise-spawn': 9.0.1
   '@sec-ant/readable-stream': 0.6.0
   '@sindresorhus/is': 7.2.0
@@ -309,8 +309,6 @@ overrides:
   hermes-parser: 0.33.3
   hermes-estree: 0.33.3
 
-pnpmfileChecksum: sha256-nfOeuxPm0PLhmHqhdzVKpjFk27e1GEgHAqcQJ7ot+gg=
-
 importers:
 
   .:
@@ -337,8 +335,8 @@ importers:
         specifier: 4.0.0
         version: 4.0.0
       '@npmcli/package-json':
-        specifier: 7.0.4
-        version: 7.0.4
+        specifier: 7.0.5
+        version: 7.0.5
       ajv:
         specifier: 8.18.0
         version: 8.18.0
@@ -659,7 +657,6 @@ packages:
     resolution: {integrity: sha512-OofcMJasdLcWBkI9EljimtSXxN6UlPgNj19nC2rFhpLig+S6984DpHqHpymLz0dI6l/n99bRMmVCftnISWH5Ag==}
     cpu: [ppc64]
     os: [linux]
-    libc: glibc
 
   '@cdxgen/cdxgen-plugins-bin-linuxmusl-amd64@2.0.2':
     resolution: {integrity: sha512-7V0dQUHhl6TbBUxeOncBqIx7rXAF7oP5w3zKBoSGkIEhyt5ViKwzwpZgeK/YOHsrp42sEpzBgCasCnNIdNDzKA==}
@@ -733,8 +730,8 @@ packages:
     resolution: {integrity: sha512-qfrhVlOSqmKM8i6rkNdZzABj8MKEITGFAY+4teqBziksCQAOLutiAxM1wY2BKEd8KjUSpWmWCYxvXr0y4VTlPg==}
     engines: {node: ^20.17.0 || >=22.9.0}
 
-  '@npmcli/package-json@7.0.4':
-    resolution: {integrity: sha512-0wInJG3j/K40OJt/33ax47WfWMzZTm6OQxB9cDhTt5huCP2a9g2GnlsxmfN+PulItNPIpPrZ+kfwwUil7eHcZQ==}
+  '@npmcli/package-json@7.0.5':
+    resolution: {integrity: sha512-iVuTlG3ORq2iaVa1IWUxAO/jIp77tUKBhoMjuzYW2kL4MLN1bi/ofqkZ7D7OOwh8coAx1/S2ge0rMdGv8sLSOQ==}
     engines: {node: ^20.17.0 || >=22.9.0}
 
   '@npmcli/promise-spawn@9.0.1':
@@ -1535,9 +1532,6 @@ packages:
     resolution: {integrity: sha512-HLpt+uLy/pxB+bum/9DzAgiKS8CX1EvbWxI4zlmgGCExImLdiad2iCwXT5Z4c9c3Eq8rP2318mPW2c+QbtjK8A==}
     engines: {node: '>= 10.0.0', npm: '>= 3.0.0'}
 
-  spdx-correct@3.2.0:
-    resolution: {integrity: sha512-kN9dJbvnySHULIluDHy32WHRUu3Og7B9sbY7tsFLctQkIqnMh3hErYgdMjTYuqmcXX+lK5T1lnUt3G7zNswmZA==}
-
   spdx-exceptions@2.5.0:
     resolution: {integrity: sha512-PiU42r+xO4UbUS1buo3LPJkjlO7430Xn5SVAhdpzzsPHsjbYVflnnFdATgabnLude+Cqu25p6N+g2lw/PFsa4w==}
 
@@ -1654,9 +1648,6 @@ packages:
   uuid@13.0.0:
     resolution: {integrity: sha512-XQegIaBTVUjSHliKqcnFqYypAd4S+WCYt5NIeRs6w/UAry7z8Y9j5ZwRRL4kzq9U3sD6v+85er9FvkEaBpji2w==}
     hasBin: true
-
-  validate-npm-package-license@3.0.4:
-    resolution: {integrity: sha512-DpKm2Ui/xN7/HQKCtpZxoRWBhZ9Z0kqtygG8XCgNQ8ZlDnxuQmWhj566j8fN4Cu3/JmbhsDo7fcAJq4s9h27Ew==}
 
   validate-npm-package-name@7.0.2:
     resolution: {integrity: sha512-hVDIBwsRruT73PbK7uP5ebUt+ezEtCmzZz3F59BSr2F6OVFnJ/6h8liuvdLrQ88Xmnk6/+xGGuq+pG9WwTuy3A==}
@@ -1932,13 +1923,13 @@ snapshots:
   '@npmcli/map-workspaces@5.0.3':
     dependencies:
       '@npmcli/name-from-folder': 4.0.0
-      '@npmcli/package-json': 7.0.4
+      '@npmcli/package-json': 7.0.5
       glob: 13.0.5
       minimatch: 10.2.1
 
   '@npmcli/name-from-folder@4.0.0': {}
 
-  '@npmcli/package-json@7.0.4':
+  '@npmcli/package-json@7.0.5':
     dependencies:
       '@npmcli/git': 7.0.1
       glob: 13.0.5
@@ -1946,7 +1937,7 @@ snapshots:
       json-parse-even-better-errors: 5.0.0
       proc-log: 6.1.0
       semver: 7.7.4
-      validate-npm-package-license: 3.0.4
+      spdx-expression-parse: 4.0.0
 
   '@npmcli/promise-spawn@9.0.1':
     dependencies:
@@ -2873,11 +2864,6 @@ snapshots:
       smart-buffer: 4.2.0
     optional: true
 
-  spdx-correct@3.2.0:
-    dependencies:
-      spdx-expression-parse: 4.0.0
-      spdx-license-ids: 3.0.22
-
   spdx-exceptions@2.5.0: {}
 
   spdx-expression-parse@4.0.0:
@@ -3024,11 +3010,6 @@ snapshots:
     optional: true
 
   uuid@13.0.0: {}
-
-  validate-npm-package-license@3.0.4:
-    dependencies:
-      spdx-correct: 3.2.0
-      spdx-expression-parse: 4.0.0
 
   validate-npm-package-name@7.0.2: {}
 
