@@ -294,7 +294,7 @@ overrides:
   whatwg-encoding: 3.1.1
   whatwg-mimetype: 4.0.0
   which: 6.0.1
-  wrap-ansi: 9.0.2
+  wrap-ansi: 10.0.0
   wrappy: 1.0.2
   write-file-atomic: 7.0.0
   xml-js: 1.6.11
@@ -306,8 +306,6 @@ overrides:
   yoctocolors: 2.1.2
   hermes-parser: 0.33.3
   hermes-estree: 0.33.3
-
-pnpmfileChecksum: sha256-nfOeuxPm0PLhmHqhdzVKpjFk27e1GEgHAqcQJ7ot+gg=
 
 importers:
 
@@ -657,7 +655,6 @@ packages:
     resolution: {integrity: sha512-OofcMJasdLcWBkI9EljimtSXxN6UlPgNj19nC2rFhpLig+S6984DpHqHpymLz0dI6l/n99bRMmVCftnISWH5Ag==}
     cpu: [ppc64]
     os: [linux]
-    libc: glibc
 
   '@cdxgen/cdxgen-plugins-bin-linuxmusl-amd64@2.0.2':
     resolution: {integrity: sha512-7V0dQUHhl6TbBUxeOncBqIx7rXAF7oP5w3zKBoSGkIEhyt5ViKwzwpZgeK/YOHsrp42sEpzBgCasCnNIdNDzKA==}
@@ -1676,9 +1673,9 @@ packages:
     engines: {node: ^20.17.0 || >=22.9.0}
     hasBin: true
 
-  wrap-ansi@9.0.2:
-    resolution: {integrity: sha512-42AtmgqjV+X1VpdOfyTGOYRi0/zsoLqtXQckTmqTeybT+BDIbM/Guxo7x3pE2vtpr1ok6xRqM9OpBe+Jyoqyww==}
-    engines: {node: '>=18'}
+  wrap-ansi@10.0.0:
+    resolution: {integrity: sha512-SGcvg80f0wUy2/fXES19feHMz8E0JoXv2uNgHOu4Dgi2OrCy1lqwFYEJz1BLbDI0exjPMe/ZdzZ/YpGECBG/aQ==}
+    engines: {node: '>=20'}
 
   wrappy@1.0.2:
     resolution: {integrity: sha512-l4Sp/DRseor9wL6EvV2+TuQn63dMkPjZ/sp9XkghTEbV9KlPS1xUsZ3u7/IQO4wxtcFB4bgpQPRcR3QCvezPcQ==}
@@ -2132,7 +2129,7 @@ snapshots:
     dependencies:
       string-width: 8.2.0
       strip-ansi: 7.1.2
-      wrap-ansi: 9.0.2
+      wrap-ansi: 10.0.0
 
   cmd-shim@8.0.0: {}
 
@@ -3029,7 +3026,7 @@ snapshots:
     dependencies:
       isexe: 4.0.0
 
-  wrap-ansi@9.0.2:
+  wrap-ansi@10.0.0:
     dependencies:
       ansi-styles: 6.2.3
       string-width: 8.2.0
