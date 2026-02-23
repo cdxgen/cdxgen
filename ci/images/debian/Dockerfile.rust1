@@ -1,5 +1,5 @@
 # Base-image
-FROM rust:1.93.0-slim-bookworm@sha256:38d9e7c33a262bf1c58aecfbdf778205491d703a2196d4abf459e81cfe9f95e4 AS base
+FROM rust:1.93.1-slim-bookworm@sha256:9eb3d4c46eec8564bbecb6dba21861497989df0c74743d040ea356b3615ab187 AS base
 
 ARG DEBIAN_REPO
 ARG GITHUB_RAW_URL=https://raw.githubusercontent.com
