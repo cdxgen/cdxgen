@@ -259,7 +259,7 @@ overrides:
   socks-proxy-agent: 8.0.5
   spdx-exceptions: 2.5.0
   spdx-expression-parse: 4.0.0
-  spdx-license-ids: 3.0.22
+  spdx-license-ids: 3.0.23
   ssri: 13.0.0
   statuses: 2.0.2
   streamx: 2.23.0
@@ -306,8 +306,6 @@ overrides:
   yoctocolors: 2.1.2
   hermes-parser: 0.33.3
   hermes-estree: 0.33.3
-
-pnpmfileChecksum: sha256-nfOeuxPm0PLhmHqhdzVKpjFk27e1GEgHAqcQJ7ot+gg=
 
 importers:
 
@@ -657,7 +655,6 @@ packages:
     resolution: {integrity: sha512-OofcMJasdLcWBkI9EljimtSXxN6UlPgNj19nC2rFhpLig+S6984DpHqHpymLz0dI6l/n99bRMmVCftnISWH5Ag==}
     cpu: [ppc64]
     os: [linux]
-    libc: glibc
 
   '@cdxgen/cdxgen-plugins-bin-linuxmusl-amd64@2.0.2':
     resolution: {integrity: sha512-7V0dQUHhl6TbBUxeOncBqIx7rXAF7oP5w3zKBoSGkIEhyt5ViKwzwpZgeK/YOHsrp42sEpzBgCasCnNIdNDzKA==}
@@ -1539,8 +1536,8 @@ packages:
   spdx-expression-parse@4.0.0:
     resolution: {integrity: sha512-Clya5JIij/7C6bRR22+tnGXbc4VKlibKSVj2iHvVeX5iMW7s1SIQlqu699JkODJJIhh/pUu8L0/VLh8xflD+LQ==}
 
-  spdx-license-ids@3.0.22:
-    resolution: {integrity: sha512-4PRT4nh1EImPbt2jASOKHX7PB7I+e4IWNLvkKFDxNhJlfjbYlleYQh285Z/3mPTHSAK/AvdMmw5BNNuYH8ShgQ==}
+  spdx-license-ids@3.0.23:
+    resolution: {integrity: sha512-CWLcCCH7VLu13TgOH+r8p1O/Znwhqv/dbb6lqWy67G+pT1kHmeD/+V36AVb/vq8QMIQwVShJ6Ssl5FPh0fuSdw==}
 
   ssri@13.0.0:
     resolution: {integrity: sha512-yizwGBpbCn4YomB2lzhZqrHLJoqFGXihNbib3ozhqF/cIp5ue+xSmOQrjNasEE62hFxsCcg/V/z23t4n8jMEng==}
@@ -2870,9 +2867,9 @@ snapshots:
   spdx-expression-parse@4.0.0:
     dependencies:
       spdx-exceptions: 2.5.0
-      spdx-license-ids: 3.0.22
+      spdx-license-ids: 3.0.23
 
-  spdx-license-ids@3.0.22: {}
+  spdx-license-ids@3.0.23: {}
 
   ssri@13.0.0:
     dependencies:
