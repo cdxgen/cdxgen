@@ -29,9 +29,6 @@ changelog:
     - title: 🏗️ Build System
       labels:
         - build
-    - title: 📦 Dependency Updates
-      labels:
-        - dependency
     - title: 💳 Sponsored Work
       labels:
         - sponsored

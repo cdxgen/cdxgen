@@ -1,16 +1,16 @@
-github.com/badoux/checkmail v0.0.0-20181210160741-9661bd69e9ad false /home/almalinux/go/pkg/mod/cache/download/github.com/badoux/checkmail/@v/v0.0.0-20181210160741-9661bd69e9ad.mod
-github.com/gomodule/oauth1 v0.0.0-20181215000758-9a59ed3b0a84 false /home/almalinux/go/pkg/mod/cache/download/github.com/gomodule/oauth1/@v/v0.0.0-20181215000758-9a59ed3b0a84.mod
-github.com/gorilla/mux v1.7.4 false /home/almalinux/go/pkg/mod/cache/download/github.com/gorilla/mux/@v/v1.7.4.mod 1.12
-github.com/lib/pq v1.3.0 false /home/almalinux/go/pkg/mod/cache/download/github.com/lib/pq/@v/v1.3.0.mod
-github.com/lib/pq v1.3.0 false /home/almalinux/go/pkg/mod/cache/download/github.com/lib/pq/@v/v1.3.0.mod
-github.com/lib/pq v1.3.0 false /home/almalinux/go/pkg/mod/cache/download/github.com/lib/pq/@v/v1.3.0.mod
-github.com/go-chi/chi v4.0.0+incompatible true /home/almalinux/go/pkg/mod/cache/download/github.com/go-chi/chi/@v/v4.0.0+incompatible.mod
-github.com/mailru/easyjson v0.7.0 true /home/almalinux/go/pkg/mod/cache/download/github.com/mailru/easyjson/@v/v0.7.0.mod 1.12
-github.com/mailru/easyjson v0.7.0 true /home/almalinux/go/pkg/mod/cache/download/github.com/mailru/easyjson/@v/v0.7.0.mod 1.12
-github.com/mailru/easyjson v0.7.0 true /home/almalinux/go/pkg/mod/cache/download/github.com/mailru/easyjson/@v/v0.7.0.mod 1.12
-github.com/mailru/easyjson v0.7.0 true /home/almalinux/go/pkg/mod/cache/download/github.com/mailru/easyjson/@v/v0.7.0.mod 1.12
-github.com/mailgun/mailgun-go/v4 v4.0.1 false /home/almalinux/go/pkg/mod/cache/download/github.com/mailgun/mailgun-go/v4/@v/v4.0.1.mod 1.13
-github.com/pkg/errors v0.9.1 true /home/almalinux/go/pkg/mod/cache/download/github.com/pkg/errors/@v/v0.9.1.mod
-github.com/mailgun/mailgun-go/v4 v4.0.1 false /home/almalinux/go/pkg/mod/cache/download/github.com/mailgun/mailgun-go/v4/@v/v4.0.1.mod 1.13
-github.com/Preetam/readfasterapp  false /home/almalinux/go/readfasterapp/go.mod 1.13
-github.com/Preetam/readfasterapp  false /home/almalinux/go/readfasterapp/go.mod 1.13
+github.com/badoux/checkmail|v0.0.0-20181210160741-9661bd69e9ad|false|/home/almalinux/go/pkg/mod/cache/download/github.com/badoux/checkmail/@v/v0.0.0-20181210160741-9661bd69e9ad.mod
+github.com/gomodule/oauth1|v0.0.0-20181215000758-9a59ed3b0a84|false|/home/almalinux/go/pkg/mod/cache/download/github.com/gomodule/oauth1/@v/v0.0.0-20181215000758-9a59ed3b0a84.mod
+github.com/gorilla/mux|v1.7.4|false|/home/almalinux/go/pkg/mod/cache/download/github.com/gorilla/mux/@v/v1.7.4.mod|1.12
+github.com/lib/pq|v1.3.0|false|/home/almalinux/go/pkg/mod/cache/download/github.com/lib/pq/@v/v1.3.0.mod
+github.com/lib/pq|v1.3.0|false|/home/almalinux/go/pkg/mod/cache/download/github.com/lib/pq/@v/v1.3.0.mod
+github.com/lib/pq|v1.3.0|false|/home/almalinux/go/pkg/mod/cache/download/github.com/lib/pq/@v/v1.3.0.mod
+github.com/go-chi/chi|v4.0.0+incompatible|true|/home/almalinux/go/pkg/mod/cache/download/github.com/go-chi/chi/@v/v4.0.0+incompatible.mod
+github.com/mailru/easyjson|v0.7.0|true|/home/almalinux/go/pkg/mod/cache/download/github.com/mailru/easyjson/@v/v0.7.0.mod|1.12
+github.com/mailru/easyjson|v0.7.0|true|/home/almalinux/go/pkg/mod/cache/download/github.com/mailru/easyjson/@v/v0.7.0.mod|1.12
+github.com/mailru/easyjson|v0.7.0|true|/home/almalinux/go/pkg/mod/cache/download/github.com/mailru/easyjson/@v/v0.7.0.mod|1.12
+github.com/mailru/easyjson|v0.7.0|true|/home/almalinux/go/pkg/mod/cache/download/github.com/mailru/easyjson/@v/v0.7.0.mod|1.12
+github.com/mailgun/mailgun-go/v4|v4.0.1|false|/home/almalinux/go/pkg/mod/cache/download/github.com/mailgun/mailgun-go/v4/@v/v4.0.1.mod|1.13
+github.com/pkg/errors|v0.9.1|true|/home/almalinux/go/pkg/mod/cache/download/github.com/pkg/errors/@v/v0.9.1.mod
+github.com/mailgun/mailgun-go/v4|v4.0.1|false|/home/almalinux/go/pkg/mod/cache/download/github.com/mailgun/mailgun-go/v4/@v/v4.0.1.mod|1.13
+github.com/Preetam/readfasterapp||false|/home/almalinux/go/readfasterapp/go.mod|1.13
+github.com/Preetam/readfasterapp||false|/home/almalinux/go/readfasterapp/go.mod|1.13
