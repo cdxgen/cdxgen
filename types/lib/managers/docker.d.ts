@@ -9,8 +9,6 @@ export function detectRancherDesktop(): any;
 export const isWin: boolean;
 export const DOCKER_HUB_REGISTRY: "docker.io";
 export function stripAbsolutePath(path: any): any;
-export function getDirs(dirPath: string, dirName: string, hidden?: boolean, recurse?: boolean): string[];
-export function getOnlyDirs(srcpath: any, dirName: any): any[];
 export function getConnection(options: any, forRegistry: any): Promise<any>;
 export function makeRequest(path: any, method: any, forRegistry: any): Promise<any>;
 export function parseImageName(fullImageName: any): {
