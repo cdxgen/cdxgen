@@ -1,6 +1,12 @@
 {
   "include": ["*.js", "bin/**/*.js", "lib/**/*.js"],
-  "exclude": [".*/**", "*.poku.js", "lib/**/*.poku.js", "types/**/*", "contrib/**"],
+  "exclude": [
+    ".*/**",
+    "*.poku.js",
+    "lib/**/*.poku.js",
+    "types/**/*",
+    "contrib/**"
+  ],
   "compilerOptions": {
     "allowJs": true,
     // Generate d.ts files
