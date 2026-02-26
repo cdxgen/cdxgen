@@ -114,7 +114,6 @@ overrides:
   edn-data: 1.1.2
   ee-first: 1.1.1
   encodeurl: 2.0.0
-  encoding: 0.1.13
   encoding-sniffer: 0.2.1
   end-of-stream: 1.4.5
   entities: 7.0.1
