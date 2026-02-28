@@ -5,31 +5,6 @@ on:
     paths:
       - ci/images/**/Dockerfile.*
 
-env:
-  NEXUS_ALPINE_REPO_PATH: /repository/alpine
-  NEXUS_COMPOSER_PATH: /repository/composer
-  NEXUS_DEBIAN_REPO_PATH: /repository/debian
-  NEXUS_DOTNETCLI_PATH: /repository/dotnetcli
-  NEXUS_GITHUB_PATH: /repository/github
-  NEXUS_GITHUB_RAW_PATH: /repository/github-raw-user-content
-  NEXUS_GOOGLE_PATH: /repository/google
-  NEXUS_NODEJS_PATH: /repository/nodejs
-  NEXUS_NPM_REPO_PATH: /repository/npm
-  NEXUS_NUGET_REPO_PATH: /repository/nuget
-  NEXUS_OPENSUSE_CODECS_REPO_PATH: /repository/opensuse-codecs
-  NEXUS_OPENSUSE_REPO_PATH: /repository/opensuse
-  NEXUS_PORT: 8081
-  NEXUS_PYPI_REPO_PATH: /repository/pypi
-  NEXUS_REDHAT_REPO_PATH: /repository/redhat
-  NEXUS_RUBY_LANG_PATH: /repository/ruby-lang
-  NEXUS_RUBYGEMS_REPO_PATH: /repository/rubygems
-  NEXUS_SDKMAN_PATH: /repository/sdkman
-  NEXUS_SERVER: 100.73.146.80
-  NEXUS_SUSE_MICROSOFT_REPO_PATH: /repository/suse-microsoft
-  NEXUS_SUSE_REPO_PATH: /repository/suse
-  NEXUS_SWIFT_PATH: /repository/swift
-  NEXUS_UBUNTU_REPO_PATH: /repository/ubuntu
-
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: true
