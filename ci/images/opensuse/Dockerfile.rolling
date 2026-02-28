@@ -150,7 +150,6 @@ RUN set -e; \
       corepack \
       node-gyp \
  && npx node-gyp install \
- && npm install -g corepack \
  && poetry --version \
  && pipenv --version \
  && blint --help \

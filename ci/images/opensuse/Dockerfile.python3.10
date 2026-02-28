@@ -1,12 +1,17 @@
 # Base-image
 FROM registry.opensuse.org/opensuse/bci/python:3.10@sha256:391f2259cc0b729e790f8328592c266188b6bad6af92f987ae024e1f28ef8b8a AS base
 
+ARG GITHUB_RAW_URL=https://raw.githubusercontent.com
 ARG GITHUB_URL=https://github.com
 # renovate: datasource=golang-version depName=golang
 ARG GO_VERSION=1.26.0
 ARG GOOGLE_URL=https://dl.google.com
+ARG NODE_22
+ARG NODE_VERSION=${NODE_22}
 ARG NODEJS_DIST_URL
 ARG NPM_REPO
+ARG NVM
+ARG NVM_VERSION=${NVM}
 ARG OPENSUSE_CODECS_REPO
 ARG OPENSUSE_REPO
 ARG PIP_CONFIG
@@ -16,9 +21,10 @@ ENV CC=gcc \
     LANG=en_US.UTF-8 \
     LANGUAGE=en_US.UTF-8 \
     LC_ALL=en_US.UTF-8 \
+    NVM_DIR="/root/.nvm" \
     PYTHONPATH=/opt/pypi \
     npm_config_python=/usr/bin/python3.10
-ENV PATH=${PATH}:/usr/local/bin:${PYTHONPATH}/bin:${GOPATH}/bin:/usr/local/go/bin
+ENV PATH=${PATH}:/usr/local/bin:${NVM_DIR}/versions/node/v${NODE_VERSION}/bin:${PYTHONPATH}/bin:${GOPATH}/bin:/usr/local/go/bin
 
 RUN set -e; \
     if [ -n "$NODEJS_DIST_URL" ]; then \
@@ -70,9 +76,6 @@ RUN set -e; \
           java-25-openjdk-devel \
           libxml2-devel \
           make \
-          nodejs22 \
-          nodejs22-devel \
-          npm22 \
           python310 \
           python310-devel \
           python310-pip \
@@ -104,14 +107,15 @@ RUN set -e; \
  && tar -C /usr/local -xzf go${GO_VERSION}.linux-${GOBIN_VERSION}.tar.gz \
  && rm go${GO_VERSION}.linux-${GOBIN_VERSION}.tar.gz \
  && go telemetry off \
- && npm install -g \
-      npm \
+ && curl -o- $GITHUB_RAW_URL/nvm-sh/nvm/$NVM_VERSION/install.sh | bash \
+ && source ${NVM_DIR}/nvm.sh \
+ && nvm install ${NODE_VERSION} \
+ && node -v \
+ && npm -v \
  && npm install -g \
       corepack \
       node-gyp \
  && npx node-gyp install \
- && node -v \
- && npm -v \
  && poetry --version \
  && pipenv --version \
  && gcc --version \

@@ -1,9 +1,14 @@
 # Base-image
 FROM registry.opensuse.org/opensuse/bci/python:3.9@sha256:47094e244334645440158a27e3e1dcebccd6bcb18d973d168eb3cdfc649632a3 AS base
 
+ARG GITHUB_RAW_URL=https://raw.githubusercontent.com
 ARG GITHUB_URL=https://github.com
+ARG NODE_22
+ARG NODE_VERSION=${NODE_22}
 ARG NODEJS_DIST_URL
 ARG NPM_REPO
+ARG NVM
+ARG NVM_VERSION=${NVM}
 ARG OPENSUSE_CODECS_REPO
 ARG OPENSUSE_REPO
 ARG PIP_CONFIG
@@ -12,9 +17,10 @@ ENV CC=gcc \
     LANG=en_US.UTF-8 \
     LANGUAGE=en_US.UTF-8 \
     LC_ALL=en_US.UTF-8 \
+    NVM_DIR="/root/.nvm" \
     PYTHONPATH=/opt/pypi \
     npm_config_python=/usr/bin/python3.9
-ENV PATH=${PATH}:/usr/local/bin:${PYTHONPATH}/bin
+ENV PATH=${PATH}:/usr/local/bin:${NVM_DIR}/versions/node/v${NODE_VERSION}/bin:${PYTHONPATH}/bin
 
 RUN set -e; \
     if [ -n "$NODEJS_DIST_URL" ]; then \
@@ -66,9 +72,6 @@ RUN set -e; \
           java-25-openjdk-devel \
           libxml2-devel \
           make \
-          nodejs22 \
-          nodejs22-devel \
-          npm22 \
           python39 \
           python39-devel \
           python39-pip \
@@ -95,10 +98,15 @@ RUN set -e; \
         pipenv \
         poetry \
         uv \
- && npm install -g npm \
+ && curl -o- $GITHUB_RAW_URL/nvm-sh/nvm/$NVM_VERSION/install.sh | bash \
+ && source ${NVM_DIR}/nvm.sh \
+ && nvm install ${NODE_VERSION} \
  && node -v \
  && npm -v \
- && npm install -g corepack \
+ && npm install -g \
+      corepack \
+      node-gyp \
+ && npx node-gyp install \
  && poetry --version \
  && pipenv --version \
  && gcc --version \
