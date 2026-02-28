@@ -90,43 +90,11 @@ jobs:
           $(awk 'FNR==2 {print "\""toupper(FILENAME)"="$1"\""}' *)
           VALUE
           EOF
-      - name: Setup Nexus usage
-        id: nexus
-        if: ${{ contains(matrix.runner, 'self-hosted') }}
-        run: |
-          NPM_REPO=http://$NEXUS_SERVER:$NEXUS_PORT$NEXUS_NPM_REPO_PATH
-          echo -e "registry=$NPM_REPO\n@jsr:registry=$NPM_REPO" > .npmrc
-          cat >> "$GITHUB_OUTPUT" << EOF
-          docker-args<<VALUE
-          "ALPINE_REPO=http://$NEXUS_SERVER:$NEXUS_PORT$NEXUS_ALPINE_REPO_PATH"
-          "COMPOSER_URL=http://$NEXUS_SERVER:$NEXUS_PORT$NEXUS_COMPOSER_PATH"
-          "DEBIAN_REPO=http://$NEXUS_SERVER:$NEXUS_PORT$NEXUS_DEBIAN_REPO_PATH"
-          "DOTNETCLI_URL=http://$NEXUS_SERVER:$NEXUS_PORT$NEXUS_DOTNETCLI_PATH"
-          "GITHUB_RAW_URL=http://$NEXUS_SERVER:$NEXUS_PORT$NEXUS_GITHUB_RAW_PATH"
-          "GITHUB_URL=http://$NEXUS_SERVER:$NEXUS_PORT$NEXUS_GITHUB_PATH"
-          "GOOGLE_URL=http://$NEXUS_SERVER:$NEXUS_PORT$NEXUS_GOOGLE_PATH"
-          "NODEJS_DIST_URL=http://$NEXUS_SERVER:$NEXUS_PORT$NEXUS_NODEJS_PATH/dist"
-          "NPM_REPO=$NPM_REPO"
-          "NUGET_REPO=http://$NEXUS_SERVER:$NEXUS_PORT$NEXUS_NUGET_REPO_PATH"
-          "OPENSUSE_CODECS_REPO=http://$NEXUS_SERVER:$NEXUS_PORT$NEXUS_OPENSUSE_CODECS_REPO_PATH"
-          "OPENSUSE_REPO=http://$NEXUS_SERVER:$NEXUS_PORT$NEXUS_OPENSUSE_REPO_PATH"
-          "PIP_CONFIG=[global]\nindex-url=http://$NEXUS_SERVER:$NEXUS_PORT$NEXUS_PYPI_REPO_PATH/simple\ntrusted-host=$NEXUS_SERVER"
-          "REDHAT_REPO=http://$NEXUS_SERVER:$NEXUS_PORT$NEXUS_REDHAT_REPO_PATH"
-          "RUBY_LANG_URL=http://$NEXUS_SERVER:$NEXUS_PORT$NEXUS_RUBY_LANG_PATH"
-          "RUBYGEMS_REPO=http://$NEXUS_SERVER:$NEXUS_PORT$NEXUS_RUBYGEMS_REPO_PATH"
-          "SDKMAN_URL=http://$NEXUS_SERVER:$NEXUS_PORT$NEXUS_SDKMAN_PATH/2"
-          "SUSE_MICROSOFT_REPO=http://$NEXUS_SERVER:$NEXUS_PORT$NEXUS_SUSE_MICROSOFT_REPO_PATH"
-          "SUSE_REPO=http://$NEXUS_SERVER:$NEXUS_PORT$NEXUS_SUSE_REPO_PATH"
-          "SWIFT_URL=http://$NEXUS_SERVER:$NEXUS_PORT$NEXUS_SWIFT_PATH"
-          "UBUNTU_REPO=http://$NEXUS_SERVER:$NEXUS_PORT$NEXUS_UBUNTU_REPO_PATH"
-          VALUE
-          EOF
       - name: Build image
         uses: ./.github/actions/build-docker-image
         with:
           dockerfile: ${{ matrix.imagefile }}
           docker-args: |
             ${{ steps.versions.outputs.docker-args }}
-            ${{ steps.nexus.outputs.docker-args }}
           platforms: linux/${{ matrix.platform }}
           target: cdxgen
