@@ -61,15 +61,35 @@ for (const override in pkgJson.pnpm.overrides) {
   checkObsolescence(override, obsoletePnpmOverrides);
 }
 
-export function checkDependencies() {
-  return (
-    incorrectNpmOverridesVersions.length +
-    incorrectPnpmOverridesVersions.length +
-    missingNpmOverrides.length +
-    missingPnpmOverrides.length +
-    obsoleteNpmOverrides.length +
-    obsoletePnpmOverrides.length
+if (missingNpmOverrides.length) {
+  console.log("\nThe following dependencies are not in the 'overrides'-block:");
+  console.log(missingNpmOverrides.join(",\n"));
+}
+if (incorrectNpmOverridesVersions.length) {
+  console.log(
+    "\nThe following dependencies have a different version in the 'overrides'-block:",
   );
+  console.log(incorrectNpmOverridesVersions.join("\n"));
+}
+if (missingPnpmOverrides.length) {
+  console.log(
+    "\nThe following dependencies are not in the 'pnpm.overrides'-block:",
+  );
+  console.log(missingPnpmOverrides.join(",\n"));
+}
+if (incorrectPnpmOverridesVersions.length) {
+  console.log(
+    "\nThe following dependencies have a different version in the 'pnpm.overrides'-block:",
+  );
+  console.log(incorrectPnpmOverridesVersions.join("\n"));
+}
+if (obsoleteNpmOverrides.length) {
+  console.log("\nThe following entries in 'overrides' are not used:");
+  console.log(obsoleteNpmOverrides.join("\n"));
+}
+if (obsoletePnpmOverrides.length) {
+  console.log("\nThe following entries in 'pnpm.overrides' are not used:");
+  console.log(obsoletePnpmOverrides.join("\n"));
 }
 
 function checkOverride(packageName, packageVersion) {
@@ -99,33 +119,13 @@ function checkObsolescence(override, obsoletionArray) {
   }
 }
 
-if (missingNpmOverrides.length) {
-  console.log("The following dependencies are not in the 'overrides'-block:");
-  console.log(missingNpmOverrides.join(",\n"));
-}
-if (incorrectNpmOverridesVersions.length) {
-  console.log(
-    "The following dependencies have a different version in the 'overrides'-block:",
+export function checkDependencies() {
+  return (
+    incorrectNpmOverridesVersions.length +
+    incorrectPnpmOverridesVersions.length +
+    missingNpmOverrides.length +
+    missingPnpmOverrides.length +
+    obsoleteNpmOverrides.length +
+    obsoletePnpmOverrides.length
   );
-  console.log(incorrectNpmOverridesVersions.join("\n"));
-}
-if (missingPnpmOverrides.length) {
-  console.log(
-    "The following dependencies are not in the 'pnpm.overrides'-block:",
-  );
-  console.log(missingPnpmOverrides.join(",\n"));
-}
-if (incorrectPnpmOverridesVersions.length) {
-  console.log(
-    "The following dependencies have a different version in the 'pnpm.overrides'-block:",
-  );
-  console.log(incorrectPnpmOverridesVersions.join("\n"));
-}
-if (obsoleteNpmOverrides.length) {
-  console.log("The following entries in 'overrides' are not used:");
-  console.log(obsoleteNpmOverrides.join("\n"));
-}
-if (obsoletePnpmOverrides.length) {
-  console.log("The following entries in 'pnpm.overrides' are not used:");
-  console.log(obsoletePnpmOverrides.join("\n"));
 }

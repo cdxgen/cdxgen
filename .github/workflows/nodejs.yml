@@ -81,6 +81,7 @@ jobs:
           pnpm test
         env:
           CI: true
+          FETCH_LICENSE: true
           NPM_CONFIG_PROVENANCE: true
         
   depscan:
