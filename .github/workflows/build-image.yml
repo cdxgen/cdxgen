@@ -57,26 +57,7 @@ jobs:
             platform: arm64
           - imagefile: ci/images/debian/Dockerfile.ruby2.6
             platform: arm64
-        include:
-          # Set the runners
-          - platform: amd64
-            runner: ubuntu-24.04
-          - platform: arm64
-            runner: ubuntu-24.04-arm
-          # Some images must be built on self-hosted
-          - imagefile: ci/images/opensuse/Dockerfile.python3.9
-            platform: amd64
-            runner: [ self-hosted, amd64 ]
-          - imagefile: ci/images/opensuse/Dockerfile.python3.9
-            platform: arm64
-            runner: [ self-hosted, arm64 ]
-          - imagefile: ci/images/opensuse/Dockerfile.python3.10
-            platform: amd64
-            runner: [ self-hosted, amd64 ]
-          - imagefile: ci/images/opensuse/Dockerfile.python3.10
-            platform: arm64
-            runner: [ self-hosted, arm64 ]
-    runs-on: "${{ matrix.runner }}"
+    runs-on: ${{ matrix.platform == 'amd64' && 'ubuntu-24.04' || 'ubuntu-24.04-arm' }}
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
@@ -96,5 +77,5 @@ jobs:
           dockerfile: ${{ matrix.imagefile }}
           docker-args: |
             ${{ steps.versions.outputs.docker-args }}
-          platforms: linux/${{ matrix.platform }}
+          platforms: ${{ matrix.platform }}
           target: cdxgen
