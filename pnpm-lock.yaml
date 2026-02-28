@@ -40,6 +40,7 @@ overrides:
   '@cdxgen/cdxgen-plugins-bin-linuxmusl-arm64': 2.0.2
   '@cdxgen/cdxgen-plugins-bin-windows-amd64': 2.0.2
   '@cdxgen/cdxgen-plugins-bin-windows-arm64': 2.0.2
+  '@gar/promise-retry': 1.0.1
   '@iarna/toml': 2.2.5
   '@isaacs/fs-minipass': 4.0.1
   '@isaacs/string-locale-compare': 1.1.0
@@ -684,8 +685,8 @@ packages:
     resolution: {integrity: sha512-hAs5PPKPCQ3/Nha+1fo4A4/gL85fIfxZwHPehsjCJ+BhQH2/yw6/xReuaPA/RfNQr6iz1PcD7BZcE3ctyyl3EA==}
     cpu: [x64]
 
-  '@gar/promise-retry@1.0.2':
-    resolution: {integrity: sha512-Lm/ZLhDZcBECta3TmCQSngiQykFdfw+QtI1/GYMsZd4l3nG+P8WLB16XuS7WaBGLQ+9E+cOcWQsth9cayuGt8g==}
+  '@gar/promise-retry@1.0.1':
+    resolution: {integrity: sha512-RfeMlNgaNR8l0Br1/xoB8m0wVpGpXNbGX+8l+dpVdzxw/fFgUsM/oXctanF//hacddM/aeZd6SfoMXuTe/53Kw==}
     engines: {node: ^20.17.0 || >=22.9.0}
 
   '@iarna/toml@2.2.5':
@@ -1871,7 +1872,7 @@ snapshots:
   '@cdxgen/cdxgen-plugins-bin@2.0.2':
     optional: true
 
-  '@gar/promise-retry@1.0.2':
+  '@gar/promise-retry@1.0.1':
     dependencies:
       retry: 0.13.1
     optional: true
@@ -2502,7 +2503,7 @@ snapshots:
 
   make-fetch-happen@15.0.4:
     dependencies:
-      '@gar/promise-retry': 1.0.2
+      '@gar/promise-retry': 1.0.1
       '@npmcli/agent': 4.0.0
       cacache: 20.0.3
       http-cache-semantics: 4.2.0
