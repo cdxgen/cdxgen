@@ -49,6 +49,7 @@ overrides:
   '@jridgewell/sourcemap-codec': 1.5.5
   '@jridgewell/trace-mapping': 0.3.31
   '@keyv/serialize': 1.1.1
+  '@kwsites/file-exists': 1.1.1
   '@npmcli/agent': 4.0.0
   '@npmcli/fs': 5.0.0
   '@npmcli/git': 7.0.1
