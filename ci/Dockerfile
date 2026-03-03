@@ -14,7 +14,7 @@ ARG GRADLE_VERSION=9.3.1
 # renovate: datasource=golang-version depName=golang
 ARG GO_VERSION=1.26.0
 # renovate: datasource=node-version depName=node
-ARG NODE_VERSION=24.13.1
+ARG NODE_VERSION=24.14.0
 ARG RUBY_VERSION=4.0.1
 ARG JAVA_TOOL_OPTIONS="-Dfile.encoding=UTF-8"
 ARG SCALA_VERSION=3.7.4
