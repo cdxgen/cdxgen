@@ -48,40 +48,43 @@ jobs:
       - name: dockertests
         if: matrix.os == 'ubuntu-24.04'
         run: |
-          bin/cdxgen.js ubuntu:latest -t docker -o bomresults/bom-ubuntu.json --fail-on-error
+          bin/cdxgen.js ubuntu:latest -p -t docker -o bomresults/bom-ubuntu.json --fail-on-error
           docker rmi ubuntu:latest
-          bin/cdxgen.js alpine:latest -t docker -o bomresults/bom-alpine.json --fail-on-error
+          bin/cdxgen.js alpine:latest -p -t docker -o bomresults/bom-alpine.json --fail-on-error
           docker rmi alpine:latest
-          bin/cdxgen.js almalinux:9.4-minimal -t docker -o bomresults/bom-almalinux.json --fail-on-error
+          bin/cdxgen.js almalinux:9.4-minimal -p -t docker -o bomresults/bom-almalinux.json --fail-on-error
           docker rmi almalinux:9.4-minimal
-          bin/cdxgen.js phpmyadmin@sha256:1092481630056189e43cc0fe66fd01defcc9334d78ab4611b22f65e9a39869bd -o bomresults/bom-phpmyadmin.json --fail-on-error
+          bin/cdxgen.js phpmyadmin@sha256:1092481630056189e43cc0fe66fd01defcc9334d78ab4611b22f65e9a39869bd -p -o bomresults/bom-phpmyadmin.json --fail-on-error
           docker rmi phpmyadmin@sha256:1092481630056189e43cc0fe66fd01defcc9334d78ab4611b22f65e9a39869bd
-          bin/cdxgen.js shiftleft/scan-slim -o bomresults/bom-scanslim.json -t container --fail-on-error
+          bin/cdxgen.js shiftleft/scan-slim -o bomresults/bom-scanslim.json -p -t container --fail-on-error
           docker rmi shiftleft/scan-slim
-          bin/cdxgen.js redmine@sha256:a5c5f8a64a0d9a436a0a6941bc3fb156be0c89996add834fe33b66ebeed2439e -o bomresults/bom-redmine.json --fail-on-error
+          bin/cdxgen.js redmine@sha256:a5c5f8a64a0d9a436a0a6941bc3fb156be0c89996add834fe33b66ebeed2439e -p -o bomresults/bom-redmine.json --fail-on-error
           docker rmi redmine@sha256:a5c5f8a64a0d9a436a0a6941bc3fb156be0c89996add834fe33b66ebeed2439e
-          bin/cdxgen.js rocket.chat@sha256:379f7afa0e67497c363ac9a9b3e7e6a6d31deee228233307c987e4a0c68b28e6 -o bomresults/bom-rocket.json --fail-on-error
+          bin/cdxgen.js rocket.chat@sha256:379f7afa0e67497c363ac9a9b3e7e6a6d31deee228233307c987e4a0c68b28e6 -p -o bomresults/bom-rocket.json --fail-on-error
           docker rmi rocket.chat@sha256:379f7afa0e67497c363ac9a9b3e7e6a6d31deee228233307c987e4a0c68b28e6
-          bin/cdxgen.js sonarqube@sha256:7c0edcb99c964984db6d24330db33bb12de1e8ae0d5974d77640b1efea1483d1 -o bomresults/bom-sonar.json --fail-on-error
+          bin/cdxgen.js sonarqube@sha256:7c0edcb99c964984db6d24330db33bb12de1e8ae0d5974d77640b1efea1483d1 -p -o bomresults/bom-sonar.json --fail-on-error
           docker rmi sonarqube@sha256:7c0edcb99c964984db6d24330db33bb12de1e8ae0d5974d77640b1efea1483d1
-          bin/cdxgen.js zookeeper@sha256:5bf00616677db5ef57d8a2da7c5dadf67f1a6be54b0c33a79be3332c9c80aeb6 -o bomresults/bom-zoo.json --fail-on-error
+          bin/cdxgen.js zookeeper@sha256:5bf00616677db5ef57d8a2da7c5dadf67f1a6be54b0c33a79be3332c9c80aeb6 -p -o bomresults/bom-zoo.json --fail-on-error
           docker rmi zookeeper@sha256:5bf00616677db5ef57d8a2da7c5dadf67f1a6be54b0c33a79be3332c9c80aeb6
           docker pull shiftleft/scan-slim:latest
           docker save shiftleft/scan-slim:latest -o /tmp/scanslim.tar
           docker rmi shiftleft/scan-slim:latest
-          bin/cdxgen.js /tmp/scanslim.tar -o bomresults/bom-scanarch.json --fail-on-error
+          bin/cdxgen.js /tmp/scanslim.tar -p -o bomresults/bom-scanarch.json --fail-on-error
           rm /tmp/scanslim.tar
           ls -ltr bomresults
+        env:
+          CDXGEN_DEBUG_MODE: debug
       - name: dockertests arm
-        if: matrix.os == 'ubuntu-24.04-arm'
         run: |
-          bin/cdxgen.js ubuntu:latest -t docker -o bomresults/bom-ubuntu.json --fail-on-error
+          bin/cdxgen.js ubuntu:latest -p -t docker -o bomresults/bom-ubuntu.json --fail-on-error
           docker rmi ubuntu:latest
-          bin/cdxgen.js alpine:latest -t docker -o bomresults/bom-alpine.json --fail-on-error
+          bin/cdxgen.js alpine:latest -p -t docker -o bomresults/bom-alpine.json --fail-on-error
           docker rmi alpine:latest
-          bin/cdxgen.js almalinux:9.4-minimal -t docker -o bomresults/bom-almalinux.json --fail-on-error
+          bin/cdxgen.js almalinux:9.4-minimal -p -t docker -o bomresults/bom-almalinux.json --fail-on-error
           docker rmi almalinux:9.4-minimal
           ls -ltr bomresults
+        env:
+          CDXGEN_DEBUG_MODE: debug
   linux-dockertar-tests:
     strategy:
       fail-fast: true
@@ -105,17 +108,18 @@ jobs:
         env:
           CI: true
       - name: dockertests
-        if: matrix.os == 'ubuntu-24.04'
         run: |
           docker pull ubuntu:latest
           docker save -o /tmp/ubuntu.tar ubuntu:latest
           docker rmi ubuntu:latest
-          bin/cdxgen.js /tmp/ubuntu.tar -t docker -o bomresults/bom-ubuntu.tar.json --fail-on-error
+          bin/cdxgen.js /tmp/ubuntu.tar -p -t docker -o bomresults/bom-ubuntu.tar.json --fail-on-error
           docker pull alpine:latest
           docker save -o /tmp/alpine.tar alpine:latest
           docker rmi alpine:latest
-          bin/cdxgen.js /tmp/alpine.tar -t docker -o bomresults/bom-alpine.tar.json --fail-on-error
+          bin/cdxgen.js /tmp/alpine.tar -p -t docker -o bomresults/bom-alpine.tar.json --fail-on-error
           ls -ltr bomresults
+        env:
+          CDXGEN_DEBUG_MODE: debug
   os-tests:
     strategy:
       fail-fast: true
