@@ -117,7 +117,7 @@ wheels = [
 
 [[package]]
 name = "atom-tools"
-version = "0.8.3"
+version = "0.8.4"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "cleo" },
@@ -125,9 +125,9 @@ dependencies = [
     { name = "json-flatten" },
     { name = "thefuzz" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/1e/b2/40896c15095853f78ebb5154dd687ec04a6ebf020e2c98d4ad8ba19012c6/atom_tools-0.8.3.tar.gz", hash = "sha256:e31fd4950e4af7f906d0ca2f239c98b4e52ef0f5033c4fe66446308bef094e2c", size = 62680, upload-time = "2026-02-21T13:16:26.351Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/0a/6e/d16acb69132b3f8f7f1340b00d04b40c69f3d6b780fc43955fb915ed5ec3/atom_tools-0.8.4.tar.gz", hash = "sha256:108d7ed9035ee75ab58bd1df67703763c200f0c2ae2fb05eeb4ee79c74a76498", size = 63352, upload-time = "2026-02-27T13:40:31.315Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/47/79/819a00de2cb164d7057f32c6974a06e8809059c88d07ced96878d2917fcb/atom_tools-0.8.3-py3-none-any.whl", hash = "sha256:1ccd7833bc313b43d183f1ae59915380cc5f69d04f2d2a6e316fea09efd56d5d", size = 46326, upload-time = "2026-02-21T13:16:24.774Z" },
+    { url = "https://files.pythonhosted.org/packages/15/fb/4d433b715dda82d979db0510481478f4701966eb3387691d9649a87ff62a/atom_tools-0.8.4-py3-none-any.whl", hash = "sha256:dc16ef4423446d8c8d95fea67edb3b4564d7dbe22de3cad09fa4331e3660c5c9", size = 46921, upload-time = "2026-02-27T13:40:30.201Z" },
 ]
 
 [[package]]
