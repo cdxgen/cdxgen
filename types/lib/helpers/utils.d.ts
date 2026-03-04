@@ -1178,7 +1178,7 @@ export function extractJarArchive(jarFile: string, tempDir: string, jarNSMapping
  *
  * @param {string} projectPath Path to the SBT project
  */
-export function determineSbtVersion(projectPath: string): any;
+export function determineSbtVersion(projectPath: string): string | number | boolean;
 /**
  * Adds a new plugin to the SBT project by amending its plugins list.
  * Only recommended for SBT < 1.2.0 or otherwise use `addPluginSbtFile`
