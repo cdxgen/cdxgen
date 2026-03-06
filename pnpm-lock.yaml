@@ -60,7 +60,7 @@ overrides:
   '@sec-ant/readable-stream': 0.6.0
   '@sindresorhus/is': 7.2.0
   '@sinonjs/commons': 3.0.1
-  '@sinonjs/fake-timers': 15.1.0
+  '@sinonjs/fake-timers': 15.1.1
   '@sinonjs/samsam': 9.0.2
   '@types/http-cache-semantics': 4.2.0
   abbrev: 4.0.0
@@ -757,8 +757,8 @@ packages:
   '@sinonjs/commons@3.0.1':
     resolution: {integrity: sha512-K3mCHKQ9sVh8o1C9cxkwxaOmXoAMlDxC1mYyHrjqOWEcBjYr76t96zL2zlj5dUGZ3HSw240X1qgH3Mjf1yJWpQ==}
 
-  '@sinonjs/fake-timers@15.1.0':
-    resolution: {integrity: sha512-cqfapCxwTGsrR80FEgOoPsTonoefMBY7dnUEbQ+GRcved0jvkJLzvX6F4WtN+HBqbPX/SiFsIRUp+IrCW/2I2w==}
+  '@sinonjs/fake-timers@15.1.1':
+    resolution: {integrity: sha512-cO5W33JgAPbOh07tvZjUOJ7oWhtaqGHiZw+11DPbyqh2kHTBc3eF/CjJDeQ4205RLQsX6rxCuYOroFQwl7JDRw==}
 
   '@sinonjs/samsam@9.0.2':
     resolution: {integrity: sha512-H/JSxa4GNKZuuU41E3b8Y3tbSEx8y4uq4UH1C56ONQac16HblReJomIvv3Ud7ANQHQmkeSowY49Ij972e/pGxQ==}
@@ -1967,7 +1967,7 @@ snapshots:
     dependencies:
       type-detect: 4.1.0
 
-  '@sinonjs/fake-timers@15.1.0':
+  '@sinonjs/fake-timers@15.1.1':
     dependencies:
       '@sinonjs/commons': 3.0.1
 
@@ -2851,7 +2851,7 @@ snapshots:
   sinon@21.0.1:
     dependencies:
       '@sinonjs/commons': 3.0.1
-      '@sinonjs/fake-timers': 15.1.0
+      '@sinonjs/fake-timers': 15.1.1
       '@sinonjs/samsam': 9.0.2
       diff: 8.0.3
       supports-color: 10.2.2
