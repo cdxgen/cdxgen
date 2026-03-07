@@ -1,5 +1,5 @@
 # Base-image
-FROM registry.suse.com/bci/python:3.13.12@sha256:4319564140bc4066bdf91c4f849a936fc18bfb4efca420127223fef80901d80d AS base
+FROM registry.suse.com/bci/python:3.13.12@sha256:d221c638f5ce723cadec434e1a36af4376e1f83f091565f3c7ab1b13ce4dd0f4 AS base
 
 ARG GCC_VERSION=14
 ARG GITHUB_RAW_URL=https://raw.githubusercontent.com
