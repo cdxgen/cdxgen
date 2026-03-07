@@ -1,0 +1,4 @@
+project('empty-dep-test', 'c')
+
+libatomic = dependency('', required: false)
+threads_dep = dependency('threads', required: true)
