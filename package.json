@@ -331,7 +331,7 @@
     "path-scurry": "2.0.2",
     "picocolors": "1.1.1",
     "picomatch": "4.0.3",
-    "poku": "3.0.2",
+    "poku": "4.0.0",
     "prebuild-install": "7.1.3",
     "proc-log": "6.1.0",
     "promise-retry": "2.0.1",
@@ -457,7 +457,7 @@
   "devDependencies": {
     "@biomejs/biome": "2.4.5",
     "esmock": "2.7.3",
-    "poku": "3.0.2",
+    "poku": "4.0.0",
     "sinon": "21.0.2",
     "typescript": "5.9.3"
   },
@@ -714,7 +714,7 @@
       "path-scurry": "2.0.2",
       "picocolors": "1.1.1",
       "picomatch": "4.0.3",
-      "poku": "3.0.2",
+      "poku": "4.0.0",
       "prebuild-install": "7.1.3",
       "proc-log": "6.1.0",
       "promise-retry": "2.0.1",
