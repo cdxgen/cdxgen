@@ -75,25 +75,10 @@ jobs:
         uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f # v6.3.0
         with:
           node-version: ${{ matrix.node-version }}
-      - name: Set up Python
-        uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6.2.0
-        with:
-          python-version: 3.13
-      - name: pnpm install
+      - name: pnpm install, build and test
         shell: bash
         run: |
           pnpm install:frozen
-      - name: node-gyp rebuild
-        shell: bash
-        run: |
-          cd node_modules/@appthreat/sqlite3/
-          pnpm exec node-gyp rebuild
-        if: startsWith(matrix.node-version, '20.20.')
-        env:
-          NODE_OPTIONS: "--no-experimental-require-module"
-      - name: pnpm test
-        shell: bash
-        run: |          
           FETCH_LICENSE=true node bin/cdxgen.js --exclude test/\*\* -t js --deep
           pnpm test
         env:
@@ -209,10 +194,6 @@ jobs:
       - uses: denoland/setup-deno@e95548e56dfa95d4e1a28d6f422fafe75c4c26fb # v2.0.3
         with:
           deno-version: 2.7.4
-      - name: Set up Python
-        uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6.2.0
-        with:
-          python-version: 3.13
       - name: pnpm install, build and test
         run: |
           pnpm install:frozen
