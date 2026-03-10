@@ -75,10 +75,25 @@ jobs:
         uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f # v6.3.0
         with:
           node-version: ${{ matrix.node-version }}
-      - name: pnpm install, build and test
+      - name: Set up Python
+        uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6.2.0
+        with:
+          python-version: 3.13
+      - name: pnpm install
         shell: bash
         run: |
           pnpm install:frozen
+      - name: node-gyp rebuild
+        shell: bash
+        run: |
+          cd node_modules/@appthreat/sqlite3/
+          pnpm exec node-gyp rebuild
+        if: startsWith(matrix.node-version, '20.20.')
+        env:
+          NODE_OPTIONS: "--no-experimental-require-module"
+      - name: pnpm test
+        shell: bash
+        run: |          
           FETCH_LICENSE=true node bin/cdxgen.js --exclude test/\*\* -t js --deep
           pnpm test
         env:
@@ -156,7 +171,7 @@ jobs:
               deno compile --allow-read --allow-env --allow-run --allow-sys=uid,systemMemoryInfo,gid,osRelease,homedir --allow-write --allow-net --include=./data --include=./package.json --output cdxgenx.exe bin/cdxgen.js
               .\cdxgenx.exe --help
               (Get-FileHash .\cdxgenx.exe).hash | Out-File -FilePath .\cdxgenx.exe.sha256
-#              deno compile --allow-read --allow-env --allow-run --allow-sys=uid,systemMemoryInfo,gid,osRelease,homedir --allow-write --allow-net --node-modules-dir=auto --allow-ffi --allow-scripts=npm:@appthreat/sqlite3@6.0.9 --include=./data --include=./package.json --include=node_modules/sqlite3/build/Release --output evinse.exe bin/evinse.js
+#              deno compile --allow-read --allow-env --allow-run --allow-sys=uid,systemMemoryInfo,gid,osRelease,homedir --allow-write --allow-net --node-modules-dir=auto --allow-ffi --allow-scripts=npm:@appthreat/sqlite3@8.0.0 --include=./data --include=./package.json --include=node_modules/sqlite3/build/Release --output evinse.exe bin/evinse.js
 #              .\evinse.exe --help
 #              (Get-FileHash .\evinse.exe).hash | Out-File -FilePath .\evinse.exe.sha256
             artifact: cdxgenx.exe
@@ -165,7 +180,7 @@ jobs:
               deno compile --allow-read --allow-env --allow-run --allow-sys=uid,systemMemoryInfo,gid,homedir --allow-write --allow-net --include=./data --include=./package.json --target aarch64-apple-darwin --output cdxgenx-darwin-arm64 bin/cdxgen.js
               shasum -a 256 cdxgenx-darwin-arm64 > cdxgenx-darwin-arm64.sha256
               ./cdxgenx-darwin-arm64 --help
-#              deno compile --allow-read --allow-env --allow-run --allow-sys=uid,systemMemoryInfo,gid,homedir --allow-write --allow-net --node-modules-dir=auto --allow-ffi --allow-scripts=npm:@appthreat/sqlite3@6.0.9 --include=./data --include=./package.json --include=node_modules/sqlite3/build/Release --target aarch64-apple-darwin --output evinse-darwin-arm64 bin/evinse.js
+#              deno compile --allow-read --allow-env --allow-run --allow-sys=uid,systemMemoryInfo,gid,homedir --allow-write --allow-net --node-modules-dir=auto --allow-ffi --allow-scripts=npm:@appthreat/sqlite3@8.0.0 --include=./data --include=./package.json --include=node_modules/sqlite3/build/Release --target aarch64-apple-darwin --output evinse-darwin-arm64 bin/evinse.js
 #              shasum -a 256 evinse-darwin-arm64 > evinse-darwin-arm64.sha256
 #              ./evinse-darwin-arm64 --help
             artifact: cdxgenx-darwin-arm64
@@ -175,7 +190,7 @@ jobs:
               shasum -a 256 cdxgenx > cdxgenx.sha256
               chmod + cdxgenx
               ./cdxgenx --help
-#              deno compile --allow-read --allow-env --allow-run --allow-sys=uid,systemMemoryInfo,gid,homedir --allow-write --allow-net --node-modules-dir=auto --allow-ffi --allow-scripts=npm:@appthreat/sqlite3@6.0.9 --include=./data --include=./package.json --include=node_modules/sqlite3/build/Release --output evinse bin/evinse.js
+#              deno compile --allow-read --allow-env --allow-run --allow-sys=uid,systemMemoryInfo,gid,homedir --allow-write --allow-net --node-modules-dir=auto --allow-ffi --allow-scripts=npm:@appthreat/sqlite3@8.0.0 --include=./data --include=./package.json --include=node_modules/sqlite3/build/Release --output evinse bin/evinse.js
 #              shasum -a 256 evinse > evinse.sha256
 #              chmod + evinse
 #              ./evinse --help
@@ -194,6 +209,10 @@ jobs:
       - uses: denoland/setup-deno@e95548e56dfa95d4e1a28d6f422fafe75c4c26fb # v2.0.3
         with:
           deno-version: 2.7.4
+      - name: Set up Python
+        uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6.2.0
+        with:
+          python-version: 3.13
       - name: pnpm install, build and test
         run: |
           pnpm install:frozen

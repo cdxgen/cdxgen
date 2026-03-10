@@ -98,14 +98,24 @@ function checkOverride(packageName, packageVersion) {
     packageVersion = `npm:${packageVersion}`;
   }
   if (!Object.hasOwn(pkgJson.overrides, packageName)) {
-    missingNpmOverrides.push(`  "${packageName}": "${packageVersion}"`);
+    if (
+      !packageName.startsWith("minipass") &&
+      !["cacache", "make-fetch-happen"].includes(packageName)
+    ) {
+      missingNpmOverrides.push(`  "${packageName}": "${packageVersion}"`);
+    }
   } else if (pkgJson.overrides[packageName] !== packageVersion) {
     incorrectNpmOverridesVersions.push(
       ` - ${packageName} (${pkgJson.overrides[packageName]} instead of ${packageVersion})`,
     );
   }
   if (!Object.hasOwn(pkgJson.pnpm.overrides, packageName)) {
-    missingPnpmOverrides.push(`  "${packageName}": "${packageVersion}"`);
+    if (
+      !packageName.startsWith("minipass") &&
+      !["cacache", "make-fetch-happen"].includes(packageName)
+    ) {
+      missingPnpmOverrides.push(`  "${packageName}": "${packageVersion}"`);
+    }
   } else if (pkgJson.pnpm.overrides[packageName] !== packageVersion) {
     incorrectPnpmOverridesVersions.push(
       ` - ${packageName} (${pkgJson.pnpm.overrides[packageName]} instead of ${packageVersion})`,
