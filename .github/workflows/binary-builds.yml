@@ -109,10 +109,46 @@ jobs:
               apk add --no-cache bash curl libstdc++ upx
           # Set the commands & file-extensions
           - cmd: |
+              trim_sqlite() {
+                local T_OS="${TARGET_OS}"
+                [ "$T_OS" = "windows" ] && T_OS="win32"
+                local T_ARCH="${TARGET_ARCH}"
+                [ "$T_ARCH" = "amd64" ] && T_ARCH="x64"
+                local T_LIBC="${TARGET_LIBC}"
+                [ "$T_LIBC" = "gnu" ] && T_LIBC="glibc"
+
+                local PDIR="node_modules/@appthreat/sqlite3/prebuilds"
+                local TDIR="${T_OS}-${T_ARCH}"
+                local TFILE="@appthreat+sqlite3.${T_LIBC}.node"
+
+                if [ -d "$PDIR" ]; then
+                  echo "Trimming sqlite3 prebuilds. Keeping only $TDIR/$TFILE"
+                  for d in "$PDIR"/*; do
+                    if [ -d "$d" ] && [ "$(basename "$d")" != "$TDIR" ]; then
+                      rm -rf "$d"
+                    fi
+                  done
+                  if [ -d "$PDIR/$TDIR" ]; then
+                    for f in "$PDIR/$TDIR"/*; do
+                      if [ -f "$f" ] && [ "$(basename "$f")" != "$TFILE" ]; then
+                        rm -f "$f"
+                      fi
+                    done
+                  fi
+                  # Verify the required binary still exists
+                  if [ ! -f "$PDIR/$TDIR/$TFILE" ]; then
+                    echo "Error: Required binary $PDIR/$TDIR/$TFILE missing!"
+                    exit 1
+                  fi
+                else
+                  echo "No sqlite3 prebuilds directory found, skipping trim."
+                fi
+              }
               # Prepare workspace
               rm -rf *.cdx.json ADVANCED.md ci contrib devenv.* pyproject.toml renovate.json semicolon_delimited_script test tools_config uv.lock pnpm-workspace.yaml .versions upx-5.1.0*
               pnpm install:prod --config.node-linker=hoisted
               rm -rf .pnpm-store
+              trim_sqlite
               # Set UPX flag based on uname (Works in Docker and on Host)
               UPX_FLAG=""
               if [ "$(uname -s)" = "Linux" ]; then
@@ -131,7 +167,6 @@ jobs:
               rm -rf node_modules
               pnpm install:prod --config.node-linker=hoisted --no-optional
               rm -rf .pnpm-store
-              
               # Produce slim cdxgen binary
               pnpm --package=@appthreat/caxa dlx caxa --input . --metadata-file .cdxgen-slim-metadata.json --output cdxgen-slim $UPX_FLAG -- "{{caxa}}/node_modules/.bin/node" "{{caxa}}/bin/cdxgen.js"
               # Generate sbom
@@ -150,9 +185,33 @@ jobs:
             ext: ''
           - os: windows
             cmd: |
+              Function Trim-Sqlite {
+                  $SqliteOs = "win32"
+                  $SqliteArch = if ($env:TARGET_ARCH -eq 'amd64') { 'x64' } else { $env:TARGET_ARCH }
+                  $SqliteLibc = 'glibc'
+                  $TargetDir = "$SqliteOs-$SqliteArch"
+                  $TargetFile = "@appthreat+sqlite3.$SqliteLibc.node"
+                  $Prebuilds = "node_modules\@appthreat\sqlite3\prebuilds"
+
+                  if (Test-Path $Prebuilds) {
+                      Write-Host "Trimming sqlite3 prebuilds. Keeping only $TargetDir\$TargetFile"
+                      Get-ChildItem -Path $Prebuilds -Directory | Where-Object Name -ne $TargetDir | Remove-Item -Recurse -Force
+                      if (Test-Path "$Prebuilds\$TargetDir") {
+                          Get-ChildItem -Path "$Prebuilds\$TargetDir" -File | Where-Object Name -ne $TargetFile | Remove-Item -Force
+                      }
+                      # Verify the required binary still exists
+                      if (-Not (Test-Path "$Prebuilds\$TargetDir\$TargetFile")) {
+                          Write-Error "Error: Required binary $Prebuilds\$TargetDir\$TargetFile missing!"
+                          exit 1
+                      }
+                  } else {
+                      Write-Host "No sqlite3 prebuilds directory found, skipping trim."
+                  }
+              }
               # Prepare workspace
               Remove-Item -Path ADVANCED.md,ci,contrib,devenv.*,pyproject.toml,renovate.json,test,tools_config,uv.lock,pnpm-workspace.yaml -Force -Recurse
               pnpm install:prod --config.node-linker=hoisted
+              Trim-Sqlite
               # Produce cdxgen binary
               pnpm --package=@appthreat/caxa dlx caxa --input . --metadata-file .cdxgen-metadata.json --output cdxgen.exe -- "{{caxa}}/node_modules/.bin/node" "{{caxa}}/bin/cdxgen.js"
               # Generate sbom
@@ -222,6 +281,10 @@ jobs:
           nvm install
           npm install --global pnpm
           curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+          
+          export TARGET_OS="${{ matrix.os }}"
+          export TARGET_ARCH="${{ matrix.arch }}"
+          export TARGET_LIBC="${{ matrix.libc }}"
           ${{ matrix.cmd }}
           chown -R ${{ steps.user_info.outputs.user }} .
           BASH_EOF
@@ -241,6 +304,9 @@ jobs:
         run: ${{ matrix.cmd }}
         env:
           FETCH_LICENSE: true
+          TARGET_OS: ${{ matrix.os }}
+          TARGET_ARCH: ${{ matrix.arch }}
+          TARGET_LIBC: ${{ matrix.libc }}
       - name: Correct filenames # <name>-<os>-<arch>[-<libc-suffix>][-<variant>][.ext]
         run: |
           # Rename to temporary name -- fix for renaming to the same name, which does not work
