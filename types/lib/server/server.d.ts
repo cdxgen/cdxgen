@@ -20,6 +20,20 @@ export function isAllowedWinPath(p: string): boolean;
  */
 export function isAllowedPath(p: string): boolean;
 /**
+ * Determine if the file path could be a remote URL.
+ *
+ * @param {string} filePath The Git URL or local path
+ * @returns {Boolean} True if the file path is a remote URL. false otherwise.
+ */
+export function maybeRemotePath(filePath: string): boolean;
+/**
+ * Validates a given Git URL/Path against dangerous protocols and allowed hosts.
+ *
+ * @param {string} filePath The Git URL or local path
+ * @returns {Object|null} Error object if invalid, or null if valid
+ */
+export function validateAndRejectGitSource(filePath: string): any | null;
+/**
  * Method to safely parse value passed via the query string or body.
  *
  * @param {string|number|Array<string|number>} raw
