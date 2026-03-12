@@ -94,16 +94,36 @@ import requests
 data = {
     "url": f"https://user:{github_api_key}@github.com/{organization}/{repository}.git",
     "serverUrl": dependencytrack_api_url,
-    "apiKey": dependencytrack_api_key
+    "apiKey": dependencytrack_api_key,
     "projectId": project_uuid,
     "projectName": project_name,
     "projectVersion": project_version,
     "parentUUID": parent_uuid
 }
-response = requests.post(url=cdxgen_server_url, json=data, allowed_retries=0)
+response = requests.post(url=cdxgen_server_url, json=data)
 ```
 
-To limit access based on host names, use the environment variable `CDXGEN_SERVER_ALLOWED_HOSTS`.
+## Security and Hardening
+
+When running `cdxgen` in server mode, especially if exposed to a network, it is highly recommended to configure the following environment variables to harden the server against Server-Side Request Forgery (SSRF) and Remote Code Execution (RCE) attacks.
+
+### 1. Restricting Git Protocols
+
+By default, `cdxgen` safely restricts Git clones to standard protocols (`https`, `http`, `git`, `ssh`) and strictly blocks dangerous transport helpers like `ext::` or `fd::` at the application and OS level to prevent command execution.
+
+You can further restrict allowed Git protocols using the `CDXGEN_SERVER_GIT_ALLOW_PROTOCOL` environment variable.
+
+```shell
+# Only allow HTTPS and SSH clones
+export CDXGEN_SERVER_GIT_ALLOW_PROTOCOL="https:ssh"
+cdxgen --server
+```
+
+_(Note: SCP-style SSH URLs like `git@github.com:repo.git` are fully supported, automatically normalized, and validated securely)._
+
+### 2. Restricting Allowed Hosts
+
+To prevent SSRF and ensure the server only clones repositories from trusted sources, configure an allowlist of hostnames using `CDXGEN_SERVER_ALLOWED_HOSTS`.
 
 ```shell
 export CDXGEN_SERVER_ALLOWED_HOSTS="github.com,gitlab.com"
@@ -111,7 +131,9 @@ cdxgen --server
 curl "http://127.0.0.1:9090/sbom?url=https://github.com/HooliCorp/vulnerable-aws-koa-app.git&multiProject=true&type=js"
 ```
 
-For local paths, use the environment variable `CDXGEN_SERVER_ALLOWED_HOSTS`
+### 3. Restricting Allowed Local Paths
+
+If the server processes local paths instead of Git URLs, you must restrict which directories it can access using `CDXGEN_SERVER_ALLOWED_PATHS`.
 
 ```shell
 export CDXGEN_SERVER_ALLOWED_PATHS="/mnt/work,/mnt/work2"
@@ -119,7 +141,7 @@ cdxgen --server
 curl "http://127.0.0.1:9090/sbom?path=/mnt/work/vulnerable-aws-koa-app&multiProject=true&type=js"
 ```
 
-### Health endpoint
+## Health endpoint
 
 Use the /health endpoint to check if the SBOM server is up and running.
 
@@ -127,7 +149,7 @@ Use the /health endpoint to check if the SBOM server is up and running.
 curl "http://127.0.0.1:9090/health"
 ```
 
-### Docker compose
+## Docker compose
 
 Use the provided docker-compose file to quickly launch a cdxgen server instance.
 
