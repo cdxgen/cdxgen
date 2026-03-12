@@ -109,7 +109,7 @@ When running `cdxgen` in server mode, especially if exposed to a network, it is 
 
 ### 1. Restricting Git Protocols
 
-By default, `cdxgen` safely restricts Git clones to standard protocols (`https`, `http`, `git`, `ssh`) and strictly blocks dangerous transport helpers like `ext::` or `fd::` at the application and OS level to prevent command execution.
+By default, `cdxgen` safely restricts Git clones to standard secure protocols (`https` and `ssh`) and strictly blocks dangerous transport helpers like `ext::` or `fd::` at the application and OS level to prevent command execution.
 
 You can further restrict allowed Git protocols using the `CDXGEN_SERVER_GIT_ALLOW_PROTOCOL` environment variable.
 
