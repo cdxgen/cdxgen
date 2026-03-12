@@ -24,7 +24,7 @@ winget install cdxgen
 
 `cdxgen` is available as a standalone binary for Linux, macOS, and Windows. These binaries do not require Node.js or `npm` to be installed on the system, making them ideal for CI/CD environments, containerized scans, or quick local usage.
 
-Binaries are available in the [GitHub Releases](https://github.com/cdxgen/cdxgen/releases] page).
+Binaries are available in the [GitHub Releases](https://github.com/cdxgen/cdxgen/releases page).
 
 **Available Variants:**
 
