@@ -559,11 +559,11 @@ jobs:
       - name: setup sdkman
         run: |
           zsh <(curl -s "https://get.sdkman.io")
-        if: runner.os == 'macos-15'
+        if: matrix.os == 'macos-15'
       - name: setup sdkman
         run: |
           curl -s "https://get.sdkman.io" | bash
-        if: runner.os != 'Windows' && runner.os != 'macos-15'
+        if: runner.os != 'Windows' && matrix.os != 'macos-15'
       - name: setup rbenv
         run: |
           git clone https://github.com/rbenv/rbenv.git --depth=1 ~/.rbenv
