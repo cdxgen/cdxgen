@@ -558,10 +558,6 @@ jobs:
       - uses: dtolnay/rust-toolchain@stable
       - name: setup sdkman
         run: |
-          zsh <(curl -s "https://get.sdkman.io")
-        if: matrix.os == 'macos-15'
-      - name: setup sdkman
-        run: |
           curl -s "https://get.sdkman.io" | bash
         if: runner.os != 'Windows' && matrix.os != 'macos-15'
       - name: setup rbenv
