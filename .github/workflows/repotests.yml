@@ -558,7 +558,7 @@ jobs:
       - uses: dtolnay/rust-toolchain@stable
       - name: setup sdkman
         run: |
-          curl -s "https://get.sdkman.io" | bash
+          zsh <(curl -s "https://get.sdkman.io")
         if: runner.os != 'Windows'
       - name: setup rbenv
         run: |
