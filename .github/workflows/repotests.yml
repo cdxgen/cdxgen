@@ -212,7 +212,7 @@ jobs:
         run: |
           chmod +x contrib/free_disk_space.sh
           ./contrib/free_disk_space.sh
-      - uses: sbt/setup-sbt@6bec67c98f542b9e17369bfca0ec822ac1363194 # v1.1.19
+      - uses: sbt/setup-sbt@dd1ef7d7798fab5ce802a6adab3b782817b8c2d0 # v1.1.20
       - name: Install bazelisk - linux
         if: matrix.os == 'ubuntu-24.04'
         run: |
@@ -786,7 +786,7 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '21'
-      - uses: sbt/setup-sbt@6bec67c98f542b9e17369bfca0ec822ac1363194 # v1.1.19
+      - uses: sbt/setup-sbt@dd1ef7d7798fab5ce802a6adab3b782817b8c2d0 # v1.1.20
       - uses: coursier/setup-action@039f736548afa5411c1382f40a5bd9c2d30e0383 # v1.3.9
         with:
           apps: scala3 scalac
@@ -997,7 +997,7 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: ${{ matrix.java-version }}
-      - uses: sbt/setup-sbt@6bec67c98f542b9e17369bfca0ec822ac1363194 # v1.1.19
+      - uses: sbt/setup-sbt@dd1ef7d7798fab5ce802a6adab3b782817b8c2d0 # v1.1.20
       - uses: coursier/setup-action@039f736548afa5411c1382f40a5bd9c2d30e0383 # v1.3.9
         with:
           apps: scala3 scalac
@@ -1015,7 +1015,7 @@ jobs:
         run: |
           chmod +x contrib/free_disk_space.sh
           ./contrib/free_disk_space.sh
-      - uses: sbt/setup-sbt@6bec67c98f542b9e17369bfca0ec822ac1363194 # v1.1.19
+      - uses: sbt/setup-sbt@dd1ef7d7798fab5ce802a6adab3b782817b8c2d0 # v1.1.20
       - name: Install bazelisk - linux
         if: matrix.os == 'ubuntu-24.04'
         run: |
