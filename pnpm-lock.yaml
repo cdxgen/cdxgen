@@ -245,7 +245,7 @@ overrides:
   type-fest: 5.4.4
   type-is: 2.0.1
   typescript: 5.9.3
-  undici: 7.22.0
+  undici: 7.24.4
   unique-filename: 5.0.0
   unique-slug: 6.0.0
   unpipe: 1.0.0
@@ -268,8 +268,6 @@ overrides:
   yoctocolors: 2.1.2
   hermes-parser: 0.33.3
   hermes-estree: 0.33.3
-
-pnpmfileChecksum: sha256-nfOeuxPm0PLhmHqhdzVKpjFk27e1GEgHAqcQJ7ot+gg=
 
 importers:
 
@@ -619,7 +617,6 @@ packages:
     resolution: {integrity: sha512-VZN2yTRCRFDnf+/Shd1fkv8kr+1iRC0/1tJBO4G1K9cmp+188szp89VCExP96IaHh/dwTJvE85hZiUQv7PkaZw==}
     cpu: [ppc64]
     os: [linux]
-    libc: glibc
 
   '@cdxgen/cdxgen-plugins-bin-linuxmusl-amd64@2.0.3':
     resolution: {integrity: sha512-7XRyj5C4QDu1wRF1m0olSj3ljrnbjQZdWC3zQkzJsUThSCB21HGp3TXPm/WjbEh95eZpvshnedYxIpnvNtSjNA==}
@@ -1472,8 +1469,8 @@ packages:
     engines: {node: '>=14.17'}
     hasBin: true
 
-  undici@7.22.0:
-    resolution: {integrity: sha512-RqslV2Us5BrllB+JeiZnK4peryVTndy9Dnqq62S3yYRRTj0tFQCwEniUy2167skdGOy3vqRzEvl1Dm4sV2ReDg==}
+  undici@7.24.4:
+    resolution: {integrity: sha512-BM/JzwwaRXxrLdElV2Uo6cTLEjhSb3WXboncJamZ15NgUURmvlXvxa6xkwIOILIjPNo9i8ku136ZvWV0Uly8+w==}
     engines: {node: '>=20.18.1'}
 
   unique-filename@5.0.0:
@@ -1511,6 +1508,7 @@ packages:
   whatwg-encoding@3.1.1:
     resolution: {integrity: sha512-6qN4hJdMwfYBtE3YBTTHhoeuUrDBPZmbQaxWAqSALV/MeEnR5z1xd8UKud2RAkFoPkmB+hli1TZSnyi84xz1vQ==}
     engines: {node: '>=18'}
+    deprecated: Use @exodus/bytes instead for a more spec-conformant and faster implementation
 
   whatwg-mimetype@4.0.0:
     resolution: {integrity: sha512-QaKxh0eNIi2mE9p2vEdzfagOKHCcj1pJ56EEHGQOVxp8r9/iszLUUV7v89x9O1p/T+NlTM5W7jW6+cz4Fq1YVg==}
@@ -1931,7 +1929,7 @@ snapshots:
       parse5: 8.0.0
       parse5-htmlparser2-tree-adapter: 8.0.0
       parse5-parser-stream: 8.0.0
-      undici: 7.22.0
+      undici: 7.24.4
       whatwg-mimetype: 4.0.0
 
   chownr@3.0.0: {}
@@ -2661,7 +2659,7 @@ snapshots:
 
   typescript@5.9.3: {}
 
-  undici@7.22.0: {}
+  undici@7.24.4: {}
 
   unique-filename@5.0.0:
     dependencies:
