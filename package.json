@@ -328,7 +328,7 @@
     "side-channel-map": "1.0.1",
     "side-channel-weakmap": "1.0.2",
     "signal-exit": "4.1.0",
-    "sinon": "21.0.2",
+    "sinon": "21.0.3",
     "slice-ansi": "7.1.2",
     "smart-buffer": "4.2.0",
     "socks": "2.8.7",
@@ -419,7 +419,7 @@
     "@biomejs/biome": "2.4.6",
     "esmock": "2.7.3",
     "poku": "4.1.0",
-    "sinon": "21.0.2",
+    "sinon": "21.0.3",
     "typescript": "5.9.3"
   },
   "optionalDependencies": {
@@ -672,7 +672,7 @@
       "side-channel-map": "1.0.1",
       "side-channel-weakmap": "1.0.2",
       "signal-exit": "4.1.0",
-      "sinon": "21.0.2",
+      "sinon": "21.0.3",
       "slice-ansi": "7.1.2",
       "smart-buffer": "4.2.0",
       "socks": "2.8.7",
