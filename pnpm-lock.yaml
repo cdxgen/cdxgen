@@ -108,7 +108,7 @@ overrides:
   encodeurl: 2.0.0
   encoding-sniffer: 0.2.1
   entities: 7.0.1
-  env-paths: 2.2.1
+  env-paths: 3.0.0
   err-code: 3.0.1
   es-define-property: 1.0.1
   es-errors: 1.3.0
@@ -268,8 +268,6 @@ overrides:
   yoctocolors: 2.1.2
   hermes-parser: 0.33.3
   hermes-estree: 0.33.3
-
-pnpmfileChecksum: sha256-nfOeuxPm0PLhmHqhdzVKpjFk27e1GEgHAqcQJ7ot+gg=
 
 importers:
 
@@ -619,7 +617,6 @@ packages:
     resolution: {integrity: sha512-VZN2yTRCRFDnf+/Shd1fkv8kr+1iRC0/1tJBO4G1K9cmp+188szp89VCExP96IaHh/dwTJvE85hZiUQv7PkaZw==}
     cpu: [ppc64]
     os: [linux]
-    libc: glibc
 
   '@cdxgen/cdxgen-plugins-bin-linuxmusl-amd64@2.0.3':
     resolution: {integrity: sha512-7XRyj5C4QDu1wRF1m0olSj3ljrnbjQZdWC3zQkzJsUThSCB21HGp3TXPm/WjbEh95eZpvshnedYxIpnvNtSjNA==}
@@ -908,9 +905,9 @@ packages:
     resolution: {integrity: sha512-TWrgLOFUQTH994YUyl1yT4uyavY5nNB5muff+RtWaqNVCAK408b5ZnnbNAUEWLTCpum9w6arT70i1XdQ4UeOPA==}
     engines: {node: '>=0.12'}
 
-  env-paths@2.2.1:
-    resolution: {integrity: sha512-+h1lkLKhZMTYjog1VEpJNG7NZJWcuc2DDk/qsqSTRRCOXiLjeQ1d1/udrUGhqMxUgAlwKNZ0cf2uqan5GLuS2A==}
-    engines: {node: '>=6'}
+  env-paths@3.0.0:
+    resolution: {integrity: sha512-dtJUTepzMW3Lm/NPxRf3wP4642UWhjL2sQxc+ym2YMj1m/H2zDNQOlezafzkHwn6sMstjHTwG6iQQsctDW/b1A==}
+    engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
 
   err-code@3.0.1:
     resolution: {integrity: sha512-GiaH0KJUewYok+eeY05IIgjtAe4Yltygk9Wqp1V5yVWLdhf0hYZchRjNIT9bb0mSwRcIusT3cx7PJUf3zEIfUA==}
@@ -1511,6 +1508,7 @@ packages:
   whatwg-encoding@3.1.1:
     resolution: {integrity: sha512-6qN4hJdMwfYBtE3YBTTHhoeuUrDBPZmbQaxWAqSALV/MeEnR5z1xd8UKud2RAkFoPkmB+hli1TZSnyi84xz1vQ==}
     engines: {node: '>=18'}
+    deprecated: Use @exodus/bytes instead for a more spec-conformant and faster implementation
 
   whatwg-mimetype@4.0.0:
     resolution: {integrity: sha512-QaKxh0eNIi2mE9p2vEdzfagOKHCcj1pJ56EEHGQOVxp8r9/iszLUUV7v89x9O1p/T+NlTM5W7jW6+cz4Fq1YVg==}
@@ -2044,7 +2042,7 @@ snapshots:
 
   entities@7.0.1: {}
 
-  env-paths@2.2.1:
+  env-paths@3.0.0:
     optional: true
 
   err-code@3.0.1: {}
@@ -2369,7 +2367,7 @@ snapshots:
 
   node-gyp@12.2.0:
     dependencies:
-      env-paths: 2.2.1
+      env-paths: 3.0.0
       exponential-backoff: 3.1.3
       graceful-fs: 4.2.11
       make-fetch-happen: 15.0.4
