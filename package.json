@@ -373,7 +373,7 @@
     "yargs-parser": "22.0.0",
     "yoctocolors": "2.1.2",
     "hermes-parser": "0.33.3",
-    "hermes-estree": "0.33.3"
+    "hermes-estree": "0.34.0"
   },
   "dependencies": {
     "@babel/parser": "7.29.0",
@@ -717,7 +717,7 @@
       "yargs-parser": "22.0.0",
       "yoctocolors": "2.1.2",
       "hermes-parser": "0.33.3",
-      "hermes-estree": "0.33.3"
+      "hermes-estree": "0.34.0"
     },
     "ignoredBuiltDependencies": [
       "unrs-resolver"

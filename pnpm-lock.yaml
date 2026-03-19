@@ -267,9 +267,7 @@ overrides:
   yargs-parser: 22.0.0
   yoctocolors: 2.1.2
   hermes-parser: 0.33.3
-  hermes-estree: 0.33.3
-
-pnpmfileChecksum: sha256-nfOeuxPm0PLhmHqhdzVKpjFk27e1GEgHAqcQJ7ot+gg=
+  hermes-estree: 0.34.0
 
 importers:
 
@@ -619,7 +617,6 @@ packages:
     resolution: {integrity: sha512-VZN2yTRCRFDnf+/Shd1fkv8kr+1iRC0/1tJBO4G1K9cmp+188szp89VCExP96IaHh/dwTJvE85hZiUQv7PkaZw==}
     cpu: [ppc64]
     os: [linux]
-    libc: glibc
 
   '@cdxgen/cdxgen-plugins-bin-linuxmusl-amd64@2.0.3':
     resolution: {integrity: sha512-7XRyj5C4QDu1wRF1m0olSj3ljrnbjQZdWC3zQkzJsUThSCB21HGp3TXPm/WjbEh95eZpvshnedYxIpnvNtSjNA==}
@@ -1014,8 +1011,8 @@ packages:
     resolution: {integrity: sha512-0hJU9SCPvmMzIBdZFqNPXWa6dqh7WdH0cII9y+CyS8rG3nL48Bclra9HmKhVVUHyPWNH5Y7xDwAB7bfgSjkUMQ==}
     engines: {node: '>= 0.4'}
 
-  hermes-estree@0.33.3:
-    resolution: {integrity: sha512-6kzYZHCk8Fy1Uc+t3HGYyJn3OL4aeqKLTyina4UFtWl8I0kSL7OmKThaiX+Uh2f8nGw3mo4Ifxg0M5Zk3/Oeqg==}
+  hermes-estree@0.34.0:
+    resolution: {integrity: sha512-6qLylexjmuKa/YYhMiNn/3VejBsdzwmYUGmNpc693/pJzymmbufhkRW/2K6GqFgu0ApRWoqF0NbM6u82jFcOXA==}
 
   hermes-parser@0.33.3:
     resolution: {integrity: sha512-Yg3HgaG4CqgyowtYjX/FsnPAuZdHOqSMtnbpylbptsQ9nwwSKsy6uRWcGO5RK0EqiX12q8HvDWKgeAVajRO5DA==}
@@ -1511,6 +1508,7 @@ packages:
   whatwg-encoding@3.1.1:
     resolution: {integrity: sha512-6qN4hJdMwfYBtE3YBTTHhoeuUrDBPZmbQaxWAqSALV/MeEnR5z1xd8UKud2RAkFoPkmB+hli1TZSnyi84xz1vQ==}
     engines: {node: '>=18'}
+    deprecated: Use @exodus/bytes instead for a more spec-conformant and faster implementation
 
   whatwg-mimetype@4.0.0:
     resolution: {integrity: sha512-QaKxh0eNIi2mE9p2vEdzfagOKHCcj1pJ56EEHGQOVxp8r9/iszLUUV7v89x9O1p/T+NlTM5W7jW6+cz4Fq1YVg==}
@@ -2165,12 +2163,12 @@ snapshots:
       function-bind: 1.1.2
     optional: true
 
-  hermes-estree@0.33.3:
+  hermes-estree@0.34.0:
     optional: true
 
   hermes-parser@0.33.3:
     dependencies:
-      hermes-estree: 0.33.3
+      hermes-estree: 0.34.0
     optional: true
 
   hosted-git-info@9.0.2:
