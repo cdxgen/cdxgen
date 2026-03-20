@@ -141,7 +141,7 @@ overrides:
   http-errors: 2.0.1
   http-proxy-agent: 7.0.2
   http2-wrapper: 2.2.1
-  https-proxy-agent: 7.0.6
+  https-proxy-agent: 8.0.0
   iconv-lite: 0.7.2
   imurmurhash: 0.1.4
   inherits: 2.0.4
@@ -268,8 +268,6 @@ overrides:
   yoctocolors: 2.1.2
   hermes-parser: 0.33.3
   hermes-estree: 0.33.3
-
-pnpmfileChecksum: sha256-nfOeuxPm0PLhmHqhdzVKpjFk27e1GEgHAqcQJ7ot+gg=
 
 importers:
 
@@ -619,7 +617,6 @@ packages:
     resolution: {integrity: sha512-VZN2yTRCRFDnf+/Shd1fkv8kr+1iRC0/1tJBO4G1K9cmp+188szp89VCExP96IaHh/dwTJvE85hZiUQv7PkaZw==}
     cpu: [ppc64]
     os: [linux]
-    libc: glibc
 
   '@cdxgen/cdxgen-plugins-bin-linuxmusl-amd64@2.0.3':
     resolution: {integrity: sha512-7XRyj5C4QDu1wRF1m0olSj3ljrnbjQZdWC3zQkzJsUThSCB21HGp3TXPm/WjbEh95eZpvshnedYxIpnvNtSjNA==}
@@ -1042,8 +1039,8 @@ packages:
     resolution: {integrity: sha512-V5nVw1PAOgfI3Lmeaj2Exmeg7fenjhRUgz1lPSezy1CuhPYbgQtbQj4jZfEAEMlaL+vupsvhjqCyjzob0yxsmQ==}
     engines: {node: '>=10.19.0'}
 
-  https-proxy-agent@7.0.6:
-    resolution: {integrity: sha512-vK9P5/iUfdl95AI+JVyUuIcVtd4ofvtrOr3HNtM2yxC9bnMbEdp3x01OhQNnjb8IJYi38VlTE3mBXwcfvywuSw==}
+  https-proxy-agent@8.0.0:
+    resolution: {integrity: sha512-YYeW+iCnAS3xhvj2dvVoWgsbca3RfQy/IlaNHHOtDmU0jMqPI9euIq3Y9BJETdxk16h9NHHCKqp/KB9nIMStCQ==}
     engines: {node: '>= 14'}
 
   iconv-lite@0.7.2:
@@ -1750,7 +1747,7 @@ snapshots:
     dependencies:
       agent-base: 7.1.4
       http-proxy-agent: 7.0.2
-      https-proxy-agent: 7.0.6
+      https-proxy-agent: 8.0.0
       lru-cache: 11.2.7
       socks-proxy-agent: 8.0.5
     transitivePeerDependencies:
@@ -2209,7 +2206,7 @@ snapshots:
       quick-lru: 5.1.1
       resolve-alpn: 1.2.1
 
-  https-proxy-agent@7.0.6:
+  https-proxy-agent@8.0.0:
     dependencies:
       agent-base: 7.1.4
       debug: 4.4.3
