@@ -70,7 +70,7 @@ jobs:
         with:
           persist-credentials: false
       - name: Setup pnpm
-        uses: pnpm/action-setup@41ff72655975bd51cab0327fa583b6e92b6d3061 # v4.2.0
+        uses: pnpm/action-setup@fc06bc1257f339d1d5d8b3a19a8cae5388b55320 # v4.4.0
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f # v6.3.0
         with:
@@ -110,7 +110,7 @@ jobs:
       - name: Trim CI agent
         run: rm -rf /tmp/docker-images-* /tmp/atom-* /tmp/mvn-deps*
       - name: Setup pnpm
-        uses: pnpm/action-setup@41ff72655975bd51cab0327fa583b6e92b6d3061 # v4.2.0
+        uses: pnpm/action-setup@fc06bc1257f339d1d5d8b3a19a8cae5388b55320 # v4.4.0
       - name: Setup Nexus usage
         run: echo "registry=$NEXUS_URL" > .npmrc
       - name: pnpm install
@@ -133,7 +133,7 @@ jobs:
         run: |
           node bin/cdxgen.js -t js -t php -t jar -t ruby -o $(pwd)/reports/sbom-build.cdx.json --include-formulation --export-proto --proto-bin-file $(pwd)/reports/sbom-build.cdx.proto --exclude "**/test/**" --profile research $(pwd)
       - name: Upload atom and slices
-        uses: softprops/action-gh-release@5be0e66d93ac7ed76da52eca8bb058f665c3a5fe # v2.4.2
+        uses: softprops/action-gh-release@153bb8e04406b158c6c84fc1615b65b24149a1fe # v2.6.1
         if: startsWith(github.ref, 'refs/tags/')
         with:
           files: |
@@ -186,12 +186,12 @@ jobs:
         with:
           persist-credentials: false
       - name: Setup pnpm
-        uses: pnpm/action-setup@41ff72655975bd51cab0327fa583b6e92b6d3061 # v4.2.0
+        uses: pnpm/action-setup@fc06bc1257f339d1d5d8b3a19a8cae5388b55320 # v4.4.0
       - name: Use Node.js
         uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f # v6.3.0
         with:
           node-version-file: .nvmrc
-      - uses: denoland/setup-deno@e95548e56dfa95d4e1a28d6f422fafe75c4c26fb # v2.0.3
+      - uses: denoland/setup-deno@667a34cdef165d8d2b2e98dde39547c9daac7282 # v2.0.4
         with:
           deno-version: 2.7.4
       - name: pnpm install, build and test

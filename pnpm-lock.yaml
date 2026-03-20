@@ -19,15 +19,15 @@ overrides:
   '@babel/template': 7.28.6
   '@babel/traverse': 7.29.0
   '@babel/types': 7.29.0
-  '@biomejs/biome': 2.4.6
-  '@biomejs/cli-darwin-arm64': 2.4.6
-  '@biomejs/cli-darwin-x64': 2.4.6
-  '@biomejs/cli-linux-arm64': 2.4.6
-  '@biomejs/cli-linux-arm64-musl': 2.4.6
-  '@biomejs/cli-linux-x64': 2.4.6
-  '@biomejs/cli-linux-x64-musl': 2.4.6
-  '@biomejs/cli-win32-arm64': 2.4.6
-  '@biomejs/cli-win32-x64': 2.4.6
+  '@biomejs/biome': 2.4.7
+  '@biomejs/cli-darwin-arm64': 2.4.7
+  '@biomejs/cli-darwin-x64': 2.4.7
+  '@biomejs/cli-linux-arm64': 2.4.7
+  '@biomejs/cli-linux-arm64-musl': 2.4.7
+  '@biomejs/cli-linux-x64': 2.4.7
+  '@biomejs/cli-linux-x64-musl': 2.4.7
+  '@biomejs/cli-win32-arm64': 2.4.7
+  '@biomejs/cli-win32-x64': 2.4.7
   '@bufbuild/protobuf': 2.11.0
   '@cdxgen/cdxgen-plugins-bin': 2.0.3
   '@cdxgen/cdxgen-plugins-bin-darwin-amd64': 2.0.3
@@ -61,7 +61,7 @@ overrides:
   '@sindresorhus/is': 7.2.0
   '@sinonjs/commons': 3.0.1
   '@sinonjs/fake-timers': 15.1.1
-  '@sinonjs/samsam': 9.0.2
+  '@sinonjs/samsam': 9.0.3
   '@types/http-cache-semantics': 4.2.0
   abbrev: 4.0.0
   agent-base: 7.1.4
@@ -163,7 +163,7 @@ overrides:
   keyv: 5.6.0
   lodash.truncate: 4.4.2
   lowercase-keys: 4.0.1
-  lru-cache: 11.2.5
+  lru-cache: 11.2.7
   math-intrinsics: 1.1.0
   media-typer: 1.1.0
   mime-db: 1.54.0
@@ -222,7 +222,7 @@ overrides:
   side-channel-map: 1.0.1
   side-channel-weakmap: 1.0.2
   signal-exit: 4.1.0
-  sinon: 21.0.2
+  sinon: 21.0.3
   slice-ansi: 7.1.2
   smart-buffer: 4.2.0
   socks: 2.8.7
@@ -245,7 +245,7 @@ overrides:
   type-fest: 5.4.4
   type-is: 2.0.1
   typescript: 5.9.3
-  undici: 7.22.0
+  undici: 7.24.4
   unique-filename: 5.0.0
   unique-slug: 6.0.0
   unpipe: 1.0.0
@@ -267,7 +267,7 @@ overrides:
   yargs-parser: 22.0.0
   yoctocolors: 2.1.2
   hermes-parser: 0.34.0
-  hermes-estree: 0.33.3
+  hermes-estree: 0.34.0
 
 pnpmfileChecksum: sha256-nfOeuxPm0PLhmHqhdzVKpjFk27e1GEgHAqcQJ7ot+gg=
 
@@ -391,8 +391,8 @@ importers:
         version: 2.1.2
     devDependencies:
       '@biomejs/biome':
-        specifier: 2.4.6
-        version: 2.4.6
+        specifier: 2.4.7
+        version: 2.4.7
       esmock:
         specifier: 2.7.3
         version: 2.7.3
@@ -400,8 +400,8 @@ importers:
         specifier: 4.1.0
         version: 4.1.0
       sinon:
-        specifier: 21.0.2
-        version: 21.0.2
+        specifier: 21.0.3
+        version: 21.0.3
       typescript:
         specifier: 5.9.3
         version: 5.9.3
@@ -527,59 +527,59 @@ packages:
     resolution: {integrity: sha512-LwdZHpScM4Qz8Xw2iKSzS+cfglZzJGvofQICy7W7v4caru4EaAmyUuO6BGrbyQ2mYV11W0U8j5mBhd14dd3B0A==}
     engines: {node: '>=6.9.0'}
 
-  '@biomejs/biome@2.4.6':
-    resolution: {integrity: sha512-QnHe81PMslpy3mnpL8DnO2M4S4ZnYPkjlGCLWBZT/3R9M6b5daArWMMtEfP52/n174RKnwRIf3oT8+wc9ihSfQ==}
+  '@biomejs/biome@2.4.7':
+    resolution: {integrity: sha512-vXrgcmNGZ4lpdwZSpMf1hWw1aWS6B+SyeSYKTLrNsiUsAdSRN0J4d/7mF3ogJFbIwFFSOL3wT92Zzxia/d5/ng==}
     engines: {node: '>=14.21.3'}
     hasBin: true
 
-  '@biomejs/cli-darwin-arm64@2.4.6':
-    resolution: {integrity: sha512-NW18GSyxr+8sJIqgoGwVp5Zqm4SALH4b4gftIA0n62PTuBs6G2tHlwNAOj0Vq0KKSs7Sf88VjjmHh0O36EnzrQ==}
+  '@biomejs/cli-darwin-arm64@2.4.7':
+    resolution: {integrity: sha512-Oo0cF5mHzmvDmTXw8XSjhCia8K6YrZnk7aCS54+/HxyMdZMruMO3nfpDsrlar/EQWe41r1qrwKiCa2QDYHDzWA==}
     engines: {node: '>=14.21.3'}
     cpu: [arm64]
     os: [darwin]
 
-  '@biomejs/cli-darwin-x64@2.4.6':
-    resolution: {integrity: sha512-4uiE/9tuI7cnjtY9b07RgS7gGyYOAfIAGeVJWEfeCnAarOAS7qVmuRyX6d7JTKw28/mt+rUzMasYeZ+0R/U1Mw==}
+  '@biomejs/cli-darwin-x64@2.4.7':
+    resolution: {integrity: sha512-I+cOG3sd/7HdFtvDSnF9QQPrWguUH7zrkIMMykM3PtfWU9soTcS2yRb9Myq6MHmzbeCT08D1UmY+BaiMl5CcoQ==}
     engines: {node: '>=14.21.3'}
     cpu: [x64]
     os: [darwin]
 
-  '@biomejs/cli-linux-arm64-musl@2.4.6':
-    resolution: {integrity: sha512-F/JdB7eN22txiTqHM5KhIVt0jVkzZwVYrdTR1O3Y4auBOQcXxHK4dxULf4z43QyZI5tsnQJrRBHZy7wwtL+B3A==}
+  '@biomejs/cli-linux-arm64-musl@2.4.7':
+    resolution: {integrity: sha512-I2NvM9KPb09jWml93O2/5WMfNR7Lee5Latag1JThDRMURVhPX74p9UDnyTw3Ae6cE1DgXfw7sqQgX7rkvpc0vw==}
     engines: {node: '>=14.21.3'}
     cpu: [arm64]
     os: [linux]
     libc: [musl]
 
-  '@biomejs/cli-linux-arm64@2.4.6':
-    resolution: {integrity: sha512-kMLaI7OF5GN1Q8Doymjro1P8rVEoy7BKQALNz6fiR8IC1WKduoNyteBtJlHT7ASIL0Cx2jR6VUOBIbcB1B8pew==}
+  '@biomejs/cli-linux-arm64@2.4.7':
+    resolution: {integrity: sha512-om6FugwmibzfP/6ALj5WRDVSND4H2G9X0nkI1HZpp2ySf9lW2j0X68oQSaHEnls6666oy4KDsc5RFjT4m0kV0w==}
     engines: {node: '>=14.21.3'}
     cpu: [arm64]
     os: [linux]
     libc: [glibc]
 
-  '@biomejs/cli-linux-x64-musl@2.4.6':
-    resolution: {integrity: sha512-C9s98IPDu7DYarjlZNuzJKTjVHN03RUnmHV5htvqsx6vEUXCDSJ59DNwjKVD5XYoSS4N+BYhq3RTBAL8X6svEg==}
+  '@biomejs/cli-linux-x64-musl@2.4.7':
+    resolution: {integrity: sha512-00kx4YrBMU8374zd2wHuRV5wseh0rom5HqRND+vDldJPrWwQw+mzd/d8byI9hPx926CG+vWzq6AeiT7Yi5y59g==}
     engines: {node: '>=14.21.3'}
     cpu: [x64]
     os: [linux]
     libc: [musl]
 
-  '@biomejs/cli-linux-x64@2.4.6':
-    resolution: {integrity: sha512-oHXmUFEoH8Lql1xfc3QkFLiC1hGR7qedv5eKNlC185or+o4/4HiaU7vYODAH3peRCfsuLr1g6v2fK9dFFOYdyw==}
+  '@biomejs/cli-linux-x64@2.4.7':
+    resolution: {integrity: sha512-bV8/uo2Tj+gumnk4sUdkerWyCPRabaZdv88IpbmDWARQQoA/Q0YaqPz1a+LSEDIL7OfrnPi9Hq1Llz4ZIGyIQQ==}
     engines: {node: '>=14.21.3'}
     cpu: [x64]
     os: [linux]
     libc: [glibc]
 
-  '@biomejs/cli-win32-arm64@2.4.6':
-    resolution: {integrity: sha512-xzThn87Pf3YrOGTEODFGONmqXpTwUNxovQb72iaUOdcw8sBSY3+3WD8Hm9IhMYLnPi0n32s3L3NWU6+eSjfqFg==}
+  '@biomejs/cli-win32-arm64@2.4.7':
+    resolution: {integrity: sha512-hOUHBMlFCvDhu3WCq6vaBoG0dp0LkWxSEnEEsxxXvOa9TfT6ZBnbh72A/xBM7CBYB7WgwqboetzFEVDnMxelyw==}
     engines: {node: '>=14.21.3'}
     cpu: [arm64]
     os: [win32]
 
-  '@biomejs/cli-win32-x64@2.4.6':
-    resolution: {integrity: sha512-7++XhnsPlr1HDbor5amovPjOH6vsrFOCdp93iKXhFn6bcMUI6soodj3WWKfgEO6JosKU1W5n3uky3WW9RlRjTg==}
+  '@biomejs/cli-win32-x64@2.4.7':
+    resolution: {integrity: sha512-qEpGjSkPC3qX4ycbMUthXvi9CkRq7kZpkqMY1OyhmYlYLnANnooDQ7hDerM8+0NJ+DZKVnsIc07h30XOpt7LtQ==}
     engines: {node: '>=14.21.3'}
     cpu: [x64]
     os: [win32]
@@ -721,8 +721,8 @@ packages:
   '@sinonjs/fake-timers@15.1.1':
     resolution: {integrity: sha512-cO5W33JgAPbOh07tvZjUOJ7oWhtaqGHiZw+11DPbyqh2kHTBc3eF/CjJDeQ4205RLQsX6rxCuYOroFQwl7JDRw==}
 
-  '@sinonjs/samsam@9.0.2':
-    resolution: {integrity: sha512-H/JSxa4GNKZuuU41E3b8Y3tbSEx8y4uq4UH1C56ONQac16HblReJomIvv3Ud7ANQHQmkeSowY49Ij972e/pGxQ==}
+  '@sinonjs/samsam@9.0.3':
+    resolution: {integrity: sha512-ZgYY7Dc2RW+OUdnZ1DEHg00lhRt+9BjymPKHog4PRFzr1U3MbK57+djmscWyKxzO1qfunHqs4N45WWyKIFKpiQ==}
 
   '@types/http-cache-semantics@4.2.0':
     resolution: {integrity: sha512-L3LgimLHXtGkWikKnsPg0/VFx9OGZaC+eN1u4r+OB1XRqH3meBIAVC2zr1WdMH+RHmnRkqliQAOHNJ/E0j/e0Q==}
@@ -1014,8 +1014,8 @@ packages:
     resolution: {integrity: sha512-0hJU9SCPvmMzIBdZFqNPXWa6dqh7WdH0cII9y+CyS8rG3nL48Bclra9HmKhVVUHyPWNH5Y7xDwAB7bfgSjkUMQ==}
     engines: {node: '>= 0.4'}
 
-  hermes-estree@0.33.3:
-    resolution: {integrity: sha512-6kzYZHCk8Fy1Uc+t3HGYyJn3OL4aeqKLTyina4UFtWl8I0kSL7OmKThaiX+Uh2f8nGw3mo4Ifxg0M5Zk3/Oeqg==}
+  hermes-estree@0.34.0:
+    resolution: {integrity: sha512-6qLylexjmuKa/YYhMiNn/3VejBsdzwmYUGmNpc693/pJzymmbufhkRW/2K6GqFgu0ApRWoqF0NbM6u82jFcOXA==}
 
   hermes-parser@0.34.0:
     resolution: {integrity: sha512-tcgan5UNZvu3WwmR3jDAlmwEAR2CMv8cwQVMe5j0NrLQkstf0l3ULbYPuTZWbXxbPa0PyZPiq5LYEcFVmhM9LQ==}
@@ -1121,8 +1121,8 @@ packages:
     resolution: {integrity: sha512-wI9Nui/L8VfADa/cr/7NQruaASk1k23/Uh1khQ02BCVYiiy8F4AhOGnQzJy3Fl/c44GnYSbZHv8g7EcG3kJ1Qg==}
     engines: {node: '>=20'}
 
-  lru-cache@11.2.5:
-    resolution: {integrity: sha512-vFrFJkWtJvJnD5hg+hJvVE8Lh/TcMzKnTgCWmtBipwI5yLX/iX+5UB2tfuyODF5E7k9xEzMdYgGqaSb1c0c5Yw==}
+  lru-cache@11.2.7:
+    resolution: {integrity: sha512-aY/R+aEsRelme17KGQa/1ZSIpLpNYYrhcrepKTZgE+W3WM16YMCaPwOHLHsmopZHELU0Ojin1lPVxKR0MihncA==}
     engines: {node: 20 || >=22}
 
   make-fetch-happen@15.0.4:
@@ -1383,8 +1383,8 @@ packages:
     resolution: {integrity: sha512-bzyZ1e88w9O1iNJbKnOlvYTrWPDl46O1bG0D3XInv+9tkPrxrN8jUUTiFlDkkmKWgn1M6CfIA13SuGqOa9Korw==}
     engines: {node: '>=14'}
 
-  sinon@21.0.2:
-    resolution: {integrity: sha512-VHV4UaoxIe5jrMd89Y9duI76T5g3Lp+ET+ctLhLDaZtSznDPah1KKpRElbdBV4RwqWSw2vadFiVs9Del7MbVeQ==}
+  sinon@21.0.3:
+    resolution: {integrity: sha512-0x8TQFr8EjADhSME01u1ZK31yv2+bd6Z5NrBCHVM+n4qL1wFqbxftmeyi3bwlr49FbbzRfrqSFOpyHCOh/YmYA==}
 
   slice-ansi@7.1.2:
     resolution: {integrity: sha512-iOBWFgUX7caIZiuutICxVgX1SdxwAVFFKwt1EvMYYec/NWO5meOJ6K5uQxhrYBdQJne4KxiqZc+KptFOWFSI9w==}
@@ -1472,8 +1472,8 @@ packages:
     engines: {node: '>=14.17'}
     hasBin: true
 
-  undici@7.22.0:
-    resolution: {integrity: sha512-RqslV2Us5BrllB+JeiZnK4peryVTndy9Dnqq62S3yYRRTj0tFQCwEniUy2167skdGOy3vqRzEvl1Dm4sV2ReDg==}
+  undici@7.24.4:
+    resolution: {integrity: sha512-BM/JzwwaRXxrLdElV2Uo6cTLEjhSb3WXboncJamZ15NgUURmvlXvxa6xkwIOILIjPNo9i8ku136ZvWV0Uly8+w==}
     engines: {node: '>=20.18.1'}
 
   unique-filename@5.0.0:
@@ -1640,39 +1640,39 @@ snapshots:
       '@babel/helper-string-parser': 7.27.1
       '@babel/helper-validator-identifier': 7.28.5
 
-  '@biomejs/biome@2.4.6':
+  '@biomejs/biome@2.4.7':
     optionalDependencies:
-      '@biomejs/cli-darwin-arm64': 2.4.6
-      '@biomejs/cli-darwin-x64': 2.4.6
-      '@biomejs/cli-linux-arm64': 2.4.6
-      '@biomejs/cli-linux-arm64-musl': 2.4.6
-      '@biomejs/cli-linux-x64': 2.4.6
-      '@biomejs/cli-linux-x64-musl': 2.4.6
-      '@biomejs/cli-win32-arm64': 2.4.6
-      '@biomejs/cli-win32-x64': 2.4.6
+      '@biomejs/cli-darwin-arm64': 2.4.7
+      '@biomejs/cli-darwin-x64': 2.4.7
+      '@biomejs/cli-linux-arm64': 2.4.7
+      '@biomejs/cli-linux-arm64-musl': 2.4.7
+      '@biomejs/cli-linux-x64': 2.4.7
+      '@biomejs/cli-linux-x64-musl': 2.4.7
+      '@biomejs/cli-win32-arm64': 2.4.7
+      '@biomejs/cli-win32-x64': 2.4.7
 
-  '@biomejs/cli-darwin-arm64@2.4.6':
+  '@biomejs/cli-darwin-arm64@2.4.7':
     optional: true
 
-  '@biomejs/cli-darwin-x64@2.4.6':
+  '@biomejs/cli-darwin-x64@2.4.7':
     optional: true
 
-  '@biomejs/cli-linux-arm64-musl@2.4.6':
+  '@biomejs/cli-linux-arm64-musl@2.4.7':
     optional: true
 
-  '@biomejs/cli-linux-arm64@2.4.6':
+  '@biomejs/cli-linux-arm64@2.4.7':
     optional: true
 
-  '@biomejs/cli-linux-x64-musl@2.4.6':
+  '@biomejs/cli-linux-x64-musl@2.4.7':
     optional: true
 
-  '@biomejs/cli-linux-x64@2.4.6':
+  '@biomejs/cli-linux-x64@2.4.7':
     optional: true
 
-  '@biomejs/cli-win32-arm64@2.4.6':
+  '@biomejs/cli-win32-arm64@2.4.7':
     optional: true
 
-  '@biomejs/cli-win32-x64@2.4.6':
+  '@biomejs/cli-win32-x64@2.4.7':
     optional: true
 
   '@bufbuild/protobuf@2.11.0':
@@ -1751,7 +1751,7 @@ snapshots:
       agent-base: 7.1.4
       http-proxy-agent: 7.0.2
       https-proxy-agent: 7.0.6
-      lru-cache: 11.2.5
+      lru-cache: 11.2.7
       socks-proxy-agent: 8.0.5
     transitivePeerDependencies:
       - supports-color
@@ -1765,7 +1765,7 @@ snapshots:
     dependencies:
       '@npmcli/promise-spawn': 9.0.1
       ini: 6.0.0
-      lru-cache: 11.2.5
+      lru-cache: 11.2.7
       npm-pick-manifest: 11.0.3
       proc-log: 6.1.0
       promise-retry: 2.0.1
@@ -1807,7 +1807,7 @@ snapshots:
     dependencies:
       '@sinonjs/commons': 3.0.1
 
-  '@sinonjs/samsam@9.0.2':
+  '@sinonjs/samsam@9.0.3':
     dependencies:
       '@sinonjs/commons': 3.0.1
       type-detect: 4.1.0
@@ -1878,7 +1878,7 @@ snapshots:
       '@npmcli/fs': 5.0.0
       fs-minipass: 3.0.3
       glob: 13.0.6
-      lru-cache: 11.2.5
+      lru-cache: 11.2.7
       minipass: 7.1.3
       minipass-collect: 2.0.1
       minipass-flush: 1.0.5
@@ -1932,7 +1932,7 @@ snapshots:
       parse5: 8.0.0
       parse5-htmlparser2-tree-adapter: 8.0.0
       parse5-parser-stream: 8.0.0
-      undici: 7.22.0
+      undici: 7.24.4
       whatwg-mimetype: 4.0.0
 
   chownr@3.0.0: {}
@@ -2166,17 +2166,17 @@ snapshots:
       function-bind: 1.1.2
     optional: true
 
-  hermes-estree@0.33.3:
+  hermes-estree@0.34.0:
     optional: true
 
   hermes-parser@0.34.0:
     dependencies:
-      hermes-estree: 0.33.3
+      hermes-estree: 0.34.0
     optional: true
 
   hosted-git-info@9.0.2:
     dependencies:
-      lru-cache: 11.2.5
+      lru-cache: 11.2.7
 
   htmlparser2@10.1.0:
     dependencies:
@@ -2276,7 +2276,7 @@ snapshots:
 
   lowercase-keys@4.0.1: {}
 
-  lru-cache@11.2.5: {}
+  lru-cache@11.2.7: {}
 
   make-fetch-happen@15.0.4:
     dependencies:
@@ -2459,7 +2459,7 @@ snapshots:
 
   path-scurry@2.0.2:
     dependencies:
-      lru-cache: 11.2.5
+      lru-cache: 11.2.7
       minipass: 7.1.3
 
   picocolors@1.1.1: {}
@@ -2560,11 +2560,11 @@ snapshots:
 
   signal-exit@4.1.0: {}
 
-  sinon@21.0.2:
+  sinon@21.0.3:
     dependencies:
       '@sinonjs/commons': 3.0.1
       '@sinonjs/fake-timers': 15.1.1
-      '@sinonjs/samsam': 9.0.2
+      '@sinonjs/samsam': 9.0.3
       diff: 8.0.3
       supports-color: 10.2.2
 
@@ -2662,7 +2662,7 @@ snapshots:
 
   typescript@5.9.3: {}
 
-  undici@7.22.0: {}
+  undici@7.24.4: {}
 
   unique-filename@5.0.0:
     dependencies:

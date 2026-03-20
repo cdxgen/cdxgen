@@ -1114,7 +1114,7 @@ const needsBomSigning = ({ generateKeyAndSign }) =>
     protobomModule.writeBinary(bomNSData.bomJson, options.protoBinFile);
     thoughtLog("BOM file is also available in .proto format!");
   }
-  if (options.print && bomNSData.bomJson && bomNSData.bomJson.components) {
+  if (options.print && bomNSData.bomJson?.components) {
     printSummary(bomNSData.bomJson);
     if (options.includeFormulation) {
       printFormulation(bomNSData.bomJson);
