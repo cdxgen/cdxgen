@@ -184,7 +184,7 @@ overrides:
   npm-normalize-package-bin: 5.0.0
   npm-package-arg: 13.0.2
   npm-pick-manifest: 11.0.3
-  nth-check: 2.1.1
+  nth-check: 3.0.0
   object-inspect: 1.13.4
   on-finished: 2.4.1
   on-headers: 1.1.0
@@ -268,8 +268,6 @@ overrides:
   yoctocolors: 2.1.2
   hermes-parser: 0.34.0
   hermes-estree: 0.34.0
-
-pnpmfileChecksum: sha256-nfOeuxPm0PLhmHqhdzVKpjFk27e1GEgHAqcQJ7ot+gg=
 
 importers:
 
@@ -619,7 +617,6 @@ packages:
     resolution: {integrity: sha512-VZN2yTRCRFDnf+/Shd1fkv8kr+1iRC0/1tJBO4G1K9cmp+188szp89VCExP96IaHh/dwTJvE85hZiUQv7PkaZw==}
     cpu: [ppc64]
     os: [linux]
-    libc: glibc
 
   '@cdxgen/cdxgen-plugins-bin-linuxmusl-amd64@2.0.3':
     resolution: {integrity: sha512-7XRyj5C4QDu1wRF1m0olSj3ljrnbjQZdWC3zQkzJsUThSCB21HGp3TXPm/WjbEh95eZpvshnedYxIpnvNtSjNA==}
@@ -1239,8 +1236,9 @@ packages:
     resolution: {integrity: sha512-buzyCfeoGY/PxKqmBqn1IUJrZnUi1VVJTdSSRPGI60tJdUhUoSQFhs0zycJokDdOznQentgrpf8LayEHyyYlqQ==}
     engines: {node: ^20.17.0 || >=22.9.0}
 
-  nth-check@2.1.1:
-    resolution: {integrity: sha512-lqjrjmaOoAnWfMmBPL+XNnynZh2+swxiX3WUE0s4yEHI6m+AwrK2UZOimIRl3X/4QctVqS8AiZjFqyOGrMXb/w==}
+  nth-check@3.0.0:
+    resolution: {integrity: sha512-7kmdWhlAQtOcdZEh8/BIh2Z5KW8Af0RnET+cWS5esqx8ZVzSlt2bP+w+YnWt37PzBmJRUcaOQXFJ2CREM0860Q==}
+    engines: {node: '>=20.19.0'}
 
   object-inspect@1.13.4:
     resolution: {integrity: sha512-W67iLl4J2EXEGTbfeHCffrjDfitvLANg0UlX3wFUUSTx92KXRFegMHUVgSqE+wvhAbi4WqjGg9czysTV2Epbew==}
@@ -1984,7 +1982,7 @@ snapshots:
       css-what: 7.0.0
       domhandler: 5.0.3
       domutils: 3.2.2
-      nth-check: 2.1.1
+      nth-check: 3.0.0
 
   css-what@7.0.0: {}
 
@@ -2413,7 +2411,7 @@ snapshots:
       npm-package-arg: 13.0.2
       semver: 7.7.4
 
-  nth-check@2.1.1:
+  nth-check@3.0.0:
     dependencies:
       boolbase: 1.0.0
 
