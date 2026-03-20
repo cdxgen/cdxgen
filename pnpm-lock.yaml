@@ -226,7 +226,7 @@ overrides:
   slice-ansi: 7.1.2
   smart-buffer: 4.2.0
   socks: 2.8.7
-  socks-proxy-agent: 8.0.5
+  socks-proxy-agent: 9.0.0
   spdx-exceptions: 2.5.0
   spdx-expression-parse: 4.0.0
   spdx-license-ids: 3.0.23
@@ -268,8 +268,6 @@ overrides:
   yoctocolors: 2.1.2
   hermes-parser: 0.33.3
   hermes-estree: 0.33.3
-
-pnpmfileChecksum: sha256-nfOeuxPm0PLhmHqhdzVKpjFk27e1GEgHAqcQJ7ot+gg=
 
 importers:
 
@@ -619,7 +617,6 @@ packages:
     resolution: {integrity: sha512-VZN2yTRCRFDnf+/Shd1fkv8kr+1iRC0/1tJBO4G1K9cmp+188szp89VCExP96IaHh/dwTJvE85hZiUQv7PkaZw==}
     cpu: [ppc64]
     os: [linux]
-    libc: glibc
 
   '@cdxgen/cdxgen-plugins-bin-linuxmusl-amd64@2.0.3':
     resolution: {integrity: sha512-7XRyj5C4QDu1wRF1m0olSj3ljrnbjQZdWC3zQkzJsUThSCB21HGp3TXPm/WjbEh95eZpvshnedYxIpnvNtSjNA==}
@@ -1394,8 +1391,8 @@ packages:
     resolution: {integrity: sha512-94hK0Hh8rPqQl2xXc3HsaBoOXKV20MToPkcXvwbISWLEs+64sBq5kFgn2kJDHb1Pry9yrP0dxrCI9RRci7RXKg==}
     engines: {node: '>= 6.0.0', npm: '>= 3.0.0'}
 
-  socks-proxy-agent@8.0.5:
-    resolution: {integrity: sha512-HehCEsotFqbPW9sJ8WVYB6UbmIMv7kUUORIF2Nncq4VQvBfNBLibW9YZR5dlYCSUhwcD628pRllm7n+E+YTzJw==}
+  socks-proxy-agent@9.0.0:
+    resolution: {integrity: sha512-fFlbMlfsXhK02ZB8aZY7Hwxh/IHBV9b1Oq9bvBk6tkFWXvdAxUgA0wbw/NYR5liU3Y5+KI6U4FH3kYJt9QYv0w==}
     engines: {node: '>= 14'}
 
   socks@2.8.7:
@@ -1752,7 +1749,7 @@ snapshots:
       http-proxy-agent: 7.0.2
       https-proxy-agent: 7.0.6
       lru-cache: 11.2.7
-      socks-proxy-agent: 8.0.5
+      socks-proxy-agent: 9.0.0
     transitivePeerDependencies:
       - supports-color
     optional: true
@@ -2576,7 +2573,7 @@ snapshots:
   smart-buffer@4.2.0:
     optional: true
 
-  socks-proxy-agent@8.0.5:
+  socks-proxy-agent@9.0.0:
     dependencies:
       agent-base: 7.1.4
       debug: 4.4.3
