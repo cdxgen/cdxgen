@@ -72,7 +72,7 @@ overrides:
   balanced-match: 4.0.4
   bin-links: 6.0.0
   body-parser: 2.2.2
-  boolbase: 1.0.0
+  boolbase: 2.0.0
   brace-expansion: 5.0.4
   buffer-equal-constant-time: 1.0.1
   byte-counter: 0.1.0
@@ -268,8 +268,6 @@ overrides:
   yoctocolors: 2.1.2
   hermes-parser: 0.34.0
   hermes-estree: 0.34.0
-
-pnpmfileChecksum: sha256-nfOeuxPm0PLhmHqhdzVKpjFk27e1GEgHAqcQJ7ot+gg=
 
 importers:
 
@@ -619,7 +617,6 @@ packages:
     resolution: {integrity: sha512-VZN2yTRCRFDnf+/Shd1fkv8kr+1iRC0/1tJBO4G1K9cmp+188szp89VCExP96IaHh/dwTJvE85hZiUQv7PkaZw==}
     cpu: [ppc64]
     os: [linux]
-    libc: glibc
 
   '@cdxgen/cdxgen-plugins-bin-linuxmusl-amd64@2.0.3':
     resolution: {integrity: sha512-7XRyj5C4QDu1wRF1m0olSj3ljrnbjQZdWC3zQkzJsUThSCB21HGp3TXPm/WjbEh95eZpvshnedYxIpnvNtSjNA==}
@@ -766,8 +763,9 @@ packages:
     resolution: {integrity: sha512-oP5VkATKlNwcgvxi0vM0p/D3n2C3EReYVX+DNYs5TjZFn/oQt2j+4sVJtSMr18pdRr8wjTcBl6LoV+FUwzPmNA==}
     engines: {node: '>=18'}
 
-  boolbase@1.0.0:
-    resolution: {integrity: sha512-JZOSA7Mo9sNGB8+UjSgzdLtokWAky1zbztM3WRLCbZ70/3cTANmQmOdR7y2g+J0e2WXywy1yS468tY+IruqEww==}
+  boolbase@2.0.0:
+    resolution: {integrity: sha512-DkVaaQHymRhpYEYo9x1oo7Q7B0Y6KJUsjm3c9eTyFDby4MHLBTwZ6ZDWBel5zrYxj1WsZgC5oLpiz+93MluXeA==}
+    engines: {node: '>=20.19.0'}
 
   brace-expansion@5.0.4:
     resolution: {integrity: sha512-h+DEnpVvxmfVefa4jFbCf5HdH5YMDXRsmKflpf1pILZWRFlTbJpxeU55nJl4Smt5HQaGzg1o6RHFPJaOqnmBDg==}
@@ -1860,7 +1858,7 @@ snapshots:
       - supports-color
     optional: true
 
-  boolbase@1.0.0: {}
+  boolbase@2.0.0: {}
 
   brace-expansion@5.0.4:
     dependencies:
@@ -1914,7 +1912,7 @@ snapshots:
 
   cheerio-select@2.1.0:
     dependencies:
-      boolbase: 1.0.0
+      boolbase: 2.0.0
       css-select: 6.0.0
       css-what: 7.0.0
       domelementtype: 2.3.0
@@ -1980,7 +1978,7 @@ snapshots:
 
   css-select@6.0.0:
     dependencies:
-      boolbase: 1.0.0
+      boolbase: 2.0.0
       css-what: 7.0.0
       domhandler: 5.0.3
       domutils: 3.2.2
@@ -2415,7 +2413,7 @@ snapshots:
 
   nth-check@2.1.1:
     dependencies:
-      boolbase: 1.0.0
+      boolbase: 2.0.0
 
   object-inspect@1.13.4:
     optional: true
