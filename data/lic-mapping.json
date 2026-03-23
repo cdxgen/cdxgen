@@ -1,5 +1,12 @@
 [
   {
+    "exp": "https://raw.github.com/jsr107/jsr107spec/master/LICENSE.txt",
+    "names": [
+      "JSR-000107 JCACHE 2.9 Public Review - Updated Specification\n                License\n            ",
+      "JSR-000107 JCACHE 2.9 Public Review - Updated Specification License"
+    ]
+  },
+  {
     "exp": "Apache-2.0",
     "names": [
       "Apache2",

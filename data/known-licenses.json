@@ -1,7 +1,13 @@
 [
   {
     "packageNamespace": "*",
-    "knownLicenses": [{ "license": "MIT", "urlIncludes": "mit-license" }]
+    "knownLicenses": [
+      { "license": "MIT", "urlIncludes": "mit-license" },
+      {
+        "licenseName": "JSR-000107 JCACHE 2.9 Public Review - Updated Specification License",
+        "urlIncludes": "raw.github.com/jsr107/jsr107spec/master/LICENSE.txt"
+      }
+    ]
   },
   {
     "packageNamespace": "pkg:golang/",
