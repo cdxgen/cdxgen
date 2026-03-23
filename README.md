@@ -519,7 +519,7 @@ cdxgen is [ESM only](https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff
 Minimal example:
 
 ```ts
-import { createBom, submitBom } from "npm:@cyclonedx/cdxgen@^9.0.1";
+import { createBom, submitBom } from "npm:@cyclonedx/cdxgen@^12.0.0";
 ```
 
 See the [Deno Readme](./contrib/deno/README.md) for detailed instructions.
@@ -634,7 +634,7 @@ Copy the below block to your markdown files to show your ❤️ for cdxgen.
 [docs-permissions]: https://cdxgen.github.io/cdxgen/#/PERMISSIONS
 [docs-project-types]: https://cdxgen.github.io/cdxgen/#/PROJECT_TYPES
 [docs-server]: https://cdxgen.github.io/cdxgen/#/SERVER
-[docs-support]: https://cdxgen.github.io/cdxgen/#/PROJECT_TYPES
+[docs-support]: https://cdxgen.github.io/cdxgen/#/SUPPORT
 
 <!-- web links-->
 
