@@ -18,7 +18,7 @@ declare class Edge {
     get name(): string;
     get rawSpec(): string;
     get spec(): any;
-    get accept(): string;
+    get accept(): string | undefined;
     get valid(): boolean;
     get missing(): boolean;
     get invalid(): boolean;
@@ -39,7 +39,7 @@ declare class ArboristEdge {
     from: any;
     to: any;
     error: any;
-    peerConflicted: boolean;
+    peerConflicted: boolean | undefined;
     overridden: any;
 }
 //# sourceMappingURL=edge.d.ts.map

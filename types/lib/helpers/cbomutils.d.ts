@@ -4,7 +4,7 @@
  * @param {Object} options
  * @returns osPkgsList Array of OS crypto packages
  */
-export function collectOSCryptoLibs(options: any): any[];
+export function collectOSCryptoLibs(options: Object): any[];
 /**
  * Find crypto algorithm in the given code snippet
  *

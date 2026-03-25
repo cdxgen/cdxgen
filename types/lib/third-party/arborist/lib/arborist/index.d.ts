@@ -1,7 +1,6 @@
 export default Arborist;
 declare const Arborist_base: any;
 declare class Arborist extends Arborist_base {
-    [x: number]: (node: any) => Promise<any>;
     [x: string]: any;
     constructor(options?: {});
     options: {
@@ -30,8 +29,10 @@ declare class Arborist extends Arborist_base {
     diff: any;
     path: any;
     workspaceNodes(tree: any, workspaces: any): any[];
-    workspaceDependencySet(tree: any, workspaces: any, includeWorkspaceRoot: any): any;
-    excludeWorkspacesDependencySet(tree: any): any;
+    workspaceDependencySet(tree: any, workspaces: any, includeWorkspaceRoot: any): Set<any>;
+    excludeWorkspacesDependencySet(tree: any): Set<any>;
     dedupe(options?: {}): Promise<any>;
+    [_setWorkspaces](node: any): Promise<any>;
 }
+declare const _setWorkspaces: unique symbol;
 //# sourceMappingURL=index.d.ts.map

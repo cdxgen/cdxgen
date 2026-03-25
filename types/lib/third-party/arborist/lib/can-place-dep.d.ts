@@ -1,9 +1,9 @@
 export default CanPlaceDep;
 declare class CanPlaceDep {
-    static get CONFLICT(): any;
-    static get OK(): any;
-    static get REPLACE(): any;
-    static get KEEP(): any;
+    static get CONFLICT(): symbol;
+    static get OK(): symbol;
+    static get REPLACE(): symbol;
+    static get KEEP(): symbol;
     constructor(options: any);
     _treeSnapshot: string;
     canPlace: any;
@@ -20,7 +20,7 @@ declare class CanPlaceDep {
     name: any;
     current: any;
     targetEdge: any;
-    conflicts: any;
+    conflicts: Map<any, any>;
     edgeOverride: boolean;
     checkCanPlace(): any;
     checkCanPlaceCurrent(): any;

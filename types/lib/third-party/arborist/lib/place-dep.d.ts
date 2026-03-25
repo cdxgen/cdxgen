@@ -15,9 +15,9 @@ declare class PlaceDep {
     updateNames: any;
     canPlace: any;
     canPlaceSelf: any;
-    checks: any;
+    checks: Map<any, any>;
     children: PlaceDep[];
-    needEvaluation: any;
+    needEvaluation: Set<any>;
     peerConflict: any;
     placed: any;
     target: any;
@@ -40,6 +40,6 @@ declare class PlaceDep {
         strictPeerDeps: any;
     };
     getStartNode(): any;
-    get allChildren(): any[];
+    get allChildren(): PlaceDep[];
 }
 //# sourceMappingURL=place-dep.d.ts.map

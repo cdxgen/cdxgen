@@ -3,3 +3,4 @@ minimumReleaseAgeExclude:
 - '@cdxgen/*'
 - '@appthreat/*'
 - tar
+- typescript

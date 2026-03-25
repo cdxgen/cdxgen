@@ -57,9 +57,9 @@ export function collectJavaInfo(dir: string): {
     description: string;
     properties: {
         name: string;
-        value: any;
+        value: string;
     }[];
-};
+} | undefined;
 /**
  * Collect dotnet version
  *
@@ -70,8 +70,8 @@ export function collectDotnetInfo(dir: string): {
     type: string;
     name: string;
     version: string;
-    description: any;
-};
+    description: string;
+} | undefined;
 /**
  * Collect python version
  *
@@ -82,15 +82,15 @@ export function collectPythonInfo(dir: string): {
     type: string;
     name: string;
     version: string;
-    description: any;
-};
+    description: string;
+} | undefined;
 /**
  * Collect node runtime version
  *
  * @param {string} dir Working directory
  * @returns {Object} Object containing node details
  */
-export function collectNodeInfo(dir: string): any;
+export function collectNodeInfo(dir: string): Object;
 /**
  * Collect gcc version
  *
@@ -101,8 +101,8 @@ export function collectGccInfo(dir: string): {
     type: string;
     name: string;
     version: string;
-    description: any;
-};
+    description: string;
+} | undefined;
 /**
  * Collect rust version
  *
@@ -114,7 +114,7 @@ export function collectRustInfo(dir: string): {
     name: string;
     version: string;
     description: string;
-};
+} | undefined;
 /**
  * Collect go version
  *
@@ -125,7 +125,7 @@ export function collectGoInfo(dir: string): {
     type: string;
     name: string;
     version: string;
-};
+} | undefined;
 /**
  * Collect swift version
  *
@@ -136,7 +136,7 @@ export function collectSwiftInfo(dir: string): {
     type: string;
     name: string;
     version: string;
-};
+} | undefined;
 /**
  * Collect Ruby version
  *
@@ -147,7 +147,7 @@ export function collectRubyInfo(dir: string): {
     type: string;
     name: string;
     version: string;
-};
+} | undefined;
 /**
  * Method to run a swift command
  *
@@ -163,7 +163,7 @@ export function collectEnvInfo(dir: any): {
     description: string;
     properties: {
         name: string;
-        value: any;
+        value: string;
     }[];
 }[];
 /**

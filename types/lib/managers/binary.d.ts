@@ -5,7 +5,7 @@ export function getCargoAuditableInfo(src: any): any;
  * @param args {Array} Arguments
  * @returns {undefined|Object} Command output
  */
-export function executeSourcekitten(args: any[]): undefined | any;
+export function executeSourcekitten(args: any[]): undefined | Object;
 /**
  * Get the packages installed in the container image filesystem.
  *
@@ -14,7 +14,7 @@ export function executeSourcekitten(args: any[]): undefined | any;
  *
  * @returns {Object} Metadata containing packages, dependencies, etc
  */
-export function getOSPackages(src: string, imageConfig: any): any;
+export function getOSPackages(src: string, imageConfig: Object): Object;
 export function executeOsQuery(query: any): any;
 /**
  * Method to execute dosai to create slices for dotnet

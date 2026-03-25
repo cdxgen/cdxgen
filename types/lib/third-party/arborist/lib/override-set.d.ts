@@ -8,7 +8,7 @@ declare class OverrideSet {
         parent: any;
     });
     parent: any;
-    children: any;
+    children: Map<any, any>;
     name: any;
     key: any;
     keySpec: any;
@@ -18,8 +18,8 @@ declare class OverrideSet {
     getEdgeRule(edge: any): any;
     getNodeRule(node: any): any;
     getMatchingRule(node: any): any;
-    ancestry(): {};
+    ancestry(): Generator<this, void, unknown>;
     get isRoot(): boolean;
-    get ruleset(): any;
+    get ruleset(): Map<any, any>;
 }
 //# sourceMappingURL=override-set.d.ts.map

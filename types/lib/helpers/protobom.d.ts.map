@@ -1,1 +1,1 @@
-{"version":3,"file":"protobom.d.ts","sourceRoot":"","sources":["../../../lib/helpers/protobom.js"],"names":[],"mappings":"AA+BO,qCAHI,MAAM,MAAS,WACf,MAAM,QAuBhB;AASM,oCAJI,MAAM,WACN,OAAO,gBACP,MAAM,OAmBhB"}
+{"version":3,"file":"protobom.d.ts","sourceRoot":"","sources":["../../../lib/helpers/protobom.js"],"names":[],"mappings":"AA+BO,qCAHI,MAAM,GAAG,MAAM,WACf,MAAM,QAuBhB;AASM,oCAJI,MAAM,WACN,OAAO,gBACP,MAAM,gFAmBhB;uBA5E8B,sBAAsB;uBAAtB,sBAAsB"}

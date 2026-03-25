@@ -6,7 +6,7 @@
  *
  * @returns {Object} Modified bomNSData
  */
-export function postProcess(bomNSData: any, options: any): any;
+export function postProcess(bomNSData: Object, options: Object): Object;
 /**
  * Apply additional metadata based on components
  *
@@ -15,7 +15,7 @@ export function postProcess(bomNSData: any, options: any): any;
  *
  * @returns {Object} Filtered BOM JSON
  */
-export function applyMetadata(bomJson: any, options: any): any;
+export function applyMetadata(bomJson: Object, options: Object): Object;
 /**
  * Apply definitions.standards based on options
  *
@@ -24,7 +24,7 @@ export function applyMetadata(bomJson: any, options: any): any;
  *
  * @returns {Object} Filtered BOM JSON
  */
-export function applyStandards(bomJson: any, options: any): any;
+export function applyStandards(bomJson: Object, options: Object): Object;
 /**
  * Filter BOM based on options
  *
@@ -33,7 +33,7 @@ export function applyStandards(bomJson: any, options: any): any;
  *
  * @returns {Object} Filtered BOM JSON
  */
-export function filterBom(bomJson: any, options: any): any;
+export function filterBom(bomJson: Object, options: Object): Object;
 /**
  * Clean up
  */
@@ -47,5 +47,5 @@ export function cleanupTmpDir(): void;
  *
  * @returns {Object} Annotated BOM JSON
  */
-export function annotate(bomJson: any, options: any): any;
+export function annotate(bomJson: Object, options: Object): Object;
 //# sourceMappingURL=postgen.d.ts.map

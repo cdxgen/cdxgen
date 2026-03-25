@@ -3,10 +3,10 @@ declare class YarnLock {
     static parse(data: any): YarnLock;
     static fromTree(tree: any): YarnLock;
     static get Entry(): typeof YarnLockEntry;
-    entries: any;
+    entries: Map<any, any> | null;
     endCurrent(): void;
-    current: YarnLockEntry;
-    subkey: any;
+    current: YarnLockEntry | null | undefined;
+    subkey: string | typeof nullSymbol | undefined;
     parse(data: any): this;
     splitQuoted(str: any, delim: any): any[];
     toString(): string;
@@ -31,4 +31,5 @@ declare class YarnLockEntry {
     addSpec(spec: any): void;
     #private;
 }
+declare const nullSymbol: unique symbol;
 //# sourceMappingURL=yarn-lock.d.ts.map

@@ -3,33 +3,33 @@
  *
  * @param {Object} options Command line options
  */
-export function prepareDB(options: any): Promise<{
+export function prepareDB(options: Object): Promise<{
     sequelize: any;
     Namespaces: {
         db: any;
         tableName: any;
         init(): Promise<any>;
         findByPk(purl: any): Promise<any>;
-        findOrCreate(options: any): Promise<any>;
-        findAll(options: any): Promise<any>;
+        findOrCreate(options: Object): Promise<any>;
+        findAll(options: Object): Promise<any>;
     };
     Usages: {
         db: any;
         tableName: any;
         init(): Promise<any>;
         findByPk(purl: any): Promise<any>;
-        findOrCreate(options: any): Promise<any>;
-        findAll(options: any): Promise<any>;
+        findOrCreate(options: Object): Promise<any>;
+        findAll(options: Object): Promise<any>;
     };
     DataFlows: {
         db: any;
         tableName: any;
         init(): Promise<any>;
         findByPk(purl: any): Promise<any>;
-        findOrCreate(options: any): Promise<any>;
-        findAll(options: any): Promise<any>;
+        findOrCreate(options: Object): Promise<any>;
+        findAll(options: Object): Promise<any>;
     };
-}>;
+} | undefined>;
 export function catalogMavenDeps(dirPath: any, purlsJars: any, Namespaces: any, options?: {}): Promise<void>;
 export function catalogGradleDeps(dirPath: any, purlsJars: any, Namespaces: any): Promise<void>;
 export function createAndStoreSlice(purl: any, purlsJars: any, Usages: any, options?: {}): Promise<any>;
@@ -52,7 +52,7 @@ export function createSlice(purlOrLanguages: any, filePath: any, sliceType?: str
     openapiSpecFile: any;
     semanticsSlicesFile: any;
 }>;
-export function purlToLanguage(purl: any, filePath: any): string;
+export function purlToLanguage(purl: any, filePath: any): string | undefined;
 export function initFromSbom(components: any, language: any): {
     purlLocationMap: {};
     purlImportsMap: {};
@@ -63,7 +63,7 @@ export function initFromSbom(components: any, language: any): {
  * @param {Object} dbObjMap DB and model instances
  * @param {Object} options Command line options
  */
-export function analyzeProject(dbObjMap: any, options: any): Promise<{
+export function analyzeProject(dbObjMap: Object, options: Object): Promise<{
     atomFile: any;
     usagesSlicesFile: any;
     dataFlowSlicesFile: any;
@@ -78,7 +78,7 @@ export function analyzeProject(dbObjMap: any, options: any): Promise<{
     cryptoGeneratePurls: {};
     openapiSpecFile: any;
 }>;
-export function parseObjectSlices(language: any, usageSlice: any, dbObjMap: any, servicesMap?: {}, purlLocationMap?: {}, purlImportsMap?: {}, openapiSpecFile?: any): Promise<{}>;
+export function parseObjectSlices(language: any, usageSlice: any, dbObjMap: any, servicesMap?: {}, purlLocationMap?: {}, purlImportsMap?: {}, openapiSpecFile?: undefined): Promise<{}>;
 /**
  * The implementation of this function is based on the logic proposed in the atom slices specification
  * https://github.com/AppThreat/atom/blob/main/specification/docs/slices.md#use
@@ -91,7 +91,7 @@ export function parseObjectSlices(language: any, usageSlice: any, dbObjMap: any,
  * @param {Object} purlImportsMap Object to track package urls and their import aliases
  * @returns
  */
-export function parseSliceUsages(language: string, userDefinedTypesMap: any, slice: any[], dbObjMap: any, purlLocationMap: any, purlImportsMap: any): Promise<void>;
+export function parseSliceUsages(language: string, userDefinedTypesMap: Object, slice: any[], dbObjMap: Object, purlLocationMap: Object, purlImportsMap: Object): Promise<void>;
 /**
  * Method to parse semantic slice data. Currently supported for swift and scala languages.
  *
@@ -100,7 +100,7 @@ export function parseSliceUsages(language: string, userDefinedTypesMap: any, sli
  * @param {Object} semanticsSlice Semantic slice data
  * @returns {Object} Parsed metadata
  */
-export function parseSemanticSlices(language: string, components: any[], semanticsSlice: any): any;
+export function parseSemanticSlices(language: string, components: any[], semanticsSlice: Object): Object;
 export function isFilterableType(language: any, userDefinedTypesMap: any, typeFullName: any): boolean;
 export function detectServicesFromOpenAPI(_language: any, openapiSpecFile: any, servicesMap: any): void;
 /**
@@ -110,7 +110,7 @@ export function detectServicesFromOpenAPI(_language: any, openapiSpecFile: any, 
  * @param {Array} slice Usages array for each objectSlice
  * @param {Object} servicesMap Existing service map
  */
-export function detectServicesFromUsages(language: string, slice: any[], servicesMap?: any): any[];
+export function detectServicesFromUsages(language: string, slice: any[], servicesMap?: Object): never[] | undefined;
 /**
  * Method to detect services from user defined types in the usage slice
  *
@@ -118,7 +118,7 @@ export function detectServicesFromUsages(language: string, slice: any[], service
  * @param {Array} userDefinedTypes User defined types
  * @param {Object} servicesMap Existing service map
  */
-export function detectServicesFromUDT(language: string, userDefinedTypes: any[], servicesMap: any): void;
+export function detectServicesFromUDT(language: string, userDefinedTypes: any[], servicesMap: Object): void;
 export function constructServiceName(_language: any, slice: any): string;
 export function extractEndpoints(language: any, code: any): any;
 /**
@@ -128,7 +128,7 @@ export function extractEndpoints(language: any, code: any): any;
  * @param {Object} options Command line options
  * @returns
  */
-export function createEvinseFile(sliceArtefacts: any, options: any): any;
+export function createEvinseFile(sliceArtefacts: Object, options: Object): any;
 /**
  * Method to convert dataflow slice into usable callstack frames
  * Implemented based on the logic proposed here - https://github.com/AppThreat/atom/blob/main/specification/docs/slices.md#data-flow-slice
@@ -140,7 +140,7 @@ export function createEvinseFile(sliceArtefacts: any, options: any): any;
  * @param {Object} _purlLocationMap Object to track locations where purls are used
  * @param {Object} purlImportsMap Object to track package urls and their import aliases
  */
-export function collectDataFlowFrames(language: string, userDefinedTypesMap: any, dataFlowSlice: any, dbObjMap: any, _purlLocationMap: any, purlImportsMap: any): Promise<{}>;
+export function collectDataFlowFrames(language: string, userDefinedTypesMap: Object, dataFlowSlice: Object, dbObjMap: Object, _purlLocationMap: Object, purlImportsMap: Object): Promise<{}>;
 /**
  * Method to convert reachable slice into usable callstack frames and crypto components
  *
@@ -149,7 +149,7 @@ export function collectDataFlowFrames(language: string, userDefinedTypesMap: any
  * @param {string} _language Application language
  * @param {Object} reachablesSlice Reachables slice object from atom
  */
-export function collectReachableFrames(_language: string, reachablesSlice: any): {
+export function collectReachableFrames(_language: string, reachablesSlice: Object): {
     dataFlowFrames: {};
     cryptoComponents: {
         type: string;
@@ -177,5 +177,5 @@ export function framePicker(dfFrames: any[]): any;
  * @returns Simplified type string
  */
 export function simplifyType(typeFullName: string): string;
-export function getClassTypeFromSignature(language: any, typeFullName: any): string;
+export function getClassTypeFromSignature(language: any, typeFullName: any): string | undefined;
 //# sourceMappingURL=evinser.d.ts.map

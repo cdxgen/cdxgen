@@ -60,13 +60,13 @@ export const IriValidationStrategy: Readonly<{
  */
 export type IRIComponents = {
     scheme: string;
-    userinfo?: string;
-    host?: string;
-    port?: string;
+    userinfo?: string | undefined;
+    host?: string | undefined;
+    port?: string | undefined;
     path: string;
-    query?: string;
-    fragment?: string;
+    query?: string | undefined;
+    fragment?: string | undefined;
     valid: boolean;
-    error?: string;
+    error?: string | undefined;
 };
 //# sourceMappingURL=iri.d.ts.map

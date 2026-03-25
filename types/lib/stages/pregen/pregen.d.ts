@@ -4,27 +4,27 @@
  * @param {String} filePath Path
  * @param {Object} options CLI options
  */
-export function prepareEnv(filePath: string, options: any): void;
+export function prepareEnv(filePath: string, options: Object): void;
 /**
  * Method to prepare sdkman build environment for BOM generation purposes.
  *
  * @param {String} projectType Project type
  */
-export function prepareSdkmanBuild(projectType: string): boolean;
+export function prepareSdkmanBuild(projectType: string): boolean | undefined;
 /**
  * Method to check and prepare the environment for python
  *
  * @param {String} _filePath Path
  * @param {Object} options CLI Options
  */
-export function preparePythonEnv(_filePath: string, options: any): void;
+export function preparePythonEnv(_filePath: string, options: Object): void;
 /**
  * Method to check and prepare the environment for node
  *
  * @param {String} filePath Path
  * @param {Object} options CLI Options
  */
-export function prepareNodeEnv(filePath: string, options: any): void;
+export function prepareNodeEnv(filePath: string, options: Object): void;
 /**
  * If NVM_DIR is in path, however nvm command is not loaded.
  * it is possible that required nodeVersion is not installed.
@@ -48,12 +48,12 @@ export function doNpmInstall(filePath: string, nvmNodePath: string): void;
  * @param {String} filePath Path
  * @param {Object} options CLI Options
  */
-export function prepareSwiftEnv(filePath: string, options: any): void;
+export function prepareSwiftEnv(filePath: string, options: Object): void;
 /**
  * Method to check and prepare the environment for Ruby projects
  *
  * @param {String} filePath Path
  * @param {Object} options CLI Options
  */
-export function prepareRubyEnv(filePath: string, options: any): void;
+export function prepareRubyEnv(filePath: string, options: Object): void;
 //# sourceMappingURL=pregen.d.ts.map

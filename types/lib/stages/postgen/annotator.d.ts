@@ -5,7 +5,7 @@
  *
  * @returns {String} Type of the bom such as sbom, cbom, obom, ml-bom etc
  */
-export function findBomType(bomJson: any): string;
+export function findBomType(bomJson: Object): string;
 /**
  * Create the textual representation of the metadata section.
  *
@@ -13,7 +13,7 @@ export function findBomType(bomJson: any): string;
  *
  * @returns {String | undefined} Textual representation of the metadata
  */
-export function textualMetadata(bomJson: any): string | undefined;
+export function textualMetadata(bomJson: Object): string | undefined;
 /**
  * Extract interesting tags from the component attribute
  *
@@ -23,5 +23,5 @@ export function textualMetadata(bomJson: any): string | undefined;
  *
  * @returns {Array | undefined} Array of string tags
  */
-export function extractTags(component: any, bomType?: string, parentComponentType?: string): any[] | undefined;
+export function extractTags(component: Object, bomType?: string, parentComponentType?: string): any[] | undefined;
 //# sourceMappingURL=annotator.d.ts.map

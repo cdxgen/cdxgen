@@ -3,8 +3,8 @@ declare class Diff {
     static calculate({ actual, ideal, filterNodes, shrinkwrapInflated, }: {
         actual: any;
         ideal: any;
-        filterNodes?: any[];
-        shrinkwrapInflated?: any;
+        filterNodes?: never[] | undefined;
+        shrinkwrapInflated?: Set<any> | undefined;
     }): any;
     constructor({ actual, ideal, filterSet, shrinkwrapInflated }: {
         actual: any;
@@ -19,7 +19,7 @@ declare class Diff {
     ideal: any;
     resolved: any;
     integrity: any;
-    action: string;
+    action: string | null;
     parent: any;
     leaves: any[];
     unchanged: any[];

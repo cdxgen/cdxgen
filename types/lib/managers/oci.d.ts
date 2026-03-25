@@ -1,2 +1,2 @@
-export function getBomWithOras(image: any, platform?: any): any;
+export function getBomWithOras(image: any, platform?: undefined): any;
 //# sourceMappingURL=oci.d.ts.map

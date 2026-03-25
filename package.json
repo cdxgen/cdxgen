@@ -139,21 +139,21 @@
     "semver": "7.7.4",
     "ssri": "13.0.1",
     "table": "6.9.0",
-    "tar": "7.5.11",
+    "tar": "7.5.13",
     "treeverse": "3.0.0",
     "uuid": "13.0.0",
     "walk-up-path": "4.0.0",
     "xml-js": "1.6.11",
-    "yaml": "2.8.2",
+    "yaml": "2.8.3",
     "yargs": "18.0.0",
     "yoctocolors": "2.1.2"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.4.7",
+    "@biomejs/biome": "2.4.8",
     "esmock": "2.7.3",
     "poku": "4.1.0",
     "sinon": "21.0.3",
-    "typescript": "5.9.3"
+    "typescript": "6.0.2"
   },
   "optionalDependencies": {
     "@appthreat/atom": "2.5.2",

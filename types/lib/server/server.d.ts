@@ -32,7 +32,7 @@ export function maybeRemotePath(filePath: string): boolean;
  * @param {string} filePath The Git URL or local path
  * @returns {Object|null} Error object if invalid, or null if valid
  */
-export function validateAndRejectGitSource(filePath: string): any | null;
+export function validateAndRejectGitSource(filePath: string): Object | null;
 /**
  * Method to safely parse value passed via the query string or body.
  *

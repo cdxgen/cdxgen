@@ -36,7 +36,7 @@ export function exportArchive(fullImageName: any, options?: {}): Promise<{
     lastLayerConfig: {};
     lastWorkingDir: string;
     binPaths: any;
-}>;
+} | undefined>;
 export function extractFromManifest(manifestFile: any, localData: any, tempDir: any, allLayersExplodedDir: any, options: any): Promise<{
     inspectData: any;
     manifest: any;
@@ -47,7 +47,7 @@ export function extractFromManifest(manifestFile: any, localData: any, tempDir: 
     binPaths: any;
 }>;
 export function exportImage(fullImageName: any, options: any): Promise<any>;
-export function getPkgPathList(exportData: any, lastWorkingDir: any): any;
+export function getPkgPathList(exportData: any, lastWorkingDir: any): any[];
 export function removeImage(fullImageName: any, force?: boolean): Promise<any>;
 export function getCredsFromHelper(exeSuffix: any, serverAddress: any): any;
 export function addSkippedSrcFiles(skippedImageSrcs: any, components: any): void;

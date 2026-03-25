@@ -24,12 +24,12 @@ declare class Model {
      * findOrCreate
      * @param {Object} options { where: { purl }, defaults: { purl, data } }
      */
-    findOrCreate(options: any): Promise<any>;
+    findOrCreate(options: Object): Promise<any>;
     /**
      * findAll to handle the specific LIKE query from evinser.js
      * @param {Object} options
      */
-    findAll(options: any): Promise<any>;
+    findAll(options: Object): Promise<any>;
 }
 export {};
 //# sourceMappingURL=db.d.ts.map
