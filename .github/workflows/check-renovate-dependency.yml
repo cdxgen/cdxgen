@@ -18,6 +18,7 @@ jobs:
         with:
           ref: ${{ github.head_ref }}
           token: ${{ secrets.WORKFLOW_TOKEN }}
+          persist-credentials: false
       - name: Setup pnpm
         uses: pnpm/action-setup@fc06bc1257f339d1d5d8b3a19a8cae5388b55320 # v5.0.0
       - name: Use Node.js

@@ -181,7 +181,7 @@ jobs:
           registry-url: https://registry.npmjs.org/
       - uses: oras-project/setup-oras@22ce207df3b08e061f537244349aac6ae1d214f6 # v1.2.4
       - name: Free disk space
-        uses: jlumbroso/free-disk-space@main
+        uses: jlumbroso/free-disk-space@54081f138730dfa15788a46383842cd2f914a1be
         with:
           tool-cache: true
       - name: Trim CI agent
@@ -271,7 +271,7 @@ jobs:
           registry-url: https://registry.npmjs.org/
       - uses: oras-project/setup-oras@22ce207df3b08e061f537244349aac6ae1d214f6 # v1.2.4
       - name: Free disk space
-        uses: jlumbroso/free-disk-space@main
+        uses: jlumbroso/free-disk-space@54081f138730dfa15788a46383842cd2f914a1be
         with:
           tool-cache: true
       - name: Trim CI agent
@@ -348,7 +348,7 @@ jobs:
           registry-url: https://registry.npmjs.org/
       - uses: oras-project/setup-oras@22ce207df3b08e061f537244349aac6ae1d214f6 # v1.2.4
       - name: Free disk space
-        uses: jlumbroso/free-disk-space@main
+        uses: jlumbroso/free-disk-space@54081f138730dfa15788a46383842cd2f914a1be
         with:
           tool-cache: true
       - name: Trim CI agent
@@ -426,7 +426,7 @@ jobs:
           registry-url: https://registry.npmjs.org/
       - uses: oras-project/setup-oras@22ce207df3b08e061f537244349aac6ae1d214f6 # v1.2.4
       - name: Free disk space
-        uses: jlumbroso/free-disk-space@main
+        uses: jlumbroso/free-disk-space@54081f138730dfa15788a46383842cd2f914a1be
         with:
           tool-cache: true
       - name: Trim CI agent
@@ -479,7 +479,7 @@ jobs:
           registry-url: https://registry.npmjs.org/
       - uses: oras-project/setup-oras@22ce207df3b08e061f537244349aac6ae1d214f6 # v1.2.4
       - name: Free disk space
-        uses: jlumbroso/free-disk-space@main
+        uses: jlumbroso/free-disk-space@54081f138730dfa15788a46383842cd2f914a1be
         with:
           tool-cache: true
       - name: Trim CI agent
