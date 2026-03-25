@@ -29,8 +29,6 @@
       "matchDatasources": ["docker"],
       "matchFileNames": ["ci/**/Dockerfile.*"],
       "extends": [":separatePatchReleases"],
-      "automerge": true,
-      "automergeType": "pr",
       "rebaseWhen": "conflicted"
     },
     {
@@ -80,19 +78,15 @@
       "matchUpdateTypes": ["major", "minor", "patch"]
     },
     {
-      "description": "Automerge all GitHub Actions",
+      "description": "all GitHub Actions",
       "extends": ["helpers:pinGitHubActionDigests"],
-      "automerge": true,
-      "automergeType": "pr",
       "rebaseWhen": "conflicted"
     },
     {
-      "description": "Automerge digest pins for latest tags",
+      "description": "digest pins for latest tags",
       "matchDatasources": ["docker"],
       "matchUpdateTypes": ["digest"],
       "matchCurrentValue": "latest",
-      "automerge": true,
-      "automergeType": "pr",
       "rebaseWhen": "conflicted"
     },
     {
