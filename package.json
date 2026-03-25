@@ -149,7 +149,7 @@
     "yoctocolors": "2.1.2"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.4.7",
+    "@biomejs/biome": "2.4.8",
     "esmock": "2.7.3",
     "poku": "4.1.0",
     "sinon": "21.0.3",
