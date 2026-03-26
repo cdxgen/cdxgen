@@ -104,7 +104,7 @@ docker run --rm -e CDXGEN_DEBUG_MODE=debug -v /tmp:/tmp -v $(pwd):/app:rw -t ghc
 In deno applications, cdxgen could be directly imported without any conversion. Please see the section on [integration as a library](#integration-as-library)
 
 ```ts
-import { createBom, submitBom } from "npm:@cyclonedx/cdxgen@^11.0.0";
+import { createBom, submitBom } from "npm:@cyclonedx/cdxgen@^12.1.0";
 ```
 
 ## Getting Help

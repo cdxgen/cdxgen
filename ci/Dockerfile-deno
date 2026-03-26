@@ -48,7 +48,7 @@ ENV GOPATH=/opt/app-root/go \
     COMPOSER_ALLOW_SUPERUSER=1 \
     JAVA_TOOL_OPTIONS="-Dfile.encoding=UTF-8 --enable-native-access=ALL-UNNAMED" \
     GLOBAL_NODE_MODULES_PATH=/root/.cache/deno/npm/registry.npmjs.org \
-    CDXGEN_PLUGINS_DIR=/root/.cache/deno/npm/registry.npmjs.org/@cdxgen/cdxgen-plugins-bin/2.0.2/plugins \
+    CDXGEN_PLUGINS_DIR=/root/.cache/deno/npm/registry.npmjs.org/@cdxgen/cdxgen-plugins-bin/2.0.3/plugins \
     SWIFT_SIGNING_KEY=$SWIFT_SIGNING_KEY \
     SWIFT_PLATFORM=$SWIFT_PLATFORM \
     SWIFT_BRANCH=$SWIFT_BRANCH \
@@ -87,20 +87,21 @@ RUN set -e; \
     && which ruby \
     && alternatives --install /usr/bin/python3 python /usr/bin/python${PYTHON_VERSION} 10 \
     && alternatives --install /usr/bin/python3 python3 /usr/bin/python${PYTHON_VERSION} 10 \
-    && python${PYTHON_VERSION} --version \
-    && python${PYTHON_VERSION} -m pip install --no-cache-dir --upgrade setuptools wheel pip virtualenv \
-    && python${PYTHON_VERSION} -m pip install --no-cache-dir --upgrade pipenv poetry blint atom-tools uv --target /opt/pypi \
     && curl -fsSL https://deno.land/x/install/install.sh | sh \
-    && deno install -g --node-modules-dir=auto --allow-scripts=npm:@appthreat/sqlite3@8.0.1 --allow-read --allow-env --allow-run --allow-sys=uid,systemMemoryInfo,gid,homedir --allow-write --allow-net -n cdxgen "npm:@cyclonedx/cdxgen/cdxgen" \
+    && ln -s /root/.deno/bin/deno /usr/bin/node \
+    && deno install -g --node-modules-dir=auto --allow-read --allow-write --allow-run --allow-env --allow-sys --allow-net npm:node-gyp@12 \
+    && deno install -g --node-modules-dir=auto --allow-read --allow-env --allow-run --allow-sys=uid,systemMemoryInfo,gid,homedir --allow-write --allow-net -n cdxgen "npm:@cyclonedx/cdxgen/cdxgen" \
     && deno install -g --allow-read --allow-env --allow-run --allow-sys=uid,systemMemoryInfo,gid,homedir --allow-write -n atom "npm:@appthreat/atom/atom" \
     && deno install -g --allow-read --allow-env --allow-run --allow-sys=uid,systemMemoryInfo,gid,homedir --allow-write -n astgen "npm:@appthreat/atom-parsetools/astgen" \
     && deno install -g --allow-read --allow-env --allow-run --allow-sys=uid,systemMemoryInfo,gid,homedir --allow-write -n phpastgen "npm:@appthreat/atom-parsetools/phpastgen" \
     && deno install -g --allow-read --allow-env --allow-run --allow-sys=uid,systemMemoryInfo,gid,homedir --allow-write -n rbastgen "npm:@appthreat/atom-parsetools/rbastgen" \
     && deno install -g --allow-read --allow-env --allow-run --allow-sys=uid,systemMemoryInfo,gid,homedir --allow-write -n scalasem "npm:@appthreat/atom-parsetools/scalasem" \
-    && ln -s /root/.deno/bin/deno /usr/bin/node \
     && cdxgen --version \
     && atom --help \
     && astgen --version \
+    && python${PYTHON_VERSION} --version \
+    && python${PYTHON_VERSION} -m pip install --no-cache-dir --upgrade setuptools wheel pip virtualenv \
+    && python${PYTHON_VERSION} -m pip install --no-cache-dir --upgrade pipenv poetry blint atom-tools uv --target /opt/pypi \
     && curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y \
     && cargo --version \
     && rustc --version \
