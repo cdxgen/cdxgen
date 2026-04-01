@@ -154,11 +154,6 @@ paths:
           required: false
           schema:
             $ref: '#/components/schemas/CDXGEN/properties/exclude'
-        - name: includeFormulation
-          in: query
-          required: false
-          schema:
-            $ref: '#/components/schemas/CDXGEN/properties/includeFormulation'
         - name: includeCrypto
           in: query
           required: false
@@ -303,10 +298,6 @@ components:
           items:
             type: string
           description: Additional glob pattern(s) to ignore
-        includeFormulation:
-          type: boolean
-          description: Generate formulation section with git metadata and build tools. Use with caution, since there is a risk of exposure of sensitive data such as secrets.
-          default: false
         includeCrypto:
           type: boolean
           description: Include crypto libraries as components.
