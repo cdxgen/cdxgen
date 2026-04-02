@@ -42,6 +42,7 @@ import {
 } from "../lib/helpers/utils.js";
 import { validateBom } from "../lib/helpers/validator.js";
 import { postProcess } from "../lib/stages/postgen/postgen.js";
+import { auditEnvironment } from "../lib/stages/pregen/env-audit.js";
 import { prepareEnv } from "../lib/stages/pregen/pregen.js";
 
 // Support for config files
@@ -840,6 +841,17 @@ const needsBomSigning = ({ generateKeyAndSign }) =>
 (async () => {
   // Display the sponsor banner
   printSponsorBanner(options);
+  // Our quest to audit and check the SBOM generation environment to prevent our users from getting exploited
+  // during SBOM generation.
+  const envWarnings = auditEnvironment();
+  if (envWarnings?.length) {
+    for (const w of envWarnings) {
+      console.log(`SECURE MODE: ${w}`);
+    }
+    if (isSecureMode) {
+      process.exit(1);
+    }
+  }
   // Start SBOM server
   if (options.server) {
     const serverModule = await import("../lib/server/server.js");
