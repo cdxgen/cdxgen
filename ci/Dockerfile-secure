@@ -12,7 +12,6 @@ LABEL maintainer="cyclonedx" \
       org.opencontainers.docker.cmd="docker run --rm -v /tmp:/tmp -p 9090:9090 -v $(pwd):/app:rw -t ghcr.io/cyclonedx/cdxgen-secure -r /app --server"
 
 ENV NODE_OPTIONS='--permission --allow-fs-read="/app/*" --allow-fs-read="/opt/*" --allow-fs-read="/home/cyclonedx/*" --allow-fs-read="/tmp/cdxgen-temp/*" --allow-fs-write="/tmp/cdxgen-temp/*" --allow-fs-write="/app/*.json" --allow-child-process --trace-warnings' \
-    NODE_NO_WARNINGS=1 \
     CDXGEN_SECURE_MODE=true \
     COMPOSER_ALLOW_SUPERUSER=0
 USER cyclonedx

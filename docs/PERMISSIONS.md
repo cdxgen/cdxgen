@@ -109,5 +109,3 @@ Warning message like the one below could be ignored, if the particular language 
 ```
 SecurityWarning: The flag --allow-child-process must be used with extreme caution. It could invalidate the permission model.
 ```
-
-Set the environment variable `NODE_NO_WARNINGS=1` to disable them.
