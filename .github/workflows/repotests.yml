@@ -622,6 +622,13 @@ jobs:
           bin/cdxgen.js -t python repotests/blint -o bomresults/blint-req.json --required-only --fail-on-error
           bin/cdxgen.js -t python repotests/blint -o bomresults/blint-research.json --profile research --fail-on-error
         shell: bash
+      - name: repotests blint (no lock)
+        run: |
+          rm poetry.lock
+          bin/cdxgen.js -t python repotests/blint -o bomresults/blint-req.json --no-install-deps --fail-on-error
+        shell: bash
+        env:
+          CDXGEN_DEBUG_MODE: verbose
       - name: repotests dbt-oracle
         run: |
           bin/cdxgen.js -t python repotests/dbt-oracle -o bomresults/dbt-oracle.json --deep --spec-version 1.6 --fail-on-error
