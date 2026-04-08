@@ -594,7 +594,7 @@ cdxgenRepl.defineCommand("osinfocategories", {
 cdxgenRepl.defineCommand("licenses", {
   help: "visualize license distribution",
   async action() {
-    if (!sbom || !sbom.components) {
+    if (!sbom?.components) {
       console.log("⚠ No SBOM loaded.");
       this.displayPrompt();
       return;
@@ -649,7 +649,7 @@ cdxgenRepl.defineCommand("inspect", {
 cdxgenRepl.defineCommand("tagcloud", {
   help: "generate a text/tag cloud based on component descriptions and tags",
   action() {
-    if (!sbom || !sbom.components) {
+    if (!sbom?.components) {
       console.log("⚠ No SBOM loaded.");
       this.displayPrompt();
       return;

@@ -149,9 +149,9 @@
     "yoctocolors": "2.1.2"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.4.8",
+    "@biomejs/biome": "2.4.10",
     "esmock": "2.7.3",
-    "poku": "4.1.0",
+    "poku": "4.2.0",
     "sinon": "21.0.3",
     "typescript": "6.0.2"
   },
