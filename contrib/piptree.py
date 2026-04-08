@@ -107,7 +107,7 @@ def get_installed_with_extras():
         name_version_cache[name] = version
         name_dist_cache[name] = dist
     for dist in importlib_metadata.distributions():
-        name = dist.metadata['Name']
+        name = dist.metadata['Name'] or ""
         version = dist.version or ""
         # extras this package defines:
         extras = dist.metadata.get_all('Provides-Extra') or []

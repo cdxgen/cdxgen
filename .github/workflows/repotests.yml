@@ -624,7 +624,7 @@ jobs:
         shell: bash
       - name: repotests blint (no lock)
         run: |
-          rm poetry.lock
+          rm repotests/blint/poetry.lock
           bin/cdxgen.js -t python repotests/blint -o bomresults/blint-req.json --no-install-deps --fail-on-error
         shell: bash
         env:
