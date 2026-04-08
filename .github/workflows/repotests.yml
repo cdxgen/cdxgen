@@ -613,19 +613,19 @@ jobs:
       - name: repotests blint (--no-install-deps)
         run: |
           python -m pip install poetry || true
-          bin/cdxgen.js -t python repotests/blint -o bomresults/blint-req.json --no-install-deps --fail-on-error
+          bin/cdxgen.js -t python repotests/blint -o bomresults/blint-req1.json --no-install-deps --fail-on-error
         shell: bash
         env:
           CDXGEN_DEBUG_MODE: verbose
       - name: repotests blint
         run: |
-          bin/cdxgen.js -t python repotests/blint -o bomresults/blint-req.json --required-only --fail-on-error
+          bin/cdxgen.js -t python repotests/blint -o bomresults/blint-req2.json --required-only --fail-on-error
           bin/cdxgen.js -t python repotests/blint -o bomresults/blint-research.json --profile research --fail-on-error
         shell: bash
       - name: repotests blint (no lock)
         run: |
           rm repotests/blint/poetry.lock
-          bin/cdxgen.js -t python repotests/blint -o bomresults/blint-req.json --no-install-deps --fail-on-error
+          bin/cdxgen.js -t python repotests/blint -o bomresults/blint-req3.json--fail-on-error
         shell: bash
         env:
           CDXGEN_DEBUG_MODE: verbose
