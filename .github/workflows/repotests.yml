@@ -610,9 +610,15 @@ jobs:
           bin/cdxgen.js -t python repotests/django-DefectDojo -o bomresults/django-DefectDojo-safe.json --feature-flags safe-pip-install --fail-on-error
           bin/cdxgen.js -t python repotests/django-DefectDojo -o bomresults/django-DefectDojo.json --deep --include-crypto --spec-version 1.6
         shell: bash
-      - name: repotests blint
+      - name: repotests blint (--no-install-deps)
         run: |
           python -m pip install poetry || true
+          bin/cdxgen.js -t python repotests/blint -o bomresults/blint-req.json --no-install-deps --fail-on-error
+        shell: bash
+        env:
+          CDXGEN_DEBUG_MODE: verbose
+      - name: repotests blint
+        run: |
           bin/cdxgen.js -t python repotests/blint -o bomresults/blint-req.json --required-only --fail-on-error
           bin/cdxgen.js -t python repotests/blint -o bomresults/blint-research.json --profile research --fail-on-error
         shell: bash
