@@ -1,7 +1,6 @@
 # Base-image
-FROM ruby:3.3.11-slim-trixie@sha256:dd96c298e250eb5d6811d4f1709387e48e934bcb093e02c615de253d6a274274 AS base
+FROM ruby:4.0.2-slim-trixie@sha256:4a1c26f06edb3129874a596efdf45e099800af4f3ac9f563d1d107dd91b6b91e AS base
 
-ARG ATOM_RUBY_VERSION=4.0.2
 ARG DEBIAN_REPO
 ARG GITHUB_RAW_URL=https://raw.githubusercontent.com
 ARG GITHUB_URL=https://github.com
@@ -13,12 +12,10 @@ ARG NPM_REPO
 ARG NVM
 ARG NVM_VERSION=${NVM}
 ARG PIP_CONFIG
-ARG RUBY_LANG_URL
 ARG RUBYGEMS_REPO
 ARG SDKMAN_URL=https://api.sdkman.io/2
 
 ENV ATOM_CMD=/usr/local/bin/atom \
-    ATOM_RUBY_VERSION=$ATOM_RUBY_VERSION \
     BUNDLE_SILENCE_ROOT_WARNING=true \
     JAVA_HOME="/opt/java/${JAVA_VERSION}" \
     JAVA_VERSION=$JAVA_VERSION \
@@ -112,8 +109,7 @@ CMD ["/bin/bash"]
 # cdxgen-image
 FROM base AS cdxgen
 
-ENV ATOM_RUBY_HOME=/root/.rbenv/versions/${ATOM_RUBY_VERSION} \
-    CDXGEN_GEM_HOME="/tmp/gems" \
+ENV CDXGEN_GEM_HOME="/tmp/gems" \
     CDXGEN_IN_CONTAINER=true \
     NODE_COMPILE_CACHE="/opt/cdxgen-node-cache" \
     PATH=${PATH}:${PYTHONPATH}/bin:/opt/cdxgen/node_modules/.bin

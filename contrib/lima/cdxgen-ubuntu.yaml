@@ -53,7 +53,7 @@ provision:
     #!/bin/bash
     set -e -o pipefail
     export MAVEN_VERSION=3.9.12
-    export SBT_VERSION=1.12.1
+    export SBT_VERSION=1.12.9
     export GRADLE_VERSION=9.3.0
     export MAVEN_HOME="/.sdkman/candidates/maven/${MAVEN_VERSION}"
     export GRADLE_HOME="/.sdkman/candidates/gradle/${GRADLE_VERSION}"
@@ -79,8 +79,8 @@ provision:
     cdxgen --version
     export SWIFT_SIGNING_KEY=52BB7E3DE28A71BE22EC05FFEF80A866B47A981F
     export SWIFT_PLATFORM=ubuntu24.04
-    export SWIFT_BRANCH=swift-6.2.3-release
-    export SWIFT_VERSION=swift-6.2.3-RELEASE
+    export SWIFT_BRANCH=swift-6.3-release
+    export SWIFT_VERSION=swift-6.3-RELEASE
     export SWIFT_WEBROOT=https://download.swift.org
     export OS_ARCH_SUFFIX='-aarch64'
     export SWIFT_WEBDIR="$SWIFT_WEBROOT/$SWIFT_BRANCH/$(echo $SWIFT_PLATFORM | tr -d .)$OS_ARCH_SUFFIX"

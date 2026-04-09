@@ -2,11 +2,11 @@ FROM ghcr.io/cdxgen/cdxgen-ruby-builder:master AS base
 
 ARG SWIFT_SIGNING_KEY=52BB7E3DE28A71BE22EC05FFEF80A866B47A981F
 ARG SWIFT_PLATFORM=ubi9
-ARG SWIFT_BRANCH=swift-6.2.3-release
-ARG SWIFT_VERSION=swift-6.2.3-RELEASE
+ARG SWIFT_BRANCH=swift-6.3-release
+ARG SWIFT_VERSION=swift-6.3-RELEASE
 ARG SWIFT_WEBROOT=https://download.swift.org
 ARG JAVA_VERSION=25.0.2-tem
-ARG SBT_VERSION=1.12.1
+ARG SBT_VERSION=1.12.9
 # renovate: datasource=maven lookupName=org.apache.maven:maven
 ARG MAVEN_VERSION=3.9.12
 # renovate: datasource=gradle-version depName=gradle
@@ -15,9 +15,9 @@ ARG GRADLE_VERSION=9.4.1
 ARG GO_VERSION=1.26.1
 # renovate: datasource=node-version depName=node
 ARG NODE_VERSION=24.14.1
-ARG RUBY_VERSION=4.0.1
+ARG RUBY_VERSION=4.0.2
 ARG JAVA_TOOL_OPTIONS="-Dfile.encoding=UTF-8"
-ARG SCALA_VERSION=3.7.4
+ARG SCALA_VERSION=3.8.3
 
 ENV GOPATH=/opt/app-root/go \
     JAVA_VERSION=$JAVA_VERSION \

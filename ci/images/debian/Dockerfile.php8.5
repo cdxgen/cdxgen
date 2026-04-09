@@ -1,7 +1,7 @@
 # Base-image
-FROM ruby:3.3.11-slim-trixie@sha256:dd96c298e250eb5d6811d4f1709387e48e934bcb093e02c615de253d6a274274 AS base
+FROM php:8.5.4-trixie@sha256:cfa277c10f9f1859addbbed6739673a50a9c1b5777f64c0441118eca148b8056 AS base
 
-ARG ATOM_RUBY_VERSION=4.0.2
+ARG COMPOSER_URL=https://getcomposer.org
 ARG DEBIAN_REPO
 ARG GITHUB_RAW_URL=https://raw.githubusercontent.com
 ARG GITHUB_URL=https://github.com
@@ -13,19 +13,14 @@ ARG NPM_REPO
 ARG NVM
 ARG NVM_VERSION=${NVM}
 ARG PIP_CONFIG
-ARG RUBY_LANG_URL
-ARG RUBYGEMS_REPO
 ARG SDKMAN_URL=https://api.sdkman.io/2
 
-ENV ATOM_CMD=/usr/local/bin/atom \
-    ATOM_RUBY_VERSION=$ATOM_RUBY_VERSION \
-    BUNDLE_SILENCE_ROOT_WARNING=true \
-    JAVA_HOME="/opt/java/${JAVA_VERSION}" \
+ENV JAVA_HOME="/opt/java/${JAVA_VERSION}" \
     JAVA_VERSION=$JAVA_VERSION \
     NVM_DIR="/root/.nvm" \
     PYTHONPATH=/opt/pypi
-ENV PATH=${PATH}:/usr/local/bin:/root/.local/bin:/root/.rbenv/bin:${NVM_DIR}/versions/node/v${NODE_VERSION}/bin
-
+ENV PATH=${PATH}:/usr/local/bin:/root/.local/bin:${NVM_DIR}/versions/node/v${NODE_VERSION}/bin
+        
 COPY ci/images/debian/install.sh /tmp/
 
 RUN set -e; \
@@ -50,11 +45,6 @@ RUN set -e; \
       mkdir $HOME/.pip/; \
       printf "$PIP_CONFIG" > $HOME/.pip/pip.conf; \
     fi; \
-    if [ -n "$RUBYGEMS_REPO" ]; then \
-      gem sources --add $RUBYGEMS_REPO/; \
-      gem sources --remove https://rubygems.org/; \
-      gem sources -c; \
-    fi; \
     apt-get update \
  && apt-get install -qq -y --no-install-recommends \
       bash \
@@ -67,13 +57,30 @@ RUN set -e; \
       zip \
  && apt-get install -qq -y \
       build-essential \
-      libffi-dev \
-      libmagic-dev \
-      libyaml-dev \
+      libcurl4-openssl-dev \
+      libicu-dev \
+      libonig-dev \
+      libxml2-dev \
+      libzip-dev \
       locales \
       python3 \
       python3-dev \
       python3-pip \
+ && docker-php-ext-install \
+      curl \
+      intl \
+      mbstring \
+      mysqli \
+      pdo \
+      pdo_mysql \
+      xml \
+      zip \
+ && curl -L $COMPOSER_URL/installer \
+      | sed "s|\$uriScheme.'://getcomposer.org'|'$COMPOSER_URL'|g" \
+      | php \
+          -- \
+          --install-dir=/usr/local/bin \
+          --filename=composer \
  && chmod +x /tmp/install.sh \
  && /tmp/install.sh \
  && rm /tmp/install.sh \
@@ -84,9 +91,8 @@ RUN set -e; \
         atom-tools \
  && node -v \
  && npm -v \
- && gem install \
-      bundler \
-      cocoapods \
+ && php -v \
+ && composer --version \
  && apt-get purge -y --auto-remove \
       -o APT::AutoRemove::RecommendsImportant=false \
  && rm -rf $HOME/.npmrc $HOME/.pip /var/lib/apt/lists/* \
@@ -98,11 +104,6 @@ RUN set -e; \
       if [ -f /etc/apt/sources.list.d/debian.sources ]; then \
         sed -i "s|$DEBIAN_REPO|http://deb.debian.org|g" /etc/apt/sources.list.d/debian.sources; \
       fi \
-    fi; \
-    if [ -n "$RUBYGEMS_REPO" ]; then \
-      gem sources --add https://rubygems.org/; \
-      gem sources --remove $RUBYGEMS_REPO/; \
-      gem sources -c; \
     fi
 
 CMD ["/bin/bash"]
@@ -112,9 +113,7 @@ CMD ["/bin/bash"]
 # cdxgen-image
 FROM base AS cdxgen
 
-ENV ATOM_RUBY_HOME=/root/.rbenv/versions/${ATOM_RUBY_VERSION} \
-    CDXGEN_GEM_HOME="/tmp/gems" \
-    CDXGEN_IN_CONTAINER=true \
+ENV CDXGEN_IN_CONTAINER=true \
     NODE_COMPILE_CACHE="/opt/cdxgen-node-cache" \
     PATH=${PATH}:${PYTHONPATH}/bin:/opt/cdxgen/node_modules/.bin
 
@@ -148,9 +147,8 @@ RUN set -e; \
  && corepack pnpm cache delete \
  && mkdir -p ${NODE_COMPILE_CACHE} \
  && node /opt/cdxgen/bin/cdxgen.js --help \
- && rbastgen --help \
- && rm -rf ${CDXGEN_GEM_HOME} \
- && mkdir -p ${CDXGEN_GEM_HOME} \
+ && phpastgen --help \
+ && atom-tools --help \
  && rm -rf $HOME/.npmrc $HOME/.pip /root/.cache/node \
  && chmod a-w -R /opt \
  && if [ -n "$DEBIAN_REPO" ]; then \

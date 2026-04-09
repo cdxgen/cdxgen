@@ -1,0 +1,135 @@
+# Base-image
+FROM ruby:4.0.2-alpine3.22@sha256:51efb68533226382d0bce2f67a9e8caa7a7bfd3b39b7f9dbcf8ca168dab93433 AS base
+
+ARG ALPINE_REPO
+ARG NODEJS_DIST_URL
+ARG NPM_REPO
+ARG PIP_CONFIG
+ARG RUBYGEMS_REPO
+
+ENV PATH=${PATH}:/usr/local/bin \
+    PYTHONPATH=/opt/pypi
+
+RUN set -e; \
+    if [ -n "$ALPINE_REPO" ]; then \
+      sed -i "s|https://dl-cdn.alpinelinux.org|$ALPINE_REPO|g" /etc/apk/repositories; \
+    fi; \
+    if [ -n "$NODEJS_DIST_URL" ]; then \
+      export "NVM_NODEJS_ORG_MIRROR=$NODEJS_DIST_URL"; \
+      printf "disturl=$NODEJS_DIST_URL\n" >> $HOME/.npmrc; \
+    fi; \
+    if [ -n "$NPM_REPO" ]; then \
+      export "COREPACK_NPM_REGISTRY=$NPM_REPO"; \
+      printf "registry=$NPM_REPO\n@jsr:registry=$NPM_REPO\n" >> $HOME/.npmrc; \
+    fi; \
+    if [ -n "$PIP_CONFIG" ]; then \
+      mkdir $HOME/.pip/; \
+      printf "$PIP_CONFIG" > $HOME/.pip/pip.conf; \
+    fi; \
+    if [ -n "$RUBYGEMS_REPO" ]; then \
+      gem sources --add $RUBYGEMS_REPO; \
+      gem sources --remove https://rubygems.org/; \
+      gem sources -c; \
+    fi; \
+    apk update \
+ && apk add --no-cache \
+      bash \
+      build-base \
+      bzip2 \
+      curl \
+      gcc \
+      git \
+      g++ \
+      make \
+      musl-dev \
+      nodejs \
+      npm \
+      openjdk21 \
+      python3 \
+      python3-dev \
+      py3-pip \
+      py3-virtualenv \
+      ruby-dev \
+      tar \
+ && npm install -g corepack \
+ && /usr/bin/python --version \
+ && /usr/bin/python -m pip install \
+      --no-cache-dir \
+      --target ${PYTHONPATH} \
+      --upgrade \
+        atom-tools \
+ && node -v \
+ && npm -v \
+ && java -version \
+ && python3 --version \
+ && gem install \
+      bundler \
+      cocoapods \
+ && rm -rf $HOME/.npmrc $HOME/.pip /var/cache/apk/* \
+ && if [ -n "$ALPINE_REPO" ]; then \
+      sed -i "s|$ALPINE_REPO|https://dl-cdn.alpinelinux.org|g" /etc/apk/repositories; \
+    fi; \
+    if [ -n "$RUBYGEMS_REPO" ]; then \
+      gem sources --add https://rubygems.org/; \
+      gem sources --remove $RUBYGEMS_REPO; \
+      gem sources -c; \
+    fi
+
+
+
+# cdxgen-image
+FROM base AS cdxgen
+
+ENV CDXGEN_GEM_HOME="/tmp/gems" \
+    CDXGEN_IN_CONTAINER=true \
+    NODE_COMPILE_CACHE="/opt/cdxgen-node-cache" \
+    PATH=${PATH}:${PYTHONPATH}/bin:/opt/cdxgen/node_modules/.bin
+
+COPY . /opt/cdxgen
+
+RUN set -e; \
+    if [ -n "$ALPINE_REPO" ]; then \
+      sed -i "s|https://dl-cdn.alpinelinux.org|$ALPINE_REPO|g" /etc/apk/repositories; \
+    fi; \
+    if [ -n "$NODEJS_DIST_URL" ]; then \
+      export "NVM_NODEJS_ORG_MIRROR=$NODEJS_DIST_URL"; \
+      printf "disturl=$NODEJS_DIST_URL\n" >> $HOME/.npmrc; \
+    fi; \
+    if [ -n "$NPM_REPO" ]; then \
+      export "COREPACK_NPM_REGISTRY=$NPM_REPO"; \
+      printf "registry=$NPM_REPO\n@jsr:registry=$NPM_REPO\n" >> $HOME/.npmrc; \
+    fi; \
+    if [ -n "$PIP_CONFIG" ]; then \
+      mkdir $HOME/.pip/; \
+      printf "$PIP_CONFIG" > $HOME/.pip/pip.conf; \
+    fi; \
+    cd /opt/cdxgen \
+ && corepack enable \
+ && corepack pnpm install:prod \
+ && corepack pnpm cache delete \
+ && npm uninstall -g corepack \
+ && apk del \
+      bash \
+      curl \
+      gcc \
+      g++ \
+      make \
+      musl-dev \
+      npm \
+      python3-dev \
+      py3-pip \
+      py3-virtualenv \
+      tar \
+ && mkdir -p ${NODE_COMPILE_CACHE} \
+ && node /opt/cdxgen/bin/cdxgen.js --help \
+ && rbastgen --help \
+ && atom-tools --help \
+ && rm -rf $HOME/.npmrc $HOME/.pip /root/.cache/node ${CDXGEN_GEM_HOME}/* \
+ && chmod a-w -R /opt \
+ && if [ -n "$ALPINE_REPO" ]; then \
+      sed -i "s|$ALPINE_REPO|https://dl-cdn.alpinelinux.org|g" /etc/apk/repositories; \
+    fi
+
+WORKDIR /app
+
+ENTRYPOINT ["node", "/opt/cdxgen/bin/cdxgen.js"]

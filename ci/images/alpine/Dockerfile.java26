@@ -1,0 +1,119 @@
+# Base-image
+FROM eclipse-temurin:26_35-jdk-alpine@sha256:dd62a18da707c0429047097b507b6c9fd6fb38c61eb50fd9969854b441fd08e2 AS base
+
+ARG ALPINE_REPO
+ARG NODEJS_DIST_URL
+ARG NPM_REPO
+ARG PIP_CONFIG
+
+ENV PATH=${PATH}:/usr/local/bin:/root/.local/bin \
+    PYTHONPATH=/opt/pypi
+
+RUN set -e; \
+    if [ -n "$ALPINE_REPO" ]; then \
+      sed -i "s|https://dl-cdn.alpinelinux.org|$ALPINE_REPO|g" /etc/apk/repositories; \
+    fi; \
+    if [ -n "$NODEJS_DIST_URL" ]; then \
+      export "NVM_NODEJS_ORG_MIRROR=$NODEJS_DIST_URL"; \
+      printf "disturl=$NODEJS_DIST_URL\n" >> $HOME/.npmrc; \
+    fi; \
+    if [ -n "$NPM_REPO" ]; then \
+      export "COREPACK_NPM_REGISTRY=$NPM_REPO"; \
+      printf "registry=$NPM_REPO\n@jsr:registry=$NPM_REPO\n" >> $HOME/.npmrc; \
+    fi; \
+    if [ -n "$PIP_CONFIG" ]; then \
+      mkdir $HOME/.pip/; \
+      printf "$PIP_CONFIG" > $HOME/.pip/pip.conf; \
+    fi; \
+    apk update \
+ && apk add --no-cache \
+      bash \
+      curl \
+      gcc \
+      git \
+      gradle \
+      g++ \
+      make \
+      maven \
+      musl-dev \
+      nodejs \
+      npm \
+      python3 \
+      python3-dev \
+      py3-pip \
+      py3-virtualenv \
+      tar \
+ && npm install -g corepack \
+ && /usr/bin/python --version \
+ && /usr/bin/python -m pip install \
+      --break-system-packages \
+      --no-cache-dir \
+      --target ${PYTHONPATH} \
+      --upgrade \
+        atom-tools \
+        pipenv \
+ && node -v \
+ && npm -v \
+ && mvn -v \
+ && gradle -v \
+ && python3 --version \
+ && rm -rf $HOME/.npmrc $HOME/.pip /var/cache/apk/* \
+ && if [ -n "$ALPINE_REPO" ]; then \
+      sed -i "s|$ALPINE_REPO|https://dl-cdn.alpinelinux.org|g" /etc/apk/repositories; \
+    fi
+
+
+
+# cdxgen-image
+FROM base AS cdxgen
+
+ENV CDXGEN_IN_CONTAINER=true \
+    NODE_COMPILE_CACHE="/opt/cdxgen-node-cache" \
+    PATH=${PATH}:${PYTHONPATH}/bin:/opt/cdxgen/node_modules/.bin
+
+COPY . /opt/cdxgen
+
+RUN set -e; \
+    if [ -n "$ALPINE_REPO" ]; then \
+      sed -i "s|https://dl-cdn.alpinelinux.org|$ALPINE_REPO|g" /etc/apk/repositories; \
+    fi; \
+    if [ -n "$NODEJS_DIST_URL" ]; then \
+      export "NVM_NODEJS_ORG_MIRROR=$NODEJS_DIST_URL"; \
+      printf "disturl=$NODEJS_DIST_URL\n" >> $HOME/.npmrc; \
+    fi; \
+    if [ -n "$NPM_REPO" ]; then \
+      export "COREPACK_NPM_REGISTRY=$NPM_REPO"; \
+      printf "registry=$NPM_REPO\n@jsr:registry=$NPM_REPO\n" >> $HOME/.npmrc; \
+    fi; \
+    if [ -n "$PIP_CONFIG" ]; then \
+      mkdir $HOME/.pip/; \
+      printf "$PIP_CONFIG" > $HOME/.pip/pip.conf; \
+    fi; \
+    cd /opt/cdxgen \
+ && corepack enable \
+ && corepack pnpm install:prod \
+ && corepack pnpm cache delete \
+ && npm uninstall -g corepack \
+ && apk del \
+      bash \
+      curl \
+      gcc \
+      g++ \
+      make \
+      musl-dev \
+      npm \
+      python3-dev \
+      py3-pip \
+      py3-virtualenv \
+      tar \
+ && mkdir -p ${NODE_COMPILE_CACHE} \
+ && node /opt/cdxgen/bin/cdxgen.js --help \
+ && rm -rf $HOME/.npmrc $HOME/.pip /root/.cache/node \
+ && chmod a-w -R /opt \
+ && if [ -n "$ALPINE_REPO" ]; then \
+      sed -i "s|$ALPINE_REPO|https://dl-cdn.alpinelinux.org|g" /etc/apk/repositories; \
+    fi
+
+WORKDIR /app
+
+ENTRYPOINT ["node", "/opt/cdxgen/bin/cdxgen.js"]

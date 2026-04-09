@@ -1,0 +1,149 @@
+# Base-image
+FROM php:8.5.4-alpine@sha256:733ccef58c0cc99946beb0224cd38a20ecfc64ec9b321ee6ed92039d91f405b7 AS base
+
+ARG ALPINE_REPO
+ARG COMPOSER_URL=https://getcomposer.org
+ARG NODEJS_DIST_URL
+ARG NPM_REPO
+ARG PIP_CONFIG
+
+ENV PATH=${PATH}:/usr/local/bin \
+    PYTHONPATH=/opt/pypi
+
+RUN set -e; \
+    if [ -n "$ALPINE_REPO" ]; then \
+      sed -i "s|https://dl-cdn.alpinelinux.org|$ALPINE_REPO|g" /etc/apk/repositories; \
+    fi; \
+    if [ -n "$NODEJS_DIST_URL" ]; then \
+      export "NVM_NODEJS_ORG_MIRROR=$NODEJS_DIST_URL"; \
+      printf "disturl=$NODEJS_DIST_URL\n" >> $HOME/.npmrc; \
+    fi; \
+    if [ -n "$NPM_REPO" ]; then \
+      export "COREPACK_NPM_REGISTRY=$NPM_REPO"; \
+      printf "registry=$NPM_REPO\n@jsr:registry=$NPM_REPO\n" >> $HOME/.npmrc; \
+    fi; \
+    if [ -n "$PIP_CONFIG" ]; then \
+      mkdir $HOME/.pip/; \
+      printf "$PIP_CONFIG" > $HOME/.pip/pip.conf; \
+    fi; \
+    apk update \
+ && apk add --no-cache \
+      autoconf \
+      bash \
+      bzip2 \
+      curl \
+      curl-dev \
+      gcc \
+      git \
+      g++ \
+      icu-dev \
+      libxml2-dev \
+      libzip-dev \
+      make \
+      musl-dev \
+      nodejs \
+      npm \
+      oniguruma-dev \
+      openjdk21 \
+      pkgconf \
+      python3 \
+      python3-dev \
+      py3-pip \
+      py3-virtualenv \
+      re2c \
+ && npm install -g corepack \
+ && /usr/bin/python --version \
+ && /usr/bin/python -m pip install \
+      --no-cache-dir \
+      --target ${PYTHONPATH} \
+      --upgrade \
+        atom-tools \
+ && docker-php-ext-install \
+      curl \
+      intl \
+      mbstring \
+      mysqli \
+      pdo \
+      pdo_mysql \
+      xml \
+      zip \
+ && curl -L $COMPOSER_URL/installer \
+      | sed "s|\$uriScheme.'://getcomposer.org'|'$COMPOSER_URL'|g" \
+      | php \
+          -- \
+          --install-dir=/usr/local/bin \
+          --filename=composer \
+ && node -v \
+ && npm -v \
+ && php -v \
+ && composer --version \
+ && rm -rf $HOME/.npmrc $HOME/.pip /var/cache/apk/* \
+ && if [ -n "$ALPINE_REPO" ]; then \
+      sed -i "s|$ALPINE_REPO|https://dl-cdn.alpinelinux.org|g" /etc/apk/repositories; \
+    fi
+
+
+
+# cdxgen-image
+FROM base AS cdxgen
+
+ENV CDXGEN_IN_CONTAINER=true \
+    NODE_COMPILE_CACHE="/opt/cdxgen-node-cache" \
+    PATH=${PATH}:${PYTHONPATH}/bin:/opt/cdxgen/node_modules/.bin
+
+COPY . /opt/cdxgen
+
+RUN set -e; \
+    if [ -n "$ALPINE_REPO" ]; then \
+      sed -i "s|https://dl-cdn.alpinelinux.org|$ALPINE_REPO|g" /etc/apk/repositories; \
+    fi; \
+    if [ -n "$NODEJS_DIST_URL" ]; then \
+      export "NVM_NODEJS_ORG_MIRROR=$NODEJS_DIST_URL"; \
+      printf "disturl=$NODEJS_DIST_URL\n" >> $HOME/.npmrc; \
+    fi; \
+    if [ -n "$NPM_REPO" ]; then \
+      export "COREPACK_NPM_REGISTRY=$NPM_REPO"; \
+      printf "registry=$NPM_REPO\n@jsr:registry=$NPM_REPO\n" >> $HOME/.npmrc; \
+    fi; \
+    if [ -n "$PIP_CONFIG" ]; then \
+      mkdir $HOME/.pip/; \
+      printf "$PIP_CONFIG" > $HOME/.pip/pip.conf; \
+    fi; \
+    cd /opt/cdxgen \
+ && corepack enable \
+ && corepack pnpm install:prod \
+ && corepack pnpm cache delete \
+ && npm uninstall -g corepack \
+ && apk del \
+      autoconf \
+      bash \
+      curl \
+      curl-dev \
+      gcc \
+      g++ \
+      icu-dev \
+      libxml2-dev \
+      libzip-dev \
+      make \
+      musl-dev \
+      npm \
+      oniguruma-dev \
+      pkgconf \
+      python3-dev \
+      py3-pip \
+      py3-virtualenv \
+      re2c \
+      tar \
+ && mkdir -p ${NODE_COMPILE_CACHE} \
+ && node /opt/cdxgen/bin/cdxgen.js --help \
+ && phpastgen --help \
+ && atom-tools --help \
+ && rm -rf $HOME/.npmrc $HOME/.pip /root/.cache/node \
+ && chmod a-w -R /opt \
+ && if [ -n "$ALPINE_REPO" ]; then \
+      sed -i "s|$ALPINE_REPO|https://dl-cdn.alpinelinux.org|g" /etc/apk/repositories; \
+    fi
+
+WORKDIR /app
+
+ENTRYPOINT ["node", "/opt/cdxgen/bin/cdxgen.js"]

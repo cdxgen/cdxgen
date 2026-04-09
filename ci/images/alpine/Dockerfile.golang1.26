@@ -1,0 +1,82 @@
+# Base-image
+FROM golang:1.26.2-alpine3.23@sha256:c2a1f7b2095d046ae14b286b18413a05bb82c9bca9b25fe7ff5efef0f0826166 AS base
+
+ARG ALPINE_REPO
+ARG NODEJS_DIST_URL
+ARG NPM_REPO
+ARG PIP_CONFIG
+
+ENV PATH=${PATH}:/usr/local/bin
+
+RUN set -e; \
+    if [ -n "$ALPINE_REPO" ]; then \
+      sed -i "s|https://dl-cdn.alpinelinux.org|$ALPINE_REPO|g" /etc/apk/repositories; \
+    fi; \
+    if [ -n "$NODEJS_DIST_URL" ]; then \
+      export "NVM_NODEJS_ORG_MIRROR=$NODEJS_DIST_URL"; \
+      printf "disturl=$NODEJS_DIST_URL\n" >> $HOME/.npmrc; \
+    fi; \
+    if [ -n "$NPM_REPO" ]; then \
+      export "COREPACK_NPM_REGISTRY=$NPM_REPO"; \
+      printf "registry=$NPM_REPO\n@jsr:registry=$NPM_REPO\n" >> $HOME/.npmrc; \
+    fi; \
+    if [ -n "$PIP_CONFIG" ]; then \
+      mkdir $HOME/.pip/; \
+      printf "$PIP_CONFIG" > $HOME/.pip/pip.conf; \
+    fi; \
+    apk update \
+ && apk add --no-cache \
+      nodejs \
+      npm \
+ && npm install -g corepack \
+ && node -v \
+ && npm -v \
+ && rm -rf $HOME/.npmrc $HOME/.pip /var/cache/apk/* \
+ && if [ -n "$ALPINE_REPO" ]; then \
+      sed -i "s|$ALPINE_REPO|https://dl-cdn.alpinelinux.org|g" /etc/apk/repositories; \
+    fi
+
+
+
+# cdxgen-image
+FROM base AS cdxgen
+
+ENV CDXGEN_IN_CONTAINER=true \
+    NODE_COMPILE_CACHE="/opt/cdxgen-node-cache" \
+    PATH=${PATH}:/opt/cdxgen/node_modules/.bin
+
+COPY . /opt/cdxgen
+
+RUN set -e; \
+    if [ -n "$ALPINE_REPO" ]; then \
+      sed -i "s|https://dl-cdn.alpinelinux.org|$ALPINE_REPO|g" /etc/apk/repositories; \
+    fi; \
+    if [ -n "$NODEJS_DIST_URL" ]; then \
+      export "NVM_NODEJS_ORG_MIRROR=$NODEJS_DIST_URL"; \
+      printf "disturl=$NODEJS_DIST_URL\n" >> $HOME/.npmrc; \
+    fi; \
+    if [ -n "$NPM_REPO" ]; then \
+      export "COREPACK_NPM_REGISTRY=$NPM_REPO"; \
+      printf "registry=$NPM_REPO\n@jsr:registry=$NPM_REPO\n" >> $HOME/.npmrc; \
+    fi; \
+    if [ -n "$PIP_CONFIG" ]; then \
+      mkdir $HOME/.pip/; \
+      printf "$PIP_CONFIG" > $HOME/.pip/pip.conf; \
+    fi; \
+    cd /opt/cdxgen \
+ && corepack enable \
+ && corepack pnpm install:prod \
+ && corepack pnpm cache delete \
+ && npm uninstall -g corepack \
+ && apk del npm \
+ && mkdir -p ${NODE_COMPILE_CACHE} \
+ && node /opt/cdxgen/bin/cdxgen.js --help \
+ && rm -rf $HOME/.npmrc $HOME/.pip /root/.cache/node \
+ && chmod a-w -R /opt \
+ && if [ -n "$ALPINE_REPO" ]; then \
+      sed -i "s|$ALPINE_REPO|https://dl-cdn.alpinelinux.org|g" /etc/apk/repositories; \
+    fi
+
+WORKDIR /app
+
+ENTRYPOINT ["node", "/opt/cdxgen/bin/cdxgen.js"]

@@ -10,7 +10,7 @@ LABEL maintainer="cyclonedx" \
       org.opencontainers.image.title="cdxgen" \
       org.opencontainers.image.description="Base Ruby builder. Do not use directly."
 
-ARG RUBY_VERSION=4.0.1
+ARG RUBY_VERSION=4.0.2
 
 ENV RUBY_VERSION=$RUBY_VERSION \
     RBENV_ROOT=/opt/.rbenv \

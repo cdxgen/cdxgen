@@ -81,6 +81,8 @@ jobs:
 
           - lang: dotnet9
             distro: alpine
+          - lang: dotnet10
+            distro: alpine
 
           - lang: dotnet9
             distro: debian
@@ -98,12 +100,16 @@ jobs:
 
           - lang: golang1.24
             distro: alpine
+          - lang: golang1.26
+            distro: alpine
             base-image:
               additional-image: alpine-golang
             cdxgen-image:
               additional-image: cdxgen-alpine-golang
-
           - lang: golang1.24
+            distro: debian
+
+          - lang: golang1.26
             distro: debian
             base-image:
               additional-image: debian-golang
@@ -136,8 +142,13 @@ jobs:
 
           - lang: java24
             distro: alpine
+          - lang: java26
+            distro: alpine
 
           - lang: java24
+            distro: temurin
+            fix-qemu: true
+          - lang: java26
             distro: temurin
             fix-qemu: true
 
@@ -150,6 +161,8 @@ jobs:
 
           - lang: node24
             distro: alpine
+          - lang: node25
+            distro: alpine
 
           - lang: php8.3
             distro: debian
@@ -157,8 +170,13 @@ jobs:
 
           - lang: php8.4
             distro: alpine
+          - lang: php8.5
+            distro: alpine
 
           - lang: php8.4
+            distro: debian
+            runner: macos-hosted
+          - lang: php8.5
             distro: debian
             runner: macos-hosted
 
@@ -205,8 +223,12 @@ jobs:
 
           - lang: ruby3.4
             distro: debian
+          - lang: ruby4
+            distro: debian
 
           - lang: ruby3.4
+            distro: alpine
+          - lang: ruby4
             distro: alpine
 
           - lang: rust1

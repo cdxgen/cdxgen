@@ -1,5 +1,5 @@
 # Base-image
-FROM eclipse-temurin:8-jdk-ubi9-minimal@sha256:9e41f53b01159811db0bad7f6dd757ca5a58ba0b31e7619b16bbe3fc9ca5c501 AS base
+FROM eclipse-temurin:26_35-jdk-ubi10-minimal@sha256:392fa1d5059880f1ad7f6afd420fd81bc200556ff580159bc1202326233e3968 AS base
 
 ARG GITHUB_RAW_URL=https://raw.githubusercontent.com
 ARG GRADLE_8
@@ -16,6 +16,7 @@ ARG PIP_CONFIG
 ARG PYTHON_VERSION=3.12
 ARG REDHAT_REPO
 ARG SBT_VERSION=1.12.9
+ARG SCALA_VERSION=3.8.3
 ARG SDKMAN_URL=https://api.sdkman.io/2
 
 ENV CDXGEN_IN_CONTAINER=true \
@@ -35,11 +36,13 @@ ENV CDXGEN_IN_CONTAINER=true \
     PYTHONUNBUFFERED=1 \
     SBT_HOME="/root/.sdkman/candidates/sbt/${SBT_VERSION}" \
     SBT_VERSION=$SBT_VERSION \
+    SCALA_HOME="/root/.sdkman/candidates/scala/${SCALA_VERSION}" \
+    SCALA_VERSION=$SCALA_VERSION \
     SDKMAN_CANDIDATES_DIR=/root/.sdkman/candidates \
     SDKMAN_DIR=/root/.sdkman \
     TMPDIR=/tmp \
     npm_config_build_from_source=true
-ENV PATH=${PATH}:/usr/local/bin/:/root/.local/bin:${NVM_DIR}/versions/node/v${NODE_VERSION}/bin:${MAVEN_HOME}/bin:${GRADLE_HOME}/bin:${SBT_HOME}/bin:${PYTHONPATH}/bin
+ENV PATH=${PATH}:/usr/local/bin/:/root/.local/bin:${NVM_DIR}/versions/node/v${NODE_VERSION}/bin:${MAVEN_HOME}/bin:${GRADLE_HOME}/bin:${SCALA_HOME}/bin:${SBT_HOME}/bin:${PYTHONPATH}/bin
 
 RUN set -e; \
     if [ -n "$NODEJS_DIST_URL" ]; then \
@@ -120,6 +123,7 @@ RUN set -e; \
  && source "$HOME/.sdkman/bin/sdkman-init.sh" \
  && sdk install maven $MAVEN_VERSION \
  && sdk install gradle $GRADLE_VERSION \
+ && sdk install scala $SCALA_VERSION \
  && sdk install sbt $SBT_VERSION \
  && useradd -ms /bin/bash cyclonedx \
  && npm install -g npm \
