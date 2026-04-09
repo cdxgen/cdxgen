@@ -2,43 +2,72 @@ name: Rebuild release images
 
 on:
   schedule:
-    - cron: "0 16 * * 6"
+    - cron: "0 16 * * 6"  # Saturdays at 16:00 UTC
   workflow_dispatch:
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
-# https://docs.github.com/en/actions/writing-workflows/choosing-what-your-workflow-does/controlling-permissions-for-github_token
-permissions: {}
-
+permissions:
+  contents: read    # to read releases via API
 jobs:
-  rebuild-latest:
+  fetch-releases:
     runs-on: ubuntu-latest
+    outputs:
+      tags: ${{ steps.determine-tags.outputs.tags }}
+      latest-tag: ${{ steps.determine-tags.outputs.latest-tag }}
     steps:
-      - name: Read latest
-        id: read_latest
+      - name: Determine which tags to rebuild
+        id: determine-tags
         run: |
-          echo "release=$(gh api -H 'Accept: application/vnd.github+json' -H 'X-GitHub-Api-Version: 2022-11-28' -q '.[0].tag_name' /repos/cdxgen/cdxgen/releases)" > $GITHUB_OUTPUT
+          # Fetch latest 2 releases from API
+          TAGS_ARRAY=$(gh api -H 'Accept: application/vnd.github+json' \
+            -H 'X-GitHub-Api-Version: 2022-11-28' \
+            /repos/${{ github.repository }}/releases \
+            --jq '[.[] | select(.prerelease == false) | .tag_name][0:2]')
+          # Validate we have at least one tag
+          if [[ -z "$TAGS_ARRAY" || "$TAGS_ARRAY" == "[]" ]]; then
+            echo "No valid release tags found to rebuild"
+            exit 1
+          fi
+          # Extract latest tag for 'latest' flag logic
+          LATEST_TAG=$(echo "$TAGS_ARRAY" | jq -r '.[0]')
+          echo "tags=$TAGS_ARRAY" >> "$GITHUB_OUTPUT"
+          echo "latest-tag=$LATEST_TAG" >> "$GITHUB_OUTPUT"
+          echo "Will rebuild tags: $TAGS_ARRAY"
         env:
-          GH_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
-      - name: Rebuild latest
-        run: gh workflow run build-images.yml -r refs/tags/${{ steps.read_latest.outputs.release }} -f latest=true
-        env:
-          GH_REPO: ${{ github.repository }}
-          GH_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-  rebuild-previous:
+  rebuild:
+    needs: fetch-releases
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      actions: write
+    strategy:
+      fail-fast: false
+      matrix:
+        tag: ${{ fromJSON(needs.fetch-releases.outputs.tags) }}
     steps:
-      - name: Read previous
-        id: read_previous
+      - name: Validate tag format
         run: |
-          echo "release=$(gh api -H 'Accept: application/vnd.github+json' -H 'X-GitHub-Api-Version: 2022-11-28' -q '.[1].tag_name' /repos/cdxgen/cdxgen/releases)" > $GITHUB_OUTPUT
+          if [[ ! "${{ matrix.tag }}" =~ ^v[0-9]+\.[0-9]+\.[0-9]+(-[a-zA-Z0-9.]+)?$ ]]; then
+            echo "Invalid tag format: ${{ matrix.tag }}"
+            exit 1
+          fi
+
+      - name: Trigger build-images workflow
+        run: |
+          IS_LATEST="false"
+          if [[ "${{ matrix.tag }}" == "${{ needs.fetch-releases.outputs.latest-tag }}" ]]; then
+            IS_LATEST="true"
+          fi
+          
+          echo "Triggering build-images.yml for tag: ${{ matrix.tag }} (latest=$IS_LATEST)"
+          gh workflow run build-images.yml \
+            -R ${{ github.repository }} \
+            -r refs/tags/${{ matrix.tag }} \
+            -f latest=$IS_LATEST
         env:
-          GH_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
-      - name: Rebuild previous
-        run: gh workflow run build-images.yml -r refs/tags/${{ steps.read_previous.outputs.release }} -f latest=false
-        env:
-          GH_REPO: ${{ github.repository }}
-          GH_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

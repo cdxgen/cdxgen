@@ -45,8 +45,10 @@ jobs:
     needs: image
     if: failure() && fromJSON(github.run_attempt) < 3
     runs-on: ubuntu-latest
+    permissions:
+      actions: write
     steps:
       - run: gh workflow run rerun-workflow.yml -F run_id=${{ github.run_id }}
         env:
           GH_REPO: ${{ github.repository }}
-          GH_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

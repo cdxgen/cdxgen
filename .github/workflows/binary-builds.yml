@@ -87,7 +87,7 @@ jobs:
             runner: windows-11-arm
           # Set musl configurations
           - os: linux
-            image: php:8.4-bullseye
+            image: php:8.4-bullseye@sha256:aa9ca431aa35219492184f73202359109e172e33710e7d9928ee7da600b60cb7
             libc-suffix: ''
             node-download-url: https://nodejs.org/dist/
             prepare: |
@@ -102,7 +102,7 @@ jobs:
               rm -rf "upx-5.1.0-${ARCH}_linux*"
           - os: linux
             libc: musl
-            image: php:8.4-alpine3.21
+            image: php:8.4-alpine3.21@sha256:9c1dd92c492546d1de23decef0d67280f3f9413942ff44ec119af6db642cd9f0
             libc-suffix: -musl
             node-download-url: https://unofficial-builds.nodejs.org/download/release/
             prepare: |
@@ -381,8 +381,24 @@ jobs:
     needs: binaries
     if: failure() && fromJSON(github.run_attempt) < 2
     runs-on: ubuntu-latest
+    concurrency:
+      group: retry-${{ github.run_id }}
+      cancel-in-progress: true
+    permissions:
+      actions: write
     steps:
-      - run: gh workflow run rerun-workflow.yml -F run_id=${{ github.run_id }}
+      - name: Validate run_id format
+        run: |
+          if ! [[ "${{ github.run_id }}" =~ ^[0-9]+$ ]]; then
+            echo "Invalid run_id: ${{ github.run_id }}"
+            exit 1
+          fi
+
+      - name: Trigger rerun workflow
+        run: |
+          echo "Triggering rerun for run_id: ${{ github.run_id }}"
+          gh workflow run rerun-workflow.yml \
+            -R ${{ github.repository }} \
+            -F run_id=${{ github.run_id }}
         env:
-          GH_REPO: ${{ github.repository }}
-          GH_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

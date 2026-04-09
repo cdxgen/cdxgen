@@ -7,6 +7,7 @@ on:
   workflow_dispatch:
     inputs:
       run_id:
+        description: The GitHub Actions run ID to rerun
         required: true
         type: string
 
@@ -16,11 +17,36 @@ permissions: {}
 jobs:
   rerun:
     runs-on: ubuntu-latest
+    permissions:
+      actions: write
     steps:
-      - name: rerun ${{ inputs.run_id }}
+      - name: Validate run_id format
         run: |
+          if ! [[ "${{ inputs.run_id }}" =~ ^[0-9]+$ ]]; then
+            echo "Invalid run_id format: must be numeric"
+            exit 1
+          fi
+
+      - name: Fetch run details and validate ownership
+        id: run_info
+        run: |
+          RESPONSE=$(gh api repos/${{ github.repository }}/actions/runs/${{ inputs.run_id }})
+          RUN_REPO=$(echo "$RESPONSE" | jq -r '.repository.full_name')
+          EXPECTED_REPO="${{ github.repository }}"
+          
+          if [[ "$RUN_REPO" != "$EXPECTED_REPO" ]]; then
+            echo "Security check failed: run_id belongs to $RUN_REPO, not $EXPECTED_REPO"
+            exit 1
+          fi
+        env:
+          GH_REPO: ${{ github.repository }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Rerun failed jobs
+        run: |
+          echo "Rerunning failed jobs for run_id: ${{ inputs.run_id }}"
           gh run watch ${{ inputs.run_id }} > /dev/null 2>&1
           gh run rerun ${{ inputs.run_id }} --failed
         env:
           GH_REPO: ${{ github.repository }}
-          GH_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
