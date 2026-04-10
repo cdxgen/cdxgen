@@ -42,7 +42,7 @@ export function validateAndRejectGitSource(filePath: string): Object | null;
  */
 export function parseValue(raw: string | number | Array<string | number>): string | number | boolean | Array<string | number | boolean>;
 export function parseQueryString(q: any, body?: {}, options?: {}): {};
-export function getQueryParams(req: any): {};
+export function getQueryParams(req: any): any;
 export function configureServer(cdxgenServer: any): void;
 export function start(options: any): void;
 //# sourceMappingURL=server.d.ts.map

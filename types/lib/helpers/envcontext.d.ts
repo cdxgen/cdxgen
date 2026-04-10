@@ -261,5 +261,6 @@ export namespace SDKMAN_JAVA_TOOL_ALIASES {
     let java23: any;
     let java24: any;
     let java25: any;
+    let java26: any;
 }
 //# sourceMappingURL=envcontext.d.ts.map
