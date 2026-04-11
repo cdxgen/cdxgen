@@ -1,0 +1,60 @@
+name: Copilot Setup Steps
+
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/nodejs.yml'
+      - '.nvmrc'
+      - '.pnpmfile.cjs'
+      - '.versions/node_*'
+      - 'bin/**'
+      - 'data/**'
+      - 'index.cjs'
+      - 'lib/**'
+      - 'package.json'
+      - 'pnpm-lock.yaml'
+      - 'devenv*'
+  push:
+    branches:
+      - master
+      - release/*
+    tags:
+      - 'v*'
+    paths:
+      - '.github/workflows/nodejs.yml'
+      - '.nvmrc'
+      - '.pnpmfile.cjs'
+      - '.versions/node_*'
+      - 'bin/**'
+      - 'data/**'
+      - 'index.cjs'
+      - 'lib/**'
+      - 'package.json'
+      - 'pnpm-lock.yaml'
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+# https://docs.github.com/en/actions/writing-workflows/choosing-what-your-workflow-does/controlling-permissions-for-github_token
+permissions: {}
+jobs:
+  copilot-setup-steps:
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
+      - name: Setup pnpm
+        uses: pnpm/action-setup@fc06bc1257f339d1d5d8b3a19a8cae5388b55320 # v5.0.0
+      - name: Use Node.js
+        uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f # v6.3.0
+        with:
+          node-version-file: '.nvmrc'
+      - name: pnpm install, build and test
+        shell: bash
+        run: |
+          pnpm install:frozen
+          pnpm test
+        env:
+          CI: true
