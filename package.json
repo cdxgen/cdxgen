@@ -151,7 +151,7 @@
   "devDependencies": {
     "@biomejs/biome": "2.4.10",
     "esmock": "2.7.3",
-    "poku": "4.2.0",
+    "poku": "4.2.1",
     "sinon": "21.0.3",
     "typescript": "6.0.2"
   },
@@ -177,7 +177,7 @@
     "connect": "3.7.0",
     "jsonata": "2.1.0"
   },
-  "packageManager": "pnpm@10.32.1",
+  "packageManager": "pnpm@10.33.0",
   "engines": {
     "node": "^20 || ^22 || ^24 || ^25",
     "pnpm": ">=10"
