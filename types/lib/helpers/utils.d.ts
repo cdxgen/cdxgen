@@ -1538,6 +1538,13 @@ export function retrieveCdxgenPluginVersion(): any;
  * @returns {Array<String>} Array of tokens
  */
 export function splitCommandArgs(commandString: string): Array<string>;
+/**
+ * Convert hyphenated strings to camel case.
+ *
+ * @param {String} str
+ * @returns {String}
+ */
+export function toCamel(str: string): string;
 export const dirNameStr: any;
 export const isSecureMode: any;
 export const isNode: boolean;

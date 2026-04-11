@@ -39,6 +39,7 @@ import {
   remoteHostsAccessed,
   retrieveCdxgenVersion,
   safeExistsSync,
+  toCamel,
 } from "../lib/helpers/utils.js";
 import { validateBom } from "../lib/helpers/validator.js";
 import { postProcess } from "../lib/stages/postgen/postgen.js";
@@ -64,6 +65,18 @@ for (const configPattern of configPaths) {
     } else {
       config = JSON.parse(fs.readFileSync(configPath, "utf-8"));
     }
+    if (isSecureMode || DEBUG_MODE) {
+      console.log(`Config file '${configPath}' loaded successfully.`);
+    }
+    const sensitiveOptions = ["server-url", "include-formulation"];
+    for (const opt of sensitiveOptions) {
+      if (config[opt] !== undefined || config[toCamel(opt)] !== undefined) {
+        const foundKey = config[opt] !== undefined ? opt : toCamel(opt);
+        console.warn(
+          `SECURE MODE: Config file sets '${foundKey}'. Verify this is intentional.`,
+        );
+      }
+    }
   } catch (_e) {
     console.log("Invalid config file", configPath);
   }
@@ -76,6 +89,9 @@ const args = _yargs
   .parserConfiguration({
     "greedy-arrays": false,
     "short-option-groups": false,
+    "dot-notation": false,
+    "parse-numbers": true,
+    "boolean-negation": true,
   })
   .option("output", {
     alias: "o",
@@ -120,6 +136,7 @@ const args = _yargs
   })
   .option("server-url", {
     description: "Dependency track url. Eg: https://deptrack.cyclonedx.io",
+    type: "string",
   })
   .option("skip-dt-tls-check", {
     type: "boolean",
@@ -128,6 +145,7 @@ const args = _yargs
   })
   .option("api-key", {
     description: "Dependency track api key",
+    type: "string",
   })
   .option("project-group", {
     description: "Dependency track project group",
@@ -180,10 +198,12 @@ const args = _yargs
   .option("server-host", {
     description: "Listen address",
     default: "127.0.0.1",
+    type: "string",
   })
   .option("server-port", {
     description: "Listen port",
-    default: "9090",
+    default: 9090,
+    type: "number",
   })
   .option("install-deps", {
     type: "boolean",
@@ -537,12 +557,24 @@ if (options.standard) {
   options.specVersion = 1.6;
 }
 if (options.includeFormulation) {
-  thoughtLog(
-    "Wait, the user wants to include formulation information. Let's warn about accidentally disclosing sensitive data via the BOM files.",
-  );
-  console.log(
-    "NOTE: Formulation section could include sensitive data such as emails and secrets.\nPlease review the generated SBOM before distribution.\n",
-  );
+  if (options.serverUrl) {
+    thoughtLog(
+      "Wait, the user specified a server URL and wants to include formulation data. Let's warn about accidentally disclosing sensitive data to a remote server.",
+    );
+    console.warn(
+      `\x1b[1;35mWARNING: The formulation section may include sensitive data such as emails and secrets. This data will be submitted to '${options.serverUrl}' automatically.\x1b[0m`,
+    );
+    if (isSecureMode) {
+      process.exit(1);
+    }
+  } else {
+    thoughtLog(
+      "Wait, the user wants to include formulation data. Let's warn about accidentally disclosing sensitive data via the generated BOM.",
+    );
+    console.log(
+      "NOTE: The formulation section may include sensitive data such as emails and secrets.\nPlease review the generated SBOM before distribution.\n",
+    );
+  }
 }
 /**
  * Method to apply advanced options such as profile and lifecycles
