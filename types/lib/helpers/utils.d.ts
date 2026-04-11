@@ -1541,8 +1541,8 @@ export function splitCommandArgs(commandString: string): Array<string>;
 /**
  * Convert hyphenated strings to camel case.
  *
- * @param {String} str
- * @returns {String}
+ * @param {String} str String to convert
+ * @returns {String} camelCased string
  */
 export function toCamel(str: string): string;
 export const dirNameStr: any;

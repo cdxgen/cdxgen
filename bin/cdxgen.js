@@ -375,6 +375,13 @@ const args = _yargs
     default: "CLEAR",
     hidden: true,
   })
+  .option("threat-model", {
+    type: "boolean",
+    description:
+      "Display self security/threat assessment with TLP and risk scores, then exit",
+    default: false,
+    hidden: true,
+  })
   .completion("completion", "Generate bash/zsh completion")
   .array("type")
   .array("excludeType")
@@ -705,6 +712,170 @@ const applyAdvancedOptions = (options) => {
   return options;
 };
 applyAdvancedOptions(options);
+
+function displaySelfThreatModel(options) {
+  const TLP = options.tlpClassification || "CLEAR";
+  const risks = [];
+  let riskScore = 0;
+
+  const addRisk = (level, reason) => {
+    const scores = { low: 1, medium: 3, high: 5, critical: 8 };
+    riskScore = Math.min(10, riskScore + scores[level]);
+    risks.push({ level, reason });
+  };
+
+  // Config file risks
+  if (Object.keys(config).length > 0) {
+    addRisk("medium", "Config file loaded from current directory");
+    const sensitive = ["server-url", "api-key", "include-formulation"];
+    for (const key of sensitive) {
+      if (config[key] || config[toCamel(key)]) {
+        addRisk(
+          key === "api-key" ? "high" : "medium",
+          `Config overrides '${key}'`,
+        );
+      }
+    }
+  }
+
+  // Remote submission risks
+  if (options.serverUrl) {
+    const isHttps = options.serverUrl.startsWith("https://");
+    addRisk(
+      isHttps ? "medium" : "critical",
+      `SBOM submission to ${options.serverUrl}${!isHttps ? " (INSECURE: http)" : ""}`,
+    );
+    if (options.skipDtTlsCheck) {
+      addRisk("high", "TLS verification disabled for Dependency-Track.");
+    }
+  }
+
+  // Data exposure risks
+  if (options.includeFormulation) {
+    addRisk(
+      "medium",
+      "Formulation enabled: may include git metadata, emails, build environment.",
+    );
+  }
+  if (options.evidence || options.deep) {
+    addRisk(
+      "medium",
+      "Deep/evidence mode: may execute build tools, access source code.",
+    );
+  }
+  if (options.installDeps) {
+    addRisk(
+      "high",
+      "Auto-install dependencies: may execute package manager hooks.",
+    );
+  }
+
+  // File path risks
+  if (
+    options.output &&
+    !resolve(options.output).startsWith(resolve(process.cwd()))
+  ) {
+    addRisk("medium", `Output path outside project: ${options.output}.`);
+  }
+  const envSensitive = ["CDXGEN_SERVER_URL", "CDXGEN_API_KEY"];
+  for (const env of envSensitive) {
+    if (process.env[env]) {
+      addRisk("low", `Sensitive value set via ${env}.`);
+    }
+  }
+
+  const riskLevel =
+    riskScore >= 8
+      ? "CRITICAL"
+      : riskScore >= 5
+        ? "HIGH"
+        : riskScore >= 3
+          ? "MEDIUM"
+          : "LOW";
+  const riskColor = {
+    CRITICAL: "\x1b[1;31m",
+    HIGH: "\x1b[1;33m",
+    MEDIUM: "\x1b[1;36m",
+    LOW: "\x1b[1;32m",
+  };
+  const reset = "\x1b[0m";
+
+  const tlpGuidance = {
+    CLEAR: "May be shared publicly. No restrictions.",
+    GREEN: "Limited to community/peers. Not for public posting.",
+    AMBER: "Limited to organization + trusted partners. Requires NDA.",
+    AMBER_AND_STRICT: "Organization only. No external sharing.",
+    RED: "Eyes only. Not for distribution. Destroy after use.",
+  };
+
+  console.log(
+    `\n${riskColor[riskLevel]}SBOM Security Assessment. Generated with \u2665 by cdxgen${reset}`,
+  );
+  console.log("=".repeat(60));
+  console.log(`TLP: ${TLP} - ${tlpGuidance[TLP]}\n`);
+  console.log(
+    `Risk Score: ${riskScore}/10 [${riskColor[riskLevel]}${riskLevel}${reset}]`,
+  );
+
+  if (risks.length > 0) {
+    console.log(`\nFindings (${risks.length}):`);
+    risks.forEach(({ level, reason }, i) => {
+      const color =
+        level === "critical"
+          ? "\x1b[1;31m"
+          : level === "high"
+            ? "\x1b[1;33m"
+            : "\x1b[1;36m";
+      console.log(
+        `  ${i + 1}. ${color}${level.toUpperCase()}${reset}: ${reason}`,
+      );
+    });
+  } else {
+    console.log(
+      `\n${riskColor[riskLevel]}No high-risk configuration detected.${reset}`,
+    );
+  }
+
+  console.log("\nEffective configuration:");
+  console.log(`  Project: ${options.projectName || filePath}`);
+  console.log(`  Types: ${options.projectType?.join(", ") || "auto-detect"}`);
+  console.log(`  Output: ${options.output}`);
+  console.log(`  Remote: ${options.serverUrl || "none"}`);
+  console.log(`  Formulation: ${options.includeFormulation ? "yes" : "no"}`);
+  console.log(`  Evidence: ${options.evidence ? "yes" : "no"}`);
+  console.log(`  Install deps: ${options.installDeps ? "yes" : "no"}`);
+
+  console.log(`\nRecommendations for TLP:${TLP}:`);
+  if (["AMBER", "AMBER_AND_STRICT", "RED"].includes(TLP)) {
+    console.log("  - Set --output to a controlled directory.");
+    console.log("  - Avoid --include-formulation unless required.");
+    if (TLP === "RED") {
+      console.log("  - Run in isolated container/VM.");
+      console.log(
+        "  - Disable automatic dependency track submission: omit --server-url.",
+      );
+    }
+  }
+  if (riskScore >= 5) {
+    console.log("  - Review findings above before proceeding.");
+    console.log("  - Consider --no-install-deps for untrusted code.");
+  }
+
+  console.log("\nQuick hardening:");
+  console.log("  cdxgen -t js . --no-install-deps --output ./sbom.json");
+
+  if (isSecureMode && riskScore >= 5) {
+    console.log(
+      `\n${riskColor[riskLevel]}SECURE MODE: High-risk config detected. Aborting.${reset}`,
+    );
+    process.exit(1);
+  }
+  process.exit(0);
+}
+
+if (options.threatModel) {
+  displaySelfThreatModel(options);
+}
 
 /**
  * Check for node >= 20 permissions
