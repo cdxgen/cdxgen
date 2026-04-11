@@ -5,7 +5,6 @@ minimumReleaseAgeExclude:
 trustPolicy: no-downgrade
 blockExoticSubdeps: true
 lockfileIncludeTarballUrl: true
-autoInstallPeers: false
 strictDepBuilds: true
 preferSymlinkedExecutables: false
 optimisticRepeatInstall: true
