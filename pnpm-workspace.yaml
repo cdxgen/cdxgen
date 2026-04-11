@@ -1,11 +1,11 @@
+blockExoticSubdeps: true
+cleanupUnusedCatalogs: true
+lockfileIncludeTarballUrl: true
 minimumReleaseAge: '4320'
 minimumReleaseAgeExclude:
-- '@cdxgen/*'
-- '@appthreat/*'
-trustPolicy: no-downgrade
-blockExoticSubdeps: true
-lockfileIncludeTarballUrl: true
-strictDepBuilds: true
-preferSymlinkedExecutables: false
+  - '@cdxgen/*'
+  - '@appthreat/*'
 optimisticRepeatInstall: true
-cleanupUnusedCatalogs: true
+preferSymlinkedExecutables: false
+strictDepBuilds: true
+trustPolicy: no-downgrade
