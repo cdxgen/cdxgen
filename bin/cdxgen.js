@@ -14,6 +14,7 @@ import { hideBin } from "yargs/helpers";
 
 import { createBom, submitBom } from "../lib/cli/index.js";
 import {
+  displaySelfThreatModel,
   printCallStack,
   printDependencyTree,
   printFormulation,
@@ -43,10 +44,7 @@ import {
 } from "../lib/helpers/utils.js";
 import { validateBom } from "../lib/helpers/validator.js";
 import { postProcess } from "../lib/stages/postgen/postgen.js";
-import {
-  auditEnvironment,
-  displaySelfThreatModel,
-} from "../lib/stages/pregen/env-audit.js";
+import { auditEnvironment } from "../lib/stages/pregen/env-audit.js";
 import { prepareEnv } from "../lib/stages/pregen/pregen.js";
 
 // Support for config files
@@ -378,10 +376,10 @@ const args = _yargs
     default: "CLEAR",
     hidden: true,
   })
-  .option("threat-model", {
+  .option("env-audit", {
     type: "boolean",
     description:
-      "Display self security/threat assessment with TLP and risk scores, then exit",
+      "Display a pre-generation environment and configuration security assessment, then continue",
     default: false,
     hidden: true,
   })
@@ -717,8 +715,8 @@ const applyAdvancedOptions = (options) => {
 applyAdvancedOptions(options);
 
 const envAuditFindings = auditEnvironment();
-if (options.threatModel) {
-  displaySelfThreatModel(filePath, config, options, envAuditFindings);
+if (options.envAudit) {
+  displaySelfThreatModel(filePath, config, options);
 }
 
 /**
