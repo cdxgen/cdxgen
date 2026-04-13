@@ -892,7 +892,11 @@ const needsBomSigning = ({ generateKeyAndSign }) =>
     for (const f of envAuditFindings) {
       console.log(`SECURE MODE: ${f.variable}: ${f.message}`);
     }
-    if (isSecureMode) {
+    // Only abort in secure mode for high or critical findings; low/medium are informational.
+    if (
+      isSecureMode &&
+      envAuditFindings.some((f) => ["high", "critical"].includes(f.severity))
+    ) {
       process.exit(1);
     }
   }
