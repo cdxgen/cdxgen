@@ -379,7 +379,7 @@ const args = _yargs
   .option("env-audit", {
     type: "boolean",
     description:
-      "Display a pre-generation environment and configuration security assessment, then continue",
+      "Display a pre-generation environment and configuration security assessment",
     default: false,
     hidden: true,
   })
@@ -716,7 +716,7 @@ applyAdvancedOptions(options);
 
 const envAuditFindings = auditEnvironment();
 if (options.envAudit) {
-  displaySelfThreatModel(filePath, config, options);
+  displaySelfThreatModel(filePath, config, options, envAuditFindings);
 }
 
 /**
