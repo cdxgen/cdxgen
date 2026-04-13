@@ -10,13 +10,23 @@ export function printVulnerabilities(vulnerabilities: any): void;
 export function printSponsorBanner(options: any): void;
 export function printSummary(bomJson: any): void;
 /**
+ * @typedef {{type: string, variable: string, severity: string, message: string, mitigation: string}} EnvAuditFinding
+ */
+/**
  * Runs the pre-generation environment audit and renders the results as formatted
  * tables to the console. Called when the --env-audit CLI flag is set.
  *
  * @param {string} filePath Project path being scanned
  * @param {Object} config Loaded .cdxgenrc / config-file values
  * @param {Object} options Effective CLI options
- * @param {Object} envAuditFindings Audit findings to display
+ * @param {EnvAuditFinding[]} envAuditFindings Audit findings to display
  */
-export function displaySelfThreatModel(filePath: string, config: Object, options: Object, envAuditFindings: Object): void;
+export function displaySelfThreatModel(filePath: string, config: Object, options: Object, envAuditFindings: EnvAuditFinding[]): void;
+export type EnvAuditFinding = {
+    type: string;
+    variable: string;
+    severity: string;
+    message: string;
+    mitigation: string;
+};
 //# sourceMappingURL=display.d.ts.map
