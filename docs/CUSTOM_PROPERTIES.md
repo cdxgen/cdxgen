@@ -145,7 +145,7 @@ The grouped lists below remain the authoritative inventory. The compact tables, 
 #### Alias and overlap notes
 
 - Prefer matching **both** `cdx:github:action:isShaPinned` and `cdx:github:action:versionPinningType` when possible; the former is the convenience boolean and the latter carries more nuance.
-- Match both `cdx:azure:pool:vmImage` and `cdx:azure:job:pool:vmImage`; if your policy engine supports precedence, evaluate the job-level value first and fall back to the workflow-level default only when no job override exists. Otherwise, match both properties independently with OR logic and treat the job-level key as the more specific signal.
+- Match both `cdx:azure:pool:vmImage` (workflow-level default) and `cdx:azure:job:pool:vmImage` (job-level override). Job-level settings take precedence when present.
 
 <a id="inventory-packages"></a>
 ### Package manager and language ecosystems
@@ -670,5 +670,5 @@ input.components.exists(c,
 - Prefer evaluating these as **context enrichers** rather than strict truth assertions unless you explicitly normalize missing-vs-false semantics.
 - Treat workspace/local path indicators (`isLink`, `resolvedPath`, `localCheckoutPath`, `projectDir`, `flake_dir`, `local_dir`) as provenance signals that may require stronger trust controls.
 - Treat execution-related indicators (`risky_scripts`, `hasInstallScript`, CI write permissions, OIDC enablement, action pinning type) as high-priority triage fields for software supply chain risk.
-- In Rego examples, prefer helper predicates such as `has_prop(c, name, value)` for multi-property checks so multiple property conditions are evaluated on the same component instead of relying on repeated `c.properties[_]` array iteration.
+- In Rego examples, use helper predicates such as `has_prop(c, name, value)` to ensure all property checks evaluate against the same component instance, avoiding unintended cross-component matches from repeated `c.properties[_]` array iteration.
 - Match overlapping keys where noted (`cdx:npm:isWorkspace` and `cdx:npm:is_workspace`; Azure pool defaults and job overrides) so older and newer BOMs behave consistently in policy engines.
