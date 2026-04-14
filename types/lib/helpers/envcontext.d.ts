@@ -5,14 +5,14 @@
  *
  * @returns Output from git config or undefined
  */
-export function getGitConfig(configKey: string, dir: string): string;
+export function getGitConfig(configKey: string, dir: string): string | undefined;
 /**
  * Retrieves the git origin url
  * @param {string} dir repo directory
  *
  * @returns Output from git config or undefined
  */
-export function getOriginUrl(dir: string): string;
+export function getOriginUrl(dir: string): string | undefined;
 /**
  * Retrieves the git branch name
  * @param {string} configKey Git config key
@@ -20,7 +20,7 @@ export function getOriginUrl(dir: string): string;
  *
  * @returns Output from git config or undefined
  */
-export function getBranch(_configKey: any, dir: string): string;
+export function getBranch(_configKey: any, dir: string): string | undefined;
 /**
  * Retrieves the tree and parent hash for a git repo
  * @param {string} dir repo directory
@@ -43,7 +43,7 @@ export function listFiles(dir: string): any[];
  *
  * @returns Output from the git command
  */
-export function execGitCommand(dir: string, args: any[]): string;
+export function execGitCommand(dir: string, args: any[]): string | undefined;
 /**
  * Collect Java version and installed modules
  *
@@ -155,7 +155,7 @@ export function collectRubyInfo(dir: string): {
  * @param {Array} args Command arguments
  * @returns Object containing swift details
  */
-export function runSwiftCommand(dir: string, args: any[]): string;
+export function runSwiftCommand(dir: string, args: any[]): string | undefined;
 export function collectEnvInfo(dir: any): {
     type: string;
     name: string;

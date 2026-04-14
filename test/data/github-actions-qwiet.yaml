@@ -1,0 +1,47 @@
+# Reproduces: https://github.com/hoolicorp/java-sec-code schema-validation failure
+# Two `uses: actions/upload-artifact@v1.0.0` steps share the same action but
+# use different artifact names/paths.  Without a `name:` on the step, both
+# fall back to `step.uses` as the step name, which produces two identical
+# CycloneDX step objects and violates `uniqueItems: true`.
+name: Qwiet AI
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  preZero:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: QwietAI/qwiet-action@main
+        env:
+          AT_DEBUG_MODE: debug
+          SHIFTLEFT_ACCESS_TOKEN: ${{ secrets.SHIFTLEFT_ACCESS_TOKEN }}
+          CPG_EXPORT: true
+      - name: Upload cpg
+        uses: actions/upload-artifact@v1.0.0
+        with:
+          name: cpg
+          path: cpg_out
+      - name: Upload graph
+        uses: actions/upload-artifact@v1.0.0
+        with:
+          name: cpg_exports
+          path: cpg_export
+
+  # This job exercises the unnamed-duplicate path: both steps use the same
+  # action with no explicit `name:`, so both would fall back to
+  # `step.uses` and produce identical step objects without the dedup fix.
+  uploadArtifacts:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/upload-artifact@v1.0.0
+        with:
+          name: cpg
+          path: cpg_out
+      - uses: actions/upload-artifact@v1.0.0
+        with:
+          name: cpg_exports
+          path: cpg_export
