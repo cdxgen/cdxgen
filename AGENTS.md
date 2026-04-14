@@ -98,9 +98,11 @@ lib/
     caxa.js             Caxa (self-extracting) executable parsing
     cbomutils.js        Cryptography BOM helpers
     db.js               SQLite / atom DB helpers
+    depsUtils.js        mergeDependencies + trimComponents (shared BOM dependency utilities)
     display.js          Terminal output tables and summaries
     dotnetutils.js      .NET assembly / NuGet utilities
     envcontext.js       Git, env info, tool availability checks
+    formulationParsers.js  CycloneDX formulation section builder; addFormulationSection()
     logger.js           thoughtLog / traceLog / THINK_MODE / TRACE_MODE
     protobom.js         Protobuf-based BOM utilities
     pythonutils.js      Python venv / conda helpers
@@ -141,13 +143,95 @@ Every public function accepts a single `options` plain object. It is created by 
 The top-level export. Dispatches to per-language `create*Bom` functions based on `options.projectType`. Returns `{ bomJson, dependencies, parentComponent, … }`.
 
 ### `postProcess(bomNSData, options)` — `lib/stages/postgen/postgen.js`
-Runs after BOM generation: deduplication (`dedupeBom`), trimming (`trimComponents`), evidence enrichment, and validation.
+Runs after BOM generation: filtering, standards application, metadata enrichment, formulation population, and annotations. It is called **exactly once** per BOM generation cycle — by `bin/cdxgen.js` and `lib/server/server.js` — after `createBom` returns.
+
+**Any logic that must execute exactly once across all language types must live here**, not inside `buildBomNSData` (which is invoked once per language type and therefore runs multiple times for multi-type projects).
 
 ### `prepareEnv(filePath, options)` — `lib/stages/pregen/pregen.js`
 Runs before BOM generation to install missing build tools via sdkman, nvm, rbenv, etc.
 
 ### PackageURL
-All component purls are built with `packageurl-js`:
+
+---
+
+## BOM generation pipeline
+
+Understanding the call chain is critical to placing new logic in the right spot.
+
+```
+bin/cdxgen.js (or server.js)
+  └── createBom(path, options)                     lib/cli/index.js
+        ├── createXBom(path, options)              — single project type
+        │     └── create<Language>Bom(path, options)
+        │           └── buildBomNSData(options, pkgList, ptype, context)
+        │                 — called ONCE PER LANGUAGE TYPE
+        │                 — returns { bomJson, nsMapping, dependencies, parentComponent, formulationList? }
+        │
+        └── createMultiXBom(pathList, options)     — multiple types or container
+              ├── createXBom() × N  (one per type/path)
+              └── dedupeBom()  →  merges all per-type results
+  └── postProcess(bomNSData, options)              lib/stages/postgen/postgen.js
+        — called EXACTLY ONCE after createBom returns
+        — correct place for: formulation, annotations, filtering, metadata enrichment
+```
+
+### Key implication: multi-invocation of `buildBomNSData`
+
+`buildBomNSData` is called once **per language type**. A command like
+`cdxgen -t js,java,python` triggers three separate calls. Any side-effect
+placed inside `buildBomNSData` will run three times.
+
+**Rule:** Logic that must execute once per BOM (e.g. formulation, final
+annotations, global deduplication) belongs in `postProcess`, not in
+`buildBomNSData` or `createMultiXBom`.
+
+### Forwarding per-language data to `postProcess`
+
+When a per-language step produces data that `postProcess` needs (e.g. Pixi
+lock formulation components), attach it to `bomNSData` before returning:
+
+```js
+// inside buildBomNSData:
+if (context?.formulationList?.length) {
+  bomNSData.formulationList = context.formulationList;
+}
+```
+
+`postProcess` can then read `bomNSData.formulationList` and incorporate it
+into the single formulation section it builds.
+
+---
+
+## Module layering rules
+
+The dependency graph between source layers is strictly one-directional:
+
+```
+lib/helpers/*          (no imports from cli/ or stages/)
+      ↓
+lib/cli/index.js       (imports from helpers/*)
+      ↓
+lib/stages/postgen/    (imports from helpers/*, NOT from cli/index.js)
+bin/cdxgen.js          (imports from cli/ and stages/)
+lib/server/server.js   (imports from cli/ and stages/)
+```
+
+**Never import `lib/cli/index.js` from inside `lib/helpers/` or `lib/stages/`.**
+Shared utilities used by both layers must live in a helper module:
+
+| Utility | Location |
+|---|---|
+| `mergeDependencies` | `lib/helpers/depsUtils.js` |
+| `trimComponents` | `lib/helpers/depsUtils.js` |
+| `addFormulationSection` | `lib/helpers/formulationParsers.js` |
+
+If you find yourself writing `import { … } from "../../cli/index.js"` inside
+a helper or stage module, **stop and extract the function to `lib/helpers/`
+first**.
+
+---
+
+### PackageURL
 ```js
 import { PackageURL } from "packageurl-js";
 
@@ -355,3 +439,5 @@ All GitHub Actions workflows pin action SHA digests and have `permissions: {}` a
 - **Do not** modify generated files under `types/` directly.
 - **Do not** add `console.log` debug statements to production code without gating them on `DEBUG_MODE` or replacing them with `thoughtLog`.
 - **Do not** add or update `pnpm-lock.yaml` unless changing `package.json` dependencies.
+- **Do not** import from `lib/cli/index.js` inside `lib/helpers/*` or `lib/stages/*` — this creates a circular-like cross-layer dependency. Extract the shared function to `lib/helpers/` instead.
+- **Do not** add logic that must execute once-per-BOM inside `buildBomNSData` — it is called once per language type. Use `postProcess` in `lib/stages/postgen/postgen.js` instead.
