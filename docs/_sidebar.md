@@ -5,6 +5,7 @@
 - [Supported Project Types](PROJECT_TYPES.md)
 - [Environment Variables](ENV.md)
 - [Advanced Usage](ADVANCED.md)
+- [cdx: Custom Properties](CUSTOM_PROPERTIES.md)
 - [AI/ML Usage](ml_profiles.md)
 - [Permissions](PERMISSIONS.md)
 - [Configuring Allowlists](ALLOWED_HOSTS_AND_COMMANDS.md)
