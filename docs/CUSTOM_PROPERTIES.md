@@ -67,7 +67,7 @@ These are the highest-leverage keys for first-pass policy authoring.
 | `cdx:npm:isRegistryDependency` | Detects git/file/local sources vs standard registry resolution | Hard deny |
 | `cdx:pypi:registry` | Indicates non-default Python package index usage | Hard deny |
 | `cdx:gem:remoteRevision` | Lets policies distinguish immutable git revisions from mutable branch/tag sourcing | Warning / triage |
-| `cdx:nix:nar_hash` | Key reproducibility and content-integrity signal for flakes | Hard deny |
+| `cdx:nix:nar_hash` | Important reproducibility and content-integrity signal for flakes | Hard deny |
 | `cdx:go:local_dir` | Detects local module replacements and non-hermetic resolution | Hard deny |
 | `cdx:bom:componentSrcFiles` | Useful gate for BOM completeness and downstream attestability | Warning / triage |
 
