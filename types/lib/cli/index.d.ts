@@ -6,8 +6,9 @@
  * @param {Object} allImports All imports
  * @param {Object} pkg Package object
  * @param {string} ptype Package type
+ * @returns {Object[]} Array of component objects
  */
-export function listComponents(options: Object, allImports: Object, pkg: Object, ptype?: string): any[];
+export function listComponents(options: Object, allImports: Object, pkg: Object, ptype?: string): Object[];
 /**
  * Function to create bom string for Java jars
  *
@@ -22,28 +23,23 @@ export function createJarBom(path: string, options: Object): Object;
  *
  * @param {string} path to the project
  * @param {Object} options Parse options from the cli
+ * @returns {Object|undefined} BOM object
  */
-export function createAndroidBom(path: string, options: Object): {
-    bomJson: any;
-    dependencies: any;
-    parentComponent: any;
-} | undefined;
+export function createAndroidBom(path: string, options: Object): Object | undefined;
 /**
  * Function to create bom string for binaries using blint
  *
  * @param {string} path to the project
  * @param {Object} options Parse options from the cli
+ * @returns {Object|undefined} BOM object
  */
-export function createBinaryBom(path: string, options: Object): {
-    bomJson: any;
-    dependencies: any;
-    parentComponent: any;
-} | undefined;
+export function createBinaryBom(path: string, options: Object): Object | undefined;
 /**
  * Function to create bom string for Java projects
  *
  * @param {string} path to the project
  * @param {Object} options Parse options from the cli
+ * @returns {Promise<Object>} Promise resolving to BOM object
  */
 export function createJavaBom(path: string, options: Object): Promise<Object>;
 /**
@@ -51,6 +47,7 @@ export function createJavaBom(path: string, options: Object): Promise<Object>;
  *
  * @param {string} path to the project
  * @param {Object} options Parse options from the cli
+ * @returns {Promise<Object>} Promise resolving to BOM object
  */
 export function createNodejsBom(path: string, options: Object): Promise<Object>;
 /**
@@ -63,13 +60,15 @@ export function createNodejsBom(path: string, options: Object): Promise<Object>;
  *
  * @param {String} path
  * @param {Object} options
+ * @returns {Object} BOM object
  */
-export function createPixiBom(path: string, options: Object): Object | null;
+export function createPixiBom(path: string, options: Object): Object;
 /**
  * Function to create bom string for Python projects
  *
  * @param {string} path to the project
  * @param {Object} options Parse options from the cli
+ * @returns {Promise<Object>} Promise resolving to BOM object
  */
 export function createPythonBom(path: string, options: Object): Promise<Object>;
 /**
@@ -77,20 +76,23 @@ export function createPythonBom(path: string, options: Object): Promise<Object>;
  *
  * @param {string} path to the project
  * @param {Object} options Parse options from the cli
+ * @returns {Promise<Object>} Promise resolving to BOM object
  */
-export function createGoBom(path: string, options: Object): Promise<Object | undefined>;
+export function createGoBom(path: string, options: Object): Promise<Object>;
 /**
  * Function to create bom string for Rust projects
  *
  * @param {string} path to the project
  * @param {Object} options Parse options from the cli
+ * @returns {Promise<Object>} Promise resolving to BOM object
  */
-export function createRustBom(path: string, options: Object): Promise<Object | undefined>;
+export function createRustBom(path: string, options: Object): Promise<Object>;
 /**
  * Function to create bom string for Dart projects
  *
  * @param {string} path to the project
  * @param {Object} options Parse options from the cli
+ * @returns {Promise<Object>} Promise resolving to BOM object
  */
 export function createDartBom(path: string, options: Object): Promise<Object>;
 /**
@@ -98,6 +100,7 @@ export function createDartBom(path: string, options: Object): Promise<Object>;
  *
  * @param {string} path to the project
  * @param {Object} options Parse options from the cli
+ * @returns {Object} BOM object
  */
 export function createCppBom(path: string, options: Object): Object;
 /**
@@ -105,6 +108,7 @@ export function createCppBom(path: string, options: Object): Object;
  *
  * @param {string} path to the project
  * @param {Object} options Parse options from the cli
+ * @returns {Object} BOM object
  */
 export function createClojureBom(path: string, options: Object): Object;
 /**
@@ -112,6 +116,7 @@ export function createClojureBom(path: string, options: Object): Object;
  *
  * @param {string} path to the project
  * @param {Object} options Parse options from the cli
+ * @returns {Object} BOM object
  */
 export function createHaskellBom(path: string, options: Object): Object;
 /**
@@ -119,6 +124,7 @@ export function createHaskellBom(path: string, options: Object): Object;
  *
  * @param {string} path to the project
  * @param {Object} options Parse options from the cli
+ * @returns {Object} BOM object
  */
 export function createElixirBom(path: string, options: Object): Object;
 /**
@@ -126,6 +132,7 @@ export function createElixirBom(path: string, options: Object): Object;
  *
  * @param {string} path to the project
  * @param {Object} options Parse options from the cli
+ * @returns {Object} BOM object
  */
 export function createGitHubBom(path: string, options: Object): Object;
 /**
@@ -133,6 +140,7 @@ export function createGitHubBom(path: string, options: Object): Object;
  *
  * @param {string} path to the project
  * @param {Object} options Parse options from the cli
+ * @returns {Object} BOM object
  */
 export function createCloudBuildBom(path: string, options: Object): Object;
 /**
@@ -140,6 +148,7 @@ export function createCloudBuildBom(path: string, options: Object): Object;
  *
  * @param {string} _path to the project
  * @param {Object} options Parse options from the cli
+ * @returns {Promise<Object>} Promise resolving to BOM object
  */
 export function createOSBom(_path: string, options: Object): Promise<Object>;
 /**
@@ -147,6 +156,7 @@ export function createOSBom(_path: string, options: Object): Promise<Object>;
  *
  * @param {string} path to the project
  * @param {Object} options Parse options from the cli
+ * @returns {Promise<Object>} Promise resolving to BOM object
  */
 export function createJenkinsBom(path: string, options: Object): Promise<Object>;
 /**
@@ -154,6 +164,7 @@ export function createJenkinsBom(path: string, options: Object): Promise<Object>
  *
  * @param {string} path to the project
  * @param {Object} options Parse options from the cli
+ * @returns {Object} BOM object
  */
 export function createHelmBom(path: string, options: Object): Object;
 /**
@@ -161,6 +172,7 @@ export function createHelmBom(path: string, options: Object): Object;
  *
  * @param {string} path to the project
  * @param {Object} options Parse options from the cli
+ * @returns {Promise<Object>} Promise resolving to BOM object
  */
 export function createSwiftBom(path: string, options: Object): Promise<Object>;
 /**
@@ -168,13 +180,15 @@ export function createSwiftBom(path: string, options: Object): Promise<Object>;
  *
  * @param {string} path to the project
  * @param {Object} options Parse options from the cli
+ * @returns {Promise<Object>} Promise resolving to BOM object
  */
-export function createCocoaBom(path: string, options: Object): Promise<Object | undefined>;
+export function createCocoaBom(path: string, options: Object): Promise<Object>;
 /**
  * Function to create bom string for Nix flakes
  *
  * @param {string} path to the project
  * @param {Object} options Parse options from the cli
+ * @returns {Promise<Object>} Promise resolving to BOM object
  */
 export function createNixBom(path: string, options: Object): Promise<Object>;
 /**
@@ -182,6 +196,7 @@ export function createNixBom(path: string, options: Object): Promise<Object>;
  *
  * @param {string} path to the project
  * @param {Object} options Parse options from the cli
+ * @returns {Promise<Object>} Promise resolving to BOM object
  */
 export function createCaxaBom(path: string, options: Object): Promise<Object>;
 /**
@@ -189,13 +204,15 @@ export function createCaxaBom(path: string, options: Object): Promise<Object>;
  *
  * @param {string} path to the project
  * @param {Object} options Parse options from the cli
+ * @returns {Promise<Object>} Promise resolving to BOM object
  */
-export function createContainerSpecLikeBom(path: string, options: Object): any;
+export function createContainerSpecLikeBom(path: string, options: Object): Promise<Object>;
 /**
  * Function to create bom string for php projects
  *
  * @param {string} path to the project
  * @param {Object} options Parse options from the cli
+ * @returns {Object} BOM object
  */
 export function createPHPBom(path: string, options: Object): Object;
 /**
@@ -203,6 +220,7 @@ export function createPHPBom(path: string, options: Object): Object;
  *
  * @param {string} path to the project
  * @param {Object} options Parse options from the cli
+ * @returns {Promise<Object>} Promise resolving to BOM object
  */
 export function createRubyBom(path: string, options: Object): Promise<Object>;
 /**
@@ -210,6 +228,7 @@ export function createRubyBom(path: string, options: Object): Promise<Object>;
  *
  * @param {string} path to the project
  * @param {Object} options Parse options from the cli
+ * @returns {Promise<Object|undefined>} Promise resolving to BOM object
  */
 export function createCsharpBom(path: string, options: Object): Promise<Object | undefined>;
 /**
@@ -217,37 +236,21 @@ export function createCsharpBom(path: string, options: Object): Promise<Object |
  *
  * @param {string} path to the project
  * @param {Object} options Parse options from the cli
+ * @returns {Promise<Object>} Promise resolving to BOM object
  */
-export function createCryptoCertsBom(path: string, options: Object): Promise<{
-    bomJson: {
-        components: {
-            name: any;
-            type: string;
-            version: string;
-            "bom-ref": string;
-            cryptoProperties: {
-                assetType: string;
-                algorithmProperties: {
-                    executionEnvironment: string;
-                    implementationPlatform: string;
-                };
-            };
-            properties: {
-                name: string;
-                value: any;
-            }[];
-        }[];
-    };
-}>;
-export function mergeDependencies(dependencies: any, newDependencies: any, parentComponent?: {}): ({
-    ref: string;
-    dependsOn: any[];
-    provides: any[];
-} | {
-    ref: string;
-    dependsOn: any[];
-    provides?: undefined;
-})[];
+export function createCryptoCertsBom(path: string, options: Object): Promise<Object>;
+/**
+ * Merges two CycloneDX dependency arrays into a single deduplicated list.
+ * For each unique ref, the dependsOn and provides sets from both arrays are
+ * combined. Self-referential entries pointing to the parent component are
+ * removed from all dependsOn and provides lists.
+ *
+ * @param {Object[]} dependencies First array of dependency objects
+ * @param {Object[]} newDependencies Second array of dependency objects to merge
+ * @param {Object} parentComponent Parent component whose bom-ref is used to filter self-references
+ * @returns {Object[]} Merged and deduplicated array of dependency objects
+ */
+export function mergeDependencies(dependencies: Object[], newDependencies: Object[], parentComponent?: Object): Object[];
 /**
  * Trim duplicate components by retaining all the properties
  *
@@ -272,6 +275,7 @@ export function dedupeBom(options: Object, components: any[], parentComponent: O
  *
  * @param {string[]} pathList list of to the project
  * @param {Object} options Parse options from the cli
+ * @returns {Promise<Object>} Promise resolving to BOM object
  */
 export function createMultiXBom(pathList: string[], options: Object): Promise<Object>;
 /**
@@ -279,15 +283,17 @@ export function createMultiXBom(pathList: string[], options: Object): Promise<Ob
  *
  * @param {string} path to the project
  * @param {Object} options Parse options from the cli
+ * @returns {Promise<Object|undefined>} Promise resolving to BOM object, or undefined if path is not readable
  */
-export function createXBom(path: string, options: Object): Promise<any>;
+export function createXBom(path: string, options: Object): Promise<Object | undefined>;
 /**
  * Function to create bom string for various languages
  *
  * @param {string} path to the project
  * @param {Object} options Parse options from the cli
+ * @returns {Promise<Object>} Promise resolving to BOM object
  */
-export function createBom(path: string, options: Object): any;
+export function createBom(path: string, options: Object): Promise<Object>;
 /**
  * Method to submit the generated bom to dependency-track or cyclonedx server
  *

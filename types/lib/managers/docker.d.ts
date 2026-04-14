@@ -8,9 +8,9 @@ export function detectColima(): any;
 export function detectRancherDesktop(): any;
 export const isWin: boolean;
 export const DOCKER_HUB_REGISTRY: "docker.io";
-export function stripAbsolutePath(path: any): any;
-export function getConnection(options: any, forRegistry: any): Promise<any>;
-export function makeRequest(path: any, method: any, forRegistry: any): Promise<any>;
+export function stripAbsolutePath(path: string): string;
+export function getConnection(options: Object, forRegistry?: string): Promise<import("got").Got | undefined>;
+export function makeRequest(path: string, method: string, forRegistry?: string): Promise<Object | Buffer | undefined>;
 export function parseImageName(fullImageName: any): {
     registry: string;
     repo: string;
@@ -21,34 +21,15 @@ export function parseImageName(fullImageName: any): {
     name: string;
 };
 export function getImage(fullImageName: any): Promise<any>;
-export function extractTar(fullImageName: any, dir: any, options: any): Promise<boolean>;
-export function exportArchive(fullImageName: any, options?: {}): Promise<{
-    manifest: {};
-    allLayersDir: any;
-    allLayersExplodedDir: any;
-    lastLayerConfig: {};
-    lastWorkingDir: string;
-} | {
-    inspectData: any;
-    manifest: any;
-    allLayersDir: any;
-    allLayersExplodedDir: any;
-    lastLayerConfig: {};
-    lastWorkingDir: string;
-    binPaths: any;
-} | undefined>;
-export function extractFromManifest(manifestFile: any, localData: any, tempDir: any, allLayersExplodedDir: any, options: any): Promise<{
-    inspectData: any;
-    manifest: any;
-    allLayersDir: any;
-    allLayersExplodedDir: any;
-    lastLayerConfig: {};
-    lastWorkingDir: string;
-    binPaths: any;
-}>;
+export function extractTar(fullImageName: string, dir: string, options: Object): Promise<boolean>;
+export function exportArchive(fullImageName: any, options?: {}): Promise<Object | undefined>;
+export function extractFromManifest(manifestFile: string, localData: Object, tempDir: string, allLayersExplodedDir: string, options: Object): Promise<Object>;
 export function exportImage(fullImageName: any, options: any): Promise<any>;
 export function getPkgPathList(exportData: any, lastWorkingDir: any): any[];
-export function removeImage(fullImageName: any, force?: boolean): Promise<any>;
-export function getCredsFromHelper(exeSuffix: any, serverAddress: any): any;
-export function addSkippedSrcFiles(skippedImageSrcs: any, components: any): void;
+export function removeImage(fullImageName: string, force?: boolean): Promise<Buffer | undefined>;
+export function getCredsFromHelper(exeSuffix: string, serverAddress: string): string | undefined;
+export function addSkippedSrcFiles(skippedImageSrcs: Array<{
+    image: string;
+    src: string;
+}>, components: Array<Object>): void;
 //# sourceMappingURL=docker.d.ts.map

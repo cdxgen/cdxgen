@@ -5,5 +5,14 @@
  * @returns {Object} Structured environment metadata
  */
 export function getVenvMetadata(env?: Object, explicitPath?: string): Object;
-export function get_python_command_from_env(env: any): any;
+/**
+ * Determines the appropriate Python executable path from a virtual environment.
+ * Inspects the virtual environment metadata to detect the Python type (system,
+ * conda, pyenv, etc.) and returns the most specific executable found, falling
+ * back to the global `PYTHON_CMD` constant when no executable is detected.
+ *
+ * @param {string} env Path to the Python virtual environment directory
+ * @returns {string} Path to the Python executable or the fallback command name
+ */
+export function get_python_command_from_env(env: string): string;
 //# sourceMappingURL=pythonutils.d.ts.map

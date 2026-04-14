@@ -38,6 +38,13 @@ export function filterBom(bomJson: Object, options: Object): Object;
  * Clean up
  */
 export function cleanupEnv(_options: any): void;
+/**
+ * Removes the cdxgen temporary directory if it was created inside the system
+ * temp directory (as indicated by `CDXGEN_TMP_DIR`). No-ops when the variable
+ * is unset or points outside the system temp directory.
+ *
+ * @returns {void}
+ */
 export function cleanupTmpDir(): void;
 /**
  * Annotate the document with annotator

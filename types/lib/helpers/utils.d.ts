@@ -13,10 +13,44 @@ export function safeExistsSync(filePath: string): any;
  * @Boolean True if the path exists. False otherwise
  */
 export function safeMkdirSync(filePath: string, options: Options): any;
-export function safeSpawnSync(command: any, args: any, options: any): any;
-export function shouldFetchLicense(): any;
-export function shouldFetchVCS(): any;
+/**
+ * Safe wrapper around spawnSync that enforces permission checks, injects default
+ * options (maxBuffer, encoding, timeout), warns about unsafe Python and pip/uv
+ * invocations, and records every executed command in the commandsExecuted set.
+ *
+ * @param {string} command The executable to spawn
+ * @param {string[]} args Arguments to pass to the command
+ * @param {Object} options Options forwarded to spawnSync (e.g. cwd, env, shell)
+ * @returns {Object} spawnSync result object with status, stdout, stderr, and error fields
+ */
+export function safeSpawnSync(command: string, args: string[], options: Object): Object;
+/**
+ * Determines whether license information should be fetched from remote sources,
+ * based on the FETCH_LICENSE environment variable.
+ *
+ * @returns {boolean} True if the FETCH_LICENSE env var is set to "true" or "1"
+ */
+export function shouldFetchLicense(): boolean;
+/**
+ * Determines whether VCS (version control system) information should be fetched
+ * for Go packages, based on the GO_FETCH_VCS environment variable.
+ *
+ * @returns {boolean} True if the GO_FETCH_VCS env var is set to "true" or "1"
+ */
+export function shouldFetchVCS(): boolean;
+/**
+ * Returns the Java executable command to use, resolved in priority order:
+ * JAVA_CMD env var > JAVA_HOME/bin/java > "java".
+ *
+ * @returns {string} Path or name of the Java executable
+ */
 export function getJavaCommand(): string;
+/**
+ * Returns the Python executable command to use, resolved in priority order:
+ * PYTHON_CMD env var > CONDA_PYTHON_EXE env var > "python".
+ *
+ * @returns {string} Path or name of the Python executable
+ */
 export function getPythonCommand(): string;
 /**
  * Method to check if a given feature flag is enabled.
@@ -120,7 +154,14 @@ export function addLicenseText(pkg: any, l: any, licenseContent: any): void;
 export function readLicenseText(licenseFilepath: any, licenseContentType: any): {
     content: any;
 } | null;
-export function getSwiftPackageMetadata(pkgList: any): Promise<any[]>;
+/**
+ * Fetches license information for a list of Swift packages by querying the
+ * GitHub repository license API for packages hosted on github.com.
+ *
+ * @param {Object[]} pkgList List of Swift package objects with optional repository.url fields
+ * @returns {Promise<Object[]>} Resolved list of package objects, each augmented with a license field where available
+ */
+export function getSwiftPackageMetadata(pkgList: Object[]): Promise<Object[]>;
 /**
  * Method to retrieve metadata for npm packages by querying npmjs
  *
@@ -189,11 +230,14 @@ export function parsePnpmWorkspace(workspaceFile: string): object;
  * @returns {string} Encoded PURL string
  */
 export function createNpmWorkspacePurl(packageName: string, version: string): string;
-export function parseYarnWorkspace(packageJsonFile: any): {
-    packages?: undefined;
-} | {
-    packages: any;
-};
+/**
+ * Parses the workspaces field from a package.json file and returns the list of
+ * workspace glob patterns. Handles both array and object (with packages key) formats.
+ *
+ * @param {string} packageJsonFile Path to the package.json file to parse
+ * @returns {Object} Object with a packages array of workspace glob patterns, or an empty object on error
+ */
+export function parseYarnWorkspace(packageJsonFile: string): Object;
 /**
  * Helper function to find a package path in pnpm node_modules structure
  *
@@ -305,8 +349,17 @@ export function parseCljDep(rawOutput: string): any[];
  * Parse lein dependency tree output
  * @param {string} rawOutput Raw string output
  */
-export function parseLeinDep(rawOutput: string): any;
-export function parseLeinMap(node: any, keys_cache: any, deps: any): any;
+export function parseLeinDep(rawOutput: string): Object[];
+/**
+ * Recursively walks a parsed EDN map node produced by the Leiningen dependency
+ * tree and collects unique dependency entries into the deps array.
+ *
+ * @param {Object} node Parsed EDN node (expected to have a "map" property)
+ * @param {Object} keys_cache Cache object used to deduplicate entries by group-name-version key
+ * @param {Object[]} deps Accumulator array of dependency objects with group, name, and version fields
+ * @returns {Object[]} The populated deps array
+ */
+export function parseLeinMap(node: Object, keys_cache: Object, deps: Object[]): Object[];
 /**
  * Parse gradle projects output
  *
@@ -618,15 +671,17 @@ export function getRepoLicense(repoUrl: string, repoMetadata: Object): Promise<s
  * @param {Object} repoMetadata Repo metadata
  */
 export function getGoPkgLicense(repoMetadata: Object): Promise<any>;
-export function getGoPkgComponent(group: any, name: any, version: any, hash: any): Promise<{
-    group: any;
-    name: any;
-    version: any;
-    _integrity: any;
-    license: any;
-    purl: string;
-    "bom-ref": string;
-}>;
+/**
+ * Builds a Go package component object containing purl, bom-ref, integrity hash,
+ * and optionally license and VCS external reference information.
+ *
+ * @param {string} group Package group (module path prefix, may be empty)
+ * @param {string} name Package name (full module path when group is empty)
+ * @param {string} version Package version string
+ * @param {string} hash Integrity hash (e.g. "sha256-…"), used as _integrity
+ * @returns {Promise<Object>} Component object ready for inclusion in a BOM package list
+ */
+export function getGoPkgComponent(group: string, name: string, version: string, hash: string): Promise<Object>;
 /**
  * Method to parse go.mod files
  *
@@ -636,7 +691,16 @@ export function getGoPkgComponent(group: any, name: any, version: any, hash: any
  * @returns {Object} Object containing parent component, rootList and packages list
  */
 export function parseGoModData(goModData: string, gosumMap: Object): Object;
-export function parseGoModulesTxt(txtFile: any, gosumMap: any): Promise<any[]>;
+/**
+ * Parses a Go modules text file (e.g. vendor/modules.txt) and returns a list of
+ * Go package components. Cross-references the go.sum map for integrity hashes and
+ * sets scope and confidence based on hash availability.
+ *
+ * @param {string} txtFile Path to the modules.txt file
+ * @param {Object} gosumMap Map of "module@version" keys to sha256 hash values from go.sum
+ * @returns {Promise<Object[]>} List of Go package component objects with evidence
+ */
+export function parseGoModulesTxt(txtFile: string, gosumMap: Object): Promise<Object[]>;
 /**
  * Parse go list output
  *
@@ -646,15 +710,7 @@ export function parseGoModulesTxt(txtFile: any, gosumMap: any): Promise<any[]>;
  */
 export function parseGoListDep(rawOutput: string, gosumMap: Object): Promise<{
     parentComponent: {};
-    pkgList: {
-        group: any;
-        name: any;
-        version: any;
-        _integrity: any;
-        license: any;
-        purl: string;
-        "bom-ref": string;
-    }[];
+    pkgList: Object[];
 }>;
 /**
  * Parse go mod graph
@@ -689,8 +745,23 @@ export function parseGoModWhy(rawOutput: string): string | undefined;
  * @returns package list
  */
 export function parseGosumData(gosumData: string): Promise<any[]>;
-export function parseGopkgData(gopkgData: any): Promise<any[]>;
-export function parseGoVersionData(buildInfoData: any): Promise<any[]>;
+/**
+ * Parses the contents of a Gopkg.lock or Gopkg.toml file (dep tool format) and
+ * returns a list of Go package components. Optionally fetches license information
+ * for each package when FETCH_LICENSE is enabled.
+ *
+ * @param {string} gopkgData Raw string contents of the Gopkg lock/toml file
+ * @returns {Promise<Object[]>} List of Go package component objects
+ */
+export function parseGopkgData(gopkgData: string): Promise<Object[]>;
+/**
+ * Parses the output of `go version -m` (build info) and returns a list of Go
+ * package components for each "dep" line, including name, version, and integrity hash.
+ *
+ * @param {string} buildInfoData Raw string output from `go version -m`
+ * @returns {Promise<Object[]>} List of Go package component objects
+ */
+export function parseGoVersionData(buildInfoData: string): Promise<Object[]>;
 /**
  * Method to query rubygems api for gems details
  *
@@ -777,8 +848,23 @@ export function parseCargoTomlData(cargoTomlFile: string, simple?: boolean, pkgF
  * @returns {Array} A list of the project's components as described by the Cargo.lock-file.
  */
 export function parseCargoData(cargoLockFile: string, simple?: boolean, pkgFilesMap?: Object): any[];
-export function parseCargoDependencyData(cargoLockData: any): any[];
-export function parseCargoAuditableData(cargoData: any): Promise<any[]>;
+/**
+ * Parses a Cargo.lock file's TOML data and returns a flat dependency graph as an
+ * array of objects mapping each package purl to the purls it directly depends on.
+ *
+ * @param {string} cargoLockData Raw TOML string contents of a Cargo.lock file
+ * @returns {Object[]} Array of dependency relationship objects with ref and dependsOn fields
+ */
+export function parseCargoDependencyData(cargoLockData: string): Object[];
+/**
+ * Parses tab-separated cargo-auditable binary metadata output and returns a list
+ * of Rust package components. Optionally fetches crates.io metadata when
+ * FETCH_LICENSE is enabled.
+ *
+ * @param {string} cargoData Tab-separated string output from cargo-auditable or similar tool
+ * @returns {Promise<Object[]>} List of Rust package component objects with group, name, and version
+ */
+export function parseCargoAuditableData(cargoData: string): Promise<Object[]>;
 /**
  * Method to parse pubspec.lock files.
  *
@@ -788,32 +874,172 @@ export function parseCargoAuditableData(cargoData: any): Promise<any[]>;
  * @returns {Object}
  */
 export function parsePubLockData(pubLockData: any, lockFile: any): Object;
-export function parsePubYamlData(pubYamlData: any): any[];
-export function parseHelmYamlData(helmData: any): any[];
-export function recurseImageNameLookup(keyValueObj: any, pkgList: any, imgList: any): any;
-export function parseContainerFile(fileContents: any): {
-    image: any;
-}[];
-export function parseBitbucketPipelinesFile(fileContents: any): {
-    image: any;
-}[];
-export function parseContainerSpecData(dcData: any): any[];
-export function identifyFlow(processingObj: any): string;
-export function parsePrivadoFile(f: any): any[];
-export function parseOpenapiSpecData(oaData: any): any[];
-export function parseCabalData(cabalData: any): any[];
-export function parseMixLockData(mixData: any): any[];
-export function parseGitHubWorkflowData(f: any): any[];
-export function parseCloudBuildData(cbwData: any): any[];
-export function mapConanPkgRefToPurlStringAndNameAndVersion(conanPkgRef: any): (string | null)[];
-export function parseConanLockData(conanLockData: any): {
-    pkgList: any[];
-    dependencies: {};
-    parentComponentDependencies: any[];
+/**
+ * Parses a Dart pub package's pubspec.yaml content and returns a list containing
+ * a single component object with name, description, version, homepage, and purl.
+ *
+ * @param {string} pubYamlData Raw YAML string contents of a pubspec.yaml file
+ * @returns {Object[]} List containing a single Dart package component object
+ */
+export function parsePubYamlData(pubYamlData: string): Object[];
+/**
+ * Parses Helm chart YAML data (Chart.yaml or repository index.yaml) and returns
+ * a list of Helm chart component objects including the chart itself and any
+ * declared dependencies or index entries.
+ *
+ * @param {string} helmData Raw YAML string contents of a Helm Chart.yaml or index.yaml file
+ * @returns {Object[]} List of Helm chart component objects with name, version, and optional homepage/repository
+ */
+export function parseHelmYamlData(helmData: string): Object[];
+/**
+ * Recursively walks a parsed YAML/JSON object structure to find container image
+ * references stored under common keys (image, repository, dockerImage, etc.) and
+ * appends discovered image and service entries to pkgList while tracking seen
+ * images in imgList to avoid duplicates.
+ *
+ * @param {Object|Array|string} keyValueObj The object, array, or string node to inspect
+ * @param {Object[]} pkgList Accumulator array that receives {image} and {service} entries
+ * @param {string[]} imgList Accumulator array of image name strings already seen
+ * @returns {string[]} The updated imgList
+ */
+export function recurseImageNameLookup(keyValueObj: Object | any[] | string, pkgList: Object[], imgList: string[]): string[];
+/**
+ * Parses the contents of a Dockerfile or Containerfile and returns a list of
+ * base image objects referenced by FROM instructions, substituting ARG default
+ * values where possible and skipping multi-stage build alias references.
+ *
+ * @param {string} fileContents Raw string contents of the Dockerfile/Containerfile
+ * @returns {Object[]} Array of objects with an image property for each unique base image
+ */
+export function parseContainerFile(fileContents: string): Object[];
+/**
+ * Parses a Bitbucket Pipelines YAML file and extracts all Docker image references
+ * used as build environments and pipe references (docker:// pipes are normalized).
+ *
+ * @param {string} fileContents Raw string contents of the bitbucket-pipelines.yml file
+ * @returns {Object[]} Array of objects with an image property for each referenced image or pipe
+ */
+export function parseBitbucketPipelinesFile(fileContents: string): Object[];
+/**
+ * Parses container specification data such as Docker Compose files, Kubernetes
+ * manifests, Tekton tasks, Skaffold configs, or Kustomize overlays (YAML, possibly
+ * multi-document) and returns a list of image, service, and OCI spec entries.
+ *
+ * @param {string} dcData Raw YAML string contents of the container spec file
+ * @returns {Object[]} Array of objects with image, service, or ociSpec properties
+ */
+export function parseContainerSpecData(dcData: string): Object[];
+/**
+ * Identifies the data flow direction of a Privado processing object based on its
+ * sinkId value: "write" sinks map to "inbound", "read" sinks to "outbound", and
+ * HTTP/gRPC sinks to "bi-directional".
+ *
+ * @param {Object} processingObj Privado processing object, expected to have a sinkId property
+ * @returns {string} Flow direction string: "inbound", "outbound", "bi-directional", or "unknown"
+ */
+export function identifyFlow(processingObj: Object): string;
+/**
+ * Parses a Privado data flow JSON file and returns a list of service objects
+ * enriched with data classifications, endpoints, trust-boundary flag, violations,
+ * and git metadata properties extracted from the scan result.
+ *
+ * @param {string} f Path to the Privado scan result JSON file
+ * @returns {Object[]} List of service component objects suitable for a SaaSBOM
+ */
+export function parsePrivadoFile(f: string): Object[];
+/**
+ * Parses an OpenAPI specification (JSON or YAML string) and returns a list
+ * containing a single service object with name, version, endpoints, and
+ * authentication flag derived from the spec's info, servers, paths, and
+ * securitySchemes sections.
+ *
+ * @param {string} oaData Raw JSON or YAML string contents of an OpenAPI specification
+ * @returns {Object[]} List containing a single service component object
+ */
+export function parseOpenapiSpecData(oaData: string): Object[];
+/**
+ * Parses Haskell Cabal freeze file content and extracts package name and version
+ * pairs from constraint lines (lines containing " ==").
+ *
+ * @param {string} cabalData Raw string contents of a Cabal freeze file
+ * @returns {Object[]} List of package objects with name and version fields
+ */
+export function parseCabalData(cabalData: string): Object[];
+/**
+ * Parses an Elixir mix.lock file and extracts Hex package name and version pairs
+ * from lines containing ":hex".
+ *
+ * @param {string} mixData Raw string contents of a mix.lock file
+ * @returns {Object[]} List of package objects with name and version fields
+ */
+export function parseMixLockData(mixData: string): Object[];
+/**
+ * Parses a GitHub Actions workflow YAML file and returns a list of action
+ * components for each step that uses an external action (steps with a "uses"
+ * field). Each component captures the action name, group, version/commit SHA,
+ * version pinning type, job context (runner, permissions, environment), and
+ * workflow-level metadata (triggers, concurrency, write permissions).
+ *
+ * @param {string} f Path to the GitHub Actions workflow YAML file
+ * @returns {Object[]} List of action component objects with purl, properties, and evidence
+ */
+export function parseGitHubWorkflowData(f: string): Object[];
+/**
+ * Parse Google Cloud Build YAML data and extract container image steps as packages.
+ *
+ * @param {string} cbwData Raw YAML string of a Cloud Build configuration file
+ * @returns {Object[]} Array of package objects parsed from the build steps
+ */
+export function parseCloudBuildData(cbwData: string): Object[];
+/**
+ * Map a Conan package reference string to a PackageURL string, name, and version.
+ *
+ * Parses a full Conan package reference of the form
+ * `name/version@user/channel#recipe_revision:package_id#package_revision`
+ * and returns the equivalent purl string together with the extracted name and version.
+ *
+ * @param {string} conanPkgRef Conan package reference string
+ * @returns {Array} Tuple of [purlString, name, version], or [null, null, null] on parse failure
+ */
+export function mapConanPkgRefToPurlStringAndNameAndVersion(conanPkgRef: string): any[];
+/**
+ * Parse Conan lock file data (conan.lock) and return the package list, dependency map,
+ * and parent component dependencies.
+ *
+ * Supports both the legacy `graph_lock.nodes` format (Conan 1.x) and the newer
+ * `requires` format (Conan 2.x).
+ *
+ * @param {string} conanLockData Raw JSON string of the Conan lock file
+ * @returns {{ pkgList: Object[], dependencies: Object, parentComponentDependencies: string[] }}
+ */
+export function parseConanLockData(conanLockData: string): {
+    pkgList: Object[];
+    dependencies: Object;
+    parentComponentDependencies: string[];
 };
-export function parseConanData(conanData: any): any[];
-export function parseLeiningenData(leinData: any): any[];
-export function parseEdnData(rawEdnData: any): any[];
+/**
+ * Parse a Conan conanfile.txt and extract required and optional packages.
+ *
+ * @param {string} conanData Raw text contents of a conanfile.txt
+ * @returns {Object[]} Array of package objects with purl, name, version, and scope
+ */
+export function parseConanData(conanData: string): Object[];
+/**
+ * Parse Leiningen project.clj data and extract dependency packages.
+ *
+ * @param {string} leinData Raw text contents of a Leiningen project.clj file
+ * @returns {Object[]} Array of package objects with group, name, and version
+ */
+export function parseLeiningenData(leinData: string): Object[];
+/**
+ * Parse EDN (Extensible Data Notation) deps.edn data and extract dependency packages.
+ *
+ * Handles Clojure deps.edn files, extracting packages listed under the `:deps` key.
+ *
+ * @param {string} rawEdnData Raw EDN text contents of a deps.edn file
+ * @returns {Object[]} Array of package objects with group, name, and version
+ */
+export function parseEdnData(rawEdnData: string): Object[];
 /**
  * Method to parse .nupkg files
  *
@@ -843,7 +1069,14 @@ export function parseFlakeLock(flakeLockFile: string): Object;
  * @returns {Object} Object containing package list and dependencies
  */
 export function parseNuspecData(nupkgFile: string, nuspecData: string): Object;
-export function parseCsPkgData(pkgData: any, pkgFile: any): any[];
+/**
+ * Parse a C# packages.config XML file and return a list of NuGet package components.
+ *
+ * @param {string} pkgData Raw XML string of a packages.config file
+ * @param {string} pkgFile Path to the packages.config file, used for evidence properties
+ * @returns {Object[]} Array of NuGet package objects with purl, name, and version
+ */
+export function parseCsPkgData(pkgData: string, pkgFile: string): Object[];
 /**
  * Method to find all text nodes in PropertyGroup elements in .props files.
  *
@@ -862,18 +1095,45 @@ export function getPropertyGroupTextNodes(propsFiles: string): Object;
  * @returns {Object} Containing parent component, package, and dependencies
  */
 export function parseCsProjData(csProjData: string, projFile: string, pkgNameVersions?: Object, msbuildInstalled?: boolean, pkgVersionLabelCandidates?: {}): Object;
-export function parseCsProjAssetsData(csProjData: any, assetsJsonFile: any): {
-    pkgList: any[];
-    dependenciesList: any[];
+/**
+ * Parse a .NET project.assets.json file and return the package list and dependency tree.
+ *
+ * Extracts NuGet packages and their transitive dependency relationships from the
+ * `libraries` and `targets` sections of a project.assets.json file produced by
+ * the .NET restore process.
+ *
+ * @param {string} csProjData Raw JSON string of the project.assets.json file
+ * @param {string} assetsJsonFile Path to the project.assets.json file, used for evidence properties
+ * @returns {{ pkgList: Object[], dependenciesList: Object[] }}
+ */
+export function parseCsProjAssetsData(csProjData: string, assetsJsonFile: string): {
+    pkgList: Object[];
+    dependenciesList: Object[];
 };
-export function parseCsPkgLockData(csLockData: any, pkgLockFile: any): {
-    pkgList: any[];
-    dependenciesList: any[];
-    rootList: any[];
+/**
+ * Parse a .NET packages.lock.json file and return the package list, dependency tree,
+ * and list of direct/root dependencies.
+ *
+ * @param {string} csLockData Raw JSON string of the packages.lock.json file
+ * @param {string} pkgLockFile Path to the packages.lock.json file, used for evidence properties
+ * @returns {{ pkgList: Object[], dependenciesList: Object[], rootList: Object[] }}
+ */
+export function parseCsPkgLockData(csLockData: string, pkgLockFile: string): {
+    pkgList: Object[];
+    dependenciesList: Object[];
+    rootList: Object[];
 };
-export function parsePaketLockData(paketLockData: any, pkgLockFile: any): {
-    pkgList: any[];
-    dependenciesList: any[];
+/**
+ * Parse a Paket dependency manager lock file (paket.lock) and return the package list
+ * and dependency tree.
+ *
+ * @param {string} paketLockData Raw text contents of the paket.lock file
+ * @param {string} pkgLockFile Path to the paket.lock file, used for evidence properties
+ * @returns {{ pkgList: Object[], dependenciesList: Object[] }}
+ */
+export function parsePaketLockData(paketLockData: string, pkgLockFile: string): {
+    pkgList: Object[];
+    dependenciesList: Object[];
 };
 /**
  * Parse composer.json file
@@ -947,12 +1207,18 @@ export function parseComposerLock(pkgLockFile: string, rootRequires: array): nev
         };
     }[];
 };
-export function parseSbtTree(sbtTreeFile: any): {
-    pkgList: any[];
-    dependenciesList: {
-        ref: string;
-        dependsOn: any[];
-    }[];
+/**
+ * Parse an sbt dependency tree output file and return the package list and dependency tree.
+ *
+ * Reads a file produced by the sbt `dependencyTree` command and extracts Maven artifact
+ * coordinates, building a hierarchical dependency graph. Evicted packages and ranges are ignored.
+ *
+ * @param {string} sbtTreeFile Path to the sbt dependency tree output file
+ * @returns {{ pkgList: Object[], dependenciesList: Object[] }}
+ */
+export function parseSbtTree(sbtTreeFile: string): {
+    pkgList: Object[];
+    dependenciesList: Object[];
 };
 /**
  * Parse sbt lock file
@@ -1035,7 +1301,18 @@ export function convertOSQueryResults(queryCategory: string, queryObj: Object, r
     scope: any;
     type: any;
 }[];
-export function purlFromUrlString(type: any, repoUrl: any, version: any): PackageURL | undefined;
+/**
+ * Create a PackageURL object from a repository URL string, package type, and version.
+ *
+ * Supports HTTPS URLs, SSH `git@` URLs, Bitbucket SSH URLs, and local paths.
+ * Extracts the namespace (host + path prefix) and repository name from the URL.
+ *
+ * @param {string} type PackageURL type (e.g. `"swift"`, `"generic"`)
+ * @param {string} repoUrl Repository URL string
+ * @param {string} version Package version
+ * @returns {PackageURL|undefined} PackageURL object, or undefined for unsupported URL formats
+ */
+export function purlFromUrlString(type: string, repoUrl: string, version: string): PackageURL | undefined;
 /**
  * Parse swift dependency tree output json object
  *
@@ -1094,7 +1371,21 @@ export function parseSwiftResolved(resolvedFile: string): {
  * @param {boolean} includeCacheDir Include maven and gradle cache directories
  */
 export function collectMvnDependencies(mavenCmd: string, basePath: string, cleanup?: boolean, includeCacheDir?: boolean): Promise<{}>;
-export function collectGradleDependencies(_gradleCmd: any, _basePath: any, _cleanup?: boolean, _includeCacheDir?: boolean): Promise<{}>;
+/**
+ * Collect Gradle project dependencies by scanning the Gradle cache directory for JAR files
+ * and their associated POM files.
+ *
+ * Uses the `GRADLE_CACHE_DIR` or `GRADLE_USER_HOME` environment variables to locate the
+ * Gradle files-2.1 cache, then delegates to {@link collectJarNS} to extract namespace
+ * and purl information from those JARs.
+ *
+ * @param {string} _gradleCmd Gradle command (unused; reserved for future use)
+ * @param {string} _basePath Base project path (unused; reserved for future use)
+ * @param {boolean} _cleanup Whether to clean up temporary files (unused; reserved for future use)
+ * @param {boolean} _includeCacheDir Whether to include cache directory (unused; reserved for future use)
+ * @returns {Promise<Object>} JAR namespace mapping object returned by collectJarNS
+ */
+export function collectGradleDependencies(_gradleCmd: string, _basePath: string, _cleanup?: boolean, _includeCacheDir?: boolean): Promise<Object>;
 /**
  * Method to collect class names from all jars in a directory
  *
@@ -1104,30 +1395,17 @@ export function collectGradleDependencies(_gradleCmd: any, _basePath: any, _clea
  * @return object containing jar name and class list
  */
 export function collectJarNS(jarPath: string, pomPathMap?: object): Promise<{}>;
-export function convertJarNSToPackages(jarNSMapping: any): Promise<{
-    name: any;
-    group: any;
-    version: any;
-    description: any;
-    purl: string;
-    "bom-ref": string;
-    hashes: any;
-    evidence: {
-        identity: {
-            field: string;
-            confidence: number;
-            methods: {
-                technique: string;
-                confidence: number;
-                value: any;
-            }[];
-        };
-    };
-    properties: {
-        name: string;
-        value: any;
-    }[];
-}[]>;
+/**
+ * Convert a JAR namespace mapping (produced by {@link collectJarNS}) into an array
+ * of CycloneDX package component objects.
+ *
+ * Each entry in the mapping is resolved to a component with name, group, version,
+ * purl, hashes, namespace properties, and source file evidence.
+ *
+ * @param {Object} jarNSMapping Map of purl string to `{ jarFile, pom, namespaces, hashes }`
+ * @returns {Promise<Object[]>} Array of component objects derived from the JAR mapping
+ */
+export function convertJarNSToPackages(jarNSMapping: Object): Promise<Object[]>;
 /**
  * Deprecated function to parse pom.xml. Use parsePom instead.
  *
@@ -1136,9 +1414,28 @@ export function convertJarNSToPackages(jarNSMapping: any): Promise<{
  * @returns {Object} Parent component data
  */
 export function parsePomXml(pomXmlData: any): Object;
-export function parseJarManifest(jarMetadata: any): {};
-export function parsePomProperties(pomProperties: any): {};
-export function encodeForPurl(s: any): any;
+/**
+ * Parse a JAR MANIFEST.MF file and return its key-value pairs as an object.
+ *
+ * @param {string} jarMetadata Raw text contents of a MANIFEST.MF file
+ * @returns {Object} Key-value pairs extracted from the manifest
+ */
+export function parseJarManifest(jarMetadata: string): Object;
+/**
+ * Parse a Maven pom.properties file and return its key-value pairs as an object.
+ *
+ * @param {string} pomProperties Raw text contents of a pom.properties file
+ * @returns {Object} Key-value pairs extracted from the properties file
+ */
+export function parsePomProperties(pomProperties: string): Object;
+/**
+ * Encode a string for safe inclusion in a PackageURL, percent-encoding special characters
+ * while preserving already-encoded `%40` sequences and keeping `:` and `/` unencoded.
+ *
+ * @param {string} s String to encode
+ * @returns {string} Encoded string suitable for use in a PackageURL component
+ */
+export function encodeForPurl(s: string): string;
 /**
  * Method to get pom properties from maven directory
  *
@@ -1320,7 +1617,20 @@ export function getMavenCommand(srcPath: string, rootPath: string): string;
  * Retrieves the atom command by referring to various environment variables
  */
 export function getAtomCommand(): any;
-export function executeAtom(src: any, args: any, extra_env?: {}): boolean;
+/**
+ * Execute the atom tool against a source directory or file with the given arguments.
+ *
+ * Resolves the atom binary via `getAtomCommand`, sets up the required environment
+ * (including `JAVA_HOME` from `ATOM_JAVA_HOME` if set), and spawns the process.
+ * Logs diagnostic messages for common failure modes such as unsupported Java versions,
+ * missing `astgen`, and JVM crashes.
+ *
+ * @param {string} src Path to the source directory or file to analyse
+ * @param {string[]} args Arguments to pass to the atom command
+ * @param {Object} extra_env Additional environment variables to merge into the process environment
+ * @returns {boolean} `true` if atom executed successfully and the language is supported; `false` otherwise
+ */
+export function executeAtom(src: string, args: string[], extra_env?: Object): boolean;
 /**
  * Find the imported modules in the application with atom parsedeps command
  *
@@ -1378,11 +1688,18 @@ export function getPipTreeForPackages(basePath: string, pkgList: any[], tempVenv
         dependsOn: any[];
     }[];
 };
-export function parsePackageJsonName(name: any): {
-    scope: null;
+/**
+ * Parse a package.json `name` field (or a plain string) and extract its scope,
+ * full name, project name, and module name components.
+ *
+ * @param {string|Object} name The package name string or an object with a `name` property
+ * @returns {{ scope: string|null, fullName: string, projectName: string|null, moduleName: string|null }}
+ */
+export function parsePackageJsonName(name: string | Object): {
+    scope: string | null;
     fullName: string;
-    projectName: string;
-    moduleName: string;
+    projectName: string | null;
+    moduleName: string | null;
 };
 /**
  * Method to add occurrence evidence for components based on import statements. Currently useful for js
@@ -1393,20 +1710,61 @@ export function parsePackageJsonName(name: any): {
  * @param {Boolean} deep Deep mode
  */
 export function addEvidenceForImports(pkgList: array, allImports: object, allExports: object, deep: boolean): Promise<array>;
-export function componentSorter(a: any, b: any): any;
-export function parseCmakeDotFile(dotFile: any, pkgType: any, options?: {}): {
-    parentComponent: {};
-    pkgList: any[];
-    dependenciesList: {
-        ref: string;
-        dependsOn: any[];
-    }[];
+/**
+ * Comparator function for sorting CycloneDX component objects.
+ *
+ * Compares components by `bom-ref`, then `purl`, then `name`, using locale-aware
+ * string comparison on the first available key.
+ *
+ * @param {Object|string} a First component to compare
+ * @param {Object|string} b Second component to compare
+ * @returns {number} Negative, zero, or positive integer as required by Array.sort
+ */
+export function componentSorter(a: Object | string, b: Object | string): number;
+/**
+ * Parse a CMake-generated dot/graphviz file and extract components and their dependency
+ * relationships.
+ *
+ * The first `digraph` entry becomes the parent component. Subsequent `node` entries
+ * with a `label` attribute are treated as direct dependencies, while commented
+ * `node -> node` relationships are used to construct the dependency graph.
+ *
+ * @param {string} dotFile Path to the CMake-generated dot file
+ * @param {string} pkgType PackageURL type to assign to extracted packages (e.g. `"generic"`)
+ * @param {Object} options CLI options; may contain `projectGroup`, `projectName`, and `projectVersion`
+ * @returns {{ parentComponent: Object, pkgList: Object[], dependenciesList: Object[] }}
+ */
+export function parseCmakeDotFile(dotFile: string, pkgType: string, options?: Object): {
+    parentComponent: Object;
+    pkgList: Object[];
+    dependenciesList: Object[];
 };
-export function parseCmakeLikeFile(cmakeListFile: any, pkgType: any, options?: {}): {
-    parentComponent: {};
-    pkgList: any[];
+/**
+ * Parse a CMake-like build file (CMakeLists.txt, meson.build, etc.) and extract the
+ * parent component and list of dependency packages.
+ *
+ * Handles `set`, `project`, `find_package`, `find_library`, `find_dependency`,
+ * `find_file`, `FetchContent_MakeAvailable`, and `dependency()` directives.
+ * Uses the MesonWrapDB to improve name resolution confidence.
+ *
+ * @param {string} cmakeListFile Path to the CMake-like build file
+ * @param {string} pkgType PackageURL type to assign to extracted packages (e.g. `"generic"`)
+ * @param {Object} options CLI options; may contain `projectGroup`, `projectName`, and `projectVersion`
+ * @returns {{ parentComponent: Object, pkgList: Object[] }}
+ */
+export function parseCmakeLikeFile(cmakeListFile: string, pkgType: string, options?: Object): {
+    parentComponent: Object;
+    pkgList: Object[];
 };
-export function getOSPackageForFile(afile: any, osPkgsList: any): any;
+/**
+ * Find the OS package component that provides a given file, by searching the
+ * `PkgProvides` property of each package in the OS package list.
+ *
+ * @param {string} afile Filename or path to look up (matched case-insensitively)
+ * @param {Object[]} osPkgsList Array of OS package component objects to search
+ * @returns {Object|undefined} The matching OS package component, or undefined if not found
+ */
+export function getOSPackageForFile(afile: string, osPkgsList: Object[]): Object | undefined;
 /**
  * Method to find c/c++ modules by collecting usages with atom
  *
@@ -1416,7 +1774,25 @@ export function getOSPackageForFile(afile: any, osPkgsList: any): any;
  * @param {array} epkgList Existing packages list
  */
 export function getCppModules(src: string, options: object, osPkgsList: array, epkgList: array): {
-    parentComponent: {} | undefined;
+    parentComponent: Object | {
+        name: any;
+        version: any;
+        description: any;
+        license: any;
+        purl: string;
+        type: string;
+        "bom-ref": string;
+        group?: undefined;
+    } | {
+        group: any;
+        name: any;
+        version: string;
+        type: string;
+        description?: undefined;
+        license?: undefined;
+        purl?: undefined;
+        "bom-ref"?: undefined;
+    } | undefined;
     pkgList: any[];
     dependenciesList: {
         ref: any;
@@ -1442,7 +1818,19 @@ export function getNugetMetadata(pkgList: any[], dependencies?: any[]): Promise<
     pkgList: any[];
     dependencies: any[];
 }>;
-export function addEvidenceForDotnet(pkgList: any, slicesFile: any): any;
+/**
+ * Enrich .NET package components with occurrence evidence and imported module/method
+ * information from a dosai dependency slices file.
+ *
+ * Builds a mapping of DLL filenames to purls using the `PackageFiles` property of each
+ * package, then reads the slices file to add occurrence locations, imported modules,
+ * called methods, and assembly version information where available.
+ *
+ * @param {Object[]} pkgList Array of .NET package component objects to enrich
+ * @param {string} slicesFile Path to the dosai dependency slices JSON file
+ * @returns {Object[]} The enriched package list (same array, mutated in place)
+ */
+export function addEvidenceForDotnet(pkgList: Object[], slicesFile: string): Object[];
 /**
  * Function to parse the .d make files
  *
@@ -1530,7 +1918,15 @@ export function isValidDriveRoot(root: string): boolean;
  * Get version and runtime information
  */
 export function retrieveCdxgenVersion(): string;
-export function retrieveCdxgenPluginVersion(): any;
+/**
+ * Retrieve the version of the cdxgen plugins binary package from package.json.
+ *
+ * Reads the local package.json and searches the `optionalDependencies` for a package
+ * whose name starts with `@cdxgen/cdxgen-plugins-bin`, returning its declared version.
+ *
+ * @returns {string|undefined} Version string of the plugins binary package, or undefined if not found
+ */
+export function retrieveCdxgenPluginVersion(): string | undefined;
 /**
  * Helper to split a command line string into an array of arguments,
  * respecting single and double quotes.
@@ -1563,7 +1959,7 @@ export const MAX_BUFFER: number;
 export let metadata_cache: {};
 export const includeMavenTestScope: boolean;
 export const PREFER_MAVEN_DEPS_TREE: boolean;
-export const FETCH_LICENSE: any;
+export const FETCH_LICENSE: boolean;
 export const SEARCH_MAVEN_ORG: boolean;
 export const JAVA_CMD: string;
 export const PYTHON_CMD: string;

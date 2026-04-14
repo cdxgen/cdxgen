@@ -214,7 +214,15 @@ export function getOrInstallNvmTool(toolVersion: string): string;
  * @returns {Boolean} true if rbenv is available. false otherwise.
  */
 export function isRbenvAvailable(): boolean;
-export function rubyVersionDir(rubyVersion: any): any;
+/**
+ * Returns the rbenv binary directory for the given Ruby version.
+ * Respects the `RBENV_ROOT` environment variable when set; otherwise falls back
+ * to `~/.rbenv/versions/<rubyVersion>/bin`.
+ *
+ * @param {string} rubyVersion Ruby version string (e.g. `"3.2.2"`)
+ * @returns {string} Absolute path to the rbenv bin directory for that version
+ */
+export function rubyVersionDir(rubyVersion: string): string;
 /**
  * Perform bundle install using Ruby container images. Not working cleanly yet.
  *
@@ -230,7 +238,10 @@ export function bundleInstallWithDocker(rubyVersion: any, cdxgenGemHome: any, fi
  * @param filePath File path
  */
 export function installRubyVersion(rubyVersion: any, filePath: any): {
-    fullToolBinDir: any;
+    fullToolBinDir: undefined;
+    status: boolean;
+} | {
+    fullToolBinDir: string;
     status: boolean;
 };
 /**
