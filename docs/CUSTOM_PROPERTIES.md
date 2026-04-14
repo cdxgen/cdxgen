@@ -18,10 +18,10 @@ CycloneDX custom properties are emitted as name/value pairs, so consumers should
 |---|---|---|---|
 | Boolean | `"true"`, `"false"` | `cdx:github:workflow:hasWritePermissions`, `cdx:npm:hasInstallScript`, `cdx:maven:shaded` | Compare as strings in OPA/CEL unless your ingestion layer normalizes values first |
 | Number-like | decimal string | `cdx:github:job:timeoutMinutes`, `cdx:pixi:build_number` | Treat as strings unless your policy engine performs numeric coercion |
-| Lists | comma-separated or newline-separated strings | `cdx:github:workflow:triggers`, `cdx:npm:risky_scripts`, `cdx:bom:componentSrcFiles` | Split explicitly before matching multi-value logic |
+| Lists | comma-separated or newline-separated strings | `cdx:github:workflow:triggers`, `cdx:npm:risky_scripts`, `cdx:bom:componentSrcFiles` | Component-level lists are typically comma-separated; BOM-level metadata lists are typically newline-separated. Split explicitly before matching multi-value logic |
 | Paths / URLs | plain string | `cdx:github:workflow:file`, `cdx:swift:localCheckoutPath`, `cdx:pypi:registry` | Useful as provenance and source-of-truth signals |
 | Timestamps | ISO 8601 string | `cdx:go:creation_time`, `cdx:nix:last_modified` | Suitable for recency or reproducibility gates |
-| Structured payloads | JSON-serialized string | `cdx:pip:structuredMarkers`, `cdx:cargo:features` | Parse before field-level inspection |
+| Structured payloads | JSON-serialized string | `cdx:pip:structuredMarkers`, `cdx:cargo:features` | Parse the JSON string before field-level inspection; do not compare nested fields as raw text unless your policy engine lacks JSON parsing |
 
 ### Policy readiness shorthand
 
@@ -145,7 +145,7 @@ The grouped lists below remain the authoritative inventory. The compact tables, 
 #### Alias and overlap notes
 
 - Prefer matching **both** `cdx:github:action:isShaPinned` and `cdx:github:action:versionPinningType` when possible; the former is the convenience boolean and the latter carries more nuance.
-- Match both `cdx:azure:pool:vmImage` and `cdx:azure:job:pool:vmImage`; the former is a workflow-level default and the latter is the job-level override that should usually win.
+- Match both `cdx:azure:pool:vmImage` and `cdx:azure:job:pool:vmImage`; for policy logic, evaluate the job-level value first and fall back to the workflow-level default only when no job override exists.
 
 <a id="inventory-packages"></a>
 ### Package manager and language ecosystems
@@ -257,7 +257,7 @@ The grouped lists below remain the authoritative inventory. The compact tables, 
 #### Alias and overlap notes
 
 - Prefer `cdx:npm:isWorkspace`, but match **both** `cdx:npm:isWorkspace` and `cdx:npm:is_workspace` in policies for compatibility.
-- `cdx:pip:structuredMarkers` is the more machine-friendly companion to `cdx:pip:markers`; when both exist, prefer the structured form for policy logic and keep the raw form for explainability.
+- `cdx:pip:structuredMarkers` is the more machine-friendly companion to `cdx:pip:markers`; when both exist, parse the JSON string and prefer the structured form for policy logic, while keeping the raw form for explainability.
 - `cdx:gem:remoteBranch` and `cdx:gem:remoteTag` are weaker, mutable source indicators than `cdx:gem:remoteRevision`.
 - `cdx:nix:ref` is descriptive context; use `cdx:nix:revision` and `cdx:nix:nar_hash` as the stronger reproducibility gates.
 
@@ -391,19 +391,22 @@ Below are realistic examples showing how to use attributes individually and in c
 ```rego
 package cdxgen.policies
 
+has_prop(c, name, value) {
+  some p in c.properties
+  p.name == name
+  p.value == value
+}
+
 deny[msg] {
   some c in input.components
-  c.properties[_].name == "cdx:github:action:isShaPinned"
-  c.properties[_].value == "false"
+  has_prop(c, "cdx:github:action:isShaPinned", "false")
   msg := sprintf("Unpinned GitHub Action: %s", [c.purl])
 }
 
 deny[msg] {
   some c in input.components
-  c.properties[_].name == "cdx:github:action:isShaPinned"
-  c.properties[_].value == "false"
-  c.properties[_].name == "cdx:github:workflow:hasWritePermissions"
-  c.properties[_].value == "true"
+  has_prop(c, "cdx:github:action:isShaPinned", "false")
+  has_prop(c, "cdx:github:workflow:hasWritePermissions", "true")
   msg := sprintf("Unpinned action in write-permission workflow: %s", [c.purl])
 }
 ```
@@ -445,19 +448,22 @@ input.components.exists(c,
 ```rego
 package cdxgen.policies
 
+has_prop(c, name, value) {
+  some p in c.properties
+  p.name == name
+  p.value == value
+}
+
 warn[msg] {
   some c in input.components
-  c.properties[_].name == "cdx:npm:hasInstallScript"
-  c.properties[_].value == "true"
+  has_prop(c, "cdx:npm:hasInstallScript", "true")
   msg := sprintf("npm package has install script: %s", [c.purl])
 }
 
 deny[msg] {
   some c in input.components
-  c.properties[_].name == "cdx:npm:hasInstallScript"
-  c.properties[_].value == "true"
-  c.properties[_].name == "cdx:npm:isRegistryDependency"
-  c.properties[_].value == "false"
+  has_prop(c, "cdx:npm:hasInstallScript", "true")
+  has_prop(c, "cdx:npm:isRegistryDependency", "false")
   msg := sprintf("npm package executes install script from non-registry source: %s", [c.purl])
 }
 ```
@@ -636,12 +642,16 @@ deny[msg] {
 ```rego
 package cdxgen.policies
 
+has_prop(c, name, value) {
+  some p in c.properties
+  p.name == name
+  p.value == value
+}
+
 deny[msg] {
   some c in input.components
-  c.properties[_].name == "cdx:github:workflow:hasIdTokenWrite"
-  c.properties[_].value == "true"
-  c.properties[_].name == "cdx:actions:isOfficial"
-  c.properties[_].value == "false"
+  has_prop(c, "cdx:github:workflow:hasIdTokenWrite", "true")
+  has_prop(c, "cdx:actions:isOfficial", "false")
   msg := sprintf("OIDC-enabled workflow references non-official action: %s", [c.purl])
 }
 ```
@@ -660,4 +670,5 @@ input.components.exists(c,
 - Prefer evaluating these as **context enrichers** rather than strict truth assertions unless you explicitly normalize missing-vs-false semantics.
 - Treat workspace/local path indicators (`isLink`, `resolvedPath`, `localCheckoutPath`, `projectDir`, `flake_dir`, `local_dir`) as provenance signals that may require stronger trust controls.
 - Treat execution-related indicators (`risky_scripts`, `hasInstallScript`, CI write permissions, OIDC enablement, action pinning type) as high-priority triage fields for software supply chain risk.
+- In Rego examples, prefer helper predicates such as `has_prop(c, name, value)` for multi-property checks so both predicates are evaluated on the same component instead of relying on repeated `c.properties[_]` array iteration.
 - Match overlapping keys where noted (`cdx:npm:isWorkspace` and `cdx:npm:is_workspace`; Azure pool defaults and job overrides) so older and newer BOMs behave consistently in policy engines.
