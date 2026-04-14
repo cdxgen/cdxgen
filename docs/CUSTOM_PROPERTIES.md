@@ -67,6 +67,231 @@ This page documents the current `cdx:` custom properties emitted by cdxgen, the 
 - `cdx:osquery:category`
 - `cdx:service:httpMethod`
 
+## Practical use-case patterns with policy examples
+
+Below are realistic examples showing how to use attributes individually and in combination.
+
+### 1) Block unpinned GitHub Actions in privileged workflows
+
+**Individual signal**
+
+- `cdx:github:action:isShaPinned=false` means the action reference is tag/branch-based, not commit-SHA pinned.
+
+**Combined signal**
+
+- Escalate severity when both are true:
+  - `cdx:github:action:isShaPinned=false`
+  - `cdx:github:workflow:hasWritePermissions=true` (or `cdx:github:job:hasWritePermissions=true`)
+
+**OPA (Rego)**
+
+```rego
+package cdxgen.policies
+
+deny[msg] {
+  some c in input.components
+  c.properties[_].name == "cdx:github:action:isShaPinned"
+  c.properties[_].value == "false"
+  msg := sprintf("Unpinned GitHub Action: %s", [c.purl])
+}
+
+deny[msg] {
+  some c in input.components
+  c.properties[_].name == "cdx:github:action:isShaPinned"
+  c.properties[_].value == "false"
+  c.properties[_].name == "cdx:github:workflow:hasWritePermissions"
+  c.properties[_].value == "true"
+  msg := sprintf("Unpinned action in write-permission workflow: %s", [c.purl])
+}
+```
+
+**CEL**
+
+```cel
+// any unpinned action
+input.components.exists(c,
+  c.properties.exists(p, p.name == "cdx:github:action:isShaPinned" && p.value == "false")
+)
+
+// unpinned action + write permissions
+input.components.exists(c,
+  c.properties.exists(p, p.name == "cdx:github:action:isShaPinned" && p.value == "false") &&
+  (
+    c.properties.exists(p, p.name == "cdx:github:workflow:hasWritePermissions" && p.value == "true") ||
+    c.properties.exists(p, p.name == "cdx:github:job:hasWritePermissions" && p.value == "true")
+  )
+)
+```
+
+### 2) Flag npm packages with install-time execution risk
+
+**Individual signals**
+
+- `cdx:npm:hasInstallScript=true`
+- `cdx:npm:risky_scripts` contains lifecycle hooks (for example `preinstall`, `postinstall`)
+
+**Combined signal**
+
+- Raise priority when execution risk combines with non-registry source:
+  - `cdx:npm:hasInstallScript=true` (or `cdx:npm:risky_scripts` present)
+  - `cdx:npm:isRegistryDependency=false`
+
+**OPA (Rego)**
+
+```rego
+package cdxgen.policies
+
+warn[msg] {
+  some c in input.components
+  c.properties[_].name == "cdx:npm:hasInstallScript"
+  c.properties[_].value == "true"
+  msg := sprintf("npm package has install script: %s", [c.purl])
+}
+
+deny[msg] {
+  some c in input.components
+  c.properties[_].name == "cdx:npm:hasInstallScript"
+  c.properties[_].value == "true"
+  c.properties[_].name == "cdx:npm:isRegistryDependency"
+  c.properties[_].value == "false"
+  msg := sprintf("npm package executes install script from non-registry source: %s", [c.purl])
+}
+```
+
+**CEL**
+
+```cel
+input.components.exists(c,
+  c.properties.exists(p, p.name == "cdx:npm:hasInstallScript" && p.value == "true") &&
+  c.properties.exists(p, p.name == "cdx:npm:isRegistryDependency" && p.value == "false")
+)
+```
+
+### 3) Enforce approved Python package registries
+
+**Individual signal**
+
+- `cdx:pypi:registry` appears when a non-default Python registry is used.
+
+**Combined signal**
+
+- Combine with `cdx:pypi:versionSpecifiers` to prioritize non-pinned dependencies from non-approved registries.
+
+**OPA (Rego)**
+
+```rego
+package cdxgen.policies
+
+approved_registries := {
+  "https://pypi.org/simple",
+  "https://pypi.org",
+}
+
+deny[msg] {
+  some c in input.components
+  some p in c.properties
+  p.name == "cdx:pypi:registry"
+  not approved_registries[p.value]
+  msg := sprintf("Unapproved PyPI registry for %s: %s", [c.purl, p.value])
+}
+```
+
+**CEL**
+
+```cel
+input.components.exists(c,
+  c.properties.exists(p, p.name == "cdx:pypi:registry" &&
+    !(p.value in ["https://pypi.org/simple", "https://pypi.org"]))
+)
+```
+
+### 4) Require Nix lock fidelity metadata for reproducibility
+
+**Individual signals**
+
+- `cdx:nix:revision`
+- `cdx:nix:nar_hash`
+
+**Combined signal**
+
+- Consider a Nix dependency policy-compliant only when both properties are present.
+
+**OPA (Rego)**
+
+```rego
+package cdxgen.policies
+
+has_prop(c, name) {
+  some p in c.properties
+  p.name == name
+}
+
+deny[msg] {
+  some c in input.components
+  startswith(c.purl, "pkg:nix/")
+  not has_prop(c, "cdx:nix:revision")
+  msg := sprintf("Nix component missing revision: %s", [c.purl])
+}
+
+deny[msg] {
+  some c in input.components
+  startswith(c.purl, "pkg:nix/")
+  not has_prop(c, "cdx:nix:nar_hash")
+  msg := sprintf("Nix component missing nar_hash: %s", [c.purl])
+}
+```
+
+**CEL**
+
+```cel
+input.components.exists(c,
+  c.purl.startsWith("pkg:nix/") &&
+  (
+    !c.properties.exists(p, p.name == "cdx:nix:revision") ||
+    !c.properties.exists(p, p.name == "cdx:nix:nar_hash")
+  )
+)
+```
+
+### 5) Gate BOM completeness before downstream signing/attestation
+
+**Individual signals**
+
+- `cdx:bom:componentTypes`
+- `cdx:bom:componentSrcFiles`
+
+**Combined signal**
+
+- Require both metadata properties to exist before generating a “trusted” attestation.
+
+**OPA (Rego)**
+
+```rego
+package cdxgen.policies
+
+meta_has(name) {
+  some p in input.metadata.properties
+  p.name == name
+}
+
+deny[msg] {
+  not meta_has("cdx:bom:componentTypes")
+  msg := "BOM metadata missing cdx:bom:componentTypes"
+}
+
+deny[msg] {
+  not meta_has("cdx:bom:componentSrcFiles")
+  msg := "BOM metadata missing cdx:bom:componentSrcFiles"
+}
+```
+
+**CEL**
+
+```cel
+!(input.metadata.properties.exists(p, p.name == "cdx:bom:componentTypes") &&
+  input.metadata.properties.exists(p, p.name == "cdx:bom:componentSrcFiles"))
+```
+
 ## Notes for policy authors
 
 - Prefer evaluating these as **context enrichers** rather than strict truth assertions.
