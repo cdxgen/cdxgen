@@ -285,7 +285,4 @@ export function createBom(path: string, options: Object): Promise<Object>;
 export function submitBom(args: Object, bomContents: Object): Promise<{
     token: string;
 } | undefined>;
-import { mergeDependencies } from "../helpers/depsUtils.js";
-import { trimComponents } from "../helpers/depsUtils.js";
-export { mergeDependencies, trimComponents };
 //# sourceMappingURL=index.d.ts.map
