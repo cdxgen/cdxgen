@@ -10,6 +10,8 @@ This page documents the current `cdx:` custom properties emitted by cdxgen, the 
 
 ## How to read these properties
 
+Some CI/CD properties are derived from a workflow or job context but may also be duplicated onto related components/tasks to support policy engines that primarily scan `input.components`. In those cases, treat the `Scope` column as indicating the primary origin plus common duplicated locations used for policy consumption.
+
 ### Value semantics and normalization
 
 CycloneDX custom properties are emitted as name/value pairs, so consumers should assume that **all values are serialized as strings** even when they represent booleans, numbers, timestamps, or structured data.
@@ -100,11 +102,11 @@ The grouped lists below remain the authoritative inventory. The compact tables, 
 |---|---|---|---|---|---|---|
 | `cdx:github:action:isShaPinned` | step | boolean string | `"true"`, `"false"` | On `uses:` steps in GitHub Actions workflows | Primary mutable-vs-immutable trust signal for third-party actions | Hard deny |
 | `cdx:github:action:versionPinningType` | step | enum string | `sha`, `tag`, `branch` | On `uses:` steps in GitHub Actions workflows | More expressive companion to `isShaPinned`; lets policies distinguish branch and tag references | Warning / triage |
-| `cdx:github:workflow:hasWritePermissions` | workflow | boolean string | `"true"`, `"false"` | When workflow permissions are parsed | Privilege amplifier for other risky signals | Hard deny |
-| `cdx:github:workflow:hasIdTokenWrite` | workflow | boolean string | `"true"`, `"false"` | When `id-token: write` is present | High-signal OIDC issuance capability | Hard deny |
+| `cdx:github:workflow:hasWritePermissions` | workflow + component | boolean string | `"true"`, `"false"` | When workflow permissions are parsed | Privilege amplifier for other risky signals | Hard deny |
+| `cdx:github:workflow:hasIdTokenWrite` | workflow + component | boolean string | `"true"`, `"false"` | When `id-token: write` is present | High-signal OIDC issuance capability | Hard deny |
 | `cdx:github:job:hasWritePermissions` | job | boolean string | `"true"`, `"false"` | When job-level permissions are parsed | Captures narrower but still powerful write scope | Hard deny |
 | `cdx:github:step:command` | step | string | `npm ci && npm test` | On `run:` steps | Direct execution surface useful for review and explainability | Context only |
-| `cdx:github:workflow:triggers` | workflow | list string | `push,pull_request` | When workflow triggers are present | Helps constrain where other risks are reachable | Warning / triage |
+| `cdx:github:workflow:triggers` | workflow + component | list string | `push,pull_request` | When workflow triggers are present | Helps constrain where other risks are reachable | Warning / triage |
 | `cdx:actions:isOfficial` | step | boolean string | `"true"`, `"false"` | On GitHub action components | Distinguishes first-party from third-party action sources | Warning / triage |
 | `cdx:actions:isVerified` | step | boolean string | `"true"`, `"false"` | On GitHub action components | Helpful trust signal but not sufficient on its own | Warning / triage |
 | `cdx:gitlab:job:image` | job | string | `node:20-alpine` | When GitLab job images are defined | Exposes execution environment and provenance | Warning / triage |
