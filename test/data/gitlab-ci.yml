@@ -1,0 +1,62 @@
+image: node:20
+
+stages:
+  - install
+  - build
+  - test
+  - deploy
+
+variables:
+  NODE_ENV: production
+  CACHE_DIR: .cache
+
+cache:
+  paths:
+    - node_modules/
+    - .cache/
+
+install_dependencies:
+  stage: install
+  script:
+    - npm ci
+  artifacts:
+    paths:
+      - node_modules/
+
+build:
+  stage: build
+  script:
+    - npm run build
+  artifacts:
+    paths:
+      - dist/
+
+test:
+  stage: test
+  services:
+    - postgres:14
+    - redis:7
+  script:
+    - npm test
+  coverage: '/Lines\s*:\s*(\d+\.?\d*)%/'
+
+deploy_staging:
+  stage: deploy
+  environment:
+    name: staging
+    url: https://staging.example.com
+  script:
+    - echo "Deploying to staging"
+  only:
+    - develop
+
+deploy_production:
+  stage: deploy
+  environment:
+    name: production
+    url: https://example.com
+  script:
+    - echo "Deploying to production"
+  only:
+    - main
+  when: manual

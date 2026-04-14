@@ -1,0 +1,90 @@
+trigger:
+  branches:
+    include:
+      - main
+      - develop
+  paths:
+    exclude:
+      - docs/*
+      - README.md
+
+pr:
+  branches:
+    include:
+      - main
+
+pool:
+  vmImage: ubuntu-latest
+
+variables:
+  NODE_VERSION: '20.x'
+  npm_config_cache: $(Pipeline.Workspace)/.npm
+
+stages:
+  - stage: Build
+    displayName: Build and Test
+    jobs:
+      - job: BuildJob
+        displayName: Build
+        steps:
+          - task: NodeTool@0
+            inputs:
+              versionSpec: $(NODE_VERSION)
+            displayName: Install Node.js
+
+          - task: Cache@2
+            inputs:
+              key: 'npm | "$(Agent.OS)" | package-lock.json'
+              restoreKeys: 'npm | "$(Agent.OS)"'
+              path: $(npm_config_cache)
+            displayName: Cache npm packages
+
+          - script: npm ci
+            displayName: Install dependencies
+
+          - script: npm run build
+            displayName: Build project
+
+          - script: npm test
+            displayName: Run tests
+
+          - task: PublishTestResults@2
+            inputs:
+              testResultsFormat: JUnit
+              testResultsFiles: '**/test-results.xml'
+            condition: always()
+
+          - task: PublishBuildArtifacts@1
+            inputs:
+              pathToPublish: dist
+              artifactName: dist
+
+  - stage: DeployStaging
+    displayName: Deploy to Staging
+    dependsOn: Build
+    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/develop'))
+    jobs:
+      - deployment: DeployStaging
+        displayName: Deploy to Staging
+        environment: staging
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+                - script: echo "Deploying to staging"
+                  displayName: Deploy
+
+  - stage: DeployProduction
+    displayName: Deploy to Production
+    dependsOn: Build
+    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
+    jobs:
+      - deployment: DeployProduction
+        displayName: Deploy to Production
+        environment: production
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+                - script: echo "Deploying to production"
+                  displayName: Deploy

@@ -1,0 +1,76 @@
+pipeline {
+    agent {
+        docker {
+            image 'node:20-alpine'
+            args '-v /tmp:/tmp'
+        }
+    }
+
+    environment {
+        CI = 'true'
+        NODE_ENV = 'production'
+    }
+
+    stages {
+        stage('Install') {
+            steps {
+                sh 'npm ci'
+            }
+        }
+
+        stage('Build') {
+            steps {
+                sh 'npm run build'
+                archiveArtifacts artifacts: 'dist/**', fingerprint: true
+            }
+        }
+
+        stage('Test') {
+            parallel {
+                stage('Unit Tests') {
+                    steps {
+                        sh 'npm test'
+                    }
+                }
+                stage('Lint') {
+                    steps {
+                        sh 'npm run lint'
+                    }
+                }
+            }
+        }
+
+        stage('Deploy Staging') {
+            when {
+                branch 'develop'
+            }
+            steps {
+                echo 'Deploying to staging'
+            }
+        }
+
+        stage('Deploy Production') {
+            when {
+                branch 'main'
+            }
+            input {
+                message 'Deploy to production?'
+            }
+            steps {
+                echo 'Deploying to production'
+            }
+        }
+    }
+
+    post {
+        always {
+            cleanWs()
+        }
+        success {
+            echo 'Pipeline succeeded!'
+        }
+        failure {
+            echo 'Pipeline failed!'
+        }
+    }
+}

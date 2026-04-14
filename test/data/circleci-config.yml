@@ -1,0 +1,91 @@
+version: 2.1
+
+orbs:
+  node: circleci/node@5.2.0
+  aws-ecr: circleci/aws-ecr@9.1.0
+
+executors:
+  node-executor:
+    docker:
+      - image: cimg/node:20.0
+    resource_class: medium
+
+commands:
+  install-deps:
+    description: Install project dependencies
+    steps:
+      - restore_cache:
+          keys:
+            - v1-deps-{{ checksum "package-lock.json" }}
+      - run:
+          name: Install dependencies
+          command: npm ci
+      - save_cache:
+          key: v1-deps-{{ checksum "package-lock.json" }}
+          paths:
+            - node_modules
+
+jobs:
+  build:
+    executor: node-executor
+    steps:
+      - checkout
+      - install-deps
+      - run:
+          name: Build
+          command: npm run build
+      - persist_to_workspace:
+          root: .
+          paths:
+            - dist
+
+  test:
+    executor: node-executor
+    steps:
+      - checkout
+      - install-deps
+      - run:
+          name: Run tests
+          command: npm test
+      - store_test_results:
+          path: test-results
+
+  deploy-staging:
+    executor: node-executor
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+      - run:
+          name: Deploy to staging
+          command: echo "Deploying to staging"
+
+  deploy-production:
+    executor: node-executor
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+      - run:
+          name: Deploy to production
+          command: echo "Deploying to production"
+
+workflows:
+  build-test-deploy:
+    jobs:
+      - build
+      - test:
+          requires:
+            - build
+      - deploy-staging:
+          requires:
+            - test
+          filters:
+            branches:
+              only: develop
+      - deploy-production:
+          requires:
+            - test
+          filters:
+            branches:
+              only: main
