@@ -1,0 +1,142 @@
+# Azure Pipelines — flat jobs structure (no stages), inline tests, matrix strategy.
+# Based on MIT-licensed Node.js projects.
+# Covers: jobs list (no stages), strategy matrix, container resources, pr trigger.
+
+trigger:
+  - main
+  - develop
+
+pr:
+  branches:
+    include:
+      - main
+
+variables:
+  - name: CI
+    value: 'true'
+  - name: npm_config_cache
+    value: $(Pipeline.Workspace)/.npm
+
+resources:
+  containers:
+    - container: postgres
+      image: postgres:15-alpine
+      env:
+        POSTGRES_DB: testdb
+        POSTGRES_USER: ci
+        POSTGRES_PASSWORD: cipassword
+      ports:
+        - 5432:5432
+    - container: redis
+      image: redis:7-alpine
+      ports:
+        - 6379:6379
+
+jobs:
+  - job: Lint
+    displayName: Lint code
+    pool:
+      vmImage: ubuntu-latest
+    steps:
+      - task: NodeTool@0
+        displayName: Use Node.js 20
+        inputs:
+          versionSpec: '20.x'
+      - task: Cache@2
+        displayName: Cache npm packages
+        inputs:
+          key: 'npm | "$(Agent.OS)" | package-lock.json'
+          restoreKeys: 'npm | "$(Agent.OS)"'
+          path: $(npm_config_cache)
+      - script: npm ci
+        displayName: Install dependencies
+      - script: npm run lint
+        displayName: Run ESLint
+      - script: npm run typecheck
+        displayName: Run TypeScript check
+
+  - job: UnitTests
+    displayName: Unit tests (Node matrix)
+    pool:
+      vmImage: ubuntu-latest
+    strategy:
+      matrix:
+        Node18:
+          nodeVersion: '18.x'
+        Node20:
+          nodeVersion: '20.x'
+        Node22:
+          nodeVersion: '22.x'
+      maxParallel: 3
+    steps:
+      - task: NodeTool@0
+        displayName: Use Node.js $(nodeVersion)
+        inputs:
+          versionSpec: $(nodeVersion)
+      - script: npm ci
+        displayName: Install dependencies
+      - script: npm test -- --reporter=junit --reporter-option=outputFile=test-results.xml
+        displayName: Run unit tests
+      - task: PublishTestResults@2
+        displayName: Publish test results
+        inputs:
+          testResultsFormat: JUnit
+          testResultsFiles: test-results.xml
+        condition: always()
+
+  - job: IntegrationTests
+    displayName: Integration tests
+    dependsOn:
+      - Lint
+      - UnitTests
+    pool:
+      vmImage: ubuntu-latest
+    services:
+      postgres: postgres
+      redis: redis
+    variables:
+      DATABASE_URL: postgresql://ci:cipassword@localhost/testdb
+      REDIS_URL: redis://localhost:6379
+    steps:
+      - task: NodeTool@0
+        inputs:
+          versionSpec: '20.x'
+        displayName: Use Node.js 20
+      - script: npm ci
+        displayName: Install dependencies
+      - script: |
+          # Wait for postgres
+          for i in $(seq 1 30); do
+            pg_isready -h localhost -U ci -d testdb && break
+            sleep 2
+          done
+        displayName: Wait for Postgres
+      - script: npm run migrate
+        displayName: Run database migrations
+      - script: npm run test:integration
+        displayName: Run integration tests
+      - task: PublishCodeCoverageResults@1
+        inputs:
+          codeCoverageTool: Cobertura
+          summaryFileLocation: coverage/cobertura-coverage.xml
+
+  - job: SecurityScan
+    displayName: Security scan
+    dependsOn: []
+    pool:
+      vmImage: ubuntu-latest
+    steps:
+      - task: NodeTool@0
+        inputs:
+          versionSpec: '20.x'
+      - script: npm ci
+        displayName: Install dependencies
+      - script: npm audit --audit-level=high
+        displayName: npm audit
+        continueOnError: true
+      - task: Bash@3
+        displayName: Run Snyk scan
+        inputs:
+          targetType: inline
+          script: |
+            npx snyk test --severity-threshold=high || true

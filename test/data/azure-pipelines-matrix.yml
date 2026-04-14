@@ -1,0 +1,259 @@
+# Azure Pipelines — multi-stage with matrix strategy, variable groups,
+# scheduled cron trigger, template references, and container jobs.
+# Based on Apache-2.0 licensed Python data pipeline projects.
+
+schedules:
+  - cron: "0 3 * * *"
+    displayName: Nightly build
+    branches:
+      include:
+        - main
+    always: true
+
+trigger:
+  branches:
+    include:
+      - main
+      - "release/*"
+  tags:
+    include:
+      - "v*"
+
+pr:
+  branches:
+    include:
+      - main
+      - "release/*"
+  paths:
+    exclude:
+      - "docs/**"
+      - "*.md"
+
+parameters:
+  - name: pythonVersions
+    type: object
+    default:
+      - "3.10"
+      - "3.11"
+      - "3.12"
+  - name: runIntegrationTests
+    type: boolean
+    default: true
+
+variables:
+  - group: python-pipeline-secrets
+  - name: POETRY_VERSION
+    value: "1.8.0"
+  - name: PIP_CACHE_DIR
+    value: $(Pipeline.Workspace)/.pip
+  - template: vars/common.yml@templates
+
+stages:
+  - stage: Validate
+    displayName: Validate and Lint
+    jobs:
+      - job: PreCommitChecks
+        displayName: Pre-commit checks
+        pool:
+          vmImage: ubuntu-latest
+        container:
+          image: python:3.12-slim
+        steps:
+          - checkout: self
+          - script: |
+              pip install pre-commit
+              pre-commit run --all-files
+            displayName: Run pre-commit hooks
+
+      - job: Lint
+        displayName: Lint Python
+        pool:
+          vmImage: ubuntu-latest
+        steps:
+          - task: UsePythonVersion@0
+            inputs:
+              versionSpec: "3.12"
+            displayName: Use Python 3.12
+          - script: |
+              pip install ruff mypy
+              ruff check .
+              mypy src/
+            displayName: Ruff and mypy
+
+  - stage: Test
+    displayName: Test matrix
+    dependsOn: Validate
+    jobs:
+      - job: UnitTests
+        displayName: Unit tests (Python ${{ parameters.pythonVersions }})
+        pool:
+          vmImage: ubuntu-latest
+        strategy:
+          matrix:
+            Python310:
+              pythonVersion: "3.10"
+            Python311:
+              pythonVersion: "3.11"
+            Python312:
+              pythonVersion: "3.12"
+          maxParallel: 3
+        steps:
+          - task: UsePythonVersion@0
+            displayName: Use Python $(pythonVersion)
+            inputs:
+              versionSpec: $(pythonVersion)
+          - task: Cache@2
+            displayName: Cache pip packages
+            inputs:
+              key: 'pip | "$(Agent.OS)" | $(pythonVersion) | requirements.txt'
+              restoreKeys: 'pip | "$(Agent.OS)" | $(pythonVersion)'
+              path: $(PIP_CACHE_DIR)
+          - script: |
+              pip install poetry==$(POETRY_VERSION)
+              poetry install --with dev
+            displayName: Install dependencies with Poetry
+          - script: poetry run pytest tests/unit/ --junitxml=junit-unit.xml --cov=src --cov-report=xml
+            displayName: Run unit tests
+          - task: PublishTestResults@2
+            inputs:
+              testResultsFormat: JUnit
+              testResultsFiles: junit-unit.xml
+            displayName: Publish unit test results
+            condition: always()
+          - task: PublishCodeCoverageResults@1
+            inputs:
+              codeCoverageTool: Cobertura
+              summaryFileLocation: coverage.xml
+            displayName: Publish coverage
+            condition: eq(variables['pythonVersion'], '3.12')
+
+      - ${{ if eq(parameters.runIntegrationTests, true) }}:
+        - job: IntegrationTests
+          displayName: Integration tests
+          pool:
+            vmImage: ubuntu-latest
+          services:
+            postgres:
+              image: postgres:15-alpine
+              env:
+                POSTGRES_DB: testdb
+                POSTGRES_USER: test
+                POSTGRES_PASSWORD: testpassword
+              ports:
+                - 5432:5432
+          variables:
+            - group: integration-test-secrets
+            - name: DATABASE_URL
+              value: postgresql://test:testpassword@localhost/testdb
+          steps:
+            - task: UsePythonVersion@0
+              inputs:
+                versionSpec: "3.12"
+            - script: |
+                pip install poetry==$(POETRY_VERSION)
+                poetry install --with dev
+              displayName: Install dependencies
+            - script: poetry run alembic upgrade head
+              displayName: Run migrations
+            - script: poetry run pytest tests/integration/ -v --junitxml=junit-integration.xml
+              displayName: Run integration tests
+            - task: PublishTestResults@2
+              inputs:
+                testResultsFormat: JUnit
+                testResultsFiles: junit-integration.xml
+              condition: always()
+
+  - stage: Build
+    displayName: Build and package
+    dependsOn: Test
+    condition: succeeded()
+    jobs:
+      - job: BuildWheel
+        displayName: Build Python wheel
+        pool:
+          vmImage: ubuntu-latest
+        steps:
+          - task: UsePythonVersion@0
+            inputs:
+              versionSpec: "3.12"
+          - script: |
+              pip install build twine
+              python -m build
+              twine check dist/*
+            displayName: Build wheel and sdist
+          - task: PublishBuildArtifacts@1
+            inputs:
+              pathToPublish: dist
+              artifactName: python-package
+
+      - job: BuildDocker
+        displayName: Build Docker image
+        pool:
+          vmImage: ubuntu-latest
+        condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
+        steps:
+          - task: Docker@2
+            displayName: Build and push image
+            inputs:
+              command: buildAndPush
+              repository: myorg/myapp
+              dockerfile: Dockerfile
+              containerRegistry: acr-service-connection
+              tags: |
+                $(Build.BuildId)
+                latest
+
+  - stage: DeployStaging
+    displayName: Deploy to Staging
+    dependsOn: Build
+    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
+    jobs:
+      - deployment: DeployToStaging
+        displayName: Deploy staging
+        pool:
+          vmImage: ubuntu-latest
+        environment: staging
+        variables:
+          - group: staging-secrets
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+                - download: current
+                  artifact: python-package
+                - script: |
+                    pip install $(Pipeline.Workspace)/python-package/myapp-*.whl
+                    myapp --version
+                  displayName: Install and verify
+
+  - stage: DeployProduction
+    displayName: Deploy to Production
+    dependsOn: DeployStaging
+    condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/tags/v'))
+    jobs:
+      - deployment: DeployToProduction
+        displayName: Deploy production
+        pool:
+          vmImage: ubuntu-latest
+        environment: production
+        variables:
+          - group: production-secrets
+        strategy:
+          runOnce:
+            preDeploy:
+              steps:
+                - script: echo "Pre-deploy checks"
+                  displayName: Pre-deploy validation
+            deploy:
+              steps:
+                - download: current
+                  artifact: python-package
+                - script: |
+                    pip install $(Pipeline.Workspace)/python-package/myapp-*.whl
+                    myapp --version
+                  displayName: Install and verify
+            on:
+              failure:
+                steps:
+                  - script: echo "Rolling back deployment"
+                    displayName: Rollback

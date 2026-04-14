@@ -1,0 +1,177 @@
+# CircleCI config with multiple Docker images (primary + sidecar services),
+# matrix parameters, contexts, and reusable commands.
+# Based on MIT-licensed projects using parameterized pipelines.
+version: 2.1
+
+parameters:
+  run-integration-tests:
+    type: boolean
+    default: false
+  deploy-env:
+    type: enum
+    enum: ["staging", "production", "none"]
+    default: "none"
+
+orbs:
+  slack: circleci/slack@4.12.5
+
+executors:
+  app-with-db:
+    docker:
+      - image: cimg/python:3.12
+        environment:
+          DATABASE_URL: postgresql://postgres:testpass@localhost/testdb
+          REDIS_URL: redis://localhost:6379/0
+      - image: postgres:15-alpine
+        environment:
+          POSTGRES_DB: testdb
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: testpass
+      - image: redis:7-alpine
+
+  app-with-mongo:
+    docker:
+      - image: cimg/node:20.0
+        environment:
+          MONGO_URL: mongodb://localhost:27017/testdb
+      - image: mongo:7.0
+        environment:
+          MONGO_INITDB_ROOT_USERNAME: root
+          MONGO_INITDB_ROOT_PASSWORD: rootpass
+
+commands:
+  setup-python:
+    description: Set up Python environment with caching
+    parameters:
+      python-version:
+        type: string
+        default: "3.12"
+    steps:
+      - restore_cache:
+          keys:
+            - v2-python-<< parameters.python-version >>-{{ checksum "requirements.txt" }}
+      - run:
+          name: Install Python dependencies
+          command: |
+            python -m venv venv
+            . venv/bin/activate
+            pip install --upgrade pip
+            pip install -r requirements.txt
+      - save_cache:
+          key: v2-python-<< parameters.python-version >>-{{ checksum "requirements.txt" }}
+          paths:
+            - venv
+
+  notify-on-failure:
+    description: Send Slack notification on failure
+    steps:
+      - slack/notify:
+          event: fail
+          template: basic_fail_1
+
+jobs:
+  unit-tests:
+    parameters:
+      python-version:
+        type: string
+    docker:
+      - image: cimg/python:<< parameters.python-version >>
+    steps:
+      - checkout
+      - setup-python:
+          python-version: << parameters.python-version >>
+      - run:
+          name: Run unit tests
+          command: |
+            . venv/bin/activate
+            pytest tests/unit/ -v --junitxml=test-results/junit.xml
+      - store_test_results:
+          path: test-results
+      - notify-on-failure
+
+  integration-tests-postgres:
+    executor: app-with-db
+    steps:
+      - checkout
+      - setup-python
+      - run:
+          name: Wait for database
+          command: |
+            for i in $(seq 1 30); do
+              pg_isready -h localhost -U postgres && break
+              sleep 2
+            done
+      - run:
+          name: Run migrations
+          command: |
+            . venv/bin/activate
+            flask db upgrade
+      - run:
+          name: Run integration tests with Postgres
+          command: |
+            . venv/bin/activate
+            pytest tests/integration/postgres/ -v
+
+  integration-tests-mongo:
+    executor: app-with-mongo
+    steps:
+      - checkout
+      - run:
+          name: Install dependencies
+          command: npm ci
+      - run:
+          name: Run MongoDB integration tests
+          command: npm run test:mongo
+
+  build-and-push:
+    docker:
+      - image: cimg/base:stable
+    steps:
+      - checkout
+      - setup_remote_docker:
+          docker_layer_caching: true
+      - run:
+          name: Build Docker image
+          command: docker build -t myapp:$CIRCLE_SHA1 .
+      - run:
+          name: Push to Docker Hub
+          command: |
+            echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+            docker tag myapp:$CIRCLE_SHA1 myorg/myapp:$CIRCLE_SHA1
+            docker push myorg/myapp:$CIRCLE_SHA1
+
+workflows:
+  test-matrix:
+    jobs:
+      - unit-tests:
+          matrix:
+            parameters:
+              python-version: ["3.10", "3.11", "3.12"]
+      - integration-tests-postgres:
+          requires:
+            - unit-tests
+      - integration-tests-mongo:
+          requires:
+            - unit-tests
+      - build-and-push:
+          context: docker-hub-creds
+          requires:
+            - integration-tests-postgres
+            - integration-tests-mongo
+          filters:
+            branches:
+              only: main
+
+  scheduled-tests:
+    triggers:
+      - schedule:
+          cron: "0 2 * * *"
+          filters:
+            branches:
+              only:
+                - main
+    jobs:
+      - unit-tests:
+          matrix:
+            parameters:
+              python-version: ["3.10", "3.11", "3.12"]

@@ -1,0 +1,154 @@
+// Declarative Jenkinsfile — agent any, parameters, credentials, no Docker.
+// Inspired by Apache-2.0 licensed Java/Maven projects.
+pipeline {
+    agent any
+
+    parameters {
+        string(name: 'DEPLOY_ENV', defaultValue: 'staging', description: 'Target deployment environment')
+        booleanParam(name: 'RUN_INTEGRATION_TESTS', defaultValue: true, description: 'Run integration test suite')
+        choice(name: 'JAVA_VERSION', choices: ['17', '21', '11'], description: 'Java version to use')
+    }
+
+    options {
+        buildDiscarder(logRotator(numToKeepStr: '20'))
+        timeout(time: 1, unit: 'HOURS')
+        timestamps()
+        disableConcurrentBuilds()
+    }
+
+    environment {
+        MAVEN_OPTS = '-Xmx1024m -XX:MaxPermSize=256m'
+        APP_NAME = 'my-java-service'
+        SONAR_HOST = 'https://sonarqube.example.com'
+        NEXUS_CREDENTIALS = credentials('nexus-deploy-creds')
+        SONAR_TOKEN = credentials('sonarqube-token')
+    }
+
+    tools {
+        maven 'maven-3.9'
+        jdk "jdk-${params.JAVA_VERSION}"
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                checkout scm
+                sh 'git log -1 --format="%H %s"'
+            }
+        }
+
+        stage('Compile') {
+            steps {
+                sh 'mvn -B clean compile -DskipTests'
+            }
+            post {
+                failure {
+                    echo 'Compilation failed!'
+                }
+            }
+        }
+
+        stage('Unit Tests') {
+            steps {
+                sh 'mvn -B test -Dsurefire.failIfNoSpecifiedTests=false'
+            }
+            post {
+                always {
+                    junit 'target/surefire-reports/**/*.xml'
+                    jacoco(execPattern: 'target/*.exec')
+                }
+            }
+        }
+
+        stage('Integration Tests') {
+            when {
+                expression { params.RUN_INTEGRATION_TESTS == true }
+            }
+            steps {
+                sh 'mvn -B verify -Pfailsafe -DskipUnitTests'
+            }
+            post {
+                always {
+                    junit 'target/failsafe-reports/**/*.xml'
+                }
+            }
+        }
+
+        stage('Code Analysis') {
+            parallel {
+                stage('SonarQube') {
+                    steps {
+                        sh '''
+                            mvn sonar:sonar \
+                              -Dsonar.host.url=${SONAR_HOST} \
+                              -Dsonar.login=${SONAR_TOKEN}
+                        '''
+                    }
+                }
+                stage('Dependency Check') {
+                    steps {
+                        sh 'mvn -B dependency-check:check'
+                    }
+                }
+                stage('Checkstyle') {
+                    steps {
+                        sh 'mvn -B checkstyle:check'
+                    }
+                }
+            }
+        }
+
+        stage('Package') {
+            steps {
+                sh 'mvn -B package -DskipTests'
+                archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
+                stash name: 'app-jar', includes: 'target/*.jar'
+            }
+        }
+
+        stage('Publish to Nexus') {
+            when {
+                anyOf {
+                    branch 'main'
+                    branch 'develop'
+                }
+            }
+            steps {
+                sh '''
+                    mvn -B deploy \
+                      -DskipTests \
+                      -Dnexus.username=${NEXUS_CREDENTIALS_USR} \
+                      -Dnexus.password=${NEXUS_CREDENTIALS_PSW}
+                '''
+            }
+        }
+
+        stage('Deploy') {
+            when {
+                branch 'main'
+                expression { params.DEPLOY_ENV != '' }
+            }
+            steps {
+                unstash 'app-jar'
+                sh "scp target/*.jar deploy@deploy-host:/apps/${APP_NAME}/"
+                sh "ssh deploy@deploy-host 'systemctl restart ${APP_NAME}'"
+            }
+        }
+    }
+
+    post {
+        always {
+            cleanWs()
+        }
+        success {
+            echo 'Build succeeded!'
+        }
+        failure {
+            emailext(
+                subject: "FAILED: Job '${JOB_NAME} [${BUILD_NUMBER}]'",
+                body: 'See ${BUILD_URL}',
+                recipientProviders: [culprits(), developers()]
+            )
+        }
+    }
+}

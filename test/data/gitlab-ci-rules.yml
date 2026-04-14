@@ -1,0 +1,205 @@
+# Inspired by open-source Apache-2.0 / MIT projects using modern GitLab CI syntax.
+# Covers: default block, rules (not only/except), needs (DAG), extends,
+#         global before_script, parallel:matrix, service with alias+variables,
+#         job-level image object, artifacts with reports.
+
+default:
+  image: python:3.12-slim
+  before_script:
+    - pip install --quiet --upgrade pip
+  interruptible: true
+  retry:
+    max: 2
+    when: runner_system_failure
+
+stages:
+  - lint
+  - build
+  - test
+  - security
+  - deploy
+
+variables:
+  PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
+  DOCKER_DRIVER: overlay2
+  DOCKER_TLS_CERTDIR: "/certs"
+
+cache:
+  paths:
+    - .cache/pip
+    - venv/
+
+# ── reusable anchors ──────────────────────────────────────────────────────────
+.python-job: &python-job
+  image: python:3.12-slim
+  before_script:
+    - python -m venv venv
+    - source venv/bin/activate
+    - pip install -r requirements.txt
+
+.deploy-template:
+  before_script:
+    - echo "Preparing deployment"
+  after_script:
+    - echo "Deployment finished"
+
+# ── lint stage ────────────────────────────────────────────────────────────────
+flake8:
+  stage: lint
+  <<: *python-job
+  script:
+    - flake8 src/ tests/
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+    - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
+
+mypy:
+  stage: lint
+  <<: *python-job
+  script:
+    - mypy src/
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+      allow_failure: true
+
+# ── build stage ───────────────────────────────────────────────────────────────
+build:wheel:
+  stage: build
+  <<: *python-job
+  script:
+    - python -m build --wheel
+    - pip install dist/*.whl --target dist/unpacked
+  artifacts:
+    paths:
+      - dist/
+    expire_in: 1 week
+  needs: []
+
+build:docker:
+  stage: build
+  image:
+    name: gcr.io/kaniko-project/executor:debug
+    entrypoint: [""]
+  script:
+    - /kaniko/executor --context $CI_PROJECT_DIR --dockerfile $CI_PROJECT_DIR/Dockerfile
+      --destination $CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA
+  rules:
+    - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
+
+# ── test stage ────────────────────────────────────────────────────────────────
+test:unit:
+  stage: test
+  <<: *python-job
+  needs:
+    - build:wheel
+  script:
+    - pytest tests/unit/ --junitxml=junit-unit.xml --cov=src --cov-report xml
+  coverage: '/TOTAL.*\s+(\d+%)$/'
+  artifacts:
+    when: always
+    reports:
+      junit: junit-unit.xml
+      coverage_report:
+        coverage_format: cobertura
+        path: coverage.xml
+
+test:integration:
+  stage: test
+  image: python:3.12-slim
+  services:
+    - name: postgres:15-alpine
+      alias: db
+      variables:
+        POSTGRES_DB: testdb
+        POSTGRES_USER: runner
+        POSTGRES_PASSWORD: "secret"
+    - name: redis:7-alpine
+      alias: cache
+  needs:
+    - build:wheel
+  variables:
+    DATABASE_URL: "postgresql://runner:secret@db/testdb"
+    REDIS_URL: "redis://cache:6379"
+  before_script:
+    - pip install psycopg2-binary redis
+    - pip install -r requirements.txt
+  script:
+    - pytest tests/integration/ --junitxml=junit-integration.xml
+  artifacts:
+    reports:
+      junit: junit-integration.xml
+
+test:matrix:
+  stage: test
+  <<: *python-job
+  needs:
+    - build:wheel
+  parallel:
+    matrix:
+      - PYTHON_VERSION: ["3.10", "3.11", "3.12"]
+        OS: ["linux"]
+  script:
+    - echo "Testing on Python $PYTHON_VERSION"
+    - pytest tests/
+  rules:
+    - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
+
+# ── security stage ────────────────────────────────────────────────────────────
+bandit:
+  stage: security
+  <<: *python-job
+  needs:
+    - job: flake8
+      optional: true
+  script:
+    - pip install bandit
+    - bandit -r src/ -f json -o bandit-report.json || true
+  artifacts:
+    paths:
+      - bandit-report.json
+  rules:
+    - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
+    - if: '$CI_PIPELINE_SOURCE == "schedule"'
+
+# ── deploy stage ──────────────────────────────────────────────────────────────
+deploy:staging:
+  stage: deploy
+  extends: .deploy-template
+  environment:
+    name: staging
+    url: https://staging.example.com
+    on_stop: stop:staging
+  needs:
+    - test:unit
+    - test:integration
+  script:
+    - echo "Deploying to staging"
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "develop"'
+      when: on_success
+
+stop:staging:
+  stage: deploy
+  environment:
+    name: staging
+    action: stop
+  script:
+    - echo "Stopping staging"
+  when: manual
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "develop"'
+
+deploy:production:
+  stage: deploy
+  extends: .deploy-template
+  environment:
+    name: production
+    url: https://example.com
+  needs:
+    - test:unit
+    - test:integration
+  script:
+    - echo "Deploying to production"
+  rules:
+    - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
+      when: manual

@@ -1,0 +1,118 @@
+// Declarative Jenkinsfile — multi-platform (Linux + Windows), per-stage agents.
+// Tests bat steps, multiple agents in a pipeline, and environment per stage.
+// Inspired by MIT-licensed cross-platform projects.
+pipeline {
+    agent none
+
+    options {
+        buildDiscarder(logRotator(numToKeepStr: '10'))
+        timeout(time: 2, unit: 'HOURS')
+    }
+
+    environment {
+        APP_VERSION = sh(script: 'cat VERSION', returnStdout: true).trim()
+        ARTIFACT_STAGING = 'artifacts'
+    }
+
+    stages {
+        stage('Build Linux') {
+            agent {
+                docker {
+                    image 'golang:1.22-bookworm'
+                    args '-v /tmp:/tmp'
+                }
+            }
+            environment {
+                GOOS = 'linux'
+                GOARCH = 'amd64'
+                CGO_ENABLED = '0'
+            }
+            steps {
+                checkout scm
+                sh 'go vet ./...'
+                sh 'go test -race ./...'
+                sh 'go build -ldflags="-s -w -X main.version=${APP_VERSION}" -o dist/myapp-linux-amd64 ./cmd/myapp'
+                stash name: 'linux-binary', includes: 'dist/myapp-linux-amd64'
+            }
+        }
+
+        stage('Build Windows') {
+            agent {
+                label 'windows'
+            }
+            environment {
+                GOOS = 'windows'
+                GOARCH = 'amd64'
+            }
+            steps {
+                checkout scm
+                bat 'go vet ./...'
+                bat 'go build -o dist\\myapp-windows-amd64.exe .\\cmd\\myapp'
+                stash name: 'windows-binary', includes: 'dist\\myapp-windows-amd64.exe'
+            }
+        }
+
+        stage('Build macOS') {
+            agent {
+                label 'macos'
+            }
+            environment {
+                GOOS = 'darwin'
+                GOARCH = 'arm64'
+            }
+            steps {
+                checkout scm
+                sh 'go build -o dist/myapp-darwin-arm64 ./cmd/myapp'
+                stash name: 'macos-binary', includes: 'dist/myapp-darwin-arm64'
+            }
+        }
+
+        stage('Package') {
+            agent {
+                docker {
+                    image 'alpine:3.19'
+                }
+            }
+            steps {
+                unstash 'linux-binary'
+                unstash 'windows-binary'
+                unstash 'macos-binary'
+                sh 'mkdir -p $ARTIFACT_STAGING'
+                sh 'tar czf $ARTIFACT_STAGING/myapp-linux-amd64.tar.gz dist/myapp-linux-amd64'
+                sh 'zip $ARTIFACT_STAGING/myapp-windows-amd64.zip dist/myapp-windows-amd64.exe'
+                sh 'tar czf $ARTIFACT_STAGING/myapp-darwin-arm64.tar.gz dist/myapp-darwin-arm64'
+                archiveArtifacts artifacts: 'artifacts/**', fingerprint: true
+            }
+        }
+
+        stage('Release') {
+            when {
+                tag 'v*'
+            }
+            agent {
+                docker {
+                    image 'alpine:3.19'
+                }
+            }
+            environment {
+                GITHUB_TOKEN = credentials('github-release-token')
+            }
+            steps {
+                unstash 'linux-binary'
+                sh 'apk add --no-cache curl'
+                sh '''
+                    gh release create ${TAG_NAME} \
+                        artifacts/*.tar.gz artifacts/*.zip \
+                        --title "Release ${APP_VERSION}" \
+                        --notes "See CHANGELOG.md"
+                '''
+            }
+        }
+    }
+
+    post {
+        always {
+            cleanWs()
+        }
+    }
+}

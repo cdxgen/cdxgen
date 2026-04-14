@@ -1,0 +1,165 @@
+# CircleCI config using machine executor, approval gates, contexts, and no orbs.
+# Based on patterns from Apache-2.0 licensed backend services.
+version: 2.1
+
+executors:
+  machine-executor:
+    machine:
+      image: ubuntu-2204:current
+      docker_layer_caching: true
+    resource_class: large
+
+  small-machine:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: small
+
+jobs:
+  lint:
+    executor: small-machine
+    steps:
+      - checkout
+      - run:
+          name: Install linting tools
+          command: |
+            sudo apt-get update -qq
+            sudo apt-get install -y shellcheck
+      - run:
+          name: Run ShellCheck
+          command: shellcheck scripts/*.sh
+      - run:
+          name: Run hadolint
+          command: docker run --rm -i hadolint/hadolint < Dockerfile
+
+  build:
+    executor: machine-executor
+    environment:
+      IMAGE_NAME: myapp
+      REGISTRY: ghcr.io/myorg
+    steps:
+      - checkout
+      - run:
+          name: Build Docker image
+          command: docker build -t $REGISTRY/$IMAGE_NAME:$CIRCLE_SHA1 .
+      - run:
+          name: Run container tests
+          command: |
+            docker run --rm $REGISTRY/$IMAGE_NAME:$CIRCLE_SHA1 /app/test-runner
+      - run:
+          name: Push image to registry
+          command: |
+            echo "$GHCR_TOKEN" | docker login ghcr.io -u "$GHCR_USER" --password-stdin
+            docker push $REGISTRY/$IMAGE_NAME:$CIRCLE_SHA1
+            docker tag $REGISTRY/$IMAGE_NAME:$CIRCLE_SHA1 $REGISTRY/$IMAGE_NAME:latest
+            docker push $REGISTRY/$IMAGE_NAME:latest
+      - persist_to_workspace:
+          root: .
+          paths:
+            - deploy/
+
+  integration-test:
+    executor: machine-executor
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+      - run:
+          name: Start services with docker-compose
+          command: docker compose -f docker-compose.test.yml up -d
+      - run:
+          name: Wait for services
+          command: |
+            timeout 60 bash -c 'until curl -fs http://localhost:8080/health; do sleep 2; done'
+      - run:
+          name: Run integration tests
+          command: docker compose -f docker-compose.test.yml exec app pytest tests/integration/
+      - run:
+          name: Collect coverage
+          command: docker compose -f docker-compose.test.yml exec app coverage xml
+          when: always
+      - run:
+          name: Tear down services
+          command: docker compose -f docker-compose.test.yml down -v
+          when: always
+
+  security-scan:
+    executor: small-machine
+    steps:
+      - checkout
+      - run:
+          name: Install Trivy
+          command: |
+            curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -s -- -b /usr/local/bin
+      - run:
+          name: Scan Docker image for vulnerabilities
+          command: trivy image --exit-code 0 --severity HIGH,CRITICAL ghcr.io/myorg/myapp:latest
+
+  hold-for-approval:
+    type: approval
+
+  deploy-staging:
+    executor: small-machine
+    context: staging-context
+    steps:
+      - attach_workspace:
+          at: .
+      - run:
+          name: Deploy to staging
+          command: |
+            kubectl config use-context staging
+            kubectl apply -f deploy/k8s/staging/
+            kubectl rollout status deployment/myapp -n staging
+
+  deploy-production:
+    executor: small-machine
+    context: production-context
+    steps:
+      - attach_workspace:
+          at: .
+      - run:
+          name: Deploy to production
+          command: |
+            kubectl config use-context production
+            kubectl apply -f deploy/k8s/production/
+            kubectl rollout status deployment/myapp -n production
+
+workflows:
+  ci-cd:
+    jobs:
+      - lint
+      - build:
+          context: build-context
+          requires:
+            - lint
+          filters:
+            branches:
+              only:
+                - main
+                - develop
+                - /feature\/.*/
+      - integration-test:
+          requires:
+            - build
+      - security-scan:
+          requires:
+            - build
+      - hold-for-approval:
+          type: approval
+          requires:
+            - integration-test
+            - security-scan
+          filters:
+            branches:
+              only: main
+      - deploy-staging:
+          requires:
+            - integration-test
+          filters:
+            branches:
+              only: develop
+      - deploy-production:
+          requires:
+            - hold-for-approval
+          filters:
+            branches:
+              only: main

@@ -1,0 +1,8 @@
+# Minimal GitLab CI configuration — no stages, no global image.
+# Single job, only a script. Tests the parser's fallback / minimal path.
+# Inspired by simple MIT-licensed utility repositories.
+
+build_and_test:
+  script:
+    - go build ./...
+    - go test ./...
