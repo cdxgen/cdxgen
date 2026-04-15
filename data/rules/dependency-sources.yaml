@@ -12,7 +12,7 @@
       and $prop($, 'cdx:npm:isRegistryDependency') = 'false'
     ]
   location: |
-    { "bomRef": bomRef, "purl": purl }
+    { "bomRef": $."bom-ref", "purl": purl }
   message: "npm package '{{ name }}@{{ version }}' executes install script from non-registry source"
   mitigation: "Avoid git/file dependencies with lifecycle hooks; use registry dependencies or vendor explicitly"
   evidence: |
@@ -31,7 +31,7 @@
       $prop($, 'cdx:go:local_dir') != null
     ]
   location: |
-    { "bomRef": bomRef, "purl": purl }
+    { "bomRef": $."bom-ref", "purl": purl }
   message: "Go module '{{ name }}' uses local replacement: {{ $prop($, 'cdx:go:local_dir') }}"
   mitigation: "Use published module versions or vendor dependencies explicitly for reproducible builds"
   evidence: |
@@ -49,7 +49,7 @@
       $prop($, 'cdx:swift:localCheckoutPath') != null
     ]
   location: |
-    { "bomRef": bomRef, "purl": purl }
+    { "bomRef": $."bom-ref", "purl": purl }
   message: "Swift package '{{ name }}' uses local checkout: {{ $prop($, 'cdx:swift:localCheckoutPath') }}"
   mitigation: "Use remote package references (URL or registry) for release artifacts"
   evidence: |
@@ -71,7 +71,7 @@
       )
     ]
   location: |
-    { "bomRef": bomRef, "purl": purl }
+    { "bomRef": $."bom-ref", "purl": purl }
   message: "Nix package '{{ name }}' missing reproducibility metadata (revision or nar_hash)"
   mitigation: "Ensure flake.lock includes both revision and nar_hash for content-addressed reproducibility"
   evidence: |
@@ -92,7 +92,7 @@
       and $prop($, 'cdx:gem:remoteRevision') = null
     ]
   location: |
-    { "bomRef": bomRef, "purl": purl }
+    { "bomRef": $."bom-ref", "purl": purl }
   message: "Ruby gem '{{ name }}' tracks mutable branch '{{ $prop($, 'cdx:gem:remoteBranch') }}' without commit pin"
   mitigation: "Pin to specific revision: gem 'foo', git: '...', ref: '<commit-sha>'"
   evidence: |
@@ -113,7 +113,7 @@
       and $prop($, 'cdx:pypi:registry') != 'https://pypi.org'
     ]
   location: |
-    { "bomRef": bomRef, "purl": purl }
+    { "bomRef": $."bom-ref", "purl": purl }
   message: "Python package '{{ name }}' sourced from non-default registry: {{ $prop($, 'cdx:pypi:registry') }}"
   mitigation: "Verify registry trustworthiness or configure approved registries via CDXGEN_APPROVED_PYPI_REGISTRIES"
   evidence: |

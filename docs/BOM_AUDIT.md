@@ -61,7 +61,7 @@ The audit runs as a post-processing step after BOM generation:
 | `--bom-audit-rules-dir` | string | — | Directory containing additional YAML rule files (merged with built-in rules) |
 | `--bom-audit-categories` | string | all | Comma-separated list of rule categories to enable |
 | `--bom-audit-min-severity` | string | `low` | Minimum severity to report: `low`, `medium`, `high` |
-| `--bom-audit-fail-severity` | string | `high` | Severity threshold for secure mode failure |
+| `--bom-audit-fail-severity` | string | `high` | Severity level at or above which findings cause secure mode failure (e.g., `medium` fails on medium, high, and critical) |
 
 ## Built-in rule categories
 
@@ -120,7 +120,7 @@ Rules are YAML files placed in a directory and loaded via `--bom-audit-rules-dir
       $prop($, 'cdx:npm:hasInstallScript') = 'true'
     ]
   location: |                        # Optional: JSONata expression for finding location
-    { "bomRef": bomRef, "purl": purl }
+    { "bomRef": $."bom-ref", "purl": purl }
   message: "Template with {{ name }}"  # Required: message template with {{ expr }} interpolation
   mitigation: "How to fix this"      # Optional: remediation guidance
   evidence: |                        # Optional: JSONata expression for evidence data
@@ -187,7 +187,7 @@ condition: |
 
 ```yaml
 condition: |
-  bom.formulation[0].workflows[
+  formulation[0].workflows[
     $prop($, 'cdx:github:workflow:triggers') ~> $split(',') ~> $contains('pull_request_target')
   ]
 ```

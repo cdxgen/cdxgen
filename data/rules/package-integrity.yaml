@@ -12,7 +12,7 @@
       $prop($, 'cdx:npm:hasInstallScript') = 'true'
     ]
   location: |
-    { "bomRef": bomRef, "purl": purl }
+    { "bomRef": $."bom-ref", "purl": purl }
   message: "npm package '{{ name }}@{{ version }}' has install-time execution hooks"
   mitigation: "Review install scripts before use. Consider using --ignore-scripts or an allowlist-based approach"
   evidence: |
@@ -32,7 +32,7 @@
       or $prop($, 'cdx:npm:versionMismatchError') != null
     ]
   location: |
-    { "bomRef": bomRef, "purl": purl }
+    { "bomRef": $."bom-ref", "purl": purl }
   message: "npm package '{{ name }}@{{ version }}' has a name or version mismatch"
   mitigation: "Investigate the mismatch immediately. This may indicate dependency confusion, registry tampering, or a corrupted lockfile"
   evidence: |
@@ -51,7 +51,7 @@
       $prop($, 'cdx:go:deprecated') != null
     ]
   location: |
-    { "bomRef": bomRef, "purl": purl }
+    { "bomRef": $."bom-ref", "purl": purl }
   message: "Go module '{{ name }}' is deprecated: {{ $prop($, 'cdx:go:deprecated') }}"
   mitigation: "Migrate to the recommended replacement module or assess continued usage risk"
   evidence: |
@@ -70,7 +70,7 @@
       $prop($, 'cdx:gem:yanked') = 'true'
     ]
   location: |
-    { "bomRef": bomRef, "purl": purl }
+    { "bomRef": $."bom-ref", "purl": purl }
   message: "Ruby gem '{{ name }}@{{ version }}' has been yanked from RubyGems"
   mitigation: "Update to a non-yanked version immediately. Yanked gems are typically removed due to security or correctness issues"
   evidence: |
@@ -89,7 +89,7 @@
       $prop($, 'cdx:npm:deprecated') = 'true'
     ]
   location: |
-    { "bomRef": bomRef, "purl": purl }
+    { "bomRef": $."bom-ref", "purl": purl }
   message: "npm package '{{ name }}@{{ version }}' is deprecated: {{ $prop($, 'cdx:npm:deprecation_notice') }}"
   mitigation: "Migrate to a maintained alternative package"
   evidence: |
@@ -107,7 +107,7 @@
       $prop($, 'cdx:pub:registry') != null
     ]
   location: |
-    { "bomRef": bomRef, "purl": purl }
+    { "bomRef": $."bom-ref", "purl": purl }
   message: "Dart package '{{ name }}' sourced from non-default registry: {{ $prop($, 'cdx:pub:registry') }}"
   mitigation: "Verify registry trustworthiness or configure approved registries"
   evidence: |
@@ -125,7 +125,7 @@
       $prop($, 'cdx:maven:shaded') = 'true'
     ]
   location: |
-    { "bomRef": bomRef, "purl": purl }
+    { "bomRef": $."bom-ref", "purl": purl }
   message: "Maven package '{{ name }}@{{ version }}' contains shaded/relocated classes"
   mitigation: "Prefer non-shaded dependency variants where available to maintain transparent dependency resolution"
   evidence: |

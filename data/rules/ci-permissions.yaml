@@ -17,7 +17,7 @@
     ]
   location: |
     {
-      "bomRef": bomRef,
+      "bomRef": $."bom-ref",
       "purl": purl,
       "file": $prop($, 'cdx:github:workflow:file')
     }
@@ -40,7 +40,7 @@
       and $prop($, 'cdx:actions:isOfficial') = 'false'
     ]
   location: |
-    { "bomRef": bomRef, "purl": purl }
+    { "bomRef": $."bom-ref", "purl": purl }
   message: "Workflow grants OIDC token access to non-official action '{{ $prop($, 'cdx:github:action:uses') }}'"
   mitigation: "Restrict id-token scope or use only verified/official actions for OIDC operations"
   evidence: |
@@ -58,7 +58,7 @@
       $prop($, 'cdx:github:action:versionPinningType') = 'tag'
     ]
   location: |
-    { "bomRef": bomRef, "purl": purl }
+    { "bomRef": $."bom-ref", "purl": purl }
   message: "GitHub Action '{{ $prop($, 'cdx:github:action:uses') }}' pinned to mutable tag (not SHA)"
   mitigation: "Consider pinning to full commit SHA for immutability: actions/setup-node@<full-sha>"
   evidence: |
@@ -73,12 +73,12 @@
   category: ci-permission
   # Check workflows (not components) for this trigger pattern
   condition: |
-    bom.formulation[0].workflows[
+    formulation[0].workflows[
       $prop($, 'cdx:github:workflow:triggers') ~> $split(',') ~> $contains('pull_request_target')
     ]
   location: |
     {
-      "bomRef": bomRef,
+      "bomRef": $."bom-ref",
       "file": $prop($, 'cdx:github:workflow:file')
     }
   message: "Workflow '{{ $prop($, 'cdx:github:workflow:name') }}' uses pull_request_target trigger"
