@@ -67,7 +67,7 @@ jobs:
           bin/cdxgen.js -t java repotests/java-sec-code -o bomresults/bom-java-sec-code-7.json --profile research --export-proto
           ls -lh bomresults
           bin/cdxgen.js -t java repotests/java-sec-code -o bomresults/bom-java-sec-code-8.json --profile license-compliance
-          bin/cdxgen.js -t java repotests/java-sec-code -o bomresults/bom-java-sec-code-9.json --include-regex "pom.xml"
+          bin/cdxgen.js -t java repotests/java-sec-code -o bomresults/bom-java-sec-code-9.json --include-regex "pom.xml" --bom-audit
           bin/cdxgen.js -t java -t github repotests/java-sec-code -o bomresults/bom-java-sec-code-9.json
           bin/cdxgen.js -t java -exclude-type js repotests/java-sec-code -o bomresults/bom-java-sec-code-10.json
         shell: bash
@@ -143,7 +143,7 @@ jobs:
         shell: bash
       - name: repotests ollama
         run: |
-          bin/cdxgen.js -r -t go repotests/ollama -o bomresults/bom-ollama.json --fail-on-error
+          bin/cdxgen.js -r -t go repotests/ollama -o bomresults/bom-ollama.json --fail-on-error --bom-audit
           bin/cdxgen.js -r -t go repotests/caddy -o bomresults/bom-caddy.json --fail-on-error
         shell: bash
       - name: repotests go mod tests
@@ -160,7 +160,7 @@ jobs:
         shell: bash
       - name: repotests gallery
         run: |
-          bin/cdxgen.js -r -t dart repotests/gallery -o bomresults/bom-pub.json --fail-on-error
+          bin/cdxgen.js -r -t dart repotests/gallery -o bomresults/bom-pub.json --fail-on-error --bom-audit
         shell: bash
       - name: Cleanup
         run: rm -rf /tmp/docker-images-* /tmp/atom-*  /tmp/mvn-deps*
@@ -639,7 +639,7 @@ jobs:
         shell: bash
       - name: repotests impacket
         run: |
-          bin/cdxgen.js -t python repotests/impacket -o bomresults/impacket.json --fail-on-error
+          bin/cdxgen.js -t python repotests/impacket -o bomresults/impacket.json --fail-on-error --bom-audit
         shell: bash
 #      - name: repotests pixi
 #        run: |
@@ -697,7 +697,7 @@ jobs:
         shell: bash
       - name: repotests railsgoat
         run: |
-          bin/cdxgen.js -r -t ruby repotests/railsgoat -o bomresults/bom-ruby.json --fail-on-error
+          bin/cdxgen.js -r -t ruby repotests/railsgoat -o bomresults/bom-ruby.json --fail-on-error --bom-audit
         shell: bash
       - name: repotests bionomia
         run: |
@@ -741,7 +741,7 @@ jobs:
         shell: bash
       - name: repotests Jackalope
         run: |
-          bin/cdxgen.js -r -t c repotests/Jackalope -o bomresults/bom-Jackalope.json
+          bin/cdxgen.js -r -t c repotests/Jackalope -o bomresults/bom-Jackalope.json --bom-audit
         shell: bash
       - name: repotests ha-android
         run: |
@@ -768,7 +768,7 @@ jobs:
         shell: bash
       - name: repotests SimpleFrameworkApp
         run: |
-          bin/cdxgen.js -r -t dotnet-framework repotests/SimpleFrameworkApp -o bomresults/bom-dotnet-framework.json
+          bin/cdxgen.js -r -t dotnet-framework repotests/SimpleFrameworkApp -o bomresults/bom-dotnet-framework.json --bom-audit
           bin/cdxgen.js -r -t dotnet-framework repotests/Reporting-Windows-Application -o bomresults/bom-dotnet-framework-reporting.json --deep
         shell: bash
       - name: Set up JDK

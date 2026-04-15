@@ -104,7 +104,7 @@
 - id: PKG-006
   name: "Python dependency from non-approved registry"
   description: "PyPI packages from unapproved registries may introduce unvetted code"
-  severity: medium
+  severity: low
   category: dependency-source
   condition: |
     components[
@@ -115,7 +115,7 @@
   location: |
     { "bomRef": $."bom-ref", "purl": purl }
   message: "Python package '{{ name }}' sourced from non-default registry: {{ $prop($, 'cdx:pypi:registry') }}"
-  mitigation: "Verify registry trustworthiness or configure approved registries via CDXGEN_APPROVED_PYPI_REGISTRIES"
+  mitigation: "Verify registry trustworthiness"
   evidence: |
     {
       "registry": $prop($, 'cdx:pypi:registry'),

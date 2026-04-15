@@ -100,7 +100,7 @@
 - id: INT-006
   name: "Dart pub uses non-default registry"
   description: "Dart packages from non-default registries may introduce unvetted code"
-  severity: medium
+  severity: low
   category: package-integrity
   condition: |
     components[
@@ -109,7 +109,7 @@
   location: |
     { "bomRef": $."bom-ref", "purl": purl }
   message: "Dart package '{{ name }}' sourced from non-default registry: {{ $prop($, 'cdx:pub:registry') }}"
-  mitigation: "Verify registry trustworthiness or configure approved registries"
+  mitigation: "Verify registry trustworthiness"
   evidence: |
     {
       "registry": $prop($, 'cdx:pub:registry')
