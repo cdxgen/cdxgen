@@ -27,7 +27,7 @@
   "vscode_extensions": {
     "query": "select vscode_extensions.* from users join vscode_extensions using (uid);",
     "description": "Lists all vscode extensions.",
-    "purlType": "vsix",
+    "purlType": "vscode-extension",
     "componentType": "application"
   },
   "deb_packages": {
