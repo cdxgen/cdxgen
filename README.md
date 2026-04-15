@@ -33,6 +33,7 @@ Most SBOM tools are like simple barcode scanners. For easy applications, they ca
 - _Personas:_ Cater to the needs of a range of personas such as security researchers, compliance auditors, developers, and SOC.
 - _Lifecycle:_ Support BOM generation for various product lifecycles.
 - _Machine Learning:_ Optimize the generated data for Machine Learning (ML) purposes by considering the various model properties.
+- _Safety:_ Execute external build tools and handle untrusted inputs defensively, with hardened defaults and a [secure mode](docs/PERMISSIONS.md) for sensitive environments.
 
 ## Documentation
 
@@ -47,6 +48,8 @@ Sections include:
 - [Environment Variables][docs-env-vars]
 - [Advanced Usage][docs-advanced-usage]
 - [Permissions][docs-permissions]
+- [Security Policy](SECURITY.md)
+- [Threat Model](docs/THREAT_MODEL.md)
 - [Support (Enterprise & Community)][docs-support]
 
 ## Usage
