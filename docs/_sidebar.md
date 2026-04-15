@@ -6,6 +6,7 @@
 - [Environment Variables](ENV.md)
 - [Advanced Usage](ADVANCED.md)
 - [cdx: Custom Properties](CUSTOM_PROPERTIES.md)
+- [BOM Audit](BOM_AUDIT.md)
 - [AI/ML Usage](ml_profiles.md)
 - [Permissions](PERMISSIONS.md)
 - [Configuring Allowlists](ALLOWED_HOSTS_AND_COMMANDS.md)
