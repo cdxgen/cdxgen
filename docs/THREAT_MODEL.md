@@ -75,7 +75,7 @@ Trust boundary 5: cdxgen container ←→ container host
 
 **Mitigations:**
 - Secure mode (`CDXGEN_SECURE_MODE=true`) disables automatic package installation
-- `safeSpawnSync` warns when `pip`/`uv install` is invoked without `--only-binary` (prevents `setup.py` execution)
+- `safeSpawnSync` warns when `pip`/`uv install` is invoked without `--only-binary=:all:` (prevents `setup.py` execution during wheel builds)
 - `safeSpawnSync` warns when Python is invoked without `-S` flag
 - Users are advised to run in sandboxed environments for untrusted projects
 
