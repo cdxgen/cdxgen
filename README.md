@@ -1,5 +1,5 @@
 [![SBOM](https://img.shields.io/badge/SBOM-with_%E2%9D%A4%EF%B8%8F_by_cdxgen-FF753D)](https://github.com/cdxgen/cdxgen)
-[![AI-DECLARATION: pair](https://img.shields.io/badge/䷼%20AI--DECLARATION-pair-ffedd5?labelColor=ffedd5)](https://ai-declaration.md)
+[![AI-DECLARATION: pair](https://img.shields.io/badge/䷼%20AI--DECLARATION-pair-ffedd5?labelColor=ffedd5)](./AI-DECLARATION.md)
 [![JSR][badge-jsr]][jsr-cdxgen]
 [![NPM][badge-npm]][npmjs-cdxgen]
 [![GitHub Releases][badge-github-releases]][github-releases]
