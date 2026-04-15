@@ -232,6 +232,17 @@ export function createRubyBom(path: string, options: Object): Promise<Object>;
  */
 export function createCsharpBom(path: string, options: Object): Promise<Object | undefined>;
 /**
+ * Function to create BOM for VS Code / IDE extensions.
+ * Supports two modes:
+ * 1. Directory scan: Discovers `.vsix` files and installed extension directories
+ * 2. IDE discovery: Automatically finds extensions installed by known IDEs
+ *
+ * @param {string} path to the project or directory to scan
+ * @param {Object} options Parse options from the cli
+ * @returns {Promise<Object>} Promise resolving to BOM object
+ */
+export function createVscodeExtensionBom(path: string, options: Object): Promise<Object>;
+/**
  * Function to create bom object for cryptographic certificate files
  *
  * @param {string} path to the project
