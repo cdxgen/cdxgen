@@ -516,7 +516,7 @@ Refer to the dedicated [readme](../contrib/lima/README.md). Rancher Desktop on m
 
 ## Export as protobuf binary
 
-Pass the argument `--export-proto` to serialize and export the BOM as a protobuf binary. Only the spec version 1.5 is supported in this mode.
+Pass the argument `--export-proto` to serialize and export the BOM as a protobuf binary.
 
 ```shell
 --export-proto --proto-bin-file bom.cdx.bin

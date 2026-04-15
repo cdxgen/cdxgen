@@ -29,21 +29,53 @@ export function discoverIdeExtensionDirs(): Array<{
  */
 export function parseVsixManifest(manifestData: string): Object | undefined;
 /**
- * Parse a VS Code extension's `package.json` and extract metadata.
+ * Parse a VS Code extension's `package.json` and extract metadata
+ * including deep capability and permission information.
  *
  * @param {string|Object} packageJsonData Either raw JSON string or parsed object
  * @param {string} [srcPath] Optional path to the source directory for evidence
- * @returns {Object|undefined} Object with { publisher, name, version, displayName, description, platform } or undefined
+ * @returns {Object|undefined} Object with metadata and capabilities or undefined
  */
 export function parseVsixPackageJson(packageJsonData: string | Object, srcPath?: string): Object | undefined;
 /**
+ * Extract deep capability and permission information from a VS Code
+ * extension package.json.
+ *
+ * This captures security-relevant metadata such as:
+ * - activationEvents: when the extension activates (e.g., `*` means always)
+ * - extensionKind: where the extension runs (ui, workspace, or both)
+ * - permissions: workspace trust, virtual workspace support
+ * - contributes: commands, debuggers, terminal profiles, task providers, fs providers
+ * - extensionDependencies/extensionPack: required extensions
+ * - scripts: whether postinstall or other lifecycle scripts exist
+ * - main/browser: entry points for analysis
+ *
+ * @param {Object} pkg Parsed package.json object
+ * @returns {Object} Capabilities object with structured metadata
+ */
+export function extractExtensionCapabilities(pkg: Object): Object;
+/**
  * Convert parsed extension metadata into a CycloneDX component object.
  *
- * @param {Object} extInfo Object with { publisher, name, version, displayName, description, platform, srcPath }
+ * @param {Object} extInfo Object with { publisher, name, version, displayName, description, platform, srcPath, capabilities }
  * @param {string} [ideName] Optional IDE name for properties
  * @returns {Object|undefined} CycloneDX component object or undefined
  */
 export function toComponent(extInfo: Object, ideName?: string): Object | undefined;
+/**
+ * Extract a `.vsix` file (ZIP archive) to a temporary directory for deep
+ * analysis. The caller is responsible for cleaning up the temp directory.
+ *
+ * @param {string} vsixFile Absolute path to the `.vsix` file
+ * @returns {Promise<string|undefined>} Path to the extracted temp directory, or undefined on failure
+ */
+export function extractVsixToTempDir(vsixFile: string): Promise<string | undefined>;
+/**
+ * Clean up a temporary directory created during vsix extraction.
+ *
+ * @param {string} tempDir Path to the temp directory to remove
+ */
+export function cleanupTempDir(tempDir: string): void;
 /**
  * Parse a `.vsix` file (ZIP archive) and extract the extension metadata.
  *
