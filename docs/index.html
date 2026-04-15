@@ -12,84 +12,84 @@
   <!-- Custom Styles -->
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;500;700&display=swap');
-        :root {
-          --theme-hue      : 325;
-          --base-font-size : 14px;
-          --theme-color    : #ff753d;
-          /* Typography
-        ------------------------------------------------------------------------- */
-          /* Modular Scale */
-          --modular-scale    : 1.333;
+                        :root {
+                          --theme-hue      : 325;
+                          --base-font-size : 14px;
+                          --theme-color    : #ff753d;
+                          /* Typography
+                        ------------------------------------------------------------------------- */
+                          /* Modular Scale */
+                          --modular-scale    : 1.333;
 
-          /* Module Scale Calculations (do not edit these) */
-          --modular-scale--2 : calc(var(--modular-scale--1) / var(--modular-scale));
-          --modular-scale--1 : calc(var(--modular-scale-1) / var(--modular-scale));
-          --modular-scale-1  : 1rem;
-          --modular-scale-2  : calc(var(--modular-scale-1) * var(--modular-scale));
-          --modular-scale-3  : calc(var(--modular-scale-2) * var(--modular-scale));
-          --modular-scale-4  : calc(var(--modular-scale-3) * var(--modular-scale));
-          --modular-scale-5  : calc(var(--modular-scale-4) * var(--modular-scale));
+                          /* Module Scale Calculations (do not edit these) */
+                          --modular-scale--2 : calc(var(--modular-scale--1) / var(--modular-scale));
+                          --modular-scale--1 : calc(var(--modular-scale-1) / var(--modular-scale));
+                          --modular-scale-1  : 1rem;
+                          --modular-scale-2  : calc(var(--modular-scale-1) * var(--modular-scale));
+                          --modular-scale-3  : calc(var(--modular-scale-2) * var(--modular-scale));
+                          --modular-scale-4  : calc(var(--modular-scale-3) * var(--modular-scale));
+                          --modular-scale-5  : calc(var(--modular-scale-4) * var(--modular-scale));
 
-          /* Font size */
-          --font-size-xxxl   : var(--modular-scale-5);
-          --font-size-xxl    : var(--modular-scale-4);
-          --font-size-xl     : var(--modular-scale-3);
-          --font-size-l      : var(--modular-scale-2);
-          --font-size-m      : var(--modular-scale-1);
-          --font-size-s      : var(--modular-scale--1);
-          --font-size-xs     : var(--modular-scale--2);
-          /* Utility
-          ------------------------------------------------------------------------- */
-          /* Borders */
-          --border-radius-s  : ;
-          --border-radius-m  : ;
-          --border-radius-l  : ;
+                          /* Font size */
+                          --font-size-xxxl   : var(--modular-scale-5);
+                          --font-size-xxl    : var(--modular-scale-4);
+                          --font-size-xl     : var(--modular-scale-3);
+                          --font-size-l      : var(--modular-scale-2);
+                          --font-size-m      : var(--modular-scale-1);
+                          --font-size-s      : var(--modular-scale--1);
+                          --font-size-xs     : var(--modular-scale--2);
+                          /* Utility
+                          ------------------------------------------------------------------------- */
+                          /* Borders */
+                          --border-radius-s  : ;
+                          --border-radius-m  : ;
+                          --border-radius-l  : ;
 
-          /* Animations and transitions */
-          --duration-slow    : 1s;
-          --duration-medium  : 0.5s;
-          --duration-fast    : 0.25s;
+                          /* Animations and transitions */
+                          --duration-slow    : 1s;
+                          --duration-medium  : 0.5s;
+                          --duration-fast    : 0.25s;
 
-          --cover-max-width  : 60em;
-          --content-max-width: 75em;
-        }
+                          --cover-max-width  : 60em;
+                          --content-max-width: 75em;
+                        }
   </style>
 </head>
 <body>
 <div id="app"></div>
 <script>
   window.$docsify = {
-      name: 'cdxgen documentation',
-      repo: 'https://github.com/cdxgen/cdxgen/tree/master/docs',
-      loadSidebar: true,
-      subMaxLevel: 3,
-      coverpage: '_coverpage.md',
-      auto2top: true,
-      autoHeader: true,
-      logo: '/_media/cdxgen.png',
-      nativeEmoji: true,
-      onlyCover: false,
-      themeColor: '#ff753d',
-      search: {
-        noData: {
-          '/': 'No results!'
-        },
-        paths: 'auto',
-        placeholder: {
-          '/': 'Search'
-        }
-      },
-      plugins: [
-        (hook) => {
-          hook.doneEach(() => {
-            const mermaidConfig = {
-              querySelector: ".mermaid",
-            };
-            mermaid.run(mermaidConfig);
-          });
-        },
-      ]
-    }
+              name: 'cdxgen documentation',
+              repo: 'https://github.com/cdxgen/cdxgen/tree/master/docs',
+              loadSidebar: true,
+              subMaxLevel: 3,
+              coverpage: '_coverpage.md',
+              auto2top: true,
+              autoHeader: true,
+              logo: '/_media/cdxgen.png',
+              nativeEmoji: true,
+              onlyCover: false,
+              themeColor: '#ff753d',
+              search: {
+                noData: {
+                  '/': 'No results!'
+                },
+                paths: 'auto',
+                placeholder: {
+                  '/': 'Search'
+                }
+              },
+              plugins: [
+                (hook) => {
+                  hook.doneEach(() => {
+                    const mermaidConfig = {
+                      querySelector: ".mermaid",
+                    };
+                    mermaid.run(mermaidConfig);
+                  });
+                },
+              ]
+            }
 </script>
 <!-- Docsify v4 -->
 <!-- Required -->
@@ -103,10 +103,10 @@
 <script src="https://unpkg.com/docsify-mermaid@2.0.0/dist/docsify-mermaid.js"></script>
 <script>
   mermaid.initialize({
-      startOnLoad: true,
-      suppressErrors: true,
-      theme: 'dark'
-    });
+              startOnLoad: true,
+              suppressErrors: true,
+              theme: 'dark'
+            });
 </script>
 </body>
 </html>
