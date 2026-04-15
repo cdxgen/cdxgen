@@ -73,7 +73,7 @@
   category: ci-permission
   # Check workflows (not components) for this trigger pattern
   condition: |
-    formulation[0].workflows[
+    formulation.workflows[
       $prop($, 'cdx:github:workflow:triggers') ~> $split(',') ~> $contains('pull_request_target')
     ]
   location: |

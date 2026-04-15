@@ -187,7 +187,7 @@ condition: |
 
 ```yaml
 condition: |
-  formulation[0].workflows[
+  formulation.workflows[
     $prop($, 'cdx:github:workflow:triggers') ~> $split(',') ~> $contains('pull_request_target')
   ]
 ```

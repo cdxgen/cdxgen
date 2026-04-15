@@ -78,4 +78,4 @@ jobs:
           docker-args: |
             ${{ steps.versions.outputs.docker-args }}
           platforms: linux/${{ matrix.platform }}
-          target: cdxgen
+          target: ${{ matrix.imagefile == 'ci/images/al10/Dockerfile.ruby-builder' && 'ruby-builder' || 'cdxgen' }}
