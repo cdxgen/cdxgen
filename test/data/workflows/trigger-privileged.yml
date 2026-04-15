@@ -1,10 +1,10 @@
 name: Trigger Privileged
 on: [pull_request_target]
+permissions:
+  contents: write
+  id-token: write
 jobs:
   deploy:
-    permissions:
-      contents: write
-      id-token: write
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
