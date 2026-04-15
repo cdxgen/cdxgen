@@ -2,11 +2,11 @@
 
 ## Reporting Security Issues
 
-The CycloneDX team and community take security bugs seriously. We appreciate your efforts to responsibly disclose your findings, and will make every effort to acknowledge your contributions.
+The OWASP cdxgen team and community take security bugs seriously. We appreciate your efforts to responsibly disclose your findings, and will make every effort to acknowledge your contributions.
 
 To report a security issue, email [security@cyclonedx.org](mailto:security@cyclonedx.org) and include the word **"SECURITY"** in the subject line.
 
-The CycloneDX team will send a response indicating the next steps in handling your report. After the initial reply to your report, the security team will keep you informed of the progress towards a fix and full announcement, and may ask for additional information or guidance.
+The OWASP cdxgen team will send a response indicating the next steps in handling your report. After the initial reply to your report, the security team will keep you informed of the progress towards a fix and full announcement, and may ask for additional information or guidance.
 
 Report security bugs in third-party modules to the person or team maintaining the module.
 
@@ -111,9 +111,10 @@ cdxgen includes several built-in security features. See the following documentat
 
 ## Supported Versions
 
-Security fixes are applied to the latest release only. We do not backport fixes to older major or minor versions. Users are encouraged to stay on the latest version.
+Security fixes are applied to the last two releases and cover the last two CycloneDX specification versions. Users are encouraged to stay on the latest version.
 
 | Version | Supported |
 | ------- | --------- |
-| Latest release | ✅ |
+| Last two releases | ✅ |
+| Last two CycloneDX spec versions | ✅ |
 | Older releases | ❌ |

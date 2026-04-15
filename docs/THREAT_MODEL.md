@@ -1,15 +1,17 @@
 # Threat Model
 
-This document describes the threat model for cdxgen — a polyglot CycloneDX SBOM generator. It identifies threat actors, attack surfaces, trust boundaries, and mitigations across cdxgen's components: CLI, library, HTTP server, REPL, CI/CD infrastructure, container images, and dependencies.
+This document describes the threat model for cdxgen — a polyglot CycloneDX BOM generator that produces SBOM, CBOM, OBOM, SaaSBOM, CDXA, and VDR documents. It identifies threat actors, attack surfaces, trust boundaries, and mitigations across cdxgen's components: CLI, library, HTTP server, REPL, CI/CD infrastructure, container images, and dependencies.
 
 ## System Overview
 
-cdxgen generates Software Bill of Materials (SBOM) documents by parsing project manifests/lockfiles and optionally invoking external build tools. It operates in four modes:
+cdxgen generates CycloneDX Bill-of-Materials (BOM) documents — including SBOM, CBOM, OBOM, SaaSBOM, CDXA, and VDR — by parsing project manifests/lockfiles and optionally invoking external build tools. It operates in six modes:
 
 1. **CLI** (`bin/cdxgen.js`) — Command-line invocation on local projects
 2. **Library** (`lib/cli/index.js`) — Programmatic use via `createBom(path, options)`
 3. **HTTP Server** (`lib/server/server.js`) — REST API accepting scan requests, optionally with Git clone
 4. **REPL** (`bin/repl.js`) — Interactive shell for ad-hoc BOM operations
+5. **Evinse** (`bin/evinse.js`) — Evidence generation for SBOM verification (analyzes call stacks, data flows, and usages)
+6. **Verify** (`bin/verify.js`) — BOM signature verification using JWS
 
 ## Trust Boundaries
 
@@ -276,9 +278,9 @@ Trust boundary 5: cdxgen container ←→ container host
 **Threat:** Generated SBOMs contain sensitive information (file paths, emails, secrets, internal hostnames) that is inadvertently shared.
 
 **Mitigations:**
-- `thoughtLog` sanitizes project directory paths in logs (replaces with `<project dir>`)
+- `thoughtLog` performs limited log normalization (for example, replacing the literal `'.'` with `'<project dir>'`), but logs may still include direct or absolute paths
 - Warning when `--include-formulation` is used with `--server-url` (formulation may contain emails and secrets)
-- In secure mode, using `--include-formulation` with `--server-url` causes exit with error
+- In secure mode, using `--include-formulation` with `--server-url` calls `process.exit(1)` after the warning, preventing automatic upload of formulation data
 - `auditEnvironment` detects and warns about credential-like environment variables
 
 **Residual risk:** Medium — SBOMs inherently contain metadata about the project. Users should review SBOMs before sharing, especially when formulation data is included.
