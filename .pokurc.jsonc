@@ -2,5 +2,7 @@
   "$schema": "https://poku.io/schemas/configs.json",
   "include": ["lib"],
   "filter": ".poku.js",
-  "reporter": "verbose"
+  "reporter": "compact",
+  "failFast": false,
+  "timeout": 60000
 }
