@@ -23,7 +23,14 @@
   },
   "linter": {
     "enabled": true,
-    "includes": ["**", "!contrib/**", "!data/**", "!test/**", "!types/**"],
+    "includes": [
+      "**",
+      "!contrib/**",
+      "!data/**",
+      "!test/**",
+      "!types/**",
+      "!docs/**"
+    ],
     "rules": {
       "recommended": true,
       "complexity": {
@@ -84,12 +91,19 @@
   },
   "formatter": {
     "enabled": true,
-    "includes": ["**", "!contrib/**", "!data/**", "!test/**", "!types/**"],
+    "includes": [
+      "**",
+      "!contrib/**",
+      "!data/**",
+      "!test/**",
+      "!types/**",
+      "!docs/**"
+    ],
     "indentStyle": "space",
     "indentWidth": 2
   },
   "files": {
     "maxSize": 5242880,
-    "includes": ["**", "!contrib", "!data", "!test", "!types"]
+    "includes": ["**", "!contrib", "!data", "!test", "!types", "!docs"]
   }
 }
