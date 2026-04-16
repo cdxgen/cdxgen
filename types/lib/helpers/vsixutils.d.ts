@@ -25,7 +25,7 @@ export function discoverIdeExtensionDirs(): Array<{
  * Parse a `.vsixmanifest` XML string and extract extension metadata.
  *
  * @param {string} manifestData Raw XML content of a `.vsixmanifest` file
- * @returns {Object|undefined} Object with { publisher, name, version, displayName, description, platform } or undefined on failure
+ * @returns {Object|undefined} Object with { publisher, name, version, displayName, description, platform, tags } or undefined on failure
  */
 export function parseVsixManifest(manifestData: string): Object | undefined;
 /**

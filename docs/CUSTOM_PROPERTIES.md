@@ -54,29 +54,29 @@ CycloneDX custom properties are emitted as name/value pairs, so consumers should
 | `cdx:bom:*`                                                                | BOM-level metadata                                        | Component type set, discovered namespaces, source manifest files                                                    | Measure BOM completeness, identify broad component diversity, and support attestable “evidence-of-origin” for manifest inputs                                    | [Cross-cutting BOM/service/build metadata](#inventory-cross-cutting) | [5](#example-5)                  |
 | `cdx:build:versionSpecifiers`                                              | Build/manifest parsing (for example C/C++ build metadata) | Non-exact version constraints captured from build descriptors                                                       | Highlight non-pinned dependency constraints and prioritize hardening toward deterministic builds                                                                 | [Cross-cutting BOM/service/build metadata](#inventory-cross-cutting) | [5](#example-5)                  |
 | `cdx:osquery:category`                                                     | Host/package discovery via osquery                        | Query/source category for discovered packages                                                                       | Separate inventory confidence by collection method and tune host-level evidence policies                                                                         | [Cross-cutting BOM/service/build metadata](#inventory-cross-cutting) | [5](#example-5)                  |
-| `cdx:vscode-extension:*`                                                   | VS Code / IDE extensions (`.vsix` and installed dirs)     | Activation events, extension kind, contributed features, lifecycle scripts, workspace trust posture                  | Detect always-on extensions, flag install-time script execution, audit host/filesystem access, enforce workspace trust and virtual workspace policies             | [IDE and editor extensions](#inventory-ide-extensions)               | [7](#example-7)                  |
+| `cdx:vscode-extension:*`                                                   | VS Code / IDE extensions (`.vsix` and installed dirs)     | Activation events, extension kind, contributed features, lifecycle scripts, workspace trust posture                 | Detect always-on extensions, flag install-time script execution, audit host/filesystem access, enforce workspace trust and virtual workspace policies            | [IDE and editor extensions](#inventory-ide-extensions)               | [7](#example-7)                  |
 | `cdx:service:httpMethod`                                                   | OpenAPI/service evidence                                  | HTTP method associated with discovered service endpoints                                                            | Support API exposure reviews (method-level attack surface and access-control assurance)                                                                          | [Cross-cutting BOM/service/build metadata](#inventory-cross-cutting) | [5](#example-5)                  |
 
 ## Useful keys
 
 These are the highest-leverage keys for first-pass policy authoring.
 
-| Key                                       | Why it matters                                                                     | Policy readiness |
-| ----------------------------------------- | ---------------------------------------------------------------------------------- | ---------------- |
-| `cdx:github:action:isShaPinned`           | Distinguishes immutable commit-pinned actions from mutable tag/branch references   | Hard deny        |
-| `cdx:github:workflow:hasWritePermissions` | Quickly identifies workflows that can modify repository or packages                | Hard deny        |
-| `cdx:github:workflow:hasIdTokenWrite`     | Flags OIDC token issuance capability                                               | Hard deny        |
-| `cdx:npm:hasInstallScript`                | Captures install-time execution surface                                            | Hard deny        |
-| `cdx:npm:isRegistryDependency`            | Detects git/file/local sources vs standard registry resolution                     | Hard deny        |
-| `cdx:pypi:registry`                       | Indicates non-default Python package index usage                                   | Hard deny        |
-| `cdx:gem:remoteRevision`                  | Lets policies distinguish immutable git revisions from mutable branch/tag sourcing | Warning / triage |
-| `cdx:nix:nar_hash`                        | Important reproducibility and content-integrity signal for flakes                  | Hard deny        |
-| `cdx:go:local_dir`                        | Detects local module replacements and non-hermetic resolution                      | Hard deny        |
-| `cdx:bom:componentSrcFiles`               | Useful gate for BOM completeness and downstream attestability                      | Warning / triage |
-| `cdx:vscode-extension:lifecycleScripts`   | Captures install-time execution surface from extension lifecycle hooks             | Hard deny        |
-| `cdx:vscode-extension:activationEvents`   | Wildcard (`*`) activation means always-on; broad trigger surface is higher risk    | Warning / triage |
-| `cdx:vscode-extension:untrustedWorkspaces`| Controls whether the extension operates in untrusted workspace contexts            | Warning / triage |
-| `cdx:vscode-extension:contributes`        | Reveals contributed features such as terminal access, debuggers, auth providers    | Warning / triage |
+| Key                                        | Why it matters                                                                     | Policy readiness |
+| ------------------------------------------ | ---------------------------------------------------------------------------------- | ---------------- |
+| `cdx:github:action:isShaPinned`            | Distinguishes immutable commit-pinned actions from mutable tag/branch references   | Hard deny        |
+| `cdx:github:workflow:hasWritePermissions`  | Quickly identifies workflows that can modify repository or packages                | Hard deny        |
+| `cdx:github:workflow:hasIdTokenWrite`      | Flags OIDC token issuance capability                                               | Hard deny        |
+| `cdx:npm:hasInstallScript`                 | Captures install-time execution surface                                            | Hard deny        |
+| `cdx:npm:isRegistryDependency`             | Detects git/file/local sources vs standard registry resolution                     | Hard deny        |
+| `cdx:pypi:registry`                        | Indicates non-default Python package index usage                                   | Hard deny        |
+| `cdx:gem:remoteRevision`                   | Lets policies distinguish immutable git revisions from mutable branch/tag sourcing | Warning / triage |
+| `cdx:nix:nar_hash`                         | Important reproducibility and content-integrity signal for flakes                  | Hard deny        |
+| `cdx:go:local_dir`                         | Detects local module replacements and non-hermetic resolution                      | Hard deny        |
+| `cdx:bom:componentSrcFiles`                | Useful gate for BOM completeness and downstream attestability                      | Warning / triage |
+| `cdx:vscode-extension:lifecycleScripts`    | Captures install-time execution surface from extension lifecycle hooks             | Hard deny        |
+| `cdx:vscode-extension:activationEvents`    | Wildcard (`*`) activation means always-on; broad trigger surface is higher risk    | Warning / triage |
+| `cdx:vscode-extension:untrustedWorkspaces` | Controls whether the extension operates in untrusted workspace contexts            | Warning / triage |
+| `cdx:vscode-extension:contributes`         | Reveals contributed features such as terminal access, debuggers, auth providers    | Warning / triage |
 
 ## Current key inventory (grouped)
 
@@ -351,19 +351,19 @@ The grouped lists below remain the authoritative inventory. The compact tables, 
 
 #### Compact operational reference
 
-| Key                                              | Scope     | Value type     | Typical values                                          | When emitted                                                                 | Why it matters                                                                                        | Policy readiness |
-| ------------------------------------------------ | --------- | -------------- | ------------------------------------------------------- | ---------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- | ---------------- |
-| `cdx:vscode-extension:activationEvents`          | component | list string    | `onLanguage:python, onCommand:ext.run`, `*`             | When extension package.json declares activation events                       | Wildcard (`*`) means the extension activates on every workspace open; broad triggers increase risk     | Warning / triage |
-| `cdx:vscode-extension:extensionKind`             | component | list string    | `ui`, `workspace`, `ui, workspace`                      | When extension declares where it can run                                     | `workspace` extensions execute in the remote host context and can access the filesystem                | Context only     |
-| `cdx:vscode-extension:extensionDependencies`     | component | list string    | `ms-python.vscode-pylance, ms-toolsai.jupyter`          | When extension declares dependencies on other extensions                     | Transitive trust chain; a compromised dependency extension can affect all dependants                   | Warning / triage |
-| `cdx:vscode-extension:extensionPack`             | component | list string    | `ms-python.python, ms-python.vscode-pylance`            | When extension bundles other extensions as a pack                            | Pack extensions install additional extensions implicitly                                               | Warning / triage |
-| `cdx:vscode-extension:untrustedWorkspaces`       | component | string         | `true`, `false`, `limited`                              | When extension declares workspace trust configuration                        | `true` means the extension runs in untrusted workspaces; `limited` restricts some features            | Warning / triage |
-| `cdx:vscode-extension:virtualWorkspaces`         | component | string         | `true`, `false`                                         | When extension declares virtual workspace support                            | Extensions supporting virtual workspaces may operate without direct filesystem access                  | Context only     |
-| `cdx:vscode-extension:contributes`               | component | list string    | `commands:12, debuggers:1, terminal-access, authentication-provider` | When extension contributes features to the IDE                  | Terminal access, debuggers, filesystem providers, and authentication providers indicate host access risk | Warning / triage |
-| `cdx:vscode-extension:main`                      | component | path string    | `./dist/extension.js`, `./out/main.js`                  | When extension declares a Node.js entry point                                | Identifies the primary executable entry point for security review                                      | Context only     |
-| `cdx:vscode-extension:browser`                   | component | path string    | `./dist/web/extension.js`                               | When extension declares a browser entry point                                | Browser extensions run in a sandboxed web context with reduced permissions                             | Context only     |
-| `cdx:vscode-extension:lifecycleScripts`          | component | list string    | `postinstall, vscode:prepublish`, `vscode:uninstall`    | When extension package.json contains lifecycle hooks                         | Install-time script execution risk; `postinstall` can run arbitrary code during extension installation | Hard deny        |
-| `cdx:vscode-extension:ide`                       | component | string         | `vscode`, `cursor`, `vscodium`, `windsurf`              | When extension is discovered from a specific IDE's extension directory        | Indicates which IDE the extension was found in; useful for fleet-wide inventory                        | Context only     |
+| Key                                          | Scope     | Value type  | Typical values                                                             | When emitted                                                           | Why it matters                                                                                           | Policy readiness |
+| -------------------------------------------- | --------- | ----------- | -------------------------------------------------------------------------- | ---------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- | ---------------- |
+| `cdx:vscode-extension:activationEvents`      | component | list string | `onLanguage:python, onCommand:ext.run`, `*`                                | When extension package.json declares activation events                 | Wildcard (`*`) means the extension activates on every workspace open; broad triggers increase risk       | Warning / triage |
+| `cdx:vscode-extension:extensionKind`         | component | list string | `ui`, `workspace`, `ui, workspace`                                         | When extension declares where it can run                               | `workspace` extensions execute in the remote host context and can access the filesystem                  | Context only     |
+| `cdx:vscode-extension:extensionDependencies` | component | list string | `ms-python.vscode-pylance, ms-toolsai.jupyter`                             | When extension declares dependencies on other extensions               | Transitive trust chain; a compromised dependency extension can affect all dependants                     | Warning / triage |
+| `cdx:vscode-extension:extensionPack`         | component | list string | `ms-python.python, ms-python.vscode-pylance`                               | When extension bundles other extensions as a pack                      | Pack extensions install additional extensions implicitly                                                 | Warning / triage |
+| `cdx:vscode-extension:untrustedWorkspaces`   | component | string      | `true`, `false`, `limited`                                                 | When extension declares workspace trust configuration                  | `true` means the extension runs in untrusted workspaces; `limited` restricts some features               | Warning / triage |
+| `cdx:vscode-extension:virtualWorkspaces`     | component | string      | `true`, `false`                                                            | When extension declares virtual workspace support                      | Extensions supporting virtual workspaces may operate without direct filesystem access                    | Context only     |
+| `cdx:vscode-extension:contributes`           | component | list string | `commands:count:12, debuggers:1, terminal-access, authentication-provider` | When extension contributes features to the IDE                         | Terminal access, debuggers, filesystem providers, and authentication providers indicate host access risk | Warning / triage |
+| `cdx:vscode-extension:main`                  | component | path string | `./dist/extension.js`, `./out/main.js`                                     | When extension declares a Node.js entry point                          | Identifies the primary executable entry point for security review                                        | Context only     |
+| `cdx:vscode-extension:browser`               | component | path string | `./dist/web/extension.js`                                                  | When extension declares a browser entry point                          | Browser extensions run in a sandboxed web context with reduced permissions                               | Context only     |
+| `cdx:vscode-extension:lifecycleScripts`      | component | list string | `postinstall, vscode:prepublish`, `vscode:uninstall`                       | When extension package.json contains lifecycle hooks                   | Install-time script execution risk; `postinstall` can run arbitrary code during extension installation   | Hard deny        |
+| `cdx:vscode-extension:ide`                   | component | string      | `vscode`, `cursor`, `vscodium`, `windsurf`                                 | When extension is discovered from a specific IDE's extension directory | Indicates which IDE the extension was found in; useful for fleet-wide inventory                          | Context only     |
 
 #### High-value combinations
 
@@ -384,13 +384,25 @@ The grouped lists below remain the authoritative inventory. The compact tables, 
   "purl": "pkg:vscode-extension/ms-python/python@2024.8.1",
   "properties": [
     { "name": "cdx:vscode-extension:ide", "value": "vscode" },
-    { "name": "cdx:vscode-extension:activationEvents", "value": "onLanguage:python, onCommand:python.runLinting" },
+    {
+      "name": "cdx:vscode-extension:activationEvents",
+      "value": "onLanguage:python, onCommand:python.runLinting"
+    },
     { "name": "cdx:vscode-extension:extensionKind", "value": "workspace" },
-    { "name": "cdx:vscode-extension:extensionDependencies", "value": "ms-python.vscode-pylance" },
+    {
+      "name": "cdx:vscode-extension:extensionDependencies",
+      "value": "ms-python.vscode-pylance"
+    },
     { "name": "cdx:vscode-extension:untrustedWorkspaces", "value": "limited" },
-    { "name": "cdx:vscode-extension:contributes", "value": "commands:42, debuggers:1, terminal-access" },
+    {
+      "name": "cdx:vscode-extension:contributes",
+      "value": "commands:count:42, debuggers:1, terminal-access"
+    },
     { "name": "cdx:vscode-extension:main", "value": "./dist/extension.js" },
-    { "name": "cdx:vscode-extension:lifecycleScripts", "value": "postinstall, vscode:prepublish" }
+    {
+      "name": "cdx:vscode-extension:lifecycleScripts",
+      "value": "postinstall, vscode:prepublish"
+    }
   ]
 }
 ```
@@ -399,7 +411,7 @@ The grouped lists below remain the authoritative inventory. The compact tables, 
 
 - The `cdx:vscode-extension:ide` property is set to the IDE name where the extension was discovered (for example `vscode`, `cursor`, `vscodium`, `windsurf`, `positron`). Extensions found from `.vsix` files do not have this property.
 - `cdx:vscode-extension:lifecycleScripts` is analogous to `cdx:npm:risky_scripts` for npm packages — both capture install-time execution risk.
-- `cdx:vscode-extension:contributes` is a summary list, not a full enumeration. The count suffix (for example `commands:42`) indicates how many contribution points exist in that category.
+- `cdx:vscode-extension:contributes` is a summary list, not a full enumeration. The count suffix (for example `commands:count:42`) indicates how many contribution points exist in that category.
 - Extensions discovered via osquery (`-t os`) use the same `pkg:vscode-extension` purl type and may also carry `cdx:osquery:category`.
 
 ## Consumer-oriented views
