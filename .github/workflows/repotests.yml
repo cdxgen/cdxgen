@@ -64,7 +64,7 @@ jobs:
           bin/cdxgen.js -t java repotests/java-sec-code -o bomresults/bom-java-sec-code-4.json --filter postgres --filter json
           bin/cdxgen.js -t java repotests/java-sec-code -o bomresults/bom-java-sec-code-5.json --only spring --fail-on-error
           bin/cdxgen.js -t java repotests/java-sec-code -o bomresults/bom-java-sec-code-6.json --deep --evidence
-          bin/cdxgen.js -t java repotests/java-sec-code -o bomresults/bom-java-sec-code-7.json --profile research --export-proto
+          bin/cdxgen.js -t java repotests/java-sec-code -o bomresults/bom-java-sec-code-7.json --profile research --spec-version 1.6 --export-proto
           ls -lh bomresults
           bin/cdxgen.js -t java repotests/java-sec-code -o bomresults/bom-java-sec-code-8.json --profile license-compliance
           bin/cdxgen.js -t java repotests/java-sec-code -o bomresults/bom-java-sec-code-9.json --include-regex "pom.xml" --bom-audit
@@ -156,7 +156,7 @@ jobs:
         shell: bash
       - name: repotests shiftleft-go-example
         run: |
-          FETCH_LICENSE=false bin/cdxgen.js -r -t golang repotests/shiftleft-go-example -o bomresults/bom-go.json --fail-on-error --export-proto
+          FETCH_LICENSE=false bin/cdxgen.js -r -t golang repotests/shiftleft-go-example -o bomresults/bom-go.json --fail-on-error --spec-version 1.6 --export-proto
         shell: bash
       - name: repotests gallery
         run: |
@@ -576,7 +576,7 @@ jobs:
           bin/cdxgen.js -t java repotests/java-sec-code -o bomresults/bom-java-sec-code-4.json --filter postgres --filter json
           bin/cdxgen.js -t java repotests/java-sec-code -o bomresults/bom-java-sec-code-5.json --only spring --fail-on-error
           bin/cdxgen.js -t java repotests/java-sec-code -o bomresults/bom-java-sec-code-6.json --deep --evidence
-          bin/cdxgen.js -t java repotests/java-sec-code -o bomresults/bom-java-sec-code-7.json --profile research --export-proto
+          bin/cdxgen.js -t java repotests/java-sec-code -o bomresults/bom-java-sec-code-7.json --profile research --spec-version 1.6 --export-proto
           bin/cdxgen.js -t java repotests/java-sec-code -o bomresults/bom-java-sec-code-8.json --profile license-compliance
           bin/cdxgen.js -t java -t github repotests/java-sec-code -o bomresults/bom-java-sec-code-9.json
           bin/cdxgen.js -t java -exclude-type js repotests/java-sec-code -o bomresults/bom-java-sec-code-10.json
@@ -763,7 +763,7 @@ jobs:
         run: |
           bin/cdxgen.js -r -t dotnet repotests/dotnet-paket -o bomresults/bom-dotnet-paket.json --deep
           FETCH_LICENSE=true bin/cdxgen.js -r -t dotnet repotests/dotnet-paket -o bomresults/bom-dotnet-paket-2.json --fail-on-error
-          bin/cdxgen.js -r -t dotnet repotests/dotnet-podcasts -o bomresults/bom-dotnet-podcasts.json --profile research --export-proto
+          bin/cdxgen.js -r -t dotnet repotests/dotnet-podcasts -o bomresults/bom-dotnet-podcasts.json --profile research --spec-version 1.6 --export-proto
           bin/cdxgen.js -r -t dotnet repotests/react-native-windows -o bomresults/bom-react-native-windows.json
         shell: bash
       - name: repotests SimpleFrameworkApp
