@@ -264,7 +264,7 @@ components:
         specVersion:
           type: string
           description: CycloneDX Specification version to use
-          default: "1.6"
+          default: "1.7"
         filter:
           type: array
           items:

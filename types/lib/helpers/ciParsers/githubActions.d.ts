@@ -7,10 +7,10 @@
  * - **dependencies** – workflow→job and job→action/step edges
  *
  * @param {string} f - Absolute path to a workflow YAML file.
- * @param {Object} _options - CLI options (currently unused but kept for interface consistency).
+ * @param {Object} options - CLI options
  * @returns {{ workflows: Object[], components: Object[], dependencies: Object[] }}
  */
-export function parseWorkflowFile(f: string, _options: Object): {
+export function parseWorkflowFile(f: string, options: Object): {
     workflows: Object[];
     components: Object[];
     dependencies: Object[];

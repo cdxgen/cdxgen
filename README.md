@@ -157,8 +157,8 @@ Options:
       --validate                  Validate the generated SBOM using json schema. Defaults to true. Pass --no-validate to
                                    disable.                                                    [boolean] [default: true]
       --evidence                  Generate SBOM with evidence for supported languages.        [boolean] [default: false]
-      --spec-version              CycloneDX Specification version to use. Defaults to 1.6
-                                                                   [number] [choices: 1.4, 1.5, 1.6, 1.7] [default: 1.6]
+      --spec-version              CycloneDX Specification version to use. Defaults to 1.7
+                                                                   [number] [choices: 1.4, 1.5, 1.6, 1.7] [default: 1.7]
       --filter                    Filter components containing this word in purl or component.properties.value. Multiple
                                    values allowed.                                                               [array]
       --only                      Include components only containing this word in purl. Useful to generate BOM with firs
@@ -221,11 +221,11 @@ To recursively generate a single BOM for all languages pass `-r` argument.
 cdxgen -r -o bom.json
 ```
 
-The default specification used by cdxgen is 1.6. To generate BOM for a different specification version, such as 1.5 or 1.4, pass the version number using the `--spec-version` argument.
+The default specification used by cdxgen is 1.7. To generate BOM for a different specification version, such as 1.5 or 1.6, pass the version number using the `--spec-version` argument.
 
 ```shell
-# 1.5 is supported by most tools
-cdxgen -r -o bom.json --spec-version 1.5
+# 1.6 is supported by most tools
+cdxgen -r -o bom.json --spec-version 1.6
 ```
 
 To generate SBOM for C or Python, ensure Java >= 21 is installed.

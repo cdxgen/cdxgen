@@ -251,7 +251,7 @@ const args = _yargs
   })
   .option("spec-version", {
     description: "CycloneDX Specification version to use. Defaults to 1.6",
-    default: 1.6,
+    default: 1.7,
     type: "number",
     choices: [1.4, 1.5, 1.6, 1.7],
   })
@@ -581,7 +581,7 @@ if (["cbom", "saasbom"].includes(process.argv[1])) {
     }
   }
   options.evidence = true;
-  options.specVersion = 1.6;
+  options.specVersion = 1.7;
   options.deep = true;
 }
 if (process.argv[1].includes("cdxgen-secure")) {
@@ -595,7 +595,7 @@ if (process.argv[1].includes("cdxgen-secure")) {
   process.env.CDXGEN_SECURE_MODE = true;
 }
 if (options.standard) {
-  options.specVersion = 1.6;
+  options.specVersion = 1.7;
 }
 if (options.includeFormulation) {
   if (options.serverUrl) {
@@ -969,7 +969,7 @@ const needsBomSigning = ({ generateKeyAndSign }) =>
     );
   }
   // Add extra metadata and annotations with post processing
-  bomNSData = postProcess(bomNSData, options);
+  bomNSData = postProcess(bomNSData, options, filePath);
   if (options.bomAudit && bomNSData?.bomJson) {
     const {
       auditBom,

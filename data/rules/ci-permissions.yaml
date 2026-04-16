@@ -146,14 +146,13 @@
   severity: critical
   category: ci-permission
   condition: |
-    components[
+    formulation.components[
       $prop($, 'cdx:github:step:hasUntrustedInterpolation') = 'true'
       and $prop($, 'cdx:github:step:type') = 'run'
     ]
   location: |
     {
       "bomRef": $."bom-ref",
-      "purl": purl,
       "file": $prop($, 'cdx:github:workflow:file')
     }
   message: "Untrusted input interpolated into shell command: variables '{{ $prop($, 'cdx:github:step:interpolatedVars') }}'"

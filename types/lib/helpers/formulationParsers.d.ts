@@ -31,6 +31,7 @@ export function getParsers(): Array<{
  * The function falls back to a minimal stub workflow when no CI config files
  * are detected at the given path.
  *
+ * @param {string} filePath         File path
  * @param {Object} options          CLI options; `options.path` is used as the
  *                                  project root for file discovery.
  * @param {Object} [context={}]     Optional context object.  If it contains a
@@ -42,7 +43,7 @@ export function getParsers(): Array<{
  *   `dependencies` – dependency objects to be merged into
  *                    `bomJson.dependencies` via `mergeDependencies`
  */
-export function addFormulationSection(options: Object, context?: Object): {
+export function addFormulationSection(filePath: string, options: Object, context?: Object): {
     formulation: Object[];
     dependencies: Object[];
 };

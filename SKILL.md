@@ -2,7 +2,7 @@
 
 ## Description
 
-`cdxgen` is a universal, polyglot CLI tool that generates valid CycloneDX Bill-of-Materials (BOM) documents in JSON format. It produces SBOM, CBOM, OBOM, SaaSBOM, VDR, and CDXA outputs for source code, containers, VMs, and live operating systems. Supports CycloneDX spec versions `1.4`–`1.7` (default: `1.6`).
+`cdxgen` is a universal, polyglot CLI tool that generates valid CycloneDX Bill-of-Materials (BOM) documents in JSON format. It produces SBOM, CBOM, OBOM, SaaSBOM, VDR, and CDXA outputs for source code, containers, VMs, and live operating systems. Supports CycloneDX spec versions `1.4`–`1.7` (default: `1.7`).
 
 ## ✅ When to Invoke
 

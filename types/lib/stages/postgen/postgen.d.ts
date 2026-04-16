@@ -6,7 +6,7 @@
  *
  * @returns {Object} Modified bomNSData
  */
-export function postProcess(bomNSData: Object, options: Object): Object;
+export function postProcess(bomNSData: Object, options: Object, filePath: any): Object;
 /**
  * Apply additional metadata based on components
  *
