@@ -77,6 +77,8 @@ These are the highest-leverage keys for first-pass policy authoring.
 | `cdx:vscode-extension:activationEvents`    | Wildcard (`*`) activation means always-on; broad trigger surface is higher risk    | Warning / triage |
 | `cdx:vscode-extension:untrustedWorkspaces` | Controls whether the extension operates in untrusted workspace contexts            | Warning / triage |
 | `cdx:vscode-extension:contributes`         | Reveals contributed features such as terminal access, debuggers, auth providers    | Warning / triage |
+| `cdx:vscode-extension:executesCode`        | Explicit declaration that the extension executes code; always-true is higher risk  | Warning / triage |
+| `cdx:vscode-extension:vscodeEngine`        | Minimum VS Code version required; older engines may lack security features         | Context only     |
 
 ## Current key inventory (grouped)
 
@@ -340,14 +342,14 @@ The grouped lists below remain the authoritative inventory. The compact tables, 
 
 #### Authoritative grouped index
 
-- **VS Code extensions:** `cdx:vscode-extension:activationEvents`, `cdx:vscode-extension:browser`, `cdx:vscode-extension:contributes`, `cdx:vscode-extension:extensionDependencies`, `cdx:vscode-extension:extensionKind`, `cdx:vscode-extension:extensionPack`, `cdx:vscode-extension:ide`, `cdx:vscode-extension:lifecycleScripts`, `cdx:vscode-extension:main`, `cdx:vscode-extension:untrustedWorkspaces`, `cdx:vscode-extension:virtualWorkspaces`
+- **VS Code extensions:** `cdx:vscode-extension:activationEvents`, `cdx:vscode-extension:browser`, `cdx:vscode-extension:contributes`, `cdx:vscode-extension:executesCode`, `cdx:vscode-extension:extensionDependencies`, `cdx:vscode-extension:extensionKind`, `cdx:vscode-extension:extensionPack`, `cdx:vscode-extension:ide`, `cdx:vscode-extension:lifecycleScripts`, `cdx:vscode-extension:main`, `cdx:vscode-extension:untrustedWorkspaces`, `cdx:vscode-extension:virtualWorkspaces`, `cdx:vscode-extension:vscodeEngine`
 
 #### Decision-oriented sub-groups
 
-- **Execution surface:** `cdx:vscode-extension:lifecycleScripts`, `cdx:vscode-extension:main`, `cdx:vscode-extension:browser`, `cdx:vscode-extension:contributes`
+- **Execution surface:** `cdx:vscode-extension:lifecycleScripts`, `cdx:vscode-extension:main`, `cdx:vscode-extension:browser`, `cdx:vscode-extension:contributes`, `cdx:vscode-extension:executesCode`
 - **Privilege / trust:** `cdx:vscode-extension:untrustedWorkspaces`, `cdx:vscode-extension:virtualWorkspaces`, `cdx:vscode-extension:activationEvents`
 - **Dependency chain:** `cdx:vscode-extension:extensionDependencies`, `cdx:vscode-extension:extensionPack`
-- **Context / provenance:** `cdx:vscode-extension:ide`, `cdx:vscode-extension:extensionKind`
+- **Context / provenance:** `cdx:vscode-extension:ide`, `cdx:vscode-extension:extensionKind`, `cdx:vscode-extension:vscodeEngine`
 
 #### Compact operational reference
 
@@ -363,6 +365,8 @@ The grouped lists below remain the authoritative inventory. The compact tables, 
 | `cdx:vscode-extension:main`                  | component | path string | `./dist/extension.js`, `./out/main.js`                                     | When extension declares a Node.js entry point                          | Identifies the primary executable entry point for security review                                        | Context only     |
 | `cdx:vscode-extension:browser`               | component | path string | `./dist/web/extension.js`                                                  | When extension declares a browser entry point                          | Browser extensions run in a sandboxed web context with reduced permissions                               | Context only     |
 | `cdx:vscode-extension:lifecycleScripts`      | component | list string | `postinstall, vscode:prepublish`, `vscode:uninstall`                       | When extension package.json contains lifecycle hooks                   | Install-time script execution risk; `postinstall` can run arbitrary code during extension installation   | Hard deny        |
+| `cdx:vscode-extension:executesCode`          | component | string      | `true`, `false`                                                            | When vsixmanifest Properties declares `ExecutesCode`                   | Explicitly declares whether the extension executes code; `true` confirms the extension runs arbitrary code | Warning / triage |
+| `cdx:vscode-extension:vscodeEngine`          | component | string      | `^1.94.0`, `>=1.80.0`                                                     | When vsixmanifest Properties declares the required VS Code engine      | Minimum VS Code version required; older engines may lack security features like workspace trust           | Context only     |
 | `cdx:vscode-extension:ide`                   | component | string      | `vscode`, `cursor`, `vscodium`, `windsurf`                                 | When extension is discovered from a specific IDE's extension directory | Indicates which IDE the extension was found in; useful for fleet-wide inventory                          | Context only     |
 
 #### High-value combinations
