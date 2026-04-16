@@ -29,6 +29,25 @@ export function discoverIdeExtensionDirs(): Array<{
  */
 export function parseVsixManifest(manifestData: string): Object | undefined;
 /**
+ * Convert a semver range string to PURL Version Range Spec (vers) format.
+ *
+ * @param {string} range The semver range (e.g., "^1.0.5", ">=2.0.0", "1.0.0", "workspace:*", "latest")
+ * @returns {string} The vers-formatted string (e.g., "vers:npm/^1.0.5")
+ */
+export function toVersRange(range: string): string;
+/**
+ * Parse npm-style dependency maps from a VS Code extension's package.json
+ * and create CycloneDX component objects with versionRange attributes.
+ *
+ * @param {Object} pkg Parsed package.json object
+ * @param {string} extensionPurl The purl of the parent extension (for dependency tree)
+ * @returns {{ components: Object[], dependencies: Object[] }} CycloneDX components and dependency tree
+ */
+export function parseExtensionDependencies(pkg: Object, extensionPurl: string): {
+    components: Object[];
+    dependencies: Object[];
+};
+/**
  * Parse a VS Code extension's `package.json` and extract metadata
  * including deep capability and permission information.
  *

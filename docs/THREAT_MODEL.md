@@ -46,14 +46,14 @@ Trust boundary 5: cdxgen container ←→ container host
 
 ## Threat Actors
 
-| Actor | Capability | Motivation |
-| ----- | ---------- | ---------- |
-| **Malicious project author** | Controls manifest files, lockfiles, build scripts, `.npmrc`, `.mvn/`, `setup.py`, etc. | Supply-chain attack: execute code on machines that scan their project |
-| **Network attacker (MITM)** | Intercepts HTTP traffic between cdxgen/build tools and registries | Inject malicious package metadata, steal credentials, tamper with SBOMs |
-| **Malicious HTTP client** | Sends crafted requests to the cdxgen server | Path traversal, SSRF, denial of service, Git clone exploits |
-| **Environment manipulator** | Controls environment variables in the cdxgen process | Command injection via `NODE_OPTIONS`, credential theft, behavior alteration |
-| **Compromised dependency** | A direct or transitive npm dependency of cdxgen is compromised | Arbitrary code execution in the cdxgen process at import time |
-| **Compromised CI/CD** | Access to GitHub Actions workflows or self-hosted runners | Tamper with releases, inject malicious code into published artifacts |
+| Actor                        | Capability                                                                             | Motivation                                                                  |
+| ---------------------------- | -------------------------------------------------------------------------------------- | --------------------------------------------------------------------------- |
+| **Malicious project author** | Controls manifest files, lockfiles, build scripts, `.npmrc`, `.mvn/`, `setup.py`, etc. | Supply-chain attack: execute code on machines that scan their project       |
+| **Network attacker (MITM)**  | Intercepts HTTP traffic between cdxgen/build tools and registries                      | Inject malicious package metadata, steal credentials, tamper with SBOMs     |
+| **Malicious HTTP client**    | Sends crafted requests to the cdxgen server                                            | Path traversal, SSRF, denial of service, Git clone exploits                 |
+| **Environment manipulator**  | Controls environment variables in the cdxgen process                                   | Command injection via `NODE_OPTIONS`, credential theft, behavior alteration |
+| **Compromised dependency**   | A direct or transitive npm dependency of cdxgen is compromised                         | Arbitrary code execution in the cdxgen process at import time               |
+| **Compromised CI/CD**        | Access to GitHub Actions workflows or self-hosted runners                              | Tamper with releases, inject malicious code into published artifacts        |
 
 ## Threats and Mitigations by Component
 
@@ -64,6 +64,7 @@ Trust boundary 5: cdxgen container ←→ container host
 **Threat:** Attacker-controlled values from manifests or lockfiles (package names, versions, URLs) are passed to `safeSpawnSync` in a way that escapes command boundaries.
 
 **Mitigations:**
+
 - `safeSpawnSync` uses array-based arguments (not shell strings) via `spawnSync`, preventing shell metacharacter injection
 - Command allowlisting via `CDXGEN_ALLOWED_COMMANDS` — only explicitly permitted commands can execute
 - In secure mode, automatic package installations are disabled, reducing the set of commands invoked
@@ -76,6 +77,7 @@ Trust boundary 5: cdxgen container ←→ container host
 **Threat:** cdxgen invokes `npm install`, `mvn`, `pip install`, `gradle`, etc. These tools execute code from project files (postinstall scripts, `setup.py`, Gradle build scripts).
 
 **Mitigations:**
+
 - Secure mode (`CDXGEN_SECURE_MODE=true`) disables automatic package installation
 - `safeSpawnSync` warns when `pip`/`uv install` is invoked without `--only-binary=:all:` (prevents `setup.py` execution during wheel builds)
 - `safeSpawnSync` warns when Python is invoked without `-S` flag
@@ -88,6 +90,7 @@ Trust boundary 5: cdxgen container ←→ container host
 **Threat:** Attacker sets `NODE_OPTIONS` with `--require` or `--eval` to inject code, or manipulates `JAVA_TOOL_OPTIONS`, `NODE_PATH`, proxy variables, or TLS settings.
 
 **Mitigations:**
+
 - `auditEnvironment()` runs at startup and detects:
   - Code execution patterns in `NODE_OPTIONS` (`--require`, `--eval`, `--import`, `--loader`, `--inspect`)
   - JVM agent injection in `MVN_ARGS`, `GRADLE_ARGS`, `JAVA_TOOL_OPTIONS`
@@ -106,6 +109,7 @@ Trust boundary 5: cdxgen container ←→ container host
 **Threat:** Attacker crafts file paths with `../`, Unicode tricks, or Windows device names to read or write outside the intended project directory.
 
 **Mitigations:**
+
 - `hasDangerousUnicode()` detects bidirectional control characters, zero-width characters, and other obfuscation
 - `isValidDriveRoot()` prevents Unicode lookalike drive letters on Windows (CVE-2025-27210 mitigation)
 - Node.js `--permission` model (in secure mode) restricts filesystem access to explicitly allowed paths
@@ -120,6 +124,7 @@ Trust boundary 5: cdxgen container ←→ container host
 **Threat:** A client sends a scan request with a path like `/app/../../../etc/passwd` to scan or access files outside allowed directories.
 
 **Mitigations:**
+
 - `isAllowedPath()` resolves paths and checks they are within `CDXGEN_SERVER_ALLOWED_PATHS`
 - Uses `path.relative()` to detect `..` traversal
 - `hasDangerousUnicode()` blocks Unicode obfuscation in paths
@@ -133,6 +138,7 @@ Trust boundary 5: cdxgen container ←→ container host
 **Threat:** A client sends a Git URL that exploits Git features to execute code during clone (e.g., `ext::` protocol, `fd::` protocol, malicious submodules).
 
 **Mitigations:**
+
 - `validateAndRejectGitSource()` rejects dangerous protocols (`ext::`, `fd::`)
 - Validates URL format and hostname against `CDXGEN_SERVER_ALLOWED_HOSTS`
 - Git clone uses hardened configuration:
@@ -150,6 +156,7 @@ Trust boundary 5: cdxgen container ←→ container host
 **Threat:** A client triggers cdxgen to make HTTP requests to internal hosts via package registry lookups or Git clone URLs.
 
 **Mitigations:**
+
 - `CDXGEN_ALLOWED_HOSTS` restricts `cdxgenAgent` outbound connections
 - `CDXGEN_SERVER_ALLOWED_HOSTS` restricts Git clone target hosts
 - Secure mode enforces HTTPS-only
@@ -162,6 +169,7 @@ Trust boundary 5: cdxgen container ←→ container host
 **Threat:** A client sends many concurrent requests, very large bodies, or requests for enormous projects to exhaust server resources.
 
 **Mitigations:**
+
 - Body parser limit: 1MB
 - Server timeout: 10 minutes (configurable via `CDXGEN_SERVER_TIMEOUT_MS`)
 - Spawn timeout: 20 minutes (configurable via `CDXGEN_TIMEOUT_MS`)
@@ -174,6 +182,7 @@ Trust boundary 5: cdxgen container ←→ container host
 **Threat:** Any client that can reach the server can trigger scans, potentially accessing the host filesystem.
 
 **Mitigations:**
+
 - `CDXGEN_SERVER_ALLOWED_PATHS` restricts scannable directories
 - Users are expected to deploy behind a reverse proxy with authentication
 - The server is intended for internal/CI use, not public exposure
@@ -187,6 +196,7 @@ Trust boundary 5: cdxgen container ←→ container host
 **Threat:** A direct or transitive dependency publishes a malicious update that executes code when imported.
 
 **Mitigations:**
+
 - `pnpm-lock.yaml` provides reproducible installs with integrity hashes
 - `pnpm.onlyBuiltDependencies` restricts which packages can run install scripts
 - Renovate provides automated dependency updates with CI testing
@@ -201,6 +211,7 @@ Trust boundary 5: cdxgen container ←→ container host
 **Threat:** An attacker publishes a malicious package with the same name as a private dependency to a public registry.
 
 **Mitigations:**
+
 - cdxgen uses only public npm packages; no private registry dependencies
 - All dependencies are explicitly versioned in `package.json`
 - `pnpm-lock.yaml` pins exact versions with integrity hashes
@@ -214,6 +225,7 @@ Trust boundary 5: cdxgen container ←→ container host
 **Threat:** A compromised GitHub Action or workflow modification injects malicious code into cdxgen releases.
 
 **Mitigations:**
+
 - All GitHub Actions are pinned to full SHA digests (not mutable tags)
 - `permissions: {}` default (no permissions) at workflow level; explicit per-job grants
 - `persist-credentials: false` on all checkout steps
@@ -227,6 +239,7 @@ Trust boundary 5: cdxgen container ←→ container host
 **Threat:** A self-hosted CI runner is compromised, allowing an attacker to tamper with builds or access secrets.
 
 **Mitigations:**
+
 - Self-hosted runners are used only for specific heavy jobs (e.g., depscan analysis)
 - Workflow permissions are scoped to specific jobs
 - `persist-credentials: false` limits credential exposure
@@ -239,6 +252,7 @@ Trust boundary 5: cdxgen container ←→ container host
 **Threat:** An attacker modifies the npm package or container image between build and publish.
 
 **Mitigations:**
+
 - npm provenance attestation links published packages to specific GitHub Actions runs
 - Container base images are pinned to SHA digests
 - Multi-platform container builds use consistent base images
@@ -253,6 +267,7 @@ Trust boundary 5: cdxgen container ←→ container host
 **Threat:** A vulnerability in the container runtime or cdxgen's container configuration allows escaping to the host.
 
 **Mitigations:**
+
 - `cdxgen-secure` image runs as non-root user (`cyclonedx`)
 - Node.js `--permission` model restricts filesystem and child process access within the container
 - Limited `--allow-fs-write` to temp and output directories only
@@ -265,6 +280,7 @@ Trust boundary 5: cdxgen container ←→ container host
 **Threat:** The base container image contains known vulnerabilities.
 
 **Mitigations:**
+
 - Base images are pinned to SHA digests for reproducibility
 - Images are regularly rebuilt with updated dependencies
 - CI builds test images before publishing
@@ -278,6 +294,7 @@ Trust boundary 5: cdxgen container ←→ container host
 **Threat:** Generated SBOMs contain sensitive information (file paths, emails, secrets, internal hostnames) that is inadvertently shared.
 
 **Mitigations:**
+
 - `thoughtLog` performs limited log normalization (for example, replacing the literal `'.'` with `'<project dir>'`), but logs may still include direct or absolute paths
 - Warning when `--include-formulation` is used with `--server-url` (formulation may contain emails and secrets)
 - In secure mode, using `--include-formulation` with `--server-url` calls `process.exit(1)` after the warning, preventing automatic upload of formulation data
@@ -290,6 +307,7 @@ Trust boundary 5: cdxgen container ←→ container host
 **Threat:** An SBOM is modified during upload to a BOM server (Dependency-Track, etc.).
 
 **Mitigations:**
+
 - Secure mode enforces HTTPS-only for all connections including SBOM upload
 - cdxgen supports SBOM signing via `SBOM_SIGN_PRIVATE_KEY`
 
@@ -327,26 +345,26 @@ Trust boundary 5: cdxgen container ←→ container host
                      [TB4, TB5]
 ```
 
-*TB = Trust Boundary (see Trust Boundaries section above)*
+_TB = Trust Boundary (see Trust Boundaries section above)_
 
 ## Security Controls Summary
 
-| Control | Implementation | Threat(s) Addressed |
-| ------- | -------------- | -------------------- |
-| Command allowlisting | `CDXGEN_ALLOWED_COMMANDS` + `safeSpawnSync` | T1.1, T1.2 |
-| Host allowlisting | `CDXGEN_ALLOWED_HOSTS` + `cdxgenAgent` hooks | T2.3, T2.2 |
-| Path allowlisting | `CDXGEN_SERVER_ALLOWED_PATHS` + `isAllowedPath` | T2.1 |
-| Node.js permission model | `--permission` flags in `NODE_OPTIONS` | T1.4, T5.1 |
-| Secure mode | `CDXGEN_SECURE_MODE=true` | T1.2, T2.2, T2.3, T6.2 |
-| Environment audit | `auditEnvironment()` at startup | T1.3 |
-| Unicode validation | `hasDangerousUnicode()`, `isValidDriveRoot()` | T1.4, T2.1 |
-| Git hardening | `validateAndRejectGitSource()`, hardened clone config | T2.2 |
-| Safe wrappers | `safeExistsSync`, `safeMkdirSync`, `safeSpawnSync` | T1.1, T1.4 |
-| Structured logging | `thoughtLog`, `traceLog`, `commandsExecuted`, `remoteHostsAccessed` | Auditability for all threats |
-| Dependency pinning | `pnpm-lock.yaml`, SHA-pinned Actions, SHA-pinned base images | T3.1, T3.2, T4.1 |
-| Provenance attestation | `NPM_CONFIG_PROVENANCE=true` | T4.3 |
-| Non-root container | `USER cyclonedx` in Dockerfile-secure | T5.1 |
-| Request limits | Body parser 1MB limit, server timeout, spawn timeout, max buffer | T2.4 |
+| Control                  | Implementation                                                      | Threat(s) Addressed          |
+| ------------------------ | ------------------------------------------------------------------- | ---------------------------- |
+| Command allowlisting     | `CDXGEN_ALLOWED_COMMANDS` + `safeSpawnSync`                         | T1.1, T1.2                   |
+| Host allowlisting        | `CDXGEN_ALLOWED_HOSTS` + `cdxgenAgent` hooks                        | T2.3, T2.2                   |
+| Path allowlisting        | `CDXGEN_SERVER_ALLOWED_PATHS` + `isAllowedPath`                     | T2.1                         |
+| Node.js permission model | `--permission` flags in `NODE_OPTIONS`                              | T1.4, T5.1                   |
+| Secure mode              | `CDXGEN_SECURE_MODE=true`                                           | T1.2, T2.2, T2.3, T6.2       |
+| Environment audit        | `auditEnvironment()` at startup                                     | T1.3                         |
+| Unicode validation       | `hasDangerousUnicode()`, `isValidDriveRoot()`                       | T1.4, T2.1                   |
+| Git hardening            | `validateAndRejectGitSource()`, hardened clone config               | T2.2                         |
+| Safe wrappers            | `safeExistsSync`, `safeMkdirSync`, `safeSpawnSync`                  | T1.1, T1.4                   |
+| Structured logging       | `thoughtLog`, `traceLog`, `commandsExecuted`, `remoteHostsAccessed` | Auditability for all threats |
+| Dependency pinning       | `pnpm-lock.yaml`, SHA-pinned Actions, SHA-pinned base images        | T3.1, T3.2, T4.1             |
+| Provenance attestation   | `NPM_CONFIG_PROVENANCE=true`                                        | T4.3                         |
+| Non-root container       | `USER cyclonedx` in Dockerfile-secure                               | T5.1                         |
+| Request limits           | Body parser 1MB limit, server timeout, spawn timeout, max buffer    | T2.4                         |
 
 ## Recommendations for Deployers
 

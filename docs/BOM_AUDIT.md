@@ -55,13 +55,13 @@ The audit runs as a post-processing step after BOM generation:
 
 ## CLI options
 
-| Option | Type | Default | Description |
-|---|---|---|---|
-| `--bom-audit` | boolean | `false` | Enable post-generation security audit |
-| `--bom-audit-rules-dir` | string | — | Directory containing additional YAML rule files (merged with built-in rules) |
-| `--bom-audit-categories` | string | all | Comma-separated list of rule categories to enable |
-| `--bom-audit-min-severity` | string | `low` | Minimum severity to report: `low`, `medium`, `high` |
-| `--bom-audit-fail-severity` | string | `high` | Severity level at or above which findings cause secure mode failure (e.g., `medium` fails on medium, high, and critical) |
+| Option                      | Type    | Default | Description                                                                                                              |
+| --------------------------- | ------- | ------- | ------------------------------------------------------------------------------------------------------------------------ |
+| `--bom-audit`               | boolean | `false` | Enable post-generation security audit                                                                                    |
+| `--bom-audit-rules-dir`     | string  | —       | Directory containing additional YAML rule files (merged with built-in rules)                                             |
+| `--bom-audit-categories`    | string  | all     | Comma-separated list of rule categories to enable                                                                        |
+| `--bom-audit-min-severity`  | string  | `low`   | Minimum severity to report: `low`, `medium`, `high`                                                                      |
+| `--bom-audit-fail-severity` | string  | `high`  | Severity level at or above which findings cause secure mode failure (e.g., `medium` fails on medium, high, and critical) |
 
 ## Built-in rule categories
 
@@ -69,39 +69,39 @@ The audit runs as a post-processing step after BOM generation:
 
 Rules that evaluate GitHub Actions, GitLab CI, and other CI/CD workflow data for privilege and supply-chain risks.
 
-| Rule | Severity | Description |
-|---|---|---|
-| CI-001 | high | Unpinned GitHub Action in a workflow with write permissions |
-| CI-002 | high | OIDC token (`id-token: write`) granted to non-official action |
-| CI-003 | medium | GitHub Action pinned to a mutable tag instead of SHA |
-| CI-004 | medium | Workflow uses `pull_request_target` trigger |
+| Rule   | Severity | Description                                                   |
+| ------ | -------- | ------------------------------------------------------------- |
+| CI-001 | high     | Unpinned GitHub Action in a workflow with write permissions   |
+| CI-002 | high     | OIDC token (`id-token: write`) granted to non-official action |
+| CI-003 | medium   | GitHub Action pinned to a mutable tag instead of SHA          |
+| CI-004 | medium   | Workflow uses `pull_request_target` trigger                   |
 
 ### `dependency-source` — Dependency Source Integrity
 
 Rules that check package manager data for non-registry, local, or mutable dependency sources.
 
-| Rule | Severity | Description |
-|---|---|---|
-| PKG-001 | high | npm package with install script from non-registry source |
-| PKG-002 | high | Go module uses local `replace` directive |
-| PKG-003 | high | Swift package uses local checkout path |
-| PKG-004 | high | Nix flake missing reproducibility metadata (revision or nar_hash) |
-| PKG-005 | medium | Ruby gem tracks mutable branch without commit pin |
-| PKG-006 | medium | Python package from non-default PyPI registry |
+| Rule    | Severity | Description                                                       |
+| ------- | -------- | ----------------------------------------------------------------- |
+| PKG-001 | high     | npm package with install script from non-registry source          |
+| PKG-002 | high     | Go module uses local `replace` directive                          |
+| PKG-003 | high     | Swift package uses local checkout path                            |
+| PKG-004 | high     | Nix flake missing reproducibility metadata (revision or nar_hash) |
+| PKG-005 | medium   | Ruby gem tracks mutable branch without commit pin                 |
+| PKG-006 | medium   | Python package from non-default PyPI registry                     |
 
 ### `package-integrity` — Package Integrity and Lifecycle
 
 Rules that detect deprecated, yanked, tampered, or suspicious packages.
 
-| Rule | Severity | Description |
-|---|---|---|
-| INT-001 | medium | npm package has install-time execution hooks |
-| INT-002 | high | npm package name or version mismatch (possible dependency confusion) |
-| INT-003 | medium | Deprecated Go module |
-| INT-004 | high | Yanked Ruby gem |
-| INT-005 | low | Deprecated npm package |
-| INT-006 | medium | Dart pub uses non-default registry |
-| INT-007 | low | Maven package contains shaded/relocated classes |
+| Rule    | Severity | Description                                                          |
+| ------- | -------- | -------------------------------------------------------------------- |
+| INT-001 | medium   | npm package has install-time execution hooks                         |
+| INT-002 | high     | npm package name or version mismatch (possible dependency confusion) |
+| INT-003 | medium   | Deprecated Go module                                                 |
+| INT-004 | high     | Yanked Ruby gem                                                      |
+| INT-005 | low      | Deprecated npm package                                               |
+| INT-006 | medium   | Dart pub uses non-default registry                                   |
+| INT-007 | low      | Maven package contains shaded/relocated classes                      |
 
 ## Writing custom rules
 
@@ -110,20 +110,20 @@ Rules are YAML files placed in a directory and loaded via `--bom-audit-rules-dir
 ### Rule schema
 
 ```yaml
-- id: CUSTOM-001                     # Required: unique identifier
-  name: "Human-readable name"        # Optional: display name (defaults to id)
-  description: "Long description"    # Optional: detailed explanation
-  severity: high                     # Required: critical, high, medium, or low
-  category: my-category              # Required: grouping for --bom-audit-categories
-  condition: |                       # Required: JSONata expression returning matches
+- id: CUSTOM-001 # Required: unique identifier
+  name: "Human-readable name" # Optional: display name (defaults to id)
+  description: "Long description" # Optional: detailed explanation
+  severity: high # Required: critical, high, medium, or low
+  category: my-category # Required: grouping for --bom-audit-categories
+  condition: | # Required: JSONata expression returning matches
     components[
       $prop($, 'cdx:npm:hasInstallScript') = 'true'
     ]
-  location: |                        # Optional: JSONata expression for finding location
+  location: | # Optional: JSONata expression for finding location
     { "bomRef": $."bom-ref", "purl": purl }
-  message: "Template with {{ name }}"  # Required: message template with {{ expr }} interpolation
-  mitigation: "How to fix this"      # Optional: remediation guidance
-  evidence: |                        # Optional: JSONata expression for evidence data
+  message: "Template with {{ name }}" # Required: message template with {{ expr }} interpolation
+  mitigation: "How to fix this" # Optional: remediation guidance
+  evidence: | # Optional: JSONata expression for evidence data
     { "key": $prop($, 'cdx:npm:risky_scripts') }
 ```
 
@@ -131,16 +131,16 @@ Rules are YAML files placed in a directory and loaded via `--bom-audit-rules-dir
 
 The rule engine registers custom functions for working with CycloneDX properties:
 
-| Function | Description | Example |
-|---|---|---|
-| `$prop(obj, name)` | Extract a property value by name | `$prop($, 'cdx:npm:hasInstallScript')` |
-| `$hasProp(obj, name)` | Check if property exists | `$hasProp($, 'cdx:npm:risky_scripts')` |
-| `$hasProp(obj, name, value)` | Check if property equals value | `$hasProp($, 'cdx:npm:isLink', 'true')` |
-| `$p(obj, name)` | Short alias for `$prop` | `$p($, 'cdx:go:local_dir')` |
-| `$hasP(obj, name, value)` | Short alias for `$hasProp` | `$hasP($, 'cdx:gem:yanked', 'true')` |
-| `$startsWith(str, prefix)` | String prefix check | `$startsWith(purl, 'pkg:nix/')` |
-| `$endsWith(str, suffix)` | String suffix check | `$endsWith(name, '-beta')` |
-| `$arrayContains(arr, value)` | Check array membership | `$arrayContains(tags, 'deprecated')` |
+| Function                     | Description                      | Example                                 |
+| ---------------------------- | -------------------------------- | --------------------------------------- |
+| `$prop(obj, name)`           | Extract a property value by name | `$prop($, 'cdx:npm:hasInstallScript')`  |
+| `$hasProp(obj, name)`        | Check if property exists         | `$hasProp($, 'cdx:npm:risky_scripts')`  |
+| `$hasProp(obj, name, value)` | Check if property equals value   | `$hasProp($, 'cdx:npm:isLink', 'true')` |
+| `$p(obj, name)`              | Short alias for `$prop`          | `$p($, 'cdx:go:local_dir')`             |
+| `$hasP(obj, name, value)`    | Short alias for `$hasProp`       | `$hasP($, 'cdx:gem:yanked', 'true')`    |
+| `$startsWith(str, prefix)`   | String prefix check              | `$startsWith(purl, 'pkg:nix/')`         |
+| `$endsWith(str, suffix)`     | String suffix check              | `$endsWith(name, '-beta')`              |
+| `$arrayContains(arr, value)` | Check array membership           | `$arrayContains(tags, 'deprecated')`    |
 
 ### Message templates
 
@@ -244,9 +244,9 @@ When the BOM spec version is ≥ 1.4, findings are embedded as annotations:
 
 ## Environment variables
 
-| Variable | Description |
-|---|---|
-| `CDXGEN_DEBUG_MODE=debug` | Show verbose audit logging |
+| Variable                  | Description                                             |
+| ------------------------- | ------------------------------------------------------- |
+| `CDXGEN_DEBUG_MODE=debug` | Show verbose audit logging                              |
 | `CDXGEN_SECURE_MODE=true` | Enable secure mode (audit failures cause non-zero exit) |
 
 ## Relationship to custom properties
