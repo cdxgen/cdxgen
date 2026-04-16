@@ -74,7 +74,8 @@
   # Check workflows (not components) for this trigger pattern
   condition: |
     formulation.workflows[
-      $prop($, 'cdx:github:workflow:triggers') ~> $split(',') ~> $contains('pull_request_target')
+      $hasProp($, 'cdx:github:workflow:triggers')
+      and $nullSafeProp($, 'cdx:github:workflow:triggers') ~> $trim() ~> $contains('pull_request_target')
     ]
   location: |
     {
@@ -95,14 +96,11 @@
   category: ci-permission
   condition: |
     components[
-      $prop($, 'cdx:github:action:uses') ~> $contains('actions/checkout')
+      $contains($nullSafeProp($, 'cdx:github:action:uses'), 'actions/checkout')
+      and $propBool($, 'cdx:github:checkout:persistCredentials') != false
       and (
-        not($exists($prop($, 'cdx:github:checkout:persistCredentials')))
-        or $prop($, 'cdx:github:checkout:persistCredentials') = 'true'
-      )
-      and (
-        $prop($, 'cdx:github:workflow:hasWritePermissions') = 'true'
-        or $prop($, 'cdx:github:job:hasWritePermissions') = 'true'
+        $propBool($, 'cdx:github:workflow:hasWritePermissions') = true
+        or $propBool($, 'cdx:github:job:hasWritePermissions') = true
       )
     ]
   location: |
@@ -111,7 +109,7 @@
       "purl": purl,
       "file": $prop($, 'cdx:github:workflow:file')
     }
-  message: "Checkout step uses persist-credentials=true in privileged workflow; consider persist-credentials: false"
+  message: "Checkout step uses persist-credentials=true in privileged workflow; consider persist-credentials: false;"
   mitigation: "Add persist-credentials: false to checkout steps that don't require git push operations"
   evidence: |
     {
@@ -125,8 +123,8 @@
   category: ci-permission
   condition: |
     components[
-      $prop($, 'cdx:github:action:uses') ~> $contains('actions/cache')
-      and $prop($, 'cdx:github:workflow:triggers') ~> $split(',') ~> $contains('pull_request')
+      $nullSafeProp($, 'cdx:github:action:uses') ~> $contains('actions/cache')
+      and $nullSafeProp($, 'cdx:github:workflow:triggers') ~> $contains('pull_request')
     ]
   location: |
     {

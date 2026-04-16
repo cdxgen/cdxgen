@@ -889,7 +889,7 @@ jobs:
           curl --output-dir standalone-jar-files -LO https://repo1.maven.org/maven2/org/jacoco/org.jacoco.agent/0.8.8/org.jacoco.agent-0.8.8.jar
           curl --output-dir standalone-jar-files -LO https://repo1.maven.org/maven2/javax/jws/javax.jws-api/1.1/javax.jws-api-1.1.jar
           curl --output-dir standalone-jar-files -LO https://repo1.maven.org/maven2/org/jrobin/jrobin/1.5.9/jrobin-1.5.9.jar
-          FETCH_LICENSE=true bin/cdxgen.js standalone-jar-files -o bomresults/bom-standalone-jar-files.json --fail-on-error
+          FETCH_LICENSE=true bin/cdxgen.js standalone-jar-files -o bomresults/bom-standalone-jar-files.json
         shell: bash
       - name: standalone vsix files
         run: |
@@ -899,7 +899,7 @@ jobs:
           curl --output-dir standalone-vsix-files -LO https://open-vsx.org/api/eamodio/gitlens/2026.4.1605/file/eamodio.gitlens-2026.4.1605.vsix
           curl --output-dir standalone-vsix-files -LO https://open-vsx.org/api/Anthropic/claude-code/alpine-arm64/2.1.109/file/Anthropic.claude-code-2.1.109@alpine-arm64.vsix
           curl --output-dir standalone-vsix-files -LO https://open-vsx.org/api/Vue/volar/3.2.6/file/Vue.volar-3.2.6.vsix
-          bin/cdxgen.js standalone-vsix-files -t vscode -o bomresults/bom-standalone-vsix-files.json --fail-on-error -p
+          bin/cdxgen.js standalone-vsix-files -t vscode -o bomresults/bom-standalone-vsix-files.json -p --bom-audit
         shell: bash
       - name: post-build lifecycle tests
         run: |

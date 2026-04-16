@@ -131,16 +131,20 @@ Rules are YAML files placed in a directory and loaded via `--bom-audit-rules-dir
 
 The rule engine registers custom functions for working with CycloneDX properties:
 
-| Function                     | Description                      | Example                                 |
-| ---------------------------- | -------------------------------- | --------------------------------------- |
-| `$prop(obj, name)`           | Extract a property value by name | `$prop($, 'cdx:npm:hasInstallScript')`  |
-| `$hasProp(obj, name)`        | Check if property exists         | `$hasProp($, 'cdx:npm:risky_scripts')`  |
-| `$hasProp(obj, name, value)` | Check if property equals value   | `$hasProp($, 'cdx:npm:isLink', 'true')` |
-| `$p(obj, name)`              | Short alias for `$prop`          | `$p($, 'cdx:go:local_dir')`             |
-| `$hasP(obj, name, value)`    | Short alias for `$hasProp`       | `$hasP($, 'cdx:gem:yanked', 'true')`    |
-| `$startsWith(str, prefix)`   | String prefix check              | `$startsWith(purl, 'pkg:nix/')`         |
-| `$endsWith(str, suffix)`     | String suffix check              | `$endsWith(name, '-beta')`              |
-| `$arrayContains(arr, value)` | Check array membership           | `$arrayContains(tags, 'deprecated')`    |
+| Function                     | Description                                                                                                              | Example                                                                              |
+| ---------------------------- | ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ |
+| `$prop(obj, name)`           | Extract a property value by name                                                                                         | `$prop($, 'cdx:npm:hasInstallScript')`                                               |
+| `$hasProp(obj, name)`        | Check if property exists                                                                                                 | `$hasProp($, 'cdx:npm:risky_scripts')`                                               |
+| `$hasProp(obj, name, value)` | Check if property equals value                                                                                           | `$hasProp($, 'cdx:npm:isLink', 'true')`                                              |
+| `$p(obj, name)`              | Short alias for `$prop`                                                                                                  | `$p($, 'cdx:go:local_dir')`                                                          |
+| `$hasP(obj, name, value)`    | Short alias for `$hasProp`                                                                                               | `$hasP($, 'cdx:gem:yanked', 'true')`                                                 |
+| `$propBool(obj, name)`       | Extracts property and normalizes to JS boolean ( true / false / null ). Case-insensitive and null-safe.                  | `$propBool($, 'cdx:github:workflow:hasWritePermissions') = true`                     |
+| `$propList(obj, name)`       | Splits comma-separated property strings into a trimmed JSONata array. Returns [] if missing.                             | `$propList($, 'cdx:github:workflow:triggers')`                                       |
+| `$listContains(val, target)` | Safely checks if val (array or string) contains target. Works with both $propList output and raw strings.                | `$listContains($propList($, 'cdx:vscode-extension:contributes'), 'terminal-access')` |
+| `$safeStr(val)`              | Guarantees a trimmed string return. Converts null/undefined to "" . Ideal for regex matching and template interpolation. | `$match($safeStr($prop($, 'cdx:npm:versionSpecifiers')), /^\^/)`                     |
+| `$startsWith(str, prefix)`   | String prefix check                                                                                                      | `$startsWith(purl, 'pkg:nix/')`                                                      |
+| `$endsWith(str, suffix)`     | String suffix check                                                                                                      | `$endsWith(name, '-beta')`                                                           |
+| `$arrayContains(arr, value)` | Check array membership                                                                                                   | `$arrayContains(tags, 'deprecated')`                                                 |
 
 ### Message templates
 
@@ -166,7 +170,7 @@ condition: |
 ```yaml
 condition: |
   components[
-    $prop($, 'cdx:go:local_dir') != null
+    $hasProp($, 'cdx:go:local_dir')
   ]
 ```
 
@@ -188,7 +192,7 @@ condition: |
 ```yaml
 condition: |
   formulation.workflows[
-    $prop($, 'cdx:github:workflow:triggers') ~> $split(',') ~> $contains('pull_request_target')
+    $nullSafeProp($, 'cdx:github:workflow:triggers') ~> $contains('pull_request_target')
   ]
 ```
 

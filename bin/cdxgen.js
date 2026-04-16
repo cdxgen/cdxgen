@@ -613,7 +613,7 @@ if (options.includeFormulation) {
       "Wait, the user wants to include formulation data. Let's warn about accidentally disclosing sensitive data via the generated BOM.",
     );
     console.log(
-      "NOTE: The formulation section may include sensitive data such as emails and secrets.\nPlease review the generated SBOM before distribution.\n",
+      "NOTE: The formulation section may include sensitive data such as emails and secrets.\nPlease review the generated SBOM before distribution or LLM training.\n",
     );
   }
 }
@@ -634,11 +634,13 @@ const applyAdvancedOptions = (options) => {
   switch (options.profile) {
     case "appsec":
       options.deep = true;
+      options.bomAudit = true;
       break;
     case "research":
       options.deep = true;
       options.evidence = true;
       options.includeCrypto = true;
+      options.bomAudit = true;
       process.env.CDX_MAVEN_INCLUDE_TEST_SCOPE = "true";
       process.env.ASTGEN_IGNORE_DIRS = "";
       process.env.ASTGEN_IGNORE_FILE_PATTERN = "";
@@ -649,10 +651,12 @@ const applyAdvancedOptions = (options) => {
       } else {
         options.projectType = ["os"];
       }
+      options.bomAudit = true;
       break;
     case "threat-modeling":
       options.deep = true;
       options.evidence = true;
+      options.bomAudit = true;
       break;
     case "license-compliance":
       process.env.FETCH_LICENSE = "true";
@@ -663,6 +667,7 @@ const applyAdvancedOptions = (options) => {
       options.evidence = false;
       options.includeCrypto = false;
       options.installDeps = false;
+      options.bomAudit = false;
       break;
     case "machine-learning":
     case "ml":
@@ -679,6 +684,7 @@ const applyAdvancedOptions = (options) => {
       options.evidence = true;
       options.includeCrypto = true;
       options.installDeps = !isSecureMode;
+      options.bomAudit = true;
       break;
     default:
       break;
@@ -747,7 +753,7 @@ const applyAdvancedOptions = (options) => {
   if (options.bomAudit) {
     if (!options.includeFormulation) {
       console.log(
-        "NOTE: Automatically collecting formulation information. The section may include sensitive data such as emails and secrets.\nPlease review the generated SBOM before distribution.\n",
+        "NOTE: Automatically collecting formulation information. The section may include sensitive data such as emails and secrets.\nPlease review the generated SBOM before distribution or LLM training.\n",
       );
     }
     options.includeFormulation = true;

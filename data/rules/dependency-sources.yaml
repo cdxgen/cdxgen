@@ -28,7 +28,7 @@
   category: dependency-source
   condition: |
     components[
-      $prop($, 'cdx:go:local_dir') != null
+      $hasProp($, 'cdx:go:local_dir')
     ]
   location: |
     { "bomRef": $."bom-ref", "purl": purl }
@@ -46,7 +46,7 @@
   category: dependency-source
   condition: |
     components[
-      $prop($, 'cdx:swift:localCheckoutPath') != null
+      $hasProp($, 'cdx:swift:localCheckoutPath')
     ]
   location: |
     { "bomRef": $."bom-ref", "purl": purl }
@@ -78,8 +78,8 @@
     {
       "inputUrl": $prop($, 'cdx:nix:input_url'),
       "ref": $prop($, 'cdx:nix:ref'),
-      "hasRevision": $prop($, 'cdx:nix:revision') != null,
-      "hasNarHash": $prop($, 'cdx:nix:nar_hash') != null
+      "hasRevision": $hasProp($, 'cdx:nix:revision'),
+      "hasNarHash": $hasProp($, 'cdx:nix:nar_hash')
     }
 - id: PKG-005
   name: "Ruby gem tracks mutable branch"
@@ -88,8 +88,8 @@
   category: dependency-source
   condition: |
     components[
-      $prop($, 'cdx:gem:remoteBranch') != null
-      and $prop($, 'cdx:gem:remoteRevision') = null
+      $hasProp($, 'cdx:gem:remoteBranch')
+      and $hasProp($, 'cdx:gem:remoteRevision')
     ]
   location: |
     { "bomRef": $."bom-ref", "purl": purl }
@@ -108,7 +108,7 @@
   category: dependency-source
   condition: |
     components[
-      $prop($, 'cdx:pypi:registry') != null
+      $hasProp($, 'cdx:pypi:registry')
       and $prop($, 'cdx:pypi:registry') != 'https://pypi.org/simple'
       and $prop($, 'cdx:pypi:registry') != 'https://pypi.org'
     ]

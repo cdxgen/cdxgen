@@ -1,0 +1,228 @@
+# VS Code Extension Security Rules
+# Category: vscode-extension
+# Evaluates VS Code extensions for install-time execution, host access, and workspace trust risks
+
+- id: VSC-001
+  name: "Extension with install-time lifecycle scripts"
+  description: "VS Code extensions with postinstall/preinstall scripts execute arbitrary code during installation"
+  severity: critical
+  category: vscode-extension
+  condition: |
+    components[
+      $startsWith(purl, 'pkg:vscode-extension/')
+      and $hasProp($, 'cdx:vscode-extension:lifecycleScripts')
+    ]
+  location: |
+    {
+      "bomRef": $. "bom-ref",
+      "purl": purl,
+      "srcFile": $prop($, 'SrcFile')
+    }
+  message: "VS Code extension '{{ publisher }}.{{ name }}@{{ version }}' executes lifecycle scripts: {{ $prop($, 'cdx:vscode-extension:lifecycleScripts') }}"
+  mitigation: "Review extension source code before installation; prefer extensions without install-time scripts; use workspace trust boundaries"
+  evidence: |
+    {
+      "lifecycleScripts": $prop($, 'cdx:vscode-extension:lifecycleScripts'),
+      "mainEntryPoint": $prop($, 'cdx:vscode-extension:main'),
+      "browserEntryPoint": $prop($, 'cdx:vscode-extension:browser')
+    }
+  
+- id: VSC-002
+  name: "Always-on extension with terminal access"
+  description: "Extensions activating on '*' with terminal-access contribution can execute commands in any workspace"
+  severity: high
+  category: vscode-extension
+  condition: |
+    components[
+      $startsWith(purl, 'pkg:vscode-extension/')
+      and $listContains($propList($, 'cdx:vscode-extension:activationEvents'), '*')
+      and $listContains($propList($, 'cdx:vscode-extension:contributes'), 'terminal-access')
+    ]
+  location: |
+    {
+      "bomRef": $. "bom-ref",
+      "purl": purl
+    }
+  message: "Always-on VS Code extension '{{ publisher }}.{{ name }}' has terminal access capability"
+  mitigation: "Disable extension in untrusted workspaces; review contributed commands for injection risks; restrict via workspace trust settings"
+  evidence: |
+    {
+      "activationEvents": $prop($, 'cdx:vscode-extension:activationEvents'),
+      "contributes": $prop($, 'cdx:vscode-extension:contributes'),
+      "extensionKind": $prop($, 'cdx:vscode-extension:extensionKind')
+    }
+  
+- id: VSC-003
+  name: "Extension runs in untrusted workspaces with filesystem access"
+  description: "Extensions supporting untrustedWorkspaces=true with filesystem-provider contributions may access sensitive files"
+  severity: high
+  category: vscode-extension
+  condition: |
+    components[
+      $startsWith(purl, 'pkg:vscode-extension/')
+      and $propBool($, 'cdx:vscode-extension:untrustedWorkspaces') = true
+      and $listContains($propList($, 'cdx:vscode-extension:contributes'), 'filesystem-provider')
+    ]
+  location: |
+    {
+      "bomRef": $. "bom-ref",
+      "purl": purl
+    }
+  message: "VS Code extension '{{ publisher }}.{{ name }}' operates in untrusted workspaces with filesystem access"
+  mitigation: "Set workspace trust to 'limited' for this extension; audit filesystem-provider implementations; avoid using in sensitive projects"
+  evidence: |
+    {
+      "untrustedWorkspaces": $prop($, 'cdx:vscode-extension:untrustedWorkspaces'),
+      "contributes": $prop($, 'cdx:vscode-extension:contributes'),
+      "virtualWorkspaces": $prop($, 'cdx:vscode-extension:virtualWorkspaces')
+    }
+  
+- id: VSC-004
+  name: "Extension pack with risky member extensions"
+  description: "Extension packs implicitly install bundled extensions; flag packs containing members with lifecycle scripts or privileged capabilities"
+  severity: medium
+  category: vscode-extension
+  condition: |
+    components[
+      $startsWith(purl, 'pkg:vscode-extension/')
+      and $hasProp($, 'cdx:vscode-extension:extensionPack')
+    ]
+  location: |
+    {
+      "bomRef": $. "bom-ref",
+      "purl": purl
+    }
+  message: "VS Code extension pack '{{ publisher }}.{{ name }}' bundles extensions: {{ $prop($, 'cdx:vscode-extension:extensionPack') }}"
+  mitigation: "Review each bundled extension individually; prefer installing extensions explicitly rather than via packs"
+  evidence: |
+    {
+      "extensionPack": $prop($, 'cdx:vscode-extension:extensionPack'),
+      "extensionDependencies": $prop($, 'cdx:vscode-extension:extensionDependencies')
+    }
+  
+- id: VSC-005
+  name: "Extension dependency chain with execution risk"
+  description: "Extensions depending on other extensions inherit their trust boundary; flag chains where dependencies have install scripts or privileged access"
+  severity: medium
+  category: vscode-extension
+  condition: |
+    components[
+      $startsWith(purl, 'pkg:vscode-extension/')
+      and $hasProp($, 'cdx:vscode-extension:extensionDependencies')
+    ]
+  location: |
+    {
+      "bomRef": $. "bom-ref",
+      "purl": purl
+    }
+  message: "VS Code extension '{{ publisher }}.{{ name }}' depends on extensions: {{ $prop($, 'cdx:vscode-extension:extensionDependencies') }}"
+  mitigation: "Audit all dependency extensions for lifecycle scripts and privileged contributions; prefer extensions with minimal dependency chains"
+  evidence: |
+    {
+      "extensionDependencies": $prop($, 'cdx:vscode-extension:extensionDependencies'),
+      "lifecycleScripts": $prop($, 'cdx:vscode-extension:lifecycleScripts')
+    }
+  
+- id: VSC-006
+  name: "Extension with debugger or authentication provider contributions"
+  description: "Extensions contributing debuggers or authentication providers have elevated host access and credential handling capabilities"
+  severity: high
+  category: vscode-extension
+  condition: |
+    components[
+      $startsWith(purl, 'pkg:vscode-extension/')
+      and (
+        $listContains($propList($, 'cdx:vscode-extension:contributes'), 'debuggers')
+        or $listContains($propList($, 'cdx:vscode-extension:contributes'), 'authentication-provider')
+      )
+    ]
+  location: |
+    {
+      "bomRef": $. "bom-ref",
+      "purl": purl
+    }
+  message: "VS Code extension '{{ publisher }}.{{ name }}' contributes privileged capabilities: {{ $prop($, 'cdx:vscode-extension:contributes') }}"
+  mitigation: "Review extension source for credential handling; restrict to trusted workspaces; audit debugger attach permissions"
+  evidence: |
+    {
+      "contributes": $prop($, 'cdx:vscode-extension:contributes'),
+      "executesCode": $prop($, 'cdx:vscode-extension:executesCode'),
+      "extensionKind": $prop($, 'cdx:vscode-extension:extensionKind')
+    }
+  
+- id: VSC-007
+  name: "Extension running in workspace context with code execution"
+  description: "Extensions with extensionKind=workspace and executesCode=true run arbitrary code on remote hosts or containers"
+  severity: high
+  category: vscode-extension
+  condition: |
+    components[
+      $startsWith(purl, 'pkg:vscode-extension/')
+      and $listContains($propList($, 'cdx:vscode-extension:extensionKind'), 'workspace')
+      and $propBool($, 'cdx:vscode-extension:executesCode') = true
+    ]
+  location: |
+    {
+      "bomRef": $. "bom-ref",
+      "purl": purl
+    }
+  message: "VS Code extension '{{ publisher }}.{{ name }}' executes code in workspace (remote) context"
+  mitigation: "Verify extension source before use in remote development; restrict workspace extensions to trusted publishers"
+  evidence: |
+    {
+      "extensionKind": $prop($, 'cdx:vscode-extension:extensionKind'),
+      "executesCode": $prop($, 'cdx:vscode-extension:executesCode'),
+      "main": $prop($, 'cdx:vscode-extension:main')
+    }
+  
+- id: VSC-008
+  name: "Extension with outdated VS Code engine requirement"
+  description: "Extensions requiring VS Code engine <1.80 may lack workspace trust and other modern security features"
+  severity: low
+  category: vscode-extension
+  condition: |
+    components[
+      $startsWith(purl, 'pkg:vscode-extension/')
+      and $hasProp($, 'cdx:vscode-extension:vscodeEngine')
+      and $count($match($prop($, 'cdx:vscode-extension:vscodeEngine'), /(\^|>=)?1\.(8[0-9]|9[0-9])\./)) = 0
+    ]
+  location: |
+    {
+      "bomRef": $. "bom-ref",
+      "purl": purl
+    }
+  message: "VS Code extension '{{ publisher }}.{{ name }}' requires outdated engine: {{ $prop($, 'cdx:vscode-extension:vscodeEngine') }}"
+  mitigation: "Update extension or VS Code to ensure modern security features are available; contact publisher for updates"
+  evidence: |
+    {
+      "vscodeEngine": $prop($, 'cdx:vscode-extension:vscodeEngine'),
+      "version": version
+    }
+  
+- id: VSC-009
+  name: "Extension with browser entry point but no sandbox declaration"
+  description: "Extensions declaring browser entry points should run in web sandbox; flag if also declares workspace execution or filesystem access"
+  severity: medium
+  category: vscode-extension
+  condition: |
+    components[
+      $startsWith(purl, 'pkg:vscode-extension/')
+      and $hasProp($, 'cdx:vscode-extension:browser')
+      and (
+        $listContains($propList($, 'cdx:vscode-extension:extensionKind'), 'workspace')
+        or $listContains($propList($, 'cdx:vscode-extension:contributes'), 'filesystem-provider')
+      )
+    ]
+  location: |
+    {
+      "bomRef": $. "bom-ref",
+      "purl": purl
+    }
+  message: "VS Code extension '{{ publisher }}.{{ name }}' has browser entry point but also declares workspace/filesystem capabilities"
+  mitigation: "Clarify extension execution context; prefer separate web/native extension variants; audit cross-context data flows"
+  evidence: |
+    {
+      "browser": $prop($, 'cdx:vscode-extension:browser'),
+      "main": $prop($, 'cdx:vscode-extension:main'),
+      "contributes": $prop($, 'cdx:vscode-extension:contributes')
+    }

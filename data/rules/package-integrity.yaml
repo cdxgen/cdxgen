@@ -28,8 +28,8 @@
   category: package-integrity
   condition: |
     components[
-      $prop($, 'cdx:npm:nameMismatchError') != null
-      or $prop($, 'cdx:npm:versionMismatchError') != null
+      $hasProp($, 'cdx:npm:nameMismatchError')
+      or $hasProp($, 'cdx:npm:versionMismatchError')
     ]
   location: |
     { "bomRef": $."bom-ref", "purl": purl }
@@ -48,7 +48,7 @@
   category: package-integrity
   condition: |
     components[
-      $prop($, 'cdx:go:deprecated') != null
+      $hasProp($, 'cdx:go:deprecated')
     ]
   location: |
     { "bomRef": $."bom-ref", "purl": purl }
@@ -104,7 +104,7 @@
   category: package-integrity
   condition: |
     components[
-      $prop($, 'cdx:pub:registry') != null
+      $hasProp($, 'cdx:pub:registry')
     ]
   location: |
     { "bomRef": $."bom-ref", "purl": purl }
