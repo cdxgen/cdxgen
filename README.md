@@ -422,36 +422,60 @@ cbom -t java
 
 See [evinse mode](./ADVANCED.md) in the advanced documentation.
 
+---
+
 ## BOM signing
 
-cdxgen can sign the generated BOM json file to increase authenticity and non-repudiation capabilities. To enable this, set the following environment variables.
+cdxgen features a best-in-class, native **JSON Signature Format (JSF)** implementation for BOM signing, providing robust authenticity and non-repudiation capabilities. Unlike basic signing tools, our implementation fully supports granular signatures (signing individual components, services, and annotations), parallel Multi-Signatures (`signers`), and sequential Signature Chains (`chain`).
 
-- SBOM_SIGN_ALGORITHM: Algorithm. Example: RS512
-- SBOM_SIGN_PRIVATE_KEY: Location to the RSA private key
-- SBOM_SIGN_PUBLIC_KEY: Optional. Location to the RSA public key
+To enable automatic signing during BOM generation, set the following environment variables:
 
-To generate test public/private key pairs, you can run cdxgen by passing the argument `--generate-key-and-sign`. The generated json file would have an attribute called `signature`, which could be used for validation. [jwt.io][jwt-homepage] is a known site that could be used for such signature validation.
+- `SBOM_SIGN_ALGORITHM`: JSF Algorithm. Examples: `RS512`, `ES256`, `Ed25519`, `HS256`
+- `SBOM_SIGN_PRIVATE_KEY`: Location of the private key (PEM format)
+- `SBOM_SIGN_PUBLIC_KEY`: Optional. Location of the public key
+- `SBOM_SIGN_MODE`: Optional. Signature mode (`replace`, `signers`, `chain`). Default is `replace`.
 
-![SBOM signing](./docs/_media/sbom-sign.jpg)
+To quickly generate test public/private key pairs and sign your first BOM, you can run cdxgen with the `--generate-key-and-sign` argument.
+
+### Advanced Signing with `cdx-sign`
+
+For complex supply chain orchestration, use the bundled `cdx-sign` CLI. This tool allows multiple entities (e.g., a Builder and an Auditor) to co-sign an existing BOM without modifying its original data.
+
+```shell
+# Append a parallel multi-signature (Auditor co-signing)
+# Note: Granular component signing is disabled to preserve the Builder's original signature payload.
+cdx-sign -i bom.json -k auditor_private.pem -a ES256 --key-id "auditor-qa" --mode signers --no-sign-components
+```
 
 ### Verifying the signature
 
-Use the bundled `cdx-verify` command, which supports verifying a single signature added at the bom level.
+Use the bundled `cdx-verify` command to validate BOM signatures. By default, `cdx-verify` performs a **strict deep verification**, meaning it mathematically validates the top-level BOM signature _and_ the signatures of every nested component, service, and annotation against the provided public key.
 
 ```shell
 npm install -g @cyclonedx/cdxgen
+
+# Perform strict deep verification (default)
 cdx-verify -i bom.json --public-key public.key
+
+# Verify ONLY the top-level root signature (useful for verifying a multi-signer who didn't sign nested components)
+cdx-verify -i bom.json --public-key auditor_public.key --no-deep
 ```
 
 ### Verifying the signature (pnpm)
 
-Use the bundled `cdx-verify` command, which supports verifying a single signature added at the BOM level.
-
-You can run it directly using pnpm (no global install needed):
+You can run the verification tools directly using pnpm (no global install needed):
 
 ```shell
 pnpm dlx @cyclonedx/cdxgen cdx-verify -i bom.json --public-key public.key
 ```
+
+You can also use pnpm to invoke the signing tool:
+
+```shell
+pnpm dlx @cyclonedx/cdxgen cdx-sign -i bom.json -k private.key
+```
+
+---
 
 ### Custom verification tool (Node.js example)
 

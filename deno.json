@@ -94,7 +94,6 @@
     "global-agent": "npm:global-agent@^3.0.0",
     "got": "npm:got@^14.6.6",
     "iconv-lite": "npm:iconv-lite@^0.7.2",
-    "jws": "npm:jws@^4.0.1",
     "node-stream-zip": "npm:node-stream-zip@^1.15.0",
     "packageurl-js": "npm:packageurl-js@1.0.2",
     "prettify-xml": "npm:prettify-xml@^1.2.0",

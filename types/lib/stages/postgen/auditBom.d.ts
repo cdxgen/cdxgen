@@ -8,7 +8,7 @@ export function auditBom(bomJson: Object, options: Object): Promise<any[]>;
 /**
  * Format findings for console output with color-coded severity
  */
-export function formatConsoleOutput(findings: any, options: any): string;
+export function formatConsoleOutput(findings: any): "" | undefined;
 /**
  * Convert findings to CycloneDX annotations
  */

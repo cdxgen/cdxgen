@@ -693,7 +693,7 @@ jobs:
       - name: repotests Vulnerable-Web-Application
         run: |
           bin/cdxgen.js -t php repotests/Vulnerable-Web-Application -o bomresults/bom-php-1.json --fail-on-error
-          bin/cdxgen.js -t php --no-recurse repotests/Vulnerable-Web-Application -o bomresults/bom-php-2.json --fail-on-error --profile research -p
+          bin/cdxgen.js -t php --no-recurse repotests/Vulnerable-Web-Application -o bomresults/bom-php-2.json --fail-on-error --profile research
         shell: bash
       - name: repotests railsgoat
         run: |
@@ -940,16 +940,16 @@ jobs:
           FETCH_LICENSE=true bin/cdxgen.js -r -t python repotests/DjanGoat -o bomresults/1.6-bom-python.json --fail-on-error --spec-version 1.6
           bin/cdxgen.js -r -t php repotests/Vulnerable-Web-Application -o bomresults/1.6-bom-php.json --fail-on-error --spec-version 1.6
         shell: bash
-      - name: repotests 1.4
+      - name: repotests 1.5
         run: |
-          bin/cdxgen.js -r -t java repotests/shiftleft-java-example -o bomresults/1.4-bom-java.json --generate-key-and-sign --spec-version 1.4 --fail-on-error
-          SBOM_SIGN_ALGORITHM=RS512 SBOM_SIGN_PRIVATE_KEY=bomresults/private.key SBOM_SIGN_PUBLIC_KEY=bomresults/public.key bin/cdxgen.js -r -t github repotests/shiftleft-java-example -o bomresults/1.4-bom-github.json --spec-version 1.4 --fail-on-error
-          FETCH_LICENSE=0 bin/cdxgen.js -r -t js repotests/shiftleft-ts-example -o bomresults/1.4-bom-ts-1.json --fail-on-error --spec-version 1.4 --fail-on-error
-          FETCH_LICENSE=1 bin/cdxgen.js -r -t javascript repotests/shiftleft-ts-example --required-only -o bomresults/1.4-bom-ts-2.json --fail-on-error --spec-version 1.4
-          FETCH_LICENSE=true bin/cdxgen.js -r -t csharp repotests/vulnerable_net_core -o bomresults/1.4-bom-csharp2.json --spec-version 1.4 --fail-on-error
-          FETCH_LICENSE=false bin/cdxgen.js -r repotests/Goatly.NET -o bomresults/1.4-bom-csharp3.json --spec-version 1.4
-          FETCH_LICENSE=true bin/cdxgen.js -r -t python repotests/DjanGoat -o bomresults/1.4-bom-python.json --fail-on-error --spec-version 1.4
-          bin/cdxgen.js -r -t php repotests/Vulnerable-Web-Application -o bomresults/1.4-bom-php.json --fail-on-error --spec-version 1.4
+          bin/cdxgen.js -r -t java repotests/shiftleft-java-example -o bomresults/1.5-bom-java.json --generate-key-and-sign --spec-version 1.5 --fail-on-error
+          SBOM_SIGN_ALGORITHM=RS512 SBOM_SIGN_PRIVATE_KEY=bomresults/private.key SBOM_SIGN_PUBLIC_KEY=bomresults/public.key bin/cdxgen.js -r -t github repotests/shiftleft-java-example -o bomresults/1.5-bom-github.json --spec-version 1.5 --fail-on-error
+          FETCH_LICENSE=0 bin/cdxgen.js -r -t js repotests/shiftleft-ts-example -o bomresults/1.5-bom-ts-1.json --fail-on-error --spec-version 1.5 --fail-on-error
+          FETCH_LICENSE=1 bin/cdxgen.js -r -t javascript repotests/shiftleft-ts-example --required-only -o bomresults/1.5-bom-ts-2.json --fail-on-error --spec-version 1.5
+          FETCH_LICENSE=true bin/cdxgen.js -r -t csharp repotests/vulnerable_net_core -o bomresults/1.5-bom-csharp2.json --spec-version 1.5 --fail-on-error
+          FETCH_LICENSE=false bin/cdxgen.js -r repotests/Goatly.NET -o bomresults/1.5-bom-csharp3.json --spec-version 1.5
+          FETCH_LICENSE=true bin/cdxgen.js -r -t python repotests/DjanGoat -o bomresults/1.5-bom-python.json --fail-on-error --spec-version 1.5
+          bin/cdxgen.js -r -t php repotests/Vulnerable-Web-Application -o bomresults/1.5-bom-php.json --fail-on-error --spec-version 1.5
         shell: bash
       - name: list repotest bomresults
         run: |

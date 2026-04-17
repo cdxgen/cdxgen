@@ -7,12 +7,12 @@ import https from "node:https";
 import { basename, dirname, join, resolve } from "node:path";
 import process from "node:process";
 
-import jws from "jws";
 import { parse as _load } from "yaml";
 import yargs from "yargs";
 import { hideBin } from "yargs/helpers";
 
 import { createBom, submitBom } from "../lib/cli/index.js";
+import { signBom, verifyBom } from "../lib/helpers/bomSigner.js";
 import {
   displaySelfThreatModel,
   printCallStack,
@@ -980,7 +980,7 @@ const needsBomSigning = ({ generateKeyAndSign }) =>
     thoughtLog("Let's run security audit...");
     const postAuditFindings = await auditBom(bomNSData.bomJson, options);
     if (postAuditFindings.length) {
-      console.log(formatConsoleOutput(postAuditFindings, options));
+      formatConsoleOutput(postAuditFindings);
     } else if (DEBUG_MODE) {
       console.log("BOM audit: No findings");
     }
@@ -1099,71 +1099,41 @@ const needsBomSigning = ({ generateKeyAndSign }) =>
           }
         }
         try {
-          // Sign the individual components
-          // Let's leave the services unsigned for now since it might require additional cleansing
           const bomJsonUnsignedObj = JSON.parse(jsonPayload);
-          for (const comp of bomJsonUnsignedObj.components) {
-            const compSignature = jws.sign({
-              header: { alg },
-              payload: comp,
-              privateKey: privateKeyToUse,
-            });
-            const compSignatureBlock = {
-              algorithm: alg,
-              value: compSignature,
-            };
-            if (jwkPublicKey) {
-              compSignatureBlock.publicKey = jwkPublicKey;
-            }
-            comp.signature = compSignatureBlock;
-          }
-          const signature = jws.sign({
-            header: { alg },
-            payload: JSON.stringify(bomJsonUnsignedObj, null, 2),
+          const signOptions = {
             privateKey: privateKeyToUse,
-          });
-          if (signature) {
-            const signatureBlock = {
-              algorithm: alg,
-              value: signature,
-            };
-            if (jwkPublicKey) {
-              signatureBlock.publicKey = jwkPublicKey;
-            }
-            bomJsonUnsignedObj.signature = signatureBlock;
-            fs.writeFileSync(
-              jsonFile,
-              JSON.stringify(
-                bomJsonUnsignedObj,
-                null,
-                options.jsonPretty ? 2 : null,
-              ),
-            );
-            thoughtLog(`Signing the BOM file "${jsonFile}".`);
-            if (publicKeyFile) {
-              // Verifying this signature
-              const signatureVerification = jws.verify(
-                signature,
+            algorithm: alg,
+            publicKeyJwk: jwkPublicKey,
+            mode: process.env.SBOM_SIGN_MODE || "replace",
+            signComponents: true,
+            signServices: true,
+            signAnnotations: true,
+          };
+          thoughtLog(`Signing the BOM file "${jsonFile}".`);
+          const signedBom = signBom(bomJsonUnsignedObj, signOptions);
+          fs.writeFileSync(
+            jsonFile,
+            JSON.stringify(signedBom, null, options.jsonPretty ? 2 : null),
+          );
+          if (publicKeyFile) {
+            const publicKeyStr = fs.readFileSync(publicKeyFile, "utf8");
+            const signatureVerification = verifyBom(signedBom, publicKeyStr);
+            if (signatureVerification) {
+              console.log(
+                "SBOM signature is verifiable natively with the public key and the algorithm",
+                publicKeyFile,
                 alg,
-                fs.readFileSync(publicKeyFile, "utf8"),
               );
-              if (signatureVerification) {
-                console.log(
-                  "SBOM signature is verifiable with the public key and the algorithm",
-                  publicKeyFile,
-                  alg,
-                );
-              } else {
-                console.log("SBOM signature verification was unsuccessful");
-                console.log(
-                  "Check if the public key was exported in PEM format",
-                );
-              }
+            } else {
+              console.log("SBOM signature verification was unsuccessful");
+              console.log("Check if the public key was exported in PEM format");
             }
           }
         } catch (ex) {
-          console.log("SBOM signing was unsuccessful", ex);
-          console.log("Check if the private key was exported in PEM format");
+          console.log("SBOM signing was unsuccessful:", ex.message);
+          console.log(
+            "Check if the private key was exported in PEM format and the algorithm is JSF-compliant.",
+          );
         }
       }
     }

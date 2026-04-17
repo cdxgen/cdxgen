@@ -106,7 +106,8 @@ cdxgen --server --server-host 0.0.0.0 --server-port 8080
 | **Server mode invocation**    | Poll `/health` first. POST to `/sbom` with JSON body or query params. Pass `GITHUB_TOKEN` via env if scanning private repos.               |
 | **Aliases**                   | `obom` = `cdxgen -t os`<br>`cbom` = `cdxgen --include-crypto --include-formulation --evidence --spec-version 1.6`                          |
 | **Output parsing**            | Use `-p` for human-readable tables. Parse JSON at `-o` path programmatically. Never assume stdout contains the BOM unless `-o` is omitted. |
-| **Signature verification**    | Use bundled `cdx-verify -i bom.json --public-key public.key` or validate JWS via `jws` library.                                            |
+| **Signature verification**    | Use bundled `cdx-verify -i bom.json --public-key public.key`.                                                                              |
+| **SBOM signing**              | Use bundled `cdx-sign -i bom.json -k private.key`.                                                                                         |
 
 ## 📚 Reference Links
 

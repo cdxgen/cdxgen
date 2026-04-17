@@ -16,4 +16,5 @@
 - [Tutorials - Sign & Attach](LESSON3.md)
 - [Tutorials - Standards & Attestations](LESSON4.md)
 - [Tutorials - OWASP juice-shop](LESSON5.md)
+- [Tutorials - Multi-Signing and Signature Chaining for SBOMs](LESSON6.md)
 - [Support (Enterprise & Community)](SUPPORT.md)

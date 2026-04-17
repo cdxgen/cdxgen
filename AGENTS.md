@@ -9,6 +9,7 @@ This document helps AI coding agents (GitHub Copilot, Claude, Cursor, etc.) unde
 **cdxgen** is a universal, polyglot CycloneDX Bill-of-Materials (BOM) generator. It produces SBOM, CBOM, OBOM, SaaSBOM, CDXA, and VDR documents in CycloneDX JSON format. It is distributed as an npm package (`@cyclonedx/cdxgen`), a container image, and a Deno/Bun-compatible script.
 
 Primary entry points:
+
 - **CLI** — `bin/cdxgen.js` (calls into `lib/cli/index.js`)
 - **Library** — `lib/cli/index.js` exports `createBom`, `submitBom`
 - **HTTP server** — `lib/server/server.js` (started via `bin/repl.js` or `cdxgen --server`)
@@ -23,7 +24,7 @@ Primary entry points:
 - Detect the runtime with the helpers exported from `lib/helpers/utils.js`:
   ```js
   export const isNode = globalThis.process?.versions?.node !== undefined;
-  export const isBun  = globalThis.Bun?.version !== undefined;
+  export const isBun = globalThis.Bun?.version !== undefined;
   export const isDeno = globalThis.Deno?.version?.deno !== undefined;
   ```
 
@@ -32,6 +33,7 @@ Primary entry points:
 ## Import conventions
 
 ### Always use the `node:` protocol for built-ins
+
 ```js
 // correct
 import { readFileSync } from "node:fs";
@@ -43,6 +45,7 @@ import { readFileSync } from "fs";
 ```
 
 ### Import ordering (enforced by Biome)
+
 Biome (`biome.json`) enforces this exact three-group order, with a blank line between each group:
 
 ```
@@ -59,13 +62,14 @@ Biome (`biome.json`) enforces this exact three-group order, with a blank line be
 
 The linter and formatter is **Biome** (not ESLint/Prettier).
 
-| Setting | Value |
-|---|---|
-| Indent | 2 spaces |
+| Setting   | Value                                                                                   |
+| --------- | --------------------------------------------------------------------------------------- |
+| Indent    | 2 spaces                                                                                |
 | Formatter | enabled for `lib/**` and root JS/JSON (excludes `test/`, `data/`, `contrib/`, `types/`) |
-| Linter | enabled for the same scope |
+| Linter    | enabled for the same scope                                                              |
 
 Run locally:
+
 ```bash
 pnpm run lint        # check + auto-fix
 pnpm run lint:check  # check only (used in CI)
@@ -73,6 +77,7 @@ pnpm run lint:errors # errors only
 ```
 
 Key rules to be aware of (see `biome.json`):
+
 - `noUndeclaredVariables` — error. Don't leave variables undeclared.
 - `noConstAssign` — error.
 - `useDefaultParameterLast` — error (default params must come last).
@@ -89,7 +94,7 @@ Key rules to be aware of (see `biome.json`):
 ## Repository layout
 
 ```
-bin/             CLI entry points (cdxgen.js, evinse.js, repl.js, verify.js)
+bin/             CLI entry points (cdxgen.js, evinse.js, repl.js, verify.js, sign.js)
 lib/
   cli/           Core BOM generation logic (index.js ~9 000 lines)
   evinser/       Evinse / SaaSBOM evidence generation
@@ -137,17 +142,21 @@ tools_config/    Tool configuration files
 ## Key abstractions
 
 ### `options` object
+
 Every public function accepts a single `options` plain object. It is created by the CLI argument parser in `bin/cdxgen.js` and threaded through the entire call chain without mutation. When adding new CLI flags, add them to the yargs builder in `bin/cdxgen.js` **and** pass them through `options` — never read `process.argv` directly inside library code.
 
 ### `createBom(path, options)` — `lib/cli/index.js`
+
 The top-level export. Dispatches to per-language `create*Bom` functions based on `options.projectType`. Returns `{ bomJson, dependencies, parentComponent, … }`.
 
 ### `postProcess(bomNSData, options)` — `lib/stages/postgen/postgen.js`
+
 Runs after BOM generation: filtering, standards application, metadata enrichment, formulation population, and annotations. It is called **exactly once** per BOM generation cycle — by `bin/cdxgen.js` and `lib/server/server.js` — after `createBom` returns.
 
 **Any logic that must execute exactly once across all language types must live here**, not inside `buildBomNSData` (which is invoked once per language type and therefore runs multiple times for multi-type projects).
 
 ### `prepareEnv(filePath, options)` — `lib/stages/pregen/pregen.js`
+
 Runs before BOM generation to install missing build tools via sdkman, nvm, rbenv, etc.
 
 ### PackageURL
@@ -219,10 +228,10 @@ lib/server/server.js   (imports from cli/ and stages/)
 **Never import `lib/cli/index.js` from inside `lib/helpers/` or `lib/stages/`.**
 Shared utilities used by both layers must live in a helper module:
 
-| Utility | Location |
-|---|---|
-| `mergeDependencies` | `lib/helpers/depsUtils.js` |
-| `trimComponents` | `lib/helpers/depsUtils.js` |
+| Utility                 | Location                            |
+| ----------------------- | ----------------------------------- |
+| `mergeDependencies`     | `lib/helpers/depsUtils.js`          |
+| `trimComponents`        | `lib/helpers/depsUtils.js`          |
 | `addFormulationSection` | `lib/helpers/formulationParsers.js` |
 
 If you find yourself writing `import { … } from "../../cli/index.js"` inside
@@ -232,31 +241,41 @@ first**.
 ---
 
 ### PackageURL
+
 ```js
 import { PackageURL } from "packageurl-js";
 
 // construct
-const purl = new PackageURL(type, namespace, name, version, qualifiers, subpath);
+const purl = new PackageURL(
+  type,
+  namespace,
+  name,
+  version,
+  qualifiers,
+  subpath,
+);
 // parse
 const purlObj = PackageURL.fromString(purlString);
 // serialise
 const s = purl.toString();
 ```
+
 Never construct purl strings by hand-concatenation.
 
 ### HTTP requests
+
 All outbound HTTP is done through `cdxgenAgent` (a `got` instance with retries, timeout, and proxy support), exported from `lib/helpers/utils.js`. Never import `got` directly in new code — use `cdxgenAgent` or pass it through the `options` object.
 
 ---
 
 ## Logging conventions
 
-| Function | Purpose | Activation |
-|---|---|---|
-| `console.log` / `console.warn` / `console.error` | Operational messages | Always |
+| Function                                              | Purpose                             | Activation                                              |
+| ----------------------------------------------------- | ----------------------------------- | ------------------------------------------------------- |
+| `console.log` / `console.warn` / `console.error`      | Operational messages                | Always                                                  |
 | `thoughtLog(msg, args?)` from `lib/helpers/logger.js` | Internal reasoning / debug thinking | `CDXGEN_THINK_MODE=true` or `CDXGEN_DEBUG_MODE=verbose` |
-| `traceLog(type, args)` from `lib/helpers/logger.js` | Structured trace of commands & HTTP | `CDXGEN_TRACE_MODE=true` or `CDXGEN_DEBUG_MODE=verbose` |
-| `DEBUG_MODE` constant from `lib/helpers/utils.js` | Guards verbose `console.log` calls | `CDXGEN_DEBUG_MODE=debug` or `debug` |
+| `traceLog(type, args)` from `lib/helpers/logger.js`   | Structured trace of commands & HTTP | `CDXGEN_TRACE_MODE=true` or `CDXGEN_DEBUG_MODE=verbose` |
+| `DEBUG_MODE` constant from `lib/helpers/utils.js`     | Guards verbose `console.log` calls  | `CDXGEN_DEBUG_MODE=debug` or `debug`                    |
 
 Prefer `thoughtLog` over ad-hoc `console.log` for introspective messages inside core logic so they can be silenced in production.
 
@@ -268,7 +287,9 @@ cdxgen has a _secure mode_ (`CDXGEN_SECURE_MODE=true` or running under Node.js `
 
 ```js
 import { isSecureMode } from "../helpers/utils.js";
-if (isSecureMode) { /* skip risky operation */ }
+if (isSecureMode) {
+  /* skip risky operation */
+}
 ```
 
 Always use the safe wrappers rather than the raw Node.js equivalents:
@@ -326,20 +347,23 @@ lib/stages/pregen/envAudit.poku.js
 ```
 
 Configuration is in `.pokurc.jsonc`:
+
 ```jsonc
 {
   "include": ["lib"],
   "filter": ".poku.js",
-  "reporter": "verbose"
+  "reporter": "verbose",
 }
 ```
 
 Run all tests:
+
 ```bash
 pnpm test
 ```
 
 Watch mode:
+
 ```bash
 pnpm run watch
 ```
@@ -347,7 +371,7 @@ pnpm run watch
 ### Test anatomy
 
 ```js
-import { strict as assert } from "node:assert";  // or:
+import { strict as assert } from "node:assert"; // or:
 import { assert, describe, it, test } from "poku";
 
 import { myFunction } from "./my-module.js";
@@ -395,6 +419,7 @@ export function parseCargoData(cargoLockFile, options) { … }
 ```
 
 Regenerate after adding/changing public function signatures:
+
 ```bash
 pnpm run gen-types
 ```
@@ -403,14 +428,14 @@ pnpm run gen-types
 
 ## CI overview
 
-| Workflow | Trigger | What it does |
-|---|---|---|
-| `nodejs.yml` | PR / push to master | Unit tests (poku) on a matrix of Node versions × OS |
-| `lint.yml` | PR / push to master | `pnpm run lint:check` (Biome) |
-| `repotests.yml` | PR / push to master | Integration tests against real projects |
-| `snapshot-tests.yml` | PR / push | Snapshot comparisons of generated BOMs |
-| `codeql.yml` | Push / schedule | CodeQL security analysis |
-| `build-image.yml` | PR / push | Docker image builds |
+| Workflow             | Trigger             | What it does                                        |
+| -------------------- | ------------------- | --------------------------------------------------- |
+| `nodejs.yml`         | PR / push to master | Unit tests (poku) on a matrix of Node versions × OS |
+| `lint.yml`           | PR / push to master | `pnpm run lint:check` (Biome)                       |
+| `repotests.yml`      | PR / push to master | Integration tests against real projects             |
+| `snapshot-tests.yml` | PR / push           | Snapshot comparisons of generated BOMs              |
+| `codeql.yml`         | Push / schedule     | CodeQL security analysis                            |
+| `build-image.yml`    | PR / push           | Docker image builds                                 |
 
 Node versions to test against are read from `.versions/node_*` files (not hardcoded). OS matrix: Ubuntu 22.04, Ubuntu 24.04, Windows, macOS (both x64 and ARM).
 
