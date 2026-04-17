@@ -18,7 +18,7 @@ import {
   printServices,
 } from "../lib/helpers/display.js";
 import { ATOM_DB } from "../lib/helpers/utils.js";
-import { validateBom } from "../lib/helpers/validator.js";
+import { validateBom } from "../lib/validator/bomValidator.js";
 
 const args = yargs(hideBin(process.argv))
   .env("EVINSE")

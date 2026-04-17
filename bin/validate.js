@@ -62,7 +62,7 @@ const args = _yargs
     type: "boolean",
     default: true,
     description:
-      "Run the deep purl/ref/metadata checks from lib/helpers/validator.js. Pass --no-deep to skip.",
+      "Run the deep purl/ref/metadata checks from lib/helpers/bomValidator.js. Pass --no-deep to skip.",
   })
   .option("benchmark", {
     alias: "b",

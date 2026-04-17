@@ -2238,9 +2238,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@sequelize/validator.js@workspace:packages/validator-js":
+"@sequelize/bomValidator.js@workspace:packages/validator-js":
   version: 0.0.0-use.local
-  resolution: "@sequelize/validator.js@workspace:packages/validator-js"
+  resolution: "@sequelize/bomValidator.js@workspace:packages/validator-js"
   dependencies:
     "@sequelize/core": "workspace:*"
     "@types/chai": 4.3.9

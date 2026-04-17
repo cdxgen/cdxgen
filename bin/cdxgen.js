@@ -42,10 +42,10 @@ import {
   safeExistsSync,
   toCamel,
 } from "../lib/helpers/utils.js";
-import { validateBom } from "../lib/helpers/validator.js";
 import { postProcess } from "../lib/stages/postgen/postgen.js";
 import { auditEnvironment } from "../lib/stages/pregen/envAudit.js";
 import { prepareEnv } from "../lib/stages/pregen/pregen.js";
+import { validateBom } from "../lib/validator/bomValidator.js";
 
 // Support for config files
 const configPaths = [

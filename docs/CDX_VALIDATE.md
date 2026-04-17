@@ -1,20 +1,19 @@
 # cdx-validate — Supply-Chain Compliance Validator
 
 `cdx-validate` is a zero-install CLI and library that validates CycloneDX
-SBOMs against **structural**, **deep**, and **compliance** checks — in one
-pass.
+BOMs against **structural**, **deep**, and **compliance** checks.
 
 It combines three layers:
 
 1. **Schema validation** – the existing CycloneDX JSON schema check shipped
-   with cdxgen (`lib/helpers/validator.js`).
+   with cdxgen (`lib/helpers/bomValidator.js`).
 2. **Deep validation** – metadata, purl, bom-ref and property consistency
-   checks, also from `lib/helpers/validator.js`.
+   checks, also from `lib/helpers/bomValidator.js`.
 3. **Compliance rule packs** – internal JavaScript rule catalog covering
    **OWASP SCVS (all 87 controls across L1/L2/L3)** and **EU Cyber Resilience
    Act (CRA) SBOM expectations** (8 controls). Rules that cannot be decided
    from a BOM alone (for example, "SBOMs are required for new procurements")
-   are surfaced as *manual-review* items so coverage can still be tracked.
+   are surfaced as _manual-review_ items so coverage can still be tracked.
 
 It is distributed as:
 
@@ -45,33 +44,33 @@ cdx-validate -i bom.json -r json --fail-severity medium
 
 ## CLI reference
 
-| Flag | Default | Description |
-|---|---|---|
-| `-i, --input` | `bom.json` | SBOM JSON path or an OCI reference (resolved with `oras`). |
-| `--platform` | — | Platform to pass to `oras` when the input is an OCI ref. |
-| `-r, --report` | `console` | `console`, `json`, `sarif`, `annotations`. |
-| `-o, --report-file` | stdout | Write the report to a file. |
-| `--schema` / `--no-schema` | on | Toggle JSON-schema validation. |
-| `--deep` / `--no-deep` | on | Toggle metadata / purl / ref / property deep checks. |
-| `-b, --benchmark` | all | Comma list of `scvs`, `scvs-l1`, `scvs-l2`, `scvs-l3`, `cra`. |
-| `--categories` | all | Comma list of rule categories (`compliance-scvs`, `compliance-cra`). |
-| `--min-severity` | `info` | Drop findings below this severity from the report. |
-| `--fail-severity` | `high` | Exit code 3 if any failing finding is ≥ this severity. |
-| `--include-manual` / `--no-include-manual` | on | Show non-automatable manual-review findings. |
-| `--include-pass` | off | Include passing findings (useful for audits). |
-| `--public-key` | — | PEM file. When set, verify the BOM signature. |
-| `--require-signature` | off | Exit 4 if `--public-key` is supplied but verification fails. |
-| `--strict` | off | Exit 2 when schema / deep validation fails. |
+| Flag                                       | Default    | Description                                                          |
+| ------------------------------------------ | ---------- | -------------------------------------------------------------------- |
+| `-i, --input`                              | `bom.json` | SBOM JSON path or an OCI reference (resolved with `oras`).           |
+| `--platform`                               | —          | Platform to pass to `oras` when the input is an OCI ref.             |
+| `-r, --report`                             | `console`  | `console`, `json`, `sarif`, `annotations`.                           |
+| `-o, --report-file`                        | stdout     | Write the report to a file.                                          |
+| `--schema` / `--no-schema`                 | on         | Toggle JSON-schema validation.                                       |
+| `--deep` / `--no-deep`                     | on         | Toggle metadata / purl / ref / property deep checks.                 |
+| `-b, --benchmark`                          | all        | Comma list of `scvs`, `scvs-l1`, `scvs-l2`, `scvs-l3`, `cra`.        |
+| `--categories`                             | all        | Comma list of rule categories (`compliance-scvs`, `compliance-cra`). |
+| `--min-severity`                           | `info`     | Drop findings below this severity from the report.                   |
+| `--fail-severity`                          | `high`     | Exit code 3 if any failing finding is ≥ this severity.               |
+| `--include-manual` / `--no-include-manual` | on         | Show non-automatable manual-review findings.                         |
+| `--include-pass`                           | off        | Include passing findings (useful for audits).                        |
+| `--public-key`                             | —          | PEM file. When set, verify the BOM signature.                        |
+| `--require-signature`                      | off        | Exit 4 if `--public-key` is supplied but verification fails.         |
+| `--strict`                                 | off        | Exit 2 when schema / deep validation fails.                          |
 
 ### Exit codes
 
-| Code | Meaning |
-|------|---------|
-| `0`  | All checks passed, or no findings at/above `--fail-severity`. |
+| Code | Meaning                                                          |
+| ---- | ---------------------------------------------------------------- |
+| `0`  | All checks passed, or no findings at/above `--fail-severity`.    |
 | `1`  | Configuration error (bad input, missing file, unknown reporter). |
-| `2`  | Schema / deep validation failed (only with `--strict`). |
-| `3`  | One or more failing findings at/above `--fail-severity`. |
-| `4`  | Signature verification was required and failed. |
+| `2`  | Schema / deep validation failed (only with `--strict`).          |
+| `3`  | One or more failing findings at/above `--fail-severity`.         |
+| `4`  | Signature verification was required and failed.                  |
 
 ---
 
@@ -83,7 +82,7 @@ A three-part human-readable report:
 
 1. one-line summary (`pass=… fail=… manual=… errors=…`)
 2. per-benchmark scorecard table
-3. detail tables for *Failing* and *Manual-review* findings.
+3. detail tables for _Failing_ and _Manual-review_ findings.
 
 ### `json`
 
@@ -156,16 +155,16 @@ description included so reviewers can assess them manually.
 
 Eight controls extracted from CRA Annex I and the ENISA SBOM guidance:
 
-| Id | Check |
-|---|---|
-| `CRA-MIN-001` | `metadata.supplier.name` (or `manufacturer.name`) is declared. |
-| `CRA-MIN-002` | Manufacturer has a contact (email / phone / URL). |
-| `CRA-MIN-003` | BOM has a `serialNumber` of shape `urn:uuid:<uuid>`. |
+| Id            | Check                                                               |
+| ------------- | ------------------------------------------------------------------- |
+| `CRA-MIN-001` | `metadata.supplier.name` (or `manufacturer.name`) is declared.      |
+| `CRA-MIN-002` | Manufacturer has a contact (email / phone / URL).                   |
+| `CRA-MIN-003` | BOM has a `serialNumber` of shape `urn:uuid:<uuid>`.                |
 | `CRA-MIN-004` | BOM has a non-empty `dependencies[]` covering ≥ 75 % of components. |
-| `CRA-MIN-005` | `metadata.timestamp` is present and ISO-8601 parseable. |
-| `CRA-MIN-006` | Every component has a `purl`, `cpe`, or `swid.tagId`. |
-| `CRA-MIN-007` | Every component declares license information. |
-| `CRA-MIN-008` | `metadata.tools` records the generating tool(s). |
+| `CRA-MIN-005` | `metadata.timestamp` is present and ISO-8601 parseable.             |
+| `CRA-MIN-006` | Every component has a `purl`, `cpe`, or `swid.tagId`.               |
+| `CRA-MIN-007` | Every component declares license information.                       |
+| `CRA-MIN-008` | `metadata.tools` records the generating tool(s).                    |
 
 ---
 
@@ -188,7 +187,10 @@ still needs manual attention.
 ## Library API
 
 ```js
-import { validateBomAdvanced, shouldFail } from "@cyclonedx/cdxgen/lib/validator/index.js";
+import {
+  validateBomAdvanced,
+  shouldFail,
+} from "@cyclonedx/cdxgen/lib/validator/index.js";
 import { render } from "@cyclonedx/cdxgen/lib/validator/reporters/index.js";
 
 const bom = JSON.parse(await readFile("bom.json", "utf8"));
@@ -197,9 +199,13 @@ const report = validateBomAdvanced(bom, {
   minSeverity: "low",
 });
 
-console.log(render("sarif", report, { toolName: "cdx-validate", toolVersion: "12.2.0" }));
+console.log(
+  render("sarif", report, { toolName: "cdx-validate", toolVersion: "12.2.0" }),
+);
 
-const { shouldFail: fail, reason } = shouldFail(report, { failSeverity: "high" });
+const { shouldFail: fail, reason } = shouldFail(report, {
+  failSeverity: "high",
+});
 if (fail) throw new Error(reason);
 ```
 

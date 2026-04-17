@@ -76,7 +76,7 @@ Use `hf.co/CycloneDX/cdx1-gguf-BF16-GGUF` for higher precision needs.
 ### Validating jsonlines files
 
 ```shell
-node validator.js
+node bomValidator.js
 ```
 
 ## Citation

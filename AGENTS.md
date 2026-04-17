@@ -112,7 +112,7 @@ lib/
     protobom.js         Protobuf-based BOM utilities
     pythonutils.js      Python venv / conda helpers
     utils.js            ~18 000-line utility module; most parsing functions live here
-    validator.js        CycloneDX JSON schema validation
+    bomValidator.js        CycloneDX JSON schema validation
   managers/
     docker.js           Docker daemon / OCI operations
     oci.js              OCI image layer extraction

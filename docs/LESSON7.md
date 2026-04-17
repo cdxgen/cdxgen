@@ -53,7 +53,7 @@ You will see three sections:
    schemaValid=true  deepValid=true  pass=28  fail=2  manual=65  errors=1
    ```
 2. A per-benchmark scorecard. Each row shows the number of pass/fail/manual
-   controls and the *automatable score* (what percentage of the automatable
+   controls and the _automatable score_ (what percentage of the automatable
    controls the BOM passes):
    ```
    OWASP SCVS (all levels)          87   20   2   65   91% (20/22)
@@ -71,7 +71,7 @@ records copyrights when `FETCH_LICENSE=true`).
 ## Step 3: Sign the SBOM and re-validate
 
 ```shell
-# Generate a key pair (see LESSON3 / LESSON6 for multi-signer scenarios)
+# Generate a key pair (see LESSON6 for multi-signer scenarios)
 openssl genpkey -algorithm RSA -out builder_private.pem -pkeyopt rsa_keygen_bits:4096
 openssl rsa -pubout -in builder_private.pem -out builder_public.pem
 
@@ -82,7 +82,7 @@ cdx-sign -i bom.json -k builder_private.pem -a RS512 --key-id "builder-system"
 cdx-validate -i bom.json --public-key builder_public.pem --require-signature
 ```
 
-The `SCVS-2.4` finding should now be resolved, and the *Automatable score*
+The `SCVS-2.4` finding should now be resolved, and the _Automatable score_
 for SCVS L2 should jump (the exact delta depends on the rest of your
 project). If the signature were invalid, `cdx-validate` would exit with
 code **4** and refuse to report success.
@@ -170,7 +170,7 @@ jobs:
 
 This produces a signed SBOM, proves via `--require-signature` that the
 signature verifies, asserts that SCVS L2 and CRA both hold, fails the job
-if any rule fails at severity *high* or above, and publishes the SARIF log
+if any rule fails at severity _high_ or above, and publishes the SARIF log
 to GitHub so reviewers can triage failures directly in the Security tab.
 
 ## Going further

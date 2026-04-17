@@ -22,8 +22,8 @@ import {
 } from "../lib/helpers/display.js";
 import { readBinary } from "../lib/helpers/protobom.js";
 import { getTmpDir } from "../lib/helpers/utils.js";
-import { validateBom } from "../lib/helpers/validator.js";
 import { getBomWithOras } from "../lib/managers/oci.js";
+import { validateBom } from "../lib/validator/bomValidator.js";
 
 const options = {
   useColors: true,
