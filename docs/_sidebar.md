@@ -7,6 +7,7 @@
 - [Advanced Usage](ADVANCED.md)
 - [cdx: Custom Properties](CUSTOM_PROPERTIES.md)
 - [BOM Audit](BOM_AUDIT.md)
+- [cdx-validate — SCVS & CRA](CDX_VALIDATE.md)
 - [AI/ML Usage](ml_profiles.md)
 - [Permissions](PERMISSIONS.md)
 - [Configuring Allowlists](ALLOWED_HOSTS_AND_COMMANDS.md)
@@ -17,4 +18,5 @@
 - [Tutorials - Standards & Attestations](LESSON4.md)
 - [Tutorials - OWASP juice-shop](LESSON5.md)
 - [Tutorials - Multi-Signing and Signature Chaining for SBOMs](LESSON6.md)
+- [Tutorials - Validating SBOMs against SCVS and CRA](LESSON7.md)
 - [Support (Enterprise & Community)](SUPPORT.md)
