@@ -70,6 +70,7 @@ jobs:
           bin/cdxgen.js -t java repotests/java-sec-code -o bomresults/bom-java-sec-code-9.json --include-regex "pom.xml" --bom-audit
           bin/cdxgen.js -t java -t github repotests/java-sec-code -o bomresults/bom-java-sec-code-9.json
           bin/cdxgen.js -t java -exclude-type js repotests/java-sec-code -o bomresults/bom-java-sec-code-10.json
+          bin/validate.js -i bomresults/bom-java-sec-code-10.json --format console
         shell: bash
       - name: repotests java-sec-code (allow lists)
         run: |
@@ -161,6 +162,8 @@ jobs:
       - name: repotests gallery
         run: |
           bin/cdxgen.js -r -t dart repotests/gallery -o bomresults/bom-pub.json --fail-on-error --bom-audit
+          bin/validate.js -i bomresults/bom-pub.json -o bomresults/bom-pub.sarif --report sarif
+          ls -l bomresults/bom-pub.sarif
         shell: bash
       - name: Cleanup
         run: rm -rf /tmp/docker-images-* /tmp/atom-*  /tmp/mvn-deps*
