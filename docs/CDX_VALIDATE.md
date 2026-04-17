@@ -6,9 +6,9 @@ BOMs against **structural**, **deep**, and **compliance** checks.
 It combines three layers:
 
 1. **Schema validation** – the existing CycloneDX JSON schema check shipped
-   with cdxgen (`lib/helpers/bomValidator.js`).
+   with cdxgen (`lib/validator/bomValidator.js`).
 2. **Deep validation** – metadata, purl, bom-ref and property consistency
-   checks, also from `lib/helpers/bomValidator.js`.
+   checks, also from `lib/validator/bomValidator.js`.
 3. **Compliance rule packs** – internal JavaScript rule catalog covering
    **OWASP SCVS (all 87 controls across L1/L2/L3)** and **EU Cyber Resilience
    Act (CRA) SBOM expectations** (8 controls). Rules that cannot be decided
