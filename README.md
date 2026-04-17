@@ -12,7 +12,7 @@
 
 <img src="./docs/_media/cdxgen.png" width="200" height="auto" />
 
-cdxgen is a CLI tool, library, [REPL](./ADVANCED.md), and server to create a valid and compliant [CycloneDX][cyclonedx-homepage] Bill of Materials (BOM) containing an aggregate of all project dependencies in JSON format. CycloneDX is a full-stack BOM specification that is easily created, human and machine-readable, and simple to parse. The tool supports CycloneDX specification versions from 1.4 - 1.7.
+cdxgen is a CLI tool, library, [REPL](./ADVANCED.md), and server to create, validate, sign, and verify [CycloneDX][cyclonedx-homepage] Bill of Materials (BOM) containing an aggregate of all project dependencies in JSON format. CycloneDX is a full-stack BOM specification that is easily created, human and machine-readable, and simple to parse. The tool supports CycloneDX specification versions from 1.5 - 1.7.
 
 Supported BOM formats:
 
@@ -32,7 +32,6 @@ Most SBOM tools are like simple barcode scanners. For easy applications, they ca
 - _Explainability:_ Don't list, but explain with evidence.
 - _Precision:_ Try using multiple techniques to improve precision, even if it takes extra time.
 - _Personas:_ Cater to the needs of a range of personas such as security researchers, compliance auditors, developers, and SOC.
-- _Lifecycle:_ Support BOM generation for various product lifecycles.
 - _Machine Learning:_ Optimize the generated data for Machine Learning (ML) purposes by considering the various model properties.
 - _Safety:_ Execute external build tools and handle untrusted inputs defensively, with hardened defaults and a [secure mode](docs/PERMISSIONS.md) for sensitive environments.
 
@@ -447,9 +446,13 @@ For complex supply chain orchestration, use the bundled `cdx-sign` CLI. This too
 cdx-sign -i bom.json -k auditor_private.pem -a ES256 --key-id "auditor-qa" --mode signers --no-sign-components
 ```
 
+### Validating CycloneDX BOMs
+
+Use the bundled `cdx-validate` command to validate CycloneDX BOMs against **structural**, **deep**, and **compliance** checks. Refer to this [document](./docs/CDX_VALIDATE.md) for usage.
+
 ### Verifying the signature
 
-Use the bundled `cdx-verify` command to validate BOM signatures. By default, `cdx-verify` performs a **strict deep verification**, meaning it mathematically validates the top-level BOM signature _and_ the signatures of every nested component, service, and annotation against the provided public key.
+Use the bundled `cdx-verify` command to validate BOM signatures. By default, `cdx-verify` performs a **strict deep verification**, meaning it mathematically validates the top-level BOM signature _and_ the signatures of every nested component, service, and annotation against the provided public key. Refer to this [lesson](./docs/LESSON6.md) for the usage of sign and verify commands.
 
 ```shell
 npm install -g @cyclonedx/cdxgen
