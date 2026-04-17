@@ -3,9 +3,9 @@
  *
  * @param {Array<object>} findings Finding objects emitted by the validator or auditBom engine.
  * @param {object} bomJson Full CycloneDX BOM (needed for annotator/subject wiring).
- * @returns {object} CycloneDX annotation object.
+ * @returns {Array<object>} CycloneDX annotation objects.
  */
-export function buildAnnotations(findings: Array<object>, bomJson: object): object;
+export function buildAnnotations(findings: Array<object>, bomJson: object): Array<object>;
 /**
  * Produce a new BOM object with findings embedded as annotations. The caller
  * is responsible for writing the result to disk.
