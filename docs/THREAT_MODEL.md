@@ -202,7 +202,7 @@ Trust boundary 5: cdxgen container ←→ container host
 - Renovate provides automated dependency updates with CI testing
 - CodeQL scanning runs on the codebase
 - npm provenance attestation on published packages
-- Optional heavy dependencies (atom, sqlite3, server middleware) are in `optionalDependencies` to reduce the attack surface of minimal installs
+- Optional heavy dependencies (atom, server middleware) are in `optionalDependencies` to reduce the attack surface of minimal installs
 
 **Residual risk:** Medium — supply-chain attacks on npm packages are an industry-wide threat. cdxgen has a moderate dependency tree.
 

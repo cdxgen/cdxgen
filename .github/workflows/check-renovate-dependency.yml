@@ -24,6 +24,7 @@ jobs:
         uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f # v6.3.0
         with:
           node-version-file: .nvmrc
+          package-manager-cache: false
       - name: Build
         run: |
           pnpm i --no-frozen-lockfile
@@ -49,7 +50,7 @@ jobs:
         env:
           FETCH_LICENSE: true
           PR_TITLE: ${{ github.event.pull_request.title }}
-      - uses: mshick/add-pr-comment@ffd016c7e151d97d69d21a843022fd4cd5b96fe5 # v3.9.0
+      - uses: mshick/add-pr-comment@64b8e914979889d746c99dea15a76e77ef64580a  # v3.10.0
         if: hashFiles('_tree.txt')
         with:
           message-path: _tree.txt

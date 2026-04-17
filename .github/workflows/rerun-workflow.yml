@@ -22,15 +22,17 @@ jobs:
     steps:
       - name: Validate run_id format
         run: |
-          if ! [[ "${{ inputs.run_id }}" =~ ^[0-9]+$ ]]; then
+          if ! [[ "${INPUTS_RUN_ID}" =~ ^[0-9]+$ ]]; then
             echo "Invalid run_id format: must be numeric"
             exit 1
           fi
+        env:
+          INPUTS_RUN_ID: ${{ inputs.run_id }}
 
       - name: Fetch run details and validate ownership
         id: run_info
         run: |
-          RESPONSE=$(gh api repos/${{ github.repository }}/actions/runs/${{ inputs.run_id }})
+          RESPONSE=$(gh api repos/${{ github.repository }}/actions/runs/${INPUTS_RUN_ID})
           RUN_REPO=$(echo "$RESPONSE" | jq -r '.repository.full_name')
           EXPECTED_REPO="${{ github.repository }}"
           
@@ -41,12 +43,14 @@ jobs:
         env:
           GH_REPO: ${{ github.repository }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          INPUTS_RUN_ID: ${{ inputs.run_id }}
 
       - name: Rerun failed jobs
         run: |
-          echo "Rerunning failed jobs for run_id: ${{ inputs.run_id }}"
-          gh run watch ${{ inputs.run_id }} > /dev/null 2>&1
-          gh run rerun ${{ inputs.run_id }} --failed
+          echo "Rerunning failed jobs for run_id: ${INPUTS_RUN_ID}"
+          gh run watch ${INPUTS_RUN_ID} > /dev/null 2>&1
+          gh run rerun ${INPUTS_RUN_ID} --failed
         env:
           GH_REPO: ${{ github.repository }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          INPUTS_RUN_ID: ${{ inputs.run_id }}

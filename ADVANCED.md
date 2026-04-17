@@ -28,9 +28,6 @@ Options:
   -l, --language                 Application language
   [choices: "java", "jar", "javascript", "python", "android", "cpp"] [default: "
                                                                           java"]
-      --db-path                  Atom slices DB path. Default /home/prabhu/.loca
-                                 l/share/.atomdb
-                                  [default: "/home/prabhu/.local/share/.atomdb"]
       --force                    Force creation of the database
                                                       [boolean] [default: false]
       --skip-maven-collector     Skip collecting jars from maven and gradle cach
@@ -93,8 +90,6 @@ evinse -i <bom from cache> -o bom.evinse.json <application path>
 ```
 
 Evinse would populate component.evidence object with occurrences (default) and callstack (in data-flow mode). Those without evidence are either transitive or unused dependencies.
-
-To improve performance for re-runs, pass the argument `--skip-maven-collector` to use the data cached in the SQLite database from the previous runs.
 
 ## Interactive mode
 

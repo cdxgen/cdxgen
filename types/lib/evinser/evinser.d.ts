@@ -4,30 +4,77 @@
  * @param {Object} options Command line options
  */
 export function prepareDB(options: Object): Promise<{
-    sequelize: any;
+    sequelize: {
+        close: () => boolean;
+    };
     Namespaces: {
-        db: any;
         tableName: any;
-        init(): Promise<any>;
-        findByPk(purl: any): Promise<any>;
-        findOrCreate(options: Object): Promise<any>;
-        findAll(options: Object): Promise<any>;
+        store: Map<any, any>;
+        init(): Promise<void>;
+        findByPk(purl: any): Promise<{
+            purl: any;
+            data: any;
+            createdAt: any;
+            updatedAt: any;
+        } | null>;
+        findOrCreate(options: any): Promise<(boolean | {
+            purl: any;
+            data: any;
+            createdAt: any;
+            updatedAt: any;
+        })[]>;
+        findAll(options: any): Promise<{
+            purl: any;
+            data: any;
+            createdAt: any;
+            updatedAt: any;
+        }[]>;
     };
     Usages: {
-        db: any;
         tableName: any;
-        init(): Promise<any>;
-        findByPk(purl: any): Promise<any>;
-        findOrCreate(options: Object): Promise<any>;
-        findAll(options: Object): Promise<any>;
+        store: Map<any, any>;
+        init(): Promise<void>;
+        findByPk(purl: any): Promise<{
+            purl: any;
+            data: any;
+            createdAt: any;
+            updatedAt: any;
+        } | null>;
+        findOrCreate(options: any): Promise<(boolean | {
+            purl: any;
+            data: any;
+            createdAt: any;
+            updatedAt: any;
+        })[]>;
+        findAll(options: any): Promise<{
+            purl: any;
+            data: any;
+            createdAt: any;
+            updatedAt: any;
+        }[]>;
     };
     DataFlows: {
-        db: any;
         tableName: any;
-        init(): Promise<any>;
-        findByPk(purl: any): Promise<any>;
-        findOrCreate(options: Object): Promise<any>;
-        findAll(options: Object): Promise<any>;
+        store: Map<any, any>;
+        init(): Promise<void>;
+        findByPk(purl: any): Promise<{
+            purl: any;
+            data: any;
+            createdAt: any;
+            updatedAt: any;
+        } | null>;
+        findOrCreate(options: any): Promise<(boolean | {
+            purl: any;
+            data: any;
+            createdAt: any;
+            updatedAt: any;
+        })[]>;
+        findAll(options: any): Promise<{
+            purl: any;
+            data: any;
+            createdAt: any;
+            updatedAt: any;
+        }[]>;
     };
 } | undefined>;
 export function catalogMavenDeps(dirPath: any, purlsJars: any, Namespaces: any, options?: {}): Promise<void>;

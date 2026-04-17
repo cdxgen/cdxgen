@@ -1540,7 +1540,6 @@ export const dirNameStr: any;
 export const isSecureMode: any;
 export const isWin: boolean;
 export const isMac: boolean;
-export let ATOM_DB: any;
 export const commandsExecuted: any;
 export const frameworksList: any;
 export const CDXGEN_VERSION: any;

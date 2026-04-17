@@ -27,7 +27,6 @@ import {
 } from "../lib/helpers/display.js";
 import { TRACE_MODE, thoughtEnd, thoughtLog } from "../lib/helpers/logger.js";
 import {
-  ATOM_DB,
   commandsExecuted,
   DEBUG_MODE,
   getTmpDir,
@@ -879,22 +878,6 @@ const checkPermissions = (filePath, options) => {
         return false;
       }
     }
-    if (!process.permission.has("fs.write", process.env.ATOM_DB || ATOM_DB)) {
-      console.log(
-        `SECURE MODE: FileSystemWrite permission is required to create the output slices file. Please invoke cdxgen with the argument --allow-fs-write="${process.env.ATOM_DB || ATOM_DB}"`,
-      );
-      return false;
-    }
-    console.log(
-      "TIP: Invoke cdxgen with `--allow-addons` to allow the use of sqlite3 native addon. This addon is required for evidence mode.",
-    );
-  } else {
-    if (process.permission.has("fs.write", process.env.ATOM_DB || ATOM_DB)) {
-      console.log(
-        `SECURE MODE: FileSystemWrite permission is not required for the directory "${process.env.ATOM_DB || ATOM_DB}" in non-evidence mode. Consider removing the argument --allow-fs-write="${process.env.ATOM_DB || ATOM_DB}".`,
-      );
-      return false;
-    }
   }
   if (!process.permission.has("fs.write", getTmpDir())) {
     console.log(
@@ -1165,7 +1148,6 @@ const needsBomSigning = ({ generateKeyAndSign }) =>
       input: options.output,
       output: options.evinseOutput,
       language: options.projectType,
-      dbPath: process.env.ATOM_DB || ATOM_DB,
       skipMavenCollector: false,
       force: false,
       withReachables: options.deep,

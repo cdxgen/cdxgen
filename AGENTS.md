@@ -448,7 +448,7 @@ All GitHub Actions workflows pin action SHA digests and have `permissions: {}` a
 - Package manager: **pnpm ≥ 10** (`packageManager` field in `package.json`).
 - Install: `pnpm install --config.strict-dep-builds=true --frozen-lockfile --package-import-method copy`
 - Do not use `npm` or `yarn`.
-- Runtime dependencies are in `dependencies`; test/dev tools in `devDependencies`; optional heavy packages (atom, sqlite3, protobuf, server middleware) in `optionalDependencies`.
+- Runtime dependencies are in `dependencies`; test/dev tools in `devDependencies`; optional heavy packages (atom, protobuf, server middleware) in `optionalDependencies`.
 - Dependency updates are managed by Renovate (see `renovate.json`). Do not bump dependency versions in PRs unless directly required.
 
 ---

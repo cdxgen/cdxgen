@@ -106,12 +106,10 @@
     "xml-js": "npm:xml-js@^1.6.11",
     "yargs": "npm:yargs@^18.0.0",
     "yoctocolors": "npm:yoctocolors@^2.1.2",
-    "@appthreat/sqlite3": "npm:@appthreat/sqlite3@^8.0.1",
     "body-parser": "npm:body-parser@^2.2.2",
     "compression": "npm:compression@^1.8.1",
     "connect": "npm:connect@^3.7.0",
     "jsonata": "npm:jsonata@^2.1.0",
     "@iarna/toml": "npm:@iarna/toml@2.2.5"
-  },
-  "allowScripts": ["npm:@appthreat/sqlite3@8.0.1"]
+  }
 }

@@ -33,6 +33,7 @@ jobs:
         uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f # v6.3.0
         with:
           node-version-file: .nvmrc
+          package-manager-cache: false
           registry-url: https://registry.npmjs.org/
           scope: '@cyclonedx'
       - name: Release npm package
@@ -74,7 +75,7 @@ jobs:
             ghcr.io/cdxgen/cdxgen-ruby-builder
           flavor: latest=false,suffix=-amd64
       - name: Build and push Docker images
-        uses: docker/build-push-action@d08e5c354a6adb9ed34480a06d141179aa583294 # v7.0.0
+        uses: docker/build-push-action@bcafcacb16a39f128d818304e6c9c0c18556b85f  # v7.1.0
         id: build
         with:
           context: .
@@ -117,7 +118,7 @@ jobs:
             ghcr.io/cdxgen/cdxgen-ruby-builder
           flavor: latest=false,suffix=-arm64
       - name: Build and push Docker images
-        uses: docker/build-push-action@d08e5c354a6adb9ed34480a06d141179aa583294 # v7.0.0
+        uses: docker/build-push-action@bcafcacb16a39f128d818304e6c9c0c18556b85f  # v7.1.0
         id: build
         with:
           context: .
@@ -153,7 +154,7 @@ jobs:
         id: metadata
         with:
           images: ghcr.io/${{ github.repository }}
-      - uses: int128/docker-manifest-create-action@8aac06098a12365ccdf99372dcfb453ccce8a0b0 # v2.16.0
+      - uses: int128/docker-manifest-create-action@44422a4b046d55dc036df622039ed3aec43c613c  # v2.17.0
         id: build
         with:
           index-annotations: ${{ steps.metadata.outputs.labels }}
@@ -178,6 +179,7 @@ jobs:
         uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f # v6.3.0
         with:
           node-version-file: .nvmrc
+          package-manager-cache: false
           registry-url: https://registry.npmjs.org/
       - uses: oras-project/setup-oras@38de303aac69abb66f3e6255b7198bff35f323e3 # v2.0.0
       - name: Free disk space
@@ -204,7 +206,7 @@ jobs:
           images: |
             ghcr.io/cdxgen/cdxgen
       - name: Build and push Docker images
-        uses: docker/build-push-action@d08e5c354a6adb9ed34480a06d141179aa583294 # v7.0.0
+        uses: docker/build-push-action@bcafcacb16a39f128d818304e6c9c0c18556b85f  # v7.1.0
         with:
           context: .
           file: ci/Dockerfile
@@ -221,14 +223,16 @@ jobs:
           rm -rf nydus-static-v2.3.1-linux-amd64.tgz nydus-static
       - name: nydusify
         run: |
-          nydusify convert --oci --oci-ref --source ${{ steps.meta.outputs.tags }} --target ${{ steps.meta.outputs.tags }}-nydus --prefetch-dir /opt/cdxgen
-          nydusify check --target ${{ steps.meta.outputs.tags }}-nydus
+          nydusify convert --oci --oci-ref --source ${STEPS_META_OUTPUTS_TAGS} --target ${STEPS_META_OUTPUTS_TAGS}-nydus --prefetch-dir /opt/cdxgen
+          nydusify check --target ${STEPS_META_OUTPUTS_TAGS}-nydus
         if: github.ref == 'refs/heads/master'
         continue-on-error: true
+        env:
+          STEPS_META_OUTPUTS_TAGS: ${{ steps.meta.outputs.tags }}
       - name: Attach cdx sbom
         run: |
           pnpm install:frozen
-          tags="${{ steps.meta.outputs.tags }}"
+          tags="${STEPS_META_OUTPUTS_TAGS}"
           first_tag=$(echo "$tags" | head -n 1)
           node bin/cdxgen.js -t docker -o cdxgen-oci-image.cdx.json "$first_tag"
           node bin/verify.js -i cdxgen-oci-image.cdx.json --public-key contrib/bom-signer/public.key
@@ -243,8 +247,9 @@ jobs:
           DOCKER_USE_CLI: true
           SBOM_SIGN_ALGORITHM: RS512
           SBOM_SIGN_PRIVATE_KEY_BASE64: ${{ secrets.SBOM_SIGN_PRIVATE_KEY }}
+          STEPS_META_OUTPUTS_TAGS: ${{ steps.meta.outputs.tags }}
       - name: Attach cdx sbom to release
-        uses: softprops/action-gh-release@153bb8e04406b158c6c84fc1615b65b24149a1fe # v2.6.1
+        uses: softprops/action-gh-release@b4309332981a82ec1c5618f44dd2e27cc8bfbfda  # v3.0.0
         if: startsWith(github.ref, 'refs/tags/')
         with:
           files: |
@@ -268,6 +273,7 @@ jobs:
         uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f # v6.3.0
         with:
           node-version-file: .nvmrc
+          package-manager-cache: false
           registry-url: https://registry.npmjs.org/
       - uses: oras-project/setup-oras@38de303aac69abb66f3e6255b7198bff35f323e3 # v2.0.0
       - name: Free disk space
@@ -294,7 +300,7 @@ jobs:
           images: |
             ghcr.io/cdxgen/cdxgen-secure
       - name: Build and push Docker images
-        uses: docker/build-push-action@d08e5c354a6adb9ed34480a06d141179aa583294 # v7.0.0
+        uses: docker/build-push-action@bcafcacb16a39f128d818304e6c9c0c18556b85f  # v7.1.0
         with:
           context: .
           file: ci/Dockerfile-secure
@@ -305,7 +311,7 @@ jobs:
       - name: Attach cdx sbom
         run: |
           pnpm install:frozen
-          tags="${{ steps.meta.outputs.tags }}"
+          tags="${STEPS_META_OUTPUTS_TAGS}"
           first_tag=$(echo "$tags" | head -n 1)
           node bin/cdxgen.js -t docker -o cdxgen-secure-oci-image.cdx.json "$first_tag"
           node bin/verify.js -i cdxgen-secure-oci-image.cdx.json --public-key contrib/bom-signer/public.key
@@ -320,8 +326,9 @@ jobs:
           DOCKER_USE_CLI: true
           SBOM_SIGN_ALGORITHM: RS512
           SBOM_SIGN_PRIVATE_KEY_BASE64: ${{ secrets.SBOM_SIGN_PRIVATE_KEY }}
+          STEPS_META_OUTPUTS_TAGS: ${{ steps.meta.outputs.tags }}
       - name: Attach cdx secure sbom to release
-        uses: softprops/action-gh-release@153bb8e04406b158c6c84fc1615b65b24149a1fe # v2.6.1
+        uses: softprops/action-gh-release@b4309332981a82ec1c5618f44dd2e27cc8bfbfda  # v3.0.0
         if: startsWith(github.ref, 'refs/tags/')
         with:
           files: |
@@ -345,6 +352,7 @@ jobs:
         uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f # v6.3.0
         with:
           node-version-file: .nvmrc
+          package-manager-cache: false
           registry-url: https://registry.npmjs.org/
       - uses: oras-project/setup-oras@38de303aac69abb66f3e6255b7198bff35f323e3 # v2.0.0
       - name: Free disk space
@@ -374,7 +382,7 @@ jobs:
           images: |
             ghcr.io/cdxgen/cdxgen-deno
       - name: Build and push Docker images
-        uses: docker/build-push-action@d08e5c354a6adb9ed34480a06d141179aa583294 # v7.0.0
+        uses: docker/build-push-action@bcafcacb16a39f128d818304e6c9c0c18556b85f  # v7.1.0
         with:
           context: .
           file: ci/Dockerfile-deno
@@ -385,7 +393,7 @@ jobs:
       - name: Attach cdx sbom
         run: |
           pnpm install:frozen
-          tags="${{ steps.meta.outputs.tags }}"
+          tags="${STEPS_META_OUTPUTS_TAGS}"
           first_tag=$(echo "$tags" | head -n 1)
           node bin/cdxgen.js -t docker -o cdxgen-deno-oci-image.cdx.json "$first_tag"
           node bin/verify.js -i cdxgen-deno-oci-image.cdx.json --public-key contrib/bom-signer/public.key
@@ -400,8 +408,9 @@ jobs:
           DOCKER_USE_CLI: true
           SBOM_SIGN_ALGORITHM: RS512
           SBOM_SIGN_PRIVATE_KEY_BASE64: ${{ secrets.SBOM_SIGN_PRIVATE_KEY }}
+          STEPS_META_OUTPUTS_TAGS: ${{ steps.meta.outputs.tags }}
       - name: Attach cdx deno sbom to release
-        uses: softprops/action-gh-release@153bb8e04406b158c6c84fc1615b65b24149a1fe # v2.6.1
+        uses: softprops/action-gh-release@b4309332981a82ec1c5618f44dd2e27cc8bfbfda  # v3.0.0
         if: startsWith(github.ref, 'refs/tags/')
         with:
           files: |
@@ -423,6 +432,7 @@ jobs:
         uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f # v6.3.0
         with:
           node-version-file: .nvmrc
+          package-manager-cache: false
           registry-url: https://registry.npmjs.org/
       - uses: oras-project/setup-oras@38de303aac69abb66f3e6255b7198bff35f323e3 # v2.0.0
       - name: Free disk space
@@ -450,7 +460,7 @@ jobs:
           images: |
             ghcr.io/cdxgen/cdxgen-ppc64
       - name: Build and push Docker images
-        uses: docker/build-push-action@d08e5c354a6adb9ed34480a06d141179aa583294 # v7.0.0
+        uses: docker/build-push-action@bcafcacb16a39f128d818304e6c9c0c18556b85f  # v7.1.0
         with:
           context: .
           file: ci/Dockerfile-ppc64
@@ -476,6 +486,7 @@ jobs:
         uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f # v6.3.0
         with:
           node-version-file: .nvmrc
+          package-manager-cache: false
           registry-url: https://registry.npmjs.org/
       - uses: oras-project/setup-oras@38de303aac69abb66f3e6255b7198bff35f323e3 # v2.0.0
       - name: Free disk space
@@ -506,7 +517,7 @@ jobs:
           images: |
             ghcr.io/cdxgen/cdxgen-bun
       - name: Build and push Docker images
-        uses: docker/build-push-action@d08e5c354a6adb9ed34480a06d141179aa583294 # v7.0.0
+        uses: docker/build-push-action@bcafcacb16a39f128d818304e6c9c0c18556b85f  # v7.1.0
         with:
           context: .
           file: ci/Dockerfile-bun
@@ -517,7 +528,7 @@ jobs:
       - name: Attach cdx sbom
         run: |
           pnpm install:frozen
-          tags="${{ steps.meta.outputs.tags }}"
+          tags="${STEPS_META_OUTPUTS_TAGS}"
           first_tag=$(echo "$tags" | head -n 1)
           node bin/cdxgen.js -t docker -o cdxgen-bun-oci-image.cdx.json "$first_tag"
           node bin/verify.js -i cdxgen-bun-oci-image.cdx.json --public-key contrib/bom-signer/public.key
@@ -532,8 +543,9 @@ jobs:
           DOCKER_USE_CLI: true
           SBOM_SIGN_ALGORITHM: RS512
           SBOM_SIGN_PRIVATE_KEY_BASE64: ${{ secrets.SBOM_SIGN_PRIVATE_KEY }}
+          STEPS_META_OUTPUTS_TAGS: ${{ steps.meta.outputs.tags }}
       - name: Attach cdx bun sbom to release
-        uses: softprops/action-gh-release@153bb8e04406b158c6c84fc1615b65b24149a1fe # v2.6.1
+        uses: softprops/action-gh-release@b4309332981a82ec1c5618f44dd2e27cc8bfbfda  # v3.0.0
         if: startsWith(github.ref, 'refs/tags/')
         with:
           files: |

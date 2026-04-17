@@ -237,9 +237,6 @@ Options:
   -l, --language                 Application language
   [choices: "java", "jar", "javascript", "python", "android", "cpp"] [default: "
                                                                           java"]
-      --db-path                  Atom slices DB path. Default /home/prabhu/.loca
-                                 l/share/.atomdb
-                                  [default: "/home/prabhu/.local/share/.atomdb"]
       --force                    Force creation of the database
                                                       [boolean] [default: false]
       --skip-maven-collector     Skip collecting jars from maven and gradle cach
@@ -346,8 +343,6 @@ evinse -i <bom from cache> -o bom.evinse.json <application path>
 
 Evinse would populate `component.evidence` objects with occurrences (default) and call stack (in data-flow mode). Those without evidence are either transitive or unused dependencies.
 
-To improve performance for re-runs, pass the argument `--skip-maven-collector` to use the data cached in the SQLite database from the previous runs.
-
 ## Mixed Java Projects
 
 If a java project uses maven and gradle, maven is selected for SBOM generation under default settings. To force cdxgen to use gradle, use the argument `-t gradle`. Similarly, use `-t scala` for scala SBT.
@@ -402,21 +397,6 @@ node bin/cdxgen.js -o bom.json -t c --usages-slices-file usages.json <path to re
 ```
 
 Change 16g to 32g or above for very large projects. For the Linux kernel, a minimum of 128GB is required.
-
-## Remove the SQLite cache db used by evinse
-
-If you face a situation where the namespaces cached by evinse are outdated or incorrect, you can try deleting the file `.atomdb` to recreate it. Below are the locations where this file gets stored by default. This can be overridden by setting the environment variable `ATOM_DB`.
-
-```javascript
-// linux
-let ATOM_DB = join(homedir(), ".local", "share", ".atomdb");
-
-// Windows
-ATOM_DB = join(homedir(), "AppData", "Local", ".atomdb");
-
-// Mac
-ATOM_DB = join(homedir(), "Library", "Application Support", ".atomdb");
-```
 
 ## Customize metadata.authors in BOM
 

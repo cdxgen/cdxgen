@@ -74,7 +74,7 @@ RUN set -e; \
     && microdnf install -y php php-curl php-zip php-bcmath php-json php-pear php-mbstring php-devel make gcc git-core \
         python3 python3-devel python3-pip glibc-common glibc-all-langpacks \
         openssl-devel libffi-devel libyaml zlib-devel \
-        pcre2 which tar gzip zip unzip bzip2 sudo ncurses ncurses-devel sqlite-devel gnupg2 dotnet-sdk-10.0 rust cargo \
+        pcre2 which tar gzip zip unzip bzip2 sudo ncurses ncurses-devel gnupg2 dotnet-sdk-10.0 rust cargo \
     && ruby --version \
     && which ruby \
     && /usr/bin/python3 --version \

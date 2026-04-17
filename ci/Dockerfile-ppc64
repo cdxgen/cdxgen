@@ -61,7 +61,7 @@ RUN set -e; \
     echo -e "[nodejs]\nname=nodejs\nstream=20\nprofiles=\nstate=enabled\n" > /etc/dnf/modules.d/nodejs.module \
     && microdnf install --nodocs -y php php-curl php-zip php-bcmath php-json php-pear php-mbstring php-devel make gcc git-core \
         python${PYTHON_VERSION} python${PYTHON_VERSION}-devel python${PYTHON_VERSION}-pip ruby ruby-devel java-21-openjdk-headless \
-        pcre2 which tar gzip zip unzip bzip2 sudo nodejs ncurses gnupg2 sqlite-devel \
+        pcre2 which tar gzip zip unzip bzip2 sudo nodejs ncurses gnupg2 \
     && alternatives --install /usr/bin/python3 python /usr/bin/python${PYTHON_VERSION} 10 \
     && alternatives --install /usr/bin/python3 python3 /usr/bin/python${PYTHON_VERSION} 10 \
     && python${PYTHON_VERSION} --version \

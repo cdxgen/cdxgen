@@ -38,6 +38,7 @@ jobs:
         uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f # v6.3.0
         with:
           node-version-file: .nvmrc
+          package-manager-cache: false
       - name: pnpm install
         run: |
           pnpm install:frozen
@@ -101,6 +102,7 @@ jobs:
         uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f # v6.3.0
         with:
           node-version-file: .nvmrc
+          package-manager-cache: false
       - name: pnpm install
         run: |
           pnpm install:frozen
@@ -136,6 +138,7 @@ jobs:
         uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f # v6.3.0
         with:
           node-version-file: .nvmrc
+          package-manager-cache: false
       - name: pnpm install, build and test
         run: |
           pnpm install:frozen
@@ -145,7 +148,7 @@ jobs:
       - name: ostests
         run: |
           bin/cdxgen.js -t os -o bomresults/bom-os.json --fail-on-error
-      - uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a  # v7.0.1
         if: matrix.os == 'ubuntu-24.04-arm'
         with:
           name: bomresults-os
@@ -163,6 +166,7 @@ jobs:
         uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f # v6.3.0
         with:
           node-version-file: .nvmrc
+          package-manager-cache: false
       - name: pnpm install, build
         run: |
           pnpm install:frozen
@@ -173,7 +177,7 @@ jobs:
         run: |
           node bin/cdxgen.js -t os -o bomresults/bom-win.json --fail-on-error
           dir bomresults
-      - uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a  # v7.0.1
         with:
           name: bomresults-win
           path: bomresults

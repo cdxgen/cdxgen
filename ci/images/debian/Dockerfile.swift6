@@ -82,7 +82,6 @@ RUN set -e; \
         libicu-dev \
         libncurses-dev \
         libpython3-dev \
-        libsqlite3-dev \
         libxml2-dev \
         locales \
         make \

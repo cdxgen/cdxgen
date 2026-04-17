@@ -1949,7 +1949,6 @@ export const isBun: boolean;
 export const isDeno: boolean;
 export const isWin: boolean;
 export const isMac: boolean;
-export let ATOM_DB: any;
 export const commandsExecuted: Set<any>;
 export const frameworksList: any;
 export const CDXGEN_VERSION: any;

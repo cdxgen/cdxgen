@@ -45,7 +45,7 @@ provision:
     #!/bin/bash
     set -eux -o pipefail
     apt update -y
-    apt install -y zip unzip wget binutils git gnupg2 curl tar libc6-dev libcurl4-openssl-dev libedit2 libgcc-13-dev libpython3-dev libsqlite3-0 libstdc++-13-dev libxml2-dev libncurses-dev libz3-dev pkg-config tzdata zlib1g-dev python3.12 python3.12-venv python3.12-dev openjdk-21-jdk-headless maven gcc-13 build-essential cargo golang-1.23 software-properties-common ruby-full ruby-bundler podman android-sdk android-sdk-build-tools android-sdk-platform-23 android-sdk-platform-tools
+    apt install -y zip unzip wget binutils git gnupg2 curl tar libc6-dev libcurl4-openssl-dev libedit2 libgcc-13-dev libpython3-dev libstdc++-13-dev libxml2-dev libncurses-dev libz3-dev pkg-config tzdata zlib1g-dev python3.12 python3.12-venv python3.12-dev openjdk-21-jdk-headless maven gcc-13 build-essential cargo golang-1.23 software-properties-common ruby-full ruby-bundler podman android-sdk android-sdk-build-tools android-sdk-platform-23 android-sdk-platform-tools
     python3 -m pip install --no-cache-dir --upgrade pip virtualenv
     python3 -m pip install --no-cache-dir poetry pipenv blint custom-json-diff owasp-depscan uv
 - mode: system

@@ -75,6 +75,7 @@ jobs:
         uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f # v6.3.0
         with:
           node-version: ${{ matrix.node-version }}
+          package-manager-cache: false
       - name: pnpm install, build and test
         shell: bash
         run: |
@@ -135,7 +136,7 @@ jobs:
         env:
           FETCH_LICENSE: true
       - name: Upload atom and slices
-        uses: softprops/action-gh-release@153bb8e04406b158c6c84fc1615b65b24149a1fe # v2.6.1
+        uses: softprops/action-gh-release@b4309332981a82ec1c5618f44dd2e27cc8bfbfda  # v3.0.0
         if: startsWith(github.ref, 'refs/tags/')
         with:
           files: |
@@ -155,7 +156,7 @@ jobs:
               deno compile --allow-read --allow-env --allow-run --allow-sys=uid,systemMemoryInfo,gid,osRelease,homedir --allow-write --allow-net --include=./data --include=./package.json --output cdxgenx.exe bin/cdxgen.js
               .\cdxgenx.exe --help
               (Get-FileHash .\cdxgenx.exe).hash | Out-File -FilePath .\cdxgenx.exe.sha256
-#              deno compile --allow-read --allow-env --allow-run --allow-sys=uid,systemMemoryInfo,gid,osRelease,homedir --allow-write --allow-net --node-modules-dir=auto --allow-ffi --include=./data --include=./package.json --include=node_modules/sqlite3/build/Release --output evinse.exe bin/evinse.js
+#              deno compile --allow-read --allow-env --allow-run --allow-sys=uid,systemMemoryInfo,gid,osRelease,homedir --allow-write --allow-net --node-modules-dir=auto --allow-ffi --include=./data --include=./package.json --output evinse.exe bin/evinse.js
 #              .\evinse.exe --help
 #              (Get-FileHash .\evinse.exe).hash | Out-File -FilePath .\evinse.exe.sha256
             artifact: cdxgenx.exe
@@ -164,7 +165,7 @@ jobs:
               deno compile --allow-read --allow-env --allow-run --allow-sys=uid,systemMemoryInfo,gid,homedir --allow-write --allow-net --include=./data --include=./package.json --target aarch64-apple-darwin --output cdxgenx-darwin-arm64 bin/cdxgen.js
               shasum -a 256 cdxgenx-darwin-arm64 > cdxgenx-darwin-arm64.sha256
               ./cdxgenx-darwin-arm64 --help
-#              deno compile --allow-read --allow-env --allow-run --allow-sys=uid,systemMemoryInfo,gid,homedir --allow-write --allow-net --node-modules-dir=auto --allow-ffi --include=./data --include=./package.json --include=node_modules/sqlite3/build/Release --target aarch64-apple-darwin --output evinse-darwin-arm64 bin/evinse.js
+#              deno compile --allow-read --allow-env --allow-run --allow-sys=uid,systemMemoryInfo,gid,homedir --allow-write --allow-net --node-modules-dir=auto --allow-ffi --include=./data --include=./package.json --target aarch64-apple-darwin --output evinse-darwin-arm64 bin/evinse.js
 #              shasum -a 256 evinse-darwin-arm64 > evinse-darwin-arm64.sha256
 #              ./evinse-darwin-arm64 --help
             artifact: cdxgenx-darwin-arm64
@@ -174,7 +175,7 @@ jobs:
               shasum -a 256 cdxgenx > cdxgenx.sha256
               chmod + cdxgenx
               ./cdxgenx --help
-#              deno compile --allow-read --allow-env --allow-run --allow-sys=uid,systemMemoryInfo,gid,homedir --allow-write --allow-net --node-modules-dir=auto --allow-ffi --include=./data --include=./package.json --include=node_modules/sqlite3/build/Release --output evinse bin/evinse.js
+#              deno compile --allow-read --allow-env --allow-run --allow-sys=uid,systemMemoryInfo,gid,homedir --allow-write --allow-net --node-modules-dir=auto --allow-ffi --include=./data --include=./package.json --output evinse bin/evinse.js
 #              shasum -a 256 evinse > evinse.sha256
 #              chmod + evinse
 #              ./evinse --help
@@ -190,6 +191,7 @@ jobs:
         uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f # v6.3.0
         with:
           node-version-file: .nvmrc
+          package-manager-cache: false
       - uses: denoland/setup-deno@667a34cdef165d8d2b2e98dde39547c9daac7282 # v2.0.4
         with:
           deno-version: 2.7.5

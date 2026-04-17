@@ -17,7 +17,6 @@ import {
   printReachables,
   printServices,
 } from "../lib/helpers/display.js";
-import { ATOM_DB } from "../lib/helpers/utils.js";
 import { validateBom } from "../lib/validator/bomValidator.js";
 
 const args = yargs(hideBin(process.argv))
@@ -56,8 +55,9 @@ const args = yargs(hideBin(process.argv))
     ],
   })
   .option("db-path", {
-    description: `Atom slices DB path. Default ${ATOM_DB}`,
-    default: process.env.ATOM_DB || ATOM_DB,
+    description: "Atom slices DB path. Unused",
+    default: undefined,
+    hidden: true,
   })
   .option("force", {
     description: "Force creation of the database",
