@@ -477,29 +477,6 @@ pnpm dlx @cyclonedx/cdxgen cdx-sign -i bom.json -k private.key
 
 ---
 
-### Custom verification tool (Node.js example)
-
-There are many [libraries][jwt-libraries] available to validate JSON Web Tokens. Below is a javascript example.
-
-```js
-# npm install jws
-const jws = require("jws");
-const fs = require("fs");
-// Location of the SBOM json file
-const bomJsonFile = "bom.json";
-// Location of the public key
-const publicKeyFile = "public.key";
-const bomJson = JSON.parse(fs.readFileSync(bomJsonFile, "utf8"));
-// Retrieve the signature
-const bomSignature = bomJson.signature.value;
-const validationResult = jws.verify(bomSignature, bomJson.signature.algorithm, fs.readFileSync(publicKeyFile, "utf8"));
-if (validationResult) {
-  console.log("Signature is valid!");
-} else {
-  console.log("SBOM signature is invalid :(");
-}
-```
-
 ## Automatic usage detection
 
 For node.js projects, lock files are parsed initially, so the SBOM would include all dependencies, including dev ones. An AST parser powered by babel-parser is then used to detect packages that are imported and used by non-test code. Such imported packages would automatically set their scope property to `required` in the resulting SBOM. You can turn off this analysis by passing the argument `--no-babel`. Scope property would then be set based on the `dev` attribute in the lock file.
