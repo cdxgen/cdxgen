@@ -543,8 +543,8 @@ jobs:
           repository: 'eclipse-theia/theia-ide'
           path: 'repotests/theia-ide'
           ref: 'e59df875d5ab1389346510c23c2da321a14accc5'
-      - name: Install Rust v1.96.0
-        run: rustup toolchain install 1.96.0
+      - name: Install Rust v1.95.0
+        run: rustup toolchain install 1.95.0 || true
       - name: setup sdkman
         run: |
           curl -s "https://get.sdkman.io" | bash
