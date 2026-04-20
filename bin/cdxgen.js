@@ -249,7 +249,7 @@ const args = _yargs
     hidden: true,
   })
   .option("spec-version", {
-    description: "CycloneDX Specification version to use. Defaults to 1.6",
+    description: "CycloneDX Specification version to use. Defaults to 1.7",
     default: 1.7,
     type: "number",
     choices: [1.4, 1.5, 1.6, 1.7],

@@ -200,7 +200,7 @@ const report = validateBomAdvanced(bom, {
 });
 
 console.log(
-  render("sarif", report, { toolName: "cdx-validate", toolVersion: "12.2.0" }),
+  render("sarif", report, { toolName: "cdx-validate", toolVersion: "VERSION" }),
 );
 
 const { shouldFail: fail, reason } = shouldFail(report, {
