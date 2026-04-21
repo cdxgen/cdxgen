@@ -145,7 +145,10 @@ Trust boundary 5: cdxgen container ←→ container host
   - `core.fsmonitor=false` — disables filesystem monitor hooks
   - `safe.bareRepository=explicit` — prevents bare repo attacks
   - `-c alias.clone=` — prevents alias abuse
-  - `GIT_CONFIG_NOSYSTEM=1` and `GIT_CONFIG_NOGLOBAL=1` in secure mode
+  - `core.hooksPath=/dev/null` — disables hook execution entirely
+  - `--template=` — prevents OS hook templates from being copied into the new repo
+  - `GIT_CONFIG_NOSYSTEM=1` and `GIT_CONFIG_GLOBAL=/dev/null` in secure mode — prevents reading system/user configs including Git 2.54 `hook.<name>.command` entries
+  - `GIT_TERMINAL_PROMPT=0` — prevents interactive prompts
   - `--depth 1` — limits history to reduce attack surface
 - `GIT_ALLOW_PROTOCOL` defaults to `https:ssh` in secure mode
 
