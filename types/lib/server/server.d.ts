@@ -63,5 +63,6 @@ export function parseQueryString(q: Object, body?: Object, options?: Object): Ob
  */
 export function getQueryParams(req: Object): Object;
 export function configureServer(cdxgenServer: any): void;
+export function gitClone(repoUrl: any, branch?: null): any;
 export function start(options: any): void;
 //# sourceMappingURL=server.d.ts.map
