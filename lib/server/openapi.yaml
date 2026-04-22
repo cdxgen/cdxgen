@@ -99,6 +99,16 @@ paths:
           required: false
           schema:
             $ref: '#/components/schemas/CDXGEN/properties/parentUUID'
+        - name: parentProjectName
+          in: query
+          required: false
+          schema:
+            $ref: '#/components/schemas/CDXGEN/properties/parentProjectName'
+        - name: parentProjectVersion
+          in: query
+          required: false
+          schema:
+            $ref: '#/components/schemas/CDXGEN/properties/parentProjectVersion'
         - name: serverUrl
           in: query
           required: false
@@ -255,6 +265,12 @@ components:
         parentUUID:
           type: string
           description: UUID of the parent Dependency Track project
+        parentProjectName:
+          type: string
+          description: Name of the parent Dependency Track project
+        parentProjectVersion:
+          type: string
+          description: Version of the parent Dependency Track project
         serverUrl:
           type: string
           description: URL to the Dependency Track API server

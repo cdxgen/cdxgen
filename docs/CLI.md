@@ -84,7 +84,10 @@ Options:
       --project-tag               Dependency track project tags. Multiple values allowed.                        [array]
       --project-id                Dependency track project id. Either provide the id or the project name and version tog
                                   ether                                                                         [string]
-      --parent-project-id         Dependency track parent project id                                            [string]
+      --parent-project-id         Dependency track parent project id. You must provide the id or the
+                                  projectName and projectVersion.                                               [string]
+      --parent-project-name       Dependency track parent project name                                          [string]
+      --parent-project-version    Dependency track parent project version                                       [string]
       --required-only             Include only the packages with required scope on the SBOM. Would set compositions.aggr
                                   egate to incomplete unless --no-auto-compositions is passed.                 [boolean]
       --fail-on-error             Fail if any dependency extractor fails.                                      [boolean]

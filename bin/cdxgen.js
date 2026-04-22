@@ -171,6 +171,14 @@ const args = _yargs
     description: "Dependency track parent project id",
     type: "string",
   })
+  .option("parent-project-name", {
+    description: "Dependency track parent project name",
+    type: "string",
+  })
+  .option("parent-project-version", {
+    description: "Dependency track parent project version",
+    type: "string",
+  })
   .option("required-only", {
     type: "boolean",
     description:
