@@ -43,7 +43,7 @@ jobs:
       - name: Setup pnpm
         uses: pnpm/action-setup@fc06bc1257f339d1d5d8b3a19a8cae5388b55320 # v5.0.0
       - name: Use Node.js
-        uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f # v6.3.0
+        uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e  # v6.4.0
         with:
           node-version-file: .nvmrc
           package-manager-cache: false
@@ -125,7 +125,7 @@ jobs:
       - name: Setup pnpm
         uses: pnpm/action-setup@fc06bc1257f339d1d5d8b3a19a8cae5388b55320 # v5.0.0
       - name: Use Node.js
-        uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f # v6.3.0
+        uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e  # v6.4.0
         with:
           node-version-file: .nvmrc
           package-manager-cache: false
@@ -191,7 +191,7 @@ jobs:
       - name: Setup pnpm
         uses: pnpm/action-setup@fc06bc1257f339d1d5d8b3a19a8cae5388b55320 # v5.0.0
       - name: Use Node.js
-        uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f # v6.3.0
+        uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e  # v6.4.0
         with:
           node-version-file: .nvmrc
           package-manager-cache: false
@@ -259,7 +259,7 @@ jobs:
           ~/.swiftly/bin/swiftly init --quiet-shell-followup && \
           . ~/.swiftly/env.sh && \
           hash -r
-      - uses: ruby/setup-ruby@7372622e62b60b3cb750dcd2b9e32c247ffec26a  # v1.302.0
+      - uses: ruby/setup-ruby@0cb964fd540e0a24c900370abf38a33466142735  # v1.305.0
         with:
           ruby-version: '3.4.9'
       - name: Set up Python
@@ -615,8 +615,12 @@ jobs:
       - name: repotests django-DefectDojo
         run: |
           bin/cdxgen.js -t python repotests/django-DefectDojo -o bomresults/django-DefectDojo-safe.json --feature-flags safe-pip-install --fail-on-error
+        shell: bash
+      - name: repotests django-DefectDojo (deep)
+        run: |
           bin/cdxgen.js -t python repotests/django-DefectDojo -o bomresults/django-DefectDojo.json --deep --include-crypto --spec-version 1.6
         shell: bash
+        if: matrix.os != 'windows-latest'
       - name: Set up Python
         uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6.2.0
         with:
@@ -1013,7 +1017,7 @@ jobs:
       - name: Setup pnpm
         uses: pnpm/action-setup@fc06bc1257f339d1d5d8b3a19a8cae5388b55320 # v5.0.0
       - name: Use Node.js
-        uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f # v6.3.0
+        uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e  # v6.4.0
         with:
           node-version-file: .nvmrc
           package-manager-cache: false
@@ -1055,7 +1059,7 @@ jobs:
         uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6.2.0
         with:
           python-version: '3.13'
-      - uses: ruby/setup-ruby@7372622e62b60b3cb750dcd2b9e32c247ffec26a  # v1.302.0
+      - uses: ruby/setup-ruby@0cb964fd540e0a24c900370abf38a33466142735  # v1.305.0
         with:
           ruby-version: '3.4.9'
       - name: pip install custom-json-diff
