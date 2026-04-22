@@ -181,8 +181,8 @@ Invoke cdxgen with the below arguments to automatically submit the BOM to your o
                                owed.                                     [array]
       --project-id             Dependency track project id. Either provide the i
                                d or the project name and version together
-      --parent-project-id      Dependency track parent project id. You must provide the id or the
-                               projectName and projectVersion.
+      --parent-project-id      Dependency track parent project id. You must provide the id or both
+                               parent project name and parent project version.
       --parent-project-name    Dependency track parent project name
       --parent-project-version Dependency track parent project version
 ```
