@@ -4,6 +4,12 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+overrides:
+  iconv-lite: 0.7.2
+  yargs: 18.0.0
+  type-detect: 4.1.0
+  on-finished: 2.4.1
+
 pnpmfileChecksum: sha256-nfOeuxPm0PLhmHqhdzVKpjFk27e1GEgHAqcQJ7ot+gg=
 
 importers:
@@ -456,17 +462,9 @@ packages:
   ajv@8.18.0:
     resolution: {integrity: sha512-PlXPeEWMXMZ7sPYOHqmDyCJzcfNrUr3fGNKtezX14ykXOEIvyK81d+qydx89KY5O71FKMPaQ2vBfBFI5NHR63A==, tarball: https://registry.npmjs.org/ajv/-/ajv-8.18.0.tgz}
 
-  ansi-regex@5.0.1:
-    resolution: {integrity: sha512-quJQXlTSUGL2LH9SUXo8VwsY4soanhgo6LNSm84E1LBcE8s3O0wpdiRzyR9z/ZZJMlMWv37qOOb9pdJlMUEKFQ==, tarball: https://registry.npmjs.org/ansi-regex/-/ansi-regex-5.0.1.tgz}
-    engines: {node: '>=8'}
-
   ansi-regex@6.2.2:
     resolution: {integrity: sha512-Bq3SmSpyFHaWjPk8If9yc6svM8c56dB5BAtW4Qbw5jHTwwXXcTLoRMkpDJp6VL0XzlWaCHTXrkFURMYmD0sLqg==, tarball: https://registry.npmjs.org/ansi-regex/-/ansi-regex-6.2.2.tgz}
     engines: {node: '>=12'}
-
-  ansi-styles@4.3.0:
-    resolution: {integrity: sha512-zbB9rCJAT1rbjiVDb2hqKFHNYLxgtk8NURxZ3IZwD3F6NtxbXZQCnnSi1Lkx+IDohdPlFp222wVALIheZJQSEg==, tarball: https://registry.npmjs.org/ansi-styles/-/ansi-styles-4.3.0.tgz}
-    engines: {node: '>=8'}
 
   ansi-styles@6.2.3:
     resolution: {integrity: sha512-4Dj6M28JB+oAH8kFkTLUo+a2jwOFkuqb3yucU0CANcRRUbxS0cP0nZYCGjcc3BNXwRIsUVmDGgzawme7zvJHvg==, tarball: https://registry.npmjs.org/ansi-styles/-/ansi-styles-6.2.3.tgz}
@@ -526,10 +524,6 @@ packages:
     resolution: {integrity: sha512-+IxzY9BZOQd/XuYPRmrvEVjF/nqj5kgT4kEq7VofrDoM1MxoRjEWkrCC3EtLi59TVawxTAn+orJwFQcrqEN1+g==, tarball: https://registry.npmjs.org/chownr/-/chownr-3.0.0.tgz}
     engines: {node: '>=18'}
 
-  cliui@8.0.1:
-    resolution: {integrity: sha512-BSeNnyus75C4//NQ9gQt1/csTXyo/8Sb+afLAkzAptFuMsod9HFokGNudZpi/oQV73hnVK+sR+5PVRMd+Dr7YQ==, tarball: https://registry.npmjs.org/cliui/-/cliui-8.0.1.tgz}
-    engines: {node: '>=12'}
-
   cliui@9.0.1:
     resolution: {integrity: sha512-k7ndgKhwoQveBL+/1tqGJYNz097I7WOvwbmmU2AR5+magtbjPWQTS1C5vzGkBC8Ym8UWRzfKUzUUqFLypY4Q+w==, tarball: https://registry.npmjs.org/cliui/-/cliui-9.0.1.tgz}
     engines: {node: '>=20'}
@@ -537,13 +531,6 @@ packages:
   cmd-shim@8.0.0:
     resolution: {integrity: sha512-Jk/BK6NCapZ58BKUxlSI+ouKRbjH1NLZCgJkYoab+vEHUY3f6OzpNBN9u7HFSv9J6TRDGs4PLOHezoKGaFRSCA==, tarball: https://registry.npmjs.org/cmd-shim/-/cmd-shim-8.0.0.tgz}
     engines: {node: ^20.17.0 || >=22.9.0}
-
-  color-convert@2.0.1:
-    resolution: {integrity: sha512-RRECPsj7iu/xb5oKYcsFHSppFNnsj/52OVTRKb4zP5onXwVF3zVmmToNcOfGC+CRDpfK/U584fMg38ZHCaElKQ==, tarball: https://registry.npmjs.org/color-convert/-/color-convert-2.0.1.tgz}
-    engines: {node: '>=7.0.0'}
-
-  color-name@1.1.4:
-    resolution: {integrity: sha512-dOy+3AuW3a2wNbZHIuMZpTcgjGuLU/uBL/ubcZF9OXbDo8ff4O8yVp5Bf0efS8uEoYo5q4Fx7dY9OgQGXgAsQA==, tarball: https://registry.npmjs.org/color-name/-/color-name-1.1.4.tgz}
 
   common-ancestor-path@1.0.1:
     resolution: {integrity: sha512-L3sHRo1pXXEqX8VU28kfgUY+YGsk09hPqZiZmLacNib6XNTCM8ubYeT7ryXQw8asB1sKgcU5lkB7ONug08aB8w==, tarball: https://registry.npmjs.org/common-ancestor-path/-/common-ancestor-path-1.0.1.tgz}
@@ -626,9 +613,6 @@ packages:
 
   emoji-regex@10.6.0:
     resolution: {integrity: sha512-toUI84YS5YmxW219erniWD0CIVOo46xGKColeNQRgOzDorgBi1v4D71/OFzgD9GO2UGKIv1C3Sp8DAn0+j5w7A==, tarball: https://registry.npmjs.org/emoji-regex/-/emoji-regex-10.6.0.tgz}
-
-  emoji-regex@8.0.0:
-    resolution: {integrity: sha512-MSjYzcWNOA0ewAHpz0MxpYFvwg6yjy1NG3xteoqz644VCo/RPgnr1/GGt+ic3iJTzQ8Eu3TdM14SawnVUmGE6A==, tarball: https://registry.npmjs.org/emoji-regex/-/emoji-regex-8.0.0.tgz}
 
   encodeurl@1.0.2:
     resolution: {integrity: sha512-TPJXq8JqFaVYm2CWmPvnP2Iyo4ZSM7/QKcSmuMLDObfpH5fi7RUGmd/rTDf+rut/saiDiQEeVTNgAmJEdAOx0w==, tarball: https://registry.npmjs.org/encodeurl/-/encodeurl-1.0.2.tgz}
@@ -753,10 +737,6 @@ packages:
     resolution: {integrity: sha512-V5nVw1PAOgfI3Lmeaj2Exmeg7fenjhRUgz1lPSezy1CuhPYbgQtbQj4jZfEAEMlaL+vupsvhjqCyjzob0yxsmQ==, tarball: https://registry.npmjs.org/http2-wrapper/-/http2-wrapper-2.2.1.tgz}
     engines: {node: '>=10.19.0'}
 
-  iconv-lite@0.6.3:
-    resolution: {integrity: sha512-4fCk79wshMdzMp2rH06qWrJE4iolqLhCUH+OiuIgU++RB0+94NlDL81atO7GX55uUKueo0txHNtvEyI6D7WdMw==, tarball: https://registry.npmjs.org/iconv-lite/-/iconv-lite-0.6.3.tgz}
-    engines: {node: '>=0.10.0'}
-
   iconv-lite@0.7.2:
     resolution: {integrity: sha512-im9DjEDQ55s9fL4EYzOAv0yMqmMBSZp6G0VvFyTMPKWxiSBHUj9NW/qqLmXUwXrrM7AvqSlTCfvqRb0cM8yYqw==, tarball: https://registry.npmjs.org/iconv-lite/-/iconv-lite-0.7.2.tgz}
     engines: {node: '>=0.10.0'}
@@ -767,10 +747,6 @@ packages:
   ini@6.0.0:
     resolution: {integrity: sha512-IBTdIkzZNOpqm7q3dRqJvMaldXjDHWkEDfrwGEQTs5eaQMWV+djAhR+wahyNNMAa+qpbDUhBMVt4ZKNwpPm7xQ==, tarball: https://registry.npmjs.org/ini/-/ini-6.0.0.tgz}
     engines: {node: ^20.17.0 || >=22.9.0}
-
-  is-fullwidth-code-point@3.0.0:
-    resolution: {integrity: sha512-zymm5+u+sCsSWyD9qNaejV3DFvhCKclKdizYaJUuHA83RLjb7nSuGnddCHGv0hk+KY7BMAlsWeK4Ueg6EV6XQg==, tarball: https://registry.npmjs.org/is-fullwidth-code-point/-/is-fullwidth-code-point-3.0.0.tgz}
-    engines: {node: '>=8'}
 
   is-stream@4.0.1:
     resolution: {integrity: sha512-Dnz92NInDqYckGEUJv689RbRiTSEHCQ7wOVeALbkOz999YpqT46yMRIGtSNl2iCL1waAZSx40+h59NV/EwzV/A==, tarball: https://registry.npmjs.org/is-stream/-/is-stream-4.0.1.tgz}
@@ -897,10 +873,6 @@ packages:
     resolution: {integrity: sha512-W67iLl4J2EXEGTbfeHCffrjDfitvLANg0UlX3wFUUSTx92KXRFegMHUVgSqE+wvhAbi4WqjGg9czysTV2Epbew==, tarball: https://registry.npmjs.org/object-inspect/-/object-inspect-1.13.4.tgz}
     engines: {node: '>= 0.4'}
 
-  on-finished@2.3.0:
-    resolution: {integrity: sha512-ikqdkGAAyf/X/gPhXGvfgAytDZtDbr+bkNUJ0N9h5MI/dmdgCs3l6hoHrcUv41sRKew3jIwrp4qQDXiK99Utww==, tarball: https://registry.npmjs.org/on-finished/-/on-finished-2.3.0.tgz}
-    engines: {node: '>= 0.8'}
-
   on-finished@2.4.1:
     resolution: {integrity: sha512-oVlzkg3ENAhCk2zdv7IJwd/QUD4z2RxRwpkcGY8psCVcCYZNq4wYnVWALHM+brtuJjePWiYF/ClmuDr8Ch5+kg==, tarball: https://registry.npmjs.org/on-finished/-/on-finished-2.4.1.tgz}
     engines: {node: '>= 0.8'}
@@ -972,10 +944,6 @@ packages:
   read-package-json-fast@5.0.0:
     resolution: {integrity: sha512-S16VePJnQcfmk6HIZAiP8TXW/VDlDtZfzVndRDE8lhZNA4YvAiwAjgvhoyf6+soofEH/vrZnOUctSt+jYE2tkg==, tarball: https://registry.npmjs.org/read-package-json-fast/-/read-package-json-fast-5.0.0.tgz}
     engines: {node: ^20.17.0 || >=22.9.0}
-
-  require-directory@2.1.1:
-    resolution: {integrity: sha512-fGxEI7+wsG9xrvdjsrlmL22OMTTiHRwAMroiEeMgq8gzoLC/PQr7RsRDSTLUg/bZAZtF+TVIkHc6/4RIKrui+Q==, tarball: https://registry.npmjs.org/require-directory/-/require-directory-2.1.1.tgz}
-    engines: {node: '>=0.10.0'}
 
   require-from-string@2.0.2:
     resolution: {integrity: sha512-Xf0nWe6RseziFMu+Ap9biiUbmplq6S9/p+7w7YXP/JBHhrUDDUhwa+vANyubuqfZWTveU//DYVGsDG7RKL/vEw==, tarball: https://registry.npmjs.org/require-from-string/-/require-from-string-2.0.2.tgz}
@@ -1050,17 +1018,9 @@ packages:
     resolution: {integrity: sha512-DvEy55V3DB7uknRo+4iOGT5fP1slR8wQohVdknigZPMpMstaKJQWhwiYBACJE3Ul2pTnATihhBYnRhZQHGBiRw==, tarball: https://registry.npmjs.org/statuses/-/statuses-2.0.2.tgz}
     engines: {node: '>= 0.8'}
 
-  string-width@4.2.3:
-    resolution: {integrity: sha512-wKyQRQpjJ0sIp62ErSZdGsjMJWsap5oRNihHhu6G7JVO/9jIB6UyevL+tXuOqrng8j/cxKTWyWUwvSTriiZz/g==, tarball: https://registry.npmjs.org/string-width/-/string-width-4.2.3.tgz}
-    engines: {node: '>=8'}
-
   string-width@7.2.0:
     resolution: {integrity: sha512-tsaTIkKW9b4N+AEj+SVA+WhJzV7/zMhcSu78mLKWSk7cXMOSHsBKFWUs0fWwq8QyK3MgJBQRX6Gbi4kYbdvGkQ==, tarball: https://registry.npmjs.org/string-width/-/string-width-7.2.0.tgz}
     engines: {node: '>=18'}
-
-  strip-ansi@6.0.1:
-    resolution: {integrity: sha512-Y38VPSHcqkFrCpFnQ9vuSXmquuv5oXOKpGeT6aGrr3o3Gc9AlVa6JBfUSOCnbxGGZF+/0ooI7KrPuUSztUdU5A==, tarball: https://registry.npmjs.org/strip-ansi/-/strip-ansi-6.0.1.tgz}
-    engines: {node: '>=8'}
 
   strip-ansi@7.2.0:
     resolution: {integrity: sha512-yDPMNjp4WyfYBkHnjIRLfca1i6KMyGCtsVgoKe/z1+6vukgaENdgGBZt+ZmKPc4gavvEZ5OgHfHdrazhgNyG7w==, tarball: https://registry.npmjs.org/strip-ansi/-/strip-ansi-7.2.0.tgz}
@@ -1077,10 +1037,6 @@ packages:
   treeverse@3.0.0:
     resolution: {integrity: sha512-gcANaAnd2QDZFmHFEOF4k7uc1J/6a6z3DJMd/QwEyxLoKGiptJRwid582r7QIsFlFMIZ3SnxfS52S4hm2DHkuQ==, tarball: https://registry.npmjs.org/treeverse/-/treeverse-3.0.0.tgz}
     engines: {node: ^14.17.0 || ^16.13.0 || >=18.0.0}
-
-  type-detect@4.0.8:
-    resolution: {integrity: sha512-0fr/mIH1dlO+x7TlcMy+bIDqKPsw/70tVyeHW787goQjhmqaZe10uwLujubK9q9Lg6Fiho1KUKDYz0Z7k7g5/g==, tarball: https://registry.npmjs.org/type-detect/-/type-detect-4.0.8.tgz}
-    engines: {node: '>=4'}
 
   type-detect@4.1.0:
     resolution: {integrity: sha512-Acylog8/luQ8L7il+geoSxhEkazvkslg7PSNKOX59mbB9cOveP5aq9h74Y7YU8yDpJwetzQQrfIwtf4Wp4LKcw==, tarball: https://registry.npmjs.org/type-detect/-/type-detect-4.1.0.tgz}
@@ -1141,10 +1097,6 @@ packages:
     engines: {node: ^20.17.0 || >=22.9.0}
     hasBin: true
 
-  wrap-ansi@7.0.0:
-    resolution: {integrity: sha512-YVGIj2kamLSTxw6NsZjoBxfSwsn0ycdesmc4p+Q21c5zPuZ1pl+NfxVdxPtdHvmNVOQ6XSYG4AUtyt/Fi7D16Q==, tarball: https://registry.npmjs.org/wrap-ansi/-/wrap-ansi-7.0.0.tgz}
-    engines: {node: '>=10'}
-
   wrap-ansi@9.0.2:
     resolution: {integrity: sha512-42AtmgqjV+X1VpdOfyTGOYRi0/zsoLqtXQckTmqTeybT+BDIbM/Guxo7x3pE2vtpr1ok6xRqM9OpBe+Jyoqyww==, tarball: https://registry.npmjs.org/wrap-ansi/-/wrap-ansi-9.0.2.tgz}
     engines: {node: '>=18'}
@@ -1170,17 +1122,9 @@ packages:
     engines: {node: '>= 14.6'}
     hasBin: true
 
-  yargs-parser@21.1.1:
-    resolution: {integrity: sha512-tVpsJW7DdjecAiFpbIB1e3qxIQsE6NoPc5/eTdrbbIC4h0LVsWhnoa3g+m2HclBIujHzsxZ4VJVA+GUuc2/LBw==, tarball: https://registry.npmjs.org/yargs-parser/-/yargs-parser-21.1.1.tgz}
-    engines: {node: '>=12'}
-
   yargs-parser@22.0.0:
     resolution: {integrity: sha512-rwu/ClNdSMpkSrUb+d6BRsSkLUq1fmfsY6TOpYzTwvwkg1/NRG85KBy3kq++A8LKQwX6lsu+aWad+2khvuXrqw==, tarball: https://registry.npmjs.org/yargs-parser/-/yargs-parser-22.0.0.tgz}
     engines: {node: ^20.19.0 || ^22.12.0 || >=23}
-
-  yargs@17.7.2:
-    resolution: {integrity: sha512-7dSzzRQ++CKnNI/krKnYRV7JKKPUXMEh61soaHKg9mrWEhzFWhFnxPxGl+69cD1Ou63C13NUPCnmIcrvqCuM6w==, tarball: https://registry.npmjs.org/yargs/-/yargs-17.7.2.tgz}
-    engines: {node: '>=12'}
 
   yargs@18.0.0:
     resolution: {integrity: sha512-4UEqdc2RYGHZc7Doyqkrqiln3p9X2DZVxaGbwhn2pi7MrRagKaOcIKe8L3OxYcbhXLgLFUS3zAYuQjKBQgmuNg==, tarball: https://registry.npmjs.org/yargs/-/yargs-18.0.0.tgz}
@@ -1201,7 +1145,7 @@ snapshots:
       '@babel/parser': 7.29.2
       hermes-parser: 0.34.0
       typescript: 6.0.2
-      yargs: 17.7.2
+      yargs: 18.0.0
     optional: true
 
   '@appthreat/atom@2.5.2':
@@ -1408,7 +1352,7 @@ snapshots:
 
   '@sinonjs/commons@3.0.1':
     dependencies:
-      type-detect: 4.0.8
+      type-detect: 4.1.0
 
   '@sinonjs/fake-timers@15.3.2':
     dependencies:
@@ -1432,15 +1376,7 @@ snapshots:
       json-schema-traverse: 1.0.0
       require-from-string: 2.0.2
 
-  ansi-regex@5.0.1:
-    optional: true
-
   ansi-regex@6.2.2: {}
-
-  ansi-styles@4.3.0:
-    dependencies:
-      color-convert: 2.0.1
-    optional: true
 
   ansi-styles@6.2.3: {}
 
@@ -1529,13 +1465,6 @@ snapshots:
 
   chownr@3.0.0: {}
 
-  cliui@8.0.1:
-    dependencies:
-      string-width: 4.2.3
-      strip-ansi: 6.0.1
-      wrap-ansi: 7.0.0
-    optional: true
-
   cliui@9.0.1:
     dependencies:
       string-width: 7.2.0
@@ -1543,14 +1472,6 @@ snapshots:
       wrap-ansi: 9.0.2
 
   cmd-shim@8.0.0: {}
-
-  color-convert@2.0.1:
-    dependencies:
-      color-name: 1.1.4
-    optional: true
-
-  color-name@1.1.4:
-    optional: true
 
   common-ancestor-path@1.0.1: {}
 
@@ -1645,15 +1566,12 @@ snapshots:
 
   emoji-regex@10.6.0: {}
 
-  emoji-regex@8.0.0:
-    optional: true
-
   encodeurl@1.0.2:
     optional: true
 
   encoding-sniffer@0.2.1:
     dependencies:
-      iconv-lite: 0.6.3
+      iconv-lite: 0.7.2
       whatwg-encoding: 3.1.1
 
   entities@4.5.0: {}
@@ -1689,7 +1607,7 @@ snapshots:
       debug: 2.6.9
       encodeurl: 1.0.2
       escape-html: 1.0.3
-      on-finished: 2.3.0
+      on-finished: 2.4.1
       parseurl: 1.3.3
       statuses: 1.5.0
       unpipe: 1.0.0
@@ -1798,10 +1716,6 @@ snapshots:
       quick-lru: 5.1.1
       resolve-alpn: 1.2.1
 
-  iconv-lite@0.6.3:
-    dependencies:
-      safer-buffer: 2.1.2
-
   iconv-lite@0.7.2:
     dependencies:
       safer-buffer: 2.1.2
@@ -1810,9 +1724,6 @@ snapshots:
     optional: true
 
   ini@6.0.0: {}
-
-  is-fullwidth-code-point@3.0.0:
-    optional: true
 
   is-stream@4.0.1: {}
 
@@ -1910,11 +1821,6 @@ snapshots:
   object-inspect@1.13.4:
     optional: true
 
-  on-finished@2.3.0:
-    dependencies:
-      ee-first: 1.1.1
-    optional: true
-
   on-finished@2.4.1:
     dependencies:
       ee-first: 1.1.1
@@ -1988,9 +1894,6 @@ snapshots:
     dependencies:
       json-parse-even-better-errors: 5.0.0
       npm-normalize-package-bin: 5.0.0
-
-  require-directory@2.1.1:
-    optional: true
 
   require-from-string@2.0.2: {}
 
@@ -2072,23 +1975,11 @@ snapshots:
   statuses@2.0.2:
     optional: true
 
-  string-width@4.2.3:
-    dependencies:
-      emoji-regex: 8.0.0
-      is-fullwidth-code-point: 3.0.0
-      strip-ansi: 6.0.1
-    optional: true
-
   string-width@7.2.0:
     dependencies:
       emoji-regex: 10.6.0
       get-east-asian-width: 1.5.0
       strip-ansi: 7.2.0
-
-  strip-ansi@6.0.1:
-    dependencies:
-      ansi-regex: 5.0.1
-    optional: true
 
   strip-ansi@7.2.0:
     dependencies:
@@ -2106,8 +1997,6 @@ snapshots:
     optional: true
 
   treeverse@3.0.0: {}
-
-  type-detect@4.0.8: {}
 
   type-detect@4.1.0: {}
 
@@ -2141,20 +2030,13 @@ snapshots:
 
   whatwg-encoding@3.1.1:
     dependencies:
-      iconv-lite: 0.6.3
+      iconv-lite: 0.7.2
 
   whatwg-mimetype@4.0.0: {}
 
   which@6.0.1:
     dependencies:
       isexe: 4.0.0
-
-  wrap-ansi@7.0.0:
-    dependencies:
-      ansi-styles: 4.3.0
-      string-width: 4.2.3
-      strip-ansi: 6.0.1
-    optional: true
 
   wrap-ansi@9.0.2:
     dependencies:
@@ -2176,21 +2058,7 @@ snapshots:
 
   yaml@2.8.3: {}
 
-  yargs-parser@21.1.1:
-    optional: true
-
   yargs-parser@22.0.0: {}
-
-  yargs@17.7.2:
-    dependencies:
-      cliui: 8.0.1
-      escalade: 3.2.0
-      get-caller-file: 2.0.5
-      require-directory: 2.1.1
-      string-width: 4.2.3
-      y18n: 5.0.8
-      yargs-parser: 21.1.1
-    optional: true
 
   yargs@18.0.0:
     dependencies:

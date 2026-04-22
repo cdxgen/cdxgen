@@ -182,6 +182,12 @@
     "pnpm": ">=10"
   },
   "pnpm": {
+    "overrides": {
+      "iconv-lite": "0.7.2",
+      "yargs": "18.0.0",
+      "type-detect": "4.1.0",
+      "on-finished": "2.4.1"
+    },
     "onlyBuiltDependencies": [
       "@biomejs/biome"
     ],
