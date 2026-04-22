@@ -94,6 +94,16 @@ paths:
           required: false
           schema:
             $ref: '#/components/schemas/CDXGEN/properties/projectVersion'
+        - name: autoCreate
+          in: query
+          required: false
+          schema:
+            $ref: '#/components/schemas/CDXGEN/properties/autoCreate'
+        - name: isLatest
+          in: query
+          required: false
+          schema:
+            $ref: '#/components/schemas/CDXGEN/properties/isLatest'
         - name: parentUUID
           in: query
           required: false
@@ -262,6 +272,13 @@ components:
           type: string
           description: Dependency Track project version
           default: ""
+        autoCreate:
+          type: boolean
+          description: Dependency Track autoCreate value for BOM submissions
+          default: true
+        isLatest:
+          type: boolean
+          description: Dependency Track isLatest value for BOM submissions
         parentUUID:
           type: string
           description: UUID of the parent Dependency Track project
