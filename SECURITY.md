@@ -14,12 +14,12 @@ Report security bugs in third-party modules to the person or team maintaining th
 
 We use the following target response and resolution times for reported security issues. These SLAs are best-effort commitments, not contractual guarantees.
 
-| Severity | Initial Response | Triage / Confirmation | Remediation Target | Disclosure |
-| -------- | ---------------- | --------------------- | ------------------- | ---------- |
-| **Critical** (RCE, credential exfiltration, supply-chain compromise) | 48 hours | 5 business days | 15 business days | Coordinated with reporter |
-| **High** (sandbox escape, path traversal in server mode, command injection) | 5 business days | 10 business days | 30 business days | Coordinated with reporter |
-| **Medium** (information disclosure, denial of service, bypass of secure mode controls) | 10 business days | 15 business days | 60 business days | Next scheduled release |
-| **Low** (verbose error messages, minor hardening improvements) | 15 business days | 30 business days | Best effort | Next scheduled release |
+| Severity                                                                               | Initial Response | Triage / Confirmation | Remediation Target | Disclosure                |
+| -------------------------------------------------------------------------------------- | ---------------- | --------------------- | ------------------ | ------------------------- |
+| **Critical** (RCE, credential exfiltration, supply-chain compromise)                   | 48 hours         | 5 business days       | 15 business days   | Coordinated with reporter |
+| **High** (sandbox escape, path traversal in server mode, command injection)            | 5 business days  | 10 business days      | 30 business days   | Coordinated with reporter |
+| **Medium** (information disclosure, denial of service, bypass of secure mode controls) | 10 business days | 15 business days      | 60 business days   | Next scheduled release    |
+| **Low** (verbose error messages, minor hardening improvements)                         | 15 business days | 30 business days      | Best effort        | Next scheduled release    |
 
 After remediation is available, we will publish a GitHub Security Advisory (GHSA) with CVE assignment where appropriate.
 
@@ -42,7 +42,7 @@ The following are considered genuine security issues in cdxgen:
 
 The following are generally **not** considered security issues in cdxgen:
 
-- **Vulnerabilities in scanned projects** — cdxgen intentionally parses untrusted manifests and lockfiles. Malicious content in those files that causes the *scanned project's own build tools* (npm, Maven, pip, etc.) to execute code is expected behavior of those build tools, not a cdxgen vulnerability. cdxgen's secure mode mitigates this by restricting package installations.
+- **Vulnerabilities in scanned projects** — cdxgen intentionally parses untrusted manifests and lockfiles. Malicious content in those files that causes the _scanned project's own build tools_ (npm, Maven, pip, etc.) to execute code is expected behavior of those build tools, not a cdxgen vulnerability. cdxgen's secure mode mitigates this by restricting package installations.
 - **Vulnerabilities in upstream build tools** — Bugs in npm, Maven, Gradle, pip, Go, Cargo, or other package managers invoked by cdxgen are the responsibility of those projects. Report them to the respective maintainers.
 - **Dependency vulnerabilities with no demonstrated impact** — A CVE in a transitive dependency of cdxgen that is not reachable or exploitable in cdxgen's usage context is not a cdxgen vulnerability. We still appreciate reports and will evaluate reachability.
 - **Debug-mode information disclosure** — When `CDXGEN_DEBUG_MODE`, `CDXGEN_TRACE_MODE`, or `CDXGEN_THINK_MODE` is explicitly enabled, verbose output is expected and may include file paths, environment details, or command arguments. This is by design for diagnostic use.
@@ -65,40 +65,40 @@ cdxgen operates at the intersection of source code analysis, build tool invocati
 
 ### What cdxgen is responsible for
 
-| Area | Responsibility | Key Controls |
-| ---- | -------------- | ------------ |
-| **Own code safety** | Preventing injection, traversal, and unintended code execution within cdxgen's JavaScript codebase | `safeSpawnSync` command allowlisting, `safeExistsSync`/`safeMkdirSync` wrappers, input validation (`hasDangerousUnicode`, `isValidDriveRoot`), server path validation (`isAllowedPath`, `isAllowedWinPath`) |
-| **Secure mode enforcement** | Providing a hardened execution mode that restricts cdxgen's own capabilities | Node.js `--permission` model integration, `CDXGEN_SECURE_MODE`, HTTPS-only HTTP, redirect blocking, command/host allowlists |
-| **HTTP client safety** | Preventing SSRF and unintended network access | `CDXGEN_ALLOWED_HOSTS` enforcement, HTTPS-only in secure mode, redirect blocking, `cdxgenAgent` hooks |
-| **Server mode safety** | Protecting the HTTP server from malicious requests | Path traversal prevention, Git URL validation, body size limits, request sanitization, Windows device name blocking |
-| **Auditability** | Providing transparency into what cdxgen does at runtime | `thoughtLog`/`traceLog` structured logging, `commandsExecuted` and `remoteHostsAccessed` tracking, allowlist suggestion output, `auditEnvironment` startup checks |
-| **Supply-chain integrity** | Ensuring published artifacts are not tampered with | npm provenance attestation (`NPM_CONFIG_PROVENANCE=true`), GitHub Actions with pinned SHA digests, `persist-credentials: false`, least-privilege workflow permissions (`permissions: {}`), container base images pinned to SHA digests |
-| **Container hardening** | Providing secure container images | `ghcr.io/cyclonedx/cdxgen-secure` with Node.js permissions, non-root user (`cyclonedx`), restricted filesystem access, `CDXGEN_IN_CONTAINER=true` detection |
-| **Timely patching** | Keeping cdxgen's own dependencies updated | Renovate automated dependency updates, CodeQL scanning, CI test matrix across Node.js versions and platforms |
+| Area                        | Responsibility                                                                                     | Key Controls                                                                                                                                                                                                                           |
+| --------------------------- | -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Own code safety**         | Preventing injection, traversal, and unintended code execution within cdxgen's JavaScript codebase | `safeSpawnSync` command allowlisting, `safeExistsSync`/`safeMkdirSync` wrappers, input validation (`hasDangerousUnicode`, `isValidDriveRoot`), server path validation (`isAllowedPath`, `isAllowedWinPath`)                            |
+| **Secure mode enforcement** | Providing a hardened execution mode that restricts cdxgen's own capabilities                       | Node.js `--permission` model integration, `CDXGEN_SECURE_MODE`, HTTPS-only HTTP, redirect blocking, command/host allowlists                                                                                                            |
+| **HTTP client safety**      | Preventing SSRF and unintended network access                                                      | `CDXGEN_ALLOWED_HOSTS` enforcement, HTTPS-only in secure mode, redirect blocking, `cdxgenAgent` hooks                                                                                                                                  |
+| **Server mode safety**      | Protecting the HTTP server from malicious requests                                                 | Path traversal prevention, Git URL validation, body size limits, request sanitization, Windows device name blocking                                                                                                                    |
+| **Auditability**            | Providing transparency into what cdxgen does at runtime                                            | `thoughtLog`/`traceLog` structured logging, `commandsExecuted` and `remoteHostsAccessed` tracking, allowlist suggestion output, `auditEnvironment` startup checks                                                                      |
+| **Supply-chain integrity**  | Ensuring published artifacts are not tampered with                                                 | npm provenance attestation (`NPM_CONFIG_PROVENANCE=true`), GitHub Actions with pinned SHA digests, `persist-credentials: false`, least-privilege workflow permissions (`permissions: {}`), container base images pinned to SHA digests |
+| **Container hardening**     | Providing secure container images                                                                  | `ghcr.io/cyclonedx/cdxgen-secure` with Node.js permissions, non-root user (`cyclonedx`), restricted filesystem access, `CDXGEN_IN_CONTAINER=true` detection                                                                            |
+| **Timely patching**         | Keeping cdxgen's own dependencies updated                                                          | Renovate automated dependency updates, CodeQL scanning, CI test matrix across Node.js versions and platforms                                                                                                                           |
 
 ### What users are responsible for
 
-| Area | Responsibility | Guidance |
-| ---- | -------------- | -------- |
-| **Runtime environment** | Securing the machine, container, or CI runner where cdxgen executes | Run cdxgen in isolated environments. Use the `cdxgen-secure` container image for hardened defaults. Do not run as root outside containers. |
-| **Environment variables** | Ensuring environment variables are not poisoned | cdxgen's `auditEnvironment` detects common dangerous patterns but cannot prevent all forms of environment manipulation. Review `NODE_OPTIONS`, `JAVA_TOOL_OPTIONS`, proxy variables, and credential variables. |
-| **Build tool security** | Securing invoked build tools (npm, Maven, pip, etc.) | cdxgen invokes external build tools to resolve dependencies. These tools may execute arbitrary code from package manifests (e.g., npm `postinstall` scripts, pip `setup.py`). Users should keep build tools updated and use secure configurations. In secure mode, cdxgen disables automatic package installation. |
-| **Network security** | Controlling network access for outbound connections | cdxgen and invoked build tools may contact package registries. Use `CDXGEN_ALLOWED_HOSTS` to restrict cdxgen's own connections. Use network policies or firewalls to restrict build tool connections. |
-| **Secret management** | Not exposing secrets in environment variables or project files | cdxgen's `auditEnvironment` warns about credential-like variables and debug mode exposure. Do not pass secrets via `CDXGEN_*` environment variables. Avoid enabling `--include-formulation` with `--server-url` as formulation data may contain sensitive information. |
-| **Input trust** | Understanding the trust level of scanned projects | cdxgen parses untrusted manifests and lockfiles. While cdxgen itself validates its inputs, invoked build tools may execute code embedded in project files. Scan untrusted projects in sandboxed environments. |
-| **Access control (server mode)** | Restricting who can reach the cdxgen HTTP server | The cdxgen server does not include authentication or authorization. Deploy behind a reverse proxy with appropriate access controls. Set `CDXGEN_SERVER_ALLOWED_PATHS` to restrict scannable directories. |
-| **Keeping cdxgen updated** | Applying cdxgen updates that include security fixes | Monitor GitHub Security Advisories and npm releases. |
+| Area                             | Responsibility                                                      | Guidance                                                                                                                                                                                                                                                                                                           |
+| -------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **Runtime environment**          | Securing the machine, container, or CI runner where cdxgen executes | Run cdxgen in isolated environments. Use the `cdxgen-secure` container image for hardened defaults. Do not run as root outside containers.                                                                                                                                                                         |
+| **Environment variables**        | Ensuring environment variables are not poisoned                     | cdxgen's `auditEnvironment` detects common dangerous patterns but cannot prevent all forms of environment manipulation. Review `NODE_OPTIONS`, `JAVA_TOOL_OPTIONS`, proxy variables, and credential variables.                                                                                                     |
+| **Build tool security**          | Securing invoked build tools (npm, Maven, pip, etc.)                | cdxgen invokes external build tools to resolve dependencies. These tools may execute arbitrary code from package manifests (e.g., npm `postinstall` scripts, pip `setup.py`). Users should keep build tools updated and use secure configurations. In secure mode, cdxgen disables automatic package installation. |
+| **Network security**             | Controlling network access for outbound connections                 | cdxgen and invoked build tools may contact package registries. Use `CDXGEN_ALLOWED_HOSTS` to restrict cdxgen's own connections. Use network policies or firewalls to restrict build tool connections.                                                                                                              |
+| **Secret management**            | Not exposing secrets in environment variables or project files      | cdxgen's `auditEnvironment` warns about credential-like variables and debug mode exposure. Do not pass secrets via `CDXGEN_*` environment variables. Avoid enabling `--include-formulation` with `--server-url` as formulation data may contain sensitive information.                                             |
+| **Input trust**                  | Understanding the trust level of scanned projects                   | cdxgen parses untrusted manifests and lockfiles. While cdxgen itself validates its inputs, invoked build tools may execute code embedded in project files. Scan untrusted projects in sandboxed environments.                                                                                                      |
+| **Access control (server mode)** | Restricting who can reach the cdxgen HTTP server                    | The cdxgen server does not include authentication or authorization. Deploy behind a reverse proxy with appropriate access controls. Set `CDXGEN_SERVER_ALLOWED_PATHS` to restrict scannable directories.                                                                                                           |
+| **Keeping cdxgen updated**       | Applying cdxgen updates that include security fixes                 | Monitor GitHub Security Advisories and npm releases.                                                                                                                                                                                                                                                               |
 
 ### What upstream projects are responsible for
 
-| Area | Responsible Party |
-| ---- | ----------------- |
-| Vulnerabilities in npm, Maven, Gradle, pip, Go, Cargo, and other package managers | Respective package manager maintainers |
-| Vulnerabilities in Node.js, Deno, or Bun runtimes | Respective runtime maintainers |
-| Malicious packages published to registries (npm, PyPI, Maven Central, etc.) | Registry operators and package maintainers |
+| Area                                                                               | Responsible Party                                              |
+| ---------------------------------------------------------------------------------- | -------------------------------------------------------------- |
+| Vulnerabilities in npm, Maven, Gradle, pip, Go, Cargo, and other package managers  | Respective package manager maintainers                         |
+| Vulnerabilities in Node.js, Deno, or Bun runtimes                                  | Respective runtime maintainers                                 |
+| Malicious packages published to registries (npm, PyPI, Maven Central, etc.)        | Registry operators and package maintainers                     |
 | Vulnerabilities in cdxgen's direct dependencies (got, semver, packageurl-js, etc.) | Dependency maintainers; cdxgen tracks and updates via Renovate |
-| GitHub Actions runner security | GitHub |
-| Container runtime (Docker, Podman) vulnerabilities | Container runtime maintainers |
+| GitHub Actions runner security                                                     | GitHub                                                         |
+| Container runtime (Docker, Podman) vulnerabilities                                 | Container runtime maintainers                                  |
 
 ## Security Features Reference
 
@@ -113,8 +113,8 @@ cdxgen includes several built-in security features. See the following documentat
 
 Security fixes are applied to the last two releases and cover the last two CycloneDX specification versions. Users are encouraged to stay on the latest version.
 
-| Version | Supported |
-| ------- | --------- |
-| Last two releases | ✅ |
-| Last two CycloneDX spec versions | ✅ |
-| Older releases | ❌ |
+| Version                          | Supported |
+| -------------------------------- | --------- |
+| Last two releases                | ✅        |
+| Last two CycloneDX spec versions | ✅        |
+| Older releases                   | ❌        |

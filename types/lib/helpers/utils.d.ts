@@ -1953,6 +1953,7 @@ export const commandsExecuted: Set<any>;
 export const frameworksList: any;
 export const CDXGEN_VERSION: any;
 export const DEBUG_MODE: boolean;
+export const TABLE_BORDER_STYLE: string;
 export const TIMEOUT_MS: number;
 export const MAX_BUFFER: number;
 export let metadata_cache: {};
