@@ -139,7 +139,6 @@
     "read-package-json-fast": "5.0.0",
     "semver": "7.7.4",
     "ssri": "13.0.1",
-    "table": "6.9.0",
     "tar": "7.5.13",
     "treeverse": "3.0.0",
     "uuid": "13.0.0",

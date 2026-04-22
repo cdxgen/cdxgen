@@ -98,7 +98,6 @@
     "properties-reader": "npm:properties-reader@^3.0.1",
     "semver": "npm:semver@^7.7.4",
     "ssri": "npm:ssri@^13.0.1",
-    "table": "npm:table@^6.9.0",
     "tar": "npm:tar@^7.5.13",
     "uuid": "npm:uuid@^13.0.0",
     "xml-js": "npm:xml-js@^1.6.11",
