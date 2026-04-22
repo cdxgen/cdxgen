@@ -543,6 +543,12 @@ jobs:
           repository: 'eclipse-theia/theia-ide'
           path: 'repotests/theia-ide'
           ref: 'e59df875d5ab1389346510c23c2da321a14accc5'
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
+          repository: 'tndrle/node-sqlite3-wasm'
+          path: 'repotests/node-sqlite3-wasm'
+          ref: 'a4dacad118005a082f3b1544056896d99f3f22d8'
       - name: Install Rust v1.95.0
         run: rustup toolchain install 1.95.0 || true
       - name: setup sdkman
@@ -722,6 +728,10 @@ jobs:
       - name: repotests theia-ide
         run: |
           FETCH_LICENSE=false bin/cdxgen.js -t yarn repotests/theia-ide -o bomresults/bom-theia-ide.json --fail-on-error
+        shell: bash
+      - name: repotests node-sqlite3-wasm
+        run: |
+          FETCH_LICENSE=false bin/cdxgen.js -t js repotests/node-sqlite3-wasm -o bomresults/node-sqlite3-wasm.json -p
         shell: bash
       - name: repotests bazel-examples
         run: |
