@@ -1,0 +1,22 @@
+lockfileVersion: '6.0'
+
+devDependencies:
+  alpha:
+    specifier: 1.0.0
+    version: 1.0.0
+
+packages:
+  /alpha@1.0.0:
+    dependencies:
+      beta: 1.0.0
+    dev: true
+
+  /gamma@1.0.0:
+    dependencies:
+      delta: 1.0.0
+
+  /delta@1.0.0: {}
+
+  /beta@1.0.0:
+    dependencies:
+      gamma: 1.0.0
