@@ -72,6 +72,6 @@ _*Footnotes:*_
 - [4] - See the section on plugins
 - [5] - Powered by osquery. See the section on plugins
 - [6] - Supported IDEs: VS Code, VS Code Insiders, VSCodium, Cursor, Windsurf, Positron, Theia, code-server, OpenVSCode Server, Trae, Augment Code. Use `--deep` or `-t ide-extensions` to auto-discover from known IDE locations. Also works with `-t os` via osquery using the `pkg:vscode-extension` purl type.
-- [7] - Supported Chromium-based browsers: Google Chrome (stable/beta/dev/canary), Chromium, Microsoft Edge (stable/beta/dev/canary), Brave (stable/beta/dev/nightly), and Vivaldi (stable/snapshot). This mode is explicit (`-t chrome-extension`). With `-t os`, osquery-discovered Chrome extensions use the same `pkg:chrome-extension` purl type.
+- [7] - Supported Chromium-based browsers: Google Chrome (stable/beta/dev/canary), Chromium, Microsoft Edge (stable/beta/dev/canary), Brave (stable/beta/dev/nightly), and Vivaldi (stable/snapshot). This mode is explicit (`-t chrome-extension`) and can scan either installed browser profiles or a directly provided extension path (`manifest.json`, `<version>/`, or `<extension-id>/`). With `-t os`, osquery-discovered Chrome extensions use the same `pkg:chrome-extension` purl type.
 
 <img src="_media/cdxgen-tree.jpg" alt="cdxgen tree" width="256">
