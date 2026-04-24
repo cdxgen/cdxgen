@@ -1,0 +1,14 @@
+{
+  "chrome-bitwarden-manifest.json": {
+    "source": "https://raw.githubusercontent.com/bitwarden/clients/main/apps/browser/src/manifest.json",
+    "notes": "Bitwarden browser extension (published for Chrome and Edge)."
+  },
+  "chromium-ublock-origin-manifest.json": {
+    "source": "https://raw.githubusercontent.com/gorhill/uBlock/master/platform/chromium/manifest.json",
+    "notes": "uBlock Origin Chromium manifest."
+  },
+  "edge-dark-reader-manifest.json": {
+    "source": "https://raw.githubusercontent.com/darkreader/darkreader/main/src/manifest.json",
+    "notes": "Dark Reader browser extension (published for Edge and Chrome)."
+  }
+}
