@@ -99,7 +99,7 @@
     "semver": "npm:semver@^7.7.4",
     "ssri": "npm:ssri@^13.0.1",
     "tar": "npm:tar@^7.5.13",
-    "uuid": "npm:uuid@^13.0.0",
+    "uuid": "npm:uuid@^14.0.0",
     "xml-js": "npm:xml-js@^1.6.11",
     "yargs": "npm:yargs@^18.0.0",
     "yoctocolors": "npm:yoctocolors@^2.1.2",
