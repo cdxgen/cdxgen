@@ -436,6 +436,8 @@ The grouped lists below remain the authoritative inventory. The compact tables, 
 - `cdx:vscode-extension:lifecycleScripts` is analogous to `cdx:npm:risky_scripts` for npm packages — both capture install-time execution risk.
 - `cdx:vscode-extension:contributes` is a summary list, not a full enumeration. The count suffix (for example `commands:count:42`) indicates how many contribution points exist in that category.
 - Extensions discovered via osquery (`-t os`) use the same `pkg:vscode-extension` purl type and may also carry `cdx:osquery:category`.
+- Chromium-browser extensions discovered via `-t chrome-extension` can include `cdx:chrome-extension:browser`, `cdx:chrome-extension:channel`, `cdx:chrome-extension:profile`, `cdx:chrome-extension:profilePath`, `cdx:chrome-extension:manifestVersion`, and `cdx:chrome-extension:updateUrl`.
+- Chrome extensions discovered via osquery (`-t os`) use `pkg:chrome-extension` and may also carry `cdx:osquery:category`.
 
 ## Consumer-oriented views
 

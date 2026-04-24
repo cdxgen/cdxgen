@@ -14,7 +14,7 @@
   "chrome_extensions": {
     "query": "select chrome_extensions.* from users join chrome_extensions using (uid);",
     "description": "Retrieves the list of extensions for Chrome in the target system.",
-    "purlType": "swid",
+    "purlType": "chrome-extension",
     "componentType": "application"
   },
   "firefox_addons": {
