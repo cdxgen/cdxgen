@@ -107,8 +107,8 @@ importers:
         specifier: 3.0.0
         version: 3.0.0
       uuid:
-        specifier: 13.0.0
-        version: 13.0.0
+        specifier: 14.0.0
+        version: 14.0.0
       walk-up-path:
         specifier: 4.0.0
         version: 4.0.0
@@ -1067,8 +1067,8 @@ packages:
     resolution: {integrity: sha512-pMZTvIkT1d+TFGvDOqodOclx0QWkkgi6Tdoa8gC8ffGAAqz9pzPTZWAybbsHHoED/ztMtkv/VoYTYyShUn81hA==, tarball: https://registry.npmjs.org/utils-merge/-/utils-merge-1.0.1.tgz}
     engines: {node: '>= 0.4.0'}
 
-  uuid@13.0.0:
-    resolution: {integrity: sha512-XQegIaBTVUjSHliKqcnFqYypAd4S+WCYt5NIeRs6w/UAry7z8Y9j5ZwRRL4kzq9U3sD6v+85er9FvkEaBpji2w==, tarball: https://registry.npmjs.org/uuid/-/uuid-13.0.0.tgz}
+  uuid@14.0.0:
+    resolution: {integrity: sha512-Qo+uWgilfSmAhXCMav1uYFynlQO7fMFiMVZsQqZRMIXp0O7rR7qjkj+cPvBHLgBqi960QCoo/PH2/6ZtVqKvrg==, tarball: https://registry.npmjs.org/uuid/-/uuid-14.0.0.tgz}
     hasBin: true
 
   validate-npm-package-name@7.0.2:
@@ -2019,7 +2019,7 @@ snapshots:
   utils-merge@1.0.1:
     optional: true
 
-  uuid@13.0.0: {}
+  uuid@14.0.0: {}
 
   validate-npm-package-name@7.0.2: {}
 
