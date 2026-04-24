@@ -10,5 +10,9 @@
   "edge-dark-reader-manifest.json": {
     "source": "https://raw.githubusercontent.com/darkreader/darkreader/main/src/manifest.json",
     "notes": "Dark Reader browser extension (published for Edge and Chrome)."
+  },
+  "edge-duckduckgo-manifest.json": {
+    "source": "https://raw.githubusercontent.com/duckduckgo/duckduckgo-privacy-extension/main/browsers/chrome/manifest.json",
+    "notes": "DuckDuckGo Privacy Essentials Chromium manifest with MV3 host_permissions and managed storage."
   }
 }

@@ -103,6 +103,29 @@ Rules that detect deprecated, yanked, tampered, or suspicious packages.
 | INT-006 | medium   | Dart pub uses non-default registry                                   |
 | INT-007 | low      | Maven package contains shaded/relocated classes                      |
 
+### `vscode-extension` — VS Code Extension Security
+
+Rules that evaluate VS Code extension metadata for install-time execution, always-on activation, workspace trust posture, and privileged capabilities.
+
+| Rule    | Severity | Description                                                             |
+| ------- | -------- | ----------------------------------------------------------------------- |
+| VSC-001 | critical | VS Code extension has install-time lifecycle scripts                    |
+| VSC-002 | high     | Always-on extension (`*` activation) exposes terminal access            |
+| VSC-003 | high     | Extension runs in untrusted workspaces with filesystem access           |
+| VSC-006 | high     | Extension contributes debugger/authentication provider capabilities      |
+| VSC-007 | high     | Workspace-context extension executes code                               |
+
+### `chrome-extension` — Chromium Browser Extension Security
+
+Rules that evaluate Chrome/Chromium/Edge extension metadata for broad site access, request interception, early script injection, and autofill-related risk posture.
+
+| Rule    | Severity | Description                                                                       |
+| ------- | -------- | --------------------------------------------------------------------------------- |
+| CHE-001 | high     | Extension has broad host access (`<all_urls>` or wildcard host permissions)      |
+| CHE-002 | critical | Extension can intercept and block web requests (`webRequest` + `webRequestBlocking`) |
+| CHE-003 | high     | Extension injects content scripts at `document_start` with broad host access     |
+| CHE-004 | medium   | Autofill-capable extension has broad host permissions                             |
+
 ## Writing custom rules
 
 Rules are YAML files placed in a directory and loaded via `--bom-audit-rules-dir`. Each file can contain a single rule object or a YAML array of rules.

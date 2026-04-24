@@ -1,0 +1,115 @@
+# Chrome Extension Security Rules
+# Category: chrome-extension
+# Evaluates Chromium browser extensions for risky permissions and execution posture
+
+- id: CHE-001
+  name: "Extension with broad host access"
+  description: "Browser extensions with <all_urls> or wildcard host permissions can access and manipulate content on most websites"
+  severity: high
+  category: chrome-extension
+  condition: |
+    components[
+      $startsWith(purl, 'pkg:chrome-extension/')
+      and (
+        $listContains($propList($, 'cdx:chrome-extension:permissions'), '<all_urls>')
+        or $listContains($propList($, 'cdx:chrome-extension:hostPermissions'), '<all_urls>')
+        or $listContains($propList($, 'cdx:chrome-extension:hostPermissions'), '*://*/*')
+      )
+    ]
+  location: |
+    {
+      "bomRef": $. "bom-ref",
+      "purl": purl,
+      "srcFile": $prop($, 'SrcFile')
+    }
+  message: "Chrome extension '{{ name }}@{{ version }}' has broad host access permissions"
+  mitigation: "Limit host permissions to required domains; avoid <all_urls> and broad wildcard host patterns"
+  evidence: |
+    {
+      "permissions": $prop($, 'cdx:chrome-extension:permissions'),
+      "hostPermissions": $prop($, 'cdx:chrome-extension:hostPermissions')
+    }
+
+- id: CHE-002
+  name: "Extension with network interception capabilities"
+  description: "Extensions that combine webRequest and webRequestBlocking can intercept and modify browser network traffic"
+  severity: critical
+  category: chrome-extension
+  condition: |
+    components[
+      $startsWith(purl, 'pkg:chrome-extension/')
+      and $listContains($propList($, 'cdx:chrome-extension:permissions'), 'webRequest')
+      and $listContains($propList($, 'cdx:chrome-extension:permissions'), 'webRequestBlocking')
+    ]
+  location: |
+    {
+      "bomRef": $. "bom-ref",
+      "purl": purl,
+      "srcFile": $prop($, 'SrcFile')
+    }
+  message: "Chrome extension '{{ name }}@{{ version }}' can intercept and block web requests"
+  mitigation: "Review extension code for request filtering/modification logic; restrict deployment to trusted publishers"
+  evidence: |
+    {
+      "permissions": $prop($, 'cdx:chrome-extension:permissions'),
+      "contentScriptsRunAt": $prop($, 'cdx:chrome-extension:contentScriptsRunAt')
+    }
+
+- id: CHE-003
+  name: "Always-early content scripts with broad access"
+  description: "Extensions injecting content scripts at document_start together with broad host permissions increase pre-DOM execution risk"
+  severity: high
+  category: chrome-extension
+  condition: |
+    components[
+      $startsWith(purl, 'pkg:chrome-extension/')
+      and $listContains($propList($, 'cdx:chrome-extension:contentScriptsRunAt'), 'document_start')
+      and (
+        $listContains($propList($, 'cdx:chrome-extension:permissions'), '<all_urls>')
+        or $listContains($propList($, 'cdx:chrome-extension:hostPermissions'), '<all_urls>')
+        or $listContains($propList($, 'cdx:chrome-extension:hostPermissions'), '*://*/*')
+      )
+    ]
+  location: |
+    {
+      "bomRef": $. "bom-ref",
+      "purl": purl
+    }
+  message: "Chrome extension '{{ name }}@{{ version }}' injects scripts at document_start with broad site access"
+  mitigation: "Prefer run_at=document_idle where possible and scope host permissions to explicit trusted origins"
+  evidence: |
+    {
+      "contentScriptsRunAt": $prop($, 'cdx:chrome-extension:contentScriptsRunAt'),
+      "permissions": $prop($, 'cdx:chrome-extension:permissions'),
+      "hostPermissions": $prop($, 'cdx:chrome-extension:hostPermissions')
+    }
+
+- id: CHE-004
+  name: "Autofill-capable extension with broad host permissions"
+  description: "Autofill features handling credential or PII flows should be reviewed when broad host permissions are granted"
+  severity: medium
+  category: chrome-extension
+  condition: |
+    components[
+      $startsWith(purl, 'pkg:chrome-extension/')
+      and $propBool($, 'cdx:chrome-extension:hasAutofill') = true
+      and (
+        $listContains($propList($, 'cdx:chrome-extension:permissions'), '<all_urls>')
+        or $listContains($propList($, 'cdx:chrome-extension:hostPermissions'), '<all_urls>')
+        or $listContains($propList($, 'cdx:chrome-extension:hostPermissions'), '*://*/*')
+      )
+    ]
+  location: |
+    {
+      "bomRef": $. "bom-ref",
+      "purl": purl
+    }
+  message: "Autofill-capable extension '{{ name }}@{{ version }}' has broad host access"
+  mitigation: "Review autofill data handling and origin checks; enforce least-privilege host permissions"
+  evidence: |
+    {
+      "hasAutofill": $prop($, 'cdx:chrome-extension:hasAutofill'),
+      "permissions": $prop($, 'cdx:chrome-extension:permissions'),
+      "hostPermissions": $prop($, 'cdx:chrome-extension:hostPermissions'),
+      "storageManagedSchema": $prop($, 'cdx:chrome-extension:storageManagedSchema')
+    }
