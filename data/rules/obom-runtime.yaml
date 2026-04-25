@@ -41,8 +41,8 @@
     components[
       $prop($, 'cdx:osquery:category') = 'sudoers_snapshot'
       and (
-        $contains($nullSafeProp($, 'description'), 'NOPASSWD:ALL')
-        or $contains($nullSafeProp($, 'description'), 'ALL=(ALL) ALL')
+        $contains(description, 'NOPASSWD:ALL')
+        or $contains(description, 'ALL=(ALL) ALL')
       )
     ]
   location: |
