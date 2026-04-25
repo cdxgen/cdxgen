@@ -66,6 +66,30 @@
     "purlType": "swid",
     "componentType": "data"
   },
+  "users_snapshot": {
+    "query": "SELECT username as name, uid as version, description, directory, shell, uuid, gid FROM users;",
+    "description": "Local user inventory for account and shell posture analysis.",
+    "purlType": "swid",
+    "componentType": "data"
+  },
+  "logged_in_users_snapshot": {
+    "query": "SELECT user as name, pid as version, type as description, tty, host, time FROM logged_in_users;",
+    "description": "Interactive and remote user sessions currently active on the host.",
+    "purlType": "swid",
+    "componentType": "data"
+  },
+  "authorized_keys_snapshot": {
+    "query": "SELECT users.username as name, authorized_keys.algorithm as version, authorized_keys.comment as description, authorized_keys.key_file, authorized_keys.options, authorized_keys.uid FROM users JOIN authorized_keys USING (uid);",
+    "description": "Authorized SSH key metadata per account without exporting key material.",
+    "purlType": "swid",
+    "componentType": "data"
+  },
+  "sudoers_snapshot": {
+    "query": "SELECT header as name, source as path, rule_details as description FROM sudoers;",
+    "description": "Sudo policy entries for least-privilege and privileged access review.",
+    "purlType": "swid",
+    "componentType": "data"
+  },
   "etc_hosts": {
     "query": "SELECT * FROM etc_hosts;",
     "description": "List the contents of the Windows hosts file.",
@@ -81,6 +105,18 @@
   "kernel_modules": {
     "query": "SELECT * FROM kernel_modules;",
     "description": "Linux kernel modules both loaded and within the load search path.",
+    "purlType": "swid",
+    "componentType": "data"
+  },
+  "systemd_units": {
+    "query": "SELECT id as name, active_state as version, description, load_state, sub_state, unit_file_state, user, fragment_path, source_path FROM systemd_units;",
+    "description": "Systemd unit state and execution source inventory.",
+    "purlType": "swid",
+    "componentType": "application"
+  },
+  "etc_services": {
+    "query": "SELECT * FROM etc_services;",
+    "description": "Service-to-port mappings configured in /etc/services.",
     "purlType": "swid",
     "componentType": "data"
   },
@@ -114,6 +150,12 @@
     "purlType": "swid",
     "componentType": "data"
   },
+  "process_open_sockets": {
+    "query": "SELECT * FROM process_open_sockets WHERE remote_address NOT IN ('0.0.0.0', '::', '');",
+    "description": "Network sockets opened by processes with non-empty remote endpoints.",
+    "purlType": "swid",
+    "componentType": "data"
+  },
   "startup_items": {
     "query": "SELECT * FROM startup_items;",
     "description": "List all startup_items.",
@@ -121,7 +163,7 @@
     "componentType": "data"
   },
   "listening_ports": {
-    "query": "SELECT DISTINCT process.name, listening.port, listening.protocol, listening.family, listening.address, process.pid, process.path, process.on_disk, process.parent, process.start_time FROM processes AS process JOIN listening_ports AS listening ON process.pid = listening.pid;",
+    "query": "SELECT DISTINCT process.name, listening.port, listening.protocol, listening.family, listening.address, process.pid, process.path, process.cmdline, process.cwd, process.uid, process.on_disk, process.parent, process.start_time FROM processes AS process JOIN listening_ports AS listening ON process.pid = listening.pid;",
     "description": "List all processes and their listening_ports.",
     "purlType": "swid",
     "componentType": "application"

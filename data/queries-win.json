@@ -88,6 +88,24 @@
     "purlType": "swid",
     "componentType": "data"
   },
+  "users_snapshot": {
+    "query": "SELECT username as name, uid as version, description, directory, uuid, type, gid FROM users;",
+    "description": "Local and domain-backed user account inventory on Windows endpoints.",
+    "purlType": "swid",
+    "componentType": "data"
+  },
+  "logged_in_users_snapshot": {
+    "query": "SELECT user as name, pid as version, type as description, host, tty, time, sid, registry_hive FROM logged_in_users;",
+    "description": "Interactive and remote user sessions active on the endpoint.",
+    "purlType": "swid",
+    "componentType": "data"
+  },
+  "logon_sessions": {
+    "query": "SELECT user as name, logon_type as version, authentication_package as description, logon_id, logon_domain, session_id, logon_sid, logon_time, logon_server, dns_domain_name, upn, profile_path, home_directory, home_directory_drive FROM logon_sessions;",
+    "description": "Windows logon session inventory for authentication and identity investigations.",
+    "purlType": "swid",
+    "componentType": "data"
+  },
   "pipes_snapshot": {
     "query": "SELECT processes.path, processes.cmdline, processes.uid, processes.on_disk, pipes.name, pid FROM pipes JOIN processes USING (pid);",
     "description": "Pipes snapshot query.",
@@ -130,6 +148,30 @@
     "purlType": "swid",
     "componentType": "data"
   },
+  "windows_security_products": {
+    "query": "SELECT * FROM windows_security_products;",
+    "description": "Registered endpoint security products and signature posture.",
+    "purlType": "swid",
+    "componentType": "data"
+  },
+  "windows_security_center": {
+    "query": "SELECT antivirus as name, firewall as version, autoupdate as description, internet_settings, windows_security_center_service, user_account_control FROM windows_security_center;",
+    "description": "Windows Security Center overall protection health indicators.",
+    "purlType": "swid",
+    "componentType": "data"
+  },
+  "windows_bitlocker_info": {
+    "query": "SELECT device_id as name, drive_letter as version, encryption_method as description, persistent_volume_id, conversion_status, protection_status, percentage_encrypted, lock_status FROM bitlocker_info;",
+    "description": "BitLocker protection and encryption state for local drives.",
+    "purlType": "swid",
+    "componentType": "data"
+  },
+  "windows_run_keys": {
+    "query": "SELECT path as name, mtime as version, data as description, key, type FROM registry WHERE (key LIKE 'HKEY_LOCAL_MACHINE\\Software\\Microsoft\\Windows\\CurrentVersion\\Run\\%' OR key LIKE 'HKEY_LOCAL_MACHINE\\Software\\Microsoft\\Windows\\CurrentVersion\\RunOnce\\%' OR key LIKE 'HKEY_USERS\\%\\Software\\Microsoft\\Windows\\CurrentVersion\\Run\\%' OR key LIKE 'HKEY_USERS\\%\\Software\\Microsoft\\Windows\\CurrentVersion\\RunOnce\\%') AND type != 'subkey';",
+    "description": "Registry Run/RunOnce autostart entries commonly abused for persistence.",
+    "purlType": "swid",
+    "componentType": "data"
+  },
   "etc_hosts": {
     "query": "SELECT * FROM etc_hosts;",
     "description": "List the contents of the Windows hosts file.",
@@ -165,7 +207,7 @@
     "componentType": "data"
   },
   "listening_ports": {
-    "query": "SELECT DISTINCT process.name, listening.port, listening.protocol, listening.family, listening.address, process.pid, process.path, process.on_disk, process.parent, process.start_time FROM processes AS process JOIN listening_ports AS listening ON process.pid = listening.pid;",
+    "query": "SELECT DISTINCT process.name, listening.port, listening.protocol, listening.family, listening.address, process.pid, process.path, process.cmdline, process.cwd, process.uid, process.on_disk, process.parent, process.start_time FROM processes AS process JOIN listening_ports AS listening ON process.pid = listening.pid;",
     "description": "List all processes and their listening_ports.",
     "purlType": "swid",
     "componentType": "application"

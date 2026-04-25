@@ -47,6 +47,60 @@
     "purlType": "swid",
     "componentType": "data"
   },
+  "users_snapshot": {
+    "query": "SELECT username as name, uid as version, description, directory, shell, uuid, gid, is_hidden FROM users;",
+    "description": "Local account inventory including hidden-user attributes on macOS.",
+    "purlType": "swid",
+    "componentType": "data"
+  },
+  "logged_in_users_snapshot": {
+    "query": "SELECT user as name, pid as version, type as description, host, tty, time FROM logged_in_users;",
+    "description": "Interactive and remote user sessions currently active on the host.",
+    "purlType": "swid",
+    "componentType": "data"
+  },
+  "homebrew_packages": {
+    "query": "SELECT * FROM homebrew_packages;",
+    "description": "Homebrew formula and cask inventory including auto-update behavior.",
+    "purlType": "swid",
+    "componentType": "application"
+  },
+  "launchd_services": {
+    "query": "SELECT name, label, path, program, run_at_load, keep_alive, disabled, username, groupname, stdout_path, stderr_path, start_interval, program_arguments, watch_paths, queue_directories, start_on_mount, working_directory, process_type FROM launchd;",
+    "description": "LaunchAgents and LaunchDaemons configuration used for macOS persistence.",
+    "purlType": "swid",
+    "componentType": "application"
+  },
+  "launchd_overrides": {
+    "query": "SELECT label as name, key as version, value as description, uid, path FROM launchd_overrides;",
+    "description": "Per-user launchd override state that can alter startup behavior.",
+    "purlType": "swid",
+    "componentType": "data"
+  },
+  "alf": {
+    "query": "SELECT 'alf' as name, global_state as version, version as description, allow_signed_enabled, firewall_unload, logging_enabled, logging_option, stealth_enabled FROM alf;",
+    "description": "Application Layer Firewall (ALF) configuration and enforcement posture.",
+    "purlType": "swid",
+    "componentType": "data"
+  },
+  "alf_exceptions": {
+    "query": "SELECT path as name, state as version FROM alf_exceptions;",
+    "description": "Firewall allow/block exception list for specific executables or bundle identifiers.",
+    "purlType": "swid",
+    "componentType": "data"
+  },
+  "xprotect_entries": {
+    "query": "SELECT * FROM xprotect_entries;",
+    "description": "Built-in XProtect malware signature entries on macOS.",
+    "purlType": "swid",
+    "componentType": "data"
+  },
+  "xprotect_meta": {
+    "query": "SELECT identifier as name, min_version as version, type as description, developer_id FROM xprotect_meta;",
+    "description": "XProtect browser extension/plugin policy metadata.",
+    "purlType": "swid",
+    "componentType": "data"
+  },
   "package_bom": {
     "query": "SELECT * FROM package_bom;",
     "description": "macOS package bill of materials (BOM) file list.",
@@ -84,7 +138,7 @@
     "componentType": "data"
   },
   "listening_ports": {
-    "query": "SELECT DISTINCT process.name, listening.port, listening.protocol, listening.family, listening.address, process.pid, process.path, process.on_disk, process.parent, process.start_time FROM processes AS process JOIN listening_ports AS listening ON process.pid = listening.pid;",
+    "query": "SELECT DISTINCT process.name, listening.port, listening.protocol, listening.family, listening.address, process.pid, process.path, process.cmdline, process.cwd, process.uid, process.on_disk, process.parent, process.start_time FROM processes AS process JOIN listening_ports AS listening ON process.pid = listening.pid;",
     "description": "List all processes and their listening_ports.",
     "purlType": "swid",
     "componentType": "application"
