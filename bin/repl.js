@@ -130,7 +130,9 @@ if (process.argv.length > 2) {
 } else {
   console.log("💭 Use .create <path> to create an SBOM for the given path.");
   console.log("💭 Use .import <json> to import an existing BOM.");
-  console.log("💭 For OBOM investigations, try .obomtips after importing an OBOM.");
+  console.log(
+    "💭 For OBOM investigations, try .obomtips after importing an OBOM.",
+  );
   console.log("💭 Type .exit or press ctrl+d to close.");
 }
 
