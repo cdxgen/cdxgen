@@ -128,6 +128,7 @@ Rules that evaluate Chrome/Chromium/Edge/Brave extension metadata for broad site
 | CHE-005 | high     | Extension combines broad host scope with file/device/bluetooth capabilities       |
 | CHE-006 | critical | Extension has code-injection capability with broad host scope                     |
 | CHE-007 | high     | Extension has fingerprinting capability indicators with broad host scope           |
+| CHE-008 | high     | AI-assistant extension has code-injection capability on OpenAI/Claude/Copilot domains |
 
 ## Writing custom rules
 

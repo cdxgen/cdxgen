@@ -207,3 +207,34 @@
       "permissions": $prop($, 'cdx:chrome-extension:permissions'),
       "hostPermissions": $prop($, 'cdx:chrome-extension:hostPermissions')
     }
+
+- id: CHE-008
+  name: "AI-assistant extension with code injection on AI provider domains"
+  description: "Extensions targeting AI assistant domains (OpenAI/ChatGPT/Claude/Copilot) with code-injection capability should be reviewed for prompt/session manipulation risk."
+  severity: high
+  category: chrome-extension
+  condition: |
+    components[
+      $startsWith(purl, 'pkg:chrome-extension/')
+      and $propBool($, 'cdx:chrome-extension:capability:codeInjection') = true
+      and (
+        $contains($safeStr($prop($, 'cdx:chrome-extension:hostPermissions')), 'openai.com')
+        or $contains($safeStr($prop($, 'cdx:chrome-extension:hostPermissions')), 'chatgpt.com')
+        or $contains($safeStr($prop($, 'cdx:chrome-extension:hostPermissions')), 'claude.ai')
+        or $contains($safeStr($prop($, 'cdx:chrome-extension:hostPermissions')), 'github.com/copilot')
+      )
+    ]
+  location: |
+    {
+      "bomRef": $. "bom-ref",
+      "purl": purl,
+      "srcFile": $prop($, 'SrcFile')
+    }
+  message: "AI-assistant extension '{{ name }}@{{ version }}' can inject code in assistant workflows"
+  mitigation: "Review prompt/session handling, enforce least-privilege host permissions, and gate deployment to trusted publishers."
+  evidence: |
+    {
+      "capabilities": $prop($, 'cdx:chrome-extension:capabilities'),
+      "permissions": $prop($, 'cdx:chrome-extension:permissions'),
+      "hostPermissions": $prop($, 'cdx:chrome-extension:hostPermissions')
+    }
