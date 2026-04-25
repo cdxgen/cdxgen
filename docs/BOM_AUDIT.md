@@ -103,6 +103,27 @@ Rules that detect deprecated, yanked, tampered, or suspicious packages.
 | INT-006 | medium   | Dart pub uses non-default registry                                   |
 | INT-007 | low      | Maven package contains shaded/relocated classes                      |
 
+### `obom-runtime` — Operational Runtime and Host Posture
+
+Rules that evaluate OBOM runtime components from osquery-derived host telemetry for persistence, endpoint control gaps, and suspicious startup/runtime behavior.
+
+| Rule         | Severity | Description                                                                |
+| ------------ | -------- | -------------------------------------------------------------------------- |
+| OBOM-LNX-001 | high     | Linux systemd unit sourced from temporary path                             |
+| OBOM-LNX-002 | high     | Linux sudoers broad privilege rule                                         |
+| OBOM-LNX-003 | medium   | Root authorized_keys entry without restrictions                            |
+| OBOM-LNX-004 | high     | Linux shell history contains suspicious download-execute pattern           |
+| OBOM-LNX-005 | critical | Docker API exposed over unauthenticated TCP port                           |
+| OBOM-WIN-001 | high     | Windows drive without BitLocker protection                                 |
+| OBOM-WIN-002 | high     | Windows Security Center unhealthy state                                    |
+| OBOM-WIN-003 | critical | Windows Run key references temporary/script execution path                 |
+| OBOM-WIN-004 | high     | Hidden scheduled task uses suspicious execution path                       |
+| OBOM-WIN-005 | critical | Auto-start Windows service points to user-writable path                   |
+| OBOM-MAC-001 | high     | macOS firewall disabled or stealth mode off                                |
+| OBOM-MAC-002 | critical | macOS launchd item from user-writable temporary path                       |
+| OBOM-MAC-003 | medium   | macOS firewall exception for binary in untrusted user path                 |
+| OBOM-MAC-004 | medium   | macOS launchd override disables Apple-managed service                      |
+
 ## Writing custom rules
 
 Rules are YAML files placed in a directory and loaded via `--bom-audit-rules-dir`. Each file can contain a single rule object or a YAML array of rules.

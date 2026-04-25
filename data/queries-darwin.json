@@ -59,6 +59,12 @@
     "purlType": "swid",
     "componentType": "data"
   },
+  "shell_history_snapshot": {
+    "query": "SELECT users.username as name, '' as version, shell_history.command as description, shell_history.time, shell_history.history_file, shell_history.uid FROM users JOIN shell_history USING (uid);",
+    "description": "User shell command history metadata for investigation support.",
+    "purlType": "swid",
+    "componentType": "data"
+  },
   "homebrew_packages": {
     "query": "SELECT * FROM homebrew_packages;",
     "description": "Homebrew formula and cask inventory including auto-update behavior.",

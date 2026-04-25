@@ -78,6 +78,12 @@
     "purlType": "swid",
     "componentType": "data"
   },
+  "shell_history_snapshot": {
+    "query": "SELECT users.username as name, '' as version, shell_history.command as description, shell_history.time, shell_history.history_file, shell_history.uid FROM users JOIN shell_history USING (uid);",
+    "description": "User shell command history metadata for investigation support.",
+    "purlType": "swid",
+    "componentType": "data"
+  },
   "authorized_keys_snapshot": {
     "query": "SELECT users.username as name, authorized_keys.algorithm as version, authorized_keys.comment as description, authorized_keys.key_file, authorized_keys.options, authorized_keys.uid FROM users JOIN authorized_keys USING (uid);",
     "description": "Authorized SSH key metadata per account without exporting key material.",

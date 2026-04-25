@@ -55,6 +55,14 @@ if (process.env?.CDXGEN_NODE_OPTIONS) {
 // The current sbom is stored here
 let sbom;
 
+function isLikelyObom(bom) {
+  return Boolean(
+    bom?.components?.some((comp) =>
+      comp?.properties?.some((prop) => prop?.name === "cdx:osquery:category"),
+    ),
+  );
+}
+
 let historyFile;
 const historyConfigDir = join(homedir(), ".config", ".cdxgen");
 if (!process.env.CDXGEN_REPL_HISTORY && !fs.existsSync(historyConfigDir)) {
@@ -78,6 +86,11 @@ export const importSbom = (sbomOrPath) => {
       }
       console.log(`✅ ${bomType} imported successfully from ${sbomOrPath}`);
       printSummary(sbom);
+      if (isLikelyObom(sbom)) {
+        console.log(
+          "💭 OBOM detected. Try .osinfocategories, .obomtips, or .print <category>",
+        );
+      }
     } catch (e) {
       console.log(`⚠ Unable to import the BOM from ${sbomOrPath} due to ${e}`);
     }
@@ -117,6 +130,7 @@ if (process.argv.length > 2) {
 } else {
   console.log("💭 Use .create <path> to create an SBOM for the given path.");
   console.log("💭 Use .import <json> to import an existing BOM.");
+  console.log("💭 For OBOM investigations, try .obomtips after importing an OBOM.");
   console.log("💭 Type .exit or press ctrl+d to close.");
 }
 
@@ -588,6 +602,24 @@ cdxgenRepl.defineCommand("osinfocategories", {
     } else {
       console.log("⚠ No OBOM is loaded. Use .import command to import an OBOM");
     }
+    this.displayPrompt();
+  },
+});
+// OBOM-specific analyst helper tips for SOC/IR and compliance workflows.
+cdxgenRepl.defineCommand("obomtips", {
+  help: "show analyst tips and useful commands for OBOM investigations",
+  action() {
+    console.log("OBOM analyst quick guide:");
+    console.log("1. .osinfocategories");
+    console.log("2. .print <category>  (examples below)");
+    console.log("   .print systemd_units");
+    console.log("   .print windows_run_keys");
+    console.log("   .print launchd_services");
+    console.log("3. .inspect <name>");
+    console.log("4. .services / .table / .summary for quick pivots");
+    console.log(
+      "Tip: Generate with --bom-audit --bom-audit-categories obom-runtime for prioritized findings.",
+    );
     this.displayPrompt();
   },
 });

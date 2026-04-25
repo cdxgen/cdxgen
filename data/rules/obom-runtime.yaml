@@ -268,3 +268,153 @@
       "path": name,
       "state": version
     }
+
+- id: OBOM-LNX-004
+  name: "Linux shell history contains suspicious download-execute pattern"
+  description: "Shell history with direct download-and-execute commands may indicate malware staging or hands-on-keyboard activity."
+  severity: high
+  category: obom-runtime
+  condition: |
+    components[
+      $prop($, 'cdx:osquery:category') = 'shell_history_snapshot'
+      and (
+        ($contains($lowercase(description), 'curl ') and $contains($lowercase(description), '| sh'))
+        or ($contains($lowercase(description), 'wget ') and $contains($lowercase(description), '| bash'))
+        or $contains($lowercase(description), 'base64 -d')
+        or $contains($lowercase(description), 'nc -e ')
+      )
+    ]
+  location: |
+    {
+      "bomRef": $."bom-ref",
+      "purl": purl
+    }
+  message: "Suspicious shell history entry for user '{{ name }}': {{ description }}"
+  mitigation: "Correlate with process/network telemetry, validate command intent, and isolate host if command lineage is untrusted."
+  evidence: |
+    {
+      "account": name,
+      "command": description,
+      "historyFile": $prop($, 'history_file'),
+      "timestamp": $prop($, 'time')
+    }
+
+- id: OBOM-LNX-005
+  name: "Docker API exposed over unauthenticated TCP port"
+  description: "Dockerd listening on TCP 2375 enables remote daemon control if not protected by network controls and TLS."
+  severity: critical
+  category: obom-runtime
+  condition: |
+    components[
+      $prop($, 'cdx:osquery:category') = 'listening_ports'
+      and $safeStr($prop($, 'port')) = '2375'
+      and (
+        $safeStr($prop($, 'address')) = '0.0.0.0'
+        or $safeStr($prop($, 'address')) = '::'
+      )
+    ]
+  location: |
+    {
+      "bomRef": $."bom-ref",
+      "purl": purl
+    }
+  message: "Potentially insecure Docker API exposure detected on {{ $prop($, 'address') }}:{{ $prop($, 'port') }} for process '{{ name }}'"
+  mitigation: "Disable insecure TCP listener, enforce TLS/mTLS, and restrict daemon access to trusted local interfaces."
+  evidence: |
+    {
+      "process": name,
+      "pid": $prop($, 'pid'),
+      "address": $prop($, 'address'),
+      "port": $prop($, 'port'),
+      "protocol": $prop($, 'protocol')
+    }
+
+- id: OBOM-WIN-004
+  name: "Hidden scheduled task uses suspicious execution path"
+  description: "Enabled hidden tasks executing from temp paths or encoded script launchers are common persistence tradecraft."
+  severity: high
+  category: obom-runtime
+  condition: |
+    components[
+      $prop($, 'cdx:osquery:category') = 'scheduled_tasks'
+      and $safeStr($prop($, 'enabled')) = '1'
+      and $safeStr($prop($, 'hidden')) = '1'
+      and (
+        $contains($lowercase($nullSafeProp($, 'path')), '\\temp\\')
+        or ($contains($lowercase($nullSafeProp($, 'action')), 'powershell') and $contains($lowercase($nullSafeProp($, 'action')), '-enc '))
+      )
+    ]
+  location: |
+    {
+      "bomRef": $."bom-ref",
+      "purl": purl
+    }
+  message: "Hidden scheduled task '{{ name }}' has suspicious action/path: {{ $prop($, 'action') }}"
+  mitigation: "Validate author and binary lineage, disable unauthorized tasks, and investigate task registration event history."
+  evidence: |
+    {
+      "taskName": name,
+      "taskPath": $prop($, 'path'),
+      "action": $prop($, 'action'),
+      "state": $prop($, 'state')
+    }
+
+- id: OBOM-WIN-005
+  name: "Auto-start Windows service points to user-writable path"
+  description: "Auto-start services from temp or AppData paths may indicate privilege persistence through service hijacking."
+  severity: critical
+  category: obom-runtime
+  condition: |
+    components[
+      $prop($, 'cdx:osquery:category') = 'services_snapshot'
+      and $safeStr($prop($, 'start_type')) = 'AUTO_START'
+      and (
+        $contains($lowercase($nullSafeProp($, 'path')), '\\temp\\')
+        or $contains($lowercase($nullSafeProp($, 'path')), '\\appdata\\')
+      )
+    ]
+  location: |
+    {
+      "bomRef": $."bom-ref",
+      "purl": purl
+    }
+  message: "Auto-start service '{{ name }}' launches from a user-writable path: {{ $prop($, 'path') }}"
+  mitigation: "Move binaries to protected system paths, lock ACLs, and validate service image hashes/signatures."
+  evidence: |
+    {
+      "serviceName": name,
+      "displayName": $prop($, 'display_name'),
+      "servicePath": $prop($, 'path'),
+      "account": $prop($, 'user_account')
+    }
+
+- id: OBOM-MAC-004
+  name: "macOS launchd override disables Apple-managed service"
+  description: "Launchd overrides disabling Apple-managed services can indicate tampering with built-in security or platform controls."
+  severity: medium
+  category: obom-runtime
+  condition: |
+    components[
+      $prop($, 'cdx:osquery:category') = 'launchd_overrides'
+      and $safeStr($prop($, 'key')) = 'Disabled'
+      and (
+        $safeStr($prop($, 'value')) = '1'
+        or $lowercase($safeStr($prop($, 'value'))) = 'true'
+      )
+      and $startsWith($safeStr($prop($, 'label')), 'com.apple.')
+    ]
+  location: |
+    {
+      "bomRef": $."bom-ref",
+      "purl": purl
+    }
+  message: "Launchd override disables Apple-managed label '{{ $prop($, 'label') }}'"
+  mitigation: "Review override provenance, restore approved launchd settings, and investigate unauthorized local configuration changes."
+  evidence: |
+    {
+      "label": $prop($, 'label'),
+      "key": $prop($, 'key'),
+      "value": $prop($, 'value'),
+      "uid": $prop($, 'uid'),
+      "plistPath": $prop($, 'path')
+    }
