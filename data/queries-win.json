@@ -89,13 +89,13 @@
     "componentType": "data"
   },
   "users_snapshot": {
-    "query": "SELECT username as name, uid as version, description, directory, uuid, type, gid FROM users;",
+    "query": "SELECT username as name, uuid as version, description, directory, uid, type, gid FROM users;",
     "description": "Local and domain-backed user account inventory on Windows endpoints.",
     "purlType": "swid",
     "componentType": "data"
   },
   "logged_in_users_snapshot": {
-    "query": "SELECT user as name, pid as version, type as description, host, tty, time, sid, registry_hive FROM logged_in_users;",
+    "query": "SELECT user as name, '' as version, type as description, pid, host, tty, time, sid, registry_hive FROM logged_in_users;",
     "description": "Interactive and remote user sessions active on the endpoint.",
     "purlType": "swid",
     "componentType": "data"

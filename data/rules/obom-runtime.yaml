@@ -22,7 +22,7 @@
       "bomRef": $."bom-ref",
       "purl": purl
     }
-  message: "Systemd unit '{{ name }}' references a temporary path (fragment: {{ $prop($, 'fragment_path') }}, source: {{ $prop($, 'source_path') }})"
+  message: "Systemd unit '{{ name }}' references temporary execution artifacts in its unit file path configuration"
   mitigation: "Move unit files to trusted system paths, validate ownership/permissions, and re-enable only approved services."
   evidence: |
     {
@@ -67,10 +67,8 @@
     components[
       $prop($, 'cdx:osquery:category') = 'authorized_keys_snapshot'
       and name = 'root'
-      and (
-        $nullSafeProp($, 'options') = ''
-        or $nullSafeProp($, 'options') = 'null'
-      )
+      and $hasProp($, 'options')
+      and $safeStr($prop($, 'options')) = ''
     ]
   location: |
     {
@@ -88,7 +86,7 @@
     }
 
 - id: OBOM-WIN-001
-  name: "Windows drive not protected by BitLocker"
+  name: "Windows drive without BitLocker protection"
   description: "Drives with disabled BitLocker protection can violate endpoint encryption requirements and increase data exposure risk."
   severity: high
   category: obom-runtime
@@ -158,7 +156,6 @@
       and (
         $contains($lowercase($nullSafeProp($, 'description')), '\\appdata\\local\\temp\\')
         or $contains($lowercase($nullSafeProp($, 'description')), '\\temp\\')
-        or $contains($lowercase($nullSafeProp($, 'description')), 'powershell')
         or $contains($lowercase($nullSafeProp($, 'description')), '-enc ')
       )
     ]
@@ -243,7 +240,7 @@
     }
 
 - id: OBOM-MAC-003
-  name: "macOS firewall exception in risky user path"
+  name: "macOS firewall exception for binary in untrusted user path"
   description: "ALF exceptions for binaries in user Downloads/Desktop/tmp increase risk of untrusted inbound network exposure."
   severity: medium
   category: obom-runtime

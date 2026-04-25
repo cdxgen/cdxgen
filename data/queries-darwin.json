@@ -48,13 +48,13 @@
     "componentType": "data"
   },
   "users_snapshot": {
-    "query": "SELECT username as name, uid as version, description, directory, shell, uuid, gid, is_hidden FROM users;",
+    "query": "SELECT username as name, uuid as version, description, directory, shell, uid, gid, is_hidden FROM users;",
     "description": "Local account inventory including hidden-user attributes on macOS.",
     "purlType": "swid",
     "componentType": "data"
   },
   "logged_in_users_snapshot": {
-    "query": "SELECT user as name, pid as version, type as description, host, tty, time FROM logged_in_users;",
+    "query": "SELECT user as name, '' as version, type as description, pid, host, tty, time FROM logged_in_users;",
     "description": "Interactive and remote user sessions currently active on the host.",
     "purlType": "swid",
     "componentType": "data"
