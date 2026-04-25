@@ -922,7 +922,7 @@ jobs:
           curl --output-dir standalone-vsix-files -LO https://open-vsx.org/api/Vue/volar/3.2.6/file/Vue.volar-3.2.6.vsix
           bin/cdxgen.js standalone-vsix-files -t vscode -o bomresults/bom-standalone-vsix-files.json -p --bom-audit
         shell: bash
-      - name: standalone chrome extension manifests (OpenAI/Anthropic/Copilot)
+      - name: standalone chrome extension manifests (AI-targeted community fixtures)
         run: |
           mkdir -p standalone-chrome-exts/iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii/1.0.4
           mkdir -p standalone-chrome-exts/jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj/0.1.0

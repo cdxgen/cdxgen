@@ -21,14 +21,14 @@
   },
   "chrome-youtube-summary-chatgpt-manifest.json": {
     "source": "https://raw.githubusercontent.com/kazuki-sf/YouTube_Summary_with_ChatGPT/bae70b64d40425357e2b66c09aa59edc1f55a743/manifest.json",
-    "notes": "Real ChatGPT/OpenAI-targeted Chrome extension manifest (YouTube Summary with ChatGPT)."
+    "notes": "Real community Chrome extension manifest targeting ChatGPT/OpenAI domains (not an official OpenAI extension)."
   },
   "chrome-agentbrain-chatgpt-claude-manifest.json": {
     "source": "https://raw.githubusercontent.com/AgentBrainHQ/agentbrain-chrome-ext/c5784d93a477777593c4fb7d8cb9d322897e46a1/manifest.json",
-    "notes": "Real AI multi-provider extension manifest with ChatGPT/OpenAI and Claude/Anthropic host permissions."
+    "notes": "Real community multi-provider extension manifest with ChatGPT/OpenAI and Claude/Anthropic host permissions (not official provider extensions)."
   },
   "chrome-copilottts-manifest.json": {
     "source": "https://raw.githubusercontent.com/LookAtWhatAiCanDo/CopilotTTS/580d8478d216a6a5e7db0280ac20ee16249a2b77/manifest.json",
-    "notes": "Real GitHub Copilot-focused Chrome extension manifest."
+    "notes": "Real community Chrome extension manifest focused on GitHub Copilot pages (not an official GitHub Copilot extension)."
   }
 }
