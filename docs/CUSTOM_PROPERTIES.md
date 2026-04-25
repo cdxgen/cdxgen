@@ -55,7 +55,7 @@ CycloneDX custom properties are emitted as name/value pairs, so consumers should
 | `cdx:build:versionSpecifiers`                                              | Build/manifest parsing (for example C/C++ build metadata) | Non-exact version constraints captured from build descriptors                                                       | Highlight non-pinned dependency constraints and prioritize hardening toward deterministic builds                                                                 | [Cross-cutting BOM/service/build metadata](#inventory-cross-cutting) | [5](#example-5)                  |
 | `cdx:osquery:category`                                                     | Host/package discovery via osquery                        | Query/source category for discovered packages                                                                       | Separate inventory confidence by collection method and tune host-level evidence policies                                                                         | [Cross-cutting BOM/service/build metadata](#inventory-cross-cutting) | [5](#example-5)                  |
 | `cdx:vscode-extension:*`                                                   | VS Code / IDE extensions (`.vsix` and installed dirs)     | Activation events, extension kind, contributed features, lifecycle scripts, workspace trust posture                 | Detect always-on extensions, flag install-time script execution, audit host/filesystem access, enforce workspace trust and virtual workspace policies            | [IDE and editor extensions](#inventory-ide-extensions)               | [7](#example-7)                  |
-| `cdx:chrome-extension:*`                                                   | Chromium browser extensions (`-t chrome-extension`, `-t os`) | Browser/profile context, permissions, content-script execution timing, command surface, storage/managed schema cues | Flag broad host permissions, web-request interception capability, early-injection content scripts, and autofill/credential-handling exposure                    | [IDE and editor extensions](#inventory-ide-extensions)               | [7](#example-7)                  |
+| `cdx:chrome-extension:*`                                                   | Chromium browser extensions (`-t chrome-extension`, `-t os`) | Browser/profile context, Chrome/Edge/Brave manifest metadata, capability signals from manifest + Babel source analysis | Flag broad host permissions, web-request interception capability, file/device/network/bluetooth/accessibility/code-injection/fingerprinting exposure             | [IDE and editor extensions](#inventory-ide-extensions)               | [7](#example-7)                  |
 | `cdx:service:httpMethod`                                                   | OpenAPI/service evidence                                  | HTTP method associated with discovered service endpoints                                                            | Support API exposure reviews (method-level attack surface and access-control assurance)                                                                          | [Cross-cutting BOM/service/build metadata](#inventory-cross-cutting) | [5](#example-5)                  |
 
 ## Useful keys
@@ -84,6 +84,8 @@ These are the highest-leverage keys for first-pass policy authoring.
 | `cdx:chrome-extension:hostPermissions`     | Captures MV3 host permissions, including wildcard URL scope                        | Hard deny        |
 | `cdx:chrome-extension:contentScriptsRunAt` | Captures content script injection timing such as `document_start`                  | Warning / triage |
 | `cdx:chrome-extension:hasAutofill`         | Signals autofill-related capability detected from manifest content                 | Warning / triage |
+| `cdx:chrome-extension:capability:codeInjection` | Signals explicit code-injection capability from manifest/source analysis       | Hard deny        |
+| `cdx:chrome-extension:capability:fingerprinting` | Signals fingerprinting-relevant APIs/permissions from manifest/source analysis | Warning / triage |
 
 ## Current key inventory (grouped)
 
@@ -349,7 +351,7 @@ The grouped lists below remain the authoritative inventory. The compact tables, 
 #### Authoritative grouped index
 
 - **VS Code extensions:** `cdx:vscode-extension:activationEvents`, `cdx:vscode-extension:browser`, `cdx:vscode-extension:contributes`, `cdx:vscode-extension:executesCode`, `cdx:vscode-extension:extensionDependencies`, `cdx:vscode-extension:extensionKind`, `cdx:vscode-extension:extensionPack`, `cdx:vscode-extension:ide`, `cdx:vscode-extension:lifecycleScripts`, `cdx:vscode-extension:main`, `cdx:vscode-extension:untrustedWorkspaces`, `cdx:vscode-extension:virtualWorkspaces`, `cdx:vscode-extension:vscodeEngine`
-- **Chromium browser extensions:** `cdx:chrome-extension:browser`, `cdx:chrome-extension:channel`, `cdx:chrome-extension:profile`, `cdx:chrome-extension:profilePath`, `cdx:chrome-extension:manifestVersion`, `cdx:chrome-extension:updateUrl`, `cdx:chrome-extension:permissions`, `cdx:chrome-extension:optionalPermissions`, `cdx:chrome-extension:hostPermissions`, `cdx:chrome-extension:commands`, `cdx:chrome-extension:contentScriptsRunAt`, `cdx:chrome-extension:contentSecurityPolicy`, `cdx:chrome-extension:storageManagedSchema`, `cdx:chrome-extension:hasAutofill`
+- **Chromium browser extensions:** `cdx:chrome-extension:browser`, `cdx:chrome-extension:channel`, `cdx:chrome-extension:profile`, `cdx:chrome-extension:profilePath`, `cdx:chrome-extension:manifestVersion`, `cdx:chrome-extension:updateUrl`, `cdx:chrome-extension:minimumChromeVersion`, `cdx:chrome-extension:versionName`, `cdx:chrome-extension:incognito`, `cdx:chrome-extension:offlineEnabled`, `cdx:chrome-extension:permissions`, `cdx:chrome-extension:optionalPermissions`, `cdx:chrome-extension:hostPermissions`, `cdx:chrome-extension:optionalHostPermissions`, `cdx:chrome-extension:commands`, `cdx:chrome-extension:contentScriptsRunAt`, `cdx:chrome-extension:contentSecurityPolicy`, `cdx:chrome-extension:storageManagedSchema`, `cdx:chrome-extension:webAccessibleResourceMatches`, `cdx:chrome-extension:externallyConnectableMatches`, `cdx:chrome-extension:capabilities`, `cdx:chrome-extension:capability:fileAccess`, `cdx:chrome-extension:capability:deviceAccess`, `cdx:chrome-extension:capability:network`, `cdx:chrome-extension:capability:bluetooth`, `cdx:chrome-extension:capability:accessibility`, `cdx:chrome-extension:capability:codeInjection`, `cdx:chrome-extension:capability:fingerprinting`, `cdx:chrome-extension:hasAutofill`, `cdx:chrome-extension:edge:minimumVersion`, `cdx:chrome-extension:edge:urlOverrides`, `cdx:chrome-extension:brave:maybeBackground`, `cdx:chrome-extension:brave:permissions`
 
 #### Decision-oriented sub-groups
 
@@ -357,9 +359,9 @@ The grouped lists below remain the authoritative inventory. The compact tables, 
 - **Privilege / trust:** `cdx:vscode-extension:untrustedWorkspaces`, `cdx:vscode-extension:virtualWorkspaces`, `cdx:vscode-extension:activationEvents`
 - **Dependency chain:** `cdx:vscode-extension:extensionDependencies`, `cdx:vscode-extension:extensionPack`
 - **Context / provenance:** `cdx:vscode-extension:ide`, `cdx:vscode-extension:extensionKind`, `cdx:vscode-extension:vscodeEngine`
-- **Browser extension execution surface:** `cdx:chrome-extension:contentScriptsRunAt`, `cdx:chrome-extension:commands`, `cdx:chrome-extension:contentSecurityPolicy`, `cdx:chrome-extension:hasAutofill`
-- **Browser extension privilege / scope:** `cdx:chrome-extension:permissions`, `cdx:chrome-extension:optionalPermissions`, `cdx:chrome-extension:hostPermissions`
-- **Browser extension context / provenance:** `cdx:chrome-extension:browser`, `cdx:chrome-extension:channel`, `cdx:chrome-extension:profile`, `cdx:chrome-extension:profilePath`, `cdx:chrome-extension:manifestVersion`, `cdx:chrome-extension:updateUrl`, `cdx:chrome-extension:storageManagedSchema`
+- **Browser extension execution surface:** `cdx:chrome-extension:contentScriptsRunAt`, `cdx:chrome-extension:commands`, `cdx:chrome-extension:contentSecurityPolicy`, `cdx:chrome-extension:capability:codeInjection`, `cdx:chrome-extension:hasAutofill`
+- **Browser extension privilege / scope:** `cdx:chrome-extension:permissions`, `cdx:chrome-extension:optionalPermissions`, `cdx:chrome-extension:hostPermissions`, `cdx:chrome-extension:optionalHostPermissions`
+- **Browser extension context / provenance:** `cdx:chrome-extension:browser`, `cdx:chrome-extension:channel`, `cdx:chrome-extension:profile`, `cdx:chrome-extension:profilePath`, `cdx:chrome-extension:manifestVersion`, `cdx:chrome-extension:updateUrl`, `cdx:chrome-extension:minimumChromeVersion`, `cdx:chrome-extension:versionName`, `cdx:chrome-extension:storageManagedSchema`, `cdx:chrome-extension:edge:minimumVersion`, `cdx:chrome-extension:brave:maybeBackground`
 
 #### Compact operational reference
 
@@ -446,7 +448,9 @@ The grouped lists below remain the authoritative inventory. The compact tables, 
 - `cdx:vscode-extension:contributes` is a summary list, not a full enumeration. The count suffix (for example `commands:count:42`) indicates how many contribution points exist in that category.
 - Extensions discovered via osquery (`-t os`) use the same `pkg:vscode-extension` purl type and may also carry `cdx:osquery:category`.
 - Chromium-browser extensions discovered via `-t chrome-extension` can include `cdx:chrome-extension:browser`, `cdx:chrome-extension:channel`, `cdx:chrome-extension:profile`, `cdx:chrome-extension:profilePath`, `cdx:chrome-extension:manifestVersion`, and `cdx:chrome-extension:updateUrl`.
-- Chromium-browser extensions discovered via `-t chrome-extension` can include security-sensitive fields from real manifests: `cdx:chrome-extension:permissions`, `cdx:chrome-extension:optionalPermissions`, `cdx:chrome-extension:hostPermissions`, `cdx:chrome-extension:commands`, `cdx:chrome-extension:contentScriptsRunAt`, `cdx:chrome-extension:contentSecurityPolicy`, `cdx:chrome-extension:storageManagedSchema`, and `cdx:chrome-extension:hasAutofill`.
+- Chromium-browser extensions discovered via `-t chrome-extension` can include security-sensitive fields from real manifests: `cdx:chrome-extension:permissions`, `cdx:chrome-extension:optionalPermissions`, `cdx:chrome-extension:hostPermissions`, `cdx:chrome-extension:optionalHostPermissions`, `cdx:chrome-extension:commands`, `cdx:chrome-extension:contentScriptsRunAt`, `cdx:chrome-extension:contentSecurityPolicy`, `cdx:chrome-extension:storageManagedSchema`, `cdx:chrome-extension:webAccessibleResourceMatches`, `cdx:chrome-extension:externallyConnectableMatches`, and `cdx:chrome-extension:hasAutofill`.
+- Chromium-browser extensions can include capability booleans derived from manifest + Babel source analysis: `cdx:chrome-extension:capability:fileAccess`, `cdx:chrome-extension:capability:deviceAccess`, `cdx:chrome-extension:capability:network`, `cdx:chrome-extension:capability:bluetooth`, `cdx:chrome-extension:capability:accessibility`, `cdx:chrome-extension:capability:codeInjection`, and `cdx:chrome-extension:capability:fingerprinting`.
+- Vendor-specific fields are namespaced explicitly: Edge (`cdx:chrome-extension:edge:*`) and Brave (`cdx:chrome-extension:brave:*`).
 - Chrome extensions discovered via osquery (`-t os`) use `pkg:chrome-extension` and may also carry `cdx:osquery:category`.
 
 ## Consumer-oriented views
@@ -522,8 +526,16 @@ The grouped lists below remain the authoritative inventory. The compact tables, 
 - `cdx:chrome-extension:permissions`
 - `cdx:chrome-extension:optionalPermissions`
 - `cdx:chrome-extension:hostPermissions`
+- `cdx:chrome-extension:optionalHostPermissions`
 - `cdx:chrome-extension:contentScriptsRunAt`
 - `cdx:chrome-extension:commands`
+- `cdx:chrome-extension:capability:fileAccess`
+- `cdx:chrome-extension:capability:deviceAccess`
+- `cdx:chrome-extension:capability:network`
+- `cdx:chrome-extension:capability:bluetooth`
+- `cdx:chrome-extension:capability:accessibility`
+- `cdx:chrome-extension:capability:codeInjection`
+- `cdx:chrome-extension:capability:fingerprinting`
 - `cdx:chrome-extension:hasAutofill`
 
 ## Entry template for future additions

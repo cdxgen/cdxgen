@@ -117,7 +117,7 @@ Rules that evaluate VS Code extension metadata for install-time execution, alway
 
 ### `chrome-extension` — Chromium Browser Extension Security
 
-Rules that evaluate Chrome/Chromium/Edge extension metadata for broad site access, request interception, early script injection, and autofill-related risk posture.
+Rules that evaluate Chrome/Chromium/Edge/Brave extension metadata for broad site access, request interception, early script injection, autofill, and capability-derived risk posture (file/device/code-injection/fingerprinting).
 
 | Rule    | Severity | Description                                                                       |
 | ------- | -------- | --------------------------------------------------------------------------------- |
@@ -125,6 +125,9 @@ Rules that evaluate Chrome/Chromium/Edge extension metadata for broad site acces
 | CHE-002 | critical | Extension can intercept and block web requests (`webRequest` + `webRequestBlocking`) |
 | CHE-003 | high     | Extension injects content scripts at `document_start` with broad host access     |
 | CHE-004 | medium   | Autofill-capable extension has broad host permissions                             |
+| CHE-005 | high     | Extension combines broad host scope with file/device/bluetooth capabilities       |
+| CHE-006 | critical | Extension has code-injection capability with broad host scope                     |
+| CHE-007 | high     | Extension has fingerprinting capability indicators with broad host scope           |
 
 ## Writing custom rules
 

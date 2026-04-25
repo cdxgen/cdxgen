@@ -14,5 +14,9 @@
   "edge-duckduckgo-manifest.json": {
     "source": "https://raw.githubusercontent.com/duckduckgo/duckduckgo-privacy-extension/main/browsers/chrome/manifest.json",
     "notes": "DuckDuckGo Privacy Essentials Chromium manifest with MV3 host_permissions and managed storage."
+  },
+  "brave-core-manifest.json": {
+    "source": "https://raw.githubusercontent.com/brave/brave-core/master/components/brave_extension/extension/brave_extension/manifest.json",
+    "notes": "Brave core extension manifest with Brave-specific MAYBE_background and webDiscovery permissions."
   }
 }
