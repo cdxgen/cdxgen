@@ -59,7 +59,7 @@ Use OBOM sections as auditable evidence artifacts:
 
 - **Access control / privileged operations**: `sudoers_snapshot`, account/session tables
 - **Change and configuration management**: startup/task/service/launchd/run-key tables
-- **Endpoint protection and hardening**: `windows_security_center`, `windows_security_products`, `alf`, `bitlocker_info`
+- **Endpoint protection and hardening**: `windows_security_center`, `windows_security_products`, `alf`, `windows_bitlocker_info`
 - **Data protection**: drive encryption posture from BitLocker and related host controls
 
 ## 5) BOM audit lesson: category-driven enforcement

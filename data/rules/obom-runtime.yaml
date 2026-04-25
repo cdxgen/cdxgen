@@ -154,9 +154,9 @@
     components[
       $prop($, 'cdx:osquery:category') = 'windows_run_keys'
       and (
-        $contains($lowercase($nullSafeProp($, 'description')), '\\appdata\\local\\temp\\')
-        or $contains($lowercase($nullSafeProp($, 'description')), '\\temp\\')
-        or $contains($lowercase($nullSafeProp($, 'description')), '-enc ')
+        $contains($lowercase($safeStr(description)), '\\appdata\\local\\temp\\')
+        or $contains($lowercase($safeStr(description)), '\\temp\\')
+        or $contains($lowercase($safeStr(description)), '-enc ')
       )
     ]
   location: |
@@ -248,11 +248,11 @@
     components[
       $prop($, 'cdx:osquery:category') = 'alf_exceptions'
       and (
-        $contains($nullSafeProp($, 'name'), '/Users/')
+        $contains($safeStr(name), '/Users/')
         and (
-          $contains($nullSafeProp($, 'name'), '/Downloads/')
-          or $contains($nullSafeProp($, 'name'), '/Desktop/')
-          or $contains($nullSafeProp($, 'name'), '/tmp/')
+          $contains($safeStr(name), '/Downloads/')
+          or $contains($safeStr(name), '/Desktop/')
+          or $contains($safeStr(name), '/tmp/')
         )
       )
     ]
