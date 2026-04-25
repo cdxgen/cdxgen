@@ -927,9 +927,9 @@ jobs:
           mkdir -p standalone-chrome-exts/iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii/1.0.4
           mkdir -p standalone-chrome-exts/jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj/0.1.0
           mkdir -p standalone-chrome-exts/kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk/1.0.0
-          curl -Lo standalone-chrome-exts/iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii/1.0.4/manifest.json https://raw.githubusercontent.com/kazuki-sf/YouTube_Summary_with_ChatGPT/bae70b64d40425357e2b66c09aa59edc1f55a743/manifest.json
-          curl -Lo standalone-chrome-exts/jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj/0.1.0/manifest.json https://raw.githubusercontent.com/AgentBrainHQ/agentbrain-chrome-ext/c5784d93a477777593c4fb7d8cb9d322897e46a1/manifest.json
-          curl -Lo standalone-chrome-exts/kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk/1.0.0/manifest.json https://raw.githubusercontent.com/LookAtWhatAiCanDo/CopilotTTS/580d8478d216a6a5e7db0280ac20ee16249a2b77/manifest.json
+          cp test/data/chrome-extensions/chrome-youtube-summary-chatgpt-manifest.json standalone-chrome-exts/iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii/1.0.4/manifest.json
+          cp test/data/chrome-extensions/chrome-agentbrain-chatgpt-claude-manifest.json standalone-chrome-exts/jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj/0.1.0/manifest.json
+          cp test/data/chrome-extensions/chrome-copilottts-manifest.json standalone-chrome-exts/kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk/1.0.0/manifest.json
           bin/cdxgen.js standalone-chrome-exts/iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii/1.0.4 -t chrome-extension -o bomresults/bom-standalone-chrome-openai.json --bom-audit --fail-on-error
           bin/cdxgen.js standalone-chrome-exts/jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj/0.1.0 -t chrome-extension -o bomresults/bom-standalone-chrome-anthropic.json --bom-audit --fail-on-error
           bin/cdxgen.js standalone-chrome-exts/kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk/1.0.0 -t chrome-extension -o bomresults/bom-standalone-chrome-copilot.json --bom-audit --fail-on-error
