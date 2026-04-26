@@ -35,8 +35,8 @@ import {
   maybeRemotePath,
   PURL_REGISTRY_LOOKUP_WARNING,
   resolveGitUrlFromPurl,
-  validatePurlSource,
   validateAndRejectGitSource,
+  validatePurlSource,
 } from "../lib/helpers/source.js";
 import {
   commandsExecuted,

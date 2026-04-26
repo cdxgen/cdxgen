@@ -54,6 +54,7 @@ Configure host allowlists before scanning remote sources in sensitive environmen
 
 ```shell
 export CDXGEN_GIT_ALLOWED_HOSTS="github.com"
+# Registry lookups for purl metadata still use CDXGEN_ALLOWED_HOSTS
 export CDXGEN_ALLOWED_HOSTS="registry.npmjs.org,github.com"
 cdxgen -t js -o bom-safe.json "pkg:npm/lodash@4.17.21"
 ```
