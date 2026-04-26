@@ -1,0 +1,34 @@
+{
+  "chrome-bitwarden-manifest.json": {
+    "source": "https://raw.githubusercontent.com/bitwarden/clients/main/apps/browser/src/manifest.json",
+    "notes": "Bitwarden browser extension (published for Chrome and Edge)."
+  },
+  "chromium-ublock-origin-manifest.json": {
+    "source": "https://raw.githubusercontent.com/gorhill/uBlock/master/platform/chromium/manifest.json",
+    "notes": "uBlock Origin Chromium manifest."
+  },
+  "edge-dark-reader-manifest.json": {
+    "source": "https://raw.githubusercontent.com/darkreader/darkreader/main/src/manifest.json",
+    "notes": "Dark Reader browser extension (published for Edge and Chrome)."
+  },
+  "edge-duckduckgo-manifest.json": {
+    "source": "https://raw.githubusercontent.com/duckduckgo/duckduckgo-privacy-extension/main/browsers/chrome/manifest.json",
+    "notes": "DuckDuckGo Privacy Essentials Chromium manifest with MV3 host_permissions and managed storage."
+  },
+  "brave-core-manifest.json": {
+    "source": "https://raw.githubusercontent.com/brave/brave-core/master/components/brave_extension/extension/brave_extension/manifest.json",
+    "notes": "Brave core extension manifest with Brave-specific MAYBE_background and webDiscovery permissions. MAYBE_background is copied exactly from the upstream Brave manifest."
+  },
+  "chrome-youtube-summary-chatgpt-manifest.json": {
+    "source": "https://raw.githubusercontent.com/kazuki-sf/YouTube_Summary_with_ChatGPT/bae70b64d40425357e2b66c09aa59edc1f55a743/manifest.json",
+    "notes": "Real community Chrome extension manifest targeting ChatGPT/OpenAI domains (not an official OpenAI extension)."
+  },
+  "chrome-agentbrain-chatgpt-claude-manifest.json": {
+    "source": "https://raw.githubusercontent.com/AgentBrainHQ/agentbrain-chrome-ext/c5784d93a477777593c4fb7d8cb9d322897e46a1/manifest.json",
+    "notes": "Real community multi-provider extension manifest with ChatGPT/OpenAI and Claude/Anthropic host permissions (not official provider extensions)."
+  },
+  "chrome-copilottts-manifest.json": {
+    "source": "https://raw.githubusercontent.com/LookAtWhatAiCanDo/CopilotTTS/580d8478d216a6a5e7db0280ac20ee16249a2b77/manifest.json",
+    "notes": "Real community Chrome extension manifest focused on GitHub Copilot pages (not an official GitHub Copilot extension)."
+  }
+}

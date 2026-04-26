@@ -922,6 +922,18 @@ jobs:
           curl --output-dir standalone-vsix-files -LO https://open-vsx.org/api/Vue/volar/3.2.6/file/Vue.volar-3.2.6.vsix
           bin/cdxgen.js standalone-vsix-files -t vscode -o bomresults/bom-standalone-vsix-files.json -p --bom-audit
         shell: bash
+      - name: standalone chrome extension manifests (AI-targeted community fixtures)
+        run: |
+          mkdir -p standalone-chrome-exts/iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii/1.0.4
+          mkdir -p standalone-chrome-exts/jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj/0.1.0
+          mkdir -p standalone-chrome-exts/kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk/1.0.0
+          cp test/data/chrome-extensions/chrome-youtube-summary-chatgpt-manifest.json standalone-chrome-exts/iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii/1.0.4/manifest.json
+          cp test/data/chrome-extensions/chrome-agentbrain-chatgpt-claude-manifest.json standalone-chrome-exts/jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj/0.1.0/manifest.json
+          cp test/data/chrome-extensions/chrome-copilottts-manifest.json standalone-chrome-exts/kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk/1.0.0/manifest.json
+          bin/cdxgen.js standalone-chrome-exts/iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii/1.0.4 -t chrome-extension -o bomresults/bom-standalone-chrome-openai.json --bom-audit --fail-on-error
+          bin/cdxgen.js standalone-chrome-exts/jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj/0.1.0 -t chrome-extension -o bomresults/bom-standalone-chrome-anthropic.json --bom-audit --fail-on-error
+          bin/cdxgen.js standalone-chrome-exts/kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk/1.0.0 -t chrome-extension -o bomresults/bom-standalone-chrome-copilot.json --bom-audit --fail-on-error
+        shell: bash
       - name: post-build lifecycle tests
         run: |
           python3 -m pip install blint
