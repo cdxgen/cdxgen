@@ -134,6 +134,11 @@ paths:
           required: false
           schema:
             $ref: '#/components/schemas/CDXGEN/properties/specVersion'
+        - name: format
+          in: query
+          required: false
+          schema:
+            $ref: '#/components/schemas/CDXGEN/properties/format'
         - name: filter
           in: query
           required: false
@@ -298,6 +303,18 @@ components:
           type: string
           description: CycloneDX Specification version to use
           default: "1.7"
+        format:
+          type: array
+          items:
+            type: string
+            enum:
+              - cyclonedx
+              - cdx
+              - spdx
+              - spdx-json
+              - spdx3
+              - spdx3-json
+          description: Export format(s). Supports cyclonedx and spdx.
         filter:
           type: array
           items:

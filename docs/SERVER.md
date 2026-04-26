@@ -50,6 +50,7 @@ Arguments can be passed either via the query string or as a JSON body. The follo
 | serverUrl          | URL to the Dependency Track API server.                                                                                                                                                                                                                                                                                               |
 | apiKey             | API key for the Dependency Track API server.                                                                                                                                                                                                                                                                                          |
 | specVersion        | CycloneDX Specification version to use. [default: 1.5]                                                                                                                                                                                                                                                                                |
+| format             | Export format. Supports `cyclonedx` and `spdx` (also accepts comma-separated/repeated values; server returns SPDX when `spdx` is requested).                                                                                                                                                                                           |
 | filter             | Filter components containing this word in purl. Multiple values allowed. [array]                                                                                                                                                                                                                                                      |
 | only               | Include components only containing this word in purl. Useful to generate BOM with first party components alone. Multiple values allowed.[array]                                                                                                                                                                                       |
 | autoCompositions   | Automatically set compositions when the BOM was filtered. [boolean] [default: true]                                                                                                                                                                                                                                                   |
@@ -68,6 +69,12 @@ Arguments can be passed either via the query string or as a JSON body. The follo
 
 ```shell
 curl "http://127.0.0.1:9090/sbom?path=/Volumes/Work/sandbox/vulnerable-aws-koa-app&multiProject=true&type=js"
+```
+
+### Requesting SPDX output
+
+```shell
+curl "http://127.0.0.1:9090/sbom?path=/Volumes/Work/sandbox/vulnerable-aws-koa-app&multiProject=true&type=js&format=spdx"
 ```
 
 ### Scanning a git repo
