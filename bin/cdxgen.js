@@ -35,6 +35,7 @@ import {
   maybeRemotePath,
   PURL_REGISTRY_LOOKUP_WARNING,
   resolveGitUrlFromPurl,
+  validatePurlSource,
   validateAndRejectGitSource,
 } from "../lib/helpers/source.js";
 import {
@@ -974,6 +975,11 @@ const needsBomSigning = ({ generateKeyAndSign }) =>
   }
   let sourcePath = filePath;
   if (maybePurlSource(sourcePath)) {
+    const purlValidationError = validatePurlSource(sourcePath);
+    if (purlValidationError) {
+      console.error(purlValidationError.error, purlValidationError.details);
+      process.exit(1);
+    }
     const purlResolution = await resolveGitUrlFromPurl(sourcePath);
     if (!purlResolution?.repoUrl) {
       console.error(

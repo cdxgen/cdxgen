@@ -174,4 +174,10 @@ cdxgen -t js -o bom.json "pkg:npm/lodash@4.17.21"
 
 For purl inputs, cdxgen resolves registry metadata to locate a repository URL, clones the source to a temporary directory, and runs the normal SBOM + post-processing pipeline.
 
+Supported purl source types:
+
+- `npm`, `pypi`, `gem`, `cargo`, `pub` (registry metadata lookup)
+- `docker` (derived from namespace/name and qualifiers)
+- `generic` (requires `vcs_url` or `download_url` qualifier)
+
 > **Security note:** Registry metadata can be inaccurate or malicious. Validate the resolved repository URL before relying on the SBOM.
