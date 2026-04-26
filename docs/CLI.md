@@ -65,8 +65,10 @@ Commands:
 
 Options:
   -o, --output                    Output file. Default bom.json                                    [default: "bom.json"]
+      --format                    Export format(s). Supports cyclonedx, spdx, or a comma-separated list such as
+                                  cyclonedx,spdx.                                                            [string]
   -t, --type                      Project type. Please refer to https://cdxgen.github.io/cdxgen/#/PROJECT_TYPES for supp
-                                  orted languages/platforms.                                                     [array]
+                                   orted languages/platforms.                                                     [array]
       --exclude-type              Project types to exclude. Please refer to https://cdxgen.github.io/cdxgen/#/PROJECT_TY
                                   PES for supported languages/platforms.
   -r, --recurse                   Recurse mode suitable for mono-repos. Defaults to true. Pass --no-recurse to disable.
@@ -150,3 +152,31 @@ for documentation, visit https://cdxgen.github.io/cdxgen
 ```
 
 All boolean arguments accept `--no` prefix to toggle the behavior.
+
+## Export formats
+
+CycloneDX remains the default export format.
+
+Use `--format spdx` to emit an SPDX 3.0.1 JSON-LD document:
+
+```shell
+cdxgen -t nodejs --format spdx -o bom.spdx.json .
+```
+
+Use `--format cyclonedx,spdx` to emit both formats in one run. The `--output`
+path is used for the CycloneDX file and cdxgen writes a sibling `*.spdx.json`
+file for the SPDX export:
+
+```shell
+cdxgen -t nodejs --format cyclonedx,spdx -o bom.cdx.json .
+```
+
+If the output file already ends with `.spdx.json`, cdxgen automatically selects
+the SPDX export format:
+
+```shell
+cdxgen -t nodejs -o bom.spdx.json .
+```
+
+When `--validate` is enabled, cdxgen validates the generated SPDX 3.0.1 export
+after converting the final CycloneDX BOM.

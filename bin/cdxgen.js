@@ -25,6 +25,10 @@ import {
   printSummary,
   printTable,
 } from "../lib/helpers/display.js";
+import {
+  createOutputPlan,
+  getOutputDirectory,
+} from "../lib/helpers/exportUtils.js";
 import { TRACE_MODE, thoughtEnd, thoughtLog } from "../lib/helpers/logger.js";
 import {
   commandsExecuted,
@@ -42,9 +46,10 @@ import {
   toCamel,
 } from "../lib/helpers/utils.js";
 import { postProcess } from "../lib/stages/postgen/postgen.js";
+import { convertCycloneDxToSpdx } from "../lib/stages/postgen/spdxConverter.js";
 import { auditEnvironment } from "../lib/stages/pregen/envAudit.js";
 import { prepareEnv } from "../lib/stages/pregen/pregen.js";
-import { validateBom } from "../lib/validator/bomValidator.js";
+import { validateBom, validateSpdx } from "../lib/validator/bomValidator.js";
 
 // Support for config files
 const configPaths = [
@@ -322,6 +327,11 @@ const args = _yargs
     default: false,
     description: "Serialize and export BOM as protobuf binary.",
   })
+  .option("format", {
+    description:
+      "Export format(s). Supports cyclonedx, spdx, or a comma-separated list such as cyclonedx,spdx.",
+    type: "string",
+  })
   .option("proto-bin-file", {
     description: "Path for the serialized protobuf binary.",
     default: "bom.cdx",
@@ -562,14 +572,16 @@ const options = Object.assign({}, args, {
   exclude: args.exclude || args.excludeRegex,
   include: args.include || args.includeRegex,
 });
-// Should we create the output directory?
-const outputDirectory = dirname(options.output);
-if (
-  outputDirectory &&
-  outputDirectory !== process.cwd() &&
-  !safeExistsSync(outputDirectory)
-) {
-  fs.mkdirSync(outputDirectory, { recursive: true });
+const outputPlan = createOutputPlan(options);
+for (const outputFile of Object.values(outputPlan.outputs)) {
+  const outputDirectory = getOutputDirectory(outputFile);
+  if (
+    outputDirectory &&
+    outputDirectory !== process.cwd() &&
+    !safeExistsSync(outputDirectory)
+  ) {
+    fs.mkdirSync(outputDirectory, { recursive: true });
+  }
 }
 // Filter duplicate types. Eg: -t gradle -t gradle
 if (options.projectType && Array.isArray(options.projectType)) {
@@ -929,6 +941,129 @@ const needsBomSigning = ({ generateKeyAndSign }) =>
       safeExistsSync(process.env.SBOM_SIGN_PRIVATE_KEY)) ||
       process.env.SBOM_SIGN_PRIVATE_KEY_BASE64));
 
+const stringifyJson = (jsonPayload, jsonPretty) =>
+  typeof jsonPayload === "string" || jsonPayload instanceof String
+    ? jsonPayload
+    : JSON.stringify(jsonPayload, null, jsonPretty ? 2 : null);
+
+const writeCycloneDxOutput = (jsonFile, bomJson, options) => {
+  const jsonPayload = stringifyJson(bomJson, options.jsonPretty);
+  fs.writeFileSync(jsonFile, jsonPayload);
+  if (jsonFile.endsWith("bom.json")) {
+    thoughtLog(
+      `Let's save the file to "${jsonFile}". Should I suggest the '.cdx.json' file extension for better semantics?`,
+    );
+  } else {
+    thoughtLog(`Let's save the file to "${jsonFile}".`);
+  }
+  if (!jsonPayload || !needsBomSigning(options)) {
+    return jsonPayload;
+  }
+  let alg = process.env.SBOM_SIGN_ALGORITHM || "RS512";
+  if (alg.includes("none")) {
+    alg = "RS512";
+  }
+  let privateKeyToUse;
+  let jwkPublicKey;
+  let publicKeyFile;
+  if (options.generateKeyAndSign) {
+    const jdirName = dirname(jsonFile);
+    publicKeyFile = join(jdirName, "public.key");
+    const privateKeyFile = join(jdirName, "private.key");
+    const privateKeyB64File = join(jdirName, "private.key.base64");
+    const { privateKey, publicKey } = crypto.generateKeyPairSync("rsa", {
+      modulusLength: 4096,
+      publicKeyEncoding: {
+        type: "spki",
+        format: "pem",
+      },
+      privateKeyEncoding: {
+        type: "pkcs8",
+        format: "pem",
+      },
+    });
+    fs.writeFileSync(publicKeyFile, publicKey);
+    fs.writeFileSync(privateKeyFile, privateKey);
+    fs.writeFileSync(
+      privateKeyB64File,
+      Buffer.from(privateKey, "utf8").toString("base64"),
+    );
+    console.log(
+      "Created public/private key pairs for testing purposes",
+      publicKeyFile,
+      privateKeyFile,
+      privateKeyB64File,
+    );
+    privateKeyToUse = privateKey;
+    jwkPublicKey = crypto.createPublicKey(publicKey).export({ format: "jwk" });
+  } else {
+    if (process.env?.SBOM_SIGN_PRIVATE_KEY) {
+      privateKeyToUse = fs.readFileSync(
+        process.env.SBOM_SIGN_PRIVATE_KEY,
+        "utf8",
+      );
+    } else if (process.env?.SBOM_SIGN_PRIVATE_KEY_BASE64) {
+      privateKeyToUse = Buffer.from(
+        process.env.SBOM_SIGN_PRIVATE_KEY_BASE64,
+        "base64",
+      ).toString("utf8");
+    }
+    if (
+      process.env.SBOM_SIGN_PUBLIC_KEY &&
+      safeExistsSync(process.env.SBOM_SIGN_PUBLIC_KEY)
+    ) {
+      jwkPublicKey = crypto
+        .createPublicKey(
+          fs.readFileSync(process.env.SBOM_SIGN_PUBLIC_KEY, "utf8"),
+        )
+        .export({ format: "jwk" });
+    } else if (process.env?.SBOM_SIGN_PUBLIC_KEY_BASE64) {
+      jwkPublicKey = Buffer.from(
+        process.env.SBOM_SIGN_PUBLIC_KEY_BASE64,
+        "base64",
+      ).toString("utf8");
+    }
+  }
+  try {
+    const bomJsonUnsignedObj = JSON.parse(jsonPayload);
+    const signOptions = {
+      privateKey: privateKeyToUse,
+      algorithm: alg,
+      publicKeyJwk: jwkPublicKey,
+      mode: process.env.SBOM_SIGN_MODE || "replace",
+      signComponents: true,
+      signServices: true,
+      signAnnotations: true,
+    };
+    thoughtLog(`Signing the BOM file "${jsonFile}".`);
+    const signedBom = signBom(bomJsonUnsignedObj, signOptions);
+    fs.writeFileSync(
+      jsonFile,
+      JSON.stringify(signedBom, null, options.jsonPretty ? 2 : null),
+    );
+    if (publicKeyFile) {
+      const publicKeyStr = fs.readFileSync(publicKeyFile, "utf8");
+      const signatureVerification = verifyBom(signedBom, publicKeyStr);
+      if (signatureVerification) {
+        console.log(
+          "SBOM signature is verifiable natively with the public key and the algorithm",
+          publicKeyFile,
+          alg,
+        );
+      } else {
+        console.log("SBOM signature verification was unsuccessful");
+        console.log("Check if the public key was exported in PEM format");
+      }
+    }
+  } catch (ex) {
+    console.log("SBOM signing was unsuccessful:", ex.message);
+    console.log(
+      "Check if the private key was exported in PEM format and the algorithm is JSF-compliant.",
+    );
+  }
+  return jsonPayload;
+};
+
 /**
  * Method to start the bom creation process
  */
@@ -1002,156 +1137,18 @@ const needsBomSigning = ({ generateKeyAndSign }) =>
       process.exit(1);
     }
   }
-  if (
-    options.output &&
-    (typeof options.output === "string" || options.output instanceof String)
-  ) {
-    const jsonFile = options.output;
-    // Create bom json file
-    if (bomNSData.bomJson) {
-      let jsonPayload;
-      if (
-        typeof bomNSData.bomJson === "string" ||
-        bomNSData.bomJson instanceof String
-      ) {
-        fs.writeFileSync(jsonFile, bomNSData.bomJson);
-        jsonPayload = bomNSData.bomJson;
-      } else {
-        jsonPayload = JSON.stringify(
-          bomNSData.bomJson,
-          null,
-          options.jsonPretty ? 2 : null,
-        );
-        fs.writeFileSync(jsonFile, jsonPayload);
-        if (jsonFile.endsWith("bom.json")) {
-          thoughtLog(
-            `Let's save the file to "${jsonFile}". Should I suggest the '.cdx.json' file extension for better semantics?`,
-          );
-        } else {
-          thoughtLog(`Let's save the file to "${jsonFile}".`);
-        }
-      }
-      if (jsonPayload && needsBomSigning(options)) {
-        let alg = process.env.SBOM_SIGN_ALGORITHM || "RS512";
-        if (alg.includes("none")) {
-          alg = "RS512";
-        }
-        let privateKeyToUse;
-        let jwkPublicKey;
-        let publicKeyFile;
-        if (options.generateKeyAndSign) {
-          const jdirName = dirname(jsonFile);
-          publicKeyFile = join(jdirName, "public.key");
-          const privateKeyFile = join(jdirName, "private.key");
-          const privateKeyB64File = join(jdirName, "private.key.base64");
-          const { privateKey, publicKey } = crypto.generateKeyPairSync("rsa", {
-            modulusLength: 4096,
-            publicKeyEncoding: {
-              type: "spki",
-              format: "pem",
-            },
-            privateKeyEncoding: {
-              type: "pkcs8",
-              format: "pem",
-            },
-          });
-          fs.writeFileSync(publicKeyFile, publicKey);
-          fs.writeFileSync(privateKeyFile, privateKey);
-          fs.writeFileSync(
-            privateKeyB64File,
-            Buffer.from(privateKey, "utf8").toString("base64"),
-          );
-          console.log(
-            "Created public/private key pairs for testing purposes",
-            publicKeyFile,
-            privateKeyFile,
-            privateKeyB64File,
-          );
-          privateKeyToUse = privateKey;
-          jwkPublicKey = crypto
-            .createPublicKey(publicKey)
-            .export({ format: "jwk" });
-        } else {
-          if (process.env?.SBOM_SIGN_PRIVATE_KEY) {
-            privateKeyToUse = fs.readFileSync(
-              process.env.SBOM_SIGN_PRIVATE_KEY,
-              "utf8",
-            );
-          } else if (process.env?.SBOM_SIGN_PRIVATE_KEY_BASE64) {
-            privateKeyToUse = Buffer.from(
-              process.env.SBOM_SIGN_PRIVATE_KEY_BASE64,
-              "base64",
-            ).toString("utf8");
-          }
-          if (
-            process.env.SBOM_SIGN_PUBLIC_KEY &&
-            safeExistsSync(process.env.SBOM_SIGN_PUBLIC_KEY)
-          ) {
-            jwkPublicKey = crypto
-              .createPublicKey(
-                fs.readFileSync(process.env.SBOM_SIGN_PUBLIC_KEY, "utf8"),
-              )
-              .export({ format: "jwk" });
-          } else if (process.env?.SBOM_SIGN_PUBLIC_KEY_BASE64) {
-            jwkPublicKey = Buffer.from(
-              process.env.SBOM_SIGN_PUBLIC_KEY_BASE64,
-              "base64",
-            ).toString("utf8");
-          }
-        }
-        try {
-          const bomJsonUnsignedObj = JSON.parse(jsonPayload);
-          const signOptions = {
-            privateKey: privateKeyToUse,
-            algorithm: alg,
-            publicKeyJwk: jwkPublicKey,
-            mode: process.env.SBOM_SIGN_MODE || "replace",
-            signComponents: true,
-            signServices: true,
-            signAnnotations: true,
-          };
-          thoughtLog(`Signing the BOM file "${jsonFile}".`);
-          const signedBom = signBom(bomJsonUnsignedObj, signOptions);
-          fs.writeFileSync(
-            jsonFile,
-            JSON.stringify(signedBom, null, options.jsonPretty ? 2 : null),
-          );
-          if (publicKeyFile) {
-            const publicKeyStr = fs.readFileSync(publicKeyFile, "utf8");
-            const signatureVerification = verifyBom(signedBom, publicKeyStr);
-            if (signatureVerification) {
-              console.log(
-                "SBOM signature is verifiable natively with the public key and the algorithm",
-                publicKeyFile,
-                alg,
-              );
-            } else {
-              console.log("SBOM signature verification was unsuccessful");
-              console.log("Check if the public key was exported in PEM format");
-            }
-          }
-        } catch (ex) {
-          console.log("SBOM signing was unsuccessful:", ex.message);
-          console.log(
-            "Check if the private key was exported in PEM format and the algorithm is JSF-compliant.",
-          );
-        }
-      }
-    }
-    // bom ns mapping
-    if (bomNSData.nsMapping && Object.keys(bomNSData.nsMapping).length) {
-      const nsFile = `${jsonFile}.map`;
-      fs.writeFileSync(nsFile, JSON.stringify(bomNSData.nsMapping));
-    }
-  } else if (!options.print) {
-    if (bomNSData.bomJson) {
-      console.log(
-        JSON.stringify(bomNSData.bomJson, null, options.jsonPretty ? 2 : null),
+  let internalCycloneDxInputPath = outputPlan.outputs.cyclonedx;
+  if ((options.evidence || options.includeCrypto) && bomNSData?.bomJson) {
+    if (!internalCycloneDxInputPath) {
+      internalCycloneDxInputPath = join(
+        getTmpDir(),
+        `cdxgen-${Date.now()}-${basename(filePath)}.cdx.json`,
       );
-    } else {
-      console.log("Unable to produce BOM for", filePath);
-      console.log("Try running the command with -t <type> or -r argument");
     }
+    fs.writeFileSync(
+      internalCycloneDxInputPath,
+      stringifyJson(bomNSData.bomJson, options.jsonPretty),
+    );
   }
   // Evidence generation
   if (options.evidence || options.includeCrypto) {
@@ -1163,7 +1160,7 @@ const needsBomSigning = ({ generateKeyAndSign }) =>
     options.projectType = options.projectType || ["java"];
     const evinseOptions = {
       _: args._,
-      input: options.output,
+      input: internalCycloneDxInputPath || options.output,
       output: options.evinseOutput,
       language: options.projectType,
       skipMavenCollector: false,
@@ -1205,6 +1202,51 @@ const needsBomSigning = ({ generateKeyAndSign }) =>
       process.exit(1);
     }
     thoughtLog("✅ BOM file looks valid.");
+  }
+  if (
+    outputPlan.formats.has("spdx") &&
+    bomNSData?.bomJson &&
+    bomNSData?.bomJson?.bomFormat === "CycloneDX"
+  ) {
+    thoughtLog(
+      "Preparing the SPDX 3.0.1 export from the validated CycloneDX BOM.",
+    );
+    bomNSData.spdxJson = convertCycloneDxToSpdx(bomNSData.bomJson, options);
+    if (options.validate && !validateSpdx(bomNSData.spdxJson)) {
+      process.exit(1);
+    }
+  }
+  if (
+    options.output &&
+    (typeof options.output === "string" || options.output instanceof String)
+  ) {
+    if (outputPlan.outputs.cyclonedx && bomNSData.bomJson) {
+      writeCycloneDxOutput(
+        outputPlan.outputs.cyclonedx,
+        bomNSData.bomJson,
+        options,
+      );
+      if (bomNSData.nsMapping && Object.keys(bomNSData.nsMapping).length) {
+        const nsFile = `${outputPlan.outputs.cyclonedx}.map`;
+        fs.writeFileSync(nsFile, JSON.stringify(bomNSData.nsMapping));
+      }
+    }
+    if (outputPlan.outputs.spdx && bomNSData.spdxJson) {
+      fs.writeFileSync(
+        outputPlan.outputs.spdx,
+        stringifyJson(bomNSData.spdxJson, options.jsonPretty),
+      );
+      thoughtLog(`Let's save the SPDX file to "${outputPlan.outputs.spdx}".`);
+    }
+  } else if (!options.print) {
+    if (outputPlan.formats.has("spdx") && bomNSData?.spdxJson) {
+      console.log(stringifyJson(bomNSData.spdxJson, options.jsonPretty));
+    } else if (bomNSData.bomJson) {
+      console.log(stringifyJson(bomNSData.bomJson, options.jsonPretty));
+    } else {
+      console.log("Unable to produce BOM for", filePath);
+      console.log("Try running the command with -t <type> or -r argument");
+    }
   }
   thoughtEnd();
   // Automatically submit the bom data
