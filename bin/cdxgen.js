@@ -329,8 +329,7 @@ const args = _yargs
   })
   .option("format", {
     description:
-      "Export format(s). Supports cyclonedx, spdx, or a comma-separated list such as cyclonedx,spdx.",
-    type: "string",
+      "Export format(s). Supports cyclonedx, spdx, repeated --format flags, or a comma-separated list such as cyclonedx,spdx.",
   })
   .option("proto-bin-file", {
     description: "Path for the serialized protobuf binary.",
@@ -449,6 +448,7 @@ const args = _yargs
   .array("filter")
   .array("only")
   .array("author")
+  .array("format")
   .array("standard")
   .array("feature-flags")
   .array("technique")

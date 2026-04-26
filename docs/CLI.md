@@ -65,8 +65,8 @@ Commands:
 
 Options:
   -o, --output                    Output file. Default bom.json                                    [default: "bom.json"]
-      --format                    Export format(s). Supports cyclonedx, spdx, or a comma-separated list such as
-                                  cyclonedx,spdx.                                                            [string]
+      --format                    Export format(s). Supports cyclonedx, spdx, repeated --format flags, or a comma-separat
+                                  ed list such as cyclonedx,spdx.                                              [array]
   -t, --type                      Project type. Please refer to https://cdxgen.github.io/cdxgen/#/PROJECT_TYPES for supp
                                    orted languages/platforms.                                                     [array]
       --exclude-type              Project types to exclude. Please refer to https://cdxgen.github.io/cdxgen/#/PROJECT_TY
@@ -169,6 +169,12 @@ file for the SPDX export:
 
 ```shell
 cdxgen -t nodejs --format cyclonedx,spdx -o bom.cdx.json .
+```
+
+You can also repeat `--format` to request both outputs:
+
+```shell
+cdxgen -t nodejs --format cyclonedx --format spdx -o bom.cdx.json .
 ```
 
 If the output file already ends with `.spdx.json`, cdxgen automatically selects
