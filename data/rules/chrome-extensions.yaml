@@ -1,0 +1,240 @@
+# Chrome Extension Security Rules
+# Category: chrome-extension
+# Evaluates Chromium browser extensions for risky permissions and execution posture
+
+- id: CHE-001
+  name: "Extension with broad host access"
+  description: "Browser extensions with <all_urls> or wildcard host permissions can access and manipulate content on most websites"
+  severity: high
+  category: chrome-extension
+  condition: |
+    components[
+      $startsWith(purl, 'pkg:chrome-extension/')
+      and (
+        $listContains($propList($, 'cdx:chrome-extension:permissions'), '<all_urls>')
+        or $listContains($propList($, 'cdx:chrome-extension:hostPermissions'), '<all_urls>')
+        or $listContains($propList($, 'cdx:chrome-extension:hostPermissions'), '*://*/*')
+      )
+    ]
+  location: |
+    {
+      "bomRef": $. "bom-ref",
+      "purl": purl,
+      "srcFile": $prop($, 'SrcFile')
+    }
+  message: "Chrome extension '{{ name }}@{{ version }}' has broad host access permissions"
+  mitigation: "Limit host permissions to required domains; avoid <all_urls> and broad wildcard host patterns"
+  evidence: |
+    {
+      "permissions": $prop($, 'cdx:chrome-extension:permissions'),
+      "hostPermissions": $prop($, 'cdx:chrome-extension:hostPermissions')
+    }
+
+- id: CHE-002
+  name: "Extension with network interception capabilities"
+  description: "Extensions that combine webRequest and webRequestBlocking can intercept and modify browser network traffic"
+  severity: critical
+  category: chrome-extension
+  condition: |
+    components[
+      $startsWith(purl, 'pkg:chrome-extension/')
+      and $listContains($propList($, 'cdx:chrome-extension:permissions'), 'webRequest')
+      and $listContains($propList($, 'cdx:chrome-extension:permissions'), 'webRequestBlocking')
+    ]
+  location: |
+    {
+      "bomRef": $. "bom-ref",
+      "purl": purl,
+      "srcFile": $prop($, 'SrcFile')
+    }
+  message: "Chrome extension '{{ name }}@{{ version }}' can intercept and block web requests"
+  mitigation: "Review extension code for request filtering/modification logic; restrict deployment to trusted publishers"
+  evidence: |
+    {
+      "permissions": $prop($, 'cdx:chrome-extension:permissions'),
+      "contentScriptsRunAt": $prop($, 'cdx:chrome-extension:contentScriptsRunAt')
+    }
+
+- id: CHE-003
+  name: "Always-early content scripts with broad access"
+  description: "Extensions injecting content scripts at document_start together with broad host permissions increase pre-DOM execution risk"
+  severity: high
+  category: chrome-extension
+  condition: |
+    components[
+      $startsWith(purl, 'pkg:chrome-extension/')
+      and $listContains($propList($, 'cdx:chrome-extension:contentScriptsRunAt'), 'document_start')
+      and (
+        $listContains($propList($, 'cdx:chrome-extension:permissions'), '<all_urls>')
+        or $listContains($propList($, 'cdx:chrome-extension:hostPermissions'), '<all_urls>')
+        or $listContains($propList($, 'cdx:chrome-extension:hostPermissions'), '*://*/*')
+      )
+    ]
+  location: |
+    {
+      "bomRef": $. "bom-ref",
+      "purl": purl
+    }
+  message: "Chrome extension '{{ name }}@{{ version }}' injects scripts at document_start with broad site access"
+  mitigation: "Prefer run_at=document_idle where possible and scope host permissions to explicit trusted origins"
+  evidence: |
+    {
+      "contentScriptsRunAt": $prop($, 'cdx:chrome-extension:contentScriptsRunAt'),
+      "permissions": $prop($, 'cdx:chrome-extension:permissions'),
+      "hostPermissions": $prop($, 'cdx:chrome-extension:hostPermissions')
+    }
+
+- id: CHE-004
+  name: "Autofill-capable extension with broad host permissions"
+  description: "Autofill features handling credential or PII flows should be reviewed when broad host permissions are granted"
+  severity: medium
+  category: chrome-extension
+  condition: |
+    components[
+      $startsWith(purl, 'pkg:chrome-extension/')
+      and $propBool($, 'cdx:chrome-extension:hasAutofill') = true
+      and (
+        $listContains($propList($, 'cdx:chrome-extension:permissions'), '<all_urls>')
+        or $listContains($propList($, 'cdx:chrome-extension:hostPermissions'), '<all_urls>')
+        or $listContains($propList($, 'cdx:chrome-extension:hostPermissions'), '*://*/*')
+      )
+    ]
+  location: |
+    {
+      "bomRef": $. "bom-ref",
+      "purl": purl
+    }
+  message: "Autofill-capable extension '{{ name }}@{{ version }}' has broad host access"
+  mitigation: "Review autofill data handling and origin checks; enforce least-privilege host permissions"
+  evidence: |
+    {
+      "hasAutofill": $prop($, 'cdx:chrome-extension:hasAutofill'),
+      "permissions": $prop($, 'cdx:chrome-extension:permissions'),
+      "hostPermissions": $prop($, 'cdx:chrome-extension:hostPermissions'),
+      "storageManagedSchema": $prop($, 'cdx:chrome-extension:storageManagedSchema')
+    }
+
+- id: CHE-005
+  name: "Extension with file/device capability and broad host scope"
+  description: "Extensions requesting file or device-adjacent capabilities alongside broad host scope can increase data collection and exfiltration risk."
+  severity: high
+  category: chrome-extension
+  condition: |
+    components[
+      $startsWith(purl, 'pkg:chrome-extension/')
+      and (
+        $propBool($, 'cdx:chrome-extension:capability:fileAccess') = true
+        or $propBool($, 'cdx:chrome-extension:capability:deviceAccess') = true
+        or $propBool($, 'cdx:chrome-extension:capability:bluetooth') = true
+      )
+      and (
+        $listContains($propList($, 'cdx:chrome-extension:permissions'), '<all_urls>')
+        or $listContains($propList($, 'cdx:chrome-extension:hostPermissions'), '<all_urls>')
+        or $listContains($propList($, 'cdx:chrome-extension:hostPermissions'), '*://*/*')
+      )
+    ]
+  location: |
+    {
+      "bomRef": $. "bom-ref",
+      "purl": purl,
+      "srcFile": $prop($, 'SrcFile')
+    }
+  message: "Chrome extension '{{ name }}@{{ version }}' combines broad host scope with file/device capabilities"
+  mitigation: "Review whether file/device permissions are required and narrow host permissions to explicit trusted origins."
+  evidence: |
+    {
+      "capabilities": $prop($, 'cdx:chrome-extension:capabilities'),
+      "permissions": $prop($, 'cdx:chrome-extension:permissions'),
+      "hostPermissions": $prop($, 'cdx:chrome-extension:hostPermissions')
+    }
+
+- id: CHE-006
+  name: "Code-injecting extension with broad host scope"
+  description: "Extensions with explicit code-injection capability and broad host scope may execute arbitrary script logic across many origins."
+  severity: critical
+  category: chrome-extension
+  condition: |
+    components[
+      $startsWith(purl, 'pkg:chrome-extension/')
+      and $propBool($, 'cdx:chrome-extension:capability:codeInjection') = true
+      and (
+        $listContains($propList($, 'cdx:chrome-extension:permissions'), '<all_urls>')
+        or $listContains($propList($, 'cdx:chrome-extension:hostPermissions'), '<all_urls>')
+        or $listContains($propList($, 'cdx:chrome-extension:hostPermissions'), '*://*/*')
+      )
+    ]
+  location: |
+    {
+      "bomRef": $. "bom-ref",
+      "purl": purl,
+      "srcFile": $prop($, 'SrcFile')
+    }
+  message: "Chrome extension '{{ name }}@{{ version }}' has code-injection capability with broad host coverage"
+  mitigation: "Constrain host permissions and validate code-injection paths (scripting/tabs/debugger/content scripts) against strict allowlists."
+  evidence: |
+    {
+      "capabilities": $prop($, 'cdx:chrome-extension:capabilities'),
+      "permissions": $prop($, 'cdx:chrome-extension:permissions'),
+      "contentScriptsRunAt": $prop($, 'cdx:chrome-extension:contentScriptsRunAt')
+    }
+
+- id: CHE-007
+  name: "Fingerprinting-capable extension with broad host scope"
+  description: "Fingerprinting-related capability indicators combined with broad host access can increase tracking and privacy risk."
+  severity: high
+  category: chrome-extension
+  condition: |
+    components[
+      $startsWith(purl, 'pkg:chrome-extension/')
+      and $propBool($, 'cdx:chrome-extension:capability:fingerprinting') = true
+      and (
+        $listContains($propList($, 'cdx:chrome-extension:permissions'), '<all_urls>')
+        or $listContains($propList($, 'cdx:chrome-extension:hostPermissions'), '<all_urls>')
+        or $listContains($propList($, 'cdx:chrome-extension:hostPermissions'), '*://*/*')
+      )
+    ]
+  location: |
+    {
+      "bomRef": $. "bom-ref",
+      "purl": purl,
+      "srcFile": $prop($, 'SrcFile')
+    }
+  message: "Chrome extension '{{ name }}@{{ version }}' has fingerprinting indicators with broad host access"
+  mitigation: "Review extension behavior for passive/active fingerprinting collection and reduce scope to required domains."
+  evidence: |
+    {
+      "capabilities": $prop($, 'cdx:chrome-extension:capabilities'),
+      "permissions": $prop($, 'cdx:chrome-extension:permissions'),
+      "hostPermissions": $prop($, 'cdx:chrome-extension:hostPermissions')
+    }
+
+- id: CHE-008
+  name: "AI-assistant extension with code injection on AI provider domains"
+  description: "Extensions targeting AI assistant domains (OpenAI/ChatGPT/Claude/Copilot) with code-injection capability should be reviewed for prompt/session manipulation risk."
+  severity: high
+  category: chrome-extension
+  condition: |
+    components[
+      $startsWith(purl, 'pkg:chrome-extension/')
+      and $propBool($, 'cdx:chrome-extension:capability:codeInjection') = true
+      and (
+        $contains($safeStr($prop($, 'cdx:chrome-extension:hostPermissions')), 'openai.com')
+        or $contains($safeStr($prop($, 'cdx:chrome-extension:hostPermissions')), 'chatgpt.com')
+        or $contains($safeStr($prop($, 'cdx:chrome-extension:hostPermissions')), 'claude.ai')
+        or $contains($safeStr($prop($, 'cdx:chrome-extension:hostPermissions')), 'github.com/copilot')
+      )
+    ]
+  location: |
+    {
+      "bomRef": $. "bom-ref",
+      "purl": purl,
+      "srcFile": $prop($, 'SrcFile')
+    }
+  message: "AI-assistant extension '{{ name }}@{{ version }}' can inject code in assistant workflows"
+  mitigation: "Review prompt/session handling, enforce least-privilege host permissions, and gate deployment to trusted publishers."
+  evidence: |
+    {
+      "capabilities": $prop($, 'cdx:chrome-extension:capabilities'),
+      "permissions": $prop($, 'cdx:chrome-extension:permissions'),
+      "hostPermissions": $prop($, 'cdx:chrome-extension:hostPermissions')
+    }

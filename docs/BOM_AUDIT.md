@@ -103,6 +103,33 @@ Rules that detect deprecated, yanked, tampered, or suspicious packages.
 | INT-006 | medium   | Dart pub uses non-default registry                                   |
 | INT-007 | low      | Maven package contains shaded/relocated classes                      |
 
+### `vscode-extension` — VS Code Extension Security
+
+Rules that evaluate VS Code extension metadata for install-time execution, always-on activation, workspace trust posture, and privileged capabilities.
+
+| Rule    | Severity | Description                                                             |
+| ------- | -------- | ----------------------------------------------------------------------- |
+| VSC-001 | critical | VS Code extension has install-time lifecycle scripts                    |
+| VSC-002 | high     | Always-on extension (`*` activation) exposes terminal access            |
+| VSC-003 | high     | Extension runs in untrusted workspaces with filesystem access           |
+| VSC-006 | high     | Extension contributes debugger/authentication provider capabilities      |
+| VSC-007 | high     | Workspace-context extension executes code                               |
+
+### `chrome-extension` — Chromium Browser Extension Security
+
+Rules that evaluate Chrome/Chromium/Edge/Brave extension metadata for broad site access, request interception, early script injection, autofill, and capability-derived risk posture (file/device/code-injection/fingerprinting).
+
+| Rule    | Severity | Description                                                                       |
+| ------- | -------- | --------------------------------------------------------------------------------- |
+| CHE-001 | high     | Extension has broad host access (`<all_urls>` or wildcard host permissions)      |
+| CHE-002 | critical | Extension can intercept and block web requests (`webRequest` + `webRequestBlocking`) |
+| CHE-003 | high     | Extension injects content scripts at `document_start` with broad host access     |
+| CHE-004 | medium   | Autofill-capable extension has broad host permissions                             |
+| CHE-005 | high     | Extension combines broad host scope with file/device/bluetooth capabilities       |
+| CHE-006 | critical | Extension has code-injection capability with broad host scope                     |
+| CHE-007 | high     | Extension has fingerprinting capability indicators with broad host scope           |
+| CHE-008 | high     | AI-assistant extension has code-injection capability on OpenAI/Claude/Copilot domains |
+
 ## Writing custom rules
 
 Rules are YAML files placed in a directory and loaded via `--bom-audit-rules-dir`. Each file can contain a single rule object or a YAML array of rules.
