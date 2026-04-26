@@ -75,6 +75,8 @@ jobs:
           bin/cdxgen.js -t js "pkg:npm/lodash@4.17.21" -o bomresults/bom-lodash-purl.json --fail-on-error
           bin/validate.js -i bomresults/bom-java-sec-code-10.json --format console --fail-severity critical
         shell: bash
+        env:
+          NPM_URL: ${{ env.NEXUS_URL }}
       - name: repotests java-sec-code (allow lists)
         run: |
           CDXGEN_ALLOWED_COMMANDS=none CDXGEN_ALLOWED_HOSTS=localhost bin/cdxgen.js -t java repotests/java-sec-code -o bomresults/bom-java-sec-code-1.json
