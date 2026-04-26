@@ -545,9 +545,7 @@ if (!args.projectName) {
 thoughtLog(`Let's try to generate a CycloneDX BOM for the path '${filePath}'`);
 if (
   !sourceInputIsRemoteOrPurl &&
-  (filePath.includes(" ") ||
-    filePath.includes("\r") ||
-    filePath.includes("\n"))
+  (filePath.includes(" ") || filePath.includes("\r") || filePath.includes("\n"))
 ) {
   console.log(
     `'${filePath}' contains spaces. This could lead to bugs when invoking external build tools.`,
