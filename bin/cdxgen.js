@@ -28,6 +28,7 @@ import {
 import { TRACE_MODE, thoughtEnd, thoughtLog } from "../lib/helpers/logger.js";
 import {
   cleanupSourceDir,
+  findGitRefForPurlVersion,
   gitClone,
   isAllowedPath,
   isAllowedWinPath,
@@ -35,6 +36,7 @@ import {
   maybeRemotePath,
   PURL_REGISTRY_LOOKUP_WARNING,
   resolveGitUrlFromPurl,
+  resolvePurlSourceDirectory,
   validateAndRejectGitSource,
   validatePurlSource,
 } from "../lib/helpers/source.js";
@@ -974,13 +976,14 @@ const needsBomSigning = ({ generateKeyAndSign }) =>
     return serverModule.start(options);
   }
   let sourcePath = filePath;
+  let purlResolution;
   if (maybePurlSource(sourcePath)) {
     const purlValidationError = validatePurlSource(sourcePath);
     if (purlValidationError) {
       console.error(purlValidationError.error, purlValidationError.details);
       process.exit(1);
     }
-    const purlResolution = await resolveGitUrlFromPurl(sourcePath);
+    purlResolution = await resolveGitUrlFromPurl(sourcePath);
     if (!purlResolution?.repoUrl) {
       console.error(
         "Unable to resolve the provided package URL to a repository URL.",
@@ -1029,8 +1032,26 @@ const needsBomSigning = ({ generateKeyAndSign }) =>
   }
   let srcDir = sourcePath;
   let cleanup = false;
+  let gitRef = options.gitBranch;
   if (maybeRemotePath(sourcePath)) {
-    srcDir = gitClone(sourcePath, options.gitBranch);
+    if (!gitRef && purlResolution?.version) {
+      gitRef = findGitRefForPurlVersion(sourcePath, purlResolution);
+      if (!gitRef) {
+        console.warn(
+          `Unable to find a matching git tag for version '${purlResolution.version}'. Falling back to repository default branch.`,
+        );
+      }
+    }
+    srcDir = gitClone(sourcePath, gitRef);
+    if (purlResolution?.type === "npm") {
+      const purlSourceDir = resolvePurlSourceDirectory(srcDir, purlResolution);
+      if (purlSourceDir) {
+        console.warn(
+          `Using npm package directory '${purlSourceDir}' for purl '${purlResolution.namespace ? `${purlResolution.namespace}/` : ""}${purlResolution.name}'.`,
+        );
+        srcDir = purlSourceDir;
+      }
+    }
     cleanup = true;
   }
   prepareEnv(srcDir, options);

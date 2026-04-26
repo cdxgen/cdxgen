@@ -72,6 +72,7 @@ jobs:
           bin/cdxgen.js -t java -t github repotests/java-sec-code -o bomresults/bom-java-sec-code-9.json
           bin/cdxgen.js -t java -exclude-type js repotests/java-sec-code -o bomresults/bom-java-sec-code-10.json
           bin/cdxgen.js -t java https://github.com/HooliCorp/java-sec-code.git -o bomresults/bom-java-sec-code-git-url.json --git-branch main --fail-on-error --bom-audit
+          bin/cdxgen.js -t js "pkg:npm/lodash@4.17.21" -o bomresults/bom-lodash-purl.json --fail-on-error
           bin/validate.js -i bomresults/bom-java-sec-code-10.json --format console --fail-severity critical
         shell: bash
       - name: repotests java-sec-code (allow lists)
