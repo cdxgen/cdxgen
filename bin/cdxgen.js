@@ -1020,7 +1020,7 @@ const needsBomSigning = ({ generateKeyAndSign }) =>
     );
     process.exit(1);
   }
-  if (!isAllowedWinPath(sourcePath)) {
+  if (!maybeRemotePath(sourcePath) && !isAllowedWinPath(resolve(sourcePath))) {
     console.error("Path is not allowed on this platform.");
     process.exit(1);
   }
