@@ -176,7 +176,8 @@ For purl inputs, cdxgen resolves registry metadata to locate a repository URL, c
 
 Supported purl source types:
 
-- `npm`, `pypi`, `gem`, `cargo`, `pub` (registry metadata lookup)
+- `npm`, `pypi`, `gem`, `cargo`, `pub`, `maven` (version required), `composer` (registry metadata lookup)
+- `github`, `bitbucket` (direct repository mapping)
 - `generic` (requires `vcs_url` or `download_url` qualifier)
 
 > **Security note:** Registry metadata can be inaccurate or malicious. Validate the resolved repository URL before relying on the SBOM.

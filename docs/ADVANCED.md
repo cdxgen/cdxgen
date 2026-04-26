@@ -168,6 +168,10 @@ Supported purl types for automatic git URL detection:
 - `pkg:gem/...` (registry metadata lookup)
 - `pkg:cargo/...` (registry metadata lookup)
 - `pkg:pub/...` (registry metadata lookup)
+- `pkg:github/...` (direct repository mapping)
+- `pkg:bitbucket/...` (direct repository mapping)
+- `pkg:maven/...` (POM `scm` metadata lookup; version required)
+- `pkg:composer/...` (Packagist metadata lookup)
 - `pkg:generic/...` (requires `vcs_url` or `download_url` qualifier)
 
 Examples:
