@@ -65,8 +65,8 @@ Commands:
 
 Options:
   -o, --output                    Output file. Default bom.json                                    [default: "bom.json"]
-      --format                    Export format(s). Supports cyclonedx, spdx, repeated --format flags, or a comma-separat
-                                  ed list such as cyclonedx,spdx.                                              [array]
+      --format                    Export format(s). Supports cyclonedx, spdx, repeated --format flags, or comma-separated
+                                  values such as cyclonedx,spdx.                                               [array]
   -t, --type                      Project type. Please refer to https://cdxgen.github.io/cdxgen/#/PROJECT_TYPES for supp
                                    orted languages/platforms.                                                     [array]
       --exclude-type              Project types to exclude. Please refer to https://cdxgen.github.io/cdxgen/#/PROJECT_TY
