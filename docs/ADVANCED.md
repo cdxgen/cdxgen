@@ -168,14 +168,12 @@ Supported purl types for automatic git URL detection:
 - `pkg:gem/...` (registry metadata lookup)
 - `pkg:cargo/...` (registry metadata lookup)
 - `pkg:pub/...` (registry metadata lookup)
-- `pkg:docker/...` (derived from namespace/name; supports `vcs_url` and `download_url` qualifiers)
 - `pkg:generic/...` (requires `vcs_url` or `download_url` qualifier)
 
 Examples:
 
 ```shell
 cdxgen -t js -o bom.json "pkg:npm/lodash@4.17.21"
-cdxgen -t docker -o bom.json "pkg:docker/cdxgen/cdxgen@latest"
 cdxgen -t js -o bom.json "pkg:generic/example@1.0.0?vcs_url=git+https://github.com/cdxgen/cdxgen.git"
 ```
 

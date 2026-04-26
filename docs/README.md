@@ -114,7 +114,7 @@ Generate from a package URL (purl):
 cdxgen -t js -o bom.json "pkg:npm/lodash@4.17.21"
 ```
 
-Supported purl source types: `npm`, `pypi`, `gem`, `cargo`, `pub`, `docker`, and `generic` (with `vcs_url` or `download_url` qualifier).
+Supported purl source types: `npm`, `pypi`, `gem`, `cargo`, `pub`, and `generic` (with `vcs_url` or `download_url` qualifier).
 
 > **Warning:** For purl inputs, cdxgen resolves repository metadata from registries. This information can be inaccurate or malicious, so review resolved sources before trusting output.
 

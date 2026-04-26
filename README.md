@@ -237,7 +237,7 @@ To generate an SBOM from a package URL (purl), cdxgen resolves registry metadata
 cdxgen -t js -o bom.json "pkg:npm/lodash@4.17.21"
 ```
 
-Supported purl source types: `npm`, `pypi`, `gem`, `cargo`, `pub`, `docker`, and `generic` (with `vcs_url` or `download_url` qualifier).
+Supported purl source types: `npm`, `pypi`, `gem`, `cargo`, `pub`, and `generic` (with `vcs_url` or `download_url` qualifier).
 
 > **Warning:** Repository URLs resolved from registries may be inaccurate or malicious. Review resolved sources before trusting generated output.
 
