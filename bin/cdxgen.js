@@ -4,7 +4,14 @@ import crypto from "node:crypto";
 import fs from "node:fs";
 import http from "node:http";
 import https from "node:https";
-import { basename, dirname, join, resolve } from "node:path";
+import {
+  basename,
+  dirname,
+  isAbsolute,
+  join,
+  relative,
+  resolve,
+} from "node:path";
 import process from "node:process";
 
 import { parse as _load } from "yaml";
@@ -37,6 +44,7 @@ import {
   PURL_REGISTRY_LOOKUP_WARNING,
   resolveGitUrlFromPurl,
   resolvePurlSourceDirectory,
+  sanitizeRemoteUrlForLogs,
   validateAndRejectGitSource,
   validatePurlSource,
 } from "../lib/helpers/source.js";
@@ -991,7 +999,7 @@ const needsBomSigning = ({ generateKeyAndSign }) =>
       process.exit(1);
     }
     console.warn(
-      `${PURL_REGISTRY_LOOKUP_WARNING} Registry: ${purlResolution.registry}, purl type: ${purlResolution.type}, resolved URL: ${purlResolution.repoUrl}`,
+      `${PURL_REGISTRY_LOOKUP_WARNING} Registry: ${purlResolution.registry}, purl type: ${purlResolution.type}, resolved URL: ${sanitizeRemoteUrlForLogs(purlResolution.repoUrl)}`,
     );
     sourcePath = purlResolution.repoUrl;
   }
@@ -1044,12 +1052,22 @@ const needsBomSigning = ({ generateKeyAndSign }) =>
     }
     srcDir = gitClone(sourcePath, gitRef);
     if (purlResolution?.type === "npm") {
+      const cloneRootDir = srcDir;
       const purlSourceDir = resolvePurlSourceDirectory(srcDir, purlResolution);
       if (purlSourceDir) {
-        console.warn(
-          `Using npm package directory '${purlSourceDir}' for purl '${purlResolution.namespace ? `${purlResolution.namespace}/` : ""}${purlResolution.name}'.`,
-        );
-        srcDir = purlSourceDir;
+        if (purlSourceDir !== cloneRootDir) {
+          const relativeDir = relative(cloneRootDir, purlSourceDir);
+          if (relativeDir.startsWith("..") || isAbsolute(relativeDir)) {
+            console.warn(
+              `Ignoring detected npm package directory outside clone root: ${purlSourceDir}`,
+            );
+          } else {
+            console.warn(
+              `Using npm package directory '${purlSourceDir}' for purl '${purlResolution.namespace ? `${purlResolution.namespace}/` : ""}${purlResolution.name}'.`,
+            );
+            srcDir = purlSourceDir;
+          }
+        }
       }
     }
     cleanup = true;
