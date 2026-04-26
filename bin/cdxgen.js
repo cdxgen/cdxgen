@@ -27,6 +27,17 @@ import {
 } from "../lib/helpers/display.js";
 import { TRACE_MODE, thoughtEnd, thoughtLog } from "../lib/helpers/logger.js";
 import {
+  cleanupSourceDir,
+  gitClone,
+  isAllowedPath,
+  isAllowedWinPath,
+  maybePurlSource,
+  maybeRemotePath,
+  PURL_REGISTRY_LOOKUP_WARNING,
+  resolveGitUrlFromPurl,
+  validateAndRejectGitSource,
+} from "../lib/helpers/source.js";
+import {
   commandsExecuted,
   DEBUG_MODE,
   getTmpDir,
@@ -133,6 +144,10 @@ const args = _yargs
     type: "boolean",
     description:
       "Perform deep searches for components. Useful while scanning C/C++ apps, live OS and oci images.",
+  })
+  .option("git-branch", {
+    description: "Git branch to clone when the source is a git URL or purl",
+    type: "string",
   })
   .option("server-url", {
     description: "Dependency track url. Eg: https://deptrack.cyclonedx.io",
@@ -518,6 +533,8 @@ if (!process.env.NODE_USE_SYSTEM_CA) {
 }
 
 const filePath = args._[0] || process.cwd();
+const sourceInputIsRemoteOrPurl =
+  maybeRemotePath(filePath) || maybePurlSource(filePath);
 if (!args.projectName) {
   if (filePath !== ".") {
     args.projectName = basename(filePath);
@@ -527,9 +544,10 @@ if (!args.projectName) {
 }
 thoughtLog(`Let's try to generate a CycloneDX BOM for the path '${filePath}'`);
 if (
-  filePath.includes(" ") ||
-  filePath.includes("\r") ||
-  filePath.includes("\n")
+  !sourceInputIsRemoteOrPurl &&
+  (filePath.includes(" ") ||
+    filePath.includes("\r") ||
+    filePath.includes("\n"))
 ) {
   console.log(
     `'${filePath}' contains spaces. This could lead to bugs when invoking external build tools.`,
@@ -557,7 +575,9 @@ const options = Object.assign({}, args, {
   deep: args.deep || args.evidence,
   output:
     isSecureMode && args.output === "bom.json"
-      ? resolve(join(filePath, args.output))
+      ? sourceInputIsRemoteOrPurl
+        ? resolve(args.output)
+        : resolve(join(filePath, args.output))
       : args.output,
   exclude: args.exclude || args.excludeRegex,
   include: args.include || args.includeRegex,
@@ -954,23 +974,71 @@ const needsBomSigning = ({ generateKeyAndSign }) =>
     const serverModule = await import("../lib/server/server.js");
     return serverModule.start(options);
   }
-  // Check if cdxgen has the required permissions
-  if (!checkPermissions(filePath, options)) {
+  let sourcePath = filePath;
+  if (maybePurlSource(sourcePath)) {
+    const purlResolution = await resolveGitUrlFromPurl(sourcePath);
+    if (!purlResolution?.repoUrl) {
+      console.error(
+        "Unable to resolve the provided package URL to a repository URL.",
+      );
+      process.exit(1);
+    }
+    console.warn(
+      `${PURL_REGISTRY_LOOKUP_WARNING} Registry: ${purlResolution.registry}, purl type: ${purlResolution.type}, resolved URL: ${purlResolution.repoUrl}`,
+    );
+    sourcePath = purlResolution.repoUrl;
+  }
+  if (
+    maybeRemotePath(sourcePath) &&
+    isSecureMode &&
+    !process.env.CDXGEN_GIT_ALLOWED_HOSTS &&
+    !process.env.CDXGEN_SERVER_ALLOWED_HOSTS
+  ) {
+    console.error(
+      "SECURE MODE: Configure CDXGEN_GIT_ALLOWED_HOSTS (or CDXGEN_SERVER_ALLOWED_HOSTS) before using git URL or purl sources.",
+    );
+    process.exit(1);
+  }
+  if (!maybeRemotePath(sourcePath) && !isAllowedPath(resolve(sourcePath))) {
+    console.error(
+      "Path is not allowed as per CDXGEN_ALLOWED_PATHS/CDXGEN_SERVER_ALLOWED_PATHS.",
+    );
+    process.exit(1);
+  }
+  if (!isAllowedWinPath(sourcePath)) {
+    console.error("Path is not allowed on this platform.");
+    process.exit(1);
+  }
+  if (maybeRemotePath(sourcePath)) {
+    const validationError = validateAndRejectGitSource(sourcePath);
+    if (validationError) {
+      console.error(validationError.error, validationError.details);
+      process.exit(1);
+    }
+  }
+  const checkPath = maybeRemotePath(sourcePath) ? getTmpDir() : sourcePath;
+  if (!checkPermissions(checkPath, options)) {
     if (isSecureMode) {
       process.exit(1);
     }
     return;
   }
-  prepareEnv(filePath, options);
+  let srcDir = sourcePath;
+  let cleanup = false;
+  if (maybeRemotePath(sourcePath)) {
+    srcDir = gitClone(sourcePath, options.gitBranch);
+    cleanup = true;
+  }
+  prepareEnv(srcDir, options);
   thoughtLog("Getting ready to generate the BOM ⚡️.");
-  let bomNSData = (await createBom(filePath, options)) || {};
+  let bomNSData = (await createBom(srcDir, options)) || {};
   if (bomNSData?.bomJson) {
     thoughtLog(
       "Tweaking the generated BOM data with useful annotations and properties.",
     );
   }
   // Add extra metadata and annotations with post processing
-  bomNSData = postProcess(bomNSData, options, filePath);
+  bomNSData = postProcess(bomNSData, options, srcDir);
   if (options.bomAudit && bomNSData?.bomJson) {
     const {
       auditBom,
@@ -999,6 +1067,9 @@ const needsBomSigning = ({ generateKeyAndSign }) =>
       console.error(
         "Review findings above or adjust --bom-audit-fail-severity to proceed.",
       );
+      if (cleanup) {
+        cleanupSourceDir(srcDir);
+      }
       process.exit(1);
     }
   }
@@ -1202,6 +1273,9 @@ const needsBomSigning = ({ generateKeyAndSign }) =>
   if (options.validate && bomNSData?.bomJson) {
     thoughtLog("Wait, let's check the generated BOM file for any issues.");
     if (!validateBom(bomNSData.bomJson)) {
+      if (cleanup) {
+        cleanupSourceDir(srcDir);
+      }
       process.exit(1);
     }
     thoughtLog("✅ BOM file looks valid.");
@@ -1214,6 +1288,9 @@ const needsBomSigning = ({ generateKeyAndSign }) =>
       await submitBom(options, bomNSData.bomJson);
     } catch (err) {
       console.log(err);
+      if (cleanup) {
+        cleanupSourceDir(srcDir);
+      }
       process.exit(1);
     }
   }
@@ -1255,5 +1332,8 @@ const needsBomSigning = ({ generateKeyAndSign }) =>
       );
       console.log(allowListSuggestion);
     }
+  }
+  if (cleanup) {
+    cleanupSourceDir(srcDir);
   }
 })();
