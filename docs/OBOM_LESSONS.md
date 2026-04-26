@@ -1,6 +1,6 @@
 # OBOM Lessons for SOC/IR and Compliance Teams
 
-This guide focuses on **operational BOM (OBOM)** workflows for:
+This guide focuses on **Operations Bill of Materials (OBOM)** workflows for:
 
 - SOC analysts triaging suspicious host behavior
 - Incident responders building host-level evidence timelines
@@ -61,6 +61,8 @@ Use OBOM sections as auditable evidence artifacts:
 - **Change and configuration management**: startup/task/service/launchd/run-key tables
 - **Endpoint protection and hardening**: `windows_security_center`, `windows_security_products`, `alf`, `windows_bitlocker_info`
 - **Data protection**: drive encryption posture from BitLocker and related host controls
+
+Current built-in OBOM runtime rules directly cover endpoint security center health (including antivirus/firewall/UAC posture) and disk encryption posture (BitLocker). Dedicated lock-screen/screensaver control checks are not currently part of the built-in `obom-runtime` ruleset.
 
 ## 5) BOM audit lesson: category-driven enforcement
 
