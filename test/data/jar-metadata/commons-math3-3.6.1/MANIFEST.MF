@@ -1,0 +1,104 @@
+Manifest-Version: 1.0
+Export-Package: org.apache.commons.math3;version="3.6.1",org.apache.co
+ mmons.math3.analysis;version="3.6.1",org.apache.commons.math3.analysi
+ s.differentiation;version="3.6.1",org.apache.commons.math3.analysis.f
+ unction;version="3.6.1",org.apache.commons.math3.analysis.integration
+ ;version="3.6.1",org.apache.commons.math3.analysis.integration.gauss;
+ version="3.6.1",org.apache.commons.math3.analysis.interpolation;versi
+ on="3.6.1",org.apache.commons.math3.analysis.polynomials;version="3.6
+ .1",org.apache.commons.math3.analysis.solvers;version="3.6.1",org.apa
+ che.commons.math3.complex;version="3.6.1",org.apache.commons.math3.df
+ p;version="3.6.1",org.apache.commons.math3.distribution;version="3.6.
+ 1",org.apache.commons.math3.distribution.fitting;version="3.6.1",org.
+ apache.commons.math3.exception;version="3.6.1",org.apache.commons.mat
+ h3.exception.util;version="3.6.1",org.apache.commons.math3.filter;ver
+ sion="3.6.1",org.apache.commons.math3.fitting;version="3.6.1",org.apa
+ che.commons.math3.fitting.leastsquares;version="3.6.1",org.apache.com
+ mons.math3.fraction;version="3.6.1",org.apache.commons.math3.genetics
+ ;version="3.6.1",org.apache.commons.math3.geometry;version="3.6.1",or
+ g.apache.commons.math3.geometry.enclosing;version="3.6.1",org.apache.
+ commons.math3.geometry.euclidean.oned;version="3.6.1",org.apache.comm
+ ons.math3.geometry.euclidean.threed;version="3.6.1",org.apache.common
+ s.math3.geometry.euclidean.twod;version="3.6.1",org.apache.commons.ma
+ th3.geometry.euclidean.twod.hull;version="3.6.1",org.apache.commons.m
+ ath3.geometry.hull;version="3.6.1",org.apache.commons.math3.geometry.
+ partitioning;version="3.6.1",org.apache.commons.math3.geometry.partit
+ ioning.utilities;version="3.6.1",org.apache.commons.math3.geometry.sp
+ herical.oned;version="3.6.1",org.apache.commons.math3.geometry.spheri
+ cal.twod;version="3.6.1",org.apache.commons.math3.linear;version="3.6
+ .1",org.apache.commons.math3.ml.clustering;version="3.6.1",org.apache
+ .commons.math3.ml.clustering.evaluation;version="3.6.1",org.apache.co
+ mmons.math3.ml.distance;version="3.6.1",org.apache.commons.math3.ml.n
+ euralnet;version="3.6.1",org.apache.commons.math3.ml.neuralnet.oned;v
+ ersion="3.6.1",org.apache.commons.math3.ml.neuralnet.sofm;version="3.
+ 6.1",org.apache.commons.math3.ml.neuralnet.sofm.util;version="3.6.1",
+ org.apache.commons.math3.ml.neuralnet.twod;version="3.6.1",org.apache
+ .commons.math3.ml.neuralnet.twod.util;version="3.6.1",org.apache.comm
+ ons.math3.ode;version="3.6.1",org.apache.commons.math3.ode.events;ver
+ sion="3.6.1",org.apache.commons.math3.ode.nonstiff;version="3.6.1",or
+ g.apache.commons.math3.ode.sampling;version="3.6.1",org.apache.common
+ s.math3.optim;version="3.6.1",org.apache.commons.math3.optim.linear;v
+ ersion="3.6.1",org.apache.commons.math3.optim.nonlinear.scalar;versio
+ n="3.6.1",org.apache.commons.math3.optim.nonlinear.scalar.gradient;ve
+ rsion="3.6.1",org.apache.commons.math3.optim.nonlinear.scalar.noderiv
+ ;version="3.6.1",org.apache.commons.math3.optim.nonlinear.vector;vers
+ ion="3.6.1",org.apache.commons.math3.optim.nonlinear.vector.jacobian;
+ version="3.6.1",org.apache.commons.math3.optim.univariate;version="3.
+ 6.1",org.apache.commons.math3.optimization;version="3.6.1",org.apache
+ .commons.math3.optimization.direct;version="3.6.1",org.apache.commons
+ .math3.optimization.fitting;version="3.6.1",org.apache.commons.math3.
+ optimization.general;version="3.6.1",org.apache.commons.math3.optimiz
+ ation.linear;version="3.6.1",org.apache.commons.math3.optimization.un
+ ivariate;version="3.6.1",org.apache.commons.math3.primes;version="3.6
+ .1",org.apache.commons.math3.random;version="3.6.1",org.apache.common
+ s.math3.special;version="3.6.1",org.apache.commons.math3.stat;version
+ ="3.6.1",org.apache.commons.math3.stat.clustering;version="3.6.1",org
+ .apache.commons.math3.stat.correlation;version="3.6.1",org.apache.com
+ mons.math3.stat.descriptive;version="3.6.1",org.apache.commons.math3.
+ stat.descriptive.moment;version="3.6.1",org.apache.commons.math3.stat
+ .descriptive.rank;version="3.6.1",org.apache.commons.math3.stat.descr
+ iptive.summary;version="3.6.1",org.apache.commons.math3.stat.inferenc
+ e;version="3.6.1",org.apache.commons.math3.stat.interval;version="3.6
+ .1",org.apache.commons.math3.stat.ranking;version="3.6.1",org.apache.
+ commons.math3.stat.regression;version="3.6.1",org.apache.commons.math
+ 3.transform;version="3.6.1",org.apache.commons.math3.util;version="3.
+ 6.1"
+Private-Package: assets.org.apache.commons.math3.exception.util,assets
+ .org.apache.commons.math3.random
+Implementation-Title: Apache Commons Math
+Built-By: ward
+Tool: Bnd-2.3.0.201405100607
+Require-Capability: osgi.ee;filter:="(&(osgi.ee=JavaSE)(version=1.5))"
+Implementation-Vendor: The Apache Software Foundation
+Implementation-Vendor-Id: org.apache
+Specification-Title: Apache Commons Math
+Bundle-License: http://www.apache.org/licenses/LICENSE-2.0.txt
+Bundle-SymbolicName: org.apache.commons.math3
+X-Compile-Target-JDK: 1.5
+Implementation-Version: 3.6.1
+Specification-Vendor: The Apache Software Foundation
+Bundle-Name: Apache Commons Math
+Created-By: Apache Maven Bundle Plugin
+Implementation-URL: http://commons.apache.org/proper/commons-math/
+X-Compile-Source-JDK: 1.5
+Bundle-Vendor: The Apache Software Foundation
+Build-Jdk: 1.7.0_95
+Bundle-Version: 3.6.1
+Bnd-LastModified: 1458235858159
+Bundle-ManifestVersion: 2
+Bundle-Description: The Apache Commons Math project is a library of li
+ ghtweight, self-contained mathematics and statistics components addre
+ ssing the most common practical problems not immediately available in
+  the Java programming language or commons-lang.
+Bundle-DocURL: http://commons.apache.org/proper/commons-math/
+Include-Resource: assets/org/apache/commons/math3/random/new-joe-kuo-6
+ .1000=src/main/resources/assets/org/apache/commons/math3/random/new-j
+ oe-kuo-6.1000,assets/org/apache/commons/math3/exception/util/Localize
+ dFormats_fr.properties=src/main/resources/assets/org/apache/commons/m
+ ath3/exception/util/LocalizedFormats_fr.properties,META-INF/LICENSE.t
+ xt=LICENSE.txt,META-INF/NOTICE.txt=NOTICE.txt
+Specification-Version: 3.6.1
+Implementation-Build: 16abfe5de688cc52fb0396e0609cb33044b15653; 2016-0
+ 3-17 13:30:43-0400
+Archiver-Version: Plexus Archiver
+

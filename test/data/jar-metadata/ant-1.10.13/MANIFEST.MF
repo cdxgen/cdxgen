@@ -1,0 +1,14 @@
+Manifest-Version: 1.0
+Ant-Version: Apache Ant 1.10.12
+Created-By: 17.0.2+8-86 (Oracle Corporation)
+Main-Class: org.apache.tools.ant.Main
+
+Name: org/apache/tools/ant/
+Extension-Name: org.apache.tools.ant
+Specification-Title: Apache Ant
+Specification-Version: 1.10.13
+Specification-Vendor: Apache Software Foundation
+Implementation-Title: org.apache.tools.ant
+Implementation-Version: 1.10.13
+Implementation-Vendor: Apache Software Foundation
+

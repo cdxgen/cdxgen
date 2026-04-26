@@ -1,0 +1,87 @@
+Manifest-Version: 1.0
+Ant-Version: Apache Ant 1.7.0
+Created-By: Apache Ant
+Package: org.apache.velocity
+Build-Jdk: 1.4.2_16
+Extension-Name: velocity
+Specification-Title: Velocity is a Java-based template engine
+Specification-Vendor: Apache Software Foundation
+Implementation-Title: org.apache.velocity
+Implementation-Vendor-Id: org.apache
+Implementation-Vendor: Apache Software Foundation
+Implementation-Version: 1.7
+Bundle-ManifestVersion: 2
+Bundle-Name: Apache Velocity
+Bundle-Vendor: Apache Software Foundation
+Bundle-SymbolicName: org.apache.velocity
+Bundle-Version: 1.7
+Import-Package: com.werken.xpath;resolution:=optional,javax.naming,jav
+ ax.servlet;resolution:=optional,javax.servlet.http;resolution:=option
+ al,javax.sql,org.apache.commons.collections,org.apache.commons.collec
+ tions.map,org.apache.commons.lang,org.apache.commons.lang.builder,org
+ .apache.commons.lang.text,org.apache.commons.logging;resolution:=opti
+ onal,org.apache.log;resolution:=optional,org.apache.log.format;resolu
+ tion:=optional,org.apache.log.output.io;resolution:=optional,org.apac
+ he.log4j;resolution:=optional,org.apache.oro.text.perl;resolution:=op
+ tional,org.apache.tools.ant;resolution:=optional,org.apache.tools.ant
+ .taskdefs;resolution:=optional,org.jdom;resolution:=optional,org.jdom
+ .input;resolution:=optional,org.jdom.output;resolution:=optional,org.
+ xml.sax
+Export-Package: org.apache.velocity;uses:="org.apache.velocity.context
+ ,org.apache.velocity.exception,org.apache.velocity.runtime.resource",
+ org.apache.velocity.anakia;uses:="com.werken.xpath,org.apache.tools.a
+ nt,org.apache.tools.ant.taskdefs,org.jdom,org.jdom.output",org.apache
+ .velocity.app;uses:="org.apache.commons.collections,org.apache.veloci
+ ty,org.apache.velocity.context,org.apache.velocity.exception,org.apac
+ he.velocity.runtime,org.apache.velocity.runtime.log",org.apache.veloc
+ ity.app.event;uses:="org.apache.velocity.context,org.apache.velocity.
+ runtime,org.apache.velocity.util.introspection",org.apache.velocity.a
+ pp.event.implement;uses:="org.apache.velocity.app.event,org.apache.ve
+ locity.context,org.apache.velocity.runtime,org.apache.velocity.util,o
+ rg.apache.velocity.util.introspection",org.apache.velocity.app.tools;
+ uses:="org.apache.velocity.context",org.apache.velocity.context;uses:
+ ="org.apache.velocity.app.event,org.apache.velocity.exception,org.apa
+ che.velocity.runtime,org.apache.velocity.runtime.parser.node,org.apac
+ he.velocity.runtime.resource,org.apache.velocity.util.introspection",
+ org.apache.velocity.convert,org.apache.velocity.exception;uses:="org.
+ apache.velocity.runtime.parser,org.apache.velocity.util.introspection
+ ",org.apache.velocity.io,org.apache.velocity.runtime;uses:="org.apach
+ e.commons.collections,org.apache.velocity,org.apache.velocity.app.eve
+ nt,org.apache.velocity.context,org.apache.velocity.exception,org.apac
+ he.velocity.runtime.directive,org.apache.velocity.runtime.log,org.apa
+ che.velocity.runtime.parser,org.apache.velocity.runtime.parser.node,o
+ rg.apache.velocity.runtime.resource,org.apache.velocity.util.introspe
+ ction",org.apache.velocity.runtime.defaults,org.apache.velocity.runti
+ me.directive;uses:="org.apache.velocity.context,org.apache.velocity.e
+ xception,org.apache.velocity.runtime,org.apache.velocity.runtime.pars
+ er,org.apache.velocity.runtime.parser.node",org.apache.velocity.runti
+ me.log;uses:="org.apache.log.format,org.apache.velocity.runtime,org.a
+ pache.velocity.runtime.directive,org.apache.velocity.runtime.parser.n
+ ode,org.apache.velocity.util.introspection",org.apache.velocity.runti
+ me.parser;uses:="org.apache.velocity.exception,org.apache.velocity.ru
+ ntime,org.apache.velocity.runtime.directive,org.apache.velocity.runti
+ me.parser.node",org.apache.velocity.runtime.parser.node;uses:="org.ap
+ ache.commons.lang.text,org.apache.velocity.context,org.apache.velocit
+ y.exception,org.apache.velocity.runtime,org.apache.velocity.runtime.l
+ og,org.apache.velocity.runtime.parser,org.apache.velocity.util.intros
+ pection",org.apache.velocity.runtime.resource;uses:="org.apache.veloc
+ ity.exception,org.apache.velocity.runtime,org.apache.velocity.runtime
+ .resource.loader",org.apache.velocity.runtime.resource.loader;uses:="
+ javax.sql,org.apache.commons.collections,org.apache.velocity.exceptio
+ n,org.apache.velocity.runtime,org.apache.velocity.runtime.resource,or
+ g.apache.velocity.runtime.resource.util",org.apache.velocity.runtime.
+ resource.util,org.apache.velocity.runtime.visitor;uses:="org.apache.v
+ elocity.context,org.apache.velocity.runtime.parser.node",org.apache.v
+ elocity.servlet;uses:="javax.servlet,javax.servlet.http,org.apache.ve
+ locity,org.apache.velocity.context,org.apache.velocity.exception",org
+ .apache.velocity.texen;uses:="org.apache.velocity,org.apache.velocity
+ .app,org.apache.velocity.context",org.apache.velocity.texen.ant;uses:
+ ="org.apache.commons.collections,org.apache.tools.ant,org.apache.velo
+ city.context",org.apache.velocity.texen.defaults,org.apache.velocity.
+ texen.util,org.apache.velocity.util;uses:="org.apache.velocity.contex
+ t,org.apache.velocity.runtime,org.apache.velocity.runtime.parser.node
+ ,org.apache.velocity.util.introspection",org.apache.velocity.util.int
+ rospection;uses:="org.apache.velocity.runtime,org.apache.velocity.run
+ time.log,org.apache.velocity.runtime.parser.node,org.apache.velocity.
+ util"
+
