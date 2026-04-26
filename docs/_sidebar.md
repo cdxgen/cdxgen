@@ -19,4 +19,5 @@
 - [Tutorials - OWASP juice-shop](LESSON5.md)
 - [Tutorials - Multi-Signing and Signature Chaining for SBOMs](LESSON6.md)
 - [Tutorials - Validating SBOMs against SCVS and CRA](LESSON7.md)
+- [Tutorials - Scanning Git URLs and purls with BOM Audit](LESSON8.md)
 - [Support (Enterprise & Community)](SUPPORT.md)

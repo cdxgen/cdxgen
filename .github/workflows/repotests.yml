@@ -71,6 +71,7 @@ jobs:
           bin/cdxgen.js -t java repotests/java-sec-code -o bomresults/bom-java-sec-code-9.json --include-regex "pom.xml" --bom-audit
           bin/cdxgen.js -t java -t github repotests/java-sec-code -o bomresults/bom-java-sec-code-9.json
           bin/cdxgen.js -t java -exclude-type js repotests/java-sec-code -o bomresults/bom-java-sec-code-10.json
+          bin/cdxgen.js -t java https://github.com/HooliCorp/java-sec-code.git -o bomresults/bom-java-sec-code-git-url.json --git-branch main --fail-on-error --bom-audit
           bin/validate.js -i bomresults/bom-java-sec-code-10.json --format console --fail-severity critical
         shell: bash
       - name: repotests java-sec-code (allow lists)
@@ -143,6 +144,7 @@ jobs:
         run: |
           bin/cdxgen.js -t js -o bomresults/bom-iot.json repotests/iot-device-simulator --fail-on-error
           bin/cdxgen.js -t js -o bomresults/bom-iot15.json repotests/iot-device-simulator --spec-version 1.5 --fail-on-error
+          bin/cdxgen.js -t js -o bomresults/bom-iot-git-url.json --git-branch v3.0.9 https://github.com/aws-solutions/iot-device-simulator.git --fail-on-error
         shell: bash
       - name: repotests ollama
         run: |

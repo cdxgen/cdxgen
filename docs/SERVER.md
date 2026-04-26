@@ -35,6 +35,8 @@ Arguments can be passed either via the query string or as a JSON body. The follo
 
 | Argument           | Description                                                                                                                                                                                                                                                                                                                           |
 | ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| path               | Absolute local path to scan.                                                                                                                                                                                                                                                                                                          |
+| url                | Remote source to scan. Supports Git URLs (`https://...git`, `ssh://...`, `git@...`) and package URLs (`pkg:npm/...`, `pkg:pypi/...`, `pkg:gem/...`, `pkg:cargo/...`, `pkg:pub/...`).                                                                                                                                              |
 | type               | Project type. Supports passing multiple types separated by `,`. For example, "dotnet java"                                                                                                                                                                                                                                            |
 | multiProject       | [boolean]                                                                                                                                                                                                                                                                                                                             |
 | requiredOnly       | Include only the packages with required scope on the SBOM. [boolean]                                                                                                                                                                                                                                                                  |
@@ -76,6 +78,14 @@ curl "http://127.0.0.1:9090/sbom?path=/Volumes/Work/sandbox/vulnerable-aws-koa-a
 curl "http://127.0.0.1:9090/sbom?url=https://github.com/HooliCorp/vulnerable-aws-koa-app.git&multiProject=true&type=js"
 ```
 
+### Scanning from a purl
+
+```shell
+curl "http://127.0.0.1:9090/sbom?url=pkg:npm/lodash@4.17.21&type=js&multiProject=true"
+```
+
+> **Warning:** For purl requests, cdxgen resolves repository URLs from registry metadata. Registry metadata may be inaccurate or malicious.
+
 If you need to pass credentials to authenticate.
 
 ```shell
@@ -113,11 +123,11 @@ When running `cdxgen` in server mode, especially if exposed to a network, it is 
 
 By default, `cdxgen` safely restricts Git clones to standard secure protocols (`https`, `git`, and `ssh`) and strictly blocks dangerous transport helpers like `ext::` or `fd::` at the application and OS level to prevent command execution.
 
-You can further restrict allowed Git protocols using the `CDXGEN_SERVER_GIT_ALLOW_PROTOCOL` environment variable.
+You can further restrict allowed Git protocols using `CDXGEN_GIT_ALLOW_PROTOCOL` (preferred) or `CDXGEN_SERVER_GIT_ALLOW_PROTOCOL` (server-mode alias).
 
 ```shell
 # Only allow HTTPS and SSH clones
-export CDXGEN_SERVER_GIT_ALLOW_PROTOCOL="https:ssh"
+export CDXGEN_GIT_ALLOW_PROTOCOL="https:ssh"
 cdxgen --server
 ```
 
@@ -125,20 +135,20 @@ _(Note: SCP-style SSH URLs like `git@github.com:repo.git` are fully supported, a
 
 ### 2. Restricting Allowed Hosts
 
-To prevent SSRF and ensure the server only clones repositories from trusted sources, configure an allowlist of hostnames using `CDXGEN_SERVER_ALLOWED_HOSTS`.
+To prevent SSRF and ensure the server only clones repositories from trusted sources, configure an allowlist of hostnames using `CDXGEN_GIT_ALLOWED_HOSTS` (preferred) or `CDXGEN_SERVER_ALLOWED_HOSTS` (server-mode alias).
 
 ```shell
-export CDXGEN_SERVER_ALLOWED_HOSTS="github.com,gitlab.com"
+export CDXGEN_GIT_ALLOWED_HOSTS="github.com,gitlab.com"
 cdxgen --server
 curl "http://127.0.0.1:9090/sbom?url=https://github.com/HooliCorp/vulnerable-aws-koa-app.git&multiProject=true&type=js"
 ```
 
 ### 3. Restricting Allowed Local Paths
 
-If the server processes local paths instead of Git URLs, you must restrict which directories it can access using `CDXGEN_SERVER_ALLOWED_PATHS`.
+If the server processes local paths instead of Git URLs, you must restrict which directories it can access using `CDXGEN_ALLOWED_PATHS` (preferred) or `CDXGEN_SERVER_ALLOWED_PATHS` (server-mode alias).
 
 ```shell
-export CDXGEN_SERVER_ALLOWED_PATHS="/mnt/work,/mnt/work2"
+export CDXGEN_ALLOWED_PATHS="/mnt/work,/mnt/work2"
 cdxgen --server
 curl "http://127.0.0.1:9090/sbom?path=/mnt/work/vulnerable-aws-koa-app&multiProject=true&type=js"
 ```

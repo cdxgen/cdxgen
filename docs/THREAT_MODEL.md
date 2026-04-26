@@ -117,6 +117,20 @@ Trust boundary 5: cdxgen container ←→ container host
 
 **Residual risk:** Low in secure mode, Medium in default mode.
 
+#### T1.5 — Remote source scanning via git URL and purl inputs
+
+**Threat:** A user (or wrapper tool) supplies a malicious git URL or purl that resolves to an unsafe repository.
+
+**Mitigations:**
+
+- CLI and server both use shared source validation (`validateAndRejectGitSource()`) and hardened clone behavior
+- Protocol allowlisting via `GIT_ALLOW_PROTOCOL` / `CDXGEN_GIT_ALLOW_PROTOCOL`
+- Host allowlisting via `CDXGEN_GIT_ALLOWED_HOSTS` (or `CDXGEN_SERVER_ALLOWED_HOSTS` in server mode)
+- Temporary clone directories are removed after scan completion
+- purl resolution emits an explicit warning that registry metadata may be untrusted
+
+**Residual risk:** Medium — trust is delegated to external registry metadata and remote repository hosting unless strict allowlists are configured.
+
 ### 2. HTTP Server (`lib/server/server.js`)
 
 #### T2.1 — Path traversal via scan requests
@@ -166,6 +180,18 @@ Trust boundary 5: cdxgen container ←→ container host
 - Redirect following is disabled in secure mode
 
 **Residual risk:** Medium — build tools invoked by cdxgen make their own HTTP requests that are not controlled by `CDXGEN_ALLOWED_HOSTS`.
+
+#### T2.6 — Registry metadata poisoning for purl requests
+
+**Threat:** A purl request resolves through registry metadata (`repository`, `homepage`, or similar fields) to attacker-controlled repositories.
+
+**Mitigations:**
+
+- purl-to-repository resolution is restricted to known ecosystems and then validated with git protocol + host allowlists
+- Host allowlists can block unexpected repository hosts even when metadata is poisoned
+- cdxgen logs warnings when using registry-derived repository URLs
+
+**Residual risk:** Medium — poisoned metadata can still redirect scans if allowlists are broad or unset.
 
 #### T2.4 — Denial of service
 
@@ -355,13 +381,13 @@ _TB = Trust Boundary (see Trust Boundaries section above)_
 | Control                  | Implementation                                                      | Threat(s) Addressed          |
 | ------------------------ | ------------------------------------------------------------------- | ---------------------------- |
 | Command allowlisting     | `CDXGEN_ALLOWED_COMMANDS` + `safeSpawnSync`                         | T1.1, T1.2                   |
-| Host allowlisting        | `CDXGEN_ALLOWED_HOSTS` + `cdxgenAgent` hooks                        | T2.3, T2.2                   |
+| Host allowlisting        | `CDXGEN_ALLOWED_HOSTS` + `CDXGEN_GIT_ALLOWED_HOSTS` + `cdxgenAgent` hooks | T2.3, T2.2, T2.6             |
 | Path allowlisting        | `CDXGEN_SERVER_ALLOWED_PATHS` + `isAllowedPath`                     | T2.1                         |
 | Node.js permission model | `--permission` flags in `NODE_OPTIONS`                              | T1.4, T5.1                   |
 | Secure mode              | `CDXGEN_SECURE_MODE=true`                                           | T1.2, T2.2, T2.3, T6.2       |
 | Environment audit        | `auditEnvironment()` at startup                                     | T1.3                         |
 | Unicode validation       | `hasDangerousUnicode()`, `isValidDriveRoot()`                       | T1.4, T2.1                   |
-| Git hardening            | `validateAndRejectGitSource()`, hardened clone config               | T2.2                         |
+| Git hardening            | `validateAndRejectGitSource()`, hardened clone config               | T1.5, T2.2, T2.6             |
 | Safe wrappers            | `safeExistsSync`, `safeMkdirSync`, `safeSpawnSync`                  | T1.1, T1.4                   |
 | Structured logging       | `thoughtLog`, `traceLog`, `commandsExecuted`, `remoteHostsAccessed` | Auditability for all threats |
 | Dependency pinning       | `pnpm-lock.yaml`, SHA-pinned Actions, SHA-pinned base images        | T3.1, T3.2, T4.1             |
@@ -373,7 +399,7 @@ _TB = Trust Boundary (see Trust Boundaries section above)_
 
 1. **Use secure mode** — Set `CDXGEN_SECURE_MODE=true` and configure `NODE_OPTIONS` with the Node.js permission model, or use the `ghcr.io/cyclonedx/cdxgen-secure` container image.
 2. **Configure allowlists** — Set `CDXGEN_ALLOWED_HOSTS` and `CDXGEN_ALLOWED_COMMANDS` based on your project types. Run once without allowlists and use the suggested values from cdxgen's output.
-3. **Restrict server paths** — When running in server mode, always set `CDXGEN_SERVER_ALLOWED_PATHS` and `CDXGEN_SERVER_ALLOWED_HOSTS`.
+3. **Restrict server paths and remote hosts** — When running in server mode, always set `CDXGEN_ALLOWED_PATHS` (or `CDXGEN_SERVER_ALLOWED_PATHS`) and `CDXGEN_GIT_ALLOWED_HOSTS` (or `CDXGEN_SERVER_ALLOWED_HOSTS`).
 4. **Deploy server behind a proxy** — The cdxgen server has no built-in authentication. Use a reverse proxy (nginx, Envoy, etc.) with authentication and rate limiting.
 5. **Sandbox untrusted projects** — Scan untrusted code in containers or ephemeral CI environments, not on developer machines.
 6. **Review environment** — Check `auditEnvironment` output for warnings. Remediate HIGH severity findings before production use.

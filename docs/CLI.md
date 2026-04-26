@@ -75,6 +75,7 @@ Options:
   -c, --resolve-class             Resolve class names for packages. jars only for now.                         [boolean]
       --deep                      Perform deep searches for components. Useful while scanning C/C++ apps, live OS and oc
                                   i images.                                                                    [boolean]
+      --git-branch                Git branch to clone when the source is a git URL or purl                     [string]
       --server-url                Dependency track url. Eg: https://deptrack.cyclonedx.io
       --skip-dt-tls-check         Skip TLS certificate check when calling Dependency-Track.   [boolean] [default: false]
       --api-key                   Dependency track api key
@@ -150,3 +151,27 @@ for documentation, visit https://cdxgen.github.io/cdxgen
 ```
 
 All boolean arguments accept `--no` prefix to toggle the behavior.
+
+## Source input examples
+
+### Local path
+
+```shell
+cdxgen -t java -o bom.json .
+```
+
+### Git URL
+
+```shell
+cdxgen -t java -o bom.json --git-branch main https://github.com/HooliCorp/java-sec-code.git
+```
+
+### Package URL (purl)
+
+```shell
+cdxgen -t js -o bom.json "pkg:npm/lodash@4.17.21"
+```
+
+For purl inputs, cdxgen resolves registry metadata to locate a repository URL, clones the source to a temporary directory, and runs the normal SBOM + post-processing pipeline.
+
+> **Security note:** Registry metadata can be inaccurate or malicious. Validate the resolved repository URL before relying on the SBOM.
