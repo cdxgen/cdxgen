@@ -305,6 +305,14 @@ For user-supplied strings that will be used in file paths or URLs, check `hasDan
 
 Environment variables from `auditEnvironment` (`lib/stages/pregen/envAudit.js`) are checked at startup to detect dangerous `NODE_OPTIONS` values.
 
+When adding or modifying **external-facing features** (SCM/network integrations like release notes, git metadata, repository lookups), treat all input values as untrusted by default:
+
+- Validate git refs/tags/branches with `isSafeGitRefName()` before using them in git revision/range arguments.
+- Prefer parsing helpers that normalize and filter unsafe refs before selection.
+- Never pass user/remote-derived refs directly into `git log`/`git` revision arguments without validation.
+- Use `hardenedGitCommand()` (or `safeSpawnSync` wrappers where applicable) instead of raw process execution.
+- Use `cdxgenAgent` for outbound HTTP and source tokens from `options`/environment without logging credentials.
+
 ---
 
 ## Environment variables
