@@ -60,12 +60,14 @@ jobs:
       - name: repotests java-sec-code
         run: |
           bin/cdxgen.js -t java repotests/java-sec-code -o bomresults/bom-java-sec-code-1.json --include-formulation --include-crypto --fail-on-error
+          bin/cdxgen.js -t java repotests/java-sec-code -o bomresults/bom-java-sec-code-1.spdx.json --format spdx --fail-on-error
           bin/cdxgen.js -t java repotests/java-sec-code -o bomresults/bom-java-sec-code-2.json --author foo --author bar --standard asvs-4.0.3
           bin/cdxgen.js -t java repotests/java-sec-code -o bomresults/bom-java-sec-code-3.json --required-only --fail-on-error
           bin/cdxgen.js -t java repotests/java-sec-code -o bomresults/bom-java-sec-code-4.json --filter postgres --filter json
           bin/cdxgen.js -t java repotests/java-sec-code -o bomresults/bom-java-sec-code-5.json --only spring --fail-on-error
           bin/cdxgen.js -t java repotests/java-sec-code -o bomresults/bom-java-sec-code-6.json --deep --evidence
           bin/cdxgen.js -t java repotests/java-sec-code -o bomresults/bom-java-sec-code-7.json --profile research --spec-version 1.6 --export-proto
+          node bin/convert.js -i bomresults/bom-java-sec-code-7.json -o bomresults/bom-java-sec-code-7.spdx.json
           ls -lh bomresults
           bin/cdxgen.js -t java repotests/java-sec-code -o bomresults/bom-java-sec-code-8.json --profile license-compliance
           bin/cdxgen.js -t java repotests/java-sec-code -o bomresults/bom-java-sec-code-9.json --include-regex "pom.xml" --bom-audit
@@ -589,12 +591,14 @@ jobs:
       - name: repotests java-sec-code
         run: |
           bin/cdxgen.js -t java repotests/java-sec-code -o bomresults/bom-java-sec-code-1.json --include-formulation --include-crypto --fail-on-error
+          bin/cdxgen.js -t java repotests/java-sec-code -o bomresults/bom-java-sec-code-1.spdx.json --format spdx --fail-on-error
           bin/cdxgen.js -t java repotests/java-sec-code -o bomresults/bom-java-sec-code-2.json --author foo --author bar --standard asvs-4.0.3
           bin/cdxgen.js -t java repotests/java-sec-code -o bomresults/bom-java-sec-code-3.json --required-only --fail-on-error
           bin/cdxgen.js -t java repotests/java-sec-code -o bomresults/bom-java-sec-code-4.json --filter postgres --filter json
           bin/cdxgen.js -t java repotests/java-sec-code -o bomresults/bom-java-sec-code-5.json --only spring --fail-on-error
           bin/cdxgen.js -t java repotests/java-sec-code -o bomresults/bom-java-sec-code-6.json --deep --evidence
           bin/cdxgen.js -t java repotests/java-sec-code -o bomresults/bom-java-sec-code-7.json --profile research --spec-version 1.6 --export-proto
+          node bin/convert.js -i bomresults/bom-java-sec-code-7.json -o bomresults/bom-java-sec-code-7.spdx.json
           bin/cdxgen.js -t java repotests/java-sec-code -o bomresults/bom-java-sec-code-8.json --profile license-compliance
           bin/cdxgen.js -t java -t github repotests/java-sec-code -o bomresults/bom-java-sec-code-9.json
           bin/cdxgen.js -t java -exclude-type js repotests/java-sec-code -o bomresults/bom-java-sec-code-10.json

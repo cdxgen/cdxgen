@@ -227,4 +227,6 @@ file into SPDX JSON-LD:
 cdx-convert -i bom.json -o bom.spdx.json
 ```
 
+`cdx-convert` supports CycloneDX 1.6 and 1.7 inputs and exports SPDX 3.0.1.
+
 Refer to [cdx-convert — CycloneDX to SPDX](CDX_CONVERT.md) for complete usage.

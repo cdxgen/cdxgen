@@ -7,10 +7,7 @@ import process from "node:process";
 import yargs from "yargs";
 import { hideBin } from "yargs/helpers";
 
-import {
-  deriveSpdxOutputPath,
-  normalizeOutputFormats,
-} from "../lib/helpers/exportUtils.js";
+import { deriveSpdxOutputPath } from "../lib/helpers/exportUtils.js";
 import {
   retrieveCdxgenVersion,
   safeExistsSync,
@@ -30,14 +27,6 @@ const args = _yargs
   .option("output", {
     alias: "o",
     description: "Output SPDX JSON file. Defaults to <input>.spdx.json.",
-  })
-  .option("from", {
-    default: "cyclonedx",
-    description: "Input format. Supports cyclonedx/cdx aliases.",
-  })
-  .option("to", {
-    default: "spdx",
-    description: "Output format. Supports spdx aliases.",
   })
   .option("validate", {
     type: "boolean",
@@ -62,22 +51,6 @@ if (!safeExistsSync(args.input)) {
   process.exit(1);
 }
 
-const inputFormats = normalizeOutputFormats(args.from);
-if (!inputFormats.length || !inputFormats.includes("cyclonedx")) {
-  console.error(
-    `Unsupported input format '${args.from}'. Use 'cyclonedx' or 'cdx'.`,
-  );
-  process.exit(1);
-}
-
-const outputFormats = normalizeOutputFormats(args.to);
-if (!outputFormats.length || !outputFormats.includes("spdx")) {
-  console.error(
-    `Unsupported output format '${args.to}'. Use 'spdx', 'spdx-json', 'spdx3', or 'spdx3-json'.`,
-  );
-  process.exit(1);
-}
-
 let bomJson;
 try {
   bomJson = JSON.parse(fs.readFileSync(args.input, "utf8"));
@@ -89,6 +62,13 @@ try {
 if (bomJson?.bomFormat !== "CycloneDX") {
   console.error(
     "Input must be a CycloneDX JSON BOM (missing or invalid bomFormat).",
+  );
+  process.exit(1);
+}
+const cdxSpecVersion = Number.parseFloat(`${bomJson?.specVersion || ""}`);
+if (![1.6, 1.7].includes(cdxSpecVersion)) {
+  console.error(
+    `Unsupported CycloneDX specVersion '${bomJson?.specVersion}'. cdx-convert currently supports CycloneDX 1.6 or 1.7 input and exports SPDX 3.0.1.`,
   );
   process.exit(1);
 }
