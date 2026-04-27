@@ -326,6 +326,10 @@ For projects without npm/PyPI dependencies, the overhead is usually minimal. For
 
 Use `--bom-audit-categories` to restrict which categories run. Individual rule disabling is planned for a future release.
 
+**Q: How does provenance affect the predictive audit score?**
+
+Registry-visible provenance such as trusted publishing, provenance URLs, and verified uploaders is treated as a score reducer and confidence input. Missing provenance is only used as a weak contextual detector and is never intended to produce a high-severity finding on its own.
+
 **Q: How do I use this in CI/CD pipelines?**
 
 ```yaml

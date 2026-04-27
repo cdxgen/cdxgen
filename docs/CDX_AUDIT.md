@@ -74,6 +74,28 @@ Progress is written to `stderr`, so `--report json` output on `stdout` remains m
 
 This keeps false positives lower while still prioritizing packages that look structurally more likely to be abused in a future supply-chain event.
 
+Provenance signals are handled conservatively:
+
+- missing trusted publishing is **not** treated as a standalone high-risk signal
+- for npm, missing provenance only becomes a detector when the package already has install-time execution risk
+- for PyPI, missing provenance is a low-severity contextual detector for default-registry packages without uploader verification
+- positive provenance evidence such as `trustedPublishing` or `provenanceUrl` reduces the final predictive score, but does not erase strong multi-signal findings
+
+Recent-release and publisher-change detectors are also conservative:
+
+- they only activate for established packages with enough release history
+- recent-release detectors look for very new releases on mature packages, not brand-new projects
+- publisher-change detectors use the immediately prior known publisher/uploader as context, then require weak trust posture before surfacing a finding
+- publisher drift is a triage signal, not proof of compromise
+
+Maintainer-set drift and cadence anomaly detectors follow the same approach:
+
+- fully disjoint maintainer/uploader sets remain the stronger drift signal
+- partial-overlap drift only triggers when some identities are retained and some change across adjacent releases
+- release-gap anomalies focus on long dormant gaps on mature packages, not ordinary cadence variation
+- compressed-cadence anomalies focus on materially faster-than-usual releases on mature packages with enough history, not normal short-cycle projects
+- these signals stay low-severity unless combined with higher-risk package behavior such as install-time execution
+
 ## Registry provenance enrichment
 
 When package metadata is available from npmjs or PyPI, cdxgen now records additional provenance-oriented custom properties such as:
@@ -82,11 +104,15 @@ When package metadata is available from npmjs or PyPI, cdxgen now records additi
 - `cdx:npm:provenanceUrl`
 - `cdx:npm:publisher`
 - `cdx:npm:publishTime`
+- `cdx:npm:compressedCadence`
+- `cdx:npm:maintainerSetPartialDrift`
 - `cdx:pypi:trustedPublishing`
 - `cdx:pypi:provenanceUrl`
 - `cdx:pypi:publisher`
 - `cdx:pypi:uploaderVerified`
 - `cdx:pypi:publishTime`
+- `cdx:pypi:compressedCadence`
+- `cdx:pypi:uploaderSetPartialDrift`
 
 See [`docs/CUSTOM_PROPERTIES.md`](CUSTOM_PROPERTIES.md) for the full inventory and value semantics.
 
