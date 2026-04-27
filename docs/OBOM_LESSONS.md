@@ -35,12 +35,12 @@ Most early compromise persistence techniques show up in host startup surfaces.
 ```bash
 cdxi obom.json
 .osinfocategories
-scheduled_tasks
-windows_run_keys
-launchd_services
-elevated_processes
-sudo_executions
-privileged_listening_ports
+.scheduled_tasks
+.windows_run_keys
+.launchd_services
+.elevated_processes
+.sudo_executions
+.privileged_listening_ports
 ```
 
 ## 3) IR lesson: build a “possible initial access” shortlist
