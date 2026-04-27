@@ -1,1 +1,1 @@
-{"version":3,"file":"bomValidator.d.ts","sourceRoot":"","sources":["../../../lib/validator/bomValidator.js"],"names":[],"mappings":"AAmZA;;;;GAIG;AACH,uCAFW,MAAM,WAiIhB;AAngBM,qCAJI,MAAM,WAiEhB;AAOM,0CAFI,MAAM,WAmEhB;AAOM,uCAFI,MAAM,WA6GhB;AAgDM,sCAFI,MAAM,WAwFhB"}
+{"version":3,"file":"bomValidator.d.ts","sourceRoot":"","sources":["../../../lib/validator/bomValidator.js"],"names":[],"mappings":"AA2nBA;;;;GAIG;AACH,uCAFW,MAAM,WAiIhB;AAlsBM,qCAJI,MAAM,WAiEhB;AAQM,uCAHI,MAAM,GAAC,MAAM,GACX,OAAO,CAyLnB;AAOM,0CAFI,MAAM,WAmEhB;AAOM,uCAFI,MAAM,WA6GhB;AAgDM,sCAFI,MAAM,WAwFhB"}

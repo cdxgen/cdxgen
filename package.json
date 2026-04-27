@@ -122,7 +122,7 @@
     "@npmcli/map-workspaces": "5.0.3",
     "@npmcli/name-from-folder": "4.0.0",
     "@npmcli/package-json": "7.0.5",
-    "ajv": "8.18.0",
+    "ajv": "8.20.0",
     "ajv-formats": "3.0.1",
     "bin-links": "6.0.0",
     "cheerio": "1.2.0",
@@ -152,11 +152,11 @@
     "yoctocolors": "2.1.2"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.4.12",
+    "@biomejs/biome": "2.4.13",
     "esmock": "2.7.3",
-    "poku": "4.2.1",
+    "poku": "4.3.0",
     "sinon": "21.1.2",
-    "typescript": "6.0.2"
+    "typescript": "6.0.3"
   },
   "optionalDependencies": {
     "@appthreat/atom": "2.5.2",

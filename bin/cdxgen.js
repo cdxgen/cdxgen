@@ -1324,7 +1324,7 @@ const writeCycloneDxOutput = (jsonFile, bomJson, options) => {
       progressTracker.stop();
     }
     if (predictiveReport.summary.totalTargets > 0) {
-      process.stdout.write(
+      process.stderr.write(
         renderConsoleReport(predictiveReport, {
           minSeverity: options.bomAuditMinSeverity,
         }),

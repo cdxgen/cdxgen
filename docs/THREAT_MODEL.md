@@ -378,22 +378,22 @@ _TB = Trust Boundary (see Trust Boundaries section above)_
 
 ## Security Controls Summary
 
-| Control                  | Implementation                                                      | Threat(s) Addressed          |
-| ------------------------ | ------------------------------------------------------------------- | ---------------------------- |
-| Command allowlisting     | `CDXGEN_ALLOWED_COMMANDS` + `safeSpawnSync`                         | T1.1, T1.2                   |
+| Control                  | Implementation                                                            | Threat(s) Addressed          |
+| ------------------------ | ------------------------------------------------------------------------- | ---------------------------- |
+| Command allowlisting     | `CDXGEN_ALLOWED_COMMANDS` + `safeSpawnSync`                               | T1.1, T1.2                   |
 | Host allowlisting        | `CDXGEN_ALLOWED_HOSTS` + `CDXGEN_GIT_ALLOWED_HOSTS` + `cdxgenAgent` hooks | T2.3, T2.2, T2.6             |
-| Path allowlisting        | `CDXGEN_SERVER_ALLOWED_PATHS` + `isAllowedPath`                     | T2.1                         |
-| Node.js permission model | `--permission` flags in `NODE_OPTIONS`                              | T1.4, T5.1                   |
-| Secure mode              | `CDXGEN_SECURE_MODE=true`                                           | T1.2, T2.2, T2.3, T6.2       |
-| Environment audit        | `auditEnvironment()` at startup                                     | T1.3                         |
-| Unicode validation       | `hasDangerousUnicode()`, `isValidDriveRoot()`                       | T1.4, T2.1                   |
-| Git hardening            | `validateAndRejectGitSource()`, hardened clone config               | T1.5, T2.2, T2.6             |
-| Safe wrappers            | `safeExistsSync`, `safeMkdirSync`, `safeSpawnSync`                  | T1.1, T1.4                   |
-| Structured logging       | `thoughtLog`, `traceLog`, `commandsExecuted`, `remoteHostsAccessed` | Auditability for all threats |
-| Dependency pinning       | `pnpm-lock.yaml`, SHA-pinned Actions, SHA-pinned base images        | T3.1, T3.2, T4.1             |
-| Provenance attestation   | `NPM_CONFIG_PROVENANCE=true`                                        | T4.3                         |
-| Non-root container       | `USER cyclonedx` in Dockerfile-secure                               | T5.1                         |
-| Request limits           | Body parser 1MB limit, server timeout, spawn timeout, max buffer    | T2.4                         |
+| Path allowlisting        | `CDXGEN_SERVER_ALLOWED_PATHS` + `isAllowedPath`                           | T2.1                         |
+| Node.js permission model | `--permission` flags in `NODE_OPTIONS`                                    | T1.4, T5.1                   |
+| Secure mode              | `CDXGEN_SECURE_MODE=true`                                                 | T1.2, T2.2, T2.3, T6.2       |
+| Environment audit        | `auditEnvironment()` at startup                                           | T1.3                         |
+| Unicode validation       | `hasDangerousUnicode()`, `isValidDriveRoot()`                             | T1.4, T2.1                   |
+| Git hardening            | `validateAndRejectGitSource()`, hardened clone config                     | T1.5, T2.2, T2.6             |
+| Safe wrappers            | `safeExistsSync`, `safeMkdirSync`, `safeSpawnSync`                        | T1.1, T1.4                   |
+| Structured logging       | `thoughtLog`, `traceLog`, `commandsExecuted`, `remoteHostsAccessed`       | Auditability for all threats |
+| Dependency pinning       | `pnpm-lock.yaml`, SHA-pinned Actions, SHA-pinned base images              | T3.1, T3.2, T4.1             |
+| Provenance attestation   | `NPM_CONFIG_PROVENANCE=true`                                              | T4.3                         |
+| Non-root container       | `USER cyclonedx` in Dockerfile-secure                                     | T5.1                         |
+| Request limits           | Body parser 1MB limit, server timeout, spawn timeout, max buffer          | T2.4                         |
 
 ## Recommendations for Deployers
 

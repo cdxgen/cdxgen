@@ -85,7 +85,7 @@
     "@bufbuild/protobuf": "npm:@bufbuild/protobuf@2.11.0",
     "@babel/parser": "npm:@babel/parser@^7.29.2",
     "@babel/traverse": "npm:@babel/traverse@^7.29.0",
-    "ajv": "npm:ajv@^8.18.0",
+    "ajv": "npm:ajv@^8.20.0",
     "ajv-formats": "npm:ajv-formats@^3.0.1",
     "cheerio": "npm:cheerio@^1.2.0",
     "edn-data": "npm:edn-data@1.1.2",

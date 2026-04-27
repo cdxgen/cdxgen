@@ -19,7 +19,7 @@ Other purl ecosystems are skipped and reported as unsupported.
 2. Extract unique npm and PyPI package URLs from `components[]`
 3. Resolve each purl to a repository URL using the existing source helpers
 4. Clone or reuse the repository under `--workspace-dir`
-5. Generate a child SBOM for that source repository
+5. Generate a child SBOM for that source repository, or reuse a cached child SBOM from the workspace when one already exists for the same purl target
 6. Evaluate built-in audit rules, especially:
    - `ci-permission`
    - `dependency-source`
@@ -38,19 +38,19 @@ cdx-audit --bom bom.json --report json --report-file audit-report.json
 
 ## Options
 
-| Option | Description |
-| --- | --- |
-| `--bom` | Path to a single CycloneDX JSON BOM |
-| `--bom-dir` | Directory containing CycloneDX JSON BOMs |
-| `--workspace-dir` | Reuse git clones between runs |
-| `--reports-dir` | Persist aggregate and per-purl child SBOM reports |
-| `--report` | `console` or `json` |
-| `--report-file` | Write the final rendered report to a file |
-| `--output` | Deprecated alias for `--report-file` |
-| `--categories` | Override the audit rule categories used for child SBOM analysis |
-| `--min-severity` | Minimum final target severity shown in console output |
-| `--fail-severity` | Exit with code `3` when any target reaches this final severity |
-| `--max-targets` | Safety limit for the number of unique purls to analyze |
+| Option            | Description                                                     |
+| ----------------- | --------------------------------------------------------------- |
+| `--bom`           | Path to a single CycloneDX JSON BOM                             |
+| `--bom-dir`       | Directory containing CycloneDX JSON BOMs                        |
+| `--workspace-dir` | Reuse git clones and cached child SBOMs between runs            |
+| `--reports-dir`   | Persist aggregate and per-purl child SBOM reports               |
+| `--report`        | `console` or `json`                                             |
+| `--report-file`   | Write the final rendered report to a file                       |
+| `--output`        | Deprecated alias for `--report-file`                            |
+| `--categories`    | Override the audit rule categories used for child SBOM analysis |
+| `--min-severity`  | Minimum final target severity shown in console output           |
+| `--fail-severity` | Exit with code `3` when any target reaches this final severity  |
+| `--max-targets`   | Safety limit for the number of unique purls to analyze          |
 
 ## Progress UX
 
@@ -64,6 +64,10 @@ Progress is written to `stderr`, so `--report json` output on `stdout` remains m
 
 `--reports-dir` stores intermediate child SBOM artifacts, while `--report-file` controls where the final aggregate report is written.
 
+When `--workspace-dir` is provided, `cdx-audit` also stores per-target child SBOM cache files under `<workspace>/<target>/.cdx-audit/`. A later run can reuse those cached child SBOMs instead of cloning and re-scanning the same source again.
+
+If the workspace is an owned temporary directory under the OS temp root, `cdx-audit` now cleans it up correctly on completion even on platforms where `/tmp` is a symlinked alias.
+
 ## Severity model
 
 `cdx-audit` is intentionally conservative:
@@ -73,6 +77,8 @@ Progress is written to `stderr`, so `--report json` output on `stdout` remains m
 - `critical` is reserved for rare, compound patterns with strong confidence, usually involving GitHub Actions or formulation-derived workflow exposure plus package-level risk signals
 
 This keeps false positives lower while still prioritizing packages that look structurally more likely to be abused in a future supply-chain event.
+
+To reduce alert floods further, `cdx-audit` also consolidates duplicate npm namespace findings when multiple packages under the same namespace surface the same predictive rule pattern. The grouped result is then used for console rendering and fail-threshold evaluation.
 
 Provenance signals are handled conservatively:
 
@@ -115,4 +121,3 @@ When package metadata is available from npmjs or PyPI, cdxgen now records additi
 - `cdx:pypi:uploaderSetPartialDrift`
 
 See [`docs/CUSTOM_PROPERTIES.md`](CUSTOM_PROPERTIES.md) for the full inventory and value semantics.
-

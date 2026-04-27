@@ -32,6 +32,12 @@ export function safeSpawnSync(command: string, args: string[], options: Object):
  */
 export function shouldFetchLicense(): boolean;
 /**
+ * Determines whether remote package metadata should be fetched for enrichment.
+ *
+ * @returns {boolean} True when registry metadata enrichment is enabled.
+ */
+export function shouldFetchPackageMetadata(): boolean;
+/**
  * Determines whether VCS (version control system) information should be fetched
  * for Go packages, based on the GO_FETCH_VCS environment variable.
  *
@@ -538,17 +544,18 @@ export function parsePiplockData(lockData: Object): Promise<any[]>;
  */
 export function parsePyProjectTomlFile(tomlFile: string): Object;
 /**
- * Method to parse python lock files such as poetry.lock, pdm.lock, uv.lock.
+ * Method to parse python lock files such as poetry.lock, pdm.lock, uv.lock, and pylock.toml.
  *
- * @param {Object} lockData JSON data from poetry.lock, pdm.lock, or uv.lock file
+ * @param {string} lockData Raw TOML text from poetry.lock, pdm.lock, uv.lock, or pylock.toml
  * @param {string} lockFile Lock file name for evidence
  * @param {string} pyProjectFile pyproject.toml file
  */
-export function parsePyLockData(lockData: Object, lockFile: string, pyProjectFile: string): Promise<{
+export function parsePyLockData(lockData: string, lockFile: string, pyProjectFile: string): Promise<{
     pkgList: any[];
     dependenciesList: any[];
     parentComponent?: undefined;
     rootList?: undefined;
+    pyLockProperties?: undefined;
     workspaceWarningShown?: undefined;
 } | {
     parentComponent: any;
@@ -563,6 +570,7 @@ export function parsePyLockData(lockData: Object, lockFile: string, pyProjectFil
         ref: string;
         dependsOn: any[];
     }[];
+    pyLockProperties: any[];
     workspaceWarningShown: boolean;
 }>;
 /**
@@ -1422,6 +1430,21 @@ export function parsePomXml(pomXmlData: any): Object;
  */
 export function parseJarManifest(jarMetadata: string): Object;
 /**
+ * Select the most reliable group candidate from JAR manifest metadata.
+ *
+ * @param {Object} jarMetadata Parsed MANIFEST.MF key-value map
+ * @returns {string} Best group candidate, or empty string if none exists
+ */
+export function inferJarGroupFromManifest(jarMetadata?: Object): string;
+/**
+ * Trim group suffix that duplicates the artifact name for compound artifact names.
+ *
+ * @param {string} group Group candidate
+ * @param {string} name Artifact name candidate
+ * @returns {string} Adjusted group
+ */
+export function trimJarGroupSuffix(group: string, name: string): string;
+/**
  * Parse a Maven pom.properties file and return its key-value pairs as an object.
  *
  * @param {string} pomProperties Raw text contents of a pom.properties file
@@ -1953,6 +1976,7 @@ export const commandsExecuted: Set<any>;
 export const frameworksList: any;
 export const CDXGEN_VERSION: any;
 export const DEBUG_MODE: boolean;
+export const CDXGEN_SPDX_CREATED_BY: any;
 export const TABLE_BORDER_STYLE: string;
 export const TIMEOUT_MS: number;
 export const MAX_BUFFER: number;

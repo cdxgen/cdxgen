@@ -32,12 +32,12 @@ cdx-convert -i bom.json -o bom.spdx.json --no-validate
 
 ## CLI reference
 
-| Flag | Default | Description |
-| --- | --- | --- |
-| `-i, --input` | `bom.json` | Input CycloneDX BOM JSON file. |
-| `-o, --output` | `<input>.spdx.json` | Output SPDX JSON file path. |
-| `--validate` / `--no-validate` | on | Validate converted SPDX JSON output. |
-| `--json-pretty` | off | Pretty-print JSON output. |
+| Flag                           | Default             | Description                          |
+| ------------------------------ | ------------------- | ------------------------------------ |
+| `-i, --input`                  | `bom.json`          | Input CycloneDX BOM JSON file.       |
+| `-o, --output`                 | `<input>.spdx.json` | Output SPDX JSON file path.          |
+| `--validate` / `--no-validate` | on                  | Validate converted SPDX JSON output. |
+| `--json-pretty`                | off                 | Pretty-print JSON output.            |
 
 ## Conversion algorithm
 

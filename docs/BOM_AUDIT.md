@@ -107,54 +107,54 @@ Rules that detect deprecated, yanked, tampered, or suspicious packages.
 
 Rules that evaluate OBOM runtime components from osquery-derived host telemetry for persistence, endpoint control gaps, and suspicious startup/runtime behavior.
 
-| Rule         | Severity | Description                                                                |
-| ------------ | -------- | -------------------------------------------------------------------------- |
-| OBOM-LNX-001 | high     | Linux systemd unit sourced from temporary path                             |
-| OBOM-LNX-002 | high     | Linux sudoers broad privilege rule                                         |
-| OBOM-LNX-003 | medium   | Root authorized_keys entry without restrictions                            |
-| OBOM-LNX-004 | high     | Linux shell history contains suspicious download-execute pattern           |
-| OBOM-LNX-005 | critical | Docker API exposed over unauthenticated TCP port                           |
-| OBOM-LNX-006 | high     | Privileged Linux listener exposed on a non-local interface                 |
-| OBOM-LNX-007 | high     | Administrative Linux surface running with elevated privileges              |
-| OBOM-LNX-008 | high     | Interactive sudo chain touched sensitive administrative binary             |
-| OBOM-LNX-009 | high     | Unexpected Linux privilege transition for non-allowlisted executable       |
-| OBOM-LNX-010 | critical | Elevated Linux process launched from user-writable or unusual path         |
-| OBOM-LNX-011 | medium   | Interactive shell parent spawned privileged Linux execution                |
-| OBOM-WIN-001 | high     | Windows drive without BitLocker protection                                 |
-| OBOM-WIN-002 | high     | Windows Security Center unhealthy state                                    |
-| OBOM-WIN-003 | critical | Windows Run key references temporary/script execution path                 |
-| OBOM-WIN-004 | high     | Hidden scheduled task uses suspicious execution path                       |
-| OBOM-WIN-005 | critical | Auto-start Windows service points to user-writable path                   |
-| OBOM-MAC-001 | high     | macOS firewall disabled or stealth mode off                                |
-| OBOM-MAC-002 | critical | macOS launchd item from user-writable temporary path                       |
-| OBOM-MAC-003 | medium   | macOS firewall exception for binary in untrusted user path                 |
-| OBOM-MAC-004 | medium   | macOS launchd override disables Apple-managed service                      |
+| Rule         | Severity | Description                                                          |
+| ------------ | -------- | -------------------------------------------------------------------- |
+| OBOM-LNX-001 | high     | Linux systemd unit sourced from temporary path                       |
+| OBOM-LNX-002 | high     | Linux sudoers broad privilege rule                                   |
+| OBOM-LNX-003 | medium   | Root authorized_keys entry without restrictions                      |
+| OBOM-LNX-004 | high     | Linux shell history contains suspicious download-execute pattern     |
+| OBOM-LNX-005 | critical | Docker API exposed over unauthenticated TCP port                     |
+| OBOM-LNX-006 | high     | Privileged Linux listener exposed on a non-local interface           |
+| OBOM-LNX-007 | high     | Administrative Linux surface running with elevated privileges        |
+| OBOM-LNX-008 | high     | Interactive sudo chain touched sensitive administrative binary       |
+| OBOM-LNX-009 | high     | Unexpected Linux privilege transition for non-allowlisted executable |
+| OBOM-LNX-010 | critical | Elevated Linux process launched from user-writable or unusual path   |
+| OBOM-LNX-011 | medium   | Interactive shell parent spawned privileged Linux execution          |
+| OBOM-WIN-001 | high     | Windows drive without BitLocker protection                           |
+| OBOM-WIN-002 | high     | Windows Security Center unhealthy state                              |
+| OBOM-WIN-003 | critical | Windows Run key references temporary/script execution path           |
+| OBOM-WIN-004 | high     | Hidden scheduled task uses suspicious execution path                 |
+| OBOM-WIN-005 | critical | Auto-start Windows service points to user-writable path              |
+| OBOM-MAC-001 | high     | macOS firewall disabled or stealth mode off                          |
+| OBOM-MAC-002 | critical | macOS launchd item from user-writable temporary path                 |
+| OBOM-MAC-003 | medium   | macOS firewall exception for binary in untrusted user path           |
+| OBOM-MAC-004 | medium   | macOS launchd override disables Apple-managed service                |
 
 ### `vscode-extension` — VS Code Extension Security
 
 Rules that evaluate VS Code extension metadata for install-time execution, always-on activation, workspace trust posture, and privileged capabilities.
 
-| Rule    | Severity | Description                                                             |
-| ------- | -------- | ----------------------------------------------------------------------- |
-| VSC-001 | critical | VS Code extension has install-time lifecycle scripts                    |
-| VSC-002 | high     | Always-on extension (`*` activation) exposes terminal access            |
-| VSC-003 | high     | Extension runs in untrusted workspaces with filesystem access           |
-| VSC-006 | high     | Extension contributes debugger/authentication provider capabilities      |
-| VSC-007 | high     | Workspace-context extension executes code                               |
+| Rule    | Severity | Description                                                         |
+| ------- | -------- | ------------------------------------------------------------------- |
+| VSC-001 | critical | VS Code extension has install-time lifecycle scripts                |
+| VSC-002 | high     | Always-on extension (`*` activation) exposes terminal access        |
+| VSC-003 | high     | Extension runs in untrusted workspaces with filesystem access       |
+| VSC-006 | high     | Extension contributes debugger/authentication provider capabilities |
+| VSC-007 | high     | Workspace-context extension executes code                           |
 
 ### `chrome-extension` — Chromium Browser Extension Security
 
 Rules that evaluate Chrome/Chromium/Edge/Brave extension metadata for broad site access, request interception, early script injection, autofill, and capability-derived risk posture (file/device/code-injection/fingerprinting).
 
-| Rule    | Severity | Description                                                                       |
-| ------- | -------- | --------------------------------------------------------------------------------- |
-| CHE-001 | high     | Extension has broad host access (`<all_urls>` or wildcard host permissions)      |
-| CHE-002 | critical | Extension can intercept and block web requests (`webRequest` + `webRequestBlocking`) |
-| CHE-003 | high     | Extension injects content scripts at `document_start` with broad host access     |
-| CHE-004 | medium   | Autofill-capable extension has broad host permissions                             |
-| CHE-005 | high     | Extension combines broad host scope with file/device/bluetooth capabilities       |
-| CHE-006 | critical | Extension has code-injection capability with broad host scope                     |
-| CHE-007 | high     | Extension has fingerprinting capability indicators with broad host scope           |
+| Rule    | Severity | Description                                                                           |
+| ------- | -------- | ------------------------------------------------------------------------------------- |
+| CHE-001 | high     | Extension has broad host access (`<all_urls>` or wildcard host permissions)           |
+| CHE-002 | critical | Extension can intercept and block web requests (`webRequest` + `webRequestBlocking`)  |
+| CHE-003 | high     | Extension injects content scripts at `document_start` with broad host access          |
+| CHE-004 | medium   | Autofill-capable extension has broad host permissions                                 |
+| CHE-005 | high     | Extension combines broad host scope with file/device/bluetooth capabilities           |
+| CHE-006 | critical | Extension has code-injection capability with broad host scope                         |
+| CHE-007 | high     | Extension has fingerprinting capability indicators with broad host scope              |
 | CHE-008 | high     | AI-assistant extension has code-injection capability on OpenAI/Claude/Copilot domains |
 
 ## Writing custom rules

@@ -1,0 +1,11 @@
+name: Safe SHA interpolation
+on:
+  pull_request:
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Use structured SHA input only
+        run: git fetch origin ${{ github.event.pull_request.head.sha }}
+
