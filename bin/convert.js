@@ -9,6 +9,10 @@ import { hideBin } from "yargs/helpers";
 
 import { deriveSpdxOutputPath } from "../lib/helpers/exportUtils.js";
 import {
+  getNonCycloneDxErrorMessage,
+  isCycloneDxBom,
+} from "../lib/helpers/spdxUtils.js";
+import {
   retrieveCdxgenVersion,
   safeExistsSync,
   safeMkdirSync,
@@ -59,10 +63,8 @@ try {
   process.exit(1);
 }
 
-if (bomJson?.bomFormat !== "CycloneDX") {
-  console.error(
-    "Input must be a CycloneDX JSON BOM (missing or invalid bomFormat).",
-  );
+if (!isCycloneDxBom(bomJson)) {
+  console.error(getNonCycloneDxErrorMessage(bomJson, "cdx-convert"));
   process.exit(1);
 }
 const cdxSpecVersion = Number.parseFloat(`${bomJson?.specVersion || ""}`);

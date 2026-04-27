@@ -20,6 +20,10 @@ import yargs from "yargs";
 import { hideBin } from "yargs/helpers";
 
 import {
+  getNonCycloneDxErrorMessage,
+  isCycloneDxBom,
+} from "../lib/helpers/spdxUtils.js";
+import {
   dirNameStr,
   retrieveCdxgenVersion,
   safeExistsSync,
@@ -177,6 +181,10 @@ function writeOrPrint(content, outputPath) {
 
 const bomJson = loadBom(args.input, args.platform);
 const publicKeyStr = loadPublicKey(args.publicKey);
+if (!isCycloneDxBom(bomJson)) {
+  console.error(getNonCycloneDxErrorMessage(bomJson, "cdx-validate"));
+  process.exit(1);
+}
 
 const report = validateBomAdvanced(bomJson, {
   schema: args.schema,

@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 // Evinse (Evinse Verification Is Nearly SBOM Evidence)
 
+import fs from "node:fs";
 import process from "node:process";
 
 import yargs from "yargs";
@@ -17,6 +18,11 @@ import {
   printReachables,
   printServices,
 } from "../lib/helpers/display.js";
+import {
+  getNonCycloneDxErrorMessage,
+  isCycloneDxBom,
+} from "../lib/helpers/spdxUtils.js";
+import { safeExistsSync } from "../lib/helpers/utils.js";
 import { validateBom } from "../lib/validator/bomValidator.js";
 
 const args = yargs(hideBin(process.argv))
@@ -149,6 +155,23 @@ if (process.env?.CDXGEN_NODE_OPTIONS) {
 }
 
 console.log(evinseArt);
+function ensureCycloneDxInput(inputFile) {
+  if (!safeExistsSync(inputFile)) {
+    return;
+  }
+  let bomJson;
+  try {
+    bomJson = JSON.parse(fs.readFileSync(inputFile, "utf8"));
+  } catch (error) {
+    console.error(`Unable to parse '${inputFile}' as JSON: ${error.message}`);
+    process.exit(1);
+  }
+  if (!isCycloneDxBom(bomJson)) {
+    console.error(getNonCycloneDxErrorMessage(bomJson, "evinse"));
+    process.exit(1);
+  }
+}
+ensureCycloneDxInput(args.input);
 (async () => {
   // First, prepare the database by cataloging jars and other libraries
   const dbObjMap = await prepareDB(args);

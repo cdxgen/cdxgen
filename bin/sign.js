@@ -7,6 +7,10 @@ import yargs from "yargs";
 import { hideBin } from "yargs/helpers";
 
 import { signBom } from "../lib/helpers/bomSigner.js";
+import {
+  getNonCycloneDxErrorMessage,
+  isCycloneDxBom,
+} from "../lib/helpers/spdxUtils.js";
 import { retrieveCdxgenVersion, safeExistsSync } from "../lib/helpers/utils.js";
 
 const _yargs = yargs(hideBin(process.argv));
@@ -78,6 +82,10 @@ if (!safeExistsSync(args.privateKey)) {
 try {
   const bomJson = JSON.parse(fs.readFileSync(args.input, "utf8"));
   const privateKey = fs.readFileSync(args.privateKey, "utf8");
+  if (!isCycloneDxBom(bomJson)) {
+    console.error(getNonCycloneDxErrorMessage(bomJson, "cdx-sign"));
+    process.exit(1);
+  }
 
   const signedBom = signBom(bomJson, {
     privateKey,

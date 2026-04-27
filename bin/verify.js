@@ -9,6 +9,10 @@ import { hideBin } from "yargs/helpers";
 
 import { verifyNode } from "../lib/helpers/bomSigner.js";
 import {
+  getNonCycloneDxErrorMessage,
+  isCycloneDxBom,
+} from "../lib/helpers/spdxUtils.js";
+import {
   dirNameStr,
   retrieveCdxgenVersion,
   safeExistsSync,
@@ -89,6 +93,10 @@ const bomJson = getBom(args);
 
 if (!bomJson) {
   console.log(`${args.input} is invalid!`);
+  process.exit(1);
+}
+if (!isCycloneDxBom(bomJson)) {
+  console.log(getNonCycloneDxErrorMessage(bomJson, "cdx-verify"));
   process.exit(1);
 }
 
