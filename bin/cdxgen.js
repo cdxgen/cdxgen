@@ -1235,7 +1235,20 @@ const writeCycloneDxOutput = (jsonFile, bomJson, options) => {
   }
   prepareEnv(srcDir, options);
   thoughtLog("Getting ready to generate the BOM ⚡️.");
-  let bomNSData = (await createBom(srcDir, options)) || {};
+  const originalFetchPackageMetadata = process.env.CDXGEN_FETCH_PKG_METADATA;
+  if (options.bomAudit) {
+    process.env.CDXGEN_FETCH_PKG_METADATA = "true";
+  }
+  let bomNSData;
+  try {
+    bomNSData = (await createBom(srcDir, options)) || {};
+  } finally {
+    if (originalFetchPackageMetadata === undefined) {
+      delete process.env.CDXGEN_FETCH_PKG_METADATA;
+    } else {
+      process.env.CDXGEN_FETCH_PKG_METADATA = originalFetchPackageMetadata;
+    }
+  }
   if (bomNSData?.bomJson) {
     thoughtLog(
       "Tweaking the generated BOM data with useful annotations and properties.",
@@ -1244,6 +1257,13 @@ const writeCycloneDxOutput = (jsonFile, bomJson, options) => {
   // Add extra metadata and annotations with post processing
   bomNSData = postProcess(bomNSData, options, srcDir);
   if (options.bomAudit && bomNSData?.bomJson) {
+    const { finalizeAuditReport, runAuditFromBoms } = await import(
+      "../lib/audit/index.js"
+    );
+    const { createProgressTracker } = await import("../lib/audit/progress.js");
+    const { formatPredictiveAnnotations, renderConsoleReport } = await import(
+      "../lib/audit/reporters.js"
+    );
     const {
       auditBom,
       formatAnnotations,
@@ -1268,6 +1288,75 @@ const writeCycloneDxOutput = (jsonFile, bomJson, options) => {
     }
     if (isSecureMode && hasCriticalFindings(postAuditFindings, options)) {
       console.error("\nSecure mode: Critical audit findings detected.");
+      console.error(
+        "Review findings above or adjust --bom-audit-fail-severity to proceed.",
+      );
+      if (cleanup) {
+        cleanupSourceDir(srcDir);
+      }
+      process.exit(1);
+    }
+
+    thoughtLog("Let's run predictive dependency audit...");
+    const progressTracker = createProgressTracker();
+    let predictiveReport;
+    try {
+      predictiveReport = await runAuditFromBoms(
+        [
+          {
+            bomJson: bomNSData.bomJson,
+            source: filePath,
+          },
+        ],
+        {
+          categories: options.bomAuditCategories
+            ? options.bomAuditCategories
+                .split(",")
+                .map((category) => category.trim())
+                .filter(Boolean)
+            : undefined,
+          failSeverity: options.bomAuditFailSeverity,
+          minSeverity: options.bomAuditMinSeverity,
+          onProgress: progressTracker.onProgress,
+        },
+      );
+    } finally {
+      progressTracker.stop();
+    }
+    if (predictiveReport.summary.totalTargets > 0) {
+      process.stdout.write(
+        renderConsoleReport(predictiveReport, {
+          minSeverity: options.bomAuditMinSeverity,
+        }),
+      );
+    } else if (DEBUG_MODE) {
+      console.log("Predictive BOM audit: No supported npm/PyPI targets found");
+    }
+    const predictiveAnnotations = formatPredictiveAnnotations(
+      predictiveReport,
+      bomNSData.bomJson,
+      {
+        minSeverity: options.bomAuditMinSeverity,
+      },
+    );
+    if (predictiveAnnotations.length && options.specVersion >= 1.4) {
+      bomNSData.bomJson.annotations = [
+        ...(bomNSData.bomJson.annotations || []),
+        ...predictiveAnnotations,
+      ];
+      thoughtLog(
+        `Embedded ${predictiveAnnotations.length} predictive audit annotations`,
+      );
+    }
+    const predictiveResult = finalizeAuditReport(predictiveReport, {
+      failSeverity: options.bomAuditFailSeverity,
+      minSeverity: options.bomAuditMinSeverity,
+      report: "console",
+    });
+    if (isSecureMode && predictiveResult.exitCode === 3) {
+      console.error(
+        "\nSecure mode: Predictive audit findings exceeded the configured threshold.",
+      );
       console.error(
         "Review findings above or adjust --bom-audit-fail-severity to proceed.",
       );

@@ -1,0 +1,92 @@
+# CDX Audit
+
+`cdx-audit` is a predictive supply-chain exposure audit CLI for CycloneDX BOMs.
+
+Unlike `cdxgen --bom-audit`, which evaluates the BOM that was just generated, `cdx-audit` starts from one or more existing BOMs, extracts supported package URLs, resolves their source repositories, generates child SBOMs for those sources, and then reuses the built-in YAML + JSONata audit rules to score forward-looking compromise risk.
+
+## Initial scope
+
+Version 1 focuses only on:
+
+- npm (`pkg:npm/...`)
+- PyPI (`pkg:pypi/...`)
+
+Other purl ecosystems are skipped and reported as unsupported.
+
+## How it works
+
+1. Load one BOM with `--bom` or many BOMs from `--bom-dir`
+2. Extract unique npm and PyPI package URLs from `components[]`
+3. Resolve each purl to a repository URL using the existing source helpers
+4. Clone or reuse the repository under `--workspace-dir`
+5. Generate a child SBOM for that source repository
+6. Evaluate built-in audit rules, especially:
+   - `ci-permission`
+   - `dependency-source`
+   - `package-integrity`
+7. Enrich npm and PyPI components with registry provenance signals such as trusted publishing, publish time, publisher identity, and provenance URLs when those are exposed by the registry
+8. Score each target conservatively so `high` and `critical` require corroborated signals
+
+## Usage
+
+```bash
+cdx-audit --bom bom.json
+cdx-audit --bom-dir ./boms --report json
+cdx-audit --bom bom.json --workspace-dir .cache/cdx-audit --reports-dir .reports/cdx-audit
+cdx-audit --bom bom.json --report json --report-file audit-report.json
+```
+
+## Options
+
+| Option | Description |
+| --- | --- |
+| `--bom` | Path to a single CycloneDX JSON BOM |
+| `--bom-dir` | Directory containing CycloneDX JSON BOMs |
+| `--workspace-dir` | Reuse git clones between runs |
+| `--reports-dir` | Persist aggregate and per-purl child SBOM reports |
+| `--report` | `console` or `json` |
+| `--report-file` | Write the final rendered report to a file |
+| `--output` | Deprecated alias for `--report-file` |
+| `--categories` | Override the audit rule categories used for child SBOM analysis |
+| `--min-severity` | Minimum final target severity shown in console output |
+| `--fail-severity` | Exit with code `3` when any target reaches this final severity |
+| `--max-targets` | Safety limit for the number of unique purls to analyze |
+
+## Progress UX
+
+When `cdx-audit` is run in an interactive terminal, it shows a dependency-free spinner-style progress line on `stderr` with:
+
+- the current package being analyzed
+- the current stage (`resolving repository metadata`, `cloning source`, `generating child SBOM`, `evaluating audit rules`)
+- the target index, for example `1/12`
+
+Progress is written to `stderr`, so `--report json` output on `stdout` remains machine-readable.
+
+`--reports-dir` stores intermediate child SBOM artifacts, while `--report-file` controls where the final aggregate report is written.
+
+## Severity model
+
+`cdx-audit` is intentionally conservative:
+
+- isolated findings usually stay `low` or `medium`
+- `high` requires corroboration across multiple strong signals and categories
+- `critical` is reserved for rare, compound patterns with strong confidence, usually involving GitHub Actions or formulation-derived workflow exposure plus package-level risk signals
+
+This keeps false positives lower while still prioritizing packages that look structurally more likely to be abused in a future supply-chain event.
+
+## Registry provenance enrichment
+
+When package metadata is available from npmjs or PyPI, cdxgen now records additional provenance-oriented custom properties such as:
+
+- `cdx:npm:trustedPublishing`
+- `cdx:npm:provenanceUrl`
+- `cdx:npm:publisher`
+- `cdx:npm:publishTime`
+- `cdx:pypi:trustedPublishing`
+- `cdx:pypi:provenanceUrl`
+- `cdx:pypi:publisher`
+- `cdx:pypi:uploaderVerified`
+- `cdx:pypi:publishTime`
+
+See [`docs/CUSTOM_PROPERTIES.md`](CUSTOM_PROPERTIES.md) for the full inventory and value semantics.
+

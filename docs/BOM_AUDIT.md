@@ -315,7 +315,12 @@ The audit rules are powered by the [cdx: Custom Properties](CUSTOM_PROPERTIES.md
 
 **Q: Does `--bom-audit` slow down BOM generation?**
 
-The audit runs after generation and evaluates JSONata expressions against the in-memory BOM. For typical projects, it adds less than a second.
+`--bom-audit` now has two layers:
+
+1. the original in-memory BOM audit, which evaluates JSONata expressions against the generated BOM
+2. a predictive dependency audit for npm and PyPI components, which may resolve source repositories and generate child SBOMs
+
+For projects without npm/PyPI dependencies, the overhead is usually minimal. For npm/PyPI-heavy projects, the predictive pass can add noticeable time because it may query registries and inspect upstream source repositories.
 
 **Q: Can I disable specific built-in rules?**
 
