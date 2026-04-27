@@ -1,0 +1,310 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "http://cyclonedx.org/schema/spdx-export.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["@context", "@graph"],
+  "properties": {
+    "@context": {
+      "type": "string",
+      "const": "https://spdx.org/rdf/3.0.1/spdx-context.jsonld"
+    },
+    "@graph": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/definitions/graphElement"
+      }
+    }
+  },
+  "definitions": {
+    "nonEmptyString": {
+      "type": "string",
+      "minLength": 1
+    },
+    "refArray": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/definitions/nonEmptyString"
+      }
+    },
+    "hash": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "algorithm", "hashValue"],
+      "properties": {
+        "type": {
+          "const": "Hash"
+        },
+        "algorithm": {
+          "$ref": "#/definitions/nonEmptyString"
+        },
+        "hashValue": {
+          "$ref": "#/definitions/nonEmptyString"
+        }
+      }
+    },
+    "originalHash": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["algorithm", "hashValue"],
+      "properties": {
+        "algorithm": {
+          "$ref": "#/definitions/nonEmptyString"
+        },
+        "hashValue": {
+          "$ref": "#/definitions/nonEmptyString"
+        },
+        "normalizedAlgorithm": {
+          "$ref": "#/definitions/nonEmptyString"
+        }
+      }
+    },
+    "externalRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "url"],
+      "properties": {
+        "type": {
+          "$ref": "#/definitions/nonEmptyString"
+        },
+        "url": {
+          "type": "string",
+          "format": "uri-reference"
+        },
+        "comment": {
+          "type": "string"
+        },
+        "verifiedUsing": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/definitions/hash"
+          }
+        },
+        "originalHashes": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/definitions/originalHash"
+          }
+        }
+      }
+    },
+    "cdxPropertyEntry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "cdxPropName"],
+      "properties": {
+        "type": {
+          "const": "https://spdx.org/rdf/3.0.1/terms/Extension/CdxPropertyEntry"
+        },
+        "cdxPropName": {
+          "$ref": "#/definitions/nonEmptyString"
+        },
+        "cdxPropValue": {
+          "type": "string"
+        }
+      }
+    },
+    "cdxPropertiesExtension": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "cdxProperty"],
+      "properties": {
+        "type": {
+          "const": "https://spdx.org/rdf/3.0.1/terms/Extension/CdxPropertiesExtension"
+        },
+        "cdxProperty": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/definitions/cdxPropertyEntry"
+          }
+        }
+      }
+    },
+    "extensions": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/definitions/cdxPropertiesExtension"
+      }
+    },
+    "creationInfo": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "spdxId", "specVersion", "created", "createdBy"],
+      "properties": {
+        "type": {
+          "const": "CreationInfo"
+        },
+        "spdxId": {
+          "$ref": "#/definitions/nonEmptyString"
+        },
+        "specVersion": {
+          "const": "3.0.1"
+        },
+        "created": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "createdBy": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/definitions/nonEmptyString"
+          }
+        }
+      }
+    },
+    "spdxDocument": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "spdxId",
+        "creationInfo",
+        "name",
+        "profileConformance",
+        "element"
+      ],
+      "properties": {
+        "type": {
+          "const": "SpdxDocument"
+        },
+        "spdxId": {
+          "$ref": "#/definitions/nonEmptyString"
+        },
+        "creationInfo": {
+          "$ref": "#/definitions/nonEmptyString"
+        },
+        "name": {
+          "$ref": "#/definitions/nonEmptyString"
+        },
+        "description": {
+          "type": "string"
+        },
+        "profileConformance": {
+          "type": "array",
+          "minItems": 2,
+          "uniqueItems": true,
+          "items": {
+            "enum": ["core", "software", "extension"]
+          }
+        },
+        "element": {
+          "$ref": "#/definitions/refArray"
+        },
+        "rootElement": {
+          "$ref": "#/definitions/refArray"
+        },
+        "extension": {
+          "$ref": "#/definitions/extensions"
+        }
+      }
+    },
+    "relationship": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "spdxId",
+        "creationInfo",
+        "from",
+        "to",
+        "relationshipType"
+      ],
+      "properties": {
+        "type": {
+          "const": "Relationship"
+        },
+        "spdxId": {
+          "$ref": "#/definitions/nonEmptyString"
+        },
+        "creationInfo": {
+          "$ref": "#/definitions/nonEmptyString"
+        },
+        "from": {
+          "$ref": "#/definitions/nonEmptyString"
+        },
+        "to": {
+          "$ref": "#/definitions/refArray"
+        },
+        "relationshipType": {
+          "const": "dependsOn"
+        }
+      }
+    },
+    "softwareElement": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "spdxId", "creationInfo", "name"],
+      "properties": {
+        "type": {
+          "enum": ["software_File", "software_Package"]
+        },
+        "spdxId": {
+          "$ref": "#/definitions/nonEmptyString"
+        },
+        "creationInfo": {
+          "$ref": "#/definitions/nonEmptyString"
+        },
+        "name": {
+          "$ref": "#/definitions/nonEmptyString"
+        },
+        "description": {
+          "type": "string"
+        },
+        "software_packageVersion": {
+          "type": "string"
+        },
+        "software_packageUrl": {
+          "type": "string"
+        },
+        "software_homePage": {
+          "type": "string",
+          "format": "uri-reference"
+        },
+        "software_downloadLocation": {
+          "type": "string",
+          "format": "uri-reference"
+        },
+        "verifiedUsing": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/definitions/hash"
+          }
+        },
+        "externalRefs": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/definitions/externalRef"
+          }
+        },
+        "extension": {
+          "$ref": "#/definitions/extensions"
+        }
+      }
+    },
+    "graphElement": {
+      "oneOf": [
+        {
+          "$ref": "#/definitions/creationInfo"
+        },
+        {
+          "$ref": "#/definitions/spdxDocument"
+        },
+        {
+          "$ref": "#/definitions/relationship"
+        },
+        {
+          "$ref": "#/definitions/softwareElement"
+        }
+      ]
+    }
+  }
+}
