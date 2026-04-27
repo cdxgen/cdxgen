@@ -35,12 +35,12 @@ Most early compromise persistence techniques show up in host startup surfaces.
 ```bash
 cdxi obom.json
 .osinfocategories
-.print scheduled_tasks
-.print windows_run_keys
-.print launchd_services
-.print elevated_processes
-.print sudo_executions
-.print privileged_listening_ports
+scheduled_tasks
+windows_run_keys
+launchd_services
+elevated_processes
+sudo_executions
+privileged_listening_ports
 ```
 
 ## 3) IR lesson: build a “possible initial access” shortlist
@@ -101,20 +101,3 @@ Use this when you want BOM audit to spotlight packages and services that run wit
 3. Inspect `elevated_processes`, `sudo_executions`, `privilege_transitions`, and `privileged_listening_ports` in the REPL.
 4. Confirm whether the package, listener, or privilege transition maps to an approved change.
 5. Compare periodic OBOMs to catch newly introduced privileged packages and admin surfaces.
-
----
-
-## Refactor opportunities from `lib/helpers/utils.js`
-
-To improve maintainability, continue extracting domain-specific logic from `utils.js` into dedicated helper modules with focused tests.
-
-### Already started in this branch
-
-- `lib/helpers/osqueryTransform.js` (new): isolated osquery row transformation helpers
-- `lib/helpers/osqueryTransform.poku.js` (new): focused unit tests
-
-### Next recommended candidates
-
-- `convertOSQueryResults` and related package-manager enrichers (`executeDpkgList`, `executeRpmList`, etc.) into a dedicated `osquery` helper module.
-- Additional language/ecosystem parsing slices from `utils.js` into per-ecosystem helper modules with their own `*.poku.js` tests.
-- Keep `utils.js` as a stable façade while progressively delegating implementation to smaller modules.
