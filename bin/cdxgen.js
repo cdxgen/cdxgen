@@ -582,6 +582,10 @@ if (process.argv[1].includes("obom") && !args.type) {
     "Ok, the user wants to generate an Operations Bill-of-Materials (OBOM).",
   );
 }
+if (process.argv[1].includes("spdxgen") && !args.format) {
+  args.format = "spdx";
+  thoughtLog("Ok, defaulting the export format to SPDX.");
+}
 
 /**
  * Command line options

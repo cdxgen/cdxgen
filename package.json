@@ -91,7 +91,8 @@
     "cdxi": "bin/repl.js",
     "evinse": "bin/evinse.js",
     "obom": "bin/cdxgen.js",
-    "saasbom": "bin/cdxgen.js"
+    "saasbom": "bin/cdxgen.js",
+    "spdxgen": "bin/cdxgen.js"
   },
   "files": [
     "*.js",
