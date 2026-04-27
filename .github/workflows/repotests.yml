@@ -612,6 +612,7 @@ jobs:
         run: |
           bin/cdxgen.js -t python test/data/issue-2069 -o bomresults/issue-2069.json --fail-on-error --include-regex "requirements.txt"
           bin/cdxgen.js -t python test/data/issue-2069 -o bomresults/issue-2069.json --include-regex "poetry.lock"
+          bin/cdxgen.js -t python test/data/pylock-named -o bomresults/pylock-named.json --fail-on-error
           bin/cdxgen.js -t python test/data/issue-2069 -o bomresults/issue-2069.json --fail-on-error -p
           bin/cdxgen.js -t python test/data/issue-2069 -o bomresults/issue-2069.json --only fastapi --only google --fail-on-error -p
           bin/cdxgen.js -t python test/data/issue-2082 -o bomresults/issue-2082.json --fail-on-error -p

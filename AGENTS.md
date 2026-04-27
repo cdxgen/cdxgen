@@ -330,6 +330,7 @@ Do not read `process.env.CDXGEN_*` inside deep library functions — export the 
 5. Update `docs/PROJECT_TYPES.md`.
 6. Add fixture files to `test/` and cover with a `*.poku.js` test.
 7. If updating OSQuery table metadata in `data/queries*.json` (for example `purlType` or `componentType`), review all platform variants (`queries.json`, `queries-win.json`, and `queries-darwin.json`) and keep shared table entries aligned.
+8. Always consider adding/expanding `repotests.yml` coverage with a representative public repository for the ecosystem change; if a stable public repo is not practical, add fixture-backed repo tests under `test/data/` and exercise them from `repotests.yml`.
 
 ---
 

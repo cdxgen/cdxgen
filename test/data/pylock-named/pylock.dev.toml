@@ -1,0 +1,11 @@
+lock-version = "1.0"
+created-by = "uv"
+requires-python = ">=3.11"
+
+[[packages]]
+name = "packaging"
+version = "24.1"
+index = "https://pypi.org/simple/"
+wheels = [
+  { name = "packaging-24.1-py3-none-any.whl", url = "https://files.pythonhosted.org/packages/example/packaging-24.1-py3-none-any.whl", size = 48000, upload-time = 2025-03-01T12:00:00+00:00, hashes = { sha-256 = "a84dd4f6be9b6e5fcef0b7f87d6284e4a15f6f6dc2578f5f04888f24876f8c2f" } },
+]
