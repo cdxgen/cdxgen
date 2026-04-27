@@ -333,6 +333,25 @@ const args = _yargs
     hidden: true,
     choices: ["pre-build", "build", "post-build"],
   })
+  .option("include-release-notes", {
+    type: "boolean",
+    default: false,
+    hidden: true,
+    description:
+      "Attach CycloneDX releaseNotes to the cdxgen tool component in metadata.",
+  })
+  .option("release-notes-current-tag", {
+    type: "string",
+    hidden: true,
+    description:
+      "Current git tag used to build CycloneDX releaseNotes for cdxgen metadata.",
+  })
+  .option("release-notes-previous-tag", {
+    type: "string",
+    hidden: true,
+    description:
+      "Previous git tag used to build CycloneDX releaseNotes for cdxgen metadata.",
+  })
   .option("include-regex", {
     description:
       "glob pattern to include. This overrides the default pattern used during auto-detection.",
@@ -1032,6 +1051,9 @@ const needsBomSigning = ({ generateKeyAndSign }) =>
     }
   }
   const checkPath = maybeRemotePath(sourcePath) ? getTmpDir() : sourcePath;
+  if (maybeRemotePath(sourcePath)) {
+    options.releaseNotesGitUrl = sourcePath;
+  }
   if (!checkPermissions(checkPath, options)) {
     if (isSecureMode) {
       process.exit(1);
