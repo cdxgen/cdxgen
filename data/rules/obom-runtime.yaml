@@ -329,6 +329,276 @@
       "protocol": $prop($, 'protocol')
     }
 
+- id: OBOM-LNX-006
+  name: "Privileged Linux listener exposed on a non-local interface"
+  description: "Root or service-account listeners bound to all interfaces expand attack surface and deserve proactive review."
+  severity: high
+  category: obom-runtime
+  condition: |
+    components[
+      $prop($, 'cdx:osquery:category') = 'privileged_listening_ports'
+      and (
+        $safeStr($prop($, 'address')) = '0.0.0.0'
+        or $safeStr($prop($, 'address')) = '::'
+      )
+      and $safeStr($prop($, 'port')) != '22'
+      and $safeStr($prop($, 'port')) != '53'
+      and $safeStr(name) != 'systemd-resolved'
+      and $safeStr(name) != 'avahi-daemon'
+      and $safeStr(name) != 'cupsd'
+    ]
+  location: |
+    {
+      "bomRef": $."bom-ref",
+      "purl": purl
+    }
+  message: "Privileged listener '{{ name }}' is reachable on {{ $prop($, 'address') }}:{{ $prop($, 'port') }}"
+  mitigation: "Restrict privileged services to local interfaces where possible, front them with authenticated proxies, and validate exposure against approved admin-surface inventory."
+  evidence: |
+    {
+      "account": $prop($, 'account'),
+      "pid": $prop($, 'pid'),
+      "address": $prop($, 'address'),
+      "port": $prop($, 'port'),
+      "path": $prop($, 'path'),
+      "serviceUnit": $prop($, 'service_unit'),
+      "packageSourceHint": $prop($, 'package_source_hint'),
+      "parentCmdline": $prop($, 'parent_cmdline')
+    }
+
+- id: OBOM-LNX-007
+  name: "Administrative Linux surface running with elevated privileges"
+  description: "Cockpit, PackageKit, pkexec, and related admin surfaces running with elevated privileges should be continuously monitored for exposure and drift."
+  severity: high
+  category: obom-runtime
+  condition: |
+    components[
+      (
+        $prop($, 'cdx:osquery:category') = 'elevated_processes'
+        or $prop($, 'cdx:osquery:category') = 'privileged_listening_ports'
+        or $prop($, 'cdx:osquery:category') = 'sudo_executions'
+        or $prop($, 'cdx:osquery:category') = 'privilege_transitions'
+      )
+      and (
+        $contains($lowercase($safeStr(name)), 'cockpit')
+        or $contains($lowercase($nullSafeProp($, 'path')), 'cockpit')
+        or $contains($lowercase($nullSafeProp($, 'cmdline')), 'cockpit')
+        or $contains($lowercase($safeStr(name)), 'packagekit')
+        or $contains($lowercase($nullSafeProp($, 'path')), 'packagekit')
+        or $contains($lowercase($nullSafeProp($, 'cmdline')), 'packagekit')
+        or $contains($lowercase($safeStr(name)), 'pkexec')
+        or $contains($lowercase($nullSafeProp($, 'path')), 'pkexec')
+        or $contains($lowercase($nullSafeProp($, 'cmdline')), 'pkexec')
+        or $contains($lowercase($safeStr(name)), 'pkcon')
+        or $contains($lowercase($nullSafeProp($, 'cmdline')), 'pkcon')
+      )
+      and (
+        $safeStr($prop($, 'uid')) = '0'
+        or $safeStr($prop($, 'euid')) = '0'
+        or $safeStr($prop($, 'account')) = 'root'
+        or $safeStr($prop($, 'effective_user')) = 'root'
+      )
+    ]
+  location: |
+    {
+      "bomRef": $."bom-ref",
+      "purl": purl
+    }
+  message: "Administrative surface '{{ name }}' is active with elevated privileges and should be reviewed for exposure"
+  mitigation: "Review network reachability, patch cadence, and whether the administrative package is still needed on this host."
+  evidence: |
+    {
+      "category": $prop($, 'cdx:osquery:category'),
+      "path": $prop($, 'path'),
+      "cmdline": $prop($, 'cmdline'),
+      "account": $prop($, 'account'),
+      "effectiveUser": $prop($, 'effective_user'),
+      "serviceUnit": $prop($, 'service_unit'),
+      "address": $prop($, 'address'),
+      "port": $prop($, 'port'),
+      "packageSourceHint": $prop($, 'package_source_hint')
+    }
+
+- id: OBOM-LNX-008
+  name: "Interactive sudo chain touched sensitive administrative binary"
+  description: "Interactive sudo or pkexec invocations against package-management and admin-control binaries can indicate privileged changes worth auditing."
+  severity: high
+  category: obom-runtime
+  condition: |
+    components[
+      $prop($, 'cdx:osquery:category') = 'sudo_executions'
+      and $safeStr($prop($, 'auid')) != ''
+      and $safeStr($prop($, 'auid')) != '0'
+      and (
+        $safeStr($prop($, 'euid')) = '0'
+        or $safeStr($prop($, 'effective_user')) = 'root'
+      )
+      and (
+        $contains($lowercase($nullSafeProp($, 'path')), 'pkexec')
+        or $contains($lowercase($nullSafeProp($, 'path')), 'pkcon')
+        or $contains($lowercase($nullSafeProp($, 'path')), 'packagekit')
+        or $contains($lowercase($nullSafeProp($, 'cmdline')), 'pkexec')
+        or $contains($lowercase($nullSafeProp($, 'cmdline')), 'pkcon')
+        or $contains($lowercase($nullSafeProp($, 'cmdline')), 'packagekit')
+        or $contains($lowercase($nullSafeProp($, 'cmdline')), 'cockpit')
+        or $contains($lowercase($nullSafeProp($, 'cmdline')), 'systemctl')
+        or $contains($lowercase($nullSafeProp($, 'cmdline')), 'service ')
+        or $contains($lowercase($nullSafeProp($, 'cmdline')), ' apt ')
+        or $contains($lowercase($nullSafeProp($, 'cmdline')), ' apt-get ')
+        or $contains($lowercase($nullSafeProp($, 'cmdline')), ' dnf ')
+        or $contains($lowercase($nullSafeProp($, 'cmdline')), ' yum ')
+        or $contains($lowercase($nullSafeProp($, 'cmdline')), ' zypper ')
+        or $contains($lowercase($nullSafeProp($, 'cmdline')), ' rpm ')
+        or $contains($lowercase($nullSafeProp($, 'cmdline')), ' dpkg ')
+      )
+    ]
+  location: |
+    {
+      "bomRef": $."bom-ref",
+      "purl": purl
+    }
+  message: "Interactive privileged execution by '{{ $prop($, 'login_user') }}' touched sensitive administrative command '{{ $prop($, 'path') }}'"
+  mitigation: "Review whether the command was expected, tie it to change records, and investigate unexpected package-management or control-plane activity."
+  evidence: |
+    {
+      "loginUser": $prop($, 'login_user'),
+      "effectiveUser": $prop($, 'effective_user'),
+      "path": $prop($, 'path'),
+      "cmdline": $prop($, 'cmdline'),
+      "parentCmdline": $prop($, 'parent_cmdline'),
+      "serviceUnit": $prop($, 'service_unit'),
+      "packageSourceHint": $prop($, 'package_source_hint'),
+      "timestamp": $prop($, 'time')
+    }
+
+- id: OBOM-LNX-009
+  name: "Unexpected Linux privilege transition for non-allowlisted executable"
+  description: "Setuid/setgid transitions outside a small baseline of expected tools can indicate risky privilege-bound packages or exploit activity."
+  severity: high
+  category: obom-runtime
+  condition: |
+    components[
+      $prop($, 'cdx:osquery:category') = 'privilege_transitions'
+      and $safeStr($prop($, 'auid')) != ''
+      and $safeStr($prop($, 'auid')) != '0'
+      and (
+        $safeStr($prop($, 'euid')) = '0'
+        or $safeStr($prop($, 'egid')) = '0'
+      )
+      and $safeStr($prop($, 'path')) != '/usr/bin/sudo'
+      and $safeStr($prop($, 'path')) != '/bin/su'
+      and $safeStr($prop($, 'path')) != '/usr/bin/su'
+      and $safeStr($prop($, 'path')) != '/usr/bin/doas'
+      and $safeStr($prop($, 'path')) != '/usr/bin/passwd'
+      and $safeStr($prop($, 'path')) != '/usr/bin/chsh'
+      and $safeStr($prop($, 'path')) != '/usr/bin/chfn'
+      and $safeStr($prop($, 'path')) != '/usr/bin/gpasswd'
+      and $safeStr($prop($, 'path')) != '/usr/bin/newgrp'
+      and $safeStr($prop($, 'path')) != '/usr/bin/mount'
+      and $safeStr($prop($, 'path')) != '/usr/bin/umount'
+    ]
+  location: |
+    {
+      "bomRef": $."bom-ref",
+      "purl": purl
+    }
+  message: "Unexpected privilege transition detected for '{{ $prop($, 'path') }}' (auid={{ $prop($, 'auid') }}, euid={{ $prop($, 'euid') }})"
+  mitigation: "Validate binary provenance, file permissions, and recent package changes; treat unfamiliar setuid/setgid paths as high-priority review items."
+  evidence: |
+    {
+      "loginUser": $prop($, 'login_user'),
+      "path": $prop($, 'path'),
+      "cmdline": $prop($, 'cmdline'),
+      "parentCmdline": $prop($, 'parent_cmdline'),
+      "auid": $prop($, 'auid'),
+      "uid": $prop($, 'uid'),
+      "euid": $prop($, 'euid'),
+      "gid": $prop($, 'gid'),
+      "egid": $prop($, 'egid'),
+      "packageSourceHint": $prop($, 'package_source_hint')
+    }
+
+- id: OBOM-LNX-010
+  name: "Elevated Linux process launched from user-writable or unusual path"
+  description: "Root processes executing from user-controlled or non-standard paths are a strong signal for persistence or package drift."
+  severity: critical
+  category: obom-runtime
+  condition: |
+    components[
+      $prop($, 'cdx:osquery:category') = 'elevated_processes'
+      and $safeStr($prop($, 'uid')) = '0'
+      and (
+        $contains($nullSafeProp($, 'path'), '/tmp/')
+        or $contains($nullSafeProp($, 'path'), '/var/tmp/')
+        or $contains($nullSafeProp($, 'path'), '/dev/shm/')
+        or $contains($nullSafeProp($, 'path'), '/home/')
+        or $contains($nullSafeProp($, 'path'), '/run/user/')
+        or $safeStr($prop($, 'package_source_hint')) = 'user-writable-path'
+        or $safeStr($prop($, 'package_source_hint')) = 'unclassified-path'
+      )
+      and $safeStr(name) != 'systemd'
+      and $safeStr(name) != 'init'
+    ]
+  location: |
+    {
+      "bomRef": $."bom-ref",
+      "purl": purl
+    }
+  message: "Elevated process '{{ name }}' executes from a risky path: {{ $prop($, 'path') }}"
+  mitigation: "Move approved binaries into trusted system locations, validate package ownership, and investigate any root process sourced from writable directories."
+  evidence: |
+    {
+      "account": $prop($, 'account'),
+      "path": $prop($, 'path'),
+      "serviceUnit": $prop($, 'service_unit'),
+      "parentPath": $prop($, 'parent_path'),
+      "parentCmdline": $prop($, 'parent_cmdline'),
+      "startTime": $prop($, 'start_time'),
+      "packageSourceHint": $prop($, 'package_source_hint')
+    }
+
+- id: OBOM-LNX-011
+  name: "Interactive shell parent spawned privileged Linux execution"
+  description: "Shell-driven privileged chains are useful for separating admin changes from long-running service behavior."
+  severity: medium
+  category: obom-runtime
+  condition: |
+    components[
+      $prop($, 'cdx:osquery:category') = 'sudo_executions'
+      and $safeStr($prop($, 'auid')) != ''
+      and $safeStr($prop($, 'auid')) != '0'
+      and (
+        $safeStr($prop($, 'euid')) = '0'
+        or $safeStr($prop($, 'effective_user')) = 'root'
+      )
+      and (
+        $safeStr($prop($, 'parent_name')) = 'bash'
+        or $safeStr($prop($, 'parent_name')) = 'sh'
+        or $safeStr($prop($, 'parent_name')) = 'zsh'
+        or $safeStr($prop($, 'parent_name')) = 'dash'
+        or $safeStr($prop($, 'parent_name')) = 'fish'
+        or $contains($lowercase($nullSafeProp($, 'parent_cmdline')), 'bash')
+        or $contains($lowercase($nullSafeProp($, 'parent_cmdline')), 'zsh')
+        or $contains($lowercase($nullSafeProp($, 'parent_cmdline')), 'fish')
+      )
+    ]
+  location: |
+    {
+      "bomRef": $."bom-ref",
+      "purl": purl
+    }
+  message: "Interactive shell lineage for privileged command '{{ $prop($, 'cmdline') }}' merits change-review validation"
+  mitigation: "Correlate the privileged command with shell history, tickets, and package changes to confirm it was expected."
+  evidence: |
+    {
+      "loginUser": $prop($, 'login_user'),
+      "parentName": $prop($, 'parent_name'),
+      "parentCmdline": $prop($, 'parent_cmdline'),
+      "path": $prop($, 'path'),
+      "cmdline": $prop($, 'cmdline'),
+      "timestamp": $prop($, 'time')
+    }
+
 - id: OBOM-WIN-004
   name: "Hidden scheduled task uses suspicious execution path"
   description: "Enabled hidden tasks executing from temp paths or encoded script launchers are common persistence tradecraft."

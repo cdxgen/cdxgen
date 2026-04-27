@@ -114,6 +114,12 @@ Rules that evaluate OBOM runtime components from osquery-derived host telemetry 
 | OBOM-LNX-003 | medium   | Root authorized_keys entry without restrictions                            |
 | OBOM-LNX-004 | high     | Linux shell history contains suspicious download-execute pattern           |
 | OBOM-LNX-005 | critical | Docker API exposed over unauthenticated TCP port                           |
+| OBOM-LNX-006 | high     | Privileged Linux listener exposed on a non-local interface                 |
+| OBOM-LNX-007 | high     | Administrative Linux surface running with elevated privileges              |
+| OBOM-LNX-008 | high     | Interactive sudo chain touched sensitive administrative binary             |
+| OBOM-LNX-009 | high     | Unexpected Linux privilege transition for non-allowlisted executable       |
+| OBOM-LNX-010 | critical | Elevated Linux process launched from user-writable or unusual path         |
+| OBOM-LNX-011 | medium   | Interactive shell parent spawned privileged Linux execution                |
 | OBOM-WIN-001 | high     | Windows drive without BitLocker protection                                 |
 | OBOM-WIN-002 | high     | Windows Security Center unhealthy state                                    |
 | OBOM-WIN-003 | critical | Windows Run key references temporary/script execution path                 |
