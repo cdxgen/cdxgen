@@ -95,7 +95,7 @@
     "cdxPropertyEntry": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["type", "cdxPropName"],
+      "required": ["type", "cdxPropName", "cdxPropValue"],
       "properties": {
         "type": {
           "const": "https://spdx.org/rdf/3.0.1/terms/Extension/CdxPropertyEntry"
