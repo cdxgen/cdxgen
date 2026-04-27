@@ -44,6 +44,7 @@ Sections include:
 - [Getting Started][docs-homepage]
 - [CLI Usage][docs-cli]
 - [Server Usage][docs-server]
+- [Hands-on Lessons](docs/LESSON8.md)
 - [Supported Project Types][docs-project-types]
 - [Environment Variables][docs-env-vars]
 - [Advanced Usage][docs-advanced-usage]
@@ -130,6 +131,7 @@ Options:
   -c, --resolve-class             Resolve class names for packages. jars only for now.                         [boolean]
       --deep                      Perform deep searches for components. Useful while scanning C/C++ apps, live OS and oc
                                   i images.                                                                    [boolean]
+      --git-branch                Git branch to clone when the source is a git URL or purl                     [string]
       --server-url                Dependency track url. Eg: https://deptrack.cyclonedx.io
       --skip-dt-tls-check         Skip TLS certificate check when calling Dependency-Track.   [boolean] [default: false]
       --api-key                   Dependency track api key
@@ -222,6 +224,22 @@ To recursively generate a single BOM for all languages pass `-r` argument.
 ```shell
 cdxgen -r -o bom.json
 ```
+
+To generate an SBOM directly from a git URL:
+
+```shell
+cdxgen -t java -o bom.json --git-branch main https://github.com/HooliCorp/java-sec-code.git
+```
+
+To generate an SBOM from a package URL (purl), cdxgen resolves registry metadata to a repository URL, clones it, and scans it:
+
+```shell
+cdxgen -t js -o bom.json "pkg:npm/lodash@4.17.21"
+```
+
+Supported purl source types: `npm`, `pypi`, `gem`, `cargo`, `pub`, `github`, `bitbucket`, `maven` (version required), `composer`, and `generic` (with `vcs_url` or `download_url` qualifier).
+
+> **Warning:** Repository URLs resolved from registries may be inaccurate or malicious. Review resolved sources before trusting generated output.
 
 The default specification used by cdxgen is 1.7. To generate BOM for a different specification version, such as 1.5 or 1.6, pass the version number using the `--spec-version` argument.
 

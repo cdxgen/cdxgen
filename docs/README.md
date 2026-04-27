@@ -77,7 +77,7 @@ if ($ExpectedHash -eq $ActualHash) {
 > tools are also available as standalone binaries in the releases using the
 > same naming convention (e.g., `cdx-convert-linux-amd64`).
 
-## Generate BOM for git repos
+## Generate BOM for source code inputs
 
 Minimal example.
 
@@ -103,6 +103,22 @@ To recursively generate a single BOM for all languages pass `-r` argument.
 ```shell
 cdxgen -r -o bom.json
 ```
+
+Generate directly from a git URL:
+
+```shell
+cdxgen -t java -o bom.json --git-branch main https://github.com/HooliCorp/java-sec-code.git
+```
+
+Generate from a package URL (purl):
+
+```shell
+cdxgen -t js -o bom.json "pkg:npm/lodash@4.17.21"
+```
+
+Supported purl source types: `npm`, `pypi`, `gem`, `cargo`, `pub`, `github`, `bitbucket`, `maven` (version required), `composer`, and `generic` (with `vcs_url` or `download_url` qualifier).
+
+> **Warning:** For purl inputs, cdxgen resolves repository metadata from registries. This information can be inaccurate or malicious, so review resolved sources before trusting output.
 
 To generate SBOM for an older specification version such as 1.4, pass the version using the `--spec-version` argument.
 

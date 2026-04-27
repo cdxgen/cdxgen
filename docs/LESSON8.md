@@ -1,112 +1,72 @@
-# Lesson 8 — Exporting SPDX 3.0.1 SBOMs
+# Lesson 8 — Scanning Git URLs and purls with BOM Audit
 
-## Learning objective
+## Learning Objective
 
-In this lesson we will generate a CycloneDX SBOM, export it as SPDX 3.0.1
-JSON-LD, and validate the generated SPDX document.
+In this lesson, you will generate SBOMs directly from a git URL and a package URL (purl), then run `bom-audit` as part of the same flow.
 
 By the end, you will be able to:
 
-1. Generate SPDX 3.0.1 output directly from cdxgen.
-2. Produce CycloneDX and SPDX exports in the same run.
-3. Use the `.spdx.json` extension to switch formats automatically.
-4. Validate the generated SPDX document as part of the export flow.
+1. Generate SBOMs without manually cloning source repositories.
+2. Control branch selection with `--git-branch`.
+3. Run `--bom-audit` for remotely resolved sources.
+4. Apply host allowlists for safer remote-source scans.
 
 ---
 
 ## Pre-requisites
 
 - Node.js ≥ 20
-- `@cyclonedx/cdxgen` installed globally:
-
-  ```shell
-  npm install -g @cyclonedx/cdxgen
-  ```
-
-## Step 1: Generate a CycloneDX SBOM
-
-Start with the default CycloneDX export:
+- `@cyclonedx/cdxgen` installed
 
 ```shell
-cdxgen -t nodejs -o bom.cdx.json .
+npm install -g @cyclonedx/cdxgen
 ```
 
-This remains the default behaviour and is useful when you need the native
-CycloneDX document for signing, Dependency-Track uploads, or protobuf export.
-
-## Step 2: Export SPDX 3.0.1 only
-
-To emit SPDX 3.0.1 JSON-LD instead, request the SPDX format explicitly:
+## Step 1: Generate SBOM from a git URL
 
 ```shell
-cdxgen -t nodejs --format spdx -o bom.spdx.json .
+cdxgen -t java -o bom-git.json --git-branch main https://github.com/HooliCorp/java-sec-code.git
 ```
 
-cdxgen first builds and validates the CycloneDX BOM, then converts the final BOM
-into SPDX 3.0.1 and validates the generated SPDX export before writing it.
+This command clones to a temporary directory, runs the regular multi-type pipeline, and removes the temporary clone after completion.
 
-## Step 3: Emit CycloneDX and SPDX together
-
-If you need both formats for downstream tooling, request both in one run:
+## Step 2: Generate SBOM from a purl
 
 ```shell
-cdxgen -t nodejs --format cyclonedx,spdx -o bom.cdx.json .
+cdxgen -t js -o bom-purl.json "pkg:npm/lodash@4.17.21"
 ```
 
-This creates:
+For purl inputs, cdxgen queries the package registry, resolves a repository URL, clones it, and scans it.
 
-- `bom.cdx.json` — the CycloneDX SBOM
-- `bom.spdx.json` — the sibling SPDX 3.0.1 export
+> **Warning:** Registry metadata can be inaccurate or malicious. Validate resolved repositories before relying on generated SBOMs.
 
-This is a good option when CycloneDX is still your primary interchange format
-but some consumers require SPDX.
-
-## Step 4: Let the file extension select SPDX automatically
-
-If the output file ends with `.spdx.json`, cdxgen automatically switches to the
-SPDX export format even without `--format spdx`:
+## Step 3: Run bom-audit on remote sources
 
 ```shell
-cdxgen -t nodejs -o api.spdx.json .
+cdxgen -t js -o bom-purl-audit.json --bom-audit "pkg:npm/lodash@4.17.21"
 ```
 
-This makes it easy to integrate SPDX output into CI jobs and artifact naming
-conventions.
+`--bom-audit` runs after SBOM generation and post-processing. Findings can be embedded as CycloneDX annotations based on your spec version and profile settings.
 
-## Step 5: Keep validation enabled
+## Step 4: Use allowlists for remote scanning
 
-SPDX export validation runs when `--validate` is enabled, which is the default:
+Configure host allowlists before scanning remote sources in sensitive environments.
 
 ```shell
-cdxgen -t nodejs --format spdx --validate -o bom.spdx.json .
+export CDXGEN_GIT_ALLOWED_HOSTS="github.com"
+# Registry lookups for purl metadata still use CDXGEN_ALLOWED_HOSTS
+export CDXGEN_ALLOWED_HOSTS="registry.npmjs.org,github.com"
+cdxgen -t js -o bom-safe.json "pkg:npm/lodash@4.17.21"
 ```
 
-Use `--no-validate` only when you are intentionally skipping validation for a
-local experiment or debugging session.
+For server mode, the same scan can be requested via:
 
-## Step 6: Use SPDX export in automation
-
-A simple CI example:
-
-```yaml
-jobs:
-  sbom:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - name: Generate CycloneDX + SPDX SBOMs
-        run: cdxgen -t nodejs --format cyclonedx,spdx -o bom.cdx.json .
-      - uses: actions/upload-artifact@v4
-        with:
-          name: sbom-exports
-          path: |
-            bom.cdx.json
-            bom.spdx.json
+```shell
+curl "http://127.0.0.1:9090/sbom?url=pkg:npm/lodash@4.17.21&type=js&multiProject=true"
 ```
 
 ## Going further
 
-- Use [`CLI.md`](./CLI.md) for the full argument reference.
-- Use [`LESSON6.md`](./LESSON6.md) if you need to sign the CycloneDX output.
-- Use [`LESSON7.md`](./LESSON7.md) if you want to validate CycloneDX SBOMs for
-  compliance after generation.
+- Review [SERVER.md](./SERVER.md) for secure server deployment and allowlist setup.
+- Review [BOM_AUDIT.md](./BOM_AUDIT.md) for category/severity tuning.
+- Review [THREAT_MODEL.md](./THREAT_MODEL.md) for remote source and purl lookup risks.

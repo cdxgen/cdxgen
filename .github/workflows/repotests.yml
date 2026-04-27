@@ -71,8 +71,12 @@ jobs:
           bin/cdxgen.js -t java repotests/java-sec-code -o bomresults/bom-java-sec-code-9.json --include-regex "pom.xml" --bom-audit
           bin/cdxgen.js -t java -t github repotests/java-sec-code -o bomresults/bom-java-sec-code-9.json
           bin/cdxgen.js -t java -exclude-type js repotests/java-sec-code -o bomresults/bom-java-sec-code-10.json
+          bin/cdxgen.js -t java https://github.com/HooliCorp/java-sec-code.git -o bomresults/bom-java-sec-code-git-url.json --git-branch main --fail-on-error --bom-audit
+          bin/cdxgen.js -t js "pkg:npm/lodash@4.17.21" -o bomresults/bom-lodash-purl.json --fail-on-error
           bin/validate.js -i bomresults/bom-java-sec-code-10.json --format console --fail-severity critical
         shell: bash
+        env:
+          NPM_URL: ${{ env.NEXUS_URL }}
       - name: repotests java-sec-code (allow lists)
         run: |
           CDXGEN_ALLOWED_COMMANDS=none CDXGEN_ALLOWED_HOSTS=localhost bin/cdxgen.js -t java repotests/java-sec-code -o bomresults/bom-java-sec-code-1.json
@@ -143,6 +147,7 @@ jobs:
         run: |
           bin/cdxgen.js -t js -o bomresults/bom-iot.json repotests/iot-device-simulator --fail-on-error
           bin/cdxgen.js -t js -o bomresults/bom-iot15.json repotests/iot-device-simulator --spec-version 1.5 --fail-on-error
+          bin/cdxgen.js -t js -o bomresults/bom-iot-git-url.json --git-branch v3.0.9 https://github.com/aws-solutions/iot-device-simulator.git --fail-on-error
         shell: bash
       - name: repotests ollama
         run: |
@@ -905,6 +910,10 @@ jobs:
           curl --output-dir standalone-jar-files -LO https://repo1.maven.org/maven2/junit/junit/4.13.2/junit-4.13.2.jar
           curl --output-dir standalone-jar-files -LO https://repo1.maven.org/maven2/wsdl4j/wsdl4j/1.6.3/wsdl4j-1.6.3.jar
           curl --output-dir standalone-jar-files -LO https://repo1.maven.org/maven2/org/apache/maven/maven-core/3.9.2/maven-core-3.9.2.jar
+          curl --output-dir standalone-jar-files -LO https://repo1.maven.org/maven2/org/apache/ant/ant/1.10.13/ant-1.10.13.jar
+          curl --output-dir standalone-jar-files -LO https://repo1.maven.org/maven2/ch/qos/logback/logback-classic/1.4.7/logback-classic-1.4.7.jar
+          curl --output-dir standalone-jar-files -LO https://repo1.maven.org/maven2/org/apache/velocity/velocity/1.7/velocity-1.7.jar
+          curl --output-dir standalone-jar-files -LO https://repo1.maven.org/maven2/org/apache/commons/commons-math3/3.6.1/commons-math3-3.6.1.jar
           curl --output-dir standalone-jar-files -LO https://repo1.maven.org/maven2/displaytag/displaytag/1.2/displaytag-1.2.jar
           curl --output-dir standalone-jar-files -LO https://repo1.maven.org/maven2/org/apache/poi/poi/3.17/poi-3.17.jar
           curl --output-dir standalone-jar-files -LO https://repo1.maven.org/maven2/org/jacoco/org.jacoco.agent/0.8.8/org.jacoco.agent-0.8.8.jar

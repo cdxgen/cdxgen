@@ -157,6 +157,32 @@ When using any filters, cdxgen would automatically set the [compositions.aggrega
 
 To disable this behavior, pass `--no-auto-compositions`.
 
+## Purl source resolution
+
+cdxgen can accept a package URL (`pkg:*`) as the input path and automatically resolve it to a cloneable repository URL.
+
+Supported purl types for automatic git URL detection:
+
+- `pkg:npm/...` (registry metadata lookup)
+- `pkg:pypi/...` (registry metadata lookup)
+- `pkg:gem/...` (registry metadata lookup)
+- `pkg:cargo/...` (registry metadata lookup)
+- `pkg:pub/...` (registry metadata lookup)
+- `pkg:github/...` (direct repository mapping)
+- `pkg:bitbucket/...` (direct repository mapping)
+- `pkg:maven/...` (POM `scm` metadata lookup; version required)
+- `pkg:composer/...` (Packagist metadata lookup)
+- `pkg:generic/...` (requires `vcs_url` or `download_url` qualifier)
+
+Examples:
+
+```shell
+cdxgen -t js -o bom.json "pkg:npm/lodash@4.17.21"
+cdxgen -t js -o bom.json "pkg:generic/example@1.0.0?vcs_url=git+https://github.com/cdxgen/cdxgen.git"
+```
+
+Unsupported or malformed purl source types now fail fast with explicit validation errors in both CLI and server mode.
+
 ## Configuration files
 
 Tired of passing command line arguments to cdxgen?
