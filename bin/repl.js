@@ -9,6 +9,7 @@ import repl from "node:repl";
 import jsonata from "jsonata";
 
 import { createBom } from "../lib/cli/index.js";
+import { isSpdxJsonLd } from "../lib/helpers/bomUtils.js";
 import {
   printCallStack,
   printDependencyTree,
@@ -20,7 +21,6 @@ import {
   printTable,
   printVulnerabilities,
 } from "../lib/helpers/display.js";
-import { isSpdxJsonLd } from "../lib/helpers/bomUtils.js";
 import { readBinary } from "../lib/helpers/protobom.js";
 import { toCycloneDxLikeBom } from "../lib/helpers/spdxUtils.js";
 import { getTmpDir } from "../lib/helpers/utils.js";

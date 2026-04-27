@@ -13,15 +13,15 @@ import {
   prepareDB,
 } from "../lib/evinser/evinser.js";
 import {
+  getNonCycloneDxErrorMessage,
+  isCycloneDxBom,
+} from "../lib/helpers/bomUtils.js";
+import {
   printCallStack,
   printOccurrences,
   printReachables,
   printServices,
 } from "../lib/helpers/display.js";
-import {
-  getNonCycloneDxErrorMessage,
-  isCycloneDxBom,
-} from "../lib/helpers/bomUtils.js";
 import { safeExistsSync } from "../lib/helpers/utils.js";
 import { validateBom } from "../lib/validator/bomValidator.js";
 
