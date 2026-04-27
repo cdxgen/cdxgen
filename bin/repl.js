@@ -21,6 +21,7 @@ import {
   printVulnerabilities,
 } from "../lib/helpers/display.js";
 import { readBinary } from "../lib/helpers/protobom.js";
+import { isSpdxJsonLd, toCycloneDxLikeBom } from "../lib/helpers/spdxUtils.js";
 import { getTmpDir } from "../lib/helpers/utils.js";
 import { getBomWithOras } from "../lib/managers/oci.js";
 import { validateBom } from "../lib/validator/bomValidator.js";
@@ -54,6 +55,7 @@ if (process.env?.CDXGEN_NODE_OPTIONS) {
 
 // The current sbom is stored here
 let sbom;
+const getInteractiveBom = () => toCycloneDxLikeBom(sbom);
 
 function isLikelyObom(bom) {
   return Boolean(
@@ -81,6 +83,9 @@ export const importSbom = (sbomOrPath) => {
     try {
       sbom = JSON.parse(fs.readFileSync(sbomOrPath, "utf-8"));
       let bomType = "SBOM";
+      if (isSpdxJsonLd(sbom)) {
+        bomType = "SPDX";
+      }
       if (sbom?.vulnerabilities && Array.isArray(sbom.vulnerabilities)) {
         bomType = "VDR";
       }
@@ -223,9 +228,12 @@ cdxgenRepl.defineCommand("search", {
             fixedSearchStr = `components[group ~> /${fixedSearchStr}/i or name ~> /${fixedSearchStr}/i or description ~> /${fixedSearchStr}/i or publisher ~> /${fixedSearchStr}/i or purl ~> /${fixedSearchStr}/i or tags ~> /${fixedSearchStr}/i]`;
           }
           const expression = jsonata(fixedSearchStr);
-          let components = await expression.evaluate(sbom);
+          const bomForSearch = searchStr.includes("~>")
+            ? sbom
+            : getInteractiveBom();
+          let components = await expression.evaluate(bomForSearch);
           const dexpression = jsonata(dependenciesSearchStr);
-          let dependencies = await dexpression.evaluate(sbom);
+          let dependencies = await dexpression.evaluate(bomForSearch);
           if (components && !Array.isArray(components)) {
             components = [components];
           }
@@ -319,8 +327,9 @@ cdxgenRepl.defineCommand("query", {
 cdxgenRepl.defineCommand("print", {
   help: "print the current bom as a table",
   action() {
-    if (sbom) {
-      printTable(sbom);
+    const interactiveBom = getInteractiveBom();
+    if (interactiveBom) {
+      printTable(interactiveBom);
     } else {
       console.log(
         "⚠ No BOM is loaded. Use .import command to import an existing BOM",
@@ -358,8 +367,9 @@ cdxgenRepl.defineCommand("frameworks", {
 cdxgenRepl.defineCommand("tree", {
   help: "display the dependency tree",
   action() {
-    if (sbom) {
-      printDependencyTree(sbom);
+    const interactiveBom = getInteractiveBom();
+    if (interactiveBom) {
+      printDependencyTree(interactiveBom);
     } else {
       console.log(
         "⚠ No BOM is loaded. Use .import command to import an existing BOM",
@@ -371,8 +381,9 @@ cdxgenRepl.defineCommand("tree", {
 cdxgenRepl.defineCommand("provides", {
   help: "display the provides tree",
   action() {
-    if (sbom) {
-      printDependencyTree(sbom, "provides");
+    const interactiveBom = getInteractiveBom();
+    if (interactiveBom) {
+      printDependencyTree(interactiveBom, "provides");
     } else {
       console.log(
         "⚠ No BOM is loaded. Use .import command to import an existing BOM",

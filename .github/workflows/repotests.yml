@@ -68,6 +68,8 @@ jobs:
           bin/cdxgen.js -t java repotests/java-sec-code -o bomresults/bom-java-sec-code-6.json --deep --evidence
           bin/cdxgen.js -t java repotests/java-sec-code -o bomresults/bom-java-sec-code-7.json --profile research --spec-version 1.6 --export-proto
           node bin/convert.js -i bomresults/bom-java-sec-code-7.json -o bomresults/bom-java-sec-code-7.spdx.json
+          bin/cdxgen.js -t java repotests/java-sec-code -o bomresults/bom-java-sec-code-11.json --spec-version 1.7 --fail-on-error
+          node bin/convert.js -i bomresults/bom-java-sec-code-11.json -o bomresults/bom-java-sec-code-11.spdx.json
           ls -lh bomresults
           bin/cdxgen.js -t java repotests/java-sec-code -o bomresults/bom-java-sec-code-8.json --profile license-compliance
           bin/cdxgen.js -t java repotests/java-sec-code -o bomresults/bom-java-sec-code-9.json --include-regex "pom.xml" --bom-audit
@@ -149,6 +151,10 @@ jobs:
         run: |
           bin/cdxgen.js -t js -o bomresults/bom-iot.json repotests/iot-device-simulator --fail-on-error
           bin/cdxgen.js -t js -o bomresults/bom-iot15.json repotests/iot-device-simulator --spec-version 1.5 --fail-on-error
+          bin/cdxgen.js -t js -o bomresults/bom-iot16.json repotests/iot-device-simulator --spec-version 1.6 --fail-on-error
+          node bin/convert.js -i bomresults/bom-iot16.json -o bomresults/bom-iot16.spdx.json
+          bin/cdxgen.js -t js -o bomresults/bom-iot17.json repotests/iot-device-simulator --spec-version 1.7 --fail-on-error
+          node bin/convert.js -i bomresults/bom-iot17.json -o bomresults/bom-iot17.spdx.json
           bin/cdxgen.js -t js -o bomresults/bom-iot-git-url.json --git-branch v3.0.9 https://github.com/aws-solutions/iot-device-simulator.git --fail-on-error
         shell: bash
       - name: repotests ollama
@@ -574,6 +580,7 @@ jobs:
       - name: repotests react-app
         run: |
           FETCH_LICENSE=false bin/cdxgen.js -t nodejs8 repotests/react-app -o bomresults/react-app.json --fail-on-error
+          FETCH_LICENSE=false bin/cdxgen.js -t nodejs8 repotests/react-app -o bomresults/react-app.spdx.json --format spdx --fail-on-error
           node bin/evinse.js -i bomresults/react-app.json -o bomresults/react-app.evinse.json -l js --with-data-flow repotests/react-app
         shell: bash
       - name: repotests basic-ftp
@@ -599,6 +606,8 @@ jobs:
           bin/cdxgen.js -t java repotests/java-sec-code -o bomresults/bom-java-sec-code-6.json --deep --evidence
           bin/cdxgen.js -t java repotests/java-sec-code -o bomresults/bom-java-sec-code-7.json --profile research --spec-version 1.6 --export-proto
           node bin/convert.js -i bomresults/bom-java-sec-code-7.json -o bomresults/bom-java-sec-code-7.spdx.json
+          bin/cdxgen.js -t java repotests/java-sec-code -o bomresults/bom-java-sec-code-11.json --spec-version 1.7 --fail-on-error
+          node bin/convert.js -i bomresults/bom-java-sec-code-11.json -o bomresults/bom-java-sec-code-11.spdx.json
           bin/cdxgen.js -t java repotests/java-sec-code -o bomresults/bom-java-sec-code-8.json --profile license-compliance
           bin/cdxgen.js -t java -t github repotests/java-sec-code -o bomresults/bom-java-sec-code-9.json
           bin/cdxgen.js -t java -exclude-type js repotests/java-sec-code -o bomresults/bom-java-sec-code-10.json
@@ -634,6 +643,9 @@ jobs:
       - name: repotests django-DefectDojo (deep)
         run: |
           bin/cdxgen.js -t python repotests/django-DefectDojo -o bomresults/django-DefectDojo.json --deep --include-crypto --spec-version 1.6
+          node bin/convert.js -i bomresults/django-DefectDojo.json -o bomresults/django-DefectDojo-16.spdx.json
+          bin/cdxgen.js -t python repotests/django-DefectDojo -o bomresults/django-DefectDojo-17.json --deep --spec-version 1.7 --fail-on-error
+          node bin/convert.js -i bomresults/django-DefectDojo-17.json -o bomresults/django-DefectDojo-17.spdx.json
         shell: bash
         if: matrix.os != 'windows-latest'
       - name: Set up Python
@@ -724,6 +736,7 @@ jobs:
       - name: repotests railsgoat
         run: |
           bin/cdxgen.js -r -t ruby repotests/railsgoat -o bomresults/bom-ruby.json --fail-on-error --bom-audit
+          bin/cdxgen.js -r -t ruby repotests/railsgoat -o bomresults/bom-ruby.spdx.json --format spdx --fail-on-error
         shell: bash
       - name: repotests bionomia
         run: |
