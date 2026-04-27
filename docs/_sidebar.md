@@ -1,5 +1,6 @@
 - [Home](/)
 - [CLI Usage](CLI.md)
+- [cdx-convert — CycloneDX to SPDX](CDX_CONVERT.md)
 - [Server Usage](SERVER.md)
 - [Getting Started - Development](GETTING_STARTED.md)
 - [Supported Project Types](PROJECT_TYPES.md)

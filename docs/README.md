@@ -73,7 +73,9 @@ if ($ExpectedHash -eq $ActualHash) {
 }
 ```
 
-> **Note:** The `cdx-verify` tool is also available as a standalone binary in the releases using the same naming convention (e.g., `cdx-verify-linux-amd64`).
+> **Note:** The `cdx-verify`, `cdx-sign`, `cdx-validate`, and `cdx-convert`
+> tools are also available as standalone binaries in the releases using the
+> same naming convention (e.g., `cdx-convert-linux-amd64`).
 
 ## Generate BOM for git repos
 

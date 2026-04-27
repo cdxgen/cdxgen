@@ -186,3 +186,14 @@ cdxgen -t nodejs -o bom.spdx.json .
 
 When `--validate` is enabled, cdxgen validates the generated SPDX 3.0.1 export
 after converting the final CycloneDX BOM.
+
+## Converting an existing BOM
+
+Use the dedicated `cdx-convert` command to convert an existing CycloneDX JSON
+file into SPDX JSON-LD:
+
+```shell
+cdx-convert -i bom.json -o bom.spdx.json
+```
+
+Refer to [cdx-convert — CycloneDX to SPDX](CDX_CONVERT.md) for complete usage.

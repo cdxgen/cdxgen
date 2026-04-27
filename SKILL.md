@@ -8,8 +8,7 @@
 
 - User requests an SBOM/BOM for a repository, directory, container image, or live OS.
 - User needs dependency inventory, license resolution, or vulnerability triage context.
-- User wants to export to Dependency-Track, sign/validate a BOM, or generate evidence/callstacks.
-- **DO NOT** invoke if the user explicitly requests SPDX, CycloneDX XML, or non-JSON formats (requires external conversion).
+- User wants to export to Dependency-Track, sign/validate a BOM, convert CycloneDX JSON to SPDX JSON-LD, or generate evidence/callstacks.
 
 ## 📦 Prerequisites & Installation
 
@@ -79,7 +78,7 @@ cdxgen --server --server-host 0.0.0.0 --server-port 8080
 
 ## ⛔ Anti-Hallucination & Safety Constraints
 
-1. **NEVER** assume `cdxgen` natively outputs SPDX, XML, or YAML. It outputs **CycloneDX JSON only**.
+1. `cdxgen` outputs CycloneDX JSON by default and can export SPDX JSON-LD via `--format spdx`; use `cdx-convert` for dedicated CycloneDX-to-SPDX conversion of existing BOM files.
 2. **ALWAYS** use absolute paths for `[path]` and `-o`. Relative paths or paths with spaces cause external tool failures.
 3. **NEVER** run as `root` when `CDXGEN_SECURE_MODE=true`. Node.js permissions will reject wildcard FS/child grants.
 4. **DO NOT** auto-invoke `--install-deps` (default: `true`) in CI, containers, or air-gapped environments. Use `--no-install-deps` or `--lifecycle pre-build`.

@@ -501,7 +501,16 @@ cdxgen can automatically detect names of services from YAML manifests such as do
 
 ## Conversion to SPDX format
 
-Use the [CycloneDX CLI][cyclonedx-cli-github] tool for advanced use cases such as conversion, diff and merging.
+For direct conversion of an existing CycloneDX JSON BOM to SPDX JSON-LD, use
+the bundled `cdx-convert` command:
+
+```shell
+cdx-convert -i bom.json -o bom.spdx.json
+```
+
+Use `cdxgen --format spdx` (or `--format cyclonedx,spdx`) when generating BOMs.
+Use the [CycloneDX CLI][cyclonedx-cli-github] tool for advanced use cases such
+as diff and merging.
 
 ## Including .NET Global Assembly Cache dependencies in the results
 

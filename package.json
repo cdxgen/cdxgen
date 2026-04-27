@@ -82,6 +82,7 @@
   "types": "./types/lib/cli/index.d.ts",
   "bin": {
     "cbom": "bin/cdxgen.js",
+    "cdx-convert": "bin/convert.js",
     "cdx-validate": "bin/validate.js",
     "cdx-verify": "bin/verify.js",
     "cdx-sign": "bin/sign.js",
