@@ -65,7 +65,8 @@ SPDX mapping behavior includes:
 
 ## Features
 
-- deterministic CycloneDX 1.6/1.7 to SPDX 3.0.1 conversion
+- deterministic field mapping for CycloneDX 1.6/1.7 to SPDX 3.0.1 conversion
+  when the input BOM includes stable `serialNumber` and `metadata.timestamp`
 - optional SPDX validation after conversion
 - predictable output naming (`<input>.spdx.json` when `-o` is omitted)
 - directory auto-creation for output paths
