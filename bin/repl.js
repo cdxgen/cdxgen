@@ -20,8 +20,9 @@ import {
   printTable,
   printVulnerabilities,
 } from "../lib/helpers/display.js";
+import { isSpdxJsonLd } from "../lib/helpers/bomUtils.js";
 import { readBinary } from "../lib/helpers/protobom.js";
-import { isSpdxJsonLd, toCycloneDxLikeBom } from "../lib/helpers/spdxUtils.js";
+import { toCycloneDxLikeBom } from "../lib/helpers/spdxUtils.js";
 import { getTmpDir } from "../lib/helpers/utils.js";
 import { getBomWithOras } from "../lib/managers/oci.js";
 import { validateBom } from "../lib/validator/bomValidator.js";

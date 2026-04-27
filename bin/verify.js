@@ -11,7 +11,7 @@ import { verifyNode } from "../lib/helpers/bomSigner.js";
 import {
   getNonCycloneDxErrorMessage,
   isCycloneDxBom,
-} from "../lib/helpers/spdxUtils.js";
+} from "../lib/helpers/bomUtils.js";
 import {
   dirNameStr,
   retrieveCdxgenVersion,

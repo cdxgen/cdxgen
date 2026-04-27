@@ -7,11 +7,11 @@ import process from "node:process";
 import yargs from "yargs";
 import { hideBin } from "yargs/helpers";
 
-import { deriveSpdxOutputPath } from "../lib/helpers/exportUtils.js";
 import {
   getNonCycloneDxErrorMessage,
   isCycloneDxBom,
-} from "../lib/helpers/spdxUtils.js";
+} from "../lib/helpers/bomUtils.js";
+import { deriveSpdxOutputPath } from "../lib/helpers/exportUtils.js";
 import {
   retrieveCdxgenVersion,
   safeExistsSync,

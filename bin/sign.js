@@ -10,7 +10,7 @@ import { signBom } from "../lib/helpers/bomSigner.js";
 import {
   getNonCycloneDxErrorMessage,
   isCycloneDxBom,
-} from "../lib/helpers/spdxUtils.js";
+} from "../lib/helpers/bomUtils.js";
 import { retrieveCdxgenVersion, safeExistsSync } from "../lib/helpers/utils.js";
 
 const _yargs = yargs(hideBin(process.argv));

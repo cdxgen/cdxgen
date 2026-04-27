@@ -22,7 +22,7 @@ import { hideBin } from "yargs/helpers";
 import {
   getNonCycloneDxErrorMessage,
   isCycloneDxBom,
-} from "../lib/helpers/spdxUtils.js";
+} from "../lib/helpers/bomUtils.js";
 import {
   dirNameStr,
   retrieveCdxgenVersion,
