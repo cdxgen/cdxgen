@@ -95,15 +95,15 @@
     "cdxPropertyEntry": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["type", "cdxPropName", "cdxPropValue"],
+      "required": ["type", "extension_cdxPropName", "extension_cdxPropValue"],
       "properties": {
         "type": {
-          "const": "https://spdx.org/rdf/3.0.1/terms/Extension/CdxPropertyEntry"
+          "const": "extension_CdxPropertyEntry"
         },
-        "cdxPropName": {
+        "extension_cdxPropName": {
           "$ref": "#/definitions/nonEmptyString"
         },
-        "cdxPropValue": {
+        "extension_cdxPropValue": {
           "type": "string"
         }
       }
@@ -111,12 +111,12 @@
     "cdxPropertiesExtension": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["type", "cdxProperty"],
+      "required": ["type", "extension_cdxProperty"],
       "properties": {
         "type": {
-          "const": "https://spdx.org/rdf/3.0.1/terms/Extension/CdxPropertiesExtension"
+          "const": "extension_CdxPropertiesExtension"
         },
-        "cdxProperty": {
+        "extension_cdxProperty": {
           "type": "array",
           "minItems": 1,
           "items": {
