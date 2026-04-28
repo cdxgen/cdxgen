@@ -37,6 +37,8 @@ export function extractPurlTargetsFromBom(bomJson: object, sourceName: string, o
  *     availableTargets: number,
  *     nonRequiredTargets: number,
  *     requiredTargets: number,
+ *     trustedTargets: number,
+ *     trustedTargetsExcluded: number,
  *     truncatedTargets: number,
  *   },
  *   targets: object[],
@@ -51,6 +53,8 @@ export function collectAuditTargets(inputBoms: {
         availableTargets: number;
         nonRequiredTargets: number;
         requiredTargets: number;
+        trustedTargets: number;
+        trustedTargetsExcluded: number;
         truncatedTargets: number;
     };
     targets: object[];
