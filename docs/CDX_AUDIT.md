@@ -24,8 +24,9 @@ Other purl ecosystems are skipped and reported as unsupported.
    - `ci-permission`
    - `dependency-source`
    - `package-integrity`
-7. Enrich npm and PyPI components with registry provenance signals such as trusted publishing, publish time, publisher identity, and provenance URLs when those are exposed by the registry
-8. Score each target conservatively so `high` and `critical` require corroborated signals
+7. Add source-level predictive heuristics for high-signal patterns such as downstream GitHub Actions dispatch chains, obfuscated npm lifecycle hooks, and suspicious PyPI packaging files
+8. Enrich npm and PyPI components with registry provenance signals such as trusted publishing, publish time, publisher identity, and provenance URLs when those are exposed by the registry
+9. Score each target conservatively so `high` and `critical` require corroborated signals
 
 ## Usage
 
@@ -129,6 +130,23 @@ Provenance signals are handled conservatively:
 - for npm, missing provenance only becomes a detector when the package already has install-time execution risk
 - for PyPI, missing provenance is a low-severity contextual detector for default-registry packages without uploader verification
 - positive provenance evidence such as `trustedPublishing` or `provenanceUrl` reduces the final predictive score, but does not erase strong multi-signal findings
+
+## Advanced detections in the current rollout
+
+The current predictive audit rollout adds several higher-signal detections aimed at real-world supply-chain abuse patterns rather than only generic hygiene smells:
+
+- **GitHub Actions lateral movement**
+  - dispatching `workflow_dispatch` or `repository_dispatch` from fork-reachable or privileged jobs
+  - dispatch chains that explicitly inspect fork or head-repository context before invoking downstream workflows
+  - `gh workflow run`, GitHub API dispatch endpoints, `actions/github-script`, and common dispatch helper actions are all covered
+- **npm install-time concealment**
+  - obfuscated/base64-decoded lifecycle hooks in `preinstall`, `install`, `postinstall`, `prepublish`, or `prepare`
+  - referenced JS/TS lifecycle files are inspected with the Babel-based source analyzer so hidden payloads in `scripts/postinstall.js` are not missed
+- **PyPI packaging heuristics (phase 1)**
+  - suspicious encoded or dynamically executed logic in `setup.py`
+  - suspicious import-time process/network behavior in package `__init__.py`
+
+The Python coverage is intentionally shallow for this rollout: it focuses on packaging-file triage signals with low operational cost while a deeper Python static-analysis enhancement is developed separately.
 
 Recent-release and publisher-change detectors are also conservative:
 

@@ -492,3 +492,74 @@
       "hasIdTokenWrite": $prop($, 'cdx:github:workflow:hasIdTokenWrite')
     }
 
+- id: CI-018
+  name: "Fork-reachable workflow dispatches downstream workflow or repository events"
+  description: "Dispatching workflow_dispatch or repository_dispatch from fork-reachable or privileged jobs can create a lateral-movement path into downstream workflows with broader credentials"
+  severity: high
+  category: ci-permission
+  attack:
+    tactics: [TA0004, TA0008]
+    techniques: [T1528]
+  condition: |
+    $auditComponents($)[
+      $prop($, 'cdx:github:step:dispatchesWorkflow') = 'true'
+      and $prop($, 'cdx:github:step:referencesSensitiveContext') = 'true'
+      and (
+        $propBool($, 'cdx:github:workflow:hasPullRequestTrigger') = true
+        or $propBool($, 'cdx:github:workflow:hasPullRequestTargetTrigger') = true
+        or $propBool($, 'cdx:github:workflow:hasIssueCommentTrigger') = true
+        or $propBool($, 'cdx:github:workflow:hasWorkflowRunTrigger') = true
+        or $propBool($, 'cdx:github:workflow:hasWritePermissions') = true
+        or $propBool($, 'cdx:github:job:hasWritePermissions') = true
+        or $propBool($, 'cdx:github:workflow:hasIdTokenWrite') = true
+        or $propBool($, 'cdx:github:job:hasIdTokenWrite') = true
+      )
+    ]
+  location: |
+    {
+      "bomRef": $."bom-ref",
+      "purl": purl,
+      "file": $prop($, 'cdx:github:workflow:file')
+    }
+  message: "Workflow step '{{ name }}' dispatches '{{ $prop($, 'cdx:github:step:dispatchKinds') }}' toward '{{ $prop($, 'cdx:github:step:dispatchTargets') }}' from a fork-reachable or privileged context"
+  mitigation: "Avoid chaining downstream workflow_dispatch or repository_dispatch calls from pull-request/fork-reachable jobs; isolate release dispatchers into trusted workflows with narrowly scoped credentials"
+  evidence: |
+    {
+      "dispatchKinds": $prop($, 'cdx:github:step:dispatchKinds'),
+      "dispatchMechanisms": $prop($, 'cdx:github:step:dispatchMechanisms'),
+      "dispatchTargets": $prop($, 'cdx:github:step:dispatchTargets'),
+      "sensitiveContextRefs": $prop($, 'cdx:github:step:sensitiveContextRefs'),
+      "workflowTriggers": $prop($, 'cdx:github:workflow:triggers'),
+      "writeScopes": $prop($, 'cdx:github:workflow:writeScopes')
+    }
+
+- id: CI-019
+  name: "Workflow dispatch step references explicit fork context"
+  description: "Dispatch chains that inspect pull_request head-repository or fork context before invoking downstream workflows are strong signals of fork-to-privileged lateral movement"
+  severity: critical
+  category: ci-permission
+  attack:
+    tactics: [TA0004, TA0008]
+    techniques: [T1528, T1552]
+  condition: |
+    $auditComponents($)[
+      $prop($, 'cdx:github:step:dispatchesWorkflow') = 'true'
+      and $prop($, 'cdx:github:step:referencesForkContext') = 'true'
+      and $prop($, 'cdx:github:step:referencesSensitiveContext') = 'true'
+    ]
+  location: |
+    {
+      "bomRef": $."bom-ref",
+      "purl": purl,
+      "file": $prop($, 'cdx:github:workflow:file')
+    }
+  message: "Workflow step '{{ name }}' combines explicit fork/head-repository context with downstream dispatch '{{ $prop($, 'cdx:github:step:dispatchTargets') }}'"
+  mitigation: "Do not route fork-derived context into workflow_dispatch or repository_dispatch calls. Split privileged follow-up workflows behind trusted branch-only triggers and avoid sharing long-lived tokens into fork-reachable jobs"
+  evidence: |
+    {
+      "forkContextRefs": $prop($, 'cdx:github:step:forkContextRefs'),
+      "dispatchKinds": $prop($, 'cdx:github:step:dispatchKinds'),
+      "dispatchTargets": $prop($, 'cdx:github:step:dispatchTargets'),
+      "sensitiveContextRefs": $prop($, 'cdx:github:step:sensitiveContextRefs')
+    }
+

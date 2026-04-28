@@ -158,3 +158,27 @@
       "inComments": $prop($, 'cdx:file:hiddenUnicodeInComments')
     }
 
+- id: INT-009
+  name: "npm lifecycle hook contains obfuscated or encoded execution"
+  description: "Lifecycle hooks that decode base64 payloads, hide long encoded blobs, or blend obfuscation with install-time execution are high-confidence supply-chain abuse indicators"
+  severity: critical
+  category: package-integrity
+  attack:
+    tactics: [TA0005]
+    techniques: [T1027]
+  condition: |
+    components[
+      $prop($, 'cdx:npm:hasObfuscatedLifecycleScript') = 'true'
+    ]
+  location: |
+    { "bomRef": $."bom-ref", "purl": purl }
+  message: "npm package '{{ name }}@{{ version }}' contains obfuscated install-time lifecycle scripts '{{ $prop($, 'cdx:npm:obfuscatedLifecycleScripts') }}'"
+  mitigation: "Treat encoded or obfuscated lifecycle hooks as suspicious by default. Review the decoded payload, inspect any referenced script files, and avoid installing until provenance and maintainer intent are verified"
+  evidence: |
+    {
+      "scripts": $prop($, 'cdx:npm:obfuscatedLifecycleScripts'),
+      "obfuscationIndicators": $prop($, 'cdx:npm:lifecycleObfuscationIndicators'),
+      "executionIndicators": $prop($, 'cdx:npm:lifecycleExecutionIndicators'),
+      "indicatorMap": $prop($, 'cdx:npm:lifecycleIndicatorMap')
+    }
+

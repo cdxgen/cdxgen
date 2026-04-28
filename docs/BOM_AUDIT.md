@@ -97,14 +97,16 @@ Passing both trusted switches together is invalid and causes cdxgen to exit with
 
 Rules that evaluate GitHub Actions, GitLab CI, and other CI/CD workflow data for privilege and supply-chain risks.
 
-| Rule   | Severity | Description                                                   |
-| ------ | -------- | ------------------------------------------------------------- |
-| CI-001 | high     | Unpinned GitHub Action in a workflow with write permissions   |
-| CI-002 | high     | OIDC token (`id-token: write`) granted to non-official action |
-| CI-003 | medium   | GitHub Action pinned to a mutable tag instead of SHA          |
-| CI-004 | medium   | Workflow uses `pull_request_target` trigger                   |
-| CI-009 | medium   | Workflow file contains hidden Unicode characters              |
-| CI-010 | medium   | npm/PyPI publish step uses legacy token-based publishing      |
+| Rule   | Severity | Description                                                                  |
+| ------ | -------- | ---------------------------------------------------------------------------- |
+| CI-001 | high     | Unpinned GitHub Action in a workflow with write permissions                  |
+| CI-002 | high     | OIDC token (`id-token: write`) granted to non-official action                |
+| CI-003 | medium   | GitHub Action pinned to a mutable tag instead of SHA                         |
+| CI-004 | medium   | Workflow uses `pull_request_target` trigger                                  |
+| CI-018 | high     | Fork-reachable or privileged workflow dispatches downstream workflows/events |
+| CI-019 | critical | Dispatch chain combines explicit fork context with sensitive credentials     |
+| CI-009 | medium   | Workflow file contains hidden Unicode characters                             |
+| CI-010 | medium   | npm/PyPI publish step uses legacy token-based publishing                     |
 
 ### `dependency-source` — Dependency Source Integrity
 
@@ -123,16 +125,27 @@ Rules that check package manager data for non-registry, local, or mutable depend
 
 Rules that detect deprecated, yanked, tampered, or suspicious packages.
 
-| Rule    | Severity | Description                                                          |
-| ------- | -------- | -------------------------------------------------------------------- |
-| INT-001 | medium   | npm package has install-time execution hooks                         |
-| INT-002 | high     | npm package name or version mismatch (possible dependency confusion) |
-| INT-003 | medium   | Deprecated Go module                                                 |
-| INT-004 | high     | Yanked Ruby gem                                                      |
-| INT-005 | low      | Deprecated npm package                                               |
-| INT-006 | medium   | Dart pub uses non-default registry                                   |
-| INT-007 | low      | Maven package contains shaded/relocated classes                      |
-| INT-008 | medium   | README file contains hidden Unicode characters                       |
+| Rule    | Severity | Description                                                              |
+| ------- | -------- | ------------------------------------------------------------------------ |
+| INT-001 | medium   | npm package has install-time execution hooks                             |
+| INT-002 | high     | npm package name or version mismatch (possible dependency confusion)     |
+| INT-003 | medium   | Deprecated Go module                                                     |
+| INT-004 | high     | Yanked Ruby gem                                                          |
+| INT-005 | low      | Deprecated npm package                                                   |
+| INT-006 | medium   | Dart pub uses non-default registry                                       |
+| INT-007 | low      | Maven package contains shaded/relocated classes                          |
+| INT-008 | medium   | README file contains hidden Unicode characters                           |
+| INT-009 | critical | npm lifecycle hook contains obfuscated or encoded install-time execution |
+
+### Advanced predictive heuristics
+
+Beyond the YAML rule matches above, the current rollout also adds a small number of deliberately high-signal source heuristics for `cdx-audit` scans:
+
+- **GitHub Actions lateral movement:** downstream `workflow_dispatch` / `repository_dispatch` chains launched from fork-reachable or privileged workflows
+- **npm install-time concealment:** base64-decoding or otherwise obfuscated lifecycle hooks, including referenced JS files analyzed through the Babel-based source analyzer
+- **PyPI packaging surfaces:** shallow heuristics for suspicious logic in `setup.py` and package `__init__.py`
+
+The Python detections are intentionally conservative phase-1 heuristics. They are meant to catch obviously suspicious packaging behavior today while a deeper Python static-analysis path is developed separately.
 
 ### `obom-runtime` — Operational Runtime and Host Posture
 
@@ -219,23 +232,23 @@ Rules are YAML files placed in a directory and loaded via `--bom-audit-rules-dir
 
 The rule engine registers custom functions for working with CycloneDX properties:
 
-| Function                     | Description                                                                                                              | Example                                                                              |
-| ---------------------------- | ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ |
-| `$prop(obj, name)`           | Extract a property value by name                                                                                         | `$prop($, 'cdx:npm:hasInstallScript')`                                               |
-| `$nullSafeProp(obj, name)`   | Extract a property value but return `""` when it is missing; useful for string matching                               | `$nullSafeProp($, 'cdx:github:workflow:triggers') ~> $contains('pull_request')`      |
-| `$hasProp(obj, name)`        | Check if property exists                                                                                                 | `$hasProp($, 'cdx:npm:risky_scripts')`                                               |
-| `$hasProp(obj, name, value)` | Check if property equals value                                                                                           | `$hasProp($, 'cdx:npm:isLink', 'true')`                                              |
-| `$p(obj, name)`              | Short alias for `$prop`                                                                                                  | `$p($, 'cdx:go:local_dir')`                                                          |
-| `$hasP(obj, name, value)`    | Short alias for `$hasProp`                                                                                               | `$hasP($, 'cdx:gem:yanked', 'true')`                                                 |
-| `$propBool(obj, name)`       | Extracts property and normalizes to JS boolean ( true / false / null ). Case-insensitive and null-safe.                  | `$propBool($, 'cdx:github:workflow:hasWritePermissions') = true`                     |
-| `$propList(obj, name)`       | Splits comma-separated property strings into a trimmed JSONata array. Returns [] if missing.                             | `$propList($, 'cdx:github:workflow:triggers')`                                       |
-| `$listContains(val, target)` | Safely checks if val (array or string) contains target. Works with both $propList output and raw strings.                | `$listContains($propList($, 'cdx:vscode-extension:contributes'), 'terminal-access')` |
-| `$safeStr(val)`              | Guarantees a trimmed string return. Converts null/undefined to "" . Ideal for regex matching and template interpolation. | `$match($safeStr($prop($, 'cdx:npm:versionSpecifiers')), /^\^/)`                     |
-| `$startsWith(str, prefix)`   | String prefix check                                                                                                      | `$startsWith(purl, 'pkg:nix/')`                                                      |
-| `$endsWith(str, suffix)`     | String suffix check                                                                                                      | `$endsWith(name, '-beta')`                                                           |
-| `$arrayContains(arr, value)` | Check array membership                                                                                                   | `$arrayContains(tags, 'deprecated')`                                                 |
-| `$auditComponents(bom)`      | Return a deduplicated array of top-level BOM components plus any `formulation[].components`                              | `$auditComponents($)[$prop($, 'cdx:github:action:isShaPinned') = 'false']`           |
-| `$auditWorkflows(bom)`       | Return a deduplicated array of all `formulation[].workflows` entries                                                     | `$auditWorkflows($)[$prop($, 'cdx:github:workflow:hasHighRiskTrigger') = 'true']`    |
+| Function                      | Description                                                                                                              | Example                                                                              |
+| ----------------------------- | ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ |
+| `$prop(obj, name)`            | Extract a property value by name                                                                                         | `$prop($, 'cdx:npm:hasInstallScript')`                                               |
+| `$nullSafeProp(obj, name)`    | Extract a property value but return `""` when it is missing; useful for string matching                                  | `$nullSafeProp($, 'cdx:github:workflow:triggers') ~> $contains('pull_request')`      |
+| `$hasProp(obj, name)`         | Check if property exists                                                                                                 | `$hasProp($, 'cdx:npm:risky_scripts')`                                               |
+| `$hasProp(obj, name, value)`  | Check if property equals value                                                                                           | `$hasProp($, 'cdx:npm:isLink', 'true')`                                              |
+| `$p(obj, name)`               | Short alias for `$prop`                                                                                                  | `$p($, 'cdx:go:local_dir')`                                                          |
+| `$hasP(obj, name, value)`     | Short alias for `$hasProp`                                                                                               | `$hasP($, 'cdx:gem:yanked', 'true')`                                                 |
+| `$propBool(obj, name)`        | Extracts property and normalizes to JS boolean ( true / false / null ). Case-insensitive and null-safe.                  | `$propBool($, 'cdx:github:workflow:hasWritePermissions') = true`                     |
+| `$propList(obj, name)`        | Splits comma-separated property strings into a trimmed JSONata array. Returns [] if missing.                             | `$propList($, 'cdx:github:workflow:triggers')`                                       |
+| `$listContains(val, target)`  | Safely checks if val (array or string) contains target. Works with both $propList output and raw strings.                | `$listContains($propList($, 'cdx:vscode-extension:contributes'), 'terminal-access')` |
+| `$safeStr(val)`               | Guarantees a trimmed string return. Converts null/undefined to "" . Ideal for regex matching and template interpolation. | `$match($safeStr($prop($, 'cdx:npm:versionSpecifiers')), /^\^/)`                     |
+| `$startsWith(str, prefix)`    | String prefix check                                                                                                      | `$startsWith(purl, 'pkg:nix/')`                                                      |
+| `$endsWith(str, suffix)`      | String suffix check                                                                                                      | `$endsWith(name, '-beta')`                                                           |
+| `$arrayContains(arr, value)`  | Check array membership                                                                                                   | `$arrayContains(tags, 'deprecated')`                                                 |
+| `$auditComponents(bom)`       | Return a deduplicated array of top-level BOM components plus any `formulation[].components`                              | `$auditComponents($)[$prop($, 'cdx:github:action:isShaPinned') = 'false']`           |
+| `$auditWorkflows(bom)`        | Return a deduplicated array of all `formulation[].workflows` entries                                                     | `$auditWorkflows($)[$prop($, 'cdx:github:workflow:hasHighRiskTrigger') = 'true']`    |
 | `$formulationComponents(bom)` | Return only `formulation[].components`                                                                                   | `$formulationComponents($)[$prop($, 'cdx:github:step:type') = 'run']`                |
 
 ### Message templates
