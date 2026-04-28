@@ -11,6 +11,19 @@
  */
 export function printTable(bomJson: Object, filterTypes?: string[], highlight?: string, summaryText?: string): void;
 /**
+ * Prints the BOM components as a rich streaming table with the dependency tree
+ * rendered inline as the first column.
+ * Falls back to {@link printTable} when the BOM has no dependency graph or when
+ * the selected component type is not dependency-oriented.
+ *
+ * @param {Object} bomJson CycloneDX BOM JSON object
+ * @param {string[]} [filterTypes] Optional list of component types to include; all types shown when omitted
+ * @param {string} [highlight] Optional string to highlight in the output
+ * @param {string} [summaryText] Optional summary message to print after the table
+ * @returns {void}
+ */
+export function printRichTable(bomJson: Object, filterTypes?: string[], highlight?: string, summaryText?: string): void;
+/**
  * Prints OS package components from the BOM as a formatted streaming table.
  *
  * @param {Object} bomJson CycloneDX BOM JSON object
