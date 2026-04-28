@@ -32,25 +32,25 @@ Other purl ecosystems are skipped and reported as unsupported.
 ```bash
 cdx-audit --bom bom.json
 cdx-audit --bom-dir ./boms --report json
+cdx-audit --bom bom.json --report sarif --report-file audit.sarif
 cdx-audit --bom bom.json --workspace-dir .cache/cdx-audit --reports-dir .reports/cdx-audit
 cdx-audit --bom bom.json --report json --report-file audit-report.json
 ```
 
 ## Options
 
-| Option            | Description                                                     |
-| ----------------- | --------------------------------------------------------------- |
-| `--bom`           | Path to a single CycloneDX JSON BOM                             |
-| `--bom-dir`       | Directory containing CycloneDX JSON BOMs                        |
-| `--workspace-dir` | Reuse git clones and cached child SBOMs between runs            |
-| `--reports-dir`   | Persist aggregate and per-purl child SBOM reports               |
-| `--report`        | `console` or `json`                                             |
-| `--report-file`   | Write the final rendered report to a file                       |
-| `--output`        | Deprecated alias for `--report-file`                            |
-| `--categories`    | Override the audit rule categories used for child SBOM analysis |
-| `--min-severity`  | Minimum final target severity shown in console output           |
-| `--fail-severity` | Exit with code `3` when any target reaches this final severity  |
-| `--max-targets`   | Safety limit for the number of unique purls to analyze          |
+| Option            | Description                                                       |
+| ----------------- | ----------------------------------------------------------------- |
+| `--bom`           | Path to a single CycloneDX JSON BOM                               |
+| `--bom-dir`       | Directory containing CycloneDX JSON BOMs                          |
+| `--workspace-dir` | Reuse git clones and cached child SBOMs between runs              |
+| `--reports-dir`   | Persist aggregate and per-purl child SBOM reports                 |
+| `--report`        | `console`, `json`, or `sarif`                                     |
+| `--report-file`   | Write the final rendered report to a file                         |
+| `--categories`    | Override the audit rule categories used for child SBOM analysis   |
+| `--min-severity`  | Minimum final target severity included in console or SARIF output |
+| `--fail-severity` | Exit with code `3` when any target reaches this final severity    |
+| `--max-targets`   | Safety limit for the number of unique purls to analyze            |
 
 ## Progress UX
 

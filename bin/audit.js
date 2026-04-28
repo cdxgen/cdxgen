@@ -39,18 +39,13 @@ const args = yargs(hideBin(process.argv))
     type: "string",
   })
   .option("report", {
-    choices: ["console", "json"],
+    choices: ["console", "json", "sarif"],
     default: "console",
     description: "Output format.",
   })
   .option("report-file", {
     alias: "o",
     description: "Write the report to this file. Defaults to stdout.",
-    type: "string",
-  })
-  .option("output", {
-    description:
-      "Deprecated alias for --report-file. Use --report-file instead.",
     type: "string",
   })
   .option("categories", {
@@ -62,7 +57,8 @@ const args = yargs(hideBin(process.argv))
   .option("min-severity", {
     choices: ["low", "medium", "high", "critical"],
     default: "low",
-    description: "Minimum final target severity to show in console output.",
+    description:
+      "Minimum final target severity to include in console or SARIF output.",
     type: "string",
   })
   .option("fail-severity", {
@@ -135,11 +131,6 @@ function writeOrPrint(output, outputPath) {
   const progressTracker = createProgressTracker();
   try {
     const reportFile = args.reportFile || args.output;
-    if (args.output) {
-      console.warn(
-        "cdx-audit: --output is deprecated. Use --report-file instead.",
-      );
-    }
     const report = await runAudit({
       bom: args.bom,
       bomDir: args.bomDir,

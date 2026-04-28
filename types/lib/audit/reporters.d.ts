@@ -1,3 +1,4 @@
+export function renderSarifReport(report: any, options?: {}): string;
 /**
  * Render an audit report as pretty JSON.
  *

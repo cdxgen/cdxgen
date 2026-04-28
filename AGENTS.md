@@ -11,6 +11,7 @@ This document helps AI coding agents (GitHub Copilot, Claude, Cursor, etc.) unde
 Primary entry points:
 
 - **CLI** — `bin/cdxgen.js` (calls into `lib/cli/index.js`)
+- **Audit CLI** — `bin/audit.js` (`cdx-audit` predictive supply-chain audit with `console`, `json`, and `sarif` reporters)
 - **Conversion CLI** — `bin/convert.js` (`cdx-convert` CycloneDX → SPDX export)
 - **Library** — `lib/cli/index.js` exports `createBom`, `submitBom`
 - **HTTP server** — `lib/server/server.js` (started via `bin/repl.js` or `cdxgen --server`)
@@ -95,8 +96,9 @@ Key rules to be aware of (see `biome.json`):
 ## Repository layout
 
 ```
-bin/             CLI entry points (cdxgen.js, convert.js, evinse.js, repl.js, verify.js, sign.js, validate.js)
+bin/             CLI entry points (audit.js, cdxgen.js, convert.js, evinse.js, repl.js, verify.js, sign.js, validate.js)
 lib/
+  audit/         Predictive supply-chain audit engine, scoring, progress, and reporters for `cdx-audit`
   cli/           Core BOM generation logic (index.js ~9 000 lines)
   evinser/       Evinse / SaaSBOM evidence generation
   helpers/

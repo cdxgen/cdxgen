@@ -9,6 +9,7 @@
 - User requests an SBOM/BOM for a repository, directory, container image, or live OS.
 - User needs dependency inventory, license resolution, or vulnerability triage context.
 - User wants to export to Dependency-Track, sign/validate a BOM, convert CycloneDX JSON to SPDX JSON-LD, or generate evidence/callstacks.
+- User wants a predictive audit of an existing CycloneDX BOM with `cdx-audit`, especially for npm or PyPI package compromise posture.
 
 ## 📦 Prerequisites & Installation
 
@@ -74,7 +75,30 @@ cdxgen --lifecycle pre-build -o bom.json
 
 # Start SBOM server
 cdxgen --server --server-host 0.0.0.0 --server-port 8080
+
+# Predictive audit of an existing BOM
+cdx-audit --bom bom.json
+
+# Machine-readable predictive audit
+cdx-audit --bom bom.json --report sarif --report-file audit.sarif
 ```
+
+## 🔎 Predictive Audit Command (`cdx-audit`)
+
+Use the bundled `cdx-audit` command when the user already has one or more CycloneDX JSON BOMs and wants forward-looking supply-chain exposure analysis rather than BOM generation.
+
+```bash
+cdx-audit --bom /absolute/path/to/bom.json --report console
+cdx-audit --bom-dir /absolute/path/to/boms --report json --report-file audit-report.json
+cdx-audit --bom /absolute/path/to/bom.json --report sarif --report-file audit.sarif
+```
+
+- Entry point in source: `bin/audit.js` (published command name remains `cdx-audit`)
+- Supported ecosystems today: npm and PyPI package URLs extracted from existing BOM components
+- Reporters: `console`, `json`, `sarif`
+- Exit code `3` indicates at least one audited target met or exceeded `--fail-severity`
+- Use `--workspace-dir` to reuse cloned repositories and cached child SBOMs across runs
+- Use `--reports-dir` to persist per-target artifacts plus an aggregate JSON report
 
 ## ⛔ Anti-Hallucination & Safety Constraints
 
@@ -107,6 +131,7 @@ cdxgen --server --server-host 0.0.0.0 --server-port 8080
 | **Output parsing**            | Use `-p` for human-readable tables. Parse JSON at `-o` path programmatically. Never assume stdout contains the BOM unless `-o` is omitted. |
 | **Signature verification**    | Use bundled `cdx-verify -i bom.json --public-key public.key`.                                                                              |
 | **SBOM signing**              | Use bundled `cdx-sign -i bom.json -k private.key`.                                                                                         |
+| **Predictive auditing**       | Use bundled `cdx-audit --bom bom.json` for existing BOMs. Prefer `--report sarif --report-file audit.sarif` for code-scanning uploads.     |
 
 ## 📚 Reference Links
 

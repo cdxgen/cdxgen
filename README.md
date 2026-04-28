@@ -126,76 +126,77 @@ Commands:
 
 Options:
   -o, --output                    Output file. Default bom.json                                    [default: "bom.json"]
-  -t, --type                      Project type. Please refer to https://cdxgen.github.io/cdxgen/#/PROJECT_TYPES for supp
-                                  orted languages/platforms.                                                     [array]
-      --exclude-type              Project types to exclude. Please refer to https://cdxgen.github.io/cdxgen/#/PROJECT_TY
-                                  PES for supported languages/platforms.
+  -t, --type                      Project type. Please refer to https://cdxgen.github.io/cdxgen/#/PROJECT_TYPES for
+                                  supported languages/platforms.                                                 [array]
+      --exclude-type              Project types to exclude. Please refer to
+                                  https://cdxgen.github.io/cdxgen/#/PROJECT_TYPES for supported languages/platforms.
   -r, --recurse                   Recurse mode suitable for mono-repos. Defaults to true. Pass --no-recurse to disable.
                                                                                                [boolean] [default: true]
   -p, --print                     Print the SBOM as a table with tree.                                         [boolean]
   -c, --resolve-class             Resolve class names for packages. jars only for now.                         [boolean]
-      --deep                      Perform deep searches for components. Useful while scanning C/C++ apps, live OS and oc
-                                  i images.                                                                    [boolean]
-      --git-branch                Git branch to clone when the source is a git URL or purl                     [string]
-      --server-url                Dependency track url. Eg: https://deptrack.cyclonedx.io
+      --deep                      Perform deep searches for components. Useful while scanning C/C++ apps, live OS and
+                                  oci images.                                                                  [boolean]
+      --git-branch                Git branch to clone when the source is a git URL or purl                      [string]
+      --server-url                Dependency track url. Eg: https://deptrack.cyclonedx.io                       [string]
       --skip-dt-tls-check         Skip TLS certificate check when calling Dependency-Track.   [boolean] [default: false]
-      --api-key                   Dependency track api key
+      --api-key                   Dependency track api key                                                      [string]
       --project-group             Dependency track project group
       --project-name              Dependency track project name. Default use the directory name
       --project-version           Dependency track project version                                [string] [default: ""]
-      --project-tag               Dependency track project tag. Multiple values allowed.                         [array]
-      --project-id                Dependency track project id. Either provide the id or the project name and version tog
-                                  ether                                                                         [string]
-      --parent-project-id         Dependency track parent project id. You must provide the id or both
-                                  parent project name and parent project version.                               [string]
+      --project-tag               Dependency track project tag. Multiple values allowed.
+      --project-id                Dependency track project id. Either provide the id or the project name and version
+                                  together                                                                      [string]
+      --parent-project-id         Dependency track parent project id                                            [string]
       --parent-project-name       Dependency track parent project name                                          [string]
       --parent-project-version    Dependency track parent project version                                       [string]
-      --required-only             Include only the packages with required scope on the SBOM. Would set compositions.aggr
-                                  egate to incomplete unless --no-auto-compositions is passed.                 [boolean]
-      --fail-on-error             Fail if any dependency extractor fails.                                      [boolean]
+      --required-only             Include only the packages with required scope on the SBOM. Would set
+                                  compositions.aggregate to incomplete unless --no-auto-compositions is passed.[boolean]
+      --fail-on-error             Fail if any dependency extractor fails.                     [boolean] [default: false]
       --no-babel                  Do not use babel to perform usage analysis for JavaScript/TypeScript projects.
                                                                                                                [boolean]
-      --generate-key-and-sign     Generate an RSA public/private key pair and then sign the generated SBOM using JSON We
-                                  b Signatures.                                                                [boolean]
+      --generate-key-and-sign     Generate an RSA public/private key pair and then sign the generated SBOM using JSON
+                                  Web Signatures.                                                              [boolean]
       --server                    Run cdxgen as a server                                                       [boolean]
-      --server-host               Listen address                                                  [default: "127.0.0.1"]
-      --server-port               Listen port                                                          [default: "9090"]
-      --install-deps              Install dependencies automatically for some projects. Defaults to true but disabled fo
-                                  r containers and oci scans. Use --no-install-deps to disable this feature.
+      --server-host               Listen address                                         [string] [default: "127.0.0.1"]
+      --server-port               Listen port                                                   [number] [default: 9090]
+      --install-deps              Install dependencies automatically for some projects. Defaults to true but disabled
+                                  for containers and oci scans. Use --no-install-deps to disable this feature.
                                                                                                [boolean] [default: true]
       --validate                  Validate the generated SBOM using json schema. Defaults to true. Pass --no-validate to
-                                   disable.                                                    [boolean] [default: true]
+                                  disable.                                                     [boolean] [default: true]
       --evidence                  Generate SBOM with evidence for supported languages.        [boolean] [default: false]
       --spec-version              CycloneDX Specification version to use. Defaults to 1.7
                                                                    [number] [choices: 1.4, 1.5, 1.6, 1.7] [default: 1.7]
       --filter                    Filter components containing this word in purl or component.properties.value. Multiple
-                                   values allowed.                                                               [array]
-      --only                      Include components only containing this word in purl. Useful to generate BOM with firs
-                                  t party components alone. Multiple values allowed.                             [array]
-      --author                    The person(s) who created the BOM. Set this value if you're intending the modify the B
-                                  OM and claim authorship.                         [array] [default: "OWASP Foundation"]
+                                  values allowed.                                                                [array]
+      --only                      Include components only containing this word in purl. Useful to generate BOM with
+                                  first party components alone. Multiple values allowed.                         [array]
+      --author                    The person(s) who created the BOM. Set this value if you're intending the modify the
+                                  BOM and claim authorship.                        [array] [default: "OWASP Foundation"]
       --profile                   BOM profile to use for generation. Default generic.
   [choices: "appsec", "research", "operational", "threat-modeling", "license-compliance", "generic", "machine-learning",
                                                        "ml", "deep-learning", "ml-deep", "ml-tiny"] [default: "generic"]
-      --include-regex             glob pattern to include. This overrides the default pattern used during auto-detection
-                                  .                                                                             [string]
+      --include-regex             glob pattern to include. This overrides the default pattern used during
+                                  auto-detection.                                                               [string]
       --exclude, --exclude-regex  Additional glob pattern(s) to ignore                                           [array]
       --export-proto              Serialize and export BOM as protobuf binary.                [boolean] [default: false]
+      --format                    Export format(s). Supports cyclonedx, spdx, repeated --format flags, or a
+                                  comma-separated list such as cyclonedx,spdx.                                   [array]
       --proto-bin-file            Path for the serialized protobuf binary.                          [default: "bom.cdx"]
       --include-formulation       Generate formulation section with git metadata and build tools. Defaults to false.
                                                                                               [boolean] [default: false]
       --include-crypto            Include crypto libraries as components.                     [boolean] [default: false]
-      --standard                  The list of standards which may consist of regulations, industry or organizational-spe
-                                  cific standards, maturity models, best practices, or any other requirements which can
-                                  be evaluated against or attested to.
-  [array] [choices: "asvs-5.0", "asvs-4.0.3", "bsimm-v13", "masvs-2.0.0", "nist_ssdf-1.1", "pcissc-secure-slc-1.1", "scv
-                                                                                         s-1.0.0", "ssaf-DRAFT-2023-11"]
+      --standard                  The list of standards which may consist of regulations, industry or
+                                  organizational-specific standards, maturity models, best practices, or any other
+                                  requirements which can be evaluated against or attested to.
+       [array] [choices: "asvs-5.0", "asvs-4.0.3", "bsimm-v13", "masvs-2.0.0", "nist_ssdf-1.1", "pcissc-secure-slc-1.1",
+                                                                                     "scvs-1.0.0", "ssaf-DRAFT-2023-11"]
       --json-pretty               Pretty-print the generated BOM json.                        [boolean] [default: false]
       --min-confidence            Minimum confidence needed for the identity of a component from 0 - 1, where 1 is 100%
                                   confidence.                                                      [number] [default: 0]
       --technique                 Analysis technique to use
-  [array] [choices: "auto", "source-code-analysis", "binary-analysis", "manifest-analysis", "hash-comparison", "instrume
-                                                                                                   ntation", "filename"]
+            [array] [choices: "auto", "source-code-analysis", "binary-analysis", "manifest-analysis", "hash-comparison",
+                                                                                          "instrumentation", "filename"]
       --auto-compositions         Automatically set compositions when the BOM was filtered. Defaults to true
                                                                                                [boolean] [default: true]
   -h, --help                      Show help                                                                    [boolean]
@@ -210,6 +211,25 @@ Minimal example.
 
 ```shell
 cdxgen -o bom.json
+```
+
+The primary positional input can be:
+
+- a local filesystem path (default: current directory)
+- a git URL that cdxgen clones before scanning
+- a package URL (purl) that cdxgen resolves to source and then scans
+
+Common source input examples:
+
+```shell
+# Local path
+cdxgen -o bom.json .
+
+# Git URL
+cdxgen -t java -o bom.json --git-branch main https://github.com/HooliCorp/java-sec-code.git
+
+# Package URL (purl)
+cdxgen -t js -o bom.json "pkg:npm/lodash@4.17.21"
 ```
 
 For a java project. cdxgen would automatically detect maven, gradle, or sbt and build bom accordingly
@@ -235,6 +255,8 @@ To generate an SBOM directly from a git URL:
 ```shell
 cdxgen -t java -o bom.json --git-branch main https://github.com/HooliCorp/java-sec-code.git
 ```
+
+This works anywhere cdxgen expects its primary source input, so a git URL can be used in place of `.` or any other local path.
 
 To generate an SBOM from a package URL (purl), cdxgen resolves registry metadata to a repository URL, clones it, and scans it:
 
