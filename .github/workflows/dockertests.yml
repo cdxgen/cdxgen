@@ -50,8 +50,14 @@ jobs:
         if: matrix.os == 'ubuntu-24.04'
         run: |
           assert_container_audit_bom() {
-            jq -e '[.annotations[]? | select((.text // "") | contains("cdx:audit:category | container-risk |"))] | length > 0' "$1" >/dev/null
-            jq -e '[.components[]? | select((.properties // []) | any((.name == "cdx:gtfobins:matched" or .name == "cdx:container:matched") and .value == "true"))] | length > 0' "$1" >/dev/null
+            jq -e '[.annotations[]? | select((.text // "") | contains("cdx:audit:category | container-risk |"))] | length > 0' "$1" >/dev/null || {
+              echo "Expected container-risk audit findings in $1"
+              return 1
+            }
+            jq -e '[.components[]? | select((.properties // []) | any((.name == "cdx:gtfobins:matched" or .name == "cdx:container:matched") and .value == "true"))] | length > 0' "$1" >/dev/null || {
+              echo "Expected GTFOBins or container-risk enrichment properties in $1"
+              return 1
+            }
           }
           bin/cdxgen.js ubuntu:latest -p -t docker -o bomresults/bom-ubuntu.json --fail-on-error
           bin/cdxgen.js ubuntu:latest -p -t docker -o bomresults/bom-ubuntu-audit.json --bom-audit --bom-audit-categories container-risk --fail-on-error
