@@ -134,6 +134,7 @@ jobs:
           docker rmi alpine:latest
           bin/cdxgen.js /tmp/alpine.tar -p -t docker -o bomresults/bom-alpine.tar.json --fail-on-error
           bin/cdxgen.js /tmp/alpine.tar -p -t docker -o bomresults/bom-alpine.tar-audit.json --bom-audit --bom-audit-categories container-risk --fail-on-error
+          jq -e '.bomFormat == "CycloneDX" and .specVersion != null' bomresults/bom-alpine.tar-audit.json >/dev/null
           ls -ltr bomresults
         env:
           CDXGEN_DEBUG_MODE: debug
