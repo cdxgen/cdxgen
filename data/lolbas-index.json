@@ -1,0 +1,150 @@
+{
+  "entries": {
+    "bitsadmin.exe": {
+      "attackTactics": ["TA0002", "TA0011"],
+      "attackTechniques": ["T1105", "T1197"],
+      "contexts": ["admin", "user"],
+      "functions": ["download", "upload", "command"],
+      "reference": "https://lolbas-project.github.io/lolbas/Binaries/Bitsadmin/",
+      "riskTags": ["network-transfer", "persistence"]
+    },
+    "certutil.exe": {
+      "attackTactics": ["TA0005", "TA0011"],
+      "attackTechniques": ["T1105", "T1140"],
+      "contexts": ["admin", "user"],
+      "functions": ["download", "decode", "file-read", "file-write"],
+      "reference": "https://lolbas-project.github.io/lolbas/Binaries/Certutil/",
+      "riskTags": ["defense-evasion", "network-transfer"]
+    },
+    "cmd.exe": {
+      "attackTactics": ["TA0002"],
+      "attackTechniques": ["T1059.003"],
+      "contexts": ["admin", "user"],
+      "functions": ["command", "shell"],
+      "reference": "https://lolbas-project.github.io/lolbas/Binaries/Cmd/",
+      "riskTags": ["execution"]
+    },
+    "cmdkey.exe": {
+      "attackTactics": ["TA0006"],
+      "attackTechniques": ["T1555"],
+      "contexts": ["admin", "user"],
+      "functions": ["credential-access"],
+      "reference": "https://lolbas-project.github.io/lolbas/Binaries/Cmdkey/",
+      "riskTags": ["credential-access"]
+    },
+    "cmstp.exe": {
+      "attackTactics": ["TA0003", "TA0005"],
+      "attackTechniques": ["T1218.003", "T1548.002"],
+      "contexts": ["admin", "uac-bypass", "user"],
+      "functions": ["proxy-execution", "uac-bypass"],
+      "reference": "https://lolbas-project.github.io/lolbas/Binaries/Cmstp/",
+      "riskTags": ["defense-evasion", "persistence", "uac-bypass"]
+    },
+    "cscript.exe": {
+      "attackTactics": ["TA0002", "TA0005"],
+      "attackTechniques": ["T1059.005", "T1216"],
+      "contexts": ["admin", "user"],
+      "functions": ["proxy-execution", "script-execution"],
+      "reference": "https://lolbas-project.github.io/lolbas/Binaries/Cscript/",
+      "riskTags": ["defense-evasion", "execution"]
+    },
+    "ftp.exe": {
+      "attackTactics": ["TA0011"],
+      "attackTechniques": ["T1041", "T1105"],
+      "contexts": ["admin", "user"],
+      "functions": ["download", "upload"],
+      "reference": "https://lolbas-project.github.io/lolbas/Binaries/Ftp/",
+      "riskTags": ["network-transfer"]
+    },
+    "installutil.exe": {
+      "attackTactics": ["TA0002", "TA0005"],
+      "attackTechniques": ["T1218.004"],
+      "contexts": ["admin", "user"],
+      "functions": ["library-load", "proxy-execution"],
+      "reference": "https://lolbas-project.github.io/lolbas/Binaries/Installutil/",
+      "riskTags": ["defense-evasion", "execution"]
+    },
+    "msbuild.exe": {
+      "attackTactics": ["TA0002", "TA0005"],
+      "attackTechniques": ["T1127.001"],
+      "contexts": ["admin", "user"],
+      "functions": ["compile", "proxy-execution", "script-execution"],
+      "reference": "https://lolbas-project.github.io/lolbas/Binaries/Msbuild/",
+      "riskTags": ["defense-evasion", "execution"]
+    },
+    "mshta.exe": {
+      "attackTactics": ["TA0002", "TA0005"],
+      "attackTechniques": ["T1218.005"],
+      "contexts": ["admin", "user"],
+      "functions": ["proxy-execution", "script-execution"],
+      "reference": "https://lolbas-project.github.io/lolbas/Binaries/Mshta/",
+      "riskTags": ["defense-evasion", "execution"]
+    },
+    "msiexec.exe": {
+      "attackTactics": ["TA0002", "TA0005", "TA0011"],
+      "attackTechniques": ["T1105", "T1218.007"],
+      "contexts": ["admin", "user"],
+      "functions": ["download", "proxy-execution"],
+      "reference": "https://lolbas-project.github.io/lolbas/Binaries/Msiexec/",
+      "riskTags": ["defense-evasion", "network-transfer"]
+    },
+    "odbcconf.exe": {
+      "attackTactics": ["TA0002", "TA0005"],
+      "attackTechniques": ["T1218.008"],
+      "contexts": ["admin", "user"],
+      "functions": ["library-load", "proxy-execution"],
+      "reference": "https://lolbas-project.github.io/lolbas/Binaries/Odbcconf/",
+      "riskTags": ["defense-evasion", "execution"]
+    },
+    "powershell.exe": {
+      "attackTactics": ["TA0002", "TA0005", "TA0011"],
+      "attackTechniques": ["T1041", "T1059.001", "T1105"],
+      "contexts": ["admin", "user"],
+      "functions": ["command", "download", "script-execution", "shell", "upload"],
+      "reference": "https://lolbas-project.github.io/lolbas/Binaries/Powershell/",
+      "riskTags": ["execution", "network-transfer", "persistence"]
+    },
+    "pwsh.exe": {
+      "attackTactics": ["TA0002", "TA0005", "TA0011"],
+      "attackTechniques": ["T1041", "T1059.001", "T1105"],
+      "contexts": ["admin", "user"],
+      "functions": ["command", "download", "script-execution", "shell", "upload"],
+      "reference": "https://lolbas-project.github.io/lolbas/Binaries/Powershell/",
+      "riskTags": ["execution", "network-transfer", "persistence"]
+    },
+    "regsvr32.exe": {
+      "attackTactics": ["TA0002", "TA0005"],
+      "attackTechniques": ["T1218.010"],
+      "contexts": ["admin", "user"],
+      "functions": ["library-load", "proxy-execution", "script-execution"],
+      "reference": "https://lolbas-project.github.io/lolbas/Binaries/Regsvr32/",
+      "riskTags": ["defense-evasion", "execution"]
+    },
+    "rundll32.exe": {
+      "attackTactics": ["TA0002", "TA0005"],
+      "attackTechniques": ["T1218.011"],
+      "contexts": ["admin", "user"],
+      "functions": ["library-load", "proxy-execution"],
+      "reference": "https://lolbas-project.github.io/lolbas/Binaries/Rundll32/",
+      "riskTags": ["defense-evasion", "execution"]
+    },
+    "wmic.exe": {
+      "attackTactics": ["TA0002", "TA0005", "TA0011"],
+      "attackTechniques": ["T1047", "T1105"],
+      "contexts": ["admin", "user"],
+      "functions": ["command", "download", "process-create"],
+      "reference": "https://lolbas-project.github.io/lolbas/Binaries/Wmic/",
+      "riskTags": ["execution", "network-transfer", "reconnaissance"]
+    },
+    "wscript.exe": {
+      "attackTactics": ["TA0002", "TA0005"],
+      "attackTechniques": ["T1059.005", "T1216"],
+      "contexts": ["admin", "user"],
+      "functions": ["proxy-execution", "script-execution"],
+      "reference": "https://lolbas-project.github.io/lolbas/Binaries/Wscript/",
+      "riskTags": ["defense-evasion", "execution"]
+    }
+  },
+  "source": "https://github.com/LOLBAS-Project/LOLBAS",
+  "sourceRef": "https://lolbas-project.github.io/"
+}

@@ -17,6 +17,7 @@ Use this as your default host collection profile when you need:
 - process/network/service/startup visibility
 - endpoint control posture (firewall, encryption, security products)
 - immediate high/critical runtime findings from built-in OBOM rules
+- Windows LOLBAS / ATT&CK-enriched context for run keys, tasks, WMI, services, and live processes
 
 ## 2) SOC triage lesson: rapid suspicious persistence sweep
 
@@ -27,7 +28,7 @@ Most early compromise persistence techniques show up in host startup surfaces.
 ### What to review first
 
 - Linux: `systemd_units`, `sudoers_snapshot`, `authorized_keys_snapshot`, `elevated_processes`, `sudo_executions`, `privilege_transitions`, `privileged_listening_ports`
-- Windows: `windows_run_keys`, `scheduled_tasks`, `services_snapshot`, WMI tables
+- Windows: `windows_run_keys`, `scheduled_tasks`, `services_snapshot`, `startup_items`, `appcompat_shims`, WMI tables, `processes`, `listening_ports`
 - macOS: `launchd_services`, `launchd_overrides`, `alf_exceptions`
 
 ### REPL quick flow
@@ -52,6 +53,7 @@ Focus on runtime records that often correlate with intrusion playbooks:
 - interactive privilege changes (`sudo_executions`, `privilege_transitions`)
 - suspicious startup references to temp/user-writable paths
 - encoded script launches (`-enc`) and script interpreters from startup keys/tasks
+- Windows LOLBAS helpers such as `powershell.exe`, `certutil.exe`, `regsvr32.exe`, `rundll32.exe`, `mshta.exe`, and `cmstp.exe`
 
 Then map findings to:
 
@@ -84,6 +86,8 @@ Suggested policy profile:
 - **medium**: ticket + SLA remediation
 - **low**: backlog and trend over time
 
+For Windows-heavy fleets, specifically review `OBOM-WIN-006` through `OBOM-WIN-010` to catch LOLBAS-backed persistence and ATT&CK-aligned proxy-execution patterns.
+
 ## 6) Recommended analyst operating model
 
 1. Generate OBOM with audit enabled.
@@ -101,3 +105,13 @@ Use this when you want BOM audit to spotlight packages and services that run wit
 3. Inspect `elevated_processes`, `sudo_executions`, `privilege_transitions`, and `privileged_listening_ports` in the REPL.
 4. Confirm whether the package, listener, or privilege transition maps to an approved change.
 5. Compare periodic OBOMs to catch newly introduced privileged packages and admin surfaces.
+
+## 8) Windows LOLBAS and ATT&CK workflow
+
+Use this when you want host BOM audit to prioritize Windows living-off-the-land tradecraft:
+
+1. Generate an OBOM with `--bom-audit`.
+2. Review `OBOM-WIN-006` through `OBOM-WIN-010`.
+3. In the REPL, inspect `windows_run_keys`, `scheduled_tasks`, `startup_items`, `appcompat_shims`, `wmi_cli_event_consumers`, `processes`, and `listening_ports`.
+4. Search the matched component properties for `cdx:lolbas:names`, `cdx:lolbas:attackTechniques`, and `cdx:lolbas:riskTags`.
+5. Escalate findings that combine persistence surfaces with ATT&CK techniques such as `T1218`, `T1546`, or `T1548.002`.

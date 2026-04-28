@@ -54,6 +54,7 @@ CycloneDX custom properties are emitted as name/value pairs, so consumers should
 | `cdx:bom:*`                                                                                | BOM-level metadata                                                       | Component type set, discovered namespaces, source manifest files                                                       | Measure BOM completeness, identify broad component diversity, and support attestable “evidence-of-origin” for manifest inputs                                    | [Cross-cutting BOM/service/build metadata](#inventory-cross-cutting) | [5](#example-5)                  |
 | `cdx:build:versionSpecifiers`                                                              | Build/manifest parsing (for example C/C++ build metadata)                | Non-exact version constraints captured from build descriptors                                                          | Highlight non-pinned dependency constraints and prioritize hardening toward deterministic builds                                                                 | [Cross-cutting BOM/service/build metadata](#inventory-cross-cutting) | [5](#example-5)                  |
 | `cdx:osquery:category`                                                                     | Host/package discovery via osquery                                       | Query/source category for discovered packages                                                                          | Separate inventory confidence by collection method and tune host-level evidence policies                                                                         | [Cross-cutting BOM/service/build metadata](#inventory-cross-cutting) | [5](#example-5)                  |
+| `cdx:lolbas:*`                                                                             | Windows osquery / OBOM enrichment                                        | LOLBAS-derived ATT&CK tactics/techniques, functions, contexts, and risk tags parsed from Windows host telemetry       | Highlight Windows proxy-execution helpers in run keys, tasks, WMI, services, and live process data                                                             | [Cross-cutting BOM/service/build metadata](#inventory-cross-cutting) | [5](#example-5)                  |
 | `cdx:gtfobins:*`                                                                           | Container executable enrichment                                          | GTFOBins-derived functions, privileged contexts, ATT&CK techniques, and risk tags for collected executables           | Flag container-escape helpers, privileged binaries, exfiltration tooling, and mutable-path attack kits in container SBOMs                                      | [Cross-cutting BOM/service/build metadata](#inventory-cross-cutting) | [5](#example-5)                  |
 | `cdx:container:*`                                                                          | Container executable enrichment                                          | ATT&CK-for-Containers tags, Peirates/CDK/DEEPCE playbook references, and seccomp-sensitive syscall context           | Detect offensive toolkit binaries, map cluster-pivot helpers to ATT&CK, and review images that become riskier under permissive seccomp profiles               | [Cross-cutting BOM/service/build metadata](#inventory-cross-cutting) | [5](#example-5)                  |
 | `cdx:vscode-extension:*`                                                                   | VS Code / IDE extensions (`.vsix` and installed dirs)                    | Activation events, extension kind, contributed features, lifecycle scripts, workspace trust posture                    | Detect always-on extensions, flag install-time script execution, audit host/filesystem access, enforce workspace trust and virtual workspace policies            | [IDE and editor extensions](#inventory-ide-extensions)               | [7](#example-7)                  |
@@ -76,6 +77,8 @@ These are the highest-leverage keys for first-pass policy authoring.
 | `cdx:nix:nar_hash`                               | Important reproducibility and content-integrity signal for flakes                  | Hard deny        |
 | `cdx:go:local_dir`                               | Detects local module replacements and non-hermetic resolution                      | Hard deny        |
 | `cdx:bom:componentSrcFiles`                      | Useful gate for BOM completeness and downstream attestability                      | Warning / triage |
+| `cdx:lolbas:names`                               | Maps Windows startup/process telemetry to known LOLBAS binaries                   | Warning / triage |
+| `cdx:lolbas:attackTechniques`                    | Carries ATT&CK techniques for matched Windows LOLBAS helpers                      | Warning / triage |
 | `cdx:gtfobins:functions`                         | Encodes GTFOBins execution, file, network, and library-load primitives            | Warning / triage |
 | `cdx:gtfobins:privilegedContexts`                | Highlights sudo/SUID/capability-backed abuse paths                                | Hard deny        |
 | `cdx:gtfobins:riskTags`                          | Summarizes container-escape, exfiltration, persistence, and lateral-movement risk | Warning / triage |
@@ -412,6 +415,17 @@ The grouped lists below remain the authoritative inventory. The compact tables, 
 - `cdx:bom:componentSrcFiles`
 - `cdx:bom:componentTypes`
 - `cdx:build:versionSpecifiers`
+- `cdx:lolbas:attackTactics`
+- `cdx:lolbas:attackTechniques`
+- `cdx:lolbas:contexts`
+- `cdx:lolbas:functions`
+- `cdx:lolbas:matchFields`
+- `cdx:lolbas:matched`
+- `cdx:lolbas:names`
+- `cdx:lolbas:queryCategory`
+- `cdx:lolbas:references`
+- `cdx:lolbas:riskTags`
+- `cdx:lolbas:sourceRef`
 - `cdx:container:attackTactics`
 - `cdx:container:attackTechniques`
 - `cdx:container:knowledgeSourceRefs`
@@ -444,6 +458,9 @@ The grouped lists below remain the authoritative inventory. The compact tables, 
 | `cdx:bom:componentSrcFiles`   | metadata  | list string | `package.json`, `requirements.txt`, `pom.xml` | After BOM post-processing                        | Useful for completeness gates and evidence-of-origin attestations | Warning / triage |
 | `cdx:bom:componentTypes`      | metadata  | list string | `library`, `application`, `container`         | After BOM post-processing                        | Helps identify unexpectedly narrow or broad BOM composition       | Warning / triage |
 | `cdx:build:versionSpecifiers` | component | string      | `>=1.0,<2.0`                                  | When build metadata yields non-exact constraints | Good pinning strictness signal for build ecosystems               | Warning / triage |
+| `cdx:lolbas:names`            | component | list string | `powershell.exe,regsvr32.exe`                 | When Windows osquery rows reference curated LOLBAS helpers       | Useful pivot for startup persistence, WMI, or process triage      | Warning / triage |
+| `cdx:lolbas:attackTechniques` | component | list string | `T1059.001,T1218.010`                         | When LOLBAS helpers map to ATT&CK techniques                     | Aligns Windows host telemetry with ATT&CK-aware policy pipelines  | Warning / triage |
+| `cdx:lolbas:riskTags`         | component | list string | `proxy-execution,network-transfer,uac-bypass` | When LOLBAS helpers imply higher-level abuse categories          | Helps prioritize Windows persistence or proxy-execution review    | Warning / triage |
 | `cdx:container:attackTechniques` | component | list string | `T1611,T1613,T1552.007`                    | When executables match curated container tradecraft knowledge     | Maps binaries to ATT&CK for Containers or related ATT&CK techniques | Warning / triage |
 | `cdx:container:offenseTools`  | component | list string | `peirates,cdk,deepce`                         | When executables overlap known container intrusion playbooks      | High-signal context for cluster-pivot or offensive toolkit review | Warning / triage |
 | `cdx:container:seccompBlockedSyscalls` | component | list string | `setns,unshare,open_by_handle_at`     | When helper abuse depends on syscalls blocked by Docker seccomp   | Helps prevent breakouts caused by permissive or disabled seccomp  | Warning / triage |
@@ -458,6 +475,8 @@ The grouped lists below remain the authoritative inventory. The compact tables, 
 - `cdx:bom:componentTypes` present + `cdx:bom:componentSrcFiles` present before allowing downstream signing
 - Missing `cdx:bom:componentSrcFiles` for a BOM that otherwise claims broad language coverage
 - `cdx:build:versionSpecifiers` present + policy requires exact pinning in build metadata
+- `cdx:lolbas:names` present + `cdx:osquery:category` in `windows_run_keys`, `scheduled_tasks`, `services_snapshot`, or WMI tables
+- `cdx:lolbas:attackTechniques` contains `T1218` or `T1548.002` on Windows persistence surfaces
 - `cdx:gtfobins:riskTags=container-escape` + `cdx:gtfobins:privilegedContexts` present in runtime container images
 - `cdx:container:offenseTools` present + `cdx:container:riskTags=offensive-toolkit` in any runtime image
 - `cdx:container:seccompBlockedSyscalls` present + container deployed with unconfined or custom seccomp profiles
@@ -645,6 +664,8 @@ The grouped lists below remain the authoritative inventory. The compact tables, 
 - `cdx:bom:componentNamespaces`
 - `cdx:bom:componentSrcFiles`
 - `cdx:bom:componentTypes`
+- `cdx:lolbas:names`
+- `cdx:lolbas:riskTags`
 - `cdx:container:riskTags`
 - `cdx:container:offenseTools`
 - `cdx:gtfobins:riskTags`

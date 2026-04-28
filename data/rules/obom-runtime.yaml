@@ -658,6 +658,207 @@
       "account": $prop($, 'user_account')
     }
 
+- id: OBOM-WIN-006
+  name: "Windows persistence surface references LOLBAS execution helper"
+  description: "Run keys, startup items, scheduled tasks, or auto-start services that reference LOLBAS execution helpers deserve elevated review because they blend persistence with proxy execution tradecraft."
+  severity: high
+  category: obom-runtime
+  condition: |
+    components[
+      $prop($, 'cdx:lolbas:matched') = 'true'
+      and (
+        $prop($, 'cdx:osquery:category') = 'windows_run_keys'
+        or $prop($, 'cdx:osquery:category') = 'scheduled_tasks'
+        or $prop($, 'cdx:osquery:category') = 'startup_items'
+        or $prop($, 'cdx:osquery:category') = 'services_snapshot'
+      )
+      and (
+        $listContains($prop($, 'cdx:lolbas:functions'), 'command')
+        or $listContains($prop($, 'cdx:lolbas:functions'), 'script-execution')
+        or $listContains($prop($, 'cdx:lolbas:functions'), 'proxy-execution')
+        or $listContains($prop($, 'cdx:lolbas:functions'), 'library-load')
+        or $listContains($prop($, 'cdx:lolbas:functions'), 'shell')
+      )
+    ]
+  location: |
+    {
+      "bomRef": $."bom-ref",
+      "purl": purl
+    }
+  message: "Windows persistence surface '{{ name }}' references LOLBAS helper(s) {{ $prop($, 'cdx:lolbas:names') }}"
+  mitigation: "Validate the owning change, replace proxy-execution helpers with signed managed binaries where possible, and baseline approved startup surfaces with allowlists."
+  attack:
+    tactics: [TA0003, TA0005]
+    techniques: [T1218, T1547]
+  evidence: |
+    {
+      "queryCategory": $prop($, 'cdx:osquery:category'),
+      "lolbasNames": $prop($, 'cdx:lolbas:names'),
+      "functions": $prop($, 'cdx:lolbas:functions'),
+      "matchFields": $prop($, 'cdx:lolbas:matchFields'),
+      "path": $prop($, 'path'),
+      "action": $prop($, 'action'),
+      "command": description
+    }
+
+- id: OBOM-WIN-007
+  name: "Windows WMI or AppCompat persistence uses LOLBAS"
+  description: "WMI command consumers and AppCompat shims that invoke LOLBAS utilities are high-signal persistence and defense-evasion indicators."
+  severity: critical
+  category: obom-runtime
+  condition: |
+    components[
+      $prop($, 'cdx:lolbas:matched') = 'true'
+      and (
+        $prop($, 'cdx:osquery:category') = 'appcompat_shims'
+        or $prop($, 'cdx:osquery:category') = 'wmi_cli_event_consumers'
+        or $prop($, 'cdx:osquery:category') = 'wmi_cli_event_consumers_snapshot'
+      )
+    ]
+  location: |
+    {
+      "bomRef": $."bom-ref",
+      "purl": purl
+    }
+  message: "WMI/AppCompat persistence artifact '{{ name }}' references LOLBAS helper(s) {{ $prop($, 'cdx:lolbas:names') }}"
+  mitigation: "Treat as a persistence investigation, review WMI repository and shim databases, and remove unauthorized subscriptions or shim registrations."
+  attack:
+    tactics: [TA0003, TA0005]
+    techniques: [T1218, T1546]
+  evidence: |
+    {
+      "queryCategory": $prop($, 'cdx:osquery:category'),
+      "lolbasNames": $prop($, 'cdx:lolbas:names'),
+      "functions": $prop($, 'cdx:lolbas:functions'),
+      "matchFields": $prop($, 'cdx:lolbas:matchFields'),
+      "path": $prop($, 'path'),
+      "executable": $prop($, 'executable'),
+      "commandLine": $prop($, 'command_line'),
+      "commandTemplate": $prop($, 'command_line_template')
+    }
+
+- id: OBOM-WIN-008
+  name: "Windows startup or process activity uses network-capable LOLBAS"
+  description: "Network-capable LOLBAS helpers such as PowerShell, Certutil, Bitsadmin, or WMIC become higher priority when they appear in persistence surfaces or suspicious live process command lines."
+  severity: high
+  category: obom-runtime
+  condition: |
+    components[
+      $prop($, 'cdx:lolbas:matched') = 'true'
+      and (
+        $listContains($prop($, 'cdx:lolbas:functions'), 'download')
+        or $listContains($prop($, 'cdx:lolbas:functions'), 'upload')
+      )
+      and (
+        $prop($, 'cdx:osquery:category') = 'windows_run_keys'
+        or $prop($, 'cdx:osquery:category') = 'scheduled_tasks'
+        or $prop($, 'cdx:osquery:category') = 'startup_items'
+        or (
+          $prop($, 'cdx:osquery:category') = 'processes'
+          and (
+            $contains($lowercase($nullSafeProp($, 'cmdline')), 'http://')
+            or $contains($lowercase($nullSafeProp($, 'cmdline')), 'https://')
+            or $contains($lowercase($nullSafeProp($, 'cmdline')), '-enc ')
+          )
+        )
+      )
+    ]
+  location: |
+    {
+      "bomRef": $."bom-ref",
+      "purl": purl
+    }
+  message: "Network-capable LOLBAS helper(s) {{ $prop($, 'cdx:lolbas:names') }} detected in '{{ $prop($, 'cdx:osquery:category') }}'"
+  mitigation: "Correlate with outbound connections and downloads, restrict unmanaged scripting/network utilities, and investigate encoded or remote-fetch command lines."
+  attack:
+    tactics: [TA0002, TA0011]
+    techniques: [T1041, T1059.001, T1105]
+  evidence: |
+    {
+      "queryCategory": $prop($, 'cdx:osquery:category'),
+      "lolbasNames": $prop($, 'cdx:lolbas:names'),
+      "functions": $prop($, 'cdx:lolbas:functions'),
+      "command": description,
+      "cmdline": $prop($, 'cmdline'),
+      "action": $prop($, 'action')
+    }
+
+- id: OBOM-WIN-009
+  name: "Network-facing Windows listener is a LOLBAS execution helper"
+  description: "A listening process backed by a LOLBAS execution helper is a strong remote-control or staging indicator on Windows endpoints."
+  severity: critical
+  category: obom-runtime
+  condition: |
+    components[
+      $prop($, 'cdx:osquery:category') = 'listening_ports'
+      and $prop($, 'cdx:lolbas:matched') = 'true'
+      and (
+        $safeStr($prop($, 'address')) = '0.0.0.0'
+        or $safeStr($prop($, 'address')) = '::'
+      )
+      and (
+        $listContains($prop($, 'cdx:lolbas:functions'), 'command')
+        or $listContains($prop($, 'cdx:lolbas:functions'), 'script-execution')
+        or $listContains($prop($, 'cdx:lolbas:functions'), 'shell')
+      )
+    ]
+  location: |
+    {
+      "bomRef": $."bom-ref",
+      "purl": purl
+    }
+  message: "Listening process '{{ name }}' on {{ $prop($, 'address') }}:{{ $prop($, 'port') }} matches LOLBAS helper(s) {{ $prop($, 'cdx:lolbas:names') }}"
+  mitigation: "Review parent process lineage, isolate unmanaged listeners, and block or remove unexpected inbound admin or scripting surfaces."
+  attack:
+    tactics: [TA0008, TA0011]
+    techniques: [T1059, T1105, T1218]
+  evidence: |
+    {
+      "lolbasNames": $prop($, 'cdx:lolbas:names'),
+      "functions": $prop($, 'cdx:lolbas:functions'),
+      "path": $prop($, 'path'),
+      "cmdline": $prop($, 'cmdline'),
+      "address": $prop($, 'address'),
+      "port": $prop($, 'port')
+    }
+
+- id: OBOM-WIN-010
+  name: "Windows persistence artifact uses LOLBAS with UAC-bypass context"
+  description: "Persistence surfaces that reference LOLBAS helpers documented with UAC-bypass behavior should be treated as privilege-escalation investigations."
+  severity: critical
+  category: obom-runtime
+  condition: |
+    components[
+      $prop($, 'cdx:lolbas:matched') = 'true'
+      and $listContains($prop($, 'cdx:lolbas:contexts'), 'uac-bypass')
+      and (
+        $prop($, 'cdx:osquery:category') = 'windows_run_keys'
+        or $prop($, 'cdx:osquery:category') = 'scheduled_tasks'
+        or $prop($, 'cdx:osquery:category') = 'startup_items'
+        or $prop($, 'cdx:osquery:category') = 'wmi_cli_event_consumers'
+        or $prop($, 'cdx:osquery:category') = 'wmi_cli_event_consumers_snapshot'
+      )
+    ]
+  location: |
+    {
+      "bomRef": $."bom-ref",
+      "purl": purl
+    }
+  message: "UAC-bypass-capable LOLBAS helper(s) {{ $prop($, 'cdx:lolbas:names') }} detected in Windows persistence artifact '{{ name }}'"
+  mitigation: "Investigate as a possible privilege-escalation foothold, remove unauthorized registration points, and enforce WDAC/AppLocker policies for known proxy binaries."
+  attack:
+    tactics: [TA0003, TA0004, TA0005]
+    techniques: [T1548.002, T1218]
+  evidence: |
+    {
+      "queryCategory": $prop($, 'cdx:osquery:category'),
+      "lolbasNames": $prop($, 'cdx:lolbas:names'),
+      "contexts": $prop($, 'cdx:lolbas:contexts'),
+      "path": $prop($, 'path'),
+      "action": $prop($, 'action'),
+      "command": description
+    }
+
 - id: OBOM-MAC-004
   name: "macOS launchd override disables Apple-managed service"
   description: "Launchd overrides disabling Apple-managed services can indicate tampering with built-in security or platform controls."
