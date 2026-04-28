@@ -184,3 +184,51 @@
       "triggers": $prop($, 'cdx:github:workflow:triggers'),
       "hasWritePermissions": $prop($, 'cdx:github:workflow:hasWritePermissions')
     }
+
+- id: CI-009
+  name: "Workflow file contains hidden Unicode characters"
+  description: "Hidden Unicode in workflow files can disguise malicious logic, comments, or diffs and should be reviewed before merge"
+  severity: medium
+  category: ci-permission
+  condition: |
+    formulation.workflows[
+      $prop($, 'cdx:github:workflow:hasHiddenUnicode') = 'true'
+    ]
+  location: |
+    {
+      "bomRef": $."bom-ref",
+      "file": $prop($, 'cdx:github:workflow:file')
+    }
+  message: "Workflow '{{ $prop($, 'cdx:github:workflow:name') }}' contains hidden Unicode characters"
+  mitigation: "Review the file in an editor that reveals bidirectional, zero-width, and control characters; remove suspicious hidden Unicode before merge"
+  evidence: |
+    {
+      "codePoints": $prop($, 'cdx:github:workflow:hiddenUnicodeCodePoints'),
+      "lineNumbers": $prop($, 'cdx:github:workflow:hiddenUnicodeLineNumbers'),
+      "inComments": $prop($, 'cdx:github:workflow:hiddenUnicodeInComments')
+    }
+
+- id: CI-010
+  name: "Legacy token-based package publishing step"
+  description: "npm and PyPI publishing should prefer trusted publishing or OIDC-backed flows instead of long-lived token secrets or explicit --token arguments"
+  severity: medium
+  category: ci-permission
+  condition: |
+    formulation.components[
+      $prop($, 'cdx:github:step:isPublishCommand') = 'true'
+      and $prop($, 'cdx:github:step:usesLegacyPublishToken') = 'true'
+    ]
+  location: |
+    {
+      "bomRef": $."bom-ref",
+      "file": $prop($, 'cdx:github:workflow:file')
+    }
+  message: "Workflow publish step '{{ name }}' uses legacy {{ $prop($, 'cdx:github:step:publishEcosystem') }} token-based publishing"
+  mitigation: "Prefer trusted publishing or short-lived OIDC-backed release flows instead of persistent package tokens or explicit --token arguments"
+  evidence: |
+    {
+      "ecosystem": $prop($, 'cdx:github:step:publishEcosystem'),
+      "tokenSources": $prop($, 'cdx:github:step:legacyPublishTokenSources'),
+      "stepCommand": $prop($, 'cdx:github:step:command')
+    }
+

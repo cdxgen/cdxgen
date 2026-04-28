@@ -133,3 +133,28 @@
       "unshadedNamespaces": $prop($, 'cdx:maven:unshadedNamespaces'),
       "scope": $prop($, 'cdx:maven:component_scope')
     }
+
+- id: INT-008
+  name: "README file contains hidden Unicode characters"
+  description: "Hidden Unicode in README files can conceal malicious or misleading content in code review, especially inside comments"
+  severity: medium
+  category: package-integrity
+  condition: |
+    formulation.components[
+      $prop($, 'cdx:file:kind') = 'readme'
+      and $prop($, 'cdx:file:hasHiddenUnicode') = 'true'
+    ]
+  location: |
+    {
+      "bomRef": $."bom-ref",
+      "file": $prop($, 'SrcFile')
+    }
+  message: "README file '{{ name }}' contains hidden Unicode characters"
+  mitigation: "Review the file with hidden-character rendering enabled, remove suspicious bidirectional or zero-width characters, and verify comment blocks carefully before merge"
+  evidence: |
+    {
+      "codePoints": $prop($, 'cdx:file:hiddenUnicodeCodePoints'),
+      "lineNumbers": $prop($, 'cdx:file:hiddenUnicodeLineNumbers'),
+      "inComments": $prop($, 'cdx:file:hiddenUnicodeInComments')
+    }
+

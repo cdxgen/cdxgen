@@ -73,6 +73,25 @@ const args = yargs(hideBin(process.argv))
       "Optional safety limit for the number of unique npm/PyPI purls to analyze.",
     type: "number",
   })
+  .option("scope", {
+    choices: ["all", "required"],
+    default: "all",
+    description:
+      "Target selection scope. Use 'required' to scan only components with CycloneDX scope=required (missing scope is treated as required).",
+    type: "string",
+  })
+  .option("include-trusted", {
+    default: false,
+    description:
+      "Include packages already marked with trusted publishing metadata in predictive audit target selection.",
+    type: "boolean",
+  })
+  .option("only-trusted", {
+    default: false,
+    description:
+      "Restrict predictive audit target selection to packages marked with trusted publishing metadata.",
+    type: "boolean",
+  })
   .check((argv) => {
     if (!argv.bom && !argv.bomDir) {
       throw new Error("Specify --bom or --bom-dir.");
@@ -82,6 +101,11 @@ const args = yargs(hideBin(process.argv))
     }
     if (argv.output && argv.reportFile) {
       throw new Error("Use either --report-file or --output, not both.");
+    }
+    if (argv.includeTrusted && argv.onlyTrusted) {
+      throw new Error(
+        "Use either --include-trusted or --only-trusted, not both.",
+      );
     }
     return true;
   })
@@ -141,6 +165,14 @@ function writeOrPrint(output, outputPath) {
       onProgress: progressTracker.onProgress,
       report: args.report,
       reportsDir: args.reportsDir,
+      scope: args.scope === "required" ? "required" : undefined,
+      trusted: args.onlyTrusted
+        ? "only"
+        : args.includeTrusted
+          ? "include"
+          : undefined,
+      trustedSelectionHelp:
+        "Use --include-trusted to include them or --only-trusted to audit just those packages.",
       workspaceDir: args.workspaceDir,
     });
     const finalized = finalizeAuditReport(report, {

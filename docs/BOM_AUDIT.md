@@ -16,6 +16,15 @@ cdxgen -o bom.json --bom-audit --bom-audit-min-severity high
 
 # Add your own rules directory
 cdxgen -o bom.json --bom-audit --bom-audit-rules-dir ./my-rules
+
+# Predictive audit only required npm/PyPI dependencies
+cdxgen -o bom.json --bom-audit --bom-audit-scope required
+
+# Include packages that already have trusted publishing metadata
+cdxgen -o bom.json --bom-audit --bom-audit-include-trusted
+
+# Audit only trusted-publishing-backed packages
+cdxgen -o bom.json --bom-audit --bom-audit-only-trusted
 ```
 
 > **Note:** `--bom-audit` automatically enables `--include-formulation` to collect CI/CD workflow data. The formulation section may include sensitive data such as emails and environment details. Always review the generated SBOM before distribution.
@@ -62,6 +71,25 @@ The audit runs as a post-processing step after BOM generation:
 | `--bom-audit-categories`    | string  | all     | Comma-separated list of rule categories to enable                                                                        |
 | `--bom-audit-min-severity`  | string  | `low`   | Minimum severity to report: `low`, `medium`, `high`                                                                      |
 | `--bom-audit-fail-severity` | string  | `high`  | Severity level at or above which findings cause secure mode failure (e.g., `medium` fails on medium, high, and critical) |
+| `--bom-audit-scope`         | string  | `all`   | Predictive dependency audit target scope: `all` or `required`                                                            |
+| `--bom-audit-max-targets`   | number  | auto    | Predictive dependency audit cap. By default cdxgen scans required targets first and expands to at least 50 targets       |
+| `--bom-audit-include-trusted` | boolean | `false` | Include predictive audit targets that already carry trusted publishing metadata                                          |
+| `--bom-audit-only-trusted`  | boolean | `false` | Restrict predictive audit targets to trusted-publishing-backed packages only                                              |
+
+## Predictive dependency target selection
+
+When `--bom-audit` is enabled for npm or PyPI-heavy projects, cdxgen now narrows predictive dependency audit targets before cloning upstream repositories:
+
+- packages with trusted publishing metadata (`cdx:npm:trustedPublishing=true` or `cdx:pypi:trustedPublishing=true`) are skipped by default
+- `--bom-audit-scope required` keeps only dependencies with CycloneDX `scope=required` (missing scope is treated as required)
+- unless you override it, cdxgen caps the predictive dependency audit to `max(50, required-target-count)` and prioritizes required targets first
+
+Use the trusted-publishing switches to override the default:
+
+- `--bom-audit-include-trusted` includes both trusted-publishing-backed and non-trusted packages
+- `--bom-audit-only-trusted` scans only trusted-publishing-backed packages
+
+Passing both trusted switches together is invalid and causes cdxgen to exit with an error.
 
 ## Built-in rule categories
 
@@ -75,6 +103,8 @@ Rules that evaluate GitHub Actions, GitLab CI, and other CI/CD workflow data for
 | CI-002 | high     | OIDC token (`id-token: write`) granted to non-official action |
 | CI-003 | medium   | GitHub Action pinned to a mutable tag instead of SHA          |
 | CI-004 | medium   | Workflow uses `pull_request_target` trigger                   |
+| CI-009 | medium   | Workflow file contains hidden Unicode characters              |
+| CI-010 | medium   | npm/PyPI publish step uses legacy token-based publishing      |
 
 ### `dependency-source` — Dependency Source Integrity
 
@@ -102,6 +132,7 @@ Rules that detect deprecated, yanked, tampered, or suspicious packages.
 | INT-005 | low      | Deprecated npm package                                               |
 | INT-006 | medium   | Dart pub uses non-default registry                                   |
 | INT-007 | low      | Maven package contains shaded/relocated classes                      |
+| INT-008 | medium   | README file contains hidden Unicode characters                       |
 
 ### `obom-runtime` — Operational Runtime and Host Posture
 
@@ -300,6 +331,8 @@ When the BOM spec version is ≥ 1.4, findings are embedded as annotations:
 }
 ```
 
+Audit and validation annotations now render their properties as markdown tables instead of JSON blobs, which improves readability in Dependency-Track, GitHub, and other CycloneDX annotation consumers.
+
 ## Environment variables
 
 | Variable                  | Description                                             |
@@ -321,6 +354,8 @@ The audit rules are powered by the [cdx: Custom Properties](CUSTOM_PROPERTIES.md
 2. a predictive dependency audit for npm and PyPI components, which may resolve source repositories and generate child SBOMs
 
 For projects without npm/PyPI dependencies, the overhead is usually minimal. For npm/PyPI-heavy projects, the predictive pass can add noticeable time because it may query registries and inspect upstream source repositories.
+
+To keep large projects responsive, the predictive pass now prints a preflight hint for larger target sets, skips trusted-publishing-backed packages by default, and prioritizes required dependencies before optional ones when a target cap applies.
 
 **Q: Can I disable specific built-in rules?**
 

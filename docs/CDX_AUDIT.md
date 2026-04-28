@@ -16,7 +16,7 @@ Other purl ecosystems are skipped and reported as unsupported.
 ## How it works
 
 1. Load one BOM with `--bom` or many BOMs from `--bom-dir`
-2. Extract unique npm and PyPI package URLs from `components[]`
+2. Extract unique npm and PyPI package URLs from `components[]`, excluding trusted-publishing-backed packages by default
 3. Resolve each purl to a repository URL using the existing source helpers
 4. Clone or reuse the repository under `--workspace-dir`
 5. Generate a child SBOM for that source repository, or reuse a cached child SBOM from the workspace when one already exists for the same purl target
@@ -35,6 +35,9 @@ cdx-audit --bom-dir ./boms --report json
 cdx-audit --bom bom.json --report sarif --report-file audit.sarif
 cdx-audit --bom bom.json --workspace-dir .cache/cdx-audit --reports-dir .reports/cdx-audit
 cdx-audit --bom bom.json --report json --report-file audit-report.json
+cdx-audit --bom bom.json --scope required
+cdx-audit --bom bom.json --include-trusted
+cdx-audit --bom bom.json --only-trusted
 ```
 
 ## Options
@@ -51,6 +54,24 @@ cdx-audit --bom bom.json --report json --report-file audit-report.json
 | `--min-severity`  | Minimum final target severity included in console or SARIF output |
 | `--fail-severity` | Exit with code `3` when any target reaches this final severity    |
 | `--max-targets`   | Safety limit for the number of unique purls to analyze            |
+| `--scope`         | Target selection scope: `all` or `required`                      |
+| `--include-trusted` | Include targets already marked with trusted publishing metadata |
+| `--only-trusted`  | Restrict target selection to trusted-publishing-backed packages   |
+
+## Target selection defaults
+
+`cdx-audit` intentionally narrows predictive target selection before cloning and scanning upstream repositories:
+
+- only npm and PyPI purls are considered
+- components with `scope: optional` or `scope: excluded` are skipped when `--scope required` is used
+- packages carrying trusted-publishing metadata such as `cdx:npm:trustedPublishing=true` or `cdx:pypi:trustedPublishing=true` are skipped by default
+
+Use the trusted-publishing switches when you want to override that default:
+
+- `--include-trusted` includes both trusted-publishing-backed and non-trusted targets
+- `--only-trusted` restricts the predictive audit to trusted-publishing-backed targets only
+
+If both `--include-trusted` and `--only-trusted` are provided together, the CLI exits with an error.
 
 ## Progress UX
 
@@ -59,6 +80,8 @@ When `cdx-audit` is run in an interactive terminal, it shows a dependency-free s
 - the current package being analyzed
 - the current stage (`resolving repository metadata`, `cloning source`, `generating child SBOM`, `evaluating audit rules`)
 - the target index, for example `1/12`
+
+For large target sets, `cdx-audit` also prints a preflight note before scanning begins. The note explains when the predictive audit may take several minutes and whether trusted-publishing-backed packages were skipped by default.
 
 Progress is written to `stderr`, so `--report json` output on `stdout` remains machine-readable.
 
