@@ -175,6 +175,18 @@ Rules that evaluate OBOM runtime components from osquery-derived host telemetry 
 | OBOM-MAC-003 | medium   | macOS firewall exception for binary in untrusted user path           |
 | OBOM-MAC-004 | medium   | macOS launchd override disables Apple-managed service                |
 
+### `container-risk` — Container Escape, Privilege, and Post-Exploit Tooling
+
+Rules that evaluate collected container executables against GTFOBins-derived enrichment to highlight container breakout helpers, privileged execution primitives, exfiltration tooling, and suspicious mutable-path binaries.
+
+| Rule    | Severity | Description                                                         |
+| ------- | -------- | ------------------------------------------------------------------- |
+| CTR-001 | critical | Container image ships setuid/setgid GTFOBins execution primitive    |
+| CTR-002 | critical | Container image includes privileged container-escape helper         |
+| CTR-003 | high     | Container image includes privileged GTFOBins library-load primitive |
+| CTR-004 | high     | Container image retains privileged GTFOBins exfiltration primitive  |
+| CTR-005 | medium   | Container image includes mutable-path remote-execution helper       |
+
 ### `vscode-extension` — VS Code Extension Security
 
 Rules that evaluate VS Code extension metadata for install-time execution, always-on activation, workspace trust posture, and privileged capabilities.

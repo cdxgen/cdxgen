@@ -46,4 +46,5 @@ Generate and analyze **SBOM**, **CBOM**, **OBOM**, **SaaSBOM**, **CDXA**, and **
 - [Threat Model](THREAT_MODEL.md)
 - [AI/ML Usage](ml_profiles.md)
 - [Tutorials - Scanning Git URLs and purls with BOM Audit](LESSON8.md)
+- [Tutorials - Auditing container escape and privilege risks](LESSON9.md)
 - [Support (Enterprise & Community)](SUPPORT.md)

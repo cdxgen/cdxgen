@@ -1,0 +1,6296 @@
+{
+  "entries": {
+    "7z": {
+      "contexts": [
+        "sudo",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read"
+      ],
+      "mitreTechniques": [
+        "T1005"
+      ]
+    },
+    "R": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "aa-exec": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "ab": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "download",
+        "upload"
+      ],
+      "mitreTechniques": [
+        "T1041",
+        "T1105"
+      ]
+    },
+    "acr": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "command"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "agetty": {
+      "contexts": [
+        "suid"
+      ],
+      "functions": [
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "alpine": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read"
+      ],
+      "mitreTechniques": [
+        "T1005"
+      ]
+    },
+    "ansible-playbook": {
+      "contexts": [
+        "sudo",
+        "unprivileged"
+      ],
+      "functions": [
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "ansible-test": {
+      "contexts": [
+        "sudo",
+        "unprivileged"
+      ],
+      "functions": [
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "aoss": {
+      "contexts": [
+        "sudo",
+        "unprivileged"
+      ],
+      "functions": [
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "apache2": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read"
+      ],
+      "mitreTechniques": [
+        "T1005"
+      ]
+    },
+    "apache2ctl": {
+      "contexts": [
+        "sudo",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read"
+      ],
+      "mitreTechniques": [
+        "T1005"
+      ]
+    },
+    "apport-cli": {
+      "contexts": [
+        "unprivileged"
+      ],
+      "functions": [
+        "inherit"
+      ],
+      "mitreTechniques": []
+    },
+    "apt": {
+      "contexts": [],
+      "functions": [],
+      "mitreTechniques": []
+    },
+    "apt-get": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "inherit",
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "aptitude": {
+      "contexts": [
+        "sudo",
+        "unprivileged"
+      ],
+      "functions": [
+        "inherit"
+      ],
+      "mitreTechniques": []
+    },
+    "ar": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read"
+      ],
+      "mitreTechniques": [
+        "T1005"
+      ]
+    },
+    "arch-nspawn": {
+      "contexts": [
+        "sudo"
+      ],
+      "functions": [
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "aria2c": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "command",
+        "download",
+        "file-read"
+      ],
+      "mitreTechniques": [
+        "T1005",
+        "T1059",
+        "T1105"
+      ]
+    },
+    "arj": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read",
+        "file-write"
+      ],
+      "mitreTechniques": [
+        "T1005",
+        "T1565"
+      ]
+    },
+    "arp": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read"
+      ],
+      "mitreTechniques": [
+        "T1005"
+      ]
+    },
+    "as": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read"
+      ],
+      "mitreTechniques": [
+        "T1005"
+      ]
+    },
+    "ascii-xfr": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read"
+      ],
+      "mitreTechniques": [
+        "T1005"
+      ]
+    },
+    "ascii85": {
+      "contexts": [
+        "sudo",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read"
+      ],
+      "mitreTechniques": [
+        "T1005"
+      ]
+    },
+    "ash": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-write",
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059",
+        "T1565"
+      ]
+    },
+    "aspell": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read"
+      ],
+      "mitreTechniques": [
+        "T1005"
+      ]
+    },
+    "asterisk": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "at": {
+      "contexts": [
+        "sudo",
+        "unprivileged"
+      ],
+      "functions": [
+        "command",
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "atobm": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read"
+      ],
+      "mitreTechniques": [
+        "T1005"
+      ]
+    },
+    "autoconf": {
+      "contexts": [
+        "sudo",
+        "unprivileged"
+      ],
+      "functions": [
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "autoheader": {
+      "contexts": [
+        "sudo",
+        "unprivileged"
+      ],
+      "functions": [
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "autoreconf": {
+      "contexts": [
+        "sudo",
+        "unprivileged"
+      ],
+      "functions": [
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "awk": {
+      "contexts": [],
+      "functions": [],
+      "mitreTechniques": []
+    },
+    "aws": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read",
+        "inherit"
+      ],
+      "mitreTechniques": [
+        "T1005"
+      ]
+    },
+    "base32": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read"
+      ],
+      "mitreTechniques": [
+        "T1005"
+      ]
+    },
+    "base58": {
+      "contexts": [
+        "sudo",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read"
+      ],
+      "mitreTechniques": [
+        "T1005"
+      ]
+    },
+    "base64": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read"
+      ],
+      "mitreTechniques": [
+        "T1005"
+      ]
+    },
+    "basenc": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read"
+      ],
+      "mitreTechniques": [
+        "T1005"
+      ]
+    },
+    "basez": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read"
+      ],
+      "mitreTechniques": [
+        "T1005"
+      ]
+    },
+    "bash": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "download",
+        "file-read",
+        "file-write",
+        "library-load",
+        "reverse-shell",
+        "shell",
+        "upload"
+      ],
+      "mitreTechniques": [
+        "T1005",
+        "T1041",
+        "T1059",
+        "T1071",
+        "T1105",
+        "T1565",
+        "T1574"
+      ]
+    },
+    "bashbug": {
+      "contexts": [
+        "sudo",
+        "unprivileged"
+      ],
+      "functions": [
+        "inherit"
+      ],
+      "mitreTechniques": []
+    },
+    "batcat": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "inherit"
+      ],
+      "mitreTechniques": []
+    },
+    "bbot": {
+      "contexts": [
+        "sudo",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read"
+      ],
+      "mitreTechniques": [
+        "T1005"
+      ]
+    },
+    "bc": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read"
+      ],
+      "mitreTechniques": [
+        "T1005"
+      ]
+    },
+    "bconsole": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read",
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1005",
+        "T1059"
+      ]
+    },
+    "bee": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "inherit"
+      ],
+      "mitreTechniques": []
+    },
+    "borg": {
+      "contexts": [
+        "sudo",
+        "unprivileged"
+      ],
+      "functions": [
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "bpftrace": {
+      "contexts": [
+        "sudo"
+      ],
+      "functions": [
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "bridge": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read"
+      ],
+      "mitreTechniques": [
+        "T1005"
+      ]
+    },
+    "bundle": {
+      "contexts": [
+        "sudo",
+        "unprivileged"
+      ],
+      "functions": [
+        "inherit",
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "bundler": {
+      "contexts": [],
+      "functions": [],
+      "mitreTechniques": []
+    },
+    "busctl": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "inherit",
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "busybox": {
+      "contexts": [
+        "sudo",
+        "unprivileged"
+      ],
+      "functions": [
+        "inherit",
+        "reverse-shell",
+        "upload"
+      ],
+      "mitreTechniques": [
+        "T1041",
+        "T1059",
+        "T1071"
+      ]
+    },
+    "byebug": {
+      "contexts": [
+        "sudo",
+        "unprivileged"
+      ],
+      "functions": [
+        "inherit"
+      ],
+      "mitreTechniques": []
+    },
+    "bzip2": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read"
+      ],
+      "mitreTechniques": [
+        "T1005"
+      ]
+    },
+    "c89": {
+      "contexts": [],
+      "functions": [],
+      "mitreTechniques": []
+    },
+    "c99": {
+      "contexts": [],
+      "functions": [],
+      "mitreTechniques": []
+    },
+    "cabal": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "cancel": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "upload"
+      ],
+      "mitreTechniques": [
+        "T1041"
+      ]
+    },
+    "capsh": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "cargo": {
+      "contexts": [
+        "sudo",
+        "unprivileged"
+      ],
+      "functions": [
+        "inherit"
+      ],
+      "mitreTechniques": []
+    },
+    "cat": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read"
+      ],
+      "mitreTechniques": [
+        "T1005"
+      ]
+    },
+    "cc": {
+      "contexts": [],
+      "functions": [],
+      "mitreTechniques": []
+    },
+    "cdist": {
+      "contexts": [
+        "sudo",
+        "unprivileged"
+      ],
+      "functions": [
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "certbot": {
+      "contexts": [
+        "sudo",
+        "unprivileged"
+      ],
+      "functions": [
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "chattr": {
+      "contexts": [
+        "sudo",
+        "suid"
+      ],
+      "functions": [
+        "privilege-escalation"
+      ],
+      "mitreTechniques": [
+        "T1548"
+      ]
+    },
+    "check_by_ssh": {
+      "contexts": [
+        "sudo",
+        "unprivileged"
+      ],
+      "functions": [
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "check_cups": {
+      "contexts": [
+        "sudo",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read"
+      ],
+      "mitreTechniques": [
+        "T1005"
+      ]
+    },
+    "check_log": {
+      "contexts": [
+        "sudo",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read",
+        "file-write"
+      ],
+      "mitreTechniques": [
+        "T1005",
+        "T1565"
+      ]
+    },
+    "check_memory": {
+      "contexts": [
+        "sudo",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read"
+      ],
+      "mitreTechniques": [
+        "T1005"
+      ]
+    },
+    "check_raid": {
+      "contexts": [
+        "sudo",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read"
+      ],
+      "mitreTechniques": [
+        "T1005"
+      ]
+    },
+    "check_ssl_cert": {
+      "contexts": [
+        "sudo",
+        "unprivileged"
+      ],
+      "functions": [
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "check_statusfile": {
+      "contexts": [
+        "sudo",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read"
+      ],
+      "mitreTechniques": [
+        "T1005"
+      ]
+    },
+    "chmod": {
+      "contexts": [
+        "sudo",
+        "suid"
+      ],
+      "functions": [
+        "privilege-escalation"
+      ],
+      "mitreTechniques": [
+        "T1548"
+      ]
+    },
+    "choom": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "chown": {
+      "contexts": [
+        "sudo",
+        "suid"
+      ],
+      "functions": [
+        "privilege-escalation"
+      ],
+      "mitreTechniques": [
+        "T1548"
+      ]
+    },
+    "chroot": {
+      "contexts": [
+        "sudo",
+        "suid"
+      ],
+      "functions": [
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "chrt": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "clamscan": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read"
+      ],
+      "mitreTechniques": [
+        "T1005"
+      ]
+    },
+    "clisp": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "cmake": {
+      "contexts": [
+        "sudo",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read",
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1005",
+        "T1059"
+      ]
+    },
+    "cmp": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read"
+      ],
+      "mitreTechniques": [
+        "T1005"
+      ]
+    },
+    "cobc": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "code": {
+      "contexts": [
+        "sudo",
+        "unprivileged"
+      ],
+      "functions": [
+        "download",
+        "reverse-shell",
+        "upload"
+      ],
+      "mitreTechniques": [
+        "T1041",
+        "T1059",
+        "T1071",
+        "T1105"
+      ]
+    },
+    "codex": {
+      "contexts": [
+        "sudo",
+        "unprivileged"
+      ],
+      "functions": [
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "column": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read"
+      ],
+      "mitreTechniques": [
+        "T1005"
+      ]
+    },
+    "comm": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read"
+      ],
+      "mitreTechniques": [
+        "T1005"
+      ]
+    },
+    "composer": {
+      "contexts": [
+        "sudo",
+        "unprivileged"
+      ],
+      "functions": [
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "cowsay": {
+      "contexts": [
+        "sudo",
+        "unprivileged"
+      ],
+      "functions": [
+        "inherit"
+      ],
+      "mitreTechniques": []
+    },
+    "cowthink": {
+      "contexts": [
+        "sudo",
+        "unprivileged"
+      ],
+      "functions": [
+        "inherit"
+      ],
+      "mitreTechniques": []
+    },
+    "cp": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read",
+        "file-write",
+        "privilege-escalation"
+      ],
+      "mitreTechniques": [
+        "T1005",
+        "T1548",
+        "T1565"
+      ]
+    },
+    "cpan": {
+      "contexts": [
+        "sudo",
+        "unprivileged"
+      ],
+      "functions": [
+        "inherit"
+      ],
+      "mitreTechniques": []
+    },
+    "cpio": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read",
+        "file-write",
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1005",
+        "T1059",
+        "T1565"
+      ]
+    },
+    "cpulimit": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "crash": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "command",
+        "inherit"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "crontab": {
+      "contexts": [
+        "sudo",
+        "unprivileged"
+      ],
+      "functions": [
+        "command",
+        "inherit"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "csh": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-write",
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059",
+        "T1565"
+      ]
+    },
+    "csplit": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read",
+        "file-write"
+      ],
+      "mitreTechniques": [
+        "T1005",
+        "T1565"
+      ]
+    },
+    "csvtool": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read",
+        "file-write",
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1005",
+        "T1059",
+        "T1565"
+      ]
+    },
+    "ctr": {
+      "contexts": [
+        "sudo",
+        "suid"
+      ],
+      "functions": [
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "cupsfilter": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read"
+      ],
+      "mitreTechniques": [
+        "T1005"
+      ]
+    },
+    "curl": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "download",
+        "file-read",
+        "file-write",
+        "library-load",
+        "upload"
+      ],
+      "mitreTechniques": [
+        "T1005",
+        "T1041",
+        "T1105",
+        "T1565",
+        "T1574"
+      ]
+    },
+    "cut": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read"
+      ],
+      "mitreTechniques": [
+        "T1005"
+      ]
+    },
+    "dash": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-write",
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059",
+        "T1565"
+      ]
+    },
+    "date": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read"
+      ],
+      "mitreTechniques": [
+        "T1005"
+      ]
+    },
+    "dc": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "dd": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read",
+        "file-write"
+      ],
+      "mitreTechniques": [
+        "T1005",
+        "T1565"
+      ]
+    },
+    "debugfs": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "dhclient": {
+      "contexts": [
+        "sudo",
+        "unprivileged"
+      ],
+      "functions": [
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "dialog": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read"
+      ],
+      "mitreTechniques": [
+        "T1005"
+      ]
+    },
+    "diff": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read"
+      ],
+      "mitreTechniques": [
+        "T1005"
+      ]
+    },
+    "dig": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read"
+      ],
+      "mitreTechniques": [
+        "T1005"
+      ]
+    },
+    "distcc": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "dmesg": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read",
+        "inherit"
+      ],
+      "mitreTechniques": [
+        "T1005"
+      ]
+    },
+    "dmidecode": {
+      "contexts": [
+        "unprivileged"
+      ],
+      "functions": [
+        "file-write"
+      ],
+      "mitreTechniques": [
+        "T1565"
+      ]
+    },
+    "dmsetup": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "dnf": {
+      "contexts": [
+        "sudo"
+      ],
+      "functions": [
+        "command"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "dnsmasq": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "command"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "doas": {
+      "contexts": [
+        "sudo",
+        "unprivileged"
+      ],
+      "functions": [
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "docker": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read",
+        "file-write",
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1005",
+        "T1059",
+        "T1565"
+      ]
+    },
+    "dos2unix": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read",
+        "file-write"
+      ],
+      "mitreTechniques": [
+        "T1005",
+        "T1565"
+      ]
+    },
+    "dosbox": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read",
+        "file-write"
+      ],
+      "mitreTechniques": [
+        "T1005",
+        "T1565"
+      ]
+    },
+    "dotnet": {
+      "contexts": [
+        "sudo",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read",
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1005",
+        "T1059"
+      ]
+    },
+    "dpkg": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "inherit",
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "dstat": {
+      "contexts": [
+        "sudo",
+        "unprivileged"
+      ],
+      "functions": [
+        "inherit"
+      ],
+      "mitreTechniques": []
+    },
+    "dvips": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "easy_install": {
+      "contexts": [
+        "sudo",
+        "unprivileged"
+      ],
+      "functions": [
+        "inherit"
+      ],
+      "mitreTechniques": []
+    },
+    "easyrsa": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "eb": {
+      "contexts": [
+        "sudo",
+        "unprivileged"
+      ],
+      "functions": [
+        "inherit"
+      ],
+      "mitreTechniques": []
+    },
+    "ed": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read",
+        "file-write",
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1005",
+        "T1059",
+        "T1565"
+      ]
+    },
+    "efax": {
+      "contexts": [
+        "sudo",
+        "suid"
+      ],
+      "functions": [
+        "file-read"
+      ],
+      "mitreTechniques": [
+        "T1005"
+      ]
+    },
+    "egrep": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read"
+      ],
+      "mitreTechniques": [
+        "T1005"
+      ]
+    },
+    "elvish": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read",
+        "file-write",
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1005",
+        "T1059",
+        "T1565"
+      ]
+    },
+    "emacs": {
+      "contexts": [
+        "sudo",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read",
+        "file-write",
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1005",
+        "T1059",
+        "T1565"
+      ]
+    },
+    "enscript": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "env": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "eqn": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read"
+      ],
+      "mitreTechniques": [
+        "T1005"
+      ]
+    },
+    "espeak": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read"
+      ],
+      "mitreTechniques": [
+        "T1005"
+      ]
+    },
+    "ex": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "inherit",
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "exiftool": {
+      "contexts": [
+        "sudo",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read",
+        "file-write",
+        "inherit"
+      ],
+      "mitreTechniques": [
+        "T1005",
+        "T1565"
+      ]
+    },
+    "expand": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read"
+      ],
+      "mitreTechniques": [
+        "T1005"
+      ]
+    },
+    "expect": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read",
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1005",
+        "T1059"
+      ]
+    },
+    "facter": {
+      "contexts": [
+        "sudo",
+        "unprivileged"
+      ],
+      "functions": [
+        "inherit"
+      ],
+      "mitreTechniques": []
+    },
+    "fail2ban-client": {
+      "contexts": [
+        "sudo"
+      ],
+      "functions": [
+        "command"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "fastfetch": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "command",
+        "file-read",
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1005",
+        "T1059"
+      ]
+    },
+    "ffmpeg": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "library-load"
+      ],
+      "mitreTechniques": [
+        "T1574"
+      ]
+    },
+    "fgrep": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read"
+      ],
+      "mitreTechniques": [
+        "T1005"
+      ]
+    },
+    "file": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read"
+      ],
+      "mitreTechniques": [
+        "T1005"
+      ]
+    },
+    "find": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read",
+        "file-write",
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1005",
+        "T1059",
+        "T1565"
+      ]
+    },
+    "finger": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "download",
+        "upload"
+      ],
+      "mitreTechniques": [
+        "T1041",
+        "T1105"
+      ]
+    },
+    "firejail": {
+      "contexts": [
+        "sudo",
+        "unprivileged"
+      ],
+      "functions": [
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "fish": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "flock": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "fmt": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read"
+      ],
+      "mitreTechniques": [
+        "T1005"
+      ]
+    },
+    "fold": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read"
+      ],
+      "mitreTechniques": [
+        "T1005"
+      ]
+    },
+    "forge": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "fping": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read"
+      ],
+      "mitreTechniques": [
+        "T1005"
+      ]
+    },
+    "ftp": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "download",
+        "shell",
+        "upload"
+      ],
+      "mitreTechniques": [
+        "T1041",
+        "T1059",
+        "T1105"
+      ]
+    },
+    "fzf": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "command",
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "g++": {
+      "contexts": [],
+      "functions": [],
+      "mitreTechniques": []
+    },
+    "gawk": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "bind-shell",
+        "file-read",
+        "file-write",
+        "reverse-shell",
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1005",
+        "T1059",
+        "T1071",
+        "T1565"
+      ]
+    },
+    "gcc": {
+      "contexts": [
+        "sudo",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read",
+        "file-write",
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1005",
+        "T1059",
+        "T1565"
+      ]
+    },
+    "gcloud": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "inherit"
+      ],
+      "mitreTechniques": []
+    },
+    "gcore": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read"
+      ],
+      "mitreTechniques": [
+        "T1005"
+      ]
+    },
+    "gdb": {
+      "contexts": [
+        "capabilities",
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-write",
+        "inherit",
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059",
+        "T1565"
+      ]
+    },
+    "gem": {
+      "contexts": [
+        "sudo",
+        "unprivileged"
+      ],
+      "functions": [
+        "inherit",
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "genie": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "genisoimage": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read"
+      ],
+      "mitreTechniques": [
+        "T1005"
+      ]
+    },
+    "getent": {
+      "contexts": [
+        "sudo",
+        "suid"
+      ],
+      "functions": [
+        "privilege-escalation"
+      ],
+      "mitreTechniques": [
+        "T1548"
+      ]
+    },
+    "ghc": {
+      "contexts": [
+        "sudo",
+        "unprivileged"
+      ],
+      "functions": [
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "ghci": {
+      "contexts": [
+        "sudo",
+        "unprivileged"
+      ],
+      "functions": [
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "gimp": {
+      "contexts": [
+        "sudo",
+        "unprivileged"
+      ],
+      "functions": [
+        "inherit"
+      ],
+      "mitreTechniques": []
+    },
+    "ginsh": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "git": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read",
+        "file-write",
+        "inherit",
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1005",
+        "T1059",
+        "T1565"
+      ]
+    },
+    "gnuplot": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "go": {
+      "contexts": [
+        "sudo",
+        "unprivileged"
+      ],
+      "functions": [
+        "bind-shell",
+        "file-read",
+        "file-write",
+        "reverse-shell",
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1005",
+        "T1059",
+        "T1071",
+        "T1565"
+      ]
+    },
+    "grc": {
+      "contexts": [
+        "sudo",
+        "unprivileged"
+      ],
+      "functions": [
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "grep": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read"
+      ],
+      "mitreTechniques": [
+        "T1005"
+      ]
+    },
+    "gtester": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-write",
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059",
+        "T1565"
+      ]
+    },
+    "guile": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "gzip": {
+      "contexts": [
+        "capabilities",
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read"
+      ],
+      "mitreTechniques": [
+        "T1005"
+      ]
+    },
+    "hashcat": {
+      "contexts": [
+        "sudo",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-write"
+      ],
+      "mitreTechniques": [
+        "T1565"
+      ]
+    },
+    "hd": {
+      "contexts": [],
+      "functions": [],
+      "mitreTechniques": []
+    },
+    "head": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read"
+      ],
+      "mitreTechniques": [
+        "T1005"
+      ]
+    },
+    "hexdump": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read"
+      ],
+      "mitreTechniques": [
+        "T1005"
+      ]
+    },
+    "hg": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "highlight": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read"
+      ],
+      "mitreTechniques": [
+        "T1005"
+      ]
+    },
+    "hping3": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "shell",
+        "upload"
+      ],
+      "mitreTechniques": [
+        "T1041",
+        "T1059"
+      ]
+    },
+    "iconv": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read",
+        "file-write"
+      ],
+      "mitreTechniques": [
+        "T1005",
+        "T1565"
+      ]
+    },
+    "iftop": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "install": {
+      "contexts": [
+        "sudo",
+        "suid"
+      ],
+      "functions": [
+        "privilege-escalation"
+      ],
+      "mitreTechniques": [
+        "T1548"
+      ]
+    },
+    "ionice": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "ip": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read",
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1005",
+        "T1059"
+      ]
+    },
+    "iptables-save": {
+      "contexts": [
+        "sudo"
+      ],
+      "functions": [
+        "file-write"
+      ],
+      "mitreTechniques": [
+        "T1565"
+      ]
+    },
+    "irb": {
+      "contexts": [
+        "sudo",
+        "unprivileged"
+      ],
+      "functions": [
+        "inherit"
+      ],
+      "mitreTechniques": []
+    },
+    "ispell": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "java": {
+      "contexts": [
+        "sudo",
+        "unprivileged"
+      ],
+      "functions": [
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "jjs": {
+      "contexts": [
+        "sudo",
+        "unprivileged"
+      ],
+      "functions": [
+        "download",
+        "file-read",
+        "file-write",
+        "reverse-shell",
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1005",
+        "T1059",
+        "T1071",
+        "T1105",
+        "T1565"
+      ]
+    },
+    "joe": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "join": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read"
+      ],
+      "mitreTechniques": [
+        "T1005"
+      ]
+    },
+    "journalctl": {
+      "contexts": [
+        "sudo",
+        "unprivileged"
+      ],
+      "functions": [
+        "inherit"
+      ],
+      "mitreTechniques": []
+    },
+    "jq": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read"
+      ],
+      "mitreTechniques": [
+        "T1005"
+      ]
+    },
+    "jrunscript": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "download",
+        "file-read",
+        "file-write",
+        "reverse-shell",
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1005",
+        "T1059",
+        "T1071",
+        "T1105",
+        "T1565"
+      ]
+    },
+    "jshell": {
+      "contexts": [
+        "sudo",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read",
+        "file-write",
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1005",
+        "T1059",
+        "T1565"
+      ]
+    },
+    "jtag": {
+      "contexts": [
+        "sudo",
+        "unprivileged"
+      ],
+      "functions": [
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "julia": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "download",
+        "file-read",
+        "file-write",
+        "reverse-shell",
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1005",
+        "T1059",
+        "T1071",
+        "T1105",
+        "T1565"
+      ]
+    },
+    "knife": {
+      "contexts": [
+        "sudo",
+        "unprivileged"
+      ],
+      "functions": [
+        "inherit"
+      ],
+      "mitreTechniques": []
+    },
+    "ksh": {
+      "contexts": [],
+      "functions": [],
+      "mitreTechniques": []
+    },
+    "ksshell": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read"
+      ],
+      "mitreTechniques": [
+        "T1005"
+      ]
+    },
+    "ksu": {
+      "contexts": [
+        "sudo"
+      ],
+      "functions": [
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "kubectl": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "shell",
+        "upload"
+      ],
+      "mitreTechniques": [
+        "T1041",
+        "T1059"
+      ]
+    },
+    "last": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read"
+      ],
+      "mitreTechniques": [
+        "T1005"
+      ]
+    },
+    "lastb": {
+      "contexts": [],
+      "functions": [],
+      "mitreTechniques": []
+    },
+    "latex": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read",
+        "file-write",
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1005",
+        "T1059",
+        "T1565"
+      ]
+    },
+    "latexmk": {
+      "contexts": [
+        "sudo",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read",
+        "inherit",
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1005",
+        "T1059"
+      ]
+    },
+    "ld.so": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "ldconfig": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "library-load"
+      ],
+      "mitreTechniques": [
+        "T1574"
+      ]
+    },
+    "less": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "command",
+        "file-read",
+        "file-write",
+        "inherit",
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1005",
+        "T1059",
+        "T1565"
+      ]
+    },
+    "lftp": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "links": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read"
+      ],
+      "mitreTechniques": [
+        "T1005"
+      ]
+    },
+    "ln": {
+      "contexts": [
+        "sudo"
+      ],
+      "functions": [
+        "privilege-escalation"
+      ],
+      "mitreTechniques": [
+        "T1548"
+      ]
+    },
+    "loginctl": {
+      "contexts": [
+        "sudo",
+        "unprivileged"
+      ],
+      "functions": [
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "logrotate": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read",
+        "file-write",
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1005",
+        "T1059",
+        "T1565"
+      ]
+    },
+    "logsave": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "look": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read"
+      ],
+      "mitreTechniques": [
+        "T1005"
+      ]
+    },
+    "lp": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "upload"
+      ],
+      "mitreTechniques": [
+        "T1041"
+      ]
+    },
+    "ltrace": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read",
+        "file-write",
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1005",
+        "T1059",
+        "T1565"
+      ]
+    },
+    "lua": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "bind-shell",
+        "download",
+        "file-read",
+        "file-write",
+        "reverse-shell",
+        "shell",
+        "upload"
+      ],
+      "mitreTechniques": [
+        "T1005",
+        "T1041",
+        "T1059",
+        "T1071",
+        "T1105",
+        "T1565"
+      ]
+    },
+    "lualatex": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "inherit"
+      ],
+      "mitreTechniques": []
+    },
+    "luatex": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "inherit"
+      ],
+      "mitreTechniques": []
+    },
+    "lwp-download": {
+      "contexts": [
+        "sudo",
+        "unprivileged"
+      ],
+      "functions": [
+        "download",
+        "file-read",
+        "file-write"
+      ],
+      "mitreTechniques": [
+        "T1005",
+        "T1105",
+        "T1565"
+      ]
+    },
+    "lwp-request": {
+      "contexts": [
+        "sudo",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read"
+      ],
+      "mitreTechniques": [
+        "T1005"
+      ]
+    },
+    "lxd": {
+      "contexts": [
+        "sudo",
+        "suid"
+      ],
+      "functions": [
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "m4": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "command",
+        "file-read",
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1005",
+        "T1059"
+      ]
+    },
+    "mail": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "make": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read",
+        "file-write",
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1005",
+        "T1059",
+        "T1565"
+      ]
+    },
+    "man": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read",
+        "inherit",
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1005",
+        "T1059"
+      ]
+    },
+    "mawk": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read",
+        "file-write",
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1005",
+        "T1059",
+        "T1565"
+      ]
+    },
+    "minicom": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "more": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read",
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1005",
+        "T1059"
+      ]
+    },
+    "mosh-server": {
+      "contexts": [
+        "sudo"
+      ],
+      "functions": [
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "mosquitto": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read"
+      ],
+      "mitreTechniques": [
+        "T1005"
+      ]
+    },
+    "mount": {
+      "contexts": [
+        "sudo"
+      ],
+      "functions": [
+        "privilege-escalation"
+      ],
+      "mitreTechniques": [
+        "T1548"
+      ]
+    },
+    "msfconsole": {
+      "contexts": [
+        "sudo",
+        "unprivileged"
+      ],
+      "functions": [
+        "inherit"
+      ],
+      "mitreTechniques": []
+    },
+    "msgattrib": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read"
+      ],
+      "mitreTechniques": [
+        "T1005"
+      ]
+    },
+    "msgcat": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read"
+      ],
+      "mitreTechniques": [
+        "T1005"
+      ]
+    },
+    "msgconv": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read"
+      ],
+      "mitreTechniques": [
+        "T1005"
+      ]
+    },
+    "msgfilter": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read",
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1005",
+        "T1059"
+      ]
+    },
+    "msgmerge": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read"
+      ],
+      "mitreTechniques": [
+        "T1005"
+      ]
+    },
+    "msguniq": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read"
+      ],
+      "mitreTechniques": [
+        "T1005"
+      ]
+    },
+    "mtr": {
+      "contexts": [
+        "sudo",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read"
+      ],
+      "mitreTechniques": [
+        "T1005"
+      ]
+    },
+    "multitime": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "mutt": {
+      "contexts": [
+        "sudo",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read"
+      ],
+      "mitreTechniques": [
+        "T1005"
+      ]
+    },
+    "mv": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-write",
+        "privilege-escalation"
+      ],
+      "mitreTechniques": [
+        "T1548",
+        "T1565"
+      ]
+    },
+    "mypy": {
+      "contexts": [
+        "sudo",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read",
+        "file-write"
+      ],
+      "mitreTechniques": [
+        "T1005",
+        "T1565"
+      ]
+    },
+    "mysql": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "library-load",
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059",
+        "T1574"
+      ]
+    },
+    "nano": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read",
+        "file-write",
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1005",
+        "T1059",
+        "T1565"
+      ]
+    },
+    "nasm": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read"
+      ],
+      "mitreTechniques": [
+        "T1005"
+      ]
+    },
+    "nawk": {
+      "contexts": [],
+      "functions": [],
+      "mitreTechniques": []
+    },
+    "nc": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "bind-shell",
+        "download",
+        "reverse-shell",
+        "upload"
+      ],
+      "mitreTechniques": [
+        "T1041",
+        "T1059",
+        "T1071",
+        "T1105"
+      ]
+    },
+    "ncdu": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "ncftp": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "needrestart": {
+      "contexts": [
+        "sudo",
+        "unprivileged"
+      ],
+      "functions": [
+        "inherit"
+      ],
+      "mitreTechniques": []
+    },
+    "neofetch": {
+      "contexts": [
+        "sudo",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read",
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1005",
+        "T1059"
+      ]
+    },
+    "nft": {
+      "contexts": [
+        "sudo",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read"
+      ],
+      "mitreTechniques": [
+        "T1005"
+      ]
+    },
+    "nginx": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "download",
+        "library-load",
+        "upload"
+      ],
+      "mitreTechniques": [
+        "T1041",
+        "T1105",
+        "T1574"
+      ]
+    },
+    "nice": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "nl": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read"
+      ],
+      "mitreTechniques": [
+        "T1005"
+      ]
+    },
+    "nm": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read"
+      ],
+      "mitreTechniques": [
+        "T1005"
+      ]
+    },
+    "nmap": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read",
+        "file-write",
+        "inherit",
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1005",
+        "T1059",
+        "T1565"
+      ]
+    },
+    "node": {
+      "contexts": [
+        "capabilities",
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "bind-shell",
+        "download",
+        "file-read",
+        "file-write",
+        "reverse-shell",
+        "shell",
+        "upload"
+      ],
+      "mitreTechniques": [
+        "T1005",
+        "T1041",
+        "T1059",
+        "T1071",
+        "T1105",
+        "T1565"
+      ]
+    },
+    "nohup": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "command",
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "npm": {
+      "contexts": [
+        "sudo",
+        "unprivileged"
+      ],
+      "functions": [
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "nroff": {
+      "contexts": [
+        "sudo",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read",
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1005",
+        "T1059"
+      ]
+    },
+    "nsenter": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "ntpdate": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read"
+      ],
+      "mitreTechniques": [
+        "T1005"
+      ]
+    },
+    "nvim": {
+      "contexts": [],
+      "functions": [],
+      "mitreTechniques": []
+    },
+    "octave": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read",
+        "file-write",
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1005",
+        "T1059",
+        "T1565"
+      ]
+    },
+    "od": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read"
+      ],
+      "mitreTechniques": [
+        "T1005"
+      ]
+    },
+    "opencode": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "command",
+        "inherit"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "openssl": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "download",
+        "file-read",
+        "file-write",
+        "library-load",
+        "reverse-shell",
+        "upload"
+      ],
+      "mitreTechniques": [
+        "T1005",
+        "T1041",
+        "T1059",
+        "T1071",
+        "T1105",
+        "T1565",
+        "T1574"
+      ]
+    },
+    "openvpn": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read",
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1005",
+        "T1059"
+      ]
+    },
+    "openvt": {
+      "contexts": [
+        "sudo"
+      ],
+      "functions": [
+        "command"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "opkg": {
+      "contexts": [
+        "sudo"
+      ],
+      "functions": [
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "pandoc": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read",
+        "file-write",
+        "inherit"
+      ],
+      "mitreTechniques": [
+        "T1005",
+        "T1565"
+      ]
+    },
+    "passwd": {
+      "contexts": [
+        "sudo"
+      ],
+      "functions": [
+        "privilege-escalation"
+      ],
+      "mitreTechniques": [
+        "T1548"
+      ]
+    },
+    "paste": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read"
+      ],
+      "mitreTechniques": [
+        "T1005"
+      ]
+    },
+    "pax": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read"
+      ],
+      "mitreTechniques": [
+        "T1005"
+      ]
+    },
+    "pdb": {
+      "contexts": [
+        "sudo",
+        "unprivileged"
+      ],
+      "functions": [
+        "inherit"
+      ],
+      "mitreTechniques": []
+    },
+    "pdflatex": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read",
+        "file-write",
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1005",
+        "T1059",
+        "T1565"
+      ]
+    },
+    "pdftex": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "perf": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "perl": {
+      "contexts": [
+        "capabilities",
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "download",
+        "file-read",
+        "reverse-shell",
+        "shell",
+        "upload"
+      ],
+      "mitreTechniques": [
+        "T1005",
+        "T1041",
+        "T1059",
+        "T1071",
+        "T1105"
+      ]
+    },
+    "perlbug": {
+      "contexts": [
+        "sudo",
+        "unprivileged"
+      ],
+      "functions": [
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "pexec": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "pg": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read",
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1005",
+        "T1059"
+      ]
+    },
+    "php": {
+      "contexts": [
+        "capabilities",
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "command",
+        "download",
+        "file-read",
+        "file-write",
+        "reverse-shell",
+        "shell",
+        "upload"
+      ],
+      "mitreTechniques": [
+        "T1005",
+        "T1041",
+        "T1059",
+        "T1071",
+        "T1105",
+        "T1565"
+      ]
+    },
+    "pic": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read",
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1005",
+        "T1059"
+      ]
+    },
+    "pico": {
+      "contexts": [],
+      "functions": [],
+      "mitreTechniques": []
+    },
+    "pidstat": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "pip": {
+      "contexts": [
+        "sudo",
+        "unprivileged"
+      ],
+      "functions": [
+        "inherit",
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "pipx": {
+      "contexts": [
+        "sudo",
+        "unprivileged"
+      ],
+      "functions": [
+        "inherit"
+      ],
+      "mitreTechniques": []
+    },
+    "pkexec": {
+      "contexts": [
+        "sudo"
+      ],
+      "functions": [
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "pkg": {
+      "contexts": [
+        "sudo"
+      ],
+      "functions": [
+        "command"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "plymouth": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "podman": {
+      "contexts": [
+        "sudo",
+        "unprivileged"
+      ],
+      "functions": [
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "poetry": {
+      "contexts": [
+        "sudo",
+        "unprivileged"
+      ],
+      "functions": [
+        "inherit"
+      ],
+      "mitreTechniques": []
+    },
+    "posh": {
+      "contexts": [
+        "sudo",
+        "unprivileged"
+      ],
+      "functions": [
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "pr": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read"
+      ],
+      "mitreTechniques": [
+        "T1005"
+      ]
+    },
+    "procmail": {
+      "contexts": [
+        "sudo",
+        "unprivileged"
+      ],
+      "functions": [
+        "command"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "pry": {
+      "contexts": [
+        "sudo",
+        "unprivileged"
+      ],
+      "functions": [
+        "inherit"
+      ],
+      "mitreTechniques": []
+    },
+    "psftp": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "psql": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "inherit",
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "ptx": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read"
+      ],
+      "mitreTechniques": [
+        "T1005"
+      ]
+    },
+    "puppet": {
+      "contexts": [
+        "sudo",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read",
+        "file-write",
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1005",
+        "T1059",
+        "T1565"
+      ]
+    },
+    "pwsh": {
+      "contexts": [
+        "sudo",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-write",
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059",
+        "T1565"
+      ]
+    },
+    "pygmentize": {
+      "contexts": [
+        "sudo",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read"
+      ],
+      "mitreTechniques": [
+        "T1005"
+      ]
+    },
+    "pyright": {
+      "contexts": [
+        "sudo",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read"
+      ],
+      "mitreTechniques": [
+        "T1005"
+      ]
+    },
+    "python": {
+      "contexts": [
+        "capabilities",
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "download",
+        "file-read",
+        "file-write",
+        "library-load",
+        "reverse-shell",
+        "shell",
+        "upload"
+      ],
+      "mitreTechniques": [
+        "T1005",
+        "T1041",
+        "T1059",
+        "T1071",
+        "T1105",
+        "T1565",
+        "T1574"
+      ]
+    },
+    "qpdf": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read"
+      ],
+      "mitreTechniques": [
+        "T1005"
+      ]
+    },
+    "rake": {
+      "contexts": [
+        "sudo",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read",
+        "inherit"
+      ],
+      "mitreTechniques": [
+        "T1005"
+      ]
+    },
+    "ranger": {
+      "contexts": [
+        "sudo",
+        "unprivileged"
+      ],
+      "functions": [
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "rc": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "readelf": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read"
+      ],
+      "mitreTechniques": [
+        "T1005"
+      ]
+    },
+    "red": {
+      "contexts": [],
+      "functions": [],
+      "mitreTechniques": []
+    },
+    "redcarpet": {
+      "contexts": [
+        "sudo",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read"
+      ],
+      "mitreTechniques": [
+        "T1005"
+      ]
+    },
+    "redis": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-write"
+      ],
+      "mitreTechniques": [
+        "T1565"
+      ]
+    },
+    "restic": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "command",
+        "shell",
+        "upload"
+      ],
+      "mitreTechniques": [
+        "T1041",
+        "T1059"
+      ]
+    },
+    "rev": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read"
+      ],
+      "mitreTechniques": [
+        "T1005"
+      ]
+    },
+    "rlogin": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "upload"
+      ],
+      "mitreTechniques": [
+        "T1041"
+      ]
+    },
+    "rlwrap": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-write",
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059",
+        "T1565"
+      ]
+    },
+    "rpm": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "command",
+        "inherit",
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "rpmdb": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "inherit",
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "rpmquery": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "inherit",
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "rpmverify": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "inherit",
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "rsync": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "rsyslogd": {
+      "contexts": [
+        "sudo"
+      ],
+      "functions": [
+        "command"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "rtorrent": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "ruby": {
+      "contexts": [
+        "capabilities",
+        "sudo",
+        "unprivileged"
+      ],
+      "functions": [
+        "download",
+        "file-read",
+        "file-write",
+        "library-load",
+        "reverse-shell",
+        "shell",
+        "upload"
+      ],
+      "mitreTechniques": [
+        "T1005",
+        "T1041",
+        "T1059",
+        "T1071",
+        "T1105",
+        "T1565",
+        "T1574"
+      ]
+    },
+    "run-mailcap": {
+      "contexts": [
+        "sudo",
+        "unprivileged"
+      ],
+      "functions": [
+        "inherit"
+      ],
+      "mitreTechniques": []
+    },
+    "run-parts": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "runscript": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "rustc": {
+      "contexts": [
+        "sudo",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read",
+        "file-write",
+        "inherit"
+      ],
+      "mitreTechniques": [
+        "T1005",
+        "T1565"
+      ]
+    },
+    "rustdoc": {
+      "contexts": [
+        "sudo",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read",
+        "file-write"
+      ],
+      "mitreTechniques": [
+        "T1005",
+        "T1565"
+      ]
+    },
+    "rustfmt": {
+      "contexts": [
+        "sudo",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read"
+      ],
+      "mitreTechniques": [
+        "T1005"
+      ]
+    },
+    "rustup": {
+      "contexts": [
+        "sudo",
+        "unprivileged"
+      ],
+      "functions": [
+        "command",
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "rview": {
+      "contexts": [],
+      "functions": [],
+      "mitreTechniques": []
+    },
+    "rvim": {
+      "contexts": [],
+      "functions": [],
+      "mitreTechniques": []
+    },
+    "sash": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "scanmem": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "scp": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "download",
+        "shell",
+        "upload"
+      ],
+      "mitreTechniques": [
+        "T1041",
+        "T1059",
+        "T1105"
+      ]
+    },
+    "screen": {
+      "contexts": [
+        "sudo",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-write",
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059",
+        "T1565"
+      ]
+    },
+    "script": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-write",
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059",
+        "T1565"
+      ]
+    },
+    "scrot": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "sed": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read",
+        "file-write",
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1005",
+        "T1059",
+        "T1565"
+      ]
+    },
+    "service": {
+      "contexts": [
+        "sudo",
+        "unprivileged"
+      ],
+      "functions": [
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "setarch": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "setcap": {
+      "contexts": [
+        "sudo",
+        "suid"
+      ],
+      "functions": [
+        "privilege-escalation"
+      ],
+      "mitreTechniques": [
+        "T1548"
+      ]
+    },
+    "setfacl": {
+      "contexts": [
+        "sudo",
+        "suid"
+      ],
+      "functions": [
+        "privilege-escalation"
+      ],
+      "mitreTechniques": [
+        "T1548"
+      ]
+    },
+    "setlock": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "sftp": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "download",
+        "shell",
+        "upload"
+      ],
+      "mitreTechniques": [
+        "T1041",
+        "T1059",
+        "T1105"
+      ]
+    },
+    "sg": {
+      "contexts": [
+        "sudo",
+        "unprivileged"
+      ],
+      "functions": [
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "shred": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-write"
+      ],
+      "mitreTechniques": [
+        "T1565"
+      ]
+    },
+    "shuf": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read",
+        "file-write"
+      ],
+      "mitreTechniques": [
+        "T1005",
+        "T1565"
+      ]
+    },
+    "slsh": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "smbclient": {
+      "contexts": [
+        "sudo",
+        "unprivileged"
+      ],
+      "functions": [
+        "download",
+        "shell",
+        "upload"
+      ],
+      "mitreTechniques": [
+        "T1041",
+        "T1059",
+        "T1105"
+      ]
+    },
+    "snap": {
+      "contexts": [
+        "sudo"
+      ],
+      "functions": [
+        "command"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "socat": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "bind-shell",
+        "download",
+        "file-read",
+        "file-write",
+        "reverse-shell",
+        "shell",
+        "upload"
+      ],
+      "mitreTechniques": [
+        "T1005",
+        "T1041",
+        "T1059",
+        "T1071",
+        "T1105",
+        "T1565"
+      ]
+    },
+    "socket": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "bind-shell",
+        "reverse-shell"
+      ],
+      "mitreTechniques": [
+        "T1059",
+        "T1071"
+      ]
+    },
+    "soelim": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read"
+      ],
+      "mitreTechniques": [
+        "T1005"
+      ]
+    },
+    "softlimit": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "sort": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read",
+        "file-write"
+      ],
+      "mitreTechniques": [
+        "T1005",
+        "T1565"
+      ]
+    },
+    "split": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read",
+        "file-write",
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1005",
+        "T1059",
+        "T1565"
+      ]
+    },
+    "sqlite3": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read",
+        "file-write",
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1005",
+        "T1059",
+        "T1565"
+      ]
+    },
+    "sqlmap": {
+      "contexts": [
+        "sudo",
+        "unprivileged"
+      ],
+      "functions": [
+        "inherit"
+      ],
+      "mitreTechniques": []
+    },
+    "ss": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read"
+      ],
+      "mitreTechniques": [
+        "T1005"
+      ]
+    },
+    "ssh": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "download",
+        "file-read",
+        "shell",
+        "upload"
+      ],
+      "mitreTechniques": [
+        "T1005",
+        "T1041",
+        "T1059",
+        "T1105"
+      ]
+    },
+    "ssh-agent": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "ssh-copy-id": {
+      "contexts": [
+        "sudo",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read",
+        "file-write"
+      ],
+      "mitreTechniques": [
+        "T1005",
+        "T1565"
+      ]
+    },
+    "ssh-keygen": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "library-load"
+      ],
+      "mitreTechniques": [
+        "T1574"
+      ]
+    },
+    "ssh-keyscan": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read"
+      ],
+      "mitreTechniques": [
+        "T1005"
+      ]
+    },
+    "sshfs": {
+      "contexts": [
+        "sudo",
+        "unprivileged"
+      ],
+      "functions": [
+        "command",
+        "download",
+        "shell",
+        "upload"
+      ],
+      "mitreTechniques": [
+        "T1041",
+        "T1059",
+        "T1105"
+      ]
+    },
+    "sshpass": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "sshuttle": {
+      "contexts": [
+        "sudo"
+      ],
+      "functions": [
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "start-stop-daemon": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "stdbuf": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "strace": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-write",
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059",
+        "T1565"
+      ]
+    },
+    "strings": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read"
+      ],
+      "mitreTechniques": [
+        "T1005"
+      ]
+    },
+    "su": {
+      "contexts": [
+        "sudo"
+      ],
+      "functions": [
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "sudo": {
+      "contexts": [
+        "sudo"
+      ],
+      "functions": [
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "sysctl": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "command",
+        "file-read"
+      ],
+      "mitreTechniques": [
+        "T1005",
+        "T1059"
+      ]
+    },
+    "systemctl": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "inherit",
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "systemd-resolve": {
+      "contexts": [
+        "sudo"
+      ],
+      "functions": [
+        "inherit"
+      ],
+      "mitreTechniques": []
+    },
+    "systemd-run": {
+      "contexts": [
+        "sudo"
+      ],
+      "functions": [
+        "command",
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "tac": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read"
+      ],
+      "mitreTechniques": [
+        "T1005"
+      ]
+    },
+    "tail": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read"
+      ],
+      "mitreTechniques": [
+        "T1005"
+      ]
+    },
+    "tailscale": {
+      "contexts": [
+        "sudo"
+      ],
+      "functions": [
+        "upload"
+      ],
+      "mitreTechniques": [
+        "T1041"
+      ]
+    },
+    "tar": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "download",
+        "file-read",
+        "file-write",
+        "shell",
+        "upload"
+      ],
+      "mitreTechniques": [
+        "T1005",
+        "T1041",
+        "T1059",
+        "T1105",
+        "T1565"
+      ]
+    },
+    "task": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "taskset": {
+      "contexts": [
+        "sudo",
+        "unprivileged"
+      ],
+      "functions": [
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "tasksh": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "tbl": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read"
+      ],
+      "mitreTechniques": [
+        "T1005"
+      ]
+    },
+    "tclsh": {
+      "contexts": [
+        "capabilities",
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "library-load",
+        "reverse-shell",
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059",
+        "T1071",
+        "T1574"
+      ]
+    },
+    "tcpdump": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "command",
+        "file-write"
+      ],
+      "mitreTechniques": [
+        "T1059",
+        "T1565"
+      ]
+    },
+    "tcsh": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-write",
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059",
+        "T1565"
+      ]
+    },
+    "tdbtool": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "tee": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-write"
+      ],
+      "mitreTechniques": [
+        "T1565"
+      ]
+    },
+    "telnet": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "reverse-shell",
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059",
+        "T1071"
+      ]
+    },
+    "terraform": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read"
+      ],
+      "mitreTechniques": [
+        "T1005"
+      ]
+    },
+    "tex": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "tftp": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "download",
+        "upload"
+      ],
+      "mitreTechniques": [
+        "T1041",
+        "T1105"
+      ]
+    },
+    "tic": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read"
+      ],
+      "mitreTechniques": [
+        "T1005"
+      ]
+    },
+    "time": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "timedatectl": {
+      "contexts": [
+        "sudo",
+        "unprivileged"
+      ],
+      "functions": [
+        "inherit"
+      ],
+      "mitreTechniques": []
+    },
+    "timeout": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "tmate": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "tmux": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read",
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1005",
+        "T1059"
+      ]
+    },
+    "top": {
+      "contexts": [
+        "sudo",
+        "unprivileged"
+      ],
+      "functions": [
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "torify": {
+      "contexts": [
+        "sudo",
+        "unprivileged"
+      ],
+      "functions": [
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "torsocks": {
+      "contexts": [
+        "sudo",
+        "unprivileged"
+      ],
+      "functions": [
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "troff": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read"
+      ],
+      "mitreTechniques": [
+        "T1005"
+      ]
+    },
+    "tsc": {
+      "contexts": [
+        "sudo",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read",
+        "file-write"
+      ],
+      "mitreTechniques": [
+        "T1005",
+        "T1565"
+      ]
+    },
+    "tshark": {
+      "contexts": [
+        "sudo",
+        "unprivileged"
+      ],
+      "functions": [
+        "inherit"
+      ],
+      "mitreTechniques": []
+    },
+    "ul": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read"
+      ],
+      "mitreTechniques": [
+        "T1005"
+      ]
+    },
+    "unexpand": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read"
+      ],
+      "mitreTechniques": [
+        "T1005"
+      ]
+    },
+    "uniq": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read"
+      ],
+      "mitreTechniques": [
+        "T1005"
+      ]
+    },
+    "unshare": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "unsquashfs": {
+      "contexts": [
+        "sudo",
+        "suid"
+      ],
+      "functions": [
+        "privilege-escalation"
+      ],
+      "mitreTechniques": [
+        "T1548"
+      ]
+    },
+    "unzip": {
+      "contexts": [
+        "sudo",
+        "suid"
+      ],
+      "functions": [
+        "privilege-escalation"
+      ],
+      "mitreTechniques": [
+        "T1548"
+      ]
+    },
+    "update-alternatives": {
+      "contexts": [
+        "sudo",
+        "suid"
+      ],
+      "functions": [
+        "file-write"
+      ],
+      "mitreTechniques": [
+        "T1565"
+      ]
+    },
+    "urlget": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read"
+      ],
+      "mitreTechniques": [
+        "T1005"
+      ]
+    },
+    "uuencode": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read"
+      ],
+      "mitreTechniques": [
+        "T1005"
+      ]
+    },
+    "uv": {
+      "contexts": [
+        "sudo",
+        "unprivileged"
+      ],
+      "functions": [
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "vagrant": {
+      "contexts": [
+        "sudo",
+        "unprivileged"
+      ],
+      "functions": [
+        "inherit"
+      ],
+      "mitreTechniques": []
+    },
+    "valgrind": {
+      "contexts": [
+        "sudo",
+        "unprivileged"
+      ],
+      "functions": [
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "varnishncsa": {
+      "contexts": [
+        "sudo",
+        "suid"
+      ],
+      "functions": [
+        "file-write"
+      ],
+      "mitreTechniques": [
+        "T1565"
+      ]
+    },
+    "vi": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read",
+        "file-write",
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1005",
+        "T1059",
+        "T1565"
+      ]
+    },
+    "view": {
+      "contexts": [],
+      "functions": [],
+      "mitreTechniques": []
+    },
+    "vigr": {
+      "contexts": [
+        "sudo",
+        "suid"
+      ],
+      "functions": [
+        "inherit"
+      ],
+      "mitreTechniques": []
+    },
+    "vim": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read",
+        "inherit"
+      ],
+      "mitreTechniques": [
+        "T1005"
+      ]
+    },
+    "vimdiff": {
+      "contexts": [],
+      "functions": [],
+      "mitreTechniques": []
+    },
+    "vipw": {
+      "contexts": [
+        "sudo",
+        "suid"
+      ],
+      "functions": [
+        "inherit"
+      ],
+      "mitreTechniques": []
+    },
+    "virsh": {
+      "contexts": [
+        "sudo",
+        "unprivileged"
+      ],
+      "functions": [
+        "command",
+        "file-write"
+      ],
+      "mitreTechniques": [
+        "T1059",
+        "T1565"
+      ]
+    },
+    "volatility": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "inherit"
+      ],
+      "mitreTechniques": []
+    },
+    "w3m": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read"
+      ],
+      "mitreTechniques": [
+        "T1005"
+      ]
+    },
+    "wall": {
+      "contexts": [
+        "sudo"
+      ],
+      "functions": [
+        "file-read"
+      ],
+      "mitreTechniques": [
+        "T1005"
+      ]
+    },
+    "watch": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "wc": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read"
+      ],
+      "mitreTechniques": [
+        "T1005"
+      ]
+    },
+    "wg-quick": {
+      "contexts": [
+        "sudo"
+      ],
+      "functions": [
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "wget": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "download",
+        "file-read",
+        "file-write",
+        "shell",
+        "upload"
+      ],
+      "mitreTechniques": [
+        "T1005",
+        "T1041",
+        "T1059",
+        "T1105",
+        "T1565"
+      ]
+    },
+    "whiptail": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read"
+      ],
+      "mitreTechniques": [
+        "T1005"
+      ]
+    },
+    "whois": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "download",
+        "upload"
+      ],
+      "mitreTechniques": [
+        "T1041",
+        "T1105"
+      ]
+    },
+    "wireshark": {
+      "contexts": [
+        "sudo",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-write",
+        "inherit"
+      ],
+      "mitreTechniques": [
+        "T1565"
+      ]
+    },
+    "wish": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "inherit"
+      ],
+      "mitreTechniques": []
+    },
+    "xargs": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read",
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1005",
+        "T1059"
+      ]
+    },
+    "xdg-user-dir": {
+      "contexts": [
+        "sudo",
+        "unprivileged"
+      ],
+      "functions": [
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "xdotool": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "xelatex": {
+      "contexts": [],
+      "functions": [],
+      "mitreTechniques": []
+    },
+    "xetex": {
+      "contexts": [],
+      "functions": [],
+      "mitreTechniques": []
+    },
+    "xmodmap": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read"
+      ],
+      "mitreTechniques": [
+        "T1005"
+      ]
+    },
+    "xmore": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read"
+      ],
+      "mitreTechniques": [
+        "T1005"
+      ]
+    },
+    "xpad": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read"
+      ],
+      "mitreTechniques": [
+        "T1005"
+      ]
+    },
+    "xxd": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read",
+        "file-write"
+      ],
+      "mitreTechniques": [
+        "T1005",
+        "T1565"
+      ]
+    },
+    "xz": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read"
+      ],
+      "mitreTechniques": [
+        "T1005"
+      ]
+    },
+    "yarn": {
+      "contexts": [
+        "sudo",
+        "unprivileged"
+      ],
+      "functions": [
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "yash": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "yelp": {
+      "contexts": [
+        "sudo",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read"
+      ],
+      "mitreTechniques": [
+        "T1005"
+      ]
+    },
+    "yt-dlp": {
+      "contexts": [
+        "sudo",
+        "unprivileged"
+      ],
+      "functions": [
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "yum": {
+      "contexts": [
+        "sudo"
+      ],
+      "functions": [
+        "command",
+        "download",
+        "inherit"
+      ],
+      "mitreTechniques": [
+        "T1059",
+        "T1105"
+      ]
+    },
+    "zathura": {
+      "contexts": [
+        "sudo",
+        "unprivileged"
+      ],
+      "functions": [
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "zcat": {
+      "contexts": [
+        "sudo",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read"
+      ],
+      "mitreTechniques": [
+        "T1005"
+      ]
+    },
+    "zgrep": {
+      "contexts": [
+        "sudo",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read"
+      ],
+      "mitreTechniques": [
+        "T1005"
+      ]
+    },
+    "zic": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "command"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    },
+    "zip": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read",
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1005",
+        "T1059"
+      ]
+    },
+    "zless": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "inherit"
+      ],
+      "mitreTechniques": []
+    },
+    "zsh": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "download",
+        "file-read",
+        "file-write",
+        "inherit",
+        "reverse-shell",
+        "shell",
+        "upload"
+      ],
+      "mitreTechniques": [
+        "T1005",
+        "T1041",
+        "T1059",
+        "T1071",
+        "T1105",
+        "T1565"
+      ]
+    },
+    "zsoelim": {
+      "contexts": [
+        "sudo",
+        "suid",
+        "unprivileged"
+      ],
+      "functions": [
+        "file-read"
+      ],
+      "mitreTechniques": [
+        "T1005"
+      ]
+    },
+    "zypper": {
+      "contexts": [
+        "sudo",
+        "unprivileged"
+      ],
+      "functions": [
+        "shell"
+      ],
+      "mitreTechniques": [
+        "T1059"
+      ]
+    }
+  },
+  "entryCount": 478,
+  "source": "https://github.com/GTFOBins/GTFOBins.github.io",
+  "sourceRef": "7382261ef936e35896ba70e7a6b833352ffb9a22"
+}
