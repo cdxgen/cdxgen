@@ -1,1 +1,1 @@
-{"version":3,"file":"annotator.d.ts","sourceRoot":"","sources":["../../../../lib/stages/postgen/annotator.js"],"names":[],"mappings":"AAsNA;;;;;;GAMG;AACH,qCAJW,MAAM,UAoDhB;AAED;;;;;;GAMG;AACH,yCAJW,MAAM,GAEJ,SAAS,SAAS,CA0Q9B;AAED;;;;;;;;GAQG;AACH,uCANW,MAAM,mDAIJ,QAAQ,SAAS,CAqI7B"}
+{"version":3,"file":"annotator.d.ts","sourceRoot":"","sources":["../../../../lib/stages/postgen/annotator.js"],"names":[],"mappings":"AAuNA;;;;;;GAMG;AACH,qCAJW,MAAM,UAoDhB;AAED;;;;;;GAMG;AACH,yCAJW,MAAM,GAEJ,SAAS,SAAS,CAgR9B;AAED;;;;;;;;GAQG;AACH,uCANW,MAAM,mDAIJ,QAAQ,SAAS,CAqI7B"}

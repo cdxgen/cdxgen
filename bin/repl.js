@@ -22,6 +22,10 @@ import {
   printVulnerabilities,
 } from "../lib/helpers/display.js";
 import { readBinary } from "../lib/helpers/protobom.js";
+import {
+  getProvenanceComponents,
+  getTrustedComponents,
+} from "../lib/helpers/provenanceUtils.js";
 import { toCycloneDxLikeBom } from "../lib/helpers/spdxUtils.js";
 import { getTmpDir } from "../lib/helpers/utils.js";
 import { getBomWithOras } from "../lib/managers/oci.js";
@@ -130,6 +134,10 @@ export const importSbom = (sbomOrPath) => {
 if (process.argv.length > 2) {
   importSbom(process.argv[process.argv.length - 1]);
   console.log("💭 Type .print to view the BOM as a table");
+  console.log("💭 Type .trusted to list components with trusted publishing.");
+  console.log(
+    "💭 Type .provenance to list components with registry provenance evidence.",
+  );
 } else if (fs.existsSync("bom.json")) {
   // If the current directory has a bom.json load it
   importSbom("bom.json");
@@ -170,6 +178,12 @@ cdxgenRepl.defineCommand("create", {
       sbom = bomNSData.bomJson;
       console.log("✅ BOM imported successfully.");
       console.log("💭 Type .print to view the BOM as a table");
+      console.log(
+        "💭 Type .trusted to list components with trusted publishing.",
+      );
+      console.log(
+        "💭 Type .provenance to list components with registry provenance evidence.",
+      );
     } else {
       console.log("BOM was not generated successfully");
     }
@@ -331,6 +345,60 @@ cdxgenRepl.defineCommand("print", {
     const interactiveBom = getInteractiveBom();
     if (interactiveBom) {
       printTable(interactiveBom);
+    } else {
+      console.log(
+        "⚠ No BOM is loaded. Use .import command to import an existing BOM",
+      );
+    }
+    this.displayPrompt();
+  },
+});
+cdxgenRepl.defineCommand("trusted", {
+  help: "print components with trusted publishing",
+  action() {
+    const interactiveBom = getInteractiveBom();
+    if (interactiveBom?.components) {
+      const trustedComponents = getTrustedComponents(interactiveBom.components);
+      if (!trustedComponents.length) {
+        console.log(
+          "No trusted-publishing components found. Look for components enriched with cdx:npm:trustedPublishing or cdx:pypi:trustedPublishing.",
+        );
+      } else {
+        printTable(
+          { components: trustedComponents, dependencies: [] },
+          undefined,
+          undefined,
+          `Found ${trustedComponents.length} trusted component(s) backed by trusted publishing metadata.`,
+        );
+      }
+    } else {
+      console.log(
+        "⚠ No BOM is loaded. Use .import command to import an existing BOM",
+      );
+    }
+    this.displayPrompt();
+  },
+});
+cdxgenRepl.defineCommand("provenance", {
+  help: "print components with direct registry provenance evidence",
+  action() {
+    const interactiveBom = getInteractiveBom();
+    if (interactiveBom?.components) {
+      const provenanceComponents = getProvenanceComponents(
+        interactiveBom.components,
+      );
+      if (!provenanceComponents.length) {
+        console.log(
+          "No provenance-backed components found. Look for registry URLs, digests, signatures, or key IDs captured as component properties.",
+        );
+      } else {
+        printTable(
+          { components: provenanceComponents, dependencies: [] },
+          undefined,
+          undefined,
+          `Found ${provenanceComponents.length} component(s) with direct registry provenance evidence.`,
+        );
+      }
     } else {
       console.log(
         "⚠ No BOM is loaded. Use .import command to import an existing BOM",

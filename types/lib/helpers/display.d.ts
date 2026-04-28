@@ -6,9 +6,10 @@
  * @param {Object} bomJson CycloneDX BOM JSON object
  * @param {string[]} [filterTypes] Optional list of component types to include; all types shown when omitted
  * @param {string} [highlight] Optional string to highlight in the output
+ * @param {string} [summaryText] Optional summary message to print after the table
  * @returns {void}
  */
-export function printTable(bomJson: Object, filterTypes?: string[], highlight?: string): void;
+export function printTable(bomJson: Object, filterTypes?: string[], highlight?: string, summaryText?: string): void;
 /**
  * Prints OS package components from the BOM as a formatted streaming table.
  *
@@ -102,6 +103,8 @@ export function printSummary(bomJson: Object): void;
  * @param {EnvAuditFinding[]} envAuditFindings Audit findings to display
  */
 export function displaySelfThreatModel(filePath: string, config: Object, options: Object, envAuditFindings: EnvAuditFinding[]): void;
+export function buildDependencyTreeLegendLines(treeGraphics: string[]): string[];
+export function buildDependencyTreeLines(dependencies: Object[], mode?: string): string[];
 export type EnvAuditFinding = {
     type: string;
     variable: string;
