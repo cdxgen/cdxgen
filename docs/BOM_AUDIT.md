@@ -64,17 +64,17 @@ The audit runs as a post-processing step after BOM generation:
 
 ## CLI options
 
-| Option                      | Type    | Default | Description                                                                                                              |
-| --------------------------- | ------- | ------- | ------------------------------------------------------------------------------------------------------------------------ |
-| `--bom-audit`               | boolean | `false` | Enable post-generation security audit                                                                                    |
-| `--bom-audit-rules-dir`     | string  | —       | Directory containing additional YAML rule files (merged with built-in rules)                                             |
-| `--bom-audit-categories`    | string  | all     | Comma-separated list of rule categories to enable                                                                        |
-| `--bom-audit-min-severity`  | string  | `low`   | Minimum severity to report: `low`, `medium`, `high`                                                                      |
-| `--bom-audit-fail-severity` | string  | `high`  | Severity level at or above which findings cause secure mode failure (e.g., `medium` fails on medium, high, and critical) |
-| `--bom-audit-scope`         | string  | `all`   | Predictive dependency audit target scope: `all` or `required`                                                            |
-| `--bom-audit-max-targets`   | number  | auto    | Predictive dependency audit cap. By default cdxgen scans required targets first and expands to at least 50 targets       |
+| Option                        | Type    | Default | Description                                                                                                              |
+| ----------------------------- | ------- | ------- | ------------------------------------------------------------------------------------------------------------------------ |
+| `--bom-audit`                 | boolean | `false` | Enable post-generation security audit                                                                                    |
+| `--bom-audit-rules-dir`       | string  | —       | Directory containing additional YAML rule files (merged with built-in rules)                                             |
+| `--bom-audit-categories`      | string  | all     | Comma-separated list of rule categories to enable                                                                        |
+| `--bom-audit-min-severity`    | string  | `low`   | Minimum severity to report: `low`, `medium`, `high`                                                                      |
+| `--bom-audit-fail-severity`   | string  | `high`  | Severity level at or above which findings cause secure mode failure (e.g., `medium` fails on medium, high, and critical) |
+| `--bom-audit-scope`           | string  | `all`   | Predictive dependency audit target scope: `all` or `required`                                                            |
+| `--bom-audit-max-targets`     | number  | auto    | Predictive dependency audit cap. By default cdxgen scans required targets first and expands to at least 50 targets       |
 | `--bom-audit-include-trusted` | boolean | `false` | Include predictive audit targets that already carry trusted publishing metadata                                          |
-| `--bom-audit-only-trusted`  | boolean | `false` | Restrict predictive audit targets to trusted-publishing-backed packages only                                              |
+| `--bom-audit-only-trusted`    | boolean | `false` | Restrict predictive audit targets to trusted-publishing-backed packages only                                             |
 
 ## Predictive dependency target selection
 

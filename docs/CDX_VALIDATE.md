@@ -151,6 +151,30 @@ Non-automatable controls (for example, "package manager enforces MFA") are
 reported as `status: manual`, `severity: info`, with the upstream
 description included so reviewers can assess them manually.
 
+Some manual SCVS controls now include an explicit `cdx-audit` evidence hint.
+These are the controls where predictive audit can materially help a reviewer
+inspect repository workflows, provenance, publishing, or source-correlation
+signals even though the control still cannot be proven from the BOM alone.
+
+Current mappings include:
+
+- `SCVS-2.8` — SBOM is analyzed for risk
+- `SCVS-3.3` — Application uses CI build pipeline
+- `SCVS-3.6` — No arbitrary code execution
+- `SCVS-4.10` — Version-to-source correlation
+- `SCVS-4.11` — Package repository auditability
+- `SCVS-6.1` — Point of origin verifiable
+- `SCVS-6.2` — Chain of custody auditable
+
+For these controls, use the same SBOM as input to predictive audit:
+
+```shell
+cdx-audit --bom bom.json --scope required
+```
+
+Then attach the resulting workflow, provenance, publishing, and repository
+findings as supporting evidence for the manual review.
+
 ### EU Cyber Resilience Act (CRA)
 
 Eight controls extracted from CRA Annex I and the ENISA SBOM guidance:
@@ -165,6 +189,13 @@ Eight controls extracted from CRA Annex I and the ENISA SBOM guidance:
 | `CRA-MIN-006` | Every component has a `purl`, `cpe`, or `swid.tagId`.               |
 | `CRA-MIN-007` | Every component declares license information.                       |
 | `CRA-MIN-008` | `metadata.tools` records the generating tool(s).                    |
+
+The current CRA catalog intentionally focuses on minimum SBOM content and
+manufacturer-contact expectations. The new predictive-audit capabilities are
+therefore **not** currently mapped to an additional `CRA-MIN-*` rule. You can
+still use `cdx-audit` as supplementary evidence during a broader CRA review,
+but cdxgen does not currently claim a direct CRA control mapping for those
+workflow/provenance checks.
 
 ---
 

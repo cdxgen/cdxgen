@@ -102,6 +102,33 @@ Or SCVS Level 2 only (the common "production-grade" target):
 cdx-validate -i bom.json --benchmark scvs-l2 --no-include-manual
 ```
 
+## Step 4b: Gather evidence for manual SCVS controls with `cdx-audit`
+
+Several SCVS controls remain manual because they cannot be proven from the BOM
+alone, but cdxgen can still help you collect supporting evidence. In
+particular, `cdx-audit` can inspect upstream repositories and surface workflow,
+publishing, provenance, and source-correlation signals that are useful when
+reviewing controls such as:
+
+- `SCVS-2.8` — SBOM is analyzed for risk
+- `SCVS-3.3` — Application uses CI build pipeline
+- `SCVS-3.6` — No arbitrary code execution
+- `SCVS-4.10` — Version-to-source correlation
+- `SCVS-4.11` — Package repository auditability
+- `SCVS-6.1` — Point of origin verifiable
+- `SCVS-6.2` — Chain of custody auditable
+
+Run predictive audit against the same BOM:
+
+```shell
+cdx-audit --bom bom.json --scope required
+```
+
+Use the resulting console table, SARIF, or CycloneDX annotations as evidence
+for your manual review notes. When the dependency belongs to an external
+maintainer, the next-step guidance will also suggest opening an upstream issue
+or discussion instead of assuming you can remediate the repository directly.
+
 ## Step 5: Upload SARIF to GitHub code scanning
 
 `cdx-validate` emits SARIF 2.1.0 out of the box. In a workflow:

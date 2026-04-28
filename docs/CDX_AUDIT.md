@@ -42,21 +42,21 @@ cdx-audit --bom bom.json --only-trusted
 
 ## Options
 
-| Option            | Description                                                       |
-| ----------------- | ----------------------------------------------------------------- |
-| `--bom`           | Path to a single CycloneDX JSON BOM                               |
-| `--bom-dir`       | Directory containing CycloneDX JSON BOMs                          |
-| `--workspace-dir` | Reuse git clones and cached child SBOMs between runs              |
-| `--reports-dir`   | Persist aggregate and per-purl child SBOM reports                 |
-| `--report`        | `console`, `json`, or `sarif`                                     |
-| `--report-file`   | Write the final rendered report to a file                         |
-| `--categories`    | Override the audit rule categories used for child SBOM analysis   |
-| `--min-severity`  | Minimum final target severity included in console or SARIF output |
-| `--fail-severity` | Exit with code `3` when any target reaches this final severity    |
-| `--max-targets`   | Safety limit for the number of unique purls to analyze            |
-| `--scope`         | Target selection scope: `all` or `required`                      |
-| `--include-trusted` | Include targets already marked with trusted publishing metadata |
-| `--only-trusted`  | Restrict target selection to trusted-publishing-backed packages   |
+| Option              | Description                                                       |
+| ------------------- | ----------------------------------------------------------------- |
+| `--bom`             | Path to a single CycloneDX JSON BOM                               |
+| `--bom-dir`         | Directory containing CycloneDX JSON BOMs                          |
+| `--workspace-dir`   | Reuse git clones and cached child SBOMs between runs              |
+| `--reports-dir`     | Persist aggregate and per-purl child SBOM reports                 |
+| `--report`          | `console`, `json`, or `sarif`                                     |
+| `--report-file`     | Write the final rendered report to a file                         |
+| `--categories`      | Override the audit rule categories used for child SBOM analysis   |
+| `--min-severity`    | Minimum final target severity included in console or SARIF output |
+| `--fail-severity`   | Exit with code `3` when any target reaches this final severity    |
+| `--max-targets`     | Safety limit for the number of unique purls to analyze            |
+| `--scope`           | Target selection scope: `all` or `required`                       |
+| `--include-trusted` | Include targets already marked with trusted publishing metadata   |
+| `--only-trusted`    | Restrict target selection to trusted-publishing-backed packages   |
 
 ## Target selection defaults
 
@@ -83,13 +83,33 @@ When `cdx-audit` is run in an interactive terminal, it shows a dependency-free s
 
 For large target sets, `cdx-audit` also prints a preflight note before scanning begins. The note explains when the predictive audit may take several minutes and whether trusted-publishing-backed packages were skipped by default.
 
+## Console results
+
+When predictive findings are present, the console report renders an action-oriented table with:
+
+- the final severity
+- the affected package or grouped namespace
+- why the dependency needs attention
+- what to do next, such as reviewing a specific workflow file, repository URL, or package URL
+- an upstream escalation path when the flagged repository or dependency is maintained externally, for example opening an issue or discussion with the maintainers
+
+When nothing crosses the configured threshold, the console report uses a friendlier empty state: `No dependencies require your attention right now.`
+
+The closing console guidance reflects both outcomes: fix the issue directly when you maintain the affected repository, or report it upstream when the finding belongs to an external maintainer.
+
+The same guidance is preserved in the structured outputs:
+
+- SARIF `tool.driver.rules[].help` includes remediation text plus the external-maintainer escalation path when applicable
+- SARIF `results[].properties.nextAction` records the concrete review or reporting step for each finding
+- CycloneDX predictive annotations include `cdx:audit:nextAction` and `cdx:audit:upstreamGuidance` properties so the advice travels with the BOM
+
 Progress is written to `stderr`, so `--report json` output on `stdout` remains machine-readable.
 
 `--reports-dir` stores intermediate child SBOM artifacts, while `--report-file` controls where the final aggregate report is written.
 
 When `--workspace-dir` is provided, `cdx-audit` also stores per-target child SBOM cache files under `<workspace>/<target>/.cdx-audit/`. A later run can reuse those cached child SBOMs instead of cloning and re-scanning the same source again.
 
-If the workspace is an owned temporary directory under the OS temp root, `cdx-audit` now cleans it up correctly on completion even on platforms where `/tmp` is a symlinked alias.
+If the workspace is an owned temporary directory under the OS temp root, `cdx-audit` cleans it up correctly on completion even on platforms where `/tmp` is a symlinked alias.
 
 ## Severity model
 
@@ -127,7 +147,7 @@ Maintainer-set drift and cadence anomaly detectors follow the same approach:
 
 ## Registry provenance enrichment
 
-When package metadata is available from npmjs or PyPI, cdxgen now records additional provenance-oriented custom properties such as:
+When package metadata is available from npmjs or PyPI, cdxgen records additional provenance-oriented custom properties such as:
 
 - `cdx:npm:trustedPublishing`
 - `cdx:npm:provenanceUrl`
