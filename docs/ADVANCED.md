@@ -181,7 +181,7 @@ cdxgen -t js -o bom.json "pkg:npm/lodash@4.17.21"
 cdxgen -t js -o bom.json "pkg:generic/example@1.0.0?vcs_url=git+https://github.com/cdxgen/cdxgen.git"
 ```
 
-Unsupported or malformed purl source types now fail fast with explicit validation errors in both CLI and server mode.
+Unsupported or malformed purl source types fail fast with explicit validation errors in both CLI and server mode.
 
 ## Configuration files
 
@@ -237,7 +237,7 @@ Environment variables override values from the configuration files.
 
 ## Evinse Mode / SaaSBOM
 
-Evinse (Evinse Verification Is Nearly SBOM Evidence) is a new command with cdxgen to generate component evidence and SaaSBOM for supported languages. The tool is powered by [atom](https://github.com/AppThreat/atom). Beginning with cdxgen 9.9.x, cdxgen accepts a new argument called `--evidence` to generate such a comprehensive SBOM. This section is left for users interested in invoking the evinse tool directly for advanced use cases.
+Evinse (Evinse Verification Is Nearly SBOM Evidence) generates component evidence and SaaSBOM data for supported languages. The tool is powered by [atom](https://github.com/AppThreat/atom). cdxgen also supports `--evidence` during BOM generation. This section focuses on direct `evinse` usage for advanced workflows. See [`EVINSE.md`](EVINSE.md) for the dedicated command guide.
 
 <img src="_media/occurrence-evidence.png" alt="occurrence evidence" width="256">
 
@@ -358,7 +358,7 @@ A bonus of this mode is that the resulting SBOM would have a property called `Na
 
 ### Generate evidence of usage
 
-After generating an SBOM from a cache, we can now look for evidence of direct usage with evinse!
+After generating an SBOM from a cache, you can look for evidence of direct usage with evinse.
 
 ```shell
 # compile or build your application
@@ -618,24 +618,26 @@ Example:
 
 ## Generate Cryptography Bill of Materials (CBOM)
 
-Use the `cbom` alias to generate a CBOM. This is currently supported only for Java and Python projects.
+Use the `cbom` alias to generate a CBOM. This is primarily useful for ecosystems where cdxgen can identify cryptographic libraries and related evidence.
 
 ```shell
 cbom -t java
-# cdxgen -t java --include-crypto -o bom.json --spec-version 1.6 .
+# cdxgen -t java --include-crypto --evidence --deep --spec-version 1.7 .
 ```
 
 ```shell
 cbom -t python
-# cdxgen -t python --include-crypto -o bom.json --spec-version .
+# cdxgen -t python --include-crypto --evidence --deep --spec-version 1.7 .
 ```
 
 Using the `cbom` alias sets the following options:
 
 - includeCrypto: true
-- includeFormulation: true
 - evidence: true
-- specVersion: 1.6
+- deep: true
+- specVersion: 1.7
+
+For service-oriented evidence collection, use the `saasbom` alias or the dedicated [`evinse` guide](EVINSE.md).
 
 ## Custom Container Images
 

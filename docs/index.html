@@ -14,7 +14,7 @@
     @import url('https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;500;700&display=swap');
     :root {
       --theme-hue      : 325;
-      --base-font-size : 14px;
+      --base-font-size : 15px;
       --theme-color    : #ff753d;
       /* Typography
     ------------------------------------------------------------------------- */
@@ -50,8 +50,99 @@
       --duration-medium  : 0.5s;
       --duration-fast    : 0.25s;
 
-      --cover-max-width  : 60em;
-      --content-max-width: 75em;
+      --cover-max-width  : 78em;
+      --content-max-width: 82em;
+    }
+
+    body {
+      background:
+        radial-gradient(circle at top left, rgba(255, 117, 61, 0.12), transparent 32%),
+        radial-gradient(circle at top right, rgba(143, 92, 255, 0.08), transparent 28%);
+    }
+
+    section.cover.show {
+      background: transparent;
+    }
+
+    section.cover .cover-main {
+      max-width: min(76rem, calc(100vw - 2rem));
+      margin: 2rem auto 0;
+      padding: 3rem 3.25rem 3.5rem;
+      text-align: left;
+      border-radius: 28px;
+      background: rgba(255, 255, 255, 0.92);
+      box-shadow: 0 24px 80px rgba(17, 24, 39, 0.14);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      section.cover .cover-main {
+        background: rgba(17, 24, 39, 0.88);
+        box-shadow: 0 24px 80px rgba(0, 0, 0, 0.45);
+      }
+    }
+
+    section.cover .cover-main > h1 {
+      font-size: clamp(2.8rem, 6vw, 4.8rem);
+      line-height: 1.02;
+      margin-bottom: 1rem;
+      letter-spacing: -0.04em;
+    }
+
+    section.cover .cover-main > blockquote {
+      margin: 0 0 1.5rem;
+      padding-left: 1rem;
+      border-left: 4px solid var(--theme-color);
+      color: var(--theme-color);
+      font-size: 1.08rem;
+      font-weight: 600;
+    }
+
+    section.cover .cover-main > p:last-of-type {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.85rem;
+      justify-content: flex-start;
+      margin-top: 1.5rem;
+    }
+
+    section.cover .cover-main > p:last-of-type a {
+      margin: 0;
+      padding: 0.8rem 1.1rem;
+      border-radius: 999px;
+      font-weight: 700;
+      text-decoration: none;
+      box-shadow: none;
+    }
+
+    section.cover .cover-main ul {
+      column-gap: 2rem;
+    }
+
+    .markdown-section {
+      line-height: 1.65;
+    }
+
+    .markdown-section h1,
+    .markdown-section h2,
+    .markdown-section h3 {
+      letter-spacing: -0.02em;
+    }
+
+    @media (max-width: 960px) {
+      section.cover .cover-main {
+        margin-top: 1rem;
+        padding: 2.25rem 1.5rem 2.5rem;
+        text-align: center;
+      }
+
+      section.cover .cover-main > blockquote {
+        padding-left: 0;
+        border-left: 0;
+      }
+
+      section.cover .cover-main > p:last-of-type {
+        justify-content: center;
+      }
     }
   </style>
 </head>
@@ -78,17 +169,7 @@
       placeholder: {
         '/': 'Search'
       }
-    },
-    plugins: [
-      (hook) => {
-        hook.doneEach(() => {
-          const mermaidConfig = {
-            querySelector: ".mermaid",
-          };
-          mermaid.run(mermaidConfig);
-        });
-      },
-    ]
+    }
   }
 </script>
 <!-- Docsify v4 -->

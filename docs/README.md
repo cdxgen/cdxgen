@@ -326,17 +326,21 @@ pnpm dlx @cyclonedx/cdxgen cdx-verify -i bom.json --public-key public.key
 There are many [libraries](https://jwt.io/#libraries-io) available to validate JSON Web Tokens. Below is a javascript example.
 
 ```js
-# npm install jws
-const jws = require("jws");
-const fs = require("fs");
-// Location of the SBOM json file
+import { readFileSync } from "node:fs";
+
+import jws from "jws";
+
+// npm install jws
 const bomJsonFile = "bom.json";
-// Location of the public key
 const publicKeyFile = "public.key";
-const bomJson = JSON.parse(fs.readFileSync(bomJsonFile, "utf8"));
+const bomJson = JSON.parse(readFileSync(bomJsonFile, "utf8"));
 // Retrieve the signature
 const bomSignature = bomJson.signature.value;
-const validationResult = jws.verify(bomSignature, bomJson.signature.algorithm, fs.readFileSync(publicKeyFile, "utf8"));
+const validationResult = jws.verify(
+  bomSignature,
+  bomJson.signature.algorithm,
+  readFileSync(publicKeyFile, "utf8"),
+);
 if (validationResult) {
   console.log("Signature is valid!");
 } else {
@@ -346,30 +350,19 @@ if (validationResult) {
 
 #### **REPL Mode**
 
-`cdxi` is a new interactive REPL server to create, import, and search a BOM. All the exported functions from cdxgen and node.js could be used in this mode. In addition, several custom commands are defined.
+`cdxi` is the interactive REPL for creating, importing, querying, and reviewing BOMs.
 
 [![cdxi demo](https://asciinema.org/a/602361.svg)](https://asciinema.org/a/602361)
 
-### Custom commands
+Use it to:
 
-| Command      | Description                                                                                                                                                                                                    |
-| ------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| .create      | Create an SBOM from a path                                                                                                                                                                                     |
-| .import      | Import an existing SBOM from a path. Any SBOM in CycloneDX format is supported.                                                                                                                                |
-| .search      | Search the given string in the components name, group, purl and description                                                                                                                                    |
-| .sort        | Sort the components based on the given attribute. Eg: .sort name to sort by name. Accepts full jsonata [order by](http://docs.jsonata.org/path-operators#order-by-) clause too. Eg: `.sort components^(>name)` |
-| .query       | Pass a raw query in [jsonata](http://docs.jsonata.org/) format                                                                                                                                                 |
-| .print       | Print the SBOM as a table                                                                                                                                                                                      |
-| .tree        | Print the dependency tree if available                                                                                                                                                                         |
-| .validate    | Validate the SBOM                                                                                                                                                                                              |
-| .exit        | To exit the shell                                                                                                                                                                                              |
-| .save        | To save the modified SBOM to a new file                                                                                                                                                                        |
-| .update      | Update components based on query expression. Use syntax `\| query \| new object \|`. See example.                                                                                                              |
-| .occurrences | View components with evidence.occurrences as a table. Use evinse command to generate such an SBOM                                                                                                              |
-| .callstack   | View components with evidence.callstack.frames as a table. Use evinse command to generate such an SBOM                                                                                                         |
-| .services    | View services as a table                                                                                                                                                                                       |
+- generate or import a BOM with `.create` or `.import`
+- inspect trust and provenance with `.trusted` and `.provenance`
+- review audit annotations with `.auditfindings`, `.auditactions`, and `.dispatchedges`
+- inspect evidence with `.occurrences`, `.callstack`, `.services`, and `.formulation`
+- pivot through OBOM categories with `.osinfocategories` and built-in osquery commands such as `.processes`
 
-In addition, all the keys from [queries.json](./data/queries.json) are also valid commands. Example: `processes`, `apt_sources`, etc. Type `.help` to view the full list of commands.
+See [`REPL.md`](REPL.md) for the full command reference.
 
 ### Sample REPL usage
 
@@ -386,6 +379,9 @@ Below are some example commands to create an SBOM for a spring application and p
 .print
 .search spring
 .query components[name ~> /spring/ and scope = "required"]
+.trusted
+.provenance
+.auditfindings
 // Supplier names
 .query $distinct(components.supplier.name)
 

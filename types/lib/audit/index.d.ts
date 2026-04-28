@@ -56,6 +56,17 @@ export function resolveTargetSourceDirectory(cloneDir: string, target: object, r
     scanDir: string;
 };
 /**
+ * Build shallow predictive findings for suspicious Python packaging files.
+ *
+ * Phase 1 intentionally focuses on high-signal packaging surfaces (`setup.py`
+ * and package `__init__.py`) until deeper Python static analysis is added.
+ *
+ * @param {string} scanDir cloned repository scan directory
+ * @param {object} target audit target
+ * @returns {object[]} predictive findings
+ */
+export function buildPythonSourceHeuristicFindings(scanDir: string, target: object): object[];
+/**
  * Analyze a single purl target by generating a child SBOM and auditing it.
  *
  * @param {object} target audit target

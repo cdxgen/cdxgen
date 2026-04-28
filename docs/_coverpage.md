@@ -4,7 +4,7 @@
 
 > Universal CycloneDX BOM workflows for developers, AppSec, and compliance teams.
 
-[Get Started](README.md) · [CLI Usage](CLI.md)
+[Get Started](README.md) · [CLI Usage](CLI.md) · [cdx-audit](CDX_AUDIT.md) · [REPL](REPL.md)
 
 Generate and analyze **SBOM**, **CBOM**, **OBOM**, **SaaSBOM**, **CDXA**, and **VDR** documents from **local paths**, **containers**, **archives**, **git URLs**, and **package URLs** — then validate, sign, convert, and audit them in one toolchain.
 
@@ -24,11 +24,13 @@ Generate and analyze **SBOM**, **CBOM**, **OBOM**, **SaaSBOM**, **CDXA**, and **
 ### AppSec teams
 
 - Validate structure and compliance with [cdx-validate](CDX_VALIDATE.md)
-- Analyze existing BOMs with [BOM Audit](BOM_AUDIT.md)
+- Analyze generated BOMs with [BOM Audit](BOM_AUDIT.md)
+- Prioritize upstream dependency review with [cdx-audit](CDX_AUDIT.md)
 
 ### Compliance and platform teams
 
 - Convert BOMs to SPDX with [cdx-convert](CDX_CONVERT.md)
+- Sign and verify BOMs with [cdx-sign](CDX_SIGN.md) and [cdx-verify](CDX_VERIFY.md)
 - Review [Permissions](PERMISSIONS.md) and [Configuring Allowlists](ALLOWED_HOSTS_AND_COMMANDS.md) for hardened environments
 
 ## Start here

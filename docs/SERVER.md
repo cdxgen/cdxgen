@@ -93,12 +93,14 @@ curl "http://127.0.0.1:9090/sbom?url=pkg:npm/lodash@4.17.21&type=js&multiProject
 
 > **Warning:** For purl requests, cdxgen resolves repository URLs from registry metadata. Registry metadata may be inaccurate or malicious.
 
-If you need to pass credentials to authenticate.
+If you need to pass credentials to authenticate, prefer short-lived tokens sourced from environment variables so they do not end up committed to docs snippets or copied directly into shell history.
 
 ```shell
-curl "http://127.0.0.1:9090/sbom?url=https://<access_token>@github.com/some/repo.git&multiProject=true&type=js"
-curl "http://127.0.0.1:9090/sbom?url=https://<username>:<password>@bitbucket.org/some/repo.git&multiProject=true&type=js"
+export GITHUB_TOKEN="<short-lived-token>"
+curl "http://127.0.0.1:9090/sbom?url=https://${GITHUB_TOKEN}@github.com/some/repo.git&multiProject=true&type=js"
 ```
+
+> **Security note:** URL-based credentials can still leak through process lists, logs, proxies, and shell history. Restrict server access, prefer short-lived credentials, and avoid exposing the cdxgen server directly to untrusted networks.
 
 You can POST the arguments.
 

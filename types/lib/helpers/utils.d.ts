@@ -174,14 +174,7 @@ export function getSwiftPackageMetadata(pkgList: Object[]): Promise<Object[]>;
  * @param {Array} pkgList Package list
  */
 export function getNpmMetadata(pkgList: any[]): Promise<any[]>;
-/**
- * Parse nodejs package json file
- *
- * @param {string} pkgJsonFile package.json file
- * @param {boolean} simple Return a simpler representation of the component by skipping extended attributes and license fetch.
- * @param {boolean} securityProps Collect security-related properties
- */
-export function parsePkgJson(pkgJsonFile: string, simple?: boolean, securityProps?: boolean): Promise<any[]>;
+export function parsePkgJson(pkgJsonFile: any, simple?: boolean, securityProps?: boolean): Promise<any[]>;
 /**
  * Parse nodejs package lock file
  *

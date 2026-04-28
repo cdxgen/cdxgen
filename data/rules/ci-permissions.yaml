@@ -528,6 +528,8 @@
       "dispatchKinds": $prop($, 'cdx:github:step:dispatchKinds'),
       "dispatchMechanisms": $prop($, 'cdx:github:step:dispatchMechanisms'),
       "dispatchTargets": $prop($, 'cdx:github:step:dispatchTargets'),
+      "localReceiverWorkflowFiles": $prop($, 'cdx:github:step:dispatchReceiverWorkflowFiles'),
+      "localReceiverWorkflowNames": $prop($, 'cdx:github:step:dispatchReceiverWorkflowNames'),
       "sensitiveContextRefs": $prop($, 'cdx:github:step:sensitiveContextRefs'),
       "workflowTriggers": $prop($, 'cdx:github:workflow:triggers'),
       "writeScopes": $prop($, 'cdx:github:workflow:writeScopes')
@@ -546,6 +548,10 @@
       $prop($, 'cdx:github:step:dispatchesWorkflow') = 'true'
       and $prop($, 'cdx:github:step:referencesForkContext') = 'true'
       and $prop($, 'cdx:github:step:referencesSensitiveContext') = 'true'
+      and (
+        $prop($, 'cdx:github:step:hasLocalDispatchReceiver') = 'true'
+        or $safeStr($prop($, 'cdx:github:step:hasLocalDispatchReceiver')) = ''
+      )
     ]
   location: |
     {
@@ -553,13 +559,17 @@
       "purl": purl,
       "file": $prop($, 'cdx:github:workflow:file')
     }
-  message: "Workflow step '{{ name }}' combines explicit fork/head-repository context with downstream dispatch '{{ $prop($, 'cdx:github:step:dispatchTargets') }}'"
+  message: "Workflow step '{{ name }}' combines explicit fork/head-repository context with downstream dispatch '{{ $safeStr($prop($, 'cdx:github:step:dispatchReceiverWorkflowNames')) != '' ? $prop($, 'cdx:github:step:dispatchReceiverWorkflowNames') : $prop($, 'cdx:github:step:dispatchTargets') }}'"
   mitigation: "Do not route fork-derived context into workflow_dispatch or repository_dispatch calls. Split privileged follow-up workflows behind trusted branch-only triggers and avoid sharing long-lived tokens into fork-reachable jobs"
   evidence: |
     {
       "forkContextRefs": $prop($, 'cdx:github:step:forkContextRefs'),
       "dispatchKinds": $prop($, 'cdx:github:step:dispatchKinds'),
       "dispatchTargets": $prop($, 'cdx:github:step:dispatchTargets'),
+      "hasLocalDispatchReceiver": $prop($, 'cdx:github:step:hasLocalDispatchReceiver'),
+      "localReceiverWorkflowFiles": $prop($, 'cdx:github:step:dispatchReceiverWorkflowFiles'),
+      "localReceiverWorkflowNames": $prop($, 'cdx:github:step:dispatchReceiverWorkflowNames'),
+      "localReceiverMatchBasis": $prop($, 'cdx:github:step:dispatchReceiverMatchBasis'),
       "sensitiveContextRefs": $prop($, 'cdx:github:step:sensitiveContextRefs')
     }
 

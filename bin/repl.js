@@ -27,6 +27,7 @@ import {
   getTrustedComponents,
 } from "../lib/helpers/provenanceUtils.js";
 import { toCycloneDxLikeBom } from "../lib/helpers/spdxUtils.js";
+import { table } from "../lib/helpers/table.js";
 import { getTmpDir } from "../lib/helpers/utils.js";
 import { getBomWithOras } from "../lib/managers/oci.js";
 import { validateBom } from "../lib/validator/bomValidator.js";
@@ -61,6 +62,86 @@ if (process.env?.CDXGEN_NODE_OPTIONS) {
 // The current sbom is stored here
 let sbom;
 const getInteractiveBom = () => toCycloneDxLikeBom(sbom);
+
+function unescapeAnnotationText(value) {
+  return String(value || "")
+    .replace(/<br>/g, "\n")
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">")
+    .replace(/&amp;/g, "&")
+    .replace(/\\([\\`*_{}\[\]()#+!|])/g, "$1")
+    .trim();
+}
+
+function parseAnnotationProperties(text) {
+  const properties = {};
+  const lines = String(text || "").split(/\r?\n/);
+  let foundHeader = false;
+  for (const line of lines) {
+    if (!line.startsWith("|")) {
+      continue;
+    }
+    const cells = line
+      .split("|")
+      .slice(1, -1)
+      .map((cell) => cell.trim());
+    if (cells.length < 2) {
+      continue;
+    }
+    if (cells[0] === "Property" && cells[1] === "Value") {
+      foundHeader = true;
+      continue;
+    }
+    if (
+      foundHeader &&
+      /^-+$/.test(cells[0].replace(/\s/g, "")) &&
+      /^-+$/.test(cells[1].replace(/\s/g, ""))
+    ) {
+      continue;
+    }
+    if (!foundHeader) {
+      continue;
+    }
+    properties[unescapeAnnotationText(cells[0])] = unescapeAnnotationText(
+      cells[1],
+    );
+  }
+  return properties;
+}
+
+function getAuditAnnotations() {
+  return (sbom?.annotations || [])
+    .map((annotation) => {
+      const properties = parseAnnotationProperties(annotation?.text);
+      return {
+        firstLine: unescapeAnnotationText(
+          String(annotation?.text || "").split(/\r?\n/, 1)[0],
+        ),
+        properties,
+        raw: annotation,
+      };
+    })
+    .filter(
+      (annotation) =>
+        Object.keys(annotation.properties).some((key) =>
+          key.startsWith("cdx:audit:"),
+        ) || annotation.firstLine.includes("cdx:audit:"),
+    );
+}
+
+function printAuditTable(title, rows) {
+  if (rows.length <= 1) {
+    return;
+  }
+  console.log(
+    table(rows, {
+      header: {
+        alignment: "center",
+        content: title,
+      },
+    }),
+  );
+}
 
 function isLikelyObom(bom) {
   return Boolean(
@@ -98,7 +179,12 @@ export const importSbom = (sbomOrPath) => {
       printSummary(sbom);
       if (isLikelyObom(sbom)) {
         console.log(
-          "💭 OBOM detected. Try .osinfocategories, .obomtips, or .print <category>",
+          "💭 OBOM detected. Try .osinfocategories, .obomtips, .processes, or .services_snapshot",
+        );
+      }
+      if (getAuditAnnotations().length) {
+        console.log(
+          "💭 Audit annotations detected. Try .auditfindings, .auditactions, or .dispatchedges.",
         );
       }
     } catch (e) {
@@ -138,6 +224,11 @@ if (process.argv.length > 2) {
   console.log(
     "💭 Type .provenance to list components with registry provenance evidence.",
   );
+  if (getAuditAnnotations().length) {
+    console.log(
+      "💭 Type .auditfindings to review cdx-audit and bom-audit annotations.",
+    );
+  }
 } else if (fs.existsSync("bom.json")) {
   // If the current directory has a bom.json load it
   importSbom("bom.json");
@@ -184,6 +275,11 @@ cdxgenRepl.defineCommand("create", {
       console.log(
         "💭 Type .provenance to list components with registry provenance evidence.",
       );
+      if (getAuditAnnotations().length) {
+        console.log(
+          "💭 Type .auditfindings to review cdx-audit and bom-audit annotations.",
+        );
+      }
     } else {
       console.log("BOM was not generated successfully");
     }
@@ -662,6 +758,113 @@ cdxgenRepl.defineCommand("formulation", {
     this.displayPrompt();
   },
 });
+cdxgenRepl.defineCommand("auditfindings", {
+  help: "summarize cdx-audit and bom-audit annotations from the loaded BOM",
+  action() {
+    if (!sbom) {
+      console.log("⚠ No BOM is loaded. Use .import command to import an SBOM");
+      this.displayPrompt();
+      return;
+    }
+    const auditAnnotations = getAuditAnnotations();
+    if (!auditAnnotations.length) {
+      console.log(
+        "No audit annotations found. Generate an SBOM with --bom-audit or import a BOM enriched by cdx-audit.",
+      );
+      this.displayPrompt();
+      return;
+    }
+    const rows = [
+      ["Engine", "Severity", "Rule", "Target / Edge", "Next action"],
+    ];
+    auditAnnotations.forEach((annotation) => {
+      const props = annotation.properties;
+      rows.push([
+        props["cdx:audit:engine"] || "bom-audit",
+        props["cdx:audit:severity"] || "unknown",
+        props["cdx:audit:topFinding:ruleId"] ||
+          props["cdx:audit:ruleId"] ||
+          "-",
+        props["cdx:audit:dispatch:edge"] ||
+          props["cdx:audit:target:purl"] ||
+          props["cdx:audit:location:file"] ||
+          annotation.firstLine,
+        props["cdx:audit:nextAction"] ||
+          props["cdx:audit:upstreamGuidance"] ||
+          props["cdx:audit:mitigation"] ||
+          "-",
+      ]);
+    });
+    printAuditTable("Audit findings", rows);
+    this.displayPrompt();
+  },
+});
+cdxgenRepl.defineCommand("auditactions", {
+  help: "list next actions from predictive audit annotations",
+  action() {
+    if (!sbom) {
+      console.log("⚠ No BOM is loaded. Use .import command to import an SBOM");
+      this.displayPrompt();
+      return;
+    }
+    const auditAnnotations = getAuditAnnotations().filter(
+      (annotation) => annotation.properties["cdx:audit:nextAction"],
+    );
+    if (!auditAnnotations.length) {
+      console.log(
+        "No predictive next actions found. Import a BOM annotated by cdx-audit to review remediation guidance.",
+      );
+      this.displayPrompt();
+      return;
+    }
+    const rows = [["Severity", "Target", "Next action", "Upstream guidance"]];
+    auditAnnotations.forEach((annotation) => {
+      const props = annotation.properties;
+      rows.push([
+        props["cdx:audit:severity"] || "unknown",
+        props["cdx:audit:dispatch:edge"] ||
+          props["cdx:audit:target:purl"] ||
+          annotation.firstLine,
+        props["cdx:audit:nextAction"] || "-",
+        props["cdx:audit:upstreamGuidance"] || "-",
+      ]);
+    });
+    printAuditTable("Predictive audit actions", rows);
+    this.displayPrompt();
+  },
+});
+cdxgenRepl.defineCommand("dispatchedges", {
+  help: "show local sender to receiver workflow edges captured by predictive audit",
+  action() {
+    if (!sbom) {
+      console.log("⚠ No BOM is loaded. Use .import command to import an SBOM");
+      this.displayPrompt();
+      return;
+    }
+    const auditAnnotations = getAuditAnnotations().filter(
+      (annotation) => annotation.properties["cdx:audit:dispatch:edge"],
+    );
+    if (!auditAnnotations.length) {
+      console.log(
+        "No local dispatch edges found. Import a BOM annotated by cdx-audit with correlated workflow dispatch findings.",
+      );
+      this.displayPrompt();
+      return;
+    }
+    const rows = [["Severity", "Rule", "Sender -> Receiver", "Receiver files"]];
+    auditAnnotations.forEach((annotation) => {
+      const props = annotation.properties;
+      rows.push([
+        props["cdx:audit:severity"] || "unknown",
+        props["cdx:audit:topFinding:ruleId"] || "-",
+        props["cdx:audit:dispatch:edge"] || annotation.firstLine,
+        props["cdx:audit:dispatch:receiverFiles"] || "-",
+      ]);
+    });
+    printAuditTable("Predictive workflow dispatch edges", rows);
+    this.displayPrompt();
+  },
+});
 cdxgenRepl.defineCommand("osinfocategories", {
   help: "view the category names for the OS info from the obom",
   async action() {
@@ -693,12 +896,15 @@ cdxgenRepl.defineCommand("obomtips", {
   action() {
     console.log("OBOM analyst quick guide:");
     console.log("1. .osinfocategories");
-    console.log("2. .print <category>  (examples below)");
-    console.log("   .print systemd_units");
-    console.log("   .print windows_run_keys");
-    console.log("   .print launchd_services");
+    console.log(
+      "2. Run an OS-query category command from .help (examples below)",
+    );
+    console.log("   .processes");
+    console.log("   .services_snapshot");
+    console.log("   .scheduled_tasks");
+    console.log("   .startup_items");
     console.log("3. .inspect <name>");
-    console.log("4. .services / .table / .summary for quick pivots");
+    console.log("4. .services / .print / .summary for quick pivots");
     console.log(
       "Tip: Generate with --bom-audit --bom-audit-categories obom-runtime for prioritized findings.",
     );
@@ -745,6 +951,13 @@ cdxgenRepl.defineCommand("licenses", {
 cdxgenRepl.defineCommand("inspect", {
   help: "view full JSON details of a component: .inspect <name_search_string>",
   async action(nameStr) {
+    if (!nameStr) {
+      console.log(
+        "⚠ Specify a component name or purl fragment. Eg: .inspect lodash",
+      );
+      this.displayPrompt();
+      return;
+    }
     if (sbom?.components) {
       const found = sbom.components.find(
         (c) =>

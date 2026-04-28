@@ -4,6 +4,34 @@
 
 In CLI mode, you can invoke cdxgen with Source Code, Container Image, or Binary Artifact as input to generate a Software Bill-of-Materials document. This can be subsequently used for a range of use cases as shown.
 
+## Command map
+
+The package ships multiple CLI entry points. Use this table as the top-level navigation map.
+
+| Command        | Purpose                                                                            | Dedicated docs                     |
+| -------------- | ---------------------------------------------------------------------------------- | ---------------------------------- |
+| `cdxgen`       | Generate CycloneDX and SPDX BOMs from source, images, binaries, git URLs, or purls | [CLI Usage](CLI.md)                |
+| `cdx-audit`    | Predictive upstream dependency audit from existing BOMs                            | [CDX_AUDIT.md](CDX_AUDIT.md)       |
+| `cdx-convert`  | Convert CycloneDX JSON to SPDX 3.0.1 JSON-LD                                       | [CDX_CONVERT.md](CDX_CONVERT.md)   |
+| `cdx-sign`     | Sign a CycloneDX BOM                                                               | [CDX_SIGN.md](CDX_SIGN.md)         |
+| `cdx-validate` | Validate structure, compliance, and signatures                                     | [CDX_VALIDATE.md](CDX_VALIDATE.md) |
+| `cdx-verify`   | Verify BOM signatures                                                              | [CDX_VERIFY.md](CDX_VERIFY.md)     |
+| `evinse`       | Add evidence, call stacks, reachability, and service data                          | [EVINSE.md](EVINSE.md)             |
+| `cdxi`         | Explore BOMs interactively in the REPL                                             | [REPL.md](REPL.md)                 |
+
+## Aliases and entry-point behavior
+
+Some commands are focused aliases rather than separate implementations.
+
+| Alias                                | Equivalent behavior                                                                                        |
+| ------------------------------------ | ---------------------------------------------------------------------------------------------------------- |
+| `obom`                               | `cdxgen -t os`                                                                                             |
+| `spdxgen`                            | `cdxgen --format spdx`                                                                                     |
+| `cbom`                               | `cdxgen` with `includeCrypto`, `evidence`, `deep`, and CycloneDX `1.7` defaults suited for CBOM generation |
+| `saasbom`                            | `cdxgen` with `evidence`, `deep`, and CycloneDX `1.7` defaults suited for service-evidence collection      |
+| `cdxgen-secure`                      | `cdxgen` with secure mode enabled and dependency installation disabled by default                          |
+| `cbom`, `obom`, `saasbom`, `spdxgen` | still accept the regular `cdxgen` flags in addition to their alias behavior                                |
+
 For source-based scans, the primary positional input accepted by `cdxgen` can be:
 
 - a local filesystem path such as `.` or `/path/to/repo`
@@ -79,7 +107,7 @@ Options:
   -r, --recurse                   Recurse mode suitable for mono-repos. Defaults to true. Pass --no-recurse to disable.
                                                                                                [boolean] [default: true]
   -p, --print                     Print the SBOM as a table with tree.                                         [boolean]
-  -c, --resolve-class             Resolve class names for packages. jars only for now.                         [boolean]
+  -c, --resolve-class             Resolve class names for packages. Jar projects only.                          [boolean]
       --deep                      Perform deep searches for components. Useful while scanning C/C++ apps, live OS and
                                   oci images.                                                                  [boolean]
       --git-branch                Git branch to clone when the source is a git URL or purl                      [string]
