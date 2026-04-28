@@ -81,6 +81,7 @@ Sections include:
 - [CLI Usage][docs-cli]
 - [Server Usage][docs-server]
 - [Hands-on Lessons](docs/LESSON8.md)
+- [Container Escape & Privilege Lesson](docs/LESSON9.md)
 - [Supported Project Types][docs-project-types]
 - [Environment Variables][docs-env-vars]
 - [Advanced Usage][docs-advanced-usage]

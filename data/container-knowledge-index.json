@@ -1,0 +1,125 @@
+{
+  "entries": {
+    "cdk": {
+      "attackTactics": ["TA0003", "TA0004", "TA0006", "TA0007", "TA0008"],
+      "attackTechniques": ["T1552.007", "T1609", "T1611", "T1613"],
+      "offenseTools": ["cdk"],
+      "riskTags": [
+        "container-escape",
+        "credential-access",
+        "k8s-cluster-pivot",
+        "offensive-toolkit"
+      ],
+      "sourceKeys": ["attack-containers", "cdk"]
+    },
+    "ctr": {
+      "attackTactics": ["TA0004", "TA0008"],
+      "attackTechniques": ["T1611"],
+      "offenseTools": ["cdk"],
+      "riskTags": ["container-escape", "runtime-control"],
+      "sourceKeys": ["attack-containers", "cdk"]
+    },
+    "curl": {
+      "attackTactics": ["TA0010", "TA0011"],
+      "attackTechniques": ["T1041", "T1105"],
+      "offenseTools": ["cdk", "deepce"],
+      "riskTags": ["data-exfiltration", "payload-delivery"],
+      "sourceKeys": ["cdk", "deepce"]
+    },
+    "deepce": {
+      "attackTactics": ["TA0004", "TA0006", "TA0007", "TA0008"],
+      "attackTechniques": ["T1552.007", "T1611", "T1613"],
+      "offenseTools": ["deepce"],
+      "riskTags": [
+        "container-escape",
+        "credential-access",
+        "offensive-toolkit"
+      ],
+      "sourceKeys": ["attack-containers", "deepce"]
+    },
+    "docker": {
+      "attackTactics": ["TA0004", "TA0008"],
+      "attackTechniques": ["T1611"],
+      "offenseTools": ["cdk", "deepce"],
+      "riskTags": ["container-escape", "runtime-socket"],
+      "sourceKeys": ["attack-containers", "cdk", "deepce"]
+    },
+    "kubectl": {
+      "attackTactics": ["TA0006", "TA0007", "TA0008"],
+      "attackTechniques": ["T1552.007", "T1609", "T1613"],
+      "offenseTools": ["cdk", "peirates"],
+      "riskTags": [
+        "credential-access",
+        "k8s-cluster-pivot",
+        "serviceaccount-access"
+      ],
+      "sourceKeys": ["attack-containers", "cdk", "peirates"]
+    },
+    "nc": {
+      "attackTactics": ["TA0008", "TA0011"],
+      "attackTechniques": ["T1041", "T1105"],
+      "offenseTools": ["cdk", "deepce"],
+      "riskTags": ["payload-delivery", "remote-shell"],
+      "sourceKeys": ["cdk", "deepce"]
+    },
+    "nsenter": {
+      "attackTactics": ["TA0004", "TA0008"],
+      "attackTechniques": ["T1611"],
+      "offenseTools": ["cdk", "deepce"],
+      "riskTags": ["container-escape", "namespace-escape"],
+      "seccompBlockedSyscalls": ["ptrace", "setns", "unshare"],
+      "seccompProfile": "docker-default",
+      "sourceKeys": ["attack-containers", "cdk", "deepce", "docker-seccomp"]
+    },
+    "peirates": {
+      "attackTactics": ["TA0003", "TA0006", "TA0007", "TA0008"],
+      "attackTechniques": ["T1552.007", "T1609", "T1613"],
+      "offenseTools": ["peirates"],
+      "riskTags": [
+        "credential-access",
+        "k8s-cluster-pivot",
+        "offensive-toolkit"
+      ],
+      "sourceKeys": ["attack-containers", "peirates"]
+    },
+    "runc": {
+      "attackTactics": ["TA0004", "TA0008"],
+      "attackTechniques": ["T1611"],
+      "offenseTools": ["cdk"],
+      "riskTags": ["container-escape", "runtime-control"],
+      "seccompBlockedSyscalls": ["open_by_handle_at", "setns"],
+      "seccompProfile": "docker-default",
+      "sourceKeys": ["attack-containers", "cdk", "docker-seccomp"]
+    },
+    "socat": {
+      "attackTactics": ["TA0008", "TA0011"],
+      "attackTechniques": ["T1041", "T1105"],
+      "offenseTools": ["cdk", "deepce"],
+      "riskTags": ["payload-delivery", "remote-shell"],
+      "sourceKeys": ["cdk", "deepce"]
+    },
+    "unshare": {
+      "attackTactics": ["TA0004", "TA0008"],
+      "attackTechniques": ["T1611"],
+      "offenseTools": ["cdk"],
+      "riskTags": ["container-escape", "namespace-escape"],
+      "seccompBlockedSyscalls": ["clone", "unshare"],
+      "seccompProfile": "docker-default",
+      "sourceKeys": ["attack-containers", "cdk", "docker-seccomp"]
+    },
+    "wget": {
+      "attackTactics": ["TA0010", "TA0011"],
+      "attackTechniques": ["T1041", "T1105"],
+      "offenseTools": ["cdk", "deepce"],
+      "riskTags": ["data-exfiltration", "payload-delivery"],
+      "sourceKeys": ["cdk", "deepce"]
+    }
+  },
+  "sources": {
+    "attack-containers": "https://attack.mitre.org/matrices/enterprise/containers/",
+    "cdk": "https://github.com/cdk-team/CDK",
+    "deepce": "https://github.com/stealthcopter/deepce",
+    "docker-seccomp": "https://docs.docker.com/engine/security/seccomp/",
+    "peirates": "https://github.com/inguardians/peirates"
+  }
+}

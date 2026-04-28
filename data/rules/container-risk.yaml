@@ -200,3 +200,71 @@
       "riskTags": $prop($, 'cdx:gtfobins:riskTags'),
       "srcFile": $prop($, 'SrcFile')
     }
+
+- id: CTR-006
+  name: "Container image ships dedicated offensive container toolkit"
+  description: "Dedicated container or Kubernetes intrusion toolkits such as Peirates, CDK, or DEEPCE should not ship inside production runtime images."
+  severity: high
+  category: container-risk
+  condition: |
+    components[
+      $prop($, 'cdx:container:matched') = 'true'
+      and $listContains($prop($, 'cdx:container:riskTags'), 'offensive-toolkit')
+    ]
+  location: |
+    {
+      "bomRef": $."bom-ref",
+      "purl": purl,
+      "file": $prop($, 'SrcFile')
+    }
+  message: "Dedicated offensive toolkit '{{ name }}' is present at '{{ $prop($, 'SrcFile') }}'"
+  mitigation: "Remove offensive testing binaries from runtime images, rebuild from a minimal trusted base, and keep container debugging or red-team tooling in separate break-glass images."
+  attack:
+    tactics: [TA0003, TA0004, TA0006, TA0007, TA0008]
+    techniques: [T1552.007, T1609, T1611, T1613]
+  evidence: |
+    {
+      "canonicalName": $prop($, 'cdx:container:name'),
+      "offenseTools": $prop($, 'cdx:container:offenseTools'),
+      "riskTags": $prop($, 'cdx:container:riskTags'),
+      "attackTechniques": $prop($, 'cdx:container:attackTechniques'),
+      "knowledgeSources": $prop($, 'cdx:container:knowledgeSources'),
+      "srcFile": $prop($, 'SrcFile')
+    }
+
+- id: CTR-007
+  name: "Container image includes seccomp-sensitive namespace escape helper"
+  description: "Helpers that rely on syscalls blocked by Docker's default seccomp profile become materially riskier when operators use `seccomp=unconfined` or permissive custom profiles."
+  severity: medium
+  category: container-risk
+  condition: |
+    components[
+      $prop($, 'cdx:container:matched') = 'true'
+      and $prop($, 'cdx:container:seccompProfile') = 'docker-default'
+      and $prop($, 'cdx:container:seccompBlockedSyscalls') != ''
+      and (
+        $listContains($prop($, 'cdx:container:riskTags'), 'container-escape')
+        or $listContains($prop($, 'cdx:container:riskTags'), 'namespace-escape')
+      )
+    ]
+  location: |
+    {
+      "bomRef": $."bom-ref",
+      "purl": purl,
+      "file": $prop($, 'SrcFile')
+    }
+  message: "Seccomp-sensitive escape helper '{{ name }}' is present at '{{ $prop($, 'SrcFile') }}' and depends on syscalls blocked by the Docker default seccomp profile"
+  mitigation: "Keep Docker or OCI runtimes on the default seccomp profile, never use `seccomp=unconfined` for app workloads, and review custom profiles so they do not allow namespace or host-escape syscalls without a clear need."
+  attack:
+    tactics: [TA0004, TA0008]
+    techniques: [T1611]
+  evidence: |
+    {
+      "canonicalName": $prop($, 'cdx:container:name'),
+      "offenseTools": $prop($, 'cdx:container:offenseTools'),
+      "riskTags": $prop($, 'cdx:container:riskTags'),
+      "seccompProfile": $prop($, 'cdx:container:seccompProfile'),
+      "seccompBlockedSyscalls": $prop($, 'cdx:container:seccompBlockedSyscalls'),
+      "knowledgeSources": $prop($, 'cdx:container:knowledgeSources'),
+      "srcFile": $prop($, 'SrcFile')
+    }

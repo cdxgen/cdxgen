@@ -55,6 +55,7 @@ CycloneDX custom properties are emitted as name/value pairs, so consumers should
 | `cdx:build:versionSpecifiers`                                                              | Build/manifest parsing (for example C/C++ build metadata)                | Non-exact version constraints captured from build descriptors                                                          | Highlight non-pinned dependency constraints and prioritize hardening toward deterministic builds                                                                 | [Cross-cutting BOM/service/build metadata](#inventory-cross-cutting) | [5](#example-5)                  |
 | `cdx:osquery:category`                                                                     | Host/package discovery via osquery                                       | Query/source category for discovered packages                                                                          | Separate inventory confidence by collection method and tune host-level evidence policies                                                                         | [Cross-cutting BOM/service/build metadata](#inventory-cross-cutting) | [5](#example-5)                  |
 | `cdx:gtfobins:*`                                                                           | Container executable enrichment                                          | GTFOBins-derived functions, privileged contexts, ATT&CK techniques, and risk tags for collected executables           | Flag container-escape helpers, privileged binaries, exfiltration tooling, and mutable-path attack kits in container SBOMs                                      | [Cross-cutting BOM/service/build metadata](#inventory-cross-cutting) | [5](#example-5)                  |
+| `cdx:container:*`                                                                          | Container executable enrichment                                          | ATT&CK-for-Containers tags, Peirates/CDK/DEEPCE playbook references, and seccomp-sensitive syscall context           | Detect offensive toolkit binaries, map cluster-pivot helpers to ATT&CK, and review images that become riskier under permissive seccomp profiles               | [Cross-cutting BOM/service/build metadata](#inventory-cross-cutting) | [5](#example-5)                  |
 | `cdx:vscode-extension:*`                                                                   | VS Code / IDE extensions (`.vsix` and installed dirs)                    | Activation events, extension kind, contributed features, lifecycle scripts, workspace trust posture                    | Detect always-on extensions, flag install-time script execution, audit host/filesystem access, enforce workspace trust and virtual workspace policies            | [IDE and editor extensions](#inventory-ide-extensions)               | [7](#example-7)                  |
 | `cdx:chrome-extension:*`                                                                   | Chromium browser extensions (`-t chrome-extension`, `-t os`)             | Browser/profile context, Chrome/Edge/Brave manifest metadata, capability signals from manifest + Babel source analysis | Flag broad host permissions, web-request interception capability, file/device/network/bluetooth/accessibility/code-injection/fingerprinting exposure             | [IDE and editor extensions](#inventory-ide-extensions)               | [7](#example-7)                  |
 | `cdx:service:httpMethod`                                                                   | OpenAPI/service evidence                                                 | HTTP method associated with discovered service endpoints                                                               | Support API exposure reviews (method-level attack surface and access-control assurance)                                                                          | [Cross-cutting BOM/service/build metadata](#inventory-cross-cutting) | [5](#example-5)                  |
@@ -78,6 +79,8 @@ These are the highest-leverage keys for first-pass policy authoring.
 | `cdx:gtfobins:functions`                         | Encodes GTFOBins execution, file, network, and library-load primitives            | Warning / triage |
 | `cdx:gtfobins:privilegedContexts`                | Highlights sudo/SUID/capability-backed abuse paths                                | Hard deny        |
 | `cdx:gtfobins:riskTags`                          | Summarizes container-escape, exfiltration, persistence, and lateral-movement risk | Warning / triage |
+| `cdx:container:offenseTools`                     | Links executables to Peirates/CDK/DEEPCE-style intrusion playbooks                | Warning / triage |
+| `cdx:container:seccompBlockedSyscalls`           | Shows which escape-relevant syscalls rely on relaxed seccomp                      | Warning / triage |
 | `cdx:vscode-extension:lifecycleScripts`          | Captures install-time execution surface from extension lifecycle hooks             | Hard deny        |
 | `cdx:vscode-extension:activationEvents`          | Wildcard (`*`) activation means always-on; broad trigger surface is higher risk    | Warning / triage |
 | `cdx:vscode-extension:untrustedWorkspaces`       | Controls whether the extension operates in untrusted workspace contexts            | Warning / triage |
@@ -409,6 +412,17 @@ The grouped lists below remain the authoritative inventory. The compact tables, 
 - `cdx:bom:componentSrcFiles`
 - `cdx:bom:componentTypes`
 - `cdx:build:versionSpecifiers`
+- `cdx:container:attackTactics`
+- `cdx:container:attackTechniques`
+- `cdx:container:knowledgeSourceRefs`
+- `cdx:container:knowledgeSources`
+- `cdx:container:matchSource`
+- `cdx:container:matched`
+- `cdx:container:name`
+- `cdx:container:offenseTools`
+- `cdx:container:riskTags`
+- `cdx:container:seccompBlockedSyscalls`
+- `cdx:container:seccompProfile`
 - `cdx:gtfobins:contexts`
 - `cdx:gtfobins:functions`
 - `cdx:gtfobins:matchSource`
@@ -430,6 +444,9 @@ The grouped lists below remain the authoritative inventory. The compact tables, 
 | `cdx:bom:componentSrcFiles`   | metadata  | list string | `package.json`, `requirements.txt`, `pom.xml` | After BOM post-processing                        | Useful for completeness gates and evidence-of-origin attestations | Warning / triage |
 | `cdx:bom:componentTypes`      | metadata  | list string | `library`, `application`, `container`         | After BOM post-processing                        | Helps identify unexpectedly narrow or broad BOM composition       | Warning / triage |
 | `cdx:build:versionSpecifiers` | component | string      | `>=1.0,<2.0`                                  | When build metadata yields non-exact constraints | Good pinning strictness signal for build ecosystems               | Warning / triage |
+| `cdx:container:attackTechniques` | component | list string | `T1611,T1613,T1552.007`                    | When executables match curated container tradecraft knowledge     | Maps binaries to ATT&CK for Containers or related ATT&CK techniques | Warning / triage |
+| `cdx:container:offenseTools`  | component | list string | `peirates,cdk,deepce`                         | When executables overlap known container intrusion playbooks      | High-signal context for cluster-pivot or offensive toolkit review | Warning / triage |
+| `cdx:container:seccompBlockedSyscalls` | component | list string | `setns,unshare,open_by_handle_at`     | When helper abuse depends on syscalls blocked by Docker seccomp   | Helps prevent breakouts caused by permissive or disabled seccomp  | Warning / triage |
 | `cdx:gtfobins:functions`      | component | list string | `shell,upload,file-read`                      | When collected container executables match GTFOBins-derived data | Encodes post-exploit primitives available inside the image        | Warning / triage |
 | `cdx:gtfobins:privilegedContexts` | component | list string | `sudo,suid,capabilities`                   | When GTFOBins metadata exposes privileged execution contexts      | High-value hardening signal for breakout and privilege review     | Hard deny        |
 | `cdx:gtfobins:riskTags`       | component | list string | `container-escape,privilege-escalation`       | When GTFOBins functions imply higher-level container risk tags    | Good summary field for audit rules and triage                     | Warning / triage |
@@ -442,6 +459,8 @@ The grouped lists below remain the authoritative inventory. The compact tables, 
 - Missing `cdx:bom:componentSrcFiles` for a BOM that otherwise claims broad language coverage
 - `cdx:build:versionSpecifiers` present + policy requires exact pinning in build metadata
 - `cdx:gtfobins:riskTags=container-escape` + `cdx:gtfobins:privilegedContexts` present in runtime container images
+- `cdx:container:offenseTools` present + `cdx:container:riskTags=offensive-toolkit` in any runtime image
+- `cdx:container:seccompBlockedSyscalls` present + container deployed with unconfined or custom seccomp profiles
 - `cdx:service:httpMethod=DELETE` or `PATCH` + public service exposure policy outside this document
 
 #### Example payload fragment
@@ -626,6 +645,8 @@ The grouped lists below remain the authoritative inventory. The compact tables, 
 - `cdx:bom:componentNamespaces`
 - `cdx:bom:componentSrcFiles`
 - `cdx:bom:componentTypes`
+- `cdx:container:riskTags`
+- `cdx:container:offenseTools`
 - `cdx:gtfobins:riskTags`
 - `cdx:osquery:category`
 - `cdx:service:httpMethod`

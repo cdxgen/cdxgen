@@ -177,7 +177,7 @@ Rules that evaluate OBOM runtime components from osquery-derived host telemetry 
 
 ### `container-risk` — Container Escape, Privilege, and Post-Exploit Tooling
 
-Rules that evaluate collected container executables against GTFOBins-derived enrichment to highlight container breakout helpers, privileged execution primitives, exfiltration tooling, and suspicious mutable-path binaries.
+Rules that evaluate collected container executables against GTFOBins-derived enrichment plus MITRE ATT&CK for Containers, Peirates/CDK/DEEPCE playbook knowledge, and Docker seccomp guidance to highlight container breakout helpers, privileged execution primitives, offensive toolkits, and seccomp-sensitive escape helpers.
 
 | Rule    | Severity | Description                                                         |
 | ------- | -------- | ------------------------------------------------------------------- |
@@ -186,6 +186,8 @@ Rules that evaluate collected container executables against GTFOBins-derived enr
 | CTR-003 | high     | Container image includes privileged GTFOBins library-load primitive |
 | CTR-004 | high     | Container image retains privileged GTFOBins exfiltration primitive  |
 | CTR-005 | medium   | Container image includes mutable-path remote-execution helper       |
+| CTR-006 | high     | Container image ships dedicated offensive container toolkit         |
+| CTR-007 | medium   | Container image includes seccomp-sensitive namespace escape helper  |
 
 ### `vscode-extension` — VS Code Extension Security
 
