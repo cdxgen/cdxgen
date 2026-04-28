@@ -97,16 +97,17 @@ Passing both trusted switches together is invalid and causes cdxgen to exit with
 
 Rules that evaluate GitHub Actions, GitLab CI, and other CI/CD workflow data for privilege and supply-chain risks.
 
-| Rule   | Severity | Description                                                                  |
-| ------ | -------- | ---------------------------------------------------------------------------- |
-| CI-001 | high     | Unpinned GitHub Action in a workflow with write permissions                  |
-| CI-002 | high     | OIDC token (`id-token: write`) granted to non-official action                |
-| CI-003 | medium   | GitHub Action pinned to a mutable tag instead of SHA                         |
-| CI-004 | medium   | Workflow uses `pull_request_target` trigger                                  |
-| CI-018 | high     | Fork-reachable or privileged workflow dispatches downstream workflows/events |
-| CI-019 | critical | Dispatch chain combines explicit fork context with sensitive credentials     |
-| CI-009 | medium   | Workflow file contains hidden Unicode characters                             |
-| CI-010 | medium   | npm/PyPI publish step uses legacy token-based publishing                     |
+| Rule   | Severity | Description                                                                                  |
+| ------ | -------- | -------------------------------------------------------------------------------------------- |
+| CI-001 | high     | Unpinned GitHub Action in a workflow with write permissions                                  |
+| CI-002 | high     | OIDC token (`id-token: write`) granted to non-official action                                |
+| CI-003 | medium   | GitHub Action pinned to a mutable tag instead of SHA                                         |
+| CI-004 | medium   | Workflow uses `pull_request_target` trigger                                                  |
+| CI-021 | medium   | Heuristic review: high-risk trigger, no explicit permissions block, and sensitive operations |
+| CI-018 | high     | Fork-reachable or privileged workflow dispatches downstream workflows/events                 |
+| CI-019 | critical | Dispatch chain combines explicit fork context with sensitive credentials                     |
+| CI-009 | medium   | Workflow file contains hidden Unicode characters                                             |
+| CI-010 | medium   | npm/PyPI publish step uses legacy token-based publishing                                     |
 
 ### `dependency-source` — Dependency Source Integrity
 

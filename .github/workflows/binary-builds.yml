@@ -3,6 +3,7 @@ name: Binary builds
 on:
   pull_request:
     paths:
+      - '.github/scripts/**'
       - '.github/workflows/binary-builds.yml'
       - '.nvmrc'
       - '.pnpmfile.cjs'
@@ -19,6 +20,7 @@ on:
     tags:
       - 'v*'
     paths:
+      - '.github/scripts/**'
       - '.github/workflows/binary-builds.yml'
       - '.nvmrc'
       - '.pnpmfile.cjs'
@@ -58,12 +60,15 @@ jobs:
           - os: darwin
             arch: amd64
             runner: macos-15-intel
+            ext: ''
           - os: darwin
             arch: arm64
             runner: macos-14
+            ext: ''
           - os: linux
             arch: amd64
             runner: ubuntu-24.04
+            ext: ''
             prepare: |
               wget https://github.com/upx/upx/releases/download/v5.1.0/upx-5.1.0-amd64_linux.tar.xz
               tar -xvf upx-5.1.0-amd64_linux.tar.xz
@@ -73,6 +78,7 @@ jobs:
           - os: linux
             arch: arm64
             runner: ubuntu-24.04-arm
+            ext: ''
             prepare: |
               wget https://github.com/upx/upx/releases/download/v5.1.0/upx-5.1.0-arm64_linux.tar.xz
               tar -xvf upx-5.1.0-arm64_linux.tar.xz
@@ -82,14 +88,17 @@ jobs:
           - os: windows
             arch: amd64
             runner: windows-2022
+            ext: .exe
           - os: windows
             arch: arm64
             runner: windows-11-arm
+            ext: .exe
           # Set musl configurations
           - os: linux
             image: php:8.4-bullseye@sha256:aa9ca431aa35219492184f73202359109e172e33710e7d9928ee7da600b60cb7
             libc-suffix: ''
             node-download-url: https://nodejs.org/dist/
+            ext: ''
             prepare: |
               apt update
               apt install -y curl xz-utils python3 python3-dev python3-pip
@@ -105,123 +114,9 @@ jobs:
             image: php:8.4-alpine3.21@sha256:9c1dd92c492546d1de23decef0d67280f3f9413942ff44ec119af6db642cd9f0
             libc-suffix: -musl
             node-download-url: https://unofficial-builds.nodejs.org/download/release/
+            ext: ''
             prepare: |
               apk add --no-cache bash curl libstdc++ upx
-          # Set the commands & file-extensions
-          - cmd: |
-              # Prepare workspace
-              rm -rf *.cdx.json ADVANCED.md ci contrib devenv.* pyproject.toml renovate.json semicolon_delimited_script test tools_config uv.lock pnpm-workspace.yaml .versions upx-5.1.0*
-              pnpm install:prod --config.node-linker=hoisted
-              rm -rf .pnpm-store
-              # Set UPX flag based on uname (Works in Docker and on Host)
-              UPX_FLAG=""
-              if [ "$(uname -s)" = "Linux" ]; then
-                UPX_FLAG="--upx"
-              fi
-
-              # Produce cdxgen binary
-              pnpm --package=@appthreat/caxa dlx caxa --input . --metadata-file .cdxgen-metadata.json --output cdxgen $UPX_FLAG -- "{{caxa}}/node_modules/.bin/node" "{{caxa}}/bin/cdxgen.js"
-              # Generate sbom
-              node bin/cdxgen.js -t caxa -t jar -t php -t ruby -o .cdxgen-postbuild.cdx.json --lifecycle post-build --include-formulation --no-install-deps
-              chmod +x cdxgen
-              ./cdxgen --version
-              ./cdxgen --help
-
-              # Prepare for slim binaries
-              rm -rf node_modules
-              pnpm install:prod --config.node-linker=hoisted --no-optional
-              rm -rf .pnpm-store
-              # Produce slim cdxgen binary
-              pnpm --package=@appthreat/caxa dlx caxa --input . --metadata-file .cdxgen-slim-metadata.json --output cdxgen-slim $UPX_FLAG -- "{{caxa}}/node_modules/.bin/node" "{{caxa}}/bin/cdxgen.js"
-              # Generate sbom
-              node bin/cdxgen.js -t caxa -t jar -t php -t ruby -o .cdxgen-slim-postbuild.cdx.json --lifecycle post-build --include-formulation --no-install-deps
-              chmod +x cdxgen-slim
-              ./cdxgen-slim --version
-              ./cdxgen-slim --help
-
-              # Produce verify binary
-              pnpm --package=@appthreat/caxa dlx caxa --input . --metadata-file .cdx-verify-metadata.json --output cdx-verify $UPX_FLAG -- "{{caxa}}/node_modules/.bin/node" "{{caxa}}/bin/verify.js"
-              # Generate sbom
-              node bin/cdxgen.js -t caxa -t jar -t php -t ruby -o .cdx-verify-postbuild.cdx.json --lifecycle post-build --include-formulation --no-install-deps              
-              chmod +x cdx-verify
-              ./cdx-verify --version
-              ./cdx-verify --help
-
-              # Produce sign binary
-              pnpm --package=@appthreat/caxa dlx caxa --input . --metadata-file .cdx-sign-metadata.json --output cdx-sign $UPX_FLAG -- "{{caxa}}/node_modules/.bin/node" "{{caxa}}/bin/sign.js"
-              # Generate sbom
-              node bin/cdxgen.js -t caxa -t jar -t php -t ruby -o .cdx-sign-postbuild.cdx.json --lifecycle post-build --include-formulation --no-install-deps
-              chmod +x cdx-sign
-              ./cdx-sign --version
-              ./cdx-sign --help
-
-              # Produce validate binary
-              pnpm --package=@appthreat/caxa dlx caxa --input . --metadata-file .cdx-validate-metadata.json --output cdx-validate $UPX_FLAG -- "{{caxa}}/node_modules/.bin/node" "{{caxa}}/bin/validate.js"
-              # Generate sbom
-              node bin/cdxgen.js -t caxa -t jar -t php -t ruby -o .cdx-validate-postbuild.cdx.json --lifecycle post-build --include-formulation --no-install-deps
-              chmod +x cdx-validate
-              ./cdx-validate --version
-              ./cdx-validate --help
-
-              # Produce convert binary
-              pnpm --package=@appthreat/caxa dlx caxa --input . --metadata-file .cdx-convert-metadata.json --output cdx-convert $UPX_FLAG -- "{{caxa}}/node_modules/.bin/node" "{{caxa}}/bin/convert.js"
-              # Generate sbom
-              node bin/cdxgen.js -t caxa -t jar -t php -t ruby -o .cdx-convert-postbuild.cdx.json --lifecycle post-build --include-formulation --no-install-deps
-              chmod +x cdx-convert
-              ./cdx-convert --version
-              ./cdx-convert --help
-            ext: ''
-          - os: windows
-            cmd: |
-              # Prepare workspace
-              Remove-Item -Path ADVANCED.md,ci,contrib,devenv.*,pyproject.toml,renovate.json,test,tools_config,uv.lock,pnpm-workspace.yaml -Force -Recurse
-              pnpm install:prod --config.node-linker=hoisted
-              # Produce cdxgen binary
-              pnpm --package=@appthreat/caxa dlx caxa --input . --metadata-file .cdxgen-metadata.json --output cdxgen.exe -- "{{caxa}}/node_modules/.bin/node" "{{caxa}}/bin/cdxgen.js"
-              # Generate sbom
-              node bin/cdxgen.js -t caxa -t jar -t php -t ruby -o .cdxgen-postbuild.cdx.json --lifecycle post-build --include-formulation --no-install-deps
-              .\cdxgen.exe --version
-              .\cdxgen.exe --help
-
-              # Prepare for slim binaries
-              Remove-Item node_modules -Force -Recurse
-              pnpm install:prod --config.node-linker=hoisted --no-optional
-
-              # Produce slim cdxgen binary
-              pnpm --package=@appthreat/caxa dlx caxa --input . --metadata-file .cdxgen-slim-metadata.json --output cdxgen-slim.exe -- "{{caxa}}/node_modules/.bin/node" "{{caxa}}/bin/cdxgen.js"
-              # Generate sbom
-              node bin/cdxgen.js -t caxa -t jar -t php -t ruby -o .cdxgen-slim-postbuild.cdx.json --lifecycle post-build --include-formulation --no-install-deps
-              .\cdxgen-slim.exe --version
-              .\cdxgen-slim.exe --help
-
-              # Produce verify binary
-              pnpm --package=@appthreat/caxa dlx caxa --input . --metadata-file .cdx-verify-metadata.json --output cdx-verify.exe -- "{{caxa}}/node_modules/.bin/node" "{{caxa}}/bin/verify.js"
-              # Generate sbom
-              node bin/cdxgen.js -t caxa -t jar -t php -t ruby -o .cdx-verify-postbuild.cdx.json --lifecycle post-build --include-formulation --no-install-deps
-              .\cdx-verify.exe --version
-              .\cdx-verify.exe --help
-
-              # Produce sign binary
-              pnpm --package=@appthreat/caxa dlx caxa --input . --metadata-file .cdx-sign-metadata.json --output cdx-sign.exe -- "{{caxa}}/node_modules/.bin/node" "{{caxa}}/bin/sign.js"
-              # Generate sbom
-              node bin/cdxgen.js -t caxa -t jar -t php -t ruby -o .cdx-sign-postbuild.cdx.json --lifecycle post-build --include-formulation --no-install-deps
-              .\cdx-sign.exe --version
-              .\cdx-sign.exe --help
-
-              # Produce validate binary
-              pnpm --package=@appthreat/caxa dlx caxa --input . --metadata-file .cdx-validate-metadata.json --output cdx-validate.exe -- "{{caxa}}/node_modules/.bin/node" "{{caxa}}/bin/validate.js"
-              # Generate sbom
-              node bin/cdxgen.js -t caxa -t jar -t php -t ruby -o .cdx-validate-postbuild.cdx.json --lifecycle post-build --include-formulation --no-install-deps
-              .\cdx-validate.exe --version
-              .\cdx-validate.exe --help
-
-              # Produce convert binary
-              pnpm --package=@appthreat/caxa dlx caxa --input . --metadata-file .cdx-convert-metadata.json --output cdx-convert.exe -- "{{caxa}}/node_modules/.bin/node" "{{caxa}}/bin/convert.js"
-              # Generate sbom
-              node bin/cdxgen.js -t caxa -t jar -t php -t ruby -o .cdx-convert-postbuild.cdx.json --lifecycle post-build --include-formulation --no-install-deps
-              .\cdx-convert.exe --version
-              .\cdx-convert.exe --help
-            ext: .exe
     runs-on: ${{ matrix.runner }}
     permissions:
       contents: write  # needed to issue a GH release or uploading release assets
@@ -271,7 +166,7 @@ jobs:
           export TARGET_OS="${{ matrix.os }}"
           export TARGET_ARCH="${{ matrix.arch }}"
           export TARGET_LIBC="${{ matrix.libc }}"
-          ${{ matrix.cmd }}
+           bash .github/scripts/build-standalone.sh
           chown -R ${{ steps.user_info.outputs.user }} .
           BASH_EOF
           EOF
@@ -285,9 +180,18 @@ jobs:
             -e FETCH_LICENSE=true \
             ${{ matrix.image }} \
             /bin/sh build-in-docker.sh
-      - name: Build for darwin & windows
-        if: ${{ matrix.libc == 'gnu' && matrix.os != 'linux' }}
-        run: ${{ matrix.cmd }}
+      - name: Build for darwin
+        if: ${{ matrix.libc == 'gnu' && matrix.os == 'darwin' }}
+        run: bash .github/scripts/build-standalone.sh
+        env:
+          FETCH_LICENSE: true
+          TARGET_OS: ${{ matrix.os }}
+          TARGET_ARCH: ${{ matrix.arch }}
+          TARGET_LIBC: ${{ matrix.libc }}
+      - name: Build for windows
+        if: ${{ matrix.libc == 'gnu' && matrix.os == 'windows' }}
+        run: ./.github/scripts/build-standalone.ps1
+        shell: pwsh
         env:
           FETCH_LICENSE: true
           TARGET_OS: ${{ matrix.os }}
@@ -298,6 +202,7 @@ jobs:
           # Rename to temporary name -- fix for renaming to the same name, which does not work
           mv cdxgen${{ matrix.ext }} _cdxgen
           mv cdxgen-slim${{ matrix.ext }} _cdxgen-slim
+          mv cdx-audit${{ matrix.ext }} _cdx-audit
           mv cdx-verify${{ matrix.ext }} _cdx-verify
           mv cdx-sign${{ matrix.ext }} _cdx-sign
           mv cdx-validate${{ matrix.ext }} _cdx-validate
@@ -306,6 +211,7 @@ jobs:
           # Rename to the correct name
           mv _cdxgen cdxgen-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }}
           mv _cdxgen-slim cdxgen-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}-slim${{ matrix.ext }}
+          mv _cdx-audit cdx-audit-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }}
           mv _cdx-verify cdx-verify-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }}
           mv _cdx-sign cdx-sign-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }}
           mv _cdx-validate cdx-validate-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }}
@@ -314,6 +220,7 @@ jobs:
           # Rename sbom to correct name
           mv .cdxgen-postbuild.cdx.json cdxgen-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}-postbuild.cdx.json
           mv .cdxgen-slim-postbuild.cdx.json cdxgen-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}-slim-postbuild.cdx.json
+          mv .cdx-audit-postbuild.cdx.json cdx-audit-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}-postbuild.cdx.json
           mv .cdx-verify-postbuild.cdx.json cdx-verify-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}-postbuild.cdx.json
           mv .cdx-sign-postbuild.cdx.json cdx-sign-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}-postbuild.cdx.json
           mv .cdx-validate-postbuild.cdx.json cdx-validate-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}-postbuild.cdx.json
@@ -323,6 +230,7 @@ jobs:
         run: |
           shasum -a 256 cdxgen-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }} > cdxgen-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }}.sha256
           shasum -a 256 cdxgen-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}-slim${{ matrix.ext }} > cdxgen-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}-slim${{ matrix.ext }}.sha256
+          shasum -a 256 cdx-audit-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }} > cdx-audit-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }}.sha256
           shasum -a 256 cdx-verify-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }} > cdx-verify-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }}.sha256
           shasum -a 256 cdx-sign-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }} > cdx-sign-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }}.sha256
           shasum -a 256 cdx-validate-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }} > cdx-validate-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }}.sha256
@@ -332,6 +240,7 @@ jobs:
         run: |
           sha256sum cdxgen-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }} > cdxgen-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }}.sha256
           sha256sum cdxgen-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}-slim${{ matrix.ext }} > cdxgen-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}-slim${{ matrix.ext }}.sha256
+          sha256sum cdx-audit-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }} > cdx-audit-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }}.sha256
           sha256sum cdx-verify-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }} > cdx-verify-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }}.sha256
           sha256sum cdx-sign-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }} > cdx-sign-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }}.sha256
           sha256sum cdx-validate-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }} > cdx-validate-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }}.sha256
@@ -341,75 +250,33 @@ jobs:
         run: |
           (Get-FileHash .\cdxgen-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }}).hash | Out-File -FilePath .\cdxgen-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }}.sha256
           (Get-FileHash .\cdxgen-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}-slim${{ matrix.ext }}).hash | Out-File -FilePath .\cdxgen-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}-slim${{ matrix.ext }}.sha256
+          (Get-FileHash .\cdx-audit-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }}).hash | Out-File -FilePath .\cdx-audit-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }}.sha256
           (Get-FileHash .\cdx-verify-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }}).hash | Out-File -FilePath .\cdx-verify-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }}.sha256
           (Get-FileHash .\cdx-sign-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }}).hash | Out-File -FilePath .\cdx-sign-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }}.sha256
           (Get-FileHash .\cdx-validate-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }}).hash | Out-File -FilePath .\cdx-validate-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }}.sha256
           (Get-FileHash .\cdx-convert-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }}).hash | Out-File -FilePath .\cdx-convert-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }}.sha256
       - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a  # v7.0.1
         with:
-          name: cdxgen-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }}
+          name: cdx-binaries-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}
           path: |
-            cdxgen-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }}
-            cdxgen-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}-postbuild.cdx.json
-          if-no-files-found: error
-      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a  # v7.0.1
-        with:
-          name: cdxgen-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}-slim${{ matrix.ext }}
-          path: |
-            cdxgen-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}-slim${{ matrix.ext }}
-            cdxgen-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}-slim-postbuild.cdx.json
-          if-no-files-found: error
-      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a  # v7.0.1
-        with:
-          name: cdx-verify-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }}
-          path: |
-            cdx-verify-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }}
-            cdx-verify-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}-postbuild.cdx.json
-          if-no-files-found: error
-      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a  # v7.0.1
-        with:
-          name: cdx-sign-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }}
-          path: |
-            cdx-sign-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }}
-            cdx-sign-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}-postbuild.cdx.json
-          if-no-files-found: error
-      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a  # v7.0.1
-        with:
-          name: cdx-validate-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }}
-          path: |
-            cdx-validate-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }}
-            cdx-validate-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}-postbuild.cdx.json
-          if-no-files-found: error
-      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a  # v7.0.1
-        with:
-          name: cdx-convert-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }}
-          path: |
-            cdx-convert-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }}
-            cdx-convert-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}-postbuild.cdx.json
+            cdxgen-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}*
+            cdx-audit-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}*
+            cdx-verify-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}*
+            cdx-sign-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}*
+            cdx-validate-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}*
+            cdx-convert-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}*
           if-no-files-found: error
       - name: Release
         uses: softprops/action-gh-release@b4309332981a82ec1c5618f44dd2e27cc8bfbfda  # v3.0.0
         if: startsWith(github.ref, 'refs/tags/')
         with:
           files: |
-            cdxgen-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }}
-            cdxgen-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }}.sha256
-            cdxgen-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}-postbuild.cdx.json
-            cdxgen-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}-slim${{ matrix.ext }}
-            cdxgen-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}-slim${{ matrix.ext }}.sha256
-            cdxgen-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}-slim-postbuild.cdx.json
-            cdx-verify-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }}
-            cdx-verify-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }}.sha256
-            cdx-verify-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}-postbuild.cdx.json
-            cdx-sign-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }}
-            cdx-sign-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }}.sha256
-            cdx-sign-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}-postbuild.cdx.json
-            cdx-validate-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }}
-            cdx-validate-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }}.sha256
-            cdx-validate-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}-postbuild.cdx.json
-            cdx-convert-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }}
-            cdx-convert-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }}.sha256
-            cdx-convert-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}-postbuild.cdx.json
+            cdxgen-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}*
+            cdx-audit-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}*
+            cdx-verify-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}*
+            cdx-sign-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}*
+            cdx-validate-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}*
+            cdx-convert-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}*
 
   retry:
     needs: binaries

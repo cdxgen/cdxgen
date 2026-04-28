@@ -1,8 +1,30 @@
-# cdx-audit — Predictive supply-chain audit
+# cdx-audit — Upstream supply-chain risk prioritization
 
-`cdx-audit` analyzes existing CycloneDX BOMs to estimate which upstream dependencies deserve immediate supply-chain review.
+`cdx-audit` helps security, engineering, and governance teams prioritize upstream dependency review from existing CycloneDX BOMs. It answers a practical operational question: **which dependencies should we review first, and why?**
 
-Unlike `cdxgen --bom-audit`, which evaluates the BOM you just generated, `cdx-audit` starts from one or more existing BOMs, resolves supported package URLs back to source repositories, generates child SBOMs for those sources, and scores forward-looking risk using cdxgen's audit rules plus predictive heuristics.
+It does this by resolving supported package URLs back to source repositories, generating child SBOMs for those sources, and combining cdxgen rules with explainable, high-signal heuristics to surface the dependencies most likely to warrant attention.
+
+Unlike `cdxgen --bom-audit`, which evaluates the BOM you just generated, `cdx-audit` starts from one or more existing BOMs and investigates the upstream repositories behind supported dependencies.
+
+## Product positioning
+
+`cdx-audit` is strongest when it can identify **structural precursors** that have repeatedly shown up in modern supply-chain incidents, for example:
+
+- risky GitHub Actions workflow patterns
+- dangerous publish paths or legacy token usage
+- install-time execution or concealment signals
+- weak or missing provenance signals
+
+`cdx-audit` works best as part of a broader supply-chain assurance program alongside:
+
+- reproducible builds
+- registry-side integrity controls
+- maintainer identity review
+- provenance verification
+- runtime behavior analysis
+- human review
+
+Use it as an **evidence-backed prioritization layer** that helps teams review faster, focus earlier, and explain why a dependency moved to the front of the queue.
 
 ## Who should use this
 
@@ -10,7 +32,7 @@ Unlike `cdxgen --bom-audit`, which evaluates the BOM you just generated, `cdx-au
 
 Use `cdx-audit` to answer:
 
-- Which third-party packages deserve immediate review?
+- Which third-party packages should I inspect before spending time elsewhere?
 - Which findings are corroborated strongly enough to justify escalation?
 - Which upstream workflows, repositories, or provenance signals should I inspect first?
 
@@ -18,9 +40,9 @@ Use `cdx-audit` to answer:
 
 Use `cdx-audit` to answer:
 
-- Which dependency should I review before the next release?
-- Which downstream workflow file or package behavior triggered the score?
-- What is the next concrete action for this dependency?
+- Which dependency is most likely to deserve review before the next release?
+- Which upstream workflow file or package behavior triggered the score?
+- What is the next concrete review action for this dependency?
 
 ### Platform, governance, and compliance teams
 
@@ -28,15 +50,19 @@ Use `cdx-audit` to answer:
 
 - Which dependencies need risk triage across a portfolio of BOMs?
 - Which results can be exported into SARIF or preserved as CycloneDX annotations?
-- Which manual SCVS reviews should be supported with predictive evidence?
+- Which manual SCVS reviews should be supported with heuristic evidence?
 
 ## When to use `cdx-audit`
 
-Use `cdx-audit` when you already have one or more BOMs and want to investigate upstream compromise exposure.
+Use `cdx-audit` when you already have one or more BOMs and want to prioritize upstream dependency review based on explainable risk signals.
+
+It is especially useful when “**where should we look first?**” matters as much as “**what evidence can we show for that decision?**”.
 
 Use [`BOM_AUDIT.md`](BOM_AUDIT.md) when you want to embed post-generation findings into the BOM being generated.
 
 Use [`CDX_VALIDATE.md`](CDX_VALIDATE.md) when the primary goal is structural validation, SCVS coverage, or CRA-oriented review.
+
+Use `cdx-audit` to accelerate prioritization and escalation decisions. Final disposition should still account for provenance, internal policy, and analyst review.
 
 ## Supported scope
 
@@ -47,6 +73,52 @@ Use [`CDX_VALIDATE.md`](CDX_VALIDATE.md) when the primary goal is structural val
 
 Other ecosystems are skipped and reported as unsupported.
 
+Current practical scope limits:
+
+- only supported purls can be analyzed
+- source resolution can fail or resolve to incomplete metadata
+- clean source does not guarantee clean release artifacts
+- some malicious behavior that lives only in runtime, registry, or maintainer infrastructure may be outside the tool's line of sight
+
+## Installing `cdx-audit`
+
+`cdx-audit` ships with the main npm package:
+
+```bash
+npm install -g @cyclonedx/cdxgen
+cdx-audit --help
+```
+
+Without a global install:
+
+```bash
+corepack pnpm dlx --package=@cyclonedx/cdxgen cdx-audit --help
+```
+
+GitHub Releases also publish standalone binaries such as `cdx-audit-linux-amd64`, `cdx-audit-darwin-arm64`, and `cdx-audit-windows-amd64.exe` together with matching `.sha256` files.
+
+Example with the GitHub CLI in GitHub Actions:
+
+```yaml
+permissions:
+  contents: read
+
+steps:
+  - name: Download cdx-audit binary from GitHub Releases
+    env:
+      GH_TOKEN: ${{ github.token }}
+    run: |
+      gh release download v12.3.0 \
+        --repo cdxgen/cdxgen \
+        --pattern 'cdx-audit-linux-amd64' \
+        --pattern 'cdx-audit-linux-amd64.sha256'
+      sha256sum -c cdx-audit-linux-amd64.sha256
+      chmod +x cdx-audit-linux-amd64
+      ./cdx-audit-linux-amd64 --help
+```
+
+For Linux, macOS, and Windows download snippets with hash verification, see [`CLI.md`](CLI.md#standalone-release-binaries).
+
 ## What the command does
 
 1. Load one BOM with `--bom` or many BOMs from `--bom-dir`
@@ -55,9 +127,11 @@ Other ecosystems are skipped and reported as unsupported.
 4. Resolve each supported purl to a source repository URL
 5. Clone or reuse the source under `--workspace-dir`
 6. Generate or reuse a child SBOM for that upstream repository
-7. Evaluate built-in audit rules and predictive heuristics against the child SBOM
+7. Evaluate built-in rules and heuristics against the child SBOM
 8. Enrich results with provenance and publishing signals when registries expose them
 9. Score each target conservatively so stronger severities require corroboration
+
+The result is a prioritized, explainable **review queue** for upstream investigation.
 
 ## Quick start
 
@@ -160,7 +234,7 @@ Best for code scanning platforms and centralized review queues.
 
 ### CycloneDX annotations
 
-When a predictive result is written back into a BOM by downstream workflows, the annotation text preserves:
+When a `cdx-audit` result is written back into a BOM by downstream workflows, the annotation text preserves:
 
 - `cdx:audit:nextAction`
 - `cdx:audit:upstreamGuidance`
@@ -178,12 +252,29 @@ These properties are useful in [`REPL.md`](REPL.md), Dependency-Track, and other
 - `high` requires corroboration across stronger signals or categories
 - `critical` is reserved for rare compound patterns with strong confidence
 
-Two rule families receive additional predictive weight because they encode attacker-relevant, compound behavior rather than generic hygiene issues:
+This severity model is designed for operational use:
+
+- lower scores generally indicate weaker or less corroborated signals
+- higher scores generally indicate stronger signal convergence and a better candidate for early review
+- stronger scores mean “review this sooner with higher confidence”, not “skip analyst validation”
+
+Two rule families receive additional weight because they encode attacker-relevant, compound behavior rather than generic hygiene issues:
 
 - `CI-019` — explicit fork-context plus sensitive-context plus downstream dispatch
 - `INT-009` — obfuscated npm lifecycle execution
 
 This keeps prioritization focused on structurally higher-signal packages while avoiding alert floods from single weak detectors.
+
+## Scope and boundaries
+
+`cdx-audit` is intentionally focused. It does not currently aim to:
+
+- cover all ecosystems equally
+- detect completely novel attack techniques with no structural precursor
+- verify that release artifacts exactly match reviewed source
+- see maintainer account takeovers unless they leave source-visible traces
+- replace provenance, signatures, reproducibility, or registry protections
+- replace manual investigation for high-impact decisions
 
 ## Detection coverage
 
@@ -195,6 +286,8 @@ This keeps prioritization focused on structurally higher-signal packages while a
 - workflows that inspect fork or head-repository context before dispatching downstream automation
 - explicit local sender ↔ receiver workflow correlation when the sender target can be matched uniquely inside the same repository
 - dispatches triggered via `gh workflow run`, GitHub API endpoints, `actions/github-script`, and common helper actions
+
+This is one of the stronger parts of the tool today because many recent supply-chain incidents have left exactly these workflow-level breadcrumbs.
 
 Correlated sender → receiver edges are preserved in the console summary, SARIF properties, SARIF related locations, and CycloneDX annotations.
 
@@ -228,6 +321,16 @@ When registry metadata is available, cdxgen records and uses signals such as:
 
 Positive provenance evidence reduces the final score. Missing provenance is treated as weak context, not as proof of compromise.
 
+## Additional considerations
+
+Like any source- and metadata-driven prioritization system, `cdx-audit` can underrepresent cases such as:
+
+- clean-looking repositories with malicious release artifacts
+- attacks that happen entirely through stolen maintainer credentials
+- runtime-only payloads or environment-triggered behavior
+- malicious infrastructure outside the source tree
+- subtle abuse that does not resemble existing incident patterns
+
 ## Performance and caching
 
 - progress is written to `stderr`, so JSON output on `stdout` remains machine-readable
@@ -242,12 +345,14 @@ Positive provenance evidence reduces the final score. Missing provenance is trea
 - start with `--scope required` for the highest-value triage pass
 - use `--report sarif` when you want findings in a shared review queue
 - treat `CI-019` and `INT-009` as escalation pivots, especially when corroborated
+- treat results as strong prioritization input for human review, not standalone proof
 
 ### For maintainers
 
 - start with the console report to get the next concrete action
 - inspect sender and receiver workflows together when a dispatch edge is shown
 - use `--workspace-dir` during repeated investigations to avoid recloning the same targets
+- keep provenance, release controls, and compensating controls in the loop even for lower-scored targets
 
 ### For platform and compliance teams
 
@@ -257,7 +362,7 @@ Positive provenance evidence reduces the final score. Missing provenance is trea
 
 ## Relationship to custom properties
 
-The predictive audit relies on the custom properties documented in [`CUSTOM_PROPERTIES.md`](CUSTOM_PROPERTIES.md), especially GitHub workflow metadata, provenance properties, and install-time execution indicators.
+The prioritization engine relies on the custom properties documented in [`CUSTOM_PROPERTIES.md`](CUSTOM_PROPERTIES.md), especially GitHub workflow metadata, provenance properties, and install-time execution indicators.
 
 ## Related docs
 

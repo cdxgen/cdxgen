@@ -1,0 +1,12 @@
+name: Explicit permissions sensitive workflow
+on: [issue_comment]
+permissions: {}
+jobs:
+  relay:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger downstream release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run release.yml --ref main
+

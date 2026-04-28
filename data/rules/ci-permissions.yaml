@@ -611,3 +611,36 @@
       "workflowHasWritePermissions": $prop($, 'cdx:github:workflow:hasWritePermissions')
     }
 
+- id: CI-021
+  name: "Heuristic: high-risk trigger with implicit permissions and sensitive operations"
+  description: "High-risk GitHub Actions workflows that omit explicit permissions blocks while still performing sensitive operations may rely on repository-default token scopes. This is a review heuristic, not proof of write access."
+  severity: medium
+  category: ci-permission
+  attack:
+    tactics: [TA0004, TA0006]
+    techniques: [T1528, T1552]
+  condition: |
+    $auditComponents($)[
+      $prop($, 'cdx:github:workflow:hasHighRiskTrigger') = 'true'
+      and $prop($, 'cdx:github:workflow:hasAnyExplicitPermissionsBlock') = 'false'
+      and $prop($, 'cdx:github:step:hasSensitiveOperations') = 'true'
+    ]
+  location: |
+    {
+      "bomRef": $."bom-ref",
+      "purl": purl,
+      "file": $prop($, 'cdx:github:workflow:file')
+    }
+  message: "Heuristic review: workflow '{{ $prop($, 'cdx:github:workflow:name') }}' uses a high-risk trigger without an explicit permissions block while step '{{ $safeStr($prop($, 'cdx:github:step:name')) != '' ? $prop($, 'cdx:github:step:name') : name }}' performs sensitive operation(s) '{{ $prop($, 'cdx:github:step:sensitiveOperations') }}'"
+  mitigation: "Add an explicit top-level permissions: block (for example permissions: {}) and re-grant only the minimum per-job scopes needed for the sensitive step"
+  evidence: |
+    {
+      "workflowTriggers": $prop($, 'cdx:github:workflow:triggers'),
+      "workflowHasExplicitPermissionsBlock": $prop($, 'cdx:github:workflow:hasExplicitPermissionsBlock'),
+      "workflowHasAnyExplicitPermissionsBlock": $prop($, 'cdx:github:workflow:hasAnyExplicitPermissionsBlock'),
+      "jobHasExplicitPermissionsBlock": $prop($, 'cdx:github:job:hasExplicitPermissionsBlock'),
+      "sensitiveOperations": $prop($, 'cdx:github:step:sensitiveOperations'),
+      "sensitiveContextRefs": $prop($, 'cdx:github:step:sensitiveContextRefs'),
+      "dispatchKinds": $prop($, 'cdx:github:step:dispatchKinds')
+    }
+

@@ -93,14 +93,50 @@ Sections include:
 
 ## Installing
 
+Install the npm package when you want the full multi-command CLI surface.
+
 ```shell
 npm install -g @cyclonedx/cdxgen
 ```
+
+Installing `@cyclonedx/cdxgen` exposes these commands:
+
+| Command         | Purpose                                                                                              | Standalone GitHub release binary |
+| --------------- | ---------------------------------------------------------------------------------------------------- | -------------------------------- |
+| `cdxgen`        | Generate CycloneDX / SPDX BOMs from source, images, binaries, git URLs, or purls                     | yes                              |
+| `cdx-audit`     | Prioritize existing BOM dependencies for upstream supply-chain review using explainable risk signals | yes                              |
+| `cdx-convert`   | Convert CycloneDX JSON to SPDX 3.0.1 JSON-LD                                                         | yes                              |
+| `cdx-sign`      | Sign BOMs with JSF signatures                                                                        | yes                              |
+| `cdx-validate`  | Validate BOMs and benchmark posture                                                                  | yes                              |
+| `cdx-verify`    | Verify BOM signatures                                                                                | yes                              |
+| `cdxi`          | Open the interactive REPL                                                                            | no                               |
+| `evinse`        | Add evidence, reachability, and service context                                                      | no                               |
+| `cbom`          | Alias for CBOM-oriented `cdxgen` defaults                                                            | use `cdxgen`                     |
+| `obom`          | Alias for `cdxgen -t os`                                                                             | use `cdxgen`                     |
+| `saasbom`       | Alias for SaaSBOM-oriented `cdxgen` defaults                                                         | use `cdxgen`                     |
+| `spdxgen`       | Alias for `cdxgen --format spdx`                                                                     | use `cdxgen`                     |
+| `cdxgen-secure` | Alias for hardened `cdxgen` defaults                                                                 | use `cdxgen`                     |
+
+Standalone GitHub release binaries are published for `cdxgen`, `cdxgen-slim`, `cdx-audit`, `cdx-convert`, `cdx-sign`, `cdx-validate`, and `cdx-verify`.
+
+`cdx-audit` is designed to accelerate upstream dependency review with explainable, evidence-backed risk prioritization. It complements provenance, reproducibility, and manual investigation rather than replacing them.
 
 To run cdxgen without installing (hotloading), use the [pnpm dlx](https://pnpm.io/cli/dlx) command.
 
 ```shell
 corepack pnpm dlx @cyclonedx/cdxgen --help
+```
+
+You can call any packaged command the same way:
+
+```shell
+corepack pnpm dlx --package=@cyclonedx/cdxgen cdx-audit --help
+corepack pnpm dlx --package=@cyclonedx/cdxgen cdx-convert --help
+corepack pnpm dlx --package=@cyclonedx/cdxgen cdx-validate --help
+corepack pnpm dlx --package=@cyclonedx/cdxgen cdx-sign --help
+corepack pnpm dlx --package=@cyclonedx/cdxgen cdx-verify --help
+corepack pnpm dlx --package=@cyclonedx/cdxgen evinse --help
+corepack pnpm dlx --package=@cyclonedx/cdxgen cdxi --help
 ```
 
 If you are a [Homebrew][homebrew-homepage] user, you can also install [cdxgen][homebrew-cdxgen] via:
@@ -113,6 +149,86 @@ If you are a [Winget][winget-homepage] user on windows, you can also install cdx
 
 ```shell
 winget install cdxgen
+```
+
+### Standalone GitHub release binaries
+
+If you want a single-file executable instead of an npm installation, download a published release asset and verify its hash before executing it.
+
+Common asset names:
+
+- `cdxgen-linux-amd64`
+- `cdxgen-linux-amd64-musl`
+- `cdxgen-darwin-arm64`
+- `cdxgen-windows-amd64.exe`
+- `cdx-audit-linux-amd64`
+- `cdx-audit-darwin-arm64`
+- `cdx-audit-windows-amd64.exe`
+- `cdx-convert-*`, `cdx-sign-*`, `cdx-validate-*`, `cdx-verify-*`
+
+#### Linux
+
+```bash
+VERSION="v12.3.0"
+ASSET="cdx-audit-linux-amd64"
+BASE_URL="https://github.com/cdxgen/cdxgen/releases/download/${VERSION}"
+
+curl -fsSLO "${BASE_URL}/${ASSET}"
+curl -fsSLO "${BASE_URL}/${ASSET}.sha256"
+sha256sum -c "${ASSET}.sha256"
+chmod +x "${ASSET}"
+./"${ASSET}" --help
+```
+
+#### macOS
+
+```bash
+VERSION="v12.3.0"
+ASSET="cdx-audit-darwin-arm64"
+BASE_URL="https://github.com/cdxgen/cdxgen/releases/download/${VERSION}"
+
+curl -fsSLO "${BASE_URL}/${ASSET}"
+curl -fsSLO "${BASE_URL}/${ASSET}.sha256"
+shasum -a 256 -c "${ASSET}.sha256"
+chmod +x "${ASSET}"
+./"${ASSET}" --help
+```
+
+#### Windows (PowerShell)
+
+```powershell
+$Version = "v12.3.0"
+$Asset = "cdx-audit-windows-amd64.exe"
+$BaseUrl = "https://github.com/cdxgen/cdxgen/releases/download/$Version"
+
+Invoke-WebRequest -Uri "$BaseUrl/$Asset" -OutFile $Asset
+Invoke-WebRequest -Uri "$BaseUrl/$Asset.sha256" -OutFile "$Asset.sha256"
+$Expected = (Get-Content "$Asset.sha256" | Select-Object -First 1).Trim().Split()[0]
+$Actual = (Get-FileHash $Asset -Algorithm SHA256).Hash.ToLowerInvariant()
+if ($Actual -ne $Expected.ToLowerInvariant()) {
+  throw "SHA256 mismatch for $Asset"
+}
+.\$Asset --help
+```
+
+#### GitHub Actions with the GitHub CLI
+
+```yaml
+permissions:
+  contents: read
+
+steps:
+  - name: Download cdx-audit release binary
+    env:
+      GH_TOKEN: ${{ github.token }}
+    run: |
+      gh release download v12.3.0 \
+        --repo cdxgen/cdxgen \
+        --pattern 'cdx-audit-linux-amd64' \
+        --pattern 'cdx-audit-linux-amd64.sha256'
+      sha256sum -c cdx-audit-linux-amd64.sha256
+      chmod +x cdx-audit-linux-amd64
+      ./cdx-audit-linux-amd64 --help
 ```
 
 Deno and bun runtime can be used with limited support.
@@ -149,26 +265,34 @@ import { createBom, submitBom } from "npm:@cyclonedx/cdxgen@^12.2.1";
 
 ## Common workflows
 
-| Goal                                                     | First command                                                              | Read next                            |
-| -------------------------------------------------------- | -------------------------------------------------------------------------- | ------------------------------------ |
-| Generate a BOM from the current repository               | `cdxgen -o bom.json .`                                                     | [CLI Usage][docs-cli]                |
-| Generate a BOM from a git URL                            | `cdxgen -o bom.json https://github.com/example/project.git`                | [CLI Usage][docs-cli]                |
-| Generate a BOM from a package URL                        | `cdxgen -o bom.json "pkg:npm/lodash@4.17.21"`                              | [CLI Usage][docs-cli]                |
-| Scan a container image                                   | `cdxgen ghcr.io/owasp-dep-scan/depscan:nightly -o bom.json -t docker`      | [Server Usage][docs-server]          |
-| Audit a generated BOM for built-in supply-chain findings | `cdxgen -o bom.json --bom-audit .`                                         | [BOM Audit](docs/BOM_AUDIT.md)       |
-| Validate a BOM against structural and compliance checks  | `cdx-validate -i bom.json`                                                 | [cdx-validate](docs/CDX_VALIDATE.md) |
-| Convert CycloneDX JSON to SPDX JSON-LD                   | `cdx-convert -i bom.json -o bom.spdx.json`                                 | [cdx-convert](docs/CDX_CONVERT.md)   |
-| Generate an OBOM for live-system triage                  | `obom -o obom.json --deep --bom-audit --bom-audit-categories obom-runtime` | [OBOM lessons](docs/OBOM_LESSONS.md) |
+| Goal                                                       | First command                                                              | Read next                            |
+| ---------------------------------------------------------- | -------------------------------------------------------------------------- | ------------------------------------ |
+| Generate a BOM from the current repository                 | `cdxgen -o bom.json .`                                                     | [CLI Usage][docs-cli]                |
+| Generate a BOM from a git URL                              | `cdxgen -o bom.json https://github.com/example/project.git`                | [CLI Usage][docs-cli]                |
+| Generate a BOM from a package URL                          | `cdxgen -o bom.json "pkg:npm/lodash@4.17.21"`                              | [CLI Usage][docs-cli]                |
+| Scan a container image                                     | `cdxgen ghcr.io/owasp-dep-scan/depscan:nightly -o bom.json -t docker`      | [Server Usage][docs-server]          |
+| Audit a generated BOM for built-in supply-chain findings   | `cdxgen -o bom.json --bom-audit .`                                         | [BOM Audit](docs/BOM_AUDIT.md)       |
+| Prioritize an existing BOM for upstream risk-driven review | `cdx-audit --bom bom.json`                                                 | [cdx-audit](docs/CDX_AUDIT.md)       |
+| Validate a BOM against structural and compliance checks    | `cdx-validate -i bom.json`                                                 | [cdx-validate](docs/CDX_VALIDATE.md) |
+| Convert CycloneDX JSON to SPDX JSON-LD                     | `cdx-convert -i bom.json -o bom.spdx.json`                                 | [cdx-convert](docs/CDX_CONVERT.md)   |
+| Generate an OBOM for live-system triage                    | `obom -o obom.json --deep --bom-audit --bom-audit-categories obom-runtime` | [OBOM lessons](docs/OBOM_LESSONS.md) |
 
 For the full option reference, use `cdxgen --help` or visit [CLI Usage][docs-cli].
 
 Companion commands also expose built-in help:
 
+- `cbom --help`
 - `cdx-audit --help`
 - `cdx-validate --help`
 - `cdx-convert --help`
 - `cdx-sign --help`
 - `cdx-verify --help`
+- `cdxgen-secure --help`
+- `cdxi --help`
+- `evinse --help`
+- `obom --help`
+- `saasbom --help`
+- `spdxgen --help`
 
 ## Example
 
