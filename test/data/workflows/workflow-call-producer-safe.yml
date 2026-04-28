@@ -1,0 +1,15 @@
+name: Reusable workflow safe producer
+on:
+  workflow_call:
+    inputs:
+      target:
+        description: Target environment
+        required: true
+        type: string
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: npm test
+

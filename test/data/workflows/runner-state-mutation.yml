@@ -1,0 +1,11 @@
+name: Runner state mutation
+on: push
+jobs:
+  release:
+    permissions:
+      contents: write
+    runs-on: ubuntu-latest
+    steps:
+      - name: Persist env
+        run: echo "PUBLISH=1" >> "$GITHUB_ENV"
+

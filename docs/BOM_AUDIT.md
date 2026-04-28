@@ -208,6 +208,9 @@ Rules are YAML files placed in a directory and loaded via `--bom-audit-rules-dir
     { "bomRef": $."bom-ref", "purl": purl }
   message: "Template with {{ name }}" # Required: message template with {{ expr }} interpolation
   mitigation: "How to fix this" # Optional: remediation guidance
+  attack: # Optional: MITRE ATT&CK metadata propagated to findings / SARIF / annotations
+    tactics: [TA0001, TA0004]
+    techniques: [T1195.001]
   evidence: | # Optional: JSONata expression for evidence data
     { "key": $prop($, 'cdx:npm:risky_scripts') }
 ```
@@ -219,6 +222,7 @@ The rule engine registers custom functions for working with CycloneDX properties
 | Function                     | Description                                                                                                              | Example                                                                              |
 | ---------------------------- | ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ |
 | `$prop(obj, name)`           | Extract a property value by name                                                                                         | `$prop($, 'cdx:npm:hasInstallScript')`                                               |
+| `$nullSafeProp(obj, name)`   | Extract a property value but return `""` when it is missing; useful for string matching                               | `$nullSafeProp($, 'cdx:github:workflow:triggers') ~> $contains('pull_request')`      |
 | `$hasProp(obj, name)`        | Check if property exists                                                                                                 | `$hasProp($, 'cdx:npm:risky_scripts')`                                               |
 | `$hasProp(obj, name, value)` | Check if property equals value                                                                                           | `$hasProp($, 'cdx:npm:isLink', 'true')`                                              |
 | `$p(obj, name)`              | Short alias for `$prop`                                                                                                  | `$p($, 'cdx:go:local_dir')`                                                          |
@@ -230,6 +234,9 @@ The rule engine registers custom functions for working with CycloneDX properties
 | `$startsWith(str, prefix)`   | String prefix check                                                                                                      | `$startsWith(purl, 'pkg:nix/')`                                                      |
 | `$endsWith(str, suffix)`     | String suffix check                                                                                                      | `$endsWith(name, '-beta')`                                                           |
 | `$arrayContains(arr, value)` | Check array membership                                                                                                   | `$arrayContains(tags, 'deprecated')`                                                 |
+| `$auditComponents(bom)`      | Return a deduplicated array of top-level BOM components plus any `formulation[].components`                              | `$auditComponents($)[$prop($, 'cdx:github:action:isShaPinned') = 'false']`           |
+| `$auditWorkflows(bom)`       | Return a deduplicated array of all `formulation[].workflows` entries                                                     | `$auditWorkflows($)[$prop($, 'cdx:github:workflow:hasHighRiskTrigger') = 'true']`    |
+| `$formulationComponents(bom)` | Return only `formulation[].components`                                                                                   | `$formulationComponents($)[$prop($, 'cdx:github:step:type') = 'run']`                |
 
 ### Message templates
 
@@ -263,7 +270,7 @@ condition: |
 
 ```yaml
 condition: |
-  components[
+  $auditComponents($)[
     $prop($, 'cdx:github:action:isShaPinned') = 'false'
     and (
       $prop($, 'cdx:github:workflow:hasWritePermissions') = 'true'
@@ -276,10 +283,20 @@ condition: |
 
 ```yaml
 condition: |
-  formulation.workflows[
+  $auditWorkflows($)[
     $nullSafeProp($, 'cdx:github:workflow:triggers') ~> $contains('pull_request_target')
   ]
 ```
+
+### ATT&CK metadata in outputs
+
+When a rule defines an `attack:` block, cdxgen carries that metadata through to:
+
+- BOM-audit finding objects as `attackTactics` / `attackTechniques`
+- CycloneDX annotations as `cdx:audit:attack:tactics` / `cdx:audit:attack:techniques`
+- SARIF rule/result `properties` and SARIF tags like `ATT&CK:TA0004`
+
+This keeps the rule schema lightweight while making ATT&CK-aligned detections available to downstream reporting and triage pipelines.
 
 #### Use purl-based filtering
 

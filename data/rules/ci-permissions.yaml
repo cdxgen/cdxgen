@@ -7,8 +7,11 @@
   description: "GitHub Actions referenced by tag/branch in workflows with write permissions pose supply chain risk"
   severity: high
   category: ci-permission
+  attack:
+    tactics: [TA0001, TA0004]
+    techniques: [T1195.001]
   condition: |
-    components[
+    $auditComponents($)[
       $prop($, 'cdx:github:action:isShaPinned') = 'false'
       and (
         $prop($, 'cdx:github:workflow:hasWritePermissions') = 'true'
@@ -31,30 +34,45 @@
     }
 - id: CI-002
   name: "OIDC token issuance to non-official action"
-  description: "Workflows granting id-token:write to third-party actions may enable token exfiltration"
+  description: "Workflows or jobs granting id-token:write to third-party actions may enable token exfiltration"
   severity: high
   category: ci-permission
+  attack:
+    tactics: [TA0006]
+    techniques: [T1528]
   condition: |
-    components[
-      $prop($, 'cdx:github:workflow:hasIdTokenWrite') = 'true'
+    $auditComponents($)[
+      (
+        $prop($, 'cdx:github:workflow:hasIdTokenWrite') = 'true'
+        or $prop($, 'cdx:github:job:hasIdTokenWrite') = 'true'
+      )
       and $prop($, 'cdx:actions:isOfficial') = 'false'
     ]
   location: |
-    { "bomRef": $."bom-ref", "purl": purl }
+    {
+      "bomRef": $."bom-ref",
+      "purl": purl,
+      "file": $prop($, 'cdx:github:workflow:file')
+    }
   message: "Workflow grants OIDC token access to non-official action '{{ $prop($, 'cdx:github:action:uses') }}'"
   mitigation: "Restrict id-token scope or use only verified/official actions for OIDC operations"
   evidence: |
     {
       "isVerified": $prop($, 'cdx:actions:isVerified'),
-      "actionGroup": group
+      "actionGroup": group,
+      "jobHasIdTokenWrite": $prop($, 'cdx:github:job:hasIdTokenWrite'),
+      "workflowHasIdTokenWrite": $prop($, 'cdx:github:workflow:hasIdTokenWrite')
     }
 - id: CI-003
   name: "Action pinned to mutable tag"
   description: "GitHub Actions pinned to tags (vs SHA) can change behavior unexpectedly if tag is moved"
   severity: medium
   category: ci-permission
+  attack:
+    tactics: [TA0001, TA0005]
+    techniques: [T1195.001]
   condition: |
-    components[
+    $auditComponents($)[
       $prop($, 'cdx:github:action:versionPinningType') = 'tag'
     ]
   location: |
@@ -71,11 +89,11 @@
   description: "pull_request_target can execute code in the context of the base branch, risking secret exposure"
   severity: medium
   category: ci-permission
-  # Check workflows (not components) for this trigger pattern
+  attack:
+    tactics: [TA0001, TA0004]
   condition: |
-    formulation.workflows[
-      $hasProp($, 'cdx:github:workflow:triggers')
-      and $nullSafeProp($, 'cdx:github:workflow:triggers') ~> $trim() ~> $contains('pull_request_target')
+    $auditWorkflows($)[
+      $prop($, 'cdx:github:workflow:hasPullRequestTargetTrigger') = 'true'
     ]
   location: |
     {
@@ -94,8 +112,11 @@
   description: "actions/checkout with persist-credentials=true (default) exposes GITHUB_TOKEN to subsequent steps"
   severity: medium
   category: ci-permission
+  attack:
+    tactics: [TA0004, TA0006]
+    techniques: [T1552]
   condition: |
-    components[
+    $auditComponents($)[
       $contains($nullSafeProp($, 'cdx:github:action:uses'), 'actions/checkout')
       and $propBool($, 'cdx:github:checkout:persistCredentials') != false
       and (
@@ -121,10 +142,19 @@
   description: "GitHub Actions cache can be poisoned when used in workflows triggered by untrusted input (e.g., pull_request from forks)"
   severity: high
   category: ci-permission
+  attack:
+    tactics: [TA0001, TA0005]
+    techniques: [T1195.001]
   condition: |
-    components[
+    $auditComponents($)[
       $nullSafeProp($, 'cdx:github:action:uses') ~> $contains('actions/cache')
-      and $nullSafeProp($, 'cdx:github:workflow:triggers') ~> $contains('pull_request')
+      and $prop($, 'cdx:github:workflow:hasPullRequestTrigger') = 'true'
+      and (
+        $propBool($, 'cdx:github:workflow:hasWritePermissions') = true
+        or $propBool($, 'cdx:github:job:hasWritePermissions') = true
+        or $prop($, 'cdx:github:cache:hasRestoreKeys') = 'true'
+        or $prop($, 'cdx:github:cache:keyUsesHashFiles') != 'true'
+      )
     ]
   location: |
     {
@@ -137,6 +167,8 @@
   evidence: |
     {
       "cacheKey": $prop($, 'cdx:github:cache:key'),
+      "hasRestoreKeys": $prop($, 'cdx:github:cache:hasRestoreKeys'),
+      "keyUsesHashFiles": $prop($, 'cdx:github:cache:keyUsesHashFiles'),
       "cachePath": $prop($, 'cdx:github:cache:path'),
       "triggers": $prop($, 'cdx:github:workflow:triggers')
     }
@@ -145,8 +177,11 @@
   description: "Direct interpolation of github.event.* or inputs.* into run: blocks enables command injection"
   severity: critical
   category: ci-permission
+  attack:
+    tactics: [TA0002, TA0004]
+    techniques: [T1059]
   condition: |
-    formulation.components[
+    $auditComponents($)[
       $prop($, 'cdx:github:step:hasUntrustedInterpolation') = 'true'
       and $prop($, 'cdx:github:step:type') = 'run'
     ]
@@ -167,9 +202,15 @@
   description: "Triggers like pull_request_target, issue_comment, or workflow_run combined with write permissions enable privilege escalation"
   severity: high
   category: ci-permission
+  attack:
+    tactics: [TA0001, TA0004]
   condition: |
-    formulation.workflows[
-      $prop($, 'cdx:github:workflow:hasHighRiskTrigger') = 'true'
+    $auditWorkflows($)[
+      (
+        $prop($, 'cdx:github:workflow:hasPullRequestTargetTrigger') = 'true'
+        or $prop($, 'cdx:github:workflow:hasIssueCommentTrigger') = 'true'
+        or $prop($, 'cdx:github:workflow:hasWorkflowRunTrigger') = 'true'
+      )
       and $prop($, 'cdx:github:workflow:hasWritePermissions') = 'true'
     ]
   location: |
@@ -190,8 +231,11 @@
   description: "Hidden Unicode in workflow files can disguise malicious logic, comments, or diffs and should be reviewed before merge"
   severity: medium
   category: ci-permission
+  attack:
+    tactics: [TA0005]
+    techniques: [T1027]
   condition: |
-    formulation.workflows[
+    $auditWorkflows($)[
       $prop($, 'cdx:github:workflow:hasHiddenUnicode') = 'true'
     ]
   location: |
@@ -213,8 +257,11 @@
   description: "npm and PyPI publishing should prefer trusted publishing or OIDC-backed flows instead of long-lived token secrets or explicit --token arguments"
   severity: medium
   category: ci-permission
+  attack:
+    tactics: [TA0006, TA0010]
+    techniques: [T1528]
   condition: |
-    formulation.components[
+    $auditComponents($)[
       $prop($, 'cdx:github:step:isPublishCommand') = 'true'
       and $prop($, 'cdx:github:step:usesLegacyPublishToken') = 'true'
     ]
@@ -230,5 +277,218 @@
       "ecosystem": $prop($, 'cdx:github:step:publishEcosystem'),
       "tokenSources": $prop($, 'cdx:github:step:legacyPublishTokenSources'),
       "stepCommand": $prop($, 'cdx:github:step:command')
+    }
+
+- id: CI-011
+  name: "External reusable workflow inherits caller secrets"
+  description: "Reusable workflows invoked from external repositories with secrets: inherit expand the trust boundary and can expose repository credentials"
+  severity: high
+  category: ci-permission
+  attack:
+    tactics: [TA0006, TA0008]
+    techniques: [T1528, T1552]
+  condition: |
+    $auditComponents($)[
+      $prop($, 'cdx:github:reusableWorkflow:isExternal') = 'true'
+      and $prop($, 'cdx:github:reusableWorkflow:secretsInherit') = 'true'
+    ]
+  location: |
+    {
+      "bomRef": $."bom-ref",
+      "purl": purl,
+      "file": $prop($, 'cdx:github:workflow:file')
+    }
+  message: "Reusable workflow '{{ $prop($, 'cdx:github:reusableWorkflow:uses') }}' inherits caller secrets from an external repository"
+  mitigation: "Avoid secrets: inherit for external reusable workflows; pass only the minimum explicit secrets and pin the reusable workflow to a full SHA"
+  evidence: |
+    {
+      "uses": $prop($, 'cdx:github:reusableWorkflow:uses'),
+      "isShaPinned": $prop($, 'cdx:github:reusableWorkflow:isShaPinned'),
+      "withKeys": $prop($, 'cdx:github:reusableWorkflow:withKeys')
+    }
+
+- id: CI-012
+  name: "External reusable workflow pinned to mutable ref"
+  description: "Reusable workflows referenced by tag or branch can change behavior without review and should be pinned to immutable SHAs"
+  severity: medium
+  category: ci-permission
+  attack:
+    tactics: [TA0001, TA0005]
+    techniques: [T1195.001]
+  condition: |
+    $auditComponents($)[
+      $prop($, 'cdx:github:reusableWorkflow:isExternal') = 'true'
+      and $prop($, 'cdx:github:reusableWorkflow:isShaPinned') = 'false'
+    ]
+  location: |
+    {
+      "bomRef": $."bom-ref",
+      "purl": purl,
+      "file": $prop($, 'cdx:github:workflow:file')
+    }
+  message: "External reusable workflow '{{ $prop($, 'cdx:github:reusableWorkflow:uses') }}' is pinned to a mutable ref"
+  mitigation: "Pin reusable workflows to full SHAs and review updates through a normal change-management process"
+  evidence: |
+    {
+      "pinningType": $prop($, 'cdx:github:reusableWorkflow:versionPinningType'),
+      "ref": $prop($, 'cdx:github:reusableWorkflow:ref')
+    }
+
+- id: CI-013
+  name: "High-risk trigger reaches a self-hosted runner"
+  description: "High-risk triggers executing on self-hosted runners can expose internal network access, credentials, and long-lived runner state"
+  severity: high
+  category: ci-permission
+  attack:
+    tactics: [TA0004, TA0008]
+  condition: |
+    $auditComponents($)[
+      (
+        $prop($, 'cdx:github:workflow:hasPullRequestTargetTrigger') = 'true'
+        or $prop($, 'cdx:github:workflow:hasIssueCommentTrigger') = 'true'
+        or $prop($, 'cdx:github:workflow:hasWorkflowRunTrigger') = 'true'
+      )
+      and $prop($, 'cdx:github:job:isSelfHosted') = 'true'
+    ]
+  location: |
+    {
+      "bomRef": $."bom-ref",
+      "purl": purl,
+      "file": $prop($, 'cdx:github:workflow:file')
+    }
+  message: "High-risk workflow trigger reaches self-hosted runner in job '{{ $prop($, 'cdx:github:job:name') }}'"
+  mitigation: "Restrict self-hosted runners to trusted workflows only, isolate runner credentials, and gate high-risk triggers with manual approval"
+  evidence: |
+    {
+      "triggers": $prop($, 'cdx:github:workflow:triggers'),
+      "jobRunner": $prop($, 'cdx:github:job:runner'),
+      "jobName": $prop($, 'cdx:github:job:name')
+    }
+
+- id: CI-014
+  name: "Privileged workflow mutates downstream runner state"
+  description: "Writing to GITHUB_ENV, GITHUB_PATH, or GITHUB_OUTPUT in privileged workflows can persist attacker-controlled state across later steps and jobs"
+  severity: high
+  category: ci-permission
+  attack:
+    tactics: [TA0003, TA0004, TA0005]
+    techniques: [T1059]
+  condition: |
+    $auditComponents($)[
+      $prop($, 'cdx:github:step:type') = 'run'
+      and $prop($, 'cdx:github:step:mutatesRunnerState') = 'true'
+      and (
+        $prop($, 'cdx:github:workflow:hasWritePermissions') = 'true'
+        or $prop($, 'cdx:github:job:hasWritePermissions') = 'true'
+        or $prop($, 'cdx:github:workflow:hasIdTokenWrite') = 'true'
+        or $prop($, 'cdx:github:job:hasIdTokenWrite') = 'true'
+      )
+    ]
+  location: |
+    {
+      "bomRef": $."bom-ref",
+      "file": $prop($, 'cdx:github:workflow:file')
+    }
+  message: "Privileged workflow step '{{ name }}' mutates runner state via '{{ $prop($, 'cdx:github:step:runnerStateTargets') }}'"
+  mitigation: "Avoid mutating shared runner state in privileged jobs; prefer tightly-scoped step outputs and review all GITHUB_ENV/GITHUB_PATH/GITHUB_OUTPUT writes"
+  evidence: |
+    {
+      "runnerStateTargets": $prop($, 'cdx:github:step:runnerStateTargets'),
+      "stepCommand": $prop($, 'cdx:github:step:command'),
+      "jobName": $prop($, 'cdx:github:job:name')
+    }
+
+- id: CI-015
+  name: "Outbound network command references sensitive context"
+  description: "Run steps that invoke outbound network tools while transmitting secrets, github.token, or OIDC request context are strong exfiltration indicators"
+  severity: high
+  category: ci-permission
+  attack:
+    tactics: [TA0006, TA0010]
+    techniques: [T1048]
+  condition: |
+    $auditComponents($)[
+      $prop($, 'cdx:github:step:type') = 'run'
+      and $prop($, 'cdx:github:step:hasOutboundNetworkCommand') = 'true'
+      and $prop($, 'cdx:github:step:referencesSensitiveContext') = 'true'
+      and $prop($, 'cdx:github:step:likelyExfiltration') = 'true'
+    ]
+  location: |
+    {
+      "bomRef": $."bom-ref",
+      "file": $prop($, 'cdx:github:workflow:file')
+    }
+  message: "Outbound command in step '{{ name }}' references sensitive context '{{ $prop($, 'cdx:github:step:sensitiveContextRefs') }}'"
+  mitigation: "Review outbound network steps for secret or token use, disable unnecessary network egress, and move sensitive values into least-privileged isolated jobs"
+  evidence: |
+    {
+      "networkTools": $prop($, 'cdx:github:step:outboundNetworkTools'),
+      "sensitiveContextRefs": $prop($, 'cdx:github:step:sensitiveContextRefs'),
+      "exfiltrationIndicators": $prop($, 'cdx:github:step:exfiltrationIndicators'),
+      "stepCommand": $prop($, 'cdx:github:step:command')
+    }
+
+- id: CI-016
+  name: "Privileged reusable workflow accepts caller secrets"
+  description: "workflow_call producers that request caller-provided secrets while also holding write or OIDC permissions expand the blast radius across repositories and workflows"
+  severity: high
+  category: ci-permission
+  attack:
+    tactics: [TA0006, TA0008]
+    techniques: [T1528, T1552]
+  condition: |
+    $auditWorkflows($)[
+      $prop($, 'cdx:github:workflow:isWorkflowCallProducer') = 'true'
+      and $safeStr($prop($, 'cdx:github:workflow:workflowCallSecrets')) != ''
+      and (
+        $propBool($, 'cdx:github:workflow:hasWritePermissions') = true
+        or $propBool($, 'cdx:github:workflow:hasIdTokenWrite') = true
+      )
+    ]
+  location: |
+    {
+      "bomRef": $."bom-ref",
+      "file": $prop($, 'cdx:github:workflow:file')
+    }
+  message: "Reusable workflow '{{ $prop($, 'cdx:github:workflow:name') }}' accepts caller secrets while running with privileged permissions"
+  mitigation: "Avoid broad secret interfaces on reusable workflows with write or OIDC permissions; split privileged work into a narrowly scoped follow-up job and require only explicit minimal secrets"
+  evidence: |
+    {
+      "workflowCallSecrets": $prop($, 'cdx:github:workflow:workflowCallSecrets'),
+      "writeScopes": $prop($, 'cdx:github:workflow:writeScopes'),
+      "hasWritePermissions": $prop($, 'cdx:github:workflow:hasWritePermissions'),
+      "hasIdTokenWrite": $prop($, 'cdx:github:workflow:hasIdTokenWrite')
+    }
+
+- id: CI-017
+  name: "Privileged reusable workflow exports caller-influenced outputs"
+  description: "workflow_call producers that both accept caller-controlled inputs and emit outputs from privileged execution contexts can propagate unsafe values into downstream trusted jobs"
+  severity: medium
+  category: ci-permission
+  attack:
+    tactics: [TA0003, TA0004]
+  condition: |
+    $auditWorkflows($)[
+      $prop($, 'cdx:github:workflow:isWorkflowCallProducer') = 'true'
+      and $safeStr($prop($, 'cdx:github:workflow:workflowCallInputs')) != ''
+      and $safeStr($prop($, 'cdx:github:workflow:workflowCallOutputs')) != ''
+      and (
+        $propBool($, 'cdx:github:workflow:hasWritePermissions') = true
+        or $propBool($, 'cdx:github:workflow:hasIdTokenWrite') = true
+      )
+    ]
+  location: |
+    {
+      "bomRef": $."bom-ref",
+      "file": $prop($, 'cdx:github:workflow:file')
+    }
+  message: "Reusable workflow '{{ $prop($, 'cdx:github:workflow:name') }}' exports outputs from a privileged workflow_call interface that also accepts caller inputs"
+  mitigation: "Review workflow_call outputs for trust-boundary crossings, sanitize caller-controlled data before emitting outputs, and avoid combining privileged permissions with broad producer interfaces"
+  evidence: |
+    {
+      "workflowCallInputs": $prop($, 'cdx:github:workflow:workflowCallInputs'),
+      "workflowCallOutputs": $prop($, 'cdx:github:workflow:workflowCallOutputs'),
+      "hasWritePermissions": $prop($, 'cdx:github:workflow:hasWritePermissions'),
+      "hasIdTokenWrite": $prop($, 'cdx:github:workflow:hasIdTokenWrite')
     }
 

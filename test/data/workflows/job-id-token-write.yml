@@ -1,0 +1,10 @@
+name: Job scoped OIDC
+on: push
+jobs:
+  deploy:
+    permissions:
+      id-token: write
+    runs-on: ubuntu-latest
+    steps:
+      - uses: vendor/deploy-action@v1
+

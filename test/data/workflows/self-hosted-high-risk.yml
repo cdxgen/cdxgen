@@ -1,0 +1,13 @@
+name: Self hosted high risk
+on:
+  issue_comment:
+jobs:
+  privileged:
+    runs-on:
+      - self-hosted
+      - linux
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
