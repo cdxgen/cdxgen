@@ -62,27 +62,27 @@ jobs:
         with:
           persist-credentials: false
       - name: Free disk space
-        if: ${{ ! fromJSON(inputs.image).runner }}
+        if: ${{ startsWith(fromJSON(inputs.image).runner || 'ubuntu-24.04', 'ubuntu-') }}
         uses: jlumbroso/free-disk-space@54081f138730dfa15788a46383842cd2f914a1be
         with:
           tool-cache: true
       - name: Trim CI agent even more
-        if: ${{ ! fromJSON(inputs.image).runner }}
+        if: ${{ startsWith(fromJSON(inputs.image).runner || 'ubuntu-24.04', 'ubuntu-') }}
         run: |
           chmod +x contrib/free_disk_space.sh
           ./contrib/free_disk_space.sh
       - name: Set up QEMU
-        if: ${{ ! fromJSON(inputs.image).runner }}
+        if: ${{ startsWith(fromJSON(inputs.image).runner || 'ubuntu-24.04', 'ubuntu-') }}
         uses: docker/setup-qemu-action@ce360397dd3f832beb865e1373c09c0e9f86d70a # v4.0.0
       - name: Fix QEMU
-        if: ${{ (fromJSON(inputs.image).fix-qemu || contains(fromJSON(inputs.image).distro, 'debian')) && !contains(fromJSON(inputs.image).runner, 'macos') }}
+        if: ${{ (fromJSON(inputs.image).fix-qemu || contains(fromJSON(inputs.image).distro, 'debian')) && startsWith(fromJSON(inputs.image).runner || 'ubuntu-24.04', 'ubuntu-') }}
         run: |
           echo "Attempting QEMU fix for Linux runner..."
           if ! docker run --rm --privileged multiarch/qemu-user-static --reset -p yes -c yes; then
             echo "QEMU fix failed (non-fatal); continuing with default QEMU setup"
           fi
       - name: Set up Docker BuildX
-        if: ${{ ! fromJSON(inputs.image).runner }}
+        if: ${{ startsWith(fromJSON(inputs.image).runner || 'ubuntu-24.04', 'ubuntu-') }}
         uses: docker/setup-buildx-action@4d04d5d9486b7bd6fa91e7baf45bbb4f8b9deedd # v4.0.0
       - name: Setup ORAS
         uses: oras-project/setup-oras@38de303aac69abb66f3e6255b7198bff35f323e3 # v2.0.0
@@ -97,7 +97,7 @@ jobs:
           EOF
       - name: Setup Nexus usage
         id: nexus
-        if: ${{ fromJSON(inputs.image).runner }}
+        if: ${{ fromJSON(inputs.image).runner == 'macos-hosted' }}
         run: |
           NPM_REPO=http://$NEXUS_SERVER:$NEXUS_PORT$NEXUS_NPM_REPO_PATH
           echo -e "registry=$NPM_REPO\n@jsr:registry=$NPM_REPO" > .npmrc
@@ -124,8 +124,19 @@ jobs:
           "UBUNTU_REPO=http://$NEXUS_SERVER:$NEXUS_PORT$NEXUS_UBUNTU_REPO_PATH"
           VALUE
           EOF
+      - name: Set up Python
+        if: ${{ startsWith(fromJSON(inputs.image).runner || 'ubuntu-24.04', 'ubuntu-') }}
+        uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6.2.0
+        with:
+          python-version: '3.13'
       - name: Setup pnpm
         uses: pnpm/action-setup@fc06bc1257f339d1d5d8b3a19a8cae5388b55320 # v5.0.0
+      - name: Use Node.js
+        if: ${{ startsWith(fromJSON(inputs.image).runner || 'ubuntu-24.04', 'ubuntu-') }}
+        uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e  # v6.4.0
+        with:
+          node-version-file: '.nvmrc'
+          package-manager-cache: false
       - name: Install project dependencies
         run: |
           pnpm install:frozen

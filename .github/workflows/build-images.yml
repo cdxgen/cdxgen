@@ -72,7 +72,7 @@ jobs:
 
           - lang: dotnet8
             distro: debian
-            runner: macos-hosted
+            runner: ubuntu-latest
 
           - lang: dotnet9
             skip-arm: true
@@ -84,11 +84,11 @@ jobs:
 
           - lang: dotnet9
             distro: debian
-            runner: macos-hosted
+            runner: ubuntu-latest
 
           - lang: dotnet10
             distro: ubuntu
-            runner: macos-hosted
+            runner: ubuntu-latest
 
           - lang: golang1.23
             distro: alpine
@@ -120,7 +120,7 @@ jobs:
             fix-qemu: true
 
           - lang: java11
-            runner: macos-hosted
+            runner: ubuntu-latest
             base-image:
               additional-image: java11-slim
             cdxgen-image:
@@ -164,7 +164,7 @@ jobs:
 
           - lang: php8.3
             distro: debian
-            runner: macos-hosted
+            runner: ubuntu-latest
 
           - lang: php8.4
             distro: alpine
@@ -173,22 +173,22 @@ jobs:
 
           - lang: php8.4
             distro: debian
-            runner: macos-hosted
+            runner: ubuntu-latest
           - lang: php8.5
             distro: debian
-            runner: macos-hosted
+            runner: ubuntu-latest
 
           - lang: python3.6
 
           - lang: python3.9
             distro: opensuse
-            runner: macos-hosted
+            runner: ubuntu-latest
             cdxgen-image:
               additional-image: cdxgen-python39
 
           - lang: python3.10
             distro: opensuse
-            runner: macos-hosted
+            runner: ubuntu-latest
             cdxgen-image:
               additional-image: cdxgen-python310
 
@@ -217,7 +217,7 @@ jobs:
 
           - lang: ruby3.3
             distro: debian
-            runner: macos-hosted
+            runner: ubuntu-latest
 
           - lang: ruby3.4
             distro: debian

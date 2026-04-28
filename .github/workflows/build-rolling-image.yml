@@ -32,7 +32,7 @@ jobs:
         {
           "lang": "rolling",
           "distro": "opensuse",
-          "runner": "macos-hosted",
+          "runner": "ubuntu-latest",
           "base-image": {
             "lang": "lang"
           }
