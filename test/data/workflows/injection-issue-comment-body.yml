@@ -1,0 +1,9 @@
+name: Issue comment injection
+on: issue_comment
+jobs:
+  evaluate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run commenter input
+        run: echo "${{ github.event.comment.body }}" | bash
+

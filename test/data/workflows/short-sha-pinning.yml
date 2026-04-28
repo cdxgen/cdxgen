@@ -1,0 +1,9 @@
+name: Short SHA pinning
+on: push
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: third-party/action@deadbee
+      - uses: third-party/action@0123456789abcdef0123456789abcdef01234567
+

@@ -148,7 +148,10 @@
   condition: |
     $auditComponents($)[
       $nullSafeProp($, 'cdx:github:action:uses') ~> $contains('actions/cache')
-      and $prop($, 'cdx:github:workflow:hasPullRequestTrigger') = 'true'
+      and (
+        $prop($, 'cdx:github:workflow:hasPullRequestTrigger') = 'true'
+        or $prop($, 'cdx:github:workflow:hasPullRequestTargetTrigger') = 'true'
+      )
       and (
         $propBool($, 'cdx:github:workflow:hasWritePermissions') = true
         or $propBool($, 'cdx:github:job:hasWritePermissions') = true
@@ -162,7 +165,7 @@
       "purl": purl,
       "file": $prop($, 'cdx:github:workflow:file')
     }
-  message: "Cache action used in pull_request-triggered workflow; cache key '{{ $prop($, 'cdx:github:cache:key') }}' may be writable by untrusted code"
+  message: "Cache action used in pull-request-reachable workflow; cache key '{{ $prop($, 'cdx:github:cache:key') }}' may be writable by untrusted code"
   mitigation: "Scope cache keys to PR-specific values, validate restored cache contents, or avoid caching in untrusted workflows"
   evidence: |
     {
@@ -571,5 +574,40 @@
       "localReceiverWorkflowNames": $prop($, 'cdx:github:step:dispatchReceiverWorkflowNames'),
       "localReceiverMatchBasis": $prop($, 'cdx:github:step:dispatchReceiverMatchBasis'),
       "sensitiveContextRefs": $prop($, 'cdx:github:step:sensitiveContextRefs')
+    }
+
+- id: CI-020
+  name: "pull_request_target checks out PR head or fork context"
+  description: "Checking out github.event.pull_request.head.* repository or ref inside pull_request_target executes untrusted fork code with base-repository privileges"
+  severity: critical
+  category: ci-permission
+  attack:
+    tactics: [TA0001, TA0004]
+    techniques: [T1195.001, T1552]
+  condition: |
+    $auditComponents($)[
+      $contains($nullSafeProp($, 'cdx:github:action:uses'), 'actions/checkout')
+      and $prop($, 'cdx:github:workflow:hasPullRequestTargetTrigger') = 'true'
+      and (
+        $prop($, 'cdx:github:checkout:checksOutUntrustedRef') = 'true'
+        or $prop($, 'cdx:github:checkout:referencesForkContext') = 'true'
+      )
+    ]
+  location: |
+    {
+      "bomRef": $."bom-ref",
+      "purl": purl,
+      "file": $prop($, 'cdx:github:workflow:file')
+    }
+  message: "Checkout step '{{ $prop($, 'cdx:github:action:uses') }}' pulls PR head or fork context inside pull_request_target"
+  mitigation: "Do not checkout github.event.pull_request.head.* in pull_request_target workflows. Prefer pull_request with read-only permissions or split trusted follow-up work into a separate branch-only workflow"
+  evidence: |
+    {
+      "checkoutRef": $prop($, 'cdx:github:checkout:ref'),
+      "checkoutRepository": $prop($, 'cdx:github:checkout:repository'),
+      "untrustedRefContexts": $prop($, 'cdx:github:checkout:untrustedRefContexts'),
+      "forkContextRefs": $prop($, 'cdx:github:checkout:forkContextRefs'),
+      "persistCredentials": $prop($, 'cdx:github:checkout:persistCredentials'),
+      "workflowHasWritePermissions": $prop($, 'cdx:github:workflow:hasWritePermissions')
     }
 
