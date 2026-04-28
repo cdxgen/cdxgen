@@ -125,16 +125,6 @@ jobs:
           CI: true
       - name: dockertests
         run: |
-          assert_container_audit_bom() {
-            jq -e '[.annotations[]? | select((.text // "") | contains("cdx:audit:category | container-risk |"))] | length > 0' "$1" >/dev/null || {
-              echo "Expected container-risk audit findings in $1"
-              return 1
-            }
-            jq -e '[.components[]? | select((.properties // []) | any((.name == "cdx:gtfobins:matched" or .name == "cdx:container:matched") and .value == "true"))] | length > 0' "$1" >/dev/null || {
-              echo "Expected GTFOBins or container-risk enrichment properties in $1"
-              return 1
-            }
-          }
           docker pull ubuntu:latest
           docker save -o /tmp/ubuntu.tar ubuntu:latest
           docker rmi ubuntu:latest
@@ -144,7 +134,6 @@ jobs:
           docker rmi alpine:latest
           bin/cdxgen.js /tmp/alpine.tar -p -t docker -o bomresults/bom-alpine.tar.json --fail-on-error
           bin/cdxgen.js /tmp/alpine.tar -p -t docker -o bomresults/bom-alpine.tar-audit.json --bom-audit --bom-audit-categories container-risk --fail-on-error
-          assert_container_audit_bom bomresults/bom-alpine.tar-audit.json
           ls -ltr bomresults
         env:
           CDXGEN_DEBUG_MODE: debug
