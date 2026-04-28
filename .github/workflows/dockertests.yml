@@ -125,16 +125,96 @@ jobs:
           CI: true
       - name: dockertests
         run: |
+          assert_container_audit_bom() {
+            jq -e '[.annotations[]? | select((.text // "") | contains("cdx:audit:category | container-risk |"))] | length > 0' "$1" >/dev/null || {
+              echo "Expected container-risk audit findings in $1"
+              return 1
+            }
+            jq -e '[.components[]? | select((.properties // []) | any((.name == "cdx:gtfobins:matched" or .name == "cdx:container:matched") and .value == "true"))] | length > 0' "$1" >/dev/null || {
+              echo "Expected GTFOBins or container-risk enrichment properties in $1"
+              return 1
+            }
+          }
           docker pull ubuntu:latest
           docker save -o /tmp/ubuntu.tar ubuntu:latest
           docker rmi ubuntu:latest
           bin/cdxgen.js /tmp/ubuntu.tar -p -t docker -o bomresults/bom-ubuntu.tar.json --fail-on-error
+          bin/cdxgen.js /tmp/ubuntu.tar -p -t docker -o bomresults/bom-ubuntu.tar-audit.json --bom-audit --bom-audit-categories container-risk --fail-on-error
+          assert_container_audit_bom bomresults/bom-ubuntu.tar-audit.json
           docker pull alpine:latest
           docker save -o /tmp/alpine.tar alpine:latest
           docker rmi alpine:latest
           bin/cdxgen.js /tmp/alpine.tar -p -t docker -o bomresults/bom-alpine.tar.json --fail-on-error
           bin/cdxgen.js /tmp/alpine.tar -p -t docker -o bomresults/bom-alpine.tar-audit.json --bom-audit --bom-audit-categories container-risk --fail-on-error
-          jq -e '.bomFormat == "CycloneDX" and .specVersion != null' bomresults/bom-alpine.tar-audit.json >/dev/null
+          assert_container_audit_bom bomresults/bom-alpine.tar-audit.json
+          ls -ltr bomresults
+        env:
+          CDXGEN_DEBUG_MODE: debug
+  linux-podman-tests:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
+      - name: Setup pnpm
+        uses: pnpm/action-setup@fc06bc1257f339d1d5d8b3a19a8cae5388b55320 # v5.0.0
+      - name: Use Node.js
+        uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e  # v6.4.0
+        with:
+          node-version-file: .nvmrc
+          package-manager-cache: false
+      - name: pnpm install
+        run: |
+          pnpm install:frozen
+          mkdir -p bomresults
+        env:
+          CI: true
+          CDXGEN_TEMP_DIR: ${{ runner.temp }}/cdxgen-podmantests
+      - name: podmantests
+        run: |
+          assert_container_audit_bom() {
+            jq -e '[.annotations[]? | select((.text // "") | contains("cdx:audit:category | container-risk |"))] | length > 0' "$1" >/dev/null || {
+              echo "Expected container-risk audit findings in $1"
+              return 1
+            }
+            jq -e '[.components[]? | select((.properties // []) | any((.name == "cdx:gtfobins:matched" or .name == "cdx:container:matched") and .value == "true"))] | length > 0' "$1" >/dev/null || {
+              echo "Expected GTFOBins or container-risk enrichment properties in $1"
+              return 1
+            }
+          }
+          if ! command -v podman >/dev/null 2>&1; then
+            echo "Podman is not installed on this runner. Skipping podman coverage."
+            exit 0
+          fi
+          export XDG_RUNTIME_DIR="${XDG_RUNTIME_DIR:-/run/user/$(id -u)}"
+          mkdir -p "$XDG_RUNTIME_DIR/podman"
+          podman system service -t 0 "unix://$XDG_RUNTIME_DIR/podman/podman.sock" >/tmp/podman-service.log 2>&1 &
+          for _ in $(seq 1 10); do
+            if [ -S "$XDG_RUNTIME_DIR/podman/podman.sock" ]; then
+              break
+            fi
+            sleep 1
+          done
+          if [ ! -S "$XDG_RUNTIME_DIR/podman/podman.sock" ]; then
+            echo "Podman socket is unavailable. Skipping podman coverage."
+            cat /tmp/podman-service.log || true
+            exit 0
+          fi
+          export DOCKER_HOST="unix://$XDG_RUNTIME_DIR/podman/podman.sock"
+          podman pull docker.io/library/alpine:latest
+          bin/cdxgen.js docker.io/library/alpine:latest -p -t docker -o bomresults/bom-podman-alpine.json --fail-on-error
+          bin/cdxgen.js docker.io/library/alpine:latest -p -t docker -o bomresults/bom-podman-alpine-audit.json --bom-audit --bom-audit-categories container-risk --fail-on-error
+          assert_container_audit_bom bomresults/bom-podman-alpine-audit.json
+          podman save -q --format docker-archive -o /tmp/podman-docker-archive.tar docker.io/library/alpine:latest
+          bin/cdxgen.js /tmp/podman-docker-archive.tar -p -t docker -o bomresults/bom-podman-docker-archive.json --fail-on-error
+          bin/cdxgen.js /tmp/podman-docker-archive.tar -p -t docker -o bomresults/bom-podman-docker-archive-audit.json --bom-audit --bom-audit-categories container-risk --fail-on-error
+          assert_container_audit_bom bomresults/bom-podman-docker-archive-audit.json
+          podman save -q --format oci-archive -o /tmp/podman-oci-archive.tar docker.io/library/alpine:latest
+          podman rmi docker.io/library/alpine:latest
+          bin/cdxgen.js /tmp/podman-oci-archive.tar -p -t docker -o bomresults/bom-podman-oci-archive.json --fail-on-error
+          bin/cdxgen.js /tmp/podman-oci-archive.tar -p -t docker -o bomresults/bom-podman-oci-archive-audit.json --bom-audit --bom-audit-categories container-risk --fail-on-error
+          assert_container_audit_bom bomresults/bom-podman-oci-archive-audit.json
+          rm -f /tmp/podman-docker-archive.tar /tmp/podman-oci-archive.tar
           ls -ltr bomresults
         env:
           CDXGEN_DEBUG_MODE: debug
