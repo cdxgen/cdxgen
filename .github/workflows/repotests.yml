@@ -77,7 +77,7 @@ jobs:
           bin/cdxgen.js -t java -exclude-type js repotests/java-sec-code -o bomresults/bom-java-sec-code-10.json
           bin/cdxgen.js -t java repotests/java-sec-code -o bomresults/bom-java-sec-code-release-notes.json --include-release-notes --release-notes-current-tag v1.0.0 --release-notes-previous-tag v0.9.0 --fail-on-error
           jq -e 'any(.metadata.tools.components[]; .group == "@cyclonedx" and .name == "cdxgen" and (.releaseNotes.type != null) and (.releaseNotes.title != null) and (.releaseNotes.description != null) and (.releaseNotes.timestamp != null) and ((.releaseNotes.tags | length) >= 1) and (.releaseNotes.resolves | type == "array"))' bomresults/bom-java-sec-code-release-notes.json
-          bin/cdxgen.js -t java https://github.com/HooliCorp/java-sec-code.git -o bomresults/bom-java-sec-code-git-url.json --git-branch main --fail-on-error --bom-audit
+          bin/cdxgen.js -t java https://github.com/HooliCorp/java-sec-code.git -o bomresults/bom-java-sec-code-git-url.json --git-branch master --fail-on-error --bom-audit
           bin/cdxgen.js -t js "pkg:npm/lodash@4.17.21" -o bomresults/bom-lodash-purl.json --fail-on-error
           bin/validate.js -i bomresults/bom-java-sec-code-10.json --format console --fail-severity critical
         shell: bash
