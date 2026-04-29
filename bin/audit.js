@@ -93,7 +93,7 @@ const args = yargs(hideBin(process.argv))
     type: "boolean",
   })
   .option("prioritize-direct-runtime", {
-    default: false,
+    default: true,
     description:
       "Prioritize direct runtime dependencies ahead of optional, development-only, or platform-specific transitive packages during target selection.",
     type: "boolean",
