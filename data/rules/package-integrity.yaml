@@ -182,3 +182,47 @@
       "indicatorMap": $prop($, 'cdx:npm:lifecycleIndicatorMap')
     }
 
+- id: INT-010
+  name: "Yanked Cargo crate in dependency tree"
+  description: "Crates yanked from crates.io are often removed because of security, correctness, or ecosystem breakage issues"
+  severity: high
+  category: package-integrity
+  condition: |
+    components[
+      $prop($, 'cdx:cargo:yanked') = 'true'
+    ]
+  location: |
+    { "bomRef": $."bom-ref", "purl": purl }
+  message: "Cargo crate '{{ name }}@{{ version }}' has been yanked from crates.io"
+  mitigation: "Update to a non-yanked release and review any recent publisher or release-cadence changes before upgrading"
+  evidence: |
+    {
+      "publisher": $prop($, 'cdx:cargo:publisher'),
+      "priorPublisher": $prop($, 'cdx:cargo:priorPublisher'),
+      "publishTime": $prop($, 'cdx:cargo:publishTime'),
+      "releaseGapDays": $prop($, 'cdx:cargo:releaseGapDays')
+    }
+
+- id: INT-011
+  name: "Rust project uses native Cargo build surface"
+  description: "Cargo build scripts and native build helpers expand execution surface during build and deserve additional review before release"
+  severity: medium
+  category: package-integrity
+  condition: |
+    formulation.components[
+      $prop($, 'cdx:rust:buildTool') = 'cargo'
+      and $prop($, 'cdx:cargo:hasNativeBuild') = 'true'
+    ]
+  location: |
+    {
+      "bomRef": $."bom-ref",
+      "file": $prop($, 'SrcFile')
+    }
+  message: "Rust project '{{ name }}' uses Cargo build.rs or native build helpers"
+  mitigation: "Review `build.rs`, native build dependencies, and release workflows to ensure the build remains hermetic and expected"
+  evidence: |
+    {
+      "buildScript": $prop($, 'cdx:cargo:buildScript'),
+      "nativeBuildIndicators": $prop($, 'cdx:cargo:nativeBuildIndicators'),
+      "releaseProfiles": $prop($, 'cdx:cargo:releaseProfiles')
+    }

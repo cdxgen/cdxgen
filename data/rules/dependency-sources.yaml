@@ -121,3 +121,44 @@
       "registry": $prop($, 'cdx:pypi:registry'),
       "resolvedFrom": $prop($, 'cdx:pypi:resolved_from')
     }
+- id: PKG-007
+  name: "Cargo dependency from mutable git source"
+  description: "Cargo git dependencies without revision or tag pinning can change unexpectedly and reduce build reproducibility"
+  severity: high
+  category: dependency-source
+  condition: |
+    components[
+      $hasProp($, 'cdx:cargo:git')
+      and $prop($, 'cdx:cargo:gitRev') = null
+      and $prop($, 'cdx:cargo:gitTag') = null
+    ]
+  location: |
+    { "bomRef": $."bom-ref", "purl": purl }
+  message: "Cargo dependency '{{ name }}@{{ version }}' tracks git source '{{ $prop($, 'cdx:cargo:git') }}' without an immutable revision pin"
+  mitigation: "Prefer crates.io releases or pin git dependencies with `rev = \"<commit-sha>\"` or a signed, reviewed tag"
+  evidence: |
+    {
+      "git": $prop($, 'cdx:cargo:git'),
+      "branch": $prop($, 'cdx:cargo:gitBranch'),
+      "tag": $prop($, 'cdx:cargo:gitTag'),
+      "dependencyKind": $prop($, 'cdx:cargo:dependencyKind')
+    }
+- id: PKG-008
+  name: "Cargo dependency from local path"
+  description: "Cargo path dependencies are local source references that reduce release reproducibility and may bypass registry review controls"
+  severity: high
+  category: dependency-source
+  condition: |
+    components[
+      $hasProp($, 'cdx:cargo:path')
+    ]
+  location: |
+    { "bomRef": $."bom-ref", "purl": purl }
+  message: "Cargo dependency '{{ name }}@{{ version }}' uses local path source '{{ $prop($, 'cdx:cargo:path') }}'"
+  mitigation: "Use published crate versions for release builds or vendor the dependency explicitly with clear provenance review"
+  evidence: |
+    {
+      "path": $prop($, 'cdx:cargo:path'),
+      "dependencyKind": $prop($, 'cdx:cargo:dependencyKind'),
+      "target": $prop($, 'cdx:cargo:target')
+    }
