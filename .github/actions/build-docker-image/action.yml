@@ -22,10 +22,16 @@ inputs:
     description: Which stage in the Dockerfile to build
     required: true
 
+outputs:
+  digest:
+    description: Digest of the built image
+    value: ${{ steps.build.outputs.digest }}
+
 runs:
   using: composite
   steps:
     - name: Build Docker image
+      id: build
       uses: docker/build-push-action@d08e5c354a6adb9ed34480a06d141179aa583294 # v7.0.0
       with:
         build-args: |

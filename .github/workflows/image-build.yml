@@ -53,41 +53,51 @@ env:
 permissions: {}
 
 jobs:
-  image:
-    permissions:
-      packages: write  # needed for publishing images on GH package registry
-    runs-on: ${{ fromJSON(inputs.image).runner || 'ubuntu-24.04' }}
+  prepare:
+    runs-on: ubuntu-latest
+    outputs:
+      arm-runner: ${{ steps.image.outputs.arm-runner }}
+      build-arm: ${{ steps.image.outputs.build-arm }}
+      docker-args: ${{ steps.docker_args.outputs.value }}
+      dockerfile: ${{ steps.image.outputs.dockerfile }}
+      lang: ${{ steps.image.outputs.lang }}
+      lang-tag: ${{ steps.image.outputs.lang-tag }}
+      runner: ${{ steps.image.outputs.runner }}
+      slim: ${{ steps.image.outputs.slim }}
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           persist-credentials: false
-      - name: Free disk space
-        if: ${{ startsWith(fromJSON(inputs.image).runner || 'ubuntu-24.04', 'ubuntu-') }}
-        uses: jlumbroso/free-disk-space@54081f138730dfa15788a46383842cd2f914a1be
-        with:
-          tool-cache: true
-      - name: Trim CI agent even more
-        if: ${{ startsWith(fromJSON(inputs.image).runner || 'ubuntu-24.04', 'ubuntu-') }}
+      - name: Parse image configuration
+        id: image
+        shell: bash
+        env:
+          IMAGE_JSON: ${{ inputs.image }}
         run: |
-          chmod +x contrib/free_disk_space.sh
-          ./contrib/free_disk_space.sh
-      - name: Set up QEMU
-        if: ${{ startsWith(fromJSON(inputs.image).runner || 'ubuntu-24.04', 'ubuntu-') }}
-        uses: docker/setup-qemu-action@ce360397dd3f832beb865e1373c09c0e9f86d70a # v4.0.0
-      - name: Fix QEMU
-        if: ${{ (fromJSON(inputs.image).fix-qemu || contains(fromJSON(inputs.image).distro, 'debian')) && startsWith(fromJSON(inputs.image).runner || 'ubuntu-24.04', 'ubuntu-') }}
-        run: |
-          echo "Attempting QEMU fix for Linux runner..."
-          if ! docker run --rm --privileged multiarch/qemu-user-static --reset -p yes -c yes; then
-            echo "QEMU fix failed (non-fatal); continuing with default QEMU setup"
-          fi
-      - name: Set up Docker BuildX
-        if: ${{ startsWith(fromJSON(inputs.image).runner || 'ubuntu-24.04', 'ubuntu-') }}
-        uses: docker/setup-buildx-action@4d04d5d9486b7bd6fa91e7baf45bbb4f8b9deedd # v4.0.0
-      - name: Setup ORAS
-        uses: oras-project/setup-oras@38de303aac69abb66f3e6255b7198bff35f323e3 # v2.0.0
+          python - <<'PY'
+          import json
+          import os
+
+          image = json.loads(os.environ["IMAGE_JSON"])
+          distro = image.get("distro", "bci")
+          lang = image["lang"]
+          runner = image.get("runner", "ubuntu-24.04")
+          arm_runner = "ubuntu-24.04-arm" if runner.startswith("ubuntu-") else runner
+          build_arm = "false" if image.get("skip-arm") else "true"
+          slim = "true" if image.get("slim") else "false"
+
+          with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as output:
+            output.write(f"arm-runner={arm_runner}\n")
+            output.write(f"build-arm={build_arm}\n")
+            output.write(f"dockerfile=ci/images/{distro}/Dockerfile.{lang}\n")
+            output.write(f"lang={lang}\n")
+            output.write(f"lang-tag={lang.replace('.', '')}\n")
+            output.write(f"runner={runner}\n")
+            output.write(f"slim={slim}\n")
+          PY
       - name: Setup tool versions
         id: versions
+        shell: bash
         run: |
           cd .versions
           cat >> "$GITHUB_OUTPUT" << EOF
@@ -97,7 +107,8 @@ jobs:
           EOF
       - name: Setup Nexus usage
         id: nexus
-        if: ${{ fromJSON(inputs.image).runner == 'macos-hosted' }}
+        if: ${{ steps.image.outputs.runner == 'macos-hosted' }}
+        shell: bash
         run: |
           NPM_REPO=http://$NEXUS_SERVER:$NEXUS_PORT$NEXUS_NPM_REPO_PATH
           echo -e "registry=$NPM_REPO\n@jsr:registry=$NPM_REPO" > .npmrc
@@ -124,15 +135,795 @@ jobs:
           "UBUNTU_REPO=http://$NEXUS_SERVER:$NEXUS_PORT$NEXUS_UBUNTU_REPO_PATH"
           VALUE
           EOF
+      - name: Combine Docker build arguments
+        id: docker_args
+        shell: bash
+        env:
+          NEXUS_DOCKER_ARGS: ${{ steps.nexus.outputs.docker-args }}
+          VERSIONS_DOCKER_ARGS: ${{ steps.versions.outputs.docker-args }}
+        run: |
+          cat >> "$GITHUB_OUTPUT" << EOF
+          value<<VALUE
+          $VERSIONS_DOCKER_ARGS
+          $NEXUS_DOCKER_ARGS
+          VALUE
+          EOF
+
+  build-amd64:
+    needs: prepare
+    runs-on: ${{ needs.prepare.outputs.runner }}
+    permissions:
+      packages: write
+    outputs:
+      base-image-uri: ${{ steps.image_uris.outputs.base-image-uri }}
+      cdxgen-master-image-uri: ${{ steps.image_uris.outputs.cdxgen-master-image-uri }}
+      cdxgen-tag-image-uri: ${{ steps.image_uris.outputs.cdxgen-tag-image-uri }}
+      slim-base-image-uri: ${{ steps.image_uris.outputs.slim-base-image-uri }}
+      slim-cdxgen-master-image-uri: ${{ steps.image_uris.outputs.slim-cdxgen-master-image-uri }}
+      slim-cdxgen-tag-image-uri: ${{ steps.image_uris.outputs.slim-cdxgen-tag-image-uri }}
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
+      - name: Free disk space
+        uses: jlumbroso/free-disk-space@54081f138730dfa15788a46383842cd2f914a1be
+        with:
+          tool-cache: true
+      - name: Trim CI agent even more
+        run: |
+          chmod +x contrib/free_disk_space.sh
+          ./contrib/free_disk_space.sh
+      - name: Set up Docker BuildX
+        uses: docker/setup-buildx-action@4d04d5d9486b7bd6fa91e7baf45bbb4f8b9deedd # v4.0.0
+      - name: Login to the Container registry
+        uses: docker/login-action@4907a6ddec9925e35a0a9e82d7399ccc52663121 # v4.1.0
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Extract metadata (labels) for base image
+        id: base_metadata
+        uses: docker/metadata-action@030e881283bb7a6894de51c315a6bfe6a94e05cf # v6.0.0
+        with:
+          flavor: latest=${{ inputs.latest }}
+          images: |
+            ${{ env.REPO }}/${{ env.TEAM }}/${{ fromJSON(inputs.image).base-image.name || fromJSON(inputs.image).distro || 'bci' }}-${{ fromJSON(inputs.image).base-image.lang || needs.prepare.outputs.lang-tag }}
+            ${{ fromJSON(inputs.image).base-image.additional-image && format('{0}/{1}/{2}', env.REPO, env.TEAM, fromJSON(inputs.image).base-image.additional-image) || '' }}
+          labels: |
+            org.opencontainers.image.authors=Team AppThreat <cloud@appthreat.com>
+            org.opencontainers.image.vendor=CycloneDX
+      - name: Build base image (amd64)
+        id: build_base
+        uses: ./.github/actions/build-docker-image
+        with:
+          dockerfile: ${{ needs.prepare.outputs.dockerfile }}
+          docker-args: ${{ needs.prepare.outputs.docker-args }}
+          labels: ${{ steps.base_metadata.outputs.labels }}
+          output: type=image,name=${{ env.REPO }}/${{ env.TEAM }}/${{ fromJSON(inputs.image).base-image.name || fromJSON(inputs.image).distro || 'bci' }}-${{ fromJSON(inputs.image).base-image.lang || needs.prepare.outputs.lang-tag }},name-canonical=true,push=true,push-by-digest=true
+          platforms: linux/amd64
+          target: base
+
+      - name: Extract metadata (labels) for slim base image
+        if: ${{ needs.prepare.outputs.slim == 'true' }}
+        id: slim_base_metadata
+        uses: docker/metadata-action@030e881283bb7a6894de51c315a6bfe6a94e05cf # v6.0.0
+        with:
+          flavor: latest=${{ inputs.latest }}
+          images: |
+            ${{ env.REPO }}/${{ env.TEAM }}/${{ fromJSON(inputs.image).base-image.name || fromJSON(inputs.image).distro || 'bci' }}-${{ fromJSON(inputs.image).base-image.lang || needs.prepare.outputs.lang-tag }}-slim
+            ${{ fromJSON(inputs.image).base-image.additional-image && format('{0}/{1}/{2}-slim', env.REPO, env.TEAM, fromJSON(inputs.image).base-image.additional-image) || '' }}
+          labels: |
+            org.opencontainers.image.authors=Team AppThreat <cloud@appthreat.com>
+            org.opencontainers.image.vendor=CycloneDX
+      - name: Build slim base image (amd64)
+        if: ${{ needs.prepare.outputs.slim == 'true' }}
+        id: build_slim_base
+        uses: ./.github/actions/build-docker-image
+        with:
+          dockerfile: ${{ needs.prepare.outputs.dockerfile }}
+          docker-args: |
+            IMAGE_TYPE=-slim
+            ${{ needs.prepare.outputs.docker-args }}
+          labels: ${{ steps.slim_base_metadata.outputs.labels }}
+          output: type=image,name=${{ env.REPO }}/${{ env.TEAM }}/${{ fromJSON(inputs.image).base-image.name || fromJSON(inputs.image).distro || 'bci' }}-${{ fromJSON(inputs.image).base-image.lang || needs.prepare.outputs.lang-tag }}-slim,name-canonical=true,push=true,push-by-digest=true
+          platforms: linux/amd64
+          target: base-slim
+
+      - name: Extract metadata (labels) for cdxgen image - master branch
+        if: ${{ startsWith(github.ref, 'refs/heads/') }}
+        id: cdxgen_master_metadata
+        uses: docker/metadata-action@030e881283bb7a6894de51c315a6bfe6a94e05cf # v6.0.0
+        with:
+          flavor: latest=${{ inputs.latest }}
+          images: |
+            ${{ env.REPO }}/${{ env.TEAM }}/cdxgen${{ fromJSON(inputs.image).distro && format('-{0}', fromJSON(inputs.image).distro) }}-${{ needs.prepare.outputs.lang-tag }}
+            ${{ fromJSON(inputs.image).cdxgen-image.additional-image && format('{0}/{1}/{2}', env.REPO, env.TEAM, fromJSON(inputs.image).cdxgen-image.additional-image) || '' }}
+            ${{ fromJSON(inputs.image).cdxgen-image.additional-image2 && format('{0}/{1}/{2}', env.REPO, env.TEAM, fromJSON(inputs.image).cdxgen-image.additional-image2) || '' }}
+            ${{ fromJSON(inputs.image).cdxgen-image.additional-image3 && format('{0}/{1}/{2}', env.REPO, env.TEAM, fromJSON(inputs.image).cdxgen-image.additional-image3) || '' }}
+          labels: |
+            org.opencontainers.image.authors=Team AppThreat <cloud@appthreat.com>
+            org.opencontainers.image.vendor=CycloneDX
+            ${{ format('org.opencontainers.docker.cmd=docker run --rm -v /tmp:/tmp -p 9090:9090 -v $(pwd):/app:rw -t {0} -r /app --server', format('{0}/{1}/cdxgen{2}-{3}:{4}', env.REPO, env.TEAM, fromJSON(inputs.image).distro && format('-{0}', fromJSON(inputs.image).distro) || '', needs.prepare.outputs.lang-tag, env.TAG)) }}
+            ${{ format('org.opencontainers.image.description=Image with cdxgen SBOM generator for {0} apps', needs.prepare.outputs.lang) }}
+      - name: Build cdxgen image - master branch (amd64)
+        if: ${{ startsWith(github.ref, 'refs/heads/') }}
+        id: build_cdxgen_master
+        uses: ./.github/actions/build-docker-image
+        with:
+          dockerfile: ${{ needs.prepare.outputs.dockerfile }}
+          docker-args: ${{ needs.prepare.outputs.docker-args }}
+          labels: ${{ steps.cdxgen_master_metadata.outputs.labels }}
+          output: type=image,name=${{ env.REPO }}/${{ env.TEAM }}/cdxgen${{ fromJSON(inputs.image).distro && format('-{0}', fromJSON(inputs.image).distro) }}-${{ needs.prepare.outputs.lang-tag }},name-canonical=true,push=true,push-by-digest=true
+          platforms: linux/amd64
+          target: cdxgen
+
+      - name: Extract metadata (labels) for cdxgen image - tags
+        if: ${{ startsWith(github.ref, 'refs/tags/') }}
+        id: cdxgen_tag_metadata
+        uses: docker/metadata-action@030e881283bb7a6894de51c315a6bfe6a94e05cf # v6.0.0
+        with:
+          flavor: latest=${{ inputs.latest }}
+          images: |
+            ${{ env.REPO }}/${{ env.TEAM }}/cdxgen${{ fromJSON(inputs.image).distro && format('-{0}', fromJSON(inputs.image).distro) }}-${{ needs.prepare.outputs.lang-tag }}
+            ${{ fromJSON(inputs.image).cdxgen-image.additional-image && format('{0}/{1}/{2}', env.REPO, env.TEAM, fromJSON(inputs.image).cdxgen-image.additional-image) || '' }}
+            ${{ fromJSON(inputs.image).cdxgen-image.additional-image2 && format('{0}/{1}/{2}', env.REPO, env.TEAM, fromJSON(inputs.image).cdxgen-image.additional-image2) || '' }}
+            ${{ fromJSON(inputs.image).cdxgen-image.additional-image3 && format('{0}/{1}/{2}', env.REPO, env.TEAM, fromJSON(inputs.image).cdxgen-image.additional-image3) || '' }}
+          labels: |
+            org.opencontainers.image.authors=Team AppThreat <cloud@appthreat.com>
+            org.opencontainers.image.vendor=CycloneDX
+      - name: Build cdxgen image - tags (amd64)
+        if: ${{ startsWith(github.ref, 'refs/tags/') }}
+        id: build_cdxgen_tag
+        uses: ./.github/actions/build-docker-image
+        with:
+          dockerfile: ${{ needs.prepare.outputs.dockerfile }}
+          docker-args: ${{ needs.prepare.outputs.docker-args }}
+          labels: ${{ steps.cdxgen_tag_metadata.outputs.labels }}
+          output: type=image,name=${{ env.REPO }}/${{ env.TEAM }}/cdxgen${{ fromJSON(inputs.image).distro && format('-{0}', fromJSON(inputs.image).distro) }}-${{ needs.prepare.outputs.lang-tag }},name-canonical=true,push=true,push-by-digest=true
+          platforms: linux/amd64
+          target: cdxgen
+
+      - name: Extract metadata (labels) for slim cdxgen image - master branch
+        if: ${{ needs.prepare.outputs.slim == 'true' && startsWith(github.ref, 'refs/heads/') }}
+        id: slim_cdxgen_master_metadata
+        uses: docker/metadata-action@030e881283bb7a6894de51c315a6bfe6a94e05cf # v6.0.0
+        with:
+          flavor: latest=${{ inputs.latest }}
+          images: |
+            ${{ env.REPO }}/${{ env.TEAM }}/cdxgen${{ fromJSON(inputs.image).distro && format('-{0}', fromJSON(inputs.image).distro) }}-${{ needs.prepare.outputs.lang-tag }}-slim
+            ${{ fromJSON(inputs.image).cdxgen-image.additional-image && format('{0}/{1}/{2}-slim', env.REPO, env.TEAM, fromJSON(inputs.image).cdxgen-image.additional-image) || '' }}
+            ${{ fromJSON(inputs.image).cdxgen-image.additional-image2 && format('{0}/{1}/{2}-slim', env.REPO, env.TEAM, fromJSON(inputs.image).cdxgen-image.additional-image2) || '' }}
+            ${{ fromJSON(inputs.image).cdxgen-image.additional-image3 && format('{0}/{1}/{2}-slim', env.REPO, env.TEAM, fromJSON(inputs.image).cdxgen-image.additional-image3) || '' }}
+          labels: |
+            org.opencontainers.image.authors=Team AppThreat <cloud@appthreat.com>
+            org.opencontainers.image.vendor=CycloneDX
+            ${{ format('org.opencontainers.docker.cmd=docker run --rm -v /tmp:/tmp -p 9090:9090 -v $(pwd):/app:rw -t {0} -r /app --server', format('{0}/{1}/cdxgen{2}-{3}-slim:{4}', env.REPO, env.TEAM, fromJSON(inputs.image).distro && format('-{0}', fromJSON(inputs.image).distro) || '', needs.prepare.outputs.lang-tag, env.TAG)) }}
+            ${{ format('org.opencontainers.image.description=Image with cdxgen SBOM generator for {0} apps', needs.prepare.outputs.lang) }}
+      - name: Build slim cdxgen image - master branch (amd64)
+        if: ${{ needs.prepare.outputs.slim == 'true' && startsWith(github.ref, 'refs/heads/') }}
+        id: build_slim_cdxgen_master
+        uses: ./.github/actions/build-docker-image
+        with:
+          dockerfile: ${{ needs.prepare.outputs.dockerfile }}
+          docker-args: |
+            IMAGE_TYPE=-slim
+            ${{ needs.prepare.outputs.docker-args }}
+          labels: ${{ steps.slim_cdxgen_master_metadata.outputs.labels }}
+          output: type=image,name=${{ env.REPO }}/${{ env.TEAM }}/cdxgen${{ fromJSON(inputs.image).distro && format('-{0}', fromJSON(inputs.image).distro) }}-${{ needs.prepare.outputs.lang-tag }}-slim,name-canonical=true,push=true,push-by-digest=true
+          platforms: linux/amd64
+          target: cdxgen
+
+      - name: Extract metadata (labels) for slim cdxgen image - tags
+        if: ${{ needs.prepare.outputs.slim == 'true' && startsWith(github.ref, 'refs/tags/') }}
+        id: slim_cdxgen_tag_metadata
+        uses: docker/metadata-action@030e881283bb7a6894de51c315a6bfe6a94e05cf # v6.0.0
+        with:
+          flavor: latest=${{ inputs.latest }}
+          images: |
+            ${{ env.REPO }}/${{ env.TEAM }}/cdxgen${{ fromJSON(inputs.image).distro && format('-{0}', fromJSON(inputs.image).distro) }}-${{ needs.prepare.outputs.lang-tag }}-slim
+            ${{ fromJSON(inputs.image).cdxgen-image.additional-image && format('{0}/{1}/{2}-slim', env.REPO, env.TEAM, fromJSON(inputs.image).cdxgen-image.additional-image) || '' }}
+            ${{ fromJSON(inputs.image).cdxgen-image.additional-image2 && format('{0}/{1}/{2}-slim', env.REPO, env.TEAM, fromJSON(inputs.image).cdxgen-image.additional-image2) || '' }}
+            ${{ fromJSON(inputs.image).cdxgen-image.additional-image3 && format('{0}/{1}/{2}-slim', env.REPO, env.TEAM, fromJSON(inputs.image).cdxgen-image.additional-image3) || '' }}
+          labels: |
+            org.opencontainers.image.authors=Team AppThreat <cloud@appthreat.com>
+            org.opencontainers.image.vendor=CycloneDX
+      - name: Build slim cdxgen image - tags (amd64)
+        if: ${{ needs.prepare.outputs.slim == 'true' && startsWith(github.ref, 'refs/tags/') }}
+        id: build_slim_cdxgen_tag
+        uses: ./.github/actions/build-docker-image
+        with:
+          dockerfile: ${{ needs.prepare.outputs.dockerfile }}
+          docker-args: |
+            IMAGE_TYPE=-slim
+            ${{ needs.prepare.outputs.docker-args }}
+          labels: ${{ steps.slim_cdxgen_tag_metadata.outputs.labels }}
+          output: type=image,name=${{ env.REPO }}/${{ env.TEAM }}/cdxgen${{ fromJSON(inputs.image).distro && format('-{0}', fromJSON(inputs.image).distro) }}-${{ needs.prepare.outputs.lang-tag }}-slim,name-canonical=true,push=true,push-by-digest=true
+          platforms: linux/amd64
+          target: cdxgen
+
+      - name: Record amd64 image URIs
+        id: image_uris
+        shell: bash
+        env:
+          BASE_DIGEST: ${{ steps.build_base.outputs.digest }}
+          BASE_IMAGE: ${{ env.REPO }}/${{ env.TEAM }}/${{ fromJSON(inputs.image).base-image.name || fromJSON(inputs.image).distro || 'bci' }}-${{ fromJSON(inputs.image).base-image.lang || needs.prepare.outputs.lang-tag }}
+          CDXGEN_MASTER_DIGEST: ${{ steps.build_cdxgen_master.outputs.digest }}
+          CDXGEN_MASTER_IMAGE: ${{ env.REPO }}/${{ env.TEAM }}/cdxgen${{ fromJSON(inputs.image).distro && format('-{0}', fromJSON(inputs.image).distro) }}-${{ needs.prepare.outputs.lang-tag }}
+          CDXGEN_TAG_DIGEST: ${{ steps.build_cdxgen_tag.outputs.digest }}
+          CDXGEN_TAG_IMAGE: ${{ env.REPO }}/${{ env.TEAM }}/cdxgen${{ fromJSON(inputs.image).distro && format('-{0}', fromJSON(inputs.image).distro) }}-${{ needs.prepare.outputs.lang-tag }}
+          SLIM_BASE_DIGEST: ${{ steps.build_slim_base.outputs.digest }}
+          SLIM_BASE_IMAGE: ${{ env.REPO }}/${{ env.TEAM }}/${{ fromJSON(inputs.image).base-image.name || fromJSON(inputs.image).distro || 'bci' }}-${{ fromJSON(inputs.image).base-image.lang || needs.prepare.outputs.lang-tag }}-slim
+          SLIM_CDXGEN_MASTER_DIGEST: ${{ steps.build_slim_cdxgen_master.outputs.digest }}
+          SLIM_CDXGEN_MASTER_IMAGE: ${{ env.REPO }}/${{ env.TEAM }}/cdxgen${{ fromJSON(inputs.image).distro && format('-{0}', fromJSON(inputs.image).distro) }}-${{ needs.prepare.outputs.lang-tag }}-slim
+          SLIM_CDXGEN_TAG_DIGEST: ${{ steps.build_slim_cdxgen_tag.outputs.digest }}
+          SLIM_CDXGEN_TAG_IMAGE: ${{ env.REPO }}/${{ env.TEAM }}/cdxgen${{ fromJSON(inputs.image).distro && format('-{0}', fromJSON(inputs.image).distro) }}-${{ needs.prepare.outputs.lang-tag }}-slim
+        run: |
+          emit_output() {
+            local name="$1"
+            local image="$2"
+            local digest="$3"
+            if [ -n "$digest" ]; then
+              echo "$name=$image@$digest" >> "$GITHUB_OUTPUT"
+            else
+              echo "$name=" >> "$GITHUB_OUTPUT"
+            fi
+          }
+
+          emit_output "base-image-uri" "$BASE_IMAGE" "$BASE_DIGEST"
+          emit_output "cdxgen-master-image-uri" "$CDXGEN_MASTER_IMAGE" "$CDXGEN_MASTER_DIGEST"
+          emit_output "cdxgen-tag-image-uri" "$CDXGEN_TAG_IMAGE" "$CDXGEN_TAG_DIGEST"
+          emit_output "slim-base-image-uri" "$SLIM_BASE_IMAGE" "$SLIM_BASE_DIGEST"
+          emit_output "slim-cdxgen-master-image-uri" "$SLIM_CDXGEN_MASTER_IMAGE" "$SLIM_CDXGEN_MASTER_DIGEST"
+          emit_output "slim-cdxgen-tag-image-uri" "$SLIM_CDXGEN_TAG_IMAGE" "$SLIM_CDXGEN_TAG_DIGEST"
+
+  build-arm64:
+    if: ${{ needs.prepare.outputs.build-arm == 'true' }}
+    needs: prepare
+    runs-on: ${{ needs.prepare.outputs.arm-runner }}
+    permissions:
+      packages: write
+    outputs:
+      base-image-uri: ${{ steps.image_uris.outputs.base-image-uri }}
+      cdxgen-master-image-uri: ${{ steps.image_uris.outputs.cdxgen-master-image-uri }}
+      cdxgen-tag-image-uri: ${{ steps.image_uris.outputs.cdxgen-tag-image-uri }}
+      slim-base-image-uri: ${{ steps.image_uris.outputs.slim-base-image-uri }}
+      slim-cdxgen-master-image-uri: ${{ steps.image_uris.outputs.slim-cdxgen-master-image-uri }}
+      slim-cdxgen-tag-image-uri: ${{ steps.image_uris.outputs.slim-cdxgen-tag-image-uri }}
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
+      - name: Free disk space
+        uses: jlumbroso/free-disk-space@54081f138730dfa15788a46383842cd2f914a1be
+        with:
+          tool-cache: true
+      - name: Trim CI agent even more
+        run: |
+          chmod +x contrib/free_disk_space.sh
+          ./contrib/free_disk_space.sh
+      - name: Set up Docker BuildX
+        uses: docker/setup-buildx-action@4d04d5d9486b7bd6fa91e7baf45bbb4f8b9deedd # v4.0.0
+      - name: Login to the Container registry
+        uses: docker/login-action@4907a6ddec9925e35a0a9e82d7399ccc52663121 # v4.1.0
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Extract metadata (labels) for base image
+        id: base_metadata
+        uses: docker/metadata-action@030e881283bb7a6894de51c315a6bfe6a94e05cf # v6.0.0
+        with:
+          flavor: latest=${{ inputs.latest }}
+          images: |
+            ${{ env.REPO }}/${{ env.TEAM }}/${{ fromJSON(inputs.image).base-image.name || fromJSON(inputs.image).distro || 'bci' }}-${{ fromJSON(inputs.image).base-image.lang || needs.prepare.outputs.lang-tag }}
+            ${{ fromJSON(inputs.image).base-image.additional-image && format('{0}/{1}/{2}', env.REPO, env.TEAM, fromJSON(inputs.image).base-image.additional-image) || '' }}
+          labels: |
+            org.opencontainers.image.authors=Team AppThreat <cloud@appthreat.com>
+            org.opencontainers.image.vendor=CycloneDX
+      - name: Build base image (arm64)
+        id: build_base
+        uses: ./.github/actions/build-docker-image
+        with:
+          dockerfile: ${{ needs.prepare.outputs.dockerfile }}
+          docker-args: ${{ needs.prepare.outputs.docker-args }}
+          labels: ${{ steps.base_metadata.outputs.labels }}
+          output: type=image,name=${{ env.REPO }}/${{ env.TEAM }}/${{ fromJSON(inputs.image).base-image.name || fromJSON(inputs.image).distro || 'bci' }}-${{ fromJSON(inputs.image).base-image.lang || needs.prepare.outputs.lang-tag }},name-canonical=true,push=true,push-by-digest=true
+          platforms: linux/arm64
+          target: base
+
+      - name: Extract metadata (labels) for slim base image
+        if: ${{ needs.prepare.outputs.slim == 'true' }}
+        id: slim_base_metadata
+        uses: docker/metadata-action@030e881283bb7a6894de51c315a6bfe6a94e05cf # v6.0.0
+        with:
+          flavor: latest=${{ inputs.latest }}
+          images: |
+            ${{ env.REPO }}/${{ env.TEAM }}/${{ fromJSON(inputs.image).base-image.name || fromJSON(inputs.image).distro || 'bci' }}-${{ fromJSON(inputs.image).base-image.lang || needs.prepare.outputs.lang-tag }}-slim
+            ${{ fromJSON(inputs.image).base-image.additional-image && format('{0}/{1}/{2}-slim', env.REPO, env.TEAM, fromJSON(inputs.image).base-image.additional-image) || '' }}
+          labels: |
+            org.opencontainers.image.authors=Team AppThreat <cloud@appthreat.com>
+            org.opencontainers.image.vendor=CycloneDX
+      - name: Build slim base image (arm64)
+        if: ${{ needs.prepare.outputs.slim == 'true' }}
+        id: build_slim_base
+        uses: ./.github/actions/build-docker-image
+        with:
+          dockerfile: ${{ needs.prepare.outputs.dockerfile }}
+          docker-args: |
+            IMAGE_TYPE=-slim
+            ${{ needs.prepare.outputs.docker-args }}
+          labels: ${{ steps.slim_base_metadata.outputs.labels }}
+          output: type=image,name=${{ env.REPO }}/${{ env.TEAM }}/${{ fromJSON(inputs.image).base-image.name || fromJSON(inputs.image).distro || 'bci' }}-${{ fromJSON(inputs.image).base-image.lang || needs.prepare.outputs.lang-tag }}-slim,name-canonical=true,push=true,push-by-digest=true
+          platforms: linux/arm64
+          target: base-slim
+
+      - name: Extract metadata (labels) for cdxgen image - master branch
+        if: ${{ startsWith(github.ref, 'refs/heads/') }}
+        id: cdxgen_master_metadata
+        uses: docker/metadata-action@030e881283bb7a6894de51c315a6bfe6a94e05cf # v6.0.0
+        with:
+          flavor: latest=${{ inputs.latest }}
+          images: |
+            ${{ env.REPO }}/${{ env.TEAM }}/cdxgen${{ fromJSON(inputs.image).distro && format('-{0}', fromJSON(inputs.image).distro) }}-${{ needs.prepare.outputs.lang-tag }}
+            ${{ fromJSON(inputs.image).cdxgen-image.additional-image && format('{0}/{1}/{2}', env.REPO, env.TEAM, fromJSON(inputs.image).cdxgen-image.additional-image) || '' }}
+            ${{ fromJSON(inputs.image).cdxgen-image.additional-image2 && format('{0}/{1}/{2}', env.REPO, env.TEAM, fromJSON(inputs.image).cdxgen-image.additional-image2) || '' }}
+            ${{ fromJSON(inputs.image).cdxgen-image.additional-image3 && format('{0}/{1}/{2}', env.REPO, env.TEAM, fromJSON(inputs.image).cdxgen-image.additional-image3) || '' }}
+          labels: |
+            org.opencontainers.image.authors=Team AppThreat <cloud@appthreat.com>
+            org.opencontainers.image.vendor=CycloneDX
+            ${{ format('org.opencontainers.docker.cmd=docker run --rm -v /tmp:/tmp -p 9090:9090 -v $(pwd):/app:rw -t {0} -r /app --server', format('{0}/{1}/cdxgen{2}-{3}:{4}', env.REPO, env.TEAM, fromJSON(inputs.image).distro && format('-{0}', fromJSON(inputs.image).distro) || '', needs.prepare.outputs.lang-tag, env.TAG)) }}
+            ${{ format('org.opencontainers.image.description=Image with cdxgen SBOM generator for {0} apps', needs.prepare.outputs.lang) }}
+      - name: Build cdxgen image - master branch (arm64)
+        if: ${{ startsWith(github.ref, 'refs/heads/') }}
+        id: build_cdxgen_master
+        uses: ./.github/actions/build-docker-image
+        with:
+          dockerfile: ${{ needs.prepare.outputs.dockerfile }}
+          docker-args: ${{ needs.prepare.outputs.docker-args }}
+          labels: ${{ steps.cdxgen_master_metadata.outputs.labels }}
+          output: type=image,name=${{ env.REPO }}/${{ env.TEAM }}/cdxgen${{ fromJSON(inputs.image).distro && format('-{0}', fromJSON(inputs.image).distro) }}-${{ needs.prepare.outputs.lang-tag }},name-canonical=true,push=true,push-by-digest=true
+          platforms: linux/arm64
+          target: cdxgen
+
+      - name: Extract metadata (labels) for cdxgen image - tags
+        if: ${{ startsWith(github.ref, 'refs/tags/') }}
+        id: cdxgen_tag_metadata
+        uses: docker/metadata-action@030e881283bb7a6894de51c315a6bfe6a94e05cf # v6.0.0
+        with:
+          flavor: latest=${{ inputs.latest }}
+          images: |
+            ${{ env.REPO }}/${{ env.TEAM }}/cdxgen${{ fromJSON(inputs.image).distro && format('-{0}', fromJSON(inputs.image).distro) }}-${{ needs.prepare.outputs.lang-tag }}
+            ${{ fromJSON(inputs.image).cdxgen-image.additional-image && format('{0}/{1}/{2}', env.REPO, env.TEAM, fromJSON(inputs.image).cdxgen-image.additional-image) || '' }}
+            ${{ fromJSON(inputs.image).cdxgen-image.additional-image2 && format('{0}/{1}/{2}', env.REPO, env.TEAM, fromJSON(inputs.image).cdxgen-image.additional-image2) || '' }}
+            ${{ fromJSON(inputs.image).cdxgen-image.additional-image3 && format('{0}/{1}/{2}', env.REPO, env.TEAM, fromJSON(inputs.image).cdxgen-image.additional-image3) || '' }}
+          labels: |
+            org.opencontainers.image.authors=Team AppThreat <cloud@appthreat.com>
+            org.opencontainers.image.vendor=CycloneDX
+      - name: Build cdxgen image - tags (arm64)
+        if: ${{ startsWith(github.ref, 'refs/tags/') }}
+        id: build_cdxgen_tag
+        uses: ./.github/actions/build-docker-image
+        with:
+          dockerfile: ${{ needs.prepare.outputs.dockerfile }}
+          docker-args: ${{ needs.prepare.outputs.docker-args }}
+          labels: ${{ steps.cdxgen_tag_metadata.outputs.labels }}
+          output: type=image,name=${{ env.REPO }}/${{ env.TEAM }}/cdxgen${{ fromJSON(inputs.image).distro && format('-{0}', fromJSON(inputs.image).distro) }}-${{ needs.prepare.outputs.lang-tag }},name-canonical=true,push=true,push-by-digest=true
+          platforms: linux/arm64
+          target: cdxgen
+
+      - name: Extract metadata (labels) for slim cdxgen image - master branch
+        if: ${{ needs.prepare.outputs.slim == 'true' && startsWith(github.ref, 'refs/heads/') }}
+        id: slim_cdxgen_master_metadata
+        uses: docker/metadata-action@030e881283bb7a6894de51c315a6bfe6a94e05cf # v6.0.0
+        with:
+          flavor: latest=${{ inputs.latest }}
+          images: |
+            ${{ env.REPO }}/${{ env.TEAM }}/cdxgen${{ fromJSON(inputs.image).distro && format('-{0}', fromJSON(inputs.image).distro) }}-${{ needs.prepare.outputs.lang-tag }}-slim
+            ${{ fromJSON(inputs.image).cdxgen-image.additional-image && format('{0}/{1}/{2}-slim', env.REPO, env.TEAM, fromJSON(inputs.image).cdxgen-image.additional-image) || '' }}
+            ${{ fromJSON(inputs.image).cdxgen-image.additional-image2 && format('{0}/{1}/{2}-slim', env.REPO, env.TEAM, fromJSON(inputs.image).cdxgen-image.additional-image2) || '' }}
+            ${{ fromJSON(inputs.image).cdxgen-image.additional-image3 && format('{0}/{1}/{2}-slim', env.REPO, env.TEAM, fromJSON(inputs.image).cdxgen-image.additional-image3) || '' }}
+          labels: |
+            org.opencontainers.image.authors=Team AppThreat <cloud@appthreat.com>
+            org.opencontainers.image.vendor=CycloneDX
+            ${{ format('org.opencontainers.docker.cmd=docker run --rm -v /tmp:/tmp -p 9090:9090 -v $(pwd):/app:rw -t {0} -r /app --server', format('{0}/{1}/cdxgen{2}-{3}-slim:{4}', env.REPO, env.TEAM, fromJSON(inputs.image).distro && format('-{0}', fromJSON(inputs.image).distro) || '', needs.prepare.outputs.lang-tag, env.TAG)) }}
+            ${{ format('org.opencontainers.image.description=Image with cdxgen SBOM generator for {0} apps', needs.prepare.outputs.lang) }}
+      - name: Build slim cdxgen image - master branch (arm64)
+        if: ${{ needs.prepare.outputs.slim == 'true' && startsWith(github.ref, 'refs/heads/') }}
+        id: build_slim_cdxgen_master
+        uses: ./.github/actions/build-docker-image
+        with:
+          dockerfile: ${{ needs.prepare.outputs.dockerfile }}
+          docker-args: |
+            IMAGE_TYPE=-slim
+            ${{ needs.prepare.outputs.docker-args }}
+          labels: ${{ steps.slim_cdxgen_master_metadata.outputs.labels }}
+          output: type=image,name=${{ env.REPO }}/${{ env.TEAM }}/cdxgen${{ fromJSON(inputs.image).distro && format('-{0}', fromJSON(inputs.image).distro) }}-${{ needs.prepare.outputs.lang-tag }}-slim,name-canonical=true,push=true,push-by-digest=true
+          platforms: linux/arm64
+          target: cdxgen
+
+      - name: Extract metadata (labels) for slim cdxgen image - tags
+        if: ${{ needs.prepare.outputs.slim == 'true' && startsWith(github.ref, 'refs/tags/') }}
+        id: slim_cdxgen_tag_metadata
+        uses: docker/metadata-action@030e881283bb7a6894de51c315a6bfe6a94e05cf # v6.0.0
+        with:
+          flavor: latest=${{ inputs.latest }}
+          images: |
+            ${{ env.REPO }}/${{ env.TEAM }}/cdxgen${{ fromJSON(inputs.image).distro && format('-{0}', fromJSON(inputs.image).distro) }}-${{ needs.prepare.outputs.lang-tag }}-slim
+            ${{ fromJSON(inputs.image).cdxgen-image.additional-image && format('{0}/{1}/{2}-slim', env.REPO, env.TEAM, fromJSON(inputs.image).cdxgen-image.additional-image) || '' }}
+            ${{ fromJSON(inputs.image).cdxgen-image.additional-image2 && format('{0}/{1}/{2}-slim', env.REPO, env.TEAM, fromJSON(inputs.image).cdxgen-image.additional-image2) || '' }}
+            ${{ fromJSON(inputs.image).cdxgen-image.additional-image3 && format('{0}/{1}/{2}-slim', env.REPO, env.TEAM, fromJSON(inputs.image).cdxgen-image.additional-image3) || '' }}
+          labels: |
+            org.opencontainers.image.authors=Team AppThreat <cloud@appthreat.com>
+            org.opencontainers.image.vendor=CycloneDX
+      - name: Build slim cdxgen image - tags (arm64)
+        if: ${{ needs.prepare.outputs.slim == 'true' && startsWith(github.ref, 'refs/tags/') }}
+        id: build_slim_cdxgen_tag
+        uses: ./.github/actions/build-docker-image
+        with:
+          dockerfile: ${{ needs.prepare.outputs.dockerfile }}
+          docker-args: |
+            IMAGE_TYPE=-slim
+            ${{ needs.prepare.outputs.docker-args }}
+          labels: ${{ steps.slim_cdxgen_tag_metadata.outputs.labels }}
+          output: type=image,name=${{ env.REPO }}/${{ env.TEAM }}/cdxgen${{ fromJSON(inputs.image).distro && format('-{0}', fromJSON(inputs.image).distro) }}-${{ needs.prepare.outputs.lang-tag }}-slim,name-canonical=true,push=true,push-by-digest=true
+          platforms: linux/arm64
+          target: cdxgen
+
+      - name: Record arm64 image URIs
+        id: image_uris
+        shell: bash
+        env:
+          BASE_DIGEST: ${{ steps.build_base.outputs.digest }}
+          BASE_IMAGE: ${{ env.REPO }}/${{ env.TEAM }}/${{ fromJSON(inputs.image).base-image.name || fromJSON(inputs.image).distro || 'bci' }}-${{ fromJSON(inputs.image).base-image.lang || needs.prepare.outputs.lang-tag }}
+          CDXGEN_MASTER_DIGEST: ${{ steps.build_cdxgen_master.outputs.digest }}
+          CDXGEN_MASTER_IMAGE: ${{ env.REPO }}/${{ env.TEAM }}/cdxgen${{ fromJSON(inputs.image).distro && format('-{0}', fromJSON(inputs.image).distro) }}-${{ needs.prepare.outputs.lang-tag }}
+          CDXGEN_TAG_DIGEST: ${{ steps.build_cdxgen_tag.outputs.digest }}
+          CDXGEN_TAG_IMAGE: ${{ env.REPO }}/${{ env.TEAM }}/cdxgen${{ fromJSON(inputs.image).distro && format('-{0}', fromJSON(inputs.image).distro) }}-${{ needs.prepare.outputs.lang-tag }}
+          SLIM_BASE_DIGEST: ${{ steps.build_slim_base.outputs.digest }}
+          SLIM_BASE_IMAGE: ${{ env.REPO }}/${{ env.TEAM }}/${{ fromJSON(inputs.image).base-image.name || fromJSON(inputs.image).distro || 'bci' }}-${{ fromJSON(inputs.image).base-image.lang || needs.prepare.outputs.lang-tag }}-slim
+          SLIM_CDXGEN_MASTER_DIGEST: ${{ steps.build_slim_cdxgen_master.outputs.digest }}
+          SLIM_CDXGEN_MASTER_IMAGE: ${{ env.REPO }}/${{ env.TEAM }}/cdxgen${{ fromJSON(inputs.image).distro && format('-{0}', fromJSON(inputs.image).distro) }}-${{ needs.prepare.outputs.lang-tag }}-slim
+          SLIM_CDXGEN_TAG_DIGEST: ${{ steps.build_slim_cdxgen_tag.outputs.digest }}
+          SLIM_CDXGEN_TAG_IMAGE: ${{ env.REPO }}/${{ env.TEAM }}/cdxgen${{ fromJSON(inputs.image).distro && format('-{0}', fromJSON(inputs.image).distro) }}-${{ needs.prepare.outputs.lang-tag }}-slim
+        run: |
+          emit_output() {
+            local name="$1"
+            local image="$2"
+            local digest="$3"
+            if [ -n "$digest" ]; then
+              echo "$name=$image@$digest" >> "$GITHUB_OUTPUT"
+            else
+              echo "$name=" >> "$GITHUB_OUTPUT"
+            fi
+          }
+
+          emit_output "base-image-uri" "$BASE_IMAGE" "$BASE_DIGEST"
+          emit_output "cdxgen-master-image-uri" "$CDXGEN_MASTER_IMAGE" "$CDXGEN_MASTER_DIGEST"
+          emit_output "cdxgen-tag-image-uri" "$CDXGEN_TAG_IMAGE" "$CDXGEN_TAG_DIGEST"
+          emit_output "slim-base-image-uri" "$SLIM_BASE_IMAGE" "$SLIM_BASE_DIGEST"
+          emit_output "slim-cdxgen-master-image-uri" "$SLIM_CDXGEN_MASTER_IMAGE" "$SLIM_CDXGEN_MASTER_DIGEST"
+          emit_output "slim-cdxgen-tag-image-uri" "$SLIM_CDXGEN_TAG_IMAGE" "$SLIM_CDXGEN_TAG_DIGEST"
+
+  merge:
+    if: ${{ always() && needs.build-amd64.result == 'success' && (needs.prepare.outputs.build-arm != 'true' || needs.build-arm64.result == 'success') }}
+    needs:
+      - prepare
+      - build-amd64
+      - build-arm64
+    runs-on: ubuntu-24.04
+    permissions:
+      packages: write
+    outputs:
+      base-tags: ${{ steps.final_tags.outputs.base-tags }}
+      cdxgen-master-tags: ${{ steps.final_tags.outputs.cdxgen-master-tags }}
+      cdxgen-tag-tags: ${{ steps.final_tags.outputs.cdxgen-tag-tags }}
+      slim-base-tags: ${{ steps.final_tags.outputs.slim-base-tags }}
+      slim-cdxgen-master-tags: ${{ steps.final_tags.outputs.slim-cdxgen-master-tags }}
+      slim-cdxgen-tag-tags: ${{ steps.final_tags.outputs.slim-cdxgen-tag-tags }}
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+      - name: Login to the Container registry
+        uses: docker/login-action@4907a6ddec9925e35a0a9e82d7399ccc52663121 # v4.1.0
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Extract metadata for base image
+        id: base_metadata
+        uses: docker/metadata-action@030e881283bb7a6894de51c315a6bfe6a94e05cf # v6.0.0
+        with:
+          flavor: latest=${{ inputs.latest }}
+          images: |
+            ${{ env.REPO }}/${{ env.TEAM }}/${{ fromJSON(inputs.image).base-image.name || fromJSON(inputs.image).distro || 'bci' }}-${{ fromJSON(inputs.image).base-image.lang || needs.prepare.outputs.lang-tag }}
+            ${{ fromJSON(inputs.image).base-image.additional-image && format('{0}/{1}/{2}', env.REPO, env.TEAM, fromJSON(inputs.image).base-image.additional-image) || '' }}
+          labels: |
+            org.opencontainers.image.authors=Team AppThreat <cloud@appthreat.com>
+            org.opencontainers.image.vendor=CycloneDX
+      - name: Resolve base image tags
+        id: resolve_base_tags
+        shell: bash
+        env:
+          METADATA_TAGS: ${{ steps.base_metadata.outputs.tags }}
+        run: |
+          cat >> "$GITHUB_OUTPUT" << EOF
+          value<<VALUE
+          $METADATA_TAGS
+          VALUE
+          EOF
+      - name: Merge base image manifest
+        id: merge_base
+        uses: int128/docker-manifest-create-action@3de37de96c4e900bc3eef9055d3c50abdb4f769d  # v2.18.0
+        with:
+          index-annotations: ${{ steps.base_metadata.outputs.labels }}
+          tags: ${{ steps.resolve_base_tags.outputs.value }}
+          sources: |
+            ${{ needs.build-amd64.outputs.base-image-uri }}
+            ${{ needs.prepare.outputs.build-arm == 'true' && needs.build-arm64.outputs.base-image-uri || '' }}
+
+      - name: Extract metadata for slim base image
+        if: ${{ needs.prepare.outputs.slim == 'true' }}
+        id: slim_base_metadata
+        uses: docker/metadata-action@030e881283bb7a6894de51c315a6bfe6a94e05cf # v6.0.0
+        with:
+          flavor: latest=${{ inputs.latest }}
+          images: |
+            ${{ env.REPO }}/${{ env.TEAM }}/${{ fromJSON(inputs.image).base-image.name || fromJSON(inputs.image).distro || 'bci' }}-${{ fromJSON(inputs.image).base-image.lang || needs.prepare.outputs.lang-tag }}-slim
+            ${{ fromJSON(inputs.image).base-image.additional-image && format('{0}/{1}/{2}-slim', env.REPO, env.TEAM, fromJSON(inputs.image).base-image.additional-image) || '' }}
+          labels: |
+            org.opencontainers.image.authors=Team AppThreat <cloud@appthreat.com>
+            org.opencontainers.image.vendor=CycloneDX
+      - name: Resolve slim base image tags
+        if: ${{ needs.prepare.outputs.slim == 'true' }}
+        id: resolve_slim_base_tags
+        shell: bash
+        env:
+          METADATA_TAGS: ${{ steps.slim_base_metadata.outputs.tags }}
+        run: |
+          cat >> "$GITHUB_OUTPUT" << EOF
+          value<<VALUE
+          $METADATA_TAGS
+          VALUE
+          EOF
+      - name: Merge slim base image manifest
+        if: ${{ needs.prepare.outputs.slim == 'true' }}
+        id: merge_slim_base
+        uses: int128/docker-manifest-create-action@3de37de96c4e900bc3eef9055d3c50abdb4f769d  # v2.18.0
+        with:
+          index-annotations: ${{ steps.slim_base_metadata.outputs.labels }}
+          tags: ${{ steps.resolve_slim_base_tags.outputs.value }}
+          sources: |
+            ${{ needs.build-amd64.outputs.slim-base-image-uri }}
+            ${{ needs.prepare.outputs.build-arm == 'true' && needs.build-arm64.outputs.slim-base-image-uri || '' }}
+
+      - name: Extract metadata for cdxgen image - master branch
+        if: ${{ startsWith(github.ref, 'refs/heads/') }}
+        id: cdxgen_master_metadata
+        uses: docker/metadata-action@030e881283bb7a6894de51c315a6bfe6a94e05cf # v6.0.0
+        with:
+          flavor: latest=${{ inputs.latest }}
+          images: |
+            ${{ env.REPO }}/${{ env.TEAM }}/cdxgen${{ fromJSON(inputs.image).distro && format('-{0}', fromJSON(inputs.image).distro) }}-${{ needs.prepare.outputs.lang-tag }}
+            ${{ fromJSON(inputs.image).cdxgen-image.additional-image && format('{0}/{1}/{2}', env.REPO, env.TEAM, fromJSON(inputs.image).cdxgen-image.additional-image) || '' }}
+            ${{ fromJSON(inputs.image).cdxgen-image.additional-image2 && format('{0}/{1}/{2}', env.REPO, env.TEAM, fromJSON(inputs.image).cdxgen-image.additional-image2) || '' }}
+            ${{ fromJSON(inputs.image).cdxgen-image.additional-image3 && format('{0}/{1}/{2}', env.REPO, env.TEAM, fromJSON(inputs.image).cdxgen-image.additional-image3) || '' }}
+          labels: |
+            org.opencontainers.image.authors=Team AppThreat <cloud@appthreat.com>
+            org.opencontainers.image.vendor=CycloneDX
+            ${{ format('org.opencontainers.docker.cmd=docker run --rm -v /tmp:/tmp -p 9090:9090 -v $(pwd):/app:rw -t {0} -r /app --server', format('{0}/{1}/cdxgen{2}-{3}:{4}', env.REPO, env.TEAM, fromJSON(inputs.image).distro && format('-{0}', fromJSON(inputs.image).distro) || '', needs.prepare.outputs.lang-tag, env.TAG)) }}
+            ${{ format('org.opencontainers.image.description=Image with cdxgen SBOM generator for {0} apps', needs.prepare.outputs.lang) }}
+      - name: Resolve cdxgen image tags - master branch
+        if: ${{ startsWith(github.ref, 'refs/heads/') }}
+        id: resolve_cdxgen_master_tags
+        shell: bash
+        env:
+          METADATA_TAGS: ${{ steps.cdxgen_master_metadata.outputs.tags }}
+          PROVIDED_TAGS: |
+            ${{ env.REPO }}/${{ env.TEAM }}/cdxgen${{ fromJSON(inputs.image).distro && format('-{0}', fromJSON(inputs.image).distro) }}-${{ needs.prepare.outputs.lang-tag }}:${{ env.TAG }}
+            ${{ fromJSON(inputs.image).cdxgen-image.additional-image && format('{0}/{1}/{2}:{3}', env.REPO, env.TEAM, fromJSON(inputs.image).cdxgen-image.additional-image, env.TAG) }}
+            ${{ fromJSON(inputs.image).cdxgen-image.additional-image2 && format('{0}/{1}/{2}:{3}', env.REPO, env.TEAM, fromJSON(inputs.image).cdxgen-image.additional-image2, env.TAG) }}
+            ${{ fromJSON(inputs.image).cdxgen-image.additional-image3 && format('{0}/{1}/{2}:{3}', env.REPO, env.TEAM, fromJSON(inputs.image).cdxgen-image.additional-image3, env.TAG) }}
+        run: |
+          final_tags="${PROVIDED_TAGS:-$METADATA_TAGS}"
+          cat >> "$GITHUB_OUTPUT" << EOF
+          value<<VALUE
+          $final_tags
+          VALUE
+          EOF
+      - name: Merge cdxgen image manifest - master branch
+        if: ${{ startsWith(github.ref, 'refs/heads/') }}
+        id: merge_cdxgen_master
+        uses: int128/docker-manifest-create-action@3de37de96c4e900bc3eef9055d3c50abdb4f769d  # v2.18.0
+        with:
+          index-annotations: ${{ steps.cdxgen_master_metadata.outputs.labels }}
+          tags: ${{ steps.resolve_cdxgen_master_tags.outputs.value }}
+          sources: |
+            ${{ needs.build-amd64.outputs.cdxgen-master-image-uri }}
+            ${{ needs.prepare.outputs.build-arm == 'true' && needs.build-arm64.outputs.cdxgen-master-image-uri || '' }}
+
+      - name: Extract metadata for cdxgen image - tags
+        if: ${{ startsWith(github.ref, 'refs/tags/') }}
+        id: cdxgen_tag_metadata
+        uses: docker/metadata-action@030e881283bb7a6894de51c315a6bfe6a94e05cf # v6.0.0
+        with:
+          flavor: latest=${{ inputs.latest }}
+          images: |
+            ${{ env.REPO }}/${{ env.TEAM }}/cdxgen${{ fromJSON(inputs.image).distro && format('-{0}', fromJSON(inputs.image).distro) }}-${{ needs.prepare.outputs.lang-tag }}
+            ${{ fromJSON(inputs.image).cdxgen-image.additional-image && format('{0}/{1}/{2}', env.REPO, env.TEAM, fromJSON(inputs.image).cdxgen-image.additional-image) || '' }}
+            ${{ fromJSON(inputs.image).cdxgen-image.additional-image2 && format('{0}/{1}/{2}', env.REPO, env.TEAM, fromJSON(inputs.image).cdxgen-image.additional-image2) || '' }}
+            ${{ fromJSON(inputs.image).cdxgen-image.additional-image3 && format('{0}/{1}/{2}', env.REPO, env.TEAM, fromJSON(inputs.image).cdxgen-image.additional-image3) || '' }}
+          labels: |
+            org.opencontainers.image.authors=Team AppThreat <cloud@appthreat.com>
+            org.opencontainers.image.vendor=CycloneDX
+      - name: Resolve cdxgen image tags - release tags
+        if: ${{ startsWith(github.ref, 'refs/tags/') }}
+        id: resolve_cdxgen_tag_tags
+        shell: bash
+        env:
+          METADATA_TAGS: ${{ steps.cdxgen_tag_metadata.outputs.tags }}
+        run: |
+          cat >> "$GITHUB_OUTPUT" << EOF
+          value<<VALUE
+          $METADATA_TAGS
+          VALUE
+          EOF
+      - name: Merge cdxgen image manifest - release tags
+        if: ${{ startsWith(github.ref, 'refs/tags/') }}
+        id: merge_cdxgen_tag
+        uses: int128/docker-manifest-create-action@3de37de96c4e900bc3eef9055d3c50abdb4f769d  # v2.18.0
+        with:
+          index-annotations: ${{ steps.cdxgen_tag_metadata.outputs.labels }}
+          tags: ${{ steps.resolve_cdxgen_tag_tags.outputs.value }}
+          sources: |
+            ${{ needs.build-amd64.outputs.cdxgen-tag-image-uri }}
+            ${{ needs.prepare.outputs.build-arm == 'true' && needs.build-arm64.outputs.cdxgen-tag-image-uri || '' }}
+
+      - name: Extract metadata for slim cdxgen image - master branch
+        if: ${{ needs.prepare.outputs.slim == 'true' && startsWith(github.ref, 'refs/heads/') }}
+        id: slim_cdxgen_master_metadata
+        uses: docker/metadata-action@030e881283bb7a6894de51c315a6bfe6a94e05cf # v6.0.0
+        with:
+          flavor: latest=${{ inputs.latest }}
+          images: |
+            ${{ env.REPO }}/${{ env.TEAM }}/cdxgen${{ fromJSON(inputs.image).distro && format('-{0}', fromJSON(inputs.image).distro) }}-${{ needs.prepare.outputs.lang-tag }}-slim
+            ${{ fromJSON(inputs.image).cdxgen-image.additional-image && format('{0}/{1}/{2}-slim', env.REPO, env.TEAM, fromJSON(inputs.image).cdxgen-image.additional-image) || '' }}
+            ${{ fromJSON(inputs.image).cdxgen-image.additional-image2 && format('{0}/{1}/{2}-slim', env.REPO, env.TEAM, fromJSON(inputs.image).cdxgen-image.additional-image2) || '' }}
+            ${{ fromJSON(inputs.image).cdxgen-image.additional-image3 && format('{0}/{1}/{2}-slim', env.REPO, env.TEAM, fromJSON(inputs.image).cdxgen-image.additional-image3) || '' }}
+          labels: |
+            org.opencontainers.image.authors=Team AppThreat <cloud@appthreat.com>
+            org.opencontainers.image.vendor=CycloneDX
+            ${{ format('org.opencontainers.docker.cmd=docker run --rm -v /tmp:/tmp -p 9090:9090 -v $(pwd):/app:rw -t {0} -r /app --server', format('{0}/{1}/cdxgen{2}-{3}-slim:{4}', env.REPO, env.TEAM, fromJSON(inputs.image).distro && format('-{0}', fromJSON(inputs.image).distro) || '', needs.prepare.outputs.lang-tag, env.TAG)) }}
+            ${{ format('org.opencontainers.image.description=Image with cdxgen SBOM generator for {0} apps', needs.prepare.outputs.lang) }}
+      - name: Resolve slim cdxgen image tags - master branch
+        if: ${{ needs.prepare.outputs.slim == 'true' && startsWith(github.ref, 'refs/heads/') }}
+        id: resolve_slim_cdxgen_master_tags
+        shell: bash
+        env:
+          METADATA_TAGS: ${{ steps.slim_cdxgen_master_metadata.outputs.tags }}
+          PROVIDED_TAGS: |
+            ${{ env.REPO }}/${{ env.TEAM }}/cdxgen${{ fromJSON(inputs.image).distro && format('-{0}', fromJSON(inputs.image).distro) }}-${{ needs.prepare.outputs.lang-tag }}-slim:${{ env.TAG }}
+            ${{ fromJSON(inputs.image).cdxgen-image.additional-image && format('{0}/{1}/{2}-slim:{3}', env.REPO, env.TEAM, fromJSON(inputs.image).cdxgen-image.additional-image, env.TAG) }}
+            ${{ fromJSON(inputs.image).cdxgen-image.additional-image2 && format('{0}/{1}/{2}-slim:{3}', env.REPO, env.TEAM, fromJSON(inputs.image).cdxgen-image.additional-image2, env.TAG) }}
+            ${{ fromJSON(inputs.image).cdxgen-image.additional-image3 && format('{0}/{1}/{2}-slim:{3}', env.REPO, env.TEAM, fromJSON(inputs.image).cdxgen-image.additional-image3, env.TAG) }}
+        run: |
+          final_tags="${PROVIDED_TAGS:-$METADATA_TAGS}"
+          cat >> "$GITHUB_OUTPUT" << EOF
+          value<<VALUE
+          $final_tags
+          VALUE
+          EOF
+      - name: Merge slim cdxgen image manifest - master branch
+        if: ${{ needs.prepare.outputs.slim == 'true' && startsWith(github.ref, 'refs/heads/') }}
+        id: merge_slim_cdxgen_master
+        uses: int128/docker-manifest-create-action@3de37de96c4e900bc3eef9055d3c50abdb4f769d  # v2.18.0
+        with:
+          index-annotations: ${{ steps.slim_cdxgen_master_metadata.outputs.labels }}
+          tags: ${{ steps.resolve_slim_cdxgen_master_tags.outputs.value }}
+          sources: |
+            ${{ needs.build-amd64.outputs.slim-cdxgen-master-image-uri }}
+            ${{ needs.prepare.outputs.build-arm == 'true' && needs.build-arm64.outputs.slim-cdxgen-master-image-uri || '' }}
+
+      - name: Extract metadata for slim cdxgen image - tags
+        if: ${{ needs.prepare.outputs.slim == 'true' && startsWith(github.ref, 'refs/tags/') }}
+        id: slim_cdxgen_tag_metadata
+        uses: docker/metadata-action@030e881283bb7a6894de51c315a6bfe6a94e05cf # v6.0.0
+        with:
+          flavor: latest=${{ inputs.latest }}
+          images: |
+            ${{ env.REPO }}/${{ env.TEAM }}/cdxgen${{ fromJSON(inputs.image).distro && format('-{0}', fromJSON(inputs.image).distro) }}-${{ needs.prepare.outputs.lang-tag }}-slim
+            ${{ fromJSON(inputs.image).cdxgen-image.additional-image && format('{0}/{1}/{2}-slim', env.REPO, env.TEAM, fromJSON(inputs.image).cdxgen-image.additional-image) || '' }}
+            ${{ fromJSON(inputs.image).cdxgen-image.additional-image2 && format('{0}/{1}/{2}-slim', env.REPO, env.TEAM, fromJSON(inputs.image).cdxgen-image.additional-image2) || '' }}
+            ${{ fromJSON(inputs.image).cdxgen-image.additional-image3 && format('{0}/{1}/{2}-slim', env.REPO, env.TEAM, fromJSON(inputs.image).cdxgen-image.additional-image3) || '' }}
+          labels: |
+            org.opencontainers.image.authors=Team AppThreat <cloud@appthreat.com>
+            org.opencontainers.image.vendor=CycloneDX
+      - name: Resolve slim cdxgen image tags - release tags
+        if: ${{ needs.prepare.outputs.slim == 'true' && startsWith(github.ref, 'refs/tags/') }}
+        id: resolve_slim_cdxgen_tag_tags
+        shell: bash
+        env:
+          METADATA_TAGS: ${{ steps.slim_cdxgen_tag_metadata.outputs.tags }}
+        run: |
+          cat >> "$GITHUB_OUTPUT" << EOF
+          value<<VALUE
+          $METADATA_TAGS
+          VALUE
+          EOF
+      - name: Merge slim cdxgen image manifest - release tags
+        if: ${{ needs.prepare.outputs.slim == 'true' && startsWith(github.ref, 'refs/tags/') }}
+        id: merge_slim_cdxgen_tag
+        uses: int128/docker-manifest-create-action@3de37de96c4e900bc3eef9055d3c50abdb4f769d  # v2.18.0
+        with:
+          index-annotations: ${{ steps.slim_cdxgen_tag_metadata.outputs.labels }}
+          tags: ${{ steps.resolve_slim_cdxgen_tag_tags.outputs.value }}
+          sources: |
+            ${{ needs.build-amd64.outputs.slim-cdxgen-tag-image-uri }}
+            ${{ needs.prepare.outputs.build-arm == 'true' && needs.build-arm64.outputs.slim-cdxgen-tag-image-uri || '' }}
+
+      - name: Record final tag sets
+        id: final_tags
+        shell: bash
+        env:
+          BASE_TAGS: ${{ steps.resolve_base_tags.outputs.value }}
+          CDXGEN_MASTER_TAGS: ${{ steps.resolve_cdxgen_master_tags.outputs.value }}
+          CDXGEN_TAG_TAGS: ${{ steps.resolve_cdxgen_tag_tags.outputs.value }}
+          SLIM_BASE_TAGS: ${{ steps.resolve_slim_base_tags.outputs.value }}
+          SLIM_CDXGEN_MASTER_TAGS: ${{ steps.resolve_slim_cdxgen_master_tags.outputs.value }}
+          SLIM_CDXGEN_TAG_TAGS: ${{ steps.resolve_slim_cdxgen_tag_tags.outputs.value }}
+        run: |
+          emit_multiline_output() {
+            local name="$1"
+            local value="$2"
+            cat >> "$GITHUB_OUTPUT" << EOF
+            ${name}<<VALUE
+            ${value}
+            VALUE
+            EOF
+          }
+
+          emit_multiline_output "base-tags" "$BASE_TAGS"
+          emit_multiline_output "cdxgen-master-tags" "$CDXGEN_MASTER_TAGS"
+          emit_multiline_output "cdxgen-tag-tags" "$CDXGEN_TAG_TAGS"
+          emit_multiline_output "slim-base-tags" "$SLIM_BASE_TAGS"
+          emit_multiline_output "slim-cdxgen-master-tags" "$SLIM_CDXGEN_MASTER_TAGS"
+          emit_multiline_output "slim-cdxgen-tag-tags" "$SLIM_CDXGEN_TAG_TAGS"
+
+  sbom-amd64:
+    if: ${{ needs.merge.result == 'success' }}
+    needs:
+      - prepare
+      - merge
+    runs-on: ${{ needs.prepare.outputs.runner }}
+    permissions:
+      packages: write
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
+      - name: Free disk space
+        uses: jlumbroso/free-disk-space@54081f138730dfa15788a46383842cd2f914a1be
+        with:
+          tool-cache: true
+      - name: Trim CI agent even more
+        run: |
+          chmod +x contrib/free_disk_space.sh
+          ./contrib/free_disk_space.sh
+      - name: Set up Docker BuildX
+        uses: docker/setup-buildx-action@4d04d5d9486b7bd6fa91e7baf45bbb4f8b9deedd # v4.0.0
+      - name: Setup ORAS
+        uses: oras-project/setup-oras@38de303aac69abb66f3e6255b7198bff35f323e3 # v2.0.0
       - name: Set up Python
-        if: ${{ startsWith(fromJSON(inputs.image).runner || 'ubuntu-24.04', 'ubuntu-') }}
         uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6.2.0
         with:
           python-version: '3.13'
       - name: Setup pnpm
         uses: pnpm/action-setup@fc06bc1257f339d1d5d8b3a19a8cae5388b55320 # v5.0.0
       - name: Use Node.js
-        if: ${{ startsWith(fromJSON(inputs.image).runner || 'ubuntu-24.04', 'ubuntu-') }}
         uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e  # v6.4.0
         with:
           node-version-file: '.nvmrc'
@@ -147,139 +938,181 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-      - name: Convert lang to tag
-        id: lang_tag
-        run: echo "name-tag=${IMAGE_LANG//./}" >> "$GITHUB_OUTPUT"
-        env:
-          IMAGE_LANG: ${{ fromJSON(inputs.image).lang }}
 
-      # Base image
-      - name: Build base image
-        uses: ./.github/actions/build-docker-images-generate-attach-sboms
+      - name: Generate and attach SBOM for base image (amd64)
+        uses: ./.github/actions/generate-attach-sbom
         with:
-          build-arm: ${{ ! fromJSON(inputs.image).skip-arm }}
-          dockerfile: ci/images/${{ fromJSON(inputs.image).distro }}/Dockerfile.${{ fromJSON(inputs.image).lang }}
-          docker-args: |
-            ${{ steps.versions.outputs.docker-args }}
-            ${{ steps.nexus.outputs.docker-args }}
-          images: |
-             ${{ env.REPO }}/${{ env.TEAM }}/${{ fromJSON(inputs.image).base-image.name || fromJSON(inputs.image).distro || 'bci' }}-${{ fromJSON(inputs.image).base-image.lang || steps.lang_tag.outputs.name-tag }}
-             ${{ fromJSON(inputs.image).base-image.additional-image && format('{0}/{1}/{2}', env.REPO, env.TEAM, fromJSON(inputs.image).base-image.additional-image) || '' }}
-          latest: ${{ inputs.latest }}
+          dockerfile: ${{ needs.prepare.outputs.dockerfile }}
+          docker-args: ${{ needs.prepare.outputs.docker-args }}
+          platform: linux/amd64
           signing-key: ${{ secrets.SBOM_SIGN_PRIVATE_KEY }}
+          tags: ${{ needs.merge.outputs.base-tags }}
           target: base
-
-      # Slim base image
-      - name: Build slim base image
-        if: ${{ fromJSON(inputs.image).slim }}
-        uses: ./.github/actions/build-docker-images-generate-attach-sboms
+      - name: Generate and attach SBOM for slim base image (amd64)
+        if: ${{ needs.prepare.outputs.slim == 'true' }}
+        uses: ./.github/actions/generate-attach-sbom
         with:
-          build-arm: ${{ ! fromJSON(inputs.image).skip-arm }}
-          dockerfile: ci/images/${{ fromJSON(inputs.image).distro }}/Dockerfile.${{ fromJSON(inputs.image).lang }}
+          dockerfile: ${{ needs.prepare.outputs.dockerfile }}
           docker-args: |
-            ${{ steps.versions.outputs.docker-args }}
-            ${{ steps.nexus.outputs.docker-args }}
-          images: |
-             ${{ env.REPO }}/${{ env.TEAM }}/${{ fromJSON(inputs.image).base-image.name || fromJSON(inputs.image).distro || 'bci' }}-${{ fromJSON(inputs.image).base-image.lang || steps.lang_tag.outputs.name-tag }}-slim
-             ${{ fromJSON(inputs.image).base-image.additional-image && format('{0}/{1}/{2}-slim', env.REPO, env.TEAM, fromJSON(inputs.image).base-image.additional-image) || '' }}
-          latest: ${{ inputs.latest }}
+            IMAGE_TYPE=-slim
+            ${{ needs.prepare.outputs.docker-args }}
+          platform: linux/amd64
           signing-key: ${{ secrets.SBOM_SIGN_PRIVATE_KEY }}
+          tags: ${{ needs.merge.outputs.slim-base-tags }}
           target: base-slim
-
-      # cdxgen image
-      - name: Build cdxgen image - master-branch
+      - name: Generate and attach SBOM for cdxgen image - master branch (amd64)
         if: ${{ startsWith(github.ref, 'refs/heads/') }}
-        uses: ./.github/actions/build-docker-images-generate-attach-sboms
+        uses: ./.github/actions/generate-attach-sbom
         with:
-          build-arm: ${{ ! fromJSON(inputs.image).skip-arm }}
-          dockerfile: ci/images/${{ fromJSON(inputs.image).distro }}/Dockerfile.${{ fromJSON(inputs.image).lang }}
-          docker-args: |
-            ${{ steps.versions.outputs.docker-args }}
-            ${{ steps.nexus.outputs.docker-args }}
-          images: |
-            ${{ env.REPO }}/${{ env.TEAM }}/cdxgen${{ fromJSON(inputs.image).distro && format('-{0}', fromJSON(inputs.image).distro) }}-${{ steps.lang_tag.outputs.name-tag }}
-            ${{ fromJSON(inputs.image).cdxgen-image.additional-image && format('{0}/{1}/{2}', env.REPO, env.TEAM, fromJSON(inputs.image).cdxgen-image.additional-image) || '' }}
-            ${{ fromJSON(inputs.image).cdxgen-image.additional-image2 && format('{0}/{1}/{2}', env.REPO, env.TEAM, fromJSON(inputs.image).cdxgen-image.additional-image2) || '' }}
-            ${{ fromJSON(inputs.image).cdxgen-image.additional-image3 && format('{0}/{1}/{2}', env.REPO, env.TEAM, fromJSON(inputs.image).cdxgen-image.additional-image3) || '' }}
-          language: ${{ fromJSON(inputs.image).lang }}
-          latest: ${{ inputs.latest }}
-          main-tag: ${{ env.REPO }}/${{ env.TEAM }}/cdxgen${{ fromJSON(inputs.image).distro && format('-{0}', fromJSON(inputs.image).distro) }}-${{ steps.lang_tag.outputs.name-tag }}:${{ env.TAG }}
+          dockerfile: ${{ needs.prepare.outputs.dockerfile }}
+          docker-args: ${{ needs.prepare.outputs.docker-args }}
+          platform: linux/amd64
           signing-key: ${{ secrets.SBOM_SIGN_PRIVATE_KEY }}
-          tags: |
-            ${{ env.REPO }}/${{ env.TEAM }}/cdxgen${{ fromJSON(inputs.image).distro && format('-{0}', fromJSON(inputs.image).distro) }}-${{ steps.lang_tag.outputs.name-tag }}:${{ env.TAG }}
-            ${{ fromJSON(inputs.image).cdxgen-image.additional-image && format('{0}/{1}/{2}:{3}', env.REPO, env.TEAM, fromJSON(inputs.image).cdxgen-image.additional-image, env.TAG) }}
-            ${{ fromJSON(inputs.image).cdxgen-image.additional-image2 && format('{0}/{1}/{2}:{3}', env.REPO, env.TEAM, fromJSON(inputs.image).cdxgen-image.additional-image2, env.TAG) }}
-            ${{ fromJSON(inputs.image).cdxgen-image.additional-image3 && format('{0}/{1}/{2}:{3}', env.REPO, env.TEAM, fromJSON(inputs.image).cdxgen-image.additional-image3, env.TAG) }}
+          tags: ${{ needs.merge.outputs.cdxgen-master-tags }}
           target: cdxgen
-      - name: Build cdxgen image - tags
+      - name: Generate and attach SBOM for cdxgen image - release tags (amd64)
         if: ${{ startsWith(github.ref, 'refs/tags/') }}
-        uses: ./.github/actions/build-docker-images-generate-attach-sboms
+        uses: ./.github/actions/generate-attach-sbom
         with:
-          build-arm: ${{ ! fromJSON(inputs.image).skip-arm }}
-          dockerfile: ci/images/${{ fromJSON(inputs.image).distro }}/Dockerfile.${{ fromJSON(inputs.image).lang }}
-          docker-args: |
-            ${{ steps.versions.outputs.docker-args }}
-            ${{ steps.nexus.outputs.docker-args }}
-          images: |
-            ${{ env.REPO }}/${{ env.TEAM }}/cdxgen${{ fromJSON(inputs.image).distro && format('-{0}', fromJSON(inputs.image).distro) }}-${{ steps.lang_tag.outputs.name-tag }}
-            ${{ fromJSON(inputs.image).cdxgen-image.additional-image && format('{0}/{1}/{2}', env.REPO, env.TEAM, fromJSON(inputs.image).cdxgen-image.additional-image) || '' }}
-            ${{ fromJSON(inputs.image).cdxgen-image.additional-image2 && format('{0}/{1}/{2}', env.REPO, env.TEAM, fromJSON(inputs.image).cdxgen-image.additional-image2) || '' }}
-            ${{ fromJSON(inputs.image).cdxgen-image.additional-image3 && format('{0}/{1}/{2}', env.REPO, env.TEAM, fromJSON(inputs.image).cdxgen-image.additional-image3) || '' }}
-          language: ${{ fromJSON(inputs.image).lang }}
-          latest: ${{ inputs.latest }}
+          dockerfile: ${{ needs.prepare.outputs.dockerfile }}
+          docker-args: ${{ needs.prepare.outputs.docker-args }}
+          platform: linux/amd64
           signing-key: ${{ secrets.SBOM_SIGN_PRIVATE_KEY }}
+          tags: ${{ needs.merge.outputs.cdxgen-tag-tags }}
           target: cdxgen
-
-      # Slim cdxgen image
-      - name: Build slim cdxgen image - master-branch
-        if: ${{ fromJSON(inputs.image).slim && startsWith(github.ref, 'refs/heads/') }}
-        uses: ./.github/actions/build-docker-images-generate-attach-sboms
+      - name: Generate and attach SBOM for slim cdxgen image - master branch (amd64)
+        if: ${{ needs.prepare.outputs.slim == 'true' && startsWith(github.ref, 'refs/heads/') }}
+        uses: ./.github/actions/generate-attach-sbom
         with:
-          build-arm: ${{ ! fromJSON(inputs.image).skip-arm }}
-          dockerfile: ci/images/${{ fromJSON(inputs.image).distro }}/Dockerfile.${{ fromJSON(inputs.image).lang }}
+          dockerfile: ${{ needs.prepare.outputs.dockerfile }}
           docker-args: |
             IMAGE_TYPE=-slim
-            ${{ steps.versions.outputs.docker-args }}
-            ${{ steps.nexus.outputs.docker-args }}
-          images: |
-            ${{ env.REPO }}/${{ env.TEAM }}/cdxgen${{ fromJSON(inputs.image).distro && format('-{0}', fromJSON(inputs.image).distro) }}-${{ steps.lang_tag.outputs.name-tag }}-slim
-            ${{ fromJSON(inputs.image).cdxgen-image.additional-image && format('{0}/{1}/{2}-slim', env.REPO, env.TEAM, fromJSON(inputs.image).cdxgen-image.additional-image) || '' }}
-            ${{ fromJSON(inputs.image).cdxgen-image.additional-image2 && format('{0}/{1}/{2}-slim', env.REPO, env.TEAM, fromJSON(inputs.image).cdxgen-image.additional-image2) || '' }}
-            ${{ fromJSON(inputs.image).cdxgen-image.additional-image3 && format('{0}/{1}/{2}-slim', env.REPO, env.TEAM, fromJSON(inputs.image).cdxgen-image.additional-image3) || '' }}
-          language: ${{ fromJSON(inputs.image).lang }}
-          latest: ${{ inputs.latest }}
-          main-tag: ${{ env.REPO }}/${{ env.TEAM }}/cdxgen${{ fromJSON(inputs.image).distro && format('-{0}', fromJSON(inputs.image).distro) }}-${{ steps.lang_tag.outputs.name-tag }}-slim:${{ env.TAG }}
+            ${{ needs.prepare.outputs.docker-args }}
+          platform: linux/amd64
           signing-key: ${{ secrets.SBOM_SIGN_PRIVATE_KEY }}
-          tags: |
-            ${{ env.REPO }}/${{ env.TEAM }}/cdxgen${{ fromJSON(inputs.image).distro && format('-{0}', fromJSON(inputs.image).distro) }}-${{ steps.lang_tag.outputs.name-tag }}-slim:${{ env.TAG }}
-            ${{ fromJSON(inputs.image).cdxgen-image.additional-image && format('{0}/{1}/{2}-slim:{3}', env.REPO, env.TEAM, fromJSON(inputs.image).cdxgen-image.additional-image, env.TAG) }}
-            ${{ fromJSON(inputs.image).cdxgen-image.additional-image2 && format('{0}/{1}/{2}-slim:{3}', env.REPO, env.TEAM, fromJSON(inputs.image).cdxgen-image.additional-image2, env.TAG) }}
-            ${{ fromJSON(inputs.image).cdxgen-image.additional-image3 && format('{0}/{1}/{2}-slim:{3}', env.REPO, env.TEAM, fromJSON(inputs.image).cdxgen-image.additional-image3, env.TAG) }}
+          tags: ${{ needs.merge.outputs.slim-cdxgen-master-tags }}
           target: cdxgen
-      - name: Build slim cdxgen image - tags
-        if: ${{ fromJSON(inputs.image).slim && startsWith(github.ref, 'refs/tags/') }}
-        uses: ./.github/actions/build-docker-images-generate-attach-sboms
+      - name: Generate and attach SBOM for slim cdxgen image - release tags (amd64)
+        if: ${{ needs.prepare.outputs.slim == 'true' && startsWith(github.ref, 'refs/tags/') }}
+        uses: ./.github/actions/generate-attach-sbom
         with:
-          build-arm: ${{ ! fromJSON(inputs.image).skip-arm }}
-          dockerfile: ci/images/${{ fromJSON(inputs.image).distro }}/Dockerfile.${{ fromJSON(inputs.image).lang }}
+          dockerfile: ${{ needs.prepare.outputs.dockerfile }}
           docker-args: |
             IMAGE_TYPE=-slim
-            ${{ steps.versions.outputs.docker-args }}
-            ${{ steps.nexus.outputs.docker-args }}
-          images: |
-            ${{ env.REPO }}/${{ env.TEAM }}/cdxgen${{ fromJSON(inputs.image).distro && format('-{0}', fromJSON(inputs.image).distro) }}-${{ steps.lang_tag.outputs.name-tag }}-slim
-            ${{ fromJSON(inputs.image).cdxgen-image.additional-image && format('{0}/{1}/{2}-slim', env.REPO, env.TEAM, fromJSON(inputs.image).cdxgen-image.additional-image) || '' }}
-            ${{ fromJSON(inputs.image).cdxgen-image.additional-image2 && format('{0}/{1}/{2}-slim', env.REPO, env.TEAM, fromJSON(inputs.image).cdxgen-image.additional-image2) || '' }}
-            ${{ fromJSON(inputs.image).cdxgen-image.additional-image3 && format('{0}/{1}/{2}-slim', env.REPO, env.TEAM, fromJSON(inputs.image).cdxgen-image.additional-image3) || '' }}
-          language: ${{ fromJSON(inputs.image).lang }}
-          latest: ${{ inputs.latest }}
+            ${{ needs.prepare.outputs.docker-args }}
+          platform: linux/amd64
           signing-key: ${{ secrets.SBOM_SIGN_PRIVATE_KEY }}
+          tags: ${{ needs.merge.outputs.slim-cdxgen-tag-tags }}
           target: cdxgen
 
-      # Cleanup
-      - name: Clean buildx cache
-        if: ${{ fromJSON(inputs.image).runner || failure() }}
-        shell: bash
+  sbom-arm64:
+    if: ${{ needs.prepare.outputs.build-arm == 'true' && needs.merge.result == 'success' }}
+    needs:
+      - prepare
+      - merge
+    runs-on: ${{ needs.prepare.outputs.arm-runner }}
+    permissions:
+      packages: write
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
+      - name: Free disk space
+        uses: jlumbroso/free-disk-space@54081f138730dfa15788a46383842cd2f914a1be
+        with:
+          tool-cache: true
+      - name: Trim CI agent even more
         run: |
-          docker buildx prune -af
-          docker system prune -af --volumes
+          chmod +x contrib/free_disk_space.sh
+          ./contrib/free_disk_space.sh
+      - name: Set up Docker BuildX
+        uses: docker/setup-buildx-action@4d04d5d9486b7bd6fa91e7baf45bbb4f8b9deedd # v4.0.0
+      - name: Setup ORAS
+        uses: oras-project/setup-oras@38de303aac69abb66f3e6255b7198bff35f323e3 # v2.0.0
+      - name: Set up Python
+        uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6.2.0
+        with:
+          python-version: '3.13'
+      - name: Setup pnpm
+        uses: pnpm/action-setup@fc06bc1257f339d1d5d8b3a19a8cae5388b55320 # v5.0.0
+      - name: Use Node.js
+        uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e  # v6.4.0
+        with:
+          node-version-file: '.nvmrc'
+          package-manager-cache: false
+      - name: Install project dependencies
+        run: |
+          pnpm install:frozen
+          mkdir -p $RUNNER_TEMP/cdxgen-sboms
+      - name: Login to the Container registry
+        uses: docker/login-action@4907a6ddec9925e35a0a9e82d7399ccc52663121 # v4.1.0
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Generate and attach SBOM for base image (arm64)
+        uses: ./.github/actions/generate-attach-sbom
+        with:
+          dockerfile: ${{ needs.prepare.outputs.dockerfile }}
+          docker-args: ${{ needs.prepare.outputs.docker-args }}
+          platform: linux/arm64
+          signing-key: ${{ secrets.SBOM_SIGN_PRIVATE_KEY }}
+          tags: ${{ needs.merge.outputs.base-tags }}
+          target: base
+      - name: Generate and attach SBOM for slim base image (arm64)
+        if: ${{ needs.prepare.outputs.slim == 'true' }}
+        uses: ./.github/actions/generate-attach-sbom
+        with:
+          dockerfile: ${{ needs.prepare.outputs.dockerfile }}
+          docker-args: |
+            IMAGE_TYPE=-slim
+            ${{ needs.prepare.outputs.docker-args }}
+          platform: linux/arm64
+          signing-key: ${{ secrets.SBOM_SIGN_PRIVATE_KEY }}
+          tags: ${{ needs.merge.outputs.slim-base-tags }}
+          target: base-slim
+      - name: Generate and attach SBOM for cdxgen image - master branch (arm64)
+        if: ${{ startsWith(github.ref, 'refs/heads/') }}
+        uses: ./.github/actions/generate-attach-sbom
+        with:
+          dockerfile: ${{ needs.prepare.outputs.dockerfile }}
+          docker-args: ${{ needs.prepare.outputs.docker-args }}
+          platform: linux/arm64
+          signing-key: ${{ secrets.SBOM_SIGN_PRIVATE_KEY }}
+          tags: ${{ needs.merge.outputs.cdxgen-master-tags }}
+          target: cdxgen
+      - name: Generate and attach SBOM for cdxgen image - release tags (arm64)
+        if: ${{ startsWith(github.ref, 'refs/tags/') }}
+        uses: ./.github/actions/generate-attach-sbom
+        with:
+          dockerfile: ${{ needs.prepare.outputs.dockerfile }}
+          docker-args: ${{ needs.prepare.outputs.docker-args }}
+          platform: linux/arm64
+          signing-key: ${{ secrets.SBOM_SIGN_PRIVATE_KEY }}
+          tags: ${{ needs.merge.outputs.cdxgen-tag-tags }}
+          target: cdxgen
+      - name: Generate and attach SBOM for slim cdxgen image - master branch (arm64)
+        if: ${{ needs.prepare.outputs.slim == 'true' && startsWith(github.ref, 'refs/heads/') }}
+        uses: ./.github/actions/generate-attach-sbom
+        with:
+          dockerfile: ${{ needs.prepare.outputs.dockerfile }}
+          docker-args: |
+            IMAGE_TYPE=-slim
+            ${{ needs.prepare.outputs.docker-args }}
+          platform: linux/arm64
+          signing-key: ${{ secrets.SBOM_SIGN_PRIVATE_KEY }}
+          tags: ${{ needs.merge.outputs.slim-cdxgen-master-tags }}
+          target: cdxgen
+      - name: Generate and attach SBOM for slim cdxgen image - release tags (arm64)
+        if: ${{ needs.prepare.outputs.slim == 'true' && startsWith(github.ref, 'refs/tags/') }}
+        uses: ./.github/actions/generate-attach-sbom
+        with:
+          dockerfile: ${{ needs.prepare.outputs.dockerfile }}
+          docker-args: |
+            IMAGE_TYPE=-slim
+            ${{ needs.prepare.outputs.docker-args }}
+          platform: linux/arm64
+          signing-key: ${{ secrets.SBOM_SIGN_PRIVATE_KEY }}
+          tags: ${{ needs.merge.outputs.slim-cdxgen-tag-tags }}
+          target: cdxgen
