@@ -92,6 +92,12 @@ const args = yargs(hideBin(process.argv))
       "Restrict predictive audit target selection to packages marked with trusted publishing metadata.",
     type: "boolean",
   })
+  .option("prioritize-direct-runtime", {
+    default: false,
+    description:
+      "Prioritize direct runtime dependencies ahead of optional, development-only, or platform-specific transitive packages during target selection.",
+    type: "boolean",
+  })
   .check((argv) => {
     if (!argv.bom && !argv.bomDir) {
       throw new Error("Specify --bom or --bom-dir.");
@@ -163,6 +169,7 @@ function writeOrPrint(output, outputPath) {
       maxTargets: args.maxTargets,
       minSeverity: args.minSeverity,
       onProgress: progressTracker.onProgress,
+      prioritizeDirectRuntime: args.prioritizeDirectRuntime,
       report: args.report,
       reportsDir: args.reportsDir,
       scope: args.scope === "required" ? "required" : undefined,
