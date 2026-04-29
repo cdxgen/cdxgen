@@ -37,6 +37,8 @@ on:
   push:
     tags:
       - 'v*'
+  schedule:
+    - cron: "0 4 * * *"
   workflow_dispatch:
     inputs:
       latest:
