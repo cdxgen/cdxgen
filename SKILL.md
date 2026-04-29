@@ -143,8 +143,8 @@ These indicators affect **which packages are audited first**, not the final seve
 
 - **Use `cdx-audit`** for existing CycloneDX BOMs where the user wants prioritization, upstream review guidance, or SARIF/JSON output.
 - **Use `cdxgen --bom-audit`** when the user wants findings embedded during BOM generation.
-- **Do not route Cargo/Rust requests to `cdx-audit` yet** unless the BOM mainly contains npm or PyPI purls; Cargo is not currently a supported predictive-audit ecosystem.
-- For Cargo-focused work today, prefer normal BOM generation plus `--bom-audit` rules, and treat native Cargo predictive audit support as future work rather than something agents should assume exists.
+- **Use `cdx-audit` for Cargo/Rust BOMs too** when the BOM contains `pkg:cargo/...` dependencies and the goal is upstream review prioritization.
+- For Cargo-focused work, combine predictive `cdx-audit` triage with normal BOM generation and `--bom-audit` rules so registry, workspace, and native-build signals are all visible.
 
 ## ⛔ Anti-Hallucination & Safety Constraints
 
