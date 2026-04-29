@@ -100,6 +100,52 @@ cdx-audit --bom /absolute/path/to/bom.json --report sarif --report-file audit.sa
 - Use `--workspace-dir` to reuse cloned repositories and cached child SBOMs across runs
 - Use `--reports-dir` to persist per-target artifacts plus an aggregate JSON report
 
+### Best-practice command patterns for agents
+
+```bash
+# Fast default review queue
+cdx-audit --bom /absolute/path/to/bom.json --scope required --max-targets 25
+
+# Broaden the queue to include trusted-publishing-backed packages
+cdx-audit --bom /absolute/path/to/bom.json --scope required --include-trusted --max-targets 50
+
+# Isolate the trusted-publishing-backed subset
+cdx-audit --bom /absolute/path/to/bom.json --only-trusted
+
+# Capture machine-readable output for code-scanning or follow-up automation
+cdx-audit --bom /absolute/path/to/bom.json --report sarif --report-file /absolute/path/to/audit.sarif
+
+# Show lightweight score/rationale summaries per package
+CDXGEN_THINK_MODE=true cdx-audit --bom /absolute/path/to/bom.json --scope required --max-targets 10
+```
+
+### How agents should choose filters
+
+- Start with `--scope required --max-targets 25` for large BOMs or triage-first workflows.
+- Use `--include-trusted` only when the user explicitly wants a broader baseline that includes packages already carrying trusted publishing metadata.
+- Use `--only-trusted` only when the user wants to inspect just that subset.
+- Never pass `--include-trusted` together with `--only-trusted`.
+- Use `--workspace-dir` when the user expects repeated runs or iterative analysis.
+
+### Prioritization indicators agents should understand
+
+`cdx-audit` queue order is explainable. When the queue is trimmed, it currently prioritizes:
+
+1. direct runtime dependencies
+2. explicit CycloneDX `scope=required`
+3. stronger source evidence via `evidence.occurrences`
+4. non-development packages ahead of development-only packages
+5. non-platform-specific packages ahead of platform-constrained packages
+
+These indicators affect **which packages are audited first**, not the final severity. Final severity still comes from the child SBOM findings plus conservative corroboration logic.
+
+### When agents should and should not use `cdx-audit`
+
+- **Use `cdx-audit`** for existing CycloneDX BOMs where the user wants prioritization, upstream review guidance, or SARIF/JSON output.
+- **Use `cdxgen --bom-audit`** when the user wants findings embedded during BOM generation.
+- **Do not route Cargo/Rust requests to `cdx-audit` yet** unless the BOM mainly contains npm or PyPI purls; Cargo is not currently a supported predictive-audit ecosystem.
+- For Cargo-focused work today, prefer normal BOM generation plus `--bom-audit` rules, and treat native Cargo predictive audit support as future work rather than something agents should assume exists.
+
 ## ⛔ Anti-Hallucination & Safety Constraints
 
 1. `cdxgen` outputs CycloneDX JSON by default and can export SPDX JSON-LD via `--format spdx`; use `cdx-convert` for dedicated CycloneDX-to-SPDX conversion of existing BOM files.
