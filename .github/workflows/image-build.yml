@@ -84,12 +84,13 @@ jobs:
           runner = image.get("runner", "ubuntu-24.04")
           arm_runner = "ubuntu-24.04-arm" if runner.startswith("ubuntu-") else runner
           build_arm = "false" if image.get("skip-arm") else "true"
+          dockerfile = f"ci/images/{distro}/Dockerfile.{lang}" if image.get("distro") else f"ci/images/Dockerfile.{lang}"
           slim = "true" if image.get("slim") else "false"
 
           with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as output:
             output.write(f"arm-runner={arm_runner}\n")
             output.write(f"build-arm={build_arm}\n")
-            output.write(f"dockerfile=ci/images/{distro}/Dockerfile.{lang}\n")
+            output.write(f"dockerfile={dockerfile}\n")
             output.write(f"lang={lang}\n")
             output.write(f"lang-tag={lang.replace('.', '')}\n")
             output.write(f"runner={runner}\n")
@@ -651,11 +652,12 @@ jobs:
         env:
           METADATA_TAGS: ${{ steps.base_metadata.outputs.tags }}
         run: |
-          cat >> "$GITHUB_OUTPUT" << EOF
-          value<<VALUE
-          $METADATA_TAGS
-          VALUE
-          EOF
+          delimiter="VALUE_${RANDOM}_$(date +%s%N)"
+          {
+            printf 'value<<%s\n' "$delimiter"
+            printf '%s\n' "$METADATA_TAGS"
+            printf '%s\n' "$delimiter"
+          } >> "$GITHUB_OUTPUT"
       - name: Merge base image manifest
         id: merge_base
         uses: int128/docker-manifest-create-action@3de37de96c4e900bc3eef9055d3c50abdb4f769d  # v2.18.0
@@ -685,11 +687,12 @@ jobs:
         env:
           METADATA_TAGS: ${{ steps.slim_base_metadata.outputs.tags }}
         run: |
-          cat >> "$GITHUB_OUTPUT" << EOF
-          value<<VALUE
-          $METADATA_TAGS
-          VALUE
-          EOF
+          delimiter="VALUE_${RANDOM}_$(date +%s%N)"
+          {
+            printf 'value<<%s\n' "$delimiter"
+            printf '%s\n' "$METADATA_TAGS"
+            printf '%s\n' "$delimiter"
+          } >> "$GITHUB_OUTPUT"
       - name: Merge slim base image manifest
         if: ${{ needs.prepare.outputs.slim == 'true' }}
         id: merge_slim_base
@@ -730,11 +733,12 @@ jobs:
             ${{ fromJSON(inputs.image).cdxgen-image.additional-image3 && format('{0}/{1}/{2}:{3}', env.REPO, env.TEAM, fromJSON(inputs.image).cdxgen-image.additional-image3, env.TAG) }}
         run: |
           final_tags="${PROVIDED_TAGS:-$METADATA_TAGS}"
-          cat >> "$GITHUB_OUTPUT" << EOF
-          value<<VALUE
-          $final_tags
-          VALUE
-          EOF
+          delimiter="VALUE_${RANDOM}_$(date +%s%N)"
+          {
+            printf 'value<<%s\n' "$delimiter"
+            printf '%s\n' "$final_tags"
+            printf '%s\n' "$delimiter"
+          } >> "$GITHUB_OUTPUT"
       - name: Merge cdxgen image manifest - master branch
         if: ${{ startsWith(github.ref, 'refs/heads/') }}
         id: merge_cdxgen_master
@@ -767,11 +771,12 @@ jobs:
         env:
           METADATA_TAGS: ${{ steps.cdxgen_tag_metadata.outputs.tags }}
         run: |
-          cat >> "$GITHUB_OUTPUT" << EOF
-          value<<VALUE
-          $METADATA_TAGS
-          VALUE
-          EOF
+          delimiter="VALUE_${RANDOM}_$(date +%s%N)"
+          {
+            printf 'value<<%s\n' "$delimiter"
+            printf '%s\n' "$METADATA_TAGS"
+            printf '%s\n' "$delimiter"
+          } >> "$GITHUB_OUTPUT"
       - name: Merge cdxgen image manifest - release tags
         if: ${{ startsWith(github.ref, 'refs/tags/') }}
         id: merge_cdxgen_tag
@@ -812,11 +817,12 @@ jobs:
             ${{ fromJSON(inputs.image).cdxgen-image.additional-image3 && format('{0}/{1}/{2}-slim:{3}', env.REPO, env.TEAM, fromJSON(inputs.image).cdxgen-image.additional-image3, env.TAG) }}
         run: |
           final_tags="${PROVIDED_TAGS:-$METADATA_TAGS}"
-          cat >> "$GITHUB_OUTPUT" << EOF
-          value<<VALUE
-          $final_tags
-          VALUE
-          EOF
+          delimiter="VALUE_${RANDOM}_$(date +%s%N)"
+          {
+            printf 'value<<%s\n' "$delimiter"
+            printf '%s\n' "$final_tags"
+            printf '%s\n' "$delimiter"
+          } >> "$GITHUB_OUTPUT"
       - name: Merge slim cdxgen image manifest - master branch
         if: ${{ needs.prepare.outputs.slim == 'true' && startsWith(github.ref, 'refs/heads/') }}
         id: merge_slim_cdxgen_master
@@ -849,11 +855,12 @@ jobs:
         env:
           METADATA_TAGS: ${{ steps.slim_cdxgen_tag_metadata.outputs.tags }}
         run: |
-          cat >> "$GITHUB_OUTPUT" << EOF
-          value<<VALUE
-          $METADATA_TAGS
-          VALUE
-          EOF
+          delimiter="VALUE_${RANDOM}_$(date +%s%N)"
+          {
+            printf 'value<<%s\n' "$delimiter"
+            printf '%s\n' "$METADATA_TAGS"
+            printf '%s\n' "$delimiter"
+          } >> "$GITHUB_OUTPUT"
       - name: Merge slim cdxgen image manifest - release tags
         if: ${{ needs.prepare.outputs.slim == 'true' && startsWith(github.ref, 'refs/tags/') }}
         id: merge_slim_cdxgen_tag
@@ -879,11 +886,12 @@ jobs:
           emit_multiline_output() {
             local name="$1"
             local value="$2"
-            cat >> "$GITHUB_OUTPUT" << EOF
-            ${name}<<VALUE
-            ${value}
-            VALUE
-            EOF
+            local delimiter="VALUE_${name}_${RANDOM}_$(date +%s%N)"
+            {
+              printf '%s<<%s\n' "$name" "$delimiter"
+              printf '%s\n' "$value"
+              printf '%s\n' "$delimiter"
+            } >> "$GITHUB_OUTPUT"
           }
 
           emit_multiline_output "base-tags" "$BASE_TAGS"
