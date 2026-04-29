@@ -201,6 +201,7 @@ CDXGEN_THINK_MODE=true cdx-audit --bom bom.json --max-targets 10
 - explicit `scope=required` is treated as a stronger prioritization indicator than an implicit missing scope
 - `evidence.occurrences` lifts packages that are observed in more source locations
 - development-only and platform-specific packages remain deprioritized relative to runtime/general packages
+- for Cargo targets, runtime-facing crates stay ahead of build-only workspace helper crates when the queue must be trimmed
 
 Use the trusted-publishing switches to override the default:
 
@@ -224,6 +225,7 @@ When `cdx-audit` has to choose which packages to inspect first, it uses a small 
 3. source evidence density from `evidence.occurrences`
 4. absence of development-only markers
 5. absence of platform-specific constraints
+6. for Cargo, runtime-facing member crates before build-only workspace helper crates
 
 These indicators affect queue order, not the final risk severity. Final severity still comes from the findings observed in the generated child SBOM and the conservative scoring model.
 
@@ -241,6 +243,21 @@ The thought log emits one short decision summary per package with:
 - confidence and confidence label
 - the number of findings and corroborating categories
 - a short preview of the top reasons behind the decision
+
+## Cargo-specific predictive signals
+
+Cargo support now folds several Cargo-native signals into prioritization and scoring:
+
+- yanked crates and publisher/cadence drift from crates.io metadata
+- native build surfaces from `build.rs`, build dependencies, and `-sys` helpers
+- workspace-resolved member dependencies so build-only helpers can be deprioritized beneath runtime-facing crates
+- exact GitHub Actions/setup/cache/build metadata when child SBOMs include formulation and workflow components
+
+In practice this means `cdx-audit` can now explain not only that a Cargo dependency looks risky, but also whether that risk is:
+
+- runtime-facing versus build-only
+- reinforced by Cargo-native build surfaces
+- reinforced by mutable Cargo setup actions or workflow steps that exercise native build logic
 
 ## What each audience gets back
 

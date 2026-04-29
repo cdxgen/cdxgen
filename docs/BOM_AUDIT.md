@@ -78,12 +78,13 @@ The audit runs as a post-processing step after BOM generation:
 
 ## Predictive dependency target selection
 
-When `--bom-audit` is enabled for npm or PyPI-heavy projects, cdxgen now narrows predictive dependency audit targets before cloning upstream repositories:
+When `--bom-audit` is enabled, cdxgen narrows predictive dependency audit targets before cloning upstream repositories:
 
-- packages with trusted publishing metadata (`cdx:npm:trustedPublishing=true` or `cdx:pypi:trustedPublishing=true`) are skipped by default
+- packages with trusted publishing metadata (`cdx:cargo:trustedPublishing=true`, `cdx:npm:trustedPublishing=true`, or `cdx:pypi:trustedPublishing=true`) are skipped by default
 - `--bom-audit-scope required` keeps only dependencies with CycloneDX `scope=required` (missing scope is treated as required)
 - unless you override it, cdxgen caps the predictive dependency audit to `max(50, required-target-count)` and prioritizes direct runtime and required targets first
 - explicit `scope=required` and richer `evidence.occurrences` act as prioritization indicators when cdxgen trims the queue
+- Cargo runtime-facing crates stay ahead of build-only workspace helper crates when the predictive queue is truncated
 
 Use the trusted-publishing switches to override the default:
 
@@ -142,6 +143,8 @@ Rules that detect deprecated, yanked, tampered, or suspicious packages.
 | INT-009 | critical | npm lifecycle hook contains obfuscated or encoded install-time execution |
 | INT-010 | high     | Cargo crate has been yanked from crates.io                               |
 | INT-011 | medium   | Rust project uses Cargo build.rs or native build helpers                 |
+| INT-012 | medium   | Rust native build uses mutable Cargo toolchain setup action             |
+| INT-013 | medium   | Rust native build is exercised by Cargo workflow build/test/package steps |
 
 ### Advanced predictive heuristics
 
@@ -150,7 +153,8 @@ Beyond the YAML rule matches above, the current rollout also adds a small number
 - **GitHub Actions lateral movement:** downstream `workflow_dispatch` / `repository_dispatch` chains launched from fork-reachable or privileged workflows
 - **npm install-time concealment:** base64-decoding or otherwise obfuscated lifecycle hooks, including referenced JS files analyzed through the Babel-based source analyzer
 - **PyPI packaging surfaces:** shallow heuristics for suspicious logic in `setup.py` and package `__init__.py`
-- **Cargo registry and native build signals:** yanked crates, mutable git/path dependencies, and Cargo build.rs/native-helper build surfaces
+- **Cargo registry and native build signals:** yanked crates, mutable git/path dependencies, build-only workspace helpers, and Cargo build.rs/native-helper build surfaces
+- **Cargo workflow tie-ins:** mutable Cargo setup actions plus Cargo build/test/package/publish workflow steps correlated with native build surfaces
 
 The Python detections are intentionally conservative phase-1 heuristics. They are meant to catch obviously suspicious packaging behavior today while a deeper Python static-analysis path is developed separately.
 

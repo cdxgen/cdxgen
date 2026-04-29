@@ -42,6 +42,13 @@ For source-based scans, the primary positional input accepted by `cdxgen` can be
 
 When given a git URL, cdxgen clones the repository first. When given a purl, cdxgen resolves the purl to source repository metadata, clones the resolved source, and then performs the normal scan.
 
+Quick cache-catalog examples:
+
+```bash
+# Catalogue the local Cargo cache
+cdxgen -t cargo-cache -o cargo-cache-bom.json .
+```
+
 ```mermaid
 flowchart LR
     A[Source Code] --> B([fa:fa-terminal cdxgen])

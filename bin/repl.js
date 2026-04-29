@@ -143,12 +143,82 @@ function printAuditTable(title, rows) {
   );
 }
 
+function getPropertyValue(propertiesOrObject, propertyName) {
+  const properties = Array.isArray(propertiesOrObject)
+    ? propertiesOrObject
+    : propertiesOrObject?.properties;
+  return properties?.find((property) => property.name === propertyName)?.value;
+}
+
 function isLikelyObom(bom) {
   return Boolean(
     bom?.components?.some((comp) =>
       comp?.properties?.some((prop) => prop?.name === "cdx:osquery:category"),
     ),
   );
+}
+
+function isLikelyCargoBom(bom) {
+  const formulation = Array.isArray(bom?.formulation)
+    ? bom.formulation
+    : bom?.formulation
+      ? [bom.formulation]
+      : [];
+  return Boolean(
+    bom?.components?.some((component) =>
+      component?.purl?.startsWith("pkg:cargo/"),
+    ) ||
+      formulation.some((entry) =>
+        entry?.components?.some(
+          (component) =>
+            getPropertyValue(component, "cdx:rust:buildTool") === "cargo",
+        ),
+      ),
+  );
+}
+
+function getCargoHotspotComponents(bom) {
+  return (bom?.components || []).filter(
+    (component) =>
+      component?.purl?.startsWith("pkg:cargo/") &&
+      (getPropertyValue(component, "cdx:cargo:yanked") === "true" ||
+        Boolean(getPropertyValue(component, "cdx:cargo:git")) ||
+        Boolean(getPropertyValue(component, "cdx:cargo:path")) ||
+        getPropertyValue(component, "cdx:cargo:dependencyKind") === "build" ||
+        getPropertyValue(component, "cdx:cargo:workspaceDependencyResolved") ===
+          "true" ||
+        Boolean(getPropertyValue(component, "cdx:cargo:target"))),
+  );
+}
+
+function getCargoWorkflowComponents(bom) {
+  return (bom?.components || []).filter(
+    (component) =>
+      getPropertyValue(component, "cdx:github:action:ecosystem") === "cargo" ||
+      getPropertyValue(component, "cdx:github:step:usesCargo") === "true",
+  );
+}
+
+function getCargoFormulationEntries(bom) {
+  const formulation = Array.isArray(bom?.formulation)
+    ? bom.formulation
+    : bom?.formulation
+      ? [bom.formulation]
+      : [];
+  const matchingEntries = [];
+  for (const formulationEntry of formulation) {
+    const cargoComponents = (formulationEntry?.components || []).filter(
+      (component) =>
+        getPropertyValue(component, "cdx:rust:buildTool") === "cargo",
+    );
+    if (cargoComponents.length) {
+      matchingEntries.push({
+        ...formulationEntry,
+        components: cargoComponents,
+      });
+    }
+  }
+  return matchingEntries;
 }
 
 let historyFile;
@@ -180,6 +250,11 @@ export const importSbom = (sbomOrPath) => {
       if (isLikelyObom(sbom)) {
         console.log(
           "💭 OBOM detected. Try .osinfocategories, .obomtips, .processes, or .services_snapshot",
+        );
+      }
+      if (isLikelyCargoBom(sbom)) {
+        console.log(
+          "💭 Cargo signals detected. Try .cargohotspots or .cargoworkflows.",
         );
       }
       if (getAuditAnnotations().length) {
@@ -278,6 +353,11 @@ cdxgenRepl.defineCommand("create", {
       if (getAuditAnnotations().length) {
         console.log(
           "💭 Type .auditfindings to review cdx-audit and bom-audit annotations.",
+        );
+      }
+      if (isLikelyCargoBom(sbom)) {
+        console.log(
+          "💭 Type .cargohotspots or .cargoworkflows for Cargo-specific pivots.",
         );
       }
     } else {
@@ -754,6 +834,64 @@ cdxgenRepl.defineCommand("formulation", {
       }
     } else {
       console.log("⚠ No SBOM is loaded. Use .import command to import an SBOM");
+    }
+    this.displayPrompt();
+  },
+});
+cdxgenRepl.defineCommand("cargohotspots", {
+  help: "show Cargo package components with high-signal source, workspace, or build metadata",
+  action() {
+    const interactiveBom = getInteractiveBom();
+    if (!interactiveBom?.components) {
+      console.log("⚠ No BOM is loaded. Use .import command to import an SBOM");
+      this.displayPrompt();
+      return;
+    }
+    const cargoComponents = getCargoHotspotComponents(interactiveBom);
+    if (!cargoComponents.length) {
+      console.log(
+        "No Cargo hotspot components found. Look for Cargo BOMs enriched with manifest, registry, or workspace metadata.",
+      );
+      this.displayPrompt();
+      return;
+    }
+    printTable(
+      { components: cargoComponents, dependencies: [] },
+      undefined,
+      undefined,
+      `Found ${cargoComponents.length} Cargo component(s) with high-signal source, workspace, or build metadata.`,
+    );
+    this.displayPrompt();
+  },
+});
+cdxgenRepl.defineCommand("cargoworkflows", {
+  help: "show Cargo-native build formulation plus Cargo-related workflow actions and run steps",
+  action() {
+    const interactiveBom = getInteractiveBom();
+    if (!interactiveBom) {
+      console.log("⚠ No BOM is loaded. Use .import command to import an SBOM");
+      this.displayPrompt();
+      return;
+    }
+    const cargoWorkflowComponents = getCargoWorkflowComponents(interactiveBom);
+    const cargoFormulation = getCargoFormulationEntries(interactiveBom);
+    if (!cargoWorkflowComponents.length && !cargoFormulation.length) {
+      console.log(
+        "No Cargo workflow or formulation pivots found. Import an SBOM generated with --include-formulation for Cargo projects.",
+      );
+      this.displayPrompt();
+      return;
+    }
+    if (cargoWorkflowComponents.length) {
+      printTable(
+        { components: cargoWorkflowComponents, dependencies: [] },
+        undefined,
+        undefined,
+        `Found ${cargoWorkflowComponents.length} Cargo-related workflow component(s).`,
+      );
+    }
+    if (cargoFormulation.length) {
+      printFormulation({ formulation: cargoFormulation });
     }
     this.displayPrompt();
   },

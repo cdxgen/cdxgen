@@ -60,6 +60,13 @@ If `bom.json` exists in the current directory, `cdxi` imports it automatically.
 .dispatchedges
 ```
 
+### Review Cargo-native hotspots and workflows
+
+```text
+.cargohotspots
+.cargoworkflows
+```
+
 ### Review evidence and services
 
 ```text
@@ -132,6 +139,15 @@ If `bom.json` exists in the current directory, `cdxi` imports it automatically.
 
 These commands are most useful after importing a BOM generated with `--bom-audit` or a BOM annotated by `cdx-audit`.
 
+### Cargo-oriented commands
+
+| Command           | Description                                                                                |
+| ----------------- | ------------------------------------------------------------------------------------------ |
+| `.cargohotspots`  | Show Cargo package components with high-signal source, workspace, target, or build fields |
+| `.cargoworkflows` | Show Cargo-native formulation entries plus Cargo-related GitHub Actions/setup/run steps    |
+
+These commands are most useful after importing a Cargo SBOM generated with `--include-formulation`, `--bom-audit`, or both.
+
 ### Evidence and SaaSBOM review
 
 | Command            | Description                              |
@@ -170,6 +186,13 @@ Set `CDXGEN_REPL_HISTORY` to override the history file location.
 - `.create` can invoke the same dependency-resolution paths as `cdxgen`; treat untrusted source trees with the same caution you would use for CLI scans.
 - `.query` and `.update` execute JSONata expressions against the loaded BOM. They are powerful and intended for trusted interactive use.
 - Imported audit annotations may contain repository URLs, workflow file paths, and remediation notes. Review before sharing screenshots or session logs.
+
+## Cargo analyst tips
+
+- Generate Cargo BOMs with `--include-formulation` to surface build.rs, native-helper, and workspace metadata.
+- Add `--bom-audit` when you want Cargo-native workflow/build correlations such as mutable Cargo setup actions or Cargo build/test steps against native build surfaces.
+- Use `.cargohotspots` first to identify yanked crates, local/git sources, and build-only workspace helpers.
+- Use `.cargoworkflows` next to compare Cargo formulation signals with the exact GitHub Actions/setup/cache/build steps seen in CI.
 
 ## Related docs
 

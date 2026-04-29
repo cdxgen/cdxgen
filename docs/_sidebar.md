@@ -27,5 +27,6 @@
 - [Tutorials - Validating SBOMs against SCVS and CRA](LESSON7.md)
 - [Tutorials - Scanning Git URLs and purls with BOM Audit](LESSON8.md)
 - [Tutorials - Auditing container escape and privilege risks](LESSON9.md)
+- [Tutorials - Auditing Cargo workspaces, caches, and native build surfaces](LESSON10.md)
 - [Tutorials - Generating OBOM](OBOM_LESSONS.md)
 - [Support (Enterprise & Community)](SUPPORT.md)

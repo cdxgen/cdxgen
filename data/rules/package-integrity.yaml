@@ -226,3 +226,82 @@
       "nativeBuildIndicators": $prop($, 'cdx:cargo:nativeBuildIndicators'),
       "releaseProfiles": $prop($, 'cdx:cargo:releaseProfiles')
     }
+
+- id: INT-012
+  name: "Rust native build uses mutable Cargo setup action"
+  description: "Native Cargo build surfaces deserve additional scrutiny when the workflow relies on mutable Cargo toolchain setup actions instead of immutable SHA-pinned references"
+  severity: medium
+  category: package-integrity
+  condition: |
+    formulation.components[
+      $prop($, 'cdx:rust:buildTool') = 'cargo'
+      and $prop($, 'cdx:cargo:hasNativeBuild') = 'true'
+      and $count($$.components[
+        $prop($, 'cdx:github:action:ecosystem') = 'cargo'
+        and $contains($prop($, 'cdx:github:action:role'), 'toolchain')
+        and $prop($, 'cdx:github:action:versionPinningType') != 'sha'
+      ]) > 0
+    ]
+  location: |
+    {
+      "bomRef": $."bom-ref",
+      "file": $prop($, 'SrcFile')
+    }
+  message: "Rust project '{{ name }}' combines native Cargo build surfaces with mutable Cargo toolchain setup actions"
+  mitigation: "Prefer SHA-pinned Cargo toolchain setup actions for release workflows, especially when build.rs or native helpers run during CI"
+  evidence: |
+    {
+      "buildScript": $prop($, 'cdx:cargo:buildScript'),
+      "buildScriptCapabilities": $prop($, 'cdx:cargo:buildScriptCapabilities'),
+      "toolchainActions": $$.components[
+        $prop($, 'cdx:github:action:ecosystem') = 'cargo'
+        and $contains($prop($, 'cdx:github:action:role'), 'toolchain')
+        and $prop($, 'cdx:github:action:versionPinningType') != 'sha'
+      ].$prop($, 'cdx:github:action:uses')
+    }
+
+- id: INT-013
+  name: "Rust native build is exercised by Cargo workflow steps"
+  description: "Cargo workflows that execute build/test/package/publish steps against native build surfaces increase the impact of build-script or native-helper changes"
+  severity: medium
+  category: package-integrity
+  condition: |
+    formulation.components[
+      $prop($, 'cdx:rust:buildTool') = 'cargo'
+      and $prop($, 'cdx:cargo:hasNativeBuild') = 'true'
+      and (
+        $contains($prop($, 'cdx:cargo:buildScriptCapabilities'), 'process-execution')
+        or $contains($prop($, 'cdx:cargo:buildScriptCapabilities'), 'network-access')
+        or $contains($prop($, 'cdx:cargo:nativeBuildIndicators'), '-sys')
+      )
+      and $count($$.components[
+        $prop($, 'cdx:github:step:usesCargo') = 'true'
+        and (
+          $contains($prop($, 'cdx:github:step:cargoSubcommands'), 'build')
+          or $contains($prop($, 'cdx:github:step:cargoSubcommands'), 'test')
+          or $contains($prop($, 'cdx:github:step:cargoSubcommands'), 'package')
+          or $contains($prop($, 'cdx:github:step:cargoSubcommands'), 'publish')
+        )
+      ]) > 0
+    ]
+  location: |
+    {
+      "bomRef": $."bom-ref",
+      "file": $prop($, 'SrcFile')
+    }
+  message: "Rust project '{{ name }}' runs Cargo build/test/package workflow steps against a native build surface"
+  mitigation: "Review build.rs, native helper crates, and workflow command scope before merging or publishing releases that exercise native build logic"
+  evidence: |
+    {
+      "buildScriptCapabilities": $prop($, 'cdx:cargo:buildScriptCapabilities'),
+      "nativeBuildIndicators": $prop($, 'cdx:cargo:nativeBuildIndicators'),
+      "cargoCommands": $$.components[
+        $prop($, 'cdx:github:step:usesCargo') = 'true'
+        and (
+          $contains($prop($, 'cdx:github:step:cargoSubcommands'), 'build')
+          or $contains($prop($, 'cdx:github:step:cargoSubcommands'), 'test')
+          or $contains($prop($, 'cdx:github:step:cargoSubcommands'), 'package')
+          or $contains($prop($, 'cdx:github:step:cargoSubcommands'), 'publish')
+        )
+      ].$prop($, 'cdx:github:step:command')
+    }
