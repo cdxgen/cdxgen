@@ -1,0 +1,13 @@
+[package]
+name = "cli"
+version.workspace = true
+license.workspace = true
+repository.workspace = true
+build = "build.rs"
+
+[dependencies]
+core = { workspace = true }
+
+[build-dependencies]
+build-helper = { workspace = true }
+cc = { workspace = true }

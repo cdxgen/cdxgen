@@ -1,0 +1,12 @@
+[workspace]
+members = ["crates/*"]
+
+[workspace.package]
+version = "1.2.3"
+license = "Apache-2.0"
+repository = "https://github.com/example/cargo-workspace-repotest"
+
+[workspace.dependencies]
+core = { path = "crates/core" }
+build-helper = { path = "crates/build-helper" }
+cc = "1.2.0"

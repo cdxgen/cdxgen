@@ -12,6 +12,8 @@ on:
       - 'lib/**'
       - 'package.json'
       - 'pnpm-lock.yaml'
+      - 'test/data/cargo-cache-fixture/**'
+      - 'test/data/cargo-workspace-repotest/**'
       - '!**.poku.js'
   workflow_dispatch:
 
@@ -92,6 +94,18 @@ jobs:
           FETCH_LICENSE: true
           CDXGEN_TRACE_ID: foo
           CDXGEN_DEBUG_MODE: debug
+      - name: repotests cargo fixture
+        run: |
+          bin/cdxgen.js -t cargo -t github test/data/cargo-workspace-repotest -o bomresults/bom-cargo-workspace-fixture.json --include-formulation --bom-audit --fail-on-error
+          jq -e 'any(.components[]; .name == "core" and any((.properties // [])[]; .name == "cdx:cargo:workspaceDependencyResolved" and .value == "true"))' bomresults/bom-cargo-workspace-fixture.json
+          jq -e 'any(.components[]; .name == "build-helper" and any((.properties // [])[]; .name == "cdx:cargo:dependencyKind" and .value == "build") and any((.properties // [])[]; .name == "cdx:cargo:resolvedWorkspaceMember" and .value == "build-helper"))' bomresults/bom-cargo-workspace-fixture.json
+          jq -e 'any(.components[]; any((.properties // [])[]; .name == "cdx:github:action:ecosystem" and .value == "cargo") and any((.properties // [])[]; .name == "cdx:github:action:role" and .value == "toolchain"))' bomresults/bom-cargo-workspace-fixture.json
+          jq -e 'any(.components[]; any((.properties // [])[]; .name == "cdx:github:step:usesCargo" and .value == "true") and any((.properties // [])[]; .name == "cdx:github:step:cargoSubcommands" and .value == "build,test"))' bomresults/bom-cargo-workspace-fixture.json
+          jq -e 'any(.annotations[]?; (.text // "") | contains("INT-012"))' bomresults/bom-cargo-workspace-fixture.json
+          jq -e 'any(.annotations[]?; (.text // "") | contains("INT-013"))' bomresults/bom-cargo-workspace-fixture.json
+          CARGO_CACHE_DIR=test/data/cargo-cache-fixture/registry/cache/index.crates.io-1949cf8c6b5b557f bin/cdxgen.js -t cargo-cache . -o bomresults/bom-cargo-cache-fixture.json --fail-on-error
+          jq -e 'any(.components[]; .name == "serde" and any((.properties // [])[]; .name == "cdx:cargo:cacheSource" and .value == "registry-cache"))' bomresults/bom-cargo-cache-fixture.json
+        shell: bash
   cli-tests-quick-arm64:
     runs-on: ["self-hosted", "ubuntu", "arm64"]
     steps:

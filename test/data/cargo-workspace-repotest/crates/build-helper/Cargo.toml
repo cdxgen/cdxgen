@@ -1,0 +1,5 @@
+[package]
+name = "build-helper"
+version.workspace = true
+license.workspace = true
+repository.workspace = true

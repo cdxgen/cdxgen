@@ -1,0 +1,5 @@
+[package]
+name = "core"
+version.workspace = true
+license.workspace = true
+repository.workspace = true
