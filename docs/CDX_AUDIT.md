@@ -68,6 +68,7 @@ Use `cdx-audit` to accelerate prioritization and escalation decisions. Final dis
 
 `cdx-audit` currently evaluates package URLs for:
 
+- Cargo / crates.io (`pkg:cargo/...`)
 - npm (`pkg:npm/...`)
 - PyPI (`pkg:pypi/...`)
 
@@ -122,7 +123,7 @@ For Linux, macOS, and Windows download snippets with hash verification, see [`CL
 ## What the command does
 
 1. Load one BOM with `--bom` or many BOMs from `--bom-dir`
-2. Extract unique npm and PyPI package URLs from `components[]`
+2. Extract unique Cargo, npm, and PyPI package URLs from `components[]`
 3. Skip trusted-publishing-backed packages by default unless you override that behavior
 4. Resolve each supported purl to a source repository URL
 5. Clone or reuse the source under `--workspace-dir`
@@ -193,9 +194,9 @@ CDXGEN_THINK_MODE=true cdx-audit --bom bom.json --max-targets 10
 
 `cdx-audit` narrows target selection before cloning upstream repositories:
 
-- only npm and PyPI purls are considered
+- only Cargo, npm, and PyPI purls are considered
 - components with `scope: optional` or `scope: excluded` are skipped when `--scope required` is used
-- packages with trusted-publishing metadata such as `cdx:npm:trustedPublishing=true` or `cdx:pypi:trustedPublishing=true` are skipped by default
+- packages with trusted-publishing metadata such as `cdx:cargo:trustedPublishing=true`, `cdx:npm:trustedPublishing=true`, or `cdx:pypi:trustedPublishing=true` are skipped by default
 - when `--max-targets` trims the queue, direct runtime dependencies are prioritized by default
 - explicit `scope=required` is treated as a stronger prioritization indicator than an implicit missing scope
 - `evidence.occurrences` lifts packages that are observed in more source locations
