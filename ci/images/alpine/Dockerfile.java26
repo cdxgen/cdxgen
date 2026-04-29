@@ -26,9 +26,10 @@ RUN set -e; \
       printf "$PIP_CONFIG" > $HOME/.pip/pip.conf; \
     fi; \
     apk update \
- && apk add --no-cache \
+ && apk add --no-cache --upgrade \
       bash \
       curl \
+      expat \
       gcc \
       git \
       gradle \
@@ -44,8 +45,8 @@ RUN set -e; \
       py3-virtualenv \
       tar \
  && npm install -g corepack \
- && /usr/bin/python --version \
- && /usr/bin/python -m pip install \
+ && python3 --version \
+ && python3 -m pip install \
       --break-system-packages \
       --no-cache-dir \
       --target ${PYTHONPATH} \

@@ -902,7 +902,7 @@ jobs:
           emit_multiline_output "slim-cdxgen-tag-tags" "$SLIM_CDXGEN_TAG_TAGS"
 
   sbom-amd64:
-    if: ${{ needs.merge.result == 'success' }}
+    if: ${{ always() && needs.merge.result == 'success' }}
     needs:
       - prepare
       - merge
@@ -1014,7 +1014,7 @@ jobs:
           target: cdxgen
 
   sbom-arm64:
-    if: ${{ needs.prepare.outputs.build-arm == 'true' && needs.merge.result == 'success' }}
+    if: ${{ always() && needs.prepare.outputs.build-arm == 'true' && needs.merge.result == 'success' }}
     needs:
       - prepare
       - merge
