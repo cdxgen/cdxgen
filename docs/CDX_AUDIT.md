@@ -151,9 +151,15 @@ cdx-audit --bom bom.json --workspace-dir .cache/cdx-audit --reports-dir .reports
 # Focus on required dependencies only
 cdx-audit --bom bom.json --scope required
 
+# Limit the queue while keeping the default direct-runtime prioritization
+cdx-audit --bom bom.json --scope required --max-targets 25
+
 # Override trusted-publishing target selection
 cdx-audit --bom bom.json --include-trusted
 cdx-audit --bom bom.json --only-trusted
+
+# Explain risk scoring decisions in think mode
+CDXGEN_THINK_MODE=true cdx-audit --bom bom.json --max-targets 10
 ```
 
 ## CLI reference
@@ -173,6 +179,7 @@ cdx-audit --bom bom.json --only-trusted
 | `--scope`             | Target selection scope: `all` or `required`                         |
 | `--include-trusted`   | Include targets already marked with trusted publishing metadata     |
 | `--only-trusted`      | Restrict analysis to trusted-publishing-backed targets              |
+| `--prioritize-direct-runtime` | Keep direct runtime dependencies ahead of less actionable targets (enabled by default) |
 
 ## Exit behavior
 
@@ -189,6 +196,10 @@ cdx-audit --bom bom.json --only-trusted
 - only npm and PyPI purls are considered
 - components with `scope: optional` or `scope: excluded` are skipped when `--scope required` is used
 - packages with trusted-publishing metadata such as `cdx:npm:trustedPublishing=true` or `cdx:pypi:trustedPublishing=true` are skipped by default
+- when `--max-targets` trims the queue, direct runtime dependencies are prioritized by default
+- explicit `scope=required` is treated as a stronger prioritization indicator than an implicit missing scope
+- `evidence.occurrences` lifts packages that are observed in more source locations
+- development-only and platform-specific packages remain deprioritized relative to runtime/general packages
 
 Use the trusted-publishing switches to override the default:
 
@@ -196,6 +207,39 @@ Use the trusted-publishing switches to override the default:
 - `--only-trusted` keeps only trusted-publishing-backed targets
 
 Passing both switches together is invalid.
+
+### Recommended filter combinations
+
+- `cdx-audit --bom bom.json --scope required --max-targets 25` keeps triage focused on required dependencies and caps the review queue
+- `cdx-audit --bom bom.json --include-trusted --max-targets 50` includes trusted-publishing-backed packages when you want a broader baseline review
+- `cdx-audit --bom bom.json --only-trusted` isolates the subset of packages already backed by trusted publishing metadata
+
+## Prioritization indicators
+
+When `cdx-audit` has to choose which packages to inspect first, it uses a small set of explainable indicators:
+
+1. direct runtime dependency status from the root dependency graph
+2. explicit CycloneDX `scope=required`
+3. source evidence density from `evidence.occurrences`
+4. absence of development-only markers
+5. absence of platform-specific constraints
+
+These indicators affect queue order, not the final risk severity. Final severity still comes from the findings observed in the generated child SBOM and the conservative scoring model.
+
+## Thought-log diagnostics
+
+If you want a lightweight explanation for why a dependency stayed low risk or was considered risky, run `cdx-audit` with thought logging enabled:
+
+```bash
+CDXGEN_THINK_MODE=true cdx-audit --bom bom.json --scope required --max-targets 10
+```
+
+The thought log emits one short decision summary per package with:
+
+- the final severity and score
+- confidence and confidence label
+- the number of findings and corroborating categories
+- a short preview of the top reasons behind the decision
 
 ## What each audience gets back
 

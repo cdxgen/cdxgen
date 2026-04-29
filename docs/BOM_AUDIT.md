@@ -72,7 +72,7 @@ The audit runs as a post-processing step after BOM generation:
 | `--bom-audit-min-severity`    | string  | `low`   | Minimum severity to report: `low`, `medium`, `high`                                                                      |
 | `--bom-audit-fail-severity`   | string  | `high`  | Severity level at or above which findings cause secure mode failure (e.g., `medium` fails on medium, high, and critical) |
 | `--bom-audit-scope`           | string  | `all`   | Predictive dependency audit target scope: `all` or `required`                                                            |
-| `--bom-audit-max-targets`     | number  | auto    | Predictive dependency audit cap. By default cdxgen scans required targets first and expands to at least 50 targets       |
+| `--bom-audit-max-targets`     | number  | auto    | Predictive dependency audit cap. By default cdxgen prioritizes direct runtime and required targets first and expands to at least 50 targets |
 | `--bom-audit-include-trusted` | boolean | `false` | Include predictive audit targets that already carry trusted publishing metadata                                          |
 | `--bom-audit-only-trusted`    | boolean | `false` | Restrict predictive audit targets to trusted-publishing-backed packages only                                             |
 
@@ -82,7 +82,8 @@ When `--bom-audit` is enabled for npm or PyPI-heavy projects, cdxgen now narrows
 
 - packages with trusted publishing metadata (`cdx:npm:trustedPublishing=true` or `cdx:pypi:trustedPublishing=true`) are skipped by default
 - `--bom-audit-scope required` keeps only dependencies with CycloneDX `scope=required` (missing scope is treated as required)
-- unless you override it, cdxgen caps the predictive dependency audit to `max(50, required-target-count)` and prioritizes required targets first
+- unless you override it, cdxgen caps the predictive dependency audit to `max(50, required-target-count)` and prioritizes direct runtime and required targets first
+- explicit `scope=required` and richer `evidence.occurrences` act as prioritization indicators when cdxgen trims the queue
 
 Use the trusted-publishing switches to override the default:
 

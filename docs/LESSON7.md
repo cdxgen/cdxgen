@@ -124,6 +124,31 @@ Run predictive audit against the same BOM:
 cdx-audit --bom bom.json --scope required
 ```
 
+For larger SBOMs, it is often better to keep the review queue small and focused:
+
+```shell
+cdx-audit --bom bom.json --scope required --max-targets 25
+```
+
+By default, `cdx-audit` now prioritizes:
+
+- direct runtime dependencies before less actionable transitive packages
+- explicit `scope=required` over packages that are only implicitly required
+- packages with richer `evidence.occurrences` when there is stronger source correlation
+
+Use the trusted-publishing filters to widen or narrow the queue:
+
+```shell
+cdx-audit --bom bom.json --scope required --include-trusted
+cdx-audit --bom bom.json --only-trusted
+```
+
+If you want a short explanation for why a package stayed low risk or was considered risky during the predictive audit, enable think mode:
+
+```shell
+CDXGEN_THINK_MODE=true cdx-audit --bom bom.json --scope required --max-targets 10
+```
+
 Use the resulting console table, SARIF, or CycloneDX annotations as evidence
 for your manual review notes. When the dependency belongs to an external
 maintainer, the next-step guidance will also suggest opening an upstream issue
