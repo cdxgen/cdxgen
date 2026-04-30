@@ -31,6 +31,8 @@ The current rollout focuses on phase 1 and phase 2 signals:
 - explicit provider and model literals such as `provider`, `providerName`, `model`, and `modelName`
 - provider SDK imports, outbound provider hosts, and MCP gateway patterns
 - AI agent instruction files that reference hidden MCP endpoints or wrappers
+- MCP client configuration files such as `.vscode/mcp.json` and `claude_desktop_config.json`
+- config-derived auth posture, trust profile, dynamic client registration, and inline credential exposure
 
 The analysis is intentionally conservative. cdxgen prefers literal, explainable signals over speculative reconstruction.
 
@@ -43,10 +45,10 @@ The analysis is intentionally conservative. cdxgen prefers literal, explainable 
 - `cdx:mcp:role=server-sdk|client-sdk|transport-sdk|sdk|integration`
 - `cdx:mcp:catalogSource=official-sdk|known-integration|heuristic`
 
-### MCP server services
+### MCP server and configured services
 
-- `cdx:mcp:serviceType=server|client|gateway|endpoint|inferred-endpoint`
-- `cdx:mcp:transport=stdio|streamable-http`
+- `cdx:mcp:serviceType=server|client|gateway|endpoint|inferred-endpoint|configured-server`
+- `cdx:mcp:transport=stdio|streamable-http|sse`
 - `cdx:mcp:officialSdk=true|false`
 - `cdx:mcp:capabilities:*`
 - `cdx:mcp:toolCount`
@@ -62,6 +64,18 @@ The analysis is intentionally conservative. cdxgen prefers literal, explainable 
 - `cdx:mcp:usageConfidence`
 - `cdx:mcp:inventorySource`
 - `cdx:mcp:exposureType`
+- `cdx:mcp:configFormat`
+- `cdx:mcp:configKey`
+- `cdx:mcp:command`
+- `cdx:mcp:packageRefs`
+- `cdx:mcp:authPosture`
+- `cdx:mcp:trustProfile`
+- `cdx:mcp:credentialExposure`
+- `cdx:mcp:credentialExposureFields`
+- `cdx:mcp:credentialRiskIndicators`
+- `cdx:mcp:credentialRefs`
+- `cdx:mcp:security:confusedDeputyRisk`
+- `cdx:mcp:security:tokenPassthroughRisk`
 - `cdx:mcp:reviewNeeded`
 - `cdx:mcp:auth:*`
 
@@ -82,6 +96,7 @@ cdxgen -t js /path/to/mcp-server -o bom.json --bom-audit --bom-audit-categories 
 Things to inspect in the resulting BOM:
 
 - `.services[]` for discovered MCP servers
+- `.formulation[].components[] | select(.properties[]?.name == "cdx:file:kind" and .properties[]?.value == "mcp-config")` for MCP config files
 - `.components[] | select(.properties[]?.name == "cdx:mcp:role")` for tools/prompts/resources
 - `.dependencies[] | select(.ref | startswith("urn:service:mcp:"))` for service-to-primitive links
 - `.annotations[]` for MCP BOM-audit findings
@@ -93,6 +108,9 @@ The most important current security checks are:
 - unauthenticated Streamable HTTP MCP servers
 - unauthenticated MCP tool exposure
 - network-exposed servers built on non-official MCP SDKs or wrappers
+- networked MCP endpoints discovered only from configuration files
+- inline credentials or token-forwarding settings in MCP configs
+- dynamic client registration paired with static client identities in MCP configs
 - public or tunneled MCP endpoints referenced only from AI agent files
 - hidden Unicode in AI agent instruction and skill files
 - agent-file MCP references that are not otherwise declared in package or source inventory

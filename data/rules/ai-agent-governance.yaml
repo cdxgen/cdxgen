@@ -168,3 +168,39 @@
       "mcpPackageRefs": $prop($, 'cdx:agent:mcpPackageRefs'),
       "hiddenComponentKinds": $prop($, 'cdx:agent:hiddenComponentKinds')
     }
+
+- id: AGT-006
+  name: "AI agent instructions contain inline credential patterns"
+  description: "Agent or skill files that embed bearer tokens, API keys, or similar secrets create immediate review and credential-rotation risk."
+  severity: critical
+  category: ai-agent
+  attack:
+    tactics: [TA0006]
+    techniques: [T1552]
+  standards:
+    owasp-ai-top-10:
+      - "LLM05: Supply Chain Vulnerabilities"
+      - "LLM07: Insecure Plugin Design"
+    nist-ai-rmf:
+      - "Govern"
+      - "Manage"
+    nist-ssdf:
+      - "Protect secrets used by AI automation and developer tooling"
+  condition: |
+    formulation.components[
+      $prop($, 'cdx:agent:inventorySource') = 'agent-file'
+      and $prop($, 'cdx:agent:credentialExposure') = 'true'
+    ]
+  location: |
+    {
+      "bomRef": $."bom-ref",
+      "file": $prop($, 'SrcFile')
+    }
+  message: "AI agent file '{{ name }}' contains inline credential patterns"
+  mitigation: "Remove embedded credentials from agent instructions and move them into reviewed secret-management flows before the file is shared or executed."
+  evidence: |
+    {
+      "credentialRiskIndicators": $prop($, 'cdx:agent:credentialRiskIndicators'),
+      "hiddenMcpUrls": $prop($, 'cdx:agent:hiddenMcpUrls'),
+      "providerNames": $prop($, 'cdx:agent:providerNames')
+    }

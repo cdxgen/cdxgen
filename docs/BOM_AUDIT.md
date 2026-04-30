@@ -167,6 +167,10 @@ Rules that evaluate MCP server inventory emitted from JavaScript/TypeScript sour
 | MCP-001 | critical | Streamable HTTP MCP server exposes tools without authentication        |
 | MCP-002 | high     | Streamable HTTP MCP server endpoint is reachable without authentication |
 | MCP-003 | medium   | Network-exposed MCP server relies on a non-official SDK or wrapper    |
+| MCP-004 | high     | Configured MCP HTTP endpoint lacks any discovered auth posture         |
+| MCP-005 | critical | MCP configuration exposes inline credentials                           |
+| MCP-006 | high     | MCP configuration suggests confused-deputy risk                        |
+| MCP-007 | high     | MCP configuration forwards or passes through bearer-like credentials   |
 
 ### `ai-agent` — AI agent instruction and MCP governance
 
@@ -179,6 +183,7 @@ Rules that evaluate AI agent instruction files, skill files, and inferred MCP su
 | AGT-003 | medium   | AI agent instructions reference MCP surfaces not otherwise declared in the BOM |
 | AGT-004 | high     | AI agent instructions reference tunneled or reverse-proxied MCP exposure       |
 | AGT-005 | medium   | AI agent instructions reference non-official MCP wrappers or packages          |
+| AGT-006 | critical | AI agent instruction or skill file contains inline credential patterns         |
 
 ### Standards mapping
 
@@ -187,6 +192,12 @@ The MCP and AI-agent rule sets now carry standards metadata that can be surfaced
 - **OWASP AI Top 10** for plugin, agency, and supply-chain exposure themes
 - **NIST AI RMF** for governance, mapping, and risk-management review flows
 - **NIST SSDF** for provenance, interface hardening, and automation/build instruction review
+
+Typical reviewer use:
+
+- **acceptable** — localhost-only, official SDK or config, explicit auth posture, no inline credentials
+- **needs review** — public endpoint references, non-official wrappers, tunneled exposure, or undeclared MCP/config references
+- **block** — inline credentials, unauthenticated public MCP endpoints, or confused-deputy / token-passthrough indicators
 
 Treat these mappings as reviewer guidance rather than a full certification crosswalk.
 

@@ -118,3 +118,153 @@
       "providerNames": $prop($, 'cdx:mcp:providerNames'),
       "modelNames": $prop($, 'cdx:mcp:modelNames')
     }
+
+- id: MCP-004
+  name: "Configured MCP endpoint lacks auth posture"
+  description: "MCP services discovered only from client configuration files still need explicit authentication or OAuth posture when they resolve to network-accessible HTTP endpoints."
+  severity: high
+  category: mcp-server
+  attack:
+    tactics: [TA0001]
+    techniques: [T1190]
+  standards:
+    owasp-ai-top-10:
+      - "LLM07: Insecure Plugin Design"
+      - "LLM08: Excessive Agency"
+    nist-ai-rmf:
+      - "Map"
+      - "Manage"
+    nist-ssdf:
+      - "Review and harden configured external AI control surfaces"
+  condition: |
+    $auditServices($)[
+      $prop($, 'cdx:mcp:inventorySource') = 'config-file'
+      and $contains($nullSafeProp($, 'cdx:mcp:transport'), 'http')
+      and authenticated != true
+    ]
+  location: |
+    {
+      "bomRef": $."bom-ref",
+      "file": $prop($, 'SrcFile'),
+      "purl": endpoints[0]
+    }
+  message: "Configured MCP endpoint '{{ endpoints[0] }}' lacks any discovered auth posture"
+  mitigation: "Document bearer or OAuth requirements for configured MCP endpoints before allowing clients to auto-connect."
+  evidence: |
+    {
+      "configFormat": $prop($, 'cdx:mcp:configFormat'),
+      "configKey": $prop($, 'cdx:mcp:configKey'),
+      "authPosture": $prop($, 'cdx:mcp:authPosture'),
+      "trustProfile": $prop($, 'cdx:mcp:trustProfile')
+    }
+
+- id: MCP-005
+  name: "MCP configuration exposes inline credentials"
+  description: "MCP configs that embed tokens, API keys, or other secrets directly in args, env values, or headers create immediate credential-handling and supply-chain review risk."
+  severity: critical
+  category: mcp-server
+  attack:
+    tactics: [TA0006]
+    techniques: [T1552]
+  standards:
+    owasp-ai-top-10:
+      - "LLM05: Supply Chain Vulnerabilities"
+      - "LLM07: Insecure Plugin Design"
+    nist-ai-rmf:
+      - "Govern"
+      - "Manage"
+    nist-ssdf:
+      - "Protect secrets used by automation and AI integrations"
+  condition: |
+    $auditServices($)[
+      $prop($, 'cdx:mcp:inventorySource') = 'config-file'
+      and $prop($, 'cdx:mcp:credentialExposure') = 'true'
+    ]
+  location: |
+    {
+      "bomRef": $."bom-ref",
+      "file": $prop($, 'SrcFile')
+    }
+  message: "MCP config entry '{{ name }}' exposes inline credentials"
+  mitigation: "Move secrets out of config files and command args into secret stores or environment references that can be managed separately."
+  evidence: |
+    {
+      "configFormat": $prop($, 'cdx:mcp:configFormat'),
+      "configKey": $prop($, 'cdx:mcp:configKey'),
+      "credentialExposureFields": $prop($, 'cdx:mcp:credentialExposureFields'),
+      "credentialRiskIndicators": $prop($, 'cdx:mcp:credentialRiskIndicators')
+    }
+
+- id: MCP-006
+  name: "MCP configuration suggests confused-deputy risk"
+  description: "Dynamic client registration combined with a static configured client ID can create confused-deputy style authorization risk in MCP deployments."
+  severity: high
+  category: mcp-server
+  attack:
+    tactics: [TA0004]
+    techniques: [T1528]
+  standards:
+    owasp-ai-top-10:
+      - "LLM07: Insecure Plugin Design"
+      - "LLM08: Excessive Agency"
+    nist-ai-rmf:
+      - "Govern"
+      - "Map"
+    nist-ssdf:
+      - "Review AI authorization delegation and client registration flows"
+  condition: |
+    $auditServices($)[
+      $prop($, 'cdx:mcp:inventorySource') = 'config-file'
+      and $prop($, 'cdx:mcp:security:confusedDeputyRisk') = 'high'
+    ]
+  location: |
+    {
+      "bomRef": $."bom-ref",
+      "file": $prop($, 'SrcFile')
+    }
+  message: "MCP config entry '{{ name }}' combines dynamic client registration with a static client identity"
+  mitigation: "Avoid mixing DCR with shared static client identities; isolate delegated clients and validate downstream authorization assumptions."
+  evidence: |
+    {
+      "configFormat": $prop($, 'cdx:mcp:configFormat'),
+      "configKey": $prop($, 'cdx:mcp:configKey'),
+      "supportsDCR": $prop($, 'cdx:mcp:auth:supportsDCR'),
+      "authPosture": $prop($, 'cdx:mcp:authPosture')
+    }
+
+- id: MCP-007
+  name: "MCP configuration forwards bearer or access tokens"
+  description: "Token-forwarding and passthrough settings in MCP configs deserve review because they can propagate delegated credentials across trust boundaries."
+  severity: high
+  category: mcp-server
+  attack:
+    tactics: [TA0006]
+    techniques: [T1528]
+  standards:
+    owasp-ai-top-10:
+      - "LLM07: Insecure Plugin Design"
+      - "LLM08: Excessive Agency"
+    nist-ai-rmf:
+      - "Govern"
+      - "Manage"
+    nist-ssdf:
+      - "Review delegated token forwarding and trust-boundary crossings"
+  condition: |
+    $auditServices($)[
+      $prop($, 'cdx:mcp:inventorySource') = 'config-file'
+      and $prop($, 'cdx:mcp:security:tokenPassthroughRisk') = 'high'
+    ]
+  location: |
+    {
+      "bomRef": $."bom-ref",
+      "file": $prop($, 'SrcFile')
+    }
+  message: "MCP config entry '{{ name }}' forwards or passes through bearer-like credentials"
+  mitigation: "Prefer server-side credential exchange or scoped token minting instead of forwarding end-user tokens through MCP configs."
+  evidence: |
+    {
+      "configFormat": $prop($, 'cdx:mcp:configFormat'),
+      "configKey": $prop($, 'cdx:mcp:configKey'),
+      "trustProfile": $prop($, 'cdx:mcp:trustProfile'),
+      "authPosture": $prop($, 'cdx:mcp:authPosture')
+    }
