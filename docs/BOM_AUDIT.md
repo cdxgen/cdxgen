@@ -158,6 +158,16 @@ Beyond the YAML rule matches above, the current rollout also adds a small number
 
 The Python detections are intentionally conservative phase-1 heuristics. They are meant to catch obviously suspicious packaging behavior today while a deeper Python static-analysis path is developed separately.
 
+### `mcp-server` — MCP server exposure and trust posture
+
+Rules that evaluate MCP server inventory emitted from JavaScript/TypeScript source analysis.
+
+| Rule    | Severity | Description                                                           |
+| ------- | -------- | --------------------------------------------------------------------- |
+| MCP-001 | critical | Streamable HTTP MCP server exposes tools without authentication        |
+| MCP-002 | high     | Streamable HTTP MCP server endpoint is reachable without authentication |
+| MCP-003 | medium   | Network-exposed MCP server relies on a non-official SDK or wrapper    |
+
 ### `obom-runtime` — Operational Runtime and Host Posture
 
 Rules that evaluate OBOM runtime components from osquery-derived host telemetry for persistence, endpoint control gaps, suspicious startup/runtime behavior, and Windows LOLBAS / ATT&CK-aligned abuse patterns.

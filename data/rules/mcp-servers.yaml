@@ -1,0 +1,94 @@
+- id: MCP-001
+  name: "Unauthenticated MCP tool server endpoint"
+  description: "HTTP-based MCP servers that expose tools without authentication let unauthenticated clients invoke model-controlled actions directly."
+  severity: critical
+  category: mcp-server
+  attack:
+    tactics: [TA0001, TA0004]
+    techniques: [T1190, T1059]
+  condition: |
+    $auditServices($)[
+      $contains($nullSafeProp($, 'cdx:mcp:transport'), 'streamable-http')
+      and authenticated != true
+      and (
+        $prop($, 'cdx:mcp:capabilities:tools') = 'true'
+        or $prop($, 'cdx:mcp:toolCount') != '0'
+      )
+    ]
+  location: |
+    {
+      "bomRef": $."bom-ref",
+      "file": $prop($, 'SrcFile'),
+      "purl": endpoints[0]
+    }
+  message: "MCP server '{{ name }}' exposes tool endpoints without authentication"
+  mitigation: "Require bearer-token or equivalent authentication before exposing HTTP MCP tool endpoints."
+  evidence: |
+    {
+      "transport": $prop($, 'cdx:mcp:transport'),
+      "toolCount": $prop($, 'cdx:mcp:toolCount'),
+      "endpoints": endpoints,
+      "sdkImports": $prop($, 'cdx:mcp:sdkImports')
+    }
+- id: MCP-002
+  name: "Unauthenticated MCP HTTP server"
+  description: "Streamable HTTP MCP servers should authenticate incoming requests before serving prompts, resources, or tools."
+  severity: high
+  category: mcp-server
+  attack:
+    tactics: [TA0001]
+    techniques: [T1190]
+  condition: |
+    $auditServices($)[
+      $contains($nullSafeProp($, 'cdx:mcp:transport'), 'streamable-http')
+      and authenticated != true
+    ]
+  location: |
+    {
+      "bomRef": $."bom-ref",
+      "file": $prop($, 'SrcFile'),
+      "purl": endpoints[0]
+    }
+  message: "MCP HTTP endpoint '{{ endpoints[0] }}' is reachable without authentication"
+  mitigation: "Protect MCP HTTP endpoints with authentication and validate Origin/host binding for local deployments."
+  evidence: |
+    {
+      "officialSdk": $prop($, 'cdx:mcp:officialSdk'),
+      "transport": $prop($, 'cdx:mcp:transport'),
+      "promptCount": $prop($, 'cdx:mcp:promptCount'),
+      "resourceCount": $prop($, 'cdx:mcp:resourceCount'),
+      "toolCount": $prop($, 'cdx:mcp:toolCount')
+    }
+- id: MCP-003
+  name: "Network-exposed non-official MCP server"
+  description: "MCP servers built on non-official SDKs or wrappers deserve extra review before being exposed over HTTP, especially when they register tools."
+  severity: medium
+  category: mcp-server
+  attack:
+    tactics: [TA0001, TA0005]
+    techniques: [T1195.001]
+  condition: |
+    $auditServices($)[
+      $contains($nullSafeProp($, 'cdx:mcp:transport'), 'streamable-http')
+      and $prop($, 'cdx:mcp:officialSdk') = 'false'
+      and (
+        $prop($, 'cdx:mcp:capabilities:tools') = 'true'
+        or $prop($, 'cdx:mcp:toolCount') != '0'
+        or $count(endpoints) > 0
+      )
+    ]
+  location: |
+    {
+      "bomRef": $."bom-ref",
+      "file": $prop($, 'SrcFile'),
+      "purl": endpoints[0]
+    }
+  message: "MCP server '{{ name }}' is network-accessible but relies on a non-official SDK or wrapper"
+  mitigation: "Review the SDK provenance, pin exact versions, and harden authentication/authorization before exposing the server."
+  evidence: |
+    {
+      "sdkImports": $prop($, 'cdx:mcp:sdkImports'),
+      "toolCount": $prop($, 'cdx:mcp:toolCount'),
+      "providerNames": $prop($, 'cdx:mcp:providerNames'),
+      "modelNames": $prop($, 'cdx:mcp:modelNames')
+    }
