@@ -243,6 +243,12 @@ const args = _yargs
     description:
       "Read-only mode. cdxgen only performs file reads and reports blocked writes, command execution, temp creation, network access, and submissions.",
   })
+  .option("activity-report", {
+    choices: ["json", "jsonl"],
+    description: "Render the activity report as JSON or JSON Lines.",
+    hidden: true,
+    type: "string",
+  })
   .option("no-babel", {
     type: "boolean",
     description:
@@ -1236,7 +1242,7 @@ const writeCycloneDxOutput = (jsonFile, bomJson, options) => {
       target: sourcePath,
     });
     console.warn("Dry run mode skips purl source resolution.");
-    printActivitySummary();
+    printActivitySummary(options.activityReport);
     return;
   }
   if (maybePurlSource(sourcePath)) {
@@ -1307,7 +1313,7 @@ const writeCycloneDxOutput = (jsonFile, bomJson, options) => {
         target: sourcePath,
       });
       console.warn("Dry run mode skips remote git source cloning.");
-      printActivitySummary();
+      printActivitySummary(options.activityReport);
       return;
     }
     if (!gitRef && purlResolution?.version) {
@@ -1733,7 +1739,7 @@ const writeCycloneDxOutput = (jsonFile, bomJson, options) => {
     }
   }
   if (isDryRun || DEBUG_MODE) {
-    printActivitySummary();
+    printActivitySummary(options.activityReport);
   }
   if (
     (DEBUG_MODE || TRACE_MODE) &&
