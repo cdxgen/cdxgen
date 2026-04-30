@@ -1364,6 +1364,12 @@ const writeCycloneDxOutput = (jsonFile, bomJson, options) => {
   }
   // Add extra metadata and annotations with post processing
   bomNSData = postProcess(bomNSData, options, srcDir);
+  setActivityContext({
+    projectType: Array.isArray(options.projectType)
+      ? options.projectType.join(",")
+      : options.projectType,
+    sourcePath: srcDir,
+  });
   if (options.bomAudit && bomNSData?.bomJson) {
     const { finalizeAuditReport, runAuditFromBoms } = await import(
       "../lib/audit/index.js"
