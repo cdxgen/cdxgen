@@ -114,7 +114,7 @@ jobs:
           grep -q "cdxgen dry-run activity summary" bomresults/dry-run-js-workspace.txt
           grep -q "npm" bomresults/dry-run-js-workspace.txt
           bin/cdxgen.js --dry-run -t js "pkg:npm/lodash@4.17.21" --no-banner > bomresults/dry-run-purl.txt
-          grep -q "package-url source resolution" bomresults/dry-run-purl.txt
+          grep -q "pkg:npm/lodash@4.17.21" bomresults/dry-run-purl.txt
         shell: bash
   cli-tests-quick-arm64:
     runs-on: ["self-hosted", "ubuntu", "arm64"]
