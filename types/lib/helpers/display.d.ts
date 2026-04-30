@@ -1,3 +1,14 @@
+export function buildActivitySummaryPayload(activities: any, dryRunMode?: any): {
+    activities: any;
+    mode: string;
+    summary: {
+        blocked: any;
+        completed: any;
+        failed: any;
+        total: any;
+    };
+};
+export function serializeActivitySummary(activities: any, reportType?: string, dryRunMode?: any): any[];
 /**
  * Prints the BOM components as a streaming table to the console.
  * Delegates to {@link printOSTable} automatically when the BOM metadata indicates
@@ -90,9 +101,14 @@ export function printSponsorBanner(options: Object): void;
  * @returns {void}
  */
 export function printSummary(bomJson: Object): void;
+export function printActivitySummary(reportType?: undefined): void;
 /**
- * @typedef {{type: string, variable: string, severity: string, message: string, mitigation: string}} EnvAuditFinding
+ * Prints a grouped secure-mode environment audit call-out panel.
+ *
+ * @param {EnvAuditFinding[]} envAuditFindings Audit findings to display
+ * @returns {void}
  */
+export function printEnvironmentAuditFindings(envAuditFindings?: EnvAuditFinding[]): void;
 /**
  * Runs the pre-generation environment audit and renders the results as formatted
  * tables to the console. Called when the --env-audit CLI flag is set.
