@@ -22,6 +22,7 @@ import { createBom, submitBom } from "../lib/cli/index.js";
 import { signBom, verifyBom } from "../lib/helpers/bomSigner.js";
 import {
   displaySelfThreatModel,
+  printEnvironmentAuditFindings,
   printActivitySummary,
   printCallStack,
   printDependencyTree,
@@ -1215,9 +1216,7 @@ const writeCycloneDxOutput = (jsonFile, bomJson, options) => {
   // Our quest to audit and check the SBOM generation environment to prevent our users from getting exploited
   // during SBOM generation.
   if (envAuditFindings?.length) {
-    for (const f of envAuditFindings) {
-      console.log(`SECURE MODE: ${f.variable}: ${f.message}`);
-    }
+    printEnvironmentAuditFindings(envAuditFindings);
     // Only abort in secure mode for high or critical findings; low/medium are informational.
     if (
       isSecureMode &&

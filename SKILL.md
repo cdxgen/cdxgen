@@ -39,6 +39,8 @@ cdxgen [path] [options]
 |                | `--deep`                  | Enable deep parsing (C/C++, OS, OCI, live systems)                                                                                                               |
 | **Output**     | `-o, --output <file>`     | Destination path (default: `bom.json`)                                                                                                                           |
 |                | `-p, --print`             | Print human-readable table/tree to stdout                                                                                                                        |
+|                | `--dry-run`               | Read-only preview mode. Record reads plus blocked writes, commands, temp dirs, network, and submissions before any real execution                               |
+|                | `--activity-report <fmt>` | Hidden machine-readable dry-run/debug report: `json` or `jsonl`                                                                                                  |
 |                | `--spec-version <ver>`    | CycloneDX version: `1.4`, `1.5`, `1.6` (default), `1.7`                                                                                                          |
 | **Profiles**   | `--profile <name>`        | `generic` (default), `appsec`, `research`, `operational`, `threat-modeling`, `license-compliance`, `ml`/`machine-learning`, `ml-deep`/`deep-learning`, `ml-tiny` |
 | **Lifecycles** | `--lifecycle <phase>`     | `pre-build` (no installs), `build` (default), `post-build` (binaries/containers)                                                                                 |
@@ -72,6 +74,12 @@ cdxgen --profile research --evidence -o bom.json
 
 # Pre-build scan (no package installations)
 cdxgen --lifecycle pre-build -o bom.json
+
+# Agent-safe dry-run preview before any real execution
+cdxgen /absolute/path/to/project --dry-run --activity-report json
+
+# Compact line-oriented dry-run preview for automation
+cdxgen /absolute/path/to/project --dry-run --activity-report jsonl
 
 # Start SBOM server
 cdxgen --server --server-host 0.0.0.0 --server-port 8080
@@ -156,6 +164,7 @@ These indicators affect **which packages are audited first**, not the final seve
 6. **NEVER** construct PackageURL (purl) strings manually in prompts or scripts. Let `cdxgen` handle resolution.
 7. **Secure Mode** (`CDXGEN_SECURE_MODE=true`) requires explicit Node.js `--permission` flags. Do not grant `--allow-fs-read="*"` or `--allow-fs-write="*"`.
 8. **Environment Variables** must use `CDXGEN_` prefix (e.g., `CDXGEN_TYPE=java`, `CDXGEN_FETCH_LICENSE=true`).
+9. **ALWAYS run `--dry-run` first** for agent-driven workflows. Review the activity summary, prefer `--activity-report json` or `jsonl` for machine-readable inspection, and ask the user for permission before rerunning without `--dry-run`.
 
 ## 📤 Output & Validation
 
@@ -178,6 +187,14 @@ These indicators affect **which packages are audited first**, not the final seve
 | **Signature verification**    | Use bundled `cdx-verify -i bom.json --public-key public.key`.                                                                              |
 | **SBOM signing**              | Use bundled `cdx-sign -i bom.json -k private.key`.                                                                                         |
 | **Predictive auditing**       | Use bundled `cdx-audit --bom bom.json` for existing BOMs. Prefer `--report sarif --report-file audit.sarif` for code-scanning uploads.     |
+
+### Dry-run-first workflow for agents
+
+1. Run `cdxgen` with `--dry-run` first.
+2. Prefer `--activity-report json` or `--activity-report jsonl` so the pending reads, blocked writes, blocked command execution, blocked network access, and blocked submissions are easy to inspect.
+3. Summarize the planned actions for the user.
+4. Ask for permission before rerunning without `--dry-run`.
+5. Only perform real execution after the user explicitly approves it.
 
 ## 📚 Reference Links
 
