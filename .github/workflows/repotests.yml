@@ -105,6 +105,9 @@ jobs:
           jq -e 'any(.annotations[]?; (.text // "") | contains("INT-013"))' bomresults/bom-cargo-workspace-fixture.json
           CARGO_CACHE_DIR=test/data/cargo-cache-fixture/registry/cache/index.crates.io-1949cf8c6b5b557f bin/cdxgen.js -t cargo-cache . -o bomresults/bom-cargo-cache-fixture.json --fail-on-error
           jq -e 'any(.components[]; .name == "serde" and any((.properties // [])[]; .name == "cdx:cargo:cacheSource" and .value == "registry-cache"))' bomresults/bom-cargo-cache-fixture.json
+        shell: bash
+      - name: repotests cargo dry-run fixture
+        run: |
           bin/cdxgen.js --dry-run -t cargo -t github test/data/cargo-workspace-repotest --no-banner > bomresults/dry-run-cargo-workspace.txt
           grep -q "cdxgen dry-run activity summary" bomresults/dry-run-cargo-workspace.txt
           grep -q "cargo" bomresults/dry-run-cargo-workspace.txt
