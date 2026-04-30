@@ -22,6 +22,7 @@ import { createBom, submitBom } from "../lib/cli/index.js";
 import { signBom, verifyBom } from "../lib/helpers/bomSigner.js";
 import {
   displaySelfThreatModel,
+  printActivitySummary,
   printCallStack,
   printDependencyTree,
   printFormulation,
@@ -58,13 +59,19 @@ import {
   getTmpDir,
   isBun,
   isDeno,
+  isDryRun,
   isMac,
   isNode,
   isSecureMode,
   isWin,
+  recordActivity,
   remoteHostsAccessed,
   retrieveCdxgenVersion,
   safeExistsSync,
+  safeMkdirSync,
+  safeWriteSync,
+  setActivityContext,
+  setDryRunMode,
   toCamel,
 } from "../lib/helpers/utils.js";
 import { postProcess } from "../lib/stages/postgen/postgen.js";
@@ -229,6 +236,12 @@ const args = _yargs
     type: "boolean",
     default: isSecureMode,
     description: "Fail if any dependency extractor fails.",
+  })
+  .option("dry-run", {
+    type: "boolean",
+    default: isDryRun,
+    description:
+      "Read-only mode. cdxgen only performs file reads and reports blocked writes, command execution, temp creation, network access, and submissions.",
   })
   .option("no-babel", {
     type: "boolean",
@@ -658,6 +671,13 @@ const options = Object.assign({}, args, {
   exclude: args.exclude || args.excludeRegex,
   include: args.include || args.includeRegex,
 });
+setDryRunMode(options.dryRun);
+setActivityContext({
+  projectType: Array.isArray(options.projectType)
+    ? options.projectType.join(",")
+    : options.projectType,
+  sourcePath: filePath,
+});
 const outputPlan = createOutputPlan(options);
 for (const outputFile of Object.values(outputPlan.outputs)) {
   const outputDirectory = getOutputDirectory(outputFile);
@@ -666,7 +686,7 @@ for (const outputFile of Object.values(outputPlan.outputs)) {
     outputDirectory !== process.cwd() &&
     !safeExistsSync(outputDirectory)
   ) {
-    fs.mkdirSync(outputDirectory, { recursive: true });
+    safeMkdirSync(outputDirectory, { recursive: true });
   }
 }
 // Filter duplicate types. Eg: -t gradle -t gradle
@@ -708,6 +728,12 @@ if (process.argv[1].includes("cdxgen-secure")) {
   );
   options.installDeps = false;
   process.env.CDXGEN_SECURE_MODE = true;
+}
+if (isDryRun) {
+  thoughtLog(
+    "Ok, the user wants cdxgen to run in dry-run mode. I must avoid writes, child processes, temp directories, network submissions, and cloning.",
+  );
+  options.installDeps = false;
 }
 if (options.standard) {
   options.specVersion = 1.7;
@@ -905,9 +931,15 @@ const checkPermissions = (filePath, options) => {
       console.log(
         "\x1b[1;35mSecure mode requires permission-related arguments. These can be passed as CLI arguments directly to the node runtime or set the NODE_OPTIONS environment variable as shown below.\x1b[0m",
       );
-      const childProcessArgs =
-        options?.lifecycle !== "pre-build" ? " --allow-child-process" : "";
-      const nodeOptionsVal = `--permission --allow-fs-read="${getTmpDir()}/*" --allow-fs-write="${getTmpDir()}/*" --allow-fs-read="${fullFilePath}/*" --allow-fs-write="${options.output}"${childProcessArgs}`;
+      const childProcessArgs = isDryRun
+        ? ""
+        : options?.lifecycle !== "pre-build"
+          ? " --allow-child-process"
+          : "";
+      const fsWriteArgs = isDryRun
+        ? ""
+        : ` --allow-fs-write="${getTmpDir()}/*" --allow-fs-write="${options.output}"`;
+      const nodeOptionsVal = `--permission --allow-fs-read="${getTmpDir()}/*" --allow-fs-read="${fullFilePath}/*"${fsWriteArgs}${childProcessArgs}`;
       console.log(
         `${isWin ? "$env:" : "export "}NODE_OPTIONS='${nodeOptionsVal}'`,
       );
@@ -966,12 +998,12 @@ const checkPermissions = (filePath, options) => {
     );
     return false;
   }
-  if (!process.permission.has("fs.write", options.output)) {
+  if (!isDryRun && !process.permission.has("fs.write", options.output)) {
     console.log(
       `\x1b[1;35mSECURE MODE: FileSystemWrite permission is required to create the output BOM file. Please invoke cdxgen with the argument --allow-fs-write="${options.output}"\x1b[0m`,
     );
   }
-  if (options.evidence) {
+  if (!isDryRun && options.evidence) {
     const slicesFilesKeys = [
       "deps-slices-file",
       "usages-slices-file",
@@ -995,7 +1027,7 @@ const checkPermissions = (filePath, options) => {
       }
     }
   }
-  if (!process.permission.has("fs.write", getTmpDir())) {
+  if (!isDryRun && !process.permission.has("fs.write", getTmpDir())) {
     console.log(
       `FileSystemWrite permission may be required for the TEMP directory. Please invoke cdxgen with the argument --allow-fs-write="${join(getTmpDir(), "*")}" in case of any crashes.`,
     );
@@ -1005,12 +1037,16 @@ const checkPermissions = (filePath, options) => {
       );
     }
   }
-  if (!process.permission.has("child") && !isSecureMode) {
+  if (!isDryRun && !process.permission.has("child") && !isSecureMode) {
     console.log(
       "ChildProcess permission is missing. This is required to spawn commands for some languages. Please invoke cdxgen with the argument --allow-child-process in case of issues.",
     );
   }
-  if (process.permission.has("child") && options?.lifecycle === "pre-build") {
+  if (
+    !isDryRun &&
+    process.permission.has("child") &&
+    options?.lifecycle === "pre-build"
+  ) {
     console.log(
       "SECURE MODE: ChildProcess permission is not required for pre-build SBOM generation. Please invoke cdxgen without the argument --allow-child-process.",
     );
@@ -1034,7 +1070,7 @@ const stringifyJson = (jsonPayload, jsonPretty) =>
 
 const writeCycloneDxOutput = (jsonFile, bomJson, options) => {
   const jsonPayload = stringifyJson(bomJson, options.jsonPretty);
-  fs.writeFileSync(jsonFile, jsonPayload);
+  safeWriteSync(jsonFile, jsonPayload);
   if (jsonFile.endsWith("bom.json")) {
     thoughtLog(
       `Let's save the file to "${jsonFile}". Should I suggest the '.cdx.json' file extension for better semantics?`,
@@ -1043,6 +1079,15 @@ const writeCycloneDxOutput = (jsonFile, bomJson, options) => {
     thoughtLog(`Let's save the file to "${jsonFile}".`);
   }
   if (!jsonPayload || !needsBomSigning(options)) {
+    return jsonPayload;
+  }
+  if (isDryRun) {
+    recordActivity({
+      kind: "sign",
+      reason: "Dry run mode skips BOM signing and key generation.",
+      status: "blocked",
+      target: jsonFile,
+    });
     return jsonPayload;
   }
   let alg = process.env.SBOM_SIGN_ALGORITHM || "RS512";
@@ -1068,9 +1113,9 @@ const writeCycloneDxOutput = (jsonFile, bomJson, options) => {
         format: "pem",
       },
     });
-    fs.writeFileSync(publicKeyFile, publicKey);
-    fs.writeFileSync(privateKeyFile, privateKey);
-    fs.writeFileSync(
+    safeWriteSync(publicKeyFile, publicKey);
+    safeWriteSync(privateKeyFile, privateKey);
+    safeWriteSync(
       privateKeyB64File,
       Buffer.from(privateKey, "utf8").toString("base64"),
     );
@@ -1122,8 +1167,13 @@ const writeCycloneDxOutput = (jsonFile, bomJson, options) => {
       signAnnotations: true,
     };
     thoughtLog(`Signing the BOM file "${jsonFile}".`);
+    recordActivity({
+      kind: "sign",
+      status: "completed",
+      target: jsonFile,
+    });
     const signedBom = signBom(bomJsonUnsignedObj, signOptions);
-    fs.writeFileSync(
+    safeWriteSync(
       jsonFile,
       JSON.stringify(signedBom, null, options.jsonPretty ? 2 : null),
     );
@@ -1177,6 +1227,18 @@ const writeCycloneDxOutput = (jsonFile, bomJson, options) => {
   }
   let sourcePath = filePath;
   let purlResolution;
+  if (isDryRun && maybePurlSource(sourcePath)) {
+    recordActivity({
+      kind: "clone",
+      reason:
+        "Dry run mode blocks package-url source resolution and repository cloning.",
+      status: "blocked",
+      target: sourcePath,
+    });
+    console.warn("Dry run mode skips purl source resolution.");
+    printActivitySummary();
+    return;
+  }
   if (maybePurlSource(sourcePath)) {
     const purlValidationError = validatePurlSource(sourcePath);
     if (purlValidationError) {
@@ -1237,6 +1299,17 @@ const writeCycloneDxOutput = (jsonFile, bomJson, options) => {
   let cleanup = false;
   let gitRef = options.gitBranch;
   if (maybeRemotePath(sourcePath)) {
+    if (isDryRun) {
+      recordActivity({
+        kind: "clone",
+        reason: "Dry run mode blocks cloning git URL sources.",
+        status: "blocked",
+        target: sourcePath,
+      });
+      console.warn("Dry run mode skips remote git source cloning.");
+      printActivitySummary();
+      return;
+    }
     if (!gitRef && purlResolution?.version) {
       gitRef = findGitRefForPurlVersion(sourcePath, purlResolution);
       if (!gitRef) {
@@ -1267,6 +1340,7 @@ const writeCycloneDxOutput = (jsonFile, bomJson, options) => {
     }
     cleanup = true;
   }
+  setActivityContext({ sourcePath: srcDir });
   prepareEnv(srcDir, options);
   thoughtLog("Getting ready to generate the BOM ⚡️.");
   const originalFetchPackageMetadata = process.env.CDXGEN_FETCH_PKG_METADATA;
@@ -1440,66 +1514,94 @@ const writeCycloneDxOutput = (jsonFile, bomJson, options) => {
         `cdxgen-${Date.now()}-${basename(filePath)}.cdx.json`,
       );
     }
-    fs.writeFileSync(
-      internalCycloneDxInputPath,
-      stringifyJson(bomNSData.bomJson, options.jsonPretty),
-    );
+    if (isDryRun) {
+      recordActivity({
+        kind: "write",
+        reason:
+          "Dry run mode skips evidence input materialization because it writes a temporary BOM file.",
+        status: "blocked",
+        target: internalCycloneDxInputPath,
+      });
+    } else {
+      safeWriteSync(
+        internalCycloneDxInputPath,
+        stringifyJson(bomNSData.bomJson, options.jsonPretty),
+      );
+    }
   }
   // Evidence generation
   if (options.evidence || options.includeCrypto) {
-    // Set the evinse output file to be the same as output file
-    if (!options.evinseOutput) {
-      options.evinseOutput = options.output;
-    }
-    const evinserModule = await import("../lib/evinser/evinser.js");
-    options.projectType = options.projectType || ["java"];
-    const evinseOptions = {
-      _: args._,
-      input: internalCycloneDxInputPath || options.output,
-      output: options.evinseOutput,
-      language: options.projectType,
-      skipMavenCollector: false,
-      force: false,
-      withReachables: options.deep,
-      usagesSlicesFile: options.usagesSlicesFile,
-      dataFlowSlicesFile: options.dataFlowSlicesFile,
-      reachablesSlicesFile: options.reachablesSlicesFile,
-      semanticsSlicesFile: options.semanticsSlicesFile,
-      openapiSpecFile: options.openapiSpecFile,
-      includeCrypto: options.includeCrypto,
-      specVersion: options.specVersion,
-      profile: options.profile,
-      jsonPretty: options.jsonPretty,
-    };
-    const dbObjMap = await evinserModule.prepareDB(evinseOptions);
-    if (dbObjMap) {
-      const sliceArtefacts = await evinserModule.analyzeProject(
-        dbObjMap,
-        evinseOptions,
-      );
-      const evinseJson = evinserModule.createEvinseFile(
-        sliceArtefacts,
-        evinseOptions,
-      );
-      bomNSData.bomJson = evinseJson;
-      if (options.print && evinseJson) {
-        printOccurrences(evinseJson);
-        printCallStack(evinseJson);
-        printReachables(sliceArtefacts);
-        printServices(evinseJson);
+    if (isDryRun) {
+      recordActivity({
+        kind: "write",
+        reason:
+          "Dry run mode skips evidence and crypto enrichment because those flows require temp files and additional processing.",
+        status: "blocked",
+        target: options.evinseOutput || options.output || "evinse",
+      });
+    } else {
+      // Set the evinse output file to be the same as output file
+      if (!options.evinseOutput) {
+        options.evinseOutput = options.output;
+      }
+      const evinserModule = await import("../lib/evinser/evinser.js");
+      options.projectType = options.projectType || ["java"];
+      const evinseOptions = {
+        _: args._,
+        input: internalCycloneDxInputPath || options.output,
+        output: options.evinseOutput,
+        language: options.projectType,
+        skipMavenCollector: false,
+        force: false,
+        withReachables: options.deep,
+        usagesSlicesFile: options.usagesSlicesFile,
+        dataFlowSlicesFile: options.dataFlowSlicesFile,
+        reachablesSlicesFile: options.reachablesSlicesFile,
+        semanticsSlicesFile: options.semanticsSlicesFile,
+        openapiSpecFile: options.openapiSpecFile,
+        includeCrypto: options.includeCrypto,
+        specVersion: options.specVersion,
+        profile: options.profile,
+        jsonPretty: options.jsonPretty,
+      };
+      const dbObjMap = await evinserModule.prepareDB(evinseOptions);
+      if (dbObjMap) {
+        const sliceArtefacts = await evinserModule.analyzeProject(
+          dbObjMap,
+          evinseOptions,
+        );
+        const evinseJson = evinserModule.createEvinseFile(
+          sliceArtefacts,
+          evinseOptions,
+        );
+        bomNSData.bomJson = evinseJson;
+        if (options.print && evinseJson) {
+          printOccurrences(evinseJson);
+          printCallStack(evinseJson);
+          printReachables(sliceArtefacts);
+          printServices(evinseJson);
+        }
       }
     }
   }
   // Perform automatic validation
   if (options.validate && bomNSData?.bomJson) {
     thoughtLog("Wait, let's check the generated BOM file for any issues.");
-    if (!validateBom(bomNSData.bomJson)) {
+    if (isDryRun) {
+      recordActivity({
+        kind: "validate",
+        reason: "Dry run mode skips CycloneDX schema validation.",
+        status: "blocked",
+        target: "cyclonedx",
+      });
+    } else if (!validateBom(bomNSData.bomJson)) {
       if (cleanup) {
         cleanupSourceDir(srcDir);
       }
       process.exit(1);
+    } else {
+      thoughtLog("✅ BOM file looks valid.");
     }
-    thoughtLog("✅ BOM file looks valid.");
   }
   if (
     outputPlan.formats.has("spdx") &&
@@ -1509,16 +1611,31 @@ const writeCycloneDxOutput = (jsonFile, bomJson, options) => {
     thoughtLog(
       "Preparing the SPDX 3.0.1 export from the validated CycloneDX BOM.",
     );
-    bomNSData.spdxJson = convertCycloneDxToSpdx(bomNSData.bomJson, options);
-    if (options.validate && !validateSpdx(bomNSData.spdxJson)) {
-      process.exit(1);
+    if (isDryRun) {
+      recordActivity({
+        kind: "convert",
+        reason:
+          "Dry run mode skips SPDX conversion because the export path is read-only.",
+        status: "blocked",
+        target: "spdx",
+      });
+    } else {
+      bomNSData.spdxJson = convertCycloneDxToSpdx(bomNSData.bomJson, options);
+      recordActivity({
+        kind: "convert",
+        status: "completed",
+        target: "spdx",
+      });
+      if (options.validate && !validateSpdx(bomNSData.spdxJson)) {
+        process.exit(1);
+      }
     }
   }
   if (
     options.output &&
     (typeof options.output === "string" || options.output instanceof String)
   ) {
-    if (outputPlan.outputs.cyclonedx && bomNSData.bomJson) {
+    if (!isDryRun && outputPlan.outputs.cyclonedx && bomNSData.bomJson) {
       writeCycloneDxOutput(
         outputPlan.outputs.cyclonedx,
         bomNSData.bomJson,
@@ -1526,15 +1643,29 @@ const writeCycloneDxOutput = (jsonFile, bomJson, options) => {
       );
       if (bomNSData.nsMapping && Object.keys(bomNSData.nsMapping).length) {
         const nsFile = `${outputPlan.outputs.cyclonedx}.map`;
-        fs.writeFileSync(nsFile, JSON.stringify(bomNSData.nsMapping));
+        safeWriteSync(nsFile, JSON.stringify(bomNSData.nsMapping));
       }
+    } else if (isDryRun && outputPlan.outputs.cyclonedx) {
+      recordActivity({
+        kind: "write",
+        reason: "Dry run mode skips CycloneDX file output.",
+        status: "blocked",
+        target: outputPlan.outputs.cyclonedx,
+      });
     }
-    if (outputPlan.outputs.spdx && bomNSData.spdxJson) {
-      fs.writeFileSync(
+    if (!isDryRun && outputPlan.outputs.spdx && bomNSData.spdxJson) {
+      safeWriteSync(
         outputPlan.outputs.spdx,
         stringifyJson(bomNSData.spdxJson, options.jsonPretty),
       );
       thoughtLog(`Let's save the SPDX file to "${outputPlan.outputs.spdx}".`);
+    } else if (isDryRun && outputPlan.outputs.spdx) {
+      recordActivity({
+        kind: "write",
+        reason: "Dry run mode skips SPDX file output.",
+        status: "blocked",
+        target: outputPlan.outputs.spdx,
+      });
     }
   } else if (!options.print) {
     if (outputPlan.formats.has("spdx") && bomNSData?.spdxJson) {
@@ -1550,21 +1681,44 @@ const writeCycloneDxOutput = (jsonFile, bomJson, options) => {
   // Automatically submit the bom data
   // biome-ignore lint/suspicious/noDoubleEquals: yargs passes true for empty values
   if (options.serverUrl && options.serverUrl != true && options.apiKey) {
-    try {
-      await submitBom(options, bomNSData.bomJson);
-    } catch (err) {
-      console.log(err);
-      if (cleanup) {
-        cleanupSourceDir(srcDir);
+    if (isDryRun) {
+      recordActivity({
+        kind: "submit",
+        reason: "Dry run mode skips remote BOM submission.",
+        status: "blocked",
+        target: options.serverUrl,
+      });
+    } else {
+      try {
+        recordActivity({
+          kind: "submit",
+          status: "completed",
+          target: options.serverUrl,
+        });
+        await submitBom(options, bomNSData.bomJson);
+      } catch (err) {
+        console.log(err);
+        if (cleanup) {
+          cleanupSourceDir(srcDir);
+        }
+        process.exit(1);
       }
-      process.exit(1);
     }
   }
   // Protobuf serialization
   if (options.exportProto) {
-    const protobomModule = await import("../lib/helpers/protobom.js");
-    protobomModule.writeBinary(bomNSData.bomJson, options.protoBinFile);
-    thoughtLog("BOM file is also available in .proto format!");
+    if (isDryRun) {
+      recordActivity({
+        kind: "write",
+        reason: "Dry run mode skips protobuf export.",
+        status: "blocked",
+        target: options.protoBinFile,
+      });
+    } else {
+      const protobomModule = await import("../lib/helpers/protobom.js");
+      protobomModule.writeBinary(bomNSData.bomJson, options.protoBinFile);
+      thoughtLog("BOM file is also available in .proto format!");
+    }
   }
   if (options.print && bomNSData.bomJson?.components) {
     printSummary(bomNSData.bomJson);
@@ -1578,6 +1732,9 @@ const writeCycloneDxOutput = (jsonFile, bomJson, options) => {
       printTable(bomNSData.bomJson, ["cryptographic-asset"]);
       printDependencyTree(bomNSData.bomJson, "provides");
     }
+  }
+  if (isDryRun || DEBUG_MODE) {
+    printActivitySummary();
   }
   if (
     (DEBUG_MODE || TRACE_MODE) &&
