@@ -21,12 +21,16 @@ The current rollout focuses on phase 1 and phase 2 signals:
 
 - official and non-official MCP SDK imports
 - `McpServer`-style server construction
+- `Client`-style MCP client construction
 - stdio and Streamable HTTP transports
 - MCP tool / prompt / resource registration calls
+- prompt / tool / resource client usage call sites
 - explicit capability declarations
 - authentication helpers for HTTP MCP servers
 - OAuth metadata literals and MCP auth-discovery wiring
 - explicit provider and model literals such as `provider`, `providerName`, `model`, and `modelName`
+- provider SDK imports, outbound provider hosts, and MCP gateway patterns
+- AI agent instruction files that reference hidden MCP endpoints or wrappers
 
 The analysis is intentionally conservative. cdxgen prefers literal, explainable signals over speculative reconstruction.
 
@@ -41,7 +45,7 @@ The analysis is intentionally conservative. cdxgen prefers literal, explainable 
 
 ### MCP server services
 
-- `cdx:mcp:serviceType=server`
+- `cdx:mcp:serviceType=server|client|gateway|endpoint|inferred-endpoint`
 - `cdx:mcp:transport=stdio|streamable-http`
 - `cdx:mcp:officialSdk=true|false`
 - `cdx:mcp:capabilities:*`
@@ -50,7 +54,15 @@ The analysis is intentionally conservative. cdxgen prefers literal, explainable 
 - `cdx:mcp:resourceCount`
 - `cdx:mcp:sdkImports`
 - `cdx:mcp:modelNames`
+- `cdx:mcp:modelFamilies`
 - `cdx:mcp:providerNames`
+- `cdx:mcp:providerFamilies`
+- `cdx:mcp:outboundHosts`
+- `cdx:mcp:usageSignals`
+- `cdx:mcp:usageConfidence`
+- `cdx:mcp:inventorySource`
+- `cdx:mcp:exposureType`
+- `cdx:mcp:reviewNeeded`
 - `cdx:mcp:auth:*`
 
 ### MCP primitive components
@@ -81,6 +93,9 @@ The most important current security checks are:
 - unauthenticated Streamable HTTP MCP servers
 - unauthenticated MCP tool exposure
 - network-exposed servers built on non-official MCP SDKs or wrappers
+- public or tunneled MCP endpoints referenced only from AI agent files
+- hidden Unicode in AI agent instruction and skill files
+- agent-file MCP references that are not otherwise declared in package or source inventory
 
 HTTP MCP endpoints should be authenticated, Origin-validated, and pinned to trusted SDK provenance before external exposure.
 

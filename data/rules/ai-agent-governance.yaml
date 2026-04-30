@@ -1,0 +1,170 @@
+- id: AGT-001
+  name: "AI agent instruction file contains hidden Unicode characters"
+  description: "Hidden Unicode in AI agent instructions or skill files can conceal misleading prompts, hidden tool behavior, or review-evasion content."
+  severity: medium
+  category: ai-agent
+  standards:
+    owasp-ai-top-10:
+      - "LLM05: Supply Chain Vulnerabilities"
+    nist-ai-rmf:
+      - "Govern"
+      - "Manage"
+    nist-ssdf:
+      - "Review and protect build and automation instructions"
+  condition: |
+    formulation.components[
+      $prop($, 'cdx:agent:inventorySource') = 'agent-file'
+      and $prop($, 'cdx:file:hasHiddenUnicode') = 'true'
+    ]
+  location: |
+    {
+      "bomRef": $."bom-ref",
+      "file": $prop($, 'SrcFile')
+    }
+  message: "AI agent file '{{ name }}' contains hidden Unicode characters"
+  mitigation: "Review the file with hidden-character rendering enabled, remove suspicious bidirectional or zero-width characters, and verify instruction blocks before merge."
+  evidence: |
+    {
+      "codePoints": $prop($, 'cdx:file:hiddenUnicodeCodePoints'),
+      "lineNumbers": $prop($, 'cdx:file:hiddenUnicodeLineNumbers'),
+      "inComments": $prop($, 'cdx:file:hiddenUnicodeInComments')
+    }
+
+- id: AGT-002
+  name: "AI agent instructions reference a public MCP endpoint without auth hints"
+  description: "Public MCP endpoints referenced from agent or skill files deserve review when the instruction surface does not indicate any bearer, token, or OAuth controls."
+  severity: high
+  category: ai-agent
+  attack:
+    tactics: [TA0001]
+    techniques: [T1190]
+  standards:
+    owasp-ai-top-10:
+      - "LLM07: Insecure Plugin Design"
+      - "LLM08: Excessive Agency"
+    nist-ai-rmf:
+      - "Map"
+      - "Manage"
+    nist-ssdf:
+      - "Review externally reachable AI and automation interfaces"
+  condition: |
+    formulation.components[
+      $prop($, 'cdx:agent:inventorySource') = 'agent-file'
+      and $prop($, 'cdx:agent:hasPublicMcpEndpoint') = 'true'
+      and $nullSafeProp($, 'cdx:agent:authHints') = ''
+    ]
+  location: |
+    {
+      "bomRef": $."bom-ref",
+      "file": $prop($, 'SrcFile')
+    }
+  message: "AI agent file '{{ name }}' references a public MCP endpoint without any auth hints"
+  mitigation: "Treat public MCP endpoints as untrusted until authentication, authorization, and endpoint provenance are documented explicitly."
+  evidence: |
+    {
+      "hiddenMcpUrls": $prop($, 'cdx:agent:hiddenMcpUrls'),
+      "hiddenMcpHosts": $prop($, 'cdx:agent:hiddenMcpHosts'),
+      "providerNames": $prop($, 'cdx:agent:providerNames')
+    }
+
+- id: AGT-003
+  name: "AI agent instructions reference MCP surfaces not declared elsewhere in the BOM"
+  description: "Agent files that mention MCP servers, packages, or endpoints without corresponding MCP package inventory or source-derived MCP services can hide runtime trust dependencies from reviewers."
+  severity: medium
+  category: ai-agent
+  standards:
+    owasp-ai-top-10:
+      - "LLM05: Supply Chain Vulnerabilities"
+      - "LLM08: Excessive Agency"
+    nist-ai-rmf:
+      - "Map"
+      - "Govern"
+    nist-ssdf:
+      - "Maintain complete third-party and runtime dependency inventory"
+  condition: |
+    formulation.components[
+      $prop($, 'cdx:agent:inventorySource') = 'agent-file'
+      and $prop($, 'cdx:agent:hasMcpReferences') = 'true'
+      and $count($$.components[$prop($, 'cdx:mcp:package') = 'true']) = 0
+      and $count($auditServices($$)[$nullSafeProp($, 'cdx:mcp:inventorySource') = 'babel-ast']) = 0
+    ]
+  location: |
+    {
+      "bomRef": $."bom-ref",
+      "file": $prop($, 'SrcFile')
+    }
+  message: "AI agent file '{{ name }}' references MCP surfaces that are not otherwise declared in the BOM"
+  mitigation: "Inventory the referenced MCP packages, endpoints, and trust boundaries explicitly so reviewers can validate provenance and access controls."
+  evidence: |
+    {
+      "mcpPackageRefs": $prop($, 'cdx:agent:mcpPackageRefs'),
+      "hiddenMcpUrls": $prop($, 'cdx:agent:hiddenMcpUrls'),
+      "hiddenComponentKinds": $prop($, 'cdx:agent:hiddenComponentKinds')
+    }
+
+- id: AGT-004
+  name: "AI agent instructions reference tunneled or reverse-proxied MCP exposure"
+  description: "Localhost tunneling and reverse-proxy references in agent files can turn development-only MCP servers into remotely reachable control surfaces."
+  severity: high
+  category: ai-agent
+  attack:
+    tactics: [TA0001, TA0011]
+    techniques: [T1190, T1071]
+  standards:
+    owasp-ai-top-10:
+      - "LLM07: Insecure Plugin Design"
+      - "LLM08: Excessive Agency"
+    nist-ai-rmf:
+      - "Map"
+      - "Manage"
+    nist-ssdf:
+      - "Review externally reachable development interfaces"
+  condition: |
+    formulation.components[
+      $prop($, 'cdx:agent:inventorySource') = 'agent-file'
+      and $prop($, 'cdx:agent:hasTunnelReference') = 'true'
+    ]
+  location: |
+    {
+      "bomRef": $."bom-ref",
+      "file": $prop($, 'SrcFile')
+    }
+  message: "AI agent file '{{ name }}' references a tunneled or reverse-proxied MCP endpoint"
+  mitigation: "Avoid exposing localhost MCP servers through ad-hoc tunnels; require reviewed ingress, authentication, and environment-specific controls."
+  evidence: |
+    {
+      "hiddenMcpUrls": $prop($, 'cdx:agent:hiddenMcpUrls'),
+      "hiddenMcpHosts": $prop($, 'cdx:agent:hiddenMcpHosts')
+    }
+
+- id: AGT-005
+  name: "AI agent instructions reference non-official MCP packages or wrappers"
+  description: "Non-official MCP wrappers referenced directly from agent instructions deserve extra review before they are trusted in developer tooling or automation flows."
+  severity: medium
+  category: ai-agent
+  standards:
+    owasp-ai-top-10:
+      - "LLM05: Supply Chain Vulnerabilities"
+      - "LLM07: Insecure Plugin Design"
+    nist-ai-rmf:
+      - "Govern"
+      - "Map"
+    nist-ssdf:
+      - "Verify provenance of third-party AI integrations"
+  condition: |
+    formulation.components[
+      $prop($, 'cdx:agent:inventorySource') = 'agent-file'
+      and $prop($, 'cdx:agent:hasNonOfficialMcpReference') = 'true'
+    ]
+  location: |
+    {
+      "bomRef": $."bom-ref",
+      "file": $prop($, 'SrcFile')
+    }
+  message: "AI agent file '{{ name }}' references non-official MCP packages or wrappers"
+  mitigation: "Prefer official MCP SDKs where possible and document provenance, version pinning, and trust assumptions for any wrapper packages."
+  evidence: |
+    {
+      "mcpPackageRefs": $prop($, 'cdx:agent:mcpPackageRefs'),
+      "hiddenComponentKinds": $prop($, 'cdx:agent:hiddenComponentKinds')
+    }

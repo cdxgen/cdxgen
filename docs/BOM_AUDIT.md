@@ -168,6 +168,28 @@ Rules that evaluate MCP server inventory emitted from JavaScript/TypeScript sour
 | MCP-002 | high     | Streamable HTTP MCP server endpoint is reachable without authentication |
 | MCP-003 | medium   | Network-exposed MCP server relies on a non-official SDK or wrapper    |
 
+### `ai-agent` — AI agent instruction and MCP governance
+
+Rules that evaluate AI agent instruction files, skill files, and inferred MCP surfaces referenced only from those files.
+
+| Rule    | Severity | Description                                                                    |
+| ------- | -------- | ------------------------------------------------------------------------------ |
+| AGT-001 | medium   | AI agent instruction or skill file contains hidden Unicode characters          |
+| AGT-002 | high     | AI agent instructions reference a public MCP endpoint without auth hints       |
+| AGT-003 | medium   | AI agent instructions reference MCP surfaces not otherwise declared in the BOM |
+| AGT-004 | high     | AI agent instructions reference tunneled or reverse-proxied MCP exposure       |
+| AGT-005 | medium   | AI agent instructions reference non-official MCP wrappers or packages          |
+
+### Standards mapping
+
+The MCP and AI-agent rule sets now carry standards metadata that can be surfaced in audit annotations and downstream compliance workflows. The current mappings focus on:
+
+- **OWASP AI Top 10** for plugin, agency, and supply-chain exposure themes
+- **NIST AI RMF** for governance, mapping, and risk-management review flows
+- **NIST SSDF** for provenance, interface hardening, and automation/build instruction review
+
+Treat these mappings as reviewer guidance rather than a full certification crosswalk.
+
 ### `obom-runtime` — Operational Runtime and Host Posture
 
 Rules that evaluate OBOM runtime components from osquery-derived host telemetry for persistence, endpoint control gaps, suspicious startup/runtime behavior, and Windows LOLBAS / ATT&CK-aligned abuse patterns.

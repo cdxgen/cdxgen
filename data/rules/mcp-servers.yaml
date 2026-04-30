@@ -6,6 +6,15 @@
   attack:
     tactics: [TA0001, TA0004]
     techniques: [T1190, T1059]
+  standards:
+    owasp-ai-top-10:
+      - "LLM07: Insecure Plugin Design"
+      - "LLM08: Excessive Agency"
+    nist-ai-rmf:
+      - "Map"
+      - "Manage"
+    nist-ssdf:
+      - "Protect externally reachable AI control surfaces"
   condition: |
     $auditServices($)[
       $contains($nullSafeProp($, 'cdx:mcp:transport'), 'streamable-http')
@@ -38,6 +47,14 @@
   attack:
     tactics: [TA0001]
     techniques: [T1190]
+  standards:
+    owasp-ai-top-10:
+      - "LLM07: Insecure Plugin Design"
+    nist-ai-rmf:
+      - "Map"
+      - "Manage"
+    nist-ssdf:
+      - "Authenticate and authorize AI-facing service endpoints"
   condition: |
     $auditServices($)[
       $contains($nullSafeProp($, 'cdx:mcp:transport'), 'streamable-http')
@@ -67,6 +84,15 @@
   attack:
     tactics: [TA0001, TA0005]
     techniques: [T1195.001]
+  standards:
+    owasp-ai-top-10:
+      - "LLM05: Supply Chain Vulnerabilities"
+      - "LLM07: Insecure Plugin Design"
+    nist-ai-rmf:
+      - "Govern"
+      - "Map"
+    nist-ssdf:
+      - "Verify provenance of AI and automation integrations"
   condition: |
     $auditServices($)[
       $contains($nullSafeProp($, 'cdx:mcp:transport'), 'streamable-http')
