@@ -34,6 +34,20 @@ Some commands are focused aliases rather than separate implementations.
 
 Installing `@cyclonedx/cdxgen` from npm exposes the commands in the command map plus the aliases in this section.
 
+## Dry-run mode
+
+Use `--dry-run` when you want a read-only review of what cdxgen would attempt.
+
+- cdxgen reads local project files only.
+- It blocks child-process execution, filesystem writes, temp-dir creation, repository cloning, protobuf export, signing, and remote submission.
+- At the end of the run, cdxgen prints an activity summary table that highlights what completed and what was intentionally blocked.
+
+Example:
+
+```shell
+cdxgen --dry-run -t js -p .
+```
+
 For source-based scans, the primary positional input accepted by `cdxgen` can be:
 
 - a local filesystem path such as `.` or `/path/to/repo`
@@ -221,6 +235,9 @@ Options:
       --required-only             Include only the packages with required scope on the SBOM. Would set
                                   compositions.aggregate to incomplete unless --no-auto-compositions is passed.[boolean]
       --fail-on-error             Fail if any dependency extractor fails.                     [boolean] [default: false]
+      --dry-run                   Read-only mode. cdxgen only performs file reads and reports blocked writes,
+                                  command execution, temp creation, network access, and submissions.
+                                                                                               [boolean] [default: false]
       --no-babel                  Do not use babel to perform usage analysis for JavaScript/TypeScript projects.
                                                                                                                [boolean]
       --generate-key-and-sign     Generate an RSA public/private key pair and then sign the generated SBOM using JSON

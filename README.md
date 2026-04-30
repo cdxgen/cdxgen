@@ -69,7 +69,17 @@ Most SBOM tools are like simple barcode scanners. For easy applications, they ca
 - _Precision:_ Try using multiple techniques to improve precision, even if it takes extra time.
 - _Personas:_ Cater to the needs of a range of personas such as security researchers, compliance auditors, developers, and SOC.
 - _Machine Learning:_ Optimize the generated data for Machine Learning (ML) purposes by considering the various model properties.
-- _Safety:_ Execute external build tools and handle untrusted inputs defensively, with hardened defaults and a [secure mode](docs/PERMISSIONS.md) for sensitive environments.
+- _Safety:_ Execute external build tools and handle untrusted inputs defensively, with hardened defaults, a [secure mode](docs/PERMISSIONS.md) for sensitive environments, and a read-only `--dry-run` mode for review-first workflows.
+
+### Review-first dry runs
+
+When you want to inspect what cdxgen would do before allowing side effects, use `--dry-run`.
+
+```shell
+cdxgen --dry-run -p -t js .
+```
+
+Dry-run mode keeps cdxgen read-only: it reads local files, blocks writes/exec/temp creation/cloning/submission, and prints an activity summary table for both beginners and power users.
 
 ## Documentation
 

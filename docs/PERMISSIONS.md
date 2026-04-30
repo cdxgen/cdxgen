@@ -2,6 +2,12 @@
 
 cdxgen supports the Node.js permission [model](https://nodejs.org/api/permissions.html). We also offer a custom container image with the tag `ghcr.io/cyclonedx/cdxgen-secure` that uses permissions by default.
 
+## Secure mode vs dry-run mode
+
+- **Secure mode** hardens how cdxgen runs and narrows the permissions it should receive.
+- **Dry-run mode** (`cdxgen --dry-run` or `CDXGEN_DRY_RUN=true`) makes cdxgen read-only. It reads local files, blocks writes, child processes, temp directories, repository cloning, and remote submission, then prints an activity summary table for review.
+- You can combine the two when you want both hardened execution guidance and a read-only review workflow.
+
 ## Benefits of Permissions Model
 
 Permissions can be used to control what system resources cdxgen has access to or what actions it can take with those resources. cdxgen would disable automatic package installations when run in secure mode by default.
@@ -17,6 +23,8 @@ Secure mode only restricts cdxgen from performing certain activities such as pac
 | --allow-fs-read       | Read permission to the application, tools, and temp directory             |
 | --allow-fs-write      | Write permission to the output and temp directory                         |
 | --allow-child-process | For some languages, ChildProcess permission is required to spawn commands |
+
+Dry-run mode reduces these requirements because cdxgen does not need write or child-process permissions for its blocked operations.
 
 Example invocations:
 
