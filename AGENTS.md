@@ -381,6 +381,13 @@ Watch mode:
 pnpm run watch
 ```
 
+### Cross-platform test expectations
+
+- Treat every unit/integration test as cross-platform unless a test is explicitly platform-scoped.
+- Always check string/path assertions against Windows and POSIX path separator differences (`\` vs `/`).
+- Prefer `node:path` helpers, normalization, or separator-agnostic assertions over hard-coded path literals in tests.
+- When adding or changing tests that inspect file paths, temp directories, command arguments, or serialized activity/log output, verify they still pass on Windows runners and do not assume `/tmp`-style paths.
+
 ### Test anatomy
 
 ```js
