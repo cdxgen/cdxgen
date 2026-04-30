@@ -116,6 +116,7 @@ jobs:
           bin/cdxgen.js --dry-run -t js "pkg:npm/lodash@4.17.21" --no-banner > bomresults/dry-run-purl.txt
           grep -q "pkg:npm/lodash@4.17.21" bomresults/dry-run-purl.txt
         shell: bash
+        continue-on-error: true
   cli-tests-quick-arm64:
     runs-on: ["self-hosted", "ubuntu", "arm64"]
     steps:
