@@ -1593,14 +1593,7 @@ const writeCycloneDxOutput = (jsonFile, bomJson, options) => {
   // Perform automatic validation
   if (options.validate && bomNSData?.bomJson) {
     thoughtLog("Wait, let's check the generated BOM file for any issues.");
-    if (isDryRun) {
-      recordActivity({
-        kind: "validate",
-        reason: "Dry run mode skips CycloneDX schema validation.",
-        status: "blocked",
-        target: "cyclonedx",
-      });
-    } else if (!validateBom(bomNSData.bomJson)) {
+    if (!validateBom(bomNSData.bomJson)) {
       if (cleanup) {
         cleanupSourceDir(srcDir);
       }
