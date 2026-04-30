@@ -105,6 +105,16 @@ jobs:
           jq -e 'any(.annotations[]?; (.text // "") | contains("INT-013"))' bomresults/bom-cargo-workspace-fixture.json
           CARGO_CACHE_DIR=test/data/cargo-cache-fixture/registry/cache/index.crates.io-1949cf8c6b5b557f bin/cdxgen.js -t cargo-cache . -o bomresults/bom-cargo-cache-fixture.json --fail-on-error
           jq -e 'any(.components[]; .name == "serde" and any((.properties // [])[]; .name == "cdx:cargo:cacheSource" and .value == "registry-cache"))' bomresults/bom-cargo-cache-fixture.json
+          bin/cdxgen.js --dry-run -t cargo -t github test/data/cargo-workspace-repotest --no-banner > bomresults/dry-run-cargo-workspace.txt
+          grep -q "cdxgen dry-run activity summary" bomresults/dry-run-cargo-workspace.txt
+          grep -q "cargo" bomresults/dry-run-cargo-workspace.txt
+          grep -q "validate" bomresults/dry-run-cargo-workspace.txt
+          grep -q "write" bomresults/dry-run-cargo-workspace.txt
+          bin/cdxgen.js --dry-run -t js test/data/yarn-workspaces-same-version-demo --no-banner > bomresults/dry-run-js-workspace.txt
+          grep -q "cdxgen dry-run activity summary" bomresults/dry-run-js-workspace.txt
+          grep -q "npm" bomresults/dry-run-js-workspace.txt
+          bin/cdxgen.js --dry-run -t js "pkg:npm/lodash@4.17.21" --no-banner > bomresults/dry-run-purl.txt
+          grep -q "package-url source resolution" bomresults/dry-run-purl.txt
         shell: bash
   cli-tests-quick-arm64:
     runs-on: ["self-hosted", "ubuntu", "arm64"]
