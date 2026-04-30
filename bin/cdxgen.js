@@ -22,10 +22,10 @@ import { createBom, submitBom } from "../lib/cli/index.js";
 import { signBom, verifyBom } from "../lib/helpers/bomSigner.js";
 import {
   displaySelfThreatModel,
-  printEnvironmentAuditFindings,
   printActivitySummary,
   printCallStack,
   printDependencyTree,
+  printEnvironmentAuditFindings,
   printFormulation,
   printOccurrences,
   printReachables,
