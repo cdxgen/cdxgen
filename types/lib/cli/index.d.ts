@@ -42,14 +42,7 @@ export function createBinaryBom(path: string, options: Object): Object | undefin
  * @returns {Promise<Object>} Promise resolving to BOM object
  */
 export function createJavaBom(path: string, options: Object): Promise<Object>;
-/**
- * Function to create bom string for Node.js projects
- *
- * @param {string} path to the project
- * @param {Object} options Parse options from the cli
- * @returns {Promise<Object>} Promise resolving to BOM object
- */
-export function createNodejsBom(path: string, options: Object): Promise<Object>;
+export function createNodejsBom(path: any, options: any): Promise<Object>;
 /**
  * Function to create bom string for Projects that use Pixi package manager.
  * createPixiBom is based on createPythonBom.

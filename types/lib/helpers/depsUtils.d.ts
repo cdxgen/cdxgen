@@ -11,6 +11,14 @@
  */
 export function mergeDependencies(dependencies: Object[], newDependencies: Object[], parentComponent?: Object): Object[];
 /**
+ * Merge CycloneDX services using bom-ref or group/name/version identity.
+ *
+ * @param {Object[]|Object} services Existing service list
+ * @param {Object[]|Object} newServices New service list
+ * @returns {Object[]} Merged and deduplicated services
+ */
+export function mergeServices(services: Object[] | Object, newServices: Object[] | Object): Object[];
+/**
  * Trim duplicate components by retaining all the properties
  *
  * @param {Array} components Components

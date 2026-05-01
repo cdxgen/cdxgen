@@ -109,7 +109,7 @@ steps:
     env:
       GH_TOKEN: ${{ github.token }}
     run: |
-      gh release download v12.3.0 \
+      gh release download v12.3.1 \
         --repo cdxgen/cdxgen \
         --pattern 'cdx-audit-linux-amd64' \
         --pattern 'cdx-audit-linux-amd64.sha256'

@@ -2071,6 +2071,8 @@ export const cdxgenAgent: import("got").Got<{
     followRedirect: boolean;
     hooks: {
         beforeRequest: ((options: import("got").NormalizedOptions) => void)[];
+        afterResponse: ((response: any) => any)[];
+        beforeError: ((error: import("got").RequestError<unknown>) => import("got").RequestError<unknown>)[];
     };
 }>;
 export const RUBY_PLATFORM_PREFIXES: string[];
