@@ -86,7 +86,7 @@
       $prop($, 'cdx:agent:inventorySource') = 'agent-file'
       and $prop($, 'cdx:agent:hasMcpReferences') = 'true'
       and $count($$.components[$prop($, 'cdx:mcp:package') = 'true']) = 0
-      and $count($auditServices($$)[$nullSafeProp($, 'cdx:mcp:inventorySource') = 'babel-ast']) = 0
+      and $count($auditServices($$)[$nullSafeProp($, 'cdx:mcp:inventorySource') = 'source-code-analysis']) = 0
     ]
   location: |
     {

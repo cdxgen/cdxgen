@@ -1,6 +1,6 @@
-# MCP inventory for JavaScript projects
+# MCP inventory for JavaScript and dedicated MCP project scans
 
-cdxgen can now catalog Model Context Protocol (MCP) server surfaces from JavaScript and TypeScript source trees during normal `-t js` analysis.
+cdxgen can catalog Model Context Protocol (MCP) server surfaces from JavaScript and TypeScript source trees during normal `-t js` analysis, or via the dedicated `-t mcp` project type.
 
 ## What cdxgen detects
 
@@ -17,8 +17,6 @@ For high-confidence JavaScript MCP patterns, cdxgen emits:
 
 ## Current detection scope
 
-The current rollout focuses on phase 1 and phase 2 signals:
-
 - official and non-official MCP SDK imports
 - `McpServer`-style server construction
 - `Client`-style MCP client construction
@@ -31,7 +29,7 @@ The current rollout focuses on phase 1 and phase 2 signals:
 - explicit provider and model literals such as `provider`, `providerName`, `model`, and `modelName`
 - provider SDK imports, outbound provider hosts, and MCP gateway patterns
 - AI agent instruction files that reference hidden MCP endpoints or wrappers
-- MCP client configuration files such as `.vscode/mcp.json` and `claude_desktop_config.json`
+- MCP client configuration files such as `.vscode/mcp.json`, `.mcp.json`, `claude_desktop_config.json`, and `opencode.json`
 - community agent tooling layouts such as OpenCode (`opencode.json`, `.opencode/agents`, `.opencode/tools`, `.opencode/skills`), Nanocoder (`.mcp.json`, `.nanocoder/agents`, `.nanocoder/commands`), LangGraph (`langgraph.json`), and common CrewAI project files (`agents.py`, `tasks.py`, `config/agents.yaml`, `config/tasks.yaml`)
 - config-derived auth posture, trust profile, dynamic client registration, and inline credential exposure
 
@@ -108,7 +106,7 @@ The analysis is intentionally conservative. cdxgen prefers literal, explainable 
 ## Example
 
 ```bash
-cdxgen -t js /path/to/mcp-server -o bom.json --bom-audit --bom-audit-categories mcp-server
+cdxgen -t mcp /path/to/mcp-server -o bom.json --bom-audit --bom-audit-categories mcp-server
 ```
 
 Things to inspect in the resulting BOM:
