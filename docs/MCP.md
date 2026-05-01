@@ -32,6 +32,7 @@ The current rollout focuses on phase 1 and phase 2 signals:
 - provider SDK imports, outbound provider hosts, and MCP gateway patterns
 - AI agent instruction files that reference hidden MCP endpoints or wrappers
 - MCP client configuration files such as `.vscode/mcp.json` and `claude_desktop_config.json`
+- community agent tooling layouts such as OpenCode (`opencode.json`, `.opencode/agents`, `.opencode/tools`, `.opencode/skills`), Nanocoder (`.mcp.json`, `.nanocoder/agents`, `.nanocoder/commands`), LangGraph (`langgraph.json`), and common CrewAI project files (`agents.py`, `tasks.py`, `config/agents.yaml`, `config/tasks.yaml`)
 - config-derived auth posture, trust profile, dynamic client registration, and inline credential exposure
 
 The analysis is intentionally conservative. cdxgen prefers literal, explainable signals over speculative reconstruction.
@@ -86,6 +87,23 @@ The analysis is intentionally conservative. cdxgen prefers literal, explainable 
 - `cdx:mcp:description`
 - `cdx:mcp:resourceUri`
 - `cdx:mcp:toolAnnotations`
+
+### Community agent/tool/skill components
+
+- `cdx:agent:framework=opencode|nanocoder|langgraph|crewai`
+- `cdx:agent:inventorySource=community-config`
+- `cdx:agent:description`
+- `cdx:agent:mode`
+- `cdx:agent:model`
+- `cdx:tool:description`
+- `cdx:tool:category`
+- `cdx:tool:tags`
+- `cdx:tool:triggers`
+- `cdx:skill:name`
+- `cdx:skill:description`
+- `cdx:skill:license`
+- `cdx:langgraph:graphEntryPoint`
+- `cdx:crewai:*`
 
 ## Example
 

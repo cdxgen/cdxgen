@@ -86,6 +86,12 @@ These are the highest-leverage keys for first-pass policy authoring.
 | `cdx:mcp:security:tokenPassthroughRisk`          | Flags config-driven bearer/access-token forwarding                                 | Hard deny        |
 | `cdx:agent:hasPublicMcpEndpoint`                 | Flags public MCP endpoints referenced in agent instructions                        | Hard deny        |
 | `cdx:agent:hasTunnelReference`                   | Flags ngrok/Cloudflare-tunnel style exposure in agent instructions                 | Hard deny        |
+| `cdx:agent:framework`                            | Identifies community agent/tooling ecosystems such as OpenCode, Nanocoder, LangGraph, or CrewAI | Warning / triage |
+| `cdx:tool:description`                           | Captures discovered custom tool or command intent                                  | Warning / triage |
+| `cdx:tool:tags`                                  | Captures command/tool tags or routing hints                                        | Warning / triage |
+| `cdx:skill:name`                                 | Identifies discovered SKILL.md definitions                                         | Warning / triage |
+| `cdx:langgraph:graphEntryPoint`                  | Carries the configured graph entrypoint from `langgraph.json`                      | Warning / triage |
+| `cdx:crewai:tools`                               | Captures configured CrewAI tool lists or references                                | Warning / triage |
 | `cdx:agent:credentialExposure`                   | Flags inline secret patterns in AI agent instructions                              | Hard deny        |
 | `cdx:agent:reviewNeeded`                         | One-bit reviewer cue for hidden Unicode, undeclared MCP refs, or risky exposure    | Warning / triage |
 | `cdx:pypi:registry`                              | Indicates non-default Python package index usage                                   | Hard deny        |
