@@ -171,6 +171,7 @@ Rules that evaluate MCP server inventory emitted from JavaScript/TypeScript sour
 | MCP-005 | critical | MCP configuration exposes inline credentials                           |
 | MCP-006 | high     | MCP configuration suggests confused-deputy risk                        |
 | MCP-007 | high     | MCP configuration forwards or passes through bearer-like credentials   |
+| MCP-008 | medium   | Build/post-build SBOM includes an MCP configuration file              |
 
 ### `ai-agent` — AI agent instruction and MCP governance
 
@@ -184,6 +185,7 @@ Rules that evaluate AI agent instruction files, skill files, and inferred MCP su
 | AGT-004 | high     | AI agent instructions reference tunneled or reverse-proxied MCP exposure       |
 | AGT-005 | medium   | AI agent instructions reference non-official MCP wrappers or packages          |
 | AGT-006 | critical | AI agent instruction or skill file contains inline credential patterns         |
+| AGT-007 | medium   | Build/post-build SBOM includes an AI instruction or skill file                |
 
 ### Standards mapping
 

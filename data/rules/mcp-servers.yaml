@@ -268,3 +268,36 @@
       "trustProfile": $prop($, 'cdx:mcp:trustProfile'),
       "authPosture": $prop($, 'cdx:mcp:authPosture')
     }
+
+- id: MCP-008
+  name: "MCP configuration file is included in a build or post-build SBOM"
+  description: "Committed MCP client configuration files can carry trust, auth, and distribution sensitivity even when they are not actively used during the current scan."
+  severity: medium
+  category: mcp-server
+  standards:
+    owasp-ai-top-10:
+      - "LLM07: Insecure Plugin Design"
+      - "LLM08: Excessive Agency"
+    nist-ai-rmf:
+      - "Govern"
+      - "Map"
+    nist-ssdf:
+      - "Review configured AI control surfaces before release"
+  condition: |
+    components[
+      $prop($, 'cdx:file:kind') = 'mcp-config'
+      and $count($$.metadata.lifecycles[phase = 'build' or phase = 'post-build']) > 0
+    ]
+  location: |
+    {
+      "bomRef": $."bom-ref",
+      "file": $prop($, 'SrcFile')
+    }
+  message: "MCP config file '{{ name }}' is included in a build/post-build SBOM"
+  mitigation: "Review the config with '--bom-audit --bom-audit-categories mcp-server', consider '--tlp-classification AMBER' before sharing the BOM broadly, or rerun with '--exclude-type mcp' if config artifacts should be omitted."
+  evidence: |
+    {
+      "configFormat": $prop($, 'cdx:mcp:configFormat'),
+      "configuredServiceCount": $prop($, 'cdx:mcp:configuredServiceCount'),
+      "configuredServiceNames": $prop($, 'cdx:mcp:configuredServiceNames')
+    }

@@ -2,6 +2,13 @@
 
 cdxgen can catalog Model Context Protocol (MCP) server surfaces from JavaScript and TypeScript source trees during normal `-t js` analysis, or via the dedicated `-t mcp` project type.
 
+By default, `-t js` now also reports shipped MCP configuration files and AI instruction/skill files that can influence build and post-build lifecycles. Use:
+
+- `--exclude-type mcp` to drop MCP config components and services from the final BOM
+- `--exclude-type ai-skill` to drop AI skill / instruction inventory from the final BOM
+- `-t mcp` for an exact MCP-focused BOM
+- `-t ai-skill` for an exact AI skill / instruction BOM
+
 ## What cdxgen detects
 
 For high-confidence JavaScript MCP patterns, cdxgen emits:
@@ -112,7 +119,8 @@ cdxgen -t mcp /path/to/mcp-server -o bom.json --bom-audit --bom-audit-categories
 Things to inspect in the resulting BOM:
 
 - `.services[]` for discovered MCP servers
-- `.formulation[].components[] | select(.properties[]?.name == "cdx:file:kind" and .properties[]?.value == "mcp-config")` for MCP config files
+- `.components[] | select(.properties[]?.name == "cdx:file:kind" and .properties[]?.value == "mcp-config")` for shipped MCP config files
+- `.components[] | select(.properties[]?.name == "cdx:file:kind" and (.properties[]?.value == "agent-instructions" or .properties[]?.value == "skill-file"))` for shipped AI instruction/skill files
 - `.components[] | select(.properties[]?.name == "cdx:mcp:role")` for tools/prompts/resources
 - `.dependencies[] | select(.ref | startswith("urn:service:mcp:"))` for service-to-primitive links
 - `.annotations[]` for MCP BOM-audit findings
@@ -130,6 +138,30 @@ The most important current security checks are:
 - public or tunneled MCP endpoints referenced only from AI agent files
 - hidden Unicode in AI agent instruction and skill files
 - agent-file MCP references that are not otherwise declared in package or source inventory
+- build/post-build BOMs that contain shipped MCP configs or AI instruction/skill files
+
+## Recommended release-review commands
+
+Keep and flag the files:
+
+```bash
+cdxgen -t js \
+  --bom-audit \
+  --bom-audit-categories mcp-server,ai-agent \
+  --tlp-classification AMBER \
+  -o bom.json \
+  /path/to/repo
+```
+
+Drop them for a package-only SBOM:
+
+```bash
+cdxgen -t js \
+  --exclude-type ai-skill \
+  --exclude-type mcp \
+  -o bom.json \
+  /path/to/repo
+```
 
 HTTP MCP endpoints should be authenticated, Origin-validated, and pinned to trusted SDK provenance before external exposure.
 

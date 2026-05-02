@@ -204,3 +204,46 @@
       "hiddenMcpUrls": $prop($, 'cdx:agent:hiddenMcpUrls'),
       "providerNames": $prop($, 'cdx:agent:providerNames')
     }
+
+- id: AGT-007
+  name: "AI agent or skill file is included in a build or post-build SBOM"
+  description: "Shipped AI instruction and skill files deserve explicit review because they can alter developer tooling, release-time automation, and downstream runtime behavior."
+  severity: medium
+  category: ai-agent
+  standards:
+    owasp-ai-top-10:
+      - "LLM05: Supply Chain Vulnerabilities"
+      - "LLM08: Excessive Agency"
+    nist-ai-rmf:
+      - "Govern"
+      - "Map"
+    nist-ssdf:
+      - "Review build and release instructions before distribution"
+  condition: |
+    components[
+      (
+        $prop($, 'cdx:agent:inventorySource') = 'agent-file'
+        or $prop($, 'cdx:agent:inventorySource') = 'community-config'
+      )
+      and (
+        $prop($, 'cdx:file:kind') = 'skill-file'
+        or $prop($, 'cdx:file:kind') = 'agent-instructions'
+        or $prop($, 'cdx:file:kind') = 'copilot-instructions'
+        or $prop($, 'cdx:file:kind') = 'copilot-setup-workflow'
+        or $prop($, 'cdx:file:kind') = 'ai-agent-file'
+      )
+      and $count($$.metadata.lifecycles[phase = 'build' or phase = 'post-build']) > 0
+    ]
+  location: |
+    {
+      "bomRef": $."bom-ref",
+      "file": $prop($, 'SrcFile')
+    }
+  message: "AI instruction or skill file '{{ name }}' is included in a build/post-build SBOM"
+  mitigation: "If the file must ship, keep the BOM review-friendly with '--bom-audit --bom-audit-categories ai-agent' and consider '--tlp-classification AMBER'. If you want a package-only BOM, rerun with '--exclude-type ai-skill'."
+  evidence: |
+    {
+      "inventorySource": $prop($, 'cdx:agent:inventorySource'),
+      "fileKind": $prop($, 'cdx:file:kind'),
+      "providerNames": $prop($, 'cdx:agent:providerNames')
+    }

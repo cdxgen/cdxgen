@@ -38,6 +38,12 @@ Generate an SBOM for all types except github and dotnet
 --exclude-type github --exclude-type dotnet
 ```
 
+Generate a JavaScript SBOM but drop shipped AI skill files and MCP config artifacts:
+
+```shell
+cdxgen -t js --exclude-type ai-skill --exclude-type mcp
+```
+
 Use the argument `--exclude` to provide a glob pattern for files and directories to exclude from the BOM. Multiple values are allowed.
 
 Example:
