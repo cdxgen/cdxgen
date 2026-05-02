@@ -411,6 +411,13 @@ pnpm run watch
 - Prefer `node:path` helpers, normalization, or separator-agnostic assertions over hard-coded path literals in tests.
 - When adding or changing tests that inspect file paths, temp directories, command arguments, or serialized activity/log output, verify they still pass on Windows runners and do not assume `/tmp`-style paths.
 
+### Review feedback handling
+
+- Before finalizing work, review feedback from automated code review or validation tools.
+- If a review comment is valid, fix it in the same change rather than leaving it behind.
+- If a review comment is not valid, document why it was not applied in the final summary.
+- Thoroughness is preferred over speed when resolving valid review feedback.
+
 ### Test anatomy
 
 ```js
