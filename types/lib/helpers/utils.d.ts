@@ -2028,6 +2028,8 @@ export const PROJECT_TYPE_ALIASES: {
     "maven-index": string[];
     "cargo-cache": string[];
     js: string[];
+    mcp: string[];
+    "ai-skill": string[];
     py: string[];
     go: string[];
     rust: string[];

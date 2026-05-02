@@ -297,4 +297,5 @@ export function createBom(path: string, options: Object): Promise<Object>;
 export function submitBom(args: Object, bomContents: Object): Promise<{
     token: string;
 } | undefined>;
+export { summarizeAiInventory } from "../helpers/aiInventory.js";
 //# sourceMappingURL=index.d.ts.map
