@@ -15,6 +15,11 @@ export function detectExtensionCapabilities(src: string, deep?: boolean): {
         [x: string]: string[];
     };
 };
+export function detectPythonMcpInventory(src: string, deep?: boolean): {
+    components: Object[];
+    dependencies: Object[];
+    services: Object[];
+};
 export function detectMcpInventory(src: string, deep?: boolean): {
     components: Object[];
     dependencies: Object[];
