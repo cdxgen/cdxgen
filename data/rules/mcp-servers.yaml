@@ -191,8 +191,9 @@
     {
       "configFormat": $prop($, 'cdx:mcp:configFormat'),
       "configKey": $prop($, 'cdx:mcp:configKey'),
-      "credentialExposureFields": $prop($, 'cdx:mcp:credentialExposureFields'),
-      "credentialRiskIndicators": $prop($, 'cdx:mcp:credentialRiskIndicators')
+      "credentialExposureFieldCount": $prop($, 'cdx:mcp:credentialExposureFieldCount'),
+      "credentialIndicatorCount": $prop($, 'cdx:mcp:credentialIndicatorCount'),
+      "credentialReferenceCount": $prop($, 'cdx:mcp:credentialReferenceCount')
     }
 
 - id: MCP-006
