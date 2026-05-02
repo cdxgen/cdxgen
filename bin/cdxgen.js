@@ -462,9 +462,8 @@ const args = _yargs
   })
   .option("tlp-classification", {
     description:
-      'Traffic Light Protocol (TLP) is a classification system for identifying the potential risk associated with artefact, including whether it is subject to certain types of legal, financial, or technical threats. Refer to [https://www.first.org/tlp/](https://www.first.org/tlp/) for further information.\nThe default classification is "CLEAR"',
+      "Traffic Light Protocol (TLP) is a classification system for identifying the potential risk associated with an artefact, including whether it is subject to certain types of legal, financial, or technical threats. Refer to [https://www.first.org/tlp/](https://www.first.org/tlp/) for further information.",
     choices: ["CLEAR", "GREEN", "AMBER", "AMBER_AND_STRICT", "RED"],
-    default: "CLEAR",
     hidden: true,
   })
   .option("env-audit", {
