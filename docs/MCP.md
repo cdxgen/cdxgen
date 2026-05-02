@@ -77,9 +77,10 @@ The analysis is intentionally conservative. cdxgen prefers literal, explainable 
 - `cdx:mcp:authPosture`
 - `cdx:mcp:trustProfile`
 - `cdx:mcp:credentialExposure`
-- `cdx:mcp:credentialExposureFields`
-- `cdx:mcp:credentialRiskIndicators`
-- `cdx:mcp:credentialRefs`
+- `cdx:mcp:credentialExposureFieldCount`
+- `cdx:mcp:credentialIndicatorCount`
+- `cdx:mcp:credentialReferenceCount`
+- `cdx:mcp:credentialExposedServiceCount` (for config file components)
 - `cdx:mcp:security:confusedDeputyRisk`
 - `cdx:mcp:security:tokenPassthroughRisk`
 - `cdx:mcp:reviewNeeded`
