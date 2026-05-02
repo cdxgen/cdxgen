@@ -522,6 +522,12 @@ jobs:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           persist-credentials: false
+          repository: 'AppThreat/vulnerability-db'
+          path: 'repotests/vulnerability-db'
+          ref: 'f63d2d10adf4caef8a4fa6f8cee848f5200045da'
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
           repository: 'owasp-dep-scan/blint'
           path: 'repotests/blint'
           ref: 'v2.2.2'
@@ -721,6 +727,13 @@ jobs:
       - name: repotests impacket
         run: |
           bin/cdxgen.js -t python repotests/impacket -o bomresults/impacket.json --fail-on-error --bom-audit
+        shell: bash
+      - name: repotests vulnerability-db MCP
+        run: |
+          bin/cdxgen.js -t python repotests/vulnerability-db/packages/mcp-server-vdb -o bomresults/vulnerability-db-mcp.json --fail-on-error --bom-audit --bom-audit-categories mcp-server
+          jq -e 'any(.services[]; .name == "appthreat-vulnerability-db" and any((.properties // [])[]; .name == "cdx:mcp:inventorySource" and .value == "source-code-analysis") and any((.properties // [])[]; .name == "cdx:mcp:officialSdk" and .value == "true") and any((.properties // [])[]; .name == "cdx:mcp:transport" and (.value | contains("stdio"))))' bomresults/vulnerability-db-mcp.json
+          jq -e 'any(.components[]; .name == "search_by_purl_like" and any((.properties // [])[]; .name == "cdx:mcp:role" and .value == "tool"))' bomresults/vulnerability-db-mcp.json
+          jq -e 'any(.components[]; .name == "CVE Information" and any((.properties // [])[]; .name == "cdx:mcp:role" and .value == "resource"))' bomresults/vulnerability-db-mcp.json
         shell: bash
 #      - name: repotests pixi
 #        run: |
