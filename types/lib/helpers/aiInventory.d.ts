@@ -2,6 +2,7 @@ export function inventoryPropertyValue(subject: any, name: any): any;
 export function optionIncludesAiInventoryProjectType(optionValue: any, type: any): boolean;
 export function inventoryTypesForSubject(subject: any): any[];
 export function matchesAiInventoryType(subject: any, type: any): boolean;
+export function matchesAiInventoryExcludeType(subject: any, type: any): boolean;
 export function filterInventorySubjectsByTypes(subjects: any, types: any): any;
 export function filterInventoryDependencies(dependencies: any, components: any, services: any): any;
 export function collectAiInventory(discoveryPath: any, options: any, types: any): {
