@@ -50,7 +50,7 @@ rm -rf \
   .versions \
   upx-5.1.0*
 
-find lib -name "*.poku.js" -delete
+find lib -name "*.poku.js" -exec rm -f {} +
 rm -rf types
 
 pnpm install:prod --config.node-linker=hoisted

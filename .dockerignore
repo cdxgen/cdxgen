@@ -6,7 +6,7 @@
 !data/*
 !index.cjs
 !lib/**
-**/*.poku.js
+lib/**/*.poku.js
 !LICENSE
 !package.json
 !plugins/**
