@@ -658,6 +658,10 @@
       and $prop($, 'cdx:github:action:buildCacheEcosystem') = 'npm'
       and $count($$.components[
         $startsWith(purl, 'pkg:npm/')
+        and (
+          $contains($lowercase($nullSafeProp($, 'cdx:npm:manifestSourceType')), 'git')
+          or $contains($lowercase($nullSafeProp($, 'cdx:npm:manifestSourceType')), 'url')
+        )
         and $count(externalReferences[
           type = 'distribution'
           and (
@@ -682,6 +686,10 @@
       "cacheDisableValue": $prop($, 'cdx:github:action:buildCacheDisableValue'),
       "matchingPackages": $$.components[
         $startsWith(purl, 'pkg:npm/')
+        and (
+          $contains($lowercase($nullSafeProp($, 'cdx:npm:manifestSourceType')), 'git')
+          or $contains($lowercase($nullSafeProp($, 'cdx:npm:manifestSourceType')), 'url')
+        )
         and $count(externalReferences[
           type = 'distribution'
           and (
