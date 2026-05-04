@@ -176,7 +176,8 @@ Trust boundary 5: cdxgen container ←→ container host
 
 - `CDXGEN_ALLOWED_HOSTS` restricts `cdxgenAgent` outbound connections
 - `CDXGEN_SERVER_ALLOWED_HOSTS` restricts Git clone target hosts
-- Dependency-Track submission host checks in `lib/server/server.js` require exact matches or real subdomain matches for wildcard entries (for example, `*.example.com` matches `api.example.com` but not `evil-example.com`)
+- Server-side Dependency-Track submission host checks require exact matches or real subdomain matches for wildcard entries (for example, `*.example.com` matches `api.example.com` but not `evil-example.com`)
+- Dependency-Track submission redirects are disabled so an allowlisted host cannot bounce uploads to a different destination
 - Secure mode enforces HTTPS-only
 - Redirect following is disabled in secure mode
 
@@ -387,7 +388,7 @@ _TB = Trust Boundary (see Trust Boundaries section above)_
 | Control                  | Implementation                                                            | Threat(s) Addressed          |
 | ------------------------ | ------------------------------------------------------------------------- | ---------------------------- |
 | Command allowlisting     | `CDXGEN_ALLOWED_COMMANDS` + `safeSpawnSync`                               | T1.1, T1.2                   |
-| Host allowlisting        | `CDXGEN_ALLOWED_HOSTS` + `CDXGEN_GIT_ALLOWED_HOSTS` + `cdxgenAgent` hooks + strict wildcard subdomain matching | T2.3, T2.2, T2.6 |
+| Host allowlisting        | `CDXGEN_ALLOWED_HOSTS` + `CDXGEN_GIT_ALLOWED_HOSTS` + `cdxgenAgent` hooks; server-side Dependency-Track submission uses strict wildcard subdomain matching | T2.3, T2.2, T2.6 |
 | Path allowlisting        | `CDXGEN_SERVER_ALLOWED_PATHS` + `isAllowedPath`                           | T2.1                         |
 | Node.js permission model | `--permission` flags in `NODE_OPTIONS`                                    | T1.4, T5.1                   |
 | Secure mode              | `CDXGEN_SECURE_MODE=true`                                                 | T1.2, T2.2, T2.3, T6.2       |
