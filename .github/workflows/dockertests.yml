@@ -60,11 +60,35 @@ jobs:
             }
           }
           assert_trivy_tool_identity_bom() {
-            jq -e '[.metadata.tools.components[]? | select(.["bom-ref"] != null and ((((.name // "") | ascii_downcase) | contains("trivy")) or (((.["bom-ref"] // "") | ascii_downcase) | contains("trivy"))))] | length > 0' "$1" >/dev/null || {
+            jq -e '
+              def is_trivy_tool:
+                .["bom-ref"] != null and (
+                  ((.name // "") | ascii_downcase | contains("trivy")) or
+                  ((.["bom-ref"] // "") | ascii_downcase | contains("trivy"))
+                );
+              [.metadata.tools.components[]? | select(is_trivy_tool)] | length > 0
+            ' "$1" >/dev/null || {
               echo "Expected trivy tool metadata in $1"
               return 1
             }
-            jq -e '[.metadata.tools.components[]? | select(.["bom-ref"] != null) | .["bom-ref"]] as $toolRefs | [.metadata.tools.components[]? | select(.["bom-ref"] != null and ((((.name // "") | ascii_downcase) | contains("trivy")) or (((.["bom-ref"] // "") | ascii_downcase) | contains("trivy")))) | .["bom-ref"]] as $trivyToolRefs | ($trivyToolRefs | length) > 0 and any(.components[]?; any((.evidence.identity // [])[]?; (.tools // []) as $identityTools | ($identityTools | length) > 0 and all($identityTools[]; $toolRefs | index(.) != null) and any($identityTools[]; $trivyToolRefs | index(.) != null)))' "$1" >/dev/null || {
+            jq -e '
+              def is_trivy_tool:
+                .["bom-ref"] != null and (
+                  ((.name // "") | ascii_downcase | contains("trivy")) or
+                  ((.["bom-ref"] // "") | ascii_downcase | contains("trivy"))
+                );
+              [.metadata.tools.components[]? | select(.["bom-ref"] != null) | .["bom-ref"]] as $toolRefs
+              | [.metadata.tools.components[]? | select(is_trivy_tool) | .["bom-ref"]] as $trivyToolRefs
+              | ($trivyToolRefs | length) > 0
+                and any(.components[]?;
+                  any((.evidence.identity // [])[]?;
+                    (.tools // []) as $identityTools
+                    | ($identityTools | length) > 0
+                      and all($identityTools[]; $toolRefs | index(.) != null)
+                      and any($identityTools[]; $trivyToolRefs | index(.) != null)
+                  )
+                )
+            ' "$1" >/dev/null || {
               echo "Expected identity evidence tools in $1 to reference declared trivy metadata tools"
               return 1
             }
@@ -148,11 +172,35 @@ jobs:
             }
           }
           assert_trivy_tool_identity_bom() {
-            jq -e '[.metadata.tools.components[]? | select(.["bom-ref"] != null and ((((.name // "") | ascii_downcase) | contains("trivy")) or (((.["bom-ref"] // "") | ascii_downcase) | contains("trivy"))))] | length > 0' "$1" >/dev/null || {
+            jq -e '
+              def is_trivy_tool:
+                .["bom-ref"] != null and (
+                  ((.name // "") | ascii_downcase | contains("trivy")) or
+                  ((.["bom-ref"] // "") | ascii_downcase | contains("trivy"))
+                );
+              [.metadata.tools.components[]? | select(is_trivy_tool)] | length > 0
+            ' "$1" >/dev/null || {
               echo "Expected trivy tool metadata in $1"
               return 1
             }
-            jq -e '[.metadata.tools.components[]? | select(.["bom-ref"] != null) | .["bom-ref"]] as $toolRefs | [.metadata.tools.components[]? | select(.["bom-ref"] != null and ((((.name // "") | ascii_downcase) | contains("trivy")) or (((.["bom-ref"] // "") | ascii_downcase) | contains("trivy")))) | .["bom-ref"]] as $trivyToolRefs | ($trivyToolRefs | length) > 0 and any(.components[]?; any((.evidence.identity // [])[]?; (.tools // []) as $identityTools | ($identityTools | length) > 0 and all($identityTools[]; $toolRefs | index(.) != null) and any($identityTools[]; $trivyToolRefs | index(.) != null)))' "$1" >/dev/null || {
+            jq -e '
+              def is_trivy_tool:
+                .["bom-ref"] != null and (
+                  ((.name // "") | ascii_downcase | contains("trivy")) or
+                  ((.["bom-ref"] // "") | ascii_downcase | contains("trivy"))
+                );
+              [.metadata.tools.components[]? | select(.["bom-ref"] != null) | .["bom-ref"]] as $toolRefs
+              | [.metadata.tools.components[]? | select(is_trivy_tool) | .["bom-ref"]] as $trivyToolRefs
+              | ($trivyToolRefs | length) > 0
+                and any(.components[]?;
+                  any((.evidence.identity // [])[]?;
+                    (.tools // []) as $identityTools
+                    | ($identityTools | length) > 0
+                      and all($identityTools[]; $toolRefs | index(.) != null)
+                      and any($identityTools[]; $trivyToolRefs | index(.) != null)
+                  )
+                )
+            ' "$1" >/dev/null || {
               echo "Expected identity evidence tools in $1 to reference declared trivy metadata tools"
               return 1
             }
@@ -207,11 +255,35 @@ jobs:
             }
           }
           assert_trivy_tool_identity_bom() {
-            jq -e '[.metadata.tools.components[]? | select(.["bom-ref"] != null and ((((.name // "") | ascii_downcase) | contains("trivy")) or (((.["bom-ref"] // "") | ascii_downcase) | contains("trivy"))))] | length > 0' "$1" >/dev/null || {
+            jq -e '
+              def is_trivy_tool:
+                .["bom-ref"] != null and (
+                  ((.name // "") | ascii_downcase | contains("trivy")) or
+                  ((.["bom-ref"] // "") | ascii_downcase | contains("trivy"))
+                );
+              [.metadata.tools.components[]? | select(is_trivy_tool)] | length > 0
+            ' "$1" >/dev/null || {
               echo "Expected trivy tool metadata in $1"
               return 1
             }
-            jq -e '[.metadata.tools.components[]? | select(.["bom-ref"] != null) | .["bom-ref"]] as $toolRefs | [.metadata.tools.components[]? | select(.["bom-ref"] != null and ((((.name // "") | ascii_downcase) | contains("trivy")) or (((.["bom-ref"] // "") | ascii_downcase) | contains("trivy")))) | .["bom-ref"]] as $trivyToolRefs | ($trivyToolRefs | length) > 0 and any(.components[]?; any((.evidence.identity // [])[]?; (.tools // []) as $identityTools | ($identityTools | length) > 0 and all($identityTools[]; $toolRefs | index(.) != null) and any($identityTools[]; $trivyToolRefs | index(.) != null)))' "$1" >/dev/null || {
+            jq -e '
+              def is_trivy_tool:
+                .["bom-ref"] != null and (
+                  ((.name // "") | ascii_downcase | contains("trivy")) or
+                  ((.["bom-ref"] // "") | ascii_downcase | contains("trivy"))
+                );
+              [.metadata.tools.components[]? | select(.["bom-ref"] != null) | .["bom-ref"]] as $toolRefs
+              | [.metadata.tools.components[]? | select(is_trivy_tool) | .["bom-ref"]] as $trivyToolRefs
+              | ($trivyToolRefs | length) > 0
+                and any(.components[]?;
+                  any((.evidence.identity // [])[]?;
+                    (.tools // []) as $identityTools
+                    | ($identityTools | length) > 0
+                      and all($identityTools[]; $toolRefs | index(.) != null)
+                      and any($identityTools[]; $trivyToolRefs | index(.) != null)
+                  )
+                )
+            ' "$1" >/dev/null || {
               echo "Expected identity evidence tools in $1 to reference declared trivy metadata tools"
               return 1
             }
@@ -314,11 +386,35 @@ jobs:
             }
           }
           assert_trivy_tool_identity_bom() {
-            jq -e '[.metadata.tools.components[]? | select(.["bom-ref"] != null and ((((.name // "") | ascii_downcase) | contains("trivy")) or (((.["bom-ref"] // "") | ascii_downcase) | contains("trivy"))))] | length > 0' "$1" >/dev/null || {
+            jq -e '
+              def is_trivy_tool:
+                .["bom-ref"] != null and (
+                  ((.name // "") | ascii_downcase | contains("trivy")) or
+                  ((.["bom-ref"] // "") | ascii_downcase | contains("trivy"))
+                );
+              [.metadata.tools.components[]? | select(is_trivy_tool)] | length > 0
+            ' "$1" >/dev/null || {
               echo "Expected trivy tool metadata in $1"
               return 1
             }
-            jq -e '[.metadata.tools.components[]? | select(.["bom-ref"] != null) | .["bom-ref"]] as $toolRefs | [.metadata.tools.components[]? | select(.["bom-ref"] != null and ((((.name // "") | ascii_downcase) | contains("trivy")) or (((.["bom-ref"] // "") | ascii_downcase) | contains("trivy")))) | .["bom-ref"]] as $trivyToolRefs | ($trivyToolRefs | length) > 0 and any(.components[]?; any((.evidence.identity // [])[]?; (.tools // []) as $identityTools | ($identityTools | length) > 0 and all($identityTools[]; $toolRefs | index(.) != null) and any($identityTools[]; $trivyToolRefs | index(.) != null)))' "$1" >/dev/null || {
+            jq -e '
+              def is_trivy_tool:
+                .["bom-ref"] != null and (
+                  ((.name // "") | ascii_downcase | contains("trivy")) or
+                  ((.["bom-ref"] // "") | ascii_downcase | contains("trivy"))
+                );
+              [.metadata.tools.components[]? | select(.["bom-ref"] != null) | .["bom-ref"]] as $toolRefs
+              | [.metadata.tools.components[]? | select(is_trivy_tool) | .["bom-ref"]] as $trivyToolRefs
+              | ($trivyToolRefs | length) > 0
+                and any(.components[]?;
+                  any((.evidence.identity // [])[]?;
+                    (.tools // []) as $identityTools
+                    | ($identityTools | length) > 0
+                      and all($identityTools[]; $toolRefs | index(.) != null)
+                      and any($identityTools[]; $trivyToolRefs | index(.) != null)
+                  )
+                )
+            ' "$1" >/dev/null || {
               echo "Expected identity evidence tools in $1 to reference declared trivy metadata tools"
               return 1
             }
