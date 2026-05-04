@@ -100,7 +100,7 @@ def copy_regular_file(tar_handle, member, destination):
     destination.parent.mkdir(parents=True, exist_ok=True)
     source = tar_handle.extractfile(member)
     if source is None:
-        return
+        raise ValueError(f"Unable to read archive member contents: {member.name}")
     with source, destination.open("wb") as output_file:
         shutil.copyfileobj(source, output_file)
     os.chmod(destination, stat.S_IMODE(member.mode))
@@ -109,14 +109,20 @@ def copy_regular_file(tar_handle, member, destination):
 def extract_safe_members(tar_handle, destination_dir):
     for member in tar_handle.getmembers():
         normalized = normalize_name(member.name)
-        if not normalized and not member.isdir():
+        if not normalized:
+            if member.isdir():
+                destination_dir.mkdir(parents=True, exist_ok=True)
+                continue
             raise ValueError(f"Archive member normalized to empty path: {member.name}")
-        destination = destination_dir if not normalized else destination_dir / normalized
+        destination = destination_dir / normalized
         if member.isdir():
             destination.mkdir(parents=True, exist_ok=True)
             continue
         if not member.isreg():
-            raise ValueError(f"Unsupported archive member type for {member.name}")
+            raise ValueError(
+                f"Unsupported archive member type {member.type} for {member.name}. "
+                "Only regular files and directories are supported."
+            )
         copy_regular_file(tar_handle, member, destination)
 
 

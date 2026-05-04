@@ -209,6 +209,8 @@ main() {
   cd "$REPO_ROOT"
   mkdir -p bomresults
   TEST_TMP_DIR="$(mktemp -d "${TMPDIR:-/tmp}/cdxgen-dockertests-XXXXXX")"
+  export PYTHONDONTWRITEBYTECODE=1
+  export PYTHONPYCACHEPREFIX="$TEST_TMP_DIR/pycache"
   trap cleanup_all EXIT
 
   case "${1:-}" in
