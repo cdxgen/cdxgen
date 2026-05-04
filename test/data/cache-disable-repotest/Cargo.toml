@@ -1,0 +1,6 @@
+[package]
+name = "cache-disable-repotest"
+version = "1.0.0"
+
+[dependencies]
+git-crate = { git = "https://github.com/acme/git-crate.git", branch = "main" }
