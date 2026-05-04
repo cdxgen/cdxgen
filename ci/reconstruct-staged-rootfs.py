@@ -1,4 +1,13 @@
 #!/usr/bin/env python3
+"""Reconstruct a staged rootfs from a Docker archive for dockertest coverage.
+
+Usage:
+  reconstruct-staged-rootfs.py <archive> <extracted_dir> <rootfs_dir>
+
+The script extracts the image archive, replays layer tarballs in manifest order,
+applies whiteout markers, and skips paths that cdxgen intentionally excludes
+when reconstructing a merged root filesystem for offline/rootfs tests.
+"""
 
 import json
 import os
