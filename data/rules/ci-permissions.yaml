@@ -642,5 +642,120 @@
       "sensitiveOperations": $prop($, 'cdx:github:step:sensitiveOperations'),
       "sensitiveContextRefs": $prop($, 'cdx:github:step:sensitiveContextRefs'),
       "dispatchKinds": $prop($, 'cdx:github:step:dispatchKinds')
+     }
+
+- id: CI-022
+  name: "npm setup action disables build cache despite resolved package distributions"
+  description: "Explicitly disabling setup-node caching reduces tamper resistance and reviewability when npm dependencies are resolved from remote package distributions"
+  severity: medium
+  category: ci-permission
+  attack:
+    tactics: [TA0005]
+    techniques: [T1195.001]
+  condition: |
+    $auditComponents($)[
+      $prop($, 'cdx:github:action:disablesBuildCache') = 'true'
+      and $prop($, 'cdx:github:action:buildCacheEcosystem') = 'npm'
+      and $count($$.components[
+        $startsWith(purl, 'pkg:npm/')
+        and $count(externalReferences[
+          type = 'distribution'
+          and (
+            $startsWith($lowercase(url), 'git+')
+            or $startsWith($lowercase(url), 'http://')
+            or $startsWith($lowercase(url), 'https://')
+          )
+        ]) > 0
+      ]) > 0
+    ]
+  location: |
+    {
+      "bomRef": $."bom-ref",
+      "purl": purl,
+      "file": $prop($, 'cdx:github:workflow:file')
+    }
+  message: "GitHub Action '{{ $prop($, 'cdx:github:action:uses') }}' explicitly disables npm build caching while resolved npm package distributions are present in the BOM"
+  mitigation: "Keep setup-node caching enabled unless you have a reviewed exception; disabling cache can weaken integrity checks and provenance review for resolved npm artifacts"
+  evidence: |
+    {
+      "cacheDisableInput": $prop($, 'cdx:github:action:buildCacheDisableInput'),
+      "cacheDisableValue": $prop($, 'cdx:github:action:buildCacheDisableValue'),
+      "matchingPackages": $$.components[
+        $startsWith(purl, 'pkg:npm/')
+        and $count(externalReferences[
+          type = 'distribution'
+          and (
+            $startsWith($lowercase(url), 'git+')
+            or $startsWith($lowercase(url), 'http://')
+            or $startsWith($lowercase(url), 'https://')
+          )
+        ]) > 0
+      ].purl
     }
 
+- id: CI-023
+  name: "Python setup action disables build cache despite resolved package distributions"
+  description: "Explicitly disabling setup-python caching reduces tamper resistance and reviewability when PyPI dependencies are resolved from remote archives or VCS sources"
+  severity: medium
+  category: ci-permission
+  attack:
+    tactics: [TA0005]
+    techniques: [T1195.001]
+  condition: |
+    $auditComponents($)[
+      $prop($, 'cdx:github:action:disablesBuildCache') = 'true'
+      and $prop($, 'cdx:github:action:buildCacheEcosystem') = 'pypi'
+      and $count($$.components[
+        $startsWith(purl, 'pkg:pypi/')
+        and (
+          $count(externalReferences[
+            type = 'distribution'
+            and (
+              $startsWith($lowercase(url), 'git+')
+              or $startsWith($lowercase(url), 'http://')
+              or $startsWith($lowercase(url), 'https://')
+            )
+          ]) > 0
+          or $contains($lowercase($nullSafeProp($, 'cdx:pylock:vcs')), 'git')
+          or $contains($lowercase($nullSafeProp($, 'cdx:pylock:archive')), 'http://')
+          or $contains($lowercase($nullSafeProp($, 'cdx:pylock:archive')), 'https://')
+          or $contains($lowercase($nullSafeProp($, 'cdx:pylock:sdist')), 'http://')
+          or $contains($lowercase($nullSafeProp($, 'cdx:pylock:sdist')), 'https://')
+          or $contains($lowercase($nullSafeProp($, 'cdx:pylock:wheels')), 'http://')
+          or $contains($lowercase($nullSafeProp($, 'cdx:pylock:wheels')), 'https://')
+        )
+      ]) > 0
+    ]
+  location: |
+    {
+      "bomRef": $."bom-ref",
+      "purl": purl,
+      "file": $prop($, 'cdx:github:workflow:file')
+    }
+  message: "GitHub Action '{{ $prop($, 'cdx:github:action:uses') }}' explicitly disables Python build caching while resolved PyPI package distributions are present in the BOM"
+  mitigation: "Keep setup-python caching enabled when lockfiles resolve remote archives or VCS sources unless you have a reviewed exception"
+  evidence: |
+    {
+      "cacheDisableInput": $prop($, 'cdx:github:action:buildCacheDisableInput'),
+      "cacheDisableValue": $prop($, 'cdx:github:action:buildCacheDisableValue'),
+      "matchingPackages": $$.components[
+        $startsWith(purl, 'pkg:pypi/')
+        and (
+          $count(externalReferences[
+            type = 'distribution'
+            and (
+              $startsWith($lowercase(url), 'git+')
+              or $startsWith($lowercase(url), 'http://')
+              or $startsWith($lowercase(url), 'https://')
+            )
+          ]) > 0
+          or $contains($lowercase($nullSafeProp($, 'cdx:pylock:vcs')), 'git')
+          or $contains($lowercase($nullSafeProp($, 'cdx:pylock:archive')), 'http://')
+          or $contains($lowercase($nullSafeProp($, 'cdx:pylock:archive')), 'https://')
+          or $contains($lowercase($nullSafeProp($, 'cdx:pylock:sdist')), 'http://')
+          or $contains($lowercase($nullSafeProp($, 'cdx:pylock:sdist')), 'https://')
+          or $contains($lowercase($nullSafeProp($, 'cdx:pylock:wheels')), 'http://')
+          or $contains($lowercase($nullSafeProp($, 'cdx:pylock:wheels')), 'https://')
+        )
+      ].purl
+    }
