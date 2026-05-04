@@ -741,3 +741,38 @@
         )
       ].purl
     }
+
+- id: CI-024
+  name: "Cargo setup action disables build cache despite manifest-declared git dependencies"
+  description: "Explicitly disabling Cargo setup caching reduces tamper resistance and reviewability when Cargo manifests rely on git dependencies"
+  severity: medium
+  category: ci-permission
+  attack:
+    tactics: [TA0005]
+    techniques: [T1195.001]
+  condition: |
+    $auditComponents($)[
+      $prop($, 'cdx:github:action:disablesBuildCache') = 'true'
+      and $prop($, 'cdx:github:action:buildCacheEcosystem') = 'cargo'
+      and $count($$.components[
+        $startsWith(purl, 'pkg:cargo/')
+        and $hasProp($, 'cdx:cargo:git')
+      ]) > 0
+    ]
+  location: |
+    {
+      "bomRef": $."bom-ref",
+      "purl": purl,
+      "file": $prop($, 'cdx:github:workflow:file')
+    }
+  message: "GitHub Action '{{ $prop($, 'cdx:github:action:uses') }}' explicitly disables Cargo build caching while manifest-declared Cargo git dependencies are present in the BOM"
+  mitigation: "Keep Cargo setup caching enabled when manifests rely on git dependencies unless you have a reviewed exception"
+  evidence: |
+    {
+      "cacheDisableInput": $prop($, 'cdx:github:action:buildCacheDisableInput'),
+      "cacheDisableValue": $prop($, 'cdx:github:action:buildCacheDisableValue'),
+      "matchingPackages": $$.components[
+        $startsWith(purl, 'pkg:cargo/')
+        and $hasProp($, 'cdx:cargo:git')
+      ].purl
+    }
