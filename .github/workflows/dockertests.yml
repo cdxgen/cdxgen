@@ -176,6 +176,7 @@ jobs:
               apply_layer_whiteouts "$extracted_dir/$layer" "$rootfs_dir"
               tar --exclude='.wh.*' --exclude='*/.wh.*' -xf "$extracted_dir/$layer" -C "$rootfs_dir"
             done
+            prune_reconstructed_rootfs "$rootfs_dir"
           }
           apply_layer_whiteouts() {
             local layer_tar rootfs_dir entry entry_name relative_dir target_dir target_path
@@ -210,6 +211,43 @@ jobs:
                   ;;
               esac
             done < <(tar -tf "$layer_tar")
+          }
+          prune_reconstructed_rootfs() {
+            local rootfs_dir
+            rootfs_dir="$1"
+            rm -rf \
+              "$rootfs_dir/etc/machine-id" \
+              "$rootfs_dir/etc/gshadow" \
+              "$rootfs_dir/etc/shadow" \
+              "$rootfs_dir/etc/passwd" \
+              "$rootfs_dir/etc/ssl/certs" \
+              "$rootfs_dir/etc/pki/ca-trust" \
+              "$rootfs_dir/usr/lib/systemd" \
+              "$rootfs_dir/usr/lib64/libdevmapper.so" \
+              "$rootfs_dir/usr/sbin" \
+              "$rootfs_dir/cacerts" \
+              "$rootfs_dir/ssl/certs" \
+              "$rootfs_dir/logs" \
+              "$rootfs_dir/dev" \
+              "$rootfs_dir/proc" \
+              "$rootfs_dir/sys" \
+              "$rootfs_dir/usr/share/zoneinfo" \
+              "$rootfs_dir/usr/share/doc" \
+              "$rootfs_dir/usr/share/man" \
+              "$rootfs_dir/usr/share/icons" \
+              "$rootfs_dir/usr/share/i18n" \
+              "$rootfs_dir/var/lib/ca-certificates" \
+              "$rootfs_dir/root/.gnupg" \
+              "$rootfs_dir/root/.dotnet" \
+              "$rootfs_dir/usr/share/licenses/device-mapper-libs"
+            find "$rootfs_dir" -type l -delete
+            find "$rootfs_dir" \( \
+              -iname '*.jpg' -o -iname '*.jpeg' -o -iname '*.png' -o -iname '*.gif' -o \
+              -iname '*.bmp' -o -iname '*.tiff' -o -iname '*.ico' -o -iname '*.svg' -o \
+              -iname '*.mp3' -o -iname '*.wav' -o -iname '*.mp4' -o -iname '*.avi' -o \
+              -iname '*.mov' -o -iname '*.ttf' -o -iname '*.woff' -o -iname '*.woff2' -o \
+              -iname '*.eot' \
+            \) -delete
           }
           docker pull ubuntu:latest
           docker save -o /tmp/ubuntu.tar ubuntu:latest
