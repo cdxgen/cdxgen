@@ -36,7 +36,7 @@ build_binary() {
 
 rm -rf \
   *.cdx.json \
-  ADVANCED.md \
+  *.md \
   ci \
   contrib \
   devenv.* \
@@ -49,6 +49,9 @@ rm -rf \
   pnpm-workspace.yaml \
   .versions \
   upx-5.1.0*
+
+find lib -name "*.poku.js" -exec rm -f {} +
+rm -rf types
 
 pnpm install:prod --config.node-linker=hoisted
 rm -rf .pnpm-store
@@ -65,4 +68,3 @@ pnpm install:prod --config.node-linker=hoisted --no-optional
 rm -rf .pnpm-store
 
 build_binary cdxgen-slim .cdxgen-slim-metadata.json bin/cdxgen.js
-

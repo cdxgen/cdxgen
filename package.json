@@ -98,6 +98,7 @@
   "files": [
     "*.js",
     "lib/**",
+    "!lib/**/*.poku.js",
     "bin/",
     "data/",
     "types/",
