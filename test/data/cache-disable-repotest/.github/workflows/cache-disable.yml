@@ -1,0 +1,17 @@
+name: Cache disable fixture
+on: push
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          package-manager-cache: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: false
+      - run: echo "fixture"
