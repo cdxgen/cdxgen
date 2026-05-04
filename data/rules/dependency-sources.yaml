@@ -2,21 +2,23 @@
 # Category: dependency-source
 # Evaluates package manager data for non-registry, local, or mutable sources
 - id: PKG-001
-  name: "Install script from non-registry source"
-  description: "npm packages with install scripts from git/file/local sources increase supply chain attack surface"
+  name: "Install script from direct manifest source"
+  description: "npm packages with install scripts declared from git, URL, or local path sources in the manifest increase supply chain attack surface"
   severity: high
   category: dependency-source
   condition: |
     components[
       $prop($, 'cdx:npm:hasInstallScript') = 'true'
-      and $prop($, 'cdx:npm:isRegistryDependency') = 'false'
+      and $hasProp($, 'cdx:npm:manifestSourceType')
     ]
   location: |
     { "bomRef": $."bom-ref", "purl": purl }
-  message: "npm package '{{ name }}@{{ version }}' executes install script from non-registry source"
-  mitigation: "Avoid git/file dependencies with lifecycle hooks; use registry dependencies or vendor explicitly"
+  message: "npm package '{{ name }}@{{ version }}' executes install script from manifest-declared {{ $prop($, 'cdx:npm:manifestSourceType') }} source"
+  mitigation: "Avoid git, URL, or local-path dependencies with lifecycle hooks; use registry-published dependencies or vendor explicitly"
   evidence: |
     {
+      "manifestSourceType": $prop($, 'cdx:npm:manifestSourceType'),
+      "manifestSource": $prop($, 'cdx:npm:manifestSource'),
       "riskyScripts": $prop($, 'cdx:npm:risky_scripts'),
       "resolvedPath": $prop($, 'cdx:npm:resolvedPath'),
       "isLink": $prop($, 'cdx:npm:isLink')
@@ -161,4 +163,24 @@
       "path": $prop($, 'cdx:cargo:path'),
       "dependencyKind": $prop($, 'cdx:cargo:dependencyKind'),
       "target": $prop($, 'cdx:cargo:target')
+    }
+- id: PKG-009
+  name: "Python dependency uses direct manifest source"
+  description: "Python dependencies declared via git, direct URL, or local path in requirements or pyproject files bypass normal registry version mediation"
+  severity: high
+  category: dependency-source
+  condition: |
+    components[
+      $hasProp($, 'cdx:pypi:manifestSourceType')
+    ]
+  location: |
+    { "bomRef": $."bom-ref", "purl": purl }
+  message: "Python package '{{ name }}@{{ version }}' is declared from manifest {{ $prop($, 'cdx:pypi:manifestSourceType') }} source '{{ $prop($, 'cdx:pypi:manifestSource') }}'"
+  mitigation: "Prefer registry-published releases for production builds, or pin and review direct git/URL/path sources explicitly"
+  evidence: |
+    {
+      "manifestSourceType": $prop($, 'cdx:pypi:manifestSourceType'),
+      "manifestSource": $prop($, 'cdx:pypi:manifestSource'),
+      "registry": $prop($, 'cdx:pypi:registry'),
+      "resolvedFrom": $prop($, 'cdx:pypi:resolved_from')
     }
