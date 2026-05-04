@@ -50,8 +50,8 @@ assert_same_component_signature() {
 
   expected="$1"
   actual="$2"
-  expected_sig="$(mktemp)"
-  actual_sig="$(mktemp)"
+  expected_sig="$(mktemp -p "$TEST_TMP_DIR" expected-sig.XXXXXX)"
+  actual_sig="$(mktemp -p "$TEST_TMP_DIR" actual-sig.XXXXXX)"
   component_property_signature "$expected" >"$expected_sig"
   component_property_signature "$actual" >"$actual_sig"
   if ! diff -u "$expected_sig" "$actual_sig"; then
