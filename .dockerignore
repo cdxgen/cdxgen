@@ -5,7 +5,8 @@
 !ci/images/nuget/**
 !data/*
 !index.cjs
-!lib/*
+!lib/**
+lib/**/*.poku.js
 !LICENSE
 !package.json
 !plugins/**
@@ -13,4 +14,3 @@ plugins/.gitkeep
 plugins/.npmignore
 plugins/**/node_modules
 !pnpm-lock.yaml
-!*.md

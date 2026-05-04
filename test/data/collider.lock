@@ -1,0 +1,22 @@
+{
+  "version": 1,
+  "dependencies": {
+    "fmt": {
+      "version": "11.0.2",
+      "wrap_hash": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "origin": "https://packages.example.com/collider/v2/"
+    },
+    "spdlog": {
+      "version": "1.15.0",
+      "wrap_hash": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "origin": "https://packages.example.com/collider/v2/"
+    }
+  },
+  "packages": {
+    "fast_float": {
+      "version": "8.0.2",
+      "wrap_hash": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+      "origin": "https://wrapdb.mesonbuild.com/v2/"
+    }
+  }
+}

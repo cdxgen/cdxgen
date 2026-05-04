@@ -33,13 +33,14 @@ function Invoke-BinaryBuild {
 }
 
 $cleanupTargets = @(
-  "ADVANCED.md",
+  "*.md",
   "ci",
   "contrib",
   "devenv.*",
   "pyproject.toml",
   "renovate.json",
   "test",
+  "types",
   "tools_config",
   "uv.lock",
   "pnpm-workspace.yaml"
@@ -47,6 +48,10 @@ $cleanupTargets = @(
 
 foreach ($target in $cleanupTargets) {
   Remove-Item -Path $target -Force -Recurse -ErrorAction SilentlyContinue
+}
+
+Get-ChildItem -Path lib -Filter "*.poku.js" -Recurse | ForEach-Object {
+  Remove-Item -Path $_.FullName -Force -ErrorAction SilentlyContinue
 }
 
 pnpm install:prod --config.node-linker=hoisted
@@ -64,4 +69,3 @@ pnpm install:prod --config.node-linker=hoisted --no-optional
 Remove-Item -Path .pnpm-store -Force -Recurse -ErrorAction SilentlyContinue
 
 Invoke-BinaryBuild -Output "cdxgen-slim" -MetadataFile ".cdxgen-slim-metadata.json" -EntryPoint "bin/cdxgen.js"
-

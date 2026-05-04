@@ -176,6 +176,8 @@ Trust boundary 5: cdxgen container ←→ container host
 
 - `CDXGEN_ALLOWED_HOSTS` restricts `cdxgenAgent` outbound connections
 - `CDXGEN_SERVER_ALLOWED_HOSTS` restricts Git clone target hosts
+- Server-side Dependency-Track submission host checks require exact matches or real subdomain matches for wildcard entries (for example, `*.example.com` matches `api.example.com` but not `evil-example.com`)
+- Dependency-Track submission redirects are disabled so an allowlisted host cannot bounce uploads to a different destination
 - Secure mode enforces HTTPS-only
 - Redirect following is disabled in secure mode
 
@@ -328,6 +330,11 @@ Trust boundary 5: cdxgen container ←→ container host
 - Warning when `--include-formulation` is used with `--server-url` (formulation may contain emails and secrets)
 - In secure mode, using `--include-formulation` with `--server-url` calls `process.exit(1)` after the warning, preventing automatic upload of formulation data
 - `auditEnvironment` detects and warns about credential-like environment variables
+- Secret-bearing BOM metadata values are sanitized before emission in AI/MCP inventory and Chrome extension metadata flows:
+  - URLs and URIs drop userinfo, query strings, and fragments
+  - inline credential patterns are redacted
+  - raw command strings are reduced to safer summaries such as the executable name
+  - dangerous structured keys such as `__proto__`, `constructor`, and `prototype` are removed before JSON serialization
 
 **Residual risk:** Medium — SBOMs inherently contain metadata about the project. Users should review SBOMs before sharing, especially when formulation data is included.
 
@@ -381,7 +388,7 @@ _TB = Trust Boundary (see Trust Boundaries section above)_
 | Control                  | Implementation                                                            | Threat(s) Addressed          |
 | ------------------------ | ------------------------------------------------------------------------- | ---------------------------- |
 | Command allowlisting     | `CDXGEN_ALLOWED_COMMANDS` + `safeSpawnSync`                               | T1.1, T1.2                   |
-| Host allowlisting        | `CDXGEN_ALLOWED_HOSTS` + `CDXGEN_GIT_ALLOWED_HOSTS` + `cdxgenAgent` hooks | T2.3, T2.2, T2.6             |
+| Host allowlisting        | `CDXGEN_ALLOWED_HOSTS` + `CDXGEN_GIT_ALLOWED_HOSTS` + `cdxgenAgent` hooks; server-side Dependency-Track submission uses strict wildcard subdomain matching | T2.3, T2.2, T2.6 |
 | Path allowlisting        | `CDXGEN_SERVER_ALLOWED_PATHS` + `isAllowedPath`                           | T2.1                         |
 | Node.js permission model | `--permission` flags in `NODE_OPTIONS`                                    | T1.4, T5.1                   |
 | Secure mode              | `CDXGEN_SECURE_MODE=true`                                                 | T1.2, T2.2, T2.3, T6.2       |
@@ -389,6 +396,7 @@ _TB = Trust Boundary (see Trust Boundaries section above)_
 | Unicode validation       | `hasDangerousUnicode()`, `isValidDriveRoot()`                             | T1.4, T2.1                   |
 | Git hardening            | `validateAndRejectGitSource()`, hardened clone config                     | T1.5, T2.2, T2.6             |
 | Safe wrappers            | `safeExistsSync`, `safeMkdirSync`, `safeSpawnSync`                        | T1.1, T1.4                   |
+| BOM metadata sanitization | URL scrubbing, inline secret redaction, command summarization, structured-key filtering | T6.1, T2.3 |
 | Structured logging       | `thoughtLog`, `traceLog`, `commandsExecuted`, `remoteHostsAccessed`       | Auditability for all threats |
 | Dependency pinning       | `pnpm-lock.yaml`, SHA-pinned Actions, SHA-pinned base images              | T3.1, T3.2, T4.1             |
 | Provenance attestation   | `NPM_CONFIG_PROVENANCE=true`                                              | T4.3                         |
@@ -404,4 +412,5 @@ _TB = Trust Boundary (see Trust Boundaries section above)_
 5. **Sandbox untrusted projects** — Scan untrusted code in containers or ephemeral CI environments, not on developer machines.
 6. **Review environment** — Check `auditEnvironment` output for warnings. Remediate HIGH severity findings before production use.
 7. **Enable trace logging in CI** — Set `CDXGEN_TRACE_MODE=true` in CI pipelines for auditability of commands and network access.
-8. **Keep cdxgen updated** — Apply updates promptly, especially those that reference security fixes.
+8. **Review generated metadata before sharing** — Even with built-in redaction, inspect BOM properties when scanning AI/MCP configs, agent instructions, or browser extension manifests.
+9. **Keep cdxgen updated** — Apply updates promptly, especially those that reference security fixes.

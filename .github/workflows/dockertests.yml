@@ -8,6 +8,7 @@ on:
       - '.nvmrc'
       - '.pnpmfile.cjs'
       - 'bin/**'
+      - 'ci/**'
       - 'data/**'
       - 'index.cjs'
       - 'lib/**'
@@ -118,23 +119,7 @@ jobs:
         env:
           CI: true
       - name: dockertests
-        run: |
-          source ci/assertions.sh
-          docker pull ubuntu:latest
-          docker save -o /tmp/ubuntu.tar ubuntu:latest
-          docker rmi ubuntu:latest
-          bin/cdxgen.js /tmp/ubuntu.tar -p -t docker -o bomresults/bom-ubuntu.tar.json --fail-on-error
-          bin/cdxgen.js /tmp/ubuntu.tar -p -t docker -o bomresults/bom-ubuntu.tar-audit.json --bom-audit --bom-audit-categories container-risk --fail-on-error
-          assert_container_audit_bom bomresults/bom-ubuntu.tar-audit.json
-          assert_trivy_tool_identity_bom bomresults/bom-ubuntu.tar-audit.json
-          docker pull alpine:latest
-          docker save -o /tmp/alpine.tar alpine:latest
-          docker rmi alpine:latest
-          bin/cdxgen.js /tmp/alpine.tar -p -t docker -o bomresults/bom-alpine.tar.json --fail-on-error
-          bin/cdxgen.js /tmp/alpine.tar -p -t docker -o bomresults/bom-alpine.tar-audit.json --bom-audit --bom-audit-categories container-risk --fail-on-error
-          assert_container_audit_bom bomresults/bom-alpine.tar-audit.json
-          assert_trivy_tool_identity_bom bomresults/bom-alpine.tar-audit.json
-          ls -ltr bomresults
+        run: bash ci/dockertests.sh docker
         env:
           CDXGEN_DEBUG_MODE: debug
   linux-podman-tests:
@@ -158,54 +143,7 @@ jobs:
           CI: true
           CDXGEN_TEMP_DIR: ${{ runner.temp }}/cdxgen-podmantests
       - name: podmantests
-        run: |
-          source ci/assertions.sh
-          if ! command -v podman >/dev/null 2>&1; then
-            echo "Podman is not installed on this runner. Skipping podman coverage."
-            exit 0
-          fi
-          docker pull alpine:latest
-          bin/cdxgen.js alpine:latest -p -t docker -o bomresults/bom-docker-alpine-audit.json --bom-audit --bom-audit-categories container-risk --fail-on-error
-          assert_container_audit_bom bomresults/bom-docker-alpine-audit.json
-          assert_trivy_tool_identity_bom bomresults/bom-docker-alpine-audit.json
-          docker save -o /tmp/docker-alpine.tar alpine:latest
-          docker rmi alpine:latest
-          bin/cdxgen.js /tmp/docker-alpine.tar -p -t docker -o bomresults/bom-docker-alpine-tar-audit.json --bom-audit --bom-audit-categories container-risk --fail-on-error
-          assert_container_audit_bom bomresults/bom-docker-alpine-tar-audit.json
-          assert_trivy_tool_identity_bom bomresults/bom-docker-alpine-tar-audit.json
-          export XDG_RUNTIME_DIR="${XDG_RUNTIME_DIR:-/run/user/$(id -u)}"
-          mkdir -p "$XDG_RUNTIME_DIR/podman"
-          podman system service -t 0 "unix://$XDG_RUNTIME_DIR/podman/podman.sock" >/tmp/podman-service.log 2>&1 &
-          for _ in $(seq 1 10); do
-            if [ -S "$XDG_RUNTIME_DIR/podman/podman.sock" ]; then
-              break
-            fi
-            sleep 1
-          done
-          if [ ! -S "$XDG_RUNTIME_DIR/podman/podman.sock" ]; then
-            echo "Podman socket is unavailable. Skipping podman coverage."
-            cat /tmp/podman-service.log || true
-            exit 0
-          fi
-          export DOCKER_HOST="unix://$XDG_RUNTIME_DIR/podman/podman.sock"
-          podman pull docker.io/library/alpine:latest
-          bin/cdxgen.js docker.io/library/alpine:latest -p -t docker -o bomresults/bom-podman-alpine.json --fail-on-error
-          bin/cdxgen.js docker.io/library/alpine:latest -p -t docker -o bomresults/bom-podman-alpine-audit.json --bom-audit --bom-audit-categories container-risk --fail-on-error
-          assert_container_audit_bom bomresults/bom-podman-alpine-audit.json
-          assert_same_container_audit_signature bomresults/bom-docker-alpine-audit.json bomresults/bom-podman-alpine-audit.json
-          podman save -q --format docker-archive -o /tmp/podman-docker-archive.tar docker.io/library/alpine:latest
-          bin/cdxgen.js /tmp/podman-docker-archive.tar -p -t docker -o bomresults/bom-podman-docker-archive.json --fail-on-error
-          bin/cdxgen.js /tmp/podman-docker-archive.tar -p -t docker -o bomresults/bom-podman-docker-archive-audit.json --bom-audit --bom-audit-categories container-risk --fail-on-error
-          assert_container_audit_bom bomresults/bom-podman-docker-archive-audit.json
-          assert_same_container_audit_signature bomresults/bom-docker-alpine-tar-audit.json bomresults/bom-podman-docker-archive-audit.json
-          podman save -q --format oci-archive -o /tmp/podman-oci-archive.tar docker.io/library/alpine:latest
-          podman rmi docker.io/library/alpine:latest
-          bin/cdxgen.js /tmp/podman-oci-archive.tar -p -t docker -o bomresults/bom-podman-oci-archive.json --fail-on-error
-          bin/cdxgen.js /tmp/podman-oci-archive.tar -p -t docker -o bomresults/bom-podman-oci-archive-audit.json --bom-audit --bom-audit-categories container-risk --fail-on-error
-          assert_container_audit_bom bomresults/bom-podman-oci-archive-audit.json
-          assert_same_container_audit_signature bomresults/bom-docker-alpine-tar-audit.json bomresults/bom-podman-oci-archive-audit.json
-          rm -f /tmp/docker-alpine.tar /tmp/podman-docker-archive.tar /tmp/podman-oci-archive.tar
-          ls -ltr bomresults
+        run: bash ci/dockertests.sh podman
         env:
           CDXGEN_DEBUG_MODE: debug
   linux-nerdctl-tests:
@@ -229,39 +167,7 @@ jobs:
           CI: true
           CDXGEN_TEMP_DIR: ${{ runner.temp }}/cdxgen-nerdctltests
       - name: nerdctltests
-        run: |
-          source ci/assertions.sh
-          if ! command -v nerdctl >/dev/null 2>&1; then
-            echo "nerdctl is not installed on this runner. Skipping nerdctl coverage."
-            exit 0
-          fi
-          if ! nerdctl info >/dev/null 2>&1; then
-            echo "nerdctl runtime is unavailable on this runner. Skipping nerdctl coverage."
-            exit 0
-          fi
-          docker pull alpine:latest
-          bin/cdxgen.js alpine:latest -p -t docker -o bomresults/bom-docker-alpine-audit.json --bom-audit --bom-audit-categories container-risk --fail-on-error
-          assert_container_audit_bom bomresults/bom-docker-alpine-audit.json
-          assert_trivy_tool_identity_bom bomresults/bom-docker-alpine-audit.json
-          docker save -o /tmp/docker-alpine.tar alpine:latest
-          docker rmi alpine:latest
-          bin/cdxgen.js /tmp/docker-alpine.tar -p -t docker -o bomresults/bom-docker-alpine-tar-audit.json --bom-audit --bom-audit-categories container-risk --fail-on-error
-          assert_container_audit_bom bomresults/bom-docker-alpine-tar-audit.json
-          assert_trivy_tool_identity_bom bomresults/bom-docker-alpine-tar-audit.json
-          export DOCKER_CMD=nerdctl
-          nerdctl pull docker.io/library/alpine:latest
-          bin/cdxgen.js docker.io/library/alpine:latest -p -t docker -o bomresults/bom-nerdctl-alpine.json --fail-on-error
-          bin/cdxgen.js docker.io/library/alpine:latest -p -t docker -o bomresults/bom-nerdctl-alpine-audit.json --bom-audit --bom-audit-categories container-risk --fail-on-error
-          assert_container_audit_bom bomresults/bom-nerdctl-alpine-audit.json
-          assert_same_container_audit_signature bomresults/bom-docker-alpine-audit.json bomresults/bom-nerdctl-alpine-audit.json
-          nerdctl save -o /tmp/nerdctl-alpine.tar docker.io/library/alpine:latest
-          nerdctl rmi docker.io/library/alpine:latest
-          bin/cdxgen.js /tmp/nerdctl-alpine.tar -p -t docker -o bomresults/bom-nerdctl-alpine-tar.json --fail-on-error
-          bin/cdxgen.js /tmp/nerdctl-alpine.tar -p -t docker -o bomresults/bom-nerdctl-alpine-tar-audit.json --bom-audit --bom-audit-categories container-risk --fail-on-error
-          assert_container_audit_bom bomresults/bom-nerdctl-alpine-tar-audit.json
-          assert_same_container_audit_signature bomresults/bom-docker-alpine-tar-audit.json bomresults/bom-nerdctl-alpine-tar-audit.json
-          rm -f /tmp/docker-alpine.tar /tmp/nerdctl-alpine.tar
-          ls -ltr bomresults
+        run: bash ci/dockertests.sh nerdctl
         env:
           CDXGEN_DEBUG_MODE: debug
   os-tests:
