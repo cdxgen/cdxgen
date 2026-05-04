@@ -96,7 +96,7 @@ run_docker_tests() {
   bin/cdxgen.js "$ubuntu_archive" -p -t docker -o bomresults/bom-ubuntu.tar.json --fail-on-error
   bin/cdxgen.js "$ubuntu_archive" -p -t docker -o bomresults/bom-ubuntu.tar-audit.json --bom-audit --bom-audit-categories container-risk --fail-on-error
   assert_container_audit_bom bomresults/bom-ubuntu.tar-audit.json
-  python "$SCRIPT_DIR/reconstruct-staged-rootfs.py" "$ubuntu_archive" "$ubuntu_extracted_dir" "$ubuntu_rootfs_dir"
+  python3 "$SCRIPT_DIR/reconstruct-staged-rootfs.py" "$ubuntu_archive" "$ubuntu_extracted_dir" "$ubuntu_rootfs_dir"
   bin/cdxgen.js "$ubuntu_rootfs_dir" -p -t rootfs -o bomresults/bom-ubuntu.rootfs.json --fail-on-error
   assert_same_component_signature bomresults/bom-ubuntu.tar.json bomresults/bom-ubuntu.rootfs.json
 
@@ -106,7 +106,7 @@ run_docker_tests() {
   bin/cdxgen.js "$alpine_archive" -p -t docker -o bomresults/bom-alpine.tar.json --fail-on-error
   bin/cdxgen.js "$alpine_archive" -p -t docker -o bomresults/bom-alpine.tar-audit.json --bom-audit --bom-audit-categories container-risk --fail-on-error
   assert_container_audit_bom bomresults/bom-alpine.tar-audit.json
-  python "$SCRIPT_DIR/reconstruct-staged-rootfs.py" "$alpine_archive" "$alpine_extracted_dir" "$alpine_rootfs_dir"
+  python3 "$SCRIPT_DIR/reconstruct-staged-rootfs.py" "$alpine_archive" "$alpine_extracted_dir" "$alpine_rootfs_dir"
   bin/cdxgen.js "$alpine_rootfs_dir" -p -t rootfs -o bomresults/bom-alpine.rootfs.json --fail-on-error
   assert_same_component_signature bomresults/bom-alpine.tar.json bomresults/bom-alpine.rootfs.json
 }

@@ -72,7 +72,20 @@ SKIP_TYPES = {
 
 
 def normalize_name(name):
-    return str(PurePosixPath(name.lstrip("./")))
+    name = name.removeprefix("./")
+    path = PurePosixPath(name)
+    if path.is_absolute():
+        raise ValueError(f"Absolute paths are not allowed: {name}")
+    normalized_parts = []
+    for part in path.parts:
+        if part in ("", "."):
+            continue
+        if part == "..":
+            raise ValueError(f"Parent directory segments are not allowed: {name}")
+        normalized_parts.append(part)
+    if not normalized_parts:
+        return ""
+    return str(PurePosixPath(*normalized_parts))
 
 
 def remove_path(path):
@@ -80,6 +93,28 @@ def remove_path(path):
         path.unlink(missing_ok=True)
     elif path.is_dir():
         shutil.rmtree(path, ignore_errors=True)
+
+
+def copy_regular_file(tar_handle, member, destination):
+    destination.parent.mkdir(parents=True, exist_ok=True)
+    source = tar_handle.extractfile(member)
+    if source is None:
+        return
+    with source, destination.open("wb") as output_file:
+        shutil.copyfileobj(source, output_file)
+    os.chmod(destination, stat.S_IMODE(member.mode))
+
+
+def extract_safe_members(tar_handle, destination_dir):
+    for member in tar_handle.getmembers():
+        normalized = normalize_name(member.name)
+        destination = destination_dir if not normalized else destination_dir / normalized
+        if member.isdir():
+            destination.mkdir(parents=True, exist_ok=True)
+            continue
+        if not member.isreg():
+            continue
+        copy_regular_file(tar_handle, member, destination)
 
 
 def reconstruct_staged_rootfs(archive, extracted_dir, rootfs_dir):
@@ -128,11 +163,14 @@ def reconstruct_staged_rootfs(archive, extracted_dir, rootfs_dir):
         return not (member.isdir() or member.isreg())
 
     with tarfile.open(archive) as archive_tar:
-        archive_tar.extractall(extracted_dir)
+        extract_safe_members(archive_tar, extracted_dir)
 
     manifest = json.loads((extracted_dir / "manifest.json").read_text())
     for layer in manifest[0]["Layers"]:
-        with tarfile.open(extracted_dir / layer) as layer_tar:
+        normalized_layer = normalize_name(layer)
+        if not normalized_layer:
+            raise ValueError("Layer path is empty")
+        with tarfile.open(extracted_dir / normalized_layer) as layer_tar:
             members = layer_tar.getmembers()
             for member in members:
                 apply_whiteout(member.name)
@@ -143,13 +181,7 @@ def reconstruct_staged_rootfs(archive, extracted_dir, rootfs_dir):
                 if member.isdir():
                     destination.mkdir(parents=True, exist_ok=True)
                     continue
-                destination.parent.mkdir(parents=True, exist_ok=True)
-                source = layer_tar.extractfile(member)
-                if source is None:
-                    continue
-                with source, destination.open("wb") as output_file:
-                    shutil.copyfileobj(source, output_file)
-                os.chmod(destination, stat.S_IMODE(member.mode))
+                copy_regular_file(layer_tar, member, destination)
 
 
 if __name__ == "__main__":
