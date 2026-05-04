@@ -7,7 +7,6 @@ REPO_ROOT="$(cd -- "$SCRIPT_DIR/.." && pwd)"
 readonly PODMAN_SOCKET_RETRIES=10
 
 source "$SCRIPT_DIR/assertions.sh"
-
 TEST_TMP_DIR=""
 PODMAN_SERVICE_PID=""
 
