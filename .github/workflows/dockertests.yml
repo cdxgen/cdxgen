@@ -203,7 +203,7 @@ jobs:
                   fi
                   target_path="$rootfs_dir"
                   relative_dir="${entry%/*}"
-                  if [ "$relative_dir" != "$entry" ]; then
+                  if [ ! "$relative_dir" = "$entry" ]; then
                     target_path="$target_path/${relative_dir#./}"
                   fi
                   rm -rf "$target_path/${entry_name#.wh.}"
