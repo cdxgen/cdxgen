@@ -172,82 +172,137 @@ jobs:
             rm -rf "$extracted_dir" "$rootfs_dir"
             mkdir -p "$extracted_dir" "$rootfs_dir"
             tar -xf "$archive" -C "$extracted_dir"
-            jq -r '.[0].Layers[]' "$extracted_dir/manifest.json" | while read -r layer; do
-              apply_layer_whiteouts "$extracted_dir/$layer" "$rootfs_dir"
-              tar --exclude='.wh.*' --exclude='*/.wh.*' -xf "$extracted_dir/$layer" -C "$rootfs_dir"
-            done
-            prune_reconstructed_rootfs "$rootfs_dir"
-          }
-          apply_layer_whiteouts() {
-            local layer_tar rootfs_dir entry entry_name relative_dir target_dir target_path
-            layer_tar="$1"
-            rootfs_dir="$2"
-            while read -r entry; do
-              entry_name="${entry##*/}"
-              case "$entry_name" in
-                .wh..wh..opq)
-                  relative_dir="${entry%/.wh..wh..opq}"
-                  if [ "$relative_dir" = "$entry" ]; then
-                    relative_dir=""
-                  fi
-                  target_dir="$rootfs_dir"
-                  if [ -n "$relative_dir" ]; then
-                    target_dir="$rootfs_dir/${relative_dir#./}"
-                  fi
-                  if [ -d "$target_dir" ]; then
-                    find "$target_dir" -mindepth 1 -maxdepth 1 -exec rm -rf {} +
-                  fi
-                  ;;
-                .wh.*)
-                  if [ "$entry_name" = ".wh..wh..opq" ]; then
-                    continue
-                  fi
-                  target_path="$rootfs_dir"
-                  relative_dir="${entry%/*}"
-                  if [ ! "$relative_dir" = "$entry" ]; then
-                    target_path="$target_path/${relative_dir#./}"
-                  fi
-                  rm -rf "$target_path/${entry_name#.wh.}"
-                  ;;
-              esac
-            done < <(tar -tf "$layer_tar")
-          }
-          prune_reconstructed_rootfs() {
-            local rootfs_dir
-            rootfs_dir="$1"
-            rm -rf \
-              "$rootfs_dir/etc/machine-id" \
-              "$rootfs_dir/etc/gshadow" \
-              "$rootfs_dir/etc/shadow" \
-              "$rootfs_dir/etc/passwd" \
-              "$rootfs_dir/etc/ssl/certs" \
-              "$rootfs_dir/etc/pki/ca-trust" \
-              "$rootfs_dir/usr/lib/systemd" \
-              "$rootfs_dir/usr/lib64/libdevmapper.so" \
-              "$rootfs_dir/usr/sbin" \
-              "$rootfs_dir/cacerts" \
-              "$rootfs_dir/ssl/certs" \
-              "$rootfs_dir/logs" \
-              "$rootfs_dir/dev" \
-              "$rootfs_dir/proc" \
-              "$rootfs_dir/sys" \
-              "$rootfs_dir/usr/share/zoneinfo" \
-              "$rootfs_dir/usr/share/doc" \
-              "$rootfs_dir/usr/share/man" \
-              "$rootfs_dir/usr/share/icons" \
-              "$rootfs_dir/usr/share/i18n" \
-              "$rootfs_dir/var/lib/ca-certificates" \
-              "$rootfs_dir/root/.gnupg" \
-              "$rootfs_dir/root/.dotnet" \
-              "$rootfs_dir/usr/share/licenses/device-mapper-libs"
-            find "$rootfs_dir" -type l -delete
-            find "$rootfs_dir" \( \
-              -iname '*.jpg' -o -iname '*.jpeg' -o -iname '*.png' -o -iname '*.gif' -o \
-              -iname '*.bmp' -o -iname '*.tiff' -o -iname '*.ico' -o -iname '*.svg' -o \
-              -iname '*.mp3' -o -iname '*.wav' -o -iname '*.mp4' -o -iname '*.avi' -o \
-              -iname '*.mov' -o -iname '*.ttf' -o -iname '*.woff' -o -iname '*.woff2' -o \
-              -iname '*.eot' \
-            \) -delete
+            python - "$extracted_dir" "$rootfs_dir" <<'PY'
+import json
+import os
+import shutil
+import stat
+import sys
+import tarfile
+from pathlib import Path, PurePosixPath
+
+extracted_dir = Path(sys.argv[1])
+rootfs_dir = Path(sys.argv[2])
+
+EXTRACT_EXCLUDE_PATHS = (
+    "etc/machine-id",
+    "etc/gshadow",
+    "etc/shadow",
+    "etc/passwd",
+    "etc/ssl/certs",
+    "etc/pki/ca-trust",
+    "usr/lib/systemd/",
+    "usr/lib64/libdevmapper.so",
+    "usr/sbin/",
+    "cacerts",
+    "ssl/certs",
+    "logs/",
+    "dev/",
+    "proc/",
+    "sys/",
+    "usr/share/zoneinfo/",
+    "usr/share/doc/",
+    "usr/share/man/",
+    "usr/share/icons/",
+    "usr/share/i18n/",
+    "var/lib/ca-certificates",
+    "root/.gnupg",
+    "root/.dotnet",
+    "usr/share/licenses/device-mapper-libs",
+)
+MEDIA_EXTENSIONS = {
+    ".jpg",
+    ".jpeg",
+    ".png",
+    ".gif",
+    ".bmp",
+    ".tiff",
+    ".ico",
+    ".svg",
+    ".mp3",
+    ".wav",
+    ".mp4",
+    ".avi",
+    ".mov",
+    ".ttf",
+    ".woff",
+    ".woff2",
+    ".eot",
+}
+SKIP_TYPES = {
+    tarfile.BLKTYPE,
+    tarfile.CHRTYPE,
+    tarfile.FIFOTYPE,
+    tarfile.LNKTYPE,
+    tarfile.SYMTYPE,
+}
+
+def normalize_name(name):
+    return str(PurePosixPath(name.lstrip("./")))
+
+def to_rootfs_path(name):
+    normalized = normalize_name(name)
+    if not normalized or normalized == ".":
+        return rootfs_dir
+    return rootfs_dir / normalized
+
+def remove_path(path):
+    if path.is_symlink() or path.is_file():
+        path.unlink(missing_ok=True)
+    elif path.is_dir():
+        shutil.rmtree(path, ignore_errors=True)
+
+def apply_whiteout(member_name):
+    normalized = normalize_name(member_name)
+    if not normalized:
+        return False
+    basename = PurePosixPath(normalized).name
+    if basename == ".wh..wh..opq":
+        opaque_dir = to_rootfs_path(str(PurePosixPath(normalized).parent))
+        if opaque_dir.is_dir():
+            for child in opaque_dir.iterdir():
+                remove_path(child)
+        return True
+    if basename.startswith(".wh."):
+        whiteout_target = PurePosixPath(normalized).parent / basename[4:]
+        remove_path(to_rootfs_path(str(whiteout_target)))
+        return True
+    return False
+
+def should_skip(member):
+    normalized = normalize_name(member.name)
+    basename = PurePosixPath(normalized).name
+    if basename.startswith(".wh."):
+        return True
+    if PurePosixPath(normalized).suffix.lower() in MEDIA_EXTENSIONS:
+        return True
+    if any(excluded in normalized for excluded in EXTRACT_EXCLUDE_PATHS):
+        return True
+    if member.type in SKIP_TYPES:
+        return True
+    return not (member.isdir() or member.isreg())
+
+manifest = json.loads((extracted_dir / "manifest.json").read_text())
+for layer in manifest[0]["Layers"]:
+    with tarfile.open(extracted_dir / layer) as layer_tar:
+        members = layer_tar.getmembers()
+        for member in members:
+            apply_whiteout(member.name)
+        for member in members:
+            if should_skip(member):
+                continue
+            destination = to_rootfs_path(member.name)
+            if member.isdir():
+                destination.mkdir(parents=True, exist_ok=True)
+                continue
+            destination.parent.mkdir(parents=True, exist_ok=True)
+            source = layer_tar.extractfile(member)
+            if source is None:
+                continue
+            with source, destination.open("wb") as output_file:
+                shutil.copyfileobj(source, output_file)
+            os.chmod(destination, stat.S_IMODE(member.mode))
+PY
           }
           docker pull ubuntu:latest
           docker save -o /tmp/ubuntu.tar ubuntu:latest
