@@ -72,7 +72,8 @@ SKIP_TYPES = {
 
 
 def normalize_name(name):
-    name = name.removeprefix("./")
+    if name.startswith("./"):
+        name = name[2:]
     path = PurePosixPath(name)
     if path.is_absolute():
         raise ValueError(f"Absolute paths are not allowed: {name}")
@@ -108,12 +109,14 @@ def copy_regular_file(tar_handle, member, destination):
 def extract_safe_members(tar_handle, destination_dir):
     for member in tar_handle.getmembers():
         normalized = normalize_name(member.name)
+        if not normalized and not member.isdir():
+            raise ValueError(f"Archive member normalized to empty path: {member.name}")
         destination = destination_dir if not normalized else destination_dir / normalized
         if member.isdir():
             destination.mkdir(parents=True, exist_ok=True)
             continue
         if not member.isreg():
-            continue
+            raise ValueError(f"Unsupported archive member type for {member.name}")
         copy_regular_file(tar_handle, member, destination)
 
 
@@ -169,7 +172,7 @@ def reconstruct_staged_rootfs(archive, extracted_dir, rootfs_dir):
     for layer in manifest[0]["Layers"]:
         normalized_layer = normalize_name(layer)
         if not normalized_layer:
-            raise ValueError("Layer path is empty")
+            raise ValueError(f"Layer path normalized to empty: {layer}")
         with tarfile.open(extracted_dir / normalized_layer) as layer_tar:
             members = layer_tar.getmembers()
             for member in members:
