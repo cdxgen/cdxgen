@@ -194,4 +194,11 @@ def reconstruct_staged_rootfs(archive, extracted_dir, rootfs_dir):
 
 
 if __name__ == "__main__":
+    usage = "Usage: reconstruct-staged-rootfs.py <archive> <extracted_dir> <rootfs_dir>"
+    if len(sys.argv) == 2 and sys.argv[1] in {"-h", "--help"}:
+        print(usage)
+        sys.exit(0)
+    if len(sys.argv) != 4:
+        print(f"Error: expected 3 arguments.\n{usage}", file=sys.stderr)
+        sys.exit(1)
     reconstruct_staged_rootfs(sys.argv[1], sys.argv[2], sys.argv[3])
