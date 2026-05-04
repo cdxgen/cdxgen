@@ -173,8 +173,43 @@ jobs:
             mkdir -p "$extracted_dir" "$rootfs_dir"
             tar -xf "$archive" -C "$extracted_dir"
             jq -r '.[0].Layers[]' "$extracted_dir/manifest.json" | while read -r layer; do
-              tar -xf "$extracted_dir/$layer" -C "$rootfs_dir"
+              apply_layer_whiteouts "$extracted_dir/$layer" "$rootfs_dir"
+              tar --exclude='.wh.*' --exclude='*/.wh.*' -xf "$extracted_dir/$layer" -C "$rootfs_dir"
             done
+          }
+          apply_layer_whiteouts() {
+            local layer_tar rootfs_dir entry entry_name relative_dir target_dir target_path
+            layer_tar="$1"
+            rootfs_dir="$2"
+            while read -r entry; do
+              entry_name="${entry##*/}"
+              case "$entry_name" in
+                .wh..wh..opq)
+                  relative_dir="${entry%/.wh..wh..opq}"
+                  if [ "$relative_dir" = "$entry" ]; then
+                    relative_dir=""
+                  fi
+                  target_dir="$rootfs_dir"
+                  if [ -n "$relative_dir" ]; then
+                    target_dir="$rootfs_dir/${relative_dir#./}"
+                  fi
+                  if [ -d "$target_dir" ]; then
+                    find "$target_dir" -mindepth 1 -maxdepth 1 -exec rm -rf {} +
+                  fi
+                  ;;
+                .wh.*)
+                  if [ "$entry_name" = ".wh..wh..opq" ]; then
+                    continue
+                  fi
+                  target_path="$rootfs_dir"
+                  relative_dir="${entry%/*}"
+                  if [ "$relative_dir" != "$entry" ]; then
+                    target_path="$target_path/${relative_dir#./}"
+                  fi
+                  rm -rf "$target_path/${entry_name#.wh.}"
+                  ;;
+              esac
+            done < <(tar -tf "$layer_tar")
           }
           docker pull ubuntu:latest
           docker save -o /tmp/ubuntu.tar ubuntu:latest
