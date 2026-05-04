@@ -64,7 +64,7 @@ _*NOTE:*_
 > - sdkman must be installed and setup to use the new Java with version types such as java8, java11.
 > - While python3.6 is supported (-t python36), dependency tree construction requires python >= 3.9
 > - rbenv must be installed and setup to use the new Ruby with version types such as ruby2.5.4, ruby3.4.0
-> - For `collider.lock`, cdxgen catalogs direct dependencies plus the locked package inventory, but Collider lockfiles do not currently encode full package-to-package transitive edges. cdxgen therefore models the graph as completely as the source format allows without inventing unsupported relationships. See [8] and [9].
+> - For `collider.lock`, cdxgen captures direct dependencies plus the locked package inventory, but Collider lockfiles do not currently encode full package-to-package transitive edges. cdxgen therefore models the graph as completely as the source format allows without inventing unsupported relationships. See [8] and [9].
 
 Use of the container image is recommended in all these cases, since it has the build tools pre-installed.
 
@@ -78,6 +78,6 @@ _*Footnotes:*_
 - [6] - Supported IDEs: VS Code, VS Code Insiders, VSCodium, Cursor, Windsurf, Positron, Theia, code-server, OpenVSCode Server, Trae, Augment Code. Use `--deep` or `-t ide-extensions` to auto-discover from known IDE locations. Also works with `-t os` via osquery using the `pkg:vscode-extension` purl type.
 - [7] - Supported Chromium-based browsers: Google Chrome (stable/beta/dev/canary), Chromium, Microsoft Edge (stable/beta/dev/canary), Brave (stable/beta/dev/nightly), and Vivaldi (stable/snapshot). This mode is explicit (`-t chrome-extension`) and can scan either installed browser profiles or a directly provided extension path (`manifest.json`, `<version>/`, or `<extension-id>/`). With `-t os`, osquery-discovered Chrome extensions use the same `pkg:chrome-extension` purl type.
 - [8] - Collider-derived provenance and integrity evidence is documented in [CUSTOM_PROPERTIES.md](CUSTOM_PROPERTIES.md), including `cdx:collider:dependencyKind`, origin metadata, and wrap-hash signals used by BOM audit rules.
-- [9] - See the sample [`collider.lock`](../test/data/collider.lock) fixture for the lockfile shape cdxgen consumes: top-level `dependencies` plus a `packages` inventory with wrap metadata, but no full package-to-package transitive edge map.
+- [9] - See the sample [`collider.lock`](../test/data/collider.lock) fixture for the lockfile structure consumed by cdxgen: top-level `dependencies` plus a `packages` inventory with wrap metadata, but no full package-to-package transitive edge map.
 
 <img src="_media/cdxgen-tree.jpg" alt="cdxgen tree" width="256">
