@@ -2,3 +2,4 @@
 name = "cache-disable-repotest"
 version = "1.0.0"
 requires-python = ">=3.12"
+dependencies = ["anyio @ https://files.pythonhosted.org/packages/9e/ef/7a4f225581a0d7886ea28359179cb861d7fbcdefad29663fc1167b86f69f/anyio-4.6.0-py3-none-any.whl"]

@@ -716,21 +716,8 @@
       and $count($$.components[
         $startsWith(purl, 'pkg:pypi/')
         and (
-          $count(externalReferences[
-            type = 'distribution'
-            and (
-              $startsWith($lowercase(url), 'git+')
-              or $startsWith($lowercase(url), 'http://')
-              or $startsWith($lowercase(url), 'https://')
-            )
-          ]) > 0
-          or $contains($lowercase($nullSafeProp($, 'cdx:pylock:vcs')), 'git')
-          or $contains($lowercase($nullSafeProp($, 'cdx:pylock:archive')), 'http://')
-          or $contains($lowercase($nullSafeProp($, 'cdx:pylock:archive')), 'https://')
-          or $contains($lowercase($nullSafeProp($, 'cdx:pylock:sdist')), 'http://')
-          or $contains($lowercase($nullSafeProp($, 'cdx:pylock:sdist')), 'https://')
-          or $contains($lowercase($nullSafeProp($, 'cdx:pylock:wheels')), 'http://')
-          or $contains($lowercase($nullSafeProp($, 'cdx:pylock:wheels')), 'https://')
+          $contains($lowercase($nullSafeProp($, 'cdx:pypi:manifestSourceType')), 'git')
+          or $contains($lowercase($nullSafeProp($, 'cdx:pypi:manifestSourceType')), 'url')
         )
       ]) > 0
     ]
@@ -749,21 +736,8 @@
       "matchingPackages": $$.components[
         $startsWith(purl, 'pkg:pypi/')
         and (
-          $count(externalReferences[
-            type = 'distribution'
-            and (
-              $startsWith($lowercase(url), 'git+')
-              or $startsWith($lowercase(url), 'http://')
-              or $startsWith($lowercase(url), 'https://')
-            )
-          ]) > 0
-          or $contains($lowercase($nullSafeProp($, 'cdx:pylock:vcs')), 'git')
-          or $contains($lowercase($nullSafeProp($, 'cdx:pylock:archive')), 'http://')
-          or $contains($lowercase($nullSafeProp($, 'cdx:pylock:archive')), 'https://')
-          or $contains($lowercase($nullSafeProp($, 'cdx:pylock:sdist')), 'http://')
-          or $contains($lowercase($nullSafeProp($, 'cdx:pylock:sdist')), 'https://')
-          or $contains($lowercase($nullSafeProp($, 'cdx:pylock:wheels')), 'http://')
-          or $contains($lowercase($nullSafeProp($, 'cdx:pylock:wheels')), 'https://')
+          $contains($lowercase($nullSafeProp($, 'cdx:pypi:manifestSourceType')), 'git')
+          or $contains($lowercase($nullSafeProp($, 'cdx:pypi:manifestSourceType')), 'url')
         )
       ].purl
     }
