@@ -305,3 +305,25 @@
         )
       ].$prop($, 'cdx:github:step:command')
     }
+
+- id: INT-014
+  name: "Collider package missing valid wrap hash pin"
+  description: "Collider lock entries should carry a SHA-256 wrap_hash so the selected wrap file remains integrity-pinned and reproducible"
+  severity: high
+  category: package-integrity
+  condition: |
+    components[
+      $hasProp($, 'cdx:collider:dependencyKind')
+      and $prop($, 'cdx:collider:hasWrapHash') = 'false'
+    ]
+  location: |
+    { "bomRef": $."bom-ref", "purl": purl }
+  message: "Collider package '{{ name }}@{{ version }}' is missing a valid wrap hash integrity pin"
+  mitigation: "Recreate collider.lock with valid wrap_hash values and verify the lockfile against the repository before release"
+  evidence: |
+    {
+      "wrapHash": $prop($, 'cdx:collider:wrapHash'),
+      "wrapHashInvalid": $prop($, 'cdx:collider:wrapHashInvalid'),
+      "origin": $prop($, 'cdx:collider:origin'),
+      "dependencyKind": $prop($, 'cdx:collider:dependencyKind')
+    }

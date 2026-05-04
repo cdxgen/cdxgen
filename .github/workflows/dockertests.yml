@@ -135,18 +135,194 @@ jobs:
               return 1
             }
           }
+          component_property_signature() {
+            jq -S '[
+              .components[]? |
+              {
+                bomRef: ."bom-ref",
+                group,
+                name,
+                purl,
+                properties: ((.properties // []) | sort_by(.name, .value)),
+                type,
+                version
+              }
+            ] | sort_by(.bomRef, .type, .group, .name, .version, .purl)' "$1"
+          }
+          assert_same_component_signature() {
+            local expected actual expected_sig actual_sig
+            expected="$1"
+            actual="$2"
+            expected_sig=$(mktemp)
+            actual_sig=$(mktemp)
+            component_property_signature "$expected" > "$expected_sig"
+            component_property_signature "$actual" > "$actual_sig"
+            if ! diff -u "$expected_sig" "$actual_sig"; then
+              echo "Expected matching component/property signature between $expected and $actual"
+              rm -f "$expected_sig" "$actual_sig"
+              return 1
+            fi
+            rm -f "$expected_sig" "$actual_sig"
+          }
+          reconstruct_staged_rootfs() {
+            local archive extracted_dir rootfs_dir
+            archive="$1"
+            extracted_dir="$2"
+            rootfs_dir="$3"
+            rm -rf "$extracted_dir" "$rootfs_dir"
+            mkdir -p "$extracted_dir" "$rootfs_dir"
+            tar -xf "$archive" -C "$extracted_dir"
+            python - "$extracted_dir" "$rootfs_dir" <<'PY'
+import json
+import os
+import shutil
+import stat
+import sys
+import tarfile
+from pathlib import Path, PurePosixPath
+
+extracted_dir = Path(sys.argv[1])
+rootfs_dir = Path(sys.argv[2])
+
+EXTRACT_EXCLUDE_PATHS = (
+    "etc/machine-id",
+    "etc/gshadow",
+    "etc/shadow",
+    "etc/passwd",
+    "etc/ssl/certs",
+    "etc/pki/ca-trust",
+    "usr/lib/systemd/",
+    "usr/lib64/libdevmapper.so",
+    "usr/sbin/",
+    "cacerts",
+    "ssl/certs",
+    "logs/",
+    "dev/",
+    "proc/",
+    "sys/",
+    "usr/share/zoneinfo/",
+    "usr/share/doc/",
+    "usr/share/man/",
+    "usr/share/icons/",
+    "usr/share/i18n/",
+    "var/lib/ca-certificates",
+    "root/.gnupg",
+    "root/.dotnet",
+    "usr/share/licenses/device-mapper-libs",
+)
+MEDIA_EXTENSIONS = {
+    ".jpg",
+    ".jpeg",
+    ".png",
+    ".gif",
+    ".bmp",
+    ".tiff",
+    ".ico",
+    ".svg",
+    ".mp3",
+    ".wav",
+    ".mp4",
+    ".avi",
+    ".mov",
+    ".ttf",
+    ".woff",
+    ".woff2",
+    ".eot",
+}
+SKIP_TYPES = {
+    tarfile.BLKTYPE,
+    tarfile.CHRTYPE,
+    tarfile.FIFOTYPE,
+    tarfile.LNKTYPE,
+    tarfile.SYMTYPE,
+}
+
+def normalize_name(name):
+    return str(PurePosixPath(name.lstrip("./")))
+
+def to_rootfs_path(name):
+    normalized = normalize_name(name)
+    if not normalized or normalized == ".":
+        return rootfs_dir
+    return rootfs_dir / normalized
+
+def remove_path(path):
+    if path.is_symlink() or path.is_file():
+        path.unlink(missing_ok=True)
+    elif path.is_dir():
+        shutil.rmtree(path, ignore_errors=True)
+
+def apply_whiteout(member_name):
+    normalized = normalize_name(member_name)
+    if not normalized:
+        return False
+    basename = PurePosixPath(normalized).name
+    if basename == ".wh..wh..opq":
+        opaque_dir = to_rootfs_path(str(PurePosixPath(normalized).parent))
+        if opaque_dir.is_dir():
+            for child in opaque_dir.iterdir():
+                remove_path(child)
+        return True
+    if basename.startswith(".wh."):
+        whiteout_target = PurePosixPath(normalized).parent / basename[4:]
+        remove_path(to_rootfs_path(str(whiteout_target)))
+        return True
+    return False
+
+def should_skip(member):
+    normalized = normalize_name(member.name)
+    basename = PurePosixPath(normalized).name
+    if basename.startswith(".wh."):
+        return True
+    if PurePosixPath(normalized).suffix.lower() in MEDIA_EXTENSIONS:
+        return True
+    if any(excluded in normalized for excluded in EXTRACT_EXCLUDE_PATHS):
+        return True
+    if member.type in SKIP_TYPES:
+        return True
+    return not (member.isdir() or member.isreg())
+
+manifest = json.loads((extracted_dir / "manifest.json").read_text())
+for layer in manifest[0]["Layers"]:
+    with tarfile.open(extracted_dir / layer) as layer_tar:
+        members = layer_tar.getmembers()
+        for member in members:
+            apply_whiteout(member.name)
+        for member in members:
+            if should_skip(member):
+                continue
+            destination = to_rootfs_path(member.name)
+            if member.isdir():
+                destination.mkdir(parents=True, exist_ok=True)
+                continue
+            destination.parent.mkdir(parents=True, exist_ok=True)
+            source = layer_tar.extractfile(member)
+            if source is None:
+                continue
+            with source, destination.open("wb") as output_file:
+                shutil.copyfileobj(source, output_file)
+            os.chmod(destination, stat.S_IMODE(member.mode))
+PY
+          }
           docker pull ubuntu:latest
           docker save -o /tmp/ubuntu.tar ubuntu:latest
           docker rmi ubuntu:latest
           bin/cdxgen.js /tmp/ubuntu.tar -p -t docker -o bomresults/bom-ubuntu.tar.json --fail-on-error
           bin/cdxgen.js /tmp/ubuntu.tar -p -t docker -o bomresults/bom-ubuntu.tar-audit.json --bom-audit --bom-audit-categories container-risk --fail-on-error
           assert_container_audit_bom bomresults/bom-ubuntu.tar-audit.json
+          reconstruct_staged_rootfs /tmp/ubuntu.tar /tmp/ubuntu-archive /tmp/ubuntu-rootfs
+          bin/cdxgen.js /tmp/ubuntu-rootfs -p -t rootfs -o bomresults/bom-ubuntu.rootfs.json --fail-on-error
+          assert_same_component_signature bomresults/bom-ubuntu.tar.json bomresults/bom-ubuntu.rootfs.json
           docker pull alpine:latest
           docker save -o /tmp/alpine.tar alpine:latest
           docker rmi alpine:latest
           bin/cdxgen.js /tmp/alpine.tar -p -t docker -o bomresults/bom-alpine.tar.json --fail-on-error
           bin/cdxgen.js /tmp/alpine.tar -p -t docker -o bomresults/bom-alpine.tar-audit.json --bom-audit --bom-audit-categories container-risk --fail-on-error
           assert_container_audit_bom bomresults/bom-alpine.tar-audit.json
+          reconstruct_staged_rootfs /tmp/alpine.tar /tmp/alpine-archive /tmp/alpine-rootfs
+          bin/cdxgen.js /tmp/alpine-rootfs -p -t rootfs -o bomresults/bom-alpine.rootfs.json --fail-on-error
+          assert_same_component_signature bomresults/bom-alpine.tar.json bomresults/bom-alpine.rootfs.json
+          rm -rf /tmp/ubuntu-archive /tmp/ubuntu-rootfs /tmp/alpine-archive /tmp/alpine-rootfs
           ls -ltr bomresults
         env:
           CDXGEN_DEBUG_MODE: debug
