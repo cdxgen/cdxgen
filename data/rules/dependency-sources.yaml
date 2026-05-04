@@ -162,3 +162,41 @@
       "dependencyKind": $prop($, 'cdx:cargo:dependencyKind'),
       "target": $prop($, 'cdx:cargo:target')
     }
+- id: PKG-009
+  name: "Collider package resolved from insecure HTTP origin"
+  description: "Collider lock entries that resolve from HTTP origins can be observed or modified in transit before wrap-hash verification occurs"
+  severity: medium
+  category: dependency-source
+  condition: |
+    components[
+      $prop($, 'cdx:collider:originScheme') = 'http'
+    ]
+  location: |
+    { "bomRef": $."bom-ref", "purl": purl }
+  message: "Collider package '{{ name }}@{{ version }}' resolves from insecure origin '{{ $prop($, 'cdx:collider:origin') }}'"
+  mitigation: "Prefer HTTPS, trusted file:// repositories, or an authenticated internal mirror for Collider package origins"
+  evidence: |
+    {
+      "origin": $prop($, 'cdx:collider:origin'),
+      "originHost": $prop($, 'cdx:collider:originHost'),
+      "dependencyKind": $prop($, 'cdx:collider:dependencyKind')
+    }
+- id: PKG-010
+  name: "Collider origin required sanitization before BOM emission"
+  description: "Collider lock origin URLs should not carry credentials, query strings, or fragments because those values may embed secrets or unstable signed URLs"
+  severity: low
+  category: dependency-source
+  condition: |
+    components[
+      $prop($, 'cdx:collider:originSanitized') = 'true'
+    ]
+  location: |
+    { "bomRef": $."bom-ref", "purl": purl }
+  message: "Collider package '{{ name }}@{{ version }}' had sensitive origin fields stripped before BOM emission"
+  mitigation: "Avoid embedding credentials or signed query parameters in Collider repository origin URLs; prefer stable repository base URLs"
+  evidence: |
+    {
+      "origin": $prop($, 'cdx:collider:origin'),
+      "originHost": $prop($, 'cdx:collider:originHost'),
+      "dependencyKind": $prop($, 'cdx:collider:dependencyKind')
+    }
