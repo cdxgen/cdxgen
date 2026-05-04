@@ -147,6 +147,12 @@ You can also pass `-t docker` for simple labels. Only the `latest` tag would be 
 cdxgen ghcr.io/owasp-dep-scan/depscan:nightly -o bom.json -t docker
 ```
 
+For offline or staged scans, point cdxgen at a locally reconstructed root filesystem directory. The container pipeline accepts `-t docker`, `-t rootfs`, or `-t oci-dir` for this mode.
+
+```shell
+cdxgen /tmp/remote_target -o /tmp/bom.json -t rootfs
+```
+
 You can also pass the .tar file of a container image.
 
 ```shell

@@ -523,6 +523,12 @@ You can also pass `-t docker` with repository names. Only the `latest` tag would
 cdxgen shiftleft/scan-slim -o /tmp/bom.json -t docker
 ```
 
+For offline or staged scans, point cdxgen at a locally reconstructed root filesystem directory. The container pipeline accepts `-t docker`, `-t rootfs`, or `-t oci-dir` for this mode.
+
+```shell
+cdxgen /tmp/remote_target -o /tmp/bom.json -t rootfs
+```
+
 You can also pass the .tar file of a container image.
 
 ```shell
