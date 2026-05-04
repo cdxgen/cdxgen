@@ -4,6 +4,7 @@ on:
   pull_request:
     paths:
       - '.github/workflows/dockertests.yml'
+      - 'ci/assertions.sh'
       - '.nvmrc'
       - '.pnpmfile.cjs'
       - 'bin/**'
@@ -49,59 +50,16 @@ jobs:
       - name: dockertests
         if: matrix.os == 'ubuntu-24.04'
         run: |
-          assert_container_audit_bom() {
-            jq -e '[.annotations[]? | select((.text // "") | contains("cdx:audit:category | container-risk |"))] | length > 0' "$1" >/dev/null || {
-              echo "Expected container-risk audit findings in $1"
-              return 1
-            }
-            jq -e '[.components[]? | select((.properties // []) | any((.name == "cdx:gtfobins:matched" or .name == "cdx:container:matched") and .value == "true"))] | length > 0' "$1" >/dev/null || {
-              echo "Expected GTFOBins or container-risk enrichment properties in $1"
-              return 1
-            }
-          }
-          assert_trivy_tool_identity_bom() {
-            jq -e '
-              def is_trivy_tool:
-                .["bom-ref"] != null and (
-                  ((.name // "") | ascii_downcase | contains("trivy")) or
-                  ((.["bom-ref"] // "") | ascii_downcase | contains("trivy"))
-                );
-              [.metadata.tools.components[]? | select(is_trivy_tool)] | length > 0
-            ' "$1" >/dev/null || {
-              echo "Expected trivy tool metadata in $1"
-              return 1
-            }
-            jq -e '
-              def is_trivy_tool:
-                .["bom-ref"] != null and (
-                  ((.name // "") | ascii_downcase | contains("trivy")) or
-                  ((.["bom-ref"] // "") | ascii_downcase | contains("trivy"))
-                );
-              [.metadata.tools.components[]? | select(.["bom-ref"] != null) | .["bom-ref"]] as $toolRefs
-              | [.metadata.tools.components[]? | select(is_trivy_tool) | .["bom-ref"]] as $trivyToolRefs
-              | ($trivyToolRefs | length) > 0
-                and any(.components[]?;
-                  any((.evidence.identity // [])[]?;
-                    (.tools // []) as $identityTools
-                    | ($identityTools | length) > 0
-                      and all($identityTools[]; $toolRefs | index(.) != null)
-                      and any($identityTools[]; $trivyToolRefs | index(.) != null)
-                  )
-                )
-            ' "$1" >/dev/null || {
-              echo "Expected identity evidence tools in $1 to reference declared trivy metadata tools"
-              return 1
-            }
-          }
+          source ci/assertions.sh
           bin/cdxgen.js ubuntu:latest -p -t docker -o bomresults/bom-ubuntu.json --fail-on-error
-          assert_trivy_tool_identity_bom bomresults/bom-ubuntu.json
           bin/cdxgen.js ubuntu:latest -p -t docker -o bomresults/bom-ubuntu-audit.json --bom-audit --bom-audit-categories container-risk --fail-on-error
           assert_container_audit_bom bomresults/bom-ubuntu-audit.json
+          assert_trivy_tool_identity_bom bomresults/bom-ubuntu-audit.json
           docker rmi ubuntu:latest
           bin/cdxgen.js alpine:latest -p -t docker -o bomresults/bom-alpine.json --fail-on-error
-          assert_trivy_tool_identity_bom bomresults/bom-alpine.json
           bin/cdxgen.js alpine:latest -p -t docker -o bomresults/bom-alpine-audit.json --bom-audit --bom-audit-categories container-risk --fail-on-error
           assert_container_audit_bom bomresults/bom-alpine-audit.json
+          assert_trivy_tool_identity_bom bomresults/bom-alpine-audit.json
           docker rmi alpine:latest
           bin/cdxgen.js almalinux:9.4-minimal -p -t docker -o bomresults/bom-almalinux.json --fail-on-error
           docker rmi almalinux:9.4-minimal
@@ -161,64 +119,21 @@ jobs:
           CI: true
       - name: dockertests
         run: |
-          assert_container_audit_bom() {
-            jq -e '[.annotations[]? | select((.text // "") | contains("cdx:audit:category | container-risk |"))] | length > 0' "$1" >/dev/null || {
-              echo "Expected container-risk audit findings in $1"
-              return 1
-            }
-            jq -e '[.components[]? | select((.properties // []) | any((.name == "cdx:gtfobins:matched" or .name == "cdx:container:matched") and .value == "true"))] | length > 0' "$1" >/dev/null || {
-              echo "Expected GTFOBins or container-risk enrichment properties in $1"
-              return 1
-            }
-          }
-          assert_trivy_tool_identity_bom() {
-            jq -e '
-              def is_trivy_tool:
-                .["bom-ref"] != null and (
-                  ((.name // "") | ascii_downcase | contains("trivy")) or
-                  ((.["bom-ref"] // "") | ascii_downcase | contains("trivy"))
-                );
-              [.metadata.tools.components[]? | select(is_trivy_tool)] | length > 0
-            ' "$1" >/dev/null || {
-              echo "Expected trivy tool metadata in $1"
-              return 1
-            }
-            jq -e '
-              def is_trivy_tool:
-                .["bom-ref"] != null and (
-                  ((.name // "") | ascii_downcase | contains("trivy")) or
-                  ((.["bom-ref"] // "") | ascii_downcase | contains("trivy"))
-                );
-              [.metadata.tools.components[]? | select(.["bom-ref"] != null) | .["bom-ref"]] as $toolRefs
-              | [.metadata.tools.components[]? | select(is_trivy_tool) | .["bom-ref"]] as $trivyToolRefs
-              | ($trivyToolRefs | length) > 0
-                and any(.components[]?;
-                  any((.evidence.identity // [])[]?;
-                    (.tools // []) as $identityTools
-                    | ($identityTools | length) > 0
-                      and all($identityTools[]; $toolRefs | index(.) != null)
-                      and any($identityTools[]; $trivyToolRefs | index(.) != null)
-                  )
-                )
-            ' "$1" >/dev/null || {
-              echo "Expected identity evidence tools in $1 to reference declared trivy metadata tools"
-              return 1
-            }
-          }
+          source ci/assertions.sh
           docker pull ubuntu:latest
           docker save -o /tmp/ubuntu.tar ubuntu:latest
           docker rmi ubuntu:latest
           bin/cdxgen.js /tmp/ubuntu.tar -p -t docker -o bomresults/bom-ubuntu.tar.json --fail-on-error
-          assert_trivy_tool_identity_bom bomresults/bom-ubuntu.tar.json
           bin/cdxgen.js /tmp/ubuntu.tar -p -t docker -o bomresults/bom-ubuntu.tar-audit.json --bom-audit --bom-audit-categories container-risk --fail-on-error
           assert_container_audit_bom bomresults/bom-ubuntu.tar-audit.json
+          assert_trivy_tool_identity_bom bomresults/bom-ubuntu.tar-audit.json
           docker pull alpine:latest
           docker save -o /tmp/alpine.tar alpine:latest
           docker rmi alpine:latest
           bin/cdxgen.js /tmp/alpine.tar -p -t docker -o bomresults/bom-alpine.tar.json --fail-on-error
-          assert_trivy_tool_identity_bom bomresults/bom-alpine.tar.json
           bin/cdxgen.js /tmp/alpine.tar -p -t docker -o bomresults/bom-alpine.tar-audit.json --bom-audit --bom-audit-categories container-risk --fail-on-error
           assert_container_audit_bom bomresults/bom-alpine.tar-audit.json
+          assert_trivy_tool_identity_bom bomresults/bom-alpine.tar-audit.json
           ls -ltr bomresults
         env:
           CDXGEN_DEBUG_MODE: debug
@@ -244,67 +159,7 @@ jobs:
           CDXGEN_TEMP_DIR: ${{ runner.temp }}/cdxgen-podmantests
       - name: podmantests
         run: |
-          assert_container_audit_bom() {
-            jq -e '[.annotations[]? | select((.text // "") | contains("cdx:audit:category | container-risk |"))] | length > 0' "$1" >/dev/null || {
-              echo "Expected container-risk audit findings in $1"
-              return 1
-            }
-            jq -e '[.components[]? | select((.properties // []) | any((.name == "cdx:gtfobins:matched" or .name == "cdx:container:matched") and .value == "true"))] | length > 0' "$1" >/dev/null || {
-              echo "Expected GTFOBins or container-risk enrichment properties in $1"
-              return 1
-            }
-          }
-          assert_trivy_tool_identity_bom() {
-            jq -e '
-              def is_trivy_tool:
-                .["bom-ref"] != null and (
-                  ((.name // "") | ascii_downcase | contains("trivy")) or
-                  ((.["bom-ref"] // "") | ascii_downcase | contains("trivy"))
-                );
-              [.metadata.tools.components[]? | select(is_trivy_tool)] | length > 0
-            ' "$1" >/dev/null || {
-              echo "Expected trivy tool metadata in $1"
-              return 1
-            }
-            jq -e '
-              def is_trivy_tool:
-                .["bom-ref"] != null and (
-                  ((.name // "") | ascii_downcase | contains("trivy")) or
-                  ((.["bom-ref"] // "") | ascii_downcase | contains("trivy"))
-                );
-              [.metadata.tools.components[]? | select(.["bom-ref"] != null) | .["bom-ref"]] as $toolRefs
-              | [.metadata.tools.components[]? | select(is_trivy_tool) | .["bom-ref"]] as $trivyToolRefs
-              | ($trivyToolRefs | length) > 0
-                and any(.components[]?;
-                  any((.evidence.identity // [])[]?;
-                    (.tools // []) as $identityTools
-                    | ($identityTools | length) > 0
-                      and all($identityTools[]; $toolRefs | index(.) != null)
-                      and any($identityTools[]; $trivyToolRefs | index(.) != null)
-                  )
-                )
-            ' "$1" >/dev/null || {
-              echo "Expected identity evidence tools in $1 to reference declared trivy metadata tools"
-              return 1
-            }
-          }
-          container_audit_signature() {
-            jq -c '{
-              containerRiskAnnotations: [.annotations[]? | select((.text // "") | contains("cdx:audit:category | container-risk |"))] | length,
-              enrichedComponents: [.components[]? | select((.properties // []) | any((.name == "cdx:gtfobins:matched" or .name == "cdx:container:matched") and .value == "true"))] | length
-            }' "$1"
-          }
-          assert_same_container_audit_signature() {
-            local expected actual
-            expected=$(container_audit_signature "$1")
-            actual=$(container_audit_signature "$2")
-            if [ "$expected" != "$actual" ]; then
-              echo "Expected matching container audit signature between $1 and $2"
-              echo "expected=$expected"
-              echo "actual=$actual"
-              return 1
-            fi
-          }
+          source ci/assertions.sh
           if ! command -v podman >/dev/null 2>&1; then
             echo "Podman is not installed on this runner. Skipping podman coverage."
             exit 0
@@ -375,67 +230,7 @@ jobs:
           CDXGEN_TEMP_DIR: ${{ runner.temp }}/cdxgen-nerdctltests
       - name: nerdctltests
         run: |
-          assert_container_audit_bom() {
-            jq -e '[.annotations[]? | select((.text // "") | contains("cdx:audit:category | container-risk |"))] | length > 0' "$1" >/dev/null || {
-              echo "Expected container-risk audit findings in $1"
-              return 1
-            }
-            jq -e '[.components[]? | select((.properties // []) | any((.name == "cdx:gtfobins:matched" or .name == "cdx:container:matched") and .value == "true"))] | length > 0' "$1" >/dev/null || {
-              echo "Expected GTFOBins or container-risk enrichment properties in $1"
-              return 1
-            }
-          }
-          assert_trivy_tool_identity_bom() {
-            jq -e '
-              def is_trivy_tool:
-                .["bom-ref"] != null and (
-                  ((.name // "") | ascii_downcase | contains("trivy")) or
-                  ((.["bom-ref"] // "") | ascii_downcase | contains("trivy"))
-                );
-              [.metadata.tools.components[]? | select(is_trivy_tool)] | length > 0
-            ' "$1" >/dev/null || {
-              echo "Expected trivy tool metadata in $1"
-              return 1
-            }
-            jq -e '
-              def is_trivy_tool:
-                .["bom-ref"] != null and (
-                  ((.name // "") | ascii_downcase | contains("trivy")) or
-                  ((.["bom-ref"] // "") | ascii_downcase | contains("trivy"))
-                );
-              [.metadata.tools.components[]? | select(.["bom-ref"] != null) | .["bom-ref"]] as $toolRefs
-              | [.metadata.tools.components[]? | select(is_trivy_tool) | .["bom-ref"]] as $trivyToolRefs
-              | ($trivyToolRefs | length) > 0
-                and any(.components[]?;
-                  any((.evidence.identity // [])[]?;
-                    (.tools // []) as $identityTools
-                    | ($identityTools | length) > 0
-                      and all($identityTools[]; $toolRefs | index(.) != null)
-                      and any($identityTools[]; $trivyToolRefs | index(.) != null)
-                  )
-                )
-            ' "$1" >/dev/null || {
-              echo "Expected identity evidence tools in $1 to reference declared trivy metadata tools"
-              return 1
-            }
-          }
-          container_audit_signature() {
-            jq -c '{
-              containerRiskAnnotations: [.annotations[]? | select((.text // "") | contains("cdx:audit:category | container-risk |"))] | length,
-              enrichedComponents: [.components[]? | select((.properties // []) | any((.name == "cdx:gtfobins:matched" or .name == "cdx:container:matched") and .value == "true"))] | length
-            }' "$1"
-          }
-          assert_same_container_audit_signature() {
-            local expected actual
-            expected=$(container_audit_signature "$1")
-            actual=$(container_audit_signature "$2")
-            if [ "$expected" != "$actual" ]; then
-              echo "Expected matching container audit signature between $1 and $2"
-              echo "expected=$expected"
-              echo "actual=$actual"
-              return 1
-            fi
-          }
+          source ci/assertions.sh
           if ! command -v nerdctl >/dev/null 2>&1; then
             echo "nerdctl is not installed on this runner. Skipping nerdctl coverage."
             exit 0

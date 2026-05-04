@@ -4,6 +4,7 @@ on:
   pull_request:
     paths:
       - '.github/workflows/repotests.yml'
+      - 'ci/assertions.sh'
       - '.nvmrc'
       - '.pnpmfile.cjs'
       - 'bin/**'
@@ -1026,19 +1027,8 @@ jobs:
           curl -LO https://github.com/owasp-dep-scan/dosai/releases/download/v0.1.1/Dosai-osx-arm64
           cd ..
           bin/cdxgen.js -t dotnet --lifecycle post-build -o bomresults/bom-binary.json bintests
-          jq -e '
-            [.metadata.tools.components[]? | select(.name != "cdxgen" and .["bom-ref"] != null)] | length > 0
-          ' bomresults/bom-binary.json
-          jq -e '
-            [.metadata.tools.components[]? | select(.["bom-ref"] != null) | .["bom-ref"]] as $toolRefs
-            | any(.components[]?;
-                any((.evidence.identity // [])[]?;
-                  (.tools // []) as $identityTools
-                  | ($identityTools | length) > 0
-                    and all($identityTools[]; $toolRefs | index(.) != null)
-                )
-              )
-          ' bomresults/bom-binary.json
+          source ci/assertions.sh
+          assert_non_cdxgen_tool_identity_bom bomresults/bom-binary.json
           mkdir -p gobintests
           cd gobintests
           curl -LO https://github.com/anchore/syft/releases/download/v1.0.1/syft_1.0.1_linux_arm64.tar.gz
@@ -1049,19 +1039,7 @@ jobs:
           rm containerd-static-2.0.0-rc.0-linux-amd64.tar.gz
           cd ..
           bin/cdxgen.js -t go --lifecycle post-build -o bomresults/bom-go-binary.json gobintests
-          jq -e '
-            [.metadata.tools.components[]? | select(.name != "cdxgen" and .["bom-ref"] != null)] | length > 0
-          ' bomresults/bom-go-binary.json
-          jq -e '
-            [.metadata.tools.components[]? | select(.["bom-ref"] != null) | .["bom-ref"]] as $toolRefs
-            | any(.components[]?;
-                any((.evidence.identity // [])[]?;
-                  (.tools // []) as $identityTools
-                  | ($identityTools | length) > 0
-                    and all($identityTools[]; $toolRefs | index(.) != null)
-                )
-              )
-          ' bomresults/bom-go-binary.json
+          assert_non_cdxgen_tool_identity_bom bomresults/bom-go-binary.json
         shell: bash
         if: matrix.os != 'windows-latest'
       - name: repotests 1.7
