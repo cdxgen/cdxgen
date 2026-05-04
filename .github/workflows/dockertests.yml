@@ -59,11 +59,23 @@ jobs:
               return 1
             }
           }
+          assert_trivy_tool_identity_bom() {
+            jq -e '[.metadata.tools.components[]? | select(.["bom-ref"] != null and ((((.name // "") | ascii_downcase) | contains("trivy")) or (((.["bom-ref"] // "") | ascii_downcase) | contains("trivy"))))] | length > 0' "$1" >/dev/null || {
+              echo "Expected trivy tool metadata in $1"
+              return 1
+            }
+            jq -e '[.metadata.tools.components[]? | select(.["bom-ref"] != null) | .["bom-ref"]] as $toolRefs | [.metadata.tools.components[]? | select(.["bom-ref"] != null and ((((.name // "") | ascii_downcase) | contains("trivy")) or (((.["bom-ref"] // "") | ascii_downcase) | contains("trivy")))) | .["bom-ref"]] as $trivyToolRefs | ($trivyToolRefs | length) > 0 and any(.components[]?; any((.evidence.identity // [])[]?; (.tools // []) as $identityTools | ($identityTools | length) > 0 and all($identityTools[]; $toolRefs | index(.) != null) and any($identityTools[]; $trivyToolRefs | index(.) != null)))' "$1" >/dev/null || {
+              echo "Expected identity evidence tools in $1 to reference declared trivy metadata tools"
+              return 1
+            }
+          }
           bin/cdxgen.js ubuntu:latest -p -t docker -o bomresults/bom-ubuntu.json --fail-on-error
+          assert_trivy_tool_identity_bom bomresults/bom-ubuntu.json
           bin/cdxgen.js ubuntu:latest -p -t docker -o bomresults/bom-ubuntu-audit.json --bom-audit --bom-audit-categories container-risk --fail-on-error
           assert_container_audit_bom bomresults/bom-ubuntu-audit.json
           docker rmi ubuntu:latest
           bin/cdxgen.js alpine:latest -p -t docker -o bomresults/bom-alpine.json --fail-on-error
+          assert_trivy_tool_identity_bom bomresults/bom-alpine.json
           bin/cdxgen.js alpine:latest -p -t docker -o bomresults/bom-alpine-audit.json --bom-audit --bom-audit-categories container-risk --fail-on-error
           assert_container_audit_bom bomresults/bom-alpine-audit.json
           docker rmi alpine:latest
@@ -135,16 +147,28 @@ jobs:
               return 1
             }
           }
+          assert_trivy_tool_identity_bom() {
+            jq -e '[.metadata.tools.components[]? | select(.["bom-ref"] != null and ((((.name // "") | ascii_downcase) | contains("trivy")) or (((.["bom-ref"] // "") | ascii_downcase) | contains("trivy"))))] | length > 0' "$1" >/dev/null || {
+              echo "Expected trivy tool metadata in $1"
+              return 1
+            }
+            jq -e '[.metadata.tools.components[]? | select(.["bom-ref"] != null) | .["bom-ref"]] as $toolRefs | [.metadata.tools.components[]? | select(.["bom-ref"] != null and ((((.name // "") | ascii_downcase) | contains("trivy")) or (((.["bom-ref"] // "") | ascii_downcase) | contains("trivy")))) | .["bom-ref"]] as $trivyToolRefs | ($trivyToolRefs | length) > 0 and any(.components[]?; any((.evidence.identity // [])[]?; (.tools // []) as $identityTools | ($identityTools | length) > 0 and all($identityTools[]; $toolRefs | index(.) != null) and any($identityTools[]; $trivyToolRefs | index(.) != null)))' "$1" >/dev/null || {
+              echo "Expected identity evidence tools in $1 to reference declared trivy metadata tools"
+              return 1
+            }
+          }
           docker pull ubuntu:latest
           docker save -o /tmp/ubuntu.tar ubuntu:latest
           docker rmi ubuntu:latest
           bin/cdxgen.js /tmp/ubuntu.tar -p -t docker -o bomresults/bom-ubuntu.tar.json --fail-on-error
+          assert_trivy_tool_identity_bom bomresults/bom-ubuntu.tar.json
           bin/cdxgen.js /tmp/ubuntu.tar -p -t docker -o bomresults/bom-ubuntu.tar-audit.json --bom-audit --bom-audit-categories container-risk --fail-on-error
           assert_container_audit_bom bomresults/bom-ubuntu.tar-audit.json
           docker pull alpine:latest
           docker save -o /tmp/alpine.tar alpine:latest
           docker rmi alpine:latest
           bin/cdxgen.js /tmp/alpine.tar -p -t docker -o bomresults/bom-alpine.tar.json --fail-on-error
+          assert_trivy_tool_identity_bom bomresults/bom-alpine.tar.json
           bin/cdxgen.js /tmp/alpine.tar -p -t docker -o bomresults/bom-alpine.tar-audit.json --bom-audit --bom-audit-categories container-risk --fail-on-error
           assert_container_audit_bom bomresults/bom-alpine.tar-audit.json
           ls -ltr bomresults
@@ -182,6 +206,16 @@ jobs:
               return 1
             }
           }
+          assert_trivy_tool_identity_bom() {
+            jq -e '[.metadata.tools.components[]? | select(.["bom-ref"] != null and ((((.name // "") | ascii_downcase) | contains("trivy")) or (((.["bom-ref"] // "") | ascii_downcase) | contains("trivy"))))] | length > 0' "$1" >/dev/null || {
+              echo "Expected trivy tool metadata in $1"
+              return 1
+            }
+            jq -e '[.metadata.tools.components[]? | select(.["bom-ref"] != null) | .["bom-ref"]] as $toolRefs | [.metadata.tools.components[]? | select(.["bom-ref"] != null and ((((.name // "") | ascii_downcase) | contains("trivy")) or (((.["bom-ref"] // "") | ascii_downcase) | contains("trivy")))) | .["bom-ref"]] as $trivyToolRefs | ($trivyToolRefs | length) > 0 and any(.components[]?; any((.evidence.identity // [])[]?; (.tools // []) as $identityTools | ($identityTools | length) > 0 and all($identityTools[]; $toolRefs | index(.) != null) and any($identityTools[]; $trivyToolRefs | index(.) != null)))' "$1" >/dev/null || {
+              echo "Expected identity evidence tools in $1 to reference declared trivy metadata tools"
+              return 1
+            }
+          }
           container_audit_signature() {
             jq -c '{
               containerRiskAnnotations: [.annotations[]? | select((.text // "") | contains("cdx:audit:category | container-risk |"))] | length,
@@ -206,10 +240,12 @@ jobs:
           docker pull alpine:latest
           bin/cdxgen.js alpine:latest -p -t docker -o bomresults/bom-docker-alpine-audit.json --bom-audit --bom-audit-categories container-risk --fail-on-error
           assert_container_audit_bom bomresults/bom-docker-alpine-audit.json
+          assert_trivy_tool_identity_bom bomresults/bom-docker-alpine-audit.json
           docker save -o /tmp/docker-alpine.tar alpine:latest
           docker rmi alpine:latest
           bin/cdxgen.js /tmp/docker-alpine.tar -p -t docker -o bomresults/bom-docker-alpine-tar-audit.json --bom-audit --bom-audit-categories container-risk --fail-on-error
           assert_container_audit_bom bomresults/bom-docker-alpine-tar-audit.json
+          assert_trivy_tool_identity_bom bomresults/bom-docker-alpine-tar-audit.json
           export XDG_RUNTIME_DIR="${XDG_RUNTIME_DIR:-/run/user/$(id -u)}"
           mkdir -p "$XDG_RUNTIME_DIR/podman"
           podman system service -t 0 "unix://$XDG_RUNTIME_DIR/podman/podman.sock" >/tmp/podman-service.log 2>&1 &
@@ -277,6 +313,16 @@ jobs:
               return 1
             }
           }
+          assert_trivy_tool_identity_bom() {
+            jq -e '[.metadata.tools.components[]? | select(.["bom-ref"] != null and ((((.name // "") | ascii_downcase) | contains("trivy")) or (((.["bom-ref"] // "") | ascii_downcase) | contains("trivy"))))] | length > 0' "$1" >/dev/null || {
+              echo "Expected trivy tool metadata in $1"
+              return 1
+            }
+            jq -e '[.metadata.tools.components[]? | select(.["bom-ref"] != null) | .["bom-ref"]] as $toolRefs | [.metadata.tools.components[]? | select(.["bom-ref"] != null and ((((.name // "") | ascii_downcase) | contains("trivy")) or (((.["bom-ref"] // "") | ascii_downcase) | contains("trivy")))) | .["bom-ref"]] as $trivyToolRefs | ($trivyToolRefs | length) > 0 and any(.components[]?; any((.evidence.identity // [])[]?; (.tools // []) as $identityTools | ($identityTools | length) > 0 and all($identityTools[]; $toolRefs | index(.) != null) and any($identityTools[]; $trivyToolRefs | index(.) != null)))' "$1" >/dev/null || {
+              echo "Expected identity evidence tools in $1 to reference declared trivy metadata tools"
+              return 1
+            }
+          }
           container_audit_signature() {
             jq -c '{
               containerRiskAnnotations: [.annotations[]? | select((.text // "") | contains("cdx:audit:category | container-risk |"))] | length,
@@ -305,10 +351,12 @@ jobs:
           docker pull alpine:latest
           bin/cdxgen.js alpine:latest -p -t docker -o bomresults/bom-docker-alpine-audit.json --bom-audit --bom-audit-categories container-risk --fail-on-error
           assert_container_audit_bom bomresults/bom-docker-alpine-audit.json
+          assert_trivy_tool_identity_bom bomresults/bom-docker-alpine-audit.json
           docker save -o /tmp/docker-alpine.tar alpine:latest
           docker rmi alpine:latest
           bin/cdxgen.js /tmp/docker-alpine.tar -p -t docker -o bomresults/bom-docker-alpine-tar-audit.json --bom-audit --bom-audit-categories container-risk --fail-on-error
           assert_container_audit_bom bomresults/bom-docker-alpine-tar-audit.json
+          assert_trivy_tool_identity_bom bomresults/bom-docker-alpine-tar-audit.json
           export DOCKER_CMD=nerdctl
           nerdctl pull docker.io/library/alpine:latest
           bin/cdxgen.js docker.io/library/alpine:latest -p -t docker -o bomresults/bom-nerdctl-alpine.json --fail-on-error
