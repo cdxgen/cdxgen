@@ -65,6 +65,7 @@ import {
   isNode,
   isSecureMode,
   isWin,
+  readEnvironmentVariable,
   recordActivity,
   recordSensitiveFileRead,
   remoteHostsAccessed,
@@ -1064,11 +1065,27 @@ const checkPermissions = (filePath, options) => {
 
 const needsBomSigning = ({ generateKeyAndSign }) =>
   generateKeyAndSign ||
-  (process.env.SBOM_SIGN_ALGORITHM &&
-    process.env.SBOM_SIGN_ALGORITHM !== "none" &&
-    ((process.env.SBOM_SIGN_PRIVATE_KEY &&
-      safeExistsSync(process.env.SBOM_SIGN_PRIVATE_KEY)) ||
-      process.env.SBOM_SIGN_PRIVATE_KEY_BASE64));
+  (() => {
+    const sbomSignAlgorithm = readEnvironmentVariable("SBOM_SIGN_ALGORITHM");
+    const sbomSignPrivateKey = readEnvironmentVariable(
+      "SBOM_SIGN_PRIVATE_KEY",
+      {
+        sensitive: true,
+      },
+    );
+    const sbomSignPrivateKeyBase64 = readEnvironmentVariable(
+      "SBOM_SIGN_PRIVATE_KEY_BASE64",
+      {
+        sensitive: true,
+      },
+    );
+    return (
+      sbomSignAlgorithm &&
+      sbomSignAlgorithm !== "none" &&
+      ((sbomSignPrivateKey && safeExistsSync(sbomSignPrivateKey)) ||
+        sbomSignPrivateKeyBase64)
+    );
+  })();
 
 const stringifyJson = (jsonPayload, jsonPretty) =>
   typeof jsonPayload === "string" || jsonPayload instanceof String
@@ -1097,7 +1114,21 @@ const writeCycloneDxOutput = (jsonFile, bomJson, options) => {
     });
     return jsonPayload;
   }
-  let alg = process.env.SBOM_SIGN_ALGORITHM || "RS512";
+  const sbomSignAlgorithm = readEnvironmentVariable("SBOM_SIGN_ALGORITHM");
+  const sbomSignPrivateKey = readEnvironmentVariable("SBOM_SIGN_PRIVATE_KEY", {
+    sensitive: true,
+  });
+  const sbomSignPrivateKeyBase64 = readEnvironmentVariable(
+    "SBOM_SIGN_PRIVATE_KEY_BASE64",
+    {
+      sensitive: true,
+    },
+  );
+  const sbomSignPublicKey = readEnvironmentVariable("SBOM_SIGN_PUBLIC_KEY");
+  const sbomSignPublicKeyBase64 = readEnvironmentVariable(
+    "SBOM_SIGN_PUBLIC_KEY_BASE64",
+  );
+  let alg = sbomSignAlgorithm || "RS512";
   if (alg.includes("none")) {
     alg = "RS512";
   }
@@ -1135,34 +1166,25 @@ const writeCycloneDxOutput = (jsonFile, bomJson, options) => {
     privateKeyToUse = privateKey;
     jwkPublicKey = crypto.createPublicKey(publicKey).export({ format: "jwk" });
   } else {
-    if (process.env?.SBOM_SIGN_PRIVATE_KEY) {
-      recordSensitiveFileRead(process.env.SBOM_SIGN_PRIVATE_KEY, {
+    if (sbomSignPrivateKey) {
+      recordSensitiveFileRead(sbomSignPrivateKey, {
         label: "SBOM signing private key",
       });
-      privateKeyToUse = fs.readFileSync(
-        process.env.SBOM_SIGN_PRIVATE_KEY,
-        "utf8",
-      );
-    } else if (process.env?.SBOM_SIGN_PRIVATE_KEY_BASE64) {
+      privateKeyToUse = fs.readFileSync(sbomSignPrivateKey, "utf8");
+    } else if (sbomSignPrivateKeyBase64) {
       privateKeyToUse = Buffer.from(
-        process.env.SBOM_SIGN_PRIVATE_KEY_BASE64,
+        sbomSignPrivateKeyBase64,
         "base64",
       ).toString("utf8");
     }
-    if (
-      process.env.SBOM_SIGN_PUBLIC_KEY &&
-      safeExistsSync(process.env.SBOM_SIGN_PUBLIC_KEY)
-    ) {
+    if (sbomSignPublicKey && safeExistsSync(sbomSignPublicKey)) {
       jwkPublicKey = crypto
-        .createPublicKey(
-          fs.readFileSync(process.env.SBOM_SIGN_PUBLIC_KEY, "utf8"),
-        )
+        .createPublicKey(fs.readFileSync(sbomSignPublicKey, "utf8"))
         .export({ format: "jwk" });
-    } else if (process.env?.SBOM_SIGN_PUBLIC_KEY_BASE64) {
-      jwkPublicKey = Buffer.from(
-        process.env.SBOM_SIGN_PUBLIC_KEY_BASE64,
-        "base64",
-      ).toString("utf8");
+    } else if (sbomSignPublicKeyBase64) {
+      jwkPublicKey = Buffer.from(sbomSignPublicKeyBase64, "base64").toString(
+        "utf8",
+      );
     }
   }
   try {
@@ -1171,7 +1193,7 @@ const writeCycloneDxOutput = (jsonFile, bomJson, options) => {
       privateKey: privateKeyToUse,
       algorithm: alg,
       publicKeyJwk: jwkPublicKey,
-      mode: process.env.SBOM_SIGN_MODE || "replace",
+      mode: readEnvironmentVariable("SBOM_SIGN_MODE") || "replace",
       signComponents: true,
       signServices: true,
       signAnnotations: true,

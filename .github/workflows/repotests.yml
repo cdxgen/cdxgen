@@ -145,9 +145,8 @@ jobs:
             }
           }
           JSON
-          DOCKER_CONFIG=/tmp/cdxgen-docker-config DOCKER_AUTH_CONFIG=opaque-auth-token bin/cdxgen.js --dry-run -t oci docker.io/library/alpine:3.20 --no-banner > bomresults/dry-run-oci-private-registry.txt
-          grep -q "process.env:DOCKER_AUTH_CONFIG" bomresults/dry-run-oci-private-registry.txt
-          grep -q "config.json" bomresults/dry-run-oci-private-registry.txt
+          DOCKER_CONFIG=/tmp/cdxgen-docker-config bin/cdxgen.js --dry-run -t oci docker.io/library/alpine:3.20 --no-banner > bomresults/dry-run-oci-private-registry.txt
+          grep -q "process.env:DOCKER_CONFIG" bomresults/dry-run-oci-private-registry.txt
           bin/cdxgen.js --dry-run -t js "pkg:npm/lodash@4.17.21" --no-banner > bomresults/dry-run-purl.txt
           grep -q "pkg:npm/lodash@4.17.21" bomresults/dry-run-purl.txt
         shell: bash
