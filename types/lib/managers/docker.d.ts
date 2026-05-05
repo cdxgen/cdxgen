@@ -32,4 +32,7 @@ export function addSkippedSrcFiles(skippedImageSrcs: Array<{
     image: string;
     src: string;
 }>, components: Array<Object>): void;
+export type TarReadEntryLike = {
+    path: string;
+};
 //# sourceMappingURL=docker.d.ts.map
