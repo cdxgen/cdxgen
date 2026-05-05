@@ -1427,8 +1427,7 @@ const writeCycloneDxOutput = (jsonFile, bomJson, options) => {
     }
     if (isDryRun) {
       const dryRunSupportSummary =
-        postAuditFindings.dryRunSupportSummary ||
-        (await getBomAuditDryRunSupportSummary(options));
+        await getBomAuditDryRunSupportSummary(options);
       const dryRunSupportMessage =
         formatDryRunSupportSummary(dryRunSupportSummary);
       if (dryRunSupportMessage) {

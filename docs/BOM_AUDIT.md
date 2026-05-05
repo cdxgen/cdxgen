@@ -57,6 +57,7 @@ Built-in BOM audit rules now declare an explicit `dry-run-support` tag with one 
 - `no` — the rule depends on metadata that dry-run intentionally does not collect
 
 When you run `cdxgen --bom-audit --dry-run`, the BOM audit summary reports how many of the active rules are tagged `no` and how many are tagged `partial`.
+If the summary reports any `partial` or `no` rules, treat the dry-run result as coverage guidance only and re-run without `--dry-run` before treating a clean result as complete.
 
 ## How it works
 
