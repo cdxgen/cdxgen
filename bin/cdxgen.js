@@ -66,6 +66,7 @@ import {
   isSecureMode,
   isWin,
   recordActivity,
+  recordSensitiveFileRead,
   remoteHostsAccessed,
   retrieveCdxgenVersion,
   safeExistsSync,
@@ -1135,6 +1136,9 @@ const writeCycloneDxOutput = (jsonFile, bomJson, options) => {
     jwkPublicKey = crypto.createPublicKey(publicKey).export({ format: "jwk" });
   } else {
     if (process.env?.SBOM_SIGN_PRIVATE_KEY) {
+      recordSensitiveFileRead(process.env.SBOM_SIGN_PRIVATE_KEY, {
+        label: "SBOM signing private key",
+      });
       privateKeyToUse = fs.readFileSync(
         process.env.SBOM_SIGN_PRIVATE_KEY,
         "utf8",

@@ -132,6 +132,22 @@ jobs:
           bin/cdxgen.js --dry-run -t js test/data/yarn-workspaces-same-version-demo --no-banner > bomresults/dry-run-js-workspace.txt
           grep -q "cdxgen dry-run activity summary" bomresults/dry-run-js-workspace.txt
           grep -q "npm" bomresults/dry-run-js-workspace.txt
+          printf 'test-private-key' > /tmp/cdxgen-dry-run-signing.key
+          SBOM_SIGN_ALGORITHM=RS512 SBOM_SIGN_PRIVATE_KEY=/tmp/cdxgen-dry-run-signing.key bin/cdxgen.js --dry-run -t js test/data/dry-run-private-registry-repotest --no-banner > bomresults/dry-run-private-registry.txt
+          grep -q "cdxgen dry-run activity summary" bomresults/dry-run-private-registry.txt
+          grep -q ".npmrc" bomresults/dry-run-private-registry.txt
+          grep -q "process.env:SBOM_SIGN_PRIVATE_KEY" bomresults/dry-run-private-registry.txt
+          mkdir -p /tmp/cdxgen-docker-config
+          cat <<'JSON' > /tmp/cdxgen-docker-config/config.json
+          {
+            "credHelpers": {
+              "docker.io": "osxkeychain"
+            }
+          }
+          JSON
+          DOCKER_CONFIG=/tmp/cdxgen-docker-config DOCKER_AUTH_CONFIG=opaque-auth-token bin/cdxgen.js --dry-run -t oci docker.io/library/alpine:3.20 --no-banner > bomresults/dry-run-oci-private-registry.txt
+          grep -q "process.env:DOCKER_AUTH_CONFIG" bomresults/dry-run-oci-private-registry.txt
+          grep -q "config.json" bomresults/dry-run-oci-private-registry.txt
           bin/cdxgen.js --dry-run -t js "pkg:npm/lodash@4.17.21" --no-banner > bomresults/dry-run-purl.txt
           grep -q "pkg:npm/lodash@4.17.21" bomresults/dry-run-purl.txt
         shell: bash
