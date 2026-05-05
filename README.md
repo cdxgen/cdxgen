@@ -79,7 +79,7 @@ When you want to inspect what cdxgen would do before allowing side effects, use 
 cdxgen --dry-run -p -t js .
 ```
 
-Dry-run mode keeps cdxgen read-only: it reads local files, blocks writes/exec/temp creation/cloning/submission, and prints an activity summary table for both beginners and power users, including archive extraction intent, command I/O volume, and followed symlink-resolution traces when available.
+Dry-run mode keeps cdxgen read-only: it reads local files, blocks writes/exec/temp creation/cloning/submission, and prints an activity summary table for both beginners and power users. When available, the recorded activity data also captures archive extraction intent, command I/O volume, and followed symlink-resolution traces.
 
 ## Documentation
 
