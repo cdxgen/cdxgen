@@ -38,7 +38,7 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  NEXUS_URL: http://100.73.146.80:8081/repository/npm/
+  NEXUS_URL: ${{ secrets.NEXUS_URL }}
 
 # https://docs.github.com/en/actions/writing-workflows/choosing-what-your-workflow-does/controlling-permissions-for-github_token
 permissions: {}
