@@ -58,6 +58,7 @@ import {
   commandsExecuted,
   DEBUG_MODE,
   getTmpDir,
+  isAllowedHttpHost,
   isBun,
   isDeno,
   isDryRun,
@@ -1710,6 +1711,27 @@ const writeCycloneDxOutput = (jsonFile, bomJson, options) => {
   // Automatically submit the bom data
   // biome-ignore lint/suspicious/noDoubleEquals: yargs passes true for empty values
   if (options.serverUrl && options.serverUrl != true && options.apiKey) {
+    if (isSecureMode) {
+      let serverHostname;
+      try {
+        serverHostname = new URL(options.serverUrl).hostname;
+      } catch (err) {
+        console.log("Invalid Dependency-Track server URL", err);
+        process.exit(1);
+      }
+      if (!isAllowedHttpHost(serverHostname)) {
+        recordActivity({
+          kind: "submit",
+          reason: "The URL host is not allowed as per the allowlist.",
+          status: "blocked",
+          target: options.serverUrl,
+        });
+        console.log(
+          `Dependency-Track server host '${serverHostname}' is not allowed by CDXGEN_ALLOWED_HOSTS.`,
+        );
+        process.exit(1);
+      }
+    }
     if (isDryRun) {
       recordActivity({
         kind: "submit",
