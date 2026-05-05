@@ -28,7 +28,7 @@ Dry-run mode reduces these requirements because cdxgen does not need write or ch
 
 ## Limitations of dry-run mode
 
-- Dry-run traces intent, decisions, and classified reads, but it still avoids side effects by design.
+- Dry-run traces intent, decisions, classified reads, archive extraction attempts, child-process I/O volume, and followed symlink resolutions when available, but it still avoids side effects by design.
 - Predictive dependency audit targets can be planned in dry-run mode, but upstream registry metadata fetches, repository cloning, and child SBOM generation remain blocked.
 - Findings that depend on generated child SBOMs or upstream source inspection are therefore incomplete in dry-run mode.
 - Secret-bearing environment-variable and file classification is heuristic. cdxgen records presence, counts, and categories conservatively, but unusual credential naming conventions may not be recognized automatically.
