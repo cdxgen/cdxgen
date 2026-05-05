@@ -3,6 +3,7 @@
   description: "Known GTFOBins execution helpers become materially riskier when the image keeps the binary setuid or setgid."
   severity: critical
   category: container-risk
+  dry-run-support: full
   condition: |
     components[
       $prop($, 'cdx:gtfobins:matched') = 'true'
@@ -43,6 +44,7 @@
   description: "Container runtime or namespace-management helpers that are already classified as GTFOBins can accelerate container breakout when runtime isolation is weakened."
   severity: critical
   category: container-risk
+  dry-run-support: full
   condition: |
     components[
       $prop($, 'cdx:gtfobins:matched') = 'true'
@@ -77,6 +79,7 @@
   description: "GTFOBins entries that can load attacker-controlled shared libraries or directly escalate privileges are strong hardening failures in container images."
   severity: high
   category: container-risk
+  dry-run-support: full
   condition: |
     components[
       $prop($, 'cdx:gtfobins:matched') = 'true'
@@ -116,6 +119,7 @@
   description: "A GTFOBins helper that can read local files or upload data becomes especially dangerous when it also runs with setuid/setgid or other elevated contexts."
   severity: high
   category: container-risk
+  dry-run-support: full
   condition: |
     components[
       $prop($, 'cdx:gtfobins:matched') = 'true'
@@ -155,6 +159,7 @@
   description: "Remote-execution-capable GTFOBins helpers under mutable or non-standard image paths often indicate an avoidable attack toolkit or image tampering."
   severity: medium
   category: container-risk
+  dry-run-support: full
   condition: |
     components[
       $prop($, 'cdx:gtfobins:matched') = 'true'
@@ -206,6 +211,7 @@
   description: "Dedicated container or Kubernetes intrusion toolkits such as Peirates, CDK, or DEEPCE should not ship inside production runtime images."
   severity: high
   category: container-risk
+  dry-run-support: full
   condition: |
     components[
       $prop($, 'cdx:container:matched') = 'true'
@@ -237,6 +243,7 @@
   description: "Helpers that rely on syscalls blocked by Docker's default seccomp profile become materially riskier when operators use `seccomp=unconfined` or permissive custom profiles."
   severity: medium
   category: container-risk
+  dry-run-support: full
   condition: |
     components[
       $prop($, 'cdx:container:matched') = 'true'

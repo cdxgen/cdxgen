@@ -7,6 +7,7 @@
   description: "npm packages with lifecycle hooks (preinstall, postinstall, etc.) execute arbitrary code during installation"
   severity: medium
   category: package-integrity
+  dry-run-support: full
   condition: |
     components[
       $prop($, 'cdx:npm:hasInstallScript') = 'true'
@@ -26,6 +27,7 @@
   description: "Detected mismatch between expected and resolved package name or version, which may indicate dependency confusion or tampering"
   severity: high
   category: package-integrity
+  dry-run-support: full
   condition: |
     components[
       $hasProp($, 'cdx:npm:nameMismatchError')
@@ -46,6 +48,7 @@
   description: "Go modules marked as deprecated may contain known issues or be abandoned"
   severity: medium
   category: package-integrity
+  dry-run-support: no
   condition: |
     components[
       $hasProp($, 'cdx:go:deprecated')
@@ -65,6 +68,7 @@
   description: "Yanked gems have been removed from RubyGems, typically due to security issues or critical bugs"
   severity: high
   category: package-integrity
+  dry-run-support: no
   condition: |
     components[
       $prop($, 'cdx:gem:yanked') = 'true'
@@ -84,6 +88,7 @@
   description: "npm packages marked as deprecated may have known vulnerabilities or unmaintained code"
   severity: low
   category: package-integrity
+  dry-run-support: partial
   condition: |
     components[
       $prop($, 'cdx:npm:deprecated') = 'true'
@@ -102,6 +107,7 @@
   description: "Dart packages from non-default registries may introduce unvetted code"
   severity: low
   category: package-integrity
+  dry-run-support: full
   condition: |
     components[
       $hasProp($, 'cdx:pub:registry')
@@ -120,6 +126,7 @@
   description: "Maven packages with shaded or relocated classes may obscure the true dependency graph and introduce hidden vulnerabilities"
   severity: low
   category: package-integrity
+  dry-run-support: full
   condition: |
     components[
       $prop($, 'cdx:maven:shaded') = 'true'
@@ -139,6 +146,7 @@
   description: "Hidden Unicode in README files can conceal malicious or misleading content in code review, especially inside comments"
   severity: medium
   category: package-integrity
+  dry-run-support: full
   condition: |
     formulation.components[
       $prop($, 'cdx:file:kind') = 'readme'
@@ -163,6 +171,7 @@
   description: "Lifecycle hooks that decode base64 payloads, hide long encoded blobs, or blend obfuscation with install-time execution are high-confidence supply-chain abuse indicators"
   severity: critical
   category: package-integrity
+  dry-run-support: full
   attack:
     tactics: [TA0005]
     techniques: [T1027]
@@ -187,6 +196,7 @@
   description: "Crates yanked from crates.io are often removed because of security, correctness, or ecosystem breakage issues"
   severity: high
   category: package-integrity
+  dry-run-support: no
   condition: |
     components[
       $prop($, 'cdx:cargo:yanked') = 'true'
@@ -208,6 +218,7 @@
   description: "Cargo build scripts and native build helpers expand execution surface during build and deserve additional review before release"
   severity: medium
   category: package-integrity
+  dry-run-support: full
   condition: |
     formulation.components[
       $prop($, 'cdx:rust:buildTool') = 'cargo'
@@ -232,6 +243,7 @@
   description: "Native Cargo build surfaces deserve additional scrutiny when the workflow relies on mutable Cargo toolchain setup actions instead of immutable SHA-pinned references"
   severity: medium
   category: package-integrity
+  dry-run-support: full
   condition: |
     formulation.components[
       $prop($, 'cdx:rust:buildTool') = 'cargo'
@@ -265,6 +277,7 @@
   description: "Cargo workflows that execute build/test/package/publish steps against native build surfaces increase the impact of build-script or native-helper changes"
   severity: medium
   category: package-integrity
+  dry-run-support: full
   condition: |
     formulation.components[
       $prop($, 'cdx:rust:buildTool') = 'cargo'
@@ -311,6 +324,7 @@
   description: "Collider lock entries should carry a SHA-256 wrap_hash so the selected wrap file remains integrity-pinned and reproducible"
   severity: high
   category: package-integrity
+  dry-run-support: full
   condition: |
     components[
       $hasProp($, 'cdx:collider:dependencyKind')

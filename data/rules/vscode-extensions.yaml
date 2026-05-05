@@ -7,6 +7,7 @@
   description: "VS Code extensions with postinstall/preinstall scripts execute arbitrary code during installation"
   severity: critical
   category: vscode-extension
+  dry-run-support: full
   condition: |
     components[
       $startsWith(purl, 'pkg:vscode-extension/')
@@ -32,6 +33,7 @@
   description: "Extensions activating on '*' with terminal-access contribution can execute commands in any workspace"
   severity: high
   category: vscode-extension
+  dry-run-support: full
   condition: |
     components[
       $startsWith(purl, 'pkg:vscode-extension/')
@@ -57,6 +59,7 @@
   description: "Extensions supporting untrustedWorkspaces=true with filesystem-provider contributions may access sensitive files"
   severity: high
   category: vscode-extension
+  dry-run-support: full
   condition: |
     components[
       $startsWith(purl, 'pkg:vscode-extension/')
@@ -82,6 +85,7 @@
   description: "Extension packs implicitly install bundled extensions; flag packs containing members with lifecycle scripts or privileged capabilities"
   severity: medium
   category: vscode-extension
+  dry-run-support: full
   condition: |
     components[
       $startsWith(purl, 'pkg:vscode-extension/')
@@ -105,6 +109,7 @@
   description: "Extensions depending on other extensions inherit their trust boundary; flag chains where dependencies have install scripts or privileged access"
   severity: medium
   category: vscode-extension
+  dry-run-support: full
   condition: |
     components[
       $startsWith(purl, 'pkg:vscode-extension/')
@@ -128,6 +133,7 @@
   description: "Extensions contributing debuggers or authentication providers have elevated host access and credential handling capabilities"
   severity: high
   category: vscode-extension
+  dry-run-support: full
   condition: |
     components[
       $startsWith(purl, 'pkg:vscode-extension/')
@@ -155,6 +161,7 @@
   description: "Extensions with extensionKind=workspace and executesCode=true run arbitrary code on remote hosts or containers"
   severity: high
   category: vscode-extension
+  dry-run-support: full
   condition: |
     components[
       $startsWith(purl, 'pkg:vscode-extension/')
@@ -180,6 +187,7 @@
   description: "Extensions requiring VS Code engine <1.80 may lack workspace trust and other modern security features"
   severity: low
   category: vscode-extension
+  dry-run-support: full
   condition: |
     components[
       $startsWith(purl, 'pkg:vscode-extension/')
@@ -204,6 +212,7 @@
   description: "Extensions declaring browser entry points should run in web sandbox; flag if also declares workspace execution or filesystem access"
   severity: medium
   category: vscode-extension
+  dry-run-support: full
   condition: |
     components[
       $startsWith(purl, 'pkg:vscode-extension/')

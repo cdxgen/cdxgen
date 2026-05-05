@@ -7,6 +7,7 @@
   description: "GitHub Actions referenced by tag/branch in workflows with write permissions pose supply chain risk"
   severity: high
   category: ci-permission
+  dry-run-support: full
   attack:
     tactics: [TA0001, TA0004]
     techniques: [T1195.001]
@@ -37,6 +38,7 @@
   description: "Workflows or jobs granting id-token:write to third-party actions may enable token exfiltration"
   severity: high
   category: ci-permission
+  dry-run-support: full
   attack:
     tactics: [TA0006]
     techniques: [T1528]
@@ -68,6 +70,7 @@
   description: "GitHub Actions pinned to tags (vs SHA) can change behavior unexpectedly if tag is moved"
   severity: medium
   category: ci-permission
+  dry-run-support: full
   attack:
     tactics: [TA0001, TA0005]
     techniques: [T1195.001]
@@ -89,6 +92,7 @@
   description: "pull_request_target can execute code in the context of the base branch, risking secret exposure"
   severity: medium
   category: ci-permission
+  dry-run-support: full
   attack:
     tactics: [TA0001, TA0004]
   condition: |
@@ -112,6 +116,7 @@
   description: "actions/checkout with persist-credentials=true (default) exposes GITHUB_TOKEN to subsequent steps"
   severity: medium
   category: ci-permission
+  dry-run-support: full
   attack:
     tactics: [TA0004, TA0006]
     techniques: [T1552]
@@ -142,6 +147,7 @@
   description: "GitHub Actions cache can be poisoned when used in workflows triggered by untrusted input (e.g., pull_request from forks)"
   severity: high
   category: ci-permission
+  dry-run-support: full
   attack:
     tactics: [TA0001, TA0005]
     techniques: [T1195.001]
@@ -180,6 +186,7 @@
   description: "Direct interpolation of github.event.* or inputs.* into run: blocks enables command injection"
   severity: critical
   category: ci-permission
+  dry-run-support: full
   attack:
     tactics: [TA0002, TA0004]
     techniques: [T1059]
@@ -205,6 +212,7 @@
   description: "Triggers like pull_request_target, issue_comment, or workflow_run combined with write permissions enable privilege escalation"
   severity: high
   category: ci-permission
+  dry-run-support: full
   attack:
     tactics: [TA0001, TA0004]
   condition: |
@@ -234,6 +242,7 @@
   description: "Hidden Unicode in workflow files can disguise malicious logic, comments, or diffs and should be reviewed before merge"
   severity: medium
   category: ci-permission
+  dry-run-support: full
   attack:
     tactics: [TA0005]
     techniques: [T1027]
@@ -260,6 +269,7 @@
   description: "npm and PyPI publishing should prefer trusted publishing or OIDC-backed flows instead of long-lived token secrets or explicit --token arguments"
   severity: medium
   category: ci-permission
+  dry-run-support: full
   attack:
     tactics: [TA0006, TA0010]
     techniques: [T1528]
@@ -287,6 +297,7 @@
   description: "Reusable workflows invoked from external repositories with secrets: inherit expand the trust boundary and can expose repository credentials"
   severity: high
   category: ci-permission
+  dry-run-support: full
   attack:
     tactics: [TA0006, TA0008]
     techniques: [T1528, T1552]
@@ -315,6 +326,7 @@
   description: "Reusable workflows referenced by tag or branch can change behavior without review and should be pinned to immutable SHAs"
   severity: medium
   category: ci-permission
+  dry-run-support: full
   attack:
     tactics: [TA0001, TA0005]
     techniques: [T1195.001]
@@ -342,6 +354,7 @@
   description: "High-risk triggers executing on self-hosted runners can expose internal network access, credentials, and long-lived runner state"
   severity: high
   category: ci-permission
+  dry-run-support: full
   attack:
     tactics: [TA0004, TA0008]
   condition: |
@@ -373,6 +386,7 @@
   description: "Writing to GITHUB_ENV, GITHUB_PATH, or GITHUB_OUTPUT in privileged workflows can persist attacker-controlled state across later steps and jobs"
   severity: high
   category: ci-permission
+  dry-run-support: full
   attack:
     tactics: [TA0003, TA0004, TA0005]
     techniques: [T1059]
@@ -406,6 +420,7 @@
   description: "Run steps that invoke outbound network tools while transmitting secrets, github.token, or OIDC request context are strong exfiltration indicators"
   severity: high
   category: ci-permission
+  dry-run-support: full
   attack:
     tactics: [TA0006, TA0010]
     techniques: [T1048]
@@ -436,6 +451,7 @@
   description: "workflow_call producers that request caller-provided secrets while also holding write or OIDC permissions expand the blast radius across repositories and workflows"
   severity: high
   category: ci-permission
+  dry-run-support: full
   attack:
     tactics: [TA0006, TA0008]
     techniques: [T1528, T1552]
@@ -468,6 +484,7 @@
   description: "workflow_call producers that both accept caller-controlled inputs and emit outputs from privileged execution contexts can propagate unsafe values into downstream trusted jobs"
   severity: medium
   category: ci-permission
+  dry-run-support: full
   attack:
     tactics: [TA0003, TA0004]
   condition: |
@@ -500,6 +517,7 @@
   description: "Dispatching workflow_dispatch or repository_dispatch from fork-reachable or privileged jobs can create a lateral-movement path into downstream workflows with broader credentials"
   severity: high
   category: ci-permission
+  dry-run-support: full
   attack:
     tactics: [TA0004, TA0008]
     techniques: [T1528]
@@ -543,6 +561,7 @@
   description: "Dispatch chains that inspect pull_request head-repository or fork context before invoking downstream workflows are strong signals of fork-to-privileged lateral movement"
   severity: critical
   category: ci-permission
+  dry-run-support: full
   attack:
     tactics: [TA0004, TA0008]
     techniques: [T1528, T1552]
@@ -581,6 +600,7 @@
   description: "Checking out github.event.pull_request.head.* repository or ref inside pull_request_target executes untrusted fork code with base-repository privileges"
   severity: critical
   category: ci-permission
+  dry-run-support: full
   attack:
     tactics: [TA0001, TA0004]
     techniques: [T1195.001, T1552]
@@ -616,6 +636,7 @@
   description: "High-risk GitHub Actions workflows that omit explicit permissions blocks while still performing sensitive operations may rely on repository-default token scopes. This is a review heuristic, not proof of write access."
   severity: medium
   category: ci-permission
+  dry-run-support: full
   attack:
     tactics: [TA0004, TA0006]
     techniques: [T1528, T1552]
@@ -649,6 +670,7 @@
   description: "Explicitly disabling setup-node caching reduces tamper resistance and reviewability when npm dependencies are resolved from remote package distributions"
   severity: medium
   category: ci-permission
+  dry-run-support: full
   attack:
     tactics: [TA0005]
     techniques: [T1195.001]
@@ -706,6 +728,7 @@
   description: "Explicitly disabling setup-python caching reduces tamper resistance and reviewability when PyPI dependencies are resolved from remote archives or VCS sources"
   severity: medium
   category: ci-permission
+  dry-run-support: full
   attack:
     tactics: [TA0005]
     techniques: [T1195.001]
@@ -747,6 +770,7 @@
   description: "Explicitly disabling Cargo setup caching reduces tamper resistance and reviewability when Cargo manifests rely on git dependencies"
   severity: medium
   category: ci-permission
+  dry-run-support: full
   attack:
     tactics: [TA0005]
     techniques: [T1195.001]

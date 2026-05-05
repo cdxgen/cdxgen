@@ -6,6 +6,7 @@
   description: "npm packages with install scripts declared from git, URL, or local path sources in the manifest increase supply chain attack surface"
   severity: high
   category: dependency-source
+  dry-run-support: full
   condition: |
     components[
       $prop($, 'cdx:npm:hasInstallScript') = 'true'
@@ -28,6 +29,7 @@
   description: "Go modules with local_dir replacements are non-hermetic and may not be reproducible"
   severity: high
   category: dependency-source
+  dry-run-support: full
   condition: |
     components[
       $hasProp($, 'cdx:go:local_dir')
@@ -46,6 +48,7 @@
   description: "Swift packages with localCheckoutPath indicate developer-only dependencies not suitable for release"
   severity: high
   category: dependency-source
+  dry-run-support: full
   condition: |
     components[
       $hasProp($, 'cdx:swift:localCheckoutPath')
@@ -64,6 +67,7 @@
   description: "Nix dependencies without revision or nar_hash cannot be verified for content integrity"
   severity: high
   category: dependency-source
+  dry-run-support: full
   condition: |
     components[
       $startsWith(purl, 'pkg:nix/')
@@ -88,6 +92,7 @@
   description: "Ruby gems sourced from git branches (without revision pin) can change unexpectedly"
   severity: medium
   category: dependency-source
+  dry-run-support: full
   condition: |
     components[
       $hasProp($, 'cdx:gem:remoteBranch')
@@ -108,6 +113,7 @@
   description: "PyPI packages from unapproved registries may introduce unvetted code"
   severity: low
   category: dependency-source
+  dry-run-support: full
   condition: |
     components[
       $hasProp($, 'cdx:pypi:registry')
@@ -128,6 +134,7 @@
   description: "Cargo git dependencies without revision or tag pinning can change unexpectedly and reduce build reproducibility"
   severity: high
   category: dependency-source
+  dry-run-support: full
   condition: |
     components[
       $hasProp($, 'cdx:cargo:git')
@@ -150,6 +157,7 @@
   description: "Cargo path dependencies are local source references that reduce release reproducibility and may bypass registry review controls"
   severity: high
   category: dependency-source
+  dry-run-support: full
   condition: |
     components[
       $hasProp($, 'cdx:cargo:path')
@@ -169,6 +177,7 @@
   description: "Collider lock entries that resolve from HTTP origins can be observed or modified in transit before wrap-hash verification occurs"
   severity: medium
   category: dependency-source
+  dry-run-support: full
   condition: |
     components[
       $prop($, 'cdx:collider:originScheme') = 'http'
@@ -188,6 +197,7 @@
   description: "Collider lock origin URLs should not carry credentials, query strings, or fragments because those values may embed secrets or unstable signed URLs"
   severity: low
   category: dependency-source
+  dry-run-support: full
   condition: |
     components[
       $prop($, 'cdx:collider:originSanitized') = 'true'
@@ -207,6 +217,7 @@
   description: "Python dependencies declared via git, direct URL, or local path in requirements or pyproject files bypass normal registry version mediation"
   severity: high
   category: dependency-source
+  dry-run-support: full
   condition: |
     components[
       $hasProp($, 'cdx:pypi:manifestSourceType')

@@ -50,6 +50,14 @@ The categories that work best in dry-run mode are the formulation-centric ones:
 
 `package-integrity` is only partially covered in dry-run mode. Rules that can be evaluated from the current BOM still run, but predictive upstream analysis is intentionally skipped.
 
+Built-in BOM audit rules now declare an explicit `dry-run-support` tag with one of these values:
+
+- `full` — the rule is expected to evaluate normally in dry-run mode
+- `partial` — the rule can still match, but dry-run BOM generation may omit some supporting metadata
+- `no` — the rule depends on metadata that dry-run intentionally does not collect
+
+When you run `cdxgen --bom-audit --dry-run`, the BOM audit summary reports how many of the active rules are tagged `no` and how many are tagged `partial`.
+
 ## How it works
 
 The audit runs as a post-processing step after BOM generation:

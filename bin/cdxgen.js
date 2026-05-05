@@ -1412,8 +1412,10 @@ const writeCycloneDxOutput = (jsonFile, bomJson, options) => {
     );
     const {
       auditBom,
+      formatDryRunSupportSummary,
       formatAnnotations,
       formatConsoleOutput,
+      getBomAuditDryRunSupportSummary,
       hasCriticalFindings,
     } = await import("../lib/stages/postgen/auditBom.js");
     thoughtLog("Let's run security audit...");
@@ -1422,6 +1424,16 @@ const writeCycloneDxOutput = (jsonFile, bomJson, options) => {
       formatConsoleOutput(postAuditFindings);
     } else if (DEBUG_MODE) {
       console.log("BOM audit: No findings");
+    }
+    if (isDryRun) {
+      const dryRunSupportSummary =
+        postAuditFindings.dryRunSupportSummary ||
+        (await getBomAuditDryRunSupportSummary(options));
+      const dryRunSupportMessage =
+        formatDryRunSupportSummary(dryRunSupportSummary);
+      if (dryRunSupportMessage) {
+        console.log(dryRunSupportMessage);
+      }
     }
     if (postAuditFindings.length && options.specVersion >= 1.4) {
       bomNSData.bomJson.annotations = [

@@ -3,6 +3,7 @@
   description: "Hidden Unicode in AI agent instructions or skill files can conceal misleading prompts, hidden tool behavior, or review-evasion content."
   severity: medium
   category: ai-agent
+  dry-run-support: full
   standards:
     owasp-ai-top-10:
       - "LLM05: Supply Chain Vulnerabilities"
@@ -35,6 +36,7 @@
   description: "Public MCP endpoints referenced from agent or skill files deserve review when the instruction surface does not indicate any bearer, token, or OAuth controls."
   severity: high
   category: ai-agent
+  dry-run-support: full
   attack:
     tactics: [TA0001]
     techniques: [T1190]
@@ -72,6 +74,7 @@
   description: "Agent files that mention MCP servers, packages, or endpoints without corresponding MCP package inventory or source-derived MCP services can hide runtime trust dependencies from reviewers."
   severity: medium
   category: ai-agent
+  dry-run-support: full
   standards:
     owasp-ai-top-10:
       - "LLM05: Supply Chain Vulnerabilities"
@@ -107,6 +110,7 @@
   description: "Localhost tunneling and reverse-proxy references in agent files can turn development-only MCP servers into remotely reachable control surfaces."
   severity: high
   category: ai-agent
+  dry-run-support: full
   attack:
     tactics: [TA0001, TA0011]
     techniques: [T1190, T1071]
@@ -142,6 +146,7 @@
   description: "Non-official MCP wrappers referenced directly from agent instructions deserve extra review before they are trusted in developer tooling or automation flows."
   severity: medium
   category: ai-agent
+  dry-run-support: full
   standards:
     owasp-ai-top-10:
       - "LLM05: Supply Chain Vulnerabilities"
@@ -174,6 +179,7 @@
   description: "Agent or skill files that embed bearer tokens, API keys, or similar secrets create immediate review and credential-rotation risk."
   severity: critical
   category: ai-agent
+  dry-run-support: full
   attack:
     tactics: [TA0006]
     techniques: [T1552]
@@ -210,6 +216,7 @@
   description: "Shipped AI instruction and skill files deserve explicit review because they can alter developer tooling, release-time automation, and downstream runtime behavior."
   severity: medium
   category: ai-agent
+  dry-run-support: full
   standards:
     owasp-ai-top-10:
       - "LLM05: Supply Chain Vulnerabilities"

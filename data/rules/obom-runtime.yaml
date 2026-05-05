@@ -7,6 +7,7 @@
   description: "Systemd units loaded from /tmp or /var/tmp can indicate unauthorized persistence."
   severity: high
   category: obom-runtime
+  dry-run-support: full
   condition: |
     components[
       $prop($, 'cdx:osquery:category') = 'systemd_units'
@@ -37,6 +38,7 @@
   description: "Sudoers entries allowing unrestricted command execution increase lateral movement and privilege escalation risk."
   severity: high
   category: obom-runtime
+  dry-run-support: full
   condition: |
     components[
       $prop($, 'cdx:osquery:category') = 'sudoers_snapshot'
@@ -63,6 +65,7 @@
   description: "Root SSH keys without command/from/no-agent-forwarding restrictions weaken access controls and traceability."
   severity: medium
   category: obom-runtime
+  dry-run-support: full
   condition: |
     components[
       $prop($, 'cdx:osquery:category') = 'authorized_keys_snapshot'
@@ -90,6 +93,7 @@
   description: "Drives with disabled BitLocker protection can violate endpoint encryption requirements and increase data exposure risk."
   severity: high
   category: obom-runtime
+  dry-run-support: full
   condition: |
     components[
       $prop($, 'cdx:osquery:category') = 'windows_bitlocker_info'
@@ -116,6 +120,7 @@
   description: "Poor Security Center health indicates one or more key endpoint protections are disabled or degraded."
   severity: high
   category: obom-runtime
+  dry-run-support: full
   condition: |
     components[
       $prop($, 'cdx:osquery:category') = 'windows_security_center'
@@ -150,6 +155,7 @@
   description: "Run/RunOnce entries launching from temp or encoded script commands are common persistence techniques."
   severity: critical
   category: obom-runtime
+  dry-run-support: full
   condition: |
     components[
       $prop($, 'cdx:osquery:category') = 'windows_run_keys'
@@ -179,6 +185,7 @@
   description: "ALF misconfiguration can expose endpoints to unsolicited inbound traffic and weakens host hardening baselines."
   severity: high
   category: obom-runtime
+  dry-run-support: full
   condition: |
     components[
       $prop($, 'cdx:osquery:category') = 'alf'
@@ -207,6 +214,7 @@
   description: "Launchd agents/daemons sourced from temporary paths are a strong persistence and execution abuse signal."
   severity: critical
   category: obom-runtime
+  dry-run-support: full
   condition: |
     components[
       $prop($, 'cdx:osquery:category') = 'launchd_services'
@@ -244,6 +252,7 @@
   description: "ALF exceptions for binaries in user Downloads/Desktop/tmp increase risk of untrusted inbound network exposure."
   severity: medium
   category: obom-runtime
+  dry-run-support: full
   condition: |
     components[
       $prop($, 'cdx:osquery:category') = 'alf_exceptions'
@@ -274,6 +283,7 @@
   description: "Shell history with direct download-and-execute commands may indicate malware staging or hands-on-keyboard activity."
   severity: high
   category: obom-runtime
+  dry-run-support: full
   condition: |
     components[
       $prop($, 'cdx:osquery:category') = 'shell_history_snapshot'
@@ -304,6 +314,7 @@
   description: "Dockerd listening on TCP 2375 enables remote daemon control if not protected by network controls and TLS."
   severity: critical
   category: obom-runtime
+  dry-run-support: full
   condition: |
     components[
       $prop($, 'cdx:osquery:category') = 'listening_ports'
@@ -334,6 +345,7 @@
   description: "Root or service-account listeners bound to all interfaces expand attack surface and deserve proactive review."
   severity: high
   category: obom-runtime
+  dry-run-support: full
   condition: |
     components[
       $prop($, 'cdx:osquery:category') = 'privileged_listening_ports'
@@ -371,6 +383,7 @@
   description: "Cockpit, PackageKit, pkexec, and related admin surfaces running with elevated privileges should be continuously monitored for exposure and drift."
   severity: high
   category: obom-runtime
+  dry-run-support: full
   condition: |
     components[
       (
@@ -424,6 +437,7 @@
   description: "Interactive sudo or pkexec invocations against package-management and admin-control binaries can indicate privileged changes worth auditing."
   severity: high
   category: obom-runtime
+  dry-run-support: full
   condition: |
     components[
       $prop($, 'cdx:osquery:category') = 'sudo_executions'
@@ -476,6 +490,7 @@
   description: "Setuid/setgid transitions outside a small baseline of expected tools can indicate risky privilege-bound packages or exploit activity."
   severity: high
   category: obom-runtime
+  dry-run-support: full
   condition: |
     components[
       $prop($, 'cdx:osquery:category') = 'privilege_transitions'
@@ -523,6 +538,7 @@
   description: "Root processes executing from user-controlled or non-standard paths are a strong signal for persistence or package drift."
   severity: critical
   category: obom-runtime
+  dry-run-support: full
   condition: |
     components[
       $prop($, 'cdx:osquery:category') = 'elevated_processes'
@@ -562,6 +578,7 @@
   description: "Shell-driven privileged chains are useful for separating admin changes from long-running service behavior."
   severity: medium
   category: obom-runtime
+  dry-run-support: full
   condition: |
     components[
       $prop($, 'cdx:osquery:category') = 'sudo_executions'
@@ -604,6 +621,7 @@
   description: "Enabled hidden tasks executing from temp paths or encoded script launchers are common persistence tradecraft."
   severity: high
   category: obom-runtime
+  dry-run-support: full
   condition: |
     components[
       $prop($, 'cdx:osquery:category') = 'scheduled_tasks'
@@ -634,6 +652,7 @@
   description: "Auto-start services from temp or AppData paths may indicate privilege persistence through service hijacking."
   severity: critical
   category: obom-runtime
+  dry-run-support: full
   condition: |
     components[
       $prop($, 'cdx:osquery:category') = 'services_snapshot'
@@ -663,6 +682,7 @@
   description: "Run keys, startup items, scheduled tasks, or auto-start services that reference LOLBAS execution helpers deserve elevated review because they blend persistence with proxy execution tradecraft."
   severity: high
   category: obom-runtime
+  dry-run-support: full
   condition: |
     components[
       $prop($, 'cdx:lolbas:matched') = 'true'
@@ -706,6 +726,7 @@
   description: "WMI command consumers and AppCompat shims that invoke LOLBAS utilities are high-signal persistence and defense-evasion indicators."
   severity: critical
   category: obom-runtime
+  dry-run-support: full
   condition: |
     components[
       $prop($, 'cdx:lolbas:matched') = 'true'
@@ -742,6 +763,7 @@
   description: "Network-capable LOLBAS helpers such as PowerShell, Certutil, Bitsadmin, or WMIC become higher priority when they appear in persistence surfaces or suspicious live process command lines."
   severity: high
   category: obom-runtime
+  dry-run-support: full
   condition: |
     components[
       $prop($, 'cdx:lolbas:matched') = 'true'
@@ -788,6 +810,7 @@
   description: "A listening process backed by a LOLBAS execution helper is a strong remote-control or staging indicator on Windows endpoints."
   severity: critical
   category: obom-runtime
+  dry-run-support: full
   condition: |
     components[
       $prop($, 'cdx:osquery:category') = 'listening_ports'
@@ -827,6 +850,7 @@
   description: "Persistence surfaces that reference LOLBAS helpers documented with UAC-bypass behavior should be treated as privilege-escalation investigations."
   severity: critical
   category: obom-runtime
+  dry-run-support: full
   condition: |
     components[
       $prop($, 'cdx:lolbas:matched') = 'true'
@@ -864,6 +888,7 @@
   description: "Launchd overrides disabling Apple-managed services can indicate tampering with built-in security or platform controls."
   severity: medium
   category: obom-runtime
+  dry-run-support: full
   condition: |
     components[
       $prop($, 'cdx:osquery:category') = 'launchd_overrides'

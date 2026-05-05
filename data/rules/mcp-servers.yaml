@@ -3,6 +3,7 @@
   description: "HTTP-based MCP servers that expose tools without authentication let unauthenticated clients invoke model-controlled actions directly."
   severity: critical
   category: mcp-server
+  dry-run-support: full
   attack:
     tactics: [TA0001, TA0004]
     techniques: [T1190, T1059]
@@ -44,6 +45,7 @@
   description: "Streamable HTTP MCP servers should authenticate incoming requests before serving prompts, resources, or tools."
   severity: high
   category: mcp-server
+  dry-run-support: full
   attack:
     tactics: [TA0001]
     techniques: [T1190]
@@ -81,6 +83,7 @@
   description: "MCP servers built on non-official SDKs or wrappers deserve extra review before being exposed over HTTP, especially when they register tools."
   severity: medium
   category: mcp-server
+  dry-run-support: full
   attack:
     tactics: [TA0001, TA0005]
     techniques: [T1195.001]
@@ -124,6 +127,7 @@
   description: "MCP services discovered only from client configuration files still need explicit authentication or OAuth posture when they resolve to network-accessible HTTP endpoints."
   severity: high
   category: mcp-server
+  dry-run-support: full
   attack:
     tactics: [TA0001]
     techniques: [T1190]
@@ -163,6 +167,7 @@
   description: "MCP configs that embed tokens, API keys, or other secrets directly in args, env values, or headers create immediate credential-handling and supply-chain review risk."
   severity: critical
   category: mcp-server
+  dry-run-support: full
   attack:
     tactics: [TA0006]
     techniques: [T1552]
@@ -201,6 +206,7 @@
   description: "Dynamic client registration combined with a static configured client ID can create confused-deputy style authorization risk in MCP deployments."
   severity: high
   category: mcp-server
+  dry-run-support: full
   attack:
     tactics: [TA0004]
     techniques: [T1528]
@@ -238,6 +244,7 @@
   description: "Token-forwarding and passthrough settings in MCP configs deserve review because they can propagate delegated credentials across trust boundaries."
   severity: high
   category: mcp-server
+  dry-run-support: full
   attack:
     tactics: [TA0006]
     techniques: [T1528]
@@ -275,6 +282,7 @@
   description: "Committed MCP client configuration files can carry trust, auth, and distribution sensitivity even when they are not actively used during the current scan."
   severity: medium
   category: mcp-server
+  dry-run-support: full
   standards:
     owasp-ai-top-10:
       - "LLM07: Insecure Plugin Design"
