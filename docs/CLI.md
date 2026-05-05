@@ -41,6 +41,7 @@ Use `--dry-run` when you want a read-only review of what cdxgen would attempt.
 - cdxgen reads local project files only.
 - It blocks child-process execution, filesystem writes, temp-dir creation, repository cloning, protobuf export, signing, and remote submission.
 - At the end of the run, cdxgen prints an activity summary table that highlights what completed and what was intentionally blocked.
+- `--bom-audit` still runs the in-memory formulation audit in dry-run mode, but the predictive dependency audit only plans targets and skips registry metadata fetches, upstream repository cloning, and child SBOM generation.
 
 Example:
 

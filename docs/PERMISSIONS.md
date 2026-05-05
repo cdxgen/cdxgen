@@ -5,7 +5,7 @@ cdxgen supports the Node.js permission [model](https://nodejs.org/api/permission
 ## Secure mode vs dry-run mode
 
 - **Secure mode** hardens how cdxgen runs and narrows the permissions it should receive.
-- **Dry-run mode** (`cdxgen --dry-run` or `CDXGEN_DRY_RUN=true`) makes cdxgen read-only. It reads local files, blocks writes, child processes, temp directories, repository cloning, and remote submission, then prints an activity summary table for review.
+- **Dry-run mode** (`cdxgen --dry-run` or `CDXGEN_DRY_RUN=true`) makes cdxgen read-only. It reads local files, blocks writes, child processes, temp directories, repository cloning, and remote submission, then prints an activity summary table for review. `--bom-audit` remains available, but only the in-memory formulation audit runs fully; the predictive dependency audit is reduced to target planning.
 - You can combine the two when you want both hardened execution guidance and a read-only review workflow.
 
 ## Benefits of Permissions Model
@@ -25,6 +25,13 @@ Secure mode only restricts cdxgen from performing certain activities such as pac
 | --allow-child-process | For some languages, ChildProcess permission is required to spawn commands |
 
 Dry-run mode reduces these requirements because cdxgen does not need write or child-process permissions for its blocked operations.
+
+## Limitations of dry-run mode
+
+- Dry-run traces intent, decisions, and classified reads, but it still avoids side effects by design.
+- Predictive dependency audit targets can be planned in dry-run mode, but upstream registry metadata fetches, repository cloning, and child SBOM generation remain blocked.
+- Findings that depend on generated child SBOMs or upstream source inspection are therefore incomplete in dry-run mode.
+- Secret-bearing values are never emitted in the activity summary; cdxgen records only redacted presence, count, and category metadata.
 
 Example invocations:
 

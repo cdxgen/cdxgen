@@ -29,6 +29,27 @@ cdxgen -o bom.json --bom-audit --bom-audit-only-trusted
 
 > **Note:** `--bom-audit` automatically enables `--include-formulation` to collect CI/CD workflow data. The formulation section may include sensitive data such as emails and environment details. Always review the generated SBOM before distribution.
 
+## Dry-run mode
+
+`--bom-audit` works with `--dry-run`, but the two audit layers behave differently:
+
+- **Formulation audit** continues to run normally because it evaluates the already-generated BOM in memory.
+- **Predictive dependency audit** switches to planning mode. cdxgen still selects candidate npm/PyPI/Cargo targets, but it does not fetch registry metadata, clone upstream repositories, or generate child SBOMs.
+
+The categories that work best in dry-run mode are the formulation-centric ones:
+
+- `ai-agent`
+- `ai-inventory` (alias for `ai-agent,mcp-server`)
+- `chrome-extension`
+- `ci-permission`
+- `container-risk`
+- `dependency-source`
+- `mcp-server`
+- `obom-runtime`
+- `vscode-extension`
+
+`package-integrity` is only partially covered in dry-run mode. Rules that can be evaluated from the current BOM still run, but predictive upstream analysis is intentionally skipped.
+
 ## How it works
 
 The audit runs as a post-processing step after BOM generation:
@@ -465,6 +486,15 @@ The audit rules are powered by the [cdx: Custom Properties](CUSTOM_PROPERTIES.md
 For projects without npm/PyPI dependencies, the overhead is usually minimal. For npm/PyPI-heavy projects, the predictive pass can add noticeable time because it may query registries and inspect upstream source repositories.
 
 To keep large projects responsive, the predictive pass now prints a preflight hint for larger target sets, skips trusted-publishing-backed packages by default, and prioritizes required dependencies before optional ones when a target cap applies.
+
+**Q: What are the limitations of `--bom-audit --dry-run`?**
+
+Dry-run BOM audit is intentionally conservative:
+
+1. formulation findings are complete only to the extent that the generated BOM captured the relevant metadata
+2. predictive dependency audit is limited to candidate-target planning
+3. registry metadata enrichment, upstream repository cloning, and child SBOM generation are skipped
+4. categories that depend heavily on predictive upstream inspection—especially parts of `package-integrity`—will produce fewer findings than a normal run
 
 **Q: Can I disable specific built-in rules?**
 
