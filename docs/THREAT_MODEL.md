@@ -131,6 +131,21 @@ Trust boundary 5: cdxgen container ←→ container host
 
 **Residual risk:** Medium — trust is delegated to external registry metadata and remote repository hosting unless strict allowlists are configured.
 
+#### T1.6 — Malicious archive metadata in packaged release artifacts
+
+**Threat:** An attacker ships a crafted ASAR archive with malformed header data, path-like entry names, integrity mismatches, or unpacked/native payloads intended to confuse inventory, trigger unsafe extraction behavior, or hide high-risk runtime capabilities.
+
+**Mitigations:**
+
+- Native ASAR parsing validates header structure before walking entries
+- Entry names containing path separators or traversal markers are rejected during header validation
+- Archive inventory records both declared integrity metadata and computed SHA-256 hashes for file components
+- `.asar.unpacked` extraction only writes within a temp directory created through safe wrappers
+- `--dry-run` still blocks temp extraction even for ASAR scans, while allowing in-memory header and file-content analysis
+- JavaScript capability analysis highlights eval/code generation, dynamic fetch/import, network, filesystem, hardware, and child-process indicators in packaged source files
+
+**Residual risk:** Medium — cdxgen can inventory and verify what is present, but a trusted-looking packaged archive may still contain malicious application logic that requires human review or runtime sandboxing to fully assess.
+
 ### 2. HTTP Server (`lib/server/server.js`)
 
 #### T2.1 — Path traversal via scan requests

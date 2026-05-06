@@ -30,5 +30,6 @@
 - [Tutorials - Auditing container escape and privilege risks](LESSON9.md)
 - [Tutorials - Auditing Cargo workspaces, caches, and native build surfaces](LESSON10.md)
 - [Tutorials - Cataloging and auditing MCP servers](LESSON11.md)
+- [Tutorials - Cataloging Electron ASAR archives](LESSON12.md)
 - [Tutorials - Generating OBOM](OBOM_LESSONS.md)
 - [Support (Enterprise & Community)](SUPPORT.md)

@@ -1,0 +1,122 @@
+# Electron ASAR archive security rules
+# Category: asar-archive
+# Evaluates packaged Electron application archives for dynamic execution,
+# capability overlap, integrity mismatches, and embedded install-time scripts.
+
+- id: ASAR-001
+  name: "Archived JavaScript with eval or dynamic loading"
+  description: "ASAR-packaged JavaScript using eval, Function, or dynamic import/require deserves review for arbitrary code execution and remote payload loading risk."
+  severity: high
+  category: asar-archive
+  dry-run-support: full
+  condition: |
+    components[
+      $prop($, 'cdx:file:kind') = 'asar-entry'
+      and (
+        $propBool($, 'cdx:asar:js:hasEval') = true
+        or $propBool($, 'cdx:asar:js:capability:dynamicImport') = true
+        or $listContains($propList($, 'cdx:asar:js:executionIndicators'), 'eval')
+        or $listContains($propList($, 'cdx:asar:js:executionIndicators'), 'function-constructor')
+      )
+    ]
+  location: |
+    {
+      "bomRef": $. "bom-ref",
+      "srcFile": $prop($, 'SrcFile'),
+      "archivePath": $prop($, 'cdx:asar:path')
+    }
+  message: "Archived JavaScript '{{ name }}' uses eval-like or dynamic loading behavior inside an ASAR package"
+  mitigation: "Review the packaged source for eval, Function, dynamic import, or runtime module resolution. Prefer static imports and signed update channels."
+  evidence: |
+    {
+      "archivePath": $prop($, 'cdx:asar:path'),
+      "executionIndicators": $prop($, 'cdx:asar:js:executionIndicators'),
+      "dynamicImport": $prop($, 'cdx:asar:js:capability:dynamicImport'),
+      "hasEval": $prop($, 'cdx:asar:js:hasEval')
+    }
+
+- id: ASAR-002
+  name: "Archived JavaScript with network plus file or hardware access"
+  description: "Packaged JavaScript that combines outbound network capability with filesystem or hardware access can materially increase exfiltration or device-control risk."
+  severity: high
+  category: asar-archive
+  dry-run-support: full
+  condition: |
+    components[
+      $prop($, 'cdx:file:kind') = 'asar-entry'
+      and $propBool($, 'cdx:asar:js:capability:network') = true
+      and (
+        $propBool($, 'cdx:asar:js:capability:fileAccess') = true
+        or $propBool($, 'cdx:asar:js:capability:hardware') = true
+        or $propBool($, 'cdx:asar:js:hasDynamicFetch') = true
+      )
+    ]
+  location: |
+    {
+      "bomRef": $. "bom-ref",
+      "srcFile": $prop($, 'SrcFile'),
+      "archivePath": $prop($, 'cdx:asar:path')
+    }
+  message: "Archived JavaScript '{{ name }}' combines network behavior with sensitive local access capabilities"
+  mitigation: "Review outbound endpoints, local file access, and hardware APIs. Limit packaged code to explicit allowlisted operations and sign release artifacts."
+  evidence: |
+    {
+      "archivePath": $prop($, 'cdx:asar:path'),
+      "capabilities": $prop($, 'cdx:asar:js:capabilities'),
+      "networkIndicators": $prop($, 'cdx:asar:js:networkIndicators'),
+      "hardwareIndicators": $prop($, 'cdx:asar:js:hardwareIndicators'),
+      "fileAccessIndicators": $prop($, 'cdx:asar:js:fileAccessIndicators')
+    }
+
+- id: ASAR-003
+  name: "Declared ASAR integrity mismatch"
+  description: "An ASAR entry whose declared integrity hash does not match the computed file hash may indicate tampering or packaging defects."
+  severity: high
+  category: asar-archive
+  dry-run-support: full
+  condition: |
+    components[
+      $prop($, 'cdx:file:kind') = 'asar-entry'
+      and $prop($, 'cdx:asar:integrityVerified') = 'false'
+    ]
+  location: |
+    {
+      "bomRef": $. "bom-ref",
+      "srcFile": $prop($, 'SrcFile'),
+      "archivePath": $prop($, 'cdx:asar:path')
+    }
+  message: "Archived entry '{{ name }}' has a declared integrity hash mismatch inside an ASAR package"
+  mitigation: "Rebuild the archive from trusted sources, verify signing provenance, and compare the packaged file to the expected release artifact."
+  evidence: |
+    {
+      "archivePath": $prop($, 'cdx:asar:path'),
+      "declaredHash": $prop($, 'cdx:asar:declaredIntegrityHash'),
+      "verified": $prop($, 'cdx:asar:integrityVerified')
+    }
+
+- id: ASAR-004
+  name: "Embedded npm package with install-time scripts inside ASAR"
+  description: "Node packages shipped inside ASAR archives that declare install/preinstall hooks are still useful compromise indicators during artifact review."
+  severity: high
+  category: asar-archive
+  dry-run-support: partial
+  condition: |
+    components[
+      $propBool($, 'cdx:npm:hasInstallScript') = true
+      and $contains($prop($, 'SrcFile'), '.asar#/')
+    ]
+  location: |
+    {
+      "bomRef": $. "bom-ref",
+      "purl": purl,
+      "srcFile": $prop($, 'SrcFile')
+    }
+  message: "Embedded npm package '{{ name }}@{{ version }}' inside ASAR declares install-time lifecycle scripts"
+  mitigation: "Review the embedded package source and build provenance. Remove unnecessary lifecycle hooks or vendor only prebuilt trusted artifacts."
+  evidence: |
+    {
+      "srcFile": $prop($, 'SrcFile'),
+      "lifecycleScripts": $prop($, 'cdx:npm:risky_scripts'),
+      "executionIndicators": $prop($, 'cdx:npm:lifecycleExecutionIndicators'),
+      "obfuscationIndicators": $prop($, 'cdx:npm:lifecycleObfuscationIndicators')
+    }

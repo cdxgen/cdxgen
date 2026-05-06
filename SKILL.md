@@ -72,6 +72,9 @@ cdxgen -t docker myimage:latest -o bom.json
 # Research/Security deep scan with evidence
 cdxgen --profile research --evidence -o bom.json
 
+# Catalog a packaged Electron ASAR archive
+cdxgen -t asar --bom-audit --bom-audit-categories asar-archive -o bom.json /absolute/path/to/app.asar
+
 # Pre-build scan (no package installations)
 cdxgen --lifecycle pre-build -o bom.json
 
@@ -167,6 +170,7 @@ These indicators affect **which packages are audited first**, not the final seve
 9. **ALWAYS run `--dry-run` first** for agent-driven workflows. Review the activity summary, prefer `--activity-report json` or `jsonl` for machine-readable inspection, and ask the user for permission before rerunning without `--dry-run`.
 10. When using server mode or BOM upload features, keep `CDXGEN_ALLOWED_HOSTS` and related host allowlists narrow. Prefer exact hosts; server-side Dependency-Track submission interprets wildcard entries as real subdomains only (for example, `*.example.com`), not suffix matches.
 11. When reviewing generated BOMs that include AI/MCP inventory or Chrome extension metadata, still inspect emitted properties before sharing externally even though cdxgen now redacts common secret-bearing URL and token patterns.
+12. For packaged Electron releases, prefer `-t asar` so archive file inventory, integrity verification, and embedded Node manifest analysis are included in the BOM and BOM-audit output.
 
 ## 📤 Output & Validation
 

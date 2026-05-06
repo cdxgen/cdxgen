@@ -11,6 +11,9 @@ cdxgen -o bom.json --bom-audit
 # Audit with only CI permission rules
 cdxgen -o bom.json --bom-audit --bom-audit-categories ci-permission
 
+# Audit an Electron ASAR release artifact
+cdxgen -t asar -o bom.json --bom-audit --bom-audit-categories asar-archive /absolute/path/to/app.asar
+
 # Audit with high-severity findings only
 cdxgen -o bom.json --bom-audit --bom-audit-min-severity high
 
@@ -38,6 +41,7 @@ cdxgen -o bom.json --bom-audit --bom-audit-only-trusted
 
 The categories that work best in dry-run mode are the formulation-centric ones:
 
+- `asar-archive`
 - `ai-agent`
 - `ai-inventory` (alias for `ai-agent,mcp-server`)
 - `chrome-extension`
@@ -48,7 +52,7 @@ The categories that work best in dry-run mode are the formulation-centric ones:
 - `obom-runtime`
 - `vscode-extension`
 
-`package-integrity` is only partially covered in dry-run mode. Rules that can be evaluated from the current BOM still run, but predictive upstream analysis is intentionally skipped.
+`package-integrity` is only partially covered in dry-run mode. Rules that can be evaluated from the current BOM still run, but predictive upstream analysis is intentionally skipped. `asar-archive` rules are mostly dry-run friendly because cdxgen can still read ASAR headers and file contents natively, but embedded npm install-script findings remain partial because temp extraction is still blocked.
 
 Built-in BOM audit rules now declare an explicit `dry-run-support` tag with one of these values:
 

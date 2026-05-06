@@ -49,6 +49,14 @@ Example:
 cdxgen --dry-run -t js -p .
 ```
 
+ASAR example:
+
+```shell
+cdxgen --dry-run -t asar -o bom.json /absolute/path/to/app.asar
+```
+
+In normal mode, `-t asar` adds archive file inventory, SHA-256 hashes, per-file evidence, JavaScript capability summaries, and embedded Node.js package inventory from manifests shipped inside the archive.
+
 For source-based scans, the primary positional input accepted by `cdxgen` can be:
 
 - a local filesystem path such as `.` or `/path/to/repo`

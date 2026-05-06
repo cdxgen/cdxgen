@@ -103,6 +103,7 @@ lib/
   evinser/       Evinse / SaaSBOM evidence generation
   helpers/
     analyzer.js         JS/TS import/export analysis
+    asarutils.js        Electron ASAR parsing, file inventory, hashes, and embedded manifest extraction
     caxa.js             Caxa (self-extracting) executable parsing
     cbomutils.js        Cryptography BOM helpers
     db.js               SQLite / atom DB helpers
@@ -508,6 +509,7 @@ All GitHub Actions workflows pin action SHA digests and have `permissions: {}` a
 - **Do not** import `got` directly in new library code — use `cdxgenAgent` from `lib/helpers/utils.js`.
 - **Do not** use `spawnSync` / `execSync` directly — use `safeSpawnSync`.
 - **Do not** use `existsSync` / `mkdirSync` directly — use `safeExistsSync` / `safeMkdirSync`.
+- **Do not** shell out to the Electron `asar` CLI or add a runtime dependency for ASAR parsing — use the native reader in `lib/helpers/asarutils.js`.
 - **Do not** construct PURL strings by concatenation — use `new PackageURL(…).toString()`.
 - **Do not** read `process.argv` inside library modules — accept options via the `options` object.
 - **Do not** commit secrets, tokens, or credentials.
