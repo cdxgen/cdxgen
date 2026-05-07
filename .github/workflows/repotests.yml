@@ -199,7 +199,7 @@ jobs:
           jq -e 'any(.components[]; .type == "cryptographic-asset" and any((.properties // [])[]; .name == "cdx:asar:signingVerified" and .value == "true"))' bomresults/bom-signed-asar.json
           jq -e 'any(.components[]; any((.properties // [])[]; .name == "cdx:file:kind" and .value == "asar-archive") and any((.properties // [])[]; .name == "cdx:asar:signingScope" and .value == "header-only"))' bomresults/bom-signed-asar.json
         shell: bash
-   cli-tests-quick-arm64:
+  cli-tests-quick-arm64:
     runs-on: ["self-hosted", "ubuntu", "arm64"]
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
