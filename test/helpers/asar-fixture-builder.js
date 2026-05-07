@@ -164,14 +164,21 @@ export function createAsarFixture(targetPath, options = {}) {
 }
 
 export function writeElectronAsarIntegrityPlist(plistPath, integrityMap) {
+  const escapeXml = (value) =>
+    String(value)
+      .replaceAll("&", "&amp;")
+      .replaceAll("<", "&lt;")
+      .replaceAll(">", "&gt;")
+      .replaceAll('"', "&quot;")
+      .replaceAll("'", "&apos;");
   const plistEntries = Object.entries(integrityMap || {})
     .map(
-      ([archivePath, record]) => `        <key>${archivePath}</key>
+      ([archivePath, record]) => `        <key>${escapeXml(archivePath)}</key>
         <dict>
           <key>algorithm</key>
-          <string>${record.algorithm}</string>
+          <string>${escapeXml(record.algorithm)}</string>
           <key>hash</key>
-          <string>${record.hash}</string>
+          <string>${escapeXml(record.hash)}</string>
         </dict>`,
     )
     .join("\n");
