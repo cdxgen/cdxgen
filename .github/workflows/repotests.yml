@@ -160,7 +160,46 @@ jobs:
           jq -e 'any(.annotations[]?; (.text // "") | contains("MCP-001"))' bomresults/bom-mcp-repotest.json
           jq -e 'any(.annotations[]?; (.text // "") | contains("MCP-003"))' bomresults/bom-mcp-repotest.json
         shell: bash
-  cli-tests-quick-arm64:
+      - name: repotests signed ASAR fixture
+        run: |
+          mkdir -p repotests/signed-asar/Signed.app/Contents/Resources
+          curl -L --fail --silent --show-error https://raw.githubusercontent.com/electron/asar/8388dbd1ed7a290d05d1144ba833d895193d2cb3/test/expected/packthis.asar -o repotests/signed-asar/Signed.app/Contents/Resources/app.asar
+          header_hash=$(node --input-type=module <<'EOF'
+          import { createHash } from "node:crypto";
+          import { readAsarArchiveHeaderSync } from "./lib/helpers/asarutils.js";
+
+          const { headerString } = readAsarArchiveHeaderSync(
+            "./repotests/signed-asar/Signed.app/Contents/Resources/app.asar",
+          );
+          console.log(
+            createHash("sha256").update(headerString, "utf8").digest("hex"),
+          );
+          EOF
+          )
+          cat <<EOF > repotests/signed-asar/Signed.app/Contents/Info.plist
+          <?xml version="1.0" encoding="UTF-8"?>
+          <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+          <plist version="1.0">
+            <dict>
+              <key>ElectronAsarIntegrity</key>
+              <dict>
+                <key>Resources/app.asar</key>
+                <dict>
+                  <key>algorithm</key>
+                  <string>SHA256</string>
+                  <key>hash</key>
+                  <string>${header_hash}</string>
+                </dict>
+              </dict>
+            </dict>
+          </plist>
+          EOF
+          bin/cdxgen.js -t asar repotests/signed-asar/Signed.app/Contents/Resources/app.asar -o bomresults/bom-signed-asar.json --spec-version 1.7 --fail-on-error
+          bin/validate.js -i bomresults/bom-signed-asar.json --format console --fail-severity critical
+          jq -e 'any(.components[]; .type == "cryptographic-asset" and any((.properties // [])[]; .name == "cdx:asar:signingVerified" and .value == "true"))' bomresults/bom-signed-asar.json
+          jq -e 'any(.components[]; any((.properties // [])[]; .name == "cdx:file:kind" and .value == "asar-archive") and any((.properties // [])[]; .name == "cdx:asar:signingScope" and .value == "header-only"))' bomresults/bom-signed-asar.json
+        shell: bash
+   cli-tests-quick-arm64:
     runs-on: ["self-hosted", "ubuntu", "arm64"]
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
