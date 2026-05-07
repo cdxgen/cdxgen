@@ -162,3 +162,32 @@ export function createAsarFixture(targetPath, options = {}) {
     ]),
   );
 }
+
+export function writeElectronAsarIntegrityPlist(plistPath, integrityMap) {
+  const plistEntries = Object.entries(integrityMap || {})
+    .map(
+      ([archivePath, record]) => `        <key>${archivePath}</key>
+        <dict>
+          <key>algorithm</key>
+          <string>${record.algorithm}</string>
+          <key>hash</key>
+          <string>${record.hash}</string>
+        </dict>`,
+    )
+    .join("\n");
+  mkdirSync(dirname(plistPath), { recursive: true });
+  writeFileSync(
+    plistPath,
+    `<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+  <dict>
+    <key>ElectronAsarIntegrity</key>
+    <dict>
+${plistEntries}
+    </dict>
+  </dict>
+</plist>
+`,
+  );
+}
