@@ -120,3 +120,31 @@
       "executionIndicators": $prop($, 'cdx:npm:lifecycleExecutionIndicators'),
       "obfuscationIndicators": $prop($, 'cdx:npm:lifecycleObfuscationIndicators')
     }
+
+- id: ASAR-005
+  name: "Electron ASAR signing metadata failed verification"
+  description: "Electron Info.plist signing metadata that fails verification is a high-signal indicator of packaging defects or release-artifact tampering."
+  severity: high
+  category: asar-archive
+  dry-run-support: full
+  condition: |
+    components[
+      $prop($, 'cdx:file:kind') = 'asar-archive'
+      and $propBool($, 'cdx:asar:hasSigningMetadata') = true
+      and $prop($, 'cdx:asar:signingVerified') = 'false'
+    ]
+  location: |
+    {
+      "bomRef": $. "bom-ref",
+      "srcFile": $prop($, 'SrcFile')
+    }
+  message: "ASAR archive '{{ name }}' has Electron signing metadata that failed verification"
+  mitigation: "Rebuild the Electron package from trusted sources, verify the Info.plist ElectronAsarIntegrity data, and confirm the shipped ASAR matches the expected signed release artifact."
+  evidence: |
+    {
+      "signingDeclaredHash": $prop($, 'cdx:asar:signingDeclaredHash'),
+      "signingAlgorithm": $prop($, 'cdx:asar:signingAlgorithm'),
+      "signingSource": $prop($, 'cdx:asar:signingSource'),
+      "signingScope": $prop($, 'cdx:asar:signingScope'),
+      "signingVerified": $prop($, 'cdx:asar:signingVerified')
+    }

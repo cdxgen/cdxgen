@@ -16,8 +16,10 @@ What this adds on top of a normal package-only BOM:
 
 - native ASAR header parsing without requiring the Electron `asar` package
 - `type=file` components for archived entries with archive-relative paths
+- nested archive identities such as `outer.asar#/nested/core.asar#/src/main.js`
 - SHA-256 hashes and evidence locations for each archived file entry
 - declared-versus-computed ASAR integrity verification
+- Electron `Info.plist` signing metadata verification for the ASAR header hash scope
 - JavaScript capability summaries for file I/O, network, hardware, child-process, eval/code generation, dynamic fetch, and dynamic import
 - embedded Node.js package inventory from `package.json` and lockfiles shipped inside the archive
 - ASAR-specific BOM-audit findings
@@ -36,8 +38,9 @@ High-signal questions:
 
 1. Which archived source files combine network reach with file or hardware access?
 2. Did any declared ASAR integrity hash fail verification?
-3. Does the package ship native `.node` binaries or `.asar.unpacked` entries?
-4. Which embedded npm packages still declare install-time lifecycle scripts?
+3. Did any Electron signing metadata fail header verification?
+4. Does the package ship native `.node` binaries or `.asar.unpacked` entries?
+5. Which embedded npm packages still declare install-time lifecycle scripts?
 
 ## 3) Understand dry-run behavior
 
@@ -63,11 +66,13 @@ The `asar-archive` BOM-audit category currently focuses on:
 - `ASAR-002` — archived JavaScript combining network capability with file or hardware access
 - `ASAR-003` — declared ASAR integrity mismatch
 - `ASAR-004` — embedded npm package with install-time scripts inside the archive
+- `ASAR-005` — Electron signing metadata present but failing ASAR header verification
 
 These rules are designed to be review-friendly:
 
 - archive/file rules are driven from the generated BOM itself
 - integrity mismatches compare declared ASAR metadata against computed file hashes
+- signing checks verify the Electron-declared ASAR header hash scope, not every packed file payload byte
 - embedded npm lifecycle findings reuse the same `cdx:npm:*` signals used elsewhere in cdxgen
 
 ## 5) Suggested release-gate command
@@ -87,5 +92,7 @@ This blocks clearly risky packaged behaviors while still preserving lower-severi
 
 - Treat packaged desktop artifacts as reviewable release surfaces, not just dependency bundles.
 - `asar.unpacked` content and native `.node` addons deserve the same scrutiny as installer payloads.
-- Integrity metadata is valuable only if you verify it against the shipped bytes.
+- Distinguish entry/file integrity from Electron signing metadata: `cdx:asar:signingScope=header-only` verifies the ASAR header hash, not the full payload.
+- Nested archive evidence paths remain reviewable because cdxgen rewrites them as chained archive identities such as `outer.asar#/nested/core.asar#/src/main.js`.
+- Archive-internal paths are normalized to forward slashes even on Windows so policies and `jq` pivots stay portable.
 - Dynamic fetch, eval, and embedded install scripts are especially important in Electron applications because they blur the line between package-time and runtime trust.

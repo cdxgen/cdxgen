@@ -52,7 +52,7 @@ The categories that work best in dry-run mode are the formulation-centric ones:
 - `obom-runtime`
 - `vscode-extension`
 
-`package-integrity` is only partially covered in dry-run mode. Rules that can be evaluated from the current BOM still run, but predictive upstream analysis is intentionally skipped. `asar-archive` rules are mostly dry-run friendly because cdxgen can still read ASAR headers and file contents natively, but embedded npm install-script findings remain partial because temp extraction is still blocked.
+`package-integrity` is only partially covered in dry-run mode. Rules that can be evaluated from the current BOM still run, but predictive upstream analysis is intentionally skipped. `asar-archive` rules are mostly dry-run friendly because cdxgen can still read ASAR headers and file contents natively, recurse into nested archives, and evaluate Electron header-signing metadata in memory, but embedded npm install-script findings remain partial because temp extraction is still blocked.
 
 Built-in BOM audit rules now declare an explicit `dry-run-support` tag with one of these values:
 
@@ -191,6 +191,24 @@ Beyond the YAML rule matches above, the current rollout also adds a small number
 - **Cargo workflow tie-ins:** mutable Cargo setup actions plus Cargo build/test/package/publish workflow steps correlated with native build surfaces
 
 The Python detections are intentionally conservative phase-1 heuristics. They are meant to catch obviously suspicious packaging behavior today while a deeper Python static-analysis path is developed separately.
+
+### `asar-archive` — Electron ASAR release artifact review
+
+Rules that evaluate packaged Electron `.asar` artifacts for dynamic execution, capability overlap, integrity mismatches, nested archive evidence, and Electron signing metadata.
+
+| Rule     | Severity | Description                                                   |
+| -------- | -------- | ------------------------------------------------------------- |
+| ASAR-001 | high     | Archived JavaScript with eval or dynamic loading              |
+| ASAR-002 | high     | Archived JavaScript with network plus file or hardware access |
+| ASAR-003 | high     | Declared ASAR integrity mismatch                              |
+| ASAR-004 | high     | Embedded npm package with install-time scripts inside ASAR    |
+| ASAR-005 | high     | Electron ASAR signing metadata failed verification            |
+
+Notes for reviewers:
+
+- nested archives are surfaced as chained identities such as `outer.asar#/nested/core.asar#/src/main.js`
+- archive-internal paths are normalized to forward slashes, even when the outer archive lives on Windows
+- `cdx:asar:signingScope=header-only` means Electron signing evidence verifies the ASAR header hash scope, not all packed payload bytes
 
 ### `mcp-server` — MCP server exposure and trust posture
 
