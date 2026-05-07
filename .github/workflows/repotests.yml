@@ -195,7 +195,18 @@ jobs:
           </plist>
           EOF
           bin/cdxgen.js -t asar repotests/signed-asar/Signed.app/Contents/Resources/app.asar -o bomresults/bom-signed-asar.json --spec-version 1.7 --fail-on-error
-          bin/validate.js -i bomresults/bom-signed-asar.json --format console --fail-severity critical
+          node --input-type=module <<'EOF'
+          import { readFileSync } from "node:fs";
+
+          import { validateBom } from "./lib/validator/bomValidator.js";
+
+          const bomJson = JSON.parse(
+            readFileSync("bomresults/bom-signed-asar.json", "utf8"),
+          );
+          if (validateBom(bomJson) !== true) {
+            process.exit(1);
+          }
+          EOF
           jq -e 'any(.components[]; .type == "cryptographic-asset" and any((.properties // [])[]; .name == "cdx:asar:signingVerified" and .value == "true"))' bomresults/bom-signed-asar.json
           jq -e 'any(.components[]; any((.properties // [])[]; .name == "cdx:file:kind" and .value == "asar-archive") and any((.properties // [])[]; .name == "cdx:asar:signingScope" and .value == "header-only"))' bomresults/bom-signed-asar.json
         shell: bash
