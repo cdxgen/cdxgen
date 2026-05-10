@@ -149,16 +149,18 @@ Trust boundary 5: cdxgen container ←→ container host
 
 #### T1.7 — Compromised or substituted helper binary
 
-**Threat:** cdxgen executes optional native helpers from `cdxgen-plugins-bin` (for example Trivy and osquery). A compromised, replaced, or unexpected binary could tamper with scan output or execute malicious logic.
+**Threat:** cdxgen executes optional native helpers from `cdxgen-plugins-bin` (for example Trivy, osquery, and trustinspector). A compromised, replaced, or unexpected binary could tamper with scan output or execute malicious logic. Separately, a forged `plugins-manifest.json` could attempt to spoof helper metadata recorded in `metadata.tools`.
 
 **Mitigations:**
 
 - Helper execution still flows through `safeSpawnSync`, command allowlisting, and the general secure-mode guardrails
 - Optional helper package versions are pinned in `package.json`, and the companion repository generates post-build metadata/SBOMs for shipped binaries
+- `plugins-manifest.json` is treated as data only: cdxgen does not execute commands, paths, or scripts from the manifest
+- Manifest ingestion is constrained to the real `plugins-manifest.json` file under `CDXGEN_PLUGINS_DIR`, requires a regular file, enforces a size bound, and sanitizes accepted fields before merging them into `metadata.tools`
 - Docker/rootfs tests assert non-cdxgen tool identity evidence and container/rootfs result parity, making silent helper-behavior drift easier to detect in CI
 - macOS osquery execution uses one-shot shell mode with the persistent database disabled, reducing the need for helper-managed state under privileged host paths such as `/var/osquery`
 
-**Residual risk:** Medium — helper binaries remain executable third-party/native code and expand the trusted computing base for deep OS/container inventory.
+**Residual risk:** Medium — helper binaries remain executable third-party/native code and expand the trusted computing base for deep OS/container inventory. A malicious actor who can replace the plugin directory can still spoof helper metadata or swap binaries, but that is a local integrity problem rather than a new command-injection path through manifest parsing.
 
 #### T1.8 — Malicious rootfs repository or trusted-key metadata
 

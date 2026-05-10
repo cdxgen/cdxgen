@@ -807,6 +807,16 @@ The grouped lists below remain the authoritative inventory. The compact tables, 
 - `cdx:chrome-extension:capability:fingerprinting`
 - `cdx:chrome-extension:hasAutofill`
 
+### Trust material and signed-software review
+
+- **Repository source properties:** `cdx:os:repo:type`, `cdx:os:repo:url`, `cdx:os:repo:enabled`, plus distro-specific repo keys such as `cdx:os:repo:signedBy`, `cdx:os:repo:gpgkey`, and `cdx:os:repo:gpgcheck`
+- **Cryptographic material properties:** `cdx:crypto:trustDomain`, `cdx:crypto:fingerprint`, `cdx:crypto:algorithm`, `cdx:crypto:keyStrength`, `cdx:crypto:createdAt`, `cdx:crypto:expiresAt`, `cdx:crypto:keyPath`, `cdx:crypto:fileExtension`, `cdx:crypto:keyId`, `cdx:crypto:userId`, `cdx:crypto:isCA`
+- **macOS trust properties:** `cdx:darwin:codesign:identifier`, `cdx:darwin:codesign:format`, `cdx:darwin:codesign:teamIdentifier`, `cdx:darwin:codesign:signed`, `cdx:darwin:codesign:runtimeVersion`, `cdx:darwin:codesign:authorityCount`, `cdx:darwin:codesign:authority`, `cdx:darwin:notarization:assessment`, `cdx:darwin:notarization:source`, `cdx:darwin:notarization:origin`, `cdx:darwin:gatekeeper:status`
+- **Windows trust properties:** `cdx:windows:authenticode:status`, `cdx:windows:authenticode:isOSBinary`, `cdx:windows:authenticode:statusMessage`, `cdx:windows:authenticode:signerSubject`, `cdx:windows:authenticode:signerIssuer`, `cdx:windows:authenticode:signerThumbprint`, `cdx:windows:authenticode:signerNotAfter`, `cdx:windows:authenticode:timestampSubject`, `cdx:windows:authenticode:timestampIssuer`, `cdx:windows:authenticode:timestampThumbprint`, `cdx:windows:wdac:activePolicyCount`, `cdx:windows:wdac:policyPath`, `cdx:windows:wdac:policySize`, `cdx:windows:wdac:lastModified`
+- **Helper-native OS package trust properties:** `PackageArchitecture`, `PackageMaintainer`, `PackageOrigin`, `PackageSource`, `PackageStatus`, `PackageVendor`
+
+**Compatibility note:** the six `Package*` keys above are emitted directly on OS-package components by the cdxgen Trivy wrapper for compatibility with existing container/rootfs processing. They are intentionally not `cdx:`-prefixed today, so policy authors should match the exact names shown here.
+
 ## Entry template for future additions
 
 When a new `cdx:` property is introduced, document it using this template so the inventory stays operational instead of becoming another flat list.

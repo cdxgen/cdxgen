@@ -529,6 +529,8 @@ For offline or staged scans, point cdxgen at a locally reconstructed root filesy
 cdxgen /tmp/remote_target -o /tmp/bom.json -t rootfs
 ```
 
+With the packaged helpers installed, rootfs and container BOMs now gain repository trust-source components, deep keyring / CA-store `cryptographic-asset` components, and extra OS package trust-state properties such as `PackageArchitecture`, `PackageMaintainer`, `PackageSource`, and `PackageStatus`.
+
 You can also pass the .tar file of a container image.
 
 ```shell
@@ -568,7 +570,7 @@ This feature is powered by osquery, which is [installed](https://github.com/cdxg
 
 The process would take several minutes and result in an SBOM file with thousands of components of various types, such as operating-system, device-drivers, files, and data.
 
-For practical SOC/IR and compliance workflows, see the dedicated [OBOM lessons](./docs/OBOM_LESSONS.md). For macOS-specific setup and permission caveats, see [OBOM macOS troubleshooting](./docs/OBOM_MACOS_TROUBLESHOOTING.md).
+For practical SOC/IR and compliance workflows, see the dedicated [OBOM lessons](./docs/OBOM_LESSONS.md). For macOS-specific setup and permission caveats, see [OBOM macOS troubleshooting](./docs/OBOM_MACOS_TROUBLESHOOTING.md). For compact before/after examples of the new trust metadata, see [Trust enrichment BOM diff examples](./docs/TRUST_ENRICHMENT_DIFF.md).
 
 ## Generate Cryptography Bill of Materials (CBOM)
 

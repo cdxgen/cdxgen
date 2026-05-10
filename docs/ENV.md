@@ -103,6 +103,18 @@ These variables are specifically for a single language or tool.
 | DOCKER_USE_CLI        | Force usage of the docker cli even on systems where streaming from the registry is possible. Useful when images are already available locally. Defaults to `false`                                                                                                                                                                                                                                                             |
 | DOCKER_USER           | Docker username used with `DOCKER_PASSWORD` and `DOCKER_EMAIL` as a process-wide override for Docker auth headers. When all three are set, cdxgen constructs auth for the requested registry, defaulting unqualified image pulls to `DOCKER_SERVER_ADDRESS` or `docker.io`.                                                                                                                                                    |
 
+### Binary helpers and plugin metadata
+
+| Variable           | Description                                                                                                                                                                              |
+| ------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| DOSAI_CMD          | Override the `dosai` helper path used for .NET enrichment.                                                                                                                               |
+| OSQUERY_CMD        | Override the `osquery` executable used for live-host OBOM collection.                                                                                                                    |
+| SOURCEKITTEN_CMD   | Override the `sourcekitten` executable used for Swift metadata extraction.                                                                                                               |
+| TRIVY_CMD          | Override the `trivy-cdxgen-*` helper used for container, image, and rootfs OS-package inventory.                                                                                         |
+| TRUSTINSPECTOR_CMD | Override the `trustinspector-cdxgen-*` helper used for repository trust anchors, certificate stores, macOS code-sign/notarization collection, and Windows Authenticode / WDAC inventory. |
+
+When `CDXGEN_PLUGINS_DIR` points at a packaged plugins directory, cdxgen also looks for `plugins-manifest.json` in that same directory and, when valid, uses it to enrich `metadata.tools` with precise helper identity/version/hash metadata. The manifest is treated as data only: its fields are not executed as commands.
+
 ### Go
 
 | Variable     | Description                                                                                                                 |
