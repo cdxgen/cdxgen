@@ -529,7 +529,7 @@ For offline or staged scans, point cdxgen at a locally reconstructed root filesy
 cdxgen /tmp/remote_target -o /tmp/bom.json -t rootfs
 ```
 
-With the packaged helpers installed, rootfs and container BOMs now gain repository trust-source components, deep keyring / CA-store `cryptographic-asset` components, and extra OS package trust-state properties such as `PackageArchitecture`, `PackageMaintainer`, `PackageSource`, and `PackageStatus`.
+With the packaged helpers installed, rootfs and container BOMs now gain repository trust-source components, deep keyring / CA-store `cryptographic-asset` components, native CycloneDX origin fields such as `supplier`, `manufacturer`, and `authors` for OS package trust metadata, plus additional package trust-state properties such as `PackageArchitecture`, `PackageSource`, and `PackageStatus`.
 
 You can also pass the .tar file of a container image.
 

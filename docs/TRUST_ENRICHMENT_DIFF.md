@@ -54,9 +54,13 @@ A conventional rootfs SBOM already contains OS packages, but it typically does *
 +  }
 @@ components[name=bash].properties
 +  { "name": "PackageArchitecture", "value": "amd64" },
-+  { "name": "PackageMaintainer", "value": "Debian Bash Maintainers <bash@example.test>" },
 +  { "name": "PackageSource", "value": "bash-src" },
 +  { "name": "PackageStatus", "value": "install ok installed" }
+@@ components[name=bash]
++  "supplier": { "name": "Debian Bash Maintainers <bash@example.test>" },
++  "authors": [
++    { "name": "Debian Bash Maintainers", "email": "bash@example.test" }
++  ]
 @@ components
 +  {
 +    "type": "data",
@@ -155,7 +159,8 @@ A conventional rootfs SBOM already contains OS packages, but it typically does *
 When diffing BOMs before/after the new enrichments, look for these high-signal additions:
 
 - `metadata.tools.components[*].name == "trustinspector"`
-- `PackageArchitecture`, `PackageMaintainer`, `PackageSource`, `PackageStatus`, `PackageVendor`
+- `PackageArchitecture`, `PackageSource`, `PackageStatus`
+- native component origin fields such as `supplier`, `manufacturer`, and `authors`
 - `cdx:os:repo:*` repository provenance keys
 - `cdx:crypto:*` trust-anchor and certificate properties
 - `cdx:darwin:codesign:*`, `cdx:darwin:notarization:*`, `cdx:darwin:gatekeeper:*`
