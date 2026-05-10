@@ -87,9 +87,12 @@ run_docker_tests() {
   bin/cdxgen.js "$ubuntu_archive" -p -t docker -o bomresults/bom-ubuntu.tar-audit.json --bom-audit --bom-audit-categories container-risk --fail-on-error
   assert_container_audit_bom bomresults/bom-ubuntu.tar-audit.json
   assert_trivy_tool_identity_bom bomresults/bom-ubuntu.tar-audit.json
+  assert_os_repository_crypto_bom bomresults/bom-ubuntu.tar.json
   python3 "$SCRIPT_DIR/reconstruct-staged-rootfs.py" "$ubuntu_archive" "$ubuntu_extracted_dir" "$ubuntu_rootfs_dir"
   bin/cdxgen.js "$ubuntu_rootfs_dir" -p -t rootfs -o bomresults/bom-ubuntu.rootfs.json --fail-on-error
+  assert_os_repository_crypto_bom bomresults/bom-ubuntu.rootfs.json
   assert_same_component_signature bomresults/bom-ubuntu.tar.json bomresults/bom-ubuntu.rootfs.json
+  assert_same_os_repository_crypto_signature bomresults/bom-ubuntu.tar.json bomresults/bom-ubuntu.rootfs.json
 
   docker pull alpine:latest
   docker save -o "$alpine_archive" alpine:latest

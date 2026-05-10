@@ -92,6 +92,55 @@ assert_non_cdxgen_tool_identity_bom() {
   }
 }
 
+os_repository_crypto_signature() {
+  local bom_file="$1"
+  jq -c '
+    [.components[]? | select(.type == "data" and ((.properties // []) | any(.name == "cdx:os:repo:type"))) | .["bom-ref"]] as $repoRefs
+    | [.components[]? | select(.type == "data" and ((.properties // []) | any(.name == "cdx:os:repo:type")) and ((.properties // []) | any(.name == "cdx:os:repo:signedBy" or .name == "cdx:os:repo:gpgkey"))) | .["bom-ref"]] as $repoRefsWithExplicitKeys
+    | [.components[]? | select(.type == "cryptographic-asset" and (.cryptoProperties.assetType // "") == "related-crypto-material" and (.cryptoProperties.relatedCryptoMaterialProperties.type // "") == "public-key") | .["bom-ref"]] as $keyRefs
+    | {
+      repoSources: ($repoRefs | length),
+      repoSourcesWithExplicitKeys: ($repoRefsWithExplicitKeys | length),
+      trustedKeys: ($keyRefs | length),
+      repoKeyEdges: [
+        .dependencies[]?
+        | .ref as $repoRef
+        | select(($repoRefs | index($repoRef)) != null)
+        | .dependsOn[]?
+        | . as $depRef
+        | select(($keyRefs | index($depRef)) != null)
+      ] | length
+    }
+  ' "$bom_file"
+}
+
+assert_os_repository_crypto_bom() {
+  local bom_file="$1"
+  local signature
+  signature="$(os_repository_crypto_signature "$bom_file")"
+  echo "$signature" | jq -e '
+    .repoSources > 0
+    and .trustedKeys > 0
+    and (.repoSourcesWithExplicitKeys == 0 or .repoKeyEdges > 0)
+  ' >/dev/null || {
+    echo "Expected OS repository source and trusted-key crypto coverage in $bom_file"
+    echo "signature=$signature"
+    return 1
+  }
+}
+
+assert_same_os_repository_crypto_signature() {
+  local expected actual
+  expected=$(os_repository_crypto_signature "$1")
+  actual=$(os_repository_crypto_signature "$2")
+  if [ "$expected" != "$actual" ]; then
+    echo "Expected matching OS repository/trusted-key signature between $1 and $2"
+    echo "expected=$expected"
+    echo "actual=$actual"
+    return 1
+  fi
+}
+
 container_audit_signature() {
   local bom_file="$1"
   jq -c '{

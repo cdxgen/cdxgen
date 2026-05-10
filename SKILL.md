@@ -2,7 +2,7 @@
 
 ## Description
 
-`cdxgen` is a universal, polyglot CLI tool that generates valid CycloneDX Bill-of-Materials (BOM) documents in JSON format. It produces SBOM, CBOM, OBOM, SaaSBOM, VDR, and CDXA outputs for source code, containers, VMs, and live operating systems. Supports CycloneDX spec versions `1.4`–`1.7` (default: `1.7`). cdxgen features a best-in-class, native **JSON Signature Format (JSF)** implementation for BOM signing, providing robust authenticity and non-repudiation capabilities. Unlike basic signing tools, our implementation fully supports granular signatures (signing individual components, services, and annotations), parallel Multi-Signatures (`signers`), and sequential Signature Chains (`chain`).
+`cdxgen` is a universal, polyglot CLI tool that generates valid CycloneDX Bill-of-Materials (BOM) documents in JSON format. It produces SBOM, CBOM, OBOM, SaaSBOM, VDR, and CDXA outputs for source code, containers, VMs, and live operating systems. Supports CycloneDX spec versions `1.4`–`1.7` (default: `1.7`). cdxgen features a best-in-class, native **JSON Signature Format (JSF)** implementation for BOM signing, providing robust authenticity and non-repudiation capabilities. Unlike basic signing tools, our implementation fully supports granular signatures (signing individual components, services, and annotations), parallel Multi-Signatures (`signers`), and sequential Signature Chains (`chain`). When the optional companion binaries from `@cdxgen/cdxgen-plugins-bin` are available, cdxgen also enriches container/rootfs and live-OS scans with Trivy/osquery-powered metadata.
 
 ## ✅ When to Invoke
 
@@ -19,6 +19,12 @@
 | **Java**      | ≥ 21 required for C/C++/Python/CBOM analysis. Fails silently or produces incomplete BOMs with Java 8/11. |
 | **Install**   | `npm i -g @cyclonedx/cdxgen` or `pnpm dlx @cyclonedx/cdxgen`                                             |
 | **Container** | `docker run --rm -v $(pwd):/app:rw -t ghcr.io/cyclonedx/cdxgen:master /app`                              |
+
+Notes:
+
+- The optional `@cdxgen/cdxgen-plugins-bin` packages provide native helpers such as Trivy and osquery.
+- Container and `rootfs` scans can surface repository source components plus trusted-key cryptographic assets when those binaries are present.
+- macOS live-OS OBOM collection uses the bundled osquery binary in shell mode and may still require Full Disk Access or elevated privileges for some tables.
 
 ## 💻 Core Syntax
 
@@ -69,8 +75,14 @@ cdxgen --required-only -o bom.json
 # Container/OCI image
 cdxgen -t docker myimage:latest -o bom.json
 
+# Reconstructed or mounted root filesystem
+cdxgen /absolute/path/to/rootfs -t rootfs -o bom.json
+
 # Research/Security deep scan with evidence
 cdxgen --profile research --evidence -o bom.json
+
+# Live macOS/Linux/Windows operating-system inventory (OBOM)
+obom -o obom.json --deep --bom-audit --bom-audit-categories obom-runtime
 
 # Catalog a packaged Electron ASAR archive
 cdxgen -t asar --bom-audit --bom-audit-categories asar-archive -o bom.json /absolute/path/to/app.asar
@@ -156,6 +168,7 @@ These indicators affect **which packages are audited first**, not the final seve
 - **Use `cdxgen --bom-audit`** when the user wants findings embedded during BOM generation.
 - **Use `cdx-audit` for Cargo/Rust BOMs too** when the BOM contains `pkg:cargo/...` dependencies and the goal is upstream review prioritization.
 - For Cargo-focused work, combine predictive `cdx-audit` triage with normal BOM generation and `--bom-audit` rules so registry, workspace, and native-build signals are all visible.
+- For container/rootfs scans, expect cdxgen to include non-package operational inventory too, such as package-owned files, installed commands, repository source records, and trusted key material when present.
 
 ## ⛔ Anti-Hallucination & Safety Constraints
 
@@ -171,6 +184,8 @@ These indicators affect **which packages are audited first**, not the final seve
 10. When using server mode or BOM upload features, keep `CDXGEN_ALLOWED_HOSTS` and related host allowlists narrow. Prefer exact hosts; server-side Dependency-Track submission interprets wildcard entries as real subdomains only (for example, `*.example.com`), not suffix matches.
 11. When reviewing generated BOMs that include AI/MCP inventory or Chrome extension metadata, still inspect emitted properties before sharing externally even though cdxgen now redacts common secret-bearing URL and token patterns.
 12. For packaged Electron releases, prefer `-t asar` so archive file inventory, integrity verification, and embedded Node manifest analysis are included in the BOM and BOM-audit output.
+13. For OS trust inventory, remember the modeling split: repository sources are normal `data` components, while trusted keys/certificates are `cryptographic-asset` components. Do not assume those crypto assets have purls.
+14. On macOS OBOM runs, use the troubleshooting guide if tables come back empty or permission-gated; shell-mode osquery execution avoids the older `/var/osquery` startup failure mode.
 
 ## 📤 Output & Validation
 
@@ -182,17 +197,18 @@ These indicators affect **which packages are audited first**, not the final seve
 
 ## 🤖 Agent Execution Guidelines
 
-| Scenario                      | Recommended Action                                                                                                                         |
-| ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
-| **Command fails silently**    | Check Java version (`java -version`), missing build tools, or secure mode restrictions. Suggest container image or `--no-install-deps`.    |
-| **Network/registry timeouts** | Set `HTTP_PROXY`/`HTTPS_PROXY`. Node ≥ 22.21 auto-detects. Do not auto-retry without user confirmation.                                    |
-| **Large mono-repos**          | Use `--no-recurse` + explicit `-t <lang>` or `--exclude-type` to limit scope.                                                              |
-| **Server mode invocation**    | Poll `/health` first. POST to `/sbom` with JSON body or query params. Pass `GITHUB_TOKEN` via env if scanning private repos.               |
-| **Aliases**                   | `obom` = `cdxgen -t os`<br>`cbom` = `cdxgen --include-crypto --include-formulation --evidence --spec-version 1.6`                          |
-| **Output parsing**            | Use `-p` for human-readable tables. Parse JSON at `-o` path programmatically. Never assume stdout contains the BOM unless `-o` is omitted. |
-| **Signature verification**    | Use bundled `cdx-verify -i bom.json --public-key public.key`.                                                                              |
-| **SBOM signing**              | Use bundled `cdx-sign -i bom.json -k private.key`.                                                                                         |
-| **Predictive auditing**       | Use bundled `cdx-audit --bom bom.json` for existing BOMs. Prefer `--report sarif --report-file audit.sarif` for code-scanning uploads.     |
+| Scenario                      | Recommended Action                                                                                                                          |
+| ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Command fails silently**    | Check Java version (`java -version`), missing build tools, or secure mode restrictions. Suggest container image or `--no-install-deps`.     |
+| **Network/registry timeouts** | Set `HTTP_PROXY`/`HTTPS_PROXY`. Node ≥ 22.21 auto-detects. Do not auto-retry without user confirmation.                                     |
+| **Large mono-repos**          | Use `--no-recurse` + explicit `-t <lang>` or `--exclude-type` to limit scope.                                                               |
+| **Server mode invocation**    | Poll `/health` first. POST to `/sbom` with JSON body or query params. Pass `GITHUB_TOKEN` via env if scanning private repos.                |
+| **Aliases**                   | `obom` = `cdxgen -t os`<br>`cbom` = `cdxgen --include-crypto --include-formulation --evidence --spec-version 1.6`                           |
+| **Output parsing**            | Use `-p` for human-readable tables. Parse JSON at `-o` path programmatically. Never assume stdout contains the BOM unless `-o` is omitted.  |
+| **Signature verification**    | Use bundled `cdx-verify -i bom.json --public-key public.key`.                                                                               |
+| **SBOM signing**              | Use bundled `cdx-sign -i bom.json -k private.key`.                                                                                          |
+| **Predictive auditing**       | Use bundled `cdx-audit --bom bom.json` for existing BOMs. Prefer `--report sarif --report-file audit.sarif` for code-scanning uploads.      |
+| **OBOM troubleshooting**      | For macOS permission/startup quirks, check `docs/OBOM_MACOS_TROUBLESHOOTING.md`; for live-host triage patterns, use `docs/OBOM_LESSONS.md`. |
 
 ### Dry-run-first workflow for agents
 

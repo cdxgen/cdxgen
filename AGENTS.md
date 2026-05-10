@@ -17,6 +17,12 @@ Primary entry points:
 - **HTTP server** — `lib/server/server.js` (started via `bin/repl.js` or `cdxgen --server`)
 - **REPL** — `bin/repl.js`
 
+Companion binaries:
+
+- cdxgen opportunistically uses the optional companion package/repo **`cdxgen-plugins-bin`** for heavyweight native helpers such as **Trivy**, **osquery**, **SourceKitten**, and **dosai**.
+- Container/rootfs inventory flows through `lib/managers/binary.js` and may combine native parsing with plugin-enriched Trivy output.
+- Live-OS OBOM flows use the bundled osquery binary plus the query packs under `data/queries*.json`.
+
 ---
 
 ## Module system and runtime
@@ -266,6 +272,18 @@ const s = purl.toString();
 
 Never construct purl strings by hand-concatenation.
 
+### Cryptographic assets and OS trust material
+
+- **Do not assign a purl to `type: "cryptographic-asset"` components.** cdxgen intentionally suppresses purls for cryptographic assets.
+- Use schema-valid `cryptoProperties.assetType` values only:
+  - `certificate` for certificates such as `secureboot_certificates`
+  - `related-crypto-material` for trusted key files, kernel keys, and similar key material
+- Current OS/container trust-material conventions:
+  - repository sources (`apt`, `ppa`, `yum`) → `type: "data"` with `cdx:os:repo:*` properties
+  - trusted key files → `type: "cryptographic-asset"` with `cryptoProperties.relatedCryptoMaterialProperties.type = "public-key"`
+  - repo-to-key trust relationships should be represented in `dependencies` when the source file explicitly references a key (`signed-by`, `gpgkey`, etc.)
+- If you add new osquery- or rootfs-derived crypto inventory, validate it against `lib/validator/bomValidator.js` expectations and the CycloneDX schema files under `data/`.
+
 ### HTTP requests
 
 All outbound HTTP is done through `cdxgenAgent` (a `got` instance with retries, timeout, and proxy support), exported from `lib/helpers/utils.js`. Never import `got` directly in new code — use `cdxgenAgent` or pass it through the `options` object.
@@ -366,6 +384,7 @@ Do not read `process.env.CDXGEN_*` inside deep library functions — export the 
 6. Add fixture files to `test/` and cover with a `*.poku.js` test.
 7. If updating OSQuery table metadata in `data/queries*.json` (for example `purlType` or `componentType`), review all platform variants (`queries.json`, `queries-win.json`, and `queries-darwin.json`) and keep shared table entries aligned.
 8. Always consider adding/expanding `repotests.yml` coverage with a representative public repository for the ecosystem change; if a stable public repo is not practical, add fixture-backed repo tests under `test/data/` and exercise them from `repotests.yml`.
+9. For container/rootfs or OBOM feature work, also review the companion integration surfaces that usually need to stay aligned: `lib/managers/binary.js`, `lib/managers/binary.poku.js`, `lib/managers/binary.e2e.poku.js`, `ci/dockertests.sh`, `ci/assertions.sh`, `data/component-tags.json`, `bin/repl.js`, and any relevant docs/rules.
 
 ---
 
@@ -411,6 +430,13 @@ pnpm run watch
 - Always check string/path assertions against Windows and POSIX path separator differences (`\` vs `/`).
 - Prefer `node:path` helpers, normalization, or separator-agnostic assertions over hard-coded path literals in tests.
 - When adding or changing tests that inspect file paths, temp directories, command arguments, or serialized activity/log output, verify they still pass on Windows runners and do not assume `/tmp`-style paths.
+
+### Container / OBOM regression coverage
+
+- **Unit coverage:** use `lib/managers/binary.poku.js` for rootfs/container parsing logic, repository-source parsing, trusted-key modeling, and osquery invocation behavior.
+- **Binary E2E coverage:** use `lib/managers/binary.e2e.poku.js` for real Trivy/rootfs integration when the local environment has the companion repo and container runtime available.
+- **Docker-script parity checks:** use `ci/dockertests.sh` plus `ci/assertions.sh` for archive vs reconstructed-rootfs parity, tool identity evidence, container-risk audit coverage, and OS repo/trusted-key crypto assertions.
+- For macOS OBOM changes, validate the real bundled osquery behavior and keep `docs/OBOM_MACOS_TROUBLESHOOTING.md` in sync when execution mode or permissions expectations change.
 
 ### Review feedback handling
 
