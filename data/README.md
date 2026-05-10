@@ -13,9 +13,9 @@ Contents of data directory and their purpose.
 | lic-mapping.json        | Hard coded list to match a license id based on name                                                      |
 | pypi-pkg-aliases.json   | Hard coded list to match a pypi package name from module name                                            |
 | python-stdlib.json      | Standard libraries that can be filtered out in python                                                    |
-| queries-win.json        | osquery used to generate obom for windows                                                                |
-| queries.json            | osquery used to generate obom for linux                                                                  |
-| queries-darwin.json     | osquery used to generate obom for darwin                                                                 |
+| queries-win.json        | osquery query pack used to generate OBOM for Windows, including startup/runtime and targeted handle triage |
+| queries.json            | osquery query pack used to generate OBOM for Linux, including package, service, and Secure Boot inventory |
+| queries-darwin.json     | osquery query pack used to generate OBOM for macOS, including apps, launchd, and Gatekeeper posture       |
 | spdx-licenses.json      | valid spdx id                                                                                            |
 | spdx.schema.json        | jsonschema for validation                                                                                |
 | vendor-alias.json       | List to correct the group names. Used while parsing .jar files                                           |

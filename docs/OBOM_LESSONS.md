@@ -27,9 +27,9 @@ Most early compromise persistence techniques show up in host startup surfaces.
 
 ### What to review first
 
-- Linux: `systemd_units`, `sudoers_snapshot`, `authorized_keys_snapshot`, `elevated_processes`, `sudo_executions`, `privilege_transitions`, `privileged_listening_ports`
-- Windows: `windows_run_keys`, `scheduled_tasks`, `services_snapshot`, `startup_items`, `appcompat_shims`, WMI tables, `processes`, `listening_ports`
-- macOS: `launchd_services`, `launchd_overrides`, `alf_exceptions`
+- Linux: `systemd_units`, `sudoers_snapshot`, `authorized_keys_snapshot`, `elevated_processes`, `sudo_executions`, `privilege_transitions`, `privileged_listening_ports`, `secureboot_certificates`
+- Windows: `windows_run_keys`, `scheduled_tasks`, `services_snapshot`, `startup_items`, `appcompat_shims`, WMI tables, `processes`, `listening_ports`, `process_open_handles_snapshot`
+- macOS: `launchd_services`, `launchd_overrides`, `alf_exceptions`, `gatekeeper`, `apps`, `npm_packages`
 
 ### REPL quick flow
 
@@ -39,6 +39,7 @@ cdxi obom.json
 .scheduled_tasks
 .windows_run_keys
 .launchd_services
+.gatekeeper
 .elevated_processes
 .sudo_executions
 .privileged_listening_ports
@@ -68,9 +69,10 @@ Use OBOM sections as auditable evidence artifacts:
 - **Privileged package exposure**: `elevated_processes`, `sudo_executions`, `privilege_transitions`, `privileged_listening_ports`
 - **Change and configuration management**: startup/task/service/launchd/run-key tables
 - **Endpoint protection and hardening**: `windows_security_center`, `windows_security_products`, `alf`, `windows_bitlocker_info`
+- **Platform trust and execution policy**: `gatekeeper`, `secureboot_certificates`
 - **Data protection**: drive encryption posture from BitLocker and related host controls
 
-Current built-in OBOM runtime rules directly cover endpoint security center health (including antivirus/firewall/UAC posture) and disk encryption posture (BitLocker). Dedicated lock-screen/screensaver control checks are not currently part of the built-in `obom-runtime` ruleset.
+Current built-in OBOM runtime rules directly cover endpoint security center health (including antivirus/firewall/UAC posture), macOS Gatekeeper posture, and disk encryption posture (BitLocker). Dedicated lock-screen/screensaver control checks are not currently part of the built-in `obom-runtime` ruleset.
 
 ## 5) BOM audit lesson: category-driven enforcement
 
@@ -112,6 +114,16 @@ Use this when you want host BOM audit to prioritize Windows living-off-the-land 
 
 1. Generate an OBOM with `--bom-audit`.
 2. Review `OBOM-WIN-006` through `OBOM-WIN-010`.
-3. In the REPL, inspect `windows_run_keys`, `scheduled_tasks`, `startup_items`, `appcompat_shims`, `wmi_cli_event_consumers`, `processes`, and `listening_ports`.
+3. In the REPL, inspect `windows_run_keys`, `scheduled_tasks`, `startup_items`, `appcompat_shims`, `wmi_cli_event_consumers`, `processes`, `listening_ports`, and `process_open_handles_snapshot`.
 4. Search the matched component properties for `cdx:lolbas:names`, `cdx:lolbas:attackTechniques`, and `cdx:lolbas:riskTags`.
 5. Escalate findings that combine persistence surfaces with ATT&CK techniques such as `T1218`, `T1546`, or `T1548.002`.
+
+## 9) macOS hardening workflow
+
+Use this when you want to validate Apple execution-policy and persistence posture on developer endpoints:
+
+1. Generate an OBOM with `--deep --bom-audit --bom-audit-categories obom-runtime`.
+2. Review `OBOM-MAC-001` through `OBOM-MAC-005`.
+3. In the REPL, inspect `gatekeeper`, `launchd_services`, `launchd_overrides`, `alf`, `alf_exceptions`, and `apps`.
+4. Correlate weak Gatekeeper or launchd findings with `package_receipts`, `homebrew_packages`, and `npm_packages` to understand how software landed on the host.
+5. If `gatekeeper` or browser-extension tables are empty, follow the macOS troubleshooting guide for sudo/TCC/FDA caveats.

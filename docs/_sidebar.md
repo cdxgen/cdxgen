@@ -32,4 +32,5 @@
 - [Tutorials - Cataloging and auditing MCP servers](LESSON11.md)
 - [Tutorials - Cataloging Electron ASAR archives](LESSON12.md)
 - [Tutorials - Generating OBOM](OBOM_LESSONS.md)
+- [macOS OBOM troubleshooting](OBOM_MACOS_TROUBLESHOOTING.md)
 - [Support (Enterprise & Community)](SUPPORT.md)

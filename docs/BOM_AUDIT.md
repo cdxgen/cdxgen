@@ -290,6 +290,7 @@ Rules that evaluate OBOM runtime components from osquery-derived host telemetry 
 | OBOM-MAC-002 | critical | macOS launchd item from user-writable temporary path                 |
 | OBOM-MAC-003 | medium   | macOS firewall exception for binary in untrusted user path           |
 | OBOM-MAC-004 | medium   | macOS launchd override disables Apple-managed service                |
+| OBOM-MAC-005 | high     | macOS Gatekeeper enforcement is disabled or weakened                 |
 
 ### `container-risk` — Container Escape, Privilege, and Post-Exploit Tooling
 

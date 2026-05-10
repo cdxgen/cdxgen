@@ -35,6 +35,12 @@
     "purlType": "swid",
     "componentType": "application"
   },
+  "gatekeeper": {
+    "query": "SELECT 'gatekeeper' as name, COALESCE(NULLIF(version, ''), opaque_version) as version, opaque_version as description, assessments_enabled, dev_id_enabled FROM gatekeeper;",
+    "description": "macOS Gatekeeper policy status, including assessment enforcement and identified-developer allowance.",
+    "purlType": "swid",
+    "componentType": "data"
+  },
   "system_extensions": {
     "query": "select * from system_extensions;",
     "description": "macOS (>= 10.15) system extension table.",
@@ -70,6 +76,11 @@
     "description": "Homebrew formula and cask inventory including auto-update behavior.",
     "purlType": "swid",
     "componentType": "application"
+  },
+  "npm_packages": {
+    "query": "SELECT * FROM npm_packages;",
+    "description": "Node packages installed on the system, including recursively discovered modern package manager layouts.",
+    "purlType": "npm"
   },
   "launchd_services": {
     "query": "SELECT name, label, path, program, run_at_load, keep_alive, disabled, username, groupname, stdout_path, stderr_path, start_interval, program_arguments, watch_paths, queue_directories, start_on_mount, working_directory, process_type FROM launchd;",

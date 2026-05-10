@@ -60,6 +60,11 @@
     "description": "Python packages installed on system.",
     "purlType": "pypi"
   },
+  "npm_packages": {
+    "query": "SELECT * FROM npm_packages;",
+    "description": "Node packages installed on the system, including recursively discovered modern package manager layouts.",
+    "purlType": "npm"
+  },
   "system_info_snapshot": {
     "query": "SELECT * FROM system_info;",
     "description": "System info snapshot query.",
@@ -111,6 +116,12 @@
   "kernel_modules": {
     "query": "SELECT * FROM kernel_modules;",
     "description": "Linux kernel modules both loaded and within the load search path.",
+    "purlType": "swid",
+    "componentType": "data"
+  },
+  "secureboot_certificates": {
+    "query": "SELECT COALESCE(common_name, subject, sha1) as name, COALESCE(subject_key_id, sha1) as version, issuer as publisher, subject as description, common_name, subject, issuer, serial, sha1, revoked, path, is_ca, self_signed, key_usage, authority_key_id, subject_key_id, signing_algorithm, key_algorithm, key_strength, not_valid_before, not_valid_after FROM secureboot_certificates;",
+    "description": "UEFI Secure Boot certificate inventory, including trusted and revoked entries, for firmware trust posture reviews.",
     "purlType": "swid",
     "componentType": "data"
   },
