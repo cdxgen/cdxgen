@@ -616,6 +616,62 @@
       "timestamp": $prop($, 'time')
     }
 
+- id: OBOM-LNX-012
+  name: "Linux Secure Boot inventory contains revoked certificate"
+  description: "Revoked entries in the Secure Boot trust inventory can indicate stale firmware trust policy or unexpected dbx posture drift."
+  severity: high
+  category: obom-runtime
+  dry-run-support: full
+  condition: |
+    components[
+      $prop($, 'cdx:osquery:category') = 'secureboot_certificates'
+      and $safeStr($prop($, 'revoked')) = '1'
+    ]
+  location: |
+    {
+      "bomRef": $."bom-ref",
+      "purl": purl
+    }
+  message: "Secure Boot certificate '{{ name }}' is marked revoked in firmware trust inventory"
+  mitigation: "Review db/dbx enrollment, remove stale trust anchors, and reconcile firmware policy with approved platform signing certificates."
+  evidence: |
+    {
+      "subject": $prop($, 'subject'),
+      "issuer": $prop($, 'issuer'),
+      "serial": $prop($, 'serial'),
+      "path": $prop($, 'path'),
+      "notValidAfter": $prop($, 'not_valid_after')
+    }
+
+- id: OBOM-LNX-013
+  name: "Linux Secure Boot certificate expired or expiring soon"
+  description: "Secure Boot trust anchors nearing expiry can cause firmware validation drift and interrupt planned key rotation windows."
+  severity: medium
+  category: obom-runtime
+  dry-run-support: full
+  condition: |
+    components[
+      $prop($, 'cdx:osquery:category') = 'secureboot_certificates'
+      and $safeStr($prop($, 'not_valid_after')) != ''
+      and $number($prop($, 'not_valid_after')) <= ($floor($millis() / 1000) + 2592000)
+    ]
+  location: |
+    {
+      "bomRef": $."bom-ref",
+      "purl": purl
+    }
+  message: "Secure Boot certificate '{{ name }}' expires at {{ $prop($, 'not_valid_after') }} and should be rotated or reviewed"
+  mitigation: "Rotate or re-enroll Secure Boot certificates before expiry and validate firmware trust stores against your approved signing hierarchy."
+  evidence: |
+    {
+      "subject": $prop($, 'subject'),
+      "issuer": $prop($, 'issuer'),
+      "serial": $prop($, 'serial'),
+      "path": $prop($, 'path'),
+      "notValidBefore": $prop($, 'not_valid_before'),
+      "notValidAfter": $prop($, 'not_valid_after')
+    }
+
 - id: OBOM-WIN-004
   name: "Hidden scheduled task uses suspicious execution path"
   description: "Enabled hidden tasks executing from temp paths or encoded script launchers are common persistence tradecraft."
