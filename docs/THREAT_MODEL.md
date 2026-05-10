@@ -4,7 +4,7 @@ This document describes the threat model for cdxgen — a polyglot CycloneDX BOM
 
 ## System Overview
 
-cdxgen generates CycloneDX Bill-of-Materials (BOM) documents — including SBOM, CBOM, OBOM, SaaSBOM, CDXA, and VDR — by parsing project manifests/lockfiles and optionally invoking external build tools. It also opportunistically uses optional helper binaries from `cdxgen-plugins-bin` such as Trivy (container/rootfs OS inventory), osquery (live-OS OBOM), SourceKitten, and dosai. It operates in six modes:
+cdxgen generates CycloneDX Bill-of-Materials (BOM) documents — including SBOM, CBOM, OBOM, SaaSBOM, CDXA, and VDR — by parsing project manifests/lockfiles and optionally invoking external build tools. It also opportunistically uses optional helper binaries from `cdxgen-plugins-bin` such as Trivy (container/rootfs OS inventory), osquery (live-OS OBOM), trustinspector (filesystem/signing/trust inventory), SourceKitten, and dosai. It operates in six modes:
 
 1. **CLI** (`bin/cdxgen.js`) — Command-line invocation on local projects
 2. **Library** (`lib/cli/index.js`) — Programmatic use via `createBom(path, options)`

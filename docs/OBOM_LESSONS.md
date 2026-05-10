@@ -18,6 +18,7 @@ Use this as your default host collection profile when you need:
 - endpoint control posture (firewall, encryption, security products)
 - immediate high/critical runtime findings from built-in OBOM rules
 - Windows LOLBAS / ATT&CK-enriched context for run keys, tasks, WMI, services, and live processes
+- platform trust evidence such as macOS code-sign/notarization state and Windows Authenticode / WDAC policy inventory
 
 ## 2) SOC triage lesson: rapid suspicious persistence sweep
 
@@ -28,8 +29,8 @@ Most early compromise persistence techniques show up in host startup surfaces.
 ### What to review first
 
 - Linux: `systemd_units`, `sudoers_snapshot`, `authorized_keys_snapshot`, `elevated_processes`, `sudo_executions`, `privilege_transitions`, `privileged_listening_ports`, `secureboot_certificates`
-- Windows: `windows_run_keys`, `scheduled_tasks`, `services_snapshot`, `startup_items`, `appcompat_shims`, WMI tables, `processes`, `listening_ports`, `process_open_handles_snapshot`
-- macOS: `launchd_services`, `launchd_overrides`, `alf_exceptions`, `gatekeeper`, `apps`, `npm_packages`
+- Windows: `windows_run_keys`, `scheduled_tasks`, `services_snapshot`, `startup_items`, `appcompat_shims`, WMI tables, `processes`, `listening_ports`, `process_open_handles_snapshot`, plus Authenticode and WDAC trust properties on discovered binaries/components
+- macOS: `launchd_services`, `launchd_overrides`, `alf_exceptions`, `gatekeeper`, `apps`, `npm_packages`, plus code-signing and notarization properties on discovered apps/components
 
 ### REPL quick flow
 
@@ -69,7 +70,7 @@ Use OBOM sections as auditable evidence artifacts:
 - **Privileged package exposure**: `elevated_processes`, `sudo_executions`, `privilege_transitions`, `privileged_listening_ports`
 - **Change and configuration management**: startup/task/service/launchd/run-key tables
 - **Endpoint protection and hardening**: `windows_security_center`, `windows_security_products`, `alf`, `windows_bitlocker_info`
-- **Platform trust and execution policy**: `gatekeeper`, `secureboot_certificates`
+- **Platform trust and execution policy**: `gatekeeper`, `secureboot_certificates`, macOS code-sign/notarization properties, Windows Authenticode / WDAC properties
 - **Data protection**: drive encryption posture from BitLocker and related host controls
 
 Current built-in OBOM runtime rules directly cover endpoint security center health (including antivirus/firewall/UAC posture), macOS Gatekeeper posture, and disk encryption posture (BitLocker). Dedicated lock-screen/screensaver control checks are not currently part of the built-in `obom-runtime` ruleset.
@@ -124,6 +125,15 @@ Use this when you want to validate Apple execution-policy and persistence postur
 
 1. Generate an OBOM with `--deep --bom-audit --bom-audit-categories obom-runtime`.
 2. Review `OBOM-MAC-001` through `OBOM-MAC-005`.
-3. In the REPL, inspect `gatekeeper`, `launchd_services`, `launchd_overrides`, `alf`, `alf_exceptions`, and `apps`.
+3. In the REPL, inspect `gatekeeper`, `launchd_services`, `launchd_overrides`, `alf`, `alf_exceptions`, and `apps`, then pivot into app properties such as `cdx:darwin:codesign:*` and `cdx:darwin:notarization:*`.
 4. Correlate weak Gatekeeper or launchd findings with `package_receipts`, `homebrew_packages`, and `npm_packages` to understand how software landed on the host.
 5. If `gatekeeper` or browser-extension tables are empty, follow the macOS troubleshooting guide for sudo/TCC/FDA caveats.
+
+## 10) Trust review workflow for signed software
+
+Use this when you want to review whether execution policy and signing context match platform expectations:
+
+1. Generate an OBOM with `--deep`.
+2. On macOS, pivot through app properties such as `cdx:darwin:codesign:teamIdentifier`, `cdx:darwin:codesign:authority`, and `cdx:darwin:notarization:assessment`.
+3. On Windows, review `cdx:windows:authenticode:*` properties and the additional WDAC data components carrying `cdx:windows:wdac:*` properties.
+4. Compare those trust signals with persistence surfaces (`launchd`, Run keys, scheduled tasks, services) before approving or suppressing suspicious software.

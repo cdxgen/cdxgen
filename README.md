@@ -560,7 +560,13 @@ obom
 # cdxgen -t os
 ```
 
-This feature is powered by osquery, which is [installed](https://github.com/cdxgen/cdxgen-plugins-bin/blob/main/build.sh#L8) along with the binary plugins. cdxgen would opportunistically try to detect as many components, apps, and extensions as possible using the platform-specific default queries under `data/queries*.json`. With osquery 5.23.0, the default profiles now include Gatekeeper posture on macOS, Secure Boot certificate inventory on Linux, targeted Windows process-open-handle telemetry, and improved npm package discovery. The process would take several minutes and result in an SBOM file with thousands of components of various types, such as operating-system, device-drivers, files, and data.
+This feature is powered by osquery, which is [installed](https://github.com/cdxgen/cdxgen-plugins-bin/blob/main/build.sh#L8) along with the binary plugins. cdxgen would opportunistically try to detect as many components, apps, and extensions as possible using the platform-specific default queries under `data/queries*.json`. With osquery 5.23.0, the default profiles now include Gatekeeper posture on macOS, Secure Boot certificate inventory on Linux, targeted Windows process-open-handle telemetry, and improved npm package discovery. When the optional `trustinspector` helper is available, OBOM collection is further enriched with:
+
+- macOS code-signing authority, team ID, and notarization assessment metadata for discovered application paths
+- Windows Authenticode signer/timestamp metadata for discovered executable paths
+- Windows WDAC active-policy inventory
+
+The process would take several minutes and result in an SBOM file with thousands of components of various types, such as operating-system, device-drivers, files, and data.
 
 For practical SOC/IR and compliance workflows, see the dedicated [OBOM lessons](./docs/OBOM_LESSONS.md). For macOS-specific setup and permission caveats, see [OBOM macOS troubleshooting](./docs/OBOM_MACOS_TROUBLESHOOTING.md).
 
