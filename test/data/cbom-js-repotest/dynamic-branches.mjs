@@ -32,3 +32,21 @@ export function signPayload(payload, privateKey, alg) {
     });
   }
 }
+
+export function signPayloadWithSwitch(payload, privateKey, alg) {
+  switch (alg) {
+    case "RS256":
+    case "RS512":
+      return crypto.sign(alg.replace("RS", "SHA"), Buffer.from(payload, "utf8"), {
+        key: privateKey,
+      });
+    case "RS384":
+      return crypto.sign(alg.replace("RS", "SHA"), Buffer.from(payload, "utf8"), {
+        key: privateKey,
+      });
+    default:
+      return crypto.sign("SHA-224", Buffer.from(payload, "utf8"), {
+        key: privateKey,
+      });
+  }
+}

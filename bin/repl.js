@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import fs from "node:fs";
+import { readFileSync } from "node:fs";
 import { homedir } from "node:os";
 import { join } from "node:path";
 import process from "node:process";
@@ -34,7 +34,13 @@ import {
 } from "../lib/helpers/provenanceUtils.js";
 import { toCycloneDxLikeBom } from "../lib/helpers/spdxUtils.js";
 import { table } from "../lib/helpers/table.js";
-import { getTmpDir } from "../lib/helpers/utils.js";
+import {
+  getTmpDir,
+  safeExistsSync,
+  safeMkdirSync,
+  safeMkdtempSync,
+  safeWriteSync,
+} from "../lib/helpers/utils.js";
 import { getBomWithOras } from "../lib/managers/oci.js";
 import { validateBom } from "../lib/validator/bomValidator.js";
 
@@ -61,7 +67,7 @@ const cdxArt = `
 
 console.log(cdxArt);
 
-if (process.env?.CDXGEN_NODE_OPTIONS) {
+if (process.env.CDXGEN_NODE_OPTIONS) {
   process.env.NODE_OPTIONS = `${process.env.NODE_OPTIONS || ""} ${process.env.CDXGEN_NODE_OPTIONS}`;
 }
 
@@ -222,9 +228,9 @@ function getCargoFormulationEntries(bom) {
 
 let historyFile;
 const historyConfigDir = join(homedir(), ".config", ".cdxgen");
-if (!process.env.CDXGEN_REPL_HISTORY && !fs.existsSync(historyConfigDir)) {
+if (!process.env.CDXGEN_REPL_HISTORY && !safeExistsSync(historyConfigDir)) {
   try {
-    fs.mkdirSync(historyConfigDir, { recursive: true });
+    safeMkdirSync(historyConfigDir, { recursive: true });
     historyFile = join(historyConfigDir, ".repl_history");
   } catch (_e) {
     // ignore
@@ -234,9 +240,14 @@ if (!process.env.CDXGEN_REPL_HISTORY && !fs.existsSync(historyConfigDir)) {
 }
 
 export const importSbom = (sbomOrPath) => {
-  if (sbomOrPath?.endsWith(".json") && fs.existsSync(sbomOrPath)) {
+  const importTarget = String(sbomOrPath || "").trim();
+  if (!importTarget) {
+    console.log("⚠ An SBOM path or image reference is required.");
+    return;
+  }
+  if (importTarget.endsWith(".json") && safeExistsSync(importTarget)) {
     try {
-      sbom = JSON.parse(fs.readFileSync(sbomOrPath, "utf-8"));
+      sbom = JSON.parse(readFileSync(importTarget, "utf-8"));
       let bomType = "SBOM";
       if (isSpdxJsonLd(sbom)) {
         bomType = "SPDX";
@@ -244,7 +255,7 @@ export const importSbom = (sbomOrPath) => {
       if (sbom?.vulnerabilities && Array.isArray(sbom.vulnerabilities)) {
         bomType = "VDR";
       }
-      console.log(`✅ ${bomType} imported successfully from ${sbomOrPath}`);
+      console.log(`✅ ${bomType} imported successfully from ${importTarget}`);
       printSummary(sbom);
       if (isLikelyObom(sbom)) {
         console.log(
@@ -262,32 +273,36 @@ export const importSbom = (sbomOrPath) => {
         );
       }
     } catch (e) {
-      console.log(`⚠ Unable to import the BOM from ${sbomOrPath} due to ${e}`);
+      console.log(
+        `⚠ Unable to import the BOM from ${importTarget} due to ${e}`,
+      );
     }
   } else if (
-    (sbomOrPath?.endsWith(".cdx") || sbomOrPath?.endsWith(".proto")) &&
-    fs.existsSync(sbomOrPath)
+    (importTarget.endsWith(".cdx") || importTarget.endsWith(".proto")) &&
+    safeExistsSync(importTarget)
   ) {
-    sbom = readBinary(sbomOrPath, true);
+    sbom = readBinary(importTarget, true);
     printSummary(sbom);
   } else if (
-    sbomOrPath.startsWith("ghcr.io") ||
-    sbomOrPath.startsWith("docker.io")
+    importTarget.startsWith("ghcr.io") ||
+    importTarget.startsWith("docker.io")
   ) {
     try {
-      sbom = getBomWithOras(sbomOrPath);
+      sbom = getBomWithOras(importTarget);
       if (sbom) {
         printSummary(sbom);
       } else {
         console.log(
-          `cyclonedx sbom attachment was not found within ${sbomOrPath}`,
+          `cyclonedx sbom attachment was not found within ${importTarget}`,
         );
       }
     } catch (e) {
-      console.log(`⚠ Unable to import the BOM from ${sbomOrPath} due to ${e}`);
+      console.log(
+        `⚠ Unable to import the BOM from ${importTarget} due to ${e}`,
+      );
     }
   } else {
-    console.log(`⚠ ${sbomOrPath} is invalid.`);
+    console.log(`⚠ ${importTarget} is invalid.`);
   }
 };
 // Load any sbom passed from the command line
@@ -303,7 +318,7 @@ if (process.argv.length > 2) {
       "💭 Type .auditfindings to review cdx-audit and bom-audit annotations.",
     );
   }
-} else if (fs.existsSync("bom.json")) {
+} else if (safeExistsSync("bom.json")) {
   // If the current directory has a bom.json load it
   importSbom("bom.json");
 } else {
@@ -332,7 +347,7 @@ cdxgenRepl.defineCommand("create", {
   help: "create an SBOM for the given path",
   async action(sbomOrPath) {
     this.clearBufferedCommand();
-    const tempDir = fs.mkdtempSync(join(getTmpDir(), "cdxgen-repl-"));
+    const tempDir = safeMkdtempSync(join(getTmpDir(), "cdxgen-repl-"));
     const bomFile = join(tempDir, "bom.json");
     const bomNSData = await createBom(sbomOrPath, {
       multiProject: true,
@@ -743,7 +758,7 @@ cdxgenRepl.defineCommand("save", {
       if (!saveToFile) {
         saveToFile = "bom.json";
       }
-      fs.writeFileSync(saveToFile, JSON.stringify(sbom, null, null));
+      safeWriteSync(saveToFile, JSON.stringify(sbom, null, 2));
       console.log(`BOM saved successfully to ${saveToFile}`);
     } else {
       console.log(
