@@ -50,3 +50,17 @@ export function signPayloadWithSwitch(payload, privateKey, alg) {
       });
   }
 }
+
+export function signPayloadWithSwitchDefault(payload, privateKey) {
+  const alg = globalThis.__preferLegacy ? "RS256" : "RS384";
+  switch (alg) {
+    case "RS256":
+      return crypto.sign(alg.replace("RS", "SHA"), Buffer.from(payload, "utf8"), {
+        key: privateKey,
+      });
+    default:
+      return crypto.sign(alg.replace("RS", "SHA"), Buffer.from(payload, "utf8"), {
+        key: privateKey,
+      });
+  }
+}
