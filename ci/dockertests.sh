@@ -72,6 +72,31 @@ assert_same_container_audit_signature() {
   fi
 }
 
+run_cdxgen_image_inventory_tests() {
+  local image_ref="${CDXGEN_SELF_TEST_IMAGE:-ghcr.io/cdxgen/cdxgen-python312:latest}"
+  local safe_image_name
+  local image_bom
+  local archive_bom
+  local archive_path
+
+  safe_image_name="$(echo "$image_ref" | tr '/:@' '-')"
+  image_bom="bomresults/bom-${safe_image_name}.json"
+  archive_bom="bomresults/bom-${safe_image_name}-tar.json"
+  archive_path="$TEST_TMP_DIR/${safe_image_name}.tar"
+
+  docker pull "$image_ref"
+  bin/cdxgen.js "$image_ref" -p -t docker -o "$image_bom" --fail-on-error
+  assert_container_file_inventory_bom "$image_bom"
+  assert_container_inventory_has_unpackaged_binaries "$image_bom"
+
+  docker save -o "$archive_path" "$image_ref"
+  docker rmi "$image_ref"
+  bin/cdxgen.js "$archive_path" -p -t docker -o "$archive_bom" --fail-on-error
+  assert_container_file_inventory_bom "$archive_bom"
+  assert_container_inventory_has_unpackaged_binaries "$archive_bom"
+  assert_same_container_file_inventory_signature "$image_bom" "$archive_bom"
+}
+
 run_docker_tests() {
   local ubuntu_archive="$TEST_TMP_DIR/ubuntu.tar"
   local ubuntu_extracted_dir="$TEST_TMP_DIR/ubuntu-archive"
@@ -108,6 +133,8 @@ run_docker_tests() {
   bin/cdxgen.js "$alpine_rootfs_dir" -p -t rootfs -o bomresults/bom-alpine.rootfs.json --fail-on-error
   assert_container_file_inventory_bom bomresults/bom-alpine.rootfs.json
   assert_same_component_signature bomresults/bom-alpine.tar.json bomresults/bom-alpine.rootfs.json
+
+  run_cdxgen_image_inventory_tests
 }
 
 run_podman_tests() {

@@ -446,7 +446,7 @@ cdxgenRepl.defineCommand("search", {
           console.log(e);
         }
       } else {
-        console.log("⚠ Specify the search string. Eg: .search <search string>");
+        console.log('⚠ Specify the search string. Eg: .search "search string"');
       }
     } else {
       console.log(

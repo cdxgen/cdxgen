@@ -117,6 +117,12 @@ jobs:
           jq -e 'any(.components[]; .type == "cryptographic-asset" and .name == "aes256-GCM" and any((.properties // [])[]; .name == "cdx:crypto:sourceType" and .value == "js-ast:webcrypto.generateKey"))' bomresults/bom-cbom-js-fixture.json
           jq -e 'all(.components[]? | select(.type == "cryptographic-asset" and .cryptoProperties.assetType == "algorithm"); .cryptoProperties.oid != null)' bomresults/bom-cbom-js-fixture.json
         shell: bash
+      - name: repotests cdxgen self source crypto
+        run: |
+          bin/cdxgen.js -t js lib/helpers -o bomresults/bom-cdxgen-self-source-cbom.json --include-crypto --evidence --spec-version 1.7 --fail-on-error
+          jq -e 'any(.components[]; .type == "cryptographic-asset" and .name == "sha-256" and .cryptoProperties.assetType == "algorithm" and any((.properties // [])[]; .name == "cdx:crypto:sourceType" and .value == "js-ast:node:crypto.createHash") and ((.evidence.identity // []) | length) > 0 and .evidence.identity[0].field == "name" and ((.evidence.identity[0].methods // []) | length) > 0 and ((.evidence.occurrences // []) | length) > 0)' bomresults/bom-cdxgen-self-source-cbom.json
+          jq -e 'all(.components[]? | select(.type == "cryptographic-asset" and (.cryptoProperties.assetType // "") == "algorithm"); ((.evidence.identity // []) | length) > 0 and ((.evidence.occurrences // []) | length) > 0)' bomresults/bom-cdxgen-self-source-cbom.json
+        shell: bash
       - name: repotests cache-disable fixture
         run: |
           bin/cdxgen.js -t js -t python -t cargo -t github test/data/cache-disable-repotest -o bomresults/bom-cache-disable-fixture.json --bom-audit --bom-audit-categories ci-permission --fail-on-error

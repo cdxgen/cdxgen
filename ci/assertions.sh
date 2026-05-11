@@ -56,6 +56,32 @@ assert_container_file_inventory_bom() {
   }
 }
 
+assert_container_inventory_has_unpackaged_binaries() {
+  local bom_file="$1"
+  local signature
+  signature="$(container_file_inventory_signature "$bom_file")"
+  echo "$signature" | jq -e '
+    .metadataExecutableCount > 0
+    and .metadataSharedLibraryCount > 0
+  ' >/dev/null || {
+    echo "Expected unpackaged executables and shared libraries in $bom_file"
+    echo "signature=$signature"
+    return 1
+  }
+}
+
+assert_same_container_file_inventory_signature() {
+  local expected actual
+  expected=$(container_file_inventory_signature "$1")
+  actual=$(container_file_inventory_signature "$2")
+  if [ "$expected" != "$actual" ]; then
+    echo "Expected matching unpackaged file inventory signature between $1 and $2"
+    echo "expected=$expected"
+    echo "actual=$actual"
+    return 1
+  fi
+}
+
 assert_trivy_tool_identity_bom() {
   local bom_file="$1"
   jq -e --arg tool_name "trivy" "${CDXGEN_TOOL_IDENTITY_JQ_DEFS}
