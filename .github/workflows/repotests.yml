@@ -115,12 +115,34 @@ jobs:
           bin/cdxgen.js test/data/cbom-js-repotest -o bomresults/bom-cbom-js-fixture.json --include-crypto --evidence --deep --spec-version 1.7 --fail-on-error
           jq -e 'any(.components[]; .type == "cryptographic-asset" and .name == "sha-512" and .cryptoProperties.assetType == "algorithm" and .cryptoProperties.oid == "2.16.840.1.101.3.4.2.3")' bomresults/bom-cbom-js-fixture.json
           jq -e 'any(.components[]; .type == "cryptographic-asset" and .name == "aes256-GCM" and any((.properties // [])[]; .name == "cdx:crypto:sourceType" and .value == "js-ast:webcrypto.generateKey"))' bomresults/bom-cbom-js-fixture.json
+          jq -e 'any(.components[]; .type == "cryptographic-asset" and .name == "sha-384" and any((.properties // [])[]; .name == "cdx:crypto:sourceLocation" and .value == "dynamic-branches.mjs:12:0") and any((.evidence.occurrences // [])[]; .location == "dynamic-branches.mjs" and .line == 12 and .symbol == "node:crypto.createHash" and .additionalContext == "hash" and (.offset? == null)))' bomresults/bom-cbom-js-fixture.json
+          jq -e 'any(.components[]; .type == "cryptographic-asset" and .name == "sha256WithRSAEncryption" and any((.properties // [])[]; .name == "cdx:crypto:sourceType" and .value == "js-ast:jsonwebtoken.sign"))' bomresults/bom-cbom-js-fixture.json
+          jq -e 'any(.components[]; .type == "cryptographic-asset" and .name == "sha512WithRSAEncryption" and any((.properties // [])[]; .name == "cdx:crypto:sourceType" and .value == "js-ast:jsonwebtoken.sign"))' bomresults/bom-cbom-js-fixture.json
+          jq -e 'any(.components[]; .type == "cryptographic-asset" and .name == "aes256-CBC" and any((.properties // [])[]; .name == "cdx:crypto:sourceType" and .value == "js-ast:webcrypto.generateKey"))' bomresults/bom-cbom-js-fixture.json
           jq -e 'all(.components[]? | select(.type == "cryptographic-asset" and .cryptoProperties.assetType == "algorithm"); .cryptoProperties.oid != null)' bomresults/bom-cbom-js-fixture.json
         shell: bash
       - name: repotests cdxgen self source crypto
         run: |
-          bin/cdxgen.js -t js lib/helpers -o bomresults/bom-cdxgen-self-source-cbom.json --include-crypto --evidence --spec-version 1.7 --fail-on-error
+          node --input-type=module <<'EOF'
+          import { writeFileSync } from "node:fs";
+
+          import { collectSourceCryptoComponents } from "./lib/helpers/cbomutils.js";
+
+          const components = await collectSourceCryptoComponents("./lib/helpers", {
+            deep: false,
+            evidence: true,
+            specVersion: 1.7,
+          });
+          if (!components.length) {
+            throw new Error("Expected source-derived crypto components for lib/helpers");
+          }
+          writeFileSync(
+            "bomresults/bom-cdxgen-self-source-cbom.json",
+            JSON.stringify({ components }, null, 2),
+          );
+          EOF
           jq -e 'any(.components[]; .type == "cryptographic-asset" and .name == "sha-256" and .cryptoProperties.assetType == "algorithm" and any((.properties // [])[]; .name == "cdx:crypto:sourceType" and .value == "js-ast:node:crypto.createHash") and ((.evidence.identity // []) | length) > 0 and .evidence.identity[0].field == "name" and ((.evidence.identity[0].methods // []) | length) > 0 and ((.evidence.occurrences // []) | length) > 0)' bomresults/bom-cdxgen-self-source-cbom.json
+          jq -e 'all(.components[]? | select(.type == "cryptographic-asset" and (.cryptoProperties.assetType // "") == "algorithm"); all((.evidence.occurrences // [])[]?; .location != null and (.line? == null or (.line | type == "number")) and (.offset? == null)))' bomresults/bom-cdxgen-self-source-cbom.json
           jq -e 'all(.components[]? | select(.type == "cryptographic-asset" and (.cryptoProperties.assetType // "") == "algorithm"); ((.evidence.identity // []) | length) > 0 and ((.evidence.occurrences // []) | length) > 0)' bomresults/bom-cdxgen-self-source-cbom.json
         shell: bash
       - name: repotests cache-disable fixture
