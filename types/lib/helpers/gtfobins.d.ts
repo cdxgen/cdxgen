@@ -14,4 +14,12 @@ export function createGtfoBinsProperties(name: any, linkedName: any): {
     name: string;
     value: any;
 }[];
+/**
+ * Resolve GTFOBins properties for a live Linux osquery row.
+ *
+ * @param {string} queryCategory Osquery query category
+ * @param {object} row Osquery row
+ * @returns {Array<object>} CycloneDX custom properties
+ */
+export function createGtfoBinsPropertiesFromRow(queryCategory: string, row: object): Array<object>;
 //# sourceMappingURL=gtfobins.d.ts.map

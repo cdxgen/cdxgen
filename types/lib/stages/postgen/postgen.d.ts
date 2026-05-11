@@ -3,10 +3,11 @@
  *
  * @param {Object} bomNSData BOM with namespaces object
  * @param {Object} options CLI options
+ * @param {string} [filePath] Source path used for formulation and metadata context
  *
  * @returns {Object} Modified bomNSData
  */
-export function postProcess(bomNSData: Object, options: Object, filePath: any): Object;
+export function postProcess(bomNSData: Object, options: Object, filePath?: string): Object;
 /**
  * Apply additional metadata based on components
  *

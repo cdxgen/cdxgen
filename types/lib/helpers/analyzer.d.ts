@@ -11,6 +11,10 @@ export function analyzeJsCapabilitiesSource(source: any): {
     hasEval: boolean;
     indicatorMap: {};
 };
+export function analyzeJsCryptoSource(source: any): {
+    algorithms: any[];
+    libraries: any[];
+};
 export const CHROMIUM_EXTENSION_CAPABILITY_CATEGORIES: string[];
 export const JS_CAPABILITY_CATEGORIES: string[];
 export function findJSImportsExports(src: any, deep: any): Promise<{
@@ -30,6 +34,14 @@ export function analyzeJsCapabilitiesFile(filePath: any): {
     hasEval: boolean;
     indicatorMap: {};
 };
+export function analyzeJsCryptoFile(filePath: any): {
+    algorithms: any[];
+    libraries: any[];
+};
+export function detectJsCryptoInventory(src: any, deep?: boolean): Promise<{
+    algorithms: any[];
+    libraries: any[];
+}>;
 export function detectExtensionCapabilities(src: string, deep?: boolean): {
     capabilities: string[];
     indicators: {
