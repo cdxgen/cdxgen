@@ -1,3 +1,4 @@
+export function getPluginToolComponents(toolNames?: any[]): any[];
 export function getCargoAuditableInfo(src: any): any;
 /**
  * Execute sourcekitten plugin with the given arguments
@@ -15,6 +16,10 @@ export function executeSourcekitten(args: any[]): undefined | Object;
  * @returns {Object} Metadata containing packages, dependencies, etc
  */
 export function getOSPackages(src: string, imageConfig: Object): Object;
+export function enrichOSComponentsWithTrustData(components?: any[]): {
+    components: any[];
+    tools: any[];
+};
 export function executeOsQuery(query: any): any;
 /**
  * Method to execute dosai to create slices for dotnet

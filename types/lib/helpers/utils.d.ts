@@ -1344,7 +1344,7 @@ export function convertOSQueryResults(queryCategory: string, queryObj: Object, r
     description: any;
     publisher: any;
     "bom-ref": string;
-    purl: string;
+    purl: string | undefined;
     scope: any;
     type: any;
 }[];
@@ -1958,9 +1958,10 @@ export function extractPathEnv(envValues: any): any;
  *
  * @param basePath Base directory
  * @param binPaths {Array[String]} Paths containing potential binaries
+ * @param excludePaths {Array[String]} Container-relative paths that should be excluded from the result set
  * @return {Array[String]} List of executables
  */
-export function collectExecutables(basePath: any, binPaths: any): any;
+export function collectExecutables(basePath: any, binPaths: any, excludePaths?: any): any;
 /**
  * Collect all shared library files from the given list of paths
  *
@@ -1968,10 +1969,11 @@ export function collectExecutables(basePath: any, binPaths: any): any;
  * @param libPaths {Array[String]} Paths containing potential libraries
  * @param ldConf {String} Config file used by ldconfig to locate additional paths
  * @param ldConfDirPattern {String} Config directory that can contain more .conf files for ldconfig
+ * @param excludePaths {Array[String]} Container-relative paths that should be excluded from the result set
  *
  * @return {Array[String]} List of executables
  */
-export function collectSharedLibs(basePath: any, libPaths: any, ldConf: string, ldConfDirPattern: string): any;
+export function collectSharedLibs(basePath: any, libPaths: any, ldConf: string, ldConfDirPattern: string, excludePaths?: any): any;
 /**
  * Get information about the runtime.
  *
@@ -2094,6 +2096,7 @@ export const PROJECT_TYPE_ALIASES: {
     scala: string[];
     nix: string[];
     caxa: string[];
+    asar: string[];
     "vscode-extension": string[];
     "chrome-extension": string[];
 };

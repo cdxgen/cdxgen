@@ -236,6 +236,14 @@ export function createCsharpBom(path: string, options: Object): Promise<Object |
  */
 export function createVscodeExtensionBom(path: string, options: Object): Promise<Object>;
 /**
+ * Function to create BOM for Electron ASAR archives.
+ *
+ * @param {string} path to a single archive or a directory to scan
+ * @param {Object} options Parse options from the cli
+ * @returns {Promise<Object>} Promise resolving to BOM object
+ */
+export function createAsarBom(path: string, options: Object): Promise<Object>;
+/**
  * Function to create BOM for installed Chrome and Chromium-based browser extensions.
  *
  * @param {string} path to the project path or a directly provided extension path
