@@ -132,7 +132,21 @@ jobs:
 
           import { collectSourceCryptoComponents } from "./lib/helpers/cbomutils.js";
 
-          const targets = ["./lib/helpers", "./bin", "./lib/audit"];
+          const targets = [
+            "./lib/helpers",
+            "./bin",
+            "./lib/audit",
+            "./lib/stages",
+            "./lib/server",
+            "./lib/managers",
+            "./lib/evinser",
+            "./lib/parsers",
+          ];
+          const expectedNonEmptyTargets = new Set([
+            "./lib/helpers",
+            "./bin",
+            "./lib/audit",
+          ]);
           const inventory = {};
           for (const target of targets) {
             const components = await collectSourceCryptoComponents(target, {
@@ -140,8 +154,13 @@ jobs:
               evidence: true,
               specVersion: 1.7,
             });
-            if (!components.length) {
+            if (expectedNonEmptyTargets.has(target) && !components.length) {
               throw new Error(`Expected source-derived crypto components for ${target}`);
+            }
+            if (!expectedNonEmptyTargets.has(target) && components.length) {
+              throw new Error(
+                `Expected no source-derived crypto components for ${target}, found ${components.length}`,
+              );
             }
             inventory[target] = components;
           }
@@ -154,6 +173,7 @@ jobs:
           jq -e '([.["./lib/helpers"][], .["./bin"][], .["./lib/audit"][]]) | all(.[]?; .type != "cryptographic-asset" or ((.cryptoProperties.assetType // "") != "algorithm") or (all((.evidence.occurrences // [])[]?; .location != null and (.line? == null or (.line | type == "number")) and (.offset? == null))))' bomresults/bom-cdxgen-self-source-cbom.json
           jq -e '([.["./lib/helpers"][], .["./bin"][], .["./lib/audit"][]]) | all(.[]?; .type != "cryptographic-asset" or ((.cryptoProperties.assetType // "") != "algorithm") or ((((.evidence.identity // []) | length) > 0) and (((.evidence.occurrences // []) | length) > 0)))' bomresults/bom-cdxgen-self-source-cbom.json
           jq -e '((.["./bin"] | length) > 0) and ((.["./lib/audit"] | length) > 0)' bomresults/bom-cdxgen-self-source-cbom.json
+          jq -e '((.["./lib/stages"] | length) == 0) and ((.["./lib/server"] | length) == 0) and ((.["./lib/managers"] | length) == 0) and ((.["./lib/evinser"] | length) == 0) and ((.["./lib/parsers"] | length) == 0)' bomresults/bom-cdxgen-self-source-cbom.json
         shell: bash
       - name: repotests cache-disable fixture
         run: |
