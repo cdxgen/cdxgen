@@ -1,4 +1,4 @@
-import { createHash, webcrypto } from "node:crypto";
+import crypto, { createHash, webcrypto } from "node:crypto";
 import jwt from "jsonwebtoken";
 
 const subtle = webcrypto.subtle;
@@ -12,3 +12,23 @@ const jwtOptions = globalThis.__jwtOptions ?? { algorithm: signingAlgorithm };
 createHash(digestName).update("fixture").digest("hex");
 await subtle.generateKey(keyProfiles.active, true, ["encrypt", "decrypt"]);
 jwt.sign({ sub: "123" }, "secret", jwtOptions);
+
+export function signPayload(payload, privateKey, alg) {
+  let hashAlg = null;
+  if (alg === "RS256" || alg === "RS512") {
+    hashAlg = alg.replace("RS", "SHA");
+    return crypto.sign(hashAlg, Buffer.from(payload, "utf8"), {
+      key: privateKey,
+    });
+  }
+  if (alg !== "RS384") {
+    return crypto.sign("SHA-224", Buffer.from(payload, "utf8"), {
+      key: privateKey,
+    });
+  } else {
+    hashAlg = alg.replace("RS", "SHA");
+    return crypto.sign(hashAlg, Buffer.from(payload, "utf8"), {
+      key: privateKey,
+    });
+  }
+}
