@@ -52,6 +52,20 @@ If `bom.json` exists in the current directory, `cdxi` imports it automatically.
 .provenance
 ```
 
+### Review source-derived crypto inventory
+
+```text
+.cryptos
+.sourcecryptos
+```
+
+### Review unpackaged native file inventory from images and rootfs snapshots
+
+```text
+.unpackagedbins
+.unpackagedlibs
+```
+
 ### Review audit output carried in annotations
 
 ```text
@@ -111,16 +125,19 @@ If `bom.json` exists in the current directory, `cdxi` imports it automatically.
 
 ### Inventory views
 
-| Command       | Description                                            |
-| ------------- | ------------------------------------------------------ |
-| `.print`      | Print components as a table                            |
-| `.tree`       | Print the dependency tree                              |
-| `.provides`   | Print the `provides` tree                              |
-| `.cryptos`    | Show `cryptographic-asset` components                  |
-| `.frameworks` | Show framework components                              |
-| `.licenses`   | Show license distribution                              |
-| `.tagcloud`   | Show a text cloud from component descriptions and tags |
-| `.validate`   | Validate the current BOM against CycloneDX JSON Schema |
+| Command           | Description                                                  |
+| ----------------- | ------------------------------------------------------------ |
+| `.print`          | Print components as a table                                  |
+| `.tree`           | Print the dependency tree                                    |
+| `.provides`       | Print the `provides` tree                                    |
+| `.cryptos`        | Show `cryptographic-asset` components                        |
+| `.sourcecryptos`  | Show source-derived crypto algorithm components              |
+| `.unpackagedbins` | Show executable file components not owned by OS packages     |
+| `.unpackagedlibs` | Show shared library file components not owned by OS packages |
+| `.frameworks`     | Show framework components                                    |
+| `.licenses`       | Show license distribution                                    |
+| `.tagcloud`       | Show a text cloud from component descriptions and tags       |
+| `.validate`       | Validate the current BOM against CycloneDX JSON Schema       |
 
 ### Provenance and trust
 
@@ -193,6 +210,12 @@ Set `CDXGEN_REPL_HISTORY` to override the history file location.
 - Add `--bom-audit` when you want Cargo-native workflow/build correlations such as mutable Cargo setup actions or Cargo build/test steps against native build surfaces.
 - Use `.cargohotspots` first to identify yanked crates, local/git sources, and build-only workspace helpers.
 - Use `.cargoworkflows` next to compare Cargo formulation signals with the exact GitHub Actions/setup/cache/build steps seen in CI.
+
+## Container, rootfs, and CBOM tips
+
+- Use `.unpackagedbins` and `.unpackagedlibs` after importing a container or rootfs BOM when you want to inspect executable or shared-library file components that were not traced back to OS package ownership.
+- Use `.sourcecryptos` after importing a CBOM or an SBOM generated with `--include-crypto` when you want just the source-derived crypto algorithms detected from JavaScript or TypeScript AST analysis.
+- Pair `.sourcecryptos` with `.inspect <name>` when you want the exact `cdx:crypto:sourceLocation` and `SrcFile` evidence for a detected algorithm.
 
 ## Related docs
 

@@ -2,7 +2,7 @@
 
 ## Description
 
-`cdxgen` is a universal, polyglot CLI tool that generates valid CycloneDX Bill-of-Materials (BOM) documents in JSON format. It produces SBOM, CBOM, OBOM, SaaSBOM, VDR, and CDXA outputs for source code, containers, VMs, and live operating systems. Supports CycloneDX spec versions `1.4`–`1.7` (default: `1.7`). cdxgen features a best-in-class, native **JSON Signature Format (JSF)** implementation for BOM signing, providing robust authenticity and non-repudiation capabilities. Unlike basic signing tools, our implementation fully supports granular signatures (signing individual components, services, and annotations), parallel Multi-Signatures (`signers`), and sequential Signature Chains (`chain`). When the optional companion binaries from `@cdxgen/cdxgen-plugins-bin` are available, cdxgen also enriches container/rootfs and live-OS scans with Trivy/osquery-powered metadata.
+`cdxgen` is a universal, polyglot CLI tool that generates valid CycloneDX Bill-of-Materials (BOM) documents in JSON format. It produces SBOM, CBOM, OBOM, SaaSBOM, VDR, and CDXA outputs for source code, containers, VMs, and live operating systems. Supports CycloneDX spec versions `1.4`–`1.7` (default: `1.7`). cdxgen features a best-in-class, native **JSON Signature Format (JSF)** implementation for BOM signing, providing robust authenticity and non-repudiation capabilities. Unlike basic signing tools, our implementation fully supports granular signatures (signing individual components, services, and annotations), parallel Multi-Signatures (`signers`), and sequential Signature Chains (`chain`). When the optional companion binaries from `@cdxgen/cdxgen-plugins-bin` are available, cdxgen also enriches container/rootfs and live-OS scans with Trivy/osquery-powered metadata, Linux GTFOBins runtime context, and platform trust posture. CBOM mode can also extract cryptographic algorithm inventory from JavaScript and TypeScript source through lightweight AST analysis.
 
 ## ✅ When to Invoke
 
@@ -24,6 +24,9 @@ Notes:
 
 - The optional `@cdxgen/cdxgen-plugins-bin` packages provide native helpers such as Trivy and osquery.
 - Container and `rootfs` scans can surface repository source components plus trusted-key cryptographic assets when those binaries are present.
+- Container and `rootfs` scans also emit `cdx:container:unpackagedExecutableCount` and `cdx:container:unpackagedSharedLibraryCount` metadata properties so agents can spot native file inventory that was not traced to OS package ownership.
+- Linux live-OS profiles include hardening-oriented `sysctl_hardening` and `mount_hardening` snapshots plus GTFOBins enrichment on privileged and network-active runtime rows.
+- The optional `trustinspector` helper adds macOS code-signing/notarization and Windows Authenticode/WDAC properties across large host inventories without truncating path inspection after the first few hundred paths.
 - macOS live-OS OBOM collection uses the bundled osquery binary in shell mode and may still require Full Disk Access or elevated privileges for some tables.
 
 ## 💻 Core Syntax
@@ -54,7 +57,7 @@ cdxgen [path] [options]
 |                | `--filter <purl>`         | Exclude components matching string in purl/properties                                                                                                            |
 |                | `--only <purl>`           | Include ONLY components matching string in purl                                                                                                                  |
 | **Advanced**   | `--evidence`              | Generate SaaSBOM with usage/callstack evidence                                                                                                                   |
-|                | `--include-crypto`        | Include cryptographic libraries (CBOM)                                                                                                                           |
+|                | `--include-crypto`        | Include CBOM-oriented cryptographic assets, certificates, and source-derived crypto algorithms                                                                   |
 |                | `--include-formulation`   | Add git metadata & build tool versions                                                                                                                           |
 |                | `--server`                | Start HTTP server on `127.0.0.1:9090`                                                                                                                            |
 |                | `--validate`              | Auto-validate BOM against JSON schema (default: `true`)                                                                                                          |
@@ -77,6 +80,9 @@ cdxgen -t docker myimage:latest -o bom.json
 
 # Reconstructed or mounted root filesystem
 cdxgen /absolute/path/to/rootfs -t rootfs -o bom.json
+
+# Offline rootfs hardening review
+cdxgen /absolute/path/to/rootfs -t rootfs -o bom.json --bom-audit --bom-audit-categories rootfs-hardening
 
 # Research/Security deep scan with evidence
 cdxgen --profile research --evidence -o bom.json
@@ -169,6 +175,9 @@ These indicators affect **which packages are audited first**, not the final seve
 - **Use `cdx-audit` for Cargo/Rust BOMs too** when the BOM contains `pkg:cargo/...` dependencies and the goal is upstream review prioritization.
 - For Cargo-focused work, combine predictive `cdx-audit` triage with normal BOM generation and `--bom-audit` rules so registry, workspace, and native-build signals are all visible.
 - For container/rootfs scans, expect cdxgen to include non-package operational inventory too, such as package-owned files, installed commands, repository source records, and trusted key material when present.
+- For container/rootfs review in `cdxi`, use `.unpackagedbins` and `.unpackagedlibs` to isolate executable and shared-library file components that sit outside OS package ownership.
+- For live Linux OBOM work, also expect GTFOBins properties on selected osquery-derived runtime artifacts and hardening-oriented findings from `sysctl_hardening` and `mount_hardening`.
+- For CBOM review in `cdxi`, use `.sourcecryptos` when you want just the JavaScript or TypeScript source-derived algorithm components rather than the full cryptographic asset list.
 
 ## ⛔ Anti-Hallucination & Safety Constraints
 
@@ -186,6 +195,8 @@ These indicators affect **which packages are audited first**, not the final seve
 12. For packaged Electron releases, prefer `-t asar` so archive file inventory, integrity verification, and embedded Node manifest analysis are included in the BOM and BOM-audit output.
 13. For OS trust inventory, remember the modeling split: repository sources are normal `data` components, while trusted keys/certificates are `cryptographic-asset` components. Do not assume those crypto assets have purls.
 14. On macOS OBOM runs, use the troubleshooting guide if tables come back empty or permission-gated; shell-mode osquery execution avoids the older `/var/osquery` startup failure mode.
+15. For offline host or golden-image reviews, prefer `--bom-audit --bom-audit-categories rootfs-hardening` so repository trust, privileged helpers, and service drift are checked without requiring live osquery collection.
+16. Source-derived algorithm components must stay validator-safe. Emit only algorithms that can be mapped to a known OID.
 
 ## 📤 Output & Validation
 

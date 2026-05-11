@@ -32,6 +32,30 @@ assert_container_audit_bom() {
   }
 }
 
+container_file_inventory_signature() {
+  local bom_file="$1"
+  jq -c '{
+    metadataExecutableCount: (([.metadata.properties[]? | select(.name == "cdx:container:unpackagedExecutableCount") | (.value | tonumber?)] | first) // 0),
+    metadataSharedLibraryCount: (([.metadata.properties[]? | select(.name == "cdx:container:unpackagedSharedLibraryCount") | (.value | tonumber?)] | first) // 0),
+    actualExecutableCount: (([.components[]? | select(.type == "file" and ((.properties // []) | any(.name == "internal:is_executable" and .value == "true")))]) | length),
+    actualSharedLibraryCount: (([.components[]? | select(.type == "file" and ((.properties // []) | any(.name == "internal:is_shared_library" and .value == "true")))]) | length)
+  }' "$bom_file"
+}
+
+assert_container_file_inventory_bom() {
+  local bom_file="$1"
+  local signature
+  signature="$(container_file_inventory_signature "$bom_file")"
+  echo "$signature" | jq -e '
+    .metadataExecutableCount == .actualExecutableCount
+    and .metadataSharedLibraryCount == .actualSharedLibraryCount
+  ' >/dev/null || {
+    echo "Expected unpackaged file inventory counts to match component inventory in $bom_file"
+    echo "signature=$signature"
+    return 1
+  }
+}
+
 assert_trivy_tool_identity_bom() {
   local bom_file="$1"
   jq -e --arg tool_name "trivy" "${CDXGEN_TOOL_IDENTITY_JQ_DEFS}

@@ -14,6 +14,9 @@ cdxgen -o bom.json --bom-audit --bom-audit-categories ci-permission
 # Audit an Electron ASAR release artifact
 cdxgen -t asar -o bom.json --bom-audit --bom-audit-categories asar-archive /absolute/path/to/app.asar
 
+# Audit an offline rootfs for hardening drift
+cdxgen /absolute/path/to/rootfs -t rootfs -o bom.json --bom-audit --bom-audit-categories rootfs-hardening
+
 # Audit with high-severity findings only
 cdxgen -o bom.json --bom-audit --bom-audit-min-severity high
 
@@ -261,7 +264,13 @@ Treat these mappings as reviewer guidance rather than a full certification cross
 
 ### `obom-runtime` — Operational Runtime and Host Posture
 
-Rules that evaluate OBOM runtime components from osquery-derived host telemetry for persistence, endpoint control gaps, suspicious startup/runtime behavior, and Windows LOLBAS / ATT&CK-aligned abuse patterns.
+Rules that evaluate OBOM runtime components from osquery-derived host telemetry for persistence, endpoint control gaps, suspicious startup/runtime behavior, Linux GTFOBins-enriched activity, hardening drift, and Windows LOLBAS / ATT&CK-aligned abuse patterns.
+
+Recent additions broaden the Linux and trust-aware host coverage:
+
+- live Linux GTFOBins enrichment is applied to osquery runtime rows such as sudo executions, privilege transitions, elevated processes, and privileged listeners
+- Linux hardening checks review dedicated `sysctl_hardening` and `mount_hardening` query-pack entries inspired by Lynis and CIS baselines
+- trustinspector-backed properties such as `cdx:windows:authenticode:*`, `cdx:windows:wdac:*`, and `cdx:darwin:notarization:*` are used directly in the built-in rules
 
 | Rule         | Severity | Description                                                          |
 | ------------ | -------- | -------------------------------------------------------------------- |
@@ -276,6 +285,12 @@ Rules that evaluate OBOM runtime components from osquery-derived host telemetry 
 | OBOM-LNX-009 | high     | Unexpected Linux privilege transition for non-allowlisted executable |
 | OBOM-LNX-010 | critical | Elevated Linux process launched from user-writable or unusual path   |
 | OBOM-LNX-011 | medium   | Interactive shell parent spawned privileged Linux execution          |
+| OBOM-LNX-014 | critical | Linux reverse shell behavior detected in live process telemetry      |
+| OBOM-LNX-015 | high     | Linux process uses LD_PRELOAD from writable or temporary path        |
+| OBOM-LNX-016 | high     | Linux cron entry fetches remote content or runs from writable path   |
+| OBOM-LNX-017 | medium   | Linux sysctl posture diverges from common hardening baseline         |
+| OBOM-LNX-018 | high     | Linux temporary mount is missing key hardening flags                 |
+| OBOM-LNX-019 | high     | Live Linux runtime artifact matches GTFOBins execution helper        |
 | OBOM-WIN-001 | high     | Windows drive without BitLocker protection                           |
 | OBOM-WIN-002 | high     | Windows Security Center unhealthy state                              |
 | OBOM-WIN-003 | critical | Windows Run key references temporary/script execution path           |
@@ -286,15 +301,39 @@ Rules that evaluate OBOM runtime components from osquery-derived host telemetry 
 | OBOM-WIN-008 | high     | Windows startup or process activity uses network-capable LOLBAS      |
 | OBOM-WIN-009 | critical | Network-facing Windows listener is a LOLBAS execution helper         |
 | OBOM-WIN-010 | critical | Windows persistence artifact uses LOLBAS with UAC-bypass context     |
+| OBOM-WIN-011 | high     | Windows Public profile inbound firewall allow rule                   |
+| OBOM-WIN-012 | critical | Windows startup or listener binary has invalid Authenticode status   |
+| OBOM-WIN-013 | high     | Windows host has no active WDAC policies                             |
 | OBOM-MAC-001 | high     | macOS firewall disabled or stealth mode off                          |
 | OBOM-MAC-002 | critical | macOS launchd item from user-writable temporary path                 |
 | OBOM-MAC-003 | medium   | macOS firewall exception for binary in untrusted user path           |
 | OBOM-MAC-004 | medium   | macOS launchd override disables Apple-managed service                |
 | OBOM-MAC-005 | high     | macOS Gatekeeper enforcement is disabled or weakened                 |
+| OBOM-MAC-006 | medium   | macOS running app launches from Downloads, Desktop, or temp path     |
+| OBOM-MAC-007 | high     | macOS startup or application artifact failed notarization assessment |
+
+### `rootfs-hardening` — Offline host and golden-image hardening review
+
+Rules that evaluate reconstructed root filesystems, mounted images, and other offline host snapshots for repository trust, privileged helpers, stale trust anchors, and suspicious service definitions.
+
+Use this category when you want image-baseline checks that do not depend on live osquery collection.
+
+Generated image and rootfs BOMs also carry `cdx:container:unpackagedExecutableCount` and `cdx:container:unpackagedSharedLibraryCount` metadata properties, plus a metadata annotation sentence summarizing the same counts. These counts track executable and shared-library file components discovered from `collectExecutables()` and `collectSharedLibs()` after OS package ownership has been excluded.
+
+| Rule    | Severity | Description                                                     |
+| ------- | -------- | --------------------------------------------------------------- |
+| RFS-001 | high     | Enabled OS repository uses plaintext HTTP transport             |
+| RFS-002 | critical | YUM repository has package signature checks disabled            |
+| RFS-003 | high     | Offline trust anchor is marked expired                          |
+| RFS-004 | critical | Offline image retains setuid GTFOBins execution helper          |
+| RFS-005 | critical | Offline service executes from writable or temporary path        |
+| RFS-006 | high     | Offline service pre-start step fetches or shells remote content |
 
 ### `container-risk` — Container Escape, Privilege, and Post-Exploit Tooling
 
 Rules that evaluate collected container executables against GTFOBins-derived enrichment plus MITRE ATT&CK for Containers, Peirates/CDK/DEEPCE playbook knowledge, and Docker seccomp guidance to highlight container breakout helpers, privileged execution primitives, offensive toolkits, and seccomp-sensitive escape helpers.
+
+When a finding or count summary needs manual follow-up, import the BOM into `cdxi` and pivot with `.unpackagedbins` or `.unpackagedlibs` to inspect only the native file components that were not matched to OS package ownership.
 
 | Rule    | Severity | Description                                                         |
 | ------- | -------- | ------------------------------------------------------------------- |
@@ -380,6 +419,7 @@ The rule engine registers custom functions for working with CycloneDX properties
 | `$endsWith(str, suffix)`      | String suffix check                                                                                                      | `$endsWith(name, '-beta')`                                                           |
 | `$arrayContains(arr, value)`  | Check array membership                                                                                                   | `$arrayContains(tags, 'deprecated')`                                                 |
 | `$auditComponents(bom)`       | Return a deduplicated array of top-level BOM components plus any `formulation[].components`                              | `$auditComponents($)[$prop($, 'cdx:github:action:isShaPinned') = 'false']`           |
+| `$auditServices(bom)`         | Return a deduplicated array of top-level BOM services                                                                    | `$auditServices($)[$contains($safeStr($prop($, 'cdx:service:ExecStart')), '/tmp/')]` |
 | `$auditWorkflows(bom)`        | Return a deduplicated array of all `formulation[].workflows` entries                                                     | `$auditWorkflows($)[$prop($, 'cdx:github:workflow:hasHighRiskTrigger') = 'true']`    |
 | `$formulationComponents(bom)` | Return only `formulation[].components`                                                                                   | `$formulationComponents($)[$prop($, 'cdx:github:step:type') = 'run']`                |
 

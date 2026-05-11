@@ -127,6 +127,12 @@
     "purlType": "swid",
     "componentType": "data"
   },
+  "sysctl_hardening": {
+    "query": "SELECT name, current_value as version, name as sysctl_key, current_value FROM sysctl WHERE name IN ('kernel.randomize_va_space', 'kernel.kptr_restrict', 'net.ipv4.conf.all.accept_redirects', 'net.ipv4.conf.default.accept_redirects', 'net.ipv4.conf.all.send_redirects', 'net.ipv4.conf.default.send_redirects');",
+    "description": "Linux sysctl posture entries aligned with common hardening baselines.",
+    "purlType": "swid",
+    "componentType": "data"
+  },
   "kernel_modules": {
     "query": "SELECT * FROM kernel_modules;",
     "description": "Linux kernel modules both loaded and within the load search path.",
@@ -136,6 +142,12 @@
   "secureboot_certificates": {
     "query": "SELECT COALESCE(common_name, subject, sha1) as name, COALESCE(subject_key_id, sha1) as version, issuer as publisher, subject as description, common_name, subject, issuer, serial, sha1, revoked, path, is_ca, self_signed, key_usage, authority_key_id, subject_key_id, signing_algorithm, key_algorithm, key_strength, not_valid_before, not_valid_after FROM secureboot_certificates;",
     "description": "UEFI Secure Boot certificate inventory, including trusted and revoked entries, for firmware trust posture reviews.",
+    "purlType": "swid",
+    "componentType": "data"
+  },
+  "mount_hardening": {
+    "query": "SELECT path as name, flags as version, device as description, path, device, type, flags FROM mounts WHERE path IN ('/tmp', '/var/tmp', '/dev/shm', '/home');",
+    "description": "Linux mount points commonly reviewed for noexec, nodev, and nosuid hardening.",
     "purlType": "swid",
     "componentType": "data"
   },

@@ -25,6 +25,7 @@
     "enabled": true,
     "includes": [
       "**",
+      "!cdxgen-plugins-bin/**",
       "!contrib/**",
       "!data/**",
       "!test/**",
@@ -93,6 +94,7 @@
     "enabled": true,
     "includes": [
       "**",
+      "!cdxgen-plugins-bin/**",
       "!contrib/**",
       "!data/**",
       "!test/**",
@@ -104,6 +106,14 @@
   },
   "files": {
     "maxSize": 5242880,
-    "includes": ["**", "!contrib", "!data", "!test", "!types", "!docs"]
+    "includes": [
+      "**",
+      "!cdxgen-plugins-bin",
+      "!contrib",
+      "!data",
+      "!test",
+      "!types",
+      "!docs"
+    ]
   }
 }

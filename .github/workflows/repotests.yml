@@ -15,6 +15,7 @@ on:
       - 'pnpm-lock.yaml'
       - 'test/data/cargo-cache-fixture/**'
       - 'test/data/cache-disable-repotest/**'
+      - 'test/data/cbom-js-repotest/**'
       - 'test/data/cargo-workspace-repotest/**'
       - 'test/data/mcp-repotest/**'
       - '!**.poku.js'
@@ -108,6 +109,13 @@ jobs:
           jq -e 'any(.annotations[]?; (.text // "") | contains("INT-013"))' bomresults/bom-cargo-workspace-fixture.json
           CARGO_CACHE_DIR=test/data/cargo-cache-fixture/registry/cache/index.crates.io-1949cf8c6b5b557f bin/cdxgen.js -t cargo-cache . -o bomresults/bom-cargo-cache-fixture.json --fail-on-error
           jq -e 'any(.components[]; .name == "serde" and any((.properties // [])[]; .name == "cdx:cargo:cacheSource" and .value == "registry-cache"))' bomresults/bom-cargo-cache-fixture.json
+        shell: bash
+      - name: repotests source crypto fixture
+        run: |
+          bin/cdxgen.js test/data/cbom-js-repotest -o bomresults/bom-cbom-js-fixture.json --include-crypto --evidence --deep --spec-version 1.7 --fail-on-error
+          jq -e 'any(.components[]; .type == "cryptographic-asset" and .name == "sha-512" and .cryptoProperties.assetType == "algorithm" and .cryptoProperties.oid == "2.16.840.1.101.3.4.2.3")' bomresults/bom-cbom-js-fixture.json
+          jq -e 'any(.components[]; .type == "cryptographic-asset" and .name == "aes256-GCM" and any((.properties // [])[]; .name == "cdx:crypto:sourceType" and .value == "js-ast:webcrypto.generateKey"))' bomresults/bom-cbom-js-fixture.json
+          jq -e 'all(.components[]? | select(.type == "cryptographic-asset" and .cryptoProperties.assetType == "algorithm"); .cryptoProperties.oid != null)' bomresults/bom-cbom-js-fixture.json
         shell: bash
       - name: repotests cache-disable fixture
         run: |

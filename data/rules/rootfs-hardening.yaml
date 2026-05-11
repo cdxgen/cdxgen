@@ -1,0 +1,179 @@
+# Rootfs and Offline Host Hardening Rules
+# Category: rootfs-hardening
+# Evaluates repository trust, trust anchors, privileged helpers, and service execution paths
+
+- id: RFS-001
+  name: "Enabled OS repository uses plaintext HTTP transport"
+  description: "Plain HTTP package repositories weaken integrity guarantees and make mirror tampering easier when network controls are absent."
+  severity: high
+  category: rootfs-hardening
+  dry-run-support: full
+  condition: |
+    components[
+      type = 'data'
+      and $hasProp($, 'cdx:os:repo:type')
+      and $safeStr($prop($, 'cdx:os:repo:enabled')) = 'true'
+      and $startsWith($lowercase($safeStr($prop($, 'cdx:os:repo:url'))), 'http://')
+    ]
+  location: |
+    {
+      "bomRef": $."bom-ref",
+      "purl": purl
+    }
+  message: "Repository '{{ name }}' is enabled and still uses plaintext HTTP: {{ $prop($, 'cdx:os:repo:url') }}"
+  mitigation: "Move package sources to HTTPS or a trusted local mirror protected by authenticated transport and repository signing."
+  evidence: |
+    {
+      "sourceFile": $prop($, 'SrcFile'),
+      "repoType": $prop($, 'cdx:os:repo:type'),
+      "repoUrl": $prop($, 'cdx:os:repo:url')
+    }
+
+- id: RFS-002
+  name: "YUM repository has package signature checks disabled"
+  description: "Disabling gpgcheck in a configured YUM repository removes a core package authenticity control."
+  severity: critical
+  category: rootfs-hardening
+  dry-run-support: full
+  condition: |
+    components[
+      type = 'data'
+      and $safeStr($prop($, 'cdx:os:repo:type')) = 'yum-repository'
+      and $safeStr($prop($, 'cdx:os:repo:enabled')) = 'true'
+      and $safeStr($prop($, 'cdx:os:repo:gpgcheck')) = '0'
+    ]
+  location: |
+    {
+      "bomRef": $."bom-ref",
+      "purl": purl
+    }
+  message: "YUM repository '{{ name }}' is enabled with gpgcheck disabled"
+  mitigation: "Enable gpgcheck, pin the expected signing keys, and review recent repository changes before continuing to trust packages from this source."
+  evidence: |
+    {
+      "sourceFile": $prop($, 'SrcFile'),
+      "repoUrl": $prop($, 'cdx:os:repo:url'),
+      "gpgcheck": $prop($, 'cdx:os:repo:gpgcheck'),
+      "gpgkey": $prop($, 'cdx:os:repo:gpgkey')
+    }
+
+- id: RFS-003
+  name: "Offline trust anchor is marked expired"
+  description: "Expired trust anchors inside an image or rootfs can break planned rotations and hide stale trust relationships."
+  severity: high
+  category: rootfs-hardening
+  dry-run-support: full
+  condition: |
+    components[
+      type = 'cryptographic-asset'
+      and $safeStr(cryptoProperties.assetType) = 'related-crypto-material'
+      and $safeStr(cryptoProperties.relatedCryptoMaterialProperties.state) = 'expired'
+    ]
+  location: |
+    {
+      "bomRef": $."bom-ref"
+    }
+  message: "Trust anchor '{{ name }}' is marked expired and should be reviewed"
+  mitigation: "Remove stale keys, replace expired trust anchors, and confirm the remaining repository trust chain matches approved policy."
+  evidence: |
+    {
+      "path": $prop($, 'SrcFile'),
+      "trustDomain": $prop($, 'cdx:crypto:trustDomain'),
+      "keyId": $prop($, 'cdx:crypto:keyId'),
+      "expiresAt": $prop($, 'cdx:crypto:expiresAt')
+    }
+
+- id: RFS-004
+  name: "Offline image retains setuid GTFOBins execution helper"
+  description: "Setuid GTFOBins-capable binaries increase privilege-escalation exposure inside rootfs and golden image baselines."
+  severity: critical
+  category: rootfs-hardening
+  dry-run-support: full
+  condition: |
+    components[
+      type = 'file'
+      and (
+        $prop($, 'internal:has_setuid') = 'true'
+        or $prop($, 'internal:has_setgid') = 'true'
+      )
+      and $prop($, 'cdx:gtfobins:matched') = 'true'
+      and (
+        $listContains($prop($, 'cdx:gtfobins:functions'), 'shell')
+        or $listContains($prop($, 'cdx:gtfobins:functions'), 'command')
+        or $listContains($prop($, 'cdx:gtfobins:functions'), 'library-load')
+      )
+    ]
+  location: |
+    {
+      "bomRef": $."bom-ref",
+      "purl": purl
+    }
+  message: "Privileged helper '{{ name }}' keeps GTFOBins execution capability in the offline image"
+  mitigation: "Remove unnecessary setuid or setgid bits, replace the helper with a safer alternative, or justify and baseline the exposure explicitly."
+  evidence: |
+    {
+      "path": $prop($, 'SrcFile'),
+      "functions": $prop($, 'cdx:gtfobins:functions'),
+      "contexts": $prop($, 'cdx:gtfobins:contexts'),
+      "riskTags": $prop($, 'cdx:gtfobins:riskTags')
+    }
+
+- id: RFS-005
+  name: "Offline service executes from writable or temporary path"
+  description: "Services pointing at writable or temporary paths are a strong persistence and drift signal in base images and offline hosts."
+  severity: critical
+  category: rootfs-hardening
+  dry-run-support: full
+  condition: |
+    $auditServices($)[
+      $contains($lowercase($safeStr($prop($, 'cdx:service:ExecStart'))), '/tmp/')
+      or $contains($lowercase($safeStr($prop($, 'cdx:service:ExecStart'))), '/var/tmp/')
+      or $contains($lowercase($safeStr($prop($, 'cdx:service:ExecStart'))), '/dev/shm/')
+      or $contains($lowercase($safeStr($prop($, 'cdx:service:ExecStart'))), '/home/')
+      or $contains($lowercase($safeStr($prop($, 'cdx:service:ExecStart'))), '/run/user/')
+    ]
+  location: |
+    {
+      "bomRef": $."bom-ref"
+    }
+  message: "Service '{{ name }}' launches from a writable or temporary path"
+  mitigation: "Relocate approved service binaries into trusted system paths and investigate any service definition that executes from writable directories."
+  evidence: |
+    {
+      "sourceFile": $prop($, 'SrcFile'),
+      "manager": $prop($, 'cdx:service:manager'),
+      "execStart": $prop($, 'cdx:service:ExecStart'),
+      "packageRef": $prop($, 'cdx:service:packageRef')
+    }
+
+- id: RFS-006
+  name: "Offline service pre-start step fetches or shells remote content"
+  description: "ExecStartPre hooks that fetch remote content or shell inline commands add bootstrap drift and weaken image reproducibility."
+  severity: high
+  category: rootfs-hardening
+  dry-run-support: full
+  condition: |
+    $auditServices($)[
+      (
+        $contains($lowercase($safeStr($prop($, 'cdx:service:ExecStartPre'))), 'curl ')
+        or $contains($lowercase($safeStr($prop($, 'cdx:service:ExecStartPre'))), 'wget ')
+      )
+      and (
+        $contains($lowercase($safeStr($prop($, 'cdx:service:ExecStartPre'))), 'http://')
+        or $contains($lowercase($safeStr($prop($, 'cdx:service:ExecStartPre'))), 'https://')
+        or $contains($lowercase($safeStr($prop($, 'cdx:service:ExecStartPre'))), '| sh')
+        or $contains($lowercase($safeStr($prop($, 'cdx:service:ExecStartPre'))), '| bash')
+      )
+    ]
+  location: |
+    {
+      "bomRef": $."bom-ref"
+    }
+  message: "Service '{{ name }}' uses a remote-fetching ExecStartPre hook: {{ $prop($, 'cdx:service:ExecStartPre') }}"
+  mitigation: "Move bootstrap downloads into the image build pipeline, pin artifacts, and keep service startup paths deterministic and locally sourced."
+  evidence: |
+    {
+      "sourceFile": $prop($, 'SrcFile'),
+      "manager": $prop($, 'cdx:service:manager'),
+      "execStartPre": $prop($, 'cdx:service:ExecStartPre')
+    }

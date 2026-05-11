@@ -21,6 +21,12 @@ import {
   printTable,
   printVulnerabilities,
 } from "../lib/helpers/display.js";
+import {
+  getPropertyValue,
+  getSourceDerivedCryptoComponents,
+  getUnpackagedExecutableComponents,
+  getUnpackagedSharedLibraryComponents,
+} from "../lib/helpers/inventoryStats.js";
 import { readBinary } from "../lib/helpers/protobom.js";
 import {
   getProvenanceComponents,
@@ -141,13 +147,6 @@ function printAuditTable(title, rows) {
       },
     }),
   );
-}
-
-function getPropertyValue(propertiesOrObject, propertyName) {
-  const properties = Array.isArray(propertiesOrObject)
-    ? propertiesOrObject
-    : propertiesOrObject?.properties;
-  return properties?.find((property) => property.name === propertyName)?.value;
 }
 
 function isLikelyObom(bom) {
@@ -593,6 +592,90 @@ cdxgenRepl.defineCommand("cryptos", {
         "⚠ No BOM is loaded. Use .import command to import an existing BOM",
       );
     }
+    this.displayPrompt();
+  },
+});
+cdxgenRepl.defineCommand("sourcecryptos", {
+  help: "show source-derived cryptographic assets detected from JS AST analysis",
+  action() {
+    const interactiveBom = getInteractiveBom();
+    if (!interactiveBom?.components) {
+      console.log("⚠ No BOM is loaded. Use .import command to import an SBOM");
+      this.displayPrompt();
+      return;
+    }
+    const sourceCryptoComponents = getSourceDerivedCryptoComponents(
+      interactiveBom.components,
+    );
+    if (!sourceCryptoComponents.length) {
+      console.log(
+        "No source-derived crypto assets found. Generate a CBOM or SBOM with source crypto analysis to use this view.",
+      );
+      this.displayPrompt();
+      return;
+    }
+    printTable(
+      { components: sourceCryptoComponents, dependencies: [] },
+      ["cryptographic-asset"],
+      undefined,
+      `Found ${sourceCryptoComponents.length} source-derived cryptographic asset component(s).`,
+    );
+    this.displayPrompt();
+  },
+});
+cdxgenRepl.defineCommand("unpackagedbins", {
+  help: "show executable file components that were not matched to OS package ownership",
+  action() {
+    const interactiveBom = getInteractiveBom();
+    if (!interactiveBom?.components) {
+      console.log("⚠ No BOM is loaded. Use .import command to import an SBOM");
+      this.displayPrompt();
+      return;
+    }
+    const unpackagedExecutables = getUnpackagedExecutableComponents(
+      interactiveBom.components,
+    );
+    if (!unpackagedExecutables.length) {
+      console.log(
+        "No unpackaged executable file components found. Import a container or rootfs BOM with native file inventory to use this view.",
+      );
+      this.displayPrompt();
+      return;
+    }
+    printTable(
+      { components: unpackagedExecutables, dependencies: [] },
+      ["file"],
+      undefined,
+      `Found ${unpackagedExecutables.length} executable file component(s) that were not traced to OS package ownership.`,
+    );
+    this.displayPrompt();
+  },
+});
+cdxgenRepl.defineCommand("unpackagedlibs", {
+  help: "show shared library file components that were not matched to OS package ownership",
+  action() {
+    const interactiveBom = getInteractiveBom();
+    if (!interactiveBom?.components) {
+      console.log("⚠ No BOM is loaded. Use .import command to import an SBOM");
+      this.displayPrompt();
+      return;
+    }
+    const unpackagedSharedLibraries = getUnpackagedSharedLibraryComponents(
+      interactiveBom.components,
+    );
+    if (!unpackagedSharedLibraries.length) {
+      console.log(
+        "No unpackaged shared library file components found. Import a container or rootfs BOM with native file inventory to use this view.",
+      );
+      this.displayPrompt();
+      return;
+    }
+    printTable(
+      { components: unpackagedSharedLibraries, dependencies: [] },
+      ["file"],
+      undefined,
+      `Found ${unpackagedSharedLibraries.length} shared library file component(s) that were not traced to OS package ownership.`,
+    );
     this.displayPrompt();
   },
 });

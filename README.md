@@ -17,7 +17,7 @@ cdxgen is a CLI tool, library, [REPL](./ADVANCED.md), and server to create, vali
 Supported BOM formats:
 
 - Software (SBOM) - For many languages and container images.
-- Cryptography (CBOM) - For Java and Python projects.
+- Cryptography (CBOM) - For Java keystores and certificates, plus JavaScript and TypeScript source-level algorithm inventory.
 - Operations (OBOM) - For Linux container images and VMs running Linux or Windows operating systems.
 - Software-as-a-Service (SaaSBOM) - For Java, Python, JavaScript, TypeScript, and PHP projects.
 - Attestations (CDXA) - Generate SBOM with templates for multiple standards. Sign the BOM document at a granular level to improve authenticity.
@@ -52,7 +52,7 @@ Supported output document formats:
 #### For SOC analysts
 
 - Use `obom` for live-system and runtime inventory on Linux, Windows, and macOS hosts.
-- Focus on [OBOM lessons](docs/OBOM_LESSONS.md) when you need host triage, persistence review, LOLBAS-backed Windows startup analysis, or incident-response evidence.
+- Focus on [OBOM lessons](docs/OBOM_LESSONS.md) when you need host triage, persistence review, Linux GTFOBins-backed runtime analysis, hardening drift review, or incident-response evidence.
 
 #### For compliance and platform governance
 
@@ -276,17 +276,18 @@ import { createBom, submitBom } from "npm:@cyclonedx/cdxgen@^12.2.1";
 
 ## Common workflows
 
-| Goal                                                       | First command                                                              | Read next                            |
-| ---------------------------------------------------------- | -------------------------------------------------------------------------- | ------------------------------------ |
-| Generate a BOM from the current repository                 | `cdxgen -o bom.json .`                                                     | [CLI Usage][docs-cli]                |
-| Generate a BOM from a git URL                              | `cdxgen -o bom.json https://github.com/example/project.git`                | [CLI Usage][docs-cli]                |
-| Generate a BOM from a package URL                          | `cdxgen -o bom.json "pkg:npm/lodash@4.17.21"`                              | [CLI Usage][docs-cli]                |
-| Scan a container image                                     | `cdxgen ghcr.io/owasp-dep-scan/depscan:nightly -o bom.json -t docker`      | [Server Usage][docs-server]          |
-| Audit a generated BOM for built-in supply-chain findings   | `cdxgen -o bom.json --bom-audit .`                                         | [BOM Audit](docs/BOM_AUDIT.md)       |
-| Prioritize an existing BOM for upstream risk-driven review | `cdx-audit --bom bom.json`                                                 | [cdx-audit](docs/CDX_AUDIT.md)       |
-| Validate a BOM against structural and compliance checks    | `cdx-validate -i bom.json`                                                 | [cdx-validate](docs/CDX_VALIDATE.md) |
-| Convert CycloneDX JSON to SPDX JSON-LD                     | `cdx-convert -i bom.json -o bom.spdx.json`                                 | [cdx-convert](docs/CDX_CONVERT.md)   |
-| Generate an OBOM for live-system triage                    | `obom -o obom.json --deep --bom-audit --bom-audit-categories obom-runtime` | [OBOM lessons](docs/OBOM_LESSONS.md) |
+| Goal                                                       | First command                                                                                               | Read next                            |
+| ---------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- | ------------------------------------ |
+| Generate a BOM from the current repository                 | `cdxgen -o bom.json .`                                                                                      | [CLI Usage][docs-cli]                |
+| Generate a BOM from a git URL                              | `cdxgen -o bom.json https://github.com/example/project.git`                                                 | [CLI Usage][docs-cli]                |
+| Generate a BOM from a package URL                          | `cdxgen -o bom.json "pkg:npm/lodash@4.17.21"`                                                               | [CLI Usage][docs-cli]                |
+| Scan a container image                                     | `cdxgen ghcr.io/owasp-dep-scan/depscan:nightly -o bom.json -t docker`                                       | [Server Usage][docs-server]          |
+| Audit a generated BOM for built-in supply-chain findings   | `cdxgen -o bom.json --bom-audit .`                                                                          | [BOM Audit](docs/BOM_AUDIT.md)       |
+| Prioritize an existing BOM for upstream risk-driven review | `cdx-audit --bom bom.json`                                                                                  | [cdx-audit](docs/CDX_AUDIT.md)       |
+| Validate a BOM against structural and compliance checks    | `cdx-validate -i bom.json`                                                                                  | [cdx-validate](docs/CDX_VALIDATE.md) |
+| Convert CycloneDX JSON to SPDX JSON-LD                     | `cdx-convert -i bom.json -o bom.spdx.json`                                                                  | [cdx-convert](docs/CDX_CONVERT.md)   |
+| Generate an OBOM for live-system triage                    | `obom -o obom.json --deep --bom-audit --bom-audit-categories obom-runtime`                                  | [OBOM lessons](docs/OBOM_LESSONS.md) |
+| Review an offline rootfs for hardening drift               | `cdxgen /absolute/path/to/rootfs -t rootfs -o bom.json --bom-audit --bom-audit-categories rootfs-hardening` | [BOM Audit](docs/BOM_AUDIT.md)       |
 
 For the full option reference, use `cdxgen --help` or visit [CLI Usage][docs-cli].
 
@@ -562,11 +563,14 @@ obom
 # cdxgen -t os
 ```
 
-This feature is powered by osquery, which is [installed](https://github.com/cdxgen/cdxgen-plugins-bin/blob/main/build.sh#L8) along with the binary plugins. cdxgen would opportunistically try to detect as many components, apps, and extensions as possible using the platform-specific default queries under `data/queries*.json`. With osquery 5.23.0, the default profiles now include Gatekeeper posture on macOS, Secure Boot certificate inventory on Linux, targeted Windows process-open-handle telemetry, and improved npm package discovery. When the optional `trustinspector` helper is available, OBOM collection is further enriched with:
+This feature is powered by osquery, which is [installed](https://github.com/cdxgen/cdxgen-plugins-bin/blob/main/build.sh#L8) along with the binary plugins. cdxgen would opportunistically try to detect as many components, apps, and extensions as possible using the platform-specific default queries under `data/queries*.json`. The Linux profile includes dedicated `sysctl_hardening` and `mount_hardening` snapshots, GTFOBins enrichment for privileged and network-active runtime rows, Secure Boot certificate inventory, and improved npm package discovery. When the optional `trustinspector` helper is available, OBOM collection is further enriched with:
 
 - macOS code-signing authority, team ID, and notarization assessment metadata for discovered application paths
 - Windows Authenticode signer/timestamp metadata for discovered executable paths
 - Windows WDAC active-policy inventory
+- batched path inspection so large host inventories keep their trust metadata instead of stopping at the first few hundred paths
+
+Container and rootfs BOMs also summarize how many executable and shared-library file components were discovered outside OS package ownership. Look for `cdx:container:unpackagedExecutableCount` and `cdx:container:unpackagedSharedLibraryCount` in metadata, or use `.unpackagedbins` and `.unpackagedlibs` in `cdxi` for an interactive pivot.
 
 The process would take several minutes and result in an SBOM file with thousands of components of various types, such as operating-system, device-drivers, files, and data.
 
@@ -574,12 +578,17 @@ For practical SOC/IR and compliance workflows, see the dedicated [OBOM lessons](
 
 ## Generate Cryptography Bill of Materials (CBOM)
 
-Use the `cbom` alias to generate a CBOM. This is currently supported only for Java projects.
+Use the `cbom` alias to generate a CBOM. In addition to keystores and certificates, cdxgen can also derive cryptographic algorithm inventory from JavaScript and TypeScript source by following lightweight constant propagation through common `node:crypto`, WebCrypto, and JWT call sites.
 
 ```shell
 cbom -t java
 # cdxgen -t java --include-crypto -o bom.json .
+
+# Add source-derived crypto algorithms for a JS or TS project
+cdxgen --include-crypto -o bom.json /absolute/path/to/js-project
 ```
+
+When reviewing the result in `cdxi`, use `.cryptos` for the full cryptographic asset view or `.sourcecryptos` to narrow the list to source-derived algorithm components only.
 
 ## Generating SaaSBOM and component evidences
 

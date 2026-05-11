@@ -999,3 +999,371 @@
       "assessmentsEnabled": $prop($, 'assessments_enabled'),
       "devIdEnabled": $prop($, 'dev_id_enabled')
     }
+
+- id: OBOM-LNX-014
+  name: "Linux reverse shell behavior detected in live process telemetry"
+  description: "A shell process with a live remote socket is a strong signal for hands-on-keyboard abuse, staging, or remote command execution."
+  severity: critical
+  category: obom-runtime
+  dry-run-support: full
+  condition: |
+    components[
+      $prop($, 'cdx:osquery:category') = 'behavioral_reverse_shell'
+    ]
+  location: |
+    {
+      "bomRef": $."bom-ref",
+      "purl": purl
+    }
+  message: "Reverse-shell-like process behavior detected for '{{ name }}' reaching {{ $prop($, 'remote_address') }}:{{ $prop($, 'remote_port') }}"
+  mitigation: "Isolate the host, review process lineage and parent shell context, and confirm whether the remote session is expected administrative activity."
+  evidence: |
+    {
+      "path": $prop($, 'path'),
+      "cmdline": $prop($, 'cmdline'),
+      "parentCmdline": $prop($, 'parent_cmdline'),
+      "remoteAddress": $prop($, 'remote_address'),
+      "remotePort": $prop($, 'remote_port')
+    }
+
+- id: OBOM-LNX-015
+  name: "Linux process uses LD_PRELOAD from writable or temporary path"
+  description: "LD_PRELOAD pointing at user-controlled paths can indicate library hijacking, stealth persistence, or runtime tampering."
+  severity: high
+  category: obom-runtime
+  dry-run-support: full
+  condition: |
+    components[
+      $prop($, 'cdx:osquery:category') = 'ld_preload'
+      and (
+        $contains($lowercase($safeStr($prop($, 'value'))), '/tmp/')
+        or $contains($lowercase($safeStr($prop($, 'value'))), '/var/tmp/')
+        or $contains($lowercase($safeStr($prop($, 'value'))), '/dev/shm/')
+        or $contains($lowercase($safeStr($prop($, 'value'))), '/home/')
+        or $contains($lowercase($safeStr($prop($, 'value'))), '/run/user/')
+      )
+    ]
+  location: |
+    {
+      "bomRef": $."bom-ref",
+      "purl": purl
+    }
+  message: "Process '{{ name }}' sets LD_PRELOAD to a risky path: {{ $prop($, 'value') }}"
+  mitigation: "Review the preload library, remove unauthorized runtime injection, and compare the process with package ownership and startup history."
+  evidence: |
+    {
+      "processPath": $prop($, 'path'),
+      "cmdline": $prop($, 'cmdline'),
+      "cwd": $prop($, 'cwd'),
+      "ldPreload": $prop($, 'value')
+    }
+
+- id: OBOM-LNX-016
+  name: "Linux cron entry fetches remote content or runs from writable path"
+  description: "Cron jobs that fetch remote content or execute from temporary and user-writable paths are a high-signal persistence pattern."
+  severity: high
+  category: obom-runtime
+  dry-run-support: full
+  condition: |
+    components[
+      $prop($, 'cdx:osquery:category') = 'crontab_snapshot'
+      and (
+        (
+          (
+            $contains($lowercase($safeStr($prop($, 'command'))), 'curl ')
+            or $contains($lowercase($safeStr($prop($, 'command'))), 'wget ')
+          )
+          and (
+            $contains($lowercase($safeStr($prop($, 'command'))), 'http://')
+            or $contains($lowercase($safeStr($prop($, 'command'))), 'https://')
+            or $contains($lowercase($safeStr($prop($, 'command'))), '| sh')
+            or $contains($lowercase($safeStr($prop($, 'command'))), '| bash')
+          )
+        )
+        or $contains($lowercase($safeStr($prop($, 'command'))), '/tmp/')
+        or $contains($lowercase($safeStr($prop($, 'command'))), '/var/tmp/')
+        or $contains($lowercase($safeStr($prop($, 'command'))), '/dev/shm/')
+        or $contains($lowercase($safeStr($prop($, 'command'))), '/home/')
+      )
+    ]
+  location: |
+    {
+      "bomRef": $."bom-ref",
+      "purl": purl
+    }
+  message: "Cron entry '{{ name }}' has a risky command: {{ $prop($, 'command') }}"
+  mitigation: "Move bootstrap downloads into a managed deployment path, review cron ownership, and remove unauthorized recurring tasks."
+  evidence: |
+    {
+      "command": $prop($, 'command'),
+      "path": $prop($, 'path'),
+      "minute": $prop($, 'minute'),
+      "hour": $prop($, 'hour')
+    }
+
+- id: OBOM-LNX-017
+  name: "Linux sysctl posture diverges from common hardening baseline"
+  description: "Weak ASLR and redirect-handling sysctl values are commonly called out in Lynis and CIS-style hardening reviews."
+  severity: medium
+  category: obom-runtime
+  dry-run-support: full
+  condition: |
+    components[
+      $prop($, 'cdx:osquery:category') = 'sysctl_hardening'
+      and (
+        (name = 'kernel.randomize_va_space' and $safeStr(version) != '2')
+        or (name = 'kernel.kptr_restrict' and $safeStr(version) = '0')
+        or (
+          (
+            name = 'net.ipv4.conf.all.accept_redirects'
+            or name = 'net.ipv4.conf.default.accept_redirects'
+            or name = 'net.ipv4.conf.all.send_redirects'
+            or name = 'net.ipv4.conf.default.send_redirects'
+          )
+          and $safeStr(version) = '1'
+        )
+      )
+    ]
+  location: |
+    {
+      "bomRef": $."bom-ref",
+      "purl": purl
+    }
+  message: "Sysctl '{{ name }}' has a weak hardening value: {{ version }}"
+  mitigation: "Align the sysctl value with your baseline, apply the setting persistently, and validate whether the deviation is truly required for this host."
+  evidence: |
+    {
+      "sysctl": name,
+      "value": version
+    }
+
+- id: OBOM-LNX-018
+  name: "Linux temporary mount is missing key hardening flags"
+  description: "Temporary and shared-memory mounts should usually carry noexec, nosuid, and nodev protections on hardened hosts."
+  severity: high
+  category: obom-runtime
+  dry-run-support: full
+  condition: |
+    components[
+      $prop($, 'cdx:osquery:category') = 'mount_hardening'
+      and (
+        name = '/tmp'
+        or name = '/var/tmp'
+        or name = '/dev/shm'
+      )
+      and (
+        $not($contains($lowercase($safeStr(version)), 'noexec'))
+        or $not($contains($lowercase($safeStr(version)), 'nosuid'))
+        or $not($contains($lowercase($safeStr(version)), 'nodev'))
+      )
+    ]
+  location: |
+    {
+      "bomRef": $."bom-ref",
+      "purl": purl
+    }
+  message: "Mount '{{ name }}' is missing one or more hardening flags: {{ version }}"
+  mitigation: "Review whether the mount should carry noexec, nosuid, and nodev, then enforce the chosen baseline through fstab, systemd mounts, or image build policy."
+  evidence: |
+    {
+      "mount": name,
+      "flags": version,
+      "device": description,
+      "type": $prop($, 'type')
+    }
+
+- id: OBOM-LNX-019
+  name: "Live Linux runtime artifact matches GTFOBins execution helper"
+  description: "GTFOBins-capable binaries in privileged or network-active runtime contexts deserve elevated review because they compress execution, persistence, and lateral movement tradecraft into familiar tools."
+  severity: high
+  category: obom-runtime
+  dry-run-support: full
+  condition: |
+    components[
+      $prop($, 'cdx:gtfobins:matched') = 'true'
+      and (
+        $prop($, 'cdx:osquery:category') = 'sudo_executions'
+        or $prop($, 'cdx:osquery:category') = 'privilege_transitions'
+        or $prop($, 'cdx:osquery:category') = 'elevated_processes'
+        or $prop($, 'cdx:osquery:category') = 'privileged_listening_ports'
+        or $prop($, 'cdx:osquery:category') = 'behavioral_reverse_shell'
+      )
+      and (
+        $listContains($prop($, 'cdx:gtfobins:functions'), 'shell')
+        or $listContains($prop($, 'cdx:gtfobins:functions'), 'command')
+        or $listContains($prop($, 'cdx:gtfobins:functions'), 'reverse-shell')
+      )
+    ]
+  location: |
+    {
+      "bomRef": $."bom-ref",
+      "purl": purl
+    }
+  message: "Runtime artifact '{{ name }}' matches GTFOBins helper(s) {{ $prop($, 'cdx:gtfobins:names') }} in '{{ $prop($, 'cdx:osquery:category') }}'"
+  mitigation: "Validate the binary provenance and operator intent, then review related sudo, privilege-transition, listener, and remote-connection telemetry before suppressing the finding."
+  evidence: |
+    {
+      "queryCategory": $prop($, 'cdx:osquery:category'),
+      "gtfobinsNames": $prop($, 'cdx:gtfobins:names'),
+      "functions": $prop($, 'cdx:gtfobins:functions'),
+      "contexts": $prop($, 'cdx:gtfobins:contexts'),
+      "riskTags": $prop($, 'cdx:gtfobins:riskTags'),
+      "path": $prop($, 'path'),
+      "cmdline": $prop($, 'cmdline')
+    }
+
+- id: OBOM-WIN-011
+  name: "Windows Public profile inbound firewall allow rule"
+  description: "Inbound allow rules on the Public firewall profile can expose services beyond expected trust boundaries."
+  severity: high
+  category: obom-runtime
+  dry-run-support: full
+  condition: |
+    components[
+      $prop($, 'cdx:osquery:category') = 'windows_firewall_rules'
+      and (
+        $lowercase($safeStr($prop($, 'enabled'))) = '1'
+        or $lowercase($safeStr($prop($, 'enabled'))) = 'true'
+      )
+      and $lowercase($safeStr($prop($, 'direction'))) = 'in'
+      and $lowercase($safeStr($prop($, 'action'))) = 'allow'
+      and $contains($lowercase($safeStr($prop($, 'profile'))), 'public')
+    ]
+  location: |
+    {
+      "bomRef": $."bom-ref",
+      "purl": purl
+    }
+  message: "Firewall rule '{{ name }}' allows inbound traffic on the Public profile"
+  mitigation: "Narrow the rule scope, move it to a more trusted profile when justified, and verify the backing service really needs public-network reachability."
+  evidence: |
+    {
+      "action": $prop($, 'action'),
+      "direction": $prop($, 'direction'),
+      "profile": $prop($, 'profile'),
+      "localPorts": $prop($, 'local_ports'),
+      "remoteAddresses": $prop($, 'remote_addresses')
+    }
+
+- id: OBOM-WIN-012
+  name: "Windows startup or listener binary has invalid Authenticode status"
+  description: "Persistence and network-facing artifacts backed by invalid or unknown Authenticode status deserve urgent review on managed Windows hosts."
+  severity: critical
+  category: obom-runtime
+  dry-run-support: full
+  condition: |
+    components[
+      (
+        $prop($, 'cdx:osquery:category') = 'windows_run_keys'
+        or $prop($, 'cdx:osquery:category') = 'scheduled_tasks'
+        or $prop($, 'cdx:osquery:category') = 'startup_items'
+        or $prop($, 'cdx:osquery:category') = 'services_snapshot'
+        or $prop($, 'cdx:osquery:category') = 'listening_ports'
+      )
+      and $hasProp($, 'cdx:windows:authenticode:status')
+      and $lowercase($safeStr($prop($, 'cdx:windows:authenticode:status'))) != 'valid'
+    ]
+  location: |
+    {
+      "bomRef": $."bom-ref",
+      "purl": purl
+    }
+  message: "Windows artifact '{{ name }}' is tied to non-valid Authenticode status: {{ $prop($, 'cdx:windows:authenticode:status') }}"
+  mitigation: "Treat the binary as suspicious until provenance is confirmed, compare the hash and signer with an approved baseline, and investigate who registered the startup or listener surface."
+  evidence: |
+    {
+      "queryCategory": $prop($, 'cdx:osquery:category'),
+      "path": $prop($, 'path'),
+      "imagePath": $prop($, 'image_path'),
+      "authenticodeStatus": $prop($, 'cdx:windows:authenticode:status'),
+      "signerSubject": $prop($, 'cdx:windows:authenticode:signerSubject')
+    }
+
+- id: OBOM-WIN-013
+  name: "Windows host has no active WDAC policies"
+  description: "A managed Windows endpoint with no active WDAC policy loses an important application control and allowlisting layer."
+  severity: high
+  category: obom-runtime
+  dry-run-support: full
+  condition: |
+    components[
+      $hasProp($, 'cdx:windows:wdac:activePolicyCount')
+      and $safeStr($prop($, 'cdx:windows:wdac:activePolicyCount')) = '0'
+    ]
+  location: |
+    {
+      "bomRef": $."bom-ref",
+      "purl": purl
+    }
+  message: "Windows Defender Application Control is not enforcing any active policy on this host"
+  mitigation: "Deploy or restore the approved WDAC policy set and review why policy enforcement is absent on the endpoint."
+  evidence: |
+    {
+      "component": name,
+      "activePolicyCount": $prop($, 'cdx:windows:wdac:activePolicyCount')
+    }
+
+- id: OBOM-MAC-006
+  name: "macOS running app launches from Downloads, Desktop, or temporary path"
+  description: "User-space execution from Downloads, Desktop, or temporary folders is a useful triage signal for ad hoc tooling and unreviewed payloads."
+  severity: medium
+  category: obom-runtime
+  dry-run-support: full
+  condition: |
+    components[
+      $prop($, 'cdx:osquery:category') = 'running_apps'
+      and (
+        $contains($safeStr($prop($, 'bundle_path')), '/Users/')
+        and (
+          $contains($safeStr($prop($, 'bundle_path')), '/Downloads/')
+          or $contains($safeStr($prop($, 'bundle_path')), '/Desktop/')
+          or $contains($safeStr($prop($, 'bundle_path')), '/tmp/')
+        )
+      )
+    ]
+  location: |
+    {
+      "bomRef": $."bom-ref",
+      "purl": purl
+    }
+  message: "Running app '{{ name }}' originates from a risky user path: {{ $prop($, 'bundle_path') }}"
+  mitigation: "Validate the app origin, move approved software into managed application paths, and investigate unexpected user-land execution."
+  evidence: |
+    {
+      "bundlePath": $prop($, 'bundle_path'),
+      "bundleExecutable": $prop($, 'bundle_executable'),
+      "isFinishedLaunching": $prop($, 'is_finished_launching')
+    }
+
+- id: OBOM-MAC-007
+  name: "macOS startup or application artifact failed notarization assessment"
+  description: "Launchd, startup, and application artifacts that fail notarization assessment deserve review before they are treated as trusted software."
+  severity: high
+  category: obom-runtime
+  dry-run-support: full
+  condition: |
+    components[
+      (
+        $prop($, 'cdx:osquery:category') = 'launchd_services'
+        or $prop($, 'cdx:osquery:category') = 'startup_items'
+        or $prop($, 'cdx:osquery:category') = 'apps'
+        or $prop($, 'cdx:osquery:category') = 'running_apps'
+      )
+      and $hasProp($, 'cdx:darwin:notarization:assessment')
+      and $lowercase($safeStr($prop($, 'cdx:darwin:notarization:assessment'))) != 'accepted'
+    ]
+  location: |
+    {
+      "bomRef": $."bom-ref",
+      "purl": purl
+    }
+  message: "macOS artifact '{{ name }}' has a non-accepted notarization assessment: {{ $prop($, 'cdx:darwin:notarization:assessment') }}"
+  mitigation: "Confirm the software source, compare code-signing details with the approved publisher, and remove or quarantine artifacts that are not expected on the endpoint."
+  evidence: |
+    {
+      "queryCategory": $prop($, 'cdx:osquery:category'),
+      "path": $prop($, 'path'),
+      "bundlePath": $prop($, 'bundle_path'),
+      "teamIdentifier": $prop($, 'cdx:darwin:codesign:teamIdentifier'),
+      "notarizationAssessment": $prop($, 'cdx:darwin:notarization:assessment')
+    }
