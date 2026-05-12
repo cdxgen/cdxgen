@@ -39,8 +39,6 @@ jobs:
       - name: Generate OBOM with runtime audit
         id: generate
         shell: bash
-        env:
-          CDXGEN_DEBUG_MODE: "debug"
         run: |
           set +e
           report_dir="reports/${{ matrix.runner }}"

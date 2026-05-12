@@ -93,7 +93,7 @@ Suggested policy profile:
 - **medium**: ticket + SLA remediation
 - **low**: backlog and trend over time
 
-For Windows-heavy fleets, specifically review `OBOM-WIN-006` through `OBOM-WIN-013` to catch LOLBAS-backed persistence, Public-profile inbound exposure, invalid signing posture, and missing WDAC policy coverage.
+For Windows-heavy fleets, specifically review `OBOM-WIN-006` through `OBOM-WIN-013` to catch LOLBAS-backed persistence, Public-profile inbound exposure, invalid signing posture, and missing WDAC policy coverage. Do not auto-trust managed, vendor-owned, or maintenance-related startup surfaces purely because they originate from a familiar platform image; treat them as breachable targets until provenance and hardening are confirmed.
 
 ## 6) Recommended analyst operating model
 

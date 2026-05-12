@@ -749,7 +749,7 @@
 
 - id: OBOM-WIN-006
   name: "Windows suspicious persistence surface references LOLBAS execution helper"
-  description: "Run keys remain high-signal when they invoke LOLBAS helpers directly, while scheduled tasks, startup items, and services should only alert when the registration or launched command also carries suspicious path or argument context."
+  description: "Any Windows persistence or startup surface that invokes a LOLBAS helper deserves review, including vendor- or platform-managed maintenance registrations, because these surfaces can become breachable execution targets."
   severity: high
   category: obom-runtime
   dry-run-support: full
@@ -769,41 +769,6 @@
         or $listContains($prop($, 'cdx:lolbas:functions'), 'library-load')
         or $listContains($prop($, 'cdx:lolbas:functions'), 'shell')
       )
-      and (
-        $prop($, 'cdx:osquery:category') = 'windows_run_keys'
-        or (
-          $prop($, 'cdx:osquery:category') = 'scheduled_tasks'
-          and (
-            $isWindowsUserControlledPath($firstNonEmpty($prop($, 'action'), $prop($, 'path'), name))
-            or $not($startsWith($lowercase($safeStr($prop($, 'path'))), '\\microsoft\\windows\\'))
-            or $contains($lowercase($safeStr($prop($, 'action'))), 'http://')
-            or $contains($lowercase($safeStr($prop($, 'action'))), 'https://')
-            or $contains($lowercase($safeStr($prop($, 'action'))), '-enc ')
-            or $contains($lowercase($safeStr($prop($, 'action'))), 'frombase64string')
-            or $contains($lowercase($safeStr($prop($, 'action'))), 'javascript:')
-            or $contains($lowercase($safeStr($prop($, 'action'))), 'vbscript:')
-          )
-        )
-        or (
-          $prop($, 'cdx:osquery:category') = 'startup_items'
-          and (
-            $isWindowsUserControlledPath($firstNonEmpty($prop($, 'path'), name))
-            or $contains($lowercase($safeStr($prop($, 'path'))), 'http://')
-            or $contains($lowercase($safeStr($prop($, 'path'))), 'https://')
-            or $contains($lowercase($safeStr($prop($, 'path'))), '-enc ')
-          )
-        )
-        or (
-          $prop($, 'cdx:osquery:category') = 'services_snapshot'
-          and (
-            $isWindowsUserControlledPath($firstNonEmpty($prop($, 'path'), $prop($, 'module_path'), name))
-            or $contains($lowercase($safeStr($prop($, 'path'))), 'http://')
-            or $contains($lowercase($safeStr($prop($, 'path'))), 'https://')
-            or $contains($lowercase($safeStr($prop($, 'path'))), '-enc ')
-            or $contains($lowercase($safeStr($prop($, 'path'))), 'frombase64string')
-          )
-        )
-      )
     ]
   location: |
     {
@@ -811,7 +776,7 @@
       "purl": purl
     }
   message: "Windows {{ $prop($, 'cdx:osquery:category') }} registration '{{ $firstNonEmpty($prop($, 'key'), $prop($, 'path'), name) }}' launches '{{ $firstNonEmpty($prop($, 'action'), $prop($, 'executable'), $prop($, 'module_path'), $prop($, 'path'), description, name) }}' via LOLBAS helper(s) {{ $prop($, 'cdx:lolbas:names') }}"
-  mitigation: "Review the registration surface and launched command together, validate the owning change, replace proxy-execution helpers with signed managed binaries where possible, and baseline approved startup surfaces with allowlists."
+  mitigation: "Review the registration surface and launched command together, validate the owning change, and do not auto-trust managed or vendor-owned maintenance surfaces without provenance and hardening review."
   attack:
     tactics: [TA0003, TA0005]
     techniques: [T1218, T1547]

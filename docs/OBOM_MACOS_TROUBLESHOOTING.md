@@ -11,6 +11,8 @@ The bundled osquery was updated to `5.23.0`, which made a few macOS-specific imp
 - `npm_packages` has better modern package manager coverage
 - `wifi_status.network_name` is more reliable when Full Disk Access is granted
 
+The `package_bom` table also has an important schema constraint: it requires a `WHERE path = ...` or `WHERE path IN (...)` filter. cdxgen now derives those BOM paths from `package_receipts` instead of issuing an unconstrained `SELECT * FROM package_bom`, and it filters out oversized BOM files that exceed osquery's read limit. On validated hosts this works without `sudo`; the remaining consideration is query safety and BOM file size, not elevated privileges.
+
 cdxgen now invokes the bundled osquery binary in **shell mode** (`--S`) with the persistent database disabled. This avoids the older daemon-style startup problem that tried to create `/var/osquery` and could fail with:
 
 ```text

@@ -119,7 +119,7 @@
     "componentType": "data"
   },
   "package_bom": {
-    "query": "SELECT * FROM package_bom;",
+    "query": "SELECT * FROM package_bom WHERE path IN (SELECT REPLACE(package_receipts.path, '.plist', '.bom') FROM package_receipts JOIN file ON file.path = REPLACE(package_receipts.path, '.plist', '.bom') WHERE package_receipts.path LIKE '%.plist' AND file.size <= 52428800);",
     "description": "macOS package bill of materials (BOM) file list.",
     "purlType": "swid",
     "componentType": "application"
