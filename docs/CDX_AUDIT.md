@@ -1,10 +1,15 @@
 # cdx-audit — Upstream supply-chain risk prioritization
 
-`cdx-audit` helps security, engineering, and governance teams prioritize upstream dependency review from existing CycloneDX BOMs. It answers a practical operational question: **which dependencies should we review first, and why?**
+`cdx-audit` helps security, engineering, and governance teams either prioritize upstream dependency review from existing CycloneDX BOMs or evaluate those BOMs directly with the built-in BOM audit rules. It answers two practical operational questions:
 
-It does this by resolving supported package URLs back to source repositories, generating child SBOMs for those sources, and combining cdxgen rules with explainable, high-signal heuristics to surface the dependencies most likely to warrant attention.
+- **which dependencies should we review first, and why?**
+- **what direct BOM or OBOM findings should we surface from a saved BOM right now?**
 
-Unlike `cdxgen --bom-audit`, which evaluates the BOM you just generated, `cdx-audit` starts from one or more existing BOMs and investigates the upstream repositories behind supported dependencies.
+In predictive mode, it resolves supported package URLs back to source repositories, generates child SBOMs for those sources, and combines cdxgen rules with explainable, high-signal heuristics to surface the dependencies most likely to warrant attention.
+
+In direct BOM audit mode, it evaluates the supplied BOM or OBOM itself with the same rule engine used by `cdxgen --bom-audit`, making it possible to re-audit a saved BOM later without regenerating it first.
+
+Unlike `cdxgen --bom-audit`, which evaluates the BOM you just generated as part of BOM creation, `cdx-audit` starts from one or more existing BOMs. You can use it either to investigate upstream repositories behind supported dependencies or to run the direct BOM audit flow against the saved BOM itself.
 
 ## Product positioning
 
@@ -54,7 +59,7 @@ Use `cdx-audit` to answer:
 
 ## When to use `cdx-audit`
 
-Use `cdx-audit` when you already have one or more BOMs and want to prioritize upstream dependency review based on explainable risk signals.
+Use `cdx-audit` when you already have one or more BOMs and want to either prioritize upstream dependency review based on explainable risk signals or re-run the direct BOM audit flow against saved BOMs and OBOMs.
 
 It is especially useful when “**where should we look first?**” matters as much as “**what evidence can we show for that decision?**”.
 
@@ -63,6 +68,19 @@ Use [`BOM_AUDIT.md`](BOM_AUDIT.md) when you want to embed post-generation findin
 Use [`CDX_VALIDATE.md`](CDX_VALIDATE.md) when the primary goal is structural validation, SCVS coverage, or CRA-oriented review.
 
 Use `cdx-audit` to accelerate prioritization and escalation decisions. Final disposition should still account for provenance, internal policy, and analyst review.
+
+## Audit modes
+
+`cdx-audit` supports two complementary ways to analyze existing BOMs:
+
+- **Predictive dependency audit** (default)
+  - extracts supported package URLs from the input BOM
+  - resolves them to upstream repositories
+  - generates child SBOMs and prioritizes dependency review
+- **Direct BOM audit** (`--direct-bom-audit`)
+  - evaluates the supplied BOM directly with the BOM audit rule engine
+  - works well for saved OBOMs, rootfs BOMs, or previously generated SBOMs
+  - defaults to `obom-runtime` for OBOM-like inputs and otherwise evaluates all direct BOM categories unless you narrow them with `--categories`
 
 ## Supported scope
 
@@ -140,6 +158,12 @@ The result is a prioritized, explainable **review queue** for upstream investiga
 # Audit one BOM
 cdx-audit --bom bom.json
 
+# Re-audit a saved OBOM directly with the BOM rule engine
+cdx-audit --bom obom.json --direct-bom-audit
+
+# Re-audit a saved OBOM directly and keep the scope explicit
+cdx-audit --bom obom.json --direct-bom-audit --categories obom-runtime
+
 # Audit a directory of BOMs and render JSON
 cdx-audit --bom-dir ./boms --report json
 
@@ -169,13 +193,15 @@ CDXGEN_THINK_MODE=true cdx-audit --bom bom.json --max-targets 10
 | ----------------------------- | -------------------------------------------------------------------------------------- |
 | `--bom`                       | Path to a single CycloneDX JSON BOM                                                    |
 | `--bom-dir`                   | Directory containing CycloneDX JSON BOMs                                               |
+| `--direct-bom-audit`          | Evaluate the supplied BOM(s) directly with the BOM audit rule engine                   |
 | `--workspace-dir`             | Reuse git clones and cached child SBOMs between runs                                   |
 | `--reports-dir`               | Persist generated child SBOMs and per-target findings                                  |
+| `--rules-dir`                 | Merge additional YAML rules into direct BOM audit and predictive child-SBOM evaluation |
 | `--report`                    | Output format: `console`, `json`, or `sarif`                                           |
 | `--report-file`, `-o`         | Write the final report to a file instead of stdout                                     |
-| `--categories`                | Comma-separated rule categories for child SBOM analysis                                |
-| `--min-severity`              | Minimum final target severity to include in console or SARIF output                    |
-| `--fail-severity`             | Exit with code `3` when any target reaches this final severity                         |
+| `--categories`                | Comma-separated categories for predictive child-SBOM analysis or direct BOM audit      |
+| `--min-severity`              | Minimum target severity (predictive) or finding severity (direct BOM audit) to render  |
+| `--fail-severity`             | Exit with code `3` when any target or direct BOM finding reaches this severity         |
 | `--max-targets`               | Safety limit for the number of unique purls analyzed                                   |
 | `--scope`                     | Target selection scope: `all` or `required`                                            |
 | `--include-trusted`           | Include targets already marked with trusted publishing metadata                        |

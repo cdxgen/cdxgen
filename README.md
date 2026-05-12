@@ -284,6 +284,7 @@ import { createBom, submitBom } from "npm:@cyclonedx/cdxgen@^12.2.1";
 | Scan a container image                                     | `cdxgen ghcr.io/owasp-dep-scan/depscan:nightly -o bom.json -t docker`                                       | [Server Usage][docs-server]          |
 | Audit a generated BOM for built-in supply-chain findings   | `cdxgen -o bom.json --bom-audit .`                                                                          | [BOM Audit](docs/BOM_AUDIT.md)       |
 | Prioritize an existing BOM for upstream risk-driven review | `cdx-audit --bom bom.json`                                                                                  | [cdx-audit](docs/CDX_AUDIT.md)       |
+| Re-audit a saved OBOM or BOM directly later                | `cdx-audit --bom obom.json --direct-bom-audit --categories obom-runtime`                                    | [cdx-audit](docs/CDX_AUDIT.md)       |
 | Validate a BOM against structural and compliance checks    | `cdx-validate -i bom.json`                                                                                  | [cdx-validate](docs/CDX_VALIDATE.md) |
 | Convert CycloneDX JSON to SPDX JSON-LD                     | `cdx-convert -i bom.json -o bom.spdx.json`                                                                  | [cdx-convert](docs/CDX_CONVERT.md)   |
 | Generate an OBOM for live-system triage                    | `obom -o obom.json --deep --bom-audit --bom-audit-categories obom-runtime`                                  | [OBOM lessons](docs/OBOM_LESSONS.md) |

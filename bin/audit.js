@@ -7,11 +7,7 @@ import process from "node:process";
 import yargs from "yargs";
 import { hideBin } from "yargs/helpers";
 
-import {
-  DEFAULT_AUDIT_CATEGORIES,
-  finalizeAuditReport,
-  runAudit,
-} from "../lib/audit/index.js";
+import { finalizeAuditReport, runAudit } from "../lib/audit/index.js";
 import { createProgressTracker } from "../lib/audit/progress.js";
 import {
   retrieveCdxgenVersion,
@@ -38,6 +34,17 @@ const args = yargs(hideBin(process.argv))
       "Optional directory to store generated per-purl SBOMs and findings.",
     type: "string",
   })
+  .option("direct-bom-audit", {
+    default: false,
+    description:
+      "Evaluate audit rules directly against the supplied BOM(s) instead of running only the predictive dependency audit.",
+    type: "boolean",
+  })
+  .option("rules-dir", {
+    description:
+      "Directory containing additional YAML audit rules (merged with built-in). Applies to direct BOM audit and predictive child-SBOM rule evaluation.",
+    type: "string",
+  })
   .option("report", {
     choices: ["console", "json", "sarif"],
     default: "console",
@@ -49,9 +56,8 @@ const args = yargs(hideBin(process.argv))
     type: "string",
   })
   .option("categories", {
-    default: DEFAULT_AUDIT_CATEGORIES.join(","),
     description:
-      "Comma-separated rule categories to evaluate for each generated child SBOM.",
+      "Comma-separated rule categories. In predictive mode this applies to generated child SBOMs (default: ai-agent, ci-permission, dependency-source, package-integrity). In direct BOM audit mode it applies to the supplied BOM(s) themselves (default: obom-runtime for OBOMs, all categories otherwise).",
     type: "string",
   })
   .option("min-severity", {
@@ -165,6 +171,7 @@ function writeOrPrint(output, outputPath) {
       bom: args.bom,
       bomDir: args.bomDir,
       categories: splitCsv(args.categories),
+      directBomAudit: args.directBomAudit,
       failSeverity: args.failSeverity,
       maxTargets: args.maxTargets,
       minSeverity: args.minSeverity,
@@ -172,6 +179,7 @@ function writeOrPrint(output, outputPath) {
       prioritizeDirectRuntime: args.prioritizeDirectRuntime,
       report: args.report,
       reportsDir: args.reportsDir,
+      rulesDir: args.rulesDir,
       scope: args.scope === "required" ? "required" : undefined,
       trusted: args.onlyTrusted
         ? "only"

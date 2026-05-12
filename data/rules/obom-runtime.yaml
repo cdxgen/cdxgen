@@ -1683,3 +1683,62 @@
       "packageSourceHint": $prop($, 'package_source_hint'),
       "parentCmdline": $prop($, 'parent_cmdline')
     }
+
+- id: OBOM-LNX-021
+  name: "Linux APT source uses plaintext HTTP transport"
+  description: "Plain HTTP APT mirrors weaken transport integrity and are often called out in baseline hardening reviews even when package signatures remain enabled."
+  severity: medium
+  category: obom-runtime
+  dry-run-support: full
+  condition: |
+    components[
+      (
+        $prop($, 'cdx:osquery:category') = 'apt_sources'
+        or $prop($, 'cdx:osquery:category') = 'apt_ppa_sources'
+      )
+      and $startsWith($lowercase($safeStr($prop($, 'base_uri'))), 'http://')
+    ]
+  location: |
+    {
+      "bomRef": $."bom-ref",
+      "purl": purl,
+      "file": $prop($, 'source')
+    }
+  message: "APT source '{{ name }}' still uses plaintext HTTP transport: {{ $prop($, 'base_uri') }}"
+  mitigation: "Move the repository to HTTPS or an authenticated local mirror, then confirm the source file and mirror policy match your approved package-trust baseline."
+  evidence: |
+    {
+      "sourceFile": $prop($, 'source'),
+      "baseUri": $prop($, 'base_uri'),
+      "release": $prop($, 'release'),
+      "components": $prop($, 'components'),
+      "maintainer": $prop($, 'maintainer')
+    }
+
+- id: OBOM-LNX-022
+  name: "Linux authorized_keys entry uses deprecated ssh-rsa algorithm"
+  description: "ssh-rsa authorized_keys entries rely on an older signature algorithm profile and should be reviewed during SSH hardening work."
+  severity: medium
+  category: obom-runtime
+  dry-run-support: full
+  condition: |
+    components[
+      $prop($, 'cdx:osquery:category') = 'authorized_keys_snapshot'
+      and $lowercase($safeStr(version)) = 'ssh-rsa'
+    ]
+  location: |
+    {
+      "bomRef": $."bom-ref",
+      "purl": purl,
+      "file": $prop($, 'key_file')
+    }
+  message: "Authorized key for account '{{ name }}' in '{{ $prop($, 'key_file') }}' still uses deprecated ssh-rsa"
+  mitigation: "Replace the key with ed25519 or a modern RSA/SHA-2 compatible key, then re-review key restrictions and account ownership before retaining access."
+  evidence: |
+    {
+      "account": name,
+      "algorithm": version,
+      "keyFile": $prop($, 'key_file'),
+      "comment": description,
+      "uid": $prop($, 'uid')
+    }
