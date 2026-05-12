@@ -748,8 +748,8 @@
     }
 
 - id: OBOM-WIN-006
-  name: "Windows persistence surface references LOLBAS execution helper"
-  description: "Run keys, startup items, scheduled tasks, or auto-start services that reference LOLBAS execution helpers deserve elevated review because they blend persistence with proxy execution tradecraft."
+  name: "Windows suspicious persistence surface references LOLBAS execution helper"
+  description: "Run keys remain high-signal when they invoke LOLBAS helpers directly, while scheduled tasks, startup items, and services should only alert when the registration or launched command also carries suspicious path or argument context."
   severity: high
   category: obom-runtime
   dry-run-support: full
@@ -769,13 +769,48 @@
         or $listContains($prop($, 'cdx:lolbas:functions'), 'library-load')
         or $listContains($prop($, 'cdx:lolbas:functions'), 'shell')
       )
+      and (
+        $prop($, 'cdx:osquery:category') = 'windows_run_keys'
+        or (
+          $prop($, 'cdx:osquery:category') = 'scheduled_tasks'
+          and (
+            $isWindowsUserControlledPath($firstNonEmpty($prop($, 'action'), $prop($, 'path'), name))
+            or $not($startsWith($lowercase($safeStr($prop($, 'path'))), '\\microsoft\\windows\\'))
+            or $contains($lowercase($safeStr($prop($, 'action'))), 'http://')
+            or $contains($lowercase($safeStr($prop($, 'action'))), 'https://')
+            or $contains($lowercase($safeStr($prop($, 'action'))), '-enc ')
+            or $contains($lowercase($safeStr($prop($, 'action'))), 'frombase64string')
+            or $contains($lowercase($safeStr($prop($, 'action'))), 'javascript:')
+            or $contains($lowercase($safeStr($prop($, 'action'))), 'vbscript:')
+          )
+        )
+        or (
+          $prop($, 'cdx:osquery:category') = 'startup_items'
+          and (
+            $isWindowsUserControlledPath($firstNonEmpty($prop($, 'path'), name))
+            or $contains($lowercase($safeStr($prop($, 'path'))), 'http://')
+            or $contains($lowercase($safeStr($prop($, 'path'))), 'https://')
+            or $contains($lowercase($safeStr($prop($, 'path'))), '-enc ')
+          )
+        )
+        or (
+          $prop($, 'cdx:osquery:category') = 'services_snapshot'
+          and (
+            $isWindowsUserControlledPath($firstNonEmpty($prop($, 'path'), $prop($, 'module_path'), name))
+            or $contains($lowercase($safeStr($prop($, 'path'))), 'http://')
+            or $contains($lowercase($safeStr($prop($, 'path'))), 'https://')
+            or $contains($lowercase($safeStr($prop($, 'path'))), '-enc ')
+            or $contains($lowercase($safeStr($prop($, 'path'))), 'frombase64string')
+          )
+        )
+      )
     ]
   location: |
     {
       "bomRef": $."bom-ref",
       "purl": purl
     }
-  message: "Windows {{ $prop($, 'cdx:osquery:category') }} registration '{{ $firstNonEmpty($prop($, 'key'), $prop($, 'path'), name) }}' launches '{{ $firstNonEmpty($prop($, 'action'), $prop($, 'executable'), description, name) }}' via LOLBAS helper(s) {{ $prop($, 'cdx:lolbas:names') }}"
+  message: "Windows {{ $prop($, 'cdx:osquery:category') }} registration '{{ $firstNonEmpty($prop($, 'key'), $prop($, 'path'), name) }}' launches '{{ $firstNonEmpty($prop($, 'action'), $prop($, 'executable'), $prop($, 'module_path'), $prop($, 'path'), description, name) }}' via LOLBAS helper(s) {{ $prop($, 'cdx:lolbas:names') }}"
   mitigation: "Review the registration surface and launched command together, validate the owning change, replace proxy-execution helpers with signed managed binaries where possible, and baseline approved startup surfaces with allowlists."
   attack:
     tactics: [TA0003, TA0005]
@@ -784,7 +819,7 @@
     {
       "queryCategory": $prop($, 'cdx:osquery:category'),
       "registrationPath": $firstNonEmpty($prop($, 'key'), $prop($, 'path'), name),
-      "targetPath": $firstNonEmpty($prop($, 'action'), $prop($, 'executable'), description),
+      "targetPath": $firstNonEmpty($prop($, 'action'), $prop($, 'executable'), $prop($, 'module_path'), $prop($, 'path'), description),
       "lolbasNames": $prop($, 'cdx:lolbas:names'),
       "functions": $prop($, 'cdx:lolbas:functions'),
       "matchFields": $prop($, 'cdx:lolbas:matchFields'),
@@ -1291,6 +1326,22 @@
         or $prop($, 'cdx:osquery:category') = 'services_snapshot'
         or $prop($, 'cdx:osquery:category') = 'listening_ports'
       )
+      and $not(
+        $contains(
+          $lowercase(
+            $firstNonEmpty(
+              $prop($, 'image_path'),
+              $prop($, 'executable'),
+              $prop($, 'action'),
+              $prop($, 'module_path'),
+              $prop($, 'path'),
+              description,
+              name
+            )
+          ),
+          '.lnk'
+        )
+      )
       and $hasProp($, 'cdx:windows:authenticode:status')
       and $lowercase($safeStr($prop($, 'cdx:windows:authenticode:status'))) != 'valid'
       and $lowercase($safeStr($prop($, 'cdx:windows:authenticode:status'))) != 'unknown'
@@ -1302,13 +1353,13 @@
       "bomRef": $."bom-ref",
       "purl": purl
     }
-  message: "Windows {{ $prop($, 'cdx:osquery:category') }} registration '{{ $firstNonEmpty($prop($, 'key'), $prop($, 'path'), name) }}' resolves to '{{ $firstNonEmpty($prop($, 'image_path'), $prop($, 'executable'), $prop($, 'action'), description, name) }}' with Authenticode status {{ $prop($, 'cdx:windows:authenticode:status') }}"
+  message: "Windows {{ $prop($, 'cdx:osquery:category') }} registration '{{ $firstNonEmpty($prop($, 'key'), $prop($, 'path'), name) }}' resolves to '{{ $firstNonEmpty($prop($, 'image_path'), $prop($, 'executable'), $prop($, 'action'), $prop($, 'module_path'), $prop($, 'path'), description, name) }}' with Authenticode status {{ $prop($, 'cdx:windows:authenticode:status') }}"
   mitigation: "Review the startup/listener registration and backing binary together, treat the executable as suspicious until provenance is confirmed, compare the hash and signer with an approved baseline, and investigate who registered the surface."
   evidence: |
     {
       "queryCategory": $prop($, 'cdx:osquery:category'),
       "registrationPath": $firstNonEmpty($prop($, 'key'), $prop($, 'path'), name),
-      "targetPath": $firstNonEmpty($prop($, 'image_path'), $prop($, 'executable'), $prop($, 'action'), description),
+      "targetPath": $firstNonEmpty($prop($, 'image_path'), $prop($, 'executable'), $prop($, 'action'), $prop($, 'module_path'), $prop($, 'path'), description),
       "path": $prop($, 'path'),
       "imagePath": $prop($, 'image_path'),
       "action": $prop($, 'action'),
@@ -1330,6 +1381,22 @@
         or $prop($, 'cdx:osquery:category') = 'startup_items'
         or $prop($, 'cdx:osquery:category') = 'services_snapshot'
         or $prop($, 'cdx:osquery:category') = 'listening_ports'
+      )
+      and $not(
+        $contains(
+          $lowercase(
+            $firstNonEmpty(
+              $prop($, 'image_path'),
+              $prop($, 'executable'),
+              $prop($, 'action'),
+              $prop($, 'module_path'),
+              $prop($, 'path'),
+              description,
+              name
+            )
+          ),
+          '.lnk'
+        )
       )
       and $hasProp($, 'cdx:windows:authenticode:status')
       and (
@@ -1358,13 +1425,13 @@
       "bomRef": $."bom-ref",
       "purl": purl
     }
-  message: "Windows {{ $prop($, 'cdx:osquery:category') }} registration '{{ $firstNonEmpty($prop($, 'key'), $prop($, 'path'), name) }}' resolves to '{{ $firstNonEmpty($prop($, 'image_path'), $prop($, 'executable'), $prop($, 'action'), description, name) }}' with unresolved Authenticode status {{ $prop($, 'cdx:windows:authenticode:status') }}"
+  message: "Windows {{ $prop($, 'cdx:osquery:category') }} registration '{{ $firstNonEmpty($prop($, 'key'), $prop($, 'path'), name) }}' resolves to '{{ $firstNonEmpty($prop($, 'image_path'), $prop($, 'executable'), $prop($, 'action'), $prop($, 'module_path'), $prop($, 'path'), description, name) }}' with unresolved Authenticode status {{ $prop($, 'cdx:windows:authenticode:status') }}"
   mitigation: "Review the startup/listener registration and backing binary together, confirm signature collection completed successfully, compare the hash and signer with an approved baseline, and prioritize cleanup of user-controlled execution paths."
   evidence: |
     {
       "queryCategory": $prop($, 'cdx:osquery:category'),
       "registrationPath": $firstNonEmpty($prop($, 'key'), $prop($, 'path'), name),
-      "targetPath": $firstNonEmpty($prop($, 'image_path'), $prop($, 'executable'), $prop($, 'action'), description),
+      "targetPath": $firstNonEmpty($prop($, 'image_path'), $prop($, 'executable'), $prop($, 'action'), $prop($, 'module_path'), $prop($, 'path'), description),
       "path": $prop($, 'path'),
       "imagePath": $prop($, 'image_path'),
       "action": $prop($, 'action'),

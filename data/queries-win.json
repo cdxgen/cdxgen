@@ -36,7 +36,7 @@
     "purlType": "swid"
   },
   "ie_extensions": {
-    "query": "select ie_extensions.* from users join ie_extensions using (uid);",
+    "query": "select * from ie_extensions;",
     "description": "Retrieves the list of extensions for IE in the target system.",
     "purlType": "swid"
   },
