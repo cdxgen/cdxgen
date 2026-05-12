@@ -36,6 +36,7 @@ import { toCycloneDxLikeBom } from "../lib/helpers/spdxUtils.js";
 import { table } from "../lib/helpers/table.js";
 import {
   getTmpDir,
+  isDryRun,
   safeExistsSync,
   safeMkdirSync,
   safeMkdtempSync,
@@ -757,6 +758,13 @@ cdxgenRepl.defineCommand("save", {
     if (sbom) {
       if (!saveToFile) {
         saveToFile = "bom.json";
+      }
+      if (isDryRun) {
+        console.log(
+          `⚠ Dry run mode blocks saving the BOM to ${saveToFile}. Disable --dry-run or CDXGEN_DRY_RUN to persist it.`,
+        );
+        this.displayPrompt();
+        return;
       }
       safeWriteSync(saveToFile, JSON.stringify(sbom, null, 2));
       console.log(`BOM saved successfully to ${saveToFile}`);
