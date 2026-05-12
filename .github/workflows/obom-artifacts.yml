@@ -1,0 +1,77 @@
+name: OBOM artifact capture
+
+on:
+  workflow_dispatch:
+
+permissions: {}
+
+jobs:
+  generate-obom:
+    name: Generate OBOM (${{ matrix.runner }})
+    permissions: {}
+    runs-on: ${{ matrix.runner }}
+    strategy:
+      fail-fast: false
+      matrix:
+        runner:
+          - ubuntu-22.04
+          - ubuntu-24.04
+          - ubuntu-22.04-arm
+          - ubuntu-24.04-arm
+          - windows-latest
+          - windows-11-arm
+          - macos-15
+          - macos-latest
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
+      - name: Setup pnpm
+        uses: pnpm/action-setup@fc06bc1257f339d1d5d8b3a19a8cae5388b55320 # v5.0.0
+      - name: Use Node.js
+        uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6.4.0
+        with:
+          node-version-file: .nvmrc
+          package-manager-cache: false
+      - name: Install dependencies
+        shell: bash
+        run: pnpm install:frozen
+      - name: Generate OBOM with runtime audit
+        id: generate
+        shell: bash
+        run: |
+          set +e
+          report_dir="reports/${{ matrix.runner }}"
+          mkdir -p "$report_dir"
+          {
+            echo "runner=${{ matrix.runner }}"
+            echo "runner_os=${{ runner.os }}"
+            echo "runner_arch=${{ runner.arch }}"
+            echo "repository=${{ github.repository }}"
+            echo "ref=${{ github.ref }}"
+            echo "sha=${{ github.sha }}"
+          } > "$report_dir/run-info.txt"
+          node bin/cdxgen.js \
+            -t os \
+            --deep \
+            --bom-audit \
+            --bom-audit-categories obom-runtime \
+            -o "$report_dir/obom.json" \
+            . > "$report_dir/out.txt" 2>&1
+          exit_code=$?
+          echo "exit_code=$exit_code" >> "$GITHUB_OUTPUT"
+          echo "$exit_code" > "$report_dir/exit-code.txt"
+          exit 0
+      - name: Upload OBOM artifacts
+        if: always()
+        uses: actions/upload-artifact@65462800fd760344b1a7b4382951275a0abb4808 # v4.3.6
+        with:
+          name: obom-${{ matrix.runner }}
+          if-no-files-found: error
+          path: reports/${{ matrix.runner }}/
+      - name: Fail workflow when OBOM generation fails
+        if: steps.generate.outputs.exit_code != '0'
+        shell: bash
+        run: |
+          echo "OBOM generation failed on ${{ matrix.runner }} with exit code ${{ steps.generate.outputs.exit_code }}"
+          exit 1
