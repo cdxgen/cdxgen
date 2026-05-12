@@ -344,8 +344,8 @@
 
 - id: OBOM-LNX-006
   name: "Privileged Linux listener exposed on a non-local interface"
-  description: "Root or service-account listeners bound to all interfaces expand attack surface and deserve proactive review."
-  severity: high
+  description: "Root or service-account listeners bound to all interfaces expand attack surface and should be reviewed even when they appear to come from managed system paths."
+  severity: medium
   category: obom-runtime
   dry-run-support: full
   condition: |
@@ -360,14 +360,21 @@
       and $safeStr(name) != 'systemd-resolved'
       and $safeStr(name) != 'avahi-daemon'
       and $safeStr(name) != 'cupsd'
+      and $safeStr($prop($, 'package_source_hint')) != 'user-writable-path'
+      and $safeStr($prop($, 'package_source_hint')) != 'unclassified-path'
+      and $not($contains($lowercase($nullSafeProp($, 'path')), '/tmp/'))
+      and $not($contains($lowercase($nullSafeProp($, 'path')), '/var/tmp/'))
+      and $not($contains($lowercase($nullSafeProp($, 'path')), '/dev/shm/'))
+      and $not($contains($lowercase($nullSafeProp($, 'path')), '/home/'))
+      and $not($contains($lowercase($nullSafeProp($, 'path')), '/run/user/'))
     ]
   location: |
     {
       "bomRef": $."bom-ref",
       "purl": purl
     }
-  message: "Privileged listener '{{ name }}' is reachable on {{ $prop($, 'address') }}:{{ $prop($, 'port') }}"
-  mitigation: "Restrict privileged services to local interfaces where possible, front them with authenticated proxies, and validate exposure against approved admin-surface inventory."
+  message: "Privileged listener '{{ name }}' from '{{ $firstNonEmpty($prop($, 'path'), name) }}' is reachable on {{ $prop($, 'address') }}:{{ $prop($, 'port') }} and should be validated against approved exposure"
+  mitigation: "Restrict privileged services to local interfaces where possible, front them with authenticated proxies, and validate the listener path and service ownership against approved admin-surface inventory."
   evidence: |
     {
       "account": $prop($, 'account'),
@@ -1251,7 +1258,7 @@
 
 - id: OBOM-WIN-012
   name: "Windows startup or listener binary has invalid Authenticode status"
-  description: "Persistence and network-facing artifacts backed by invalid or unknown Authenticode status deserve urgent review on managed Windows hosts."
+  description: "Persistence and network-facing artifacts backed by definitively invalid Authenticode status deserve urgent review on managed Windows hosts."
   severity: critical
   category: obom-runtime
   dry-run-support: full
@@ -1266,6 +1273,9 @@
       )
       and $hasProp($, 'cdx:windows:authenticode:status')
       and $lowercase($safeStr($prop($, 'cdx:windows:authenticode:status'))) != 'valid'
+      and $lowercase($safeStr($prop($, 'cdx:windows:authenticode:status'))) != 'unknown'
+      and $lowercase($safeStr($prop($, 'cdx:windows:authenticode:status'))) != 'unknownerror'
+      and $lowercase($safeStr($prop($, 'cdx:windows:authenticode:status'))) != 'unknown_error'
     ]
   location: |
     {
@@ -1274,6 +1284,62 @@
     }
   message: "Windows {{ $prop($, 'cdx:osquery:category') }} registration '{{ $firstNonEmpty($prop($, 'key'), $prop($, 'path'), name) }}' resolves to '{{ $firstNonEmpty($prop($, 'image_path'), $prop($, 'executable'), $prop($, 'action'), description, name) }}' with Authenticode status {{ $prop($, 'cdx:windows:authenticode:status') }}"
   mitigation: "Review the startup/listener registration and backing binary together, treat the executable as suspicious until provenance is confirmed, compare the hash and signer with an approved baseline, and investigate who registered the surface."
+  evidence: |
+    {
+      "queryCategory": $prop($, 'cdx:osquery:category'),
+      "registrationPath": $firstNonEmpty($prop($, 'key'), $prop($, 'path'), name),
+      "targetPath": $firstNonEmpty($prop($, 'image_path'), $prop($, 'executable'), $prop($, 'action'), description),
+      "path": $prop($, 'path'),
+      "imagePath": $prop($, 'image_path'),
+      "action": $prop($, 'action'),
+      "authenticodeStatus": $prop($, 'cdx:windows:authenticode:status'),
+      "signerSubject": $prop($, 'cdx:windows:authenticode:signerSubject')
+    }
+
+- id: OBOM-WIN-014
+  name: "Windows user-controlled startup or listener binary has unresolved Authenticode status"
+  description: "Unknown Authenticode state on binaries launched from user-controlled startup or network-facing surfaces deserves review even when Windows cannot conclusively mark the signature invalid."
+  severity: high
+  category: obom-runtime
+  dry-run-support: full
+  condition: |
+    components[
+      (
+        $prop($, 'cdx:osquery:category') = 'windows_run_keys'
+        or $prop($, 'cdx:osquery:category') = 'scheduled_tasks'
+        or $prop($, 'cdx:osquery:category') = 'startup_items'
+        or $prop($, 'cdx:osquery:category') = 'services_snapshot'
+        or $prop($, 'cdx:osquery:category') = 'listening_ports'
+      )
+      and $hasProp($, 'cdx:windows:authenticode:status')
+      and (
+        $lowercase($safeStr($prop($, 'cdx:windows:authenticode:status'))) = 'unknown'
+        or $lowercase($safeStr($prop($, 'cdx:windows:authenticode:status'))) = 'unknownerror'
+        or $lowercase($safeStr($prop($, 'cdx:windows:authenticode:status'))) = 'unknown_error'
+      )
+      and (
+        $isWindowsUserControlledPath(
+          $firstNonEmpty(
+            $prop($, 'image_path'),
+            $prop($, 'executable'),
+            $prop($, 'action'),
+            description,
+            $prop($, 'path'),
+            name
+          )
+        )
+        or $isWindowsUserControlledPath(
+          $firstNonEmpty($prop($, 'path'), $prop($, 'key'), name)
+        )
+      )
+    ]
+  location: |
+    {
+      "bomRef": $."bom-ref",
+      "purl": purl
+    }
+  message: "Windows {{ $prop($, 'cdx:osquery:category') }} registration '{{ $firstNonEmpty($prop($, 'key'), $prop($, 'path'), name) }}' resolves to '{{ $firstNonEmpty($prop($, 'image_path'), $prop($, 'executable'), $prop($, 'action'), description, name) }}' with unresolved Authenticode status {{ $prop($, 'cdx:windows:authenticode:status') }}"
+  mitigation: "Review the startup/listener registration and backing binary together, confirm signature collection completed successfully, compare the hash and signer with an approved baseline, and prioritize cleanup of user-controlled execution paths."
   evidence: |
     {
       "queryCategory": $prop($, 'cdx:osquery:category'),
@@ -1344,7 +1410,7 @@
 
 - id: OBOM-MAC-007
   name: "macOS startup or application artifact failed notarization assessment"
-  description: "Launchd, startup, and application artifacts that fail notarization assessment deserve review before they are treated as trusted software."
+  description: "Launchd, startup, and application artifacts with rejected notarization assessment deserve review before they are treated as trusted software."
   severity: high
   category: obom-runtime
   dry-run-support: full
@@ -1384,99 +1450,7 @@
         )
       )
       and $hasProp($, 'cdx:darwin:notarization:assessment')
-      and (
-        $lowercase($safeStr($prop($, 'cdx:darwin:notarization:assessment'))) = 'rejected'
-        or (
-          $lowercase($safeStr($prop($, 'cdx:darwin:notarization:assessment'))) = 'unknown'
-          and (
-            $contains(
-              $lowercase(
-                $firstNonEmpty($prop($, 'path'), $prop($, 'bundle_path'))
-              ),
-              '/users/'
-            )
-            or $contains(
-              $lowercase(
-                $firstNonEmpty(
-                  $prop($, 'program'),
-                  $prop($, 'bundle_executable'),
-                  $prop($, 'bundle_path'),
-                  $prop($, 'path')
-                )
-              ),
-              '/users/'
-            )
-            or $contains(
-              $lowercase(
-                $firstNonEmpty($prop($, 'path'), $prop($, 'bundle_path'))
-              ),
-              '/downloads/'
-            )
-            or $contains(
-              $lowercase(
-                $firstNonEmpty(
-                  $prop($, 'program'),
-                  $prop($, 'bundle_executable'),
-                  $prop($, 'bundle_path'),
-                  $prop($, 'path')
-                )
-              ),
-              '/downloads/'
-            )
-            or $contains(
-              $lowercase(
-                $firstNonEmpty($prop($, 'path'), $prop($, 'bundle_path'))
-              ),
-              '/desktop/'
-            )
-            or $contains(
-              $lowercase(
-                $firstNonEmpty(
-                  $prop($, 'program'),
-                  $prop($, 'bundle_executable'),
-                  $prop($, 'bundle_path'),
-                  $prop($, 'path')
-                )
-              ),
-              '/desktop/'
-            )
-            or $contains(
-              $lowercase(
-                $firstNonEmpty($prop($, 'path'), $prop($, 'bundle_path'))
-              ),
-              '/tmp/'
-            )
-            or $contains(
-              $lowercase(
-                $firstNonEmpty(
-                  $prop($, 'program'),
-                  $prop($, 'bundle_executable'),
-                  $prop($, 'bundle_path'),
-                  $prop($, 'path')
-                )
-              ),
-              '/tmp/'
-            )
-            or $contains(
-              $lowercase(
-                $firstNonEmpty($prop($, 'path'), $prop($, 'bundle_path'))
-              ),
-              '/private/var/'
-            )
-            or $contains(
-              $lowercase(
-                $firstNonEmpty(
-                  $prop($, 'program'),
-                  $prop($, 'bundle_executable'),
-                  $prop($, 'bundle_path'),
-                  $prop($, 'path')
-                )
-              ),
-              '/private/var/'
-            )
-          )
-        )
-      )
+      and $lowercase($safeStr($prop($, 'cdx:darwin:notarization:assessment'))) = 'rejected'
     ]
   location: |
     {
@@ -1498,4 +1472,194 @@
       "programArguments": $prop($, 'program_arguments'),
       "teamIdentifier": $prop($, 'cdx:darwin:codesign:teamIdentifier'),
       "notarizationAssessment": $prop($, 'cdx:darwin:notarization:assessment')
+    }
+
+- id: OBOM-MAC-008
+  name: "macOS user-controlled startup or application artifact has unknown notarization assessment"
+  description: "Launchd, startup, and application artifacts with unknown notarization assessment should be reviewed when they execute from user-controlled macOS paths."
+  severity: medium
+  category: obom-runtime
+  dry-run-support: full
+  condition: |
+    components[
+      (
+        (
+          (
+            $prop($, 'cdx:osquery:category') = 'launchd_services'
+            or $prop($, 'cdx:osquery:category') = 'startup_items'
+          )
+          and (
+            $not(
+              $isDarwinSystemPath(
+                $firstNonEmpty($prop($, 'path'), $prop($, 'bundle_path'))
+              )
+            )
+            or $not(
+              $isDarwinSystemPath(
+                $firstNonEmpty(
+                  $prop($, 'program'),
+                  $prop($, 'bundle_executable'),
+                  $prop($, 'bundle_path'),
+                  $prop($, 'path')
+                )
+              )
+            )
+          )
+        )
+        or (
+          $prop($, 'cdx:osquery:category') = 'running_apps'
+          and $not(
+            $isDarwinSystemPath(
+              $firstNonEmpty($prop($, 'bundle_path'), $prop($, 'path'))
+            )
+          )
+        )
+      )
+      and $hasProp($, 'cdx:darwin:notarization:assessment')
+      and $lowercase($safeStr($prop($, 'cdx:darwin:notarization:assessment'))) = 'unknown'
+      and (
+        $contains(
+          $lowercase($firstNonEmpty($prop($, 'path'), $prop($, 'bundle_path'))),
+          '/users/'
+        )
+        or $contains(
+          $lowercase(
+            $firstNonEmpty(
+              $prop($, 'program'),
+              $prop($, 'bundle_executable'),
+              $prop($, 'bundle_path'),
+              $prop($, 'path')
+            )
+          ),
+          '/users/'
+        )
+        or $contains(
+          $lowercase($firstNonEmpty($prop($, 'path'), $prop($, 'bundle_path'))),
+          '/downloads/'
+        )
+        or $contains(
+          $lowercase(
+            $firstNonEmpty(
+              $prop($, 'program'),
+              $prop($, 'bundle_executable'),
+              $prop($, 'bundle_path'),
+              $prop($, 'path')
+            )
+          ),
+          '/downloads/'
+        )
+        or $contains(
+          $lowercase($firstNonEmpty($prop($, 'path'), $prop($, 'bundle_path'))),
+          '/desktop/'
+        )
+        or $contains(
+          $lowercase(
+            $firstNonEmpty(
+              $prop($, 'program'),
+              $prop($, 'bundle_executable'),
+              $prop($, 'bundle_path'),
+              $prop($, 'path')
+            )
+          ),
+          '/desktop/'
+        )
+        or $contains(
+          $lowercase($firstNonEmpty($prop($, 'path'), $prop($, 'bundle_path'))),
+          '/tmp/'
+        )
+        or $contains(
+          $lowercase(
+            $firstNonEmpty(
+              $prop($, 'program'),
+              $prop($, 'bundle_executable'),
+              $prop($, 'bundle_path'),
+              $prop($, 'path')
+            )
+          ),
+          '/tmp/'
+        )
+        or $contains(
+          $lowercase($firstNonEmpty($prop($, 'path'), $prop($, 'bundle_path'))),
+          '/private/var/'
+        )
+        or $contains(
+          $lowercase(
+            $firstNonEmpty(
+              $prop($, 'program'),
+              $prop($, 'bundle_executable'),
+              $prop($, 'bundle_path'),
+              $prop($, 'path')
+            )
+          ),
+          '/private/var/'
+        )
+      )
+    ]
+  location: |
+    {
+      "bomRef": $."bom-ref",
+      "purl": purl
+    }
+  message: "macOS {{ $prop($, 'cdx:osquery:category') }} artifact '{{ name }}' uses registration path '{{ $firstNonEmpty($prop($, 'path'), $prop($, 'bundle_path'), name) }}' and target '{{ $firstNonEmpty($prop($, 'program'), $prop($, 'bundle_executable'), $prop($, 'bundle_path'), $prop($, 'path'), name) }}' with unknown notarization assessment on a user-controlled path"
+  mitigation: "Review the registration/config path and backing executable together, re-check notarization and code-signing metadata, and move approved software out of user-controlled paths before suppressing the finding."
+  evidence: |
+    {
+      "queryCategory": $prop($, 'cdx:osquery:category'),
+      "registrationPath": $firstNonEmpty($prop($, 'path'), $prop($, 'bundle_path')),
+      "targetPath": $firstNonEmpty($prop($, 'program'), $prop($, 'bundle_executable'), $prop($, 'bundle_path'), $prop($, 'path')),
+      "label": $prop($, 'label'),
+      "path": $prop($, 'path'),
+      "bundlePath": $prop($, 'bundle_path'),
+      "bundleExecutable": $prop($, 'bundle_executable'),
+      "program": $prop($, 'program'),
+      "programArguments": $prop($, 'program_arguments'),
+      "teamIdentifier": $prop($, 'cdx:darwin:codesign:teamIdentifier'),
+      "notarizationAssessment": $prop($, 'cdx:darwin:notarization:assessment')
+    }
+
+- id: OBOM-LNX-020
+  name: "Privileged Linux listener exposed on a non-local interface from writable or unclassified path"
+  description: "Root or service-account listeners bound to all interfaces from user-controlled or unclassified paths are high-signal persistence or runtime-drift indicators."
+  severity: high
+  category: obom-runtime
+  dry-run-support: full
+  condition: |
+    components[
+      $prop($, 'cdx:osquery:category') = 'privileged_listening_ports'
+      and (
+        $safeStr($prop($, 'address')) = '0.0.0.0'
+        or $safeStr($prop($, 'address')) = '::'
+      )
+      and $safeStr($prop($, 'port')) != '22'
+      and $safeStr($prop($, 'port')) != '53'
+      and $safeStr(name) != 'systemd-resolved'
+      and $safeStr(name) != 'avahi-daemon'
+      and $safeStr(name) != 'cupsd'
+      and (
+        $safeStr($prop($, 'package_source_hint')) = 'user-writable-path'
+        or $safeStr($prop($, 'package_source_hint')) = 'unclassified-path'
+        or $contains($lowercase($nullSafeProp($, 'path')), '/tmp/')
+        or $contains($lowercase($nullSafeProp($, 'path')), '/var/tmp/')
+        or $contains($lowercase($nullSafeProp($, 'path')), '/dev/shm/')
+        or $contains($lowercase($nullSafeProp($, 'path')), '/home/')
+        or $contains($lowercase($nullSafeProp($, 'path')), '/run/user/')
+      )
+    ]
+  location: |
+    {
+      "bomRef": $."bom-ref",
+      "purl": purl
+    }
+  message: "Privileged listener '{{ name }}' is reachable on {{ $prop($, 'address') }}:{{ $prop($, 'port') }} from risky path '{{ $firstNonEmpty($prop($, 'path'), name) }}'"
+  mitigation: "Treat the listener path as a high-priority review item, validate package ownership and recent changes, and remove or isolate privileged services sourced from writable or unclassified locations."
+  evidence: |
+    {
+      "account": $prop($, 'account'),
+      "pid": $prop($, 'pid'),
+      "address": $prop($, 'address'),
+      "port": $prop($, 'port'),
+      "path": $prop($, 'path'),
+      "serviceUnit": $prop($, 'service_unit'),
+      "packageSourceHint": $prop($, 'package_source_hint'),
+      "parentCmdline": $prop($, 'parent_cmdline')
     }
