@@ -23,8 +23,8 @@
       "bomRef": $."bom-ref",
       "purl": purl
     }
-  message: "Systemd unit '{{ name }}' references temporary execution artifacts in its unit file path configuration"
-  mitigation: "Move unit files to trusted system paths, validate ownership/permissions, and re-enable only approved services."
+  message: "Systemd unit '{{ name }}' loads from unit path '{{ $firstNonEmpty($prop($, 'fragment_path'), $prop($, 'source_path'), name) }}' with temporary-backed source '{{ $firstNonEmpty($prop($, 'source_path'), $prop($, 'fragment_path')) }}'"
+  mitigation: "Review the unit file and any generated source/drop-in together, move them to trusted system paths, validate ownership/permissions, and re-enable only approved services."
   evidence: |
     {
       "activeState": $prop($, 'active_state'),
@@ -236,13 +236,15 @@
       "bomRef": $."bom-ref",
       "purl": purl
     }
-  message: "Launchd entry '{{ name }}' executes from temporary path and is configured for persistence"
-  mitigation: "Remove unauthorized plist entries, relocate approved binaries to trusted paths, and enforce signed launchd payloads."
+  message: "Launchd item '{{ $firstNonEmpty($prop($, 'label'), name) }}' uses plist '{{ $firstNonEmpty($prop($, 'path'), name) }}' and target '{{ $firstNonEmpty($prop($, 'program'), $prop($, 'program_arguments'), name) }}' from a temporary path with persistence enabled"
+  mitigation: "Review the launchd plist and target executable together, remove unauthorized entries, relocate approved binaries to trusted paths, and enforce signed launchd payloads."
   evidence: |
     {
       "label": $prop($, 'label'),
       "plistPath": $prop($, 'path'),
+      "targetPath": $firstNonEmpty($prop($, 'program'), $prop($, 'program_arguments')),
       "program": $prop($, 'program'),
+      "programArguments": $prop($, 'program_arguments'),
       "runAtLoad": $prop($, 'run_at_load'),
       "keepAlive": $prop($, 'keep_alive')
     }
@@ -761,14 +763,16 @@
       "bomRef": $."bom-ref",
       "purl": purl
     }
-  message: "Windows persistence surface '{{ name }}' references LOLBAS helper(s) {{ $prop($, 'cdx:lolbas:names') }}"
-  mitigation: "Validate the owning change, replace proxy-execution helpers with signed managed binaries where possible, and baseline approved startup surfaces with allowlists."
+  message: "Windows {{ $prop($, 'cdx:osquery:category') }} registration '{{ $firstNonEmpty($prop($, 'key'), $prop($, 'path'), name) }}' launches '{{ $firstNonEmpty($prop($, 'action'), $prop($, 'executable'), description, name) }}' via LOLBAS helper(s) {{ $prop($, 'cdx:lolbas:names') }}"
+  mitigation: "Review the registration surface and launched command together, validate the owning change, replace proxy-execution helpers with signed managed binaries where possible, and baseline approved startup surfaces with allowlists."
   attack:
     tactics: [TA0003, TA0005]
     techniques: [T1218, T1547]
   evidence: |
     {
       "queryCategory": $prop($, 'cdx:osquery:category'),
+      "registrationPath": $firstNonEmpty($prop($, 'key'), $prop($, 'path'), name),
+      "targetPath": $firstNonEmpty($prop($, 'action'), $prop($, 'executable'), description),
       "lolbasNames": $prop($, 'cdx:lolbas:names'),
       "functions": $prop($, 'cdx:lolbas:functions'),
       "matchFields": $prop($, 'cdx:lolbas:matchFields'),
@@ -1268,13 +1272,16 @@
       "bomRef": $."bom-ref",
       "purl": purl
     }
-  message: "Windows artifact '{{ name }}' is tied to non-valid Authenticode status: {{ $prop($, 'cdx:windows:authenticode:status') }}"
-  mitigation: "Treat the binary as suspicious until provenance is confirmed, compare the hash and signer with an approved baseline, and investigate who registered the startup or listener surface."
+  message: "Windows {{ $prop($, 'cdx:osquery:category') }} registration '{{ $firstNonEmpty($prop($, 'key'), $prop($, 'path'), name) }}' resolves to '{{ $firstNonEmpty($prop($, 'image_path'), $prop($, 'executable'), $prop($, 'action'), description, name) }}' with Authenticode status {{ $prop($, 'cdx:windows:authenticode:status') }}"
+  mitigation: "Review the startup/listener registration and backing binary together, treat the executable as suspicious until provenance is confirmed, compare the hash and signer with an approved baseline, and investigate who registered the surface."
   evidence: |
     {
       "queryCategory": $prop($, 'cdx:osquery:category'),
+      "registrationPath": $firstNonEmpty($prop($, 'key'), $prop($, 'path'), name),
+      "targetPath": $firstNonEmpty($prop($, 'image_path'), $prop($, 'executable'), $prop($, 'action'), description),
       "path": $prop($, 'path'),
       "imagePath": $prop($, 'image_path'),
+      "action": $prop($, 'action'),
       "authenticodeStatus": $prop($, 'cdx:windows:authenticode:status'),
       "signerSubject": $prop($, 'cdx:windows:authenticode:signerSubject')
     }
@@ -1346,24 +1353,48 @@
       (
         $prop($, 'cdx:osquery:category') = 'launchd_services'
         or $prop($, 'cdx:osquery:category') = 'startup_items'
-        or $prop($, 'cdx:osquery:category') = 'apps'
-        or $prop($, 'cdx:osquery:category') = 'running_apps'
+        or (
+          (
+            $prop($, 'cdx:osquery:category') = 'apps'
+            or $prop($, 'cdx:osquery:category') = 'running_apps'
+          )
+          and $not(
+            $isDarwinSystemPath(
+              $firstNonEmpty($prop($, 'bundle_path'), $prop($, 'path'))
+            )
+          )
+        )
       )
       and $hasProp($, 'cdx:darwin:notarization:assessment')
-      and $lowercase($safeStr($prop($, 'cdx:darwin:notarization:assessment'))) != 'accepted'
+      and (
+        $lowercase($safeStr($prop($, 'cdx:darwin:notarization:assessment'))) = 'rejected'
+        or (
+          $lowercase($safeStr($prop($, 'cdx:darwin:notarization:assessment'))) != 'accepted'
+          and (
+            $prop($, 'cdx:osquery:category') = 'launchd_services'
+            or $prop($, 'cdx:osquery:category') = 'startup_items'
+          )
+        )
+      )
     ]
   location: |
     {
       "bomRef": $."bom-ref",
       "purl": purl
     }
-  message: "macOS artifact '{{ name }}' has a non-accepted notarization assessment: {{ $prop($, 'cdx:darwin:notarization:assessment') }}"
-  mitigation: "Confirm the software source, compare code-signing details with the approved publisher, and remove or quarantine artifacts that are not expected on the endpoint."
+  message: "macOS {{ $prop($, 'cdx:osquery:category') }} artifact '{{ name }}' uses registration path '{{ $firstNonEmpty($prop($, 'path'), $prop($, 'bundle_path'), name) }}' and target '{{ $firstNonEmpty($prop($, 'program'), $prop($, 'bundle_executable'), $prop($, 'bundle_path'), $prop($, 'path'), name) }}' with notarization assessment {{ $prop($, 'cdx:darwin:notarization:assessment') }}"
+  mitigation: "Review the registration/config path and backing executable together, confirm the signer or team identifier against approved inventory, and remove or quarantine unexpected startup items or app bundles."
   evidence: |
     {
       "queryCategory": $prop($, 'cdx:osquery:category'),
+      "registrationPath": $firstNonEmpty($prop($, 'path'), $prop($, 'bundle_path')),
+      "targetPath": $firstNonEmpty($prop($, 'program'), $prop($, 'bundle_executable'), $prop($, 'bundle_path'), $prop($, 'path')),
+      "label": $prop($, 'label'),
       "path": $prop($, 'path'),
       "bundlePath": $prop($, 'bundle_path'),
+      "bundleExecutable": $prop($, 'bundle_executable'),
+      "program": $prop($, 'program'),
+      "programArguments": $prop($, 'program_arguments'),
       "teamIdentifier": $prop($, 'cdx:darwin:codesign:teamIdentifier'),
       "notarizationAssessment": $prop($, 'cdx:darwin:notarization:assessment')
     }
