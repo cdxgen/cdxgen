@@ -76,6 +76,23 @@ if (process.env.CDXGEN_NODE_OPTIONS) {
 let sbom;
 const getInteractiveBom = () => toCycloneDxLikeBom(sbom);
 
+function getContainerRegistryHost(reference) {
+  const trimmedReference = `${reference || ""}`.trim().toLowerCase();
+  if (!trimmedReference) {
+    return undefined;
+  }
+  const slashIndex = trimmedReference.indexOf("/");
+  if (slashIndex <= 0) {
+    return undefined;
+  }
+  return trimmedReference.slice(0, slashIndex).replace(/:\d+$/, "");
+}
+
+function isSupportedSbomRegistryReference(reference) {
+  const registryHost = getContainerRegistryHost(reference);
+  return registryHost === "ghcr.io" || registryHost === "docker.io";
+}
+
 function unescapeAnnotationText(value) {
   return String(value || "")
     .replace(/<br>/g, "\n")
@@ -284,10 +301,7 @@ export const importSbom = (sbomOrPath) => {
   ) {
     sbom = readBinary(importTarget, true);
     printSummary(sbom);
-  } else if (
-    importTarget.startsWith("ghcr.io") ||
-    importTarget.startsWith("docker.io")
-  ) {
+  } else if (isSupportedSbomRegistryReference(importTarget)) {
     try {
       sbom = getBomWithOras(importTarget);
       if (sbom) {
