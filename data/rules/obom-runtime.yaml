@@ -1351,13 +1351,31 @@
   condition: |
     components[
       (
-        $prop($, 'cdx:osquery:category') = 'launchd_services'
-        or $prop($, 'cdx:osquery:category') = 'startup_items'
-        or (
+        (
           (
-            $prop($, 'cdx:osquery:category') = 'apps'
-            or $prop($, 'cdx:osquery:category') = 'running_apps'
+            $prop($, 'cdx:osquery:category') = 'launchd_services'
+            or $prop($, 'cdx:osquery:category') = 'startup_items'
           )
+          and (
+            $not(
+              $isDarwinSystemPath(
+                $firstNonEmpty($prop($, 'path'), $prop($, 'bundle_path'))
+              )
+            )
+            or $not(
+              $isDarwinSystemPath(
+                $firstNonEmpty(
+                  $prop($, 'program'),
+                  $prop($, 'bundle_executable'),
+                  $prop($, 'bundle_path'),
+                  $prop($, 'path')
+                )
+              )
+            )
+          )
+        )
+        or (
+          $prop($, 'cdx:osquery:category') = 'running_apps'
           and $not(
             $isDarwinSystemPath(
               $firstNonEmpty($prop($, 'bundle_path'), $prop($, 'path'))
@@ -1369,10 +1387,93 @@
       and (
         $lowercase($safeStr($prop($, 'cdx:darwin:notarization:assessment'))) = 'rejected'
         or (
-          $lowercase($safeStr($prop($, 'cdx:darwin:notarization:assessment'))) != 'accepted'
+          $lowercase($safeStr($prop($, 'cdx:darwin:notarization:assessment'))) = 'unknown'
           and (
-            $prop($, 'cdx:osquery:category') = 'launchd_services'
-            or $prop($, 'cdx:osquery:category') = 'startup_items'
+            $contains(
+              $lowercase(
+                $firstNonEmpty($prop($, 'path'), $prop($, 'bundle_path'))
+              ),
+              '/users/'
+            )
+            or $contains(
+              $lowercase(
+                $firstNonEmpty(
+                  $prop($, 'program'),
+                  $prop($, 'bundle_executable'),
+                  $prop($, 'bundle_path'),
+                  $prop($, 'path')
+                )
+              ),
+              '/users/'
+            )
+            or $contains(
+              $lowercase(
+                $firstNonEmpty($prop($, 'path'), $prop($, 'bundle_path'))
+              ),
+              '/downloads/'
+            )
+            or $contains(
+              $lowercase(
+                $firstNonEmpty(
+                  $prop($, 'program'),
+                  $prop($, 'bundle_executable'),
+                  $prop($, 'bundle_path'),
+                  $prop($, 'path')
+                )
+              ),
+              '/downloads/'
+            )
+            or $contains(
+              $lowercase(
+                $firstNonEmpty($prop($, 'path'), $prop($, 'bundle_path'))
+              ),
+              '/desktop/'
+            )
+            or $contains(
+              $lowercase(
+                $firstNonEmpty(
+                  $prop($, 'program'),
+                  $prop($, 'bundle_executable'),
+                  $prop($, 'bundle_path'),
+                  $prop($, 'path')
+                )
+              ),
+              '/desktop/'
+            )
+            or $contains(
+              $lowercase(
+                $firstNonEmpty($prop($, 'path'), $prop($, 'bundle_path'))
+              ),
+              '/tmp/'
+            )
+            or $contains(
+              $lowercase(
+                $firstNonEmpty(
+                  $prop($, 'program'),
+                  $prop($, 'bundle_executable'),
+                  $prop($, 'bundle_path'),
+                  $prop($, 'path')
+                )
+              ),
+              '/tmp/'
+            )
+            or $contains(
+              $lowercase(
+                $firstNonEmpty($prop($, 'path'), $prop($, 'bundle_path'))
+              ),
+              '/private/var/'
+            )
+            or $contains(
+              $lowercase(
+                $firstNonEmpty(
+                  $prop($, 'program'),
+                  $prop($, 'bundle_executable'),
+                  $prop($, 'bundle_path'),
+                  $prop($, 'path')
+                )
+              ),
+              '/private/var/'
+            )
           )
         )
       )
