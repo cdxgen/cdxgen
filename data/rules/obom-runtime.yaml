@@ -543,8 +543,8 @@
     }
 
 - id: OBOM-LNX-010
-  name: "Elevated Linux process launched from user-writable or unusual path"
-  description: "Root processes executing from user-controlled or non-standard paths are a strong signal for persistence or package drift."
+  name: "Elevated Linux process launched from user-writable or temporary path"
+  description: "Root processes executing from explicit user-controlled, temporary, or per-user runtime paths are a strong signal for persistence or package drift."
   severity: critical
   category: obom-runtime
   dry-run-support: full
@@ -558,8 +558,12 @@
         or $contains($nullSafeProp($, 'path'), '/dev/shm/')
         or $contains($nullSafeProp($, 'path'), '/home/')
         or $contains($nullSafeProp($, 'path'), '/run/user/')
+        or $contains($nullSafeProp($, 'cmdline'), '/tmp/')
+        or $contains($nullSafeProp($, 'cmdline'), '/var/tmp/')
+        or $contains($nullSafeProp($, 'cmdline'), '/dev/shm/')
+        or $contains($nullSafeProp($, 'cmdline'), '/home/')
+        or $contains($nullSafeProp($, 'cmdline'), '/run/user/')
         or $safeStr($prop($, 'package_source_hint')) = 'user-writable-path'
-        or $safeStr($prop($, 'package_source_hint')) = 'unclassified-path'
       )
       and $safeStr(name) != 'systemd'
       and $safeStr(name) != 'init'
@@ -569,12 +573,13 @@
       "bomRef": $."bom-ref",
       "purl": purl
     }
-  message: "Elevated process '{{ name }}' executes from a risky path: {{ $prop($, 'path') }}"
-  mitigation: "Move approved binaries into trusted system locations, validate package ownership, and investigate any root process sourced from writable directories."
+  message: "Elevated process '{{ name }}' executes from a risky path or command: {{ $firstNonEmpty($prop($, 'path'), $prop($, 'cmdline'), name) }}"
+  mitigation: "Validate the executable path and full command line, move approved binaries into trusted system locations, and investigate any root process sourced from writable directories or per-user runtime paths."
   evidence: |
     {
       "account": $prop($, 'account'),
       "path": $prop($, 'path'),
+      "cmdline": $prop($, 'cmdline'),
       "serviceUnit": $prop($, 'service_unit'),
       "parentPath": $prop($, 'parent_path'),
       "parentCmdline": $prop($, 'parent_cmdline'),
@@ -1195,9 +1200,24 @@
       and (
         $prop($, 'cdx:osquery:category') = 'sudo_executions'
         or $prop($, 'cdx:osquery:category') = 'privilege_transitions'
-        or $prop($, 'cdx:osquery:category') = 'elevated_processes'
         or $prop($, 'cdx:osquery:category') = 'privileged_listening_ports'
         or $prop($, 'cdx:osquery:category') = 'behavioral_reverse_shell'
+        or (
+          $prop($, 'cdx:osquery:category') = 'elevated_processes'
+          and (
+            $safeStr($prop($, 'package_source_hint')) = 'user-writable-path'
+            or $contains($nullSafeProp($, 'path'), '/tmp/')
+            or $contains($nullSafeProp($, 'path'), '/var/tmp/')
+            or $contains($nullSafeProp($, 'path'), '/dev/shm/')
+            or $contains($nullSafeProp($, 'path'), '/home/')
+            or $contains($nullSafeProp($, 'path'), '/run/user/')
+            or $contains($nullSafeProp($, 'cmdline'), '/tmp/')
+            or $contains($nullSafeProp($, 'cmdline'), '/var/tmp/')
+            or $contains($nullSafeProp($, 'cmdline'), '/dev/shm/')
+            or $contains($nullSafeProp($, 'cmdline'), '/home/')
+            or $contains($nullSafeProp($, 'cmdline'), '/run/user/')
+          )
+        )
       )
       and (
         $listContains($prop($, 'cdx:gtfobins:functions'), 'shell')

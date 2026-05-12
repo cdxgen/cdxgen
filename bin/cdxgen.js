@@ -57,6 +57,7 @@ import {
 import {
   commandsExecuted,
   DEBUG_MODE,
+  getDefaultBomAuditCategories,
   getTmpDir,
   isAllowedHttpHost,
   isBun,
@@ -912,6 +913,18 @@ const applyAdvancedOptions = (options) => {
   return options;
 };
 applyAdvancedOptions(options);
+if (options.bomAudit && !options.bomAuditCategories) {
+  const defaultBomAuditCategories = getDefaultBomAuditCategories(
+    options,
+    process.argv[1],
+  );
+  if (defaultBomAuditCategories) {
+    options.bomAuditCategories = defaultBomAuditCategories;
+    thoughtLog(
+      `Defaulting BOM audit categories to '${defaultBomAuditCategories}' for this OBOM or explicit os-only invocation.`,
+    );
+  }
+}
 
 const envAuditFindings = auditEnvironment();
 if (options.envAudit) {
