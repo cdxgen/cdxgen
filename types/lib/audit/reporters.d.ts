@@ -7,6 +7,22 @@ export function renderSarifReport(report: any, options?: {}): string;
  */
 export function renderJsonReport(report: object): string;
 /**
+ * Render a direct BOM audit report for terminal output.
+ *
+ * @param {object} report aggregate direct audit report
+ * @param {object} options render options
+ * @returns {string} console report text
+ */
+export function renderDirectBomConsoleReport(report: object, options?: object): string;
+/**
+ * Render a direct BOM audit report as SARIF 2.1.0 output.
+ *
+ * @param {object} report aggregate direct audit report
+ * @param {object} [options] render options
+ * @returns {string} SARIF output
+ */
+export function renderDirectBomSarifReport(report: object, options?: object): string;
+/**
  * Render an audit report for terminal output.
  *
  * @param {object} report aggregate report

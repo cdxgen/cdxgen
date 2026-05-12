@@ -22,7 +22,7 @@ export function resetRecordedActivities(): void;
  * @Boolean True if the path exists. False otherwise
  */
 export function safeExistsSync(filePath: string): any;
-export function safeWriteSync(filePath: any, data: any, options: any): any;
+export function safeWriteSync(filePath: any, data: any, options: any): undefined;
 /**
  * Safely create a directory without crashing due to a lack of permissions
  *
@@ -30,10 +30,10 @@ export function safeWriteSync(filePath: any, data: any, options: any): any;
  * @param options {Options} mkdir options
  * @Boolean True if the path exists. False otherwise
  */
-export function safeMkdirSync(filePath: string, options: Options): any;
+export function safeMkdirSync(filePath: string, options: Options): undefined;
 export function safeMkdtempSync(prefix: any, options?: undefined): any;
-export function safeRmSync(filePath: any, options?: undefined): any;
-export function safeUnlinkSync(filePath: any): any;
+export function safeRmSync(filePath: any, options?: undefined): undefined;
+export function safeUnlinkSync(filePath: any): undefined;
 export function safeCopyFileSync(src: any, dest: any, mode?: undefined): any;
 export function safeExtractArchive(sourcePath: any, targetPath: any, extractor: any, kind?: string, options?: undefined): Promise<boolean>;
 /**
@@ -98,6 +98,29 @@ export function isFeatureEnabled(cliOptions: Object, feature: string): boolean;
  * @param {Boolean} defaultStatus Default return value if there are no types provided
  */
 export function hasAnyProjectType(projectTypes: any[], options: Object, defaultStatus?: boolean): any;
+/**
+ * Determine whether the predictive dependency audit should run for the current
+ * CLI invocation.
+ *
+ * OBOM-focused runs (`obom` or explicit `-t os` / OS aliases only) should keep
+ * the direct BOM audit findings but skip the predictive dependency audit.
+ *
+ * @param {object} options CLI options
+ * @param {string} [commandPath] Invoked command path or name
+ * @returns {boolean} True when predictive dependency audit should run
+ */
+export function shouldRunPredictiveBomAudit(options: object, commandPath?: string): boolean;
+/**
+ * Determine the default BOM audit categories for the current CLI invocation.
+ *
+ * OBOM-focused runs should default to the runtime-specific rule pack unless the
+ * user explicitly requests other categories.
+ *
+ * @param {object} options CLI options
+ * @param {string} [commandPath] Invoked command path or name
+ * @returns {string | undefined} Default category string, if any
+ */
+export function getDefaultBomAuditCategories(options: object, commandPath?: string): string | undefined;
 /**
  * Convenient method to check if the given package manager is allowed.
  *

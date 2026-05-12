@@ -22,6 +22,50 @@ export function loadInputBoms(options: object): {
     source: string;
     bomJson: object;
 }[];
+export function runDirectBomAuditFromBoms(inputBoms: any, options?: {}): Promise<{
+    auditMode: string;
+    generatedAt: string;
+    inputs: any;
+    results: {
+        auditOptions: {
+            bomAuditCategories: any;
+            bomAuditMinSeverity: any;
+            bomAuditRulesDir: any;
+        };
+        bomFormat: any;
+        findings: any[];
+        serialNumber: any;
+        source: any;
+        specVersion: any;
+        status: string;
+        summary: {
+            findingsBySeverity: {
+                critical: number;
+                high: number;
+                low: number;
+                medium: number;
+            };
+            findingsCount: number;
+            maxSeverity: string;
+        };
+    }[];
+    summary: {
+        findingsBySeverity: {
+            critical: number;
+            high: number;
+            low: number;
+            medium: number;
+        };
+        inputBomCount: any;
+        maxSeverity: string;
+        totalFindings: number;
+        bomsWithFindings: number;
+    };
+    tool: {
+        name: string;
+        version: string;
+    };
+}>;
 /**
  * Build low-noise provenance-aware contextual findings from the root BOM target.
  *
