@@ -177,8 +177,20 @@ HBOM dry-run is handled natively by `@cdxgen/cdx-hbom`.
 
 - `hbom --dry-run` and `cdxgen --dry-run -t hbom` still build a **read-only partial HBOM** when the collector can rely on local file- or native API-backed discovery.
 - Command-based enrichment is blocked and reported per command in the activity summary, so you can see the exact planned hardware probes such as `sysctl`, `system_profiler`, `networksetup`, `pmset`, or `dmidecode`.
+- When secure mode is enabled **and** you configure `CDXGEN_ALLOWED_COMMANDS` and/or `CDXGEN_ALLOWED_PATHS`, cdxgen reuses the same HBOM dry-run declaration as a preflight plan and aborts the live run before host probing continues if the declared commands or paths fall outside those allowlists.
 - Filesystem writes remain blocked, so dry-run is safe for review-first workflows.
 - Because command execution is intentionally skipped, some command-derived hardware details may remain `unknown` or be absent until you rerun without `--dry-run`.
+
+### Secure-mode allowlist workflow
+
+For hardened host collection:
+
+1. Run `hbom --dry-run` first and review the declared commands and filesystem paths.
+2. Set `CDXGEN_ALLOWED_COMMANDS` to the approved HBOM probe commands for that target.
+3. Set `CDXGEN_ALLOWED_PATHS` when you want to constrain HBOM file-backed discovery to explicit host locations.
+4. Rerun the live command with `CDXGEN_SECURE_MODE=true`.
+
+On Linux hosts, the path allowlist normally needs at least the relevant system inventory roots such as `/proc`, `/sys`, and `/etc` for the hardware surfaces you intend to collect. On Apple Silicon macOS, command allowlists are usually the primary secure-mode control unless you also enable plist-backed enrichment.
 
 ## Collector diagnostics and summary properties
 
@@ -221,6 +233,7 @@ If you import the resulting BOM into `cdxi`, the most useful host pivots for the
 - Linux `--privileged` enrichment may require root or passwordless sudo depending on the target environment.
 - Prefer `hbom diagnostics` before enabling `--privileged` broadly so you can see exactly which enrichments failed due to missing commands or permissions.
 - In `--dry-run` mode, cdxgen returns a partial HBOM from safe local discovery where available, reports each blocked HBOM command in the activity summary, and still skips filesystem writes.
+- In secure mode with HBOM allowlists configured, cdxgen aborts before live collection when the dry-run plan includes commands outside `CDXGEN_ALLOWED_COMMANDS` or declared paths outside `CDXGEN_ALLOWED_PATHS`.
 
 ## When to use HBOM vs OBOM
 

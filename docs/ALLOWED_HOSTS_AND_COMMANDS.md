@@ -43,6 +43,15 @@ node bin/cdxgen.js -t <type of projects> --json-pretty -o bom.json $(pwd)
 
 > Try to avoid using broader shell and runtime commands such as bash, zsh, java, node, etc. If this is unavoidable, carefully evaluate the arguments and the underlying scripts and configuration that might get used for execution.
 
+## HBOM secure-mode review
+
+HBOM is special because the optional `@cdxgen/cdx-hbom` collector can declare its planned commands and local file reads during `hbom --dry-run`.
+
+- Review `hbom --dry-run` first.
+- In secure mode, cdxgen aborts live HBOM collection when those declared commands fall outside `CDXGEN_ALLOWED_COMMANDS` or the declared local paths fall outside `CDXGEN_ALLOWED_PATHS`.
+- On Linux hosts, `CDXGEN_ALLOWED_PATHS` often needs explicit inventory roots such as `/proc`, `/sys`, and `/etc` in addition to the command allowlist.
+- On Apple Silicon macOS, command allowlists are usually the main control unless plist-backed enrichment is enabled.
+
 ## Common Commands (All Platforms)
 
 | Language / Platform            | Project Types                                                                                                                                                    | External Commands                                                                   | Remote Hosts                                                                                                 |

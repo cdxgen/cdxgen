@@ -34,6 +34,7 @@ Dry-run mode reduces these requirements because cdxgen does not need write or ch
 - Secret-bearing environment-variable and file classification is heuristic. cdxgen records presence, counts, and categories conservatively, but unusual credential naming conventions may not be recognized automatically.
 - Secret-bearing values are never emitted in the activity summary; cdxgen records only redacted presence, count, and category metadata.
 - In secure mode, CLI submission paths such as `--server-url` also honor `CDXGEN_ALLOWED_HOSTS`; disallowed Dependency-Track hosts are rejected before submission.
+- In secure mode, HBOM live collection reuses the HBOM dry-run plan as a preflight check: when `CDXGEN_ALLOWED_COMMANDS` and/or `CDXGEN_ALLOWED_PATHS` are configured, cdxgen aborts the live host run before continuing if the declared HBOM commands or filesystem paths fall outside those allowlists.
 
 Example invocations:
 
@@ -75,6 +76,26 @@ Use the environment variable `CDXGEN_NODE_OPTIONS` to control the permissions fo
 ```shell
 export CDXGEN_NODE_OPTIONS="--permission --allow-fs-read<more restricted directories> --allow-fs-write=/foo/usages.slices.json"
 ```
+
+## HBOM secure-mode preflight
+
+HBOM is slightly different from language package managers because the optional `@cdxgen/cdx-hbom` collector declares its planned commands and local file reads during dry-run mode.
+
+Recommended workflow:
+
+```shell
+hbom --dry-run
+export CDXGEN_SECURE_MODE=true
+export CDXGEN_ALLOWED_COMMANDS="sysctl,system_profiler,networksetup,pmset"
+export CDXGEN_ALLOWED_PATHS="/proc,/sys,/etc"
+hbom -o hbom.json
+```
+
+Notes:
+
+- The exact command set is platform-specific.
+- Linux hosts often need `CDXGEN_ALLOWED_PATHS` entries such as `/proc`, `/sys`, and `/etc` because the collector reads hardware metadata directly from those trees.
+- If the secure-mode preflight reports a disallowed command or path, rerun with `--dry-run`, review the declaration, and only expand the allowlist if the additional host surface is acceptable for that environment.
 
 ## GitHub Action Workflow sample
 

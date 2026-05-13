@@ -185,6 +185,7 @@ Trust boundary 5: cdxgen container ←→ container host
 - `--privileged` is explicit opt-in and only enables the documented permission-sensitive command paths exposed by `@cdxgen/cdx-hbom`
 - `@cdxgen/cdx-hbom` 0.4.0 records missing-command and permission-denied diagnostics directly in the BOM root and collector trace instead of silently hiding partial evidence gaps
 - cdxgen derives compact `cdx:hbom:analysis:*` summary properties and exposes `hbom diagnostics` so operators can distinguish "install a package" from "rerun with --privileged" without guessing
+- In secure mode, cdxgen reuses the HBOM dry-run declaration as a preflight plan and aborts live HBOM collection when the declared commands fall outside `CDXGEN_ALLOWED_COMMANDS` or the declared local paths fall outside `CDXGEN_ALLOWED_PATHS`
 - The Linux privileged path uses non-interactive `sudo -n`, avoiding interactive password prompts that would otherwise encourage ad hoc operator workarounds
 
 **Residual risk:** Medium — HBOM still runs on the target host and may require elevated access for richer firmware or graphics detail. Users remain responsible for applying least privilege and deciding whether the additional evidence is worth the extra permissions.
@@ -443,31 +444,31 @@ _TB = Trust Boundary (see Trust Boundaries section above)_
 
 ## Security Controls Summary
 
-| Control                            | Implementation                                                                                                                                             | Threat(s) Addressed          |
-| ---------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------- |
-| Command allowlisting               | `CDXGEN_ALLOWED_COMMANDS` + `safeSpawnSync`                                                                                                                | T1.1, T1.2                   |
-| Host allowlisting                  | `CDXGEN_ALLOWED_HOSTS` + `CDXGEN_GIT_ALLOWED_HOSTS` + `cdxgenAgent` hooks; server-side Dependency-Track submission uses strict wildcard subdomain matching | T2.3, T2.2, T2.6             |
-| Path allowlisting                  | `CDXGEN_SERVER_ALLOWED_PATHS` + `isAllowedPath`                                                                                                            | T2.1                         |
-| Node.js permission model           | `--permission` flags in `NODE_OPTIONS`                                                                                                                     | T1.4, T5.1                   |
-| Secure mode                        | `CDXGEN_SECURE_MODE=true`                                                                                                                                  | T1.2, T2.2, T2.3, T6.2       |
-| Environment audit                  | `auditEnvironment()` at startup                                                                                                                            | T1.3                         |
-| Unicode validation                 | `hasDangerousUnicode()`, `isValidDriveRoot()`                                                                                                              | T1.4, T2.1                   |
-| Git hardening                      | `validateAndRejectGitSource()`, hardened clone config                                                                                                      | T1.5, T2.2, T2.6             |
-| Safe wrappers                      | `safeExistsSync`, `safeMkdirSync`, `safeSpawnSync`                                                                                                         | T1.1, T1.4                   |
-| BOM metadata sanitization          | URL scrubbing, inline secret redaction, command summarization, structured-key filtering                                                                    | T6.1, T2.3                   |
-| Helper binary pinning and metadata | Optional helper package version pinning, companion binary SBOM/metadata generation, CI parity checks, and tool identity evidence                           | T1.7, T4.3                   |
-| Trust-material modeling            | Repository-source `data` components, trusted-key `cryptographic-asset` components, file hashes, and repo-to-key dependency edges                           | T1.8, T6.1                   |
-| Structured logging                 | `thoughtLog`, `traceLog`, `commandsExecuted`, `remoteHostsAccessed`                                                                                        | Auditability for all threats |
-| Dependency pinning                 | `pnpm-lock.yaml`, SHA-pinned Actions, SHA-pinned base images                                                                                               | T3.1, T3.2, T4.1             |
-| Provenance attestation             | `NPM_CONFIG_PROVENANCE=true`                                                                                                                               | T4.3                         |
-| Non-root container                 | `USER cyclonedx` in Dockerfile-secure                                                                                                                      | T5.1                         |
-| Request limits                     | Body parser 1MB limit, server timeout, spawn timeout, max buffer                                                                                           | T2.4                         |
+| Control                            | Implementation                                                                                                                                              | Threat(s) Addressed          |
+| ---------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------- |
+| Command allowlisting               | `CDXGEN_ALLOWED_COMMANDS` + `safeSpawnSync`; HBOM secure-mode dry-run preflight validates declared host-collector commands before live execution            | T1.1, T1.2, T1.9             |
+| Host allowlisting                  | `CDXGEN_ALLOWED_HOSTS` + `CDXGEN_GIT_ALLOWED_HOSTS` + `cdxgenAgent` hooks; server-side Dependency-Track submission uses strict wildcard subdomain matching  | T2.3, T2.2, T2.6             |
+| Path allowlisting                  | `CDXGEN_SERVER_ALLOWED_PATHS` + `isAllowedPath`; HBOM secure-mode dry-run preflight validates declared local collector paths against `CDXGEN_ALLOWED_PATHS` | T1.9, T2.1                   |
+| Node.js permission model           | `--permission` flags in `NODE_OPTIONS`                                                                                                                      | T1.4, T5.1                   |
+| Secure mode                        | `CDXGEN_SECURE_MODE=true`                                                                                                                                   | T1.2, T2.2, T2.3, T6.2       |
+| Environment audit                  | `auditEnvironment()` at startup                                                                                                                             | T1.3                         |
+| Unicode validation                 | `hasDangerousUnicode()`, `isValidDriveRoot()`                                                                                                               | T1.4, T2.1                   |
+| Git hardening                      | `validateAndRejectGitSource()`, hardened clone config                                                                                                       | T1.5, T2.2, T2.6             |
+| Safe wrappers                      | `safeExistsSync`, `safeMkdirSync`, `safeSpawnSync`                                                                                                          | T1.1, T1.4                   |
+| BOM metadata sanitization          | URL scrubbing, inline secret redaction, command summarization, structured-key filtering                                                                     | T6.1, T2.3                   |
+| Helper binary pinning and metadata | Optional helper package version pinning, companion binary SBOM/metadata generation, CI parity checks, and tool identity evidence                            | T1.7, T4.3                   |
+| Trust-material modeling            | Repository-source `data` components, trusted-key `cryptographic-asset` components, file hashes, and repo-to-key dependency edges                            | T1.8, T6.1                   |
+| Structured logging                 | `thoughtLog`, `traceLog`, `commandsExecuted`, `remoteHostsAccessed`                                                                                         | Auditability for all threats |
+| Dependency pinning                 | `pnpm-lock.yaml`, SHA-pinned Actions, SHA-pinned base images                                                                                                | T3.1, T3.2, T4.1             |
+| Provenance attestation             | `NPM_CONFIG_PROVENANCE=true`                                                                                                                                | T4.3                         |
+| Non-root container                 | `USER cyclonedx` in Dockerfile-secure                                                                                                                       | T5.1                         |
+| Request limits                     | Body parser 1MB limit, server timeout, spawn timeout, max buffer                                                                                            | T2.4                         |
 
 ## Recommendations for Deployers
 
 1. **Use secure mode** — Set `CDXGEN_SECURE_MODE=true` and configure `NODE_OPTIONS` with the Node.js permission model, or use the `ghcr.io/cyclonedx/cdxgen-secure` container image.
-2. **Configure allowlists** — Set `CDXGEN_ALLOWED_HOSTS` and `CDXGEN_ALLOWED_COMMANDS` based on your project types. Run once without allowlists and use the suggested values from cdxgen's output.
-3. **Restrict server paths and remote hosts** — When running in server mode, always set `CDXGEN_ALLOWED_PATHS` (or `CDXGEN_SERVER_ALLOWED_PATHS`) and `CDXGEN_GIT_ALLOWED_HOSTS` (or `CDXGEN_SERVER_ALLOWED_HOSTS`).
+2. **Configure allowlists** — Set `CDXGEN_ALLOWED_HOSTS` and `CDXGEN_ALLOWED_COMMANDS` based on your project types. For HBOM in secure mode, run `hbom --dry-run` first and use the declared command set as the review baseline before enabling live collection.
+3. **Restrict paths deliberately** — When running HBOM in secure mode, set `CDXGEN_ALLOWED_PATHS` to the approved local inventory roots for that host profile (for example `/proc,/sys,/etc` on Linux where appropriate). In server mode, also set `CDXGEN_SERVER_ALLOWED_PATHS` and `CDXGEN_GIT_ALLOWED_HOSTS` (or `CDXGEN_SERVER_ALLOWED_HOSTS`).
 4. **Deploy server behind a proxy** — The cdxgen server has no built-in authentication. Use a reverse proxy (nginx, Envoy, etc.) with authentication and rate limiting.
 5. **Sandbox untrusted projects** — Scan untrusted code in containers or ephemeral CI environments, not on developer machines.
 6. **Review environment** — Check `auditEnvironment` output for warnings. Remediate HIGH severity findings before production use.

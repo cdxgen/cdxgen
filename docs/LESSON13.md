@@ -60,6 +60,8 @@ With the optional `@cdxgen/cdx-hbom` library, dry-run is handled inside the HBOM
 
 This is especially useful on supported macOS and Linux hosts when you want to review exactly which collector commands would run before doing a full inventory.
 
+If you run HBOM in secure mode, this dry-run review is the recommended allowlist authoring step: cdxgen reuses the same declared HBOM commands and paths as a preflight plan and aborts the live run when they fall outside `CDXGEN_ALLOWED_COMMANDS` or `CDXGEN_ALLOWED_PATHS`.
+
 ## 5) Diagnose missing utilities and permission-sensitive enrichments
 
 Before enabling `--privileged` broadly on Linux, ask cdxgen to summarize the HBOM collector gaps:
@@ -79,7 +81,25 @@ After you have already generated a BOM, you can summarize the serialized collect
 hbom diagnostics --input hbom.json
 ```
 
-## 6) Validate the result
+## 6) Harden live HBOM collection with secure-mode allowlists
+
+Use dry-run to review the planned host surface first, then promote only the commands and local paths you are willing to authorize:
+
+```shell
+hbom --dry-run
+export CDXGEN_SECURE_MODE=true
+export CDXGEN_ALLOWED_COMMANDS="sysctl,system_profiler,networksetup,pmset"
+export CDXGEN_ALLOWED_PATHS="/proc,/sys,/etc"
+hbom -o hbom.json
+```
+
+Practical guidance:
+
+- On Apple Silicon macOS, the secure-mode review is often command-focused unless you also enable plist-backed enrichment.
+- On Linux, expect the path allowlist to include the collector's direct-read roots such as `/proc`, `/sys`, and selected files under `/etc`.
+- If secure mode reports a blocked HBOM command or path, rerun `hbom --dry-run`, review the declaration, and only expand the allowlist when the extra collection surface is justified.
+
+## 7) Validate the result
 
 The `hbom` command validates by default. If you want to validate the file again with the standalone validator:
 
@@ -87,7 +107,7 @@ The `hbom` command validates by default. If you want to validate the file again 
 cdx-validate -i hbom.json
 ```
 
-## 7) Use platform-specific enrichment carefully
+## 8) Use platform-specific enrichment carefully
 
 ### Apple Silicon macOS
 
@@ -107,7 +127,7 @@ hbom --platform linux --arch amd64 --privileged -o linux-hbom.json
 
 > `--privileged` may require elevated access or passwordless sudo depending on the system. Use it as a targeted follow-up to the diagnostics report rather than as the default first step.
 
-## 8) Preserve sensitive identifiers only when necessary
+## 9) Preserve sensitive identifiers only when necessary
 
 By default, supported identifiers are redacted. If you explicitly need raw identifiers in the BOM:
 
@@ -117,7 +137,7 @@ hbom --sensitive -o hbom-sensitive.json
 
 Use this mode carefully before distributing the BOM externally.
 
-## 9) Use the main `cdxgen` command when needed
+## 10) Use the main `cdxgen` command when needed
 
 The same integration is available through the main CLI:
 
@@ -139,7 +159,7 @@ On slower arm64 hosts such as Raspberry Pi systems, it is often worth increasing
 hbom --include-runtime --timeout 180000 -o host-view.json
 ```
 
-## 10) Build a merged HBOM + OBOM host view
+## 11) Build a merged HBOM + OBOM host view
 
 When you want one CycloneDX document that combines hardware inventory with runtime evidence for the same host, use `--include-runtime`:
 
@@ -165,7 +185,7 @@ The merged document adds summary properties such as:
 
 Linked interfaces and storage devices also gain per-component properties such as `cdx:hostview:interface_addresses:count`, `cdx:hostview:kernel_modules:count`, `cdx:hostview:mount_hardening:count`, and `cdx:hostview:runtime-storage:count`.
 
-## 11) Audit the merged host view
+## 12) Audit the merged host view
 
 The merged host view enables a new `host-topology` BOM audit category.
 
@@ -181,7 +201,7 @@ With `--include-runtime`, cdxgen automatically adds `host-topology` to the defau
 - revoked Secure Boot trust anchors when HBOM metadata and runtime certificate inventory match on an exact identifier
 - merged host views that still produced zero strict topology links and therefore need collection review
 
-## 12) Do not mix HBOM with software project types
+## 13) Do not mix HBOM with software project types
 
 HBOM must be generated separately from software project types.
 
@@ -204,7 +224,7 @@ Or use the dedicated merged-host option when the second inventory is the local r
 hbom --include-runtime -o host-view.json
 ```
 
-## 13) What to inspect in the resulting BOM
+## 14) What to inspect in the resulting BOM
 
 A generated HBOM typically includes:
 
@@ -223,9 +243,10 @@ In a merged host view, also inspect:
 
 In dry-run mode, expect the same overall structure, but with fewer command-derived attributes and an activity summary that lists each blocked probe explicitly.
 
-## 14) Practical next steps
+## 15) Practical next steps
 
 - Use `hbom --include-runtime` when you need one explainable, topology-aware host document instead of two separate files.
 - Use `hbom diagnostics` before enabling `--privileged` so you can justify the extra permissions with concrete missing-command or permission-denied evidence.
+- In secure mode, treat `hbom --dry-run` as the authoritative allowlist review step before enabling live host collection.
 - Keep software SBOM generation separate from HBOM/OBOM host collection.
 - Review redaction-sensitive runs before sharing BOMs outside your organization.
