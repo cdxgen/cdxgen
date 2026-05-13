@@ -73,6 +73,28 @@ Enable Darwin plist enrichment on Apple Silicon:
 hbom --platform darwin --arch arm64 --plist-enrichment -o mac-hbom.json
 ```
 
+Generate an HBOM and immediately audit it with the built-in hardware rules:
+
+```shell
+cdxgen -t hbom -o hbom.json --bom-audit .
+```
+
+Audit only the security-oriented HBOM findings:
+
+```shell
+cdxgen -t hbom -o hbom.json --bom-audit --bom-audit-categories hbom-security .
+```
+
+## HBOM audit categories
+
+When you run `cdxgen -t hbom --bom-audit` without specifying categories, cdxgen automatically enables the three built-in HBOM review packs:
+
+- `hbom-security` — encryption, removable media, weak wireless security, and raw identifier exposure
+- `hbom-performance` — storage headroom, storage wear/health, thermal pressure, battery degradation, wired-link negotiation, and memory-online drift
+- `hbom-compliance` — asset identity completeness, firmware/board provenance, collector evidence completeness, storage encryption evidence, and identifier-policy governance
+
+You can also use `--bom-audit-categories hbom` as a shorthand alias for all three.
+
 ## Validation and safety notes
 
 - HBOM generation currently targets **CycloneDX 1.7**.

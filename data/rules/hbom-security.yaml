@@ -1,0 +1,165 @@
+# HBOM Security Rules
+# Category: hbom-security
+# Evaluates host hardware inventory for encryption, removable-media, wireless, and disclosure risks.
+
+- id: HBS-001
+  name: "Storage component is explicitly unencrypted"
+  description: "System or attached storage reported as unencrypted increases exposure for lost, stolen, or offline-access devices."
+  severity: high
+  category: hbom-security
+  dry-run-support: full
+  standards:
+    nist-800-53:
+      - "SC-28 Protection of Information at Rest"
+    cis-controls-v8:
+      - "3.11 Encrypt Sensitive Data at Rest"
+    iso-27001:
+      - "A.8.24 Use of cryptography"
+  condition: |
+    components[
+      (
+        $prop($, 'cdx:hbom:hardwareClass') = 'storage'
+        or $prop($, 'cdx:hbom:hardwareClass') = 'storage-volume'
+      )
+      and (
+        $safeStr($prop($, 'cdx:hbom:isEncrypted')) = 'false'
+        or $safeStr($prop($, 'cdx:hbom:fileVault')) = 'false'
+      )
+    ]
+  location: |
+    {
+      "bomRef": $firstNonEmpty($."bom-ref", bom.serialNumber)
+    }
+  message: "Storage component '{{ name }}' is reported as unencrypted"
+  mitigation: "Enable full-disk or volume encryption, verify escrow/recovery procedures, and confirm the device is enrolled in the intended encryption baseline."
+  evidence: |
+    {
+      "hardwareClass": $prop($, 'cdx:hbom:hardwareClass'),
+      "isEncrypted": $prop($, 'cdx:hbom:isEncrypted'),
+      "fileVault": $prop($, 'cdx:hbom:fileVault'),
+      "volumeUuid": $prop($, 'cdx:hbom:volumeUuid'),
+      "deviceSerial": $prop($, 'cdx:hbom:deviceSerial')
+    }
+
+- id: HBS-002
+  name: "Connected wireless adapter uses weak or missing link security"
+  description: "Wireless adapters connected without strong link security indicate elevated interception and unauthorized access risk."
+  severity: high
+  category: hbom-security
+  dry-run-support: full
+  standards:
+    nist-800-53:
+      - "AC-18 Wireless Access"
+      - "SC-13 Cryptographic Protection"
+  condition: |
+    components[
+      $prop($, 'cdx:hbom:hardwareClass') = 'wireless-adapter'
+      and $safeStr($prop($, 'cdx:hbom:connected')) = 'true'
+      and (
+        $safeStr($prop($, 'cdx:hbom:securityMode')) = ''
+        or $contains($lowercase($safeStr($prop($, 'cdx:hbom:securityMode'))), 'open')
+        or $contains($lowercase($safeStr($prop($, 'cdx:hbom:securityMode'))), 'wep')
+        or $contains($lowercase($safeStr($prop($, 'cdx:hbom:securityMode'))), 'none')
+      )
+    ]
+  location: |
+    {
+      "bomRef": $firstNonEmpty($."bom-ref", bom.serialNumber)
+    }
+  message: "Wireless adapter '{{ name }}' is connected with weak or missing security mode '{{ $firstNonEmpty($prop($, 'cdx:hbom:securityMode'), 'unknown') }}'"
+  mitigation: "Move the device to WPA2/WPA3-class protections, review SSID policy, and confirm that open or legacy wireless modes are not permitted for the host profile."
+  evidence: |
+    {
+      "securityMode": $prop($, 'cdx:hbom:securityMode'),
+      "channel": $prop($, 'cdx:hbom:channel'),
+      "phyMode": $prop($, 'cdx:hbom:phyMode'),
+      "countryCode": $prop($, 'cdx:hbom:countryCode'),
+      "firmwareVersion": $prop($, 'cdx:hbom:firmwareVersion')
+    }
+
+- id: HBS-003
+  name: "Removable storage is attached without encryption or lock evidence"
+  description: "Attached removable storage that is explicitly unlocked or unencrypted increases data-exfiltration and malware-ingress risk."
+  severity: high
+  category: hbom-security
+  dry-run-support: full
+  standards:
+    nist-800-53:
+      - "MP-7 Media Use"
+      - "SC-28 Protection of Information at Rest"
+    cis-controls-v8:
+      - "10.4 Restrict and Monitor Use of Removable Media"
+  condition: |
+    components[
+      (
+        $prop($, 'cdx:hbom:hardwareClass') = 'storage'
+        or $prop($, 'cdx:hbom:hardwareClass') = 'storage-volume'
+      )
+      and $safeStr($prop($, 'cdx:hbom:isRemovable')) = 'true'
+      and (
+        $safeStr($prop($, 'cdx:hbom:isEncrypted')) = 'false'
+        or $safeStr($prop($, 'cdx:hbom:isLocked')) = 'false'
+      )
+    ]
+  location: |
+    {
+      "bomRef": $firstNonEmpty($."bom-ref", bom.serialNumber)
+    }
+  message: "Removable storage '{{ name }}' is attached without encryption or lock assurance"
+  mitigation: "Remove unapproved removable media, require encrypted removable devices, and verify the host's removable-media control policy."
+  evidence: |
+    {
+      "isRemovable": $prop($, 'cdx:hbom:isRemovable'),
+      "isEncrypted": $prop($, 'cdx:hbom:isEncrypted'),
+      "isLocked": $prop($, 'cdx:hbom:isLocked'),
+      "connectionType": $prop($, 'cdx:hbom:connectionType'),
+      "transport": $prop($, 'cdx:hbom:transport')
+    }
+
+- id: HBS-004
+  name: "HBOM exposes raw hardware identifiers"
+  description: "Raw serial numbers, MAC addresses, or platform UUIDs in the BOM can leak asset intelligence beyond the intended audience."
+  severity: medium
+  category: hbom-security
+  dry-run-support: full
+  condition: |
+    $append(
+      metadata.component[
+        (
+          $hasProp($, 'cdx:hbom:serialNumber')
+          and $not($startsWith($safeStr($prop($, 'cdx:hbom:serialNumber')), 'redacted'))
+        )
+        or (
+          $hasProp($, 'cdx:hbom:platformUuid')
+          and $not($startsWith($safeStr($prop($, 'cdx:hbom:platformUuid')), 'redacted'))
+        )
+      ],
+      components[
+      (
+        $hasProp($, 'cdx:hbom:serialNumber')
+        and $not($startsWith($safeStr($prop($, 'cdx:hbom:serialNumber')), 'redacted'))
+      )
+      or (
+        $hasProp($, 'cdx:hbom:macAddress')
+        and $not($startsWith($safeStr($prop($, 'cdx:hbom:macAddress')), 'redacted'))
+      )
+      or (
+        $hasProp($, 'cdx:hbom:deviceSerial')
+        and $not($startsWith($safeStr($prop($, 'cdx:hbom:deviceSerial')), 'redacted'))
+      )
+      ]
+    )
+  location: |
+    {
+      "bomRef": $firstNonEmpty($."bom-ref", metadata.component."bom-ref", bom.serialNumber)
+    }
+  message: "HBOM entry '{{ name }}' exposes raw hardware identifiers that should be reviewed before distribution"
+  mitigation: "Use redacted identifier mode for externally shared HBOMs and restrict raw identifiers to tightly controlled internal asset workflows."
+  evidence: |
+    {
+      "identifierPolicy": $firstNonEmpty($prop($, 'cdx:hbom:identifierPolicy'), $prop(metadata.component, 'cdx:hbom:identifierPolicy')),
+      "serialNumber": $prop($, 'cdx:hbom:serialNumber'),
+      "macAddress": $prop($, 'cdx:hbom:macAddress'),
+      "deviceSerial": $prop($, 'cdx:hbom:deviceSerial'),
+      "platformUuid": $prop(metadata.component, 'cdx:hbom:platformUuid')
+    }

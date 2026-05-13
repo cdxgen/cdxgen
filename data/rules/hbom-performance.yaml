@@ -1,0 +1,205 @@
+# HBOM Performance Rules
+# Category: hbom-performance
+# Evaluates hardware inventory for storage, thermal, battery, network, and memory degradation signals.
+
+- id: HBP-001
+  name: "Storage volume has low free capacity headroom"
+  description: "Low free storage headroom can degrade builds, patching, logging, indexing, and general host responsiveness."
+  severity: medium
+  category: hbom-performance
+  dry-run-support: full
+  condition: |
+    components[
+      $prop($, 'cdx:hbom:hardwareClass') = 'storage-volume'
+      and $hasProp($, 'cdx:hbom:capacityBytes')
+      and $hasProp($, 'cdx:hbom:freeBytes')
+      and $number($prop($, 'cdx:hbom:capacityBytes')) > 0
+      and ($number($prop($, 'cdx:hbom:freeBytes')) / $number($prop($, 'cdx:hbom:capacityBytes'))) < 0.15
+    ]
+  location: |
+    {
+      "bomRef": $firstNonEmpty($."bom-ref", bom.serialNumber)
+    }
+  message: "Storage volume '{{ name }}' has less than 15% free capacity remaining"
+  mitigation: "Free local capacity, move caches or logs off the volume, or expand storage before performance and maintenance tasks degrade further."
+  evidence: |
+    {
+      "capacityBytes": $prop($, 'cdx:hbom:capacityBytes'),
+      "freeBytes": $prop($, 'cdx:hbom:freeBytes'),
+      "sizeBytes": $prop($, 'cdx:hbom:sizeBytes'),
+      "volumeUuid": $prop($, 'cdx:hbom:volumeUuid')
+    }
+
+- id: HBP-002
+  name: "Storage health is degraded or wear is near exhaustion"
+  description: "Degraded SMART state or high wear percentage is a strong leading indicator of latency, failure, or replacement pressure."
+  severity: high
+  category: hbom-performance
+  dry-run-support: full
+  condition: |
+    components[
+      (
+        $prop($, 'cdx:hbom:hardwareClass') = 'storage'
+        or $prop($, 'cdx:hbom:hardwareClass') = 'storage-device'
+        or $prop($, 'cdx:hbom:hardwareClass') = 'storage-volume'
+      )
+      and (
+        (
+          $hasProp($, 'cdx:hbom:smartStatus')
+          and $not(
+            $lowercase($safeStr($prop($, 'cdx:hbom:smartStatus'))) = 'verified'
+            or $lowercase($safeStr($prop($, 'cdx:hbom:smartStatus'))) = 'ok'
+            or $lowercase($safeStr($prop($, 'cdx:hbom:smartStatus'))) = 'passed'
+          )
+        )
+        or (
+          $hasProp($, 'cdx:hbom:wearPercentageUsed')
+          and $number($prop($, 'cdx:hbom:wearPercentageUsed')) >= 80
+        )
+      )
+    ]
+  location: |
+    {
+      "bomRef": $firstNonEmpty($."bom-ref", bom.serialNumber)
+    }
+  message: "Storage component '{{ name }}' shows degraded health or high wear"
+  mitigation: "Review SMART telemetry, schedule replacement for worn media, and move latency-sensitive workloads off the affected device."
+  evidence: |
+    {
+      "smartStatus": $prop($, 'cdx:hbom:smartStatus'),
+      "wearPercentageUsed": $prop($, 'cdx:hbom:wearPercentageUsed'),
+      "revision": $prop($, 'cdx:hbom:revision'),
+      "deviceSerial": $prop($, 'cdx:hbom:deviceSerial')
+    }
+
+- id: HBP-003
+  name: "Thermal zone reports sustained high temperature"
+  description: "High thermal-zone temperatures can trigger throttling, instability, and accelerated hardware wear."
+  severity: high
+  category: hbom-performance
+  dry-run-support: full
+  condition: |
+    components[
+      (
+        $prop($, 'cdx:hbom:hardwareClass') = 'thermal-zone'
+        or $prop($, 'cdx:hbom:hardwareClass') = 'sensor'
+      )
+      and $hasProp($, 'cdx:hbom:temperatureCelsius')
+      and $number($prop($, 'cdx:hbom:temperatureCelsius')) >= 85
+    ]
+  location: |
+    {
+      "bomRef": $firstNonEmpty($."bom-ref", bom.serialNumber)
+    }
+  message: "Thermal component '{{ name }}' reports high temperature '{{ $prop($, 'cdx:hbom:temperatureCelsius') }}°C'"
+  mitigation: "Inspect cooling, fan policy, dust buildup, and workload placement before the host begins sustained throttling or thermal shutdown behavior."
+  evidence: |
+    {
+      "temperatureCelsius": $prop($, 'cdx:hbom:temperatureCelsius'),
+      "temperatureReadings": $prop($, 'cdx:hbom:temperatureReadings'),
+      "fanCount": $prop($, 'cdx:hbom:fanCount'),
+      "fanReadings": $prop($, 'cdx:hbom:fanReadings')
+    }
+
+- id: HBP-004
+  name: "Battery health is degraded"
+  description: "Battery packs with low maximum capacity, poor health, or extreme cycle counts can materially degrade mobile system performance and runtime."
+  severity: medium
+  category: hbom-performance
+  dry-run-support: full
+  condition: |
+    components[
+      $prop($, 'cdx:hbom:hardwareClass') = 'power'
+      and (
+        (
+          $hasProp($, 'cdx:hbom:maximumCapacity')
+          and $number($substringBefore($prop($, 'cdx:hbom:maximumCapacity'), '%')) < 80
+        )
+        or (
+          $hasProp($, 'cdx:hbom:health')
+          and $not($lowercase($safeStr($prop($, 'cdx:hbom:health'))) = 'good')
+        )
+        or (
+          $hasProp($, 'cdx:hbom:cycleCount')
+          and $number($prop($, 'cdx:hbom:cycleCount')) >= 1000
+        )
+      )
+    ]
+  location: |
+    {
+      "bomRef": $firstNonEmpty($."bom-ref", bom.serialNumber)
+    }
+  message: "Battery component '{{ name }}' shows degraded health or elevated lifecycle wear"
+  mitigation: "Recalibrate or replace the battery, verify charging policy, and keep performance-sensitive mobile workloads off batteries nearing replacement thresholds."
+  evidence: |
+    {
+      "maximumCapacity": $prop($, 'cdx:hbom:maximumCapacity'),
+      "health": $prop($, 'cdx:hbom:health'),
+      "cycleCount": $prop($, 'cdx:hbom:cycleCount'),
+      "chargePercent": $prop($, 'cdx:hbom:chargePercent')
+    }
+
+- id: HBP-005
+  name: "Active wired link is operating below expected duplex or bandwidth"
+  description: "Half-duplex or very low negotiated wired-link speed often correlates with cable, switch, or interface misconfiguration that hurts throughput and latency."
+  severity: medium
+  category: hbom-performance
+  dry-run-support: full
+  condition: |
+    components[
+      $prop($, 'cdx:hbom:hardwareClass') = 'network-interface'
+      and (
+        $lowercase($safeStr($prop($, 'cdx:hbom:status'))) = 'active'
+        or $lowercase($safeStr($prop($, 'cdx:hbom:operState'))) = 'up'
+      )
+      and (
+        $lowercase($safeStr($prop($, 'cdx:hbom:duplex'))) = 'half'
+        or (
+          $hasProp($, 'cdx:hbom:speedMbps')
+          and $number($prop($, 'cdx:hbom:speedMbps')) > 0
+          and $number($prop($, 'cdx:hbom:speedMbps')) < 1000
+        )
+      )
+    ]
+  location: |
+    {
+      "bomRef": $firstNonEmpty($."bom-ref", bom.serialNumber)
+    }
+  message: "Active wired interface '{{ name }}' is operating with degraded duplex or bandwidth characteristics"
+  mitigation: "Check cabling, switch configuration, NIC driver/firmware, and negotiated link settings before treating application latency as purely software-related."
+  evidence: |
+    {
+      "duplex": $prop($, 'cdx:hbom:duplex'),
+      "speedMbps": $prop($, 'cdx:hbom:speedMbps'),
+      "status": $prop($, 'cdx:hbom:status'),
+      "operState": $prop($, 'cdx:hbom:operState'),
+      "driver": $prop($, 'cdx:hbom:driver')
+    }
+
+- id: HBP-006
+  name: "Installed memory is only partially online"
+  description: "A significant gap between installed and online memory suggests capacity loss, firmware drift, or topology issues that can affect performance-critical workloads."
+  severity: high
+  category: hbom-performance
+  dry-run-support: full
+  condition: |
+    components[
+      $prop($, 'cdx:hbom:hardwareClass') = 'memory'
+      and $hasProp($, 'cdx:hbom:sizeBytes')
+      and $hasProp($, 'cdx:hbom:memoryOnlineSize')
+      and $number($prop($, 'cdx:hbom:sizeBytes')) > 0
+      and ($number($prop($, 'cdx:hbom:memoryOnlineSize')) / $number($prop($, 'cdx:hbom:sizeBytes'))) < 0.9
+    ]
+  location: |
+    {
+      "bomRef": $firstNonEmpty($."bom-ref", bom.serialNumber)
+    }
+  message: "Memory component '{{ name }}' reports materially less online capacity than installed capacity"
+  mitigation: "Review DIMM population, firmware, NUMA/memory-hotplug settings, and kernel memory-online state before scaling workloads on the host."
+  evidence: |
+    {
+      "sizeBytes": $prop($, 'cdx:hbom:sizeBytes'),
+      "memoryOnlineSize": $prop($, 'cdx:hbom:memoryOnlineSize'),
+      "memoryRangeCount": $prop($, 'cdx:hbom:memoryRangeCount'),
+      "addressSizes": $prop($, 'cdx:hbom:addressSizes')
+    }

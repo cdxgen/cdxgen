@@ -1,0 +1,176 @@
+# HBOM Compliance and Governance Rules
+# Category: hbom-compliance
+# Evaluates hardware inventory completeness, redaction posture, and governance-ready evidence.
+
+- id: HBC-001
+  name: "HBOM inventory lacks firmware or board provenance"
+  description: "Incomplete firmware or board provenance weakens auditability for hardware refresh, attestation, and patch-governance workflows."
+  severity: medium
+  category: hbom-compliance
+  dry-run-support: full
+  standards:
+    nist-800-53:
+      - "CM-8 System Component Inventory"
+      - "SI-7 Software, Firmware, and Information Integrity"
+    cis-controls-v8:
+      - "1.1 Establish and Maintain Detailed Enterprise Asset Inventory"
+  condition: |
+    metadata.component[
+      $safeStr($prop($, 'cdx:hbom:platform')) = 'linux'
+      and $count(
+        $$.components[
+          $prop($, 'cdx:hbom:hardwareClass') = 'board'
+          and (
+            $hasProp($, 'cdx:hbom:boardVendor')
+            or $hasProp($, 'cdx:hbom:boardName')
+            or $hasProp($, 'cdx:hbom:biosVendor')
+            or $hasProp($, 'cdx:hbom:biosVersion')
+            or $hasProp($, 'cdx:hbom:firmwareDate')
+          )
+        ]
+      ) = 0
+    ]
+  location: |
+    {
+      "bomRef": $firstNonEmpty($."bom-ref", bom.serialNumber)
+    }
+  message: "HBOM for '{{ name }}' lacks board or firmware provenance fields needed for governance review"
+  mitigation: "Enable richer firmware/board collection on supported Linux hosts, validate SMBIOS access, and ensure the inventory captures board vendor, board name, BIOS vendor, BIOS version, and firmware date where available."
+  evidence: |
+    {
+      "platform": $prop($, 'cdx:hbom:platform'),
+      "architecture": $prop($, 'cdx:hbom:architecture'),
+      "collectorProfile": $prop(bom, 'cdx:hbom:collectorProfile'),
+      "boardComponentCount": $count($$.components[$prop($, 'cdx:hbom:hardwareClass') = 'board'])
+    }
+
+- id: HBC-002
+  name: "Managed asset identity is incomplete"
+  description: "HBOMs used for fleet governance should capture stable host identity fields such as model, platform, and serial or asset identifiers."
+  severity: medium
+  category: hbom-compliance
+  dry-run-support: full
+  standards:
+    nist-800-53:
+      - "CM-8 System Component Inventory"
+    cis-controls-v8:
+      - "1.1 Establish and Maintain Detailed Enterprise Asset Inventory"
+    iso-27001:
+      - "A.5.9 Inventory of information and other associated assets"
+  condition: |
+    metadata.component[
+      type = 'device'
+      and (
+        $not($hasProp($, 'cdx:hbom:platform'))
+        or $not($hasProp($, 'cdx:hbom:architecture'))
+        or (
+          $not($hasProp($, 'cdx:hbom:serialNumber'))
+          and $not($hasProp($, 'cdx:hbom:platformUuid'))
+          and $not($hasProp($, 'cdx:hbom:assetTag'))
+        )
+      )
+    ]
+  location: |
+    {
+      "bomRef": $firstNonEmpty($."bom-ref", bom.serialNumber)
+    }
+  message: "HBOM metadata for '{{ name }}' is missing stable asset identity fields required for governance workflows"
+  mitigation: "Capture platform, architecture, and at least one durable host identifier (serial, platform UUID, or asset tag) so the device can be reconciled with CMDB and lifecycle systems."
+  evidence: |
+    {
+      "platform": $prop($, 'cdx:hbom:platform'),
+      "architecture": $prop($, 'cdx:hbom:architecture'),
+      "serialNumber": $prop($, 'cdx:hbom:serialNumber'),
+      "platformUuid": $prop($, 'cdx:hbom:platformUuid'),
+      "assetTag": $prop($, 'cdx:hbom:assetTag')
+    }
+
+- id: HBC-003
+  name: "HBOM collector evidence is incomplete"
+  description: "Governance review is weaker when the BOM omits the collector command evidence used to derive the hardware inventory."
+  severity: medium
+  category: hbom-compliance
+  dry-run-support: full
+  condition: |
+    metadata.component[
+      type = 'device'
+      and (
+        $not($hasProp(bom, 'cdx:hbom:evidence:commandCount'))
+        or $number($prop(bom, 'cdx:hbom:evidence:commandCount')) = 0
+        or $not($hasProp(bom, 'cdx:hbom:evidence:command'))
+      )
+    ]
+  location: |
+    {
+      "bomRef": $firstNonEmpty($."bom-ref", bom.serialNumber)
+    }
+  message: "HBOM for '{{ name }}' is missing collector command evidence needed for reproducible review"
+  mitigation: "Retain command-evidence metadata in the distributed BOM, or attach equivalent collection provenance so reviewers can understand how the hardware inventory was derived."
+  evidence: |
+    {
+      "collectorProfile": $prop(bom, 'cdx:hbom:collectorProfile'),
+      "commandCount": $prop(bom, 'cdx:hbom:evidence:commandCount'),
+      "commandEvidence": $prop(bom, 'cdx:hbom:evidence:command')
+    }
+
+- id: HBC-004
+  name: "Storage inventory lacks encryption posture evidence"
+  description: "Storage volumes without explicit encryption posture make it difficult to prove compliance with device and media protection requirements."
+  severity: medium
+  category: hbom-compliance
+  dry-run-support: full
+  standards:
+    nist-800-53:
+      - "SC-28 Protection of Information at Rest"
+      - "CM-8 System Component Inventory"
+  condition: |
+    metadata.component[
+      type = 'device'
+      and $count($$.components[$prop($, 'cdx:hbom:hardwareClass') = 'storage-volume']) > 0
+      and $count(
+        $$.components[
+          $prop($, 'cdx:hbom:hardwareClass') = 'storage-volume'
+          and (
+            $hasProp($, 'cdx:hbom:isEncrypted')
+            or $hasProp($, 'cdx:hbom:fileVault')
+          )
+        ]
+      ) = 0
+    ]
+  location: |
+    {
+      "bomRef": $firstNonEmpty($."bom-ref", bom.serialNumber)
+    }
+  message: "HBOM for '{{ name }}' includes storage volumes but no explicit encryption posture evidence"
+  mitigation: "Enable volume-level enrichment on supported platforms or pair the HBOM with equivalent host controls evidence so encryption compliance can be verified."
+  evidence: |
+    {
+      "storageVolumeCount": $count($$.components[$prop($, 'cdx:hbom:hardwareClass') = 'storage-volume']),
+      "collectorProfile": $prop(bom, 'cdx:hbom:collectorProfile'),
+      "platform": $prop($, 'cdx:hbom:platform')
+    }
+
+- id: HBC-005
+  name: "HBOM uses non-redacted identifier policy"
+  description: "HBOMs intended for broad distribution should avoid a non-redacted identifier policy unless raw identifiers are explicitly required by the receiving workflow."
+  severity: medium
+  category: hbom-compliance
+  dry-run-support: full
+  condition: |
+    metadata.component[
+      type = 'device'
+      and $hasProp($, 'cdx:hbom:identifierPolicy')
+      and $not($startsWith($lowercase($safeStr($prop($, 'cdx:hbom:identifierPolicy'))), 'redacted'))
+    ]
+  location: |
+    {
+      "bomRef": $firstNonEmpty($."bom-ref", bom.serialNumber)
+    }
+  message: "HBOM for '{{ name }}' uses identifier policy '{{ $prop($, 'cdx:hbom:identifierPolicy') }}' instead of a redacted posture"
+  mitigation: "Default distributed HBOMs to redacted identifiers and keep raw hardware identity values confined to internal asset-governance workflows with a documented need-to-know."
+  evidence: |
+    {
+      "identifierPolicy": $prop($, 'cdx:hbom:identifierPolicy'),
+      "serialNumber": $prop($, 'cdx:hbom:serialNumber'),
+      "platformUuid": $prop($, 'cdx:hbom:platformUuid')
+    }
