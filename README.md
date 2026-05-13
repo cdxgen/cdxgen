@@ -34,7 +34,7 @@ Supported output document formats:
 | Persona              | What cdxgen helps you do                                                               | First command                                                              | Read next                                                                                                 |
 | -------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- |
 | **Developers**       | Generate a CycloneDX BOM from a local repo, git URL, purl, or container image          | `cdxgen -o bom.json .`                                                     | [CLI Usage][docs-cli], [Supported Project Types][docs-project-types]                                      |
-| **Hardware teams**   | Generate an HBOM for the current host with hardware-aware enrichment                   | `hbom -o hbom.json`                                                        | [HBOM guide](docs/HBOM.md), [HBOM lesson](docs/LESSON13.md)                                               |
+| **Hardware teams**   | Generate an HBOM or merged HBOM+OBOM host view for the current host                    | `hbom -o hbom.json`                                                        | [HBOM guide](docs/HBOM.md), [HBOM lesson](docs/LESSON13.md)                                               |
 | **AppSec**           | Enrich BOMs with evidence, run BOM audit rules, and feed downstream security workflows | `cdxgen -o bom.json --profile appsec --evidence --bom-audit .`             | [BOM Audit](docs/BOM_AUDIT.md), [Threat Model](docs/THREAT_MODEL.md)                                      |
 | **SOC analysts**     | Build OBOM inventories for live hosts and triage runtime posture issues                | `obom -o obom.json --deep --bom-audit --bom-audit-categories obom-runtime` | [OBOM lessons](docs/OBOM_LESSONS.md), [Server Usage][docs-server]                                         |
 | **Compliance teams** | Validate BOM quality, check SCVS/CRA posture, and export SPDX deliverables             | `cdx-validate -i bom.json --benchmark scvs-l2,cra`                         | [cdx-validate](docs/CDX_VALIDATE.md), [cdx-convert](docs/CDX_CONVERT.md), [Permissions][docs-permissions] |
@@ -51,6 +51,7 @@ Supported output document formats:
 - Use `hbom` when you need a CycloneDX hardware inventory for the current host rather than a software dependency graph.
 - Start with the [HBOM guide](docs/HBOM.md) and the [HBOM lesson](docs/LESSON13.md) for supported platforms, enrichment options, and validation workflows.
 - Use `hbom --dry-run` first when you want a read-only partial HBOM plus an exact list of blocked hardware probe commands before a full collection run.
+- Use `hbom --include-runtime` when you want one topology-aware CycloneDX host document that merges hardware inventory with runtime evidence using strict, non-guessing joins.
 
 #### For AppSec
 
@@ -98,6 +99,7 @@ Sections include:
 - [Getting Started][docs-homepage]
 - [CLI Usage][docs-cli]
 - [HBOM Guide](docs/HBOM.md)
+- [Merged Host View Lesson](docs/LESSON13.md)
 - [Server Usage][docs-server]
 - [Hands-on Lessons](docs/LESSON8.md)
 - [Container Escape & Privilege Lesson](docs/LESSON9.md)
@@ -142,6 +144,8 @@ Installing `@cyclonedx/cdxgen` exposes these commands:
 Standalone GitHub release binaries are published for `cdxgen`, `cdxgen-slim`, `cdx-audit`, `cdx-convert`, `cdx-sign`, `cdx-validate`, and `cdx-verify`.
 
 `cdx-audit` is designed to accelerate upstream dependency review with explainable, evidence-backed risk prioritization. It complements provenance, reproducibility, and manual investigation rather than replacing them.
+
+For host inventories, `hbom --include-runtime` now produces a merged HBOM + OBOM view with strict topology links such as interface-name and driver-module matches, plus a `host-merged` BOM audit pack for higher-confidence host findings.
 
 To run cdxgen without installing (hotloading), use the [pnpm dlx](https://pnpm.io/cli/dlx) command.
 

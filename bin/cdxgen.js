@@ -255,6 +255,12 @@ const args = _yargs
     description:
       "Read-only mode. cdxgen only performs file reads and reports blocked writes, command execution, temp creation, network access, and submissions.",
   })
+  .option("include-runtime", {
+    type: "boolean",
+    default: false,
+    description:
+      "For HBOM runs, also collect OBOM runtime inventory and emit a merged host view with strict hardware/runtime topology links.",
+  })
   .option("activity-report", {
     choices: ["json", "jsonl"],
     description: "Render the activity report as JSON or JSON Lines.",

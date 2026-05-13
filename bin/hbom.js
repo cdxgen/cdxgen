@@ -5,6 +5,7 @@ import process from "node:process";
 import yargs from "yargs";
 import { hideBin } from "yargs/helpers";
 
+import { createHBom } from "../lib/cli/index.js";
 import { printActivitySummary } from "../lib/helpers/display.js";
 import { getOutputDirectory } from "../lib/helpers/exportUtils.js";
 import {
@@ -89,6 +90,12 @@ const args = _yargs
     type: "boolean",
     default: false,
   })
+  .option("include-runtime", {
+    description:
+      "Collect OBOM runtime inventory alongside the HBOM and emit a merged host view with strict topology links.",
+    type: "boolean",
+    default: false,
+  })
   .option("privileged", {
     description: "Enable privileged Linux SMBIOS enrichment via dmidecode.",
     type: "boolean",
@@ -158,6 +165,7 @@ const options = {
   arch: args.arch,
   dryRun: args.dryRun,
   noCommandEnrichment: args.noCommandEnrichment,
+  includeRuntime: args.includeRuntime,
   output: resolve(args.output),
   platform: args.platform,
   plistEnrichment: args.plistEnrichment,
@@ -188,8 +196,12 @@ if (options.dryRun) {
   thoughtLog(
     "Let's generate a Hardware Bill-of-Materials (HBOM) for this host.",
   );
-  const { createHbomDocument } = await import("../lib/helpers/hbom.js");
-  const bomJson = await createHbomDocument(options);
+  if (options.includeRuntime) {
+    thoughtLog(
+      "Let's also collect the runtime inventory so I can build a merged HBOM+OBOM host view without guessing relationships.",
+    );
+  }
+  const { bomJson } = await createHBom(process.cwd(), options);
   if (options.validate && !validateBom(bomJson)) {
     process.exit(1);
   }

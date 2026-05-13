@@ -1,6 +1,5 @@
 /**
- * Resolve the cdx-hbom module, preferring the local workspace checkout when the
- * installed dependency does not yet expose the newer trace API.
+ * Resolve the optional cdx-hbom module.
  *
  * @returns {Promise<object>} Loaded cdx-hbom module namespace.
  */

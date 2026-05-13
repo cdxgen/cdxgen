@@ -23,6 +23,12 @@ cdxgen -t hbom -o hbom.json --bom-audit .
 # Audit only the security-focused HBOM rules
 cdxgen -t hbom -o hbom.json --bom-audit --bom-audit-categories hbom-security .
 
+# Generate and audit a merged HBOM + OBOM host view
+cdxgen -t hbom --include-runtime -o host-view.json --bom-audit .
+
+# Audit only the merged host-topology rules
+cdxgen -t hbom --include-runtime -o host-view.json --bom-audit --bom-audit-categories host-merged .
+
 # Audit a previously generated HBOM with the full HBOM alias pack
 cdx-audit --bom hbom.json --direct-bom-audit --categories hbom
 
@@ -63,6 +69,7 @@ The categories that work best in dry-run mode are the formulation-centric ones:
 - `hbom-security`
 - `hbom-performance`
 - `hbom-compliance`
+- `host-merged`
 - `mcp-server`
 - `obom-runtime`
 - `vscode-extension`
@@ -143,6 +150,8 @@ Use the trusted-publishing switches to override the default:
 Passing both trusted switches together is invalid and causes cdxgen to exit with an error.
 
 HBOM-only runs are intentionally different: when `projectType` is `hbom`/`hardware` (or you use the dedicated `hbom` command), cdxgen skips the predictive dependency audit entirely and defaults the audit categories to `hbom-security,hbom-performance,hbom-compliance`.
+
+When you also pass `--include-runtime`, cdxgen keeps the same predictive-audit skip behavior but extends the default categories to `hbom-security,hbom-performance,hbom-compliance,host-merged`.
 
 ## Built-in rule categories
 
@@ -226,6 +235,18 @@ Notes for reviewers:
 - nested archives are surfaced as chained identities such as `outer.asar#/nested/core.asar#/src/main.js`
 - archive-internal paths are normalized to forward slashes, even when the outer archive lives on Windows
 - `cdx:asar:signingScope=header-only` means Electron signing evidence verifies the ASAR header hash scope, not all packed payload bytes
+
+### `host-merged` — Strict HBOM + OBOM host-view correlation
+
+Rules that only apply when a host BOM contains both hardware inventory and runtime inventory linked by explicit identifiers.
+
+| Rule    | Severity | Description                                                                                 |
+| ------- | -------- | ------------------------------------------------------------------------------------------- |
+| HMX-001 | medium   | A wired interface with live runtime address evidence is negotiated at degraded speed/duplex |
+| HMX-002 | high     | A wireless interface has live runtime address evidence while link security is weak          |
+| HMX-003 | medium   | A merged host view contains zero strict HBOM ↔ OBOM topology links                          |
+
+These rules are intentionally conservative. They rely on derived `cdx:hostview:*` properties produced only from exact, evidence-backed joins such as interface name and driver-module equality. They do **not** infer links from fuzzy naming similarity.
 
 ### `mcp-server` — MCP server exposure and trust posture
 

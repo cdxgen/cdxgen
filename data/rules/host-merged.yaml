@@ -1,0 +1,100 @@
+# Host Merged View Rules
+# Category: host-merged
+# Evaluates strict, evidence-backed insights derived from merged HBOM + OBOM inventories.
+
+- id: HMX-001
+  name: "Active wired interface with live runtime addresses is operating degraded"
+  description: "A wired interface that is actually carrying runtime addresses but is negotiated at low bandwidth or half duplex represents a higher-confidence performance issue than hardware inventory alone."
+  severity: medium
+  category: host-merged
+  dry-run-support: partial
+  condition: |
+    components[
+      $prop($, 'cdx:hbom:hardwareClass') = 'network-interface'
+      and $number($firstNonEmpty($prop($, 'cdx:hostview:interface_addresses:count'), '0')) > 0
+      and (
+        $lowercase($safeStr($prop($, 'cdx:hbom:duplex'))) = 'half'
+        or (
+          $hasProp($, 'cdx:hbom:speedMbps')
+          and $number($prop($, 'cdx:hbom:speedMbps')) > 0
+          and $number($prop($, 'cdx:hbom:speedMbps')) < 1000
+        )
+      )
+    ]
+  location: |
+    {
+      "bomRef": $firstNonEmpty($."bom-ref", bom.serialNumber)
+    }
+  message: "Interface '{{ name }}' has live runtime address evidence but negotiated degraded duplex or bandwidth characteristics"
+  mitigation: "Inspect cabling, switch policy, NIC firmware/driver, and negotiated link settings before treating the issue as application-only latency."
+  evidence: |
+    {
+      "runtimeAddressCount": $prop($, 'cdx:hostview:interface_addresses:count'),
+      "driver": $prop($, 'cdx:hbom:driver'),
+      "speedMbps": $prop($, 'cdx:hbom:speedMbps'),
+      "duplex": $prop($, 'cdx:hbom:duplex'),
+      "operState": $prop($, 'cdx:hbom:operState')
+    }
+
+- id: HMX-002
+  name: "Wireless interface with live runtime address uses weak or missing link security"
+  description: "Weak wireless security on an interface that also has runtime address evidence is a stronger exposure signal than hardware inventory alone."
+  severity: high
+  category: host-merged
+  dry-run-support: partial
+  condition: |
+    components[
+      (
+        $prop($, 'cdx:hbom:hardwareClass') = 'wireless-adapter'
+        or (
+          $prop($, 'cdx:hbom:hardwareClass') = 'network-interface'
+          and $hasProp($, 'cdx:hbom:securityMode')
+        )
+      )
+      and $number($firstNonEmpty($prop($, 'cdx:hostview:interface_addresses:count'), '0')) > 0
+      and (
+        $safeStr($prop($, 'cdx:hbom:securityMode')) = ''
+        or $contains($lowercase($safeStr($prop($, 'cdx:hbom:securityMode'))), 'open')
+        or $contains($lowercase($safeStr($prop($, 'cdx:hbom:securityMode'))), 'wep')
+        or $contains($lowercase($safeStr($prop($, 'cdx:hbom:securityMode'))), 'none')
+      )
+    ]
+  location: |
+    {
+      "bomRef": $firstNonEmpty($."bom-ref", bom.serialNumber)
+    }
+  message: "Wireless interface '{{ name }}' has live runtime address evidence while using weak or missing security mode '{{ $firstNonEmpty($prop($, 'cdx:hbom:securityMode'), 'unknown') }}'"
+  mitigation: "Move the interface to WPA2/WPA3-class protections, review SSID policy, and verify that actively routed wireless links meet enterprise security baselines."
+  evidence: |
+    {
+      "runtimeAddressCount": $prop($, 'cdx:hostview:interface_addresses:count'),
+      "securityMode": $prop($, 'cdx:hbom:securityMode'),
+      "channel": $prop($, 'cdx:hbom:channel'),
+      "phyMode": $prop($, 'cdx:hbom:phyMode')
+    }
+
+- id: HMX-003
+  name: "Merged host inventory lacks strict hardware/runtime topology links"
+  description: "When a merged HBOM+OBOM view contains no strict cross-domain topology links, reviewers should treat combined host conclusions cautiously and inspect collection coverage."
+  severity: medium
+  category: host-merged
+  dry-run-support: partial
+  condition: |
+    metadata.component[
+      type = 'device'
+      and $prop($, 'cdx:hostview:mode') = 'hbom-obom-merged'
+      and $number($firstNonEmpty($prop($, 'cdx:hostview:topologyLinkCount'), '0')) = 0
+    ]
+  location: |
+    {
+      "bomRef": $firstNonEmpty($."bom-ref", bom.serialNumber)
+    }
+  message: "Merged host inventory for '{{ name }}' contains no strict HBOM-to-OBOM topology links"
+  mitigation: "Review collector coverage, ensure runtime categories such as interface_addresses or kernel_modules are available, and prefer exact identifier-bearing probes over heuristic joins."
+  evidence: |
+    {
+      "hostViewMode": $prop($, 'cdx:hostview:mode'),
+      "hardwareComponentCount": $prop($, 'cdx:hostview:hardwareComponentCount'),
+      "runtimeComponentCount": $prop($, 'cdx:hostview:runtimeComponentCount'),
+      "topologyLinkCount": $prop($, 'cdx:hostview:topologyLinkCount')
+    }

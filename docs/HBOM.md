@@ -30,23 +30,30 @@ cdxgen -t hbom -o hbom.json .
 
 > `hbom` / `hardware` must **not** be mixed with software project types such as `js`, `java`, `python`, `os`, or `oci` in the same invocation.
 
+If you want a combined hardware + runtime host document, use the dedicated merged-host option instead of mixing project types manually:
+
+```shell
+hbom --include-runtime -o host-view.json
+```
+
 ## Common options
 
-| Option                    | Purpose                                                                                                   |
-| ------------------------- | --------------------------------------------------------------------------------------------------------- |
-| `-o, --output <file>`     | Write the generated HBOM to a file. Default: `hbom.json`                                                  |
-| `-p, --print`             | Print the generated HBOM to stdout instead of writing a file                                              |
-| `--pretty`                | Pretty-print JSON output                                                                                  |
-| `--validate`              | Validate the generated HBOM using the CycloneDX schema                                                    |
-| `--dry-run`               | Generate a read-only partial HBOM, block collector commands and writes, and report the attempted activity |
-| `--platform <value>`      | Override platform detection                                                                               |
-| `--arch <value>`          | Override architecture detection                                                                           |
-| `--sensitive`             | Include raw identifiers instead of redacted defaults                                                      |
-| `--no-command-enrichment` | Disable optional command-based enrichment                                                                 |
-| `--privileged`            | Enable privileged Linux SMBIOS enrichment via `dmidecode`                                                 |
-| `--plist-enrichment`      | Enable extra Darwin plist-based enrichment                                                                |
-| `--strict`                | Fail instead of returning partial results when enrichment fails                                           |
-| `--timeout <ms>`          | Per-command timeout                                                                                       |
+| Option                    | Purpose                                                                                                     |
+| ------------------------- | ----------------------------------------------------------------------------------------------------------- |
+| `-o, --output <file>`     | Write the generated HBOM to a file. Default: `hbom.json`                                                    |
+| `-p, --print`             | Print the generated HBOM to stdout instead of writing a file                                                |
+| `--pretty`                | Pretty-print JSON output                                                                                    |
+| `--validate`              | Validate the generated HBOM using the CycloneDX schema                                                      |
+| `--dry-run`               | Generate a read-only partial HBOM, block collector commands and writes, and report the attempted activity   |
+| `--include-runtime`       | Collect an OBOM runtime inventory alongside the HBOM and emit a merged host view with strict topology links |
+| `--platform <value>`      | Override platform detection                                                                                 |
+| `--arch <value>`          | Override architecture detection                                                                             |
+| `--sensitive`             | Include raw identifiers instead of redacted defaults                                                        |
+| `--no-command-enrichment` | Disable optional command-based enrichment                                                                   |
+| `--privileged`            | Enable privileged Linux SMBIOS enrichment via `dmidecode`                                                   |
+| `--plist-enrichment`      | Enable extra Darwin plist-based enrichment                                                                  |
+| `--strict`                | Fail instead of returning partial results when enrichment fails                                             |
+| `--timeout <ms>`          | Per-command timeout                                                                                         |
 
 ## Examples
 
@@ -54,6 +61,12 @@ Generate a local HBOM file:
 
 ```shell
 hbom -o hbom.json
+```
+
+Generate a merged host view that keeps HBOM hardware inventory and OBOM runtime evidence in a single CycloneDX document:
+
+```shell
+hbom --include-runtime -o host-view.json
 ```
 
 Print the generated document to stdout:
@@ -86,6 +99,12 @@ Generate an HBOM and immediately audit it with the built-in hardware rules:
 cdxgen -t hbom -o hbom.json --bom-audit .
 ```
 
+Generate a merged host view and include the new topology-aware host audit rules by default:
+
+```shell
+cdxgen -t hbom --include-runtime -o host-view.json --bom-audit .
+```
+
 Audit only the security-oriented HBOM findings:
 
 ```shell
@@ -100,7 +119,29 @@ When you run `cdxgen -t hbom --bom-audit` without specifying categories, cdxgen 
 - `hbom-performance` — storage headroom, storage wear/health, thermal pressure, battery degradation, wired-link negotiation, and memory-online drift
 - `hbom-compliance` — asset identity completeness, firmware/board provenance, collector evidence completeness, storage encryption evidence, and identifier-policy governance
 
-You can also use `--bom-audit-categories hbom` as a shorthand alias for all three.
+When you add `--include-runtime`, cdxgen also enables:
+
+- `host-merged` — higher-confidence findings derived from strict HBOM ↔ OBOM topology links such as live runtime addresses attached to weak wireless or degraded wired links
+
+You can also use `--bom-audit-categories hbom` as a shorthand alias for the three HBOM-only packs, or `--bom-audit-categories host` for `hbom-security,hbom-performance,hbom-compliance,host-merged`.
+
+## Merged host topology model
+
+`--include-runtime` does **not** guess relationships. Instead, cdxgen only emits cross-domain links when it has explicit evidence such as:
+
+- an HBOM network interface name that exactly matches OBOM `interface_addresses.interface`
+- an HBOM NIC driver that exactly matches an OBOM `kernel_modules` entry
+- exact identifier-bearing storage fields when both HBOM and OBOM expose the same stable value
+
+The merged document adds:
+
+- deterministic synthetic `bom-ref` values for HBOM components that previously lacked them
+- host/root dependency edges from `metadata.component` to hardware components
+- strict hardware → runtime dependency edges when exact matches exist
+- summary properties such as `cdx:hostview:mode`, `cdx:hostview:topologyLinkCount`, `cdx:hostview:linkedHardwareComponentCount`, and `cdx:hostview:linkedRuntimeCategory`
+- per-component properties such as `cdx:hostview:interface_addresses:count` and `cdx:hostview:kernel_modules:count` on linked interfaces
+
+This gives you a dependency tree and audit surface that are topology-aware without introducing speculative joins.
 
 ## Dry-run behavior
 
@@ -128,4 +169,5 @@ Use **OBOM** when your goal is to inventory the running operating system, runtim
 In practice:
 
 - `hbom` → hardware-centric host inventory
+- `hbom --include-runtime` → merged host inventory with strict hardware/runtime topology links
 - `obom` / `cdxgen -t os` → operational/runtime host inventory

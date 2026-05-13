@@ -26,6 +26,7 @@ You should see options for:
 - platform overrides (`--platform`, `--arch`)
 - enrichment (`--privileged`, `--plist-enrichment`, `--no-command-enrichment`)
 - identifier handling (`--sensitive`)
+- merged runtime view (`--include-runtime`)
 
 ## 3) Generate a baseline HBOM
 
@@ -113,7 +114,45 @@ The same native dry-run behavior is also available through the main CLI:
 cdxgen --dry-run -t hbom -p .
 ```
 
-## 9) Do not mix HBOM with software project types
+## 9) Build a merged HBOM + OBOM host view
+
+When you want one CycloneDX document that combines hardware inventory with runtime evidence for the same host, use `--include-runtime`:
+
+```shell
+hbom --include-runtime -o host-view.json
+```
+
+This runs the HBOM collector and the OBOM/osquery collector, then merges them with **strict topology links only**. cdxgen will not guess that two entries are related just because their names look similar.
+
+Examples of links that are allowed:
+
+- NIC name `wlp2s0` ↔ OBOM `interface_addresses.interface = wlp2s0`
+- HBOM driver `iwlwifi` ↔ OBOM `kernel_modules.name = iwlwifi`
+
+The merged document adds summary properties such as:
+
+- `cdx:hostview:mode = hbom-obom-merged`
+- `cdx:hostview:topologyLinkCount`
+- `cdx:hostview:linkedHardwareComponentCount`
+- `cdx:hostview:linkedRuntimeCategory`
+
+Linked interfaces also gain per-component properties such as `cdx:hostview:interface_addresses:count` and `cdx:hostview:kernel_modules:count`.
+
+## 10) Audit the merged host view
+
+The merged host view enables a new `host-merged` BOM audit category.
+
+```shell
+cdxgen -t hbom --include-runtime -o host-view.json --bom-audit .
+```
+
+With `--include-runtime`, cdxgen automatically adds `host-merged` to the default HBOM audit packs. These rules focus on higher-confidence host findings such as:
+
+- weak wireless security on interfaces that also have live runtime address evidence
+- degraded wired links that are clearly in active runtime use
+- merged host views that still produced zero strict topology links and therefore need collection review
+
+## 11) Do not mix HBOM with software project types
 
 HBOM must be generated separately from software project types.
 
@@ -130,7 +169,13 @@ hbom -o hbom.json
 cdxgen -t js -o bom.json .
 ```
 
-## 10) What to inspect in the resulting BOM
+Or use the dedicated merged-host option when the second inventory is the local runtime/OBOM view for the same host:
+
+```shell
+hbom --include-runtime -o host-view.json
+```
+
+## 12) What to inspect in the resulting BOM
 
 A generated HBOM typically includes:
 
@@ -139,10 +184,16 @@ A generated HBOM typically includes:
 - `cdx:hbom:*` properties describing hardware class and collected attributes
 - platform-level evidence properties showing which native commands contributed data
 
+In a merged host view, also inspect:
+
+- `dependencies` for host → hardware and hardware → runtime topology edges
+- `cdx:hostview:*` summary properties on the BOM and host metadata component
+- `cdx:hostview:*` per-interface properties that capture linked runtime address and driver-module evidence
+
 In dry-run mode, expect the same overall structure, but with fewer command-derived attributes and an activity summary that lists each blocked probe explicitly.
 
-## 11) Practical next steps
+## 13) Practical next steps
 
-- Pair `hbom` with `obom` when you want both hardware and runtime inventory for the same host.
-- Keep SBOM, HBOM, and OBOM generation as separate steps in CI or fleet workflows.
+- Use `hbom --include-runtime` when you need one explainable, topology-aware host document instead of two separate files.
+- Keep software SBOM generation separate from HBOM/OBOM host collection.
 - Review redaction-sensitive runs before sharing BOMs outside your organization.
