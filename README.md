@@ -50,6 +50,7 @@ Supported output document formats:
 
 - Use `hbom` when you need a CycloneDX hardware inventory for the current host rather than a software dependency graph.
 - Start with the [HBOM guide](docs/HBOM.md) and the [HBOM lesson](docs/LESSON13.md) for supported platforms, enrichment options, and validation workflows.
+- Use `hbom --dry-run` first when you want a read-only partial HBOM plus an exact list of blocked hardware probe commands before a full collection run.
 
 #### For AppSec
 

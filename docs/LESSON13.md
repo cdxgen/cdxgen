@@ -21,6 +21,7 @@ hbom --help
 You should see options for:
 
 - output control (`-o`, `-p`, `--pretty`)
+- read-only review (`--dry-run`)
 - validation (`--validate`)
 - platform overrides (`--platform`, `--arch`)
 - enrichment (`--privileged`, `--plist-enrichment`, `--no-command-enrichment`)
@@ -42,7 +43,23 @@ If you prefer stdout for quick inspection:
 hbom -p
 ```
 
-## 4) Validate the result
+## 4) Preview a read-only dry run
+
+When you want to inspect the planned hardware collection before allowing command execution or output writes:
+
+```shell
+hbom --dry-run
+```
+
+With the optional `@cdxgen/cdx-hbom` library, dry-run is handled inside the HBOM collector itself:
+
+- cdxgen still produces a **partial HBOM** from safe local discovery where possible
+- command-based probes are blocked and listed individually in the activity summary
+- output-file writes remain blocked
+
+This is especially useful on supported macOS and Linux hosts when you want to review exactly which collector commands would run before doing a full inventory.
+
+## 5) Validate the result
 
 The `hbom` command validates by default. If you want to validate the file again with the standalone validator:
 
@@ -50,7 +67,7 @@ The `hbom` command validates by default. If you want to validate the file again 
 cdx-validate -i hbom.json
 ```
 
-## 5) Use platform-specific enrichment carefully
+## 6) Use platform-specific enrichment carefully
 
 ### Apple Silicon macOS
 
@@ -70,7 +87,7 @@ hbom --platform linux --arch amd64 --privileged -o linux-hbom.json
 
 > `--privileged` may require elevated access or passwordless sudo depending on the system.
 
-## 6) Preserve sensitive identifiers only when necessary
+## 7) Preserve sensitive identifiers only when necessary
 
 By default, supported identifiers are redacted. If you explicitly need raw identifiers in the BOM:
 
@@ -80,7 +97,7 @@ hbom --sensitive -o hbom-sensitive.json
 
 Use this mode carefully before distributing the BOM externally.
 
-## 7) Use the main `cdxgen` command when needed
+## 8) Use the main `cdxgen` command when needed
 
 The same integration is available through the main CLI:
 
@@ -90,7 +107,13 @@ cdxgen -t hbom -o hbom.json .
 
 This is useful when your automation already standardizes on `cdxgen`.
 
-## 8) Do not mix HBOM with software project types
+The same native dry-run behavior is also available through the main CLI:
+
+```shell
+cdxgen --dry-run -t hbom -p .
+```
+
+## 9) Do not mix HBOM with software project types
 
 HBOM must be generated separately from software project types.
 
@@ -107,7 +130,7 @@ hbom -o hbom.json
 cdxgen -t js -o bom.json .
 ```
 
-## 9) What to inspect in the resulting BOM
+## 10) What to inspect in the resulting BOM
 
 A generated HBOM typically includes:
 
@@ -116,7 +139,9 @@ A generated HBOM typically includes:
 - `cdx:hbom:*` properties describing hardware class and collected attributes
 - platform-level evidence properties showing which native commands contributed data
 
-## 10) Practical next steps
+In dry-run mode, expect the same overall structure, but with fewer command-derived attributes and an activity summary that lists each blocked probe explicitly.
+
+## 11) Practical next steps
 
 - Pair `hbom` with `obom` when you want both hardware and runtime inventory for the same host.
 - Keep SBOM, HBOM, and OBOM generation as separate steps in CI or fleet workflows.

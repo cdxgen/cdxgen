@@ -43,6 +43,7 @@ Use `hbom` when you want a hardware BOM for the current host rather than a softw
 - Supported collector targets currently come from `@cdxgen/cdx-hbom` (`darwin/arm64`, `linux/amd64`, and `linux/arm64`).
 - `hbom` dynamically loads the optional hardware collector only when you invoke the command or request `cdxgen -t hbom`.
 - Do not mix `hbom` with software project types in the same run. Generate SBOMs and HBOMs separately.
+- `--dry-run` for HBOM still returns a read-only partial BOM when safe local discovery is possible, while blocking collector commands and output writes.
 
 Examples:
 
@@ -61,6 +62,7 @@ Use `--dry-run` when you want a read-only review of what cdxgen would attempt.
 - It blocks child-process execution, filesystem writes, temp-dir creation, repository cloning, protobuf export, signing, and remote submission.
 - At the end of the run, cdxgen prints an activity summary table that highlights what completed and what was intentionally blocked.
 - `--bom-audit` still runs the in-memory formulation audit in dry-run mode, but the predictive dependency audit only plans targets and skips registry metadata fetches, upstream repository cloning, and child SBOM generation.
+- HBOM dry-runs are more granular: the optional `@cdxgen/cdx-hbom` collector records the exact blocked hardware commands and can still return a partial hardware BOM from safe local discovery.
 
 Example:
 

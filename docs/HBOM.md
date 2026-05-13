@@ -32,21 +32,21 @@ cdxgen -t hbom -o hbom.json .
 
 ## Common options
 
-| Option                    | Purpose                                                            |
-| ------------------------- | ------------------------------------------------------------------ |
-| `-o, --output <file>`     | Write the generated HBOM to a file. Default: `hbom.json`           |
-| `-p, --print`             | Print the generated HBOM to stdout instead of writing a file       |
-| `--pretty`                | Pretty-print JSON output                                           |
-| `--validate`              | Validate the generated HBOM using the CycloneDX schema             |
-| `--dry-run`               | Report blocked HBOM collection and writes without probing the host |
-| `--platform <value>`      | Override platform detection                                        |
-| `--arch <value>`          | Override architecture detection                                    |
-| `--sensitive`             | Include raw identifiers instead of redacted defaults               |
-| `--no-command-enrichment` | Disable optional command-based enrichment                          |
-| `--privileged`            | Enable privileged Linux SMBIOS enrichment via `dmidecode`          |
-| `--plist-enrichment`      | Enable extra Darwin plist-based enrichment                         |
-| `--strict`                | Fail instead of returning partial results when enrichment fails    |
-| `--timeout <ms>`          | Per-command timeout                                                |
+| Option                    | Purpose                                                                                                   |
+| ------------------------- | --------------------------------------------------------------------------------------------------------- |
+| `-o, --output <file>`     | Write the generated HBOM to a file. Default: `hbom.json`                                                  |
+| `-p, --print`             | Print the generated HBOM to stdout instead of writing a file                                              |
+| `--pretty`                | Pretty-print JSON output                                                                                  |
+| `--validate`              | Validate the generated HBOM using the CycloneDX schema                                                    |
+| `--dry-run`               | Generate a read-only partial HBOM, block collector commands and writes, and report the attempted activity |
+| `--platform <value>`      | Override platform detection                                                                               |
+| `--arch <value>`          | Override architecture detection                                                                           |
+| `--sensitive`             | Include raw identifiers instead of redacted defaults                                                      |
+| `--no-command-enrichment` | Disable optional command-based enrichment                                                                 |
+| `--privileged`            | Enable privileged Linux SMBIOS enrichment via `dmidecode`                                                 |
+| `--plist-enrichment`      | Enable extra Darwin plist-based enrichment                                                                |
+| `--strict`                | Fail instead of returning partial results when enrichment fails                                           |
+| `--timeout <ms>`          | Per-command timeout                                                                                       |
 
 ## Examples
 
@@ -62,7 +62,7 @@ Print the generated document to stdout:
 hbom -p
 ```
 
-Review the requested host inventory without invoking the hardware collector or writing an output file:
+Review a read-only partial HBOM and the exact blocked collector commands without writing an output file:
 
 ```shell
 hbom --dry-run
@@ -102,13 +102,22 @@ When you run `cdxgen -t hbom --bom-audit` without specifying categories, cdxgen 
 
 You can also use `--bom-audit-categories hbom` as a shorthand alias for all three.
 
+## Dry-run behavior
+
+HBOM dry-run is handled natively by `@cdxgen/cdx-hbom`.
+
+- `hbom --dry-run` and `cdxgen --dry-run -t hbom` still build a **read-only partial HBOM** when the collector can rely on local file- or native API-backed discovery.
+- Command-based enrichment is blocked and reported per command in the activity summary, so you can see the exact planned hardware probes such as `sysctl`, `system_profiler`, `networksetup`, `pmset`, or `dmidecode`.
+- Filesystem writes remain blocked, so dry-run is safe for review-first workflows.
+- Because command execution is intentionally skipped, some command-derived hardware details may remain `unknown` or be absent until you rerun without `--dry-run`.
+
 ## Validation and safety notes
 
 - HBOM generation currently targets **CycloneDX 1.7**.
 - By default, the collector redacts sensitive identifiers such as serial numbers and MAC addresses where appropriate.
 - Use `--sensitive` only when you explicitly need raw identifiers in the resulting BOM.
 - Linux `--privileged` enrichment may require root or passwordless sudo depending on the target environment.
-- In `--dry-run` mode, cdxgen reports the blocked HBOM collection and skipped writes in the activity summary instead of probing the current host.
+- In `--dry-run` mode, cdxgen returns a partial HBOM from safe local discovery where available, reports each blocked HBOM command in the activity summary, and still skips filesystem writes.
 
 ## When to use HBOM vs OBOM
 

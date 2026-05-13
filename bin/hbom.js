@@ -180,7 +180,7 @@ setActivityContext({
 
 if (options.dryRun) {
   thoughtLog(
-    "HBOM dry-run mode is enabled. I must avoid invoking the hardware collector and filesystem writes.",
+    "HBOM dry-run mode is enabled. I must keep collection read-only, block command enrichment, and avoid filesystem writes.",
   );
 }
 
