@@ -6,6 +6,13 @@
  */
 export function hasHbomProjectType(projectTypes: string | string[] | undefined | null): boolean;
 /**
+ * Determine whether the supplied project types are exclusively HBOM-oriented.
+ *
+ * @param {string|string[]|undefined|null} projectTypes Project types.
+ * @returns {boolean} True when at least one project type is supplied and all are HBOM-oriented.
+ */
+export function isHbomOnlyProjectTypes(projectTypes: string | string[] | undefined | null): boolean;
+/**
  * Reject mixed HBOM and non-HBOM project types.
  *
  * @param {string|string[]|undefined|null} projectTypes Project types.

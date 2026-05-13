@@ -1,4 +1,11 @@
 /**
+ * Detect whether a BOM looks like an HBOM inventory.
+ *
+ * @param {object} bomJson CycloneDX BOM
+ * @returns {boolean} True when the BOM appears to represent hardware inventory
+ */
+export function isHbomLikeBom(bomJson: object): boolean;
+/**
  * Detect whether a BOM looks like an OBOM/runtime inventory.
  *
  * @param {object} bomJson CycloneDX BOM
