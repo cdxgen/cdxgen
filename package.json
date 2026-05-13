@@ -155,7 +155,7 @@
   },
   "devDependencies": {
     "@biomejs/biome": "2.4.14",
-    "esmock": "2.7.4",
+    "esmock": "2.7.5",
     "poku": "4.3.0",
     "sinon": "21.1.2",
     "typescript": "6.0.3"
