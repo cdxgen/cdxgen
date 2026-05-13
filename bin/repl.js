@@ -22,6 +22,11 @@ import {
   printVulnerabilities,
 } from "../lib/helpers/display.js";
 import {
+  formatHbomHardwareClassSummary,
+  getHbomSummary,
+  isHbomLikeBom,
+} from "../lib/helpers/hbomAnalysis.js";
+import {
   getPropertyValue,
   getSourceDerivedCryptoComponents,
   getUnpackagedExecutableComponents,
@@ -173,12 +178,27 @@ function printAuditTable(title, rows) {
   );
 }
 
+function printKeyValueTable(title, entries) {
+  const rows = [["Field", "Value"]];
+  entries.forEach(([field, value]) => {
+    if (value === undefined || value === null || value === "") {
+      return;
+    }
+    rows.push([field, `${value}`]);
+  });
+  printAuditTable(title, rows);
+}
+
 function isLikelyObom(bom) {
   return Boolean(
     bom?.components?.some((comp) =>
       comp?.properties?.some((prop) => prop?.name === "cdx:osquery:category"),
     ),
   );
+}
+
+function isLikelyHbom(bom) {
+  return isHbomLikeBom(bom);
 }
 
 function isLikelyCargoBom(bom) {
@@ -275,6 +295,11 @@ export const importSbom = (sbomOrPath) => {
       }
       console.log(`✅ ${bomType} imported successfully from ${importTarget}`);
       printSummary(sbom);
+      if (isLikelyHbom(sbom)) {
+        console.log(
+          "💭 HBOM detected. Try .hbomsummary, .hbomclasses, .hbomevidence, or .hbomtips",
+        );
+      }
       if (isLikelyObom(sbom)) {
         console.log(
           "💭 OBOM detected. Try .osinfocategories, .obomtips, .processes, or .services_snapshot",
@@ -328,6 +353,11 @@ if (process.argv.length > 2) {
   console.log(
     "💭 Type .provenance to list components with registry provenance evidence.",
   );
+  if (isLikelyHbom(sbom)) {
+    console.log(
+      "💭 Type .hbomsummary to review the host profile, evidence coverage, and hardware-class mix.",
+    );
+  }
   if (getAuditAnnotations().length) {
     console.log(
       "💭 Type .auditfindings to review cdx-audit and bom-audit annotations.",
@@ -341,6 +371,9 @@ if (process.argv.length > 2) {
   console.log("💭 Use .import <json> to import an existing BOM.");
   console.log(
     "💭 For OBOM investigations, try .obomtips after importing an OBOM.",
+  );
+  console.log(
+    "💭 For HBOM investigations, try .hbomtips after importing an HBOM.",
   );
   console.log("💭 Type .exit or press ctrl+d to close.");
 }
@@ -379,6 +412,11 @@ cdxgenRepl.defineCommand("create", {
       console.log(
         "💭 Type .provenance to list components with registry provenance evidence.",
       );
+      if (isLikelyHbom(sbom)) {
+        console.log(
+          "💭 Type .hbomsummary for a focused hardware inventory summary.",
+        );
+      }
       if (getAuditAnnotations().length) {
         console.log(
           "💭 Type .auditfindings to review cdx-audit and bom-audit annotations.",
@@ -412,6 +450,126 @@ cdxgenRepl.defineCommand("summary", {
       console.log(
         "⚠ No BOM is loaded. Use .import command to import an existing BOM",
       );
+    }
+    this.displayPrompt();
+  },
+});
+cdxgenRepl.defineCommand("hbomsummary", {
+  help: "summarize HBOM host metadata, evidence coverage, and hardware-class mix",
+  action() {
+    const interactiveBom = getInteractiveBom();
+    if (!interactiveBom) {
+      console.log(
+        "⚠ No BOM is loaded. Use .import command to import an existing BOM",
+      );
+      this.displayPrompt();
+      return;
+    }
+    if (!isLikelyHbom(interactiveBom)) {
+      console.log(
+        "This BOM does not look like an HBOM. Import an HBOM generated with 'cdxgen -t hbom' to use this view.",
+      );
+      this.displayPrompt();
+      return;
+    }
+    const hbomSummary = getHbomSummary(interactiveBom);
+    printKeyValueTable("HBOM summary", [
+      ["Host", hbomSummary.metadataName],
+      ["Component type", hbomSummary.metadataType],
+      ["Manufacturer", hbomSummary.manufacturer],
+      ["Platform", hbomSummary.platform],
+      ["Architecture", hbomSummary.architecture],
+      ["Collector profile", hbomSummary.collectorProfile],
+      ["Identifier policy", hbomSummary.identifierPolicy],
+      ["Component count", hbomSummary.componentCount],
+      ["Hardware class count", hbomSummary.hardwareClassCount],
+      [
+        "Top hardware classes",
+        formatHbomHardwareClassSummary(hbomSummary.hardwareClassCounts),
+      ],
+      ["Command evidence count", hbomSummary.evidenceCommandCount],
+      ["Observed file count", hbomSummary.evidenceFileCount],
+    ]);
+    this.displayPrompt();
+  },
+});
+cdxgenRepl.defineCommand("hbomclasses", {
+  help: "show HBOM component counts by hardware class",
+  action() {
+    const interactiveBom = getInteractiveBom();
+    if (!interactiveBom) {
+      console.log(
+        "⚠ No BOM is loaded. Use .import command to import an existing BOM",
+      );
+      this.displayPrompt();
+      return;
+    }
+    if (!isLikelyHbom(interactiveBom)) {
+      console.log(
+        "This BOM does not look like an HBOM. Import an HBOM generated with 'cdxgen -t hbom' to use this view.",
+      );
+      this.displayPrompt();
+      return;
+    }
+    const hbomSummary = getHbomSummary(interactiveBom);
+    if (!hbomSummary.hardwareClassCounts.length) {
+      console.log(
+        "No HBOM hardware classes were found on the loaded BOM. Check whether the document includes cdx:hbom:hardwareClass properties.",
+      );
+      this.displayPrompt();
+      return;
+    }
+    printAuditTable("HBOM hardware classes", [
+      ["Hardware class", "Count"],
+      ...hbomSummary.hardwareClassCounts.map(({ hardwareClass, count }) => [
+        hardwareClass,
+        `${count}`,
+      ]),
+    ]);
+    this.displayPrompt();
+  },
+});
+cdxgenRepl.defineCommand("hbomevidence", {
+  help: "show HBOM collector profile plus command and observed-file evidence",
+  action() {
+    const interactiveBom = getInteractiveBom();
+    if (!interactiveBom) {
+      console.log(
+        "⚠ No BOM is loaded. Use .import command to import an existing BOM",
+      );
+      this.displayPrompt();
+      return;
+    }
+    if (!isLikelyHbom(interactiveBom)) {
+      console.log(
+        "This BOM does not look like an HBOM. Import an HBOM generated with 'cdxgen -t hbom' to use this view.",
+      );
+      this.displayPrompt();
+      return;
+    }
+    const hbomSummary = getHbomSummary(interactiveBom);
+    printKeyValueTable("HBOM evidence overview", [
+      ["Collector profile", hbomSummary.collectorProfile],
+      ["Command evidence count", hbomSummary.evidenceCommandCount],
+      ["Observed file count", hbomSummary.evidenceFileCount],
+    ]);
+    if (hbomSummary.evidenceCommands.length) {
+      printAuditTable("HBOM command evidence", [
+        ["Command #", "Evidence"],
+        ...hbomSummary.evidenceCommands.map((command, index) => [
+          `${index + 1}`,
+          command,
+        ]),
+      ]);
+    }
+    if (hbomSummary.evidenceFiles.length) {
+      printAuditTable("HBOM observed files", [
+        ["File #", "Path"],
+        ...hbomSummary.evidenceFiles.map((filePath, index) => [
+          `${index + 1}`,
+          filePath,
+        ]),
+      ]);
     }
     this.displayPrompt();
   },
@@ -1165,6 +1323,23 @@ cdxgenRepl.defineCommand("obomtips", {
     console.log("4. .services / .print / .summary for quick pivots");
     console.log(
       "Tip: Generate with --bom-audit --bom-audit-categories obom-runtime for prioritized findings.",
+    );
+    this.displayPrompt();
+  },
+});
+cdxgenRepl.defineCommand("hbomtips", {
+  help: "show analyst tips and useful commands for HBOM investigations",
+  action() {
+    console.log("HBOM analyst quick guide:");
+    console.log("1. .hbomsummary");
+    console.log("2. .hbomclasses");
+    console.log("3. .hbomevidence");
+    console.log(
+      "4. .auditfindings to review hbom-security, hbom-performance, and hbom-compliance findings",
+    );
+    console.log("5. .search <hardwareClass or device name>");
+    console.log(
+      'Tip: .query components[properties[name="cdx:hbom:hardwareClass" and value="storage"]] filters directly by hardware class.',
     );
     this.displayPrompt();
   },
