@@ -146,7 +146,7 @@ Standalone GitHub release binaries are published for `cdxgen`, `cdxgen-slim`, `c
 
 `cdx-audit` is designed to accelerate upstream dependency review with explainable, evidence-backed risk prioritization. It complements provenance, reproducibility, and manual investigation rather than replacing them.
 
-For host inventories, `hbom --include-runtime` now produces a merged HBOM + OBOM view with strict topology links such as interface-name, driver-module, storage/runtime, and explicit secure-boot trust matches, plus a `host-topology` BOM audit pack for higher-confidence host findings. When the live hardware collector reports missing utilities or permission-sensitive enrichments, use `hbom diagnostics` (or inspect the derived `cdx:hbom:analysis:*` summary properties) before deciding whether a rerun with `--privileged` is justified.
+For host inventories, `hbom --include-runtime` produces a merged HBOM + OBOM view with strict topology links such as interface-name, driver-module, storage/runtime, and explicit secure-boot trust matches, plus a `host-topology` BOM audit pack for higher-confidence host findings. When the live hardware collector reports missing utilities or permission-sensitive enrichments, use `hbom diagnostics` (or inspect the derived `cdx:hbom:analysis:*` summary properties) before deciding whether a rerun with `--privileged` is justified.
 
 To run cdxgen without installing (hotloading), use the [pnpm dlx](https://pnpm.io/cli/dlx) command.
 
@@ -514,7 +514,7 @@ cdxgen can retain the dependency tree under the `dependencies` attribute for a s
 
 ## Plugins
 
-cdxgen could be extended with external binary plugins to support more SBOM use cases. These are now installed as an optional dependency.
+cdxgen could be extended with external binary plugins to support more SBOM use cases. These are installed as an optional dependency.
 
 ```shell
 sudo npm install -g @cdxgen/cdxgen-plugins-bin
@@ -523,7 +523,7 @@ sudo npm install -g @cdxgen/cdxgen-plugins-bin
 ## Plugins (pnpm)
 
 `cdxgen` can be extended with external binary plugins to support more SBOM use cases.  
-These are now installed as optional dependencies and can be used without a global install.
+These are installed as optional dependencies and can be used without a global install.
 
 ```shell
 pnpm dlx @cdxgen/cdxgen-plugins-bin
@@ -549,7 +549,7 @@ For offline or staged scans, point cdxgen at a locally reconstructed root filesy
 cdxgen /tmp/remote_target -o /tmp/bom.json -t rootfs
 ```
 
-With the packaged helpers installed, rootfs and container BOMs now gain repository trust-source components, deep keyring / CA-store `cryptographic-asset` components, native CycloneDX origin fields such as `supplier`, `manufacturer`, and `authors` for OS package trust metadata, plus additional package trust-state properties such as `PackageArchitecture`, `PackageSource`, and `PackageStatus`.
+With the packaged helpers installed, rootfs and container BOMs gain repository trust-source components, deep keyring / CA-store `cryptographic-asset` components, native CycloneDX origin fields such as `supplier`, `manufacturer`, and `authors` for OS package trust metadata, plus additional package trust-state properties such as `PackageArchitecture`, `PackageSource`, and `PackageStatus`.
 
 You can also pass the .tar file of a container image.
 
