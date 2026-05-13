@@ -88,7 +88,7 @@
       - "MP-7 Media Use"
       - "SC-28 Protection of Information at Rest"
     cis-controls-v8:
-      - "10.4 Restrict and Monitor Use of Removable Media"
+      - "3.9 Encrypt Data on Removable Media"
   condition: |
     components[
       (
