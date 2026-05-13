@@ -145,7 +145,7 @@ Standalone GitHub release binaries are published for `cdxgen`, `cdxgen-slim`, `c
 
 `cdx-audit` is designed to accelerate upstream dependency review with explainable, evidence-backed risk prioritization. It complements provenance, reproducibility, and manual investigation rather than replacing them.
 
-For host inventories, `hbom --include-runtime` now produces a merged HBOM + OBOM view with strict topology links such as interface-name and driver-module matches, plus a `host-merged` BOM audit pack for higher-confidence host findings.
+For host inventories, `hbom --include-runtime` now produces a merged HBOM + OBOM view with strict topology links such as interface-name, driver-module, storage/runtime, and explicit secure-boot trust matches, plus a `host-topology` BOM audit pack for higher-confidence host findings.
 
 To run cdxgen without installing (hotloading), use the [pnpm dlx](https://pnpm.io/cli/dlx) command.
 

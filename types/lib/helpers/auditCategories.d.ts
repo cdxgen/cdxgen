@@ -7,9 +7,11 @@ export function validateBomAuditCategories(categories: any, rules: any): {
     validCategories: any[];
 };
 export const HBOM_AUDIT_CATEGORIES: readonly string[];
+export const HOST_TOPOLOGY_AUDIT_CATEGORIES: readonly string[];
 export const DEFAULT_HBOM_AUDIT_CATEGORIES: string;
 export const BOM_AUDIT_CATEGORY_ALIASES: Readonly<{
     "ai-inventory": string[];
     hbom: string[];
+    host: string[];
 }>;
 //# sourceMappingURL=auditCategories.d.ts.map

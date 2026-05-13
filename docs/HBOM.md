@@ -53,7 +53,7 @@ hbom --include-runtime -o host-view.json
 | `--privileged`            | Enable privileged Linux SMBIOS enrichment via `dmidecode`                                                   |
 | `--plist-enrichment`      | Enable extra Darwin plist-based enrichment                                                                  |
 | `--strict`                | Fail instead of returning partial results when enrichment fails                                             |
-| `--timeout <ms>`          | Per-command timeout                                                                                         |
+| `--timeout <ms>`          | Per-command timeout. Increase this on slower hosts such as Raspberry Pi systems                             |
 
 ## Examples
 
@@ -67,6 +67,12 @@ Generate a merged host view that keeps HBOM hardware inventory and OBOM runtime 
 
 ```shell
 hbom --include-runtime -o host-view.json
+```
+
+Use a larger timeout on slower arm64 hosts when command-based collection needs more time:
+
+```shell
+hbom --include-runtime --timeout 180000 -o host-view.json
 ```
 
 Print the generated document to stdout:
@@ -121,9 +127,9 @@ When you run `cdxgen -t hbom --bom-audit` without specifying categories, cdxgen 
 
 When you add `--include-runtime`, cdxgen also enables:
 
-- `host-merged` — higher-confidence findings derived from strict HBOM ↔ OBOM topology links such as live runtime addresses attached to weak wireless or degraded wired links
+- `host-topology` — higher-confidence findings derived from strict HBOM ↔ OBOM topology links such as live runtime addresses attached to weak wireless or degraded wired links, mounted storage devices with degraded health, and explicit Secure Boot trust anchors tied to runtime certificate evidence
 
-You can also use `--bom-audit-categories hbom` as a shorthand alias for the three HBOM-only packs, or `--bom-audit-categories host` for `hbom-security,hbom-performance,hbom-compliance,host-merged`.
+You can also use `--bom-audit-categories hbom` as a shorthand alias for the three HBOM-only packs, or `--bom-audit-categories host` for `hbom-security,hbom-performance,hbom-compliance,host-topology`.
 
 ## Merged host topology model
 
@@ -131,15 +137,17 @@ You can also use `--bom-audit-categories hbom` as a shorthand alias for the thre
 
 - an HBOM network interface name that exactly matches OBOM `interface_addresses.interface`
 - an HBOM NIC driver that exactly matches an OBOM `kernel_modules` entry
-- exact identifier-bearing storage fields when both HBOM and OBOM expose the same stable value
+- exact identifier-bearing storage fields such as device nodes, volume UUIDs, mount paths, or logical-drive identifiers when both HBOM and OBOM expose the same stable value
+- explicit Secure Boot trust identifiers such as certificate fingerprints, subject-key IDs, serials, or paths when HBOM metadata and OBOM `secureboot_certificates` expose the same value
 
 The merged document adds:
 
 - deterministic synthetic `bom-ref` values for HBOM components that previously lacked them
 - host/root dependency edges from `metadata.component` to hardware components
 - strict hardware → runtime dependency edges when exact matches exist
+- strict host → Secure Boot trust dependency edges when HBOM metadata exposes exact Secure Boot identifiers that match runtime certificate evidence
 - summary properties such as `cdx:hostview:mode`, `cdx:hostview:topologyLinkCount`, `cdx:hostview:linkedHardwareComponentCount`, and `cdx:hostview:linkedRuntimeCategory`
-- per-component properties such as `cdx:hostview:interface_addresses:count` and `cdx:hostview:kernel_modules:count` on linked interfaces
+- per-component properties such as `cdx:hostview:interface_addresses:count`, `cdx:hostview:kernel_modules:count`, `cdx:hostview:mount_hardening:count`, and `cdx:hostview:runtime-storage:count` on linked interfaces or storage devices
 
 This gives you a dependency tree and audit surface that are topology-aware without introducing speculative joins.
 

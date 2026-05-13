@@ -113,7 +113,8 @@ const args = _yargs
     default: false,
   })
   .option("timeout", {
-    description: "Per-command timeout in milliseconds.",
+    description:
+      "Per-command timeout in milliseconds. Increase this on slower hosts such as Raspberry Pi systems.",
     type: "number",
   })
   .option("type", {

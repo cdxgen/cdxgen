@@ -1,12 +1,12 @@
-# Host Merged View Rules
-# Category: host-merged
+# Host Topology Rules
+# Category: host-topology
 # Evaluates strict, evidence-backed insights derived from merged HBOM + OBOM inventories.
 
 - id: HMX-001
   name: "Active wired interface with live runtime addresses is operating degraded"
   description: "A wired interface that is actually carrying runtime addresses but is negotiated at low bandwidth or half duplex represents a higher-confidence performance issue than hardware inventory alone."
   severity: medium
-  category: host-merged
+  category: host-topology
   dry-run-support: partial
   condition: |
     components[
@@ -40,7 +40,7 @@
   name: "Wireless interface with live runtime address uses weak or missing link security"
   description: "Weak wireless security on an interface that also has runtime address evidence is a stronger exposure signal than hardware inventory alone."
   severity: high
-  category: host-merged
+  category: host-topology
   dry-run-support: partial
   condition: |
     components[
@@ -77,7 +77,7 @@
   name: "Merged host inventory lacks strict hardware/runtime topology links"
   description: "When a merged HBOM+OBOM view contains no strict cross-domain topology links, reviewers should treat combined host conclusions cautiously and inspect collection coverage."
   severity: medium
-  category: host-merged
+  category: host-topology
   dry-run-support: partial
   condition: |
     metadata.component[
@@ -97,4 +97,69 @@
       "hardwareComponentCount": $prop($, 'cdx:hostview:hardwareComponentCount'),
       "runtimeComponentCount": $prop($, 'cdx:hostview:runtimeComponentCount'),
       "topologyLinkCount": $prop($, 'cdx:hostview:topologyLinkCount')
+    }
+
+- id: HMX-004
+  name: "Mounted storage with explicit runtime evidence is reporting degraded health"
+  description: "Storage health issues become higher-confidence operational findings when the hardware component is also linked to an active runtime mount or logical drive using exact identifiers."
+  severity: high
+  category: host-topology
+  dry-run-support: partial
+  condition: |
+    components[
+      (
+        $prop($, 'cdx:hbom:hardwareClass') = 'storage'
+        or $prop($, 'cdx:hbom:hardwareClass') = 'storage-device'
+        or $prop($, 'cdx:hbom:hardwareClass') = 'storage-volume'
+      )
+      and (
+        $number($firstNonEmpty($prop($, 'cdx:hostview:mount_hardening:count'), '0')) > 0
+        or $number($firstNonEmpty($prop($, 'cdx:hostview:runtime-storage:count'), '0')) > 0
+      )
+      and (
+        $contains($lowercase($safeStr($prop($, 'cdx:hbom:smartStatus'))), 'fail')
+        or $contains($lowercase($safeStr($prop($, 'cdx:hbom:health'))), 'degrad')
+        or $number($firstNonEmpty($prop($, 'cdx:hbom:wearPercentageUsed'), '0')) >= 90
+      )
+    ]
+  location: |
+    {
+      "bomRef": $firstNonEmpty($."bom-ref", bom.serialNumber)
+    }
+  message: "Storage component '{{ name }}' is explicitly linked to a runtime mount or drive while reporting degraded health telemetry"
+  mitigation: "Prioritize remediation for the backing device because the linked runtime mount evidence shows the degraded storage is actively in use."
+  evidence: |
+    {
+      "mountCount": $prop($, 'cdx:hostview:mount_hardening:count'),
+      "runtimeStorageCount": $prop($, 'cdx:hostview:runtime-storage:count'),
+      "smartStatus": $prop($, 'cdx:hbom:smartStatus'),
+      "health": $prop($, 'cdx:hbom:health'),
+      "wearPercentageUsed": $prop($, 'cdx:hbom:wearPercentageUsed')
+    }
+
+- id: HMX-005
+  name: "Explicit HBOM secure-boot trust anchor matches a revoked runtime Secure Boot certificate"
+  description: "When HBOM metadata carries an explicit Secure Boot certificate identifier that strictly links to runtime secureboot_certificates data, revoked trust anchors indicate a higher-confidence firmware trust issue."
+  severity: high
+  category: host-topology
+  dry-run-support: partial
+  condition: |
+    components[
+      $prop($, 'cdx:osquery:category') = 'secureboot_certificates'
+      and $number($firstNonEmpty($prop($, 'revoked'), '0')) > 0
+      and $number($firstNonEmpty($prop($$.metadata.component, 'cdx:hostview:secureboot_certificates:count'), '0')) > 0
+    ]
+  location: |
+    {
+      "bomRef": $firstNonEmpty($."bom-ref", bom.serialNumber)
+    }
+  message: "Secure Boot certificate '{{ name }}' is revoked and the host also has an explicit HBOM trust-anchor link for this Secure Boot surface"
+  mitigation: "Review firmware trust policy, remove revoked Secure Boot entries from active trust sets, and verify that the expected db/dbx anchors on the host still match the approved platform state."
+  evidence: |
+    {
+      "linkedSecureBootCertificateCount": $prop($, 'cdx:hostview:secureboot_certificates:count'),
+      "revokedCertificateCount": $count(bom.components[
+        $prop($, 'cdx:osquery:category') = 'secureboot_certificates'
+        and $number($firstNonEmpty($prop($, 'revoked'), '0')) > 0
+      ])
     }

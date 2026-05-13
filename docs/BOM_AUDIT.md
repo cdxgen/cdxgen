@@ -26,8 +26,8 @@ cdxgen -t hbom -o hbom.json --bom-audit --bom-audit-categories hbom-security .
 # Generate and audit a merged HBOM + OBOM host view
 cdxgen -t hbom --include-runtime -o host-view.json --bom-audit .
 
-# Audit only the merged host-topology rules
-cdxgen -t hbom --include-runtime -o host-view.json --bom-audit --bom-audit-categories host-merged .
+# Audit only the host-topology correlation rules
+cdxgen -t hbom --include-runtime -o host-view.json --bom-audit --bom-audit-categories host-topology .
 
 # Audit a previously generated HBOM with the full HBOM alias pack
 cdx-audit --bom hbom.json --direct-bom-audit --categories hbom
@@ -69,7 +69,7 @@ The categories that work best in dry-run mode are the formulation-centric ones:
 - `hbom-security`
 - `hbom-performance`
 - `hbom-compliance`
-- `host-merged`
+- `host-topology`
 - `mcp-server`
 - `obom-runtime`
 - `vscode-extension`
@@ -151,7 +151,7 @@ Passing both trusted switches together is invalid and causes cdxgen to exit with
 
 HBOM-only runs are intentionally different: when `projectType` is `hbom`/`hardware` (or you use the dedicated `hbom` command), cdxgen skips the predictive dependency audit entirely and defaults the audit categories to `hbom-security,hbom-performance,hbom-compliance`.
 
-When you also pass `--include-runtime`, cdxgen keeps the same predictive-audit skip behavior but extends the default categories to `hbom-security,hbom-performance,hbom-compliance,host-merged`.
+When you also pass `--include-runtime`, cdxgen keeps the same predictive-audit skip behavior but extends the default categories to `hbom-security,hbom-performance,hbom-compliance,host-topology`.
 
 ## Built-in rule categories
 
@@ -236,7 +236,7 @@ Notes for reviewers:
 - archive-internal paths are normalized to forward slashes, even when the outer archive lives on Windows
 - `cdx:asar:signingScope=header-only` means Electron signing evidence verifies the ASAR header hash scope, not all packed payload bytes
 
-### `host-merged` — Strict HBOM + OBOM host-view correlation
+### `host-topology` — Strict HBOM + OBOM host-view correlation
 
 Rules that only apply when a host BOM contains both hardware inventory and runtime inventory linked by explicit identifiers.
 
@@ -245,8 +245,10 @@ Rules that only apply when a host BOM contains both hardware inventory and runti
 | HMX-001 | medium   | A wired interface with live runtime address evidence is negotiated at degraded speed/duplex |
 | HMX-002 | high     | A wireless interface has live runtime address evidence while link security is weak          |
 | HMX-003 | medium   | A merged host view contains zero strict HBOM ↔ OBOM topology links                          |
+| HMX-004 | high     | A mounted storage device with explicit runtime evidence is reporting degraded health        |
+| HMX-005 | high     | An explicit HBOM Secure Boot trust anchor matches revoked runtime certificate evidence      |
 
-These rules are intentionally conservative. They rely on derived `cdx:hostview:*` properties produced only from exact, evidence-backed joins such as interface name and driver-module equality. They do **not** infer links from fuzzy naming similarity.
+These rules are intentionally conservative. They rely on derived `cdx:hostview:*` properties produced only from exact, evidence-backed joins such as interface-name equality, driver-module equality, storage device-node or mount-path equality, logical-drive identifiers, and explicit Secure Boot certificate identifiers. They do **not** infer links from fuzzy naming similarity.
 
 ### `mcp-server` — MCP server exposure and trust posture
 

@@ -114,6 +114,12 @@ The same native dry-run behavior is also available through the main CLI:
 cdxgen --dry-run -t hbom -p .
 ```
 
+On slower arm64 hosts such as Raspberry Pi systems, it is often worth increasing the collector timeout:
+
+```shell
+hbom --include-runtime --timeout 180000 -o host-view.json
+```
+
 ## 9) Build a merged HBOM + OBOM host view
 
 When you want one CycloneDX document that combines hardware inventory with runtime evidence for the same host, use `--include-runtime`:
@@ -128,6 +134,8 @@ Examples of links that are allowed:
 
 - NIC name `wlp2s0` ↔ OBOM `interface_addresses.interface = wlp2s0`
 - HBOM driver `iwlwifi` ↔ OBOM `kernel_modules.name = iwlwifi`
+- HBOM storage device `/dev/nvme0n1` ↔ OBOM mount or logical-drive device identity `/dev/nvme0n1`
+- HBOM Secure Boot trust fingerprint or subject-key ID ↔ OBOM `secureboot_certificates` identifier with the exact same value
 
 The merged document adds summary properties such as:
 
@@ -136,20 +144,22 @@ The merged document adds summary properties such as:
 - `cdx:hostview:linkedHardwareComponentCount`
 - `cdx:hostview:linkedRuntimeCategory`
 
-Linked interfaces also gain per-component properties such as `cdx:hostview:interface_addresses:count` and `cdx:hostview:kernel_modules:count`.
+Linked interfaces and storage devices also gain per-component properties such as `cdx:hostview:interface_addresses:count`, `cdx:hostview:kernel_modules:count`, `cdx:hostview:mount_hardening:count`, and `cdx:hostview:runtime-storage:count`.
 
 ## 10) Audit the merged host view
 
-The merged host view enables a new `host-merged` BOM audit category.
+The merged host view enables a new `host-topology` BOM audit category.
 
 ```shell
 cdxgen -t hbom --include-runtime -o host-view.json --bom-audit .
 ```
 
-With `--include-runtime`, cdxgen automatically adds `host-merged` to the default HBOM audit packs. These rules focus on higher-confidence host findings such as:
+With `--include-runtime`, cdxgen automatically adds `host-topology` to the default HBOM audit packs. These rules focus on higher-confidence host findings such as:
 
 - weak wireless security on interfaces that also have live runtime address evidence
 - degraded wired links that are clearly in active runtime use
+- degraded storage that is explicitly linked to active runtime mounts or logical drives
+- revoked Secure Boot trust anchors when HBOM metadata and runtime certificate inventory match on an exact identifier
 - merged host views that still produced zero strict topology links and therefore need collection review
 
 ## 11) Do not mix HBOM with software project types
