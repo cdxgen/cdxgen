@@ -94,6 +94,7 @@ hbom -o hbom.json
 Notes:
 
 - The exact command set is platform-specific.
+- For Linux `hbom --privileged` runs with `@cdxgen/cdx-hbom`, allowlist `sudo` as well when you want the collector's explicit non-interactive retry path to remain available for permission-sensitive commands.
 - Linux hosts often need `CDXGEN_ALLOWED_PATHS` entries such as `/proc`, `/sys`, and `/etc` because the collector reads hardware metadata directly from those trees.
 - If the secure-mode preflight reports a disallowed command or path, rerun with `--dry-run`, review the declaration, and only expand the allowlist if the additional host surface is acceptable for that environment.
 

@@ -185,7 +185,7 @@ Trust boundary 5: cdxgen container ←→ container host
 - `--privileged` is explicit opt-in and only enables the documented permission-sensitive command paths exposed by `@cdxgen/cdx-hbom`
 - `@cdxgen/cdx-hbom` 0.4.0 records missing-command and permission-denied diagnostics directly in the BOM root and collector trace instead of silently hiding partial evidence gaps
 - cdxgen derives compact `cdx:hbom:analysis:*` summary properties and exposes `hbom diagnostics` so operators can distinguish "install a package" from "rerun with --privileged" without guessing
-- In secure mode, cdxgen reuses the HBOM dry-run declaration as a preflight plan and aborts live HBOM collection when the declared commands fall outside `CDXGEN_ALLOWED_COMMANDS` or the declared local paths fall outside `CDXGEN_ALLOWED_PATHS`
+- In secure mode, cdxgen reuses the HBOM dry-run declaration as a preflight plan and aborts live HBOM collection when the declared commands fall outside `CDXGEN_ALLOWED_COMMANDS` or the declared local paths fall outside `CDXGEN_ALLOWED_PATHS`; for `@cdxgen/cdx-hbom` this also covers explicit `sudo -n` retry paths declared for permission-sensitive commands
 - The Linux privileged path uses non-interactive `sudo -n`, avoiding interactive password prompts that would otherwise encourage ad hoc operator workarounds
 
 **Residual risk:** Medium — HBOM still runs on the target host and may require elevated access for richer firmware or graphics detail. Users remain responsible for applying least privilege and deciding whether the additional evidence is worth the extra permissions.

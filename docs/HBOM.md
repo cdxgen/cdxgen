@@ -192,6 +192,8 @@ For hardened host collection:
 
 On Linux hosts, the path allowlist normally needs at least the relevant system inventory roots such as `/proc`, `/sys`, and `/etc` for the hardware surfaces you intend to collect. On Apple Silicon macOS, command allowlists are usually the primary secure-mode control unless you also enable plist-backed enrichment.
 
+With `@cdxgen/cdx-hbom`, privileged Linux enrichment can also declare a non-interactive `sudo -n` retry path for specific commands such as `drm_info`. When you enable `--privileged` in secure mode, include `sudo` in `CDXGEN_ALLOWED_COMMANDS` if you want that hardened retry path to remain available.
+
 ## Collector diagnostics and summary properties
 
 `@cdxgen/cdx-hbom` 0.4.0 records Linux command failures such as missing native utilities and permission-denied enrichments in the BOM root as serialized evidence properties:

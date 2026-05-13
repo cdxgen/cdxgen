@@ -50,6 +50,7 @@ HBOM is special because the optional `@cdxgen/cdx-hbom` collector can declare it
 - Review `hbom --dry-run` first.
 - In secure mode, cdxgen aborts live HBOM collection when those declared commands fall outside `CDXGEN_ALLOWED_COMMANDS` or the declared local paths fall outside `CDXGEN_ALLOWED_PATHS`.
 - On Linux hosts, `CDXGEN_ALLOWED_PATHS` often needs explicit inventory roots such as `/proc`, `/sys`, and `/etc` in addition to the command allowlist.
+- On Linux `hbom --privileged` runs with `@cdxgen/cdx-hbom`, also allowlist `sudo` when you want the collector's explicit `sudo -n` retry path for permission-sensitive commands.
 - On Apple Silicon macOS, command allowlists are usually the main control unless plist-backed enrichment is enabled.
 
 ## Common Commands (All Platforms)

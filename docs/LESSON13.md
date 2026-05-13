@@ -97,6 +97,7 @@ Practical guidance:
 
 - On Apple Silicon macOS, the secure-mode review is often command-focused unless you also enable plist-backed enrichment.
 - On Linux, expect the path allowlist to include the collector's direct-read roots such as `/proc`, `/sys`, and selected files under `/etc`.
+- On Linux with `--privileged`, `@cdxgen/cdx-hbom` may explicitly retry certain permission-sensitive commands through `sudo -n`, so secure-mode command allowlists should include `sudo` when you intend to permit that hardened retry path.
 - If secure mode reports a blocked HBOM command or path, rerun `hbom --dry-run`, review the declaration, and only expand the allowlist when the extra collection surface is justified.
 
 ## 7) Validate the result

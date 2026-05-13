@@ -106,7 +106,7 @@
     "body-parser": "npm:body-parser@^2.2.2",
     "compression": "npm:compression@^1.8.1",
     "connect": "npm:connect@^3.7.0",
-    "jsonata": "npm:jsonata@^2.1.0",
+    "jsonata": "npm:jsonata@^2.1.1",
     "@iarna/toml": "npm:@iarna/toml@2.2.5"
   }
 }
