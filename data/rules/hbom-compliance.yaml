@@ -61,12 +61,12 @@
     metadata.component[
       type = 'device'
       and (
-        $not($hasProp($, 'cdx:hbom:platform'))
-        or $not($hasProp($, 'cdx:hbom:architecture'))
+        $hasProp($, 'cdx:hbom:platform') = false
+        or $hasProp($, 'cdx:hbom:architecture') = false
         or (
-          $not($hasProp($, 'cdx:hbom:serialNumber'))
-          and $not($hasProp($, 'cdx:hbom:platformUuid'))
-          and $not($hasProp($, 'cdx:hbom:assetTag'))
+          $hasProp($, 'cdx:hbom:serialNumber') = false
+          and $hasProp($, 'cdx:hbom:platformUuid') = false
+          and $hasProp($, 'cdx:hbom:assetTag') = false
         )
       )
     ]
@@ -95,9 +95,9 @@
     metadata.component[
       type = 'device'
       and (
-        $not($hasProp(bom, 'cdx:hbom:evidence:commandCount'))
-        or $number($prop(bom, 'cdx:hbom:evidence:commandCount')) = 0
-        or $not($hasProp(bom, 'cdx:hbom:evidence:command'))
+        $hasProp($$, 'cdx:hbom:evidence:commandCount') = false
+        or $number($firstNonEmpty($prop($$, 'cdx:hbom:evidence:commandCount'), '0')) = 0
+        or $hasProp($$, 'cdx:hbom:evidence:command') = false
       )
     ]
   location: |

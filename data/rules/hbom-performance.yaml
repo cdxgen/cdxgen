@@ -46,11 +46,9 @@
       and (
         (
           $hasProp($, 'cdx:hbom:smartStatus')
-          and $not(
-            $lowercase($safeStr($prop($, 'cdx:hbom:smartStatus'))) = 'verified'
-            or $lowercase($safeStr($prop($, 'cdx:hbom:smartStatus'))) = 'ok'
-            or $lowercase($safeStr($prop($, 'cdx:hbom:smartStatus'))) = 'passed'
-          )
+          and $lowercase($safeStr($prop($, 'cdx:hbom:smartStatus'))) != 'verified'
+          and $lowercase($safeStr($prop($, 'cdx:hbom:smartStatus'))) != 'ok'
+          and $lowercase($safeStr($prop($, 'cdx:hbom:smartStatus'))) != 'passed'
         )
         or (
           $hasProp($, 'cdx:hbom:wearPercentageUsed')

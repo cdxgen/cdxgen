@@ -127,25 +127,25 @@
       metadata.component[
         (
           $hasProp($, 'cdx:hbom:serialNumber')
-          and $not($startsWith($safeStr($prop($, 'cdx:hbom:serialNumber')), 'redacted'))
+          and $startsWith($safeStr($prop($, 'cdx:hbom:serialNumber')), 'redacted') = false
         )
         or (
           $hasProp($, 'cdx:hbom:platformUuid')
-          and $not($startsWith($safeStr($prop($, 'cdx:hbom:platformUuid')), 'redacted'))
+          and $startsWith($safeStr($prop($, 'cdx:hbom:platformUuid')), 'redacted') = false
         )
       ],
       components[
       (
         $hasProp($, 'cdx:hbom:serialNumber')
-        and $not($startsWith($safeStr($prop($, 'cdx:hbom:serialNumber')), 'redacted'))
+        and $startsWith($safeStr($prop($, 'cdx:hbom:serialNumber')), 'redacted') = false
       )
       or (
         $hasProp($, 'cdx:hbom:macAddress')
-        and $not($startsWith($safeStr($prop($, 'cdx:hbom:macAddress')), 'redacted'))
+        and $startsWith($safeStr($prop($, 'cdx:hbom:macAddress')), 'redacted') = false
       )
       or (
         $hasProp($, 'cdx:hbom:deviceSerial')
-        and $not($startsWith($safeStr($prop($, 'cdx:hbom:deviceSerial')), 'redacted'))
+        and $startsWith($safeStr($prop($, 'cdx:hbom:deviceSerial')), 'redacted') = false
       )
       ]
     )

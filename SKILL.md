@@ -220,7 +220,7 @@ These indicators affect **which packages are audited first**, not the final seve
 | **Large mono-repos**          | Use `--no-recurse` + explicit `-t <lang>` or `--exclude-type` to limit scope.                                                               |
 | **Server mode invocation**    | Poll `/health` first. POST to `/sbom` with JSON body or query params. Pass `GITHUB_TOKEN` via env if scanning private repos.                |
 | **Aliases**                   | `obom` = `cdxgen -t os`<br>`cbom` = `cdxgen --include-crypto --include-formulation --evidence --spec-version 1.6`                           |
-| **HBOM**                      | `hbom` is the dedicated host-hardware command. Equivalent library path: `cdxgen -t hbom`. Do not mix it with other project types.          |
+| **HBOM**                      | `hbom` is the dedicated host-hardware command. Equivalent library path: `cdxgen -t hbom`. Do not mix it with other project types.           |
 | **Output parsing**            | Use `-p` for human-readable tables. Parse JSON at `-o` path programmatically. Never assume stdout contains the BOM unless `-o` is omitted.  |
 | **Signature verification**    | Use bundled `cdx-verify -i bom.json --public-key public.key`.                                                                               |
 | **SBOM signing**              | Use bundled `cdx-sign -i bom.json -k private.key`.                                                                                          |

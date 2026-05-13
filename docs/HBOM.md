@@ -32,20 +32,20 @@ cdxgen -t hbom -o hbom.json .
 
 ## Common options
 
-| Option | Purpose |
-| --- | --- |
-| `-o, --output <file>` | Write the generated HBOM to a file. Default: `hbom.json` |
-| `-p, --print` | Print the generated HBOM to stdout instead of writing a file |
-| `--pretty` | Pretty-print JSON output |
-| `--validate` | Validate the generated HBOM using the CycloneDX schema |
-| `--platform <value>` | Override platform detection |
-| `--arch <value>` | Override architecture detection |
-| `--sensitive` | Include raw identifiers instead of redacted defaults |
-| `--no-command-enrichment` | Disable optional command-based enrichment |
-| `--privileged` | Enable privileged Linux SMBIOS enrichment via `dmidecode` |
-| `--plist-enrichment` | Enable extra Darwin plist-based enrichment |
-| `--strict` | Fail instead of returning partial results when enrichment fails |
-| `--timeout <ms>` | Per-command timeout |
+| Option                    | Purpose                                                         |
+| ------------------------- | --------------------------------------------------------------- |
+| `-o, --output <file>`     | Write the generated HBOM to a file. Default: `hbom.json`        |
+| `-p, --print`             | Print the generated HBOM to stdout instead of writing a file    |
+| `--pretty`                | Pretty-print JSON output                                        |
+| `--validate`              | Validate the generated HBOM using the CycloneDX schema          |
+| `--platform <value>`      | Override platform detection                                     |
+| `--arch <value>`          | Override architecture detection                                 |
+| `--sensitive`             | Include raw identifiers instead of redacted defaults            |
+| `--no-command-enrichment` | Disable optional command-based enrichment                       |
+| `--privileged`            | Enable privileged Linux SMBIOS enrichment via `dmidecode`       |
+| `--plist-enrichment`      | Enable extra Darwin plist-based enrichment                      |
+| `--strict`                | Fail instead of returning partial results when enrichment fails |
+| `--timeout <ms>`          | Per-command timeout                                             |
 
 ## Examples
 

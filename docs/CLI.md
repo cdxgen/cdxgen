@@ -11,7 +11,7 @@ The package ships multiple CLI entry points. Use this table as the top-level nav
 | Command        | Purpose                                                                            | Standalone release binary | Dedicated docs                     |
 | -------------- | ---------------------------------------------------------------------------------- | ------------------------- | ---------------------------------- |
 | `cdxgen`       | Generate CycloneDX and SPDX BOMs from source, images, binaries, git URLs, or purls | yes                       | [CLI Usage](CLI.md)                |
-| `hbom`         | Generate a CycloneDX hardware BOM for the current host                              | no                        | [HBOM.md](HBOM.md)                 |
+| `hbom`         | Generate a CycloneDX hardware BOM for the current host                             | no                        | [HBOM.md](HBOM.md)                 |
 | `cdx-audit`    | Explainable upstream dependency risk prioritization from existing BOMs             | yes                       | [CDX_AUDIT.md](CDX_AUDIT.md)       |
 | `cdx-convert`  | Convert CycloneDX JSON to SPDX 3.0.1 JSON-LD                                       | yes                       | [CDX_CONVERT.md](CDX_CONVERT.md)   |
 | `cdx-sign`     | Sign a CycloneDX BOM                                                               | yes                       | [CDX_SIGN.md](CDX_SIGN.md)         |
@@ -27,7 +27,7 @@ Some commands are focused aliases rather than separate implementations.
 | Alias                                | Equivalent behavior                                                                                        |
 | ------------------------------------ | ---------------------------------------------------------------------------------------------------------- |
 | `obom`                               | `cdxgen -t os`                                                                                             |
-| `hbom`                               | dedicated HBOM command backed by `@cdxgen/cdx-hbom`; equivalent library path: `cdxgen -t hbom`           |
+| `hbom`                               | dedicated HBOM command backed by `@cdxgen/cdx-hbom`; equivalent library path: `cdxgen -t hbom`             |
 | `spdxgen`                            | `cdxgen --format spdx`                                                                                     |
 | `cbom`                               | `cdxgen` with `includeCrypto`, `evidence`, `deep`, and CycloneDX `1.7` defaults suited for CBOM generation |
 | `saasbom`                            | `cdxgen` with `evidence`, `deep`, and CycloneDX `1.7` defaults suited for service-evidence collection      |

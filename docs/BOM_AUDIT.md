@@ -23,6 +23,9 @@ cdxgen -t hbom -o hbom.json --bom-audit .
 # Audit only the security-focused HBOM rules
 cdxgen -t hbom -o hbom.json --bom-audit --bom-audit-categories hbom-security .
 
+# Audit a previously generated HBOM with the full HBOM alias pack
+cdx-audit --bom hbom.json --direct-bom-audit --categories hbom
+
 # Audit with high-severity findings only
 cdxgen -o bom.json --bom-audit --bom-audit-min-severity high
 
@@ -57,6 +60,9 @@ The categories that work best in dry-run mode are the formulation-centric ones:
 - `ci-permission`
 - `container-risk`
 - `dependency-source`
+- `hbom-security`
+- `hbom-performance`
+- `hbom-compliance`
 - `mcp-server`
 - `obom-runtime`
 - `vscode-extension`
@@ -107,17 +113,17 @@ The audit runs as a post-processing step after BOM generation:
 
 ## CLI options
 
-| Option                        | Type    | Default | Description                                                                                                                                         |
-| ----------------------------- | ------- | ------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `--bom-audit`                 | boolean | `false` | Enable post-generation security audit                                                                                                               |
-| `--bom-audit-rules-dir`       | string  | —       | Directory containing additional YAML rule files (merged with built-in rules)                                                                        |
+| Option                        | Type    | Default | Description                                                                                                                                                               |
+| ----------------------------- | ------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--bom-audit`                 | boolean | `false` | Enable post-generation security audit                                                                                                                                     |
+| `--bom-audit-rules-dir`       | string  | —       | Directory containing additional YAML rule files (merged with built-in rules)                                                                                              |
 | `--bom-audit-categories`      | string  | all     | Comma-separated list of rule categories to enable. Unknown categories are rejected, and aliases such as `ai-inventory` and `hbom` expand to their built-in category sets. |
-| `--bom-audit-min-severity`    | string  | `low`   | Minimum severity to report: `low`, `medium`, `high`                                                                                                 |
-| `--bom-audit-fail-severity`   | string  | `high`  | Severity level at or above which findings cause secure mode failure (e.g., `medium` fails on medium, high, and critical)                            |
-| `--bom-audit-scope`           | string  | `all`   | Predictive dependency audit target scope: `all` or `required`                                                                                       |
-| `--bom-audit-max-targets`     | number  | auto    | Predictive dependency audit cap. By default cdxgen prioritizes direct runtime and required targets first and expands to at least 50 targets         |
-| `--bom-audit-include-trusted` | boolean | `false` | Include predictive audit targets that already carry trusted publishing metadata                                                                     |
-| `--bom-audit-only-trusted`    | boolean | `false` | Restrict predictive audit targets to trusted-publishing-backed packages only                                                                        |
+| `--bom-audit-min-severity`    | string  | `low`   | Minimum severity to report: `low`, `medium`, `high`                                                                                                                       |
+| `--bom-audit-fail-severity`   | string  | `high`  | Severity level at or above which findings cause secure mode failure (e.g., `medium` fails on medium, high, and critical)                                                  |
+| `--bom-audit-scope`           | string  | `all`   | Predictive dependency audit target scope: `all` or `required`                                                                                                             |
+| `--bom-audit-max-targets`     | number  | auto    | Predictive dependency audit cap. By default cdxgen prioritizes direct runtime and required targets first and expands to at least 50 targets                               |
+| `--bom-audit-include-trusted` | boolean | `false` | Include predictive audit targets that already carry trusted publishing metadata                                                                                           |
+| `--bom-audit-only-trusted`    | boolean | `false` | Restrict predictive audit targets to trusted-publishing-backed packages only                                                                                              |
 
 ## Predictive dependency target selection
 
@@ -135,6 +141,8 @@ Use the trusted-publishing switches to override the default:
 - `--bom-audit-only-trusted` scans only trusted-publishing-backed packages
 
 Passing both trusted switches together is invalid and causes cdxgen to exit with an error.
+
+HBOM-only runs are intentionally different: when `projectType` is `hbom`/`hardware` (or you use the dedicated `hbom` command), cdxgen skips the predictive dependency audit entirely and defaults the audit categories to `hbom-security,hbom-performance,hbom-compliance`.
 
 ## Built-in rule categories
 
@@ -337,7 +345,7 @@ You can also use the alias `hbom` with `--bom-audit-categories` to enable the fu
 | HBS-001 | high     | Storage component is explicitly unencrypted                    |
 | HBS-002 | high     | Connected wireless adapter uses weak or missing link security  |
 | HBS-003 | high     | Removable storage is attached without encryption or lock proof |
-| HBS-004 | medium   | HBOM exposes raw hardware identifiers                         |
+| HBS-004 | medium   | HBOM exposes raw hardware identifiers                          |
 
 Typical reviewer actions:
 
@@ -348,14 +356,14 @@ Typical reviewer actions:
 
 #### `hbom-performance` — Hardware capacity and degradation signals
 
-| Rule    | Severity | Description                                                   |
-| ------- | -------- | ------------------------------------------------------------- |
-| HBP-001 | medium   | Storage volume has low free capacity headroom                 |
-| HBP-002 | high     | Storage health is degraded or wear is near exhaustion         |
-| HBP-003 | high     | Thermal zone reports sustained high temperature               |
-| HBP-004 | medium   | Battery health is degraded                                    |
+| Rule    | Severity | Description                                                    |
+| ------- | -------- | -------------------------------------------------------------- |
+| HBP-001 | medium   | Storage volume has low free capacity headroom                  |
+| HBP-002 | high     | Storage health is degraded or wear is near exhaustion          |
+| HBP-003 | high     | Thermal zone reports sustained high temperature                |
+| HBP-004 | medium   | Battery health is degraded                                     |
 | HBP-005 | medium   | Active wired link is operating below expected duplex/bandwidth |
-| HBP-006 | high     | Installed memory is only partially online                     |
+| HBP-006 | high     | Installed memory is only partially online                      |
 
 Typical reviewer actions:
 
@@ -367,13 +375,13 @@ Typical reviewer actions:
 
 #### `hbom-compliance` — Governance and evidence completeness
 
-| Rule    | Severity | Description                                           |
-| ------- | -------- | ----------------------------------------------------- |
-| HBC-001 | medium   | HBOM inventory lacks firmware or board provenance     |
-| HBC-002 | medium   | Managed asset identity is incomplete                  |
-| HBC-003 | medium   | HBOM collector evidence is incomplete                 |
-| HBC-004 | medium   | Storage inventory lacks encryption posture evidence   |
-| HBC-005 | medium   | HBOM uses non-redacted identifier policy              |
+| Rule    | Severity | Description                                         |
+| ------- | -------- | --------------------------------------------------- |
+| HBC-001 | medium   | HBOM inventory lacks firmware or board provenance   |
+| HBC-002 | medium   | Managed asset identity is incomplete                |
+| HBC-003 | medium   | HBOM collector evidence is incomplete               |
+| HBC-004 | medium   | Storage inventory lacks encryption posture evidence |
+| HBC-005 | medium   | HBOM uses non-redacted identifier policy            |
 
 These rules are mapped where practical to common governance references such as:
 
