@@ -5,6 +5,7 @@ import process from "node:process";
 import yargs from "yargs";
 import { hideBin } from "yargs/helpers";
 
+import { printActivitySummary } from "../lib/helpers/display.js";
 import { getOutputDirectory } from "../lib/helpers/exportUtils.js";
 import {
   ensureNoMixedHbomProjectTypes,
@@ -13,10 +14,14 @@ import {
 } from "../lib/helpers/hbom.js";
 import { thoughtLog } from "../lib/helpers/logger.js";
 import {
+  DEBUG_MODE,
+  isDryRun,
   retrieveCdxgenVersion,
   safeExistsSync,
   safeMkdirSync,
   safeWriteSync,
+  setActivityContext,
+  setDryRunMode,
 } from "../lib/helpers/utils.js";
 import { validateBom } from "../lib/validator/bomValidator.js";
 
@@ -52,6 +57,12 @@ const args = _yargs
     description: "Validate the generated HBOM using the CycloneDX schema.",
     type: "boolean",
     default: true,
+  })
+  .option("dry-run", {
+    description:
+      "Read-only mode. Report the requested HBOM collection and block host probing plus filesystem writes.",
+    type: "boolean",
+    default: isDryRun,
   })
   .option("spec-version", {
     choices: [1.7],
@@ -145,6 +156,7 @@ if (!hasHbomProjectType(requestedTypes)) {
 
 const options = {
   arch: args.arch,
+  dryRun: args.dryRun,
   noCommandEnrichment: args.noCommandEnrichment,
   output: resolve(args.output),
   platform: args.platform,
@@ -160,6 +172,18 @@ const options = {
   validate: args.validate,
 };
 
+setDryRunMode(options.dryRun);
+setActivityContext({
+  projectType: requestedTypes[0],
+  sourcePath: process.cwd(),
+});
+
+if (options.dryRun) {
+  thoughtLog(
+    "HBOM dry-run mode is enabled. I must avoid invoking the hardware collector and filesystem writes.",
+  );
+}
+
 (async () => {
   thoughtLog(
     "Let's generate a Hardware Bill-of-Materials (HBOM) for this host.",
@@ -172,15 +196,21 @@ const options = {
   const output = JSON.stringify(bomJson, null, options.pretty ? 2 : null);
   if (options.print) {
     console.log(output);
-    return;
+  } else {
+    const outputDirectory = getOutputDirectory(options.output);
+    if (outputDirectory && !safeExistsSync(outputDirectory)) {
+      safeMkdirSync(outputDirectory, { recursive: true });
+    }
+    safeWriteSync(options.output, output);
+    thoughtLog(`Let's save the HBOM file to '${options.output}'.`);
   }
-  const outputDirectory = getOutputDirectory(options.output);
-  if (outputDirectory && !safeExistsSync(outputDirectory)) {
-    safeMkdirSync(outputDirectory, { recursive: true });
+  if (options.dryRun || DEBUG_MODE) {
+    printActivitySummary();
   }
-  safeWriteSync(options.output, output);
-  thoughtLog(`Let's save the HBOM file to '${options.output}'.`);
 })().catch((error) => {
+  if (options.dryRun || DEBUG_MODE) {
+    printActivitySummary();
+  }
   console.error(error.message || error);
   process.exit(1);
 });
