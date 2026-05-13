@@ -7,6 +7,7 @@
   standards:
     owasp-ai-top-10:
       - "LLM05: Supply Chain Vulnerabilities"
+      - "LLM03:2025 Supply Chain"
     nist-ai-rmf:
       - "Govern"
       - "Manage"
@@ -44,6 +45,7 @@
     owasp-ai-top-10:
       - "LLM07: Insecure Plugin Design"
       - "LLM08: Excessive Agency"
+      - "LLM06:2025 Excessive Agency"
     nist-ai-rmf:
       - "Map"
       - "Manage"
@@ -79,6 +81,8 @@
     owasp-ai-top-10:
       - "LLM05: Supply Chain Vulnerabilities"
       - "LLM08: Excessive Agency"
+      - "LLM03:2025 Supply Chain"
+      - "LLM06:2025 Excessive Agency"
     nist-ai-rmf:
       - "Map"
       - "Govern"
@@ -118,6 +122,7 @@
     owasp-ai-top-10:
       - "LLM07: Insecure Plugin Design"
       - "LLM08: Excessive Agency"
+      - "LLM06:2025 Excessive Agency"
     nist-ai-rmf:
       - "Map"
       - "Manage"
@@ -151,6 +156,7 @@
     owasp-ai-top-10:
       - "LLM05: Supply Chain Vulnerabilities"
       - "LLM07: Insecure Plugin Design"
+      - "LLM03:2025 Supply Chain"
     nist-ai-rmf:
       - "Govern"
       - "Map"
@@ -187,6 +193,7 @@
     owasp-ai-top-10:
       - "LLM05: Supply Chain Vulnerabilities"
       - "LLM07: Insecure Plugin Design"
+      - "LLM03:2025 Supply Chain"
     nist-ai-rmf:
       - "Govern"
       - "Manage"
@@ -221,6 +228,8 @@
     owasp-ai-top-10:
       - "LLM05: Supply Chain Vulnerabilities"
       - "LLM08: Excessive Agency"
+      - "LLM03:2025 Supply Chain"
+      - "LLM06:2025 Excessive Agency"
     nist-ai-rmf:
       - "Govern"
       - "Map"
