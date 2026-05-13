@@ -369,6 +369,8 @@ You can also use the alias `hbom` with `--bom-audit-categories` to enable the fu
 | HBS-002 | high     | Connected wireless adapter uses weak or missing link security  |
 | HBS-003 | high     | Removable storage is attached without encryption or lock proof |
 | HBS-004 | medium   | HBOM exposes raw hardware identifiers                          |
+| HBS-005 | high     | External expansion bus reports permissive security posture     |
+| HBS-006 | medium   | HBOM exposes raw cellular or subscriber identifiers            |
 
 Typical reviewer actions:
 
@@ -379,14 +381,17 @@ Typical reviewer actions:
 
 #### `hbom-performance` — Hardware capacity and degradation signals
 
-| Rule    | Severity | Description                                                    |
-| ------- | -------- | -------------------------------------------------------------- |
-| HBP-001 | medium   | Storage volume has low free capacity headroom                  |
-| HBP-002 | high     | Storage health is degraded or wear is near exhaustion          |
-| HBP-003 | high     | Thermal zone reports sustained high temperature                |
-| HBP-004 | medium   | Battery health is degraded                                     |
-| HBP-005 | medium   | Active wired link is operating below expected duplex/bandwidth |
-| HBP-006 | high     | Installed memory is only partially online                      |
+| Rule    | Severity | Description                                                     |
+| ------- | -------- | --------------------------------------------------------------- |
+| HBP-001 | medium   | Storage volume has low free capacity headroom                   |
+| HBP-002 | high     | Storage health is degraded or wear is near exhaustion           |
+| HBP-003 | high     | Thermal zone reports sustained high temperature                 |
+| HBP-004 | medium   | Battery health is degraded                                      |
+| HBP-005 | medium   | Active wired link is operating below expected duplex/bandwidth  |
+| HBP-006 | high     | Installed memory is only partially online                       |
+| HBP-007 | medium   | Battery design capacity has materially degraded                 |
+| HBP-008 | medium   | USB device requires more current than the bus reports available |
+| HBP-009 | medium   | Cellular modem reports weak signal quality                      |
 
 Typical reviewer actions:
 
@@ -398,15 +403,18 @@ Typical reviewer actions:
 
 #### `hbom-compliance` — Governance and evidence completeness
 
-| Rule    | Severity | Description                                            |
-| ------- | -------- | ------------------------------------------------------ |
-| HBC-001 | medium   | HBOM inventory lacks firmware or board provenance      |
-| HBC-002 | medium   | Managed asset identity is incomplete                   |
-| HBC-003 | medium   | HBOM collector evidence is incomplete                  |
-| HBC-004 | medium   | Storage inventory lacks encryption posture evidence    |
-| HBC-005 | medium   | HBOM uses non-redacted identifier policy               |
-| HBC-006 | medium   | HBOM collector is missing optional enrichment commands |
-| HBC-007 | medium   | HBOM collector hit permission-denied enrichments       |
+| Rule    | Severity | Description                                               |
+| ------- | -------- | --------------------------------------------------------- |
+| HBC-001 | medium   | HBOM inventory lacks firmware or board provenance         |
+| HBC-002 | medium   | Managed asset identity is incomplete                      |
+| HBC-003 | medium   | HBOM collector evidence is incomplete                     |
+| HBC-004 | medium   | Storage inventory lacks encryption posture evidence       |
+| HBC-005 | medium   | HBOM uses non-redacted identifier policy                  |
+| HBC-006 | medium   | HBOM collector is missing optional enrichment commands    |
+| HBC-007 | medium   | HBOM collector hit permission-denied enrichments          |
+| HBC-008 | medium   | HBOM collector is missing firmware-management enrichment  |
+| HBC-009 | medium   | HBOM board and BIOS provenance was blocked by permissions |
+| HBC-010 | medium   | HBOM display and DRM evidence is incomplete               |
 
 These rules are mapped where practical to common governance references such as:
 
@@ -422,6 +430,8 @@ Typical reviewer actions:
 - prefer redacted identifier policy for broadly shared BOMs
 - use `hbom diagnostics` or the derived `cdx:hbom:analysis:*` summary properties to identify missing host packages before accepting a partial Linux HBOM
 - rerun with `--privileged` only when the diagnostic evidence shows permission-denied enrichments that are worth collecting and your target environment allows non-interactive sudo
+- install `fwupdmgr`, `edid-decode`, or other reported native helpers when you need the richer firmware-management or display evidence introduced by newer HBOM collectors
+- use `cdxi` pivots such as `.hbomdiagnostics`, `.hbomfirmware`, `.hbombuses`, and `.hbompower` when you want to inspect the exact hardware surfaces behind the findings
 
 ### `rootfs-hardening` — Offline host and golden-image hardening review
 

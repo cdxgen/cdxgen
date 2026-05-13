@@ -100,6 +100,17 @@ If `bom.json` exists in the current directory, `cdxi` imports it automatically.
 .obomtips
 ```
 
+### HBOM investigation pivots
+
+```text
+.hbomsummary
+.hbomdiagnostics
+.hbomfirmware
+.hbombuses
+.hbompower
+.hbomtips
+```
+
 ## Command reference
 
 ### BOM lifecycle
@@ -174,6 +185,19 @@ These commands are most useful after importing a Cargo SBOM generated with `--in
 | `.services`        | Show services                            |
 | `.vulnerabilities` | Show vulnerabilities from a VDR          |
 | `.formulation`     | Show formulation data                    |
+
+### HBOM and host hardware review
+
+| Command            | Description                                                                             |
+| ------------------ | --------------------------------------------------------------------------------------- |
+| `.hbomsummary`     | Summarize HBOM host metadata, evidence coverage, class mix, and diagnostics             |
+| `.hbomclasses`     | Show component counts by HBOM hardware class                                            |
+| `.hbomevidence`    | Show collector profile plus command and observed-file evidence                          |
+| `.hbomdiagnostics` | Show parsed command diagnostics, issue counts, and install/privilege hints              |
+| `.hbomfirmware`    | Show firmware, board, TPM, and update-managed components plus host firmware provenance  |
+| `.hbombuses`       | Show USB, PCI, display-link, and external-expansion components with bus-security pivots |
+| `.hbompower`       | Show power and battery components with detailed runtime and design-capacity telemetry   |
+| `.hbomtips`        | Print suggested HBOM investigation pivots                                               |
 
 ### OBOM and runtime inventory
 

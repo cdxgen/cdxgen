@@ -228,3 +228,98 @@
       "permissionDeniedCommands": $propList(bom, 'cdx:hbom:analysis:permissionDeniedCommands'),
       "requiresPrivileged": $prop(bom, 'cdx:hbom:analysis:requiresPrivileged')
     }
+
+- id: HBC-008
+  name: "HBOM collector is missing firmware-management enrichment"
+  description: "Without fwupd-derived metadata, governance teams lose update-protocol, firmware GUID, and device lifecycle context that is useful for firmware assurance and remediation planning."
+  severity: medium
+  category: hbom-compliance
+  dry-run-support: full
+  standards:
+    nist-800-53:
+      - "CM-8 System Component Inventory"
+      - "SI-7 Software, Firmware, and Information Integrity"
+  condition: |
+    metadata.component[
+      $safeStr($prop($, 'cdx:hbom:platform')) = 'linux'
+      and $listContains($propList($$, 'cdx:hbom:analysis:missingCommandIds'), 'fwupdmgr-devices-json')
+    ]
+  location: |
+    {
+      "bomRef": $firstNonEmpty($."bom-ref", bom.serialNumber)
+    }
+  message: "HBOM for '{{ name }}' is missing firmware-management enrichment because fwupdmgr was unavailable"
+  mitigation: "Install fwupd on the target host and rerun the collection so the BOM can capture protocol, flags, GUIDs, and related firmware-management properties where supported."
+  evidence: |
+    {
+      "collectorProfile": $prop(bom, 'cdx:hbom:collectorProfile'),
+      "missingCommandIds": $propList(bom, 'cdx:hbom:analysis:missingCommandIds'),
+      "missingCommands": $propList(bom, 'cdx:hbom:analysis:missingCommands'),
+      "installHintCount": $prop(bom, 'cdx:hbom:analysis:installHintCount')
+    }
+
+- id: HBC-009
+  name: "HBOM board and BIOS provenance was blocked by permissions"
+  description: "When dmidecode-backed firmware and board enrichment is blocked, the HBOM may miss board-vendor, board-name, BIOS-version, and related governance evidence."
+  severity: medium
+  category: hbom-compliance
+  dry-run-support: full
+  standards:
+    nist-800-53:
+      - "CM-8 System Component Inventory"
+      - "SI-7 Software, Firmware, and Information Integrity"
+  condition: |
+    metadata.component[
+      $safeStr($prop($, 'cdx:hbom:platform')) = 'linux'
+      and $listContains($propList($$, 'cdx:hbom:analysis:permissionDeniedIds'), 'dmidecode-firmware-board')
+    ]
+  location: |
+    {
+      "bomRef": $firstNonEmpty($."bom-ref", bom.serialNumber)
+    }
+  message: "HBOM for '{{ name }}' could not capture full board and BIOS provenance because dmidecode enrichment was blocked"
+  mitigation: "Where policy allows, rerun with --privileged or equivalent access so the collector can gather firmware vendor, BIOS version, board vendor, and board name data."
+  evidence: |
+    {
+      "collectorProfile": $prop(bom, 'cdx:hbom:collectorProfile'),
+      "permissionDeniedIds": $propList(bom, 'cdx:hbom:analysis:permissionDeniedIds'),
+      "permissionDeniedCommands": $propList(bom, 'cdx:hbom:analysis:permissionDeniedCommands'),
+      "boardComponentCount": $count($$.components[$prop($, 'cdx:hbom:hardwareClass') = 'board'])
+    }
+
+- id: HBC-010
+  name: "HBOM display and DRM evidence is incomplete"
+  description: "Missing EDID decoding or blocked DRM enrichment reduces the fidelity of display, connector, and content-protection metadata used during workstation and kiosk governance reviews."
+  severity: medium
+  category: hbom-compliance
+  dry-run-support: full
+  condition: |
+    metadata.component[
+      $count(
+        $$.components[
+          $prop($, 'cdx:hbom:hardwareClass') = 'display-connector'
+          or $prop($, 'cdx:hbom:hardwareClass') = 'display-adapter'
+        ]
+      ) > 0
+      and (
+        $listContains($propList($$, 'cdx:hbom:analysis:missingCommandIds'), 'edid-decode')
+        or $listContains($propList($$, 'cdx:hbom:analysis:permissionDeniedIds'), 'drm-info-json')
+      )
+    ]
+  location: |
+    {
+      "bomRef": $firstNonEmpty($."bom-ref", bom.serialNumber)
+    }
+  message: "HBOM for '{{ name }}' includes display hardware but the richer DRM or EDID evidence is incomplete"
+  mitigation: "Install edid-decode where available and, if policy permits, rerun with --privileged so the collector can capture connector, mode, and content-protection metadata for Linux displays."
+  evidence: |
+    {
+      "displayComponentCount": $count(
+        $$.components[
+          $prop($, 'cdx:hbom:hardwareClass') = 'display-connector'
+          or $prop($, 'cdx:hbom:hardwareClass') = 'display-adapter'
+        ]
+      ),
+      "missingCommandIds": $propList(bom, 'cdx:hbom:analysis:missingCommandIds'),
+      "permissionDeniedIds": $propList(bom, 'cdx:hbom:analysis:permissionDeniedIds')
+    }

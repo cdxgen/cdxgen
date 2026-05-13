@@ -163,3 +163,86 @@
       "deviceSerial": $prop($, 'cdx:hbom:deviceSerial'),
       "platformUuid": $prop(metadata.component, 'cdx:hbom:platformUuid')
     }
+
+- id: HBS-005
+  name: "External expansion bus reports permissive security posture"
+  description: "A Thunderbolt or USB4 path with permissive security level or disabled IOMMU protection increases the risk of DMA-style or rogue-device attack paths."
+  severity: high
+  category: hbom-security
+  dry-run-support: full
+  standards:
+    nist-800-53:
+      - "CM-8 System Component Inventory"
+      - "SC-7 Boundary Protection"
+      - "SI-16 Memory Protection"
+  condition: |
+    components[
+      (
+        $hasProp($, 'cdx:hbom:securityLevel')
+        or $hasProp($, 'cdx:hbom:iommuProtection')
+        or $hasProp($, 'cdx:hbom:policy')
+      )
+      and (
+        $contains($lowercase($safeStr($prop($, 'cdx:hbom:securityLevel'))), 'none')
+        or $contains($lowercase($safeStr($prop($, 'cdx:hbom:securityLevel'))), 'legacy')
+        or $contains($lowercase($safeStr($prop($, 'cdx:hbom:securityLevel'))), 'user')
+        or $safeStr($prop($, 'cdx:hbom:iommuProtection')) = 'false'
+      )
+    ]
+  location: |
+    {
+      "bomRef": $firstNonEmpty($."bom-ref", bom.serialNumber)
+    }
+  message: "External expansion component '{{ name }}' reports a permissive security posture or missing IOMMU protection"
+  mitigation: "Require a stronger Thunderbolt/USB4 security level, verify IOMMU protection is enabled, and review auto-authorization policy before trusting hot-plug external devices."
+  evidence: |
+    {
+      "securityLevel": $prop($, 'cdx:hbom:securityLevel'),
+      "iommuProtection": $prop($, 'cdx:hbom:iommuProtection'),
+      "policy": $prop($, 'cdx:hbom:policy'),
+      "authorized": $prop($, 'cdx:hbom:authorized'),
+      "bootAclCount": $prop($, 'cdx:hbom:bootAclCount')
+    }
+
+- id: HBS-006
+  name: "HBOM exposes raw cellular or subscriber identifiers"
+  description: "Raw modem equipment identifiers, IMEIs, or subscriber numbers in the BOM can leak privacy-sensitive fleet and subscriber intelligence."
+  severity: medium
+  category: hbom-security
+  dry-run-support: full
+  condition: |
+    components[
+      (
+        $prop($, 'cdx:hbom:hardwareClass') = 'modem'
+        or $hasProp($, 'cdx:hbom:equipmentIdentifier')
+        or $hasProp($, 'cdx:hbom:imei')
+        or $hasProp($, 'cdx:hbom:ownNumbers')
+      )
+      and (
+        (
+          $hasProp($, 'cdx:hbom:equipmentIdentifier')
+          and $startsWith($lowercase($safeStr($prop($, 'cdx:hbom:equipmentIdentifier'))), 'redacted') = false
+        )
+        or (
+          $hasProp($, 'cdx:hbom:imei')
+          and $startsWith($lowercase($safeStr($prop($, 'cdx:hbom:imei'))), 'redacted') = false
+        )
+        or (
+          $hasProp($, 'cdx:hbom:ownNumbers')
+          and $startsWith($lowercase($safeStr($prop($, 'cdx:hbom:ownNumbers'))), 'redacted') = false
+        )
+      )
+    ]
+  location: |
+    {
+      "bomRef": $firstNonEmpty($."bom-ref", bom.serialNumber)
+    }
+  message: "Cellular component '{{ name }}' exposes raw modem or subscriber identifiers that should be reviewed before distribution"
+  mitigation: "Keep modem identifiers redacted in shared HBOMs and restrict raw IMEI, equipment, or subscriber number exposure to tightly controlled internal device-management workflows."
+  evidence: |
+    {
+      "equipmentIdentifier": $prop($, 'cdx:hbom:equipmentIdentifier'),
+      "imei": $prop($, 'cdx:hbom:imei'),
+      "ownNumbers": $prop($, 'cdx:hbom:ownNumbers'),
+      "identifierPolicy": $firstNonEmpty($prop($, 'cdx:hbom:identifierPolicy'), $prop(metadata.component, 'cdx:hbom:identifierPolicy'))
+    }

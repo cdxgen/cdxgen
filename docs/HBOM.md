@@ -193,11 +193,25 @@ cdxgen now adds a compact set of derived summary properties so audit rules and a
 - `cdx:hbom:analysis:actionableDiagnosticCount`
 - `cdx:hbom:analysis:missingCommandCount`
 - `cdx:hbom:analysis:missingCommands`
+- `cdx:hbom:analysis:missingCommandIds`
+- `cdx:hbom:analysis:installHintCount`
 - `cdx:hbom:analysis:permissionDeniedCount`
 - `cdx:hbom:analysis:permissionDeniedCommands`
+- `cdx:hbom:analysis:permissionDeniedIds`
+- `cdx:hbom:analysis:privilegeHintCount`
+- `cdx:hbom:analysis:partialSupportIds`
+- `cdx:hbom:analysis:timeoutIds`
+- `cdx:hbom:analysis:commandErrorIds`
 - `cdx:hbom:analysis:requiresPrivileged`
 
 Use these in combination with `hbom diagnostics` and the `hbom-compliance` audit pack to decide whether you need to install missing host packages, accept a partial BOM, or rerun with `--privileged`.
+
+If you import the resulting BOM into `cdxi`, the most useful host pivots for the richer 0.4.0 surface are:
+
+- `.hbomdiagnostics` — parsed missing-command / permission-denied entries with install and privilege hints
+- `.hbomfirmware` — firmware, board, TPM, and update-managed component pivots
+- `.hbombuses` — USB, PCI, display-link, and external-expansion security pivots
+- `.hbompower` — design-capacity and runtime power telemetry pivots
 
 ## Validation and safety notes
 

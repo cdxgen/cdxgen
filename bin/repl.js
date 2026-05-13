@@ -264,6 +264,89 @@ function getCargoFormulationEntries(bom) {
   return matchingEntries;
 }
 
+const HBOM_FIRMWARE_PROPERTIES = Object.freeze([
+  "cdx:hbom:protocol",
+  "cdx:hbom:flags",
+  "cdx:hbom:guids",
+  "cdx:hbom:instanceIds",
+  "cdx:hbom:createdEpoch",
+  "cdx:hbom:firmwareDate",
+]);
+
+const HBOM_BUS_SECURITY_PROPERTIES = Object.freeze([
+  "cdx:hbom:securityLevel",
+  "cdx:hbom:iommuProtection",
+  "cdx:hbom:policy",
+  "cdx:hbom:authorized",
+  "cdx:hbom:usbVersion",
+  "cdx:hbom:usbClassName",
+  "cdx:hbom:usbInterfaceClasses",
+  "cdx:hbom:pciClass",
+  "cdx:hbom:pciClassCode",
+  "cdx:hbom:displayConnectorType",
+  "cdx:hbom:contentProtection",
+  "cdx:hbom:drmNode",
+]);
+
+const HBOM_POWER_PROPERTIES = Object.freeze([
+  "cdx:hbom:designCapacityPercent",
+  "cdx:hbom:energyNow",
+  "cdx:hbom:energyFull",
+  "cdx:hbom:energyFullDesign",
+  "cdx:hbom:chargeNow",
+  "cdx:hbom:chargeFull",
+  "cdx:hbom:chargeFullDesign",
+  "cdx:hbom:powerNow",
+  "cdx:hbom:voltageNow",
+  "cdx:hbom:currentNow",
+  "cdx:hbom:warningLevel",
+]);
+
+function getInteractiveHbomOrWarn(replContext) {
+  const interactiveBom = getInteractiveBom();
+  if (!interactiveBom) {
+    console.log(
+      "⚠ No BOM is loaded. Use .import command to import an existing BOM",
+    );
+    replContext.displayPrompt();
+    return undefined;
+  }
+  if (!isLikelyHbom(interactiveBom)) {
+    console.log(
+      "This BOM does not look like an HBOM. Import an HBOM generated with 'cdxgen -t hbom' to use this view.",
+    );
+    replContext.displayPrompt();
+    return undefined;
+  }
+  return interactiveBom;
+}
+
+function filterHbomComponentsByProperties(
+  bom,
+  propertyNames,
+  hardwareClasses = [],
+) {
+  return (bom?.components || []).filter((component) => {
+    const hardwareClass = getPropertyValue(component, "cdx:hbom:hardwareClass");
+    if (hardwareClasses.includes(hardwareClass)) {
+      return true;
+    }
+    return propertyNames.some((propertyName) =>
+      Boolean(getPropertyValue(component, propertyName)),
+    );
+  });
+}
+
+function getDiagnosticDisplayDetail(diagnostic) {
+  return (
+    diagnostic.installHint ||
+    diagnostic.privilegeHint ||
+    diagnostic.message ||
+    diagnostic.code ||
+    "-"
+  );
+}
+
 let historyFile;
 const historyConfigDir = join(homedir(), ".config", ".cdxgen");
 if (!process.env.CDXGEN_REPL_HISTORY && !safeExistsSync(historyConfigDir)) {
@@ -297,7 +380,7 @@ export const importSbom = (sbomOrPath) => {
       printSummary(sbom);
       if (isLikelyHbom(sbom)) {
         console.log(
-          "💭 HBOM detected. Try .hbomsummary, .hbomclasses, .hbomevidence, or .hbomtips",
+          "💭 HBOM detected. Try .hbomsummary, .hbomevidence, .hbomdiagnostics, or .hbomtips",
         );
       }
       if (isLikelyObom(sbom)) {
@@ -355,7 +438,7 @@ if (process.argv.length > 2) {
   );
   if (isLikelyHbom(sbom)) {
     console.log(
-      "💭 Type .hbomsummary to review the host profile, evidence coverage, and hardware-class mix.",
+      "💭 Type .hbomsummary to review the host profile, evidence coverage, hardware-class mix, and collector diagnostics.",
     );
   }
   if (getAuditAnnotations().length) {
@@ -414,7 +497,7 @@ cdxgenRepl.defineCommand("create", {
       );
       if (isLikelyHbom(sbom)) {
         console.log(
-          "💭 Type .hbomsummary for a focused hardware inventory summary.",
+          "💭 Type .hbomsummary or .hbomdiagnostics for focused hardware inventory and collector-diagnostic summaries.",
         );
       }
       if (getAuditAnnotations().length) {
@@ -571,6 +654,173 @@ cdxgenRepl.defineCommand("hbomevidence", {
         ]),
       ]);
     }
+    this.displayPrompt();
+  },
+});
+cdxgenRepl.defineCommand("hbomdiagnostics", {
+  help: "show parsed HBOM command diagnostics, issue counts, and install or privilege guidance",
+  action() {
+    const interactiveBom = getInteractiveHbomOrWarn(this);
+    if (!interactiveBom) {
+      return;
+    }
+    const hbomSummary = getHbomSummary(interactiveBom);
+    if (!hbomSummary.commandDiagnosticCount) {
+      console.log(
+        "No HBOM command diagnostics were found. This usually means the collector completed without recording missing-command or permission-denied enrichments.",
+      );
+      this.displayPrompt();
+      return;
+    }
+    printKeyValueTable("HBOM diagnostic overview", [
+      ["Diagnostic count", hbomSummary.commandDiagnosticCount],
+      ["Actionable diagnostics", hbomSummary.actionableDiagnosticCount],
+      ["Missing commands", hbomSummary.missingCommandCount],
+      ["Permission denied", hbomSummary.permissionDeniedCount],
+      ["Partial support", hbomSummary.partialSupportCount],
+      ["Timeouts", hbomSummary.timeoutCount],
+      ["Other command errors", hbomSummary.commandErrorCount],
+      ["Diagnostic issues", hbomSummary.diagnosticIssues.join(", ")],
+      ["Missing command IDs", hbomSummary.missingCommandIds.join(", ")],
+      ["Permission-denied IDs", hbomSummary.permissionDeniedIds.join(", ")],
+      ["Install hint count", hbomSummary.installHintCount],
+      ["Privilege hint count", hbomSummary.privilegeHintCount],
+      [
+        "Requires privileged rerun",
+        hbomSummary.requiresPrivilegedEnrichment ? "yes" : "no",
+      ],
+    ]);
+    printAuditTable("HBOM command diagnostics", [
+      ["Issue", "Diagnostic ID", "Command", "Hint / Message"],
+      ...hbomSummary.commandDiagnostics.map((diagnostic) => [
+        diagnostic.issue || "unknown",
+        diagnostic.id || "-",
+        diagnostic.command || "-",
+        getDiagnosticDisplayDetail(diagnostic),
+      ]),
+    ]);
+    this.displayPrompt();
+  },
+});
+cdxgenRepl.defineCommand("hbomfirmware", {
+  help: "show firmware, board, TPM, and update-managed HBOM components plus host firmware provenance",
+  action() {
+    const interactiveBom = getInteractiveHbomOrWarn(this);
+    if (!interactiveBom) {
+      return;
+    }
+    const metadataComponent = interactiveBom.metadata?.component;
+    const firmwareComponents = filterHbomComponentsByProperties(
+      interactiveBom,
+      HBOM_FIRMWARE_PROPERTIES,
+      ["firmware", "board", "tpm"],
+    );
+    const metadataEntries = [
+      [
+        "Board vendor",
+        getPropertyValue(metadataComponent, "cdx:hbom:boardVendor"),
+      ],
+      ["Board name", getPropertyValue(metadataComponent, "cdx:hbom:boardName")],
+      [
+        "BIOS vendor",
+        getPropertyValue(metadataComponent, "cdx:hbom:biosVendor"),
+      ],
+      [
+        "BIOS version",
+        getPropertyValue(metadataComponent, "cdx:hbom:biosVersion"),
+      ],
+      [
+        "Firmware date",
+        getPropertyValue(metadataComponent, "cdx:hbom:firmwareDate"),
+      ],
+      [
+        "Device-tree revision",
+        getPropertyValue(metadataComponent, "cdx:hbom:deviceTreeRevision"),
+      ],
+    ];
+    const hasMetadataProvenance = metadataEntries.some(([, value]) =>
+      Boolean(value),
+    );
+    if (!firmwareComponents.length && !hasMetadataProvenance) {
+      console.log(
+        "No focused firmware or board provenance pivots were found. Import an HBOM from a host that exposes board, TPM, or firmware-management metadata to use this view.",
+      );
+      this.displayPrompt();
+      return;
+    }
+    if (hasMetadataProvenance) {
+      printKeyValueTable("HBOM host firmware provenance", metadataEntries);
+    }
+    if (firmwareComponents.length) {
+      printTable(
+        { components: firmwareComponents, dependencies: [] },
+        undefined,
+        undefined,
+        `Found ${firmwareComponents.length} firmware, board, TPM, or update-managed component(s).`,
+      );
+    }
+    this.displayPrompt();
+  },
+});
+cdxgenRepl.defineCommand("hbombuses", {
+  help: "show bus, connector, USB, PCI, and external-expansion HBOM components with security or topology metadata",
+  action() {
+    const interactiveBom = getInteractiveHbomOrWarn(this);
+    if (!interactiveBom) {
+      return;
+    }
+    const busComponents = filterHbomComponentsByProperties(
+      interactiveBom,
+      HBOM_BUS_SECURITY_PROPERTIES,
+      [
+        "bus",
+        "usb-device",
+        "pci-device",
+        "display-adapter",
+        "display-connector",
+      ],
+    );
+    if (!busComponents.length) {
+      console.log(
+        "No bus or connector components with focused security or topology metadata were found.",
+      );
+      this.displayPrompt();
+      return;
+    }
+    printTable(
+      { components: busComponents, dependencies: [] },
+      undefined,
+      undefined,
+      `Found ${busComponents.length} bus, USB, PCI, or display-link component(s) with bus-security or topology pivots.`,
+    );
+    this.displayPrompt();
+  },
+});
+cdxgenRepl.defineCommand("hbompower", {
+  help: "show HBOM power and battery components with detailed design-capacity and runtime telemetry",
+  action() {
+    const interactiveBom = getInteractiveHbomOrWarn(this);
+    if (!interactiveBom) {
+      return;
+    }
+    const powerComponents = filterHbomComponentsByProperties(
+      interactiveBom,
+      HBOM_POWER_PROPERTIES,
+      ["power"],
+    );
+    if (!powerComponents.length) {
+      console.log(
+        "No focused power or battery telemetry components were found on the loaded HBOM.",
+      );
+      this.displayPrompt();
+      return;
+    }
+    printTable(
+      { components: powerComponents, dependencies: [] },
+      undefined,
+      undefined,
+      `Found ${powerComponents.length} power or battery component(s) with detailed runtime telemetry.`,
+    );
     this.displayPrompt();
   },
 });
@@ -1334,10 +1584,12 @@ cdxgenRepl.defineCommand("hbomtips", {
     console.log("1. .hbomsummary");
     console.log("2. .hbomclasses");
     console.log("3. .hbomevidence");
+    console.log("4. .hbomdiagnostics");
+    console.log("5. .hbomfirmware / .hbombuses / .hbompower");
     console.log(
-      "4. .auditfindings to review hbom-security, hbom-performance, and hbom-compliance findings",
+      "6. .auditfindings to review hbom-security, hbom-performance, and hbom-compliance findings",
     );
-    console.log("5. .search <hardwareClass or device name>");
+    console.log("7. .search <hardwareClass or device name>");
     console.log(
       'Tip: .query components[properties[name="cdx:hbom:hardwareClass" and value="storage"]] filters directly by hardware class.',
     );

@@ -186,7 +186,8 @@
       and $hasProp($, 'cdx:hbom:sizeBytes')
       and $hasProp($, 'cdx:hbom:memoryOnlineSize')
       and $number($prop($, 'cdx:hbom:sizeBytes')) > 0
-      and ($number($prop($, 'cdx:hbom:memoryOnlineSize')) / $number($prop($, 'cdx:hbom:sizeBytes'))) < 0.9
+      and $parseSizeBytes($prop($, 'cdx:hbom:memoryOnlineSize')) != null
+      and ($parseSizeBytes($prop($, 'cdx:hbom:memoryOnlineSize')) / $number($prop($, 'cdx:hbom:sizeBytes'))) < 0.9
     ]
   location: |
     {
@@ -200,4 +201,107 @@
       "memoryOnlineSize": $prop($, 'cdx:hbom:memoryOnlineSize'),
       "memoryRangeCount": $prop($, 'cdx:hbom:memoryRangeCount'),
       "addressSizes": $prop($, 'cdx:hbom:addressSizes')
+    }
+
+- id: HBP-007
+  name: "Battery design capacity has materially degraded"
+  description: "Detailed Linux battery telemetry can reveal packs whose full-charge capacity has fallen materially below their design baseline, reducing runtime and stability under load."
+  severity: medium
+  category: hbom-performance
+  dry-run-support: full
+  condition: |
+    components[
+      $prop($, 'cdx:hbom:hardwareClass') = 'power'
+      and (
+        (
+          $hasProp($, 'cdx:hbom:designCapacityPercent')
+          and $number($prop($, 'cdx:hbom:designCapacityPercent')) > 0
+          and $number($prop($, 'cdx:hbom:designCapacityPercent')) < 80
+        )
+        or (
+          $hasProp($, 'cdx:hbom:energyFull')
+          and $hasProp($, 'cdx:hbom:energyFullDesign')
+          and $number($prop($, 'cdx:hbom:energyFullDesign')) > 0
+          and ($number($prop($, 'cdx:hbom:energyFull')) / $number($prop($, 'cdx:hbom:energyFullDesign'))) < 0.8
+        )
+        or (
+          $hasProp($, 'cdx:hbom:chargeFull')
+          and $hasProp($, 'cdx:hbom:chargeFullDesign')
+          and $number($prop($, 'cdx:hbom:chargeFullDesign')) > 0
+          and ($number($prop($, 'cdx:hbom:chargeFull')) / $number($prop($, 'cdx:hbom:chargeFullDesign'))) < 0.8
+        )
+      )
+    ]
+  location: |
+    {
+      "bomRef": $firstNonEmpty($."bom-ref", bom.serialNumber)
+    }
+  message: "Battery component '{{ name }}' has materially degraded relative to its design capacity"
+  mitigation: "Plan battery replacement or recalibration, review charging policy, and keep performance-sensitive mobile workloads away from hosts with heavily degraded packs."
+  evidence: |
+    {
+      "designCapacityPercent": $prop($, 'cdx:hbom:designCapacityPercent'),
+      "energyFull": $prop($, 'cdx:hbom:energyFull'),
+      "energyFullDesign": $prop($, 'cdx:hbom:energyFullDesign'),
+      "chargeFull": $prop($, 'cdx:hbom:chargeFull'),
+      "chargeFullDesign": $prop($, 'cdx:hbom:chargeFullDesign'),
+      "warningLevel": $prop($, 'cdx:hbom:warningLevel')
+    }
+
+- id: HBP-008
+  name: "USB device requires more current than the bus reports available"
+  description: "A USB device that requires more current than the bus exposes as available can behave unreliably, disconnect under load, or trigger peripheral instability."
+  severity: medium
+  category: hbom-performance
+  dry-run-support: full
+  condition: |
+    components[
+      $prop($, 'cdx:hbom:hardwareClass') = 'usb-device'
+      and $hasProp($, 'cdx:hbom:currentRequired')
+      and $hasProp($, 'cdx:hbom:currentAvailable')
+      and $number($prop($, 'cdx:hbom:currentRequired')) > $number($prop($, 'cdx:hbom:currentAvailable'))
+    ]
+  location: |
+    {
+      "bomRef": $firstNonEmpty($."bom-ref", bom.serialNumber)
+    }
+  message: "USB component '{{ name }}' reports higher current demand than the bus currently provides"
+  mitigation: "Move the device to a powered hub or higher-capacity port, reduce competing bus load, and verify peripheral power expectations before troubleshooting higher-layer software issues."
+  evidence: |
+    {
+      "currentRequired": $prop($, 'cdx:hbom:currentRequired'),
+      "currentAvailable": $prop($, 'cdx:hbom:currentAvailable'),
+      "maxPowerMilliAmps": $prop($, 'cdx:hbom:maxPowerMilliAmps'),
+      "selfPowered": $prop($, 'cdx:hbom:selfPowered'),
+      "remoteWakeup": $prop($, 'cdx:hbom:remoteWakeup')
+    }
+
+- id: HBP-009
+  name: "Cellular modem reports weak signal quality"
+  description: "A modem with very weak reported signal quality can cause intermittent connectivity, poor throughput, and degraded remote-management reliability."
+  severity: medium
+  category: hbom-performance
+  dry-run-support: full
+  condition: |
+    components[
+      (
+        $prop($, 'cdx:hbom:hardwareClass') = 'modem'
+        or $hasProp($, 'cdx:hbom:signalQuality')
+      )
+      and $hasProp($, 'cdx:hbom:signalQuality')
+      and $number($prop($, 'cdx:hbom:signalQuality')) >= 0
+      and $number($prop($, 'cdx:hbom:signalQuality')) < 25
+    ]
+  location: |
+    {
+      "bomRef": $firstNonEmpty($."bom-ref", bom.serialNumber)
+    }
+  message: "Cellular component '{{ name }}' reports weak signal quality that may impair connectivity"
+  mitigation: "Review antenna placement, carrier coverage, modem firmware, and access-technology selection before treating transport instability as an application-only issue."
+  evidence: |
+    {
+      "signalQuality": $prop($, 'cdx:hbom:signalQuality'),
+      "accessTechnologies": $prop($, 'cdx:hbom:accessTechnologies'),
+      "operatorName": $prop($, 'cdx:hbom:operatorName'),
+      "plugin": $prop($, 'cdx:hbom:plugin')
     }

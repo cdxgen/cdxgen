@@ -31,6 +31,7 @@ export function ensureSupportedHbomSpecVersion(specVersion: number | string | un
  * @returns {object} cdx-hbom collector options.
  */
 export function normalizeHbomOptions(options?: object): object;
+export function addHbomAnalysisProperties(bomJson: any): any;
 /**
  * Generate an HBOM using the optional cdx-hbom package.
  *
