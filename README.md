@@ -51,6 +51,7 @@ Supported output document formats:
 - Use `hbom` when you need a CycloneDX hardware inventory for the current host rather than a software dependency graph.
 - Start with the [HBOM guide](docs/HBOM.md) and the [HBOM lesson](docs/LESSON13.md) for supported platforms, enrichment options, and validation workflows.
 - Use `hbom --dry-run` first when you want a read-only partial HBOM plus an exact list of blocked hardware probe commands before a full collection run.
+- Use `hbom diagnostics` when you want a focused summary of missing native utilities and permission-denied enrichments before deciding whether to install host packages or rerun with `--privileged`.
 - Use `hbom --include-runtime` when you want one topology-aware CycloneDX host document that merges hardware inventory with runtime evidence using strict, non-guessing joins.
 
 #### For AppSec
@@ -145,7 +146,7 @@ Standalone GitHub release binaries are published for `cdxgen`, `cdxgen-slim`, `c
 
 `cdx-audit` is designed to accelerate upstream dependency review with explainable, evidence-backed risk prioritization. It complements provenance, reproducibility, and manual investigation rather than replacing them.
 
-For host inventories, `hbom --include-runtime` now produces a merged HBOM + OBOM view with strict topology links such as interface-name, driver-module, storage/runtime, and explicit secure-boot trust matches, plus a `host-topology` BOM audit pack for higher-confidence host findings.
+For host inventories, `hbom --include-runtime` now produces a merged HBOM + OBOM view with strict topology links such as interface-name, driver-module, storage/runtime, and explicit secure-boot trust matches, plus a `host-topology` BOM audit pack for higher-confidence host findings. When the live hardware collector reports missing utilities or permission-sensitive enrichments, use `hbom diagnostics` (or inspect the derived `cdx:hbom:analysis:*` summary properties) before deciding whether a rerun with `--privileged` is justified.
 
 To run cdxgen without installing (hotloading), use the [pnpm dlx](https://pnpm.io/cli/dlx) command.
 
@@ -162,6 +163,7 @@ corepack pnpm dlx --package=@cyclonedx/cdxgen cdx-validate --help
 corepack pnpm dlx --package=@cyclonedx/cdxgen cdx-sign --help
 corepack pnpm dlx --package=@cyclonedx/cdxgen cdx-verify --help
 corepack pnpm dlx --package=@cyclonedx/cdxgen hbom --help
+corepack pnpm dlx --package=@cyclonedx/cdxgen hbom diagnostics --help
 corepack pnpm dlx --package=@cyclonedx/cdxgen evinse --help
 corepack pnpm dlx --package=@cyclonedx/cdxgen cdxi --help
 ```

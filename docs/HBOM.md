@@ -36,24 +36,31 @@ If you want a combined hardware + runtime host document, use the dedicated merge
 hbom --include-runtime -o host-view.json
 ```
 
+To focus only on missing native utilities and permission-sensitive enrichments, use the dedicated diagnostics subcommand:
+
+```shell
+hbom diagnostics
+hbom diagnostics --input hbom.json
+```
+
 ## Common options
 
-| Option                    | Purpose                                                                                                     |
-| ------------------------- | ----------------------------------------------------------------------------------------------------------- |
-| `-o, --output <file>`     | Write the generated HBOM to a file. Default: `hbom.json`                                                    |
-| `-p, --print`             | Print the generated HBOM to stdout instead of writing a file                                                |
-| `--pretty`                | Pretty-print JSON output                                                                                    |
-| `--validate`              | Validate the generated HBOM using the CycloneDX schema                                                      |
-| `--dry-run`               | Generate a read-only partial HBOM, block collector commands and writes, and report the attempted activity   |
-| `--include-runtime`       | Collect an OBOM runtime inventory alongside the HBOM and emit a merged host view with strict topology links |
-| `--platform <value>`      | Override platform detection                                                                                 |
-| `--arch <value>`          | Override architecture detection                                                                             |
-| `--sensitive`             | Include raw identifiers instead of redacted defaults                                                        |
-| `--no-command-enrichment` | Disable optional command-based enrichment                                                                   |
-| `--privileged`            | Enable privileged Linux SMBIOS enrichment via `dmidecode`                                                   |
-| `--plist-enrichment`      | Enable extra Darwin plist-based enrichment                                                                  |
-| `--strict`                | Fail instead of returning partial results when enrichment fails                                             |
-| `--timeout <ms>`          | Per-command timeout. Increase this on slower hosts such as Raspberry Pi systems                             |
+| Option                    | Purpose                                                                                                                      |
+| ------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
+| `-o, --output <file>`     | Write the generated HBOM to a file. Default: `hbom.json`                                                                     |
+| `-p, --print`             | Print the generated HBOM to stdout instead of writing a file                                                                 |
+| `--pretty`                | Pretty-print JSON output                                                                                                     |
+| `--validate`              | Validate the generated HBOM using the CycloneDX schema                                                                       |
+| `--dry-run`               | Generate a read-only partial HBOM, block collector commands and writes, and report the attempted activity                    |
+| `--include-runtime`       | Collect an OBOM runtime inventory alongside the HBOM and emit a merged host view with strict topology links                  |
+| `--platform <value>`      | Override platform detection                                                                                                  |
+| `--arch <value>`          | Override architecture detection                                                                                              |
+| `--sensitive`             | Include raw identifiers instead of redacted defaults                                                                         |
+| `--no-command-enrichment` | Disable optional command-based enrichment                                                                                    |
+| `--privileged`            | Enable privileged Linux enrichment and allow documented permission-sensitive commands to retry via non-interactive `sudo -n` |
+| `--plist-enrichment`      | Enable extra Darwin plist-based enrichment                                                                                   |
+| `--strict`                | Fail instead of returning partial results when enrichment fails                                                              |
+| `--timeout <ms>`          | Per-command timeout. Increase this on slower hosts such as Raspberry Pi systems                                              |
 
 ## Examples
 
@@ -93,6 +100,18 @@ Collect Linux SMBIOS enrichment when you already have the required privileges:
 hbom --platform linux --arch amd64 --privileged -o linux-hbom.json
 ```
 
+Run a focused diagnostic pass to identify missing Linux utilities and permission-denied enrichments before deciding whether you need `--privileged`:
+
+```shell
+hbom diagnostics
+```
+
+Review an existing HBOM file and summarize the serialized collector diagnostics without touching the live host again:
+
+```shell
+hbom diagnostics --input hbom.json
+```
+
 Enable Darwin plist enrichment on Apple Silicon:
 
 ```shell
@@ -124,6 +143,7 @@ When you run `cdxgen -t hbom --bom-audit` without specifying categories, cdxgen 
 - `hbom-security` — encryption, removable media, weak wireless security, and raw identifier exposure
 - `hbom-performance` — storage headroom, storage wear/health, thermal pressure, battery degradation, wired-link negotiation, and memory-online drift
 - `hbom-compliance` — asset identity completeness, firmware/board provenance, collector evidence completeness, storage encryption evidence, and identifier-policy governance
+  - including command-diagnostic checks for missing native utilities and permission-denied enrichments that should be rerun with `--privileged` only where policy allows
 
 When you add `--include-runtime`, cdxgen also enables:
 
@@ -160,12 +180,32 @@ HBOM dry-run is handled natively by `@cdxgen/cdx-hbom`.
 - Filesystem writes remain blocked, so dry-run is safe for review-first workflows.
 - Because command execution is intentionally skipped, some command-derived hardware details may remain `unknown` or be absent until you rerun without `--dry-run`.
 
+## Collector diagnostics and summary properties
+
+`@cdxgen/cdx-hbom` 0.4.0 records Linux command failures such as missing native utilities and permission-denied enrichments in the BOM root as serialized evidence properties:
+
+- `cdx:hbom:evidence:commandDiagnosticCount`
+- repeated `cdx:hbom:evidence:commandDiagnostic` JSON values
+
+cdxgen now adds a compact set of derived summary properties so audit rules and automation do not need to parse the raw JSON strings themselves:
+
+- `cdx:hbom:analysis:commandDiagnosticCount`
+- `cdx:hbom:analysis:actionableDiagnosticCount`
+- `cdx:hbom:analysis:missingCommandCount`
+- `cdx:hbom:analysis:missingCommands`
+- `cdx:hbom:analysis:permissionDeniedCount`
+- `cdx:hbom:analysis:permissionDeniedCommands`
+- `cdx:hbom:analysis:requiresPrivileged`
+
+Use these in combination with `hbom diagnostics` and the `hbom-compliance` audit pack to decide whether you need to install missing host packages, accept a partial BOM, or rerun with `--privileged`.
+
 ## Validation and safety notes
 
 - HBOM generation currently targets **CycloneDX 1.7**.
 - By default, the collector redacts sensitive identifiers such as serial numbers and MAC addresses where appropriate.
 - Use `--sensitive` only when you explicitly need raw identifiers in the resulting BOM.
 - Linux `--privileged` enrichment may require root or passwordless sudo depending on the target environment.
+- Prefer `hbom diagnostics` before enabling `--privileged` broadly so you can see exactly which enrichments failed due to missing commands or permissions.
 - In `--dry-run` mode, cdxgen returns a partial HBOM from safe local discovery where available, reports each blocked HBOM command in the activity summary, and still skips filesystem writes.
 
 ## When to use HBOM vs OBOM

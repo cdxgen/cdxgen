@@ -1,10 +1,10 @@
 # Threat Model
 
-This document describes the threat model for cdxgen — a polyglot CycloneDX BOM generator that produces SBOM, CBOM, OBOM, SaaSBOM, CDXA, and VDR documents. It identifies threat actors, attack surfaces, trust boundaries, and mitigations across cdxgen's components: CLI, library, HTTP server, REPL, CI/CD infrastructure, container images, dependencies, and the optional native helper binaries supplied through `cdxgen-plugins-bin`.
+This document describes the threat model for cdxgen — a polyglot CycloneDX BOM generator that produces SBOM, CBOM, HBOM, OBOM, SaaSBOM, CDXA, and VDR documents. It identifies threat actors, attack surfaces, trust boundaries, and mitigations across cdxgen's components: CLI, library, HTTP server, REPL, CI/CD infrastructure, container images, dependencies, the optional pure-ESM `@cdxgen/cdx-hbom` host collector, and the optional native helper binaries supplied through `cdxgen-plugins-bin`.
 
 ## System Overview
 
-cdxgen generates CycloneDX Bill-of-Materials (BOM) documents — including SBOM, CBOM, OBOM, SaaSBOM, CDXA, and VDR — by parsing project manifests/lockfiles and optionally invoking external build tools. It also opportunistically uses optional helper binaries from `cdxgen-plugins-bin` such as Trivy (container/rootfs OS inventory), osquery (live-OS OBOM), trustinspector (filesystem/signing/trust inventory), SourceKitten, and dosai. It operates in six modes:
+cdxgen generates CycloneDX Bill-of-Materials (BOM) documents — including SBOM, CBOM, HBOM, OBOM, SaaSBOM, CDXA, and VDR — by parsing project manifests/lockfiles and optionally invoking external build tools. It also opportunistically uses the optional pure-ESM `@cdxgen/cdx-hbom` package for live hardware inventory on supported hosts, plus optional helper binaries from `cdxgen-plugins-bin` such as Trivy (container/rootfs OS inventory), osquery (live-OS OBOM), trustinspector (filesystem/signing/trust inventory), SourceKitten, and dosai. It operates in six modes:
 
 1. **CLI** (`bin/cdxgen.js`) — Command-line invocation on local projects
 2. **Library** (`lib/cli/index.js`) — Programmatic use via `createBom(path, options)`
@@ -174,6 +174,20 @@ Trust boundary 5: cdxgen container ←→ container host
 - Docker/rootfs regression tests compare archive and reconstructed-rootfs signatures so repo/key inventory drift is caught during CI
 
 **Residual risk:** Medium — cdxgen inventories what exists on disk and can preserve trust relationships, but it cannot prove that the configured repositories or keys are themselves benign or organization-approved.
+
+#### T1.9 — Over-privileged HBOM live collection on managed hosts
+
+**Threat:** An operator grants broader privileges than necessary to collect HBOM data on Linux, or assumes that every partial HBOM requires root access, increasing the blast radius of the scanning process on production hosts.
+
+**Mitigations:**
+
+- HBOM collection defaults to unprivileged mode and relies first on `/proc`, `/sys`, and other low-risk local sources where possible
+- `--privileged` is explicit opt-in and only enables the documented permission-sensitive command paths exposed by `@cdxgen/cdx-hbom`
+- `@cdxgen/cdx-hbom` 0.4.0 records missing-command and permission-denied diagnostics directly in the BOM root and collector trace instead of silently hiding partial evidence gaps
+- cdxgen derives compact `cdx:hbom:analysis:*` summary properties and exposes `hbom diagnostics` so operators can distinguish "install a package" from "rerun with --privileged" without guessing
+- The Linux privileged path uses non-interactive `sudo -n`, avoiding interactive password prompts that would otherwise encourage ad hoc operator workarounds
+
+**Residual risk:** Medium — HBOM still runs on the target host and may require elevated access for richer firmware or graphics detail. Users remain responsible for applying least privilege and deciding whether the additional evidence is worth the extra permissions.
 
 ### 2. HTTP Server (`lib/server/server.js`)
 

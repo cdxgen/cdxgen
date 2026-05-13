@@ -398,13 +398,15 @@ Typical reviewer actions:
 
 #### `hbom-compliance` — Governance and evidence completeness
 
-| Rule    | Severity | Description                                         |
-| ------- | -------- | --------------------------------------------------- |
-| HBC-001 | medium   | HBOM inventory lacks firmware or board provenance   |
-| HBC-002 | medium   | Managed asset identity is incomplete                |
-| HBC-003 | medium   | HBOM collector evidence is incomplete               |
-| HBC-004 | medium   | Storage inventory lacks encryption posture evidence |
-| HBC-005 | medium   | HBOM uses non-redacted identifier policy            |
+| Rule    | Severity | Description                                            |
+| ------- | -------- | ------------------------------------------------------ |
+| HBC-001 | medium   | HBOM inventory lacks firmware or board provenance      |
+| HBC-002 | medium   | Managed asset identity is incomplete                   |
+| HBC-003 | medium   | HBOM collector evidence is incomplete                  |
+| HBC-004 | medium   | Storage inventory lacks encryption posture evidence    |
+| HBC-005 | medium   | HBOM uses non-redacted identifier policy               |
+| HBC-006 | medium   | HBOM collector is missing optional enrichment commands |
+| HBC-007 | medium   | HBOM collector hit permission-denied enrichments       |
 
 These rules are mapped where practical to common governance references such as:
 
@@ -418,6 +420,8 @@ Typical reviewer actions:
 - preserve collector command evidence so the inventory is reproducible during audit or incident review
 - capture explicit storage encryption posture for governed devices
 - prefer redacted identifier policy for broadly shared BOMs
+- use `hbom diagnostics` or the derived `cdx:hbom:analysis:*` summary properties to identify missing host packages before accepting a partial Linux HBOM
+- rerun with `--privileged` only when the diagnostic evidence shows permission-denied enrichments that are worth collecting and your target environment allows non-interactive sudo
 
 ### `rootfs-hardening` — Offline host and golden-image hardening review
 

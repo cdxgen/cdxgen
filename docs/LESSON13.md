@@ -60,7 +60,26 @@ With the optional `@cdxgen/cdx-hbom` library, dry-run is handled inside the HBOM
 
 This is especially useful on supported macOS and Linux hosts when you want to review exactly which collector commands would run before doing a full inventory.
 
-## 5) Validate the result
+## 5) Diagnose missing utilities and permission-sensitive enrichments
+
+Before enabling `--privileged` broadly on Linux, ask cdxgen to summarize the HBOM collector gaps:
+
+```shell
+hbom diagnostics
+```
+
+This command focuses on the actionable Linux issues surfaced by `@cdxgen/cdx-hbom` 0.4.0:
+
+- **missing-command** — a useful native utility such as `lsusb`, `lspci`, `fwupdmgr`, or `dmidecode` was not installed
+- **permission-denied** — the collector reached a documented permission-sensitive enrichment that usually needs `--privileged`
+
+After you have already generated a BOM, you can summarize the serialized collector diagnostics from the file itself without touching the host again:
+
+```shell
+hbom diagnostics --input hbom.json
+```
+
+## 6) Validate the result
 
 The `hbom` command validates by default. If you want to validate the file again with the standalone validator:
 
@@ -68,7 +87,7 @@ The `hbom` command validates by default. If you want to validate the file again 
 cdx-validate -i hbom.json
 ```
 
-## 6) Use platform-specific enrichment carefully
+## 7) Use platform-specific enrichment carefully
 
 ### Apple Silicon macOS
 
@@ -80,15 +99,15 @@ hbom --platform darwin --arch arm64 --plist-enrichment -o mac-hbom.json
 
 ### Linux
 
-Enable privileged SMBIOS enrichment when the environment already allows it:
+Use `hbom diagnostics` first. If it reports permission-denied enrichments that matter to your workflow, then enable privileged enrichment when the environment already allows it:
 
 ```shell
 hbom --platform linux --arch amd64 --privileged -o linux-hbom.json
 ```
 
-> `--privileged` may require elevated access or passwordless sudo depending on the system.
+> `--privileged` may require elevated access or passwordless sudo depending on the system. Use it as a targeted follow-up to the diagnostics report rather than as the default first step.
 
-## 7) Preserve sensitive identifiers only when necessary
+## 8) Preserve sensitive identifiers only when necessary
 
 By default, supported identifiers are redacted. If you explicitly need raw identifiers in the BOM:
 
@@ -98,7 +117,7 @@ hbom --sensitive -o hbom-sensitive.json
 
 Use this mode carefully before distributing the BOM externally.
 
-## 8) Use the main `cdxgen` command when needed
+## 9) Use the main `cdxgen` command when needed
 
 The same integration is available through the main CLI:
 
@@ -120,7 +139,7 @@ On slower arm64 hosts such as Raspberry Pi systems, it is often worth increasing
 hbom --include-runtime --timeout 180000 -o host-view.json
 ```
 
-## 9) Build a merged HBOM + OBOM host view
+## 10) Build a merged HBOM + OBOM host view
 
 When you want one CycloneDX document that combines hardware inventory with runtime evidence for the same host, use `--include-runtime`:
 
@@ -146,7 +165,7 @@ The merged document adds summary properties such as:
 
 Linked interfaces and storage devices also gain per-component properties such as `cdx:hostview:interface_addresses:count`, `cdx:hostview:kernel_modules:count`, `cdx:hostview:mount_hardening:count`, and `cdx:hostview:runtime-storage:count`.
 
-## 10) Audit the merged host view
+## 11) Audit the merged host view
 
 The merged host view enables a new `host-topology` BOM audit category.
 
@@ -162,7 +181,7 @@ With `--include-runtime`, cdxgen automatically adds `host-topology` to the defau
 - revoked Secure Boot trust anchors when HBOM metadata and runtime certificate inventory match on an exact identifier
 - merged host views that still produced zero strict topology links and therefore need collection review
 
-## 11) Do not mix HBOM with software project types
+## 12) Do not mix HBOM with software project types
 
 HBOM must be generated separately from software project types.
 
@@ -185,7 +204,7 @@ Or use the dedicated merged-host option when the second inventory is the local r
 hbom --include-runtime -o host-view.json
 ```
 
-## 12) What to inspect in the resulting BOM
+## 13) What to inspect in the resulting BOM
 
 A generated HBOM typically includes:
 
@@ -193,6 +212,8 @@ A generated HBOM typically includes:
 - `components` of CycloneDX `type: "device"`
 - `cdx:hbom:*` properties describing hardware class and collected attributes
 - platform-level evidence properties showing which native commands contributed data
+- Linux diagnostic evidence properties such as `cdx:hbom:evidence:commandDiagnostic*` when command enrichment was missing tools or hit permission-sensitive paths
+- cdxgen-derived summary properties under `cdx:hbom:analysis:*` for counts, missing command names, and permission-denied rerun guidance
 
 In a merged host view, also inspect:
 
@@ -202,8 +223,9 @@ In a merged host view, also inspect:
 
 In dry-run mode, expect the same overall structure, but with fewer command-derived attributes and an activity summary that lists each blocked probe explicitly.
 
-## 13) Practical next steps
+## 14) Practical next steps
 
 - Use `hbom --include-runtime` when you need one explainable, topology-aware host document instead of two separate files.
+- Use `hbom diagnostics` before enabling `--privileged` so you can justify the extra permissions with concrete missing-command or permission-denied evidence.
 - Keep software SBOM generation separate from HBOM/OBOM host collection.
 - Review redaction-sensitive runs before sharing BOMs outside your organization.

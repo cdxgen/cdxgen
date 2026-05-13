@@ -174,3 +174,57 @@
       "serialNumber": $prop($, 'cdx:hbom:serialNumber'),
       "platformUuid": $prop($, 'cdx:hbom:platformUuid')
     }
+
+- id: HBC-006
+  name: "HBOM collector is missing optional enrichment commands"
+  description: "Missing native utilities reduce the hardware evidence available to governance, assurance, and troubleshooting workflows."
+  severity: medium
+  category: hbom-compliance
+  dry-run-support: full
+  condition: |
+    metadata.component[
+      type = 'device'
+      and $number($firstNonEmpty($prop($$, 'cdx:hbom:analysis:missingCommandCount'), '0')) > 0
+    ]
+  location: |
+    {
+      "bomRef": $firstNonEmpty($."bom-ref", bom.serialNumber)
+    }
+  message: "HBOM for '{{ name }}' reported missing native enrichment commands"
+  mitigation: "Install the reported utilities on the target host and rerun the HBOM collection so the inventory includes the richer structured hardware evidence those commands provide."
+  evidence: |
+    {
+      "collectorProfile": $prop(bom, 'cdx:hbom:collectorProfile'),
+      "missingCommandCount": $prop(bom, 'cdx:hbom:analysis:missingCommandCount'),
+      "missingCommands": $propList(bom, 'cdx:hbom:analysis:missingCommands'),
+      "diagnosticIssues": $propList(bom, 'cdx:hbom:analysis:diagnosticIssues')
+    }
+
+- id: HBC-007
+  name: "HBOM collector hit permission-denied enrichments"
+  description: "Permission-sensitive enrichments that fail during collection often leave firmware, graphics, or SMBIOS evidence incomplete until the host is rerun with the documented privileged mode."
+  severity: medium
+  category: hbom-compliance
+  dry-run-support: full
+  standards:
+    nist-800-53:
+      - "CM-8 System Component Inventory"
+      - "SI-7 Software, Firmware, and Information Integrity"
+  condition: |
+    metadata.component[
+      type = 'device'
+      and $number($firstNonEmpty($prop($$, 'cdx:hbom:analysis:permissionDeniedCount'), '0')) > 0
+    ]
+  location: |
+    {
+      "bomRef": $firstNonEmpty($."bom-ref", bom.serialNumber)
+    }
+  message: "HBOM for '{{ name }}' hit permission-denied enrichments that likely require a rerun with --privileged"
+  mitigation: "Where policy allows, rerun HBOM collection with --privileged so cdx-hbom can use the documented non-interactive sudo path for permission-sensitive Linux enrichments."
+  evidence: |
+    {
+      "collectorProfile": $prop(bom, 'cdx:hbom:collectorProfile'),
+      "permissionDeniedCount": $prop(bom, 'cdx:hbom:analysis:permissionDeniedCount'),
+      "permissionDeniedCommands": $propList(bom, 'cdx:hbom:analysis:permissionDeniedCommands'),
+      "requiresPrivileged": $prop(bom, 'cdx:hbom:analysis:requiresPrivileged')
+    }

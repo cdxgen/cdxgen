@@ -154,8 +154,8 @@ importers:
         specifier: 2.11.0
         version: 2.11.0
       '@cdxgen/cdx-hbom':
-        specifier: 0.3.0
-        version: 0.3.0
+        specifier: 0.4.0
+        version: 0.4.0
       '@cdxgen/cdxgen-plugins-bin':
         specifier: 2.1.1
         version: 2.1.1
@@ -318,8 +318,8 @@ packages:
   '@bufbuild/protobuf@2.11.0':
     resolution: {integrity: sha512-sBXGT13cpmPR5BMgHE6UEEfEaShh5Ror6rfN3yEK5si7QVrtZg8LEPQb0VVhiLRUslD2yLnXtnRzG035J/mZXQ==, tarball: https://registry.npmjs.org/@bufbuild/protobuf/-/protobuf-2.11.0.tgz}
 
-  '@cdxgen/cdx-hbom@0.3.0':
-    resolution: {integrity: sha512-6EPn2RbAH0pl9v9M1y5j7da8NBF5iGToutR8iv6Z+Dc18Hqz06X8PB+SrmijHBbkfgtu9OrZdpapUcu/A+DyPw==, tarball: https://registry.npmjs.org/@cdxgen/cdx-hbom/-/cdx-hbom-0.3.0.tgz}
+  '@cdxgen/cdx-hbom@0.4.0':
+    resolution: {integrity: sha512-Xauw2C0SuTg6hEFpxW/dwahEDHivrydY7fIGB4VjcmN8mK53V8iLis2bU4dHUZ5ZMnnxJOW9D0/kiNUrCYsSOA==, tarball: https://registry.npmjs.org/@cdxgen/cdx-hbom/-/cdx-hbom-0.4.0.tgz}
     engines: {node: '>=20'}
 
   '@cdxgen/cdxgen-plugins-bin-darwin-amd64@2.1.1':
@@ -1250,7 +1250,7 @@ snapshots:
   '@bufbuild/protobuf@2.11.0':
     optional: true
 
-  '@cdxgen/cdx-hbom@0.3.0':
+  '@cdxgen/cdx-hbom@0.4.0':
     optional: true
 
   '@cdxgen/cdxgen-plugins-bin-darwin-amd64@2.1.1':
