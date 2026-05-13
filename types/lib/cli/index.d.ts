@@ -287,6 +287,14 @@ export function createMultiXBom(pathList: string[], options: Object): Promise<Ob
  */
 export function createXBom(path: string, options: Object): Promise<Object | undefined>;
 /**
+ * Function to create a hardware BOM for the current host.
+ *
+ * @param {string} _path Source path (unused for live host HBOM generation)
+ * @param {Object} options Parse options from the cli
+ * @returns {Promise<Object>} Promise resolving to BOM object
+ */
+export function createHBom(_path: string, options: Object): Promise<Object>;
+/**
  * Function to create bom string for various languages
  *
  * @param {string} path to the project

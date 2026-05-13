@@ -11,6 +11,7 @@ The package ships multiple CLI entry points. Use this table as the top-level nav
 | Command        | Purpose                                                                            | Standalone release binary | Dedicated docs                     |
 | -------------- | ---------------------------------------------------------------------------------- | ------------------------- | ---------------------------------- |
 | `cdxgen`       | Generate CycloneDX and SPDX BOMs from source, images, binaries, git URLs, or purls | yes                       | [CLI Usage](CLI.md)                |
+| `hbom`         | Generate a CycloneDX hardware BOM for the current host                              | no                        | [HBOM.md](HBOM.md)                 |
 | `cdx-audit`    | Explainable upstream dependency risk prioritization from existing BOMs             | yes                       | [CDX_AUDIT.md](CDX_AUDIT.md)       |
 | `cdx-convert`  | Convert CycloneDX JSON to SPDX 3.0.1 JSON-LD                                       | yes                       | [CDX_CONVERT.md](CDX_CONVERT.md)   |
 | `cdx-sign`     | Sign a CycloneDX BOM                                                               | yes                       | [CDX_SIGN.md](CDX_SIGN.md)         |
@@ -26,6 +27,7 @@ Some commands are focused aliases rather than separate implementations.
 | Alias                                | Equivalent behavior                                                                                        |
 | ------------------------------------ | ---------------------------------------------------------------------------------------------------------- |
 | `obom`                               | `cdxgen -t os`                                                                                             |
+| `hbom`                               | dedicated HBOM command backed by `@cdxgen/cdx-hbom`; equivalent library path: `cdxgen -t hbom`           |
 | `spdxgen`                            | `cdxgen --format spdx`                                                                                     |
 | `cbom`                               | `cdxgen` with `includeCrypto`, `evidence`, `deep`, and CycloneDX `1.7` defaults suited for CBOM generation |
 | `saasbom`                            | `cdxgen` with `evidence`, `deep`, and CycloneDX `1.7` defaults suited for service-evidence collection      |
@@ -33,6 +35,23 @@ Some commands are focused aliases rather than separate implementations.
 | `cbom`, `obom`, `saasbom`, `spdxgen` | still accept the regular `cdxgen` flags in addition to their alias behavior                                |
 
 Installing `@cyclonedx/cdxgen` from npm exposes the commands in the command map plus the aliases in this section.
+
+## HBOM command
+
+Use `hbom` when you want a hardware BOM for the current host rather than a software inventory.
+
+- Supported collector targets currently come from `@cdxgen/cdx-hbom` (`darwin/arm64`, `linux/amd64`, and `linux/arm64`).
+- `hbom` dynamically loads the optional hardware collector only when you invoke the command or request `cdxgen -t hbom`.
+- Do not mix `hbom` with software project types in the same run. Generate SBOMs and HBOMs separately.
+
+Examples:
+
+```shell
+hbom -o hbom.json
+hbom -p
+hbom --platform linux --arch amd64 --privileged -o linux-hbom.json
+cdxgen -t hbom -o hbom.json .
+```
 
 ## Dry-run mode
 
@@ -98,6 +117,7 @@ You can also invoke any packaged command without a global install:
 
 ```shell
 corepack pnpm dlx @cyclonedx/cdxgen --help
+corepack pnpm dlx --package=@cyclonedx/cdxgen hbom --help
 corepack pnpm dlx --package=@cyclonedx/cdxgen cdx-audit --help
 corepack pnpm dlx --package=@cyclonedx/cdxgen cdx-convert --help
 corepack pnpm dlx --package=@cyclonedx/cdxgen cdx-validate --help

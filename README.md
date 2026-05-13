@@ -16,6 +16,7 @@ cdxgen is a CLI tool, library, [REPL](./ADVANCED.md), and server to create, vali
 
 Supported BOM formats:
 
+- Hardware (HBOM) - For supported live hosts such as Apple Silicon macOS and Linux amd64/arm64 systems.
 - Software (SBOM) - For many languages and container images.
 - Cryptography (CBOM) - For Java keystores and certificates, plus JavaScript and TypeScript source-level algorithm inventory.
 - Operations (OBOM) - For Linux container images and VMs running Linux or Windows operating systems.
@@ -33,6 +34,7 @@ Supported output document formats:
 | Persona              | What cdxgen helps you do                                                               | First command                                                              | Read next                                                                                                 |
 | -------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- |
 | **Developers**       | Generate a CycloneDX BOM from a local repo, git URL, purl, or container image          | `cdxgen -o bom.json .`                                                     | [CLI Usage][docs-cli], [Supported Project Types][docs-project-types]                                      |
+| **Hardware teams**   | Generate an HBOM for the current host with hardware-aware enrichment                    | `hbom -o hbom.json`                                                        | [HBOM guide](docs/HBOM.md), [HBOM lesson](docs/LESSON13.md)                                              |
 | **AppSec**           | Enrich BOMs with evidence, run BOM audit rules, and feed downstream security workflows | `cdxgen -o bom.json --profile appsec --evidence --bom-audit .`             | [BOM Audit](docs/BOM_AUDIT.md), [Threat Model](docs/THREAT_MODEL.md)                                      |
 | **SOC analysts**     | Build OBOM inventories for live hosts and triage runtime posture issues                | `obom -o obom.json --deep --bom-audit --bom-audit-categories obom-runtime` | [OBOM lessons](docs/OBOM_LESSONS.md), [Server Usage][docs-server]                                         |
 | **Compliance teams** | Validate BOM quality, check SCVS/CRA posture, and export SPDX deliverables             | `cdx-validate -i bom.json --benchmark scvs-l2,cra`                         | [cdx-validate](docs/CDX_VALIDATE.md), [cdx-convert](docs/CDX_CONVERT.md), [Permissions][docs-permissions] |
@@ -43,6 +45,11 @@ Supported output document formats:
 
 - Start with a local path, git URL, or purl and generate a BOM in one command.
 - Use [Supported Project Types][docs-project-types] to confirm ecosystem coverage before wiring cdxgen into CI.
+
+#### For hardware and platform teams
+
+- Use `hbom` when you need a CycloneDX hardware inventory for the current host rather than a software dependency graph.
+- Start with the [HBOM guide](docs/HBOM.md) and the [HBOM lesson](docs/LESSON13.md) for supported platforms, enrichment options, and validation workflows.
 
 #### For AppSec
 
@@ -89,9 +96,11 @@ Sections include:
 
 - [Getting Started][docs-homepage]
 - [CLI Usage][docs-cli]
+- [HBOM Guide](docs/HBOM.md)
 - [Server Usage][docs-server]
 - [Hands-on Lessons](docs/LESSON8.md)
 - [Container Escape & Privilege Lesson](docs/LESSON9.md)
+- [HBOM Lesson](docs/LESSON13.md)
 - [Supported Project Types][docs-project-types]
 - [Environment Variables][docs-env-vars]
 - [Advanced Usage][docs-advanced-usage]
@@ -115,6 +124,7 @@ Installing `@cyclonedx/cdxgen` exposes these commands:
 | Command         | Purpose                                                                                              | Standalone GitHub release binary |
 | --------------- | ---------------------------------------------------------------------------------------------------- | -------------------------------- |
 | `cdxgen`        | Generate CycloneDX / SPDX BOMs from source, images, binaries, git URLs, or purls                     | yes                              |
+| `hbom`          | Generate a CycloneDX hardware BOM for the current host                                               | no                               |
 | `cdx-audit`     | Prioritize existing BOM dependencies for upstream supply-chain review using explainable risk signals | yes                              |
 | `cdx-convert`   | Convert CycloneDX JSON to SPDX 3.0.1 JSON-LD                                                         | yes                              |
 | `cdx-sign`      | Sign BOMs with JSF signatures                                                                        | yes                              |
@@ -146,6 +156,7 @@ corepack pnpm dlx --package=@cyclonedx/cdxgen cdx-convert --help
 corepack pnpm dlx --package=@cyclonedx/cdxgen cdx-validate --help
 corepack pnpm dlx --package=@cyclonedx/cdxgen cdx-sign --help
 corepack pnpm dlx --package=@cyclonedx/cdxgen cdx-verify --help
+corepack pnpm dlx --package=@cyclonedx/cdxgen hbom --help
 corepack pnpm dlx --package=@cyclonedx/cdxgen evinse --help
 corepack pnpm dlx --package=@cyclonedx/cdxgen cdxi --help
 ```

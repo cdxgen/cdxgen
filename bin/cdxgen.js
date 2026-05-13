@@ -38,6 +38,11 @@ import {
   createOutputPlan,
   getOutputDirectory,
 } from "../lib/helpers/exportUtils.js";
+import {
+  ensureNoMixedHbomProjectTypes,
+  ensureSupportedHbomSpecVersion,
+  hasHbomProjectType,
+} from "../lib/helpers/hbom.js";
 import { TRACE_MODE, thoughtEnd, thoughtLog } from "../lib/helpers/logger.js";
 import {
   cleanupSourceDir,
@@ -561,6 +566,7 @@ const args = _yargs
       "$0 -t java -t js .",
       "Generate a SBOM for Java and JavaScript in the current directory",
     ],
+    ["$0 -t hbom .", "Generate an HBOM for the current host"],
     [
       "$0 -t java --profile ml .",
       "Generate a Java SBOM for machine learning purposes.",
@@ -703,6 +709,15 @@ for (const outputFile of Object.values(outputPlan.outputs)) {
 // Filter duplicate types. Eg: -t gradle -t gradle
 if (options.projectType && Array.isArray(options.projectType)) {
   options.projectType = Array.from(new Set(options.projectType));
+}
+try {
+  ensureNoMixedHbomProjectTypes(options.projectType);
+  if (hasHbomProjectType(options.projectType)) {
+    ensureSupportedHbomSpecVersion(options.specVersion);
+  }
+} catch (error) {
+  console.error(error.message);
+  process.exit(1);
 }
 if (!options.projectType) {
   thoughtLog(
@@ -1386,7 +1401,9 @@ const writeCycloneDxOutput = (jsonFile, bomJson, options) => {
     cleanup = true;
   }
   setActivityContext({ sourcePath: srcDir });
-  prepareEnv(srcDir, options);
+  if (!hasHbomProjectType(options.projectType)) {
+    prepareEnv(srcDir, options);
+  }
   thoughtLog("Getting ready to generate the BOM ⚡️.");
   const originalFetchPackageMetadata = process.env.CDXGEN_FETCH_PKG_METADATA;
   const shouldRunPredictiveAudit = shouldRunPredictiveBomAudit(

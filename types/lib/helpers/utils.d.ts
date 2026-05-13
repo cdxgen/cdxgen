@@ -2106,6 +2106,7 @@ export const PROJECT_TYPE_ALIASES: {
     c: string[];
     clojure: string[];
     github: string[];
+    hbom: string[];
     os: string[];
     jenkins: string[];
     helm: string[];
