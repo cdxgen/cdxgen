@@ -98,8 +98,8 @@ importers:
         specifier: 7.8.0
         version: 7.8.0
       ssri:
-        specifier: 14.0.0
-        version: 14.0.0
+        specifier: 13.0.1
+        version: 13.0.1
       tar:
         specifier: 7.5.15
         version: 7.5.15
@@ -1013,9 +1013,9 @@ packages:
   spdx-license-ids@3.0.23:
     resolution: {integrity: sha512-CWLcCCH7VLu13TgOH+r8p1O/Znwhqv/dbb6lqWy67G+pT1kHmeD/+V36AVb/vq8QMIQwVShJ6Ssl5FPh0fuSdw==, tarball: https://registry.npmjs.org/spdx-license-ids/-/spdx-license-ids-3.0.23.tgz}
 
-  ssri@14.0.0:
-    resolution: {integrity: sha512-jQxKI0yx0ZnTKrqjKkLDV2DXkBQn3k49JVmVqDGcDwKDtGDbImD/GXsq04KD0VVzCQQ9wZJYal3RwR1GzWTSow==, tarball: https://registry.npmjs.org/ssri/-/ssri-14.0.0.tgz}
-    engines: {node: ^22.22.2 || ^24.15.0 || >=26.0.0}
+  ssri@13.0.1:
+    resolution: {integrity: sha512-QUiRf1+u9wPTL/76GTYlKttDEBWV1ga9ZXW8BG6kfdeyyM8LGPix9gROyg9V2+P0xNyF3X2Go526xKFdMZrHSQ==, tarball: https://registry.npmjs.org/ssri/-/ssri-13.0.1.tgz}
+    engines: {node: ^20.17.0 || >=22.9.0}
 
   statuses@1.5.0:
     resolution: {integrity: sha512-OpZ3zP+jT1PI7I8nemJX4AKmAX070ZkYPVWV/AaKTJl+tXCTGyVdC1a4SL8RUQYEwk/f34ZX8UTykN68FwrqAA==, tarball: https://registry.npmjs.org/statuses/-/statuses-1.5.0.tgz}
@@ -1975,7 +1975,7 @@ snapshots:
 
   spdx-license-ids@3.0.23: {}
 
-  ssri@14.0.0:
+  ssri@13.0.1:
     dependencies:
       minipass: 7.1.3
 
