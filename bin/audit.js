@@ -104,6 +104,11 @@ const args = yargs(hideBin(process.argv))
       "Prioritize direct runtime dependencies ahead of optional, development-only, or platform-specific transitive packages during target selection.",
     type: "boolean",
   })
+  .option("allowlist-file", {
+    description:
+      "Optional JSON array or newline-delimited file of purl prefixes to exclude from predictive audit target selection in addition to the built-in well-known allowlist.",
+    type: "string",
+  })
   .check((argv) => {
     if (!argv.bom && !argv.bomDir) {
       throw new Error("Specify --bom or --bom-dir.");
@@ -168,6 +173,7 @@ function writeOrPrint(output, outputPath) {
   try {
     const reportFile = args.reportFile || args.output;
     const report = await runAudit({
+      allowlistFile: args.allowlistFile,
       bom: args.bom,
       bomDir: args.bomDir,
       categories: splitCsv(args.categories),

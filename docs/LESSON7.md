@@ -151,6 +151,15 @@ cdx-audit --bom bom.json --scope required --include-trusted
 cdx-audit --bom bom.json --only-trusted
 ```
 
+Predictive audit also skips a small built-in set of well-known package prefixes
+such as `pkg:npm/%40babel`, `pkg:npm/npm`, and `pkg:npm/%40types`. If your
+environment has additional internal or pre-approved prefixes, append them with a
+custom allowlist file:
+
+```shell
+cdx-audit --bom bom.json --scope required --allowlist-file ./audit-allowlist.json
+```
+
 If you want a short explanation for why a package stayed low risk or was considered risky during the predictive audit, enable think mode:
 
 ```shell

@@ -183,6 +183,9 @@ cdx-audit --bom bom.json --scope required --max-targets 25
 cdx-audit --bom bom.json --include-trusted
 cdx-audit --bom bom.json --only-trusted
 
+# Add your own purl prefix allowlist on top of the built-in well-known filter
+cdx-audit --bom bom.json --allowlist-file ./audit-allowlist.json
+
 # Explain risk scoring decisions in think mode
 CDXGEN_THINK_MODE=true cdx-audit --bom bom.json --max-targets 10
 ```
@@ -207,6 +210,7 @@ CDXGEN_THINK_MODE=true cdx-audit --bom bom.json --max-targets 10
 | `--include-trusted`           | Include targets already marked with trusted publishing metadata                        |
 | `--only-trusted`              | Restrict analysis to trusted-publishing-backed targets                                 |
 | `--prioritize-direct-runtime` | Keep direct runtime dependencies ahead of less actionable targets (enabled by default) |
+| `--allowlist-file`            | Add a JSON array or newline-delimited purl-prefix allowlist on top of the built-in well-known filter |
 
 ## Exit behavior
 
@@ -223,6 +227,7 @@ CDXGEN_THINK_MODE=true cdx-audit --bom bom.json --max-targets 10
 - only Cargo, npm, and PyPI purls are considered
 - components with `scope: optional` or `scope: excluded` are skipped when `--scope required` is used
 - packages with trusted-publishing metadata such as `cdx:cargo:trustedPublishing=true`, `cdx:npm:trustedPublishing=true`, or `cdx:pypi:trustedPublishing=true` are skipped by default
+- built-in well-known purl prefixes such as `pkg:npm/%40babel`, `pkg:npm/npm`, and `pkg:npm/%40types` are skipped by default
 - when `--max-targets` trims the queue, direct runtime dependencies are prioritized by default
 - explicit `scope=required` is treated as a stronger prioritization indicator than an implicit missing scope
 - `evidence.occurrences` lifts packages that are observed in more source locations
@@ -236,11 +241,18 @@ Use the trusted-publishing switches to override the default:
 
 Passing both switches together is invalid.
 
+You can also append your own purl prefix allowlist with `--allowlist-file`.
+The file may be either:
+
+- a JSON array such as `["pkg:npm/%40acme", "pkg:pypi/internal-tool"]`
+- a newline-delimited text file with one prefix per line
+
 ### Recommended filter combinations
 
 - `cdx-audit --bom bom.json --scope required --max-targets 25` keeps triage focused on required dependencies and caps the review queue
 - `cdx-audit --bom bom.json --include-trusted --max-targets 50` includes trusted-publishing-backed packages when you want a broader baseline review
 - `cdx-audit --bom bom.json --only-trusted` isolates the subset of packages already backed by trusted publishing metadata
+- `cdx-audit --bom bom.json --allowlist-file ./audit-allowlist.json` appends internal or pre-approved package prefixes to the built-in well-known filter
 
 ## Prioritization indicators
 

@@ -137,6 +137,7 @@ The audit runs as a post-processing step after BOM generation:
 When `--bom-audit` is enabled, cdxgen narrows predictive dependency audit targets before cloning upstream repositories:
 
 - packages with trusted publishing metadata (`cdx:cargo:trustedPublishing=true`, `cdx:npm:trustedPublishing=true`, or `cdx:pypi:trustedPublishing=true`) are skipped by default
+- built-in well-known purl prefixes such as `pkg:npm/%40babel`, `pkg:npm/npm`, and `pkg:npm/%40types` are skipped by default
 - `--bom-audit-scope required` keeps only dependencies with CycloneDX `scope=required` (missing scope is treated as required)
 - unless you override it, cdxgen caps the predictive dependency audit to `max(50, required-target-count)` and prioritizes direct runtime and required targets first
 - explicit `scope=required` and richer `evidence.occurrences` act as prioritization indicators when cdxgen trims the queue

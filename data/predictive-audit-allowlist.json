@@ -1,0 +1,11 @@
+[
+  "pkg:npm/%40babel",
+  "pkg:npm/%40eslint",
+  "pkg:npm/%40istanbuljs",
+  "pkg:npm/%40jest",
+  "pkg:npm/%40npmcli",
+  "pkg:npm/%40rollup",
+  "pkg:npm/%40types",
+  "pkg:npm/%40typescript-eslint",
+  "pkg:npm/npm"
+]
