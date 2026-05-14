@@ -56,6 +56,32 @@ function Install-OptionalDependency {
   pnpm add -w --prod --no-save --config.node-linker=hoisted --config.strict-dep-builds=true --package-import-method copy "$PackageName@$packageVersion"
 }
 
+function Remove-HbomOnlyPlugins {
+  Get-ChildItem -Path node_modules -Directory -Recurse -ErrorAction SilentlyContinue |
+    Where-Object {
+      $_.Name -in @("dosai", "sourcekitten", "trivy") -and
+      $_.FullName -match '[\\/]plugins[\\/](dosai|sourcekitten|trivy)$'
+    } |
+    ForEach-Object {
+      Remove-Item -Path $_.FullName -Force -Recurse -ErrorAction SilentlyContinue
+    }
+}
+
+function Assert-HbomOnlyPluginsPruned {
+  $remainingPlugins = Get-ChildItem -Path node_modules -Directory -Recurse -ErrorAction SilentlyContinue |
+    Where-Object {
+      $_.Name -in @("dosai", "sourcekitten", "trivy") -and
+      $_.FullName -match '[\\/]plugins[\\/](dosai|sourcekitten|trivy)$'
+    } |
+    Select-Object -ExpandProperty FullName
+
+  if ($remainingPlugins) {
+    Write-Error "HBOM SEA preflight failed: expected dosai, sourcekitten, and trivy plugin directories to be pruned before packaging hbom."
+    $remainingPlugins | ForEach-Object { Write-Error $_ }
+    throw "HBOM SEA plugin pruning verification failed"
+  }
+}
+
 $cleanupTargets = @(
   "*.md",
   "ci",
@@ -87,6 +113,8 @@ Invoke-BinaryBuild -Output "cdx-verify" -MetadataFile ".cdx-verify-metadata.json
 Invoke-BinaryBuild -Output "cdx-sign" -MetadataFile ".cdx-sign-metadata.json" -EntryPoint "bin/sign.js"
 Invoke-BinaryBuild -Output "cdx-validate" -MetadataFile ".cdx-validate-metadata.json" -EntryPoint "bin/validate.js"
 Invoke-BinaryBuild -Output "cdx-convert" -MetadataFile ".cdx-convert-metadata.json" -EntryPoint "bin/convert.js"
+Remove-HbomOnlyPlugins
+Assert-HbomOnlyPluginsPruned
 Invoke-BinaryBuild -Output "hbom" -MetadataFile ".hbom-metadata.json" -EntryPoint "bin/hbom.js"
 
 Remove-Item -Path node_modules -Force -Recurse -ErrorAction SilentlyContinue

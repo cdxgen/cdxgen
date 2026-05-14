@@ -65,6 +65,30 @@ install_optional_dependency() {
     "$package_name@$package_version"
 }
 
+prune_hbom_only_plugins() {
+  find node_modules -type d \(
+    -path "*/plugins/dosai" \
+    -o -path "*/plugins/sourcekitten" \
+    -o -path "*/plugins/trivy" \
+  \) -prune -exec rm -rf {} +
+}
+
+verify_hbom_only_plugins_pruned() {
+  local remaining_plugins
+
+  remaining_plugins="$(find node_modules -type d \(
+    -path "*/plugins/dosai" \
+    -o -path "*/plugins/sourcekitten" \
+    -o -path "*/plugins/trivy" \
+  \) -print)"
+
+  if [[ -n "$remaining_plugins" ]]; then
+    echo "HBOM SEA preflight failed: expected dosai, sourcekitten, and trivy plugin directories to be pruned before packaging hbom." >&2
+    echo "$remaining_plugins" >&2
+    exit 1
+  fi
+}
+
 rm -rf \
   *.cdx.json \
   *.md \
@@ -93,6 +117,10 @@ build_binary cdx-verify .cdx-verify-metadata.json bin/verify.js
 build_binary cdx-sign .cdx-sign-metadata.json bin/sign.js
 build_binary cdx-validate .cdx-validate-metadata.json bin/validate.js
 build_binary cdx-convert .cdx-convert-metadata.json bin/convert.js
+
+prune_hbom_only_plugins
+verify_hbom_only_plugins_pruned
+
 build_binary hbom .hbom-metadata.json bin/hbom.js
 
 rm -rf node_modules
