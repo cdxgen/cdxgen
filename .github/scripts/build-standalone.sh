@@ -158,7 +158,7 @@ rm -rf \
   uv.lock \
   pnpm-workspace.yaml \
   .versions \
-  upx-5.1.0*
+  upx-5.*
 
 find lib -name "*.poku.js" -exec rm -f {} +
 rm -rf types

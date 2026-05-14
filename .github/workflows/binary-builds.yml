@@ -70,21 +70,13 @@ jobs:
             runner: ubuntu-24.04
             ext: ''
             prepare: |
-              wget https://github.com/upx/upx/releases/download/v5.1.0/upx-5.1.0-amd64_linux.tar.xz
-              tar -xvf upx-5.1.0-amd64_linux.tar.xz
-              chmod +x upx-5.1.0-amd64_linux/upx
-              sudo cp upx-5.1.0-amd64_linux/upx /usr/local/bin/
-              rm -rf upx-5.1.0-amd64_linux*
+              sh ./.github/scripts/setup-upx.sh 5.1.1 upx-5.1.1-amd64_linux.tar.xz 1ff660454227861e00772f743f66b900072116b9dc24f6ee28b97cce88a7828a
           - os: linux
             arch: arm64
             runner: ubuntu-24.04-arm
             ext: ''
             prepare: |
-              wget https://github.com/upx/upx/releases/download/v5.1.0/upx-5.1.0-arm64_linux.tar.xz
-              tar -xvf upx-5.1.0-arm64_linux.tar.xz
-              chmod +x upx-5.1.0-arm64_linux/upx
-              sudo cp upx-5.1.0-arm64_linux/upx /usr/local/bin/
-              rm -rf upx-5.1.0-arm64_linux*
+              sh ./.github/scripts/setup-upx.sh 5.1.1 upx-5.1.1-arm64_linux.tar.xz a307c2c821eeab47607ba5c232408b22ab884cca13884682508b98f7308b8443
           - os: windows
             arch: amd64
             runner: windows-2022
@@ -103,12 +95,12 @@ jobs:
               apt update
               apt install -y curl xz-utils python3 python3-dev python3-pip
               ARCH="amd64"
-              if [ "$(uname -m)" = "aarch64" ]; then ARCH="arm64"; fi
-              curl -L -O "https://github.com/upx/upx/releases/download/v5.1.0/upx-5.1.0-${ARCH}_linux.tar.xz"
-              tar -xvf "upx-5.1.0-${ARCH}_linux.tar.xz"
-              chmod +x "upx-5.1.0-${ARCH}_linux/upx"
-              cp "upx-5.1.0-${ARCH}_linux/upx" /usr/local/bin/
-              rm -rf "upx-5.1.0-${ARCH}_linux*"
+              UPX_SHA256="1ff660454227861e00772f743f66b900072116b9dc24f6ee28b97cce88a7828a"
+              if [ "$(uname -m)" = "aarch64" ]; then
+                ARCH="arm64"
+                UPX_SHA256="a307c2c821eeab47607ba5c232408b22ab884cca13884682508b98f7308b8443"
+              fi
+              sh ./.github/scripts/setup-upx.sh 5.1.1 "upx-5.1.1-${ARCH}_linux.tar.xz" "$UPX_SHA256"
           - os: linux
             libc: musl
             image: php:8.4-alpine3.21@sha256:9c1dd92c492546d1de23decef0d67280f3f9413942ff44ec119af6db642cd9f0
@@ -116,7 +108,14 @@ jobs:
             node-download-url: https://unofficial-builds.nodejs.org/download/release/
             ext: ''
             prepare: |
-              apk add --no-cache bash curl libstdc++ upx
+              apk add --no-cache bash curl libstdc++ xz
+              ARCH="amd64"
+              UPX_SHA256="1ff660454227861e00772f743f66b900072116b9dc24f6ee28b97cce88a7828a"
+              if [ "$(uname -m)" = "aarch64" ]; then
+                ARCH="arm64"
+                UPX_SHA256="a307c2c821eeab47607ba5c232408b22ab884cca13884682508b98f7308b8443"
+              fi
+              sh ./.github/scripts/setup-upx.sh 5.1.1 "upx-5.1.1-${ARCH}_linux.tar.xz" "$UPX_SHA256"
     runs-on: ${{ matrix.runner }}
     permissions:
       contents: write  # needed to issue a GH release or uploading release assets
