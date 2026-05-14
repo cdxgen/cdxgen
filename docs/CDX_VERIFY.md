@@ -41,7 +41,7 @@ cdx-verify -i ghcr.io/cyclonedx/cdxgen:master --public-key public.pem
 
 ## Verification behavior
 
-- Local protobuf BOM input (`.cdx`, `.cdx.bin`, `.proto`) is detected and decoded, but verification intentionally fails with a clear message because `cdx-proto` 2.0.0 does not currently preserve JSF signature blocks in protobuf form.
+- Local protobuf BOM input (`.cdx`, `.cdx.bin`, `.proto`) is detected and decoded, but verification intentionally fails with a clear message because `cdx-proto` does not currently preserve JSF signature blocks in protobuf form.
 - If the BOM contains a root `signature`, `cdx-verify` validates it first.
 - With `--deep` enabled, nested signatures are also verified.
 - If there is no root signature but nested signatures exist, the command validates those nested signatures and succeeds only when all of them are valid.

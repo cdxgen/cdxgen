@@ -88,7 +88,7 @@ cdx-sign -i bom.json -k builder_private.pem -a RS512 --key-id "builder-system"
 cdx-validate -i bom.json --public-key builder_public.pem --require-signature
 ```
 
-> Signature verification currently requires the source JSON BOM. Local protobuf BOM input is supported for structure, deep, and compliance validation, but `cdx-proto` 2.0.0 does not currently preserve JSF signature blocks in protobuf form.
+> Signature verification currently requires the source JSON BOM. Local protobuf BOM input is supported for structure, deep, and compliance validation, but `cdx-proto` does not currently preserve JSF signature blocks in protobuf form.
 
 The `SCVS-2.4` finding should now be resolved, and the _Automatable score_
 for SCVS L2 should jump (the exact delta depends on the rest of your

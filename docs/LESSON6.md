@@ -58,7 +58,7 @@ cdx-verify -i bom.json --public-key builder_public.pem
 # ✓ Signature is valid! (Matched KeyId: 'builder-system')
 ```
 
-> Keep the signed `bom.json` for JSF verification workflows. The protobuf sidecar (`bom.cdx`) is useful for transport and downstream processing, but `cdx-proto` 2.0.0 does not currently preserve JSF signature blocks in protobuf form.
+> Keep the signed `bom.json` for JSF verification workflows. The protobuf sidecar (`bom.cdx`) is useful for transport and downstream processing, but `cdx-proto` does not currently preserve JSF signature blocks in protobuf form.
 
 ### Step 3: Append a Multi-Signature or Chain (Auditor)
 

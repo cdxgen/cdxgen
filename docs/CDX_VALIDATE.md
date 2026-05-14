@@ -75,7 +75,7 @@ cdx-validate -i bom.json -r json --fail-severity medium
 | `3`  | One or more failing findings at/above `--fail-severity`.         |
 | `4`  | Signature verification was required and failed.                  |
 
-> **Note:** Local protobuf BOM input (`.cdx`, `.cdx.bin`, `.proto`) is supported for structure, deep, and compliance validation. JSF signature verification still requires the source JSON BOM because `cdx-proto` 2.0.0 does not currently preserve signature blocks in protobuf form.
+> **Note:** Local protobuf BOM input (`.cdx`, `.cdx.bin`, `.proto`) is supported for structure, deep, and compliance validation. JSF signature verification still requires the source JSON BOM because `cdx-proto` does not currently preserve signature blocks in protobuf form.
 
 ---
 
