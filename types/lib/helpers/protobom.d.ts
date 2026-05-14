@@ -1,5 +1,4 @@
-export function writeBinary(bomJson: string | Object, binFile: string): void;
-export function readBinary(binFile: string, asJson?: boolean, specVersion?: number): cdx_17.Bom | cdx_16.Bom | import("@bufbuild/protobuf").JsonValue | undefined;
-import { cdx_17 } from "@appthreat/cdx-proto";
-import { cdx_16 } from "@appthreat/cdx-proto";
+export function isProtoBomFile(filePath: string): boolean;
+export function writeBinary(bomJson: string | Object, binFile: string, specVersion?: string | number): void;
+export function readBinary(binFile: string, asJson: boolean, specVersion?: string | number): import("@appthreat/cdx-proto").AnyBom | import("@appthreat/cdx-proto").AnyBomJson | undefined;
 //# sourceMappingURL=protobom.d.ts.map

@@ -72,10 +72,14 @@ jobs:
           bin/cdxgen.js -t java repotests/java-sec-code -o bomresults/bom-java-sec-code-4.json --filter postgres --filter json
           bin/cdxgen.js -t java repotests/java-sec-code -o bomresults/bom-java-sec-code-5.json --only spring --fail-on-error
           bin/cdxgen.js -t java repotests/java-sec-code -o bomresults/bom-java-sec-code-6.json --deep --evidence
-          bin/cdxgen.js -t java repotests/java-sec-code -o bomresults/bom-java-sec-code-7.json --profile research --spec-version 1.6 --export-proto
+          bin/cdxgen.js -t java repotests/java-sec-code -o bomresults/bom-java-sec-code-7.json --profile research --spec-version 1.6 --export-proto --proto-bin-file bomresults/bom-java-sec-code-7.cdx
           node bin/convert.js -i bomresults/bom-java-sec-code-7.json -o bomresults/bom-java-sec-code-7.spdx.json
-          bin/cdxgen.js -t java repotests/java-sec-code -o bomresults/bom-java-sec-code-11.json --spec-version 1.7 --fail-on-error
+          node bin/convert.js -i bomresults/bom-java-sec-code-7.cdx -o bomresults/bom-java-sec-code-7.proto.spdx.json
+          bin/validate.js -i bomresults/bom-java-sec-code-7.cdx --fail-severity critical --no-deep --report json > bomresults/bom-java-sec-code-7.validate.json
+          bin/cdxgen.js -t java repotests/java-sec-code -o bomresults/bom-java-sec-code-11.json --spec-version 1.7 --export-proto --proto-bin-file bomresults/bom-java-sec-code-11.cdx --fail-on-error
           node bin/convert.js -i bomresults/bom-java-sec-code-11.json -o bomresults/bom-java-sec-code-11.spdx.json
+          node bin/convert.js -i bomresults/bom-java-sec-code-11.cdx -o bomresults/bom-java-sec-code-11.proto.spdx.json
+          bin/validate.js -i bomresults/bom-java-sec-code-11.cdx --fail-severity critical --no-deep --report json > bomresults/bom-java-sec-code-11.validate.json
           ls -lh bomresults
           bin/cdxgen.js -t java repotests/java-sec-code -o bomresults/bom-java-sec-code-8.json --profile license-compliance
           bin/cdxgen.js -t java repotests/java-sec-code -o bomresults/bom-java-sec-code-9.json --include-regex "pom.xml" --bom-audit

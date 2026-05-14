@@ -113,7 +113,10 @@
       "!data",
       "!test",
       "!types",
-      "!docs"
+      "!**/docs",
+      "!**/doc",
+      "!**/*.html",
+      "!**/*.css"
     ]
   }
 }
