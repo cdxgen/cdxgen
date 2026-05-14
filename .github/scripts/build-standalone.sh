@@ -11,6 +11,54 @@ COMMON_SBOM_ARGS=(
   --no-install-deps
 )
 
+CAXA_PACKAGE="${CAXA_PACKAGE:-@appthreat/caxa@^3.0.0}"
+CAXA_SYMLINK_PATH="${CAXA_SYMLINK_PATH:-.caxa}"
+
+run_caxa() {
+  if [[ -d "$CAXA_SYMLINK_PATH/build" && -f "$CAXA_SYMLINK_PATH/build/index.mjs" ]]; then
+    node "$CAXA_SYMLINK_PATH/build/index.mjs" "$@"
+  else
+    pnpm --package="$CAXA_PACKAGE" dlx caxa "$@"
+  fi
+}
+
+create_targets_file() {
+  local file_path="$1"
+  shift
+
+  node --input-type=module - "$file_path" "$@" <<'NODE'
+    import { writeFileSync } from "node:fs";
+
+    const [, , filePath, ...entries] = process.argv;
+    const targets = [];
+
+    for (const entry of entries) {
+      const [output, metadataFile, entryPoint] = entry.split("::");
+      targets.push({
+        output,
+        metadataFile,
+        command: ["{{caxa}}/node_modules/.bin/node", `{{caxa}}/${entryPoint}`],
+      });
+    }
+
+    writeFileSync(filePath, JSON.stringify(targets, null, 2));
+NODE
+}
+
+build_binaries() {
+  local targets_file="$1"
+  local caxa_args=(
+    --input .
+    --targets-file "$targets_file"
+  )
+
+  if [[ "$(uname -s)" == "Linux" ]]; then
+    caxa_args+=(--upx)
+  fi
+
+  run_caxa "${caxa_args[@]}"
+}
+
 build_binary() {
   local output="$1"
   local metadata_file="$2"
@@ -27,11 +75,26 @@ build_binary() {
 
   caxa_args+=(-- "{{caxa}}/node_modules/.bin/node" "{{caxa}}/$entry_point")
 
-  pnpm --package=@appthreat/caxa dlx caxa "${caxa_args[@]}"
+  run_caxa "${caxa_args[@]}"
   node bin/cdxgen.js "${COMMON_SBOM_ARGS[@]}" -o ".${output}-postbuild.cdx.json"
   chmod +x "$output"
   "./$output" --version
   "./$output" --help
+}
+
+postbuild_binary_artifacts() {
+  local output="$1"
+
+  node bin/cdxgen.js "${COMMON_SBOM_ARGS[@]}" -o ".${output}-postbuild.cdx.json"
+  chmod +x "$output"
+  "./$output" --version
+  "./$output" --help
+}
+
+postbuild_binaries() {
+  for output in "$@"; do
+    postbuild_binary_artifacts "$output"
+  done
 }
 
 read_optional_dependency_version() {
@@ -103,12 +166,16 @@ rm -rf types
 pnpm install:prod --config.node-linker=hoisted
 rm -rf .pnpm-store
 
-build_binary cdxgen .cdxgen-metadata.json bin/cdxgen.js
-build_binary cdx-audit .cdx-audit-metadata.json bin/audit.js
-build_binary cdx-verify .cdx-verify-metadata.json bin/verify.js
-build_binary cdx-sign .cdx-sign-metadata.json bin/sign.js
-build_binary cdx-validate .cdx-validate-metadata.json bin/validate.js
-build_binary cdx-convert .cdx-convert-metadata.json bin/convert.js
+create_targets_file .caxa-targets-core.json \
+  'cdxgen::.cdxgen-metadata.json::bin/cdxgen.js' \
+  'cdx-audit::.cdx-audit-metadata.json::bin/audit.js' \
+  'cdx-verify::.cdx-verify-metadata.json::bin/verify.js' \
+  'cdx-sign::.cdx-sign-metadata.json::bin/sign.js' \
+  'cdx-validate::.cdx-validate-metadata.json::bin/validate.js' \
+  'cdx-convert::.cdx-convert-metadata.json::bin/convert.js'
+build_binaries .caxa-targets-core.json
+rm -f .caxa-targets-core.json
+postbuild_binaries cdxgen cdx-audit cdx-verify cdx-sign cdx-validate cdx-convert
 
 prune_hbom_only_plugins
 verify_hbom_only_plugins_pruned
