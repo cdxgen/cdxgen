@@ -41,6 +41,9 @@ The **Builder** generates the SBOM from the source code and explicitly signs it 
 # Generate the raw SBOM
 cdxgen -t nodejs -o bom.json .
 
+# Optional: also export a protobuf sidecar for transport or archival
+cdxgen -t nodejs -o bom.json --export-proto --proto-bin-file bom.cdx .
+
 # Builder signs the SBOM (signs both root and granular components)
 cdx-sign -i bom.json -k builder_private.pem -a RS512 --key-id "builder-system"
 
@@ -54,6 +57,8 @@ Verify that the Builder's signature is valid:
 cdx-verify -i bom.json --public-key builder_public.pem
 # ✓ Signature is valid! (Matched KeyId: 'builder-system')
 ```
+
+> Keep the signed `bom.json` for JSF verification workflows. The protobuf sidecar (`bom.cdx`) is useful for transport and downstream processing, but `cdx-proto` 2.0.0 does not currently preserve JSF signature blocks in protobuf form.
 
 ### Step 3: Append a Multi-Signature or Chain (Auditor)
 

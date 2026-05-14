@@ -75,6 +75,17 @@ const args = _yargs
     type: "boolean",
     default: true,
   })
+  .option("export-proto", {
+    description:
+      "Serialize and export the generated HBOM as a protobuf binary.",
+    type: "boolean",
+    default: false,
+  })
+  .option("proto-bin-file", {
+    description: "Path for the serialized protobuf HBOM binary.",
+    type: "string",
+    default: "hbom.cdx",
+  })
   .option("dry-run", {
     description:
       "Read-only mode. Report the requested HBOM collection and block host probing plus filesystem writes.",
@@ -142,7 +153,7 @@ const args = _yargs
   .option("input", {
     alias: "i",
     description:
-      "Read an existing HBOM JSON file instead of collecting a fresh live inventory. Primarily useful with the diagnostics command.",
+      "Read an existing HBOM JSON or protobuf file instead of collecting a fresh live inventory. Primarily useful with the diagnostics command.",
     type: "string",
   })
   .option("json", {
@@ -215,6 +226,8 @@ const options = {
   pretty: args.pretty,
   print: args.print,
   privileged: args.privileged,
+  exportProto: args.exportProto,
+  protoBinFile: resolve(args.protoBinFile),
   projectType: [requestedTypes[0]],
   sensitive: args.sensitive,
   specVersion: args.specVersion,
@@ -300,9 +313,18 @@ function printHbomDiagnosticNotice(bomJson) {
   );
 }
 
-function loadBomFromInputFile(inputFile) {
+async function loadBomFromInputFile(inputFile) {
   if (!inputFile || !safeExistsSync(inputFile)) {
     throw new Error(`HBOM input file not found: ${inputFile}`);
+  }
+  const normalizedInputFile = `${inputFile}`.toLowerCase();
+  if (
+    normalizedInputFile.endsWith(".cdx") ||
+    normalizedInputFile.endsWith(".cdx.bin") ||
+    normalizedInputFile.endsWith(".proto")
+  ) {
+    const { readBinary } = await import("../lib/helpers/protobom.js");
+    return readBinary(inputFile, true);
   }
   return JSON.parse(readFileSync(inputFile, { encoding: "utf8" }));
 }
@@ -401,7 +423,7 @@ async function runDiagnosticsCommand() {
     );
   }
   const bomJson = options.input
-    ? loadBomFromInputFile(options.input)
+    ? await loadBomFromInputFile(options.input)
     : (
         await createHBom(process.cwd(), {
           ...options,
@@ -443,6 +465,17 @@ async function runDiagnosticsCommand() {
     }
     safeWriteSync(options.output, output);
     thoughtLog(`Let's save the HBOM file to '${options.output}'.`);
+  }
+  if (options.exportProto) {
+    const protoOutputDirectory = getOutputDirectory(options.protoBinFile);
+    if (protoOutputDirectory && !safeExistsSync(protoOutputDirectory)) {
+      safeMkdirSync(protoOutputDirectory, { recursive: true });
+    }
+    const { writeBinary } = await import("../lib/helpers/protobom.js");
+    writeBinary(bomJson, options.protoBinFile);
+    thoughtLog(
+      `Let's also save the HBOM protobuf binary to '${options.protoBinFile}'.`,
+    );
   }
   printHbomDiagnosticNotice(bomJson);
   if (options.dryRun || DEBUG_MODE) {

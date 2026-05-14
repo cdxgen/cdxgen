@@ -534,6 +534,16 @@ Pass the argument `--export-proto` to serialize and export the BOM as a protobuf
 --export-proto --proto-bin-file bom.cdx.bin
 ```
 
+The resulting protobuf BOM can be consumed directly by companion commands such as:
+
+- `cdx-convert -i bom.cdx -o bom.spdx.json`
+- `cdx-validate -i bom.cdx`
+- `hbom diagnostics --input hbom.cdx`
+
+`hbom` can also emit a protobuf sidecar with `--export-proto --proto-bin-file hbom.cdx`.
+
+> **Signature note:** keep the original JSON BOM when you need JSF signature verification. Local protobuf BOM input is supported for decode and structural processing, but `cdx-proto` 2.0.0 does not currently preserve JSF signature blocks, so `cdx-verify` and `cdx-validate --public-key ...` require the source JSON BOM.
+
 ## Include formulation
 
 Pass the argument `--include-formulation` to collect the following information under the `formulation` section:

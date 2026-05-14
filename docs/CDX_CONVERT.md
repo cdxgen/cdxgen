@@ -1,6 +1,6 @@
 # cdx-convert - CycloneDX to SPDX converter
 
-`cdx-convert` converts an existing CycloneDX JSON BOM into SPDX 3.0.1 JSON-LD.
+`cdx-convert` converts an existing CycloneDX BOM into SPDX 3.0.1 JSON-LD.
 
 It is distributed with `@cyclonedx/cdxgen` alongside `cdxgen`, `cdx-sign`,
 `cdx-verify`, and `cdx-validate`. It is also published as a standalone binary
@@ -10,11 +10,11 @@ via the `binary-builds` workflow.
 
 `cdx-convert` supports this conversion path:
 
-- Input: CycloneDX JSON, `bomFormat: "CycloneDX"`
+- Input: CycloneDX JSON or protobuf (`.cdx`, `.cdx.bin`, `.proto`), `bomFormat: "CycloneDX"`
 - Input spec versions: `1.6` and `1.7`
 - Output: SPDX `3.0.1` JSON-LD
 
-If the input is not CycloneDX JSON, or if the CycloneDX `specVersion` is not
+If the input is not CycloneDX, or if the CycloneDX `specVersion` is not
 `1.6` or `1.7`, the command fails with a clear error.
 
 ## Quick start
@@ -22,6 +22,9 @@ If the input is not CycloneDX JSON, or if the CycloneDX `specVersion` is not
 ```shell
 # Convert bom.json (CycloneDX 1.6 or 1.7) to SPDX 3.0.1 JSON-LD
 cdx-convert -i bom.json -o bom.spdx.json
+
+# Convert a protobuf BOM exported by cdxgen
+cdx-convert -i bom.cdx -o bom.spdx.json
 
 # Pretty-print output JSON
 cdx-convert -i bom.json -o bom.spdx.json --json-pretty
@@ -32,12 +35,12 @@ cdx-convert -i bom.json -o bom.spdx.json --no-validate
 
 ## CLI reference
 
-| Flag                           | Default             | Description                          |
-| ------------------------------ | ------------------- | ------------------------------------ |
-| `-i, --input`                  | `bom.json`          | Input CycloneDX BOM JSON file.       |
-| `-o, --output`                 | `<input>.spdx.json` | Output SPDX JSON file path.          |
-| `--validate` / `--no-validate` | on                  | Validate converted SPDX JSON output. |
-| `--json-pretty`                | off                 | Pretty-print JSON output.            |
+| Flag                           | Default             | Description                                |
+| ------------------------------ | ------------------- | ------------------------------------------ |
+| `-i, --input`                  | `bom.json`          | Input CycloneDX BOM JSON or protobuf file. |
+| `-o, --output`                 | `<input>.spdx.json` | Output SPDX JSON file path.                |
+| `--validate` / `--no-validate` | on                  | Validate converted SPDX JSON output.       |
+| `--json-pretty`                | off                 | Pretty-print JSON output.                  |
 
 ## Conversion algorithm
 
@@ -48,7 +51,7 @@ High-level flow:
 
 ```text
 read input file
-  -> parse JSON
+  -> parse JSON or decode protobuf
   -> validate input shape and CycloneDX specVersion (1.6 or 1.7)
   -> convert CycloneDX object to SPDX 3.0.1 JSON-LD graph
   -> validate SPDX output (unless --no-validate)
@@ -75,7 +78,7 @@ SPDX mapping behavior includes:
 
 ## Limitations
 
-- input must be CycloneDX JSON, not XML
+- input must be CycloneDX JSON or protobuf, not XML
 - only CycloneDX `1.6` and `1.7` input is accepted
 - output target is fixed to SPDX `3.0.1`
 - CycloneDX fields without equivalent SPDX core fields are retained via
@@ -83,7 +86,7 @@ SPDX mapping behavior includes:
 
 ## When to use cdx-convert vs cdxgen --format spdx
 
-Use `cdx-convert` when you already have a CycloneDX JSON file and need SPDX.
+Use `cdx-convert` when you already have a CycloneDX JSON or protobuf file and need SPDX.
 
 Use `cdxgen --format spdx` or `cdxgen --format cyclonedx,spdx` when you are
 generating a new BOM and want SPDX output during the same run.

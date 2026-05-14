@@ -30,10 +30,13 @@ It is distributed as:
 # Validate a BOM, print a table and a scorecard
 cdx-validate -i bom.json
 
+# Validate a protobuf BOM exported by cdxgen
+cdx-validate -i bom.cdx
+
 # Run only the SCVS Level 2 benchmark, emit SARIF for GitHub code scanning
 cdx-validate -i bom.json --benchmark scvs-l2 -r sarif -o results.sarif
 
-# Verify the signature and the structure in one go
+# Verify the signature and the structure in one go (JSON input only)
 cdx-validate -i bom.json --public-key builder_public.pem --require-signature
 
 # Machine-readable output for a CI system
@@ -44,23 +47,23 @@ cdx-validate -i bom.json -r json --fail-severity medium
 
 ## CLI reference
 
-| Flag                                       | Default    | Description                                                          |
-| ------------------------------------------ | ---------- | -------------------------------------------------------------------- |
-| `-i, --input`                              | `bom.json` | SBOM JSON path or an OCI reference (resolved with `oras`).           |
-| `--platform`                               | —          | Platform to pass to `oras` when the input is an OCI ref.             |
-| `-r, --report`                             | `console`  | `console`, `json`, `sarif`, `annotations`.                           |
-| `-o, --report-file`                        | stdout     | Write the report to a file.                                          |
-| `--schema` / `--no-schema`                 | on         | Toggle JSON-schema validation.                                       |
-| `--deep` / `--no-deep`                     | on         | Toggle metadata / purl / ref / property deep checks.                 |
-| `-b, --benchmark`                          | all        | Comma list of `scvs`, `scvs-l1`, `scvs-l2`, `scvs-l3`, `cra`.        |
-| `--categories`                             | all        | Comma list of rule categories (`compliance-scvs`, `compliance-cra`). |
-| `--min-severity`                           | `info`     | Drop findings below this severity from the report.                   |
-| `--fail-severity`                          | `high`     | Exit code 3 if any failing finding is ≥ this severity.               |
-| `--include-manual` / `--no-include-manual` | on         | Show non-automatable manual-review findings.                         |
-| `--include-pass`                           | off        | Include passing findings (useful for audits).                        |
-| `--public-key`                             | —          | PEM file. When set, verify the BOM signature.                        |
-| `--require-signature`                      | off        | Exit 4 if `--public-key` is supplied but verification fails.         |
-| `--strict`                                 | off        | Exit 2 when schema / deep validation fails.                          |
+| Flag                                       | Default    | Description                                                                                                                   |
+| ------------------------------------------ | ---------- | ----------------------------------------------------------------------------------------------------------------------------- |
+| `-i, --input`                              | `bom.json` | Local SBOM JSON/protobuf path or an OCI reference (resolved with `oras`).                                                     |
+| `--platform`                               | —          | Platform to pass to `oras` when the input is an OCI ref.                                                                      |
+| `-r, --report`                             | `console`  | `console`, `json`, `sarif`, `annotations`.                                                                                    |
+| `-o, --report-file`                        | stdout     | Write the report to a file.                                                                                                   |
+| `--schema` / `--no-schema`                 | on         | Toggle JSON-schema validation.                                                                                                |
+| `--deep` / `--no-deep`                     | on         | Toggle metadata / purl / ref / property deep checks.                                                                          |
+| `-b, --benchmark`                          | all        | Comma list of `scvs`, `scvs-l1`, `scvs-l2`, `scvs-l3`, `cra`.                                                                 |
+| `--categories`                             | all        | Comma list of rule categories (`compliance-scvs`, `compliance-cra`).                                                          |
+| `--min-severity`                           | `info`     | Drop findings below this severity from the report.                                                                            |
+| `--fail-severity`                          | `high`     | Exit code 3 if any failing finding is ≥ this severity.                                                                        |
+| `--include-manual` / `--no-include-manual` | on         | Show non-automatable manual-review findings.                                                                                  |
+| `--include-pass`                           | off        | Include passing findings (useful for audits).                                                                                 |
+| `--public-key`                             | —          | PEM file. When set, verify the BOM signature for JSON or OCI BOM input. Local protobuf input is not signature-verifiable yet. |
+| `--require-signature`                      | off        | Exit 4 if `--public-key` is supplied but verification fails.                                                                  |
+| `--strict`                                 | off        | Exit 2 when schema / deep validation fails.                                                                                   |
 
 ### Exit codes
 
@@ -71,6 +74,8 @@ cdx-validate -i bom.json -r json --fail-severity medium
 | `2`  | Schema / deep validation failed (only with `--strict`).          |
 | `3`  | One or more failing findings at/above `--fail-severity`.         |
 | `4`  | Signature verification was required and failed.                  |
+
+> **Note:** Local protobuf BOM input (`.cdx`, `.cdx.bin`, `.proto`) is supported for structure, deep, and compliance validation. JSF signature verification still requires the source JSON BOM because `cdx-proto` 2.0.0 does not currently preserve signature blocks in protobuf form.
 
 ---
 

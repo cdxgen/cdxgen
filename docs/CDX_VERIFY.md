@@ -8,7 +8,7 @@ It can verify:
 - nested component signatures
 - nested service signatures
 - nested annotation signatures
-- BOMs loaded from a local file or an OCI reference
+- JSON BOMs loaded from a local file or an OCI reference
 
 ## Who should use this
 
@@ -41,6 +41,7 @@ cdx-verify -i ghcr.io/cyclonedx/cdxgen:master --public-key public.pem
 
 ## Verification behavior
 
+- Local protobuf BOM input (`.cdx`, `.cdx.bin`, `.proto`) is detected and decoded, but verification intentionally fails with a clear message because `cdx-proto` 2.0.0 does not currently preserve JSF signature blocks in protobuf form.
 - If the BOM contains a root `signature`, `cdx-verify` validates it first.
 - With `--deep` enabled, nested signatures are also verified.
 - If there is no root signature but nested signatures exist, the command validates those nested signatures and succeeds only when all of them are valid.
@@ -55,6 +56,7 @@ cdx-verify -i ghcr.io/cyclonedx/cdxgen:master --public-key public.pem
 
 - Use `--no-deep` when the trust decision is only about the published root BOM.
 - Keep `--deep` enabled when nested signatures are part of your release policy.
+- If you export a protobuf sidecar (`bom.cdx`), keep the original signed JSON BOM alongside it for verification workflows.
 - Store public keys in version-controlled trust stores or your CI secret manager rather than downloading them ad hoc.
 
 ## Example CI step

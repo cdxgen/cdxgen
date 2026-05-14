@@ -36,6 +36,9 @@ From any Node.js / Python / Java project root:
 
 ```shell
 cdxgen -t nodejs -o bom.json .
+
+# Optional: export a protobuf sidecar for distribution or later conversion
+cdxgen -t nodejs -o bom.json --export-proto --proto-bin-file bom.cdx .
 ```
 
 ## Step 2: Baseline compliance score
@@ -44,6 +47,9 @@ Run `cdx-validate` with all defaults:
 
 ```shell
 cdx-validate -i bom.json
+
+# The same validator can read a protobuf BOM sidecar too
+cdx-validate -i bom.cdx
 ```
 
 You will see three sections:
@@ -81,6 +87,8 @@ cdx-sign -i bom.json -k builder_private.pem -a RS512 --key-id "builder-system"
 # Validate and require a valid signature
 cdx-validate -i bom.json --public-key builder_public.pem --require-signature
 ```
+
+> Signature verification currently requires the source JSON BOM. Local protobuf BOM input is supported for structure, deep, and compliance validation, but `cdx-proto` 2.0.0 does not currently preserve JSF signature blocks in protobuf form.
 
 The `SCVS-2.4` finding should now be resolved, and the _Automatable score_
 for SCVS L2 should jump (the exact delta depends on the rest of your

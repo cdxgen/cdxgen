@@ -22,6 +22,7 @@ Use the dedicated command when you want a host hardware inventory:
 
 ```shell
 hbom -o hbom.json
+hbom -o hbom.json --export-proto --proto-bin-file hbom.cdx
 ```
 
 You can also access the same integration through the main CLI:
@@ -43,6 +44,7 @@ To focus only on missing native utilities and permission-sensitive enrichments, 
 ```shell
 hbom diagnostics
 hbom diagnostics --input hbom.json
+hbom diagnostics --input hbom.cdx
 ```
 
 ## Common options
@@ -50,6 +52,8 @@ hbom diagnostics --input hbom.json
 | Option                    | Purpose                                                                                                                      |
 | ------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
 | `-o, --output <file>`     | Write the generated HBOM to a file. Default: `hbom.json`                                                                     |
+| `--export-proto`          | Also serialize the generated HBOM as CycloneDX protobuf binary                                                               |
+| `--proto-bin-file <file>` | Path for the protobuf sidecar when `--export-proto` is enabled. Default: `hbom.cdx`                                          |
 | `-p, --print`             | Print the generated HBOM to stdout instead of writing a file                                                                 |
 | `--pretty`                | Pretty-print JSON output                                                                                                     |
 | `--validate`              | Validate the generated HBOM using the CycloneDX schema                                                                       |
@@ -70,6 +74,7 @@ Generate a local HBOM file:
 
 ```shell
 hbom -o hbom.json
+hbom -o hbom.json --export-proto --proto-bin-file hbom.cdx
 ```
 
 Generate a merged host view that keeps HBOM hardware inventory and OBOM runtime evidence in a single CycloneDX document:
@@ -112,6 +117,7 @@ Review an existing HBOM file and summarize the serialized collector diagnostics 
 
 ```shell
 hbom diagnostics --input hbom.json
+hbom diagnostics --input hbom.cdx
 ```
 
 Enable Darwin plist enrichment on Apple Silicon:

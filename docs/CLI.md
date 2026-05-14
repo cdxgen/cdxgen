@@ -8,17 +8,17 @@ In CLI mode, you can invoke cdxgen with Source Code, Container Image, or Binary 
 
 The package ships multiple CLI entry points. Use this table as the top-level navigation map.
 
-| Command        | Purpose                                                                            | Standalone release binary | Dedicated docs                     |
-| -------------- | ---------------------------------------------------------------------------------- | ------------------------- | ---------------------------------- |
-| `cdxgen`       | Generate CycloneDX and SPDX BOMs from source, images, binaries, git URLs, or purls | yes                       | [CLI Usage](CLI.md)                |
-| `hbom`         | Generate a CycloneDX hardware BOM for the current host                             | yes (`hbom`, `hbom-slim`) | [HBOM.md](HBOM.md)                 |
-| `cdx-audit`    | Explainable upstream dependency risk prioritization from existing BOMs             | yes                       | [CDX_AUDIT.md](CDX_AUDIT.md)       |
-| `cdx-convert`  | Convert CycloneDX JSON to SPDX 3.0.1 JSON-LD                                       | yes                       | [CDX_CONVERT.md](CDX_CONVERT.md)   |
-| `cdx-sign`     | Sign a CycloneDX BOM                                                               | yes                       | [CDX_SIGN.md](CDX_SIGN.md)         |
-| `cdx-validate` | Validate structure, compliance, and signatures                                     | yes                       | [CDX_VALIDATE.md](CDX_VALIDATE.md) |
-| `cdx-verify`   | Verify BOM signatures                                                              | yes                       | [CDX_VERIFY.md](CDX_VERIFY.md)     |
-| `evinse`       | Add evidence, call stacks, reachability, and service data                          | no                        | [EVINSE.md](EVINSE.md)             |
-| `cdxi`         | Explore BOMs interactively in the REPL                                             | no                        | [REPL.md](REPL.md)                 |
+| Command        | Purpose                                                                               | Standalone release binary | Dedicated docs                     |
+| -------------- | ------------------------------------------------------------------------------------- | ------------------------- | ---------------------------------- |
+| `cdxgen`       | Generate CycloneDX and SPDX BOMs from source, images, binaries, git URLs, or purls    | yes                       | [CLI Usage](CLI.md)                |
+| `hbom`         | Generate a CycloneDX hardware BOM for the current host, with optional protobuf export | yes (`hbom`, `hbom-slim`) | [HBOM.md](HBOM.md)                 |
+| `cdx-audit`    | Explainable upstream dependency risk prioritization from existing BOMs                | yes                       | [CDX_AUDIT.md](CDX_AUDIT.md)       |
+| `cdx-convert`  | Convert CycloneDX JSON or protobuf to SPDX 3.0.1 JSON-LD                              | yes                       | [CDX_CONVERT.md](CDX_CONVERT.md)   |
+| `cdx-sign`     | Sign a CycloneDX BOM                                                                  | yes                       | [CDX_SIGN.md](CDX_SIGN.md)         |
+| `cdx-validate` | Validate structure, compliance, and signatures                                        | yes                       | [CDX_VALIDATE.md](CDX_VALIDATE.md) |
+| `cdx-verify`   | Verify BOM signatures                                                                 | yes                       | [CDX_VERIFY.md](CDX_VERIFY.md)     |
+| `evinse`       | Add evidence, call stacks, reachability, and service data                             | no                        | [EVINSE.md](EVINSE.md)             |
+| `cdxi`         | Explore BOMs interactively in the REPL                                                | no                        | [REPL.md](REPL.md)                 |
 
 ## Aliases and entry-point behavior
 
@@ -51,9 +51,11 @@ Examples:
 
 ```shell
 hbom -o hbom.json
+hbom -o hbom.json --export-proto --proto-bin-file hbom.cdx
 hbom -p
 hbom diagnostics
 hbom diagnostics --input hbom.json
+hbom diagnostics --input hbom.cdx
 hbom --platform linux --arch amd64 --privileged -o linux-hbom.json
 cdxgen -t hbom -o hbom.json .
 ```
@@ -425,10 +427,11 @@ after converting the final CycloneDX BOM.
 ## Converting an existing BOM
 
 Use the dedicated `cdx-convert` command to convert an existing CycloneDX JSON
-file into SPDX JSON-LD:
+or protobuf file into SPDX JSON-LD:
 
 ```shell
 cdx-convert -i bom.json -o bom.spdx.json
+cdx-convert -i bom.cdx -o bom.spdx.json
 ```
 
 `cdx-convert` supports CycloneDX 1.6 and 1.7 inputs and exports SPDX 3.0.1.

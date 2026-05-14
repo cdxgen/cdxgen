@@ -79,6 +79,7 @@ After you have already generated a BOM, you can summarize the serialized collect
 
 ```shell
 hbom diagnostics --input hbom.json
+hbom diagnostics --input hbom.cdx
 ```
 
 ## 6) Harden live HBOM collection with secure-mode allowlists
@@ -90,7 +91,7 @@ hbom --dry-run
 export CDXGEN_SECURE_MODE=true
 export CDXGEN_ALLOWED_COMMANDS="sysctl,system_profiler,networksetup,pmset"
 export CDXGEN_ALLOWED_PATHS="/proc,/sys,/etc"
-hbom -o hbom.json
+hbom -o hbom.json --export-proto --proto-bin-file hbom.cdx
 ```
 
 Practical guidance:

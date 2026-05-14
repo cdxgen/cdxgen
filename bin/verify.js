@@ -27,7 +27,8 @@ const args = _yargs
   .option("input", {
     alias: "i",
     default: "bom.json",
-    description: "Input json to validate. Default bom.json",
+    description:
+      "Input CycloneDX JSON or protobuf BOM to verify. Default bom.json",
   })
   .option("platform", {
     description: "The platform to validate. No default",
@@ -75,9 +76,23 @@ if (process.env?.CDXGEN_NODE_OPTIONS) {
   process.env.NODE_OPTIONS = `${process.env.NODE_OPTIONS || ""} ${process.env.CDXGEN_NODE_OPTIONS}`;
 }
 
-function getBom(args) {
-  if (fs.existsSync(args.input)) {
-    return JSON.parse(fs.readFileSync(args.input, "utf8"));
+async function getBom(args) {
+  if (safeExistsSync(args.input)) {
+    const normalizedInput = `${args.input}`.toLowerCase();
+    try {
+      if (
+        normalizedInput.endsWith(".cdx") ||
+        normalizedInput.endsWith(".cdx.bin") ||
+        normalizedInput.endsWith(".proto")
+      ) {
+        const { readBinary } = await import("../lib/helpers/protobom.js");
+        return readBinary(args.input, true);
+      }
+      return JSON.parse(fs.readFileSync(args.input, "utf8"));
+    } catch (error) {
+      console.log(`Failed to parse '${args.input}': ${error.message}`);
+      process.exit(1);
+    }
   }
   if (
     args.input.includes(":") ||
@@ -89,7 +104,20 @@ function getBom(args) {
   return undefined;
 }
 
-const bomJson = getBom(args);
+function isLocalProtoBomInput(input) {
+  if (!safeExistsSync(input)) {
+    return false;
+  }
+  const normalizedInput = `${input}`.toLowerCase();
+  return (
+    normalizedInput.endsWith(".cdx") ||
+    normalizedInput.endsWith(".cdx.bin") ||
+    normalizedInput.endsWith(".proto")
+  );
+}
+
+const bomJson = await getBom(args);
+const inputIsLocalProtoBom = isLocalProtoBomInput(args.input);
 
 if (!bomJson) {
   console.log(`${args.input} is invalid!`);
@@ -97,6 +125,13 @@ if (!bomJson) {
 }
 if (!isCycloneDxBom(bomJson)) {
   console.log(getNonCycloneDxErrorMessage(bomJson, "cdx-verify"));
+  process.exit(1);
+}
+
+if (inputIsLocalProtoBom) {
+  console.log(
+    "cdx-verify: protobuf BOM input does not currently preserve JSF signature blocks. Verify signatures against the source JSON BOM instead.",
+  );
   process.exit(1);
 }
 

@@ -16,6 +16,7 @@ import {
   retrieveCdxgenVersion,
   safeExistsSync,
   safeMkdirSync,
+  safeWriteSync,
 } from "../lib/helpers/utils.js";
 import { convertCycloneDxToSpdx } from "../lib/stages/postgen/spdxConverter.js";
 import { validateSpdx } from "../lib/validator/bomValidator.js";
@@ -26,7 +27,7 @@ const args = _yargs
   .option("input", {
     alias: "i",
     default: "bom.json",
-    description: "Input CycloneDX BOM JSON file.",
+    description: "Input CycloneDX BOM JSON or protobuf file.",
   })
   .option("output", {
     alias: "o",
@@ -50,18 +51,32 @@ const args = _yargs
   .help()
   .wrap(Math.min(120, yargs().terminalWidth())).argv;
 
-if (!safeExistsSync(args.input)) {
-  console.error(`Input file '${args.input}' not found.`);
-  process.exit(1);
-}
+const loadCycloneDxBom = async (inputPath) => {
+  if (!safeExistsSync(inputPath)) {
+    console.error(`Input file '${inputPath}' not found.`);
+    process.exit(1);
+  }
+  const normalizedInputPath = `${inputPath}`.toLowerCase();
+  const isProtoInput =
+    normalizedInputPath.endsWith(".cdx") ||
+    normalizedInputPath.endsWith(".cdx.bin") ||
+    normalizedInputPath.endsWith(".proto");
+  try {
+    if (isProtoInput) {
+      const { readBinary } = await import("../lib/helpers/protobom.js");
+      return readBinary(inputPath, true);
+    }
+    return JSON.parse(fs.readFileSync(inputPath, "utf8"));
+  } catch (error) {
+    const inputType = isProtoInput ? "protobuf" : "JSON";
+    console.error(
+      `Failed to parse '${inputPath}' as CycloneDX ${inputType}: ${error.message}`,
+    );
+    process.exit(1);
+  }
+};
 
-let bomJson;
-try {
-  bomJson = JSON.parse(fs.readFileSync(args.input, "utf8"));
-} catch (error) {
-  console.error(`Failed to parse '${args.input}' as JSON: ${error.message}`);
-  process.exit(1);
-}
+const bomJson = await loadCycloneDxBom(args.input);
 
 if (!isCycloneDxBom(bomJson)) {
   console.error(getNonCycloneDxErrorMessage(bomJson, "cdx-convert"));
@@ -92,7 +107,7 @@ if (outputParent && outputParent !== "." && !safeExistsSync(outputParent)) {
   safeMkdirSync(outputParent, { recursive: true });
 }
 
-fs.writeFileSync(
+safeWriteSync(
   outputPath,
   JSON.stringify(spdxJson, null, args.jsonPretty ? 2 : null),
 );

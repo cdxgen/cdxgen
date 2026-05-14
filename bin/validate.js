@@ -28,6 +28,7 @@ import {
   retrieveCdxgenVersion,
   safeExistsSync,
   safeMkdirSync,
+  safeWriteSync,
 } from "../lib/helpers/utils.js";
 import { getBomWithOras } from "../lib/managers/oci.js";
 import { shouldFail, validateBomAdvanced } from "../lib/validator/index.js";
@@ -39,7 +40,7 @@ const args = _yargs
   .option("input", {
     alias: "i",
     default: "bom.json",
-    description: "Input SBOM JSON file or OCI reference.",
+    description: "Input SBOM JSON or protobuf file, or an OCI reference.",
   })
   .option("platform", {
     description:
@@ -128,9 +129,18 @@ const args = _yargs
   .help()
   .wrap(Math.min(120, yargs().terminalWidth())).argv;
 
-function loadBom(input, platform) {
+async function loadBom(input, platform) {
   if (safeExistsSync(input)) {
+    const normalizedInput = `${input}`.toLowerCase();
     try {
+      if (
+        normalizedInput.endsWith(".cdx") ||
+        normalizedInput.endsWith(".cdx.bin") ||
+        normalizedInput.endsWith(".proto")
+      ) {
+        const { readBinary } = await import("../lib/helpers/protobom.js");
+        return readBinary(input, true);
+      }
       return JSON.parse(fs.readFileSync(input, "utf8"));
     } catch (err) {
       console.error(`Failed to parse ${input}: ${err.message}`);
@@ -176,14 +186,34 @@ function writeOrPrint(content, outputPath) {
   if (parent && !safeExistsSync(parent)) {
     safeMkdirSync(parent, { recursive: true });
   }
-  fs.writeFileSync(outputPath, content);
+  safeWriteSync(outputPath, content);
 }
 
-const bomJson = loadBom(args.input, args.platform);
+function isLocalProtoBomInput(input) {
+  if (!safeExistsSync(input)) {
+    return false;
+  }
+  const normalizedInput = `${input}`.toLowerCase();
+  return (
+    normalizedInput.endsWith(".cdx") ||
+    normalizedInput.endsWith(".cdx.bin") ||
+    normalizedInput.endsWith(".proto")
+  );
+}
+
+const bomJson = await loadBom(args.input, args.platform);
 const publicKeyStr = loadPublicKey(args.publicKey);
+const inputIsLocalProtoBom = isLocalProtoBomInput(args.input);
 if (!isCycloneDxBom(bomJson)) {
   console.error(getNonCycloneDxErrorMessage(bomJson, "cdx-validate"));
   process.exit(1);
+}
+
+if (inputIsLocalProtoBom && publicKeyStr) {
+  console.error(
+    "cdx-validate: protobuf BOM input does not currently preserve JSF signature blocks. Verify signatures against the source JSON BOM instead.",
+  );
+  process.exit(args.requireSignature ? 4 : 1);
 }
 
 const report = validateBomAdvanced(bomJson, {
