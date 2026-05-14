@@ -12,14 +12,9 @@ COMMON_SBOM_ARGS=(
 )
 
 CAXA_PACKAGE="${CAXA_PACKAGE:-@appthreat/caxa@^3.0.0}"
-CAXA_SYMLINK_PATH="${CAXA_SYMLINK_PATH:-.caxa}"
 
 run_caxa() {
-  if [[ -d "$CAXA_SYMLINK_PATH/build" && -f "$CAXA_SYMLINK_PATH/build/index.mjs" ]]; then
-    node "$CAXA_SYMLINK_PATH/build/index.mjs" "$@"
-  else
-    pnpm --package="$CAXA_PACKAGE" dlx caxa "$@"
-  fi
+  pnpm --package="$CAXA_PACKAGE" dlx caxa "$@"
 }
 
 create_targets_file() {
