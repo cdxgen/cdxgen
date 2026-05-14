@@ -10,6 +10,7 @@ import { createHBom } from "../lib/cli/index.js";
 import { printActivitySummary } from "../lib/helpers/display.js";
 import { getOutputDirectory } from "../lib/helpers/exportUtils.js";
 import {
+  ensureHbomRuntimeSupport,
   ensureNoMixedHbomProjectTypes,
   ensureSupportedHbomSpecVersion,
   hasHbomProjectType,
@@ -221,6 +222,8 @@ const options = {
   timeout: args.timeout,
   validate: args.validate,
 };
+
+ensureHbomRuntimeSupport(options, hbomCommandName);
 
 setDryRunMode(options.dryRun);
 setActivityContext({
