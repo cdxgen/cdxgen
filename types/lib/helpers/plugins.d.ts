@@ -34,6 +34,13 @@ export function resolveCdxgenPlugins(): {
     pluginsDir: string;
 };
 /**
+ * Retrieve the default plugin runtime, recomputing it only when the
+ * environment that influences plugin discovery changes.
+ *
+ * @returns {ReturnType<typeof resolveCdxgenPlugins>} The resolved plugin runtime.
+ */
+export function getDefaultPluginRuntime(): ReturnType<typeof resolveCdxgenPlugins>;
+/**
  * Add the detected node_modules binary directory to PATH when present.
  *
  * @param {ReturnType<typeof resolveCdxgenPlugins>} [pluginRuntime] Detected plugin runtime.
