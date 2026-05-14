@@ -207,6 +207,8 @@ jobs:
           mv cdx-sign${{ matrix.ext }} _cdx-sign
           mv cdx-validate${{ matrix.ext }} _cdx-validate
           mv cdx-convert${{ matrix.ext }} _cdx-convert
+          mv hbom${{ matrix.ext }} _hbom
+          mv hbom-slim${{ matrix.ext }} _hbom-slim
 
           # Rename to the correct name
           mv _cdxgen cdxgen-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }}
@@ -216,6 +218,8 @@ jobs:
           mv _cdx-sign cdx-sign-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }}
           mv _cdx-validate cdx-validate-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }}
           mv _cdx-convert cdx-convert-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }}
+          mv _hbom hbom-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }}
+          mv _hbom-slim hbom-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}-slim${{ matrix.ext }}
 
           # Rename sbom to correct name
           mv .cdxgen-postbuild.cdx.json cdxgen-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}-postbuild.cdx.json
@@ -225,6 +229,8 @@ jobs:
           mv .cdx-sign-postbuild.cdx.json cdx-sign-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}-postbuild.cdx.json
           mv .cdx-validate-postbuild.cdx.json cdx-validate-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}-postbuild.cdx.json
           mv .cdx-convert-postbuild.cdx.json cdx-convert-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}-postbuild.cdx.json
+          mv .hbom-postbuild.cdx.json hbom-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}-postbuild.cdx.json
+          mv .hbom-slim-postbuild.cdx.json hbom-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}-slim-postbuild.cdx.json
       - name: Generate checksums for darwin
         if: ${{ matrix.os == 'darwin' }}
         run: |
@@ -235,6 +241,8 @@ jobs:
           shasum -a 256 cdx-sign-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }} > cdx-sign-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }}.sha256
           shasum -a 256 cdx-validate-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }} > cdx-validate-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }}.sha256
           shasum -a 256 cdx-convert-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }} > cdx-convert-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }}.sha256
+          shasum -a 256 hbom-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }} > hbom-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }}.sha256
+          shasum -a 256 hbom-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}-slim${{ matrix.ext }} > hbom-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}-slim${{ matrix.ext }}.sha256
       - name: Generate checksums for linux
         if: ${{ matrix.os == 'linux' }}
         run: |
@@ -245,6 +253,8 @@ jobs:
           sha256sum cdx-sign-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }} > cdx-sign-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }}.sha256
           sha256sum cdx-validate-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }} > cdx-validate-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }}.sha256
           sha256sum cdx-convert-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }} > cdx-convert-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }}.sha256
+          sha256sum hbom-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }} > hbom-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }}.sha256
+          sha256sum hbom-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}-slim${{ matrix.ext }} > hbom-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}-slim${{ matrix.ext }}.sha256
       - name: Generate checksums for windows
         if: ${{ matrix.os == 'windows' }}
         run: |
@@ -255,6 +265,8 @@ jobs:
           (Get-FileHash .\cdx-sign-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }}).hash | Out-File -FilePath .\cdx-sign-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }}.sha256
           (Get-FileHash .\cdx-validate-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }}).hash | Out-File -FilePath .\cdx-validate-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }}.sha256
           (Get-FileHash .\cdx-convert-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }}).hash | Out-File -FilePath .\cdx-convert-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }}.sha256
+          (Get-FileHash .\hbom-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }}).hash | Out-File -FilePath .\hbom-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }}.sha256
+          (Get-FileHash .\hbom-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}-slim${{ matrix.ext }}).hash | Out-File -FilePath .\hbom-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}-slim${{ matrix.ext }}.sha256
       - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a  # v7.0.1
         with:
           name: cdx-binaries-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}
@@ -265,6 +277,7 @@ jobs:
             cdx-sign-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}*
             cdx-validate-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}*
             cdx-convert-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}*
+            hbom-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}*
           if-no-files-found: error
       - name: Release
         uses: softprops/action-gh-release@b4309332981a82ec1c5618f44dd2e27cc8bfbfda  # v3.0.0
@@ -277,6 +290,7 @@ jobs:
             cdx-sign-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}*
             cdx-validate-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}*
             cdx-convert-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}*
+            hbom-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}*
 
   retry:
     needs: binaries

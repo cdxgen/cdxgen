@@ -32,6 +32,30 @@ function Invoke-BinaryBuild {
   & ".\$Output.exe" --help
 }
 
+function Get-OptionalDependencyVersion {
+  param(
+    [Parameter(Mandatory = $true)]
+    [string]$PackageName
+  )
+
+  $packageJson = Get-Content -Path package.json -Raw | ConvertFrom-Json
+  $packageVersion = $packageJson.optionalDependencies.PSObject.Properties[$PackageName].Value
+  if (-not $packageVersion) {
+    throw "Missing optional dependency version for $PackageName"
+  }
+  return $packageVersion
+}
+
+function Install-OptionalDependency {
+  param(
+    [Parameter(Mandatory = $true)]
+    [string]$PackageName
+  )
+
+  $packageVersion = Get-OptionalDependencyVersion -PackageName $PackageName
+  pnpm add -w --prod --no-save --config.node-linker=hoisted --config.strict-dep-builds=true --package-import-method copy "$PackageName@$packageVersion"
+}
+
 $cleanupTargets = @(
   "*.md",
   "ci",
@@ -63,9 +87,15 @@ Invoke-BinaryBuild -Output "cdx-verify" -MetadataFile ".cdx-verify-metadata.json
 Invoke-BinaryBuild -Output "cdx-sign" -MetadataFile ".cdx-sign-metadata.json" -EntryPoint "bin/sign.js"
 Invoke-BinaryBuild -Output "cdx-validate" -MetadataFile ".cdx-validate-metadata.json" -EntryPoint "bin/validate.js"
 Invoke-BinaryBuild -Output "cdx-convert" -MetadataFile ".cdx-convert-metadata.json" -EntryPoint "bin/convert.js"
+Invoke-BinaryBuild -Output "hbom" -MetadataFile ".hbom-metadata.json" -EntryPoint "bin/hbom.js"
 
 Remove-Item -Path node_modules -Force -Recurse -ErrorAction SilentlyContinue
 pnpm install:prod --config.node-linker=hoisted --no-optional
 Remove-Item -Path .pnpm-store -Force -Recurse -ErrorAction SilentlyContinue
 
 Invoke-BinaryBuild -Output "cdxgen-slim" -MetadataFile ".cdxgen-slim-metadata.json" -EntryPoint "bin/cdxgen.js"
+
+Install-OptionalDependency -PackageName "@cdxgen/cdx-hbom"
+Remove-Item -Path .pnpm-store -Force -Recurse -ErrorAction SilentlyContinue
+
+Invoke-BinaryBuild -Output "hbom-slim" -MetadataFile ".hbom-slim-metadata.json" -EntryPoint "bin/hbom.js"

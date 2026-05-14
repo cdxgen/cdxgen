@@ -11,7 +11,7 @@ The package ships multiple CLI entry points. Use this table as the top-level nav
 | Command        | Purpose                                                                            | Standalone release binary | Dedicated docs                     |
 | -------------- | ---------------------------------------------------------------------------------- | ------------------------- | ---------------------------------- |
 | `cdxgen`       | Generate CycloneDX and SPDX BOMs from source, images, binaries, git URLs, or purls | yes                       | [CLI Usage](CLI.md)                |
-| `hbom`         | Generate a CycloneDX hardware BOM for the current host                             | no                        | [HBOM.md](HBOM.md)                 |
+| `hbom`         | Generate a CycloneDX hardware BOM for the current host                             | yes (`hbom`, `hbom-slim`) | [HBOM.md](HBOM.md)                 |
 | `cdx-audit`    | Explainable upstream dependency risk prioritization from existing BOMs             | yes                       | [CDX_AUDIT.md](CDX_AUDIT.md)       |
 | `cdx-convert`  | Convert CycloneDX JSON to SPDX 3.0.1 JSON-LD                                       | yes                       | [CDX_CONVERT.md](CDX_CONVERT.md)   |
 | `cdx-sign`     | Sign a CycloneDX BOM                                                               | yes                       | [CDX_SIGN.md](CDX_SIGN.md)         |
@@ -42,6 +42,7 @@ Use `hbom` when you want a hardware BOM for the current host rather than a softw
 
 - Supported collector targets currently come from `@cdxgen/cdx-hbom` (`darwin/arm64`, `linux/amd64`, and `linux/arm64`).
 - `hbom` dynamically loads the optional hardware collector only when you invoke the command or request `cdxgen -t hbom`.
+- Standalone release assets ship as both `hbom-<os>-<arch>` and `hbom-<os>-<arch>-slim`. The standard `hbom` binary bundles `@cdxgen/cdx-hbom` plus the matching `@cdxgen/cdxgen-plugins-bin*` helpers, while `hbom-slim` keeps only `@cdxgen/cdx-hbom`.
 - Do not mix `hbom` with software project types in the same run. Generate SBOMs and HBOMs separately.
 - `--dry-run` for HBOM still returns a read-only partial BOM when safe local discovery is possible, while blocking collector commands and output writes.
 - Use `hbom diagnostics` when you want a fast summary of missing Linux utilities and permission-sensitive enrichments before deciding whether to install packages or rerun with `--privileged`.
@@ -152,7 +153,9 @@ docker run --rm -v /tmp:/tmp -v $(pwd):/app:rw -t ghcr.io/cyclonedx/cdxgen -r /a
 
 ### Standalone release binaries
 
-GitHub Releases publish single-file executables for `cdxgen`, `cdxgen-slim`, `cdx-audit`, `cdx-convert`, `cdx-sign`, `cdx-validate`, and `cdx-verify`.
+GitHub Releases publish single-file executables for `cdxgen`, `cdxgen-slim`, `hbom`, `hbom-slim`, `cdx-audit`, `cdx-convert`, `cdx-sign`, `cdx-validate`, and `cdx-verify`.
+
+For HBOM, use `hbom-<os>-<arch>` when you want the dedicated hardware collector together with the companion `@cdxgen/cdxgen-plugins-bin*` bundle, or `hbom-<os>-<arch>-slim` when you only need `@cdxgen/cdx-hbom` in the standalone executable.
 
 Use the asset name that matches your platform, for example `cdx-audit-linux-amd64`, `cdx-audit-darwin-arm64`, or `cdx-audit-windows-amd64.exe`.
 

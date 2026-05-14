@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import { readFileSync } from "node:fs";
-import { resolve } from "node:path";
+import { basename, resolve } from "node:path";
 import process from "node:process";
 
 import yargs from "yargs";
@@ -27,6 +27,16 @@ import {
   setDryRunMode,
 } from "../lib/helpers/utils.js";
 import { validateBom } from "../lib/validator/bomValidator.js";
+
+function determineHbomCommandName() {
+  const invokedScriptName = basename(process.argv[1] || "hbom").replace(
+    /\.(?:[cm]?js|exe)$/u,
+    "",
+  );
+  return invokedScriptName || "hbom";
+}
+
+const hbomCommandName = determineHbomCommandName();
 
 const _yargs = yargs(hideBin(process.argv));
 
@@ -156,7 +166,7 @@ const args = _yargs
       "Summarize missing commands or permission-denied enrichments from an existing HBOM file",
     ],
   ])
-  .scriptName("hbom")
+  .scriptName(hbomCommandName)
   .version(retrieveCdxgenVersion())
   .alias("v", "version")
   .help(false)
@@ -185,7 +195,7 @@ try {
 }
 if (!hasHbomProjectType(requestedTypes)) {
   console.error(
-    "The 'hbom' command only supports the 'hbom' or 'hardware' project type.",
+    `The '${hbomCommandName}' command only supports the 'hbom' or 'hardware' project type.`,
   );
   process.exit(1);
 }
@@ -282,8 +292,8 @@ function printHbomDiagnosticNotice(bomJson) {
     );
   }
   const followUpCommand = options.print
-    ? "hbom diagnostics"
-    : `hbom diagnostics --input ${options.output}`;
+    ? `${hbomCommandName} diagnostics`
+    : `${hbomCommandName} diagnostics --input ${options.output}`;
   console.error(
     `HBOM collector reported ${hbomSummary.actionableDiagnosticCount} actionable diagnostic(s) (${detailParts.join(", ")}). Run '${followUpCommand}' for detailed install and privilege guidance.`,
   );

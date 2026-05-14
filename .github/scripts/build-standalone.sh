@@ -34,6 +34,37 @@ build_binary() {
   "./$output" --help
 }
 
+read_optional_dependency_version() {
+  local package_name="$1"
+
+  node --input-type=module -e '
+    import { readFileSync } from "node:fs";
+
+    const packageName = process.argv[1];
+    const packageJson = JSON.parse(readFileSync("package.json", "utf8"));
+    const packageVersion = packageJson.optionalDependencies?.[packageName];
+
+    if (!packageVersion) {
+      console.error(`Missing optional dependency version for ${packageName}`);
+      process.exit(1);
+    }
+
+    console.log(packageVersion);
+  ' "$package_name"
+}
+
+install_optional_dependency() {
+  local package_name="$1"
+  local package_version
+
+  package_version="$(read_optional_dependency_version "$package_name")"
+  pnpm add -w --prod --no-save \
+    --config.node-linker=hoisted \
+    --config.strict-dep-builds=true \
+    --package-import-method copy \
+    "$package_name@$package_version"
+}
+
 rm -rf \
   *.cdx.json \
   *.md \
@@ -62,9 +93,15 @@ build_binary cdx-verify .cdx-verify-metadata.json bin/verify.js
 build_binary cdx-sign .cdx-sign-metadata.json bin/sign.js
 build_binary cdx-validate .cdx-validate-metadata.json bin/validate.js
 build_binary cdx-convert .cdx-convert-metadata.json bin/convert.js
+build_binary hbom .hbom-metadata.json bin/hbom.js
 
 rm -rf node_modules
 pnpm install:prod --config.node-linker=hoisted --no-optional
 rm -rf .pnpm-store
 
 build_binary cdxgen-slim .cdxgen-slim-metadata.json bin/cdxgen.js
+
+install_optional_dependency @cdxgen/cdx-hbom
+rm -rf .pnpm-store
+
+build_binary hbom-slim .hbom-slim-metadata.json bin/hbom.js

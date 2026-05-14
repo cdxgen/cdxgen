@@ -22,14 +22,14 @@ winget install cdxgen
 
 ## Single Executable Application (SEA) Binaries
 
-`cdxgen` is available as a standalone binary for Linux, macOS, and Windows. These binaries do not require Node.js or `npm` to be installed on the system, making them ideal for CI/CD environments, containerized scans, or quick local usage.
+`cdxgen` and `hbom` are available as standalone binaries for Linux, macOS, and Windows. These binaries do not require Node.js or `npm` to be installed on the system, making them ideal for CI/CD environments, containerized scans, or quick local usage.
 
 Binaries are available in the [GitHub Releases](https://github.com/cdxgen/cdxgen/releases) page.
 
 **Available Variants:**
 
-- **Standard:** (`cdxgen-linux-amd64`, etc.) The default standalone binary with bundled plugins and node runtime.
-- **Slim:** (`-slim`) Smaller binaries with the node runtime and without the binary plugins. Some project types that require plugins such as `docker`, `os`, and features such as `evinse` will not work.
+- **Standard:** (`cdxgen-linux-amd64`, `hbom-linux-amd64`, etc.) The default standalone binaries with the node runtime. For HBOM, the standard variant also bundles `@cdxgen/cdx-hbom` and the matching `@cdxgen/cdxgen-plugins-bin*` companion helpers.
+- **Slim:** (`-slim`) Smaller binaries with the node runtime and without the companion plugin bundle. `cdxgen-*-slim` omits the binary plugins, and `hbom-*-slim` keeps `@cdxgen/cdx-hbom` while omitting `@cdxgen/cdxgen-plugins-bin*`.
 - **Musl:** (`-musl`) Linked against Musl libc, specifically for **Alpine Linux**.
 
 ### Linux and macOS (Bash)
@@ -73,7 +73,9 @@ if ($ExpectedHash -eq $ActualHash) {
 }
 ```
 
-> **Note:** The `cdx-verify`, `cdx-sign`, `cdx-validate`, and `cdx-convert`
+> **Note:** `hbom` and `hbom-slim` follow the same release naming convention
+> (for example, `hbom-linux-amd64` and `hbom-linux-amd64-slim`). The
+> `cdx-verify`, `cdx-sign`, `cdx-validate`, and `cdx-convert`
 > tools are also available as standalone binaries in the releases using the
 > same naming convention (e.g., `cdx-convert-linux-amd64`).
 

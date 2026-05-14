@@ -6,6 +6,8 @@
 
 The command dynamically loads the optional [`@cdxgen/cdx-hbom`](https://www.npmjs.com/package/@cdxgen/cdx-hbom) library only when HBOM generation is requested, so normal SBOM workflows stay unchanged.
 
+If you prefer a single-file release asset instead of an npm installation, GitHub Releases now also publish dedicated `hbom-<os>-<arch>` and `hbom-<os>-<arch>-slim` executables. The standard `hbom` release bundles both `@cdxgen/cdx-hbom` and the platform-matching `@cdxgen/cdxgen-plugins-bin*` companion helpers, while `hbom-slim` keeps only `@cdxgen/cdx-hbom`.
+
 ## Supported targets
 
 Current hardware collectors come from `@cdxgen/cdx-hbom` and support:

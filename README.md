@@ -128,7 +128,7 @@ Installing `@cyclonedx/cdxgen` exposes these commands:
 | Command         | Purpose                                                                                              | Standalone GitHub release binary |
 | --------------- | ---------------------------------------------------------------------------------------------------- | -------------------------------- |
 | `cdxgen`        | Generate CycloneDX / SPDX BOMs from source, images, binaries, git URLs, or purls                     | yes                              |
-| `hbom`          | Generate a CycloneDX hardware BOM for the current host                                               | no                               |
+| `hbom`          | Generate a CycloneDX hardware BOM for the current host                                               | yes (`hbom`, `hbom-slim`)        |
 | `cdx-audit`     | Prioritize existing BOM dependencies for upstream supply-chain review using explainable risk signals | yes                              |
 | `cdx-convert`   | Convert CycloneDX JSON to SPDX 3.0.1 JSON-LD                                                         | yes                              |
 | `cdx-sign`      | Sign BOMs with JSF signatures                                                                        | yes                              |
@@ -142,7 +142,9 @@ Installing `@cyclonedx/cdxgen` exposes these commands:
 | `spdxgen`       | Alias for `cdxgen --format spdx`                                                                     | use `cdxgen`                     |
 | `cdxgen-secure` | Alias for hardened `cdxgen` defaults                                                                 | use `cdxgen`                     |
 
-Standalone GitHub release binaries are published for `cdxgen`, `cdxgen-slim`, `cdx-audit`, `cdx-convert`, `cdx-sign`, `cdx-validate`, and `cdx-verify`.
+Standalone GitHub release binaries are published for `cdxgen`, `cdxgen-slim`, `hbom`, `hbom-slim`, `cdx-audit`, `cdx-convert`, `cdx-sign`, `cdx-validate`, and `cdx-verify`.
+
+`hbom` release binaries bundle both `@cdxgen/cdx-hbom` and the matching `@cdxgen/cdxgen-plugins-bin*` companion helpers for the target platform. `hbom-slim` keeps the dedicated hardware collector (`@cdxgen/cdx-hbom`) but omits the companion plugin bundle when you want the smallest single-file HBOM executable.
 
 `cdx-audit` is designed to accelerate upstream dependency review with explainable, evidence-backed risk prioritization. It complements provenance, reproducibility, and manual investigation rather than replacing them.
 
@@ -190,6 +192,10 @@ Common asset names:
 - `cdxgen-linux-amd64-musl`
 - `cdxgen-darwin-arm64`
 - `cdxgen-windows-amd64.exe`
+- `hbom-linux-amd64`
+- `hbom-linux-amd64-slim`
+- `hbom-darwin-arm64`
+- `hbom-windows-amd64.exe`
 - `cdx-audit-linux-amd64`
 - `cdx-audit-darwin-arm64`
 - `cdx-audit-windows-amd64.exe`
