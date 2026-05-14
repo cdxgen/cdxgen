@@ -58,7 +58,7 @@ install_optional_dependency() {
   local package_version
 
   package_version="$(read_optional_dependency_version "$package_name")"
-  pnpm add --prod --no-save \
+  pnpm add --prod \
     --config.node-linker=hoisted \
     --config.strict-dep-builds=true \
     --package-import-method copy \

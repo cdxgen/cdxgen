@@ -53,7 +53,7 @@ function Install-OptionalDependency {
   )
 
   $packageVersion = Get-OptionalDependencyVersion -PackageName $PackageName
-  pnpm add --prod --no-save --config.node-linker=hoisted --config.strict-dep-builds=true --package-import-method copy "$PackageName@$packageVersion"
+  pnpm add --prod --config.node-linker=hoisted --config.strict-dep-builds=true --package-import-method copy "$PackageName@$packageVersion"
 }
 
 function Remove-HbomOnlyPlugins {
