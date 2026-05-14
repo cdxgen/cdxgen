@@ -25,6 +25,13 @@ export function ensureNoMixedHbomProjectTypes(projectTypes: string | string[] | 
  */
 export function ensureSupportedHbomSpecVersion(specVersion: number | string | undefined | null): void;
 /**
+ * Ensure merged HBOM + runtime collection has access to osquery.
+ *
+ * @param {object} [options={}] CLI options.
+ * @param {string} [commandName="hbom"] Invoked command name for tailored guidance.
+ */
+export function ensureHbomRuntimeSupport(options?: object, commandName?: string): void;
+/**
  * Translate cdxgen CLI options to cdx-hbom collector options.
  *
  * @param {object} [options={}] CLI options.
