@@ -66,21 +66,13 @@ install_optional_dependency() {
 }
 
 prune_hbom_only_plugins() {
-  find node_modules -type d \(
-    -path "*/plugins/dosai" \
-    -o -path "*/plugins/sourcekitten" \
-    -o -path "*/plugins/trivy" \
-  \) -prune -exec rm -rf {} +
+  find node_modules -type d \( -path "*/plugins/dosai" -o -path "*/plugins/sourcekitten" -o -path "*/plugins/trivy" \) -prune -exec rm -rf {} +
 }
 
 verify_hbom_only_plugins_pruned() {
   local remaining_plugins
 
-  remaining_plugins="$(find node_modules -type d \(
-    -path "*/plugins/dosai" \
-    -o -path "*/plugins/sourcekitten" \
-    -o -path "*/plugins/trivy" \
-  \) -print)"
+  remaining_plugins="$(find node_modules -type d \( -path "*/plugins/dosai" -o -path "*/plugins/sourcekitten" -o -path "*/plugins/trivy" \) -print)"
 
   if [[ -n "$remaining_plugins" ]]; then
     echo "HBOM SEA preflight failed: expected dosai, sourcekitten, and trivy plugin directories to be pruned before packaging hbom." >&2
