@@ -82,18 +82,21 @@ export function catalogGradleDeps(dirPath: any, purlsJars: any, Namespaces: any)
 export function createAndStoreSlice(purl: any, purlsJars: any, Usages: any, options?: {}): Promise<any>;
 export function createSlice(purlOrLanguages: any, filePath: any, sliceType?: string, options?: {}): Promise<{
     tempDir?: undefined;
+    tempDirOwned?: undefined;
     slicesFile?: undefined;
     atomFile?: undefined;
     openapiSpecFile?: undefined;
     semanticsSlicesFile?: undefined;
 } | {
     tempDir: any;
+    tempDirOwned: boolean;
     slicesFile: any;
     atomFile?: undefined;
     openapiSpecFile?: undefined;
     semanticsSlicesFile?: undefined;
 } | {
     tempDir: any;
+    tempDirOwned: boolean;
     slicesFile: any;
     atomFile: any;
     openapiSpecFile: any;
@@ -120,6 +123,7 @@ export function analyzeProject(dbObjMap: Object, options: Object): Promise<{
     servicesMap: {};
     dataFlowFrames: {};
     tempDir: any;
+    tempDirOwned: any;
     userDefinedTypesMap: {};
     cryptoComponents: any[];
     cryptoGeneratePurls: {};
