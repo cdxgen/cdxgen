@@ -655,6 +655,45 @@ Using the `cbom` alias sets the following options:
 
 For service-oriented evidence collection, use the `saasbom` alias or the dedicated [`evinse` guide](EVINSE.md).
 
+## Choosing a Container Image
+
+cdxgen publishes many container images to accommodate different ecosystems and security postures. Use the decision guide below to pick the right one before consulting the full table.
+
+**Start here:** do you need to scan a project that requires a specific language SDK to resolve transitive dependencies?
+
+- No, I just need to scan a lock file or manifest: use `ghcr.io/cyclonedx/cdxgen:master` (the default image, contains Java 25, Node 24, Python, Go, and Rust).
+- Yes, I need a specific language SDK version: use the matching language-specific image (see table below).
+
+**Are you running in a security-sensitive environment?**
+
+- Use `ghcr.io/cyclonedx/cdxgen-secure:master` which enforces the Node.js permissions model by default.
+- Use `ghcr.io/cyclonedx/cdxgen-deno:master` if you prefer Deno's permission model.
+
+**Do you need a smaller image for faster pulls or limited disk space?**
+
+- Images with `-alpine-` in the name use Alpine Linux and are smaller than their Debian equivalents.
+- Alpine images have the same language support but may behave differently for C/C++ native extensions that depend on glibc.
+
+**Do you need .NET Framework (not .NET Core)?**
+
+- .NET Framework requires Windows. On Linux use `ghcr.io/cyclonedx/cdxgen-debian-dotnet6:v12` for .NET Framework projects where the `project.assets.json` file is already committed, or run on a Windows host.
+
+**Quick examples:**
+
+```bash
+# default image for most projects
+docker run --rm -v $(pwd):/app ghcr.io/cyclonedx/cdxgen:master -r /app -t java -o bom.json
+
+# legacy Java 11 project
+docker run --rm -v $(pwd):/app ghcr.io/cyclonedx/cdxgen-java11:v12 -r /app -t java -o bom.json
+
+# Python 3.11 project
+docker run --rm -v $(pwd):/app ghcr.io/cyclonedx/cdxgen-python311:v12 -r /app -t py -o bom.json
+
+# security-hardened image
+docker run --rm -v $(pwd):/app ghcr.io/cyclonedx/cdxgen-secure:master -r /app -t js -o bom.json
+```
+
 ## Custom Container Images
 
 Below table summarizes all available container image versions. These images include additional language-specific build tools and development libraries to enable automatic restore and build operations.

@@ -20,6 +20,15 @@
 - [Permissions](PERMISSIONS.md)
 - [Configuring Allowlists](ALLOWED_HOSTS_AND_COMMANDS.md)
 - [Threat Model](THREAT_MODEL.md)
+- **Contributing**
+- [Architecture Overview](ARCHITECTURE.md)
+- [BOM Generation Pipeline](BOM_PIPELINE.md)
+- [Adding a New Ecosystem](ADD_ECOSYSTEM.md)
+- [Testing Guide](TESTING.md)
+- **Guides**
+- [Troubleshooting](TROUBLESHOOTING.md)
+- [Large and Complex Projects](MONOREPO.md)
+- **Tutorials**
 - [Tutorials - Java](LESSON1.md)
 - [Tutorials - JavaScript](LESSON2.md)
 - [Tutorials - Sign & Attach](LESSON3.md)
