@@ -41,7 +41,7 @@ Use the `PackageURL` class from `packageurl-js` to construct purls. Never concat
 
 Use `safeExistsSync`, `safeMkdirSync`, and `safeSpawnSync` instead of their raw Node.js equivalents. Guard file-system calls with `isSecureMode` checks where the operation would be unsafe.
 
-## Step 3: Create a create\<Language\>Bom function in lib/cli/index.js
+## Step 3: Create a create&lt;Language&gt;Bom function in lib/cli/index.js
 
 Add an async function named `create<YourLang>Bom` following the exact signature used by all other language functions:
 
