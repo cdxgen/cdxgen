@@ -1,36 +1,37 @@
 # Architecture Overview
 
-This page gives contributors a practical map of the cdxgen codebase. The goal is simple. If you know what kind of change you want to make, you should be able to identify the right folder, the right entry point, and the right boundary before you open an editor.
+This page gives contributors a stable mental model for how cdxgen is organized without forcing every detail into one file. It explains the main layers, the command entry points, and where different categories of changes belong.
 
-## Why this page exists
+If you want concrete, language-specific examples from the real implementation, read [Architecture Implementation Examples](ARCHITECTURE_ECOSYSTEM_EXAMPLES.md).
 
-cdxgen is broad by design. It supports many ecosystems, several command variants, container and host inventory, and a final post-generation shaping pass. That flexibility is useful, but it also means new contributors often need one page that explains how the pieces relate.
+If you want to understand where user-facing features such as dry-run mode, BOM audit, predictive audit, and validation are already documented, read [Feature Coverage Map](FEATURE_COVERAGE.md).
 
-A good mental model is:
+## Core mental model
 
-1. `bin/` gathers user intent and creates the `options` object.
-2. `lib/cli/index.js` decides what kind of target it is scanning and assembles raw BOM data.
-3. `lib/stages/postgen/` runs the once-per-BOM cleanup and enrichment pass.
+A good way to think about cdxgen is:
 
-Everything else supports one of those jobs.
+1. `bin/` turns user intent into an `options` object.
+2. `lib/cli/index.js` decides what kind of target is being scanned and assembles raw BOM data.
+3. `lib/stages/postgen/` runs the once-per-BOM shaping pass.
+4. sibling command entry points such as `cdx-audit`, `cdx-validate`, `cdx-convert`, `cdx-sign`, and `cdx-verify` build on that output or adjacent rule engines.
 
 ## Repository map
 
 | Path | Main role | Reach for it when you need to... |
 |---|---|---|
-| `/home/runner/work/cdxgen/cdxgen/bin/` | CLI entry points | add or change a command-line flag, startup flow, or output writing |
-| `/home/runner/work/cdxgen/cdxgen/lib/cli/index.js` | Core BOM generation | add an ecosystem, change detection, or alter component assembly |
-| `/home/runner/work/cdxgen/cdxgen/lib/helpers/` | Shared helpers and parsers | add a parser, metadata helper, or cross-cutting utility |
-| `/home/runner/work/cdxgen/cdxgen/lib/stages/pregen/` | Environment preparation | change SDK installation or preflight behavior |
-| `/home/runner/work/cdxgen/cdxgen/lib/stages/postgen/` | Final BOM shaping | change filtering, metadata, formulation, standards, or annotations |
-| `/home/runner/work/cdxgen/cdxgen/lib/managers/` | Container and package-manager helpers | change Docker, OCI, binary, or pip-tree integration |
-| `/home/runner/work/cdxgen/cdxgen/lib/audit/` | Predictive audit engine | change rule execution, risk scoring, or reporters |
-| `/home/runner/work/cdxgen/cdxgen/lib/server/` | HTTP server | change request handling or server-side generation |
-| `/home/runner/work/cdxgen/cdxgen/lib/validator/` | Validation | change CycloneDX or SPDX validation behavior |
-| `/home/runner/work/cdxgen/cdxgen/data/` | Static runtime data | add schemas, query packs, aliases, rules, or knowledge indexes |
-| `/home/runner/work/cdxgen/cdxgen/test/` | Fixtures | add representative manifests, lock files, or expected results |
-| `/home/runner/work/cdxgen/cdxgen/docs/` | Documentation | explain features, contributor flows, or troubleshooting |
-| `/home/runner/work/cdxgen/cdxgen/types/` | Generated types | do not edit manually |
+| `bin/` | CLI entry points | add or change command-line flags, startup flow, or output behavior |
+| `lib/cli/index.js` | Core BOM generation | add ecosystems, change detection, or alter BOM assembly |
+| `lib/helpers/` | Shared helpers and parsers | add lockfile parsing, metadata helpers, or reusable utilities |
+| `lib/stages/pregen/` | Environment preparation | change SDK installation or preflight behavior |
+| `lib/stages/postgen/` | Final BOM shaping | change filtering, standards, metadata, formulation, or annotations |
+| `lib/managers/` | Domain-specific managers | change Docker, OCI, binary, or package-manager integration |
+| `lib/audit/` | Predictive audit engine | change upstream audit logic, rules, scoring, or reporting |
+| `lib/server/` | HTTP server | change server-side request handling or long-lived scan behavior |
+| `lib/validator/` | Validation | change CycloneDX or SPDX validation behavior |
+| `data/` | Static runtime data | add schemas, query packs, rule packs, aliases, or classifier data |
+| `test/` | Fixtures | add sample manifests, lock files, or audit inputs |
+| `docs/` | Documentation | document behavior, contributor guidance, and troubleshooting |
+| `types/` | Generated types | do not edit manually |
 
 ## Architecture in one screen
 
@@ -38,8 +39,8 @@ Everything else supports one of those jobs.
 
 ```text
                         +----------------------+
-                        |    bin/cdxgen.js     |
-                        |   lib/server/*       |
+                        |  bin/* entry points   |
+                        |  cdxgen, audit, ...   |
                         +----------+-----------+
                                    |
                                    v
@@ -70,7 +71,7 @@ Everything else supports one of those jobs.
 
 ```mermaid
 flowchart TD
-    BIN[bin/cdxgen.js and companion CLIs]
+    BIN[bin/* entry points]
     SERVER[lib/server/server.js]
     CLI[lib/cli/index.js]
     HELPERS[lib/helpers/*]
@@ -100,27 +101,21 @@ flowchart TD
 ### ASCII runtime flow
 
 ```text
-User command
+user command
    |
    v
 bin/cdxgen.js
    |
-   +--> prepareEnv()           optional SDK and tool preparation
+   +--> prepareEnv()              optional SDK and tool preparation
    |
    +--> createBom()
            |
-           +--> container export setup?       exportImage()/exportArchive()
-           |
-           +--> single-type path?             createXBom()
-           |        |
-           |        +--> create<Language>Bom()
-           |                 |
-           |                 +--> buildBomNSData()
-           |
-           +--> multi-type path?              createMultiXBom()
-                    |
-                    +--> create<Language>Bom() for each relevant type or path
-                    +--> dedupeBom()
+           +--> exportImage()/exportArchive() when needed
+           +--> createXBom() for single-type detection
+           +--> createMultiXBom() for multi-type or OCI scans
+           +--> create<Language>Bom() per ecosystem
+           +--> buildBomNSData()
+           +--> dedupeBom()
    |
    v
 postProcess()
@@ -132,7 +127,7 @@ postProcess()
    +--> annotate()
    |
    v
-write bom.json / print summary / return server response
+write BOM / print summary / return HTTP response
 ```
 
 ### Mermaid runtime flow
@@ -157,53 +152,21 @@ flowchart TD
     M --> N[JSON output, saved file, table, or HTTP response]
 ```
 
-## Module responsibilities in plain language
+## Command surface and responsibilities
 
-### `bin/`
+The repository is not only one generator command.
 
-The `bin/` directory is where user intent becomes an `options` object. The CLI decides what the input path is, whether purl source resolution is needed, whether server mode or a companion command is in use, and when final output should be written.
-
-If you are changing a command-line flag, help text, default option, or command startup behavior, begin here.
-
-### `lib/cli/index.js`
-
-This file is the heart of cdxgen. It contains the large dispatcher that detects project types, the per-language `create<Language>Bom` functions, and the code that merges multi-type results.
-
-This is usually the right place when you want to:
-
-1. add support for a new ecosystem
-2. change detection rules for an existing ecosystem
-3. adjust how raw package lists become BOM components and dependencies
-
-### `lib/helpers/`
-
-This is the shared library layer. It contains lockfile parsers, metadata fetch helpers, path and environment utilities, logger helpers, purl helpers, release-note helpers, and other reusable logic.
-
-If a function would otherwise be imported by both `lib/cli/` and `lib/stages/`, it should usually live here.
-
-### `lib/stages/pregen/`
-
-The pre-generation stage prepares the environment before BOM generation starts. Today that mostly means setting up or installing missing SDKs and package-manager prerequisites.
-
-The key nuance is that pre-generation is about the execution environment, not the BOM document itself.
-
-### `lib/stages/postgen/`
-
-The post-generation stage is where cdxgen makes one final pass over the assembled BOM. This is where filtering, standards application, metadata normalization, formulation, release notes, and annotations happen.
-
-This stage runs once per BOM cycle, which makes it the correct place for logic that should not repeat for every language type in a multi-type scan.
-
-### `lib/managers/`
-
-Managers connect cdxgen to more specialised domains such as Docker, OCI image extraction, binary inspection, and pip dependency trees. They are support layers for the main generator, not the final assembly point.
-
-### `lib/audit/`
-
-The audit engine evaluates generated BOMs against rule packs and scoring models. It is adjacent to BOM generation, not part of the core assembly path.
-
-### `data/`
-
-This folder is part of the architecture, not just storage. Query packs, rule YAML, license lists, alias maps, and schemas all influence runtime behavior.
+| Command | Entry point | Primary responsibility |
+|---|---|---|
+| `cdxgen` | `bin/cdxgen.js` | generate CycloneDX or SPDX-oriented BOM output from source, images, archives, git URLs, or purls |
+| `hbom` | `bin/hbom.js` | generate hardware BOMs using the optional HBOM collector |
+| `cdx-audit` | `bin/audit.js` | run predictive dependency audit from existing BOMs |
+| `cdx-validate` | `bin/validate.js` | run schema, deep, and compliance validation |
+| `cdx-convert` | `bin/convert.js` | convert CycloneDX to SPDX |
+| `cdx-sign` | `bin/sign.js` | sign BOMs |
+| `cdx-verify` | `bin/verify.js` | verify BOM signatures |
+| `evinse` | `bin/evinse.js` | enrich BOMs with evidence and service data |
+| `cdxi` | `bin/repl.js` | interactive exploration and server-adjacent workflows |
 
 ## The most important boundary to remember
 
@@ -216,50 +179,33 @@ The strongest architectural rule in cdxgen is the layering rule.
 | `lib/stages/postgen/*` | helpers, data | `lib/cli/index.js` |
 | `bin/*` and `lib/server/*` | cli, stages, helpers | lower layers importing back upward |
 
-If you are about to import `../../cli/index.js` inside a helper or stage file, stop and move the shared logic into `/home/runner/work/cdxgen/cdxgen/lib/helpers/` first.
+If you are about to import `../../cli/index.js` inside a helper or stage file, stop and move the shared logic into `lib/helpers/` first.
 
 ## Where common changes belong
 
 | Change you want | First place to inspect |
 |---|---|
-| Add a new `--flag` | `/home/runner/work/cdxgen/cdxgen/bin/cdxgen.js` |
-| Add a new ecosystem | `/home/runner/work/cdxgen/cdxgen/lib/cli/index.js` and `/home/runner/work/cdxgen/cdxgen/lib/helpers/utils.js` |
-| Add a new query-pack table | `/home/runner/work/cdxgen/cdxgen/data/queries*.json` |
-| Add a new audit rule | `/home/runner/work/cdxgen/cdxgen/data/rules/*.yaml` and `/home/runner/work/cdxgen/cdxgen/lib/stages/postgen/auditBom.poku.js` |
-| Change filtering behavior | `/home/runner/work/cdxgen/cdxgen/lib/stages/postgen/postgen.js` |
-| Change release-note logic | `/home/runner/work/cdxgen/cdxgen/lib/stages/postgen/postgen.js` and the helpers it calls |
-| Change container export behavior | `/home/runner/work/cdxgen/cdxgen/lib/managers/docker.js` or `/home/runner/work/cdxgen/cdxgen/lib/managers/oci.js` |
-| Change validation behavior | `/home/runner/work/cdxgen/cdxgen/lib/validator/` |
+| Add a new `--flag` | `bin/cdxgen.js` |
+| Add a new ecosystem | `lib/cli/index.js` and `lib/helpers/utils.js` |
+| Add a new query-pack table | `data/queries*.json` |
+| Add a new audit rule | `data/rules/*.yaml` and `lib/stages/postgen/auditBom.poku.js` |
+| Change filtering behavior | `lib/stages/postgen/postgen.js` |
+| Change release-note logic | `lib/stages/postgen/postgen.js` and the helpers it calls |
+| Change container export behavior | `lib/managers/docker.js` or `lib/managers/oci.js` |
+| Change validation behavior | `lib/validator/` |
+| Change predictive audit behavior | `lib/audit/` and audit docs |
 
 ## The `options` object as the shared contract
 
-One reason cdxgen stays workable despite its size is that nearly every public entry point accepts the same `options` object. That object originates in the CLI, flows into `createBom()`, continues into per-language generators, and is finally used again in post-processing.
+Nearly every public entry point accepts the same `options` object. That object originates in the CLI, flows into `createBom()`, continues into per-language generators, and is reused in post-processing.
 
-That means a new feature is usually easiest to add when you thread it through `options` once and then read it where needed, rather than trying to infer CLI intent deep inside library code.
+That means a feature is usually easiest to add when you thread it through `options` once and read it where needed, rather than inferring CLI intent deep inside library code.
 
-## Companion binaries and plugins
+## Related deep dives
 
-Some features depend on optional companion tools shipped through `cdxgen-plugins-bin`. These helpers extend the architecture without changing its core shape.
-
-| Helper | Used for |
-|---|---|
-| Trivy | container and rootfs inventory |
-| osquery | OBOM host and runtime collection |
-| SourceKitten | Swift and Apple ecosystem extraction |
-| dosai and related binaries | binary and OS inventory enrichment |
-
-When those binaries are unavailable, cdxgen often falls back to lighter built-in behavior. That fallback path is part of the design, so documentation and tests should treat plugin availability as variable rather than guaranteed.
-
-## Reading order for new contributors
-
-If you are new to the repository, this order works well:
-
-1. read `/home/runner/work/cdxgen/cdxgen/bin/cdxgen.js` around option handling and the `createBom` call
-2. read `/home/runner/work/cdxgen/cdxgen/lib/cli/index.js` around `createBom`, `createMultiXBom`, and one ecosystem you already understand
-3. read `/home/runner/work/cdxgen/cdxgen/lib/stages/postgen/postgen.js` to understand the once-per-BOM cleanup and enrichment step
-
-## Related pages
-
+- [Architecture Implementation Examples](ARCHITECTURE_ECOSYSTEM_EXAMPLES.md)
 - [BOM Generation Pipeline](BOM_PIPELINE.md)
-- [Adding Support for a New Language or Ecosystem](ADD_ECOSYSTEM.md)
+- [BOM Pipeline Examples](BOM_PIPELINE_EXAMPLES.md)
+- [Feature Coverage Map](FEATURE_COVERAGE.md)
+- [Adding a New Language or Ecosystem](ADD_ECOSYSTEM.md)
 - [Testing Guide](TESTING.md)

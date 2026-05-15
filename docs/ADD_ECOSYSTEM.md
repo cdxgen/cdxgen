@@ -56,11 +56,11 @@ Start by answering these questions.
 | Does the ecosystem require a native tool or SDK? | affects containers, CI, and secure-mode expectations |
 | Does the output need custom purl behavior? | affects package identity and deduplication |
 
-The first place to check is `/home/runner/work/cdxgen/cdxgen/lib/helpers/utils.js`, especially `PROJECT_TYPE_ALIASES`.
+The first place to check is `lib/helpers/utils.js`, especially `PROJECT_TYPE_ALIASES`.
 
 ## Step 1: Define the user-facing type names
 
-Add the canonical type and its accepted aliases to `PROJECT_TYPE_ALIASES` in `/home/runner/work/cdxgen/cdxgen/lib/helpers/utils.js`.
+Add the canonical type and its accepted aliases to `PROJECT_TYPE_ALIASES` in `lib/helpers/utils.js`.
 
 ```js
 export const PROJECT_TYPE_ALIASES = {
@@ -79,7 +79,7 @@ If the package manager needs its own alias set, also update `PACKAGE_MANAGER_ALI
 
 ## Step 2: Decide where parsing logic belongs
 
-In cdxgen, most lightweight manifest and lockfile parsing lives in `/home/runner/work/cdxgen/cdxgen/lib/helpers/utils.js`. Add a new helper module only when the logic is large enough to deserve its own file or when it has a distinct responsibility.
+In cdxgen, most lightweight manifest and lockfile parsing lives in `lib/helpers/utils.js`. Add a new helper module only when the logic is large enough to deserve its own file or when it has a distinct responsibility.
 
 ### Parser decision diagram
 
@@ -121,7 +121,7 @@ If the ecosystem has lockfile-only data with no dependency tree, start there. cd
 
 ## Step 4: Add `create<Language>Bom()` in `lib/cli/index.js`
 
-Add a generator function in `/home/runner/work/cdxgen/cdxgen/lib/cli/index.js` that follows the existing pattern.
+Add a generator function in `lib/cli/index.js` that follows the existing pattern.
 
 ```js
 export async function createMylangBom(path, options) {
@@ -148,7 +148,7 @@ This function is where ecosystem-specific orchestration belongs. It is not where
 
 A new generator is not reachable until you wire it into the dispatch flow.
 
-There are usually two places to check in `/home/runner/work/cdxgen/cdxgen/lib/cli/index.js`:
+There are usually two places to check in `lib/cli/index.js`:
 
 1. the path that handles a single project type
 2. the path that participates in multi-type scans
@@ -183,7 +183,7 @@ Not every ecosystem needs custom dependency-edge handling, but some do. Use exis
 
 ## Step 7: Add real fixtures under `test/`
 
-Good ecosystem support starts with honest fixture files. Add representative manifests or lockfiles to `/home/runner/work/cdxgen/cdxgen/test/`.
+Good ecosystem support starts with honest fixture files. Add representative manifests or lockfiles to `test/`.
 
 Choose fixtures that cover:
 
@@ -206,7 +206,7 @@ If the generator shells out, stub `safeSpawnSync` with `esmock` and `sinon` rath
 
 ## Step 9: Update user-facing documentation
 
-At minimum, update `/home/runner/work/cdxgen/cdxgen/docs/PROJECT_TYPES.md` so users know:
+At minimum, update `docs/PROJECT_TYPES.md` so users know:
 
 | Detail to add | Example |
 |---|---|
@@ -223,7 +223,7 @@ Use this checklist.
 
 | Follow-up area | Ask yourself |
 |---|---|
-| repotests | is there a stable public repository worth adding to `/home/runner/work/cdxgen/cdxgen/.github/workflows/repotests.yml`? |
+| repotests | is there a stable public repository worth adding to `.github/workflows/repotests.yml`? |
 | container images | does the default image already include the SDK or toolchain? |
 | secure mode | does your implementation degrade safely when process execution is restricted? |
 | docs | will users understand limitations and prerequisites from the docs alone? |

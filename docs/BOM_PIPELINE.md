@@ -1,13 +1,17 @@
 # BOM Generation Pipeline
 
-This page explains what happens during a cdxgen run from input discovery to final JSON. It is written for users who want to understand timing and error sources, and for contributors who need a correct mental model before changing the generator.
+This page explains what happens during a cdxgen run from input discovery to final JSON. It focuses on the shared pipeline that almost every `cdxgen` execution follows.
+
+If you want concrete, language-specific examples drawn from the real generator implementations, read [BOM Pipeline Examples](BOM_PIPELINE_EXAMPLES.md).
+
+If you want a map of dry-run mode, BOM audit, predictive audit, validation, and related commands, read [Feature Coverage Map](FEATURE_COVERAGE.md).
 
 ## The short version
 
-A cdxgen run is easiest to understand as five steps:
+A typical `cdxgen` run moves through five stages:
 
 1. normalise the input and prepare the environment
-2. decide whether the target is a project, a container image, or a live host view
+2. decide whether the target is a project, a container image, an archive, or a host-oriented mode
 3. discover supported manifests and lock files
 4. assemble one or more language-specific BOM fragments
 5. run one final post-processing pass and emit output
@@ -23,7 +27,6 @@ user input
    |      |
    |      +--> prepareEnv()
    |      +--> createBom()
-   |              |
    |              +--> createXBom() or createMultiXBom()
    |              +--> create<Language>Bom()
    |              +--> buildBomNSData()
@@ -33,10 +36,10 @@ user input
    |      +--> exportImage()/exportArchive()
    |      +--> createMultiXBom()
    |
-   +--> purl source input
+   +--> purl or git-style source
           |
-          +--> resolve source repository
-          +--> treat as local source path
+          +--> resolve source
+          +--> treat as a normal scan target
 
 all paths converge into:
 
@@ -49,7 +52,7 @@ postProcess()
    +--> annotate()
    |
    v
-final CycloneDX JSON and optional side effects
+final CycloneDX JSON and optional output transforms
 ```
 
 ### Mermaid sequence diagram
@@ -73,12 +76,12 @@ sequenceDiagram
     Core-->>CLI: combined bomNSData
     CLI->>Post: postProcess(bomNSData, options, srcDir)
     Post-->>CLI: final bomNSData
-    CLI-->>User: write file, print table, or return HTTP response
+    CLI-->>User: write file, print table, validate, or return HTTP response
 ```
 
 ## Step 1: Input normalisation and environment preparation
 
-The CLI accepts more than one style of input. A run may start from:
+The CLI accepts more than one style of input.
 
 | Input style | What cdxgen does first |
 |---|---|
@@ -86,16 +89,17 @@ The CLI accepts more than one style of input. A run may start from:
 | container image reference | exports the image before dependency extraction |
 | container archive (`.tar`, `.tar.gz`) | explodes the archive into layers and treats it as OCI input |
 | purl source reference | resolves it to a source repository first |
+| HBOM-oriented mode | routes to the dedicated hardware collector path |
 
-For standard CLI usage, `/home/runner/work/cdxgen/cdxgen/bin/cdxgen.js` calls `prepareEnv(srcDir, options)` before `createBom()`. `prepareEnv()` is synchronous and may install or configure required tools for Python, Node.js, Swift, Ruby, or SDKMAN-managed Java versions.
+In standard CLI usage, `bin/cdxgen.js` calls `prepareEnv(srcDir, options)` before `createBom()`. `prepareEnv()` is synchronous and may install or configure required tools for Python, Node.js, Swift, Ruby, or SDKMAN-managed Java versions.
 
-That means the first class of failures usually happens before BOM generation itself has started.
+That means the first class of failures often happens before BOM generation itself has started.
 
 ## Step 2: Mode selection inside `createBom()`
 
-`createBom()` is the top-level dispatcher in `/home/runner/work/cdxgen/cdxgen/lib/cli/index.js`.
+`createBom()` in `lib/cli/index.js` is the top-level dispatcher.
 
-Its first job is not language detection. Its first job is deciding what kind of thing the path represents.
+Its first job is not language detection. Its first job is deciding what kind of thing the input represents.
 
 ### Mode decision diagram
 
@@ -112,19 +116,20 @@ flowchart TD
     F -->|multiple paths or multiple types| H
 ```
 
-This matters because container mode short-circuits a lot of the usual source-project assumptions. In container mode, `createBom()` forces OCI-style handling, disables dependency installation, establishes parent container metadata, and passes exploded layer paths into the multi-type flow.
+Container mode is important because it short-circuits several source-project assumptions. In that path, `createBom()` switches to OCI-style handling, disables dependency installation, establishes parent container metadata, and passes exploded layer paths into the multi-type flow.
 
 ## Step 3: Project-type detection and manifest discovery
 
-For project directories, cdxgen detects ecosystems by looking for known manifests and lock files. `createXBom()` contains the single-project detection flow. It checks the current path for signals such as:
+For project directories, `createXBom()` detects ecosystems by looking for known manifests and lock files.
 
 | Ecosystem family | Typical detection files |
 |---|---|
 | Node.js | `package.json`, `rush.json`, `yarn.lock` |
-| Java and JVM | `pom.xml`, `build.gradle*`, `build.sbt` |
+| Java and JVM | `pom.xml`, `build.gradle*`, `build.sbt`, `build.mill` |
 | Python | `pyproject.toml`, `poetry.lock`, `Pipfile`, `requirements*.txt`, `*.whl` |
 | Go | `go.mod`, `go.sum`, `Gopkg.lock` |
 | Rust | `Cargo.toml`, `Cargo.lock` |
+| .NET | `*.sln`, `*.csproj`, `project.assets.json`, `packages.lock.json`, `paket.lock` |
 | PHP | `composer.json`, `composer.lock` |
 
 Filtering options affect discovery before generation starts:
@@ -139,15 +144,15 @@ Filtering options affect discovery before generation starts:
 
 ## Step 4: Per-language BOM assembly
 
-Once a project type has been selected, cdxgen calls a specific generator such as `createJavaBom()`, `createGoBom()`, or `createRubyBom()`.
+Once a project type has been selected, cdxgen calls a specific generator such as `createJavaBom()`, `createNodejsBom()`, `createPythonBom()`, or `createCsharpBom()`.
 
 Each of those functions follows the same broad pattern:
 
 1. locate relevant manifests and lock files
 2. parse them into a package list
 3. optionally invoke the ecosystem toolchain to get a deeper tree
-4. optionally fetch metadata from registries
-5. hand the package list to `buildBomNSData()`
+4. optionally fetch metadata or perform source analysis
+5. pass the result to `buildBomNSData()`
 
 ### Per-language flow
 
@@ -157,31 +162,31 @@ create<Language>Bom(path, options)
    +--> find files for that ecosystem
    +--> parse lockfile or manifest
    +--> optionally run package-manager command
-   +--> optionally enrich with registry metadata
+   +--> optionally enrich with registry metadata or source analysis
    +--> buildBomNSData(options, pkgList, projectType, context)
 ```
 
-The most important contributor detail here is that `buildBomNSData()` is called once per language type, not once per final BOM. If a scan includes Java, Node.js, and Python, it will be called three times.
+The most important contributor detail here is that `buildBomNSData()` is called once per language type, not once per final BOM. If a scan includes Java, JavaScript, Python, and .NET, it is called four times.
 
 ## Step 5: Multi-type merge and deduplication
 
 When `createMultiXBom()` is used, cdxgen walks the provided paths and relevant project types, collects components and dependency edges into shared arrays, and then calls `dedupeBom()` at the end.
 
-This loop is iterative in the current implementation. The function appends results as it goes, then performs one combined deduplication pass.
-
 ### ASCII merge view
 
 ```text
-path A + js scan  ----+
+path A + js scan   ----+
 path A + java scan --+ |
-path B + py scan ----|-+--> combined components[]
-path B + os scan ----+ |    combined dependencies[]
-                      |
-                      +--> dedupeBom()
-                              |
-                              v
-                       merged bomNSData
+path B + py scan   ----|-+--> combined components[]
+path B + dotnet    ----+ |    combined dependencies[]
+                        |
+                        +--> dedupeBom()
+                                |
+                                v
+                         merged bomNSData
 ```
+
+This matters because repeated side effects do not belong in `buildBomNSData()`. They belong in the shared post-processing phase that runs once.
 
 ## Step 6: Post-processing
 
@@ -192,18 +197,30 @@ This is where cdxgen performs its once-per-BOM work in a fixed order:
 | Order | Function | Purpose |
 |---|---|---|
 | 1 | `filterBom()` | applies include, exclude, confidence, required-only, and related filters |
-| 2 | `applyStandards()` | adds standard-related metadata and compatibility shaping |
+| 2 | `applyStandards()` | adds standards-oriented metadata and compatibility shaping |
 | 3 | `applyMetadata()` | normalises source-file and purl-derived metadata |
-| 4 | `applyContainerInventoryMetadata()` | adds container inventory metadata where relevant |
+| 4 | `applyContainerInventoryMetadata()` | adds container-specific metadata where relevant |
 | 5 | `applyFormulation()` | adds formulation data such as build tools and git context |
 | 6 | `applyReleaseNotes()` | computes release notes when enabled |
 | 7 | `applySpecVersionCompatibility()` | adjusts output for the chosen spec version |
 | 8 | `validateTlpClassification()` | enforces TLP-related metadata rules |
 | 9 | `annotate()` | adds annotations when the spec version supports them |
 
-### Why this matters
+If you are trying to understand why a component disappeared, why formulation only appears once, or why paths were normalised, this is the phase to inspect.
 
-If you are trying to understand why a component was removed, why formulation only appears once, or why metadata paths look relative instead of absolute, this is the phase to inspect.
+## Related execution modes
+
+The shared pipeline above is often combined with adjacent features.
+
+| Feature or mode | Where it hooks in |
+|---|---|
+| `--dry-run` | constrains side effects before and during generation |
+| `--bom-audit` | evaluates the generated BOM after post-processing |
+| predictive dependency audit | runs when BOM audit selects supported upstream targets |
+| `--validate` | validates the final BOM before optional export or submission |
+| SPDX export | converts the generated and optionally validated CycloneDX BOM |
+
+Those features are documented in more depth in [Feature Coverage Map](FEATURE_COVERAGE.md).
 
 ## Where different classes of errors originate
 
@@ -214,29 +231,13 @@ If you are trying to understand why a component was removed, why formulation onl
 | shallow dependency tree | per-language assembly | the package-manager command failed or only a lockfile was available |
 | duplicate or missing components after merge | multi-type merge | overlapping scans produced duplicates and dedupe logic collapsed them |
 | components unexpectedly absent in final JSON | post-processing | filters or spec-compatibility changes removed or transformed them |
-
-## What changes runtime cost the most
-
-| Cost driver | Why it is expensive |
-|---|---|
-| dependency installation | package-manager network calls and build steps |
-| deep and evidence modes | extra analysis and slice generation |
-| registry metadata enrichment | outbound HTTP calls for many components |
-| container export | image pull, layer export, and plugin execution |
-| very large monorepos | repeated manifest discovery and many per-type scans |
-
-## Practical debugging order
-
-When a run looks wrong, use this order.
-
-1. confirm the input path or image reference is what you think it is
-2. re-run with `CDXGEN_DEBUG_MODE=debug`
-3. confirm discovery happened for the expected project type
-4. confirm the per-language tool actually returned packages
-5. check whether post-processing filters removed them afterwards
+| audit findings after a clean build | audit or validation stage | the BOM was generated but policy or compliance checks flagged it |
 
 ## Related pages
 
+- [BOM Pipeline Examples](BOM_PIPELINE_EXAMPLES.md)
 - [Architecture Overview](ARCHITECTURE.md)
+- [Architecture Implementation Examples](ARCHITECTURE_ECOSYSTEM_EXAMPLES.md)
+- [Feature Coverage Map](FEATURE_COVERAGE.md)
 - [Troubleshooting Common Issues](TROUBLESHOOTING.md)
 - [Scanning Large and Complex Projects](MONOREPO.md)

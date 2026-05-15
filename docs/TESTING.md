@@ -25,7 +25,7 @@ flowchart LR
 
 ## What poku is configured to run
 
-`/home/runner/work/cdxgen/cdxgen/.pokurc.jsonc` tells poku to scan `lib/` and run files ending in `.poku.js`.
+`.pokurc.jsonc` tells poku to scan `lib/` and run files ending in `.poku.js`.
 
 That means new tests should normally live next to the source module they exercise, not under a central `tests/unit/` tree.
 
@@ -62,11 +62,11 @@ describe("myFunction()", () => {
 
 Poku re-exports Node's assert helpers, so the usual methods such as `strictEqual`, `deepStrictEqual`, `ok`, and `throws` are available.
 
-Poku also supports lifecycle hooks such as `beforeEach` and `afterEach`, which you can see in existing files like `/home/runner/work/cdxgen/cdxgen/lib/server/server.poku.js`.
+Poku also supports lifecycle hooks such as `beforeEach` and `afterEach`, which you can see in existing files like `lib/server/server.poku.js`.
 
 ## Fixture strategy
 
-Fixtures live under `/home/runner/work/cdxgen/cdxgen/test/`. They should be realistic enough to catch regressions and small enough to read during review.
+Fixtures live under `test/`. They should be realistic enough to catch regressions and small enough to read during review.
 
 ### Fixture selection guide
 

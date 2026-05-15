@@ -127,7 +127,7 @@ Example:
 ```text
 Error: Access to this API has been restricted
     at existsSync (node:fs:293:18)
-    at file:///home/runner/work/cdxgen/cdxgen/lib/managers/docker.js:51:7
+    at file:///workspace/cdxgen/lib/managers/docker.js:51:7
     at ModuleJob.run (node:internal/modules/esm/module_job:272:25)
     at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:580:26)
     at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:98:5) {

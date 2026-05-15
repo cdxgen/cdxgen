@@ -208,11 +208,11 @@ Those expressions are evaluated in the context of the matched component. Keep me
 
 Use this sequence.
 
-1. choose the correct category file under `/home/runner/work/cdxgen/cdxgen/data/rules/`
+1. choose the correct category file under `data/rules/`
 2. draft the condition against a real BOM sample
 3. keep the location object small and actionable
 4. add mitigation text that tells the user what to do next
-5. add or update tests in `/home/runner/work/cdxgen/cdxgen/lib/stages/postgen/auditBom.poku.js`
+5. add or update tests in `lib/stages/postgen/auditBom.poku.js`
 
 ## Choosing between a rule, a query-pack entry, and a helper-data file
 

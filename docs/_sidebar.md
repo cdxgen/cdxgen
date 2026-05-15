@@ -22,7 +22,10 @@
 - [Threat Model](THREAT_MODEL.md)
 - **Contributing**
 - [Architecture Overview](ARCHITECTURE.md)
+- [Architecture Implementation Examples](ARCHITECTURE_ECOSYSTEM_EXAMPLES.md)
 - [BOM Generation Pipeline](BOM_PIPELINE.md)
+- [BOM Pipeline Examples](BOM_PIPELINE_EXAMPLES.md)
+- [Feature Coverage Map](FEATURE_COVERAGE.md)
 - [Adding a New Ecosystem](ADD_ECOSYSTEM.md)
 - [Testing Guide](TESTING.md)
 - **Guides**
