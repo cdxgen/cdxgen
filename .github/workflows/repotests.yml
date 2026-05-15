@@ -228,7 +228,7 @@ jobs:
       - name: repotests MCP fixture
         run: |
           bin/cdxgen.js -t js test/data/mcp-repotest -o bomresults/bom-mcp-repotest.json --bom-audit --bom-audit-categories mcp-server --fail-on-error
-          bin/cdxgen.js -t js test/data/mcp-repotest -o bomresults/bom-mcp-research-proto.json --profile research --spec-version 1.6 --export-proto --proto-bin-file bomresults/bom-mcp-research-proto.cdx --fail-on-error
+          bin/cdxgen.js -t js -t mcp test/data/mcp-repotest -o bomresults/bom-mcp-research-proto.json --profile research --spec-version 1.6 --export-proto --proto-bin-file bomresults/bom-mcp-research-proto.cdx --fail-on-error
           node bin/convert.js -i bomresults/bom-mcp-research-proto.cdx -o bomresults/bom-mcp-research-proto.spdx.json
           bin/validate.js -i bomresults/bom-mcp-research-proto.cdx --fail-severity critical --no-deep --report json > bomresults/bom-mcp-research-proto.validate.json
           bin/cdxgen.js -t js test/data/mcp-repotest -o bomresults/bom-mcp-standards-proto.json --standard asvs-5.0 --spec-version 1.6 --export-proto --proto-bin-file bomresults/bom-mcp-standards-proto.cdx --fail-on-error
