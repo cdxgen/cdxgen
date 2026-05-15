@@ -657,42 +657,125 @@ For service-oriented evidence collection, use the `saasbom` alias or the dedicat
 
 ## Choosing a Container Image
 
-cdxgen publishes many container images to accommodate different ecosystems and security postures. Use the decision guide below to pick the right one before consulting the full table.
+cdxgen publishes several images because different users care about different things: exact language-version alignment, smaller pulls, stronger runtime restrictions, or broad all-in-one convenience.
 
-**Start here:** do you need to scan a project that requires a specific language SDK to resolve transitive dependencies?
+This section gives you a faster way to choose than reading the full table top to bottom.
 
-- No, I just need to scan a lock file or manifest: use `ghcr.io/cyclonedx/cdxgen:master` (the default image, contains Java 25, Node 24, Python, Go, and Rust).
-- Yes, I need a specific language SDK version: use the matching language-specific image (see table below).
+### ASCII decision tree
 
-**Are you running in a security-sensitive environment?**
+```text
+need a cdxgen image
+   |
+   +--> just need a broad default image?
+   |        |
+   |        +--> use ghcr.io/cyclonedx/cdxgen:master
+   |
+   +--> need stricter runtime permissions?
+   |        |
+   |        +--> use cdxgen-secure:master or cdxgen-deno:master
+   |
+   +--> need a specific SDK version?
+   |        |
+   |        +--> use the matching language-specific image
+   |
+   +--> need the smallest practical image?
+            |
+            +--> prefer an alpine variant if your toolchain allows it
+```
 
-- Use `ghcr.io/cyclonedx/cdxgen-secure:master` which enforces the Node.js permissions model by default.
-- Use `ghcr.io/cyclonedx/cdxgen-deno:master` if you prefer Deno's permission model.
+### Mermaid decision tree
 
-**Do you need a smaller image for faster pulls or limited disk space?**
+```mermaid
+flowchart TD
+    A[choose a cdxgen image] --> B{need the default broad toolset?}
+    B -->|yes| C[ghcr.io/cyclonedx/cdxgen:master]
+    B -->|no| D{need stronger permission defaults?}
+    D -->|yes| E[cdxgen-secure or cdxgen-deno]
+    D -->|no| F{need a specific SDK or runtime version?}
+    F -->|yes| G[use a language-specific image]
+    F -->|no| H{need a smaller image?}
+    H -->|yes| I[prefer an alpine variant]
+    H -->|no| C
+```
 
-- Images with `-alpine-` in the name use Alpine Linux and are smaller than their Debian equivalents.
-- Alpine images have the same language support but may behave differently for C/C++ native extensions that depend on glibc.
+## Fast recommendations by scenario
 
-**Do you need .NET Framework (not .NET Core)?**
+| Scenario | Recommended image |
+|---|---|
+| you want the least thinking and broadest compatibility | `ghcr.io/cyclonedx/cdxgen:master` |
+| you want Node.js permission restrictions by default | `ghcr.io/cyclonedx/cdxgen-secure:master` |
+| you prefer Deno runtime and permissions | `ghcr.io/cyclonedx/cdxgen-deno:master` |
+| you need an exact Java, .NET, Python, Ruby, Go, or Swift runtime | the matching language-specific image from the table below |
+| you care a lot about image size | an Alpine variant if the ecosystem and native dependencies tolerate it |
 
-- .NET Framework requires Windows. On Linux use `ghcr.io/cyclonedx/cdxgen-debian-dotnet6:v12` for .NET Framework projects where the `project.assets.json` file is already committed, or run on a Windows host.
+## How to think about the major image families
 
-**Quick examples:**
+### 1. Default all-in-one images
+
+These are the best starting point for most teams. They trade image size for convenience and broad tool coverage.
+
+| Image | Best for |
+|---|---|
+| `ghcr.io/cyclonedx/cdxgen:master` | general use, local experimentation, broad CI coverage |
+| `ghcr.io/cyclonedx/cdxgen-deno:master` | users who want Deno runtime behavior |
+| `ghcr.io/cyclonedx/cdxgen-secure:master` | environments that prefer stricter runtime permissions |
+
+### 2. Language-specific images
+
+Use these when the project depends on a runtime or SDK version that matters for dependency resolution. That often applies to Java, .NET, Python, Ruby, Go, and Swift projects.
+
+A good rule is this. If the project build itself is version-sensitive, your cdxgen image probably should be too.
+
+### 3. Alpine variants
+
+Alpine images are smaller and often faster to pull. They are a strong choice in CI when you already know the target ecosystem behaves well with musl-based user space.
+
+They are a weaker choice when the workflow depends on native extensions or tooling that assumes glibc behavior.
+
+## Scenario walkthroughs
+
+### Scenario A: default project scanning in CI
+
+If your repo is mostly lockfile-driven and does not need an exact old SDK, start with:
 
 ```bash
-# default image for most projects
 docker run --rm -v $(pwd):/app ghcr.io/cyclonedx/cdxgen:master -r /app -t java -o bom.json
+```
 
-# legacy Java 11 project
+### Scenario B: legacy Java project
+
+If the project only builds or resolves correctly on Java 11 or Java 17, use a matching image rather than hoping the default image behaves the same way.
+
+```bash
 docker run --rm -v $(pwd):/app ghcr.io/cyclonedx/cdxgen-java11:v12 -r /app -t java -o bom.json
+```
 
-# Python 3.11 project
-docker run --rm -v $(pwd):/app ghcr.io/cyclonedx/cdxgen-python311:v12 -r /app -t py -o bom.json
+### Scenario C: security-sensitive environment
 
-# security-hardened image
+If the runtime environment itself is highly controlled, prefer an image whose permission posture matches that expectation.
+
+```bash
 docker run --rm -v $(pwd):/app ghcr.io/cyclonedx/cdxgen-secure:master -r /app -t js -o bom.json
 ```
+
+### Scenario D: exact Python version alignment
+
+```bash
+docker run --rm -v $(pwd):/app ghcr.io/cyclonedx/cdxgen-python311:v12 -r /app -t py -o bom.json
+```
+
+## Special note for .NET Framework users
+
+Classic .NET Framework support is a special case. If the project truly depends on Windows-specific tooling, you may need to run on Windows or rely on committed assets and lock files rather than expecting Linux-container parity.
+
+## A practical selection order
+
+If you are still undecided, use this order.
+
+1. start with `ghcr.io/cyclonedx/cdxgen:master`
+2. switch to a language-specific image only if runtime alignment clearly matters
+3. switch to `secure` or `deno` if the environment requires that permission model
+4. switch to Alpine only after confirming native-dependency behavior is acceptable
 
 ## Custom Container Images
 

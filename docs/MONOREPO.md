@@ -1,151 +1,206 @@
 # Scanning Large and Complex Projects
 
-This page covers strategies for getting accurate, performant BOM generation from large repositories, monorepos, and multi-language projects.
+This guide is for teams scanning monorepos, large polyglot applications, or repositories with a mix of build roots, generated content, and infrastructure folders. The aim is to help you choose a scan shape that is accurate, fast enough, and maintainable in CI.
 
-## Understanding recursive vs. non-recursive mode
+## The core decision
 
-By default cdxgen walks the entire directory tree under the path you provide, discovering every manifest and lock file it recognises. This is the right setting for most projects.
+The first question is not which flag to use. It is whether you want one combined BOM or several smaller BOMs.
 
-If you only want to scan the root-level manifest (for example a single `pom.xml` at the repository root), use `--no-recurse`:
+### ASCII decision tree
 
-```bash
-cdxgen -t java --no-recurse -o bom.json .
+```text
+large repository
+   |
+   +--> one deliverable and one deployment unit?
+   |        |
+   |        +--> yes -> combined BOM may be appropriate
+   |
+   +--> many services, tools, or deployables?
+            |
+            +--> yes -> prefer one BOM per service or language
 ```
 
-This is useful in monorepos where each sub-project should be scanned independently.
+### Mermaid decision tree
 
-## Include and exclude patterns
-
-cdxgen provides three complementary filter arguments.
-
-`--include-regex` narrows which manifest files are processed. Only files whose path matches the glob are included:
-
-```bash
-# scan only the manifests under services/ subdirectories
-cdxgen -t java --include-regex "**/services/*/pom.xml" -o bom.json .
+```mermaid
+flowchart TD
+    A[repository to scan] --> B{single deployable or tightly coupled product?}
+    B -->|yes| C[generate one combined BOM]
+    B -->|no| D{independent services or apps?}
+    D -->|yes| E[generate multiple focused BOMs]
+    D -->|mixed| F[start with separate BOMs, then combine only if a downstream tool requires it]
 ```
 
-`--exclude` removes specific files or directories from consideration:
+## Strategy 1: scan the whole repository once
 
-```bash
-cdxgen -t js --exclude "**/test/**" --exclude "**/fixtures/**" -o bom.json .
-```
-
-`--exclude-type` skips an entire language type when a polyglot project contains tooling you do not want catalogued:
-
-```bash
-cdxgen --exclude-type github --exclude-type mcp -o bom.json .
-```
-
-## Splitting a multi-language monorepo
-
-For large monorepos it is often better to generate one BOM per service or per language rather than one combined BOM. This keeps each output file focused and keeps generation time manageable.
-
-```bash
-# Java service
-cdxgen -t java -o sbom-java.json services/java-service
-
-# Node.js service
-cdxgen -t js -o sbom-node.json services/node-service
-```
-
-You can later merge these with `cdx-convert` or supply them separately to a vulnerability scanner.
-
-## Generating BOM for all types in one pass
-
-If you need a single combined BOM, pass multiple `-t` flags:
+This works best when the repository is a true product root and the subdirectories all contribute to one shipped artifact.
 
 ```bash
 cdxgen -t java -t js -t py -o bom.json .
 ```
 
-cdxgen runs each language scan in parallel where possible and merges the results. Use `--exclude-type` for any type that is present but unwanted.
+### When this approach works well
 
-## Performance tuning
+| Signal | Why it is a good fit |
+|---|---|
+| one release process | the combined graph mirrors how the software ships |
+| shared root manifests | discovery from the repository root is natural |
+| downstream tooling expects one BOM | simplifies later processing |
 
-**Disable registry metadata fetching** when you do not need license or description enrichment:
+## Strategy 2: scan per service or per language
+
+This is usually the better fit for a platform monorepo with separate applications.
 
 ```bash
-FETCH_LICENSE=false cdxgen -t java -o bom.json .
+cdxgen -t java -o bom-service-a.json services/service-a
+cdxgen -t js -o bom-service-b.json services/service-b
+cdxgen -t py -o bom-service-c.json services/service-c
 ```
 
-**Reduce the HTTP timeout** to prevent slow registries from stalling the scan:
+### Why this often scales better
+
+| Benefit | Why it matters |
+|---|---|
+| smaller output files | easier to inspect and validate |
+| clearer ownership | teams can own their own BOMs |
+| faster reruns | one changed service does not force a full repository rescan |
+
+## Strategy 3: use include and exclude patterns to shape discovery
+
+When you do want a repository-root scan, discovery controls are the main way to keep it focused.
+
+### Discovery controls
+
+| Option | Best use |
+|---|---|
+| `--include-regex` | limit scanning to a subset of manifests |
+| `--exclude` | remove folders such as fixtures, examples, vendored code, or generated artifacts |
+| `--exclude-type` | skip an ecosystem you do not want represented |
+
+### Example
 
 ```bash
-CDXGEN_TIMEOUT_MS=5000 cdxgen -t java -o bom.json .
+cdxgen \
+  -t java -t js \
+  --include-regex "**/services/*/{pom.xml,package.json}" \
+  --exclude "**/test/**" \
+  --exclude "**/fixtures/**" \
+  -o bom.json .
 ```
 
-**Skip dependency installation** when `node_modules` or a virtual environment is already present:
+## Strategy 4: reduce work for repeated CI scans
+
+If the same repositories are scanned often, the best optimisation is often not a new flag. It is changing where and how the scan runs.
+
+| Approach | Why it helps |
+|---|---|
+| scan only changed services | avoids full monorepo work |
+| keep cache directories persistent | helps Trivy and package managers |
+| commit lockfiles consistently | reduces install-time guesswork |
+| use server mode for batches | avoids repeated Node.js startup cost |
+
+## Understanding recursion
+
+By default, cdxgen walks the directory tree and finds manifests below the provided path. That is the right default for most monorepos.
+
+If you want only the root build file, narrow the input path or disable recursion with the relevant flag for your workflow.
+
+### Repository shapes
+
+```text
+repo/
+  pom.xml                    root-only scan targets this
+  services/
+    api/pom.xml              recursive scan finds this
+    web/package.json         recursive scan finds this
+    jobs/pyproject.toml      recursive scan finds this
+```
+
+A useful rule is this. If the repository root is more of an umbrella than a product, lean toward explicit subdirectory scans.
+
+## Performance tuning that matters in practice
+
+### 1. Avoid unnecessary installs
+
+If dependencies are already present, use `--no-install-deps`.
 
 ```bash
 cdxgen -t js --no-install-deps -o bom.json .
 ```
 
-**Use the required-only filter** to limit output to direct dependencies:
+### 2. Cut enrichment overhead when you do not need it
+
+```bash
+FETCH_LICENSE=false cdxgen -t java -o bom.json .
+CDXGEN_TIMEOUT_MS=5000 cdxgen -t java -o bom.json .
+```
+
+### 3. Limit output to direct dependencies when appropriate
 
 ```bash
 cdxgen -t java --required-only -o bom.json .
 ```
 
-## Using server mode for repeated scans
+### 4. Decompose the problem before turning on deep analysis
 
-When you need to scan many projects in a batch, cdxgen server mode avoids the Node.js startup cost on every invocation:
+If a repository is huge, do not start with `--deep`. First establish that a manifest-level scan is producing the expected components. Then enable deeper modes only for the services that need them.
+
+## Server mode for scan farms and batch workflows
+
+When many projects are scanned in the same environment, server mode can reduce per-run overhead.
 
 ```bash
-# start the server
 cdxgen --server --server-port 9090
-
-# scan projects via HTTP (in another terminal)
-curl -s "http://localhost:9090/sbom?path=/workspace/project-a&type=java" -o bom-a.json
-curl -s "http://localhost:9090/sbom?path=/workspace/project-b&type=js" -o bom-b.json
+curl -s "http://localhost:9090/sbom?path=/workspace/service-a&type=java" -o bom-a.json
+curl -s "http://localhost:9090/sbom?path=/workspace/service-b&type=js" -o bom-b.json
 ```
 
-See [Server Usage](SERVER.md) for full documentation of the server API.
+### Mermaid batch view
 
-## Handling Maven or Gradle caches
+```mermaid
+flowchart LR
+    A[long-lived cdxgen server] --> B[request for service A]
+    A --> C[request for service B]
+    A --> D[request for service C]
+    B --> E[bom-a.json]
+    C --> F[bom-b.json]
+    D --> G[bom-c.json]
+```
 
-For Java projects with many modules, scanning the Maven or Gradle local cache gives you a catalogue of all jars your build system has ever resolved:
+## Maven and Gradle caches as separate inventory targets
+
+Large Java organisations sometimes want two different answers:
+
+1. what this specific repo uses
+2. what the shared build cache contains
+
+Those are different scans. If you care about the cache itself, scan it directly.
 
 ```bash
 cdxgen -t maven-cache -o bom-cache.json ~/.m2
 ```
 
-This is particularly useful for air-gapped environments where you want to audit what is stored in the cache rather than what a specific project uses.
+## A practical playbook for large monorepos
 
-## Dealing with nested projects
+Use this sequence if you want a calm rollout.
 
-Some repositories contain multiple independent sub-projects each with their own dependency manifests. A directory structure like:
+1. start with one service and one ecosystem
+2. confirm the expected manifests are discovered
+3. confirm the dependency tree is acceptable
+4. decide whether one combined BOM is still useful
+5. only then widen the scan to more services or types
 
-```
-repo/
-  frontend/package.json
-  backend/pom.xml
-  infra/requirements.txt
-```
+## Common mistakes
 
-works well with a single invocation from the repo root because cdxgen walks all subdirectories and merges the results. If you want separate BOMs per sub-project, invoke cdxgen once per directory and combine later.
+| Mistake | Better alternative |
+|---|---|
+| scanning the whole monorepo first in deep mode | start with a manifest-focused slice |
+| relying on broad excludes only | combine include and exclude controls |
+| merging unrelated deployables into one BOM by default | split by service first |
+| treating infrastructure folders as product dependencies automatically | exclude or scan them separately with intent |
 
-## Configuration files for repeatable invocations
+## Related pages
 
-Rather than remembering many flags, commit a `.cdxgenrc` file to the repository root:
-
-```json
-{
-  "type": ["java", "js"],
-  "output": "bom.json",
-  "exclude": ["**/test/**", "**/fixtures/**"],
-  "fetchLicense": false
-}
-```
-
-Every developer and CI pipeline that clones the repo then gets the same defaults automatically.
-
-## Debugging a slow or incomplete scan
-
-Enable debug output to see every manifest file discovered and every command executed:
-
-```bash
-CDXGEN_DEBUG_MODE=debug cdxgen -t java -o bom.json . 2>&1 | tee cdxgen-debug.log
-```
-
-Look for lines that mention "Skipping" to understand what was filtered, and lines containing "spawn" to see which package manager commands ran and what they returned.
+- [BOM Generation Pipeline](BOM_PIPELINE.md)
+- [Troubleshooting Common Issues](TROUBLESHOOTING.md)
+- [Server Usage](SERVER.md)

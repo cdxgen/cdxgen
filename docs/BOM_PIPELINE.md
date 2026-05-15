@@ -1,73 +1,242 @@
 # BOM Generation Pipeline
 
-This page walks through what cdxgen does from the moment you press Enter to the moment an output file is written. Understanding the pipeline helps you diagnose errors, tune performance, and know which phase produced a given piece of output.
+This page explains what happens during a cdxgen run from input discovery to final JSON. It is written for users who want to understand timing and error sources, and for contributors who need a correct mental model before changing the generator.
 
-## Overview
+## The short version
 
-Every `cdxgen` run moves through four broad phases.
+A cdxgen run is easiest to understand as five steps:
 
-1. Environment preparation
-2. Language detection and manifest discovery
-3. Per-language BOM assembly
-4. Post-processing and output
+1. normalise the input and prepare the environment
+2. decide whether the target is a project, a container image, or a live host view
+3. discover supported manifests and lock files
+4. assemble one or more language-specific BOM fragments
+5. run one final post-processing pass and emit output
 
-## Phase 1: Environment preparation
+## Pipeline at a glance
 
-`prepareEnv()` in `lib/stages/pregen/pregen.js` runs first. It checks whether the required build tools for each detected language are present and installs missing ones using sdkman, nvm, rbenv, or similar managers. If you pass `--no-install-deps`, this phase skips installation and proceeds with whatever is already on the system.
+### ASCII pipeline
 
-If a required SDK is completely absent and auto-install is also disabled, cdxgen continues but will likely produce an incomplete BOM with a warning.
+```text
+user input
+   |
+   +--> local directory
+   |      |
+   |      +--> prepareEnv()
+   |      +--> createBom()
+   |              |
+   |              +--> createXBom() or createMultiXBom()
+   |              +--> create<Language>Bom()
+   |              +--> buildBomNSData()
+   |
+   +--> container reference or archive
+   |      |
+   |      +--> exportImage()/exportArchive()
+   |      +--> createMultiXBom()
+   |
+   +--> purl source input
+          |
+          +--> resolve source repository
+          +--> treat as local source path
 
-## Phase 2: Language detection and manifest discovery
+all paths converge into:
 
-`createBom()` in `lib/cli/index.js` examines the target directory (or the purl/URL you provided) and determines which project types are present. Detection works by looking for known manifest files such as `package.json`, `pom.xml`, `Cargo.toml`, and so on.
+postProcess()
+   |
+   +--> filterBom()
+   +--> applyStandards()
+   +--> applyMetadata()
+   +--> applyFormulation()
+   +--> annotate()
+   |
+   v
+final CycloneDX JSON and optional side effects
+```
 
-You can override detection with `-t <type>` or combine types with `-t js -t java`. Use `--exclude-type` to skip a type that cdxgen would otherwise pick up automatically.
+### Mermaid sequence diagram
 
-For each detected type, cdxgen creates a list of relevant manifest and lock files respecting `--include-regex`, `--exclude`, and `--exclude-type` filters. This is also where purl-based input is resolved: cdxgen contacts the relevant registry to find the repository URL before cloning.
+```mermaid
+sequenceDiagram
+    participant User
+    participant CLI as bin/cdxgen.js
+    participant Pregen as prepareEnv()
+    participant Core as createBom()
+    participant Lang as createXBom()/createMultiXBom()
+    participant Build as buildBomNSData()
+    participant Post as postProcess()
 
-## Phase 3: Per-language BOM assembly
+    User->>CLI: run cdxgen
+    CLI->>Pregen: prepare environment if needed
+    CLI->>Core: createBom(path, options)
+    Core->>Lang: choose project, container, or multi-type path
+    Lang->>Build: assemble BOM data for each type
+    Build-->>Core: bomNSData
+    Core-->>CLI: combined bomNSData
+    CLI->>Post: postProcess(bomNSData, options, srcDir)
+    Post-->>CLI: final bomNSData
+    CLI-->>User: write file, print table, or return HTTP response
+```
 
-For a single project type, `createXBom()` calls the matching `create<Language>Bom()` function, for example `createJavaBom()` or createRubyBom()`. For multiple types or container images, `createMultiXBom()` calls `createXBom()` once per type and then merges the results.
+## Step 1: Input normalisation and environment preparation
 
-Inside each `create<Language>Bom()` function:
+The CLI accepts more than one style of input. A run may start from:
 
-- Manifest and lock files are read and parsed into an intermediate component list.
-- Where needed, the package manager (Maven, pip, go mod, etc.) is invoked to resolve transitive dependencies.
-- Registry metadata is optionally fetched to fill in missing fields like description and license.
-- `buildBomNSData()` is called to assemble the final CycloneDX JSON structure for that language type.
+| Input style | What cdxgen does first |
+|---|---|
+| local source directory | prepares SDKs and scans for manifests |
+| container image reference | exports the image before dependency extraction |
+| container archive (`.tar`, `.tar.gz`) | explodes the archive into layers and treats it as OCI input |
+| purl source reference | resolves it to a source repository first |
 
-`buildBomNSData()` is called once per language type. A multi-type scan like `-t js,java,python` calls it three times. Side-effects such as writing files must not live here.
+For standard CLI usage, `/home/runner/work/cdxgen/cdxgen/bin/cdxgen.js` calls `prepareEnv(srcDir, options)` before `createBom()`. `prepareEnv()` is synchronous and may install or configure required tools for Python, Node.js, Swift, Ruby, or SDKMAN-managed Java versions.
 
-## Phase 4: Post-processing and output
+That means the first class of failures usually happens before BOM generation itself has started.
 
-`postProcess()` in `lib/stages/postgen/postgen.js` runs exactly once after `createBom()` returns, regardless of how many language types were scanned. This phase handles:
+## Step 2: Mode selection inside `createBom()`
 
-- Component deduplication and filtering (`--required-only`, `--filter`, `--only`, `--min-confidence`)
-- Standards and attestation metadata
-- Formulation section population (build tools, git metadata)
-- Annotations
-- BOM profile adjustments
+`createBom()` is the top-level dispatcher in `/home/runner/work/cdxgen/cdxgen/lib/cli/index.js`.
 
-After post-processing, `bin/cdxgen.js` serialises the result to JSON, writes the output file, and optionally prints a summary table.
+Its first job is not language detection. Its first job is deciding what kind of thing the path represents.
 
-## Where errors come from
+### Mode decision diagram
 
-| Symptom | Likely phase | What to check |
+```mermaid
+flowchart TD
+    A[createBom input path] --> B{HBOM project type?}
+    B -->|yes| C[createHBom]
+    B -->|no| D{container archive or image?}
+    D -->|yes| E[export image or archive]
+    D -->|no| F{single or multiple project types?}
+    E --> G[force OCI mode]
+    G --> H[createMultiXBom]
+    F -->|single explicit or detected type| I[createXBom]
+    F -->|multiple paths or multiple types| H
+```
+
+This matters because container mode short-circuits a lot of the usual source-project assumptions. In container mode, `createBom()` forces OCI-style handling, disables dependency installation, establishes parent container metadata, and passes exploded layer paths into the multi-type flow.
+
+## Step 3: Project-type detection and manifest discovery
+
+For project directories, cdxgen detects ecosystems by looking for known manifests and lock files. `createXBom()` contains the single-project detection flow. It checks the current path for signals such as:
+
+| Ecosystem family | Typical detection files |
+|---|---|
+| Node.js | `package.json`, `rush.json`, `yarn.lock` |
+| Java and JVM | `pom.xml`, `build.gradle*`, `build.sbt` |
+| Python | `pyproject.toml`, `poetry.lock`, `Pipfile`, `requirements*.txt`, `*.whl` |
+| Go | `go.mod`, `go.sum`, `Gopkg.lock` |
+| Rust | `Cargo.toml`, `Cargo.lock` |
+| PHP | `composer.json`, `composer.lock` |
+
+Filtering options affect discovery before generation starts:
+
+| Option | Effect |
+|---|---|
+| `-t` / `--type` | narrows generation to selected project types |
+| `--exclude-type` | prevents matching types from running |
+| `--include-regex` | narrows manifest search to matching paths |
+| `--exclude` | removes paths from discovery |
+| recursion controls | change how broadly the tree is searched |
+
+## Step 4: Per-language BOM assembly
+
+Once a project type has been selected, cdxgen calls a specific generator such as `createJavaBom()`, `createGoBom()`, or `createRubyBom()`.
+
+Each of those functions follows the same broad pattern:
+
+1. locate relevant manifests and lock files
+2. parse them into a package list
+3. optionally invoke the ecosystem toolchain to get a deeper tree
+4. optionally fetch metadata from registries
+5. hand the package list to `buildBomNSData()`
+
+### Per-language flow
+
+```text
+create<Language>Bom(path, options)
+   |
+   +--> find files for that ecosystem
+   +--> parse lockfile or manifest
+   +--> optionally run package-manager command
+   +--> optionally enrich with registry metadata
+   +--> buildBomNSData(options, pkgList, projectType, context)
+```
+
+The most important contributor detail here is that `buildBomNSData()` is called once per language type, not once per final BOM. If a scan includes Java, Node.js, and Python, it will be called three times.
+
+## Step 5: Multi-type merge and deduplication
+
+When `createMultiXBom()` is used, cdxgen walks the provided paths and relevant project types, collects components and dependency edges into shared arrays, and then calls `dedupeBom()` at the end.
+
+This loop is iterative in the current implementation. The function appends results as it goes, then performs one combined deduplication pass.
+
+### ASCII merge view
+
+```text
+path A + js scan  ----+
+path A + java scan --+ |
+path B + py scan ----|-+--> combined components[]
+path B + os scan ----+ |    combined dependencies[]
+                      |
+                      +--> dedupeBom()
+                              |
+                              v
+                       merged bomNSData
+```
+
+## Step 6: Post-processing
+
+After `createBom()` returns, the CLI calls `postProcess(bomNSData, options, srcDir)`.
+
+This is where cdxgen performs its once-per-BOM work in a fixed order:
+
+| Order | Function | Purpose |
 |---|---|---|
-| "SDK not found" or build tool missing | Phase 1 | Install the SDK manually or use a container image that bundles it |
-| BOM has no components | Phase 2 | Check that manifest files exist; try `-t <explicit-type>` |
-| Dependency tree is shallow | Phase 3 | The package manager may have failed; run with `CDXGEN_DEBUG_MODE=debug` to see the exact commands |
-| Components missing from output | Phase 4 | A filter may have removed them; check `--required-only`, `--filter`, and `--min-confidence` |
+| 1 | `filterBom()` | applies include, exclude, confidence, required-only, and related filters |
+| 2 | `applyStandards()` | adds standard-related metadata and compatibility shaping |
+| 3 | `applyMetadata()` | normalises source-file and purl-derived metadata |
+| 4 | `applyContainerInventoryMetadata()` | adds container inventory metadata where relevant |
+| 5 | `applyFormulation()` | adds formulation data such as build tools and git context |
+| 6 | `applyReleaseNotes()` | computes release notes when enabled |
+| 7 | `applySpecVersionCompatibility()` | adjusts output for the chosen spec version |
+| 8 | `validateTlpClassification()` | enforces TLP-related metadata rules |
+| 9 | `annotate()` | adds annotations when the spec version supports them |
 
-See [Troubleshooting](TROUBLESHOOTING.md) for a more complete list of common issues.
+### Why this matters
 
-## Timing notes
+If you are trying to understand why a component was removed, why formulation only appears once, or why metadata paths look relative instead of absolute, this is the phase to inspect.
 
-- Phase 1 is skipped entirely when `--no-install-deps` is passed.
-- Phases 2 and 3 run in parallel for independent language types inside `createMultiXBom()`.
-- Registry metadata fetching in Phase 3 is the most common cause of slow runs. Set `CDXGEN_TIMEOUT_MS` to limit how long each request waits.
-- Phase 4 is fast unless the BOM is very large or evidence mode is active.
+## Where different classes of errors originate
 
-## Server mode
+| What you see | Most likely phase | What it usually means |
+|---|---|---|
+| missing SDK or package manager | environment preparation | the machine or image lacks a required tool |
+| no manifests found | discovery | the directory is wrong, filtering is too broad, or the type was misdetected |
+| shallow dependency tree | per-language assembly | the package-manager command failed or only a lockfile was available |
+| duplicate or missing components after merge | multi-type merge | overlapping scans produced duplicates and dedupe logic collapsed them |
+| components unexpectedly absent in final JSON | post-processing | filters or spec-compatibility changes removed or transformed them |
 
-When cdxgen runs as an HTTP server (`cdxgen --server` or `bin/repl.js`), the same pipeline runs per request. Phase 1 is skipped for server requests by default. The output is returned in the HTTP response instead of being written to a file.
+## What changes runtime cost the most
+
+| Cost driver | Why it is expensive |
+|---|---|
+| dependency installation | package-manager network calls and build steps |
+| deep and evidence modes | extra analysis and slice generation |
+| registry metadata enrichment | outbound HTTP calls for many components |
+| container export | image pull, layer export, and plugin execution |
+| very large monorepos | repeated manifest discovery and many per-type scans |
+
+## Practical debugging order
+
+When a run looks wrong, use this order.
+
+1. confirm the input path or image reference is what you think it is
+2. re-run with `CDXGEN_DEBUG_MODE=debug`
+3. confirm discovery happened for the expected project type
+4. confirm the per-language tool actually returned packages
+5. check whether post-processing filters removed them afterwards
+
+## Related pages
+
+- [Architecture Overview](ARCHITECTURE.md)
+- [Troubleshooting Common Issues](TROUBLESHOOTING.md)
+- [Scanning Large and Complex Projects](MONOREPO.md)

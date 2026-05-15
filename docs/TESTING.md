@@ -1,31 +1,51 @@
 # Testing Guide
 
-cdxgen uses [poku](https://poku.io/) as its test runner. Tests are written as `*.poku.js` files co-located next to the module they test. This page explains how to write, run, and structure those tests.
+cdxgen uses poku for unit and integration tests, with test files co-located next to the modules they cover. This page explains the conventions that make tests fit naturally into the repository and stay stable across Linux, macOS, and Windows.
+
+## The testing model in one picture
+
+### ASCII layout
+
+```text
+source file                         nearby test file
+-----------                         ----------------
+lib/helpers/utils.js       <---->   lib/helpers/utils.poku.js
+lib/cli/index.js           <---->   lib/cli/index.poku.js
+lib/server/server.js       <---->   lib/server/server.poku.js
+```
+
+### Mermaid flow
+
+```mermaid
+flowchart LR
+    A[fixture under test/] --> B[poku test file under lib/]
+    B --> C[real import or esmock import]
+    C --> D[assert on parsed packages or BOM data]
+```
+
+## What poku is configured to run
+
+`/home/runner/work/cdxgen/cdxgen/.pokurc.jsonc` tells poku to scan `lib/` and run files ending in `.poku.js`.
+
+That means new tests should normally live next to the source module they exercise, not under a central `tests/unit/` tree.
 
 ## Running tests
 
-```bash
-# run the full test suite
-pnpm test
-
-# run tests in watch mode (re-runs on file change)
-pnpm run watch
-
-# run a single test file directly
-node lib/helpers/utils.poku.js
-```
-
-Configuration is in `.pokurc.jsonc`. By default poku discovers every file ending in `.poku.js` under `lib/`.
-
-## File naming and location
-
-| Source file | Test file |
+| Goal | Command |
 |---|---|
-| `lib/helpers/utils.js` | `lib/helpers/utils.poku.js` |
-| `lib/cli/index.js` | `lib/cli/index.poku.js` |
-| `lib/stages/pregen/pregen.js` | `lib/stages/pregen/pregen.poku.js` |
+| run the full suite | `pnpm test` |
+| run in watch mode | `pnpm run watch` |
+| run a single file directly | `node lib/helpers/utils.poku.js` |
 
-## Basic test anatomy
+## The three most common test shapes
+
+| Test shape | Best for |
+|---|---|
+| pure parser test | lockfile and manifest parsing with no external process execution |
+| mocked integration test | generator paths that shell out or call network helpers |
+| behavior-focused unit test | utility modules, formatters, validators, and small helpers |
+
+## Basic anatomy of a poku test
 
 ```js
 import { assert, describe, it } from "poku";
@@ -37,27 +57,40 @@ describe("myFunction()", () => {
     const result = myFunction("input");
     assert.strictEqual(result, "expected");
   });
-
-  it("handles an empty string", () => {
-    assert.strictEqual(myFunction(""), "");
-  });
 });
 ```
 
-`describe`, `it`, and `assert` are re-exported from poku. `assert` is Node's built-in assert module, so all the usual methods (`strictEqual`, `deepStrictEqual`, `ok`, `throws`, etc.) are available.
+Poku re-exports Node's assert helpers, so the usual methods such as `strictEqual`, `deepStrictEqual`, `ok`, and `throws` are available.
 
-For async tests, use `async`/`await`:
+Poku also supports lifecycle hooks such as `beforeEach` and `afterEach`, which you can see in existing files like `/home/runner/work/cdxgen/cdxgen/lib/server/server.poku.js`.
 
-```js
-it("fetches metadata", async () => {
-  const meta = await fetchMetadata("lodash");
-  assert.ok(meta.version, "version should be present");
-});
+## Fixture strategy
+
+Fixtures live under `/home/runner/work/cdxgen/cdxgen/test/`. They should be realistic enough to catch regressions and small enough to read during review.
+
+### Fixture selection guide
+
+| Use this kind of fixture | When you want to validate |
+|---|---|
+| happy-path real file | the normal parser path |
+| small crafted edge case | unusual syntax, aliases, or optional sections |
+| missing-file case | graceful empty-array or soft-failure behavior |
+
+### ASCII fixture flow
+
+```text
+fixture file in test/
+      |
+      v
+parser helper or generator
+      |
+      v
+assertions on package count, names, versions, purls, refs, and graph shape
 ```
 
-## Using fixture files
+## Path handling in fixtures
 
-Fixture files live in `test/` and are checked into the repository. They are the primary inputs for parser tests. Reference them with a relative path from the test file or use `import.meta.url` to build an absolute path:
+Tests run on multiple operating systems. Avoid hardcoded separators. Build paths with `node:path` helpers or `import.meta.url`.
 
 ```js
 import path from "node:path";
@@ -67,18 +100,28 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const fixture = path.join(__dirname, "../../test/my-fixture.lock");
 ```
 
-Parser functions are expected to return an empty array (not throw) when passed a path to a file that does not exist. Always add a test for the missing-file case.
+## Parser tests
 
-## Mocking ES module dependencies with esmock
+Parser tests should be the first thing you add when introducing a new format. They are fast, deterministic, and tell reviewers whether the raw data model is correct before any orchestration logic gets involved.
 
-Because cdxgen is pure ESM, standard CommonJS mocking tools do not work. Use [esmock](https://github.com/iambumblehead/esmock) to replace module dependencies during a specific test.
+A good parser test usually checks:
+
+1. package count
+2. a few representative package names and versions
+3. purl or `bom-ref` correctness where present
+4. the missing-file case
+
+## Mocked generator tests with `esmock`
+
+Because cdxgen is pure ESM, use `esmock` to replace imported dependencies during a test. This is the standard way to stub `safeSpawnSync`, metadata fetchers, or helper functions that would otherwise make the test slow or environment-dependent.
 
 ```js
 import esmock from "esmock";
 import sinon from "sinon";
+import { assert, describe, it } from "poku";
 
-describe("createJavaBom() with a mocked spawn", () => {
-  it("returns an empty list when spawn fails", async () => {
+describe("createJavaBom()", () => {
+  it("handles a failed spawn gracefully", async () => {
     const spawnStub = sinon.stub().returns({ stdout: "", stderr: "error", status: 1 });
 
     const { createJavaBom } = await esmock("../cli/index.js", {
@@ -87,50 +130,77 @@ describe("createJavaBom() with a mocked spawn", () => {
       },
     });
 
-    const result = await createJavaBom("/some/path", {});
-    assert.ok(result, "should still return a result");
+    const result = await createJavaBom("/tmp/project", {});
+    assert.ok(result);
   });
 });
 ```
 
-Key points when using esmock:
+### Mermaid mocking flow
 
-- Import the module under test inside `esmock()` on every test that needs it; do not share the import across tests with different stubs.
-- Stub the function at the path used by the module under test, not at the path where it is defined.
-- Use `sinon.stub()` for functions and `sinon.spy()` when you only need to observe calls without replacing behaviour.
-
-## Using sinon for stubs and spies
-
-```js
-import sinon from "sinon";
-
-// replace a function entirely
-const stub = sinon.stub().returns({ stdout: "1.2.3\n", status: 0 });
-
-// spy on a real function
-const spy = sinon.spy(myModule, "parseLockFile");
-
-// assert on calls
-assert.ok(stub.calledOnce, "spawn was called once");
-assert.strictEqual(stub.firstCall.args[0], "mvn");
-
-// clean up after each test
-sinon.restore();
+```mermaid
+flowchart TD
+    A[test starts] --> B[create stub with sinon]
+    B --> C[load module through esmock]
+    C --> D[call function under test]
+    D --> E[assert returned data and stub calls]
 ```
 
-Call `sinon.restore()` in an `afterEach` hook or at the end of a describe block to avoid stub leakage across tests.
+## Using `sinon`
 
-## What to test
+`sinon` is the standard companion library for stubs, spies, and restores.
 
-A typical parser test should cover:
+| Tool | Use it when |
+|---|---|
+| `sinon.stub()` | you want to replace behavior completely |
+| `sinon.spy()` | you want to observe calls to a real function |
+| `sinon.restore()` | you want to clean up all stubs and spies after a test |
 
-- A realistic fixture file with multiple packages
-- An empty or minimal fixture
-- A file that does not exist (expect empty array, no throw)
-- Any edge cases specific to the format (workspaces, monorepo roots, version aliases)
+If several tests in a block create stubs, restore them in `afterEach()`.
 
-For `create<Language>Bom` integration tests, mock `safeSpawnSync` to return canned output rather than actually invoking the package manager. This keeps tests fast and dependency-free.
+## What to assert in BOM-oriented tests
 
-## Cross-platform assertions
+When a test exercises a generator rather than a raw parser, prefer asserting on stable outcomes rather than fragile full-object snapshots.
 
-Tests run on Linux, macOS, and Windows in CI. When asserting on file paths, use `path.join` or `path.normalize` rather than hardcoded `/` separators. When asserting on command strings, check the executable name only rather than the full path.
+| Stable assertion | Why it ages well |
+|---|---|
+| `components.length` | robust against unrelated metadata churn |
+| specific component names or purls | proves the core parse worked |
+| specific dependency edges | proves graph construction worked |
+| presence of `parentComponent` | proves top-level identity handling worked |
+
+Avoid asserting on fields that are likely to change for unrelated reasons unless the test is specifically about those fields.
+
+## Cross-platform guidance
+
+cdxgen CI runs tests on Linux, macOS, and Windows. Keep that in mind when assertions involve:
+
+| Concern | Better pattern |
+|---|---|
+| file paths | `path.join`, `path.normalize`, separator-agnostic checks |
+| executable names | assert on the program name, not the absolute path |
+| temporary directories | avoid `/tmp` assumptions in expected values |
+| line endings | compare normalised strings when necessary |
+
+## A good testing order for feature work
+
+If you are adding a feature, this order keeps the feedback loop fast.
+
+1. add a parser fixture and parser test
+2. add orchestration code
+3. add a mocked generator test
+4. only then consider larger integration coverage
+
+## Common mistakes
+
+| Mistake | Better approach |
+|---|---|
+| running the real package manager in unit tests | stub `safeSpawnSync` |
+| using deeply brittle whole-object assertions | assert on the meaningful subset |
+| forgetting cleanup | call `sinon.restore()` or use `afterEach()` |
+| hardcoding POSIX paths | use `node:path` helpers |
+
+## Related pages
+
+- [Adding Support for a New Language or Ecosystem](ADD_ECOSYSTEM.md)
+- [Architecture Overview](ARCHITECTURE.md)
