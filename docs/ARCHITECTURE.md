@@ -6,6 +6,8 @@ If you want concrete, language-specific examples from the real implementation, r
 
 If you want to understand where user-facing features such as dry-run mode, BOM audit, predictive audit, and validation are already documented, read [Feature Coverage Map](FEATURE_COVERAGE.md).
 
+If you want a contributor-focused explanation of how secure mode and dry-run mode change the architecture, read [Architecture Under Secure Mode and Dry-Run Mode](ARCHITECTURE_EXECUTION_MODES.md).
+
 ## Core mental model
 
 A good way to think about cdxgen is:
@@ -207,6 +209,7 @@ That means a feature is usually easiest to add when you thread it through `optio
 
 - [Architecture Implementation Examples](ARCHITECTURE_ECOSYSTEM_EXAMPLES.md)
 - [BOM Generation Pipeline](BOM_PIPELINE.md)
+- [Architecture Under Secure Mode and Dry-Run Mode](ARCHITECTURE_EXECUTION_MODES.md)
 - [BOM Pipeline Examples](BOM_PIPELINE_EXAMPLES.md)
 - [Feature Coverage Map](FEATURE_COVERAGE.md)
 - [Adding a New Language or Ecosystem](ADD_ECOSYSTEM.md)

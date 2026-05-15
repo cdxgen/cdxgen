@@ -6,6 +6,8 @@ This guide is for teams scanning monorepos, large polyglot applications, or repo
 
 The first question is not which flag to use. It is whether you want one combined BOM or several smaller BOMs.
 
+A useful downstream-tooling reminder: OWASP dep-scan v6+ supports multiple BOM inputs via `--bom-dir`, so choosing several focused BOMs does not automatically block later audit workflows.
+
 ### ASCII decision tree
 
 ```text

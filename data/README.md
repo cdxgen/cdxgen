@@ -47,7 +47,7 @@ Prefer adding or improving automation under `contrib/` over one-off manual edits
 | `spdx-export.schema.json` | SPDX 3.0.1 schema used during export validation | project-derived export schema generated from SPDX model artifacts | derived artifact; there is not a single upstream-published JSON schema that exactly matches this export use case |
 | `spdx.schema.json` | SPDX schema for validation | SPDX JSON schema inputs used by the project | upstream-derived compatibility copy |
 | `vendor-alias.json` | vendor or group-name alias fixes | project-maintained alias mapping | hand-curated compatibility layer; should eventually be reduced as heuristics improve |
-| `wrapdb-releases.json` | Meson WrapDB release data | Meson WrapDB | derived via `contrib/wrapdb.py`; scripted refresh exists already |
+| `wrapdb-releases.json` | Meson WrapDB release data | Meson WrapDB | derived artifact; refresh automation still needs to be formalized and maintained |
 
 ## How this directory fits into the architecture
 
@@ -285,7 +285,7 @@ Current expectations:
 3. prefer a repeatable refresh script under `contrib/` where practical
 4. keep tests close to any rule or query-pack change
 
-`wrapdb-releases.json` already has a scripted refresh path via `contrib/wrapdb.py`. Other curated or derived datasets still need clearer automation, and those gaps should be tracked as issue-first follow-up work rather than solved with silent one-off edits.
+`wrapdb-releases.json` remains a derived artifact, but its refresh path still needs to be formalized and maintained like the rest of the curated datasets. Those gaps should be tracked as issue-first follow-up work rather than solved with silent one-off edits.
 
 ## Maintenance advice
 
