@@ -27,6 +27,7 @@
 - [BOM Pipeline Examples](BOM_PIPELINE_EXAMPLES.md)
 - [Feature Coverage Map](FEATURE_COVERAGE.md)
 - [Adding a New Ecosystem](ADD_ECOSYSTEM.md)
+- [AI Prompt for New Ecosystem Contributions](AI_ECOSYSTEM_PROMPT.md)
 - [Testing Guide](TESTING.md)
 - **Guides**
 - [Troubleshooting](TROUBLESHOOTING.md)

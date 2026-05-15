@@ -20,8 +20,10 @@ A good way to think about cdxgen is:
 | Path | Main role | Reach for it when you need to... |
 |---|---|---|
 | `bin/` | CLI entry points | add or change command-line flags, startup flow, or output behavior |
+| `.github/` | Repository automation | change workflows, templates, issue forms, or release automation |
 | `lib/cli/index.js` | Core BOM generation | add ecosystems, change detection, or alter BOM assembly |
 | `lib/helpers/` | Shared helpers and parsers | add lockfile parsing, metadata helpers, or reusable utilities |
+| `contrib/` | Helper scripts and one-off maintenance tools | document or extend refresh utilities that are not part of the runtime package |
 | `lib/stages/pregen/` | Environment preparation | change SDK installation or preflight behavior |
 | `lib/stages/postgen/` | Final BOM shaping | change filtering, standards, metadata, formulation, or annotations |
 | `lib/managers/` | Domain-specific managers | change Docker, OCI, binary, or package-manager integration |
@@ -185,7 +187,7 @@ If you are about to import `../../cli/index.js` inside a helper or stage file, s
 
 | Change you want | First place to inspect |
 |---|---|
-| Add a new `--flag` | `bin/cdxgen.js` |
+| Add a new `--flag` or `--feature-flags` entry | `bin/cdxgen.js` |
 | Add a new ecosystem | `lib/cli/index.js` and `lib/helpers/utils.js` |
 | Add a new query-pack table | `data/queries*.json` |
 | Add a new audit rule | `data/rules/*.yaml` and `lib/stages/postgen/auditBom.poku.js` |

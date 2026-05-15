@@ -58,6 +58,10 @@ Start by answering these questions.
 
 The first place to check is `lib/helpers/utils.js`, especially `PROJECT_TYPE_ALIASES`.
 
+## Working with an AI agent
+
+If you want an AI agent to help with a new ecosystem contribution, start with [AI Prompt for New Ecosystem Contributions](AI_ECOSYSTEM_PROMPT.md). It turns the expectations from this guide into a review-friendly prompt template.
+
 ## Step 1: Define the user-facing type names
 
 Add the canonical type and its accepted aliases to `PROJECT_TYPE_ALIASES` in `lib/helpers/utils.js`.
@@ -266,3 +270,4 @@ That order lets reviewers trust each layer before they look at the next one.
 - [Architecture Overview](ARCHITECTURE.md)
 - [Testing Guide](TESTING.md)
 - [Supported Project Types](PROJECT_TYPES.md)
+- [AI Prompt for New Ecosystem Contributions](AI_ECOSYSTEM_PROMPT.md)

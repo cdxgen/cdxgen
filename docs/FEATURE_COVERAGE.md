@@ -85,7 +85,7 @@ generated BOM
 | validate compliance and structure | `CDX_VALIDATE.md` | `TROUBLESHOOTING.md` |
 | work safely in secure mode | `PERMISSIONS.md` | `ALLOWED_HOSTS_AND_COMMANDS.md`, `THREAT_MODEL.md` |
 
-## Why this file exists
+## Purpose of this document
 
 The documentation already covers the features you called out. The problem was discoverability, not total absence. This file is meant to make that coverage visible and navigable.
 

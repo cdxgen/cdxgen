@@ -197,16 +197,56 @@ This is where cdxgen performs its once-per-BOM work in a fixed order:
 | Order | Function | Purpose |
 |---|---|---|
 | 1 | `filterBom()` | applies include, exclude, confidence, required-only, and related filters |
-| 2 | `applyStandards()` | adds standards-oriented metadata and compatibility shaping |
-| 3 | `applyMetadata()` | normalises source-file and purl-derived metadata |
-| 4 | `applyContainerInventoryMetadata()` | adds container-specific metadata where relevant |
+| 2 | `applyStandards()` | merges standards templates into the BOM when `--standard` is used |
+| 3 | `applyMetadata()` | rewrites source-file evidence to relative paths and adds summary metadata properties |
+| 4 | `applyContainerInventoryMetadata()` | adds container unpackaged-file summary counts where relevant |
 | 5 | `applyFormulation()` | adds formulation data such as build tools and git context |
 | 6 | `applyReleaseNotes()` | computes release notes when enabled |
-| 7 | `applySpecVersionCompatibility()` | adjusts output for the chosen spec version |
+| 7 | `applySpecVersionCompatibility()` | downgrades newer fields when emitting older CycloneDX spec versions |
 | 8 | `validateTlpClassification()` | enforces TLP-related metadata rules |
 | 9 | `annotate()` | adds annotations when the spec version supports them |
 
+### What each post-process step really does
+
+| Function | Implementation detail from the current code |
+|---|---|
+| `filterBom()` | removes excluded inventory types, filters on confidence/technique/purl/property matches, rebuilds retained `dependencies[]`, and can emit incomplete `compositions[]` for filtered outputs |
+| `applyStandards()` | loads template data from `data/templates/*.cdx.json` and merges standard definitions and metadata licenses into the current BOM |
+| `applyMetadata()` | converts `SrcFile` and evidence paths to relative values, then adds `cdx:bom:componentTypes`, `cdx:bom:componentNamespaces`, and `cdx:bom:componentSrcFiles` metadata properties |
+| `applyContainerInventoryMetadata()` | computes `cdx:container:unpackagedExecutableCount` and `cdx:container:unpackagedSharedLibraryCount` from the assembled component list |
+| `applyFormulation()` | attaches once-per-BOM formulation entries, including build and source context collected earlier in the pipeline |
+| `applyReleaseNotes()` | when `--include-release-notes` is enabled, computes release notes from git context and stores them on the cdxgen tool component |
+| `applySpecVersionCompatibility()` | strips or reshapes fields that are newer than the requested output spec version, including 1.6/1.7-only metadata and some crypto/evidence fields |
+| `validateTlpClassification()` | checks TLP labeling rules before output leaves the generator |
+| `annotate()` | creates or extends CycloneDX annotations for metadata and other derived context when the document spec version is high enough |
+
 If you are trying to understand why a component disappeared, why formulation only appears once, or why paths were normalised, this is the phase to inspect.
+
+## Step 7: Validation and optional conversion
+
+Validation happens after post-processing in `bin/cdxgen.js`, not inside `postProcess()` itself.
+
+### Validation flow
+
+```text
+createBom()
+   |
+   +--> postProcess()
+   |
+   +--> validateBom() when --validate is enabled
+   |
+   +--> convertCycloneDxToSpdx() when SPDX output is requested
+   |      +--> validateSpdx() when --validate is still enabled
+   |
+   +--> write outputs
+```
+
+| Stage | What happens |
+|---|---|
+| CycloneDX validation | `validateBom(bomNSData.bomJson)` runs when `options.validate` is true; failure exits the CLI with a non-zero status |
+| SPDX conversion | `convertCycloneDxToSpdx()` runs only after a CycloneDX BOM exists and SPDX output was requested |
+| SPDX validation | `validateSpdx()` runs on the converted SPDX document when validation is enabled |
+| dry-run interaction | dry-run blocks SPDX conversion output because the export path is intentionally read-only |
 
 ## Related execution modes
 

@@ -26,17 +26,14 @@ flowchart TD
 createBom()
    |
    +--> createXBom() / createMultiXBom()
-            |
-            +--> createJavaBom()
-            +--> createNodejsBom()
-            +--> createPythonBom()
-            +--> createCsharpBom()
-                     |
-                     v
-              buildBomNSData()
-                     |
-                     v
-                postProcess()
+   |      +--> createJavaBom()
+   |      +--> createNodejsBom()
+   |      +--> createPythonBom()
+   |      +--> createCsharpBom()
+   |
+   +--> buildBomNSData()
+   |
+   +--> postProcess()
 ```
 
 ## Java and JVM example
