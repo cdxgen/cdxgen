@@ -10,6 +10,7 @@ import { hideBin } from "yargs/helpers";
 import {
   getNonCycloneDxErrorMessage,
   isCycloneDxBom,
+  toCycloneDxSpecVersionString,
 } from "../lib/helpers/bomUtils.js";
 import { deriveSpdxOutputPath } from "../lib/helpers/exportUtils.js";
 import {
@@ -85,8 +86,8 @@ if (!isCycloneDxBom(bomJson)) {
   console.error(getNonCycloneDxErrorMessage(bomJson, "cdx-convert"));
   process.exit(1);
 }
-const cdxSpecVersion = Number.parseFloat(`${bomJson?.specVersion || ""}`);
-if (![1.6, 1.7].includes(cdxSpecVersion)) {
+const cdxSpecVersion = toCycloneDxSpecVersionString(bomJson?.specVersion);
+if (!["1.6", "1.7"].includes(cdxSpecVersion)) {
   console.error(
     `Unsupported CycloneDX specVersion '${bomJson?.specVersion}'. cdx-convert currently supports CycloneDX 1.6 or 1.7 input and exports SPDX 3.0.1.`,
   );

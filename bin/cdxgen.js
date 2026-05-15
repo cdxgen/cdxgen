@@ -20,6 +20,7 @@ import { hideBin } from "yargs/helpers";
 
 import { createBom, submitBom } from "../lib/cli/index.js";
 import { signBom, verifyBom } from "../lib/helpers/bomSigner.js";
+import { isCycloneDxBom } from "../lib/helpers/bomUtils.js";
 import {
   displaySelfThreatModel,
   printActivitySummary,
@@ -343,7 +344,7 @@ const args = _yargs
     description: "CycloneDX Specification version to use. Defaults to 1.7",
     default: 1.7,
     type: "number",
-    choices: [1.4, 1.5, 1.6, 1.7],
+    choices: [1.4, 1.5, 1.6, 1.7, 2.0],
   })
   .option("filter", {
     description:
@@ -1715,7 +1716,7 @@ const writeCycloneDxOutput = (jsonFile, bomJson, options) => {
   if (
     outputPlan.formats.has("spdx") &&
     bomNSData?.bomJson &&
-    bomNSData?.bomJson?.bomFormat === "CycloneDX"
+    isCycloneDxBom(bomNSData.bomJson)
   ) {
     thoughtLog(
       "Preparing the SPDX 3.0.1 export from the validated CycloneDX BOM.",
