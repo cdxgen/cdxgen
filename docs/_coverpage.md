@@ -10,7 +10,7 @@ Generate and analyze **SBOM**, **CBOM**, **OBOM**, **SaaSBOM**, **CDXA**, and **
 
 ## What cdxgen helps you do
 
-- Generate BOMs across polyglot applications, containers, operating systems, and cryptographic inventory
+- Generate BOMs across polyglot applications, containers, operating systems, hardware, and cryptographic inventory
 - Export **CycloneDX JSON** or **SPDX 3.0.1 JSON-LD** and integrate with CI/CD and Dependency-Track
 - Run as a **CLI**, **library**, **server**, **container image**, or **standalone binary**
 

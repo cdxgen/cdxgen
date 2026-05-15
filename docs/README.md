@@ -20,7 +20,8 @@ If you are a [Winget](https://learn.microsoft.com/en-us/windows/package-manager/
 winget install cdxgen
 ```
 
-## Single Executable Application (SEA) Binaries
+<details>
+<summary><strong>Single Executable Application (SEA) Binaries</strong></summary>
 
 `cdxgen` and `hbom` are available as standalone binaries for Linux, macOS, and Windows. These binaries do not require Node.js or `npm` to be installed on the system, making them ideal for CI/CD environments, containerized scans, or quick local usage.
 
@@ -78,6 +79,8 @@ if ($ExpectedHash -eq $ActualHash) {
 > `cdx-verify`, `cdx-sign`, `cdx-validate`, and `cdx-convert`
 > tools are also available as standalone binaries in the releases using the
 > same naming convention (e.g., `cdx-convert-linux-amd64`).
+
+</details>
 
 ## Generate BOM for source code inputs
 
@@ -178,14 +181,14 @@ systemctl --user start podman.socket
 podman system service -t 0 &
 ```
 
-#### **Generate OBOM**
+## Generate BOM for operating environments (OBOM)
 
-You can use the `obom` command to generate an OBOM for a live system or a VM for compliance and vulnerability management purposes. Linux, Windows, and macOS are supported in this mode, though some macOS tables require elevated privileges and Full Disk Access.
+Use the `obom` command to generate an OBOM for a live system or a VM for compliance and vulnerability management purposes. Linux, Windows, and macOS are supported in this mode, though some macOS tables require elevated privileges and Full Disk Access.
 
 ```shell
 # obom is an alias for cdxgen -t os
-obom
-# cdxgen -t os
+obom -o obom.json
+cdxgen -t os -o obom.json .
 ```
 
 This feature is powered by osquery, which is [installed](https://github.com/cdxgen/cdxgen-plugins-bin/blob/main/build.sh#L8) along with the binary plugins. cdxgen would opportunistically try to detect as many components, apps, and extensions as possible using the platform-specific default queries under `data/queries*.json`. With osquery 5.23.0, the default profiles include Gatekeeper posture on macOS, Secure Boot certificate inventory on Linux, targeted Windows process-open-handle telemetry, and improved npm package discovery. The process would take several minutes and result in an SBOM file with thousands of components of various types such as operating-system, device-drivers, files, and data.
@@ -196,7 +199,25 @@ For macOS-specific setup and permission caveats, see [OBOM macOS troubleshooting
 
 For practical SOC/IR and compliance playbooks, see [OBOM lessons](./OBOM_LESSONS.md). For container hardening and breakout-focused binary reviews, see [Lesson 9](./LESSON9.md).
 
-#### **Integrate with Dependency Track**
+## Generate BOM for hardware (HBOM)
+
+Use the `hbom` command to generate a dedicated hardware inventory for the current host. Current collectors support Apple Silicon macOS, Linux amd64, and Linux arm64.
+
+```shell
+hbom -o hbom.json
+# or use the main CLI
+cdxgen -t hbom -o hbom.json .
+```
+
+If you need a combined hardware and live runtime host view, generate a merged document with:
+
+```shell
+hbom --include-runtime -o host-view.json
+```
+
+For more options, diagnostics, and merged host workflows, see the [HBOM guide](./HBOM.md) and [Lesson 13](./LESSON13.md).
+
+## Integrate with Dependency Track
 
 Invoke cdxgen with the below arguments to automatically submit the BOM to your organization's Dependency Track server.
 
