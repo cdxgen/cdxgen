@@ -299,5 +299,5 @@ That workflow does not promise perfect safety, and it does not claim perfect com
 - [Permissions](PERMISSIONS.md)
 - [CLI Usage](CLI.md)
 - [BOM Audit](BOM_AUDIT.md)
-- [cdx-audit — Predictive supply-chain audit](CDX_AUDIT.md)
+- [cdx-audit](CDX_AUDIT.md)
 - [Threat Model](THREAT_MODEL.md)
