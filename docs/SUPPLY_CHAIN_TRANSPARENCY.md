@@ -99,10 +99,12 @@ Once the dry-run output looks reasonable, switch to the Node.js permissions mode
 export CDXGEN_SECURE_MODE=true
 export CDXGEN_TEMP_DIR=/srv/cdxgen-review/tmp
 mkdir -p /srv/cdxgen-review/output "$CDXGEN_TEMP_DIR"
-export NODE_OPTIONS='--permission \
+export NODE_OPTIONS="--permission \
   --allow-fs-read=/srv/cdxgen-review/input/* \
-  --allow-fs-write=/srv/cdxgen-review/output/* \
-  --allow-fs-write=/srv/cdxgen-review/tmp/*'
+  --allow-fs-write=/srv/cdxgen-review/output \
+  --allow-fs-write=/srv/cdxgen-review/output/bom.json \
+  --allow-fs-write=/srv/cdxgen-review/tmp \
+  --allow-fs-write=/srv/cdxgen-review/tmp/*"
 
 cdxgen \
   -t js \
@@ -147,14 +149,16 @@ cdxgen --version
 
 ```bash
 VERSION="v12.4.0"
-ASSET="cdxgen-linux-amd64"
+OS=linux
+ARCH=amd64
+BINARY_NAME="cdxgen-${OS}-${ARCH}"
 BASE_URL="https://github.com/cdxgen/cdxgen/releases/download/${VERSION}"
 
-curl -fsSLO "${BASE_URL}/${ASSET}"
-curl -fsSLO "${BASE_URL}/${ASSET}.sha256"
-sha256sum -c "${ASSET}.sha256"
-chmod +x "${ASSET}"
-./"${ASSET}" --version
+curl -fsSLO "${BASE_URL}/${BINARY_NAME}"
+curl -fsSLO "${BASE_URL}/${BINARY_NAME}.sha256"
+sha256sum -c "${BINARY_NAME}.sha256"
+chmod +x "${BINARY_NAME}"
+./"${BINARY_NAME}" --version
 ```
 
 ```yaml
@@ -173,12 +177,15 @@ jobs:
           NODE_OPTIONS: >-
             --permission
             --allow-fs-read=${{ github.workspace }}/*
+            --allow-fs-write=${{ runner.temp }}/cdxgen
             --allow-fs-write=${{ runner.temp }}/cdxgen/*
-            --allow-fs-write=${{ github.workspace }}/artifacts/*
+            --allow-fs-write=${{ github.workspace }}/artifacts
+            --allow-fs-write=${{ github.workspace }}/artifacts/bom.json
         run: |
           mkdir -p "${CDXGEN_TEMP_DIR}"
           mkdir -p "${GITHUB_WORKSPACE}/artifacts"
           cdxgen \
+            -t js \
             --bom-audit \
             --bom-audit-categories ci-permission,dependency-source \
             -o "${GITHUB_WORKSPACE}/artifacts/bom.json" \
@@ -197,6 +204,7 @@ For source repositories, the `ci-permission` category highlights risky workflow 
 
 ```bash
 cdxgen \
+  -t js \
   --bom-audit \
   --bom-audit-categories ci-permission,dependency-source \
   -o /srv/cdxgen-review/output/bom.json \
@@ -220,7 +228,7 @@ For a live build host, combine HBOM and runtime inventory when you want a cleare
 hbom \
   --include-runtime \
   --bom-audit \
-  --bom-audit-categories hbom,host-topology \
+  --bom-audit-categories host \
   -o /srv/cdxgen-review/output/host-view.json
 ```
 
@@ -230,7 +238,7 @@ These three views answer different hardening questions:
 | --- | --- | --- |
 | repository workflows | `ci-permission`, `dependency-source` | Are our pipelines granting more power than the job needs? |
 | runner image or root filesystem | `rootfs-hardening`, `container-risk` | Is the build environment drifting away from our baseline? |
-| live host | `hbom`, `host-topology` | Does the machine posture still match what we think we deployed? |
+| live host | `host` | Does the machine posture still match what we think we deployed? |
 
 ## A simple developer-facing policy snippet
 
@@ -242,11 +250,15 @@ set -euo pipefail
 
 export CDXGEN_SECURE_MODE=true
 export CDXGEN_TEMP_DIR=/workspace/tmp/cdxgen
-export NODE_OPTIONS='--permission --allow-fs-read=/workspace/* --allow-fs-write=/workspace/artifacts/* --allow-fs-write=/workspace/tmp/cdxgen/*'
-export CDXGEN_ALLOWED_COMMANDS="node,npm"
-export NODE_OPTIONS="$NODE_OPTIONS --allow-child-process"
+mkdir -p /workspace/artifacts "$CDXGEN_TEMP_DIR"
+export NODE_OPTIONS="--permission --allow-fs-read=/workspace/* --allow-fs-write=/workspace/artifacts --allow-fs-write=/workspace/artifacts/bom.json --allow-fs-write=/workspace/tmp/cdxgen --allow-fs-write=/workspace/tmp/cdxgen/*"
+
+# If dry-run shows external tools are required:
+# export CDXGEN_ALLOWED_COMMANDS="node,npm"
+# export NODE_OPTIONS="$NODE_OPTIONS --allow-child-process"
 
 cdxgen \
+  -t js \
   --bom-audit \
   --bom-audit-categories ci-permission,dependency-source,package-integrity \
   -o /workspace/artifacts/bom.json \
