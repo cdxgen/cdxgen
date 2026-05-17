@@ -1,8 +1,8 @@
 # Supply-chain transparency with cdxgen
 
-Supply-chain transparency is easiest to adopt when the workflow is honest about tradeoffs. You want a BOM that is useful enough to support engineering, security, procurement, and audit teams. You also want the scan itself to avoid becoming the next risky action in your environment.
+Supply-chain transparency helps teams understand what they build, ship, and trust. When the input project is untrusted, the goal is to collect that visibility without giving the scan more access than it needs.
 
-cdxgen gives you a practical way to do that. Start with `--dry-run` to inspect an untrusted project without side effects. Move to the Node.js permissions model only when you are ready to produce a persisted BOM. Add `--bom-audit` to review your own workflows and build surfaces. Use `cdx-audit` on a schedule to re-check dependency risk as upstream projects change over time.
+cdxgen supports that staged approach. Start with `--dry-run` to inspect an untrusted project without side effects. Move to the Node.js permissions model only when you are ready to produce a persisted BOM. Add `--bom-audit` to review your own workflows and build surfaces. Use `cdx-audit` on a schedule to re-check dependency risk as upstream projects change over time.
 
 This guide is written for four common personas:
 
@@ -97,11 +97,12 @@ Once the dry-run output looks reasonable, switch to the Node.js permissions mode
 
 ```bash
 export CDXGEN_SECURE_MODE=true
+export CDXGEN_TEMP_DIR=/srv/cdxgen-review/tmp
+mkdir -p /srv/cdxgen-review/output "$CDXGEN_TEMP_DIR"
 export NODE_OPTIONS='--permission \
   --allow-fs-read=/srv/cdxgen-review/input/* \
   --allow-fs-write=/srv/cdxgen-review/output/* \
-  --allow-fs-write=/tmp/* \
-  --allow-child-process'
+  --allow-fs-write=/srv/cdxgen-review/tmp/*'
 
 cdxgen \
   -t js \
@@ -110,7 +111,14 @@ cdxgen \
   /srv/cdxgen-review/input/untrusted-project
 ```
 
-If the project does not require spawned tools, omit `--allow-child-process`. If cdxgen reports a denied path, add only that specific path after review rather than widening access immediately.
+Only add `--allow-child-process` when the reviewed dry-run shows that cdxgen must invoke external tools. When that is necessary, populate `CDXGEN_ALLOWED_COMMANDS` from the dry-run output before widening process access.
+
+```bash
+export CDXGEN_ALLOWED_COMMANDS="node,npm"
+export NODE_OPTIONS="$NODE_OPTIONS --allow-child-process"
+```
+
+If cdxgen reports a denied path, add only that specific path after review rather than widening access immediately.
 
 For teams that prefer container isolation, use the secure image with a tightly mounted workspace:
 
@@ -118,7 +126,8 @@ For teams that prefer container isolation, use the secure image with a tightly m
 docker run --rm \
   -v /srv/cdxgen-review/input/untrusted-project:/app:ro \
   -v /srv/cdxgen-review/output:/out:rw \
-  -v /tmp:/tmp \
+  -v /srv/cdxgen-review/tmp:/tmp/cdxgen:rw \
+  -e CDXGEN_TEMP_DIR=/tmp/cdxgen \
   ghcr.io/cyclonedx/cdxgen-secure \
   cdxgen -t js --bom-audit -o /out/bom.json /app
 ```
@@ -128,6 +137,25 @@ The intent is simple. Dry-run answers, "what would this scan try to do?" Secure 
 ## What the safe handoff looks like in automation
 
 The following GitHub Actions pattern keeps permissions explicit and stores the generated BOM as a build artifact. It is relevant to platform teams, maintainers, and compliance teams that need a review trail.
+
+Install cdxgen in the job from npm, or download a verified standalone binary before you run it:
+
+```bash
+npm install -g @cyclonedx/cdxgen
+cdxgen --version
+```
+
+```bash
+VERSION="v12.4.0"
+ASSET="cdxgen-linux-amd64"
+BASE_URL="https://github.com/cdxgen/cdxgen/releases/download/${VERSION}"
+
+curl -fsSLO "${BASE_URL}/${ASSET}"
+curl -fsSLO "${BASE_URL}/${ASSET}.sha256"
+sha256sum -c "${ASSET}.sha256"
+chmod +x "${ASSET}"
+./"${ASSET}" --version
+```
 
 ```yaml
 permissions:
@@ -141,13 +169,14 @@ jobs:
       - name: Generate BOM with explicit Node permissions
         env:
           CDXGEN_SECURE_MODE: "true"
+          CDXGEN_TEMP_DIR: "${{ runner.temp }}/cdxgen"
           NODE_OPTIONS: >-
             --permission
             --allow-fs-read=${{ github.workspace }}/*
-            --allow-fs-write=${{ runner.temp }}/*
+            --allow-fs-write=${{ runner.temp }}/cdxgen/*
             --allow-fs-write=${{ github.workspace }}/artifacts/*
-            --allow-child-process
         run: |
+          mkdir -p "${CDXGEN_TEMP_DIR}"
           mkdir -p "${GITHUB_WORKSPACE}/artifacts"
           cdxgen \
             --bom-audit \
@@ -156,7 +185,9 @@ jobs:
             "${GITHUB_WORKSPACE}"
 ```
 
-This pattern is useful because the workflow permissions, filesystem access, and audit scope are all visible in one place.
+If the reviewed dry-run shows that the workflow must execute external tools, extend `NODE_OPTIONS` with `--allow-child-process` and set `CDXGEN_ALLOWED_COMMANDS` to the reviewed command list.
+
+This pattern is useful because the workflow permissions, filesystem access, temp directory, and audit scope are all visible in one place.
 
 ## Step 3: use BOM audit to harden your own build environment
 
@@ -210,7 +241,10 @@ Some teams like to keep the scanning policy next to their pipeline code. A small
 set -euo pipefail
 
 export CDXGEN_SECURE_MODE=true
-export NODE_OPTIONS='--permission --allow-fs-read=/workspace/* --allow-fs-write=/workspace/artifacts/* --allow-fs-write=/tmp/* --allow-child-process'
+export CDXGEN_TEMP_DIR=/workspace/tmp/cdxgen
+export NODE_OPTIONS='--permission --allow-fs-read=/workspace/* --allow-fs-write=/workspace/artifacts/* --allow-fs-write=/workspace/tmp/cdxgen/*'
+export CDXGEN_ALLOWED_COMMANDS="node,npm"
+export NODE_OPTIONS="$NODE_OPTIONS --allow-child-process"
 
 cdxgen \
   --bom-audit \
