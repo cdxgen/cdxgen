@@ -45,6 +45,7 @@ import {
   isHbomOnlyProjectTypes,
 } from "../lib/helpers/hbom.js";
 import { TRACE_MODE, thoughtEnd, thoughtLog } from "../lib/helpers/logger.js";
+import { importProtobomModule } from "../lib/helpers/protobomLoader.js";
 import {
   cleanupSourceDir,
   findGitRefForPurlVersion,
@@ -1840,7 +1841,10 @@ const writeCycloneDxOutput = (jsonFile, bomJson, options) => {
         target: options.protoBinFile,
       });
     } else {
-      const protobomModule = await import("../lib/helpers/protobom.js");
+      const protobomModule = await importProtobomModule(
+        "cdxgen",
+        "protobuf export",
+      );
       protobomModule.writeBinary(bomNSData.bomJson, options.protoBinFile);
       thoughtLog("BOM file is also available in .proto format!");
     }

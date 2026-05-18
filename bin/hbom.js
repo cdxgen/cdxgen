@@ -17,6 +17,10 @@ import {
 import { getHbomSummary } from "../lib/helpers/hbomAnalysis.js";
 import { thoughtLog } from "../lib/helpers/logger.js";
 import {
+  importProtobomModule,
+  isProtoBomPath,
+} from "../lib/helpers/protobomLoader.js";
+import {
   DEBUG_MODE,
   isDryRun,
   retrieveCdxgenVersion,
@@ -317,13 +321,11 @@ async function loadBomFromInputFile(inputFile) {
   if (!inputFile || !safeExistsSync(inputFile)) {
     throw new Error(`HBOM input file not found: ${inputFile}`);
   }
-  const normalizedInputFile = `${inputFile}`.toLowerCase();
-  if (
-    normalizedInputFile.endsWith(".cdx") ||
-    normalizedInputFile.endsWith(".cdx.bin") ||
-    normalizedInputFile.endsWith(".proto")
-  ) {
-    const { readBinary } = await import("../lib/helpers/protobom.js");
+  if (isProtoBomPath(inputFile)) {
+    const { readBinary } = await importProtobomModule(
+      hbomCommandName,
+      "protobuf BOM input",
+    );
     return readBinary(inputFile, true);
   }
   return JSON.parse(readFileSync(inputFile, { encoding: "utf8" }));
@@ -471,7 +473,10 @@ async function runDiagnosticsCommand() {
     if (protoOutputDirectory && !safeExistsSync(protoOutputDirectory)) {
       safeMkdirSync(protoOutputDirectory, { recursive: true });
     }
-    const { writeBinary } = await import("../lib/helpers/protobom.js");
+    const { writeBinary } = await importProtobomModule(
+      hbomCommandName,
+      "protobuf export",
+    );
     writeBinary(bomJson, options.protoBinFile);
     thoughtLog(
       `Let's also save the HBOM protobuf binary to '${options.protoBinFile}'.`,

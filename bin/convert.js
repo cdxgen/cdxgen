@@ -13,6 +13,10 @@ import {
 } from "../lib/helpers/bomUtils.js";
 import { deriveSpdxOutputPath } from "../lib/helpers/exportUtils.js";
 import {
+  importProtobomModule,
+  isProtoBomPath,
+} from "../lib/helpers/protobomLoader.js";
+import {
   retrieveCdxgenVersion,
   safeExistsSync,
   safeMkdirSync,
@@ -56,14 +60,13 @@ const loadCycloneDxBom = async (inputPath) => {
     console.error(`Input file '${inputPath}' not found.`);
     process.exit(1);
   }
-  const normalizedInputPath = `${inputPath}`.toLowerCase();
-  const isProtoInput =
-    normalizedInputPath.endsWith(".cdx") ||
-    normalizedInputPath.endsWith(".cdx.bin") ||
-    normalizedInputPath.endsWith(".proto");
+  const isProtoInput = isProtoBomPath(inputPath);
   try {
     if (isProtoInput) {
-      const { readBinary } = await import("../lib/helpers/protobom.js");
+      const { readBinary } = await importProtobomModule(
+        "cdx-convert",
+        "protobuf BOM input",
+      );
       return readBinary(inputPath, true);
     }
     return JSON.parse(fs.readFileSync(inputPath, "utf8"));

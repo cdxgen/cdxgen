@@ -12,6 +12,7 @@ import {
   getNonCycloneDxErrorMessage,
   isCycloneDxBom,
 } from "../lib/helpers/bomUtils.js";
+import { isProtoBomPath } from "../lib/helpers/protobomLoader.js";
 import {
   dirNameStr,
   retrieveCdxgenVersion,
@@ -78,16 +79,13 @@ if (process.env?.CDXGEN_NODE_OPTIONS) {
 
 async function getBom(args) {
   if (safeExistsSync(args.input)) {
-    const normalizedInput = `${args.input}`.toLowerCase();
+    if (isProtoBomPath(args.input)) {
+      console.log(
+        "cdx-verify: protobuf BOM input does not currently preserve JSF signature blocks. Verify signatures against the source JSON BOM instead.",
+      );
+      process.exit(1);
+    }
     try {
-      if (
-        normalizedInput.endsWith(".cdx") ||
-        normalizedInput.endsWith(".cdx.bin") ||
-        normalizedInput.endsWith(".proto")
-      ) {
-        const { readBinary } = await import("../lib/helpers/protobom.js");
-        return readBinary(args.input, true);
-      }
       return JSON.parse(fs.readFileSync(args.input, "utf8"));
     } catch (error) {
       console.log(`Failed to parse '${args.input}': ${error.message}`);
@@ -104,20 +102,7 @@ async function getBom(args) {
   return undefined;
 }
 
-function isLocalProtoBomInput(input) {
-  if (!safeExistsSync(input)) {
-    return false;
-  }
-  const normalizedInput = `${input}`.toLowerCase();
-  return (
-    normalizedInput.endsWith(".cdx") ||
-    normalizedInput.endsWith(".cdx.bin") ||
-    normalizedInput.endsWith(".proto")
-  );
-}
-
 const bomJson = await getBom(args);
-const inputIsLocalProtoBom = isLocalProtoBomInput(args.input);
 
 if (!bomJson) {
   console.log(`${args.input} is invalid!`);
@@ -125,13 +110,6 @@ if (!bomJson) {
 }
 if (!isCycloneDxBom(bomJson)) {
   console.log(getNonCycloneDxErrorMessage(bomJson, "cdx-verify"));
-  process.exit(1);
-}
-
-if (inputIsLocalProtoBom) {
-  console.log(
-    "cdx-verify: protobuf BOM input does not currently preserve JSF signature blocks. Verify signatures against the source JSON BOM instead.",
-  );
   process.exit(1);
 }
 
