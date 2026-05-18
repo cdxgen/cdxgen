@@ -17,6 +17,9 @@ The package ships multiple CLI entry points. Use this table as the top-level nav
 | `cdx-sign`     | Sign a CycloneDX BOM                                                                  | yes                       | [CDX_SIGN.md](CDX_SIGN.md)         |
 | `cdx-validate` | Validate structure, compliance, and signatures                                        | yes                       | [CDX_VALIDATE.md](CDX_VALIDATE.md) |
 | `cdx-verify`   | Verify BOM signatures                                                                 | yes                       | [CDX_VERIFY.md](CDX_VERIFY.md)     |
+| `cbom`         | Generate CBOM-oriented inventories with crypto and evidence defaults                   | yes                       | [CLI Usage](CLI.md)                |
+| `obom`         | Generate live OS/runtime inventories; equivalent default type is `os`                  | yes                       | [OBOM_LESSONS.md](OBOM_LESSONS.md) |
+| `saasbom`      | Generate SaaSBOM-oriented inventories with service-evidence defaults                   | yes                       | [CLI Usage](CLI.md)                |
 | `evinse`       | Add evidence, call stacks, reachability, and service data                             | no                        | [EVINSE.md](EVINSE.md)             |
 | `cdxi`         | Explore BOMs interactively in the REPL                                                | no                        | [REPL.md](REPL.md)                 |
 
@@ -34,7 +37,7 @@ Some commands are focused aliases rather than separate implementations.
 | `cdxgen-secure`                      | `cdxgen` with secure mode enabled and dependency installation disabled by default                                           |
 | `cbom`, `obom`, `saasbom`, `spdxgen` | still accept the regular `cdxgen` flags in addition to their alias behavior                                                 |
 
-Installing `@cyclonedx/cdxgen` from npm exposes the commands in the command map plus the aliases in this section.
+Installing `@cyclonedx/cdxgen` from npm exposes the commands in the command map plus the aliases in this section. The standalone `cbom`, `obom`, and `saasbom` release binaries preserve the same alias behavior and include protobuf export support, so `--export-proto --proto-bin-file <file>` works without installing optional npm dependencies separately.
 
 ## HBOM command
 
@@ -155,9 +158,11 @@ docker run --rm -v /tmp:/tmp -v $(pwd):/app:rw -t ghcr.io/cyclonedx/cdxgen -r /a
 
 ### Standalone release binaries
 
-GitHub Releases publish single-file executables for `cdxgen`, `cdxgen-slim`, `hbom`, `hbom-slim`, `cdx-audit`, `cdx-convert`, `cdx-sign`, `cdx-validate`, and `cdx-verify`.
+GitHub Releases publish single-file executables for `cdxgen`, `cdxgen-slim`, `cbom`, `obom`, `saasbom`, `hbom`, `hbom-slim`, `cdx-audit`, `cdx-convert`, `cdx-sign`, `cdx-validate`, and `cdx-verify`.
 
 For HBOM, use `hbom-<os>-<arch>` when you want the dedicated hardware collector together with the companion `@cdxgen/cdxgen-plugins-bin*` bundle, or `hbom-<os>-<arch>-slim` when you only need `@cdxgen/cdx-hbom` in the standalone executable.
+
+The focused alias binaries use smaller dependency profiles than full `cdxgen`: `cbom` and `saasbom` include the Atom analysis packages needed for evidence collection, while `obom` includes the target platform plugin bundle pruned to runtime OS helpers. All three also include `@appthreat/cdx-proto` and `@bufbuild/protobuf` for `--export-proto`.
 
 Use the asset name that matches your platform, for example `cdx-audit-linux-amd64`, `cdx-audit-darwin-arm64`, or `cdx-audit-windows-amd64.exe`.
 

@@ -4,6 +4,9 @@ Set-StrictMode -Version Latest
 $defaultTargets = @(
   "cdxgen",
   "cdxgen-slim",
+  "cbom",
+  "obom",
+  "saasbom",
   "cdx-audit",
   "cdx-verify",
   "cdx-sign",
@@ -150,6 +153,22 @@ function Copy-RuntimeSources {
   }
 }
 
+function New-CdxgenAliasEntryPoint {
+  param(
+    [Parameter(Mandatory = $true)]
+    [string]$StagingDir,
+    [Parameter(Mandatory = $true)]
+    [string]$CommandName
+  )
+
+  $wrapperFile = Join-Path $StagingDir "bin/$CommandName.js"
+  @'
+#!/usr/bin/env node
+process.argv[1] = new URL(import.meta.url).pathname;
+await import("./cdxgen.js");
+'@ | Set-Content -Path $wrapperFile -Encoding utf8
+}
+
 function Install-ProfileDependencies {
   param(
     [Parameter(Mandatory = $true)]
@@ -178,6 +197,8 @@ function Install-ProfileDependencies {
       "proto-reader" { $selectedOptionalPackages = @("@appthreat/cdx-proto", "@bufbuild/protobuf") }
       "hbom-runtime" { $selectedOptionalPackages = @("@cdxgen/cdx-hbom", "@appthreat/cdx-proto", "@bufbuild/protobuf", (Resolve-PlatformPluginPackageName)) }
       "hbom-slim" { $selectedOptionalPackages = @("@cdxgen/cdx-hbom") }
+      "atom-analysis" { $selectedOptionalPackages = @("@appthreat/atom", "@appthreat/atom-parsetools", "@appthreat/cdx-proto", "@bufbuild/protobuf") }
+      "os-runtime" { $selectedOptionalPackages = @("@appthreat/cdx-proto", "@bufbuild/protobuf", (Resolve-PlatformPluginPackageName)) }
       { $_ -in @("no-optional", "json-signature") } { }
       default { throw "Unknown standalone dependency profile: $Profile" }
     }
@@ -294,6 +315,25 @@ function Invoke-ProfilePruningAndPreflight {
       Assert-PackageAbsent -StagingDir $StagingDir -PackageName "@appthreat/cdx-proto"
       Assert-PackageAbsent -StagingDir $StagingDir -PackageName "jsonata"
     }
+    "atom-analysis" {
+      Assert-PackagePresent -StagingDir $StagingDir -PackageName "@appthreat/atom"
+      Assert-PackagePresent -StagingDir $StagingDir -PackageName "@appthreat/atom-parsetools"
+      Assert-PackagePresent -StagingDir $StagingDir -PackageName "@appthreat/cdx-proto"
+      Assert-PackagePresent -StagingDir $StagingDir -PackageName "@bufbuild/protobuf"
+      Remove-PlatformPlugins -StagingDir $StagingDir
+      Assert-PackageAbsent -StagingDir $StagingDir -PackageName "@cdxgen/cdx-hbom"
+      Assert-PackageAbsent -StagingDir $StagingDir -PackageName "jsonata"
+    }
+    "os-runtime" {
+      Assert-PackagePresent -StagingDir $StagingDir -PackageName (Resolve-PlatformPluginPackageName)
+      Prune-PluginsToAllowlist -StagingDir $StagingDir -AllowedPlugins @("osquery", "trustinspector")
+      Assert-PluginAllowlist -StagingDir $StagingDir -AllowedPlugins @("osquery", "trustinspector")
+      Assert-PackageAbsent -StagingDir $StagingDir -PackageName "@appthreat/atom"
+      Assert-PackagePresent -StagingDir $StagingDir -PackageName "@appthreat/cdx-proto"
+      Assert-PackagePresent -StagingDir $StagingDir -PackageName "@bufbuild/protobuf"
+      Assert-PackageAbsent -StagingDir $StagingDir -PackageName "@cdxgen/cdx-hbom"
+      Assert-PackageAbsent -StagingDir $StagingDir -PackageName "jsonata"
+    }
     { $_ -in @("no-optional", "json-signature") } {
       Remove-PlatformPlugins -StagingDir $StagingDir
       Assert-PackageAbsent -StagingDir $StagingDir -PackageName "@appthreat/atom"
@@ -309,6 +349,7 @@ function Get-TargetEntryPoint {
   param([string]$Target)
   switch ($Target) {
     { $_ -in @("cdxgen", "cdxgen-slim") } { return "bin/cdxgen.js" }
+    { $_ -in @("cbom", "obom", "saasbom") } { return "bin/$Target.js" }
     "cdx-audit" { return "bin/audit.js" }
     "cdx-verify" { return "bin/verify.js" }
     "cdx-sign" { return "bin/sign.js" }
@@ -324,6 +365,8 @@ function Get-TargetProfile {
   switch ($Target) {
     "cdxgen" { return "cdxgen-full" }
     "cdxgen-slim" { return "no-optional" }
+    { $_ -in @("cbom", "saasbom") } { return "atom-analysis" }
+    "obom" { return "os-runtime" }
     "cdx-audit" { return "audit" }
     { $_ -in @("cdx-verify", "cdx-sign") } { return "json-signature" }
     { $_ -in @("cdx-validate", "cdx-convert") } { return "proto-reader" }
@@ -349,6 +392,9 @@ function Invoke-StandaloneTargetBuild {
 
   Write-Host "Building $Target with standalone profile $profile"
   Copy-RuntimeSources -StagingDir $stagingDir
+  if ($Target -in @("cbom", "obom", "saasbom")) {
+    New-CdxgenAliasEntryPoint -StagingDir $stagingDir -CommandName $Target
+  }
   Install-ProfileDependencies -StagingDir $stagingDir -Profile $profile
   Invoke-ProfilePruningAndPreflight -StagingDir $stagingDir -Profile $profile
   Invoke-BinaryBuildFromStage -StagingDir $stagingDir -Output $Target -MetadataFile ".$Target-metadata.json" -EntryPoint $entryPoint
@@ -356,8 +402,8 @@ function Invoke-StandaloneTargetBuild {
 }
 
 try {
-  Remove-Item -Path cdxgen.exe, cdxgen-slim.exe, cdx-audit.exe, cdx-verify.exe, cdx-sign.exe, cdx-validate.exe, cdx-convert.exe, hbom.exe, hbom-slim.exe -Force -ErrorAction SilentlyContinue
-  Remove-Item -Path .cdxgen-postbuild.cdx.json, .cdxgen-slim-postbuild.cdx.json, .cdx-audit-postbuild.cdx.json, .cdx-verify-postbuild.cdx.json, .cdx-sign-postbuild.cdx.json, .cdx-validate-postbuild.cdx.json, .cdx-convert-postbuild.cdx.json, .hbom-postbuild.cdx.json, .hbom-slim-postbuild.cdx.json -Force -ErrorAction SilentlyContinue
+  Remove-Item -Path cdxgen.exe, cdxgen-slim.exe, cbom.exe, obom.exe, saasbom.exe, cdx-audit.exe, cdx-verify.exe, cdx-sign.exe, cdx-validate.exe, cdx-convert.exe, hbom.exe, hbom-slim.exe -Force -ErrorAction SilentlyContinue
+  Remove-Item -Path .cdxgen-postbuild.cdx.json, .cdxgen-slim-postbuild.cdx.json, .cbom-postbuild.cdx.json, .obom-postbuild.cdx.json, .saasbom-postbuild.cdx.json, .cdx-audit-postbuild.cdx.json, .cdx-verify-postbuild.cdx.json, .cdx-sign-postbuild.cdx.json, .cdx-validate-postbuild.cdx.json, .cdx-convert-postbuild.cdx.json, .hbom-postbuild.cdx.json, .hbom-slim-postbuild.cdx.json -Force -ErrorAction SilentlyContinue
   foreach ($target in Get-SelectedTargets) {
     Invoke-StandaloneTargetBuild -Target $target
   }

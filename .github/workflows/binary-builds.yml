@@ -201,6 +201,9 @@ jobs:
           # Rename to temporary name -- fix for renaming to the same name, which does not work
           mv cdxgen${{ matrix.ext }} _cdxgen
           mv cdxgen-slim${{ matrix.ext }} _cdxgen-slim
+          mv cbom${{ matrix.ext }} _cbom
+          mv obom${{ matrix.ext }} _obom
+          mv saasbom${{ matrix.ext }} _saasbom
           mv cdx-audit${{ matrix.ext }} _cdx-audit
           mv cdx-verify${{ matrix.ext }} _cdx-verify
           mv cdx-sign${{ matrix.ext }} _cdx-sign
@@ -212,6 +215,9 @@ jobs:
           # Rename to the correct name
           mv _cdxgen cdxgen-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }}
           mv _cdxgen-slim cdxgen-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}-slim${{ matrix.ext }}
+          mv _cbom cbom-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }}
+          mv _obom obom-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }}
+          mv _saasbom saasbom-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }}
           mv _cdx-audit cdx-audit-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }}
           mv _cdx-verify cdx-verify-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }}
           mv _cdx-sign cdx-sign-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }}
@@ -223,6 +229,9 @@ jobs:
           # Rename sbom to correct name
           mv .cdxgen-postbuild.cdx.json cdxgen-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}-postbuild.cdx.json
           mv .cdxgen-slim-postbuild.cdx.json cdxgen-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}-slim-postbuild.cdx.json
+          mv .cbom-postbuild.cdx.json cbom-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}-postbuild.cdx.json
+          mv .obom-postbuild.cdx.json obom-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}-postbuild.cdx.json
+          mv .saasbom-postbuild.cdx.json saasbom-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}-postbuild.cdx.json
           mv .cdx-audit-postbuild.cdx.json cdx-audit-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}-postbuild.cdx.json
           mv .cdx-verify-postbuild.cdx.json cdx-verify-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}-postbuild.cdx.json
           mv .cdx-sign-postbuild.cdx.json cdx-sign-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}-postbuild.cdx.json
@@ -240,6 +249,9 @@ jobs:
           artifacts=(
             "cdxgen-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }}"
             "cdxgen-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}-slim${{ matrix.ext }}"
+            "cbom-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }}"
+            "obom-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }}"
+            "saasbom-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }}"
             "cdx-audit-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }}"
             "cdx-verify-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }}"
             "cdx-sign-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }}"
@@ -265,6 +277,9 @@ jobs:
         run: |
           shasum -a 256 cdxgen-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }} > cdxgen-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }}.sha256
           shasum -a 256 cdxgen-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}-slim${{ matrix.ext }} > cdxgen-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}-slim${{ matrix.ext }}.sha256
+          shasum -a 256 cbom-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }} > cbom-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }}.sha256
+          shasum -a 256 obom-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }} > obom-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }}.sha256
+          shasum -a 256 saasbom-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }} > saasbom-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }}.sha256
           shasum -a 256 cdx-audit-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }} > cdx-audit-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }}.sha256
           shasum -a 256 cdx-verify-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }} > cdx-verify-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }}.sha256
           shasum -a 256 cdx-sign-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }} > cdx-sign-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }}.sha256
@@ -277,6 +292,9 @@ jobs:
         run: |
           sha256sum cdxgen-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }} > cdxgen-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }}.sha256
           sha256sum cdxgen-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}-slim${{ matrix.ext }} > cdxgen-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}-slim${{ matrix.ext }}.sha256
+          sha256sum cbom-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }} > cbom-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }}.sha256
+          sha256sum obom-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }} > obom-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }}.sha256
+          sha256sum saasbom-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }} > saasbom-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }}.sha256
           sha256sum cdx-audit-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }} > cdx-audit-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }}.sha256
           sha256sum cdx-verify-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }} > cdx-verify-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }}.sha256
           sha256sum cdx-sign-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }} > cdx-sign-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }}.sha256
@@ -289,6 +307,9 @@ jobs:
         run: |
           (Get-FileHash .\cdxgen-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }}).hash | Out-File -FilePath .\cdxgen-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }}.sha256
           (Get-FileHash .\cdxgen-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}-slim${{ matrix.ext }}).hash | Out-File -FilePath .\cdxgen-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}-slim${{ matrix.ext }}.sha256
+          (Get-FileHash .\cbom-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }}).hash | Out-File -FilePath .\cbom-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }}.sha256
+          (Get-FileHash .\obom-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }}).hash | Out-File -FilePath .\obom-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }}.sha256
+          (Get-FileHash .\saasbom-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }}).hash | Out-File -FilePath .\saasbom-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }}.sha256
           (Get-FileHash .\cdx-audit-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }}).hash | Out-File -FilePath .\cdx-audit-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }}.sha256
           (Get-FileHash .\cdx-verify-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }}).hash | Out-File -FilePath .\cdx-verify-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }}.sha256
           (Get-FileHash .\cdx-sign-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }}).hash | Out-File -FilePath .\cdx-sign-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }}.sha256
@@ -301,6 +322,9 @@ jobs:
           name: cdx-binaries-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}
           path: |
             cdxgen-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}*
+            cbom-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}*
+            obom-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}*
+            saasbom-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}*
             cdx-audit-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}*
             cdx-verify-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}*
             cdx-sign-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}*
@@ -314,6 +338,9 @@ jobs:
         with:
           files: |
             cdxgen-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}*
+            cbom-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}*
+            obom-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}*
+            saasbom-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}*
             cdx-audit-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}*
             cdx-verify-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}*
             cdx-sign-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}*

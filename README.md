@@ -136,15 +136,17 @@ Installing `@cyclonedx/cdxgen` exposes these commands:
 | `cdx-verify`    | Verify BOM signatures                                                                                | yes                              |
 | `cdxi`          | Open the interactive REPL                                                                            | no                               |
 | `evinse`        | Add evidence, reachability, and service context                                                      | no                               |
-| `cbom`          | Alias for CBOM-oriented `cdxgen` defaults                                                            | use `cdxgen`                     |
-| `obom`          | Alias for `cdxgen -t os`                                                                             | use `cdxgen`                     |
-| `saasbom`       | Alias for SaaSBOM-oriented `cdxgen` defaults                                                         | use `cdxgen`                     |
+| `cbom`          | Alias for CBOM-oriented `cdxgen` defaults                                                            | yes                              |
+| `obom`          | Alias for `cdxgen -t os`                                                                             | yes                              |
+| `saasbom`       | Alias for SaaSBOM-oriented `cdxgen` defaults                                                         | yes                              |
 | `spdxgen`       | Alias for `cdxgen --format spdx`                                                                     | use `cdxgen`                     |
 | `cdxgen-secure` | Alias for hardened `cdxgen` defaults                                                                 | use `cdxgen`                     |
 
-Standalone GitHub release binaries are published for `cdxgen`, `cdxgen-slim`, `hbom`, `hbom-slim`, `cdx-audit`, `cdx-convert`, `cdx-sign`, `cdx-validate`, and `cdx-verify`.
+Standalone GitHub release binaries are published for `cdxgen`, `cdxgen-slim`, `cbom`, `obom`, `saasbom`, `hbom`, `hbom-slim`, `cdx-audit`, `cdx-convert`, `cdx-sign`, `cdx-validate`, and `cdx-verify`.
 
 `hbom` release binaries bundle both `@cdxgen/cdx-hbom` and the matching `@cdxgen/cdxgen-plugins-bin*` companion helpers for the target platform. `hbom-slim` keeps the dedicated hardware collector (`@cdxgen/cdx-hbom`) but omits the companion plugin bundle when you want the smallest single-file HBOM executable.
+
+The `cbom` and `saasbom` release binaries bundle the Atom analysis stack (`@appthreat/atom` and `@appthreat/atom-parsetools`) plus protobuf export support (`@appthreat/cdx-proto` and `@bufbuild/protobuf`). The `obom` release binary bundles the matching platform plugin package, pruned to runtime OS inventory helpers, plus the same protobuf export support. These aliases therefore support `--export-proto --proto-bin-file <file>` without requiring a separate npm install.
 
 `cdx-audit` is designed to accelerate upstream dependency review with explainable, evidence-backed risk prioritization. It complements provenance, reproducibility, and manual investigation rather than replacing them.
 

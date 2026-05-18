@@ -130,6 +130,10 @@ for (const configPattern of configPaths) {
 }
 
 const _yargs = yargs(hideBin(process.argv));
+const invokedCommandName = basename(process.argv[1] || "cdxgen").replace(
+  /\.(?:[cm]?js|exe)$/u,
+  "",
+);
 
 const args = _yargs
   .env("CDXGEN")
@@ -587,7 +591,7 @@ const args = _yargs
   ])
   .epilogue("for documentation, visit https://cdxgen.github.io/cdxgen")
   .config(config)
-  .scriptName("cdxgen")
+  .scriptName(invokedCommandName || "cdxgen")
   .version(retrieveCdxgenVersion())
   .alias("v", "version")
   .help(false)
@@ -667,13 +671,13 @@ if (
   }
 }
 // Support for obom/cbom aliases
-if (process.argv[1].includes("obom") && !args.type) {
-  args.type = "os";
+if (invokedCommandName.includes("obom") && !args.type) {
+  args.type = ["os"];
   thoughtLog(
     "Ok, the user wants to generate an Operations Bill-of-Materials (OBOM).",
   );
 }
-if (process.argv[1].includes("spdxgen") && !args.format) {
+if (invokedCommandName.includes("spdxgen") && !args.format) {
   args.format = "spdx";
   thoughtLog("Ok, defaulting the export format to SPDX.");
 }
@@ -733,13 +737,13 @@ if (!options.projectType) {
   );
 }
 // Handle dedicated cbom and saasbom commands
-if (["cbom", "saasbom"].includes(process.argv[1])) {
-  if (process.argv[1].includes("cbom")) {
+if (["cbom", "saasbom"].includes(invokedCommandName)) {
+  if (invokedCommandName.includes("cbom")) {
     thoughtLog(
       "Ok, the user wants to generate Cryptographic Bill-of-Materials (CBOM).",
     );
     options.includeCrypto = true;
-  } else if (process.argv[1].includes("saasbom")) {
+  } else if (invokedCommandName.includes("saasbom")) {
     thoughtLog(
       "Ok, the user wants to generate a Software as a Service Bill-of-Materials (SaaSBOM). I should carefully collect the services, endpoints, and data flows.",
     );
@@ -753,7 +757,7 @@ if (["cbom", "saasbom"].includes(process.argv[1])) {
   options.specVersion = 1.7;
   options.deep = true;
 }
-if (process.argv[1].includes("cdxgen-secure")) {
+if (invokedCommandName.includes("cdxgen-secure")) {
   thoughtLog(
     "Ok, the user wants cdxgen to run in secure mode by default. Let's try and use the permissions api.",
   );
@@ -1842,7 +1846,7 @@ const writeCycloneDxOutput = (jsonFile, bomJson, options) => {
       });
     } else {
       const protobomModule = await importProtobomModule(
-        "cdxgen",
+        invokedCommandName || "cdxgen",
         "protobuf export",
       );
       protobomModule.writeBinary(bomNSData.bomJson, options.protoBinFile);

@@ -8,6 +8,9 @@ FAT_MAX_BYTES="${STANDALONE_FAT_MAX_BYTES:-251658240}"
 DEFAULT_TARGETS=(
   cdxgen
   cdxgen-slim
+  cbom
+  obom
+  saasbom
   cdx-audit
   cdx-verify
   cdx-sign
@@ -193,6 +196,18 @@ copy_runtime_sources() {
   find "$staging_dir/lib" -name "*.poku.js" -type f -delete
 }
 
+create_cdxgen_alias_entry_point() {
+  local staging_dir="$1"
+  local command_name="$2"
+  local wrapper_file="$staging_dir/bin/${command_name}.js"
+
+  cat > "$wrapper_file" <<'NODE'
+#!/usr/bin/env node
+process.argv[1] = new URL(import.meta.url).pathname;
+await import("./cdxgen.js");
+NODE
+}
+
 install_profile_dependencies() {
   local staging_dir="$1"
   local profile="$2"
@@ -226,6 +241,21 @@ install_profile_dependencies() {
         ;;
       hbom-slim)
         selected_optional_packages=(@cdxgen/cdx-hbom)
+        ;;
+      atom-analysis)
+        selected_optional_packages=(
+          @appthreat/atom
+          @appthreat/atom-parsetools
+          @appthreat/cdx-proto
+          @bufbuild/protobuf
+        )
+        ;;
+      os-runtime)
+        selected_optional_packages=(
+          @appthreat/cdx-proto
+          @bufbuild/protobuf
+          "$(resolve_platform_plugin_package_name)"
+        )
         ;;
       no-optional|json-signature)
         ;;
@@ -394,6 +424,32 @@ apply_profile_pruning_and_preflight() {
       assert_package_absent "$staging_dir" @appthreat/cdx-proto
       assert_package_absent "$staging_dir" jsonata
       ;;
+    atom-analysis)
+      assert_package_present "$staging_dir" @appthreat/atom
+      assert_package_present "$staging_dir" @appthreat/atom-parsetools
+      assert_package_present "$staging_dir" @appthreat/cdx-proto
+      assert_package_present "$staging_dir" @bufbuild/protobuf
+      remove_platform_plugins "$staging_dir"
+      assert_package_absent "$staging_dir" @cdxgen/cdx-hbom
+      assert_package_absent "$staging_dir" jsonata
+      ;;
+    os-runtime)
+      platform_plugin_package="$(resolve_platform_plugin_package_name)"
+      assert_package_present "$staging_dir" "$platform_plugin_package"
+      target_os="$(normalized_target_os)"
+      if [[ "$target_os" == "darwin" || "$target_os" == "windows" ]]; then
+        prune_plugins_to_allowlist "$staging_dir" osquery trustinspector
+        verify_plugin_allowlist "$staging_dir" osquery trustinspector
+      else
+        prune_plugins_to_allowlist "$staging_dir" osquery
+        verify_plugin_allowlist "$staging_dir" osquery
+      fi
+      assert_package_absent "$staging_dir" @appthreat/atom
+      assert_package_present "$staging_dir" @appthreat/cdx-proto
+      assert_package_present "$staging_dir" @bufbuild/protobuf
+      assert_package_absent "$staging_dir" @cdxgen/cdx-hbom
+      assert_package_absent "$staging_dir" jsonata
+      ;;
     no-optional|json-signature)
       remove_platform_plugins "$staging_dir"
       assert_package_absent "$staging_dir" @appthreat/atom
@@ -411,6 +467,7 @@ apply_profile_pruning_and_preflight() {
 target_entry_point() {
   case "$1" in
     cdxgen|cdxgen-slim) echo "bin/cdxgen.js" ;;
+    cbom|obom|saasbom) echo "bin/$1.js" ;;
     cdx-audit) echo "bin/audit.js" ;;
     cdx-verify) echo "bin/verify.js" ;;
     cdx-sign) echo "bin/sign.js" ;;
@@ -425,6 +482,8 @@ target_profile() {
   case "$1" in
     cdxgen) echo "cdxgen-full" ;;
     cdxgen-slim) echo "no-optional" ;;
+    cbom|saasbom) echo "atom-analysis" ;;
+    obom) echo "os-runtime" ;;
     cdx-audit) echo "audit" ;;
     cdx-verify|cdx-sign) echo "json-signature" ;;
     cdx-validate|cdx-convert) echo "proto-reader" ;;
@@ -455,6 +514,9 @@ build_target() {
 
   echo "Building $target with standalone profile $profile"
   copy_runtime_sources "$staging_dir"
+  if [[ "$target" == "cbom" || "$target" == "obom" || "$target" == "saasbom" ]]; then
+    create_cdxgen_alias_entry_point "$staging_dir" "$target"
+  fi
   install_profile_dependencies "$staging_dir" "$profile"
   apply_profile_pruning_and_preflight "$staging_dir" "$profile"
   run_binary_build "$staging_dir" "$target" ".$target-metadata.json" "$entry_point"
@@ -462,8 +524,9 @@ build_target() {
 }
 
 rm -f \
-  cdxgen cdxgen-slim cdx-audit cdx-verify cdx-sign cdx-validate cdx-convert hbom hbom-slim \
+  cdxgen cdxgen-slim cbom obom saasbom cdx-audit cdx-verify cdx-sign cdx-validate cdx-convert hbom hbom-slim \
   .cdxgen-postbuild.cdx.json .cdxgen-slim-postbuild.cdx.json \
+  .cbom-postbuild.cdx.json .obom-postbuild.cdx.json .saasbom-postbuild.cdx.json \
   .cdx-audit-postbuild.cdx.json .cdx-verify-postbuild.cdx.json \
   .cdx-sign-postbuild.cdx.json .cdx-validate-postbuild.cdx.json \
   .cdx-convert-postbuild.cdx.json .hbom-postbuild.cdx.json \
