@@ -230,6 +230,36 @@ jobs:
           mv .cdx-convert-postbuild.cdx.json cdx-convert-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}-postbuild.cdx.json
           mv .hbom-postbuild.cdx.json hbom-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}-postbuild.cdx.json
           mv .hbom-slim-postbuild.cdx.json hbom-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}-slim-postbuild.cdx.json
+      - name: Enforce binary size thresholds
+        shell: bash
+        env:
+          FAT_MAX_BYTES: 251658240 # 240 MiB
+          SLIM_MAX_BYTES: 104857600 # 100 MiB
+        run: |
+          set -euo pipefail
+          artifacts=(
+            "cdxgen-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }}"
+            "cdxgen-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}-slim${{ matrix.ext }}"
+            "cdx-audit-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }}"
+            "cdx-verify-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }}"
+            "cdx-sign-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }}"
+            "cdx-validate-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }}"
+            "cdx-convert-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }}"
+            "hbom-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }}"
+            "hbom-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}-slim${{ matrix.ext }}"
+          )
+          for artifact in "${artifacts[@]}"; do
+            size_bytes="$(wc -c < "$artifact" | tr -d '[:space:]')"
+            max_bytes="$FAT_MAX_BYTES"
+            if [[ "$artifact" == *-slim${{ matrix.ext }} ]]; then
+              max_bytes="$SLIM_MAX_BYTES"
+            fi
+            if (( size_bytes > max_bytes )); then
+              echo "Binary size threshold exceeded: $artifact is ${size_bytes} bytes; limit is ${max_bytes} bytes." >&2
+              exit 1
+            fi
+            echo "Binary size OK: $artifact is ${size_bytes} bytes (limit ${max_bytes})."
+          done
       - name: Generate checksums for darwin
         if: ${{ matrix.os == 'darwin' }}
         run: |

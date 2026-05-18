@@ -30,6 +30,9 @@ $commonSbomArgs = @(
 
 $caxaPackage = if ($env:CAXA_PACKAGE) { $env:CAXA_PACKAGE } else { "@appthreat/caxa@^3.0.1" }
 $stagingDirs = [System.Collections.Generic.List[string]]::new()
+$sharedPnpmStore = if ($env:STANDALONE_PNPM_STORE) { $env:STANDALONE_PNPM_STORE } else { Join-Path ([System.IO.Path]::GetTempPath()) "cdxgen-standalone-pnpm-store-$PID" }
+$slimMaxBytes = if ($env:STANDALONE_SLIM_MAX_BYTES) { [int64]$env:STANDALONE_SLIM_MAX_BYTES } else { 104857600 }
+$fatMaxBytes = if ($env:STANDALONE_FAT_MAX_BYTES) { [int64]$env:STANDALONE_FAT_MAX_BYTES } else { 251658240 }
 
 function Remove-StagingDirs {
   foreach ($stagingDir in $stagingDirs) {
@@ -37,6 +40,24 @@ function Remove-StagingDirs {
       Remove-Item -Path $stagingDir -Force -Recurse -ErrorAction SilentlyContinue
     }
   }
+  if (-not $env:STANDALONE_PNPM_STORE -and $sharedPnpmStore -and (Test-Path $sharedPnpmStore)) {
+    Remove-Item -Path $sharedPnpmStore -Force -Recurse -ErrorAction SilentlyContinue
+  }
+}
+
+function Assert-BinarySizeLimit {
+  param(
+    [Parameter(Mandatory = $true)]
+    [string]$Output
+  )
+
+  $maxBytes = if ($Output.EndsWith("-slim")) { $slimMaxBytes } else { $fatMaxBytes }
+  $outputFile = "$Output.exe"
+  $sizeBytes = (Get-Item -Path $outputFile).Length
+  if ($sizeBytes -gt $maxBytes) {
+    throw "Standalone binary size check failed: $outputFile is $sizeBytes bytes, limit is $maxBytes bytes."
+  }
+  Write-Host "Standalone binary size check passed: $outputFile is $sizeBytes bytes (limit $maxBytes)."
 }
 
 function Invoke-BinaryBuildFromStage {
@@ -55,6 +76,7 @@ function Invoke-BinaryBuildFromStage {
   node (Join-Path $StagingDir "bin/cdxgen.js") @commonSbomArgs -o ".${Output}-postbuild.cdx.json"
   & ".\$Output.exe" --version
   & ".\$Output.exe" --help
+  Assert-BinarySizeLimit -Output $Output
 }
 
 function Promote-OptionalDependencies {
@@ -145,7 +167,7 @@ function Install-ProfileDependencies {
     "--config.node-linker=hoisted",
     "--package-import-method", "copy",
     "--prod",
-    "--store-dir", (Join-Path $StagingDir ".pnpm-store")
+    "--store-dir", $sharedPnpmStore
   )
 
   if ($Profile -eq "cdxgen-full") {
@@ -166,7 +188,6 @@ function Install-ProfileDependencies {
       pnpm @installArgs --no-optional --frozen-lockfile
     }
   }
-  Remove-Item -Path (Join-Path $StagingDir ".pnpm-store") -Force -Recurse -ErrorAction SilentlyContinue
 }
 
 function Get-ModulePathForPackage {

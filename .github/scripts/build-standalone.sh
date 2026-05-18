@@ -2,6 +2,9 @@
 set -euo pipefail
 
 STAGING_DIRS=()
+SHARED_PNPM_STORE="${STANDALONE_PNPM_STORE:-$(mktemp -d)}"
+SLIM_MAX_BYTES="${STANDALONE_SLIM_MAX_BYTES:-104857600}"
+FAT_MAX_BYTES="${STANDALONE_FAT_MAX_BYTES:-251658240}"
 DEFAULT_TARGETS=(
   cdxgen
   cdxgen-slim
@@ -32,12 +35,41 @@ cleanup_staging_dirs() {
       rm -rf "$staging_dir"
     fi
   done
+  if [[ -z "${STANDALONE_PNPM_STORE:-}" && -n "$SHARED_PNPM_STORE" && -d "$SHARED_PNPM_STORE" ]]; then
+    rm -rf "$SHARED_PNPM_STORE"
+  fi
 }
 
 trap cleanup_staging_dirs EXIT
 
 run_caxa() {
   pnpm --package="$CAXA_PACKAGE" dlx caxa "$@"
+}
+
+file_size_bytes() {
+  local file_path="$1"
+
+  if stat -f %z "$file_path" >/dev/null 2>&1; then
+    stat -f %z "$file_path"
+  else
+    stat -c %s "$file_path"
+  fi
+}
+
+assert_binary_size_limit() {
+  local output="$1"
+  local max_bytes="$FAT_MAX_BYTES"
+  local size_bytes
+
+  if [[ "$output" == *-slim ]]; then
+    max_bytes="$SLIM_MAX_BYTES"
+  fi
+  size_bytes="$(file_size_bytes "$output")"
+  if (( size_bytes > max_bytes )); then
+    echo "Standalone binary size check failed: $output is ${size_bytes} bytes, limit is ${max_bytes} bytes." >&2
+    exit 1
+  fi
+  echo "Standalone binary size check passed: $output is ${size_bytes} bytes (limit ${max_bytes})."
 }
 
 run_binary_build() {
@@ -62,6 +94,7 @@ run_binary_build() {
   chmod +x "$output"
   "./$output" --version
   "./$output" --help
+  assert_binary_size_limit "$output"
 }
 
 promote_optional_dependencies() {
@@ -170,7 +203,7 @@ install_profile_dependencies() {
     --config.node-linker=hoisted
     --package-import-method copy
     --prod
-    --store-dir "$staging_dir/.pnpm-store"
+    --store-dir "$SHARED_PNPM_STORE"
   )
 
   if [[ "$profile" == "cdxgen-full" ]]; then
@@ -208,7 +241,6 @@ install_profile_dependencies() {
       pnpm --dir "$staging_dir" "${install_args[@]}" --no-optional --frozen-lockfile
     fi
   fi
-  rm -rf "$staging_dir/.pnpm-store"
 }
 
 module_path_for_package() {
