@@ -1850,6 +1850,18 @@ const writeCycloneDxOutput = (jsonFile, bomJson, options) => {
         invokedCommandName || "cdxgen",
         "protobuf export",
       );
+      try {
+        protobomModule.assertProtoSupportedSpecVersion(
+          bomNSData?.bomJson?.specVersion || options.specVersion,
+          "protobuf export",
+        );
+      } catch (error) {
+        console.error(error.message);
+        if (cleanup) {
+          cleanupSourceDir(srcDir);
+        }
+        process.exit(1);
+      }
       protobomModule.writeBinary(bomNSData.bomJson, options.protoBinFile);
       thoughtLog("BOM file is also available in .proto format!");
     }

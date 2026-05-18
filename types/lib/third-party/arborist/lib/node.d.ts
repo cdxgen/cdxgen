@@ -1,5 +1,6 @@
 export default Node;
 declare class Node {
+    [x: number]: () => any;
     constructor(options: any);
     queryContext: {};
     errors: any[];
@@ -87,8 +88,30 @@ declare class Node {
     resolve(name: any): any;
     inNodeModules(): any;
     toJSON(): any;
+    [_explain](edge: any, seen: any): any;
+    [_loadDeps](): void;
+    [_delistFromMeta](): void;
+    [_changePath](newPath: any): void;
+    [_refreshLocation](): void;
+    [_reloadNamedEdges](name: any, rootLoc?: any): void;
+    [_package]: any;
+    [_parent]: any;
+    [_fsParent]: any;
+    [_explanation]: any;
+    [_target]: any;
     #private;
 }
 import CaseInsensitiveMap from "./case-insensitive-map.js";
 import Inventory from "./inventory.js";
+declare const _explain: unique symbol;
+declare const _loadDeps: unique symbol;
+declare const _delistFromMeta: unique symbol;
+declare const _changePath: unique symbol;
+declare const _refreshLocation: unique symbol;
+declare const _reloadNamedEdges: unique symbol;
+declare const _package: unique symbol;
+declare const _parent: unique symbol;
+declare const _fsParent: unique symbol;
+declare const _explanation: unique symbol;
+declare const _target: unique symbol;
 //# sourceMappingURL=node.d.ts.map
