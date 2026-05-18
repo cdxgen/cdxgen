@@ -17,9 +17,9 @@ The package ships multiple CLI entry points. Use this table as the top-level nav
 | `cdx-sign`     | Sign a CycloneDX BOM                                                                  | yes                       | [CDX_SIGN.md](CDX_SIGN.md)         |
 | `cdx-validate` | Validate structure, compliance, and signatures                                        | yes                       | [CDX_VALIDATE.md](CDX_VALIDATE.md) |
 | `cdx-verify`   | Verify BOM signatures                                                                 | yes                       | [CDX_VERIFY.md](CDX_VERIFY.md)     |
-| `cbom`         | Generate CBOM-oriented inventories with crypto and evidence defaults                   | yes                       | [CLI Usage](CLI.md)                |
-| `obom`         | Generate live OS/runtime inventories; equivalent default type is `os`                  | yes                       | [OBOM_LESSONS.md](OBOM_LESSONS.md) |
-| `saasbom`      | Generate SaaSBOM-oriented inventories with service-evidence defaults                   | yes                       | [CLI Usage](CLI.md)                |
+| `cbom`         | Generate CBOM-oriented inventories with crypto and evidence defaults                  | yes                       | [CLI Usage](CLI.md)                |
+| `obom`         | Generate live OS/runtime inventories; equivalent default type is `os`                 | yes                       | [OBOM_LESSONS.md](OBOM_LESSONS.md) |
+| `saasbom`      | Generate SaaSBOM-oriented inventories with service-evidence defaults                  | yes                       | [CLI Usage](CLI.md)                |
 | `evinse`       | Add evidence, call stacks, reachability, and service data                             | no                        | [EVINSE.md](EVINSE.md)             |
 | `cdxi`         | Explore BOMs interactively in the REPL                                                | no                        | [REPL.md](REPL.md)                 |
 
