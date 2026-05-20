@@ -243,7 +243,7 @@ Environment variables override values from the configuration files.
 
 ## Evinse Mode / SaaSBOM
 
-Evinse (Evinse Verification Is Nearly SBOM Evidence) generates component evidence and SaaSBOM data for supported languages. The tool is powered by [atom](https://github.com/AppThreat/atom). cdxgen also supports `--evidence` during BOM generation. This section focuses on direct `evinse` usage for advanced workflows. See [`EVINSE.md`](EVINSE.md) for the dedicated command guide.
+Evinse (Evinse Verification Is Nearly SBOM Evidence) generates component evidence and SaaSBOM data for supported languages. The tool is powered by [atom](https://github.com/AppThreat/atom) for Java, JavaScript, TypeScript, Python, and C/C++ flows, and by [dosai](https://github.com/owasp-dep-scan/dosai) for .NET flows. cdxgen also supports `--evidence` during BOM generation. This section focuses on direct `evinse` usage for advanced workflows. See [`EVINSE.md`](EVINSE.md) for the dedicated command guide.
 
 <img src="_media/occurrence-evidence.png" alt="occurrence evidence" width="256">
 
@@ -344,6 +344,15 @@ evinse -i bom.json -o bom.evinse.json --usages-slices-file usages.json --data-fl
 ```
 
 #### Other languages
+
+For .NET projects, generate the input BOM in deep mode so dosai can add source-backed occurrence evidence and API endpoint services. Use `--profile research` when you also want dosai data-flow call stacks and crypto analysis.
+
+```shell
+cdxgen -t dotnet --deep --evidence -o bom.json <path to the application>
+evinse -i bom.json -o bom.evinse.json -l dotnet --profile research <path to the application>
+```
+
+dosai-derived services are sanitized before being written to the BOM. cdxgen strips URL credentials, query strings, and fragments, and emits authorization policy and role counts rather than raw policy or role values.
 
 For JavaScript or TypeScript projects, pass `-l javascript`.
 
@@ -644,6 +653,13 @@ cbom -t java
 ```shell
 cbom -t python
 # cdxgen -t python --include-crypto --evidence --deep --spec-version 1.7 .
+```
+
+For .NET projects, cdxgen invokes dosai crypto analysis when `--include-crypto` or the `research` profile is enabled. dosai-discovered algorithms are emitted as CycloneDX `cryptographic-asset` components only when they can be mapped to a known OID, and cryptographic assets are intentionally emitted without package URLs.
+
+```shell
+cbom -t dotnet
+# cdxgen -t dotnet --include-crypto --evidence --deep --spec-version 1.7 .
 ```
 
 Using the `cbom` alias sets the following options:

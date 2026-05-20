@@ -33,23 +33,24 @@ evinse -i bom.json -o bom.evinse.json -l java --with-data-flow .
 
 ## CLI reference
 
-| Flag                        | Default                  | Description                                |
-| --------------------------- | ------------------------ | ------------------------------------------ |
-| `-i, --input`               | `bom.json`               | Input CycloneDX BOM                        |
-| `-o, --output`              | `bom.evinse.json`        | Output enriched BOM                        |
-| `-l, --language`            | `java`                   | Source language                            |
-| `--force`                   | off                      | Rebuild the evidence database              |
-| `--skip-maven-collector`    | off                      | Skip Maven and Gradle cache collection     |
-| `--with-deep-jar-collector` | off                      | Collect more jars for better Java recall   |
-| `--annotate`                | off                      | Include atom slice contents as annotations |
-| `--with-data-flow`          | off                      | Enable inter-procedural data-flow slicing  |
-| `--with-reachables`         | off                      | Enable reachability-based slicing          |
-| `--usages-slices-file`      | `usages.slices.json`     | Reuse an existing usages slice file        |
-| `--data-flow-slices-file`   | `data-flow.slices.json`  | Reuse an existing data-flow slice file     |
-| `--reachables-slices-file`  | `reachables.slices.json` | Reuse an existing reachables slice file    |
-| `--semantics-slices-file`   | `semantics.slices.json`  | Reuse an existing semantics slice file     |
-| `--openapi-spec-file`       | `openapi.json`           | Reuse an existing OpenAPI spec file        |
-| `-p, --print`               | off                      | Print evidence tables after generation     |
+| Flag                        | Default                  | Description                                                                    |
+| --------------------------- | ------------------------ | ------------------------------------------------------------------------------ |
+| `-i, --input`               | `bom.json`               | Input CycloneDX BOM                                                            |
+| `-o, --output`              | `bom.evinse.json`        | Output enriched BOM                                                            |
+| `-l, --language`            | `java`                   | Source language                                                                |
+| `--force`                   | off                      | Rebuild the evidence database                                                  |
+| `--skip-maven-collector`    | off                      | Skip Maven and Gradle cache collection                                         |
+| `--with-deep-jar-collector` | off                      | Collect more jars for better Java recall                                       |
+| `--annotate`                | off                      | Include atom slice contents as annotations                                     |
+| `--with-data-flow`          | off                      | Enable inter-procedural data-flow slicing                                      |
+| `--with-reachables`         | off                      | Enable reachability-based slicing                                              |
+| `--profile`                 | `generic`                | Use `research` to enable dosai data-flow and crypto analysis for .NET projects |
+| `--usages-slices-file`      | `usages.slices.json`     | Reuse an existing usages slice file                                            |
+| `--data-flow-slices-file`   | `data-flow.slices.json`  | Reuse an existing data-flow slice file                                         |
+| `--reachables-slices-file`  | `reachables.slices.json` | Reuse an existing reachables slice file                                        |
+| `--semantics-slices-file`   | `semantics.slices.json`  | Reuse an existing semantics slice file                                         |
+| `--openapi-spec-file`       | `openapi.json`           | Reuse an existing OpenAPI spec file                                            |
+| `-p, --print`               | off                      | Print evidence tables after generation                                         |
 
 ## Supported languages
 
@@ -59,6 +60,7 @@ evinse -i bom.json -o bom.evinse.json -l java --with-data-flow .
 - `js`, `ts`, `javascript`, `nodejs`
 - `py`, `python`
 - `c`, `cpp`
+- `csharp`, `cs`, `dotnet`, `vb`, `fsharp`
 - `php`, `ruby`, `swift`, `ios`
 
 ## Evidence modes
@@ -74,6 +76,22 @@ Use `--with-reachables` when you need entry-point-to-sink style reachability sig
 ### Data-flow evidence
 
 Use `--with-data-flow` when you need deeper call-stack evidence and are willing to spend more time and compute.
+
+### .NET evidence powered by dosai
+
+For .NET projects, `evinse` uses the bundled `dosai` helper from `@cdxgen/cdxgen-plugins-bin` when available:
+
+- `dosai methods` adds occurrence evidence from package reachability and method-call slices.
+- `dosai ApiEndpoints` are converted into CycloneDX `services` for SaaSBOM views.
+- `dosai dataflows` adds call-stack evidence when `--with-data-flow` is used.
+- `--profile research` enables both data-flow and crypto analysis for .NET projects.
+
+```shell
+cdxgen -t dotnet --deep --evidence -o bom.json .
+evinse -i bom.json -o bom.evinse.json -l dotnet --profile research .
+```
+
+Service endpoints are sanitized before being written to the BOM: URL credentials, query strings, and fragments are removed, and raw authorization policy or role names are summarized as counts rather than copied into properties.
 
 ## Practical guidance
 

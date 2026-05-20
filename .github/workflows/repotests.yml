@@ -1014,6 +1014,83 @@ jobs:
           bin/cdxgen.js -r -t dotnet repotests/dotnet-paket -o bomresults/bom-dotnet-paket.json --deep
           FETCH_LICENSE=true bin/cdxgen.js -r -t dotnet repotests/dotnet-paket -o bomresults/bom-dotnet-paket-2.json --fail-on-error
           bin/cdxgen.js -r -t dotnet repotests/dotnet-podcasts -o bomresults/bom-dotnet-podcasts.json --profile research --spec-version 1.6 --export-proto
+          node --input-type=module <<'EOF'
+          import { readFileSync } from "node:fs";
+
+          import { validateBom } from "./lib/validator/bomValidator.js";
+
+          const bomFile = "bomresults/bom-dotnet-podcasts.json";
+          const bom = JSON.parse(readFileSync(bomFile, "utf-8"));
+          const dosaiTool = bom.metadata?.tools?.components?.some(
+            (component) => component.name === "dosai",
+          );
+          const services = bom.services || [];
+          const components = bom.components || [];
+          const occurrenceComponents = components.filter(
+            (component) => (component.evidence?.occurrences || []).length > 0,
+          );
+          const dllOccurrences = occurrenceComponents.flatMap((component) =>
+            (component.evidence?.occurrences || []).filter((occurrence) =>
+              String(occurrence.location || "").toLowerCase().endsWith(".dll"),
+            ),
+          );
+          const cryptoAssets = components.filter(
+            (component) => component.type === "cryptographic-asset",
+          );
+          const duplicateServices =
+            services.length -
+            new Set(services.map((service) => JSON.stringify(service))).size;
+          const serviceLeaks = JSON.stringify(services).match(
+            /sig=|access_token|client_secret|InternalPolicyName/i,
+          );
+          const schemaValid = validateBom(bom);
+
+          if (!schemaValid) {
+            throw new Error("dotnet-podcasts BOM is not schema-valid");
+          }
+          if (!dosaiTool) {
+            throw new Error("Expected dosai tool metadata in deep .NET BOM");
+          }
+          if (services.length < 1) {
+            throw new Error(
+              "Expected dosai ApiEndpoints to produce SaaSBOM services",
+            );
+          }
+          if (duplicateServices !== 0) {
+            throw new Error(
+              `Expected unique services, found ${duplicateServices} duplicates`,
+            );
+          }
+          if (serviceLeaks) {
+            throw new Error(
+              `Service metadata appears to leak sensitive endpoint/auth data: ${serviceLeaks[0]}`,
+            );
+          }
+          if (occurrenceComponents.length < 1) {
+            throw new Error("Expected dosai PackageReachability occurrence evidence");
+          }
+          if (dllOccurrences.length) {
+            throw new Error(
+              `Expected source-only occurrence evidence, found ${dllOccurrences.length} DLL locations`,
+            );
+          }
+          if (cryptoAssets.length < 1) {
+            throw new Error(
+              "Expected dosai crypto analysis to produce CBOM components under research profile",
+            );
+          }
+          if (!cryptoAssets.every((component) => !component.purl)) {
+            throw new Error("Cryptographic assets must not have purls");
+          }
+          console.log(
+            JSON.stringify({
+              dosaiTool,
+              services: services.length,
+              occurrenceComponents: occurrenceComponents.length,
+              cryptoAssets: cryptoAssets.length,
+            }),
+          );
+          EOF
           bin/cdxgen.js -r -t dotnet repotests/react-native-windows -o bomresults/bom-react-native-windows.json
         shell: bash
       - name: repotests SimpleFrameworkApp
