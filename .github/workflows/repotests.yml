@@ -1093,6 +1093,132 @@ jobs:
           EOF
           bin/cdxgen.js -r -t dotnet repotests/react-native-windows -o bomresults/bom-react-native-windows.json
         shell: bash
+      - name: repotests dotnet VB and F# dosai evidence
+        run: |
+          rm -rf repotests/dotnet-language-smoke
+          mkdir -p repotests/dotnet-language-smoke
+          dotnet new console -lang VB -o repotests/dotnet-language-smoke/vbapp
+          cd repotests/dotnet-language-smoke/vbapp
+          dotnet add package Newtonsoft.Json --version 13.0.3
+          cat > Program.vb <<'EOF'
+          Imports System
+          Imports System.Security.Cryptography
+          Imports System.Text
+          Imports Newtonsoft.Json
+
+          Module Program
+              Sub Main(args As String())
+                  Dim payload = New With {.Name = "cdxgen", .Language = "vb"}
+                  Dim json = JsonConvert.SerializeObject(payload)
+                  Dim digest = SHA256.HashData(Encoding.UTF8.GetBytes(json))
+                  Console.WriteLine($"{json}:{Convert.ToHexString(digest)}")
+              End Sub
+          End Module
+          EOF
+          dotnet restore
+          cd ../../..
+
+          dotnet new console -lang "F#" -o repotests/dotnet-language-smoke/fsapp
+          cd repotests/dotnet-language-smoke/fsapp
+          dotnet add package Newtonsoft.Json --version 13.0.3
+          cat > Program.fs <<'EOF'
+          open System
+          open System.Security.Cryptography
+          open System.Text
+          open Newtonsoft.Json
+
+          type Payload = { Name: string; Language: string }
+
+          [<EntryPoint>]
+          let main _ =
+              let payload = { Name = "cdxgen"; Language = "fsharp" }
+              let json = JsonConvert.SerializeObject(payload)
+              let digest = SHA256.HashData(Encoding.UTF8.GetBytes(json))
+              printfn "%s:%s" json (Convert.ToHexString(digest))
+              0
+          EOF
+          dotnet restore
+          cd ../../..
+
+          bin/cdxgen.js -t visualbasic repotests/dotnet-language-smoke/vbapp -o bomresults/bom-dotnet-vb-research.json --profile research --spec-version 1.6 --fail-on-error
+          node bin/evinse.js -i bomresults/bom-dotnet-vb-research.json -o bomresults/bom-dotnet-vb-research.evinse.json -l vbnet --profile research repotests/dotnet-language-smoke/vbapp
+          bin/cdxgen.js -t fs repotests/dotnet-language-smoke/fsapp -o bomresults/bom-dotnet-fs-research.json --profile research --spec-version 1.6 --fail-on-error
+          node bin/evinse.js -i bomresults/bom-dotnet-fs-research.json -o bomresults/bom-dotnet-fs-research.evinse.json -l "f#" --profile research repotests/dotnet-language-smoke/fsapp
+
+          node --input-type=module <<'EOF'
+          import { readFileSync } from "node:fs";
+
+          import { validateBom } from "./lib/validator/bomValidator.js";
+
+          for (const [language, bomFile, evinseFile] of [
+            [
+              "vb",
+              "bomresults/bom-dotnet-vb-research.json",
+              "bomresults/bom-dotnet-vb-research.evinse.json",
+            ],
+            [
+              "fsharp",
+              "bomresults/bom-dotnet-fs-research.json",
+              "bomresults/bom-dotnet-fs-research.evinse.json",
+            ],
+          ]) {
+            for (const file of [bomFile, evinseFile]) {
+              const bom = JSON.parse(readFileSync(file, "utf-8"));
+              const components = bom.components || [];
+              const occurrenceComponents = components.filter(
+                (component) =>
+                  (component.evidence?.occurrences || []).length > 0,
+              );
+              const cryptoAssets = components.filter(
+                (component) => component.type === "cryptographic-asset",
+              );
+              const dosaiTool = bom.metadata?.tools?.components?.some(
+                (component) => component.name === "dosai",
+              );
+              const newtonsoft = components.find((component) =>
+                component.purl?.startsWith("pkg:nuget/Newtonsoft.Json@"),
+              );
+              const dllOccurrences = occurrenceComponents.flatMap((component) =>
+                (component.evidence?.occurrences || []).filter((occurrence) =>
+                  String(occurrence.location || "")
+                    .toLowerCase()
+                    .endsWith(".dll"),
+                ),
+              );
+              if (!validateBom(bom)) {
+                throw new Error(`${language} ${file} is not schema-valid`);
+              }
+              if (!dosaiTool) {
+                throw new Error(`${language} ${file} missing dosai tool metadata`);
+              }
+              if (!newtonsoft) {
+                throw new Error(`${language} ${file} missing Newtonsoft.Json`);
+              }
+              if (!occurrenceComponents.length) {
+                throw new Error(`${language} ${file} missing occurrence evidence`);
+              }
+              if (!cryptoAssets.length) {
+                throw new Error(`${language} ${file} missing crypto assets`);
+              }
+              if (dllOccurrences.length) {
+                throw new Error(`${language} ${file} has DLL occurrences`);
+              }
+              if (cryptoAssets.some((component) => component.purl)) {
+                throw new Error(`${language} ${file} crypto asset has purl`);
+              }
+              console.log(
+                JSON.stringify({
+                  language,
+                  file,
+                  components: components.length,
+                  occurrenceComponents: occurrenceComponents.length,
+                  cryptoAssets: cryptoAssets.length,
+                }),
+              );
+            }
+          }
+          EOF
+        shell: bash
       - name: repotests SimpleFrameworkApp
         run: |
           bin/cdxgen.js -r -t dotnet-framework repotests/SimpleFrameworkApp -o bomresults/bom-dotnet-framework.json --bom-audit

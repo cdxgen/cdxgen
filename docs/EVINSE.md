@@ -60,7 +60,7 @@ evinse -i bom.json -o bom.evinse.json -l java --with-data-flow .
 - `js`, `ts`, `javascript`, `nodejs`
 - `py`, `python`
 - `c`, `cpp`
-- `csharp`, `cs`, `dotnet`, `vb`, `fsharp`
+- `csharp`, `cs`, `dotnet`, `vb`, `vbnet`, `visualbasic`, `f#`, `fs`, `fsharp`
 - `php`, `ruby`, `swift`, `ios`
 
 ## Evidence modes

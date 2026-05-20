@@ -62,6 +62,10 @@ const args = yargs(hideBin(process.argv))
       "ruby",
       "scala",
       "vb",
+      "vbnet",
+      "visualbasic",
+      "f#",
+      "fs",
       "fsharp",
     ],
   })
