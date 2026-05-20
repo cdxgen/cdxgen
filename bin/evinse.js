@@ -51,14 +51,25 @@ const args = yargs(hideBin(process.argv))
       "py",
       "python",
       "android",
+      "csharp",
+      "cs",
       "c",
       "cpp",
+      "dotnet",
       "php",
       "swift",
       "ios",
       "ruby",
       "scala",
+      "vb",
+      "fsharp",
     ],
+  })
+  .option("profile", {
+    description:
+      "Evidence profile. The research profile enables dosai data-flow and crypto analysis for .NET projects.",
+    default: "generic",
+    choices: ["generic", "research"],
   })
   .option("db-path", {
     description: "Atom slices DB path. Unused",
