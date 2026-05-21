@@ -114,6 +114,21 @@ export function initFromSbom(components: any, language: any): {
  * @param {Object} options Command line options
  */
 export function analyzeProject(dbObjMap: Object, options: Object): Promise<{
+    usagesSlicesFile: any;
+    dataFlowSlicesFile: any;
+    purlLocationMap: {};
+    servicesMap: {};
+    dataFlowFrames: {};
+    tempDir: any;
+    tempDirOwned: any;
+    userDefinedTypesMap: {};
+    cryptoComponents: any[];
+    cryptoGeneratePurls: {};
+    atomFile?: undefined;
+    reachablesSlicesFile?: undefined;
+    semanticsSlicesFile?: undefined;
+    openapiSpecFile?: undefined;
+} | {
     atomFile: any;
     usagesSlicesFile: any;
     dataFlowSlicesFile: any;

@@ -1013,13 +1013,46 @@ jobs:
         run: |
           bin/cdxgen.js -r -t dotnet repotests/dotnet-paket -o bomresults/bom-dotnet-paket.json --deep
           FETCH_LICENSE=true bin/cdxgen.js -r -t dotnet repotests/dotnet-paket -o bomresults/bom-dotnet-paket-2.json --fail-on-error
-          bin/cdxgen.js -r -t dotnet repotests/dotnet-podcasts -o bomresults/bom-dotnet-podcasts.json --profile research --spec-version 1.6 --export-proto
+          bin/cdxgen.js -r -t dotnet repotests/dotnet-podcasts -o bomresults/bom-dotnet-podcasts.json --fail-on-error
+          rm -rf repotests/dotnet-api-smoke
+          dotnet new webapi --no-https -o repotests/dotnet-api-smoke
+          cd repotests/dotnet-api-smoke
+          dotnet add package Newtonsoft.Json --version 13.0.3
+          cat > Program.cs <<'EOF'
+          using System.Security.Cryptography;
+          using System.Text;
+          using Microsoft.AspNetCore.Mvc;
+          using Newtonsoft.Json;
+
+          var builder = WebApplication.CreateBuilder(args);
+          builder.Services.AddControllers();
+          var app = builder.Build();
+          app.MapControllers();
+          app.MapGet("/api/ping", () => Results.Ok(new { Message = "pong" }));
+          app.Run();
+
+          [ApiController]
+          [Route("api/[controller]")]
+          public sealed class PodcastsController : ControllerBase
+          {
+              [HttpGet("{id}")]
+              public IActionResult Get(int id)
+              {
+                  var payload = JsonConvert.SerializeObject(new { Id = id, Name = "cdxgen" });
+                  var digest = SHA256.HashData(Encoding.UTF8.GetBytes(payload));
+                  return Ok(new { payload, digest = Convert.ToHexString(digest) });
+              }
+          }
+          EOF
+          dotnet restore
+          cd ../..
+          bin/cdxgen.js -r -t dotnet repotests/dotnet-api-smoke -o bomresults/bom-dotnet-api-smoke.json --profile research --spec-version 1.6 --export-proto
           node --input-type=module <<'EOF'
           import { readFileSync } from "node:fs";
 
           import { validateBom } from "./lib/validator/bomValidator.js";
 
-          const bomFile = "bomresults/bom-dotnet-podcasts.json";
+          const bomFile = "bomresults/bom-dotnet-api-smoke.json";
           const bom = JSON.parse(readFileSync(bomFile, "utf-8"));
           const dosaiTool = bom.metadata?.tools?.components?.some(
             (component) => component.name === "dosai",
@@ -1046,7 +1079,7 @@ jobs:
           const schemaValid = validateBom(bom);
 
           if (!schemaValid) {
-            throw new Error("dotnet-podcasts BOM is not schema-valid");
+            throw new Error("dotnet-api-smoke BOM is not schema-valid");
           }
           if (!dosaiTool) {
             throw new Error("Expected dosai tool metadata in deep .NET BOM");

@@ -6,6 +6,7 @@
  */
 export function collectOSCryptoLibs(options: Object): any[];
 export function collectSourceCryptoComponents(src: any, options?: {}): Promise<any[]>;
+export function collectDosaiCryptoComponents(src: any, options?: {}): Promise<any[]>;
 /**
  * Find crypto algorithm in the given code snippet
  *
