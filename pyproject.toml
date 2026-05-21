@@ -1,12 +1,12 @@
 [project]
 name = "cdxgen"
-version = "12.4.1"
+version = "12.4.2"
 description = "Manage python dependencies for cdxgen"
 readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [
-    "atom-tools>=0.8.2",
-    "blint>=3.1.1",
+    "atom-tools>=0.8.5",
+    "blint>=3.1.2",
     "custom-json-diff>=2.1.6",
 ]
 license = "Apache-2.0"
