@@ -765,6 +765,10 @@ jobs:
         run: |
           curl -s "https://get.sdkman.io" | bash
         if: runner.os != 'Windows' && matrix.os != 'macos-15'
+      - uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: '10.0.x'
+          cache: false
       - name: setup rbenv
         run: |
           git clone https://github.com/rbenv/rbenv.git --depth=1 ~/.rbenv
