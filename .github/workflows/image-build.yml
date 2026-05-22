@@ -660,7 +660,7 @@ jobs:
           } >> "$GITHUB_OUTPUT"
       - name: Merge base image manifest
         id: merge_base
-        uses: int128/docker-manifest-create-action@fa55f72001a6c74b0f4997dca65c70d334905180  # v2.20.0
+        uses: int128/docker-manifest-create-action@b9d644eaa3312dd895ffdafb19333a7b266e6ba9  # v2.21.0
         with:
           index-annotations: ${{ steps.base_metadata.outputs.labels }}
           tags: ${{ steps.resolve_base_tags.outputs.value }}
@@ -696,7 +696,7 @@ jobs:
       - name: Merge slim base image manifest
         if: ${{ needs.prepare.outputs.slim == 'true' }}
         id: merge_slim_base
-        uses: int128/docker-manifest-create-action@fa55f72001a6c74b0f4997dca65c70d334905180  # v2.20.0
+        uses: int128/docker-manifest-create-action@b9d644eaa3312dd895ffdafb19333a7b266e6ba9  # v2.21.0
         with:
           index-annotations: ${{ steps.slim_base_metadata.outputs.labels }}
           tags: ${{ steps.resolve_slim_base_tags.outputs.value }}
@@ -742,7 +742,7 @@ jobs:
       - name: Merge cdxgen image manifest - master branch
         if: ${{ startsWith(github.ref, 'refs/heads/') }}
         id: merge_cdxgen_master
-        uses: int128/docker-manifest-create-action@fa55f72001a6c74b0f4997dca65c70d334905180  # v2.20.0
+        uses: int128/docker-manifest-create-action@b9d644eaa3312dd895ffdafb19333a7b266e6ba9  # v2.21.0
         with:
           index-annotations: ${{ steps.cdxgen_master_metadata.outputs.labels }}
           tags: ${{ steps.resolve_cdxgen_master_tags.outputs.value }}
@@ -780,7 +780,7 @@ jobs:
       - name: Merge cdxgen image manifest - release tags
         if: ${{ startsWith(github.ref, 'refs/tags/') }}
         id: merge_cdxgen_tag
-        uses: int128/docker-manifest-create-action@fa55f72001a6c74b0f4997dca65c70d334905180  # v2.20.0
+        uses: int128/docker-manifest-create-action@b9d644eaa3312dd895ffdafb19333a7b266e6ba9  # v2.21.0
         with:
           index-annotations: ${{ steps.cdxgen_tag_metadata.outputs.labels }}
           tags: ${{ steps.resolve_cdxgen_tag_tags.outputs.value }}
@@ -826,7 +826,7 @@ jobs:
       - name: Merge slim cdxgen image manifest - master branch
         if: ${{ needs.prepare.outputs.slim == 'true' && startsWith(github.ref, 'refs/heads/') }}
         id: merge_slim_cdxgen_master
-        uses: int128/docker-manifest-create-action@fa55f72001a6c74b0f4997dca65c70d334905180  # v2.20.0
+        uses: int128/docker-manifest-create-action@b9d644eaa3312dd895ffdafb19333a7b266e6ba9  # v2.21.0
         with:
           index-annotations: ${{ steps.slim_cdxgen_master_metadata.outputs.labels }}
           tags: ${{ steps.resolve_slim_cdxgen_master_tags.outputs.value }}
@@ -864,7 +864,7 @@ jobs:
       - name: Merge slim cdxgen image manifest - release tags
         if: ${{ needs.prepare.outputs.slim == 'true' && startsWith(github.ref, 'refs/tags/') }}
         id: merge_slim_cdxgen_tag
-        uses: int128/docker-manifest-create-action@fa55f72001a6c74b0f4997dca65c70d334905180  # v2.20.0
+        uses: int128/docker-manifest-create-action@b9d644eaa3312dd895ffdafb19333a7b266e6ba9  # v2.21.0
         with:
           index-annotations: ${{ steps.slim_cdxgen_tag_metadata.outputs.labels }}
           tags: ${{ steps.resolve_slim_cdxgen_tag_tags.outputs.value }}
