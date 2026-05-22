@@ -769,6 +769,7 @@ jobs:
         with:
           dotnet-version: '10.0.x'
           cache: false
+        if: matrix.os != 'self-hosted-ubuntu'
       - name: setup rbenv
         run: |
           git clone https://github.com/rbenv/rbenv.git --depth=1 ~/.rbenv
