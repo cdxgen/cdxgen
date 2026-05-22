@@ -68,6 +68,7 @@ Trust boundary 5: cdxgen container ←→ container host
 
 - `safeSpawnSync` uses array-based arguments (not shell strings) via `spawnSync`, preventing shell metacharacter injection
 - `safeSpawnSync` blocks `shell: true` invocations when the command or direct argument values contain shell metacharacters
+- Dry-run/debug activity summaries flag discovered direct paths containing shell metacharacters so operators can review suspicious repository-controlled names before invoking external build tools
 - Command allowlisting via `CDXGEN_ALLOWED_COMMANDS` — only explicitly permitted commands can execute
 - In secure mode, automatic package installations are disabled, reducing the set of commands invoked
 - `commandsExecuted` tracks all invoked commands for post-run audit
