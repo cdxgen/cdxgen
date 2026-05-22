@@ -67,11 +67,14 @@ Trust boundary 5: cdxgen container ←→ container host
 **Mitigations:**
 
 - `safeSpawnSync` uses array-based arguments (not shell strings) via `spawnSync`, preventing shell metacharacter injection
+- `safeSpawnSync` blocks `shell: true` invocations when the command or direct argument values contain shell metacharacters
 - Command allowlisting via `CDXGEN_ALLOWED_COMMANDS` — only explicitly permitted commands can execute
 - In secure mode, automatic package installations are disabled, reducing the set of commands invoked
 - `commandsExecuted` tracks all invoked commands for post-run audit
 
-**Residual risk:** Medium — cdxgen invokes many different commands with project-derived arguments. Continuous review is needed as new language support is added.
+**Scope note:** These mitigations cover commands, options, and path values that cdxgen itself passes to external processes through `safeSpawnSync`. They do not sanitize every nested project path, module name, or generated path that an external build tool later discovers and interprets inside its own process. That behavior belongs to the separate cdxgen ↔ external build tool trust boundary.
+
+**Residual risk:** Medium — cdxgen invokes many different commands with project-derived arguments, and external build tools may further interpret project-controlled files and paths after cdxgen has safely crossed its own process boundary. Continuous review is needed as new language support is added.
 
 #### T1.2 — Arbitrary code execution via build tools
 
