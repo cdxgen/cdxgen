@@ -109,6 +109,12 @@ const args = yargs(hideBin(process.argv))
       "Optional JSON array or newline-delimited file of purl prefixes to exclude from predictive audit target selection in addition to the built-in well-known allowlist.",
     type: "string",
   })
+  .option("skip-default-branch-recheck", {
+    default: false,
+    description:
+      "Skip rechecking critical/high findings against the default branch to detect issues already fixed upstream.",
+    type: "boolean",
+  })
   .check((argv) => {
     if (!argv.bom && !argv.bomDir) {
       throw new Error("Specify --bom or --bom-dir.");
@@ -187,6 +193,7 @@ function writeOrPrint(output, outputPath) {
       reportsDir: args.reportsDir,
       rulesDir: args.rulesDir,
       scope: args.scope === "required" ? "required" : undefined,
+      skipDefaultBranchRecheck: args.skipDefaultBranchRecheck,
       trusted: args.onlyTrusted
         ? "only"
         : args.includeTrusted
