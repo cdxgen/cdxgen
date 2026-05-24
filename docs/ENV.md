@@ -145,15 +145,15 @@ When `CDXGEN_PLUGINS_DIR` points at a packaged plugins directory, cdxgen also lo
 
 ### Maven
 
-| Variable                     | Description                                                                                                                                           |
-| ---------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
-| CDX_MAVEN_PLUGIN             | CycloneDX Maven plugin to use. Default "org.cyclonedx:cyclonedx-maven-plugin:2.9.1"                                                                   |
-| CDX_MAVEN_GOAL               | CycloneDX Maven plugin goal to use. Default makeAggregateBom. Other options: makeBom, makePackageBom                                                  |
-| CDX_MAVEN_INCLUDE_TEST_SCOPE | Whether test scoped dependencies should be included from Maven projects, Default: true                                                                |
-| MAVEN_HOME                   | Specify maven home                                                                                                                                    |
-| MVN_ARGS                     | Set to pass additional arguments such as profile or settings to maven                                                                                 |
-| MVN_CMD                      | Set to override maven command                                                                                                                         |
-| PREFER_MAVEN_DEPS_TREE       | Use maven `dependency:tree` command instead of the cyclonedx maven plugin. Defaults to true from v11. Set to false to use the cyclonedx-maven-plugin. |
+| Variable                     | Description                                                                                                                                                                                                                                       |
+| ---------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| CDX_MAVEN_PLUGIN             | CycloneDX Maven plugin to use. Default "org.cyclonedx:cyclonedx-maven-plugin:2.9.1"                                                                                                                                                               |
+| CDX_MAVEN_GOAL               | CycloneDX Maven plugin goal to use. Default makeAggregateBom. Other options: makeBom, makePackageBom                                                                                                                                              |
+| CDX_MAVEN_INCLUDE_TEST_SCOPE | Whether test scoped dependencies should be included from Maven projects, Default: true                                                                                                                                                            |
+| MAVEN_HOME                   | Specify maven home                                                                                                                                                                                                                                |
+| MVN_ARGS                     | Set to pass additional arguments such as profile or settings to maven. Quoted arguments and paths with spaces are supported.                                                                                                                      |
+| MVN_CMD                      | Set to override maven command                                                                                                                                                                                                                     |
+| PREFER_MAVEN_DEPS_TREE       | Use maven `dependency:tree` command instead of the cyclonedx maven plugin. Defaults to true from v11. cdxgen asks `dependency:tree` for JSON output when available and falls back to text output. Set to false to use the cyclonedx-maven-plugin. |
 
 ### Mill
 

@@ -17,6 +17,7 @@ on:
       - 'test/data/cache-disable-repotest/**'
       - 'test/data/cbom-js-repotest/**'
       - 'test/data/cargo-workspace-repotest/**'
+      - 'test/data/maven-optional-repotest/**'
       - 'test/data/mcp-repotest/**'
       - '!**.poku.js'
   workflow_dispatch:
@@ -89,6 +90,9 @@ jobs:
           jq -e 'any(.metadata.tools.components[]; .group == "@cyclonedx" and .name == "cdxgen" and (.releaseNotes.type != null) and (.releaseNotes.title != null) and (.releaseNotes.description != null) and (.releaseNotes.timestamp != null) and ((.releaseNotes.tags | length) >= 1) and (.releaseNotes.resolves | type == "array"))' bomresults/bom-java-sec-code-release-notes.json
           bin/cdxgen.js -t java https://github.com/HooliCorp/java-sec-code.git -o bomresults/bom-java-sec-code-git-url.json --git-branch master --fail-on-error --bom-audit
           bin/cdxgen.js -t js "pkg:npm/lodash@4.17.21" -o bomresults/bom-lodash-purl.json --fail-on-error
+          bin/cdxgen.js -t java test/data/maven-optional-repotest -o bomresults/bom-maven-optional-fixture.json --fail-on-error
+          jq -e 'any(.components[]; .purl == "pkg:maven/org.apache.maven/maven-artifact@3.9.9?type=jar" and .scope == "optional")' bomresults/bom-maven-optional-fixture.json
+          jq -e 'any(.dependencies[]; .ref == "pkg:maven/example/maven-optional-repotest@1.0.0?type=jar" and (.dependsOn | index("pkg:maven/org.apache.maven/maven-artifact@3.9.9?type=jar")))' bomresults/bom-maven-optional-fixture.json
           bin/validate.js -i bomresults/bom-java-sec-code-10.json --format console --fail-severity critical
         shell: bash
         env:
