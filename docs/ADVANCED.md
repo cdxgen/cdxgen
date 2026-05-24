@@ -161,6 +161,8 @@ Currently, this capability is implemented as a filter during post-processing, so
 
 Use `--component-type` to include only selected CycloneDX component types in the generated BOM. The option is repeatable and is validated against the selected `--spec-version` before scanning starts. Leaving this argument unset preserves the default behaviour.
 
+This option is a filter, not an inventory enabler. It cannot make cdxgen generate component classes that are not implemented for the selected project type. For example, passing `--component-type machine-learning-model` does not enable machine-learning model discovery; if the scan would not otherwise produce machine-learning model components, filtering to that type can result in an empty component list.
+
 Example - include only libraries and frameworks:
 
 ```shell
@@ -174,6 +176,8 @@ The accepted values depend on the CycloneDX spec version:
 - `1.6`, `1.7`, and `2.0`: all `1.5` values plus `cryptographic-asset`
 
 For example, `--spec-version 1.5 --component-type cryptographic-asset` is rejected early because CycloneDX 1.5 does not define `cryptographic-asset`. When older spec versions are requested, cdxgen also removes component types unsupported by that schema during post-processing so generated BOMs remain schema-valid.
+
+The dedicated `cbom` command does not accept `--component-type`; use `cdxgen --include-crypto` instead when you need normal SBOM generation plus component-type filtering.
 
 ## Automatic compositions
 

@@ -776,6 +776,12 @@ if (!options.projectType) {
 // Handle dedicated cbom and saasbom commands
 if (["cbom", "saasbom"].includes(invokedCommandName)) {
   if (invokedCommandName.includes("cbom")) {
+    if (normalizeCycloneDxComponentTypeFilter(options.componentType).length) {
+      console.error(
+        "The cbom command does not support --component-type. Use cdxgen with --include-crypto when you need component-type filtering.",
+      );
+      process.exit(1);
+    }
     thoughtLog(
       "Ok, the user wants to generate Cryptographic Bill-of-Materials (CBOM).",
     );

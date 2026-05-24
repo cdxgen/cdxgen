@@ -403,7 +403,7 @@ The default specification used by cdxgen is 1.7. To generate BOM for a different
 cdxgen -r -o bom.json --spec-version 1.6
 ```
 
-Use repeated `--component-type` values to include only selected CycloneDX component types. The allowed values are validated against `--spec-version`; for example, `cryptographic-asset` is rejected for CycloneDX 1.5 and unsupported component types are pruned during compatibility downgrades.
+Use repeated `--component-type` values to include only selected CycloneDX component types. This is a filter, not an inventory enabler: passing a type such as `machine-learning-model` does not enable machine-learning model discovery, and filtering to a type that the scan does not generate can produce an empty component list. The allowed values are validated against `--spec-version`; for example, `cryptographic-asset` is rejected for CycloneDX 1.5 and unsupported component types are pruned during compatibility downgrades. The dedicated `cbom` command does not accept `--component-type`; use `cdxgen --include-crypto` for normal generation plus filtering.
 
 ```shell
 cdxgen -t docker alpine:3.20 --spec-version 1.5 --component-type library --component-type data
