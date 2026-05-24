@@ -165,7 +165,7 @@ wheels = [
 
 [[package]]
 name = "cdxgen"
-version = "12.4.3"
+version = "12.4.4"
 source = { virtual = "." }
 dependencies = [
     { name = "atom-tools" },

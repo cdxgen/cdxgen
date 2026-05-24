@@ -47,8 +47,8 @@ importers:
         specifier: 3.0.1
         version: 3.0.1(ajv@8.20.0)
       bin-links:
-        specifier: 6.0.0
-        version: 6.0.0
+        specifier: 6.0.2
+        version: 6.0.2
       cheerio:
         specifier: 1.2.0
         version: 1.2.0
@@ -95,8 +95,8 @@ importers:
         specifier: 5.0.0
         version: 5.0.0
       semver:
-        specifier: 7.8.0
-        version: 7.8.0
+        specifier: 7.8.1
+        version: 7.8.1
       ssri:
         specifier: 13.0.1
         version: 13.0.1
@@ -116,8 +116,8 @@ importers:
         specifier: 1.6.11
         version: 1.6.11
       yaml:
-        specifier: 2.8.4
-        version: 2.8.4
+        specifier: 2.9.0
+        version: 2.9.0
       yargs:
         specifier: 18.0.0
         version: 18.0.0
@@ -132,8 +132,8 @@ importers:
         specifier: 2.7.5
         version: 2.7.5
       poku:
-        specifier: 4.3.0
-        version: 4.3.0
+        specifier: 4.3.1
+        version: 4.3.1
       sinon:
         specifier: 22.0.0
         version: 22.0.0
@@ -142,11 +142,11 @@ importers:
         version: 6.0.3
     optionalDependencies:
       '@appthreat/atom':
-        specifier: 2.5.2
-        version: 2.5.2
+        specifier: 2.5.3
+        version: 2.5.3
       '@appthreat/atom-parsetools':
-        specifier: 1.1.4
-        version: 1.1.4
+        specifier: 1.1.5
+        version: 1.1.5
       '@appthreat/cdx-proto':
         specifier: 2.0.1
         version: 2.0.1
@@ -199,22 +199,22 @@ importers:
         specifier: 3.7.0
         version: 3.7.0
       jsonata:
-        specifier: 2.1.0
-        version: 2.1.0
+        specifier: 2.2.1
+        version: 2.2.1
 
 packages:
 
   '@appthreat/atom-common@1.1.0':
     resolution: {integrity: sha512-vGZpJdy9e0l83o8XwDAsQUDpkMVzR4DLb7mbi5npu8Nz/R+2m5oyHlpBGuLYBKm5+KkjTInXP9eNTcMa0Mn3Uw==, tarball: https://registry.npmjs.org/@appthreat/atom-common/-/atom-common-1.1.0.tgz}
 
-  '@appthreat/atom-parsetools@1.1.4':
-    resolution: {integrity: sha512-BpIIdCH1gaWuFNWNzguyHqk/LUepgHIU6q55xtHGLbiIKpbBmgD9w2XcnTea3DqPMOs1ZyqBCSA2R7Gp2UkFKg==, tarball: https://registry.npmjs.org/@appthreat/atom-parsetools/-/atom-parsetools-1.1.4.tgz}
+  '@appthreat/atom-parsetools@1.1.5':
+    resolution: {integrity: sha512-3RNr4FKXTe8amPtQgtEfCQz6RSJB/9qDDbPzCKPGcoRAPvUv5sCero4upKc0T2NxQQEeol4SeTGOYH7rvVZ8vQ==, tarball: https://registry.npmjs.org/@appthreat/atom-parsetools/-/atom-parsetools-1.1.5.tgz}
     engines: {node: '>=16.0.0'}
     hasBin: true
 
-  '@appthreat/atom@2.5.2':
-    resolution: {integrity: sha512-VF17Jdh/SDAM3ddDChCC3jW5M09ViK51agO3d92fAJaJwcAZjzPmp5W5q61tuAfBYcBhw19LBSnazh/NxZyj9Q==, tarball: https://registry.npmjs.org/@appthreat/atom/-/atom-2.5.2.tgz}
-    engines: {node: '>=16.0.0'}
+  '@appthreat/atom@2.5.3':
+    resolution: {integrity: sha512-VMn/lMrkpoyt6SrKrWb9d3pCWR0AEk9F8d5T32UAGjo4R8SbnMzWTQu4j9sN9GtDgiO63AcsnbT+WLeVsKxf9A==, tarball: https://registry.npmjs.org/@appthreat/atom/-/atom-2.5.3.tgz}
+    engines: {node: '>=18'}
     hasBin: true
 
   '@appthreat/cdx-proto@2.0.1':
@@ -481,8 +481,8 @@ packages:
     resolution: {integrity: sha512-BLrgEcRTwX2o6gGxGOCNyMvGSp35YofuYzw9h1IMTRmKqttAZZVU67bdb9Pr2vUHA8+j3i2tJfjO6C6+4myGTA==, tarball: https://registry.npmjs.org/balanced-match/-/balanced-match-4.0.4.tgz}
     engines: {node: 18 || 20 || >=22}
 
-  bin-links@6.0.0:
-    resolution: {integrity: sha512-X4CiKlcV2GjnCMwnKAfbVWpHa++65th9TuzAEYtZoATiOE2DQKhSp4CJlyLoTqdhBKlXjpXjCTYPNNFS33Fi6w==, tarball: https://registry.npmjs.org/bin-links/-/bin-links-6.0.0.tgz}
+  bin-links@6.0.2:
+    resolution: {integrity: sha512-frE1t78WOwJ45PKV2cF2tNPjTcs9L1J9s6VkrV59wanRP4GlaomuxYPVma7BwthMg8WnfSory4w5PTE6FZZ81w==, tarball: https://registry.npmjs.org/bin-links/-/bin-links-6.0.2.tgz}
     engines: {node: ^20.17.0 || >=22.9.0}
 
   body-parser@2.2.2:
@@ -724,11 +724,11 @@ packages:
     resolution: {integrity: sha512-ej4AhfhfL2Q2zpMmLo7U1Uv9+PyhIZpgQLGT1F9miIGmiCJIoCgSmczFdrc97mWT4kVY72KA+WnnhJ5pghSvSg==, tarball: https://registry.npmjs.org/hasown/-/hasown-2.0.3.tgz}
     engines: {node: '>= 0.4'}
 
-  hermes-estree@0.34.0:
-    resolution: {integrity: sha512-6qLylexjmuKa/YYhMiNn/3VejBsdzwmYUGmNpc693/pJzymmbufhkRW/2K6GqFgu0ApRWoqF0NbM6u82jFcOXA==, tarball: https://registry.npmjs.org/hermes-estree/-/hermes-estree-0.34.0.tgz}
+  hermes-estree@0.36.1:
+    resolution: {integrity: sha512-guv1nQ6IJ7S83NRFPWc3SA7IBZrdNC9kapwOq6uXvF4wP+sDCgjzQbKPCoyYmoyZRzztF/n/c36l/rccCZSiCw==, tarball: https://registry.npmjs.org/hermes-estree/-/hermes-estree-0.36.1.tgz}
 
-  hermes-parser@0.34.0:
-    resolution: {integrity: sha512-tcgan5UNZvu3WwmR3jDAlmwEAR2CMv8cwQVMe5j0NrLQkstf0l3ULbYPuTZWbXxbPa0PyZPiq5LYEcFVmhM9LQ==, tarball: https://registry.npmjs.org/hermes-parser/-/hermes-parser-0.34.0.tgz}
+  hermes-parser@0.36.1:
+    resolution: {integrity: sha512-GApNk4zLHi2UWoWZZkx7LNCOSzLSc5lB55pZ/PhK7ycFeg7u5LcF88p/WbpIi1XUDtE0MpHE3uRR3u3KB7TjSQ==, tarball: https://registry.npmjs.org/hermes-parser/-/hermes-parser-0.36.1.tgz}
 
   hosted-git-info@9.0.3:
     resolution: {integrity: sha512-Hc+ghLoSt6QaYZUv0WBiIvmMDZuZZ7oaDvdH8MbfOO4lOsxdXLEvuC6ePoGs9H1X9oCLyq6+NVN0MKqD+ydxyg==, tarball: https://registry.npmjs.org/hosted-git-info/-/hosted-git-info-9.0.3.tgz}
@@ -785,8 +785,8 @@ packages:
   json-stringify-nice@1.1.4:
     resolution: {integrity: sha512-5Z5RFW63yxReJ7vANgW6eZFGWaQvnPE3WNmZoOJrSkGju2etKA2L5rrOa1sm877TVTFt57A80BH1bArcmlLfPw==, tarball: https://registry.npmjs.org/json-stringify-nice/-/json-stringify-nice-1.1.4.tgz}
 
-  jsonata@2.1.0:
-    resolution: {integrity: sha512-OCzaRMK8HobtX8fp37uIVmL8CY1IGc/a6gLsDqz3quExFR09/U78HUzWYr7T31UEB6+Eu0/8dkVD5fFDOl9a8w==, tarball: https://registry.npmjs.org/jsonata/-/jsonata-2.1.0.tgz}
+  jsonata@2.2.1:
+    resolution: {integrity: sha512-xd1uwUrKeIcJbsWhaoS3qAX4Ea8m0Mw0G5nlnAQvPT7TbZ5qaPdzBVTQia9KfyuyQm+nenfyjvzUDTRYHsC2sw==, tarball: https://registry.npmjs.org/jsonata/-/jsonata-2.2.1.tgz}
     engines: {node: '>= 8'}
 
   just-diff-apply@5.5.0:
@@ -802,8 +802,8 @@ packages:
     resolution: {integrity: sha512-ozCC6gdQ+glXOQsveKD0YsDy8DSQFjDTz4zyzEHNV5+JP5D62LmfDZ6o1cycFx9ouG940M5dE8C8CTewdj2YWQ==, tarball: https://registry.npmjs.org/lowercase-keys/-/lowercase-keys-3.0.0.tgz}
     engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
 
-  lru-cache@11.4.0:
-    resolution: {integrity: sha512-W+R+kFL4HgVxONq2bhXPi3bGpzGe/yEhVOp233qw9wCRtgncJ15P3bC+e4zZMu4Cq7d+WAJjXGW0uUkifhcatA==, tarball: https://registry.npmjs.org/lru-cache/-/lru-cache-11.4.0.tgz}
+  lru-cache@11.5.0:
+    resolution: {integrity: sha512-5YgH9UJd7wVb9hIouI2adWpgqrrICkt070Dnj8EUY1+B4B2P9eRLPAkAAo6NICA7CEhOIeBHl46u9zSNpNu7zA==, tarball: https://registry.npmjs.org/lru-cache/-/lru-cache-11.5.0.tgz}
     engines: {node: 20 || >=22}
 
   math-intrinsics@1.1.0:
@@ -923,8 +923,8 @@ packages:
   picocolors@1.1.1:
     resolution: {integrity: sha512-xceH2snhtb5M9liqDsmEw56le376mTZkEX/jEb/RxNFyegNul7eNslCXP9FDj/Lcu0X8KEyMceP2ntpaHrDEVA==, tarball: https://registry.npmjs.org/picocolors/-/picocolors-1.1.1.tgz}
 
-  poku@4.3.0:
-    resolution: {integrity: sha512-s6xHA93lzirvScBuW5UxUAbx4Cw6C/5MEMTe/27jTtLkDmIsWNpUH2CiMbSOKMxLGj7C3JoM2zfacu3kCrlk3Q==, tarball: https://registry.npmjs.org/poku/-/poku-4.3.0.tgz}
+  poku@4.3.1:
+    resolution: {integrity: sha512-L2+kUcc8UYydU8qA+A6637U+s8psYiPm1xsE3yQCvZKccBAgbSq8ilmYjruz5nGtDipqRS36wUwn2NLsXXdLxQ==, tarball: https://registry.npmjs.org/poku/-/poku-4.3.1.tgz}
     engines: {bun: '>=1.x.x', deno: '>=2.x.x', node: '>=16.x.x', typescript: '>=5.x.x'}
     hasBin: true
 
@@ -977,8 +977,8 @@ packages:
     resolution: {integrity: sha512-6R3J5M4AcbtLUdZmRv2SygeVaM7IhrLXu9BmnOGmmACak8fiUtOsYNWUS4uK7upbmHIBbLBeFeI//477BKLBzA==, tarball: https://registry.npmjs.org/sax/-/sax-1.6.0.tgz}
     engines: {node: '>=11.0.0'}
 
-  semver@7.8.0:
-    resolution: {integrity: sha512-AcM7dV/5ul4EekoQ29Agm5vri8JNqRyj39o0qpX6vDF2GZrtutZl5RwgD1XnZjiTAfncsJhMI48QQH3sN87YNA==, tarball: https://registry.npmjs.org/semver/-/semver-7.8.0.tgz}
+  semver@7.8.1:
+    resolution: {integrity: sha512-rkVq3IXh+4FDGch+KwzX3aV9W3kO54GyEgpvBzSyctDA6Xtd7RJQV1xmXbeQp5v7+VzLOfVqiutSE6GICgPFvg==, tarball: https://registry.npmjs.org/semver/-/semver-7.8.1.tgz}
     engines: {node: '>=10'}
     hasBin: true
 
@@ -1128,8 +1128,8 @@ packages:
     resolution: {integrity: sha512-YgvUTfwqyc7UXVMrB+SImsVYSmTS8X/tSrtdNZMImM+n7+QTriRXyXim0mBrTXNeqzVF0KWGgHPeiyViFFrNDw==, tarball: https://registry.npmjs.org/yallist/-/yallist-5.0.0.tgz}
     engines: {node: '>=18'}
 
-  yaml@2.8.4:
-    resolution: {integrity: sha512-ml/JPOj9fOQK8RNnWojA67GbZ0ApXAUlN2UQclwv2eVgTgn7O9gg9o7paZWKMp4g0H3nTLtS9LVzhkpOFIKzog==, tarball: https://registry.npmjs.org/yaml/-/yaml-2.8.4.tgz}
+  yaml@2.9.0:
+    resolution: {integrity: sha512-2AvhNX3mb8zd6Zy7INTtSpl1F15HW6Wnqj0srWlkKLcpYl/gMIMJiyuGq2KeI2YFxUPjdlB+3Lc10seMLtL4cA==, tarball: https://registry.npmjs.org/yaml/-/yaml-2.9.0.tgz}
     engines: {node: '>= 14.6'}
     hasBin: true
 
@@ -1150,16 +1150,15 @@ snapshots:
   '@appthreat/atom-common@1.1.0':
     optional: true
 
-  '@appthreat/atom-parsetools@1.1.4':
+  '@appthreat/atom-parsetools@1.1.5':
     dependencies:
       '@appthreat/atom-common': 1.1.0
       '@babel/parser': 7.29.3
-      hermes-parser: 0.34.0
+      hermes-parser: 0.36.1
       typescript: 6.0.3
-      yargs: 18.0.0
     optional: true
 
-  '@appthreat/atom@2.5.2':
+  '@appthreat/atom@2.5.3':
     dependencies:
       '@appthreat/atom-common': 1.1.0
     optional: true
@@ -1324,17 +1323,17 @@ snapshots:
 
   '@npmcli/fs@5.0.0':
     dependencies:
-      semver: 7.8.0
+      semver: 7.8.1
 
   '@npmcli/git@7.0.2':
     dependencies:
       '@gar/promise-retry': 1.0.3
       '@npmcli/promise-spawn': 9.0.1
       ini: 6.0.0
-      lru-cache: 11.4.0
+      lru-cache: 11.5.0
       npm-pick-manifest: 11.0.3
       proc-log: 6.1.0
-      semver: 7.8.0
+      semver: 7.8.1
       which: 6.0.1
 
   '@npmcli/map-workspaces@5.0.3':
@@ -1353,7 +1352,7 @@ snapshots:
       hosted-git-info: 9.0.3
       json-parse-even-better-errors: 5.0.0
       proc-log: 6.1.0
-      semver: 7.8.0
+      semver: 7.8.1
       spdx-expression-parse: 4.0.0
 
   '@npmcli/promise-spawn@9.0.1':
@@ -1396,7 +1395,7 @@ snapshots:
 
   balanced-match@4.0.4: {}
 
-  bin-links@6.0.0:
+  bin-links@6.0.2:
     dependencies:
       cmd-shim: 8.0.0
       npm-normalize-package-bin: 5.0.0
@@ -1698,17 +1697,17 @@ snapshots:
       function-bind: 1.1.2
     optional: true
 
-  hermes-estree@0.34.0:
+  hermes-estree@0.36.1:
     optional: true
 
-  hermes-parser@0.34.0:
+  hermes-parser@0.36.1:
     dependencies:
-      hermes-estree: 0.34.0
+      hermes-estree: 0.36.1
     optional: true
 
   hosted-git-info@9.0.3:
     dependencies:
-      lru-cache: 11.4.0
+      lru-cache: 11.5.0
 
   htmlparser2@10.1.0:
     dependencies:
@@ -1756,7 +1755,7 @@ snapshots:
 
   json-stringify-nice@1.1.4: {}
 
-  jsonata@2.1.0:
+  jsonata@2.2.1:
     optional: true
 
   just-diff-apply@5.5.0: {}
@@ -1769,7 +1768,7 @@ snapshots:
 
   lowercase-keys@3.0.0: {}
 
-  lru-cache@11.4.0: {}
+  lru-cache@11.5.0: {}
 
   math-intrinsics@1.1.0:
     optional: true
@@ -1813,7 +1812,7 @@ snapshots:
 
   npm-install-checks@8.0.0:
     dependencies:
-      semver: 7.8.0
+      semver: 7.8.1
 
   npm-normalize-package-bin@5.0.0: {}
 
@@ -1821,7 +1820,7 @@ snapshots:
     dependencies:
       hosted-git-info: 9.0.3
       proc-log: 6.1.0
-      semver: 7.8.0
+      semver: 7.8.1
       validate-npm-package-name: 7.0.2
 
   npm-pick-manifest@11.0.3:
@@ -1829,7 +1828,7 @@ snapshots:
       npm-install-checks: 8.0.0
       npm-normalize-package-bin: 5.0.0
       npm-package-arg: 13.0.2
-      semver: 7.8.0
+      semver: 7.8.1
 
   nth-check@2.1.1:
     dependencies:
@@ -1874,12 +1873,12 @@ snapshots:
 
   path-scurry@2.0.2:
     dependencies:
-      lru-cache: 11.4.0
+      lru-cache: 11.5.0
       minipass: 7.1.3
 
   picocolors@1.1.1: {}
 
-  poku@4.3.0: {}
+  poku@4.3.1: {}
 
   proc-log@6.1.0: {}
 
@@ -1927,7 +1926,7 @@ snapshots:
 
   sax@1.6.0: {}
 
-  semver@7.8.0: {}
+  semver@7.8.1: {}
 
   setprototypeof@1.2.0:
     optional: true
@@ -2073,7 +2072,7 @@ snapshots:
 
   yallist@5.0.0: {}
 
-  yaml@2.8.4: {}
+  yaml@2.9.0: {}
 
   yargs-parser@22.0.0: {}
 

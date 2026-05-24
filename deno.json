@@ -1,6 +1,6 @@
 {
   "name": "@cyclonedx/cdxgen",
-  "version": "12.4.3",
+  "version": "12.4.4",
   "exports": "./lib/cli/index.js",
   "compilerOptions": {
     "lib": ["deno.window"],
@@ -96,7 +96,7 @@
     "packageurl-js": "npm:packageurl-js@1.0.2",
     "prettify-xml": "npm:prettify-xml@^1.2.0",
     "properties-reader": "npm:properties-reader@^3.0.1",
-    "semver": "npm:semver@^7.8.0",
+    "semver": "npm:semver@^7.8.1",
     "ssri": "npm:ssri@^13.0.1",
     "tar": "npm:tar@^7.5.15",
     "uuid": "npm:uuid@^14.0.0",
@@ -106,7 +106,7 @@
     "body-parser": "npm:body-parser@^2.2.2",
     "compression": "npm:compression@^1.8.1",
     "connect": "npm:connect@^3.7.0",
-    "jsonata": "npm:jsonata@^2.2.0",
+    "jsonata": "npm:jsonata@^2.2.1",
     "@iarna/toml": "npm:@iarna/toml@2.2.5"
   }
 }
