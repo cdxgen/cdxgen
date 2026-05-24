@@ -26,4 +26,13 @@ export function mergeServices(services: Object[] | Object, newServices: Object[]
  * @returns {Array} Filtered components
  */
 export function trimComponents(components: any[]): any[];
+/**
+ * Filter out invalid cryptographic-asset components from a component list.
+ * Removes algorithm components without a valid cryptoProperties.oid and
+ * certificate components without cryptoProperties.algorithmProperties.
+ *
+ * @param {Object[] | undefined | null} components Array of CycloneDX components
+ * @returns {Object[]} Filtered array with invalid crypto components removed
+ */
+export function filterInvalidCryptoComponents(components: Object[] | undefined | null): Object[];
 //# sourceMappingURL=depsUtils.d.ts.map

@@ -12,10 +12,11 @@ export function executeSourcekitten(args: any[]): undefined | Object;
  *
  * @param src {String} Source directory containing the extracted filesystem.
  * @param imageConfig {Object} Image configuration containing environment variables, command, entrypoints etc
+ * @param options CLI options controlling inventory generation
  *
  * @returns {Object} Metadata containing packages, dependencies, etc
  */
-export function getOSPackages(src: string, imageConfig: Object): Object;
+export function getOSPackages(src: string, imageConfig: Object, options?: {}): Object;
 export function enrichOSComponentsWithTrustData(components?: any[]): {
     components: any[];
     tools: any[];
