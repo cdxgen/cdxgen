@@ -20,7 +20,13 @@ import { hideBin } from "yargs/helpers";
 
 import { createBom, submitBom } from "../lib/cli/index.js";
 import { signBom, verifyBom } from "../lib/helpers/bomSigner.js";
-import { isCycloneDxBom } from "../lib/helpers/bomUtils.js";
+import {
+  getSupportedCycloneDxComponentTypes,
+  isCycloneDxBom,
+  isCycloneDxComponentTypeEnabled,
+  normalizeCycloneDxComponentTypeFilter,
+  toCycloneDxSpecVersionString,
+} from "../lib/helpers/bomUtils.js";
 import {
   displaySelfThreatModel,
   printActivitySummary,
@@ -135,6 +141,7 @@ const invokedCommandName = basename(process.argv[1] || "cdxgen").replace(
   /\.(?:[cm]?js|exe)$/u,
   "",
 );
+const defaultComponentTypeChoices = getSupportedCycloneDxComponentTypes(1.7);
 
 const args = _yargs
   .env("CDXGEN")
@@ -483,6 +490,12 @@ const args = _yargs
       "filename",
     ],
   })
+  .option("component-type", {
+    description:
+      "CycloneDX component type(s) to include. Choices are validated against --spec-version.",
+    choices: defaultComponentTypeChoices,
+    type: "string",
+  })
   .option("tlp-classification", {
     description:
       "Traffic Light Protocol (TLP) is a classification system for identifying the potential risk associated with an artefact, including whether it is subject to certain types of legal, financial, or technical threats. Refer to [https://www.first.org/tlp/](https://www.first.org/tlp/) for further information.",
@@ -567,6 +580,29 @@ const args = _yargs
   .array("standard")
   .array("feature-flags")
   .array("technique")
+  .array("componentType")
+  .check((argv) => {
+    const requestedComponentTypes = normalizeCycloneDxComponentTypeFilter(
+      argv.componentType,
+    );
+    if (!requestedComponentTypes.length) {
+      return true;
+    }
+    const normalizedSpecVersion =
+      toCycloneDxSpecVersionString(argv.specVersion) || "1.7";
+    const supportedComponentTypes = getSupportedCycloneDxComponentTypes(
+      normalizedSpecVersion,
+    );
+    const unsupportedComponentTypes = requestedComponentTypes.filter(
+      (componentType) => !supportedComponentTypes.includes(componentType),
+    );
+    if (unsupportedComponentTypes.length) {
+      throw new Error(
+        `Unsupported --component-type value(s) for CycloneDX ${normalizedSpecVersion}: ${unsupportedComponentTypes.join(", ")}. Supported values: ${supportedComponentTypes.join(", ")}`,
+      );
+    }
+    return true;
+  })
   .option("auto-compositions", {
     type: "boolean",
     default: true,
@@ -1676,7 +1712,10 @@ const writeCycloneDxOutput = (jsonFile, bomJson, options) => {
         reachablesSlicesFile: options.reachablesSlicesFile,
         semanticsSlicesFile: options.semanticsSlicesFile,
         openapiSpecFile: options.openapiSpecFile,
-        includeCrypto: options.includeCrypto,
+        componentType: options.componentType,
+        includeCrypto:
+          options.includeCrypto &&
+          isCycloneDxComponentTypeEnabled("cryptographic-asset", options),
         specVersion: options.specVersion,
         profile: options.profile,
         jsonPretty: options.jsonPretty,

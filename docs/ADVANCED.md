@@ -157,6 +157,24 @@ List of supported techniques:
 
 Currently, this capability is implemented as a filter during post-processing, so unlikely to yield any performance benefits.
 
+### Component type filter
+
+Use `--component-type` to include only selected CycloneDX component types in the generated BOM. The option is repeatable and is validated against the selected `--spec-version` before scanning starts. Leaving this argument unset preserves the default behaviour.
+
+Example - include only libraries and frameworks:
+
+```shell
+cdxgen -t docker alpine:3.20 --component-type library --component-type framework
+```
+
+The accepted values depend on the CycloneDX spec version:
+
+- `1.4`: `application`, `framework`, `library`, `container`, `operating-system`, `device`, `firmware`, `file`
+- `1.5`: all `1.4` values plus `platform`, `device-driver`, `machine-learning-model`, `data`
+- `1.6`, `1.7`, and `2.0`: all `1.5` values plus `cryptographic-asset`
+
+For example, `--spec-version 1.5 --component-type cryptographic-asset` is rejected early because CycloneDX 1.5 does not define `cryptographic-asset`. When older spec versions are requested, cdxgen also removes component types unsupported by that schema during post-processing so generated BOMs remain schema-valid.
+
 ## Automatic compositions
 
 When using any filters, cdxgen would automatically set the [compositions.aggregate](https://cyclonedx.org/docs/1.5/json/#compositions_items_aggregate) property to "incomplete" or "incomplete_first_party_only".

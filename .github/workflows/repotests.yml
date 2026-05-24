@@ -118,8 +118,12 @@ jobs:
         run: |
           bin/cdxgen.js test/data/cbom-js-repotest -o bomresults/bom-cbom-js-fixture.json --include-crypto --evidence --deep --spec-version 1.7 --fail-on-error
           bin/cdxgen.js test/data/cbom-js-repotest -o bomresults/bom-cbom-js-fixture.proto.json --include-crypto --evidence --deep --spec-version 1.7 --export-proto --proto-bin-file bomresults/bom-cbom-js-fixture.cdx --fail-on-error
+          bin/cdxgen.js test/data/cbom-js-repotest -o bomresults/bom-cbom-js-fixture-1.5.json --include-crypto --evidence --deep --spec-version 1.5 --fail-on-error
+          bin/cdxgen.js test/data/cbom-js-repotest -o bomresults/bom-cbom-js-fixture-libraries.json --include-crypto --evidence --deep --spec-version 1.7 --component-type library --fail-on-error
           node bin/convert.js -i bomresults/bom-cbom-js-fixture.cdx -o bomresults/bom-cbom-js-fixture.proto.spdx.json
           bin/validate.js -i bomresults/bom-cbom-js-fixture.cdx --fail-severity critical --no-deep --report json > bomresults/bom-cbom-js-fixture.validate.json
+          jq -e 'all(.components[]?; .type != "cryptographic-asset")' bomresults/bom-cbom-js-fixture-1.5.json
+          jq -e 'all(.components[]?; .type == "library")' bomresults/bom-cbom-js-fixture-libraries.json
           jq -e 'any(.components[]; .type == "cryptographic-asset" and .name == "sha-512" and .cryptoProperties.assetType == "algorithm" and .cryptoProperties.oid == "2.16.840.1.101.3.4.2.3")' bomresults/bom-cbom-js-fixture.json
           jq -e 'all(.components[]? | select(.type == "cryptographic-asset"); .purl == null)' bomresults/bom-cbom-js-fixture.proto.json
           jq -e 'any(.components[]; .type == "cryptographic-asset" and .name == "aes256-GCM" and any((.properties // [])[]; .name == "cdx:crypto:sourceType" and .value == "js-ast:webcrypto.generateKey"))' bomresults/bom-cbom-js-fixture.json

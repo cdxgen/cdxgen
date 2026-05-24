@@ -403,6 +403,12 @@ The default specification used by cdxgen is 1.7. To generate BOM for a different
 cdxgen -r -o bom.json --spec-version 1.6
 ```
 
+Use repeated `--component-type` values to include only selected CycloneDX component types. The allowed values are validated against `--spec-version`; for example, `cryptographic-asset` is rejected for CycloneDX 1.5 and unsupported component types are pruned during compatibility downgrades.
+
+```shell
+cdxgen -t docker alpine:3.20 --spec-version 1.5 --component-type library --component-type data
+```
+
 To generate SBOM for C or Python, ensure Java >= 21 is installed.
 
 ```shell
