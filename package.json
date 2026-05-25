@@ -161,7 +161,7 @@
     "typescript": "6.0.3"
   },
   "optionalDependencies": {
-    "@appthreat/atom": "2.5.3",
+    "@appthreat/atom": "2.5.4",
     "@appthreat/atom-parsetools": "1.1.5",
     "@appthreat/cdx-proto": "2.0.1",
     "@bufbuild/protobuf": "2.12.0",

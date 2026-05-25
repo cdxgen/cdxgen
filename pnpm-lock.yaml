@@ -142,8 +142,8 @@ importers:
         version: 6.0.3
     optionalDependencies:
       '@appthreat/atom':
-        specifier: 2.5.3
-        version: 2.5.3
+        specifier: 2.5.4
+        version: 2.5.4
       '@appthreat/atom-parsetools':
         specifier: 1.1.5
         version: 1.1.5
@@ -212,8 +212,8 @@ packages:
     engines: {node: '>=16.0.0'}
     hasBin: true
 
-  '@appthreat/atom@2.5.3':
-    resolution: {integrity: sha512-VMn/lMrkpoyt6SrKrWb9d3pCWR0AEk9F8d5T32UAGjo4R8SbnMzWTQu4j9sN9GtDgiO63AcsnbT+WLeVsKxf9A==, tarball: https://registry.npmjs.org/@appthreat/atom/-/atom-2.5.3.tgz}
+  '@appthreat/atom@2.5.4':
+    resolution: {integrity: sha512-XQ3ADj8/oxaBg15Mc/vxedE4gHlqyPnIVJbtnq1cXEqmWl01nz/P5+vvPPl31fXR+kxsWOicQKh27nlJxrWa4g==, tarball: https://registry.npmjs.org/@appthreat/atom/-/atom-2.5.4.tgz}
     engines: {node: '>=18'}
     hasBin: true
 
@@ -1158,7 +1158,7 @@ snapshots:
       typescript: 6.0.3
     optional: true
 
-  '@appthreat/atom@2.5.3':
+  '@appthreat/atom@2.5.4':
     dependencies:
       '@appthreat/atom-common': 1.1.0
     optional: true
