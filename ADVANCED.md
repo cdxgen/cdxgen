@@ -75,10 +75,10 @@ For JavaScript or TypeScript projects, pass `-l javascript`.
 evinse -i bom.json -o bom.evinse.json --usages-slices-file usages.json --data-flow-slices-file data-flow.json -l javascript --with-data-flow <path to the application>
 ```
 
-When cdxgen or evinse invokes atom for evidence generation, directory-oriented `--exclude` glob patterns are forwarded to downstream Atom tooling through `CHEN_IGNORE_DIRS`, which Atom applies across supported frontends. For JavaScript and TypeScript, the same directory fragments are also forwarded through `ASTGEN_IGNORE_DIRS` to improve astgen traversal performance.
+When cdxgen or evinse invokes atom for evidence generation, `--exclude` glob patterns are converted to Scala/Java-compatible regular expressions and applied to Atom evidence. Directory fragments are also forwarded through `CHEN_IGNORE_DIRS`, which Atom applies across supported frontends. For JavaScript and TypeScript, the same directory fragments are forwarded through `ASTGEN_IGNORE_DIRS` to improve astgen traversal performance.
 
 ```shell
-cdxgen -t js --profile research --exclude "**/fixtures/**" -o bom.json <path to the application>
+cdxgen -t js --profile research --exclude "**/fixtures/**" --exclude "**/*.spec.js" -o bom.json <path to the application>
 ```
 
 ## Generate SBOM from maven or gradle cache
