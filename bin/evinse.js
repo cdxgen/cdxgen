@@ -113,6 +113,13 @@ const args = yargs(hideBin(process.argv))
     default: false,
     type: "boolean",
   })
+  .option("exclude", {
+    alias: "exclude-regex",
+    description:
+      "Additional glob pattern(s) to ignore during Atom evidence generation.",
+    nargs: 1,
+    type: "array",
+  })
   .option("usages-slices-file", {
     description: "Use an existing usages slices file.",
     default: "usages.slices.json",

@@ -415,6 +415,7 @@ const args = _yargs
   .option("exclude", {
     alias: "exclude-regex",
     description: "Additional glob pattern(s) to ignore",
+    nargs: 1,
     type: "array",
   })
   .option("export-proto", {

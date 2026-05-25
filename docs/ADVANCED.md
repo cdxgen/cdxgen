@@ -306,6 +306,8 @@ Options:
       --with-reachables          Enable auto-tagged reachable slicing. Requires
                                  SBOM generated with --deep mode.
                                                       [boolean] [default: false]
+      --exclude, --exclude-regex Additional glob pattern(s) to ignore during
+                                 Atom evidence generation.          [array]
       --usages-slices-file       Use an existing usages slices file.
                                                  [default: "usages.slices.json"]
       --data-flow-slices-file    Use an existing data-flow slices file.
@@ -381,6 +383,22 @@ For JavaScript or TypeScript projects, pass `-l javascript`.
 ```shell
 evinse -i bom.json -o bom.evinse.json --usages-slices-file usages.json --data-flow-slices-file data-flow.json -l javascript --with-data-flow <path to the application>
 ```
+
+#### Excluding source paths from Atom evidence
+
+When cdxgen or evinse invokes atom to create occurrence, reachability, or data-flow evidence, any `--exclude` glob patterns are forwarded to the downstream Atom tooling. cdxgen converts the glob patterns to Atom-compatible Scala/Java regular expressions for Atom language frontends and also sets `ASTGEN_IGNORE_DIRS` for JavaScript/TypeScript astgen directory traversal.
+
+```shell
+cdxgen -t js --profile research --exclude "**/fixtures/**" --exclude "**/*.spec.js" -o bom.json <path to the application>
+```
+
+The same behavior applies when running evinse directly:
+
+```shell
+evinse -i bom.json -o bom.evinse.json -l javascript --exclude "**/fixtures/**" <path to the application>
+```
+
+This prevents excluded source files from contributing package usage and occurrence evidence. JavaScript/TypeScript excludes that name directories, such as `**/fixtures/**`, are also passed to astgen via `ASTGEN_IGNORE_DIRS`; file-only globs remain available to Atom as regular expressions where the frontend supports regex excludes.
 
 For Python with cached usages and reachables file.
 

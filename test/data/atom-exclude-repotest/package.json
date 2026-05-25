@@ -1,0 +1,9 @@
+{
+  "name": "atom-exclude-repotest",
+  "version": "1.0.0",
+  "type": "module",
+  "dependencies": {
+    "is-odd": "3.0.1",
+    "left-pad": "1.3.0"
+  }
+}

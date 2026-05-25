@@ -13,6 +13,7 @@ on:
       - 'lib/**'
       - 'package.json'
       - 'pnpm-lock.yaml'
+      - 'test/data/atom-exclude-repotest/**'
       - 'test/data/cargo-cache-fixture/**'
       - 'test/data/cache-disable-repotest/**'
       - 'test/data/cbom-js-repotest/**'
@@ -124,6 +125,7 @@ jobs:
           bin/cdxgen.js test/data/cbom-js-repotest -o bomresults/bom-cbom-js-fixture.proto.json --include-crypto --evidence --deep --spec-version 1.7 --export-proto --proto-bin-file bomresults/bom-cbom-js-fixture.cdx --fail-on-error
           bin/cdxgen.js test/data/cbom-js-repotest -o bomresults/bom-cbom-js-fixture-1.5.json --include-crypto --evidence --deep --spec-version 1.5 --fail-on-error
           bin/cdxgen.js test/data/cbom-js-repotest -o bomresults/bom-cbom-js-fixture-libraries.json --include-crypto --evidence --deep --spec-version 1.7 --component-type library --fail-on-error
+          bin/cdxgen.js -t js test/data/atom-exclude-repotest -o bomresults/bom-atom-exclude-fixture.json --profile research --exclude "**/ignored/**" --fail-on-error
           node bin/convert.js -i bomresults/bom-cbom-js-fixture.cdx -o bomresults/bom-cbom-js-fixture.proto.spdx.json
           bin/validate.js -i bomresults/bom-cbom-js-fixture.cdx --fail-severity critical --no-deep --report json > bomresults/bom-cbom-js-fixture.validate.json
           jq -e 'all(.components[]?; .type != "cryptographic-asset")' bomresults/bom-cbom-js-fixture-1.5.json
@@ -140,6 +142,9 @@ jobs:
           jq -e 'any(.components[]; .type == "cryptographic-asset" and .name == "sha-512" and any((.evidence.occurrences // [])[]; .location == "dynamic-branches.mjs" and .line == 40 and .symbol == "node:crypto.sign" and .additionalContext == "signature" and (.offset? == null)))' bomresults/bom-cbom-js-fixture.json
           jq -e 'any(.components[]; .type == "cryptographic-asset" and .name == "sha-384" and any((.evidence.occurrences // [])[]; .location == "dynamic-branches.mjs" and .line == 62 and .symbol == "node:crypto.sign" and .additionalContext == "signature" and (.offset? == null)))' bomresults/bom-cbom-js-fixture.json
           jq -e 'all(.components[]? | select(.type == "cryptographic-asset" and .cryptoProperties.assetType == "algorithm"); .cryptoProperties.oid != null)' bomresults/bom-cbom-js-fixture.json
+          jq -e 'any(.components[]; ((.purl // "") | startswith("pkg:npm/left-pad@1.3.0")) and any((.evidence.occurrences // [])[]; (.location // "") | contains("src/used/index.js")))' bomresults/bom-atom-exclude-fixture.json
+          jq -e 'all(.components[]?; all((.evidence.occurrences // [])[]?; (((.location // "") | contains("ignored")) | not)))' bomresults/bom-atom-exclude-fixture.json
+          jq -e 'all(.components[]? | select((.purl // "") | startswith("pkg:npm/is-odd@3.0.1")); ((.evidence.occurrences // []) | length) == 0)' bomresults/bom-atom-exclude-fixture.json
         shell: bash
       - name: repotests cdxgen self source crypto
         run: |

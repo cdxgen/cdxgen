@@ -40,6 +40,8 @@ Options:
                                                        [boolean] [default: true]
       --with-data-flow           Enable inter-procedural data-flow slicing.
                                                       [boolean] [default: false]
+      --exclude, --exclude-regex Additional glob pattern(s) to ignore during
+                                 Atom evidence generation.          [array]
       --usages-slices-file       Use an existing usages slices file.
                                                  [default: "usages.slices.json"]
       --data-flow-slices-file    Use an existing data-flow slices file.
@@ -71,6 +73,12 @@ For JavaScript or TypeScript projects, pass `-l javascript`.
 
 ```shell
 evinse -i bom.json -o bom.evinse.json --usages-slices-file usages.json --data-flow-slices-file data-flow.json -l javascript --with-data-flow <path to the application>
+```
+
+When cdxgen or evinse invokes atom for evidence generation, `--exclude` glob patterns are forwarded to downstream Atom tooling. cdxgen converts the globs to Atom-compatible Scala/Java regular expressions and sets `ASTGEN_IGNORE_DIRS` for JavaScript/TypeScript astgen directory traversal.
+
+```shell
+cdxgen -t js --profile research --exclude "**/fixtures/**" -o bom.json <path to the application>
 ```
 
 ## Generate SBOM from maven or gradle cache
