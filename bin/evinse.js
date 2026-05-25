@@ -51,6 +51,8 @@ const args = yargs(hideBin(process.argv))
       "py",
       "python",
       "android",
+      "go",
+      "golang",
       "csharp",
       "cs",
       "c",
@@ -74,6 +76,27 @@ const args = yargs(hideBin(process.argv))
       "Evidence profile. The research profile enables dosai data-flow and crypto analysis for .NET projects.",
     default: "generic",
     choices: ["generic", "research"],
+  })
+  .option("golem-command", {
+    description: "Use a specific golem binary for Go Evinse analysis.",
+    default: process.env.GOLEM_CMD,
+  })
+  .option("golem-callgraph", {
+    description: "Golem call graph mode for Go Evinse analysis.",
+    default: "static",
+    choices: ["none", "static", "rta", "pointer"],
+  })
+  .option("golem-patterns", {
+    description: "Comma-separated go/packages patterns for golem.",
+    default: "./...",
+  })
+  .option("golem-tags", {
+    description: "Comma-separated Go build tags for golem.",
+  })
+  .option("golem-tests", {
+    description: "Include Go test variants in golem analysis.",
+    default: false,
+    type: "boolean",
   })
   .option("db-path", {
     description: "Atom slices DB path. Unused",
