@@ -386,7 +386,7 @@ evinse -i bom.json -o bom.evinse.json --usages-slices-file usages.json --data-fl
 
 #### Excluding source paths from Atom evidence
 
-When cdxgen or evinse invokes atom to create occurrence, reachability, or data-flow evidence, any `--exclude` glob patterns are forwarded to the downstream Atom tooling. cdxgen converts the glob patterns to Atom-compatible Scala/Java regular expressions for Atom language frontends and also sets `ASTGEN_IGNORE_DIRS` for JavaScript/TypeScript astgen directory traversal.
+When cdxgen or evinse invokes atom to create occurrence, reachability, or data-flow evidence, directory-oriented `--exclude` glob patterns are forwarded to the downstream Atom tooling through `CHEN_IGNORE_DIRS`. Atom applies this common ignore list across supported frontends.
 
 ```shell
 cdxgen -t js --profile research --exclude "**/fixtures/**" --exclude "**/*.spec.js" -o bom.json <path to the application>
@@ -398,7 +398,7 @@ The same behavior applies when running evinse directly:
 evinse -i bom.json -o bom.evinse.json -l javascript --exclude "**/fixtures/**" <path to the application>
 ```
 
-This prevents excluded source files from contributing package usage and occurrence evidence. JavaScript/TypeScript excludes that name directories, such as `**/fixtures/**`, are also passed to astgen via `ASTGEN_IGNORE_DIRS`; file-only globs remain available to Atom as regular expressions where the frontend supports regex excludes.
+This prevents excluded source directories from contributing package usage and occurrence evidence. cdxgen extracts stable literal path fragments from excludes such as `**/fixtures/**` and merges them with any existing `CHEN_IGNORE_DIRS` value before invoking Atom.
 
 For Python with cached usages and reachables file.
 

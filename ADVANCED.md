@@ -75,7 +75,7 @@ For JavaScript or TypeScript projects, pass `-l javascript`.
 evinse -i bom.json -o bom.evinse.json --usages-slices-file usages.json --data-flow-slices-file data-flow.json -l javascript --with-data-flow <path to the application>
 ```
 
-When cdxgen or evinse invokes atom for evidence generation, `--exclude` glob patterns are forwarded to downstream Atom tooling. cdxgen converts the globs to Atom-compatible Scala/Java regular expressions and sets `ASTGEN_IGNORE_DIRS` for JavaScript/TypeScript astgen directory traversal.
+When cdxgen or evinse invokes atom for evidence generation, directory-oriented `--exclude` glob patterns are forwarded to downstream Atom tooling through `CHEN_IGNORE_DIRS`, which Atom applies across supported frontends.
 
 ```shell
 cdxgen -t js --profile research --exclude "**/fixtures/**" -o bom.json <path to the application>
