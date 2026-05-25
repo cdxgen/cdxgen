@@ -163,6 +163,8 @@ jobs:
             distro: alpine
           - lang: node25
             distro: alpine
+          - lang: node26
+            distro: alpine
 
           - lang: php8.3
             distro: debian

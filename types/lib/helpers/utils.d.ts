@@ -351,17 +351,23 @@ export function parseMinJs(minJsFile: string): Promise<any[]>;
  * @returns {Object} Object containing pom properties, modules, and array of dependencies
  */
 export function parsePom(pomFile: string): Object;
+/**
+ * Parse maven dependency:tree json output
+ *
+ * @param rawOutput
+ * @param pomFile
+ * @returns {{parentComponent: {}, pkgList: *[], dependenciesList: *[]}|{}|{}|*|{parentComponent: {[p: string]: *}|{}, pkgList: [], dependenciesList: []}}
+ */
 export function parseMavenTreeJson(rawOutput: any, pomFile: any): {
-    parentComponent?: undefined;
-    pkgList?: undefined;
-    dependenciesList?: undefined;
-} | {
     parentComponent: {};
     pkgList: any[];
-    dependenciesList: {
-        ref: string;
-        dependsOn: any[];
-    }[];
+    dependenciesList: any[];
+} | {} | {} | any | {
+    parentComponent: {
+        [p: string]: any;
+    } | {};
+    pkgList: [];
+    dependenciesList: [];
 };
 /**
  * Parse maven tree output
