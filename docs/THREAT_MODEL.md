@@ -136,7 +136,21 @@ Trust boundary 5: cdxgen container ←→ container host
 
 **Residual risk:** Medium — trust is delegated to external registry metadata and remote repository hosting unless strict allowlists are configured.
 
-#### T1.6 — Malicious archive metadata in packaged release artifacts
+#### T1.6 — User-controlled pattern complexity in CLI options
+
+**Threat:** An operator supplies highly complex glob or regular-expression patterns through CLI/configuration options such as `--exclude`, `--include-regex`, `--exclude-regex`, `ASTGEN_IGNORE_FILE_PATTERN`, or related ignore-pattern environment variables, causing excessive CPU use during local matching or downstream frontend filtering.
+
+**Security boundary:** These patterns are considered trusted operator input in CLI, REPL, and library usage. ReDoS or other algorithmic-complexity behavior that depends on a user intentionally supplying pathological command-line arguments or environment variables is not treated as a cdxgen security vulnerability. This scope note does not apply to regexes or patterns derived from untrusted remote clients, registry metadata, manifests, lockfiles, or scanned project content without explicit operator opt-in.
+
+**Mitigations:**
+
+- cdxgen avoids shell interpretation for these values and treats them as filtering patterns only
+- Directory-oriented excludes are additionally forwarded as literal directory names for performance where supported by Atom and astgen
+- Server deployments should validate or constrain request options at the API boundary if untrusted clients can submit scans
+
+**Residual risk:** Low for intended local/CI usage where the operator controls CLI arguments. Medium for wrappers or server deployments that expose pattern options to untrusted users without additional validation.
+
+#### T1.7 — Malicious archive metadata in packaged release artifacts
 
 **Threat:** An attacker ships a crafted ASAR archive with malformed header data, path-like entry names, integrity mismatches, or unpacked/native payloads intended to confuse inventory, trigger unsafe extraction behavior, or hide high-risk runtime capabilities.
 
@@ -151,7 +165,7 @@ Trust boundary 5: cdxgen container ←→ container host
 
 **Residual risk:** Medium — cdxgen can inventory and verify what is present, but a trusted-looking packaged archive may still contain malicious application logic that requires human review or runtime sandboxing to fully assess.
 
-#### T1.7 — Compromised or substituted helper binary
+#### T1.8 — Compromised or substituted helper binary
 
 **Threat:** cdxgen executes optional native helpers from `cdxgen-plugins-bin` (for example Trivy, osquery, and trustinspector). A compromised, replaced, or unexpected binary could tamper with scan output or execute malicious logic. Separately, a forged `plugins-manifest.json` could attempt to spoof helper metadata recorded in `metadata.tools`.
 
@@ -166,7 +180,7 @@ Trust boundary 5: cdxgen container ←→ container host
 
 **Residual risk:** Medium — helper binaries remain executable third-party/native code and expand the trusted computing base for deep OS/container inventory. A malicious actor who can replace the plugin directory can still spoof helper metadata or swap binaries, but that is a local integrity problem rather than a new command-injection path through manifest parsing.
 
-#### T1.8 — Malicious rootfs repository or trusted-key metadata
+#### T1.9 — Malicious rootfs repository or trusted-key metadata
 
 **Threat:** A crafted image or root filesystem plants misleading repository source files or trusted key material so that the BOM reflects false trust relationships or reviewer-confusing crypto inventory.
 
@@ -179,7 +193,7 @@ Trust boundary 5: cdxgen container ←→ container host
 
 **Residual risk:** Medium — cdxgen inventories what exists on disk and can preserve trust relationships, but it cannot prove that the configured repositories or keys are themselves benign or organization-approved.
 
-#### T1.9 — Over-privileged HBOM live collection on managed hosts
+#### T1.10 — Over-privileged HBOM live collection on managed hosts
 
 **Threat:** An operator grants broader privileges than necessary to collect HBOM data on Linux, or assumes that every partial HBOM requires root access, increasing the blast radius of the scanning process on production hosts.
 
@@ -450,9 +464,9 @@ _TB = Trust Boundary (see Trust Boundaries section above)_
 
 | Control                            | Implementation                                                                                                                                              | Threat(s) Addressed          |
 | ---------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------- |
-| Command allowlisting               | `CDXGEN_ALLOWED_COMMANDS` + `safeSpawnSync`; HBOM secure-mode dry-run preflight validates declared host-collector commands before live execution            | T1.1, T1.2, T1.9             |
+| Command allowlisting               | `CDXGEN_ALLOWED_COMMANDS` + `safeSpawnSync`; HBOM secure-mode dry-run preflight validates declared host-collector commands before live execution            | T1.1, T1.2, T1.10            |
 | Host allowlisting                  | `CDXGEN_ALLOWED_HOSTS` + `CDXGEN_GIT_ALLOWED_HOSTS` + `cdxgenAgent` hooks; server-side Dependency-Track submission uses strict wildcard subdomain matching  | T2.3, T2.2, T2.6             |
-| Path allowlisting                  | `CDXGEN_SERVER_ALLOWED_PATHS` + `isAllowedPath`; HBOM secure-mode dry-run preflight validates declared local collector paths against `CDXGEN_ALLOWED_PATHS` | T1.9, T2.1                   |
+| Path allowlisting                  | `CDXGEN_SERVER_ALLOWED_PATHS` + `isAllowedPath`; HBOM secure-mode dry-run preflight validates declared local collector paths against `CDXGEN_ALLOWED_PATHS` | T1.10, T2.1                  |
 | Node.js permission model           | `--permission` flags in `NODE_OPTIONS`                                                                                                                      | T1.4, T5.1                   |
 | Secure mode                        | `CDXGEN_SECURE_MODE=true`                                                                                                                                   | T1.2, T2.2, T2.3, T6.2       |
 | Environment audit                  | `auditEnvironment()` at startup                                                                                                                             | T1.3                         |
@@ -460,8 +474,8 @@ _TB = Trust Boundary (see Trust Boundaries section above)_
 | Git hardening                      | `validateAndRejectGitSource()`, hardened clone config                                                                                                       | T1.5, T2.2, T2.6             |
 | Safe wrappers                      | `safeExistsSync`, `safeMkdirSync`, `safeSpawnSync`                                                                                                          | T1.1, T1.4                   |
 | BOM metadata sanitization          | URL scrubbing, inline secret redaction, command summarization, structured-key filtering                                                                     | T6.1, T2.3                   |
-| Helper binary pinning and metadata | Optional helper package version pinning, companion binary SBOM/metadata generation, CI parity checks, and tool identity evidence                            | T1.7, T4.3                   |
-| Trust-material modeling            | Repository-source `data` components, trusted-key `cryptographic-asset` components, file hashes, and repo-to-key dependency edges                            | T1.8, T6.1                   |
+| Helper binary pinning and metadata | Optional helper package version pinning, companion binary SBOM/metadata generation, CI parity checks, and tool identity evidence                            | T1.8, T4.3                   |
+| Trust-material modeling            | Repository-source `data` components, trusted-key `cryptographic-asset` components, file hashes, and repo-to-key dependency edges                            | T1.9, T6.1                   |
 | Structured logging                 | `thoughtLog`, `traceLog`, `commandsExecuted`, `remoteHostsAccessed`                                                                                         | Auditability for all threats |
 | Dependency pinning                 | `pnpm-lock.yaml`, SHA-pinned Actions, SHA-pinned base images                                                                                                | T3.1, T3.2, T4.1             |
 | Provenance attestation             | `NPM_CONFIG_PROVENANCE=true`                                                                                                                                | T4.3                         |

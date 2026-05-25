@@ -1,7 +1,0 @@
----
-exclude_paths:
-  - "test/**/*"
-  - "ci/**/*"
-  - "contrib/**/*"
-  - "docs/**/*"
-  - "types/**/*"
