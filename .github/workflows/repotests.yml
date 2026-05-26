@@ -24,6 +24,7 @@ on:
       - 'test/data/go-dataflow-repotest/**'
       - 'test/data/maven-optional-repotest/**'
       - 'test/data/mcp-repotest/**'
+      - 'test/data/npm-hidden-lockfile-repotest/**'
       - '!**.poku.js'
   workflow_dispatch:
 
@@ -170,6 +171,13 @@ jobs:
           jq -e 'any(.components[]; .purl == "pkg:npm/license-report@6.5.0" and .scope == "required" and any((.properties // [])[]; .name == "cdx:npm:bin" and (.value | contains("license-report"))))' bomresults/bom-angular-cli-scripts-fixture.json
           jq -e 'any(.components[]; .group == "@angular" and .name == "cli" and .scope == "required")' bomresults/bom-angular-cli-scripts-fixture.json
           jq -e 'any(.components[]; .purl == "pkg:npm/left-pad@1.3.0" and .scope == "optional")' bomresults/bom-angular-cli-scripts-fixture.json
+        shell: bash
+      - name: repotests npm hidden lockfile fixture
+        run: |
+          touch test/data/npm-hidden-lockfile-repotest/package-lock.json test/data/npm-hidden-lockfile-repotest/node_modules/.package-lock.json
+          bin/cdxgen.js -t js test/data/npm-hidden-lockfile-repotest -o bomresults/bom-npm-hidden-lockfile-fixture.json --deep --no-install-deps --no-babel --no-banner --fail-on-error
+          jq -e '(.components | length) == 1' bomresults/bom-npm-hidden-lockfile-fixture.json
+          jq -e 'any(.components[]; .purl == "pkg:npm/is-number@7.0.0" and .description == "Returns true if a number or string value is a finite number." and any((.licenses // [])[]; (.license.id // .license.name // "") == "MIT") and any((.tags // [])[]; . == "numeric") and any((.externalReferences // [])[]; .type == "vcs" and .url == "git+https://github.com/jonschlinkert/is-number.git") and any((.externalReferences // [])[]; .type == "issue-tracker" and .url == "https://github.com/jonschlinkert/is-number/issues"))' bomresults/bom-npm-hidden-lockfile-fixture.json
         shell: bash
       - name: repotests cdxgen self source crypto
         run: |
