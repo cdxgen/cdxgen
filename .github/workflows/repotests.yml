@@ -845,8 +845,11 @@ jobs:
       - name: repotests go data-flow and crypto-flow fixture
         if: runner.os != 'Windows'
         run: |
+          mkdir -p "$GOCACHE" "$GOMODCACHE"
           cd test/data/go-dataflow-repotest
-          go mod download
+          go env GOVERSION GOTOOLCHAIN GOFLAGS GOWORK GOPROXY GOMODCACHE GOCACHE
+          go mod download all
+          go list -deps ./... >/dev/null
           cd ../../..
 
           GOLEM_CMD="$(node --input-type=module <<'EOF'
@@ -976,6 +979,13 @@ jobs:
           );
           EOF
         shell: bash
+        env:
+          GOCACHE: ${{ runner.temp }}/go-build-cache
+          GOFLAGS: ""
+          GOMODCACHE: ${{ runner.temp }}/go-mod-cache
+          GOPROXY: https://proxy.golang.org,direct
+          GOTOOLCHAIN: auto
+          GOWORK: off
       - name: repotests python issues
         run: |
           bin/cdxgen.js -t python test/data/issue-2069 -o bomresults/issue-2069.json --fail-on-error --include-regex "requirements.txt"
