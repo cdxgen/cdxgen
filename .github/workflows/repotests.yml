@@ -847,8 +847,8 @@ jobs:
         run: |
           mkdir -p "$GOCACHE" "$GOMODCACHE"
           cd test/data/go-dataflow-repotest
-          go env GOVERSION GOTOOLCHAIN GOFLAGS GOWORK GOPROXY GOMODCACHE GOCACHE
           go mod download all
+          go mod tidy
           go list -deps ./... >/dev/null
           cd ../../..
 
