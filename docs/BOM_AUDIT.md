@@ -239,23 +239,30 @@ cdx-audit --bom bom.evinse.json --direct-bom-audit --categories golem
 
 `golem` is an alias for `golem-security,golem-performance,golem-compliance`.
 
-| Rule           | Category          | Severity | Description                                                |
-| -------------- | ----------------- | -------- | ---------------------------------------------------------- |
-| GOLEM-SEC-001  | golem-security    | high     | Go dependency has high-severity semantic security signal   |
-| GOLEM-SEC-002  | golem-security    | high     | Go module uses local replacement in analyzed source        |
-| GOLEM-PERF-002 | golem-performance | medium   | Go project includes native or generated-code build surface |
-| GOLEM-COMP-001 | golem-compliance  | medium   | Go module appears private or workspace-local               |
-| GOLEM-COMP-002 | golem-compliance  | medium   | Vendored Go module lacks license-file evidence             |
+| Rule           | Category          | Severity | Description                                                        |
+| -------------- | ----------------- | -------- | ------------------------------------------------------------------ |
+| GOLEM-SEC-001  | golem-security    | medium   | Runtime Go dependency has a high-severity semantic security signal |
+| GOLEM-SEC-002  | golem-security    | low      | Go crypto material flows into a crypto sink                        |
+| GOLEM-SEC-003  | golem-security    | low      | Go component has a cryptographic finding                           |
+| GOLEM-SEC-004  | golem-security    | low      | Go module uses a local replacement in analyzed source              |
+| GOLEM-PERF-001 | golem-performance | low      | Go project crosses a native code boundary                          |
+| GOLEM-PERF-002 | golem-performance | low      | Go project relies on generated or embedded build inputs            |
+| GOLEM-PERF-003 | golem-performance | low      | Go data-flow evidence was truncated or sanitized                   |
+| GOLEM-COMP-001 | golem-compliance  | low      | Go module appears private or workspace-local                       |
+| GOLEM-COMP-002 | golem-compliance  | medium   | Vendored Go module lacks license-file evidence                     |
+| GOLEM-COMP-003 | golem-compliance  | low      | Go module graph uses exclude directives                            |
 
-These rules use properties such as `cdx:golem:securitySignalSeverity`, `cdx:golem:usageScopes`, `cdx:golem:localReplacement`, `cdx:golem:privateModuleCandidate`, `cdx:golem:vendored`, `cdx:golem:licenseFileCount`, `cdx:golem:callGraphMode`, `cdx:golem:nativeArtifactCount`, `cdx:golem:goGenerateCount`, and `cdx:golem:goEmbedCount`.
+These rules use properties such as `cdx:golem:securitySignalSeverity`, `cdx:golem:usageScopes`, `cdx:golem:cryptoDataFlow`, `cdx:golem:cryptoFinding`, `cdx:golem:localReplacement`, `cdx:golem:privateModuleCandidate`, `cdx:golem:vendored`, `cdx:golem:licenseFileCount`, `cdx:golem:nativeArtifactCount`, `cdx:golem:goGenerateCount`, `cdx:golem:goEmbedCount`, `cdx:golem:dataFlowTruncated`, and `cdx:golem:goModExcludeCount`.
 
 Typical reviewer actions:
 
 - inspect `.occurrences` and `.callstack` for dependencies with security signals before deciding whether the signal is reachable and relevant
+- review `cdx:golem:cryptoDataFlow*` and `cdx:golem:cryptoFinding*` evidence for key provenance, algorithm safety, TLS settings, and secret-handling risks
 - remove local replacements from release builds or document why a local or vendored source is part of the release baseline
 - verify internal provenance, access-control, license, and vulnerability intake for private module candidates
-- review native, generated, and embedded asset surfaces for reproducibility and cross-platform build behavior
-- use `static` call graph mode for regular CI and reserve `rta` or `vta` for focused investigations that need more precision
+- review native, generated, and embedded asset surfaces for reproducibility, license coverage, and cross-platform build behavior
+- treat truncated data-flow evidence as coverage-limited and rerun with narrower patterns or larger limits before relying on a clean result
+- document why each `go.mod` exclude directive exists and verify the selected module versions are safe and reproducible
 
 ### `asar-archive` — Electron ASAR release artifact review
 

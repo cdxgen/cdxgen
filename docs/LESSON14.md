@@ -107,11 +107,11 @@ cdx-audit --bom bom.evinse.json --direct-bom-audit --categories golem
 
 The rule pack uses `cdx:golem:*` properties for three review tracks:
 
-| Category            | What it catches                                                               |
-| ------------------- | ----------------------------------------------------------------------------- |
-| `golem-security`    | High-severity security signals and local replacement risk.                    |
-| `golem-performance` | Pointer call graph mode and native/generated build surfaces.                  |
-| `golem-compliance`  | Private module candidates and vendored modules without license-file evidence. |
+| Category            | What it catches                                                                          |
+| ------------------- | ---------------------------------------------------------------------------------------- |
+| `golem-security`    | Runtime security signals, crypto-flow/crypto findings, and local replacement risk.       |
+| `golem-performance` | Native boundaries, generated/embedded build inputs, and truncated data-flow coverage.    |
+| `golem-compliance`  | Private modules, vendored modules without license-file evidence, and exclude directives. |
 
 ## Step 5: Decide what to ship
 

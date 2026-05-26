@@ -137,11 +137,11 @@ See [cdx: Custom Properties](CUSTOM_PROPERTIES.md#golem-go-evinse-evidence) for 
 
 Go Evinse properties are covered by three built-in BOM audit categories:
 
-| Category            | Focus                                                                         |
-| ------------------- | ----------------------------------------------------------------------------- |
-| `golem-security`    | High-severity semantic security signals and local replacement risk.           |
-| `golem-performance` | Expensive analysis choices plus native/generated build surfaces.              |
-| `golem-compliance`  | Private module candidates and vendored modules without license-file evidence. |
+| Category            | Focus                                                                                    |
+| ------------------- | ---------------------------------------------------------------------------------------- |
+| `golem-security`    | Runtime security signals, crypto-flow/crypto findings, and local replacement risk.       |
+| `golem-performance` | Native boundaries, generated/embedded build inputs, and truncated data-flow coverage.    |
+| `golem-compliance`  | Private modules, vendored modules without license-file evidence, and exclude directives. |
 
 Run them directly against an enriched BOM:
 
