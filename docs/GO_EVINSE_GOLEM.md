@@ -50,6 +50,7 @@ evinse -l go
    +--> component.evidence.callstack.frames
    +--> component.properties: cdx:golem:*
    +--> metadata.component.properties: cdx:golem:*
+   +--> cryptographic-asset components for golem.crypto evidence
 ```
 
 The integration keeps source evidence compact. It records file names, line numbers, categories, counts, symbol kinds, scopes, and module identity. It does not copy raw environment values, command output, generated file contents, or embedded secrets into the BOM.
@@ -84,6 +85,20 @@ Golem emits properties on two levels.
 Metadata-level properties summarize the whole Go project and the helper run. Examples include `cdx:golem:toolVersion`, `cdx:golem:callGraphMode`, `cdx:golem:packageCount`, `cdx:golem:fileCount`, `cdx:golem:securitySignalCount`, `cdx:golem:nativeArtifactCount`, `cdx:golem:goDirectiveVersion`, and `cdx:golem:toolchainDirective`.
 
 Component-level properties explain how an individual Go module appears in the analyzed source. Examples include `cdx:golem:modulePath`, `cdx:golem:goVersion`, `cdx:golem:usageScopes`, `cdx:golem:occurrenceEvidenceKinds`, `cdx:golem:securitySignalCategory`, `cdx:golem:securitySignalSeverity`, `cdx:golem:vendored`, `cdx:golem:privateModuleCandidate`, `cdx:golem:licenseFileCount`, and `cdx:golem:localReplacement`.
+
+## Crypto and CBOM evidence
+
+Golem now emits a dedicated top-level `crypto` attribute in its JSON report. cdxgen consumes this during `evinse -l go` and renders CycloneDX `type: "cryptographic-asset"` components when the evidence is schema-safe:
+
+- `crypto.assets[]` for algorithms and certificates. Algorithm components are emitted only when an OID is available, either from Golem or cdxgen's `data/crypto-oid.json` catalog.
+- `crypto.protocols[]` for protocols such as TLS, rendered with `cryptoProperties.assetType: "protocol"`.
+- `crypto.materials[]` for key, token, nonce, salt, password, certificate-key-pair, and related material indicators. Raw values are never emitted.
+- `crypto.operations[]` for source operations such as hash, encrypt/decrypt, sign/verify, key generation, key derivation, random generation, and TLS configuration. These are also used to add `dependencies[].provides` relationships from the Go component to rendered crypto assets when possible.
+- `crypto.findings[]` for crypto-specific review findings such as weak MD5/SHA-1/DES usage, insecure TLS verification, and literal crypto-material indicators.
+
+Metadata properties summarize this evidence with `cdx:golem:cryptoLibraryCount`, `cdx:golem:cryptoAssetCount`, `cdx:golem:cryptoOperationCount`, `cdx:golem:cryptoMaterialCount`, `cdx:golem:cryptoProtocolCount`, `cdx:golem:cryptoFindingCount`, `cdx:golem:cryptoAlgorithms`, `cdx:golem:cryptoMaterialTypes`, and `cdx:golem:cryptoProtocols`. Components that own crypto operations or findings receive compact properties such as `cdx:golem:cryptoOperationType`, `cdx:golem:cryptoAlgorithm`, `cdx:golem:cryptoFinding`, and `cdx:golem:cryptoFindingSeverity`.
+
+The detector is intentionally conservative today. It is type-resolved for Go selectors and import evidence, and it uses name-based literal indicators without copying string contents. Full source-to-sink data-flow for keys, plaintext, ciphertext, and protocol sinks is a good future layer, but it should be added as a separate graph pass so it can preserve Golem's current no-secret-output and no-command-execution guarantees.
 
 See [cdx: Custom Properties](CUSTOM_PROPERTIES.md#golem-go-evinse-evidence) for the full inventory.
 
