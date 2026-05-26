@@ -179,6 +179,38 @@ For example, `--spec-version 1.5 --component-type cryptographic-asset` is reject
 
 The dedicated `cbom` command does not accept `--component-type`; use `cdxgen --include-crypto` instead when you need normal SBOM generation plus component-type filtering.
 
+## Go Evinse data-flow and crypto-flow evidence
+
+For Go projects, generate the base SBOM first and then enrich it with `evinse -l go`. The Go Evinse path uses the optional `golem` helper from `@cdxgen/cdxgen-plugins-bin` to attach occurrence evidence, call-stack frames, usage scopes, security signals, crypto components, and data-flow/crypto-flow properties.
+
+Routine semantic evidence:
+
+```shell
+cdxgen -t go -o bom.json /absolute/path/to/go/project
+evinse -i bom.json -o bom.evinse.json -l go --golem-callgraph static /absolute/path/to/go/project
+```
+
+Bounded data-flow and crypto-flow evidence:
+
+```shell
+evinse -i bom.json -o bom.evinse.json -l go \
+  --with-data-flow \
+  --golem-dataflow crypto \
+  --golem-dataflow-pattern-packs crypto \
+  /absolute/path/to/go/project
+```
+
+`--deep` enables the same Golem data-flow collection with performance safeguards. cdxgen caps worker count and `GOMAXPROCS`, applies slice and trace limits, skips generated files by default, and skips tests unless `--golem-tests` is supplied. Use `--golem-memory-limit 4GiB`, narrower `--golem-patterns`, or `--golem-dataflow crypto` when a large repository needs predictable CI runtime.
+
+The enriched BOM uses `cdx:golem:*` properties. High-value pivots include `cdx:golem:dataFlowMode`, `cdx:golem:dataFlowSliceCount`, `cdx:golem:cryptoDataFlow`, `cdx:golem:cryptoDataFlowCount`, `cdx:golem:cryptoAlgorithms`, `cdx:golem:usageScopes`, `cdx:golem:securitySignalSeverity`, `cdx:golem:localReplacement`, and `cdx:golem:vendored`. Rendered crypto components are `type: "cryptographic-asset"` and intentionally do not have purls.
+
+After enrichment, run the focused audit and inspect interactively:
+
+```shell
+cdx-audit --bom bom.evinse.json --direct-bom-audit --categories golem
+cdxi bom.evinse.json
+```
+
 ## Automatic compositions
 
 When using any filters, cdxgen would automatically set the [compositions.aggregate](https://cyclonedx.org/docs/1.5/json/#compositions_items_aggregate) property to "incomplete" or "incomplete_first_party_only".

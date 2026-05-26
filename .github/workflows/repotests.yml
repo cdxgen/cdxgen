@@ -18,6 +18,7 @@ on:
       - 'test/data/cache-disable-repotest/**'
       - 'test/data/cbom-js-repotest/**'
       - 'test/data/cargo-workspace-repotest/**'
+      - 'test/data/go-dataflow-repotest/**'
       - 'test/data/maven-optional-repotest/**'
       - 'test/data/mcp-repotest/**'
       - '!**.poku.js'
@@ -837,6 +838,140 @@ jobs:
       - name: repotests evidence
         run: |
           bin/cdxgen.js -t js --no-recurse -o bomresults/bom.json --evidence .
+        shell: bash
+      - name: repotests go data-flow and crypto-flow fixture
+        if: runner.os != 'Windows'
+        run: |
+          cd test/data/go-dataflow-repotest
+          go mod download
+          cd ../../..
+
+          GOLEM_CMD="$(node --input-type=module <<'EOF'
+          import { resolvePluginBinary } from "./lib/helpers/plugins.js";
+
+          const cmd = resolvePluginBinary("golem");
+          if (cmd) {
+            console.log(cmd);
+          }
+          EOF
+          )"
+          if [ -z "$GOLEM_CMD" ]; then
+            echo "Unable to resolve the bundled golem plugin binary" >&2
+            exit 1
+          fi
+          node --input-type=module - "$GOLEM_CMD" <<'EOF'
+          import { spawnSync } from "node:child_process";
+
+          const cmd = process.argv[2];
+          const result = spawnSync(cmd, ["analyze", "--help"], {
+            encoding: "utf-8",
+          });
+          const output = `${result.stdout || ""}${result.stderr || ""}`;
+          if (!output.includes("-dataflow")) {
+            throw new Error(
+              "The bundled golem plugin does not expose data-flow flags",
+            );
+          }
+          EOF
+
+          bin/cdxgen.js -t go test/data/go-dataflow-repotest -o bomresults/bom-go-dataflow-fixture.json --fail-on-error
+          GOLEM_CMD="$GOLEM_CMD" node bin/evinse.js -i bomresults/bom-go-dataflow-fixture.json -o bomresults/bom-go-dataflow-fixture.evinse.json -l go --deep test/data/go-dataflow-repotest
+          node --input-type=module <<'EOF'
+          import { readFileSync } from "node:fs";
+
+          import { validateBom } from "./lib/validator/bomValidator.js";
+
+          const bom = JSON.parse(
+            readFileSync("bomresults/bom-go-dataflow-fixture.evinse.json", "utf-8"),
+          );
+          const components = bom.components || [];
+          const allComponents = [bom.metadata?.component, ...components].filter(
+            Boolean,
+          );
+          const propertyValues = (component, name) =>
+            (component.properties || [])
+              .filter((property) => property.name === name)
+              .map((property) => property.value);
+          const hasProperty = (component, name, predicate = Boolean) =>
+            propertyValues(component, name).some((value) => predicate(value));
+          const numericProperty = (component, name) =>
+            Math.max(0, ...propertyValues(component, name).map((value) => Number(value) || 0));
+          const metadata = bom.metadata?.component;
+          const app = allComponents.find(
+            (component) =>
+              component.purl === "pkg:golang/github.com/cdxgen/go-dataflow-repotest",
+          );
+          const xCrypto = components.find((component) =>
+            component.purl?.startsWith("pkg:golang/golang.org/x/crypto@"),
+          );
+          const cryptoAssets = components.filter(
+            (component) => component.type === "cryptographic-asset",
+          );
+          const aes = cryptoAssets.find(
+            (component) => component.name === "aes",
+          );
+          const sha256 = cryptoAssets.find(
+            (component) => component.name === "sha-256",
+          );
+          const serialized = JSON.stringify(bom);
+
+          if (!validateBom(bom)) {
+            throw new Error("Go data-flow Evinse BOM is not schema-valid");
+          }
+          if (!hasProperty(metadata, "cdx:golem:dataFlowMode", (value) => value === "all")) {
+            throw new Error("Expected --deep to enable Golem data-flow mode");
+          }
+          for (const key of [
+            "cdx:golem:dataFlowSliceCount",
+            "cdx:golem:cryptoDataFlowCount",
+            "cdx:golem:cryptoAssetCount",
+          ]) {
+            if (numericProperty(metadata, key) < 1) {
+              throw new Error(`Expected positive metadata property ${key}`);
+            }
+          }
+          if (!app) {
+            throw new Error("Expected main Go module component evidence");
+          }
+          if (!hasProperty(app, "cdx:golem:cryptoDataFlow", (value) => value === "true")) {
+            throw new Error("Expected main Go module to carry crypto data-flow evidence");
+          }
+          if (!hasProperty(app, "cdx:golem:dataFlowCategories", (value) => value.includes("crypto"))) {
+            throw new Error("Expected crypto sink data-flow categories on main Go module");
+          }
+          if ((app.evidence?.callstack?.frames || []).length < 1) {
+            throw new Error("Expected call-stack frames for Go data-flow evidence");
+          }
+          if ((app.evidence?.occurrences || []).length < 1) {
+            throw new Error("Expected occurrence evidence for Go data-flow evidence");
+          }
+          if (!xCrypto || (xCrypto.evidence?.occurrences || []).length < 1) {
+            throw new Error("Expected golang.org/x/crypto occurrence evidence");
+          }
+          if ((xCrypto.evidence?.callstack?.frames || []).length < 1) {
+            throw new Error("Expected golang.org/x/crypto call-stack evidence");
+          }
+          if (!aes || aes.cryptoProperties?.assetType !== "algorithm" || !aes.cryptoProperties?.oid) {
+            throw new Error("Expected AES cryptographic asset with an OID");
+          }
+          if (!sha256 || sha256.cryptoProperties?.assetType !== "algorithm" || !sha256.cryptoProperties?.oid) {
+            throw new Error("Expected SHA-256 cryptographic asset with an OID");
+          }
+          if (!cryptoAssets.every((component) => !component.purl)) {
+            throw new Error("Cryptographic assets must not have purls");
+          }
+          if (/APP_KEY|payload/.test(serialized)) {
+            throw new Error("Go crypto-flow evidence leaked fixture secret-bearing values");
+          }
+          console.log(
+            JSON.stringify({
+              cryptoAssets: cryptoAssets.length,
+              appOccurrences: app.evidence.occurrences.length,
+              appCallstackFrames: app.evidence.callstack.frames.length,
+              xCryptoOccurrences: xCrypto.evidence.occurrences.length,
+            }),
+          );
+          EOF
         shell: bash
       - name: repotests python issues
         run: |

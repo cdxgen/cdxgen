@@ -201,6 +201,27 @@ evinse -i bom.json -o bom.evinse.json -l javascript
 # Review the reachables.slices.json and file any vulnerabilities or bugs!
 ```
 
+## Go Evinse data-flow and crypto-flow evidence
+
+For Go projects, generate the base SBOM first and then enrich it with `evinse -l go`. The Go Evinse path uses the optional `golem` helper from `@cdxgen/cdxgen-plugins-bin` to attach occurrence evidence, call-stack frames, usage scopes, security signals, crypto components, and data-flow/crypto-flow properties.
+
+```shell
+cdxgen -t go -o bom.json /absolute/path/to/go/project
+evinse -i bom.json -o bom.evinse.json -l go --golem-callgraph static /absolute/path/to/go/project
+```
+
+For bounded crypto-flow evidence, use:
+
+```shell
+evinse -i bom.json -o bom.evinse.json -l go \
+  --with-data-flow \
+  --golem-dataflow crypto \
+  --golem-dataflow-pattern-packs crypto \
+  /absolute/path/to/go/project
+```
+
+`--deep` enables the same Golem data-flow collection with performance safeguards. cdxgen caps worker count and `GOMAXPROCS`, applies slice and trace limits, skips generated files by default, and skips tests unless `--golem-tests` is supplied. The enriched BOM uses `cdx:golem:*` properties such as `cdx:golem:dataFlowMode`, `cdx:golem:cryptoDataFlow`, `cdx:golem:cryptoAlgorithms`, and `cdx:golem:usageScopes`. Rendered crypto components are `type: "cryptographic-asset"` and intentionally do not have purls.
+
 ## Use Atom in Java mode
 
 For large projects (> 1 million lines of code), atom must be invoked separately for the slicing operation. Follow the instructions below.

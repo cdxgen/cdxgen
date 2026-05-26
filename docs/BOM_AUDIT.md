@@ -51,6 +51,8 @@ cdxgen -o bom.json --bom-audit --bom-audit-only-trusted
 cdx-audit --bom bom.evinse.json --direct-bom-audit --categories golem
 ```
 
+For Go projects, run `evinse -l go --deep` or `evinse -l go --with-data-flow --golem-dataflow crypto` before `cdx-audit` when you want Golem data-flow and crypto-flow properties such as `cdx:golem:dataFlowSliceCount`, `cdx:golem:cryptoDataFlow`, and `cdx:golem:cryptoDataFlowCount` to participate in review and prioritization.
+
 > **Note:** `--bom-audit` automatically enables `--include-formulation` to collect CI/CD workflow data. The formulation section may include sensitive data such as emails and environment details. Always review the generated SBOM before distribution.
 
 ## Dry-run mode

@@ -51,6 +51,7 @@ evinse -l go
    +--> component.properties: cdx:golem:*
    +--> metadata.component.properties: cdx:golem:*
    +--> cryptographic-asset components for golem.crypto evidence
+   +--> crypto data-flow properties and call-stack frames when enabled
 ```
 
 The integration keeps source evidence compact. It records file names, line numbers, categories, counts, symbol kinds, scopes, and module identity. It does not copy raw environment values, command output, generated file contents, or embedded secrets into the BOM.
@@ -59,15 +60,26 @@ The integration keeps source evidence compact. It records file names, line numbe
 
 These options are accepted by `evinse` when `--language go` or `--language golang` is used.
 
-| Option              | Default                       | Purpose                                                                      |
-| ------------------- | ----------------------------- | ---------------------------------------------------------------------------- |
-| `--golem-command`   | `GOLEM_CMD` or bundled plugin | Use a specific `golem` binary. Useful when testing a local helper build.     |
-| `--golem-callgraph` | `static`                      | Call graph mode. Accepted values are `none`, `static`, `rta`, and `pointer`. |
-| `--golem-patterns`  | `./...`                       | Comma-separated Go package patterns passed to Golem.                         |
-| `--golem-tags`      | none                          | Comma-separated Go build tags.                                               |
-| `--golem-tests`     | `false`                       | Include Go test variants in package loading and evidence.                    |
+| Option                                           | Default                       | Purpose                                                                                                                   |
+| ------------------------------------------------ | ----------------------------- | ------------------------------------------------------------------------------------------------------------------------- |
+| `--deep`                                         | `false`                       | Enables Golem data-flow mode with cdxgen's bounded-performance defaults.                                                  |
+| `--with-data-flow`                               | `false`                       | Enables Golem data-flow mode without also implying other cdxgen deep-mode behavior.                                       |
+| `--profile research`                             | `generic`                     | Enables Golem data-flow mode for research-oriented Go evidence.                                                           |
+| `--golem-command`                                | `GOLEM_CMD` or bundled plugin | Use a specific `golem` binary. Useful when testing a local helper build.                                                  |
+| `--golem-callgraph`                              | `static` or `none`            | Main call graph mode. Accepted values are `none`, `static`, `cha`, `rta`, `vta`, and `pointer`.                           |
+| `--golem-dataflow`                               | `none` or `all`               | Data-flow mode: `none`, `security`, `crypto`, or `all`. Defaults to `all` with `--deep`, research, or `--with-data-flow`. |
+| `--golem-dataflow-callgraph`                     | `none`                        | Call graph mode used for data-flow dynamic summary replay: `none`, `static`, `cha`, `rta`, or `vta`.                      |
+| `--golem-dataflow-pattern-packs`                 | `all`                         | Comma-separated data-flow pattern packs. Use `crypto` for a focused crypto-flow pass.                                     |
+| `--golem-dataflow-max-slices`                    | bounded by cdxgen             | Maximum data-flow slices emitted into the report.                                                                         |
+| `--golem-dataflow-workers` / `--golem-max-procs` | capped CPU count              | Worker and scheduler caps used to avoid noisy CI resource spikes.                                                         |
+| `--golem-dataflow-skip-generated`                | `true`                        | Skip generated files during data-flow materialization.                                                                    |
+| `--golem-dataflow-skip-tests`                    | `true` unless tests enabled   | Skip test/example/benchmark files during data-flow materialization.                                                       |
+| `--golem-memory-limit`                           | none                          | Optional Go soft memory limit such as `4GiB` or `800MiB`.                                                                 |
+| `--golem-patterns`                               | `./...`                       | Comma-separated Go package patterns passed to Golem.                                                                      |
+| `--golem-tags`                                   | none                          | Comma-separated Go build tags.                                                                                            |
+| `--golem-tests`                                  | `false`                       | Include Go test variants in package loading and evidence.                                                                 |
 
-Recommended defaults for CI are `--golem-callgraph static` and the default `./...` patterns. Use `rta` or `pointer` when an investigation needs deeper call graph precision and can tolerate more time and memory.
+Recommended defaults for CI are `--golem-callgraph static` for ordinary occurrence/call graph evidence and `--deep` or `--with-data-flow --golem-dataflow crypto` for bounded data-flow review. cdxgen automatically lowers the main call graph to `none` when data-flow is enabled unless you request another mode, because data-flow already performs its own SSA-backed pass.
 
 ## Call graph modes
 
@@ -88,7 +100,7 @@ Component-level properties explain how an individual Go module appears in the an
 
 ## Crypto and CBOM evidence
 
-Golem now emits a dedicated top-level `crypto` attribute in its JSON report. cdxgen consumes this during `evinse -l go` and renders CycloneDX `type: "cryptographic-asset"` components when the evidence is schema-safe:
+Golem emits a dedicated top-level `crypto` attribute in its JSON report. cdxgen consumes this during `evinse -l go` and renders CycloneDX `type: "cryptographic-asset"` components when the evidence is schema-safe:
 
 - `crypto.assets[]` for algorithms and certificates. Algorithm components are emitted only when an OID is available, either from Golem or cdxgen's `data/crypto-oid.json` catalog.
 - `crypto.protocols[]` for protocols such as TLS, rendered with `cryptoProperties.assetType: "protocol"`.
@@ -96,9 +108,29 @@ Golem now emits a dedicated top-level `crypto` attribute in its JSON report. cdx
 - `crypto.operations[]` for source operations such as hash, encrypt/decrypt, sign/verify, key generation, key derivation, random generation, and TLS configuration. These are also used to add `dependencies[].provides` relationships from the Go component to rendered crypto assets when possible.
 - `crypto.findings[]` for crypto-specific review findings such as weak MD5/SHA-1/DES usage, insecure TLS verification, and literal crypto-material indicators.
 
-Metadata properties summarize this evidence with `cdx:golem:cryptoLibraryCount`, `cdx:golem:cryptoAssetCount`, `cdx:golem:cryptoOperationCount`, `cdx:golem:cryptoMaterialCount`, `cdx:golem:cryptoProtocolCount`, `cdx:golem:cryptoFindingCount`, `cdx:golem:cryptoAlgorithms`, `cdx:golem:cryptoMaterialTypes`, and `cdx:golem:cryptoProtocols`. Components that own crypto operations or findings receive compact properties such as `cdx:golem:cryptoOperationType`, `cdx:golem:cryptoAlgorithm`, `cdx:golem:cryptoFinding`, and `cdx:golem:cryptoFindingSeverity`.
+Metadata properties summarize this evidence with `cdx:golem:cryptoLibraryCount`, `cdx:golem:cryptoAssetCount`, `cdx:golem:cryptoOperationCount`, `cdx:golem:cryptoMaterialCount`, `cdx:golem:cryptoProtocolCount`, `cdx:golem:cryptoFindingCount`, `cdx:golem:cryptoAlgorithms`, `cdx:golem:cryptoMaterialTypes`, and `cdx:golem:cryptoProtocols`. Components that own crypto operations or findings receive compact properties such as `cdx:golem:cryptoOperationType`, `cdx:golem:cryptoAlgorithm`, `cdx:golem:cryptoFinding`, and `cdx:golem:cryptoFindingSeverity`. Rendered crypto assets carry `cdx:golem:crypto:*` properties for strength, source symbol, usage scope, and source location; they never receive purls.
 
-The detector is intentionally conservative today. It is type-resolved for Go selectors and import evidence, and it uses name-based literal indicators without copying string contents. Full source-to-sink data-flow for keys, plaintext, ciphertext, and protocol sinks is a good future layer, but it should be added as a separate graph pass so it can preserve Golem's current no-secret-output and no-command-execution guarantees.
+## Data-flow and crypto-flow evidence
+
+When data-flow is enabled, Golem emits `dataFlow` nodes, edges, slices, trace IDs, taint kinds, source/sink categories, severity, confidence, and performance counters. cdxgen converts this into:
+
+- metadata properties such as `cdx:golem:dataFlowMode`, `cdx:golem:dataFlowSliceCount`, `cdx:golem:dataFlowSourceCount`, `cdx:golem:dataFlowSinkCount`, `cdx:golem:dataFlowNodeCount`, `cdx:golem:dataFlowEdgeCount`, `cdx:golem:dataFlowWorkerCount`, `cdx:golem:dataFlowElapsedMillis`, and truncation/sanitization counters when present;
+- component properties such as `cdx:golem:dataFlowCategories`, `cdx:golem:dataFlowRuleId`, `cdx:golem:dataFlowSeverity`, `cdx:golem:dataFlowConfidence`, `cdx:golem:dataFlowTaintKinds`, and `cdx:golem:dataFlowSliceCount`;
+- crypto-specific component properties such as `cdx:golem:cryptoDataFlow`, `cdx:golem:cryptoDataFlowCategories`, `cdx:golem:cryptoDataFlowRuleId`, `cdx:golem:cryptoDataFlowTaintKinds`, and `cdx:golem:cryptoDataFlowCount` when the source, sink, rule, or taint kind is crypto-related;
+- `component.evidence.occurrences` entries for data-flow source/sink locations; and
+- `component.evidence.callstack.frames` generated from ordered data-flow trace nodes.
+
+The default deep-mode data-flow settings are intentionally bounded for CI: worker count and `GOMAXPROCS` are capped, generated files are skipped, tests are skipped unless `--golem-tests` is requested, and slice/trace limits are applied. For a narrow crypto investigation, use:
+
+```bash
+evinse -i bom.json -o bom.evinse.json -l go \
+  --with-data-flow \
+  --golem-dataflow crypto \
+  --golem-dataflow-pattern-packs crypto \
+  /absolute/path/to/go/project
+```
+
+Golem data-flow evidence remains secret-safe. The BOM records categories, rule IDs, taint kinds, source locations, and call-stack frames; it does not copy raw key material, plaintext, environment values, HTTP parameters, generated file contents, or full command strings.
 
 See [cdx: Custom Properties](CUSTOM_PROPERTIES.md#golem-go-evinse-evidence) for the full inventory.
 

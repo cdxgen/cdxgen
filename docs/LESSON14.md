@@ -9,8 +9,9 @@ By the end of this lesson you should be able to answer these questions for a Go 
 1. Which modules are referenced by source code?
 2. Which modules are runtime scoped versus test, benchmark, fuzz, or example scoped?
 3. Which modules have security-sensitive API signals?
-4. Does the project rely on local replacements, vendored modules, generated code, embedded assets, or native artifacts?
-5. Which BOM audit findings are driven by Golem evidence?
+4. Which modules and application components carry data-flow or crypto-flow evidence?
+5. Does the project rely on local replacements, vendored modules, generated code, embedded assets, or native artifacts?
+6. Which BOM audit findings are driven by Golem evidence?
 
 ## Prerequisites
 
@@ -55,6 +56,26 @@ If you need test package variants:
 evinse -i bom.json -o bom.evinse.json -l go --golem-tests /absolute/path/to/go/project
 ```
 
+## Step 2b: Add data-flow and crypto-flow evidence
+
+For deeper AppSec review, enable Golem data-flow. `--deep` is the shortest form and applies cdxgen's performance safeguards automatically:
+
+```bash
+evinse -i bom.json -o bom.evinse.json -l go --deep /absolute/path/to/go/project
+```
+
+For a narrower crypto-flow investigation, request only the crypto data-flow mode and pattern pack:
+
+```bash
+evinse -i bom.json -o bom.evinse.crypto.json -l go \
+  --with-data-flow \
+  --golem-dataflow crypto \
+  --golem-dataflow-pattern-packs crypto \
+  /absolute/path/to/go/project
+```
+
+Look for metadata properties such as `cdx:golem:dataFlowMode`, `cdx:golem:dataFlowSliceCount`, and `cdx:golem:cryptoDataFlowCount`. Components with crypto flows receive `cdx:golem:cryptoDataFlow=true`, `cdx:golem:cryptoDataFlowCategories`, and call-stack frames from the ordered data-flow trace.
+
 ## Step 3: Review the enriched BOM
 
 ```bash
@@ -72,7 +93,7 @@ Useful commands:
 .inspect <component name or purl fragment>
 ```
 
-Use `.golemsummary` first. It shows the Golem tool version, call graph mode, package and file counts, generated/native build surface counts, security signal categories, and the number of components with Golem evidence.
+Use `.golemsummary` first. It shows the Golem tool version, call graph and data-flow modes, package and file counts, generated/native build surface counts, security signal categories, crypto/data-flow counters, and the number of components with Golem evidence.
 
 Use `.golemhotspots` next. It focuses on components with security signals, local replacement flags, private module candidates, or vendored module evidence.
 
@@ -97,6 +118,7 @@ The rule pack uses `cdx:golem:*` properties for three review tracks:
 A good shippable integration is not just a populated BOM. It should support repeatable decisions:
 
 - If high-severity semantic signals appear, inspect the occurrence and call-stack evidence before deciding whether the use is acceptable.
+- If `cdx:golem:cryptoDataFlow=true` appears, inspect the source/sink categories, taint kinds, and call-stack frames before deciding whether key-management or data-handling changes are needed.
 - If local replacements appear, remove them from release builds or document why a local or vendored source is part of the release baseline.
 - If private module candidates appear, make sure internal provenance and license review evidence exists outside public registry metadata.
 - If native or generated build surfaces appear, check reproducibility and cross-platform build behavior.
@@ -108,7 +130,7 @@ If no Golem properties appear, verify that `evinse` was run with `-l go` or `-l 
 
 If evidence does not attach to expected modules, regenerate the base SBOM from the same source tree and compare the component purls with the module paths in the Go project.
 
-If analysis is too slow, switch from `pointer` to `static`, narrow `--golem-patterns`, or skip test variants unless they are needed for the review.
+If analysis is too slow, switch from `pointer` to `static`, narrow `--golem-patterns`, use `--golem-dataflow crypto` instead of `all`, lower `--golem-dataflow-max-slices`, set `--golem-memory-limit 4GiB`, or skip test variants unless they are needed for the review.
 
 ## Related docs
 

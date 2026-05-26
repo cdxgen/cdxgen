@@ -33,29 +33,36 @@ evinse -i bom.json -o bom.evinse.json -l java --with-data-flow .
 
 ## CLI reference
 
-| Flag                        | Default                  | Description                                                                    |
-| --------------------------- | ------------------------ | ------------------------------------------------------------------------------ |
-| `-i, --input`               | `bom.json`               | Input CycloneDX BOM                                                            |
-| `-o, --output`              | `bom.evinse.json`        | Output enriched BOM                                                            |
-| `-l, --language`            | `java`                   | Source language                                                                |
-| `--golem-command`           | `GOLEM_CMD`              | Use a specific `golem` binary for Go Evinse                                    |
-| `--golem-callgraph`         | `static`                 | Go call graph mode: `none`, `static`, `rta`, or `pointer`                      |
-| `--golem-patterns`          | `./...`                  | Comma-separated Go package patterns                                            |
-| `--golem-tags`              | none                     | Comma-separated Go build tags                                                  |
-| `--golem-tests`             | off                      | Include Go test variants in Golem analysis                                     |
-| `--force`                   | off                      | Rebuild the evidence database                                                  |
-| `--skip-maven-collector`    | off                      | Skip Maven and Gradle cache collection                                         |
-| `--with-deep-jar-collector` | off                      | Collect more jars for better Java recall                                       |
-| `--annotate`                | off                      | Include atom slice contents as annotations                                     |
-| `--with-data-flow`          | off                      | Enable inter-procedural data-flow slicing                                      |
-| `--with-reachables`         | off                      | Enable reachability-based slicing                                              |
-| `--profile`                 | `generic`                | Use `research` to enable dosai data-flow and crypto analysis for .NET projects |
-| `--usages-slices-file`      | `usages.slices.json`     | Reuse an existing usages slice file                                            |
-| `--data-flow-slices-file`   | `data-flow.slices.json`  | Reuse an existing data-flow slice file                                         |
-| `--reachables-slices-file`  | `reachables.slices.json` | Reuse an existing reachables slice file                                        |
-| `--semantics-slices-file`   | `semantics.slices.json`  | Reuse an existing semantics slice file                                         |
-| `--openapi-spec-file`       | `openapi.json`           | Reuse an existing OpenAPI spec file                                            |
-| `-p, --print`               | off                      | Print evidence tables after generation                                         |
+| Flag                             | Default                  | Description                                                                    |
+| -------------------------------- | ------------------------ | ------------------------------------------------------------------------------ |
+| `-i, --input`                    | `bom.json`               | Input CycloneDX BOM                                                            |
+| `-o, --output`                   | `bom.evinse.json`        | Output enriched BOM                                                            |
+| `-l, --language`                 | `java`                   | Source language                                                                |
+| `--golem-command`                | `GOLEM_CMD`              | Use a specific `golem` binary for Go Evinse                                    |
+| `--golem-callgraph`              | `static` / `none`        | Go call graph mode: `none`, `static`, `cha`, `rta`, `vta`, or `pointer`        |
+| `--golem-dataflow`               | `none` / `all`           | Go data-flow mode: `none`, `security`, `crypto`, or `all`                      |
+| `--golem-dataflow-callgraph`     | `none`                   | Call graph mode for Golem data-flow dynamic summary replay                     |
+| `--golem-dataflow-pattern-packs` | `all`                    | Data-flow pattern packs such as `crypto`, `process`, `filesystem`, or `all`    |
+| `--golem-dataflow-max-slices`    | bounded by cdxgen        | Maximum Golem data-flow slices to retain                                       |
+| `--golem-dataflow-workers`       | capped CPU count         | Worker cap for predictable Go data-flow performance                            |
+| `--golem-max-procs`              | capped CPU count         | Go scheduler thread cap for Golem                                              |
+| `--golem-memory-limit`           | none                     | Optional Golem soft memory limit such as `4GiB`                                |
+| `--golem-patterns`               | `./...`                  | Comma-separated Go package patterns                                            |
+| `--golem-tags`                   | none                     | Comma-separated Go build tags                                                  |
+| `--golem-tests`                  | off                      | Include Go test variants in Golem analysis                                     |
+| `--force`                        | off                      | Rebuild the evidence database                                                  |
+| `--skip-maven-collector`         | off                      | Skip Maven and Gradle cache collection                                         |
+| `--with-deep-jar-collector`      | off                      | Collect more jars for better Java recall                                       |
+| `--annotate`                     | off                      | Include atom slice contents as annotations                                     |
+| `--with-data-flow`               | off                      | Enable inter-procedural data-flow slicing                                      |
+| `--with-reachables`              | off                      | Enable reachability-based slicing                                              |
+| `--profile`                      | `generic`                | Use `research` to enable dosai data-flow and crypto analysis for .NET projects |
+| `--usages-slices-file`           | `usages.slices.json`     | Reuse an existing usages slice file                                            |
+| `--data-flow-slices-file`        | `data-flow.slices.json`  | Reuse an existing data-flow slice file                                         |
+| `--reachables-slices-file`       | `reachables.slices.json` | Reuse an existing reachables slice file                                        |
+| `--semantics-slices-file`        | `semantics.slices.json`  | Reuse an existing semantics slice file                                         |
+| `--openapi-spec-file`            | `openapi.json`           | Reuse an existing OpenAPI spec file                                            |
+| `-p, --print`                    | off                      | Print evidence tables after generation                                         |
 
 ## Supported languages
 
@@ -81,25 +88,30 @@ Use `--with-reachables` when you need entry-point-to-sink style reachability sig
 
 ### Data-flow evidence
 
-Use `--with-data-flow` when you need deeper call-stack evidence and are willing to spend more time and compute.
+Use `--with-data-flow` when you need deeper call-stack evidence and are willing to spend more time and compute. For Go, this enables Golem data-flow mode; use `--golem-dataflow crypto` and `--golem-dataflow-pattern-packs crypto` for a focused crypto-flow pass.
 
 ### Go evidence powered by Golem
 
-For Go projects, `evinse -l go` uses the bundled `golem` helper from `@cdxgen/cdxgen-plugins-bin` when available. Golem maps Go modules to semantic source evidence and emits occurrence, call-stack, usage-scope, build, native-artifact, and security-signal context.
+For Go projects, `evinse -l go` uses the bundled `golem` helper from `@cdxgen/cdxgen-plugins-bin` when available. Golem maps Go modules to semantic source evidence and emits occurrence, call-stack, usage-scope, build, native-artifact, security-signal, crypto, and data-flow context.
 
 ```shell
 cdxgen -t go -o bom.json /absolute/path/to/go/project
 evinse -i bom.json -o bom.evinse.json -l go --golem-callgraph static /absolute/path/to/go/project
+
+# Bounded data-flow and crypto-flow evidence. This is the same mode enabled by --deep.
+evinse -i bom.json -o bom.evinse.json -l go --with-data-flow --golem-dataflow crypto --golem-dataflow-pattern-packs crypto /absolute/path/to/go/project
 ```
 
 The enriched BOM includes:
 
 - `component.evidence.occurrences` for import and symbol usage locations
-- `component.evidence.callstack.frames` from usage and call graph evidence when available
+- `component.evidence.callstack.frames` from usage, call graph, and data-flow trace evidence when available
 - component-level `cdx:golem:*` properties such as usage scopes, occurrence evidence kinds, security signal category/severity, vendoring, private-module hints, license-file counts, and replacement status
-- metadata-level `cdx:golem:*` properties such as tool version, call graph mode, package/module/file counts, build directive counts, native artifact counts, and Go toolchain directives
+- data-flow properties such as `cdx:golem:dataFlowMode`, `cdx:golem:dataFlowSliceCount`, `cdx:golem:dataFlowCategories`, `cdx:golem:dataFlowTaintKinds`, and `cdx:golem:cryptoDataFlowCount`
+- crypto properties and schema-valid `cryptographic-asset` components for algorithms, protocols, certificates, and related crypto material indicators
+- metadata-level `cdx:golem:*` properties such as tool version, call graph/data-flow modes, package/module/file counts, build directive counts, native artifact counts, performance counters, and Go toolchain directives
 
-Use `--golem-callgraph static` for routine CI. Use `rta` or `pointer` when an investigation needs more precision and can tolerate more time and memory. Use `--golem-tests` when test-only dependencies are part of the review.
+Use `--golem-callgraph static` for routine CI when you do not need data-flow. Use `--deep` or `--with-data-flow` for Golem data-flow; cdxgen applies worker, scheduler, slice, trace, generated-file, and test-file safeguards automatically. Use `rta`, `vta`, or `pointer` only when an investigation needs more precision and can tolerate more time and memory. Use `--golem-tests` when test-only dependencies are part of the review.
 
 After enrichment, import the BOM into `cdxi` and use `.golemsummary`, `.golemhotspots`, `.golemcoverage`, `.occurrences`, and `.callstack`. For focused policy review, run `cdx-audit --bom bom.evinse.json --direct-bom-audit --categories golem`.
 

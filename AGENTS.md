@@ -24,7 +24,7 @@ Companion binaries:
 - Live-OS OBOM flows use the bundled osquery binary plus the query packs under `data/queries*.json`. Linux query packs also include hardening-focused snapshots such as `sysctl_hardening` and `mount_hardening`.
 - When the optional `trustinspector` helper is present, host-path trust enrichment should be treated as batched rather than artificially capped. Keep Authenticode, WDAC, code-signing, and notarization properties intact across large inventories.
 - GTFOBins enrichment is expected on Linux live-runtime osquery components in the same way LOLBAS enrichment is expected on Windows runtime components.
-- Go Evinse flows use the bundled `golem` helper when available. Keep `cdx:golem:*` metadata and component properties safe, compact, and policy-friendly: counts, categories, scopes, source locations, and module facts are acceptable, but do not emit raw generator commands, environment values, embedded file contents, or secrets.
+- Go Evinse flows use the bundled `golem` helper when available. Keep `cdx:golem:*` metadata and component properties safe, compact, and policy-friendly: counts, categories, scopes, source locations, data-flow rule IDs, taint-kind labels, crypto algorithm names/OIDs, and module facts are acceptable, but do not emit raw generator commands, environment values, HTTP parameter values, raw key material, embedded file contents, generated source contents, or secrets.
 
 ---
 
@@ -176,9 +176,9 @@ Runs before BOM generation to install missing build tools via sdkman, nvm, rbenv
 
 ### Go Evinse with Golem
 
-`evinse -l go` calls `lib/helpers/golem.js`, which resolves the optional `golem` plugin binary, runs `golem analyze --format json`, and maps the report into CycloneDX evidence. Occurrences and call-stack frames are attached to matching Go module purls. Metadata-level `cdx:golem:*` properties are appended to `bom.metadata.component`; component-level `cdx:golem:*` properties are appended to matching dependency components.
+`evinse -l go` calls `lib/helpers/golem.js`, which resolves the optional `golem` plugin binary, runs `golem analyze --format json`, and maps the report into CycloneDX evidence. Occurrences and call-stack frames are attached to matching Go module purls. Data-flow traces are mapped to occurrence and call-stack evidence when `--deep`, `--with-data-flow`, `--profile research`, or explicit `--golem-dataflow` options are used. Metadata-level `cdx:golem:*` properties are appended to `bom.metadata.component`; component-level `cdx:golem:*` properties are appended to matching dependency components; crypto evidence can add schema-valid `cryptographic-asset` components without purls.
 
-Keep this path layered as `bin/evinse.js` → `lib/evinser/evinser.js` → `lib/helpers/golem.js`. Do not import CLI modules from helpers. When adding Golem evidence, update `docs/GO_EVINSE_GOLEM.md`, `docs/CUSTOM_PROPERTIES.md`, `docs/BOM_AUDIT.md`, and the REPL commands in `bin/repl.js` if the new property creates a useful analyst pivot.
+Keep this path layered as `bin/evinse.js` → `lib/evinser/evinser.js` → `lib/helpers/golem.js`. Do not import CLI modules from helpers. When adding Golem evidence, update `docs/GO_EVINSE_GOLEM.md`, `docs/CUSTOM_PROPERTIES.md`, `docs/EVINSE.md`, `docs/GO_EVINSE_GOLEM_THREAT_MODEL.md`, `docs/BOM_AUDIT.md`, `docs/LESSON14.md`, repo-test assertions in `.github/workflows/repotests.yml`, and the REPL commands in `bin/repl.js` if the new property creates a useful analyst pivot.
 
 ### PackageURL
 
@@ -301,8 +301,10 @@ Never construct purl strings by hand-concatenation.
 ### Go Evinse and Golem property hygiene
 
 - Preserve `cdx:golem:*` as small strings: counts, booleans, enums, source locations, module paths, and comma-separated scope/category lists.
+- Preserve data-flow and crypto-flow evidence as categories, rule IDs, confidence/severity labels, taint kinds, source locations, and call-stack frames. Do not emit raw source values, key material, plaintext, ciphertext, HTTP parameter values, environment values, generated source contents, or full command lines.
 - Do not emit raw `go:generate` command strings, raw environment values, embedded file contents, generated source contents, or full command lines.
 - Prefer scope-aware policy signals. `cdx:golem:usageScopes=runtime` is a stronger release signal than test-only usage; `cdx:golem:testOnly=true` is useful triage context but should not be treated as proof of no risk.
+- Prefer bounded defaults for data-flow in CI: `--deep` or `--with-data-flow --golem-dataflow crypto` with capped workers, capped `--golem-max-procs`, slice/trace limits, generated-file skipping, and tests skipped unless `--golem-tests` is required.
 - Keep BOM audit rules in `data/rules/golem-go.yaml` aligned with emitted property names and document new rules in `docs/BOM_AUDIT.md`.
 - Keep `cdxi` pivots aligned with the analyst flow: `.golemsummary` for run context, `.golemhotspots` for risk review, and `.golemcoverage` for evidence coverage.
 
