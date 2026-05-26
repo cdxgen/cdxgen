@@ -309,11 +309,12 @@ export function pnpmMetadata(pkgList: any[], lockFilePath: string): any[];
  * @param {Object} parentComponent parent component
  * @param {Array[String]} workspacePackages Workspace packages
  * @param {Object} workspaceSrcFiles Workspace package.json files
- * @param {Object} workspaceCatalogs Workspace catalogs
- * @param {Object} workspaceDirectDeps Direct dependencies of each workspace
+ * @param {Object} _workspaceCatalogs Workspace catalogs
+ * @param {Object} _workspaceDirectDeps Direct dependencies of each workspace
  * @param {Object} depsWorkspaceRefs Workspace references for each dependency
+ * @param {string} projectRoot Root path used to relativize pnpm-lock evidence paths
  */
-export function parsePnpmLock(pnpmLock: string, parentComponent?: Object, workspacePackages?: any, workspaceSrcFiles?: Object, _workspaceCatalogs?: {}, _workspaceDirectDeps?: {}, depsWorkspaceRefs?: Object): Promise<{
+export function parsePnpmLock(pnpmLock: string, parentComponent?: Object, workspacePackages?: any, workspaceSrcFiles?: Object, _workspaceCatalogs?: Object, _workspaceDirectDeps?: Object, depsWorkspaceRefs?: Object, projectRoot?: string): Promise<{
     pkgList?: undefined;
     dependenciesList?: undefined;
     parentSubComponents?: undefined;
@@ -1742,9 +1743,10 @@ export function executeAtom(src: string, args: string[], extra_env?: Object): bo
  * @param {string} language
  * @param {string} methodology
  * @param {string} slicesFile
+ * @param {Object} options CLI options
  * @returns List of imported modules
  */
-export function findAppModules(src: string, language: string, methodology?: string, slicesFile?: string): any;
+export function findAppModules(src: string, language: string, methodology?: string, slicesFile?: string, options?: Object): any;
 /**
  * Create uv.lock file with uv sync command.
  *

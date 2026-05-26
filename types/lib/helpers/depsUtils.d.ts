@@ -11,6 +11,18 @@
  */
 export function mergeDependencies(dependencies: Object[], newDependencies: Object[], parentComponent?: Object): Object[];
 /**
+ * Propagates required scope through a dependency graph.
+ *
+ * If component A has `scope: "required"` and dependency metadata says A depends
+ * on B, B is also runtime-relevant. Keep packages optional when lockfile/parser
+ * metadata explicitly identifies them as development, optional, or peer-only.
+ *
+ * @param {Object[]} components CycloneDX component objects
+ * @param {Object[]} dependencies CycloneDX dependency entries
+ * @returns {Object[]} The same component array with scopes updated in place
+ */
+export function propagateRequiredScopeFromDependencies(components?: Object[], dependencies?: Object[]): Object[];
+/**
  * Merge CycloneDX services using bom-ref or group/name/version identity.
  *
  * @param {Object[]|Object} services Existing service list

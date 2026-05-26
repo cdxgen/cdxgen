@@ -114,6 +114,40 @@ export function initFromSbom(components: any, language: any): {
  * @param {Object} options Command line options
  */
 export function analyzeProject(dbObjMap: Object, options: Object): Promise<{
+    purlLocationMap: {};
+    dataFlowFrames: {};
+    componentPropertiesMap: {};
+    metadataProperties: any[];
+    cryptoComponents: any[];
+    cryptoGeneratePurls: {};
+    servicesMap: {};
+    userDefinedTypesMap: {};
+    usagesSlicesFile?: undefined;
+    dataFlowSlicesFile?: undefined;
+    tempDir?: undefined;
+    tempDirOwned?: undefined;
+    atomFile?: undefined;
+    reachablesSlicesFile?: undefined;
+    semanticsSlicesFile?: undefined;
+    openapiSpecFile?: undefined;
+} | {
+    purlLocationMap: {};
+    servicesMap: {};
+    dataFlowFrames: {};
+    userDefinedTypesMap: {};
+    componentPropertiesMap?: undefined;
+    metadataProperties?: undefined;
+    cryptoComponents?: undefined;
+    cryptoGeneratePurls?: undefined;
+    usagesSlicesFile?: undefined;
+    dataFlowSlicesFile?: undefined;
+    tempDir?: undefined;
+    tempDirOwned?: undefined;
+    atomFile?: undefined;
+    reachablesSlicesFile?: undefined;
+    semanticsSlicesFile?: undefined;
+    openapiSpecFile?: undefined;
+} | {
     usagesSlicesFile: any;
     dataFlowSlicesFile: any;
     purlLocationMap: {};
@@ -124,6 +158,8 @@ export function analyzeProject(dbObjMap: Object, options: Object): Promise<{
     userDefinedTypesMap: {};
     cryptoComponents: any[];
     cryptoGeneratePurls: {};
+    componentPropertiesMap?: undefined;
+    metadataProperties?: undefined;
     atomFile?: undefined;
     reachablesSlicesFile?: undefined;
     semanticsSlicesFile?: undefined;
@@ -143,6 +179,8 @@ export function analyzeProject(dbObjMap: Object, options: Object): Promise<{
     cryptoComponents: any[];
     cryptoGeneratePurls: {};
     openapiSpecFile: any;
+    componentPropertiesMap?: undefined;
+    metadataProperties?: undefined;
 }>;
 export function parseObjectSlices(language: any, usageSlice: any, dbObjMap: any, servicesMap?: {}, purlLocationMap?: {}, purlImportsMap?: {}, openapiSpecFile?: undefined): Promise<{}>;
 /**
