@@ -73,9 +73,15 @@ const args = yargs(hideBin(process.argv))
   })
   .option("profile", {
     description:
-      "Evidence profile. The research profile enables dosai data-flow and crypto analysis for .NET projects.",
+      "Evidence profile. The research profile enables data-flow and crypto analysis where supported.",
     default: "generic",
     choices: ["generic", "research"],
+  })
+  .option("deep", {
+    description:
+      "Enable deeper evidence collection. For Go, this enables Golem data-flow with performance safeguards so crypto flows can be captured.",
+    default: false,
+    type: "boolean",
   })
   .option("golem-command", {
     description: "Use a specific golem binary for Go Evinse analysis.",
@@ -83,8 +89,74 @@ const args = yargs(hideBin(process.argv))
   })
   .option("golem-callgraph", {
     description: "Golem call graph mode for Go Evinse analysis.",
-    default: "static",
-    choices: ["none", "static", "rta", "pointer"],
+    choices: ["none", "static", "cha", "rta", "vta", "pointer"],
+  })
+  .option("golem-dataflow", {
+    description:
+      "Golem data-flow mode for Go Evinse analysis. Defaults to all with --with-data-flow, research profile, or --deep, and none otherwise.",
+    choices: ["none", "security", "crypto", "all"],
+  })
+  .option("golem-dataflow-callgraph", {
+    description:
+      "Golem call graph mode used only for data-flow dynamic summary replay.",
+    default: "none",
+    choices: ["none", "static", "cha", "rta", "vta"],
+  })
+  .option("golem-dataflow-patterns", {
+    description: "Custom Golem data-flow pattern JSON file.",
+  })
+  .option("golem-dataflow-pattern-packs", {
+    description:
+      "Comma-separated Golem data-flow pattern packs: all, base, http, frameworks, data, filesystem, process, crypto, native, config, cloud.",
+  })
+  .option("golem-dataflow-max-slices", {
+    description: "Maximum Golem data-flow slices to emit.",
+    type: "number",
+  })
+  .option("golem-dataflow-workers", {
+    description:
+      "Golem data-flow worker count. Defaults to a capped CPU count for predictable performance.",
+    type: "number",
+  })
+  .option("golem-dataflow-large-repo-functions", {
+    description:
+      "Function count at which Golem large-repo data-flow safeguards apply.",
+    type: "number",
+  })
+  .option("golem-dataflow-max-function-instructions", {
+    description:
+      "Skip Golem per-function data-flow materialization above this SSA instruction count in large repos.",
+    type: "number",
+  })
+  .option("golem-dataflow-max-trace-nodes", {
+    description: "Maximum ordered Golem data-flow node IDs retained per trace.",
+    type: "number",
+  })
+  .option("golem-dataflow-max-trace-edges", {
+    description: "Maximum ordered Golem data-flow edge IDs retained per trace.",
+    type: "number",
+  })
+  .option("golem-dataflow-skip-generated", {
+    description: "Skip generated files during Golem data-flow analysis.",
+    type: "boolean",
+  })
+  .option("golem-dataflow-skip-tests", {
+    description:
+      "Skip test/example/benchmark files during Golem data-flow analysis.",
+    type: "boolean",
+  })
+  .option("golem-max-procs", {
+    description:
+      "Maximum Go scheduler threads for Golem. Defaults to a capped CPU count when data-flow is enabled.",
+    type: "number",
+  })
+  .option("golem-memory-limit", {
+    description: "Optional Golem Go soft memory limit such as 4GiB or 800MiB.",
+  })
+  .option("golem-progress", {
+    description: "Emit coarse Golem progress logs to stderr during analysis.",
+    default: false,
+    type: "boolean",
   })
   .option("golem-patterns", {
     description: "Comma-separated go/packages patterns for golem.",
