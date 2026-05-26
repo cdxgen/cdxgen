@@ -14,6 +14,9 @@ on:
       - 'package.json'
       - 'pnpm-lock.yaml'
       - 'test/data/atom-exclude-repotest/**'
+      - 'test/data/angular-cli-scripts-repotest/**'
+      - 'test/data/angular-css-config-repotest/**'
+      - 'test/data/angular-template-repotest/**'
       - 'test/data/cargo-cache-fixture/**'
       - 'test/data/cache-disable-repotest/**'
       - 'test/data/cbom-js-repotest/**'
@@ -149,6 +152,24 @@ jobs:
           jq -e 'any(.components[]; ((.purl // "") | startswith("pkg:npm/left-pad@1.3.0")) and any((.evidence.occurrences // [])[]; (.location // "") | contains("src/used/index.js")))' bomresults/bom-atom-exclude-fixture.json
           jq -e 'all(.components[]?; all((.evidence.occurrences // [])[]?; (((.location // "") | contains("ignored")) | not)))' bomresults/bom-atom-exclude-fixture.json
           jq -e 'all(.components[]? | select((.purl // "") | startswith("pkg:npm/is-odd@3.0.1")); ((.evidence.occurrences // []) | length) == 0)' bomresults/bom-atom-exclude-fixture.json
+        shell: bash
+      - name: repotests angular analyzer fixtures
+        run: |
+          bin/cdxgen.js -t js test/data/angular-css-config-repotest -o bomresults/bom-angular-css-config-fixture.json --deep --evidence --fail-on-error
+          bin/cdxgen.js -t js test/data/angular-template-repotest -o bomresults/bom-angular-template-fixture.json --deep --evidence --fail-on-error
+          bin/cdxgen.js -t js test/data/angular-cli-scripts-repotest -o bomresults/bom-angular-cli-scripts-fixture.json --deep --evidence --fail-on-error
+          jq -e 'any(.components[]; .purl == "pkg:npm/material-symbols@0.28.2" and .scope == "required")' bomresults/bom-angular-css-config-fixture.json
+          jq -e 'any(.components[]; .purl == "pkg:npm/bootstrap@5.3.3" and .scope == "required")' bomresults/bom-angular-css-config-fixture.json
+          jq -e 'any(.components[]; .purl == "pkg:npm/angular-i18n@1.8.3" and .scope == "required")' bomresults/bom-angular-css-config-fixture.json
+          jq -e 'any(.components[]; .purl == "pkg:npm/left-pad@1.3.0" and .scope == "optional")' bomresults/bom-angular-css-config-fixture.json
+          jq -e 'any(.components[]; .purl == "pkg:npm/material-symbols@0.28.2" and .scope == "required")' bomresults/bom-angular-template-fixture.json
+          jq -e 'any(.components[]; .purl == "pkg:npm/primeicons@7.0.0" and .scope == "required")' bomresults/bom-angular-template-fixture.json
+          jq -e 'any(.components[]; .purl == "pkg:npm/bootstrap-icons@1.11.3" and .scope == "required")' bomresults/bom-angular-template-fixture.json
+          jq -e 'any(.components[]; .group == "@fortawesome" and .name == "fontawesome-free" and .scope == "required")' bomresults/bom-angular-template-fixture.json
+          jq -e 'any(.components[]; .purl == "pkg:npm/left-pad@1.3.0" and .scope == "optional")' bomresults/bom-angular-template-fixture.json
+          jq -e 'any(.components[]; .purl == "pkg:npm/license-report@6.5.0" and .scope == "required" and any((.properties // [])[]; .name == "cdx:npm:bin" and (.value | contains("license-report"))))' bomresults/bom-angular-cli-scripts-fixture.json
+          jq -e 'any(.components[]; .group == "@angular" and .name == "cli" and .scope == "required")' bomresults/bom-angular-cli-scripts-fixture.json
+          jq -e 'any(.components[]; .purl == "pkg:npm/left-pad@1.3.0" and .scope == "optional")' bomresults/bom-angular-cli-scripts-fixture.json
         shell: bash
       - name: repotests cdxgen self source crypto
         run: |

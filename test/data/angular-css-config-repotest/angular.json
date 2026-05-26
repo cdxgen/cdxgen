@@ -1,0 +1,29 @@
+{
+  "version": 1,
+  "projects": {
+    "app": {
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "assets": [
+              {
+                "glob": "**/angular-locale_+(en|de|sv).js",
+                "input": "./node_modules/angular-i18n",
+                "output": "/i18n/"
+              },
+              "node_modules/flag-icons/flags"
+            ],
+            "styles": [
+              "src/styles.scss",
+              "node_modules/@fortawesome/fontawesome-free/css/all.css"
+            ],
+            "stylePreprocessorOptions": {
+              "includePaths": ["node_modules/bootstrap/scss"]
+            }
+          }
+        }
+      }
+    }
+  }
+}

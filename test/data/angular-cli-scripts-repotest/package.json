@@ -1,0 +1,16 @@
+{
+  "name": "angular-cli-scripts-repotest",
+  "version": "1.0.0",
+  "type": "module",
+  "dependencies": {
+    "@angular/cli": "17.3.0",
+    "@angular/core": "17.3.0",
+    "left-pad": "1.3.0",
+    "license-report": "6.5.0"
+  },
+  "scripts": {
+    "build": "npm run license-report && ng build",
+    "license-report": "npx license-report --only=prod --output=json > ./src/assets/license-report.json",
+    "noop": "echo done"
+  }
+}
