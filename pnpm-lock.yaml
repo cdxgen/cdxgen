@@ -323,63 +323,63 @@ packages:
     engines: {node: '>=20'}
 
   '@cdxgen/cdxgen-plugins-bin-darwin-amd64@2.2.0':
-    resolution: {integrity: sha512-IqoG/iS/V73Seed+vFxmj5LDfTqw7/EEh9/di3gzn/KYFvhDGRNOFulZ7L5dI7Gf01xTYELCJ1Hlc5sm6xgHFA==, tarball: https://registry.npmjs.org/@cdxgen/cdxgen-plugins-bin-darwin-amd64/-/cdxgen-plugins-bin-darwin-amd64-2.2.0.tgz}
+    resolution: {integrity: sha512-ynSJLTdLQ7+HbFKKJ3q19tRYD0hSdT8r/B8Lg8RRIJ30ka4nZ/kcM2PUb+eLhkp6q7brFwcTu2WNMcXkIGX9eA==, tarball: https://registry.npmjs.org/@cdxgen/cdxgen-plugins-bin-darwin-amd64/-/cdxgen-plugins-bin-darwin-amd64-2.2.0.tgz}
     cpu: [x64]
     os: [darwin]
 
   '@cdxgen/cdxgen-plugins-bin-darwin-arm64@2.2.0':
-    resolution: {integrity: sha512-tiTsbg/BVct8gQtnKw8VdOVlmI0qVDY57cFGz2QKKy9tjYYkxgZMmNx/jo0ibz1Zs1k1tEzzyYspAmYw9xelQg==, tarball: https://registry.npmjs.org/@cdxgen/cdxgen-plugins-bin-darwin-arm64/-/cdxgen-plugins-bin-darwin-arm64-2.2.0.tgz}
+    resolution: {integrity: sha512-2Umt2NOPSKDEycV/lRsDWdOE3b6MnXSZq00NnGttVVjL1/aDC9FsfTUC1POd//t6Gy8cuJKBNCVy4ELJSzWptw==, tarball: https://registry.npmjs.org/@cdxgen/cdxgen-plugins-bin-darwin-arm64/-/cdxgen-plugins-bin-darwin-arm64-2.2.0.tgz}
     cpu: [arm64]
     os: [darwin]
 
   '@cdxgen/cdxgen-plugins-bin-linux-amd64@2.2.0':
-    resolution: {integrity: sha512-axwyO05NkexkBzNp8isQkkmMVbU+Kwwa9iGwWtJi9/E5mlZ1WH4qkFpa5+hsPsElN4mhkQVB1o2iyKTIFgusDA==, tarball: https://registry.npmjs.org/@cdxgen/cdxgen-plugins-bin-linux-amd64/-/cdxgen-plugins-bin-linux-amd64-2.2.0.tgz}
+    resolution: {integrity: sha512-w5zCdDbADThvl2Yv6KEfnoh8MRbKcOheEuqMjNgkyK6uNfYt2OCdvLTTvdOGgpGzIxwQXCmRLqkDRfM9Jtu+kQ==, tarball: https://registry.npmjs.org/@cdxgen/cdxgen-plugins-bin-linux-amd64/-/cdxgen-plugins-bin-linux-amd64-2.2.0.tgz}
     cpu: [x64]
     os: [linux]
     libc: glibc
 
   '@cdxgen/cdxgen-plugins-bin-linux-arm64@2.2.0':
-    resolution: {integrity: sha512-nszTPSgdF2yomEqAg9lJWzCaJz6WKtiqit0wgIoH2oCcyceRyxMJZnUaq8KHZOdnRrCcedbAVo9fockQK4gFdw==, tarball: https://registry.npmjs.org/@cdxgen/cdxgen-plugins-bin-linux-arm64/-/cdxgen-plugins-bin-linux-arm64-2.2.0.tgz}
+    resolution: {integrity: sha512-cOfmRhTBKgZqpBG67XlVrAa6RfD4ZXxsICmCY7jzEkkxFj/+EPKQEQHpt3GIwQZpmLJrxFfqhY2fkw86JcbPsQ==, tarball: https://registry.npmjs.org/@cdxgen/cdxgen-plugins-bin-linux-arm64/-/cdxgen-plugins-bin-linux-arm64-2.2.0.tgz}
     cpu: [arm64]
     os: [linux]
     libc: glibc
 
   '@cdxgen/cdxgen-plugins-bin-linux-arm@2.2.0':
-    resolution: {integrity: sha512-oUDIiDcgBukGNTYr0ua97WBk/Ea+t9m3aFLSZr8cBw8z7XBiB5xio13k+Pn43f2Y44Ce5CNhEbPswj81NEMUiw==, tarball: https://registry.npmjs.org/@cdxgen/cdxgen-plugins-bin-linux-arm/-/cdxgen-plugins-bin-linux-arm-2.2.0.tgz}
+    resolution: {integrity: sha512-O1UbMW/gGatSVikOCVtFLrllDW0fDPgKVIUnEPEi7XMz9NqZ6KI5ZJn341KzQbG3fvoUSb94XEHv4b845hz/oQ==, tarball: https://registry.npmjs.org/@cdxgen/cdxgen-plugins-bin-linux-arm/-/cdxgen-plugins-bin-linux-arm-2.2.0.tgz}
     cpu: [arm]
     os: [linux]
     libc: glibc
 
   '@cdxgen/cdxgen-plugins-bin-linux-ppc64@2.2.0':
-    resolution: {integrity: sha512-Rl374LS48QGrpD8hqJ+0Phbo1hf+T5wYxLqfNbG5UMsHqlnTfY57+L+2s5AkkoRziEbGdZxQXLv8fCbaVqT1Qg==, tarball: https://registry.npmjs.org/@cdxgen/cdxgen-plugins-bin-linux-ppc64/-/cdxgen-plugins-bin-linux-ppc64-2.2.0.tgz}
+    resolution: {integrity: sha512-qaXu8aJOxNM34nWN+aPV7JKU+RVuribss4T+g77DB+DfooxpBQrpQHRzHS5HILZevBiSI1rPj/JfLawoB0hhZA==, tarball: https://registry.npmjs.org/@cdxgen/cdxgen-plugins-bin-linux-ppc64/-/cdxgen-plugins-bin-linux-ppc64-2.2.0.tgz}
     cpu: [ppc64]
     os: [linux]
     libc: glibc
 
   '@cdxgen/cdxgen-plugins-bin-linuxmusl-amd64@2.2.0':
-    resolution: {integrity: sha512-2EG8MUmAogy431Pl26nULx/fnQNPj8D659DSC0MN4GzgcbKEU7BgeRwy7fTMQhLPamLEKq4ft+WX2qiZUnU6pQ==, tarball: https://registry.npmjs.org/@cdxgen/cdxgen-plugins-bin-linuxmusl-amd64/-/cdxgen-plugins-bin-linuxmusl-amd64-2.2.0.tgz}
+    resolution: {integrity: sha512-FGB21N38c/tBoIkniO8HWa81Splq3q0y3aLZH2YzCNdiBTZRjtZgFBPww2+l4SW05S0EQjXbXTNjL72Hl8ulMQ==, tarball: https://registry.npmjs.org/@cdxgen/cdxgen-plugins-bin-linuxmusl-amd64/-/cdxgen-plugins-bin-linuxmusl-amd64-2.2.0.tgz}
     cpu: [x64]
     os: [linux]
     libc: musl
 
   '@cdxgen/cdxgen-plugins-bin-linuxmusl-arm64@2.2.0':
-    resolution: {integrity: sha512-wdXADkkTDJUD3Or9kpJK2rtf0Gg1gfhqvwGlDJGhr3bAv6qHRsmsxI+k0ujWex3wIzpAw3xzzr4t5vH5sH7uvg==, tarball: https://registry.npmjs.org/@cdxgen/cdxgen-plugins-bin-linuxmusl-arm64/-/cdxgen-plugins-bin-linuxmusl-arm64-2.2.0.tgz}
+    resolution: {integrity: sha512-UVzcJ425AQ4a9BYEcmOBZtYYFLcX/rSnu16vWoxwwNZxeKJ1mo0RMmJLWPyrjtWA9ZzMYD2qUWpk1Ht2b0xBmg==, tarball: https://registry.npmjs.org/@cdxgen/cdxgen-plugins-bin-linuxmusl-arm64/-/cdxgen-plugins-bin-linuxmusl-arm64-2.2.0.tgz}
     cpu: [arm64]
     os: [linux]
     libc: musl
 
   '@cdxgen/cdxgen-plugins-bin-windows-amd64@2.2.0':
-    resolution: {integrity: sha512-TUE2MMjAWBj8CtEu26NlHS/CjUgJzvQkQQSFVIO6m8BLKU+G+nsmuXH4uFHbwl9u4jxOW2WDpHefcJd4zjmOOQ==, tarball: https://registry.npmjs.org/@cdxgen/cdxgen-plugins-bin-windows-amd64/-/cdxgen-plugins-bin-windows-amd64-2.2.0.tgz}
+    resolution: {integrity: sha512-1d+bG1PMGsS7kpXia6S4b81PzEjDbSRlxQHy1BnLzTVBfPeGEjWCx4ItOzu2G78rOHKqmgCqC/w6AbpaoN2f+g==, tarball: https://registry.npmjs.org/@cdxgen/cdxgen-plugins-bin-windows-amd64/-/cdxgen-plugins-bin-windows-amd64-2.2.0.tgz}
     cpu: [x64]
     os: [win32]
 
   '@cdxgen/cdxgen-plugins-bin-windows-arm64@2.2.0':
-    resolution: {integrity: sha512-6qwkVrFfiVu3RIpYE6U20+m0KS+ayKJRjZsskpbqbqOYWYv1Lw0E51D/eqbhsKR4Bvqx9v1E37wq/Ecni2OlpA==, tarball: https://registry.npmjs.org/@cdxgen/cdxgen-plugins-bin-windows-arm64/-/cdxgen-plugins-bin-windows-arm64-2.2.0.tgz}
+    resolution: {integrity: sha512-KfnvCu1Tfi2Xt56ZaH8RmZX+2wETr6ymcDWwax7AYhnWGkJd+KqQnkHbqStSQ80rpnLYD1TR8ZjfzAkwgex1lA==, tarball: https://registry.npmjs.org/@cdxgen/cdxgen-plugins-bin-windows-arm64/-/cdxgen-plugins-bin-windows-arm64-2.2.0.tgz}
     cpu: [arm64]
     os: [win32]
 
   '@cdxgen/cdxgen-plugins-bin@2.2.0':
-    resolution: {integrity: sha512-c5Oemk0rpXrqnVfJjJIx/XsjE835bAA0gEJRryzQbgkNX7ABIB41AqNbRfIWfR/3UeDNLiiUKlAMzPUUkRrD0w==, tarball: https://registry.npmjs.org/@cdxgen/cdxgen-plugins-bin/-/cdxgen-plugins-bin-2.2.0.tgz}
+    resolution: {integrity: sha512-LuCVcZx13OL61HFC4UDWJHX1QvRabLyZYsedoSuZ/d5qLusI6608axpdnJlF0XiutbaeT8DC3ftnpAjdUqFSRg==, tarball: https://registry.npmjs.org/@cdxgen/cdxgen-plugins-bin/-/cdxgen-plugins-bin-2.2.0.tgz}
     cpu: [x64]
 
   '@gar/promise-retry@1.0.3':
@@ -652,8 +652,8 @@ packages:
     resolution: {integrity: sha512-Zf5H2Kxt2xjTvbJvP2ZWLEICxA6j+hAmMzIlypy4xcBg1vKVnx89Wy0GbS+kf5cwCVFFzdCFh2XSCFNULS6csw==, tarball: https://registry.npmjs.org/es-errors/-/es-errors-1.3.0.tgz}
     engines: {node: '>= 0.4'}
 
-  es-object-atoms@1.1.1:
-    resolution: {integrity: sha512-FGgH2h8zKNim9ljj7dankFPcICIK9Cp5bm+c2gQSYePhpaG5+esrLODihIorn+Pe6FGJzWhXQotPv73jTaldXA==, tarball: https://registry.npmjs.org/es-object-atoms/-/es-object-atoms-1.1.1.tgz}
+  es-object-atoms@1.1.2:
+    resolution: {integrity: sha512-HWcBoN6NileqtSydK2FqHbS/LoDd2pqrnQHLyJzBj4kOp/ky2MWMN694xOfkK8/SnUsW2DH7EfyVlydKCsm1Zw==, tarball: https://registry.npmjs.org/es-object-atoms/-/es-object-atoms-1.1.2.tgz}
     engines: {node: '>= 0.4'}
 
   escalade@3.2.0:
@@ -1602,7 +1602,7 @@ snapshots:
   es-errors@1.3.0:
     optional: true
 
-  es-object-atoms@1.1.1:
+  es-object-atoms@1.1.2:
     dependencies:
       es-errors: 1.3.0
     optional: true
@@ -1645,7 +1645,7 @@ snapshots:
       call-bind-apply-helpers: 1.0.2
       es-define-property: 1.0.1
       es-errors: 1.3.0
-      es-object-atoms: 1.1.1
+      es-object-atoms: 1.1.2
       function-bind: 1.1.2
       get-proto: 1.0.1
       gopd: 1.2.0
@@ -1657,7 +1657,7 @@ snapshots:
   get-proto@1.0.1:
     dependencies:
       dunder-proto: 1.0.1
-      es-object-atoms: 1.1.1
+      es-object-atoms: 1.1.2
     optional: true
 
   get-stream@9.0.1:
