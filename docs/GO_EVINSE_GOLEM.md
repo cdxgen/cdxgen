@@ -66,7 +66,7 @@ These options are accepted by `evinse` when `--language go` or `--language golan
 | `--with-data-flow`                               | `false`                       | Enables Golem data-flow mode without also implying other cdxgen deep-mode behavior.                                       |
 | `--profile research`                             | `generic`                     | Enables Golem data-flow mode for research-oriented Go evidence.                                                           |
 | `--golem-command`                                | `GOLEM_CMD` or bundled plugin | Use a specific `golem` binary. Useful when testing a local helper build.                                                  |
-| `--golem-callgraph`                              | `static` or `none`            | Main call graph mode. Accepted values are `none`, `static`, `cha`, `rta`, `vta`, and `pointer`.                           |
+| `--golem-callgraph`                              | `static` or `none`            | Main call graph mode. Accepted values are `none`, `static`, `cha`, `rta`, and `vta`.                                      |
 | `--golem-dataflow`                               | `none` or `all`               | Data-flow mode: `none`, `security`, `crypto`, or `all`. Defaults to `all` with `--deep`, research, or `--with-data-flow`. |
 | `--golem-dataflow-callgraph`                     | `none`                        | Call graph mode used for data-flow dynamic summary replay: `none`, `static`, `cha`, `rta`, or `vta`.                      |
 | `--golem-dataflow-pattern-packs`                 | `all`                         | Comma-separated data-flow pattern packs. Use `crypto` for a focused crypto-flow pass.                                     |
@@ -79,16 +79,15 @@ These options are accepted by `evinse` when `--language go` or `--language golan
 | `--golem-tags`                                   | none                          | Comma-separated Go build tags.                                                                                            |
 | `--golem-tests`                                  | `false`                       | Include Go test variants in package loading and evidence.                                                                 |
 
-Recommended defaults for CI are `--golem-callgraph static` for ordinary occurrence/call graph evidence and `--deep` or `--with-data-flow --golem-dataflow crypto` for bounded data-flow review. cdxgen automatically lowers the main call graph to `none` when data-flow is enabled unless you request another mode, because data-flow already performs its own SSA-backed pass.
+Recommended defaults for CI are `--golem-callgraph static` for ordinary occurrence/call graph evidence and `--deep` or `--with-data-flow --golem-dataflow crypto` for bounded data-flow review. cdxgen automatically lowers the main call graph to `none` when data-flow is enabled unless you request another supported mode, because data-flow already performs its own SSA-backed pass.
 
 ## Call graph modes
 
-| Mode      | Use when                                                                                           | Trade-off                                                         |
-| --------- | -------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------- |
-| `none`    | You only need imports, usages, build directives, native artifacts, and security signal properties. | Fastest, no call graph frames from edges.                         |
-| `static`  | You want a good default for CI and routine AppSec review.                                          | Fast and broad, may include edges that are not runtime-reachable. |
-| `rta`     | You want a better approximation from discovered `init` and `main` roots.                           | More precise than static for many applications, more expensive.   |
-| `pointer` | You need the deepest call graph attempt for a focused investigation.                               | Most expensive, best reserved for targeted runs.                  |
+| Mode     | Use when                                                                                           | Trade-off                                                         |
+| -------- | -------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------- |
+| `none`   | You only need imports, usages, build directives, native artifacts, and security signal properties. | Fastest, no call graph frames from edges.                         |
+| `static` | You want a good default for CI and routine AppSec review.                                          | Fast and broad, may include edges that are not runtime-reachable. |
+| `rta`    | You want a better approximation from discovered `init` and `main` roots.                           | More precise than static for many applications, more expensive.   |
 
 ## Custom property families
 

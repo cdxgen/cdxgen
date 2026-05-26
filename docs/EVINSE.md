@@ -39,7 +39,7 @@ evinse -i bom.json -o bom.evinse.json -l java --with-data-flow .
 | `-o, --output`                   | `bom.evinse.json`        | Output enriched BOM                                                            |
 | `-l, --language`                 | `java`                   | Source language                                                                |
 | `--golem-command`                | `GOLEM_CMD`              | Use a specific `golem` binary for Go Evinse                                    |
-| `--golem-callgraph`              | `static` / `none`        | Go call graph mode: `none`, `static`, `cha`, `rta`, `vta`, or `pointer`        |
+| `--golem-callgraph`              | `static` / `none`        | Go call graph mode: `none`, `static`, `cha`, `rta`, or `vta`                   |
 | `--golem-dataflow`               | `none` / `all`           | Go data-flow mode: `none`, `security`, `crypto`, or `all`                      |
 | `--golem-dataflow-callgraph`     | `none`                   | Call graph mode for Golem data-flow dynamic summary replay                     |
 | `--golem-dataflow-pattern-packs` | `all`                    | Data-flow pattern packs such as `crypto`, `process`, `filesystem`, or `all`    |
@@ -111,7 +111,7 @@ The enriched BOM includes:
 - crypto properties and schema-valid `cryptographic-asset` components for algorithms, protocols, certificates, and related crypto material indicators
 - metadata-level `cdx:golem:*` properties such as tool version, call graph/data-flow modes, package/module/file counts, build directive counts, native artifact counts, performance counters, and Go toolchain directives
 
-Use `--golem-callgraph static` for routine CI when you do not need data-flow. Use `--deep` or `--with-data-flow` for Golem data-flow; cdxgen applies worker, scheduler, slice, trace, generated-file, and test-file safeguards automatically. Use `rta`, `vta`, or `pointer` only when an investigation needs more precision and can tolerate more time and memory. Use `--golem-tests` when test-only dependencies are part of the review.
+Use `--golem-callgraph static` for routine CI when you do not need data-flow. Use `--deep` or `--with-data-flow` for Golem data-flow; cdxgen applies worker, scheduler, slice, trace, generated-file, and test-file safeguards automatically. Use `rta` or `vta` only when an investigation needs more precision and can tolerate more time and memory. Use `--golem-tests` when test-only dependencies are part of the review.
 
 After enrichment, import the BOM into `cdxi` and use `.golemsummary`, `.golemhotspots`, `.golemcoverage`, `.occurrences`, and `.callstack`. For focused policy review, run `cdx-audit --bom bom.evinse.json --direct-bom-audit --categories golem`.
 

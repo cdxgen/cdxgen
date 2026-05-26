@@ -89,7 +89,7 @@ const args = yargs(hideBin(process.argv))
   })
   .option("golem-callgraph", {
     description: "Golem call graph mode for Go Evinse analysis.",
-    choices: ["none", "static", "cha", "rta", "vta", "pointer"],
+    choices: ["none", "static", "cha", "rta", "vta"],
   })
   .option("golem-dataflow", {
     description:

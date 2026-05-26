@@ -425,7 +425,7 @@ evinse -i bom.json -o bom.evinse.json -l go --golem-callgraph static <path to th
 
 Golem adds occurrence and call-stack evidence plus `cdx:golem:*` properties for usage scopes, occurrence kinds, security signals, local replacements, vendoring, private module candidates, license-file evidence, build directives, generated files, native artifacts, and Go toolchain directives.
 
-Use `--golem-callgraph static` for normal CI, `rta` for a more precise root-based call graph, and `pointer` for focused investigations where higher runtime and memory use are acceptable. Use `--golem-tags` when build tags change the reachable packages, and `--golem-tests` when test-only dependency use is part of the review.
+Use `--golem-callgraph static` for normal CI, and use `rta` or `vta` for more precise root-based call graph evidence where higher runtime and memory use are acceptable. Use `--golem-tags` when build tags change the reachable packages, and `--golem-tests` when test-only dependency use is part of the review.
 
 After enrichment, import the BOM into `cdxi` and use `.golemsummary`, `.golemhotspots`, `.golemcoverage`, `.occurrences`, and `.callstack`. To audit the Golem properties, run `cdx-audit --bom bom.evinse.json --direct-bom-audit --categories golem`.
 

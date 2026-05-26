@@ -42,7 +42,7 @@ Open the BOM and confirm it contains `pkg:golang/...` components. Golem evidence
 evinse -i bom.json -o bom.evinse.json -l go --golem-callgraph static /absolute/path/to/go/project
 ```
 
-For routine CI, `static` is the recommended default. Use `none` when you only need source and module properties, `rta` when you want a stronger root-based call graph, and `pointer` only for focused investigations.
+For routine CI, `static` is the recommended default. Use `none` when you only need source and module properties, and use `rta` or `vta` when you want a stronger root-based call graph and can tolerate more analysis cost.
 
 If your project depends on build tags, pass them explicitly:
 
@@ -130,7 +130,7 @@ If no Golem properties appear, verify that `evinse` was run with `-l go` or `-l 
 
 If evidence does not attach to expected modules, regenerate the base SBOM from the same source tree and compare the component purls with the module paths in the Go project.
 
-If analysis is too slow, switch from `pointer` to `static`, narrow `--golem-patterns`, use `--golem-dataflow crypto` instead of `all`, lower `--golem-dataflow-max-slices`, set `--golem-memory-limit 4GiB`, or skip test variants unless they are needed for the review.
+If analysis is too slow, switch to `static` or `none`, narrow `--golem-patterns`, use `--golem-dataflow crypto` instead of `all`, lower `--golem-dataflow-max-slices`, set `--golem-memory-limit 4GiB`, or skip test variants unless they are needed for the review.
 
 ## Related docs
 

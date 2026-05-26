@@ -243,7 +243,6 @@ cdx-audit --bom bom.evinse.json --direct-bom-audit --categories golem
 | -------------- | ----------------- | -------- | ---------------------------------------------------------- |
 | GOLEM-SEC-001  | golem-security    | high     | Go dependency has high-severity semantic security signal   |
 | GOLEM-SEC-002  | golem-security    | high     | Go module uses local replacement in analyzed source        |
-| GOLEM-PERF-001 | golem-performance | low      | Go Evinse used pointer call graph mode                     |
 | GOLEM-PERF-002 | golem-performance | medium   | Go project includes native or generated-code build surface |
 | GOLEM-COMP-001 | golem-compliance  | medium   | Go module appears private or workspace-local               |
 | GOLEM-COMP-002 | golem-compliance  | medium   | Vendored Go module lacks license-file evidence             |
@@ -256,7 +255,7 @@ Typical reviewer actions:
 - remove local replacements from release builds or document why a local or vendored source is part of the release baseline
 - verify internal provenance, access-control, license, and vulnerability intake for private module candidates
 - review native, generated, and embedded asset surfaces for reproducibility and cross-platform build behavior
-- use `static` or `rta` call graph mode for regular CI and reserve `pointer` mode for focused investigations
+- use `static` call graph mode for regular CI and reserve `rta` or `vta` for focused investigations that need more precision
 
 ### `asar-archive` — Electron ASAR release artifact review
 

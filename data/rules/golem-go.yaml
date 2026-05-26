@@ -46,27 +46,6 @@
       "vendored": $prop($, 'cdx:golem:vendored')
     }
 
-- id: GOLEM-PERF-001
-  name: "Go Evinse used pointer call graph mode"
-  description: "Pointer call graph mode provides deeper evidence but is the most expensive Golem analysis mode and may be unsuitable for routine CI on large Go workspaces"
-  severity: low
-  category: golem-performance
-  dry-run-support: full
-  condition: |
-    metadata.component[
-      $prop($, 'cdx:golem:callGraphMode') = 'pointer'
-    ]
-  location: |
-    { "bomRef": $."bom-ref", "component": name }
-  message: "Go Evinse analyzed '{{ name }}' with pointer call graph mode"
-  mitigation: "Use --golem-callgraph static or --golem-callgraph rta for regular CI, and reserve pointer mode for focused investigation where the extra precision is worth the runtime cost"
-  evidence: |
-    {
-      "callGraphMode": $prop($, 'cdx:golem:callGraphMode'),
-      "callGraphNodeCount": $prop($, 'cdx:golem:callGraphNodeCount'),
-      "callGraphEdgeCount": $prop($, 'cdx:golem:callGraphEdgeCount')
-    }
-
 - id: GOLEM-PERF-002
   name: "Go project includes native or generated-code build surface"
   description: "Native artifacts, go:generate, go:embed, or generated files can increase build cost, cross-platform risk, and review complexity"
