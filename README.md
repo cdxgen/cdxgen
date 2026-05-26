@@ -302,19 +302,20 @@ import { createBom, submitBom } from "npm:@cyclonedx/cdxgen@^12.2.1";
 
 ## Common workflows
 
-| Goal                                                       | First command                                                                                               | Read next                            |
-| ---------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- | ------------------------------------ |
-| Generate a BOM from the current repository                 | `cdxgen -o bom.json .`                                                                                      | [CLI Usage][docs-cli]                |
-| Generate a BOM from a git URL                              | `cdxgen -o bom.json https://github.com/example/project.git`                                                 | [CLI Usage][docs-cli]                |
-| Generate a BOM from a package URL                          | `cdxgen -o bom.json "pkg:npm/lodash@4.17.21"`                                                               | [CLI Usage][docs-cli]                |
-| Scan a container image                                     | `cdxgen ghcr.io/owasp-dep-scan/depscan:nightly -o bom.json -t docker`                                       | [Server Usage][docs-server]          |
-| Audit a generated BOM for built-in supply-chain findings   | `cdxgen -o bom.json --bom-audit .`                                                                          | [BOM Audit](docs/BOM_AUDIT.md)       |
-| Prioritize an existing BOM for upstream risk-driven review | `cdx-audit --bom bom.json`                                                                                  | [cdx-audit](docs/CDX_AUDIT.md)       |
-| Re-audit a saved OBOM or BOM directly later                | `cdx-audit --bom obom.json --direct-bom-audit --categories obom-runtime`                                    | [cdx-audit](docs/CDX_AUDIT.md)       |
-| Validate a BOM against structural and compliance checks    | `cdx-validate -i bom.json`                                                                                  | [cdx-validate](docs/CDX_VALIDATE.md) |
-| Convert CycloneDX JSON to SPDX JSON-LD                     | `cdx-convert -i bom.json -o bom.spdx.json`                                                                  | [cdx-convert](docs/CDX_CONVERT.md)   |
-| Generate an OBOM for live-system triage                    | `obom -o obom.json --deep --bom-audit --bom-audit-categories obom-runtime`                                  | [OBOM lessons](docs/OBOM_LESSONS.md) |
-| Review an offline rootfs for hardening drift               | `cdxgen /absolute/path/to/rootfs -t rootfs -o bom.json --bom-audit --bom-audit-categories rootfs-hardening` | [BOM Audit](docs/BOM_AUDIT.md)       |
+| Goal                                                       | First command                                                                                               | Read next                                       |
+| ---------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- | ----------------------------------------------- |
+| Generate a BOM from the current repository                 | `cdxgen -o bom.json .`                                                                                      | [CLI Usage][docs-cli]                           |
+| Generate a BOM from a git URL                              | `cdxgen -o bom.json https://github.com/example/project.git`                                                 | [CLI Usage][docs-cli]                           |
+| Generate a BOM from a package URL                          | `cdxgen -o bom.json "pkg:npm/lodash@4.17.21"`                                                               | [CLI Usage][docs-cli]                           |
+| Scan a container image                                     | `cdxgen ghcr.io/owasp-dep-scan/depscan:nightly -o bom.json -t docker`                                       | [Server Usage][docs-server]                     |
+| Audit a generated BOM for built-in supply-chain findings   | `cdxgen -o bom.json --bom-audit .`                                                                          | [BOM Audit](docs/BOM_AUDIT.md)                  |
+| Prioritize an existing BOM for upstream risk-driven review | `cdx-audit --bom bom.json`                                                                                  | [cdx-audit](docs/CDX_AUDIT.md)                  |
+| Enrich and audit a Go BOM with Golem semantic evidence     | `evinse -i bom.json -o bom.evinse.json -l go /absolute/path/to/go/project`                                  | [Go Evinse with Golem](docs/GO_EVINSE_GOLEM.md) |
+| Re-audit a saved OBOM or BOM directly later                | `cdx-audit --bom obom.json --direct-bom-audit --categories obom-runtime`                                    | [cdx-audit](docs/CDX_AUDIT.md)                  |
+| Validate a BOM against structural and compliance checks    | `cdx-validate -i bom.json`                                                                                  | [cdx-validate](docs/CDX_VALIDATE.md)            |
+| Convert CycloneDX JSON to SPDX JSON-LD                     | `cdx-convert -i bom.json -o bom.spdx.json`                                                                  | [cdx-convert](docs/CDX_CONVERT.md)              |
+| Generate an OBOM for live-system triage                    | `obom -o obom.json --deep --bom-audit --bom-audit-categories obom-runtime`                                  | [OBOM lessons](docs/OBOM_LESSONS.md)            |
+| Review an offline rootfs for hardening drift               | `cdxgen /absolute/path/to/rootfs -t rootfs -o bom.json --bom-audit --bom-audit-categories rootfs-hardening` | [BOM Audit](docs/BOM_AUDIT.md)                  |
 
 For the full option reference, use `cdxgen --help` or visit [CLI Usage][docs-cli].
 

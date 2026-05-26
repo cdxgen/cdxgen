@@ -223,6 +223,52 @@ function isLikelyCargoBom(bom) {
   );
 }
 
+function hasGolemProperties(component) {
+  return Boolean(
+    component?.properties?.some((property) =>
+      property?.name?.startsWith("cdx:golem:"),
+    ),
+  );
+}
+
+function isLikelyGolemBom(bom) {
+  return Boolean(
+    hasGolemProperties(bom?.metadata?.component) ||
+      bom?.components?.some((component) => hasGolemProperties(component)),
+  );
+}
+
+function getGolemComponents(bom) {
+  return (bom?.components || []).filter((component) =>
+    hasGolemProperties(component),
+  );
+}
+
+function getGolemHotspotComponents(bom) {
+  return getGolemComponents(bom).filter(
+    (component) =>
+      Boolean(
+        getPropertyValue(component, "cdx:golem:securitySignalSeverity"),
+      ) ||
+      getPropertyValue(component, "cdx:golem:localReplacement") === "true" ||
+      getPropertyValue(component, "cdx:golem:privateModuleCandidate") ===
+        "true" ||
+      getPropertyValue(component, "cdx:golem:vendored") === "true",
+  );
+}
+
+function getGolemCoverageComponents(bom) {
+  return getGolemComponents(bom).filter(
+    (component) =>
+      Boolean(getPropertyValue(component, "cdx:golem:usageScopes")) ||
+      Boolean(
+        getPropertyValue(component, "cdx:golem:occurrenceEvidenceKinds"),
+      ) ||
+      component?.evidence?.occurrences?.length ||
+      component?.evidence?.callstack?.frames?.length,
+  );
+}
+
 function getCargoHotspotComponents(bom) {
   return (bom?.components || []).filter(
     (component) =>
@@ -396,6 +442,11 @@ export const importSbom = async (sbomOrPath) => {
           "💭 Cargo signals detected. Try .cargohotspots or .cargoworkflows.",
         );
       }
+      if (isLikelyGolemBom(sbom)) {
+        console.log(
+          "💭 Go Evinse/Golem signals detected. Try .golemsummary, .golemhotspots, .golemcoverage, or .golemtips.",
+        );
+      }
       if (getAuditAnnotations().length) {
         console.log(
           "💭 Audit annotations detected. Try .auditfindings, .auditactions, or .dispatchedges.",
@@ -448,6 +499,11 @@ if (process.argv.length > 2) {
   if (getAuditAnnotations().length) {
     console.log(
       "💭 Type .auditfindings to review cdx-audit and bom-audit annotations.",
+    );
+  }
+  if (isLikelyGolemBom(sbom)) {
+    console.log(
+      "💭 Type .golemsummary to review Go Evinse/Golem metadata and evidence coverage.",
     );
   }
 } else if (safeExistsSync("bom.json")) {
@@ -512,6 +568,11 @@ cdxgenRepl.defineCommand("create", {
       if (isLikelyCargoBom(sbom)) {
         console.log(
           "💭 Type .cargohotspots or .cargoworkflows for Cargo-specific pivots.",
+        );
+      }
+      if (isLikelyGolemBom(sbom)) {
+        console.log(
+          "💭 Type .golemsummary, .golemhotspots, or .golemcoverage for Go Evinse/Golem pivots.",
         );
       }
     } else {
@@ -1428,6 +1489,131 @@ cdxgenRepl.defineCommand("cargoworkflows", {
     this.displayPrompt();
   },
 });
+cdxgenRepl.defineCommand("golemsummary", {
+  help: "summarize Go Evinse/Golem metadata and evidence coverage",
+  action() {
+    const interactiveBom = getInteractiveBom();
+    if (!interactiveBom) {
+      console.log("⚠ No BOM is loaded. Use .import command to import an SBOM");
+      this.displayPrompt();
+      return;
+    }
+    if (!isLikelyGolemBom(interactiveBom)) {
+      console.log(
+        "No Golem properties found. Generate an evidence BOM with evinse -l go to use this view.",
+      );
+      this.displayPrompt();
+      return;
+    }
+    const rootComponent = interactiveBom.metadata?.component || {};
+    const golemComponents = getGolemComponents(interactiveBom);
+    const hotspotComponents = getGolemHotspotComponents(interactiveBom);
+    const coverageComponents = getGolemCoverageComponents(interactiveBom);
+    printKeyValueTable("Go Evinse / Golem summary", [
+      [
+        "Tool version",
+        getPropertyValue(rootComponent, "cdx:golem:toolVersion"),
+      ],
+      [
+        "Call graph mode",
+        getPropertyValue(rootComponent, "cdx:golem:callGraphMode"),
+      ],
+      ["Packages", getPropertyValue(rootComponent, "cdx:golem:packageCount")],
+      ["Modules", getPropertyValue(rootComponent, "cdx:golem:moduleCount")],
+      ["Files", getPropertyValue(rootComponent, "cdx:golem:fileCount")],
+      [
+        "Generated files",
+        getPropertyValue(rootComponent, "cdx:golem:generatedFileCount"),
+      ],
+      ["Imports", getPropertyValue(rootComponent, "cdx:golem:importCount")],
+      ["Usages", getPropertyValue(rootComponent, "cdx:golem:usageCount")],
+      [
+        "Runtime usages",
+        getPropertyValue(rootComponent, "cdx:golem:runtimeUsageCount"),
+      ],
+      [
+        "Test usages",
+        getPropertyValue(rootComponent, "cdx:golem:testUsageCount"),
+      ],
+      [
+        "Build directives",
+        getPropertyValue(rootComponent, "cdx:golem:buildDirectiveKinds"),
+      ],
+      [
+        "Native artifact kinds",
+        getPropertyValue(rootComponent, "cdx:golem:nativeArtifactKinds"),
+      ],
+      [
+        "Security signal categories",
+        getPropertyValue(rootComponent, "cdx:golem:securitySignalCategories"),
+      ],
+      [
+        "Go directive",
+        getPropertyValue(rootComponent, "cdx:golem:goDirectiveVersion"),
+      ],
+      [
+        "Toolchain directive",
+        getPropertyValue(rootComponent, "cdx:golem:toolchainDirective"),
+      ],
+      ["Components with Golem properties", golemComponents.length],
+      ["Components with evidence coverage", coverageComponents.length],
+      ["Hotspot components", hotspotComponents.length],
+    ]);
+    this.displayPrompt();
+  },
+});
+cdxgenRepl.defineCommand("golemhotspots", {
+  help: "show Go components with Golem security, replacement, private, or vendored signals",
+  action() {
+    const interactiveBom = getInteractiveBom();
+    if (!interactiveBom?.components) {
+      console.log("⚠ No BOM is loaded. Use .import command to import an SBOM");
+      this.displayPrompt();
+      return;
+    }
+    const hotspotComponents = getGolemHotspotComponents(interactiveBom);
+    if (!hotspotComponents.length) {
+      console.log(
+        "No Golem hotspot components found. Look for cdx:golem security signals, local replacements, private modules, or vendored modules.",
+      );
+      this.displayPrompt();
+      return;
+    }
+    printTable(
+      { components: hotspotComponents, dependencies: [] },
+      undefined,
+      undefined,
+      `Found ${hotspotComponents.length} Go component(s) with Golem hotspot properties.`,
+    );
+    this.displayPrompt();
+  },
+});
+cdxgenRepl.defineCommand("golemcoverage", {
+  help: "show Go components with Golem occurrence, scope, or call-stack evidence",
+  action() {
+    const interactiveBom = getInteractiveBom();
+    if (!interactiveBom?.components) {
+      console.log("⚠ No BOM is loaded. Use .import command to import an SBOM");
+      this.displayPrompt();
+      return;
+    }
+    const coverageComponents = getGolemCoverageComponents(interactiveBom);
+    if (!coverageComponents.length) {
+      console.log(
+        "No Golem coverage components found. Generate an evidence BOM with evinse -l go and import the enriched output.",
+      );
+      this.displayPrompt();
+      return;
+    }
+    printTable(
+      { components: coverageComponents, dependencies: [] },
+      undefined,
+      undefined,
+      `Found ${coverageComponents.length} Go component(s) with Golem evidence coverage.`,
+    );
+    this.displayPrompt();
+  },
+});
 cdxgenRepl.defineCommand("auditfindings", {
   help: "summarize cdx-audit and bom-audit annotations from the loaded BOM",
   action() {
@@ -1596,6 +1782,22 @@ cdxgenRepl.defineCommand("hbomtips", {
     console.log("7. .search <hardwareClass or device name>");
     console.log(
       'Tip: .query components[properties[name="cdx:hbom:hardwareClass" and value="storage"]] filters directly by hardware class.',
+    );
+    this.displayPrompt();
+  },
+});
+cdxgenRepl.defineCommand("golemtips", {
+  help: "show analyst tips and useful commands for Go Evinse/Golem investigations",
+  action() {
+    console.log("Go Evinse/Golem analyst quick guide:");
+    console.log("1. .golemsummary");
+    console.log("2. .golemhotspots");
+    console.log("3. .golemcoverage");
+    console.log("4. .occurrences / .callstack for evidence details");
+    console.log("5. .auditfindings after running --bom-audit or cdx-audit");
+    console.log("6. .inspect <component name or purl fragment>");
+    console.log(
+      "Tip: use --bom-audit-categories golem for focused Golem findings.",
     );
     this.displayPrompt();
   },

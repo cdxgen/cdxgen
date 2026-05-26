@@ -1,0 +1,140 @@
+# Go Evinse and Golem Rules
+# Categories: golem-security, golem-performance, golem-compliance
+# Evaluates cdx:golem:* properties emitted by evinse -l go when golem is available
+
+- id: GOLEM-SEC-001
+  name: "Go dependency has high-severity semantic security signal"
+  description: "Golem detected a high-severity or critical Go API usage signal in a dependency that is referenced by the application"
+  severity: high
+  category: golem-security
+  dry-run-support: full
+  condition: |
+    components[
+      $prop($, 'cdx:golem:securitySignalSeverity') = 'high'
+      or $prop($, 'cdx:golem:securitySignalSeverity') = 'critical'
+    ]
+  location: |
+    { "bomRef": $."bom-ref", "purl": purl }
+  message: "Go component '{{ name }}' has Golem security signal '{{ $prop($, 'cdx:golem:securitySignalCategory') }}' with severity '{{ $prop($, 'cdx:golem:securitySignalSeverity') }}'"
+  mitigation: "Review the source occurrence and call-stack evidence for the component. Confirm whether the API use is reachable in runtime code and whether a safer library or configuration is available"
+  evidence: |
+    {
+      "category": $prop($, 'cdx:golem:securitySignalCategory'),
+      "severity": $prop($, 'cdx:golem:securitySignalSeverity'),
+      "usageScopes": $prop($, 'cdx:golem:usageScopes'),
+      "evidenceKinds": $prop($, 'cdx:golem:occurrenceEvidenceKinds')
+    }
+
+- id: GOLEM-SEC-002
+  name: "Go module uses local replacement in analyzed source"
+  description: "Golem observed a local Go module replacement, which can make builds non-hermetic and bypass normal module provenance review"
+  severity: high
+  category: golem-security
+  dry-run-support: full
+  condition: |
+    components[
+      $prop($, 'cdx:golem:localReplacement') = 'true'
+    ]
+  location: |
+    { "bomRef": $."bom-ref", "purl": purl }
+  message: "Go component '{{ name }}' is affected by a local replacement in the analyzed module graph"
+  mitigation: "Use a published module version for release builds or vendor the dependency with explicit provenance and review evidence"
+  evidence: |
+    {
+      "replacementModule": $prop($, 'cdx:golem:replacementModule'),
+      "modulePath": $prop($, 'cdx:golem:modulePath'),
+      "vendored": $prop($, 'cdx:golem:vendored')
+    }
+
+- id: GOLEM-PERF-001
+  name: "Go Evinse used pointer call graph mode"
+  description: "Pointer call graph mode provides deeper evidence but is the most expensive Golem analysis mode and may be unsuitable for routine CI on large Go workspaces"
+  severity: low
+  category: golem-performance
+  dry-run-support: full
+  condition: |
+    metadata.component[
+      $prop($, 'cdx:golem:callGraphMode') = 'pointer'
+    ]
+  location: |
+    { "bomRef": $."bom-ref", "component": name }
+  message: "Go Evinse analyzed '{{ name }}' with pointer call graph mode"
+  mitigation: "Use --golem-callgraph static or --golem-callgraph rta for regular CI, and reserve pointer mode for focused investigation where the extra precision is worth the runtime cost"
+  evidence: |
+    {
+      "callGraphMode": $prop($, 'cdx:golem:callGraphMode'),
+      "callGraphNodeCount": $prop($, 'cdx:golem:callGraphNodeCount'),
+      "callGraphEdgeCount": $prop($, 'cdx:golem:callGraphEdgeCount')
+    }
+
+- id: GOLEM-PERF-002
+  name: "Go project includes native or generated-code build surface"
+  description: "Native artifacts, go:generate, go:embed, or generated files can increase build cost, cross-platform risk, and review complexity"
+  severity: medium
+  category: golem-performance
+  dry-run-support: full
+  condition: |
+    metadata.component[
+      $number($prop($, 'cdx:golem:nativeArtifactCount')) > 0
+      or $number($prop($, 'cdx:golem:goGenerateCount')) > 0
+      or $number($prop($, 'cdx:golem:goEmbedCount')) > 0
+      or $number($prop($, 'cdx:golem:generatedFileCount')) > 0
+    ]
+  location: |
+    { "bomRef": $."bom-ref", "component": name }
+  message: "Go project '{{ name }}' has native/generated build surface: native={{ $prop($, 'cdx:golem:nativeArtifactCount') }}, generate={{ $prop($, 'cdx:golem:goGenerateCount') }}, embed={{ $prop($, 'cdx:golem:goEmbedCount') }}"
+  mitigation: "Review native build prerequisites, generated-file ownership, and embedded asset policy. Cache generated artifacts deliberately and verify cross-platform build behavior before release"
+  evidence: |
+    {
+      "nativeArtifactCount": $prop($, 'cdx:golem:nativeArtifactCount'),
+      "nativeArtifactKinds": $prop($, 'cdx:golem:nativeArtifactKinds'),
+      "goGenerateCount": $prop($, 'cdx:golem:goGenerateCount'),
+      "goEmbedCount": $prop($, 'cdx:golem:goEmbedCount'),
+      "generatedFileCount": $prop($, 'cdx:golem:generatedFileCount')
+    }
+
+- id: GOLEM-COMP-001
+  name: "Go module appears private or workspace-local"
+  description: "Private or workspace-local Go module candidates require internal provenance, access-control, and retention review because public registry metadata may be unavailable"
+  severity: medium
+  category: golem-compliance
+  dry-run-support: full
+  condition: |
+    components[
+      $prop($, 'cdx:golem:privateModuleCandidate') = 'true'
+    ]
+  location: |
+    { "bomRef": $."bom-ref", "purl": purl }
+  message: "Go component '{{ name }}' appears to be a private module candidate"
+  mitigation: "Confirm the module is covered by internal source retention, license review, vulnerability intake, and release provenance controls"
+  evidence: |
+    {
+      "modulePath": $prop($, 'cdx:golem:modulePath'),
+      "goVersion": $prop($, 'cdx:golem:goVersion'),
+      "usageScopes": $prop($, 'cdx:golem:usageScopes')
+    }
+
+- id: GOLEM-COMP-002
+  name: "Vendored Go module lacks license-file evidence"
+  description: "Vendored Go modules should preserve license files or equivalent license evidence for redistribution and audit readiness"
+  severity: medium
+  category: golem-compliance
+  dry-run-support: full
+  condition: |
+    components[
+      $prop($, 'cdx:golem:vendored') = 'true'
+      and (
+        $prop($, 'cdx:golem:licenseFileCount') = null
+        or $number($prop($, 'cdx:golem:licenseFileCount')) = 0
+      )
+    ]
+  location: |
+    { "bomRef": $."bom-ref", "purl": purl }
+  message: "Vendored Go component '{{ name }}' does not carry Golem license-file evidence"
+  mitigation: "Keep upstream license files with vendored modules or document the equivalent license source in the release evidence bundle"
+  evidence: |
+    {
+      "vendored": $prop($, 'cdx:golem:vendored'),
+      "licenseFileCount": $prop($, 'cdx:golem:licenseFileCount'),
+      "licenseFiles": $prop($, 'cdx:golem:licenseFiles')
+    }

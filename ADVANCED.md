@@ -2,7 +2,7 @@
 
 ## Evinse Mode / SaaSBOM
 
-Evinse (Evinse Verification Is Nearly SBOM Evidence) is a new command with cdxgen to generate component evidence and SaaSBOM for supported languages. The tool is powered by [atom](https://github.com/AppThreat/atom)
+Evinse (Evinse Verification Is Nearly SBOM Evidence) is a command with cdxgen to generate component evidence and SaaSBOM for supported languages. The tool is powered by [atom](https://github.com/AppThreat/atom) for several source-analysis flows and by `golem` for Go semantic evidence when the optional `@cdxgen/cdxgen-plugins-bin` helper is available.
 
 <img src="./docs/occurrence-evidence.png" alt="occurrence evidence" width="256">
 
@@ -75,6 +75,17 @@ For JavaScript or TypeScript projects, pass `-l javascript`.
 evinse -i bom.json -o bom.evinse.json --usages-slices-file usages.json --data-flow-slices-file data-flow.json -l javascript --with-data-flow <path to the application>
 ```
 
+For Go projects, generate a base Go SBOM and enrich it with Golem-backed semantic evidence.
+
+```shell
+cdxgen -t go -o bom.json <path to the application>
+evinse -i bom.json -o bom.evinse.json -l go --golem-callgraph static <path to the application>
+```
+
+The Go Evinse integration emits occurrence and call-stack evidence plus `cdx:golem:*` properties for usage scopes, occurrence kinds, security signals, local replacements, vendoring, private module candidates, license-file evidence, build directives, generated files, native artifacts, and Go toolchain directives. Use `cdxi bom.evinse.json` with `.golemsummary`, `.golemhotspots`, `.golemcoverage`, `.occurrences`, and `.callstack` for review. Use `cdx-audit --bom bom.evinse.json --direct-bom-audit --categories golem` for focused policy checks.
+
+See [Go Evinse with Golem](./docs/GO_EVINSE_GOLEM.md) for the complete workflow.
+
 When cdxgen or evinse invokes atom for evidence generation, `--exclude` glob patterns are converted to Scala/Java-compatible regular expressions and applied to Atom evidence. Directory fragments are also forwarded through `CHEN_IGNORE_DIRS`, which Atom applies across supported frontends. For JavaScript and TypeScript, the same directory fragments are forwarded through `ASTGEN_IGNORE_DIRS` to improve astgen traversal performance.
 
 ```shell
@@ -107,22 +118,25 @@ Evinse would populate component.evidence object with occurrences (default) and c
 
 ### Custom commands
 
-| Command      | Description                                                                                                                                                                                                    |
-| ------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| .create      | Create an BOM from a path                                                                                                                                                                                      |
-| .import      | Import an existing BOM from a path. Any BOM in CycloneDX format is supported.                                                                                                                                  |
-| .search      | Search the given string in the components name, group, purl and description                                                                                                                                    |
-| .sort        | Sort the components based on the given attribute. Eg: .sort name to sort by name. Accepts full jsonata [order by](http://docs.jsonata.org/path-operators#order-by-) clause too. Eg: `.sort components^(>name)` |
-| .query       | Pass a raw query in [jsonata](http://docs.jsonata.org/) format                                                                                                                                                 |
-| .print       | Print the BOM as a table                                                                                                                                                                                       |
-| .tree        | Print the dependency tree if available                                                                                                                                                                         |
-| .validate    | Validate the SBOM                                                                                                                                                                                              |
-| .exit        | To exit the shell                                                                                                                                                                                              |
-| .save        | To save the modified BOM to a new file                                                                                                                                                                         |
-| .update      | Update components based on query expression. Use syntax `\| query \| new object \|`. See example.                                                                                                              |
-| .occurrences | View components with evidence.occurrences as a table. Use evinse command to generate such an SBOM                                                                                                              |
-| .callstack   | View components with evidence.callstack.frames as a table. Use evinse command to generate such an SBOM                                                                                                         |
-| .services    | View services as a table                                                                                                                                                                                       |
+| Command        | Description                                                                                                                                                                                                    |
+| -------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| .create        | Create an BOM from a path                                                                                                                                                                                      |
+| .import        | Import an existing BOM from a path. Any BOM in CycloneDX format is supported.                                                                                                                                  |
+| .search        | Search the given string in the components name, group, purl and description                                                                                                                                    |
+| .sort          | Sort the components based on the given attribute. Eg: .sort name to sort by name. Accepts full jsonata [order by](http://docs.jsonata.org/path-operators#order-by-) clause too. Eg: `.sort components^(>name)` |
+| .query         | Pass a raw query in [jsonata](http://docs.jsonata.org/) format                                                                                                                                                 |
+| .print         | Print the BOM as a table                                                                                                                                                                                       |
+| .tree          | Print the dependency tree if available                                                                                                                                                                         |
+| .validate      | Validate the SBOM                                                                                                                                                                                              |
+| .exit          | To exit the shell                                                                                                                                                                                              |
+| .save          | To save the modified BOM to a new file                                                                                                                                                                         |
+| .update        | Update components based on query expression. Use syntax `\| query \| new object \|`. See example.                                                                                                              |
+| .occurrences   | View components with evidence.occurrences as a table. Use evinse command to generate such an SBOM                                                                                                              |
+| .callstack     | View components with evidence.callstack.frames as a table. Use evinse command to generate such an SBOM                                                                                                         |
+| .services      | View services as a table                                                                                                                                                                                       |
+| .golemsummary  | Summarize Go Evinse/Golem metadata and evidence coverage                                                                                                                                                       |
+| .golemhotspots | View Go components with Golem security, replacement, private, or vendored signals                                                                                                                              |
+| .golemcoverage | View Go components with Golem occurrence, scope, or call-stack evidence                                                                                                                                        |
 
 In addition, all the keys from [queries.json](./data/queries.json) are also valid commands. Example: `processes`, `apt_sources`, etc. Type `.help` to view the full list of commands.
 

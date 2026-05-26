@@ -19,11 +19,12 @@ Primary entry points:
 
 Companion binaries:
 
-- cdxgen opportunistically uses the optional companion package/repo **`cdxgen-plugins-bin`** for heavyweight native helpers such as **Trivy**, **osquery**, **SourceKitten**, and **dosai**.
+- cdxgen opportunistically uses the optional companion package/repo **`cdxgen-plugins-bin`** for heavyweight native helpers such as **Trivy**, **osquery**, **SourceKitten**, **dosai**, and **golem**.
 - Container/rootfs inventory flows through `lib/managers/binary.js` and may combine native parsing with plugin-enriched Trivy output.
 - Live-OS OBOM flows use the bundled osquery binary plus the query packs under `data/queries*.json`. Linux query packs also include hardening-focused snapshots such as `sysctl_hardening` and `mount_hardening`.
 - When the optional `trustinspector` helper is present, host-path trust enrichment should be treated as batched rather than artificially capped. Keep Authenticode, WDAC, code-signing, and notarization properties intact across large inventories.
 - GTFOBins enrichment is expected on Linux live-runtime osquery components in the same way LOLBAS enrichment is expected on Windows runtime components.
+- Go Evinse flows use the bundled `golem` helper when available. Keep `cdx:golem:*` metadata and component properties safe, compact, and policy-friendly: counts, categories, scopes, source locations, and module facts are acceptable, but do not emit raw generator commands, environment values, embedded file contents, or secrets.
 
 ---
 
@@ -120,6 +121,7 @@ lib/
     dotnetutils.js      .NET assembly / NuGet utilities
     envcontext.js       Git, env info, tool availability checks
     formulationParsers.js  CycloneDX formulation section builder; addFormulationSection()
+    golem.js            Go Evinse helper integration, Golem invocation, and cdx:golem evidence mapping
     inventoryStats.js   Shared filters and counters for unpackaged native files and source-derived crypto pivots
     logger.js           thoughtLog / traceLog / THINK_MODE / TRACE_MODE
     protobom.js         Protobuf-based BOM utilities
@@ -171,6 +173,12 @@ Runs after BOM generation: filtering, standards application, metadata enrichment
 ### `prepareEnv(filePath, options)` — `lib/stages/pregen/pregen.js`
 
 Runs before BOM generation to install missing build tools via sdkman, nvm, rbenv, etc.
+
+### Go Evinse with Golem
+
+`evinse -l go` calls `lib/helpers/golem.js`, which resolves the optional `golem` plugin binary, runs `golem analyze --format json`, and maps the report into CycloneDX evidence. Occurrences and call-stack frames are attached to matching Go module purls. Metadata-level `cdx:golem:*` properties are appended to `bom.metadata.component`; component-level `cdx:golem:*` properties are appended to matching dependency components.
+
+Keep this path layered as `bin/evinse.js` → `lib/evinser/evinser.js` → `lib/helpers/golem.js`. Do not import CLI modules from helpers. When adding Golem evidence, update `docs/GO_EVINSE_GOLEM.md`, `docs/CUSTOM_PROPERTIES.md`, `docs/BOM_AUDIT.md`, and the REPL commands in `bin/repl.js` if the new property creates a useful analyst pivot.
 
 ### PackageURL
 
@@ -247,6 +255,8 @@ Shared utilities used by both layers must live in a helper module:
 | `trimComponents`        | `lib/helpers/depsUtils.js`          |
 | `addFormulationSection` | `lib/helpers/formulationParsers.js` |
 
+Go Evinse/Golem evidence mapping belongs in `lib/helpers/golem.js`; the enriched BOM write-back belongs in `lib/evinser/evinser.js`. Do not move that logic into post-processing because Evinse is a separate enrichment command over an existing BOM.
+
 If you find yourself writing `import { … } from "../../cli/index.js"` inside
 a helper or stage module, **stop and extract the function to `lib/helpers/`
 first**.
@@ -287,6 +297,14 @@ Never construct purl strings by hand-concatenation.
   - trusted key files → `type: "cryptographic-asset"` with `cryptoProperties.relatedCryptoMaterialProperties.type = "public-key"`
   - repo-to-key trust relationships should be represented in `dependencies` when the source file explicitly references a key (`signed-by`, `gpgkey`, etc.)
 - If you add new osquery- or rootfs-derived crypto inventory, validate it against `lib/validator/bomValidator.js` expectations and the CycloneDX schema files under `data/`.
+
+### Go Evinse and Golem property hygiene
+
+- Preserve `cdx:golem:*` as small strings: counts, booleans, enums, source locations, module paths, and comma-separated scope/category lists.
+- Do not emit raw `go:generate` command strings, raw environment values, embedded file contents, generated source contents, or full command lines.
+- Prefer scope-aware policy signals. `cdx:golem:usageScopes=runtime` is a stronger release signal than test-only usage; `cdx:golem:testOnly=true` is useful triage context but should not be treated as proof of no risk.
+- Keep BOM audit rules in `data/rules/golem-go.yaml` aligned with emitted property names and document new rules in `docs/BOM_AUDIT.md`.
+- Keep `cdxi` pivots aligned with the analyst flow: `.golemsummary` for run context, `.golemhotspots` for risk review, and `.golemcoverage` for evidence coverage.
 
 ### HTTP requests
 

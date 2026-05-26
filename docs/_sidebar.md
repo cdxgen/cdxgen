@@ -7,6 +7,7 @@
 - [cdx-validate — SCVS & CRA](CDX_VALIDATE.md)
 - [cdx-verify — Verify BOM signatures](CDX_VERIFY.md)
 - [evinse — Evidence and SaaSBOM enrichment](EVINSE.md)
+- [Go Evinse with Golem](GO_EVINSE_GOLEM.md)
 - [REPL / cdxi](REPL.md)
 - [Server Usage](SERVER.md)
 - [Getting Started - Development](GETTING_STARTED.md)
@@ -21,6 +22,7 @@
 - [Permissions](PERMISSIONS.md)
 - [Configuring Allowlists](ALLOWED_HOSTS_AND_COMMANDS.md)
 - [Threat Model](THREAT_MODEL.md)
+- [Go Evinse Threat Model](GO_EVINSE_GOLEM_THREAT_MODEL.md)
 - **Contributing**
 - [Architecture Overview](ARCHITECTURE.md)
 - [Architecture Implementation Examples](ARCHITECTURE_ECOSYSTEM_EXAMPLES.md)
@@ -48,6 +50,7 @@
 - [Tutorials - Cataloging and auditing MCP servers](LESSON11.md)
 - [Tutorials - Cataloging Electron ASAR archives](LESSON12.md)
 - [Tutorials - Generating HBOM](LESSON13.md)
+- [Tutorials - Go Evinse with Golem](LESSON14.md)
 - [Tutorials - Generating OBOM](OBOM_LESSONS.md)
 - [Trust enrichment BOM diff examples](TRUST_ENRICHMENT_DIFF.md)
 - [macOS OBOM troubleshooting](OBOM_MACOS_TROUBLESHOOTING.md)

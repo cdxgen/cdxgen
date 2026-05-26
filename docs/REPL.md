@@ -81,6 +81,15 @@ If `bom.json` exists in the current directory, `cdxi` imports it automatically.
 .cargoworkflows
 ```
 
+### Review Go Evinse and Golem evidence
+
+```text
+.golemsummary
+.golemhotspots
+.golemcoverage
+.golemtips
+```
+
 ### Review evidence and services
 
 ```text
@@ -176,6 +185,17 @@ These commands are most useful after importing a BOM generated with `--bom-audit
 
 These commands are most useful after importing a Cargo SBOM generated with `--include-formulation`, `--bom-audit`, or both.
 
+### Go Evinse and Golem commands
+
+| Command          | Description                                                                                  |
+| ---------------- | -------------------------------------------------------------------------------------------- |
+| `.golemsummary`  | Summarize Golem tool metadata, call graph mode, counts, build surface, and evidence coverage |
+| `.golemhotspots` | Show Go components with security, local replacement, private module, or vendored signals     |
+| `.golemcoverage` | Show Go components with Golem occurrence, scope, or call-stack evidence                      |
+| `.golemtips`     | Print suggested Go Evinse/Golem investigation pivots                                         |
+
+These commands are most useful after importing a BOM generated with `evinse -i bom.json -o bom.evinse.json -l go`. Pair them with `.occurrences`, `.callstack`, and `.auditfindings` for source evidence and BOM audit triage.
+
 ### Evidence and SaaSBOM review
 
 | Command            | Description                              |
@@ -247,4 +267,5 @@ Set `CDXGEN_REPL_HISTORY` to override the history file location.
 - [BOM Audit](BOM_AUDIT.md)
 - [cdx-audit](CDX_AUDIT.md)
 - [evinse](EVINSE.md)
+- [Go Evinse with Golem](GO_EVINSE_GOLEM.md)
 - [OBOM lessons](OBOM_LESSONS.md)

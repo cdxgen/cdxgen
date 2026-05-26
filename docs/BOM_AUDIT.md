@@ -46,6 +46,9 @@ cdxgen -o bom.json --bom-audit --bom-audit-include-trusted
 
 # Audit only trusted-publishing-backed packages
 cdxgen -o bom.json --bom-audit --bom-audit-only-trusted
+
+# Audit a Go Evinse BOM enriched with Golem semantic properties
+cdx-audit --bom bom.evinse.json --direct-bom-audit --categories golem
 ```
 
 > **Note:** `--bom-audit` automatically enables `--include-formulation` to collect CI/CD workflow data. The formulation section may include sensitive data such as emails and environment details. Always review the generated SBOM before distribution.
@@ -66,6 +69,9 @@ The categories that work best in dry-run mode are the formulation-centric ones:
 - `ci-permission`
 - `container-risk`
 - `dependency-source`
+- `golem-security`
+- `golem-performance`
+- `golem-compliance`
 - `hbom-security`
 - `hbom-performance`
 - `hbom-compliance`
@@ -218,6 +224,37 @@ Beyond the YAML rule matches above, the current rollout also adds a small number
 - **Cargo workflow tie-ins:** mutable Cargo setup actions plus Cargo build/test/package/publish workflow steps correlated with native build surfaces
 
 The Python detections are intentionally conservative phase-1 heuristics. They are meant to catch obviously suspicious packaging behavior today while a deeper Python static-analysis path is developed separately.
+
+### `golem-security`, `golem-performance`, `golem-compliance` — Go Evinse semantic evidence review
+
+Rules that evaluate `cdx:golem:*` properties emitted by `evinse -l go` when the `golem` helper is available. These rules are intended to run after the base Go SBOM has been enriched into `bom.evinse.json`.
+
+```bash
+cdxgen -t go -o bom.json /absolute/path/to/go/project
+evinse -i bom.json -o bom.evinse.json -l go /absolute/path/to/go/project
+cdx-audit --bom bom.evinse.json --direct-bom-audit --categories golem
+```
+
+`golem` is an alias for `golem-security,golem-performance,golem-compliance`.
+
+| Rule           | Category          | Severity | Description                                                |
+| -------------- | ----------------- | -------- | ---------------------------------------------------------- |
+| GOLEM-SEC-001  | golem-security    | high     | Go dependency has high-severity semantic security signal   |
+| GOLEM-SEC-002  | golem-security    | high     | Go module uses local replacement in analyzed source        |
+| GOLEM-PERF-001 | golem-performance | low      | Go Evinse used pointer call graph mode                     |
+| GOLEM-PERF-002 | golem-performance | medium   | Go project includes native or generated-code build surface |
+| GOLEM-COMP-001 | golem-compliance  | medium   | Go module appears private or workspace-local               |
+| GOLEM-COMP-002 | golem-compliance  | medium   | Vendored Go module lacks license-file evidence             |
+
+These rules use properties such as `cdx:golem:securitySignalSeverity`, `cdx:golem:usageScopes`, `cdx:golem:localReplacement`, `cdx:golem:privateModuleCandidate`, `cdx:golem:vendored`, `cdx:golem:licenseFileCount`, `cdx:golem:callGraphMode`, `cdx:golem:nativeArtifactCount`, `cdx:golem:goGenerateCount`, and `cdx:golem:goEmbedCount`.
+
+Typical reviewer actions:
+
+- inspect `.occurrences` and `.callstack` for dependencies with security signals before deciding whether the signal is reachable and relevant
+- remove local replacements from release builds or document why a local or vendored source is part of the release baseline
+- verify internal provenance, access-control, license, and vulnerability intake for private module candidates
+- review native, generated, and embedded asset surfaces for reproducibility and cross-platform build behavior
+- use `static` or `rta` call graph mode for regular CI and reserve `pointer` mode for focused investigations
 
 ### `asar-archive` — Electron ASAR release artifact review
 

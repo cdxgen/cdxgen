@@ -265,7 +265,7 @@ Environment variables override values from the configuration files.
 
 ## Evinse Mode / SaaSBOM
 
-Evinse (Evinse Verification Is Nearly SBOM Evidence) generates component evidence and SaaSBOM data for supported languages. The tool is powered by [atom](https://github.com/AppThreat/atom) for Java, JavaScript, TypeScript, Python, and C/C++ flows, and by [dosai](https://github.com/owasp-dep-scan/dosai) for .NET flows. cdxgen also supports `--evidence` during BOM generation. This section focuses on direct `evinse` usage for advanced workflows. See [`EVINSE.md`](EVINSE.md) for the dedicated command guide.
+Evinse (Evinse Verification Is Nearly SBOM Evidence) generates component evidence and SaaSBOM data for supported languages. The tool is powered by [atom](https://github.com/AppThreat/atom) for Java, JavaScript, TypeScript, Python, and C/C++ flows, by [dosai](https://github.com/owasp-dep-scan/dosai) for .NET flows, and by `golem` for Go semantic evidence. cdxgen also supports `--evidence` during BOM generation. This section focuses on direct `evinse` usage for advanced workflows. See [`EVINSE.md`](EVINSE.md) for the dedicated command guide.
 
 <img src="_media/occurrence-evidence.png" alt="occurrence evidence" width="256">
 
@@ -383,6 +383,21 @@ For JavaScript or TypeScript projects, pass `-l javascript`.
 ```shell
 evinse -i bom.json -o bom.evinse.json --usages-slices-file usages.json --data-flow-slices-file data-flow.json -l javascript --with-data-flow <path to the application>
 ```
+
+For Go projects, generate the base BOM first and then run `evinse -l go`. When the optional `golem` binary is available from `@cdxgen/cdxgen-plugins-bin`, Evinse maps Go module inventory to semantic source evidence.
+
+```shell
+cdxgen -t go -o bom.json <path to the application>
+evinse -i bom.json -o bom.evinse.json -l go --golem-callgraph static <path to the application>
+```
+
+Golem adds occurrence and call-stack evidence plus `cdx:golem:*` properties for usage scopes, occurrence kinds, security signals, local replacements, vendoring, private module candidates, license-file evidence, build directives, generated files, native artifacts, and Go toolchain directives.
+
+Use `--golem-callgraph static` for normal CI, `rta` for a more precise root-based call graph, and `pointer` for focused investigations where higher runtime and memory use are acceptable. Use `--golem-tags` when build tags change the reachable packages, and `--golem-tests` when test-only dependency use is part of the review.
+
+After enrichment, import the BOM into `cdxi` and use `.golemsummary`, `.golemhotspots`, `.golemcoverage`, `.occurrences`, and `.callstack`. To audit the Golem properties, run `cdx-audit --bom bom.evinse.json --direct-bom-audit --categories golem`.
+
+See [Go Evinse with Golem](GO_EVINSE_GOLEM.md), [the Go Evinse threat model](GO_EVINSE_GOLEM_THREAT_MODEL.md), and [the Go Evinse tutorial](LESSON14.md) for the complete workflow.
 
 #### Excluding source paths from Atom evidence
 
