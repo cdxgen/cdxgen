@@ -738,13 +738,15 @@ const options = Object.assign({}, args, {
   exclude: args.exclude || args.excludeRegex,
   include: args.include || args.includeRegex,
 });
-setDryRunMode(options.dryRun);
-setActivityContext({
-  projectType: Array.isArray(options.projectType)
-    ? options.projectType.join(",")
-    : options.projectType,
+const cliActivityProjectType = Array.isArray(options.projectType)
+  ? options.projectType.join(",")
+  : options.projectType;
+const cliActivityContext = {
+  projectType: cliActivityProjectType,
   sourcePath: filePath,
-});
+};
+setDryRunMode(options.dryRun);
+setActivityContext(cliActivityContext);
 const outputPlan = createOutputPlan(options);
 for (const outputFile of Object.values(outputPlan.outputs)) {
   const outputDirectory = getOutputDirectory(outputFile);
@@ -1010,7 +1012,12 @@ if (options.bomAudit && !options.bomAuditCategories) {
   }
 }
 
-const envAuditFindings = auditEnvironment();
+setActivityContext({
+  projectType: "environment",
+  sourcePath: filePath,
+});
+const envAuditFindings = auditEnvironment(process.env, options);
+setActivityContext(cliActivityContext);
 if (options.envAudit) {
   displaySelfThreatModel(filePath, config, options, envAuditFindings);
 }
