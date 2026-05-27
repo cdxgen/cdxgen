@@ -1,5 +1,5 @@
 # Base-image
-FROM ruby:4.0.4-slim-trixie@sha256:13d4a73ef443d7621ee63c3dd36181de465e5a68e11de40a4e9a7baf6ed86f54 AS base
+FROM ruby:4.0.5-slim-trixie@sha256:86a2ff44ce474c1c9bd11dfb2fd7fe5408a5bfe8236b9bc6013e2c6ef4c02d39 AS base
 
 ARG DEBIAN_REPO
 ARG GITHUB_RAW_URL=https://raw.githubusercontent.com
