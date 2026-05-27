@@ -10,8 +10,6 @@ overrides:
   type-detect: 4.1.0
   on-finished: 2.4.1
 
-pnpmfileChecksum: sha256-nfOeuxPm0PLhmHqhdzVKpjFk27e1GEgHAqcQJ7ot+gg=
-
 importers:
 
   .:
@@ -80,8 +78,8 @@ importers:
         specifier: 13.0.2
         version: 13.0.2
       packageurl-js:
-        specifier: 1.0.2
-        version: 1.0.2
+        specifier: 2.0.1
+        version: 2.0.1
       parse-conflict-json:
         specifier: 5.0.1
         version: 5.0.1
@@ -351,7 +349,6 @@ packages:
     resolution: {integrity: sha512-qaXu8aJOxNM34nWN+aPV7JKU+RVuribss4T+g77DB+DfooxpBQrpQHRzHS5HILZevBiSI1rPj/JfLawoB0hhZA==, tarball: https://registry.npmjs.org/@cdxgen/cdxgen-plugins-bin-linux-ppc64/-/cdxgen-plugins-bin-linux-ppc64-2.2.0.tgz}
     cpu: [ppc64]
     os: [linux]
-    libc: glibc
 
   '@cdxgen/cdxgen-plugins-bin-linuxmusl-amd64@2.2.0':
     resolution: {integrity: sha512-FGB21N38c/tBoIkniO8HWa81Splq3q0y3aLZH2YzCNdiBTZRjtZgFBPww2+l4SW05S0EQjXbXTNjL72Hl8ulMQ==, tarball: https://registry.npmjs.org/@cdxgen/cdxgen-plugins-bin-linuxmusl-amd64/-/cdxgen-plugins-bin-linuxmusl-amd64-2.2.0.tgz}
@@ -893,8 +890,8 @@ packages:
     resolution: {integrity: sha512-wBowNApzd45EIKdO1LaU+LrMBwAcjfPaYtVzV3lmfM3gf8Z4CHZsiIqlM8TZZ8okYvh5A1cP6gTfCRQtwUpaUg==, tarball: https://registry.npmjs.org/p-cancelable/-/p-cancelable-4.0.1.tgz}
     engines: {node: '>=14.16'}
 
-  packageurl-js@1.0.2:
-    resolution: {integrity: sha512-fWC4ZPxo80qlh3xN5FxfIoQD3phVY4+EyzTIqyksjhKNDmaicdpxSvkWwIrYTtv9C1/RcUN6pxaTwGmj2NzS6A==, tarball: https://registry.npmjs.org/packageurl-js/-/packageurl-js-1.0.2.tgz}
+  packageurl-js@2.0.1:
+    resolution: {integrity: sha512-N5ixXjzTy4QDQH0Q9YFjqIWd6zH6936Djpl2m9QNFmDv5Fum8q8BjkpAcHNMzOFE0IwQrFhJWex3AN6kS0OSwg==, tarball: https://registry.npmjs.org/packageurl-js/-/packageurl-js-2.0.1.tgz}
 
   parse-conflict-json@5.0.1:
     resolution: {integrity: sha512-ZHEmNKMq1wyJXNwLxyHnluPfRAFSIliBvbK/UiOceROt4Xh9Pz0fq49NytIaeaCUf5VR86hwQ/34FCcNU5/LKQ==, tarball: https://registry.npmjs.org/parse-conflict-json/-/parse-conflict-json-5.0.1.tgz}
@@ -1844,7 +1841,7 @@ snapshots:
 
   p-cancelable@4.0.1: {}
 
-  packageurl-js@1.0.2: {}
+  packageurl-js@2.0.1: {}
 
   parse-conflict-json@5.0.1:
     dependencies:
