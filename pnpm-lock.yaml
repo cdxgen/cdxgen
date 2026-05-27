@@ -85,9 +85,6 @@ importers:
       parse-conflict-json:
         specifier: 5.0.1
         version: 5.0.1
-      proc-log:
-        specifier: 6.1.0
-        version: 6.1.0
       properties-reader:
         specifier: 3.0.1
         version: 3.0.1
