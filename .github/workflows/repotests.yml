@@ -25,6 +25,7 @@ on:
       - 'test/data/maven-optional-repotest/**'
       - 'test/data/mcp-repotest/**'
       - 'test/data/npm-hidden-lockfile-repotest/**'
+      - 'test/data/pixi-workspace-repotest/**'
       - '!**.poku.js'
   workflow_dispatch:
 
@@ -877,6 +878,7 @@ jobs:
           bin/cdxgen.js -t python test/data/issue-2069 -o bomresults/issue-2069.json --fail-on-error --include-regex "requirements.txt"
           bin/cdxgen.js -t python test/data/issue-2069 -o bomresults/issue-2069.json --include-regex "poetry.lock"
           bin/cdxgen.js -t python test/data/pylock-named -o bomresults/pylock-named.json --fail-on-error
+          bin/cdxgen.js -t python test/data/pixi-workspace-repotest -o bomresults/pixi-workspace-repotest.json --fail-on-error
           bin/cdxgen.js -t python test/data/issue-2069 -o bomresults/issue-2069.json --fail-on-error -p
           bin/cdxgen.js -t python test/data/issue-2069 -o bomresults/issue-2069.json --only fastapi --only google --fail-on-error -p
           bin/cdxgen.js -t python test/data/issue-2082 -o bomresults/issue-2082.json --fail-on-error -p
@@ -885,6 +887,8 @@ jobs:
           bin/cdxgen.js -t python test/data/issue-2082 -o bomresults/issue-2082.json --fail-on-error --technique manifest-analysis -p
           bin/cdxgen.js -t python test/data/issue-2069 -o bomresults/issue-2069.json --fail-on-error --lifecycle pre-build -p
           bin/cdxgen.js -t python test/data/issue-2082 -o bomresults/issue-2082.json --fail-on-error --lifecycle pre-build -p
+          jq -e '.metadata.component.name == "pixi-workspace-repotest" and .metadata.component.version == "0.1.0"' bomresults/pixi-workspace-repotest.json
+          jq -e 'any(.components[]; .purl == "pkg:conda/python@3.12.7-h9e4cc4f_0_cpython?os=linux-64")' bomresults/pixi-workspace-repotest.json
         shell: bash
         env:
           CDXGEN_DEBUG_MODE: debug

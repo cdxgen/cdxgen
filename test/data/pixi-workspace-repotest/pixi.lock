@@ -1,0 +1,23 @@
+version: 1
+
+environments:
+  default:
+    channels:
+      - url: https://conda.anaconda.org/conda-forge/
+    indexes: []
+    packages:
+      linux-64:
+        - conda: https://conda.anaconda.org/conda-forge/linux-64/python-3.12.7-h9e4cc4f_0_cpython.conda
+
+packages:
+  - kind: conda
+    name: python
+    version: 3.12.7
+    build: h9e4cc4f_0_cpython
+    build_number: 0
+    subdir: linux-64
+    url: https://conda.anaconda.org/conda-forge/linux-64/python-3.12.7-h9e4cc4f_0_cpython.conda
+    sha256: 130782395f0ec68fd4c6aa0a9756fbb79344f9d6869fc0c544b61343f74f65f6
+    md5: 2e6af3d2cd1746aa0bb4f9919cb0ed5f
+    depends:
+      - bzip2 >=1.0.8,<2.0a0

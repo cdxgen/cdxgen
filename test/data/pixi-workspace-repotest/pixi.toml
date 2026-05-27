@@ -1,0 +1,6 @@
+[workspace]
+name = "pixi-workspace-repotest"
+version = "0.1.0"
+description = "Pixi workspace fixture for repotests"
+channels = ["conda-forge"]
+platforms = ["linux-64"]
