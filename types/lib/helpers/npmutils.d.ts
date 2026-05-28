@@ -68,4 +68,8 @@ export function hydrateNpmNodePackage(node: object, options?: object): {
     diskPkg: object | undefined;
     packageJsonPath: string | undefined;
 };
+/**
+ * Helper to check if a package is imported only for TypeScript types.
+ */
+export function isPkgTypeOnlyImport(allImports: any, group: any, name: any): boolean;
 //# sourceMappingURL=npmutils.d.ts.map

@@ -83,7 +83,7 @@ Run locally:
 
 ```bash
 pnpm run lint        # check + auto-fix
-pnpm run lint:check  # check only (used in CI)
+pnpm run lint:check  # check only (only for CI)
 pnpm run lint:errors # errors only
 ```
 
@@ -572,3 +572,4 @@ All GitHub Actions workflows pin action SHA digests and have `permissions: {}` a
 - **Do not** add or update `pnpm-lock.yaml` unless changing `package.json` dependencies.
 - **Do not** import from `lib/cli/index.js` inside `lib/helpers/*` or `lib/stages/*` — this creates a circular-like cross-layer dependency. Extract the shared function to `lib/helpers/` instead.
 - **Do not** add logic that must execute once-per-BOM inside `buildBomNSData` — it is called once per language type. Use `postProcess` in `lib/stages/postgen/postgen.js` instead.
+- **Do not** add any generic functions to `lib/cli/index.js` and `lib/helpers/utils.js`.
