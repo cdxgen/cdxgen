@@ -1,0 +1,9 @@
+{
+  "name": "type-only-repotest",
+  "version": "1.0.0",
+  "type": "module",
+  "dependencies": {
+    "is-even": "1.0.0",
+    "is-odd": "3.0.1"
+  }
+}

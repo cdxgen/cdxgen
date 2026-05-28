@@ -26,6 +26,7 @@ on:
       - 'test/data/mcp-repotest/**'
       - 'test/data/npm-hidden-lockfile-repotest/**'
       - 'test/data/pixi-workspace-repotest/**'
+      - 'test/data/type-only-repotest/**'
       - '!**.poku.js'
   workflow_dispatch:
 
@@ -154,6 +155,10 @@ jobs:
           jq -e 'any(.components[]; ((.purl // "") | startswith("pkg:npm/left-pad@1.3.0")) and any((.evidence.occurrences // [])[]; (.location // "") | contains("src/used/index.js")))' bomresults/bom-atom-exclude-fixture.json
           jq -e 'all(.components[]?; all((.evidence.occurrences // [])[]?; (((.location // "") | contains("ignored")) | not)))' bomresults/bom-atom-exclude-fixture.json
           jq -e 'all(.components[]? | select((.purl // "") | startswith("pkg:npm/is-odd@3.0.1")); ((.evidence.occurrences // []) | length) == 0)' bomresults/bom-atom-exclude-fixture.json
+          bin/cdxgen.js -t js test/data/type-only-repotest -o bomresults/bom-type-only-fixture.json --fail-on-error
+          jq -e 'any(.components[]; .name == "is-odd" and .scope == "excluded" and any((.properties // [])[]; .name == "cdx:npm:package:type-only" and .value == "true"))' bomresults/bom-type-only-fixture.json
+          jq -e 'any(.components[]; .name == "is-even" and .scope == "required")' bomresults/bom-type-only-fixture.json
+          jq -e 'any(.components[]; .name == "is-number" and .scope == "optional")' bomresults/bom-type-only-fixture.json
         shell: bash
       - name: repotests angular analyzer fixtures
         run: |
