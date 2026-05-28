@@ -139,11 +139,11 @@ importers:
         version: 6.0.3
     optionalDependencies:
       '@appthreat/atom':
-        specifier: 2.5.4
-        version: 2.5.4
+        specifier: 2.5.5
+        version: 2.5.5
       '@appthreat/atom-parsetools':
-        specifier: 1.1.5
-        version: 1.1.5
+        specifier: 1.2.1
+        version: 1.2.1
       '@appthreat/cdx-proto':
         specifier: 2.0.1
         version: 2.0.1
@@ -204,13 +204,13 @@ packages:
   '@appthreat/atom-common@1.1.0':
     resolution: {integrity: sha512-vGZpJdy9e0l83o8XwDAsQUDpkMVzR4DLb7mbi5npu8Nz/R+2m5oyHlpBGuLYBKm5+KkjTInXP9eNTcMa0Mn3Uw==, tarball: https://registry.npmjs.org/@appthreat/atom-common/-/atom-common-1.1.0.tgz}
 
-  '@appthreat/atom-parsetools@1.1.5':
-    resolution: {integrity: sha512-3RNr4FKXTe8amPtQgtEfCQz6RSJB/9qDDbPzCKPGcoRAPvUv5sCero4upKc0T2NxQQEeol4SeTGOYH7rvVZ8vQ==, tarball: https://registry.npmjs.org/@appthreat/atom-parsetools/-/atom-parsetools-1.1.5.tgz}
+  '@appthreat/atom-parsetools@1.2.1':
+    resolution: {integrity: sha512-KPc9TPlxcnJRXU1VInaYXeLiJg+ffBNdXgX7TpD6i/Zsk3iZBsQ6ONht6MiOdtyruXnlmnQtdPnSR1lZFRfq6A==, tarball: https://registry.npmjs.org/@appthreat/atom-parsetools/-/atom-parsetools-1.2.1.tgz}
     engines: {node: '>=16.0.0'}
     hasBin: true
 
-  '@appthreat/atom@2.5.4':
-    resolution: {integrity: sha512-XQ3ADj8/oxaBg15Mc/vxedE4gHlqyPnIVJbtnq1cXEqmWl01nz/P5+vvPPl31fXR+kxsWOicQKh27nlJxrWa4g==, tarball: https://registry.npmjs.org/@appthreat/atom/-/atom-2.5.4.tgz}
+  '@appthreat/atom@2.5.5':
+    resolution: {integrity: sha512-ztiWaihwAl+ksh+jNeHey7vIjLywkTfVG8lueqlg0Pr5Nb/CEa8oBG1loirlJo6kB8sr9vUMrXjSlWu1fRDp9w==, tarball: https://registry.npmjs.org/@appthreat/atom/-/atom-2.5.5.tgz}
     engines: {node: '>=18'}
     hasBin: true
 
@@ -1147,7 +1147,7 @@ snapshots:
   '@appthreat/atom-common@1.1.0':
     optional: true
 
-  '@appthreat/atom-parsetools@1.1.5':
+  '@appthreat/atom-parsetools@1.2.1':
     dependencies:
       '@appthreat/atom-common': 1.1.0
       '@babel/parser': 7.29.3
@@ -1155,7 +1155,7 @@ snapshots:
       typescript: 6.0.3
     optional: true
 
-  '@appthreat/atom@2.5.4':
+  '@appthreat/atom@2.5.5':
     dependencies:
       '@appthreat/atom-common': 1.1.0
     optional: true
