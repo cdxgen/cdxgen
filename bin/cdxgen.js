@@ -874,10 +874,6 @@ const applyAdvancedOptions = (options) => {
       options.deep = true;
       options.evidence = true;
       options.includeCrypto = true;
-      options.bomAudit = true;
-      process.env.CDX_MAVEN_INCLUDE_TEST_SCOPE = "true";
-      process.env.ASTGEN_IGNORE_DIRS = "";
-      process.env.ASTGEN_IGNORE_FILE_PATTERN = "";
       break;
     case "operational":
       if (options?.projectType) {
