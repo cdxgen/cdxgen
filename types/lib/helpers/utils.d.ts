@@ -270,14 +270,6 @@ export function parseNodeShrinkwrap(swFile: string): Promise<any[]>;
  */
 export function parsePnpmWorkspace(workspaceFile: string): object;
 /**
- * Helper function to create a properly encoded workspace PURL
- *
- * @param {string} packageName - Package name (e.g., "@babel/core")
- * @param {string} version - Package version
- * @returns {string} Encoded PURL string
- */
-export function createNpmWorkspacePurl(packageName: string, version: string): string;
-/**
  * Parses the workspaces field from a package.json file and returns the list of
  * workspace glob patterns. Handles both array and object (with packages key) formats.
  *
@@ -693,13 +685,7 @@ export function parsePixiLockFile(pixiLockFileName: string, path: string): {
  *
  * @param {String} pixiToml
  */
-export function parsePixiTomlFile(pixiToml: string): {
-    description: any;
-    name: any;
-    version: any;
-    homepage: any;
-    repository: any;
-};
+export function parsePixiTomlFile(pixiToml: string): {};
 /**
  * Method to construct a GitHub API url for the given repo metadata
  * @param {Object} repoMetadata Repo metadata with group and name
@@ -1823,15 +1809,7 @@ export function extractToolRefs(tools: Object[] | Object, predicate: Function): 
  * @returns {Object|Object[]} The same mutated subject(s)
  */
 export function attachIdentityTools(subjects: Object | Object[], toolRefs: string[]): Object | Object[];
-/**
- * Method to add occurrence evidence for components based on import statements. Currently useful for js
- *
- * @param {array} pkgList List of package
- * @param {object} allImports Import statements object with package name as key and an object with file and location details
- * @param {object} allExports Exported modules if available from node_modules
- * @param {Boolean} deep Deep mode
- */
-export function addEvidenceForImports(pkgList: array, allImports: object, allExports: object, deep: boolean): Promise<array>;
+export function addEvidenceForImports(pkgList: any, allImports: any, allExports: any, deep: any): Promise<any>;
 /**
  * Comparator function for sorting CycloneDX component objects.
  *
@@ -2066,6 +2044,7 @@ export function splitCommandArgs(commandString: string): Array<string>;
  * @returns {String} camelCased string
  */
 export function toCamel(str: string): string;
+export { createNpmWorkspacePurl };
 export const dirNameStr: any;
 export const isSecureMode: any;
 export let isDryRun: any;
@@ -2166,5 +2145,6 @@ export const cdxgenAgent: import("got").Got<{
 }>;
 export const RUBY_PLATFORM_PREFIXES: string[];
 import { PackageURL } from "packageurl-js";
+import { createNpmWorkspacePurl } from "./npmutils.js";
 import Keyv from "keyv";
 //# sourceMappingURL=utils.d.ts.map

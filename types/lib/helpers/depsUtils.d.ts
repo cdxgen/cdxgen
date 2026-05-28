@@ -11,6 +11,13 @@
  */
 export function mergeDependencies(dependencies: Object[], newDependencies: Object[], parentComponent?: Object): Object[];
 /**
+ * Marks npm @types packages as excluded from runtime scope.
+ *
+ * @param {Object[]} components CycloneDX component objects
+ * @returns {Object[]} The same component array with scopes updated in place
+ */
+export function markNpmTypesPackagesAsExcluded(components?: Object[]): Object[];
+/**
  * Propagates required scope through a dependency graph.
  *
  * If component A has `scope: "required"` and dependency metadata says A depends
