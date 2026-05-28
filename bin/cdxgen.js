@@ -1172,6 +1172,7 @@ const checkPermissions = (filePath, options) => {
 const needsBomSigning = ({ generateKeyAndSign }) =>
   generateKeyAndSign ||
   (() => {
+    setActivityContext({ projectType: "environment" });
     const sbomSignAlgorithm = readEnvironmentVariable("SBOM_SIGN_ALGORITHM");
     const sbomSignPrivateKey = readEnvironmentVariable(
       "SBOM_SIGN_PRIVATE_KEY",
