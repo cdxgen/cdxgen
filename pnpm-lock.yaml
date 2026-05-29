@@ -142,8 +142,8 @@ importers:
         specifier: 2.5.5
         version: 2.5.5
       '@appthreat/atom-parsetools':
-        specifier: 1.2.1
-        version: 1.2.1
+        specifier: 1.2.2
+        version: 1.2.2
       '@appthreat/cdx-proto':
         specifier: 2.0.1
         version: 2.0.1
@@ -154,38 +154,38 @@ importers:
         specifier: 0.5.0
         version: 0.5.0
       '@cdxgen/cdxgen-plugins-bin':
-        specifier: 2.2.0
-        version: 2.2.0
+        specifier: 2.2.1
+        version: 2.2.1
       '@cdxgen/cdxgen-plugins-bin-darwin-amd64':
-        specifier: 2.2.0
-        version: 2.2.0
+        specifier: 2.2.1
+        version: 2.2.1
       '@cdxgen/cdxgen-plugins-bin-darwin-arm64':
-        specifier: 2.2.0
-        version: 2.2.0
+        specifier: 2.2.1
+        version: 2.2.1
       '@cdxgen/cdxgen-plugins-bin-linux-amd64':
-        specifier: 2.2.0
-        version: 2.2.0
+        specifier: 2.2.1
+        version: 2.2.1
       '@cdxgen/cdxgen-plugins-bin-linux-arm':
-        specifier: 2.2.0
-        version: 2.2.0
+        specifier: 2.2.1
+        version: 2.2.1
       '@cdxgen/cdxgen-plugins-bin-linux-arm64':
-        specifier: 2.2.0
-        version: 2.2.0
+        specifier: 2.2.1
+        version: 2.2.1
       '@cdxgen/cdxgen-plugins-bin-linux-ppc64':
-        specifier: 2.2.0
-        version: 2.2.0
+        specifier: 2.2.1
+        version: 2.2.1
       '@cdxgen/cdxgen-plugins-bin-linuxmusl-amd64':
-        specifier: 2.2.0
-        version: 2.2.0
+        specifier: 2.2.1
+        version: 2.2.1
       '@cdxgen/cdxgen-plugins-bin-linuxmusl-arm64':
-        specifier: 2.2.0
-        version: 2.2.0
+        specifier: 2.2.1
+        version: 2.2.1
       '@cdxgen/cdxgen-plugins-bin-windows-amd64':
-        specifier: 2.2.0
-        version: 2.2.0
+        specifier: 2.2.1
+        version: 2.2.1
       '@cdxgen/cdxgen-plugins-bin-windows-arm64':
-        specifier: 2.2.0
-        version: 2.2.0
+        specifier: 2.2.1
+        version: 2.2.1
       body-parser:
         specifier: 2.2.2
         version: 2.2.2
@@ -204,8 +204,8 @@ packages:
   '@appthreat/atom-common@1.1.0':
     resolution: {integrity: sha512-vGZpJdy9e0l83o8XwDAsQUDpkMVzR4DLb7mbi5npu8Nz/R+2m5oyHlpBGuLYBKm5+KkjTInXP9eNTcMa0Mn3Uw==, tarball: https://registry.npmjs.org/@appthreat/atom-common/-/atom-common-1.1.0.tgz}
 
-  '@appthreat/atom-parsetools@1.2.1':
-    resolution: {integrity: sha512-KPc9TPlxcnJRXU1VInaYXeLiJg+ffBNdXgX7TpD6i/Zsk3iZBsQ6ONht6MiOdtyruXnlmnQtdPnSR1lZFRfq6A==, tarball: https://registry.npmjs.org/@appthreat/atom-parsetools/-/atom-parsetools-1.2.1.tgz}
+  '@appthreat/atom-parsetools@1.2.2':
+    resolution: {integrity: sha512-uH93lVI2H53x3ZbcXWUBhcm25Kv4Iz+bWHtrghCn5YHtsm223kGRKqDx3hqmfUNybz+ZqFs1WhHFW7ah4HIqEA==, tarball: https://registry.npmjs.org/@appthreat/atom-parsetools/-/atom-parsetools-1.2.2.tgz}
     engines: {node: '>=16.0.0'}
     hasBin: true
 
@@ -218,24 +218,24 @@ packages:
     resolution: {integrity: sha512-mTaD3YA1pJeEom8oyKjQ7wmfR+kDBZss15+aBIZ83gYkWFlgT9rWSM1cMsAcBJLTR9vcHIQ/bCo/JZewXkHN5Q==, tarball: https://registry.npmjs.org/@appthreat/cdx-proto/-/cdx-proto-2.0.1.tgz}
     engines: {node: '>=20'}
 
-  '@babel/code-frame@7.29.0':
-    resolution: {integrity: sha512-9NhCeYjq9+3uxgdtp20LSiJXJvN0FeCtNGpJxuMFZ1Kv3cWUNb6DOhJwUvcVCzKGR66cw4njwM6hrJLqgOwbcw==, tarball: https://registry.npmjs.org/@babel/code-frame/-/code-frame-7.29.0.tgz}
+  '@babel/code-frame@7.29.7':
+    resolution: {integrity: sha512-Aup7aUOfpbAUg2ROOJN6Iw5f9DMBlzu0mIkm/malLQFN/YQgO48wCj0Kxa3sEHJvPVFg7siR+qRInwXd2qhQKw==, tarball: https://registry.npmjs.org/@babel/code-frame/-/code-frame-7.29.7.tgz}
     engines: {node: '>=6.9.0'}
 
-  '@babel/generator@7.29.1':
-    resolution: {integrity: sha512-qsaF+9Qcm2Qv8SRIMMscAvG4O3lJ0F1GuMo5HR/Bp02LopNgnZBC/EkbevHFeGs4ls/oPz9v+Bsmzbkbe+0dUw==, tarball: https://registry.npmjs.org/@babel/generator/-/generator-7.29.1.tgz}
+  '@babel/generator@7.29.7':
+    resolution: {integrity: sha512-DkXD5OJQaAQIdZ1bt3UZdEnHAn9Imd3IVBdX03UFe+ony9Ojw5pzr9YVKGDY1jt+Gcn/FnGkNf8r+Vj5NOJWtQ==, tarball: https://registry.npmjs.org/@babel/generator/-/generator-7.29.7.tgz}
     engines: {node: '>=6.9.0'}
 
-  '@babel/helper-globals@7.28.0':
-    resolution: {integrity: sha512-+W6cISkXFa1jXsDEdYA8HeevQT/FULhxzR99pxphltZcVaugps53THCeiWA8SguxxpSp3gKPiuYfSWopkLQ4hw==, tarball: https://registry.npmjs.org/@babel/helper-globals/-/helper-globals-7.28.0.tgz}
+  '@babel/helper-globals@7.29.7':
+    resolution: {integrity: sha512-3nQVUAtvkKH9zahfWgw96Jc/uFOmjACE1kQz82E2lqWmHBgjzbNlsC22nuQTfahmWeQtTq5nQ/4Nnd2A1wj4zA==, tarball: https://registry.npmjs.org/@babel/helper-globals/-/helper-globals-7.29.7.tgz}
     engines: {node: '>=6.9.0'}
 
-  '@babel/helper-string-parser@7.27.1':
-    resolution: {integrity: sha512-qMlSxKbpRlAridDExk92nSobyDdpPijUq2DW6oDnUqd0iOGxmQjyqhMIihI9+zv4LPyZdRje2cavWPbCbWm3eA==, tarball: https://registry.npmjs.org/@babel/helper-string-parser/-/helper-string-parser-7.27.1.tgz}
+  '@babel/helper-string-parser@7.29.7':
+    resolution: {integrity: sha512-Pb5ijPrZ89GDH8223L4UP8i6QApWxs04RbPQJTeWDV0/keR2E36MeKnyr6LYmUUvqRRI+Iv87SuF1W6ErINzYw==, tarball: https://registry.npmjs.org/@babel/helper-string-parser/-/helper-string-parser-7.29.7.tgz}
     engines: {node: '>=6.9.0'}
 
-  '@babel/helper-validator-identifier@7.28.5':
-    resolution: {integrity: sha512-qSs4ifwzKJSV39ucNjsvc6WVHs6b7S03sOh2OcHF9UHfVPqWWALUsNUVzhSBiItjRZoLHx7nIarVjqKVusUZ1Q==, tarball: https://registry.npmjs.org/@babel/helper-validator-identifier/-/helper-validator-identifier-7.28.5.tgz}
+  '@babel/helper-validator-identifier@7.29.7':
+    resolution: {integrity: sha512-qehxGkRj55h/ff8EMaJ+cYhyaKlHIxqYDn682wQD7RNp9UujOQsHog2uS0r2vzr4pW+sXf90NeeayjcNaX3fFg==, tarball: https://registry.npmjs.org/@babel/helper-validator-identifier/-/helper-validator-identifier-7.29.7.tgz}
     engines: {node: '>=6.9.0'}
 
   '@babel/parser@7.29.3':
@@ -243,16 +243,21 @@ packages:
     engines: {node: '>=6.0.0'}
     hasBin: true
 
-  '@babel/template@7.28.6':
-    resolution: {integrity: sha512-YA6Ma2KsCdGb+WC6UpBVFJGXL58MDA6oyONbjyF/+5sBgxY/dwkhLogbMT2GXXyU84/IhRw/2D1Os1B/giz+BQ==, tarball: https://registry.npmjs.org/@babel/template/-/template-7.28.6.tgz}
+  '@babel/parser@7.29.7':
+    resolution: {integrity: sha512-hnORnjP/1P/zFEndoeX+n+t1RwWRJiJpM/jO7FW32Kn9r5+sJB2JWOdYo4L6k78j15eCwY3Gm/7364B1EMwtNg==, tarball: https://registry.npmjs.org/@babel/parser/-/parser-7.29.7.tgz}
+    engines: {node: '>=6.0.0'}
+    hasBin: true
+
+  '@babel/template@7.29.7':
+    resolution: {integrity: sha512-puq+Gf35oI24FeN11LkoUQFqv9uwNeWpxXZi/Ji3rRIoKAzKnxRaZ+Gkj0vKS9ZCiTESfng1N9LyOyXvo+m+Gg==, tarball: https://registry.npmjs.org/@babel/template/-/template-7.29.7.tgz}
     engines: {node: '>=6.9.0'}
 
   '@babel/traverse@7.29.0':
     resolution: {integrity: sha512-4HPiQr0X7+waHfyXPZpWPfWL/J7dcN1mx9gL6WdQVMbPnF3+ZhSMs8tCxN7oHddJE9fhNE7+lxdnlyemKfJRuA==, tarball: https://registry.npmjs.org/@babel/traverse/-/traverse-7.29.0.tgz}
     engines: {node: '>=6.9.0'}
 
-  '@babel/types@7.29.0':
-    resolution: {integrity: sha512-LwdZHpScM4Qz8Xw2iKSzS+cfglZzJGvofQICy7W7v4caru4EaAmyUuO6BGrbyQ2mYV11W0U8j5mBhd14dd3B0A==, tarball: https://registry.npmjs.org/@babel/types/-/types-7.29.0.tgz}
+  '@babel/types@7.29.7':
+    resolution: {integrity: sha512-4zBIxpPzowiZpusoFkyGVwakdRJUyuH5PxQ/PrqghfdFWWasvnCdPfQXHrenDai+gyLARulZjZowCOj6fjT4pA==, tarball: https://registry.npmjs.org/@babel/types/-/types-7.29.7.tgz}
     engines: {node: '>=6.9.0'}
 
   '@biomejs/biome@2.4.15':
@@ -319,65 +324,64 @@ packages:
     resolution: {integrity: sha512-Zk4GIHsWHvs6eD+7w3v+ctA0WdukitaQjrkdM7CePkDE7J7ib8GPE20Bre63iK1Knmr3vFLIYRdXulvC2qHZzQ==, tarball: https://registry.npmjs.org/@cdxgen/cdx-hbom/-/cdx-hbom-0.5.0.tgz}
     engines: {node: '>=20'}
 
-  '@cdxgen/cdxgen-plugins-bin-darwin-amd64@2.2.0':
-    resolution: {integrity: sha512-ynSJLTdLQ7+HbFKKJ3q19tRYD0hSdT8r/B8Lg8RRIJ30ka4nZ/kcM2PUb+eLhkp6q7brFwcTu2WNMcXkIGX9eA==, tarball: https://registry.npmjs.org/@cdxgen/cdxgen-plugins-bin-darwin-amd64/-/cdxgen-plugins-bin-darwin-amd64-2.2.0.tgz}
+  '@cdxgen/cdxgen-plugins-bin-darwin-amd64@2.2.1':
+    resolution: {integrity: sha512-CEFBtBloxaVrxm+1hjaxy0AZ3Kut8YbHvliuPWMRpRWHM8TVivH17WisI0BGu+giBerzRcZO6DFo+p1vpI2YbQ==, tarball: https://registry.npmjs.org/@cdxgen/cdxgen-plugins-bin-darwin-amd64/-/cdxgen-plugins-bin-darwin-amd64-2.2.1.tgz}
     cpu: [x64]
     os: [darwin]
 
-  '@cdxgen/cdxgen-plugins-bin-darwin-arm64@2.2.0':
-    resolution: {integrity: sha512-2Umt2NOPSKDEycV/lRsDWdOE3b6MnXSZq00NnGttVVjL1/aDC9FsfTUC1POd//t6Gy8cuJKBNCVy4ELJSzWptw==, tarball: https://registry.npmjs.org/@cdxgen/cdxgen-plugins-bin-darwin-arm64/-/cdxgen-plugins-bin-darwin-arm64-2.2.0.tgz}
+  '@cdxgen/cdxgen-plugins-bin-darwin-arm64@2.2.1':
+    resolution: {integrity: sha512-RPICFTv4dTGkw7loat2GDMmU8iV5+HMCotYHR4n9TSGfx5n/Sy386G6cLLqPil9AGug6NfS4L2OswGaiJGAkbg==, tarball: https://registry.npmjs.org/@cdxgen/cdxgen-plugins-bin-darwin-arm64/-/cdxgen-plugins-bin-darwin-arm64-2.2.1.tgz}
     cpu: [arm64]
     os: [darwin]
 
-  '@cdxgen/cdxgen-plugins-bin-linux-amd64@2.2.0':
-    resolution: {integrity: sha512-w5zCdDbADThvl2Yv6KEfnoh8MRbKcOheEuqMjNgkyK6uNfYt2OCdvLTTvdOGgpGzIxwQXCmRLqkDRfM9Jtu+kQ==, tarball: https://registry.npmjs.org/@cdxgen/cdxgen-plugins-bin-linux-amd64/-/cdxgen-plugins-bin-linux-amd64-2.2.0.tgz}
+  '@cdxgen/cdxgen-plugins-bin-linux-amd64@2.2.1':
+    resolution: {integrity: sha512-ZrrojPi+4xgpjlvTLPmx6XqK2Ycpd4wXD2A27bFfTAwPxHkO8/aZw5gdQvqpEH/XDvgQb8EFBOZpkOMW605tKw==, tarball: https://registry.npmjs.org/@cdxgen/cdxgen-plugins-bin-linux-amd64/-/cdxgen-plugins-bin-linux-amd64-2.2.1.tgz}
     cpu: [x64]
     os: [linux]
     libc: glibc
 
-  '@cdxgen/cdxgen-plugins-bin-linux-arm64@2.2.0':
-    resolution: {integrity: sha512-cOfmRhTBKgZqpBG67XlVrAa6RfD4ZXxsICmCY7jzEkkxFj/+EPKQEQHpt3GIwQZpmLJrxFfqhY2fkw86JcbPsQ==, tarball: https://registry.npmjs.org/@cdxgen/cdxgen-plugins-bin-linux-arm64/-/cdxgen-plugins-bin-linux-arm64-2.2.0.tgz}
+  '@cdxgen/cdxgen-plugins-bin-linux-arm64@2.2.1':
+    resolution: {integrity: sha512-o4PeKuS0R3iqhfx4EVOwg7OrSy0QfZPtMrFv/gD6DTf//POOlEgZ3Pz1sBtBnogmqahCmNB1u7AAuAvHCHyC9Q==, tarball: https://registry.npmjs.org/@cdxgen/cdxgen-plugins-bin-linux-arm64/-/cdxgen-plugins-bin-linux-arm64-2.2.1.tgz}
     cpu: [arm64]
     os: [linux]
     libc: glibc
 
-  '@cdxgen/cdxgen-plugins-bin-linux-arm@2.2.0':
-    resolution: {integrity: sha512-O1UbMW/gGatSVikOCVtFLrllDW0fDPgKVIUnEPEi7XMz9NqZ6KI5ZJn341KzQbG3fvoUSb94XEHv4b845hz/oQ==, tarball: https://registry.npmjs.org/@cdxgen/cdxgen-plugins-bin-linux-arm/-/cdxgen-plugins-bin-linux-arm-2.2.0.tgz}
+  '@cdxgen/cdxgen-plugins-bin-linux-arm@2.2.1':
+    resolution: {integrity: sha512-pIP4gIo9LiVjqzkg1v/okNUoRjm6s9FJptRsEd59+Tc0/MLjtg7HQPZdNhtISrJcBCE44YgOFxRZy9C2CKud9w==, tarball: https://registry.npmjs.org/@cdxgen/cdxgen-plugins-bin-linux-arm/-/cdxgen-plugins-bin-linux-arm-2.2.1.tgz}
     cpu: [arm]
     os: [linux]
     libc: glibc
 
-  '@cdxgen/cdxgen-plugins-bin-linux-ppc64@2.2.0':
-    resolution: {integrity: sha512-qaXu8aJOxNM34nWN+aPV7JKU+RVuribss4T+g77DB+DfooxpBQrpQHRzHS5HILZevBiSI1rPj/JfLawoB0hhZA==, tarball: https://registry.npmjs.org/@cdxgen/cdxgen-plugins-bin-linux-ppc64/-/cdxgen-plugins-bin-linux-ppc64-2.2.0.tgz}
+  '@cdxgen/cdxgen-plugins-bin-linux-ppc64@2.2.1':
+    resolution: {integrity: sha512-zXAfA+WRV3scvGtJKFCb1p9yOS/BxuZdBOTZn/cgYVwF/p2EeV7eaV7eRL0ZWAKz04oSeUmBkJrpFTirDrWbKQ==, tarball: https://registry.npmjs.org/@cdxgen/cdxgen-plugins-bin-linux-ppc64/-/cdxgen-plugins-bin-linux-ppc64-2.2.1.tgz}
     cpu: [ppc64]
     os: [linux]
     libc: glibc
 
-  '@cdxgen/cdxgen-plugins-bin-linuxmusl-amd64@2.2.0':
-    resolution: {integrity: sha512-FGB21N38c/tBoIkniO8HWa81Splq3q0y3aLZH2YzCNdiBTZRjtZgFBPww2+l4SW05S0EQjXbXTNjL72Hl8ulMQ==, tarball: https://registry.npmjs.org/@cdxgen/cdxgen-plugins-bin-linuxmusl-amd64/-/cdxgen-plugins-bin-linuxmusl-amd64-2.2.0.tgz}
+  '@cdxgen/cdxgen-plugins-bin-linuxmusl-amd64@2.2.1':
+    resolution: {integrity: sha512-J2/ueaAcK2Wm/dDx1jgUTPMZeqROCZSNTwfnOMvk0GiExtOaVty2QZmPte5lVfZ6hzix2UoVlQWkcAHJkhPX6w==, tarball: https://registry.npmjs.org/@cdxgen/cdxgen-plugins-bin-linuxmusl-amd64/-/cdxgen-plugins-bin-linuxmusl-amd64-2.2.1.tgz}
     cpu: [x64]
     os: [linux]
     libc: musl
 
-  '@cdxgen/cdxgen-plugins-bin-linuxmusl-arm64@2.2.0':
-    resolution: {integrity: sha512-UVzcJ425AQ4a9BYEcmOBZtYYFLcX/rSnu16vWoxwwNZxeKJ1mo0RMmJLWPyrjtWA9ZzMYD2qUWpk1Ht2b0xBmg==, tarball: https://registry.npmjs.org/@cdxgen/cdxgen-plugins-bin-linuxmusl-arm64/-/cdxgen-plugins-bin-linuxmusl-arm64-2.2.0.tgz}
+  '@cdxgen/cdxgen-plugins-bin-linuxmusl-arm64@2.2.1':
+    resolution: {integrity: sha512-9CfBx24n9cs55QsZDGWen+GanASOgWtpQM8sgKRpUkGjhVyhUF5QHtjFY6Jii86liwt2JxaZpbxwhW/kcMmcpg==, tarball: https://registry.npmjs.org/@cdxgen/cdxgen-plugins-bin-linuxmusl-arm64/-/cdxgen-plugins-bin-linuxmusl-arm64-2.2.1.tgz}
     cpu: [arm64]
     os: [linux]
     libc: musl
 
-  '@cdxgen/cdxgen-plugins-bin-windows-amd64@2.2.0':
-    resolution: {integrity: sha512-1d+bG1PMGsS7kpXia6S4b81PzEjDbSRlxQHy1BnLzTVBfPeGEjWCx4ItOzu2G78rOHKqmgCqC/w6AbpaoN2f+g==, tarball: https://registry.npmjs.org/@cdxgen/cdxgen-plugins-bin-windows-amd64/-/cdxgen-plugins-bin-windows-amd64-2.2.0.tgz}
+  '@cdxgen/cdxgen-plugins-bin-windows-amd64@2.2.1':
+    resolution: {integrity: sha512-hwnS+5JT8Zx+cf9yV46cdxTf1UcIxrUL36wYmQjixheU5tiLPnq5MeJ4TYafYsRWmenldJc0x6I2bcZ3HjW2NA==, tarball: https://registry.npmjs.org/@cdxgen/cdxgen-plugins-bin-windows-amd64/-/cdxgen-plugins-bin-windows-amd64-2.2.1.tgz}
     cpu: [x64]
     os: [win32]
 
-  '@cdxgen/cdxgen-plugins-bin-windows-arm64@2.2.0':
-    resolution: {integrity: sha512-KfnvCu1Tfi2Xt56ZaH8RmZX+2wETr6ymcDWwax7AYhnWGkJd+KqQnkHbqStSQ80rpnLYD1TR8ZjfzAkwgex1lA==, tarball: https://registry.npmjs.org/@cdxgen/cdxgen-plugins-bin-windows-arm64/-/cdxgen-plugins-bin-windows-arm64-2.2.0.tgz}
+  '@cdxgen/cdxgen-plugins-bin-windows-arm64@2.2.1':
+    resolution: {integrity: sha512-8Y7Z20jS+Biq6dZOHPPBpLqsuDgf1QlkplDcOIgJUcvwqCIuHtutFsRCuthn6JvRpl7JFSQszuGAULjLdwwmjA==, tarball: https://registry.npmjs.org/@cdxgen/cdxgen-plugins-bin-windows-arm64/-/cdxgen-plugins-bin-windows-arm64-2.2.1.tgz}
     cpu: [arm64]
     os: [win32]
 
-  '@cdxgen/cdxgen-plugins-bin@2.2.0':
-    resolution: {integrity: sha512-LuCVcZx13OL61HFC4UDWJHX1QvRabLyZYsedoSuZ/d5qLusI6608axpdnJlF0XiutbaeT8DC3ftnpAjdUqFSRg==, tarball: https://registry.npmjs.org/@cdxgen/cdxgen-plugins-bin/-/cdxgen-plugins-bin-2.2.0.tgz}
-    cpu: [x64]
+  '@cdxgen/cdxgen-plugins-bin@2.2.1':
+    resolution: {integrity: sha512-ivxCS+eH7PtyB4zZPejb8sg/+b4U6WMI0+CjnwDgXYHQfDbDtiJDjKMZdfqH79GvvWje45/rHTqSjQ3RvMXLOw==, tarball: https://registry.npmjs.org/@cdxgen/cdxgen-plugins-bin/-/cdxgen-plugins-bin-2.2.1.tgz}
 
   '@gar/promise-retry@1.0.3':
     resolution: {integrity: sha512-GmzA9ckNokPypTg10pgpeHNQe7ph+iIKKmhKu3Ob9ANkswreCx7R3cKmY781K8QK3AqVL3xVh9A42JvIAbkkSA==, tarball: https://registry.npmjs.org/@gar/promise-retry/-/promise-retry-1.0.3.tgz}
@@ -1063,8 +1067,8 @@ packages:
     engines: {node: '>=14.17'}
     hasBin: true
 
-  undici@7.25.0:
-    resolution: {integrity: sha512-xXnp4kTyor2Zq+J1FfPI6Eq3ew5h6Vl0F/8d9XU5zZQf1tX9s2Su1/3PiMmUANFULpmksxkClamIZcaUqryHsQ==, tarball: https://registry.npmjs.org/undici/-/undici-7.25.0.tgz}
+  undici@7.26.0:
+    resolution: {integrity: sha512-3O9Tf67pGhgOv9jM35AbhkXAKi13f3oy3aE4CSgr+TckGeY+/iu97ZXN+J7DpHPzLbVApFd1IFhcnBjREYXYcg==, tarball: https://registry.npmjs.org/undici/-/undici-7.26.0.tgz}
     engines: {node: '>=20.18.1'}
 
   unpipe@1.0.0:
@@ -1147,7 +1151,7 @@ snapshots:
   '@appthreat/atom-common@1.1.0':
     optional: true
 
-  '@appthreat/atom-parsetools@1.2.1':
+  '@appthreat/atom-parsetools@1.2.2':
     dependencies:
       '@appthreat/atom-common': 1.1.0
       '@babel/parser': 7.29.3
@@ -1165,52 +1169,56 @@ snapshots:
       '@bufbuild/protobuf': 2.12.0
     optional: true
 
-  '@babel/code-frame@7.29.0':
+  '@babel/code-frame@7.29.7':
     dependencies:
-      '@babel/helper-validator-identifier': 7.28.5
+      '@babel/helper-validator-identifier': 7.29.7
       js-tokens: 4.0.0
       picocolors: 1.1.1
 
-  '@babel/generator@7.29.1':
+  '@babel/generator@7.29.7':
     dependencies:
-      '@babel/parser': 7.29.3
-      '@babel/types': 7.29.0
+      '@babel/parser': 7.29.7
+      '@babel/types': 7.29.7
       '@jridgewell/gen-mapping': 0.3.13
       '@jridgewell/trace-mapping': 0.3.31
       jsesc: 3.1.0
 
-  '@babel/helper-globals@7.28.0': {}
+  '@babel/helper-globals@7.29.7': {}
 
-  '@babel/helper-string-parser@7.27.1': {}
+  '@babel/helper-string-parser@7.29.7': {}
 
-  '@babel/helper-validator-identifier@7.28.5': {}
+  '@babel/helper-validator-identifier@7.29.7': {}
 
   '@babel/parser@7.29.3':
     dependencies:
-      '@babel/types': 7.29.0
+      '@babel/types': 7.29.7
 
-  '@babel/template@7.28.6':
+  '@babel/parser@7.29.7':
     dependencies:
-      '@babel/code-frame': 7.29.0
-      '@babel/parser': 7.29.3
-      '@babel/types': 7.29.0
+      '@babel/types': 7.29.7
+
+  '@babel/template@7.29.7':
+    dependencies:
+      '@babel/code-frame': 7.29.7
+      '@babel/parser': 7.29.7
+      '@babel/types': 7.29.7
 
   '@babel/traverse@7.29.0':
     dependencies:
-      '@babel/code-frame': 7.29.0
-      '@babel/generator': 7.29.1
-      '@babel/helper-globals': 7.28.0
+      '@babel/code-frame': 7.29.7
+      '@babel/generator': 7.29.7
+      '@babel/helper-globals': 7.29.7
       '@babel/parser': 7.29.3
-      '@babel/template': 7.28.6
-      '@babel/types': 7.29.0
+      '@babel/template': 7.29.7
+      '@babel/types': 7.29.7
       debug: 4.4.3
     transitivePeerDependencies:
       - supports-color
 
-  '@babel/types@7.29.0':
+  '@babel/types@7.29.7':
     dependencies:
-      '@babel/helper-string-parser': 7.27.1
-      '@babel/helper-validator-identifier': 7.28.5
+      '@babel/helper-string-parser': 7.29.7
+      '@babel/helper-validator-identifier': 7.29.7
 
   '@biomejs/biome@2.4.15':
     optionalDependencies:
@@ -1253,37 +1261,37 @@ snapshots:
   '@cdxgen/cdx-hbom@0.5.0':
     optional: true
 
-  '@cdxgen/cdxgen-plugins-bin-darwin-amd64@2.2.0':
+  '@cdxgen/cdxgen-plugins-bin-darwin-amd64@2.2.1':
     optional: true
 
-  '@cdxgen/cdxgen-plugins-bin-darwin-arm64@2.2.0':
+  '@cdxgen/cdxgen-plugins-bin-darwin-arm64@2.2.1':
     optional: true
 
-  '@cdxgen/cdxgen-plugins-bin-linux-amd64@2.2.0':
+  '@cdxgen/cdxgen-plugins-bin-linux-amd64@2.2.1':
     optional: true
 
-  '@cdxgen/cdxgen-plugins-bin-linux-arm64@2.2.0':
+  '@cdxgen/cdxgen-plugins-bin-linux-arm64@2.2.1':
     optional: true
 
-  '@cdxgen/cdxgen-plugins-bin-linux-arm@2.2.0':
+  '@cdxgen/cdxgen-plugins-bin-linux-arm@2.2.1':
     optional: true
 
-  '@cdxgen/cdxgen-plugins-bin-linux-ppc64@2.2.0':
+  '@cdxgen/cdxgen-plugins-bin-linux-ppc64@2.2.1':
     optional: true
 
-  '@cdxgen/cdxgen-plugins-bin-linuxmusl-amd64@2.2.0':
+  '@cdxgen/cdxgen-plugins-bin-linuxmusl-amd64@2.2.1':
     optional: true
 
-  '@cdxgen/cdxgen-plugins-bin-linuxmusl-arm64@2.2.0':
+  '@cdxgen/cdxgen-plugins-bin-linuxmusl-arm64@2.2.1':
     optional: true
 
-  '@cdxgen/cdxgen-plugins-bin-windows-amd64@2.2.0':
+  '@cdxgen/cdxgen-plugins-bin-windows-amd64@2.2.1':
     optional: true
 
-  '@cdxgen/cdxgen-plugins-bin-windows-arm64@2.2.0':
+  '@cdxgen/cdxgen-plugins-bin-windows-arm64@2.2.1':
     optional: true
 
-  '@cdxgen/cdxgen-plugins-bin@2.2.0':
+  '@cdxgen/cdxgen-plugins-bin@2.2.1':
     optional: true
 
   '@gar/promise-retry@1.0.3': {}
@@ -1470,7 +1478,7 @@ snapshots:
       parse5: 7.3.0
       parse5-htmlparser2-tree-adapter: 7.1.0
       parse5-parser-stream: 7.1.2
-      undici: 7.25.0
+      undici: 7.26.0
       whatwg-mimetype: 4.0.0
 
   chownr@3.0.0: {}
@@ -2024,7 +2032,7 @@ snapshots:
 
   typescript@6.0.3: {}
 
-  undici@7.25.0: {}
+  undici@7.26.0: {}
 
   unpipe@1.0.0:
     optional: true
