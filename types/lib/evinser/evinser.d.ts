@@ -273,7 +273,7 @@ export function collectReachableFrames(_language: string, reachablesSlice: Objec
  * @param {Array} dfFrames Data flow frames
  * @returns
  */
-export function framePicker(dfFrames: any[]): any;
+export function framePicker(dfFrames: any[]): any[] | undefined;
 /**
  * Method to simplify types. For example, arrays ending with [] could be simplified.
  *
