@@ -96,7 +96,7 @@ const args = yargs(hideBin(process.argv))
     description:
       "Golem data-flow mode for Go Evinse analysis. Defaults to all with --with-data-flow, research profile, or --deep, and none otherwise.",
     choices: ["none", "security", "crypto", "all"],
-    default: "static",
+    default: "none",
   })
   .option("golem-dataflow-callgraph", {
     description:
