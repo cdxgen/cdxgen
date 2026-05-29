@@ -90,16 +90,18 @@ const args = yargs(hideBin(process.argv))
   .option("golem-callgraph", {
     description: "Golem call graph mode for Go Evinse analysis.",
     choices: ["none", "static", "cha", "rta", "vta"],
+    default: "static",
   })
   .option("golem-dataflow", {
     description:
       "Golem data-flow mode for Go Evinse analysis. Defaults to all with --with-data-flow, research profile, or --deep, and none otherwise.",
     choices: ["none", "security", "crypto", "all"],
+    default: "static",
   })
   .option("golem-dataflow-callgraph", {
     description:
       "Golem call graph mode used only for data-flow dynamic summary replay.",
-    default: "none",
+    default: "static",
     choices: ["none", "static", "cha", "rta", "vta"],
   })
   .option("golem-dataflow-patterns", {
