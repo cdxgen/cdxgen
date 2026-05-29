@@ -11,8 +11,8 @@ Use this skill when a pull request changes CycloneDX output, schema handling, va
 
 Review in this order:
 
-1. Local schemas in `/home/runner/work/cdxgen/cdxgen/data/bom-1.5.schema.json`, `/home/runner/work/cdxgen/cdxgen/data/bom-1.6.schema.json`, `/home/runner/work/cdxgen/cdxgen/data/bom-1.7.schema.json`
-2. Other local schemas when relevant, especially `/home/runner/work/cdxgen/cdxgen/data/cyclonedx-2.0-bundled.schema.json`
+1. Local schemas in `data/bom-1.5.schema.json`, `data/bom-1.6.schema.json`, `data/bom-1.7.schema.json`
+2. Other local schemas when relevant, especially `data/cyclonedx-2.0-bundled.schema.json`
 3. Official CycloneDX documentation and property-taxonomy guidance
 
 JSON-schema validity is only the starting point. Also review semantic correctness.
@@ -96,6 +96,8 @@ For every finding, include:
 ## Repo calibration findings
 
 These repo-specific findings were identified while calibrating this skill and should be treated as known review heuristics.
+
+- Self-generated BOMs for this repository currently expose three unnamespaced custom property names: `SrcFile`, `ImportedModules`, and `LocalNodeModulesPath`.
 
 ### Iteration 1: legacy `SrcFile` property
 
