@@ -1204,8 +1204,7 @@ jobs:
               Sub Main(args As String())
                   Dim payload = New With {.Name = "cdxgen", .Language = "vb"}
                   Dim json = JsonConvert.SerializeObject(payload)
-                  Dim digest = SHA256.HashData(Encoding.UTF8.GetBytes(json))
-                  Console.WriteLine($"{json}:{Convert.ToHexString(digest)}")
+                  Console.WriteLine(SHA256.HashData(Encoding.UTF8.GetBytes(json)))
               End Sub
           End Module
           EOF
