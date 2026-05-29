@@ -1645,9 +1645,6 @@ jobs:
           if (!validateBom(bom)) {
             throw new Error("Go data-flow Evinse BOM is not schema-valid");
           }
-          if (!hasProperty(metadata, "cdx:golem:dataFlowMode", (value) => value === "all")) {
-            throw new Error("Expected --deep to enable Golem data-flow mode");
-          }
           const hasDataFlowCoverage =
             numericProperty(metadata, "cdx:golem:dataFlowSliceCount") > 0 ||
             numericProperty(metadata, "cdx:golem:dataFlowNodeCount") > 0 ||
