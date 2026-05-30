@@ -134,11 +134,12 @@ function readBom(bomFile) {
   }
 }
 
-/** Returns a map of { componentName -> scope } from a BOM object. */
+/** Returns a map of { "group/name" -> scope } from a BOM object. */
 function scopeMap(bom) {
   const map = {};
   for (const c of bom?.components ?? []) {
-    map[c.name] = c.scope ?? "unset";
+    const key = c.group ? `${c.group}/${c.name}` : c.name;
+    map[key] = c.scope ?? "unset";
   }
   return map;
 }
@@ -233,7 +234,12 @@ function evaluateApp(appName, appDir, outputDir, baselineCdxgen) {
       console.log(`${GREEN}done${RESET}`);
     }
   } else {
-    // ASTGEN simulation: re-run with old ignore pattern (approximation)
+    // ASTGEN simulation: re-run the current branch with the old ignore pattern.
+    // NOTE: This approximates only the IGNORE_FILE_PATTERN half of the change.
+    // The parseVueConfigFiles enhancement (CSS additionalData scanning) runs in
+    // both the enhanced and simulated-baseline runs, so its contribution is NOT
+    // reflected in the delta produced by this mode.  Use --baseline-cdxgen for
+    // a fully accurate comparison that covers both improvements.
     process.stdout.write(
       `  Simulating baseline (ASTGEN_IGNORE_FILE_PATTERN) … `,
     );
