@@ -1,0 +1,40 @@
+[
+  {
+    "name": "vue-repotest",
+    "local": true,
+    "description": "Minimal Vue 3 + Vite fixture (no CSS preprocessors in vite.config). Demonstrates that non-config files are unaffected."
+  },
+  {
+    "name": "vue-scss-app",
+    "local": true,
+    "description": "Vue 3 + Vite fixture with SCSS/Less preprocessor additionalData in vite.config.js. Shows precision improvement from both the IGNORE_FILE_PATTERN fix and parseVueConfigFiles."
+  },
+  {
+    "name": "vue-vben-admin",
+    "repoUrl": "https://github.com/vbenjs/vue-vben-admin.git",
+    "description": "Popular Vue 3 enterprise admin dashboard using Vite, sass, and CSS preprocessor additionalData for theming.",
+    "viteConfigPattern": "vite.config.ts",
+    "notes": "Uses sass with additionalData for global variables. Run with --clone-samples."
+  },
+  {
+    "name": "vue-pure-admin",
+    "repoUrl": "https://github.com/pure-admin/vue-pure-admin.git",
+    "description": "Feature-rich Vue 3 admin system built with Vite and Element Plus. Injects SCSS variables globally via additionalData.",
+    "viteConfigPattern": "vite.config.ts",
+    "notes": "Uses sass with additionalData. Run with --clone-samples."
+  },
+  {
+    "name": "naive-ui-admin",
+    "repoUrl": "https://github.com/jekip/naive-ui-admin.git",
+    "description": "Vue 3 admin template based on Naive UI and Vite with Less preprocessor configuration.",
+    "viteConfigPattern": "vite.config.ts",
+    "notes": "Uses less with additionalData for global variables. Run with --clone-samples."
+  },
+  {
+    "name": "vue-element-plus-admin",
+    "repoUrl": "https://github.com/kailong321200875/vue-element-plus-admin.git",
+    "description": "Vue 3 + Element Plus admin template, Vite, SCSS with additionalData for global theming variables.",
+    "viteConfigPattern": "vite.config.ts",
+    "notes": "Injects global SCSS variables via additionalData. Run with --clone-samples."
+  }
+]
