@@ -22,6 +22,7 @@ on:
       - 'test/data/cbom-js-repotest/**'
       - 'test/data/cargo-workspace-repotest/**'
       - 'test/data/go-dataflow-repotest/**'
+      - 'test/data/gguf-ai-repotest/**'
       - 'test/data/maven-optional-repotest/**'
       - 'test/data/mcp-repotest/**'
       - 'test/data/npm-hidden-lockfile-repotest/**'
@@ -159,6 +160,19 @@ jobs:
           jq -e 'any(.components[]; .name == "is-odd" and .scope == "excluded" and any((.properties // [])[]; .name == "cdx:npm:package:type-only" and .value == "true"))' bomresults/bom-type-only-fixture.json
           jq -e 'any(.components[]; .name == "is-even" and .scope == "required")' bomresults/bom-type-only-fixture.json
           jq -e 'any(.components[]; .name == "is-number" and .scope == "optional")' bomresults/bom-type-only-fixture.json
+        shell: bash
+      - name: repotests gguf ai fixture
+        run: |
+          node test/data/gguf-ai-repotest/write-gguf-fixtures.mjs
+          bin/cdxgen.js -t ai test/data/gguf-ai-repotest -o bomresults/bom-gguf-ai-fixture.json --include-formulation --fail-on-error
+          jq -e 'any(.components[]; .type == "machine-learning-model" and .name == "Mixtral-8x7B-Instruct" and .version == "v0.1" and any((.properties // [])[]; .name == "cdx:ai:artifactFormat" and .value == "gguf") and any((.properties // [])[]; .name == "cdx:ai:quantization" and .value == "Q5_K_M") and any((.properties // [])[]; .name == "cdx:gguf:sizeLabel" and .value == "8x7B") and any((.properties // [])[]; .name == "cdx:gguf:tokenizerModel" and .value == "llama") and any((.properties // [])[]; .name == "cdx:gguf:tokenizerTokenCount" and .value == "4") and any((.properties // [])[]; .name == "cdx:gguf:chatTemplateDetected" and .value == "true") and .modelCard.modelParameters.architectureFamily == "llama" and .modelCard.modelParameters.task == "text-generation" and .modelCard.modelParameters.datasets[0].contents.url == "https://huggingface.co/datasets/mistralai/mixtral-pretrain" and .modelCard.modelParameters.inputs[0].format == "text" and .modelCard.modelParameters.outputs[0].format == "text" and .pedigree.ancestors[0].purl == "pkg:huggingface/mistralai/Mistral-7B-Instruct-v0.2" and any((.externalReferences // [])[]; .type == "vcs" and .url == "https://huggingface.co/mistralai/Mixtral-8x7B-Instruct-v0.1"))' bomresults/bom-gguf-ai-fixture.json
+          jq -e 'any(.components[]; .type == "file" and .name == "Mixtral-8x7B-Instruct-v0.1-Q5_K_M-00001-of-00002.gguf" and any((.properties // [])[]; .name == "cdx:gguf:shard" and .value == "00001-of-00002") and any((.properties // [])[]; .name == "cdx:gguf:alignment" and .value == "64") and any((.properties // [])[]; .name == "cdx:gguf:huggingFaceTokenizer" and .value == "true"))' bomresults/bom-gguf-ai-fixture.json
+        shell: bash
+      - name: repotests local huggingface ai fixture
+        run: |
+          bin/cdxgen.js -t ai test/data/ai-huggingface/repos -o bomresults/bom-huggingface-ai-fixture.json --include-formulation --fail-on-error
+          jq -e 'any(.components[]; .type == "machine-learning-model" and .group == "HuggingFaceH4" and .name == "zephyr-7b-beta" and any((.modelCard.properties // [])[]; .name == "cdx:huggingface:language" and .value == "en") and any((.modelCard.properties // [])[]; .name == "cdx:huggingface:gatedFieldCount" and .value == "1") and .modelCard.modelParameters.inputs[0].format == "text" and .modelCard.modelParameters.outputs[0].format == "text" and any((.modelCard.considerations.environmentalConsiderations.properties // [])[]; .name == "cdx:huggingface:co2EmissionsGrams" and .value == "123.4") and any((.pedigree.ancestors // [])[]; .group == "mistralai"))' bomresults/bom-huggingface-ai-fixture.json
+          jq -e 'any(.dependencies[]; .ref == "pkg:huggingface/HuggingFaceH4/zephyr-7b-beta" and any((.dependsOn // [])[]; . == "pkg:huggingface/HuggingFaceH4/ultrachat_200k?repository_url=https%3A%2F%2Fhuggingface.co%2Fdatasets"))' bomresults/bom-huggingface-ai-fixture.json
         shell: bash
       - name: repotests angular analyzer fixtures
         run: |

@@ -1,3 +1,55 @@
+/**
+ * Build operator-facing AI-BOM summary lines.
+ *
+ * @param {Object} bomJson CycloneDX BOM JSON object
+ * @returns {string[]} formatted AI-BOM summary lines
+ */
+export function buildAiBomInsightLines(bomJson: Object): string[];
+/**
+ * Print operator-facing AI-BOM summary lines.
+ *
+ * @param {Object} bomJson CycloneDX BOM JSON object
+ */
+export function printAiBomInsights(bomJson: Object): void;
+/**
+ * Build AI-BOM pedigree lines for REPL inspection.
+ *
+ * @param {Object} bomJson CycloneDX BOM JSON object
+ * @returns {string[]} formatted pedigree lines
+ */
+export function buildAiBomPedigreeLines(bomJson: Object): string[];
+/**
+ * Print AI-BOM pedigree lines.
+ *
+ * @param {Object} bomJson CycloneDX BOM JSON object
+ */
+export function printAiBomPedigree(bomJson: Object): void;
+/**
+ * Build AI-BOM model variant lines for REPL inspection.
+ *
+ * @param {Object} bomJson CycloneDX BOM JSON object
+ * @returns {string[]} formatted variant lines
+ */
+export function buildAiBomVariantLines(bomJson: Object): string[];
+/**
+ * Print AI-BOM model variant lines.
+ *
+ * @param {Object} bomJson CycloneDX BOM JSON object
+ */
+export function printAiBomVariants(bomJson: Object): void;
+/**
+ * Build AI-BOM dataset usage lines for REPL inspection.
+ *
+ * @param {Object} bomJson CycloneDX BOM JSON object
+ * @returns {string[]} formatted dataset lines
+ */
+export function buildAiBomDatasetLines(bomJson: Object): string[];
+/**
+ * Print AI-BOM dataset usage lines.
+ *
+ * @param {Object} bomJson CycloneDX BOM JSON object
+ */
+export function printAiBomDatasets(bomJson: Object): void;
 export function buildActivitySummaryPayload(activities: any, dryRunMode?: any): {
     activities: any;
     mode: string;

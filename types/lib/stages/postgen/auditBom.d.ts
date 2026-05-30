@@ -12,13 +12,30 @@ export function isHbomLikeBom(bomJson: object): boolean;
  * @returns {boolean} True when the BOM appears to represent operations/runtime data
  */
 export function isObomLikeBom(bomJson: object): boolean;
-export function getBomAuditDryRunSupportSummary(options?: {}): Promise<{
+/**
+ * Summarize dry-run support across active BOM audit rules.
+ *
+ * @param {Object} [options={}] audit configuration options
+ * @returns {Promise<{ fullCount: number, noCount: number, partialCount: number, totalRules: number }>} dry-run summary
+ */
+export function getBomAuditDryRunSupportSummary(options?: Object): Promise<{
     fullCount: number;
     noCount: number;
     partialCount: number;
     totalRules: number;
 }>;
-export function formatDryRunSupportSummary(summary: any): string;
+/**
+ * Format BOM audit dry-run support as a console-friendly summary line.
+ *
+ * @param {{ fullCount: number, noCount: number, partialCount: number, totalRules: number }} summary dry-run support summary
+ * @returns {string} formatted summary text
+ */
+export function formatDryRunSupportSummary(summary: {
+    fullCount: number;
+    noCount: number;
+    partialCount: number;
+    totalRules: number;
+}): string;
 /**
  * Audit BOM formulation section using JSONata-powered rule engine
  * @param {Object} bomJson - Generated CycloneDX BOM
@@ -27,17 +44,27 @@ export function formatDryRunSupportSummary(summary: any): string;
  */
 export function auditBom(bomJson: Object, options: Object): Promise<any[]>;
 /**
- * Format findings for console output with color-coded severity
+ * Format findings into a console report table.
+ *
+ * @param {Array} findings audit findings
+ * @returns {string} console report table
  */
-export function renderBomAuditConsoleReport(findings: any): string;
+export function renderBomAuditConsoleReport(findings: any[]): string;
 /**
- * Format findings for console output with color-coded severity
+ * Print BOM audit findings to the console.
+ *
+ * @param {Array} findings audit findings
+ * @returns {string} rendered console output
  */
-export function formatConsoleOutput(findings: any): string;
+export function formatConsoleOutput(findings: any[]): string;
 /**
- * Convert findings to CycloneDX annotations
+ * Convert BOM audit findings to CycloneDX annotations.
+ *
+ * @param {Array} findings audit findings
+ * @param {Object} bomJson generated CycloneDX BOM
+ * @returns {Array} CycloneDX annotations
  */
-export function formatAnnotations(findings: any, bomJson: any): any;
+export function formatAnnotations(findings: any[], bomJson: Object): any[];
 /**
  * Check if any findings meet the severity threshold for secure mode failure
  */

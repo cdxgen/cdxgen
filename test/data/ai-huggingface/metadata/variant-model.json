@@ -1,0 +1,12 @@
+{
+  "id": "mlabonne/NeuralDaredevil-8B-abliterated-unlocked",
+  "sha": "variant-sha",
+  "pipeline_tag": "text-generation",
+  "cardData": {
+    "base_model": "mistralai/Mistral-7B-v0.1",
+    "base_model_relation": "distillation",
+    "license": "apache-2.0",
+    "tags": ["uncensored", "abliterated"]
+  },
+  "tags": ["distilled", "unlocked"]
+}

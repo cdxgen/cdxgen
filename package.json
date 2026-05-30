@@ -81,6 +81,7 @@
   },
   "types": "./types/lib/cli/index.d.ts",
   "bin": {
+    "aibom": "bin/cdxgen.js",
     "cbom": "bin/cdxgen.js",
     "cdx-audit": "bin/audit.js",
     "cdx-convert": "bin/convert.js",

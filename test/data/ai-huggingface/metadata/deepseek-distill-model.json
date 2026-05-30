@@ -1,0 +1,23 @@
+{
+  "id": "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B",
+  "sha": "deepseek-fixture-sha",
+  "license": "mit",
+  "pipeline_tag": "text-generation",
+  "tags": ["deepseek", "distill", "qwen"],
+  "siblings": [
+    { "rfilename": "LICENSE-MODEL" },
+    { "rfilename": "README.md" }
+  ],
+  "cardData": {
+    "base_model": "Qwen/Qwen2.5-7B-Instruct",
+    "base_model_relation": "distillation",
+    "datasets": ["deepseek-ai/r1-reasoning-samples"],
+    "summary": "Distilled reasoning model based on the Qwen architecture.",
+    "library_name": "transformers"
+  },
+  "config": {
+    "model_type": "qwen2",
+    "architectures": ["Qwen2ForCausalLM"],
+    "max_position_embeddings": 131072
+  }
+}

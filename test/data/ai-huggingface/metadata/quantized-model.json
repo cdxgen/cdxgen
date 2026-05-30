@@ -1,0 +1,38 @@
+{
+  "id": "TheBloke/CodeLlama-7B-GGUF",
+  "sha": "ff00aa11",
+  "license": "llama2",
+  "pipeline_tag": "text-generation",
+  "tags": ["gguf", "text-generation", "quantized"],
+  "config": {
+    "architectures": ["LlamaForCausalLM"],
+    "model_type": "llama",
+    "quantization_config": {
+      "bits": 4,
+      "quant_method": "gptq"
+    }
+  },
+  "cardData": {
+    "base_model": "codellama/CodeLlama-7b-hf",
+    "base_model_relation": "quantized",
+    "datasets": ["bigcode/the-stack"],
+    "library_name": "transformers",
+    "model-index": [
+      {
+        "name": "CodeLlama-7B-GGUF",
+        "results": [
+          {
+            "task": { "type": "text-generation" },
+            "dataset": {
+              "name": "human-eval",
+              "split": "test"
+            },
+            "metrics": [
+              { "type": "pass@1", "value": 0.31 }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

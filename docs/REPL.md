@@ -32,6 +32,7 @@ If `bom.json` exists in the current directory, `cdxi` imports it automatically.
 ```text
 .create .
 .summary
+.aibom
 .print
 .tree
 ```
@@ -124,14 +125,15 @@ If `bom.json` exists in the current directory, `cdxi` imports it automatically.
 
 ### BOM lifecycle
 
-| Command          | Description                                                                |
-| ---------------- | -------------------------------------------------------------------------- |
-| `.create <path>` | Generate a BOM for a local path and load it into the session               |
-| `.import <path>` | Import a CycloneDX JSON BOM, SPDX JSON-LD BOM, or `.cdx` / `.proto` binary |
-| `.save [path]`   | Save the current BOM                                                       |
-| `.summary`       | Print a high-level BOM summary                                             |
-| `.sbom`          | Print the current BOM object                                               |
-| `.exit`          | Exit the shell                                                             |
+| Command          | Description                                                                                              |
+| ---------------- | -------------------------------------------------------------------------------------------------------- |
+| `.create <path>` | Generate a BOM for a local path and load it into the session                                             |
+| `.import <path>` | Import a CycloneDX JSON BOM, SPDX JSON-LD BOM, or `.cdx` / `.proto` binary                               |
+| `.save [path]`   | Save the current BOM                                                                                     |
+| `.summary`       | Print a high-level BOM summary                                                                           |
+| `.aibom`         | Render an operator-friendly AI-BOM view with pedigree, datasets, licenses, and quantization explanations |
+| `.sbom`          | Print the current BOM object                                                                             |
+| `.exit`          | Exit the shell                                                                                           |
 
 ### Query and navigation
 

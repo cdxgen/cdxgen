@@ -48,4 +48,21 @@ export function collectPyLockFileComponents(pkg: object, lockFile: string): Arra
  * @returns {boolean} true for default pypi
  */
 export function isDefaultPypiRegistry(indexUrl: string): boolean;
+/**
+ * Normalize a pylock package index URL for comparison and reporting.
+ *
+ * @param {string} indexUrl package index URL
+ * @returns {string|undefined} normalized registry URL
+ */
+export function normalizePyLockRegistry(indexUrl: string): string | undefined;
+/**
+ * Collect dependency names and scopes from a pylock package entry.
+ *
+ * @param {object} pkg pylock package entry
+ * @returns {{ name: string, scope: string }[]} dependency relationships
+ */
+export function collectPyLockDependencyRelationships(pkg: object): {
+    name: string;
+    scope: string;
+}[];
 //# sourceMappingURL=pylockutils.d.ts.map

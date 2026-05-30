@@ -23,13 +23,13 @@ winget install cdxgen
 <details>
 <summary><strong>Single Executable Application (SEA) Binaries</strong></summary>
 
-`cdxgen` and `hbom` are available as standalone binaries for Linux, macOS, and Windows. These binaries do not require Node.js or `npm` to be installed on the system, making them ideal for CI/CD environments, containerized scans, or quick local usage.
+`cdxgen`, `aibom`, and `hbom` are available as standalone binaries for Linux, macOS, and Windows. These binaries do not require Node.js or `npm` to be installed on the system, making them ideal for CI/CD environments, containerized scans, or quick local usage.
 
 Binaries are available in the [GitHub Releases](https://github.com/cdxgen/cdxgen/releases) page.
 
 **Available Variants:**
 
-- **Standard:** (`cdxgen-linux-amd64`, `hbom-linux-amd64`, etc.) The default standalone binaries with the node runtime. For HBOM, the standard variant also bundles `@cdxgen/cdx-hbom` and the matching `@cdxgen/cdxgen-plugins-bin*` companion helpers.
+- **Standard:** (`cdxgen-linux-amd64`, `aibom-linux-amd64`, `hbom-linux-amd64`, etc.) The default standalone binaries with the node runtime. For HBOM, the standard variant also bundles `@cdxgen/cdx-hbom` and the matching `@cdxgen/cdxgen-plugins-bin*` companion helpers.
 - **Slim:** (`-slim`) Smaller binaries with the node runtime and without the companion plugin bundle. `cdxgen-*-slim` omits the binary plugins, and `hbom-*-slim` keeps `@cdxgen/cdx-hbom` while omitting `@cdxgen/cdxgen-plugins-bin*`.
 - **Musl:** (`-musl`) Linked against Musl libc, specifically for **Alpine Linux**.
 
@@ -108,6 +108,14 @@ To recursively generate a single BOM for all languages pass `-r` argument.
 ```shell
 cdxgen -r -o bom.json
 ```
+
+Generate an AI/ML BOM and run the preferred AI-BOM audit pack:
+
+```shell
+cdxgen -r --include-formulation -o aibom.json --bom-audit --bom-audit-categories ai-bom
+```
+
+Read next: [AI-BOM Guide](AI_BOM.md), [BOM Audit](BOM_AUDIT.md), and [Tutorial: AI-BOM governance and audit](LESSON15.md).
 
 Generate directly from a git URL:
 
@@ -393,6 +401,7 @@ Use it to:
 
 - generate or import a BOM with `.create` or `.import`
 - inspect trust and provenance with `.trusted` and `.provenance`
+- review operator-friendly AI lineage with `.aibom`
 - review audit annotations with `.auditfindings`, `.auditactions`, and `.dispatchedges`
 - inspect evidence with `.occurrences`, `.callstack`, `.services`, and `.formulation`
 - pivot through OBOM categories with `.osinfocategories` and built-in osquery commands such as `.processes`

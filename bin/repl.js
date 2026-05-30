@@ -11,6 +11,10 @@ import jsonata from "jsonata";
 import { createBom } from "../lib/cli/index.js";
 import { isSpdxJsonLd } from "../lib/helpers/bomUtils.js";
 import {
+  printAiBomDatasets,
+  printAiBomInsights,
+  printAiBomPedigree,
+  printAiBomVariants,
   printCallStack,
   printDependencyTree,
   printFormulation,
@@ -555,6 +559,18 @@ cdxgenRepl.defineCommand("create", {
       console.log(
         "💭 Type .provenance to list components with registry provenance evidence.",
       );
+      if (
+        sbom?.components?.some(
+          (component) =>
+            component?.type === "machine-learning-model" ||
+            component?.modelCard ||
+            component?.pedigree,
+        )
+      ) {
+        console.log(
+          "💭 Type .aibom, .aipedigree, .aivariants, or .aidatasets for focused AI-BOM views.",
+        );
+      }
       if (isLikelyHbom(sbom)) {
         console.log(
           "💭 Type .hbomsummary or .hbomdiagnostics for focused hardware inventory and collector-diagnostic summaries.",
@@ -599,6 +615,66 @@ cdxgenRepl.defineCommand("summary", {
         "⚠ No BOM is loaded. Use .import command to import an existing BOM",
       );
     }
+    this.displayPrompt();
+  },
+});
+cdxgenRepl.defineCommand("aibom", {
+  help: "show an operator-friendly AI-BOM summary with pedigree and quantization context",
+  action() {
+    const interactiveBom = getInteractiveBom();
+    if (!interactiveBom) {
+      console.log(
+        "⚠ No BOM is loaded. Use .import command to import an existing BOM",
+      );
+      this.displayPrompt();
+      return;
+    }
+    printAiBomInsights(interactiveBom);
+    this.displayPrompt();
+  },
+});
+cdxgenRepl.defineCommand("aipedigree", {
+  help: "show AI model ancestry, pedigree notes, and related variants",
+  action() {
+    const interactiveBom = getInteractiveBom();
+    if (!interactiveBom) {
+      console.log(
+        "⚠ No BOM is loaded. Use .import command to import an existing BOM",
+      );
+      this.displayPrompt();
+      return;
+    }
+    printAiBomPedigree(interactiveBom);
+    this.displayPrompt();
+  },
+});
+cdxgenRepl.defineCommand("aivariants", {
+  help: "show detected fine-tuned, distilled, quantized, unlocked, and abliterated models",
+  action() {
+    const interactiveBom = getInteractiveBom();
+    if (!interactiveBom) {
+      console.log(
+        "⚠ No BOM is loaded. Use .import command to import an existing BOM",
+      );
+      this.displayPrompt();
+      return;
+    }
+    printAiBomVariants(interactiveBom);
+    this.displayPrompt();
+  },
+});
+cdxgenRepl.defineCommand("aidatasets", {
+  help: "show model card dataset usage for AI models",
+  action() {
+    const interactiveBom = getInteractiveBom();
+    if (!interactiveBom) {
+      console.log(
+        "⚠ No BOM is loaded. Use .import command to import an existing BOM",
+      );
+      this.displayPrompt();
+      return;
+    }
+    printAiBomDatasets(interactiveBom);
     this.displayPrompt();
   },
 });

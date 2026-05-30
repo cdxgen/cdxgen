@@ -17,6 +17,20 @@ Review in this order:
 
 JSON-schema validity is only the starting point. Also review semantic correctness.
 
+## AI-BOM focus areas
+
+When a change introduces AI-BOM, model inventory, prompt/config discovery, or agent/MCP inventory, explicitly review the standard AI/ML fields already present in CycloneDX 1.5, 1.6, 1.7, and 2.0.
+
+- `formulation`
+- `pedigree`
+- `modelCard`
+- `data` components and `componentData`
+- `services`
+- `evidence`
+- `externalReferences`
+
+Treat AI-BOM as CycloneDX-first modeling, not as permission to shift standard semantics into custom properties.
+
 ## What to check
 
 ### 1. Prefer standard fields over custom properties
@@ -74,6 +88,23 @@ When a PR adds or changes ecosystem support, check whether emitted components an
 
 Flag missing data as a gap when the source material is already available to the integration.
 
+### 5. Check AI-BOM and AI/ML modeling
+
+Review whether AI-related output uses the standard CycloneDX AI/ML structures correctly:
+
+- `formulation` should describe how something was created, trained, assembled, deployed, or otherwise brought into its current form. Do not treat it as a generic dumping ground for unrelated inventory.
+- `formulation.workflows`, `tasks`, and `steps` should represent real process information. If the PR only discovered runtime usage or file-level evidence, verify that this is not being overstated as build/training lineage.
+- `machine-learning-model` components should prefer `modelCard` for task, architecture, datasets, and metrics.
+- training or evaluation datasets should prefer `modelCard.modelParameters.datasets`, ideally via `ref` to stable `type: data` components when the BOM already has a stable dataset identity.
+- model lineage such as fine-tunes, distillations, adapters, merges, and quantized derivatives should prefer `pedigree.ancestors`, `pedigree.variants`, `commits`, or `patches`. Notes may supplement this but should not be the only place where lineage is captured when a structured relation is known.
+- inference endpoints belong in `services`, not `components`.
+- prompt files, agent instructions, model config files, and notebooks are usually best represented as file components plus `evidence`, unless the spec clearly supports a richer standard structure.
+- `component.data` must only be present for `type: data` components.
+- `component.modelCard` should only be present for `type: machine-learning-model`.
+- service `evidence` and any 2.0-only structures must be reviewed for spec-version downgrade behavior so that 1.5/1.6/1.7 output does not silently become semantically misleading.
+
+Also review AI-specific custom properties carefully. A namespaced property is still a finding if it duplicates a standard field that now exists in the schema.
+
 ## Review procedure
 
 1. Identify the spec version(s) affected by the change.
@@ -81,7 +112,10 @@ Flag missing data as a gap when the source material is already available to the 
 3. Check whether any new custom property could be replaced by a standard field.
 4. Check whether any deprecated field is newly introduced or expanded.
 5. Check whether any new package-manager integration omits expected attributes that cdxgen already emits for comparable ecosystems.
-6. Produce findings in four groups: `spec violation`, `semantic misuse`, `unnecessary customization`, and `expected data missing`.
+6. For AI-BOM changes, compare every emitted AI field against `formulation`, `modelCard`, `pedigree`, `componentData`, `services`, and `evidence` in the local schemas.
+7. Check whether AI-specific custom properties duplicate standard fields such as model type, task, lineage, datasets, provider, or runtime endpoints.
+8. Check spec-version downgrade and upgrade paths, especially 1.5/1.6/1.7 versus 2.0 behavior for AI-BOM structures.
+9. Produce findings in four groups: `spec violation`, `semantic misuse`, `unnecessary customization`, and `expected data missing`.
 
 ## Expected review output
 
@@ -127,3 +161,10 @@ These repo-specific findings were identified while calibrating this skill and sh
 
 - Self-validation of a generated BOM for this repository still shows components missing license data and at least one component missing hashes/dependency linkage.
 - When reviewing new integrations, treat missing license, hash, and dependency information as expected completeness checks, not optional polish, if the upstream ecosystem exposes that data.
+
+### Iteration 6: AI-BOM review heuristics
+
+- `cdx:ai:*` properties are namespaced and therefore better than unnamespaced properties, but they should still be challenged when they duplicate standard CycloneDX AI/ML fields.
+- In particular, review whether task, lineage, datasets, provider identity, runtime identity, and variant classification should move to `modelCard`, `pedigree`, `externalReferences`, `services`, or `evidence`.
+- When a stable Hugging Face, model, or dataset identity is available, prefer durable references (`bom-ref`, purl, `externalReferences`, dataset refs) over free-text notes.
+- If lineage is known only from model-repository metadata, `pedigree.notes` may be acceptable as supplemental context, but not as the sole representation when the relation itself is structured and reproducible.

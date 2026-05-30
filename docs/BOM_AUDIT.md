@@ -20,6 +20,9 @@ cdxgen /absolute/path/to/rootfs -t rootfs -o bom.json --bom-audit --bom-audit-ca
 # Generate and audit a host HBOM with the built-in HBOM rule packs
 cdxgen -t hbom -o hbom.json --bom-audit .
 
+# Generate and audit an AI/ML BOM with the preferred AI-BOM alias
+cdxgen -r --include-formulation -o aibom.json --bom-audit --bom-audit-categories ai-bom .
+
 # Audit only the security-focused HBOM rules
 cdxgen -t hbom -o hbom.json --bom-audit --bom-audit-categories hbom-security .
 
@@ -31,6 +34,9 @@ cdxgen -t hbom --include-runtime -o host-view.json --bom-audit --bom-audit-categ
 
 # Audit a previously generated HBOM with the full HBOM alias pack
 cdx-audit --bom hbom.json --direct-bom-audit --categories hbom
+
+# Re-audit a saved AI-BOM later
+cdx-audit --bom aibom.json --direct-bom-audit --categories ai-bom
 
 # Audit with high-severity findings only
 cdxgen -o bom.json --bom-audit --bom-audit-min-severity high
@@ -53,7 +59,7 @@ cdx-audit --bom bom.evinse.json --direct-bom-audit --categories golem
 
 For Go projects, run `evinse -l go --deep` or `evinse -l go --with-data-flow --golem-dataflow crypto` before `cdx-audit` when you want Golem data-flow and crypto-flow properties such as `cdx:golem:dataFlowSliceCount`, `cdx:golem:cryptoDataFlow`, and `cdx:golem:cryptoDataFlowCount` to participate in review and prioritization.
 
-> **Note:** `--bom-audit` automatically enables `--include-formulation` to collect CI/CD workflow data. The formulation section may include sensitive data such as emails and environment details. Always review the generated SBOM before distribution.
+> **Note:** `--bom-audit` automatically enables `--include-formulation` to collect CI/CD workflow data. For AI/ML scans, this also emits the discovered AI and agentic inventory in the formal CycloneDX `formulation[]` section. The formulation section may include sensitive data such as emails and environment details. Always review the generated SBOM before distribution.
 
 ## Dry-run mode
 
@@ -66,6 +72,7 @@ The categories that work best in dry-run mode are the formulation-centric ones:
 
 - `asar-archive`
 - `ai-agent`
+- `ai-bom` (alias for `ai-governance,ai-security,ai-performance,ai-agent,mcp-server`)
 - `ai-inventory` (alias for `ai-agent,mcp-server`)
 - `chrome-extension`
 - `ci-permission`
@@ -329,11 +336,46 @@ Rules that evaluate AI agent instruction files, skill files, and inferred MCP su
 
 Use `ai-inventory` with `--bom-audit-categories` when you want one switch that enables both `ai-agent` and `mcp-server` findings for AI instruction files, skill files, MCP configs, and discovered MCP services.
 
+### `ai-bom` — Preferred umbrella alias for AI-BOM review
+
+Use `ai-bom` when you want one switch that enables:
+
+- `ai-governance`
+- `ai-security`
+- `ai-performance`
+- `ai-agent`
+- `mcp-server`
+
+This is the recommended category for AI-heavy repositories because it combines prompt/config governance, AI endpoint hygiene, local-model sizing signals, AI instruction review, and MCP exposure checks in one pass.
+
+### `ai-governance` — Prompt/config and model-governance review
+
+| Rule    | Severity | Description                                                   |
+| ------- | -------- | ------------------------------------------------------------- |
+| AIG-001 | medium   | Build/post-build SBOM includes a prompt or model-routing file |
+| AIG-002 | medium   | AI inference service is used without an explicit model ID     |
+
+### `ai-security` — AI endpoint transport review
+
+| Rule    | Severity | Description                                              |
+| ------- | -------- | -------------------------------------------------------- |
+| AIS-001 | high     | AI inference service uses insecure remote HTTP transport |
+
+### `ai-performance` — Local-model capacity and sizing review
+
+| Rule    | Severity | Description                                           |
+| ------- | -------- | ----------------------------------------------------- |
+| AIP-001 | medium   | Local AI model advertises a very large context window |
+| AIP-002 | medium   | Large local AI model lacks quantization metadata      |
+
 ### Standards mapping
 
-The MCP and AI-agent rule sets now carry standards metadata that can be surfaced in audit annotations and downstream compliance workflows. The current mappings focus on:
+The AI, MCP, and AI-agent rule sets now carry standards metadata that can be surfaced in audit annotations and downstream compliance workflows. The current mappings focus on:
 
 - **OWASP AI Top 10** for plugin, agency, and supply-chain exposure themes
+- **OWASP Top 10 for Agentic Applications (2026)** for agent goal, tool, privilege, communication, and agentic supply-chain exposure themes
+- **EU AI Act** for documentation, transparency, oversight, and robustness review themes
+- **EU Cyber Resilience Act** for software-component documentation, secure defaults, credential handling, and network exposure review themes
 - **NIST AI RMF** for governance, mapping, and risk-management review flows
 - **NIST SSDF** for provenance, interface hardening, and automation/build instruction review
 

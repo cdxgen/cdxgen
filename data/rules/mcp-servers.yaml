@@ -12,6 +12,15 @@
       - "LLM07: Insecure Plugin Design"
       - "LLM08: Excessive Agency"
       - "LLM06:2025 Excessive Agency"
+    owasp-agentic-top-10-2026:
+      - "Tool Misuse & Exploitation"
+      - "Identity & Privilege Abuse"
+    eu-ai-act:
+      - "Human oversight"
+      - "Accuracy, robustness and cybersecurity"
+    eu-cra:
+      - "Protection against unauthorized access"
+      - "Secure by default network exposure"
     nist-ai-rmf:
       - "Map"
       - "Manage"
@@ -53,6 +62,14 @@
   standards:
     owasp-ai-top-10:
       - "LLM07: Insecure Plugin Design"
+    owasp-agentic-top-10-2026:
+      - "Identity & Privilege Abuse"
+      - "Tool Misuse & Exploitation"
+    eu-ai-act:
+      - "Accuracy, robustness and cybersecurity"
+    eu-cra:
+      - "Protection against unauthorized access"
+      - "Secure configuration of network-exposed services"
     nist-ai-rmf:
       - "Map"
       - "Manage"
@@ -93,6 +110,15 @@
       - "LLM05: Supply Chain Vulnerabilities"
       - "LLM07: Insecure Plugin Design"
       - "LLM03:2025 Supply Chain"
+    owasp-agentic-top-10-2026:
+      - "Agentic Supply Chain"
+      - "Tool Misuse & Exploitation"
+    eu-ai-act:
+      - "Technical documentation and traceability"
+      - "Accuracy, robustness and cybersecurity"
+    eu-cra:
+      - "Software supply chain visibility"
+      - "Secure configuration of network-exposed services"
     nist-ai-rmf:
       - "Govern"
       - "Map"
@@ -138,6 +164,15 @@
       - "LLM07: Insecure Plugin Design"
       - "LLM08: Excessive Agency"
       - "LLM06:2025 Excessive Agency"
+    owasp-agentic-top-10-2026:
+      - "Tool Misuse & Exploitation"
+      - "Identity & Privilege Abuse"
+    eu-ai-act:
+      - "Transparency and instructions for use"
+      - "Human oversight"
+    eu-cra:
+      - "Secure configuration of network-exposed services"
+      - "Technical documentation for software components"
     nist-ai-rmf:
       - "Map"
       - "Manage"
@@ -179,6 +214,15 @@
       - "LLM05: Supply Chain Vulnerabilities"
       - "LLM07: Insecure Plugin Design"
       - "LLM03:2025 Supply Chain"
+    owasp-agentic-top-10-2026:
+      - "Identity & Privilege Abuse"
+      - "Agentic Supply Chain"
+    eu-ai-act:
+      - "Technical documentation and traceability"
+      - "Accuracy, robustness and cybersecurity"
+    eu-cra:
+      - "Protection of sensitive authentication data"
+      - "Secure by default credential handling"
     nist-ai-rmf:
       - "Govern"
       - "Manage"
@@ -219,6 +263,14 @@
       - "LLM07: Insecure Plugin Design"
       - "LLM08: Excessive Agency"
       - "LLM06:2025 Excessive Agency"
+    owasp-agentic-top-10-2026:
+      - "Identity & Privilege Abuse"
+    eu-ai-act:
+      - "Human oversight"
+      - "Technical documentation and traceability"
+    eu-cra:
+      - "Secure authorization delegation"
+      - "Technical documentation for software components"
     nist-ai-rmf:
       - "Govern"
       - "Map"
@@ -258,6 +310,15 @@
       - "LLM07: Insecure Plugin Design"
       - "LLM08: Excessive Agency"
       - "LLM06:2025 Excessive Agency"
+    owasp-agentic-top-10-2026:
+      - "Identity & Privilege Abuse"
+      - "Insecure Inter-Agent Communication"
+    eu-ai-act:
+      - "Human oversight"
+      - "Technical documentation and traceability"
+    eu-cra:
+      - "Secure handling of delegated credentials"
+      - "Secure communication across trust boundaries"
     nist-ai-rmf:
       - "Govern"
       - "Manage"
@@ -294,6 +355,14 @@
       - "LLM07: Insecure Plugin Design"
       - "LLM08: Excessive Agency"
       - "LLM06:2025 Excessive Agency"
+    owasp-agentic-top-10-2026:
+      - "Agentic Supply Chain"
+      - "Tool Misuse & Exploitation"
+    eu-ai-act:
+      - "Technical documentation and traceability"
+      - "Transparency and instructions for use"
+    eu-cra:
+      - "Technical documentation for software components"
     nist-ai-rmf:
       - "Govern"
       - "Map"

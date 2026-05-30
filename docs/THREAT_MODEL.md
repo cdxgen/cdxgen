@@ -208,6 +208,20 @@ Trust boundary 5: cdxgen container ←→ container host
 
 **Residual risk:** Medium — HBOM still runs on the target host and may require elevated access for richer firmware or graphics detail. Users remain responsible for applying least privilege and deciding whether the additional evidence is worth the extra permissions.
 
+#### T1.11 — Untrusted AI metadata from remote model registries and local model artifacts
+
+**Threat:** A remote model repository (for example on Hugging Face) or a local AI artifact (for example GGUF) exposes misleading, oversized, or secret-bearing metadata that cdxgen could mirror into the BOM, confusing downstream review or leaking sensitive content.
+
+**Mitigations:**
+
+- Hugging Face remote resolution sanitizes URLs, strips userinfo/query/fragment components, and emits bounded revision-aware references instead of mirroring raw request contexts
+- AI-BOM prefers CycloneDX-first structures such as `modelCard`, `pedigree`, `externalReferences`, `services`, `dependencies`, and `data` components over dumping opaque metadata blobs into ad-hoc properties
+- GGUF parsing intentionally avoids copying raw tokenizer vocabularies, raw Hugging Face tokenizer JSON payloads, and raw chat templates; it emits safe derivatives such as counts, booleans, and token IDs instead
+- Hugging Face model-card parsing avoids copying raw gated-access prompts, widget conversations, and other unbounded prompt-like payloads into top-level BOM properties; it emits bounded booleans, counts, task/I-O hints, and stable links instead
+- Remote Hugging Face Spaces are modeled as `application` components with explicit model/dataset dependency edges so reviewer-relevant relationships survive without copying large runtime payloads
+
+**Residual risk:** Medium — cdxgen can sanitize and bound what it emits, but it still trusts remote and artifact-provided metadata enough to model lineage, datasets, and popularity/runtime hints. Human review is still required for policy decisions on untrusted third-party models.
+
 ### 2. HTTP Server (`lib/server/server.js`)
 
 #### T2.1 — Path traversal via scan requests
@@ -412,6 +426,7 @@ Trust boundary 5: cdxgen container ←→ container host
   - inline credential patterns are redacted
   - raw command strings are reduced to safer summaries such as the executable name
   - dangerous structured keys such as `__proto__`, `constructor`, and `prototype` are removed before JSON serialization
+  - Hugging Face widget examples, gated-access forms, and GGUF tokenizer/chat-template payloads are reduced to bounded derivatives instead of being copied verbatim into BOM properties
 
 **Residual risk:** Medium — SBOMs inherently contain metadata about the project. Users should review SBOMs before sharing, especially when formulation data is included.
 

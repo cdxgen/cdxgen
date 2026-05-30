@@ -1,0 +1,27 @@
+{
+  "id": "rohitnagareddy/Qwen3-0.6B-Coding-Finetuned-v1",
+  "sha": "qwen-fixture-sha",
+  "license": "apache-2.0",
+  "pipeline_tag": "text-generation",
+  "tags": ["qwen3", "finetune", "gguf"],
+  "siblings": [
+    { "rfilename": "LICENSE" },
+    { "rfilename": "README.md" }
+  ],
+  "cardData": {
+    "base_model": "Qwen/Qwen3-0.6B",
+    "base_model_relation": "finetune",
+    "datasets": ["rohitnagareddy/python-coding-instructions"],
+    "quantization": "GGUF Q4_K_M",
+    "library_name": "transformers"
+  },
+  "config": {
+    "model_type": "qwen3",
+    "architectures": ["Qwen3ForCausalLM"],
+    "max_position_embeddings": 32768,
+    "quantization_config": {
+      "quant_method": "GGUF",
+      "quant_type": "Q4_K_M"
+    }
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "id": "HuggingFaceH4/zephyr-7b-beta",
+  "sha": "abc123def456",
+  "license": "mit",
+  "pipeline_tag": "text-generation",
+  "tags": ["transformers", "text-generation", "conversational"],
+  "config": {
+    "architectures": ["MistralForCausalLM"],
+    "max_position_embeddings": 32768,
+    "model_type": "mistral"
+  },
+  "cardData": {
+    "base_model": "mistralai/Mistral-7B-v0.1",
+    "base_model_relation": "finetune",
+    "datasets": ["HuggingFaceH4/ultrachat_200k"],
+    "library_name": "transformers",
+    "license": "mit",
+    "model-index": [
+      {
+        "name": "zephyr-7b-beta",
+        "results": [
+          {
+            "task": { "type": "text-generation" },
+            "dataset": {
+              "name": "mt-bench",
+              "split": "test"
+            },
+            "metrics": [
+              { "type": "MT-Bench", "value": 7.34 },
+              { "type": "AlpacaEval", "value": 90.6 }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

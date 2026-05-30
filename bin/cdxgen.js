@@ -53,6 +53,7 @@ import {
 } from "../lib/helpers/hbom.js";
 import { TRACE_MODE, thoughtEnd, thoughtLog } from "../lib/helpers/logger.js";
 import { importProtobomModule } from "../lib/helpers/protobomLoader.js";
+import { normalizeHuggingFaceReference } from "../lib/helpers/remote/huggingface.js";
 import {
   cleanupSourceDir,
   findGitRefForPurlVersion,
@@ -719,6 +720,16 @@ if (invokedCommandName.includes("spdxgen") && !args.format) {
   args.format = "spdx";
   thoughtLog("Ok, defaulting the export format to SPDX.");
 }
+if (invokedCommandName.includes("aibom") && !args.type) {
+  args.type = ["ai"];
+  args.includeFormulation = true;
+  if (!args.bomAuditCategories) {
+    args.bomAuditCategories = "ai-bom";
+  }
+  thoughtLog(
+    "Ok, the user wants to generate an AI-BOM with direct model metadata and AI-focused inventory defaults.",
+  );
+}
 
 /**
  * Command line options
@@ -1360,7 +1371,19 @@ const writeCycloneDxOutput = (jsonFile, bomJson, options) => {
   }
   let sourcePath = filePath;
   let purlResolution;
-  if (isDryRun && maybePurlSource(sourcePath)) {
+  const directHuggingFaceSource = normalizeHuggingFaceReference(sourcePath);
+  if (isDryRun && directHuggingFaceSource) {
+    recordActivity({
+      kind: "read",
+      reason: "Dry run mode blocks direct Hugging Face metadata resolution.",
+      status: "blocked",
+      target: sourcePath,
+    });
+    console.warn("Dry run mode skips direct Hugging Face metadata resolution.");
+    printActivitySummary(options.activityReport);
+    return;
+  }
+  if (isDryRun && maybePurlSource(sourcePath) && !directHuggingFaceSource) {
     recordActivity({
       kind: "clone",
       reason:
@@ -1372,7 +1395,7 @@ const writeCycloneDxOutput = (jsonFile, bomJson, options) => {
     printActivitySummary(options.activityReport);
     return;
   }
-  if (maybePurlSource(sourcePath)) {
+  if (maybePurlSource(sourcePath) && !directHuggingFaceSource) {
     const purlValidationError = validatePurlSource(sourcePath);
     if (purlValidationError) {
       console.error(purlValidationError.error, purlValidationError.details);
@@ -1392,6 +1415,7 @@ const writeCycloneDxOutput = (jsonFile, bomJson, options) => {
   }
   if (
     maybeRemotePath(sourcePath) &&
+    !directHuggingFaceSource &&
     isSecureMode &&
     !process.env.CDXGEN_GIT_ALLOWED_HOSTS &&
     !process.env.CDXGEN_SERVER_ALLOWED_HOSTS
@@ -1411,15 +1435,19 @@ const writeCycloneDxOutput = (jsonFile, bomJson, options) => {
     console.error("Path is not allowed on this platform.");
     process.exit(1);
   }
-  if (maybeRemotePath(sourcePath)) {
+  if (maybeRemotePath(sourcePath) && !directHuggingFaceSource) {
     const validationError = validateAndRejectGitSource(sourcePath);
     if (validationError) {
       console.error(validationError.error, validationError.details);
       process.exit(1);
     }
   }
-  const checkPath = maybeRemotePath(sourcePath) ? getTmpDir() : sourcePath;
-  if (maybeRemotePath(sourcePath)) {
+  const checkPath = directHuggingFaceSource
+    ? process.cwd()
+    : maybeRemotePath(sourcePath)
+      ? getTmpDir()
+      : sourcePath;
+  if (maybeRemotePath(sourcePath) && !directHuggingFaceSource) {
     options.releaseNotesGitUrl = sourcePath;
   }
   if (!checkPermissions(checkPath, options)) {
@@ -1431,7 +1459,7 @@ const writeCycloneDxOutput = (jsonFile, bomJson, options) => {
   let srcDir = sourcePath;
   let cleanup = false;
   let gitRef = options.gitBranch;
-  if (maybeRemotePath(sourcePath)) {
+  if (maybeRemotePath(sourcePath) && !directHuggingFaceSource) {
     if (isDryRun) {
       recordActivity({
         kind: "clone",

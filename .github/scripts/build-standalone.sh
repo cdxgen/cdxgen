@@ -6,6 +6,7 @@ SHARED_PNPM_STORE="${STANDALONE_PNPM_STORE:-$(mktemp -d)}"
 SLIM_MAX_BYTES="${STANDALONE_SLIM_MAX_BYTES:-104857600}"
 FAT_MAX_BYTES="${STANDALONE_FAT_MAX_BYTES:-251658240}"
 DEFAULT_TARGETS=(
+  aibom
   cdxgen
   cdxgen-slim
   cbom
@@ -466,7 +467,7 @@ apply_profile_pruning_and_preflight() {
 
 target_entry_point() {
   case "$1" in
-    cdxgen|cdxgen-slim) echo "bin/cdxgen.js" ;;
+    aibom|cdxgen|cdxgen-slim) echo "bin/cdxgen.js" ;;
     cbom|obom|saasbom) echo "bin/$1.js" ;;
     cdx-audit) echo "bin/audit.js" ;;
     cdx-verify) echo "bin/verify.js" ;;
@@ -481,7 +482,7 @@ target_entry_point() {
 target_profile() {
   case "$1" in
     cdxgen) echo "cdxgen-full" ;;
-    cdxgen-slim) echo "no-optional" ;;
+    aibom|cdxgen-slim) echo "no-optional" ;;
     cbom|saasbom) echo "atom-analysis" ;;
     obom) echo "os-runtime" ;;
     cdx-audit) echo "audit" ;;
@@ -514,7 +515,7 @@ build_target() {
 
   echo "Building $target with standalone profile $profile"
   copy_runtime_sources "$staging_dir"
-  if [[ "$target" == "cbom" || "$target" == "obom" || "$target" == "saasbom" ]]; then
+  if [[ "$target" == "aibom" || "$target" == "cbom" || "$target" == "obom" || "$target" == "saasbom" ]]; then
     create_cdxgen_alias_entry_point "$staging_dir" "$target"
   fi
   install_profile_dependencies "$staging_dir" "$profile"
@@ -524,7 +525,8 @@ build_target() {
 }
 
 rm -f \
-  cdxgen cdxgen-slim cbom obom saasbom cdx-audit cdx-verify cdx-sign cdx-validate cdx-convert hbom hbom-slim \
+  aibom cdxgen cdxgen-slim cbom obom saasbom cdx-audit cdx-verify cdx-sign cdx-validate cdx-convert hbom hbom-slim \
+  .aibom-postbuild.cdx.json \
   .cdxgen-postbuild.cdx.json .cdxgen-slim-postbuild.cdx.json \
   .cbom-postbuild.cdx.json .obom-postbuild.cdx.json .saasbom-postbuild.cdx.json \
   .cdx-audit-postbuild.cdx.json .cdx-verify-postbuild.cdx.json \

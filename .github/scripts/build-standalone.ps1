@@ -2,6 +2,7 @@ $ErrorActionPreference = "Stop"
 Set-StrictMode -Version Latest
 
 $defaultTargets = @(
+  "aibom",
   "cdxgen",
   "cdxgen-slim",
   "cbom",
@@ -348,7 +349,7 @@ function Invoke-ProfilePruningAndPreflight {
 function Get-TargetEntryPoint {
   param([string]$Target)
   switch ($Target) {
-    { $_ -in @("cdxgen", "cdxgen-slim") } { return "bin/cdxgen.js" }
+    { $_ -in @("aibom", "cdxgen", "cdxgen-slim") } { return "bin/cdxgen.js" }
     { $_ -in @("cbom", "obom", "saasbom") } { return "bin/$Target.js" }
     "cdx-audit" { return "bin/audit.js" }
     "cdx-verify" { return "bin/verify.js" }
@@ -363,6 +364,7 @@ function Get-TargetEntryPoint {
 function Get-TargetProfile {
   param([string]$Target)
   switch ($Target) {
+    "aibom" { return "no-optional" }
     "cdxgen" { return "cdxgen-full" }
     "cdxgen-slim" { return "no-optional" }
     { $_ -in @("cbom", "saasbom") } { return "atom-analysis" }
@@ -392,7 +394,7 @@ function Invoke-StandaloneTargetBuild {
 
   Write-Host "Building $Target with standalone profile $profile"
   Copy-RuntimeSources -StagingDir $stagingDir
-  if ($Target -in @("cbom", "obom", "saasbom")) {
+  if ($Target -in @("aibom", "cbom", "obom", "saasbom")) {
     New-CdxgenAliasEntryPoint -StagingDir $stagingDir -CommandName $Target
   }
   Install-ProfileDependencies -StagingDir $stagingDir -Profile $profile
@@ -402,8 +404,8 @@ function Invoke-StandaloneTargetBuild {
 }
 
 try {
-  Remove-Item -Path cdxgen.exe, cdxgen-slim.exe, cbom.exe, obom.exe, saasbom.exe, cdx-audit.exe, cdx-verify.exe, cdx-sign.exe, cdx-validate.exe, cdx-convert.exe, hbom.exe, hbom-slim.exe -Force -ErrorAction SilentlyContinue
-  Remove-Item -Path .cdxgen-postbuild.cdx.json, .cdxgen-slim-postbuild.cdx.json, .cbom-postbuild.cdx.json, .obom-postbuild.cdx.json, .saasbom-postbuild.cdx.json, .cdx-audit-postbuild.cdx.json, .cdx-verify-postbuild.cdx.json, .cdx-sign-postbuild.cdx.json, .cdx-validate-postbuild.cdx.json, .cdx-convert-postbuild.cdx.json, .hbom-postbuild.cdx.json, .hbom-slim-postbuild.cdx.json -Force -ErrorAction SilentlyContinue
+  Remove-Item -Path aibom.exe, cdxgen.exe, cdxgen-slim.exe, cbom.exe, obom.exe, saasbom.exe, cdx-audit.exe, cdx-verify.exe, cdx-sign.exe, cdx-validate.exe, cdx-convert.exe, hbom.exe, hbom-slim.exe -Force -ErrorAction SilentlyContinue
+  Remove-Item -Path .aibom-postbuild.cdx.json, .cdxgen-postbuild.cdx.json, .cdxgen-slim-postbuild.cdx.json, .cbom-postbuild.cdx.json, .obom-postbuild.cdx.json, .saasbom-postbuild.cdx.json, .cdx-audit-postbuild.cdx.json, .cdx-verify-postbuild.cdx.json, .cdx-sign-postbuild.cdx.json, .cdx-validate-postbuild.cdx.json, .cdx-convert-postbuild.cdx.json, .hbom-postbuild.cdx.json, .hbom-slim-postbuild.cdx.json -Force -ErrorAction SilentlyContinue
   foreach ($target in Get-SelectedTargets) {
     Invoke-StandaloneTargetBuild -Target $target
   }

@@ -199,6 +199,7 @@ jobs:
       - name: Correct filenames # <name>-<os>-<arch>[-<libc-suffix>][-<variant>][.ext]
         run: |
           # Rename to temporary name -- fix for renaming to the same name, which does not work
+          mv aibom${{ matrix.ext }} _aibom
           mv cdxgen${{ matrix.ext }} _cdxgen
           mv cdxgen-slim${{ matrix.ext }} _cdxgen-slim
           mv cbom${{ matrix.ext }} _cbom
@@ -213,6 +214,7 @@ jobs:
           mv hbom-slim${{ matrix.ext }} _hbom-slim
 
           # Rename to the correct name
+          mv _aibom aibom-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }}
           mv _cdxgen cdxgen-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }}
           mv _cdxgen-slim cdxgen-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}-slim${{ matrix.ext }}
           mv _cbom cbom-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }}
@@ -227,6 +229,7 @@ jobs:
           mv _hbom-slim hbom-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}-slim${{ matrix.ext }}
 
           # Rename sbom to correct name
+          mv .aibom-postbuild.cdx.json aibom-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}-postbuild.cdx.json
           mv .cdxgen-postbuild.cdx.json cdxgen-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}-postbuild.cdx.json
           mv .cdxgen-slim-postbuild.cdx.json cdxgen-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}-slim-postbuild.cdx.json
           mv .cbom-postbuild.cdx.json cbom-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}-postbuild.cdx.json
@@ -247,6 +250,7 @@ jobs:
         run: |
           set -euo pipefail
           artifacts=(
+            "aibom-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }}"
             "cdxgen-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }}"
             "cdxgen-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}-slim${{ matrix.ext }}"
             "cbom-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }}"
@@ -275,6 +279,7 @@ jobs:
       - name: Generate checksums for darwin
         if: ${{ matrix.os == 'darwin' }}
         run: |
+          shasum -a 256 aibom-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }} > aibom-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }}.sha256
           shasum -a 256 cdxgen-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }} > cdxgen-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }}.sha256
           shasum -a 256 cdxgen-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}-slim${{ matrix.ext }} > cdxgen-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}-slim${{ matrix.ext }}.sha256
           shasum -a 256 cbom-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }} > cbom-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }}.sha256
@@ -290,6 +295,7 @@ jobs:
       - name: Generate checksums for linux
         if: ${{ matrix.os == 'linux' }}
         run: |
+          sha256sum aibom-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }} > aibom-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }}.sha256
           sha256sum cdxgen-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }} > cdxgen-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }}.sha256
           sha256sum cdxgen-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}-slim${{ matrix.ext }} > cdxgen-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}-slim${{ matrix.ext }}.sha256
           sha256sum cbom-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }} > cbom-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }}.sha256
@@ -305,6 +311,7 @@ jobs:
       - name: Generate checksums for windows
         if: ${{ matrix.os == 'windows' }}
         run: |
+          (Get-FileHash .\aibom-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }}).hash | Out-File -FilePath .\aibom-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }}.sha256
           (Get-FileHash .\cdxgen-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }}).hash | Out-File -FilePath .\cdxgen-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }}.sha256
           (Get-FileHash .\cdxgen-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}-slim${{ matrix.ext }}).hash | Out-File -FilePath .\cdxgen-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}-slim${{ matrix.ext }}.sha256
           (Get-FileHash .\cbom-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }}).hash | Out-File -FilePath .\cbom-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }}.sha256
@@ -321,6 +328,7 @@ jobs:
         with:
           name: cdx-binaries-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}
           path: |
+            aibom-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}*
             cdxgen-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}*
             cbom-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}*
             obom-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}*
@@ -337,6 +345,7 @@ jobs:
         if: startsWith(github.ref, 'refs/tags/')
         with:
           files: |
+            aibom-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}*
             cdxgen-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}*
             cbom-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}*
             obom-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}*

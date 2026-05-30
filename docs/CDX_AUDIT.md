@@ -161,6 +161,8 @@ cdx-audit --bom bom.json
 # Re-audit a saved OBOM directly with the BOM rule engine
 cdx-audit --bom obom.json --direct-bom-audit
 
+cdx-audit --bom aibom.json --direct-bom-audit --categories ai-bom
+
 # Re-audit a saved OBOM directly and keep the scope explicit
 cdx-audit --bom obom.json --direct-bom-audit --categories obom-runtime
 

@@ -42,7 +42,7 @@ Prefer adding or improving automation under `contrib/` over one-off manual edits
 | `queries.json` | Linux osquery query pack for OBOM and runtime inventory | project-maintained query pack | hand-curated with tests |
 | `queries-win.json` | Windows osquery query pack | project-maintained query pack | hand-curated with tests |
 | `queries-darwin.json` | macOS osquery query pack | project-maintained query pack | hand-curated with tests |
-| `rules/` | built-in BOM audit rule packs in YAML | project-maintained rule packs | hand-authored rules validated by tests; users can also supply their own rule packs |
+| `rules/` | built-in BOM audit rule packs in YAML | project-maintained rule packs | hand-authored rules validated by tests; includes domain packs such as HBOM, MCP, AI agent, and AI-BOM governance/security/performance rules; users can also supply their own rule packs |
 | `spdx-licenses.json` | SPDX license identifiers | SPDX License List data | upstream-derived |
 | `spdx-export.schema.json` | SPDX 3.0.1 schema used during export validation | project-derived export schema generated from SPDX model artifacts | derived artifact; there is not a single upstream-published JSON schema that exactly matches this export use case |
 | `spdx.schema.json` | SPDX schema for validation | SPDX JSON schema inputs used by the project | upstream-derived compatibility copy |
@@ -248,6 +248,9 @@ Users can maintain their own rule packs outside this repository and supply the d
 ```bash
 # Apply custom rules during BOM generation
 cdxgen --bom-audit --bom-audit-rules-dir ./my-rules -o bom.json
+
+# Or combine your own rules with the built-in AI-BOM categories
+cdxgen --bom-audit --bom-audit-categories ai-bom --bom-audit-rules-dir ./my-rules -o aibom.json
 
 # Apply custom rules with the standalone audit command
 cdx-audit --bom bom.json --direct-bom-audit --rules-dir ./my-rules

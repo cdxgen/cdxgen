@@ -1,0 +1,268 @@
+- id: AIG-001
+  name: "Prompt config file ships in a build or post-build BOM"
+  description: "Prompt and model-routing config files included in distributable BOMs deserve governance review because they can silently alter downstream AI behavior, provider selection, and policy posture."
+  severity: medium
+  category: ai-governance
+  dry-run-support: full
+  standards:
+    owasp-ai-top-10:
+      - "LLM08: Excessive Agency"
+      - "LLM09: Overreliance"
+      - "LLM06:2025 Excessive Agency"
+    eu-ai-act:
+      - "Technical documentation and traceability"
+      - "Transparency and instructions for use"
+    nist-ai-rmf:
+      - "Govern"
+      - "Map"
+  condition: |
+    $count(metadata.lifecycles[phase = 'build' or phase = 'post-build']) > 0
+      ? components[
+          $prop($, 'cdx:file:kind') = 'prompt-config-file'
+        ]
+      : []
+  location: |
+    {
+      "bomRef": $."bom-ref"
+    }
+  message: "Prompt or model-routing file '{{ name }}' is included in a build/post-build BOM"
+  mitigation: "Review shipped prompt/config files explicitly, keep model-routing decisions versioned, and exclude them from release BOMs when they are only development-time inputs."
+  evidence: |
+    {
+      "fileKind": $prop($, 'cdx:file:kind'),
+      "source": $prop($, 'cdx:ai:source')
+    }
+
+- id: AIG-002
+  name: "AI inference service lacks explicit model selection"
+  description: "Source-discovered AI services without an explicit model identifier make governance, reproducibility, and downstream policy gating harder."
+  severity: medium
+  category: ai-governance
+  dry-run-support: full
+  standards:
+    owasp-ai-top-10:
+      - "LLM09: Overreliance"
+    eu-ai-act:
+      - "Technical documentation and traceability"
+      - "Human oversight"
+    nist-ai-rmf:
+      - "Govern"
+      - "Manage"
+  condition: |
+    $auditServices($)[
+      $prop($, 'cdx:ai:kind') = 'inference-service'
+      and $prop($, 'cdx:ai:modelSelection') = 'implicit'
+    ]
+  location: |
+    {
+      "bomRef": $."bom-ref",
+      "purl": endpoints[0]
+    }
+  message: "AI inference service '{{ name }}' is used without an explicit model identifier"
+  mitigation: "Declare the exact model ID in code or configuration so routing decisions can be reviewed, tested, and governed consistently."
+  evidence: |
+    {
+      "provider": $prop($, 'cdx:ai:provider'),
+      "deployment": $prop($, 'cdx:ai:deployment'),
+      "modelCount": $prop($, 'cdx:ai:modelCount'),
+      "source": $prop($, 'cdx:ai:source')
+    }
+
+- id: AIS-001
+  name: "AI inference service uses an insecure remote HTTP endpoint"
+  description: "Remote AI inference endpoints should use HTTPS so prompts, tokens, and model responses are not exposed to passive interception or tampering."
+  severity: high
+  category: ai-security
+  dry-run-support: full
+  attack:
+    tactics: [TA0001, TA0009]
+    techniques: [T1190, T1557]
+  standards:
+    owasp-ai-top-10:
+      - "LLM07: Insecure Plugin Design"
+      - "LLM05: Supply Chain Vulnerabilities"
+      - "LLM03:2025 Supply Chain"
+    eu-ai-act:
+      - "Accuracy, robustness and cybersecurity"
+      - "Technical documentation and traceability"
+    eu-cra:
+      - "Secure by default network exposure"
+      - "Technical documentation for software components"
+    nist-ai-rmf:
+      - "Manage"
+  condition: |
+    $auditServices($)[
+      $prop($, 'cdx:ai:kind') = 'inference-service'
+      and $prop($, 'cdx:ai:deployment') = 'remote'
+      and $prop($, 'cdx:ai:transportSecurity') = 'insecure-http'
+    ]
+  location: |
+    {
+      "bomRef": $."bom-ref",
+      "purl": endpoints[0]
+    }
+  message: "AI inference service '{{ name }}' uses insecure remote transport '{{ endpoints[0] }}'"
+  mitigation: "Require HTTPS/TLS for remote AI endpoints and keep any development-only HTTP endpoints isolated to local-only environments."
+  evidence: |
+    {
+      "provider": $prop($, 'cdx:ai:provider'),
+      "deployment": $prop($, 'cdx:ai:deployment'),
+      "transportSecurity": $prop($, 'cdx:ai:transportSecurity')
+    }
+
+- id: AIG-003
+  name: "AI model is a derived or modified variant"
+  description: "Fine-tuned, distilled, merged, quantized, unlocked, or otherwise modified models deserve explicit review because their behavior and deployment profile can differ materially from the upstream base model."
+  severity: medium
+  category: ai-governance
+  dry-run-support: full
+  standards:
+    owasp-ai-top-10:
+      - "LLM05: Supply Chain Vulnerabilities"
+      - "LLM03:2025 Supply Chain"
+      - "LLM09: Overreliance"
+    eu-ai-act:
+      - "Technical documentation and traceability"
+      - "Transparency and instructions for use"
+    nist-ai-rmf:
+      - "Govern"
+      - "Map"
+  condition: |
+    components[
+      type = 'machine-learning-model'
+      and $count(properties[
+        name = 'cdx:ai:variant'
+        and (
+          value = 'fine-tuned'
+          or value = 'distilled'
+          or value = 'merged'
+          or value = 'adapter'
+          or value = 'quantized'
+          or value = 'unlocked'
+          or value = 'abliterated'
+        )
+      ]) > 0
+    ]
+  location: |
+    {
+      "bomRef": $."bom-ref"
+    }
+  message: "AI model '{{ name }}' is marked as a modified variant"
+  mitigation: "Review how the model was adapted, quantized, or otherwise modified; record the upstream source model and confirm the derived artifact still meets governance, safety, and performance expectations."
+  evidence: |
+    {
+      "provider": $prop($, 'cdx:ai:provider'),
+      "source": $prop($, 'cdx:ai:source'),
+      "pedigreeNotes": pedigree.notes
+    }
+
+- id: AIS-002
+  name: "AI model appears unlocked or abliterated"
+  description: "Unlocked or abliterated models often indicate safety controls were weakened or removed, increasing misuse and policy-bypass risk."
+  severity: high
+  category: ai-security
+  dry-run-support: full
+  attack:
+    tactics: [TA0001, TA0005]
+    techniques: [T1190, T1552]
+  standards:
+    owasp-ai-top-10:
+      - "LLM06:2025 Excessive Agency"
+      - "LLM09: Overreliance"
+    eu-ai-act:
+      - "Accuracy, robustness and cybersecurity"
+      - "Technical documentation and traceability"
+    nist-ai-rmf:
+      - "Manage"
+      - "Govern"
+  condition: |
+    components[
+      type = 'machine-learning-model'
+      and $count(properties[
+        name = 'cdx:ai:variant'
+        and (value = 'unlocked' or value = 'abliterated')
+      ]) > 0
+    ]
+  location: |
+    {
+      "bomRef": $."bom-ref"
+    }
+  message: "AI model '{{ name }}' appears unlocked or abliterated"
+  mitigation: "Treat unlocked or abliterated models as high-risk artifacts, review intended use carefully, and add deployment guardrails before distribution."
+  evidence: |
+    {
+      "provider": $prop($, 'cdx:ai:provider'),
+      "source": $prop($, 'cdx:ai:source'),
+      "pedigreeNotes": pedigree.notes
+    }
+
+- id: AIP-001
+  name: "Local AI model advertises a very large context window"
+  description: "Large local context windows can increase memory pressure, latency, and review cost for self-hosted AI runtimes."
+  severity: medium
+  category: ai-performance
+  dry-run-support: full
+  standards:
+    eu-ai-act:
+      - "Performance and resource limitations should be documented"
+      - "Technical documentation and traceability"
+    nist-ai-rmf:
+      - "Measure"
+      - "Manage"
+  condition: |
+    components[
+      type = 'machine-learning-model'
+      and (
+        $contains($nullSafeProp($, 'cdx:ai:runtime'), 'ollama')
+        or $contains($nullSafeProp($, 'cdx:ai:runtime'), 'llama.cpp')
+      )
+      and $number($nullSafeProp($, 'cdx:ai:contextWindow')) >= 131072
+    ]
+  location: |
+    {
+      "bomRef": $."bom-ref"
+    }
+  message: "Local AI model '{{ name }}' advertises a large context window of {{ $prop($, 'cdx:ai:contextWindow') }} tokens"
+  mitigation: "Validate that the target environment has enough memory and latency budget for the configured context window, or choose a smaller context budget."
+  evidence: |
+    {
+      "runtime": $prop($, 'cdx:ai:runtime'),
+      "contextWindow": $prop($, 'cdx:ai:contextWindow'),
+      "artifactFormat": $prop($, 'cdx:ai:artifactFormat')
+    }
+
+- id: AIP-002
+  name: "Large local AI model lacks quantization metadata"
+  description: "Large locally hosted models without quantization metadata are harder to capacity-plan and can hide unnecessary CPU, RAM, or GPU pressure."
+  severity: medium
+  category: ai-performance
+  dry-run-support: full
+  standards:
+    eu-ai-act:
+      - "Technical documentation and traceability"
+      - "Performance and deployment characteristics should be documented"
+    nist-ai-rmf:
+      - "Measure"
+      - "Manage"
+  condition: |
+    components[
+      type = 'machine-learning-model'
+      and (
+        $prop($, 'cdx:ai:source') = 'local-artifact'
+        or $prop($, 'cdx:ai:source') = 'local-config'
+      )
+      and $number($nullSafeProp($, 'cdx:ai:parameterCount')) >= 7000000000
+      and $nullSafeProp($, 'cdx:ai:quantization') = ''
+    ]
+  location: |
+    {
+      "bomRef": $."bom-ref"
+    }
+  message: "Large local AI model '{{ name }}' lacks quantization metadata"
+  mitigation: "Record quantization and deployment sizing details for large local models so reviewers can validate resource budgets and runtime fit before rollout."
+  evidence: |
+    {
+      "runtime": $prop($, 'cdx:ai:runtime'),
+      "parameterCount": $prop($, 'cdx:ai:parameterCount'),
+      "source": $prop($, 'cdx:ai:source')
+    }
