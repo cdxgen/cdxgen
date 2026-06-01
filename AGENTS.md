@@ -100,6 +100,12 @@ Key rules to be aware of (see `biome.json`):
 - `noAssignInExpressions` — **off**.
 - Comments starting with `// biome-ignore` are the escape hatch for individual rule suppressions.
 
+### Prefer deterministic parsing over monolithic regexes
+
+- For filenames, URLs, refs, manifests, and other untrusted or user-controlled text, prefer `split()`, `startsWith()`, `endsWith()`, `indexOf()`, and small anchored validators over a single large parsing regex.
+- Avoid regexes with nested quantifiers, overlapping alternations, or ambiguous greedy groups (for example `(...*)*`, broad `.*`/`[\s\S]*` capture chains, or long optional hyphen-separated groups) because they are harder to review and can trigger CodeQL inefficient-regular-expression findings.
+- If regex is still the clearest tool, keep it linear-time, anchored, and narrowly scoped to one token at a time.
+
 ---
 
 ## Repository layout
@@ -573,3 +579,4 @@ All GitHub Actions workflows pin action SHA digests and have `permissions: {}` a
 - **Do not** import from `lib/cli/index.js` inside `lib/helpers/*` or `lib/stages/*` — this creates a circular-like cross-layer dependency. Extract the shared function to `lib/helpers/` instead.
 - **Do not** add logic that must execute once-per-BOM inside `buildBomNSData` — it is called once per language type. Use `postProcess` in `lib/stages/postgen/postgen.js` instead.
 - **Do not** add any generic functions to `lib/cli/index.js` and `lib/helpers/utils.js`.
+- **Do not** add complex all-in-one regex parsers for filenames or other externally sourced strings when tokenization plus small validators will do; that pattern is difficult to maintain and may fail CodeQL inefficient-regex checks.
