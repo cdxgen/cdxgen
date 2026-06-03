@@ -1736,6 +1736,10 @@ const writeCycloneDxOutput = (jsonFile, bomJson, options) => {
       if (!options.evinseOutput) {
         options.evinseOutput = options.output;
       }
+      setActivityContext({
+        projectType: "evinse",
+        sourcePath: filePath,
+      });
       const evinserModule = await import("../lib/evinser/evinser.js");
       options.projectType = options.projectType || ["java"];
       const evinseOptions = {

@@ -53,6 +53,9 @@ const args = yargs(hideBin(process.argv))
       "android",
       "go",
       "golang",
+      "rust",
+      "rs",
+      "rust-lang",
       "csharp",
       "cs",
       "c",
@@ -172,6 +175,38 @@ const args = yargs(hideBin(process.argv))
     default: false,
     type: "boolean",
   })
+  .option("rusi-command", {
+    description: "Use a specific rusi binary for Rust Evinse analysis.",
+    default: process.env.RUSI_CMD,
+  })
+  .option("rusi-mode", {
+    description: "Rusi analysis mode.",
+    choices: ["analyze", "cryptos"],
+    default: "analyze",
+  })
+  .option("rusi-backend", {
+    description: "Rusi analysis backend.",
+    choices: ["stable", "compiler"],
+    default: "stable",
+  })
+  .option("rusi-toolchain", {
+    description:
+      "Rust toolchain for the Rusi compiler backend (e.g., auto, nightly, stable).",
+    default: "auto",
+  })
+  .option("rusi-callgraph", {
+    description: "Rusi call graph mode.",
+    choices: ["none", "static"],
+    default: "static",
+  })
+  .option("rusi-dataflow", {
+    description:
+      "Rusi data-flow mode. Defaults to security with --with-data-flow, research profile, or --deep, and none otherwise.",
+    choices: ["none", "security", "security-deps"],
+  })
+  .option("rusi-patterns", {
+    description: "Custom Rusi data-flow pattern JSON file.",
+  })
   .option("db-path", {
     description: "Atom slices DB path. Unused",
     default: undefined,
@@ -250,6 +285,10 @@ const args = yargs(hideBin(process.argv))
     [
       "$0 -i bom.json -o bom.evinse.json -l java --with-reachables .",
       "Generate a Java SBOM with occurrence and reachable evidence for the current directory",
+    ],
+    [
+      "$0 -i bom.json -o bom.evinse.json -l rust --with-data-flow --rusi-backend compiler .",
+      "Generate a Rust SBOM with Rusi data-flow and compiler-backed evidence",
     ],
   ])
   .completion("completion", "Generate bash/zsh completion")

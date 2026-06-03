@@ -115,13 +115,13 @@ export function initFromSbom(components: any, language: any): {
  */
 export function analyzeProject(dbObjMap: Object, options: Object): Promise<{
     purlLocationMap: {};
-    dataFlowFrames: {};
-    componentPropertiesMap: {};
-    metadataProperties: any[];
-    cryptoComponents: any[];
-    cryptoGeneratePurls: {};
     servicesMap: {};
+    dataFlowFrames: {};
     userDefinedTypesMap: {};
+    componentPropertiesMap?: undefined;
+    metadataProperties?: undefined;
+    cryptoComponents?: undefined;
+    cryptoGeneratePurls?: undefined;
     usagesSlicesFile?: undefined;
     dataFlowSlicesFile?: undefined;
     tempDir?: undefined;
@@ -131,14 +131,14 @@ export function analyzeProject(dbObjMap: Object, options: Object): Promise<{
     semanticsSlicesFile?: undefined;
     openapiSpecFile?: undefined;
 } | {
-    purlLocationMap: {};
+    purlLocationMap: any;
+    dataFlowFrames: any;
+    componentPropertiesMap: any;
+    metadataProperties: any;
+    cryptoComponents: any;
+    cryptoGeneratePurls: any;
     servicesMap: {};
-    dataFlowFrames: {};
     userDefinedTypesMap: {};
-    componentPropertiesMap?: undefined;
-    metadataProperties?: undefined;
-    cryptoComponents?: undefined;
-    cryptoGeneratePurls?: undefined;
     usagesSlicesFile?: undefined;
     dataFlowSlicesFile?: undefined;
     tempDir?: undefined;
