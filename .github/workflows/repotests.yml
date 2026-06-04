@@ -1729,8 +1729,7 @@ jobs:
           persist-credentials: false
       - name: Install Rust
         run: |
-          rustup toolchain install stable --profile minimal
-          rustup default stable
+          rustup toolchain install nightly --component rustc-dev --component rust-src
       - name: Setup pnpm
         uses: pnpm/action-setup@0e279bb959325dab635dd2c09392533439d90093  # v6.0.8
       - name: Use Node.js
@@ -1780,7 +1779,7 @@ jobs:
 
           # Force crypto and research profile to trigger rusi cryptos mode and deep evidence
           bin/cdxgen.js -t rust test/data/rust-dataflow-repotest -o bomresults/bom-rust-dataflow-fixture.json --include-crypto --profile research --fail-on-error
-          RUSI_CMD="$RUSI_CMD" node bin/evinse.js -i bomresults/bom-rust-dataflow-fixture.json -o bomresults/bom-rust-dataflow-fixture.evinse.json -l rust --deep --rusi-backend compiler --rusi-toolchain stable --with-data-flow test/data/rust-dataflow-repotest
+          RUSI_CMD="$RUSI_CMD" node bin/evinse.js -i bomresults/bom-rust-dataflow-fixture.json -o bomresults/bom-rust-dataflow-fixture.evinse.json -l rust --deep --rusi-backend compiler --rusi-toolchain nightly --with-data-flow test/data/rust-dataflow-repotest
 
           node --input-type=module <<'EOF'
           import { readFileSync } from "node:fs";
