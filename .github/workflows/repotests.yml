@@ -1780,7 +1780,7 @@ jobs:
 
           # Force crypto and research profile to trigger rusi cryptos mode and deep evidence
           bin/cdxgen.js -t rust test/data/rust-dataflow-repotest -o bomresults/bom-rust-dataflow-fixture.json --include-crypto --profile research --fail-on-error
-          RUSI_CMD="$RUSI_CMD" node bin/evinse.js -i bomresults/bom-rust-dataflow-fixture.json -o bomresults/bom-rust-dataflow-fixture.evinse.json -l rust --deep --rusi-backend compiler --with-data-flow test/data/rust-dataflow-repotest
+          RUSI_CMD="$RUSI_CMD" node bin/evinse.js -i bomresults/bom-rust-dataflow-fixture.json -o bomresults/bom-rust-dataflow-fixture.evinse.json -l rust --deep --rusi-backend compiler --rusi-toolchain stable --with-data-flow test/data/rust-dataflow-repotest
 
           node --input-type=module <<'EOF'
           import { readFileSync } from "node:fs";
