@@ -1870,9 +1870,6 @@ jobs:
           );
           EOF
         shell: bash
-        env:
-          CARGO_HOME: ${{ runner.temp }}/cargo-home
-          RUSTUP_HOME: ${{ runner.temp }}/rustup-home
 
   secure-mode-tests:
     strategy:
