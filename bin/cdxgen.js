@@ -1041,7 +1041,8 @@ const checkPermissions = (filePath, options) => {
   if (
     process.getuid &&
     process.getuid() === 0 &&
-    process.env?.CDXGEN_IN_CONTAINER !== "true"
+    process.env?.CDXGEN_IN_CONTAINER !== "true" &&
+    process.env?.RUNNING_IN_SAFER_EXEC_SANDBOX !== "true"
   ) {
     console.log(
       "\x1b[1;35mSECURE MODE: DO NOT run cdxgen with root privileges.\x1b[0m",
