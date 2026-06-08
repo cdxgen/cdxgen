@@ -1537,6 +1537,8 @@ jobs:
         shell: bash
       - name: denotests
         run: |
+          mv .npmrc .npmrc.bak || true
+          trap 'mv .npmrc.bak .npmrc || true' EXIT
           deno info bin/cdxgen.js
           deno info bin/evinse.js
           deno run --allow-read --allow-env --allow-run --allow-sys=uid,systemMemoryInfo,gid,osRelease,homedir --allow-write --allow-net bin/cdxgen.js -t java repotests/java-sec-code -o bomresults/bom-java-sec-code-deno.json --deep
