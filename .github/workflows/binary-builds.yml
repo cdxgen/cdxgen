@@ -132,9 +132,9 @@ jobs:
         with:
           node-version-file: .nvmrc
           package-manager-cache: false
-      - name: Install composer
-        uses: shivammathur/setup-php@7c071dfe9dc99bdf297fa79cb49ea005b9fcadbc  # 2.37.1
+      - name: Install php and composer
         if: ${{ matrix.os == 'darwin' }}
+        run: brew install php composer
       - name: Get user info
         id: user_info
         if: ${{ matrix.os == 'linux' }}
