@@ -164,7 +164,7 @@ GitHub Releases publish single-file executables for `cdxgen`, `cdxgen-slim`, `cb
 
 For HBOM, use `hbom-<os>-<arch>` when you want the dedicated hardware collector together with the companion `@cdxgen/cdxgen-plugins-bin*` bundle, or `hbom-<os>-<arch>-slim` when you only need `@cdxgen/cdx-hbom` in the standalone executable.
 
-The focused alias binaries use smaller dependency profiles than full `cdxgen`: `cbom` and `saasbom` include the Atom analysis packages needed for evidence collection, while `obom` includes the target platform plugin bundle pruned to runtime OS helpers. All three also include `@appthreat/cdx-proto` and `@bufbuild/protobuf` for `--export-proto`.
+The focused alias binaries use smaller dependency profiles than full `cdxgen`: `cbom` and `saasbom` include the Atom analysis packages needed for evidence collection, while `obom` includes the target platform plugin bundle pruned to runtime OS helpers. All three also include `@cdxgen/cdx-proto` and `@bufbuild/protobuf` for `--export-proto`.
 
 Use the asset name that matches your platform, for example `cdx-audit-linux-amd64`, `cdx-audit-darwin-arm64`, or `cdx-audit-windows-amd64.exe`.
 

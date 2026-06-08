@@ -195,11 +195,11 @@ function Install-ProfileDependencies {
   } else {
     switch ($Profile) {
       "audit" { $selectedOptionalPackages = @("jsonata") }
-      "proto-reader" { $selectedOptionalPackages = @("@appthreat/cdx-proto", "@bufbuild/protobuf") }
-      "hbom-runtime" { $selectedOptionalPackages = @("@cdxgen/cdx-hbom", "@appthreat/cdx-proto", "@bufbuild/protobuf", (Resolve-PlatformPluginPackageName)) }
+      "proto-reader" { $selectedOptionalPackages = @("@cdxgen/cdx-proto", "@bufbuild/protobuf") }
+      "hbom-runtime" { $selectedOptionalPackages = @("@cdxgen/cdx-hbom", "@cdxgen/cdx-proto", "@bufbuild/protobuf", (Resolve-PlatformPluginPackageName)) }
       "hbom-slim" { $selectedOptionalPackages = @("@cdxgen/cdx-hbom") }
-      "atom-analysis" { $selectedOptionalPackages = @("@appthreat/atom", "@appthreat/atom-parsetools", "@appthreat/cdx-proto", "@bufbuild/protobuf") }
-      "os-runtime" { $selectedOptionalPackages = @("@appthreat/cdx-proto", "@bufbuild/protobuf", (Resolve-PlatformPluginPackageName)) }
+      "atom-analysis" { $selectedOptionalPackages = @("@appthreat/atom", "@appthreat/atom-parsetools", "@cdxgen/cdx-proto", "@bufbuild/protobuf") }
+      "os-runtime" { $selectedOptionalPackages = @("@cdxgen/cdx-proto", "@bufbuild/protobuf", (Resolve-PlatformPluginPackageName)) }
       { $_ -in @("no-optional", "json-signature") } { }
       default { throw "Unknown standalone dependency profile: $Profile" }
     }
@@ -285,7 +285,7 @@ function Invoke-ProfilePruningAndPreflight {
   param([string]$StagingDir, [string]$Profile)
   switch ($Profile) {
     "cdxgen-full" {
-      Assert-PackagePresent -StagingDir $StagingDir -PackageName "@appthreat/cdx-proto"
+      Assert-PackagePresent -StagingDir $StagingDir -PackageName "@cdxgen/cdx-proto"
       Assert-PackagePresent -StagingDir $StagingDir -PackageName "@cdxgen/cdx-hbom"
       Assert-PackagePresent -StagingDir $StagingDir -PackageName "jsonata"
       Assert-PackagePresent -StagingDir $StagingDir -PackageName (Resolve-PlatformPluginPackageName)
@@ -294,10 +294,10 @@ function Invoke-ProfilePruningAndPreflight {
       Assert-PackagePresent -StagingDir $StagingDir -PackageName "jsonata"
       Remove-PlatformPlugins -StagingDir $StagingDir
       Assert-PackageAbsent -StagingDir $StagingDir -PackageName "@appthreat/atom"
-      Assert-PackageAbsent -StagingDir $StagingDir -PackageName "@appthreat/cdx-proto"
+      Assert-PackageAbsent -StagingDir $StagingDir -PackageName "@cdxgen/cdx-proto"
     }
     "proto-reader" {
-      Assert-PackagePresent -StagingDir $StagingDir -PackageName "@appthreat/cdx-proto"
+      Assert-PackagePresent -StagingDir $StagingDir -PackageName "@cdxgen/cdx-proto"
       Assert-PackagePresent -StagingDir $StagingDir -PackageName "@bufbuild/protobuf"
       Remove-PlatformPlugins -StagingDir $StagingDir
       Assert-PackageAbsent -StagingDir $StagingDir -PackageName "jsonata"
@@ -305,7 +305,7 @@ function Invoke-ProfilePruningAndPreflight {
     }
     "hbom-runtime" {
       Assert-PackagePresent -StagingDir $StagingDir -PackageName "@cdxgen/cdx-hbom"
-      Assert-PackagePresent -StagingDir $StagingDir -PackageName "@appthreat/cdx-proto"
+      Assert-PackagePresent -StagingDir $StagingDir -PackageName "@cdxgen/cdx-proto"
       Assert-PackagePresent -StagingDir $StagingDir -PackageName (Resolve-PlatformPluginPackageName)
       Prune-PluginsToAllowlist -StagingDir $StagingDir -AllowedPlugins @("osquery", "trustinspector")
       Assert-PluginAllowlist -StagingDir $StagingDir -AllowedPlugins @("osquery", "trustinspector")
@@ -313,13 +313,13 @@ function Invoke-ProfilePruningAndPreflight {
     "hbom-slim" {
       Assert-PackagePresent -StagingDir $StagingDir -PackageName "@cdxgen/cdx-hbom"
       Remove-PlatformPlugins -StagingDir $StagingDir
-      Assert-PackageAbsent -StagingDir $StagingDir -PackageName "@appthreat/cdx-proto"
+      Assert-PackageAbsent -StagingDir $StagingDir -PackageName "@cdxgen/cdx-proto"
       Assert-PackageAbsent -StagingDir $StagingDir -PackageName "jsonata"
     }
     "atom-analysis" {
       Assert-PackagePresent -StagingDir $StagingDir -PackageName "@appthreat/atom"
       Assert-PackagePresent -StagingDir $StagingDir -PackageName "@appthreat/atom-parsetools"
-      Assert-PackagePresent -StagingDir $StagingDir -PackageName "@appthreat/cdx-proto"
+      Assert-PackagePresent -StagingDir $StagingDir -PackageName "@cdxgen/cdx-proto"
       Assert-PackagePresent -StagingDir $StagingDir -PackageName "@bufbuild/protobuf"
       Remove-PlatformPlugins -StagingDir $StagingDir
       Assert-PackageAbsent -StagingDir $StagingDir -PackageName "@cdxgen/cdx-hbom"
@@ -330,7 +330,7 @@ function Invoke-ProfilePruningAndPreflight {
       Prune-PluginsToAllowlist -StagingDir $StagingDir -AllowedPlugins @("osquery", "trustinspector")
       Assert-PluginAllowlist -StagingDir $StagingDir -AllowedPlugins @("osquery", "trustinspector")
       Assert-PackageAbsent -StagingDir $StagingDir -PackageName "@appthreat/atom"
-      Assert-PackagePresent -StagingDir $StagingDir -PackageName "@appthreat/cdx-proto"
+      Assert-PackagePresent -StagingDir $StagingDir -PackageName "@cdxgen/cdx-proto"
       Assert-PackagePresent -StagingDir $StagingDir -PackageName "@bufbuild/protobuf"
       Assert-PackageAbsent -StagingDir $StagingDir -PackageName "@cdxgen/cdx-hbom"
       Assert-PackageAbsent -StagingDir $StagingDir -PackageName "jsonata"
@@ -338,7 +338,7 @@ function Invoke-ProfilePruningAndPreflight {
     { $_ -in @("no-optional", "json-signature") } {
       Remove-PlatformPlugins -StagingDir $StagingDir
       Assert-PackageAbsent -StagingDir $StagingDir -PackageName "@appthreat/atom"
-      Assert-PackageAbsent -StagingDir $StagingDir -PackageName "@appthreat/cdx-proto"
+      Assert-PackageAbsent -StagingDir $StagingDir -PackageName "@cdxgen/cdx-proto"
       Assert-PackageAbsent -StagingDir $StagingDir -PackageName "@cdxgen/cdx-hbom"
       Assert-PackageAbsent -StagingDir $StagingDir -PackageName "jsonata"
     }

@@ -230,12 +230,12 @@ install_profile_dependencies() {
         selected_optional_packages=(jsonata)
         ;;
       proto-reader)
-        selected_optional_packages=(@appthreat/cdx-proto @bufbuild/protobuf)
+        selected_optional_packages=(@cdxgen/cdx-proto @bufbuild/protobuf)
         ;;
       hbom-runtime)
         selected_optional_packages=(
           @cdxgen/cdx-hbom
-          @appthreat/cdx-proto
+          @cdxgen/cdx-proto
           @bufbuild/protobuf
           "$(resolve_platform_plugin_package_name)"
         )
@@ -247,13 +247,13 @@ install_profile_dependencies() {
         selected_optional_packages=(
           @appthreat/atom
           @appthreat/atom-parsetools
-          @appthreat/cdx-proto
+          @cdxgen/cdx-proto
           @bufbuild/protobuf
         )
         ;;
       os-runtime)
         selected_optional_packages=(
-          @appthreat/cdx-proto
+          @cdxgen/cdx-proto
           @bufbuild/protobuf
           "$(resolve_platform_plugin_package_name)"
         )
@@ -386,7 +386,7 @@ apply_profile_pruning_and_preflight() {
 
   case "$profile" in
     cdxgen-full)
-      assert_package_present "$staging_dir" @appthreat/cdx-proto
+      assert_package_present "$staging_dir" @cdxgen/cdx-proto
       assert_package_present "$staging_dir" @cdxgen/cdx-hbom
       assert_package_present "$staging_dir" jsonata
       platform_plugin_package="$(resolve_platform_plugin_package_name)"
@@ -396,10 +396,10 @@ apply_profile_pruning_and_preflight() {
       assert_package_present "$staging_dir" jsonata
       remove_platform_plugins "$staging_dir"
       assert_package_absent "$staging_dir" @appthreat/atom
-      assert_package_absent "$staging_dir" @appthreat/cdx-proto
+      assert_package_absent "$staging_dir" @cdxgen/cdx-proto
       ;;
     proto-reader)
-      assert_package_present "$staging_dir" @appthreat/cdx-proto
+      assert_package_present "$staging_dir" @cdxgen/cdx-proto
       assert_package_present "$staging_dir" @bufbuild/protobuf
       remove_platform_plugins "$staging_dir"
       assert_package_absent "$staging_dir" jsonata
@@ -407,7 +407,7 @@ apply_profile_pruning_and_preflight() {
       ;;
     hbom-runtime)
       assert_package_present "$staging_dir" @cdxgen/cdx-hbom
-      assert_package_present "$staging_dir" @appthreat/cdx-proto
+      assert_package_present "$staging_dir" @cdxgen/cdx-proto
       platform_plugin_package="$(resolve_platform_plugin_package_name)"
       assert_package_present "$staging_dir" "$platform_plugin_package"
       target_os="$(normalized_target_os)"
@@ -422,13 +422,13 @@ apply_profile_pruning_and_preflight() {
     hbom-slim)
       assert_package_present "$staging_dir" @cdxgen/cdx-hbom
       remove_platform_plugins "$staging_dir"
-      assert_package_absent "$staging_dir" @appthreat/cdx-proto
+      assert_package_absent "$staging_dir" @cdxgen/cdx-proto
       assert_package_absent "$staging_dir" jsonata
       ;;
     atom-analysis)
       assert_package_present "$staging_dir" @appthreat/atom
       assert_package_present "$staging_dir" @appthreat/atom-parsetools
-      assert_package_present "$staging_dir" @appthreat/cdx-proto
+      assert_package_present "$staging_dir" @cdxgen/cdx-proto
       assert_package_present "$staging_dir" @bufbuild/protobuf
       remove_platform_plugins "$staging_dir"
       assert_package_absent "$staging_dir" @cdxgen/cdx-hbom
@@ -446,7 +446,7 @@ apply_profile_pruning_and_preflight() {
         verify_plugin_allowlist "$staging_dir" osquery
       fi
       assert_package_absent "$staging_dir" @appthreat/atom
-      assert_package_present "$staging_dir" @appthreat/cdx-proto
+      assert_package_present "$staging_dir" @cdxgen/cdx-proto
       assert_package_present "$staging_dir" @bufbuild/protobuf
       assert_package_absent "$staging_dir" @cdxgen/cdx-hbom
       assert_package_absent "$staging_dir" jsonata
@@ -454,7 +454,7 @@ apply_profile_pruning_and_preflight() {
     no-optional|json-signature)
       remove_platform_plugins "$staging_dir"
       assert_package_absent "$staging_dir" @appthreat/atom
-      assert_package_absent "$staging_dir" @appthreat/cdx-proto
+      assert_package_absent "$staging_dir" @cdxgen/cdx-proto
       assert_package_absent "$staging_dir" @cdxgen/cdx-hbom
       assert_package_absent "$staging_dir" jsonata
       ;;
