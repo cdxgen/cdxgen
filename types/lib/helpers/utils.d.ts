@@ -262,6 +262,7 @@ export function parseYarnLock(yarnLockFile: string, parentComponent?: Object, wo
  * @param {string} swFile shrinkwrap-deps.json file
  */
 export function parseNodeShrinkwrap(swFile: string): Promise<any[]>;
+export function getVersionNumPnpm(depPkg: any, relativePath: any): Promise<any>;
 /**
  * Parse pnpm workspace file
  *

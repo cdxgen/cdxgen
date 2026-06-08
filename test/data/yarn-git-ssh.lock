@@ -1,0 +1,4 @@
+# yarn lockfile v1
+"@group/my_project@git+ssh://git@private-gitlab.com/group/my_project.git#abc12345678901234567890123456789012345678":
+  version "1.0.6"
+  resolved "git+ssh://git@private-gitlab.com/group/my_project.git#abc12345678901234567890123456789012345678"

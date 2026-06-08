@@ -1,0 +1,34 @@
+lockfileVersion: '9.0'
+
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
+importers:
+
+  .:
+    dependencies:
+      '@group/my_project':
+        specifier: ssh://git@private-gitlab.com/group/my_project.git#main
+        version: git+ssh://git@private-gitlab.com/group/my_project.git#abc12345678901234567890123456789012345678(@babel/core@7.29.0)
+      zod:
+        specifier: ^4.3.6
+        version: 4.3.6
+
+packages:
+
+  '@group/my_project@git+ssh://git@private-gitlab.com/group/my_project.git#abc12345678901234567890123456789012345678':
+    resolution: {commit: abc12345678901234567890123456789012345678, repo: ssh://git@private-gitlab.com/group/my_project.git, type: git}
+    version: 1.0.6
+
+  zod@4.3.6:
+    resolution: {integrity: sha512-9B+1z8tB2tX8tX8tX8tX8tX8tX8tX8tX8tX8tX8tX8tX8tX8tX8tX8tX8tX8tX8=}
+
+snapshots:
+
+  '@group/my_project@git+ssh://git@private-gitlab.com/group/my_project.git#abc12345678901234567890123456789012345678(@babel/core@7.29.0)':
+    dependencies:
+      nuxt: 4.4.2(@babel/core@7.29.0)
+      zod: 4.3.6
+
+  zod@4.3.6: {}

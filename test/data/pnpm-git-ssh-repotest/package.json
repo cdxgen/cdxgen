@@ -1,0 +1,8 @@
+{
+  "name": "git-ssh-test",
+  "version": "1.0.0",
+  "dependencies": {
+    "@group/my_project": "ssh://git@private-gitlab.com/group/my_project.git#main",
+    "zod": "^4.3.6"
+  }
+}

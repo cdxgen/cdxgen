@@ -72,4 +72,35 @@ export function hydrateNpmNodePackage(node: object, options?: object): {
  * Helper to check if a package is imported only for TypeScript types.
  */
 export function isPkgTypeOnlyImport(allImports: any, group: any, name: any): boolean;
+export function normalizePnpmLockKey(lockKey: any): any;
+export function normalizeNpmRegistryUrl(registryUrl: any): any;
+export function loadNpmrcConfig(projectRoot: any): {
+    constructor: Function;
+    toString(): string;
+    toLocaleString(): string;
+    valueOf(): Object;
+    hasOwnProperty(v: PropertyKey): boolean;
+    isPrototypeOf(v: Object): boolean;
+    propertyIsEnumerable(v: PropertyKey): boolean;
+};
+export function normalizeNpmScopeGroup(group: any): any;
+export function resolveNpmRegistryUrlForGitPackage(group: any, npmrcConfig?: {}): any;
+export function buildNpmGitPurlQualifiers(vcsUrl: any, group: any, npmrcConfig: any): {
+    vcs_url: any;
+    repository_url: any;
+} | null;
+export function buildNpmRegistryTarballUrl(registryUrl: any, group: any, name: any, version: any): string | undefined;
+export function buildNpmGitDistributionIntakeRefs(group: any, name: any, version: any, npmrcConfig: any): {
+    type: string;
+    url: string;
+}[] | undefined;
+export function parsePnpmGitLockKey(lockKey: any): {
+    group: any;
+    name: any;
+    gitSpec: any;
+    fullName: any;
+    packageName: any;
+} | null;
+export function buildPnpmGitPkgRefs(packages: any, snapshots: any, npmrcConfig?: {}): {};
+export function getPnpmDepPurl(depPkg: any, packageName: any, gitPkgRefs: any, relativePath: any, githubServerHost: any, npmrcConfig?: {}): Promise<string>;
 //# sourceMappingURL=npmutils.d.ts.map
