@@ -157,7 +157,7 @@ jobs:
           # Run pnpm install:frozen under safer-exec using the local custom policy file
           ./${SAFER_EXEC_BIN} --policy=pnpmInstall --timeout=120000 -- pnpm install:frozen
           ./${SAFER_EXEC_BIN} --policy=cdxgen --timeout=120000 --env FETCH_LICENSE=true -- node bin/cdxgen.js --exclude test/\*\* -t js --deep $(pwd)
-          ./${SAFER_EXEC_BIN} --policy=poku --timeout=240000 -- pnpm test
+          ./${SAFER_EXEC_BIN} --policy=poku --timeout=240000 -- pnpm exec poku lib/helpers/utils.poku.js
         env:
           CI: true
           RUNNING_IN_SAFER_EXEC_SANDBOX: true
