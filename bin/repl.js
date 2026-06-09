@@ -798,6 +798,52 @@ cdxgenRepl.defineCommand("hbomevidence", {
     this.displayPrompt();
   },
 });
+cdxgenRepl.defineCommand("instrumented", {
+  help: "show dynamically instrumented libraries and verification evidence",
+  action() {
+    const interactiveBom = getInteractiveBom();
+    if (!interactiveBom) {
+      console.log(
+        "⚠ No BOM is loaded. Use .import command to import an existing BOM",
+      );
+      this.displayPrompt();
+      return;
+    }
+    const instrumentedList = (interactiveBom.components || []).filter((c) =>
+      c.evidence?.identity?.some((id) =>
+        id.methods?.some((m) => m.technique === "instrumentation"),
+      ),
+    );
+    if (!instrumentedList.length) {
+      console.log(
+        "No dynamically instrumented components found in the loaded BOM.",
+      );
+      this.displayPrompt();
+      return;
+    }
+    const rows = [["Name", "Version", "Path", "Confidence"]];
+    for (const comp of instrumentedList) {
+      const pathProp =
+        comp.properties?.find((p) => p.name === "cdx:file_path")?.value || "";
+      const confidence = comp.evidence?.identity?.[0]?.confidence || "";
+      rows.push([
+        comp.name,
+        comp.version || "unknown",
+        pathProp,
+        String(confidence),
+      ]);
+    }
+    console.log(
+      table(rows, {
+        header: {
+          alignment: "center",
+          content: "Dynamically Instrumented Components",
+        },
+      }),
+    );
+    this.displayPrompt();
+  },
+});
 cdxgenRepl.defineCommand("hbomdiagnostics", {
   help: "show parsed HBOM command diagnostics, issue counts, and install or privilege guidance",
   action() {

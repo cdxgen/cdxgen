@@ -133,7 +133,7 @@ jobs:
             ARCH_NAME="amd64"
           fi
 
-          VERSION="0.7.1"
+          VERSION="0.9.3"
           SAFER_EXEC_BIN="safer-exec-${OS_NAME}-${ARCH_NAME}"
           
           echo "Downloading safer-exec SEA binary: ${SAFER_EXEC_BIN}..."
@@ -155,6 +155,7 @@ jobs:
           mkdir -p $HOME/.local/share/pnpm
           mkdir -p ${HOME}/.pnpm-store
           # Run pnpm install:frozen under safer-exec using the local custom policy file
+          ./${SAFER_EXEC_BIN} diagnostics
           ./${SAFER_EXEC_BIN} --policy=pnpmInstall --timeout=120000 -- pnpm install:frozen
           ./${SAFER_EXEC_BIN} --policy=cdxgen --timeout=120000 --env FETCH_LICENSE=true -- node bin/cdxgen.js --exclude test/\*\* -t js --deep $(pwd)
           ./${SAFER_EXEC_BIN} --policy=poku --timeout=240000 -- pnpm exec poku lib/helpers/utils.poku.js

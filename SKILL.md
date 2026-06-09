@@ -96,6 +96,9 @@ obom -o obom.json --deep --bom-audit --bom-audit-categories obom-runtime
 # Live hardware inventory (HBOM)
 hbom -o hbom.json
 
+# Dynamic trace process execution SBOM
+tracebom --cmd "node app.js" -o bom.json
+
 # Catalog a packaged Electron ASAR archive
 cdxgen -t asar --bom-audit --bom-audit-categories asar-archive -o bom.json /absolute/path/to/app.asar
 

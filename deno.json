@@ -1,6 +1,6 @@
 {
   "name": "@cyclonedx/cdxgen",
-  "version": "12.5.1",
+  "version": "12.6.0",
   "exports": "./lib/cli/index.js",
   "compilerOptions": {
     "lib": ["deno.window"],
@@ -106,6 +106,7 @@
     "compression": "npm:compression@^1.8.1",
     "connect": "npm:connect@^3.7.0",
     "jsonata": "npm:jsonata@^2.2.1",
-    "@iarna/toml": "npm:@iarna/toml@2.2.5"
+    "@iarna/toml": "npm:@iarna/toml@2.2.5",
+    "@cdxgen/safer-exec": "npm:@cdxgen/safer-exec@0.9.3"
   }
 }

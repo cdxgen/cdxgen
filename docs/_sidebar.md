@@ -22,6 +22,7 @@
 - [AI/ML Usage](ml_profiles.md)
 - [Permissions](PERMISSIONS.md)
 - [Configuring Allowlists](ALLOWED_HOSTS_AND_COMMANDS.md)
+- [tracebom — Dynamic SBOM](TRACEBOM.md)
 - [Threat Model](THREAT_MODEL.md)
 - [Go Evinse Threat Model](GO_EVINSE_GOLEM_THREAT_MODEL.md)
 - **Contributing**
@@ -53,6 +54,7 @@
 - [Tutorials - Generating HBOM](LESSON13.md)
 - [Tutorials - Go Evinse with Golem](LESSON14.md)
 - [Tutorials - AI-BOM governance and audit](LESSON15.md)
+- [Tutorials - Dynamic trace and instrumentation](LESSON16.md)
 - [Tutorials - Generating OBOM](OBOM_LESSONS.md)
 - [Trust enrichment BOM diff examples](TRUST_ENRICHMENT_DIFF.md)
 - [macOS OBOM troubleshooting](OBOM_MACOS_TROUBLESHOOTING.md)

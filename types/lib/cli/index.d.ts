@@ -279,6 +279,18 @@ export function dedupeBom(options: Object, components: any[], parentComponent: O
  */
 export function createMultiXBom(pathList: string[], options: Object): Promise<Object>;
 /**
+ * Function to create a dynamic SBOM by executing a command and tracing the
+ * shared libraries it loads at runtime via instrumentation.
+ *
+ * Components receive scope=required, evidence.identity[].methods[].technique=
+ * instrumentation, and confidence 0.8 (version known) or 0.5 (version unknown).
+ *
+ * @param {string} path - Target path (used as working directory fallback)
+ * @param {Object} options - CLI options; must include options.traceCmd
+ * @returns {Promise<Object>} Promise resolving to BOM data object
+ */
+export function createDynamicBom(path: string, options: Object): Promise<Object>;
+/**
  * Function to create bom string for various languages
  *
  * @param {string} path to the project

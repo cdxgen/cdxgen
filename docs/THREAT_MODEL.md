@@ -441,6 +441,28 @@ Trust boundary 5: cdxgen container ←→ container host
 
 **Residual risk:** Low when secure mode and SBOM signing are enabled.
 
+### 7. Dynamic Process Tracing (`tracebom`, `lib/helpers/traceRunner.js`)
+
+#### T7.1 — Sandbox bypass or escape during command execution
+
+**Threat:** The user executes a malicious binary under `tracebom --cmd` which escapes `@cdxgen/safer-exec` sandboxing to access the host filesystem or perform network operations.
+
+**Mitigations:**
+
+- `@cdxgen/safer-exec` implements kernel-level namespace isolation, Landlock network confinement, and cgroup v2 resource limits on Linux, and Seatbelt sandboxing on macOS.
+- Tracing is locked down using LD_AUDIT / DYLD_INSERT_LIBRARIES mechanism enforced securely by the sandbox boundary.
+- Configurable sandbox limits (`--max-memory`, `--max-processes`, `--timeout`, `--disable-network`, `--read-paths`, `--write-paths`) allow operators to restrict the traced process.
+
+#### T7.2 — Arbitrary command execution on host operating system
+
+**Threat:** The command supplied to `--cmd` contains shell metacharacters or executes untrusted binaries directly.
+
+**Mitigations:**
+
+- `traceRunner.js` splits and parses the command string into an array of arguments, avoiding shell wrapper execution.
+- Command execution is performed via `SaferExec` class which enforces the standard process constraints and does not run raw strings inside shell wrappers.
+- No allowlist enforcement in traceRunner — the CLI operator is trusted to pass safe commands. The sandbox itself is the enforcement mechanism.
+
 ## Data Flow Diagram
 
 ```
@@ -453,21 +475,21 @@ Trust boundary 5: cdxgen container ←→ container host
                                              │ HTTP(S)
                                              │ [TB2]
                                              │
-┌──────────┐    ┌─────────────────┐  ┌───────▼───────┐     ┌──────────────┐
-│ Project  │    │    cdxgen       │  │ Build Tools   │     │ BOM Server   │
-│ Files    │───►│  ┌───────────┐  │  │ (npm, mvn,    │     │ (Dependency  │
-│(manifests,    │  │ Parsers   │  │  │  pip, go...)  │     │  Track, etc.)│
-│ lockfiles,│   │  └─────┬─────┘  │  └───────────────┘     └──────▲───────┘
-│ configs) │    │        │        │         ▲                     │
-└──────────┘    │  ┌─────▼─────┐  │         │ safeSpawnSync       │ SBOM
-   [TB4]        │  │ BOM       │  │─────────┘ [TB1]               │ Upload
-                │  │ Builder   │  │                               │
-┌──────────┐    │  └─────┬─────┘  │                               │
-│ HTTP     │    │        │        │───────────────────────────────┘
-│ Client   │───►│  ┌─────▼─────┐  │        HTTP(S) [TB2]
-└──────────┘    │  │ Server    │  │
-   [TB3]        │  └───────────┘  │
-                └─────────────────┘
+┌───────────┐    ┌─────────────────┐  ┌───────▼───────┐     ┌──────────────┐
+│ Project   │    │    cdxgen       │  │ Build Tools   │     │ BOM Server   │
+│ Files     │───►│  ┌───────────┐  │  │ (npm, mvn,    │     │ (Dependency  │
+│(manifests,│    │  │ Parsers   │  │  │  pip, go...)  │     │  Track, etc.)│
+│ lockfiles,│    │  └─────┬─────┘  │  └───────────────┘     └──────▲───────┘
+│ configs)  │    │        │        │         ▲                     │
+└───────────┘    │  ┌─────▼─────┐  │         │ safeSpawnSync       │ SBOM
+   [TB4]         │  │ BOM       │  │─────────┘ [TB1]               │ Upload
+                 │  │ Builder   │  │                               │
+┌──────────┐     │  └─────┬─────┘  │                               │
+│ HTTP     │     │        │        │───────────────────────────────┘
+│ Client   │────►│  ┌─────▼─────┐  │        HTTP(S) [TB2]
+└──────────┘     │  │ Server    │  │
+   [TB3]         │  └───────────┘  │
+                 └─────────────────┘
                      cdxgen
                      process
                      [TB4, TB5]

@@ -19,6 +19,7 @@ DEFAULT_TARGETS=(
   cdx-convert
   hbom
   hbom-slim
+  tracebom
 )
 
 COMMON_SBOM_ARGS=(
@@ -116,14 +117,28 @@ promote_optional_dependencies() {
     const [, , packageJsonFile, ...packageNames] = process.argv;
     const packageJson = JSON.parse(readFileSync(packageJsonFile, "utf8"));
     packageJson.dependencies ??= {};
+    let safeExecMode = false;
     for (const packageName of packageNames) {
-      const packageVersion = packageJson.optionalDependencies?.[packageName];
-      if (!packageVersion) {
-        console.error(`Missing optional dependency version for ${packageName}`);
-        process.exit(1);
+      if (packageName.includes("@cdxgen/safer-exec-")) {
+        const packageVersion = packageJson.optionalDependencies["@cdxgen/safer-exec"];
+        packageJson.dependencies["@cdxgen/safer-exec"] = packageVersion;
+        packageJson.dependencies["@cdxgen/safer-exec-darwin-arm64"] = packageVersion;
+        packageJson.dependencies["@cdxgen/safer-exec-darwin-amd64"] = packageVersion;
+        packageJson.dependencies["@cdxgen/safer-exec-linux-amd64"] = packageVersion;
+        packageJson.dependencies["@cdxgen/safer-exec-linux-arm64"] = packageVersion;
+        safeExecMode = true;
+      } else {
+        const packageVersion = packageJson.optionalDependencies?.[packageName];
+        if (!packageVersion) {
+          console.error(`Missing optional dependency version for ${packageName}`);
+          process.exit(1);
+        }
+        packageJson.dependencies[packageName] = packageVersion;
+        delete packageJson.optionalDependencies[packageName];
       }
-      packageJson.dependencies[packageName] = packageVersion;
-      delete packageJson.optionalDependencies[packageName];
+    }
+    if (safeExecMode) {
+      delete packageJson.optionalDependencies;
     }
     writeFileSync(`${packageJsonFile}`, `${JSON.stringify(packageJson, null, 2)}\n`);
 NODE
@@ -160,6 +175,31 @@ resolve_platform_plugin_package_name() {
       );
       process.exit(1);
     }
+
+    console.log(packageName);
+NODE
+}
+
+resolve_safer_exec_package_name() {
+  node --input-type=module <<'NODE'
+    import { readFileSync } from "node:fs";
+
+    const packageJson = JSON.parse(readFileSync("package.json", "utf8"));
+    const normalizeOs = (value) => {
+      const osValue = value || process.platform;
+      if (osValue === "win32") {
+        process.exit(1);
+      }
+      return osValue;
+    };
+    const normalizeArch = (value) => {
+      const archValue = value || process.arch;
+      if (archValue === "x64") return "amd64";
+      return archValue;
+    };
+    const targetOs = normalizeOs(process.env.TARGET_OS);
+    const targetArch = normalizeArch(process.env.TARGET_ARCH);
+    let packageName = `@cdxgen/safer-exec-${targetOs}-${targetArch}`;
 
     console.log(packageName);
 NODE
@@ -258,6 +298,9 @@ install_profile_dependencies() {
           "$(resolve_platform_plugin_package_name)"
         )
         ;;
+      trace-runtime)
+        selected_optional_packages=(@cdxgen/cdx-proto "$(resolve_safer_exec_package_name)")
+        ;;
       no-optional|json-signature)
         ;;
       *)
@@ -313,6 +356,7 @@ remove_platform_plugins() {
   local staging_dir="$1"
 
   rm -rf "$staging_dir/node_modules/@cdxgen"/cdxgen-plugins-bin*
+  rm -rf "$staging_dir/node_modules/@cdxgen"/safer-exec*
 }
 
 prune_plugins_to_allowlist() {
@@ -397,6 +441,7 @@ apply_profile_pruning_and_preflight() {
       remove_platform_plugins "$staging_dir"
       assert_package_absent "$staging_dir" @appthreat/atom
       assert_package_absent "$staging_dir" @cdxgen/cdx-proto
+      assert_package_absent "$staging_dir" @cdxgen/safer-exec
       ;;
     proto-reader)
       assert_package_present "$staging_dir" @cdxgen/cdx-proto
@@ -404,6 +449,7 @@ apply_profile_pruning_and_preflight() {
       remove_platform_plugins "$staging_dir"
       assert_package_absent "$staging_dir" jsonata
       assert_package_absent "$staging_dir" @appthreat/atom
+      assert_package_absent "$staging_dir" @cdxgen/safer-exec
       ;;
     hbom-runtime)
       assert_package_present "$staging_dir" @cdxgen/cdx-hbom
@@ -424,6 +470,7 @@ apply_profile_pruning_and_preflight() {
       remove_platform_plugins "$staging_dir"
       assert_package_absent "$staging_dir" @cdxgen/cdx-proto
       assert_package_absent "$staging_dir" jsonata
+      assert_package_absent "$staging_dir" @cdxgen/safer-exec
       ;;
     atom-analysis)
       assert_package_present "$staging_dir" @appthreat/atom
@@ -433,6 +480,7 @@ apply_profile_pruning_and_preflight() {
       remove_platform_plugins "$staging_dir"
       assert_package_absent "$staging_dir" @cdxgen/cdx-hbom
       assert_package_absent "$staging_dir" jsonata
+      assert_package_absent "$staging_dir" @cdxgen/safer-exec
       ;;
     os-runtime)
       platform_plugin_package="$(resolve_platform_plugin_package_name)"
@@ -450,6 +498,15 @@ apply_profile_pruning_and_preflight() {
       assert_package_present "$staging_dir" @bufbuild/protobuf
       assert_package_absent "$staging_dir" @cdxgen/cdx-hbom
       assert_package_absent "$staging_dir" jsonata
+      assert_package_absent "$staging_dir" @cdxgen/safer-exec
+      ;;
+    trace-runtime)
+      assert_package_present "$staging_dir" @cdxgen/safer-exec
+      assert_package_present "$staging_dir" @cdxgen/cdx-proto
+      remove_platform_plugins "$staging_dir"
+      assert_package_absent "$staging_dir" @appthreat/atom
+      assert_package_absent "$staging_dir" @cdxgen/cdx-hbom
+      assert_package_absent "$staging_dir" jsonata
       ;;
     no-optional|json-signature)
       remove_platform_plugins "$staging_dir"
@@ -457,6 +514,7 @@ apply_profile_pruning_and_preflight() {
       assert_package_absent "$staging_dir" @cdxgen/cdx-proto
       assert_package_absent "$staging_dir" @cdxgen/cdx-hbom
       assert_package_absent "$staging_dir" jsonata
+      assert_package_absent "$staging_dir" @cdxgen/safer-exec
       ;;
     *)
       echo "Unknown standalone dependency profile: $profile" >&2
@@ -475,6 +533,7 @@ target_entry_point() {
     cdx-validate) echo "bin/validate.js" ;;
     cdx-convert) echo "bin/convert.js" ;;
     hbom|hbom-slim) echo "bin/hbom.js" ;;
+    tracebom) echo "bin/tracebom.js" ;;
     *) echo "Unknown standalone target: $1" >&2; exit 1 ;;
   esac
 }
@@ -490,6 +549,7 @@ target_profile() {
     cdx-validate|cdx-convert) echo "proto-reader" ;;
     hbom) echo "hbom-runtime" ;;
     hbom-slim) echo "hbom-slim" ;;
+    tracebom) echo "trace-runtime" ;;
     *) echo "Unknown standalone target: $1" >&2; exit 1 ;;
   esac
 }
@@ -525,14 +585,14 @@ build_target() {
 }
 
 rm -f \
-  aibom cdxgen cdxgen-slim cbom obom saasbom cdx-audit cdx-verify cdx-sign cdx-validate cdx-convert hbom hbom-slim \
+  aibom cdxgen cdxgen-slim cbom obom saasbom cdx-audit cdx-verify cdx-sign cdx-validate cdx-convert hbom hbom-slim tracebom \
   .aibom-postbuild.cdx.json \
   .cdxgen-postbuild.cdx.json .cdxgen-slim-postbuild.cdx.json \
   .cbom-postbuild.cdx.json .obom-postbuild.cdx.json .saasbom-postbuild.cdx.json \
   .cdx-audit-postbuild.cdx.json .cdx-verify-postbuild.cdx.json \
   .cdx-sign-postbuild.cdx.json .cdx-validate-postbuild.cdx.json \
   .cdx-convert-postbuild.cdx.json .hbom-postbuild.cdx.json \
-  .hbom-slim-postbuild.cdx.json
+  .hbom-slim-postbuild.cdx.json .tracebom-postbuild.cdx.json
 
 while IFS= read -r target; do
   build_target "$target"

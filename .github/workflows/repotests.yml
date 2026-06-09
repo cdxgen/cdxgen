@@ -504,7 +504,6 @@ jobs:
       - name: pnpm install
         run: |
           pnpm install:frozen
-          mkdir -p repotests
           mkdir -p bomresults
           mkdir -p denoresults
         env:
@@ -545,6 +544,10 @@ jobs:
       - name: pip install custom-json-diff
         run: |
           pip install custom-json-diff
+      - name: Allow unprivileged user namespaces (ubuntu-24.04)
+        if: startsWith(matrix.os, 'ubuntu-24')
+        run: |
+          sudo sysctl -w kernel.apparmor_restrict_unprivileged_userns=0 || true
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           persist-credentials: false
@@ -893,6 +896,11 @@ jobs:
         run: |
           bin/cdxgen.js -t js --no-recurse -o bomresults/bom.json --evidence .
         shell: bash
+      - name: repotests tracebom
+        run: |
+          bash repotests/dynamic-smoke/test.sh
+        shell: bash
+        if: runner.os != 'Windows' && matrix.os != 'macos-15'
       - name: repotests python issues
         run: |
           bin/cdxgen.js -t python test/data/issue-2069 -o bomresults/issue-2069.json --fail-on-error --include-regex "requirements.txt"

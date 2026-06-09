@@ -151,7 +151,7 @@ Installing `@cyclonedx/cdxgen` exposes these commands:
 | `spdxgen`       | Alias for `cdxgen --format spdx`                                                                                     | use `cdxgen`                     |
 | `cdxgen-secure` | Alias for hardened `cdxgen` defaults                                                                                 | use `cdxgen`                     |
 
-Standalone GitHub release binaries are published for `cdxgen`, `cdxgen-slim`, `aibom`, `cbom`, `obom`, `saasbom`, `hbom`, `hbom-slim`, `cdx-audit`, `cdx-convert`, `cdx-sign`, `cdx-validate`, and `cdx-verify`.
+Standalone GitHub release binaries are published for `cdxgen`, `cdxgen-slim`, `aibom`, `cbom`, `obom`, `saasbom`, `hbom`, `hbom-slim`, `cdx-audit`, `cdx-convert`, `cdx-sign`, `cdx-validate`, `cdx-verify`, and `tracebom`.
 
 `hbom` release binaries bundle both `@cdxgen/cdx-hbom` and the matching `@cdxgen/cdxgen-plugins-bin*` companion helpers for the target platform. `hbom-slim` keeps the dedicated hardware collector (`@cdxgen/cdx-hbom`) but omits the companion plugin bundle when you want the smallest single-file HBOM executable.
 

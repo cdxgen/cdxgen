@@ -147,19 +147,20 @@ If `bom.json` exists in the current directory, `cdxi` imports it automatically.
 
 ### Inventory views
 
-| Command           | Description                                                  |
-| ----------------- | ------------------------------------------------------------ |
-| `.print`          | Print components as a table                                  |
-| `.tree`           | Print the dependency tree                                    |
-| `.provides`       | Print the `provides` tree                                    |
-| `.cryptos`        | Show `cryptographic-asset` components                        |
-| `.sourcecryptos`  | Show source-derived crypto algorithm components              |
-| `.unpackagedbins` | Show executable file components not owned by OS packages     |
-| `.unpackagedlibs` | Show shared library file components not owned by OS packages |
-| `.frameworks`     | Show framework components                                    |
-| `.licenses`       | Show license distribution                                    |
-| `.tagcloud`       | Show a text cloud from component descriptions and tags       |
-| `.validate`       | Validate the current BOM against CycloneDX JSON Schema       |
+| Command           | Description                                                       |
+| ----------------- | ----------------------------------------------------------------- |
+| `.print`          | Print components as a table                                       |
+| `.tree`           | Print the dependency tree                                         |
+| `.provides`       | Print the `provides` tree                                         |
+| `.cryptos`        | Show `cryptographic-asset` components                             |
+| `.sourcecryptos`  | Show source-derived crypto algorithm components                   |
+| `.unpackagedbins` | Show executable file components not owned by OS packages          |
+| `.unpackagedlibs` | Show shared library file components not owned by OS packages      |
+| `.instrumented`   | Show dynamically instrumented libraries and verification evidence |
+| `.frameworks`     | Show framework components                                         |
+| `.licenses`       | Show license distribution                                         |
+| `.tagcloud`       | Show a text cloud from component descriptions and tags            |
+| `.validate`       | Validate the current BOM against CycloneDX JSON Schema            |
 
 ### Provenance and trust
 

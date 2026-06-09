@@ -20,6 +20,7 @@ Primary entry points:
 Companion binaries:
 
 - cdxgen opportunistically uses the optional companion package/repo **`cdxgen-plugins-bin`** for heavyweight native helpers such as **Trivy**, **osquery**, **SourceKitten**, **dosai**, and **golem**.
+- Dynamic SBOM generation via **tracebom** depends only on `@cdxgen/safer-exec` + `@cdxgen/cdx-proto` from optional deps. No atom, no plugins-bin, no hbom.
 - Container/rootfs inventory flows through `lib/managers/binary.js` and may combine native parsing with plugin-enriched Trivy output.
 - Live-OS OBOM flows use the bundled osquery binary plus the query packs under `data/queries*.json`. Linux query packs also include hardening-focused snapshots such as `sysctl_hardening` and `mount_hardening`.
 - When the optional `trustinspector` helper is present, host-path trust enrichment should be treated as batched rather than artificially capped. Keep Authenticode, WDAC, code-signing, and notarization properties intact across large inventories.
@@ -125,13 +126,16 @@ lib/
     depsUtils.js        mergeDependencies + trimComponents (shared BOM dependency utilities)
     display.js          Terminal output tables and summaries
     dotnetutils.js      .NET assembly / NuGet utilities
+    dynamic.js          Dynamic process tracing SBOM generator
     envcontext.js       Git, env info, tool availability checks
     formulationParsers.js  CycloneDX formulation section builder; addFormulationSection()
     golem.js            Go Evinse helper integration, Golem invocation, and cdx:golem evidence mapping
     inventoryStats.js   Shared filters and counters for unpackaged native files and source-derived crypto pivots
     logger.js           thoughtLog / traceLog / THINK_MODE / TRACE_MODE
+    osPackageResolver.js  Map dynamic libraries to operating system packages
     protobom.js         Protobuf-based BOM utilities
     pythonutils.js      Python venv / conda helpers
+    traceRunner.js      Execute commands under safer-exec tracing and collect loaded library paths
     utils.js            ~18 000-line utility module; most parsing functions live here
     bomValidator.js        CycloneDX JSON schema validation
   managers/

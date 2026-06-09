@@ -205,6 +205,9 @@ jobs:
           mv cbom${{ matrix.ext }} _cbom
           mv obom${{ matrix.ext }} _obom
           mv saasbom${{ matrix.ext }} _saasbom
+          if [[ -e "tracebom${{ matrix.ext }}" ]]; then
+            mv tracebom${{ matrix.ext }} _tracebom
+          fi
           mv cdx-audit${{ matrix.ext }} _cdx-audit
           mv cdx-verify${{ matrix.ext }} _cdx-verify
           mv cdx-sign${{ matrix.ext }} _cdx-sign
@@ -220,6 +223,9 @@ jobs:
           mv _cbom cbom-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }}
           mv _obom obom-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }}
           mv _saasbom saasbom-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }}
+          if [[ -e _tracebom ]]; then
+            mv _tracebom tracebom-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }}
+          fi
           mv _cdx-audit cdx-audit-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }}
           mv _cdx-verify cdx-verify-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }}
           mv _cdx-sign cdx-sign-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }}
@@ -235,6 +241,9 @@ jobs:
           mv .cbom-postbuild.cdx.json cbom-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}-postbuild.cdx.json
           mv .obom-postbuild.cdx.json obom-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}-postbuild.cdx.json
           mv .saasbom-postbuild.cdx.json saasbom-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}-postbuild.cdx.json
+          if [[ -e .tracebom-postbuild.cdx.json ]]; then
+            mv .tracebom-postbuild.cdx.json tracebom-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}-postbuild.cdx.json
+          fi
           mv .cdx-audit-postbuild.cdx.json cdx-audit-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}-postbuild.cdx.json
           mv .cdx-verify-postbuild.cdx.json cdx-verify-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}-postbuild.cdx.json
           mv .cdx-sign-postbuild.cdx.json cdx-sign-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}-postbuild.cdx.json
@@ -242,6 +251,7 @@ jobs:
           mv .cdx-convert-postbuild.cdx.json cdx-convert-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}-postbuild.cdx.json
           mv .hbom-postbuild.cdx.json hbom-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}-postbuild.cdx.json
           mv .hbom-slim-postbuild.cdx.json hbom-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}-slim-postbuild.cdx.json
+        shell: bash
       - name: Enforce binary size thresholds
         shell: bash
         env:
@@ -263,18 +273,21 @@ jobs:
             "cdx-convert-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }}"
             "hbom-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }}"
             "hbom-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}-slim${{ matrix.ext }}"
+            "tracebom-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }}"
           )
           for artifact in "${artifacts[@]}"; do
-            size_bytes="$(wc -c < "$artifact" | tr -d '[:space:]')"
-            max_bytes="$FAT_MAX_BYTES"
-            if [[ "$artifact" == *-slim${{ matrix.ext }} ]]; then
-              max_bytes="$SLIM_MAX_BYTES"
+            if [[ -e "$artifact" ]]; then
+              size_bytes="$(wc -c < "$artifact" | tr -d '[:space:]')"
+              max_bytes="$FAT_MAX_BYTES"
+              if [[ "$artifact" == *-slim${{ matrix.ext }} ]]; then
+                max_bytes="$SLIM_MAX_BYTES"
+              fi
+              if (( size_bytes > max_bytes )); then
+                echo "Binary size threshold exceeded: $artifact is ${size_bytes} bytes; limit is ${max_bytes} bytes." >&2
+                exit 1
+              fi
+              echo "Binary size OK: $artifact is ${size_bytes} bytes (limit ${max_bytes})."
             fi
-            if (( size_bytes > max_bytes )); then
-              echo "Binary size threshold exceeded: $artifact is ${size_bytes} bytes; limit is ${max_bytes} bytes." >&2
-              exit 1
-            fi
-            echo "Binary size OK: $artifact is ${size_bytes} bytes (limit ${max_bytes})."
           done
       - name: Generate checksums for darwin
         if: ${{ matrix.os == 'darwin' }}
@@ -292,6 +305,7 @@ jobs:
           shasum -a 256 cdx-convert-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }} > cdx-convert-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }}.sha256
           shasum -a 256 hbom-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }} > hbom-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }}.sha256
           shasum -a 256 hbom-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}-slim${{ matrix.ext }} > hbom-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}-slim${{ matrix.ext }}.sha256
+          shasum -a 256 tracebom-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }} > tracebom-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }}.sha256
       - name: Generate checksums for linux
         if: ${{ matrix.os == 'linux' }}
         run: |
@@ -308,6 +322,7 @@ jobs:
           sha256sum cdx-convert-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }} > cdx-convert-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }}.sha256
           sha256sum hbom-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }} > hbom-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }}.sha256
           sha256sum hbom-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}-slim${{ matrix.ext }} > hbom-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}-slim${{ matrix.ext }}.sha256
+          sha256sum tracebom-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }} > tracebom-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}${{ matrix.ext }}.sha256
       - name: Generate checksums for windows
         if: ${{ matrix.os == 'windows' }}
         run: |
@@ -339,6 +354,7 @@ jobs:
             cdx-validate-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}*
             cdx-convert-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}*
             hbom-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}*
+            tracebom-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}*
           if-no-files-found: error
       - name: Release
         uses: softprops/action-gh-release@b4309332981a82ec1c5618f44dd2e27cc8bfbfda  # v3.0.0
@@ -356,7 +372,8 @@ jobs:
             cdx-validate-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}*
             cdx-convert-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}*
             hbom-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}*
-
+            tracebom-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.libc-suffix }}*
+ 
   retry:
     needs: binaries
     if: failure() && fromJSON(github.run_attempt) < 2

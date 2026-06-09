@@ -2124,6 +2124,7 @@ export const PROJECT_TYPE_ALIASES: {
     asar: string[];
     "vscode-extension": string[];
     "chrome-extension": string[];
+    dynamic: string[];
 };
 export namespace PACKAGE_MANAGER_ALIASES {
     let scala: string[];

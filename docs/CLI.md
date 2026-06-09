@@ -444,3 +444,12 @@ cdx-convert -i bom.cdx -o bom.spdx.json
 `cdx-convert` supports CycloneDX 1.6 and 1.7 inputs and exports SPDX 3.0.1.
 
 Refer to [cdx-convert — CycloneDX to SPDX](CDX_CONVERT.md) for complete usage.
+
+## Dynamic Process Tracing (Dynamic SBOM)
+
+Use the `-t dynamic` or `-t trace` project types to trace binary execution at runtime and capture loaded libraries:
+
+- `--trace-cmd`: The command line to execute and trace (e.g. `cdxgen -t dynamic --trace-cmd "node app.js"`).
+- `--trace-working-dir`: Optional. The working directory for command execution.
+
+Dynamic trace SBOMs tag discovered libraries as `scope=required` with CycloneDX verification `evidence` technique set to `instrumentation`.

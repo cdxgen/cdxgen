@@ -1,6 +1,6 @@
 {
   "name": "@cyclonedx/cdxgen",
-  "version": "12.5.1",
+  "version": "12.6.0",
   "description": "Creates CycloneDX Software Bill of Materials (SBOM) from source or container image",
   "keywords": [
     "sbom",
@@ -94,14 +94,16 @@
     "evinse": "bin/evinse.js",
     "hbom": "bin/hbom.js",
     "obom": "bin/cdxgen.js",
+    "tracebom": "bin/tracebom.js",
     "saasbom": "bin/cdxgen.js",
     "spdxgen": "bin/cdxgen.js"
   },
   "files": [
     "*.js",
     "lib/**",
-    "!lib/**/*.poku.js",
     "bin/",
+    "!bin/*.poku.js",
+    "!lib/**/*.poku.js",
     "data/",
     "types/",
     "index.cjs"
@@ -117,8 +119,8 @@
     "watch": "poku --watch"
   },
   "dependencies": {
-    "@babel/parser": "7.29.3",
-    "@babel/traverse": "7.29.0",
+    "@babel/parser": "7.29.7",
+    "@babel/traverse": "7.29.7",
     "@iarna/toml": "2.2.5",
     "@isaacs/string-locale-compare": "1.1.0",
     "@npmcli/fs": "5.0.0",
@@ -142,9 +144,9 @@
     "parse-conflict-json": "5.0.1",
     "properties-reader": "3.0.1",
     "read-package-json-fast": "5.0.0",
-    "semver": "7.8.1",
+    "semver": "7.8.2",
     "ssri": "13.0.1",
-    "tar": "7.5.15",
+    "tar": "7.5.16",
     "treeverse": "3.0.0",
     "uuid": "14.0.0",
     "walk-up-path": "4.0.0",
@@ -154,13 +156,14 @@
     "yoctocolors": "2.1.2"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.4.15",
-    "esmock": "2.7.5",
-    "poku": "4.3.1",
+    "@biomejs/biome": "2.4.16",
+    "esmock": "2.7.6",
+    "poku": "4.3.2",
     "sinon": "22.0.0",
     "typescript": "6.0.3"
   },
   "optionalDependencies": {
+    "@cdxgen/safer-exec": "0.9.3",
     "@appthreat/atom": "2.5.5",
     "@appthreat/atom-parsetools": "1.2.2",
     "@cdxgen/cdx-proto": "2.0.3",

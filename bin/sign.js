@@ -27,7 +27,6 @@ const args = _yargs
   })
   .option("private-key", {
     alias: "k",
-    demandOption: true,
     description: "Private key in PEM format.",
   })
   .option("algorithm", {
