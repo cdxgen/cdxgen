@@ -96,6 +96,15 @@ jobs:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           persist-credentials: false
+      - name: Set up Python
+        uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6.2.0
+        with:
+          python-version: 3.13
+      - name: Set up JDK ${{ matrix.java-version }}
+        uses: actions/setup-java@be666c2fcd27ec809703dec50e508c2fdc7f6654 # v5.2.0
+        with:
+          distribution: 'temurin'
+          java-version: ${{ matrix.java-version }}
       - name: Setup pnpm
         uses: pnpm/action-setup@0e279bb959325dab635dd2c09392533439d90093  # v6.0.8
       - name: Use Node.js ${{ matrix.node-version }}
@@ -123,7 +132,7 @@ jobs:
             ARCH_NAME="amd64"
           fi
 
-          VERSION="0.6.4"
+          VERSION="0.7.1"
           SAFER_EXEC_BIN="safer-exec-${OS_NAME}-${ARCH_NAME}"
           
           echo "Downloading safer-exec SEA binary: ${SAFER_EXEC_BIN}..."
@@ -150,6 +159,7 @@ jobs:
           ./${SAFER_EXEC_BIN} --policy=poku --timeout=240000 -- pnpm test
         env:
           CI: true
+          RUNNING_IN_SAFER_EXEC_SANDBOX: true
 
   depscan:
     continue-on-error: true
