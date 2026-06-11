@@ -133,7 +133,7 @@ jobs:
             ARCH_NAME="amd64"
           fi
 
-          VERSION="0.9.3"
+          VERSION="0.9.4"
           SAFER_EXEC_BIN="safer-exec-${OS_NAME}-${ARCH_NAME}"
           
           echo "Downloading safer-exec SEA binary: ${SAFER_EXEC_BIN}..."

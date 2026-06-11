@@ -107,6 +107,161 @@ describe("tracebom CLI", () => {
     assert.ok(existsSync(tmpFile));
     unlinkSync(tmpFile);
   });
+
+  it("--max-cpu is accepted", { timeout: 30000 }, async () => {
+    const tmpFile = join(process.cwd(), "tmp-tracebom-cpu.json");
+    const { status } = await execNode([
+      binPath,
+      "--cmd",
+      "echo hello",
+      "--max-cpu",
+      "0.5",
+      "--output",
+      tmpFile,
+    ]);
+    assert.strictEqual(status, 0);
+    assert.ok(existsSync(tmpFile));
+    unlinkSync(tmpFile);
+  });
+
+  it("--sanitize-env is accepted", { timeout: 30000 }, async () => {
+    const tmpFile = join(process.cwd(), "tmp-tracebom-sanitize.json");
+    const { status } = await execNode([
+      binPath,
+      "--cmd",
+      "echo hello",
+      "--sanitize-env",
+      "--output",
+      tmpFile,
+    ]);
+    assert.strictEqual(status, 0);
+    assert.ok(existsSync(tmpFile));
+    unlinkSync(tmpFile);
+  });
+
+  it("--strict is accepted", { timeout: 30000 }, async () => {
+    const tmpFile = join(process.cwd(), "tmp-tracebom-strict.json");
+    const { status } = await execNode([
+      binPath,
+      "--cmd",
+      "echo hello",
+      "--strict",
+      "--output",
+      tmpFile,
+    ]);
+    assert.strictEqual(status, 0);
+    assert.ok(existsSync(tmpFile));
+    unlinkSync(tmpFile);
+  });
+
+  it("--diff is accepted", { timeout: 30000 }, async () => {
+    const tmpFile = join(process.cwd(), "tmp-tracebom-diff.json");
+    const { status } = await execNode([
+      binPath,
+      "--cmd",
+      "echo hello",
+      "--diff",
+      "--output",
+      tmpFile,
+    ]);
+    assert.strictEqual(status, 0);
+    assert.ok(existsSync(tmpFile));
+    unlinkSync(tmpFile);
+  });
+
+  it("--allow-host is accepted", { timeout: 30000 }, async () => {
+    const tmpFile = join(process.cwd(), "tmp-tracebom-allowhost.json");
+    const { status } = await execNode([
+      binPath,
+      "--cmd",
+      "echo hello",
+      "--allow-host",
+      "example.com,api.example.com",
+      "--output",
+      tmpFile,
+    ]);
+    assert.strictEqual(status, 0);
+    assert.ok(existsSync(tmpFile));
+    unlinkSync(tmpFile);
+  });
+
+  it("--allow-port is accepted", { timeout: 30000 }, async () => {
+    const tmpFile = join(process.cwd(), "tmp-tracebom-allowport.json");
+    const { status } = await execNode([
+      binPath,
+      "--cmd",
+      "echo hello",
+      "--allow-port",
+      "443,8443",
+      "--output",
+      tmpFile,
+    ]);
+    assert.strictEqual(status, 0);
+    assert.ok(existsSync(tmpFile));
+    unlinkSync(tmpFile);
+  });
+
+  it("--block-fork is accepted", { timeout: 30000 }, async () => {
+    const tmpFile = join(process.cwd(), "tmp-tracebom-blockfork.json");
+    const { status } = await execNode([
+      binPath,
+      "--cmd",
+      "echo hello",
+      "--block-fork",
+      "--output",
+      tmpFile,
+    ]);
+    assert.strictEqual(status, 0);
+    assert.ok(existsSync(tmpFile));
+    unlinkSync(tmpFile);
+  });
+
+  it("--trace-exec is accepted", { timeout: 30000 }, async () => {
+    const tmpFile = join(process.cwd(), "tmp-tracebom-traceexec.json");
+    const { status } = await execNode([
+      binPath,
+      "--cmd",
+      "echo hello",
+      "--trace-exec",
+      "--output",
+      tmpFile,
+    ]);
+    assert.strictEqual(status, 0);
+    assert.ok(existsSync(tmpFile));
+    unlinkSync(tmpFile);
+  });
+
+  it("--allow-exec is accepted", { timeout: 30000 }, async () => {
+    const tmpFile = join(process.cwd(), "tmp-tracebom-allowexec.json");
+    const { status } = await execNode([
+      binPath,
+      "--cmd",
+      "echo hello",
+      "--allow-exec",
+      "node,npm",
+      "--output",
+      tmpFile,
+    ]);
+    assert.strictEqual(status, 0);
+    assert.ok(existsSync(tmpFile));
+    unlinkSync(tmpFile);
+  });
+
+  it("--block-exec is accepted", { timeout: 30000 }, async () => {
+    const tmpFile = join(process.cwd(), "tmp-tracebom-blockexec.json");
+    const { status } = await execNode([
+      binPath,
+      "--cmd",
+      "echo hello",
+      "--block-exec",
+      "sh,bash",
+      "--output",
+      tmpFile,
+    ]);
+    assert.strictEqual(status, 0);
+    assert.ok(existsSync(tmpFile));
+    unlinkSync(tmpFile);
+  });
 });
 
 function execNode(args) {

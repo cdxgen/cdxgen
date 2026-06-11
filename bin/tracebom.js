@@ -91,6 +91,61 @@ const args = _yargs
       "Stop tracing after N seconds (for long-running or persistent commands).",
     type: "number",
   })
+  .option("max-cpu", {
+    description:
+      "Max CPU cores as fractional number (e.g. 0.5 for half a core).",
+    type: "number",
+  })
+  .option("sanitize-env", {
+    description:
+      "Strip sensitive environment variables (TOKEN, SECRET, AUTH, etc.) before sandboxed execution.",
+    default: false,
+    type: "boolean",
+  })
+  .option("diff", {
+    description:
+      "Enable filesystem mutation diffing (tracks created/modified/deleted files).",
+    default: false,
+    type: "boolean",
+  })
+  .option("strict", {
+    description: "Treat sandbox setup warnings as hard errors.",
+    default: false,
+    type: "boolean",
+  })
+  .option("allow-host", {
+    description:
+      "Comma-separated hostnames to allow network access to (when network is enabled).",
+    type: "string",
+  })
+  .option("allow-port", {
+    description: "Comma-separated TCP ports to allow network access to.",
+    type: "string",
+  })
+  .option("allow-url", {
+    description:
+      "Comma-separated URL allow rules for fine-grained HTTP access control (Linux only, requires --trace-http-urls).",
+    type: "string",
+  })
+  .option("block-fork", {
+    description: "Prevent the traced process from forking new processes.",
+    default: false,
+    type: "boolean",
+  })
+  .option("trace-exec", {
+    description: "Log every child process spawned by the traced command.",
+    default: false,
+    type: "boolean",
+  })
+  .option("allow-exec", {
+    description:
+      "Comma-separated list of executables the traced command is allowed to run.",
+    type: "string",
+  })
+  .option("block-exec", {
+    description: "Comma-separated list of executables to block from running.",
+    type: "string",
+  })
   .option("print", {
     description: "Print BOM to stdout.",
     default: false,
@@ -137,6 +192,28 @@ const options = {
     : (args.disableNetwork ?? true),
   traceHTTPURLs: args.traceHttpUrls ?? false,
   tracePeriod: args.tracePeriod,
+  traceMaxCPUCores: args.maxCpu,
+  traceSanitizeEnv: args.sanitizeEnv ?? false,
+  traceEnableDiff: args.diff ?? false,
+  traceStrict: args.strict ?? false,
+  traceAllowHosts: args.allowHost
+    ? args.allowHost.split(",").filter(Boolean)
+    : [],
+  traceAllowPorts: args.allowPort
+    ? args.allowPort
+        .split(",")
+        .map(Number)
+        .filter((n) => !Number.isNaN(n))
+    : [],
+  traceAllowUrls: args.allowUrl ? args.allowUrl.split(",").filter(Boolean) : [],
+  traceBlockFork: args.blockFork ?? false,
+  traceTraceExec: args.traceExec ?? false,
+  traceAllowExec: args.allowExec
+    ? args.allowExec.split(",").filter(Boolean)
+    : [],
+  traceBlockExec: args.blockExec
+    ? args.blockExec.split(",").filter(Boolean)
+    : [],
   projectType: ["dynamic"],
   output: resolve(args.output),
 };

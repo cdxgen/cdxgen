@@ -187,8 +187,8 @@ importers:
         specifier: 2.4.0
         version: 2.4.0
       '@cdxgen/safer-exec':
-        specifier: 0.9.3
-        version: 0.9.3
+        specifier: 0.9.4
+        version: 0.9.4
       body-parser:
         specifier: 2.2.2
         version: 2.2.2
@@ -381,28 +381,28 @@ packages:
   '@cdxgen/cdxgen-plugins-bin@2.4.0':
     resolution: {integrity: sha512-sx6CnLdCtKNXQCoPoWG0HhQG7RahmPZC0zcfrJN7BzGR0DKlYpGoXTkxHpOO+wa2R10pg0SclPkxQbNio8QlSw==, tarball: https://registry.npmjs.org/@cdxgen/cdxgen-plugins-bin/-/cdxgen-plugins-bin-2.4.0.tgz}
 
-  '@cdxgen/safer-exec-darwin-amd64@0.9.3':
-    resolution: {integrity: sha512-EDOHVe4hfyS+5SmUu5yM2EnqLqe6p17QF69hzuluUqgsi5j05DDuXmGSpDXXx/rP5Fp0qn1wBYZz0wbe1UPphQ==, tarball: https://registry.npmjs.org/@cdxgen/safer-exec-darwin-amd64/-/safer-exec-darwin-amd64-0.9.3.tgz}
+  '@cdxgen/safer-exec-darwin-amd64@0.9.4':
+    resolution: {integrity: sha512-I1l4aUwwYFZp6sA/Pfly6LLmRal5so4Q108gxzYTj8lLLj2T4fsjSk5kShvwPW3D4PeKoIdDHHRvYI1j6AuCJA==, tarball: https://registry.npmjs.org/@cdxgen/safer-exec-darwin-amd64/-/safer-exec-darwin-amd64-0.9.4.tgz}
     cpu: [x64]
     os: [darwin]
 
-  '@cdxgen/safer-exec-darwin-arm64@0.9.3':
-    resolution: {integrity: sha512-E8Z/MNGvi0RX+MF/KpwYfAaTtdNxF6jjc/6Oxd2Cm6b0tMcjhYoIie4Yb97jjwj5zVwJv/2k/HFR19Edfzfktg==, tarball: https://registry.npmjs.org/@cdxgen/safer-exec-darwin-arm64/-/safer-exec-darwin-arm64-0.9.3.tgz}
+  '@cdxgen/safer-exec-darwin-arm64@0.9.4':
+    resolution: {integrity: sha512-2V2zi0SjmVyBCvIfUPi/y+KHxcWd95PKakqr47Mka9Unp/NbtCJ+6ZsP7RCwWSq7gpe+HWsrb5/s/2TzunSvAQ==, tarball: https://registry.npmjs.org/@cdxgen/safer-exec-darwin-arm64/-/safer-exec-darwin-arm64-0.9.4.tgz}
     cpu: [arm64]
     os: [darwin]
 
-  '@cdxgen/safer-exec-linux-amd64@0.9.3':
-    resolution: {integrity: sha512-HpuE9Isei/0uCrqrgLVjWNLhyFhQaeWsNrIX7ObKF990Er3iOlWdqaPJ+bK71FcfW9Q1aNLftW8UENwhtOuCBg==, tarball: https://registry.npmjs.org/@cdxgen/safer-exec-linux-amd64/-/safer-exec-linux-amd64-0.9.3.tgz}
+  '@cdxgen/safer-exec-linux-amd64@0.9.4':
+    resolution: {integrity: sha512-SungF6qGTb2teiVgxa3DquxuLb8WZXlIZUNOPwGoLQeUjQntiWSyCyCEwS6MCHKgloCmXojp231d7SNHJSESRg==, tarball: https://registry.npmjs.org/@cdxgen/safer-exec-linux-amd64/-/safer-exec-linux-amd64-0.9.4.tgz}
     cpu: [x64]
     os: [linux]
 
-  '@cdxgen/safer-exec-linux-arm64@0.9.3':
-    resolution: {integrity: sha512-xkmirJXnbpAIMKd9kxKGnZwVPlHESiX/SHlBGn1AKVm9u66HYFX81dojkfvdhXEaSisF94HmQTThRUOLNcRUMw==, tarball: https://registry.npmjs.org/@cdxgen/safer-exec-linux-arm64/-/safer-exec-linux-arm64-0.9.3.tgz}
+  '@cdxgen/safer-exec-linux-arm64@0.9.4':
+    resolution: {integrity: sha512-zYGavpWgwCkkQstS461RPU0tonkQRa4tKlUZnbu3kOGoaXsqbHtFA8rYrO7hPBvmEPssSyv+Y9BOrenUhM3+8g==, tarball: https://registry.npmjs.org/@cdxgen/safer-exec-linux-arm64/-/safer-exec-linux-arm64-0.9.4.tgz}
     cpu: [arm64]
     os: [linux]
 
-  '@cdxgen/safer-exec@0.9.3':
-    resolution: {integrity: sha512-h6GiT3EVnkH0+sa4TY7gVFhbqXJUVtC0ph65EELFBg+4AIdQupmsMmBtQ8oaWb/Dh/WSAX/IWiUeiqZFBvtnjA==, tarball: https://registry.npmjs.org/@cdxgen/safer-exec/-/safer-exec-0.9.3.tgz}
+  '@cdxgen/safer-exec@0.9.4':
+    resolution: {integrity: sha512-x/fSmSGxDuXBFGGp//umVaFwkEBkiXCUl7IU1o3AIEsOTQ2XhmQ4QKDgMyD0QGKTd5Wa+3dmIHraDYvgKQOyaQ==, tarball: https://registry.npmjs.org/@cdxgen/safer-exec/-/safer-exec-0.9.4.tgz}
     engines: {node: '>=20.0.0'}
     hasBin: true
 
@@ -1313,24 +1313,24 @@ snapshots:
   '@cdxgen/cdxgen-plugins-bin@2.4.0':
     optional: true
 
-  '@cdxgen/safer-exec-darwin-amd64@0.9.3':
+  '@cdxgen/safer-exec-darwin-amd64@0.9.4':
     optional: true
 
-  '@cdxgen/safer-exec-darwin-arm64@0.9.3':
+  '@cdxgen/safer-exec-darwin-arm64@0.9.4':
     optional: true
 
-  '@cdxgen/safer-exec-linux-amd64@0.9.3':
+  '@cdxgen/safer-exec-linux-amd64@0.9.4':
     optional: true
 
-  '@cdxgen/safer-exec-linux-arm64@0.9.3':
+  '@cdxgen/safer-exec-linux-arm64@0.9.4':
     optional: true
 
-  '@cdxgen/safer-exec@0.9.3':
+  '@cdxgen/safer-exec@0.9.4':
     optionalDependencies:
-      '@cdxgen/safer-exec-darwin-amd64': 0.9.3
-      '@cdxgen/safer-exec-darwin-arm64': 0.9.3
-      '@cdxgen/safer-exec-linux-amd64': 0.9.3
-      '@cdxgen/safer-exec-linux-arm64': 0.9.3
+      '@cdxgen/safer-exec-darwin-amd64': 0.9.4
+      '@cdxgen/safer-exec-darwin-arm64': 0.9.4
+      '@cdxgen/safer-exec-linux-amd64': 0.9.4
+      '@cdxgen/safer-exec-linux-arm64': 0.9.4
     optional: true
 
   '@gar/promise-retry@1.0.3': {}

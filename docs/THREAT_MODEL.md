@@ -451,7 +451,7 @@ Trust boundary 5: cdxgen container ←→ container host
 
 - `@cdxgen/safer-exec` implements kernel-level namespace isolation, Landlock network confinement, and cgroup v2 resource limits on Linux, and Seatbelt sandboxing on macOS.
 - Tracing is locked down using LD_AUDIT / DYLD_INSERT_LIBRARIES mechanism enforced securely by the sandbox boundary.
-- Configurable sandbox limits (`--max-memory`, `--max-processes`, `--timeout`, `--disable-network`, `--read-paths`, `--write-paths`) allow operators to restrict the traced process.
+- Configurable sandbox limits (`--max-memory`, `--max-cpu`, `--max-processes`, `--timeout`, `--disable-network`, `--read-paths`, `--write-paths`, `--strict`, `--sanitize-env`, `--diff`, `--block-fork`, `--trace-exec`, `--allow-exec`, `--block-exec`, `--allow-host`, `--allow-port`, `--allow-url`) allow operators to restrict the traced process.
 
 #### T7.2 — Arbitrary command execution on host operating system
 
@@ -462,6 +462,7 @@ Trust boundary 5: cdxgen container ←→ container host
 - `traceRunner.js` splits and parses the command string into an array of arguments, avoiding shell wrapper execution.
 - Command execution is performed via `SaferExec` class which enforces the standard process constraints and does not run raw strings inside shell wrappers.
 - No allowlist enforcement in traceRunner — the CLI operator is trusted to pass safe commands. The sandbox itself is the enforcement mechanism.
+- Additional sandbox controls (`--allow-exec`, `--block-exec`, `--block-fork`, `--trace-exec`) allow restricting which child processes the command can spawn, mitigating post-install script attacks.
 
 ## Data Flow Diagram
 

@@ -109,6 +109,24 @@ Collected HTTP URLs are grouped by host and enumerated as CycloneDX `services`:
 }
 ```
 
+### Additional sandbox controls
+
+tracebom exposes many of `@cdxgen/safer-exec`'s sandbox controls as CLI flags for advanced use cases:
+
+```bash
+# Restrict CPU usage and strip sensitive env vars
+tracebom --cmd "npm install" --max-cpu 0.5 --sanitize-env -o bom.json
+
+# Strict mode + filesystem diffing (useful in CI/CD)
+tracebom --cmd "npm install" --strict --diff --write-paths /tmp/cache -o bom.json
+
+# Network allow-lists with port and host restrictions
+tracebom --cmd "node server.js" --allow-host registry.npmjs.org --allow-port 443 -o bom.json
+
+# Prevent forking and restrict which executables can run
+tracebom --cmd "npm install" --block-fork --allow-exec node,npm --block-exec sh,bash -o bom.json
+```
+
 > **Note:** HTTP URL tracing requires Linux kernel >= 5.8 with eBPF support and sufficient capabilities (CAP_BPF, CAP_PERFMON). It gracefully falls back with an empty service list on other platforms.
 
 ## Step 4: Inspect the Instrumented components in `cdxi`
