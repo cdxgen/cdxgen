@@ -24,22 +24,44 @@ export function resolveSaferExecBinary(): string | undefined;
  * @param {string[]} [options.readPaths] - Extra filesystem read paths merged with READ_PATHS
  * @param {string[]} [options.writePaths] - Sandbox write paths (default: [tmpdir()])
  * @param {number} [options.maxMemoryMB] - Max memory in MB (default: TRACE_MAX_MEMORY_MB)
+ * @param {number} [options.maxCPUCores] - Max CPU cores as fractional number
  * @param {number} [options.maxProcesses] - Max process count (default: TRACE_MAX_PROCESSES)
  * @param {number} [options.timeoutMs] - Trace timeout in ms (default: TRACE_TIMEOUT_MS)
  * @param {boolean} [options.disableNetwork] - Disable network in sandbox (default: true)
  * @param {boolean} [options.traceHTTPURLs] - Enable eBPF-based HTTP URL tracing (Linux only)
  * @param {number} [options.tracePeriod] - Stop tracing after N seconds (for long-running commands)
+ * @param {boolean} [options.sanitizeEnv] - Strip sensitive env vars before sandboxed execution
+ * @param {boolean} [options.enableDiff] - Enable filesystem mutation diffing
+ * @param {boolean} [options.strict] - Treat sandbox setup warnings as hard errors
+ * @param {string[]} [options.allowHosts] - Hostnames to allow network access to
+ * @param {number[]} [options.allowPorts] - TCP ports to allow
+ * @param {string[]} [options.allowUrls] - URL-based allow rules (Linux, requires traceHTTPURLs)
+ * @param {boolean} [options.blockFork] - Prevent forking new processes
+ * @param {boolean} [options.traceExec] - Log every child process spawned
+ * @param {string[]} [options.allowExec] - Executables the command is allowed to run
+ * @param {string[]} [options.blockExec] - Executables to block from running
  * @returns {Promise<{libPaths: string[], httpAccessEntries: Object[]}>} Collected libraries and HTTP URLs
  */
 export function executeAndTrace(commandStr: string, workingDir?: string, options?: {
     readPaths?: string[] | undefined;
     writePaths?: string[] | undefined;
     maxMemoryMB?: number | undefined;
+    maxCPUCores?: number | undefined;
     maxProcesses?: number | undefined;
     timeoutMs?: number | undefined;
     disableNetwork?: boolean | undefined;
     traceHTTPURLs?: boolean | undefined;
     tracePeriod?: number | undefined;
+    sanitizeEnv?: boolean | undefined;
+    enableDiff?: boolean | undefined;
+    strict?: boolean | undefined;
+    allowHosts?: string[] | undefined;
+    allowPorts?: number[] | undefined;
+    allowUrls?: string[] | undefined;
+    blockFork?: boolean | undefined;
+    traceExec?: boolean | undefined;
+    allowExec?: string[] | undefined;
+    blockExec?: string[] | undefined;
 }): Promise<{
     libPaths: string[];
     httpAccessEntries: Object[];
