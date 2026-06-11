@@ -73,13 +73,14 @@ if (j.services && j.services.length > 0) {
     fi
     sudo rm -rf "$TESTDIR"
 
-    echo "--- Test 3: pip install SaaSBOM (best effort) ---"
+    echo "--- Test 3: pip download SaaSBOM (best effort) ---"
     TESTDIR="$(mktemp -d)"
     cd "$TESTDIR"
     echo 'requests>=2.28.0' > requirements.txt
+    mkdir -p dist
     OUTPUT="$RESULTS_DIR/tracebom-pip.json"
 
-    if sudo -E node "$TRACEBOM" --cmd "pip install -r requirements.txt --no-cache-dir" --trace-http-urls --trace-period 30 --output "$OUTPUT" 2>&1; then
+    if sudo -E node "$TRACEBOM" --cmd "pip download -r requirements.txt --no-cache-dir -d dist" --trace-http-urls --trace-period 30 --output "$OUTPUT" 2>&1; then
       node -e '
 const j = require("'"$OUTPUT"'");
 if (!j.bomFormat) { console.log("FAIL: no bomFormat"); process.exit(1); }
