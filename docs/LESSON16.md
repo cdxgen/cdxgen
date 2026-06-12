@@ -109,6 +109,17 @@ Collected HTTP URLs are grouped by host and enumerated as CycloneDX `services`:
 }
 ```
 
+## Step 3b: Cryptographic Tracing and CBOM Generation
+
+When `--trace-crypto` is enabled (default), tracebom intercepts cryptographic operations and TLS cipher negotiation events using eBPF uprobes/uretprobes on OpenSSL, GnuTLS, and Go's `crypto/tls` libraries.
+
+This generates **CycloneDX 1.7** compliant `cryptographic-asset` components in the SBOM representing the cryptographic libraries and algorithms (and protocols such as `TLS` with active `cipherSuites`) detected during runtime:
+
+```bash
+# Trace app.js, capture cryptographic assets, and output standalone CBOM file
+tracebom --cmd "node app.js" --trace-crypto --cbom-output cbom.json -o bom.json
+```
+
 ### Additional sandbox controls
 
 tracebom exposes many of `@cdxgen/safer-exec`'s sandbox controls as CLI flags for advanced use cases:

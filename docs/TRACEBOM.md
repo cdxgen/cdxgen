@@ -26,6 +26,8 @@ tracebom --cmd <command> [options]
 | `--timeout`         | number  | `60000`    | Trace timeout in milliseconds.                                                                                   |
 | `--disable-network` | boolean | `true`     | Disable network inside sandbox. Automatically disabled when `--trace-http-urls` is set.                          |
 | `--trace-http-urls` | boolean | `false`    | Enable eBPF-based HTTP URL tracing (Linux only, kernel >= 5.8). Requires CAP_BPF.                                |
+| `--trace-crypto`    | boolean | `true`     | Enable eBPF-based cryptographic library and cipher suite tracing (Linux only, kernel >= 5.8).                    |
+| `--cbom-output`     | string  | —          | Save a standalone CycloneDX CBOM JSON file at this path.                                                         |
 | `--trace-period`    | number  | —          | Stop tracing after N seconds. Useful for tracing long-running or persistent commands.                            |
 | `--sanitize-env`    | boolean | `false`    | Strip sensitive environment variables (TOKEN, SECRET, AUTH, etc.) before sandboxed execution.                    |
 | `--diff`            | boolean | `false`    | Enable filesystem mutation diffing. Tracks which files are created, modified, or deleted.                        |
@@ -53,6 +55,9 @@ tracebom --cmd "node app.js" --max-memory 256 --timeout 30000 --print
 
 # Collect HTTP URLs as services from a persistent server (stop after 30 seconds)
 tracebom --cmd "node server.js" --trace-http-urls --trace-period 30 -o bom.json
+
+# Trace cryptographic library operations and generate CBOM
+tracebom --cmd "node app.js" --trace-crypto --cbom-output cbom.json -o bom.json
 
 # Trace with CPU limit and environment sanitization
 tracebom --cmd "node app.js" --max-cpu 0.5 --sanitize-env -o bom.json

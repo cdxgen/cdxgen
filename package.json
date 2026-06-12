@@ -163,7 +163,7 @@
     "typescript": "6.0.3"
   },
   "optionalDependencies": {
-    "@cdxgen/safer-exec": "0.9.4",
+    "@cdxgen/safer-exec": "0.11.0",
     "@appthreat/atom": "2.5.5",
     "@appthreat/atom-parsetools": "1.2.2",
     "@cdxgen/cdx-proto": "2.0.3",

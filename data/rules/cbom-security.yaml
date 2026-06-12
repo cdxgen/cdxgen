@@ -1,0 +1,165 @@
+# CBOM Security and Compliance Rules
+# Category: cbom-security, cbom-compliance
+# Evaluates cryptographic assets (algorithms, protocols, certificates, related-crypto-material) for weaknesses.
+
+- id: CBS-001
+  name: "Weak/Deprecated Cryptographic Algorithm"
+  description: "Usage of weak or deprecated cryptographic algorithms such as MD5, SHA-1, RC4, DES, 3DES, or Blowfish exposes data to decryption or collision attacks."
+  severity: high
+  category: cbom-security
+  dry-run-support: full
+  standards:
+    nist-800-53:
+      - "SC-13 Cryptographic Protection"
+    iso-27001:
+      - "A.8.24 Use of cryptography"
+  condition: |
+    components[
+      cryptoProperties.assetType = 'algorithm'
+      and (
+        $contains($lowercase($safeStr(cryptoProperties.algorithmProperties.algorithmFamily)), 'md5')
+        or $contains($lowercase($safeStr(cryptoProperties.algorithmProperties.algorithmFamily)), 'sha-1')
+        or $contains($lowercase($safeStr(cryptoProperties.algorithmProperties.algorithmFamily)), 'sha1')
+        or $contains($lowercase($safeStr(cryptoProperties.algorithmProperties.algorithmFamily)), 'rc4')
+        or $contains($lowercase($safeStr(cryptoProperties.algorithmProperties.algorithmFamily)), 'des')
+        or $contains($lowercase($safeStr(cryptoProperties.algorithmProperties.algorithmFamily)), 'blowfish')
+        or $contains($lowercase($safeStr(cryptoProperties.algorithmProperties.algorithmFamily)), 'md4')
+        or $contains($lowercase($safeStr(cryptoProperties.algorithmProperties.algorithmFamily)), 'rc2')
+      )
+    ]
+  location: |
+    {
+      "bomRef": $firstNonEmpty($."bom-ref", bom.serialNumber)
+    }
+  message: "Weak/Deprecated cryptographic algorithm family '{{ cryptoProperties.algorithmProperties.algorithmFamily }}' detected in component '{{ name }}'"
+  mitigation: "Migrate to secure alternatives like SHA-256, SHA-3, or AES-GCM."
+  evidence: |
+    {
+      "algorithmFamily": cryptoProperties.algorithmProperties.algorithmFamily,
+      "primitive": cryptoProperties.algorithmProperties.primitive
+    }
+
+- id: CBS-002
+  name: "Insecure Cipher Mode of Operation"
+  description: "Electronic Codebook (ECB) mode lacks cryptographic diffusion and exposes patterns in ciphertext, while Cipher Block Chaining (CBC) without authenticated encryption (AEAD) is vulnerable to padding oracle attacks."
+  severity: high
+  category: cbom-security
+  dry-run-support: full
+  standards:
+    nist-800-53:
+      - "SC-13 Cryptographic Protection"
+  condition: |
+    components[
+      cryptoProperties.assetType = 'algorithm'
+      and (
+        cryptoProperties.algorithmProperties.mode = 'ecb'
+        or (cryptoProperties.algorithmProperties.mode = 'cbc' and cryptoProperties.algorithmProperties.primitive != 'ae')
+      )
+    ]
+  location: |
+    {
+      "bomRef": $firstNonEmpty($."bom-ref", bom.serialNumber)
+    }
+  message: "Insecure cipher mode '{{ cryptoProperties.algorithmProperties.mode }}' detected for component '{{ name }}'"
+  mitigation: "Use authenticated encryption modes such as GCM or CCM."
+  evidence: |
+    {
+      "algorithmFamily": cryptoProperties.algorithmProperties.algorithmFamily,
+      "mode": cryptoProperties.algorithmProperties.mode,
+      "primitive": cryptoProperties.algorithmProperties.primitive
+    }
+
+- id: CBS-003
+  name: "Insufficient Classical Security Level or Key Size"
+  description: "Symmetric algorithms with security levels under 128 bits, or asymmetric algorithms (like RSA) with keys under 2048 bits, are vulnerable to brute-force attacks."
+  severity: high
+  category: cbom-security
+  dry-run-support: full
+  standards:
+    nist-800-53:
+      - "SC-13 Cryptographic Protection"
+  condition: |
+    components[
+      (
+        cryptoProperties.assetType = 'algorithm'
+        and $number(cryptoProperties.algorithmProperties.classicalSecurityLevel) > 0
+        and $number(cryptoProperties.algorithmProperties.classicalSecurityLevel) < 128
+      )
+      or (
+        cryptoProperties.assetType = 'related-crypto-material'
+        and cryptoProperties.relatedCryptoMaterialProperties.type = 'private-key'
+        and $number(cryptoProperties.relatedCryptoMaterialProperties.size) > 0
+        and $number(cryptoProperties.relatedCryptoMaterialProperties.size) < 2048
+      )
+    ]
+  location: |
+    {
+      "bomRef": $firstNonEmpty($."bom-ref", bom.serialNumber)
+    }
+  message: "Cryptographic strength is insufficient: {{ $firstNonEmpty(cryptoProperties.algorithmProperties.classicalSecurityLevel, cryptoProperties.relatedCryptoMaterialProperties.size) }} bits"
+  mitigation: "Upgrade key lengths to at least 128 bits for symmetric keys and 2048 bits (preferably 3072 or 4096 bits) for asymmetric/RSA keys."
+  evidence: |
+    {
+      "assetType": cryptoProperties.assetType,
+      "classicalSecurityLevel": cryptoProperties.algorithmProperties.classicalSecurityLevel,
+      "keySize": cryptoProperties.relatedCryptoMaterialProperties.size
+    }
+
+- id: CBS-004
+  name: "Outdated/Insecure Protocol Version"
+  description: "Outdated protocols such as SSL v2, SSL v3, TLS 1.0, or TLS 1.1 contain severe vulnerabilities and should be disabled in favor of TLS 1.2 or TLS 1.3."
+  severity: critical
+  category: cbom-security
+  dry-run-support: full
+  standards:
+    nist-800-53:
+      - "SC-8 Transmission Confidentiality and Integrity"
+  condition: |
+    components[
+      cryptoProperties.assetType = 'protocol'
+      and (
+        cryptoProperties.protocolProperties.type = 'tls' or cryptoProperties.protocolProperties.type = 'dtls'
+      )
+      and (
+        $contains($lowercase($safeStr(cryptoProperties.protocolProperties.version)), '1.0')
+        or $contains($lowercase($safeStr(cryptoProperties.protocolProperties.version)), '1.1')
+        or $contains($lowercase($safeStr(cryptoProperties.protocolProperties.version)), 'ssl')
+        or $contains($lowercase($safeStr(cryptoProperties.protocolProperties.version)), '2.0')
+        or $contains($lowercase($safeStr(cryptoProperties.protocolProperties.version)), '3.0')
+      )
+    ]
+  location: |
+    {
+      "bomRef": $firstNonEmpty($."bom-ref", bom.serialNumber)
+    }
+  message: "Insecure protocol version '{{ cryptoProperties.protocolProperties.version }}' detected for component '{{ name }}'"
+  mitigation: "Require TLS 1.2 or TLS 1.3 as the minimum protocol version."
+  evidence: |
+    {
+      "protocol": cryptoProperties.protocolProperties.type,
+      "version": cryptoProperties.protocolProperties.version
+    }
+
+- id: CBC-001
+  name: "Expired or Expiring Certificate"
+  description: "Certificates that have expired or are close to their expiration date will cause service disruptions or trust validation failures."
+  severity: high
+  category: cbom-compliance
+  dry-run-support: full
+  condition: |
+    components[
+      cryptoProperties.assetType = 'certificate'
+      and $hasProp($, 'cdx:cert:isExpired', 'true')
+    ]
+  location: |
+    {
+      "bomRef": $firstNonEmpty($."bom-ref", bom.serialNumber)
+    }
+  message: "Certificate for Subject '{{ cryptoProperties.certificateProperties.subjectName }}' has expired or is invalid"
+  mitigation: "Renew the certificate and update the deployment trust stores."
+  evidence: |
+    {
+      "subject": cryptoProperties.certificateProperties.subjectName,
+      "issuer": cryptoProperties.certificateProperties.issuerName,
+      "notValidAfter": cryptoProperties.certificateProperties.notValidAfter
+    }

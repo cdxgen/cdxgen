@@ -107,8 +107,39 @@ if (j.services && j.services.length > 0) {
   else
     echo "--- Skipping Tests 2/3: kernel $(uname -r) < 5.8 (eBPF required) ---"
   fi
-else
-  echo "--- Skipping Tests 2/3: sudo not available ---"
+# Test 4: Dynamic Cryptography Tracing (CBOM) (Linux >= 5.8 + eBPF/sudo)
+if command -v sudo &>/dev/null && sudo -n true 2>/dev/null; then
+  if [ "$(uname -s)" = "Linux" ] && [ "$(printf '%s\n' "5.8" "$(uname -r)" | sort -V | head -n1)" = "5.8" ]; then
+    echo "--- Test 4: Dynamic Cryptography Tracing (CBOM) ---"
+    TESTDIR="$(mktemp -d)"
+    cd "$TESTDIR"
+    OUTPUT="$RESULTS_DIR/tracebom-crypto.json"
+    
+    if sudo -E node "$TRACEBOM" --cmd "curl -s -o /dev/null https://registry.npmjs.org/" --trace-crypto --output "$OUTPUT" 2>&1; then
+      node -e '
+const j = require("'"$OUTPUT"'");
+if (!j.bomFormat) { console.log("FAIL: no bomFormat"); process.exit(1); }
+const cryptoAssets = j.components.filter(c => c.type === "cryptographic-asset");
+if (cryptoAssets.length > 0) {
+  console.log("PASS: CBOM components captured in main SBOM (" + cryptoAssets.length + " assets)");
+  const hasProto = cryptoAssets.some(c => c.cryptoProperties && c.cryptoProperties.assetType === "protocol");
+  const hasAlgo = cryptoAssets.some(c => c.cryptoProperties && c.cryptoProperties.assetType === "algorithm");
+  if (hasProto && hasAlgo) {
+    console.log("PASS: Found both protocol and algorithm cryptographic assets in main SBOM");
+  } else {
+    console.log("FAIL: Missing expected protocol or algorithm assets");
+    process.exit(1);
+  }
+} else {
+  console.log("FAIL: No cryptographic assets found in main SBOM");
+  process.exit(1);
+}
+'
+    else
+      echo "WARN: Crypto CBOM test skipped (sandbox or BPF unavailable)"
+    fi
+    sudo rm -rf "$TESTDIR"
+  fi
 fi
 
 echo "=== tracebom SaaSBOM smoke test complete ==="

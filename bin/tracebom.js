@@ -96,11 +96,26 @@ const args = _yargs
       "Max CPU cores as fractional number (e.g. 0.5 for half a core).",
     type: "number",
   })
-  .option("sanitize-env", {
+  .option("allow-envs", {
     description:
-      "Strip sensitive environment variables (TOKEN, SECRET, AUTH, etc.) before sandboxed execution.",
-    default: false,
+      "Comma-separated list of host environment variables allowed to pass through the sandbox.",
+    type: "string",
+  })
+  .option("allow-hidden", {
+    description: "Allow reading and writing to hidden files and directories.",
+    default: true,
     type: "boolean",
+  })
+  .option("allow-listen", {
+    description:
+      "Comma-separated IP addresses or ip:port strings to allow the sandboxed process to bind/listen to.",
+    type: "string",
+  })
+  .option("crypto-probe-mode", {
+    description:
+      "Crypto probe mode controlling tracing depth: tls-only (default) or operations (digest, encrypt, sign).",
+    default: "tls-only",
+    type: "string",
   })
   .option("diff", {
     description:
@@ -145,6 +160,12 @@ const args = _yargs
   .option("block-exec", {
     description: "Comma-separated list of executables to block from running.",
     type: "string",
+  })
+  .option("trace-crypto", {
+    description:
+      "Enable eBPF-based cryptographic library and cipher suite tracing (Linux only).",
+    default: true,
+    type: "boolean",
   })
   .option("print", {
     description: "Print BOM to stdout.",
@@ -193,7 +214,14 @@ const options = {
   traceHTTPURLs: args.traceHttpUrls ?? false,
   tracePeriod: args.tracePeriod,
   traceMaxCPUCores: args.maxCpu,
-  traceSanitizeEnv: args.sanitizeEnv ?? false,
+  traceAllowEnvs: args.allowEnvs
+    ? args.allowEnvs.split(",").filter(Boolean)
+    : [],
+  traceAllowHidden: args.allowHidden ?? true,
+  traceAllowListen: args.allowListen
+    ? args.allowListen.split(",").filter(Boolean)
+    : [],
+  traceCryptoProbeMode: args.cryptoProbeMode || "tls-only",
   traceEnableDiff: args.diff ?? false,
   traceStrict: args.strict ?? false,
   traceAllowHosts: args.allowHost
@@ -214,12 +242,19 @@ const options = {
   traceBlockExec: args.blockExec
     ? args.blockExec.split(",").filter(Boolean)
     : [],
+  traceCrypto: args.traceCrypto ?? true,
+  cbom: undefined,
   projectType: ["dynamic"],
   output: resolve(args.output),
 };
 
 (async () => {
   const { bomJson } = await createDynamicBom(workingDir, options);
+
+  if (!bomJson) {
+    console.error("Dynamic SBOM generation failed: no output was produced.");
+    process.exit(1);
+  }
 
   const jsonPayload = JSON.stringify(bomJson, null, DEBUG_MODE ? 2 : null);
 

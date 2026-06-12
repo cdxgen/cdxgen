@@ -32,14 +32,15 @@ Supported output document formats:
 
 ## Choose your path
 
-| Persona               | What cdxgen helps you do                                                               | First command                                                              | Read next                                                                                                 |
-| --------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- |
-| **Developers**        | Generate a CycloneDX BOM from a local repo, git URL, purl, or container image          | `cdxgen -o bom.json .`                                                     | [CLI Usage][docs-cli], [Supported Project Types][docs-project-types]                                      |
-| **AI platform teams** | Generate AI/ML BOMs, catalog prompt/model/MCP surfaces, and run AI-BOM governance      | `aibom .`                                                                  | [AI-BOM Guide](docs/AI_BOM.md), [AI-BOM lesson](docs/LESSON15.md)                                         |
-| **Hardware teams**    | Generate an HBOM or merged HBOM+OBOM host view for the current host                    | `hbom -o hbom.json`                                                        | [HBOM guide](docs/HBOM.md), [HBOM lesson](docs/LESSON13.md)                                               |
-| **AppSec**            | Enrich BOMs with evidence, run BOM audit rules, and feed downstream security workflows | `cdxgen -o bom.json --profile appsec --evidence --bom-audit .`             | [BOM Audit](docs/BOM_AUDIT.md), [Threat Model](docs/THREAT_MODEL.md)                                      |
-| **SOC analysts**      | Build OBOM inventories for live hosts and triage runtime posture issues                | `obom -o obom.json --deep --bom-audit --bom-audit-categories obom-runtime` | [OBOM lessons](docs/OBOM_LESSONS.md), [Server Usage][docs-server]                                         |
-| **Compliance teams**  | Validate BOM quality, check SCVS/CRA posture, and export SPDX deliverables             | `cdx-validate -i bom.json --benchmark scvs-l2,cra`                         | [cdx-validate](docs/CDX_VALIDATE.md), [cdx-convert](docs/CDX_CONVERT.md), [Permissions][docs-permissions] |
+| Persona               | What cdxgen helps you do                                                                                             | First command                                                              | Read next                                                                                                 |
+| --------------------- | -------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- |
+| **Developers**        | Generate a CycloneDX BOM from a local repo, git URL, purl, or container image                                        | `cdxgen -o bom.json .`                                                     | [CLI Usage][docs-cli], [Supported Project Types][docs-project-types]                                      |
+| **AI platform teams** | Generate AI/ML BOMs, catalog prompt/model/MCP surfaces, and run AI-BOM governance                                    | `aibom .`                                                                  | [AI-BOM Guide](docs/AI_BOM.md), [AI-BOM lesson](docs/LESSON15.md)                                         |
+| **Hardware teams**    | Generate an HBOM or merged HBOM+OBOM host view for the current host                                                  | `hbom -o hbom.json`                                                        | [HBOM guide](docs/HBOM.md), [HBOM lesson](docs/LESSON13.md)                                               |
+| **AppSec**            | Enrich BOMs with evidence, run BOM audit rules, and feed downstream security workflows                               | `cdxgen -o bom.json --profile appsec --evidence --bom-audit .`             | [BOM Audit](docs/BOM_AUDIT.md), [Threat Model](docs/THREAT_MODEL.md)                                      |
+| **SOC analysts**      | Build OBOM inventories for live hosts and triage runtime posture issues                                              | `obom -o obom.json --deep --bom-audit --bom-audit-categories obom-runtime` | [OBOM lessons](docs/OBOM_LESSONS.md), [Server Usage][docs-server]                                         |
+| **Compliance teams**  | Validate BOM quality, check SCVS/CRA posture, and export SPDX deliverables                                           | `cdx-validate -i bom.json --benchmark scvs-l2,cra`                         | [cdx-validate](docs/CDX_VALIDATE.md), [cdx-convert](docs/CDX_CONVERT.md), [Permissions][docs-permissions] |
+| **Security Teams**    | Dynamically trace executions to capture cryptographic activities, CBOM properties, software components, and services | `tracebom --cbom-output cbom.json -- npm test`                             | [Threat Model](docs/THREAT_MODEL.md)                                                                      |
 
 ### Role-based quick starts
 
@@ -60,6 +61,7 @@ Supported output document formats:
 
 - Use `--profile appsec`, `--evidence`, and `--bom-audit` when you want richer security context.
 - Combine generation with [BOM Audit](docs/BOM_AUDIT.md), [cdx-validate](docs/CDX_VALIDATE.md), signing, and verification for a fuller secure-SBOM workflow.
+- Use `tracebom` to dynamically profile applications & services and capture negotiated TLS cipher suites, protocols, cryptographic libraries, dynamically resolved software components, and services in CycloneDX 1.7 format.
 
 #### For AI platform and governance teams
 
@@ -138,6 +140,7 @@ Installing `@cyclonedx/cdxgen` exposes these commands:
 | `cdxgen`        | Generate CycloneDX / SPDX BOMs from source, images, binaries, git URLs, or purls                                     | yes                              |
 | `aibom`         | Generate CycloneDX AI/ML BOMs from source, Hugging Face URLs/purls, Modelfiles, or GGUF artifacts (`-t ai` defaults) | yes                              |
 | `hbom`          | Generate a CycloneDX hardware BOM for the current host                                                               | yes (`hbom`, `hbom-slim`)        |
+| `tracebom`      | Trace command execution to capture dynamic CBOM, cryptographic properties, software components, and services         | yes                              |
 | `cdx-audit`     | Prioritize existing BOM dependencies for upstream supply-chain review using explainable risk signals                 | yes                              |
 | `cdx-convert`   | Convert CycloneDX JSON to SPDX 3.0.1 JSON-LD                                                                         | yes                              |
 | `cdx-sign`      | Sign BOMs with JSF signatures                                                                                        | yes                              |
@@ -321,6 +324,7 @@ import { createBom, submitBom } from "npm:@cyclonedx/cdxgen@^12.2.1";
 | Generate a BOM from the current repository                 | `cdxgen -o bom.json .`                                                                                      | [CLI Usage][docs-cli]                           |
 | Generate a BOM from a git URL                              | `cdxgen -o bom.json https://github.com/example/project.git`                                                 | [CLI Usage][docs-cli]                           |
 | Generate a BOM from a package URL                          | `cdxgen -o bom.json "pkg:npm/lodash@4.17.21"`                                                               | [CLI Usage][docs-cli]                           |
+| Generate a dynamically traced CBOM for an application      | `tracebom --cbom-output cbom.json -- npm test`                                                              | [Threat Model](docs/THREAT_MODEL.md)            |
 | Generate and audit an AI-BOM from the current repository   | `cdxgen -r --include-formulation -o aibom.json --bom-audit --bom-audit-categories ai-bom .`                 | [AI-BOM Guide](docs/AI_BOM.md)                  |
 | Scan a container image                                     | `cdxgen ghcr.io/owasp-dep-scan/depscan:nightly -o bom.json -t docker`                                       | [Server Usage][docs-server]                     |
 | Audit a generated BOM for built-in supply-chain findings   | `cdxgen -o bom.json --bom-audit .`                                                                          | [BOM Audit](docs/BOM_AUDIT.md)                  |

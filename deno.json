@@ -107,6 +107,6 @@
     "connect": "npm:connect@^3.7.0",
     "jsonata": "npm:jsonata@^2.2.1",
     "@iarna/toml": "npm:@iarna/toml@2.2.5",
-    "@cdxgen/safer-exec": "npm:@cdxgen/safer-exec@0.9.4"
+    "@cdxgen/safer-exec": "npm:@cdxgen/safer-exec@0.11.0"
   }
 }
