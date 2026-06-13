@@ -1,5 +1,5 @@
 # Base-image
-FROM registry.suse.com/bci/dotnet-sdk:9.0.16@sha256:f2cd14c64abbe3312f48d91b8eef0fb7cb98363e29154bcc77d8a609928d7728 AS base
+FROM registry.suse.com/bci/dotnet-sdk:9.0.17@sha256:5b3e3bdf7c01ceb652ac856fa6012e70b49a2d89f7edbcab881eda19a4a17717 AS base
 
 ARG NODEJS_DIST_URL
 ARG NPM_REPO
