@@ -154,38 +154,38 @@ importers:
         specifier: 2.0.3
         version: 2.0.3
       '@cdxgen/cdxgen-plugins-bin':
-        specifier: 2.4.0
-        version: 2.4.0
+        specifier: 2.5.1
+        version: 2.5.1
       '@cdxgen/cdxgen-plugins-bin-darwin-amd64':
-        specifier: 2.4.0
-        version: 2.4.0
+        specifier: 2.5.1
+        version: 2.5.1
       '@cdxgen/cdxgen-plugins-bin-darwin-arm64':
-        specifier: 2.4.0
-        version: 2.4.0
+        specifier: 2.5.1
+        version: 2.5.1
       '@cdxgen/cdxgen-plugins-bin-linux-amd64':
-        specifier: 2.4.0
-        version: 2.4.0
+        specifier: 2.5.1
+        version: 2.5.1
       '@cdxgen/cdxgen-plugins-bin-linux-arm':
-        specifier: 2.4.0
-        version: 2.4.0
+        specifier: 2.5.1
+        version: 2.5.1
       '@cdxgen/cdxgen-plugins-bin-linux-arm64':
-        specifier: 2.4.0
-        version: 2.4.0
+        specifier: 2.5.1
+        version: 2.5.1
       '@cdxgen/cdxgen-plugins-bin-linux-ppc64':
-        specifier: 2.4.0
-        version: 2.4.0
+        specifier: 2.5.1
+        version: 2.5.1
       '@cdxgen/cdxgen-plugins-bin-linuxmusl-amd64':
-        specifier: 2.4.0
-        version: 2.4.0
+        specifier: 2.5.1
+        version: 2.5.1
       '@cdxgen/cdxgen-plugins-bin-linuxmusl-arm64':
-        specifier: 2.4.0
-        version: 2.4.0
+        specifier: 2.5.1
+        version: 2.5.1
       '@cdxgen/cdxgen-plugins-bin-windows-amd64':
-        specifier: 2.4.0
-        version: 2.4.0
+        specifier: 2.5.1
+        version: 2.5.1
       '@cdxgen/cdxgen-plugins-bin-windows-arm64':
-        specifier: 2.4.0
-        version: 2.4.0
+        specifier: 2.5.1
+        version: 2.5.1
       '@cdxgen/safer-exec':
         specifier: 0.11.0
         version: 0.11.0
@@ -322,64 +322,64 @@ packages:
     resolution: {integrity: sha512-B8OMpVoFB2YECPlrJYf9/FJodcnqPGKEy4qb096Mj6iAuz6QObWjg/WFGXLtpvbHjwVNp175vLwGyEFr8c42Dg==, tarball: https://registry.npmjs.org/@cdxgen/cdx-proto/-/cdx-proto-2.0.3.tgz}
     engines: {node: '>=20'}
 
-  '@cdxgen/cdxgen-plugins-bin-darwin-amd64@2.4.0':
-    resolution: {integrity: sha512-24sDlLmU7kknGCx1VDWN27DFmM4TAxA1pLsMStIuqYbvXDxwxJ7vXUmBT/jHNfeMXS7iz/h8FC9OM2S4/qawHA==, tarball: https://registry.npmjs.org/@cdxgen/cdxgen-plugins-bin-darwin-amd64/-/cdxgen-plugins-bin-darwin-amd64-2.4.0.tgz}
+  '@cdxgen/cdxgen-plugins-bin-darwin-amd64@2.5.1':
+    resolution: {integrity: sha512-f1XFP66ioCOo/xe+gCnZhbCU8DFV+uBPRC+meneQo+lrr325ih8R7QVup86LpSkIhS8fzJP+wVAVEUwWQFblQA==, tarball: https://registry.npmjs.org/@cdxgen/cdxgen-plugins-bin-darwin-amd64/-/cdxgen-plugins-bin-darwin-amd64-2.5.1.tgz}
     cpu: [x64]
     os: [darwin]
 
-  '@cdxgen/cdxgen-plugins-bin-darwin-arm64@2.4.0':
-    resolution: {integrity: sha512-wOimXW5cVLWfk0yqjfoDdIqvErxS8T66DyoFuBq0jkWTgdsBTssth7azwKH267Sx5wHddEg8bsliDL0T7QBbJw==, tarball: https://registry.npmjs.org/@cdxgen/cdxgen-plugins-bin-darwin-arm64/-/cdxgen-plugins-bin-darwin-arm64-2.4.0.tgz}
+  '@cdxgen/cdxgen-plugins-bin-darwin-arm64@2.5.1':
+    resolution: {integrity: sha512-BHFq06qcZXxxQbkcbZ+aDgBqOFnkmCXhhkhxCwRSvLCKLVGL4EtGx0u7zr5D4T7+3lpuciXD+qpy6PiGgxdCWQ==, tarball: https://registry.npmjs.org/@cdxgen/cdxgen-plugins-bin-darwin-arm64/-/cdxgen-plugins-bin-darwin-arm64-2.5.1.tgz}
     cpu: [arm64]
     os: [darwin]
 
-  '@cdxgen/cdxgen-plugins-bin-linux-amd64@2.4.0':
-    resolution: {integrity: sha512-xgyUXT1c9I2/fnowzWDkSQDqs8Qm1bf/CmfaxBeUjxdF6G/3st267gNPaVAOp1KGGFkAtC6IK2Ydu4XuqfBA5g==, tarball: https://registry.npmjs.org/@cdxgen/cdxgen-plugins-bin-linux-amd64/-/cdxgen-plugins-bin-linux-amd64-2.4.0.tgz}
+  '@cdxgen/cdxgen-plugins-bin-linux-amd64@2.5.1':
+    resolution: {integrity: sha512-OUinsO0g/DYmxkfxhzGU/T84QaUftPA4WN9rcab7h3grG5nJZ/ntQDBdj+LcbcvYKPQIEnNjYlXe31heyS4R4A==, tarball: https://registry.npmjs.org/@cdxgen/cdxgen-plugins-bin-linux-amd64/-/cdxgen-plugins-bin-linux-amd64-2.5.1.tgz}
     cpu: [x64]
     os: [linux]
     libc: glibc
 
-  '@cdxgen/cdxgen-plugins-bin-linux-arm64@2.4.0':
-    resolution: {integrity: sha512-b3dS4P81a6AuJQyzYpNid3kWz+2Fnfvau7XsZGlw9lsYWhy5u0TgnQgvOmLHIq8recA7tLifr6D/0ttd7YQiFw==, tarball: https://registry.npmjs.org/@cdxgen/cdxgen-plugins-bin-linux-arm64/-/cdxgen-plugins-bin-linux-arm64-2.4.0.tgz}
+  '@cdxgen/cdxgen-plugins-bin-linux-arm64@2.5.1':
+    resolution: {integrity: sha512-NjxXYNzqMAv0M5lBDNZZniYvJRgzJlHVsucR2R2DNK7lHzALBWeYdY6FhBSztX6SmK3Ictq8T7g+w1k0vMnxoA==, tarball: https://registry.npmjs.org/@cdxgen/cdxgen-plugins-bin-linux-arm64/-/cdxgen-plugins-bin-linux-arm64-2.5.1.tgz}
     cpu: [arm64]
     os: [linux]
     libc: glibc
 
-  '@cdxgen/cdxgen-plugins-bin-linux-arm@2.4.0':
-    resolution: {integrity: sha512-7KjqqK23Ot6Psvzl8Z4mn1HVph8Ai3aQ8gRi44VcDVH+maU0QRf/RXCNvnoUugKVsR3+IfgNixRycHo7jgqd3w==, tarball: https://registry.npmjs.org/@cdxgen/cdxgen-plugins-bin-linux-arm/-/cdxgen-plugins-bin-linux-arm-2.4.0.tgz}
+  '@cdxgen/cdxgen-plugins-bin-linux-arm@2.5.1':
+    resolution: {integrity: sha512-I3LtLJ/DvKRvwnz4apFLAO+9/fJMPU9RB4WxwBqTjVa7sFcbnpRHE9EMjsuu0MsYAEIDoich0Qk6/83PrGe5zA==, tarball: https://registry.npmjs.org/@cdxgen/cdxgen-plugins-bin-linux-arm/-/cdxgen-plugins-bin-linux-arm-2.5.1.tgz}
     cpu: [arm]
     os: [linux]
     libc: glibc
 
-  '@cdxgen/cdxgen-plugins-bin-linux-ppc64@2.4.0':
-    resolution: {integrity: sha512-LMUysroSG9yTrxHYBUKNRF06We+DiC7g5rZkENG9SSA6QjsryRo2oG+q9JYxSCZzn31XjeCEPYtKO/SgsSk1jg==, tarball: https://registry.npmjs.org/@cdxgen/cdxgen-plugins-bin-linux-ppc64/-/cdxgen-plugins-bin-linux-ppc64-2.4.0.tgz}
+  '@cdxgen/cdxgen-plugins-bin-linux-ppc64@2.5.1':
+    resolution: {integrity: sha512-9vWIQ63HLTAuezn3qT9OlBgh4bJVEF3WX69omF0VeovHzn0FRDKp8xKSpV/OZoBFrX4JjKc7DrC/ZTFpbPPCqg==, tarball: https://registry.npmjs.org/@cdxgen/cdxgen-plugins-bin-linux-ppc64/-/cdxgen-plugins-bin-linux-ppc64-2.5.1.tgz}
     cpu: [ppc64]
     os: [linux]
     libc: glibc
 
-  '@cdxgen/cdxgen-plugins-bin-linuxmusl-amd64@2.4.0':
-    resolution: {integrity: sha512-mv10HmskJcIswZ2fRe3zqRybsrnqSqwuKSfqa8ijyeZqoTYMYV3cOeQ2ZeL0QIoZobQ4K4336l6tl3+4eMCNdw==, tarball: https://registry.npmjs.org/@cdxgen/cdxgen-plugins-bin-linuxmusl-amd64/-/cdxgen-plugins-bin-linuxmusl-amd64-2.4.0.tgz}
+  '@cdxgen/cdxgen-plugins-bin-linuxmusl-amd64@2.5.1':
+    resolution: {integrity: sha512-jBjaqRicd1OmdexiMJq9+JfR6cN+5wzJyidI/muRD4Ug3g6hJm5DlanGd+0YdPNT0dygbWzNJThHdTYT10xElA==, tarball: https://registry.npmjs.org/@cdxgen/cdxgen-plugins-bin-linuxmusl-amd64/-/cdxgen-plugins-bin-linuxmusl-amd64-2.5.1.tgz}
     cpu: [x64]
     os: [linux]
     libc: musl
 
-  '@cdxgen/cdxgen-plugins-bin-linuxmusl-arm64@2.4.0':
-    resolution: {integrity: sha512-/Axb71zD7oH96uLUYpbQyfmcTo+qIYj0JquForVu+r3y3aB7kah8JE9uZfSWPJfBgP9+zVfyhLxbT8Qg7ODvAg==, tarball: https://registry.npmjs.org/@cdxgen/cdxgen-plugins-bin-linuxmusl-arm64/-/cdxgen-plugins-bin-linuxmusl-arm64-2.4.0.tgz}
+  '@cdxgen/cdxgen-plugins-bin-linuxmusl-arm64@2.5.1':
+    resolution: {integrity: sha512-8OsShzF20WUHxL0zJ8+mMLFoxnVctnJLUeC2f6PLUIxH91iiKX9FsZAZGZzBmaZSAoaQ+Jk2ewLG5YAYrTgQ9Q==, tarball: https://registry.npmjs.org/@cdxgen/cdxgen-plugins-bin-linuxmusl-arm64/-/cdxgen-plugins-bin-linuxmusl-arm64-2.5.1.tgz}
     cpu: [arm64]
     os: [linux]
     libc: musl
 
-  '@cdxgen/cdxgen-plugins-bin-windows-amd64@2.4.0':
-    resolution: {integrity: sha512-IzMBdK0ecDs16Y7OyqtKreKesi9UvI8Nyw5035iXZkmZFUno5ZzGEjnvoa7raNb9jb0EbDpWMXjc9vdBQyoIRg==, tarball: https://registry.npmjs.org/@cdxgen/cdxgen-plugins-bin-windows-amd64/-/cdxgen-plugins-bin-windows-amd64-2.4.0.tgz}
+  '@cdxgen/cdxgen-plugins-bin-windows-amd64@2.5.1':
+    resolution: {integrity: sha512-iXeBq5/PQ/zGlRwjK2M27D8J75qQbY7s2pcGrBE9sdwTNq72fttAGzTVyn0vsoZ2xaIddne5IpKUKVKzJY1uBg==, tarball: https://registry.npmjs.org/@cdxgen/cdxgen-plugins-bin-windows-amd64/-/cdxgen-plugins-bin-windows-amd64-2.5.1.tgz}
     cpu: [x64]
     os: [win32]
 
-  '@cdxgen/cdxgen-plugins-bin-windows-arm64@2.4.0':
-    resolution: {integrity: sha512-M7FSh4Oteae4d/fQ2DCvKSgWlx6taON5xVX43SfhwheVh0BTswenlNU+UL6wGoMO9YNCWvbgfVA4HcnzC3ccVg==, tarball: https://registry.npmjs.org/@cdxgen/cdxgen-plugins-bin-windows-arm64/-/cdxgen-plugins-bin-windows-arm64-2.4.0.tgz}
+  '@cdxgen/cdxgen-plugins-bin-windows-arm64@2.5.1':
+    resolution: {integrity: sha512-D8N0e/lZyFptLQmSz/ObfnWqdQHAwpJkP4D3xcLXFsNMdQj2P5ijhdOiHh8C6HssL16aN1XDNwmfCH2a4iNxgA==, tarball: https://registry.npmjs.org/@cdxgen/cdxgen-plugins-bin-windows-arm64/-/cdxgen-plugins-bin-windows-arm64-2.5.1.tgz}
     cpu: [arm64]
     os: [win32]
 
-  '@cdxgen/cdxgen-plugins-bin@2.4.0':
-    resolution: {integrity: sha512-sx6CnLdCtKNXQCoPoWG0HhQG7RahmPZC0zcfrJN7BzGR0DKlYpGoXTkxHpOO+wa2R10pg0SclPkxQbNio8QlSw==, tarball: https://registry.npmjs.org/@cdxgen/cdxgen-plugins-bin/-/cdxgen-plugins-bin-2.4.0.tgz}
+  '@cdxgen/cdxgen-plugins-bin@2.5.1':
+    resolution: {integrity: sha512-hzp2v5+pDC0hpW/sB4Dez0GcDdqTp9g6JzuBw+rOdDtkGuWjhAzkiqN6KSjGJbliypVN4BU/jwF+4zofnUtyLg==, tarball: https://registry.npmjs.org/@cdxgen/cdxgen-plugins-bin/-/cdxgen-plugins-bin-2.5.1.tgz}
 
   '@cdxgen/safer-exec-darwin-amd64@0.11.0':
     resolution: {integrity: sha512-2Mrqv3Cg48Ci0Ngx3ssnpV7+mUM3dDaeoNKXR10KImm6vQE3Jad5bEIpWVCOWduujVhf3Ie+6eIzX0QpjURBeg==, tarball: https://registry.npmjs.org/@cdxgen/safer-exec-darwin-amd64/-/safer-exec-darwin-amd64-0.11.0.tgz}
@@ -1280,37 +1280,37 @@ snapshots:
       '@bufbuild/protobuf': 2.12.0
     optional: true
 
-  '@cdxgen/cdxgen-plugins-bin-darwin-amd64@2.4.0':
+  '@cdxgen/cdxgen-plugins-bin-darwin-amd64@2.5.1':
     optional: true
 
-  '@cdxgen/cdxgen-plugins-bin-darwin-arm64@2.4.0':
+  '@cdxgen/cdxgen-plugins-bin-darwin-arm64@2.5.1':
     optional: true
 
-  '@cdxgen/cdxgen-plugins-bin-linux-amd64@2.4.0':
+  '@cdxgen/cdxgen-plugins-bin-linux-amd64@2.5.1':
     optional: true
 
-  '@cdxgen/cdxgen-plugins-bin-linux-arm64@2.4.0':
+  '@cdxgen/cdxgen-plugins-bin-linux-arm64@2.5.1':
     optional: true
 
-  '@cdxgen/cdxgen-plugins-bin-linux-arm@2.4.0':
+  '@cdxgen/cdxgen-plugins-bin-linux-arm@2.5.1':
     optional: true
 
-  '@cdxgen/cdxgen-plugins-bin-linux-ppc64@2.4.0':
+  '@cdxgen/cdxgen-plugins-bin-linux-ppc64@2.5.1':
     optional: true
 
-  '@cdxgen/cdxgen-plugins-bin-linuxmusl-amd64@2.4.0':
+  '@cdxgen/cdxgen-plugins-bin-linuxmusl-amd64@2.5.1':
     optional: true
 
-  '@cdxgen/cdxgen-plugins-bin-linuxmusl-arm64@2.4.0':
+  '@cdxgen/cdxgen-plugins-bin-linuxmusl-arm64@2.5.1':
     optional: true
 
-  '@cdxgen/cdxgen-plugins-bin-windows-amd64@2.4.0':
+  '@cdxgen/cdxgen-plugins-bin-windows-amd64@2.5.1':
     optional: true
 
-  '@cdxgen/cdxgen-plugins-bin-windows-arm64@2.4.0':
+  '@cdxgen/cdxgen-plugins-bin-windows-arm64@2.5.1':
     optional: true
 
-  '@cdxgen/cdxgen-plugins-bin@2.4.0':
+  '@cdxgen/cdxgen-plugins-bin@2.5.1':
     optional: true
 
   '@cdxgen/safer-exec-darwin-amd64@0.11.0':

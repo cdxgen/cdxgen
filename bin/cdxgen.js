@@ -52,6 +52,7 @@ import {
   isHbomOnlyProjectTypes,
 } from "../lib/helpers/hbom.js";
 import { TRACE_MODE, thoughtEnd, thoughtLog } from "../lib/helpers/logger.js";
+import { resolvePluginBinary } from "../lib/helpers/plugins.js";
 import { importProtobomModule } from "../lib/helpers/protobomLoader.js";
 import { normalizeHuggingFaceReference } from "../lib/helpers/remote/huggingface.js";
 import {
@@ -89,6 +90,7 @@ import {
   retrieveCdxgenVersion,
   safeExistsSync,
   safeMkdirSync,
+  safeSpawnSync,
   safeWriteSync,
   setActivityContext,
   setDryRunMode,
@@ -572,6 +574,11 @@ const args = _yargs
     default: false,
     hidden: true,
   })
+  .option("tui", {
+    type: "boolean",
+    description: "Launch the terminal user interface (cdxui)",
+    default: false,
+  })
   .completion("completion", "Generate bash/zsh completion")
   .array("type")
   .array("excludeType")
@@ -655,6 +662,22 @@ if (args.bomAuditIncludeTrusted && args.bomAuditOnlyTrusted) {
     "Use either --bom-audit-include-trusted or --bom-audit-only-trusted, not both.",
   );
   process.exit(1);
+}
+
+if (args.tui && !process.env.CI) {
+  const cdxuiPath = resolvePluginBinary("cdxui");
+  if (cdxuiPath) {
+    const cdxgenArgs = process.argv.slice(2).filter((a) => a !== "--tui");
+    const cdxuiResult = safeSpawnSync(cdxuiPath, ["--generate"], {
+      stdio: "inherit",
+      env: {
+        ...process.env,
+        CDXGEN_CMD: process.env?.CDXGEN_CMD || process.argv[1] || "cdxgen",
+        CDXGEN_ARGS: cdxgenArgs.join(" "),
+      },
+    });
+    process.exit(cdxuiResult.status || 0);
+  }
 }
 
 // Native Enterprise Network Configuration (Node.js v22.21+, Bun, Deno)

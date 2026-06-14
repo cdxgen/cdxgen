@@ -262,6 +262,7 @@ Options:
   -r, --recurse                   Recurse mode suitable for mono-repos. Defaults to true. Pass --no-recurse to disable.
                                                                                                [boolean] [default: true]
   -p, --print                     Print the SBOM as a table with tree.                                         [boolean]
+      --tui                       Launch the terminal user interface (cdxui)                                   [boolean]
   -c, --resolve-class             Resolve class names for packages. Jar projects only.                          [boolean]
       --deep                      Perform deep searches for components. Useful while scanning C/C++ apps, live OS and
                                   oci images.                                                                  [boolean]
