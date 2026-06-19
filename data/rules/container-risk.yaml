@@ -275,3 +275,79 @@
       "knowledgeSources": $prop($, 'cdx:container:knowledgeSources'),
       "srcFile": $prop($, 'SrcFile')
     }
+
+- id: CTR-008
+  name: "Container dependency relies on the mutable 'latest' tag"
+  description: "Using the 'latest' tag for container image dependencies undermines supply chain reproducibility and makes SBOM attestations fragile since the underlying image can change without notice."
+  severity: medium
+  category: container-risk
+  dry-run-support: full
+  condition: |
+    components[
+      type = 'container'
+      and (
+        $contains(name, ':latest') or $contains(version, 'latest') or $not($exists(version)) or version = ''
+      )
+    ]
+  location: |
+    {
+      "bomRef": $."bom-ref",
+      "purl": purl
+    }
+  message: "Container component '{{ name }}' uses the mutable 'latest' tag or lacks a pinned version"
+  mitigation: "Pin the container dependency to a specific immutable digest (e.g., using @sha256:...) or a stable release tag to ensure reproducibility and reliable attestations."
+  evidence: |
+    {
+      "name": name,
+      "version": version,
+      "purl": purl
+    }
+
+- id: CTR-009
+  name: "Container dependency lacks attached SBOM"
+  description: "Container dependencies should have an attached SBOM (attestation) in the container registry to verify their software bill of materials."
+  severity: medium
+  category: container-risk
+  dry-run-support: full
+  condition: |
+    components[
+      type = 'container'
+      and $not($hasSbom($))
+    ]
+  location: |
+    {
+      "bomRef": $."bom-ref",
+      "purl": purl
+    }
+  message: "Container component '{{ name }}' lacks an attached SBOM in the registry"
+  mitigation: "Generate an SBOM and attach it to the container image using the attach feature (cdx-sign --attach)."
+  evidence: |
+    {
+      "name": name,
+      "purl": purl
+    }
+
+- id: CTR-010
+  name: "Container dependency lacks signed SBOM attestation"
+  description: "Container dependencies should have a cryptographically signed SBOM attestation in the container registry to ensure authenticity and integrity."
+  severity: medium
+  category: container-risk
+  dry-run-support: full
+  condition: |
+    components[
+      type = 'container'
+      and $hasSbom($)
+      and $not($hasSignedSbom($))
+    ]
+  location: |
+    {
+      "bomRef": $."bom-ref",
+      "purl": purl
+    }
+  message: "Container component '{{ name }}' lacks a signed SBOM attestation in the registry"
+  mitigation: "Sign the container SBOM using a private key and attach the signed version to the registry (cdx-sign -k private.key --attach <tag>)."
+  evidence: |
+    {
+      "name": name,
+      "purl": purl
+    }

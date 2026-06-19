@@ -181,7 +181,6 @@ jobs:
           node-version-file: .nvmrc
           package-manager-cache: false
           registry-url: https://registry.npmjs.org/
-      - uses: oras-project/setup-oras@38de303aac69abb66f3e6255b7198bff35f323e3 # v2.0.0
       - name: Free disk space
         uses: jlumbroso/free-disk-space@54081f138730dfa15788a46383842cd2f914a1be
         with:
@@ -238,8 +237,7 @@ jobs:
           node bin/verify.js -i cdxgen-oci-image.cdx.json --public-key contrib/bom-signer/public.key
           for tag in $tags; do
             echo "Processing tag: $tag"
-            oras attach --artifact-type sbom/cyclonedx "$tag" ./cdxgen-oci-image.cdx.json:application/vnd.cyclonedx+json
-            oras discover --format tree "$tag"
+            node bin/sign.js -i cdxgen-oci-image.cdx.json --attach "$tag"
             node bin/verify.js -i "$tag" --public-key contrib/bom-signer/public.key
           done
         env:
@@ -275,7 +273,6 @@ jobs:
           node-version-file: .nvmrc
           package-manager-cache: false
           registry-url: https://registry.npmjs.org/
-      - uses: oras-project/setup-oras@38de303aac69abb66f3e6255b7198bff35f323e3 # v2.0.0
       - name: Free disk space
         uses: jlumbroso/free-disk-space@54081f138730dfa15788a46383842cd2f914a1be
         with:
@@ -317,8 +314,7 @@ jobs:
           node bin/verify.js -i cdxgen-secure-oci-image.cdx.json --public-key contrib/bom-signer/public.key
           for tag in $tags; do
             echo "Processing tag: $tag"
-            oras attach --artifact-type sbom/cyclonedx "$tag" ./cdxgen-secure-oci-image.cdx.json:application/vnd.cyclonedx+json
-            oras discover --format tree "$tag"
+            node bin/sign.js -i cdxgen-secure-oci-image.cdx.json --attach "$tag"
             node bin/verify.js -i "$tag" --public-key contrib/bom-signer/public.key
           done
         env:
@@ -354,7 +350,6 @@ jobs:
           node-version-file: .nvmrc
           package-manager-cache: false
           registry-url: https://registry.npmjs.org/
-      - uses: oras-project/setup-oras@38de303aac69abb66f3e6255b7198bff35f323e3 # v2.0.0
       - name: Free disk space
         uses: jlumbroso/free-disk-space@54081f138730dfa15788a46383842cd2f914a1be
         with:
@@ -399,8 +394,7 @@ jobs:
           node bin/verify.js -i cdxgen-deno-oci-image.cdx.json --public-key contrib/bom-signer/public.key
           for tag in $tags; do
             echo "Processing tag: $tag"
-            oras attach --artifact-type sbom/cyclonedx "$tag" ./cdxgen-deno-oci-image.cdx.json:application/vnd.cyclonedx+json
-            oras discover --format tree "$tag"
+            node bin/sign.js -i cdxgen-deno-oci-image.cdx.json --attach "$tag"
             node bin/verify.js -i "$tag" --public-key contrib/bom-signer/public.key
           done
         env:
@@ -434,7 +428,6 @@ jobs:
           node-version-file: .nvmrc
           package-manager-cache: false
           registry-url: https://registry.npmjs.org/
-      - uses: oras-project/setup-oras@38de303aac69abb66f3e6255b7198bff35f323e3 # v2.0.0
       - name: Free disk space
         uses: jlumbroso/free-disk-space@54081f138730dfa15788a46383842cd2f914a1be
         with:
@@ -488,7 +481,6 @@ jobs:
           node-version-file: .nvmrc
           package-manager-cache: false
           registry-url: https://registry.npmjs.org/
-      - uses: oras-project/setup-oras@38de303aac69abb66f3e6255b7198bff35f323e3 # v2.0.0
       - name: Free disk space
         uses: jlumbroso/free-disk-space@54081f138730dfa15788a46383842cd2f914a1be
         with:
@@ -534,8 +526,7 @@ jobs:
           node bin/verify.js -i cdxgen-bun-oci-image.cdx.json --public-key contrib/bom-signer/public.key
           for tag in $tags; do
             echo "Processing tag: $tag"
-            oras attach --artifact-type sbom/cyclonedx "$tag" ./cdxgen-bun-oci-image.cdx.json:application/vnd.cyclonedx+json
-            oras discover --format tree "$tag"
+            node bin/sign.js -i cdxgen-bun-oci-image.cdx.json --attach "$tag"
             node bin/verify.js -i "$tag" --public-key contrib/bom-signer/public.key
           done
         env:

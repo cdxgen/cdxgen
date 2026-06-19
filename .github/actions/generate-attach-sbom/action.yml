@@ -43,8 +43,7 @@ runs:
         tags_list=$(echo "$raw_tags" | tr ',' ' ' | tr '\n' ' ')
         for tag in $tags_list; do
           echo "Attaching SBOM to $tag"
-          oras attach --artifact-type sbom/cyclonedx --platform ${{ inputs.platform }} "$tag" ./sbom-oci-image.cdx.json:application/vnd.cyclonedx+json
-          oras discover --format tree --platform ${{ inputs.platform }} "$tag"
+          node bin/sign.js -i sbom-oci-image.cdx.json --attach "$tag"
           node bin/verify.js -i "$tag" --platform ${{ inputs.platform }} --public-key contrib/bom-signer/public.key
         done
         rm sbom-oci-image.cdx.json ${{ runner.temp }}/image.tar

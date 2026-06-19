@@ -470,7 +470,7 @@ export const importSbom = async (sbomOrPath) => {
     printSummary(sbom);
   } else if (isSupportedSbomRegistryReference(importTarget)) {
     try {
-      sbom = getBomWithOras(importTarget);
+      sbom = await getBomWithOras(importTarget);
       if (sbom) {
         printSummary(sbom);
       } else {

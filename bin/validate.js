@@ -154,7 +154,7 @@ async function loadBom(input, platform) {
     input.includes("docker") ||
     input.includes("ghcr")
   ) {
-    const bom = getBomWithOras(input, platform);
+    const bom = await getBomWithOras(input, platform);
     if (bom) return bom;
   }
   console.error(`Input '${input}' is not a readable SBOM.`);

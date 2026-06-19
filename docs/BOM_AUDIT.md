@@ -59,6 +59,8 @@ cdx-audit --bom bom.evinse.json --direct-bom-audit --categories golem
 
 For Go projects, run `evinse -l go --deep` or `evinse -l go --with-data-flow --golem-dataflow crypto` before `cdx-audit` when you want Golem data-flow and crypto-flow properties such as `cdx:golem:dataFlowSliceCount`, `cdx:golem:cryptoDataFlow`, and `cdx:golem:cryptoDataFlowCount` to participate in review and prioritization.
 
+> **Note:** `cdxgen` supports reading both OCI Referrers and BuildKit `in-toto` attestations natively. When working with container images, you can directly pass the OCI image reference to tools like `cdx-validate` and `cdx-verify` to automatically fetch and evaluate attached SBOMs.
+
 > **Note:** `--bom-audit` automatically enables `--include-formulation` to collect CI/CD workflow data. For AI/ML scans, this also emits the discovered AI and agentic inventory in the formal CycloneDX `formulation[]` section. The formulation section may include sensitive data such as emails and environment details. Always review the generated SBOM before distribution.
 
 ## Dry-run mode
@@ -553,6 +555,7 @@ When a finding or count summary needs manual follow-up, import the BOM into `cdx
 | CTR-005 | medium   | Container image includes mutable-path remote-execution helper       |
 | CTR-006 | high     | Container image ships dedicated offensive container toolkit         |
 | CTR-007 | medium   | Container image includes seccomp-sensitive namespace escape helper  |
+| CTR-008 | medium   | Container dependency relies on the mutable 'latest' tag             |
 
 ### `vscode-extension` — VS Code Extension Security
 

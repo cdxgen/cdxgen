@@ -8,7 +8,6 @@ In this lesson, we will learn about signing and attaching a signed SBOM to a con
 
 Ensure the following tools are installed.
 
-- ORAS [CLI](https://oras.land/docs/installation)
 - Node.js > 20
 - docker or podman
 
@@ -40,15 +39,19 @@ docker push docker.io/<repo>/sign-test:latest
 ### Create an SBOM with cdxgen
 
 ```shell
-cdxgen --generate-key-and-sign -t docker -o bom.json docker.io/<repo>/sign-test:latest
-oras attach --artifact-type sbom/cyclonedx docker.io/<repo>/sign-test:latest ./bom.json:application/vnd.cyclonedx+json
-oras discover --format tree docker.io/<repo>/sign-test:latest
+# Generate an SBOM
+cdxgen -t docker -o bom.json docker.io/<repo>/sign-test:latest
+
+# Generate a private key for signing
+openssl genpkey -algorithm RSA -out private.key -pkeyopt rsa_keygen_bits:2048
+
+# Sign the SBOM and attach it natively to the OCI image
+cdx-sign --input bom.json --private-key private.key --attach docker.io/<repo>/sign-test:latest
 ```
 
-To download the SBOM attachment from the OCI image, use the `oras pull` command with the correct digest from the `discover` command.
+To download and validate the SBOM attachment from the OCI image natively, use the `cdx-validate` or `cdx-verify` command directly with the image reference. `cdxgen` handles the OCI referrers API and fallback tags automatically.
 
 ```shell
-IMAGE_REF=$(oras discover --format json --artifact-type sbom/cyclonedx docker.io/<repo>/sign-test:latest | jq -r '.manifests[0].reference')
-oras pull $IMAGE_REF -o sbom_output_dir
-ls -l sbom_output_dir/bom.json
+# Pull the attached SBOM and validate it
+cdx-validate -i docker.io/<repo>/sign-test:latest
 ```

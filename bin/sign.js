@@ -11,7 +11,11 @@ import {
   getNonCycloneDxErrorMessage,
   isCycloneDxBom,
 } from "../lib/helpers/bomUtils.js";
-import { retrieveCdxgenVersion, safeExistsSync } from "../lib/helpers/utils.js";
+import {
+  readEnvironmentVariable,
+  retrieveCdxgenVersion,
+  safeExistsSync,
+} from "../lib/helpers/utils.js";
 
 const _yargs = yargs(hideBin(process.argv));
 
@@ -31,12 +35,12 @@ const args = _yargs
   })
   .option("algorithm", {
     alias: "a",
-    default: "RS512",
+    default: readEnvironmentVariable("SBOM_SIGN_ALGORITHM") || "RS512",
     description: "JSF Signature Algorithm (e.g., RS512, ES256, Ed25519).",
   })
   .option("mode", {
     alias: "m",
-    default: "replace",
+    default: readEnvironmentVariable("SBOM_SIGN_MODE") || "replace",
     choices: ["replace", "signers", "chain"],
     description:
       "Signature mode. Use 'signers' for multi-signing, 'chain' for sequential chaining.",
@@ -63,6 +67,11 @@ const args = _yargs
     description:
       "Sign granular annotations. Disable (--no-sign-annotations) when appending multi-signatures.",
   })
+  .option("attach", {
+    type: "string",
+    description:
+      "Attach the signed SBOM to the specified OCI image reference natively.",
+  })
   .scriptName("cdx-sign")
   .version(retrieveCdxgenVersion())
   .help()
@@ -73,36 +82,113 @@ if (!safeExistsSync(args.input)) {
   process.exit(1);
 }
 
-if (!safeExistsSync(args.privateKey)) {
-  console.error(`Private key file '${args.privateKey}' not found.`);
-  process.exit(1);
+let hasPrivateKey = false;
+let privateKeyContent = null;
+
+const envPrivateKeyFile = readEnvironmentVariable("SBOM_SIGN_PRIVATE_KEY", {
+  sensitive: true,
+});
+const envPrivateKeyBase64 = readEnvironmentVariable(
+  "SBOM_SIGN_PRIVATE_KEY_BASE64",
+  {
+    sensitive: true,
+  },
+);
+
+if (args.privateKey) {
+  if (safeExistsSync(args.privateKey)) {
+    privateKeyContent = fs.readFileSync(args.privateKey, "utf8");
+    hasPrivateKey = true;
+  } else {
+    console.error(`Private key file '${args.privateKey}' not found.`);
+    process.exit(1);
+  }
+} else if (envPrivateKeyFile) {
+  if (safeExistsSync(envPrivateKeyFile)) {
+    privateKeyContent = fs.readFileSync(envPrivateKeyFile, "utf8");
+    hasPrivateKey = true;
+  } else {
+    console.error(
+      `Private key file '${envPrivateKeyFile}' from SBOM_SIGN_PRIVATE_KEY environment variable not found.`,
+    );
+    process.exit(1);
+  }
+} else if (envPrivateKeyBase64) {
+  try {
+    privateKeyContent = Buffer.from(envPrivateKeyBase64, "base64").toString(
+      "utf8",
+    );
+    hasPrivateKey = true;
+  } catch {
+    console.error(
+      "Failed to decode SBOM_SIGN_PRIVATE_KEY_BASE64 environment variable.",
+    );
+    process.exit(1);
+  }
+}
+
+function hasAnySignature(bomJson) {
+  if (bomJson.signature) return true;
+  if (
+    Array.isArray(bomJson.components) &&
+    bomJson.components.some((c) => c.signature)
+  )
+    return true;
+  if (
+    Array.isArray(bomJson.services) &&
+    bomJson.services.some((s) => s.signature)
+  )
+    return true;
+  if (
+    Array.isArray(bomJson.annotations) &&
+    bomJson.annotations.some((a) => a.signature)
+  )
+    return true;
+  return false;
 }
 
 try {
   const bomJson = JSON.parse(fs.readFileSync(args.input, "utf8"));
-  const privateKey = fs.readFileSync(args.privateKey, "utf8");
   if (!isCycloneDxBom(bomJson)) {
     console.error(getNonCycloneDxErrorMessage(bomJson, "cdx-sign"));
     process.exit(1);
   }
 
-  const signedBom = signBom(bomJson, {
-    privateKey,
-    algorithm: args.algorithm,
-    keyId: args.keyId,
-    mode: args.mode,
-    signComponents: args.signComponents,
-    signServices: args.signServices,
-    signAnnotations: args.signAnnotations,
-  });
+  let signedBom = bomJson;
+  if (hasPrivateKey && privateKeyContent) {
+    signedBom = signBom(bomJson, {
+      privateKey: privateKeyContent,
+      algorithm: args.algorithm,
+      keyId: args.keyId,
+      mode: args.mode,
+      signComponents: args.signComponents,
+      signServices: args.signServices,
+      signAnnotations: args.signAnnotations,
+    });
 
-  const outputPath = args.output || args.input;
-  fs.writeFileSync(outputPath, JSON.stringify(signedBom, null, null));
+    const outputPath = args.output || args.input;
+    fs.writeFileSync(outputPath, JSON.stringify(signedBom, null, null));
 
-  console.log(`Successfully signed BOM and saved to '${outputPath}'`);
-  console.log(
-    `Mode: ${args.mode} | Algorithm: ${args.algorithm}${args.keyId ? ` | KeyId: ${args.keyId}` : ""}`,
-  );
+    console.log(`Successfully signed BOM and saved to '${outputPath}'`);
+    console.log(
+      `Mode: ${args.mode} | Algorithm: ${args.algorithm}${args.keyId ? ` | KeyId: ${args.keyId}` : ""}`,
+    );
+  } else {
+    if (!hasAnySignature(bomJson)) {
+      console.error(
+        "Private key not provided, and the BOM does not contain any signatures.",
+      );
+      process.exit(1);
+    }
+    console.log(
+      "Private key not provided. BOM contains existing signature(s); skipping signing step.",
+    );
+  }
+
+  if (args.attach) {
+    const { attachBomNative } = await import("../lib/managers/oci.js");
+    await attachBomNative(args.attach, signedBom);
+  }
 } catch (error) {
   console.error("SBOM signing failed:", error.message);
   process.exit(1);

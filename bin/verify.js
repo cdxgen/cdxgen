@@ -97,7 +97,7 @@ async function getBom(args) {
     args.input.includes("docker") ||
     args.input.includes("ghcr")
   ) {
-    return getBomWithOras(args.input, args.platform);
+    return await getBomWithOras(args.input, args.platform);
   }
   return undefined;
 }

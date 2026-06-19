@@ -49,8 +49,8 @@ cdx-validate -i bom.json -r json --fail-severity medium
 
 | Flag                                       | Default    | Description                                                                                                                   |
 | ------------------------------------------ | ---------- | ----------------------------------------------------------------------------------------------------------------------------- |
-| `-i, --input`                              | `bom.json` | Local SBOM JSON/protobuf path or an OCI reference (resolved with `oras`).                                                     |
-| `--platform`                               | —          | Platform to pass to `oras` when the input is an OCI ref.                                                                      |
+| `-i, --input`                              | `bom.json` | Local SBOM JSON/protobuf path or an OCI reference (resolved natively without `oras`).                                         |
+| `--platform`                               | —          | Platform to pass when the input is an OCI ref.                                                                                |
 | `-r, --report`                             | `console`  | `console`, `json`, `sarif`, `annotations`.                                                                                    |
 | `-o, --report-file`                        | stdout     | Write the report to a file.                                                                                                   |
 | `--schema` / `--no-schema`                 | on         | Toggle JSON-schema validation.                                                                                                |
