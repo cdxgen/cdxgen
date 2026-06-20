@@ -222,6 +222,7 @@ jobs:
             "./lib/helpers",
             "./bin",
             "./lib/audit",
+            "./lib/managers",
           ]);
           const inventory = {};
           for (const target of targets) {
@@ -246,10 +247,10 @@ jobs:
           );
           EOF
           jq -e 'any(.["./lib/helpers"][]; .type == "cryptographic-asset" and .name == "sha-256" and .cryptoProperties.assetType == "algorithm" and any((.properties // [])[]; .name == "cdx:crypto:sourceType" and .value == "js-ast:node:crypto.createHash") and ((.evidence.identity // []) | length) > 0 and .evidence.identity[0].field == "name" and ((.evidence.identity[0].methods // []) | length) > 0 and ((.evidence.occurrences // []) | length) > 0)' bomresults/bom-cdxgen-self-source-cbom.json
-          jq -e '([.["./lib/helpers"][], .["./bin"][], .["./lib/audit"][]]) | all(.[]?; .type != "cryptographic-asset" or ((.cryptoProperties.assetType // "") != "algorithm") or (all((.evidence.occurrences // [])[]?; .location != null and (.line? == null or (.line | type == "number")) and (.offset? == null))))' bomresults/bom-cdxgen-self-source-cbom.json
-          jq -e '([.["./lib/helpers"][], .["./bin"][], .["./lib/audit"][]]) | all(.[]?; .type != "cryptographic-asset" or ((.cryptoProperties.assetType // "") != "algorithm") or ((((.evidence.identity // []) | length) > 0) and (((.evidence.occurrences // []) | length) > 0)))' bomresults/bom-cdxgen-self-source-cbom.json
-          jq -e '((.["./bin"] | length) > 0) and ((.["./lib/audit"] | length) > 0)' bomresults/bom-cdxgen-self-source-cbom.json
-          jq -e '((.["./lib/stages"] | length) == 0) and ((.["./lib/server"] | length) == 0) and ((.["./lib/managers"] | length) == 0) and ((.["./lib/evinser"] | length) == 0) and ((.["./lib/parsers"] | length) == 0)' bomresults/bom-cdxgen-self-source-cbom.json
+          jq -e '([.["./lib/helpers"][], .["./bin"][], .["./lib/audit"][], .["./lib/managers"][]]) | all(.[]?; .type != "cryptographic-asset" or ((.cryptoProperties.assetType // "") != "algorithm") or (all((.evidence.occurrences // [])[]?; .location != null and (.line? == null or (.line | type == "number")) and (.offset? == null))))' bomresults/bom-cdxgen-self-source-cbom.json
+          jq -e '([.["./lib/helpers"][], .["./bin"][], .["./lib/audit"][], .["./lib/managers"][]]) | all(.[]?; .type != "cryptographic-asset" or ((.cryptoProperties.assetType // "") != "algorithm") or ((((.evidence.identity // []) | length) > 0) and (((.evidence.occurrences // []) | length) > 0)))' bomresults/bom-cdxgen-self-source-cbom.json
+          jq -e '((.["./bin"] | length) > 0) and ((.["./lib/audit"] | length) > 0) and ((.["./lib/managers"] | length) > 0)' bomresults/bom-cdxgen-self-source-cbom.json
+          jq -e '((.["./lib/stages"] | length) == 0) and ((.["./lib/server"] | length) == 0) and ((.["./lib/evinser"] | length) == 0) and ((.["./lib/parsers"] | length) == 0)' bomresults/bom-cdxgen-self-source-cbom.json
         shell: bash
       - name: repotests cache-disable fixture
         run: |
