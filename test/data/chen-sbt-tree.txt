@@ -1,0 +1,658 @@
+io.appthreat:c2cpg_3:3.0.0
+  +-com.lihaoyi:upickle_3:4.4.3
+  | +-com.lihaoyi:ujson_3:4.4.3
+  | | +-com.lihaoyi:upickle-core_3:4.4.3
+  | | | +-com.lihaoyi:geny_3:1.1.1
+  | | | | +-org.scala-lang:scala3-library_3:3.3.1 (evicted by: 3.8.4)
+  | | | | +-org.scala-lang:scala3-library_3:3.8.4 [S]
+  | | | | 
+  | | | +-org.scala-lang:scala3-library_3:3.3.7 (evicted by: 3.8.4)
+  | | | +-org.scala-lang:scala3-library_3:3.8.4 [S]
+  | | | 
+  | | +-org.scala-lang:scala3-library_3:3.3.7 (evicted by: 3.8.4)
+  | | +-org.scala-lang:scala3-library_3:3.8.4 [S]
+  | | 
+  | +-com.lihaoyi:upack_3:4.4.3
+  | | +-com.lihaoyi:upickle-core_3:4.4.3
+  | | | +-com.lihaoyi:geny_3:1.1.1
+  | | | | +-org.scala-lang:scala3-library_3:3.3.1 (evicted by: 3.8.4)
+  | | | | +-org.scala-lang:scala3-library_3:3.8.4 [S]
+  | | | | 
+  | | | +-org.scala-lang:scala3-library_3:3.3.7 (evicted by: 3.8.4)
+  | | | +-org.scala-lang:scala3-library_3:3.8.4 [S]
+  | | | 
+  | | +-org.scala-lang:scala3-library_3:3.3.7 (evicted by: 3.8.4)
+  | | +-org.scala-lang:scala3-library_3:3.8.4 [S]
+  | | 
+  | +-com.lihaoyi:upickle-implicits_3:4.4.3
+  | | +-com.lihaoyi:upickle-core_3:4.4.3
+  | | | +-com.lihaoyi:geny_3:1.1.1
+  | | | | +-org.scala-lang:scala3-library_3:3.3.1 (evicted by: 3.8.4)
+  | | | | +-org.scala-lang:scala3-library_3:3.8.4 [S]
+  | | | | 
+  | | | +-org.scala-lang:scala3-library_3:3.3.7 (evicted by: 3.8.4)
+  | | | +-org.scala-lang:scala3-library_3:3.8.4 [S]
+  | | | 
+  | | +-org.scala-lang:scala3-library_3:3.3.7 (evicted by: 3.8.4)
+  | | +-org.scala-lang:scala3-library_3:3.8.4 [S]
+  | | 
+  | +-org.scala-lang:scala3-library_3:3.3.7 (evicted by: 3.8.4)
+  | +-org.scala-lang:scala3-library_3:3.8.4 [S]
+  | 
+  +-io.appthreat:semanticcpg_3:3.0.0
+  | +-io.appthreat:cpg2_3:3.0.4
+  | | +-com.github.pathikrit:better-files_3:3.9.2
+  | | | +-org.scala-lang:scala3-library_3:3.2.2 (evicted by: 3.8.4)
+  | | | +-org.scala-lang:scala3-library_3:3.8.4 [S]
+  | | | 
+  | | +-com.github.scopt:scopt_3:4.1.0
+  | | | +-org.scala-lang:scala3-library_3:3.1.3 (evicted by: 3.8.4)
+  | | | +-org.scala-lang:scala3-library_3:3.8.4 [S]
+  | | | 
+  | | +-io.appthreat:cpg2-domain-classes_3:3.0.4
+  | | | +-io.appthreat:odb2-traversal_3:3.0.4
+  | | | | +-io.appthreat:odb2-core_3:3.0.4
+  | | | | | +-com.google.guava:guava:33.6.0-jre
+  | | | | | | +-com.google.errorprone:error_prone_annotations:2.47.0
+  | | | | | | +-com.google.guava:failureaccess:1.0.3
+  | | | | | | +-com.google.guava:listenablefuture:9999.0-empty-to-avoid-conflict-with-guava
+  | | | | | | +-com.google.j2objc:j2objc-annotations:3.1
+  | | | | | | +-org.jspecify:jspecify:1.0.0
+  | | | | | | 
+  | | | | | +-com.h2database:h2-mvstore:2.4.240
+  | | | | | +-net.sf.trove4j:core:3.1.0
+  | | | | | +-org.msgpack:msgpack-core:0.9.12
+  | | | | | +-org.scala-lang:scala3-library_3:3.8.4 [S]
+  | | | | | 
+  | | | | +-org.reflections:reflections:0.10.2
+  | | | | | +-com.google.code.findbugs:jsr305:3.0.2
+  | | | | | +-org.javassist:javassist:3.28.0-GA
+  | | | | | +-org.slf4j:slf4j-api:1.7.32 (evicted by: 2.0.18)
+  | | | | | +-org.slf4j:slf4j-api:2.0.18
+  | | | | | 
+  | | | | +-org.scala-lang:scala3-library_3:3.8.4 [S]
+  | | | | 
+  | | | +-org.scala-lang:scala3-library_3:3.8.4 [S]
+  | | | 
+  | | +-io.appthreat:cpg2-protos_3:3.0.4
+  | | | +-com.google.protobuf:protobuf-java:3.25.5
+  | | | +-org.scala-lang:scala3-library_3:3.8.4 [S]
+  | | | 
+  | | +-io.appthreat:odb2-formats_3:3.0.4
+  | | | +-com.github.scopt:scopt_3:4.1.0
+  | | | | +-org.scala-lang:scala3-library_3:3.1.3 (evicted by: 3.8.4)
+  | | | | +-org.scala-lang:scala3-library_3:3.8.4 [S]
+  | | | | 
+  | | | +-io.appthreat:odb2-traversal_3:3.0.4
+  | | | | +-io.appthreat:odb2-core_3:3.0.4
+  | | | | | +-com.google.guava:guava:33.6.0-jre
+  | | | | | | +-com.google.errorprone:error_prone_annotations:2.47.0
+  | | | | | | +-com.google.guava:failureaccess:1.0.3
+  | | | | | | +-com.google.guava:listenablefuture:9999.0-empty-to-avoid-conflict-with-guava
+  | | | | | | +-com.google.j2objc:j2objc-annotations:3.1
+  | | | | | | +-org.jspecify:jspecify:1.0.0
+  | | | | | | 
+  | | | | | +-com.h2database:h2-mvstore:2.4.240
+  | | | | | +-net.sf.trove4j:core:3.1.0
+  | | | | | +-org.msgpack:msgpack-core:0.9.12
+  | | | | | +-org.scala-lang:scala3-library_3:3.8.4 [S]
+  | | | | | 
+  | | | | +-org.reflections:reflections:0.10.2
+  | | | | | +-com.google.code.findbugs:jsr305:3.0.2
+  | | | | | +-org.javassist:javassist:3.28.0-GA
+  | | | | | +-org.slf4j:slf4j-api:1.7.32 (evicted by: 2.0.18)
+  | | | | | +-org.slf4j:slf4j-api:2.0.18
+  | | | | | 
+  | | | | +-org.scala-lang:scala3-library_3:3.8.4 [S]
+  | | | | 
+  | | | +-io.spray:spray-json_3:1.3.6
+  | | | | +-org.scala-lang:scala3-library_3:3.1.0 (evicted by: 3.8.4)
+  | | | | +-org.scala-lang:scala3-library_3:3.8.4 [S]
+  | | | | 
+  | | | +-org.scala-lang.modules:scala-xml_3:2.4.0
+  | | | | +-org.scala-lang:scala3-library_3:3.3.6 (evicted by: 3.8.4)
+  | | | | +-org.scala-lang:scala3-library_3:3.8.4 [S]
+  | | | | 
+  | | | +-org.scala-lang:scala3-library_3:3.8.4 [S]
+  | | | 
+  | | +-io.appthreat:odb2-traversal_3:3.0.4
+  | | | +-io.appthreat:odb2-core_3:3.0.4
+  | | | | +-com.google.guava:guava:33.6.0-jre
+  | | | | | +-com.google.errorprone:error_prone_annotations:2.47.0
+  | | | | | +-com.google.guava:failureaccess:1.0.3
+  | | | | | +-com.google.guava:listenablefuture:9999.0-empty-to-avoid-conflict-with-guava
+  | | | | | +-com.google.j2objc:j2objc-annotations:3.1
+  | | | | | +-org.jspecify:jspecify:1.0.0
+  | | | | | 
+  | | | | +-com.h2database:h2-mvstore:2.4.240
+  | | | | +-net.sf.trove4j:core:3.1.0
+  | | | | +-org.msgpack:msgpack-core:0.9.12
+  | | | | +-org.scala-lang:scala3-library_3:3.8.4 [S]
+  | | | | 
+  | | | +-org.reflections:reflections:0.10.2
+  | | | | +-com.google.code.findbugs:jsr305:3.0.2
+  | | | | +-org.javassist:javassist:3.28.0-GA
+  | | | | +-org.slf4j:slf4j-api:1.7.32 (evicted by: 2.0.18)
+  | | | | +-org.slf4j:slf4j-api:2.0.18
+  | | | | 
+  | | | +-org.scala-lang:scala3-library_3:3.8.4 [S]
+  | | | 
+  | | +-org.scala-lang:scala3-library_3:3.8.4 [S]
+  | | 
+  | +-org.json4s:json4s-native_3:4.0.7
+  | | +-org.json4s:json4s-core_3:4.0.7
+  | | | +-com.thoughtworks.paranamer:paranamer:2.8
+  | | | +-org.json4s:json4s-ast_3:4.0.7
+  | | | | +-org.scala-lang:scala3-library_3:3.1.1 (evicted by: 3.8.4)
+  | | | | +-org.scala-lang:scala3-library_3:3.8.4 [S]
+  | | | | 
+  | | | +-org.json4s:json4s-scalap_3:4.0.7
+  | | | | +-org.scala-lang:scala3-library_3:3.1.1 (evicted by: 3.8.4)
+  | | | | +-org.scala-lang:scala3-library_3:3.8.4 [S]
+  | | | | 
+  | | | +-org.scala-lang:scala3-library_3:3.1.1 (evicted by: 3.8.4)
+  | | | +-org.scala-lang:scala3-library_3:3.8.4 [S]
+  | | | 
+  | | +-org.json4s:json4s-native-core_3:4.0.7
+  | | | +-org.json4s:json4s-ast_3:4.0.7
+  | | | | +-org.scala-lang:scala3-library_3:3.1.1 (evicted by: 3.8.4)
+  | | | | +-org.scala-lang:scala3-library_3:3.8.4 [S]
+  | | | | 
+  | | | +-org.scala-lang:scala3-library_3:3.1.1 (evicted by: 3.8.4)
+  | | | +-org.scala-lang:scala3-library_3:3.8.4 [S]
+  | | | 
+  | | +-org.scala-lang:scala3-library_3:3.1.1 (evicted by: 3.8.4)
+  | | +-org.scala-lang:scala3-library_3:3.8.4 [S]
+  | | 
+  | +-org.scala-lang:scala3-library_3:3.8.4 [S]
+  | +-org.slf4j:slf4j-api:2.0.18
+  | 
+  +-io.appthreat:x2cpg_3:3.0.0
+  | +-com.lihaoyi:upickle_3:4.4.3
+  | | +-com.lihaoyi:ujson_3:4.4.3
+  | | | +-com.lihaoyi:upickle-core_3:4.4.3
+  | | | | +-com.lihaoyi:geny_3:1.1.1
+  | | | | | +-org.scala-lang:scala3-library_3:3.3.1 (evicted by: 3.8.4)
+  | | | | | +-org.scala-lang:scala3-library_3:3.8.4 [S]
+  | | | | | 
+  | | | | +-org.scala-lang:scala3-library_3:3.3.7 (evicted by: 3.8.4)
+  | | | | +-org.scala-lang:scala3-library_3:3.8.4 [S]
+  | | | | 
+  | | | +-org.scala-lang:scala3-library_3:3.3.7 (evicted by: 3.8.4)
+  | | | +-org.scala-lang:scala3-library_3:3.8.4 [S]
+  | | | 
+  | | +-com.lihaoyi:upack_3:4.4.3
+  | | | +-com.lihaoyi:upickle-core_3:4.4.3
+  | | | | +-com.lihaoyi:geny_3:1.1.1
+  | | | | | +-org.scala-lang:scala3-library_3:3.3.1 (evicted by: 3.8.4)
+  | | | | | +-org.scala-lang:scala3-library_3:3.8.4 [S]
+  | | | | | 
+  | | | | +-org.scala-lang:scala3-library_3:3.3.7 (evicted by: 3.8.4)
+  | | | | +-org.scala-lang:scala3-library_3:3.8.4 [S]
+  | | | | 
+  | | | +-org.scala-lang:scala3-library_3:3.3.7 (evicted by: 3.8.4)
+  | | | +-org.scala-lang:scala3-library_3:3.8.4 [S]
+  | | | 
+  | | +-com.lihaoyi:upickle-implicits_3:4.4.3
+  | | | +-com.lihaoyi:upickle-core_3:4.4.3
+  | | | | +-com.lihaoyi:geny_3:1.1.1
+  | | | | | +-org.scala-lang:scala3-library_3:3.3.1 (evicted by: 3.8.4)
+  | | | | | +-org.scala-lang:scala3-library_3:3.8.4 [S]
+  | | | | | 
+  | | | | +-org.scala-lang:scala3-library_3:3.3.7 (evicted by: 3.8.4)
+  | | | | +-org.scala-lang:scala3-library_3:3.8.4 [S]
+  | | | | 
+  | | | +-org.scala-lang:scala3-library_3:3.3.7 (evicted by: 3.8.4)
+  | | | +-org.scala-lang:scala3-library_3:3.8.4 [S]
+  | | | 
+  | | +-org.scala-lang:scala3-library_3:3.3.7 (evicted by: 3.8.4)
+  | | +-org.scala-lang:scala3-library_3:3.8.4 [S]
+  | | 
+  | +-com.michaelpollmeier:versionsort:1.0.17
+  | +-com.typesafe:config:1.4.9
+  | +-io.appthreat:semanticcpg_3:3.0.0
+  | | +-io.appthreat:cpg2_3:3.0.4
+  | | | +-com.github.pathikrit:better-files_3:3.9.2
+  | | | | +-org.scala-lang:scala3-library_3:3.2.2 (evicted by: 3.8.4)
+  | | | | +-org.scala-lang:scala3-library_3:3.8.4 [S]
+  | | | | 
+  | | | +-com.github.scopt:scopt_3:4.1.0
+  | | | | +-org.scala-lang:scala3-library_3:3.1.3 (evicted by: 3.8.4)
+  | | | | +-org.scala-lang:scala3-library_3:3.8.4 [S]
+  | | | | 
+  | | | +-io.appthreat:cpg2-domain-classes_3:3.0.4
+  | | | | +-io.appthreat:odb2-traversal_3:3.0.4
+  | | | | | +-io.appthreat:odb2-core_3:3.0.4
+  | | | | | | +-com.google.guava:guava:33.6.0-jre
+  | | | | | | | +-com.google.errorprone:error_prone_annotations:2.47.0
+  | | | | | | | +-com.google.guava:failureaccess:1.0.3
+  | | | | | | | +-com.google.guava:listenablefuture:9999.0-empty-to-avoid-conflict-with-guava
+  | | | | | | | +-com.google.j2objc:j2objc-annotations:3.1
+  | | | | | | | +-org.jspecify:jspecify:1.0.0
+  | | | | | | | 
+  | | | | | | +-com.h2database:h2-mvstore:2.4.240
+  | | | | | | +-net.sf.trove4j:core:3.1.0
+  | | | | | | +-org.msgpack:msgpack-core:0.9.12
+  | | | | | | +-org.scala-lang:scala3-library_3:3.8.4 [S]
+  | | | | | | 
+  | | | | | +-org.reflections:reflections:0.10.2
+  | | | | | | +-com.google.code.findbugs:jsr305:3.0.2
+  | | | | | | +-org.javassist:javassist:3.28.0-GA
+  | | | | | | +-org.slf4j:slf4j-api:1.7.32 (evicted by: 2.0.18)
+  | | | | | | +-org.slf4j:slf4j-api:2.0.18
+  | | | | | | 
+  | | | | | +-org.scala-lang:scala3-library_3:3.8.4 [S]
+  | | | | | 
+  | | | | +-org.scala-lang:scala3-library_3:3.8.4 [S]
+  | | | | 
+  | | | +-io.appthreat:cpg2-protos_3:3.0.4
+  | | | | +-com.google.protobuf:protobuf-java:3.25.5
+  | | | | +-org.scala-lang:scala3-library_3:3.8.4 [S]
+  | | | | 
+  | | | +-io.appthreat:odb2-formats_3:3.0.4
+  | | | | +-com.github.scopt:scopt_3:4.1.0
+  | | | | | +-org.scala-lang:scala3-library_3:3.1.3 (evicted by: 3.8.4)
+  | | | | | +-org.scala-lang:scala3-library_3:3.8.4 [S]
+  | | | | | 
+  | | | | +-io.appthreat:odb2-traversal_3:3.0.4
+  | | | | | +-io.appthreat:odb2-core_3:3.0.4
+  | | | | | | +-com.google.guava:guava:33.6.0-jre
+  | | | | | | | +-com.google.errorprone:error_prone_annotations:2.47.0
+  | | | | | | | +-com.google.guava:failureaccess:1.0.3
+  | | | | | | | +-com.google.guava:listenablefuture:9999.0-empty-to-avoid-conflict-with-guava
+  | | | | | | | +-com.google.j2objc:j2objc-annotations:3.1
+  | | | | | | | +-org.jspecify:jspecify:1.0.0
+  | | | | | | | 
+  | | | | | | +-com.h2database:h2-mvstore:2.4.240
+  | | | | | | +-net.sf.trove4j:core:3.1.0
+  | | | | | | +-org.msgpack:msgpack-core:0.9.12
+  | | | | | | +-org.scala-lang:scala3-library_3:3.8.4 [S]
+  | | | | | | 
+  | | | | | +-org.reflections:reflections:0.10.2
+  | | | | | | +-com.google.code.findbugs:jsr305:3.0.2
+  | | | | | | +-org.javassist:javassist:3.28.0-GA
+  | | | | | | +-org.slf4j:slf4j-api:1.7.32 (evicted by: 2.0.18)
+  | | | | | | +-org.slf4j:slf4j-api:2.0.18
+  | | | | | | 
+  | | | | | +-org.scala-lang:scala3-library_3:3.8.4 [S]
+  | | | | | 
+  | | | | +-io.spray:spray-json_3:1.3.6
+  | | | | | +-org.scala-lang:scala3-library_3:3.1.0 (evicted by: 3.8.4)
+  | | | | | +-org.scala-lang:scala3-library_3:3.8.4 [S]
+  | | | | | 
+  | | | | +-org.scala-lang.modules:scala-xml_3:2.4.0
+  | | | | | +-org.scala-lang:scala3-library_3:3.3.6 (evicted by: 3.8.4)
+  | | | | | +-org.scala-lang:scala3-library_3:3.8.4 [S]
+  | | | | | 
+  | | | | +-org.scala-lang:scala3-library_3:3.8.4 [S]
+  | | | | 
+  | | | +-io.appthreat:odb2-traversal_3:3.0.4
+  | | | | +-io.appthreat:odb2-core_3:3.0.4
+  | | | | | +-com.google.guava:guava:33.6.0-jre
+  | | | | | | +-com.google.errorprone:error_prone_annotations:2.47.0
+  | | | | | | +-com.google.guava:failureaccess:1.0.3
+  | | | | | | +-com.google.guava:listenablefuture:9999.0-empty-to-avoid-conflict-with-guava
+  | | | | | | +-com.google.j2objc:j2objc-annotations:3.1
+  | | | | | | +-org.jspecify:jspecify:1.0.0
+  | | | | | | 
+  | | | | | +-com.h2database:h2-mvstore:2.4.240
+  | | | | | +-net.sf.trove4j:core:3.1.0
+  | | | | | +-org.msgpack:msgpack-core:0.9.12
+  | | | | | +-org.scala-lang:scala3-library_3:3.8.4 [S]
+  | | | | | 
+  | | | | +-org.reflections:reflections:0.10.2
+  | | | | | +-com.google.code.findbugs:jsr305:3.0.2
+  | | | | | +-org.javassist:javassist:3.28.0-GA
+  | | | | | +-org.slf4j:slf4j-api:1.7.32 (evicted by: 2.0.18)
+  | | | | | +-org.slf4j:slf4j-api:2.0.18
+  | | | | | 
+  | | | | +-org.scala-lang:scala3-library_3:3.8.4 [S]
+  | | | | 
+  | | | +-org.scala-lang:scala3-library_3:3.8.4 [S]
+  | | | 
+  | | +-org.json4s:json4s-native_3:4.0.7
+  | | | +-org.json4s:json4s-core_3:4.0.7
+  | | | | +-com.thoughtworks.paranamer:paranamer:2.8
+  | | | | +-org.json4s:json4s-ast_3:4.0.7
+  | | | | | +-org.scala-lang:scala3-library_3:3.1.1 (evicted by: 3.8.4)
+  | | | | | +-org.scala-lang:scala3-library_3:3.8.4 [S]
+  | | | | | 
+  | | | | +-org.json4s:json4s-scalap_3:4.0.7
+  | | | | | +-org.scala-lang:scala3-library_3:3.1.1 (evicted by: 3.8.4)
+  | | | | | +-org.scala-lang:scala3-library_3:3.8.4 [S]
+  | | | | | 
+  | | | | +-org.scala-lang:scala3-library_3:3.1.1 (evicted by: 3.8.4)
+  | | | | +-org.scala-lang:scala3-library_3:3.8.4 [S]
+  | | | | 
+  | | | +-org.json4s:json4s-native-core_3:4.0.7
+  | | | | +-org.json4s:json4s-ast_3:4.0.7
+  | | | | | +-org.scala-lang:scala3-library_3:3.1.1 (evicted by: 3.8.4)
+  | | | | | +-org.scala-lang:scala3-library_3:3.8.4 [S]
+  | | | | | 
+  | | | | +-org.scala-lang:scala3-library_3:3.1.1 (evicted by: 3.8.4)
+  | | | | +-org.scala-lang:scala3-library_3:3.8.4 [S]
+  | | | | 
+  | | | +-org.scala-lang:scala3-library_3:3.1.1 (evicted by: 3.8.4)
+  | | | +-org.scala-lang:scala3-library_3:3.8.4 [S]
+  | | | 
+  | | +-org.scala-lang:scala3-library_3:3.8.4 [S]
+  | | +-org.slf4j:slf4j-api:2.0.18
+  | | 
+  | +-io.circe:circe-generic_3:0.14.15
+  | | +-io.circe:circe-core_3:0.14.15
+  | | | +-io.circe:circe-numbers_3:0.14.15
+  | | | | +-org.scala-lang:scala3-library_3:3.3.6 (evicted by: 3.8.4)
+  | | | | +-org.scala-lang:scala3-library_3:3.8.4 [S]
+  | | | | 
+  | | | +-org.scala-lang:scala3-library_3:3.3.6 (evicted by: 3.8.4)
+  | | | +-org.scala-lang:scala3-library_3:3.8.4 [S]
+  | | | +-org.typelevel:cats-core_3:2.13.0
+  | | |   +-org.scala-lang:scala3-library_3:3.3.4 (evicted by: 3.8.4)
+  | | |   +-org.scala-lang:scala3-library_3:3.8.4 [S]
+  | | |   +-org.typelevel:cats-kernel_3:2.13.0
+  | | |     +-org.scala-lang:scala3-library_3:3.3.4 (evicted by: 3.8.4)
+  | | |     +-org.scala-lang:scala3-library_3:3.8.4 [S]
+  | | |     
+  | | +-org.scala-lang:scala3-library_3:3.3.6 (evicted by: 3.8.4)
+  | | +-org.scala-lang:scala3-library_3:3.8.4 [S]
+  | | 
+  | +-io.circe:circe-parser_3:0.14.15
+  | | +-io.circe:circe-core_3:0.14.15
+  | | | +-io.circe:circe-numbers_3:0.14.15
+  | | | | +-org.scala-lang:scala3-library_3:3.3.6 (evicted by: 3.8.4)
+  | | | | +-org.scala-lang:scala3-library_3:3.8.4 [S]
+  | | | | 
+  | | | +-org.scala-lang:scala3-library_3:3.3.6 (evicted by: 3.8.4)
+  | | | +-org.scala-lang:scala3-library_3:3.8.4 [S]
+  | | | +-org.typelevel:cats-core_3:2.13.0
+  | | |   +-org.scala-lang:scala3-library_3:3.3.4 (evicted by: 3.8.4)
+  | | |   +-org.scala-lang:scala3-library_3:3.8.4 [S]
+  | | |   +-org.typelevel:cats-kernel_3:2.13.0
+  | | |     +-org.scala-lang:scala3-library_3:3.3.4 (evicted by: 3.8.4)
+  | | |     +-org.scala-lang:scala3-library_3:3.8.4 [S]
+  | | |     
+  | | +-io.circe:circe-jawn_3:0.14.15
+  | | | +-io.circe:circe-core_3:0.14.15
+  | | | | +-io.circe:circe-numbers_3:0.14.15
+  | | | | | +-org.scala-lang:scala3-library_3:3.3.6 (evicted by: 3.8.4)
+  | | | | | +-org.scala-lang:scala3-library_3:3.8.4 [S]
+  | | | | | 
+  | | | | +-org.scala-lang:scala3-library_3:3.3.6 (evicted by: 3.8.4)
+  | | | | +-org.scala-lang:scala3-library_3:3.8.4 [S]
+  | | | | +-org.typelevel:cats-core_3:2.13.0
+  | | | |   +-org.scala-lang:scala3-library_3:3.3.4 (evicted by: 3.8.4)
+  | | | |   +-org.scala-lang:scala3-library_3:3.8.4 [S]
+  | | | |   +-org.typelevel:cats-kernel_3:2.13.0
+  | | | |     +-org.scala-lang:scala3-library_3:3.3.4 (evicted by: 3.8.4)
+  | | | |     +-org.scala-lang:scala3-library_3:3.8.4 [S]
+  | | | |     
+  | | | +-org.scala-lang:scala3-library_3:3.3.6 (evicted by: 3.8.4)
+  | | | +-org.scala-lang:scala3-library_3:3.8.4 [S]
+  | | | +-org.typelevel:jawn-parser_3:1.6.0
+  | | |   +-org.scala-lang:scala3-library_3:3.3.3 (evicted by: 3.8.4)
+  | | |   +-org.scala-lang:scala3-library_3:3.8.4 [S]
+  | | |   
+  | | +-org.scala-lang:scala3-library_3:3.3.6 (evicted by: 3.8.4)
+  | | +-org.scala-lang:scala3-library_3:3.8.4 [S]
+  | | 
+  | +-org.scala-lang:scala3-library_3:3.8.4 [S]
+  | +-org.slf4j:slf4j-api:2.0.18
+  | 
+  +-org.eclipse.platform:org.eclipse.core.resources:3.24.0
+  | +-net.java.dev.jna:jna:5.18.1
+  | +-org.eclipse.platform:org.eclipse.core.expressions:3.9.600
+  | | +-org.eclipse.platform:org.eclipse.core.runtime:3.34.200
+  | |   +-org.eclipse.platform:org.eclipse.core.contenttype:3.9.800
+  | |   | +-org.eclipse.platform:org.eclipse.equinox.common:3.20.300 (evicted by: 3.20.400)
+  | |   | +-org.eclipse.platform:org.eclipse.equinox.common:3.20.400
+  | |   | | +-org.eclipse.platform:org.eclipse.osgi:3.24.200
+  | |   | | 
+  | |   | +-org.eclipse.platform:org.eclipse.equinox.preferences:3.12.100
+  | |   | | +-org.eclipse.platform:org.eclipse.equinox.common:3.20.300 (evicted by: 3.20.400)
+  | |   | | +-org.eclipse.platform:org.eclipse.equinox.common:3.20.400
+  | |   | | | +-org.eclipse.platform:org.eclipse.osgi:3.24.200
+  | |   | | | 
+  | |   | | +-org.eclipse.platform:org.eclipse.osgi:3.24.0 (evicted by: 3.24.200)
+  | |   | | +-org.eclipse.platform:org.eclipse.osgi:3.24.200
+  | |   | | +-org.osgi:org.osgi.service.prefs:1.1.2
+  | |   | |   +-org.osgi:osgi.annotation:8.0.1
+  | |   | |   
+  | |   | +-org.eclipse.platform:org.eclipse.equinox.registry:3.12.600
+  | |   | | +-org.eclipse.platform:org.eclipse.equinox.common:3.20.300 (evicted by: 3.20.400)
+  | |   | | +-org.eclipse.platform:org.eclipse.equinox.common:3.20.400
+  | |   | | | +-org.eclipse.platform:org.eclipse.osgi:3.24.200
+  | |   | | | 
+  | |   | | +-org.eclipse.platform:org.eclipse.osgi:3.24.0 (evicted by: 3.24.200)
+  | |   | | +-org.eclipse.platform:org.eclipse.osgi:3.24.200
+  | |   | | 
+  | |   | +-org.eclipse.platform:org.eclipse.osgi:3.24.0 (evicted by: 3.24.200)
+  | |   | +-org.eclipse.platform:org.eclipse.osgi:3.24.200
+  | |   | 
+  | |   +-org.eclipse.platform:org.eclipse.core.jobs:3.15.700
+  | |   | +-org.eclipse.platform:org.eclipse.equinox.common:3.20.200 (evicted by: 3.20.400)
+  | |   | +-org.eclipse.platform:org.eclipse.equinox.common:3.20.400
+  | |   | | +-org.eclipse.platform:org.eclipse.osgi:3.24.200
+  | |   | | 
+  | |   | +-org.eclipse.platform:org.eclipse.osgi:3.23.200 (evicted by: 3.24.200)
+  | |   | +-org.eclipse.platform:org.eclipse.osgi:3.24.200
+  | |   | 
+  | |   +-org.eclipse.platform:org.eclipse.equinox.app:1.7.600
+  | |   | +-org.eclipse.platform:org.eclipse.equinox.common:3.20.300 (evicted by: 3.20.400)
+  | |   | +-org.eclipse.platform:org.eclipse.equinox.common:3.20.400
+  | |   | | +-org.eclipse.platform:org.eclipse.osgi:3.24.200
+  | |   | | 
+  | |   | +-org.eclipse.platform:org.eclipse.equinox.registry:3.12.600
+  | |   |   +-org.eclipse.platform:org.eclipse.equinox.common:3.20.300 (evicted by: 3.20.400)
+  | |   |   +-org.eclipse.platform:org.eclipse.equinox.common:3.20.400
+  | |   |   | +-org.eclipse.platform:org.eclipse.osgi:3.24.200
+  | |   |   | 
+  | |   |   +-org.eclipse.platform:org.eclipse.osgi:3.24.0 (evicted by: 3.24.200)
+  | |   |   +-org.eclipse.platform:org.eclipse.osgi:3.24.200
+  | |   |   
+  | |   +-org.eclipse.platform:org.eclipse.equinox.common:3.20.300 (evicted by: 3.20.400)
+  | |   +-org.eclipse.platform:org.eclipse.equinox.common:3.20.400
+  | |   | +-org.eclipse.platform:org.eclipse.osgi:3.24.200
+  | |   | 
+  | |   +-org.eclipse.platform:org.eclipse.equinox.preferences:3.12.100
+  | |   | +-org.eclipse.platform:org.eclipse.equinox.common:3.20.300 (evicted by: 3.20.400)
+  | |   | +-org.eclipse.platform:org.eclipse.equinox.common:3.20.400
+  | |   | | +-org.eclipse.platform:org.eclipse.osgi:3.24.200
+  | |   | | 
+  | |   | +-org.eclipse.platform:org.eclipse.osgi:3.24.0 (evicted by: 3.24.200)
+  | |   | +-org.eclipse.platform:org.eclipse.osgi:3.24.200
+  | |   | +-org.osgi:org.osgi.service.prefs:1.1.2
+  | |   |   +-org.osgi:osgi.annotation:8.0.1
+  | |   |   
+  | |   +-org.eclipse.platform:org.eclipse.equinox.registry:3.12.600
+  | |   | +-org.eclipse.platform:org.eclipse.equinox.common:3.20.300 (evicted by: 3.20.400)
+  | |   | +-org.eclipse.platform:org.eclipse.equinox.common:3.20.400
+  | |   | | +-org.eclipse.platform:org.eclipse.osgi:3.24.200
+  | |   | | 
+  | |   | +-org.eclipse.platform:org.eclipse.osgi:3.24.0 (evicted by: 3.24.200)
+  | |   | +-org.eclipse.platform:org.eclipse.osgi:3.24.200
+  | |   | 
+  | |   +-org.eclipse.platform:org.eclipse.osgi:3.24.100 (evicted by: 3.24.200)
+  | |   +-org.eclipse.platform:org.eclipse.osgi:3.24.200
+  | |   
+  | +-org.eclipse.platform:org.eclipse.core.filesystem:1.11.400
+  | | +-net.java.dev.jna:jna-platform:5.18.1
+  | | | +-net.java.dev.jna:jna:5.18.1
+  | | | 
+  | | +-net.java.dev.jna:jna:5.18.1
+  | | +-org.eclipse.platform:org.eclipse.core.runtime:3.34.100 (evicted by: 3.34.200)
+  | | +-org.eclipse.platform:org.eclipse.core.runtime:3.34.200
+  | | | +-org.eclipse.platform:org.eclipse.core.contenttype:3.9.800
+  | | | | +-org.eclipse.platform:org.eclipse.equinox.common:3.20.300 (evicted by: 3.20.400)
+  | | | | +-org.eclipse.platform:org.eclipse.equinox.common:3.20.400
+  | | | | | +-org.eclipse.platform:org.eclipse.osgi:3.24.200
+  | | | | | 
+  | | | | +-org.eclipse.platform:org.eclipse.equinox.preferences:3.12.100
+  | | | | | +-org.eclipse.platform:org.eclipse.equinox.common:3.20.300 (evicted by: 3.20.400)
+  | | | | | +-org.eclipse.platform:org.eclipse.equinox.common:3.20.400
+  | | | | | | +-org.eclipse.platform:org.eclipse.osgi:3.24.200
+  | | | | | | 
+  | | | | | +-org.eclipse.platform:org.eclipse.osgi:3.24.0 (evicted by: 3.24.200)
+  | | | | | +-org.eclipse.platform:org.eclipse.osgi:3.24.200
+  | | | | | +-org.osgi:org.osgi.service.prefs:1.1.2
+  | | | | |   +-org.osgi:osgi.annotation:8.0.1
+  | | | | |   
+  | | | | +-org.eclipse.platform:org.eclipse.equinox.registry:3.12.600
+  | | | | | +-org.eclipse.platform:org.eclipse.equinox.common:3.20.300 (evicted by: 3.20.400)
+  | | | | | +-org.eclipse.platform:org.eclipse.equinox.common:3.20.400
+  | | | | | | +-org.eclipse.platform:org.eclipse.osgi:3.24.200
+  | | | | | | 
+  | | | | | +-org.eclipse.platform:org.eclipse.osgi:3.24.0 (evicted by: 3.24.200)
+  | | | | | +-org.eclipse.platform:org.eclipse.osgi:3.24.200
+  | | | | | 
+  | | | | +-org.eclipse.platform:org.eclipse.osgi:3.24.0 (evicted by: 3.24.200)
+  | | | | +-org.eclipse.platform:org.eclipse.osgi:3.24.200
+  | | | | 
+  | | | +-org.eclipse.platform:org.eclipse.core.jobs:3.15.700
+  | | | | +-org.eclipse.platform:org.eclipse.equinox.common:3.20.200 (evicted by: 3.20.400)
+  | | | | +-org.eclipse.platform:org.eclipse.equinox.common:3.20.400
+  | | | | | +-org.eclipse.platform:org.eclipse.osgi:3.24.200
+  | | | | | 
+  | | | | +-org.eclipse.platform:org.eclipse.osgi:3.23.200 (evicted by: 3.24.200)
+  | | | | +-org.eclipse.platform:org.eclipse.osgi:3.24.200
+  | | | | 
+  | | | +-org.eclipse.platform:org.eclipse.equinox.app:1.7.600
+  | | | | +-org.eclipse.platform:org.eclipse.equinox.common:3.20.300 (evicted by: 3.20.400)
+  | | | | +-org.eclipse.platform:org.eclipse.equinox.common:3.20.400
+  | | | | | +-org.eclipse.platform:org.eclipse.osgi:3.24.200
+  | | | | | 
+  | | | | +-org.eclipse.platform:org.eclipse.equinox.registry:3.12.600
+  | | | |   +-org.eclipse.platform:org.eclipse.equinox.common:3.20.300 (evicted by: 3.20.400)
+  | | | |   +-org.eclipse.platform:org.eclipse.equinox.common:3.20.400
+  | | | |   | +-org.eclipse.platform:org.eclipse.osgi:3.24.200
+  | | | |   | 
+  | | | |   +-org.eclipse.platform:org.eclipse.osgi:3.24.0 (evicted by: 3.24.200)
+  | | | |   +-org.eclipse.platform:org.eclipse.osgi:3.24.200
+  | | | |   
+  | | | +-org.eclipse.platform:org.eclipse.equinox.common:3.20.300 (evicted by: 3.20.400)
+  | | | +-org.eclipse.platform:org.eclipse.equinox.common:3.20.400
+  | | | | +-org.eclipse.platform:org.eclipse.osgi:3.24.200
+  | | | | 
+  | | | +-org.eclipse.platform:org.eclipse.equinox.preferences:3.12.100
+  | | | | +-org.eclipse.platform:org.eclipse.equinox.common:3.20.300 (evicted by: 3.20.400)
+  | | | | +-org.eclipse.platform:org.eclipse.equinox.common:3.20.400
+  | | | | | +-org.eclipse.platform:org.eclipse.osgi:3.24.200
+  | | | | | 
+  | | | | +-org.eclipse.platform:org.eclipse.osgi:3.24.0 (evicted by: 3.24.200)
+  | | | | +-org.eclipse.platform:org.eclipse.osgi:3.24.200
+  | | | | +-org.osgi:org.osgi.service.prefs:1.1.2
+  | | | |   +-org.osgi:osgi.annotation:8.0.1
+  | | | |   
+  | | | +-org.eclipse.platform:org.eclipse.equinox.registry:3.12.600
+  | | | | +-org.eclipse.platform:org.eclipse.equinox.common:3.20.300 (evicted by: 3.20.400)
+  | | | | +-org.eclipse.platform:org.eclipse.equinox.common:3.20.400
+  | | | | | +-org.eclipse.platform:org.eclipse.osgi:3.24.200
+  | | | | | 
+  | | | | +-org.eclipse.platform:org.eclipse.osgi:3.24.0 (evicted by: 3.24.200)
+  | | | | +-org.eclipse.platform:org.eclipse.osgi:3.24.200
+  | | | | 
+  | | | +-org.eclipse.platform:org.eclipse.osgi:3.24.100 (evicted by: 3.24.200)
+  | | | +-org.eclipse.platform:org.eclipse.osgi:3.24.200
+  | | | 
+  | | +-org.eclipse.platform:org.eclipse.equinox.common:3.20.300 (evicted by: 3.20.400)
+  | | +-org.eclipse.platform:org.eclipse.equinox.common:3.20.400
+  | | | +-org.eclipse.platform:org.eclipse.osgi:3.24.200
+  | | | 
+  | | +-org.eclipse.platform:org.eclipse.equinox.registry:3.12.600
+  | | | +-org.eclipse.platform:org.eclipse.equinox.common:3.20.300 (evicted by: 3.20.400)
+  | | | +-org.eclipse.platform:org.eclipse.equinox.common:3.20.400
+  | | | | +-org.eclipse.platform:org.eclipse.osgi:3.24.200
+  | | | | 
+  | | | +-org.eclipse.platform:org.eclipse.osgi:3.24.0 (evicted by: 3.24.200)
+  | | | +-org.eclipse.platform:org.eclipse.osgi:3.24.200
+  | | | 
+  | | +-org.eclipse.platform:org.eclipse.osgi:3.24.0 (evicted by: 3.24.200)
+  | | +-org.eclipse.platform:org.eclipse.osgi:3.24.200
+  | | 
+  | +-org.eclipse.platform:org.eclipse.core.runtime:3.34.200
+  | | +-org.eclipse.platform:org.eclipse.core.contenttype:3.9.800
+  | | | +-org.eclipse.platform:org.eclipse.equinox.common:3.20.300 (evicted by: 3.20.400)
+  | | | +-org.eclipse.platform:org.eclipse.equinox.common:3.20.400
+  | | | | +-org.eclipse.platform:org.eclipse.osgi:3.24.200
+  | | | | 
+  | | | +-org.eclipse.platform:org.eclipse.equinox.preferences:3.12.100
+  | | | | +-org.eclipse.platform:org.eclipse.equinox.common:3.20.300 (evicted by: 3.20.400)
+  | | | | +-org.eclipse.platform:org.eclipse.equinox.common:3.20.400
+  | | | | | +-org.eclipse.platform:org.eclipse.osgi:3.24.200
+  | | | | | 
+  | | | | +-org.eclipse.platform:org.eclipse.osgi:3.24.0 (evicted by: 3.24.200)
+  | | | | +-org.eclipse.platform:org.eclipse.osgi:3.24.200
+  | | | | +-org.osgi:org.osgi.service.prefs:1.1.2
+  | | | |   +-org.osgi:osgi.annotation:8.0.1
+  | | | |   
+  | | | +-org.eclipse.platform:org.eclipse.equinox.registry:3.12.600
+  | | | | +-org.eclipse.platform:org.eclipse.equinox.common:3.20.300 (evicted by: 3.20.400)
+  | | | | +-org.eclipse.platform:org.eclipse.equinox.common:3.20.400
+  | | | | | +-org.eclipse.platform:org.eclipse.osgi:3.24.200
+  | | | | | 
+  | | | | +-org.eclipse.platform:org.eclipse.osgi:3.24.0 (evicted by: 3.24.200)
+  | | | | +-org.eclipse.platform:org.eclipse.osgi:3.24.200
+  | | | | 
+  | | | +-org.eclipse.platform:org.eclipse.osgi:3.24.0 (evicted by: 3.24.200)
+  | | | +-org.eclipse.platform:org.eclipse.osgi:3.24.200
+  | | | 
+  | | +-org.eclipse.platform:org.eclipse.core.jobs:3.15.700
+  | | | +-org.eclipse.platform:org.eclipse.equinox.common:3.20.200 (evicted by: 3.20.400)
+  | | | +-org.eclipse.platform:org.eclipse.equinox.common:3.20.400
+  | | | | +-org.eclipse.platform:org.eclipse.osgi:3.24.200
+  | | | | 
+  | | | +-org.eclipse.platform:org.eclipse.osgi:3.23.200 (evicted by: 3.24.200)
+  | | | +-org.eclipse.platform:org.eclipse.osgi:3.24.200
+  | | | 
+  | | +-org.eclipse.platform:org.eclipse.equinox.app:1.7.600
+  | | | +-org.eclipse.platform:org.eclipse.equinox.common:3.20.300 (evicted by: 3.20.400)
+  | | | +-org.eclipse.platform:org.eclipse.equinox.common:3.20.400
+  | | | | +-org.eclipse.platform:org.eclipse.osgi:3.24.200
+  | | | | 
+  | | | +-org.eclipse.platform:org.eclipse.equinox.registry:3.12.600
+  | | |   +-org.eclipse.platform:org.eclipse.equinox.common:3.20.300 (evicted by: 3.20.400)
+  | | |   +-org.eclipse.platform:org.eclipse.equinox.common:3.20.400
+  | | |   | +-org.eclipse.platform:org.eclipse.osgi:3.24.200
+  | | |   | 
+  | | |   +-org.eclipse.platform:org.eclipse.osgi:3.24.0 (evicted by: 3.24.200)
+  | | |   +-org.eclipse.platform:org.eclipse.osgi:3.24.200
+  | | |   
+  | | +-org.eclipse.platform:org.eclipse.equinox.common:3.20.300 (evicted by: 3.20.400)
+  | | +-org.eclipse.platform:org.eclipse.equinox.common:3.20.400
+  | | | +-org.eclipse.platform:org.eclipse.osgi:3.24.200
+  | | | 
+  | | +-org.eclipse.platform:org.eclipse.equinox.preferences:3.12.100
+  | | | +-org.eclipse.platform:org.eclipse.equinox.common:3.20.300 (evicted by: 3.20.400)
+  | | | +-org.eclipse.platform:org.eclipse.equinox.common:3.20.400
+  | | | | +-org.eclipse.platform:org.eclipse.osgi:3.24.200
+  | | | | 
+  | | | +-org.eclipse.platform:org.eclipse.osgi:3.24.0 (evicted by: 3.24.200)
+  | | | +-org.eclipse.platform:org.eclipse.osgi:3.24.200
+  | | | +-org.osgi:org.osgi.service.prefs:1.1.2
+  | | |   +-org.osgi:osgi.annotation:8.0.1
+  | | |   
+  | | +-org.eclipse.platform:org.eclipse.equinox.registry:3.12.600
+  | | | +-org.eclipse.platform:org.eclipse.equinox.common:3.20.300 (evicted by: 3.20.400)
+  | | | +-org.eclipse.platform:org.eclipse.equinox.common:3.20.400
+  | | | | +-org.eclipse.platform:org.eclipse.osgi:3.24.200
+  | | | | 
+  | | | +-org.eclipse.platform:org.eclipse.osgi:3.24.0 (evicted by: 3.24.200)
+  | | | +-org.eclipse.platform:org.eclipse.osgi:3.24.200
+  | | | 
+  | | +-org.eclipse.platform:org.eclipse.osgi:3.24.100 (evicted by: 3.24.200)
+  | | +-org.eclipse.platform:org.eclipse.osgi:3.24.200
+  | | 
+  | +-org.eclipse.platform:org.eclipse.osgi:3.24.200
+  | 
+  +-org.eclipse.platform:org.eclipse.equinox.common:3.20.400
+  | +-org.eclipse.platform:org.eclipse.osgi:3.24.200
+  | 
+  +-org.scala-lang.modules:scala-parallel-collections_3:1.2.0
+  | +-org.scala-lang:scala3-library_3:3.3.4 (evicted by: 3.8.4)
+  | +-org.scala-lang:scala3-library_3:3.8.4 [S]
+  | 
+  +-org.scala-lang:scala3-library_3:3.8.4 [S]
+  +-org.slf4j:slf4j-api:2.0.18
+  +-org.slf4j:slf4j-nop:2.0.18
+    +-org.slf4j:slf4j-api:2.0.18
+    
+io.appthreat:dataflowengineoss_3:3.0.0
