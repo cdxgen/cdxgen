@@ -3,3 +3,13 @@ gradle.taskGraph.whenReady {
         println "<CDXGEN:includedBuild>:${includedBuild.name}"
     }
 }
+
+allprojects {
+    afterEvaluate { project ->
+        project.repositories.each { repo ->
+            if (repo instanceof MavenArtifactRepository) {
+                println "<CDXGEN:repository>:${repo.name}:${repo.url}"
+            }
+        }
+    }
+}

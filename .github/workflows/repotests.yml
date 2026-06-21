@@ -131,6 +131,16 @@ jobs:
           CARGO_CACHE_DIR=test/data/cargo-cache-fixture/registry/cache/index.crates.io-1949cf8c6b5b557f bin/cdxgen.js -t cargo-cache . -o bomresults/bom-cargo-cache-fixture.json --fail-on-error
           jq -e 'any(.components[]; .name == "serde" and any((.properties // [])[]; .name == "cdx:cargo:cacheSource" and .value == "registry-cache"))' bomresults/bom-cargo-cache-fixture.json
         shell: bash
+      - name: repotests gradle fixture
+        env:
+          GRADLE_ARGS: "--refresh-dependencies"
+        run: |
+          bin/cdxgen.js -t gradle test/data/gradle-repotest -o bomresults/bom-gradle-repotest.json --fail-on-error
+          jq -e 'any(.components[]; .group == "org.slf4j" and .name == "slf4j-api" and .version == "2.0.7")' bomresults/bom-gradle-repotest.json
+          jq -e 'any(.components[]; .group == "org.slf4j" and .name == "slf4j-api" and .hashes != null)' bomresults/bom-gradle-repotest.json
+          jq -e 'any(.components[]; .group == "org.slf4j" and .name == "slf4j-api" and any((.externalReferences // [])[]; .type == "distribution" and (.url | contains("repo.maven.apache.org"))))' bomresults/bom-gradle-repotest.json
+          jq -e 'any(.components[]; .group == "androidx.annotation" and .name == "annotation" and any((.externalReferences // [])[]; .type == "distribution" and (.url | contains("dl.google.com"))))' bomresults/bom-gradle-repotest.json
+        shell: bash
       - name: repotests source crypto fixture
         run: |
           bin/cdxgen.js test/data/cbom-js-repotest -o bomresults/bom-cbom-js-fixture.json --include-crypto --evidence --deep --spec-version 1.7 --fail-on-error

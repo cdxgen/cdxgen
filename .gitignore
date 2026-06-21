@@ -149,3 +149,4 @@ devenv.local.nix
 .DS_Store
 test/data/cbom-js-repotest/java-openapi.json
 test/data/mcp-repotest/js-openapi.json
+**/.gradle/*
