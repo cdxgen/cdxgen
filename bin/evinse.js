@@ -252,6 +252,11 @@ const args = yargs(hideBin(process.argv))
     nargs: 1,
     type: "array",
   })
+  .option("no-ignore", {
+    type: "boolean",
+    default: false,
+    description: "Disable default ignore lists during scanning.",
+  })
   .option("usages-slices-file", {
     description: "Use an existing usages slices file.",
     default: "usages.slices.json",

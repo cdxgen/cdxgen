@@ -421,6 +421,11 @@ const args = _yargs
     nargs: 1,
     type: "array",
   })
+  .option("no-ignore", {
+    type: "boolean",
+    default: false,
+    description: "Disable default ignore lists during scanning.",
+  })
   .option("export-proto", {
     type: "boolean",
     default: false,
@@ -771,6 +776,7 @@ const options = Object.assign({}, args, {
       : args.output,
   exclude: args.exclude || args.excludeRegex,
   include: args.include || args.includeRegex,
+  noIgnore: args.noIgnore,
 });
 const cliActivityProjectType = Array.isArray(options.projectType)
   ? options.projectType.join(",")
