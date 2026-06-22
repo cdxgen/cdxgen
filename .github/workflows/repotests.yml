@@ -140,6 +140,7 @@ jobs:
           jq -e 'any(.components[]; .group == "org.slf4j" and .name == "slf4j-api" and .hashes != null)' bomresults/bom-gradle-repotest.json
           jq -e 'any(.components[]; .group == "org.slf4j" and .name == "slf4j-api" and any((.externalReferences // [])[]; .type == "distribution" and (.url | contains("repo.maven.apache.org"))))' bomresults/bom-gradle-repotest.json
           jq -e 'any(.components[]; .group == "androidx.annotation" and .name == "annotation" and any((.externalReferences // [])[]; .type == "distribution" and (.url | contains("google.com"))))' bomresults/bom-gradle-repotest.json
+          jq -e 'any(.metadata.tools.components[]?; .group == "org.gradle" and .name == "gradle" and .version == "8.3" and any((.externalReferences // [])[]; .type == "distribution" and .url == "https://services.gradle.org/distributions/gradle-8.3-bin.zip") and any((.hashes // [])[]; .alg == "SHA-256" and .content == "c2f542fa10e7272e2bd9fae1006caedeb86d0c62d2d9f3929a3b3cdcdef19632"))' bomresults/bom-gradle-repotest.json
         shell: bash
       - name: repotests source crypto fixture
         run: |
