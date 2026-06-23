@@ -92,6 +92,15 @@ export function buildObjectForGradleModule(name: string, metadata: object): obje
  */
 export function extractGradleRepositoryUrls(propertiesOutput: string): Object;
 /**
+ * Parse the distribution URLs resolved by the init script when the
+ * `resolve-gradle-distribution` feature flag is enabled. The init script emits lines of
+ * the form `<CDXGEN:distribution>:group:name:version -> https://.../name-version.jar`.
+ *
+ * @param {string} stdout Gradle stdout logs containing the distribution markers
+ * @returns {Object} Map of `group:name:version` keys to their resolved distribution URLs
+ */
+export function parseGradleResolvedDistributions(stdout: string): Object;
+/**
  * Parse Gradle info logs to capture HTTP URLs of resolved dependency artifacts.
  *
  * @param {string} stdout Gradle stdout logs under --info

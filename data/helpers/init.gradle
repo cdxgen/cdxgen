@@ -11,5 +11,61 @@ allprojects {
                 println "<CDXGEN:repository>:${repo.name}:${repo.url}"
             }
         }
+        // When the `resolve-gradle-distribution` feature flag is enabled, cdxgen passes
+        // the `cdxgenResolveDistribution` project property. We then probe each repository
+        // for the actual jar/aar artifact so that the resolved distribution URL can be
+        // attached to the matching component instead of guessing the first repository.
+        if (project.hasProperty('cdxgenResolveDistribution') &&
+                project.property('cdxgenResolveDistribution').toString() == 'true') {
+            def resolvedKeys = [] as Set
+            project.configurations.each { configuration ->
+                configuration.dependencies.each { dependency ->
+                    if (dependency.group == null || dependency.version == null) {
+                        return
+                    }
+                    def depKey = String.format("%s:%s:%s", dependency.group, dependency.name, dependency.version)
+                    if (resolvedKeys.contains(depKey)) {
+                        return
+                    }
+                    def groupPath = dependency.group.replace('.', '/')
+                    for (ArtifactRepository repository : project.repositories.asList()) {
+                        def url = repository.properties.get('url')
+                        if (url == null) {
+                            continue
+                        }
+                        def urlString = url.toString()
+                        if (!urlString.endsWith("/")) {
+                            urlString = urlString + "/"
+                        }
+                        def jarUrl = String.format("%s%s/%s/%s/%s-%s.jar", urlString,
+                                groupPath, dependency.name, dependency.version,
+                                dependency.name, dependency.version)
+                        def aarUrl = String.format("%s%s/%s/%s/%s-%s.aar", urlString,
+                                groupPath, dependency.name, dependency.version,
+                                dependency.name, dependency.version)
+                        try {
+                            def inStreamJar = new URL(jarUrl).openStream()
+                            if (inStreamJar != null) {
+                                inStreamJar.close()
+                                println "<CDXGEN:distribution>:" + depKey + " -> " + jarUrl
+                                resolvedKeys.add(depKey)
+                                break
+                            }
+                        } catch (Exception ignored) {
+                        }
+                        try {
+                            def inStreamAar = new URL(aarUrl).openStream()
+                            if (inStreamAar != null) {
+                                inStreamAar.close()
+                                println "<CDXGEN:distribution>:" + depKey + " -> " + aarUrl
+                                resolvedKeys.add(depKey)
+                                break
+                            }
+                        } catch (Exception ignored) {
+                        }
+                    }
+                }
+            }
+        }
     }
 }

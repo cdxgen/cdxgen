@@ -479,7 +479,12 @@ const args = _yargs
   .option("feature-flags", {
     description: "Experimental feature flags to enable. Advanced users only.",
     hidden: true,
-    choices: ["safe-pip-install", "suggest-build-tools", "ruby-docker-install"],
+    choices: [
+      "safe-pip-install",
+      "suggest-build-tools",
+      "ruby-docker-install",
+      "resolve-gradle-distribution",
+    ],
   })
   .option("min-confidence", {
     description:
