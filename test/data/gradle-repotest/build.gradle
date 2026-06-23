@@ -13,5 +13,5 @@ repositories {
 
 dependencies {
     implementation 'org.slf4j:slf4j-api:2.0.7'
-    implementation 'androidx.annotation:annotation:1.6.0'
+    implementation 'com.google.android.gms:play-services-basement:18.1.0'
 }
