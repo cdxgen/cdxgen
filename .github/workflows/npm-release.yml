@@ -41,12 +41,12 @@ jobs:
       contents: read
       id-token: write  # needed for npm provenance attestation
     steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0  # v7.0.0
         with:
           ref: ${{ env.REF }}
           persist-credentials: false
       - name: Setup pnpm
-        uses: pnpm/action-setup@0e279bb959325dab635dd2c09392533439d90093  # v6.0.8
+        uses: pnpm/action-setup@0ebf47130e4866e96fce0953f49152a61190b271  # v6.0.9
       - name: Use Node.js
         uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e  # v6.4.0
         with:
@@ -72,12 +72,12 @@ jobs:
     permissions:
       packages: write  # needed for uploading images to GH package registry
     steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0  # v7.0.0
         with:
           ref: ${{ env.REF }}
           persist-credentials: false
       - name: Set up QEMU
-        uses: docker/setup-qemu-action@ce360397dd3f832beb865e1373c09c0e9f86d70a # v4.0.0
+        uses: docker/setup-qemu-action@06116385d9baf250c9f4dcb4858b16962ea869c3  # v4.1.0
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@d7f5e7f509e45cec5c76c4d5afdd7de93d0b3df5  # v4.1.0
       - name: Log in to the Container registry
@@ -116,12 +116,12 @@ jobs:
     permissions:
       packages: write  # needed for uploading images to GH package registry
     steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0  # v7.0.0
         with:
           ref: ${{ env.REF }}
           persist-credentials: false
       - name: Set up QEMU
-        uses: docker/setup-qemu-action@ce360397dd3f832beb865e1373c09c0e9f86d70a # v4.0.0
+        uses: docker/setup-qemu-action@06116385d9baf250c9f4dcb4858b16962ea869c3  # v4.1.0
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@d7f5e7f509e45cec5c76c4d5afdd7de93d0b3df5  # v4.1.0
       - name: Log in to the Container registry
@@ -161,7 +161,7 @@ jobs:
     permissions:
       packages: write  # needed for uploading images to GH package registry
     steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0  # v7.0.0
         with:
           ref: ${{ env.REF }}
           persist-credentials: false
@@ -175,7 +175,7 @@ jobs:
         id: metadata
         with:
           images: ghcr.io/${{ github.repository }}
-      - uses: int128/docker-manifest-create-action@b9d644eaa3312dd895ffdafb19333a7b266e6ba9  # v2.21.0
+      - uses: int128/docker-manifest-create-action@b0b692440e7278c3e5108fb656df325a9ddf5288  # v2.24.0
         id: build
         with:
           index-annotations: ${{ steps.metadata.outputs.labels }}
@@ -192,7 +192,7 @@ jobs:
     permissions:
       packages: write
     steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0  # v7.0.0
         with:
           ref: ${{ env.REF }}
           persist-credentials: false
@@ -244,7 +244,7 @@ jobs:
     permissions:
       packages: write
     steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0  # v7.0.0
         with:
           ref: ${{ env.REF }}
           persist-credentials: false
@@ -295,12 +295,12 @@ jobs:
       contents: write  # needed for creating GH releases and uploading release assets
       packages: write  # needed for uploading images to GH package registry
     steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0  # v7.0.0
         with:
           ref: ${{ env.REF }}
           persist-credentials: false
       - name: Setup pnpm
-        uses: pnpm/action-setup@0e279bb959325dab635dd2c09392533439d90093  # v6.0.8
+        uses: pnpm/action-setup@0ebf47130e4866e96fce0953f49152a61190b271  # v6.0.9
       - name: Use Node.js
         uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e  # v6.4.0
         with:
@@ -334,7 +334,7 @@ jobs:
             type=raw,value=latest,enable=${{ github.event_name == 'push' || github.event.inputs.latest == 'true' }}
             type=raw,value=master,enable=${{ env.REF == 'refs/heads/master' }}
       - name: Merge and push manifest
-        uses: int128/docker-manifest-create-action@b9d644eaa3312dd895ffdafb19333a7b266e6ba9  # v2.21.0
+        uses: int128/docker-manifest-create-action@b0b692440e7278c3e5108fb656df325a9ddf5288  # v2.24.0
         with:
           index-annotations: ${{ steps.meta.outputs.labels }}
           tags: ${{ steps.meta.outputs.tags }}
@@ -357,7 +357,7 @@ jobs:
         env:
           STEPS_META_OUTPUTS_TAGS: ${{ steps.meta.outputs.tags }}
       - name: Checkout latest helper tools
-        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0  # v7.0.0
         with:
           ref: ${{ github.sha }}
           path: latest-cdxgen
@@ -382,7 +382,7 @@ jobs:
           SBOM_SIGN_PRIVATE_KEY_BASE64: ${{ secrets.SBOM_SIGN_PRIVATE_KEY }}
           STEPS_META_OUTPUTS_TAGS: ${{ steps.meta.outputs.tags }}
       - name: Attach cdx sbom to release
-        uses: softprops/action-gh-release@b4309332981a82ec1c5618f44dd2e27cc8bfbfda  # v3.0.0
+        uses: softprops/action-gh-release@718ea10b132b3b2eba29c1007bb80653f286566b  # v3.0.1
         if: startsWith(env.REF, 'refs/tags/')
         with:
           tag_name: ${{ github.event.inputs.tag || github.ref_name }}
@@ -399,7 +399,7 @@ jobs:
     permissions:
       packages: write
     steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0  # v7.0.0
         with:
           ref: ${{ env.REF }}
           persist-credentials: false
@@ -451,7 +451,7 @@ jobs:
     permissions:
       packages: write
     steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0  # v7.0.0
         with:
           ref: ${{ env.REF }}
           persist-credentials: false
@@ -502,12 +502,12 @@ jobs:
       contents: write  # needed for creating GH releases and uploading release assets
       packages: write  # needed for uploading images to GH package registry
     steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0  # v7.0.0
         with:
           ref: ${{ env.REF }}
           persist-credentials: false
       - name: Setup pnpm
-        uses: pnpm/action-setup@0e279bb959325dab635dd2c09392533439d90093  # v6.0.8
+        uses: pnpm/action-setup@0ebf47130e4866e96fce0953f49152a61190b271  # v6.0.9
       - name: Use Node.js
         uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e  # v6.4.0
         with:
@@ -541,7 +541,7 @@ jobs:
             type=raw,value=latest,enable=${{ github.event_name == 'push' || github.event.inputs.latest == 'true' }}
             type=raw,value=master,enable=${{ env.REF == 'refs/heads/master' }}
       - name: Merge and push manifest
-        uses: int128/docker-manifest-create-action@b9d644eaa3312dd895ffdafb19333a7b266e6ba9  # v2.21.0
+        uses: int128/docker-manifest-create-action@b0b692440e7278c3e5108fb656df325a9ddf5288  # v2.24.0
         with:
           index-annotations: ${{ steps.meta.outputs.labels }}
           tags: ${{ steps.meta.outputs.tags }}
@@ -549,7 +549,7 @@ jobs:
             ${{ needs.containers-secure-amd64.outputs.image-uri }}
             ${{ needs.containers-secure-arm64.outputs.image-uri }}
       - name: Checkout latest helper tools
-        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0  # v7.0.0
         with:
           ref: ${{ github.sha }}
           path: latest-cdxgen
@@ -574,7 +574,7 @@ jobs:
           SBOM_SIGN_PRIVATE_KEY_BASE64: ${{ secrets.SBOM_SIGN_PRIVATE_KEY }}
           STEPS_META_OUTPUTS_TAGS: ${{ steps.meta.outputs.tags }}
       - name: Attach cdx secure sbom to release
-        uses: softprops/action-gh-release@b4309332981a82ec1c5618f44dd2e27cc8bfbfda  # v3.0.0
+        uses: softprops/action-gh-release@718ea10b132b3b2eba29c1007bb80653f286566b  # v3.0.1
         if: startsWith(env.REF, 'refs/tags/')
         with:
           tag_name: ${{ github.event.inputs.tag || github.ref_name }}
@@ -591,7 +591,7 @@ jobs:
     permissions:
       packages: write
     steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0  # v7.0.0
         with:
           ref: ${{ env.REF }}
           persist-credentials: false
@@ -643,7 +643,7 @@ jobs:
     permissions:
       packages: write
     steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0  # v7.0.0
         with:
           ref: ${{ env.REF }}
           persist-credentials: false
@@ -694,12 +694,12 @@ jobs:
       contents: write  # needed for creating GH releases and uploading release assets
       packages: write  # needed for uploading images to GH package registry
     steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0  # v7.0.0
         with:
           ref: ${{ env.REF }}
           persist-credentials: false
       - name: Setup pnpm
-        uses: pnpm/action-setup@0e279bb959325dab635dd2c09392533439d90093  # v6.0.8
+        uses: pnpm/action-setup@0ebf47130e4866e96fce0953f49152a61190b271  # v6.0.9
       - name: Use Node.js
         uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e  # v6.4.0
         with:
@@ -733,7 +733,7 @@ jobs:
             type=raw,value=latest,enable=${{ github.event_name == 'push' || github.event.inputs.latest == 'true' }}
             type=raw,value=master,enable=${{ env.REF == 'refs/heads/master' }}
       - name: Merge and push manifest
-        uses: int128/docker-manifest-create-action@b9d644eaa3312dd895ffdafb19333a7b266e6ba9  # v2.21.0
+        uses: int128/docker-manifest-create-action@b0b692440e7278c3e5108fb656df325a9ddf5288  # v2.24.0
         with:
           index-annotations: ${{ steps.meta.outputs.labels }}
           tags: ${{ steps.meta.outputs.tags }}
@@ -741,7 +741,7 @@ jobs:
             ${{ needs.containers-deno-amd64.outputs.image-uri }}
             ${{ needs.containers-deno-arm64.outputs.image-uri }}
       - name: Checkout latest helper tools
-        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0  # v7.0.0
         with:
           ref: ${{ github.sha }}
           path: latest-cdxgen
@@ -766,7 +766,7 @@ jobs:
           SBOM_SIGN_PRIVATE_KEY_BASE64: ${{ secrets.SBOM_SIGN_PRIVATE_KEY }}
           STEPS_META_OUTPUTS_TAGS: ${{ steps.meta.outputs.tags }}
       - name: Attach cdx deno sbom to release
-        uses: softprops/action-gh-release@b4309332981a82ec1c5618f44dd2e27cc8bfbfda  # v3.0.0
+        uses: softprops/action-gh-release@718ea10b132b3b2eba29c1007bb80653f286566b  # v3.0.1
         if: startsWith(env.REF, 'refs/tags/')
         with:
           tag_name: ${{ github.event.inputs.tag || github.ref_name }}
@@ -780,12 +780,12 @@ jobs:
     permissions:
       packages: write  # needed for uploading images to GH package registry
     steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0  # v7.0.0
         with:
           ref: ${{ env.REF }}
           persist-credentials: false
       - name: Setup pnpm
-        uses: pnpm/action-setup@0e279bb959325dab635dd2c09392533439d90093  # v6.0.8
+        uses: pnpm/action-setup@0ebf47130e4866e96fce0953f49152a61190b271  # v6.0.9
       - name: Use Node.js
         uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e  # v6.4.0
         with:
@@ -801,7 +801,7 @@ jobs:
           chmod +x contrib/free_disk_space.sh
           ./contrib/free_disk_space.sh
       - name: Set up QEMU
-        uses: docker/setup-qemu-action@ce360397dd3f832beb865e1373c09c0e9f86d70a # v4.0.0
+        uses: docker/setup-qemu-action@06116385d9baf250c9f4dcb4858b16962ea869c3  # v4.1.0
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@d7f5e7f509e45cec5c76c4d5afdd7de93d0b3df5  # v4.1.0
       - name: Log in to the Container registry
@@ -841,7 +841,7 @@ jobs:
     permissions:
       packages: write
     steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0  # v7.0.0
         with:
           ref: ${{ env.REF }}
           persist-credentials: false
@@ -892,7 +892,7 @@ jobs:
     permissions:
       packages: write
     steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0  # v7.0.0
         with:
           ref: ${{ env.REF }}
           persist-credentials: false
@@ -943,12 +943,12 @@ jobs:
       contents: write  # needed for creating GH releases and uploading release assets
       packages: write  # needed for uploading images to GH package registry
     steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0  # v7.0.0
         with:
           ref: ${{ env.REF }}
           persist-credentials: false
       - name: Setup pnpm
-        uses: pnpm/action-setup@0e279bb959325dab635dd2c09392533439d90093  # v6.0.8
+        uses: pnpm/action-setup@0ebf47130e4866e96fce0953f49152a61190b271  # v6.0.9
       - name: Use Node.js
         uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e  # v6.4.0
         with:
@@ -982,7 +982,7 @@ jobs:
             type=raw,value=latest,enable=${{ github.event_name == 'push' || github.event.inputs.latest == 'true' }}
             type=raw,value=master,enable=${{ env.REF == 'refs/heads/master' }}
       - name: Merge and push manifest
-        uses: int128/docker-manifest-create-action@b9d644eaa3312dd895ffdafb19333a7b266e6ba9  # v2.21.0
+        uses: int128/docker-manifest-create-action@b0b692440e7278c3e5108fb656df325a9ddf5288  # v2.24.0
         with:
           index-annotations: ${{ steps.meta.outputs.labels }}
           tags: ${{ steps.meta.outputs.tags }}
@@ -990,7 +990,7 @@ jobs:
             ${{ needs.containers-bun-amd64.outputs.image-uri }}
             ${{ needs.containers-bun-arm64.outputs.image-uri }}
       - name: Checkout latest helper tools
-        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0  # v7.0.0
         with:
           ref: ${{ github.sha }}
           path: latest-cdxgen
@@ -1015,7 +1015,7 @@ jobs:
           SBOM_SIGN_PRIVATE_KEY_BASE64: ${{ secrets.SBOM_SIGN_PRIVATE_KEY }}
           STEPS_META_OUTPUTS_TAGS: ${{ steps.meta.outputs.tags }}
       - name: Attach cdx bun sbom to release
-        uses: softprops/action-gh-release@b4309332981a82ec1c5618f44dd2e27cc8bfbfda  # v3.0.0
+        uses: softprops/action-gh-release@718ea10b132b3b2eba29c1007bb80653f286566b  # v3.0.1
         if: startsWith(env.REF, 'refs/tags/')
         with:
           tag_name: ${{ github.event.inputs.tag || github.ref_name }}

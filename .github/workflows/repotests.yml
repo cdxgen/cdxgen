@@ -46,13 +46,13 @@ jobs:
   cli-tests-quick-amd64:
     runs-on: ["self-hosted", "ubuntu", "amd64"]
     steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0  # v7.0.0
         with:
           persist-credentials: false
       - uses: actions/setup-go@4a3601121dd01d1626a1e23e37211e3254c1c06c # v6.4.0
         with:
           go-version: '1.26.3'
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0  # v7.0.0
         with:
           persist-credentials: false
           repository: 'hoolicorp/java-sec-code'
@@ -61,7 +61,7 @@ jobs:
         run: |
           rm -rf /tmp/docker-images-* /tmp/atom-usages-* /tmp/atom-reachables-* /tmp/cdx*
       - name: Setup pnpm
-        uses: pnpm/action-setup@0e279bb959325dab635dd2c09392533439d90093  # v6.0.8
+        uses: pnpm/action-setup@0ebf47130e4866e96fce0953f49152a61190b271  # v6.0.9
       - name: Use Node.js
         uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e  # v6.4.0
         with:
@@ -140,7 +140,7 @@ jobs:
           jq -e 'any(.components[]; .group == "org.slf4j" and .name == "slf4j-api" and .hashes != null)' bomresults/bom-gradle-repotest.json
           jq -e 'any(.components[]; .group == "org.slf4j" and .name == "slf4j-api" and any((.externalReferences // [])[]; .type == "distribution" and (.url | contains("repo.maven.apache.org"))))' bomresults/bom-gradle-repotest.json
           jq -e 'any(.components[]; .group == "androidx.annotation" and .name == "annotation" and any((.externalReferences // [])[]; .type == "distribution" and (.url | contains("google.com"))))' bomresults/bom-gradle-repotest.json
-          jq -e 'any(.metadata.tools.components[]?; .group == "org.gradle" and .name == "gradle" and .version == "8.3" and any((.externalReferences // [])[]; .type == "distribution" and .url == "https://services.gradle.org/distributions/gradle-8.3-bin.zip") and any((.hashes // [])[]; .alg == "SHA-256" and .content == "c2f542fa10e7272e2bd9fae1006caedeb86d0c62d2d9f3929a3b3cdcdef19632"))' bomresults/bom-gradle-repotest.json
+          jq -e 'any(.metadata.tools.components[]?; .group == "org.gradle" and .name == "gradle" and .version == "9.6.0" and any((.externalReferences // [])[]; .type == "distribution" and .url == "https://services.gradle.org/distributions/gradle-9.6.0-bin.zip") and any((.hashes // [])[]; .alg == "SHA-256" and .content == "bbaeb2fef8710818cf0e261201dab964c572f92b942812df0c3620d62a529a01"))' bomresults/bom-gradle-repotest.json
         shell: bash
       - name: repotests source crypto fixture
         run: |
@@ -364,37 +364,37 @@ jobs:
   cli-tests-quick-arm64:
     runs-on: ["self-hosted", "ubuntu", "arm64"]
     steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0  # v7.0.0
         with:
           persist-credentials: false
       - uses: actions/setup-go@4a3601121dd01d1626a1e23e37211e3254c1c06c # v6.4.0
         with:
           go-version: '1.26.3'
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0  # v7.0.0
         with:
           persist-credentials: false
           repository: 'aws-solutions/iot-device-simulator'
           path: 'repotests/iot-device-simulator'
           ref: 'v3.0.9'
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0  # v7.0.0
         with:
           persist-credentials: false
           repository: 'ollama/ollama'
           path: 'repotests/ollama'
           ref: 'v0.5.7'
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0  # v7.0.0
         with:
           persist-credentials: false
           repository: 'caddyserver/caddy'
           path: 'repotests/caddy'
           ref: 'v2.9.1'
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0  # v7.0.0
         with:
           persist-credentials: false
           repository: 'flutter/gallery'
           ref: 'v2.10.2'
           path: 'repotests/gallery'
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0  # v7.0.0
         with:
           persist-credentials: false
           repository: 'ShiftLeftSecurity/shiftleft-go-example'
@@ -402,7 +402,7 @@ jobs:
       - name: Trim CI agent
         run: rm -rf /tmp/docker-images-* /tmp/atom-*  /tmp/mvn-deps*
       - name: Setup pnpm
-        uses: pnpm/action-setup@0e279bb959325dab635dd2c09392533439d90093  # v6.0.8
+        uses: pnpm/action-setup@0ebf47130e4866e96fce0953f49152a61190b271  # v6.0.9
       - name: Use Node.js
         uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e  # v6.4.0
         with:
@@ -461,11 +461,11 @@ jobs:
         os: ['self-hosted-ubuntu', 'ubuntu-24.04-arm', 'windows-latest', 'macos-15']
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0  # v7.0.0
         with:
           persist-credentials: false
       - name: Set up JDK ${{ matrix.java-version }}
-        uses: actions/setup-java@be666c2fcd27ec809703dec50e508c2fdc7f6654 # v5.2.0
+        uses: actions/setup-java@ad2b38190b15e4d6bdf0c97fb4fca8412226d287  # v5.3.0
         with:
           distribution: 'temurin'
           java-version: ${{ matrix.java-version }}
@@ -473,7 +473,7 @@ jobs:
         with:
           go-version: '1.26.3'
       - name: Setup pnpm
-        uses: pnpm/action-setup@0e279bb959325dab635dd2c09392533439d90093  # v6.0.8
+        uses: pnpm/action-setup@0ebf47130e4866e96fce0953f49152a61190b271  # v6.0.9
       - name: Use Node.js
         uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e  # v6.4.0
         with:
@@ -490,7 +490,7 @@ jobs:
         run: |
           chmod +x contrib/free_disk_space.sh
           ./contrib/free_disk_space.sh
-      - uses: sbt/setup-sbt@4ed7b7ec4bfa2074fe48554c09e341267397247c  # v1.2.0
+      - uses: sbt/setup-sbt@3afe9cf056c5d139bfc46579af1192d77a2f0821  # v1.4.0
       - name: Install bazelisk - linux
         if: matrix.os == 'ubuntu-24.04'
         run: |
@@ -542,7 +542,7 @@ jobs:
           ~/.swiftly/bin/swiftly init --quiet-shell-followup && \
           . ~/.swiftly/env.sh && \
           hash -r
-      - uses: ruby/setup-ruby@afeafc3d1ab54a631816aba4c914a0081c12ff2f  # v1.310.0
+      - uses: ruby/setup-ruby@9eb537ca036ebaed86729dcb9309076e4c5c3b74  # v1.314.0
         with:
           ruby-version: '3.4.9'
       - name: Set up Python
@@ -560,283 +560,283 @@ jobs:
         if: startsWith(matrix.os, 'ubuntu-24')
         run: |
           sudo sysctl -w kernel.apparmor_restrict_unprivileged_userns=0 || true
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0  # v7.0.0
         with:
           persist-credentials: false
           repository: 'ShiftLeftSecurity/shiftleft-java-example'
           path: 'repotests/shiftleft-java-example'
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0  # v7.0.0
         with:
           persist-credentials: false
           repository: 'ShiftLeftSecurity/shiftleft-ts-example'
           path: 'repotests/shiftleft-ts-example'
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0  # v7.0.0
         with:
           persist-credentials: false
           repository: 'HooliCorp/vulnerable_net_core'
           path: 'repotests/vulnerable_net_core'
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0  # v7.0.0
         with:
           persist-credentials: false
           repository: 'HooliCorp/Goatly.NET'
           path: 'repotests/Goatly.NET'
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0  # v7.0.0
         with:
           persist-credentials: false
           repository: 'HooliCorp/DjanGoat'
           path: 'repotests/DjanGoat'
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0  # v7.0.0
         with:
           persist-credentials: false
           repository: 'prabhu/Vulnerable-Web-Application'
           path: 'repotests/Vulnerable-Web-Application'
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0  # v7.0.0
         with:
           persist-credentials: false
           repository: 'prabhu/railsgoat'
           path: 'repotests/railsgoat'
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0  # v7.0.0
         with:
           persist-credentials: false
           repository: 'bazelbuild/examples'
           path: 'repotests/bazel-examples'
           ref: 'b51e3bdd468ce8c4a516d7dca993909dcc84af32'
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0  # v7.0.0
         with:
           persist-credentials: false
           repository: 'gojek/ziggurat'
           ref: '4.9.4'
           path: 'repotests/ziggurat'
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0  # v7.0.0
         with:
           persist-credentials: false
           repository: 'apple/swift-markdown'
           ref: '0.3.0'
           path: 'repotests/swift-markdown'
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0  # v7.0.0
         with:
           persist-credentials: false
           repository: 'GoogleCloudPlatform/microservices-demo'
           ref: 'v0.8.1'
           path: 'repotests/microservices-demo'
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0  # v7.0.0
         with:
           persist-credentials: false
           repository: 'zoom/meetingsdk-vuejs-sample'
           ref: 'v2.18.0'
           path: 'repotests/meetingsdk-vuejs-sample'
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0  # v7.0.0
         with:
           persist-credentials: false
           repository: 'kriasoft/react-app'
           path: 'repotests/react-app'
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0  # v7.0.0
         with:
           persist-credentials: false
           repository: 'patrickjuchli/basic-ftp'
           path: 'repotests/basic-ftp'
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0  # v7.0.0
         with:
           persist-credentials: false
           repository: 'Atome-FE/llama-node'
           path: 'repotests/llama-node'
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0  # v7.0.0
         with:
           persist-credentials: false
           repository: 'DIYgod/RSSHub'
           path: 'repotests/RSSHub'
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0  # v7.0.0
         with:
           persist-credentials: false
           repository: 'sveltejs/examples'
           path: 'repotests/sveltejs-examples'
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0  # v7.0.0
         with:
           persist-credentials: false
           repository: 'openpbs/openpbs'
           ref: 'v23.06.06'
           path: 'repotests/openpbs'
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0  # v7.0.0
         with:
           persist-credentials: false
           repository: 'home-assistant/android'
           ref: '2023.11.3'
           path: 'repotests/ha-android'
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0  # v7.0.0
         with:
           persist-credentials: false
           repository: 'rust-lang/rust'
           ref: '1.74.0'
           path: 'repotests/rs-rust'
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0  # v7.0.0
         with:
           persist-credentials: false
           repository: 'rust-lang/cargo'
           ref: '0.75.0'
           path: 'repotests/rs-cargo'
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0  # v7.0.0
         with:
           persist-credentials: false
           repository: 'Keats/validator'
           ref: 'v0.15.0'
           path: 'repotests/rs-validator'
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0  # v7.0.0
         with:
           persist-credentials: false
           repository: 'tokio-rs/axum'
           ref: 'axum-v0.6.20'
           path: 'repotests/rs-axum'
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0  # v7.0.0
         with:
           persist-credentials: false
           repository: 'fsprojects/FAKE'
           ref: '6.0.0'
           path: 'repotests/dotnet-paket'
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0  # v7.0.0
         with:
           persist-credentials: false
           repository: 'timheuer/SimpleFrameworkApp'
           ref: 'master'
           path: 'repotests/SimpleFrameworkApp'
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0  # v7.0.0
         with:
           persist-credentials: false
           repository: 'chabbasaad/Reporting-Windows-Application'
           ref: 'master'
           path: 'repotests/Reporting-Windows-Application'
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0  # v7.0.0
         with:
           persist-credentials: false
           repository: 'appthreat/blint'
           ref: 'v1.0.34'
           path: 'repotests/blint'
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0  # v7.0.0
         with:
           persist-credentials: false
           repository: 'hoolicorp/java-sec-code'
           path: 'repotests/java-sec-code'
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0  # v7.0.0
         with:
           persist-credentials: false
           repository: 'DefectDojo/django-DefectDojo'
           ref: '2.28.2'
           path: 'repotests/django-DefectDojo'
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0  # v7.0.0
         with:
           persist-credentials: false
           repository: 'googleprojectzero/Jackalope'
           path: 'repotests/Jackalope'
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0  # v7.0.0
         with:
           persist-credentials: false
           repository: 'hritik14/broken-mvn-wrapper'
           path: 'repotests/broken-mvn-wrapper'
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0  # v7.0.0
         with:
           persist-credentials: false
           repository: 'microsoft/dotnet-podcasts'
           path: 'repotests/dotnet-podcasts'
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0  # v7.0.0
         with:
           persist-credentials: false
           repository: 'microsoft/react-native-windows'
           path: 'repotests/react-native-windows'
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0  # v7.0.0
         with:
           persist-credentials: false
           repository: 'oracle/dbt-oracle'
           path: 'repotests/dbt-oracle'
           ref: 'v1.7.6'
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0  # v7.0.0
         with:
           persist-credentials: false
           repository: 'fortra/impacket'
           path: 'repotests/impacket'
           ref: 'impacket_0_9_20'
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0  # v7.0.0
         with:
           persist-credentials: false
           repository: 'AppThreat/vulnerability-db'
           path: 'repotests/vulnerability-db'
           ref: 'f63d2d10adf4caef8a4fa6f8cee848f5200045da'
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0  # v7.0.0
         with:
           persist-credentials: false
           repository: 'owasp-dep-scan/blint'
           path: 'repotests/blint'
           ref: 'v2.2.2'
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0  # v7.0.0
         with:
           persist-credentials: false
           repository: 'malice00/cdxgen-expo-test'
           ref: 'main'
           path: 'repotests/expo-test'
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0  # v7.0.0
         with:
           persist-credentials: false
           repository: 'malice00/cdxgen-cocoapods-test'
           ref: 'main'
           path: 'repotests/cocoapods-test'
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0  # v7.0.0
         if: runner.os != 'Windows'
         with:
           persist-credentials: false
           repository: 'elastic/elasticsearch'
           path: 'repotests/elasticsearch'
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0  # v7.0.0
         with:
           persist-credentials: false
           repository: 'quarkusio/quarkus-quickstarts'
           path: 'repotests/quarkus-quickstarts'
           ref: '3.17.3'
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0  # v7.0.0
         with:
           persist-credentials: false
           repository: 'aws-solutions/iot-device-simulator'
           path: 'repotests/iot-device-simulator'
           ref: 'v3.0.9'
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0  # v7.0.0
         with:
           persist-credentials: false
           repository: 'bionomia/bionomia'
           path: 'repotests/bionomia'
           ref: '5ada8b5f4a5f68561a7195e2badc2f744dc4676e'
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0  # v7.0.0
         with:
           persist-credentials: false
           repository: 'MaibornWolff/SecObserve'
           path: 'repotests/SecObserve'
           ref: 'v1.28.0'
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0  # v7.0.0
         with:
           persist-credentials: false
           repository: 'SeanyCash/TwinCAT_CNC'
           path: 'repotests/TwinCAT_CNC'
           ref: '0e1020338c10cf77249aeaff34520f9516816167'
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0  # v7.0.0
         with:
           persist-credentials: false
           repository: 'playframework/play-samples'
           path: 'repotests/play-samples'
           ref: '0dccba17856e89dbb5e457ab760efb14cc691395'
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0  # v7.0.0
         with:
           persist-credentials: false
           repository: 'com-lihaoyi/mill'
           path: 'repotests/mill'
           ref: '0.12.10'
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0  # v7.0.0
         with:
           persist-credentials: false
           repository: 'ngudbhav/rails-api-boilerplate'
           path: 'repotests/rails-api-boilerplate'
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0  # v7.0.0
         with:
           persist-credentials: false
           repository: 'eclipse-theia/theia-ide'
           path: 'repotests/theia-ide'
           ref: 'e59df875d5ab1389346510c23c2da321a14accc5'
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0  # v7.0.0
         with:
           persist-credentials: false
           repository: 'tndrle/node-sqlite3-wasm'
@@ -848,7 +848,7 @@ jobs:
         run: |
           curl -s "https://get.sdkman.io" | bash
         if: runner.os != 'Windows' && matrix.os != 'macos-15'
-      - uses: actions/setup-dotnet@c2fa09f4bde5ebb9d1777cf28262a3eb3db3ced7  # v5.2.0
+      - uses: actions/setup-dotnet@9a946fdbd5fb07b82b2f5a4466058b876ab72bb2  # v5.3.0
         with:
           dotnet-version: '10.0.x'
           cache: false
@@ -1353,11 +1353,11 @@ jobs:
           bin/cdxgen.js -r -t dotnet-framework repotests/Reporting-Windows-Application -o bomresults/bom-dotnet-framework-reporting.json --deep
         shell: bash
       - name: Set up JDK
-        uses: actions/setup-java@be666c2fcd27ec809703dec50e508c2fdc7f6654 # v5.2.0
+        uses: actions/setup-java@ad2b38190b15e4d6bdf0c97fb4fca8412226d287  # v5.3.0
         with:
           distribution: 'temurin'
           java-version: '21'
-      - uses: sbt/setup-sbt@4ed7b7ec4bfa2074fe48554c09e341267397247c  # v1.2.0
+      - uses: sbt/setup-sbt@3afe9cf056c5d139bfc46579af1192d77a2f0821  # v1.4.0
       - uses: coursier/setup-action@fd1707a76b027efdfb66ca79318b4d29b72e5a02 # v3.0.0
         with:
           apps: scala3 scalac
@@ -1583,14 +1583,14 @@ jobs:
   go-dataflow-fixture-hosted:
     runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0  # v7.0.0
         with:
           persist-credentials: false
       - uses: actions/setup-go@4a3601121dd01d1626a1e23e37211e3254c1c06c # v6.4.0
         with:
           go-version: '1.26.3'
       - name: Setup pnpm
-        uses: pnpm/action-setup@0e279bb959325dab635dd2c09392533439d90093  # v6.0.8
+        uses: pnpm/action-setup@0ebf47130e4866e96fce0953f49152a61190b271  # v6.0.9
       - name: Use Node.js
         uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e  # v6.4.0
         with:
@@ -1746,14 +1746,14 @@ jobs:
   rust-dataflow-fixture-hosted:
     runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0  # v7.0.0
         with:
           persist-credentials: false
       - name: Install Rust
         run: |
           rustup toolchain install nightly --component rustc-dev --component rust-src
       - name: Setup pnpm
-        uses: pnpm/action-setup@0e279bb959325dab635dd2c09392533439d90093  # v6.0.8
+        uses: pnpm/action-setup@0ebf47130e4866e96fce0953f49152a61190b271  # v6.0.9
       - name: Use Node.js
         uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e  # v6.4.0
         with:
@@ -1903,15 +1903,15 @@ jobs:
     env:
       CDXGEN_DEBUG_MODE: verbose
     steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0  # v7.0.0
         with:
           persist-credentials: false
       - name: Set up JDK ${{ matrix.java-version }}
-        uses: actions/setup-java@be666c2fcd27ec809703dec50e508c2fdc7f6654 # v5.2.0
+        uses: actions/setup-java@ad2b38190b15e4d6bdf0c97fb4fca8412226d287  # v5.3.0
         with:
           distribution: 'temurin'
           java-version: ${{ matrix.java-version }}
-      - uses: sbt/setup-sbt@4ed7b7ec4bfa2074fe48554c09e341267397247c  # v1.2.0
+      - uses: sbt/setup-sbt@3afe9cf056c5d139bfc46579af1192d77a2f0821  # v1.4.0
       - uses: coursier/setup-action@fd1707a76b027efdfb66ca79318b4d29b72e5a02 # v3.0.0
         with:
           apps: scala3 scalac
@@ -1919,7 +1919,7 @@ jobs:
         with:
           go-version: '1.26.3'
       - name: Setup pnpm
-        uses: pnpm/action-setup@0e279bb959325dab635dd2c09392533439d90093  # v6.0.8
+        uses: pnpm/action-setup@0ebf47130e4866e96fce0953f49152a61190b271  # v6.0.9
       - name: Use Node.js
         uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e  # v6.4.0
         with:
@@ -1930,7 +1930,7 @@ jobs:
         run: |
           chmod +x contrib/free_disk_space.sh
           ./contrib/free_disk_space.sh
-      - uses: sbt/setup-sbt@4ed7b7ec4bfa2074fe48554c09e341267397247c  # v1.2.0
+      - uses: sbt/setup-sbt@3afe9cf056c5d139bfc46579af1192d77a2f0821  # v1.4.0
       - name: Install bazelisk - linux
         if: matrix.os == 'ubuntu-24.04'
         run: |
@@ -1963,24 +1963,24 @@ jobs:
         uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6.2.0
         with:
           python-version: '3.13'
-      - uses: ruby/setup-ruby@afeafc3d1ab54a631816aba4c914a0081c12ff2f  # v1.310.0
+      - uses: ruby/setup-ruby@9eb537ca036ebaed86729dcb9309076e4c5c3b74  # v1.314.0
         with:
           ruby-version: '3.4.9'
       - name: pip install custom-json-diff
         run: |
           pip install custom-json-diff
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0  # v7.0.0
         with:
           persist-credentials: false
           repository: 'hoolicorp/java-sec-code'
           path: 'repotests/java-sec-code'
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0  # v7.0.0
         with:
           persist-credentials: false
           repository: 'quarkusio/quarkus-quickstarts'
           path: 'repotests/quarkus-quickstarts'
           ref: '3.17.3'
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0  # v7.0.0
         with:
           persist-credentials: false
           repository: 'aws-solutions/iot-device-simulator'

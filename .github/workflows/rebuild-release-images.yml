@@ -23,7 +23,7 @@ jobs:
       tags: ${{ steps.determine-tags.outputs.tags }}
       latest-tag: ${{ steps.determine-tags.outputs.latest-tag }}
     steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0  # v7.0.0
         with:
           persist-credentials: false
       - name: Determine which tags to rebuild
@@ -76,7 +76,7 @@ jobs:
           echo "Triggering npm-release.yml for tag: ${MATRIX_TAG}"
           gh workflow run npm-release.yml \
             -R ${{ github.repository }} \
-            -r ${{ github.ref_name }} \
+            -r ${GITHUB_REF_NAME} \
             -f rebuild-images-only=true \
             -f latest=$IS_LATEST \
             -f tag=${MATRIX_TAG}
