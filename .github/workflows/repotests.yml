@@ -131,20 +131,6 @@ jobs:
           CARGO_CACHE_DIR=test/data/cargo-cache-fixture/registry/cache/index.crates.io-1949cf8c6b5b557f bin/cdxgen.js -t cargo-cache . -o bomresults/bom-cargo-cache-fixture.json --fail-on-error
           jq -e 'any(.components[]; .name == "serde" and any((.properties // [])[]; .name == "cdx:cargo:cacheSource" and .value == "registry-cache"))' bomresults/bom-cargo-cache-fixture.json
         shell: bash
-      - name: repotests gradle fixture
-        env:
-          GRADLE_ARGS: "--refresh-dependencies"
-        run: |
-          bin/cdxgen.js -t gradle test/data/gradle-repotest -o bomresults/bom-gradle-repotest.json --fail-on-error
-          jq -e 'any(.components[]; .group == "org.slf4j" and .name == "slf4j-api" and .version == "2.0.7")' bomresults/bom-gradle-repotest.json
-          jq -e 'any(.components[]; .group == "org.slf4j" and .name == "slf4j-api" and .hashes != null)' bomresults/bom-gradle-repotest.json
-          jq -e 'any(.components[]; .group == "org.slf4j" and .name == "slf4j-api" and any((.externalReferences // [])[]; .type == "distribution" and (.url | contains("repo.maven.apache.org"))))' bomresults/bom-gradle-repotest.json
-          jq -e 'any(.components[]; .group == "com.google.android.gms" and .name == "play-services-basement" and any((.externalReferences // [])[]; .type == "distribution" and (.url | contains("google.com"))))' bomresults/bom-gradle-repotest.json
-          jq -e 'any(.metadata.tools.components[]?; .group == "org.gradle" and .name == "gradle" and .version == "9.6.0" and any((.externalReferences // [])[]; .type == "distribution" and .url == "https://services.gradle.org/distributions/gradle-9.6.0-bin.zip") and any((.hashes // [])[]; .alg == "SHA-256" and .content == "bbaeb2fef8710818cf0e261201dab964c572f92b942812df0c3620d62a529a01"))' bomresults/bom-gradle-repotest.json
-          bin/cdxgen.js -t gradle test/data/gradle-repotest -o bomresults/bom-gradle-repotest-resolve-dist.json --feature-flags resolve-gradle-distribution --fail-on-error
-          jq -e 'any(.components[]; .group == "org.slf4j" and .name == "slf4j-api" and .version == "2.0.7" and any((.externalReferences // [])[]; .type == "distribution" and .url == "https://repo.maven.apache.org/maven2/org/slf4j/slf4j-api/2.0.7/slf4j-api-2.0.7.jar"))' bomresults/bom-gradle-repotest-resolve-dist.json
-          jq -e 'any(.components[]; .group == "com.google.android.gms" and .name == "play-services-basement" and any((.externalReferences // [])[]; .type == "distribution" and (.url | contains("dl.google.com"))))' bomresults/bom-gradle-repotest-resolve-dist.json
-        shell: bash
       - name: repotests source crypto fixture
         run: |
           bin/cdxgen.js test/data/cbom-js-repotest -o bomresults/bom-cbom-js-fixture.json --include-crypto --evidence --deep --spec-version 1.7 --fail-on-error
@@ -1894,6 +1880,49 @@ jobs:
             }),
           );
           EOF
+        shell: bash
+
+  gradle-fixture-hosted:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0  # v7.0.0
+        with:
+          persist-credentials: false
+      - name: Set up JDK
+        uses: actions/setup-java@ad2b38190b15e4d6bdf0c97fb4fca8412226d287  # v5.3.0
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+      - name: Setup pnpm
+        uses: pnpm/action-setup@0ebf47130e4866e96fce0953f49152a61190b271  # v6.0.9
+      - name: Use Node.js
+        uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e  # v6.4.0
+        with:
+          node-version-file: .nvmrc
+          package-manager-cache: false
+      - name: Setup Nexus usage
+        run: echo "registry=$NEXUS_URL" > .npmrc
+      - name: pnpm install
+        run: |
+          pnpm install:frozen
+          mkdir -p bomresults
+          rm -rf $CDXGEN_TEMP_DIR && mkdir -p $CDXGEN_TEMP_DIR
+        env:
+          CI: true
+          CDXGEN_TEMP_DIR: ${{ runner.temp }}/cdxgen-repotests
+      - name: repotests gradle fixture
+        env:
+          GRADLE_ARGS: "--refresh-dependencies"
+        run: |
+          bin/cdxgen.js -t gradle test/data/gradle-repotest -o bomresults/bom-gradle-repotest.json --fail-on-error
+          jq -e 'any(.components[]; .group == "org.slf4j" and .name == "slf4j-api" and .version == "2.0.7")' bomresults/bom-gradle-repotest.json
+          jq -e 'any(.components[]; .group == "org.slf4j" and .name == "slf4j-api" and .hashes != null)' bomresults/bom-gradle-repotest.json
+          jq -e 'any(.components[]; .group == "org.slf4j" and .name == "slf4j-api" and any((.externalReferences // [])[]; .type == "distribution" and (.url | contains("repo.maven.apache.org"))))' bomresults/bom-gradle-repotest.json
+          jq -e 'any(.components[]; .group == "com.google.android.gms" and .name == "play-services-basement" and any((.externalReferences // [])[]; .type == "distribution" and (.url | contains("google.com"))))' bomresults/bom-gradle-repotest.json
+          jq -e 'any(.metadata.tools.components[]?; .group == "org.gradle" and .name == "gradle" and .version == "9.6.0" and any((.externalReferences // [])[]; .type == "distribution" and .url == "https://services.gradle.org/distributions/gradle-9.6.0-bin.zip") and any((.hashes // [])[]; .alg == "SHA-256" and .content == "bbaeb2fef8710818cf0e261201dab964c572f92b942812df0c3620d62a529a01"))' bomresults/bom-gradle-repotest.json
+          bin/cdxgen.js -t gradle test/data/gradle-repotest -o bomresults/bom-gradle-repotest-resolve-dist.json --feature-flags resolve-gradle-distribution --fail-on-error
+          jq -e 'any(.components[]; .group == "org.slf4j" and .name == "slf4j-api" and .version == "2.0.7" and any((.externalReferences // [])[]; .type == "distribution" and .url == "https://repo.maven.apache.org/maven2/org/slf4j/slf4j-api/2.0.7/slf4j-api-2.0.7.jar"))' bomresults/bom-gradle-repotest-resolve-dist.json
+          jq -e 'any(.components[]; .group == "com.google.android.gms" and .name == "play-services-basement" and any((.externalReferences // [])[]; .type == "distribution" and (.url | contains("dl.google.com"))))' bomresults/bom-gradle-repotest-resolve-dist.json
         shell: bash
 
   secure-mode-tests:
