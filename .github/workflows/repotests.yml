@@ -1900,8 +1900,6 @@ jobs:
         with:
           node-version-file: .nvmrc
           package-manager-cache: false
-      - name: Setup Nexus usage
-        run: echo "registry=$NEXUS_URL" > .npmrc
       - name: pnpm install
         run: |
           pnpm install:frozen
