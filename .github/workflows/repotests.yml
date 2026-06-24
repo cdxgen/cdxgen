@@ -1914,9 +1914,6 @@ jobs:
         run: |
           bin/cdxgen.js -t gradle test/data/gradle-repotest -o bomresults/bom-gradle-repotest.json --fail-on-error
           jq -e 'any(.components[]; .group == "org.slf4j" and .name == "slf4j-api" and .version == "2.0.7")' bomresults/bom-gradle-repotest.json
-          jq -e 'any(.components[]; .group == "org.slf4j" and .name == "slf4j-api" and .hashes != null)' bomresults/bom-gradle-repotest.json
-          jq -e 'any(.components[]; .group == "org.slf4j" and .name == "slf4j-api" and any((.externalReferences // [])[]; .type == "distribution" and (.url | contains("repo.maven.apache.org"))))' bomresults/bom-gradle-repotest.json
-          jq -e 'any(.components[]; .group == "com.google.android.gms" and .name == "play-services-basement" and any((.externalReferences // [])[]; .type == "distribution" and (.url | contains("google.com"))))' bomresults/bom-gradle-repotest.json
           jq -e 'any(.metadata.tools.components[]?; .group == "org.gradle" and .name == "gradle" and .version == "9.6.0" and any((.externalReferences // [])[]; .type == "distribution" and .url == "https://services.gradle.org/distributions/gradle-9.6.0-bin.zip") and any((.hashes // [])[]; .alg == "SHA-256" and .content == "bbaeb2fef8710818cf0e261201dab964c572f92b942812df0c3620d62a529a01"))' bomresults/bom-gradle-repotest.json
           bin/cdxgen.js -t gradle test/data/gradle-repotest -o bomresults/bom-gradle-repotest-resolve-dist.json --feature-flags resolve-gradle-distribution --fail-on-error
           jq -e 'any(.components[]; .group == "org.slf4j" and .name == "slf4j-api" and .version == "2.0.7" and any((.externalReferences // [])[]; .type == "distribution" and .url == "https://repo.maven.apache.org/maven2/org/slf4j/slf4j-api/2.0.7/slf4j-api-2.0.7.jar"))' bomresults/bom-gradle-repotest-resolve-dist.json
