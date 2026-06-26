@@ -747,7 +747,7 @@ if (
     process.exit(1);
   }
 }
-// Support for obom/cbom aliases — thoughtLog for observability
+// Support for obom/cbom aliases
 if (invokedCommandName.includes("obom") && !args.type) {
   thoughtLog(
     "Ok, the user wants to generate an Operations Bill-of-Materials (OBOM).",
@@ -824,7 +824,7 @@ if (!options.projectType) {
     "Ok, the user wants me to identify all the project types and generate a consolidated BOM document.",
   );
 }
-// Surface cbom/saasbom-specific thoughtLogs
+// Handle dedicated cbom and saasbom commands
 if (["cbom", "saasbom"].includes(invokedCommandName)) {
   if (invokedCommandName.includes("cbom")) {
     thoughtLog(
@@ -852,7 +852,6 @@ if (isDryRun) {
     "Ok, the user wants cdxgen to run in dry-run mode. I must avoid writes, child processes, temp directories, network submissions, and cloning.",
   );
 }
-// Surface warnings from the extracted options builder
 for (const warning of phase3Warnings) {
   if (warning.level === "error") {
     console.error(warning.message);
@@ -866,7 +865,6 @@ for (const warning of phase3Warnings) {
     console.log(warning.message);
   }
 }
-// Formulation thoughtLogs
 if (options.includeFormulation && options.serverUrl) {
   thoughtLog(
     "Wait, the user specified a server URL and wants to include formulation data. Let's warn about accidentally disclosing sensitive data to a remote server.",
@@ -879,8 +877,6 @@ if (options.includeFormulation && options.serverUrl) {
 
 /**
  * Apply advanced options (profile, lifecycle, technique expansion).
- * Uses the extracted applyAdvancedOptionsImpl from cliOptions.js.
- * ThoughtLog calls and process.exit side-effects are kept here.
  */
 if (options?.profile !== "generic") {
   thoughtLog(`BOM profile to use is '${options.profile}'.`);
@@ -896,7 +892,6 @@ const isHbomOnlyInvocation = isHbomOnlyProjectTypes(options.projectType);
 const advancedWarnings = applyAdvancedOptionsImpl(options, {
   isSecureMode,
 });
-// Surface technique thoughtLogs
 if (options?.technique && Array.isArray(options.technique)) {
   if (options.technique.length === 1) {
     thoughtLog(
