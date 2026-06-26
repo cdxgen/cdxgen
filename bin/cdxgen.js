@@ -18,6 +18,11 @@ import { parse as _load } from "yaml";
 import yargs from "yargs";
 import { hideBin } from "yargs/helpers";
 
+import {
+  applyAdvancedOptions as applyAdvancedOptionsImpl,
+  buildOptionsFromArgs,
+  isUserProvided,
+} from "../lib/cli/cliOptions.js";
 import { createBom, submitBom } from "../lib/cli/index.js";
 import { signBom, verifyBom } from "../lib/helpers/bomSigner.js";
 import {
@@ -742,46 +747,47 @@ if (
     process.exit(1);
   }
 }
-// Support for obom/cbom aliases
+// Support for obom/cbom aliases — thoughtLog for observability
 if (invokedCommandName.includes("obom") && !args.type) {
-  args.type = ["os"];
   thoughtLog(
     "Ok, the user wants to generate an Operations Bill-of-Materials (OBOM).",
   );
 }
 if (invokedCommandName.includes("spdxgen") && !args.format) {
-  args.format = "spdx";
   thoughtLog("Ok, defaulting the export format to SPDX.");
 }
 if (invokedCommandName.includes("aibom") && !args.type) {
-  args.type = ["ai"];
-  args.includeFormulation = true;
-  if (!args.bomAuditCategories) {
-    args.bomAuditCategories = "ai-bom";
-  }
   thoughtLog(
     "Ok, the user wants to generate an AI-BOM with direct model metadata and AI-focused inventory defaults.",
   );
 }
 
 /**
- * Command line options
+ * Command line options — built via the extracted buildOptionsFromArgs
+ * function in lib/helpers/cliOptions.js. That function handles:
+ * - Command-name alias expansion (obom, spdxgen, aibom)
+ * - Field renames (type→projectType, recurse→multiProject, etc.)
+ * - Derived values (deep, noBabel, output path)
+ * - Post-construction overrides (dedup, cbom/saasbom, secure, dry-run,
+ *   standard→specVersion, HBOM formulation)
+ *
+ * The `userSetSpecVersion` flag solves a subtle bug: yargs always
+ * populates `specVersion` with its default (1.7), so checking
+ * `!options.specVersion` is always false. We compare against the
+ * yargs default to detect explicit user intent.
  */
-const options = Object.assign({}, args, {
-  projectType: args.type,
-  multiProject: args.recurse,
-  noBabel: args.noBabel || args.babel === false,
-  project: args.projectId,
-  deep: args.deep || args.evidence,
-  output:
-    isSecureMode && args.output === "bom.json"
-      ? sourceInputIsRemoteOrPurl
-        ? resolve(args.output)
-        : resolve(join(filePath, args.output))
-      : args.output,
-  exclude: args.exclude || args.excludeRegex,
-  include: args.include || args.includeRegex,
-  noIgnore: args.noIgnore,
+const YARGS_SPEC_VERSION_DEFAULT = 1.7;
+const userSetSpecVersion = isUserProvided(
+  args.specVersion,
+  YARGS_SPEC_VERSION_DEFAULT,
+);
+const { options, warnings: phase3Warnings } = buildOptionsFromArgs(args, {
+  invokedCommandName,
+  filePath,
+  isRemoteOrPurl: sourceInputIsRemoteOrPurl,
+  userSetSpecVersion,
+  isDryRun,
+  isSecureMode,
 });
 const cliActivityProjectType = Array.isArray(options.projectType)
   ? options.projectType.join(",")
@@ -803,10 +809,7 @@ for (const outputFile of Object.values(outputPlan.outputs)) {
     safeMkdirSync(outputDirectory, { recursive: true });
   }
 }
-// Filter duplicate types. Eg: -t gradle -t gradle
-if (options.projectType && Array.isArray(options.projectType)) {
-  options.projectType = Array.from(new Set(options.projectType));
-}
+// HBOM validation (side-effects that must stay in the CLI entry point)
 try {
   ensureNoMixedHbomProjectTypes(options.projectType);
   if (hasHbomProjectType(options.projectType)) {
@@ -821,19 +824,12 @@ if (!options.projectType) {
     "Ok, the user wants me to identify all the project types and generate a consolidated BOM document.",
   );
 }
-// Handle dedicated cbom and saasbom commands
+// Surface cbom/saasbom-specific thoughtLogs
 if (["cbom", "saasbom"].includes(invokedCommandName)) {
   if (invokedCommandName.includes("cbom")) {
-    if (normalizeCycloneDxComponentTypeFilter(options.componentType).length) {
-      console.error(
-        "The cbom command does not support --component-type. Use cdxgen with --include-crypto when you need component-type filtering.",
-      );
-      process.exit(1);
-    }
     thoughtLog(
       "Ok, the user wants to generate Cryptographic Bill-of-Materials (CBOM).",
     );
-    options.includeCrypto = true;
   } else if (invokedCommandName.includes("saasbom")) {
     thoughtLog(
       "Ok, the user wants to generate a Software as a Service Bill-of-Materials (SaaSBOM). I should carefully collect the services, endpoints, and data flows.",
@@ -844,202 +840,93 @@ if (["cbom", "saasbom"].includes(invokedCommandName)) {
       );
     }
   }
-  options.evidence = true;
-  options.specVersion = 1.7;
-  options.deep = true;
 }
 if (invokedCommandName.includes("cdxgen-secure")) {
   thoughtLog(
     "Ok, the user wants cdxgen to run in secure mode by default. Let's try and use the permissions api.",
   );
-  console.log(
-    "NOTE: Secure mode only restricts cdxgen from performing certain activities such as package installation. It does not provide security guarantees in the presence of malicious code.",
-  );
-  options.installDeps = false;
   process.env.CDXGEN_SECURE_MODE = true;
 }
 if (isDryRun) {
   thoughtLog(
     "Ok, the user wants cdxgen to run in dry-run mode. I must avoid writes, child processes, temp directories, network submissions, and cloning.",
   );
-  options.installDeps = false;
 }
-if (options.standard) {
-  options.specVersion = 1.7;
-}
-const isHbomOnlyInvocation = isHbomOnlyProjectTypes(options.projectType);
-if (options.includeFormulation && isHbomOnlyInvocation) {
-  thoughtLog(
-    "HBOM-only invocations do not benefit from formulation data. Let's ignore this option to keep the resulting document focused on hardware inventory.",
-  );
-  console.log(
-    "NOTE: Ignoring formulation collection for HBOM-only invocations because the resulting hardware BOM does not need workflow or dependency-tree enrichment.",
-  );
-  options.includeFormulation = false;
-} else if (options.includeFormulation) {
-  if (options.serverUrl) {
-    thoughtLog(
-      "Wait, the user specified a server URL and wants to include formulation data. Let's warn about accidentally disclosing sensitive data to a remote server.",
-    );
-    console.warn(
-      `\x1b[1;35mWARNING: The formulation section may include sensitive data such as emails and secrets. This data will be submitted to '${options.serverUrl}' automatically.\x1b[0m`,
-    );
+// Surface warnings from the extracted options builder
+for (const warning of phase3Warnings) {
+  if (warning.level === "error") {
+    console.error(warning.message);
+    process.exit(1);
+  } else if (warning.level === "warn") {
+    console.warn(`\x1b[1;35m${warning.message}\x1b[0m`);
     if (isSecureMode) {
       process.exit(1);
     }
   } else {
-    thoughtLog(
-      "Wait, the user wants to include formulation data. Let's warn about accidentally disclosing sensitive data via the generated BOM.",
-    );
-    console.log(
-      "NOTE: The formulation section may include sensitive data such as emails and secrets.\nPlease review the generated SBOM before distribution or LLM training.\n",
-    );
+    console.log(warning.message);
   }
+}
+// Formulation thoughtLogs
+if (options.includeFormulation && options.serverUrl) {
+  thoughtLog(
+    "Wait, the user specified a server URL and wants to include formulation data. Let's warn about accidentally disclosing sensitive data to a remote server.",
+  );
+} else if (options.includeFormulation) {
+  thoughtLog(
+    "Wait, the user wants to include formulation data. Let's warn about accidentally disclosing sensitive data via the generated BOM.",
+  );
 }
 
 /**
- * Method to apply advanced options such as profile and lifecycles
- *
- * @param {object} options CLI options
+ * Apply advanced options (profile, lifecycle, technique expansion).
+ * Uses the extracted applyAdvancedOptionsImpl from cliOptions.js.
+ * ThoughtLog calls and process.exit side-effects are kept here.
  */
-const applyAdvancedOptions = (options) => {
-  if (options?.profile !== "generic") {
-    thoughtLog(`BOM profile to use is '${options.profile}'.`);
+if (options?.profile !== "generic") {
+  thoughtLog(`BOM profile to use is '${options.profile}'.`);
+} else {
+  thoughtLog(
+    "The user hasn't specified a profile. Should I suggest one to optimize the BOM for a specific use case or persona 🤔?",
+  );
+}
+if (options.lifecycle) {
+  thoughtLog(`BOM must be generated for the lifecycle '${options.lifecycle}'.`);
+}
+const isHbomOnlyInvocation = isHbomOnlyProjectTypes(options.projectType);
+const advancedWarnings = applyAdvancedOptionsImpl(options, {
+  isSecureMode,
+});
+// Surface technique thoughtLogs
+if (options?.technique && Array.isArray(options.technique)) {
+  if (options.technique.length === 1) {
+    thoughtLog(
+      `Wait, the user wants me to use only the following technique: '${options.technique.join(", ")}'.`,
+    );
   } else {
     thoughtLog(
-      "The user hasn't specified a profile. Should I suggest one to optimize the BOM for a specific use case or persona 🤔?",
+      `Alright, I will use only the following techniques: '${options.technique.join(", ")}' for the final BOM.`,
     );
   }
-  switch (options.profile) {
-    case "appsec":
-      options.deep = true;
-      options.bomAudit = true;
-      break;
-    case "research":
-      options.deep = true;
-      options.evidence = true;
-      options.includeCrypto = true;
-      break;
-    case "operational":
-      if (options?.projectType) {
-        options.projectType.push("os");
-      } else {
-        options.projectType = ["os"];
-      }
-      options.bomAudit = true;
-      break;
-    case "threat-modeling":
-      options.deep = true;
-      options.evidence = true;
-      options.bomAudit = true;
-      break;
-    case "license-compliance":
-      process.env.FETCH_LICENSE = "true";
-      break;
-    case "ml-tiny":
-      process.env.FETCH_LICENSE = "true";
-      options.deep = false;
-      options.evidence = false;
-      options.includeCrypto = false;
-      options.installDeps = false;
-      options.bomAudit = false;
-      break;
-    case "machine-learning":
-    case "ml":
-      process.env.FETCH_LICENSE = "true";
-      options.deep = true;
-      options.evidence = false;
-      options.includeCrypto = false;
-      options.installDeps = !isSecureMode;
-      break;
-    case "deep-learning":
-    case "ml-deep":
-      process.env.FETCH_LICENSE = "true";
-      options.deep = true;
-      options.evidence = true;
-      options.includeCrypto = true;
-      options.installDeps = !isSecureMode;
-      options.bomAudit = true;
-      break;
-    default:
-      break;
+}
+if (!options.installDeps) {
+  thoughtLog(
+    "I must avoid any package installations and focus solely on the available artefacts, such as lock files.",
+  );
+}
+if (options.bomAudit && isHbomOnlyInvocation) {
+  thoughtLog(
+    "HBOM-only bom-audit runs should stay focused on hardware inventory. Skipping automatic formulation collection.",
+  );
+}
+// Surface warnings from applyAdvancedOptions
+for (const warning of advancedWarnings) {
+  if (warning.level === "error") {
+    console.log(warning.message);
+    process.exit(1);
+  } else {
+    console.log(warning.message);
   }
-  if (options.lifecycle) {
-    thoughtLog(
-      `BOM must be generated for the lifecycle '${options.lifecycle}'.`,
-    );
-  }
-  switch (options.lifecycle) {
-    case "pre-build":
-      options.installDeps = false;
-      break;
-    case "post-build":
-      if (
-        !options.projectType ||
-        ![
-          "csharp",
-          "dotnet",
-          "container",
-          "docker",
-          "podman",
-          "oci",
-          "android",
-          "apk",
-          "aab",
-          "go",
-          "golang",
-          "rust",
-          "rust-lang",
-          "cargo",
-          "caxa",
-        ].includes(options.projectType[0])
-      ) {
-        console.log(
-          "PREVIEW: post-build lifecycle SBOM generation is supported only for limited project types.",
-        );
-        process.exit(1);
-      }
-      options.installDeps = true;
-      break;
-    default:
-      break;
-  }
-  // When the user specifies source-code-analysis as a technique, then enable deep and evidence mode.
-  if (options?.technique && Array.isArray(options.technique)) {
-    if (options?.technique?.includes("source-code-analysis")) {
-      options.deep = true;
-      options.evidence = true;
-    }
-    if (options.technique.length === 1) {
-      thoughtLog(
-        `Wait, the user wants me to use only the following technique: '${options.technique.join(", ")}'.`,
-      );
-    } else {
-      thoughtLog(
-        `Alright, I will use only the following techniques: '${options.technique.join(", ")}' for the final BOM.`,
-      );
-    }
-  }
-  if (!options.installDeps) {
-    thoughtLog(
-      "I must avoid any package installations and focus solely on the available artefacts, such as lock files.",
-    );
-  }
-  if (options.bomAudit) {
-    if (isHbomOnlyInvocation) {
-      thoughtLog(
-        "HBOM-only bom-audit runs should stay focused on hardware inventory. Skipping automatic formulation collection.",
-      );
-    } else if (!options.includeFormulation) {
-      console.log(
-        "NOTE: Automatically collecting formulation information. The section may include sensitive data such as emails and secrets.\nPlease review the generated SBOM before distribution or LLM training.\n",
-      );
-      options.includeFormulation = true;
-    }
-  }
-  return options;
-};
-applyAdvancedOptions(options);
+}
 if (options.bomAudit && !options.bomAuditCategories) {
   const defaultBomAuditCategories = getDefaultBomAuditCategories(
     options,
