@@ -307,7 +307,7 @@ jobs:
           jq -e 'any(.services[]; .name == "unsafe-http-server" and .authenticated == false and any((.properties // [])[]; .name == "cdx:mcp:officialSdk" and .value == "false"))' bomresults/bom-mcp-repotest.json
           jq -e 'any(.components[]; .name == "server" and any((.tags // [])[]; . == "official-mcp-sdk"))' bomresults/bom-mcp-repotest.json
           jq -e '(.services | length) >= 1 and .specVersion == "1.6"' bomresults/bom-mcp-research-proto.json
-          jq -e '.specVersion == "1.7" and ((.definitions.standards | length) >= 1)' bomresults/bom-mcp-standards-proto.json
+          jq -e '.specVersion == "1.6" and ((.definitions.standards | length) >= 1)' bomresults/bom-mcp-standards-proto.json
           jq -e 'any(.annotations[]?; (.text // "") | contains("MCP-001"))' bomresults/bom-mcp-repotest.json
           jq -e 'any(.annotations[]?; (.text // "") | contains("MCP-003"))' bomresults/bom-mcp-repotest.json
         shell: bash
