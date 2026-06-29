@@ -26,6 +26,7 @@ import {
 import { createBom, submitBom } from "../lib/cli/index.js";
 import { signBom, verifyBom } from "../lib/helpers/bomSigner.js";
 import {
+  DEFAULT_CDX_SPEC_VERSION,
   getSupportedCycloneDxComponentTypes,
   isCycloneDxBom,
   isCycloneDxComponentTypeEnabled,
@@ -149,7 +150,9 @@ const invokedCommandName = basename(process.argv[1] || "cdxgen").replace(
   /\.(?:[cm]?js|exe)$/u,
   "",
 );
-const defaultComponentTypeChoices = getSupportedCycloneDxComponentTypes(1.7);
+const defaultComponentTypeChoices = getSupportedCycloneDxComponentTypes(
+  DEFAULT_CDX_SPEC_VERSION,
+);
 
 const args = _yargs
   .env("CDXGEN")
@@ -357,7 +360,7 @@ const args = _yargs
   })
   .option("spec-version", {
     description: "CycloneDX Specification version to use. Defaults to 1.7",
-    default: 1.7,
+    default: DEFAULT_CDX_SPEC_VERSION,
     type: "number",
     choices: [1.4, 1.5, 1.6, 1.7, 2.0],
   })
@@ -622,7 +625,8 @@ const args = _yargs
       return true;
     }
     const normalizedSpecVersion =
-      toCycloneDxSpecVersionString(argv.specVersion) || "1.7";
+      toCycloneDxSpecVersionString(argv.specVersion) ||
+      toCycloneDxSpecVersionString(DEFAULT_CDX_SPEC_VERSION);
     const supportedComponentTypes = getSupportedCycloneDxComponentTypes(
       normalizedSpecVersion,
     );
@@ -785,7 +789,7 @@ if (invokedCommandName.includes("aibom") && !args.type) {
  * `!options.specVersion` is always false. We compare against the
  * yargs default to detect explicit user intent.
  */
-const YARGS_SPEC_VERSION_DEFAULT = 1.7;
+const YARGS_SPEC_VERSION_DEFAULT = DEFAULT_CDX_SPEC_VERSION;
 const userSetSpecVersion = isUserProvided(
   args.specVersion,
   YARGS_SPEC_VERSION_DEFAULT,

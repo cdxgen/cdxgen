@@ -6,6 +6,7 @@ import yargs from "yargs";
 import { hideBin } from "yargs/helpers";
 
 import { createDynamicBom } from "../lib/cli/index.js";
+import { DEFAULT_CDX_SPEC_VERSION } from "../lib/helpers/bomUtils.js";
 import {
   DEBUG_MODE,
   retrieveCdxgenVersion,
@@ -39,7 +40,7 @@ const args = _yargs
   })
   .option("spec-version", {
     description: "CycloneDX specification version.",
-    default: 1.7,
+    default: DEFAULT_CDX_SPEC_VERSION,
     type: "number",
   })
   .option("project-name", {
