@@ -455,6 +455,15 @@ const args = _yargs
     default: false,
     description: "Include crypto libraries as components.",
   })
+  .option("license-policy", {
+    type: "string",
+    description: "Path to a license compliance policy YAML file.",
+  })
+  .option("license-ref", {
+    type: "boolean",
+    default: false,
+    description: "Synthesize custom LicenseRef IDs for unresolved licenses.",
+  })
   .option("standard", {
     description:
       "The list of standards which may consist of regulations, industry or organizational-specific standards, maturity models, best practices, or any other requirements which can be evaluated against or attested to.",

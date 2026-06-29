@@ -335,6 +335,8 @@ Options:
       --include-formulation       Generate formulation section with git metadata and build tools. Defaults to false.
                                                                                               [boolean] [default: false]
       --include-crypto            Include crypto libraries as components.                     [boolean] [default: false]
+      --license-policy            Path to a license compliance policy YAML file.                                 [string]
+      --license-ref               Synthesize custom LicenseRef IDs for unresolved licenses.   [boolean] [default: false]
       --standard                  The list of standards which may consist of regulations, industry or
                                   organizational-specific standards, maturity models, best practices, or any other
                                   requirements which can be evaluated against or attested to.

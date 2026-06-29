@@ -1,0 +1,53 @@
+# cdxgen license compliance policy
+#
+# Disallows the GPL family of licenses (GPL, LGPL, AGPL) for cdxgen's own
+# dependencies. This file is consumed via `--license-policy` (or the
+# CDXGEN_LICENSE_POLICY environment variable) and is executed in CI by the
+# .github/workflows/license-policy.yml workflow. Combine with --fail-on-error
+# to abort the run when a prohibited (error-level) license is found.
+#
+# Shape:
+#   license_policies:
+#     - license_key | category: <value>   # match key takes precedence over category
+#       label: <text>                      # mapped to pass | warning | error
+#
+# The `label` is normalized: values containing "approve"/"pass"/"allow" become
+# `pass`, "restrict"/"warn" become `warning`, and "prohibit"/"reject"/"fail"/
+# "error" become `error`. Matched alerts are emitted as the
+# `cdx:license:complianceAlert` property on each license and component.
+license_policies:
+  # GPL
+  - license_key: GPL-1.0-only
+    label: prohibited
+  - license_key: GPL-1.0-or-later
+    label: prohibited
+  - license_key: GPL-2.0-only
+    label: prohibited
+  - license_key: GPL-2.0-or-later
+    label: prohibited
+  - license_key: GPL-3.0-only
+    label: prohibited
+  - license_key: GPL-3.0-or-later
+    label: prohibited
+  # LGPL
+  - license_key: LGPL-2.0-only
+    label: prohibited
+  - license_key: LGPL-2.0-or-later
+    label: prohibited
+  - license_key: LGPL-2.1-only
+    label: prohibited
+  - license_key: LGPL-2.1-or-later
+    label: prohibited
+  - license_key: LGPL-3.0-only
+    label: prohibited
+  - license_key: LGPL-3.0-or-later
+    label: prohibited
+  # AGPL
+  - license_key: AGPL-1.0-only
+    label: prohibited
+  - license_key: AGPL-1.0-or-later
+    label: prohibited
+  - license_key: AGPL-3.0-only
+    label: prohibited
+  - license_key: AGPL-3.0-or-later
+    label: prohibited

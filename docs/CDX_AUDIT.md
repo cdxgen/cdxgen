@@ -211,14 +211,35 @@ CDXGEN_THINK_MODE=true cdx-audit --bom bom.json --max-targets 10
 | `--only-trusted`              | Restrict analysis to trusted-publishing-backed targets                                               |
 | `--prioritize-direct-runtime` | Keep direct runtime dependencies ahead of less actionable targets (enabled by default)               |
 | `--allowlist-file`            | Add a JSON array or newline-delimited purl-prefix allowlist on top of the built-in well-known filter |
+| `--license-policy`            | Path to a license compliance policy YAML file (see below)                                            |
+
+## License compliance auditing
+
+Pass `--license-policy <file.yml>` to evaluate a [license compliance policy](LESSON17.md)
+alongside the supply-chain audit. License violations are reported as a separate
+table (and `licenseViolations` array in JSON output), independent of the
+supply-chain findings.
+
+Evaluation is comprehensive across both audit modes:
+
+- The input BOM(s) are always evaluated, recursing through nested components.
+- In predictive mode, the per-dependency **child SBOMs** generated from cloned
+  upstream sources are also evaluated, so source-derived and deeper transitive
+  licenses are covered, not just the licenses declared in the input BOM.
+  Duplicate component/license findings across both sources are collapsed.
+
+Both prohibited (error) and warning-level violations are listed. Any
+**prohibited** license causes the run to exit with code `3`, regardless of
+`--fail-severity`. The policy file format is documented in
+[Lesson 17](LESSON17.md).
 
 ## Exit behavior
 
-| Code | Meaning                                               |
-| ---- | ----------------------------------------------------- |
-| `0`  | The run completed and no result met `--fail-severity` |
-| `1`  | Configuration or runtime error                        |
-| `3`  | At least one result met or exceeded `--fail-severity` |
+| Code | Meaning                                                                                   |
+| ---- | ----------------------------------------------------------------------------------------- |
+| `0`  | The run completed and no result met `--fail-severity` and no prohibited license was found |
+| `1`  | Configuration or runtime error                                                            |
+| `3`  | A result met or exceeded `--fail-severity`, or a prohibited license was found             |
 
 ## Target selection defaults
 

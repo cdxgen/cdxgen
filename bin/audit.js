@@ -115,6 +115,11 @@ const args = yargs(hideBin(process.argv))
       "Skip rechecking critical/high findings against the default branch to detect issues already fixed upstream.",
     type: "boolean",
   })
+  .option("license-policy", {
+    description:
+      "Path to a license compliance policy YAML file. Evaluates every component license in the BOM(s) and reports prohibited and warning-level violations as a separate table. Error-level (prohibited) violations cause a non-zero exit.",
+    type: "string",
+  })
   .check((argv) => {
     if (!argv.bom && !argv.bomDir) {
       throw new Error("Specify --bom or --bom-dir.");
@@ -185,6 +190,7 @@ function writeOrPrint(output, outputPath) {
       categories: splitCsv(args.categories),
       directBomAudit: args.directBomAudit,
       failSeverity: args.failSeverity,
+      licensePolicy: args.licensePolicy,
       maxTargets: args.maxTargets,
       minSeverity: args.minSeverity,
       onProgress: progressTracker.onProgress,

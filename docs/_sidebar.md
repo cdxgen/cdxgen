@@ -55,6 +55,7 @@
 - [Tutorials - Go Evinse with Golem](LESSON14.md)
 - [Tutorials - AI-BOM governance and audit](LESSON15.md)
 - [Tutorials - Dynamic trace and instrumentation](LESSON16.md)
+- [Tutorials - License normalization and compliance policies](LESSON17.md)
 - [Tutorials - Generating OBOM](OBOM_LESSONS.md)
 - [Trust enrichment BOM diff examples](TRUST_ENRICHMENT_DIFF.md)
 - [macOS OBOM troubleshooting](OBOM_MACOS_TROUBLESHOOTING.md)
