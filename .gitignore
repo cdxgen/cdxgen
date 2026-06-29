@@ -150,3 +150,7 @@ devenv.local.nix
 test/data/cbom-js-repotest/java-openapi.json
 test/data/mcp-repotest/js-openapi.json
 **/.gradle/*
+.chen/
+*.atom
+*.cdx.json
+

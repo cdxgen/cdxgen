@@ -12,7 +12,7 @@ ARG NODE_VERSION=${NODE_20}
 ARG NODEJS_DIST_URL
 ARG NPM_REPO
 ARG NVM
-ARG NVM_VERSION=${NVM}
+ARG NVM_VERSION=${NVM:-v0.40.5}
 ARG PIP_CONFIG
 ARG SDKMAN_URL=https://api.sdkman.io/2
 ARG SUSE_REPO
@@ -89,7 +89,6 @@ RUN set -e; \
  && source "$HOME/.sdkman/bin/sdkman-init.sh" \
  && sdk install java $JAVA_VERSION \
  && sdk install maven $MAVEN_VERSION \
- && sdk offline enable \
  && mv /root/.sdkman/candidates/* /opt/ \
  && rm -rf /root/.sdkman \
  && python3 -m pip install \

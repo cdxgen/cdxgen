@@ -12,12 +12,14 @@ ARG NODE_VERSION=${NODE_24}
 ARG NODEJS_DIST_URL
 ARG NPM_REPO
 ARG NVM
-ARG NVM_VERSION=${NVM}
+ARG NVM_VERSION=${NVM:-v0.40.5}
 ARG PIP_CONFIG
 ARG SDKMAN_URL=https://api.sdkman.io/2
 ARG SUSE_REPO
 
-ENV JAVA_HOME="/opt/java/${JAVA_VERSION}" \
+ENV CFLAGS="-fcommon" \
+    PIP_CONSTRAINT="/opt/constraints.txt" \
+    JAVA_HOME="/opt/java/${JAVA_VERSION}" \
     JAVA_VERSION=$JAVA_VERSION \
     LANG=en_US.UTF-8 \
     LANGUAGE=en_US.UTF-8 \
@@ -25,7 +27,7 @@ ENV JAVA_HOME="/opt/java/${JAVA_VERSION}" \
     MAVEN_HOME="/opt/maven/${MAVEN_VERSION}" \
     MAVEN_VERSION=$MAVEN_VERSION \
     NVM_DIR="/root/.nvm"
-ENV PATH=${PATH}:/usr/local/bin:${NVM_DIR}/versions/node/v${NODE_VERSION}/bin:${JAVA_HOME}/bin:${MAVEN_HOME}/bin
+ENV PATH=${PATH}:/usr/local/bin:${NVM_DIR}/versions/node/v${NODE_VERSION}/bin:${JAVA_HOME}/bin:${MAVEN_HOME}/bin:/usr/lib/mit/bin
 
 RUN set -e; \
     if [ -n "$NODEJS_DIST_URL" ]; then \
@@ -67,19 +69,30 @@ RUN set -e; \
         -l \
         --no-recommends \
           bzip2 \
+          cyrus-sasl-devel \
           gawk \
           gcc${GCC_VERSION} \
           gcc${GCC_VERSION}-c++ \
           gcc${GCC_VERSION}-fortran \
           git-core \
+          krb5-devel \
+          libffi-devel \
+          libopenssl-devel \
+          libxml2-devel \
+          libxslt-devel \
           make \
+          openldap2-devel \
+          postgresql-devel \
+          sqlite3-devel \
           unzip \
           wget \
+          xz-devel \
           zip \
  && update-alternatives --install /usr/bin/cc cc /usr/bin/gcc-${GCC_VERSION} 10 \
  && update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-${GCC_VERSION} 10 \
  && update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-${GCC_VERSION} 10 \
  && update-alternatives --install /usr/bin/gfortran gfortran /usr/bin/gfortran-${GCC_VERSION} 10 \
+ && ln -sf /usr/lib/mit/bin/krb5-config /usr/bin/krb5-config \
  && curl -L "https://get.sdkman.io" | bash \
  && SDKMAN_BROKER_API="$SDKMAN_URL/broker" \
  && SDKMAN_CANDIDATES_API="$SDKMAN_URL" \
@@ -88,9 +101,10 @@ RUN set -e; \
  && source "$HOME/.sdkman/bin/sdkman-init.sh" \
  && sdk install java $JAVA_VERSION \
  && sdk install maven $MAVEN_VERSION \
- && sdk offline enable \
  && mv /root/.sdkman/candidates/* /opt/ \
  && rm -rf /root/.sdkman \
+ && mkdir -p /opt \
+ && echo "setuptools<71" > /opt/constraints.txt \
  && python3 -m pip install \
       --no-cache-dir \
       --upgrade \

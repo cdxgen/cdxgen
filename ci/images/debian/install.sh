@@ -50,7 +50,6 @@ if [ x"${JAVA_VERSION}" != "x" ]; then
   if [ x"${MAVEN_VERSION}" != "x" ]; then
     sdk install maven ${MAVEN_VERSION}
   fi
-  sdk offline enable
   mv /root/.sdkman/candidates/* /opt/
   rm -rf /root/.sdkman
 fi

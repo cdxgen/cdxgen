@@ -15,12 +15,14 @@ ARG NODE_VERSION=${NODE_20}
 ARG NODEJS_DIST_URL
 ARG NPM_REPO
 ARG NVM
-ARG NVM_VERSION=${NVM}
+ARG NVM_VERSION=${NVM:-v0.40.5}
 ARG PIP_CONFIG
 ARG SDKMAN_URL=https://api.sdkman.io/2
 ARG SUSE_REPO
 
-ENV GOPATH=/opt/app-root/go \
+ENV CFLAGS="-fcommon" \
+    PIP_CONSTRAINT="/opt/constraints.txt" \
+    GOPATH=/opt/app-root/go \
     JAVA_HOME="/opt/java/${JAVA_VERSION}" \
     JAVA_VERSION=$JAVA_VERSION \
     LANG=en_US.UTF-8 \
@@ -31,7 +33,7 @@ ENV GOPATH=/opt/app-root/go \
     NVM_DIR="/root/.nvm" \
     PYTHONPATH=/opt/pypi \
     npm_config_python=/usr/bin/python3.11
-ENV PATH=${PATH}:/usr/local/bin:${NVM_DIR}/versions/node/v${NODE_VERSION}/bin:${JAVA_HOME}/bin:${MAVEN_HOME}/bin:${PYTHONPATH}/bin:${GOPATH}/bin:/usr/local/go/bin
+ENV PATH=${PATH}:/usr/local/bin:${NVM_DIR}/versions/node/v${NODE_VERSION}/bin:${JAVA_HOME}/bin:${MAVEN_HOME}/bin:${PYTHONPATH}/bin:${GOPATH}/bin:/usr/local/go/bin:/usr/lib/mit/bin
 
 RUN set -e; \
     if [ -n "$NODEJS_DIST_URL" ]; then \
@@ -73,20 +75,30 @@ RUN set -e; \
         -l \
         --no-recommends \
           bzip2 \
+          cyrus-sasl-devel \
           gawk \
           gcc${GCC_VERSION} \
           gcc${GCC_VERSION}-c++ \
           gcc${GCC_VERSION}-fortran \
           git-core \
+          krb5-devel \
+          libffi-devel \
+          libopenssl-devel \
           libxml2-devel \
+          libxslt-devel \
           make \
+          openldap2-devel \
+          postgresql-devel \
+          sqlite3-devel \
           unzip \
           wget \
+          xz-devel \
           zip \
  && update-alternatives --install /usr/bin/cc cc /usr/bin/gcc-${GCC_VERSION} 10 \
  && update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-${GCC_VERSION} 10 \
  && update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-${GCC_VERSION} 10 \
  && update-alternatives --install /usr/bin/gfortran gfortran /usr/bin/gfortran-${GCC_VERSION} 10 \
+ && ln -sf /usr/lib/mit/bin/krb5-config /usr/bin/krb5-config \
  && curl -L "https://get.sdkman.io" | bash \
  && SDKMAN_BROKER_API="$SDKMAN_URL/broker" \
  && SDKMAN_CANDIDATES_API="$SDKMAN_URL" \
@@ -100,6 +112,8 @@ RUN set -e; \
  && tar -C /usr/local -xzf go${GO_VERSION}.linux-${GOBIN_VERSION}.tar.gz \
  && rm go${GO_VERSION}.linux-${GOBIN_VERSION}.tar.gz \
  && go telemetry off \
+ && mkdir -p /opt \
+ && echo "setuptools<71" > /opt/constraints.txt \
  && python3 -m pip install \
       --no-cache-dir \
       --upgrade \

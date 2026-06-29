@@ -6,7 +6,8 @@ ARG NODEJS_DIST_URL
 ARG NPM_REPO
 ARG PIP_CONFIG
 
-ENV PATH=${PATH}:/usr/local/bin
+ENV CFLAGS="-fcommon" \
+    PATH=${PATH}:/usr/local/bin
 
 RUN set -e; \
     if [ -n "$ALPINE_REPO" ]; then \
@@ -26,8 +27,19 @@ RUN set -e; \
     fi; \
     apk update \
  && apk add --no-cache \
+      build-base \
+      cyrus-sasl-dev \
+      krb5-dev \
+      libffi-dev \
+      libxml2-dev \
+      libxslt-dev \
       nodejs \
       npm \
+      openldap-dev \
+      openssl-dev \
+      postgresql-dev \
+      sqlite-dev \
+      xz-dev \
  && npm install -g corepack \
  && python --version \
  && python -m pip install \

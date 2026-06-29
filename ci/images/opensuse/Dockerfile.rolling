@@ -9,12 +9,12 @@ ARG GRADLE_9
 ARG GRADLE_VERSION=${GRADLE_9}
 ARG MAVEN_4
 ARG MAVEN_VERSION=${MAVEN_4}
-ARG NODE_25
-ARG NODE_VERSION=${NODE_25}
+ARG NODE_26
+ARG NODE_VERSION=${NODE_26}
 ARG NODEJS_DIST_URL
 ARG NPM_REPO
 ARG NVM
-ARG NVM_VERSION=${NVM}
+ARG NVM_VERSION=${NVM:-v0.40.5}
 ARG OPENSUSE_CODECS_REPO
 ARG OPENSUSE_REPO
 ARG PIP_CONFIG
@@ -121,7 +121,6 @@ RUN set -e; \
  && sdk install gradle $GRADLE_VERSION \
  && sdk install scala $SCALA_VERSION \
  && sdk install sbt $SBT_VERSION \
- && sdk offline enable \
  && mv /root/.sdkman/candidates/* /opt/ \
  && rm -rf /root/.sdkman \
  && curl -L --output dotnet.tar.gz \
