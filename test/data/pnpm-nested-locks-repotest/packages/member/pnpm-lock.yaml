@@ -1,0 +1,22 @@
+lockfileVersion: '9.0'
+
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
+importers:
+
+  .:
+    dependencies:
+      member-stray-only:
+        specifier: 9.9.9
+        version: 9.9.9
+
+packages:
+
+  member-stray-only@9.9.9:
+    resolution: {integrity: sha512-dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd==}
+
+snapshots:
+
+  member-stray-only@9.9.9: {}
