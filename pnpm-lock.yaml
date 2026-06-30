@@ -46,9 +46,6 @@ importers:
       ajv-formats:
         specifier: 3.0.1
         version: 3.0.1(ajv@8.20.0)
-      bin-links:
-        specifier: 6.0.2
-        version: 6.0.2
       cheerio:
         specifier: 1.2.0
         version: 1.2.0
@@ -64,15 +61,9 @@ importers:
       got:
         specifier: 14.6.6
         version: 14.6.6
-      iconv-lite:
-        specifier: 0.7.2
-        version: 0.7.2
       json-stringify-nice:
         specifier: 1.1.4
         version: 1.1.4
-      keyv:
-        specifier: 5.6.0
-        version: 5.6.0
       node-stream-zip:
         specifier: 1.15.0
         version: 1.15.0
@@ -494,10 +485,6 @@ packages:
     resolution: {integrity: sha512-BLrgEcRTwX2o6gGxGOCNyMvGSp35YofuYzw9h1IMTRmKqttAZZVU67bdb9Pr2vUHA8+j3i2tJfjO6C6+4myGTA==, tarball: https://registry.npmjs.org/balanced-match/-/balanced-match-4.0.4.tgz}
     engines: {node: 18 || 20 || >=22}
 
-  bin-links@6.0.2:
-    resolution: {integrity: sha512-frE1t78WOwJ45PKV2cF2tNPjTcs9L1J9s6VkrV59wanRP4GlaomuxYPVma7BwthMg8WnfSory4w5PTE6FZZ81w==, tarball: https://registry.npmjs.org/bin-links/-/bin-links-6.0.2.tgz}
-    engines: {node: ^20.17.0 || >=22.9.0}
-
   body-parser@2.3.0:
     resolution: {integrity: sha512-2cGmJupaNgg+QUwVLAucDuWuoMZ6EX9iHDRswZ5lsNYEmwPaRknMPCLZz07yTzVq/83p4o/wzbDZbBrTvGGTIw==, tarball: https://registry.npmjs.org/body-parser/-/body-parser-2.3.0.tgz}
     engines: {node: '>=18'}
@@ -547,10 +534,6 @@ packages:
   cliui@9.0.1:
     resolution: {integrity: sha512-k7ndgKhwoQveBL+/1tqGJYNz097I7WOvwbmmU2AR5+magtbjPWQTS1C5vzGkBC8Ym8UWRzfKUzUUqFLypY4Q+w==, tarball: https://registry.npmjs.org/cliui/-/cliui-9.0.1.tgz}
     engines: {node: '>=20'}
-
-  cmd-shim@8.0.0:
-    resolution: {integrity: sha512-Jk/BK6NCapZ58BKUxlSI+ouKRbjH1NLZCgJkYoab+vEHUY3f6OzpNBN9u7HFSv9J6TRDGs4PLOHezoKGaFRSCA==, tarball: https://registry.npmjs.org/cmd-shim/-/cmd-shim-8.0.0.tgz}
-    engines: {node: ^20.17.0 || >=22.9.0}
 
   common-ancestor-path@1.0.1:
     resolution: {integrity: sha512-L3sHRo1pXXEqX8VU28kfgUY+YGsk09hPqZiZmLacNib6XNTCM8ubYeT7ryXQw8asB1sKgcU5lkB7ONug08aB8w==, tarball: https://registry.npmjs.org/common-ancestor-path/-/common-ancestor-path-1.0.1.tgz}
@@ -948,10 +931,6 @@ packages:
     resolution: {integrity: sha512-K5zQjDllxWkf7Z5xJdV0/B0WTNqx6vxG70zJE4N0kBs4LovmEYWJzQGxC9bS9RAKu3bgM40lrd5zoLJ12MQ5BA==, tarball: https://registry.npmjs.org/raw-body/-/raw-body-3.0.2.tgz}
     engines: {node: '>= 0.10'}
 
-  read-cmd-shim@6.0.0:
-    resolution: {integrity: sha512-1zM5HuOfagXCBWMN83fuFI/x+T/UhZ7k+KIzhrHXcQoeX5+7gmaDYjELQHmmzIodumBHeByBJT4QYS7ufAgs7A==, tarball: https://registry.npmjs.org/read-cmd-shim/-/read-cmd-shim-6.0.0.tgz}
-    engines: {node: ^20.17.0 || >=22.9.0}
-
   read-package-json-fast@5.0.0:
     resolution: {integrity: sha512-S16VePJnQcfmk6HIZAiP8TXW/VDlDtZfzVndRDE8lhZNA4YvAiwAjgvhoyf6+soofEH/vrZnOUctSt+jYE2tkg==, tarball: https://registry.npmjs.org/read-package-json-fast/-/read-package-json-fast-5.0.0.tgz}
     engines: {node: ^20.17.0 || >=22.9.0}
@@ -1000,10 +979,6 @@ packages:
   side-channel@1.1.1:
     resolution: {integrity: sha512-6x6dK6zJdpTzF4sQeNYxwtvBzf6Eg4GtlesS94HOvTudUeyK2WXAaIfmDgsyslYrRBeFIlsi54AYsFGUuhmvrQ==, tarball: https://registry.npmjs.org/side-channel/-/side-channel-1.1.1.tgz}
     engines: {node: '>= 0.4'}
-
-  signal-exit@4.1.0:
-    resolution: {integrity: sha512-bzyZ1e88w9O1iNJbKnOlvYTrWPDl46O1bG0D3XInv+9tkPrxrN8jUUTiFlDkkmKWgn1M6CfIA13SuGqOa9Korw==, tarball: https://registry.npmjs.org/signal-exit/-/signal-exit-4.1.0.tgz}
-    engines: {node: '>=14'}
 
   sinon@22.0.0:
     resolution: {integrity: sha512-sq/6DpdXOrLyfbKlXLg/Usc7xu8YXPeLkOFZRvA3bNUSA2lhbrZ06yuXbH1fkzBPCbz9O10+7hznzUsjaYNm0Q==, tarball: https://registry.npmjs.org/sinon/-/sinon-22.0.0.tgz}
@@ -1107,10 +1082,6 @@ packages:
   wrap-ansi@9.0.2:
     resolution: {integrity: sha512-42AtmgqjV+X1VpdOfyTGOYRi0/zsoLqtXQckTmqTeybT+BDIbM/Guxo7x3pE2vtpr1ok6xRqM9OpBe+Jyoqyww==, tarball: https://registry.npmjs.org/wrap-ansi/-/wrap-ansi-9.0.2.tgz}
     engines: {node: '>=18'}
-
-  write-file-atomic@7.0.1:
-    resolution: {integrity: sha512-OTIk8iR8/aCRWBqvxrzxR0hgxWpnYBblY1S5hDWBQfk/VFmJwzmJgQFN3WsoUKHISv2eAwe+PpbUzyL1CKTLXg==, tarball: https://registry.npmjs.org/write-file-atomic/-/write-file-atomic-7.0.1.tgz}
-    engines: {node: ^20.17.0 || >=22.9.0}
 
   xml-js@1.6.11:
     resolution: {integrity: sha512-7rVi2KMfwfWFl+GpPg6m80IVMWXLRjO+PxTq7V2CDhoGak0wzYzFgUY2m4XJ47OGdXd8eLE8EmwfAmdjw7lC1g==, tarball: https://registry.npmjs.org/xml-js/-/xml-js-1.6.11.tgz}
@@ -1401,14 +1372,6 @@ snapshots:
 
   balanced-match@4.0.4: {}
 
-  bin-links@6.0.2:
-    dependencies:
-      cmd-shim: 8.0.0
-      npm-normalize-package-bin: 5.0.0
-      proc-log: 6.1.0
-      read-cmd-shim: 6.0.0
-      write-file-atomic: 7.0.1
-
   body-parser@2.3.0:
     dependencies:
       bytes: 3.1.2
@@ -1489,8 +1452,6 @@ snapshots:
       string-width: 7.2.0
       strip-ansi: 7.2.0
       wrap-ansi: 9.0.2
-
-  cmd-shim@8.0.0: {}
 
   common-ancestor-path@1.0.1: {}
 
@@ -1899,8 +1860,6 @@ snapshots:
       unpipe: 1.0.0
     optional: true
 
-  read-cmd-shim@6.0.0: {}
-
   read-package-json-fast@5.0.0:
     dependencies:
       json-parse-even-better-errors: 5.0.0
@@ -1957,8 +1916,6 @@ snapshots:
       side-channel-map: 1.0.1
       side-channel-weakmap: 1.0.2
     optional: true
-
-  signal-exit@4.1.0: {}
 
   sinon@22.0.0:
     dependencies:
@@ -2052,10 +2009,6 @@ snapshots:
       ansi-styles: 6.2.3
       string-width: 7.2.0
       strip-ansi: 7.2.0
-
-  write-file-atomic@7.0.1:
-    dependencies:
-      signal-exit: 4.1.0
 
   xml-js@1.6.11:
     dependencies:

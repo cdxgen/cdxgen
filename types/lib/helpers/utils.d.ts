@@ -555,6 +555,18 @@ export function parsePiplockData(lockData: Object): Promise<any[]>;
  */
 export function parsePyProjectTomlFile(tomlFile: string): Object;
 /**
+ * Derive a file name for a file entry of a python lock file.
+ *
+ *  - poetry.lock `[metadata.files]` entries carry a `file` key.
+ *  - pdm.lock `[metadata.files]` entries carry a `url` key (no `file`).
+ *  - pylock.toml / uv.lock artifacts can carry an explicit `name`, a local
+ *    `path`, and/or a `url`.
+ *
+ * @param {object} fileEntry A single lock-file file entry.
+ * @returns {string | undefined} The derived file name, or undefined when none can be derived.
+ */
+export function derivePythonLockMetadataFileName(fileEntry: object): string | undefined;
+/**
  * Method to parse python lock files such as poetry.lock, pdm.lock, uv.lock, and pylock.toml.
  *
  * @param {string} lockData Raw TOML text from poetry.lock, pdm.lock, uv.lock, or pylock.toml
@@ -1584,7 +1596,7 @@ export function createUVLock(basePath: string, options: Object): void;
  *
  * @returns {Object} List of packages from the virtual env
  */
-export function getPipFrozenTree(basePath: string, reqOrSetupFile: string, tempVenvDir: string, parentComponent: Object): Object;
+export function getPipFrozenTree(basePath: string, reqOrSetupFile: string, tempVenvDir: string, parentComponent: Object, projectRoot: any): Object;
 /**
  * The problem: pip installation can fail for a number of reasons such as missing OS dependencies and devel packages.
  * When it fails, we don't get any dependency tree. As a workaroud, this method would attempt to install one package at a time to the same virtual environment and then attempts to obtain a dependency tree.
@@ -1963,23 +1975,8 @@ export namespace PACKAGE_MANAGER_ALIASES {
     let scala: string[];
 }
 export const remoteHostsAccessed: Set<any>;
-export const cdxgenAgent: import("got").Got<{
-    headers: {
-        "user-agent": string;
-    };
-    cache: Keyv<any> | undefined;
-    retry: {
-        limit: number;
-    };
-    followRedirect: boolean;
-    hooks: {
-        beforeRequest: ((options: import("got").NormalizedOptions) => void)[];
-        afterResponse: ((response: any) => any)[];
-        beforeError: ((error: import("got").RequestError<unknown>) => import("got").RequestError<unknown>)[];
-    };
-}>;
+export const cdxgenAgent: import("got").Got<never>;
 export const RUBY_PLATFORM_PREFIXES: string[];
 import { PackageURL } from "packageurl-js";
 import { createNpmWorkspacePurl } from "./npmutils.js";
-import Keyv from "keyv";
 //# sourceMappingURL=utils.d.ts.map

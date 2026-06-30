@@ -1,3 +1,8 @@
+/**
+ * The default CycloneDX specification version used across cdxgen when a caller
+ * does not specify one (matches the `--spec-version` CLI default).
+ */
+export const DEFAULT_CDX_SPEC_VERSION: 1.7;
 export const CYCLONEDX_COMPONENT_TYPES_BY_SPEC_VERSION: Readonly<{
     1.4: readonly string[];
     1.5: readonly string[];

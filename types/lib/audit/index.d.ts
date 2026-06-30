@@ -138,6 +138,19 @@ export function runAuditFromBoms(inputBoms: {
  */
 export function runAudit(options: object): Promise<object>;
 /**
+ * Aggregates license compliance violations onto the report. Violations come
+ * from two sources: the input BOM(s) directly, and — in predictive mode — the
+ * per-dependency child SBOMs generated from cloned upstream sources (carried on
+ * each target result). Duplicates across both are collapsed so the same
+ * component/license/alert is reported once. No-op without a policy.
+ *
+ * @param {object} report aggregate audit report (mutated)
+ * @param {object[]} inputBoms loaded input BOMs
+ * @param {object|null} policy preloaded compliance policy
+ * @returns {void}
+ */
+export function attachLicenseViolations(report: object, inputBoms: object[], policy: object | null): void;
+/**
  * Render a report and compute the proper process exit code.
  *
  * @param {object} report aggregate report

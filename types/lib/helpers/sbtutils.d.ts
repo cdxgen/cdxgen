@@ -12,7 +12,7 @@ export function sbtPluginsPath(projectPath: string): any;
  *
  * @param {string} projectPath Path to the SBT project
  */
-export function determineSbtVersion(projectPath: string): (string | number | boolean) | null;
+export function determineSbtVersion(projectPath: string): string | null;
 /**
  * Adds a new plugin to the SBT project by amending its plugins list.
  * Only recommended for SBT < 1.2.0 or otherwise use `addPluginSbtFile`

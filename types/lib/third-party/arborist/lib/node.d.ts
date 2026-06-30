@@ -41,7 +41,7 @@ declare class Node {
     get globalTop(): any;
     set workspaces(workspaces: any);
     get workspaces(): any;
-    get binPaths(): any;
+    get binPaths(): string[];
     get hasInstallScript(): boolean;
     get version(): any;
     get packageName(): any;
