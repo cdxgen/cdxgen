@@ -63,7 +63,7 @@ Biome (`biome.json`) enforces this exact three-group order, with a blank line be
 ```
 1. Node built-ins   (node:*)
 <blank line>
-2. npm packages     (packageurl-js, semver, got, …)
+2. npm packages     (packageurl-js, semver, undici, …)
 <blank line>
 3. Local modules    (../../helpers/utils.js, …)
 ```
@@ -320,7 +320,7 @@ Never construct purl strings by hand-concatenation.
 
 ### HTTP requests
 
-All outbound HTTP is done through `cdxgenAgent` (a `got` instance with retries, timeout, and proxy support), exported from `lib/helpers/utils.js`. Never import `got` directly in new code — use `cdxgenAgent` or pass it through the `options` object.
+All outbound HTTP is done through `cdxgenAgent`, exported from `lib/helpers/utils.js`. It is a small [undici](https://github.com/nodejs/undici)-backed, `got`-compatible client created by `createHttpClient()` in `lib/helpers/httpClient.js` — it supports `.get`/`.post`/`.put`/`.head`, `.extend()`, `responseType`, `throwHttpErrors`, `followRedirect`, timeouts, and `beforeRequest`/`afterResponse`/`beforeError` hooks (which power dry-run enforcement, host allow-listing, network-activity recording, and HTTP trace logging). It also keeps an in-memory GET response cache that can be disabled with `CDXGEN_NO_CACHE`. Never talk to the network directly (raw `undici`, `fetch`, `http`, etc.) in new code — use `cdxgenAgent`, or pass it through the `options` object. The one exception is Docker/Podman daemon communication, which uses the unix-socket/TLS connection helper in `lib/managers/dockerConnection.js`.
 
 ---
 
@@ -506,10 +506,16 @@ describe("myFunction()", () => {
 import esmock from "esmock";
 import sinon from "sinon";
 
-const gotStub = sinon.stub().returns({ json: sinon.stub().resolves({}) });
-gotStub.extend = sinon.stub().returns(gotStub);
+// cdxgenAgent is built by createHttpClient(); mock that seam to inject a fake
+// client, or stub cdxgenAgent.get/.post directly for simpler cases.
+const agentStub = sinon.stub().returns({ json: sinon.stub().resolves({}) });
+agentStub.get = sinon.stub().resolves({ statusCode: 200, body: {} });
 
-const { submitBom } = await esmock("./index.js", { got: { default: gotStub } });
+const { submitBom } = await esmock("./index.js", {
+  "../helpers/httpClient.js": {
+    createHttpClient: sinon.stub().returns(agentStub),
+  },
+});
 ```
 
 - Test files are **excluded from the Biome linter** (`"!test/**"` in `biome.json`), so slightly looser style is acceptable there, but still follow the same import conventions.
@@ -569,7 +575,7 @@ All GitHub Actions workflows pin action SHA digests and have `permissions: {}` a
 
 ## What to avoid
 
-- **Do not** import `got` directly in new library code — use `cdxgenAgent` from `lib/helpers/utils.js`.
+- **Do not** talk to the network directly (raw `undici`, `fetch`, `http`/`https`) in new library code — use `cdxgenAgent` from `lib/helpers/utils.js` (or `lib/managers/dockerConnection.js` for the container daemon).
 - **Do not** use `spawnSync` / `execSync` directly — use `safeSpawnSync`.
 - **Do not** use `existsSync` / `mkdirSync` directly — use `safeExistsSync` / `safeMkdirSync`.
 - **Do not** shell out to the Electron `asar` CLI or add a runtime dependency for ASAR parsing — use the native reader in `lib/helpers/asarutils.js`.

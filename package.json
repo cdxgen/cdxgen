@@ -133,7 +133,6 @@
     "common-ancestor-path": "1.0.1",
     "edn-data": "1.1.2",
     "glob": "13.0.6",
-    "got": "14.6.6",
     "json-stringify-nice": "1.1.4",
     "node-stream-zip": "1.15.0",
     "npm-package-arg": "13.0.2",

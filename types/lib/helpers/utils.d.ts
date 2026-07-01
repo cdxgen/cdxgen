@@ -1975,7 +1975,7 @@ export namespace PACKAGE_MANAGER_ALIASES {
     let scala: string[];
 }
 export const remoteHostsAccessed: Set<any>;
-export const cdxgenAgent: import("got").Got<never>;
+export const cdxgenAgent: Function;
 export const RUBY_PLATFORM_PREFIXES: string[];
 import { PackageURL } from "packageurl-js";
 import { createNpmWorkspacePurl } from "./npmutils.js";

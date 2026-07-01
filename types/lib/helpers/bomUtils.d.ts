@@ -23,6 +23,6 @@ export function getCycloneDxFormat(bomJson: any): any;
 export function hasCycloneDxFormat(bomJson: any): boolean;
 export function isCycloneDxBom(bomJson: any): boolean;
 export function setCycloneDxFormat(bomJson: object, specVersion: string | number, { preserveLegacyBomFormat }?: object): object;
-export function detectBomFormat(bomJson: any): "unknown" | "cyclonedx" | "spdx";
+export function detectBomFormat(bomJson: any): "unknown" | "spdx" | "cyclonedx";
 export function getNonCycloneDxErrorMessage(bomJson: any, commandName?: string): string;
 //# sourceMappingURL=bomUtils.d.ts.map

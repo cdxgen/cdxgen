@@ -64,9 +64,10 @@ const s = purl.toString();
 const obj = PackageURL.fromString(purlString);
 ```
 
-### HTTP requests — use `cdxgenAgent`, not raw `got`
+### HTTP requests — use `cdxgenAgent`, not raw `undici`/`fetch`
 ```js
 import { cdxgenAgent } from "../helpers/utils.js";
+// cdxgenAgent is a small undici-backed, got-compatible client
 const response = await cdxgenAgent(url, { responseType: "json" });
 ```
 
@@ -131,6 +132,6 @@ Run tests: `pnpm test`
 - `import fs from "fs"` (missing `node:` prefix)
 - Direct `spawnSync` / `execSync` / `existsSync` / `mkdirSync` calls in library code
 - Hand-concatenated purl strings
-- Direct `import got from "got"` in library modules
+- Direct network access (raw `undici`, `fetch`, `http`/`https`) in library modules — use `cdxgenAgent`
 - Modifications to files under `types/` (auto-generated)
 - Hardcoded secrets, tokens, or credentials

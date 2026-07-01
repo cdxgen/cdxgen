@@ -9,7 +9,7 @@ export function detectRancherDesktop(): any;
 export const isWin: boolean;
 export const DOCKER_HUB_REGISTRY: "docker.io";
 export function stripAbsolutePath(path: string): string;
-export function getConnection(options: Object, forRegistry?: string): Promise<import("got").Got | undefined>;
+export function getConnection(_options: Object, forRegistry?: string): Promise<Object | undefined>;
 export function makeRequest(path: string, method: string, forRegistry?: string): Promise<Object | Buffer | undefined>;
 export function parseImageName(fullImageName: any): {
     registry: string;
