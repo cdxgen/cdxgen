@@ -91,6 +91,9 @@ importers:
       treeverse:
         specifier: 3.0.0
         version: 3.0.0
+      undici:
+        specifier: 7.28.0
+        version: 7.28.0
       walk-up-path:
         specifier: 4.0.0
         version: 4.0.0
