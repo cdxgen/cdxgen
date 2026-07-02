@@ -1,0 +1,21 @@
+{
+  "version": 1,
+  "dependencies": {
+    "net6.0": {
+      "Serilog.Sinks.File": {
+        "type": "Direct",
+        "requested": "[5.0.0, )",
+        "resolved": "5.0.0",
+        "contentHash": "uwV5hdGOp/mV+EMPBIajmff7SriaxDGPvBEkVvhqHtWCI9Yubi92g3BElyPZfZmnEttWiBGWfckabLdU1lWGrg==",
+        "dependencies": {
+          "Serilog": "2.10.0"
+        }
+      },
+      "Serilog": {
+        "type": "Transitive",
+        "resolved": "2.10.0",
+        "contentHash": "+QX0hmf37a0/OZLxM3wL7V6/ADvC1XihXN4Kq/p6d8lCPfgkRdiuhbWlMaFjR9Av0dy5F0+MBeDmDdRZN/YwQA=="
+      }
+    }
+  }
+}
