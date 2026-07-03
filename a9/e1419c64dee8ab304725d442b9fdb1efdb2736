@@ -1,0 +1,55 @@
+lib/parsers/gitAiNotes.poku.js
+  s_25f5f3ae2157ce::t_96cd873165ca5e 100-113
+  s_25f5f3ae2157ce::t_9f283f6e9dcbdc 132-134
+  s_25f5f3ae2157ce::t_a6c23d769c0b2d 35-39
+  s_25f5f3ae2157ce::t_a920229a5f61a0 178-180
+  s_25f5f3ae2157ce::t_c6af8f674eb72e 60
+  s_25f5f3ae2157ce::t_a33578cc0a62f6 158-160
+  s_25f5f3ae2157ce::t_22c2db5cc0c511 161-162
+lib/helpers/aiOversightCollector.js
+  s_25f5f3ae2157ce::t_5945a41e1ecc05 476-507
+  s_25f5f3ae2157ce::t_2622b8f9cf643b 637,641,645
+  s_25f5f3ae2157ce::t_20e33d3e4c73be 239-241
+  s_25f5f3ae2157ce::t_d4ddfe9e253559 622
+  s_25f5f3ae2157ce::t_6439831bf42b14 623-625,627-631,633-636,638-640,642-644,646-649
+  s_25f5f3ae2157ce::t_1c638af8ee8d33 582-587
+  s_25f5f3ae2157ce::t_bd65df56653735 238,242
+  s_25f5f3ae2157ce::t_af5ae4e7531df6 626,632
+docs/AI_PROVENANCE.md
+  s_25f5f3ae2157ce::t_31fbb14410c6cd 108,111,113-117
+  s_25f5f3ae2157ce::t_0edc35e661ead4 109-110,112,118
+lib/stages/postgen/annotator.js
+  s_25f5f3ae2157ce::t_b929c5aa70c941 818-820,822-824
+  s_25f5f3ae2157ce::t_59697e4817f17f 821,825
+lib/parsers/gitAiNotes.js
+  s_25f5f3ae2157ce::t_943240d4d181d5 230-231
+  s_25f5f3ae2157ce::t_422b25e73f5ce9 156-160,164-186,189-190,192-193,195-196
+  s_25f5f3ae2157ce::t_22c2db5cc0c511 60
+  s_25f5f3ae2157ce::t_c43239e983fcf1 12
+  s_25f5f3ae2157ce::t_3ceac057b4d6ac 22-26
+  s_25f5f3ae2157ce::t_5566e0cd00b4c5 98-99
+  s_25f5f3ae2157ce::t_42c25990fbb113 209,212
+docs/CUSTOM_PROPERTIES.md
+  s_25f5f3ae2157ce::t_b6a0f55861315e 140-144
+  s_25f5f3ae2157ce::t_4c4e6dfc0f185f 81
+lib/helpers/aiOversightCollector.poku.js
+  s_25f5f3ae2157ce::t_fe4f0a1e3cd5b0 262
+  s_25f5f3ae2157ce::t_b67e772cc6ce60 257,259,261,263
+  s_25f5f3ae2157ce::t_6e9cf2a8942061 258,260
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "a9e1419c64dee8ab304725d442b9fdb1efdb2736",
+  "prompts": {},
+  "sessions": {
+    "s_25f5f3ae2157ce": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_0d84f6820ffeak1he5as4y5Mck",
+        "model": "deepseek-v4-flash"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
