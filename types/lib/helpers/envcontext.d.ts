@@ -319,11 +319,13 @@ export function gitAiNotes(dir: string, options?: {
     maxCount?: number | undefined;
 }): Array<Object>;
 /**
- * Retrieves commits matching revert, hotfix, or rollback patterns.
+ * Retrieves recent commits whose subject indicates a revert, hotfix, or
+ * rollback. Bounded to the same recency window as the other collectors — unlike
+ * `git log --grep`, which traverses the entire history looking for matches.
  *
  * @param {string} dir Repo directory
- * @param {number} maxCount Maximum number of commits to scan
- * @returns {Array<Object>} Array of revert/hotfix commits
+ * @param {number} maxCount Maximum number of recent commits to scan
+ * @returns {Array<Object>} Array of { hash, message } revert/hotfix commits
  */
 export function gitRevertsAndHotfixes(dir: string, maxCount?: number): Array<Object>;
 export const GIT_COMMAND: any;

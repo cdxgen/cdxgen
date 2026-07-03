@@ -105,6 +105,17 @@ Properties are attached to the BOM document root `properties` array (not `metada
 - `cdx:ai:codegen:signals:count`: Total signals found
 - `cdx:ai:codegen:tool:<tool-name>`: Detailed evidence string for a specific tool (e.g., `confidence=0.98;phases=dev;channels=commit-trailer;evidence=1 commit(s)`)
 
+### Git-ai derived detail properties
+
+When [git-ai](https://github.com/git-ai-project/git-ai) notes are present and carry AI
+attribution data, the following properties are additionally emitted:
+
+- `cdx:ai:codegen:models` — comma-separated unique model names extracted from git-ai note sessions/prompts (e.g., `claude-sonnet-4-20250514,gpt-4o`).
+- `cdx:ai:codegen:agents` — comma-separated unique agent tool names extracted from git-ai note sessions/prompts (e.g., `claude-code,cursor`).
+- `cdx:ai:codegen:noteCount` — number of git-ai notes with AI attribution entries.
+- `cdx:ai:codegen:sessionCount` — total number of AI sessions referenced across all git-ai notes.
+- `cdx:ai:codegen:attributionCount` — total number of AI-attributed line+range entries across all git-ai notes.
+
 ### Pseudo-tools
 
 Some signals indicate AI involvement that cannot be attributed to a specific product:
