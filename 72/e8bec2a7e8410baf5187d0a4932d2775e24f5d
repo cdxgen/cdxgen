@@ -1,0 +1,23 @@
+lib/helpers/aiOversightCollector.js
+  s_fb7aa99c1e9198::t_1aafeb7c04406f 98,103-105,107-108,111-113
+  s_fb7aa99c1e9198::t_579cf8b9e18797 99-102,106,110,114-140,142
+lib/helpers/forgeEnricher.js
+  s_fb7aa99c1e9198::t_f7e60d8d14cc6f 10-17,20-25
+  s_fb7aa99c1e9198::t_5d036699afd4ed 39-42
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "72e8bec2a7e8410baf5187d0a4932d2775e24f5d",
+  "prompts": {},
+  "sessions": {
+    "s_fb7aa99c1e9198": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "4078c6b0-c574-4233-81db-645194238cac",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
