@@ -1,0 +1,20 @@
+lib/stages/postgen/auditBom.poku.js
+  s_fb7aa99c1e9198::t_159b8ab8b2f51a 3689
+  s_fb7aa99c1e9198::t_95235fc31e21fc 3646-3654
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "6529857c1ac800c4c742afbad12dbc708dc37780",
+  "prompts": {},
+  "sessions": {
+    "s_fb7aa99c1e9198": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "4078c6b0-c574-4233-81db-645194238cac",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
