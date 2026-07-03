@@ -1,0 +1,62 @@
+lib/helpers/aiProvenanceCollector.repo.poku.js
+  s_fb7aa99c1e9198::t_b48d743a23907a 1-16,22,27-106
+  s_fb7aa99c1e9198::t_da0530ca5bb79f 17-21,23-26
+lib/server/server.js
+  s_fb7aa99c1e9198::t_20f885c834d84c 467-468,482
+  s_fb7aa99c1e9198::t_6723fb25650180 466,469-471,476-479
+  s_fb7aa99c1e9198::t_a97f7e7aeab1e8 472-474
+data/rules/ai-provenance.yaml
+  s_fb7aa99c1e9198::t_408c0c384d8b68 30,36,45-49,71-73,80,88-91
+  s_fb7aa99c1e9198::t_b1a6f92e5efae2 3
+data/rules/ai-oversight.yaml
+  s_fb7aa99c1e9198::t_b1a6f92e5efae2 3
+  s_fb7aa99c1e9198::t_25e6ed285f0589 22,28,34-36,54,60,66-67,85,91,97-98,114,120,125-126,144,150,155-156,173,179,184-185
+lib/stages/postgen/annotator.poku.js
+  s_fb7aa99c1e9198::t_18cfe4ca3074f2 3-8
+  s_fb7aa99c1e9198::t_ef4a856a2d2cea 621-668
+lib/parsers/gitAiNotes.poku.js
+  s_fb7aa99c1e9198::t_13351712ddf8df 56-150
+lib/helpers/envcontext.js
+  s_fb7aa99c1e9198::t_a6357b526d6e7c 1468-1479
+  s_fb7aa99c1e9198::t_8e3d03b304f984 1548-1551,1553-1555,1558-1559,1584-1585
+lib/stages/postgen/annotator.js
+  s_fb7aa99c1e9198::t_f55d3cfe965021 755-761,766-825
+  s_fb7aa99c1e9198::t_e589a58e62c561 826-828
+lib/cli/index.js
+  s_fb7aa99c1e9198::t_be2d23a0455ba0 963-965
+lib/parsers/gitAiNotes.js
+  s_fb7aa99c1e9198::t_28ad9b6eab9b66 96-98,100-106,111-112,115,151-161,163-165,167-169,171-178,180-182,184-192,201
+  s_fb7aa99c1e9198::t_f9711157241a94 150
+  s_fb7aa99c1e9198::t_f2e32a3639818d 4-10,12,33-41,62,94-95,99,107-110,113-114,116-149,162,166,170,179,183,193-198,200
+  s_fb7aa99c1e9198::t_691dcd2d4f6df6 199,202-204
+lib/stages/postgen/auditBom.aiProvenance.poku.js
+  s_fb7aa99c1e9198::t_db5677d1171ddc 26,53
+docs/LESSON18.md
+  s_fb7aa99c1e9198::t_355766553e6df9 43
+bin/cdxgen.js
+  s_fb7aa99c1e9198::t_e843acae7ce8e5 1462-1463,1466-1469,1471-1474
+  s_fb7aa99c1e9198::t_cf78524ff88e6b 1464-1465,1477-1478
+lib/stages/postgen/auditBom.js
+  s_fb7aa99c1e9198::t_0876b367f031e0 185-189,194-198,210,220-222,230,233,251-252
+docs/AI_PROVENANCE.md
+  s_fb7aa99c1e9198::t_2d507a78a753a4 202-262
+  s_fb7aa99c1e9198::t_355766553e6df9 18,98
+lib/stages/postgen/auditBom.aiOversight.poku.js
+  s_fb7aa99c1e9198::t_db5677d1171ddc 26,48,65,82,99,117
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "40a9af63686985bdd7747427d87d4e874c176067",
+  "prompts": {},
+  "sessions": {
+    "s_fb7aa99c1e9198": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "4078c6b0-c574-4233-81db-645194238cac",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
