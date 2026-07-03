@@ -1,0 +1,21 @@
+lib/stages/postgen/ruleEngine.js
+  s_fb7aa99c1e9198::t_02a00761835d27 295-298
+  s_fb7aa99c1e9198::t_6eb48f09b695a9 237-275,283-285,291-292
+  s_fb7aa99c1e9198::t_8ea3a01140244b 293-294,299-307
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "920b5b9bee1353c6f81c67982fc8a2ad5f108b0f",
+  "prompts": {},
+  "sessions": {
+    "s_fb7aa99c1e9198": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "4078c6b0-c574-4233-81db-645194238cac",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
