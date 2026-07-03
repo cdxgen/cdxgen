@@ -1121,9 +1121,12 @@ export function parseNuspecData(nupkgFile: string, nuspecData: string): Object;
  *
  * @param {string} pkgData Raw XML string of a packages.config file
  * @param {string} pkgFile Path to the packages.config file, used for evidence properties
+ * @param {Object} pkgNameVersions Package name - version map of versions already resolved
+ *        from more precise manifests (project.assets.json / packages.lock.json), used to
+ *        backfill templated or missing versions
  * @returns {Object[]} Array of NuGet package objects with purl, name, and version
  */
-export function parseCsPkgData(pkgData: string, pkgFile: string): Object[];
+export function parseCsPkgData(pkgData: string, pkgFile: string, pkgNameVersions?: Object): Object[];
 /**
  * Method to find all text nodes in PropertyGroup elements in .props files.
  *
@@ -1970,6 +1973,7 @@ export const PROJECT_TYPE_ALIASES: {
     "vscode-extension": string[];
     "chrome-extension": string[];
     dynamic: string[];
+    "ai-provenance": string[];
 };
 export namespace PACKAGE_MANAGER_ALIASES {
     let scala: string[];

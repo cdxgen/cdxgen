@@ -16,6 +16,8 @@ export const BOM_AUDIT_CATEGORY_ALIASES: Readonly<{
     "ai-inventory": string[];
     aibom: string[];
     "ai-bom": string[];
+    "ai-provenance": string[];
+    "ai-oversight": string[];
     cbom: string[];
     "crypto-bom": string[];
     golem: string[];

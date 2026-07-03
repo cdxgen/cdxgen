@@ -1459,6 +1459,21 @@ const writeCycloneDxOutput = (jsonFile, bomJson, options) => {
       "Tweaking the generated BOM data with useful annotations and properties.",
     );
   }
+  // AI provenance/oversight detection is opt-in during generation via
+  // `-t ai-provenance`. The detected cdx:ai:codegen:* / cdx:ai:oversight:*
+  // properties are written to the BOM document root (bomJson.properties) BEFORE
+  // post-processing so the generated annotation summary can reference them.
+  const isAiProvenanceGeneration =
+    Array.isArray(options.projectType) &&
+    options.projectType.some((t) =>
+      ["ai-provenance", "ai-authorship", "aicode", "ai-codegen"].includes(t),
+    );
+  if (isAiProvenanceGeneration && bomNSData?.bomJson) {
+    const { ensureAiProvenanceProperties, ensureAiOversightProperties } =
+      await import("../lib/stages/postgen/auditBom.js");
+    ensureAiProvenanceProperties(bomNSData.bomJson, options);
+    await ensureAiOversightProperties(bomNSData.bomJson, options);
+  }
   // Add extra metadata and annotations with post processing
   bomNSData = postProcess(bomNSData, options, srcDir);
   setActivityContext({

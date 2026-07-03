@@ -40,6 +40,18 @@ const args = yargs(hideBin(process.argv))
       "Evaluate audit rules directly against the supplied BOM(s) instead of running only the predictive dependency audit.",
     type: "boolean",
   })
+  .option("ai-provenance", {
+    default: true,
+    description:
+      "Detect AI/LLM/agent authorship and tool-use signals during audit. Enabled by default. Pass --no-ai-provenance to disable.",
+    type: "boolean",
+  })
+  .option("git-ai-notes-ref", {
+    type: "string",
+    default: "refs/notes/ai",
+    description:
+      "Git notes reference path for git-ai line-level attribution. AI human-oversight / process-rigor evaluation runs automatically alongside AI provenance. Set GITHUB_TOKEN / GITLAB_TOKEN to enrich with pull/merge request review data.",
+  })
   .option("rules-dir", {
     description:
       "Directory containing additional YAML audit rules (merged with built-in). Applies to direct BOM audit and predictive child-SBOM rule evaluation.",
@@ -184,6 +196,8 @@ function writeOrPrint(output, outputPath) {
   try {
     const reportFile = args.reportFile || args.output;
     const report = await runAudit({
+      aiProvenance: args.aiProvenance,
+      gitAiNotesRef: args.gitAiNotesRef,
       allowlistFile: args.allowlistFile,
       bom: args.bom,
       bomDir: args.bomDir,

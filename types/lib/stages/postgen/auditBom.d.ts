@@ -37,6 +37,26 @@ export function formatDryRunSupportSummary(summary: {
     totalRules: number;
 }): string;
 /**
+ * Ensure the BOM carries cdx:ai:codegen properties at the document root
+ * (`bomJson.properties`). If they are already present (for example, generated
+ * with `-t ai-provenance`) the BOM is left untouched. Otherwise the target
+ * directory is scanned and any detected properties are merged into the root
+ * `properties` array.
+ *
+ * @param {Object} bomJson Generated CycloneDX BOM (mutated in place)
+ * @param {Object} options CLI options
+ */
+export function ensureAiProvenanceProperties(bomJson: Object, options?: Object): void;
+/**
+ * Ensure the BOM carries cdx:ai:oversight properties at the document root
+ * (`bomJson.properties`). If they are already present or AI codegen was not
+ * detected, the BOM is left untouched.
+ *
+ * @param {Object} bomJson Generated CycloneDX BOM (mutated in place)
+ * @param {Object} options CLI options
+ */
+export function ensureAiOversightProperties(bomJson: Object, options?: Object): Promise<void>;
+/**
  * Audit BOM formulation section using JSONata-powered rule engine
  * @param {Object} bomJson - Generated CycloneDX BOM
  * @param {Object} options - CLI options

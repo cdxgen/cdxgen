@@ -1,0 +1,92 @@
+# AI-generated code and authorship provenance rules.
+#
+# These rules evaluate the cdx:ai:codegen:* properties (BOM document root) emitted by the
+# AI provenance collector (see docs/AI_PROVENANCE.md). They surface governance,
+# licensing, and intellectual-property considerations that arise when AI, LLMs,
+# or coding agents contribute to a project.
+
+- id: AIPROV-001
+  name: "AI/LLM/agent involvement detected in project development"
+  description: >-
+    Signals of AI, LLM, or coding-agent involvement were detected in this
+    project's development, testing, review, or triage. Under current US Copyright
+    Office guidance (Copyright and Artificial Intelligence, Part 2, 2025) and
+    Thaler v. Perlmutter, works lacking sufficient human authorship are not
+    eligible for copyright protection - prompts alone do not make the user the
+    author of the output. Code produced solely by AI may therefore receive no
+    implicit copyright protection and could be freely used by others unless it is
+    protected by another mechanism such as a licence, contract, or trade secret.
+  severity: low
+  category: ai-provenance
+  dry-run-support: full
+  standards:
+    eu-ai-act:
+      - "Transparency and instructions for use"
+      - "Technical documentation and traceability"
+    nist-ai-rmf:
+      - "Govern"
+      - "Map"
+  condition: |
+    $[$nullSafeProp($, 'cdx:ai:codegen:detected') = 'true']
+  location: |
+    {
+      "purl": metadata.component.purl,
+      "bomRef": metadata.component."bom-ref"
+    }
+  message: "AI/LLM/agent involvement detected ({{ $prop(bom, 'cdx:ai:codegen:tools') }}); AI-authored code may receive no implicit copyright protection without sufficient human authorship."
+  mitigation: >-
+    Document the creative human contributions across the software development
+    lifecycle (design, selection, arrangement, and substantial modification of
+    AI output). Confirm the licensing and ownership posture for AI-assisted code
+    and consider contractual or trade-secret protections where copyright may not
+    apply. Attribute AI usage in commits and disclosures for auditability.
+  evidence: |
+    {
+      "tools": $prop(bom, 'cdx:ai:codegen:tools'),
+      "phases": $prop(bom, 'cdx:ai:codegen:phases'),
+      "confidence": $prop(bom, 'cdx:ai:codegen:confidence'),
+      "confidenceBand": $prop(bom, 'cdx:ai:codegen:confidence:band'),
+      "signalCount": $prop(bom, 'cdx:ai:codegen:signals:count')
+    }
+
+- id: AIPROV-002
+  name: "High-confidence AI/LLM/agent authorship signals"
+  description: >-
+    High-confidence signals (for example bot commit authors or explicit
+    AI co-author trailers) indicate that AI or coding agents authored parts of
+    this project. Purely AI-generated code is ineligible for copyright protection
+    in the absence of sufficiently creative human input, which has ownership,
+    licensing, and warranty implications for downstream consumers.
+  severity: medium
+  category: ai-provenance
+  dry-run-support: full
+  standards:
+    eu-ai-act:
+      - "Transparency and instructions for use"
+      - "Human oversight"
+    nist-ai-rmf:
+      - "Govern"
+      - "Manage"
+  condition: |
+    $[
+      $nullSafeProp($, 'cdx:ai:codegen:detected') = 'true'
+      and $nullSafeProp($, 'cdx:ai:codegen:confidence:band') = 'high'
+    ]
+  location: |
+    {
+      "purl": metadata.component.purl,
+      "bomRef": metadata.component."bom-ref"
+    }
+  message: "High-confidence AI/LLM/agent authorship detected ({{ $prop(bom, 'cdx:ai:codegen:tools') }}); review copyright, licensing, and human-authorship posture before relying on ownership of this code."
+  mitigation: >-
+    Treat this code as potentially uncopyrightable unless human authorship can be
+    demonstrated. Record who reviewed, modified, and arranged the AI output;
+    verify third-party licence compatibility; and communicate the AI-authorship
+    status to consumers who may assume standard copyright ownership.
+  evidence: |
+    {
+      "tools": $prop(bom, 'cdx:ai:codegen:tools'),
+      "phases": $prop(bom, 'cdx:ai:codegen:phases'),
+      "confidence": $prop(bom, 'cdx:ai:codegen:confidence'),
+      "signalCount": $prop(bom, 'cdx:ai:codegen:signals:count')
+    }

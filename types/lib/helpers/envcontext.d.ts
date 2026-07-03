@@ -45,6 +45,30 @@ export function listFiles(dir: string): any[];
  */
 export function execGitCommand(dir: string, args: any[]): string | undefined;
 /**
+ * Retrieves the author names and emails from the git commit log
+ *
+ * @param {string} dir Repo directory
+ * @param {number} maxCount Maximum number of commits to retrieve
+ *
+ * @returns {Array<{name: string, email: string}>} Array of authors
+ */
+export function gitLogAuthors(dir: string, maxCount?: number): Array<{
+    name: string;
+    email: string;
+}>;
+/**
+ * Retrieves the commit logs for a git repo, returning hashes and messages
+ *
+ * @param {string} dir Repo directory
+ * @param {number} maxCount Maximum number of commits to retrieve
+ *
+ * @returns {Array<{hash: string, message: string}>} Array of commit objects
+ */
+export function gitLogTrailers(dir: string, maxCount?: number): Array<{
+    hash: string;
+    message: string;
+}>;
+/**
  * Collect Java version and installed modules
  *
  * @param {string} dir Working directory
@@ -262,6 +286,46 @@ export function installRubyBundler(rubyVersion: any, bundlerVersion: any): boole
  * @returns {boolean} true if the install was successful. false otherwise.
  */
 export function performBundleInstall(cdxgenGemHome: any, rubyVersion: any, bundleCommand: any, basePath: any): boolean;
+/**
+ * Retrieves the commit logs for a git repo with detailed author, committer, parents, signatures, and body.
+ *
+ * @param {string} dir Repo directory
+ * @param {number} maxCount Maximum number of commits to retrieve
+ * @returns {Array<Object>} Array of detailed commit objects
+ */
+export function gitLogCommitsDetailed(dir: string, maxCount?: number): Array<Object>;
+/**
+ * Runs a git show on a commit hash and analyzes the diff for test-file
+ * deletions and quality-gate-weakening changes (e.g. `|| true`,
+ * `continue-on-error: true`, `--no-verify`). Detection is intentionally
+ * conservative to avoid false positives from ordinary refactors.
+ *
+ * @param {string} dir Repo directory
+ * @param {string} commitHash Commit hash to analyze
+ * @returns {Object} Commit diff analysis results
+ */
+export function gitCommitDiffAnalysis(dir: string, commitHash: string): Object;
+/**
+ * Retrieves the git-ai notes metadata for recent commits.
+ *
+ * @param {string} dir Repo directory
+ * @param {Object} [options] Options for note retrieval
+ * @param {string} [options.ref] Notes reference path (defaults to refs/notes/ai)
+ * @param {number} [options.maxCount] Maximum commits to scan (defaults to 20)
+ * @returns {Array<Object>} Array of note objects { hash, note }
+ */
+export function gitAiNotes(dir: string, options?: {
+    ref?: string | undefined;
+    maxCount?: number | undefined;
+}): Array<Object>;
+/**
+ * Retrieves commits matching revert, hotfix, or rollback patterns.
+ *
+ * @param {string} dir Repo directory
+ * @param {number} maxCount Maximum number of commits to scan
+ * @returns {Array<Object>} Array of revert/hotfix commits
+ */
+export function gitRevertsAndHotfixes(dir: string, maxCount?: number): Array<Object>;
 export const GIT_COMMAND: any;
 export namespace SDKMAN_JAVA_TOOL_ALIASES {
     let java8: any;

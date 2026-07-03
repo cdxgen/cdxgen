@@ -1,13 +1,11 @@
 /**
- * Translate a `got`-style timeout option into a single total-request timeout in
- * milliseconds understood by an `AbortSignal`. A plain number is used verbatim.
- * A phase object (e.g. `{ connect, send, response }`) is reduced to the sum of
- * its phases, which provides a sensible upper bound for the whole request.
+ * Resolve the default HTTP request timeout, honoring the validated
+ * CDXGEN_HTTP_TIMEOUT_MS environment variable when set to a positive integer.
  *
- * @param {number|Object} [timeout] `got`-style timeout option.
- * @returns {number|undefined} Total timeout in milliseconds, or `undefined`.
+ * @returns {number} Timeout in milliseconds
  */
-export function resolveTimeout(timeout?: number | Object): number | undefined;
+export function getDefaultHttpTimeoutMs(): number;
+export function resolveTimeout(timeout: any): any;
 /**
  * Determine whether the in-memory HTTP response cache is disabled via the
  * CDXGEN_NO_CACHE environment variable. Evaluated per request so tests and

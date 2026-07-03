@@ -28,9 +28,11 @@ export function runDirectBomAuditFromBoms(inputBoms: any, options?: {}): Promise
     inputs: any;
     results: {
         auditOptions: {
+            aiProvenance: any;
             bomAuditCategories: any;
             bomAuditMinSeverity: any;
             bomAuditRulesDir: any;
+            workspaceDir: any;
         };
         bomFormat: any;
         findings: any[];

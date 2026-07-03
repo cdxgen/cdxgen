@@ -1,0 +1,186 @@
+# AI Human Oversight & Rigor rules.
+#
+# These rules evaluate the cdx:ai:oversight:* properties (BOM document root) emitted by the
+# AI oversight collector. They evaluate whether AI-assisted code was merged
+# with adequate independent human review, and detect rubber-stamping or quality gate bypassing.
+
+- id: AIOVS-001
+  name: "High AI Verification Debt"
+  description: >-
+    A high fraction of AI-authored commits or pull requests lacks independent
+    human review, suggesting a potential failure of human-in-the-loop controls.
+  severity: high
+  category: ai-oversight
+  dry-run-support: full
+  standards:
+    eu-ai-act:
+      - "Article 14 - Human oversight"
+    nist-ai-rmf:
+      - "Govern"
+      - "Manage"
+  condition: |
+    $[$number($nullSafeProp($, 'cdx:ai:oversight:verificationDebtRatio')[$ != '' and $ != 'unavailable']) >= 0.5]
+  location: |
+    {
+      "purl": metadata.component.purl,
+      "bomRef": metadata.component."bom-ref"
+    }
+  message: "High AI verification debt detected ({{ $prop(bom, 'cdx:ai:oversight:verificationDebtRatio') }}). A large fraction of AI-generated code has not been independently reviewed."
+  mitigation: >-
+    Ensure all AI-generated code undergoes independent human review and approval before merging.
+    Establish pull request guidelines that require at least one human reviewer to sign off.
+  evidence: |
+    {
+      "verificationDebtRatio": $prop(bom, 'cdx:ai:oversight:verificationDebtRatio'),
+      "selfMergeRate": $prop(bom, 'cdx:ai:oversight:selfMergeRate'),
+      "score": $prop(bom, 'cdx:ai:oversight:score')
+    }
+
+- id: AIOVS-002
+  name: "CI Weakening Events in AI Commits"
+  description: >-
+    AI-authored commits were found to weaken quality gates by deleting test files,
+    adding silencing scripts (like '|| true' or 'continue-on-error'), or skipping lints.
+  severity: high
+  category: ai-oversight
+  dry-run-support: full
+  standards:
+    eu-ai-act:
+      - "Article 15 - Accuracy, robustness and cybersecurity"
+    nist-ai-rmf:
+      - "Measure"
+      - "Manage"
+  condition: |
+    $[$number($nullSafeProp($, 'cdx:ai:oversight:ciWeakeningEvents')[$ != '']) > 0]
+  location: |
+    {
+      "purl": metadata.component.purl,
+      "bomRef": metadata.component."bom-ref"
+    }
+  message: "CI weakening events detected in AI commits ({{ $prop(bom, 'cdx:ai:oversight:ciWeakeningEvents') }} event(s))."
+  mitigation: >-
+    Review AI commits that modified CI/CD configurations, bypassed tests, or deleted checks.
+    Re-enable tests and ensure quality gates cannot be bypassed by automated changes.
+  evidence: |
+    {
+      "ciWeakeningEvents": $prop(bom, 'cdx:ai:oversight:ciWeakeningEvents'),
+      "score": $prop(bom, 'cdx:ai:oversight:score')
+    }
+
+- id: AIOVS-003
+  name: "High Self-Merge Rate of AI Commits"
+  description: >-
+    A large fraction of AI-authored commits were self-merged or self-approved by
+    their author, bypassing independent validation and peer review.
+  severity: medium
+  category: ai-oversight
+  dry-run-support: full
+  standards:
+    eu-ai-act:
+      - "Article 14 - Human oversight"
+    nist-ai-rmf:
+      - "Govern"
+      - "Measure"
+  condition: |
+    $[$number($nullSafeProp($, 'cdx:ai:oversight:selfMergeRate')[$ != '' and $ != 'unavailable']) >= 0.5]
+  location: |
+    {
+      "purl": metadata.component.purl,
+      "bomRef": metadata.component."bom-ref"
+    }
+  message: "High self-merge rate of AI commits detected ({{ $prop(bom, 'cdx:ai:oversight:selfMergeRate') }})."
+  mitigation: >-
+    Require independent review for all pull requests. Configure repository branch protection
+    rules to prevent self-merging and require independent approvals.
+  evidence: |
+    {
+      "selfMergeRate": $prop(bom, 'cdx:ai:oversight:selfMergeRate'),
+      "score": $prop(bom, 'cdx:ai:oversight:score')
+    }
+
+- id: AIOVS-004
+  name: "Low AI Review Coverage"
+  description: >-
+    The percentage of AI commits/PRs with verified independent human approvals is low.
+  severity: medium
+  category: ai-oversight
+  dry-run-support: full
+  standards:
+    eu-ai-act:
+      - "Article 14 - Human oversight"
+    nist-ai-rmf:
+      - "Govern"
+  condition: |
+    $[$number($nullSafeProp($, 'cdx:ai:oversight:reviewCoverage')[$ != '' and $ != 'unavailable']) < 0.5]
+  location: |
+    {
+      "purl": metadata.component.purl,
+      "bomRef": metadata.component."bom-ref"
+    }
+  message: "Low AI review coverage detected ({{ $prop(bom, 'cdx:ai:oversight:reviewCoverage') }})."
+  mitigation: >-
+    Require Pull Request reviews for all branches and increase reviewer coverage to ensure independent validation.
+  evidence: |
+    {
+      "reviewCoverage": $prop(bom, 'cdx:ai:oversight:reviewCoverage'),
+      "score": $prop(bom, 'cdx:ai:oversight:score')
+    }
+
+- id: AIOVS-005
+  name: "Weak Role Accountability and Gaps in AI Attribution"
+  description: >-
+    A large fraction of files touched by AI-authored commits are not covered by a
+    CODEOWNERS entry, indicating weak role accountability and gaps in AI attribution.
+    Fires only when a CODEOWNERS file exists (otherwise coverage is `unavailable`).
+  severity: low
+  category: ai-oversight
+  dry-run-support: full
+  standards:
+    eu-ai-act:
+      - "Article 12 - Record-keeping"
+    nist-ai-rmf:
+      - "Govern"
+  condition: |
+    $[$number($nullSafeProp($, 'cdx:ai:oversight:codeownersCoverage')[$ != '' and $ != 'unavailable']) < 0.5]
+  location: |
+    {
+      "purl": metadata.component.purl,
+      "bomRef": metadata.component."bom-ref"
+    }
+  message: "Weak role accountability or sign-off on AI commits: CODEOWNERS ({{ $prop(bom, 'cdx:ai:oversight:codeownersCoverage') }}), Sign-off ({{ $prop(bom, 'cdx:ai:oversight:signoffCoverage') }})."
+  mitigation: >-
+    Define file ownership in CODEOWNERS and enforce developer sign-offs (DCO) to improve accountability.
+  evidence: |
+    {
+      "codeownersCoverage": $prop(bom, 'cdx:ai:oversight:codeownersCoverage'),
+      "signoffCoverage": $prop(bom, 'cdx:ai:oversight:signoffCoverage')
+    }
+
+- id: AIOVS-006
+  name: "Weak Overall AI Human Oversight"
+  description: >-
+    The overall human oversight score falls into the weak band, indicating poor governance.
+  severity: medium
+  category: ai-oversight
+  dry-run-support: full
+  standards:
+    eu-ai-act:
+      - "Article 14 - Human oversight"
+    nist-ai-rmf:
+      - "Govern"
+      - "Manage"
+  condition: |
+    $[$nullSafeProp($, 'cdx:ai:oversight:band') = 'weak']
+  location: |
+    {
+      "purl": metadata.component.purl,
+      "bomRef": metadata.component."bom-ref"
+    }
+  message: "Weak overall AI human oversight score ({{ $prop(bom, 'cdx:ai:oversight:score') }})."
+  mitigation: >-
+    Address high-priority governance gaps including verification debt, self-merges, and CI weakening to establish a moderate or strong oversight band.
+  evidence: |
+    {
+      "score": $prop(bom, 'cdx:ai:oversight:score'),
+      "band": $prop(bom, 'cdx:ai:oversight:band')
+    }
