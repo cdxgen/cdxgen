@@ -1,0 +1,25 @@
+contrib/git-ai-notes/copy-squashed-notes.mjs
+  s_ce34bd09fcdd2e::t_11b40c6b38aa89 107-113
+  s_ce34bd09fcdd2e::t_bebeb8c9c6568e 1-106,114-314
+contrib/git-ai-notes/README.md
+  s_ce34bd09fcdd2e::t_c3b0b54be99097 1-92
+docs/AI_PROVENANCE.md
+  s_ce34bd09fcdd2e::t_ac28c92cb50673 119-143
+  s_ce34bd09fcdd2e::t_906e8e0d7da036 144
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "08b4c41d8850651838a631056f09d38d9ea7460e",
+  "prompts": {},
+  "sessions": {
+    "s_ce34bd09fcdd2e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "8fce48d2-fbd1-4e06-9bca-118fbd3d1595",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
