@@ -1,5 +1,5 @@
 export function repositoryUrlForHuggingFaceAssetType(assetType: any): "https://huggingface.co" | "https://huggingface.co/datasets" | "https://huggingface.co/spaces";
-export function assetTypeFromHuggingFaceRepositoryUrl(repositoryUrl: any): "space" | "dataset" | "model";
+export function assetTypeFromHuggingFaceRepositoryUrl(repositoryUrl: any): "model" | "dataset" | "space";
 /**
  * Normalize a Hugging Face repository identifier to the canonical namespace/name form.
  *

@@ -9,7 +9,7 @@
  *  3. Line-oriented `key: value` / `key = value` text.
  *
  * @param {string} raw Raw git note content
- * @returns {Object} Extracted fields { agent, model, session, prompt, lines, ranges }
+ * @returns {Object} Extracted fields { agent, model, session, prompt, lines, ranges, sessions, prompts, agents, models, aiAttributionCount }
  */
 export function parseGitAiNote(raw: string): Object;
 //# sourceMappingURL=gitAiNotes.d.ts.map
