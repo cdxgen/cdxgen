@@ -1,0 +1,35 @@
+.github/workflows/image-build.yml
+  s_d9fdd7dc28d0ec::t_8ff7ba4af3dc04 662-674
+  s_d9fdd7dc28d0ec::t_a727f5cf7e3b89 709-718
+lib/managers/oci.js
+  s_d9fdd7dc28d0ec::t_3d7d7bce6cd41a 410-411,413-416,420
+  s_d9fdd7dc28d0ec::t_46725f8a1af421 12-27
+  s_d9fdd7dc28d0ec::t_42d8261059f859 442-443,449,456-457
+  s_d9fdd7dc28d0ec::t_7aded62a3b3caa 320
+  s_d9fdd7dc28d0ec::t_b0e781aa23a366 116-128,130,137,144-147,162
+  s_d9fdd7dc28d0ec::t_cc32eb62af8899 341
+  s_d9fdd7dc28d0ec::t_0283f98f518a2e 280-307
+  s_d9fdd7dc28d0ec::t_146d5190ff5431 28-49
+  s_d9fdd7dc28d0ec::t_a753bf2e134a77 427-432,434,444-448,450-455,458-461,463-467,469-470,472-473
+lib/managers/oci.poku.js
+  s_d9fdd7dc28d0ec::t_bc1c75f7b145e7 215-308
+  s_d9fdd7dc28d0ec::t_7ed97d5eac8c2c 123-150,152-160,162-177,179-187,189,191-214
+  s_d9fdd7dc28d0ec::t_1c6b5ccb041903 44,51,66,76,78
+  s_d9fdd7dc28d0ec::t_ed59edb5f9ac07 151,161,178,188,190
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "efd77296c060345a95eab44988880d5a682dcc9c",
+  "prompts": {},
+  "sessions": {
+    "s_d9fdd7dc28d0ec": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "30555b45-c841-483b-a4a6-3043372b65b3",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
