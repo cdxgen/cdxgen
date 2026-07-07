@@ -1,0 +1,21 @@
+.github/scripts/build-standalone.sh
+  s_150019d7ed26fa::t_db7caf75ce3ee3 35
+pnpm-lock.yaml
+  s_150019d7ed26fa::t_f6dc199b0b8e2b 482-483,636-637,1271,1298,1471,1604
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "b062caf116f879aa14589149c7d4e8d17b986571",
+  "prompts": {},
+  "sessions": {
+    "s_150019d7ed26fa": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "b1865006-ccb2-41fe-8c7d-71a9081674bf",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
