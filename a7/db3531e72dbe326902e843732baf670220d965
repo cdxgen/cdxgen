@@ -1,0 +1,23 @@
+types/lib/helpers/aiOversightCollector.d.ts
+  s_150019d7ed26fa::t_df607059343fac 8-10
+types/lib/helpers/aiOversightCollector.d.ts.map
+  s_150019d7ed26fa::t_ef983c2ee4a442 1
+types/lib/managers/oci.d.ts.map
+  s_150019d7ed26fa::t_1a3166f1994499 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "a7db3531e72dbe326902e843732baf670220d965",
+  "prompts": {},
+  "sessions": {
+    "s_150019d7ed26fa": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "b1865006-ccb2-41fe-8c7d-71a9081674bf",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
