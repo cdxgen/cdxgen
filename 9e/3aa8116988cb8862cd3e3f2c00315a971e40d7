@@ -1,0 +1,724 @@
+types/lib/helpers/rustFormulationParser.d.ts
+  s_0dde3ddb88c988::t_4cd083392318b7 4
+  s_0dde3ddb88c988::t_5dcb12ce903347 1-3
+  s_0dde3ddb88c988::t_1309403de21d96 16
+types/lib/third-party/arborist/lib/can-place-dep.d.ts
+  s_0dde3ddb88c988::t_4cd083392318b7 31-34
+  s_0dde3ddb88c988::t_c5ee20850d03ca 19-20,37
+types/lib/helpers/osinfo.d.ts
+  s_0dde3ddb88c988::t_4cd083392318b7 85-115
+  s_0dde3ddb88c988::t_6df33e36f69e18 116
+  s_0dde3ddb88c988::t_7c6d79f1a230f6 5
+types/lib/parsers/iri.d.ts
+  s_0dde3ddb88c988::t_4cd083392318b7 50-52
+  s_0dde3ddb88c988::t_c7cd41e0d3b31c 49
+  s_0dde3ddb88c988::t_07435402b51de6 53
+  s_0dde3ddb88c988::t_f92f7b4cd958f7 1-11,30,34,55
+types/lib/helpers/auditCategories.d.ts
+  s_0dde3ddb88c988::t_4cd083392318b7 23-26
+  s_0dde3ddb88c988::t_5424489dceb7ab 20-22
+  s_0dde3ddb88c988::t_922395b9a74a13 1-7,19
+types/lib/helpers/display.d.ts
+  s_0dde3ddb88c988::t_4cd083392318b7 184-190
+  s_0dde3ddb88c988::t_bd85f35f205158 182-183
+  s_0dde3ddb88c988::t_b23c145a85b86c 7,13,20,26,33,39,46,52-70,80,92,99,107,114,122,130,140-150,158,165,174,197,207
+types/lib/helpers/ciParsers/azurePipelines.d.ts
+  s_0dde3ddb88c988::t_4cd083392318b7 13,19
+  s_0dde3ddb88c988::t_ca031062276be0 10-12
+  s_0dde3ddb88c988::t_7d9d1e2046d476 1-9,26
+types/lib/evinser/evinser.d.ts
+  s_0dde3ddb88c988::t_4cd083392318b7 117-118
+  s_0dde3ddb88c988::t_348e5c319c2684 116
+  s_0dde3ddb88c988::t_8d013587d57e45 119-121
+  s_0dde3ddb88c988::t_2eff9ffc4e1bf2 6,80-83,105-106,130-133,138,151-155,168-169,185,198,207-209,217,225-227,235,247,256,276,283-284
+types/lib/helpers/mcpConfigParser.d.ts
+  s_0dde3ddb88c988::t_4cd083392318b7 4
+  s_0dde3ddb88c988::t_0374c7f8c35444 1-3
+  s_0dde3ddb88c988::t_ac4ab077f96be2 27
+lib/cli/typedefs.poku.js
+  s_0dde3ddb88c988::t_e002c75823d2b3 1-96
+types/lib/helpers/agentFormulationParser.d.ts
+  s_0dde3ddb88c988::t_4cd083392318b7 8
+  s_0dde3ddb88c988::t_e47ec85d5ce2c7 5-7
+  s_0dde3ddb88c988::t_5e4f8307cc2662 1-4,20
+types/lib/helpers/httpClient.d.ts
+  s_0dde3ddb88c988::t_4cd083392318b7 41-43,56-58,65-93
+  s_0dde3ddb88c988::t_c431830c9d4862 40
+  s_0dde3ddb88c988::t_1d8044cb2241b7 55
+  s_0dde3ddb88c988::t_069dabd9e440bf 94
+types/lib/helpers/gradleutils.d.ts
+  s_0dde3ddb88c988::t_4cd083392318b7 125
+  s_0dde3ddb88c988::t_2b7074967c9c17 124
+  s_0dde3ddb88c988::t_254b27213749e0 7,18,26,32,42,60,69,86,93,102,109
+types/lib/evinser/db.d.ts
+  s_0dde3ddb88c988::t_4cd083392318b7 26-32
+  s_0dde3ddb88c988::t_036374f20f7f16 25
+  s_0dde3ddb88c988::t_cb44c743040308 4
+types/lib/helpers/analyzer.d.ts
+  s_0dde3ddb88c988::t_4cd083392318b7 37-42,46
+  s_0dde3ddb88c988::t_a07447364613ed 36
+  s_0dde3ddb88c988::t_c2d232b43c4882 43-45
+  s_0dde3ddb88c988::t_7a27d931ceb3f9 47
+  s_0dde3ddb88c988::t_c6297775620f5b 1-3,9-12,16-23,29,51,55-64,66,68-75,80-87
+pnpm-workspace.yaml
+  s_0dde3ddb88c988::t_9b84028d3dc446 9
+  s_0dde3ddb88c988::t_bf641f15324184 8
+lib/third-party/arborist/lib/tracker.js
+  s_0dde3ddb88c988::t_0834be549ce4c2 3-7
+types/lib/helpers/ciParsers/jenkins.d.ts
+  s_0dde3ddb88c988::t_4cd083392318b7 12,18
+  s_0dde3ddb88c988::t_973facb1939b5f 9-11
+  s_0dde3ddb88c988::t_1b1815bc76be5b 1-8,25
+types/lib/helpers/ciParsers/gitlabCi.d.ts
+  s_0dde3ddb88c988::t_4cd083392318b7 12,18
+  s_0dde3ddb88c988::t_044e1e72c2b807 9-11
+  s_0dde3ddb88c988::t_7a203f63f62352 1-8,25
+types/lib/cli/cliOptions.d.ts
+  s_0dde3ddb88c988::t_4cd083392318b7 56-64
+  s_0dde3ddb88c988::t_2650a92b7c5fc4 65
+  s_0dde3ddb88c988::t_a8cb88074f62f8 1-12,26,39,52,93,96,116-117,144,149-150
+lib/third-party/arborist/lib/arborist/load-virtual.js
+  s_0dde3ddb88c988::t_e9679be3fcbe62 20-22
+package.json
+  s_0dde3ddb88c988::t_1c7c9e8215184e 3
+  s_0dde3ddb88c988::t_d1a3acab89100d 157
+types/lib/third-party/arborist/lib/node.d.ts
+  s_0dde3ddb88c988::t_4cd083392318b7 83-85
+  s_0dde3ddb88c988::t_59b67a10ae459d 81-82
+  s_0dde3ddb88c988::t_e43d119505b3c1 1-9,11-12,40-41,43,47,55,57,68-72,93,96,107
+types/lib/third-party/arborist/lib/edge.d.ts
+  s_0dde3ddb88c988::t_4cd083392318b7 3-10
+  s_0dde3ddb88c988::t_7bf024a4ccee93 1-2
+  s_0dde3ddb88c988::t_2294706f875f01 11-12
+  s_0dde3ddb88c988::t_2ba8d17fffcaac 14-17,45
+lib/third-party/arborist/lib/arborist/load-actual.js
+  s_0dde3ddb88c988::t_0269b8cd15ff0a 23-25
+types/lib/helpers/traceRunner.d.ts
+  s_0dde3ddb88c988::t_4cd083392318b7 77-78
+  s_0dde3ddb88c988::t_0d15bf2bfed749 76
+  s_0dde3ddb88c988::t_e5b10983591ff1 79
+  s_0dde3ddb88c988::t_2cea3287912205 6,16,45-64
+types/lib/helpers/ciParsers/githubActions.d.ts
+  s_0dde3ddb88c988::t_4cd083392318b7 24,30
+  s_0dde3ddb88c988::t_d78b95b15c5333 21-23
+  s_0dde3ddb88c988::t_5b6597aaa8549d 8,13-20,37
+types/lib/third-party/arborist/lib/shrinkwrap.d.ts
+  s_0dde3ddb88c988::t_4cd083392318b7 4-17
+  s_0dde3ddb88c988::t_310ad9b642f336 3
+  s_0dde3ddb88c988::t_7d1a826ff54ac5 18-19
+  s_0dde3ddb88c988::t_ccd5bec3a2c181 1,25-27,53
+types/lib/helpers/ciParsers/circleCi.d.ts
+  s_0dde3ddb88c988::t_4cd083392318b7 13,19
+  s_0dde3ddb88c988::t_326d8f901c810b 10-12
+  s_0dde3ddb88c988::t_c522127685c840 1-9,26
+types/lib/validator/reporters/index.d.ts
+  s_0dde3ddb88c988::t_4cd083392318b7 8-10
+  s_0dde3ddb88c988::t_cfa9713d1a52d8 5-7
+  s_0dde3ddb88c988::t_51668d47ea379b 11-13
+  s_0dde3ddb88c988::t_23920b834e22c8 1-4,14-19,28
+types/lib/third-party/arborist/lib/yarn-lock.d.ts
+  s_0dde3ddb88c988::t_4cd083392318b7 3-7
+  s_0dde3ddb88c988::t_a30f3c08358c6a 1-2
+  s_0dde3ddb88c988::t_cc9ddba85ccbb1 8-10
+  s_0dde3ddb88c988::t_20ae5b875239fa 11,13-15,18,32,34
+types/lib/helpers/communityAiConfigParser.d.ts
+  s_0dde3ddb88c988::t_4cd083392318b7 4
+  s_0dde3ddb88c988::t_85bc0efc0b7319 1-3
+  s_0dde3ddb88c988::t_d5c22e2610acb7 26
+types/bin/repl.d.ts
+  s_0dde3ddb88c988::t_de93b2275e59f1 2
+types/bin/repl.d.ts.map
+  s_0dde3ddb88c988::t_a3cd37dc8d0c3a 1
+types/bin/validate.d.ts
+  s_0dde3ddb88c988::t_801cfbdc71303c 2-12
+types/bin/validate.d.ts.map
+  s_0dde3ddb88c988::t_2f29393fcd85fb 1
+types/lib/audit/index.d.ts
+  s_0dde3ddb88c988::t_ed7943837df966 1,8,15,22,26,81,89,101,115,123-124,132,142,155,163,173
+types/lib/audit/index.d.ts.map
+  s_0dde3ddb88c988::t_470bb7f5ba9863 1
+types/lib/audit/progress.d.ts
+  s_0dde3ddb88c988::t_2e1274eab96046 7,14,23
+types/lib/audit/progress.d.ts.map
+  s_0dde3ddb88c988::t_10c9a16dc1b4d8 1
+types/lib/audit/reporters.d.ts
+  s_0dde3ddb88c988::t_7c2a2edcc61c42 1,8,16,24,32,41,50
+types/lib/audit/reporters.d.ts.map
+  s_0dde3ddb88c988::t_cedbb9fe0e0861 1
+types/lib/audit/scoring.d.ts
+  s_0dde3ddb88c988::t_cd5fba1f8a4d6f 1-7,14,22,34
+types/lib/audit/scoring.d.ts.map
+  s_0dde3ddb88c988::t_008711107d4042 1
+types/lib/audit/targets.d.ts
+  s_0dde3ddb88c988::t_fa516d3b33a1d2 1,10,19,29,38,60,75
+types/lib/audit/targets.d.ts.map
+  s_0dde3ddb88c988::t_9bcc89d8372083 1
+types/lib/cli/cliOptions.d.ts.map
+  s_0dde3ddb88c988::t_b8db89bed47e42 1
+types/lib/cli/index.d.ts
+  s_0dde3ddb88c988::t_4aad2b46d9c9a3 1,12,21,29,37,45-46,59,67,75,83,91,99,107,115,123,131,139,147,155,163,171,179,187,195,203,211,219,227,238,246,254,262,273,281,293,301,309,317,326
+types/lib/cli/index.d.ts.map
+  s_0dde3ddb88c988::t_74549a1572b56f 1
+types/lib/evinser/db.d.ts.map
+  s_0dde3ddb88c988::t_34f52bfdfe324a 1
+types/lib/evinser/evinser.d.ts.map
+  s_0dde3ddb88c988::t_98cb51eca10cbb 1
+types/lib/evinser/scalasem.d.ts
+  s_0dde3ddb88c988::t_75459b93555020 1
+types/lib/evinser/scalasem.d.ts.map
+  s_0dde3ddb88c988::t_657cf9e7d8f032 1
+types/lib/evinser/swiftsem.d.ts
+  s_0dde3ddb88c988::t_dbec63a22a2734 8,15,22,29,37,44,51,58,66,73,81,89,96
+types/lib/evinser/swiftsem.d.ts.map
+  s_0dde3ddb88c988::t_8940705aa289c1 1
+types/lib/helpers/agentFormulationParser.d.ts.map
+  s_0dde3ddb88c988::t_a57b28a2a28556 1
+types/lib/helpers/aiCollector.d.ts
+  s_0dde3ddb88c988::t_a4d910ebe34e09 8,20,32,44,56
+types/lib/helpers/aiCollector.d.ts.map
+  s_0dde3ddb88c988::t_afde9b548c8732 1
+types/lib/helpers/aiInventory.d.ts
+  s_0dde3ddb88c988::t_6aee951e31a35c 1-4,12,20,27,35,43,51,60,69,86
+types/lib/helpers/aiInventory.d.ts.map
+  s_0dde3ddb88c988::t_45df022493b036 1
+types/lib/helpers/aiModelVariants.d.ts
+  s_0dde3ddb88c988::t_112f68c35f8316 7,22
+types/lib/helpers/aiModelVariants.d.ts.map
+  s_0dde3ddb88c988::t_81a32e494b3fcb 1
+types/lib/helpers/aiOversightCollector.d.ts
+  s_0dde3ddb88c988::t_e2153b8db4e503 24-26
+types/lib/helpers/aiOversightCollector.d.ts.map
+  s_0dde3ddb88c988::t_ff094376f5da53 1
+types/lib/helpers/aiProvenanceCollector.d.ts
+  s_0dde3ddb88c988::t_7ac47733985e38 10-11
+types/lib/helpers/aiProvenanceCollector.d.ts.map
+  s_0dde3ddb88c988::t_9c8333a933a4bf 1
+types/lib/helpers/analyzer.d.ts.map
+  s_0dde3ddb88c988::t_76019361e3a79d 1
+types/lib/helpers/analyzerScope.d.ts
+  s_0dde3ddb88c988::t_015ccaf3b2f41c 1-10
+types/lib/helpers/analyzerScope.d.ts.map
+  s_0dde3ddb88c988::t_a2c6648183fbaf 1
+types/lib/helpers/annotationFormatter.d.ts
+  s_0dde3ddb88c988::t_19322c87aae4c5 7,19
+types/lib/helpers/annotationFormatter.d.ts.map
+  s_0dde3ddb88c988::t_8ca9c915fa30c6 1
+types/lib/helpers/asarutils.d.ts
+  s_0dde3ddb88c988::t_ec3bbd453c7a2e 7,15,23,33,46-48,56,62,70
+types/lib/helpers/asarutils.d.ts.map
+  s_0dde3ddb88c988::t_bd1fd334dc8a25 1
+types/lib/helpers/atomUtils.d.ts
+  s_0dde3ddb88c988::t_a375e0585fd5ce 7-9,17
+types/lib/helpers/atomUtils.d.ts.map
+  s_0dde3ddb88c988::t_8712b386036440 1
+types/lib/helpers/auditCategories.d.ts.map
+  s_0dde3ddb88c988::t_6d3d10c46ebde0 1
+types/lib/helpers/bomSigner.d.ts
+  s_0dde3ddb88c988::t_75a28fdc172206 1,9,18,27
+types/lib/helpers/bomSigner.d.ts.map
+  s_0dde3ddb88c988::t_d0e91d1dc9c054 1
+types/lib/helpers/bomUtils.d.ts
+  s_0dde3ddb88c988::t_665cd52506ead7 5-6,13-40
+types/lib/helpers/bomUtils.d.ts.map
+  s_0dde3ddb88c988::t_a22d097088acf2 1
+types/lib/helpers/caxa.d.ts
+  s_0dde3ddb88c988::t_ac5a30f3ba079f 1
+types/lib/helpers/caxa.d.ts.map
+  s_0dde3ddb88c988::t_8297c4ba421891 1
+types/lib/helpers/cbomutils.d.ts
+  s_0dde3ddb88c988::t_060d046a896f6b 7-9,16
+types/lib/helpers/cbomutils.d.ts.map
+  s_0dde3ddb88c988::t_d59d94e0b5294c 1
+types/lib/helpers/chromextutils.d.ts
+  s_0dde3ddb88c988::t_484d74fbc678a2 1-4,10,20,32,39,46,53,75,85,92
+types/lib/helpers/chromextutils.d.ts.map
+  s_0dde3ddb88c988::t_d772280a0e3530 1
+types/lib/helpers/ciParsers/azurePipelines.d.ts.map
+  s_0dde3ddb88c988::t_2a2be3206f3d5f 1
+types/lib/helpers/ciParsers/circleCi.d.ts.map
+  s_0dde3ddb88c988::t_c2385118ada6b0 1
+types/lib/helpers/ciParsers/common.d.ts
+  s_0dde3ddb88c988::t_5cc8f73622f23f 10
+types/lib/helpers/ciParsers/common.d.ts.map
+  s_0dde3ddb88c988::t_a7f3f321d13dfa 1
+types/lib/helpers/ciParsers/githubActions.d.ts.map
+  s_0dde3ddb88c988::t_c3d1a0e2123b7b 1
+types/lib/helpers/ciParsers/gitlabCi.d.ts.map
+  s_0dde3ddb88c988::t_f770c9d1ab9b3a 1
+types/lib/helpers/ciParsers/jenkins.d.ts.map
+  s_0dde3ddb88c988::t_d18ed36bf048c4 1
+types/lib/helpers/communityAiConfigParser.d.ts.map
+  s_0dde3ddb88c988::t_20f41d3c9b4fcd 1
+types/lib/helpers/containerRisk.d.ts
+  s_0dde3ddb88c988::t_c29896c4e5b792 1,13
+types/lib/helpers/containerRisk.d.ts.map
+  s_0dde3ddb88c988::t_afe2338a6d9e4b 1
+types/lib/helpers/depsUtils.d.ts
+  s_0dde3ddb88c988::t_5ff4865cc1215c 12,19,31,39,47,56
+types/lib/helpers/depsUtils.d.ts.map
+  s_0dde3ddb88c988::t_2c6e2b3e9629bf 1
+types/lib/helpers/display.d.ts.map
+  s_0dde3ddb88c988::t_f1d41d721e7fdc 1
+types/lib/helpers/dosai.d.ts
+  s_0dde3ddb88c988::t_a57c2d89a4508e 1-10,15-17
+types/lib/helpers/dosai.d.ts.map
+  s_0dde3ddb88c988::t_0a823359e36ef0 1
+types/lib/helpers/dosaiParsers.d.ts
+  s_0dde3ddb88c988::t_b899402ef2ab8a 1-7
+types/lib/helpers/dosaiParsers.d.ts.map
+  s_0dde3ddb88c988::t_591d9f463cd246 1
+types/lib/helpers/dotnetutils.d.ts
+  s_0dde3ddb88c988::t_8b8b682a5bbba2 15,29,41
+types/lib/helpers/dotnetutils.d.ts.map
+  s_0dde3ddb88c988::t_9902701b9089fc 1
+types/lib/helpers/dynamic.d.ts
+  s_0dde3ddb88c988::t_427bb70b04fe08 21
+types/lib/helpers/dynamic.d.ts.map
+  s_0dde3ddb88c988::t_d1617c7f3ec820 1
+types/lib/helpers/envcontext.d.ts
+  s_0dde3ddb88c988::t_2a20357fbae1f7 1-12,20,27,35,42,49,58,67,79,89,105,117,129,136,148,160,171,182,194-195,208,212,221,230,238,246,252,261,269,276,289,300,308,319,329-331,342
+types/lib/helpers/envcontext.d.ts.map
+  s_0dde3ddb88c988::t_e4cd603d18e872 1
+types/lib/helpers/evidenceUtils.d.ts
+  s_0dde3ddb88c988::t_f65604afd50f3c 1,4,7
+types/lib/helpers/evidenceUtils.d.ts.map
+  s_0dde3ddb88c988::t_a8c237db4912cb 1
+types/lib/helpers/exportUtils.d.ts
+  s_0dde3ddb88c988::t_5feff743b1c2e5 7,14,21,28,39
+types/lib/helpers/exportUtils.d.ts.map
+  s_0dde3ddb88c988::t_ecf628757acfb0 1
+types/lib/helpers/forgeEnricher.d.ts
+  s_0dde3ddb88c988::t_cc0dd8c0565a98 1,11,20
+types/lib/helpers/forgeEnricher.d.ts.map
+  s_0dde3ddb88c988::t_a7db2124537f26 1
+types/lib/helpers/formulationParsers.d.ts
+  s_0dde3ddb88c988::t_1a321dc3f9f5a6 9,19,46
+types/lib/helpers/formulationParsers.d.ts.map
+  s_0dde3ddb88c988::t_188a25fbc68b55 1
+types/lib/helpers/golem.d.ts
+  s_0dde3ddb88c988::t_40ee23acc7bcda 1-5
+types/lib/helpers/golem.d.ts.map
+  s_0dde3ddb88c988::t_5a0ec035385a90 1
+types/lib/helpers/gradleutils.d.ts.map
+  s_0dde3ddb88c988::t_803fbf4325335d 1
+types/lib/helpers/gtfobins.d.ts
+  s_0dde3ddb88c988::t_7a245330e70a18 1,13,24
+types/lib/helpers/gtfobins.d.ts.map
+  s_0dde3ddb88c988::t_8a8f765701e348 1
+types/lib/helpers/hbom.d.ts
+  s_0dde3ddb88c988::t_c0c6ae64205fd2 7,14,20,26,33,40-41,48
+types/lib/helpers/hbom.d.ts.map
+  s_0dde3ddb88c988::t_c46b4ca088f944 1
+types/lib/helpers/hbomAnalysis.d.ts
+  s_0dde3ddb88c988::t_d9166cc29d85be 1-2,25-27,31-32
+types/lib/helpers/hbomAnalysis.d.ts.map
+  s_0dde3ddb88c988::t_a5f495a2dbc9d5 1
+types/lib/helpers/hbomLoader.d.ts
+  s_0dde3ddb88c988::t_8600c68e9358c0 6
+types/lib/helpers/hbomLoader.d.ts.map
+  s_0dde3ddb88c988::t_7ca8e69dc8b0b2 1
+types/lib/helpers/hostTopology.d.ts
+  s_0dde3ddb88c988::t_7a09ffb6724125 1-2,10-11
+types/lib/helpers/hostTopology.d.ts.map
+  s_0dde3ddb88c988::t_ff628086dc9674 1
+types/lib/helpers/httpClient.d.ts.map
+  s_0dde3ddb88c988::t_5539314cb4e3e1 1
+types/lib/helpers/huggingfaceUtils.d.ts
+  s_0dde3ddb88c988::t_5b10c7b0049d5e 1-6,13,20,28,36,45,52,72,90,106,117
+types/lib/helpers/huggingfaceUtils.d.ts.map
+  s_0dde3ddb88c988::t_c028c22b015162 1
+types/lib/helpers/inventoryStats.d.ts
+  s_0dde3ddb88c988::t_19969743015c1a 1-5
+types/lib/helpers/inventoryStats.d.ts.map
+  s_0dde3ddb88c988::t_de2a68d7554356 1
+types/lib/helpers/jsonLike.d.ts
+  s_0dde3ddb88c988::t_6cc6051d75d8c3 1-3
+types/lib/helpers/jsonLike.d.ts.map
+  s_0dde3ddb88c988::t_826b296908c970 1
+types/lib/helpers/licenseEnhancer.d.ts
+  s_0dde3ddb88c988::t_4873f631d15deb 1,8-9,17,24,32,40,49,57,69
+types/lib/helpers/licenseEnhancer.d.ts.map
+  s_0dde3ddb88c988::t_19c1b1a38b5c01 1
+types/lib/helpers/logger.d.ts
+  s_0dde3ddb88c988::t_8946248a22c8dc 1-2,11,18,25
+types/lib/helpers/logger.d.ts.map
+  s_0dde3ddb88c988::t_961c94cb9d6ad4 1
+types/lib/helpers/lolbas.d.ts
+  s_0dde3ddb88c988::t_6d01e2a15059a4 7,15
+types/lib/helpers/lolbas.d.ts.map
+  s_0dde3ddb88c988::t_fa46c250720c0b 1
+types/lib/helpers/mcp.d.ts
+  s_0dde3ddb88c988::t_d6359fd8ac04d6 14,28
+types/lib/helpers/mcp.d.ts.map
+  s_0dde3ddb88c988::t_ce1cec86b8e2b5 1
+types/lib/helpers/mcpConfigParser.d.ts.map
+  s_0dde3ddb88c988::t_5ffd3faff40229 1
+types/lib/helpers/mcpDiscovery.d.ts
+  s_0dde3ddb88c988::t_e5ac8749914a68 1-4
+types/lib/helpers/mcpDiscovery.d.ts.map
+  s_0dde3ddb88c988::t_599aa6b77de1ae 1
+types/lib/helpers/npmutils.d.ts
+  s_0dde3ddb88c988::t_e171a69fe1119e 7,14,21,29,37,44,54,66,74-77,86-88,92-93,97,104-105
+types/lib/helpers/npmutils.d.ts.map
+  s_0dde3ddb88c988::t_1415cfbb9f8df6 1
+types/lib/helpers/osPackageResolver.d.ts
+  s_0dde3ddb88c988::t_00054e4090b635 1,9
+types/lib/helpers/osPackageResolver.d.ts.map
+  s_0dde3ddb88c988::t_0aec5387d949c9 1
+types/lib/helpers/osinfo.d.ts.map
+  s_0dde3ddb88c988::t_ba58fe36ce1383 1
+types/lib/helpers/osqueryTransform.d.ts
+  s_0dde3ddb88c988::t_a0fd37031bbdc8 1-9
+types/lib/helpers/osqueryTransform.d.ts.map
+  s_0dde3ddb88c988::t_8e296eea0fffe2 1
+types/lib/helpers/plugins.d.ts
+  s_0dde3ddb88c988::t_998b1d4b7f1eca 6,26,42,49,57
+types/lib/helpers/plugins.d.ts.map
+  s_0dde3ddb88c988::t_034093775870a4 1
+types/lib/helpers/propertySanitizer.d.ts
+  s_0dde3ddb88c988::t_1875dde0c986d6 7,14,22
+types/lib/helpers/propertySanitizer.d.ts.map
+  s_0dde3ddb88c988::t_f8724e7ffe15e9 1
+types/lib/helpers/protobom.d.ts
+  s_0dde3ddb88c988::t_5b1994bb760abf 1-25
+types/lib/helpers/protobom.d.ts.map
+  s_0dde3ddb88c988::t_822077806fb40a 1
+types/lib/helpers/protobomLoader.d.ts
+  s_0dde3ddb88c988::t_b22d7c756ac528 7,16
+types/lib/helpers/protobomLoader.d.ts.map
+  s_0dde3ddb88c988::t_3dc635c5a59f34 1
+types/lib/helpers/provenanceUtils.d.ts
+  s_0dde3ddb88c988::t_48cf43f55c0c37 1-6,14,22,30,37,44,51,58,65,72,79,86
+types/lib/helpers/provenanceUtils.d.ts.map
+  s_0dde3ddb88c988::t_0657b94b30b856 1
+types/lib/helpers/pylockutils.d.ts
+  s_0dde3ddb88c988::t_0b858e8b15973e 7,14,21,28,35,43,50,57,64
+types/lib/helpers/pylockutils.d.ts.map
+  s_0dde3ddb88c988::t_aa37a553e9b170 1
+types/lib/helpers/pythonutils.d.ts
+  s_0dde3ddb88c988::t_e9621de7bf5499 7,17
+types/lib/helpers/pythonutils.d.ts.map
+  s_0dde3ddb88c988::t_081f651e4654ef 1
+types/lib/helpers/registryProvenance.d.ts
+  s_0dde3ddb88c988::t_f328a742f089a0 8,16,25
+types/lib/helpers/registryProvenance.d.ts.map
+  s_0dde3ddb88c988::t_2a36f50da67119 1
+types/lib/helpers/remote/dependency-track.d.ts
+  s_0dde3ddb88c988::t_f9d59ddd26328b 7,14,22
+types/lib/helpers/remote/dependency-track.d.ts.map
+  s_0dde3ddb88c988::t_5d4b3bd5730dca 1
+types/lib/helpers/remote/huggingface.d.ts
+  s_0dde3ddb88c988::t_6f925669db8937 1,5-12,21,30
+types/lib/helpers/remote/huggingface.d.ts.map
+  s_0dde3ddb88c988::t_ba4664d9164caa 1
+types/lib/helpers/rusi.d.ts
+  s_0dde3ddb88c988::t_aa1b4029f49af6 7,14,23,31,39
+types/lib/helpers/rusi.d.ts.map
+  s_0dde3ddb88c988::t_3cc04df02fe9c1 1
+types/lib/helpers/rustFormulationParser.d.ts.map
+  s_0dde3ddb88c988::t_6737dba0f8987f 1
+types/lib/helpers/sbtutils.d.ts
+  s_0dde3ddb88c988::t_c5a7de75901d6b 6,15,28,36,45,52,61,71,85,94,125,136,143
+types/lib/helpers/sbtutils.d.ts.map
+  s_0dde3ddb88c988::t_6c9ae72beba091 1
+types/lib/helpers/source.d.ts
+  s_0dde3ddb88c988::t_86082f00dd7c8a 1-2,11,21,27,34,41,48,55,62,69,77,84,92,100,107,130,140
+types/lib/helpers/source.d.ts.map
+  s_0dde3ddb88c988::t_c8f845a9718721 1
+types/lib/helpers/spdxExpression.d.ts
+  s_0dde3ddb88c988::t_effc6e064d1c0d 8,15,22,29,36,43,50,57
+types/lib/helpers/spdxExpression.d.ts.map
+  s_0dde3ddb88c988::t_884ffac7614f47 1
+types/lib/helpers/spdxUtils.d.ts
+  s_0dde3ddb88c988::t_3cb67c52314c56 1
+types/lib/helpers/spdxUtils.d.ts.map
+  s_0dde3ddb88c988::t_b057c73e3f7412 1
+types/lib/helpers/table.d.ts
+  s_0dde3ddb88c988::t_9cf22bc24b2c90 1-2
+types/lib/helpers/table.d.ts.map
+  s_0dde3ddb88c988::t_c748608dd43d9f 1
+types/lib/helpers/traceRunner.d.ts.map
+  s_0dde3ddb88c988::t_5aef1575c53571 1
+types/lib/helpers/unicodeScan.d.ts
+  s_0dde3ddb88c988::t_a977fca7d0e3bb 7,28
+types/lib/helpers/unicodeScan.d.ts.map
+  s_0dde3ddb88c988::t_a9b3fd75b1c98c 1
+types/lib/helpers/utils.d.ts
+  s_0dde3ddb88c988::t_d49ec1db1becbf 1-29,36-37,45-51,62-73,80,86,93-96,103-104,111-171,180,188,200,211,221-224,234,245,251-252,260,271,278,286,292,297,307,313-314,321,333,344,353-354,361,369,378,386,399,423,429,436,444,462,473,478,483,493,498,503,508,512,518,524,533,543,554,565,576,582,593,599,609,616,624,638,645,657,665,696,703,712,726,733,748,754,760,766,773,781,787,798,807,817,825,840,855,861,870,878-879,885,891,903,910,917,930,936,955,965,974,982,991,1000,1008,1017,1029,1038,1046,1055,1064,1073,1083,1091,1099,1110,1117,1128,1139,1150,1159,1170,1179,1186,1193,1200,1208,1219,1227,1237,1249,1261,1274,1285,1292,1356,1363,1370,1377,1384,1393,1415,1424,1430,1433,1443,1473,1482,1493,1501,1508,1515,1523,1530,1538,1546,1554,1562,1572,1582,1590,1596,1604,1612,1620,1629,1638,1645,1649,1663,1674,1681,1692,1705,1707-1708,1729,1742,1750-1751,1762,1776,1794,1806,1815,1830-1833,1848-1849,1856,1872,1880,1892,1900,1909,1916,1925,1937,1943,1950,1957,1961,1970,1978,1985
+types/lib/helpers/utils.d.ts.map
+  s_0dde3ddb88c988::t_c1917d3cf4c556 1
+types/lib/helpers/versutils.d.ts
+  s_0dde3ddb88c988::t_6a0c182ca19abd 7
+types/lib/helpers/versutils.d.ts.map
+  s_0dde3ddb88c988::t_e636d1565b7d3b 1
+types/lib/helpers/vsixutils.d.ts
+  s_0dde3ddb88c988::t_789f5b9763dca1 1-4,14,24,34,43,55,72,80,88,94,101,110,119,126
+types/lib/helpers/vsixutils.d.ts.map
+  s_0dde3ddb88c988::t_0170ef9de49c56 1
+types/lib/managers/binary.d.ts
+  s_0dde3ddb88c988::t_98e7d4c6bcef3a 1-2,9,19-20,24,32,42
+types/lib/managers/binary.d.ts.map
+  s_0dde3ddb88c988::t_0f03f1aadec086 1
+types/lib/managers/containerutils.d.ts
+  s_0dde3ddb88c988::t_3e5e9ab22982a0 1-10
+types/lib/managers/containerutils.d.ts.map
+  s_0dde3ddb88c988::t_425593acfb1737 1
+types/lib/managers/docker.d.ts
+  s_0dde3ddb88c988::t_5dc661ae3fe493 1-12,16,20-57,66-69,73-149
+types/lib/managers/docker.d.ts.map
+  s_0dde3ddb88c988::t_4d40085accbd89 1
+types/lib/managers/dockerConnection.d.ts
+  s_0dde3ddb88c988::t_544c996be40904 1-22,26-39
+types/lib/managers/dockerConnection.d.ts.map
+  s_0dde3ddb88c988::t_446957a3c0dfd5 1
+types/lib/managers/oci.d.ts
+  s_0dde3ddb88c988::t_424a9bebe2533f 9-10
+types/lib/managers/oci.d.ts.map
+  s_0dde3ddb88c988::t_73553e051c1225 1
+types/lib/managers/piptree.d.ts
+  s_0dde3ddb88c988::t_83ff7f1f48c512 1-12
+types/lib/managers/piptree.d.ts.map
+  s_0dde3ddb88c988::t_574136aebe8beb 1
+types/lib/parsers/gguf.d.ts
+  s_0dde3ddb88c988::t_925b88718c6717 11,24,31,38
+types/lib/parsers/gguf.d.ts.map
+  s_0dde3ddb88c988::t_e75a8fbae5dea5 1
+types/lib/parsers/gitAiNotes.d.ts
+  s_0dde3ddb88c988::t_eca480fdd03529 14
+types/lib/parsers/gitAiNotes.d.ts.map
+  s_0dde3ddb88c988::t_daa74c13783517 1
+types/lib/parsers/huggingfaceManifest.d.ts
+  s_0dde3ddb88c988::t_18af7dff09e761 1-3,10,17,24,32,76,121,135
+types/lib/parsers/huggingfaceManifest.d.ts.map
+  s_0dde3ddb88c988::t_91da5ce3ffcecf 1
+types/lib/parsers/iri.d.ts.map
+  s_0dde3ddb88c988::t_dc996e83e9ec00 1
+types/lib/parsers/npmrc.d.ts
+  s_0dde3ddb88c988::t_11382890754ed3 1,8,25
+types/lib/parsers/npmrc.d.ts.map
+  s_0dde3ddb88c988::t_785fe36a83a54e 1
+types/lib/parsers/ollama.d.ts
+  s_0dde3ddb88c988::t_f11c56dcb93c17 14
+types/lib/parsers/ollama.d.ts.map
+  s_0dde3ddb88c988::t_4e26948fbb1262 1
+types/lib/server/server.d.ts
+  s_0dde3ddb88c988::t_ce383e6938f79e 1-2,10,22,31-34
+types/lib/server/server.d.ts.map
+  s_0dde3ddb88c988::t_7f6ef66b037985 1
+types/lib/stages/postgen/annotator.d.ts
+  s_0dde3ddb88c988::t_462243d0174601 8,16,25,35
+types/lib/stages/postgen/annotator.d.ts.map
+  s_0dde3ddb88c988::t_6f924233f5b676 1
+types/lib/stages/postgen/auditBom.d.ts
+  s_0dde3ddb88c988::t_91dc888e1f59a6 7,14,21,33,49,58,65,72,79,87,91
+types/lib/stages/postgen/auditBom.d.ts.map
+  s_0dde3ddb88c988::t_c3a9da89027c99 1
+types/lib/stages/postgen/postgen.d.ts
+  s_0dde3ddb88c988::t_82cd140f0b473c 10,19,28,37,41,49,58
+types/lib/stages/postgen/postgen.d.ts.map
+  s_0dde3ddb88c988::t_5bfa8e4a7d2a2a 1
+types/lib/stages/postgen/ruleEngine.d.ts
+  s_0dde3ddb88c988::t_d88860fa3c958f 6,13,17
+types/lib/stages/postgen/ruleEngine.d.ts.map
+  s_0dde3ddb88c988::t_135485c3b6a96a 1
+types/lib/stages/postgen/spdxConverter.d.ts
+  s_0dde3ddb88c988::t_77615d5ba80ad3 1-2,10
+types/lib/stages/postgen/spdxConverter.d.ts.map
+  s_0dde3ddb88c988::t_32f824f081a087 1
+types/lib/stages/pregen/envAudit.d.ts
+  s_0dde3ddb88c988::t_d1fc4fbb18550a 1
+types/lib/stages/pregen/envAudit.d.ts.map
+  s_0dde3ddb88c988::t_97f4cea1029fee 1
+types/lib/stages/pregen/pregen.d.ts
+  s_0dde3ddb88c988::t_426c60cf4f86cb 7,13,20,27,37,44,51,58
+types/lib/stages/pregen/pregen.d.ts.map
+  s_0dde3ddb88c988::t_de0bc03504aa71 1
+types/lib/third-party/arborist/lib/arborist/index.d.ts
+  s_0dde3ddb88c988::t_73e40aef2775c8 1-3,5,29,34,36
+types/lib/third-party/arborist/lib/arborist/index.d.ts.map
+  s_0dde3ddb88c988::t_06ba659a281685 1
+types/lib/third-party/arborist/lib/arborist/load-actual.d.ts
+  s_0dde3ddb88c988::t_703804f4f22c96 1-2
+types/lib/third-party/arborist/lib/arborist/load-actual.d.ts.map
+  s_0dde3ddb88c988::t_66ae4f2cee0878 1
+types/lib/third-party/arborist/lib/arborist/load-virtual.d.ts
+  s_0dde3ddb88c988::t_9f9483de55240d 1-2
+types/lib/third-party/arborist/lib/arborist/load-virtual.d.ts.map
+  s_0dde3ddb88c988::t_2fdd1bbf27f15a 1
+types/lib/third-party/arborist/lib/bin-links.d.ts
+  s_0dde3ddb88c988::t_e99ca52ccd349b 15-16
+types/lib/third-party/arborist/lib/bin-links.d.ts.map
+  s_0dde3ddb88c988::t_f6eddcfeb12997 1
+types/lib/third-party/arborist/lib/calc-dep-flags.d.ts
+  s_0dde3ddb88c988::t_5e8f21974c2f66 1
+types/lib/third-party/arborist/lib/calc-dep-flags.d.ts.map
+  s_0dde3ddb88c988::t_2c779e60d201f8 1
+types/lib/third-party/arborist/lib/can-place-dep.d.ts.map
+  s_0dde3ddb88c988::t_57bb93a7bb2028 1
+types/lib/third-party/arborist/lib/case-insensitive-map.d.ts
+  s_0dde3ddb88c988::t_38533119e406b8 1-2,9
+types/lib/third-party/arborist/lib/case-insensitive-map.d.ts.map
+  s_0dde3ddb88c988::t_fefc8913ef27ba 1
+types/lib/third-party/arborist/lib/consistent-resolve.d.ts
+  s_0dde3ddb88c988::t_96924d3aee25ec 1
+types/lib/third-party/arborist/lib/consistent-resolve.d.ts.map
+  s_0dde3ddb88c988::t_06391b3ac7d5f5 1
+types/lib/third-party/arborist/lib/debug.d.ts
+  s_0dde3ddb88c988::t_511a3f5552f9d7 1
+types/lib/third-party/arborist/lib/debug.d.ts.map
+  s_0dde3ddb88c988::t_b1300231f6f164 1
+types/lib/third-party/arborist/lib/deepest-nesting-target.d.ts
+  s_0dde3ddb88c988::t_be41b7e28f6a26 1
+types/lib/third-party/arborist/lib/deepest-nesting-target.d.ts.map
+  s_0dde3ddb88c988::t_fbad21ef67dc27 1
+types/lib/third-party/arborist/lib/dep-valid.d.ts
+  s_0dde3ddb88c988::t_64ad5dc936d64f 1
+types/lib/third-party/arborist/lib/dep-valid.d.ts.map
+  s_0dde3ddb88c988::t_419422a7e1446a 1
+types/lib/third-party/arborist/lib/diff.d.ts
+  s_0dde3ddb88c988::t_d1fdda62b2a21e 14-25,27
+types/lib/third-party/arborist/lib/diff.d.ts.map
+  s_0dde3ddb88c988::t_cc96e5f1fe0284 1
+types/lib/third-party/arborist/lib/edge.d.ts.map
+  s_0dde3ddb88c988::t_69ce05f58f14e5 1
+types/lib/third-party/arborist/lib/from-path.d.ts
+  s_0dde3ddb88c988::t_1297807705f276 1
+types/lib/third-party/arborist/lib/from-path.d.ts.map
+  s_0dde3ddb88c988::t_56098cdd76d7f2 1
+types/lib/third-party/arborist/lib/gather-dep-set.d.ts
+  s_0dde3ddb88c988::t_80ddd2fa486161 1
+types/lib/third-party/arborist/lib/gather-dep-set.d.ts.map
+  s_0dde3ddb88c988::t_1175c97709f950 1
+types/lib/third-party/arborist/lib/index.d.ts
+  s_0dde3ddb88c988::t_184eb48755bd58 2
+types/lib/third-party/arborist/lib/index.d.ts.map
+  s_0dde3ddb88c988::t_3de81ed7dfd829 1
+types/lib/third-party/arborist/lib/inventory.d.ts
+  s_0dde3ddb88c988::t_bce3afcdd20cf8 1-2,9,13
+types/lib/third-party/arborist/lib/inventory.d.ts.map
+  s_0dde3ddb88c988::t_616774c25e0786 1
+types/lib/third-party/arborist/lib/link.d.ts
+  s_0dde3ddb88c988::t_7de775213a9f40 1-2,5-6,8,10,12-14,16
+types/lib/third-party/arborist/lib/link.d.ts.map
+  s_0dde3ddb88c988::t_185aa0383da05f 1
+types/lib/third-party/arborist/lib/node.d.ts.map
+  s_0dde3ddb88c988::t_9e76b43936c0e2 1
+types/lib/third-party/arborist/lib/optional-set.d.ts
+  s_0dde3ddb88c988::t_9cec0a97f40fd5 1
+types/lib/third-party/arborist/lib/optional-set.d.ts.map
+  s_0dde3ddb88c988::t_4f65a10a7d4fd5 1
+types/lib/third-party/arborist/lib/override-resolves.d.ts
+  s_0dde3ddb88c988::t_a09ace271d2c89 1-2
+types/lib/third-party/arborist/lib/override-resolves.d.ts.map
+  s_0dde3ddb88c988::t_b4e0f40bcd2d87 1
+types/lib/third-party/arborist/lib/override-set.d.ts
+  s_0dde3ddb88c988::t_2e4cb70bb554ea 8-12,21-22,24
+types/lib/third-party/arborist/lib/override-set.d.ts.map
+  s_0dde3ddb88c988::t_1b3ae315431f8d 1
+types/lib/third-party/arborist/lib/peer-entry-sets.d.ts
+  s_0dde3ddb88c988::t_631a303a404373 1
+types/lib/third-party/arborist/lib/peer-entry-sets.d.ts.map
+  s_0dde3ddb88c988::t_71e79b00b28024 1
+types/lib/third-party/arborist/lib/place-dep.d.ts
+  s_0dde3ddb88c988::t_ed99fa0990079d 1,15-16,27,45
+types/lib/third-party/arborist/lib/place-dep.d.ts.map
+  s_0dde3ddb88c988::t_984154cd082589 1
+types/lib/third-party/arborist/lib/printable.d.ts
+  s_0dde3ddb88c988::t_cecb063c0504c7 1
+types/lib/third-party/arborist/lib/printable.d.ts.map
+  s_0dde3ddb88c988::t_e88a983f945034 1
+types/lib/third-party/arborist/lib/realpath.d.ts
+  s_0dde3ddb88c988::t_3aa137a1b54d24 1
+types/lib/third-party/arborist/lib/realpath.d.ts.map
+  s_0dde3ddb88c988::t_b0c9e27992408b 1
+types/lib/third-party/arborist/lib/relpath.d.ts
+  s_0dde3ddb88c988::t_c21d8fc436092f 1
+types/lib/third-party/arborist/lib/relpath.d.ts.map
+  s_0dde3ddb88c988::t_f088a312bc8a49 1
+types/lib/third-party/arborist/lib/reset-dep-flags.d.ts
+  s_0dde3ddb88c988::t_6b69361b42030e 1
+types/lib/third-party/arborist/lib/reset-dep-flags.d.ts.map
+  s_0dde3ddb88c988::t_2d40e304d7e219 1
+types/lib/third-party/arborist/lib/retire-path.d.ts
+  s_0dde3ddb88c988::t_b8cbb11b031a88 1
+types/lib/third-party/arborist/lib/retire-path.d.ts.map
+  s_0dde3ddb88c988::t_5d066045132c01 1
+types/lib/third-party/arborist/lib/shrinkwrap.d.ts.map
+  s_0dde3ddb88c988::t_6c8893818ca1a5 1
+types/lib/third-party/arborist/lib/signal-handling.d.ts
+  s_0dde3ddb88c988::t_bdfaffbb1f62ed 3,5
+types/lib/third-party/arborist/lib/signal-handling.d.ts.map
+  s_0dde3ddb88c988::t_dab18e80ae5546 1
+types/lib/third-party/arborist/lib/signals.d.ts
+  s_0dde3ddb88c988::t_b74c1caa2f81f3 2
+types/lib/third-party/arborist/lib/signals.d.ts.map
+  s_0dde3ddb88c988::t_757d84634c3819 1
+types/lib/third-party/arborist/lib/spec-from-lock.d.ts
+  s_0dde3ddb88c988::t_e1592440fe40f5 1
+types/lib/third-party/arborist/lib/spec-from-lock.d.ts.map
+  s_0dde3ddb88c988::t_af9ef3c6bb2a18 1
+types/lib/third-party/arborist/lib/tracker.d.ts
+  s_0dde3ddb88c988::t_f3dff7a0659ca2 1-2
+types/lib/third-party/arborist/lib/tracker.d.ts.map
+  s_0dde3ddb88c988::t_771a65ccc5be4c 1
+types/lib/third-party/arborist/lib/tree-check.d.ts
+  s_0dde3ddb88c988::t_c84735f45f5eb8 1
+types/lib/third-party/arborist/lib/tree-check.d.ts.map
+  s_0dde3ddb88c988::t_b3f9cbca06ec5e 1
+types/lib/third-party/arborist/lib/version-from-tgz.d.ts
+  s_0dde3ddb88c988::t_a509c848d9d08f 1,5
+types/lib/third-party/arborist/lib/version-from-tgz.d.ts.map
+  s_0dde3ddb88c988::t_ec39baab3ebadb 1
+types/lib/third-party/arborist/lib/yarn-lock.d.ts.map
+  s_0dde3ddb88c988::t_54675f21239fce 1
+types/lib/validator/bomValidator.d.ts
+  s_0dde3ddb88c988::t_5c2505e1c4df97 1-33,39
+types/lib/validator/bomValidator.d.ts.map
+  s_0dde3ddb88c988::t_8cefb9c61a557b 1
+types/lib/validator/complianceEngine.d.ts
+  s_0dde3ddb88c988::t_8ee097b609ebd0 1-9,16,22,33,43-45,61,70
+types/lib/validator/complianceEngine.d.ts.map
+  s_0dde3ddb88c988::t_b40e8413774d2e 1
+types/lib/validator/complianceRules.d.ts
+  s_0dde3ddb88c988::t_48a96cc9d5890a 2,4-9,11-25,27-34,53-67,80,82,84,86,88,90-103
+types/lib/validator/complianceRules.d.ts.map
+  s_0dde3ddb88c988::t_7251cbecc3e8d1 1
+types/lib/validator/index.d.ts
+  s_0dde3ddb88c988::t_4d4bd1f0b58e7c 1-19,44-52,73-76,82
+types/lib/validator/index.d.ts.map
+  s_0dde3ddb88c988::t_6f2b5b1cfc9196 1
+types/lib/validator/reporters/annotations.d.ts
+  s_0dde3ddb88c988::t_620c49c414c434 1-6,14,23,34
+types/lib/validator/reporters/annotations.d.ts.map
+  s_0dde3ddb88c988::t_2b4b147219d4f0 1
+types/lib/validator/reporters/console.d.ts
+  s_0dde3ddb88c988::t_8ffe32e3a57da0 1-4,12,19,26,33
+types/lib/validator/reporters/console.d.ts.map
+  s_0dde3ddb88c988::t_695f4a9eb3fac6 1
+types/lib/validator/reporters/index.d.ts.map
+  s_0dde3ddb88c988::t_3d229b036cdac2 1
+types/lib/validator/reporters/json.d.ts
+  s_0dde3ddb88c988::t_e3c536fb03fa8e 10
+types/lib/validator/reporters/json.d.ts.map
+  s_0dde3ddb88c988::t_f8d36c55f3e779 1
+types/lib/validator/reporters/sarif.d.ts
+  s_0dde3ddb88c988::t_d14e27946184ee 1-6,17-20
+types/lib/validator/reporters/sarif.d.ts.map
+  s_0dde3ddb88c988::t_4daf6d01d1305c 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "9e3aa8116988cb8862cd3e3f2c00315a971e40d7",
+  "prompts": {},
+  "sessions": {
+    "s_0dde3ddb88c988": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "fef26d65-3f74-42f8-b44a-26dc3085766f",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
