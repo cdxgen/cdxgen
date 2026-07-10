@@ -1,0 +1,21 @@
+ci/images/opensuse/Dockerfile.python3.10
+  s_37f588240d4a09::t_d204eaedee5960 172,179-180
+ci/images/opensuse/Dockerfile.python3.9
+  s_37f588240d4a09::t_8a8aa3d93c9607 162,169-170
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "c37a10a29e41abaf6bbefe107ea18c1894830be6",
+  "prompts": {},
+  "sessions": {
+    "s_37f588240d4a09": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "3d819fa4-0a80-40d1-8f08-af2c3f76e115",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
