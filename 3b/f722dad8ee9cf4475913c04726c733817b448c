@@ -1,0 +1,40 @@
+lib/helpers/httpClient.js
+  s_eb3955c22e1aa9::t_03e7a9ea0ab850 281-289,292-294,297-306
+  s_eb3955c22e1aa9::t_f430b5e1d4a40d 425-429
+  s_eb3955c22e1aa9::t_84a834cd67c22e 323-378
+lib/cli/index.js
+  s_eb3955c22e1aa9::t_bc10ea7519e9da 4583-4586
+  s_eb3955c22e1aa9::t_6ab1b35329da8f 10258-10260
+  s_eb3955c22e1aa9::t_bf21361955a952 3591-3606
+  s_eb3955c22e1aa9::t_2f06505d08059f 51,3590
+  s_eb3955c22e1aa9::t_8f0bbbe83fd236 3729
+  s_eb3955c22e1aa9::t_d13039090ec5fc 4472-4546
+lib/managers/dockerConnection.js
+  s_eb3955c22e1aa9::t_1fb3664b2a8dcb 83-85
+  s_eb3955c22e1aa9::t_f2e925ba03faf1 23-27
+.github/workflows/bun.yml
+  s_eb3955c22e1aa9::t_e5881022a75c87 1-69
+lib/helpers/bunutils.poku.js
+  s_eb3955c22e1aa9::t_d2aac87540f1c9 85
+  s_eb3955c22e1aa9::t_720eebecf73cbc 1-84,86-145
+lib/helpers/bunutils.js
+  s_eb3955c22e1aa9::t_f18eaefbd87695 1-406
+test/data/bun/bun.lock
+  s_eb3955c22e1aa9::t_b07e95317657f5 1-31
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "3bf722dad8ee9cf4475913c04726c733817b448c",
+  "prompts": {},
+  "sessions": {
+    "s_eb3955c22e1aa9": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "dc93cb72-318c-4d46-9ab4-a14603d3b72d",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
