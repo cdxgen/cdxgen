@@ -1,0 +1,50 @@
+ci/Dockerfile-bun
+  s_eb3955c22e1aa9::t_c715c8ed618a40 89-94
+lib/helpers/utils.js
+  s_eb3955c22e1aa9::t_4bb45aafe3de02 1855
+.github/workflows/bun.yml
+  s_eb3955c22e1aa9::t_2199211c51c1dd 57-59
+  s_eb3955c22e1aa9::t_fb50e4199c3b57 55
+.github/workflows/codeql.yml
+  s_eb3955c22e1aa9::t_039d5f70bbc479 43,58
+lib/cli/index.poku.js
+  s_eb3955c22e1aa9::t_69838392592595 3643-3651,3658-3684
+  s_eb3955c22e1aa9::t_5ad047f5a4fb65 3685
+.github/workflows/nydus-demo.yml
+  s_eb3955c22e1aa9::t_039d5f70bbc479 27
+test/data/bun/package.json
+  s_eb3955c22e1aa9::t_557ec9a8f067df 1-15
+docs/PROJECT_TYPES.md
+  s_eb3955c22e1aa9::t_ea328ca7b7f23b 16
+  s_eb3955c22e1aa9::t_f52ffd5471475c 21
+.github/workflows/python-atom-tests.yml
+  s_eb3955c22e1aa9::t_039d5f70bbc479 46
+.github/workflows/java-reachables-test.yml
+  s_eb3955c22e1aa9::t_039d5f70bbc479 37
+.github/workflows/repotests.yml
+  s_eb3955c22e1aa9::t_fc6c2e100fff51 459,473,484,536,1347,1351,1894,1939,1943,1962,1995
+.github/workflows/nodejs.yml
+  s_eb3955c22e1aa9::t_039d5f70bbc479 106,195
+README.md
+  s_eb3955c22e1aa9::t_c7cffae2fd8d77 298-304
+.github/workflows/image-build.yml
+  s_eb3955c22e1aa9::t_9d2a74c73f369b 178,180,188,211,237,265,295,325,415,417,425,448,474,502,532,562,648,656,703,749,795,837,883,972,989,1082,1099
+.github/workflows/npm-release.yml
+  s_eb3955c22e1aa9::t_7a47f35c2cb143 80,82,84,91,97,124,126,128,135,141,169,174,208,210,217,223,260,262,269,275,319,326,415,417,424,430,467,469,476,482,526,533,607,609,616,622,659,661,668,674,718,725,804,806,808,815,826,857,859,866,872,908,910,917,923,967,974
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "c63e89565423dfbbe5dd8bd8adf8dc16df3f28a4",
+  "prompts": {},
+  "sessions": {
+    "s_eb3955c22e1aa9": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "dc93cb72-318c-4d46-9ab4-a14603d3b72d",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
