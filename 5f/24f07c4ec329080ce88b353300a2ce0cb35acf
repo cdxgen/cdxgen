@@ -1,0 +1,33 @@
+lib/stages/postgen/postgen.poku.js
+  s_1fef091d004c6c::t_7ed3f611849a92 13
+  s_1fef091d004c6c::t_8a754022ca92b5 138-140,144-145
+lib/helpers/aiInventory.js
+  s_1fef091d004c6c::t_874a6c67fdeb12 195-205
+  s_1fef091d004c6c::t_75db2bb8ad7a86 146
+lib/helpers/aiInventory.poku.js
+  s_1fef091d004c6c::t_3ad9c8da43a81b 100-102,106-107,123-125,135-145
+  s_1fef091d004c6c::t_c4dbcde5e3b1cd 520-523
+  s_1fef091d004c6c::t_8c12535b9eb556 10,16
+  s_1fef091d004c6c::t_3622bb80b15658 146,422-519,524-609
+  s_1fef091d004c6c::t_8926deb7c37b6e 147
+docs/MCP.md
+  s_1fef091d004c6c::t_e6dcc5bccb4ecb 7,9
+lib/helpers/mcp.js
+  s_1fef091d004c6c::t_e762aa361246e6 220-224
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "5f24f07c4ec329080ce88b353300a2ce0cb35acf",
+  "prompts": {},
+  "sessions": {
+    "s_1fef091d004c6c": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "73e02fe7-24a3-483e-8676-9cf6a6dc9f42",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
