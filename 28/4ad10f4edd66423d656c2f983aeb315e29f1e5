@@ -1,0 +1,18 @@
+deno.json
+  h_0926447d100ad2 3,89,97
+package.json
+  h_0926447d100ad2 134,144,153
+biome.json
+  h_0926447d100ad2 2
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "284ad10f4edd66423d656c2f983aeb315e29f1e5",
+  "prompts": {},
+  "humans": {
+    "h_0926447d100ad2": {
+      "author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
