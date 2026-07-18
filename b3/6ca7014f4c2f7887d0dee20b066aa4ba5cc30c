@@ -1,0 +1,20 @@
+lib/managers/binary.js
+  s_8174ca57b3b9b7::t_2bc395ae43b6d6 751-780
+  s_8174ca57b3b9b7::t_84b9552c0de2c4 50-56,653-674,784-786
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "b36ca7014f4c2f7887d0dee20b066aa4ba5cc30c",
+  "prompts": {},
+  "sessions": {
+    "s_8174ca57b3b9b7": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "b01e0c4c-e511-4316-b378-8b7a76510306",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
