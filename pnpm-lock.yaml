@@ -10,8 +10,6 @@ overrides:
   type-detect: 4.1.0
   on-finished: 2.4.1
 
-pnpmfileChecksum: sha256-nfOeuxPm0PLhmHqhdzVKpjFk27e1GEgHAqcQJ7ot+gg=
-
 importers:
 
   .:
@@ -117,7 +115,7 @@ importers:
         specifier: 22.0.0
         version: 22.0.0
       typescript:
-        specifier: ^7.0.2
+        specifier: 7.0.2
         version: 7.0.2
     optionalDependencies:
       '@appthreat/atom':
@@ -337,7 +335,6 @@ packages:
     resolution: {integrity: sha512-9vWIQ63HLTAuezn3qT9OlBgh4bJVEF3WX69omF0VeovHzn0FRDKp8xKSpV/OZoBFrX4JjKc7DrC/ZTFpbPPCqg==, tarball: https://registry.npmjs.org/@cdxgen/cdxgen-plugins-bin-linux-ppc64/-/cdxgen-plugins-bin-linux-ppc64-2.5.1.tgz}
     cpu: [ppc64]
     os: [linux]
-    libc: glibc
 
   '@cdxgen/cdxgen-plugins-bin-linuxmusl-amd64@2.5.1':
     resolution: {integrity: sha512-jBjaqRicd1OmdexiMJq9+JfR6cN+5wzJyidI/muRD4Ug3g6hJm5DlanGd+0YdPNT0dygbWzNJThHdTYT10xElA==, tarball: https://registry.npmjs.org/@cdxgen/cdxgen-plugins-bin-linuxmusl-amd64/-/cdxgen-plugins-bin-linuxmusl-amd64-2.5.1.tgz}

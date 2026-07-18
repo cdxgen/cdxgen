@@ -155,7 +155,7 @@
     "esmock": "2.7.6",
     "poku": "4.5.0",
     "sinon": "22.0.0",
-    "typescript": "^7.0.2"
+    "typescript": "7.0.2"
   },
   "optionalDependencies": {
     "@appthreat/atom": "2.5.6",
