@@ -1,0 +1,19 @@
+pnpm-lock.yaml
+  s_31a7d9f788395d::t_74b482a3d4eb7b 756-757,1456,1656
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "6d8f53689c5f91f411d39c1f2f8f0d727596aa65",
+  "prompts": {},
+  "sessions": {
+    "s_31a7d9f788395d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "2df36391-80c2-48c3-951d-42bb6263995e",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
