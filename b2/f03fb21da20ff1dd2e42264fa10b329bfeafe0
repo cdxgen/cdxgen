@@ -1,0 +1,33 @@
+jsr.json
+  h_0926447d100ad2 3
+pyproject.toml
+  h_0926447d100ad2 3
+deno.json
+  h_0926447d100ad2 3
+package.json
+  h_0926447d100ad2 3
+lib/helpers/rusi.js
+  s_31a7d9f788395d::t_61f1baf05314bf 718-727
+  s_31a7d9f788395d::t_9199c7b5c4bb05 728-731
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "b2f03fb21da20ff1dd2e42264fa10b329bfeafe0",
+  "prompts": {},
+  "humans": {
+    "h_0926447d100ad2": {
+      "author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  },
+  "sessions": {
+    "s_31a7d9f788395d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "2df36391-80c2-48c3-951d-42bb6263995e",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
