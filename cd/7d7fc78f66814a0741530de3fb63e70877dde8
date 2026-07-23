@@ -1,0 +1,94 @@
+jsr.json
+  h_0926447d100ad2 3
+pyproject.toml
+  h_0926447d100ad2 3
+deno.json
+  h_0926447d100ad2 3
+package.json
+  h_0926447d100ad2 3
+lib/helpers/rusi.js
+  s_31a7d9f788395d::t_61f1baf05314bf 718-727
+  s_31a7d9f788395d::t_9199c7b5c4bb05 728-731
+lib/helpers/rusi.poku.js
+  s_625d95233d189c::t_26a2246d598a94 5,17,24-26
+  s_625d95233d189c::t_b78286d55f7bd7 353-513
+  s_625d95233d189c::t_578b12a355333a 27
+lib/helpers/golem.poku.js
+  s_175176acfa047e::t_301ef2ca24b467 584-707
+  s_175176acfa047e::t_b47c47ed215b99 1-7
+lib/helpers/golem.js
+  s_175176acfa047e::t_10b0f13a0fe682 1651-1664
+lib/helpers/dosai.js
+  s_895eb0c7d45551::t_b6d3aedee3f50c 238-247,250-270,276-292
+  s_39f70b7b9d2bc4::t_f702b8f32dd680 248-249
+  s_39f70b7b9d2bc4::t_7249d4ccc68ed3 271-275
+  s_895eb0c7d45551::t_32b344c28002c3 19
+lib/evinser/evinser.js
+  s_895eb0c7d45551::t_f9e0f8ca00e9ae 23
+  s_895eb0c7d45551::t_f147c0a4f4a318 679-686,695
+  s_895eb0c7d45551::t_d53f13789d5808 687-691
+lib/helpers/dosai.poku.js
+  s_895eb0c7d45551::t_94fc0b7762ab75 349,357-358,360-376,378-403,409,430-431,440,449-465
+  s_895eb0c7d45551::t_3fef2d72cafc67 1-10
+  s_895eb0c7d45551::t_1b3dc37a520ce7 22
+  s_39f70b7b9d2bc4::t_24a6034f2d3362 350-356,359,377,404-408,410-429,432-439,441-448
+types/lib/helpers/utils.d.ts
+  s_39f70b7b9d2bc4::t_122319a410a37f 25-36
+types/lib/helpers/httpClient.d.ts
+  s_39f70b7b9d2bc4::t_122319a410a37f 19-20,25-28
+types/lib/helpers/sbtutils.d.ts
+  s_39f70b7b9d2bc4::t_122319a410a37f 62,124-151
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "cd7d7fc78f66814a0741530de3fb63e70877dde8",
+  "prompts": {},
+  "humans": {
+    "h_0926447d100ad2": {
+      "author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  },
+  "sessions": {
+    "s_175176acfa047e": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_073d2046effe4ovflc60AA5Drm",
+        "model": "glm-5.2"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    },
+    "s_31a7d9f788395d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "2df36391-80c2-48c3-951d-42bb6263995e",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    },
+    "s_39f70b7b9d2bc4": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "a3f17c53-f907-40ea-8c8e-8b34fae99c15",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    },
+    "s_625d95233d189c": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_07643bcc3ffeuMIo25eIMeoGss",
+        "model": "glm-5.2"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    },
+    "s_895eb0c7d45551": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_070b86e7dffe41JrYJom9AYcpI",
+        "model": "glm-5.2"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
