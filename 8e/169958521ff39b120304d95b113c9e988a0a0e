@@ -1,0 +1,23 @@
+types/lib/helpers/utils.d.ts
+  s_39f70b7b9d2bc4::t_122319a410a37f 25-36
+types/lib/helpers/httpClient.d.ts
+  s_39f70b7b9d2bc4::t_122319a410a37f 19-20,25-28
+types/lib/helpers/sbtutils.d.ts
+  s_39f70b7b9d2bc4::t_122319a410a37f 62,124-151
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "8e169958521ff39b120304d95b113c9e988a0a0e",
+  "prompts": {},
+  "sessions": {
+    "s_39f70b7b9d2bc4": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "a3f17c53-f907-40ea-8c8e-8b34fae99c15",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
