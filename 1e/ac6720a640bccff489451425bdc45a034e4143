@@ -1,0 +1,34 @@
+lib/helpers/rusi.poku.js
+  s_625d95233d189c::t_26a2246d598a94 5,17,24-26
+  s_625d95233d189c::t_b78286d55f7bd7 353-513
+  s_625d95233d189c::t_578b12a355333a 27
+lib/helpers/golem.poku.js
+  s_175176acfa047e::t_301ef2ca24b467 584-707
+  s_175176acfa047e::t_b47c47ed215b99 1-7
+lib/helpers/golem.js
+  s_175176acfa047e::t_10b0f13a0fe682 1651-1664
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "1eac6720a640bccff489451425bdc45a034e4143",
+  "prompts": {},
+  "sessions": {
+    "s_175176acfa047e": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_073d2046effe4ovflc60AA5Drm",
+        "model": "glm-5.2"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    },
+    "s_625d95233d189c": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_07643bcc3ffeuMIo25eIMeoGss",
+        "model": "glm-5.2"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
