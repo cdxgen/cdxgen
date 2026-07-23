@@ -1,0 +1,39 @@
+lib/helpers/dosai.js
+  s_895eb0c7d45551::t_b6d3aedee3f50c 238-247,250-270,276-292
+  s_39f70b7b9d2bc4::t_f702b8f32dd680 248-249
+  s_39f70b7b9d2bc4::t_7249d4ccc68ed3 271-275
+  s_895eb0c7d45551::t_32b344c28002c3 19
+lib/evinser/evinser.js
+  s_895eb0c7d45551::t_f9e0f8ca00e9ae 23
+  s_895eb0c7d45551::t_f147c0a4f4a318 679-686,695
+  s_895eb0c7d45551::t_d53f13789d5808 687-691
+lib/helpers/dosai.poku.js
+  s_895eb0c7d45551::t_94fc0b7762ab75 349,357-358,360-376,378-403,409,430-431,440,449-465
+  s_895eb0c7d45551::t_3fef2d72cafc67 1-10
+  s_895eb0c7d45551::t_1b3dc37a520ce7 22
+  s_39f70b7b9d2bc4::t_24a6034f2d3362 350-356,359,377,404-408,410-429,432-439,441-448
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "734a0e959af925e06ea51c3354629fa395e6aebf",
+  "prompts": {},
+  "sessions": {
+    "s_39f70b7b9d2bc4": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "a3f17c53-f907-40ea-8c8e-8b34fae99c15",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    },
+    "s_895eb0c7d45551": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_070b86e7dffe41JrYJom9AYcpI",
+        "model": "glm-5.2"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
