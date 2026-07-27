@@ -1,0 +1,31 @@
+test/data/custom-license/package.json
+  s_73ce2a3d30cb96::t_5db2a3f9703a75 1-5
+lib/stages/postgen/postgen.js
+  s_73ce2a3d30cb96::t_7c1f319d2463ba 853-855
+  s_73ce2a3d30cb96::t_ee11ab4b401368 426-455
+  s_73ce2a3d30cb96::t_32506711d9afad 174-180
+  s_73ce2a3d30cb96::t_1c0e7c11c90ae3 1593
+lib/stages/postgen/postgen.poku.js
+  s_73ce2a3d30cb96::t_c059e2cf7610ac 15
+  s_73ce2a3d30cb96::t_439ffd4a71828b 17,21
+  s_73ce2a3d30cb96::t_42155541193338 1014,1021,1044,1047,1065,1070,1082-1083
+  s_73ce2a3d30cb96::t_3acff0a8f25ab4 1084,1086-1087,1090-1107,1109,1111-1112,1114-1131
+  s_73ce2a3d30cb96::t_3d12d69a17d455 1085,1088-1089,1108,1110,1113,1132-1133
+  s_73ce2a3d30cb96::t_5af6b216f62cc6 1007-1013,1015-1020,1022-1043,1045-1046,1048-1064,1066-1069,1071-1081
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "d170d764b13b62a1b2dbd8d7dcbc34e44132959e",
+  "prompts": {},
+  "sessions": {
+    "s_73ce2a3d30cb96": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "0bc0a6d0-4035-4667-b519-aba1f12f1f8c",
+        "model": "claude-opus-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
