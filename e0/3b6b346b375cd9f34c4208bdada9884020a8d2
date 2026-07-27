@@ -1,0 +1,109 @@
+lib/helpers/licenseFetchJourney.repo.poku.js
+  s_820ce73f8a4d50::t_c988f45addeca4 5
+docs/ENV.md
+  s_820ce73f8a4d50::t_471a0250e5afdd 207-215
+lib/cli/index.js
+  s_820ce73f8a4d50::t_e2bc7f9749c81c 128,131-133
+  s_820ce73f8a4d50::t_bfc0198efc2f4a 8073-8090
+  s_820ce73f8a4d50::t_04934aab664a99 12-20,127,129-130,8290-8293
+data/rules/dependency-sources.yaml
+  s_820ce73f8a4d50::t_37f9d6434c206c 92,103-104,109
+lib/stages/postgen/auditBom.poku.js
+  s_820ce73f8a4d50::t_82308045cd2074 4362,4365,4369
+test/data/gem-native.gemspec
+  s_820ce73f8a4d50::t_9ea3afc8a95a8f 1-18
+test/data/ruby-cache/compact_index/rubygems.org.443.b7f1e/info/nokogiri
+  s_820ce73f8a4d50::t_8d034ad56cf563 1-5
+docs/CUSTOM_PROPERTIES.md
+  s_820ce73f8a4d50::t_a6be1f0d631352 53,329,346-347,349,445-447,697
+test/data/gem-java.gemspec
+  s_820ce73f8a4d50::t_d7483de08d4959 1-16
+test/data/ruby-cache/compact_index/rubygems.org.443.b7f1e/info/ffi
+  s_820ce73f8a4d50::t_8d034ad56cf563 1-2
+test/data/ruby-cache/gemhome/specifications/nokogiri-1.16.7-x86_64-linux.gemspec
+  s_820ce73f8a4d50::t_8d034ad56cf563 1-18
+lib/helpers/rubyutils.poku.js
+  s_820ce73f8a4d50::t_6ad766ed629afa 790-816,823-830
+  s_820ce73f8a4d50::t_a11595034d0251 50-56,393-394
+  s_820ce73f8a4d50::t_f6726f1efc983a 8,23-49,57-136,347-392,395-428,452-500
+  s_820ce73f8a4d50::t_bad8a44cddc449 568
+  s_820ce73f8a4d50::t_4aa4fb8680180f 869-875,879-882
+  s_820ce73f8a4d50::t_26ea42f0e95077 580-582
+  s_820ce73f8a4d50::t_24887a6b18246b 564-567,571-574,584-590,592-593
+  s_820ce73f8a4d50::t_c55b7b0919043e 7,9-12,20-22
+  s_820ce73f8a4d50::t_f2ed4c4cb090c4 137-203,210-346
+  s_820ce73f8a4d50::t_0644e45b471e42 3,431-434,889-922,924-949
+  s_820ce73f8a4d50::t_5b7fac3a2129da 600-603
+  s_820ce73f8a4d50::t_5c0d6800eb97b2 204-209
+  s_820ce73f8a4d50::t_a1e373b04e89af 591
+  s_820ce73f8a4d50::t_643ed8f7b0ea7d 429-430,435-451
+  s_820ce73f8a4d50::t_e1803d24046b88 598,614
+  s_820ce73f8a4d50::t_9afb07e00bc7d9 561,563,569-570
+  s_820ce73f8a4d50::t_0e68151b0d152c 1-2,4-6,13-19,501-560,562,575-579,583,594-597,599,604-613,615-678,683-789,817-822,831-868,876-878,883-888,923,950
+  s_820ce73f8a4d50::t_feb77378055f8f 679-682
+lib/helpers/rubyutils.js
+  s_820ce73f8a4d50::t_217432e3e6009c 522-594,599-631,634-637,645-647,657-659,661-706,708,710-712,715-722,727-765
+  s_820ce73f8a4d50::t_cf09916baa79fd 965,974-978,982-997
+  s_820ce73f8a4d50::t_f9bb1c8e6b5719 1169
+  s_820ce73f8a4d50::t_cd21f5a05d1ded 35-57,60,67-69,71-73,93-98,105-112,117,122-123,130-144,146-150,152-153
+  s_820ce73f8a4d50::t_710848b3acebea 3-13,15,17-26,124-129,154-155,255,632-633,638-644,648-656,660,707,709,713-714,723-726,766-964,968-973,998-1110,1153,1168,1170-1227,1229,1231-1235,1242-1258,1264,1267-1276,1278-1345,1352-1355,1371,1385-1387,1390,1393,1408,1483-1485,1493-1499,1501-1534,1536-1553
+  s_820ce73f8a4d50::t_5ca51908717916 1259-1263,1265-1266
+  s_820ce73f8a4d50::t_54ff84ef70000b 1137-1151
+  s_820ce73f8a4d50::t_d49cb0a3d2587a 1535
+  s_820ce73f8a4d50::t_b515ddba035fad 216-254
+  s_820ce73f8a4d50::t_f4a2dd5a8f10e7 1277
+  s_820ce73f8a4d50::t_cacfc76e9eb274 156-215
+  s_820ce73f8a4d50::t_2edaae9c1438a2 1228,1230,1236-1241
+  s_820ce73f8a4d50::t_2e261ee5adfda5 1356-1370,1372-1384,1388-1389,1391-1392,1394-1397,1399-1407,1409-1482,1486-1492
+  s_820ce73f8a4d50::t_ab50bf4d7f7ca0 426,428-432
+  s_820ce73f8a4d50::t_b953d62f962e56 595-598
+  s_820ce73f8a4d50::t_09a370bc6d9c5e 2,14,16
+  s_820ce73f8a4d50::t_7bc4a6bb7cc6ef 385-389,391-397
+  s_820ce73f8a4d50::t_aa5934ce582bad 27-34,58-59,70,74,99-104,113-116,118-121
+  s_820ce73f8a4d50::t_a4ee85095d1093 966
+  s_820ce73f8a4d50::t_c926614f6089d4 412
+  s_820ce73f8a4d50::t_ed1aad4452ad0f 256-384,390,398-411,413-425,427,433-435,439-483,492-521
+  s_820ce73f8a4d50::t_0ac3b4a4afa6b6 61-66,75-92
+  s_820ce73f8a4d50::t_6a70aded5599a4 1111-1136,1152,1154-1167
+  s_820ce73f8a4d50::t_352a12e218382e 1346-1351
+  s_820ce73f8a4d50::t_275e29e138c708 145,151
+  s_820ce73f8a4d50::t_0539d2d619c80f 1398
+  s_820ce73f8a4d50::t_92058cc00312d9 967
+  s_820ce73f8a4d50::t_8c372238e073a2 484-491
+  s_820ce73f8a4d50::t_134bcda72d0f70 1,436-438
+  s_820ce73f8a4d50::t_e2bc7f9749c81c 979-981
+  s_820ce73f8a4d50::t_1e3ea2d54bd672 1500
+test/data/bundle-config
+  s_820ce73f8a4d50::t_8d034ad56cf563 1-6
+docs/PROJECT_TYPES.md
+  s_820ce73f8a4d50::t_6fa77af131333b 72-74
+data/rules/package-integrity.yaml
+  s_820ce73f8a4d50::t_6b11253e106474 344-364
+  s_820ce73f8a4d50::t_8c1012edc28e4d 82
+test/data/Gemfile-platforms.lock
+  s_820ce73f8a4d50::t_3046edfff24ee2 1-82
+types/lib/cli/index.d.ts.map
+  s_820ce73f8a4d50::t_096382132646bf 1
+types/lib/helpers/rubyutils.d.ts
+  s_820ce73f8a4d50::t_8c228b2e265e57 1-91
+types/lib/helpers/rubyutils.d.ts.map
+  s_820ce73f8a4d50::t_1cf1bbdf88365e 1
+types/lib/helpers/utils.d.ts.map
+  s_820ce73f8a4d50::t_f595a60d24d9bd 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "e03b6b346b375cd9f34c4208bdada9884020a8d2",
+  "prompts": {},
+  "sessions": {
+    "s_820ce73f8a4d50": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "ea8d49e4-0882-4dec-82cc-1623bdfd5f14",
+        "model": "claude-opus-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
