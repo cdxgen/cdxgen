@@ -1,0 +1,25 @@
+package.json
+  s_3803a2ba17849d::t_c8ed0a6e6fcec7 112
+contrib/check-boundaries.js
+  s_3803a2ba17849d::t_933b6906ba5fcf 140-142,157,162
+  s_3803a2ba17849d::t_6931bb4b46dca3 1,19-139,143-156,158-161,163-267
+  s_3803a2ba17849d::t_650723c705febe 2-18
+lib/boundaries.poku.js
+  s_3803a2ba17849d::t_04290c3dfbbadd 1-70
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "f2a65881abfc23b9dc300479bf3da50ca5750b03",
+  "prompts": {},
+  "sessions": {
+    "s_3803a2ba17849d": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_0551a88a0ffeYjP4YI2jMAkHzH",
+        "model": "glm-5.2"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
