@@ -1,0 +1,52 @@
+pnpm-workspace.yaml
+  s_3803a2ba17849d::t_4dc71bb3a969ed 11-12
+packages/parsers/package.json
+  s_3803a2ba17849d::t_4e59f6e8ef7059 7
+  s_3803a2ba17849d::t_aa3b43301bcd30 1-6,8-14
+packages/audit/package.json
+  s_3803a2ba17849d::t_deda51e229f2e1 1-6,8-16
+  s_3803a2ba17849d::t_77279e5afee63f 7
+packages/helpers/package.json
+  s_3803a2ba17849d::t_232a8a99034598 1-5,8-16
+  s_3803a2ba17849d::t_db3a6f9c5c5cf5 6-7
+packages/server/package.json
+  s_3803a2ba17849d::t_1b1c3e89fa5da1 1-6,8-16
+  s_3803a2ba17849d::t_9ed2c59a1d8b3c 7
+packages/managers/package.json
+  s_3803a2ba17849d::t_732e6a15a9497b 1-6,8-14
+  s_3803a2ba17849d::t_a8f299e6475af1 7
+packages/cli/package.json
+  s_3803a2ba17849d::t_14b78e5f8d917e 7
+  s_3803a2ba17849d::t_837d661c0543fa 1-6,8-16
+packages/evinser/package.json
+  s_3803a2ba17849d::t_81a2e28602f398 1-6,8-16
+  s_3803a2ba17849d::t_cbdc4242707f78 7
+packages/validator/package.json
+  s_3803a2ba17849d::t_7eacd65ff80268 1-6,8-15
+  s_3803a2ba17849d::t_5d2f85686eef2e 7
+packages/stages/package.json
+  s_3803a2ba17849d::t_b40fda982a9757 1-6,8,11-15
+  s_3803a2ba17849d::t_c6198c719e3f9a 9-10
+  s_3803a2ba17849d::t_ac1deed538335f 7
+packages/third-party/package.json
+  s_3803a2ba17849d::t_552dec688785d0 7
+  s_3803a2ba17849d::t_5bd3d7d44cc9f7 1-6,8-10
+pnpm-lock.yaml
+  s_3803a2ba17849d::t_19f088f6f2ca6a 187-278
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "370f03aace59ba11f0d29078e2e8fc71cebeb612",
+  "prompts": {},
+  "sessions": {
+    "s_3803a2ba17849d": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_0551a88a0ffeYjP4YI2jMAkHzH",
+        "model": "glm-5.2"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
