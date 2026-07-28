@@ -1,0 +1,45 @@
+packages/audit/package.json
+  s_7d724ea76adc3c::t_6b6320991ff7e1 14
+package.json
+  s_7d724ea76adc3c::t_3b75a7da1e85d7 109
+packages/evinser/package.json
+  s_7d724ea76adc3c::t_6b6320991ff7e1 14
+packages/helpers/package.json
+  s_7d724ea76adc3c::t_6b6320991ff7e1 14
+packages/parsers/package.json
+  s_7d724ea76adc3c::t_6b6320991ff7e1 12
+packages/stages/package.json
+  s_7d724ea76adc3c::t_6b6320991ff7e1 13
+packages/managers/package.json
+  s_7d724ea76adc3c::t_6b6320991ff7e1 12
+packages/third-party/package.json
+  s_7d724ea76adc3c::t_a42e6396d8288e 6,8
+lib/boundaries.poku.js
+  s_7d724ea76adc3c::t_260a0474742f4e 59-104
+  s_7d724ea76adc3c::t_41181e3572cfcc 2
+packages/server/package.json
+  s_7d724ea76adc3c::t_6b6320991ff7e1 14
+packages/cli/package.json
+  s_7d724ea76adc3c::t_6b6320991ff7e1 14
+contrib/check-boundaries.js
+  s_7d724ea76adc3c::t_40afbbef897912 203-226
+  s_7d724ea76adc3c::t_fec89bc3273344 109-115
+packages/validator/package.json
+  s_7d724ea76adc3c::t_6b6320991ff7e1 13
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "78514164a7d75809dabe4aca215a75a9dd548adc",
+  "prompts": {},
+  "sessions": {
+    "s_7d724ea76adc3c": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "2a0b9959-84de-46e0-a87e-11e7f1e7f1e3",
+        "model": "claude-opus-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
