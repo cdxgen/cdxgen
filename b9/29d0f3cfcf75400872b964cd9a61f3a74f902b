@@ -1,0 +1,23 @@
+lib/boundaries.poku.js
+  s_3803a2ba17849d::t_f751d59adbfede 6-7,22,24
+.github/workflows/lint.yml
+  s_3803a2ba17849d::t_bed8fd64da68a6 49-67
+lib/packaging.poku.js
+  s_3803a2ba17849d::t_1b30260e8e4932 2,6-7,268-271
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "b929d0f3cfcf75400872b964cd9a61f3a74f902b",
+  "prompts": {},
+  "sessions": {
+    "s_3803a2ba17849d": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_0551a88a0ffeYjP4YI2jMAkHzH",
+        "model": "glm-5.2"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
