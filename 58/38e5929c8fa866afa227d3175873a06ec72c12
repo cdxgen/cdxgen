@@ -1,0 +1,24 @@
+test/baseline/npm-pack-file-list.txt
+  s_3803a2ba17849d::t_8187864ac93456 1-585
+lib/packaging.poku.js
+  s_3803a2ba17849d::t_aa4fa9bb677e86 227,230
+  s_3803a2ba17849d::t_20e53f854d46a5 165-170
+  s_3803a2ba17849d::t_3a3658a0a6570e 282-288
+  s_3803a2ba17849d::t_338228f0ef798c 1-164,171-226,228-229,231-281,289-292
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "5838e5929c8fa866afa227d3175873a06ec72c12",
+  "prompts": {},
+  "sessions": {
+    "s_3803a2ba17849d": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_0551a88a0ffeYjP4YI2jMAkHzH",
+        "model": "glm-5.2"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
