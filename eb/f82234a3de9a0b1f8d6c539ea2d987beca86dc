@@ -1,0 +1,19 @@
+lib/packaging.poku.js
+  s_3803a2ba17849d::t_be81ba3215a05d 261
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "ebf82234a3de9a0b1f8d6c539ea2d987beca86dc",
+  "prompts": {},
+  "sessions": {
+    "s_3803a2ba17849d": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_0551a88a0ffeYjP4YI2jMAkHzH",
+        "model": "glm-5.2"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
