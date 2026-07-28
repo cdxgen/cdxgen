@@ -1,0 +1,95 @@
+test/baseline/npm-pack-file-list.txt
+  s_3803a2ba17849d::t_8187864ac93456 1-584
+lib/packaging.poku.js
+  s_3803a2ba17849d::t_aa4fa9bb677e86 227,230
+  s_3803a2ba17849d::t_20e53f854d46a5 165-170
+  s_3803a2ba17849d::t_3a3658a0a6570e 285-291
+  s_3803a2ba17849d::t_338228f0ef798c 1,3-5,8-37,38-164,171-226,228-229,231-260,262-267,272-284,292-295
+  s_3803a2ba17849d::t_1b30260e8e4932 2,6-7,268-271
+  s_3803a2ba17849d::t_be81ba3215a05d 261
+pnpm-workspace.yaml
+  s_3803a2ba17849d::t_4dc71bb3a969ed 11-12
+packages/parsers/package.json
+  s_3803a2ba17849d::t_4e59f6e8ef7059 7
+  s_3803a2ba17849d::t_aa3b43301bcd30 1-6,8-11,13-14
+  s_7d724ea76adc3c::t_6b6320991ff7e1 12
+packages/audit/package.json
+  s_3803a2ba17849d::t_deda51e229f2e1 1-6,8-13,15-16
+  s_3803a2ba17849d::t_77279e5afee63f 7
+  s_7d724ea76adc3c::t_6b6320991ff7e1 14
+packages/helpers/package.json
+  s_3803a2ba17849d::t_232a8a99034598 1-5,8-13,15-16
+  s_3803a2ba17849d::t_db3a6f9c5c5cf5 6-7
+  s_7d724ea76adc3c::t_6b6320991ff7e1 14
+packages/server/package.json
+  s_3803a2ba17849d::t_1b1c3e89fa5da1 1-6,8-13,15-16
+  s_3803a2ba17849d::t_9ed2c59a1d8b3c 7
+  s_7d724ea76adc3c::t_6b6320991ff7e1 14
+packages/managers/package.json
+  s_3803a2ba17849d::t_732e6a15a9497b 1-6,8-11,13-14
+  s_3803a2ba17849d::t_a8f299e6475af1 7
+  s_7d724ea76adc3c::t_6b6320991ff7e1 12
+packages/cli/package.json
+  s_3803a2ba17849d::t_14b78e5f8d917e 7
+  s_3803a2ba17849d::t_837d661c0543fa 1-6,8-13,15-16
+  s_7d724ea76adc3c::t_6b6320991ff7e1 14
+packages/evinser/package.json
+  s_3803a2ba17849d::t_81a2e28602f398 1-6,8-13,15-16
+  s_3803a2ba17849d::t_cbdc4242707f78 7
+  s_7d724ea76adc3c::t_6b6320991ff7e1 14
+packages/validator/package.json
+  s_3803a2ba17849d::t_7eacd65ff80268 1-6,8-12,14-15
+  s_3803a2ba17849d::t_5d2f85686eef2e 7
+  s_7d724ea76adc3c::t_6b6320991ff7e1 13
+packages/stages/package.json
+  s_3803a2ba17849d::t_b40fda982a9757 1-6,8,11-12,14-15
+  s_3803a2ba17849d::t_c6198c719e3f9a 9-10
+  s_3803a2ba17849d::t_ac1deed538335f 7
+  s_7d724ea76adc3c::t_6b6320991ff7e1 13
+packages/third-party/package.json
+  s_3803a2ba17849d::t_552dec688785d0 7
+  s_3803a2ba17849d::t_5bd3d7d44cc9f7 1-5,9
+  s_7d724ea76adc3c::t_a42e6396d8288e 6,8
+pnpm-lock.yaml
+  s_3803a2ba17849d::t_19f088f6f2ca6a 187-278
+package.json
+  s_3803a2ba17849d::t_c8ed0a6e6fcec7 113
+  s_7d724ea76adc3c::t_3b75a7da1e85d7 109
+contrib/check-boundaries.js
+  s_3803a2ba17849d::t_933b6906ba5fcf 147-149,164,169
+  s_3803a2ba17849d::t_6931bb4b46dca3 1,19-108,116-146,150-163,165-168,170-202,227-298
+  s_3803a2ba17849d::t_650723c705febe 2-18
+  s_7d724ea76adc3c::t_40afbbef897912 203-226
+  s_7d724ea76adc3c::t_fec89bc3273344 109-115
+lib/boundaries.poku.js
+  s_3803a2ba17849d::t_04290c3dfbbadd 1,3-5,8-21,23,25-58,105-112
+  s_3803a2ba17849d::t_f751d59adbfede 6-7,22,24
+  s_7d724ea76adc3c::t_260a0474742f4e 59-104
+  s_7d724ea76adc3c::t_41181e3572cfcc 2
+.github/workflows/lint.yml
+  s_3803a2ba17849d::t_bed8fd64da68a6 49-67
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "c0bf0345b2db7e2c7580c0e599e9f206a8013693",
+  "prompts": {},
+  "sessions": {
+    "s_3803a2ba17849d": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_0551a88a0ffeYjP4YI2jMAkHzH",
+        "model": "glm-5.2"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    },
+    "s_7d724ea76adc3c": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "2a0b9959-84de-46e0-a87e-11e7f1e7f1e3",
+        "model": "claude-opus-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
