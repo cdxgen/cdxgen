@@ -1,0 +1,26 @@
+BLOCKERS.md
+  s_02e96a1dfa972c::t_8292997d49f005 1-31
+PROGRESS.md
+  s_02e96a1dfa972c::t_3d3c453224f57b 14-16
+  s_02e96a1dfa972c::t_a641fd19e37995 17
+  s_02e96a1dfa972c::t_90c30c9d67b60b 9-10
+  s_02e96a1dfa972c::t_031edd1459f254 11
+  s_02e96a1dfa972c::t_a0c41a4a41a6b9 12
+  s_02e96a1dfa972c::t_6ce974a3b96b88 13
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "4b1d5bc4502e314479c59ace303b2d25e59ec179",
+  "prompts": {},
+  "sessions": {
+    "s_02e96a1dfa972c": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_050eae436ffeO6ePr46ViE6Ave",
+        "model": "glm-5.2"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
