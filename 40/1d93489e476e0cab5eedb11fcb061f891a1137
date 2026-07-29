@@ -1,0 +1,22 @@
+lib/helpers/utils.js
+  s_bf4eb7d0f50306::t_57dc7e5342044b 84-94
+  s_bf4eb7d0f50306::t_6ff5e1fb367feb 247-254
+lib/helpers/core-fs.js
+  s_bf4eb7d0f50306::t_81900174d606e7 1-296
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "401d93489e476e0cab5eedb11fcb061f891a1137",
+  "prompts": {},
+  "sessions": {
+    "s_bf4eb7d0f50306": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_0528c7b2effe43c4l9SWQPHrrV",
+        "model": "glm-5.2"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
