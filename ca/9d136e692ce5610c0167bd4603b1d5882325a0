@@ -1,0 +1,43 @@
+repotests/pylock-smoke/golden.manifest.json
+  s_7d724ea76adc3c::t_2bb7e73fd846fd 2,5
+  s_39029006502cd0::t_41d9156cda88bf 1,3-4,6-7
+repotests/pylock-smoke/expected/default.json
+  s_7d724ea76adc3c::t_2bb7e73fd846fd 1-887
+repotests/pylock-smoke/pylock.toml
+  s_39029006502cd0::t_b4094a1bff176f 1,3-40
+  s_7d724ea76adc3c::t_84470b97d5230c 2
+contrib/mutation-tests.js
+  s_7d724ea76adc3c::t_2df664bac8210c 662-716
+BLOCKERS.md
+  s_7d724ea76adc3c::t_ebfc0718489eb7 61-104,106-108,111-122
+repotests/pylock-smoke/pyproject.toml
+  s_39029006502cd0::t_b4094a1bff176f 1-12
+repotests/cbom-js-smoke/golden.manifest.json
+  s_7d724ea76adc3c::t_138a4b8892b539 2,7-15
+PROGRESS.md
+  s_7d724ea76adc3c::t_52504d0ff17a3d 94-115
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "ca9d136e692ce5610c0167bd4603b1d5882325a0",
+  "prompts": {},
+  "sessions": {
+    "s_39029006502cd0": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_04fdcb654ffeKIoAAXHwEW5y7F",
+        "model": "glm-5.2"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    },
+    "s_7d724ea76adc3c": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "2a0b9959-84de-46e0-a87e-11e7f1e7f1e3",
+        "model": "claude-opus-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
