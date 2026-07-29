@@ -1,0 +1,27 @@
+lib/helpers/utils.js
+  s_02e96a1dfa972c::t_a90f2e8b74b95d 5,20,166,198-214,311,339,374,404-405,408,413-416,426-428,463
+  s_02e96a1dfa972c::t_07d4bffa701129 469,651-667,669-683,685-686,688,692,694-698,700-703,706-712,714,717-824
+lib/helpers/utils.poku.js
+  s_02e96a1dfa972c::t_3a9f6dab3ce31c 5676,5765,5869,5935,6031
+lib/helpers/parsers-js.js
+  s_02e96a1dfa972c::t_b2a054fdb3423a 12,14
+  s_02e96a1dfa972c::t_a90f2e8b74b95d 3-10,15,19
+  s_02e96a1dfa972c::t_5d831545c540dd 13
+  s_02e96a1dfa972c::t_ec82f4ee9c72fb 1-2,11,16-18,20-3655
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "b94e789497451a1e414681260cb793c84b829917",
+  "prompts": {},
+  "sessions": {
+    "s_02e96a1dfa972c": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_050eae436ffeO6ePr46ViE6Ave",
+        "model": "glm-5.2"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
