@@ -1,0 +1,93 @@
+types/lib/helpers/parsers-dotnet.d.ts
+  s_7d724ea76adc3c::t_e253b0de933704 1-58,60-71,73-83
+types/lib/helpers/parsers-jvm.d.ts
+  s_7d724ea76adc3c::t_e253b0de933704 1-14,18-24,26-82,84-99
+types/lib/helpers/core-misc-a.d.ts
+  s_7d724ea76adc3c::t_e253b0de933704 1-9,18-75,77-132
+types/lib/helpers/parsers-rust.d.ts
+  s_7d724ea76adc3c::t_e253b0de933704 1-55
+lib/helpers/core-misc-a.js
+  s_7d724ea76adc3c::t_67a321dd64cefa 36-43,117-121,137-143,285-291,323-329,342-349,390-397,806-811,943-945,967-979,1083-1092,1138-1143,1194-1203,1782-1793
+types/lib/helpers/ecosystems.d.ts
+  s_7d724ea76adc3c::t_e253b0de933704 8-112,123-174,176-192
+types/lib/helpers/parsers-python.d.ts
+  s_7d724ea76adc3c::t_e253b0de933704 1-6,10-15,17-43,46,51-52,66-94,104-114
+types/lib/helpers/utils.d.ts
+  s_7d724ea76adc3c::t_2ed0fc6f183f41 1-4,9-11
+  s_7d724ea76adc3c::t_e253b0de933704 5-8
+lib/helpers/core-fs.js
+  s_7d724ea76adc3c::t_67a321dd64cefa 733-741
+lib/helpers/parsers-go.js
+  s_7d724ea76adc3c::t_67a321dd64cefa 16-21,26-35,72-79,196-204,231-237,362-372,562-567,582-586,608-615,665-671
+types/lib/helpers/core-misc-b.d.ts
+  s_7d724ea76adc3c::t_e253b0de933704 1-59,70-85,87-106,108-109,111,113-119,121,123-127,130-227,229-244
+types/lib/helpers/parsers-js.d.ts
+  s_7d724ea76adc3c::t_e253b0de933704 2-8,12-31,35-40,42-86,89,91,105-125,127-128,130-137
+lib/helpers/utils.js
+  s_7d724ea76adc3c::t_ed904f05a4acd4 1-11
+lib/helpers/ecosystems.js
+  s_7d724ea76adc3c::t_67a321dd64cefa 87-93,122-126,200-207,339-347,526-535,541-550,580-589,600-604,617-626,641-646,673-678,920-926,1105-1109,1124-1128,1137-1142,1157-1163,1226-1230,1276-1281,1305-1309,1318-1323,1328-1332,1423-1427,1506-1514,2032-2037
+lib/helpers/parsers-js.js
+  s_7d724ea76adc3c::t_7b5d8598bba51d 3679
+  s_7d724ea76adc3c::t_67a321dd64cefa 38-44,665-670,1312-1319,1613-1622,2134-2138,2347-2352,2389-2395,2423-2430,2491-2497,2585-2596,3529-3533,3581-3585,3680-3686,3707-3713
+types/lib/helpers/parsers-misc.d.ts
+  s_7d724ea76adc3c::t_e253b0de933704 1-140,142-160,162-190,203,212,233,242,248-297,306-310,318,327,332-348,350-365,368-375
+  s_7d724ea76adc3c::t_2ed0fc6f183f41 300
+  s_7d724ea76adc3c::t_37eb3788ea0fa8 299
+lib/helpers/parsers-dotnet.js
+  s_7d724ea76adc3c::t_67a321dd64cefa 16-21,33-39,198-207,282-288,332-340,760-770,1021-1028,1147-1154
+lib/helpers/parsers-jvm.js
+  s_7d724ea76adc3c::t_67a321dd64cefa 12-17,298-304,363-369,464-473,598-601,638-641,655-663,690-693,730-733,788-791,809-811,850-855,890-897
+lib/helpers/core-misc-b.js
+  s_7d724ea76adc3c::t_67a321dd64cefa 71-78,104-111,131-137,239-249,283-292,323-331,349-356,661-667,716-722,1031-1038,1070-1077,1377-1388,1603-1613,1661-1667,1692-1699,1734-1739,1788-1795,1879-1889,2000-2004,2079-2096,2125-2127,2140-2147,2162-2167
+lib/helpers/parsers-misc.js
+  s_7d724ea76adc3c::t_67a321dd64cefa 20-27,94-100,127-134,200-210,296-303,371-377,439-446,514-521,548-555,637-645,698-704,733-739,767-776,790-795,833-842,926-931,967-975,1090-1097,1149-1154,1234-1239,1348-1354,1361-1367,1407-1412,1600-1605,1611-1616,1626-1631,1637-1642,1648-1653,1659-1666,1752-1756,1780-1783,1840-1852,1962-1974,2272-2278
+lib/helpers/parsers-python.js
+  s_7d724ea76adc3c::t_67a321dd64cefa 29-33,57-61,290-295,660-670,729-735,1301-1308,1333-1340,1598-1603,1639-1643,1667-1675,1680-1685,1866-1870,1894-1898
+types/lib/helpers/parsers-go.d.ts
+  s_7d724ea76adc3c::t_e253b0de933704 1-38,40,42-53,62-91
+lib/helpers/parsers-rust.js
+  s_7d724ea76adc3c::t_67a321dd64cefa 14-20,38-43,624-641,913-921,1053-1060,1195-1201,1261-1268
+types/lib/helpers/core-fs.d.ts
+  s_7d724ea76adc3c::t_e253b0de933704 37-46
+types/lib/helpers/core-fs.d.ts.map
+  s_7d724ea76adc3c::t_f841b9ed7766a7 1
+types/lib/helpers/core-misc-a.d.ts.map
+  s_7d724ea76adc3c::t_7272b6d0f56458 1
+types/lib/helpers/core-misc-b.d.ts.map
+  s_7d724ea76adc3c::t_4ef19c3ed11cf5 1
+types/lib/helpers/ecosystems.d.ts.map
+  s_7d724ea76adc3c::t_1301934e12fc0b 1
+types/lib/helpers/parsers-dotnet.d.ts.map
+  s_7d724ea76adc3c::t_0c6860629a9dc8 1
+types/lib/helpers/parsers-go.d.ts.map
+  s_7d724ea76adc3c::t_6561825a42da7d 1
+types/lib/helpers/parsers-js.d.ts.map
+  s_7d724ea76adc3c::t_04a2b40b8fea37 1
+types/lib/helpers/parsers-jvm.d.ts.map
+  s_7d724ea76adc3c::t_e0bd8232e92150 1
+types/lib/helpers/parsers-misc.d.ts.map
+  s_7d724ea76adc3c::t_bbe1e43aa0189b 1
+types/lib/helpers/parsers-python.d.ts.map
+  s_7d724ea76adc3c::t_475c85c1fa502a 1
+types/lib/helpers/parsers-rust.d.ts.map
+  s_7d724ea76adc3c::t_457613a1fc8a03 1
+types/lib/helpers/utils.d.ts.map
+  s_7d724ea76adc3c::t_61c51c36b6bfe7 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "ee01c17e228b8b26bad1196944d0b71fea5b2538",
+  "prompts": {},
+  "sessions": {
+    "s_7d724ea76adc3c": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "2a0b9959-84de-46e0-a87e-11e7f1e7f1e3",
+        "model": "claude-opus-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
