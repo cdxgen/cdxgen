@@ -1,0 +1,111 @@
+lib/helpers/core-env.poku.js
+  s_7d724ea76adc3c::t_41fec79af84ed6 2
+  s_7d724ea76adc3c::t_4b15b9cde0ee95 1,3
+  s_7d724ea76adc3c::t_083b893033ace2 4-29
+BLOCKERS.md
+  s_7d724ea76adc3c::t_e9e02bb6922447 3-43
+lib/helpers/purl.poku.js
+  s_7d724ea76adc3c::t_5045321e7c8574 3-7
+  s_7d724ea76adc3c::t_41fec79af84ed6 2
+  s_7d724ea76adc3c::t_4b15b9cde0ee95 1
+  s_7d724ea76adc3c::t_083b893033ace2 8-118
+lib/helpers/parsers-misc.poku.js
+  s_7d724ea76adc3c::t_4b15b9cde0ee95 1-2,5
+  s_7d724ea76adc3c::t_46d15c411eed6f 565,655-656
+  s_7d724ea76adc3c::t_41fec79af84ed6 4,6
+  s_7d724ea76adc3c::t_083b893033ace2 3,33-564,566-654,657-1708
+  s_7d724ea76adc3c::t_5045321e7c8574 7-32
+lib/helpers/core-fs.poku.js
+  s_7d724ea76adc3c::t_083b893033ace2 3-4,9-125
+  s_7d724ea76adc3c::t_4b15b9cde0ee95 1-2,6,8
+  s_7d724ea76adc3c::t_41fec79af84ed6 5,7
+lib/helpers/core-misc-a.poku.js
+  s_7d724ea76adc3c::t_083b893033ace2 2,5,13-88
+  s_7d724ea76adc3c::t_41fec79af84ed6 3,6
+  s_7d724ea76adc3c::t_5045321e7c8574 7-12
+  s_7d724ea76adc3c::t_4b15b9cde0ee95 1,4
+lib/helpers/parsers-go.poku.js
+  s_7d724ea76adc3c::t_4b15b9cde0ee95 1
+  s_7d724ea76adc3c::t_083b893033ace2 2,4,16-678
+  s_7d724ea76adc3c::t_41fec79af84ed6 3,5
+  s_7d724ea76adc3c::t_5045321e7c8574 6-15
+lib/helpers/deps.poku.js
+  s_7d724ea76adc3c::t_083b893033ace2 2,14-96
+  s_7d724ea76adc3c::t_41fec79af84ed6 3,5
+  s_7d724ea76adc3c::t_4b15b9cde0ee95 1,4
+  s_7d724ea76adc3c::t_5045321e7c8574 6-11
+  s_7d724ea76adc3c::t_46d15c411eed6f 12-13
+lib/helpers/core-misc-b.poku.js
+  s_7d724ea76adc3c::t_4b15b9cde0ee95 1-2,5,51-54,56-57,112,186
+  s_7d724ea76adc3c::t_fdb228094e1d18 981-987
+  s_7d724ea76adc3c::t_5045321e7c8574 7-17
+  s_7d724ea76adc3c::t_46d15c411eed6f 18,20-50,55,58-111,113-185,187
+  s_7d724ea76adc3c::t_d580c77e5fdfa4 19,988-989
+  s_7d724ea76adc3c::t_41fec79af84ed6 4,6
+  s_7d724ea76adc3c::t_083b893033ace2 3,188-980
+lib/helpers/parsers-python.poku.js
+  s_7d724ea76adc3c::t_5045321e7c8574 9-10,12-20
+  s_7d724ea76adc3c::t_41fec79af84ed6 4,8
+  s_7d724ea76adc3c::t_4b15b9cde0ee95 1-2,6
+  s_7d724ea76adc3c::t_083b893033ace2 3,5,7,21-1370
+  s_7d724ea76adc3c::t_46d15c411eed6f 11,1371-1377
+lib/helpers/parsers-dotnet.poku.js
+  s_7d724ea76adc3c::t_41fec79af84ed6 2,4
+  s_7d724ea76adc3c::t_4b15b9cde0ee95 1,3
+  s_7d724ea76adc3c::t_083b893033ace2 15-821
+  s_7d724ea76adc3c::t_5045321e7c8574 5-14
+lib/helpers/parsers-js.poku.js
+  s_7d724ea76adc3c::t_4b15b9cde0ee95 10,16
+  s_7d724ea76adc3c::t_41fec79af84ed6 13,17
+  s_7d724ea76adc3c::t_083b893033ace2 11-12,14-15,18,34-3033
+  s_7d724ea76adc3c::t_5045321e7c8574 1-9,19-33
+lib/helpers/core-activity.poku.js
+  s_7d724ea76adc3c::t_41fec79af84ed6 14,18
+  s_7d724ea76adc3c::t_5045321e7c8574 1-10,19-40
+  s_7d724ea76adc3c::t_083b893033ace2 11-13,15,17,41-1100
+  s_7d724ea76adc3c::t_4b15b9cde0ee95 16
+lib/helpers/utils.poku.js
+  s_7d724ea76adc3c::t_4b15b9cde0ee95 2,6,11,28
+  s_7d724ea76adc3c::t_46d15c411eed6f 95
+lib/helpers/ecosystems.poku.js
+  s_7d724ea76adc3c::t_41fec79af84ed6 4
+  s_7d724ea76adc3c::t_46d15c411eed6f 7,16,65,208-219,221-286,288-299,301-392,394-396,399-428,430-443,446-459,462-499,501-502,505-510
+  s_7d724ea76adc3c::t_4b15b9cde0ee95 2
+  s_7d724ea76adc3c::t_083b893033ace2 1,3,15,17-64,66-207,220,287,300,393,397-398,429,444-445,460-461,500,503-504,511-929
+  s_7d724ea76adc3c::t_5045321e7c8574 5-6,8-14
+lib/helpers/spdx.poku.js
+  s_7d724ea76adc3c::t_46d15c411eed6f 13-23,25-87,89
+  s_7d724ea76adc3c::t_4b15b9cde0ee95 1,3
+  s_7d724ea76adc3c::t_41fec79af84ed6 2
+  s_7d724ea76adc3c::t_5045321e7c8574 4
+  s_7d724ea76adc3c::t_083b893033ace2 5-12,24,88,90-222
+PROGRESS.md
+  s_7d724ea76adc3c::t_35b3b1d14ca524 17-31
+lib/helpers/parsers-rust.poku.js
+  s_7d724ea76adc3c::t_4b15b9cde0ee95 8,11
+  s_7d724ea76adc3c::t_5045321e7c8574 1-7,13-19
+  s_7d724ea76adc3c::t_083b893033ace2 9,20-589,629
+  s_7d724ea76adc3c::t_41fec79af84ed6 10,12
+  s_7d724ea76adc3c::t_46d15c411eed6f 590-628
+lib/helpers/parsers-jvm.poku.js
+  s_7d724ea76adc3c::t_41fec79af84ed6 4,6
+  s_7d724ea76adc3c::t_5045321e7c8574 7-20
+  s_7d724ea76adc3c::t_4b15b9cde0ee95 1-2,5
+  s_7d724ea76adc3c::t_083b893033ace2 3,21-533
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "7b08910525426d5963ee3e66c69cf29f0fe176f2",
+  "prompts": {},
+  "sessions": {
+    "s_7d724ea76adc3c": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "2a0b9959-84de-46e0-a87e-11e7f1e7f1e3",
+        "model": "claude-opus-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
