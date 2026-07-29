@@ -1,0 +1,23 @@
+test/baseline/npm-pack-file-list.txt
+  s_7d724ea76adc3c::t_6ad467b3b45fc3 118-121,130,157-163,361-368,385-386,439-452
+PROGRESS.md
+  s_7d724ea76adc3c::t_2d693d72c00e6f 6
+lib/helpers/barrel.poku.js
+  s_7d724ea76adc3c::t_f7ee1a2f59ea08 297-299
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "bfeaac5b685d97a9f48f963ef5af4fe05f2d849f",
+  "prompts": {},
+  "sessions": {
+    "s_7d724ea76adc3c": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "2a0b9959-84de-46e0-a87e-11e7f1e7f1e3",
+        "model": "claude-opus-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
