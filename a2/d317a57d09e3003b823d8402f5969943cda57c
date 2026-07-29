@@ -1,0 +1,25 @@
+docs/v13/utils-inventory.md
+  s_c51b0a94a11726::t_1184646c0e74b4 427-428,449,454-455,459-474,476,478-481,488-494,497-498,503,509,515,517
+  s_c51b0a94a11726::t_aedd5cfb97a437 570-572,574-581
+  s_c51b0a94a11726::t_60183c660d728c 66-74,79-82,85-91
+  s_c51b0a94a11726::t_b584cab0c3e223 592-611
+  s_c51b0a94a11726::t_b67eb2dac08c55 104-107,114,119,122,128-174,179,182,189-203
+  s_c51b0a94a11726::t_749e207e6f3d02 207,211-215,217-218,220-246,248-255
+  s_c51b0a94a11726::t_adb6b8552ee1ee 92
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "a2d317a57d09e3003b823d8402f5969943cda57c",
+  "prompts": {},
+  "sessions": {
+    "s_c51b0a94a11726": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_05452ec2dffeHAOG8MAH7i5Dxx",
+        "model": "glm-5.2"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
