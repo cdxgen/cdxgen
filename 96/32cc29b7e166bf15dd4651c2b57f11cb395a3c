@@ -1,0 +1,27 @@
+repotests/yarn-smoke/expected/spec-1.6.json
+  s_39029006502cd0::t_ad50a57c72ef1b 1-220
+repotests/yarn-smoke/golden.manifest.json
+  s_39029006502cd0::t_540d3c4176c42b 2,9-18
+repotests/yarn-smoke/expected/spec-1.7.json
+  s_39029006502cd0::t_ad50a57c72ef1b 1-220
+BLOCKERS.md
+  s_39029006502cd0::t_f2d392c3f06418 97-108
+PROGRESS.md
+  s_39029006502cd0::t_6c21398db23dd9 53
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "9632cc29b7e166bf15dd4651c2b57f11cb395a3c",
+  "prompts": {},
+  "sessions": {
+    "s_39029006502cd0": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_04fdcb654ffeKIoAAXHwEW5y7F",
+        "model": "glm-5.2"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
