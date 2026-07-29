@@ -1,0 +1,21 @@
+lib/helpers/core-activity.js
+  s_7d724ea76adc3c::t_7858be83d9f07d 691-692
+  s_7d724ea76adc3c::t_120fef2a96e577 1
+  s_7d724ea76adc3c::t_aa1f6013804b7b 301-304
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "0cbce22bf2e70f9ac8a56c85a1630bf42172c2ab",
+  "prompts": {},
+  "sessions": {
+    "s_7d724ea76adc3c": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "2a0b9959-84de-46e0-a87e-11e7f1e7f1e3",
+        "model": "claude-opus-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
