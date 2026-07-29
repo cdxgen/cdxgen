@@ -1,0 +1,118 @@
+repotests/pnpm-smoke/golden.manifest.json
+  s_39029006502cd0::t_e3ee7728d03749 1-21
+repotests/yarn-smoke/expected/default.json
+  s_39029006502cd0::t_732fde003d9096 1-220
+repotests/pnpm-smoke/expected/spec-1.7.json
+  s_39029006502cd0::t_732fde003d9096 1-226
+repotests/yarn-smoke/golden.manifest.json
+  s_39029006502cd0::t_cfb7bbc223099b 1,3-8,19-21
+  s_39029006502cd0::t_540d3c4176c42b 2,9-18
+repotests/pnpm-smoke/expected/spec-1.6.json
+  s_39029006502cd0::t_732fde003d9096 1-226
+repotests/pnpm-smoke/package.json
+  s_39029006502cd0::t_04d5b8abaf9d35 1-9
+PROGRESS.md
+  s_39029006502cd0::t_dcadfa4e6011c9 37-46,54
+  s_39029006502cd0::t_a0e4e044b7e422 47
+  s_39029006502cd0::t_e3ec0e4859eeb9 48
+  s_39029006502cd0::t_678f7f487f8809 49
+  s_39029006502cd0::t_d332e35908d11c 50
+  s_39029006502cd0::t_f84764efe51fba 51
+  s_39029006502cd0::t_0fc6f57c0a43a7 55-92
+  s_39029006502cd0::t_6ce472aca844ec 52
+  s_39029006502cd0::t_e8135006fd2a20 54
+  s_39029006502cd0::t_6c21398db23dd9 53
+  s_7d724ea76adc3c::t_52504d0ff17a3d 94-115
+repotests/yarn-smoke/package.json
+  s_39029006502cd0::t_04d5b8abaf9d35 1-9
+repotests/pnpm-smoke/expected/default.json
+  s_39029006502cd0::t_732fde003d9096 1-226
+BLOCKERS.md
+  s_39029006502cd0::t_59b524ba1d93ed 58-60
+  s_39029006502cd0::t_e0da00ea6e8b13 105,109-110,115,123-128
+  s_39029006502cd0::t_f2d392c3f06418 129-140
+  s_7d724ea76adc3c::t_ebfc0718489eb7 61-104,106-108,111-122
+repotests/pnpm-smoke/pnpm-lock.yaml
+  s_39029006502cd0::t_0d02fcb7a2db43 1-48
+repotests/yarn-smoke/yarn.lock
+  s_39029006502cd0::t_42b8719b2f6683 1-27
+repotests/uv-smoke/pyproject.toml
+  s_39029006502cd0::t_b4094a1bff176f 1-12
+repotests/uv-smoke/expected/default.json
+  s_39029006502cd0::t_65d8afad690118 1-290
+repotests/uv-smoke/golden.manifest.json
+  s_39029006502cd0::t_80477111210554 1-11
+repotests/uv-smoke/uv.lock
+  s_39029006502cd0::t_ca54d611aaa8e7 1-75
+repotests/swift-smoke/expected/default.json
+  s_39029006502cd0::t_ff948759b121c1 1-152
+repotests/swift-smoke/Package.resolved
+  s_39029006502cd0::t_958b72606f239a 1-3,22-32
+  s_39029006502cd0::t_ff948759b121c1 4-21
+repotests/swift-smoke/golden.manifest.json
+  s_39029006502cd0::t_958b72606f239a 1-11
+repotests/dotnet-assets-smoke/dotnet-assets-smoke.csproj
+  s_39029006502cd0::t_5cd5d2caf99e05 1-10
+repotests/dotnet-assets-smoke/obj/project.assets.json
+  s_39029006502cd0::t_5cd5d2caf99e05 1-499
+repotests/dotnet-assets-smoke/golden.manifest.json
+  s_39029006502cd0::t_5cd5d2caf99e05 1-11
+repotests/dotnet-assets-smoke/expected/default.json
+  s_39029006502cd0::t_7c9c2f555d9e07 1-116
+repotests/ai-modelfile-smoke/golden.manifest.json
+  s_39029006502cd0::t_7cff65dec292d3 1-11
+repotests/ai-modelfile-smoke/expected/default.json
+  s_39029006502cd0::t_7770fcab441f2f 1-215
+repotests/ai-modelfile-smoke/Modelfile
+  s_39029006502cd0::t_f8a21bf9d48748 1-9
+repotests/cbom-js-smoke/package.json
+  s_39029006502cd0::t_688ed9650fbb2a 1-7
+repotests/cbom-js-smoke/src/crypto.js
+  s_39029006502cd0::t_688ed9650fbb2a 1-16
+repotests/cbom-js-smoke/expected/default.json
+  s_39029006502cd0::t_eb40ed14ae73b3 1-164
+repotests/cbom-js-smoke/golden.manifest.json
+  s_39029006502cd0::t_bf435ff5806cab 1,3-6,16-18
+  s_7d724ea76adc3c::t_138a4b8892b539 2,7-15
+contrib/mutation-tests.js
+  s_39029006502cd0::t_3d959806d4028a 719-845,859
+  s_7d724ea76adc3c::t_2df664bac8210c 662-716
+repotests/yarn-smoke/expected/spec-1.6.json
+  s_39029006502cd0::t_ad50a57c72ef1b 1-220
+repotests/yarn-smoke/expected/spec-1.7.json
+  s_39029006502cd0::t_ad50a57c72ef1b 1-220
+repotests/pylock-smoke/golden.manifest.json
+  s_7d724ea76adc3c::t_2bb7e73fd846fd 2,5
+  s_39029006502cd0::t_41d9156cda88bf 1,3-4,6-7
+repotests/pylock-smoke/expected/default.json
+  s_7d724ea76adc3c::t_2bb7e73fd846fd 1-887
+repotests/pylock-smoke/pylock.toml
+  s_39029006502cd0::t_b4094a1bff176f 1,3-40
+  s_7d724ea76adc3c::t_84470b97d5230c 2
+repotests/pylock-smoke/pyproject.toml
+  s_39029006502cd0::t_b4094a1bff176f 1-12
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "9ded9c088710bad3171fd10d21fab81de2034a62",
+  "prompts": {},
+  "sessions": {
+    "s_39029006502cd0": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_04fdcb654ffeKIoAAXHwEW5y7F",
+        "model": "glm-5.2"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    },
+    "s_7d724ea76adc3c": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "2a0b9959-84de-46e0-a87e-11e7f1e7f1e3",
+        "model": "claude-opus-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
