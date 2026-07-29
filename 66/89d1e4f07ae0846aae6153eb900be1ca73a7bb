@@ -1,0 +1,32 @@
+lib/helpers/utils.js
+  s_02e96a1dfa972c::t_19151798eda18d 110,290,293-294,297,307,310,315,335-336,351,354,367,377,384,394,397-398,402-403,513,527-528,545,549,1593,1670
+  s_02e96a1dfa972c::t_6fc00abc21ba9c 102-109,111-125
+  s_02e96a1dfa972c::t_89a92df7d73c12 101
+lib/helpers/core-misc-b.js
+  s_02e96a1dfa972c::t_e81b962d032d81 68
+  s_02e96a1dfa972c::t_18851772596801 3,5-15,17-18,41-56,70-81,85,92,95-1976
+  s_02e96a1dfa972c::t_714f631e0c546c 2,33,38-39
+  s_02e96a1dfa972c::t_e8b0d2e323fea5 82-84,86-91
+  s_02e96a1dfa972c::t_19151798eda18d 4,16,20-23,31,40,67
+  s_02e96a1dfa972c::t_6e83cab266840a 1
+  s_02e96a1dfa972c::t_1e82f2139cc949 24-30,32,35,57-66,69
+  s_02e96a1dfa972c::t_a4064706656e23 19
+  s_02e96a1dfa972c::t_b312f8456cf04b 34,36-37
+  s_02e96a1dfa972c::t_f05b91fecbd29e 93-94
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "6689d1e4f07ae0846aae6153eb900be1ca73a7bb",
+  "prompts": {},
+  "sessions": {
+    "s_02e96a1dfa972c": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_050eae436ffeO6ePr46ViE6Ave",
+        "model": "glm-5.2"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
