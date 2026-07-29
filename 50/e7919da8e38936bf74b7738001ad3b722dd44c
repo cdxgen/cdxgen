@@ -1,0 +1,63 @@
+types/lib/helpers/core-misc-a.d.ts
+  s_7d724ea76adc3c::t_4ff157fe45dadc 1-99
+types/lib/helpers/core-misc-a.d.ts.map
+  s_7d724ea76adc3c::t_438cb64bba78bd 1
+types/lib/helpers/core-misc-b.d.ts
+  s_7d724ea76adc3c::t_b4d78e977889b5 1-59
+types/lib/helpers/core-misc-b.d.ts.map
+  s_7d724ea76adc3c::t_21e5aaa1076b55 1
+types/lib/helpers/ecosystems.d.ts
+  s_7d724ea76adc3c::t_87379e1724e6dd 1-66
+types/lib/helpers/ecosystems.d.ts.map
+  s_7d724ea76adc3c::t_bf81ab856d3656 1
+types/lib/helpers/gradleutils.d.ts
+  s_7d724ea76adc3c::t_b306e0ef5ecabb 77
+types/lib/helpers/parsers-dotnet.d.ts
+  s_7d724ea76adc3c::t_e96b6f64183e96 1-34
+types/lib/helpers/parsers-dotnet.d.ts.map
+  s_7d724ea76adc3c::t_302954465d2742 1
+types/lib/helpers/parsers-go.d.ts
+  s_7d724ea76adc3c::t_e208c75a169272 1-70
+types/lib/helpers/parsers-go.d.ts.map
+  s_7d724ea76adc3c::t_3566753f69fba6 1
+types/lib/helpers/parsers-js.d.ts
+  s_7d724ea76adc3c::t_3aaa28449c0700 1-59
+types/lib/helpers/parsers-js.d.ts.map
+  s_7d724ea76adc3c::t_6fd8991286b240 1
+types/lib/helpers/parsers-jvm.d.ts
+  s_7d724ea76adc3c::t_e82f6928208f1c 1-72
+types/lib/helpers/parsers-jvm.d.ts.map
+  s_7d724ea76adc3c::t_c8369d766b3f33 1
+types/lib/helpers/parsers-misc.d.ts
+  s_7d724ea76adc3c::t_00f8d66f9e3b6d 1-167
+types/lib/helpers/parsers-misc.d.ts.map
+  s_7d724ea76adc3c::t_55364df12159e6 1
+types/lib/helpers/parsers-python.d.ts
+  s_7d724ea76adc3c::t_952dd644eaefff 1-110
+types/lib/helpers/parsers-python.d.ts.map
+  s_7d724ea76adc3c::t_4946080b1122cf 1
+types/lib/helpers/parsers-rust.d.ts
+  s_7d724ea76adc3c::t_696ed04cb51ae0 1-6
+types/lib/helpers/parsers-rust.d.ts.map
+  s_7d724ea76adc3c::t_fe6766cfab1c75 1
+types/lib/helpers/utils.d.ts
+  s_7d724ea76adc3c::t_d7d34fc526c652 4-5,7,9-15,20
+types/lib/helpers/utils.d.ts.map
+  s_7d724ea76adc3c::t_bd418cd135a5fd 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "50e7919da8e38936bf74b7738001ad3b722dd44c",
+  "prompts": {},
+  "sessions": {
+    "s_7d724ea76adc3c": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "2a0b9959-84de-46e0-a87e-11e7f1e7f1e3",
+        "model": "unknown"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
