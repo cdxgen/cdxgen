@@ -1,0 +1,148 @@
+repotests/_cassettes/metadata_nuget.json
+  s_f05b88b7c24e90::t_5262d8cf006d66 1-14,16-20,22-23,25-28,30-253,255-259,261-262,264-268,270-8911
+  s_f05b88b7c24e90::t_ff1fbe219d39c8 15,21,24,29,254,260,263,269
+contrib/cassette-metadata-tests.js
+  s_f05b88b7c24e90::t_2fb49cc120a3d3 1-70,74-135,140,143,146-173,178-180,182-185,187-200
+  s_f05b88b7c24e90::t_fb2c53e8ed1faf 174-177,181,186
+  s_f05b88b7c24e90::t_07d27a0bdc7ed7 136-139
+  s_f05b88b7c24e90::t_e17bf6235dd987 71-73
+  s_f05b88b7c24e90::t_82bbac38cc8fbc 141-142,144-145
+repotests/mix-smoke/golden.manifest.json
+  s_f05b88b7c24e90::t_934b353480174a 1-10
+repotests/npm-smoke/expected/spec-1.6.json
+  s_f05b88b7c24e90::t_2a9e9a6ce50b3d 1-322
+repotests/pipenv-smoke/golden.manifest.json
+  s_f05b88b7c24e90::t_66c5aeb7342349 1-10
+repotests/dotnet-eshop/eShop.Shared.csproj
+  s_f05b88b7c24e90::t_fe2caf506ca41f 1-21
+repotests/npm-smoke/golden.manifest.json
+  s_f05b88b7c24e90::t_8c4aceb73a2738 7-16
+repotests/_cassettes/metadata_npm.json
+  s_f05b88b7c24e90::t_5262d8cf006d66 1-9,11-14,17,19-1092
+  s_f05b88b7c24e90::t_ff1fbe219d39c8 10,15-16,18
+repotests/python-smoke/pyproject.toml
+  s_f05b88b7c24e90::t_aeb910536fc517 1-7
+repotests/python-smoke/expected/default.json
+  s_f05b88b7c24e90::t_9adb7de5657ef0 73,75-81,83
+.github/workflows/v13-diff.yml
+  s_f05b88b7c24e90::t_f5721ed3378576 1-56
+repotests/docker-smoke/Dockerfile
+  s_f05b88b7c24e90::t_8b563a849161d8 1-41
+repotests/pipenv-smoke/pyproject.toml
+  s_f05b88b7c24e90::t_ca3a7a19d7c92b 1-3
+repotests/ruby-smoke/ruby-smoke.gemspec
+  s_f05b88b7c24e90::t_aa180ca21eda3e 1-6
+repotests/_cassettes/metadata_py.json
+  s_f05b88b7c24e90::t_5262d8cf006d66 1-24,30-221
+  s_f05b88b7c24e90::t_ff1fbe219d39c8 25-26,28-29
+  s_f05b88b7c24e90::t_0844f5e33f5a1c 27
+.github/workflows/nodejs.yml
+  s_f05b88b7c24e90::t_f51dab07b2f831 152-160,162-171
+  s_f05b88b7c24e90::t_93aba5f019a799 11,17,31,37
+  s_f05b88b7c24e90::t_ceb131398910ff 161
+repotests/cocoapods-smoke/golden.manifest.json
+  s_f05b88b7c24e90::t_934b353480174a 1-10
+repotests/docker-smoke/golden.manifest.json
+  s_f05b88b7c24e90::t_8b563a849161d8 1-10
+contrib/shuffle-tests.js
+  s_f05b88b7c24e90::t_043e2353fe043f 101
+  s_f05b88b7c24e90::t_22930e1c598581 1-100,102-176
+repotests/pipenv-smoke/expected/default.json
+  s_f05b88b7c24e90::t_3953bd776ce1be 841,843-849,851
+  s_f05b88b7c24e90::t_2a9e9a6ce50b3d 1-840,842,850,852-881
+repotests/composer-smoke/golden.manifest.json
+  s_f05b88b7c24e90::t_934b353480174a 1-10
+repotests/composer-smoke/composer.json
+  s_f05b88b7c24e90::t_a53902874e6f3f 1-33
+repotests/npm-smoke/expected/spec-1.7.json
+  s_f05b88b7c24e90::t_2a9e9a6ce50b3d 1-322
+repotests/poetry-smoke/pyproject.toml
+  s_f05b88b7c24e90::t_d734fcfbc13702 1
+  s_f05b88b7c24e90::t_95bef6221f200b 2-4,9
+  s_f05b88b7c24e90::t_765d8affcbe8bc 5-8
+repotests/poetry-smoke/expected/default.json
+  s_f05b88b7c24e90::t_2a9e9a6ce50b3d 1-3253,3256,3264,3266-3295
+  s_f05b88b7c24e90::t_4de56621d44821 3254-3255,3257-3263,3265
+repotests/_cassettes/metadata_mvn.json
+  s_f05b88b7c24e90::t_ff1fbe219d39c8 1-54
+repotests/_cassettes/metadata_repolicense.json
+  s_f05b88b7c24e90::t_ff1fbe219d39c8 10,32,34,36
+  s_f05b88b7c24e90::t_5262d8cf006d66 1-9,11-31,33,35,37-65
+repotests/mix-smoke/expected/default.json
+  s_f05b88b7c24e90::t_2a9e9a6ce50b3d 1-356
+contrib/record-cassettes.js
+  s_f05b88b7c24e90::t_ae6c7eea295766 56-59
+  s_f05b88b7c24e90::t_cea42de5d7fedf 53-55,60-64
+  s_f05b88b7c24e90::t_da73041a5bad3c 1-52,65-89,92-101
+  s_f05b88b7c24e90::t_479d3ed0e7337f 90-91
+repotests/_cassettes/metadata_gopkglicense.json
+  s_f05b88b7c24e90::t_ff1fbe219d39c8 14
+  s_f05b88b7c24e90::t_0844f5e33f5a1c 1-13,15-23
+repotests/pubspec-smoke/pubspec.yaml
+  s_f05b88b7c24e90::t_3b19a22c994923 1-282
+repotests/cocoapods-smoke/Podfile
+  s_f05b88b7c24e90::t_3b19a22c994923 1-84
+repotests/_cassettes/metadata_crates.json
+  s_f05b88b7c24e90::t_0844f5e33f5a1c 4003,4078,4453,4678,5203,6253,7153,8053,9628,13300,13840,14200,14980,15220,15400,16081,16660,17150,18736,19650,19841,19891
+  s_f05b88b7c24e90::t_5262d8cf006d66 1-16,18-19,21-22,25-26,28-365,367-1827,1829-3627,3629-4002,4004-4077,4079-4452,4454-4677,4679-5052,5054-5202,5204-5352,5354-6252,6254-7152,7154-7677,7679-8052,8054-8652,8654-8727,8729-9627,9629-10624,10626-11343,11345-11514,11516-12027,12029-12369,12371-12939,12941-13299,13301-13479,13481-13839,13841-14199,14201-14859,14861-14979,14981-15219,15221-15399,15401-15519,15521-15702,15704-16017,16019-16080,16082-16209,16211-16659,16661-17149,17151-17576,17578-18735,18737-19649,19651-19840,19842-19890,19892-21203,21205-21206,21208-21209,21212-21213,21215-21240
+  s_f05b88b7c24e90::t_ff1fbe219d39c8 17,20,23-24,27,366,1828,3628,5053,5353,7678,8653,8728,10625,11344,11515,12028,12370,12940,13480,14860,15520,15703,16018,16210,17577,21204,21207,21210-21211,21214
+repotests/ruby-smoke/golden.manifest.json
+  s_f05b88b7c24e90::t_934b353480174a 1-10
+repotests/pubspec-smoke/expected/default.json
+  s_f05b88b7c24e90::t_2a9e9a6ce50b3d 1-12766
+repotests/ruby-smoke/expected/default.json
+  s_f05b88b7c24e90::t_2a9e9a6ce50b3d 1-3183,3214-4467,4469-4568,4570-4571,4573,4575-4604
+  s_f05b88b7c24e90::t_3953bd776ce1be 3184-3213,4468,4569,4572,4574
+repotests/cocoapods-smoke/expected/default.json
+  s_f05b88b7c24e90::t_527e298e83aed1 1-690
+repotests/pubspec-smoke/golden.manifest.json
+  s_f05b88b7c24e90::t_934b353480174a 1-10
+repotests/composer-smoke/expected/default.json
+  s_f05b88b7c24e90::t_2a9e9a6ce50b3d 1-3329
+package.json
+  s_f05b88b7c24e90::t_a0d88ee6fe6ae0 122
+contrib/golden-runner.js
+  s_f05b88b7c24e90::t_2c24f6ca96b497 45-51
+repotests/docker-smoke/expected/default.json
+  s_f05b88b7c24e90::t_2fb7bb6ea64d03 1-141
+repotests/poetry-smoke/golden.manifest.json
+  s_f05b88b7c24e90::t_934b353480174a 1-10
+repotests/dotnet-eshop/golden.manifest.json
+  s_f05b88b7c24e90::t_814d91f778843b 1-10
+repotests/pipenv-smoke/Pipfile
+  s_f05b88b7c24e90::t_66c5aeb7342349 1-43
+repotests/dotnet-eshop/expected/default.json
+  s_f05b88b7c24e90::t_2a9e9a6ce50b3d 1-337
+repotests/cocoapods-smoke/Podfile.lock
+  s_f05b88b7c24e90::t_13b2065a700722 1-233
+repotests/composer-smoke/composer.lock
+  s_f05b88b7c24e90::t_26a907b765fc01 1-3248
+repotests/mix-smoke/mix.lock
+  s_f05b88b7c24e90::t_5fe2197ce41b21 1-42
+repotests/pipenv-smoke/Pipfile.lock
+  s_f05b88b7c24e90::t_c9bca7fc73aeb2 1-1579
+repotests/poetry-smoke/poetry.lock
+  s_f05b88b7c24e90::t_8a143104a5aa3e 1-2396
+repotests/pubspec-smoke/pubspec.lock
+  s_f05b88b7c24e90::t_2b2bd9c5fb0a20 1-2746
+repotests/ruby-smoke/Gemfile
+  s_f05b88b7c24e90::t_7f4f49981a47f8 1-3
+repotests/ruby-smoke/Gemfile.lock
+  s_f05b88b7c24e90::t_8262562e4db535 1-231
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "840d6dd0bca1b4372e35997b895fd134cc30cb85",
+  "prompts": {},
+  "sessions": {
+    "s_f05b88b7c24e90": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_054ca2b08ffe1Ef797SGteqckZ",
+        "model": "glm-5.2"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
