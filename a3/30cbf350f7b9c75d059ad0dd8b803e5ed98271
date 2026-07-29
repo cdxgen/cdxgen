@@ -1,0 +1,27 @@
+repotests/cbom-js-smoke/package.json
+  s_39029006502cd0::t_688ed9650fbb2a 1-7
+repotests/cbom-js-smoke/src/crypto.js
+  s_39029006502cd0::t_688ed9650fbb2a 1-16
+PROGRESS.md
+  s_39029006502cd0::t_f84764efe51fba 51
+repotests/cbom-js-smoke/expected/default.json
+  s_39029006502cd0::t_eb40ed14ae73b3 1-164
+repotests/cbom-js-smoke/golden.manifest.json
+  s_39029006502cd0::t_bf435ff5806cab 1-11
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "a330cbf350f7b9c75d059ad0dd8b803e5ed98271",
+  "prompts": {},
+  "sessions": {
+    "s_39029006502cd0": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_04fdcb654ffeKIoAAXHwEW5y7F",
+        "model": "glm-5.2"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
