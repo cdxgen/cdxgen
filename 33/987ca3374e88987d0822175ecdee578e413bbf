@@ -1,0 +1,31 @@
+PROGRESS.md
+  s_02e96a1dfa972c::t_f4646fc777efe3 5
+  s_02e96a1dfa972c::t_9e367306d0b4e8 6
+lib/helpers/barrel.poku.js
+  s_02e96a1dfa972c::t_4ee937f1eb01a3 277-286,303-307,311-318
+lib/helpers/utils.js
+  s_02e96a1dfa972c::t_b9fdfd2b672297 141
+  s_02e96a1dfa972c::t_95acbedf5a928d 143-169,7385,7897-7904
+  s_02e96a1dfa972c::t_4ee937f1eb01a3 142,255,265-266,268-269,271,277-280,285-287,289,292-293,297,317,326,328,347,368
+  s_02e96a1dfa972c::t_7a123414736811 3-4
+lib/helpers/ecosystems.js
+  s_02e96a1dfa972c::t_0149a971b625d2 1-6,8-10,12-27,38-1998
+  s_02e96a1dfa972c::t_4ee937f1eb01a3 7,28-37
+  s_02e96a1dfa972c::t_3a65188bec2cf2 11
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "33987ca3374e88987d0822175ecdee578e413bbf",
+  "prompts": {},
+  "sessions": {
+    "s_02e96a1dfa972c": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_050eae436ffeO6ePr46ViE6Ave",
+        "model": "glm-5.2"
+      },
+      "human_author": null
+    }
+  }
+}
