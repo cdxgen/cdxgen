@@ -1,0 +1,19 @@
+docs/v13/utils-inventory.md
+  s_c51b0a94a11726::t_00582a2b005370 1-466
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "63eec4cfa2c30bdbe2106339d859943fc296253c",
+  "prompts": {},
+  "sessions": {
+    "s_c51b0a94a11726": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_05452ec2dffeHAOG8MAH7i5Dxx",
+        "model": "glm-5.2"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
