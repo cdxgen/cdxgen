@@ -1,0 +1,27 @@
+PROGRESS.md
+  s_39029006502cd0::t_678f7f487f8809 49
+repotests/dotnet-assets-smoke/dotnet-assets-smoke.csproj
+  s_39029006502cd0::t_5cd5d2caf99e05 1-10
+repotests/dotnet-assets-smoke/obj/project.assets.json
+  s_39029006502cd0::t_5cd5d2caf99e05 1-499
+repotests/dotnet-assets-smoke/golden.manifest.json
+  s_39029006502cd0::t_5cd5d2caf99e05 1-11
+repotests/dotnet-assets-smoke/expected/default.json
+  s_39029006502cd0::t_7c9c2f555d9e07 1-116
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "32858f4f9b18ef01926ca1702ebff7cc4bf5b71f",
+  "prompts": {},
+  "sessions": {
+    "s_39029006502cd0": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_04fdcb654ffeKIoAAXHwEW5y7F",
+        "model": "glm-5.2"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
