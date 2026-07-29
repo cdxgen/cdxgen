@@ -1,0 +1,38 @@
+docs/v13/utils-inventory.md
+  s_e1deead5c3a744::t_da594377c91613 152-153
+  s_e1deead5c3a744::t_622bc7b34d2630 191,196
+  s_e1deead5c3a744::t_017cc57c274b01 450,458-465,468-471
+lib/helpers/core-env.js
+  s_e1deead5c3a744::t_b088e762233f80 2-3,6-122
+  s_e1deead5c3a744::t_af035e54f13aa6 5
+  s_e1deead5c3a744::t_2c3a980c739179 1,4
+  s_e1deead5c3a744::t_ece6c53fe22897 216-417
+  s_e1deead5c3a744::t_f5f4939b61644f 123-215
+lib/helpers/utils.js
+  s_e1deead5c3a744::t_ea7cdb68cfcaf2 81
+  s_e1deead5c3a744::t_d537a2c210c60d 100,102,104
+  s_e1deead5c3a744::t_535c9a09ed8e17 83,87,92-95,101,108,110-113,115
+  s_e1deead5c3a744::t_87f3fb0e9f00c9 105,300,325
+  s_e1deead5c3a744::t_9df5d38ac88581 241
+  s_e1deead5c3a744::t_3fabd289c088f4 82,85-86,88,90-91,96-99,103,106-107,114
+  s_e1deead5c3a744::t_d8e5f59e18323c 84,89,109,240,242,244,256,263-264,268,272,291-292,297-298,302,309-310,326,344
+  s_e1deead5c3a744::t_602698f34f6025 305,338-341
+  s_e1deead5c3a744::t_acece37bbf2b53 299,301,303
+  s_e1deead5c3a744::t_aa1b1890af987f 260,278,281-282,286
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "65cc0ac29a75e7c5198e9f7b08a4d09b86e66ac8",
+  "prompts": {},
+  "sessions": {
+    "s_e1deead5c3a744": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_0524011f7ffeVcWHUGj5V5OkvS",
+        "model": "glm-5.2"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
