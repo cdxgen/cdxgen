@@ -1,0 +1,26 @@
+.github/workflows/v13-diff.yml
+  s_7d724ea76adc3c::t_f02c7ef0709778 11-15
+contrib/golden-runner.js
+  s_7d724ea76adc3c::t_0e339039bf2b77 45-54
+lib/helpers/utils.js
+  s_7d724ea76adc3c::t_eb1961d34de49c 18022-18046
+  s_7d724ea76adc3c::t_cc00730432c922 18060-18064
+contrib/cassette-metadata-tests.js
+  s_7d724ea76adc3c::t_04dbb64e8b8c01 50-66
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "a1bb93c5b35deb5ef3f0160985dab04612d363e8",
+  "prompts": {},
+  "sessions": {
+    "s_7d724ea76adc3c": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "2a0b9959-84de-46e0-a87e-11e7f1e7f1e3",
+        "model": "claude-opus-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
