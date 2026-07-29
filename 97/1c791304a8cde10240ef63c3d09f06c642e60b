@@ -1,0 +1,23 @@
+lib/helpers/utils.js
+  s_02e96a1dfa972c::t_89b3fd1d5fefca 226,365-367,374,379,389-392,395-397,401
+  s_02e96a1dfa972c::t_88a0ed61657461 218-225,227-231
+  s_02e96a1dfa972c::t_a7e7269eb5dbf9 217
+lib/helpers/parsers-jvm.js
+  s_02e96a1dfa972c::t_ee3aae14658831 1-872
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "971c791304a8cde10240ef63c3d09f06c642e60b",
+  "prompts": {},
+  "sessions": {
+    "s_02e96a1dfa972c": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_050eae436ffeO6ePr46ViE6Ave",
+        "model": "glm-5.2"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
