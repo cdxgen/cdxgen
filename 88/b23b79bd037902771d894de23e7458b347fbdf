@@ -1,0 +1,25 @@
+repotests/ai-modelfile-smoke/golden.manifest.json
+  s_39029006502cd0::t_7cff65dec292d3 1-11
+repotests/ai-modelfile-smoke/expected/default.json
+  s_39029006502cd0::t_7770fcab441f2f 1-215
+PROGRESS.md
+  s_39029006502cd0::t_d332e35908d11c 50
+repotests/ai-modelfile-smoke/Modelfile
+  s_39029006502cd0::t_f8a21bf9d48748 1-9
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "88b23b79bd037902771d894de23e7458b347fbdf",
+  "prompts": {},
+  "sessions": {
+    "s_39029006502cd0": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_04fdcb654ffeKIoAAXHwEW5y7F",
+        "model": "glm-5.2"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
