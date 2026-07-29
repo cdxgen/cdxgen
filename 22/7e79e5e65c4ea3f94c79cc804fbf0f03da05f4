@@ -1,0 +1,39 @@
+lib/helpers/paths.js
+  s_7d724ea76adc3c::t_dc26395dc24542 1-28
+types/lib/helpers/paths.d.ts
+  s_7d724ea76adc3c::t_09bcac2fc76a0c 1-17
+lib/helpers/purl.js
+  s_7d724ea76adc3c::t_243371c49e8a01 111
+types/lib/helpers/utils.d.ts
+  s_7d724ea76adc3c::t_09bcac2fc76a0c 5-6
+lib/helpers/utils.js
+  s_7d724ea76adc3c::t_75036208c095e9 158
+  s_7d724ea76adc3c::t_acd80889d95712 115
+  s_7d724ea76adc3c::t_00f2df97b60880 33
+test/baseline/npm-pack-file-list.txt
+  s_7d724ea76adc3c::t_63901a7d7cde19 151,413-414
+lib/helpers/spdx.js
+  s_7d724ea76adc3c::t_34e8668daf5962 2,5-8,12,15,18
+types/lib/helpers/paths.d.ts.map
+  s_7d724ea76adc3c::t_51ee459bc42393 1
+types/lib/helpers/spdx.d.ts.map
+  s_7d724ea76adc3c::t_d92d103d68ef71 1
+types/lib/helpers/utils.d.ts.map
+  s_7d724ea76adc3c::t_1ab15f26983bcf 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "227e79e5e65c4ea3f94c79cc804fbf0f03da05f4",
+  "prompts": {},
+  "sessions": {
+    "s_7d724ea76adc3c": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "2a0b9959-84de-46e0-a87e-11e7f1e7f1e3",
+        "model": "claude-opus-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
