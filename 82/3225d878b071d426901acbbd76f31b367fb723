@@ -1,0 +1,22 @@
+lib/helpers/barrel.poku.js
+  s_02e96a1dfa972c::t_22a4662af20e5e 1-280,296-301
+  s_02e96a1dfa972c::t_7a225b7941aa3a 281-295
+PROGRESS.md
+  s_02e96a1dfa972c::t_e52e02c6482561 1-5
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "823225d878b071d426901acbbd76f31b367fb723",
+  "prompts": {},
+  "sessions": {
+    "s_02e96a1dfa972c": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_050eae436ffeO6ePr46ViE6Ave",
+        "model": "glm-5.2"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
