@@ -1,0 +1,23 @@
+contrib/mutation-tests.js
+  s_39029006502cd0::t_3d959806d4028a 664-790,804
+PROGRESS.md
+  s_39029006502cd0::t_0fc6f57c0a43a7 54-91
+  s_39029006502cd0::t_6ce472aca844ec 52
+  s_39029006502cd0::t_e8135006fd2a20 53
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "217a1ef8e9db07d7e806a888b1bf112d4eb31fa6",
+  "prompts": {},
+  "sessions": {
+    "s_39029006502cd0": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_04fdcb654ffeKIoAAXHwEW5y7F",
+        "model": "glm-5.2"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
