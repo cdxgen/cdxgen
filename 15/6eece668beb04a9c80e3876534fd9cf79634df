@@ -1,0 +1,29 @@
+repotests/uv-smoke/pyproject.toml
+  s_39029006502cd0::t_b4094a1bff176f 1-12
+repotests/uv-smoke/expected/default.json
+  s_39029006502cd0::t_65d8afad690118 1-290
+repotests/uv-smoke/golden.manifest.json
+  s_39029006502cd0::t_80477111210554 1-11
+BLOCKERS.md
+  s_39029006502cd0::t_e0da00ea6e8b13 61-96
+PROGRESS.md
+  s_39029006502cd0::t_a0e4e044b7e422 47
+repotests/uv-smoke/uv.lock
+  s_39029006502cd0::t_ca54d611aaa8e7 1-75
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "156eece668beb04a9c80e3876534fd9cf79634df",
+  "prompts": {},
+  "sessions": {
+    "s_39029006502cd0": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_04fdcb654ffeKIoAAXHwEW5y7F",
+        "model": "glm-5.2"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
