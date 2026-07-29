@@ -1,0 +1,22 @@
+MIGRATING-TO-V13.md
+  s_02e96a1dfa972c::t_0156120733643f 56-84
+docs/v13/utils-inventory.md
+  s_02e96a1dfa972c::t_a125634c20c7ff 79,83,153,181-182,249-255,274,438,459
+  s_02e96a1dfa972c::t_4f92724bdc6c55 531,535-536
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "06bb26e38294201451e87adb017ddbe123f70045",
+  "prompts": {},
+  "sessions": {
+    "s_02e96a1dfa972c": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_050eae436ffeO6ePr46ViE6Ave",
+        "model": "glm-5.2"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
