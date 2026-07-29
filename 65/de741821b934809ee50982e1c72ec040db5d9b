@@ -1,0 +1,41 @@
+types/lib/helpers/utils.d.ts
+  s_c51b0a94a11726::t_ea3586755314e7 2,4
+lib/helpers/purl.js
+  s_c51b0a94a11726::t_5ae7025df05757 20-30
+  s_c51b0a94a11726::t_2ff099ec6a158e 1-6,14-19,31-77,85-235,237-251
+  s_c51b0a94a11726::t_ebd403001e231a 78-84
+  s_c51b0a94a11726::t_9f3845648c9480 7-13
+  s_c51b0a94a11726::t_de4f7a44e1b64d 236
+test/baseline/npm-pack-file-list.txt
+  s_c51b0a94a11726::t_6deadd67c4484e 155,418-419
+types/lib/helpers/httpClient.d.ts
+  s_c51b0a94a11726::t_ea3586755314e7 92-130
+types/lib/helpers/purl.d.ts
+  s_c51b0a94a11726::t_ea3586755314e7 1-31
+lib/helpers/utils.js
+  s_c51b0a94a11726::t_58464b9a533d87 102-106,124-125,130
+  s_c51b0a94a11726::t_a65f1532c30f1c 126-129
+  s_c51b0a94a11726::t_c31b27132207cf 101
+types/lib/helpers/httpClient.d.ts.map
+  s_c51b0a94a11726::t_1ddc1376de34ea 1
+types/lib/helpers/purl.d.ts.map
+  s_c51b0a94a11726::t_c349a1c6602ab4 1
+types/lib/helpers/utils.d.ts.map
+  s_c51b0a94a11726::t_91abd8a98b73de 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "65de741821b934809ee50982e1c72ec040db5d9b",
+  "prompts": {},
+  "sessions": {
+    "s_c51b0a94a11726": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_05452ec2dffeHAOG8MAH7i5Dxx",
+        "model": "glm-5.2"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
