@@ -1,0 +1,42 @@
+lib/helpers/core-fs.js
+  s_bf4eb7d0f50306::t_7066240a9481da 732-911
+  s_bf4eb7d0f50306::t_e28ecdccb7acbf 395
+  s_bf4eb7d0f50306::t_a05dd45705d3e2 3,6,15,19-20,24,31,36
+  s_bf4eb7d0f50306::t_81900174d606e7 4-5,7-14,17-18,21-23,26-28,30,32-35,38-308
+  s_bf4eb7d0f50306::t_0cf74494d9e40d 309-394,396-731
+  s_bf4eb7d0f50306::t_53497ed28ea4b3 1-2,16,25,29,37
+lib/helpers/utils.js
+  s_bf4eb7d0f50306::t_6ff5e1fb367feb 264-269,271-272
+  s_bf4eb7d0f50306::t_5640d8bf4bd18f 157
+  s_bf4eb7d0f50306::t_235feceb931d44 207
+  s_bf4eb7d0f50306::t_9689c65eca0d45 83,88,96,99
+  s_bf4eb7d0f50306::t_0d94d7dea24154 270
+  s_bf4eb7d0f50306::t_7a837a32bace71 237,241
+  s_bf4eb7d0f50306::t_b3f68bda36761f 243
+  s_bf4eb7d0f50306::t_a9f7fe43ee9dcd 82,84-87,89
+  s_bf4eb7d0f50306::t_19ccf6dcbf77f6 2
+  s_bf4eb7d0f50306::t_7822668d2f1c19 275
+  s_bf4eb7d0f50306::t_8d2be73f10966f 229-230
+  s_bf4eb7d0f50306::t_57dc7e5342044b 81,90-95,97-98,100-101
+  s_bf4eb7d0f50306::t_180d43aeb89458 222-223
+  s_bf4eb7d0f50306::t_67f2e782fd24fe 210
+  s_bf4eb7d0f50306::t_2dd1561eab44cd 245
+lib/helpers/paths.js
+  s_bf4eb7d0f50306::t_0956d769edc3f8 17,30-32
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "d2107aae007110a0eef57513a80b6cb59c0ff005",
+  "prompts": {},
+  "sessions": {
+    "s_bf4eb7d0f50306": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_0528c7b2effe43c4l9SWQPHrrV",
+        "model": "glm-5.2"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
