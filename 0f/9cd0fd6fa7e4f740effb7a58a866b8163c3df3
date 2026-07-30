@@ -1,0 +1,32 @@
+contrib/check-boundaries.js
+  s_0173f70982b61e::t_56f919ef1713e3 457-460
+  s_7d724ea76adc3c::t_a163b3e7dfa462 2,4-11,14-16,19-20,27-28,31-38,40,56-57,59,61,65,67,69,82,84,88,138,146,148-149,151-154,157-192,194-202,204-205,207,209-211,214,219,221-222,227-283,285-443,451-456,461-468,470-546,549-611
+PROGRESS.md
+  s_0173f70982b61e::t_558ef354d30f9d 1-4
+lib/boundaries.poku.js
+  s_0173f70982b61e::t_fdecb52869499f 1-3,12-22,26-33,35-86,88-161,223-225,227
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "0f9cd0fd6fa7e4f740effb7a58a866b8163c3df3",
+  "prompts": {},
+  "sessions": {
+    "s_0173f70982b61e": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_04af8fbcaffeHMQaIDxEqaGJbg",
+        "model": "glm-5.2"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    },
+    "s_7d724ea76adc3c": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "2a0b9959-84de-46e0-a87e-11e7f1e7f1e3",
+        "model": "claude-opus-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
