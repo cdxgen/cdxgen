@@ -1,0 +1,24 @@
+package.json
+  s_cfc97a8f7e6a36::t_52009518ca3144 140
+contrib/purl-migration-audit.js
+  s_cfc97a8f7e6a36::t_58c37d98cdbca3 5
+  s_cfc97a8f7e6a36::t_f3df50ad0874e5 1-4,6-183
+pnpm-lock.yaml
+  s_cfc97a8f7e6a36::t_fa49f4a9b2e9df 25-27,403-406,1360-1361
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "867abb95db4b76aa13b0d3799318a36d23012222",
+  "prompts": {},
+  "sessions": {
+    "s_cfc97a8f7e6a36": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_04ca2dca2ffeU1dWavBIClcKNA",
+        "model": "glm-5.2"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
