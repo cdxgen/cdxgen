@@ -1,0 +1,21 @@
+BLOCKERS.md
+  s_7d724ea76adc3c::t_f8a586a4585416 95-130
+repotests/cbom-js-smoke/golden.manifest.json
+  s_7d724ea76adc3c::t_22d141e1a16984 2
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "272cf3e71f127e58ea3038cbfe19b0caa44292cc",
+  "prompts": {},
+  "sessions": {
+    "s_7d724ea76adc3c": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "2a0b9959-84de-46e0-a87e-11e7f1e7f1e3",
+        "model": "claude-opus-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
