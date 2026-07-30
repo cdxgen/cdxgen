@@ -1,0 +1,21 @@
+bin/cdxgen.js
+  s_dc4206b5a672dc::t_60b0ce58ac1e05 716-717
+  s_dc4206b5a672dc::t_49b96a6daf9b8b 158-177
+  s_dc4206b5a672dc::t_89ee9a1c8b6956 708-715,718
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "f4079b46019c8ca512a9a9fe2d8e4491661105f8",
+  "prompts": {},
+  "sessions": {
+    "s_dc4206b5a672dc": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_04f9e962affeCpkCOvNqJikH4d",
+        "model": "glm-5.2"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
