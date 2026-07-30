@@ -1,0 +1,27 @@
+lib/helpers/cdxrs.poku.js
+  s_56bdcfbf76146c::t_5d742b3d082470 9-14,17
+  s_56bdcfbf76146c::t_7dda882d0dffec 322,345,410
+  s_56bdcfbf76146c::t_00428f2b945dd7 325
+  s_56bdcfbf76146c::t_204fdacbe6ee1d 318,320-321,340,342-344,346,354,356-384,386-396,398-405,407-409,411-415
+  s_56bdcfbf76146c::t_c627c1ea9ed0da 1
+  s_56bdcfbf76146c::t_aee0cb142b7f56 319,324,341,355,385,397,406
+  s_56bdcfbf76146c::t_ba569bb21e4ada 16
+  s_56bdcfbf76146c::t_b1626c60c371d1 353,416
+  s_56bdcfbf76146c::t_1c0f60dbc16059 15
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "2035321af03dcd5020120ce1a3ac363aac0b0782",
+  "prompts": {},
+  "sessions": {
+    "s_56bdcfbf76146c": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_04d5ae778ffe3FVRW0LI40jz16",
+        "model": "glm-5.2"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
