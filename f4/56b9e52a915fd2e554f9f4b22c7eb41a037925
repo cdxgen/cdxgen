@@ -1,0 +1,21 @@
+PROGRESS.md
+  s_cfc97a8f7e6a36::t_aef4083946fd00 26-27
+BLOCKERS.md
+  s_cfc97a8f7e6a36::t_e66a995ef99f7d 71-91
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "f456b9e52a915fd2e554f9f4b22c7eb41a037925",
+  "prompts": {},
+  "sessions": {
+    "s_cfc97a8f7e6a36": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_04ca2dca2ffeU1dWavBIClcKNA",
+        "model": "glm-5.2"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
