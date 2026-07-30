@@ -1,0 +1,37 @@
+lib/helpers/deps.js
+  s_0173f70982b61e::t_3a411f87ff96a8 15-16,24-25
+lib/managers/piptree.js
+  s_0173f70982b61e::t_fe8c4ff24d853a 17
+lib/boundaries.poku.js
+  s_0173f70982b61e::t_3570cf64ca8aac 48,50-51
+lib/helpers/spdx.js
+  s_0173f70982b61e::t_288cb015a5dacf 9
+lib/helpers/purl.js
+  s_0173f70982b61e::t_acaf4d89865fdc 5
+lib/helpers/parsers-js.js
+  s_0173f70982b61e::t_dc298f28551d94 2336-2405
+  s_0173f70982b61e::t_9cfe46807c5a2b 29
+  s_0173f70982b61e::t_409a23d7017308 2335
+lib/managers/piptree.poku.js
+  s_0173f70982b61e::t_411db7f2ecb986 21
+lib/helpers/pythonutils.js
+  s_0173f70982b61e::t_070dc017a02da9 5-7
+lib/helpers/npmutils.js
+  s_0173f70982b61e::t_eba713c6096e39 7
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "648d58f6edb2d6b3382c34fd255c277ec4134ab1",
+  "prompts": {},
+  "sessions": {
+    "s_0173f70982b61e": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_04af8fbcaffeHMQaIDxEqaGJbg",
+        "model": "glm-5.2"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
