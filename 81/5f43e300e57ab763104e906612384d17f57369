@@ -1,0 +1,22 @@
+lib/validator/schema-drift.poku.js
+  s_7d724ea76adc3c::t_12fd4b65492d69 32-45,47-48
+lib/helpers/cdxrs.poku.js
+  s_7d724ea76adc3c::t_b1bfe74af2c49c 42,44-49,51-63,65,72
+  s_7d724ea76adc3c::t_a6c162b57ec4a4 68-71
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "815f43e300e57ab763104e906612384d17f57369",
+  "prompts": {},
+  "sessions": {
+    "s_7d724ea76adc3c": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "2a0b9959-84de-46e0-a87e-11e7f1e7f1e3",
+        "model": "claude-opus-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
