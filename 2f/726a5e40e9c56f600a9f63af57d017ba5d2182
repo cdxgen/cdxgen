@@ -1,0 +1,19 @@
+docs/v13/validation-rules.md
+  s_56bdcfbf76146c::t_cc8c694e9aeba2 1-103
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "2f726a5e40e9c56f600a9f63af57d017ba5d2182",
+  "prompts": {},
+  "sessions": {
+    "s_56bdcfbf76146c": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_04d5ae778ffe3FVRW0LI40jz16",
+        "model": "glm-5.2"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
