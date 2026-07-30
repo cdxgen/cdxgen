@@ -1,0 +1,39 @@
+BLOCKERS.md
+  s_7d724ea76adc3c::t_eb9e502e319615 14-23
+lib/helpers/cdxrs.poku.js
+  s_7d724ea76adc3c::t_8392877fac59be 263-271,275-278
+  s_7d724ea76adc3c::t_00993c43b04ea5 55,71,82,93,104
+  s_7d724ea76adc3c::t_d71dc15254e3d3 118-121,139-142
+  s_7d724ea76adc3c::t_e2a0288e2f28bb 244-262,272-274,279-339
+docs/v13/rust.md
+  s_7d724ea76adc3c::t_b81ceedfda5737 157-187,192
+  s_7d724ea76adc3c::t_558f95b874ae7e 206-207,209,213-216
+  s_7d724ea76adc3c::t_65521072146f4e 57-58
+lib/helpers/cdxrs.js
+  s_7d724ea76adc3c::t_1b01a7f7de943c 341,352
+  s_7d724ea76adc3c::t_08904dae106ff8 290-292,299-301,305-306
+  s_7d724ea76adc3c::t_9d1744167c24d6 19-21,33-37
+  s_7d724ea76adc3c::t_f3fda6d01970ed 302-304
+  s_7d724ea76adc3c::t_bda43d7e627e00 228-269
+  s_7d724ea76adc3c::t_817ba5b27484a8 151-158,161-163,169-191
+  s_7d724ea76adc3c::t_1a6090a5374632 38
+  s_7d724ea76adc3c::t_c3c6a5b35de064 307
+contrib/link-local-plugins.sh
+  s_7d724ea76adc3c::t_e26701a02615f0 1-84
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "63ff092754862666883894237fa784ed0a6854a0",
+  "prompts": {},
+  "sessions": {
+    "s_7d724ea76adc3c": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "2a0b9959-84de-46e0-a87e-11e7f1e7f1e3",
+        "model": "claude-opus-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
