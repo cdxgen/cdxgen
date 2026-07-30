@@ -1,0 +1,44 @@
+lib/helpers/parsers-go.js
+  s_7d724ea76adc3c::t_b5af9b52228b72 5
+  s_7d724ea76adc3c::t_852bdc60d02d3d 63-68,73-74
+  s_7d724ea76adc3c::t_b5249055dbc6c8 86,120-121
+  s_7d724ea76adc3c::t_cf05d8b6c4e176 15,122-125
+lib/validator/golden-purl-validity.poku.js
+  s_7d724ea76adc3c::t_9b602460b1976a 151-211
+lib/helpers/gradleutils.js
+  s_7d724ea76adc3c::t_cf05d8b6c4e176 9
+  s_7d724ea76adc3c::t_b5249055dbc6c8 724,726
+lib/helpers/purl.js
+  s_7d724ea76adc3c::t_b6accb7ca5d0a2 124-147,154-157,164,173
+  s_7d724ea76adc3c::t_741fdb022822c6 103-123
+lib/helpers/parsers-jvm.js
+  s_7d724ea76adc3c::t_b5249055dbc6c8 591,593
+  s_7d724ea76adc3c::t_cf05d8b6c4e176 11
+lib/helpers/parsers-go.poku.js
+  s_7d724ea76adc3c::t_1acd73d05621f5 587-606
+  s_7d724ea76adc3c::t_cd04fb34b72218 541-544,547,553-558
+lib/helpers/purl.poku.js
+  s_7d724ea76adc3c::t_238b81d7bf91c9 4-9,171-176,178-187
+  s_7d724ea76adc3c::t_72ea2ae22904d6 3
+lib/helpers/parsers-jvm.poku.js
+  s_7d724ea76adc3c::t_06a6ca46a1f618 435,440,449-452,457,466-468,477-479,488-491
+  s_7d724ea76adc3c::t_cf05d8b6c4e176 436-439,441-444,453-456,458-461,469-472,480-483
+lib/cli/index.js
+  s_7d724ea76adc3c::t_1f0f89d1decfb7 121,415-420,425-426
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "82e898bd0e8ba8547897f072f0827ebcbac2325e",
+  "prompts": {},
+  "sessions": {
+    "s_7d724ea76adc3c": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "2a0b9959-84de-46e0-a87e-11e7f1e7f1e3",
+        "model": "claude-opus-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
