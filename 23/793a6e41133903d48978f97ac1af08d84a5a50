@@ -1,0 +1,19 @@
+docs/v13/rust.md
+  s_dc4206b5a672dc::t_355fdc0075f6ff 1-288
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "23793a6e41133903d48978f97ac1af08d84a5a50",
+  "prompts": {},
+  "sessions": {
+    "s_dc4206b5a672dc": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_04f9e962affeCpkCOvNqJikH4d",
+        "model": "glm-5.2"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
