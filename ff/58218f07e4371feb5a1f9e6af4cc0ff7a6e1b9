@@ -1,0 +1,24 @@
+contrib/rs-disable-golden-test.js
+  s_dc4206b5a672dc::t_1d8b3586532eca 5-9,13-18,21,23-38,40-51
+  s_dc4206b5a672dc::t_64e9f12a8a0768 1-4,10-12,19-20,22,39,52
+package.json
+  s_dc4206b5a672dc::t_cf5b7c56ba5b55 123
+bin/cdxgen.js
+  s_dc4206b5a672dc::t_a13d95058f7a65 1481-1491
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "ff58218f07e4371feb5a1f9e6af4cc0ff7a6e1b9",
+  "prompts": {},
+  "sessions": {
+    "s_dc4206b5a672dc": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_04f9e962affeCpkCOvNqJikH4d",
+        "model": "glm-5.2"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
