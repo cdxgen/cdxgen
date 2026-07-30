@@ -1,0 +1,20 @@
+lib/validator/reporter-parity.poku.js
+  s_56bdcfbf76146c::t_9016b965393693 113,119-120
+  s_56bdcfbf76146c::t_1591907cd3d1cd 1-112,114-118,121-199
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "34a9529d44d68d2a02f8e2c858cbde5f848dc582",
+  "prompts": {},
+  "sessions": {
+    "s_56bdcfbf76146c": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_04d5ae778ffe3FVRW0LI40jz16",
+        "model": "glm-5.2"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
