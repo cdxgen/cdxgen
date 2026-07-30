@@ -1,0 +1,21 @@
+contrib/bench-validate.js
+  s_56bdcfbf76146c::t_dea733092cde09 1-19,21-45,47-139
+  s_56bdcfbf76146c::t_3f2831a69e8381 20
+  s_56bdcfbf76146c::t_7c2c805c73f20e 46
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "ea5830a495499ab01a0042bf43a7bbd95ba48e42",
+  "prompts": {},
+  "sessions": {
+    "s_56bdcfbf76146c": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_04d5ae778ffe3FVRW0LI40jz16",
+        "model": "glm-5.2"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
