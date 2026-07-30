@@ -1,0 +1,37 @@
+lib/validator/index.js
+  s_56bdcfbf76146c::t_9b7224a142cc9d 87-122,129,131
+  s_56bdcfbf76146c::t_4078dcda2e170d 206-207
+  s_56bdcfbf76146c::t_3b28dda1b3594a 132-156
+  s_56bdcfbf76146c::t_2a2de60f04744b 15-16
+  s_56bdcfbf76146c::t_5fe4b813d47829 86
+bin/validate.js
+  s_56bdcfbf76146c::t_2532b48bbf6a8d 216
+lib/helpers/cdxrs.js
+  s_56bdcfbf76146c::t_1fbf6a9a62778f 367
+  s_56bdcfbf76146c::t_d9305aa696fcb4 363-366,368-369,378-382
+  s_56bdcfbf76146c::t_99dadec520fd28 48
+bin/cdxgen.js
+  s_56bdcfbf76146c::t_27d207c1672b00 111-112
+  s_56bdcfbf76146c::t_d51789ef891d15 1796-1797
+lib/validator/index.poku.js
+  s_56bdcfbf76146c::t_00ffc8dd9b71b4 49,54,63-64,75-76,83-84,94-95,103-104
+lib/validator/schema-drift.poku.js
+  s_56bdcfbf76146c::t_1fbf6a9a62778f 33
+  s_56bdcfbf76146c::t_90b89097f0713c 2
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "42096ba73971087acc714703a4cba816421ede46",
+  "prompts": {},
+  "sessions": {
+    "s_56bdcfbf76146c": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_04d5ae778ffe3FVRW0LI40jz16",
+        "model": "glm-5.2"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
