@@ -1,0 +1,87 @@
+PROGRESS.md
+  s_dc4206b5a672dc::t_3cb1d8b8c947af 1,3,5-6
+  s_dc4206b5a672dc::t_4d5581d764e320 7-15
+BLOCKERS.md
+  s_dc4206b5a672dc::t_a1b6f84c68ddb4 1-4
+  s_7d724ea76adc3c::t_3124880b243e4d 5-32
+test/fixtures/cdxrs-fakes/fake-timeout.js
+  s_dc4206b5a672dc::t_94fe51f1778228 1-16,19
+  s_dc4206b5a672dc::t_afd68073e85594 17-18
+types/lib/helpers/cdxrs.d.ts
+  s_dc4206b5a672dc::t_fac0cb4b2bc5f5 1-72
+test/fixtures/cdxrs-fakes/fake-nonzero.js
+  s_dc4206b5a672dc::t_abfff48a3a3a58 1-17
+test/fixtures/cdxrs-fakes/fake-old-version.js
+  s_dc4206b5a672dc::t_81b0cff8770116 1-10
+test/fixtures/cdxrs-fakes/fake-success.js
+  s_dc4206b5a672dc::t_f23e54a92c0a21 1-32
+test/fixtures/cdxrs-fakes/fake-garbage.js
+  s_dc4206b5a672dc::t_8a3c90352cbe98 1-17
+lib/helpers/cdxrs.poku.js
+  s_dc4206b5a672dc::t_442e49fd29517c 1-4,7,9-155,159-178,182-237
+  s_dc4206b5a672dc::t_e9d3216dd1880c 5-6,8
+  s_dc4206b5a672dc::t_4fd2ae726ad870 156-158,179-181
+test/baseline/npm-pack-file-list.txt
+  s_dc4206b5a672dc::t_d866a9537cb6d1 342-343
+  s_dc4206b5a672dc::t_0aedde750dc22e 108
+lib/helpers/plugins.js
+  s_dc4206b5a672dc::t_df53e6ae0d9743 16
+  s_dc4206b5a672dc::t_45599ff4af6d09 38
+  s_dc4206b5a672dc::t_2e845f3e7cca5d 437
+lib/helpers/cdxrs.js
+  s_dc4206b5a672dc::t_6b10fc0849f195 18
+  s_dc4206b5a672dc::t_e9d3216dd1880c 23,50-53,126-129,162-164,196-197,201-204,219-221,249-251,282-284
+  s_dc4206b5a672dc::t_abe97ee64253f6 1-17,19-22,24-49,54-75,78,86-87,92-125,130-161,165-195,198-200,205-218,222-248,252-281,285-326
+  s_7d724ea76adc3c::t_2b02308a05427a 76-77,79-85,88-91
+types/lib/helpers/cdxrs.d.ts.map
+  s_dc4206b5a672dc::t_8058f03f79b2b9 1
+types/lib/helpers/plugins.d.ts.map
+  s_dc4206b5a672dc::t_5161e6f3770eab 1
+bin/cdxgen.js
+  s_dc4206b5a672dc::t_60b0ce58ac1e05 716
+  s_dc4206b5a672dc::t_49b96a6daf9b8b 158-177
+  s_dc4206b5a672dc::t_89ee9a1c8b6956 708-712,714,718
+  s_dc4206b5a672dc::t_a13d95058f7a65 1489-1499
+  s_7d724ea76adc3c::t_0f67595171d655 713,715,717,725-730
+  s_7d724ea76adc3c::t_fbec75fbc34279 731-732
+contrib/rs-disable-golden-test.js
+  s_dc4206b5a672dc::t_1d8b3586532eca 11,18,30,36,56,69,91,93
+  s_dc4206b5a672dc::t_64e9f12a8a0768 1,4,8,27-28,29,60,120
+  s_7d724ea76adc3c::t_262a03931330e2 61-68
+  s_7d724ea76adc3c::t_20db41ca9f29e7 2-3,5-7,9-10,12-17,19-26,31-35,37-55,57-59,70-90,92,94-119,121-125
+package.json
+  s_dc4206b5a672dc::t_cf5b7c56ba5b55 123
+  s_7d724ea76adc3c::t_fd1f10aafa1525 129,171-180
+docs/v13/rust.md
+  s_dc4206b5a672dc::t_355fdc0075f6ff 1-225,236-238,260-293,295-297,299-301,303-307
+  s_7d724ea76adc3c::t_859234ea995f01 294,298,302,308-323
+  s_7d724ea76adc3c::t_ac98aa94065c4a 226-235,239-259
+types/lib/helpers/parsers-js.d.ts
+  s_7d724ea76adc3c::t_ec54ad932443df 87
+types/lib/helpers/parsers-misc.d.ts
+  s_7d724ea76adc3c::t_ec54ad932443df 298
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "69c87cbdf8e567446a31f19270ba76ec2cd479c6",
+  "prompts": {},
+  "sessions": {
+    "s_7d724ea76adc3c": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "2a0b9959-84de-46e0-a87e-11e7f1e7f1e3",
+        "model": "claude-opus-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    },
+    "s_dc4206b5a672dc": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_04f9e962affeCpkCOvNqJikH4d",
+        "model": "glm-5.2"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
