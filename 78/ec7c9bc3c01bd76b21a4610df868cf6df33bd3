@@ -1,0 +1,19 @@
+MIGRATING-TO-V13.md
+  s_cfc97a8f7e6a36::t_dd49dcc5bdc84b 144-216
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "78ec7c9bc3c01bd76b21a4610df868cf6df33bd3",
+  "prompts": {},
+  "sessions": {
+    "s_cfc97a8f7e6a36": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_04ca2dca2ffeU1dWavBIClcKNA",
+        "model": "glm-5.2"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
