@@ -1,0 +1,106 @@
+repotests/yarn-smoke/expected/spec-1.7.json
+  s_7d724ea76adc3c::t_55fdbb703ed7cf 206,210,212
+repotests/yarn-smoke/expected/default.json
+  s_7d724ea76adc3c::t_55fdbb703ed7cf 206,210,212
+repotests/pipenv-smoke/expected/default.json
+  s_7d724ea76adc3c::t_55fdbb703ed7cf 867,871,873
+lib/validator/bomValidator.js
+  s_7d724ea76adc3c::t_069b456a9b288f 582-590
+  s_7d724ea76adc3c::t_c5728da7aa0df4 446-471,476-479,484-486
+  s_7d724ea76adc3c::t_645edb01c4309e 472-475,480-483
+  s_7d724ea76adc3c::t_ce312f8207e0de 14
+  s_7d724ea76adc3c::t_f633a64743db63 445
+lib/helpers/purl.poku.js
+  s_7d724ea76adc3c::t_645edb01c4309e 3
+  s_7d724ea76adc3c::t_4da192d05c4e30 118-172
+lib/helpers/parsers-misc.js
+  s_7d724ea76adc3c::t_f5ce2bc04d2443 1689-1697
+  s_7d724ea76adc3c::t_9bfe5ecccf4a33 1748,1751
+  s_7d724ea76adc3c::t_e632e22ebf4039 14
+repotests/swift-smoke/expected/default.json
+  s_7d724ea76adc3c::t_55fdbb703ed7cf 137,141,143
+  s_7d724ea76adc3c::t_db88468c019250 117
+repotests/poetry-smoke/expected/default.json
+  s_7d724ea76adc3c::t_55fdbb703ed7cf 3281,3285,3287
+repotests/npm-smoke/expected/spec-1.6.json
+  s_7d724ea76adc3c::t_55fdbb703ed7cf 308,312,314
+repotests/cargo-smoke/expected/default.json
+  s_7d724ea76adc3c::t_55fdbb703ed7cf 9642,9646,9648
+repotests/composer-smoke/expected/default.json
+  s_7d724ea76adc3c::t_55fdbb703ed7cf 3315,3319,3321
+repotests/ai-modelfile-smoke/expected/default.json
+  s_7d724ea76adc3c::t_55fdbb703ed7cf 140,144,146
+repotests/npm-smoke/expected/spec-1.7.json
+  s_7d724ea76adc3c::t_55fdbb703ed7cf 308,312,314
+repotests/pubspec-smoke/expected/default.json
+  s_7d724ea76adc3c::t_55fdbb703ed7cf 12752,12756,12758
+lib/validator/golden-purl-validity.poku.js
+  s_7d724ea76adc3c::t_5b981f335b4a28 3,6-9,11-17,19-23,25,27,29-34,37-41,44-51,54-57,60-61,63-65,70-73,75-81,83-91,93-98,100,104-113,115,117-132,134-136,138-142,144-150
+  s_7d724ea76adc3c::t_26c56c75b5115d 1
+  s_7d724ea76adc3c::t_645edb01c4309e 35-36,101-103
+  s_7d724ea76adc3c::t_8f93d38bc425a5 99,133,137
+repotests/go-smoke/expected/default.json
+  s_7d724ea76adc3c::t_55fdbb703ed7cf 106,110,112
+lib/helpers/parsers-misc.poku.js
+  s_7d724ea76adc3c::t_5965ec23f98c4d 1310-1311
+  s_7d724ea76adc3c::t_7df1d83f29b085 1257-1260
+repotests/uv-smoke/expected/default.json
+  s_7d724ea76adc3c::t_55fdbb703ed7cf 276,280,282
+repotests/pylock-smoke/expected/default.json
+  s_7d724ea76adc3c::t_55fdbb703ed7cf 873,877,879
+repotests/dotnet-assets-smoke/expected/default.json
+  s_7d724ea76adc3c::t_55fdbb703ed7cf 102,106,108
+lib/cli/index.js
+  s_7d724ea76adc3c::t_645edb01c4309e 118-121
+  s_7d724ea76adc3c::t_3fed01819a4261 665-670,672-675
+repotests/pnpm-smoke/expected/default.json
+  s_7d724ea76adc3c::t_55fdbb703ed7cf 212,216,218
+repotests/pnpm-smoke/expected/spec-1.7.json
+  s_7d724ea76adc3c::t_55fdbb703ed7cf 212,216,218
+repotests/cocoapods-smoke/expected/default.json
+  s_7d724ea76adc3c::t_55fdbb703ed7cf 676,680,682
+repotests/mix-smoke/expected/default.json
+  s_7d724ea76adc3c::t_55fdbb703ed7cf 342,346,348
+repotests/dotnet-eshop/expected/default.json
+  s_7d724ea76adc3c::t_55fdbb703ed7cf 323,327,329
+lib/helpers/parsers-js.js
+  s_7d724ea76adc3c::t_645edb01c4309e 1192
+  s_7d724ea76adc3c::t_cfd2a13fa6aab5 36
+  s_7d724ea76adc3c::t_229807522265c5 2983,3171
+repotests/npm-smoke/expected/default.json
+  s_7d724ea76adc3c::t_55fdbb703ed7cf 308,312,314
+repotests/cbom-js-smoke/expected/default.json
+  s_7d724ea76adc3c::t_55fdbb703ed7cf 149,153,155
+repotests/maven-smoke/expected/default.json
+  s_7d724ea76adc3c::t_55fdbb703ed7cf 331,335,337
+lib/helpers/parsers-go.js
+  s_7d724ea76adc3c::t_90c7f2d1ceeb24 227-231,374-378,617-621
+repotests/pnpm-smoke/expected/spec-1.6.json
+  s_7d724ea76adc3c::t_55fdbb703ed7cf 212,216,218
+repotests/python-smoke/expected/default.json
+  s_7d724ea76adc3c::t_55fdbb703ed7cf 99,103,105
+repotests/ruby-smoke/expected/default.json
+  s_7d724ea76adc3c::t_55fdbb703ed7cf 3759,3763,3765
+lib/helpers/purl.js
+  s_7d724ea76adc3c::t_ab872fb1f8efcb 51-81
+  s_7d724ea76adc3c::t_0589c57dac9363 21-50,104-131
+  s_7d724ea76adc3c::t_24463208e2c427 20,82-103
+repotests/yarn-smoke/expected/spec-1.6.json
+  s_7d724ea76adc3c::t_55fdbb703ed7cf 206,210,212
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "d249d4213088c4f5cc32558f238ee7bc408ed5af",
+  "prompts": {},
+  "sessions": {
+    "s_7d724ea76adc3c": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "2a0b9959-84de-46e0-a87e-11e7f1e7f1e3",
+        "model": "claude-opus-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
