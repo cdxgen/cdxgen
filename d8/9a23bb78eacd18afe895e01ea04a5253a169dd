@@ -1,0 +1,177 @@
+lib/helpers/asarutils.js
+  s_cfc97a8f7e6a36::t_c6006d2936643a 14
+  s_cfc97a8f7e6a36::t_6c97cdf32e0f2c 125-130,134-139
+lib/helpers/parsers-go.poku.js
+  s_cfc97a8f7e6a36::t_671324a54d6766 543,546-547
+  s_cfc97a8f7e6a36::t_4abf6ab01962b1 577
+  s_cfc97a8f7e6a36::t_2400b5b98773ab 657-658
+lib/helpers/osPackageResolver.js
+  s_cfc97a8f7e6a36::t_c6006d2936643a 1
+  s_cfc97a8f7e6a36::t_6c97cdf32e0f2c 81-88
+lib/helpers/chromextutils.js
+  s_cfc97a8f7e6a36::t_c6006d2936643a 6
+  s_cfc97a8f7e6a36::t_6c97cdf32e0f2c 843-847
+lib/helpers/source.js
+  s_cfc97a8f7e6a36::t_d18538ac922077 6,957
+  s_cfc97a8f7e6a36::t_6c97cdf32e0f2c 1045-1049
+  s_cfc97a8f7e6a36::t_8ff3577a6245ff 1041-1044,1050
+contrib/purl-migration-audit.js
+  s_cfc97a8f7e6a36::t_f44359296cadf4 5-9,13,22-30,38,42,48-52,54,62,64,67,70,73-81,86-90,93,95-96,100-102,109
+PROGRESS.md
+  s_cfc97a8f7e6a36::t_f4dde431efb5f7 19-49
+lib/helpers/core-misc-b.js
+  s_cfc97a8f7e6a36::t_6c97cdf32e0f2c 683-693,1101-1106,1139-1144,1188-1193,1252-1258
+  s_cfc97a8f7e6a36::t_c6006d2936643a 13
+lib/helpers/parsers-misc.js
+  s_cfc97a8f7e6a36::t_6c97cdf32e0f2c 4,55-60,123-128,993-998,1402-1407,1471-1476,1688-1690,1922-1928,1934-1940,2038-2045,2193-2199
+  s_cfc97a8f7e6a36::t_cd151c210653de 1683-1686,1692-1694
+  s_cfc97a8f7e6a36::t_677ac2d99d0797 1687
+lib/helpers/rubyutils.js
+  s_cfc97a8f7e6a36::t_6c97cdf32e0f2c 6,146-155
+  s_cfc97a8f7e6a36::t_d18538ac922077 423,627
+lib/helpers/core-misc-a.js
+  s_cfc97a8f7e6a36::t_6c97cdf32e0f2c 463-469,1715-1720,1960-1965
+  s_cfc97a8f7e6a36::t_c6006d2936643a 7
+lib/helpers/purl.js
+  s_cfc97a8f7e6a36::t_6ac3d4b75963c7 66-69
+  s_cfc97a8f7e6a36::t_6c97cdf32e0f2c 3,78-83,107-113
+lib/helpers/npmutils.js
+  s_cfc97a8f7e6a36::t_6c97cdf32e0f2c 4,105-110,455-461,536-542,547-552
+lib/stages/postgen/postgen.js
+  s_cfc97a8f7e6a36::t_d18538ac922077 5,1107
+lib/helpers/vsixutils.poku.js
+  s_cfc97a8f7e6a36::t_631d078fdc3f98 1842-1844
+lib/helpers/parsers-jvm.js
+  s_cfc97a8f7e6a36::t_c6006d2936643a 5
+  s_cfc97a8f7e6a36::t_4736e45f4d5849 582,590-594
+  s_cfc97a8f7e6a36::t_6c97cdf32e0f2c 66-72,205-211,253-259,583-589,829-835
+lib/helpers/parsers-jvm.poku.js
+  s_cfc97a8f7e6a36::t_cf6f88655cc5d7 443-444
+  s_cfc97a8f7e6a36::t_6c97cdf32e0f2c 435-438,445-448,453-456,461-464,469-472
+lib/validator/bomValidator.js
+  s_cfc97a8f7e6a36::t_6c97cdf32e0f2c 4
+  s_cfc97a8f7e6a36::t_d18538ac922077 486,628,652
+lib/helpers/parsers-dotnet.js
+  s_cfc97a8f7e6a36::t_c6006d2936643a 5
+  s_cfc97a8f7e6a36::t_6c97cdf32e0f2c 811-816,872-877,899-904,969-974,985-990,1049-1054,1118-1123,1176-1181,1230-1235,1245-1250
+lib/helpers/gradleutils.js
+  s_cfc97a8f7e6a36::t_6c97cdf32e0f2c 573-581,716-722
+  s_cfc97a8f7e6a36::t_e5dbf713cc1217 572,582-586
+  s_cfc97a8f7e6a36::t_2f874dc4696507 715,723-727
+  s_cfc97a8f7e6a36::t_c6006d2936643a 6
+lib/helpers/deps.js
+  s_cfc97a8f7e6a36::t_d18538ac922077 293
+  s_cfc97a8f7e6a36::t_6c97cdf32e0f2c 11,145-151,190-196,218-224,669-674
+lib/helpers/parsers-rust.js
+  s_cfc97a8f7e6a36::t_6c97cdf32e0f2c 142-147,680-685,928-933,1199-1204
+  s_cfc97a8f7e6a36::t_c6006d2936643a 4
+repotests/swift-smoke/expected/default.json
+  s_cfc97a8f7e6a36::t_ce63d94989f5ab 117,120
+lib/helpers/purl.poku.js
+  s_cfc97a8f7e6a36::t_7946c4a745af4b 82,84
+lib/helpers/parsers-go.js
+  s_cfc97a8f7e6a36::t_364a0d7d5072aa 470,472,480,482,484
+  s_cfc97a8f7e6a36::t_e95b8be7d05ff3 128-131,135-137
+  s_cfc97a8f7e6a36::t_2ef49e21228000 469
+  s_cfc97a8f7e6a36::t_eb2e8110e5c280 226-228
+  s_cfc97a8f7e6a36::t_6c97cdf32e0f2c 5,68-73,132-134
+  s_cfc97a8f7e6a36::t_204626b87cb179 49-61
+  s_cfc97a8f7e6a36::t_558556c9161e05 63-67,74-77
+  s_cfc97a8f7e6a36::t_ac1c9f12909270 502-503
+  s_cfc97a8f7e6a36::t_6be7ffff455866 533-534
+  s_cfc97a8f7e6a36::t_41f9f39405e224 479
+  s_cfc97a8f7e6a36::t_adfdda6a989e05 89-94
+  s_cfc97a8f7e6a36::t_9b02c1d7be3c96 369-371
+  s_cfc97a8f7e6a36::t_4511d7342272bf 466-468,471,473-478,481,483,485-487
+  s_cfc97a8f7e6a36::t_8cd6f0d9b30507 608-610
+lib/helpers/dosaiParsers.js
+  s_cfc97a8f7e6a36::t_d18538ac922077 1,8
+lib/helpers/ecosystems.js
+  s_cfc97a8f7e6a36::t_c6006d2936643a 13
+  s_cfc97a8f7e6a36::t_6c97cdf32e0f2c 857-862,902-907,1784-1790,2056-2061
+lib/validator/complianceRules.js
+  s_cfc97a8f7e6a36::t_d18538ac922077 37,668
+lib/helpers/bunutils.js
+  s_cfc97a8f7e6a36::t_c6006d2936643a 4
+  s_cfc97a8f7e6a36::t_6c97cdf32e0f2c 156-162
+lib/helpers/huggingfaceUtils.js
+  s_cfc97a8f7e6a36::t_d18538ac922077 222
+  s_cfc97a8f7e6a36::t_b0542600dd3399 179,181
+  s_cfc97a8f7e6a36::t_a3227da666a485 227-233,235-236,242
+  s_cfc97a8f7e6a36::t_6c97cdf32e0f2c 1,190-196,234
+lib/helpers/parsers-python.js
+  s_cfc97a8f7e6a36::t_6c97cdf32e0f2c 395-400,972-977
+  s_cfc97a8f7e6a36::t_c6006d2936643a 6
+lib/evinser/evinser.js
+  s_cfc97a8f7e6a36::t_d18538ac922077 5,467
+lib/cli/index.js
+  s_cfc97a8f7e6a36::t_d18538ac922077 971,1415
+  s_cfc97a8f7e6a36::t_6c97cdf32e0f2c 23,413-418,498-503,1179-1186,3131-3137,4186-4192,4205-4213,4275-4285,4504-4510,4528-4533,4567-4572,4604-4610,4623-4628,4693-4698,4712-4717,4769-4774,4899-4908,4973-4978,6230-6235,8182-8187
+  s_cfc97a8f7e6a36::t_30bf4216bb9ced 411-412,419-430
+  s_cfc97a8f7e6a36::t_cd7cc43f9bfdad 1178,1187-1190
+lib/helpers/sbtutils.js
+  s_cfc97a8f7e6a36::t_c6006d2936643a 5
+  s_cfc97a8f7e6a36::t_6c97cdf32e0f2c 460-466,618-624
+lib/helpers/parsers-misc.poku.js
+  s_cfc97a8f7e6a36::t_c4c8de11f4d145 1293
+  s_cfc97a8f7e6a36::t_14b41da3575ba5 1350
+  s_cfc97a8f7e6a36::t_1864d49a9e8634 1310,1320
+  s_cfc97a8f7e6a36::t_548c6b7ff0cd1a 1260,1267
+lib/helpers/mcp.js
+  s_cfc97a8f7e6a36::t_d18538ac922077 1,52
+lib/helpers/ciParsers/githubActions.js
+  s_cfc97a8f7e6a36::t_c6006d2936643a 5
+  s_cfc97a8f7e6a36::t_6c97cdf32e0f2c 1754-1759,2038-2043
+lib/helpers/spdxUtils.js
+  s_cfc97a8f7e6a36::t_d18538ac922077 1,22
+lib/helpers/denoutils.js
+  s_cfc97a8f7e6a36::t_c6006d2936643a 6
+  s_cfc97a8f7e6a36::t_6c97cdf32e0f2c 602-607,693-698,763-768,856-861
+lib/helpers/source.poku.js
+  s_cfc97a8f7e6a36::t_1e114e58887f7f 486
+lib/helpers/vsixutils.js
+  s_cfc97a8f7e6a36::t_8ee1680c117be5 640-641,649-651,659
+  s_cfc97a8f7e6a36::t_6c97cdf32e0f2c 6,414-418,642-648
+lib/helpers/dynamic.js
+  s_cfc97a8f7e6a36::t_6c97cdf32e0f2c 64-71,74-81
+  s_cfc97a8f7e6a36::t_c6006d2936643a 3
+lib/helpers/parsers-js.poku.js
+  s_cfc97a8f7e6a36::t_6c97cdf32e0f2c 2656-2661,2673-2678,2871-2876
+  s_cfc97a8f7e6a36::t_c6006d2936643a 14
+repotests/pipenv-smoke/expected/default.json
+  s_cfc97a8f7e6a36::t_8de126b96904f9 261,264
+lib/helpers/parsers-js.js
+  s_cfc97a8f7e6a36::t_6c97cdf32e0f2c 12,440-445,777-783,1023-1028,1074-1079,1697-1703,2634-2639,2789-2794,2806-2811,2842-2848,2876-2881,2894-2899,3106-3111,3129-3135,3246-3250
+  s_cfc97a8f7e6a36::t_ffb9fe8ebdb1c9 1193
+  s_cfc97a8f7e6a36::t_d18538ac922077 728,1192,1482,1931,1954,1991,1995,2983,2987,3177,3440,3462
+lib/helpers/osqueryTransform.js
+  s_cfc97a8f7e6a36::t_9e1fc5317df664 123-125
+  s_cfc97a8f7e6a36::t_6c97cdf32e0f2c 133-140
+  s_cfc97a8f7e6a36::t_c6006d2936643a 1
+  s_cfc97a8f7e6a36::t_52493024c8427d 126-132
+lib/managers/binary.js
+  s_cfc97a8f7e6a36::t_d18538ac922077 746,2722-2723
+  s_cfc97a8f7e6a36::t_6c97cdf32e0f2c 12,770-777,781-785,812-819,854-861,899-906,1043-1050,2076-2081,2852-2857
+lib/stages/postgen/auditBom.poku.js
+  s_cfc97a8f7e6a36::t_2dabf25edfe829 110
+lib/stages/postgen/ruleEngine.js
+  s_cfc97a8f7e6a36::t_d18538ac922077 8,200
+lib/audit/targets.js
+  s_cfc97a8f7e6a36::t_d18538ac922077 4,375,552
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "d89a23bb78eacd18afe895e01ea04a5253a169dd",
+  "prompts": {},
+  "sessions": {
+    "s_cfc97a8f7e6a36": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_04ca2dca2ffeU1dWavBIClcKNA",
+        "model": "glm-5.2"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
