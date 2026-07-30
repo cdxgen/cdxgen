@@ -1,0 +1,48 @@
+lib/helpers/cdxrs.poku.js
+  s_56bdcfbf76146c::t_fc800433be67ad 1-5
+  s_7d724ea76adc3c::t_c0aabc8827b798 41-55,57-67
+lib/stages/postgen/postgen.poku.js
+  s_7d724ea76adc3c::t_fdd174c04ebf8d 1091-1096
+lib/helpers/plugins.poku.js
+  s_7d724ea76adc3c::t_4c9089cec7dd2f 11-20
+docs/v13/validation-rules.md
+  s_7d724ea76adc3c::t_f1ef41bec9986b 103-107
+lib/validator/reporter-parity.poku.js
+  s_56bdcfbf76146c::t_fc800433be67ad 7,66-67,179,184
+lib/validator/bomValidator.js
+  s_7d724ea76adc3c::t_b749c029cfdbfe 21-25
+lib/validator/index.js
+  s_7d724ea76adc3c::t_515147d85ab885 141-151,155-156,160-161
+  s_7d724ea76adc3c::t_fd17d30f58467a 152,157-158
+BLOCKERS.md
+  s_7d724ea76adc3c::t_11cfb439c6de8d 13-19,32-50
+  s_7d724ea76adc3c::t_dbede7cfa1db03 51,61-70
+contrib/parity-harness.js
+  s_7d724ea76adc3c::t_348c7ffc9c503a 5-21
+  s_7d724ea76adc3c::t_c0650d34ce5a65 226-234,238-248,254-255,265-270
+  s_7d724ea76adc3c::t_22058d5a0b47ef 36-51
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "4978e92140e1cf5e831d60fc1deaac08fe03be56",
+  "prompts": {},
+  "sessions": {
+    "s_56bdcfbf76146c": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_04d5ae778ffe3FVRW0LI40jz16",
+        "model": "glm-5.2"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    },
+    "s_7d724ea76adc3c": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "2a0b9959-84de-46e0-a87e-11e7f1e7f1e3",
+        "model": "claude-opus-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
