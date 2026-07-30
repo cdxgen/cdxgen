@@ -1,0 +1,19 @@
+PROGRESS.md
+  s_dc4206b5a672dc::t_4d5581d764e320 7-15
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "663de3b29521e8117b437f298db4c65668dcb37f",
+  "prompts": {},
+  "sessions": {
+    "s_dc4206b5a672dc": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_04f9e962affeCpkCOvNqJikH4d",
+        "model": "glm-5.2"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
