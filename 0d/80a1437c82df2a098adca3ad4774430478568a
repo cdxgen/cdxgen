@@ -1,0 +1,107 @@
+lib/stages/postgen/auditBom.poku.js
+  s_7d724ea76adc3c::t_f020c0c1e40bf2 4236-4239,4241-4255,4257-4260
+  s_7d724ea76adc3c::t_4f69c139b3e4ab 4181-4207
+  s_7d724ea76adc3c::t_e57d6a046f46c9 4235,4240,4256
+MIGRATING-TO-V13.md
+  s_7d724ea76adc3c::t_2642f418fc077b 169-173
+  s_7d724ea76adc3c::t_63474e0a3db19f 41,44,52-61
+  s_7d724ea76adc3c::t_0b30a5bd813080 47-51,62-64
+lib/stages/postgen/ruleEngine.js
+  s_7d724ea76adc3c::t_b003823cb0e026 722
+types/lib/audit/index.d.ts.map
+  s_7d724ea76adc3c::t_9e111d787f92f8 1
+types/lib/cli/index.d.ts.map
+  s_7d724ea76adc3c::t_0388785649c539 1
+types/lib/evinser/evinser.d.ts.map
+  s_7d724ea76adc3c::t_842d676f60c2a9 1
+types/lib/evinser/swiftsem.d.ts.map
+  s_7d724ea76adc3c::t_e3d4ebd9f09bd4 1
+types/lib/helpers/aiCollector.d.ts.map
+  s_7d724ea76adc3c::t_a429ce9a6ba528 1
+types/lib/helpers/asarutils.d.ts.map
+  s_7d724ea76adc3c::t_52085257049b89 1
+types/lib/helpers/bunutils.d.ts.map
+  s_7d724ea76adc3c::t_af89c7375fd905 1
+types/lib/helpers/caxa.d.ts.map
+  s_7d724ea76adc3c::t_35c7f4f252d697 1
+types/lib/helpers/cbomutils.d.ts.map
+  s_7d724ea76adc3c::t_8ede9d801a6a68 1
+types/lib/helpers/cdxrs.d.ts.map
+  s_7d724ea76adc3c::t_6300bfc10795a0 1
+types/lib/helpers/chromextutils.d.ts.map
+  s_7d724ea76adc3c::t_4f6d08cbdf14f1 1
+types/lib/helpers/containerRisk.d.ts.map
+  s_7d724ea76adc3c::t_d55d72e5edd21d 1
+types/lib/helpers/core-misc-b.d.ts
+  s_7d724ea76adc3c::t_9fd3ab490a5d8e 114
+types/lib/helpers/denoutils.d.ts.map
+  s_7d724ea76adc3c::t_694873e38f82d4 1
+types/lib/helpers/gradleutils.d.ts
+  s_7d724ea76adc3c::t_7bb1d4f5a15cda 77
+types/lib/helpers/gradleutils.d.ts.map
+  s_7d724ea76adc3c::t_f5a3d335da9446 1
+types/lib/helpers/plugins.d.ts.map
+  s_7d724ea76adc3c::t_dc8f8db7fe59d9 1
+types/lib/helpers/remote/huggingface.d.ts.map
+  s_7d724ea76adc3c::t_8f4226bfec769e 1
+types/lib/helpers/rubyutils.d.ts.map
+  s_7d724ea76adc3c::t_d723e55de54725 1
+types/lib/helpers/sbtutils.d.ts.map
+  s_7d724ea76adc3c::t_4ddcb08fdf7b65 1
+types/lib/helpers/source.d.ts.map
+  s_7d724ea76adc3c::t_30c1ba92349fc4 1
+types/lib/helpers/spdxUtils.d.ts.map
+  s_7d724ea76adc3c::t_3f054f282b8c69 1
+types/lib/helpers/vsixutils.d.ts.map
+  s_7d724ea76adc3c::t_bd8a14a43d58a6 1
+types/lib/managers/binary.d.ts.map
+  s_7d724ea76adc3c::t_41f055badbe0e4 1
+types/lib/managers/docker.d.ts.map
+  s_7d724ea76adc3c::t_ea8dbc34f61454 1
+types/lib/managers/oci.d.ts.map
+  s_7d724ea76adc3c::t_8ca5179ec29908 1
+types/lib/server/server.d.ts
+  s_7d724ea76adc3c::t_2cccb66794a821 1
+types/lib/server/server.d.ts.map
+  s_7d724ea76adc3c::t_ebfcf494fc63de 1
+types/lib/stages/postgen/auditBom.d.ts.map
+  s_7d724ea76adc3c::t_66df91490e3a8f 1
+types/lib/stages/postgen/postgen.d.ts.map
+  s_7d724ea76adc3c::t_c517974753177d 1
+types/lib/stages/postgen/ruleEngine.d.ts
+  s_7d724ea76adc3c::t_329273375609aa 13,17
+types/lib/stages/postgen/ruleEngine.d.ts.map
+  s_7d724ea76adc3c::t_53b49c67ff4afe 1
+types/lib/stages/postgen/spdxConverter.d.ts.map
+  s_7d724ea76adc3c::t_ee7860148ff70f 1
+types/lib/stages/pregen/pregen.d.ts.map
+  s_7d724ea76adc3c::t_3e1d1763a1e07b 1
+types/lib/validator/bomValidator.d.ts.map
+  s_7d724ea76adc3c::t_5aa43a3098b5c8 1
+types/lib/validator/reporters/annotations.d.ts.map
+  s_7d724ea76adc3c::t_e17b840ad5a27b 1
+.github/workflows/repotests.yml
+  s_7d724ea76adc3c::t_c90821ba1de89d 33-39
+lib/evinser/evinser.js
+  s_7d724ea76adc3c::t_77404a96ae8acf 53,1779-1782
+lib/helpers/cbomutils.js
+  s_7d724ea76adc3c::t_b3e383c0fcbb20 4,29-37
+lib/helpers/cbomutils.poku.js
+  s_7d724ea76adc3c::t_23978d7ad4b3f7 20-28
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "0d80a1437c82df2a098adca3ad4774430478568a",
+  "prompts": {},
+  "sessions": {
+    "s_7d724ea76adc3c": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "2a0b9959-84de-46e0-a87e-11e7f1e7f1e3",
+        "model": "claude-opus-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
