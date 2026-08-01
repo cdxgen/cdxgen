@@ -1,0 +1,23 @@
+lib/cli/index.js
+  s_2d7d294cb7372a::t_89f4b82614ec3c 7546
+  s_2d7d294cb7372a::t_9a5a795342a884 152
+lib/ecosystems/caxa.js
+  s_2d7d294cb7372a::t_80e50803b3beab 6-15
+  s_2d7d294cb7372a::t_ef8718b3477345 75-76
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "8aa7e67bfcaee836e8e919c69b0a0d29bedc0e84",
+  "prompts": {},
+  "sessions": {
+    "s_2d7d294cb7372a": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_04285b049ffeMv8De2lFFwCvIg",
+        "model": "glm-5.2"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
