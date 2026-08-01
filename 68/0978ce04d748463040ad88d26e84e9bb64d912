@@ -1,0 +1,839 @@
+lib/ecosystems/caxa.js
+  s_2d7d294cb7372a::t_80e50803b3beab 7-10,11-12
+  s_2d7d294cb7372a::t_b0fdb217bc8481 1-4,6-10,11-12,14-72,75-77
+  s_7d724ea76adc3c::t_3c0e0f1e29fcfc 5,13
+  s_7d724ea76adc3c::t_e81df548403454 73-74
+lib/inventory/cbomutils.poku.js
+  s_2d7d294cb7372a::t_fb26bdfbb4958a 417-420
+  s_2d7d294cb7372a::t_7e508cf6c7ca04 504-507
+  s_2d7d294cb7372a::t_29da9059028852 322-325
+  s_2d7d294cb7372a::t_b0fdb217bc8481 1-10,12-263,322-325,327-361,417-420,422-481,504-507,509-519
+  s_7d724ea76adc3c::t_bf2977b0856dc3 11
+  s_7d724ea76adc3c::t_fd9d40b6d674d2 264,323,362,418,482,505
+  s_7d724ea76adc3c::t_be0d06b11ced8c 5
+  s_7d724ea76adc3c::t_9468f5c8329ea6 265-321,324-326,363-416,419-421,483-503,506-508
+PROGRESS.md
+  s_2d7d294cb7372a::t_e21e124d8c47ef 1-6,11,17-18
+  s_2d7d294cb7372a::t_090a17b86d71f2 7-10,12-16,19-37
+lib/cli/index.js
+  s_2d7d294cb7372a::t_f04ede6eca48ce 6626,6632
+  s_2d7d294cb7372a::t_1ab01f0efb6ea1 169-172,174
+  s_2d7d294cb7372a::t_b0fdb217bc8481 332
+  s_2d7d294cb7372a::t_97311cbc0436b3 250-273,274-293,301-304,305-307,308-329
+  s_7d724ea76adc3c::t_f006e94cc680ac 6641
+  s_7d724ea76adc3c::t_696bc1df50ab55 6627-6631
+  s_7d724ea76adc3c::t_e81df548403454 7557
+  s_7d724ea76adc3c::t_0ff9aa65008032 84,91,120,294-300
+lib/inventory/evidenceUtils.js
+  s_2d7d294cb7372a::t_4173ba49e7581a 514-515
+  s_2d7d294cb7372a::t_b0fdb217bc8481 1-2,4-6,7-8,9-14,18-26,28-176,177-451,453-503,514-748
+  s_7d724ea76adc3c::t_834dbaf3c20dc0 3
+  s_7d724ea76adc3c::t_bf2977b0856dc3 15-17,27
+  s_7d724ea76adc3c::t_d662f87ae2bca2 452,504-513
+bin/cdxgen.js
+  s_2d7d294cb7372a::t_d826e4a8c20bc0 1388-1390
+  s_2d7d294cb7372a::t_b0fdb217bc8481 70,84,90-92,107
+  s_2d7d294cb7372a::t_05a867158ffd84 169,1497
+  s_2d7d294cb7372a::t_97311cbc0436b3 29-62
+lib/inventory/source.poku.js
+  s_2d7d294cb7372a::t_8d1e789c731950 355
+  s_2d7d294cb7372a::t_3aef0d8d30b8fe 272
+  s_2d7d294cb7372a::t_7c9a15942785f9 437-439
+  s_7d724ea76adc3c::t_e65b9285082bdf 275-280,301-325
+  s_7d724ea76adc3c::t_fb852eb04c5980 326-327
+  s_7d724ea76adc3c::t_325eaddcf41d82 1-271,273-274,281-300,328-354,356-436,440-957
+lib/server/server.js
+  s_2d7d294cb7372a::t_50c683132c2f27 15
+  s_2d7d294cb7372a::t_8a8b9295d9fd8d 385-387
+  s_2d7d294cb7372a::t_b0fdb217bc8481 33
+  s_2d7d294cb7372a::t_97311cbc0436b3 16-17
+lib/audit/index.js
+  s_2d7d294cb7372a::t_b6d23774fdb21d 1792-1794
+  s_2d7d294cb7372a::t_b0fdb217bc8481 19,25,29,33,41
+  s_2d7d294cb7372a::t_97311cbc0436b3 18
+lib/inventory/source.js
+  s_2d7d294cb7372a::t_76c2773ea2f9d4 1040
+  s_7d724ea76adc3c::t_476bcf55900a1d 27-29,1214,1268-1273
+  s_7d724ea76adc3c::t_b912dbc4d7035d 1031-1035,1037,1213,1215-1223
+  s_7d724ea76adc3c::t_325eaddcf41d82 1-26,30-1030,1036,1038-1039,1041-1212,1224-1267,1274-1339
+lib/inventory/envcontext_git.poku.js
+  s_2d7d294cb7372a::t_b0fdb217bc8481 1-2,4-23
+  s_7d724ea76adc3c::t_bf2977b0856dc3 3
+lib/inventory/mcp.poku.js
+  s_2d7d294cb7372a::t_b0fdb217bc8481 1-2,4-101
+  s_7d724ea76adc3c::t_0ff9aa65008032 3
+lib/ecosystems/gradleutils.js
+  s_2d7d294cb7372a::t_b0fdb217bc8481 16,17
+  s_2d7d294cb7372a::t_97311cbc0436b3 18
+lib/inventory/aiCollector.poku.js
+  s_2d7d294cb7372a::t_b0fdb217bc8481 1-12,14-785
+  s_7d724ea76adc3c::t_bf2977b0856dc3 13
+packages/server/package.json
+  s_2d7d294cb7372a::t_5bef9169e35e21 11
+lib/ecosystems/parsers-dotnet.js
+  s_2d7d294cb7372a::t_b0fdb217bc8481 12,13
+  s_2d7d294cb7372a::t_97311cbc0436b3 14
+lib/inventory/envcontext.js
+  s_2d7d294cb7372a::t_b0fdb217bc8481 1-30,32-1742
+  s_7d724ea76adc3c::t_bf2977b0856dc3 31
+lib/managers/binary.poku.js
+  s_2d7d294cb7372a::t_855da960e79231 103,117,123,128
+lib/inventory/jsonLike.poku.js
+  s_2d7d294cb7372a::t_b0fdb217bc8481 1-2,4-34
+  s_7d724ea76adc3c::t_bf2977b0856dc3 3
+lib/ecosystems/denoutils.poku.js
+  s_2d7d294cb7372a::t_b0fdb217bc8481 9
+lib/inventory/hbom.js
+  s_2d7d294cb7372a::t_b0fdb217bc8481 1-8,13-710
+  s_7d724ea76adc3c::t_bf2977b0856dc3 9-10,12
+  s_7d724ea76adc3c::t_0ff9aa65008032 11
+lib/inventory/evidenceUtils.poku.js
+  s_2d7d294cb7372a::t_b0fdb217bc8481 1-3,5-7,9-68,70-471
+  s_7d724ea76adc3c::t_bf2977b0856dc3 8,69
+  s_7d724ea76adc3c::t_d1bda8d8020f87 4,472-517
+  s_7d724ea76adc3c::t_a2e10baeff075c 518
+lib/managers/binary.js
+  s_2d7d294cb7372a::t_b0fdb217bc8481 32-33,37-39,43,48-49,54
+lib/ecosystems/ecosystems.js
+  s_2d7d294cb7372a::t_b0fdb217bc8481 56-57
+  s_2d7d294cb7372a::t_97311cbc0436b3 59-62
+  s_2d7d294cb7372a::t_e76632f207ba73 58
+lib/ecosystems/golem.poku.js
+  s_2d7d294cb7372a::t_497ec055aecb08 623,681
+  s_2d7d294cb7372a::t_97311cbc0436b3 526-528,563-565
+lib/inventory/aiModelVariants.poku.js
+  s_2d7d294cb7372a::t_b0fdb217bc8481 1-5,7-28
+  s_7d724ea76adc3c::t_bf2977b0856dc3 6
+lib/inventory/hbomAnalysis.js
+  s_2d7d294cb7372a::t_b0fdb217bc8481 2-268
+  s_7d724ea76adc3c::t_bf2977b0856dc3 1
+contrib/link-local-plugins.sh
+  s_2d7d294cb7372a::t_05a867158ffd84 6
+lib/inventory/cbomutils.js
+  s_2d7d294cb7372a::t_b0fdb217bc8481 1-5,8-11,13-444,447-563
+  s_7d724ea76adc3c::t_b7c7865538127d 445-446
+  s_7d724ea76adc3c::t_bf2977b0856dc3 6,12
+  s_7d724ea76adc3c::t_7e9569d7d2e87b 7
+lib/inventory/aiCollector.js
+  s_2d7d294cb7372a::t_b0fdb217bc8481 1-36,39-2140
+  s_7d724ea76adc3c::t_0ff9aa65008032 34-38
+lib/inventory/analyzer.poku.js
+  s_2d7d294cb7372a::t_b0fdb217bc8481 1-22,24-2051
+  s_7d724ea76adc3c::t_bf2977b0856dc3 23
+lib/ecosystems/pythonutils.js
+  s_2d7d294cb7372a::t_b0fdb217bc8481 24-25
+lib/inventory/aiOversightCollector.js
+  s_2d7d294cb7372a::t_b0fdb217bc8481 1-11,14-661
+  s_7d724ea76adc3c::t_0ff9aa65008032 6
+  s_7d724ea76adc3c::t_bf2977b0856dc3 12-13
+lib/cli/index.poku.js
+  s_2d7d294cb7372a::t_b2cb13bbb38a47 2148
+  s_2d7d294cb7372a::t_7b498cdd9b20be 385,417,443,2162
+  s_2d7d294cb7372a::t_97311cbc0436b3 27-28
+lib/inventory/aiProvenanceCollector.js
+  s_2d7d294cb7372a::t_b0fdb217bc8481 1-5,7-822
+  s_7d724ea76adc3c::t_0ff9aa65008032 6
+lib/inventory/display.js
+  s_2d7d294cb7372a::t_b0fdb217bc8481 1-11,14-17,21-23,26-2097
+  s_7d724ea76adc3c::t_0ff9aa65008032 19
+  s_7d724ea76adc3c::t_bf2977b0856dc3 12-13,18,20,24-25
+lib/inventory/inventoryStats.poku.js
+  s_2d7d294cb7372a::t_b0fdb217bc8481 1-8,10-86
+  s_7d724ea76adc3c::t_bf2977b0856dc3 9
+lib/inventory/envcontext.poku.js
+  s_2d7d294cb7372a::t_b0fdb217bc8481 1-23,25-86
+  s_7d724ea76adc3c::t_bf2977b0856dc3 24
+  s_7d724ea76adc3c::t_0ff9aa65008032 6
+lib/inventory/formulationParsers.js
+  s_2d7d294cb7372a::t_b0fdb217bc8481 1-6,14-19,23-421
+  s_7d724ea76adc3c::t_bf2977b0856dc3 7-13,20-22
+lib/inventory/mcpConfigParser.js
+  s_2d7d294cb7372a::t_b0fdb217bc8481 1-7,10-14,17-672
+  s_7d724ea76adc3c::t_bf2977b0856dc3 8-9,15-16
+lib/validator/bomValidator.js
+  s_2d7d294cb7372a::t_b0fdb217bc8481 16-18
+.github/workflows/repotests.yml
+  s_2d7d294cb7372a::t_05a867158ffd84 212,1587,1749
+lib/stages/postgen/annotator.js
+  s_2d7d294cb7372a::t_b2cb13bbb38a47 6,11,15-16
+lib/inventory/containerRisk.poku.js
+  s_2d7d294cb7372a::t_b0fdb217bc8481 1-7,9-52
+  s_7d724ea76adc3c::t_bf2977b0856dc3 8
+contrib/check-boundaries.js
+  s_2d7d294cb7372a::t_797cec9c0ade62 44-45
+bin/evinse.js
+  s_2d7d294cb7372a::t_b0fdb217bc8481 19,25
+  s_2d7d294cb7372a::t_97311cbc0436b3 10-15
+packages/inventory/package.json
+  s_2d7d294cb7372a::t_4ea2c87c91d6e0 1-12
+lib/stages/postgen/auditBom.js
+  s_2d7d294cb7372a::t_b2cb13bbb38a47 11-12,16-18
+  s_2d7d294cb7372a::t_97311cbc0436b3 10
+lib/inventory/forgeEnricher.js
+  s_2d7d294cb7372a::t_b0fdb217bc8481 1,3-249
+  s_7d724ea76adc3c::t_bf2977b0856dc3 2
+lib/inventory/dynamic.js
+  s_2d7d294cb7372a::t_b0fdb217bc8481 1-3,7-142
+  s_7d724ea76adc3c::t_0ff9aa65008032 6
+  s_7d724ea76adc3c::t_bf2977b0856dc3 4-5
+lib/inventory/plugins.js
+  s_2d7d294cb7372a::t_b0fdb217bc8481 1-8,10-468
+  s_7d724ea76adc3c::t_bf2977b0856dc3 9
+docs/THREAT_MODEL.md
+  s_2d7d294cb7372a::t_05a867158ffd84 444
+lib/inventory/depsUtils.poku.js
+  s_2d7d294cb7372a::t_b0fdb217bc8481 1-9,11-580
+  s_7d724ea76adc3c::t_bf2977b0856dc3 10
+lib/inventory/spdx.poku.js
+  s_2d7d294cb7372a::t_b03f2fccdf9e4c 1-222
+lib/audit/targets.js
+  s_2d7d294cb7372a::t_b0fdb217bc8481 12
+lib/inventory/cdxrs.poku.js
+  s_2d7d294cb7372a::t_b0fdb217bc8481 1-16,18-450
+  s_7d724ea76adc3c::t_bf2977b0856dc3 17
+lib/inventory/formulationParsers.poku.js
+  s_2d7d294cb7372a::t_b0fdb217bc8481 1-6,8-453
+  s_7d724ea76adc3c::t_bf2977b0856dc3 7
+lib/audit/scoring.js
+  s_2d7d294cb7372a::t_b0fdb217bc8481 5
+lib/inventory/deps.poku.js
+  s_2d7d294cb7372a::t_b03f2fccdf9e4c 1-96
+lib/inventory/spdxExpression.poku.js
+  s_2d7d294cb7372a::t_b0fdb217bc8481 1-10,12-126
+  s_7d724ea76adc3c::t_bf2977b0856dc3 11
+lib/inventory/purl.poku.js
+  s_2d7d294cb7372a::t_b0fdb217bc8481 1-2,8-13,15-192
+  s_2d7d294cb7372a::t_97311cbc0436b3 4-7
+  s_2d7d294cb7372a::t_da400c6b040941 3
+  s_7d724ea76adc3c::t_bf2977b0856dc3 14
+package.json
+  s_2d7d294cb7372a::t_be057077fcc341 69-72
+lib/inventory/osPackageResolver.poku.js
+  s_2d7d294cb7372a::t_b0fdb217bc8481 1-5,7-44
+  s_7d724ea76adc3c::t_bf2977b0856dc3 6
+lib/inventory/protobomLoader.poku.js
+  s_2d7d294cb7372a::t_b0fdb217bc8481 1-2,4-31
+  s_7d724ea76adc3c::t_0ff9aa65008032 3
+lib/inventory/spdxUtils.poku.js
+  s_2d7d294cb7372a::t_b0fdb217bc8481 1-2,4-70
+  s_7d724ea76adc3c::t_bf2977b0856dc3 3
+packages/audit/package.json
+  s_2d7d294cb7372a::t_5bef9169e35e21 11
+lib/inventory/plugins.poku.js
+  s_2d7d294cb7372a::t_b0fdb217bc8481 1-8,10-257
+  s_7d724ea76adc3c::t_0ff9aa65008032 9
+lib/ecosystems/parsers-js.js
+  s_2d7d294cb7372a::t_b0fdb217bc8481 18
+  s_2d7d294cb7372a::t_97311cbc0436b3 19-20
+lib/evinser/evinser.js
+  s_2d7d294cb7372a::t_b0fdb217bc8481 37,41-43,53
+  s_2d7d294cb7372a::t_97311cbc0436b3 33-43,53
+  s_7d724ea76adc3c::t_0ff9aa65008032 44-52
+  s_7d724ea76adc3c::t_8cb94c586f16d3 678
+packages/stages/package.json
+  s_2d7d294cb7372a::t_5bef9169e35e21 11
+docs/v13/utils-inventory.md
+  s_2d7d294cb7372a::t_05a867158ffd84 43,77-78,80,431,441,479
+lib/inventory/aiProvenanceCollector.repo.poku.js
+  s_2d7d294cb7372a::t_b0fdb217bc8481 1-2,5-106
+  s_7d724ea76adc3c::t_bf2977b0856dc3 3-4
+lib/inventory/licenseEnhancer.js
+  s_2d7d294cb7372a::t_b0fdb217bc8481 1-6,8-15,17-911
+  s_7d724ea76adc3c::t_bf2977b0856dc3 7,16
+lib/server/server.poku.js
+  s_2d7d294cb7372a::t_7b498cdd9b20be 663,713,763,802,838
+  s_2d7d294cb7372a::t_b0fdb217bc8481 14
+lib/inventory/analyzer.js
+  s_2d7d294cb7372a::t_b0fdb217bc8481 1-23,27-5960
+  s_7d724ea76adc3c::t_bf2977b0856dc3 24-26
+lib/inventory/cdxrs.js
+  s_2d7d294cb7372a::t_b0fdb217bc8481 1-25,27-431
+  s_7d724ea76adc3c::t_0ff9aa65008032 26
+lib/inventory/display.poku.js
+  s_2d7d294cb7372a::t_b0fdb217bc8481 1-17,19-768
+  s_7d724ea76adc3c::t_bf2977b0856dc3 18
+lib/stages/postgen/postgen.js
+  s_2d7d294cb7372a::t_b2cb13bbb38a47 27,36,38-41
+  s_2d7d294cb7372a::t_97311cbc0436b3 37
+lib/cli/cliOptions.js
+  s_2d7d294cb7372a::t_b0fdb217bc8481 20-21
+lib/ecosystems/asarutils.js
+  s_2d7d294cb7372a::t_b0fdb217bc8481 32-33
+bin/repl.js
+  s_2d7d294cb7372a::t_b0fdb217bc8481 20,35,40,46,50,54-56
+  s_2d7d294cb7372a::t_97311cbc0436b3 12-19
+lib/inventory/licenseEnhancer.poku.js
+  s_2d7d294cb7372a::t_b0fdb217bc8481 1-13,15-312
+  s_7d724ea76adc3c::t_bf2977b0856dc3 14
+packages/ecosystems/package.json
+  s_2d7d294cb7372a::t_cbbad7ef1c77e1 6,11
+lib/inventory/containerRisk.js
+  s_2d7d294cb7372a::t_b0fdb217bc8481 1-5,7-187
+  s_7d724ea76adc3c::t_bf2977b0856dc3 6
+lib/inventory/lolbas.poku.js
+  s_2d7d294cb7372a::t_b0fdb217bc8481 1-4,6-62
+  s_7d724ea76adc3c::t_0ff9aa65008032 5
+lib/inventory/aiInventory.poku.js
+  s_2d7d294cb7372a::t_b0fdb217bc8481 1-14,17-609
+  s_7d724ea76adc3c::t_bf2977b0856dc3 15-16
+lib/validator/reporters/console.js
+  s_2d7d294cb7372a::t_b2cb13bbb38a47 6
+lib/inventory/spdx.js
+  s_2d7d294cb7372a::t_b0fdb217bc8481 1-8,10-352
+  s_7d724ea76adc3c::t_0ff9aa65008032 9
+lib/inventory/gtfobins.poku.js
+  s_2d7d294cb7372a::t_b0fdb217bc8481 1-8,10-72
+  s_7d724ea76adc3c::t_bf2977b0856dc3 9
+lib/stages/pregen/pregen.js
+  s_2d7d294cb7372a::t_b2cb13bbb38a47 30
+test/deno/deno-runtime.poku.js
+  s_2d7d294cb7372a::t_8e259f6be395d2 6
+  s_2d7d294cb7372a::t_e6f7236d1d868d 14
+  s_7d724ea76adc3c::t_80a66f3d2f5a2c 15
+lib/ecosystems/remote/huggingface.poku.js
+  s_2d7d294cb7372a::t_e855f954c75661 225,380,482
+lib/inventory/provenanceUtils.poku.js
+  s_2d7d294cb7372a::t_b0fdb217bc8481 1-13,15-171
+  s_7d724ea76adc3c::t_bf2977b0856dc3 14
+packages/cli/package.json
+  s_2d7d294cb7372a::t_5bef9169e35e21 11
+lib/inventory/licenseFetchJourney.repo.poku.js
+  s_2d7d294cb7372a::t_11819f53958fdf 5
+  s_2d7d294cb7372a::t_b03f2fccdf9e4c 1-4,6-211
+lib/stages/postgen/auditBom.poku.js
+  s_2d7d294cb7372a::t_b2cb13bbb38a47 6-7
+MIGRATING-TO-V13.md
+  s_2d7d294cb7372a::t_ee251e7cd150e7 63-72
+  s_2d7d294cb7372a::t_a1e91fbedc9a61 86-87,89-90
+  s_7d724ea76adc3c::t_3f1eb65ace699d 102-106
+lib/inventory/osPackageResolver.js
+  s_2d7d294cb7372a::t_b0fdb217bc8481 1-9,11-490
+  s_7d724ea76adc3c::t_bf2977b0856dc3 10
+lib/inventory/protobom.poku.js
+  s_2d7d294cb7372a::t_b0fdb217bc8481 1-5,7-11,13-269
+  s_2d7d294cb7372a::t_97311cbc0436b3 6
+  s_7d724ea76adc3c::t_bf2977b0856dc3 12
+packages/validator/package.json
+  s_2d7d294cb7372a::t_5bef9169e35e21 11
+lib/inventory/hbom.poku.js
+  s_2d7d294cb7372a::t_b0fdb217bc8481 1-11,13-490
+  s_7d724ea76adc3c::t_bf2977b0856dc3 12
+lib/managers/oci.js
+  s_2d7d294cb7372a::t_b0fdb217bc8481 9
+lib/inventory/hbomAnalysis.poku.js
+  s_2d7d294cb7372a::t_b0fdb217bc8481 1-8,10-249
+  s_7d724ea76adc3c::t_bf2977b0856dc3 9
+lib/ecosystems/chromextutils.js
+  s_2d7d294cb7372a::t_b0fdb217bc8481 14
+lib/inventory/osqueryTransform.poku.js
+  s_2d7d294cb7372a::t_b0fdb217bc8481 1-12,14-96
+  s_7d724ea76adc3c::t_bf2977b0856dc3 13
+lib/inventory/hostTopology.js
+  s_2d7d294cb7372a::t_b0fdb217bc8481 1-4,8-803
+  s_7d724ea76adc3c::t_bf2977b0856dc3 5,7
+  s_7d724ea76adc3c::t_0ff9aa65008032 6
+bin/convert.js
+  s_2d7d294cb7372a::t_b0fdb217bc8481 21,25
+  s_2d7d294cb7372a::t_97311cbc0436b3 11-16
+  s_2d7d294cb7372a::t_f8657f687f32ef 10
+  s_7d724ea76adc3c::t_325eaddcf41d82 17-20,22-24
+lib/inventory/spdxUtils.js
+  s_2d7d294cb7372a::t_b0fdb217bc8481 1-2,4-97
+  s_7d724ea76adc3c::t_bf2977b0856dc3 3
+lib/inventory/hostTopology.poku.js
+  s_2d7d294cb7372a::t_b0fdb217bc8481 1-7,9-363
+  s_7d724ea76adc3c::t_bf2977b0856dc3 8
+lib/inventory/unicodeScan.poku.js
+  s_2d7d294cb7372a::t_b0fdb217bc8481 1-5,7-45
+  s_7d724ea76adc3c::t_bf2977b0856dc3 6
+packages/managers/package.json
+  s_2d7d294cb7372a::t_5bef9169e35e21 11
+lib/ecosystems/parsers-jvm.js
+  s_2d7d294cb7372a::t_b0fdb217bc8481 11
+lib/inventory/table.poku.js
+  s_2d7d294cb7372a::t_b0fdb217bc8481 1-6,8-186
+  s_7d724ea76adc3c::t_bf2977b0856dc3 7
+lib/ecosystems/utils.js
+  s_2d7d294cb7372a::t_b0fdb217bc8481 114,128-129
+  s_2d7d294cb7372a::t_97311cbc0436b3 109-113,130-136,137-139,140,145-166
+  s_7d724ea76adc3c::t_80a66f3d2f5a2c 143
+  s_7d724ea76adc3c::t_0ff9aa65008032 141,144
+  s_7d724ea76adc3c::t_c9848bb99af190 142
+docs/v13/rust.md
+  s_2d7d294cb7372a::t_05a867158ffd84 13,20,41,148,185,336
+lib/managers/docker.poku.js
+  s_2d7d294cb7372a::t_7b498cdd9b20be 193-197
+lib/inventory/osqueryTransform.js
+  s_2d7d294cb7372a::t_b0fdb217bc8481 3-200
+  s_7d724ea76adc3c::t_bf2977b0856dc3 1-2
+lib/inventory/agentFormulationParser.js
+  s_2d7d294cb7372a::t_b0fdb217bc8481 1-9,12-322
+  s_7d724ea76adc3c::t_bf2977b0856dc3 10-11
+lib/inventory/communityAiConfigParser.js
+  s_2d7d294cb7372a::t_b0fdb217bc8481 1-6,8-10,13-744
+  s_7d724ea76adc3c::t_bf2977b0856dc3 7,11-12
+lib/inventory/dynamic.poku.js
+  s_2d7d294cb7372a::t_b0fdb217bc8481 1-2,4-154
+  s_7d724ea76adc3c::t_bf2977b0856dc3 3
+lib/inventory/protobom.js
+  s_2d7d294cb7372a::t_b0fdb217bc8481 1-14,16-243
+  s_7d724ea76adc3c::t_bf2977b0856dc3 15
+lib/inventory/atomUtils.poku.js
+  s_2d7d294cb7372a::t_b0fdb217bc8481 1-9,11-137
+  s_7d724ea76adc3c::t_bf2977b0856dc3 10
+lib/inventory/traceRunner.poku.js
+  s_2d7d294cb7372a::t_b0fdb217bc8481 1-2,4-41
+  s_7d724ea76adc3c::t_bf2977b0856dc3 3
+lib/ecosystems/rusi.poku.js
+  s_2d7d294cb7372a::t_497ec055aecb08 384,441
+  s_2d7d294cb7372a::t_97311cbc0436b3 278-280
+docs/ARCHITECTURE.md
+  s_2d7d294cb7372a::t_8898989a541efd 201-207
+  s_2d7d294cb7372a::t_ac4cedf3631d1b 187-195
+  s_7d724ea76adc3c::t_2721e1b05545b5 209-221
+  s_7d724ea76adc3c::t_325eaddcf41d82 208
+lib/inventory/aiInventory.js
+  s_2d7d294cb7372a::t_b0fdb217bc8481 1,3-8,14-407
+  s_7d724ea76adc3c::t_bf2977b0856dc3 2,9-13
+bin/validate.js
+  s_2d7d294cb7372a::t_b0fdb217bc8481 32,36
+  s_2d7d294cb7372a::t_97311cbc0436b3 23-28
+  s_2d7d294cb7372a::t_0e75f6fa1fcae3 22
+  s_7d724ea76adc3c::t_325eaddcf41d82 29-31,33-35
+lib/inventory/auditCategories.poku.js
+  s_2d7d294cb7372a::t_b0fdb217bc8481 1-5,7-73,75-113
+  s_7d724ea76adc3c::t_bf2977b0856dc3 6,74
+packages/evinser/package.json
+  s_2d7d294cb7372a::t_5bef9169e35e21 11
+lib/ecosystems/rusi.js
+  s_2d7d294cb7372a::t_b0fdb217bc8481 12
+lib/audit/index.poku.js
+  s_2d7d294cb7372a::t_7b498cdd9b20be 121,126,130,230,235,239,2037,2152,2262,2374,2489
+lib/ecosystems/parsers-misc.js
+  s_2d7d294cb7372a::t_b0fdb217bc8481 27,32-33
+  s_2d7d294cb7372a::t_97311cbc0436b3 34-35
+lib/inventory/bomUtils.poku.js
+  s_2d7d294cb7372a::t_b0fdb217bc8481 1-17,19-174
+  s_7d724ea76adc3c::t_bf2977b0856dc3 18
+lib/validator/complianceRules.js
+  s_2d7d294cb7372a::t_b0fdb217bc8481 39
+test/baseline/npm-pack-file-list.txt
+  s_2d7d294cb7372a::t_32e801134d8d45 133-143,144-156,158-175,176,178-191
+  s_2d7d294cb7372a::t_689f8733e0fbe3 393-414,415-440,443-478,479-480,483-510
+  s_7d724ea76adc3c::t_2e2ca4077e7717 1-2,13,68,98,100,106,157,177,214,216-217,327-328,339-340,441-442,481-482
+lib/ecosystems/golem.js
+  s_2d7d294cb7372a::t_b0fdb217bc8481 14
+lib/inventory/mcpDiscovery.poku.js
+  s_2d7d294cb7372a::t_b0fdb217bc8481 1-2,4-21
+  s_7d724ea76adc3c::t_bf2977b0856dc3 3
+pnpm-lock.yaml
+  s_2d7d294cb7372a::t_3f643af86da41d 199-200
+types/lib/inventory/agentFormulationParser.d.ts
+  s_2d7d294cb7372a::t_b477c4099558b9 1-21
+types/lib/inventory/analyzer.d.ts
+  s_2d7d294cb7372a::t_b477c4099558b9 1-92
+types/lib/inventory/aiCollector.d.ts
+  s_2d7d294cb7372a::t_b477c4099558b9 1-61
+types/lib/inventory/dosaiParsers.d.ts
+  s_2d7d294cb7372a::t_b477c4099558b9 1-8
+types/lib/inventory/hbomAnalysis.d.ts
+  s_2d7d294cb7372a::t_b477c4099558b9 1-76
+types/lib/inventory/dynamic.d.ts
+  s_2d7d294cb7372a::t_b477c4099558b9 1-25
+types/lib/inventory/aiInventory.d.ts
+  s_2d7d294cb7372a::t_b477c4099558b9 1-96
+types/lib/inventory/ciParsers/azurePipelines.d.ts
+  s_2d7d294cb7372a::t_b477c4099558b9 1-27
+types/lib/inventory/analyzerScope.d.ts
+  s_2d7d294cb7372a::t_b477c4099558b9 1-11
+types/lib/inventory/licenseEnhancer.d.ts
+  s_2d7d294cb7372a::t_b477c4099558b9 2-70
+  s_7d724ea76adc3c::t_66f77ec33924c4 1
+types/lib/inventory/table.d.ts
+  s_2d7d294cb7372a::t_b477c4099558b9 1-6
+types/lib/inventory/lolbas.d.ts
+  s_2d7d294cb7372a::t_b477c4099558b9 1-16
+types/lib/inventory/ciParsers/circleCi.d.ts
+  s_2d7d294cb7372a::t_b477c4099558b9 1-27
+types/lib/inventory/evidenceUtils.d.ts
+  s_2d7d294cb7372a::t_b477c4099558b9 1-23,24-44,46-55
+  s_7d724ea76adc3c::t_66f77ec33924c4 45
+types/lib/inventory/protobomLoader.d.ts
+  s_2d7d294cb7372a::t_b477c4099558b9 1-17
+types/lib/inventory/spdxExpression.d.ts
+  s_2d7d294cb7372a::t_b477c4099558b9 1-58
+types/lib/inventory/source.d.ts
+  s_2d7d294cb7372a::t_b477c4099558b9 1-126,132,134-135,139-149
+  s_7d724ea76adc3c::t_66f77ec33924c4 127-131,133,136-138
+types/lib/inventory/aiOversightCollector.d.ts
+  s_2d7d294cb7372a::t_b477c4099558b9 1-28
+types/lib/inventory/ciParsers/githubActions.d.ts
+  s_2d7d294cb7372a::t_b477c4099558b9 1-38
+types/lib/inventory/communityAiConfigParser.d.ts
+  s_2d7d294cb7372a::t_b477c4099558b9 1-27
+types/lib/inventory/ciParsers/gitlabCi.d.ts
+  s_2d7d294cb7372a::t_b477c4099558b9 1-26
+types/lib/inventory/inventoryStats.d.ts
+  s_2d7d294cb7372a::t_b477c4099558b9 1-11
+types/lib/inventory/ciParsers/jenkins.d.ts
+  s_2d7d294cb7372a::t_b477c4099558b9 1-26
+types/lib/inventory/unicodeScan.d.ts
+  s_2d7d294cb7372a::t_b477c4099558b9 1-46
+types/lib/inventory/gtfobins.d.ts
+  s_2d7d294cb7372a::t_b477c4099558b9 1-25
+types/lib/inventory/hbomLoader.d.ts
+  s_2d7d294cb7372a::t_b477c4099558b9 1-7
+types/lib/inventory/containerRisk.d.ts
+  s_2d7d294cb7372a::t_b477c4099558b9 1-17
+types/lib/inventory/cbomutils.d.ts
+  s_2d7d294cb7372a::t_b477c4099558b9 1-8,10-17
+  s_7d724ea76adc3c::t_66f77ec33924c4 9
+types/lib/inventory/mcpConfigParser.d.ts
+  s_2d7d294cb7372a::t_b477c4099558b9 1-28
+types/lib/inventory/osqueryTransform.d.ts
+  s_2d7d294cb7372a::t_b477c4099558b9 1-10
+types/lib/inventory/auditCategories.d.ts
+  s_2d7d294cb7372a::t_b477c4099558b9 1-38
+types/lib/inventory/plugins.d.ts
+  s_2d7d294cb7372a::t_b477c4099558b9 1-58
+types/lib/inventory/bomUtils.d.ts
+  s_2d7d294cb7372a::t_b477c4099558b9 1-41
+types/lib/inventory/ciParsers/common.d.ts
+  s_2d7d294cb7372a::t_b477c4099558b9 1-11
+types/lib/inventory/jsonLike.d.ts
+  s_2d7d294cb7372a::t_b477c4099558b9 1-4
+types/lib/inventory/mcpDiscovery.d.ts
+  s_2d7d294cb7372a::t_b477c4099558b9 1-5
+types/lib/ecosystems/utils.d.ts
+  s_2d7d294cb7372a::t_b477c4099558b9 17-20,21
+  s_7d724ea76adc3c::t_66f77ec33924c4 22-29,40
+types/lib/inventory/forgeEnricher.d.ts
+  s_2d7d294cb7372a::t_b477c4099558b9 1-21
+types/lib/inventory/formulationParsers.d.ts
+  s_2d7d294cb7372a::t_b477c4099558b9 1-50
+types/lib/inventory/deps.d.ts
+  s_2d7d294cb7372a::t_b477c4099558b9 1-105
+types/lib/cli/index.d.ts
+  s_2d7d294cb7372a::t_b477c4099558b9 1
+types/lib/inventory/hbom.d.ts
+  s_2d7d294cb7372a::t_b477c4099558b9 1-49
+types/lib/inventory/hostTopology.d.ts
+  s_2d7d294cb7372a::t_b477c4099558b9 1-12
+types/lib/inventory/osPackageResolver.d.ts
+  s_2d7d294cb7372a::t_b477c4099558b9 1-46
+types/lib/inventory/rustFormulationParser.d.ts
+  s_2d7d294cb7372a::t_b477c4099558b9 1-17
+types/lib/inventory/depsUtils.d.ts
+  s_2d7d294cb7372a::t_b477c4099558b9 1-74
+types/lib/inventory/envcontext.d.ts
+  s_2d7d294cb7372a::t_b477c4099558b9 1-374
+types/lib/inventory/aiModelVariants.d.ts
+  s_2d7d294cb7372a::t_b477c4099558b9 1-31
+types/lib/inventory/mcp.d.ts
+  s_2d7d294cb7372a::t_b477c4099558b9 1-29
+types/lib/inventory/spdx.d.ts
+  s_2d7d294cb7372a::t_b477c4099558b9 1-61
+types/lib/inventory/provenanceUtils.d.ts
+  s_2d7d294cb7372a::t_b477c4099558b9 1-92
+types/lib/inventory/traceRunner.d.ts
+  s_2d7d294cb7372a::t_b477c4099558b9 1-80
+types/lib/inventory/spdxUtils.d.ts
+  s_2d7d294cb7372a::t_b477c4099558b9 1-2
+types/lib/inventory/cdxrs.d.ts
+  s_2d7d294cb7372a::t_b477c4099558b9 1-90
+types/lib/inventory/aiProvenanceCollector.d.ts
+  s_2d7d294cb7372a::t_b477c4099558b9 1-13
+types/lib/inventory/display.d.ts
+  s_2d7d294cb7372a::t_b477c4099558b9 1-208
+types/lib/inventory/protobom.d.ts
+  s_2d7d294cb7372a::t_b477c4099558b9 1-26
+types/lib/inventory/atomUtils.d.ts
+  s_2d7d294cb7372a::t_b477c4099558b9 1-47
+types/lib/inventory/osinfo.d.ts
+  s_2d7d294cb7372a::t_b477c4099558b9 1-117
+types/lib/inventory/purl.d.ts
+  s_2d7d294cb7372a::t_b477c4099558b9 1-156
+types/lib/audit/index.d.ts.map
+  s_2d7d294cb7372a::t_e3356ce29372d5 1
+types/lib/inventory/agentFormulationParser.d.ts.map
+  s_2d7d294cb7372a::t_fb93f957d22c8e 1
+types/lib/inventory/aiCollector.d.ts.map
+  s_2d7d294cb7372a::t_cd60e9ad0ddcdc 1
+types/lib/inventory/aiInventory.d.ts.map
+  s_2d7d294cb7372a::t_d2234d6955bd0d 1
+types/lib/inventory/aiModelVariants.d.ts.map
+  s_2d7d294cb7372a::t_02672c4f210c68 1
+types/lib/inventory/aiOversightCollector.d.ts.map
+  s_2d7d294cb7372a::t_a30d3b076ec1f6 1
+types/lib/inventory/aiProvenanceCollector.d.ts.map
+  s_2d7d294cb7372a::t_cae10c5f95da8f 1
+types/lib/inventory/analyzer.d.ts.map
+  s_2d7d294cb7372a::t_ce50e4fae3c044 1
+types/lib/inventory/analyzerScope.d.ts.map
+  s_2d7d294cb7372a::t_97fa97f36ec224 1
+types/lib/inventory/atomUtils.d.ts.map
+  s_2d7d294cb7372a::t_c6462ae7b94943 1
+types/lib/inventory/auditCategories.d.ts.map
+  s_2d7d294cb7372a::t_993c77992b4772 1
+types/lib/inventory/bomUtils.d.ts.map
+  s_2d7d294cb7372a::t_a4b1f1f756f607 1
+types/lib/inventory/cdxrs.d.ts.map
+  s_2d7d294cb7372a::t_a5212f5dbb1e2a 1
+types/lib/inventory/ciParsers/azurePipelines.d.ts.map
+  s_2d7d294cb7372a::t_1d099b846c83db 1
+types/lib/inventory/ciParsers/circleCi.d.ts.map
+  s_2d7d294cb7372a::t_94428fb192c275 1
+types/lib/inventory/ciParsers/common.d.ts.map
+  s_2d7d294cb7372a::t_6e7117d530cf85 1
+types/lib/inventory/ciParsers/githubActions.d.ts.map
+  s_2d7d294cb7372a::t_cf3925cfc1a768 1
+types/lib/inventory/ciParsers/gitlabCi.d.ts.map
+  s_2d7d294cb7372a::t_c278b14ed7d481 1
+types/lib/inventory/ciParsers/jenkins.d.ts.map
+  s_2d7d294cb7372a::t_c96ae009492604 1
+types/lib/inventory/communityAiConfigParser.d.ts.map
+  s_2d7d294cb7372a::t_e59b3fbe873753 1
+types/lib/inventory/containerRisk.d.ts.map
+  s_2d7d294cb7372a::t_4d07a243079a04 1
+types/lib/inventory/deps.d.ts.map
+  s_2d7d294cb7372a::t_4c33812b066fe6 1
+types/lib/inventory/depsUtils.d.ts.map
+  s_2d7d294cb7372a::t_e0993d94dc7a71 1
+types/lib/inventory/display.d.ts.map
+  s_2d7d294cb7372a::t_0f79dbfa2a5975 1
+types/lib/inventory/dosaiParsers.d.ts.map
+  s_2d7d294cb7372a::t_6fa1c118e94f33 1
+types/lib/inventory/dynamic.d.ts.map
+  s_2d7d294cb7372a::t_8ef9a299111000 1
+types/lib/inventory/envcontext.d.ts.map
+  s_2d7d294cb7372a::t_f9087be629904a 1
+types/lib/inventory/forgeEnricher.d.ts.map
+  s_2d7d294cb7372a::t_80767060665838 1
+types/lib/inventory/formulationParsers.d.ts.map
+  s_2d7d294cb7372a::t_f5aec2db0b2c32 1
+types/lib/inventory/gtfobins.d.ts.map
+  s_2d7d294cb7372a::t_8b10a114dd66c9 1
+types/lib/inventory/hbom.d.ts.map
+  s_2d7d294cb7372a::t_c233b3a3317c39 1
+types/lib/inventory/hbomAnalysis.d.ts.map
+  s_2d7d294cb7372a::t_f8c6dc354ed893 1
+types/lib/inventory/hbomLoader.d.ts.map
+  s_2d7d294cb7372a::t_b9be832fed6f09 1
+types/lib/inventory/hostTopology.d.ts.map
+  s_2d7d294cb7372a::t_aa8fb5a1dda7cc 1
+types/lib/inventory/inventoryStats.d.ts.map
+  s_2d7d294cb7372a::t_b3d258af2f4fdd 1
+types/lib/inventory/jsonLike.d.ts.map
+  s_2d7d294cb7372a::t_88bdc048ee6df6 1
+types/lib/inventory/lolbas.d.ts.map
+  s_2d7d294cb7372a::t_2900873fad68a2 1
+types/lib/inventory/mcp.d.ts.map
+  s_2d7d294cb7372a::t_c43c10d09a4aba 1
+types/lib/inventory/mcpConfigParser.d.ts.map
+  s_2d7d294cb7372a::t_cd5de74810e9f5 1
+types/lib/inventory/mcpDiscovery.d.ts.map
+  s_2d7d294cb7372a::t_a9cadf4864a282 1
+types/lib/inventory/osPackageResolver.d.ts.map
+  s_2d7d294cb7372a::t_c73ba2e0e925f1 1
+types/lib/inventory/osinfo.d.ts.map
+  s_2d7d294cb7372a::t_00c1d2f94b428e 1
+types/lib/inventory/osqueryTransform.d.ts.map
+  s_2d7d294cb7372a::t_5848e44e80df29 1
+types/lib/inventory/plugins.d.ts.map
+  s_2d7d294cb7372a::t_8ee350546be406 1
+types/lib/inventory/protobom.d.ts.map
+  s_2d7d294cb7372a::t_1b918301277e6a 1
+types/lib/inventory/protobomLoader.d.ts.map
+  s_2d7d294cb7372a::t_00ff172d3d1caf 1
+types/lib/inventory/provenanceUtils.d.ts.map
+  s_2d7d294cb7372a::t_1134420cbd8ac0 1
+types/lib/inventory/purl.d.ts.map
+  s_2d7d294cb7372a::t_1c263061054756 1
+types/lib/inventory/rustFormulationParser.d.ts.map
+  s_2d7d294cb7372a::t_79d81c012ce49d 1
+types/lib/inventory/spdx.d.ts.map
+  s_2d7d294cb7372a::t_e4c87325c1e6d8 1
+types/lib/inventory/spdxExpression.d.ts.map
+  s_2d7d294cb7372a::t_bdee5e88389702 1
+types/lib/inventory/spdxUtils.d.ts.map
+  s_2d7d294cb7372a::t_a8989d8f2d2fd8 1
+types/lib/inventory/table.d.ts.map
+  s_2d7d294cb7372a::t_5a6122bdd6af0a 1
+types/lib/inventory/traceRunner.d.ts.map
+  s_2d7d294cb7372a::t_6cd113d2179a1d 1
+types/lib/inventory/unicodeScan.d.ts.map
+  s_2d7d294cb7372a::t_7cd6c85daed649 1
+types/lib/server/server.d.ts.map
+  s_2d7d294cb7372a::t_ccc70bbffd6efd 1
+bin/hbom.js
+  s_2d7d294cb7372a::t_97311cbc0436b3 22-32
+lib/inventory/dosai.poku.js
+  s_2d7d294cb7372a::t_97311cbc0436b3 302-303,329-330
+  s_7d724ea76adc3c::t_a0810548d11b6b 1-470
+lib/evinser/swiftsem.js
+  s_2d7d294cb7372a::t_97311cbc0436b3 8
+bin/verify.js
+  s_2d7d294cb7372a::t_97311cbc0436b3 16-20
+lib/audit/reporters.js
+  s_2d7d294cb7372a::t_97311cbc0436b3 3
+lib/ecosystems/remote/huggingface.js
+  s_2d7d294cb7372a::t_97311cbc0436b3 6-9
+  s_2d7d294cb7372a::t_a6ea818c091926 5
+lib/ecosystems/parsers-go.js
+  s_2d7d294cb7372a::t_97311cbc0436b3 10
+lib/stages/postgen/postgen.poku.js
+  s_2d7d294cb7372a::t_97311cbc0436b3 21
+lib/validator/index.js
+  s_2d7d294cb7372a::t_97311cbc0436b3 16
+bin/sign.js
+  s_2d7d294cb7372a::t_97311cbc0436b3 15-18
+bin/tracebom.js
+  s_2d7d294cb7372a::t_97311cbc0436b3 15
+types/lib/ecosystems/caxa.d.ts
+  s_7d724ea76adc3c::t_66f77ec33924c4 1-7
+lib/inventory/dosai.js
+  s_7d724ea76adc3c::t_a0810548d11b6b 1-489
+lib/ecosystems/jsEvidence.js
+  s_7d724ea76adc3c::t_59597d6e7409ff 9-10,279
+  s_7d724ea76adc3c::t_6f258a1e60ef31 1-8,11-278,280-300
+types/lib/inventory/dosai.d.ts
+  s_7d724ea76adc3c::t_66f77ec33924c4 1-37
+lib/ecosystems/cppEvidence.js
+  s_7d724ea76adc3c::t_59597d6e7409ff 133
+  s_7d724ea76adc3c::t_8f26c4fed80d68 1-36,38-132,134-291
+  s_7d724ea76adc3c::t_6b1c1d42b49d37 37
+types/lib/ecosystems/cppEvidence.d.ts
+  s_7d724ea76adc3c::t_66f77ec33924c4 1-35
+types/lib/ecosystems/jsEvidence.d.ts
+  s_7d724ea76adc3c::t_66f77ec33924c4 1-2
+types/lib/cli/index.d.ts.map
+  s_7d724ea76adc3c::t_e8df1f90ef6a97 1
+types/lib/ecosystems/caxa.d.ts.map
+  s_7d724ea76adc3c::t_faf3a4b9fb5030 1
+types/lib/ecosystems/cppEvidence.d.ts.map
+  s_7d724ea76adc3c::t_ec933dbca3bb04 1
+types/lib/ecosystems/ecosystems.d.ts.map
+  s_7d724ea76adc3c::t_b724613f3278bd 1
+types/lib/ecosystems/jsEvidence.d.ts.map
+  s_7d724ea76adc3c::t_b899ba912beb22 1
+types/lib/ecosystems/utils.d.ts.map
+  s_7d724ea76adc3c::t_1127e30f74b3f9 1
+types/lib/evinser/evinser.d.ts.map
+  s_7d724ea76adc3c::t_314994ec2db9e0 1
+types/lib/inventory/cbomutils.d.ts.map
+  s_7d724ea76adc3c::t_34a2e4d1324d00 1
+types/lib/inventory/dosai.d.ts.map
+  s_7d724ea76adc3c::t_d7097424712489 1
+types/lib/inventory/evidenceUtils.d.ts.map
+  s_7d724ea76adc3c::t_3937da1774e10a 1
+types/lib/inventory/licenseEnhancer.d.ts.map
+  s_7d724ea76adc3c::t_a8905bdc14f26f 1
+types/lib/inventory/source.d.ts.map
+  s_7d724ea76adc3c::t_653d2da3fd0aa5 1
+types/lib/stages/postgen/postgen.d.ts.map
+  s_7d724ea76adc3c::t_951149cb5f2b91 1
+lib/inventory/ciParsers/circleCi.poku.js
+  s_7d724ea76adc3c::t_325eaddcf41d82 1-230
+lib/inventory/osinfo.js
+  s_7d724ea76adc3c::t_325eaddcf41d82 1-274
+lib/inventory/ciParsers/jenkins.js
+  s_7d724ea76adc3c::t_325eaddcf41d82 1-180
+lib/inventory/agentFormulationParser.poku.js
+  s_7d724ea76adc3c::t_325eaddcf41d82 1-42
+lib/inventory/bomUtils.js
+  s_7d724ea76adc3c::t_325eaddcf41d82 1-268
+lib/inventory/ciParsers/githubActions.poku.js
+  s_7d724ea76adc3c::t_325eaddcf41d82 1-1919
+lib/inventory/ciParsers/circleCi.js
+  s_7d724ea76adc3c::t_325eaddcf41d82 1-286
+lib/inventory/jsonLike.js
+  s_7d724ea76adc3c::t_325eaddcf41d82 1-102
+lib/inventory/ciParsers/common.js
+  s_7d724ea76adc3c::t_325eaddcf41d82 1-24
+lib/inventory/provenanceUtils.js
+  s_7d724ea76adc3c::t_325eaddcf41d82 1-218
+lib/inventory/hbomLoader.js
+  s_7d724ea76adc3c::t_325eaddcf41d82 1-35
+lib/inventory/ciParsers/azurePipelines.poku.js
+  s_7d724ea76adc3c::t_325eaddcf41d82 1-253
+lib/inventory/ciParsers/jenkins.poku.js
+  s_7d724ea76adc3c::t_325eaddcf41d82 1-197
+lib/inventory/aiOversightCollector.poku.js
+  s_7d724ea76adc3c::t_325eaddcf41d82 1-384
+lib/inventory/atomUtils.js
+  s_7d724ea76adc3c::t_325eaddcf41d82 1-652
+lib/inventory/ciParsers/azurePipelines.js
+  s_7d724ea76adc3c::t_325eaddcf41d82 1-295
+lib/inventory/spdxExpression.js
+  s_7d724ea76adc3c::t_325eaddcf41d82 1-512
+lib/inventory/lolbas.js
+  s_7d724ea76adc3c::t_325eaddcf41d82 1-285
+lib/inventory/ciParsers/gitlabCi.js
+  s_7d724ea76adc3c::t_325eaddcf41d82 1-213
+lib/inventory/aiProvenanceCollector.poku.js
+  s_7d724ea76adc3c::t_325eaddcf41d82 1-182
+lib/inventory/table.js
+  s_7d724ea76adc3c::t_325eaddcf41d82 1-384
+lib/inventory/analyzerScope.js
+  s_7d724ea76adc3c::t_325eaddcf41d82 1-712
+lib/inventory/mcpConfigParser.poku.js
+  s_7d724ea76adc3c::t_325eaddcf41d82 1-163
+lib/inventory/deps.js
+  s_7d724ea76adc3c::t_325eaddcf41d82 1-732
+lib/inventory/ciParsers/githubActions.js
+  s_7d724ea76adc3c::t_325eaddcf41d82 1-2434
+lib/inventory/rustFormulationParser.js
+  s_7d724ea76adc3c::t_325eaddcf41d82 1-330
+lib/inventory/communityAiConfigParser.poku.js
+  s_7d724ea76adc3c::t_325eaddcf41d82 1-177
+lib/inventory/ciParsers/gitlabCi.poku.js
+  s_7d724ea76adc3c::t_325eaddcf41d82 1-247
+lib/inventory/inventoryStats.js
+  s_7d724ea76adc3c::t_325eaddcf41d82 1-69
+lib/inventory/purl.js
+  s_7d724ea76adc3c::t_325eaddcf41d82 1-511
+lib/inventory/protobomLoader.js
+  s_7d724ea76adc3c::t_325eaddcf41d82 1-43
+lib/inventory/dosaiParsers.js
+  s_7d724ea76adc3c::t_325eaddcf41d82 1-103
+lib/inventory/gtfobins.js
+  s_7d724ea76adc3c::t_325eaddcf41d82 1-323
+lib/inventory/unicodeScan.js
+  s_7d724ea76adc3c::t_325eaddcf41d82 1-147
+lib/inventory/mcp.js
+  s_7d724ea76adc3c::t_325eaddcf41d82 1-253
+lib/inventory/mcpDiscovery.js
+  s_7d724ea76adc3c::t_325eaddcf41d82 1-84
+lib/inventory/traceRunner.js
+  s_7d724ea76adc3c::t_325eaddcf41d82 1-439
+lib/inventory/depsUtils.js
+  s_7d724ea76adc3c::t_325eaddcf41d82 1-588
+lib/inventory/auditCategories.js
+  s_7d724ea76adc3c::t_325eaddcf41d82 1-154
+lib/inventory/aiModelVariants.js
+  s_7d724ea76adc3c::t_325eaddcf41d82 1-121
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "680978ce04d748463040ad88d26e84e9bb64d912",
+  "prompts": {},
+  "sessions": {
+    "s_2d7d294cb7372a": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_04285b049ffeMv8De2lFFwCvIg",
+        "model": "glm-5.2"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    },
+    "s_7d724ea76adc3c": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "2a0b9959-84de-46e0-a87e-11e7f1e7f1e3",
+        "model": "claude-opus-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
