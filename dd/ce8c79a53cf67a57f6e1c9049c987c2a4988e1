@@ -1,0 +1,25 @@
+packages/ecosystems/package.json
+  s_7d724ea76adc3c::t_0ff96491f2c768 6
+packages/helpers/package.json
+  s_7d724ea76adc3c::t_22f600272512d2 6
+docs/ARCHITECTURE.md
+  s_7d724ea76adc3c::t_2429d3de5cb040 27-30,182-207
+MIGRATING-TO-V13.md
+  s_7d724ea76adc3c::t_d3cac31f467747 63-74
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "ddce8c79a53cf67a57f6e1c9049c987c2a4988e1",
+  "prompts": {},
+  "sessions": {
+    "s_7d724ea76adc3c": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "2a0b9959-84de-46e0-a87e-11e7f1e7f1e3",
+        "model": "claude-opus-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
