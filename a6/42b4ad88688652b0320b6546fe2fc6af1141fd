@@ -1,0 +1,34 @@
+bin/cdxgen.js
+  s_2d7d294cb7372a::t_5dcf19e0fa62b9 60
+  s_2d7d294cb7372a::t_d826e4a8c20bc0 1388-1390
+lib/ecosystems/source.poku.js
+  s_2d7d294cb7372a::t_8d1e789c731950 322
+  s_2d7d294cb7372a::t_3aef0d8d30b8fe 272
+  s_2d7d294cb7372a::t_7c9a15942785f9 404-406
+lib/server/server.js
+  s_2d7d294cb7372a::t_50c683132c2f27 16
+  s_2d7d294cb7372a::t_8a8b9295d9fd8d 385-387
+lib/audit/index.js
+  s_2d7d294cb7372a::t_f2e5079bd96f0f 33
+  s_2d7d294cb7372a::t_b6d23774fdb21d 1792-1794
+lib/ecosystems/source.js
+  s_2d7d294cb7372a::t_0f2d37db0d5be6 1206-1211
+  s_2d7d294cb7372a::t_76c2773ea2f9d4 1031
+  s_2d7d294cb7372a::t_214976f12b14c8 1204-1205
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "a642b4ad88688652b0320b6546fe2fc6af1141fd",
+  "prompts": {},
+  "sessions": {
+    "s_2d7d294cb7372a": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_04285b049ffeMv8De2lFFwCvIg",
+        "model": "glm-5.2"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
