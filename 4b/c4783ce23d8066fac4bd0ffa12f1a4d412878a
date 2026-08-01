@@ -1,0 +1,28 @@
+contrib/check-lib-paths.js
+  s_7d724ea76adc3c::t_21c55e279a84a6 39-43
+  s_7d724ea76adc3c::t_d5912f7e36128a 80-82
+  s_7d724ea76adc3c::t_2f4e8859d8819a 1-38,44-79,83-104,111,115-163
+  s_7d724ea76adc3c::t_12c17dc570ac5d 105-110,112-114
+package.json
+  s_7d724ea76adc3c::t_d5b779486c093d 122
+test/deno/deno-runtime.poku.js
+  s_7d724ea76adc3c::t_f84a0731919f3c 6,12-15
+lib/boundaries.poku.js
+  s_7d724ea76adc3c::t_148bcde2d17073 236-253
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "4bc4783ce23d8066fac4bd0ffa12f1a4d412878a",
+  "prompts": {},
+  "sessions": {
+    "s_7d724ea76adc3c": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "2a0b9959-84de-46e0-a87e-11e7f1e7f1e3",
+        "model": "claude-opus-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
