@@ -1,0 +1,32 @@
+lib/ecosystems/cbomutils.poku.js
+  s_2d7d294cb7372a::t_fb26bdfbb4958a 362-370,421
+  s_2d7d294cb7372a::t_9ae3bb7125019c 326
+  s_2d7d294cb7372a::t_7e508cf6c7ca04 482-490,508
+  s_2d7d294cb7372a::t_29da9059028852 264-270
+lib/ecosystems/cbomutils.js
+  s_2d7d294cb7372a::t_df9f8222f7edd9 444-455
+PROGRESS.md
+  s_2d7d294cb7372a::t_e21e124d8c47ef 1-23
+lib/cli/index.js
+  s_2d7d294cb7372a::t_35af661ddbf245 9382
+  s_2d7d294cb7372a::t_b5c4e0cd8b7612 141
+lib/evinser/evinser.js
+  s_2d7d294cb7372a::t_b983c5a9706da9 30
+  s_2d7d294cb7372a::t_792eb473c189cf 679-681
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "9689148838d2cefc4aeec6ab56f37af3e7f36a80",
+  "prompts": {},
+  "sessions": {
+    "s_2d7d294cb7372a": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_04285b049ffeMv8De2lFFwCvIg",
+        "model": "glm-5.2"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
