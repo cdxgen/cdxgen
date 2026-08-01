@@ -1,0 +1,250 @@
+types/lib/ecosystems/caxa.d.ts
+  s_7d724ea76adc3c::t_66f77ec33924c4 1-7
+lib/inventory/spdxUtils.js
+  s_7d724ea76adc3c::t_bf2977b0856dc3 3
+lib/inventory/mcpConfigParser.js
+  s_7d724ea76adc3c::t_bf2977b0856dc3 8-9,15-16
+lib/inventory/aiModelVariants.poku.js
+  s_7d724ea76adc3c::t_bf2977b0856dc3 6
+lib/inventory/envcontext.js
+  s_7d724ea76adc3c::t_bf2977b0856dc3 31
+lib/inventory/dynamic.js
+  s_7d724ea76adc3c::t_0ff9aa65008032 6
+  s_7d724ea76adc3c::t_bf2977b0856dc3 4-5
+lib/inventory/lolbas.poku.js
+  s_7d724ea76adc3c::t_0ff9aa65008032 5
+lib/inventory/envcontext_git.poku.js
+  s_7d724ea76adc3c::t_bf2977b0856dc3 3
+lib/inventory/purl.poku.js
+  s_7d724ea76adc3c::t_bf2977b0856dc3 14
+lib/inventory/aiProvenanceCollector.js
+  s_7d724ea76adc3c::t_0ff9aa65008032 6
+lib/inventory/analyzer.poku.js
+  s_7d724ea76adc3c::t_bf2977b0856dc3 23
+lib/inventory/evidenceUtils.poku.js
+  s_7d724ea76adc3c::t_bf2977b0856dc3 8,69
+  s_7d724ea76adc3c::t_d1bda8d8020f87 4,472-517
+  s_7d724ea76adc3c::t_a2e10baeff075c 518
+lib/inventory/hbom.poku.js
+  s_7d724ea76adc3c::t_bf2977b0856dc3 12
+lib/inventory/spdxExpression.poku.js
+  s_7d724ea76adc3c::t_bf2977b0856dc3 11
+lib/inventory/containerRisk.js
+  s_7d724ea76adc3c::t_bf2977b0856dc3 6
+lib/inventory/aiOversightCollector.js
+  s_7d724ea76adc3c::t_0ff9aa65008032 6
+  s_7d724ea76adc3c::t_bf2977b0856dc3 12-13
+lib/inventory/aiProvenanceCollector.repo.poku.js
+  s_7d724ea76adc3c::t_bf2977b0856dc3 3-4
+lib/inventory/atomUtils.poku.js
+  s_7d724ea76adc3c::t_bf2977b0856dc3 10
+lib/inventory/auditCategories.poku.js
+  s_7d724ea76adc3c::t_bf2977b0856dc3 6,74
+lib/inventory/evidenceUtils.js
+  s_7d724ea76adc3c::t_834dbaf3c20dc0 3
+  s_7d724ea76adc3c::t_bf2977b0856dc3 15-17,27
+  s_7d724ea76adc3c::t_d662f87ae2bca2 452,504-513
+lib/inventory/agentFormulationParser.js
+  s_7d724ea76adc3c::t_bf2977b0856dc3 10-11
+lib/inventory/formulationParsers.poku.js
+  s_7d724ea76adc3c::t_bf2977b0856dc3 7
+lib/inventory/gtfobins.poku.js
+  s_7d724ea76adc3c::t_bf2977b0856dc3 9
+lib/inventory/hbomAnalysis.poku.js
+  s_7d724ea76adc3c::t_bf2977b0856dc3 9
+lib/inventory/licenseEnhancer.poku.js
+  s_7d724ea76adc3c::t_bf2977b0856dc3 14
+lib/inventory/spdxUtils.poku.js
+  s_7d724ea76adc3c::t_bf2977b0856dc3 3
+lib/inventory/unicodeScan.poku.js
+  s_7d724ea76adc3c::t_bf2977b0856dc3 6
+lib/inventory/dosai.js
+  s_7d724ea76adc3c::t_a0810548d11b6b 1-489
+lib/inventory/hostTopology.poku.js
+  s_7d724ea76adc3c::t_bf2977b0856dc3 8
+lib/inventory/osPackageResolver.js
+  s_7d724ea76adc3c::t_bf2977b0856dc3 10
+lib/cli/index.js
+  s_7d724ea76adc3c::t_f006e94cc680ac 6641
+  s_7d724ea76adc3c::t_696bc1df50ab55 6627-6631
+  s_7d724ea76adc3c::t_e81df548403454 7557
+  s_7d724ea76adc3c::t_0ff9aa65008032 84,91,120,294-300
+lib/ecosystems/jsEvidence.js
+  s_7d724ea76adc3c::t_59597d6e7409ff 9-10,279
+  s_7d724ea76adc3c::t_6f258a1e60ef31 1-8,11-278,280-300
+lib/inventory/cbomutils.js
+  s_7d724ea76adc3c::t_b7c7865538127d 445-446
+  s_7d724ea76adc3c::t_bf2977b0856dc3 6,12
+  s_7d724ea76adc3c::t_7e9569d7d2e87b 7
+lib/inventory/licenseEnhancer.js
+  s_7d724ea76adc3c::t_bf2977b0856dc3 7,16
+test/deno/deno-runtime.poku.js
+  s_7d724ea76adc3c::t_80a66f3d2f5a2c 15
+lib/inventory/cdxrs.poku.js
+  s_7d724ea76adc3c::t_bf2977b0856dc3 17
+lib/inventory/analyzer.js
+  s_7d724ea76adc3c::t_bf2977b0856dc3 24-26
+lib/inventory/display.js
+  s_7d724ea76adc3c::t_0ff9aa65008032 19
+  s_7d724ea76adc3c::t_bf2977b0856dc3 12-13,18,20,24-25
+lib/inventory/aiInventory.poku.js
+  s_7d724ea76adc3c::t_bf2977b0856dc3 15-16
+lib/inventory/display.poku.js
+  s_7d724ea76adc3c::t_bf2977b0856dc3 18
+lib/inventory/protobom.poku.js
+  s_7d724ea76adc3c::t_bf2977b0856dc3 12
+types/lib/inventory/cbomutils.d.ts
+  s_7d724ea76adc3c::t_66f77ec33924c4 9
+types/lib/inventory/source.d.ts
+  s_7d724ea76adc3c::t_66f77ec33924c4 127-131,133,136-138
+types/lib/inventory/dosai.d.ts
+  s_7d724ea76adc3c::t_66f77ec33924c4 1-37
+test/baseline/npm-pack-file-list.txt
+  s_7d724ea76adc3c::t_2e2ca4077e7717 1-2,13,68,98,100,106,157,177,214,216-217,327-328,339-340,441-442,481-482
+lib/evinser/evinser.js
+  s_7d724ea76adc3c::t_0ff9aa65008032 44-52
+  s_7d724ea76adc3c::t_8cb94c586f16d3 678
+lib/inventory/plugins.js
+  s_7d724ea76adc3c::t_bf2977b0856dc3 9
+lib/inventory/communityAiConfigParser.js
+  s_7d724ea76adc3c::t_bf2977b0856dc3 7,11-12
+lib/inventory/aiCollector.js
+  s_7d724ea76adc3c::t_0ff9aa65008032 34-38
+lib/inventory/table.poku.js
+  s_7d724ea76adc3c::t_bf2977b0856dc3 7
+lib/inventory/source.poku.js
+  s_7d724ea76adc3c::t_e65b9285082bdf 275-280,301-325
+  s_7d724ea76adc3c::t_fb852eb04c5980 326-327
+docs/ARCHITECTURE.md
+  s_7d724ea76adc3c::t_2721e1b05545b5 209-221
+lib/inventory/depsUtils.poku.js
+  s_7d724ea76adc3c::t_bf2977b0856dc3 10
+types/lib/inventory/licenseEnhancer.d.ts
+  s_7d724ea76adc3c::t_66f77ec33924c4 1
+lib/inventory/cbomutils.poku.js
+  s_7d724ea76adc3c::t_bf2977b0856dc3 11
+  s_7d724ea76adc3c::t_fd9d40b6d674d2 264,323,362,418,482,505
+  s_7d724ea76adc3c::t_be0d06b11ced8c 5
+  s_7d724ea76adc3c::t_9468f5c8329ea6 265-321,324-326,363-416,419-421,483-503,506-508
+lib/ecosystems/cppEvidence.js
+  s_7d724ea76adc3c::t_59597d6e7409ff 133
+  s_7d724ea76adc3c::t_8f26c4fed80d68 1-36,38-132,134-291
+  s_7d724ea76adc3c::t_6b1c1d42b49d37 37
+lib/inventory/envcontext.poku.js
+  s_7d724ea76adc3c::t_bf2977b0856dc3 24
+  s_7d724ea76adc3c::t_0ff9aa65008032 6
+lib/inventory/aiInventory.js
+  s_7d724ea76adc3c::t_bf2977b0856dc3 2,9-13
+lib/inventory/osqueryTransform.js
+  s_7d724ea76adc3c::t_bf2977b0856dc3 1-2
+lib/inventory/plugins.poku.js
+  s_7d724ea76adc3c::t_0ff9aa65008032 9
+lib/inventory/protobom.js
+  s_7d724ea76adc3c::t_bf2977b0856dc3 15
+lib/inventory/dosai.poku.js
+  s_7d724ea76adc3c::t_a0810548d11b6b 1-470
+types/lib/ecosystems/utils.d.ts
+  s_7d724ea76adc3c::t_66f77ec33924c4 22-29,40
+lib/inventory/traceRunner.poku.js
+  s_7d724ea76adc3c::t_bf2977b0856dc3 3
+lib/inventory/forgeEnricher.js
+  s_7d724ea76adc3c::t_bf2977b0856dc3 2
+lib/inventory/protobomLoader.poku.js
+  s_7d724ea76adc3c::t_0ff9aa65008032 3
+lib/inventory/dynamic.poku.js
+  s_7d724ea76adc3c::t_bf2977b0856dc3 3
+types/lib/ecosystems/cppEvidence.d.ts
+  s_7d724ea76adc3c::t_66f77ec33924c4 1-35
+lib/inventory/mcpDiscovery.poku.js
+  s_7d724ea76adc3c::t_bf2977b0856dc3 3
+lib/inventory/bomUtils.poku.js
+  s_7d724ea76adc3c::t_bf2977b0856dc3 18
+lib/inventory/osqueryTransform.poku.js
+  s_7d724ea76adc3c::t_bf2977b0856dc3 13
+lib/inventory/provenanceUtils.poku.js
+  s_7d724ea76adc3c::t_bf2977b0856dc3 14
+lib/inventory/osPackageResolver.poku.js
+  s_7d724ea76adc3c::t_bf2977b0856dc3 6
+lib/inventory/aiCollector.poku.js
+  s_7d724ea76adc3c::t_bf2977b0856dc3 13
+lib/inventory/containerRisk.poku.js
+  s_7d724ea76adc3c::t_bf2977b0856dc3 8
+lib/inventory/formulationParsers.js
+  s_7d724ea76adc3c::t_bf2977b0856dc3 7-13,20-22
+lib/inventory/hostTopology.js
+  s_7d724ea76adc3c::t_bf2977b0856dc3 5,7
+  s_7d724ea76adc3c::t_0ff9aa65008032 6
+lib/ecosystems/caxa.js
+  s_7d724ea76adc3c::t_3c0e0f1e29fcfc 5,13
+  s_7d724ea76adc3c::t_e81df548403454 73-74
+lib/inventory/source.js
+  s_7d724ea76adc3c::t_476bcf55900a1d 27-29,1214,1268-1273
+  s_7d724ea76adc3c::t_b912dbc4d7035d 1031-1035,1037,1213,1215-1223
+types/lib/ecosystems/jsEvidence.d.ts
+  s_7d724ea76adc3c::t_66f77ec33924c4 1-2
+MIGRATING-TO-V13.md
+  s_7d724ea76adc3c::t_3f1eb65ace699d 102-106
+lib/inventory/inventoryStats.poku.js
+  s_7d724ea76adc3c::t_bf2977b0856dc3 9
+lib/inventory/jsonLike.poku.js
+  s_7d724ea76adc3c::t_bf2977b0856dc3 3
+lib/inventory/hbom.js
+  s_7d724ea76adc3c::t_bf2977b0856dc3 9-10,12
+  s_7d724ea76adc3c::t_0ff9aa65008032 11
+lib/inventory/hbomAnalysis.js
+  s_7d724ea76adc3c::t_bf2977b0856dc3 1
+types/lib/inventory/evidenceUtils.d.ts
+  s_7d724ea76adc3c::t_66f77ec33924c4 45
+lib/inventory/spdx.js
+  s_7d724ea76adc3c::t_0ff9aa65008032 9
+lib/inventory/cdxrs.js
+  s_7d724ea76adc3c::t_0ff9aa65008032 26
+lib/ecosystems/utils.js
+  s_7d724ea76adc3c::t_80a66f3d2f5a2c 143
+  s_7d724ea76adc3c::t_0ff9aa65008032 141,144
+  s_7d724ea76adc3c::t_c9848bb99af190 142
+lib/inventory/mcp.poku.js
+  s_7d724ea76adc3c::t_0ff9aa65008032 3
+types/lib/cli/index.d.ts.map
+  s_7d724ea76adc3c::t_e8df1f90ef6a97 1
+types/lib/ecosystems/caxa.d.ts.map
+  s_7d724ea76adc3c::t_faf3a4b9fb5030 1
+types/lib/ecosystems/cppEvidence.d.ts.map
+  s_7d724ea76adc3c::t_ec933dbca3bb04 1
+types/lib/ecosystems/ecosystems.d.ts.map
+  s_7d724ea76adc3c::t_b724613f3278bd 1
+types/lib/ecosystems/jsEvidence.d.ts.map
+  s_7d724ea76adc3c::t_b899ba912beb22 1
+types/lib/ecosystems/utils.d.ts.map
+  s_7d724ea76adc3c::t_1127e30f74b3f9 1
+types/lib/evinser/evinser.d.ts.map
+  s_7d724ea76adc3c::t_314994ec2db9e0 1
+types/lib/inventory/cbomutils.d.ts.map
+  s_7d724ea76adc3c::t_34a2e4d1324d00 1
+types/lib/inventory/dosai.d.ts.map
+  s_7d724ea76adc3c::t_d7097424712489 1
+types/lib/inventory/evidenceUtils.d.ts.map
+  s_7d724ea76adc3c::t_3937da1774e10a 1
+types/lib/inventory/licenseEnhancer.d.ts.map
+  s_7d724ea76adc3c::t_a8905bdc14f26f 1
+types/lib/inventory/source.d.ts.map
+  s_7d724ea76adc3c::t_653d2da3fd0aa5 1
+types/lib/stages/postgen/postgen.d.ts.map
+  s_7d724ea76adc3c::t_951149cb5f2b91 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "af67293b42279f7db0d699ac331e62e9fea1c6fc",
+  "prompts": {},
+  "sessions": {
+    "s_7d724ea76adc3c": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "2a0b9959-84de-46e0-a87e-11e7f1e7f1e3",
+        "model": "claude-opus-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
