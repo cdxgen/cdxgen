@@ -1,0 +1,269 @@
+types/lib/inventory/agentFormulationParser.d.ts
+  s_2d7d294cb7372a::t_b477c4099558b9 1-21
+types/lib/inventory/analyzer.d.ts
+  s_2d7d294cb7372a::t_b477c4099558b9 1-92
+types/lib/inventory/caxa.d.ts
+  s_2d7d294cb7372a::t_b477c4099558b9 1-13
+types/lib/inventory/aiCollector.d.ts
+  s_2d7d294cb7372a::t_b477c4099558b9 1-61
+types/lib/inventory/dosaiParsers.d.ts
+  s_2d7d294cb7372a::t_b477c4099558b9 1-8
+types/lib/inventory/hbomAnalysis.d.ts
+  s_2d7d294cb7372a::t_b477c4099558b9 1-76
+types/lib/inventory/dynamic.d.ts
+  s_2d7d294cb7372a::t_b477c4099558b9 1-25
+types/lib/inventory/aiInventory.d.ts
+  s_2d7d294cb7372a::t_b477c4099558b9 1-96
+types/lib/inventory/ciParsers/azurePipelines.d.ts
+  s_2d7d294cb7372a::t_b477c4099558b9 1-27
+types/lib/inventory/analyzerScope.d.ts
+  s_2d7d294cb7372a::t_b477c4099558b9 1-11
+types/lib/inventory/licenseEnhancer.d.ts
+  s_2d7d294cb7372a::t_b477c4099558b9 1-70
+types/lib/inventory/table.d.ts
+  s_2d7d294cb7372a::t_b477c4099558b9 1-6
+types/lib/inventory/lolbas.d.ts
+  s_2d7d294cb7372a::t_b477c4099558b9 1-16
+types/lib/inventory/ciParsers/circleCi.d.ts
+  s_2d7d294cb7372a::t_b477c4099558b9 1-27
+types/lib/inventory/evidenceUtils.d.ts
+  s_2d7d294cb7372a::t_b477c4099558b9 1-72
+types/lib/inventory/protobomLoader.d.ts
+  s_2d7d294cb7372a::t_b477c4099558b9 1-17
+types/lib/inventory/spdxExpression.d.ts
+  s_2d7d294cb7372a::t_b477c4099558b9 1-58
+types/lib/inventory/source.d.ts
+  s_2d7d294cb7372a::t_b477c4099558b9 1-141
+types/lib/inventory/aiOversightCollector.d.ts
+  s_2d7d294cb7372a::t_b477c4099558b9 1-28
+types/lib/inventory/ciParsers/githubActions.d.ts
+  s_2d7d294cb7372a::t_b477c4099558b9 1-38
+types/lib/inventory/communityAiConfigParser.d.ts
+  s_2d7d294cb7372a::t_b477c4099558b9 1-27
+types/lib/inventory/ciParsers/gitlabCi.d.ts
+  s_2d7d294cb7372a::t_b477c4099558b9 1-26
+types/lib/inventory/inventoryStats.d.ts
+  s_2d7d294cb7372a::t_b477c4099558b9 1-11
+types/lib/inventory/ciParsers/jenkins.d.ts
+  s_2d7d294cb7372a::t_b477c4099558b9 1-26
+types/lib/inventory/unicodeScan.d.ts
+  s_2d7d294cb7372a::t_b477c4099558b9 1-46
+types/lib/inventory/gtfobins.d.ts
+  s_2d7d294cb7372a::t_b477c4099558b9 1-25
+types/lib/inventory/hbomLoader.d.ts
+  s_2d7d294cb7372a::t_b477c4099558b9 1-7
+types/lib/inventory/containerRisk.d.ts
+  s_2d7d294cb7372a::t_b477c4099558b9 1-17
+types/lib/inventory/cbomutils.d.ts
+  s_2d7d294cb7372a::t_b477c4099558b9 1-17
+types/lib/inventory/mcpConfigParser.d.ts
+  s_2d7d294cb7372a::t_b477c4099558b9 1-28
+types/lib/inventory/osqueryTransform.d.ts
+  s_2d7d294cb7372a::t_b477c4099558b9 1-10
+types/lib/inventory/auditCategories.d.ts
+  s_2d7d294cb7372a::t_b477c4099558b9 1-38
+types/lib/inventory/plugins.d.ts
+  s_2d7d294cb7372a::t_b477c4099558b9 1-58
+types/lib/inventory/bomUtils.d.ts
+  s_2d7d294cb7372a::t_b477c4099558b9 1-41
+types/lib/inventory/ciParsers/common.d.ts
+  s_2d7d294cb7372a::t_b477c4099558b9 1-11
+types/lib/inventory/jsonLike.d.ts
+  s_2d7d294cb7372a::t_b477c4099558b9 1-4
+types/lib/inventory/mcpDiscovery.d.ts
+  s_2d7d294cb7372a::t_b477c4099558b9 1-5
+types/lib/ecosystems/utils.d.ts
+  s_2d7d294cb7372a::t_b477c4099558b9 18-21,23-24,27,35,37
+types/lib/inventory/forgeEnricher.d.ts
+  s_2d7d294cb7372a::t_b477c4099558b9 1-21
+types/lib/inventory/formulationParsers.d.ts
+  s_2d7d294cb7372a::t_b477c4099558b9 1-50
+types/lib/inventory/deps.d.ts
+  s_2d7d294cb7372a::t_b477c4099558b9 1-105
+types/lib/cli/index.d.ts
+  s_2d7d294cb7372a::t_b477c4099558b9 1
+types/lib/inventory/hbom.d.ts
+  s_2d7d294cb7372a::t_b477c4099558b9 1-49
+types/lib/inventory/hostTopology.d.ts
+  s_2d7d294cb7372a::t_b477c4099558b9 1-12
+types/lib/inventory/osPackageResolver.d.ts
+  s_2d7d294cb7372a::t_b477c4099558b9 1-46
+types/lib/inventory/rustFormulationParser.d.ts
+  s_2d7d294cb7372a::t_b477c4099558b9 1-17
+types/lib/inventory/depsUtils.d.ts
+  s_2d7d294cb7372a::t_b477c4099558b9 1-74
+types/lib/inventory/envcontext.d.ts
+  s_2d7d294cb7372a::t_b477c4099558b9 1-374
+types/lib/inventory/aiModelVariants.d.ts
+  s_2d7d294cb7372a::t_b477c4099558b9 1-31
+types/lib/inventory/mcp.d.ts
+  s_2d7d294cb7372a::t_b477c4099558b9 1-29
+types/lib/inventory/spdx.d.ts
+  s_2d7d294cb7372a::t_b477c4099558b9 1-61
+types/lib/inventory/provenanceUtils.d.ts
+  s_2d7d294cb7372a::t_b477c4099558b9 1-92
+types/lib/inventory/traceRunner.d.ts
+  s_2d7d294cb7372a::t_b477c4099558b9 1-80
+types/lib/inventory/spdxUtils.d.ts
+  s_2d7d294cb7372a::t_b477c4099558b9 1-2
+types/lib/inventory/cdxrs.d.ts
+  s_2d7d294cb7372a::t_b477c4099558b9 1-90
+types/lib/inventory/aiProvenanceCollector.d.ts
+  s_2d7d294cb7372a::t_b477c4099558b9 1-13
+types/lib/inventory/display.d.ts
+  s_2d7d294cb7372a::t_b477c4099558b9 1-208
+types/lib/inventory/protobom.d.ts
+  s_2d7d294cb7372a::t_b477c4099558b9 1-26
+test/baseline/npm-pack-file-list.txt
+  s_2d7d294cb7372a::t_689f8733e0fbe3 697-814
+types/lib/inventory/atomUtils.d.ts
+  s_2d7d294cb7372a::t_b477c4099558b9 1-47
+types/lib/inventory/osinfo.d.ts
+  s_2d7d294cb7372a::t_b477c4099558b9 1-117
+types/lib/inventory/purl.d.ts
+  s_2d7d294cb7372a::t_b477c4099558b9 1-156
+types/lib/audit/index.d.ts.map
+  s_2d7d294cb7372a::t_e3356ce29372d5 1
+types/lib/cli/index.d.ts.map
+  s_2d7d294cb7372a::t_9844b57aa974b5 1
+types/lib/ecosystems/utils.d.ts.map
+  s_2d7d294cb7372a::t_2d48f68f92d9ce 1
+types/lib/evinser/evinser.d.ts.map
+  s_2d7d294cb7372a::t_437af7b8a52f0e 1
+types/lib/inventory/agentFormulationParser.d.ts.map
+  s_2d7d294cb7372a::t_fb93f957d22c8e 1
+types/lib/inventory/aiCollector.d.ts.map
+  s_2d7d294cb7372a::t_cd60e9ad0ddcdc 1
+types/lib/inventory/aiInventory.d.ts.map
+  s_2d7d294cb7372a::t_d2234d6955bd0d 1
+types/lib/inventory/aiModelVariants.d.ts.map
+  s_2d7d294cb7372a::t_02672c4f210c68 1
+types/lib/inventory/aiOversightCollector.d.ts.map
+  s_2d7d294cb7372a::t_a30d3b076ec1f6 1
+types/lib/inventory/aiProvenanceCollector.d.ts.map
+  s_2d7d294cb7372a::t_cae10c5f95da8f 1
+types/lib/inventory/analyzer.d.ts.map
+  s_2d7d294cb7372a::t_ce50e4fae3c044 1
+types/lib/inventory/analyzerScope.d.ts.map
+  s_2d7d294cb7372a::t_97fa97f36ec224 1
+types/lib/inventory/atomUtils.d.ts.map
+  s_2d7d294cb7372a::t_c6462ae7b94943 1
+types/lib/inventory/auditCategories.d.ts.map
+  s_2d7d294cb7372a::t_993c77992b4772 1
+types/lib/inventory/bomUtils.d.ts.map
+  s_2d7d294cb7372a::t_a4b1f1f756f607 1
+types/lib/inventory/caxa.d.ts.map
+  s_2d7d294cb7372a::t_84fc6202007051 1
+types/lib/inventory/cbomutils.d.ts.map
+  s_2d7d294cb7372a::t_d31cf407856d54 1
+types/lib/inventory/cdxrs.d.ts.map
+  s_2d7d294cb7372a::t_a5212f5dbb1e2a 1
+types/lib/inventory/ciParsers/azurePipelines.d.ts.map
+  s_2d7d294cb7372a::t_1d099b846c83db 1
+types/lib/inventory/ciParsers/circleCi.d.ts.map
+  s_2d7d294cb7372a::t_94428fb192c275 1
+types/lib/inventory/ciParsers/common.d.ts.map
+  s_2d7d294cb7372a::t_6e7117d530cf85 1
+types/lib/inventory/ciParsers/githubActions.d.ts.map
+  s_2d7d294cb7372a::t_cf3925cfc1a768 1
+types/lib/inventory/ciParsers/gitlabCi.d.ts.map
+  s_2d7d294cb7372a::t_c278b14ed7d481 1
+types/lib/inventory/ciParsers/jenkins.d.ts.map
+  s_2d7d294cb7372a::t_c96ae009492604 1
+types/lib/inventory/communityAiConfigParser.d.ts.map
+  s_2d7d294cb7372a::t_e59b3fbe873753 1
+types/lib/inventory/containerRisk.d.ts.map
+  s_2d7d294cb7372a::t_4d07a243079a04 1
+types/lib/inventory/deps.d.ts.map
+  s_2d7d294cb7372a::t_4c33812b066fe6 1
+types/lib/inventory/depsUtils.d.ts.map
+  s_2d7d294cb7372a::t_e0993d94dc7a71 1
+types/lib/inventory/display.d.ts.map
+  s_2d7d294cb7372a::t_0f79dbfa2a5975 1
+types/lib/inventory/dosaiParsers.d.ts.map
+  s_2d7d294cb7372a::t_6fa1c118e94f33 1
+types/lib/inventory/dynamic.d.ts.map
+  s_2d7d294cb7372a::t_8ef9a299111000 1
+types/lib/inventory/envcontext.d.ts.map
+  s_2d7d294cb7372a::t_f9087be629904a 1
+types/lib/inventory/evidenceUtils.d.ts.map
+  s_2d7d294cb7372a::t_77f437a6ed2616 1
+types/lib/inventory/forgeEnricher.d.ts.map
+  s_2d7d294cb7372a::t_80767060665838 1
+types/lib/inventory/formulationParsers.d.ts.map
+  s_2d7d294cb7372a::t_f5aec2db0b2c32 1
+types/lib/inventory/gtfobins.d.ts.map
+  s_2d7d294cb7372a::t_8b10a114dd66c9 1
+types/lib/inventory/hbom.d.ts.map
+  s_2d7d294cb7372a::t_c233b3a3317c39 1
+types/lib/inventory/hbomAnalysis.d.ts.map
+  s_2d7d294cb7372a::t_f8c6dc354ed893 1
+types/lib/inventory/hbomLoader.d.ts.map
+  s_2d7d294cb7372a::t_b9be832fed6f09 1
+types/lib/inventory/hostTopology.d.ts.map
+  s_2d7d294cb7372a::t_aa8fb5a1dda7cc 1
+types/lib/inventory/inventoryStats.d.ts.map
+  s_2d7d294cb7372a::t_b3d258af2f4fdd 1
+types/lib/inventory/jsonLike.d.ts.map
+  s_2d7d294cb7372a::t_88bdc048ee6df6 1
+types/lib/inventory/licenseEnhancer.d.ts.map
+  s_2d7d294cb7372a::t_dc86e417509e65 1
+types/lib/inventory/lolbas.d.ts.map
+  s_2d7d294cb7372a::t_2900873fad68a2 1
+types/lib/inventory/mcp.d.ts.map
+  s_2d7d294cb7372a::t_c43c10d09a4aba 1
+types/lib/inventory/mcpConfigParser.d.ts.map
+  s_2d7d294cb7372a::t_cd5de74810e9f5 1
+types/lib/inventory/mcpDiscovery.d.ts.map
+  s_2d7d294cb7372a::t_a9cadf4864a282 1
+types/lib/inventory/osPackageResolver.d.ts.map
+  s_2d7d294cb7372a::t_c73ba2e0e925f1 1
+types/lib/inventory/osinfo.d.ts.map
+  s_2d7d294cb7372a::t_00c1d2f94b428e 1
+types/lib/inventory/osqueryTransform.d.ts.map
+  s_2d7d294cb7372a::t_5848e44e80df29 1
+types/lib/inventory/plugins.d.ts.map
+  s_2d7d294cb7372a::t_8ee350546be406 1
+types/lib/inventory/protobom.d.ts.map
+  s_2d7d294cb7372a::t_1b918301277e6a 1
+types/lib/inventory/protobomLoader.d.ts.map
+  s_2d7d294cb7372a::t_00ff172d3d1caf 1
+types/lib/inventory/provenanceUtils.d.ts.map
+  s_2d7d294cb7372a::t_1134420cbd8ac0 1
+types/lib/inventory/purl.d.ts.map
+  s_2d7d294cb7372a::t_1c263061054756 1
+types/lib/inventory/rustFormulationParser.d.ts.map
+  s_2d7d294cb7372a::t_79d81c012ce49d 1
+types/lib/inventory/source.d.ts.map
+  s_2d7d294cb7372a::t_8fe392a599ef03 1
+types/lib/inventory/spdx.d.ts.map
+  s_2d7d294cb7372a::t_e4c87325c1e6d8 1
+types/lib/inventory/spdxExpression.d.ts.map
+  s_2d7d294cb7372a::t_bdee5e88389702 1
+types/lib/inventory/spdxUtils.d.ts.map
+  s_2d7d294cb7372a::t_a8989d8f2d2fd8 1
+types/lib/inventory/table.d.ts.map
+  s_2d7d294cb7372a::t_5a6122bdd6af0a 1
+types/lib/inventory/traceRunner.d.ts.map
+  s_2d7d294cb7372a::t_6cd113d2179a1d 1
+types/lib/inventory/unicodeScan.d.ts.map
+  s_2d7d294cb7372a::t_7cd6c85daed649 1
+types/lib/server/server.d.ts.map
+  s_2d7d294cb7372a::t_ccc70bbffd6efd 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "706926b3470444b16c1702d09a4beabfe9f15c57",
+  "prompts": {},
+  "sessions": {
+    "s_2d7d294cb7372a": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_04285b049ffeMv8De2lFFwCvIg",
+        "model": "glm-5.2"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
