@@ -1,0 +1,20 @@
+.github/scripts/build-standalone.ps1
+  s_7d724ea76adc3c::t_8dd91bbf7d1d80 4-9
+  s_7d724ea76adc3c::t_d9ae57495ae531 151-171
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "4c975a816c5edb64651b7f9d1c2211a7b564b75c",
+  "prompts": {},
+  "sessions": {
+    "s_7d724ea76adc3c": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "2a0b9959-84de-46e0-a87e-11e7f1e7f1e3",
+        "model": "claude-opus-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
