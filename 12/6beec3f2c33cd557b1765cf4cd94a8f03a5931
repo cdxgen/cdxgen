@@ -1,0 +1,581 @@
+contrib/check-boundaries.js
+  s_0173f70982b61e::t_56f919ef1713e3 459-462
+  s_7d724ea76adc3c::t_a163b3e7dfa462 2,4-11,16-17,28-29,32-39,41,58-59,61,63,67,69,71,84,86,90,140,148,150-151,153-156,159-194,196-204,206-207,209,211-213,216,221,223-224,229-285,287-445,453-458,463-470,472-548,551-556,558-597,621-636
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 14-15,20-21,43,286,549-550,557,598-620
+PROGRESS.md
+  s_0173f70982b61e::t_558ef354d30f9d 1-3,18
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 4-17
+lib/boundaries.poku.js
+  s_0173f70982b61e::t_fdecb52869499f 1-3,12-22,26-33,35-40,42,56-60,62-64,68-70,72-74,77-80,82,86-87,90,95-142,144-160
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 41,43-55,61,65-67,71,75-76,81,83-85,88-89,91-94,143,165,195,224-227,236,240
+lib/helpers/parsers-js.js
+  s_0173f70982b61e::t_dc298f28551d94 2336-2405
+  s_0173f70982b61e::t_9cfe46807c5a2b 29
+  s_0173f70982b61e::t_409a23d7017308 2335
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 15-17
+lib/stages/postgen/auditBom.poku.js
+  s_7d724ea76adc3c::t_f020c0c1e40bf2 4236-4239,4241-4255,4257-4260
+  s_7d724ea76adc3c::t_4f69c139b3e4ab 4181-4207
+  s_7d724ea76adc3c::t_e57d6a046f46c9 4235,4240,4256
+MIGRATING-TO-V13.md
+  s_7d724ea76adc3c::t_2642f418fc077b 169-173
+  s_7d724ea76adc3c::t_63474e0a3db19f 41,44,52-61
+  s_7d724ea76adc3c::t_0b30a5bd813080 47-51,62-64
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 6-40,42-43,45-46,65-104,159,207,212
+lib/stages/postgen/ruleEngine.js
+  s_7d724ea76adc3c::t_b003823cb0e026 722
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 11-12,280,283-287,293-297,596,607,629,633,656,661,676,719
+types/lib/audit/index.d.ts.map
+  s_7d724ea76adc3c::t_9e111d787f92f8 1
+types/lib/cli/index.d.ts.map
+  s_7d724ea76adc3c::t_0388785649c539 1
+types/lib/evinser/evinser.d.ts.map
+  s_7d724ea76adc3c::t_842d676f60c2a9 1
+types/lib/evinser/swiftsem.d.ts.map
+  s_7d724ea76adc3c::t_e3d4ebd9f09bd4 1
+types/lib/helpers/aiCollector.d.ts.map
+  s_7d724ea76adc3c::t_a429ce9a6ba528 1
+types/lib/helpers/asarutils.d.ts.map
+  s_7d724ea76adc3c::t_52085257049b89 1
+types/lib/helpers/bunutils.d.ts.map
+  s_7d724ea76adc3c::t_af89c7375fd905 1
+types/lib/helpers/caxa.d.ts.map
+  s_7d724ea76adc3c::t_35c7f4f252d697 1
+types/lib/helpers/cbomutils.d.ts.map
+  s_7d724ea76adc3c::t_8ede9d801a6a68 1
+types/lib/helpers/cdxrs.d.ts.map
+  s_7d724ea76adc3c::t_6300bfc10795a0 1
+types/lib/helpers/chromextutils.d.ts.map
+  s_7d724ea76adc3c::t_4f6d08cbdf14f1 1
+types/lib/helpers/containerRisk.d.ts.map
+  s_7d724ea76adc3c::t_d55d72e5edd21d 1
+types/lib/helpers/core-misc-b.d.ts
+  s_7d724ea76adc3c::t_9fd3ab490a5d8e 114
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 109
+types/lib/helpers/denoutils.d.ts.map
+  s_7d724ea76adc3c::t_694873e38f82d4 1
+types/lib/helpers/gradleutils.d.ts
+  s_7d724ea76adc3c::t_7bb1d4f5a15cda 77
+types/lib/helpers/gradleutils.d.ts.map
+  s_7d724ea76adc3c::t_f5a3d335da9446 1
+types/lib/helpers/plugins.d.ts.map
+  s_7d724ea76adc3c::t_dc8f8db7fe59d9 1
+types/lib/helpers/remote/huggingface.d.ts.map
+  s_7d724ea76adc3c::t_8f4226bfec769e 1
+types/lib/helpers/rubyutils.d.ts.map
+  s_7d724ea76adc3c::t_d723e55de54725 1
+types/lib/helpers/sbtutils.d.ts.map
+  s_7d724ea76adc3c::t_4ddcb08fdf7b65 1
+types/lib/helpers/source.d.ts.map
+  s_7d724ea76adc3c::t_30c1ba92349fc4 1
+types/lib/helpers/spdxUtils.d.ts.map
+  s_7d724ea76adc3c::t_3f054f282b8c69 1
+types/lib/helpers/vsixutils.d.ts.map
+  s_7d724ea76adc3c::t_bd8a14a43d58a6 1
+types/lib/managers/binary.d.ts.map
+  s_7d724ea76adc3c::t_41f055badbe0e4 1
+types/lib/managers/docker.d.ts.map
+  s_7d724ea76adc3c::t_ea8dbc34f61454 1
+types/lib/managers/oci.d.ts.map
+  s_7d724ea76adc3c::t_8ca5179ec29908 1
+types/lib/server/server.d.ts
+  s_7d724ea76adc3c::t_2cccb66794a821 1
+types/lib/server/server.d.ts.map
+  s_7d724ea76adc3c::t_ebfcf494fc63de 1
+types/lib/stages/postgen/auditBom.d.ts.map
+  s_7d724ea76adc3c::t_66df91490e3a8f 1
+types/lib/stages/postgen/postgen.d.ts.map
+  s_7d724ea76adc3c::t_c517974753177d 1
+types/lib/stages/postgen/ruleEngine.d.ts
+  s_7d724ea76adc3c::t_329273375609aa 13,17
+types/lib/stages/postgen/ruleEngine.d.ts.map
+  s_7d724ea76adc3c::t_53b49c67ff4afe 1
+types/lib/stages/postgen/spdxConverter.d.ts.map
+  s_7d724ea76adc3c::t_ee7860148ff70f 1
+types/lib/stages/pregen/pregen.d.ts.map
+  s_7d724ea76adc3c::t_3e1d1763a1e07b 1
+types/lib/validator/bomValidator.d.ts.map
+  s_7d724ea76adc3c::t_5aa43a3098b5c8 1
+types/lib/validator/reporters/annotations.d.ts.map
+  s_7d724ea76adc3c::t_e17b840ad5a27b 1
+.github/workflows/repotests.yml
+  s_7d724ea76adc3c::t_c90821ba1de89d 33-39
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 111,895
+lib/evinser/evinser.js
+  s_7d724ea76adc3c::t_77404a96ae8acf 53,1779-1782
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 7-17,26-27
+lib/helpers/cbomutils.js
+  s_7d724ea76adc3c::t_b3e383c0fcbb20 4,29-37
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 5,7,27,40
+lib/helpers/cbomutils.poku.js
+  s_7d724ea76adc3c::t_23978d7ad4b3f7 20-28
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 15-16
+packages/cli/package.json
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 6,10-11
+packages/helpers/package.json
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 6,10-11
+lib/helpers/parsers-python.js
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 10-12,1673-1676
+lib/helpers/parsers-jvm.js
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 9-10
+repotests/npm-smoke/expected/default.json
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 308-309,312
+types/lib/helpers/huggingfaceManifest.d.ts
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 1-138
+lib/helpers/remote/huggingface.js
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 3-4,20,22-25,153
+docs/LESSON4.md
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 18
+lib/helpers/display.poku.js
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 65-67,187,192-193,363-365,468,491-492,533,549-550,574,590-591,616,630-631,653,658-659
+lib/helpers/parsers-dotnet.poku.js
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 299-300,304,317-318,385,389
+lib/core/httpClient.js
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 1-725
+lib/helpers/formulationParsers.js
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 6,295
+docs/LESSON14.md
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 21-22
+lib/helpers/hbomLoader.js
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 3
+lib/packaging.poku.js
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 172,266-267
+ci/Dockerfile-deno
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 93
+docs/LESSON5.md
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 26
+docs/README.md
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 12,18,24,339,345,369,380
+docs/LESSON3.md
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 21
+docs/SUPPLY_CHAIN_TRANSPARENCY.md
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 146
+lib/audit/targets.js
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 6,11-12
+lib/managers/containerutils.js
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 6
+types/lib/core/state.d.ts
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 1-11
+types/lib/helpers/purl.d.ts
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 9-134,155
+lib/helpers/depsUtils.js
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 1
+lib/helpers/table.js
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 3
+repotests/ai-modelfile-smoke/expected/default.json
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 140-141,144
+repotests/composer-smoke/expected/default.json
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 3315-3316,3319
+lib/helpers/sbtutils.js
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 56-58,65
+repotests/pipenv-smoke/expected/default.json
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 867-868,871
+bin/cdxgen.js
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 28,107-108,1542,1567-1570
+lib/parsers/huggingfaceManifest.js
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 6-9,18
+lib/helpers/dosai.poku.js
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 302-303,327-328
+packages/server/package.json
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 6,10-11
+repotests/pylock-smoke/expected/default.json
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 873-874,877
+lib/helpers/aiProvenanceCollector.js
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 4-5
+lib/core/logger.poku.js
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 1-38
+docs/CDX_VALIDATE.md
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 229-230
+lib/helpers/mcpConfigParser.js
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 4-7
+lib/stages/postgen/postgen.poku.js
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 13,1235-1240
+contrib/sbom-diff.js
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 187-229,273-281,288-289
+repotests/pnpm-smoke/expected/spec-1.6.json
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 212-213,216
+types/lib/core/spdx.d.ts
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 1-3
+lib/helpers/remote/huggingface.poku.js
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 7,210-225,365-380,476-482
+lib/helpers/forgeEnricher.js
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 1
+repotests/npm-smoke/expected/spec-1.7.json
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 308-309,312
+lib/audit/scoring.js
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 1
+lib/managers/docker.poku.js
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 191-193
+repotests/go-smoke/expected/default.json
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 106-107,110
+lib/audit/index.js
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 7-17,41-42,239-242,1660-1663,1678,1834-1837,1896
+lib/stages/pregen/pregen.js
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 6-19
+lib/core/fs.poku.js
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 1-125
+lib/helpers/core-misc-a.js
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 14-15,23-30,1211,1687,1799,1951
+types/lib/validator/index.d.ts
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 21-35
+lib/helpers/denoutils.poku.js
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 414
+lib/helpers/ecosystems.poku.js
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 122,394
+lib/helpers/vsixutils.js
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 10,17-18
+lib/validator/index.js
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 14
+types/lib/core/activity.d.ts
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 1-64
+lib/helpers/table.poku.js
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 129,143
+lib/helpers/npmutils.js
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 6
+lib/cli/index.poku.js
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 145,1110,1762,1776,1816,1830
+lib/managers/piptree.poku.js
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 21
+packages/stages/package.json
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 6,10-11
+packages/parsers/package.json
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 6,10-11
+lib/core/paths.js
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 1-32
+types/lib/core/fs.d.ts
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 1-81
+lib/helpers/aiInventory.js
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 1
+repotests/dotnet-assets-smoke/expected/default.json
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 102-103,106
+lib/helpers/utils.js
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 40,75,95-97
+lib/core/propertySanitizer.poku.js
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 1-46
+types/lib/helpers/osqueryTransform.d.ts
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 9
+lib/managers/binary.js
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 14-29,32-39,47,52,2351-2359,2363
+repotests/pnpm-smoke/expected/spec-1.7.json
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 212-213,216
+packages/audit/package.json
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 6,10-11
+lib/helpers/asarutils.poku.js
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 83,87-89
+repotests/cbom-js-smoke/expected/default.json
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 149-150,153
+packages/third-party/package.json
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 6
+lib/helpers/remote/dependency-track.js
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 3
+test/baseline/npm-pack-file-list.txt
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 87-95,201,301-318,435-436,549-550
+lib/evinser/swiftsem.js
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 5-6,8
+repotests/poetry-smoke/expected/default.json
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 3281-3282,3285
+lib/third-party/arborist/lib/arborist/load-actual.js
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 6-7
+lib/core/fs.js
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 1-920
+lib/core/env.poku.js
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 1-29
+lib/helpers/protobom.js
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 14
+lib/managers/oci.js
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 7-8
+lib/audit/scoring.poku.js
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 463,480
+bin/hbom.js
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 10
+types/lib/helpers/core-misc-a.d.ts
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 119,132,141
+lib/server/server.js
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 12-14,33,493-497
+repotests/maven-smoke/expected/default.json
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 331-332,335
+lib/helpers/traceRunner.js
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 13
+lib/managers/docker.js
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 23-26,34-35
+docs/LESSON2.md
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 24
+lib/helpers/communityAiConfigParser.js
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 6
+docs/CDX_AUDIT.md
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 105,112
+repotests/yarn-smoke/expected/default.json
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 206-207,210
+lib/helpers/vsixutils.poku.js
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 57-58,65
+lib/helpers/envcontext.js
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 7,19-22,25-27
+repotests/yarn-smoke/expected/spec-1.7.json
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 206-207,210
+lib/stages/pregen/envAudit.js
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 3
+lib/helpers/plugins.poku.js
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 91-94,152-156,220-223
+lib/helpers/golem.js
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 5,12-14
+types/lib/helpers/parsers-js.d.ts
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 43-56,104,116
+jsr.json
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 2
+lib/cli/index.js
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 28-72,116-142,148-153,170-178,205-212,214-221,223-233,237-246,268-275,280-325,351,571-572,574,576,4940-4945,4948-4950,4960,5253,5405,5414,5431,5471,5619,7343-7349,7354,7362,7372-7375,7378,7381,7389,11048-11050,11062
+packages/core/package.json
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 1-12
+lib/helpers/caxa.js
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 3-5,24-31,36-42
+pnpm-workspace.yaml
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 16-27
+types/lib/helpers/remote/huggingface.d.ts
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 1
+packages/validator/package.json
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 6,10-11
+lib/core/state.js
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 1-53
+lib/helpers/agentFormulationParser.js
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 4
+lib/helpers/dynamic.js
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 3,5,63,66-67,70-72,75,116-119
+lib/helpers/core-misc-b.js
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 21,28-34,69,457-463,2029-2033,2041,2069-2081,2085-2090
+types/lib/core/paths.d.ts
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 1-19
+lib/helpers/aiOversightCollector.js
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 4-5
+lib/helpers/golem.poku.js
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 527-528,562-563,622-623,680-681
+lib/core/activity.js
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 1-963
+lib/helpers/rubyutils.poku.js
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 900,936,943
+lib/parsers/huggingfaceUtils.js
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 1-476
+types/lib/core/propertySanitizer.d.ts
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 1-23
+lib/stages/postgen/auditBom.js
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 8-9,286
+repotests/dotnet-eshop/expected/default.json
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 323-324,327
+docs/v13/utils-inventory.md
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 44
+docs/LESSON7.md
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 27,30
+lib/helpers/cdxrs.js
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 24-25
+lib/helpers/display.js
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 5-10,12
+lib/helpers/rusi.poku.js
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 279-280,385-386,442-443
+docs/LESSON6.md
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 16
+lib/helpers/dosai.js
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 4-12
+repotests/pnpm-smoke/expected/default.json
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 212-213,216
+types/lib/helpers/state.d.ts
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 6-7
+contrib/purl-sweep.js
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 1-92
+types/lib/stages/postgen/spdxConverter.d.ts
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 1-2
+SKILL.md
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 22
+repotests/uv-smoke/expected/default.json
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 276-277,280
+lib/managers/piptree.js
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 17
+lib/helpers/source.poku.js
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 14,29-32,37-38,55,61-64,69-70,93,98-101,104-105,124,129-132,135-136,146,151-154,157-158,168,173-176,179-180,191,196-199,202-203,215,220-223,226-227,246,251-254,257-258,294,299-302,305-306,336,341-344,347-348,375,380-383,386-387,420,423,428-431,434-435,452,457-460,463-464,480,485-488,491-492,502,507-510,513-514,526,531-534,537-538,554,559-562,565-566,586,591-594,597-598,647,652-654,657-658,671,676-679,684-685,703,708-711,714-715,753,758-761,764-765,792,797-800,803-804,830,835-838,841-842,868,873-876,879-880
+lib/helpers/pythonutils.js
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 4-7
+repotests/npm-smoke/expected/spec-1.6.json
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 308-309,312
+types/lib/helpers/sbtutils.d.ts
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 91,97
+lib/helpers/gradleutils.js
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 12-18
+lib/validator/bomValidator.js
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 9-12,17
+deno.json
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 2,66-70,74,76,79,98
+lib/core/logger.js
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 1-130
+BLOCKERS.md
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 72-101
+package.json
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 2,61-64,133,137-140,144-145,148-151,153-154,156,160,163,166,172,189,191,193-194
+packages/evinser/package.json
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 6,10-11
+packages/managers/package.json
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 6,10-11
+README.md
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 125,131,137,143,146,182,188-196,298,301,307,333,701,715,721,785,791,912,916
+repotests/mix-smoke/expected/default.json
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 342-343,346
+lib/helpers/parsers-go.poku.js
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 541-561,600-602
+lib/server/server.poku.js
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 8,664-665,667-670,672,714-715,717-720,722,764-765,767-770,772,803-804,806-809,811,839-840,842-845,847
+docs/CLI.md
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 42,128,134,140,146-154,166,259
+lib/helpers/chromextutils.js
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 8-10
+lib/managers/binary.poku.js
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 101,117,119-123,132-137,140-144,152
+lib/helpers/rustFormulationParser.js
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 6
+lib/helpers/hbom.js
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 8-12
+docs/CUSTOM_PROPERTIES.md
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 70,336,491-494,808-809,811
+lib/helpers/osqueryTransform.js
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 1-2,116-126,145-156,158
+repotests/swift-smoke/expected/default.json
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 137-138,141
+lib/helpers/plugins.js
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 5-9
+lib/helpers/parsers-go.js
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 7-9,50-52,60-71,117
+docs/LESSON1.md
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 22
+lib/helpers/parsers-misc.js
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 7-11
+lib/helpers/osPackageResolver.js
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 3-4,71-75
+lib/audit/reporters.js
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 1
+types/lib/helpers/parsers-misc.d.ts
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 194,224,291,311-313
+lib/helpers/hbom.poku.js
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 166,239,326,396,457
+lib/helpers/rubyutils.js
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 10-13
+lib/helpers/rusi.js
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 4,11-12
+lib/audit/index.poku.js
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 17,125,141-142,234,247-248,256-259,361,426,467,2036,2045-2046,2151,2165-2166,2173,2261,2275-2276,2283,2373,2387-2388,2395,2488,2502-2503,2510
+types/lib/core/logger.d.ts
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 1-26
+repotests/python-smoke/expected/default.json
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 99-100,103
+lib/cli/cliOptions.js
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 16
+lib/helpers/aiCollector.js
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 4-9,32-33,35-38
+lib/helpers/containerRisk.js
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 4-5
+lib/core/httpClient.poku.js
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 1-417
+lib/helpers/ecosystems.js
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 31,36,45-48
+lib/helpers/parsers-python.poku.js
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 633
+lib/helpers/deps.js
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 15-16,24-25
+lib/managers/oci.poku.js
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 7-8
+docs/CDX_CONVERT.md
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 5
+repotests/pubspec-smoke/expected/default.json
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 12752-12753,12756
+biome.json
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 2
+repotests/yarn-smoke/expected/spec-1.6.json
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 206-207,210
+types/lib/helpers/cdxrs.d.ts
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 38-39,41-47,50,62-69,72-74,80
+types/lib/core/env.d.ts
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 1-107
+lib/helpers/analyzer.js
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 17-19
+types/lib/core/httpClient.d.ts
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 1-139
+lib/stages/postgen/spdxConverter.js
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 1-3,5
+types/lib/helpers/cbomutils.d.ts
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 7
+types/lib/helpers/utils.d.ts
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 12-16
+lib/core/activity.poku.js
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 1-1100
+lib/helpers/parsers-dotnet.js
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 8-11,429-430,432-444
+repotests/ruby-smoke/expected/default.json
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 3759-3760,3763
+lib/helpers/source.js
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 17-19,23-27
+contrib/lima/cdxgen-ubuntu.yaml
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 74
+lib/helpers/purl.js
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 5,178-271
+lib/helpers/bunutils.js
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 6-9
+lib/stages/postgen/annotator.js
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 4-5
+lib/core/propertySanitizer.js
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 1-174
+lib/helpers/denoutils.js
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 8-13,932
+repotests/cocoapods-smoke/expected/default.json
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 676-677,680
+lib/helpers/spdx.js
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 4,8-9
+AGENTS.md
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 9
+lib/validator/reporters/annotations.js
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 8-9
+lib/audit/targets.poku.js
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 810,863,902
+lib/core/env.js
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 1-417
+lib/helpers/asarutils.js
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 17,27-33
+docs/LESSON8.md
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 19,22
+lib/helpers/parsers-rust.js
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 8-11
+contrib/cassette.js
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 39
+repotests/cargo-smoke/expected/default.json
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 9642-9643,9646
+contrib/lima/cdxgen-opensuse.yaml
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 69
+contrib/deno/deps.ts
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 2
+lib/core/spdx.js
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 1-3
+types/lib/parsers/huggingfaceUtils.d.ts
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 1-118
+docs/TRACEBOM.md
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 94
+lib/stages/postgen/postgen.js
+  s_7d724ea76adc3c::t_3d22395bf0ddd0 7-21,36,94,1074-1075
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "126beec3f2c33cd557b1765cf4cd94a8f03a5931",
+  "prompts": {},
+  "sessions": {
+    "s_0173f70982b61e": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_04af8fbcaffeHMQaIDxEqaGJbg",
+        "model": "glm-5.2"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    },
+    "s_7d724ea76adc3c": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "2a0b9959-84de-46e0-a87e-11e7f1e7f1e3",
+        "model": "claude-opus-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
