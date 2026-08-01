@@ -1,0 +1,121 @@
+lib/server/server.js
+  s_2d7d294cb7372a::t_97311cbc0436b3 16-17
+bin/hbom.js
+  s_2d7d294cb7372a::t_97311cbc0436b3 22-32
+lib/ecosystems/dosai.poku.js
+  s_2d7d294cb7372a::t_97311cbc0436b3 301-303,328-330
+lib/inventory/cbomutils.poku.js
+  s_2d7d294cb7372a::t_97311cbc0436b3 265-272,366-375,489-498
+lib/inventory/plugins.poku.js
+  s_2d7d294cb7372a::t_97311cbc0436b3 9-12
+lib/audit/index.js
+  s_2d7d294cb7372a::t_97311cbc0436b3 18
+lib/evinser/swiftsem.js
+  s_2d7d294cb7372a::t_97311cbc0436b3 8
+lib/ecosystems/utils.js
+  s_2d7d294cb7372a::t_97311cbc0436b3 109-113,130-164
+lib/inventory/aiOversightCollector.js
+  s_2d7d294cb7372a::t_97311cbc0436b3 13
+lib/inventory/display.js
+  s_2d7d294cb7372a::t_97311cbc0436b3 19-22
+lib/inventory/protobom.poku.js
+  s_2d7d294cb7372a::t_97311cbc0436b3 6
+bin/cdxgen.js
+  s_2d7d294cb7372a::t_97311cbc0436b3 29-62
+bin/verify.js
+  s_2d7d294cb7372a::t_97311cbc0436b3 16-20
+lib/ecosystems/parsers-dotnet.js
+  s_2d7d294cb7372a::t_97311cbc0436b3 14
+bin/repl.js
+  s_2d7d294cb7372a::t_97311cbc0436b3 12-19
+lib/ecosystems/rusi.poku.js
+  s_2d7d294cb7372a::t_97311cbc0436b3 278-280
+lib/evinser/evinser.js
+  s_2d7d294cb7372a::t_97311cbc0436b3 43-54
+bin/convert.js
+  s_2d7d294cb7372a::t_97311cbc0436b3 11-16
+  s_2d7d294cb7372a::t_f8657f687f32ef 10
+lib/inventory/dynamic.js
+  s_2d7d294cb7372a::t_97311cbc0436b3 6-9
+lib/inventory/envcontext.poku.js
+  s_2d7d294cb7372a::t_97311cbc0436b3 24
+lib/ecosystems/parsers-js.js
+  s_2d7d294cb7372a::t_97311cbc0436b3 19-20
+lib/inventory/evidenceUtils.js
+  s_2d7d294cb7372a::t_97311cbc0436b3 453-456,487-493,589-592
+lib/inventory/hbom.js
+  s_2d7d294cb7372a::t_97311cbc0436b3 11-14
+lib/inventory/hostTopology.js
+  s_2d7d294cb7372a::t_97311cbc0436b3 6-9
+lib/inventory/lolbas.poku.js
+  s_2d7d294cb7372a::t_97311cbc0436b3 5-8
+lib/ecosystems/ecosystems.js
+  s_2d7d294cb7372a::t_97311cbc0436b3 59-62
+  s_2d7d294cb7372a::t_e76632f207ba73 58
+lib/ecosystems/golem.poku.js
+  s_2d7d294cb7372a::t_97311cbc0436b3 526-528,563-565
+lib/audit/reporters.js
+  s_2d7d294cb7372a::t_97311cbc0436b3 3
+lib/ecosystems/gradleutils.js
+  s_2d7d294cb7372a::t_97311cbc0436b3 18
+lib/inventory/cdxrs.js
+  s_2d7d294cb7372a::t_97311cbc0436b3 26-29
+lib/inventory/mcp.poku.js
+  s_2d7d294cb7372a::t_97311cbc0436b3 3-6
+bin/evinse.js
+  s_2d7d294cb7372a::t_97311cbc0436b3 10-15
+lib/ecosystems/parsers-misc.js
+  s_2d7d294cb7372a::t_97311cbc0436b3 34-35
+lib/inventory/aiCollector.js
+  s_2d7d294cb7372a::t_97311cbc0436b3 11-14
+  s_2d7d294cb7372a::t_4e69fee050eb0e 10
+lib/ecosystems/remote/huggingface.js
+  s_2d7d294cb7372a::t_97311cbc0436b3 6-9
+  s_2d7d294cb7372a::t_a6ea818c091926 5
+lib/inventory/aiProvenanceCollector.js
+  s_2d7d294cb7372a::t_97311cbc0436b3 6-10
+lib/inventory/protobomLoader.poku.js
+  s_2d7d294cb7372a::t_97311cbc0436b3 3-6
+lib/inventory/purl.poku.js
+  s_2d7d294cb7372a::t_97311cbc0436b3 4-7
+  s_2d7d294cb7372a::t_da400c6b040941 3
+lib/stages/postgen/auditBom.js
+  s_2d7d294cb7372a::t_97311cbc0436b3 10
+lib/ecosystems/parsers-go.js
+  s_2d7d294cb7372a::t_97311cbc0436b3 10
+lib/stages/postgen/postgen.poku.js
+  s_2d7d294cb7372a::t_97311cbc0436b3 21
+lib/validator/index.js
+  s_2d7d294cb7372a::t_97311cbc0436b3 16
+lib/cli/index.poku.js
+  s_2d7d294cb7372a::t_97311cbc0436b3 27-28
+lib/stages/postgen/postgen.js
+  s_2d7d294cb7372a::t_97311cbc0436b3 37
+lib/inventory/spdx.js
+  s_2d7d294cb7372a::t_97311cbc0436b3 9-12
+lib/cli/index.js
+  s_2d7d294cb7372a::t_97311cbc0436b3 257-332
+bin/sign.js
+  s_2d7d294cb7372a::t_97311cbc0436b3 15-18
+bin/validate.js
+  s_2d7d294cb7372a::t_97311cbc0436b3 23-28
+  s_2d7d294cb7372a::t_0e75f6fa1fcae3 22
+bin/tracebom.js
+  s_2d7d294cb7372a::t_97311cbc0436b3 15
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "2bd248a90a41f651c21f2bcd70d41f190a5385eb",
+  "prompts": {},
+  "sessions": {
+    "s_2d7d294cb7372a": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_04285b049ffeMv8De2lFFwCvIg",
+        "model": "glm-5.2"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
