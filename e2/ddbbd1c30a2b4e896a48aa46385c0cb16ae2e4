@@ -1,0 +1,32 @@
+lib/cli/index.js
+  s_2d7d294cb7372a::t_2685b7463fa8e1 4396
+  s_2d7d294cb7372a::t_14e6e570fd1661 4865
+  s_2d7d294cb7372a::t_5c76485d302231 6649-6652
+  s_2d7d294cb7372a::t_f04ede6eca48ce 6632-6640
+  s_2d7d294cb7372a::t_addec7c470c788 4433
+  s_2d7d294cb7372a::t_1ab01f0efb6ea1 238-241,243,256
+lib/ecosystems/evidenceUtils.js
+  s_2d7d294cb7372a::t_5ffe982c14aad3 484
+  s_2d7d294cb7372a::t_4173ba49e7581a 1067-1069
+  s_2d7d294cb7372a::t_07778e283b0b38 453
+  s_2d7d294cb7372a::t_38b52c129508ff 580
+  s_2d7d294cb7372a::t_765c59cfb9cd47 616
+  s_2d7d294cb7372a::t_6c53a2a41bf204 1015
+  s_2d7d294cb7372a::t_6a32e31083bf4e 285
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "e2ddbbd1c30a2b4e896a48aa46385c0cb16ae2e4",
+  "prompts": {},
+  "sessions": {
+    "s_2d7d294cb7372a": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_04285b049ffeMv8De2lFFwCvIg",
+        "model": "glm-5.2"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
