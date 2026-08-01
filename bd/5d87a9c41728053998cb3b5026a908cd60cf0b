@@ -1,0 +1,133 @@
+lib/managers/docker.poku.js
+  s_bbd2a5f9846af4::t_b0c358b722f0c9 193
+lib/audit/targets.js
+  s_bbd2a5f9846af4::t_b0c358b722f0c9 11-12
+lib/stages/postgen/auditBom.js
+  s_bbd2a5f9846af4::t_c5828ea470e05b 10-11,15-17
+  s_bbd2a5f9846af4::t_7373e2a68091d3 18
+bin/convert.js
+  s_bbd2a5f9846af4::t_7373e2a68091d3 25
+  s_bbd2a5f9846af4::t_b0c358b722f0c9 14,24
+  s_bbd2a5f9846af4::t_0c887033327ade 18
+bin/audit.js
+  s_bbd2a5f9846af4::t_b0c358b722f0c9 16
+lib/audit/index.js
+  s_bbd2a5f9846af4::t_b0c358b722f0c9 18,24,28,32,40
+lib/cli/asar.poku.js
+  s_bbd2a5f9846af4::t_b0c358b722f0c9 19
+lib/core/fs.poku.js
+  s_bbd2a5f9846af4::t_b0c358b722f0c9 8
+lib/managers/binary.js
+  s_bbd2a5f9846af4::t_b0c358b722f0c9 30-31,39-41,46-47,52
+bin/validate.js
+  s_bbd2a5f9846af4::t_0c887033327ade 29
+  s_bbd2a5f9846af4::t_b0c358b722f0c9 25,36
+lib/server/server.js
+  s_bbd2a5f9846af4::t_b0c358b722f0c9 15,31
+  s_bbd2a5f9846af4::t_7373e2a68091d3 32
+bin/evinse.js
+  s_bbd2a5f9846af4::t_7373e2a68091d3 21-25
+  s_bbd2a5f9846af4::t_b0c358b722f0c9 13,19-20
+lib/validator/schema-drift.poku.js
+  s_bbd2a5f9846af4::t_b0c358b722f0c9 7
+bin/repl.js
+  s_bbd2a5f9846af4::t_b0c358b722f0c9 12,27,32,38,46-48,56
+  s_bbd2a5f9846af4::t_0c887033327ade 42
+lib/evinser/swiftsem.js
+  s_bbd2a5f9846af4::t_b0c358b722f0c9 7-8
+lib/core/env.poku.js
+  s_bbd2a5f9846af4::t_b0c358b722f0c9 3
+lib/core/activity.poku.js
+  s_bbd2a5f9846af4::t_b0c358b722f0c9 40,151,189,234,500,526
+lib/audit/targets.poku.js
+  s_bbd2a5f9846af4::t_b0c358b722f0c9 810,863,902
+lib/server/server.poku.js
+  s_bbd2a5f9846af4::t_b0c358b722f0c9 14,663,713,763,802,838
+lib/validator/index.js
+  s_bbd2a5f9846af4::t_b0c358b722f0c9 15
+lib/validator/bomValidator.js
+  s_bbd2a5f9846af4::t_b0c358b722f0c9 16-18
+contrib/check-boundaries.js
+  s_bbd2a5f9846af4::t_12a8c7b989c537 44
+package.json
+  s_bbd2a5f9846af4::t_dc4440314ab165 65-68
+bin/cdxgen.js
+  s_bbd2a5f9846af4::t_b0c358b722f0c9 36,50,56-57,59,74,101,168,1494
+  s_bbd2a5f9846af4::t_7373e2a68091d3 102-106
+  s_bbd2a5f9846af4::t_0c887033327ade 58
+lib/audit/scoring.js
+  s_bbd2a5f9846af4::t_b0c358b722f0c9 5
+lib/stages/postgen/annotator.js
+  s_bbd2a5f9846af4::t_c5828ea470e05b 6,11,15-16
+lib/stages/postgen/postgen.js
+  s_bbd2a5f9846af4::t_7373e2a68091d3 37-40
+  s_bbd2a5f9846af4::t_c5828ea470e05b 26,35-36,41-44
+bin/sign.js
+  s_bbd2a5f9846af4::t_b0c358b722f0c9 12,17
+  s_bbd2a5f9846af4::t_7373e2a68091d3 18
+lib/validator/reporters/console.js
+  s_bbd2a5f9846af4::t_c5828ea470e05b 6
+bin/verify.js
+  s_bbd2a5f9846af4::t_7373e2a68091d3 20
+  s_bbd2a5f9846af4::t_0c887033327ade 14
+  s_bbd2a5f9846af4::t_b0c358b722f0c9 13,19
+lib/audit/reporters.js
+  s_bbd2a5f9846af4::t_b0c358b722f0c9 2
+lib/validator/complianceRules.js
+  s_bbd2a5f9846af4::t_b0c358b722f0c9 39
+test/baseline/npm-pack-file-list.txt
+  s_bbd2a5f9846af4::t_e778d5a4ca6f49 163
+  s_bbd2a5f9846af4::t_d48b846e14e455 96-162,164-181
+lib/managers/binary.poku.js
+  s_bbd2a5f9846af4::t_b0c358b722f0c9 103,117,123
+lib/validator/bomValidator.poku.js
+  s_bbd2a5f9846af4::t_b0c358b722f0c9 106,138
+lib/stages/postgen/postgen.poku.js
+  s_bbd2a5f9846af4::t_48be9009dc645d 21
+  s_bbd2a5f9846af4::t_6782c669c1675a 14
+lib/cli/index.js
+  s_bbd2a5f9846af4::t_b0c358b722f0c9 84,89,96-97,103-105,109,115,128,142,147,153,161,168-169,178-179,191,197-199,203,212,221,233,245,270,280,286,297-298,302,309,319-321,327
+  s_bbd2a5f9846af4::t_7373e2a68091d3 322-325
+bin/tracebom.js
+  s_bbd2a5f9846af4::t_b0c358b722f0c9 10,15
+lib/cli/index.poku.js
+  s_bbd2a5f9846af4::t_b0c358b722f0c9 22-23,28,145,385,417,443,1602,1732,1760,1812,2148,2162,3042
+lib/audit/index.poku.js
+  s_bbd2a5f9846af4::t_b0c358b722f0c9 121,126,130,230,235,239,2037,2152,2262,2374,2489
+lib/stages/postgen/auditBom.poku.js
+  s_bbd2a5f9846af4::t_6d79b449db56f7 6-7
+bin/hbom.js
+  s_bbd2a5f9846af4::t_0c887033327ade 21
+  s_bbd2a5f9846af4::t_7373e2a68091d3 32
+  s_bbd2a5f9846af4::t_b0c358b722f0c9 11,16-17,31
+lib/evinser/evinser.js
+  s_bbd2a5f9846af4::t_b0c358b722f0c9 21,25-28,37-38,43,47,52
+lib/managers/docker.js
+  s_bbd2a5f9846af4::t_b0c358b722f0c9 35
+packages/ecosystems/package.json
+  s_bbd2a5f9846af4::t_1822dbb1aa9fe5 1-12
+lib/stages/pregen/pregen.js
+  s_bbd2a5f9846af4::t_c5828ea470e05b 19,33
+lib/managers/oci.js
+  s_bbd2a5f9846af4::t_b0c358b722f0c9 9
+lib/cli/cliOptions.js
+  s_bbd2a5f9846af4::t_b0c358b722f0c9 20-21
+pnpm-lock.yaml
+  s_bbd2a5f9846af4::t_f1fabb8a57bfd8 193-194
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "bd5d87a9c41728053998cb3b5026a908cd60cf0b",
+  "prompts": {},
+  "sessions": {
+    "s_bbd2a5f9846af4": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_0434ccc0dffeRQLBCmUFzED0p8",
+        "model": "glm-5.2"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
