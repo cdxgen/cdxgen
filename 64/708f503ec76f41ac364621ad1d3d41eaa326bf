@@ -1,0 +1,21 @@
+lib/inventory/cacheCommands.poku.js
+  s_4cf5bc23eb44ec::t_dea319d07d789a 106
+  s_4cf5bc23eb44ec::t_94cf6159ac9c54 104-105
+  s_4cf5bc23eb44ec::t_9e0805d0f3648b 107-109
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "64708f503ec76f41ac364621ad1d3d41eaa326bf",
+  "prompts": {},
+  "sessions": {
+    "s_4cf5bc23eb44ec": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_033e36545ffeEWj4w6PrZoUpo3",
+        "model": "glm-5.2"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
