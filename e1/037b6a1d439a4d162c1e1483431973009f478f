@@ -1,0 +1,35 @@
+test/baseline/npm-pack-file-list.txt
+  s_7d724ea76adc3c::t_af80b9729f8007 418-421
+docs/v13/rust.md
+  s_7d724ea76adc3c::t_b33bab7b81dd4e 211-220
+types/lib/inventory/cacheDir.d.ts
+  s_7d724ea76adc3c::t_205d3be98e1b7c 1,3,8,14-40,42,45,47,50,53
+  s_7d724ea76adc3c::t_29e9c13b66b1f5 2,4-7,9-13,41,43-44,46,48-49,51-52,54-55
+lib/inventory/cacheDir.js
+  s_7d724ea76adc3c::t_8ab92c9c1decab 23-24,26-38,40-48,50-52,54-56,58-59,61-65,67-74,76-92
+lib/inventory/cacheDir.poku.js
+  s_7d724ea76adc3c::t_d7e5544199f978 211-261
+  s_7d724ea76adc3c::t_c6bb7adf76ff81 8-12,66-76,80-87,91-110,112-125
+types/lib/inventory/cacheCommands.d.ts
+  s_7d724ea76adc3c::t_b716d792421259 1-28
+types/lib/inventory/cacheCommands.d.ts.map
+  s_7d724ea76adc3c::t_73193290c977c7 1
+types/lib/inventory/cacheDir.d.ts.map
+  s_7d724ea76adc3c::t_1e984c3e819cc1 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "e1037b6a1d439a4d162c1e1483431973009f478f",
+  "prompts": {},
+  "sessions": {
+    "s_7d724ea76adc3c": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "2a0b9959-84de-46e0-a87e-11e7f1e7f1e3",
+        "model": "claude-opus-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
