@@ -1,0 +1,24 @@
+docs/v13/rust.md
+  s_7d724ea76adc3c::t_272a12baa0bcf2 215,224-225
+bin/cdxgen.js
+  s_7d724ea76adc3c::t_3b84b92bc39745 154-155
+  s_7d724ea76adc3c::t_fdf7fccb123c88 703-704
+  s_7d724ea76adc3c::t_c4ace7a0a19ac5 762-773
+  s_7d724ea76adc3c::t_82933677e38ff6 705
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "5eb37b1de4df5028b2e38977df7adba0029f7a16",
+  "prompts": {},
+  "sessions": {
+    "s_7d724ea76adc3c": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "2a0b9959-84de-46e0-a87e-11e7f1e7f1e3",
+        "model": "claude-opus-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
