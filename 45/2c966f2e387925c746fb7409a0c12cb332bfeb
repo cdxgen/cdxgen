@@ -1,0 +1,29 @@
+repotests/zig-smoke/expected/default.json
+  s_d43a93963c5d9d::t_de7c17e7546bd5 1-192
+repotests/bazel-smoke/expected/default.json
+  s_d43a93963c5d9d::t_de7c17e7546bd5 1-249
+repotests/zig-smoke/golden.manifest.json
+  s_d43a93963c5d9d::t_4ba88065048edb 1-11
+repotests/gleam-smoke/golden.manifest.json
+  s_d43a93963c5d9d::t_19430962cc1f0b 1-11
+repotests/bazel-smoke/golden.manifest.json
+  s_d43a93963c5d9d::t_f14a9d73fa29c5 1-11
+repotests/gleam-smoke/expected/default.json
+  s_d43a93963c5d9d::t_de7c17e7546bd5 1-240
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "452c966f2e387925c746fb7409a0c12cb332bfeb",
+  "prompts": {},
+  "sessions": {
+    "s_d43a93963c5d9d": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_02bc2145bffesfdGL84KwWMKmq",
+        "model": "glm-5.2"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
