@@ -1,0 +1,32 @@
+test/data/bzlmod-smoke/MODULE.bazel.lock.modern
+  s_d43a93963c5d9d::t_999aa0fa938b0e 1-34
+lib/ecosystems/parsers-bazel.js
+  s_d43a93963c5d9d::t_e9715d7e2615fa 116-121,477-481,554
+  s_d43a93963c5d9d::t_fcf037db8799e6 1-115,122-215,218-476,482-553,555-619
+  s_d43a93963c5d9d::t_c425f1d8ad8a82 216-217
+lib/ecosystems/parsers-bazel.poku.js
+  s_d43a93963c5d9d::t_e9715d7e2615fa 3,38-41,81,83,93-96
+  s_d43a93963c5d9d::t_765538d86c59c8 1-2,4-37,42-80,82,84-92,97-108
+test/data/bzlmod-smoke/MODULE.bazel
+  s_d43a93963c5d9d::t_84f6876779470f 1-14
+lib/cli/index.js
+  s_d43a93963c5d9d::t_e9715d7e2615fa 135-137,2901-2902
+  s_d43a93963c5d9d::t_2528ca24fb4902 2895-2900,2903-2927
+  s_d43a93963c5d9d::t_993fa5e7876a9e 134
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "92c9101f5d5b5f3340a95e742922e72f1fe9a148",
+  "prompts": {},
+  "sessions": {
+    "s_d43a93963c5d9d": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_02bc2145bffesfdGL84KwWMKmq",
+        "model": "glm-5.2"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
