@@ -1,0 +1,38 @@
+lib/inventory/purl.poku.js
+  s_d43a93963c5d9d::t_52a1d07491f295 196-238
+  s_d43a93963c5d9d::t_3f522e549311c1 13-14
+  s_d43a93963c5d9d::t_f4e4c5d43cd8cd 15
+lib/ecosystems/parsers-misc.js
+  s_d43a93963c5d9d::t_a10a4ee8164a3d 31
+  s_d43a93963c5d9d::t_bc20b3f6b23fd0 1245-1252
+  s_d43a93963c5d9d::t_117df50ff226ec 1275,1278,1352-1379,1384-1387,1389-1394,1402,1406-1412,1414-1415,1417-1443
+lib/inventory/purl.js
+  s_d43a93963c5d9d::t_c8369cb27b0424 253-264,267-268,271,273,276,284-287
+  s_d43a93963c5d9d::t_a1b7c1f4adab9a 3,7-53
+  s_d43a93963c5d9d::t_cdfdce5fa6bbbc 54
+lib/cli/index.js
+  s_d43a93963c5d9d::t_c2a54b890fe754 7464-7468,7512-7521
+  s_d43a93963c5d9d::t_be0ac8518e0c32 7522
+lib/ecosystems/parsers-misc.poku.js
+  s_d43a93963c5d9d::t_81cb64035dd94c 1576-1577,1594-1597
+  s_d43a93963c5d9d::t_ad56c0a0a57f77 1753
+  s_d43a93963c5d9d::t_5e007fa42adadf 1681-1684
+  s_d43a93963c5d9d::t_951fbba16f9fa1 1633-1635,1639-1646,1678-1680,1685-1698,1714-1727
+  s_d43a93963c5d9d::t_34954f0799c19d 1598
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "b50b82c8122d265cb4c0f99305cc034a91233e60",
+  "prompts": {},
+  "sessions": {
+    "s_d43a93963c5d9d": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_02bc2145bffesfdGL84KwWMKmq",
+        "model": "glm-5.2"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
