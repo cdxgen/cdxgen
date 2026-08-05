@@ -1,0 +1,37 @@
+test/data/mojo-smoke/mojoproject.toml
+  s_d43a93963c5d9d::t_6ebe61fa29a7af 1-8
+lib/ecosystems/parsers-python.js
+  s_d43a93963c5d9d::t_cf54b3ccf380d0 1945-2062
+lib/ecosystems/barrel.poku.js
+  s_d43a93963c5d9d::t_ea492d9d03f9d8 280
+  s_d43a93963c5d9d::t_485c2ccd832093 5,275,281
+  s_d43a93963c5d9d::t_1078e1e7ccbbbf 199
+lib/core/env.js
+  s_d43a93963c5d9d::t_22cbef9569886a 321
+lib/ecosystems/utils.js
+  s_d43a93963c5d9d::t_4c8a882d2a689a 494
+  s_d43a93963c5d9d::t_0fb5ea384c2ef9 289
+lib/cli/index.js
+  s_d43a93963c5d9d::t_dcde36f54ea8f7 219
+  s_d43a93963c5d9d::t_80055b8dc77ab3 5157-5171,5175-5179,5182-5187
+lib/ecosystems/parsers-python.poku.js
+  s_d43a93963c5d9d::t_b3bbe2b111559f 1401
+  s_d43a93963c5d9d::t_ba9b160a3d118b 1379-1400,1402-1419
+  s_d43a93963c5d9d::t_9487b1e4b1e1e0 11
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "8a5323628e6c98658e201ee2c70ea065aeef739d",
+  "prompts": {},
+  "sessions": {
+    "s_d43a93963c5d9d": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_02bc2145bffesfdGL84KwWMKmq",
+        "model": "glm-5.2"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
