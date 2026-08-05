@@ -1,0 +1,31 @@
+README.md
+  s_6936c3be6ae74d::t_ff706ef02b934f 171
+MIGRATING-TO-V13.md
+  s_6936c3be6ae74d::t_ff706ef02b934f 385,391
+docs/ENV.md
+  s_6936c3be6ae74d::t_ff706ef02b934f 225,231
+.github/workflows/binary-builds.yml
+  s_6936c3be6ae74d::t_c1e0cfa8d8c8aa 90-93
+  s_6936c3be6ae74d::t_a5b757182e7de7 138-143,145-147
+  s_6936c3be6ae74d::t_05ebaaeca9690c 144
+lib/inventory/atomUtils.js
+  s_6936c3be6ae74d::t_ff706ef02b934f 43,787,822
+test/data/evinse-php-repotest/composer.lock
+  s_6936c3be6ae74d::t_33dce217bda621 1-22
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "8722840ea122982c22b2bdf27f3002e7591a6333",
+  "prompts": {},
+  "sessions": {
+    "s_6936c3be6ae74d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "97e50470-9988-4542-a506-43e4d9a0f6e4",
+        "model": "claude-opus-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
