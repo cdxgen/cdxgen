@@ -1,0 +1,70 @@
+contrib/shuffle-tests.js
+  s_6936c3be6ae74d::t_9dd0cce7ae2a85 101,129
+  s_6936c3be6ae74d::t_687304387c7413 25
+contrib/parity-harness.js
+  s_6936c3be6ae74d::t_21cb35022cba5b 142
+lib/validator/precompiled-parity.poku.js
+  s_6936c3be6ae74d::t_b7464b65fa2c11 129
+test/repotests/bazel-smoke/golden.manifest.json
+  s_6936c3be6ae74d::t_3dd400edb95088 1-13
+test/repotests/gleam-smoke/golden.manifest.json
+  s_6936c3be6ae74d::t_3dd400edb95088 1-11
+lib/validator/golden-purl-validity.poku.js
+  s_6936c3be6ae74d::t_b7464b65fa2c11 17
+.github/workflows/repotests.yml
+  s_6936c3be6ae74d::t_cd095ed21ec414 69,90-97,101,106-110,123-124,322-323,336,354,372,378,384,391,396,416-417,419,425-426,438,442,556,561,566,571,576,581,586,591,598,604,610,616,621,626,631,636,641,647,653,659,665,671,677,683,689,695,701,706,712,717,722,727,732,737,743,749,755,762,768,774,779,785,791,797,803,809,815,821,826,832,856-858,862,866,870,874-881,883,885-888,893,901,925,929,931,942,948-949,953-954,960,964,968,984-986,990-993,997-998,1002-1004,1058,1062,1066,1070,1074-1075,1079-1080,1084,1088-1089,1093,1097,1101,1105,1110-1111,1116-1118,1122-1124,1128,1132-1134,1138-1142,1148-1153,1183,1261,1265-1268,1287-1288,1309-1312,1390-1391,1422-1424,1429-1436,1447-1454,1465-1469,1474,1480,1484-1485,1566-1568,1572-1579,1591-1592,1600-1601,2041,2046,2052
+  s_6936c3be6ae74d::t_687304387c7413 2074-2079
+.github/workflows/python-atom-tests.yml
+  s_6936c3be6ae74d::t_cd095ed21ec414 61,67,72,77,82,87,92,97,100-115,120-125
+test/repotests/cargo-smoke/expected/default.json
+  s_6936c3be6ae74d::t_576d0aa6b95837 1-9656
+.pokurc.jsonc
+  s_6936c3be6ae74d::t_c9961bc75554f2 3
+contrib/purl-sweep.js
+  s_6936c3be6ae74d::t_687304387c7413 23,25
+test/repotests/zig-smoke/golden.manifest.json
+  s_6936c3be6ae74d::t_3dd400edb95088 1-11
+ci/diff-v12-v13.js
+  s_6936c3be6ae74d::t_687304387c7413 36
+contrib/record-cassettes.js
+  s_6936c3be6ae74d::t_9dd0cce7ae2a85 9
+  s_6936c3be6ae74d::t_21cb35022cba5b 20
+test/repotests/npm-smoke/expected/default.json
+  s_6936c3be6ae74d::t_576d0aa6b95837 1-322
+.github/workflows/java-reachables-test.yml
+  s_6936c3be6ae74d::t_cd095ed21ec414 57,63,67,71-73,78,102,108,113,119,141,150,156,162
+.github/workflows/nodejs.yml
+  s_6936c3be6ae74d::t_cd095ed21ec414 17,37
+docs/TESTING.md
+  s_6936c3be6ae74d::t_9dd0cce7ae2a85 234,243,262,300
+contrib/golden-runner.js
+  s_6936c3be6ae74d::t_687304387c7413 49
+  s_6936c3be6ae74d::t_9dd0cce7ae2a85 4,12,26,34-35,106,148,379
+.github/workflows/nydus-demo.yml
+  s_6936c3be6ae74d::t_cd095ed21ec414 40,62,68,75,82
+docs/PERMISSIONS.md
+  s_6936c3be6ae74d::t_687304387c7413 108-110
+contrib/cassette-metadata-tests.js
+  s_6936c3be6ae74d::t_687304387c7413 22
+biome.json
+  s_6936c3be6ae74d::t_687304387c7413 124
+  s_6936c3be6ae74d::t_9dd0cce7ae2a85 34,105
+contrib/mutation-tests.js
+  s_6936c3be6ae74d::t_687304387c7413 40,451
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "3ee082995262b22910318bef7006cfccc1c1b06b",
+  "prompts": {},
+  "sessions": {
+    "s_6936c3be6ae74d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "97e50470-9988-4542-a506-43e4d9a0f6e4",
+        "model": "claude-opus-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
