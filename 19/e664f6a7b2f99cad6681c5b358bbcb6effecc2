@@ -1,0 +1,47 @@
+test/data/bzlmod-smoke/MODULE.bazel.lock.modern
+  s_6936c3be6ae74d::t_122a3e39e09e9f 24-25,27-29,34-99
+lib/cli/index.js
+  s_6936c3be6ae74d::t_0bc9a4f65093af 2966-2968
+  s_6936c3be6ae74d::t_d817a0bcdc713a 2893-2895,2938,2940,2946,2965,2972
+  s_6936c3be6ae74d::t_bcbc868391deff 2930-2935
+repotests/bazel-smoke/golden.manifest.json
+  s_6936c3be6ae74d::t_0bc9a4f65093af 1,4-6,10-13
+  s_6936c3be6ae74d::t_69311e1c979d78 3
+  s_6936c3be6ae74d::t_67053bcad008af 2,7-9
+lib/ecosystems/parsers-bazel.poku.js
+  s_6936c3be6ae74d::t_07ea2713eb545a 116
+  s_6936c3be6ae74d::t_e7a5a71f4320c5 90,94-95,97,100-115,117-136
+docs/CUSTOM_PROPERTIES.md
+  s_6936c3be6ae74d::t_0947507ba7a97c 61-65,343-348
+lib/customProperties.poku.js
+  s_6936c3be6ae74d::t_238831f0435951 1-68
+repotests/bazel-smoke/expected/default.json
+  s_6936c3be6ae74d::t_0bc9a4f65093af 1-2,206-207,221-249
+  s_6936c3be6ae74d::t_69311e1c979d78 3-205,208-220
+lib/ecosystems/parsers-bazel.js
+  s_6936c3be6ae74d::t_e4301482cb63d2 40-45,47
+  s_6936c3be6ae74d::t_087d27ecdc5ad7 3,242-245,247-253,267-268,270-278,375-383,391
+  s_6936c3be6ae74d::t_86b0994ffee26f 415-423
+  s_6936c3be6ae74d::t_dcdf2aaef56541 34-39,46,48,181,183,341-343
+  s_6936c3be6ae74d::t_4ebff932b5f4e8 33,151-180,182,184-185,187-190,194-195,197-241,246,254-266,269,279-340,344-374,384-390,392-414,424-425
+types/lib/cli/index.d.ts.map
+  s_6936c3be6ae74d::t_0289c567708451 1
+types/lib/ecosystems/parsers-bazel.d.ts.map
+  s_6936c3be6ae74d::t_7744cb9fc5f24c 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "19e664f6a7b2f99cad6681c5b358bbcb6effecc2",
+  "prompts": {},
+  "sessions": {
+    "s_6936c3be6ae74d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "97e50470-9988-4542-a506-43e4d9a0f6e4",
+        "model": "claude-opus-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
