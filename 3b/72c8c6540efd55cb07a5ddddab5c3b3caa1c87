@@ -1,0 +1,65 @@
+types/lib/core/env.d.ts
+  s_d43a93963c5d9d::t_dc2402042dbd12 97-98
+types/lib/ecosystems/parsers-bazel.d.ts
+  s_d43a93963c5d9d::t_dc2402042dbd12 1-36
+types/lib/ecosystems/parsers-zig.d.ts
+  s_d43a93963c5d9d::t_dc2402042dbd12 1-65
+docs/PROJECT_TYPES.md
+  s_d43a93963c5d9d::t_b9e13d94cc5c9c 48
+  s_d43a93963c5d9d::t_66a2eb801f5588 45-47
+docs/ADD_ECOSYSTEM.md
+  s_d43a93963c5d9d::t_b56caa85ee3564 68
+  s_d43a93963c5d9d::t_cfc9c81b33a502 60
+  s_d43a93963c5d9d::t_b9ca7cd92546a4 12-13,15
+types/lib/ecosystems/pythonutils.d.ts
+  s_d43a93963c5d9d::t_dc2402042dbd12 55-56
+types/lib/inventory/purl.d.ts
+  s_d43a93963c5d9d::t_dc2402042dbd12 1-36,148-159,162-163,166,171-174
+types/lib/ecosystems/parsers-gleam.d.ts
+  s_d43a93963c5d9d::t_dc2402042dbd12 1-33
+types/lib/ecosystems/parsers-python.d.ts
+  s_d43a93963c5d9d::t_dc2402042dbd12 116-136
+types/lib/ecosystems/utils.d.ts
+  s_d43a93963c5d9d::t_dc2402042dbd12 37,40
+types/lib/cli/index.d.ts
+  s_d43a93963c5d9d::t_dc2402042dbd12 188-213
+test/baseline/npm-pack-file-list.txt
+  s_d43a93963c5d9d::t_90b593b70dd8e2 109,111,118
+  s_d43a93963c5d9d::t_8a31cc3711f1a6 359-360,363-364,377-378
+docs/MIGRATING-TO-V13.md
+  s_d43a93963c5d9d::t_8a299f2020197d 1-56
+types/lib/cli/index.d.ts.map
+  s_d43a93963c5d9d::t_f8b987a8d9f7c6 1
+types/lib/core/env.d.ts.map
+  s_d43a93963c5d9d::t_e47df0a0ab2687 1
+types/lib/ecosystems/parsers-bazel.d.ts.map
+  s_d43a93963c5d9d::t_648f120d17ff8f 1
+types/lib/ecosystems/parsers-gleam.d.ts.map
+  s_d43a93963c5d9d::t_d3dd4c8bbd0f95 1
+types/lib/ecosystems/parsers-misc.d.ts.map
+  s_d43a93963c5d9d::t_ac7c0795afda78 1
+types/lib/ecosystems/parsers-python.d.ts.map
+  s_d43a93963c5d9d::t_6b1a22e7559ba3 1
+types/lib/ecosystems/parsers-zig.d.ts.map
+  s_d43a93963c5d9d::t_22cb967ce8004f 1
+types/lib/ecosystems/utils.d.ts.map
+  s_d43a93963c5d9d::t_8f464285889459 1
+types/lib/inventory/purl.d.ts.map
+  s_d43a93963c5d9d::t_ff84ba9e982b4c 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "3b72c8c6540efd55cb07a5ddddab5c3b3caa1c87",
+  "prompts": {},
+  "sessions": {
+    "s_d43a93963c5d9d": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_02bc2145bffesfdGL84KwWMKmq",
+        "model": "glm-5.2"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
