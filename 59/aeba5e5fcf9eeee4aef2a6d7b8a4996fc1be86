@@ -1,0 +1,52 @@
+repotests/gleam-smoke/expected/default.json
+  s_6936c3be6ae74d::t_ec588304ebd5ca 4-30,188-194,210-212
+lib/boundaries.poku.js
+  s_6936c3be6ae74d::t_bae733cc9dea2c 2
+lib/ecosystems/parsers-gleam.poku.js
+  s_6936c3be6ae74d::t_07502b79769f99 19-20,47-58
+  s_6936c3be6ae74d::t_00f3e144f1e4a0 59
+lib/ecosystems/parsers-gleam.js
+  s_6936c3be6ae74d::t_6be2231684f4c1 102-109
+  s_6936c3be6ae74d::t_d7cc577a29aaac 116
+lib/ecosystems/parsers-zig.js
+  s_6936c3be6ae74d::t_20c1b95bbabeed 334-343
+  s_6936c3be6ae74d::t_5cd974781b0529 18-19
+  s_6936c3be6ae74d::t_c23c07ed5294a8 154
+  s_6936c3be6ae74d::t_88b6c603e02022 26-33
+  s_6936c3be6ae74d::t_649ec8a73ce49c 208-211,220-234,238-241
+  s_6936c3be6ae74d::t_a6b38f05d47a37 235-237
+  s_6936c3be6ae74d::t_f7ceece62ea4bf 104-107
+  s_6936c3be6ae74d::t_346e12244a1e4d 242-243
+MIGRATING-TO-V13.md
+  s_6936c3be6ae74d::t_51ae8bf519ffec 366-412
+test/data/gleam-smoke/manifest.toml
+  s_6936c3be6ae74d::t_786e3fbb1e8043 6,10-11
+repotests/zig-smoke/expected/default.json
+  s_6936c3be6ae74d::t_ec588304ebd5ca 92,97,127,131,134,137,144-146,154
+lib/ecosystems/parsers-bazel.js
+  s_6936c3be6ae74d::t_faa4a4d7b90b2b 285
+lib/ecosystems/parsers-bazel.poku.js
+  s_6936c3be6ae74d::t_6b1dcc2af3d9a1 36,42-44,46,49,96,101
+test/data/zig-smoke/build.zig.zon
+  s_6936c3be6ae74d::t_f4781e52771679 2-3,5-6,8,13,15-16
+lib/ecosystems/parsers-zig.poku.js
+  s_6936c3be6ae74d::t_d57d627521325e 118,124,153-155,159-162,165,179-190
+  s_6936c3be6ae74d::t_19c5288f5ab3c7 156-158
+  s_6936c3be6ae74d::t_22040953ecf249 191-192
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "59aeba5e5fcf9eeee4aef2a6d7b8a4996fc1be86",
+  "prompts": {},
+  "sessions": {
+    "s_6936c3be6ae74d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "97e50470-9988-4542-a506-43e4d9a0f6e4",
+        "model": "claude-opus-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
