@@ -1,0 +1,35 @@
+types/lib/managers/docker.d.ts
+  s_6936c3be6ae74d::t_6bd0a442544bc2 138
+types/lib/inventory/osPackageResolver.d.ts
+  s_6936c3be6ae74d::t_6bd0a442544bc2 18
+types/lib/inventory/evidenceUtils.d.ts
+  s_6936c3be6ae74d::t_6bd0a442544bc2 28
+types/lib/ecosystems/gradleutils.d.ts.map
+  s_6936c3be6ae74d::t_d45fa8a3bdb764 1
+types/lib/ecosystems/jsEvidence.d.ts.map
+  s_6936c3be6ae74d::t_bea35162d161e0 1
+types/lib/ecosystems/parsers-js.d.ts.map
+  s_6936c3be6ae74d::t_48b5527682ea91 1
+types/lib/evinser/scalasem.d.ts.map
+  s_6936c3be6ae74d::t_111777491703dc 1
+types/lib/inventory/evidenceUtils.d.ts.map
+  s_6936c3be6ae74d::t_edf666c4ebb645 1
+types/lib/managers/binary.d.ts.map
+  s_6936c3be6ae74d::t_9cff3c76be8d32 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "a719b306c364cbfbe408748c5e79fae904232b7f",
+  "prompts": {},
+  "sessions": {
+    "s_6936c3be6ae74d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "97e50470-9988-4542-a506-43e4d9a0f6e4",
+        "model": "claude-opus-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
