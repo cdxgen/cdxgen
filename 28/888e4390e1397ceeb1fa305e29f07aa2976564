@@ -1,0 +1,102 @@
+ci/Dockerfile-ppc64
+  s_6936c3be6ae74d::t_67638f84925c58 12
+docs/CDX_VERIFY.md
+  s_6936c3be6ae74d::t_67638f84925c58 29
+SKILL.md
+  s_6936c3be6ae74d::t_67638f84925c58 23
+docs/THREAT_MODEL.md
+  s_6936c3be6ae74d::t_67638f84925c58 525
+MIGRATING-TO-V13.md
+  s_6936c3be6ae74d::t_74269e48013cce 147,149-167
+  s_6936c3be6ae74d::t_67638f84925c58 255-256,258,266
+README.md
+  s_6936c3be6ae74d::t_67638f84925c58 315,318,321,324,327,473
+lib/inventory/envcontext.js
+  s_6936c3be6ae74d::t_67638f84925c58 958,966,1006,1253,1257
+contrib/dependency-track/docker-compose.yml
+  s_6936c3be6ae74d::t_67638f84925c58 8
+contrib/bulk-generate/README.md
+  s_6936c3be6ae74d::t_67638f84925c58 17
+lib/cli/index.js
+  s_6936c3be6ae74d::t_67638f84925c58 2283,7344,8777,8808,8920
+lib/ecosystems/pythonutils.js
+  s_6936c3be6ae74d::t_67638f84925c58 883
+contrib/fine-tuning/cdxgen-docs/readme.jsonl
+  s_6936c3be6ae74d::t_67638f84925c58 26
+docs/PERMISSIONS.md
+  s_6936c3be6ae74d::t_67638f84925c58 3,53,56
+contrib/fine-tuning/cdxgen-docs/ci-base-images.jsonl
+  s_6936c3be6ae74d::t_67638f84925c58 3-42,44-45,47,53-55,57-75
+contrib/fine-tuning/cdxgen-docs/server.jsonl
+  s_6936c3be6ae74d::t_67638f84925c58 3
+contrib/fine-tuning/cdxgen-docs/cli-detailed.jsonl
+  s_6936c3be6ae74d::t_67638f84925c58 6,14,70,94,155,165,189,216
+docs/TROUBLESHOOTING.md
+  s_6936c3be6ae74d::t_67638f84925c58 89
+lib/ecosystems/gradleutils.js
+  s_6936c3be6ae74d::t_67638f84925c58 388
+docker-compose.yml
+  s_6936c3be6ae74d::t_67638f84925c58 17
+docs/LESSON2.md
+  s_6936c3be6ae74d::t_67638f84925c58 46,50
+docs/SUPPLY_CHAIN_TRANSPARENCY.md
+  s_6936c3be6ae74d::t_67638f84925c58 96,133
+lib/ecosystems/parsers-misc.js
+  s_6936c3be6ae74d::t_67638f84925c58 2617
+SECURITY.md
+  s_6936c3be6ae74d::t_67638f84925c58 79
+test/diff/container-tests-repos.csv
+  s_6936c3be6ae74d::t_67638f84925c58 2-14
+.github/workflows/nydus-demo.yml
+  s_6936c3be6ae74d::t_67638f84925c58 69,83
+docs/ADVANCED.md
+  s_6936c3be6ae74d::t_67638f84925c58 640,646,651,667,675,922,942,956-958,970-972,993,1001,1009,1015,1026,1037-1076
+.github/workflows/npm-release.yml
+  s_6936c3be6ae74d::t_600391f90496e0 55-59,61-66,72-74
+bin/cdxgen.js
+  s_6936c3be6ae74d::t_67638f84925c58 1156
+ci/Dockerfile-bun
+  s_6936c3be6ae74d::t_67638f84925c58 12
+.github/workflows/java-reachables-test.yml
+  s_6936c3be6ae74d::t_67638f84925c58 114,120,151,157,163
+contrib/fine-tuning/cdxgen-docs/advanced-detailed.jsonl
+  s_6936c3be6ae74d::t_67638f84925c58 36-38,42-43,53-54,62,68,71-72,74-75,77,81-82,90-91,94-96,101,104,109,112,114,117,125,128,153-154,156,158,161-162,165,173,176,184,186,201-202,205,209,214-215,219
+ci/Dockerfile-deno
+  s_6936c3be6ae74d::t_67638f84925c58 12
+contrib/fine-tuning/cdxgen-docs/permissions.jsonl
+  s_6936c3be6ae74d::t_67638f84925c58 6
+docs/CLI.md
+  s_6936c3be6ae74d::t_67638f84925c58 172,250,253
+docs/SERVER.md
+  s_6936c3be6ae74d::t_67638f84925c58 23
+docs/README.md
+  s_6936c3be6ae74d::t_67638f84925c58 302
+ci/Dockerfile-secure
+  s_6936c3be6ae74d::t_67638f84925c58 12
+lib/stages/pregen/pregen.js
+  s_6936c3be6ae74d::t_67638f84925c58 502,540
+.github/workflows/nodejs.yml
+  s_6936c3be6ae74d::t_67638f84925c58 123-124
+ci/images/README.md
+  s_6936c3be6ae74d::t_67638f84925c58 11-52,73,80,86,92,98,104,110,115,124,130,138,146,152,157,160,166,172,197,200,205,208,214,219,226,234,240,246,252,257,262,271,276,282,287,290,295,298,306,314,317,323,348,358,416
+docs/LESSON5.md
+  s_6936c3be6ae74d::t_67638f84925c58 55,59,62,68,76
+ci/Dockerfile
+  s_6936c3be6ae74d::t_67638f84925c58 152
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "28888e4390e1397ceeb1fa305e29f07aa2976564",
+  "prompts": {},
+  "sessions": {
+    "s_6936c3be6ae74d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "97e50470-9988-4542-a506-43e4d9a0f6e4",
+        "model": "claude-opus-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
