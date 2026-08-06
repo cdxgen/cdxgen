@@ -1,0 +1,214 @@
+lib/ecosystems/rusi.js
+  s_6936c3be6ae74d::t_334b74fbc549e8 202-206
+  s_25033df69c1d8a::t_00310f0d52672b 207-211
+  s_25033df69c1d8a::t_745d238e6959bf 12
+docs/CUSTOM_PROPERTIES.md
+  s_6936c3be6ae74d::t_a16acea5406b23 685
+  s_6936c3be6ae74d::t_943c66b3c197fd 97,387,523-526
+  s_6936c3be6ae74d::t_13f458113b236f 1171-1180,1399,1418
+types/lib/inventory/sbomDocument.d.ts
+  s_6936c3be6ae74d::t_91d4a9f2cb1746 1-38
+types/lib/ecosystems/pep770.d.ts
+  s_6936c3be6ae74d::t_697ae25765c5a5 17-24,26,28-29,32-34,40,45
+  s_6936c3be6ae74d::t_13f458113b236f 1-16,25,27,30-31,35-39,41-44,46-68
+lib/inventory/cryptoAlgorithmFamily.js
+  s_6936c3be6ae74d::t_22b291851bd534 239-241
+  s_6936c3be6ae74d::t_ab688e6ebb52cc 39-52
+  s_6936c3be6ae74d::t_38396f65a388b6 72-73,75
+  s_6936c3be6ae74d::t_dea3504c4dccfe 79,81,86-97
+  s_6936c3be6ae74d::t_044ecbb3f11381 166-167,171-173
+  s_6936c3be6ae74d::t_a3c8f9769ee8be 174
+  s_25033df69c1d8a::t_fdf0fc162dd866 70
+  s_25033df69c1d8a::t_744861a48854e6 1-17,22-25,38,53-69,71,74,76-78,80,82-85,98-165,168-170,175-235,244-258
+  s_25033df69c1d8a::t_8fb31a42999792 18-21,26
+  s_6936c3be6ae74d::t_13f458113b236f 27-37,236-238,242-243
+lib/ecosystems/tea.poku.js
+  s_6936c3be6ae74d::t_93d5e8e38054ce 231
+  s_6936c3be6ae74d::t_b934a75eb6e095 212,229
+  s_6936c3be6ae74d::t_be4a50483042fa 227-228,230,232-234
+  s_6936c3be6ae74d::t_13f458113b236f 1-211,213-226,235-384
+types/lib/inventory/citations.d.ts
+  s_6936c3be6ae74d::t_697ae25765c5a5 16-17,56-64
+  s_6936c3be6ae74d::t_13f458113b236f 1-15,18-55,65-90
+types/lib/inventory/deps.d.ts
+  s_6936c3be6ae74d::t_697ae25765c5a5 86,89-94,97-100,103-106
+  s_6936c3be6ae74d::t_13f458113b236f 87-88,95-96,101-102,107-109
+docs/ADVANCED.md
+  s_6936c3be6ae74d::t_30f4f7854f595b 219
+  s_6936c3be6ae74d::t_ddd540ac67ca58 217
+  s_6936c3be6ae74d::t_11ad01b84c1a0d 203
+  s_6936c3be6ae74d::t_27d60eb9852180 218
+  s_6936c3be6ae74d::t_13f458113b236f 194-202,204-216,220-236
+  s_25033df69c1d8a::t_c71ca11c1ba39e 182-193
+test/baseline/npm-pack-file-list.txt
+  s_6936c3be6ae74d::t_ed3a1f0a6563b9 199,543-544
+  s_6936c3be6ae74d::t_13f458113b236f 119,127,189,383-384,399-400,471-474,523-524
+  s_25033df69c1d8a::t_41bf0d8c3347a7 163-164
+lib/inventory/mcpPinning.js
+  s_6936c3be6ae74d::t_da2bc219802ed5 149
+  s_6936c3be6ae74d::t_e1bb38061e8235 163
+  s_6936c3be6ae74d::t_c21b58e6588e85 13
+  s_6936c3be6ae74d::t_664ded129912cf 188-208
+  s_6936c3be6ae74d::t_13f458113b236f 1-12,14-148,150-162,164-187,209
+bin/cdxgen.js
+  s_6936c3be6ae74d::t_db88b41a76b90e 2079
+  s_6936c3be6ae74d::t_ce297515c3eb39 294
+  s_6936c3be6ae74d::t_097d3052edecc9 1649-1653
+  s_6936c3be6ae74d::t_463cc27555c049 2069,2071-2078,2080,2084-2086,2091-2092
+  s_6936c3be6ae74d::t_13f458113b236f 251-293,295-302,540-546,1654,2048-2068,2070,2081-2083,2087-2090,2093-2111,2113
+  s_25033df69c1d8a::t_5cce8397afdbe8 618
+lib/ecosystems/pep770.js
+  s_6936c3be6ae74d::t_32e2725e456740 15-16,18,22-23,25-29,31,34-42,89-96,117-118,121-123,126-127,130-149,158-162,164-179,181-202,204,210,215,230-248,252,256,260,279-282,286-287,294,298,300,302-304,309,311-312,314-320,329
+  s_6936c3be6ae74d::t_39330de1db13c5 152-153
+  s_6936c3be6ae74d::t_41eeb180dedf07 163
+  s_6936c3be6ae74d::t_fd384a94ec77f9 154-157
+  s_6936c3be6ae74d::t_13f458113b236f 1-14,17,19-21,24,30,32-33,43-88,97-116,119-120,124-125,128-129,150-151,180,203,205-209,211-214,216-229,249-251,253-255,257-259,261-278,283-285,288-293,295-297,299,301,305-308,310,313,321-328,330-334
+types/lib/ecosystems/tea.d.ts
+  s_6936c3be6ae74d::t_697ae25765c5a5 149,152,157,162,168-179
+  s_6936c3be6ae74d::t_13f458113b236f 1-148,150-151,153-156,158-161,163-167,180
+lib/inventory/citations.poku.js
+  s_6936c3be6ae74d::t_d075ce21ad67cb 21-22
+  s_6936c3be6ae74d::t_a758e991c8e01b 176-207
+  s_6936c3be6ae74d::t_13f458113b236f 174-175
+  s_25033df69c1d8a::t_5b1197c6b90f79 24,42,148
+  s_25033df69c1d8a::t_96158c3e05bc08 1-20,23,25-41,43-147,149-173,208-217
+lib/inventory/sbomDocument.poku.js
+  s_6936c3be6ae74d::t_52d90411045974 1-91
+docs/MCP.md
+  s_6936c3be6ae74d::t_c61bffcb7ea40d 234-238
+  s_6936c3be6ae74d::t_a0a95f3de3d757 233
+  s_6936c3be6ae74d::t_b862fb9dd69280 204,212,216
+  s_6936c3be6ae74d::t_13f458113b236f 175-203,205-211,213-215,217-232,239-246
+lib/inventory/sbomDocument.js
+  s_6936c3be6ae74d::t_31f358f8096f06 1-148
+lib/inventory/mcpPinning.poku.js
+  s_6936c3be6ae74d::t_b934a75eb6e095 43,61
+  s_6936c3be6ae74d::t_93d950983db7d5 39-42,44-49,58-60,62,66-79
+  s_6936c3be6ae74d::t_55c6c5053618af 80-81
+  s_6936c3be6ae74d::t_13f458113b236f 1-38,50-57,63-65,82-142
+lib/ecosystems/tea.js
+  s_6936c3be6ae74d::t_812f1741b2606f 285-334,607
+  s_6936c3be6ae74d::t_ce92991cf6d31a 18-21
+  s_6936c3be6ae74d::t_ef47fb6cf642e3 372-382
+  s_6936c3be6ae74d::t_7b9c81806c7500 22-27
+  s_6936c3be6ae74d::t_999197f8ce97dc 284,497,500,505,513-514,518-521,524-528,530,532-533,535-537,541-606
+  s_6936c3be6ae74d::t_f1a4ada87316ea 207-212
+  s_6936c3be6ae74d::t_13f458113b236f 1-17,28-206,213-283,335-371,383-496,498-499,501-504,506-512,515-517,522-523,529,531,534,538-540
+lib/inventory/citations.js
+  s_6936c3be6ae74d::t_98001c35a69fa2 167-177
+  s_6936c3be6ae74d::t_dcbc6b7b80f230 64-66
+  s_6936c3be6ae74d::t_93ac59bd50485c 41-42
+  s_6936c3be6ae74d::t_72362629091b4a 197-202
+  s_6936c3be6ae74d::t_115a4ae3afcb97 166
+  s_6936c3be6ae74d::t_13f458113b236f 164-165,196
+  s_25033df69c1d8a::t_950f814e18b5d4 142
+  s_25033df69c1d8a::t_4c684dd46c6dc7 1-40,43-54,56-63,67-97,101-141,143-163,178-195,203-234
+  s_25033df69c1d8a::t_e2e3aa9a079e3f 55,98-100
+lib/inventory/deps.js
+  s_6936c3be6ae74d::t_e995b9d22f5175 580,583-588,591-594,597,599-600,603,605-618,620-627,629,631-635,637-642
+  s_6936c3be6ae74d::t_13f458113b236f 581-582,589-590,595-596,598,601-602,604,619,628,630,636,643-646
+types/lib/ecosystems/pep770.d.ts.map
+  s_6936c3be6ae74d::t_aa1cdfc1ac4d2a 1
+types/lib/ecosystems/rusi.d.ts.map
+  s_6936c3be6ae74d::t_5140510739fb63 1
+types/lib/ecosystems/tea.d.ts.map
+  s_6936c3be6ae74d::t_155afe839702a8 1
+types/lib/inventory/citations.d.ts.map
+  s_6936c3be6ae74d::t_d5313e7ea87132 1
+types/lib/inventory/cryptoAlgorithmFamily.d.ts.map
+  s_6936c3be6ae74d::t_51515a02684fdc 1
+types/lib/inventory/deps.d.ts.map
+  s_6936c3be6ae74d::t_a0ac4ab1109008 1
+types/lib/inventory/mcpPinning.d.ts.map
+  s_6936c3be6ae74d::t_57331e8c900c38 1
+types/lib/inventory/sbomDocument.d.ts.map
+  s_6936c3be6ae74d::t_b421d0d9619d88 1
+types/lib/stages/postgen/postgen.d.ts.map
+  s_6936c3be6ae74d::t_3ee8a822fb1db6 1
+lib/inventory/protobom.js
+  s_6936c3be6ae74d::t_13f458113b236f 107-113
+  s_25033df69c1d8a::t_a7793f85dccc38 114-116
+docs/ARCHITECTURE.md
+  s_6936c3be6ae74d::t_13f458113b236f 28-30,187-195,227
+docs/VALIDATION_RULES.md
+  s_6936c3be6ae74d::t_13f458113b236f 9-13,28-31,37-45,49-60,64-72,80-88
+lib/stages/postgen/postgen.js
+  s_25033df69c1d8a::t_4f4117d8e9ab45 953-955
+  s_25033df69c1d8a::t_cf67384b0eee22 38-43
+  s_25033df69c1d8a::t_f9c2567c6c886f 964-978,980-981,983-998,1003-1014,1024-1031,1033-1037
+  s_25033df69c1d8a::t_4b23c92a9622d6 1015-1023
+  s_6936c3be6ae74d::t_13f458113b236f 48,922-929,979,982,999-1002,1085-1087,1091-1094
+  s_25033df69c1d8a::t_df11559749c945 438-443
+  s_25033df69c1d8a::t_abe060aad5faf4 186-190
+  s_25033df69c1d8a::t_5840f6f4a26280 1088-1090
+  s_25033df69c1d8a::t_e2e3aa9a079e3f 1032
+lib/ecosystems/pep770.poku.js
+  s_6936c3be6ae74d::t_13f458113b236f 1-163
+SKILL.md
+  s_6936c3be6ae74d::t_13f458113b236f 22
+test/repotests/cbom-js-smoke/expected/default.json
+  s_6936c3be6ae74d::t_13f458113b236f 7-10,86-89
+types/lib/ecosystems/pythonutils.d.ts
+  s_6936c3be6ae74d::t_13f458113b236f 56
+lib/cli/index.js
+  s_6936c3be6ae74d::t_13f458113b236f 235,1675-1680,5169,5466-5491,5816
+MIGRATING-TO-V13.md
+  s_6936c3be6ae74d::t_13f458113b236f 50-59,61,76-89,95-112,128-132,160-163,196-199,214-231,237-239,278-281,305-308,318-319,370-371,401,421-425
+lib/inventory/cbomutils.js
+  s_25033df69c1d8a::t_fe383a141995a1 7
+  s_25033df69c1d8a::t_38800e7334cf00 505-508
+  s_25033df69c1d8a::t_a4498d75336a71 433-436
+docs/PROJECT_TYPES.md
+  s_6936c3be6ae74d::t_13f458113b236f 14-37,39-50,52-62,64
+docs/ARCHITECTURE_ECOSYSTEM_EXAMPLES.md
+  s_6936c3be6ae74d::t_13f458113b236f 118
+types/lib/inventory/cryptoAlgorithmFamily.d.ts
+  s_6936c3be6ae74d::t_13f458113b236f 1-37
+docs/BOM_PIPELINE.md
+  s_6936c3be6ae74d::t_13f458113b236f 215
+types/lib/inventory/mcpPinning.d.ts
+  s_6936c3be6ae74d::t_13f458113b236f 1-11
+AGENTS.md
+  s_6936c3be6ae74d::t_13f458113b236f 249-257,350-355
+docs/TESTING.md
+  s_6936c3be6ae74d::t_13f458113b236f 34-37
+lib/stages/postgen/postgen.poku.js
+  s_25033df69c1d8a::t_5b1197c6b90f79 1000-1002
+  s_25033df69c1d8a::t_70c1843f5eec54 917-945
+  s_6936c3be6ae74d::t_13f458113b236f 597-659
+  s_25033df69c1d8a::t_5c725af94c36ac 946-999,1003-1019
+docs/LESSON5.md
+  s_6936c3be6ae74d::t_13f458113b236f 57
+test/data/pep770-repotest/lib/site-packages/demo_pkg-1.0.0.dist-info/METADATA
+  s_6936c3be6ae74d::t_13f458113b236f 1-4
+lib/inventory/cryptoAlgorithmFamily.poku.js
+  s_25033df69c1d8a::t_5b1197c6b90f79 1,15-18,70-73,95-99,163-166
+  s_25033df69c1d8a::t_6d2f604c4fa82e 36-37
+  s_25033df69c1d8a::t_5ec4059cd429e0 2-14,19-35,38-69,74-94,100-162,167-168
+docs/CDXRS_PROTOCOL.md
+  s_6936c3be6ae74d::t_13f458113b236f 66-69,74-78,86,120,129,135,146,193-202,204-205,239-244,252-254,264-266,274-283,294,304,363,379-385,390,403
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "22f816234ab9f28bcf379492ac1befb2fd2ed475",
+  "prompts": {},
+  "sessions": {
+    "s_25033df69c1d8a": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_02a1f7931ffeGakjl5zc0viRyb",
+        "model": "glm-5.2"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    },
+    "s_6936c3be6ae74d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "97e50470-9988-4542-a506-43e4d9a0f6e4",
+        "model": "claude-opus-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
