@@ -1,0 +1,27 @@
+docs/_sidebar.md
+  s_6936c3be6ae74d::t_e9847b35515f34 8,40
+docs/VALIDATION_RULES.md
+  s_6936c3be6ae74d::t_e131933713205e 1-14,17-19,23-87,89,91
+  s_6936c3be6ae74d::t_9ae8c25c2472aa 90,92-101
+  s_6936c3be6ae74d::t_de3cfa0554bf16 15-16,20-22,88
+docs/TESTING.md
+  s_6936c3be6ae74d::t_5be521dcb8b2e7 205-301
+lib/inventory/cdxrs.js
+  s_6936c3be6ae74d::t_edd24c79e75199 15,36
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "53a45b5bcdb61c7328f3b01f58a27bb004c0fe08",
+  "prompts": {},
+  "sessions": {
+    "s_6936c3be6ae74d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "97e50470-9988-4542-a506-43e4d9a0f6e4",
+        "model": "claude-opus-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
