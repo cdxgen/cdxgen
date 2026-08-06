@@ -1,0 +1,113 @@
+lib/ecosystems/rusi.js
+  s_6936c3be6ae74d::t_334b74fbc549e8 202-206
+docs/CUSTOM_PROPERTIES.md
+  s_6936c3be6ae74d::t_a16acea5406b23 685
+  s_6936c3be6ae74d::t_943c66b3c197fd 97,387,523-526
+types/lib/inventory/sbomDocument.d.ts
+  s_6936c3be6ae74d::t_91d4a9f2cb1746 1-38
+types/lib/ecosystems/pep770.d.ts
+  s_6936c3be6ae74d::t_697ae25765c5a5 17-24,26,28-29,32-34,40,45
+lib/inventory/cryptoAlgorithmFamily.js
+  s_6936c3be6ae74d::t_22b291851bd534 239-241
+  s_6936c3be6ae74d::t_ab688e6ebb52cc 39-52
+  s_6936c3be6ae74d::t_38396f65a388b6 72-73,75
+  s_6936c3be6ae74d::t_dea3504c4dccfe 79,81,86-97
+  s_6936c3be6ae74d::t_044ecbb3f11381 166-167,171-173
+  s_6936c3be6ae74d::t_a3c8f9769ee8be 174
+lib/ecosystems/tea.poku.js
+  s_6936c3be6ae74d::t_93d5e8e38054ce 231
+  s_6936c3be6ae74d::t_b934a75eb6e095 212,229
+  s_6936c3be6ae74d::t_be4a50483042fa 227-228,230,232-234
+types/lib/inventory/citations.d.ts
+  s_6936c3be6ae74d::t_697ae25765c5a5 16-17,56-64
+types/lib/inventory/deps.d.ts
+  s_6936c3be6ae74d::t_697ae25765c5a5 86,89-94,97-100,103-106
+docs/ADVANCED.md
+  s_6936c3be6ae74d::t_30f4f7854f595b 219
+  s_6936c3be6ae74d::t_ddd540ac67ca58 217
+  s_6936c3be6ae74d::t_11ad01b84c1a0d 203
+  s_6936c3be6ae74d::t_27d60eb9852180 218
+test/baseline/npm-pack-file-list.txt
+  s_6936c3be6ae74d::t_ed3a1f0a6563b9 199,543-544
+lib/inventory/mcpPinning.js
+  s_6936c3be6ae74d::t_da2bc219802ed5 149
+  s_6936c3be6ae74d::t_e1bb38061e8235 163
+  s_6936c3be6ae74d::t_c21b58e6588e85 13
+  s_6936c3be6ae74d::t_664ded129912cf 188-208
+bin/cdxgen.js
+  s_6936c3be6ae74d::t_db88b41a76b90e 2079
+  s_6936c3be6ae74d::t_ce297515c3eb39 294
+  s_6936c3be6ae74d::t_097d3052edecc9 1649-1653
+  s_6936c3be6ae74d::t_463cc27555c049 2069,2071-2078,2080,2084-2086,2091-2092
+lib/ecosystems/pep770.js
+  s_6936c3be6ae74d::t_32e2725e456740 15-16,18,22-23,25-29,31,34-42,89-96,117-118,121-123,126-127,130-149,158-162,164-179,181-202,204,210,215,230-248,252,256,260,279-282,286-287,294,298,300,302-304,309,311-312,314-320,329
+  s_6936c3be6ae74d::t_39330de1db13c5 152-153
+  s_6936c3be6ae74d::t_41eeb180dedf07 163
+  s_6936c3be6ae74d::t_fd384a94ec77f9 154-157
+types/lib/ecosystems/tea.d.ts
+  s_6936c3be6ae74d::t_697ae25765c5a5 149,152,157,162,168-179
+lib/inventory/citations.poku.js
+  s_6936c3be6ae74d::t_d075ce21ad67cb 21-22
+  s_6936c3be6ae74d::t_a758e991c8e01b 176-207
+lib/inventory/sbomDocument.poku.js
+  s_6936c3be6ae74d::t_52d90411045974 1-91
+docs/MCP.md
+  s_6936c3be6ae74d::t_c61bffcb7ea40d 234-238
+  s_6936c3be6ae74d::t_a0a95f3de3d757 233
+  s_6936c3be6ae74d::t_b862fb9dd69280 204,212,216
+lib/inventory/sbomDocument.js
+  s_6936c3be6ae74d::t_31f358f8096f06 1-148
+lib/inventory/mcpPinning.poku.js
+  s_6936c3be6ae74d::t_b934a75eb6e095 43,61
+  s_6936c3be6ae74d::t_93d950983db7d5 39-42,44-49,58-60,62,66-79
+  s_6936c3be6ae74d::t_55c6c5053618af 80-81
+lib/ecosystems/tea.js
+  s_6936c3be6ae74d::t_812f1741b2606f 285-334,607
+  s_6936c3be6ae74d::t_ce92991cf6d31a 18-21
+  s_6936c3be6ae74d::t_ef47fb6cf642e3 372-382
+  s_6936c3be6ae74d::t_7b9c81806c7500 22-27
+  s_6936c3be6ae74d::t_999197f8ce97dc 284,497,500,505,513-514,518-521,524-528,530,532-533,535-537,541-606
+  s_6936c3be6ae74d::t_f1a4ada87316ea 207-212
+lib/inventory/citations.js
+  s_6936c3be6ae74d::t_98001c35a69fa2 167-177
+  s_6936c3be6ae74d::t_dcbc6b7b80f230 64-66
+  s_6936c3be6ae74d::t_93ac59bd50485c 41-42
+  s_6936c3be6ae74d::t_72362629091b4a 197-202
+  s_6936c3be6ae74d::t_115a4ae3afcb97 166
+lib/inventory/deps.js
+  s_6936c3be6ae74d::t_e995b9d22f5175 580,583-588,591-594,597,599-600,603,605-618,620-627,629,631-635,637-642
+types/lib/ecosystems/pep770.d.ts.map
+  s_6936c3be6ae74d::t_aa1cdfc1ac4d2a 1
+types/lib/ecosystems/rusi.d.ts.map
+  s_6936c3be6ae74d::t_5140510739fb63 1
+types/lib/ecosystems/tea.d.ts.map
+  s_6936c3be6ae74d::t_155afe839702a8 1
+types/lib/inventory/citations.d.ts.map
+  s_6936c3be6ae74d::t_d5313e7ea87132 1
+types/lib/inventory/cryptoAlgorithmFamily.d.ts.map
+  s_6936c3be6ae74d::t_51515a02684fdc 1
+types/lib/inventory/deps.d.ts.map
+  s_6936c3be6ae74d::t_a0ac4ab1109008 1
+types/lib/inventory/mcpPinning.d.ts.map
+  s_6936c3be6ae74d::t_57331e8c900c38 1
+types/lib/inventory/sbomDocument.d.ts.map
+  s_6936c3be6ae74d::t_b421d0d9619d88 1
+types/lib/stages/postgen/postgen.d.ts.map
+  s_6936c3be6ae74d::t_3ee8a822fb1db6 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "8efa501e107609a2b146e5f95750f211e0ee94ca",
+  "prompts": {},
+  "sessions": {
+    "s_6936c3be6ae74d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "97e50470-9988-4542-a506-43e4d9a0f6e4",
+        "model": "claude-opus-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
