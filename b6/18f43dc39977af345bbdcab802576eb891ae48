@@ -1,0 +1,198 @@
+lib/inventory/purl.poku.js
+  s_d43a93963c5d9d::t_52a1d07491f295 196-238
+  s_d43a93963c5d9d::t_3f522e549311c1 13-14
+  s_d43a93963c5d9d::t_f4e4c5d43cd8cd 15
+lib/ecosystems/parsers-misc.js
+  s_d43a93963c5d9d::t_a10a4ee8164a3d 31
+  s_d43a93963c5d9d::t_bc20b3f6b23fd0 1245-1252
+  s_d43a93963c5d9d::t_117df50ff226ec 1275,1278,1352-1379,1384-1387,1389-1394,1402,1406-1412,1414-1415,1417-1443
+lib/inventory/purl.js
+  s_d43a93963c5d9d::t_c8369cb27b0424 253-264,267-268,271,273,276,284-287
+  s_d43a93963c5d9d::t_a1b7c1f4adab9a 3,7-53
+  s_d43a93963c5d9d::t_cdfdce5fa6bbbc 54
+lib/cli/index.js
+  s_d43a93963c5d9d::t_c2a54b890fe754 7530-7534,7578-7587
+  s_d43a93963c5d9d::t_be0ac8518e0c32 7588
+  s_d43a93963c5d9d::t_d00106752999d9 11539-11544
+  s_d43a93963c5d9d::t_8d34c9afabd2ca 148,7652-7653,7657
+  s_d43a93963c5d9d::t_69e3266368c942 7674-7740
+  s_d43a93963c5d9d::t_d3c988343d48ad 234
+  s_d43a93963c5d9d::t_06320105af1fe3 7626-7651,7654-7656,7658-7673
+  s_d43a93963c5d9d::t_8a957bca2cb574 11203-11222
+  s_d43a93963c5d9d::t_e9715d7e2615fa 135-137,2902-2903
+  s_d43a93963c5d9d::t_2528ca24fb4902 2896-2901,2904-2928
+  s_d43a93963c5d9d::t_993fa5e7876a9e 134
+  s_d43a93963c5d9d::t_dcde36f54ea8f7 219
+  s_d43a93963c5d9d::t_80055b8dc77ab3 5157-5171,5175-5179,5182-5187
+lib/ecosystems/parsers-misc.poku.js
+  s_d43a93963c5d9d::t_81cb64035dd94c 1576-1577,1594-1597
+  s_d43a93963c5d9d::t_ad56c0a0a57f77 1753
+  s_d43a93963c5d9d::t_5e007fa42adadf 1681-1684
+  s_d43a93963c5d9d::t_951fbba16f9fa1 1633-1635,1639-1646,1678-1680,1685-1698,1714-1727
+  s_d43a93963c5d9d::t_34954f0799c19d 1598
+lib/ecosystems/parsers-zig.js
+  s_d43a93963c5d9d::t_ffd66a985b7fdf 721,727
+  s_d43a93963c5d9d::t_4c05c19dbfaccf 69,482-484,494,575-577,581,617-620,648-651
+  s_d43a93963c5d9d::t_8d34c9afabd2ca 81-85
+  s_d43a93963c5d9d::t_1ce94e8e3dc595 1-17,20-25,34-68,70-80,86,89-103,108-153,155-207,212-215,216-219,244-333,344-481,485-493,495-574,578-580,582-616,621-647,652-720,722-726,728-791
+  s_d43a93963c5d9d::t_4883fec0f7c60e 87-88
+  s_6936c3be6ae74d::t_20c1b95bbabeed 334-343
+  s_6936c3be6ae74d::t_5cd974781b0529 18-19
+  s_6936c3be6ae74d::t_c23c07ed5294a8 154
+  s_6936c3be6ae74d::t_88b6c603e02022 26-33
+  s_6936c3be6ae74d::t_649ec8a73ce49c 208-211,220-234,238-241
+  s_6936c3be6ae74d::t_a6b38f05d47a37 235-237
+  s_6936c3be6ae74d::t_f7ceece62ea4bf 104-107
+  s_6936c3be6ae74d::t_346e12244a1e4d 242-243
+lib/ecosystems/parsers-gleam.poku.js
+  s_d43a93963c5d9d::t_a9e1c2ff711c69 1-18,21-46,60-84,86-117
+  s_d43a93963c5d9d::t_8d34c9afabd2ca 85
+  s_6936c3be6ae74d::t_07502b79769f99 19-20,47-58
+  s_6936c3be6ae74d::t_00f3e144f1e4a0 59
+test/data/zig-minimal.zon
+  s_d43a93963c5d9d::t_d444808d49e087 1-3
+test/data/zig-malformed.zon
+  s_d43a93963c5d9d::t_4ca3675ec11a1d 1-2
+test/data/gleam-smoke/gleam.toml
+  s_d43a93963c5d9d::t_81b3926f71d6da 1-12
+test/data/zig-smoke/build.zig.zon
+  s_d43a93963c5d9d::t_e97db5179e701d 11
+  s_d43a93963c5d9d::t_baea47073e5dee 1,4,7,9-10,12,14,17-27
+  s_6936c3be6ae74d::t_f4781e52771679 2-3,5-6,8,13,15-16
+test/data/zig-smoke/build.zig
+  s_d43a93963c5d9d::t_e5346b287e12e8 1-8
+lib/ecosystems/parsers-gleam.js
+  s_d43a93963c5d9d::t_0d2f05b472f969 90-95,114-115,126-129
+  s_d43a93963c5d9d::t_cc6538fc797c8c 1-89,96-101,110-113,117-124,130-289,291-302
+  s_d43a93963c5d9d::t_0b41f266be5586 125
+  s_d43a93963c5d9d::t_d8c0a1ba7ea088 290
+  s_6936c3be6ae74d::t_6be2231684f4c1 102-109
+  s_6936c3be6ae74d::t_d7cc577a29aaac 116
+lib/core/env.js
+  s_d43a93963c5d9d::t_78e192b83854b4 396-397
+  s_d43a93963c5d9d::t_22cbef9569886a 321
+lib/ecosystems/parsers-zig.poku.js
+  s_d43a93963c5d9d::t_0bef9b7d19c14a 203
+  s_d43a93963c5d9d::t_8d34c9afabd2ca 3,53-55,59-61,134-136
+  s_d43a93963c5d9d::t_d89f3490d5f97b 43-44
+  s_d43a93963c5d9d::t_4f2bb02bf8ecad 1-2,4-42,45-52,56-58,62-117,119-123,125-133,137-152,163-164,166-178,193-202,204-216
+  s_6936c3be6ae74d::t_d57d627521325e 118,124,153-155,159-162,165,179-190
+  s_6936c3be6ae74d::t_19c5288f5ab3c7 156-158
+  s_6936c3be6ae74d::t_22040953ecf249 191-192
+test/data/gleam-smoke/manifest.toml
+  s_d43a93963c5d9d::t_6ddb0213783422 1-5,7-9,12-18
+  s_6936c3be6ae74d::t_786e3fbb1e8043 6,10-11
+test/data/bzlmod-smoke/MODULE.bazel.lock.modern
+  s_d43a93963c5d9d::t_999aa0fa938b0e 1-34
+lib/ecosystems/parsers-bazel.js
+  s_d43a93963c5d9d::t_e9715d7e2615fa 116-121,477-481,554
+  s_d43a93963c5d9d::t_fcf037db8799e6 1-115,122-215,218-284,286-476,482-553,555-619
+  s_d43a93963c5d9d::t_c425f1d8ad8a82 216-217
+  s_6936c3be6ae74d::t_faa4a4d7b90b2b 285
+lib/ecosystems/parsers-bazel.poku.js
+  s_d43a93963c5d9d::t_e9715d7e2615fa 3,38-41,85,87,97-100
+  s_d43a93963c5d9d::t_765538d86c59c8 1-2,4-35,37,45,47-48,50-84,86,88-95,102-112
+  s_6936c3be6ae74d::t_6b1dcc2af3d9a1 36,42-44,46,49,96,101
+test/data/bzlmod-smoke/MODULE.bazel
+  s_d43a93963c5d9d::t_84f6876779470f 1-14
+test/data/mojo-smoke/mojoproject.toml
+  s_d43a93963c5d9d::t_6ebe61fa29a7af 1-8
+lib/ecosystems/parsers-python.js
+  s_d43a93963c5d9d::t_cf54b3ccf380d0 1945-2062
+lib/ecosystems/barrel.poku.js
+  s_d43a93963c5d9d::t_ea492d9d03f9d8 280
+  s_d43a93963c5d9d::t_485c2ccd832093 5,275,281
+  s_d43a93963c5d9d::t_1078e1e7ccbbbf 199
+lib/ecosystems/utils.js
+  s_d43a93963c5d9d::t_4c8a882d2a689a 494
+  s_d43a93963c5d9d::t_0fb5ea384c2ef9 289
+lib/ecosystems/parsers-python.poku.js
+  s_d43a93963c5d9d::t_b3bbe2b111559f 1401
+  s_d43a93963c5d9d::t_ba9b160a3d118b 1379-1400,1402-1419
+  s_d43a93963c5d9d::t_9487b1e4b1e1e0 11
+repotests/zig-smoke/expected/default.json
+  s_d43a93963c5d9d::t_de7c17e7546bd5 1-91,93-96,98-126,128-130,132-133,135-136,138-143,147-153,155-192
+  s_6936c3be6ae74d::t_ec588304ebd5ca 92,97,127,131,134,137,144-146,154
+repotests/zig-smoke/golden.manifest.json
+  s_d43a93963c5d9d::t_4ba88065048edb 1-11
+repotests/gleam-smoke/golden.manifest.json
+  s_d43a93963c5d9d::t_19430962cc1f0b 1-11
+repotests/gleam-smoke/expected/default.json
+  s_d43a93963c5d9d::t_de7c17e7546bd5 1-3,31-187,195-209,213-276
+  s_6936c3be6ae74d::t_ec588304ebd5ca 4-30,188-194,210-212
+types/lib/core/env.d.ts
+  s_d43a93963c5d9d::t_dc2402042dbd12 97-98
+types/lib/ecosystems/parsers-bazel.d.ts
+  s_d43a93963c5d9d::t_dc2402042dbd12 1-36
+types/lib/ecosystems/parsers-zig.d.ts
+  s_d43a93963c5d9d::t_dc2402042dbd12 1-13,16-20,29-67
+  s_6936c3be6ae74d::t_2874e3aca6ecf8 14-15,21-28
+docs/PROJECT_TYPES.md
+  s_d43a93963c5d9d::t_b9e13d94cc5c9c 48
+  s_d43a93963c5d9d::t_66a2eb801f5588 45-47
+docs/ADD_ECOSYSTEM.md
+  s_d43a93963c5d9d::t_b56caa85ee3564 68
+  s_d43a93963c5d9d::t_cfc9c81b33a502 60
+  s_d43a93963c5d9d::t_b9ca7cd92546a4 12-13,15
+types/lib/ecosystems/pythonutils.d.ts
+  s_d43a93963c5d9d::t_dc2402042dbd12 55-56
+types/lib/inventory/purl.d.ts
+  s_d43a93963c5d9d::t_dc2402042dbd12 1-36,148-159,162-163,166,171-174
+types/lib/ecosystems/parsers-gleam.d.ts
+  s_d43a93963c5d9d::t_dc2402042dbd12 1-33
+types/lib/ecosystems/parsers-python.d.ts
+  s_d43a93963c5d9d::t_dc2402042dbd12 116-136
+types/lib/ecosystems/utils.d.ts
+  s_d43a93963c5d9d::t_dc2402042dbd12 37,40
+types/lib/cli/index.d.ts
+  s_d43a93963c5d9d::t_dc2402042dbd12 188-213
+test/baseline/npm-pack-file-list.txt
+  s_d43a93963c5d9d::t_90b593b70dd8e2 109,111,118
+  s_d43a93963c5d9d::t_8a31cc3711f1a6 359-360,363-364,377-378
+types/lib/cli/index.d.ts.map
+  s_d43a93963c5d9d::t_f8b987a8d9f7c6 1
+types/lib/core/env.d.ts.map
+  s_d43a93963c5d9d::t_e47df0a0ab2687 1
+types/lib/ecosystems/parsers-bazel.d.ts.map
+  s_d43a93963c5d9d::t_648f120d17ff8f 1
+types/lib/ecosystems/parsers-misc.d.ts.map
+  s_d43a93963c5d9d::t_ac7c0795afda78 1
+types/lib/ecosystems/parsers-python.d.ts.map
+  s_d43a93963c5d9d::t_6b1a22e7559ba3 1
+types/lib/ecosystems/utils.d.ts.map
+  s_d43a93963c5d9d::t_8f464285889459 1
+types/lib/inventory/purl.d.ts.map
+  s_d43a93963c5d9d::t_ff84ba9e982b4c 1
+lib/boundaries.poku.js
+  s_6936c3be6ae74d::t_bae733cc9dea2c 2
+MIGRATING-TO-V13.md
+  s_6936c3be6ae74d::t_51ae8bf519ffec 366-412
+types/lib/ecosystems/parsers-gleam.d.ts.map
+  s_6936c3be6ae74d::t_bbd63c6c79ea25 1
+types/lib/ecosystems/parsers-zig.d.ts.map
+  s_6936c3be6ae74d::t_0ae2feb857d1ab 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "b618f43dc39977af345bbdcab802576eb891ae48",
+  "prompts": {},
+  "sessions": {
+    "s_6936c3be6ae74d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "97e50470-9988-4542-a506-43e4d9a0f6e4",
+        "model": "claude-opus-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    },
+    "s_d43a93963c5d9d": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_02bc2145bffesfdGL84KwWMKmq",
+        "model": "glm-5.2"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
