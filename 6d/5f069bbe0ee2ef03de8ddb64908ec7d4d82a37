@@ -1,0 +1,21 @@
+docs/CUSTOM_PROPERTIES.md
+  s_6936c3be6ae74d::t_fb1eab54e5b9a5 1030-1479
+lib/customProperties.poku.js
+  s_6936c3be6ae74d::t_2a2d24a89a7c94 5,7-8,14-20,24,28-29,31-32,35,40
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "6d5f069bbe0ee2ef03de8ddb64908ec7d4d82a37",
+  "prompts": {},
+  "sessions": {
+    "s_6936c3be6ae74d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "97e50470-9988-4542-a506-43e4d9a0f6e4",
+        "model": "claude-opus-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
