@@ -1,0 +1,97 @@
+types/lib/ecosystems/chromextutils.d.ts.map
+  s_6936c3be6ae74d::t_b8026af0d4637a 1
+types/lib/stages/pregen/pregen.d.ts.map
+  s_6936c3be6ae74d::t_e806c682b0a2dd 1
+types/lib/ecosystems/gradleutils.d.ts.map
+  s_6936c3be6ae74d::t_d34ca4cb326270 1
+tsconfig.json
+  s_6936c3be6ae74d::t_e567b414ec77ec 7
+types/lib/inventory/deps.d.ts.map
+  s_6936c3be6ae74d::t_f5678ab6b9afed 1
+types/lib/ecosystems/pythonutils.d.ts.map
+  s_6936c3be6ae74d::t_63a5620aae9b11 1
+types/lib/inventory/source.d.ts.map
+  s_6936c3be6ae74d::t_84fc63d4fc7139 1
+types/lib/core/env.d.ts.map
+  s_6936c3be6ae74d::t_90a19fba1ef110 1
+types/lib/audit/index.d.ts.map
+  s_6936c3be6ae74d::t_1ac3386c3d8324 1
+types/lib/ecosystems/parsers-dotnet.d.ts.map
+  s_6936c3be6ae74d::t_6d98b946adbe50 1
+types/lib/inventory/cdxrs.d.ts
+  s_6936c3be6ae74d::t_1dd735184f8105 15
+types/lib/server/server.d.ts.map
+  s_6936c3be6ae74d::t_edcd6c93310aab 1
+types/lib/managers/docker.d.ts.map
+  s_6936c3be6ae74d::t_3ff1a6f5417d8e 1
+types/bin/repl.d.ts.map
+  s_6936c3be6ae74d::t_d500dae64e3bad 1
+types/lib/audit/progress.d.ts.map
+  s_6936c3be6ae74d::t_10b692ccd385bd 1
+types/lib/core/parallel.d.ts.map
+  s_6936c3be6ae74d::t_505663a5aae2b3 1
+types/lib/inventory/envcontext.d.ts.map
+  s_6936c3be6ae74d::t_99cf2e3ef434e4 1
+types/lib/inventory/plugins.d.ts.map
+  s_6936c3be6ae74d::t_a118bf3424adb3 1
+types/lib/stages/postgen/postgen.d.ts.map
+  s_6936c3be6ae74d::t_97244deaa740fd 1
+types/lib/inventory/forgeEnricher.d.ts.map
+  s_6936c3be6ae74d::t_a41f963cae94ac 1
+types/lib/inventory/fetchBatch.d.ts.map
+  s_6936c3be6ae74d::t_83224fcc337edb 1
+types/lib/ecosystems/remote/huggingface.d.ts.map
+  s_6936c3be6ae74d::t_dc56643e6cf388 1
+types/lib/cli/cliOptions.d.ts.map
+  s_6936c3be6ae74d::t_f5125316572346 1
+types/lib/inventory/display.d.ts.map
+  s_6936c3be6ae74d::t_cabe648f9354e2 1
+types/lib/inventory/formulationParsers.d.ts.map
+  s_6936c3be6ae74d::t_56df3864e08e50 1
+types/lib/evinser/evinser.d.ts.map
+  s_6936c3be6ae74d::t_902332c0f0490e 1
+types/lib/ecosystems/denoutils.d.ts.map
+  s_6936c3be6ae74d::t_7b3902bc97e317 1
+types/lib/ecosystems/parsers-jvm.d.ts.map
+  s_6936c3be6ae74d::t_72568e6752699a 1
+types/lib/core/fs.d.ts.map
+  s_6936c3be6ae74d::t_552d803b48779d 1
+types/lib/ecosystems/ecosystems.d.ts.map
+  s_6936c3be6ae74d::t_644bd96139e54e 1
+types/lib/cli/index.d.ts.map
+  s_6936c3be6ae74d::t_c77e859f2b4b35 1
+types/lib/ecosystems/rubyutils.d.ts.map
+  s_6936c3be6ae74d::t_bcd4123e801755 1
+types/lib/core/logger.d.ts.map
+  s_6936c3be6ae74d::t_320f5595973feb 1
+types/lib/core/httpClient.d.ts.map
+  s_6936c3be6ae74d::t_1599e327ab040d 1
+types/lib/helpers/vsixutils.d.ts.map
+  s_6936c3be6ae74d::t_4cf5ed557e1dc6 1
+types/lib/audit/targets.d.ts.map
+  s_6936c3be6ae74d::t_c7a1271e21cd08 1
+types/lib/ecosystems/parsers-js.d.ts.map
+  s_6936c3be6ae74d::t_f2ebdf07f540d4 1
+types/lib/inventory/spdx.d.ts.map
+  s_6936c3be6ae74d::t_951bf85cfb5a25 1
+types/lib/ecosystems/parsers-misc.d.ts.map
+  s_6936c3be6ae74d::t_b90b9fb525f49f 1
+types/lib/inventory/table.d.ts.map
+  s_6936c3be6ae74d::t_5670cfc4800248 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "16486db904c524a77c0fbbd7b79aa06bce3b61b0",
+  "prompts": {},
+  "sessions": {
+    "s_6936c3be6ae74d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "97e50470-9988-4542-a506-43e4d9a0f6e4",
+        "model": "claude-opus-5"
+      },
+      "human_author": null
+    }
+  }
+}
