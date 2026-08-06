@@ -1,0 +1,123 @@
+lib/ecosystems/chromextutils.js
+  s_6936c3be6ae74d::t_bd481a7d6ead33 7,193-195
+lib/inventory/analyzer.js
+  s_6936c3be6ae74d::t_ca1a7c1a7ced88 15,29-30,55
+lib/inventory/fetchRate.js
+  s_6936c3be6ae74d::t_ca1a7c1a7ced88 19,123
+lib/ecosystems/denoutils.js
+  s_6936c3be6ae74d::t_bd481a7d6ead33 9-13,34-35,334-335,346-347,351-354,1030
+lib/ecosystems/ecosystems.js
+  s_6936c3be6ae74d::t_bd481a7d6ead33 168-170,419-420,422,871-872,1316,1414-1416,1444-1446,1483,1585-1586,1610-1611,1724-1725,2361-2362
+lib/ecosystems/parsers-js.js
+  s_6936c3be6ae74d::t_bd481a7d6ead33 15,2778-2779
+lib/ecosystems/parsers-dotnet.js
+  s_6936c3be6ae74d::t_bd481a7d6ead33 7,848
+lib/evinser/swiftsem.js
+  s_6936c3be6ae74d::t_bd481a7d6ead33 5,687
+lib/audit/targets.js
+  s_6936c3be6ae74d::t_bd481a7d6ead33 6,461-463
+bin/repl.js
+  s_6936c3be6ae74d::t_eb47f37966bb08 12,84,406-409,535
+lib/cli/cliOptions.js
+  s_6936c3be6ae74d::t_eb47f37966bb08 16,171-175,177-178
+lib/managers/docker.js
+  s_6936c3be6ae74d::t_bd481a7d6ead33 194-196,281,288-290,292-296,983-984,995-996,1003-1005
+lib/inventory/spdx.js
+  s_6936c3be6ae74d::t_ca1a7c1a7ced88 4,36,178-181
+lib/stages/postgen/ruleEngine.js
+  s_6936c3be6ae74d::t_eb47f37966bb08 11,247
+lib/ecosystems/pythonutils.js
+  s_6936c3be6ae74d::t_bd481a7d6ead33 15-19,435,458,521-522,554,668,758,782,797,836,876-877,886-888,898,1079-1082,1099,1130
+lib/inventory/deps.js
+  s_6936c3be6ae74d::t_ca1a7c1a7ced88 15,46-47,56-57,59-60
+lib/ecosystems/bunutils.js
+  s_6936c3be6ae74d::t_bd481a7d6ead33 6,392
+lib/cli/index.js
+  s_6936c3be6ae74d::t_eb47f37966bb08 408,410,412,429,432-433,435,1995,1997-1998,2012-2013,2106-2107,2572-2575,2581,2592,2643-2644,2702-2703,2707-2708,2710,2712,2725-2727,2729-2730,2850-2855,2982-2986,3091,3342,3388,3426-3428,3963,4012-4015,4132,5818-5819,6808-6809,6857-6858,7239,7241,7245,7307,7404-7405,7421-7422,7425-7428,7430,7443-7447,8356-8366,8380,8389,8391-8392,8515-8519,8569-8570,8576,8578,8726,8755,8771,9992-9996,10023-10026,11621-11622
+bin/verify.js
+  s_6936c3be6ae74d::t_eb47f37966bb08 10,77
+lib/core/parallel.js
+  s_6936c3be6ae74d::t_2de26ae4e83c76 20,31,36
+  s_6936c3be6ae74d::t_3f0c20518e1799 19
+lib/stages/postgen/postgen.js
+  s_6936c3be6ae74d::t_eb47f37966bb08 10,991,996,1000,1003-1004,1566-1570,1585-1589
+lib/helpers/vsixutils.js
+  s_6936c3be6ae74d::t_ca1a7c1a7ced88 9,41-42,44,46
+lib/evinser/evinser.js
+  s_6936c3be6ae74d::t_bd481a7d6ead33 7,102,334,390-392,418-421,423,432-435,450,455,1836
+bin/cdxgen.js
+  s_6936c3be6ae74d::t_eb47f37966bb08 740,790,798-799,811-814,819-821,836,949,1072-1073,1096,1106,1451-1452,1551-1553,2032-2033
+lib/inventory/plugins.js
+  s_6936c3be6ae74d::t_ca1a7c1a7ced88 5,162,194-195,361-362,394,465-466
+lib/inventory/table.js
+  s_6936c3be6ae74d::t_ca1a7c1a7ced88 3,250-251
+lib/inventory/source.js
+  s_6936c3be6ae74d::t_ca1a7c1a7ced88 16,378-380,392-393,425-426,1108-1109,1125-1126,1145-1146,1148,1166-1167,1175,1214-1215,1238-1239
+bin/evinse.js
+  s_6936c3be6ae74d::t_eb47f37966bb08 10,92,181,312
+lib/inventory/formulationParsers.js
+  s_6936c3be6ae74d::t_ca1a7c1a7ced88 6,372
+lib/ecosystems/rubyutils.js
+  s_6936c3be6ae74d::t_bd481a7d6ead33 10-14,269,271-272,672-673,675-676,678,684,686,706-708,892-895
+lib/core/fs.js
+  s_6936c3be6ae74d::t_2de26ae4e83c76 349,650,689,727-728,732-733,937-938,940-942,944
+lib/inventory/cacheDir.js
+  s_6936c3be6ae74d::t_ca1a7c1a7ced88 19,88-89,91
+lib/server/server.js
+  s_6936c3be6ae74d::t_bd481a7d6ead33 12-16,44-45,270,278-279,290-291
+lib/inventory/envcontext.js
+  s_6936c3be6ae74d::t_468b523edb7f46 691
+  s_6936c3be6ae74d::t_ca1a7c1a7ced88 9-12,37,78-86,571-573,592-593,595,612,614-619,653-657,661,668,699,702-709,712,719,724-728,733,738,740,745,761,764,794,797,838-839,841,845-851,865-871,883,937,963,973,979,1000,1102,1104,1136,1160,1162,1207,1244
+  s_6936c3be6ae74d::t_784e675d528ab2 8
+lib/ecosystems/gradleutils.js
+  s_6936c3be6ae74d::t_bd481a7d6ead33 1006-1012,1016-1018,1023-1024
+lib/inventory/atomUtils.js
+  s_6936c3be6ae74d::t_ca1a7c1a7ced88 6,451,461,463,473,592-593,596-597,639-640,682-683,704-705,707,713,715,788-789
+lib/core/logger.js
+  s_6936c3be6ae74d::t_c4083219e8cb56 5-8
+lib/stages/pregen/pregen.js
+  s_6936c3be6ae74d::t_eb47f37966bb08 6-11,89,113,120-124,144,147,152-156,160,210,222-229,242,245-247,253,261,300,415-417,500,551-555,568
+lib/core/httpClient.js
+  s_6936c3be6ae74d::t_c4083219e8cb56 12-15
+lib/managers/oci.js
+  s_6936c3be6ae74d::t_bd481a7d6ead33 7,60,229
+lib/audit/progress.js
+  s_6936c3be6ae74d::t_bd481a7d6ead33 3-4,34
+lib/core/env.js
+  s_6936c3be6ae74d::t_2de26ae4e83c76 3-7,15-17,21,23,28-31,35,95-96,108-111,123-124,133-134,146-147,149-151,153,168-171,177-178,181-182,185-186,189-190,193-194,197-198,201-202,205-206,211-212,216-217,221-222,225,227,447-448,454,456
+lib/inventory/forgeEnricher.js
+  s_6936c3be6ae74d::t_ca1a7c1a7ced88 1,70-73
+lib/ecosystems/parsers-jvm.js
+  s_6936c3be6ae74d::t_bd481a7d6ead33 8,758-759
+lib/inventory/display.js
+  s_6936c3be6ae74d::t_ca1a7c1a7ced88 9,1467-1469,1868,1896
+lib/ecosystems/remote/huggingface.js
+  s_6936c3be6ae74d::t_bd481a7d6ead33 1-6,32-35,37-40,50-52,1111
+lib/managers/binary.js
+  s_6936c3be6ae74d::t_bd481a7d6ead33 17,453
+lib/audit/index.js
+  s_6936c3be6ae74d::t_bd481a7d6ead33 8-11,1759-1761
+  s_6936c3be6ae74d::t_073107481fd0f1 7
+lib/inventory/cdxrs.js
+  s_6936c3be6ae74d::t_ca1a7c1a7ced88 24,58,60
+lib/inventory/fetchBatch.js
+  s_6936c3be6ae74d::t_ca1a7c1a7ced88 36-40,170-171,180-184,373-376,746
+lib/ecosystems/parsers-misc.js
+  s_6936c3be6ae74d::t_bd481a7d6ead33 16-20,2463-2465,2601-2608,2615,2652-2654,2660-2665,2725-2728,2756,2758-2760,2763,2765-2767
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "044c4eb0d755d077d9d5654928ad7e2a8098f093",
+  "prompts": {},
+  "sessions": {
+    "s_6936c3be6ae74d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "97e50470-9988-4542-a506-43e4d9a0f6e4",
+        "model": "claude-opus-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
