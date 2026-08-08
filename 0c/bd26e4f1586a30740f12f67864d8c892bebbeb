@@ -1,0 +1,19 @@
+lib/cli/index.js
+  s_4ecc86970425c2::t_0b7c19d93700a2 8-9,21,32,45-46,53,64,197
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "0cbd26e4f1586a30740f12f67864d8c892bebbeb",
+  "prompts": {},
+  "sessions": {
+    "s_4ecc86970425c2": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_01f45c98dffe8IgQeAfhTBwAve",
+        "model": "glm-5.2"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
