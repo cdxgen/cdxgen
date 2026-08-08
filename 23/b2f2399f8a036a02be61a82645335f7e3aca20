@@ -1,0 +1,35 @@
+lib/cli/jvmBom.js
+  s_fbb2fe1a325ad6::t_031e8653589779 81-85
+lib/cli/jsBom.js
+  s_fbb2fe1a325ad6::t_711ab9292a2ecf 14
+lib/cli/bomAssembly.js
+  s_fbb2fe1a325ad6::t_031e8653589779 62-83
+lib/cli/managedBom.js
+  s_fbb2fe1a325ad6::t_031e8653589779 113
+types/lib/cli/bomAssembly.d.ts
+  s_fbb2fe1a325ad6::t_724e8826ca74e2 1
+types/lib/cli/bomAssembly.d.ts.map
+  s_fbb2fe1a325ad6::t_1940e8ff20e18c 1
+types/lib/cli/index.d.ts.map
+  s_fbb2fe1a325ad6::t_0615313fef0f24 1
+types/lib/cli/jsBom.d.ts.map
+  s_fbb2fe1a325ad6::t_8be85ccb687265 1
+types/lib/cli/jvmBom.d.ts.map
+  s_fbb2fe1a325ad6::t_d4ca6f405b1e28 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "23b2f2399f8a036a02be61a82645335f7e3aca20",
+  "prompts": {},
+  "sessions": {
+    "s_fbb2fe1a325ad6": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "22ecf873-67ef-4209-90e3-4f3c87f888fb",
+        "model": "claude-opus-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
