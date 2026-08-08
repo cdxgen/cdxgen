@@ -1,0 +1,28 @@
+lib/cli/managedBom.js
+  s_4ecc86970425c2::t_c7bdac48f24786 139
+  s_4ecc86970425c2::t_3b13ee31b9a744 1-2,4-138,140-2066
+  s_4ecc86970425c2::t_2d8b2247cc551e 3
+lib/cli/index.poku.js
+  s_4ecc86970425c2::t_edcfe8a06e0d01 384,416,442
+lib/cli/index.js
+  s_4ecc86970425c2::t_d63e21ffbd0e1c 584
+  s_4ecc86970425c2::t_2d8b2247cc551e 428-438
+  s_4ecc86970425c2::t_5fce614062169d 456-467
+  s_4ecc86970425c2::t_af12cd310df08c 427
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "4660326e79468849cbd9177cc0a4555a508e1749",
+  "prompts": {},
+  "sessions": {
+    "s_4ecc86970425c2": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_01f45c98dffe8IgQeAfhTBwAve",
+        "model": "glm-5.2"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
