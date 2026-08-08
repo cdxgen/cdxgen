@@ -1,0 +1,30 @@
+lib/cli/index.js
+  s_4ecc86970425c2::t_9c1c26317e4c58 399-400
+  s_4ecc86970425c2::t_404ae8a6bf21fb 394,396-398,401,409
+lib/cli/jvmBom.js
+  s_4ecc86970425c2::t_2bd149dbc32bc0 1-3,5-9,11-15,17-21,23-32,34-74,76-79,81,86,89-1841
+  s_4ecc86970425c2::t_9c1c26317e4c58 4,10,16,22,33,75,80,82-85
+  s_4ecc86970425c2::t_258be87409a334 87-88
+lib/cli/index.poku.js
+  s_4ecc86970425c2::t_ee0ebc4db37d24 144,147
+  s_4ecc86970425c2::t_9c1c26317e4c58 1761-1783,1786,1819-1841,1844
+lib/cli/bomAssembly.js
+  s_4ecc86970425c2::t_7a35a8743f553d 15
+  s_4ecc86970425c2::t_f02d51c3a9b9d4 1521-1542
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "58533d6a3c32eed49d6535f1188efb3ef0e1d365",
+  "prompts": {},
+  "sessions": {
+    "s_4ecc86970425c2": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_01f45c98dffe8IgQeAfhTBwAve",
+        "model": "glm-5.2"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
