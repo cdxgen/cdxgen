@@ -1,0 +1,115 @@
+test/data/cmake-cache/relative-submodule/.gitmodules
+  s_c276dc7054fd8e::t_1791faab84d991 1-6
+types/lib/parsers/cmakeCache.d.ts
+  s_c276dc7054fd8e::t_ee2f177fe9cad3 1-24
+test/data/cmake-cache/fetchcontent/tinyjson-populate-gitclone.cmake
+  s_c276dc7054fd8e::t_1791faab84d991 1-3
+test/data/cmake-cache/leveldb/CMakeCache.txt
+  s_c276dc7054fd8e::t_1791faab84d991 1-43
+.github/workflows/repotests.yml
+  s_c276dc7054fd8e::t_2e35aafa2b8910 1040-1047
+  s_c276dc7054fd8e::t_ddefbca950559b 705-707
+  s_c276dc7054fd8e::t_f4fa38968e9ff0 702-704
+test/data/cmake-cache/fetchcontent/CMakeLists.txt
+  s_c276dc7054fd8e::t_1791faab84d991 1-11
+lib/ecosystems/cmakeResolver.js
+  s_c276dc7054fd8e::t_d7b5b436eedd38 23-27,126-128,234,427
+  s_c276dc7054fd8e::t_b86310de10a551 67
+  s_c276dc7054fd8e::t_8bed66bc01b153 178-181,194-199,204-207
+  s_c276dc7054fd8e::t_e60f434150caab 1-12,14-22,28-34,36-66,68-125,129-177,182-192,200-202,208-233,235-255,258,261,263-426
+  s_c276dc7054fd8e::t_5ae0071c44fbec 35
+  s_c276dc7054fd8e::t_365507c34eccf3 193,203
+  s_c276dc7054fd8e::t_1a18ead085a2ef 256-257,259-260,262
+  s_c276dc7054fd8e::t_1245bf12259613 13
+lib/cli/nativeBom.poku.js
+  s_c276dc7054fd8e::t_4416f52354b969 563-597
+lib/cli/nativeBom.js
+  s_c276dc7054fd8e::t_d7b5b436eedd38 27-30
+  s_c276dc7054fd8e::t_d19bd0cf841b0b 100-136
+  s_c276dc7054fd8e::t_688c82575e67eb 1062-1178
+  s_c276dc7054fd8e::t_c84a84e934e6ae 1258-1269
+  s_c276dc7054fd8e::t_e60e245bfef5ff 86
+docs/CUSTOM_PROPERTIES.md
+  s_c276dc7054fd8e::t_c01242258ce5b5 523-526
+  s_c276dc7054fd8e::t_13fa2e3ddb9450 379
+  s_c276dc7054fd8e::t_c809eebe4e318f 370
+samples-d36-cmake/fetchcontent/CMakeCache.txt
+  s_c276dc7054fd8e::t_0d41d6022ea4f8 1-69
+samples-d36-cmake/leveldb/.gitmodules
+  s_c276dc7054fd8e::t_ad526a2555243c 1-6
+samples-d36-cmake/fetchcontent/tinyjson-populate-gitclone.cmake
+  s_c276dc7054fd8e::t_df542d3745c8ea 1-3
+lib/parsers/gitmodules.poku.js
+  s_c276dc7054fd8e::t_6212322c5c5b16 63,66,83
+  s_c276dc7054fd8e::t_5024be2d9f1a2a 6
+  s_c276dc7054fd8e::t_d7b5b436eedd38 1,10,28
+  s_c276dc7054fd8e::t_7f8419365cb91f 2-5,7-9,11-27,29-50
+  s_c276dc7054fd8e::t_f9c5821ab7ef7b 51-62,64-65,67-82,84-138
+lib/parsers/cmakeCache.js
+  s_c276dc7054fd8e::t_711cb56d30c86c 104-105
+  s_c276dc7054fd8e::t_b2c65afd8b57ee 1-83,85-103,106-121,126-142,145-167,169-199
+  s_c276dc7054fd8e::t_611446f8de179b 84
+  s_c276dc7054fd8e::t_d7b5b436eedd38 122-125,143-144,168
+samples-d36-cmake/leveldb/CMakeCache.txt
+  s_c276dc7054fd8e::t_48649326a6fe20 1-43
+samples-d36-cmake/relative-submodule/.gitmodules
+  s_c276dc7054fd8e::t_f10ba9ba7c8835 1-6
+types/lib/ecosystems/cmakeResolver.d.ts
+  s_c276dc7054fd8e::t_27681f7596ebd7 1-29
+test/data/cmake-cache/leveldb/submodule-status.txt
+  s_c276dc7054fd8e::t_1791faab84d991 1-2
+types/lib/parsers/gitmodules.d.ts
+  s_c276dc7054fd8e::t_1e9d550b7c2b24 1-24
+test/data/cmake-cache/fetchcontent/CMakeCache.txt
+  s_c276dc7054fd8e::t_1791faab84d991 1-69
+lib/ecosystems/cmakeResolver.poku.js
+  s_c276dc7054fd8e::t_ff6e534146531e 2-44,46-50,52-56,66-87
+  s_c276dc7054fd8e::t_5b41baed01b7fd 57-61,63-65
+  s_c276dc7054fd8e::t_d7b5b436eedd38 1,45,51
+  s_c276dc7054fd8e::t_9cbe2b66b81990 62
+lib/parsers/cmakeCache.poku.js
+  s_c276dc7054fd8e::t_c92fa028356042 42
+  s_c276dc7054fd8e::t_d7b5b436eedd38 1,41,63
+  s_c276dc7054fd8e::t_b334676b6bdc7d 31,35-36
+  s_c276dc7054fd8e::t_485034ed4f2b59 2-30,32-34,37-40,43-62,64-137
+samples-d36-cmake/fetchcontent/CMakeLists.txt
+  s_c276dc7054fd8e::t_219a13e36c7a2e 1-11
+samples-d36-cmake/leveldb/submodule-status.txt
+  s_c276dc7054fd8e::t_fe2fd2790c74ea 1-2
+test/data/cmake-cache/leveldb/.gitmodules
+  s_c276dc7054fd8e::t_1791faab84d991 1-6
+lib/parsers/gitmodules.js
+  s_c276dc7054fd8e::t_f48cbd2db73641 1-16,21-166,172-180,182-184,186-187,198-204,207,210-218,222-237
+  s_c276dc7054fd8e::t_635b2ead770343 167-171,181,188-197
+  s_c276dc7054fd8e::t_19eb516f95ae95 205-206,208-209,219-221
+  s_c276dc7054fd8e::t_bf261aaab731d5 17-20
+  s_c276dc7054fd8e::t_7443c75a36fe4e 185
+test/data/cmake-cache/boostlike.txt
+  s_c276dc7054fd8e::t_1791faab84d991 1-3
+test/baseline/npm-pack-file-list.txt
+  s_c276dc7054fd8e::t_64b8fd5e6507fa 106,219,222,367-368,593-594,599-600
+samples-d36-cmake/boostlike.txt
+  s_c276dc7054fd8e::t_e63a12ae1f9f11 1-3
+types/lib/ecosystems/cmakeResolver.d.ts.map
+  s_c276dc7054fd8e::t_04608ed5ecf818 1
+types/lib/parsers/cmakeCache.d.ts.map
+  s_c276dc7054fd8e::t_2b229a943b5dc3 1
+types/lib/parsers/gitmodules.d.ts.map
+  s_c276dc7054fd8e::t_db425c585323b8 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "39475dd90171b59d7050d73f2012a0fe5694bf12",
+  "prompts": {},
+  "sessions": {
+    "s_c276dc7054fd8e": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_01e9740d7ffeYbOmiXoi4rm92q",
+        "model": "glm-5.2"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
