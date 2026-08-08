@@ -1,0 +1,45 @@
+test/baseline/npm-pack-file-list.txt
+  s_4ecc86970425c2::t_7696e06336a474 85,88-91,322-323,328-335
+types/lib/cli/bomAssembly.d.ts
+  s_4ecc86970425c2::t_e943704e61bf7b 1-167
+types/lib/cli/bomAssembly.d.ts.map
+  s_4ecc86970425c2::t_98fecc6fec604c 1
+types/lib/cli/index.d.ts
+  s_4ecc86970425c2::t_6048b79edb7760 2-6
+types/lib/cli/index.d.ts.map
+  s_4ecc86970425c2::t_3b8b1ec25c6038 1
+types/lib/cli/jsBom.d.ts
+  s_4ecc86970425c2::t_08b980c06f98cc 1-71
+types/lib/cli/jsBom.d.ts.map
+  s_4ecc86970425c2::t_c1bba1355c4689 1
+types/lib/cli/jvmBom.d.ts
+  s_4ecc86970425c2::t_4917536d33873e 1-37
+types/lib/cli/jvmBom.d.ts.map
+  s_4ecc86970425c2::t_1fd71e1e5b1525 1
+types/lib/cli/managedBom.d.ts
+  s_4ecc86970425c2::t_71a63910806425 1-88
+types/lib/cli/managedBom.d.ts.map
+  s_4ecc86970425c2::t_48943db12e66b2 1
+types/lib/cli/nativeBom.d.ts
+  s_4ecc86970425c2::t_377dee9c8de83b 1-122
+types/lib/cli/nativeBom.d.ts.map
+  s_4ecc86970425c2::t_2ae3e2870cca37 1
+types/lib/ecosystems/pythonutils.d.ts
+  s_4ecc86970425c2::t_0132ca2f2f18c9 56
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "61100448a79b48372e87434e3ff3d61edcdb42b4",
+  "prompts": {},
+  "sessions": {
+    "s_4ecc86970425c2": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_01f45c98dffe8IgQeAfhTBwAve",
+        "model": "glm-5.2"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
