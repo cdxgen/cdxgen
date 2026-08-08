@@ -1,0 +1,36 @@
+lib/cli/bomAssembly.js
+  s_4ecc86970425c2::t_5426562e3d1837 1522-1523,1529-1530
+lib/cli/jvmBom.js
+  s_4ecc86970425c2::t_ba9a9c4d270bb2 81
+  s_4ecc86970425c2::t_955ea74266eb21 82
+lib/cli/index.js
+  s_4ecc86970425c2::t_109d83569aa3fd 393
+  s_4ecc86970425c2::t_7f62737cddde01 397-404,418-424
+  s_4ecc86970425c2::t_881fb4385a9210 396,466-467,469-476,478-479,481
+lib/cli/index.poku.js
+  s_4ecc86970425c2::t_c32cdad0c43e60 1643
+  s_4ecc86970425c2::t_118a6df6ba93c9 1601
+  s_4ecc86970425c2::t_f3c87dcf494657 1731
+  s_4ecc86970425c2::t_e7fda17590c149 1683
+  s_4ecc86970425c2::t_9d8eea0b9adb31 1732-1748,1750
+lib/cli/jsBom.js
+  s_4ecc86970425c2::t_e27c0a8896b4e1 94
+  s_4ecc86970425c2::t_346cf616cfd5ae 4-16,18-63,65-71,76-93,95-2089
+  s_4ecc86970425c2::t_ba9a9c4d270bb2 1-3,17,64,72-75
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "a42b99f2d2094b98614e0a818ca38014cf39b240",
+  "prompts": {},
+  "sessions": {
+    "s_4ecc86970425c2": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_01f45c98dffe8IgQeAfhTBwAve",
+        "model": "glm-5.2"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
