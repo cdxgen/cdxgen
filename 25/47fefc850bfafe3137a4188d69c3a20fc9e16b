@@ -1,0 +1,38 @@
+deno.json
+  s_fbb2fe1a325ad6::t_e8008fa8c5b4d3 80,84-85,102,104
+lib/inventory/cdxrs.js
+  s_fbb2fe1a325ad6::t_fa54ad0759e194 51-72
+lib/inventory/analyzer.js
+  s_fbb2fe1a325ad6::t_7548e3ae68c479 1118,2697,3168,3658,4179,5397
+types/lib/inventory/cdxrs.d.ts
+  s_fbb2fe1a325ad6::t_e067523730afc4 25-33
+  s_fbb2fe1a325ad6::t_29dfb94be0be59 24
+package.json
+  s_fbb2fe1a325ad6::t_5f21bc47a3d584 144-145,147,181-182,186-195
+lib/validator/index.js
+  s_fbb2fe1a325ad6::t_e88c6603985731 16,99,133
+.github/workflows/nodejs.yml
+  s_fbb2fe1a325ad6::t_d8a60d99f02fa4 175-178,194-206
+pnpm-lock.yaml
+  s_fbb2fe1a325ad6::t_68ff1374d6a61f 20-21,23-24,29-30,121-122,124-125,136-137,139-140,142-143,145-146,148-149,151-152,154-155,157-158,160-161,163-164,186-187,191-192,196-200,205-206,211-212,217-218,223-225,228-229,233-234,238-239,243-245,247-249,251-253,255-257,259-261,263-265,268-270,272-274,276-278,356-357,361-362,366-367,372-373,378-379,384-385,390-391,396-397,402-403,407-408,412-413,500-502,623-626,809-810,812-813,838-839,932-935,1136-1139,1142,1145,1148,1151,1154,1157,1160-1162,1165,1168,1171,1173-1184,1186-1187,1189,1191-1192,1195,1198,1200,1202,1204,1206,1208,1210-1212,1214,1216-1224,1226-1227,1280,1283,1286,1289,1292,1295,1298,1301,1304,1307,1310,1407-1408,1469-1473,1574,1677,1680,1682,1710,1756-1757,1787-1788
+types/lib/inventory/analyzer.d.ts.map
+  s_fbb2fe1a325ad6::t_5de247ce494d7f 1
+types/lib/inventory/cdxrs.d.ts.map
+  s_fbb2fe1a325ad6::t_b0e28143483b3a 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "2547fefc850bfafe3137a4188d69c3a20fc9e16b",
+  "prompts": {},
+  "sessions": {
+    "s_fbb2fe1a325ad6": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "22ecf873-67ef-4209-90e3-4f3c87f888fb",
+        "model": "claude-opus-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
