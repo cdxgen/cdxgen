@@ -1,0 +1,26 @@
+lib/cli/index.js
+  s_4ecc86970425c2::t_23f6bd531df5e6 380-401
+lib/cli/index.poku.js
+  s_4ecc86970425c2::t_bee88fa6eca633 1761
+  s_4ecc86970425c2::t_3c3620712d739e 1815
+lib/cli/bomAssembly.js
+  s_4ecc86970425c2::t_122bc22bb59941 4,34
+  s_4ecc86970425c2::t_5eeca6923321b1 7
+  s_4ecc86970425c2::t_f0283359be1b61 1-3,5-6,8-33,35-1519
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "22b368d48317a0663b686d352dfb83a1b4eb0a1a",
+  "prompts": {},
+  "sessions": {
+    "s_4ecc86970425c2": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_01f45c98dffe8IgQeAfhTBwAve",
+        "model": "glm-5.2"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
