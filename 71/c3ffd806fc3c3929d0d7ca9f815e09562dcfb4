@@ -1,0 +1,19 @@
+README.md
+  s_fbb2fe1a325ad6::t_2e44067c8c3377 120-137,893-898,935
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "71c3ffd806fc3c3929d0d7ca9f815e09562dcfb4",
+  "prompts": {},
+  "sessions": {
+    "s_fbb2fe1a325ad6": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "22ecf873-67ef-4209-90e3-4f3c87f888fb",
+        "model": "claude-opus-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
