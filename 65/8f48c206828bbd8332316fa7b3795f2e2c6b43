@@ -1,0 +1,83 @@
+test/data/zig-resolution/project-016/zig-pkg/clap-0.12.0-oBajB2LpAQD1BQpAukHcuwhIUoHWYNy2DzU6lDW2v2N8/build.zig.zon
+  s_db2d76c44de41a::t_98302fa0d88f53 1-15
+docs/CUSTOM_PROPERTIES.md
+  s_db2d76c44de41a::t_b2596a7d4792ed 83
+  s_db2d76c44de41a::t_58b97e27bea322 366
+test/data/zig-resolution/manifests/websocket-tabs.zon
+  s_db2d76c44de41a::t_98302fa0d88f53 1-12
+test/baseline/npm-pack-file-list.txt
+  s_db2d76c44de41a::t_7a46bf768aabea 125
+  s_db2d76c44de41a::t_e4ca03b926703f 406-407
+lib/cli/nativeBom.js
+  s_db2d76c44de41a::t_f9abbcbb42dc57 85
+  s_db2d76c44de41a::t_32996dfa9fc658 1953-1954
+  s_db2d76c44de41a::t_2fbe748d1458b5 1935-1938,1947,1961-1971,1976-1980,1988
+test/data/zig-smoke/zig-pkg/1220c7e77f2e8e4a8b6f8b1c1d2e3f4a5b6c7d8e9f0a1b2c3d4e5f6a7b8c9d0e1f2a/build.zig.zon
+  s_db2d76c44de41a::t_d306a72dbf3559 1-5
+test/data/zig-resolution/project-014/build.zig.zon
+  s_db2d76c44de41a::t_98302fa0d88f53 1-52
+test/data/zig-resolution/manifests/metrics.zon
+  s_db2d76c44de41a::t_98302fa0d88f53 1-14
+test/data/zig-resolution/manifests/synthetic-lazy-path-fingerprint.zon
+  s_db2d76c44de41a::t_98302fa0d88f53 1-19
+lib/ecosystems/zigResolver.poku.js
+  s_db2d76c44de41a::t_52559a0a9f1154 1-77,79-268
+  s_db2d76c44de41a::t_32996dfa9fc658 78
+test/data/zig-smoke/zig-pkg/clap-0.10.0-oBajB4Y3AwAcRZ8FTHkTAJKAKmSCrRuMSJKKVaLcrgKs/build.zig.zon
+  s_db2d76c44de41a::t_e4061e2cc4f413 1-5
+test/data/zig-resolution/project-016/build.zig.zon
+  s_db2d76c44de41a::t_98302fa0d88f53 1-56
+lib/ecosystems/parsers-zig.js
+  s_db2d76c44de41a::t_a7eb40e0835327 153-158,187,193
+  s_db2d76c44de41a::t_9316a83d7398da 216
+  s_db2d76c44de41a::t_32996dfa9fc658 65-68
+  s_db2d76c44de41a::t_f129af08ee4bd0 103-108
+  s_db2d76c44de41a::t_f574a39bec3267 195
+  s_db2d76c44de41a::t_d03dddb4edb8ee 150,175-176
+  s_db2d76c44de41a::t_83f55b375af20e 43-64,76,93,121,177
+test/data/zig-resolution/project-016/zig-pkg/known_folders-0.0.0-Fy-PJiDLAAB98m3uYUzatrTb2mO2fpvwx2zpSroEtfbO/build.zig.zon
+  s_db2d76c44de41a::t_98302fa0d88f53 1-15
+lib/ecosystems/zigResolver.js
+  s_db2d76c44de41a::t_18b861cc6be60b 1-8,10-43,45-58,60-111,114-120,122-125,127-131,134-135,137-139,141-152,154-164,166-180,182-193,197,202-223,225-229,231-234,236-238,242-244,247-249,251-264,266,269,276,279-300,302-306,311-322,327-328,331,335-336,339-341,346-347,350-356,360-372,375-377,379-380,383-384,387,391,393,412-426
+  s_db2d76c44de41a::t_32996dfa9fc658 359,378,399
+  s_db2d76c44de41a::t_01e3a8152c3f4b 9,44,59,112-113,121,126,132-133,136,140,153,165,181,194-196,198-201,224,230,235,239-241,245-246,250,265,267-268,270-275,277-278,301,307-310,323-326,329-330,332-334,337-338,342-345,348-349,357-358,373-374,381-382,385-386,388-390,392,394-398,400-411
+types/lib/ecosystems/zigResolver.d.ts
+  s_db2d76c44de41a::t_8c820b27278eb5 1-70
+types/lib/ecosystems/parsers-zig.d.ts
+  s_db2d76c44de41a::t_64d866fa8b1693 42-56
+  s_db2d76c44de41a::t_eedbfb6aaa327b 41
+test/repotests/zig-smoke/expected/default.json
+  s_db2d76c44de41a::t_c198e981031acc 54,91,94,140-161,169-172
+test/data/zig-resolution/project-016/zig-pkg/httpz-0.0.0-PNVzrMPnCAAWJqhMEZR8gDZeg1CQObCEMTEf8zDh-u-j/build.zig.zon
+  s_db2d76c44de41a::t_98302fa0d88f53 1-17
+test/data/zig-resolution/cache-014/p/known_folders-0.0.0-Fy-PJiDLAAB98m3uYUzatrTb2mO2fpvwx2zpSroEtfbO/LICENSE
+  s_db2d76c44de41a::t_68cfacb8b38283 1-21
+test/data/zig-resolution/cache-014/p/known_folders-0.0.0-Fy-PJiDLAAB98m3uYUzatrTb2mO2fpvwx2zpSroEtfbO/README.md
+  s_db2d76c44de41a::t_f0aba9e69faf65 1-94
+test/data/zig-resolution/cache-014/p/known_folders-0.0.0-Fy-PJiDLAAB98m3uYUzatrTb2mO2fpvwx2zpSroEtfbO/RESOURCES.md
+  s_db2d76c44de41a::t_baa8c54f409050 1-39
+test/data/zig-resolution/cache-014/p/known_folders-0.0.0-Fy-PJiDLAAB98m3uYUzatrTb2mO2fpvwx2zpSroEtfbO/build.zig
+  s_db2d76c44de41a::t_64ce22d4bfa674 1-45
+test/data/zig-resolution/cache-014/p/known_folders-0.0.0-Fy-PJiDLAAB98m3uYUzatrTb2mO2fpvwx2zpSroEtfbO/build.zig.zon
+  s_db2d76c44de41a::t_eea0b5e2771322 1-15
+test/data/zig-resolution/cache-014/p/known_folders-0.0.0-Fy-PJiDLAAB98m3uYUzatrTb2mO2fpvwx2zpSroEtfbO/known-folders.zig
+  s_db2d76c44de41a::t_ffe385133afc05 1-1228
+types/lib/ecosystems/zigResolver.d.ts.map
+  s_db2d76c44de41a::t_6732b8cb1dca0a 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "658f48c206828bbd8332316fa7b3795f2e2c6b43",
+  "prompts": {},
+  "sessions": {
+    "s_db2d76c44de41a": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_01a5a94e9ffeZfAUNbHc3D5xyg",
+        "model": "glm-5.2"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
