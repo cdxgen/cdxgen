@@ -1,0 +1,52 @@
+lib/ecosystems/cmakeResolver.poku.js
+  s_fbb2fe1a325ad6::t_c1f0ab3c0a4c30 116-118,195-198
+  s_fbb2fe1a325ad6::t_b6535d2a01a53e 10,109-115,119-194,199-211
+  s_fbb2fe1a325ad6::t_af039f478af70b 212
+lib/ecosystems/parsers-misc.js
+  s_fbb2fe1a325ad6::t_55ce29c17a04d3 2279-2284,2287,2292,2298
+  s_fbb2fe1a325ad6::t_11b890ec3dc2f9 2319
+  s_fbb2fe1a325ad6::t_efa7047761733a 2248
+  s_fbb2fe1a325ad6::t_7904f0e1fa11f5 2272-2278
+  s_fbb2fe1a325ad6::t_9ecdddade031ec 2174-2184
+types/lib/ecosystems/cmakeResolver.d.ts
+  s_fbb2fe1a325ad6::t_b2ce3fc42a14e2 157-174
+docs/CUSTOM_PROPERTIES.md
+  s_fbb2fe1a325ad6::t_f563a8a9a804f0 370,527
+lib/cli/nativeBom.js
+  s_fbb2fe1a325ad6::t_22c26efc360521 1019
+  s_fbb2fe1a325ad6::t_8134d88d1e99d9 1064-1069
+  s_fbb2fe1a325ad6::t_dad7161e11f0d6 29
+test/data/cmakes/find-package-names.cmake
+  s_fbb2fe1a325ad6::t_e78989a821c1c0 1-8
+lib/ecosystems/parsers-misc.poku.js
+  s_fbb2fe1a325ad6::t_03962964c3b7bc 1568-1584
+lib/ecosystems/cmakeResolver.js
+  s_fbb2fe1a325ad6::t_08e009c4ecfc47 483-486,492-498
+  s_fbb2fe1a325ad6::t_034f24ed33a4f3 561-562,564-568,572
+  s_fbb2fe1a325ad6::t_2701181fe5b7e2 474-482,487-491,499-506
+  s_fbb2fe1a325ad6::t_e046beca0d5fd2 437-473,507-545,547-560,563,569-571,573-581
+  s_fbb2fe1a325ad6::t_dad7161e11f0d6 26
+  s_fbb2fe1a325ad6::t_c5d41a088b33eb 546
+types/lib/cli/nativeBom.d.ts.map
+  s_fbb2fe1a325ad6::t_79f2fa468cd007 1
+types/lib/ecosystems/cmakeResolver.d.ts.map
+  s_fbb2fe1a325ad6::t_59f78d1923f29c 1
+types/lib/ecosystems/parsers-misc.d.ts.map
+  s_fbb2fe1a325ad6::t_84733d7e8f463f 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "e39c02c1556476cd78eafee0f93d838515507a42",
+  "prompts": {},
+  "sessions": {
+    "s_fbb2fe1a325ad6": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "22ecf873-67ef-4209-90e3-4f3c87f888fb",
+        "model": "claude-opus-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
