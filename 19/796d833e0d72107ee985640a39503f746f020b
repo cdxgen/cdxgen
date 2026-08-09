@@ -1,0 +1,120 @@
+test/data/zig-resolution/project-016/zig-pkg/clap-0.12.0-oBajB2LpAQD1BQpAukHcuwhIUoHWYNy2DzU6lDW2v2N8/build.zig.zon
+  s_db2d76c44de41a::t_98302fa0d88f53 1-15
+docs/CUSTOM_PROPERTIES.md
+  s_db2d76c44de41a::t_b2596a7d4792ed 83
+  s_fbb2fe1a325ad6::t_773753d790fdc3 366
+test/data/zig-resolution/project-016/zig-pkg/websocket-0.1.0-ZPISdUoQBQC7zw1uSwbOEYdxZiTxNN4nf9RlWBsN0_Nd/build.zig.zon
+  s_db2d76c44de41a::t_98302fa0d88f53 1-12
+  s_fbb2fe1a325ad6::t_f61d9264548b9f 1-12
+test/baseline/npm-pack-file-list.txt
+  s_db2d76c44de41a::t_7a46bf768aabea 125
+  s_db2d76c44de41a::t_e4ca03b926703f 406-407
+lib/cli/nativeBom.js
+  s_db2d76c44de41a::t_f9abbcbb42dc57 84
+  s_db2d76c44de41a::t_2fbe748d1458b5 1934-1937,1947,1962-1967,1977-1978,1984-1988,1996
+  s_fbb2fe1a325ad6::t_94f68aba2d1497 1944-1945
+  s_fbb2fe1a325ad6::t_544886fd1bf4b7 1968-1976,1979
+  s_fbb2fe1a325ad6::t_b5f6937d869620 1953,1955-1957
+test/data/zig-smoke/zig-pkg/1220c7e77f2e8e4a8b6f8b1c1d2e3f4a5b6c7d8e9f0a1b2c3d4e5f6a7b8c9d0e1f2a/build.zig.zon
+  s_db2d76c44de41a::t_d306a72dbf3559 1-5
+test/data/zig-resolution/project-014/build.zig.zon
+  s_db2d76c44de41a::t_98302fa0d88f53 1-52
+test/data/zig-resolution/project-016/zig-pkg/metrics-0.0.0-W7G4eIegAQD4XxA9Co7Atbw59u_2zvxYf406AZuoAHPM/build.zig.zon
+  s_db2d76c44de41a::t_98302fa0d88f53 1-14
+  s_fbb2fe1a325ad6::t_f61d9264548b9f 1-14
+test/data/zig-resolution/manifests/synthetic-lazy-path-fingerprint.zon
+  s_db2d76c44de41a::t_98302fa0d88f53 1-19
+lib/ecosystems/zigResolver.poku.js
+  s_db2d76c44de41a::t_52559a0a9f1154 1-12,52-53,55-79,83-94,96-99,113-116,118,122,128,136-137,140,142-144,146,161-162,164-165,178-179,192,207,216-217,237-239,250,251-253,259-260,264,265-270,271,275,276-277,283-284
+  s_fbb2fe1a325ad6::t_6bb06a23eedc5c 13-51,54,80-82,95,100-112,117,119-121,123-127,129-135,138-139,141,145,147-160,163,166-177,180-191,193-206,208-215,231-236,240-249,254-258,261-263,272-274,278-282
+  s_fbb2fe1a325ad6::t_40ed48eafa73fe 218-230
+test/data/zig-smoke/zig-pkg/clap-0.10.0-oBajB4Y3AwAcRZ8FTHkTAJKAKmSCrRuMSJKKVaLcrgKs/build.zig.zon
+  s_db2d76c44de41a::t_e4061e2cc4f413 1-5
+test/data/zig-resolution/project-016/build.zig.zon
+  s_db2d76c44de41a::t_98302fa0d88f53 1-56
+lib/ecosystems/parsers-zig.js
+  s_db2d76c44de41a::t_32996dfa9fc658 65-68
+  s_db2d76c44de41a::t_f129af08ee4bd0 103-108
+  s_db2d76c44de41a::t_f574a39bec3267 189
+  s_db2d76c44de41a::t_d03dddb4edb8ee 150,169-170
+  s_db2d76c44de41a::t_83f55b375af20e 43-64,76,93,121,171
+  s_fbb2fe1a325ad6::t_6945734ab4b1aa 210-220
+  s_fbb2fe1a325ad6::t_f972d228f6c0f9 181,187
+  s_fbb2fe1a325ad6::t_7ae6af0dd4b0a1 235-258
+  s_fbb2fe1a325ad6::t_4b54b9ae35c1cc 234
+test/data/zig-resolution/project-016/zig-pkg/known_folders-0.0.0-Fy-PJiDLAAB98m3uYUzatrTb2mO2fpvwx2zpSroEtfbO/build.zig.zon
+  s_db2d76c44de41a::t_98302fa0d88f53 1-15
+lib/ecosystems/zigResolver.js
+  s_db2d76c44de41a::t_18b861cc6be60b 1-8,10-43,45-58,60-111,114-120,122-125,127-131,134-135,137-139,141-152,154-164,166-177,185-186,188-191,193-199,203,208-210,212-229,231-235,237-240,242-244,248-250,253-255,257-270,272,275,282,285-306,308-312,318-329,332,335,339,341-343,358,365,368,386-387,389,393-394,396-410
+  s_db2d76c44de41a::t_32996dfa9fc658 388
+  s_db2d76c44de41a::t_01e3a8152c3f4b 9,44,59,112-113,121,126,132-133,136,140,153,165,187,200-202,204-207,230,236,241,245-247,251-252,256,271,273-274,276-279,281,283-284,307,317
+  s_fbb2fe1a325ad6::t_3c36df3e56cda6 211
+  s_fbb2fe1a325ad6::t_597bbeef82adef 178-184,192
+  s_fbb2fe1a325ad6::t_ab4a6f7f99fcd9 280
+  s_fbb2fe1a325ad6::t_3f71e3fe0ff1b8 313-316,330-331,333-334,336-338,340,344-357,359-364,366-367,369-385,390-392,395
+types/lib/ecosystems/zigResolver.d.ts
+  s_db2d76c44de41a::t_8c820b27278eb5 1-69
+  s_fbb2fe1a325ad6::t_173099d877d771 70
+types/lib/ecosystems/parsers-zig.d.ts
+  s_db2d76c44de41a::t_64d866fa8b1693 42-56
+  s_db2d76c44de41a::t_eedbfb6aaa327b 41
+test/repotests/zig-smoke/expected/default.json
+  s_db2d76c44de41a::t_c198e981031acc 140-143,145-154,156-161,169-172
+  s_fbb2fe1a325ad6::t_eaa3532c150366 54,91,94,144,155
+test/data/zig-resolution/project-016/zig-pkg/httpz-0.0.0-PNVzrMPnCAAWJqhMEZR8gDZeg1CQObCEMTEf8zDh-u-j/build.zig.zon
+  s_db2d76c44de41a::t_98302fa0d88f53 1-17
+test/data/zig-resolution/cache-014/p/known_folders-0.0.0-Fy-PJiDLAAB98m3uYUzatrTb2mO2fpvwx2zpSroEtfbO/build.zig.zon
+  s_db2d76c44de41a::t_eea0b5e2771322 1-15
+test/data/zig-resolution/project-archive/build.zig.zon
+  s_fbb2fe1a325ad6::t_67e675a999d390 1-16
+test/data/zig-resolution/project-cycle/build.zig.zon
+  s_fbb2fe1a325ad6::t_1a3b65d6dc584f 1-11
+test/data/zig-resolution/project-cycle/zig-pkg/beta-1.0.0-BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB/build.zig.zon
+  s_fbb2fe1a325ad6::t_1a3b65d6dc584f 1-8
+test/data/zig-resolution/project-cycle/zig-pkg/alpha-1.0.0-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/build.zig.zon
+  s_fbb2fe1a325ad6::t_1a3b65d6dc584f 1-8
+lib/ecosystems/parsers-zig.poku.js
+  s_fbb2fe1a325ad6::t_3f8fdf1e3ed03c 169-175
+types/lib/cli/nativeBom.d.ts
+  s_fbb2fe1a325ad6::t_06dd5acc0dea2a 100-103
+types/lib/cli/nativeBom.d.ts.map
+  s_fbb2fe1a325ad6::t_426fd249296d40 1
+types/lib/ecosystems/parsers-zig.d.ts.map
+  s_fbb2fe1a325ad6::t_ccf06d999d4e65 1
+types/lib/ecosystems/zigResolver.d.ts.map
+  s_fbb2fe1a325ad6::t_98775b396690d7 1
+lib/cli/bomAssembly.poku.js
+  s_fbb2fe1a325ad6::t_9c6a9f1d3c1d4f 146-224
+  s_fbb2fe1a325ad6::t_b5061a1e90dad3 3
+package.json
+  s_fbb2fe1a325ad6::t_b1f7c629c178bc 202
+lib/cli/bomAssembly.js
+  s_fbb2fe1a325ad6::t_34146ea69da963 210
+  s_fbb2fe1a325ad6::t_641b940aad24be 158-209,211-218,1286-1287,1290-1295
+types/lib/cli/bomAssembly.d.ts.map
+  s_fbb2fe1a325ad6::t_1c610ea735c677 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "19796d833e0d72107ee985640a39503f746f020b",
+  "prompts": {},
+  "sessions": {
+    "s_db2d76c44de41a": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_01a5a94e9ffeZfAUNbHc3D5xyg",
+        "model": "glm-5.2"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    },
+    "s_fbb2fe1a325ad6": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "22ecf873-67ef-4209-90e3-4f3c87f888fb",
+        "model": "claude-opus-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
