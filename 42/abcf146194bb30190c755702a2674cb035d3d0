@@ -1,0 +1,134 @@
+test/data/cmake-cache/relative-submodule/.gitmodules
+  s_c276dc7054fd8e::t_1791faab84d991 1-6
+types/lib/parsers/cmakeCache.d.ts
+  s_c276dc7054fd8e::t_ee2f177fe9cad3 23-26,40,52-69
+  s_fbb2fe1a325ad6::t_4e402c040a7a42 1-22,27-39,41-51,70
+test/data/cmake-cache/fetchcontent/tinyjson-populate-gitclone.cmake
+  s_c276dc7054fd8e::t_1791faab84d991 1-3
+test/data/cmake-cache/leveldb/CMakeCache.txt
+  s_c276dc7054fd8e::t_1791faab84d991 1-43
+.github/workflows/repotests.yml
+  s_c276dc7054fd8e::t_2e35aafa2b8910 1040-1047
+  s_c276dc7054fd8e::t_ddefbca950559b 705-707
+  s_c276dc7054fd8e::t_f4fa38968e9ff0 702-704
+test/data/cmake-cache/fetchcontent/CMakeLists.txt
+  s_c276dc7054fd8e::t_1791faab84d991 1-11
+lib/ecosystems/cmakeResolver.js
+  s_c276dc7054fd8e::t_d7b5b436eedd38 21-25,124-126,243,438
+  s_c276dc7054fd8e::t_b86310de10a551 65
+  s_c276dc7054fd8e::t_8bed66bc01b153 187-190,203-208,213-216
+  s_c276dc7054fd8e::t_e60f434150caab 1-12,14-17,18-20,26-32,34-37,39-64,66-123,127-149,161-186,191-201,209-211,217-242,244-257,264-270,274-437
+  s_c276dc7054fd8e::t_5ae0071c44fbec 33
+  s_c276dc7054fd8e::t_365507c34eccf3 202,212
+  s_c276dc7054fd8e::t_1245bf12259613 13
+  s_fbb2fe1a325ad6::t_dc29c2b9611d0f 258-263,271-273
+  s_fbb2fe1a325ad6::t_b1283f421cb199 150-153,159-160
+  s_fbb2fe1a325ad6::t_75f4b83e11dc2c 38
+  s_fbb2fe1a325ad6::t_1ded62602fe711 154-158
+lib/cli/nativeBom.poku.js
+  s_c276dc7054fd8e::t_4416f52354b969 563-597
+lib/cli/nativeBom.js
+  s_c276dc7054fd8e::t_d7b5b436eedd38 27-30
+  s_c276dc7054fd8e::t_d19bd0cf841b0b 100-102,110-137
+  s_c276dc7054fd8e::t_688c82575e67eb 1063-1179
+  s_c276dc7054fd8e::t_c84a84e934e6ae 1259-1270
+  s_c276dc7054fd8e::t_e60e245bfef5ff 86
+  s_fbb2fe1a325ad6::t_647fe9fd3a190a 103-109
+docs/CUSTOM_PROPERTIES.md
+  s_c276dc7054fd8e::t_c01242258ce5b5 523-526
+  s_c276dc7054fd8e::t_13fa2e3ddb9450 379
+  s_c276dc7054fd8e::t_c809eebe4e318f 370
+lib/parsers/gitmodules.poku.js
+  s_c276dc7054fd8e::t_5024be2d9f1a2a 6
+  s_c276dc7054fd8e::t_d7b5b436eedd38 1,10,28
+  s_c276dc7054fd8e::t_7f8419365cb91f 2-5,7-9,11-27,29-50
+  s_c276dc7054fd8e::t_f9c5821ab7ef7b 51-62,68-69,78-93,95-110,112-149
+  s_fbb2fe1a325ad6::t_c6f46fff65820a 94
+  s_fbb2fe1a325ad6::t_a109ae2cac7ea5 111
+  s_fbb2fe1a325ad6::t_98fc78c6d1dcb6 63-67,70-77
+lib/parsers/cmakeCache.js
+  s_c276dc7054fd8e::t_711cb56d30c86c 106-107
+  s_c276dc7054fd8e::t_b2c65afd8b57ee 1-13,16-85,87-105,108-123,126-142,145-167,169-199
+  s_c276dc7054fd8e::t_611446f8de179b 86
+  s_c276dc7054fd8e::t_d7b5b436eedd38 143-144,168
+  s_fbb2fe1a325ad6::t_a2fee7d39af20d 14-15,124-125
+types/lib/ecosystems/cmakeResolver.d.ts
+  s_c276dc7054fd8e::t_27681f7596ebd7 34-36,66-69,80-83,99-103,116-121,156
+  s_fbb2fe1a325ad6::t_dd7b5a9695cdea 1-4,6-15,17-23,25-27,29-33,37-38,40-55,57-60,62-65,70-71,73-75,77-79,84-85,87-91,93-94,96-98,104-105,113-115,122-123,125-127,129-150,152-155,157-158
+  s_fbb2fe1a325ad6::t_4e5af216513d0b 5,16,24,28,39,56,61,72,76,86,92,95,106-112,124,128,151
+test/data/cmake-cache/leveldb/submodule-status.txt
+  s_c276dc7054fd8e::t_1791faab84d991 1-2
+types/lib/parsers/gitmodules.d.ts
+  s_c276dc7054fd8e::t_1e9d550b7c2b24 28-33,43-49,65,79-87
+  s_fbb2fe1a325ad6::t_b156a39703fdfe 1-27,34-42,50-52,60-64,66-78,88
+  s_fbb2fe1a325ad6::t_4e5af216513d0b 53-59
+test/data/cmake-cache/fetchcontent/CMakeCache.txt
+  s_c276dc7054fd8e::t_1791faab84d991 1-69
+lib/ecosystems/cmakeResolver.poku.js
+  s_c276dc7054fd8e::t_ff6e534146531e 2-11,13-45,47-51,53-57,67-72,92-98,100-107
+  s_c276dc7054fd8e::t_5b41baed01b7fd 58-62,64-66
+  s_c276dc7054fd8e::t_d7b5b436eedd38 1,46,52
+  s_c276dc7054fd8e::t_9cbe2b66b81990 63
+  s_fbb2fe1a325ad6::t_9d39a999ee5845 73-88
+  s_fbb2fe1a325ad6::t_1ded62602fe711 12
+  s_fbb2fe1a325ad6::t_2acd3fe4744f72 89-91
+  s_fbb2fe1a325ad6::t_98fc78c6d1dcb6 99
+lib/parsers/cmakeCache.poku.js
+  s_c276dc7054fd8e::t_c92fa028356042 42
+  s_c276dc7054fd8e::t_d7b5b436eedd38 1,41,63
+  s_c276dc7054fd8e::t_b334676b6bdc7d 31,35-36
+  s_c276dc7054fd8e::t_485034ed4f2b59 2-30,32-34,37-40,43-62,64-137
+test/data/cmake-cache/leveldb/.gitmodules
+  s_c276dc7054fd8e::t_1791faab84d991 1-6
+lib/parsers/gitmodules.js
+  s_c276dc7054fd8e::t_f48cbd2db73641 1-16,21-166,174-182,184-186,188-189,200-206,209,212-220,221,225-226,228-233,235-239
+  s_c276dc7054fd8e::t_635b2ead770343 183,190,192-199
+  s_c276dc7054fd8e::t_19eb516f95ae95 207-208,210-211
+  s_c276dc7054fd8e::t_bf261aaab731d5 17-20
+  s_c276dc7054fd8e::t_7443c75a36fe4e 187
+  s_fbb2fe1a325ad6::t_0f5fd7bbc4f491 222-224,227,234
+  s_fbb2fe1a325ad6::t_a4046ca482dbec 191
+  s_fbb2fe1a325ad6::t_771933e77850db 167-173
+test/data/cmake-cache/boostlike.txt
+  s_c276dc7054fd8e::t_1791faab84d991 1-3
+test/baseline/npm-pack-file-list.txt
+  s_c276dc7054fd8e::t_64b8fd5e6507fa 106,219,222,367-368,593-594,599-600
+types/lib/ecosystems/parsers-misc.d.ts.map
+  s_fbb2fe1a325ad6::t_08784eaa4b7acb 1
+lib/ecosystems/parsers-misc.js
+  s_fbb2fe1a325ad6::t_e6c3c787c57489 2111-2117
+types/lib/parsers/gitmodules.d.ts.map
+  s_fbb2fe1a325ad6::t_f6d734e062fa8b 1
+types/lib/cli/nativeBom.d.ts.map
+  s_fbb2fe1a325ad6::t_d0e54ea6a39bb8 1
+types/lib/ecosystems/cmakeResolver.d.ts.map
+  s_fbb2fe1a325ad6::t_e0d2877593e82f 1
+types/lib/inventory/dosai.d.ts.map
+  s_fbb2fe1a325ad6::t_d197cd8795bd7a 1
+types/lib/parsers/cmakeCache.d.ts.map
+  s_fbb2fe1a325ad6::t_49a75f0b7faacd 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "42abcf146194bb30190c755702a2674cb035d3d0",
+  "prompts": {},
+  "sessions": {
+    "s_c276dc7054fd8e": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_01e9740d7ffeYbOmiXoi4rm92q",
+        "model": "glm-5.2"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    },
+    "s_fbb2fe1a325ad6": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "22ecf873-67ef-4209-90e3-4f3c87f888fb",
+        "model": "claude-opus-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
