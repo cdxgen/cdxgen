@@ -1,0 +1,61 @@
+lib/parsers/gitmodules.poku.js
+  s_fbb2fe1a325ad6::t_c6f46fff65820a 94
+  s_fbb2fe1a325ad6::t_a109ae2cac7ea5 111
+  s_fbb2fe1a325ad6::t_98fc78c6d1dcb6 63-67,70-77
+types/lib/ecosystems/cmakeResolver.d.ts
+  s_fbb2fe1a325ad6::t_dd7b5a9695cdea 1-4,6-15,17-23,25-27,29-33,37-38,40-55,57-60,62-65,70-71,73-75,77-79,84-85,87-91,93-94,96-98,104-105,113-115,122-123,125-127,129-150,152-155,157-158
+  s_fbb2fe1a325ad6::t_4e5af216513d0b 5,16,24,28,39,56,61,72,76,86,92,95,106-112,124,128,151
+types/lib/parsers/cmakeCache.d.ts
+  s_fbb2fe1a325ad6::t_4e402c040a7a42 1-22,27-39,41-51,70
+types/lib/ecosystems/parsers-misc.d.ts.map
+  s_fbb2fe1a325ad6::t_08784eaa4b7acb 1
+lib/ecosystems/cmakeResolver.js
+  s_fbb2fe1a325ad6::t_dc29c2b9611d0f 258-263,271-273
+  s_fbb2fe1a325ad6::t_b1283f421cb199 150-153,159-160
+  s_fbb2fe1a325ad6::t_75f4b83e11dc2c 38
+  s_fbb2fe1a325ad6::t_1ded62602fe711 154-158
+types/lib/parsers/gitmodules.d.ts
+  s_fbb2fe1a325ad6::t_b156a39703fdfe 1-27,34-42,50-52,60-64,66-78,88
+  s_fbb2fe1a325ad6::t_4e5af216513d0b 53-59
+lib/ecosystems/parsers-misc.js
+  s_fbb2fe1a325ad6::t_e6c3c787c57489 2111-2117
+lib/cli/nativeBom.js
+  s_fbb2fe1a325ad6::t_647fe9fd3a190a 103-109
+types/lib/parsers/gitmodules.d.ts.map
+  s_fbb2fe1a325ad6::t_f6d734e062fa8b 1
+types/lib/cli/nativeBom.d.ts.map
+  s_fbb2fe1a325ad6::t_d0e54ea6a39bb8 1
+lib/parsers/cmakeCache.js
+  s_fbb2fe1a325ad6::t_a2fee7d39af20d 14-15,124-125
+types/lib/ecosystems/cmakeResolver.d.ts.map
+  s_fbb2fe1a325ad6::t_e0d2877593e82f 1
+lib/parsers/gitmodules.js
+  s_fbb2fe1a325ad6::t_0f5fd7bbc4f491 222-224,227,234
+  s_fbb2fe1a325ad6::t_a4046ca482dbec 191
+  s_fbb2fe1a325ad6::t_771933e77850db 167-173
+types/lib/inventory/dosai.d.ts.map
+  s_fbb2fe1a325ad6::t_d197cd8795bd7a 1
+types/lib/parsers/cmakeCache.d.ts.map
+  s_fbb2fe1a325ad6::t_49a75f0b7faacd 1
+lib/ecosystems/cmakeResolver.poku.js
+  s_fbb2fe1a325ad6::t_9d39a999ee5845 73-88
+  s_fbb2fe1a325ad6::t_1ded62602fe711 12
+  s_fbb2fe1a325ad6::t_2acd3fe4744f72 89-91
+  s_fbb2fe1a325ad6::t_98fc78c6d1dcb6 99
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "e65a9547e9908733b03ec3113957b29f5f2880fc",
+  "prompts": {},
+  "sessions": {
+    "s_fbb2fe1a325ad6": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "22ecf873-67ef-4209-90e3-4f3c87f888fb",
+        "model": "claude-opus-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
