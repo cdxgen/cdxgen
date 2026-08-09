@@ -20,6 +20,7 @@ lib/parsers/gitmodules.poku.js
   s_fbb2fe1a325ad6::t_c6f46fff65820a 94
 lib/inventory/dosai.js
   s_fbb2fe1a325ad6::t_7ef49d6112423b 92-101
+  s_fbb2fe1a325ad6::t_f41f7b64510012 92-101
 lib/ecosystems/cmakeResolver.poku.js
   s_fbb2fe1a325ad6::t_9d39a999ee5845 73-88
   s_fbb2fe1a325ad6::t_1ded62602fe711 12
@@ -29,6 +30,7 @@ lib/ecosystems/parsers-misc.js
   s_fbb2fe1a325ad6::t_e6c3c787c57489 2111-2117
 lib/inventory/dosai.poku.js
   s_fbb2fe1a325ad6::t_7ef49d6112423b 258-276
+  s_fbb2fe1a325ad6::t_58bb4df70bb9a5 258-276
 types/lib/parsers/gitmodules.d.ts
   s_fbb2fe1a325ad6::t_4e5af216513d0b 53-59
   s_fbb2fe1a325ad6::t_b156a39703fdfe 1-27,34-42,50-52,60-64,66-78,88
