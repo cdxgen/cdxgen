@@ -1,0 +1,21 @@
+lib/core/ui.poku.js
+  s_fae2c35b1a964d::t_6fdecba9a6385d 405
+  s_fae2c35b1a964d::t_16e8bde67d30c0 98
+  s_fae2c35b1a964d::t_d8f48605cd4018 388
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "0b6a51abbd5fa25f884a843d46a26466362857ba",
+  "prompts": {},
+  "sessions": {
+    "s_fae2c35b1a964d": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_00a5f5073ffeDkKHqHAl7i3px7",
+        "model": "glm-5.2"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
