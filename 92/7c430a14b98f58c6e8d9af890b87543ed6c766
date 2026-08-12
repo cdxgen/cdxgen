@@ -1,0 +1,37 @@
+lib/inventory/aiCollector.poku.js
+  s_fae2c35b1a964d::t_fd2056bdd27dd7 611,624,691,699
+lib/core/ui.poku.js
+  s_fae2c35b1a964d::t_09956e70feebdb 460
+  s_fae2c35b1a964d::t_676d98f1d69651 415-421
+  s_fae2c35b1a964d::t_6fdecba9a6385d 405
+  s_fae2c35b1a964d::t_16e8bde67d30c0 98
+  s_fae2c35b1a964d::t_d8f48605cd4018 388
+lib/parsers/huggingfaceManifest.poku.js
+  s_fae2c35b1a964d::t_4dc6939d71f6ae 42,46,50,121
+lib/parsers/huggingfaceUtils.js
+  s_fae2c35b1a964d::t_782cfa08ba974b 190
+lib/ecosystems/remote/huggingface.poku.js
+  s_fae2c35b1a964d::t_32196c1a924e25 97,272,281,288,426,433
+  s_fae2c35b1a964d::t_d0d2017059ea75 431
+lib/cli/managedBom.poku.js
+  s_fae2c35b1a964d::t_62cf32f360525b 644
+  s_fae2c35b1a964d::t_4aef316940745a 636,638
+.github/workflows/repotests.yml
+  s_fae2c35b1a964d::t_efb619cc8d9024 182
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "927c430a14b98f58c6e8d9af890b87543ed6c766",
+  "prompts": {},
+  "sessions": {
+    "s_fae2c35b1a964d": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_00a5f5073ffeDkKHqHAl7i3px7",
+        "model": "glm-5.2"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
