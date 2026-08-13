@@ -1,0 +1,442 @@
+lib/inventory/auditCategories.js
+  s_d1eeb87a5542ea::t_be4cc87ae67509 101-106
+  s_d1eeb87a5542ea::t_c7e096e5b18ea2 121-128
+  s_d1eeb87a5542ea::t_37b40d49a8d66f 57-63
+  s_d1eeb87a5542ea::t_2e7f3fefebcbff 81-87
+  s_d1eeb87a5542ea::t_3fd175e3673994 3,10,16,19,26,33,36-39
+lib/parsers/npmrc.js
+  s_b0825805991fc1::t_40b7e2763f19a3 1-7
+lib/managers/containerutils.js
+  s_b0825805991fc1::t_2d5162c97712f0 63-70
+lib/ecosystems/sbtutils.js
+  s_885befc54bae81::t_b852df4a553dbc 412-424
+lib/core/env.js
+  s_cb31cbf3e75cdc::t_cfea9aac5d23b5 192,197,202,207,212,217,222,227,233,239,245,251,254,257
+  s_cb31cbf3e75cdc::t_87fc487a469eb9 11,13,15,18,23-26,33
+  s_cb31cbf3e75cdc::t_dec429e3151d7c 142,145,150
+  s_cb31cbf3e75cdc::t_9cec3eb738a980 173
+  s_cb31cbf3e75cdc::t_b30b0e53d0e73f 271
+  s_cb31cbf3e75cdc::t_8272187d98633f 457
+  s_cb31cbf3e75cdc::t_cb7a4189f70cc5 40,45-51
+lib/validator/complianceRules.js
+  s_b0825805991fc1::t_0514c43717cd2d 1668-1673
+lib/ecosystems/parsers-misc.js
+  s_885befc54bae81::t_a6421c06ee28f2 2335-2345
+lib/inventory/dosai.js
+  s_564b7c3e62298b::t_3fb2181fdbe671 242-249,254-261,266-273,278-284
+  s_564b7c3e62298b::t_2f80bb3078195c 453-462
+  s_564b7c3e62298b::t_3ba49a65a0c509 501-511
+  s_564b7c3e62298b::t_6e2199f33f1e26 355-360,365-371,376-385
+  s_564b7c3e62298b::t_77e1ae94fd8f9c 175-184
+  s_564b7c3e62298b::t_aa2b4f5b3e69c1 148-153,158-163
+  s_564b7c3e62298b::t_5d6f79b5938071 587-592
+lib/cli/jvmBom.js
+  s_2d4c58ab7c28f9::t_d13e04a775f3eb 120-125
+  s_2d4c58ab7c28f9::t_24c97b1626c350 107-111
+  s_2d4c58ab7c28f9::t_fd9e15fa05c8c1 89-94
+lib/inventory/envcontext.js
+  s_564b7c3e62298b::t_95d4f3602088a7 497-505
+  s_564b7c3e62298b::t_88b4c9f5762a0d 81-88
+  s_564b7c3e62298b::t_d27d71b09b0994 37-41
+lib/server/server.js
+  s_89943b79f75ffa::t_78eb615093e93b 232-237
+  s_89943b79f75ffa::t_fc9942ce22a3b3 247-256
+lib/inventory/sbomDocument.js
+  s_8755dc6a185762::t_1d2b47723bd519 22-26
+lib/inventory/bomUtils.js
+  s_d1eeb87a5542ea::t_5b34656eb6c104 100-105
+  s_d1eeb87a5542ea::t_6501db14d7a6d1 117-124
+  s_d1eeb87a5542ea::t_66c08263e6f942 59-64
+  s_d1eeb87a5542ea::t_60cad683c241c0 335-341
+  s_d1eeb87a5542ea::t_d95733b5edee5d 225-230,234-239,243-249
+  s_d1eeb87a5542ea::t_eb5b96e58c99ad 146-152
+  s_d1eeb87a5542ea::t_7a784e5c0a914d 86-91
+  s_d1eeb87a5542ea::t_d3ba5bab4e5384 161-167
+  s_d1eeb87a5542ea::t_7b049b65518c2e 47-50
+  s_d1eeb87a5542ea::t_e5c1c083c0d716 208-214
+  s_d1eeb87a5542ea::t_41c80251e5e79e 137-142
+  s_d1eeb87a5542ea::t_d1a6ed1ff5b902 352-359
+  s_d1eeb87a5542ea::t_7e255c6460c4eb 180-189
+lib/cli/bomAssembly.js
+  s_2d4c58ab7c28f9::t_e5a0ad9ada2540 1566-1572
+  s_2d4c58ab7c28f9::t_6cd181e9b6bb63 850-854
+  s_2d4c58ab7c28f9::t_b469b9b3b43570 1616-1622
+  s_2d4c58ab7c28f9::t_7c6239adce9203 882-887
+  s_2d4c58ab7c28f9::t_4544ff99bea264 931-938
+  s_2d4c58ab7c28f9::t_267c022e0688d6 63-72
+  s_2d4c58ab7c28f9::t_0d1dca2d53e947 895-901
+  s_2d4c58ab7c28f9::t_bb3eee2a1b1b0e 348-355
+  s_2d4c58ab7c28f9::t_d612428cb3c717 866-872
+  s_2d4c58ab7c28f9::t_800d1c391b490a 95-100
+  s_2d4c58ab7c28f9::t_603eccb947a130 1642-1650
+  s_2d4c58ab7c28f9::t_a24d83ccd3acd2 1667-1672
+  s_2d4c58ab7c28f9::t_11c6f31c55a6c1 1693-1701
+  s_2d4c58ab7c28f9::t_5e6df9204228b3 316-323
+  s_2d4c58ab7c28f9::t_d903af6a753b24 246-255
+  s_2d4c58ab7c28f9::t_a21456f3c8aa31 858-863
+  s_2d4c58ab7c28f9::t_bc9dc4db648248 1681-1688
+  s_2d4c58ab7c28f9::t_40513d7ca84b76 151-160
+  s_2d4c58ab7c28f9::t_851cec5df70649 302-307
+  s_2d4c58ab7c28f9::t_307fd801b877ad 1554,1556-1557,1559,1815-1822
+  s_e15fa3e37fe293::t_ada56e6a392481 1555,1558
+lib/core/text.js
+  s_cb31cbf3e75cdc::t_2b52ac1bb426ce 10,12,14
+lib/core/paths.js
+  s_cb31cbf3e75cdc::t_2575763015b3eb 27,32,34,37-42
+  s_cb31cbf3e75cdc::t_26f1e9ee57ba72 62-67
+lib/audit/targets.js
+  s_89943b79f75ffa::t_bc2a814fa5257c 15
+lib/audit/index.js
+  s_89943b79f75ffa::t_4160076f676929 238-247
+  s_89943b79f75ffa::t_477b030f4f0d4a 70
+  s_89943b79f75ffa::t_2ead1cf0142bc1 2427-2436
+lib/core/spdx.js
+  s_cb31cbf3e75cdc::t_4a74b27a710df3 1,4
+lib/ecosystems/ecosystems.js
+  s_885befc54bae81::t_4c6a57408092c7 1970-1979
+  s_885befc54bae81::t_07a9ed8d1ead5c 1333-1339
+  s_885befc54bae81::t_adfa25e74422a2 1319-1324
+  s_885befc54bae81::t_fe86171591b5e9 1511-1522
+lib/inventory/gtfobins.js
+  s_564b7c3e62298b::t_f28001f06de870 201-208
+  s_564b7c3e62298b::t_5596c14d95e7ae 153-160
+lib/inventory/communityAiConfigParser.js
+  s_564b7c3e62298b::t_d36da5fe50600f 665-676
+lib/audit/reporters.js
+  s_89943b79f75ffa::t_77b629deffc75f 567-577
+lib/ecosystems/npmutils.js
+  s_885befc54bae81::t_b2f11d56a07883 440-452
+  s_885befc54bae81::t_0fb3803dbba19d 419-427
+  s_885befc54bae81::t_24694fac84a320 482-488
+  s_885befc54bae81::t_69e7afa0200325 399-406
+  s_885befc54bae81::t_eb67aa534aee7d 302-308
+  s_885befc54bae81::t_68f297c1627312 317-324
+  s_885befc54bae81::t_95ef5666bad9f0 360-365
+  s_885befc54bae81::t_299482f8365ad8 336-344
+  s_885befc54bae81::t_74058cc0218a91 373-382
+  s_885befc54bae81::t_8ac06fb34ccb30 510-521
+lib/inventory/mcpConfigParser.js
+  s_8755dc6a185762::t_2995a05feb1e26 627-637
+lib/managers/dockerConnection.js
+  s_b0825805991fc1::t_ae1c6a7a60f490 15-20
+lib/ecosystems/parsers-python.js
+  s_885befc54bae81::t_98bdedbb361cc7 80-87
+lib/inventory/forgeEnricher.js
+  s_564b7c3e62298b::t_779485eecd6a7a 50-59
+lib/evinser/scalasem.js
+  s_89943b79f75ffa::t_a6696494aa9234 24-34
+lib/managers/oci.js
+  s_b0825805991fc1::t_776a879a40c29e 566-575
+lib/inventory/cbomutils.js
+  s_d1eeb87a5542ea::t_21f4fc93f3495b 400-408
+  s_d1eeb87a5542ea::t_034a6206ae7a4f 459-467
+lib/core/logger.js
+  s_cb31cbf3e75cdc::t_4781557f51faaf 21
+  s_cb31cbf3e75cdc::t_0bfc9313222646 39
+lib/inventory/evidenceUtils.js
+  s_564b7c3e62298b::t_7dbd960fba95d3 92-97
+  s_564b7c3e62298b::t_05a3f2634655f5 29-35
+  s_564b7c3e62298b::t_3336b4359bc799 52-61
+lib/inventory/analyzerScope.js
+  s_d1eeb87a5542ea::t_54574f2c169dd3 131-138
+  s_d1eeb87a5542ea::t_b0643f4a3d8d18 319-333
+  s_d1eeb87a5542ea::t_34e2968657c59d 735-745
+  s_d1eeb87a5542ea::t_d3fac1ab19ecd9 639-649
+  s_d1eeb87a5542ea::t_0a0c06cbe58c77 36-42
+  s_d1eeb87a5542ea::t_631c3d2078deb7 93-100
+  s_d1eeb87a5542ea::t_8248855b4ea615 67-73
+  s_d1eeb87a5542ea::t_e6d28ddfea5be2 53-59
+  s_d1eeb87a5542ea::t_d99f569035f578 218-230
+  s_d1eeb87a5542ea::t_80a3a5335000b0 107-114
+lib/ecosystems/denoutils.js
+  s_885befc54bae81::t_bff8f542081b02 471-480
+lib/inventory/protobom.js
+  s_8755dc6a185762::t_d3651d468d96fe 66-71
+  s_8755dc6a185762::t_bd0be2c666a5ad 83-92
+lib/ecosystems/parsers-js.js
+  s_885befc54bae81::t_02c62821fe52d6 426-436
+  s_885befc54bae81::t_824584beb930bb 2623-2633
+lib/inventory/osinfo.js
+  s_8755dc6a185762::t_97b4aff59a33cf 142-144
+lib/inventory/table.js
+  s_8755dc6a185762::t_d02e068070af6d 209-215
+  s_8755dc6a185762::t_ebc4db0c9d9618 220-225
+lib/managers/docker.js
+  s_b0825805991fc1::t_55b6e3c2ec542e 40,42-47
+lib/inventory/purl.js
+  s_8755dc6a185762::t_6a70b4a8b2484e 616-625
+lib/evinser/db.js
+  s_89943b79f75ffa::t_a55ae547a4af49 116-123
+lib/cli/nativeBom.js
+  s_2d4c58ab7c28f9::t_d8b4003e552c83 820-828
+  s_2d4c58ab7c28f9::t_6dcb3e1115383c 140-145
+  s_2d4c58ab7c28f9::t_db7820bbe2a3f5 782-789
+  s_2d4c58ab7c28f9::t_38f500db396ab9 741-748
+lib/inventory/source.js
+  s_8755dc6a185762::t_a2f2df6df3bc9f 40
+  s_8755dc6a185762::t_622e67a97f37b9 1234-1244
+  s_e15fa3e37fe293::t_b0e3da4d08958a 36
+lib/audit/scoring.js
+  s_89943b79f75ffa::t_20ab8d707e04e5 7
+lib/ecosystems/golem.js
+  s_885befc54bae81::t_e7727e468adb42 1675-1684
+  s_885befc54bae81::t_818908b5afbb4b 1712-1723
+  s_885befc54bae81::t_976dca6d72289e 1584-1589
+  s_885befc54bae81::t_f9341155c84a09 1612-1623
+  s_885befc54bae81::t_d6cbb994578c11 1594-1600
+lib/evinser/evinser.js
+  s_89943b79f75ffa::t_cbfda27740635b 152-165
+  s_e15fa3e37fe293::t_08eded6d489555 326
+  s_89943b79f75ffa::t_6408b540d3852a 317-325,327-331
+  s_89943b79f75ffa::t_7b22098a40a9f7 1504-1514
+  s_89943b79f75ffa::t_e0503cbd40e659 1701-1711
+  s_89943b79f75ffa::t_026fef701083a1 549-555
+  s_89943b79f75ffa::t_ebc092e7818a66 584-594
+  s_89943b79f75ffa::t_ce8bf3b3c68365 1677-1687
+  s_89943b79f75ffa::t_e6684d4d887940 1417-1428
+  s_89943b79f75ffa::t_f17a75d6169573 264-276
+  s_89943b79f75ffa::t_adf7a9192cf221 968-984
+  s_89943b79f75ffa::t_b355a757c82617 217-227
+  s_89943b79f75ffa::t_a0fb971e86c450 2294-2305
+lib/inventory/dosaiParsers.js
+  s_564b7c3e62298b::t_247a6dce48255d 114-122
+  s_564b7c3e62298b::t_9ba7995a02aec4 138-144
+  s_564b7c3e62298b::t_97afb659cb3cf6 28-35
+  s_564b7c3e62298b::t_2acee6a2464602 3-11
+  s_564b7c3e62298b::t_055bb6c73ef586 44-49
+  s_564b7c3e62298b::t_14ed5117c391c3 76-81
+  s_564b7c3e62298b::t_6472d31a8ae5c1 95-100
+lib/inventory/jsonLike.js
+  s_8755dc6a185762::t_ffa2c0ac2312d9 20-26
+  s_8755dc6a185762::t_80944473dd1edf 73-78
+  s_8755dc6a185762::t_69f7394548164b 113-118
+lib/inventory/atomUtils.js
+  s_d1eeb87a5542ea::t_319e4ee802f1de 46-49
+  s_d1eeb87a5542ea::t_fe27542bc813ec 356-363
+  s_d1eeb87a5542ea::t_af143a91640ffc 382-392
+lib/core/httpClient.js
+  s_cb31cbf3e75cdc::t_80d01a8827ee11 174-183
+lib/inventory/spdxUtils.js
+  s_8755dc6a185762::t_994cb67edb0e36 41-50
+lib/ecosystems/jsEvidence.js
+  s_885befc54bae81::t_de5ade572af13c 107-121
+lib/managers/binary.js
+  s_b0825805991fc1::t_4792c6467fe09f 508-515
+  s_b0825805991fc1::t_9beb1e5eec3b5d 395-401
+  s_b0825805991fc1::t_4b5d07e4c835b7 3052-3060
+  s_b0825805991fc1::t_95badb0ff06889 2978-2986
+lib/cli/managedBom.js
+  s_8755dc6a185762::t_eba1e7ae5042ec 118-125
+  s_2d4c58ab7c28f9::t_4998e950dafc38 132-140
+lib/inventory/rustFormulationParser.js
+  s_8755dc6a185762::t_544985516d5119 308-316
+lib/inventory/analyzer.js
+  s_d1eeb87a5542ea::t_ce5e8c38c41511 3150-3156
+  s_d1eeb87a5542ea::t_d8e7244a67c2cd 3672-3679
+  s_d1eeb87a5542ea::t_42efb1d687e17e 2350-2353
+  s_d1eeb87a5542ea::t_fcd028b9eaa323 4124-4131
+  s_d1eeb87a5542ea::t_c0c5611ab59c43 4107-4113
+  s_d1eeb87a5542ea::t_d101e2634bcdf9 2689-2696
+  s_d1eeb87a5542ea::t_022121754e9c27 2518-2521
+  s_d1eeb87a5542ea::t_72f4bf865afdeb 3386-3392
+lib/inventory/aiInventory.js
+  s_d1eeb87a5542ea::t_ed7f4b2d2b423d 35,37
+  s_d1eeb87a5542ea::t_a8033fd3a11a62 15,17-20
+lib/parsers/huggingfaceUtils.js
+  s_b0825805991fc1::t_8c1f67e028e09a 73-80
+  s_b0825805991fc1::t_bfdf4438ef6eba 43-47,49-53
+  s_b0825805991fc1::t_cfbf4a1d44edf3 56-62
+  s_b0825805991fc1::t_d206ff540f64ce 18-22,24-30
+lib/core/state.js
+  s_cb31cbf3e75cdc::t_cd114112a7b965 44,48
+  s_cb31cbf3e75cdc::t_cf34e8f99959aa 14
+  s_cb31cbf3e75cdc::t_03851297bc2d68 22,26,38,41
+  s_cb31cbf3e75cdc::t_60e64251c5ae2f 6,10
+lib/inventory/containerRisk.js
+  s_564b7c3e62298b::t_b969b63d943393 87-95
+  s_564b7c3e62298b::t_07f072cb47e843 137-144
+lib/core/ui.js
+  s_cb31cbf3e75cdc::t_67d176bbfa5e4e 772-777,780-785
+lib/inventory/display.js
+  s_564b7c3e62298b::t_47415cd0ad804d 753-759
+  s_564b7c3e62298b::t_ae191b0e3b2051 1567-1575
+  s_564b7c3e62298b::t_25466ce9037ec7 782-793
+lib/inventory/osqueryTransform.js
+  s_8755dc6a185762::t_9cc6da6abd04c5 163-168
+  s_8755dc6a185762::t_71edfa5d695f72 104-110
+  s_8755dc6a185762::t_bd7d4b9a2403d3 69-74
+  s_8755dc6a185762::t_d679398e422fce 26-33
+  s_8755dc6a185762::t_2ae0333a053bd1 186-200
+  s_8755dc6a185762::t_716d35b2ebb4a3 4-12
+  s_8755dc6a185762::t_70c1c67eb546ef 122-132
+  s_8755dc6a185762::t_502ad4735c0dca 52-57
+  s_8755dc6a185762::t_ff63a54901388b 90-95
+lib/inventory/hbom.js
+  s_8755dc6a185762::t_0693682af37e7d 530-538
+lib/inventory/provenanceUtils.js
+  s_8755dc6a185762::t_bf4d827e3e4bb1 29
+  s_8755dc6a185762::t_f7a2894d650f0f 38
+  s_8755dc6a185762::t_a2a96c2a284f02 51
+  s_e15fa3e37fe293::t_c507d5ade14ae2 8,18,44
+lib/core/activity.js
+  s_cb31cbf3e75cdc::t_4e3c7da0d627a8 731
+  s_cb31cbf3e75cdc::t_7d185a794f0336 552-560
+  s_cb31cbf3e75cdc::t_250c5b3f883e1c 381-386
+  s_cb31cbf3e75cdc::t_dc328e6fecb2bf 674-680
+  s_cb31cbf3e75cdc::t_fe335264ff7c5a 801
+  s_cb31cbf3e75cdc::t_38e16190336405 945
+  s_cb31cbf3e75cdc::t_1421504da4c5a5 836
+  s_cb31cbf3e75cdc::t_785a35dfb36c9f 796
+  s_cb31cbf3e75cdc::t_cfafacf4017937 600-607
+  s_cb31cbf3e75cdc::t_1cb0bf02a6f8c4 295
+  s_cb31cbf3e75cdc::t_4f0c9fcb2fc29f 721-726
+  s_cb31cbf3e75cdc::t_a30c0d2119f6e6 8,13
+  s_cb31cbf3e75cdc::t_4a07f339cfda77 753-758
+  s_cb31cbf3e75cdc::t_496cd4cc693f26 839-846
+  s_cb31cbf3e75cdc::t_fac68f30ca9d21 701-708
+  s_cb31cbf3e75cdc::t_aa19ba6f97452c 686-691
+  s_cb31cbf3e75cdc::t_2b18135dd41fee 766
+  s_cb31cbf3e75cdc::t_fc19999a9225d8 771-777
+  s_cb31cbf3e75cdc::t_36867271cec806 810-819
+  s_cb31cbf3e75cdc::t_f07adbd3e483a2 459-467
+  s_cb31cbf3e75cdc::t_2c611cb932ad0b 24,28
+  s_cb31cbf3e75cdc::t_a76ab9e967b621 311-318
+  s_cb31cbf3e75cdc::t_8ccdb575726dc8 635-641
+  s_cb31cbf3e75cdc::t_0e3c0d76084d5c 448-454
+  s_cb31cbf3e75cdc::t_453cb0500df49c 496,501,506
+lib/cli/index.js
+  s_2d4c58ab7c28f9::t_b8a7318ff46dd5 683-693
+lib/core/fs.js
+  s_cb31cbf3e75cdc::t_78c3410396129a 352
+  s_cb31cbf3e75cdc::t_fbaaad18cfe484 182-189
+  s_cb31cbf3e75cdc::t_80dfdb46663a7a 215-222
+  s_cb31cbf3e75cdc::t_601cb0fc867eb3 778,783
+  s_cb31cbf3e75cdc::t_7e5a121e4a395a 988-993
+  s_cb31cbf3e75cdc::t_6f33cd854f6ce4 285-295
+  s_cb31cbf3e75cdc::t_5a10b00d8c43b1 362
+  s_cb31cbf3e75cdc::t_a379ce27d7388f 114-122
+  s_cb31cbf3e75cdc::t_ad949d221cce85 237-243
+  s_cb31cbf3e75cdc::t_13464565f21153 258-266
+lib/parsers/huggingfaceManifest.js
+  s_b0825805991fc1::t_dd0b1233ee41bd 20-24,26-30,32-36
+lib/inventory/inventoryStats.js
+  s_8755dc6a185762::t_f14297f2fb4656 68-73
+  s_8755dc6a185762::t_e5e69f37e3bfd1 54-59
+  s_8755dc6a185762::t_84ae89a642e1fb 11-17
+  s_8755dc6a185762::t_3bf371ced9c5cb 84-89
+  s_8755dc6a185762::t_6cdc444d83ff5c 40-45
+lib/ecosystems/pep770.js
+  s_885befc54bae81::t_753568a918c967 328-334
+lib/cli/jsBom.js
+  s_2d4c58ab7c28f9::t_42976d55e52617 129-137
+  s_2d4c58ab7c28f9::t_f61f339a856d7c 96-104
+  s_2d4c58ab7c28f9::t_2b6cc824d23958 1478-1483
+lib/inventory/deps.js
+  s_564b7c3e62298b::t_2438751241357e 725-734
+lib/inventory/spdx.js
+  s_8755dc6a185762::t_ed58c9a69cbcb6 16-20
+lib/stages/pregen/envAudit.js
+  s_b0825805991fc1::t_c09c39bc782645 120-131
+lib/inventory/hostTopology.js
+  s_8755dc6a185762::t_cec09895d8d7bc 620-625
+  s_8755dc6a185762::t_de0402f0f4b144 769-778
+  s_8755dc6a185762::t_813dc720e340d5 636-641
+  s_8755dc6a185762::t_dfd4f90fd70962 678-687
+lib/inventory/mcpDiscovery.js
+  s_8755dc6a185762::t_0c6750410b89b4 82-87
+  s_8755dc6a185762::t_a1a1fd5f367ca5 19-28
+  s_8755dc6a185762::t_043761fffbdb32 46-51
+  s_8755dc6a185762::t_e27ea6d94ffc91 98-103
+lib/inventory/osPackageResolver.js
+  s_8755dc6a185762::t_b1691da0927ce1 25-27
+lib/validator/index.js
+  s_b0825805991fc1::t_204497d35e0a67 24-29
+lib/inventory/hbomAnalysis.js
+  s_8755dc6a185762::t_777661f4b40c99 187-192
+  s_8755dc6a185762::t_cbdc30ead2bacd 65-70
+  s_8755dc6a185762::t_01d0629fed8ad4 177-182
+  s_8755dc6a185762::t_1ff3d785c622cc 142-147
+  s_8755dc6a185762::t_4fdfb511995d09 211-216
+  s_8755dc6a185762::t_818ce3d5368b9d 224-229
+  s_8755dc6a185762::t_9e771187d874b3 53-58
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "25ebb7ed598178a64a9f04d6a8cc29be1f3ad38e",
+  "prompts": {},
+  "sessions": {
+    "s_2d4c58ab7c28f9": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_004e4a60bffeateciKbcqkzmCW",
+        "model": "glm-5.2"
+      },
+      "human_author": null
+    },
+    "s_564b7c3e62298b": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_004e56919ffeEhbwmdoDudLr1s",
+        "model": "glm-5.2"
+      },
+      "human_author": null
+    },
+    "s_8755dc6a185762": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_004e52c46ffeSRVtOEO6IoiMmo",
+        "model": "glm-5.2"
+      },
+      "human_author": null
+    },
+    "s_885befc54bae81": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_004e4fdb0ffe2GQ42spChh4tLb",
+        "model": "glm-5.2"
+      },
+      "human_author": null
+    },
+    "s_89943b79f75ffa": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_004e48202ffeyMoxosw7v1rCP4",
+        "model": "glm-5.2"
+      },
+      "human_author": null
+    },
+    "s_b0825805991fc1": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_004e4d810ffebk79xHHYq8uF4B",
+        "model": "glm-5.2"
+      },
+      "human_author": null
+    },
+    "s_cb31cbf3e75cdc": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_004e5dad2ffea7iMT2SZjm0ijW",
+        "model": "glm-5.2"
+      },
+      "human_author": null
+    },
+    "s_d1eeb87a5542ea": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_004e59aeeffe2WVW04hRn43b4m",
+        "model": "glm-5.2"
+      },
+      "human_author": null
+    },
+    "s_e15fa3e37fe293": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_004ee39e1ffec19jguEHlyHpSH",
+        "model": "glm-5.2"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
