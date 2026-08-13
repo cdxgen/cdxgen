@@ -1,0 +1,26 @@
+lib/managers/containerutils.poku.js
+  s_f90fc25b295e21::t_4d076ac4154155 1-41,57-69
+  s_f90fc25b295e21::t_f30df23f7edf36 42-56
+lib/managers/containerutils.js
+  s_f90fc25b295e21::t_0aa57cb3cf65d8 35-41,43-44,46-60
+lib/cli/index.js
+  s_f90fc25b295e21::t_8dcd6b5430a131 210-214
+lib/managers/binary.js
+  s_f90fc25b295e21::t_74e954dbb31404 1501-1507
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "a588b971a90e9dbbb39301b95dd40a8a72c78b33",
+  "prompts": {},
+  "sessions": {
+    "s_f90fc25b295e21": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "2b91ba3a-1b03-496a-902d-a6f451279efa",
+        "model": "claude-opus-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
