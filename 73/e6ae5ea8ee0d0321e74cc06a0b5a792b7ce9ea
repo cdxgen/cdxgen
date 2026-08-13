@@ -1,0 +1,57 @@
+lib/core/ui.js
+  s_bf370fab7cc38f::t_7a106b977bf5c9 98-102
+  s_bf370fab7cc38f::t_a52fa4e4dc54fa 290
+  s_bf370fab7cc38f::t_aa311b7b1b3566 20
+lib/core/logger.js
+  s_bf370fab7cc38f::t_03990211528b75 17-28
+bin/tracebom.js
+  s_bf370fab7cc38f::t_1efa19e9db5da1 284-285
+  s_bf370fab7cc38f::t_2e02460c288466 10
+  s_bf370fab7cc38f::t_d93e6d98f7b3ba 204-209
+lib/inventory/envcontext.js
+  s_bf370fab7cc38f::t_9ae1ce1d19cb34 924-925,928
+  s_bf370fab7cc38f::t_2e02460c288466 34
+  s_bf370fab7cc38f::t_9301a51c2cb0c7 923
+types/lib/cli/bomAssembly.d.ts
+  s_bf370fab7cc38f::t_d19a20549a2e5f 183-188,191-198
+lib/ecosystems/utils.js
+  s_bf370fab7cc38f::t_cc5815d96b02be 194,376,473,512,575
+  s_bf370fab7cc38f::t_a740779e4a9352 200,225,232
+  s_bf370fab7cc38f::t_e88d574e534088 4
+bin/hbom.js
+  s_bf370fab7cc38f::t_2e02460c288466 11
+  s_bf370fab7cc38f::t_d1a04610d3b8fb 344-346,370,470-471
+  s_bf370fab7cc38f::t_d93e6d98f7b3ba 196-201
+bin/convert.js
+  s_bf370fab7cc38f::t_d93e6d98f7b3ba 78-83
+  s_bf370fab7cc38f::t_2e02460c288466 10
+lib/inventory/table.js
+  s_bf370fab7cc38f::t_2e02460c288466 5
+  s_bf370fab7cc38f::t_dd658eb4f53700 222-225,249,252,256,263
+lib/inventory/table.poku.js
+  s_bf370fab7cc38f::t_bfd5c021835057 7
+  s_bf370fab7cc38f::t_01dd63589409c0 168-173,190-195
+lib/ecosystems/barrel.poku.js
+  s_bf370fab7cc38f::t_463c9a7cbb5d7f 5-13,90,178,217,276,283
+  s_bf370fab7cc38f::t_a16c04045085bb 286-287,290-291
+types/lib/cli/bomAssembly.d.ts.map
+  s_bf370fab7cc38f::t_335c051da4f176 1
+MIGRATING-TO-V13.md
+  s_bf370fab7cc38f::t_3249299d3a0fcb 232-233,239,654-678
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "73e6ae5ea8ee0d0321e74cc06a0b5a792b7ce9ea",
+  "prompts": {},
+  "sessions": {
+    "s_bf370fab7cc38f": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "5a510f05-d4e8-4d90-b8ef-d833597285df",
+        "model": "claude-opus-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
