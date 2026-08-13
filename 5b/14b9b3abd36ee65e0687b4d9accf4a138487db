@@ -1,0 +1,19 @@
+.github/workflows/npm-release.yml
+  s_8ff83470770ae1::t_598b749a32252a 71-81,88
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "5b14b9b3abd36ee65e0687b4d9accf4a138487db",
+  "prompts": {},
+  "sessions": {
+    "s_8ff83470770ae1": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_004826a86ffeCdLcKq99eTvgWV",
+        "model": "glm-5.2"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
