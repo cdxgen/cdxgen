@@ -1,0 +1,19 @@
+.github/workflows/nodejs.yml
+  s_f2dc2bff4250f5::t_38d2eda88b4990 118
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "868d47d159fcbf525bd229fa677cc4ee0a4721fd",
+  "prompts": {},
+  "sessions": {
+    "s_f2dc2bff4250f5": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_004ef331fffesv22JuseW1uuid",
+        "model": "glm-5.2"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
