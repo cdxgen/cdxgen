@@ -1,0 +1,23 @@
+lib/helpers/envcontext.js
+  s_f90fc25b295e21::t_2d9a913c3f4728 740-752,756
+lib/helpers/envcontextShell.poku.js
+  s_f90fc25b295e21::t_0de42decdb0040 54,56,60-118
+lib/stages/pregen/pregen.js
+  s_f90fc25b295e21::t_681db693e5be1e 187-192
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "776162fea807c9f85ce75f7b76824747a42cb044",
+  "prompts": {},
+  "sessions": {
+    "s_f90fc25b295e21": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "2b91ba3a-1b03-496a-902d-a6f451279efa",
+        "model": "claude-opus-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
