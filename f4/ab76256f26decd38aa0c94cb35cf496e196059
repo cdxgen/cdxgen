@@ -1,0 +1,23 @@
+docs/README.md
+  s_e15fa3e37fe293::t_cbc193636623a8 3,7,19,39,66-102
+README.md
+  s_e15fa3e37fe293::t_7e760fd94f514d 190,192-194,279-281,284,287,290,293-294,315-377
+  s_e15fa3e37fe293::t_10543204d13e7a 150-155,157
+  s_e15fa3e37fe293::t_d193909814af0d 378
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "f4ab76256f26decd38aa0c94cb35cf496e196059",
+  "prompts": {},
+  "sessions": {
+    "s_e15fa3e37fe293": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_004ee39e1ffec19jguEHlyHpSH",
+        "model": "glm-5.2"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
