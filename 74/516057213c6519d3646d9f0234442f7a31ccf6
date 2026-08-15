@@ -1,0 +1,20 @@
+.github/workflows/nodejs.yml
+  s_ef0daf5d2dff59::t_5f16034a5e8b8d 145-147
+  s_ef0daf5d2dff59::t_edc1a80b339cc9 118
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "74516057213c6519d3646d9f0234442f7a31ccf6",
+  "prompts": {},
+  "sessions": {
+    "s_ef0daf5d2dff59": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_ffabbb372ffewW4Pv1BoEWeNsb",
+        "model": "glm-5.3"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
