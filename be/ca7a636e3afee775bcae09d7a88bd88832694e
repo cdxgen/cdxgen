@@ -1,0 +1,29 @@
+.agents/skills/bom-slimmer/SKILL.md
+  s_79476a86719669::t_bb02b2e1fb3eaa 3
+.agents/skills/cyclonedx-spec-reviewer/SKILL.md
+  s_79476a86719669::t_0d6edd65b22b8e 3
+.agents/README.md
+  s_79476a86719669::t_3bcd287075a157 14-19
+  s_79476a86719669::t_5fbfeeaf7b81ba 20-21
+.agents/skills/ecosystem-onboarding/SKILL.md
+  s_79476a86719669::t_58ff2cc7b3a7cd 1-48
+.agents/skills/custom-property-author/SKILL.md
+  s_79476a86719669::t_233ba912ee29ac 3
+  s_79476a86719669::t_e00e8b2cace5ff 1-2,4-58
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "beca7a636e3afee775bcae09d7a88bd88832694e",
+  "prompts": {},
+  "sessions": {
+    "s_79476a86719669": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_ff70a5971ffexHNaA2P8RTaIlE",
+        "model": "glm-5.3"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
