@@ -1,0 +1,39 @@
+lib/cli/cliOptions.js
+  s_c231eb4cc5d479::t_36acec2777d063 17
+  s_c231eb4cc5d479::t_3939e2ae36ed73 294
+  s_c231eb4cc5d479::t_4b94d30c624713 222-238
+  s_c231eb4cc5d479::t_dff21467093797 285-293,295
+  s_7ea0afbaea7b7a::t_c26eee450e624c 221
+docs/LESSON26.md
+  s_c231eb4cc5d479::t_461b26bf157d97 182-184
+docs/CLI.md
+  s_c231eb4cc5d479::t_c06e3936b9257a 38
+  s_7ea0afbaea7b7a::t_a3b3d72187c9bb 32-37,39-41
+lib/cli/cliOptions.poku.js
+  s_c231eb4cc5d479::t_d6b082ea86030c 328-364,366-370
+  s_c231eb4cc5d479::t_fe5368fd157bfd 365
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "2b351e715281a9a3dc20f36e5992f55f1178a38a",
+  "prompts": {},
+  "sessions": {
+    "s_7ea0afbaea7b7a": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "b22504da-3375-497c-81a2-b20e1e9cedea",
+        "model": "claude-opus-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    },
+    "s_c231eb4cc5d479": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_ff46b1bc6ffe12KtViaJxa1R1C",
+        "model": "glm-5.3"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
