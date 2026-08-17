@@ -1,0 +1,41 @@
+lib/inventory/osinfo.poku.js
+  s_d3ae7673122124::t_8795e2b1b44eb0 181-188
+  s_d3ae7673122124::t_08446f6cb17801 1-2,4-42,44-180,189-208
+  s_d3ae7673122124::t_e93d424d78d1e9 3
+  s_d3ae7673122124::t_655957819c8e76 43
+lib/inventory/osinfo.js
+  s_d3ae7673122124::t_e17efdb23299e9 89-155
+  s_d3ae7673122124::t_5f11c9acd43540 291-294
+  s_d3ae7673122124::t_179f4e59ddf63b 221-224
+  s_d3ae7673122124::t_6d3e515bb0f8a5 265-267
+  s_d3ae7673122124::t_9bc07e12391150 311-314,316
+lib/managers/binary.js
+  s_d3ae7673122124::t_d1531085066f88 40-45
+  s_d3ae7673122124::t_8661a756628b73 591
+  s_d3ae7673122124::t_f488ac7a7978f7 833-836
+  s_d3ae7673122124::t_745a0fbb8ac0bf 557-590,592-608
+  s_d3ae7673122124::t_8795e2b1b44eb0 845
+  s_d3ae7673122124::t_bd2f0b83b227f9 793-797
+  s_d3ae7673122124::t_b01cb05be9c5b4 556
+lib/managers/binary.poku.js
+  s_d3ae7673122124::t_c80b8243b1f739 1789-1808,1810-1820,1828-1841,1843-1872
+  s_d3ae7673122124::t_716fade58ebbed 14
+  s_d3ae7673122124::t_8795e2b1b44eb0 1809,1842
+  s_d3ae7673122124::t_6a73d99ba0558d 1821-1827
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "34273b60d182c426dd0d28f59f14272aca0a4970",
+  "prompts": {},
+  "sessions": {
+    "s_d3ae7673122124": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_fee43b9d0ffefcFX8VRZq09o2T",
+        "model": "glm-5.3"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
