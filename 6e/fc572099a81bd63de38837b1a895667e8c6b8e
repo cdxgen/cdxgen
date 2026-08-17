@@ -1,0 +1,19 @@
+.github/workflows/codeql.yml
+  s_a752f7247f35d0::t_8dcfe2de34860c 43,58
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "6efc572099a81bd63de38837b1a895667e8c6b8e",
+  "prompts": {},
+  "sessions": {
+    "s_a752f7247f35d0": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_ff00699feffeibHKK22HwS1ytO",
+        "model": "glm-5.3"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
