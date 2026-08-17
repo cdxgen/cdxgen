@@ -1,0 +1,31 @@
+lib/managers/binary.js
+  s_7ea0afbaea7b7a::t_7dfe7d0cb7972a 571-575,580,583-589,601-605
+  s_7ea0afbaea7b7a::t_7eac85e82102a5 613-617
+  s_7ea0afbaea7b7a::t_7d11cda4903d1e 942
+  s_7ea0afbaea7b7a::t_b27fa1d12978d7 632-679
+  s_7ea0afbaea7b7a::t_7effad4fd92a5a 631
+lib/inventory/osinfo.js
+  s_7ea0afbaea7b7a::t_e9c7abd94d1f00 101-105,109-110
+  s_7ea0afbaea7b7a::t_f2cf776a6a87ad 122-136,138-139,142-144,148-150,153-168
+  s_7ea0afbaea7b7a::t_b95d51b62bcb99 169
+lib/inventory/osinfo.poku.js
+  s_7ea0afbaea7b7a::t_070cec4fbf96d6 91,97,104,108,110-111,161-162,164-166,168-169,206-209
+lib/managers/binary.poku.js
+  s_7ea0afbaea7b7a::t_71d3b1aa1a9a40 1850,1852-1886,1888,1890,1956-1993
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "209e4ed0f67b75594d4002f972a9563b42c516c0",
+  "prompts": {},
+  "sessions": {
+    "s_7ea0afbaea7b7a": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "b22504da-3375-497c-81a2-b20e1e9cedea",
+        "model": "claude-opus-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
