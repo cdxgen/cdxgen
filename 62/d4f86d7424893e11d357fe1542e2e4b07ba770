@@ -1,0 +1,52 @@
+lib/inventory/osinfo.poku.js
+  s_d3ae7673122124::t_e93d424d78d1e9 3
+  s_d3ae7673122124::t_08446f6cb17801 1-2,4-42,44-180,189-208
+  s_d3ae7673122124::t_655957819c8e76 43
+  s_d3ae7673122124::t_8795e2b1b44eb0 181-188
+lib/managers/binary.poku.js
+  s_d3ae7673122124::t_8795e2b1b44eb0 1809,1842
+  s_d3ae7673122124::t_c80b8243b1f739 1789-1808,1810-1820,1828-1841,1843-1872,1920
+  s_d3ae7673122124::t_6a73d99ba0558d 1821-1827
+  s_d3ae7673122124::t_716fade58ebbed 14
+  s_7ea0afbaea7b7a::t_0fb4d38f8b6504 1873-1919
+lib/managers/binary.js
+  s_d3ae7673122124::t_b01cb05be9c5b4 556,609
+  s_7ea0afbaea7b7a::t_a122f88182d809 610-652
+  s_d3ae7673122124::t_f488ac7a7978f7 877-880
+  s_d3ae7673122124::t_8795e2b1b44eb0 889
+  s_d3ae7673122124::t_d1531085066f88 40-45
+  s_7ea0afbaea7b7a::t_981b7a932f20a2 1183
+  s_d3ae7673122124::t_745a0fbb8ac0bf 557-590,592-608
+  s_d3ae7673122124::t_bd2f0b83b227f9 837-841
+  s_d3ae7673122124::t_8661a756628b73 591
+lib/inventory/osinfo.js
+  s_d3ae7673122124::t_179f4e59ddf63b 221-224
+  s_d3ae7673122124::t_e17efdb23299e9 89-155
+  s_d3ae7673122124::t_5f11c9acd43540 291-294
+  s_d3ae7673122124::t_9bc07e12391150 311-314,316
+  s_d3ae7673122124::t_6d3e515bb0f8a5 265-267
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "62d4f86d7424893e11d357fe1542e2e4b07ba770",
+  "prompts": {},
+  "sessions": {
+    "s_7ea0afbaea7b7a": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "b22504da-3375-497c-81a2-b20e1e9cedea",
+        "model": "claude-opus-5"
+      },
+      "human_author": null
+    },
+    "s_d3ae7673122124": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_fee43b9d0ffefcFX8VRZq09o2T",
+        "model": "glm-5.3"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
