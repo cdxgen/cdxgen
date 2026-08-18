@@ -1,0 +1,39 @@
+.github/workflows/repotests.yml
+  s_95b19a61b1e640::t_21d959eac09c7e 1546
+  s_95b19a61b1e640::t_5fc439b45167a5 1002
+  s_95b19a61b1e640::t_e14231ca997c12 857
+  s_95b19a61b1e640::t_82c2dc4cd7c86a 1034
+  s_95b19a61b1e640::t_88434ac8f5db12 1053-1054
+  s_95b19a61b1e640::t_f230544920fe33 930
+  s_95b19a61b1e640::t_6c13315916a041 1489
+  s_95b19a61b1e640::t_7cdefe0d9f8dc7 1043
+  s_95b19a61b1e640::t_a6580b0b6e9eb9 986
+  s_95b19a61b1e640::t_0966ced668c318 1527
+  s_95b19a61b1e640::t_a815fea91b2b6e 1573
+  s_95b19a61b1e640::t_f74e1842c5af66 1327
+  s_95b19a61b1e640::t_fae27186246bc1 1502
+  s_95b19a61b1e640::t_1681668324d6ea 999
+  s_95b19a61b1e640::t_aad87eebef195b 938
+  s_95b19a61b1e640::t_fb3ca37a73665b 1022
+  s_95b19a61b1e640::t_227d652b8718cf 1063
+  s_95b19a61b1e640::t_f22cf779865f3b 1439
+  s_95b19a61b1e640::t_b89a691f16f56c 975
+  s_95b19a61b1e640::t_b82406ad6ef550 1384,1404
+  s_95b19a61b1e640::t_4b19ede0115f19 1403
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "9a74ff69a61e24b97cd21a4171e04c432508dfdb",
+  "prompts": {},
+  "sessions": {
+    "s_95b19a61b1e640": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_fea81c114ffeGveeyEOQmljH6S",
+        "model": "glm-5.3"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
