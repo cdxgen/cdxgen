@@ -1,0 +1,21 @@
+docs/CUSTOM_PROPERTIES.md
+  s_4404ecd5ee26bb::t_c8383d6c9b98af 874
+docs/ENV.md
+  s_4404ecd5ee26bb::t_b786d121eb1c10 35
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "9d73d73bc676858f6d8e39910e085d190af66fe4",
+  "prompts": {},
+  "sessions": {
+    "s_4404ecd5ee26bb": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_fd3c171b6ffenbzHgiB2q1icjg",
+        "model": "glm-5.3"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
