@@ -1,0 +1,61 @@
+.github/workflows/repotests.yml
+  s_e18052190948ee::t_717aeb1097fd55 64,355,454,800-801,1064,1748,2115
+ci/Dockerfile
+  s_e18052190948ee::t_30b3a14ac18503 15
+ci/Dockerfile-bun
+  s_e18052190948ee::t_7e6e70b6a99a24 26
+ci/Dockerfile-deno
+  s_e18052190948ee::t_004354259e86fb 26
+ci/Dockerfile-ppc64
+  s_e18052190948ee::t_5d8784df634c8f 20
+ci/images/Dockerfile.python3.11
+  s_e18052190948ee::t_5abb09298f60a5 8
+ci/images/alpine/Dockerfile.golang1.27
+  s_e18052190948ee::t_24e5ffd05683bc 1-82
+ci/images/debian/Dockerfile.golang1.27
+  s_e18052190948ee::t_f14e13692fe322 1-139
+ci/images/opensuse/Dockerfile.python3.10
+  s_e18052190948ee::t_fa2fba06036c98 7
+deno.json
+  s_e18052190948ee::t_9309af0337c911 102
+package.json
+  s_e18052190948ee::t_a473bfdf65f3dd 185-195
+pnpm-lock.yaml
+  s_e18052190948ee::t_7980e643fc0ef7 127-128,130-131,133-134,136-137,139-140,142-143,145-146,148-149,151-152,154-155,157-158,348-349,353-354,358-359,364-365,370-371,376-377,382-383,388-389,394-395,399-400,404-405,1262,1265,1268,1271,1274,1277,1280,1283,1286,1289,1292
+test/data/alpaquita-installed
+  s_57e950198aeb9e::t_b1dcf350415ea6 1-163
+test/data/bom-alpaquita-trivy.json
+  s_57e950198aeb9e::t_fa7418d2021d24 1-568
+lib/inventory/osinfo.js
+  s_57e950198aeb9e::t_7cfd4ae0ff04e9 291
+lib/inventory/osinfo.poku.js
+  s_57e950198aeb9e::t_67a5c9c6be2163 136-142
+lib/managers/binary.js
+  s_57e950198aeb9e::t_6b5efb0a50059c 890-892,896-897
+lib/managers/binary.poku.js
+  s_57e950198aeb9e::t_c5e6bb9ccbd02d 6,20-30,1050-1136
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "6d9c808c07e440edcdfd7b38d54995828716e41d",
+  "prompts": {},
+  "sessions": {
+    "s_57e950198aeb9e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "878d05ee-76f2-454a-8910-9c0d149b2e5b",
+        "model": "claude-opus-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    },
+    "s_e18052190948ee": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_fd3b68833ffe0XDTYByPN6JIk7",
+        "model": "glm-5.3"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
