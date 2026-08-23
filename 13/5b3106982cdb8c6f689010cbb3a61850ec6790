@@ -1,0 +1,22 @@
+lib/stages/pregen/envAudit.js
+  s_283773b45be7ed::t_f8f67b1ecc42fd 50-52,54
+lib/stages/pregen/envAudit.poku.js
+  s_283773b45be7ed::t_0eb1de282dfb71 461-477,479-484
+  s_283773b45be7ed::t_ee2973b6ee1352 478
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "135b3106982cdb8c6f689010cbb3a61850ec6790",
+  "prompts": {},
+  "sessions": {
+    "s_283773b45be7ed": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_fd387ad0bffeTRJCqeg1puMYeD",
+        "model": "glm-5.3"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
