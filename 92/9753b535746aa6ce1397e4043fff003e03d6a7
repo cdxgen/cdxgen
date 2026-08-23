@@ -1,0 +1,59 @@
+lib/ecosystems/parsers-python.js
+  s_cfca3b3123cfaf::t_9fdb4f9625abb3 1924-1937
+lib/ecosystems/parsers-rust.js
+  s_cfca3b3123cfaf::t_83ee889ebc5d0c 65-73,89-90
+  s_cfca3b3123cfaf::t_a9339cafadde68 87
+lib/ecosystems/parsers-rust.poku.js
+  s_cfca3b3123cfaf::t_6b4a8279f68313 674-675,699-701
+  s_cfca3b3123cfaf::t_5bf043562e8087 634,636,655-663,669-672,676-679,702-704,711-713,718,720,726
+  s_cfca3b3123cfaf::t_a985b95624dc46 673
+  s_cfca3b3123cfaf::t_e6b257af3f6761 630-633,635,637-654,664-668,680-698,705-710,714-717,719,721-725,727-731
+lib/cli/nativeBom.poku.js
+  s_cfca3b3123cfaf::t_6b4a8279f68313 411-413,419-421
+  s_cfca3b3123cfaf::t_50f85c22c904bf 278-355,365-402,409-410,414-418,422-441
+  s_cfca3b3123cfaf::t_7dd70e8f4b61bc 364
+  s_cfca3b3123cfaf::t_5015db3c9f4529 21
+  s_cfca3b3123cfaf::t_36ec42012df37e 356-363
+  s_cfca3b3123cfaf::t_54ce42eafad0ed 403-408
+lib/cli/bomAssembly.poku.js
+  s_cfca3b3123cfaf::t_6b4a8279f68313 459,461-463,468-471
+  s_cfca3b3123cfaf::t_e1dc86c944be5a 441-458,464-467,472-515,525-572
+  s_cfca3b3123cfaf::t_5ee5f143eaead6 460
+  s_cfca3b3123cfaf::t_02cdd5c6e71c30 516-524
+  s_cfca3b3123cfaf::t_1fba98f56b439c 401-403
+lib/ecosystems/parsers-python.poku.js
+  s_cfca3b3123cfaf::t_80294769cd3722 917-920
+  s_cfca3b3123cfaf::t_f2579b444a42eb 887-890
+lib/cli/bomAssembly.js
+  s_cfca3b3123cfaf::t_935bf16bf0bd4b 185,421,425,428-445,447-449
+  s_cfca3b3123cfaf::t_250573908ddd02 346-347,352,356-357,359,388,396,406-420,426-427,446,450
+  s_cfca3b3123cfaf::t_b26e74d8e91a72 383-385,403-405
+  s_cfca3b3123cfaf::t_e75e1f887ac249 1260-1262
+  s_cfca3b3123cfaf::t_b683c681af874b 186-202
+  s_cfca3b3123cfaf::t_da32400c260738 245-252
+  s_cfca3b3123cfaf::t_be5ac02b8de00f 369-371
+  s_cfca3b3123cfaf::t_6e8eaae216ab8f 348-350,353-355,360-368,372-382,387
+  s_cfca3b3123cfaf::t_79ddbcf749a84a 451
+lib/ecosystems/rubyutils.js
+  s_cfca3b3123cfaf::t_2229dc4687bfc6 1244-1253
+lib/ecosystems/rubyutils.poku.js
+  s_cfca3b3123cfaf::t_0c5feabe814e82 732-737
+  s_cfca3b3123cfaf::t_8c94926d1926f9 884-887
+  s_cfca3b3123cfaf::t_c1384571759004 675-680
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "929753b535746aa6ce1397e4043fff003e03d6a7",
+  "prompts": {},
+  "sessions": {
+    "s_cfca3b3123cfaf": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_fd3aabefaffeNz7JsOfQV5lyG4",
+        "model": "glm-5.3"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
