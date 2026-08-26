@@ -1,0 +1,27 @@
+lib/cli/bomTestHelpers.poku.js
+  s_71fcf4934b4bcf::t_e803e1e229ac74 242-275
+lib/cli/index.js
+  s_71fcf4934b4bcf::t_d90bd87cebf416 43,2663-2664,2677,2682,2689,2691,2714-2719,2722
+lib/cli/index.poku.js
+  s_71fcf4934b4bcf::t_0312c796c5fc29 1,27,38-44,682,685,687,689-696,734,737-742,780,783-787,816-819,853-856,869-871,873,876-900,902-943
+lib/helpers/remote/dependency-track.js
+  s_71fcf4934b4bcf::t_3b08218ea78a6e 2,48-53,56,58,104,107-108,111,114,118-184
+lib/helpers/remote/dependency-track.poku.js
+  s_71fcf4934b4bcf::t_f898e3350fb56d 3,6-7,12-18,74-80,85-87,93-98,109,112-118,121,123,126-128,131-133,136-137,140-142,144-153,158-159,164-165,168-219,222-267
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "c7e325ed39ba72632840def297f9027238809808",
+  "prompts": {},
+  "sessions": {
+    "s_71fcf4934b4bcf": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "e1d73403-6662-49ed-aaf2-027327b62436",
+        "model": "claude-opus-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
