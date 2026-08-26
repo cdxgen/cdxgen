@@ -863,6 +863,15 @@ These properties are safe for policy because they are small values, counts, cate
 - `cdx:dosai:crypto:reachableFromEntryPoint`
 - `cdx:dosai:crypto:entryPointCount`
 - `cdx:dosai:crypto:dataFlowSliceIds`
+- `cdx:service:kind`
+- `cdx:service:direction`
+- `cdx:service:framework`
+- `cdx:service:pathTemplate`
+- `cdx:dosai:confidence`
+- `cdx:dosai:tag`
+- `cdx:ai:modelFile`
+- `cdx:ai:promptText`
+- `cdx:ai:toolSchema`
 
 #### Compact operational reference
 
@@ -890,6 +899,15 @@ These properties are safe for policy because they are small values, counts, cate
 | `cdx:dosai:crypto:reachableFromEntryPoint` | component | boolean string | `"true"`, `"false"`                           | For every dosai asset/operation/material                         | Separates actively reachable crypto from dead code                  | Warning / triage |
 | `cdx:dosai:crypto:entryPointCount`         | component | number string  | `1`, `5`                                      | When dosai reports one or more entry-point IDs                   | Higher counts indicate broader reachability surface                 | Warning / triage |
 | `cdx:dosai:crypto:dataFlowSliceIds`        | component | list string    | `dfs1,dfs2`                                   | When dosai reports data-flow slice IDs for an asset or material  | Enables correlation with dosai data-flow slice output for triage    | Context only     |
+| `cdx:service:kind`                         | service   | string         | `http`, `grpc`, `mcp`                         | When dosai classifies a detected service                         | Separates HTTP surface from RPC, messaging, and AI egress           | Context only     |
+| `cdx:service:direction`                    | service   | string         | `inbound`, `outbound`, `bidirectional`        | When dosai classifies a detected service                         | Distinguishes hosted attack surface from third-party egress         | Warning / triage |
+| `cdx:service:framework`                    | service   | string         | `aspnetcore-mvc`, `grpc`, `mcp`               | When dosai attributes a service to a framework provider          | Attributes each service to the framework that exposes it            | Context only     |
+| `cdx:service:pathTemplate`                 | service   | string         | `api/[controller]/{id}`                       | When the verbatim template differs from the resolved path        | Preserves the authored template alongside the resolved endpoint     | Context only     |
+| `cdx:dosai:confidence`                     | service   | string         | `high`, `medium`, `low`                       | On every dosai-derived service                                   | Flags name-matched or config-inferred findings for manual review    | Warning / triage |
+| `cdx:dosai:tag`                            | service   | list string    | `finding:mcp-http-host-header-unrestricted`   | When a provider raises a security-relevant tag                   | Surfaces framework-specific misconfiguration findings               | Warning / triage |
+| `cdx:ai:modelFile`                         | component | string         | `models/phi-3.gguf`                           | When an on-disk model artifact is detected                       | Identifies local model weights shipped with the application         | Context only     |
+| `cdx:ai:promptText`                        | component | string         | `You are a helpful assistant...`              | When a system prompt is extracted (redacted unless opted in)     | Exposes prompt content that governs model behaviour                 | Warning / triage |
+| `cdx:ai:toolSchema`                        | component | string         | `{"type":"object",...}`                       | When a tool exposed to a model has a derived JSON Schema         | Documents the tool surface an LLM can invoke                        | Warning / triage |
 
 #### High-value combinations
 
