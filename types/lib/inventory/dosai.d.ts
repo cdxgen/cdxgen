@@ -109,6 +109,26 @@ export declare function collectDosaiPurlEvidence(methodsSlice: Object, component
  */
 export declare function collectDosaiDataFlowFrames(dataFlowResult: Object, components?: Object[]): Object;
 /**
+ * Consume dosai's AiComponents[] inventory (schema 4.0.0): model identifiers,
+ * on-disk model artifacts with hashes, MCP tools, prompts (redacted), and agents
+ * become CycloneDX machine-learning-model / data components with modelCard data.
+ *
+ * @param {Object} methodsSlice Parsed dosai methods slice JSON
+ * @param {Array} [components] Component list to mutate in place
+ * @returns {Array} The updated component list
+ */
+export declare function collectDosaiAiComponents(methodsSlice: Object, components?: any[]): any[];
+/**
+ * Consume dosai's first-class Services[] inventory (schema 4.0.0) directly: richer
+ * than deriving services from ApiEndpoints alone — stable bom-refs, trust zones,
+ * data classifications, providers, and per-service evidence occurrences.
+ *
+ * @param {Object} methodsSlice Parsed dosai methods slice JSON
+ * @param {Object} [servicesMap] Map of service key to service definition, mutated in place
+ * @returns {Object} The updated services map
+ */
+export declare function collectDosaiServiceComponents(methodsSlice: Object, servicesMap?: Object): Object;
+/**
  * Infer service and endpoint definitions from a dosai methods slice.
  *
  * Sanitizes API endpoint routes, derives stable service names, and records

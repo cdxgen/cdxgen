@@ -123,6 +123,7 @@ export declare function analyzeProject(dbObjMap: Object, options: Object): Promi
     tempDir?: undefined;
     tempDirOwned?: undefined;
     cryptoComponents?: undefined;
+    aiComponents?: undefined;
     cryptoGeneratePurls?: undefined;
     openapiSpecFile?: undefined;
 } | {
@@ -141,6 +142,7 @@ export declare function analyzeProject(dbObjMap: Object, options: Object): Promi
     semanticsSlicesFile?: undefined;
     tempDir?: undefined;
     tempDirOwned?: undefined;
+    aiComponents?: undefined;
     openapiSpecFile?: undefined;
 } | {
     componentPropertiesMap?: undefined;
@@ -155,6 +157,7 @@ export declare function analyzeProject(dbObjMap: Object, options: Object): Promi
     tempDirOwned: any;
     userDefinedTypesMap: {};
     cryptoComponents: any[];
+    aiComponents: any[];
     cryptoGeneratePurls: {};
     atomFile?: undefined;
     reachablesSlicesFile?: undefined;
@@ -174,6 +177,7 @@ export declare function analyzeProject(dbObjMap: Object, options: Object): Promi
     tempDirOwned: any;
     userDefinedTypesMap: {};
     cryptoComponents: any[];
+    aiComponents: any;
     cryptoGeneratePurls: {};
     openapiSpecFile: any;
 }>;
