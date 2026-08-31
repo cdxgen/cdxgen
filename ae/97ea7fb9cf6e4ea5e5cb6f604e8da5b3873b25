@@ -1,0 +1,36 @@
+lib/stages/postgen/introspection/deferredExit.js
+  s_562fed49cf5ee5::t_a3f52006a39ac9 60,95-96,107,121-125,127
+  s_562fed49cf5ee5::t_47321fcbcf2723 88
+test/matrix/toolchain-matrix.yaml
+  s_562fed49cf5ee5::t_a53265762996d2 509-511,514-517
+lib/ecosystems/gradleutils.js
+  s_562fed49cf5ee5::t_e339d3ac6019cd 477-485
+  s_562fed49cf5ee5::t_44d0a1943b4689 476
+lib/stages/postgen/introspection/deferredExit.poku.js
+  s_562fed49cf5ee5::t_5d75bb97950068 128-137
+test/matrix/baseline.json
+  s_562fed49cf5ee5::t_7ac2dfda5b9def 37-39,200-201
+lib/cli/jvmBom.js
+  s_562fed49cf5ee5::t_685620049ba898 1217,1324,1349,1459,1509,1530,1538,1748,1783,1901,1927,1996
+  s_562fed49cf5ee5::t_611b9e908ce1d0 735-737,746-755
+  s_562fed49cf5ee5::t_45fc3b4ddca214 2015-2018
+  s_562fed49cf5ee5::t_8e1693c84ca21a 907-908,910-915
+lib/ecosystems/gradleutils.poku.js
+  s_562fed49cf5ee5::t_e339d3ac6019cd 19,783
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "ae97ea7fb9cf6e4ea5e5cb6f604e8da5b3873b25",
+  "prompts": {},
+  "sessions": {
+    "s_562fed49cf5ee5": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "9d4a9ab0-6996-465a-9da3-cdaedd70dfa0",
+        "model": "claude-opus-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
