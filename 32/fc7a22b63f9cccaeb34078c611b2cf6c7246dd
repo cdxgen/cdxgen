@@ -1,0 +1,623 @@
+test/helpers/introspection-e2e.js
+  s_562fed49cf5ee5::t_61c69cf8afb083 1,42,57,78,98,117,132,152,168,201,273,300,310,323,355,373,494,515,535
+  s_562fed49cf5ee5::t_f1396a526d8a6a 3,9,16,44,46,50,53,55,61,65,69,71,83,87,92,96,103,106,110,113,115,119,122,130,135,138,148,150,154,156-157,165-166,173,177,182,185,196,199,205,217,271,278,280,303,305,314,316,327,329,351,353,359,362,369,371,385,391,490,492,496,500,504,513,518,521,533,536-705,717
+  s_562fed49cf5ee5::t_91650327fe7e08 2,4-8,10-15,17-41,43,45,47-49,51-52,54,56,58-60,62-64,66-68,70,72-77,79-82,84-86,88-91,93-95,97,99-102,104-105,107-109,111-112,114,116,118,120-121,123-129,131,133-134,136-137,139-147,149,151,153,155,158-164,167,169-172,174-176,178-181,183-184,186-195,197-198,200,202-204,206-216,218-270,272,274-277,279,281-299,301-302,304,306-309,311-313,315,317-322,324-326,328,330-350,352,354,356-358,360-361,363-368,370,372,374-384,386-390,392-489,491,493,495,497-499,501-503,505-512,514,516-517,519-520,522-532,534,706-716
+lib/core/buildLedger.js
+  s_562fed49cf5ee5::t_c7556facc67435 1,4,13,15,27,32,47,49,64,66,72,74,89,92,94,121,128,130,135,141,143-158,164,166,169,172,176,180,185,203,206,208,215,217,223,228,231,238,240,245,248,260,262,264,268,272,278,280,284,288,294,297,300,303,306,309,312,315,318,321,324,326,330,333,338,343-344,346,351,354,372,376,378,382,386,390,394,400,406,408,410,416,420,422,425,427,429,433,442,444,446,448,451,454,456,461,463,466,468,476,479,483,487,494,500,502,507,509,514,516,520,522,526,528,534,537,542,558,560,562,566,568,572,578-579
+  s_562fed49cf5ee5::t_1360076982f85a 359-362
+  s_562fed49cf5ee5::t_77732667975f02 104-113
+  s_562fed49cf5ee5::t_3a08e59329aeeb 2-3,5-12,14,16-26,28-31,33-46,48,50-63,65,67-71,73,75-88,90-91,93,95-103,114-120,122-127,129,131-134,136-140,142,159-163,165,167-168,170-171,173-175,177-179,181-184,186-202,204-205,207,209-214,216,218-222,224-227,229-230,232-237,239,241-244,246-247,249-259,261,263,265-267,269-271,273-277,279,281-283,285-287,289-293,295-296,298-299,301-302,304-305,307-308,310-311,313-314,316-317,319-320,322-323,325,327-329,331-332,334-337,339-342,345,347-350,352-353,355-358,363-371,373-375,377,379-381,383-385,387-389,391-393,395-399,401-405,407,409,411-415,417-419,421,423-424,426,428,430-432,434-441,443,445,447,449-450,452-453,455,457-460,462,464-465,467,469-475,477-478,480-482,484-486,488-493,495-499,501,503-506,508,510-513,515,517-519,521,523-525,527,529-533,535-536,538-541,543-557,559,561,563-565,567,569-571,573-577
+jsr.json
+  s_562fed49cf5ee5::t_b8adeab4a327bf 3
+lib/cli/managedBom.js
+  s_562fed49cf5ee5::t_c883463c4d3386 412-416,595-599,1108-1112,1148-1152,1342-1346,1388-1392,1665-1669,1718-1722,1825-1829
+  s_562fed49cf5ee5::t_2022e933a3a90b 9
+.agents/skills/sbom-fidelity-loop/reference/report-schema.md
+  s_562fed49cf5ee5::t_c81d56c0ded492 60-260
+  s_562fed49cf5ee5::t_280831b7213f86 1-59,261-264
+docs/LESSON32.md
+  s_562fed49cf5ee5::t_93e7fd3fd530e8 66-72,178,192
+  s_562fed49cf5ee5::t_d0f8422f8b56d3 1-65,73-177,179-191,193-203
+docs/ADVANCED.md
+  s_562fed49cf5ee5::t_69fbb9a8c58db3 296-319
+  s_562fed49cf5ee5::t_2f135473c8e69c 275-295,320-395
+test/matrix/toolchain-matrix.yaml
+  s_562fed49cf5ee5::t_056af4674d7df4 172-173,189-190,229-230,239,267,276,445,490-495
+  s_562fed49cf5ee5::t_8beb8de42ff7b5 14-147,217-228,241-266,278-426,429,431,433,448-481
+  s_562fed49cf5ee5::t_a53265762996d2 508-516,530-531
+  s_562fed49cf5ee5::t_30368a01189b95 213-214
+  s_562fed49cf5ee5::t_65473fa91e519a 428,430,432,434-440
+  s_562fed49cf5ee5::t_8b3fa9e2eb6602 496,533-534
+  s_562fed49cf5ee5::t_4fa37fd2d7939e 1-13,148-171,174-188,191-212,215-216,231-238,240,268-275,277,427,441-444,446-447,482-489,497-507,517-529,532,535-537
+docs/CLI.md
+  s_562fed49cf5ee5::t_c81d56c0ded492 157-164
+  s_562fed49cf5ee5::t_95980fc9e21967 93-156,165-173,412-425
+lib/core/deferredExit.poku.js
+  s_562fed49cf5ee5::t_020d7940f86202 165-194
+  s_562fed49cf5ee5::t_2022e933a3a90b 27
+  s_562fed49cf5ee5::t_7a67cb7562470a 19
+  s_562fed49cf5ee5::t_a8d030d363f252 1-18,20-26,28-164,195-215
+lib/cli/jsBom.js
+  s_562fed49cf5ee5::t_c883463c4d3386 535,541,660-664,960-964,1041-1045
+  s_562fed49cf5ee5::t_2022e933a3a90b 15
+  s_562fed49cf5ee5::t_df294cc832233b 14,534,536-540,593-599
+lib/ecosystems/gradleutils.js
+  s_562fed49cf5ee5::t_e339d3ac6019cd 480-486,499-500,521,554,568,665
+  s_562fed49cf5ee5::t_44d0a1943b4689 479
+  s_562fed49cf5ee5::t_850639e0d8cbb0 467,471,473,476-478,487-498,501,505,508,523,527,530,556,563,569,656
+  s_562fed49cf5ee5::t_b767e988da52af 13-19,24,60-61,81-82,124-133,409-411,464-466,468-470,472,474-475,502-504,506-507,509-520,522,524-526,528-529,531-553,555,557-562,564-567,570-655,657-664,666,830-831,973,1146-1147,1184-1185,1206-1207,1304-1313
+pyproject.toml
+  s_562fed49cf5ee5::t_b8adeab4a327bf 3
+contrib/toolchain-matrix.js
+  s_562fed49cf5ee5::t_3820fc62de94e5 58-60
+  s_562fed49cf5ee5::t_bb2b76ed4f9add 4,14,19,26,31,89,91,131,134,138,140,149,153,158,185,188,192,196,209,213,215,222,226,229,237,242,247,269,273,276,293,300,309,352,356,360,382,428,441,445,449,483,487,491,494,508,512,514,524,528,530,533,622,626,630,652,655-684,687,690,710,716,721,751,781,797,800,804,806,809,812,816,819,826,832,836,862,866,869,874,883,887,893,898,903,906,924,934,943,947,949,964,973,981,1022,1072
+  s_562fed49cf5ee5::t_370595548e85bf 337
+  s_562fed49cf5ee5::t_943ec2f39df3b4 132,146-147,186,204,251,267,286,369,383,393,404,414,429,439,453,495,501,506,518,523,560,568,574,592,618,696,700,704,727,740,759,782,798,810,824,842,845-846,851-852,888,894,913-914,935,955,959,966,986-987,989-1008,1026,1071
+  s_562fed49cf5ee5::t_185b3aac718545 764-768
+  s_562fed49cf5ee5::t_0d4ac7c0f99f05 1032-1042
+  s_562fed49cf5ee5::t_ff92813d044ecb 1049-1069
+  s_562fed49cf5ee5::t_068a390b7e22a9 301-304
+  s_562fed49cf5ee5::t_2f92d25ef56ce7 736-738
+  s_562fed49cf5ee5::t_9c9d783c4b0e24 46
+  s_562fed49cf5ee5::t_acdde74aaaee87 500,616,739,756,758,762,783-788,793,977,985
+  s_562fed49cf5ee5::t_643dab55f807cb 159-169,171-179,774,777
+  s_562fed49cf5ee5::t_ac2128816ee5dc 714-715
+  s_562fed49cf5ee5::t_37aee206045aec 61-76
+  s_562fed49cf5ee5::t_32a4faa9890405 170
+  s_562fed49cf5ee5::t_a529d72a9c4bf2 2,86,136,190,211,224,239,271,295,354,443,485,510,526,624,654,685,712,802,814,828,900,945
+  s_562fed49cf5ee5::t_5ae8fab014b44b 1
+  s_562fed49cf5ee5::t_b2d5a8b9afb51f 3
+  s_562fed49cf5ee5::t_f8cfabe635f1ee 5-7,11-13
+  s_562fed49cf5ee5::t_945294bfba1604 15-18
+  s_562fed49cf5ee5::t_8046c9e483fc41 20-25
+  s_562fed49cf5ee5::t_911d23b54be827 27-30
+  s_562fed49cf5ee5::t_a991b4d7c32289 32-34,43-45
+  s_562fed49cf5ee5::t_7580b73375a0cc 47-49,55-57
+  s_562fed49cf5ee5::t_ae5dd92b1e9e44 77-79,83-85
+  s_562fed49cf5ee5::t_846fe7b0ffcf04 87-88
+  s_562fed49cf5ee5::t_db643f1bfbf903 90
+  s_562fed49cf5ee5::t_bdf66911a41051 92-94,128-130
+  s_562fed49cf5ee5::t_00b62fe79503a8 133
+  s_562fed49cf5ee5::t_394754650ce5ee 135
+  s_562fed49cf5ee5::t_ab401d791a0184 137
+  s_562fed49cf5ee5::t_07064a22744155 139
+  s_562fed49cf5ee5::t_6f03ef5a92cb40 141-145
+  s_562fed49cf5ee5::t_924d1ed723ea29 148
+  s_562fed49cf5ee5::t_b20225d259fc46 150-152
+  s_562fed49cf5ee5::t_8a226f8c510cf3 154-157
+  s_562fed49cf5ee5::t_f41072694fb011 180-184
+  s_562fed49cf5ee5::t_b3bf0121358f1f 187
+  s_562fed49cf5ee5::t_71454efc35d330 189
+  s_562fed49cf5ee5::t_328db1295610f5 191
+  s_562fed49cf5ee5::t_68f3948bbfc2aa 193-195
+  s_562fed49cf5ee5::t_e9f92a5f26a57c 197-199,201-203
+  s_562fed49cf5ee5::t_2ce5bdd07561a6 205-208
+  s_562fed49cf5ee5::t_a843469aed418c 210
+  s_562fed49cf5ee5::t_96335a503978fc 212
+  s_562fed49cf5ee5::t_f88fadacfd5df6 214
+  s_562fed49cf5ee5::t_eefdaa9b921161 216-221
+  s_562fed49cf5ee5::t_ef22cfc3a9cc7b 223
+  s_562fed49cf5ee5::t_088484fc8b4121 225
+  s_562fed49cf5ee5::t_7476caf13cb464 227-228
+  s_562fed49cf5ee5::t_6cca006dc06c63 230-232,234-236
+  s_562fed49cf5ee5::t_316bae5aa69b2b 238
+  s_562fed49cf5ee5::t_24066ca4b0aa7a 240-241
+  s_562fed49cf5ee5::t_94ecd412c9b4a6 243-246
+  s_562fed49cf5ee5::t_624dd536e21c08 248-250
+  s_562fed49cf5ee5::t_d2ace51ecfdf0f 252-254,264-266
+  s_562fed49cf5ee5::t_f5b4f108d0cc1c 268
+  s_562fed49cf5ee5::t_5f1f20ee2ac7ab 270
+  s_562fed49cf5ee5::t_47be1d90ddd26b 272
+  s_562fed49cf5ee5::t_fea08a218e15a9 274-275
+  s_562fed49cf5ee5::t_f259103d9576cc 277-279,283-285
+  s_562fed49cf5ee5::t_1d04c25679a77b 287-292
+  s_562fed49cf5ee5::t_76d61617b79022 294
+  s_562fed49cf5ee5::t_3e997f1e15e13a 296-299
+  s_562fed49cf5ee5::t_a6fa171580b039 305-308
+  s_562fed49cf5ee5::t_e5325cb5cfed3d 310-312,334-336
+  s_562fed49cf5ee5::t_b5293aa361a90e 338-340,349-351
+  s_562fed49cf5ee5::t_45ad66635ac8ca 353
+  s_562fed49cf5ee5::t_33938f0802c6a9 355
+  s_562fed49cf5ee5::t_8b37927ba865be 357-359
+  s_562fed49cf5ee5::t_04c1d2b655f13f 361-363,366-368
+  s_562fed49cf5ee5::t_c8036c693f8403 370-372,379-381
+  s_562fed49cf5ee5::t_117ab2324508e3 384-386,390-392
+  s_562fed49cf5ee5::t_d3ccce53d4d79b 394-396,401-403
+  s_562fed49cf5ee5::t_2d3852f013e20e 405-407,411-413
+  s_562fed49cf5ee5::t_f646018405468f 415-417,425-427
+  s_562fed49cf5ee5::t_b9b4bc1f80c62a 430-432,436-438
+  s_562fed49cf5ee5::t_87ee24620dfd80 440
+  s_562fed49cf5ee5::t_c31cb3b13aec31 442
+  s_562fed49cf5ee5::t_4ec5062454fe13 444
+  s_562fed49cf5ee5::t_ab7e787138a09f 446-448
+  s_562fed49cf5ee5::t_1a8e34071ef0e4 450-452
+  s_562fed49cf5ee5::t_ca8c0b0f0b3873 454-456,480-482
+  s_562fed49cf5ee5::t_4d1765ab623e51 484
+  s_562fed49cf5ee5::t_bca7344d9e9022 486
+  s_562fed49cf5ee5::t_02ab414274d492 488-490
+  s_562fed49cf5ee5::t_7677dc4f92ebf6 492-493
+  s_562fed49cf5ee5::t_5dfd27ac51db2f 496-499
+  s_562fed49cf5ee5::t_0fa446f030ad62 502-505
+  s_562fed49cf5ee5::t_804edbe4a05efc 507
+  s_562fed49cf5ee5::t_0871d92050eb4d 509
+  s_562fed49cf5ee5::t_aa6f627e00f670 511
+  s_562fed49cf5ee5::t_805e4ec796af60 513
+  s_562fed49cf5ee5::t_1f605691a5bae5 515-517
+  s_562fed49cf5ee5::t_7169718c56cdce 519-522
+  s_562fed49cf5ee5::t_b6410a62ce14af 525
+  s_562fed49cf5ee5::t_51dcd0ed052a74 527
+  s_562fed49cf5ee5::t_7a9964ab084bee 529
+  s_562fed49cf5ee5::t_051f3d0695adc0 531-532
+  s_562fed49cf5ee5::t_f23972cf619a66 534-536,557-559
+  s_562fed49cf5ee5::t_7a6b516a33415f 561-563,565-567
+  s_562fed49cf5ee5::t_b3b09fb76eb8b7 569-573
+  s_562fed49cf5ee5::t_a74a0b4dc1c716 575-577,589-591
+  s_562fed49cf5ee5::t_7db49a24d0d978 593-595,613-615
+  s_562fed49cf5ee5::t_faac71c112b504 617
+  s_562fed49cf5ee5::t_5b752dedc85734 619-621
+  s_562fed49cf5ee5::t_bd188f3dfe81ae 623
+  s_562fed49cf5ee5::t_550e31759d1716 625
+  s_562fed49cf5ee5::t_bbf37466cf5653 627-629
+  s_562fed49cf5ee5::t_035d747c09c8b9 631-633,649-651
+  s_562fed49cf5ee5::t_63bf520ec09058 653
+  s_562fed49cf5ee5::t_f252fe2a1a103c 686
+  s_562fed49cf5ee5::t_a019d6ac2d638e 688-689
+  s_562fed49cf5ee5::t_1729d326840194 691-695
+  s_562fed49cf5ee5::t_87c9964427856c 697-699
+  s_562fed49cf5ee5::t_aa6142f91b8b87 701-703
+  s_562fed49cf5ee5::t_4c3301a3fa4fe8 705-709
+  s_562fed49cf5ee5::t_e2a87ab9031261 711
+  s_562fed49cf5ee5::t_0627eb6486b340 713
+  s_562fed49cf5ee5::t_b9db202798402a 717-720
+  s_562fed49cf5ee5::t_94d56805621589 722-726
+  s_562fed49cf5ee5::t_628f0d9decaa9d 728-730,733-735
+  s_562fed49cf5ee5::t_ec2805edd960e9 741-743,748-750
+  s_562fed49cf5ee5::t_8fa78882ed6bc8 752-755
+  s_562fed49cf5ee5::t_9ec07372943d47 757
+  s_562fed49cf5ee5::t_1858ff52cd646e 760-761
+  s_562fed49cf5ee5::t_0fdae5cf29bcbd 763
+  s_562fed49cf5ee5::t_cb624d80a4d0f1 769-773
+  s_562fed49cf5ee5::t_48144382fc34f4 775-776
+  s_562fed49cf5ee5::t_fc496955850465 778-780
+  s_562fed49cf5ee5::t_e02e87757be023 789-792
+  s_562fed49cf5ee5::t_14fd194a9d5ab8 794-796
+  s_562fed49cf5ee5::t_cf373918836491 799
+  s_562fed49cf5ee5::t_1fe3a4bc161686 801
+  s_562fed49cf5ee5::t_4c4539237b0693 803
+  s_562fed49cf5ee5::t_3851e84f6ace6e 805
+  s_562fed49cf5ee5::t_a1b1a539cdd7ca 807-808
+  s_562fed49cf5ee5::t_f62d954dba6ea3 811
+  s_562fed49cf5ee5::t_cf3e22cc7b1f8f 813
+  s_562fed49cf5ee5::t_4fb1371b08c9fb 815
+  s_562fed49cf5ee5::t_ebb4c515ccca08 817-818
+  s_562fed49cf5ee5::t_1f76cbaedc700b 820-823
+  s_562fed49cf5ee5::t_8ff3262d26c475 825
+  s_562fed49cf5ee5::t_434c1dec6b4e63 827
+  s_562fed49cf5ee5::t_8017e46eb3b514 829-831
+  s_562fed49cf5ee5::t_49ba9a3b2a684f 833-835
+  s_562fed49cf5ee5::t_7700d53d940677 837-841
+  s_562fed49cf5ee5::t_3805247602b03e 843-844
+  s_562fed49cf5ee5::t_0d23fa89811f70 847-850
+  s_562fed49cf5ee5::t_8c123aeb65eb2b 853-855,859-861
+  s_562fed49cf5ee5::t_63f1153585ce1c 863-865
+  s_562fed49cf5ee5::t_279852707ff6ca 867-868
+  s_562fed49cf5ee5::t_70536b5390cd86 870-873
+  s_562fed49cf5ee5::t_a589483c9b447f 875-877,880-882
+  s_562fed49cf5ee5::t_bc88b6b5315be2 884-886
+  s_562fed49cf5ee5::t_eefc2dd719bc9c 889-892
+  s_562fed49cf5ee5::t_2256828326f318 895-897
+  s_562fed49cf5ee5::t_86532ecc3a2513 899
+  s_562fed49cf5ee5::t_61362489c1b337 901-902
+  s_562fed49cf5ee5::t_f0fd7ef4498806 904-905
+  s_562fed49cf5ee5::t_95b5d814013785 907-912
+  s_562fed49cf5ee5::t_d41bbe31043612 915-917,921-923
+  s_562fed49cf5ee5::t_16bdc7fc0887c7 925-927,931-933
+  s_562fed49cf5ee5::t_901c21bbf6c9d6 936-938,940-942
+  s_562fed49cf5ee5::t_4c51b26b7b0bc9 944
+  s_562fed49cf5ee5::t_39cfaf83cff17b 946
+  s_562fed49cf5ee5::t_c806b586824940 948
+  s_562fed49cf5ee5::t_5eda5d6f3e33e9 950-954
+  s_562fed49cf5ee5::t_d1503de728e8fe 956-958
+  s_562fed49cf5ee5::t_726a74ed7b949b 960-963
+  s_562fed49cf5ee5::t_ec3027e0f5c0d3 965
+  s_562fed49cf5ee5::t_1e844569c329ed 967-972
+  s_562fed49cf5ee5::t_046f998827daa6 974-976
+  s_562fed49cf5ee5::t_67c1b5cfa7a254 978-980
+  s_562fed49cf5ee5::t_38b14e928c505c 982-984
+  s_562fed49cf5ee5::t_d9c77e982ffae2 988
+  s_562fed49cf5ee5::t_7b593d8f468c83 1009-1011,1019-1021
+  s_562fed49cf5ee5::t_c90950c7d87f7f 1023-1025
+  s_562fed49cf5ee5::t_4abcd692730441 1027-1031
+  s_562fed49cf5ee5::t_0a38c6bdd948ed 1043-1048
+  s_562fed49cf5ee5::t_ba0d0aeca1a563 1070
+  s_562fed49cf5ee5::t_72deee0d5d924c 1073-1074
+  s_562fed49cf5ee5::t_5d433eb591c02e 8-10,35-42,50-54,80-82,95-127,200,233,255-263,280-282,313-333,341-348,364-365,373-378,387-389,397-400,408-410,418-424,433-435,457-479,537-556,564,578-588,596-612,634-648,731-732,744-747,856-858,878-879,918-920,928-930,939,1012-1018
+lib/core/buildLedger.poku.js
+  s_562fed49cf5ee5::t_f78dc3fab73cbb 449
+  s_562fed49cf5ee5::t_9a3df47acbad07 1-448,450-461
+docs/AI_PROVENANCE.md
+  s_562fed49cf5ee5::t_69fbb9a8c58db3 275,277-287
+lib/ecosystems/gradleutils.poku.js
+  s_562fed49cf5ee5::t_e339d3ac6019cd 19,775-783
+  s_562fed49cf5ee5::t_2e50e7b8cfe21d 5,7,18,784-928
+lib/core/deferredExit.js
+  s_562fed49cf5ee5::t_c7556facc67435 1-115,119-137
+  s_562fed49cf5ee5::t_1dac49f661b4a5 116-118
+lib/stages/pregen/pregen.js
+  s_562fed49cf5ee5::t_65f5871726c248 19,62-67,87,106-171,270-275,592,596-624,638-645,655-660,672-678,689-695,765-779,793-819,875-882,898-905,913,919,924-952,992-999,1024-1031,1034-1039,1041-1053,1082-1090,1102-1113,1166,1208,1231,1234-1263,1317-1323,1341-1351,1437-1453,1523-1531,1555-1571,1592-1599,1607-1614,1633-1652,1778-1784
+  s_562fed49cf5ee5::t_c2ba3cd9443c01 13-18
+lib/inventory/envcontext.js
+  s_562fed49cf5ee5::t_413969d954ac07 436
+  s_562fed49cf5ee5::t_7c8ac4c5c4d9ca 13-19,45-48,307-360,372,384-385,387,402,408-409,411,422-423,425,427,433-434,457-459,474,480-481,483,497,503-504,506,519,524-525,527,540,545-546,548,561,566-567,569,1068-1074,1082-1089,1098-1105,1119-1124,1133-1139,1265-1271,1281-1288,1335-1341,1351-1359,1907-1920
+lib/ecosystems/parsers-misc.js
+  s_562fed49cf5ee5::t_c883463c4d3386 2657-2658,2664,2680-2684
+  s_562fed49cf5ee5::t_2022e933a3a90b 21
+  s_562fed49cf5ee5::t_905d4715f066c6 20,2656,2659-2663
+lib/cli/jvmBom.js
+  s_562fed49cf5ee5::t_2022e933a3a90b 13-15
+  s_562fed49cf5ee5::t_8989d6aac7c871 12
+  s_562fed49cf5ee5::t_685620049ba898 1218,1316,1332-1335,1337-1362,1365-1370,1374-1379,1382-1398,1400-1413,1415-1429,1433-1442,1444-1445,1452,1454-1455,1457,1460-1461,1463-1472,1474-1550,1555-1562,1564-1566,1569-1570,1572-1574,1577-1596,1598-1615,1617-1628,1632,1634-1673,1675-1676,1680-1713,1715-1718,1720-1726,1728-1795,1797-1825,1829-1831,1833-1834,1836-1856,1858,1862-1866,1868-1878,1880-1881,1883-1893,1895-1897,1899-1913,1916,1919-1923,1926,1934-2004
+  s_562fed49cf5ee5::t_8e1693c84ca21a 908-909,911-916
+  s_562fed49cf5ee5::t_45fc3b4ddca214 2023-2024
+  s_562fed49cf5ee5::t_611b9e908ce1d0 640,665,736-757,1288
+  s_562fed49cf5ee5::t_850639e0d8cbb0 47,383,407,1117,1172,1200,1202,1301,1307-1313,1323,1325
+  s_562fed49cf5ee5::t_48d7f4e0544911 11,52,274-283,285-292,320-332,334-337,339-340,342-348,350-382,384,387-399,402-406,408,410-451,454-498,501,504-509,511-533,535,538-541,543-546,548-554,557-558,568-571,574-579,583-621,624-630,636-639,641-647,649-660,662-664,666-670,672-674,676-728,730,733,759,761-762,764-765,768-798,800,802-806,808-812,814-819,823-826,829-836,838-841,843-894,897-904,907,920-927,932-946,948-951,953-970,972-1020,1023-1028,1030-1038,1042-1043,1045-1075,1080-1085,1088-1095,1097,1100-1108,1110,1112,1114-1116,1118-1122,1124-1128,1130-1135,1138-1147,1150-1163,1165-1171,1173-1180,1182-1197,1199,1201,1203-1212,1214-1217,1219-1227,1230-1241,1243-1259,1262-1287,1289-1300,1302,1304-1306,1314-1315,1317-1322,1324,1326-1331,2005-2010,2013-2021
+test/matrix/baseline.json
+  s_562fed49cf5ee5::t_a476bd94964b2a 5,7-8,16,19,21-22,24-28,30-31,33-34,42,45,47-48,51,53-54,57,59-60,62-63,65-66,68-69,71-72,75,77-78,81,83-84,87,89-90,93,95-96,99,101-102,104-108,110-111,113-114,116-117,119-120,123,125-126,129,131-132,135,137-168,171,173-174,183,186,188-189
+  s_562fed49cf5ee5::t_7ac2dfda5b9def 11,13,37-39,177,180,192,194-195,200-201
+  s_562fed49cf5ee5::t_6330597810e4c1 1-4,6,9-10,12,14-15,17-18,20,23,29,32,35-36,40-41,43-44,46,49-50,52,55-56,58,61,64,67,70,73-74,76,79-80,82,85-86,88,91-92,94,97-98,100,103,109,112,115,118,121-122,124,127-128,130,133-134,136,169-170,172,175-176,178-179,181-182,184-185,187,190-191,193,196-199,202
+.gitignore
+  s_562fed49cf5ee5::t_24a559090ce9e1 17-21
+  s_562fed49cf5ee5::t_3359b173207d2b 22-24
+  s_562fed49cf5ee5::t_414bb473cbc3a1 25
+contrib/alt-runtime-tests.js
+  s_562fed49cf5ee5::t_eabe075b1a0b16 40,47,54-57
+  s_562fed49cf5ee5::t_1e9bf4c9e0b0b3 29,37-39
+lib/stages/postgen/introspection/reflect.js
+  s_562fed49cf5ee5::t_c28e6f3f8f0936 713-719
+  s_562fed49cf5ee5::t_c7556facc67435 260
+  s_562fed49cf5ee5::t_21c7e3eda0d03c 1-259,261-712,720-1088
+docs/CUSTOM_PROPERTIES.md
+  s_562fed49cf5ee5::t_69fbb9a8c58db3 387,389-550
+  s_562fed49cf5ee5::t_bceba09e90747b 1381-1413
+lib/stages/postgen/introspection/e2e.poku.js
+  s_562fed49cf5ee5::t_d37bec9cf99258 207,408
+  s_562fed49cf5ee5::t_8749e684fa452b 26-158,215-407
+  s_562fed49cf5ee5::t_742d6a5c082740 1-25,159-206,208-214,409-413
+lib/managers/docker.js
+  s_562fed49cf5ee5::t_c883463c4d3386 1411-1415,1606-1610,1613-1617,1702-1706,1733-1737
+  s_562fed49cf5ee5::t_2022e933a3a90b 24
+bin/cdxgen.js
+  s_562fed49cf5ee5::t_56c9f266a64f5f 2233-2254
+  s_562fed49cf5ee5::t_65f5871726c248 33,1743-1750
+  s_562fed49cf5ee5::t_2022e933a3a90b 30-32,34
+  s_562fed49cf5ee5::t_921d78f1eae30a 7,29,67,497,500-523,1047-1069,1822,2074,2213-2232,2255-2270
+docs/PROJECT_TYPES.md
+  s_562fed49cf5ee5::t_69fbb9a8c58db3 24
+lib/cli/nativeBom.js
+  s_562fed49cf5ee5::t_2022e933a3a90b 12
+  s_562fed49cf5ee5::t_c883463c4d3386 368-372,420-424,505-509,666-670,1388-1392,1394-1403,1425-1429,1452-1456,1458-1467,1489-1493,1691-1700,1712-1716,1762-1766
+  s_562fed49cf5ee5::t_209d36ddeba26d 11
+AGENTS.md
+  s_562fed49cf5ee5::t_69fbb9a8c58db3 374-378
+  s_562fed49cf5ee5::t_589ee239967b4b 115
+deno.json
+  s_562fed49cf5ee5::t_b8adeab4a327bf 3
+package.json
+  s_562fed49cf5ee5::t_b8adeab4a327bf 3
+docs/ENV.md
+  s_562fed49cf5ee5::t_69fbb9a8c58db3 9-77
+lib/cli/index.js
+  s_562fed49cf5ee5::t_31d7c68f530eaf 2343
+  s_562fed49cf5ee5::t_c883463c4d3386 2382-2386,2426-2430
+  s_562fed49cf5ee5::t_9c5aab7ed6a230 177-181,825-841,1459-1466,2326-2333,2335-2342,2344-2347
+  s_562fed49cf5ee5::t_f5c3c29b8082e0 21
+README.md
+  s_562fed49cf5ee5::t_b8adeab4a327bf 218,232,246,271
+  s_562fed49cf5ee5::t_69fbb9a8c58db3 35-44
+lib/core/env.poku.js
+  s_562fed49cf5ee5::t_dbcb65277a7f37 473
+  s_562fed49cf5ee5::t_1915d2714b4d02 4,444-472
+lib/core/env.js
+  s_562fed49cf5ee5::t_888aa9534be980 177-195,198-202,212-213
+  s_562fed49cf5ee5::t_e825e8f95d8b19 176
+MIGRATING-TO-V13.md
+  s_562fed49cf5ee5::t_69fbb9a8c58db3 515-525
+  s_562fed49cf5ee5::t_d170e599de6f27 530-537
+docs/_sidebar.md
+  s_562fed49cf5ee5::t_93e7fd3fd530e8 78
+lib/stages/postgen/introspection/loop.poku.js
+  s_562fed49cf5ee5::t_244cd0df807f05 76-82
+  s_562fed49cf5ee5::t_f5575a5bfae2ab 1-75,83-296
+SKILL.md
+  s_562fed49cf5ee5::t_69fbb9a8c58db3 47-67
+  s_562fed49cf5ee5::t_26b4d0cde459e9 254-257
+ci/introspection-tests.sh
+  s_562fed49cf5ee5::t_c6ea302a3b24ee 68-138
+  s_562fed49cf5ee5::t_c8b6f302c29212 1-67,139-262
+test/baseline/npm-pack-file-list.txt
+  s_562fed49cf5ee5::t_eabe075b1a0b16 111
+  s_562fed49cf5ee5::t_500077b7c78d7c 95,105,107
+  s_562fed49cf5ee5::t_db51033618f5dd 43,50,223,247-253
+docs/INTROSPECTION.md
+  s_562fed49cf5ee5::t_8bd70136db6fa3 77-82
+  s_562fed49cf5ee5::t_bdbbb84404291c 258-260
+  s_562fed49cf5ee5::t_69fbb9a8c58db3 25-61,125-199,286
+  s_562fed49cf5ee5::t_8ec5289c67b0ef 1-24,62-76,83-124,200-257,261-285,287-296
+.agents/README.md
+  s_562fed49cf5ee5::t_d97894a3167775 22
+.agents/skills/sbom-fidelity-loop/SKILL.md
+  s_562fed49cf5ee5::t_aae5bd24ab2a66 1-200
+.agents/skills/sbom-fidelity-loop/reference/remediation-actions.md
+  s_562fed49cf5ee5::t_e555daaa9b41c3 1-129
+.github/workflows/repotests.yml
+  s_562fed49cf5ee5::t_9b62104977c0b7 8,18,37,2281-2336
+bin/audit.js
+  s_562fed49cf5ee5::t_ba43966b8b6c98 135-139,212
+bin/evinse.js
+  s_562fed49cf5ee5::t_98eb6cf67960e0 341
+data/remediations.json
+  s_562fed49cf5ee5::t_7f4b07809a1111 1-684
+data/rules/build-fidelity.yaml
+  s_562fed49cf5ee5::t_90dc31e670dc71 1-703
+docs/LESSON30.md
+  s_562fed49cf5ee5::t_08bb7383a1ac27 118-120
+lib/audit/index.js
+  s_562fed49cf5ee5::t_477f3a90f1f499 9,13,58-63,270,279-315,1791,1995
+lib/audit/scoring.js
+  s_562fed49cf5ee5::t_a271bfb2415159 2,8
+lib/cli/asar.poku.js
+  s_562fed49cf5ee5::t_f35eba4c53093d 78,315
+lib/cli/cliOptions.js
+  s_562fed49cf5ee5::t_93040858a5fa10 91-105,193-225,238-241,372-385,449-450,482-489,549-560,562-564,568,570-571
+lib/cli/cliOptions.poku.js
+  s_562fed49cf5ee5::t_bfd12159b53c42 818-1031
+lib/cli/degradation.poku.js
+  s_562fed49cf5ee5::t_584209a3af90dc 1-374
+lib/cli/managedBom.poku.js
+  s_562fed49cf5ee5::t_12190e209d45dd 144-148,210-214,238-242,271,533-538,561-566,581-586,615-620,638-643,729-734,736-737,769-774,776-777,791-796,798-799,810-815,817-818,845-850,880-885,932-937,967-972,995-1000,1023-1028,1059-1064
+lib/cli/nativeBom.poku.js
+  s_562fed49cf5ee5::t_4bf00495f26ef5 136
+lib/cli/profileDocs.poku.js
+  s_562fed49cf5ee5::t_9a8bd85a7ada79 1-170
+lib/core/fs.js
+  s_562fed49cf5ee5::t_1a4413e85b02fd 11,150-186
+lib/core/logger.js
+  s_562fed49cf5ee5::t_ed13683fcb656e 3-10,30,49,104,188
+lib/core/severity.js
+  s_562fed49cf5ee5::t_9183e808a898ff 1-16
+lib/core/syncFileWriter.js
+  s_562fed49cf5ee5::t_2a734b0319bd42 1-106
+lib/ecosystems/parsers-js.js
+  s_562fed49cf5ee5::t_e0b05761f29153 17,1489-1496,1511-1519,3125-3132
+lib/ecosystems/parsers-jvm.js
+  s_562fed49cf5ee5::t_78a257a6293803 8,313-320
+lib/ecosystems/parsers-python.js
+  s_562fed49cf5ee5::t_d9cba2904ef044 11,869-875
+lib/ecosystems/rubyutils.js
+  s_562fed49cf5ee5::t_29fd65c1343781 22,784,837
+lib/evinser/evinser.js
+  s_562fed49cf5ee5::t_9845dc80e46c24 1807,1946-1949
+lib/inventory/auditCategories.js
+  s_562fed49cf5ee5::t_a1c5d029f47274 26-34
+lib/inventory/dosai.js
+  s_562fed49cf5ee5::t_517395df3041d7 5,223-230
+lib/inventory/envcontext.poku.js
+  s_562fed49cf5ee5::t_99d7c9d79ca038 9,11-15,177-463
+lib/inventory/fetchBatch.js
+  s_562fed49cf5ee5::t_c89a136c1cbfaa 37,40,43,551-603,612
+lib/inventory/jvmToolEnv.js
+  s_562fed49cf5ee5::t_f1f7cef277cd2e 7-23,457
+lib/inventory/jvmToolEnv.poku.js
+  s_562fed49cf5ee5::t_a06e472cebffd1 456-462
+lib/inventory/toolRequirements.js
+  s_562fed49cf5ee5::t_30a30c4c2060e4 1-869
+lib/inventory/toolRequirements.poku.js
+  s_562fed49cf5ee5::t_a737c644e08238 1-490
+lib/managers/binary.js
+  s_562fed49cf5ee5::t_01a3705c3e0088 21,783-792,3315-3322
+lib/server/server.js
+  s_562fed49cf5ee5::t_058319aa24979b 523
+lib/stages/postgen/annotationBuilder.js
+  s_562fed49cf5ee5::t_74be5717f88ddf 1-97
+lib/stages/postgen/auditBom.js
+  s_562fed49cf5ee5::t_4827cd8e5a376d 9,14,19-23,61-66,383-397,399-400,403,405-406,409-451
+lib/stages/postgen/introspection/annotate.js
+  s_562fed49cf5ee5::t_22bf7608bb0446 1-286
+lib/stages/postgen/introspection/annotate.poku.js
+  s_562fed49cf5ee5::t_8021c2e6903243 1-379
+lib/stages/postgen/introspection/emit.js
+  s_562fed49cf5ee5::t_178679b6ac6362 1-192
+lib/stages/postgen/introspection/markers.js
+  s_562fed49cf5ee5::t_2f3afeae5a7216 1-226
+lib/stages/postgen/introspection/reflect.poku.js
+  s_562fed49cf5ee5::t_5b280d4d73a3ab 1-975
+lib/stages/postgen/introspection/report.js
+  s_562fed49cf5ee5::t_a0fbd05ec7d50d 1-1060
+lib/stages/postgen/introspection/report.poku.js
+  s_562fed49cf5ee5::t_92fcff2bad431e 1-801
+lib/stages/postgen/introspection/rules.poku.js
+  s_562fed49cf5ee5::t_36f5331c1601f1 1-366
+lib/stages/postgen/introspection/score.js
+  s_562fed49cf5ee5::t_0fdbfe557d6ef2 1-760
+lib/stages/postgen/introspection/score.poku.js
+  s_562fed49cf5ee5::t_b922bd5beb6cf5 1-1161
+lib/stages/postgen/introspection/skill.poku.js
+  s_562fed49cf5ee5::t_fe529ea8594b3f 1-566
+lib/stages/postgen/postgen.js
+  s_562fed49cf5ee5::t_c12d5505e19f45 10,15,49-62,455-540,548,550,604-606
+lib/stages/postgen/postgen.poku.js
+  s_562fed49cf5ee5::t_0e040541a6f8de 245,256,267,278,286,299,307,319,334,349,362,407,440-441,457,474,509,525,576,597,623,632,653,660,707,724,753,768,806,837,895,917,940,946,964,973,995,999,1005,1020,1088,1114,1134,1139,1165,1174,1233,1283,1306,1338,1356,1370,1390,1423,1441,1476,1488,1519-1521,1526,1556,1566,1595,1605,1638-1639,1644,1708-1897
+lib/stages/postgen/spdxConverter.poku.js
+  s_562fed49cf5ee5::t_27fd6286d69e8f 465-491
+lib/stages/pregen/pregen.poku.js
+  s_562fed49cf5ee5::t_fe06b2210c4694 1-7,17-22,99-100,104-109,145,193-234,823-1094
+test/data/fidelity-boms/BF-CS-001.fires.json
+  s_562fed49cf5ee5::t_4b1648d366f51f 1-156
+test/data/fidelity-boms/BF-CS-001.passes.json
+  s_562fed49cf5ee5::t_e1c071515d413d 1-186
+test/data/fidelity-boms/BF-GEN-001.fires.json
+  s_562fed49cf5ee5::t_ef9a3fde196d7b 1-107
+test/data/fidelity-boms/BF-GEN-001.passes.json
+  s_562fed49cf5ee5::t_b8db550041c07b 1-258
+test/data/fidelity-boms/BF-GEN-002.fires.json
+  s_562fed49cf5ee5::t_c891fe8405cf35 1-246
+test/data/fidelity-boms/BF-GEN-002.passes.json
+  s_562fed49cf5ee5::t_f01afd7998c934 1-258
+test/data/fidelity-boms/BF-GEN-003.fires.json
+  s_562fed49cf5ee5::t_67c1fb079eb998 1-254
+test/data/fidelity-boms/BF-GEN-003.passes.json
+  s_562fed49cf5ee5::t_36c8624979e198 1-258
+test/data/fidelity-boms/BF-GEN-004.fires.json
+  s_562fed49cf5ee5::t_70d2646793636e 1-186
+test/data/fidelity-boms/BF-GEN-004.passes.json
+  s_562fed49cf5ee5::t_52180692abb9c2 1-258
+test/data/fidelity-boms/BF-GEN-005.fires.json
+  s_562fed49cf5ee5::t_5987ad5a35ae1b 1-197
+test/data/fidelity-boms/BF-GEN-005.passes.json
+  s_562fed49cf5ee5::t_1b4d5547e3ff8c 1-450
+test/data/fidelity-boms/BF-GEN-006.fires.json
+  s_562fed49cf5ee5::t_9e3738b56da69b 1-22
+test/data/fidelity-boms/BF-GEN-006.passes.json
+  s_562fed49cf5ee5::t_16861e8fd27b0c 1-258
+test/data/fidelity-boms/BF-GEN-007.fires.json
+  s_562fed49cf5ee5::t_9cc9c824ffca5e 1-173
+test/data/fidelity-boms/BF-GEN-007.passes.json
+  s_562fed49cf5ee5::t_c798e0843f3471 1-258
+test/data/fidelity-boms/BF-GO-001.fires.json
+  s_562fed49cf5ee5::t_f38ef72e98d929 1-156
+test/data/fidelity-boms/BF-GO-001.passes.json
+  s_562fed49cf5ee5::t_4b87df5db5cef8 1-186
+test/data/fidelity-boms/BF-JS-001.fires.json
+  s_562fed49cf5ee5::t_e40dd396951314 1-316
+test/data/fidelity-boms/BF-JS-001.passes.json
+  s_562fed49cf5ee5::t_6251c4cd517ffc 1-258
+test/data/fidelity-boms/BF-JS-002.fires.json
+  s_562fed49cf5ee5::t_3c6ab4c1cba4d9 1-216
+test/data/fidelity-boms/BF-JS-002.passes.json
+  s_562fed49cf5ee5::t_edc462e5824e14 1-258
+test/data/fidelity-boms/BF-JS-003.fires.json
+  s_562fed49cf5ee5::t_6ddfd4e7cbf098 1-203
+test/data/fidelity-boms/BF-JS-003.passes.json
+  s_562fed49cf5ee5::t_a9c4b947bfb02a 1-264
+test/data/fidelity-boms/BF-JVM-001.fires.json
+  s_562fed49cf5ee5::t_13ff68927d9760 1-253
+test/data/fidelity-boms/BF-JVM-001.passes.json
+  s_562fed49cf5ee5::t_588b9219b38008 1-316
+test/data/fidelity-boms/BF-JVM-002.fires.json
+  s_562fed49cf5ee5::t_c77ea7d586b814 1-228
+test/data/fidelity-boms/BF-JVM-002.passes.json
+  s_562fed49cf5ee5::t_6ef3b4ea7e267f 1-316
+test/data/fidelity-boms/BF-JVM-003.fires.json
+  s_562fed49cf5ee5::t_09aa8302125157 1-93
+test/data/fidelity-boms/BF-JVM-003.passes.json
+  s_562fed49cf5ee5::t_f6e160b2aa1dc8 1-316
+test/data/fidelity-boms/BF-JVM-004.fires.json
+  s_562fed49cf5ee5::t_89050c8081f137 1-264
+test/data/fidelity-boms/BF-JVM-004.passes.json
+  s_562fed49cf5ee5::t_545f5b02e6b2c1 1-316
+test/data/fidelity-boms/BF-PY-001.fires.json
+  s_562fed49cf5ee5::t_fa21cb2013f6ea 1-153
+test/data/fidelity-boms/BF-PY-001.passes.json
+  s_562fed49cf5ee5::t_9f4396e5d1a914 1-258
+test/data/fidelity-boms/BF-PY-002.fires.json
+  s_562fed49cf5ee5::t_4caf0bc69ade96 1-93
+test/data/fidelity-boms/BF-PY-002.passes.json
+  s_562fed49cf5ee5::t_5637675fdd8fb8 1-186
+test/data/fidelity-boms/BF-PY-003.fires.json
+  s_562fed49cf5ee5::t_4c9a3b52e68fef 1-258
+test/data/fidelity-boms/BF-PY-003.passes.json
+  s_562fed49cf5ee5::t_1b03046dddfbda 1-186
+test/data/fidelity-boms/BF-RB-001.fires.json
+  s_562fed49cf5ee5::t_0a45a740c4c7c6 1-156
+test/data/fidelity-boms/BF-RB-001.passes.json
+  s_562fed49cf5ee5::t_2b63068813d1cb 1-186
+test/data/fidelity-boms/BF-RS-001.fires.json
+  s_562fed49cf5ee5::t_ed59f1b43082a0 1-228
+test/data/fidelity-boms/BF-RS-001.passes.json
+  s_562fed49cf5ee5::t_126d2f6e1eb71d 1-258
+test/data/fidelity-boms/BF-SWIFT-001.fires.json
+  s_562fed49cf5ee5::t_e942967607f374 1-58
+test/data/fidelity-boms/BF-SWIFT-001.passes.json
+  s_562fed49cf5ee5::t_3c60fb4ff9f56d 1-102
+test/data/fidelity-boms/generate-fixtures.mjs
+  s_562fed49cf5ee5::t_fdccb6edf4d7c8 1-344
+test/data/introspection-polyglot/README.md
+  s_562fed49cf5ee5::t_0cb9902d48de45 1-5
+test/data/introspection-polyglot/go.mod
+  s_562fed49cf5ee5::t_7b82753f33367a 1-8
+test/data/introspection-polyglot/package-lock.json
+  s_562fed49cf5ee5::t_96c9a1d98793d5 1-56
+test/data/introspection-polyglot/package.json
+  s_562fed49cf5ee5::t_acebd9dcb7a780 1-9
+test/data/introspection-polyglot/poetry.lock
+  s_562fed49cf5ee5::t_e06ba0c41e4e1d 1-2396
+test/data/introspection-polyglot/pom.xml
+  s_562fed49cf5ee5::t_f93679cdff166e 1-21
+test/data/introspection-polyglot/pyproject.toml
+  s_562fed49cf5ee5::t_0d150472fe54ae 1-9
+test/data/introspection/clean-go.golden.json
+  s_562fed49cf5ee5::t_124f43b47a7da4 1-62
+test/data/introspection/clean-go.golden.md
+  s_562fed49cf5ee5::t_a430b4525656b4 1-28
+test/data/introspection/clean-go.reflection.json
+  s_562fed49cf5ee5::t_869b1cbf8ecb5f 1-50
+test/data/introspection/degraded-jvm.golden.json
+  s_562fed49cf5ee5::t_7474a80a277cbd 1-163
+test/data/introspection/degraded-jvm.golden.md
+  s_562fed49cf5ee5::t_d0c56c93627815 1-84
+test/data/introspection/degraded-jvm.reflection.json
+  s_562fed49cf5ee5::t_13ef482bef9f85 1-142
+test/data/introspection/foreign-bom.golden.json
+  s_562fed49cf5ee5::t_9966f422b882c9 1-79
+test/data/introspection/foreign-bom.golden.md
+  s_562fed49cf5ee5::t_af00cb91078209 1-53
+test/data/introspection/foreign-bom.reflection.json
+  s_562fed49cf5ee5::t_3c9d5e1772f119 1-77
+test/repotests/introspect-clj-ceiling/README.md
+  s_562fed49cf5ee5::t_3bac702ec8d529 1-5
+test/repotests/introspect-clj-ceiling/deps.edn
+  s_562fed49cf5ee5::t_a868001a4455f9 1-8
+test/repotests/introspect-gradle-manifest/build.gradle
+  s_562fed49cf5ee5::t_1766d32ee12baf 1-9
+test/repotests/introspect-gradle-manifest/settings.gradle
+  s_562fed49cf5ee5::t_823c103cc215dd 1
+test/repotests/introspect-helm-ceiling/Chart.yaml
+  s_562fed49cf5ee5::t_71025c13131de0 1-10
+test/repotests/introspect-helm-ceiling/README.md
+  s_562fed49cf5ee5::t_b78228b0e5fd86 1-5
+test/repotests/introspect-js-manifest/README.md
+  s_562fed49cf5ee5::t_3c35c53078339a 1-6
+test/repotests/introspect-js-manifest/index.js
+  s_562fed49cf5ee5::t_d528b4f6ac3ce7 1-5
+test/repotests/introspect-js-manifest/package.json
+  s_562fed49cf5ee5::t_e3bb5c276c307a 1-10
+test/repotests/introspect-unsupported-markers/DESCRIPTION
+  s_562fed49cf5ee5::t_179f5594e562b6 1-9
+test/repotests/introspect-unsupported-markers/README.md
+  s_562fed49cf5ee5::t_14d459f1c68692 1-6
+test/repotests/introspect-unsupported-markers/cpanfile
+  s_562fed49cf5ee5::t_692d5cc755c2e7 1-6
+test/repotests/introspect-unsupported-markers/elm.json
+  s_562fed49cf5ee5::t_f9f326eb587763 1-17
+test/repotests/introspect-unsupported-markers/introspect.nimble
+  s_562fed49cf5ee5::t_d07318fb2123db 1-13
+test/repotests/introspect-unsupported-markers/shard.yml
+  s_562fed49cf5ee5::t_fb779e6953d161 1-7
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "32fc7a22b63f9cccaeb34078c611b2cf6c7246dd",
+  "prompts": {},
+  "sessions": {
+    "s_562fed49cf5ee5": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "9d4a9ab0-6996-465a-9da3-cdaedd70dfa0",
+        "model": "claude-opus-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
