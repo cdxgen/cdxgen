@@ -1,0 +1,39 @@
+test/matrix/toolchain-matrix.yaml
+  s_562fed49cf5ee5::t_056af4674d7df4 138-139,173-174,212-213,360-361,364-365
+  s_562fed49cf5ee5::t_8b3fa9e2eb6602 137,366,383-385
+contrib/toolchain-matrix.js
+  s_562fed49cf5ee5::t_bb2b76ed4f9add 650-679
+  s_562fed49cf5ee5::t_9c9d783c4b0e24 46
+  s_562fed49cf5ee5::t_0d4ac7c0f99f05 1027-1030,1033,1037
+  s_562fed49cf5ee5::t_ff92813d044ecb 1044,1048,1053,1062-1064
+  s_562fed49cf5ee5::t_943ec2f39df3b4 984-987,992,999-1003
+  s_562fed49cf5ee5::t_37aee206045aec 61-76
+  s_562fed49cf5ee5::t_643dab55f807cb 159-169,171-179
+  s_562fed49cf5ee5::t_2f92d25ef56ce7 731,733
+  s_562fed49cf5ee5::t_3820fc62de94e5 58-60
+  s_562fed49cf5ee5::t_32a4faa9890405 170
+  s_562fed49cf5ee5::t_ac2128816ee5dc 709-710
+  s_562fed49cf5ee5::t_185b3aac718545 759-763
+  s_562fed49cf5ee5::t_acdde74aaaee87 778-783
+  s_562fed49cf5ee5::t_a529d72a9c4bf2 649
+docs/INTROSPECTION.md
+  s_562fed49cf5ee5::t_4307fd9b7180c1 264
+  s_562fed49cf5ee5::t_8bd70136db6fa3 66-71
+  s_562fed49cf5ee5::t_bdbbb84404291c 235-237
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "759213353a07e89ef1ca2ffdbe90939cdcceee75",
+  "prompts": {},
+  "sessions": {
+    "s_562fed49cf5ee5": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "9d4a9ab0-6996-465a-9da3-cdaedd70dfa0",
+        "model": "claude-opus-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
