@@ -1,0 +1,85 @@
+deno.json
+  s_562fed49cf5ee5::t_b8adeab4a327bf 3
+.agents/skills/sbom-fidelity-loop/reference/report-schema.md
+  s_562fed49cf5ee5::t_c81d56c0ded492 60-73,146,173,194,259-260
+lib/cli/jsBom.js
+  s_562fed49cf5ee5::t_c883463c4d3386 660-664,960-964,1041-1045
+  s_562fed49cf5ee5::t_2022e933a3a90b 15
+lib/core/deferredExit.poku.js
+  s_562fed49cf5ee5::t_7a67cb7562470a 19
+  s_562fed49cf5ee5::t_020d7940f86202 165-194
+  s_562fed49cf5ee5::t_2022e933a3a90b 27
+  s_562fed49cf5ee5::t_a8d030d363f252 1-18,20-26,28-164,195-215
+test/baseline/npm-pack-file-list.txt
+  s_562fed49cf5ee5::t_eabe075b1a0b16 111
+lib/managers/docker.js
+  s_562fed49cf5ee5::t_c883463c4d3386 1411-1415,1606-1610,1613-1617,1702-1706,1733-1737
+  s_562fed49cf5ee5::t_2022e933a3a90b 24
+lib/ecosystems/gradleutils.js
+  s_562fed49cf5ee5::t_850639e0d8cbb0 476-478,487-498,656
+test/matrix/toolchain-matrix.yaml
+  s_562fed49cf5ee5::t_30368a01189b95 213-214
+bin/cdxgen.js
+  s_562fed49cf5ee5::t_2022e933a3a90b 30-32,34
+  s_562fed49cf5ee5::t_65f5871726c248 33,1743-1750
+  s_562fed49cf5ee5::t_56c9f266a64f5f 2233,2235-2239,2241-2245,2247-2249,2254
+lib/stages/postgen/introspection/reflect.js
+  s_562fed49cf5ee5::t_c7556facc67435 260
+contrib/alt-runtime-tests.js
+  s_562fed49cf5ee5::t_eabe075b1a0b16 40,57
+docs/CLI.md
+  s_562fed49cf5ee5::t_c81d56c0ded492 157-164
+lib/ecosystems/parsers-misc.js
+  s_562fed49cf5ee5::t_c883463c4d3386 2680-2684
+  s_562fed49cf5ee5::t_2022e933a3a90b 21
+lib/cli/managedBom.js
+  s_562fed49cf5ee5::t_2022e933a3a90b 9
+  s_562fed49cf5ee5::t_c883463c4d3386 412-416,595-599,1108-1112,1148-1152,1342-1346,1388-1392,1665-1669,1718-1722,1825-1829
+docs/_sidebar.md
+  s_562fed49cf5ee5::t_93e7fd3fd530e8 78
+lib/core/deferredExit.js
+  s_562fed49cf5ee5::t_1dac49f661b4a5 116-118
+  s_562fed49cf5ee5::t_c7556facc67435 1-115,119-137
+lib/stages/pregen/pregen.js
+  s_562fed49cf5ee5::t_65f5871726c248 19,1024-1031,1047-1053,1778-1784
+lib/cli/nativeBom.js
+  s_562fed49cf5ee5::t_c883463c4d3386 368-372,420-424,505-509,666-670,1388-1392,1425-1429,1452-1456,1489-1493,1712-1716,1762-1766
+  s_562fed49cf5ee5::t_2022e933a3a90b 12
+package.json
+  s_562fed49cf5ee5::t_b8adeab4a327bf 3
+docs/LESSON32.md
+  s_562fed49cf5ee5::t_d0f8422f8b56d3 1-65,73-177,179-191,193-203
+  s_562fed49cf5ee5::t_93e7fd3fd530e8 66-72,178,192
+lib/cli/jvmBom.js
+  s_562fed49cf5ee5::t_850639e0d8cbb0 47,1307-1313
+  s_562fed49cf5ee5::t_2022e933a3a90b 13-15
+  s_562fed49cf5ee5::t_8989d6aac7c871 12
+jsr.json
+  s_562fed49cf5ee5::t_b8adeab4a327bf 3
+lib/cli/index.js
+  s_562fed49cf5ee5::t_c883463c4d3386 2382-2386,2426-2430
+  s_562fed49cf5ee5::t_9c5aab7ed6a230 177-181,825-841,2326-2333,2335-2342,2344-2347
+  s_562fed49cf5ee5::t_31d7c68f530eaf 2343
+pyproject.toml
+  s_562fed49cf5ee5::t_b8adeab4a327bf 3
+README.md
+  s_562fed49cf5ee5::t_b8adeab4a327bf 218,232,246,271
+lib/core/buildLedger.js
+  s_562fed49cf5ee5::t_c7556facc67435 144-158
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "5649d8a1f607981c21aa4dfe4154b0e3585ab402",
+  "prompts": {},
+  "sessions": {
+    "s_562fed49cf5ee5": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "9d4a9ab0-6996-465a-9da3-cdaedd70dfa0",
+        "model": "claude-opus-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
