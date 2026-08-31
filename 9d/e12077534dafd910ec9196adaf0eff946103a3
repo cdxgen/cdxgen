@@ -1,0 +1,21 @@
+lib/inventory/envcontext_git.poku.js
+  s_562fed49cf5ee5::t_950d9e3fb99edc 1-4,8-13,15-17,19-23,27-29,31-35
+lib/inventory/envcontext.js
+  s_562fed49cf5ee5::t_04be12835a0523 220-223,230
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "9de12077534dafd910ec9196adaf0eff946103a3",
+  "prompts": {},
+  "sessions": {
+    "s_562fed49cf5ee5": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "9d4a9ab0-6996-465a-9da3-cdaedd70dfa0",
+        "model": "claude-opus-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
