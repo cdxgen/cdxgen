@@ -1,0 +1,68 @@
+.agents/skills/sbom-fidelity-loop/reference/report-schema.md
+  h_6a4cc5cdf68def 1,10-13,19,63,142-144,194-195,209-248
+contrib/alt-runtime-tests.js
+  h_6a4cc5cdf68def 40,58
+contrib/toolchain-matrix.js
+  h_6a4cc5cdf68def 329,441-484,488-517,533,540-550,643,645-647,654,656-658,706
+docs/CLI.md
+  h_6a4cc5cdf68def 135-156
+docs/ENV.md
+  h_6a4cc5cdf68def 20-21
+docs/INTROSPECTION.md
+  h_6a4cc5cdf68def 99,108-128
+lib/cli/jvmBom.js
+  h_6a4cc5cdf68def 11-14,713-716,753-756,767-770
+lib/core/buildLedger.js
+  h_6a4cc5cdf68def 29-35,39,65-66,128-175,277-334,356-357,371-397,399-402,408-424,426-469,473-493,497-525,559-567,605-607,625-626,628-633,635,789
+lib/core/buildLedger.poku.js
+  h_6a4cc5cdf68def 33,80,93-95,128-160,176-178,503-671
+lib/core/deferredExit.js
+  h_6a4cc5cdf68def 60,100,114,136
+lib/ecosystems/gradleutils.js
+  h_6a4cc5cdf68def 14,664-665
+lib/inventory/envcontext.js
+  h_6a4cc5cdf68def 14,1079,1145,1295,1367
+lib/stages/postgen/introspection/annotate.poku.js
+  h_6a4cc5cdf68def 335
+lib/stages/postgen/introspection/redaction.poku.js
+  h_6a4cc5cdf68def 1-202
+lib/stages/postgen/introspection/reflect.js
+  h_6a4cc5cdf68def 30,375-378,390-400,403-406,408,641-665,680,923
+lib/stages/postgen/introspection/reflect.poku.js
+  h_6a4cc5cdf68def 966-1072
+lib/stages/postgen/introspection/report.js
+  h_6a4cc5cdf68def 20,31,376-410,428,845-893,919
+lib/stages/postgen/introspection/report.poku.js
+  h_6a4cc5cdf68def 582,792-968
+lib/stages/postgen/introspection/score.js
+  h_6a4cc5cdf68def 199-223,228-230,233,241-244,258-267,270,551
+lib/stages/postgen/introspection/skill.poku.js
+  h_6a4cc5cdf68def 345
+lib/stages/pregen/pregen.js
+  h_6a4cc5cdf68def 14,1351-1354
+test/data/introspection/clean-go.golden.json
+  h_6a4cc5cdf68def 2
+test/data/introspection/degraded-jvm.golden.json
+  h_6a4cc5cdf68def 2
+test/data/introspection/degraded-jvm.report-1.0.json
+  h_6a4cc5cdf68def 1-163
+test/data/introspection/foreign-bom.golden.json
+  h_6a4cc5cdf68def 2
+test/matrix/toolchain-matrix.yaml
+  h_6a4cc5cdf68def 538-610
+test/repotests/introspect-redaction-secret/fake-mvn
+  h_6a4cc5cdf68def 1-17
+test/repotests/introspect-redaction-secret/pom.xml
+  h_6a4cc5cdf68def 1-21
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "5bd8e57bca8bddd8d8339c92b8ca817802cebc92",
+  "prompts": {},
+  "humans": {
+    "h_6a4cc5cdf68def": {
+      "author": "Team AppThreat <cloud@appthreat.com>"
+    }
+  }
+}
