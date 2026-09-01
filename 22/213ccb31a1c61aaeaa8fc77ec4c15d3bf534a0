@@ -1,0 +1,21 @@
+lib/stages/postgen/introspection/score.poku.js
+  s_cb49c6c44e4aa4::t_d4512b17ea3c02 626-661
+lib/stages/postgen/introspection/score.js
+  s_cb49c6c44e4aa4::t_d6ea920e5169f5 236-242
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "22213ccb31a1c61aaeaa8fc77ec4c15d3bf534a0",
+  "prompts": {},
+  "sessions": {
+    "s_cb49c6c44e4aa4": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "db835424-cfc4-44e6-9b8d-b62defdec203",
+        "model": "claude-opus-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
