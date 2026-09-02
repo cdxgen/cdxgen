@@ -1,0 +1,22 @@
+lib/stages/postgen/introspection/formulationEvidence.poku.js
+  s_cb49c6c44e4aa4::t_a0ee9d928d66f4 33-35
+  s_cb49c6c44e4aa4::t_fbb0ff9d7d391d 11
+contrib/parity-harness.js
+  s_cb49c6c44e4aa4::t_fef907d47b2809 32,136
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "b742ec72bf0b3b6850b51690b66fa7fdd1837fd4",
+  "prompts": {},
+  "sessions": {
+    "s_cb49c6c44e4aa4": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "db835424-cfc4-44e6-9b8d-b62defdec203",
+        "model": "claude-opus-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
