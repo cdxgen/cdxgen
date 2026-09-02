@@ -1,0 +1,39 @@
+.github/workflows/repotests.yml
+  s_cb49c6c44e4aa4::t_b4f03979f1288b 2310
+  s_cb49c6c44e4aa4::t_9cc4aa4762de42 2305-2309
+lib/stages/postgen/introspection/e2e.poku.js
+  s_cb49c6c44e4aa4::t_b1c221501fdab2 316-319
+  s_cb49c6c44e4aa4::t_46a4f704f9e224 354-361
+  s_cb49c6c44e4aa4::t_838d50084a18e7 57-61,63,72-76
+  s_cb49c6c44e4aa4::t_6fcc72a2de8d98 338-341
+lib/stages/postgen/introspection/commandFacts.poku.js
+  s_cb49c6c44e4aa4::t_7dda1b3d831f4b 59,67-80
+ci/introspection-tests.sh
+  s_cb49c6c44e4aa4::t_07ada6b567ce92 84-90
+  s_cb49c6c44e4aa4::t_9186e02571753d 249-252
+true
+  s_cb49c6c44e4aa4::t_cc5b8e804e84ce 1-2
+lib/cli/nativeBom.js
+  s_cb49c6c44e4aa4::t_999a99cf2db54c 636-659
+  s_cb49c6c44e4aa4::t_d35caa202cd617 728-731
+  s_cb49c6c44e4aa4::t_79e0618c720bc5 635
+lib/stages/postgen/introspection/skill.poku.js
+  s_cb49c6c44e4aa4::t_fbbfaa0cb8b8b5 296-299
+  s_cb49c6c44e4aa4::t_f3d5e1d418daec 300-302
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "94100bd39defe9f740a7a89b7ae6bc6b861cd454",
+  "prompts": {},
+  "sessions": {
+    "s_cb49c6c44e4aa4": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "db835424-cfc4-44e6-9b8d-b62defdec203",
+        "model": "claude-opus-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
