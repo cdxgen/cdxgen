@@ -1,0 +1,174 @@
+.agents/skills/sbom-fidelity-loop/reference/report-schema.md
+  s_cb49c6c44e4aa4::t_6806b397feeb1b 66
+  s_cb49c6c44e4aa4::t_f51b6ef4f81b43 1,11-14,20,64,126-127,132-140,157-162,169-172,178-179,205-218,221-227,257,259
+lib/stages/postgen/introspection/report.poku.js
+  s_cb49c6c44e4aa4::t_03bcfbcf98e626 532-572,623,728-742,781-980
+lib/inventory/envcontext_git.poku.js
+  s_cb49c6c44e4aa4::t_3614d1d9e6970e 4,16,28
+test/repotests/introspect-gradle-javaskew/settings.gradle
+  s_cb49c6c44e4aa4::t_efc91c2c0da443 1
+data/rules/build-fidelity.yaml
+  s_cb49c6c44e4aa4::t_ca17f272ab34e3 704-782
+lib/inventory/envcontext.poku.js
+  s_cb49c6c44e4aa4::t_cfcb4657c3a19f 8,43-67,69-74
+lib/stages/postgen/introspection/report.js
+  s_cb49c6c44e4aa4::t_ec6a4c7376d341 20,30,77-78,84,215-287,445-479,502,512,514-518,619-625,707-715,884-900,978,997
+lib/core/deferredExit.js
+  s_cb49c6c44e4aa4::t_c6d766a5f805fd 60,100-101,115,137
+.agents/skills/sbom-fidelity-loop/SKILL.md
+  s_cb49c6c44e4aa4::t_d1a03ab1853915 3,23-49,77-82,105,111-117,130-156,159-160,186-211,214-215,219,232,237-249,255-276
+docs/ENV.md
+  s_cb49c6c44e4aa4::t_dd59a4863167c6 21
+lib/stages/postgen/introspection/score.js
+  s_cb49c6c44e4aa4::t_71d59031331ae9 20-21,179-185,193-215,219,234-235,238,246-252,266,274-275,283-286,366-443,447,449-451,454-495,499-500,502-504,506-507,510,515-570,572-576,578-617,704,715,722-730,755-767,769,776-793,799-804,816,855-857,876-881,976,995,1053
+  s_cb49c6c44e4aa4::t_d6ea920e5169f5 267-273,571,577,768
+lib/stages/postgen/introspection/shapeCommand.js
+  s_cb49c6c44e4aa4::t_147d2ee401ded6 1-304
+test/data/fidelity-boms/BF-FORM-002.passes.json
+  s_cb49c6c44e4aa4::t_85db75409ff5be 1-114
+lib/stages/postgen/introspection/markers.js
+  s_cb49c6c44e4aa4::t_faefc7ae8c5545 71
+lib/inventory/envcontext.js
+  s_cb49c6c44e4aa4::t_fdd2cf36904bad 14,1080,1146,1296,1368
+lib/inventory/toolRequirements.js
+  s_cb49c6c44e4aa4::t_e3e42b4968c2ea 745-774,808,857-860
+test/repotests/introspect-redaction-secret/pom.xml
+  s_cb49c6c44e4aa4::t_a43d13a7938d00 1-20
+lib/stages/postgen/introspection/rules.poku.js
+  s_cb49c6c44e4aa4::t_77157d6f443866 20-23,56-64,111-112,170-171,175-205,311-316,329-331
+lib/stages/postgen/introspection/loop.poku.js
+  s_cb49c6c44e4aa4::t_ecefe94c1e6555 17,136,192,232
+lib/core/buildLedger.poku.js
+  s_cb49c6c44e4aa4::t_d68148a1dfdf37 91-94,127-156,172-174,206-207,225-226,502-664
+test/repotests/introspect-formulation-foreign/pom.xml
+  s_cb49c6c44e4aa4::t_266046a7544555 1-27
+lib/managers/docker.getConnection.poku.js
+  s_cb49c6c44e4aa4::t_d38f883879d935 5,9-12,15-17,20-23,25-33,36-42,44-74
+lib/stages/postgen/ruleEngine.js
+  s_cb49c6c44e4aa4::t_74a5125d3ad52c 497-513
+lib/ecosystems/gradleutils.js
+  s_cb49c6c44e4aa4::t_321bda87ef7827 14,524-563,627-632,650-671,733-734
+test/repotests/introspect-formulation-foreign/.github/workflows/ci.yml
+  s_cb49c6c44e4aa4::t_03b83248f16bce 1-19
+test/data/introspection/degraded-jvm.report-1.0.json
+  s_cb49c6c44e4aa4::t_12fb0bcf2b073d 1-163
+lib/stages/postgen/introspection/annotate.poku.js
+  s_cb49c6c44e4aa4::t_d60f65aa833686 335
+test/baseline/npm-pack-file-list.txt
+  s_cb49c6c44e4aa4::t_4eb43302424269 96,106,201,245,249-251,256
+lib/core/buildLedger.js
+  s_cb49c6c44e4aa4::t_65615503f93bde 29-31,35,48-54,69-70,233-244,248-251,260-261,266-276,279,286-289,292-299,306-382,384,389-392,394-482,522-535,608
+test/matrix/baseline.json
+  s_cb49c6c44e4aa4::t_7d9bb2593b2b7a 12,15,172,193-194
+docs/CUSTOM_PROPERTIES.md
+  s_cb49c6c44e4aa4::t_7311a9c8402c64 1390,1393,1402-1410
+lib/cli/nativeBom.js
+  s_cb49c6c44e4aa4::t_1feace9e9de6de 91-94,366-382,548-560,700-716,739-747,949-957,1605-1611,1645-1651
+test/repotests/introspect-redaction-secret/leaking-mvn.sh
+  s_cb49c6c44e4aa4::t_34f5fec9dc73a0 1-10
+docs/CLI.md
+  s_cb49c6c44e4aa4::t_3867b80bc08207 135-164
+lib/inventory/toolRequirements.poku.js
+  s_cb49c6c44e4aa4::t_5389026e987af4 17,301-351
+lib/cli/degradation.poku.js
+  s_cb49c6c44e4aa4::t_21d6a1ddd04741 246-351,358-360,381-382,403-410,416,493-702
+contrib/toolchain-matrix.js
+  s_cb49c6c44e4aa4::t_5128048dfd7df2 46,306-309,334,344-369,379-382,385,464-552,570-572,580-591,610-626,630-640,712,757-780,782,790-805
+lib/stages/postgen/introspection/commandFacts.js
+  s_cb49c6c44e4aa4::t_16f08e6541b55f 1-293
+lib/stages/postgen/introspection/reflect.js
+  s_cb49c6c44e4aa4::t_29018d1f6b6f98 42-46,628-640,643-645,658-678,697,737-738,745-754,816,920-921,923,929-931,935-945,998-1011,1014-1019,1142-1160,1181,1193,1201,1212
+lib/stages/postgen/introspection/redaction.poku.js
+  s_cb49c6c44e4aa4::t_354f21a21dee61 1-171
+lib/ecosystems/parsers-python.poku.js
+  s_cb49c6c44e4aa4::t_6f79e1c6df9a30 1424-1483
+lib/stages/postgen/introspection/score.poku.js
+  s_cb49c6c44e4aa4::t_f9936cbe7f282f 20,30,316-327,329-347,349,368-386,446-449,524,534,536-537,539-540,550-555,557-558,568,570,581-586,593,595-597,606-607,609,611-642,646-667,671-674,677,1048-1068,1070,1073-1074,1076-1080,1082-1086,1089-1103,1105,1108-1109,1111-1113,1115-1129,1131,1134-1135,1137-1139,1141-1152,1154,1157-1158,1160-1162,1164-1178,1180,1183-1184,1186-1187,1189-1209,1211,1214-1215,1217-1221,1224-1234,1236,1239-1240,1242-1247,1249-1251,1253-1264,1266,1269-1270,1272-1274,1276-1289,1291,1294-1295,1297-1300,1302,1304-1315,1317,1320-1321,1323-1326,1328-1338,1340,1342,1344-1345,1347-1354,1356-1360,1362-1372,1374,1376,1378-1388,1390-1400,1402,1404,1406-1411
+  s_cb49c6c44e4aa4::t_d4512b17ea3c02 328,348,525-533,535,538,541-549,556,559-567,569,571-580,587-592,594,598-605,608,610,643-645,668-670,675-676,678-713,1069,1071-1072,1075,1081,1087-1088,1104,1106-1107,1110,1114,1130,1132-1133,1136,1140,1153,1155-1156,1159,1163,1179,1181-1182,1185,1188,1210,1212-1213,1216,1222-1223,1235,1237-1238,1241,1248,1252,1265,1267-1268,1271,1275,1290,1292-1293,1296,1301,1303,1316,1318-1319,1322,1327,1339,1341,1343,1346,1355,1361,1373,1375,1377,1389,1401,1403,1405,1412
+lib/stages/postgen/introspection/skill.poku.js
+  s_cb49c6c44e4aa4::t_553906ca33db04 8-18,25,39-42,70-129,273-309,322,353,370-506,509,591,594-629,678,701,710-720,722-723,725-778,788,797-804,806-923,925-930,933-938,1018-1132
+lib/stages/postgen/postgen.js
+  s_cb49c6c44e4aa4::t_d88e1c8ef48854 50,54,493,513
+lib/core/fs.js
+  s_cb49c6c44e4aa4::t_bf2360e3572094 5,9,117-136
+lib/stages/pregen/pregen.js
+  s_cb49c6c44e4aa4::t_7fdb99bb907703 14,1352
+test/data/fidelity-boms/BF-FORM-002.fires.json
+  s_cb49c6c44e4aa4::t_b733f807e1e293 1-114
+lib/stages/postgen/introspection/commandFacts.poku.js
+  s_cb49c6c44e4aa4::t_4ab657baf38b2e 1-170
+test/data/fidelity-boms/BF-FORM-001.passes.json
+  s_cb49c6c44e4aa4::t_8e50284c914be4 1-118
+test/repotests/introspect-cargo-lockless/Cargo.toml
+  s_cb49c6c44e4aa4::t_cacee72007e015 1-11
+test/repotests/introspect-gradle-javaskew/gradle/wrapper/gradle-wrapper.properties
+  s_cb49c6c44e4aa4::t_04d15ff83e062e 1-7
+test/repotests/introspect-maven-wrapper/mvnw.cmd
+  s_cb49c6c44e4aa4::t_1561126657024e 1-11
+docs/INTROSPECTION.md
+  s_cb49c6c44e4aa4::t_e76a1907716a5d 87-111,124,129-191,201-210,261-262,365-368
+lib/cli/jvmBom.js
+  s_cb49c6c44e4aa4::t_c44440203a046c 11,712,749,758
+lib/ecosystems/gradleutils.poku.js
+  s_cb49c6c44e4aa4::t_e802e7d1202bda 859-914
+test/data/introspection/degraded-jvm.golden.md
+  s_cb49c6c44e4aa4::t_4cf47ff9b0cd67 19,41-42
+lib/stages/postgen/introspection/formulationEvidence.js
+  s_cb49c6c44e4aa4::t_a04826d4b750e8 1-427
+test/data/introspection/degraded-jvm.golden.json
+  s_cb49c6c44e4aa4::t_42f1d6f8b0f64f 2,101-103,112-113,121-122
+lib/cli/managedBom.js
+  s_cb49c6c44e4aa4::t_0f154934bd73a0 9,107,590-603,1116-1131,1259-1267
+.agents/skills/sbom-fidelity-loop/reference/remediation-actions.md
+  s_cb49c6c44e4aa4::t_5cddc54ac3e632 28-40,114-197
+test/repotests/introspect-gradle-javaskew/failing-gradle.sh
+  s_cb49c6c44e4aa4::t_205ae9eb7491c6 1-10
+lib/core/deferredExit.poku.js
+  s_cb49c6c44e4aa4::t_85c39586389c95 25,186
+test/repotests/introspect-uv-lockfile/uv.lock
+  s_cb49c6c44e4aa4::t_4f753cfa826dbd 1-5
+test/repotests/introspect-gradle-javaskew/build.gradle
+  s_cb49c6c44e4aa4::t_54d5c99a6fdd4b 1-3
+lib/stages/postgen/introspection/shapeCommand.poku.js
+  s_cb49c6c44e4aa4::t_4ca5a43ffe97d4 1-222
+lib/ecosystems/parsers-python.js
+  s_cb49c6c44e4aa4::t_5df0ea85cd9a0e 31-65,904-912,916
+test/repotests/introspect-maven-wrapper/mvnw
+  s_cb49c6c44e4aa4::t_92b5255887e719 1-10
+lib/stages/postgen/introspection/formulationEvidence.poku.js
+  s_cb49c6c44e4aa4::t_48eda12da898fb 1-763
+test/repotests/introspect-formulation-foreign/foreign.bom.json
+  s_cb49c6c44e4aa4::t_5c0c083f15a2b4 1
+test/matrix/toolchain-matrix.yaml
+  s_cb49c6c44e4aa4::t_0d3daae1bc1033 282,284-291,532-820
+test/repotests/introspect-maven-wrapper/pom.xml
+  s_cb49c6c44e4aa4::t_8202a7fc9249c7 1-21
+test/repotests/introspect-uv-lockfile/pyproject.toml
+  s_cb49c6c44e4aa4::t_7805da3e3f69ea 1-5
+lib/stages/postgen/introspection/e2e.poku.js
+  s_cb49c6c44e4aa4::t_70239be18d7d86 26,156,216,296-381,394,417
+lib/stages/postgen/introspection/reflect.poku.js
+  s_cb49c6c44e4aa4::t_0ed5b53889217f 473-537
+test/data/fidelity-boms/BF-FORM-001.fires.json
+  s_cb49c6c44e4aa4::t_eb43c6dce43392 1-111
+data/remediations.json
+  s_cb49c6c44e4aa4::t_8b5c8b38512567 27,64,93,122,159,180,377-428,440,449-509,700-935
+lib/stages/postgen/introspection/annotate.js
+  s_cb49c6c44e4aa4::t_f87489a1552998 20,29,273-305
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "4e2f3f2d8137b0fc44a9942e12a526f090bc07f1",
+  "prompts": {},
+  "sessions": {
+    "s_cb49c6c44e4aa4": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "db835424-cfc4-44e6-9b8d-b62defdec203",
+        "model": "claude-opus-5"
+      },
+      "human_author": null
+    }
+  }
+}
