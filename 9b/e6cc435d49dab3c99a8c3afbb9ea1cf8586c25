@@ -1,0 +1,19 @@
+test/repotests/introspect-uv-lockfile/uv.lock
+  s_94001aa405ba47::t_b553c19e4b7b3e 1-3,7-8
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "9be6cc435d49dab3c99a8c3afbb9ea1cf8586c25",
+  "prompts": {},
+  "sessions": {
+    "s_94001aa405ba47": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "f2b0292f-2974-4e67-946d-8f5bfc7a1cd9",
+        "model": "unknown"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
