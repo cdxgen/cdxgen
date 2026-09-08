@@ -1,0 +1,14 @@
+ci/images/debian/Dockerfile.ruby2.6
+  h_6a4cc5cdf68def 59-61
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.2",
+  "base_commit_sha": "9fd49f62f80a8fea27e6d6aab9a4bf431a7ba03e",
+  "prompts": {},
+  "humans": {
+    "h_6a4cc5cdf68def": {
+      "author": "Team AppThreat <cloud@appthreat.com>"
+    }
+  }
+}
