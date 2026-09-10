@@ -2,7 +2,6 @@ name: Image build
 
 # This workflow CAN NOT be called directly. It is currently used by:
 # - build-images.yml
-# - build-rolling-image.yml
 #
 # If any changes are made to this workflow, specifically with any inputs, make
 # sure to check/update the above workflows!
