@@ -1,0 +1,16 @@
+lib/inventory/analyzer.js
+  h_6a4cc5cdf68def 4279,4293
+lib/inventory/analyzer.poku.js
+  h_6a4cc5cdf68def 1356-1384
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "12c2283fcb27cbe8efa52aee5fc95eaaaa60f492",
+  "prompts": {},
+  "humans": {
+    "h_6a4cc5cdf68def": {
+      "author": "Team AppThreat <cloud@appthreat.com>"
+    }
+  }
+}
