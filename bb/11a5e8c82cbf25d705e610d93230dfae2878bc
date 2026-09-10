@@ -1,0 +1,19 @@
+lib/core/activity.js
+  s_fca880db567008::t_2e082f229d1003 948-950
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "bb11a5e8c82cbf25d705e610d93230dfae2878bc",
+  "prompts": {},
+  "sessions": {
+    "s_fca880db567008": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "4e0cb336-a90f-4711-bf35-e87ee0a172b0",
+        "model": "claude-opus-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
