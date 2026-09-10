@@ -1,6 +1,6 @@
 {
   "name": "@cyclonedx/cdxgen",
-  "version": "12.8.4",
+  "version": "12.8.5",
   "description": "Creates CycloneDX Software Bill of Materials (SBOM) from source or container image",
   "keywords": [
     "sbom",
@@ -120,8 +120,8 @@
     "watch": "poku --watch"
   },
   "dependencies": {
-    "@babel/parser": "7.29.7",
-    "@babel/traverse": "7.29.7",
+    "@babel/parser": "7.29.8",
+    "@babel/traverse": "7.29.8",
     "@iarna/toml": "2.2.5",
     "@isaacs/string-locale-compare": "1.1.0",
     "@npmcli/fs": "5.0.0",
@@ -151,7 +151,7 @@
     "yargs": "18.1.0"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.5.7",
+    "@biomejs/biome": "2.5.12",
     "esmock": "2.7.6",
     "poku": "4.5.0",
     "sinon": "22.1.0",
