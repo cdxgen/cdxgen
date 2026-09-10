@@ -1,0 +1,29 @@
+lib/core/activity.js
+  s_fca880db567008::t_2e082f229d1003 948-950
+lib/core/ui.stream-contract.poku.js
+  s_3566887b94486e::t_bb58bcebbcc753 77-80
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "4bec1dde10cffd8291960e6ad275e8f1d22bbf71",
+  "prompts": {},
+  "sessions": {
+    "s_3566887b94486e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "113a42bd-72d3-4556-a83a-881afe87f562",
+        "model": "claude-opus-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    },
+    "s_fca880db567008": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "4e0cb336-a90f-4711-bf35-e87ee0a172b0",
+        "model": "claude-opus-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
