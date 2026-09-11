@@ -1,0 +1,80 @@
+lib/inventory/aiCollector.js
+  h_6a4cc5cdf68def 2,34,56-58,59-74,110-115,116-119,120,121,122-123,124,127-138,189,242-287,288-290,291-320,394,468-480,576-583,584-587,588-610,611-621,623-651,1463-1476,1780,1784,2133,2134-2138,2142-2164,2165,2167-2176,2181-2195,2196-2197,2198,2209,2219,2220-2223,2224,2225-2226,2227-2229,2230-2232,2233,2234,2236,2252-2258,2262-2294,2295-2297,2299-2300,2301-2304,2305,2306-2308,2309-2317,2318-2349
+lib/inventory/aiCollector.poku.js
+  h_6a4cc5cdf68def 785-874,875-908,909,910-937,938-956,957-959,960-989,990-1068
+lib/inventory/analyzer.js
+  h_6a4cc5cdf68def 4279,4293,4349-4357
+lib/inventory/mcpDiscovery.js
+  h_6a4cc5cdf68def 9-10,11-13,14,15-17,18-19
+lib/inventory/agentFormulationParser.js
+  h_6a4cc5cdf68def 2,4,15-16,18,20-21,23-28,63-66,72-73,76-82,84-86,93-95,96-99,101,102-108,109-113
+lib/inventory/agentFormulationParser.poku.js
+  h_6a4cc5cdf68def 42-85,86-155
+docs/CUSTOM_PROPERTIES.md
+  h_6a4cc5cdf68def 108,109,110,111,112,148-159,160-165,166-169,170,171-174,175-182,183-186,187,188,189-208
+lib/inventory/communityAiConfigParser.js
+  h_6a4cc5cdf68def 2,6,32-43,161-172,176-178,281-447,906-921,925-927
+lib/inventory/communityAiConfigParser.poku.js
+  h_6a4cc5cdf68def 177-288
+lib/inventory/analyzer.poku.js
+  h_6a4cc5cdf68def 1356-1384
+lib/inventory/aiInventory.js
+  h_6a4cc5cdf68def 13,15,69-73,74-78
+lib/inventory/mcpServerManifest.js
+  h_6a4cc5cdf68def 1-90,91,92-95,96-112,113,114-116,117-149,150-181,182-252,253-389
+lib/inventory/mcpServerManifest.poku.js
+  h_6a4cc5cdf68def 1-36,37,38,39-42,43-83,84,85-86,87-88,89-92,93-100,101-110,111-112,113-176,177-228,229
+lib/inventory/mcpbBundle.js
+  h_6a4cc5cdf68def 1,2-4,5,6-7,8,9-11,12-15,16,17-22,23-30,31-58,59-63,64,65,66-99,100,101-108,109,110-114,115,116-122,123-124,125-138,139,140,141-142,143,144-145,146-153,154-160,161,162-167,168-169,177,178,179-180,181-182,183-184,185,186-190,191-192,193-197,198-202,203-354,355-357,358,359-380,381-419
+lib/inventory/mcpbBundle.poku.js
+  h_6a4cc5cdf68def 1-176,177-223,224
+lib/inventory/mcpConfigParser.js
+  h_6a4cc5cdf68def 4-5,35-44,107-124,130-132,141-149,426-447,456-460,461,462,463-465,466-484,485-525,655-675,815-817
+lib/inventory/mcpConfigParser.poku.js
+  h_6a4cc5cdf68def 163-217,218,219-284,285-341
+lib/parsers/safetensors.js
+  h_6a4cc5cdf68def 1-114
+lib/parsers/safetensors.poku.js
+  h_6a4cc5cdf68def 1-65
+data/rules/ai-bom.yaml
+  h_6a4cc5cdf68def 269-312
+data/rules/mcp-servers.yaml
+  h_6a4cc5cdf68def 389-429,430-432,433-434,435-437,438-440,441-442,443,444-446,447-458,459-460,461-466,467-510
+lib/stages/postgen/auditBom.poku.js
+  h_6a4cc5cdf68def 1778-1830,1831-1854,1855-1874
+test/baseline/npm-pack-file-list.txt
+  h_6a4cc5cdf68def 151,210-211,246
+docs/AI_BOM.md
+  h_6a4cc5cdf68def 12-19,21-23,186,193-208,234
+docs/LESSON15.md
+  h_6a4cc5cdf68def 103-104
+docs/MCP.md
+  h_6a4cc5cdf68def 27-29,31,38-40,42-53,55-57,73-78,135-162,192-193
+lib/cli/index.js
+  h_6a4cc5cdf68def 93,2649-2651
+lib/cli/jsBom.js
+  h_6a4cc5cdf68def 2,56-59,1755-1763,1764-1766,1767-1769,1770-1782,1786-1787,1788-1790,1791,1792-1794,1795,1796-1798
+lib/core/env.js
+  h_6a4cc5cdf68def 364
+lib/helpers/agenticToolutils.js
+  h_6a4cc5cdf68def 1-5,6,7-12,13-25,26-32,33-38,39-47,48-52,53,54-56,59,68,69-185,186,187-191,256-258,260-267,269-271,272-428,429-458,459-478,479-482,483-506,507,508,509,510-512,513-516,517-530,531-534,535-583,584-587,588-591,592,593-667,668,669-719,720-734,735-737,738,739,740,741,742,743-744,745,746-747,748,749-752,753,754-756,757,758-761,762,763-766,767,768,769,770,771-774,775,776,777-784,785-791,792-794,795,796-802,803-812,813-814,815,816-825,826,827
+lib/helpers/agenticToolutils.poku.js
+  h_6a4cc5cdf68def 1-11,12,13-99,100-105,106-145,146-149,150-188,189-250,251
+docs/AGENTIC_INVENTORY.md
+  h_6a4cc5cdf68def 1-10,11,12-13,14-20,21-32,33,34-36,37-44,45-46,47,48-52,53-58,59-82,83-89,90-94,95-96,97-100,101,102-110
+docs/PROJECT_TYPES.md
+  h_6a4cc5cdf68def 21,97
+lib/stages/postgen/introspection/loop.poku.js
+  h_6a4cc5cdf68def 3-5,11
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "70de314882108ac64c1e93dc87c56760a7c21ba0",
+  "prompts": {},
+  "humans": {
+    "h_6a4cc5cdf68def": {
+      "author": "Team AppThreat <cloud@appthreat.com>"
+    }
+  }
+}
