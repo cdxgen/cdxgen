@@ -1,0 +1,44 @@
+docs/ENV.md
+  s_d64ffd04b79e7a::t_e75a9eda6d8b3d 37
+  s_d64ffd04b79e7a::t_3acf4dff4e7965 38-39
+lib/core/userAgent.js
+  s_d64ffd04b79e7a::t_c7a368382545dd 92-95,104-106
+  s_d64ffd04b79e7a::t_257fa71136e077 23-30
+  s_d64ffd04b79e7a::t_6a30d9fceeb1a8 20
+  s_d64ffd04b79e7a::t_ab919f2305f5f6 1-19,21-22,31-91,96-103,107-150
+lib/inventory/forgeEnricher.js
+  s_d64ffd04b79e7a::t_65b7bce1d5ddaf 2,127,218
+lib/core/userAgent.poku.js
+  s_d64ffd04b79e7a::t_6a30d9fceeb1a8 41
+  s_d64ffd04b79e7a::t_a5baf6e76238b7 1-36,38-40,44-58,60,70-129,134-140
+  s_d64ffd04b79e7a::t_e05ab56a477530 37,42-43
+  s_d64ffd04b79e7a::t_ecc6eb68970b30 130-133
+  s_d64ffd04b79e7a::t_42bd1e02bb784f 59,61-69
+lib/core/activity.js
+  s_d64ffd04b79e7a::t_03f44ca7de7af1 6
+  s_d64ffd04b79e7a::t_e635c38bc7cf66 971-973
+  s_d64ffd04b79e7a::t_48fa169b20290b 945-967
+  s_d64ffd04b79e7a::t_f0f19e27cab1ed 987
+test/baseline/npm-pack-file-list.txt
+  s_d64ffd04b79e7a::t_79292fc43d9deb 112,383-384
+types/lib/core/userAgent.d.ts
+  s_d64ffd04b79e7a::t_a7def45d51a98a 1-56
+types/lib/core/userAgent.d.ts.map
+  s_d64ffd04b79e7a::t_da47666f7f5de2 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "ce5ebdc75f66ed48edfd29d630ba7cd08027fc85",
+  "prompts": {},
+  "sessions": {
+    "s_d64ffd04b79e7a": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "5052313b-4d5c-4c5a-ac3e-944ac5237e05",
+        "model": "claude-opus-5"
+      },
+      "human_author": null
+    }
+  }
+}
