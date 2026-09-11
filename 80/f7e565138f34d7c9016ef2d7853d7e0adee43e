@@ -1,0 +1,27 @@
+docs/ENV.md
+  s_d64ffd04b79e7a::t_e75a9eda6d8b3d 37
+  s_d64ffd04b79e7a::t_3acf4dff4e7965 38-39
+lib/core/activity.js
+  s_d64ffd04b79e7a::t_e635c38bc7cf66 971-973
+  s_d64ffd04b79e7a::t_03f44ca7de7af1 6
+  s_d64ffd04b79e7a::t_f0f19e27cab1ed 987
+  s_d64ffd04b79e7a::t_48fa169b20290b 945-967
+lib/inventory/forgeEnricher.js
+  s_d64ffd04b79e7a::t_65b7bce1d5ddaf 2,127,218
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "80f7e565138f34d7c9016ef2d7853d7e0adee43e",
+  "prompts": {},
+  "sessions": {
+    "s_d64ffd04b79e7a": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "5052313b-4d5c-4c5a-ac3e-944ac5237e05",
+        "model": "claude-opus-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
