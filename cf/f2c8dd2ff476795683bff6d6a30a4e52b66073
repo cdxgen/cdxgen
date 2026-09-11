@@ -1,0 +1,24 @@
+docs/AGENTIC_INVENTORY.md
+  h_6a4cc5cdf68def 11,14-20,33,37-44,47,53-58,83-89,95-96,101
+docs/CUSTOM_PROPERTIES.md
+  h_6a4cc5cdf68def 188
+docs/PROJECT_TYPES.md
+  h_6a4cc5cdf68def 97
+lib/cli/jsBom.js
+  h_6a4cc5cdf68def 2,1764-1766,1770-1785,1789,1793
+lib/helpers/agenticToolutils.js
+  h_6a4cc5cdf68def 6,13-25,33-38,48-52,54-62,180,186-208,366-395,416-419,444,446,450-453,468-471,521-524,529,605,657-671,675,677,679,682,685,690,694,699,704,706,708-711,713,722-728,732,740-749,752,763
+lib/helpers/agenticToolutils.poku.js
+  h_6a4cc5cdf68def 12,100-105,146-149,189-250
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "cff2c8dd2ff476795683bff6d6a30a4e52b66073",
+  "prompts": {},
+  "humans": {
+    "h_6a4cc5cdf68def": {
+      "author": "Team AppThreat <cloud@appthreat.com>"
+    }
+  }
+}
