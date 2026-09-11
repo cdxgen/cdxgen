@@ -1,0 +1,20 @@
+docs/CUSTOM_PROPERTIES.md
+  h_6a4cc5cdf68def 109,157-163
+lib/inventory/aiInventory.js
+  h_6a4cc5cdf68def 14,68-72
+lib/inventory/mcpServerManifest.js
+  h_6a4cc5cdf68def 1-345
+lib/inventory/mcpServerManifest.poku.js
+  h_6a4cc5cdf68def 1-161
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "2c0f99be678ae65be01e8893a8bea13d418b6015",
+  "prompts": {},
+  "humans": {
+    "h_6a4cc5cdf68def": {
+      "author": "Team AppThreat <cloud@appthreat.com>"
+    }
+  }
+}

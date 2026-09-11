@@ -1,0 +1,16 @@
+lib/inventory/aiCollector.js
+  h_6a4cc5cdf68def 129,182-230,304
+lib/inventory/aiCollector.poku.js
+  h_6a4cc5cdf68def 785-874
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "dac00b187946fb919579a6a5fbdaf8951b3f0965",
+  "prompts": {},
+  "humans": {
+    "h_6a4cc5cdf68def": {
+      "author": "Team AppThreat <cloud@appthreat.com>"
+    }
+  }
+}

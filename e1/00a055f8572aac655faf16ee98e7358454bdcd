@@ -1,0 +1,20 @@
+docs/AGENTIC_INVENTORY.md
+  h_6a4cc5cdf68def 1-95
+docs/AI_BOM.md
+  h_6a4cc5cdf68def 234
+docs/CUSTOM_PROPERTIES.md
+  h_6a4cc5cdf68def 110,183-203
+docs/PROJECT_TYPES.md
+  h_6a4cc5cdf68def 21,97
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "e100a055f8572aac655faf16ee98e7358454bdcd",
+  "prompts": {},
+  "humans": {
+    "h_6a4cc5cdf68def": {
+      "author": "Team AppThreat <cloud@appthreat.com>"
+    }
+  }
+}

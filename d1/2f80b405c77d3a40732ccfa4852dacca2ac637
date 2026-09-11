@@ -1,0 +1,18 @@
+docs/AI_BOM.md
+  h_6a4cc5cdf68def 12-19,21-23,186,193-208
+docs/LESSON15.md
+  h_6a4cc5cdf68def 103-104
+docs/MCP.md
+  h_6a4cc5cdf68def 27-29,31,38-40,42-53,55-57,73-78,135-162,192-193
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "d12f80b405c77d3a40732ccfa4852dacca2ac637",
+  "prompts": {},
+  "humans": {
+    "h_6a4cc5cdf68def": {
+      "author": "Team AppThreat <cloud@appthreat.com>"
+    }
+  }
+}
