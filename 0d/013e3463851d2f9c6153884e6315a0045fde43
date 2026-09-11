@@ -1,0 +1,21 @@
+docs/ENV.md
+  s_d64ffd04b79e7a::t_1bd0b93be9fc6a 37-38
+  s_d64ffd04b79e7a::t_348c92b5b102ca 378-425
+  s_d64ffd04b79e7a::t_135ed7b717254b 39
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "0d013e3463851d2f9c6153884e6315a0045fde43",
+  "prompts": {},
+  "sessions": {
+    "s_d64ffd04b79e7a": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "5052313b-4d5c-4c5a-ac3e-944ac5237e05",
+        "model": "claude-opus-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
