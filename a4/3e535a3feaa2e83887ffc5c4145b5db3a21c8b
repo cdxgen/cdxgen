@@ -1,0 +1,22 @@
+docs/CUSTOM_PROPERTIES.md
+  h_6a4cc5cdf68def 111,178-181
+lib/inventory/aiCollector.js
+  h_6a4cc5cdf68def 34,56-60,529-560,1372-1385,1689,1693,2042-2177
+lib/inventory/aiCollector.poku.js
+  h_6a4cc5cdf68def 909-962
+lib/parsers/safetensors.js
+  h_6a4cc5cdf68def 1-114
+lib/parsers/safetensors.poku.js
+  h_6a4cc5cdf68def 1-65
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "a43e535a3feaa2e83887ffc5c4145b5db3a21c8b",
+  "prompts": {},
+  "humans": {
+    "h_6a4cc5cdf68def": {
+      "author": "Team AppThreat <cloud@appthreat.com>"
+    }
+  }
+}
