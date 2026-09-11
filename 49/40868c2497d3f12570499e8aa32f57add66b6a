@@ -1,0 +1,24 @@
+lib/cli/index.js
+  h_6a4cc5cdf68def 93,2649-2651
+lib/cli/jsBom.js
+  h_6a4cc5cdf68def 2,56-59,1755-1778
+lib/core/env.js
+  h_6a4cc5cdf68def 364
+lib/helpers/agenticToolutils.js
+  h_6a4cc5cdf68def 1-642
+lib/helpers/agenticToolutils.poku.js
+  h_6a4cc5cdf68def 1-182
+test/baseline/npm-pack-file-list.txt
+  h_6a4cc5cdf68def 151
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "4940868c2497d3f12570499e8aa32f57add66b6a",
+  "prompts": {},
+  "humans": {
+    "h_6a4cc5cdf68def": {
+      "author": "Team AppThreat <cloud@appthreat.com>"
+    }
+  }
+}
