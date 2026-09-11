@@ -1,0 +1,28 @@
+docs/CUSTOM_PROPERTIES.md
+  h_6a4cc5cdf68def 166-169
+lib/inventory/agentFormulationParser.js
+  h_6a4cc5cdf68def 2,4,15-16,63-78,80-82,92-97
+lib/inventory/agentFormulationParser.poku.js
+  h_6a4cc5cdf68def 86-155
+lib/inventory/aiCollector.js
+  h_6a4cc5cdf68def 101-104,106,109,112-123,273-275,453-465,569-572
+lib/inventory/aiCollector.poku.js
+  h_6a4cc5cdf68def 910-937
+lib/inventory/mcpDiscovery.js
+  h_6a4cc5cdf68def 11-13,15-17
+lib/inventory/mcpServerManifest.js
+  h_6a4cc5cdf68def 91,96-112,114-116,150-181
+lib/inventory/mcpServerManifest.poku.js
+  h_6a4cc5cdf68def 37,39-42,84,87-88,93-100,111-112,177-228
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "90261f5ecc4f62661720b6dcdaa6e58fd43837bc",
+  "prompts": {},
+  "humans": {
+    "h_6a4cc5cdf68def": {
+      "author": "Team AppThreat <cloud@appthreat.com>"
+    }
+  }
+}
