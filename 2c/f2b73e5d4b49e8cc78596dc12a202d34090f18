@@ -1,0 +1,28 @@
+data/rules/mcp-servers.yaml
+  h_6a4cc5cdf68def 430-432,459-460,467-510
+lib/inventory/aiCollector.js
+  h_6a4cc5cdf68def 2,59-74,575-615,2097,2126-2152,2155-2158,2163,2166-2168,2172,2174-2177,2179,2220-2230,2235,2239-2247
+lib/inventory/aiCollector.poku.js
+  h_6a4cc5cdf68def 929-931,962-1040
+lib/inventory/mcpConfigParser.js
+  h_6a4cc5cdf68def 426-433,463,467-485
+lib/inventory/mcpConfigParser.poku.js
+  h_6a4cc5cdf68def 219-284
+lib/inventory/mcpbBundle.js
+  h_6a4cc5cdf68def 1,5,8,12-15,17-22,31-58,64,66-99,101-108,110-114,116-122,125-138,140,143,146-153,161,168-171,173-174,177-178,180-184,192-196,349-351,353-374
+lib/inventory/mcpbBundle.poku.js
+  h_6a4cc5cdf68def 177-223
+lib/stages/postgen/auditBom.poku.js
+  h_6a4cc5cdf68def 1831-1854
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "2cf2b73e5d4b49e8cc78596dc12a202d34090f18",
+  "prompts": {},
+  "humans": {
+    "h_6a4cc5cdf68def": {
+      "author": "Team AppThreat <cloud@appthreat.com>"
+    }
+  }
+}
