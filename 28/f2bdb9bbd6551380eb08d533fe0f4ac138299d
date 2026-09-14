@@ -1,0 +1,51 @@
+ci/Dockerfile-secure
+  s_d1fe4047e496cd::t_e0e84a2c618c27 7
+README.md
+  s_d1fe4047e496cd::t_6d1e653275b138 219,233,247,272
+ci/Dockerfile
+  s_d1fe4047e496cd::t_e0e84a2c618c27 147
+ci/Dockerfile-ppc64
+  s_d1fe4047e496cd::t_e0e84a2c618c27 7
+deno.json
+  s_d1fe4047e496cd::t_e0e84a2c618c27 3
+.github/scripts/build-standalone.sh
+  s_d1fe4047e496cd::t_434314da7b8094 392
+pyproject.toml
+  s_d1fe4047e496cd::t_e0e84a2c618c27 3
+ci/Dockerfile-bun
+  s_d1fe4047e496cd::t_e0e84a2c618c27 7
+pnpm-workspace.yaml
+  s_d1fe4047e496cd::t_434314da7b8094 15-16
+ci/images/al10/Dockerfile.ruby-builder
+  s_d1fe4047e496cd::t_e0e84a2c618c27 7
+.github/scripts/build-standalone.ps1
+  s_d1fe4047e496cd::t_434314da7b8094 269
+package.json
+  s_d1fe4047e496cd::t_960b7dccf2ce68 146-147,167,173,181-182
+  s_d1fe4047e496cd::t_e0e84a2c618c27 3
+  s_d1fe4047e496cd::t_e07c54ec234e70 202,205
+jsr.json
+  s_d1fe4047e496cd::t_e0e84a2c618c27 3
+claude-plugin/.claude-plugin/plugin.json
+  s_d1fe4047e496cd::t_e0e84a2c618c27 4
+ci/Dockerfile-deno
+  s_d1fe4047e496cd::t_e0e84a2c618c27 7
+pnpm-lock.yaml
+  s_d1fe4047e496cd::t_2fdd26e09c8a20 1-158,178-179,181-182,241-242,254-255,273-274,276-277,375-376,399-400,415-416,424-425,428-429,432-433,437-438,443-444,449-450,456-457,463-464,470-471,477-478,483-484,492-494,604-605,611-612,788-789,804-806,844-845,917-918,1021-1022,1033-1034,1079-1080,1112-1113,1224-1225,1304,1307,1336,1338-1340,1351,1353,1358-1359,1361,1364,1366,1368-1369,1371,1376,1378-1385,1387,1390,1393,1396,1399,1402,1405,1408,1414-1416,1488,1490,1495,1500,1522,1627,1631,1640,1645,1652,1709,1764,1808,1876,1887,1889,1931,1959,2059,2078-2079,2109
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "28f2bdb9bbd6551380eb08d533fe0f4ac138299d",
+  "prompts": {},
+  "sessions": {
+    "s_d1fe4047e496cd": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "d4802a45-3c52-47af-ac4f-51aa8a3c558e",
+        "model": "claude-opus-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}

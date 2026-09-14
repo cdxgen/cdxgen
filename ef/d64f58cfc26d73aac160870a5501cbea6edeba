@@ -1,0 +1,39 @@
+lib/inventory/fetchBatch.routing.poku.js
+  s_d1fe4047e496cd::t_af93911ce02242 103-105
+  s_d1fe4047e496cd::t_af81e674a6184c 92-102,106-134
+lib/inventory/source.js
+  s_d1fe4047e496cd::t_9cf4d4691a8231 31,1187-1189,1192-1197
+lib/inventory/fetchRate.js
+  s_d1fe4047e496cd::t_7a78f8e706ba6b 5,8-9,14-17
+  s_d1fe4047e496cd::t_9f337b008e16ca 52-57,60-63
+lib/inventory/fetchBatch.batch.poku.js
+  s_d1fe4047e496cd::t_2bdc91b4f0f16d 28,226-258,263-266
+  s_d1fe4047e496cd::t_af93911ce02242 259-262
+  s_d1fe4047e496cd::t_aa61e9d29ead79 267-268
+lib/inventory/fetchRate.poku.js
+  s_d1fe4047e496cd::t_7a78f8e706ba6b 20-24
+  s_d1fe4047e496cd::t_15567f734be918 35-37,40-43,81-83,85-86,91-92
+lib/ecosystems/ecosystems.js
+  s_d1fe4047e496cd::t_013d4b2023af2b 1826-1829,1832-1836,1842-1846
+  s_d1fe4047e496cd::t_9339423bff8c07 69
+lib/inventory/fetchBatch.js
+  s_d1fe4047e496cd::t_4ba2bfd198a1f8 286,726-759
+  s_d1fe4047e496cd::t_dfb42256a44273 251-256,261,268-270,274-285,725
+  s_d1fe4047e496cd::t_b27fc2e7f494c2 287
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "efd64f58cfc26d73aac160870a5501cbea6edeba",
+  "prompts": {},
+  "sessions": {
+    "s_d1fe4047e496cd": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "d4802a45-3c52-47af-ac4f-51aa8a3c558e",
+        "model": "claude-opus-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
