@@ -115,6 +115,7 @@ export declare function analyzeProject(dbObjMap: Object, options: Object): Promi
     userDefinedTypesMap: {};
     componentPropertiesMap?: undefined;
     metadataProperties?: undefined;
+    workspaceComponent?: undefined;
     atomFile?: undefined;
     usagesSlicesFile?: undefined;
     dataFlowSlicesFile?: undefined;
@@ -135,6 +136,32 @@ export declare function analyzeProject(dbObjMap: Object, options: Object): Promi
     cryptoGeneratePurls: any;
     servicesMap: {};
     userDefinedTypesMap: {};
+    workspaceComponent?: undefined;
+    atomFile?: undefined;
+    usagesSlicesFile?: undefined;
+    dataFlowSlicesFile?: undefined;
+    reachablesSlicesFile?: undefined;
+    semanticsSlicesFile?: undefined;
+    tempDir?: undefined;
+    tempDirOwned?: undefined;
+    aiComponents?: undefined;
+    openapiSpecFile?: undefined;
+} | {
+    purlLocationMap: {};
+    dataFlowFrames: {};
+    componentPropertiesMap: {};
+    metadataProperties: any[];
+    cryptoComponents: any[];
+    cryptoGeneratePurls: {};
+    servicesMap: {};
+    userDefinedTypesMap: {};
+    workspaceComponent: {
+        type: string;
+        name: any;
+        version: any;
+        purl: any;
+        "bom-ref": any;
+    } | undefined;
     atomFile?: undefined;
     usagesSlicesFile?: undefined;
     dataFlowSlicesFile?: undefined;
@@ -147,6 +174,7 @@ export declare function analyzeProject(dbObjMap: Object, options: Object): Promi
 } | {
     componentPropertiesMap?: undefined;
     metadataProperties?: undefined;
+    workspaceComponent?: undefined;
     usagesSlicesFile: any;
     dataFlowSlicesFile: any;
     semanticsSlicesFile: any;
@@ -165,6 +193,7 @@ export declare function analyzeProject(dbObjMap: Object, options: Object): Promi
 } | {
     componentPropertiesMap?: undefined;
     metadataProperties?: undefined;
+    workspaceComponent?: undefined;
     atomFile: any;
     usagesSlicesFile: any;
     dataFlowSlicesFile: any;
