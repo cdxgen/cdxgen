@@ -182,3 +182,4 @@ test/data/mcp-repotest/js-openapi.json
 !test/repotests/**/fixture/**/node_modules/
 !test/repotests/**/fixture/**/node_modules/**
 test/data/rust-dataflow-repotest/target
+package-lock.json
