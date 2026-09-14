@@ -1,0 +1,16 @@
+lib/ecosystems/kosi.js
+  h_6a4cc5cdf68def 170,180-189,191,201-223,300,302,324,334,341,481-498,500,508-510
+package-lock.json
+  h_6a4cc5cdf68def 1-3009
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "ffd9beb1608efe0617aa1a0f122f40de8102ec87",
+  "prompts": {},
+  "humans": {
+    "h_6a4cc5cdf68def": {
+      "author": "Team AppThreat <cloud@appthreat.com>"
+    }
+  }
+}
