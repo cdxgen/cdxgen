@@ -1,0 +1,14 @@
+bin/evinse.js
+  h_6a4cc5cdf68def 48-49
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "ee2d037f612a99c4d4dbf38ae361e68ca50d4567",
+  "prompts": {},
+  "humans": {
+    "h_6a4cc5cdf68def": {
+      "author": "Team AppThreat <cloud@appthreat.com>"
+    }
+  }
+}

@@ -1,0 +1,14 @@
+lib/ecosystems/kosi.js
+  h_6a4cc5cdf68def 91
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "195c3d1a6d370b2a79f7c9e562ef8b2fac00df8d",
+  "prompts": {},
+  "humans": {
+    "h_6a4cc5cdf68def": {
+      "author": "Team AppThreat <cloud@appthreat.com>"
+    }
+  }
+}
