@@ -1,0 +1,16 @@
+lib/ecosystems/kosi.js
+  h_6a4cc5cdf68def 65,67,72,75,83-98,100-125,127-133,136-144,155-197
+lib/evinser/evinser.js
+  h_6a4cc5cdf68def 38,735-740
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "641fe3587e2c7bf4e7f2acf5663be42b69540c6a",
+  "prompts": {},
+  "humans": {
+    "h_6a4cc5cdf68def": {
+      "author": "Team AppThreat <cloud@appthreat.com>"
+    }
+  }
+}
