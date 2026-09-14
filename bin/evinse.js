@@ -45,6 +45,8 @@ const args = yargs(hideBin(process.argv))
     choices: [
       "java",
       "jar",
+      "kotlin",
+      "kt",
       "js",
       "ts",
       "javascript",
