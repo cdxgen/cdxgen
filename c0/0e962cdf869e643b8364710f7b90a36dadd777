@@ -1,0 +1,20 @@
+types/lib/cli/jsBom.d.ts
+  h_6a4cc5cdf68def 6-12
+types/lib/cli/jsBom.d.ts.map
+  h_6a4cc5cdf68def 1
+types/lib/parsers/huggingfaceUtils.d.ts
+  h_6a4cc5cdf68def 87-91,94-96
+types/lib/parsers/huggingfaceUtils.d.ts.map
+  h_6a4cc5cdf68def 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "c00e962cdf869e643b8364710f7b90a36dadd777",
+  "prompts": {},
+  "humans": {
+    "h_6a4cc5cdf68def": {
+      "author": "Team AppThreat <cloud@appthreat.com>"
+    }
+  }
+}
