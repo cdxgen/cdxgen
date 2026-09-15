@@ -1,0 +1,26 @@
+biome.json
+  h_6a4cc5cdf68def 2
+types/lib/core/env.d.ts.map
+  h_6a4cc5cdf68def 1
+types/lib/inventory/analyzer.d.ts.map
+  h_6a4cc5cdf68def 1
+types/lib/inventory/stylePackageRefs.d.ts
+  h_6a4cc5cdf68def 1-17
+types/lib/inventory/stylePackageRefs.d.ts.map
+  h_6a4cc5cdf68def 1
+types/lib/inventory/svelteUtils.d.ts
+  h_6a4cc5cdf68def 1-124
+types/lib/inventory/svelteUtils.d.ts.map
+  h_6a4cc5cdf68def 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "0d2e83e8fa927c6bfd50f6be10b5233c626cea00",
+  "prompts": {},
+  "humans": {
+    "h_6a4cc5cdf68def": {
+      "author": "Team AppThreat <cloud@appthreat.com>"
+    }
+  }
+}
