@@ -1,0 +1,114 @@
+.github/workflows/repotests.yml
+  h_6a4cc5cdf68def 22-24,1654-1658,1711-1734
+README.md
+  h_6a4cc5cdf68def 790-791
+contrib/svelte-precision-eval/README.md
+  h_6a4cc5cdf68def 1-31
+contrib/svelte-precision-eval/index.js
+  h_6a4cc5cdf68def 1-598
+contrib/svelte-precision-eval/samples.json
+  h_6a4cc5cdf68def 1-23
+docs/ENV.md
+  h_6a4cc5cdf68def 13
+docs/PROJECT_TYPES.md
+  h_6a4cc5cdf68def 16,97
+lib/cli/jsBom.poku.js
+  h_6a4cc5cdf68def 24,432-455,573-729
+lib/core/env.js
+  h_6a4cc5cdf68def 364-365
+lib/inventory/analyzer.js
+  h_6a4cc5cdf68def 28-44,73,347-355,383-425,826,832,838,1159,2161,2169,2192-2198,2204,2216,2222,2225-2242,3035,3044,3062-3418,3476-3480,3563-3569,4680,5908
+lib/inventory/analyzer.poku.js
+  h_6a4cc5cdf68def 1972-2402
+lib/inventory/astWorker.js
+  h_6a4cc5cdf68def 12-17
+lib/inventory/stylePackageRefs.js
+  h_6a4cc5cdf68def 1-41
+lib/inventory/svelteUtils.js
+  h_6a4cc5cdf68def 1-524
+lib/inventory/svelteUtils.poku.js
+  h_6a4cc5cdf68def 1-409
+package.json
+  h_6a4cc5cdf68def 181
+pnpm-lock.yaml
+  h_6a4cc5cdf68def 273-274,375-376,604-606,610-612,656-663,791-795,815-822,855-858,900-902,944-946,951-958,1029-1031,1061-1063,1068-1070,1248-1251,1336-1338,1365,1371-1373,1552-1557,1563-1568,1629-1636,1704-1706,1722-1727,1772-1774,1821-1823,1859-1861,1864-1868,1961-1965,1983-1985,1988-1992,2181-2201,2291-2293
+test/data/svelte-legacy-repotest/App.svelte
+  h_6a4cc5cdf68def 1-31
+test/data/svelte-legacy-repotest/components/TodoList.svelte
+  h_6a4cc5cdf68def 1-21
+test/data/svelte-legacy-repotest/main.js
+  h_6a4cc5cdf68def 1-10
+test/data/svelte-legacy-repotest/package-lock.json
+  h_6a4cc5cdf68def 1-1381
+test/data/svelte-legacy-repotest/package.json
+  h_6a4cc5cdf68def 1-19
+test/data/svelte-precision/README.md
+  h_6a4cc5cdf68def 1-11
+test/data/svelte-precision/api-client.ts
+  h_6a4cc5cdf68def 1-32
+test/data/svelte-precision/async-await.svelte
+  h_6a4cc5cdf68def 1-26
+test/data/svelte-precision/broken-template.svelte
+  h_6a4cc5cdf68def 1-21
+test/data/svelte-precision/counter-runes.svelte
+  h_6a4cc5cdf68def 1-40
+test/data/svelte-precision/directives.svelte
+  h_6a4cc5cdf68def 1-44
+test/data/svelte-precision/leading-markup.svelte
+  h_6a4cc5cdf68def 1-20
+test/data/svelte-precision/legacy-props.svelte
+  h_6a4cc5cdf68def 1-31
+test/data/svelte-precision/list-each.svelte
+  h_6a4cc5cdf68def 1-25
+test/data/svelte-precision/module-script.svelte
+  h_6a4cc5cdf68def 1-22
+test/data/svelte-precision/package-lock.json
+  h_6a4cc5cdf68def 1-265
+test/data/svelte-precision/package.json
+  h_6a4cc5cdf68def 1-16
+test/data/svelte-precision/snippet-render.svelte
+  h_6a4cc5cdf68def 1-26
+test/data/svelte-precision/special-elements.svelte
+  h_6a4cc5cdf68def 1-27
+test/data/svelte-precision/store.svelte.ts
+  h_6a4cc5cdf68def 1-32
+test/data/svelte-precision/ts-template.svelte
+  h_6a4cc5cdf68def 1-18
+test/data/svelte-precision/types.ts
+  h_6a4cc5cdf68def 1-35
+test/data/svelte-precision/void-and-quirks.svelte
+  h_6a4cc5cdf68def 1-21
+test/data/svelte-repotest/package-lock.json
+  h_6a4cc5cdf68def 1-2875
+test/data/svelte-repotest/package.json
+  h_6a4cc5cdf68def 1-34
+test/data/svelte-repotest/src/app.d.ts
+  h_6a4cc5cdf68def 1-13
+test/data/svelte-repotest/src/app.html
+  h_6a4cc5cdf68def 1-13
+test/data/svelte-repotest/src/hooks.server.ts
+  h_6a4cc5cdf68def 1-20
+test/data/svelte-repotest/src/lib/Chart.svelte
+  h_6a4cc5cdf68def 1-23
+test/data/svelte-repotest/src/routes/+layout.svelte
+  h_6a4cc5cdf68def 1-16
+test/data/svelte-repotest/src/routes/+page.server.ts
+  h_6a4cc5cdf68def 1-11
+test/data/svelte-repotest/src/routes/+page.svelte
+  h_6a4cc5cdf68def 1-45
+test/data/svelte-repotest/svelte.config.js
+  h_6a4cc5cdf68def 1-12
+test/data/svelte-repotest/vite.config.js
+  h_6a4cc5cdf68def 1-6
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "b5c42a2e65f44a12174c892376d6ce05bfbd5856",
+  "prompts": {},
+  "humans": {
+    "h_6a4cc5cdf68def": {
+      "author": "Team AppThreat <cloud@appthreat.com>"
+    }
+  }
+}
