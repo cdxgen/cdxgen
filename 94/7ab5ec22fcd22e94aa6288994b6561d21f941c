@@ -1,0 +1,24 @@
+.github/workflows/repotests.yml
+  h_6a4cc5cdf68def 1707,1713,1715-1716
+bin/cdxgen.js
+  h_6a4cc5cdf68def 22,1605-1612
+lib/cli/jsBom.js
+  h_6a4cc5cdf68def 107-113,123,171-172,174
+lib/cli/jsBom.poku.js
+  h_6a4cc5cdf68def 26-30,885-946
+lib/ecosystems/remote/huggingface.poku.js
+  h_6a4cc5cdf68def 82-125
+lib/parsers/huggingfaceUtils.js
+  h_6a4cc5cdf68def 240-244,247,284-288,306-309
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "947ab5ec22fcd22e94aa6288994b6561d21f941c",
+  "prompts": {},
+  "humans": {
+    "h_6a4cc5cdf68def": {
+      "author": "Team AppThreat <cloud@appthreat.com>"
+    }
+  }
+}
