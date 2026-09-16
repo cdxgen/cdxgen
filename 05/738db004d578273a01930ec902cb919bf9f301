@@ -1,0 +1,14 @@
+lib/evinser/evinser.js
+  h_6a4cc5cdf68def 742-751,753,780-781,783,1936-1946
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "05738db004d578273a01930ec902cb919bf9f301",
+  "prompts": {},
+  "humans": {
+    "h_6a4cc5cdf68def": {
+      "author": "Team AppThreat <cloud@appthreat.com>"
+    }
+  }
+}
