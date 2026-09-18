@@ -1,0 +1,16 @@
+lib/ecosystems/kosi.js
+  h_6a4cc5cdf68def 704-709
+lib/ecosystems/kosi.poku.js
+  h_6a4cc5cdf68def 201,211,264
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "7f39ded472645ea4b39652ffe7a29937a78f251f",
+  "prompts": {},
+  "humans": {
+    "h_6a4cc5cdf68def": {
+      "author": "Team AppThreat <cloud@appthreat.com>"
+    }
+  }
+}

@@ -1,0 +1,18 @@
+lib/inventory/plugins.js
+  h_6a4cc5cdf68def 22,45
+lib/evinser/evinser.js
+  h_6a4cc5cdf68def 33-38,733-759
+lib/ecosystems/kosi.js
+  h_6a4cc5cdf68def 1-470
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "1a3d2f0875b72e1d77543054f3bf397ffe29bd40",
+  "prompts": {},
+  "humans": {
+    "h_6a4cc5cdf68def": {
+      "author": "Team AppThreat <cloud@appthreat.com>"
+    }
+  }
+}
