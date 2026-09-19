@@ -1,0 +1,23 @@
+data/crypto-oid.json
+  s_9642d93d0a8346::t_0266ae4f221c1a 936
+lib/inventory/cbomutils.poku.js
+  s_9642d93d0a8346::t_fe0e236ef5af4e 470-496
+lib/inventory/cbomutils.js
+  s_9642d93d0a8346::t_2ba125b2bde4ad 366-368,370
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "30582ed81f0f0e311724aa9876bbb9453bfac576",
+  "prompts": {},
+  "sessions": {
+    "s_9642d93d0a8346": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "778f9d1d-86b0-444d-a9ac-3f9aa38d3cb5",
+        "model": "claude-opus-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
