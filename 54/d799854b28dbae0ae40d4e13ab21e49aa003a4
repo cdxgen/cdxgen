@@ -1,0 +1,25 @@
+lib/inventory/dosai.js
+  s_95d0502fd43762::t_321dce9c2b057d 463-465
+lib/inventory/dosai.poku.js
+  s_95d0502fd43762::t_9ae407c02d840c 261
+lib/inventory/evidenceUtils.poku.js
+  s_95d0502fd43762::t_52a0018e7c8fd0 262
+node_modules
+  s_95d0502fd43762::t_501c85552fefe9 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "54d799854b28dbae0ae40d4e13ab21e49aa003a4",
+  "prompts": {},
+  "sessions": {
+    "s_95d0502fd43762": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6e983b0e-8259-458b-8b7e-dd849536f6ad",
+        "model": "claude-opus-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
