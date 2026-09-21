@@ -1,0 +1,27 @@
+node_modules
+  s_95d0502fd43762::t_501c85552fefe9 1
+lib/inventory/evidenceUtils.poku.js
+  s_95d0502fd43762::t_52a0018e7c8fd0 262
+lib/inventory/dosai.poku.js
+  s_95d0502fd43762::t_9ae407c02d840c 261
+lib/inventory/dosai.js
+  s_95d0502fd43762::t_321dce9c2b057d 463-465
+docs/CUSTOM_PROPERTIES.md
+  s_95d0502fd43762::t_22304f168fac17 882-897
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "02e88fcdc8dadec86cc49ddefc4678d7d7b8a65a",
+  "prompts": {},
+  "sessions": {
+    "s_95d0502fd43762": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6e983b0e-8259-458b-8b7e-dd849536f6ad",
+        "model": "claude-opus-5"
+      },
+      "human_author": null
+    }
+  }
+}
