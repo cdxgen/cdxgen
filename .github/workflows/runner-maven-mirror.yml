@@ -1,0 +1,70 @@
+name: Runner maintenance - Maven Central mirror
+
+# One-off maintenance workflow: Sonatype started rate limiting Maven Central
+# (HTTP 429) from CI egress IPs, breaking java repotests on the self-hosted
+# runners. This routes Maven's default `central` repository through Google's
+# Maven Central mirror by writing ~/.m2/settings.xml on each runner.
+# Idempotent: safe to re-run. Original settings.xml is backed up next to it.
+# This branch can be deleted once both jobs succeed.
+
+on:
+  push:
+    branches:
+      - chore/runner-maven-mirror
+  workflow_dispatch:
+
+permissions: {}
+
+jobs:
+  apply-maven-central-mirror:
+    strategy:
+      fail-fast: false
+      matrix:
+        machine: [mini-dev-1, mini-dev-2]
+    runs-on: ${{ matrix.machine }}
+    steps:
+      - name: Apply central mirror to ~/.m2/settings.xml
+        run: |
+          set -eux
+          mkdir -p "$HOME/.m2"
+          if [ -f "$HOME/.m2/settings.xml" ] && [ ! -f "$HOME/.m2/settings.xml.bak-20260922" ]; then
+            cp "$HOME/.m2/settings.xml" "$HOME/.m2/settings.xml.bak-20260922"
+          fi
+          if [ -f "$HOME/.m2/settings.xml" ]; then
+            echo "--- previous settings.xml ---"
+            cat "$HOME/.m2/settings.xml"
+          fi
+          cat > "$HOME/.m2/settings.xml" <<'XML'
+          <?xml version="1.0" encoding="UTF-8"?>
+          <settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 https://maven.apache.org/xsd/settings-1.0.0.xsd">
+            <interactiveMode>false</interactiveMode>
+            <!-- Sonatype began enforcing rate limits (HTTP 429) on Maven Central downloads
+                 from CI egress IPs. Route repo id "central" through Google's Maven Central
+                 mirror to avoid it. Applied 2026-09-22, see
+                 ~/sonatype-rate-limit-workarounds.md on this host. -->
+            <servers>
+              <server>
+                <id>github</id>
+                <username>${env.GITHUB_ACTOR}</username>
+                <password>${env.GITHUB_TOKEN}</password>
+              </server>
+            </servers>
+            <mirrors>
+              <mirror>
+                <id>google-maven-central</id>
+                <name>Google mirror of Maven Central</name>
+                <url>https://maven-central.storage-download.googleapis.com/maven2</url>
+                <mirrorOf>central</mirrorOf>
+              </mirror>
+            </mirrors>
+          </settings>
+          XML
+          echo "--- new settings.xml ---"
+          cat "$HOME/.m2/settings.xml"
+      - name: Verify mirror serves Maven Central artifacts
+        run: |
+          set -eux
+          curl --fail -sS -o /dev/null -w "google-mirror HTTP %{http_code}\n" \
+            "https://maven-central.storage-download.googleapis.com/maven2/org/springframework/boot/spring-boot-starter-parent/1.5.1.RELEASE/spring-boot-starter-parent-1.5.1.RELEASE.pom"
