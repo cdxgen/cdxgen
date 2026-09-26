@@ -135,7 +135,7 @@ These variables are specifically for a single language or tool.
 | DOSAI_CMD          | Override the `dosai` helper path used for .NET enrichment.                                                                                                                               |
 | OSQUERY_CMD        | Override the `osquery` executable used for live-host OBOM collection.                                                                                                                    |
 | SOURCEKITTEN_CMD   | Override the `sourcekitten` executable used for Swift metadata extraction.                                                                                                               |
-| TRIVY_CMD          | Override the `trivy-cdxgen-*` helper used for container, image, and rootfs OS-package inventory.                                                                                         |
+| TRIVY_CMD          | Override the `trivy-cdxgen-*` helper used for OS-package inventory of container images and root filesystems (it runs `rootfs` scans only).                                               |
 | TRUSTINSPECTOR_CMD | Override the `trustinspector-cdxgen-*` helper used for repository trust anchors, certificate stores, macOS code-sign/notarization collection, and Windows Authenticode / WDAC inventory. |
 
 When `CDXGEN_PLUGINS_DIR` points at a packaged plugins directory, cdxgen also looks for `plugins-manifest.json` in that same directory and, when valid, uses it to enrich `metadata.tools` with precise helper identity/version/hash metadata. The manifest is treated as data only: its fields are not executed as commands.

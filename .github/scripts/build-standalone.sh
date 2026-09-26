@@ -99,7 +99,7 @@ run_binary_build() {
   chmod +x "$output"
   "./$output" --version
   "./$output" --help
-  if [[ "$output" == "cbom" || "$output" == "saasbom" ]]; then
+  if [[ "$output" == "cdxgen" || "$output" == "cbom" || "$output" == "saasbom" ]]; then
     run_atom_smoke_test "$output"
   fi
   if [[ "$output" == "aibom" ]]; then
@@ -415,6 +415,35 @@ assert_atom_payload_present() {
   echo "Standalone atom payload present: $payload_path (kind=$kind)."
 }
 
+# @appthreat/atom lists the universal @appthreat/atom-jar as an optional
+# dependency without an os/cpu constraint, so the install always brings it
+# along (~70 MB of jars). atom's resolver only falls back to it when the
+# target's own platform sub-package is missing, and the caller has just
+# asserted that payload. So atom-jar can never be used here: it sits unused
+# next to the native image, or duplicates the jars that the jar-flavoured
+# platform packages (darwin-amd64, windows-arm64, linux-arm64-musl) already
+# carry. Remove it, then re-assert the payload so a pruning mistake cannot ship
+# a payload-less dispatcher.
+remove_redundant_atom_jar() {
+  local staging_dir="$1"
+  local atom_pkg="$2"
+  local entry
+
+  if [[ "$atom_pkg" == "@appthreat/atom-jar" ]]; then
+    return
+  fi
+  while IFS= read -r entry; do
+    rm -rf "$entry"
+  done < <(find "$staging_dir/node_modules" -type d -path "*/node_modules/@appthreat/atom-jar" -prune)
+  if [[ -n "$(find "$staging_dir/node_modules" -type d -path "*/node_modules/@appthreat/atom-jar" -print -quit)" ]]; then
+    echo "Standalone profile preflight failed: @appthreat/atom-jar is still present in $staging_dir" >&2
+    exit 1
+  fi
+  echo "Removed @appthreat/atom-jar: the $atom_pkg payload is what atom resolves."
+  assert_package_present "$staging_dir" "$atom_pkg"
+  assert_atom_payload_present "$staging_dir" "$atom_pkg"
+}
+
 # Assert that the safer-exec platform sub-package and its Go runtime binary
 # actually exist in the staging tree, and make the binary executable.
 # assert_package_present alone accepts a payload-less dispatcher, which only
@@ -715,6 +744,17 @@ apply_profile_pruning_and_preflight() {
       assert_package_present "$staging_dir" jsonata
       platform_plugin_package="$(resolve_platform_plugin_package_name)"
       assert_package_present "$staging_dir" "$platform_plugin_package"
+      assert_package_present "$staging_dir" @appthreat/atom
+      # Local builds may run on a host with no atom platform package, where
+      # atom-jar is the only payload and must stay.
+      local full_atom_pkg
+      if full_atom_pkg="$(resolve_atom_platform_package_name 2>/dev/null)"; then
+        assert_package_present "$staging_dir" "$full_atom_pkg"
+        assert_atom_payload_present "$staging_dir" "$full_atom_pkg"
+        remove_redundant_atom_jar "$staging_dir" "$full_atom_pkg"
+      else
+        echo "No atom platform package for this target; keeping @appthreat/atom-jar."
+      fi
       ;;
     audit)
       assert_package_present "$staging_dir" jsonata
@@ -761,6 +801,7 @@ apply_profile_pruning_and_preflight() {
       atom_pkg="$(resolve_atom_platform_package_name)"
       assert_package_present "$staging_dir" "$atom_pkg"
       assert_atom_payload_present "$staging_dir" "$atom_pkg"
+      remove_redundant_atom_jar "$staging_dir" "$atom_pkg"
       remove_platform_plugins "$staging_dir"
       assert_package_absent "$staging_dir" @cdxgen/cdx-hbom
       assert_package_absent "$staging_dir" jsonata
