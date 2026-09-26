@@ -86,7 +86,7 @@ function Invoke-BinaryBuildFromStage {
   node (Join-Path $StagingDir "bin/cdxgen.js") @commonSbomArgs -o ".${Output}-postbuild.cdx.json"
   & ".\$Output.exe" --version
   & ".\$Output.exe" --help
-  if ($Output -in @("cbom", "saasbom")) {
+  if ($Output -in @("cdxgen", "cbom", "saasbom")) {
     Invoke-AtomSmokeTest -Output $Output
   }
   Assert-BinarySizeLimit -Output $Output
@@ -233,6 +233,34 @@ function Assert-AtomPayloadPresent {
     throw "Standalone atom payload missing: $payloadPath (kind=$kind). The dispatcher would be payload-less."
   }
   Write-Host "Standalone atom payload present: $payloadPath (kind=$kind)."
+}
+
+# See remove_redundant_atom_jar in build-standalone.sh: atom-jar is an
+# unconstrained optional dependency of @appthreat/atom that the resolver only
+# uses when the target's platform sub-package is missing, and that payload has
+# just been asserted.
+function Remove-RedundantAtomJar {
+  param(
+    [Parameter(Mandatory = $true)]
+    [string]$StagingDir,
+    [Parameter(Mandatory = $true)]
+    [string]$PackageName
+  )
+  if ($PackageName -eq "@appthreat/atom-jar") {
+    return
+  }
+  $nodeModules = Join-Path $StagingDir "node_modules"
+  $findAtomJar = {
+    Get-ChildItem -Path $nodeModules -Directory -Recurse -Force -Filter "atom-jar" -ErrorAction SilentlyContinue |
+      Where-Object { (Split-Path -Leaf (Split-Path -Parent $_.FullName)) -eq "@appthreat" }
+  }
+  & $findAtomJar | ForEach-Object { Remove-Item -Path $_.FullName -Force -Recurse }
+  if (& $findAtomJar) {
+    throw "Standalone profile preflight failed: @appthreat/atom-jar is still present in $StagingDir"
+  }
+  Write-Host "Removed @appthreat/atom-jar: the $PackageName payload is what atom resolves."
+  Assert-PackagePresent -StagingDir $StagingDir -PackageName $PackageName
+  Assert-AtomPayloadPresent -StagingDir $StagingDir -PackageName $PackageName
 }
 
 function Resolve-PlatformPluginPackageName {
@@ -440,6 +468,18 @@ function Invoke-ProfilePruningAndPreflight {
       Assert-PackagePresent -StagingDir $StagingDir -PackageName "@cdxgen/cdx-hbom"
       Assert-PackagePresent -StagingDir $StagingDir -PackageName "jsonata"
       Assert-PackagePresent -StagingDir $StagingDir -PackageName (Resolve-PlatformPluginPackageName)
+      Assert-PackagePresent -StagingDir $StagingDir -PackageName "@appthreat/atom"
+      # Local builds may run on a host with no atom platform package, where
+      # atom-jar is the only payload and must stay.
+      $fullAtomPkg = $null
+      try { $fullAtomPkg = Resolve-AtomPlatformPackageName } catch { $fullAtomPkg = $null }
+      if ($fullAtomPkg) {
+        Assert-PackagePresent -StagingDir $StagingDir -PackageName $fullAtomPkg
+        Assert-AtomPayloadPresent -StagingDir $StagingDir -PackageName $fullAtomPkg
+        Remove-RedundantAtomJar -StagingDir $StagingDir -PackageName $fullAtomPkg
+      } else {
+        Write-Host "No atom platform package for this target; keeping @appthreat/atom-jar."
+      }
     }
     "audit" {
       Assert-PackagePresent -StagingDir $StagingDir -PackageName "jsonata"
@@ -475,6 +515,7 @@ function Invoke-ProfilePruningAndPreflight {
       $atomPkg = Resolve-AtomPlatformPackageName
       Assert-PackagePresent -StagingDir $StagingDir -PackageName $atomPkg
       Assert-AtomPayloadPresent -StagingDir $StagingDir -PackageName $atomPkg
+      Remove-RedundantAtomJar -StagingDir $StagingDir -PackageName $atomPkg
       Remove-PlatformPlugins -StagingDir $StagingDir
       Assert-PackageAbsent -StagingDir $StagingDir -PackageName "@cdxgen/cdx-hbom"
       Assert-PackageAbsent -StagingDir $StagingDir -PackageName "jsonata"
