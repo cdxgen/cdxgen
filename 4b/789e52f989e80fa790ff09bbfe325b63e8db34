@@ -1,0 +1,27 @@
+.github/scripts/build-standalone.ps1
+  s_10138adc951cc3::t_93da215fd82231 471-482
+  s_10138adc951cc3::t_e4859d9a3b79b8 89
+  s_10138adc951cc3::t_c1c83f2d842b01 238-265
+  s_10138adc951cc3::t_57acb5f3896897 518
+.github/scripts/build-standalone.sh
+  s_10138adc951cc3::t_e1e2ff128e6ac9 747-757
+  s_10138adc951cc3::t_7866853e49299d 804
+  s_10138adc951cc3::t_4362ddbfc39e59 418-446
+  s_10138adc951cc3::t_95243541990bab 102
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "4b789e52f989e80fa790ff09bbfe325b63e8db34",
+  "prompts": {},
+  "sessions": {
+    "s_10138adc951cc3": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "3cf8757d-8502-475d-bf57-56bd6545a545",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
