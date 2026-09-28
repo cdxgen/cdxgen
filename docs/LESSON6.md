@@ -66,7 +66,7 @@ The **Auditor** receives the SBOM, verifies it, and wants to co-sign it.
 
 To append a signature to an _existing_ BOM without wiping out the Builder's signature, the Auditor uses `cdx-sign` with the `--mode signers` flag.
 
-> **Crucial Concept:** The Auditor _must_ pass `--no-sign-components`. If the Auditor re-signed the inner components, it would alter the cryptographic payload of the document, instantly invalidating the Builder's original signature!
+> **Crucial Concept:** When appending, `cdx-sign` signs only the root BOM. If the Auditor re-signed the inner components, it would alter the cryptographic payload of the document, instantly invalidating the Builder's original signature, so `cdx-sign` skips nested elements by default and refuses `--sign-components` in this situation.
 
 ```shell
 # Auditor appends their signature
@@ -74,10 +74,7 @@ cdx-sign -i bom.json \
   -k auditor_private.pem \
   -a ES256 \
   --key-id "auditor-system" \
-  --mode signers \
-  --no-sign-components \
-  --no-sign-services \
-  --no-sign-annotations
+  --mode signers
 
 # Successfully signed BOM and saved to 'bom.json'
 # Mode: signers | Algorithm: ES256 | KeyId: auditor-system
@@ -85,11 +82,13 @@ cdx-sign -i bom.json \
 
 If you open `bom.json` now, you will see the `signature` object has changed from a flat object into a `"signers": [ ... ]` array containing both the Builder and Auditor signatures.
 
-_(Note: To create a sequence chain where the Auditor explicitly signs the Builder's signature, you would simply change `--mode signers` to `--mode chain`)_.
+_(Note: To create a sequence chain where the Auditor explicitly signs the Builder's signature, change `--mode signers` to `--mode chain` and add `--verify-existing-with builder_public.pem`. Because the Auditor's chain entry vouches for the Builder's entry, `cdx-sign` refuses to append until the existing entry verifies with the Builder's public key. Each chain entry covers the entries before it, so reordering the chain or removing the Builder's entry invalidates the Auditor's signature.)_
+
+Each signature also covers its own `algorithm` and `keyId`, and the algorithm must match the signer's key type: the Builder's RSA key can only sign `RS*` or `PS*`, and the Auditor's P-256 key only `ES256`.
 
 ### Step 4: Verify the Multi-Signed SBOM
 
-Because JSF Multi-Signatures are strictly standards-compliant, `cdx-verify` can independently verify either party's signature without them interfering with one another.
+Each entry in a JSF multi-signature is verified on its own, so `cdx-verify` can independently verify either party's signature without them interfering with one another.
 
 ```shell
 # Verify Builder's signature

@@ -36,6 +36,7 @@ The following are considered genuine security issues in cdxgen:
 - **Supply-chain integrity** — Compromise of the npm package, container images, GitHub Actions workflows, or release provenance attestation.
 - **Credential or secret leakage** — cdxgen unintentionally writes secrets, tokens, or credentials to SBOM output, logs, or error messages during normal (non-debug) operation.
 - **Server-side request forgery (SSRF)** — The cdxgen server or `cdxgenAgent` HTTP client can be tricked into making requests to unintended internal hosts when allowlists are configured.
+- **Signature verification bypass** — A BOM that `cdx-verify`, `cdx-validate --require-signature`, or the `verifyBom`/`verifyNode` library functions accept even though it was not signed by the holder of the verification key, or whose signed content or signature metadata was altered after signing.
 - **Git clone exploits** — A crafted Git URL provided to the server bypasses `validateAndRejectGitSource` to execute code, use dangerous protocols (`ext::`, `fd::`), or access disallowed hosts.
 
 ### Out of scope
