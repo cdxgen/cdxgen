@@ -4,6 +4,8 @@ lockfileIncludeTarballUrl: true
 minimumReleaseAge: '4320'
 minimumReleaseAgeExclude:
   - '@cdxgen/*'
+  - 'pnpm'
+  - '@pnpm/*'
   - '@appthreat/*'
   - 'typescript'
   - '@typescript/*'

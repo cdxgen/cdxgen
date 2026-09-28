@@ -180,7 +180,7 @@
     "connect": "3.7.0",
     "jsonata": "2.2.2"
   },
-  "packageManager": "pnpm@10.34.1",
+  "packageManager": "pnpm@10.34.6",
   "engines": {
     "node": "^20 || ^22 || ^24 || ^25 || ^26",
     "pnpm": ">=10"
