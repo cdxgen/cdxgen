@@ -1,0 +1,27 @@
+lib/inventory/depsUtils.js
+  s_935169923d0e48::t_079555f34a0bd7 471-474,481-482,484
+  s_935169923d0e48::t_b3153063a921e6 601
+lib/ecosystems/rubyutils.poku.js
+  s_935169923d0e48::t_6341d755e8d2f0 1335-1354
+lib/inventory/depsUtils.poku.js
+  s_935169923d0e48::t_b97bced7444fd9 586-603
+lib/ecosystems/rubyutils.js
+  s_935169923d0e48::t_31519be1b30035 1846-1848
+  s_935169923d0e48::t_031c330c9adcb4 1530-1531
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "fb0361d10207c792777bedf819b7468cbb4416d1",
+  "prompts": {},
+  "sessions": {
+    "s_935169923d0e48": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "3bbb1959-b48f-43bf-af05-d166a50d7241",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
