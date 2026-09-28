@@ -6,7 +6,11 @@ import process from "node:process";
 import yargs from "yargs";
 import { hideBin } from "yargs/helpers";
 
-import { signBom } from "../lib/helpers/bomSigner.js";
+import {
+  checkSignatureEntries,
+  displayValue,
+  signBom,
+} from "../lib/helpers/bomSigner.js";
 import {
   getNonCycloneDxErrorMessage,
   isCycloneDxBom,
@@ -31,12 +35,14 @@ const args = _yargs
   })
   .option("private-key", {
     alias: "k",
-    description: "Private key in PEM format.",
+    description:
+      "Private key in PEM format, or the shared secret file for HS256, HS384, and HS512.",
   })
   .option("algorithm", {
     alias: "a",
     default: readEnvironmentVariable("SBOM_SIGN_ALGORITHM") || "RS512",
-    description: "JSF Signature Algorithm (e.g., RS512, ES256, Ed25519).",
+    description:
+      "JSF Signature Algorithm (e.g., RS512, ES256, Ed25519). It must match the key type.",
   })
   .option("mode", {
     alias: "m",
@@ -45,27 +51,36 @@ const args = _yargs
     description:
       "Signature mode. Use 'signers' for multi-signing, 'chain' for sequential chaining.",
   })
+  .option("verify-existing-with", {
+    type: "array",
+    string: true,
+    description:
+      "Public key (PEM) of an earlier signer. With --mode chain, every existing chain entry must verify with one of these keys before a new entry is appended.",
+  })
+  .option("allow-unverified-history", {
+    type: "boolean",
+    default: false,
+    description:
+      "With --mode chain, append even when existing chain entries cannot be verified with --verify-existing-with.",
+  })
   .option("key-id", {
     description:
       "Optional identifier for the key (keyId) to embed in the signature block.",
   })
   .option("sign-components", {
     type: "boolean",
-    default: true,
     description:
-      "Sign granular components. Disable (--no-sign-components) when appending multi-signatures.",
+      "Sign granular components. Defaults to true, or false when appending a signers or chain signature to a signed BOM.",
   })
   .option("sign-services", {
     type: "boolean",
-    default: true,
     description:
-      "Sign granular services. Disable (--no-sign-services) when appending multi-signatures.",
+      "Sign granular services. Defaults to true, or false when appending a signers or chain signature to a signed BOM.",
   })
   .option("sign-annotations", {
     type: "boolean",
-    default: true,
     description:
-      "Sign granular annotations. Disable (--no-sign-annotations) when appending multi-signatures.",
+      "Sign granular annotations. Defaults to true, or false when appending a signers or chain signature to a signed BOM.",
   })
   .option("attach", {
     type: "string",
@@ -97,7 +112,7 @@ const envPrivateKeyBase64 = readEnvironmentVariable(
 
 if (args.privateKey) {
   if (safeExistsSync(args.privateKey)) {
-    privateKeyContent = fs.readFileSync(args.privateKey, "utf8");
+    privateKeyContent = fs.readFileSync(args.privateKey);
     hasPrivateKey = true;
   } else {
     console.error(`Private key file '${args.privateKey}' not found.`);
@@ -105,7 +120,7 @@ if (args.privateKey) {
   }
 } else if (envPrivateKeyFile) {
   if (safeExistsSync(envPrivateKeyFile)) {
-    privateKeyContent = fs.readFileSync(envPrivateKeyFile, "utf8");
+    privateKeyContent = fs.readFileSync(envPrivateKeyFile);
     hasPrivateKey = true;
   } else {
     console.error(
@@ -115,9 +130,7 @@ if (args.privateKey) {
   }
 } else if (envPrivateKeyBase64) {
   try {
-    privateKeyContent = Buffer.from(envPrivateKeyBase64, "base64").toString(
-      "utf8",
-    );
+    privateKeyContent = Buffer.from(envPrivateKeyBase64, "base64");
     hasPrivateKey = true;
   } catch {
     console.error(
@@ -147,6 +160,66 @@ function hasAnySignature(bomJson) {
   return false;
 }
 
+function describeEntry(result) {
+  const parts = [];
+  if (result.algorithm !== undefined) {
+    parts.push(displayValue(result.algorithm));
+  }
+  if (result.keyId !== undefined) {
+    parts.push(`keyId '${displayValue(result.keyId)}'`);
+  }
+  return parts.length
+    ? `entry ${result.index} (${parts.join(", ")})`
+    : `entry ${result.index}`;
+}
+
+// A new chain entry covers every earlier entry, so the signer vouches for
+// that history. Check it with the earlier signers' keys before appending.
+function checkChainHistory(bomJson) {
+  const existing = bomJson.signature;
+  if (
+    args.mode !== "chain" ||
+    existing === undefined ||
+    (existing !== null &&
+      typeof existing === "object" &&
+      Object.hasOwn(existing, "signers"))
+  ) {
+    return;
+  }
+  const keys = (args.verifyExistingWith || []).map((keyFile) => {
+    if (!safeExistsSync(keyFile)) {
+      throw new Error(`Public key file '${keyFile}' not found.`);
+    }
+    return fs.readFileSync(keyFile, "utf8");
+  });
+  const unverified = checkSignatureEntries(bomJson, keys).filter(
+    (result) => !result.verified,
+  );
+  if (!unverified.length) {
+    return;
+  }
+  const details = unverified.map(
+    (result) =>
+      `  - ${describeEntry(result)}: ${result.reasons[0] || "no --verify-existing-with key was given"}`,
+  );
+  if (args.allowUnverifiedHistory) {
+    console.warn(
+      [
+        `Warning: appending to a chain with ${unverified.length} unverified entry(s):`,
+        ...details,
+      ].join("\n"),
+    );
+    return;
+  }
+  throw new Error(
+    [
+      `the new chain entry would vouch for ${unverified.length} existing entry(s) that could not be verified:`,
+      ...details,
+      "Pass --verify-existing-with <public key> for each earlier signer, or --allow-unverified-history to sign anyway.",
+    ].join("\n"),
+  );
+}
+
 try {
   const bomJson = JSON.parse(fs.readFileSync(args.input, "utf8"));
   if (!isCycloneDxBom(bomJson)) {
@@ -156,6 +229,7 @@ try {
 
   let signedBom = bomJson;
   if (hasPrivateKey && privateKeyContent) {
+    checkChainHistory(bomJson);
     signedBom = signBom(bomJson, {
       privateKey: privateKeyContent,
       algorithm: args.algorithm,
