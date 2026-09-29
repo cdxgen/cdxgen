@@ -1,0 +1,138 @@
+ci/images/debian/Dockerfile.swift6
+  s_14fcde9512124a::t_f1193523461240 2
+  s_14fcde9512124a::t_5f64df0cf57c56 12,14,18
+ci/images/Dockerfile.python3.13
+  s_14fcde9512124a::t_f1193523461240 2
+  s_14fcde9512124a::t_5f64df0cf57c56 7,15
+ci/images/alpine/Dockerfile.php8.4
+  s_14fcde9512124a::t_f1193523461240 2
+ci/images/Dockerfile.dotnet8
+  s_14fcde9512124a::t_f1193523461240 2
+ci/images/al10/Dockerfile.ruby-builder
+  s_14fcde9512124a::t_a94f7708dd2e77 18
+  s_14fcde9512124a::t_5f64df0cf57c56 13
+ci/images/debian/Dockerfile.golang1.24
+  s_14fcde9512124a::t_5f64df0cf57c56 12
+ci/images/debian/Dockerfile.ruby2.6
+  s_14fcde9512124a::t_5f64df0cf57c56 4,8,14
+ci/images/debian/Dockerfile.php8.4
+  s_14fcde9512124a::t_5f64df0cf57c56 8,14
+  s_14fcde9512124a::t_f1193523461240 2
+ci/Dockerfile
+  s_14fcde9512124a::t_5f64df0cf57c56 5-6,8-9,11,15,17-18,20
+  s_14fcde9512124a::t_a94f7708dd2e77 58
+ci/images/debian/Dockerfile.rust1
+  s_14fcde9512124a::t_5f64df0cf57c56 12
+ci/images/Dockerfile.python3.12
+  s_14fcde9512124a::t_5f64df0cf57c56 7,15
+ci/Dockerfile-deno
+  s_14fcde9512124a::t_a94f7708dd2e77 66
+  s_14fcde9512124a::t_5f64df0cf57c56 16-17,19-20,22,26,28-29
+ci/images/opensuse/Dockerfile.python3.10
+  s_14fcde9512124a::t_5f64df0cf57c56 7,14
+ci/images/debian/Dockerfile.dotnet6
+  s_14fcde9512124a::t_5f64df0cf57c56 13
+ci/images/Dockerfile.python3.11
+  s_14fcde9512124a::t_5f64df0cf57c56 8,10,18
+  s_14fcde9512124a::t_f1193523461240 2
+ci/images/Dockerfile.python3.6
+  s_14fcde9512124a::t_5f64df0cf57c56 7,15
+  s_14fcde9512124a::t_f1193523461240 2
+ci/Dockerfile-bun
+  s_14fcde9512124a::t_5f64df0cf57c56 16-17,19-20,22,26
+ci/images/temurin/Dockerfile.java8
+  s_14fcde9512124a::t_5f64df0cf57c56 14,18
+  s_14fcde9512124a::t_f1193523461240 2
+ci/images/debian/Dockerfile.ruby4
+  s_14fcde9512124a::t_5f64df0cf57c56 7,13
+  s_14fcde9512124a::t_f1193523461240 2
+ci/images/temurin/Dockerfile.java24
+  s_14fcde9512124a::t_5f64df0cf57c56 14,18-19
+ci/images/debian/Dockerfile.golang1.23
+  s_14fcde9512124a::t_5f64df0cf57c56 12
+ci/images/Dockerfile.dotnet9
+  s_14fcde9512124a::t_f1193523461240 2
+ci/images/Dockerfile.java11
+  s_14fcde9512124a::t_5f64df0cf57c56 15
+ci/images/ubuntu/Dockerfile.dotnet10
+  s_14fcde9512124a::t_5f64df0cf57c56 12
+ci/images/alpine/Dockerfile.dotnet9
+  s_14fcde9512124a::t_f1193523461240 2
+ci/images/debian/Dockerfile.dotnet8
+  s_14fcde9512124a::t_f1193523461240 2
+  s_14fcde9512124a::t_5f64df0cf57c56 13
+ci/images/debian/Dockerfile.php8.5
+  s_14fcde9512124a::t_f1193523461240 2
+  s_14fcde9512124a::t_5f64df0cf57c56 8,14
+ci/images/alpine/Dockerfile.ruby4
+  s_14fcde9512124a::t_12af66953618b7 2
+ci/images/temurin/Dockerfile.java26
+  s_14fcde9512124a::t_5f64df0cf57c56 14,18-19
+  s_14fcde9512124a::t_f1193523461240 2
+ci/images/alpine/Dockerfile.golang1.26
+  s_14fcde9512124a::t_f1193523461240 2
+ci/images/alpine/Dockerfile.python3.13
+  s_14fcde9512124a::t_f1193523461240 2
+ci/images/alpine/Dockerfile.php8.5
+  s_14fcde9512124a::t_f1193523461240 2
+.github/workflows/repotests.yml
+  s_14fcde9512124a::t_01059a86ee74f5 54,362,465,538,1582,1949,1997
+ci/images/alpine/Dockerfile.dotnet10
+  s_14fcde9512124a::t_f1193523461240 2
+ci/images/debian/Dockerfile.golang1.26
+  s_14fcde9512124a::t_5f64df0cf57c56 12
+  s_14fcde9512124a::t_f1193523461240 2
+ci/images/Dockerfile.java17
+  s_14fcde9512124a::t_f1193523461240 4
+  s_14fcde9512124a::t_5f64df0cf57c56 13
+ci/images/alpine/Dockerfile.java21
+  s_14fcde9512124a::t_f1193523461240 2
+ci/images/alpine/Dockerfile.node24
+  s_14fcde9512124a::t_01059a86ee74f5 2
+ci/images/debian/Dockerfile.php8.3
+  s_14fcde9512124a::t_5f64df0cf57c56 8,14
+  s_14fcde9512124a::t_f1193523461240 2
+ci/images/opensuse/Dockerfile.python3.9
+  s_14fcde9512124a::t_5f64df0cf57c56 11
+ci/images/debian/Dockerfile.ruby3.4
+  s_14fcde9512124a::t_f1193523461240 2
+  s_14fcde9512124a::t_5f64df0cf57c56 7,13
+ci/images/Dockerfile.node20
+  s_14fcde9512124a::t_5f64df0cf57c56 10
+ci/images/alpine/Dockerfile.java26
+  s_14fcde9512124a::t_f1193523461240 2
+ci/images/Dockerfile.ruby2.5
+  s_14fcde9512124a::t_5f64df0cf57c56 4
+  s_14fcde9512124a::t_f1193523461240 2
+ci/images/temurin/Dockerfile.java21
+  s_14fcde9512124a::t_5f64df0cf57c56 14,18-19
+  s_14fcde9512124a::t_f1193523461240 2
+ci/Dockerfile-ppc64
+  s_14fcde9512124a::t_5f64df0cf57c56 14,16,20
+ci/images/alpine/Dockerfile.node26
+  s_14fcde9512124a::t_01059a86ee74f5 2
+ci/images/debian/Dockerfile.dotnet9
+  s_14fcde9512124a::t_5f64df0cf57c56 13
+  s_14fcde9512124a::t_f1193523461240 2
+ci/images/debian/Dockerfile.ruby3.3
+  s_14fcde9512124a::t_f1193523461240 2
+  s_14fcde9512124a::t_5f64df0cf57c56 4,8,14
+ci/images/alpine/Dockerfile.ruby3.4
+  s_14fcde9512124a::t_f1193523461240 2
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "963076885852b786b6c0708e4f500a8185e82539",
+  "prompts": {},
+  "sessions": {
+    "s_14fcde9512124a": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "224d60ac-c3b4-43f2-84b7-1fddb3dfde87",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
