@@ -1,5 +1,5 @@
 # Base-image
-FROM mcr.microsoft.com/dotnet/sdk:8.0.423-bookworm-slim@sha256:e2f26f26169fd10d6f1b426e01c97397717b32e9d5ab4ee4a7d5497ed9403007 AS base
+FROM mcr.microsoft.com/dotnet/sdk:8.0.425-bookworm-slim@sha256:78235e09001f52b6592c458ac010775ebac6725422e80cd0c1650590f67b2743 AS base
 
 ARG DEBIAN_REPO
 ARG GITHUB_RAW_URL=https://raw.githubusercontent.com
@@ -10,7 +10,7 @@ ARG NODEJS_DIST_URL
 ARG NPM_REPO
 ARG NUGET_REPO
 ARG NVM
-ARG NVM_VERSION=${NVM:-v0.40.5}
+ARG NVM_VERSION=${NVM:-v0.40.8}
 ARG PIP_CONFIG
 
 ENV DOTNET_CLI_TELEMETRY_OPTOUT=1 \

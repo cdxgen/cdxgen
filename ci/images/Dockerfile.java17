@@ -1,7 +1,7 @@
 ARG IMAGE_TYPE
 
 # Base-image (slim)
-FROM registry.suse.com/bci/openjdk-devel:17.0.19.0@sha256:952bdd8d77c89f01543575723a6d6d2e664f6bb151328b6cee06d1ffcb43194a AS base-slim
+FROM registry.suse.com/bci/openjdk-devel:17.0.20.1@sha256:fe787a20666c37de2c5e47345a96eede6d56ae78e31688369a69760d28db3716 AS base-slim
 
 ARG GITHUB_URL=https://github.com
 ARG GRADLE_8
@@ -10,7 +10,7 @@ ARG MAVEN_3
 ARG MAVEN_VERSION=${MAVEN_3}
 ARG NODEJS_DIST_URL
 ARG NPM_REPO
-ARG SBT_VERSION=1.12.9
+ARG SBT_VERSION=1.12.15
 ARG SDKMAN_URL=https://api.sdkman.io/2
 ARG SUSE_REPO
 

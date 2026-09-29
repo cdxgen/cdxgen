@@ -1,13 +1,13 @@
 # Base-image
-FROM registry.suse.com/bci/python:3.11.15@sha256:569c5df84b32030ef690a4c83d140a2117a62a4758acffde82abf7179b37f64f AS base
+FROM registry.suse.com/bci/python:3.11.15@sha256:fd109b598c7adeb2d66b86e1482f34d5869f6bb6dc9fa0c69c584c0220a1bab4 AS base
 
 ARG GCC_VERSION=14
 ARG GITHUB_RAW_URL=https://raw.githubusercontent.com
 ARG GITHUB_URL=https://github.com
 # renovate: datasource=golang-version depName=golang
-ARG GO_VERSION=1.26.4
+ARG GO_VERSION=1.26.8
 ARG GOOGLE_URL=https://dl.google.com
-ARG JAVA_VERSION=25.0.2-tem
+ARG JAVA_VERSION=25.0.4-tem
 ARG MAVEN_3
 ARG MAVEN_VERSION=${MAVEN_3}
 ARG NODE_20
@@ -15,7 +15,7 @@ ARG NODE_VERSION=${NODE_20}
 ARG NODEJS_DIST_URL
 ARG NPM_REPO
 ARG NVM
-ARG NVM_VERSION=${NVM:-v0.40.5}
+ARG NVM_VERSION=${NVM:-v0.40.8}
 ARG PIP_CONFIG
 ARG SDKMAN_URL=https://api.sdkman.io/2
 ARG SUSE_REPO

@@ -4,14 +4,14 @@ FROM registry.opensuse.org/opensuse/bci/python:3.10@sha256:391f2259cc0b729e790f8
 ARG GITHUB_RAW_URL=https://raw.githubusercontent.com
 ARG GITHUB_URL=https://github.com
 # renovate: datasource=golang-version depName=golang
-ARG GO_VERSION=1.26.4
+ARG GO_VERSION=1.26.8
 ARG GOOGLE_URL=https://dl.google.com
 ARG NODE_22
 ARG NODE_VERSION=${NODE_22}
 ARG NODEJS_DIST_URL
 ARG NPM_REPO
 ARG NVM
-ARG NVM_VERSION=${NVM:-v0.40.5}
+ARG NVM_VERSION=${NVM:-v0.40.8}
 ARG OPENSUSE_CODECS_REPO
 ARG OPENSUSE_REPO
 ARG PIP_CONFIG
