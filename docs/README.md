@@ -353,11 +353,13 @@ const dbody = await submitBom(args, bomNSData.bomJson);
 
 cdxgen can sign the generated BOM json file to increase authenticity and non-repudiation capabilities. To enable this, set the following environment variables.
 
-- SBOM_SIGN_ALGORITHM: Algorithm. Example: RS512
-- SBOM_SIGN_PRIVATE_KEY: Location to the RSA private key
-- SBOM_SIGN_PUBLIC_KEY: Optional. Location to the RSA public key
+- SBOM_SIGN_ALGORITHM: JSF algorithm. Example: RS512. It must match the key type.
+- SBOM_SIGN_PRIVATE_KEY: Location of the private key (PEM format), or of the shared secret for HS256, HS384, and HS512
+- SBOM_SIGN_PUBLIC_KEY: Optional. Location of the public key to embed. It must belong to the private key.
 
-To generate test public/private key pairs, you can run cdxgen by passing the argument `--generate-key-and-sign`. The generated json file would have an attribute called `signature`, which could be used for validation. [jwt.io](https://jwt.io) is a known site that could be used for such signature validation.
+To generate a test key pair for `SBOM_SIGN_ALGORITHM`, you can run cdxgen by passing the argument `--generate-key-and-sign`. The generated json file would have an attribute called `signature`, a JSON Signature Format (JSF) signature that `cdx-verify` validates. JSF is not JWS, so JWT tools cannot verify it.
+
+When signing is configured (`SBOM_SIGN_ALGORITHM` plus a private key), cdxgen signs the BOM it writes, prints, or submits to Dependency-Track, and exits with status 1 if it cannot sign it, including when the key file is missing. A private key without `SBOM_SIGN_ALGORITHM` leaves the BOM unsigned and prints a warning; set `SBOM_SIGN_ALGORITHM=none` to opt out explicitly.
 
 ![SBOM signing](_media/sbom-sign.jpg)
 

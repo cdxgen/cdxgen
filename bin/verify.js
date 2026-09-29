@@ -7,7 +7,12 @@ import process from "node:process";
 import yargs from "yargs";
 import { hideBin } from "yargs/helpers";
 
-import { verifyNode } from "../lib/helpers/bomSigner.js";
+import {
+  displayValue,
+  loadSharedSecret,
+  loadVerificationKey,
+  verifyNode,
+} from "../lib/helpers/bomSigner.js";
 import {
   getNonCycloneDxErrorMessage,
   isCycloneDxBom,
@@ -35,8 +40,12 @@ const args = _yargs
     description: "The platform to validate. No default",
   })
   .option("public-key", {
-    default: "public.key",
-    description: "Public key in PEM format. Default public.key",
+    description:
+      "Public key in PEM format. Default public.key unless --secret-key is used",
+  })
+  .option("secret-key", {
+    description:
+      "File holding the shared secret for HMAC (HS256, HS384, HS512) signatures. HMAC signatures are only accepted with this option.",
   })
   .option("deep", {
     type: "boolean",
@@ -113,16 +122,50 @@ if (!isCycloneDxBom(bomJson)) {
   process.exit(1);
 }
 
-if (bomJson && !safeExistsSync(args.publicKey)) {
-  console.log("Public key for signature verification is missing!");
+if (args.publicKey && args.secretKey) {
+  console.log("Use either --public-key or --secret-key, not both.");
+  process.exit(1);
+}
+const keyFile = args.secretKey || args.publicKey || "public.key";
+if (!args.secretKey && !args.publicKey) {
+  console.log(
+    `No --public-key given; using '${keyFile}' from the current directory. Pass --public-key to name the trusted key explicitly.`,
+  );
+}
+if (!safeExistsSync(keyFile)) {
+  console.log(
+    args.secretKey
+      ? "Shared secret for signature verification is missing!"
+      : "Public key for signature verification is missing!",
+  );
   process.exit(1);
 }
 
-const publicKeyStr = fs.readFileSync(args.publicKey, "utf8");
+let verificationKey;
+try {
+  verificationKey = args.secretKey
+    ? loadSharedSecret(fs.readFileSync(keyFile))
+    : loadVerificationKey(fs.readFileSync(keyFile, "utf8"));
+} catch (error) {
+  console.log(`Unable to use '${keyFile}': ${error.message}`);
+  process.exit(1);
+}
 
-let rootMatch = null;
+function verify(node) {
+  const reasons = [];
+  const match = verifyNode(node, verificationKey, { reasons });
+  return { match, reasons };
+}
+
+function printReasons(reasons) {
+  for (const reason of new Set(reasons)) {
+    console.log(`  - ${reason}`);
+  }
+}
+
+let rootResult = null;
 if (bomJson.signature) {
-  rootMatch = verifyNode(bomJson, publicKeyStr);
+  rootResult = verify(bomJson);
 }
 
 const verifyNested = args.deep || !bomJson.signature;
@@ -130,36 +173,23 @@ let hasInvalidNested = false;
 let checkedNested = 0;
 
 if (verifyNested) {
-  for (const comp of bomJson.components || []) {
-    if (comp.signature) {
-      checkedNested++;
-      if (!verifyNode(comp, publicKeyStr)) {
-        console.log(
-          `Component '${comp["bom-ref"] || comp.name}' signature is invalid!`,
-        );
-        hasInvalidNested = true;
-      }
-    }
-  }
-  for (const svc of bomJson.services || []) {
-    if (svc.signature) {
-      checkedNested++;
-      if (!verifyNode(svc, publicKeyStr)) {
-        console.log(
-          `Service '${svc["bom-ref"] || svc.name}' signature is invalid!`,
-        );
-        hasInvalidNested = true;
-      }
-    }
-  }
-  for (const ann of bomJson.annotations || []) {
-    if (ann.signature) {
-      checkedNested++;
-      if (!verifyNode(ann, publicKeyStr)) {
-        console.log(
-          `Annotation '${ann["bom-ref"] || ann.subject}' signature is invalid!`,
-        );
-        hasInvalidNested = true;
+  const nestedTargets = [
+    ["components", "Component", (c) => c["bom-ref"] || c.name],
+    ["services", "Service", (s) => s["bom-ref"] || s.name],
+    ["annotations", "Annotation", (a) => a["bom-ref"] || a.subject],
+  ];
+  for (const [field, label, nameOf] of nestedTargets) {
+    for (const node of bomJson[field] || []) {
+      if (node?.signature) {
+        checkedNested++;
+        const result = verify(node);
+        if (!result.match) {
+          console.log(
+            `${label} '${displayValue(nameOf(node))}' signature is invalid!`,
+          );
+          printReasons(result.reasons);
+          hasInvalidNested = true;
+        }
       }
     }
   }
@@ -167,17 +197,27 @@ if (verifyNested) {
 
 if (hasInvalidNested) {
   console.log("One or more nested signatures are invalid!");
+  if (rootResult?.match) {
+    console.log(
+      "The root signature verifies with this key. Nested signatures belong to the party that created them, so pass --no-deep to verify only the root signature with this key.",
+    );
+  }
   process.exit(1);
 }
 
 if (bomJson.signature) {
+  const rootMatch = rootResult?.match;
   if (rootMatch) {
     const identifier = rootMatch.keyId
-      ? `KeyId: '${rootMatch.keyId}'`
+      ? `KeyId: '${displayValue(rootMatch.keyId)}'`
       : `Algorithm: '${rootMatch.algorithm}'`;
     console.log(`✓ Signature is valid! (Matched ${identifier})`);
   } else {
     console.log("BOM signature is invalid!");
+    printReasons(rootResult?.reasons || []);
+    console.log(
+      "If this BOM was signed with cdxgen 12.8.4, 13.2.0, or an earlier release, re-sign it with this version of cdx-sign.",
+    );
     process.exit(1);
   }
 } else if (checkedNested > 0 && !hasInvalidNested) {

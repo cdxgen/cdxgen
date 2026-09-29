@@ -24,7 +24,11 @@ import {
   isUserProvided,
 } from "../lib/cli/cliOptions.js";
 import { createBom, submitBom } from "../lib/cli/index.js";
-import { signBom, verifyBom } from "../lib/helpers/bomSigner.js";
+import {
+  generateSigningKeyPair,
+  signBom,
+  verifyBom,
+} from "../lib/helpers/bomSigner.js";
 import {
   DEFAULT_CDX_SPEC_VERSION,
   getSupportedCycloneDxComponentTypes,
@@ -299,7 +303,7 @@ const args = _yargs
   .option("generate-key-and-sign", {
     type: "boolean",
     description:
-      "Generate an RSA public/private key pair and then sign the generated SBOM using JSON Web Signatures.",
+      "Generate a public/private key pair for SBOM_SIGN_ALGORITHM (RS512 by default) and then sign the generated SBOM using the JSON Signature Format (JSF).",
   })
   .option("server", {
     type: "boolean",
@@ -1106,6 +1110,8 @@ const checkPermissions = (filePath, options) => {
   return true;
 };
 
+let warnedAboutSigningAlgorithm = false;
+
 const needsBomSigning = ({ generateKeyAndSign }) =>
   generateKeyAndSign ||
   (() => {
@@ -1123,11 +1129,19 @@ const needsBomSigning = ({ generateKeyAndSign }) =>
         sensitive: true,
       },
     );
-    return (
-      sbomSignAlgorithm &&
-      sbomSignAlgorithm !== "none" &&
-      ((sbomSignPrivateKey && safeExistsSync(sbomSignPrivateKey)) ||
-        sbomSignPrivateKeyBase64)
+    const keyConfigured = Boolean(
+      sbomSignPrivateKey || sbomSignPrivateKeyBase64,
+    );
+    if (keyConfigured && !sbomSignAlgorithm && !warnedAboutSigningAlgorithm) {
+      warnedAboutSigningAlgorithm = true;
+      console.warn(
+        "SBOM_SIGN_PRIVATE_KEY is set without SBOM_SIGN_ALGORITHM, so the BOM is not signed. Set SBOM_SIGN_ALGORITHM (for example RS512) to sign it, or SBOM_SIGN_ALGORITHM=none to silence this warning.",
+      );
+    }
+    // A configured key file that is missing counts as a signing request, so
+    // that signing fails loudly instead of being skipped.
+    return Boolean(
+      sbomSignAlgorithm && sbomSignAlgorithm !== "none" && keyConfigured,
     );
   })();
 
@@ -1136,28 +1150,20 @@ const stringifyJson = (jsonPayload, jsonPretty) =>
     ? jsonPayload
     : JSON.stringify(jsonPayload, null, jsonPretty ? 2 : null);
 
-const writeCycloneDxOutput = (jsonFile, bomJson, options) => {
-  const jsonPayload = stringifyJson(bomJson, options.jsonPretty);
-  safeWriteSync(jsonFile, jsonPayload);
-  if (jsonFile.endsWith("bom.json")) {
-    thoughtLog(
-      `Let's save the file to "${jsonFile}". Should I suggest the '.cdx.json' file extension for better semantics?`,
-    );
-  } else {
-    thoughtLog(`Let's save the file to "${jsonFile}".`);
-  }
-  if (!jsonPayload || !needsBomSigning(options)) {
-    return jsonPayload;
-  }
-  if (isDryRun) {
-    recordActivity({
-      kind: "sign",
-      reason: "Dry run mode skips BOM signing and key generation.",
-      status: "blocked",
-      target: jsonFile,
-    });
-    return jsonPayload;
-  }
+const SIGNING_HINT =
+  "Check that the private key is in PEM format and that SBOM_SIGN_ALGORITHM matches its key type.";
+
+/**
+ * Signs a CycloneDX payload with the configured or generated key.
+ *
+ * @param {string} jsonPayload Serialized CycloneDX BOM
+ * @param {string|undefined} keyDir Directory for --generate-key-and-sign keys
+ * @param {string} target Output the signed BOM is written to (for the activity log)
+ * @param {Object} options CLI options
+ * @returns {Object} Signed BOM
+ * @throws {Error} When signing was requested but cannot be completed
+ */
+const signCycloneDxPayload = (jsonPayload, keyDir, target, options) => {
   const sbomSignAlgorithm = readEnvironmentVariable("SBOM_SIGN_ALGORITHM");
   const sbomSignPrivateKey = readEnvironmentVariable("SBOM_SIGN_PRIVATE_KEY", {
     sensitive: true,
@@ -1172,29 +1178,20 @@ const writeCycloneDxOutput = (jsonFile, bomJson, options) => {
   const sbomSignPublicKeyBase64 = readEnvironmentVariable(
     "SBOM_SIGN_PUBLIC_KEY_BASE64",
   );
-  let alg = sbomSignAlgorithm || "RS512";
-  if (alg.includes("none")) {
-    alg = "RS512";
-  }
+  const alg = sbomSignAlgorithm || "RS512";
   let privateKeyToUse;
   let jwkPublicKey;
   let publicKeyFile;
   if (options.generateKeyAndSign) {
-    const jdirName = dirname(jsonFile);
-    publicKeyFile = join(jdirName, "public.key");
-    const privateKeyFile = join(jdirName, "private.key");
-    const privateKeyB64File = join(jdirName, "private.key.base64");
-    const { privateKey, publicKey } = crypto.generateKeyPairSync("rsa", {
-      modulusLength: 4096,
-      publicKeyEncoding: {
-        type: "spki",
-        format: "pem",
-      },
-      privateKeyEncoding: {
-        type: "pkcs8",
-        format: "pem",
-      },
-    });
+    if (!keyDir) {
+      throw new Error(
+        "--generate-key-and-sign needs a file output (-o) to write the generated keys next to.",
+      );
+    }
+    publicKeyFile = join(keyDir, "public.key");
+    const privateKeyFile = join(keyDir, "private.key");
+    const privateKeyB64File = join(keyDir, "private.key.base64");
+    const { privateKey, publicKey } = generateSigningKeyPair(alg);
     safeWriteSync(publicKeyFile, publicKey);
     safeWriteSync(privateKeyFile, privateKey);
     safeWriteSync(
@@ -1211,69 +1208,129 @@ const writeCycloneDxOutput = (jsonFile, bomJson, options) => {
     jwkPublicKey = crypto.createPublicKey(publicKey).export({ format: "jwk" });
   } else {
     if (sbomSignPrivateKey) {
+      if (!safeExistsSync(sbomSignPrivateKey)) {
+        throw new Error(
+          `The SBOM_SIGN_PRIVATE_KEY file '${sbomSignPrivateKey}' was not found.`,
+        );
+      }
       recordSensitiveFileRead(sbomSignPrivateKey, {
         label: "SBOM signing private key",
       });
-      privateKeyToUse = fs.readFileSync(sbomSignPrivateKey, "utf8");
+      privateKeyToUse = fs.readFileSync(sbomSignPrivateKey);
     } else if (sbomSignPrivateKeyBase64) {
-      privateKeyToUse = Buffer.from(
-        sbomSignPrivateKeyBase64,
-        "base64",
-      ).toString("utf8");
+      privateKeyToUse = Buffer.from(sbomSignPrivateKeyBase64, "base64");
     }
     if (sbomSignPublicKey && safeExistsSync(sbomSignPublicKey)) {
       jwkPublicKey = crypto
         .createPublicKey(fs.readFileSync(sbomSignPublicKey, "utf8"))
         .export({ format: "jwk" });
     } else if (sbomSignPublicKeyBase64) {
-      jwkPublicKey = Buffer.from(sbomSignPublicKeyBase64, "base64").toString(
-        "utf8",
+      jwkPublicKey = crypto
+        .createPublicKey(Buffer.from(sbomSignPublicKeyBase64, "base64"))
+        .export({ format: "jwk" });
+    }
+  }
+  thoughtLog(`Signing the BOM for "${target}".`);
+  const signedBom = signBom(JSON.parse(jsonPayload), {
+    privateKey: privateKeyToUse,
+    algorithm: alg,
+    publicKeyJwk: jwkPublicKey,
+    mode: readEnvironmentVariable("SBOM_SIGN_MODE") || "replace",
+    signComponents: true,
+    signServices: true,
+    signAnnotations: true,
+  });
+  if (publicKeyFile) {
+    if (!verifyBom(signedBom, fs.readFileSync(publicKeyFile, "utf8"))) {
+      throw new Error(
+        `The new signature does not verify with ${publicKeyFile}.`,
       );
     }
+    console.log(
+      "SBOM signature is verifiable natively with the public key and the algorithm",
+      publicKeyFile,
+      alg,
+    );
   }
-  try {
-    const bomJsonUnsignedObj = JSON.parse(jsonPayload);
-    const signOptions = {
-      privateKey: privateKeyToUse,
-      algorithm: alg,
-      publicKeyJwk: jwkPublicKey,
-      mode: readEnvironmentVariable("SBOM_SIGN_MODE") || "replace",
-      signComponents: true,
-      signServices: true,
-      signAnnotations: true,
-    };
-    thoughtLog(`Signing the BOM file "${jsonFile}".`);
+  recordActivity({
+    kind: "sign",
+    status: "completed",
+    target,
+  });
+  return signedBom;
+};
+
+/**
+ * Signs the BOM for an output when signing is configured. A failure is
+ * recorded and returned so that the caller can stop with a non-zero exit
+ * instead of publishing an unsigned BOM.
+ *
+ * @returns {{ bomJson: Object, jsonPayload: string, signingError?: Error }}
+ */
+const signForOutput = (bomJson, jsonPayload, keyDir, target, options) => {
+  if (!jsonPayload || !needsBomSigning(options)) {
+    return { bomJson, jsonPayload };
+  }
+  if (isDryRun) {
     recordActivity({
       kind: "sign",
-      status: "completed",
-      target: jsonFile,
+      reason: "Dry run mode skips BOM signing and key generation.",
+      status: "blocked",
+      target,
     });
-    const signedBom = signBom(bomJsonUnsignedObj, signOptions);
-    safeWriteSync(
-      jsonFile,
-      JSON.stringify(signedBom, null, options.jsonPretty ? 2 : null),
-    );
-    if (publicKeyFile) {
-      const publicKeyStr = fs.readFileSync(publicKeyFile, "utf8");
-      const signatureVerification = verifyBom(signedBom, publicKeyStr);
-      if (signatureVerification) {
-        console.log(
-          "SBOM signature is verifiable natively with the public key and the algorithm",
-          publicKeyFile,
-          alg,
-        );
-      } else {
-        console.log("SBOM signature verification was unsuccessful");
-        console.log("Check if the public key was exported in PEM format");
-      }
-    }
-  } catch (ex) {
-    console.log("SBOM signing was unsuccessful:", ex.message);
-    console.log(
-      "Check if the private key was exported in PEM format and the algorithm is JSF-compliant.",
-    );
+    return { bomJson, jsonPayload };
   }
-  return jsonPayload;
+  try {
+    const signedBom = signCycloneDxPayload(
+      jsonPayload,
+      keyDir,
+      target,
+      options,
+    );
+    return {
+      bomJson: signedBom,
+      jsonPayload: JSON.stringify(
+        signedBom,
+        null,
+        options.jsonPretty ? 2 : null,
+      ),
+    };
+  } catch (err) {
+    recordActivity({
+      kind: "sign",
+      reason: err.message,
+      status: "failed",
+      target,
+    });
+    return { bomJson, jsonPayload, signingError: err };
+  }
+};
+
+const reportSigningFailure = (signingError, target) => {
+  console.error(`SBOM signing was unsuccessful: ${signingError.message}`);
+  console.error(SIGNING_HINT);
+  if (target !== "stdout") {
+    console.error(`The BOM at '${target}' was written without a signature.`);
+  }
+};
+
+const writeCycloneDxOutput = (jsonFile, bomJson, options) => {
+  const result = signForOutput(
+    bomJson,
+    stringifyJson(bomJson, options.jsonPretty),
+    dirname(jsonFile),
+    jsonFile,
+    options,
+  );
+  safeWriteSync(jsonFile, result.jsonPayload);
+  if (jsonFile.endsWith("bom.json")) {
+    thoughtLog(
+      `Let's save the file to "${jsonFile}". Should I suggest the '.cdx.json' file extension for better semantics?`,
+    );
+  } else {
+    thoughtLog(`Let's save the file to "${jsonFile}".`);
+  }
+  return result;
 };
 
 /**
@@ -1773,11 +1830,20 @@ const writeCycloneDxOutput = (jsonFile, bomJson, options) => {
     (typeof options.output === "string" || options.output instanceof String)
   ) {
     if (!isDryRun && outputPlan.outputs.cyclonedx && bomNSData.bomJson) {
-      writeCycloneDxOutput(
+      const result = writeCycloneDxOutput(
         outputPlan.outputs.cyclonedx,
         bomNSData.bomJson,
         options,
       );
+      if (result.signingError) {
+        reportSigningFailure(result.signingError, outputPlan.outputs.cyclonedx);
+        if (cleanup) {
+          cleanupSourceDir(srcDir);
+        }
+        process.exit(1);
+      }
+      // Later consumers, such as the Dependency-Track upload, get the signed BOM.
+      bomNSData.bomJson = result.bomJson;
       if (bomNSData.nsMapping && Object.keys(bomNSData.nsMapping).length) {
         const nsFile = `${outputPlan.outputs.cyclonedx}.map`;
         safeWriteSync(nsFile, JSON.stringify(bomNSData.nsMapping));
@@ -1808,7 +1874,22 @@ const writeCycloneDxOutput = (jsonFile, bomJson, options) => {
     if (outputPlan.formats.has("spdx") && bomNSData?.spdxJson) {
       console.log(stringifyJson(bomNSData.spdxJson, options.jsonPretty));
     } else if (bomNSData.bomJson) {
-      console.log(stringifyJson(bomNSData.bomJson, options.jsonPretty));
+      const result = signForOutput(
+        bomNSData.bomJson,
+        stringifyJson(bomNSData.bomJson, options.jsonPretty),
+        undefined,
+        "stdout",
+        options,
+      );
+      if (result.signingError) {
+        reportSigningFailure(result.signingError, "stdout");
+        if (cleanup) {
+          cleanupSourceDir(srcDir);
+        }
+        process.exit(1);
+      }
+      bomNSData.bomJson = result.bomJson;
+      console.log(result.jsonPayload);
     } else {
       console.log("Unable to produce BOM for", filePath);
       console.log("Try running the command with -t <type> or -r argument");

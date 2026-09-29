@@ -114,11 +114,21 @@ const args = _yargs
     description:
       "Path to a PEM public key. When set, cdx-validate also verifies the BOM signature.",
   })
+  .option("secret-key", {
+    description:
+      "Path to the shared secret for HMAC (HS256, HS384, HS512) signatures. HMAC signatures are only accepted with this option.",
+  })
+  .option("nested-signatures", {
+    type: "boolean",
+    default: true,
+    description:
+      "Also verify component, service, and annotation signatures, as cdx-verify does. Pass --no-nested-signatures to verify only the root signature.",
+  })
   .option("require-signature", {
     type: "boolean",
     default: false,
     description:
-      "Exit non-zero (4) when --public-key is provided but signature verification fails.",
+      "Exit non-zero (4) when --public-key or --secret-key is provided but signature verification fails.",
   })
   .option("strict", {
     type: "boolean",
@@ -162,13 +172,13 @@ async function loadBom(input, platform) {
   return undefined;
 }
 
-function loadPublicKey(path) {
+function loadKeyFile(path, label, encoding) {
   if (!path) return null;
   if (!safeExistsSync(path)) {
-    console.error(`Public key '${path}' not found.`);
+    console.error(`${label} '${path}' not found.`);
     process.exit(1);
   }
-  return fs.readFileSync(path, "utf8");
+  return fs.readFileSync(path, encoding);
 }
 
 function splitCsv(value) {
@@ -199,14 +209,20 @@ function isLocalProtoBomInput(input) {
 }
 
 const bomJson = await loadBom(args.input, args.platform);
-const publicKeyStr = loadPublicKey(args.publicKey);
+if (args.publicKey && args.secretKey) {
+  console.error("cdx-validate: use either --public-key or --secret-key.");
+  process.exit(1);
+}
+const publicKeyStr = loadKeyFile(args.publicKey, "Public key", "utf8");
+const secretKey = loadKeyFile(args.secretKey, "Shared secret");
+const verificationRequested = Boolean(publicKeyStr || secretKey);
 const inputIsLocalProtoBom = isLocalProtoBomInput(args.input);
 if (!isCycloneDxBom(bomJson)) {
   console.error(getNonCycloneDxErrorMessage(bomJson, "cdx-validate"));
   process.exit(1);
 }
 
-if (inputIsLocalProtoBom && publicKeyStr) {
+if (inputIsLocalProtoBom && verificationRequested) {
   console.error(
     "cdx-validate: protobuf BOM input does not currently preserve JSF signature blocks. Verify signatures against the source JSON BOM instead.",
   );
@@ -222,6 +238,8 @@ const report = validateBomAdvanced(bomJson, {
   includeManual: args.includeManual,
   includePass: args.includePass,
   publicKey: publicKeyStr || undefined,
+  secretKey: secretKey || undefined,
+  nestedSignatures: args.nestedSignatures,
 });
 
 let output;
@@ -245,7 +263,7 @@ writeOrPrint(output, args.reportFile);
 const { shouldFail: fail, reason } = shouldFail(report, {
   failSeverity: args.failSeverity,
   strict: args.strict,
-  requireSignature: Boolean(args.requireSignature && publicKeyStr),
+  requireSignature: Boolean(args.requireSignature && verificationRequested),
 });
 
 if (report.signatureVerified === false && args.requireSignature) {

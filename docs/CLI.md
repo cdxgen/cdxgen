@@ -301,8 +301,8 @@ Options:
                                                                                                [boolean] [default: false]
       --no-babel                  Do not use babel to perform usage analysis for JavaScript/TypeScript projects.
                                                                                                                [boolean]
-      --generate-key-and-sign     Generate an RSA public/private key pair and then sign the generated SBOM using JSON
-                                  Web Signatures.                                                              [boolean]
+      --generate-key-and-sign     Generate a public/private key pair for SBOM_SIGN_ALGORITHM (RS512 by default) and
+                                  then sign the generated SBOM using the JSON Signature Format (JSF).          [boolean]
       --server                    Run cdxgen as a server                                                       [boolean]
       --server-host               Listen address                                         [string] [default: "127.0.0.1"]
       --server-port               Listen port                                                   [number] [default: 9090]
