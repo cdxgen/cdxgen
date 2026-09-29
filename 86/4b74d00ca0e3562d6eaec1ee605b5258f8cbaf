@@ -1,0 +1,25 @@
+.github/workflows/image-build.yml
+  s_14fcde9512124a::t_1644b8e9ae9ab3 169,177,406,414,691,737,783,825,871,913,963,971,1073,1081
+.github/workflows/codeql.yml
+  s_14fcde9512124a::t_3eb6961d74d6ac 43,58
+.github/workflows/npm-release.yml
+  s_14fcde9512124a::t_1644b8e9ae9ab3 80,82,97,124,126,141,178,200,208,223,252,260,275,311,337,407,415,430,459,467,482,518,544,599,607,622,651,659,674,710,736,796,804,806,826,849,857,872,900,908,923,959,985
+.github/workflows/repotests.yml
+  s_14fcde9512124a::t_1644b8e9ae9ab3 484,516,536,1351-1352,1943-1944,1962,1995
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "864b74d00ca0e3562d6eaec1ee605b5258f8cbaf",
+  "prompts": {},
+  "sessions": {
+    "s_14fcde9512124a": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "224d60ac-c3b4-43f2-84b7-1fddb3dfde87",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
