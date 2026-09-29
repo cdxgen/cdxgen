@@ -166,7 +166,7 @@ jobs:
         with:
           persist-credentials: false
       - name: Free disk space
-        uses: jlumbroso/free-disk-space@54081f138730dfa15788a46383842cd2f914a1be
+        uses: jlumbroso/free-disk-space@ceedf095f4ec1a097402bc6bd80831f2e1a6fde6  # v2.0.0
         with:
           tool-cache: true
       - name: Trim CI agent even more
@@ -174,7 +174,7 @@ jobs:
           chmod +x contrib/free_disk_space.sh
           ./contrib/free_disk_space.sh
       - name: Set up Docker BuildX
-        uses: docker/setup-buildx-action@37fe631027851001ddb9b187196cc803df7f5f0e  # v4.3.0
+        uses: docker/setup-buildx-action@f87e5991a6d7451dcb8d9637bfbc97413f497069  # v4.4.1
       - name: Login to the Container registry
         uses: docker/login-action@dbcb813823bdd20940b903addbd779551569679f  # v4.6.0
         with:
@@ -403,7 +403,7 @@ jobs:
         with:
           persist-credentials: false
       - name: Free disk space
-        uses: jlumbroso/free-disk-space@54081f138730dfa15788a46383842cd2f914a1be
+        uses: jlumbroso/free-disk-space@ceedf095f4ec1a097402bc6bd80831f2e1a6fde6  # v2.0.0
         with:
           tool-cache: true
       - name: Trim CI agent even more
@@ -411,7 +411,7 @@ jobs:
           chmod +x contrib/free_disk_space.sh
           ./contrib/free_disk_space.sh
       - name: Set up Docker BuildX
-        uses: docker/setup-buildx-action@37fe631027851001ddb9b187196cc803df7f5f0e  # v4.3.0
+        uses: docker/setup-buildx-action@f87e5991a6d7451dcb8d9637bfbc97413f497069  # v4.4.1
       - name: Login to the Container registry
         uses: docker/login-action@dbcb813823bdd20940b903addbd779551569679f  # v4.6.0
         with:
@@ -688,7 +688,7 @@ jobs:
           } >> "$GITHUB_OUTPUT"
       - name: Merge base image manifest
         id: merge_base
-        uses: int128/docker-manifest-create-action@5e40f15c10aaa54f5d2bc91864e2708e11ad629f  # v2.27.0
+        uses: int128/docker-manifest-create-action@6edb43463bd4878b8cee224ca274378a3635d78f  # v2.28.0
         with:
           index-annotations: ${{ steps.base_metadata.outputs.labels }}
           tags: ${{ steps.resolve_base_tags.outputs.value }}
@@ -734,7 +734,7 @@ jobs:
       - name: Merge slim base image manifest
         if: ${{ needs.prepare.outputs.slim == 'true' }}
         id: merge_slim_base
-        uses: int128/docker-manifest-create-action@5e40f15c10aaa54f5d2bc91864e2708e11ad629f  # v2.27.0
+        uses: int128/docker-manifest-create-action@6edb43463bd4878b8cee224ca274378a3635d78f  # v2.28.0
         with:
           index-annotations: ${{ steps.slim_base_metadata.outputs.labels }}
           tags: ${{ steps.resolve_slim_base_tags.outputs.value }}
@@ -780,7 +780,7 @@ jobs:
       - name: Merge cdxgen image manifest - master branch
         if: ${{ startsWith(github.ref, 'refs/heads/') }}
         id: merge_cdxgen_master
-        uses: int128/docker-manifest-create-action@5e40f15c10aaa54f5d2bc91864e2708e11ad629f  # v2.27.0
+        uses: int128/docker-manifest-create-action@6edb43463bd4878b8cee224ca274378a3635d78f  # v2.28.0
         with:
           index-annotations: ${{ steps.cdxgen_master_metadata.outputs.labels }}
           tags: ${{ steps.resolve_cdxgen_master_tags.outputs.value }}
@@ -822,7 +822,7 @@ jobs:
       - name: Merge cdxgen image manifest - release tags
         if: ${{ startsWith(github.ref, 'refs/tags/') }}
         id: merge_cdxgen_tag
-        uses: int128/docker-manifest-create-action@5e40f15c10aaa54f5d2bc91864e2708e11ad629f  # v2.27.0
+        uses: int128/docker-manifest-create-action@6edb43463bd4878b8cee224ca274378a3635d78f  # v2.28.0
         with:
           index-annotations: ${{ steps.cdxgen_tag_metadata.outputs.labels }}
           tags: ${{ steps.resolve_cdxgen_tag_tags.outputs.value }}
@@ -868,7 +868,7 @@ jobs:
       - name: Merge slim cdxgen image manifest - master branch
         if: ${{ needs.prepare.outputs.slim == 'true' && startsWith(github.ref, 'refs/heads/') }}
         id: merge_slim_cdxgen_master
-        uses: int128/docker-manifest-create-action@5e40f15c10aaa54f5d2bc91864e2708e11ad629f  # v2.27.0
+        uses: int128/docker-manifest-create-action@6edb43463bd4878b8cee224ca274378a3635d78f  # v2.28.0
         with:
           index-annotations: ${{ steps.slim_cdxgen_master_metadata.outputs.labels }}
           tags: ${{ steps.resolve_slim_cdxgen_master_tags.outputs.value }}
@@ -910,7 +910,7 @@ jobs:
       - name: Merge slim cdxgen image manifest - release tags
         if: ${{ needs.prepare.outputs.slim == 'true' && startsWith(github.ref, 'refs/tags/') }}
         id: merge_slim_cdxgen_tag
-        uses: int128/docker-manifest-create-action@5e40f15c10aaa54f5d2bc91864e2708e11ad629f  # v2.27.0
+        uses: int128/docker-manifest-create-action@6edb43463bd4878b8cee224ca274378a3635d78f  # v2.28.0
         with:
           index-annotations: ${{ steps.slim_cdxgen_tag_metadata.outputs.labels }}
           tags: ${{ steps.resolve_slim_cdxgen_tag_tags.outputs.value }}
@@ -960,7 +960,7 @@ jobs:
         with:
           persist-credentials: false
       - name: Free disk space
-        uses: jlumbroso/free-disk-space@54081f138730dfa15788a46383842cd2f914a1be
+        uses: jlumbroso/free-disk-space@ceedf095f4ec1a097402bc6bd80831f2e1a6fde6  # v2.0.0
         with:
           tool-cache: true
       - name: Trim CI agent even more
@@ -968,7 +968,7 @@ jobs:
           chmod +x contrib/free_disk_space.sh
           ./contrib/free_disk_space.sh
       - name: Set up Docker BuildX
-        uses: docker/setup-buildx-action@37fe631027851001ddb9b187196cc803df7f5f0e  # v4.3.0
+        uses: docker/setup-buildx-action@f87e5991a6d7451dcb8d9637bfbc97413f497069  # v4.4.1
       - name: Set up Python
         uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97  # v7.0.0
         with:
@@ -1070,7 +1070,7 @@ jobs:
         with:
           persist-credentials: false
       - name: Free disk space
-        uses: jlumbroso/free-disk-space@54081f138730dfa15788a46383842cd2f914a1be
+        uses: jlumbroso/free-disk-space@ceedf095f4ec1a097402bc6bd80831f2e1a6fde6  # v2.0.0
         with:
           tool-cache: true
       - name: Trim CI agent even more
@@ -1078,7 +1078,7 @@ jobs:
           chmod +x contrib/free_disk_space.sh
           ./contrib/free_disk_space.sh
       - name: Set up Docker BuildX
-        uses: docker/setup-buildx-action@37fe631027851001ddb9b187196cc803df7f5f0e  # v4.3.0
+        uses: docker/setup-buildx-action@f87e5991a6d7451dcb8d9637bfbc97413f497069  # v4.4.1
       - name: Set up Python
         uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97  # v7.0.0
         with:
