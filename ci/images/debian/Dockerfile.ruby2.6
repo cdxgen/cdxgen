@@ -1,17 +1,17 @@
 # Base-image
 FROM ruby:2.6.10-slim-bullseye@sha256:3d641979a7dc819b4c253dc62d2f74800817053247005f72b871d164498109df AS base
 
-ARG ATOM_RUBY_VERSION=4.0.5
+ARG ATOM_RUBY_VERSION=4.0.7
 ARG DEBIAN_REPO
 ARG GITHUB_RAW_URL=https://raw.githubusercontent.com
 ARG GITHUB_URL=https://github.com
-ARG JAVA_VERSION=21.0.10-tem
+ARG JAVA_VERSION=21.0.12-tem
 ARG NODE_20
 ARG NODE_VERSION=${NODE_20}
 ARG NODEJS_DIST_URL
 ARG NPM_REPO
 ARG NVM
-ARG NVM_VERSION=${NVM:-v0.40.5}
+ARG NVM_VERSION=${NVM:-v0.40.8}
 ARG PIP_CONFIG
 ARG RUBY_LANG_URL
 ARG RUBYGEMS_REPO
@@ -55,6 +55,9 @@ RUN set -e; \
       gem sources --add $RUBYGEMS_REPO/; \
       gem sources --remove https://rubygems.org/; \
       gem sources -c; \
+    fi; \
+    if [ -f /etc/apt/sources.list ]; then \
+      sed -i "/ bullseye-security /s/^deb/# bullseye is EOL; security suite is frozen: deb/" /etc/apt/sources.list; \
     fi; \
     apt-get update \
  && apt-get install -qq -y --no-install-recommends \
@@ -144,7 +147,6 @@ RUN set -e; \
  && corepack pnpm cache delete \
  && mkdir -p ${NODE_COMPILE_CACHE} \
  && node /opt/cdxgen/bin/cdxgen.js --help \
- && rbastgen --help \
  && rm -rf ${CDXGEN_GEM_HOME} \
  && mkdir -p ${CDXGEN_GEM_HOME} \
  && rm -rf $HOME/.npmrc $HOME/.pip /root/.cache/node \

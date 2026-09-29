@@ -1,10 +1,10 @@
 # Base-image
-FROM registry.suse.com/bci/python:3.6.15@sha256:b567b4c3ecccb727e70cee4d0751ed64deeb8d9ab2ba34c8f170cd623bdcc817 AS base
+FROM registry.suse.com/bci/python:3.6.15@sha256:819fb36691971a8b9d8c6bd4a7e781a815f94d161c032b857a41dbbaeff926c3 AS base
 
 ARG GCC_VERSION=14
 ARG GITHUB_RAW_URL=https://raw.githubusercontent.com
 ARG GITHUB_URL=https://github.com
-ARG JAVA_VERSION=21.0.10-tem
+ARG JAVA_VERSION=21.0.12-tem
 ARG MAVEN_3
 ARG MAVEN_VERSION=${MAVEN_3}
 ARG NODE_20
@@ -12,7 +12,7 @@ ARG NODE_VERSION=${NODE_20}
 ARG NODEJS_DIST_URL
 ARG NPM_REPO
 ARG NVM
-ARG NVM_VERSION=${NVM:-v0.40.5}
+ARG NVM_VERSION=${NVM:-v0.40.8}
 ARG PIP_CONFIG
 ARG SDKMAN_URL=https://api.sdkman.io/2
 ARG SUSE_REPO

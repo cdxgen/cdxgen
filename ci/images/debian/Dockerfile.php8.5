@@ -1,17 +1,17 @@
 # Base-image
-FROM php:8.5.7-trixie@sha256:1a5fd40baaeb88045a5cdfcec6b26bafcf40e3c2867f525b91cb746eb26d8fd9 AS base
+FROM php:8.5.11-trixie@sha256:19642e172d3a542225225e202ddc2c11f67bdcbddf147b676c49338609b9290f AS base
 
 ARG COMPOSER_URL=https://getcomposer.org
 ARG DEBIAN_REPO
 ARG GITHUB_RAW_URL=https://raw.githubusercontent.com
 ARG GITHUB_URL=https://github.com
-ARG JAVA_VERSION=21.0.10-tem
+ARG JAVA_VERSION=21.0.12-tem
 ARG NODE_24
 ARG NODE_VERSION=${NODE_24}
 ARG NODEJS_DIST_URL
 ARG NPM_REPO
 ARG NVM
-ARG NVM_VERSION=${NVM:-v0.40.5}
+ARG NVM_VERSION=${NVM:-v0.40.8}
 ARG PIP_CONFIG
 ARG SDKMAN_URL=https://api.sdkman.io/2
 

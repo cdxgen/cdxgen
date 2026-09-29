@@ -1,5 +1,5 @@
 # Base-image
-FROM golang:1.26.5-bookworm@sha256:53eeac89074db483fdf0ab3be1df32bf6e47562263d2d0d6baa7f26acb4957dd AS base
+FROM golang:1.26.8-bookworm@sha256:a688600ca24f8a4d3ca77f95b0dd40704a9fc787c826660eb7ba0b641b8b175d AS base
 
 ARG DEBIAN_REPO
 ARG GITHUB_RAW_URL=https://raw.githubusercontent.com
@@ -9,7 +9,7 @@ ARG NODE_VERSION=${NODE_26}
 ARG NODEJS_DIST_URL
 ARG NPM_REPO
 ARG NVM
-ARG NVM_VERSION=${NVM:-v0.40.5}
+ARG NVM_VERSION=${NVM:-v0.40.8}
 ARG PIP_CONFIG
 
 ENV SKIP_ATOM="yes" \
