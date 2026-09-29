@@ -29,7 +29,9 @@ declare const SEVERITY_ORDER: {
  * @param {string} [options.minSeverity]        Minimum severity for returned findings.
  * @param {boolean} [options.includeManual]     Include manual-review findings (default true).
  * @param {boolean} [options.includePass]       Include passing findings (default false).
- * @param {string} [options.publicKey]          If set, verify the BOM signature.
+ * @param {string} [options.publicKey]          If set, verify the BOM signature with this public key.
+ * @param {string|Buffer} [options.secretKey]   If set, verify an HMAC (HS*) BOM signature with this shared secret.
+ * @param {boolean} [options.nestedSignatures]  Also verify component, service, and annotation signatures (default true), as cdx-verify does.
  * @returns {{
  *   schemaValid: boolean,
  *   deepValid: boolean,
@@ -50,6 +52,8 @@ export declare function validateBomAdvanced(bomJson: object, options?: {
     includeManual?: boolean;
     includePass?: boolean;
     publicKey?: string;
+    secretKey?: string | Buffer;
+    nestedSignatures?: boolean;
 }): {
     schemaValid: boolean;
     deepValid: boolean;

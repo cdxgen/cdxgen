@@ -77,9 +77,9 @@ jobs:
           ref: ${{ env.REF }}
           persist-credentials: false
       - name: Set up QEMU
-        uses: docker/setup-qemu-action@1f40c72289eff860ee54a304f1438e3cff362e0a  # v4.3.0
+        uses: docker/setup-qemu-action@99012661954931238ded8c8b007157a8430204e1  # v4.4.0
       - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@37fe631027851001ddb9b187196cc803df7f5f0e  # v4.3.0
+        uses: docker/setup-buildx-action@f87e5991a6d7451dcb8d9637bfbc97413f497069  # v4.4.1
       - name: Log in to the Container registry
         uses: docker/login-action@dbcb813823bdd20940b903addbd779551569679f  # v4.6.0
         with:
@@ -94,7 +94,7 @@ jobs:
             ghcr.io/cdxgen/cdxgen-ruby-builder
           flavor: latest=false,suffix=-amd64
       - name: Build and push Docker images
-        uses: docker/build-push-action@53b7df96c91f9c12dcc8a07bcb9ccacbed38856a  # v7.3.0
+        uses: docker/build-push-action@c3c9e263c25d99ce0380d002d59b67737d91b0dc  # v7.4.0
         id: build
         with:
           context: .
@@ -121,9 +121,9 @@ jobs:
           ref: ${{ env.REF }}
           persist-credentials: false
       - name: Set up QEMU
-        uses: docker/setup-qemu-action@1f40c72289eff860ee54a304f1438e3cff362e0a  # v4.3.0
+        uses: docker/setup-qemu-action@99012661954931238ded8c8b007157a8430204e1  # v4.4.0
       - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@37fe631027851001ddb9b187196cc803df7f5f0e  # v4.3.0
+        uses: docker/setup-buildx-action@f87e5991a6d7451dcb8d9637bfbc97413f497069  # v4.4.1
       - name: Log in to the Container registry
         uses: docker/login-action@dbcb813823bdd20940b903addbd779551569679f  # v4.6.0
         with:
@@ -138,7 +138,7 @@ jobs:
             ghcr.io/cdxgen/cdxgen-ruby-builder
           flavor: latest=false,suffix=-arm64
       - name: Build and push Docker images
-        uses: docker/build-push-action@53b7df96c91f9c12dcc8a07bcb9ccacbed38856a  # v7.3.0
+        uses: docker/build-push-action@c3c9e263c25d99ce0380d002d59b67737d91b0dc  # v7.4.0
         id: build
         with:
           context: .
@@ -175,7 +175,7 @@ jobs:
         id: metadata
         with:
           images: ghcr.io/${{ github.repository }}
-      - uses: int128/docker-manifest-create-action@5e40f15c10aaa54f5d2bc91864e2708e11ad629f  # v2.27.0
+      - uses: int128/docker-manifest-create-action@6edb43463bd4878b8cee224ca274378a3635d78f  # v2.28.0
         id: build
         with:
           index-annotations: ${{ steps.metadata.outputs.labels }}
@@ -197,7 +197,7 @@ jobs:
           ref: ${{ env.REF }}
           persist-credentials: false
       - name: Free disk space
-        uses: jlumbroso/free-disk-space@54081f138730dfa15788a46383842cd2f914a1be
+        uses: jlumbroso/free-disk-space@ceedf095f4ec1a097402bc6bd80831f2e1a6fde6  # v2.0.0
         with:
           tool-cache: true
       - name: Trim CI agent
@@ -205,7 +205,7 @@ jobs:
           chmod +x contrib/free_disk_space.sh
           ./contrib/free_disk_space.sh
       - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@37fe631027851001ddb9b187196cc803df7f5f0e  # v4.3.0
+        uses: docker/setup-buildx-action@f87e5991a6d7451dcb8d9637bfbc97413f497069  # v4.4.1
       - name: Log in to the Container registry
         uses: docker/login-action@dbcb813823bdd20940b903addbd779551569679f  # v4.6.0
         with:
@@ -220,7 +220,7 @@ jobs:
             ghcr.io/cdxgen/cdxgen
           flavor: latest=false,suffix=-amd64
       - name: Build and push Docker images
-        uses: docker/build-push-action@53b7df96c91f9c12dcc8a07bcb9ccacbed38856a  # v7.3.0
+        uses: docker/build-push-action@c3c9e263c25d99ce0380d002d59b67737d91b0dc  # v7.4.0
         id: build
         with:
           context: .
@@ -249,7 +249,7 @@ jobs:
           ref: ${{ env.REF }}
           persist-credentials: false
       - name: Free disk space
-        uses: jlumbroso/free-disk-space@54081f138730dfa15788a46383842cd2f914a1be
+        uses: jlumbroso/free-disk-space@ceedf095f4ec1a097402bc6bd80831f2e1a6fde6  # v2.0.0
         with:
           tool-cache: true
       - name: Trim CI agent
@@ -257,7 +257,7 @@ jobs:
           chmod +x contrib/free_disk_space.sh
           ./contrib/free_disk_space.sh
       - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@37fe631027851001ddb9b187196cc803df7f5f0e  # v4.3.0
+        uses: docker/setup-buildx-action@f87e5991a6d7451dcb8d9637bfbc97413f497069  # v4.4.1
       - name: Log in to the Container registry
         uses: docker/login-action@dbcb813823bdd20940b903addbd779551569679f  # v4.6.0
         with:
@@ -272,7 +272,7 @@ jobs:
             ghcr.io/cdxgen/cdxgen
           flavor: latest=false,suffix=-arm64
       - name: Build and push Docker images
-        uses: docker/build-push-action@53b7df96c91f9c12dcc8a07bcb9ccacbed38856a  # v7.3.0
+        uses: docker/build-push-action@c3c9e263c25d99ce0380d002d59b67737d91b0dc  # v7.4.0
         id: build
         with:
           context: .
@@ -308,7 +308,7 @@ jobs:
           package-manager-cache: false
           registry-url: https://registry.npmjs.org/
       - name: Free disk space
-        uses: jlumbroso/free-disk-space@54081f138730dfa15788a46383842cd2f914a1be
+        uses: jlumbroso/free-disk-space@ceedf095f4ec1a097402bc6bd80831f2e1a6fde6  # v2.0.0
         with:
           tool-cache: true
       - name: Trim CI agent
@@ -334,7 +334,7 @@ jobs:
             type=raw,value=latest,enable=${{ github.event_name == 'push' || github.event.inputs.latest == 'true' }}
             type=raw,value=master,enable=${{ env.REF == 'refs/heads/master' }}
       - name: Merge and push manifest
-        uses: int128/docker-manifest-create-action@5e40f15c10aaa54f5d2bc91864e2708e11ad629f  # v2.27.0
+        uses: int128/docker-manifest-create-action@6edb43463bd4878b8cee224ca274378a3635d78f  # v2.28.0
         with:
           index-annotations: ${{ steps.meta.outputs.labels }}
           tags: ${{ steps.meta.outputs.tags }}
@@ -404,7 +404,7 @@ jobs:
           ref: ${{ env.REF }}
           persist-credentials: false
       - name: Free disk space
-        uses: jlumbroso/free-disk-space@54081f138730dfa15788a46383842cd2f914a1be
+        uses: jlumbroso/free-disk-space@ceedf095f4ec1a097402bc6bd80831f2e1a6fde6  # v2.0.0
         with:
           tool-cache: true
       - name: Trim CI agent
@@ -412,7 +412,7 @@ jobs:
           chmod +x contrib/free_disk_space.sh
           ./contrib/free_disk_space.sh
       - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@37fe631027851001ddb9b187196cc803df7f5f0e  # v4.3.0
+        uses: docker/setup-buildx-action@f87e5991a6d7451dcb8d9637bfbc97413f497069  # v4.4.1
       - name: Log in to the Container registry
         uses: docker/login-action@dbcb813823bdd20940b903addbd779551569679f  # v4.6.0
         with:
@@ -427,7 +427,7 @@ jobs:
             ghcr.io/cdxgen/cdxgen-secure
           flavor: latest=false,suffix=-amd64
       - name: Build and push Docker images
-        uses: docker/build-push-action@53b7df96c91f9c12dcc8a07bcb9ccacbed38856a  # v7.3.0
+        uses: docker/build-push-action@c3c9e263c25d99ce0380d002d59b67737d91b0dc  # v7.4.0
         id: build
         with:
           context: .
@@ -456,7 +456,7 @@ jobs:
           ref: ${{ env.REF }}
           persist-credentials: false
       - name: Free disk space
-        uses: jlumbroso/free-disk-space@54081f138730dfa15788a46383842cd2f914a1be
+        uses: jlumbroso/free-disk-space@ceedf095f4ec1a097402bc6bd80831f2e1a6fde6  # v2.0.0
         with:
           tool-cache: true
       - name: Trim CI agent
@@ -464,7 +464,7 @@ jobs:
           chmod +x contrib/free_disk_space.sh
           ./contrib/free_disk_space.sh
       - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@37fe631027851001ddb9b187196cc803df7f5f0e  # v4.3.0
+        uses: docker/setup-buildx-action@f87e5991a6d7451dcb8d9637bfbc97413f497069  # v4.4.1
       - name: Log in to the Container registry
         uses: docker/login-action@dbcb813823bdd20940b903addbd779551569679f  # v4.6.0
         with:
@@ -479,7 +479,7 @@ jobs:
             ghcr.io/cdxgen/cdxgen-secure
           flavor: latest=false,suffix=-arm64
       - name: Build and push Docker images
-        uses: docker/build-push-action@53b7df96c91f9c12dcc8a07bcb9ccacbed38856a  # v7.3.0
+        uses: docker/build-push-action@c3c9e263c25d99ce0380d002d59b67737d91b0dc  # v7.4.0
         id: build
         with:
           context: .
@@ -515,7 +515,7 @@ jobs:
           package-manager-cache: false
           registry-url: https://registry.npmjs.org/
       - name: Free disk space
-        uses: jlumbroso/free-disk-space@54081f138730dfa15788a46383842cd2f914a1be
+        uses: jlumbroso/free-disk-space@ceedf095f4ec1a097402bc6bd80831f2e1a6fde6  # v2.0.0
         with:
           tool-cache: true
       - name: Trim CI agent
@@ -541,7 +541,7 @@ jobs:
             type=raw,value=latest,enable=${{ github.event_name == 'push' || github.event.inputs.latest == 'true' }}
             type=raw,value=master,enable=${{ env.REF == 'refs/heads/master' }}
       - name: Merge and push manifest
-        uses: int128/docker-manifest-create-action@5e40f15c10aaa54f5d2bc91864e2708e11ad629f  # v2.27.0
+        uses: int128/docker-manifest-create-action@6edb43463bd4878b8cee224ca274378a3635d78f  # v2.28.0
         with:
           index-annotations: ${{ steps.meta.outputs.labels }}
           tags: ${{ steps.meta.outputs.tags }}
@@ -596,7 +596,7 @@ jobs:
           ref: ${{ env.REF }}
           persist-credentials: false
       - name: Free disk space
-        uses: jlumbroso/free-disk-space@54081f138730dfa15788a46383842cd2f914a1be
+        uses: jlumbroso/free-disk-space@ceedf095f4ec1a097402bc6bd80831f2e1a6fde6  # v2.0.0
         with:
           tool-cache: true
       - name: Trim CI agent
@@ -604,7 +604,7 @@ jobs:
           chmod +x contrib/free_disk_space.sh
           ./contrib/free_disk_space.sh
       - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@37fe631027851001ddb9b187196cc803df7f5f0e  # v4.3.0
+        uses: docker/setup-buildx-action@f87e5991a6d7451dcb8d9637bfbc97413f497069  # v4.4.1
       - name: Log in to the Container registry
         uses: docker/login-action@dbcb813823bdd20940b903addbd779551569679f  # v4.6.0
         with:
@@ -619,7 +619,7 @@ jobs:
             ghcr.io/cdxgen/cdxgen-deno
           flavor: latest=false,suffix=-amd64
       - name: Build and push Docker images
-        uses: docker/build-push-action@53b7df96c91f9c12dcc8a07bcb9ccacbed38856a  # v7.3.0
+        uses: docker/build-push-action@c3c9e263c25d99ce0380d002d59b67737d91b0dc  # v7.4.0
         id: build
         with:
           context: .
@@ -648,7 +648,7 @@ jobs:
           ref: ${{ env.REF }}
           persist-credentials: false
       - name: Free disk space
-        uses: jlumbroso/free-disk-space@54081f138730dfa15788a46383842cd2f914a1be
+        uses: jlumbroso/free-disk-space@ceedf095f4ec1a097402bc6bd80831f2e1a6fde6  # v2.0.0
         with:
           tool-cache: true
       - name: Trim CI agent
@@ -656,7 +656,7 @@ jobs:
           chmod +x contrib/free_disk_space.sh
           ./contrib/free_disk_space.sh
       - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@37fe631027851001ddb9b187196cc803df7f5f0e  # v4.3.0
+        uses: docker/setup-buildx-action@f87e5991a6d7451dcb8d9637bfbc97413f497069  # v4.4.1
       - name: Log in to the Container registry
         uses: docker/login-action@dbcb813823bdd20940b903addbd779551569679f  # v4.6.0
         with:
@@ -671,7 +671,7 @@ jobs:
             ghcr.io/cdxgen/cdxgen-deno
           flavor: latest=false,suffix=-arm64
       - name: Build and push Docker images
-        uses: docker/build-push-action@53b7df96c91f9c12dcc8a07bcb9ccacbed38856a  # v7.3.0
+        uses: docker/build-push-action@c3c9e263c25d99ce0380d002d59b67737d91b0dc  # v7.4.0
         id: build
         with:
           context: .
@@ -707,7 +707,7 @@ jobs:
           package-manager-cache: false
           registry-url: https://registry.npmjs.org/
       - name: Free disk space
-        uses: jlumbroso/free-disk-space@54081f138730dfa15788a46383842cd2f914a1be
+        uses: jlumbroso/free-disk-space@ceedf095f4ec1a097402bc6bd80831f2e1a6fde6  # v2.0.0
         with:
           tool-cache: true
       - name: Trim CI agent
@@ -733,7 +733,7 @@ jobs:
             type=raw,value=latest,enable=${{ github.event_name == 'push' || github.event.inputs.latest == 'true' }}
             type=raw,value=master,enable=${{ env.REF == 'refs/heads/master' }}
       - name: Merge and push manifest
-        uses: int128/docker-manifest-create-action@5e40f15c10aaa54f5d2bc91864e2708e11ad629f  # v2.27.0
+        uses: int128/docker-manifest-create-action@6edb43463bd4878b8cee224ca274378a3635d78f  # v2.28.0
         with:
           index-annotations: ${{ steps.meta.outputs.labels }}
           tags: ${{ steps.meta.outputs.tags }}
@@ -793,7 +793,7 @@ jobs:
           package-manager-cache: false
           registry-url: https://registry.npmjs.org/
       - name: Free disk space
-        uses: jlumbroso/free-disk-space@54081f138730dfa15788a46383842cd2f914a1be
+        uses: jlumbroso/free-disk-space@ceedf095f4ec1a097402bc6bd80831f2e1a6fde6  # v2.0.0
         with:
           tool-cache: true
       - name: Trim CI agent
@@ -801,9 +801,9 @@ jobs:
           chmod +x contrib/free_disk_space.sh
           ./contrib/free_disk_space.sh
       - name: Set up QEMU
-        uses: docker/setup-qemu-action@1f40c72289eff860ee54a304f1438e3cff362e0a  # v4.3.0
+        uses: docker/setup-qemu-action@99012661954931238ded8c8b007157a8430204e1  # v4.4.0
       - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@37fe631027851001ddb9b187196cc803df7f5f0e  # v4.3.0
+        uses: docker/setup-buildx-action@f87e5991a6d7451dcb8d9637bfbc97413f497069  # v4.4.1
       - name: Log in to the Container registry
         uses: docker/login-action@dbcb813823bdd20940b903addbd779551569679f  # v4.6.0
         with:
@@ -823,7 +823,7 @@ jobs:
             type=raw,value=latest,enable=${{ github.event_name == 'push' || github.event.inputs.latest == 'true' }}
             type=raw,value=master,enable=${{ env.REF == 'refs/heads/master' }}
       - name: Build and push Docker images
-        uses: docker/build-push-action@53b7df96c91f9c12dcc8a07bcb9ccacbed38856a  # v7.3.0
+        uses: docker/build-push-action@c3c9e263c25d99ce0380d002d59b67737d91b0dc  # v7.4.0
         with:
           context: .
           file: ci/Dockerfile-ppc64
@@ -846,7 +846,7 @@ jobs:
           ref: ${{ env.REF }}
           persist-credentials: false
       - name: Free disk space
-        uses: jlumbroso/free-disk-space@54081f138730dfa15788a46383842cd2f914a1be
+        uses: jlumbroso/free-disk-space@ceedf095f4ec1a097402bc6bd80831f2e1a6fde6  # v2.0.0
         with:
           tool-cache: true
       - name: Trim CI agent
@@ -854,7 +854,7 @@ jobs:
           chmod +x contrib/free_disk_space.sh
           ./contrib/free_disk_space.sh
       - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@37fe631027851001ddb9b187196cc803df7f5f0e  # v4.3.0
+        uses: docker/setup-buildx-action@f87e5991a6d7451dcb8d9637bfbc97413f497069  # v4.4.1
       - name: Log in to the Container registry
         uses: docker/login-action@dbcb813823bdd20940b903addbd779551569679f  # v4.6.0
         with:
@@ -869,7 +869,7 @@ jobs:
             ghcr.io/cdxgen/cdxgen-bun
           flavor: latest=false,suffix=-amd64
       - name: Build and push Docker images
-        uses: docker/build-push-action@53b7df96c91f9c12dcc8a07bcb9ccacbed38856a  # v7.3.0
+        uses: docker/build-push-action@c3c9e263c25d99ce0380d002d59b67737d91b0dc  # v7.4.0
         id: build
         with:
           context: .
@@ -897,7 +897,7 @@ jobs:
           ref: ${{ env.REF }}
           persist-credentials: false
       - name: Free disk space
-        uses: jlumbroso/free-disk-space@54081f138730dfa15788a46383842cd2f914a1be
+        uses: jlumbroso/free-disk-space@ceedf095f4ec1a097402bc6bd80831f2e1a6fde6  # v2.0.0
         with:
           tool-cache: true
       - name: Trim CI agent
@@ -905,7 +905,7 @@ jobs:
           chmod +x contrib/free_disk_space.sh
           ./contrib/free_disk_space.sh
       - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@37fe631027851001ddb9b187196cc803df7f5f0e  # v4.3.0
+        uses: docker/setup-buildx-action@f87e5991a6d7451dcb8d9637bfbc97413f497069  # v4.4.1
       - name: Log in to the Container registry
         uses: docker/login-action@dbcb813823bdd20940b903addbd779551569679f  # v4.6.0
         with:
@@ -920,7 +920,7 @@ jobs:
             ghcr.io/cdxgen/cdxgen-bun
           flavor: latest=false,suffix=-arm64
       - name: Build and push Docker images
-        uses: docker/build-push-action@53b7df96c91f9c12dcc8a07bcb9ccacbed38856a  # v7.3.0
+        uses: docker/build-push-action@c3c9e263c25d99ce0380d002d59b67737d91b0dc  # v7.4.0
         id: build
         with:
           context: .
@@ -956,7 +956,7 @@ jobs:
           package-manager-cache: false
           registry-url: https://registry.npmjs.org/
       - name: Free disk space
-        uses: jlumbroso/free-disk-space@54081f138730dfa15788a46383842cd2f914a1be
+        uses: jlumbroso/free-disk-space@ceedf095f4ec1a097402bc6bd80831f2e1a6fde6  # v2.0.0
         with:
           tool-cache: true
       - name: Trim CI agent
@@ -982,7 +982,7 @@ jobs:
             type=raw,value=latest,enable=${{ github.event_name == 'push' || github.event.inputs.latest == 'true' }}
             type=raw,value=master,enable=${{ env.REF == 'refs/heads/master' }}
       - name: Merge and push manifest
-        uses: int128/docker-manifest-create-action@5e40f15c10aaa54f5d2bc91864e2708e11ad629f  # v2.27.0
+        uses: int128/docker-manifest-create-action@6edb43463bd4878b8cee224ca274378a3635d78f  # v2.28.0
         with:
           index-annotations: ${{ steps.meta.outputs.labels }}
           tags: ${{ steps.meta.outputs.tags }}
