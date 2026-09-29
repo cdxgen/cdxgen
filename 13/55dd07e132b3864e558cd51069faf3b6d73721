@@ -1,0 +1,79 @@
+.agents/skills/sbom-fidelity-loop/SKILL.md
+  s_14fcde9512124a::t_a6abee1394f01b 27
+claude-plugin/skills/sbom-fidelity-loop/SKILL.md
+  s_14fcde9512124a::t_a6abee1394f01b 27
+lib/evinser/evinser.js
+  s_14fcde9512124a::t_bfb44af8de73f2 66-67,71,911,922,927,961,966,1013,1021,1037,1046,1076,1082,1119,1127
+  s_14fcde9512124a::t_ec9de3ecb2373e 2131-2146,2151
+lib/inventory/dosai.js
+  s_14fcde9512124a::t_fd3a3b6d888a65 942-944
+  s_14fcde9512124a::t_c1cfdfc067d0bc 851-882
+  s_14fcde9512124a::t_ae1b324230c847 2-9,21,24-28
+  s_14fcde9512124a::t_1ae625ecdb0df5 1
+  s_14fcde9512124a::t_0f7d6d64764349 921-922,930-932
+  s_14fcde9512124a::t_d63b76c32c11c3 945,948
+  s_14fcde9512124a::t_fb07acc97002ba 540-677
+  s_14fcde9512124a::t_d3695a02b6b8c7 913-914,916-920,923-929,933-940
+lib/inventory/evidenceUtils.poku.js
+  s_14fcde9512124a::t_6f236fac978e80 578-582,586-588,590-661,667-679
+  s_14fcde9512124a::t_c2e76564d221e1 583-585,589
+  s_14fcde9512124a::t_97a13efd3de005 662-666
+lib/inventory/dosai.largeReport.poku.js
+  s_14fcde9512124a::t_02d6f7eebf8fe1 1-140,142-198,202-346,348-362
+  s_14fcde9512124a::t_97a13efd3de005 141,199-201,347
+lib/evinser/evinseOptions.poku.js
+  s_14fcde9512124a::t_6ececec4096a14 227-228,231,249-250
+  s_14fcde9512124a::t_965d5a05f55472 264-268,270-321
+  s_14fcde9512124a::t_750e7d85ed32ce 1,191-198,201-226,229-230,232-248,251-255,260-263
+  s_14fcde9512124a::t_c8cd3309f8afc4 199-200
+  s_14fcde9512124a::t_97a13efd3de005 256-259
+  s_14fcde9512124a::t_8ffcb9e55e5be2 269
+data/remediations.json
+  s_14fcde9512124a::t_40ef8fe08818dc 712-735
+lib/cli/degradation.poku.js
+  s_14fcde9512124a::t_dbf9b6933da562 46-48
+lib/cli/managedBom.js
+  s_14fcde9512124a::t_2fb77fe547ba38 108,2052-2055,2057,2066-2068
+lib/core/fs.js
+  s_14fcde9512124a::t_6fac04020ff79d 16,160-163,173-174,184-191
+  s_14fcde9512124a::t_a1473000c53142 6,14,20
+  s_14fcde9512124a::t_488ac6596c88c0 151-159,164-172,175-183,192-197,205,217,219
+lib/core/fs.poku.js
+  s_14fcde9512124a::t_63d7d2e034f0e6 186-192
+  s_14fcde9512124a::t_6fac04020ff79d 4,181-185,193-200,220,228,230-231
+  s_14fcde9512124a::t_da8fe91ea9f079 1-3,5-8,16-20,180,201-219,221-227,229,232-235
+lib/inventory/dosai.poku.js
+  s_14fcde9512124a::t_d63b76c32c11c3 782-783
+docs/EVINSE.md
+  s_14fcde9512124a::t_bc6efc5daf8bae 158-171
+lib/inventory/evidenceUtils.js
+  s_14fcde9512124a::t_7fc949c0d39a42 280-288
+  s_14fcde9512124a::t_ff600144015d57 8-11
+  s_14fcde9512124a::t_7008d347225ee1 289
+lib/parsers/largeJson.js
+  s_14fcde9512124a::t_bfbd7b4136424f 180
+  s_14fcde9512124a::t_5a593916e08fc8 57-59,81-83,107-108,306-308
+  s_14fcde9512124a::t_1c8f31a166d301 1
+  s_14fcde9512124a::t_eead06e807bc55 29-36
+  s_14fcde9512124a::t_25f578646a4bd2 2-28,37-56,60-80,84-106,109-179,181-305,309-454
+lib/parsers/largeJson.poku.js
+  s_14fcde9512124a::t_97a13efd3de005 44,90
+  s_14fcde9512124a::t_d345b48045d449 1-41,45-89,91-242
+  s_14fcde9512124a::t_b619df04cfcbc4 42-43
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "1355dd07e132b3864e558cd51069faf3b6d73721",
+  "prompts": {},
+  "sessions": {
+    "s_14fcde9512124a": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "224d60ac-c3b4-43f2-84b7-1fddb3dfde87",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
