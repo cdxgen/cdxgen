@@ -1,0 +1,32 @@
+lib/inventory/cdxrs.js
+  s_14fcde9512124a::t_247b873bd3abc3 436
+docs/ENV.md
+  s_14fcde9512124a::t_c8aebeedb8814c 300-303
+lib/inventory/fetchBatch.routing.poku.js
+  s_14fcde9512124a::t_172dc1d8af1a59 226,229-236,270,273-280
+  s_14fcde9512124a::t_bde9f9c00035f2 195-225,227-228,237-269,271-272,281-386
+docs/CDXRS_PROTOCOL.md
+  s_14fcde9512124a::t_9f89836f9031b2 334,336-337
+  s_14fcde9512124a::t_b1fa52e54e253e 239-249
+  s_14fcde9512124a::t_c8aebeedb8814c 317-323,325-328
+lib/inventory/fetchBatch.js
+  s_14fcde9512124a::t_e8e81b10290499 369-371,384-385,387-388,390-392,395-409
+  s_14fcde9512124a::t_e9c3ce54b9fef4 481
+  s_14fcde9512124a::t_0b777a7ecda22c 303-311,316-322,329-368,372-383,386,389,393-394,410-420,422,439-441,444,451,461
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "863dab7a3eff1396ea5c7baf7e4fb1b3a58dce5f",
+  "prompts": {},
+  "sessions": {
+    "s_14fcde9512124a": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "224d60ac-c3b4-43f2-84b7-1fddb3dfde87",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
