@@ -1,0 +1,24 @@
+.github/scripts/build-standalone.sh
+  s_76558634133cc7::t_a15b5d7c2b27a0 35
+  s_76558634133cc7::t_2b433a8765a24b 85-91,96
+.github/scripts/build-standalone.ps1
+  s_76558634133cc7::t_8713f6b3d83a6e 41-44
+.github/workflows/binary-builds.yml
+  s_76558634133cc7::t_0ea1e1e4279c01 114-116
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "732d2e80235ac5aa233aebc65e57d515c5feb23a",
+  "prompts": {},
+  "sessions": {
+    "s_76558634133cc7": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "17870760-945c-4a77-be47-755092bc2f48",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
