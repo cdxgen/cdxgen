@@ -1,0 +1,22 @@
+lib/ecosystems/parsers-rust.poku.js
+  s_76558634133cc7::t_03e9afbfa79c9a 250-323
+  s_76558634133cc7::t_d20f6030b73592 163-165,169-174
+lib/ecosystems/parsers-rust.js
+  s_76558634133cc7::t_fe3c50d4fd5e87 1312-1325,1336-1337,1340-1342,1346-1350
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "758588a3771c5188e237987663f29febcb1f6e8b",
+  "prompts": {},
+  "sessions": {
+    "s_76558634133cc7": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "17870760-945c-4a77-be47-755092bc2f48",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
