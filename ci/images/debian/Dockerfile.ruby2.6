@@ -56,6 +56,9 @@ RUN set -e; \
       gem sources --remove https://rubygems.org/; \
       gem sources -c; \
     fi; \
+    if [ -f /etc/apt/sources.list ]; then \
+      sed -i "/ bullseye-security /s/^deb/# bullseye is EOL; security suite is frozen: deb/" /etc/apt/sources.list; \
+    fi; \
     apt-get update \
  && apt-get install -qq -y --no-install-recommends \
       bash \
@@ -144,7 +147,6 @@ RUN set -e; \
  && corepack pnpm cache delete \
  && mkdir -p ${NODE_COMPILE_CACHE} \
  && node /opt/cdxgen/bin/cdxgen.js --help \
- && rbastgen --help \
  && rm -rf ${CDXGEN_GEM_HOME} \
  && mkdir -p ${CDXGEN_GEM_HOME} \
  && rm -rf $HOME/.npmrc $HOME/.pip /root/.cache/node \
