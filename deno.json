@@ -65,7 +65,7 @@
     "gen-types": "npx -p typescript tsc"
   },
   "imports": {
-    "yaml": "npm:yaml@2.8.4",
+    "yaml": "npm:yaml@2.9.1",
     "@isaacs/string-locale-compare": "npm:@isaacs/string-locale-compare@1.1.0",
     "@npmcli/fs": "npm:@npmcli/fs@5.0.0",
     "@npmcli/map-workspaces": "npm:@npmcli/map-workspaces@5.0.3",
@@ -87,7 +87,7 @@
     "@cdxgen/cdx-hbom": "npm:@cdxgen/cdx-hbom@0.5.1",
     "@cdxgen/cdx-proto": "npm:@cdxgen/cdx-proto@2.2.0",
     "@bufbuild/protobuf": "npm:@bufbuild/protobuf@2.13.0",
-    "@babel/parser": "npm:@babel/parser@^7.29.7",
+    "@babel/parser": "npm:@babel/parser@^7.29.9",
     "@babel/traverse": "npm:@babel/traverse@^7.29.7",
     "ajv": "npm:ajv@^8.20.0",
     "ajv-formats": "npm:ajv-formats@^3.0.1",
@@ -104,7 +104,7 @@
     "xml-js": "npm:xml-js@^1.6.11",
     "yargs": "npm:yargs@^18.1.0",
     "body-parser": "npm:body-parser@^2.3.0",
-    "compression": "npm:compression@^1.8.1",
+    "compression": "npm:compression@^1.8.2",
     "connect": "npm:connect@^3.7.0",
     "jsonata": "npm:jsonata@^2.2.2",
     "@iarna/toml": "npm:@iarna/toml@2.2.5",
