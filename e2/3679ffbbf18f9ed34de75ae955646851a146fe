@@ -1,0 +1,62 @@
+docs/CUSTOM_PROPERTIES.md
+  s_511c8362ce2402::t_50f59c5dbde141 437
+  s_511c8362ce2402::t_44ebdc7c2fc6d7 537-539
+test/data/bun/optional-peers/package.json
+  s_511c8362ce2402::t_5ba135181c5c86 1-13
+contrib/check-bom-reachability.js
+  s_511c8362ce2402::t_d8053ba740bb81 1-69
+lib/ecosystems/bunutils.js
+  s_511c8362ce2402::t_8826eeb980395d 473-475
+  s_511c8362ce2402::t_cbdaf33dbdb992 476-477
+  s_511c8362ce2402::t_6c727d46efaf7b 117
+  s_511c8362ce2402::t_90a9316041d547 114-116
+  s_511c8362ce2402::t_65dd52564c1770 478
+  s_511c8362ce2402::t_2c862c17131dc9 524-525,529,533,538-539,547
+  s_511c8362ce2402::t_287ba9f11814f6 391-396
+  s_511c8362ce2402::t_eab1b1eaabd5ec 314-316,319-320,325-326,328
+  s_511c8362ce2402::t_a816d442414437 284-295,297-298,300-303,305,310-313,317-318,321-323,329-336,338-339,342-346,348-350,352-370,372-375,377-390,397-408
+  s_511c8362ce2402::t_b36cfe71a3e418 412
+  s_511c8362ce2402::t_5993dc1050bf72 24-32
+lib/ecosystems/bunutils.poku.js
+  s_511c8362ce2402::t_d4b0eeb64b5eb9 305-306,314
+  s_511c8362ce2402::t_d4b9db1beedbfa 281-284,286-288,293
+  s_511c8362ce2402::t_3c4f0cce610355 548-550,578
+  s_511c8362ce2402::t_fdd17c6441495b 12-15
+  s_511c8362ce2402::t_770c127d09781b 459-460,464-547,551-577,579-624
+  s_511c8362ce2402::t_a058e1acca8989 155,162-164,169,171-173
+test/data/bun/monorepo/package.json
+  s_511c8362ce2402::t_5ba135181c5c86 1-14
+test/data/bun/monorepo/packages/zzz/package.json
+  s_511c8362ce2402::t_5ba135181c5c86 1-10
+test/data/bun/bundled/package.json
+  s_511c8362ce2402::t_3b417fbc4425be 1-8
+test/data/bun/monorepo/local-tool/package.json
+  s_511c8362ce2402::t_5ba135181c5c86 1-10
+test/data/bun/monorepo/packages/aaa/package.json
+  s_511c8362ce2402::t_5ba135181c5c86 1-8
+.github/workflows/bun.yml
+  s_511c8362ce2402::t_59a192efb6db86 80-82
+  s_511c8362ce2402::t_4f69bfa3928470 72-75
+test/data/bun/bundled/bun.lock
+  s_511c8362ce2402::t_d09cd5a22ca5bc 1-30
+test/data/bun/monorepo/bun.lock
+  s_511c8362ce2402::t_9c37aed29aab7c 1-70
+test/data/bun/optional-peers/bun.lock
+  s_511c8362ce2402::t_f3498959345cac 1-113
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "e23679ffbbf18f9ed34de75ae955646851a146fe",
+  "prompts": {},
+  "sessions": {
+    "s_511c8362ce2402": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "07e63b7e-0f29-440a-9649-3c8198e24e47",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
