@@ -104,7 +104,7 @@
     "jsonata": "npm:jsonata@2.2.2",
     "smol-toml": "npm:smol-toml@1.8.0",
     "@cdxgen/safer-exec": "npm:@cdxgen/safer-exec@1.0.1",
-    "@cdxgen/cdxgen-plugins-bin": "npm:@cdxgen/cdxgen-plugins-bin@4.0.2",
+    "@cdxgen/cdxgen-plugins-bin": "npm:@cdxgen/cdxgen-plugins-bin@4.0.4",
     "undici": "npm:undici@8.11.0",
     "@appthreat/atom-parsetools": "npm:@appthreat/atom-parsetools@1.7.0"
   }
