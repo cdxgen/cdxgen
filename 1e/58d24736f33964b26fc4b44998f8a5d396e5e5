@@ -1,0 +1,22 @@
+lib/ecosystems/cppEvidence.js
+  s_b9f6f98e1c3bda::t_076869f9b7d094 34-56,75-77,79,136-138,235-236,267-285,291,341-342,348-356
+  s_b9f6f98e1c3bda::t_d01512595a443d 33
+lib/ecosystems/cppEvidence.poku.js
+  s_b9f6f98e1c3bda::t_d23abdc6d481e7 145-234
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "1e58d24736f33964b26fc4b44998f8a5d396e5e5",
+  "prompts": {},
+  "sessions": {
+    "s_b9f6f98e1c3bda": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "eb6bce3d-1e28-48ad-a820-e339060a0abd",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
