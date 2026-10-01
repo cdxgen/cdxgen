@@ -1,0 +1,25 @@
+docs/LESSON27.md
+  s_b9f6f98e1c3bda::t_f80dab383c7f8e 38-49,63-65,195-199,206-207,246-247
+docs/ALLOWED_HOSTS_AND_COMMANDS.md
+  s_b9f6f98e1c3bda::t_0043753d1da9e3 80,101-106
+docs/ENV.md
+  s_b9f6f98e1c3bda::t_04cb5c4ed13318 143
+  s_b9f6f98e1c3bda::t_57f66b92b47bed 117-118,121-122
+  s_b9f6f98e1c3bda::t_baa7cc506e113b 119-120
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "b178f4d7c0525af4c5de882ab2cb4d047b27641e",
+  "prompts": {},
+  "sessions": {
+    "s_b9f6f98e1c3bda": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "eb6bce3d-1e28-48ad-a820-e339060a0abd",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
