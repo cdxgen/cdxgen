@@ -1,0 +1,24 @@
+lib/inventory/atomUtils.poku.js
+  s_b9f6f98e1c3bda::t_52aa6c01021b9e 30,415-435
+  s_b9f6f98e1c3bda::t_fae8d07922ff86 436-437
+lib/inventory/atomUtils.js
+  s_b9f6f98e1c3bda::t_9fd2ec068cdc08 62-64,1345-1351
+.github/workflows/repotests.yml
+  s_b9f6f98e1c3bda::t_6f0ea03346a4ac 1930-1932,1941-1943
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "e45e5417ab4ccbcef26f01fa0492d3785b075bb3",
+  "prompts": {},
+  "sessions": {
+    "s_b9f6f98e1c3bda": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "eb6bce3d-1e28-48ad-a820-e339060a0abd",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
