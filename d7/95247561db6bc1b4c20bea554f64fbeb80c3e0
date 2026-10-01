@@ -1,0 +1,31 @@
+lib/inventory/atomUtils.js
+  s_d0def3984b5153::t_f8495a1b5618c4 915-953,962-987
+  s_d0def3984b5153::t_bd56aef11ac863 954-961
+  s_d0def3984b5153::t_abd5cf038125b4 1066-1072,1078,1080-1082,1090-1091
+  s_d0def3984b5153::t_69d1fef3812f1d 1083-1089
+  s_d0def3984b5153::t_22928b72df664c 12,1092
+docs/TROUBLESHOOTING.md
+  s_d0def3984b5153::t_bd44a0481b459e 118
+  s_d0def3984b5153::t_338fae1ba97163 116-117,119-127
+lib/inventory/atomUtils.poku.js
+  s_d0def3984b5153::t_1c652a44832c2f 23-24,519-623
+docs/ENV.md
+  s_d0def3984b5153::t_22d5a4c3779e35 42,263
+  s_d0def3984b5153::t_c86fb561e65b9e 264
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "d795247561db6bc1b4c20bea554f64fbeb80c3e0",
+  "prompts": {},
+  "sessions": {
+    "s_d0def3984b5153": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "2152c1a9-0695-4073-ad88-dd4f54925ca3",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
