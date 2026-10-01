@@ -1,0 +1,23 @@
+lib/inventory/atomUtils.poku.js
+  s_d0def3984b5153::t_1c652a44832c2f 1-9,15,516-544
+  s_d0def3984b5153::t_c2106b7ccca3cd 545
+lib/inventory/atomUtils.js
+  s_d0def3984b5153::t_f008d415f9938e 1
+  s_d0def3984b5153::t_e7473a81f8a67c 613-625,628-644,712-730,738,740,754-760,763
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "7f13c705c62bee598a6f5eede4faac2a4d697201",
+  "prompts": {},
+  "sessions": {
+    "s_d0def3984b5153": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "2152c1a9-0695-4073-ad88-dd4f54925ca3",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
