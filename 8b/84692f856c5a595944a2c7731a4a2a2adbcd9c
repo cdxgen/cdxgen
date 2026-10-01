@@ -1,0 +1,30 @@
+docs/EVINSE.md
+  s_d0def3984b5153::t_22d5a4c3779e35 69
+lib/inventory/atomUtils.poku.js
+  s_d0def3984b5153::t_1c652a44832c2f 5,9,33-35,629-671
+  s_d0def3984b5153::t_1f5344f36cfa34 672-673
+lib/evinser/evinser.js
+  s_d0def3984b5153::t_828dec25d3ebfc 46-47,531-535,1079,1087
+lib/inventory/display.js
+  s_d0def3984b5153::t_f441413c9bce65 13
+  s_d0def3984b5153::t_f008d415f9938e 1410
+lib/inventory/atomUtils.js
+  s_d0def3984b5153::t_f008d415f9938e 16,1172-1244
+  s_d0def3984b5153::t_22ae53c0d02091 1,1245
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "8b84692f856c5a595944a2c7731a4a2a2adbcd9c",
+  "prompts": {},
+  "sessions": {
+    "s_d0def3984b5153": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "2152c1a9-0695-4073-ad88-dd4f54925ca3",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
