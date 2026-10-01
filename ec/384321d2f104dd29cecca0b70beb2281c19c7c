@@ -1,0 +1,51 @@
+lib/parsers/cmakeLists.poku.js
+  s_b9f6f98e1c3bda::t_c79ac1835440e2 1-66,71-170,173-175
+  s_b9f6f98e1c3bda::t_805034136daa84 68,70,172
+  s_b9f6f98e1c3bda::t_ef317ebb0bdf07 67,69,171
+test/data/cmakes/fetch-deps/CMakeLists.txt
+  s_b9f6f98e1c3bda::t_d83a434e074ea3 1-29
+lib/ecosystems/cmakeResolver.poku.js
+  s_b9f6f98e1c3bda::t_b797a01c6025d2 13,15,215-259
+  s_b9f6f98e1c3bda::t_b29aa1e4cc69ac 260
+docs/CUSTOM_PROPERTIES.md
+  s_b9f6f98e1c3bda::t_c59ae744700da1 651-652
+lib/ecosystems/parsers-misc.js
+  s_b9f6f98e1c3bda::t_30a481a47e3b31 2681-2682,2684-2697,2699
+  s_b9f6f98e1c3bda::t_fe973dc005e3d9 2562-2563,2570-2585
+  s_b9f6f98e1c3bda::t_dc11a69cd71a8b 47-48
+  s_b9f6f98e1c3bda::t_724806e5eaf276 2336-2545,2551-2553
+  s_b9f6f98e1c3bda::t_790a1d11b14af1 2600-2607,2611-2612,2614-2616,2620-2635,2637-2660,2662-2680,2683,2700-2715,2717-2719,2721-2722
+  s_b9f6f98e1c3bda::t_48439f82f14e1b 2758
+docs/LESSON27.md
+  s_b9f6f98e1c3bda::t_dd9ebfec548dca 155-168
+lib/cli/nativeBom.js
+  s_b9f6f98e1c3bda::t_88f344843e4c97 34,36,1443-1447,1464-1465,1500-1504,1594
+  s_b9f6f98e1c3bda::t_64b761c70f8469 1480
+lib/parsers/cmakeLists.js
+  s_b9f6f98e1c3bda::t_805034136daa84 218-220,245-249,377-379,406-410
+  s_b9f6f98e1c3bda::t_4124dc789ca6d8 1-217,221-244,250-376,380-405,411-452
+lib/cli/nativeBom.poku.js
+  s_b9f6f98e1c3bda::t_a27042fccca41f 863
+  s_b9f6f98e1c3bda::t_31e173be77db95 888-938
+lib/ecosystems/parsers-misc.poku.js
+  s_b9f6f98e1c3bda::t_b54f6ac60f6938 1862-1866,1871-1895,1904-1923
+  s_b9f6f98e1c3bda::t_b797a01c6025d2 1867-1870,1896-1903
+lib/ecosystems/cmakeResolver.js
+  s_b9f6f98e1c3bda::t_5bd4bd9e4b9a42 587-652
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "ec384321d2f104dd29cecca0b70beb2281c19c7c",
+  "prompts": {},
+  "sessions": {
+    "s_b9f6f98e1c3bda": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "eb6bce3d-1e28-48ad-a820-e339060a0abd",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
