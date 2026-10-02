@@ -1,0 +1,46 @@
+lib/cli/nativeBom.poku.js
+  s_b9f6f98e1c3bda::t_cd65943942e53e 995-998
+  s_b9f6f98e1c3bda::t_5ee72d3c888dbb 945-994,999-1036
+lib/ecosystems/cppBuildContext.js
+  s_b9f6f98e1c3bda::t_e6c0fce4fbe405 18-33,35-39,43-50,110-112,155-158,163-172,179-180,182-184,195-199,304-312,320-323,333-336,353-359,400-402,429-432,455-456,462-465,485-489,510-512,519-522,532-534,543-546,553-555,566-569
+  s_b9f6f98e1c3bda::t_e3588ebd6fccd2 571-580,584,587-592,594,605
+  s_b9f6f98e1c3bda::t_9eacbc81f21aae 94-101,261-268,288
+  s_b9f6f98e1c3bda::t_b51f31e6e19f9b 1-17,34,40-42,51-93,102-109,113-154,159-162,173-178,181,185-194,200-260,269-287,289-303,313-319,324-332,337-352,360-399,403-428,433-454,457-461,466-484,490-509,513-518,523-531,535-542,547-552,556-565,570,581-583,585-586,593,595-604,606-614
+lib/ecosystems/cppEvidence.js
+  s_b9f6f98e1c3bda::t_650814bd381861 64-67,69-75,277
+  s_b9f6f98e1c3bda::t_1c99e818f11684 278-279
+lib/core/env.js
+  s_b9f6f98e1c3bda::t_cf16cd6b1fdc3e 460
+lib/parsers/compileCommands.poku.js
+  s_b9f6f98e1c3bda::t_b5a140f9b6ab51 1-193,198-285,292-338
+  s_b9f6f98e1c3bda::t_866a24fb8a167c 194-197,286-291
+lib/parsers/cmakeCache.js
+  s_b9f6f98e1c3bda::t_d9a259af9db60c 200-268
+lib/parsers/compileCommands.js
+  s_b9f6f98e1c3bda::t_99f8a1bc7bd052 222-491
+  s_b9f6f98e1c3bda::t_24f11996fe2c67 522
+  s_b9f6f98e1c3bda::t_2123525f3b0cae 1-221,492-521,523-557
+lib/ecosystems/cppBuildContext.poku.js
+  s_b9f6f98e1c3bda::t_f54ef176fbd9dc 159-163,367-370
+  s_b9f6f98e1c3bda::t_866a24fb8a167c 1
+  s_b9f6f98e1c3bda::t_9eacbc81f21aae 139-142,231-234,251-253,257-260,270-290,343-346
+  s_b9f6f98e1c3bda::t_cfb13d159ca4a8 2-138,143-158,164-230,235-250,254-256,261-269,291-342,347-366,371-389
+lib/cli/nativeBom.js
+  s_b9f6f98e1c3bda::t_650814bd381861 38-41,1529-1537,1690-1696,1740-1748,1765
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "b3ef2d1ed51400cc41224e648bd1b4bf298f1f81",
+  "prompts": {},
+  "sessions": {
+    "s_b9f6f98e1c3bda": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "eb6bce3d-1e28-48ad-a820-e339060a0abd",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
