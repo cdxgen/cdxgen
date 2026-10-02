@@ -1,0 +1,21 @@
+lib/cli/index.js
+  s_b9f6f98e1c3bda::t_0e442aecf606e0 1361-1364
+lib/cli/nativeBom.poku.js
+  s_b9f6f98e1c3bda::t_60875eba569b9d 946-980
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "9017aa06456f1a1705b33a79ba0838bfe268f5b8",
+  "prompts": {},
+  "sessions": {
+    "s_b9f6f98e1c3bda": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "eb6bce3d-1e28-48ad-a820-e339060a0abd",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
