@@ -1,0 +1,41 @@
+lib/parsers/cmakePresets.poku.js
+  s_b9f6f98e1c3bda::t_1c1f8586639a6f 2-100,105-171,176-181,186-288,292-356
+  s_b9f6f98e1c3bda::t_866a24fb8a167c 1,101-104,172-175,182-185,289-291
+lib/inventory/atomUtils.js
+  s_b9f6f98e1c3bda::t_99f8a1bc7bd052 21,112-113,157
+  s_b9f6f98e1c3bda::t_9cb3799119006c 114-117
+  s_b9f6f98e1c3bda::t_4875c2b45e100c 1
+lib/parsers/cmakePresets.js
+  s_b9f6f98e1c3bda::t_4b2eff346bb261 1-15,17-113,116-252,254-328,331-372,375-396,398-400
+  s_b9f6f98e1c3bda::t_e6c0fce4fbe405 253,397
+  s_b9f6f98e1c3bda::t_960c1d9f518c5b 16,373-374
+  s_b9f6f98e1c3bda::t_99f8a1bc7bd052 114-115,329-330
+bin/evinse.js
+  s_b9f6f98e1c3bda::t_01f002252e7f46 94
+lib/ecosystems/cmakeResolver.js
+  s_b9f6f98e1c3bda::t_60ce3acf3b0e5d 20-21
+  s_b9f6f98e1c3bda::t_a2fbeefa09e8c8 62-66,83-84,89
+bin/cdxgen.js
+  s_b9f6f98e1c3bda::t_01f002252e7f46 266,271
+lib/inventory/cmakeBuildDirs.js
+  s_b9f6f98e1c3bda::t_042faf469c7c15 1-254
+lib/inventory/cmakeBuildDirs.poku.js
+  s_b9f6f98e1c3bda::t_866a24fb8a167c 1,186-189
+  s_b9f6f98e1c3bda::t_315bc0444d193e 2-185,190-191
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "357ab374969f18af110cfb807ba2e4af955f9337",
+  "prompts": {},
+  "sessions": {
+    "s_b9f6f98e1c3bda": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "eb6bce3d-1e28-48ad-a820-e339060a0abd",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
