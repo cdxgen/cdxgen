@@ -91,7 +91,7 @@ const args = yargs(hideBin(process.argv))
   })
   .option("compile-commands", {
     description:
-      "Path to the compile_commands.json of a C/C++ build, or a directory holding one, for atom to parse each file as its build does. Overrides the lookup in the project root, build/, out/, builddir/ and cmake-build-*/, which is skipped in secure mode.",
+      "Path to the compile_commands.json of a C/C++ build, or a directory holding one, for atom to parse each file as its build does. Overrides the lookup in the project root and its build directories (those of the CMake presets, build*/, out/, builddir/, cmake-build-*/), which is skipped in secure mode.",
     type: "string",
   })
   .option("golem-command", {
