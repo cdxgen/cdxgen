@@ -394,12 +394,13 @@ Options:
   -c, --resolve-class             Resolve class names for packages. Jar projects only.                          [boolean]
       --deep                      Perform deep searches for components. Useful while scanning C/C++ apps, live OS and
                                   oci images.                                                                  [boolean]
-      --cmake-cache               Path to the CMakeCache.txt of a configured C/C++ build. Overrides the lookup under
-                                  build/, out/ and cmake-build-*/.                                              [string]
+      --cmake-cache               Path to the CMakeCache.txt of a configured C/C++ build. Overrides the lookup in the
+                                  build directories of the CMake presets, build*/, out/, builddir/ and cmake-build-*/.
+                                                                                                                [string]
       --compile-commands          Path to the compile_commands.json of a C/C++ build, or a directory holding one. atom
-                                  then parses each file with its build's include paths, macros and language.
-                                  Overrides the lookup in the project root, build/, out/, builddir/ and
-                                  cmake-build-*/, which is skipped in secure mode.                              [string]
+                                  then parses each file with its build's include paths, macros and language. Overrides
+                                  the lookup in the project root and its build directories (those of the CMake presets,
+                                  build*/, out/, builddir/, cmake-build-*/), which is skipped in secure mode.   [string]
       --git-branch                Git branch to clone when the source is a git URL or purl                      [string]
       --server-url                Dependency track url. Eg: https://deptrack.cyclonedx.io                       [string]
       --skip-dt-tls-check         Skip TLS certificate check when calling Dependency-Track.   [boolean] [default: false]
