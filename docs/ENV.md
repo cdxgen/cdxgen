@@ -116,9 +116,10 @@ These variables are specifically for a single language or tool.
 
 ### C/C++
 
-| Variable | Description                                                                                                                                             |
-| -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| GCC_CMD  | Override the `gcc` command cdxgen runs (`--version`, `-print-search-dirs`) to describe the C/C++ toolchain in the BOM's formulation. Defaults to `gcc`. |
+| Variable   | Description                                                                                                                                                    |
+| ---------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| GCC_CMD    | Override the `gcc` command cdxgen runs (`--version`, `-print-search-dirs`) to describe the C/C++ toolchain in the BOM's formulation. Defaults to `gcc`.        |
+| CONAN_HOME | The Conan 2 home whose package cache (`p/cache.sqlite3`) names the Conan package that provides a header atom resolved into the cache. Defaults to `~/.conan2`. |
 
 ### Docker
 

@@ -273,6 +273,21 @@ cdxgen addresses this in two ways:
    header (`stdio.h`, `sys/mman.h`, `unistd.h`, ...) is a component only when an
    OS package provides it.
 
+   With atom 4 and later each include's usages slice names the file it
+   resolved to (`resolvedPath`) and the functions the including file calls
+   that the header declares (`importedSymbols`, with function bodies parsed).
+   The resolved file then attributes the header exactly: to the project
+   itself, to a fetched, submodule or vendored dependency whose directory
+   holds it, to the vcpkg port that installed it
+   (`vcpkg_installed/vcpkg/info/*.list`; a declared port then gets the
+   installed version and `cdx:vcpkg:triplet`), to the Conan package in the
+   cache (Conan 1 paths, or the Conan 2 cache database under `CONAN_HOME`), or
+   to the OS package that owns the file (`dpkg-query -S`, `rpm -qf`,
+   `apk info -W`, or the Homebrew Cellar). The imported symbols become the
+   component's `internal:ImportedSymbols`, and `evinse -l c` uses them to
+   attach occurrence evidence for the calls. With an older atom, headers are
+   attributed by name as before.
+
 When the project has a JSON compilation database, atom parses each file with
 the include paths, macros and language its build uses instead of guessing them.
 cdxgen looks for `compile_commands.json` in the scan root, then in the same

@@ -98,12 +98,12 @@ These external commands are only invoked in certain platforms.
 
 ### Linux Only
 
-| Language / Platform  | External Commands                               | Purpose                             |
-| -------------------- | ----------------------------------------------- | ----------------------------------- |
-| **All Languages**    | `ldd`                                           | List dynamic dependencies           |
-| **Operating System** | `dpkg`, `rpm`, `apk`                            | Package managers                    |
-| **Container**        | `dpkg`, `rpm`, `apk`                            | Container package inspection        |
-| **C/C++**            | `dpkg`, `dnf`, `rpm`, `apk`, `pacman`, `equery` | Map headers to development packages |
+| Language / Platform  | External Commands                                             | Purpose                                                                                                                   |
+| -------------------- | ------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- |
+| **All Languages**    | `ldd`                                                         | List dynamic dependencies                                                                                                 |
+| **Operating System** | `dpkg`, `rpm`, `apk`                                          | Package managers                                                                                                          |
+| **Container**        | `dpkg`, `rpm`, `apk`                                          | Container package inspection                                                                                              |
+| **C/C++**            | `dpkg`, `dpkg-query`, `dnf`, `rpm`, `apk`, `pacman`, `equery` | Map headers to development packages (`dpkg-query -S`, `rpm -qf`, `apk info -W` for the exact file an include resolved to) |
 
 ### macOS Only
 
