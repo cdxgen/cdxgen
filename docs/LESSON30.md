@@ -48,6 +48,17 @@ under `metadata.component.components`, and the top-level parent gains
 `dependsOn` links to them, so the BOM records one product built from several
 projects.
 
+Which project becomes the top-level parent? When none is given
+(`--project-name`), each ecosystem's collector detects its own project from
+its own manifest, and the one whose manifest sits at the scan root wins: it
+describes the repository, while a manifest found deeper describes a part of it
+(a web client under `tools/ui/`, a helper script's `pyproject.toml`). Among
+equally deep manifests the order the ecosystems were scanned in decides, as
+before. A C++ compiler repository with a root `CMakeLists.txt` and a small Vue
+client in a subdirectory therefore gets the CMake project as its parent, with
+the client among its sub-components. Each collector starts from the parent the
+caller gave, so one ecosystem's detected project never replaces the next one's.
+
 ## Step 2: Filter the merged BOM
 
 Filtering runs once, in post-processing (`filterBom` in
@@ -90,6 +101,16 @@ Two caveats from the collector logic: a `uv.lock` or `pylock.toml` wins over
 requirements files, and an unconstrained line like `flask` yields a component
 without a version, while `flask==3.0.0` is precise. Treat the result as a
 declared-dependency view, not a resolved one.
+
+Import analysis (`atom parsedeps`) also needs no installation: with `--deep`,
+or when no manifest yielded a component, the collector reads the project's
+imports and adds the distributions they come from, with or without
+`--no-install-deps`. Imports the project satisfies itself are left out: a
+module at the root or in `src/`, and the top-level packages found anywhere in
+the tree (with the modules beside them), so libraries a repository keeps in
+places such as `dev_tools/pylibs/` do not become PyPI components. Virtual
+environments and `site-packages` directories are not counted as the project's
+own.
 
 ## Step 4: Deep mode
 

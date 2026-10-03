@@ -176,6 +176,12 @@ declared one, and a `find_package` of a fetched name does not add a second
 component. CMake command names are matched in any case (`FIND_PACKAGE`,
 `PROJECT`).
 
+A `project()` declared in a `CMakeLists.txt` below the scan root is a part of
+the project, not a dependency: it becomes a sub-component of the root project
+(`metadata.component.components`) with `cdx:cmake:subprojectDir` naming its
+directory. With no project at the root, the sub-projects are listed as
+components.
+
 When several `CMakeLists.txt` files request different versions of the same
 package (`find_package(Boost 1.54)` in one, `find_package(Boost 1.64)` in
 another), `collapseCmakeVersions` keeps one entry at the highest version and
@@ -242,17 +248,30 @@ cdxgen addresses this in two ways:
    distinguished from plain `find_package` requirements by the `cdx:cmake:depKind`
    property. A submodule pinned to a commit SHA is a real, checked-out thing; a
    `find_package` line is a version requirement the build may or may not satisfy.
-2. **Include analysis with atom.** When C/C++ is requested explicitly with `-t`,
+2. **Code carried under its own license.** A directory with its own license
+   file (`LICENSE`, `LICENCE`, `COPYING`, with or without an extension or a
+   suffix such as `LICENSE-MIT`) whose license differs from the project's is a
+   vendored component: `pkg:generic/<directory>#<path>`, the license it states
+   (in `licenses` and `evidence.licenses`), `cdx:vendored=true`,
+   `cdx:vendored:path` and `cdx:vendored:licenseFile`. The license is read from
+   the text's own title first, since a license text quotes others (the GNU GPL
+   names the GNU Lesser GPL). Directories CMake already knows as fetched or
+   submodule sources, and build trees, are not searched, and a directory inside
+   a vendored one is part of it. Headers under a vendored directory are not
+   the project's own headers.
+3. **Include analysis with atom.** When C/C++ is requested explicitly with `-t`,
    or `--deep` is passed (and the project is not a container/OS scan),
    `getCppModules` invokes the `atom` companion helper to produce C usage
    slices: in header mode (`atom -l h`, no function bodies) by default, and as a
    full parse (`atom -l c`) with `--deep`. Every `#include` is resolved to a file, mapped to an
    OS package when possible, and otherwise emitted as a `generic` component with
    a `Filename` identity method. Imported symbols are recorded under
-   `internal:ImportedSymbols`. A header that is the project's own is not a
-   component: one found under the project root, or under an include directory
-   of the project's compilation database, outside the source directories of
-   its fetched and submodule dependencies.
+   `internal:ImportedSymbols`. A header that is the project's own is not a component: one found under the
+   project root, its `include/` or `src/` directory, or an include directory of
+   the project's compilation database, outside the source directories of its
+   fetched, submodule and vendored dependencies. A C standard library or POSIX
+   header (`stdio.h`, `sys/mman.h`, `unistd.h`, ...) is a component only when an
+   OS package provides it.
 
 When the project has a JSON compilation database, atom parses each file with
 the include paths, macros and language its build uses instead of guessing them.
