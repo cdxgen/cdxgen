@@ -68,13 +68,13 @@
         "pkg:nuget/Microsoft.Extensions.Logging@6.0.0",
         "pkg:nuget/Newtonsoft.Json@13.0.1"
       ],
-      "ref": "pkg:nuget/dotnet-assets-smoke@latest"
+      "ref": "pkg:nuget/dotnet-assets-smoke@1.0.0"
     }
   ],
   "metadata": {
     "authors": [],
     "component": {
-      "bom-ref": "pkg:nuget/dotnet-assets-smoke@latest",
+      "bom-ref": "pkg:nuget/dotnet-assets-smoke@1.0.0",
       "name": "dotnet-assets-smoke",
       "properties": [
         {
@@ -82,8 +82,9 @@
           "value": "net8.0"
         }
       ],
-      "purl": "pkg:nuget/dotnet-assets-smoke@latest",
-      "type": "application"
+      "purl": "pkg:nuget/dotnet-assets-smoke@1.0.0",
+      "type": "application",
+      "version": "1.0.0"
     },
     "lifecycles": [
       {
