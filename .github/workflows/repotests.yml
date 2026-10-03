@@ -1222,6 +1222,28 @@ jobs:
           if (!cryptoAssets.every((component) => !component.purl)) {
             throw new Error("Cryptographic assets must not have purls");
           }
+          // A project's purl carries the version it builds as, never a
+          // "latest" placeholder, and a package's purl names its own version.
+          const projects = [
+            bom.metadata?.component,
+            ...(bom.metadata?.component?.components || []),
+          ].filter(Boolean);
+          for (const component of [...projects, ...components]) {
+            if (!component.purl?.startsWith("pkg:nuget/")) {
+              continue;
+            }
+            if (component.purl.endsWith("@latest")) {
+              throw new Error(`Placeholder version in ${component.purl}`);
+            }
+            const purlVersion = component.purl.includes("@")
+              ? decodeURIComponent(component.purl.split("@").pop())
+              : undefined;
+            if (purlVersion !== component.version) {
+              throw new Error(
+                `${component.purl} disagrees with version ${component.version}`,
+              );
+            }
+          }
           console.log(
             JSON.stringify({
               hasDosai,

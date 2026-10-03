@@ -163,6 +163,13 @@ For .NET projects, `evinse` uses the bundled `dosai` helper from `@cdxgen/cdxgen
   different `--exclude` patterns or an older cdxgen release, so a stale cache
   can ignore your current excludes; delete the file to force a fresh analysis.
   Pass `--usages-slices-file` to prefer your own slice.
+- dosai's package URLs are matched to the BOM by version. When the BOM holds
+  a package in several versions (two projects restoring different versions),
+  a record whose purl names no version the BOM has is given to the version of
+  the project its source file belongs to, and to none when its file is in no
+  single project. The same applies to a package `.dll` that several versions
+  ship. A library caller of `createBom` that passes no `depsSlicesFile` gets
+  the dosai report in a temporary directory of that scan, removed afterwards.
 - dosai reports of any size are read. A report larger than one JavaScript
   string can hold (about 512 MB; `dotnet/efcore` produces 1.9 GB) is read in
   bounded runs that keep only what cdxgen uses: the package reachability

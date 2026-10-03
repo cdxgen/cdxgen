@@ -9,7 +9,7 @@
     <Reference Include="Newtonsoft.Json" />
     <!-- Resolves from the targeting pack on net48, not from nuget.org -->
     <Reference Include="System.Net.Http" />
-    <!-- An inline assembly version is concrete and belongs in the purl -->
+    <!-- An inline assembly version names the assembly, not the package -->
     <Reference Include="log4net, Version=2.0.15.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a" />
     <!-- An MSBuild property only a build evaluates, with nothing pinning it -->
     <Reference Include="FSharp.Core, Version=$(TargetFSharpCoreVersion), Culture=neutral" />

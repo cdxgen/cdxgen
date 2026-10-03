@@ -160,7 +160,7 @@
       "type": "library"
     },
     {
-      "bom-ref": "pkg:nuget/log4net@2.0.15.0",
+      "bom-ref": "pkg:nuget/log4net",
       "evidence": {
         "identity": [
           {
@@ -181,13 +181,16 @@
       "name": "log4net",
       "properties": [
         {
+          "name": "cdx:dotnet:assembly_version",
+          "value": "2.0.15.0"
+        },
+        {
           "name": "internal:SrcFile",
           "value": "$ROOT/src/App/App.csproj"
         }
       ],
-      "purl": "pkg:nuget/log4net@2.0.15.0",
-      "type": "library",
-      "version": "2.0.15.0"
+      "purl": "pkg:nuget/log4net",
+      "type": "library"
     }
   ],
   "dependencies": [
@@ -196,16 +199,16 @@
         "pkg:nuget/FSharp.Core",
         "pkg:nuget/Newtonsoft.Json",
         "pkg:nuget/System.Net.Http",
-        "pkg:nuget/log4net@2.0.15.0"
+        "pkg:nuget/log4net"
       ],
-      "ref": "pkg:nuget/App@latest"
+      "ref": "pkg:nuget/App@1.0.0"
     },
     {
       "dependsOn": [
         "pkg:nuget/NUnit",
         "pkg:nuget/Newtonsoft.Json@12.0.3"
       ],
-      "ref": "pkg:nuget/Lib@latest"
+      "ref": "pkg:nuget/Lib@1.0.0"
     }
   ],
   "metadata": {
@@ -214,7 +217,7 @@
       "bom-ref": "pkg:nuget/dotnet-assembly-refs@latest",
       "components": [
         {
-          "bom-ref": "pkg:nuget/App@latest",
+          "bom-ref": "pkg:nuget/App@1.0.0",
           "group": "",
           "name": "App",
           "properties": [
@@ -227,11 +230,12 @@
               "value": "net48"
             }
           ],
-          "purl": "pkg:nuget/App@latest",
-          "type": "application"
+          "purl": "pkg:nuget/App@1.0.0",
+          "type": "application",
+          "version": "1.0.0"
         },
         {
-          "bom-ref": "pkg:nuget/Lib@latest",
+          "bom-ref": "pkg:nuget/Lib@1.0.0",
           "group": "",
           "name": "Lib",
           "properties": [
@@ -240,8 +244,9 @@
               "value": "net48"
             }
           ],
-          "purl": "pkg:nuget/Lib@latest",
-          "type": "library"
+          "purl": "pkg:nuget/Lib@1.0.0",
+          "type": "library",
+          "version": "1.0.0"
         }
       ],
       "group": "",
