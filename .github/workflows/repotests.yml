@@ -64,7 +64,7 @@ permissions: {}
 #   ci:skip-repotests  - skip every job in this workflow. For changes that
 #                        cannot affect these tests (docs, CI-only edits) while
 #                        a pull request is iterating.
-#   ci:skip-windows    - skip the windows legs of the matrix jobs. Windows is
+#   ci:skip-windows    - drop the windows legs. Windows is
 #                        the slowest leg by far; label a PR when the change is
 #                        unix-only and the windows coverage can wait for the
 #                        merge commit's release-branch run.
@@ -499,13 +499,12 @@ jobs:
       fail-fast: false
       matrix:
         java-version: ['24']
-        os: ['self-hosted-ubuntu', 'ubuntu-24.04-arm', 'windows-latest', 'macos-15']
+        # The matrix context is not available to a job-level `if`, so the
+        # ci:skip-windows label drops the windows leg from the matrix itself.
+        os: ${{ fromJSON(contains(github.event.pull_request.labels.*.name, 'ci:skip-windows') && '["self-hosted-ubuntu", "ubuntu-24.04-arm", "macos-15"]' || '["self-hosted-ubuntu", "ubuntu-24.04-arm", "windows-latest", "macos-15"]') }}
     runs-on: ${{ matrix.os }}
     timeout-minutes: 210
-    if: >-
-      !contains(github.event.pull_request.labels.*.name, 'ci:skip-repotests') &&
-      !(contains(github.event.pull_request.labels.*.name, 'ci:skip-windows') &&
-        contains(matrix.os, 'windows'))
+    if: ${{ !contains(github.event.pull_request.labels.*.name, 'ci:skip-repotests') }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
         with:
@@ -1693,10 +1692,12 @@ jobs:
           path: 'repotests/play-samples'
           ref: '0dccba17856e89dbb5e457ab760efb14cc691395'
       # The samples are pinned, so their sbt/coursier artifacts are identical
-      # every run; caching them skips the full Play dependency download each
-      # leg used to pay (the scala job's dominant cost after windows left the
-      # matrix - see cdxgen issue #4436).
+      # every run. Hosted runners start empty and download the whole Play
+      # dependency graph on every leg, so they restore it from the cache. The
+      # self-hosted runner keeps its home directory between runs and deletes
+      # these caches at the end of the job to bound its disk use (#1155).
       - name: Cache sbt and coursier artifacts
+        if: matrix.os != 'self-hosted-ubuntu'
         uses: actions/cache@1bd1e32a3bdc45362d1e726936510720a7c30a57  # v4.2.0
         with:
           path: |
@@ -1705,11 +1706,8 @@ jobs:
             ~/.sbt
             ~/Library/Caches/Coursier
             ~/Library/Caches/org.scala-sbt
-            ~/AppData/Local/Coursier
-            ~/AppData/Local/ivy2
-            ~/AppData/Local/sbt
-          key: scala-repotests-${{ runner.os }}-play-samples-0dccba17
-          restore-keys: scala-repotests-${{ runner.os }}-
+          key: scala-repotests-${{ runner.os }}-${{ runner.arch }}-play-samples-0dccba17
+          restore-keys: scala-repotests-${{ runner.os }}-${{ runner.arch }}-
       - name: scala tests
         run: |
           python -m pip install atom-tools || true
@@ -1726,8 +1724,9 @@ jobs:
           bin/cdxgen.js -t scala $GITHUB_WORKSPACE/repotests/play-samples/play-scala-rest-api-example --profile research -o bomresults/bom-play-scala-rest-api-example.json $GITHUB_WORKSPACE/repotests/play-samples/play-scala-rest-api-example
           bin/cdxgen.js -t scala $GITHUB_WORKSPACE/repotests/play-samples/play-scala-grpc-example --profile research -o bomresults/bom-pplay-scala-grpc-example.json $GITHUB_WORKSPACE/repotests/play-samples/play-scala-grpc-example
           rm -rf repotests/play-samples || true
-          # The coursier and ivy caches are preserved for the cache action's
-          # post-job save; only the extracted sbt boot artifacts are dropped.
+          if [ "$RUNNER_ENVIRONMENT" = "self-hosted" ]; then
+            rm -rf ~/.cache/coursier ~/.ivy2 || true
+          fi
         shell: bash
         env:
           CDXGEN_DEBUG_MODE: debug
@@ -1791,8 +1790,7 @@ jobs:
     timeout-minutes: 45
     if: >-
       !contains(github.event.pull_request.labels.*.name, 'ci:skip-repotests') &&
-      !(contains(github.event.pull_request.labels.*.name, 'ci:skip-windows') &&
-        contains(matrix.os, 'windows'))
+      !contains(github.event.pull_request.labels.*.name, 'ci:skip-windows')
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
         with:
@@ -1843,13 +1841,10 @@ jobs:
       fail-fast: false
       matrix:
         java-version: ['24']
-        os: ['ubuntu-24.04-arm', 'windows-latest', 'macos-15']
+        os: ${{ fromJSON(contains(github.event.pull_request.labels.*.name, 'ci:skip-windows') && '["ubuntu-24.04-arm", "macos-15"]' || '["ubuntu-24.04-arm", "windows-latest", "macos-15"]') }}
     runs-on: ${{ matrix.os }}
     timeout-minutes: 25
-    if: >-
-      !contains(github.event.pull_request.labels.*.name, 'ci:skip-repotests') &&
-      !(contains(github.event.pull_request.labels.*.name, 'ci:skip-windows') &&
-        contains(matrix.os, 'windows'))
+    if: ${{ !contains(github.event.pull_request.labels.*.name, 'ci:skip-repotests') }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
         with:
@@ -2460,10 +2455,7 @@ jobs:
         os: ['ubuntu-24.04', 'ubuntu-24.04-arm', 'macos-15']
     runs-on: ${{ matrix.os }}
     timeout-minutes: 45
-    if: >-
-      !contains(github.event.pull_request.labels.*.name, 'ci:skip-repotests') &&
-      !(contains(github.event.pull_request.labels.*.name, 'ci:skip-windows') &&
-        contains(matrix.os, 'windows'))
+    if: ${{ !contains(github.event.pull_request.labels.*.name, 'ci:skip-repotests') }}
     env:
       CDXGEN_DEBUG_MODE: verbose
     steps:
