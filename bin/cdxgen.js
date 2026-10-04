@@ -2143,24 +2143,34 @@ const writeCycloneDxOutput = (jsonFile, bomJson, options) => {
         args,
         internalCycloneDxInputPath || options.output,
       );
-      const dbObjMap = await evinserModule.prepareDB(evinseOptions);
-      if (dbObjMap) {
-        const sliceArtefacts = await evinserModule.analyzeProject(
-          dbObjMap,
-          evinseOptions,
-        );
-        const evinseJson = await evinserModule.createEvinseFile(
-          sliceArtefacts,
-          evinseOptions,
-        );
-        // The scope filter is deferred until here so the analyzers get to
-        // prove that an optional dependency is actually used.
-        bomNSData.bomJson = applyEvidenceBasedFilter(evinseJson, options);
-        if (options.print && evinseJson) {
-          printOccurrences(evinseJson);
-          printCallStack(evinseJson);
-          printReachables(sliceArtefacts);
-          printServices(evinseJson);
+      try {
+        const dbObjMap = await evinserModule.prepareDB(evinseOptions);
+        if (dbObjMap) {
+          const sliceArtefacts = await evinserModule.analyzeProject(
+            dbObjMap,
+            evinseOptions,
+          );
+          const evinseJson = await evinserModule.createEvinseFile(
+            sliceArtefacts,
+            evinseOptions,
+          );
+          // The scope filter is deferred until here so the analyzers get to
+          // prove that an optional dependency is actually used.
+          bomNSData.bomJson = applyEvidenceBasedFilter(evinseJson, options);
+          if (options.print && evinseJson) {
+            printOccurrences(evinseJson);
+            printCallStack(evinseJson);
+            printReachables(sliceArtefacts);
+            printServices(evinseJson);
+          }
+        }
+      } catch (err) {
+        // A rusi/golem analysis failure under --fail-on-error on an
+        // introspected run defers its exit so the BOM and the reports are
+        // still written; the run continues here without the reachability
+        // evidence, exactly as the deferral contract describes.
+        if (!isDeferredFailOnError(err)) {
+          throw err;
         }
       }
     }
