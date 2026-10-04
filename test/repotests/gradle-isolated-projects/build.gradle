@@ -1,0 +1,15 @@
+plugins {
+    id 'java'
+}
+
+// Declared per project: Gradle 9 removed the root-script allprojects {}
+// convention, and isolated projects require each project to be
+// self-contained.
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.slf4j:slf4j-api:2.0.7'
+    implementation 'org.apache.commons:commons-lang3:3.14.0'
+}
