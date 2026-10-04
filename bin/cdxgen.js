@@ -34,6 +34,7 @@ import {
   isDeferredFailOnError,
 } from "../lib/core/deferredExit.js";
 import { TRACE_MODE, thoughtEnd, thoughtLog } from "../lib/core/logger.js";
+import { resolveSourcePathArgument } from "../lib/core/pluginRun.js";
 import {
   PROJECT_CONFIG_FILENAMES,
   sanitizeProjectConfig,
@@ -1013,9 +1014,24 @@ if (!readEnvironmentVariable("NODE_USE_SYSTEM_CA")) {
   process.env.NODE_USE_SYSTEM_CA = "1";
 }
 
-const filePath = args._[0] || process.cwd();
+let filePath = args._[0] || process.cwd();
 const sourceInputIsRemoteOrPurl =
   maybeRemotePath(filePath) || maybePurlSource(filePath);
+// Resolve the source argument once, before anything uses it. With the working
+// directory already set to the project and the argument relative to a
+// repository root (depscan's launch shape), every later resolve would produce
+// <project>/<argument>, a directory that does not exist: the BOM came out
+// empty and the plugins analyzed nothing, while the run still exited 0.
+if (!sourceInputIsRemoteOrPurl && args._?.[0]) {
+  const sourceResolution = resolveSourcePathArgument(filePath);
+  if (sourceResolution.rewritten) {
+    console.warn(
+      `Source path '${filePath}' does not exist relative to the working directory, which is itself the directory it names; using '${sourceResolution.path}'.`,
+    );
+    filePath = sourceResolution.path;
+    args._[0] = filePath;
+  }
+}
 if (!args.projectName) {
   if (filePath !== ".") {
     args.projectName = basename(filePath);
