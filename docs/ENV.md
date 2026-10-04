@@ -278,6 +278,11 @@ A cache left behind by an interrupted or failed run makes the next run fail
 (typically with an `overflowdb.SchemaViolationException`), and the failure looks
 like a frontend bug rather than a stale cache. Delete `.chen` from the source
 tree before re-running when a previously working project starts failing.
+atom 3 also replays the ASTs an earlier full C/C++ run over the same tree cached
+as nodes without names or positions, which leaves a repeated deep scan (`cbom`,
+`saasbom`, `-t c --deep`) with empty slices: delete `.chen` between such scans
+over the same tree. atom 4 replays its cache correctly. cdxgen's own file
+searches skip `.chen`.
 
 ### sbt
 
