@@ -59,9 +59,22 @@ env:
 # https://docs.github.com/en/actions/writing-workflows/choosing-what-your-workflow-does/controlling-permissions-for-github_token
 permissions: {}
 
+# Pull-request labels can narrow this suite (they only apply to pull_request
+# events; push and workflow_dispatch runs are unaffected). A run reads the
+# labels the pull request has when it starts, and adding or removing one does
+# not start a run, so a label takes effect from the next push:
+#   ci:skip-repotests  - skip every job in this workflow. For changes that
+#                        cannot affect these tests (docs, CI-only edits) while
+#                        a pull request is iterating.
+#   ci:skip-windows    - drop the windows legs. Windows is
+#                        the slowest leg by far; label a PR when the change is
+#                        unix-only and the windows coverage can wait for the
+#                        merge commit's release-branch run.
 jobs:
   cli-tests-quick-amd64:
     runs-on: ["self-hosted", "ubuntu", "amd64"]
+    timeout-minutes: 90
+    if: ${{ !contains(github.event.pull_request.labels.*.name, 'ci:skip-repotests') }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
         with:
@@ -394,6 +407,8 @@ jobs:
         shell: bash
   cli-tests-quick-arm64:
     runs-on: ["self-hosted", "ubuntu", "arm64"]
+    timeout-minutes: 90
+    if: ${{ !contains(github.event.pull_request.labels.*.name, 'ci:skip-repotests') }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
         with:
@@ -486,8 +501,12 @@ jobs:
       fail-fast: false
       matrix:
         java-version: ['24']
-        os: ['self-hosted-ubuntu', 'ubuntu-24.04-arm', 'windows-latest', 'macos-15']
+        # The matrix context is not available to a job-level `if`, so the
+        # ci:skip-windows label drops the windows leg from the matrix itself.
+        os: ${{ fromJSON(contains(github.event.pull_request.labels.*.name, 'ci:skip-windows') && '["self-hosted-ubuntu", "ubuntu-24.04-arm", "macos-15"]' || '["self-hosted-ubuntu", "ubuntu-24.04-arm", "windows-latest", "macos-15"]') }}
     runs-on: ${{ matrix.os }}
+    timeout-minutes: 210
+    if: ${{ !contains(github.event.pull_request.labels.*.name, 'ci:skip-repotests') }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
         with:
@@ -619,6 +638,7 @@ jobs:
           repository: 'prabhu/Vulnerable-Web-Application'
           path: 'repotests/Vulnerable-Web-Application'
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
+        if: matrix.os != 'windows-latest'
         with:
           persist-credentials: false
           repository: 'prabhu/railsgoat'
@@ -635,7 +655,9 @@ jobs:
           repository: 'gojek/ziggurat'
           ref: '4.9.4'
           path: 'repotests/ziggurat'
+      # Cloned only where the swift-markdown step below runs.
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
+        if: matrix.os == 'ubuntu-24.04' || matrix.os == 'macos-15' || matrix.os == 'self-hosted-ubuntu'
         with:
           persist-credentials: false
           repository: 'apple/swift-markdown'
@@ -796,6 +818,7 @@ jobs:
           path: 'repotests/quarkus-quickstarts'
           ref: '3.17.3'
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
+        if: matrix.os != 'windows-latest'
         with:
           persist-credentials: false
           repository: 'bionomia/bionomia'
@@ -820,6 +843,7 @@ jobs:
           path: 'repotests/mill'
           ref: '0.12.10'
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
+        if: matrix.os != 'windows-latest'
         with:
           persist-credentials: false
           repository: 'ngudbhav/rails-api-boilerplate'
@@ -897,7 +921,17 @@ jobs:
         shell: bash
       - name: repotests evidence
         run: |
-          bin/cdxgen.js -t js --no-recurse -o bomresults/bom.json --evidence .
+          # cdxgen's own BOM. Its evidence is not sliced here: by this step the
+          # workspace also holds the repositories cloned above, and astgen's
+          # type pass alone over cdxgen's largest modules outlasts atom's time
+          # limit (cdxgen issue #4436).
+          bin/cdxgen.js -t js --no-recurse -o bomresults/bom.json .
+          # --evidence end to end, on a project atom slices in minutes. cdxgen
+          # only warns when atom fails, and its own babel pass adds usage
+          # evidence either way, so atom's usages slices are asserted directly.
+          FETCH_LICENSE=false bin/cdxgen.js -t js --no-recurse -o bomresults/bom-ts-evidence.json --evidence --usages-slices-file bomresults/ts-usages.slices.json repotests/shiftleft-ts-example
+          jq -e 'any(.components[]; .name == "express" and ((.evidence.occurrences // []) | length) > 0)' bomresults/bom-ts-evidence.json
+          jq -e '[(.objectSlices // [])[] | select(.fullName and .fullName != "<empty>")] | length >= 20' bomresults/ts-usages.slices.json
         shell: bash
       - name: repotests tracebom
         run: |
@@ -997,20 +1031,46 @@ jobs:
       - name: repotests Vulnerable-Web-Application
         run: |
           bin/cdxgen.js -t php repotests/Vulnerable-Web-Application -o bomresults/bom-php-1.json --fail-on-error
-          bin/cdxgen.js -t php --no-recurse repotests/Vulnerable-Web-Application -o bomresults/bom-php-2.json --fail-on-error --profile research
+          # The research profile slices the whole tree, vendor/ included (about
+          # 11,800 PHP files). That needs php, an atom that batches PHP through
+          # phpastgen (atom 4) and an atom-parsetools that parses vendor trees
+          # a chunk of files per interpreter (1.9). atom 3 starts a php process
+          # per file and runs out of time on every OS (cdxgen issue #4436).
+          if command -v php > /dev/null && node -e '
+            const version = (name) =>
+              require(`./node_modules/${name}/package.json`).version.split(".").map(Number);
+            const [atomMajor] = version("@appthreat/atom");
+            const [major, minor] = version("@appthreat/atom-parsetools");
+            process.exit(atomMajor >= 4 && (major > 1 || minor >= 9) ? 0 : 1);
+          '; then
+            bin/cdxgen.js -t php --no-recurse repotests/Vulnerable-Web-Application -o bomresults/bom-php-2.json --fail-on-error --profile research --usages-slices-file bomresults/php-usages.slices.json
+            jq -e '[(.objectSlices // [])[] | select((.fileName // "") | test("(^|[/\\\\])vendor[/\\\\]"))] | length > 1000' bomresults/php-usages.slices.json
+          else
+            echo "Skipping the php research profile: it needs php, atom 4 and atom-parsetools 1.9."
+          fi
         shell: bash
+        env:
+          # Both atom runs of the research profile finished within 9 minutes
+          # on an emulated Windows VM.
+          ATOM_TIMEOUT: 1200000
+      # Ruby has no windows-specific behaviour to cover and the ruby scans are
+      # among the slowest legs on windows (cdxgen issue #4436 keeps ruby on
+      # linux and macos only).
       - name: repotests railsgoat
+        if: matrix.os != 'windows-latest'
         run: |
           bin/cdxgen.js -r -t ruby repotests/railsgoat -o bomresults/bom-ruby.json --fail-on-error --bom-audit
           bin/cdxgen.js -r -t ruby repotests/railsgoat -o bomresults/bom-ruby.spdx.json --format spdx --fail-on-error
           rm -rf repotests/railsgoat || true
         shell: bash
       - name: repotests bionomia
+        if: matrix.os != 'windows-latest'
         run: |
           bin/cdxgen.js -r -t ruby repotests/bionomia -o bomresults/bom-bionomia.json --fail-on-error
           rm -rf repotests/bionomia || true
         shell: bash
       - name: repotests rails-api-boilerplate
+        if: matrix.os != 'windows-latest'
         run: |
           rm repotests/rails-api-boilerplate/.ruby-version
           bin/cdxgen.js -r -t ruby repotests/rails-api-boilerplate -o bomresults/bom-boilerplate.json --profile research --fail-on-error
@@ -1631,8 +1691,13 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: ['self-hosted-ubuntu', 'ubuntu-24.04-arm', 'windows-latest', 'macos-15']
+        # Windows ran 73-83 minutes for what linux and macos do in 15-38: the
+        # scala frontend has no windows-specific behaviour, so windows pays for
+        # nothing here (cdxgen issue #4436).
+        os: ['self-hosted-ubuntu', 'ubuntu-24.04-arm', 'macos-15']
     runs-on: ${{ matrix.os }}
+    timeout-minutes: 75
+    if: ${{ !contains(github.event.pull_request.labels.*.name, 'ci:skip-repotests') }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
         with:
@@ -1675,6 +1740,23 @@ jobs:
           repository: 'playframework/play-samples'
           path: 'repotests/play-samples'
           ref: '0dccba17856e89dbb5e457ab760efb14cc691395'
+      # The samples are pinned, so their sbt/coursier artifacts are identical
+      # every run. Hosted runners start empty and download the whole Play
+      # dependency graph on every leg, so they restore it from the cache. The
+      # self-hosted runner keeps its home directory between runs and deletes
+      # these caches at the end of the job to bound its disk use (#1155).
+      - name: Cache sbt and coursier artifacts
+        if: matrix.os != 'self-hosted-ubuntu'
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9  # v6.1.0
+        with:
+          path: |
+            ~/.cache/coursier
+            ~/.ivy2
+            ~/.sbt
+            ~/Library/Caches/Coursier
+            ~/Library/Caches/org.scala-sbt
+          key: scala-repotests-${{ runner.os }}-${{ runner.arch }}-play-samples-0dccba17
+          restore-keys: scala-repotests-${{ runner.os }}-${{ runner.arch }}-
       - name: scala tests
         run: |
           python -m pip install atom-tools || true
@@ -1691,8 +1773,9 @@ jobs:
           bin/cdxgen.js -t scala $GITHUB_WORKSPACE/repotests/play-samples/play-scala-rest-api-example --profile research -o bomresults/bom-play-scala-rest-api-example.json $GITHUB_WORKSPACE/repotests/play-samples/play-scala-rest-api-example
           bin/cdxgen.js -t scala $GITHUB_WORKSPACE/repotests/play-samples/play-scala-grpc-example --profile research -o bomresults/bom-pplay-scala-grpc-example.json $GITHUB_WORKSPACE/repotests/play-samples/play-scala-grpc-example
           rm -rf repotests/play-samples || true
-          rm -rf ~/.cache/coursier ~/.ivy2 || true
-          if [ -n "$LOCALAPPDATA" ]; then rm -rf "$LOCALAPPDATA/Coursier" || true; fi
+          if [ "$RUNNER_ENVIRONMENT" = "self-hosted" ]; then
+            rm -rf ~/.cache/coursier ~/.ivy2 || true
+          fi
         shell: bash
         env:
           CDXGEN_DEBUG_MODE: debug
@@ -1708,6 +1791,8 @@ jobs:
       matrix:
         os: ['self-hosted-ubuntu', 'ubuntu-24.04-arm', 'macos-15']
     runs-on: ${{ matrix.os }}
+    timeout-minutes: 45
+    if: ${{ !contains(github.event.pull_request.labels.*.name, 'ci:skip-repotests') }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
         with:
@@ -1751,6 +1836,10 @@ jobs:
 
   microservices-demo-repotests:
     runs-on: windows-latest
+    timeout-minutes: 45
+    if: >-
+      !contains(github.event.pull_request.labels.*.name, 'ci:skip-repotests') &&
+      !contains(github.event.pull_request.labels.*.name, 'ci:skip-windows')
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
         with:
@@ -1801,8 +1890,10 @@ jobs:
       fail-fast: false
       matrix:
         java-version: ['24']
-        os: ['ubuntu-24.04-arm', 'windows-latest', 'macos-15']
+        os: ${{ fromJSON(contains(github.event.pull_request.labels.*.name, 'ci:skip-windows') && '["ubuntu-24.04-arm", "macos-15"]' || '["ubuntu-24.04-arm", "windows-latest", "macos-15"]') }}
     runs-on: ${{ matrix.os }}
+    timeout-minutes: 25
+    if: ${{ !contains(github.event.pull_request.labels.*.name, 'ci:skip-repotests') }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
         with:
@@ -1986,6 +2077,8 @@ jobs:
 
   go-dataflow-fixture-hosted:
     runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    if: ${{ !contains(github.event.pull_request.labels.*.name, 'ci:skip-repotests') }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
         with:
@@ -2149,6 +2242,8 @@ jobs:
 
   rust-dataflow-fixture-hosted:
     runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    if: ${{ !contains(github.event.pull_request.labels.*.name, 'ci:skip-repotests') }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
         with:
@@ -2299,6 +2394,8 @@ jobs:
 
   gradle-fixture-hosted:
     runs-on: ubuntu-latest
+    timeout-minutes: 30
+    if: ${{ !contains(github.event.pull_request.labels.*.name, 'ci:skip-repotests') }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
         with:
@@ -2337,6 +2434,8 @@ jobs:
 
   jvm-tools-repotest:
     runs-on: ubuntu-latest
+    timeout-minutes: 60
+    if: ${{ !contains(github.event.pull_request.labels.*.name, 'ci:skip-repotests') }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
         with:
@@ -2404,6 +2503,8 @@ jobs:
         java-version: ['24']
         os: ['ubuntu-24.04', 'ubuntu-24.04-arm', 'macos-15']
     runs-on: ${{ matrix.os }}
+    timeout-minutes: 45
+    if: ${{ !contains(github.event.pull_request.labels.*.name, 'ci:skip-repotests') }}
     env:
       CDXGEN_DEBUG_MODE: verbose
     steps:
@@ -2535,6 +2636,8 @@ jobs:
       matrix:
         os: [ubuntu-latest, macos-latest, windows-latest]
     runs-on: ${{ matrix.os }}
+    timeout-minutes: 30
+    if: ${{ !contains(github.event.pull_request.labels.*.name, 'ci:skip-repotests') }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
         with:
