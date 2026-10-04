@@ -31,22 +31,25 @@ The project type alias is broad on purpose (see `PROJECT_TYPE_ALIASES` in
 `lib/core/env.js`):
 
 ```
-c: ["c", "cpp", "c++", "conan", "collider"]
+c: ["c", "cpp", "c++", "conan", "collider", "cmake", "meson", "vcpkg"]
 ```
 
-Any of `c`, `cpp`, `c++`, `conan`, or `collider` routes to `createCppBom` in
+Any of `c`, `cpp`, `c++`, `conan`, `collider`, `cmake`, `meson` or `vcpkg`
+routes to `createCppBom` in
 `lib/cli/nativeBom.js`. From one project root, cdxgen looks for all of these in a
 single scan:
 
-| File                        | Parser                        | What it contributes                                                   |
-| --------------------------- | ----------------------------- | --------------------------------------------------------------------- |
-| `conan.lock`                | `parseConanLockData`          | Resolved packages plus a dependency graph                             |
-| `conanfile.txt`             | `parseConanData`              | Flat requires/build_requires list, with scope                         |
-| `collider.lock`             | `parseColliderLockData`       | Resolved packages and graph                                           |
-| `CMakeLists.txt`, `*.cmake` | `parseCmakeLikeFile`          | Parent project, `find_package` requirements, configure-time downloads |
-| `meson.build`               | `parseCmakeLikeFile`          | Parent project, `dependency()` declarations                           |
-| `vcpkg.json`                | `getCppModules` (cppEvidence) | Parent project and declared dependencies                              |
-| `CMakeCache.txt`            | `resolveCmakeContext`         | Resolved versions, FetchContent pins, submodule pins                  |
+| File                                                         | Parser                        | What it contributes                                                               |
+| ------------------------------------------------------------ | ----------------------------- | --------------------------------------------------------------------------------- |
+| `conan.lock`                                                 | `parseConanLockData`          | Resolved packages plus a dependency graph                                         |
+| `conanfile.txt`                                              | `parseConanData`              | Flat requires/build_requires list, with scope                                     |
+| `collider.lock`                                              | `parseColliderLockData`       | Resolved packages and graph                                                       |
+| `CMakeLists.txt`, `*.cmake`                                  | `parseCmakeLikeFile`          | Parent project, `find_package` requirements, configure-time downloads             |
+| `meson.build`                                                | `parseCmakeLikeFile`          | Parent project, `dependency()` declarations                                       |
+| `vcpkg.json`                                                 | `getCppModules` (cppEvidence) | Parent project and declared dependencies                                          |
+| `CMakeCache.txt`                                             | `resolveCmakeContext`         | Resolved versions, FetchContent pins, submodule pins                              |
+| `CMakePresets.json`, `CMakeUserPresets.json`                 | `resolveCppBuildContext`      | Configure presets (formulation), and where the build trees are                    |
+| `compile_commands.json`, `CMakeFiles/*/CMake*Compiler.cmake` | `resolveCppBuildContext`      | Compilers (formulation), hardening options, the project's own include directories |
 
 There is a deliberate priority: Conan lock files come first because they carry
 resolved versions and a real graph. If no lock exists, cdxgen falls back to
@@ -140,8 +143,10 @@ builds. Confidence rises from 0 to 0.5 because the name and URL are now known.
 `CMakeLists.txt` scraping gives you `find_package` names and version
 requirements, but not resolved versions. To resolve them, cdxgen reads the build
 tree through `resolveCmakeContext` in `lib/ecosystems/cmakeResolver.js`. It looks
-for `CMakeCache.txt` under `build/`, `out/`, or `cmake-build-*/`, or at an
-explicit path you pass with `--cmake-cache`.
+for `CMakeCache.txt` in the build directories the project's CMake presets
+configure (see below), then in `build/`, `build-*/`, `out/`, `builddir/` and
+`cmake-build-*/` at the root and one level below `build/`, `out/` and
+`out/build/`, or at an explicit path you pass with `--cmake-cache`.
 
 From the cache and surrounding files it recovers:
 
@@ -171,10 +176,61 @@ declared one, and a `find_package` of a fetched name does not add a second
 component. CMake command names are matched in any case (`FIND_PACKAGE`,
 `PROJECT`).
 
+A `project()` declared in a `CMakeLists.txt` below the scan root is a part of
+the project, not a dependency: it becomes a sub-component of the root project
+(`metadata.component.components`) with `cdx:cmake:subprojectDir` naming its
+directory. With no project at the root, the sub-projects are listed as
+components.
+
 When several `CMakeLists.txt` files request different versions of the same
 package (`find_package(Boost 1.54)` in one, `find_package(Boost 1.64)` in
 another), `collapseCmakeVersions` keeps one entry at the highest version and
 records the full set under `cdx:cmake:versionRequirements`.
+
+### Presets, compilers and hardening
+
+`CMakePresets.json` and `CMakeUserPresets.json` (schema versions 1 to 10) are
+read with their `include` files. Presets are resolved as CMake does: `inherits`
+chains (the first parent wins), hidden templates, `cacheVariables` and
+`environment` merged key by key, and the macros `${sourceDir}`,
+`${sourceParentDir}`, `${sourceDirName}`, `${presetName}`, `${generator}`,
+`${hostSystemName}`, `${fileDir}`, `${dollar}`, `${pathListSep}`, `$env{}` and
+`$penv{}`. `condition` objects are evaluated for the host cdxgen runs on;
+`matches` conditions are not, since their regular expressions come from the
+repository. Each visible configure preset becomes a formulation component
+(`type: data`) with its generator, build directory, build type, compilers,
+toolchain file (a vcpkg toolchain is flagged with `cdx:cmake:preset:vcpkg`)
+and the hardening options its flag variables set. Its build directory is where
+cdxgen then looks for `CMakeCache.txt` and `compile_commands.json`.
+
+The compilers of the build become formulation components (`type: platform`).
+cdxgen reads CMake's own description of each compiler in the configured build
+tree (`CMakeFiles/<version>/CMake<LANG>Compiler.cmake`: the compiler's path,
+CMake's id and its version), and for a compiler the compilation database names
+that CMake did not describe it runs `<compiler> --version` and classifies the
+answer: gcc, clang, apple-clang, msvc, clang-cl, nvcc, icx, icc, nvhpc, or a
+compiler built on the EDG front end (its banner mentions the Edison Design
+Group; such a component carries `cdx:cpp:frontend=edg`). Only a driver named
+like one of these compilers is run, and only when it is found on the `PATH` or
+named by an absolute path outside the project: a compilation database can come
+with the code it describes, so a compiler inside the project is never run. In
+secure mode no compiler is run, and only an explicit `--compile-commands` is
+read.
+
+The project component carries the security-hardening options the build uses:
+`cdx:cpp:hardening:fortifySource`, `stackProtector`, `pie`, `relro`,
+`cfProtection`, `sanitizers`, `glibcxxAssertions`, `stackClashProtection`,
+`msvcBufferSecurityCheck` and `msvcControlFlowGuard`. From a compilation
+database each setting takes its most common value, with the number of units
+using it in `cdx:cpp:hardening:<setting>:units` (out of
+`cdx:cpp:compileCommands:units`); link-time settings such as RELRO come from
+the configured build tree's linker flags, which a compilation database does not
+show. `cdx:cmake:buildType` names the configuration the evidence describes.
+
+```bash
+jq '.metadata.component.properties[] | select(.name | startswith("cdx:cpp:hardening"))' bom.json
+jq '.formulation[].components[] | select(.type == "platform" or .type == "data") | {type, name, version}' bom.json
+```
 
 Inspect the CMake-resolved dependencies:
 
@@ -192,20 +248,52 @@ cdxgen addresses this in two ways:
    distinguished from plain `find_package` requirements by the `cdx:cmake:depKind`
    property. A submodule pinned to a commit SHA is a real, checked-out thing; a
    `find_package` line is a version requirement the build may or may not satisfy.
-2. **Include analysis with atom.** When C/C++ is requested explicitly with `-t`,
+2. **Code carried under its own license.** A directory with its own license
+   file (`LICENSE`, `LICENCE`, `COPYING`, with or without an extension or a
+   suffix such as `LICENSE-MIT`) whose license differs from the project's is a
+   vendored component: `pkg:generic/<directory>#<path>`, the license it states
+   (in `licenses` and `evidence.licenses`), `cdx:vendored=true`,
+   `cdx:vendored:path` and `cdx:vendored:licenseFile`. The license is read from
+   the text's own title first, since a license text quotes others (the GNU GPL
+   names the GNU Lesser GPL). Directories CMake already knows as fetched or
+   submodule sources, and build trees, are not searched, and a directory inside
+   a vendored one is part of it. Headers under a vendored directory are not
+   the project's own headers.
+3. **Include analysis with atom.** When C/C++ is requested explicitly with `-t`,
    or `--deep` is passed (and the project is not a container/OS scan),
    `getCppModules` invokes the `atom` companion helper to produce C usage
    slices: in header mode (`atom -l h`, no function bodies) by default, and as a
    full parse (`atom -l c`) with `--deep`. Every `#include` is resolved to a file, mapped to an
    OS package when possible, and otherwise emitted as a `generic` component with
    a `Filename` identity method. Imported symbols are recorded under
-   `internal:ImportedSymbols`.
+   `internal:ImportedSymbols`. A header that is the project's own is not a component: one found under the
+   project root, its `include/` or `src/` directory, or an include directory of
+   the project's compilation database, outside the source directories of its
+   fetched, submodule and vendored dependencies. A C standard library or POSIX
+   header (`stdio.h`, `sys/mman.h`, `unistd.h`, ...) is a component only when an
+   OS package provides it.
+
+   With atom 4 and later each include's usages slice names the file it
+   resolved to (`resolvedPath`) and the functions the including file calls
+   that the header declares (`importedSymbols`, with function bodies parsed).
+   The resolved file then attributes the header exactly: to the project
+   itself, to a fetched, submodule or vendored dependency whose directory
+   holds it, to the vcpkg port that installed it
+   (`vcpkg_installed/vcpkg/info/*.list`; a declared port then gets the
+   installed version and `cdx:vcpkg:triplet`), to the Conan package in the
+   cache (Conan 1 paths, or the Conan 2 cache database under `CONAN_HOME`), or
+   to the OS package that owns the file (`dpkg-query -S`, `rpm -qf`,
+   `apk info -W`, or the Homebrew Cellar). The imported symbols become the
+   component's `internal:ImportedSymbols`, and `evinse -l c` uses them to
+   attach occurrence evidence for the calls. With an older atom, headers are
+   attributed by name as before.
 
 When the project has a JSON compilation database, atom parses each file with
 the include paths, macros and language its build uses instead of guessing them.
-cdxgen looks for `compile_commands.json` in the scan root, `build/`, `out/`,
-`builddir/` and `cmake-build-*/`, and next to the `--cmake-cache` file, and
-passes the first it finds to atom (`--frontend-args compile-commands=<path>`)
+cdxgen looks for `compile_commands.json` in the scan root, then in the same
+build directories as `CMakeCache.txt` (next to the `--cmake-cache` file, the
+presets' build directories, then the conventional ones), and passes the first
+it finds to atom (`--frontend-args compile-commands=<path>`)
 when the installed atom lists that key in `atom --frontend-args-keys -l c`
 (atom 4.0 and later). An older atom is run with its usual arguments.
 `--compile-commands <file|dir>` names a database
@@ -256,8 +344,13 @@ emitting requirements.
 2. Lock files (`conan.lock`, `collider.lock`) give resolved versions and a graph;
    manifest files (`conanfile.txt`, `vcpkg.json`, `CMakeLists.txt`,
    `meson.build`) give declared dependencies and requirements.
-3. vcpkg support reads `vcpkg.json` only, not the installed tree.
+3. vcpkg support reads `vcpkg.json` only, not the installed tree; a preset
+   using vcpkg's toolchain is flagged in formulation.
 4. CMake cache resolution turns `find_package` requirements into resolved
    components and separately captures FetchContent and submodule pins.
 5. Include analysis via atom (header mode for an explicit `-t c`, a full parse
-   with `--deep`) is how vendored headers and static libraries get represented.
+   with `--deep`) is how vendored headers and static libraries get represented;
+   the project's own headers are left out.
+6. CMake presets and the compilation database describe the build itself:
+   configure presets and compilers in formulation, hardening options on the
+   project component.

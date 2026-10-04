@@ -210,14 +210,21 @@ run_atom_smoke_test() {
     exit 1
   fi
 
+  # Each binary's run starts without the AST cache (.chen) the previous
+  # binary's run left in the fixture: atom 3 replays a cached unit without
+  # names or positions, which leaves the deep C/C++ scans of cbom and saasbom
+  # with nothing to report.
+  rm -rf "$ATOM_SMOKE_FIXTURE/.chen"
   rm -f "$smoke_out"
   if ! "./$output" -t c "$ATOM_SMOKE_FIXTURE" -o "$smoke_out" --fail-on-error; then
     echo "atom smoke test FAILED: ./$output exited non-zero." >&2
     rm -f "$smoke_out"
+    rm -rf "$ATOM_SMOKE_FIXTURE/.chen"
     exit 1
   fi
   smoke_count="$(count_bom_components "$smoke_out")"
   rm -f "$smoke_out"
+  rm -rf "$ATOM_SMOKE_FIXTURE/.chen"
   if [[ "$smoke_count" == "0" ]]; then
     echo "atom smoke test FAILED: no components produced; the atom payload is missing or did not run." >&2
     exit 1

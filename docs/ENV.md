@@ -116,9 +116,10 @@ These variables are specifically for a single language or tool.
 
 ### C/C++
 
-| Variable | Description                                                                                                                                             |
-| -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| GCC_CMD  | Override the `gcc` command cdxgen runs (`--version`, `-print-search-dirs`) to describe the C/C++ toolchain in the BOM's formulation. Defaults to `gcc`. |
+| Variable   | Description                                                                                                                                                    |
+| ---------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| GCC_CMD    | Override the `gcc` command cdxgen runs (`--version`, `-print-search-dirs`) to describe the C/C++ toolchain in the BOM's formulation. Defaults to `gcc`.        |
+| CONAN_HOME | The Conan 2 home whose package cache (`p/cache.sqlite3`) names the Conan package that provides a header atom resolved into the cache. Defaults to `~/.conan2`. |
 
 ### Docker
 
@@ -277,6 +278,11 @@ A cache left behind by an interrupted or failed run makes the next run fail
 (typically with an `overflowdb.SchemaViolationException`), and the failure looks
 like a frontend bug rather than a stale cache. Delete `.chen` from the source
 tree before re-running when a previously working project starts failing.
+atom 3 also replays the ASTs an earlier full C/C++ run over the same tree cached
+as nodes without names or positions, which leaves a repeated deep scan (`cbom`,
+`saasbom`, `-t c --deep`) with empty slices: delete `.chen` between such scans
+over the same tree. atom 4 replays its cache correctly. cdxgen's own file
+searches skip `.chen`.
 
 ### sbt
 

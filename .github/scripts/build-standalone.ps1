@@ -165,9 +165,14 @@ function Invoke-AtomSmokeTest {
     throw "atom smoke test FAILED: the negative control produced $controlCount component(s) with atom disabled, so this fixture no longer proves atom ran."
   }
 
+  # Each binary's run starts without the AST cache (.chen) the previous
+  # binary's run left in the fixture; see build-standalone.sh.
+  $astCache = Join-Path $fixture ".chen"
+  if (Test-Path $astCache) { Remove-Item $astCache -Recurse -Force }
   if (Test-Path $smokeOut) { Remove-Item $smokeOut -Force }
   & ".\$Output.exe" -t c $fixture -o $smokeOut --fail-on-error
   $exitCode = $LASTEXITCODE
+  if (Test-Path $astCache) { Remove-Item $astCache -Recurse -Force }
   if ($exitCode -ne 0) {
     throw "atom smoke test FAILED: .$Output.exe exited with code $exitCode."
   }
