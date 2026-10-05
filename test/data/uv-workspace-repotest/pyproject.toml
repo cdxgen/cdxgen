@@ -1,0 +1,9 @@
+[project]
+name = "ws-root"
+version = "0.1.0"
+description = "Minimal uv workspace reproduction for cdxgen#4445"
+requires-python = ">=3.9"
+dependencies = []
+
+[tool.uv.workspace]
+members = ["packages/*"]

@@ -1,0 +1,21 @@
+{
+  "description": "uv workspace (tool.uv.workspace with packages/* members) across single-type, default multi-type, and python+js multi-type scans. The workspace members lib-a and lib-b must stay nested under metadata.component.components in every scan (#4445).",
+  "fixture": ".",
+  "scenarios": [
+    {
+      "name": "python",
+      "projectType": ["python"],
+      "options": {}
+    },
+    {
+      "name": "default-multi",
+      "projectType": [],
+      "options": { "multiProject": true }
+    },
+    {
+      "name": "python-js",
+      "projectType": ["python", "js"],
+      "options": {}
+    }
+  ]
+}

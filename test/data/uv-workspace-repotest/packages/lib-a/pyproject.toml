@@ -1,0 +1,9 @@
+[project]
+name = "lib-a"
+version = "0.2.0"
+description = "Workspace member lib-a"
+requires-python = ">=3.9"
+dependencies = ["lib-b", "requests>=2.31.0"]
+
+[tool.uv.sources]
+lib-b = { workspace = true }
