@@ -63,7 +63,7 @@ export function currentRuntime() {
  * @param {string} runtime Runtime to command.
  * @returns {string[]} Command prefix.
  */
-function runtimeCommand(script, runtime) {
+export function runtimeCommand(script, runtime) {
   if (runtime === "deno") {
     return [resolveRuntimeBinary("deno"), "run", "-A", script];
   }
@@ -175,7 +175,7 @@ function restoreEnv(previous) {
  * @param {boolean} denoParentEnv True to mutate this process for Deno.
  * @returns {{env: Object, undo: () => void}} Child env and its restore function.
  */
-function childEnv(env, denoParentEnv) {
+export function childEnv(env, denoParentEnv) {
   const patch = {};
   for (const name of INTROSPECTION_ENV_VARS) {
     patch[name] = null;
