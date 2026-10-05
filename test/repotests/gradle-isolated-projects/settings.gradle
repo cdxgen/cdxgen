@@ -1,0 +1,3 @@
+rootProject.name = 'gradle-isolated-projects'
+
+include 'lib'
