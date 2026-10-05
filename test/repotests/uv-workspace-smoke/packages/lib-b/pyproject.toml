@@ -1,0 +1,6 @@
+[project]
+name = "lib-b"
+version = "0.3.0"
+description = "Workspace member lib-b"
+requires-python = ">=3.9"
+dependencies = []

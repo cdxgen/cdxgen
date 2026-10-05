@@ -1,0 +1,1478 @@
+{
+  "bomFormat": "CycloneDX",
+  "components": [
+    {
+      "bom-ref": "pkg:pypi/certifi@2026.7.22",
+      "evidence": {
+        "identity": [
+          {
+            "concludedValue": "$ROOT/uv.lock",
+            "confidence": 1,
+            "field": "purl",
+            "methods": [
+              {
+                "confidence": 1,
+                "technique": "manifest-analysis",
+                "value": "$ROOT/uv.lock"
+              }
+            ]
+          }
+        ]
+      },
+      "externalReferences": [
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/0b/a7/71ac2cff56fec219ed242bb11b8efb69fcc4bec75db06fb7bfe35de520e6/certifi-2026.7.22-py3-none-any.whl"
+        },
+        {
+          "comment": "sdist",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/a3/c2/24167ea9858356b47a87a50d39908bfdb72ceeefe0041586e704e5376b3a/certifi-2026.7.22.tar.gz"
+        }
+      ],
+      "group": "",
+      "name": "certifi",
+      "properties": [
+        {
+          "name": "internal:SrcFile",
+          "value": "$ROOT/pyproject.toml"
+        },
+        {
+          "name": "internal:workspaceRef",
+          "value": "pkg:pypi/lib-a@0.2.0"
+        },
+        {
+          "name": "internal:workspaceRef",
+          "value": "pkg:pypi/lib-a@0.2.0"
+        },
+        {
+          "name": "internal:workspaceRef",
+          "value": "pkg:pypi/lib-a@0.2.0"
+        },
+        {
+          "name": "internal:workspaceRef",
+          "value": "pkg:pypi/lib-a@0.2.0"
+        },
+        {
+          "name": "internal:workspaceRef",
+          "value": "pkg:pypi/lib-a@0.2.0"
+        },
+        {
+          "name": "internal:workspaceSrcFile",
+          "value": "$ROOT/packages/lib-a/pyproject.toml"
+        },
+        {
+          "name": "internal:workspaceSrcFile",
+          "value": "$ROOT/packages/lib-a/pyproject.toml"
+        },
+        {
+          "name": "internal:workspaceSrcFile",
+          "value": "$ROOT/packages/lib-a/pyproject.toml"
+        },
+        {
+          "name": "internal:workspaceSrcFile",
+          "value": "$ROOT/packages/lib-a/pyproject.toml"
+        },
+        {
+          "name": "internal:workspaceSrcFile",
+          "value": "$ROOT/packages/lib-a/pyproject.toml"
+        }
+      ],
+      "purl": "pkg:pypi/certifi@2026.7.22",
+      "type": "library",
+      "version": "2026.7.22"
+    },
+    {
+      "bom-ref": "pkg:pypi/charset-normalizer@3.5.2",
+      "evidence": {
+        "identity": [
+          {
+            "concludedValue": "$ROOT/uv.lock",
+            "confidence": 1,
+            "field": "purl",
+            "methods": [
+              {
+                "confidence": 1,
+                "technique": "manifest-analysis",
+                "value": "$ROOT/uv.lock"
+              }
+            ]
+          }
+        ]
+      },
+      "externalReferences": [
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/03/cf/4c66866fa9e2b1c78e3c911516d1de497a677b7ac60f1eceda74ce777ca3/charset_normalizer-3.5.2-cp37-abi3-win_arm64.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/04/3a/c00b50e94c964cf934c7899cd47c97952fc11dad71cc5884b3c61795b09b/charset_normalizer-3.5.2-cp315-cp315t-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/04/f3/859f74e7babc977705026b30593b3be04049632a522fb7000f83c033d747/charset_normalizer-3.5.2-cp313-cp313-manylinux2014_s390x.manylinux_2_17_s390x.manylinux_2_28_s390x.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/05/22/6adc5456b690c7ec9316df39a7fe741c6d81ec91b9f9f8a798211e642784/charset_normalizer-3.5.2-cp39-cp39-manylinux2014_armv7l.manylinux_2_17_armv7l.manylinux_2_31_armv7l.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/09/54/ab9e89367076f6331bb6c65c4bf14a5361fa5191cb6561bf534f18504e1b/charset_normalizer-3.5.2-cp37-abi3-manylinux2014_ppc64le.manylinux_2_17_ppc64le.manylinux_2_28_ppc64le.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/09/e1/a3b06a10461b1b7628853c934c644e03bc28e42767116afb52f19a56519b/charset_normalizer-3.5.2-cp314-cp314t-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/0b/0d/363f78cacb70f58f15f4b083961bbd9d292f335d3f5c66fc4f1cfe69cb90/charset_normalizer-3.5.2-cp311-cp311-manylinux2014_s390x.manylinux_2_17_s390x.manylinux_2_28_s390x.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/0b/f6/c57b072e0f764c29bc2bda17baaa01ea1a8d36874d9efbc0cfa2efb1b0e1/charset_normalizer-3.5.2-cp39-cp39-macosx_10_9_universal2.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/12/c8/8379554b42e8368161d898476686947a0fdbd3e8865170d7909dcabfdee8/charset_normalizer-3.5.2-cp314-cp314t-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/15/d8/f0a93a431d170e7ca681d4f6650fee3de934d18560e474e7267eb4b0f987/charset_normalizer-3.5.2-cp311-cp311-manylinux_2_31_riscv64.manylinux_2_39_riscv64.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/18/24/bad3ac4271589df29cf5ce2f5ae490518a5739358052bd0d61209e6fea54/charset_normalizer-3.5.2-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/19/aa/9955c7e93bba10a9c7e8f7a5031b7ced66f3a1883a55c00712b8d5850ff3/charset_normalizer-3.5.2-cp314-cp314t-musllinux_1_2_riscv64.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/22/67/6a0b94a7960d5e1b5eacd2fb529f3fccc47db4644f7f0a7cfdcfc3be578a/charset_normalizer-3.5.2-cp311-cp311-macosx_10_9_universal2.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/23/b5/4459e08d45a679f903d50fea08bc52cfa728cca4d7bd02c757b5e5abda2e/charset_normalizer-3.5.2-cp315-cp315-win32.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/24/0e/bb5dace3cc7e79068425386a6589c19b5a2ab5fefc2a46abea6919683332/charset_normalizer-3.5.2-cp314-cp314-musllinux_1_2_ppc64le.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/26/19/1c1c9f75974adf523b87f34b8a2adc5a435cd65916812bcbd0dfa45f9a29/charset_normalizer-3.5.2-cp313-cp313-musllinux_1_2_riscv64.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/26/79/e697f77464748a3ee3cf490c83d592459400d4898380d66c38366b03080c/charset_normalizer-3.5.2-cp315-cp315-manylinux2014_armv7l.manylinux_2_17_armv7l.manylinux_2_31_armv7l.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/26/9f/69e13ca3b18f43e0eafcd34c04a45b732ae22a43b54a5fc9e119103356eb/charset_normalizer-3.5.2-cp314-cp314t-musllinux_1_2_aarch64.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/26/cd/6d52d3c7437cdcf2e310ce9f28f282e733d4ef60ed19105d1819c356255f/charset_normalizer-3.5.2-cp314-cp314-musllinux_1_2_x86_64.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/2b/9e/46f2fa4c431fc98c4ae76a8cb5bdca54e0341e3cfc3fcfd8e82740250818/charset_normalizer-3.5.2-cp37-abi3-musllinux_1_2_aarch64.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/2d/8b/803b4d2a3f6e1740f63f1e87b04d14b42f3d4fdfe6ed7d4db2d34102b14f/charset_normalizer-3.5.2-cp312-cp312-musllinux_1_2_riscv64.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/31/68/fdec18a343f5fb3f310588dd478b09ac4799e0b187dbade3a8cd776f03ef/charset_normalizer-3.5.2-cp37-abi3-win32.whl"
+        },
+        {
+          "comment": "sdist",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/33/1c/f41d4e74c28ab327ff3acd36053f7ea506c55872d7a90b0fa71aa3ab0c89/charset_normalizer-3.5.2.tar.gz"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/33/4f/aeadccd6d20882909eb2597ec40eccc05d505e2262f14dc76d7620700657/charset_normalizer-3.5.2-cp310-cp310-musllinux_1_2_ppc64le.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/35/7e/578c702301ec036f01455f30744a08d2b42f6ab35b9b2d4bf8cae0ef2a80/charset_normalizer-3.5.2-cp311-cp311-win32.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/36/40/e270b74e0d3f583d78d902960845a149e80eb7c737ee5613ccc6efc7264b/charset_normalizer-3.5.2-cp310-cp310-win_arm64.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/36/8c/71aafad23f971afc84c2b295bc0c560739ce1dac558aad9fec22e39f3639/charset_normalizer-3.5.2-cp313-cp313-ios_13_0_arm64_iphonesimulator.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/38/7a/81f1186c57e406233969ae96b5fd0c907254ab8b6e47da8ae24cd20fb9d7/charset_normalizer-3.5.2-cp310-cp310-win32.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/3e/60/c647c6ae47480221e875ea5d743ff94946f7416e3c69415ab772928e8d32/charset_normalizer-3.5.2-cp313-cp313-win_arm64.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/3e/b4/46b48f013dadfc0d0d33b375438e31bdf5a989dc68389c6bf627054d4df9/charset_normalizer-3.5.2-cp314-cp314t-win_arm64.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/3f/98/9d5f6ebc3aee9fef5d30b4aff11fb2ab7a1222b4064f8ef2c7c87cde217a/charset_normalizer-3.5.2-cp314-cp314t-manylinux2014_s390x.manylinux_2_17_s390x.manylinux_2_28_s390x.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/43/6f/c4fbae58febff71709c51bc7e18fdfa55341dc382704740f9f0cbf03817b/charset_normalizer-3.5.2-cp37-abi3-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/49/1c/25d8415ec1c4f2f41f1680435e4c87cfb378ff2f677d950946f2a45d0632/charset_normalizer-3.5.2-cp314-cp314t-win_amd64.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/4a/24/2ecb4bde104322cd7859d6594fcfa74649f8d90b3221c9feecbef149875b/charset_normalizer-3.5.2-cp314-cp314t-manylinux2014_ppc64le.manylinux_2_17_ppc64le.manylinux_2_28_ppc64le.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/4a/41/e05e19578b7b87e7db2c3ecb884bd09d065274ab41e1f535542e8bae9b06/charset_normalizer-3.5.2-cp310-cp310-manylinux_2_31_riscv64.manylinux_2_39_riscv64.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/4a/eb/2ddb1035d17320caa9f41682935123a9a250277b261c3efc86b2d2a21343/charset_normalizer-3.5.2-cp314-cp314t-manylinux2014_armv7l.manylinux_2_17_armv7l.manylinux_2_31_armv7l.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/4b/85/41d27f234b82e47c167a5f6c0f62501dc0c640585ff4aba79e08a390336a/charset_normalizer-3.5.2-cp313-cp313-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/4d/2c/147169a041b747759f37405c0a97157e8e92de967968373101ff14915cba/charset_normalizer-3.5.2-cp315-cp315t-musllinux_1_2_ppc64le.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/4d/34/38f3154785ce92e9f56eb226f4d35bdfae6b008480dd055f58837a89c810/charset_normalizer-3.5.2-cp313-cp313-manylinux2014_ppc64le.manylinux_2_17_ppc64le.manylinux_2_28_ppc64le.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/4e/88/7561d8a88d555e7df6623abe7c0070b4baf47549b9408783a2ae0a1a6cf7/charset_normalizer-3.5.2-cp311-cp311-musllinux_1_2_x86_64.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/4f/de/6435e18d1aaa5d910b896d551411c96af1f42a0c56c29afc2016c61ccc2e/charset_normalizer-3.5.2-cp313-cp313-win32.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/50/27/d102dc880bbcffd0479ab64dfc1fb96777a854355a55e2bda72a71efadcb/charset_normalizer-3.5.2-cp315-cp315t-manylinux2014_armv7l.manylinux_2_17_armv7l.manylinux_2_31_armv7l.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/52/4b/26dba4f3354ce6328c8cb13628b17202305f2172a352a32e10d677edb130/charset_normalizer-3.5.2-cp39-cp39-manylinux2014_ppc64le.manylinux_2_17_ppc64le.manylinux_2_28_ppc64le.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/52/fc/e518013affcc43c9f919c3ba41bffe9b4ee4aceb0a6462a6243efcca5f2d/charset_normalizer-3.5.2-cp310-cp310-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/53/94/a3a7698e9b1a395e1eb99ccd9a324be9347973bff4e72db2a06496d7cd27/charset_normalizer-3.5.2-cp314-cp314-win_arm64.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/54/e2/77a8b09d5adc013ed07b95b01b8b8fa5441c4e810e83ee7e4aae2fa4d91a/charset_normalizer-3.5.2-cp312-cp312-manylinux2014_s390x.manylinux_2_17_s390x.manylinux_2_28_s390x.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/55/e2/06bad57dfdb49cad92c0ba85b6b4fa5827a67df37897287cfef0553843c2/charset_normalizer-3.5.2-cp310-cp310-manylinux2014_s390x.manylinux_2_17_s390x.manylinux_2_28_s390x.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/56/5b/4970a2d154df502e133402906dd04e3ae7cada7b3011283c88d0479a2585/charset_normalizer-3.5.2-cp314-cp314-musllinux_1_2_aarch64.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/58/9d/e7b88e7b1bf403590c3b573277b5e1e488c68c7a6fbacca310a2c324e90c/charset_normalizer-3.5.2-cp312-cp312-win32.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/58/ca/5d1a997587febe5b26d8daffe363b5c1a091cece19828eec6502fd09c5ef/charset_normalizer-3.5.2-cp313-cp313-manylinux_2_31_riscv64.manylinux_2_39_riscv64.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/58/ca/7aa91362a2f77ac8e9e28a9b902a74f7d0e11a851ef0d27a74308da8cd90/charset_normalizer-3.5.2-cp314-cp314-android_24_arm64_v8a.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/59/72/263491ec1494a194b16fcbff88a0220f2af633738c79e92b4d7189226322/charset_normalizer-3.5.2-cp310-cp310-musllinux_1_2_x86_64.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/5d/3b/7bd36236e57d4266ffad810c62b40a08001622d95195e575d60e78201f69/charset_normalizer-3.5.2-cp39-cp39-musllinux_1_2_ppc64le.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/60/9f/a5d1c91c0263745e2cd344c5a4415d787c575501ab1d449f1148ac6b495d/charset_normalizer-3.5.2-cp315-cp315-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/61/71/458c3f42164a07d0c5210798e9e704b39e540a6793b05aba67f3a35243a9/charset_normalizer-3.5.2-cp37-abi3-manylinux2014_armv7l.manylinux_2_17_armv7l.manylinux_2_31_armv7l.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/66/85/3b5358f60a13210f0b67d3755c168ef758701b021e655d88d4da28554467/charset_normalizer-3.5.2-cp311-cp311-manylinux2014_armv7l.manylinux_2_17_armv7l.manylinux_2_31_armv7l.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/66/89/dfa6dcb08c200b7830ab56439e8c1890f2971d51aafbb3937894a2e7fcfc/charset_normalizer-3.5.2-cp315-cp315t-win_arm64.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/6e/31/b1e0a89e6cd464adbb8ebc674635834746bb8fa22631a243676121fbaf60/charset_normalizer-3.5.2-cp39-cp39-musllinux_1_2_armv7l.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/6f/9f/bab04a5bcecc5c3fda3130b80131608e3f801de97753b2f1348b7c4ebdf7/charset_normalizer-3.5.2-cp39-cp39-musllinux_1_2_aarch64.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/71/71/fb379e399b1013962716a059d551e03bd80b3e02f05d81246886af6c0958/charset_normalizer-3.5.2-cp310-cp310-musllinux_1_2_armv7l.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/71/7a/ff467301deef2089fad87f72df9e000a26a78fec7acbb18e1999371b8369/charset_normalizer-3.5.2-cp311-cp311-musllinux_1_2_ppc64le.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/73/a9/ace29806a0dae18939919c76ba526472d83214afa101105fabff2cf30625/charset_normalizer-3.5.2-cp314-cp314t-musllinux_1_2_armv7l.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/74/75/77c1c479b09ecd751d1e767b251ea5c14d4d50ff757bf404afab2692f600/charset_normalizer-3.5.2-cp311-cp311-manylinux2014_ppc64le.manylinux_2_17_ppc64le.manylinux_2_28_ppc64le.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/76/a5/cac540ab0fd61f3fec88ad3dbb64509e71424593d73cfdfff5ab3e4db279/charset_normalizer-3.5.2-cp311-cp311-musllinux_1_2_armv7l.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/78/6e/60ce52a85a7fd631ae8482ae6d74521014ca2f255892679484dc04d7ef56/charset_normalizer-3.5.2-cp313-cp313-ios_13_0_arm64_iphoneos.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/79/ba/57adc269824e8658f1a0f97a9e514c247445a9632b3419b97e0ba37f16dc/charset_normalizer-3.5.2-cp313-cp313-musllinux_1_2_x86_64.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/7a/44/a9ddc117221405ab41ba66653013f0e78e5c2cb9a5b22060ca1e7dccb1ea/charset_normalizer-3.5.2-cp39-cp39-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/7c/8a/40db9aa9f5907bb0e6f8b6d64064bf8852fb33d4b813ff9414911df7647c/charset_normalizer-3.5.2-cp314-cp314-macosx_10_15_universal2.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/7c/c1/061431ecc688d9d76602502cb57cc01e691e682c18f1beb45f9673b5bbd2/charset_normalizer-3.5.2-cp37-abi3-manylinux2014_s390x.manylinux_2_17_s390x.manylinux_2_28_s390x.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/7d/dc/65a801b66ab4c197e22c433ab25e7ac24324ac6f45a2269aca42cce309bf/charset_normalizer-3.5.2-cp312-cp312-musllinux_1_2_armv7l.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/7e/24/76d2cefc25472531e4c5c7dfff68865eb1c39b78482f0fdc15b46f047830/charset_normalizer-3.5.2-cp312-cp312-musllinux_1_2_aarch64.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/7e/3e/53e12f2d5fda61dec0265e57b6abc17468381bfb77d78ad4b11cd1f5c45c/charset_normalizer-3.5.2-cp39-cp39-musllinux_1_2_s390x.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/7e/84/371eac6b30bdbcbf2d632a1a01809103459216fcaae61b8b8d922c1bfb8a/charset_normalizer-3.5.2-cp37-abi3-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/7f/72/9c5e7707b57c8ddfa9ddf7b0b1d009d7fbab9e9e887d5b721060f37e307d/charset_normalizer-3.5.2-cp314-cp314-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/7f/c5/38806a25ab5e65fc178f39affeda20858efafede2fce1ffc2556cfc9fe73/charset_normalizer-3.5.2-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/81/35/b761eb6d8c1eb218b9b42b9b4d5ac902afdc399fb6dac6f9a9aac7bda589/charset_normalizer-3.5.2-cp315-cp315t-musllinux_1_2_armv7l.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/81/84/9ebfc8ed6c8c4fcd8e726ff6bf220cc8deb3966e31dce9be8dd8aa017e64/charset_normalizer-3.5.2-cp314-cp314-win32.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/82/44/b0aa350280e6ff5a5492d17cf10460dd39d5ee848f872f7ba2df10607f60/charset_normalizer-3.5.2-cp314-cp314-ios_13_0_arm64_iphonesimulator.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/83/09/71e453691e927de4ddf792770cfaab3f49d494e222f66ea5e404bbd5e39c/charset_normalizer-3.5.2-cp314-cp314-manylinux2014_armv7l.manylinux_2_17_armv7l.manylinux_2_31_armv7l.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/83/1c/d8d8d7322a7c3eecdf3237a4a419cf41d2eaad8e006ce7dfdd9d4c8fa2eb/charset_normalizer-3.5.2-cp315-cp315t-musllinux_1_2_x86_64.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/86/bd/9b2bd1c5b7af02462c9752d33994834ff972a96b4c483eefde9e594488e2/charset_normalizer-3.5.2-cp311-cp311-musllinux_1_2_aarch64.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/88/8c/f1a91bddc8fb47c2889e29ea7ea49a194eb0d9868675d786806519c00d76/charset_normalizer-3.5.2-cp314-cp314-musllinux_1_2_armv7l.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/89/44/809913e2cfd279e635a9294fdbbfb1b1dc62a8189d473d561f649fce98d8/charset_normalizer-3.5.2-cp315-cp315-musllinux_1_2_riscv64.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/89/8c/75469d690cf47200bce8f6cad7655724fc23148e147abfc5ce78b5f65863/charset_normalizer-3.5.2-cp314-cp314-musllinux_1_2_s390x.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/8a/7b/ed341c66f69f688723501fac752be3d63c7159ca0d0d4174fc611e5710bb/charset_normalizer-3.5.2-cp315-cp315t-manylinux_2_31_riscv64.manylinux_2_39_riscv64.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/8a/8e/b4a085fb47c9d3a7e43576a4784fdd8fe23f907514a972de8086edaf7a48/charset_normalizer-3.5.2-cp315-cp315t-musllinux_1_2_s390x.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/8c/ab/176fbfd5b64939c55d652366aa5b9ef1d767af207a3aa6ebeb0d226c484d/charset_normalizer-3.5.2-cp37-abi3-macosx_10_9_universal2.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/8d/1f/20c8949f0676f7ab811abdeb7f4d7f1cbc6e61ff20bef08b44edeb092bc8/charset_normalizer-3.5.2-cp37-abi3-manylinux_2_31_riscv64.manylinux_2_39_riscv64.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/8d/44/94b15f1d938bc4b8411c483f947ba32952b71154c5550924be7031407d33/charset_normalizer-3.5.2-cp39-cp39-win_amd64.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/8e/37/eba316edd4f0c4d3a5d945924c4eeeae59abac4056aa815d8a4268f863a2/charset_normalizer-3.5.2-cp313-cp313-musllinux_1_2_armv7l.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/8e/cb/489a7ae61ca4603a813c0a297b3a0dfa891597cbaf6ca13e428ab3ce80d4/charset_normalizer-3.5.2-cp39-cp39-win32.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/90/8a/cee8e3024a1179723f9a96eafa6242e574527abc7e0492a2fa65fa988987/charset_normalizer-3.5.2-cp39-cp39-musllinux_1_2_riscv64.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/91/da/3c5a7798c046df7d2d68ad653cf5b6c5a8bfee225055a843c6f2f42aac1a/charset_normalizer-3.5.2-cp313-cp313-macosx_10_13_universal2.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/92/08/564955a4b5f2ccb410ab480bbe8c6a18063ff27f2d35458731c4a5335df9/charset_normalizer-3.5.2-cp314-cp314-manylinux2014_s390x.manylinux_2_17_s390x.manylinux_2_28_s390x.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/92/9f/181fd07e1bffea1d95cd80c84ac537354f50699c22cfc4d3c02b6fc16208/charset_normalizer-3.5.2-cp314-cp314t-win32.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/93/ad/bd74a283940dc910c5b14f8e4f80a248082bc9c0fcbe1f54530cb6d9cc5e/charset_normalizer-3.5.2-cp315-cp315t-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/95/69/0dbd0e0b9b16cfa816cdfcb3e2e3854a1f680dc07fb1245ea125e7448060/charset_normalizer-3.5.2-cp312-cp312-musllinux_1_2_x86_64.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/96/92/1fdf015f09ef449f50d3ac4b67c90887c9c318b727daa95cc4f866e6521d/charset_normalizer-3.5.2-cp37-abi3-musllinux_1_2_riscv64.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/96/dd/dddf3848de54804e5543750f390fce1f9bc3fa5404f58f87be262199bf6e/charset_normalizer-3.5.2-cp39-cp39-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/97/66/3e45a506d8110b632541faf9a9470185aa9878f1ed44020f31346c1c5e5b/charset_normalizer-3.5.2-cp311-cp311-win_arm64.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/98/77/46e87bcfc45d25ab4db7cfc9bb544bfa3ffd302289ed31ae93f5433eb899/charset_normalizer-3.5.2-cp310-cp310-macosx_10_9_universal2.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/98/e8/55d5fd3935b4bce6da4fe0df61898e8c82653e317e677bd58aceb9c60f13/charset_normalizer-3.5.2-cp315-cp315-win_amd64.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/9a/85/33abd4315c052d3d4f54c92b1ee49bfbc0dc7115a981e462a793b6d2ab87/charset_normalizer-3.5.2-cp313-cp313-pyemscripten_2025_0_wasm32.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/9c/76/b8ec57f4e9ee3253541abf95e4a462c0175fe8032dcd070f1f2421240942/charset_normalizer-3.5.2-cp313-cp313-win_amd64.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/9d/79/b849ad523017ea9f5a45581bbebed91439e0cf42fd2860a6f64e358eb5a6/charset_normalizer-3.5.2-cp314-cp314-musllinux_1_2_riscv64.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/9d/8a/b618149cc5207943a0242068d7a27897f56a62947b5a039085f2a22029f8/charset_normalizer-3.5.2-cp37-abi3-win_amd64.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/9e/18/70d76670b13686237863a379928d60bd10e021f17d243ab3d7014c4a5f4e/charset_normalizer-3.5.2-cp312-cp312-manylinux2014_ppc64le.manylinux_2_17_ppc64le.manylinux_2_28_ppc64le.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/9f/86/85c84e4da8b27dd409577d9437926ff581c5f9d3c66038dc68c1a526de51/charset_normalizer-3.5.2-cp314-cp314-manylinux2014_ppc64le.manylinux_2_17_ppc64le.manylinux_2_28_ppc64le.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/9f/de/21dd363e7ffac0f02caee93cc9bdb63b04adaf9bf7ce46dea742c9a51aad/charset_normalizer-3.5.2-cp39-cp39-manylinux_2_31_riscv64.manylinux_2_39_riscv64.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/a0/16/0e4c6ba9b44e97a2da150e52d331e8f9c968b21b358fbffa6c856cebcd89/charset_normalizer-3.5.2-cp315-cp315t-win32.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/a0/a1/4fbf5d0f0f1b2a080474c1cf9a2f12c4c6531bb0e8ba591055e846d2b4e9/charset_normalizer-3.5.2-cp315-cp315-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/a2/22/80992720a0282cd39bba1db35868e6b9c22f41281160143a836544bc1d8a/charset_normalizer-3.5.2-cp314-cp314t-musllinux_1_2_x86_64.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/a5/4a/bf7ef45794dd293fab5f98a9309817977fbb845b9998f171b8cc5d8437a3/charset_normalizer-3.5.2-cp315-cp315t-manylinux2014_ppc64le.manylinux_2_17_ppc64le.manylinux_2_28_ppc64le.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/a5/57/50e3fed84e175f40349bd0da7a4fce94c87f0378f52d74f511d89e0bdc20/charset_normalizer-3.5.2-cp315-cp315-musllinux_1_2_aarch64.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/a7/95/ca9b5eabde673002c6f1e7ada1b223916fe18f6d661da7aabd4d643718f1/charset_normalizer-3.5.2-cp312-cp312-musllinux_1_2_ppc64le.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/a8/9e/09efac30b937722f46d3110ba30b875b24b2e3a266ed746cc4e376a94d80/charset_normalizer-3.5.2-cp312-cp312-manylinux2014_armv7l.manylinux_2_17_armv7l.manylinux_2_31_armv7l.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/a8/a1/b983b62df4aedd9a740d2ae1eee43d48e2dc7f68695a1fbed9b773ccea23/charset_normalizer-3.5.2-cp39-cp39-win_arm64.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/a8/cf/ac8878d0322cf88a1aad4c7b147db32ca0bd806eb0060957b2e31486dbe6/charset_normalizer-3.5.2-cp314-cp314-android_24_x86_64.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/a9/55/93c0e5dbd085ae0471346026abbe7e0db9ea2d6fea74e51f0b5a46f233a7/charset_normalizer-3.5.2-cp312-cp312-musllinux_1_2_s390x.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/a9/5b/974423c2fd8e524c7a7f64318c1e02240ef954912fa2b4d70344107b9c68/charset_normalizer-3.5.2-cp315-cp315-win_arm64.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/ad/77/22d7e785d1e210afc2e2f58600dd1799d17a35665faf84383f002826c5f8/charset_normalizer-3.5.2-cp311-cp311-musllinux_1_2_riscv64.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/ae/8d/213565184708fdb263ae55e2c04ee1ff748129dd65d48ed0e3502da9c85a/charset_normalizer-3.5.2-cp312-cp312-manylinux_2_31_riscv64.manylinux_2_39_riscv64.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/ae/91/e8e946267f1c2d9e2bd651726e2fbd2addf02c4d36cea5069e32ca9d7bb5/charset_normalizer-3.5.2-cp311-cp311-musllinux_1_2_s390x.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/ae/ab/fb8b5178fdf7bf68efa61cbe892286bc9f73846f26147d4725fb89388475/charset_normalizer-3.5.2-cp310-cp310-win_amd64.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/af/a2/f28400ab13359d91bd39179df8e149376b9bf36588e739a3a4f9de2b84b2/charset_normalizer-3.5.2-cp315-cp315-musllinux_1_2_s390x.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/b3/1f/d1e78246f7ed60c8c8d606b4ac27f66ce49cc3e95f24893ccbeba9f77302/charset_normalizer-3.5.2-cp313-cp313-musllinux_1_2_aarch64.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/b4/f0/45b579df5cabc1d5d53ea1cc35e8437d3ca768c0acccc7041517cb6fbb32/charset_normalizer-3.5.2-cp37-abi3-musllinux_1_2_x86_64.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/b9/7b/e8a92613236b257d3b75d532496eb21f68ad8231d7d56df94497e460112e/charset_normalizer-3.5.2-cp310-cp310-musllinux_1_2_riscv64.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/ba/a2/8b50aa320adb880ad579518e6f718f24944804b42a88b83d267d5d444125/charset_normalizer-3.5.2-cp315-cp315-manylinux_2_31_riscv64.manylinux_2_39_riscv64.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/bb/33/2a6ae7fdc1b10cb581cef91addd8cdfc5f40d50abb5702309369d5834579/charset_normalizer-3.5.2-cp314-cp314t-musllinux_1_2_s390x.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/bc/90/0660ef18e18df0a4d2a1a0edff7dfbba42d4e50ef2425557a5bb7051f77b/charset_normalizer-3.5.2-cp313-cp313-musllinux_1_2_s390x.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/bd/39/559be29a0c0f086e0bba6922babd38916cc5e0b58ced4de13ee01ea05508/charset_normalizer-3.5.2-cp37-abi3-musllinux_1_2_armv7l.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/be/33/e90bc2b1374f7f36ef106f56620de5a783907e19ca857efe2277e31cac3e/charset_normalizer-3.5.2-cp315-cp315t-win_amd64.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/c1/48/c5dd00d5ef7791f02666de250a5bb6071e29b7e133cf4b835800b6d3bc27/charset_normalizer-3.5.2-cp314-cp314t-macosx_10_15_universal2.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/c2/cd/fc7152414561ff78f9c61a4a627025f65fd244abaefc99ac4e75c6169b33/charset_normalizer-3.5.2-cp310-cp310-musllinux_1_2_aarch64.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/c3/76/8a28136f3938ba9836f84280ce0c4d61ed1cf15a036b2034900c62634162/charset_normalizer-3.5.2-cp315-cp315-manylinux2014_s390x.manylinux_2_17_s390x.manylinux_2_28_s390x.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/c3/86/7b5cdf05e635c17c5a3f1e1b1ffc142b60e6f37b64af2e1979bd00ca8570/charset_normalizer-3.5.2-cp39-cp39-musllinux_1_2_x86_64.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/c4/9f/9f52d2886d52645987d603425482c63c5045a3005db1354a7097e5ed1ae9/charset_normalizer-3.5.2-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/c4/e3/017aea0911ada7405a825c7d937eb3a13009664e2f5b38e8c4bbf2abf894/charset_normalizer-3.5.2-cp312-cp312-win_arm64.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/c5/34/68292d68512768591aaff07c59bb53ee31341c87759433a859c4641a50c2/charset_normalizer-3.5.2-cp313-cp313-android_24_arm64_v8a.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/c8/8e/aaa037d40ca9ef045977f1a661048b1aa33f223adfce3452fe9be9f79d14/charset_normalizer-3.5.2-cp313-cp313-musllinux_1_2_ppc64le.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/c9/05/5d958bc8ea503e26be25ada5430fd409cfb45dc22ff33f9f96e649613c99/charset_normalizer-3.5.2-cp310-cp310-manylinux2014_ppc64le.manylinux_2_17_ppc64le.manylinux_2_28_ppc64le.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/c9/6d/9a08d7e0b29b7208e2c6c01dc56c8e0520e7c7beadbbfb024b58fd69c8a5/charset_normalizer-3.5.2-cp314-cp314-ios_13_0_arm64_iphoneos.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/c9/87/2fea8c13dc24b3ca9c6f803a5b2dfdeae73eb4f9e12c7885ed908ff0433c/charset_normalizer-3.5.2-cp312-cp312-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/ca/87/3d42a42e18ea066e2513936fd678a00696e77878b5ae04528976abdbcb83/charset_normalizer-3.5.2-cp315-cp315-manylinux2014_ppc64le.manylinux_2_17_ppc64le.manylinux_2_28_ppc64le.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/ca/e9/34e597dee616d0b8ee4b34d29399e85c2204ade174157a48505d42baa4ff/charset_normalizer-3.5.2-cp315-cp315-macosx_10_15_universal2.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/cc/9d/e41588b777965e5031a43128a1e96173ebb35ac75fc53ec3b517e7c21cd4/charset_normalizer-3.5.2-cp315-cp315t-musllinux_1_2_aarch64.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/d1/78/5ed86f743d4bc350db307e7636419a0a5ee1d91806d30c7f667bd5c80dae/charset_normalizer-3.5.2-cp314-cp314-win_amd64.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/d5/ad/2a895c945ee61988dfd9ccee64f0b78dc09f29c9b34d1dd545246d78e0ad/charset_normalizer-3.5.2-cp310-cp310-manylinux2014_armv7l.manylinux_2_17_armv7l.manylinux_2_31_armv7l.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/d6/39/45c7439f5b63d24f7d5b2a1d760f34af7628782d7144b4cc8ded45c2d4bc/charset_normalizer-3.5.2-cp313-cp313-manylinux2014_armv7l.manylinux_2_17_armv7l.manylinux_2_31_armv7l.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/d6/3e/350d89ad49916b86554d6f5f2d03ec1152148f87e5ff735106c6a03b1a36/charset_normalizer-3.5.2-cp314-cp314-manylinux_2_31_riscv64.manylinux_2_39_riscv64.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/d6/54/f7fbb3493c9f49091213b9c2d6dd65800696f1ce1a3f196a4205f50417b1/charset_normalizer-3.5.2-cp315-cp315-musllinux_1_2_armv7l.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/d9/37/b3a6385acc5a1e45b39ae9c90bfb9cf838a09b9dd37ef2740ab4c6b4a2eb/charset_normalizer-3.5.2-cp315-cp315-musllinux_1_2_ppc64le.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/dc/3c/8e7b8a5671ad5d433669fb2a76f1a0164df2d9b1718b0206bc2a16d840cc/charset_normalizer-3.5.2-cp37-abi3-musllinux_1_2_s390x.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/e1/16/710ac3de2ee354e2bd1a9c94efe45a2d27b5c6ad39b2d6a905be2c094b6c/charset_normalizer-3.5.2-cp313-cp313-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/e3/80/bee0b01b90ccd5322ae1d0abb33fab1bd95b7c2eadaf02aeccf22e04ee83/charset_normalizer-3.5.2-cp313-cp313-android_24_x86_64.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/e4/ed/cf505d3011ffceb12c2067a7a5d3cfe92b875d4d44bb0ff0d69375e2c184/charset_normalizer-3.5.2-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/e7/c8/693809898870237d82785a03f3b2b58fe4c9f14669f84a7d4e623c92a59e/charset_normalizer-3.5.2-cp312-cp312-macosx_10_13_universal2.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/e8/6f/127c3697761666e246f44ab52d8c88ababf80c61fb70b3261b53a94c0d5c/charset_normalizer-3.5.2-cp39-cp39-manylinux2014_s390x.manylinux_2_17_s390x.manylinux_2_28_s390x.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/e8/ee/008a2837737991474c5754bb3191010007663860979701990982a502cbaf/charset_normalizer-3.5.2-cp315-cp315t-manylinux2014_s390x.manylinux_2_17_s390x.manylinux_2_28_s390x.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/e8/fc/fdf8cf52ff21cd5bf158f20978991cf985325842f74283eb6df26c8a39d8/charset_normalizer-3.5.2-cp311-cp311-win_amd64.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/e9/89/9bab37955edf0adb3b66f8a3a6617d9f2f487e0d56f295a6a286cb640aa6/charset_normalizer-3.5.2-cp315-cp315-musllinux_1_2_x86_64.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/eb/e6/e6e083884cbcfd49c64865af05027fe7011be7b2d9179524f099a1b611f3/charset_normalizer-3.5.2-cp312-cp312-win_amd64.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/ee/f9/00ee0195db1013d8f7c416fd770fbeb560bb46eb2e36b054d05cb56f6cfa/charset_normalizer-3.5.2-cp315-cp315t-macosx_10_15_universal2.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/f0/2d/0ff8db0d373ba8538db686db11cd7e8912031490b9e4f383b41912e8d594/charset_normalizer-3.5.2-cp315-cp315t-musllinux_1_2_riscv64.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/f7/4c/070b38bdb5f49a70199fce923ec0726a49536a63ab262abbfcaaf351110b/charset_normalizer-3.5.2-cp314-cp314-pyemscripten_2026_0_wasm32.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/f8/c1/6116d52a2e3311ec80f21f5fb5e17b27405f10b9608af8f6e69516841a1b/charset_normalizer-3.5.2-cp314-cp314t-musllinux_1_2_ppc64le.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/fb/94/01009e13b94041599004edf32e56e382c24e570f60f79bab8efe45cfe1eb/charset_normalizer-3.5.2-cp311-cp311-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/fc/ad/d07d7862a62ffa6d79d68074d14823243dd235a77c45262acbf6adeb28bf/charset_normalizer-3.5.2-py3-none-any.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/fd/d3/6f561f74a296cf27d61775a1dc665ad13f3bff6a798810ca05907f37a7c4/charset_normalizer-3.5.2-cp314-cp314t-manylinux_2_31_riscv64.manylinux_2_39_riscv64.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/ff/6c/387b0e4f756a282831c1d9fc6aeb6c51ca4507ca202767c8de15ce9b12e2/charset_normalizer-3.5.2-cp37-abi3-musllinux_1_2_ppc64le.whl"
+        },
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/ff/ac/21d5c6b972285c5f095ff78afdc99f3539e3985dfcf7ff1cfbe9e772f529/charset_normalizer-3.5.2-cp310-cp310-musllinux_1_2_s390x.whl"
+        }
+      ],
+      "group": "",
+      "name": "charset-normalizer",
+      "properties": [
+        {
+          "name": "internal:SrcFile",
+          "value": "$ROOT/pyproject.toml"
+        },
+        {
+          "name": "internal:workspaceRef",
+          "value": "pkg:pypi/lib-a@0.2.0"
+        },
+        {
+          "name": "internal:workspaceRef",
+          "value": "pkg:pypi/lib-a@0.2.0"
+        },
+        {
+          "name": "internal:workspaceRef",
+          "value": "pkg:pypi/lib-a@0.2.0"
+        },
+        {
+          "name": "internal:workspaceRef",
+          "value": "pkg:pypi/lib-a@0.2.0"
+        },
+        {
+          "name": "internal:workspaceRef",
+          "value": "pkg:pypi/lib-a@0.2.0"
+        },
+        {
+          "name": "internal:workspaceSrcFile",
+          "value": "$ROOT/packages/lib-a/pyproject.toml"
+        },
+        {
+          "name": "internal:workspaceSrcFile",
+          "value": "$ROOT/packages/lib-a/pyproject.toml"
+        },
+        {
+          "name": "internal:workspaceSrcFile",
+          "value": "$ROOT/packages/lib-a/pyproject.toml"
+        },
+        {
+          "name": "internal:workspaceSrcFile",
+          "value": "$ROOT/packages/lib-a/pyproject.toml"
+        },
+        {
+          "name": "internal:workspaceSrcFile",
+          "value": "$ROOT/packages/lib-a/pyproject.toml"
+        }
+      ],
+      "purl": "pkg:pypi/charset-normalizer@3.5.2",
+      "type": "library",
+      "version": "3.5.2"
+    },
+    {
+      "bom-ref": "pkg:pypi/idna@3.20",
+      "evidence": {
+        "identity": [
+          {
+            "concludedValue": "$ROOT/uv.lock",
+            "confidence": 1,
+            "field": "purl",
+            "methods": [
+              {
+                "confidence": 1,
+                "technique": "manifest-analysis",
+                "value": "$ROOT/uv.lock"
+              }
+            ]
+          }
+        ]
+      },
+      "externalReferences": [
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/58/a2/bb081bab032533a855d44de1d56f8e8426114ff1ba5d1f07a438a0a654f8/idna-3.20-py3-none-any.whl"
+        },
+        {
+          "comment": "sdist",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/f5/08/8eea9d4b8302028f3abb2c0813953f7aec26d33b7a8960ed760e65ff29fa/idna-3.20.tar.gz"
+        }
+      ],
+      "group": "",
+      "name": "idna",
+      "properties": [
+        {
+          "name": "internal:SrcFile",
+          "value": "$ROOT/pyproject.toml"
+        },
+        {
+          "name": "internal:workspaceRef",
+          "value": "pkg:pypi/lib-a@0.2.0"
+        },
+        {
+          "name": "internal:workspaceRef",
+          "value": "pkg:pypi/lib-a@0.2.0"
+        },
+        {
+          "name": "internal:workspaceRef",
+          "value": "pkg:pypi/lib-a@0.2.0"
+        },
+        {
+          "name": "internal:workspaceRef",
+          "value": "pkg:pypi/lib-a@0.2.0"
+        },
+        {
+          "name": "internal:workspaceRef",
+          "value": "pkg:pypi/lib-a@0.2.0"
+        },
+        {
+          "name": "internal:workspaceSrcFile",
+          "value": "$ROOT/packages/lib-a/pyproject.toml"
+        },
+        {
+          "name": "internal:workspaceSrcFile",
+          "value": "$ROOT/packages/lib-a/pyproject.toml"
+        },
+        {
+          "name": "internal:workspaceSrcFile",
+          "value": "$ROOT/packages/lib-a/pyproject.toml"
+        },
+        {
+          "name": "internal:workspaceSrcFile",
+          "value": "$ROOT/packages/lib-a/pyproject.toml"
+        },
+        {
+          "name": "internal:workspaceSrcFile",
+          "value": "$ROOT/packages/lib-a/pyproject.toml"
+        }
+      ],
+      "purl": "pkg:pypi/idna@3.20",
+      "type": "library",
+      "version": "3.20"
+    },
+    {
+      "bom-ref": "pkg:pypi/requests@2.32.5",
+      "evidence": {
+        "identity": [
+          {
+            "concludedValue": "$ROOT/uv.lock",
+            "confidence": 1,
+            "field": "purl",
+            "methods": [
+              {
+                "confidence": 1,
+                "technique": "manifest-analysis",
+                "value": "$ROOT/uv.lock"
+              }
+            ]
+          }
+        ]
+      },
+      "externalReferences": [
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/1e/db/4254e3eabe8020b458f1a747140d32277ec7a271daf1d235b70dc0b4e6e3/requests-2.32.5-py3-none-any.whl"
+        },
+        {
+          "comment": "sdist",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/c9/74/b3ff8e6c8446842c3f5c837e9c3dfcfe2018ea6ecef224c710c85ef728f4/requests-2.32.5.tar.gz"
+        }
+      ],
+      "group": "",
+      "name": "requests",
+      "properties": [
+        {
+          "name": "internal:SrcFile",
+          "value": "$ROOT/pyproject.toml"
+        },
+        {
+          "name": "internal:workspaceRef",
+          "value": "pkg:pypi/lib-a@0.2.0"
+        },
+        {
+          "name": "internal:workspaceRef",
+          "value": "pkg:pypi/lib-a@0.2.0"
+        },
+        {
+          "name": "internal:workspaceSrcFile",
+          "value": "$ROOT/packages/lib-a/pyproject.toml"
+        },
+        {
+          "name": "internal:workspaceSrcFile",
+          "value": "$ROOT/packages/lib-a/pyproject.toml"
+        }
+      ],
+      "purl": "pkg:pypi/requests@2.32.5",
+      "type": "library",
+      "version": "2.32.5"
+    },
+    {
+      "bom-ref": "pkg:pypi/requests@2.34.2",
+      "evidence": {
+        "identity": [
+          {
+            "concludedValue": "$ROOT/uv.lock",
+            "confidence": 1,
+            "field": "purl",
+            "methods": [
+              {
+                "confidence": 1,
+                "technique": "manifest-analysis",
+                "value": "$ROOT/uv.lock"
+              }
+            ]
+          }
+        ]
+      },
+      "externalReferences": [
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/a0/f4/c67b0b3f1b9245e8d266f0f112c500d50e5b4e83cb6f3b71b6528104182a/requests-2.34.2-py3-none-any.whl"
+        },
+        {
+          "comment": "sdist",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/ac/c3/e2a2b89f2d3e2179abd6d00ebd70bff6273f37fb3e0cc209f48b39d00cbf/requests-2.34.2.tar.gz"
+        }
+      ],
+      "group": "",
+      "name": "requests",
+      "properties": [
+        {
+          "name": "internal:SrcFile",
+          "value": "$ROOT/pyproject.toml"
+        },
+        {
+          "name": "internal:workspaceRef",
+          "value": "pkg:pypi/lib-a@0.2.0"
+        },
+        {
+          "name": "internal:workspaceRef",
+          "value": "pkg:pypi/lib-a@0.2.0"
+        },
+        {
+          "name": "internal:workspaceRef",
+          "value": "pkg:pypi/lib-a@0.2.0"
+        },
+        {
+          "name": "internal:workspaceSrcFile",
+          "value": "$ROOT/packages/lib-a/pyproject.toml"
+        },
+        {
+          "name": "internal:workspaceSrcFile",
+          "value": "$ROOT/packages/lib-a/pyproject.toml"
+        },
+        {
+          "name": "internal:workspaceSrcFile",
+          "value": "$ROOT/packages/lib-a/pyproject.toml"
+        }
+      ],
+      "purl": "pkg:pypi/requests@2.34.2",
+      "type": "library",
+      "version": "2.34.2"
+    },
+    {
+      "bom-ref": "pkg:pypi/urllib3@2.6.3",
+      "evidence": {
+        "identity": [
+          {
+            "concludedValue": "$ROOT/uv.lock",
+            "confidence": 1,
+            "field": "purl",
+            "methods": [
+              {
+                "confidence": 1,
+                "technique": "manifest-analysis",
+                "value": "$ROOT/uv.lock"
+              }
+            ]
+          }
+        ]
+      },
+      "externalReferences": [
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/39/08/aaaad47bc4e9dc8c725e68f9d04865dbcb2052843ff09c97b08904852d84/urllib3-2.6.3-py3-none-any.whl"
+        },
+        {
+          "comment": "sdist",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/c7/24/5f1b3bdffd70275f6661c76461e25f024d5a38a46f04aaca912426a2b1d3/urllib3-2.6.3.tar.gz"
+        }
+      ],
+      "group": "",
+      "name": "urllib3",
+      "properties": [
+        {
+          "name": "internal:SrcFile",
+          "value": "$ROOT/pyproject.toml"
+        }
+      ],
+      "purl": "pkg:pypi/urllib3@2.6.3",
+      "type": "library",
+      "version": "2.6.3"
+    },
+    {
+      "bom-ref": "pkg:pypi/urllib3@2.8.0",
+      "evidence": {
+        "identity": [
+          {
+            "concludedValue": "$ROOT/uv.lock",
+            "confidence": 1,
+            "field": "purl",
+            "methods": [
+              {
+                "confidence": 1,
+                "technique": "manifest-analysis",
+                "value": "$ROOT/uv.lock"
+              }
+            ]
+          }
+        ]
+      },
+      "externalReferences": [
+        {
+          "comment": "wheel",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/92/9d/c4e665119135114480843e7ab388fa94d8480650450e6f8e26b70d323a4c/urllib3-2.8.0-py3-none-any.whl"
+        },
+        {
+          "comment": "sdist",
+          "type": "distribution",
+          "url": "https://files.pythonhosted.org/packages/e3/05/b17359e1cefb4f909b5e40b1b90a496d987258916dbbf88e842c729f510e/urllib3-2.8.0.tar.gz"
+        }
+      ],
+      "group": "",
+      "name": "urllib3",
+      "properties": [
+        {
+          "name": "internal:SrcFile",
+          "value": "$ROOT/pyproject.toml"
+        },
+        {
+          "name": "internal:workspaceRef",
+          "value": "pkg:pypi/lib-a@0.2.0"
+        },
+        {
+          "name": "internal:workspaceSrcFile",
+          "value": "$ROOT/packages/lib-a/pyproject.toml"
+        }
+      ],
+      "purl": "pkg:pypi/urllib3@2.8.0",
+      "type": "library",
+      "version": "2.8.0"
+    }
+  ],
+  "dependencies": [
+    {
+      "dependsOn": [],
+      "ref": "pkg:pypi/certifi@2026.7.22"
+    },
+    {
+      "dependsOn": [],
+      "ref": "pkg:pypi/charset-normalizer@3.5.2"
+    },
+    {
+      "dependsOn": [],
+      "ref": "pkg:pypi/idna@3.20"
+    },
+    {
+      "dependsOn": [
+        "pkg:pypi/lib-b@0.3.0",
+        "pkg:pypi/requests@2.32.5",
+        "pkg:pypi/requests@2.34.2"
+      ],
+      "ref": "pkg:pypi/lib-a@0.2.0"
+    },
+    {
+      "dependsOn": [],
+      "ref": "pkg:pypi/lib-b@0.3.0"
+    },
+    {
+      "dependsOn": [
+        "pkg:pypi/certifi@2026.7.22",
+        "pkg:pypi/charset-normalizer@3.5.2",
+        "pkg:pypi/idna@3.20",
+        "pkg:pypi/urllib3@2.8.0"
+      ],
+      "ref": "pkg:pypi/requests@2.32.5"
+    },
+    {
+      "dependsOn": [
+        "pkg:pypi/certifi@2026.7.22",
+        "pkg:pypi/charset-normalizer@3.5.2",
+        "pkg:pypi/idna@3.20",
+        "pkg:pypi/urllib3@2.8.0"
+      ],
+      "ref": "pkg:pypi/requests@2.34.2"
+    },
+    {
+      "dependsOn": [],
+      "ref": "pkg:pypi/urllib3@2.6.3"
+    },
+    {
+      "dependsOn": [],
+      "ref": "pkg:pypi/urllib3@2.8.0"
+    },
+    {
+      "dependsOn": [],
+      "ref": "pkg:pypi/ws-root@0.1.0"
+    }
+  ],
+  "metadata": {
+    "authors": [],
+    "component": {
+      "bom-ref": "pkg:pypi/ws-root@0.1.0",
+      "components": [
+        {
+          "bom-ref": "pkg:pypi/lib-a@0.2.0",
+          "description": "Workspace member lib-a",
+          "group": "",
+          "name": "lib-a",
+          "properties": [
+            {
+              "name": "cdx:pypi:requiresPython",
+              "value": ">=3.9"
+            },
+            {
+              "name": "internal:SrcFile",
+              "value": "$ROOT/packages/lib-a/pyproject.toml"
+            },
+            {
+              "name": "internal:is_workspace",
+              "value": "true"
+            },
+            {
+              "name": "internal:virtual_path",
+              "value": "packages/lib-a"
+            }
+          ],
+          "purl": "pkg:pypi/lib-a@0.2.0",
+          "type": "application",
+          "version": "0.2.0"
+        },
+        {
+          "bom-ref": "pkg:pypi/lib-b@0.3.0",
+          "description": "Workspace member lib-b",
+          "group": "",
+          "name": "lib-b",
+          "properties": [
+            {
+              "name": "cdx:pypi:requiresPython",
+              "value": ">=3.9"
+            },
+            {
+              "name": "internal:SrcFile",
+              "value": "$ROOT/packages/lib-b/pyproject.toml"
+            },
+            {
+              "name": "internal:is_workspace",
+              "value": "true"
+            },
+            {
+              "name": "internal:virtual_path",
+              "value": "packages/lib-b"
+            }
+          ],
+          "purl": "pkg:pypi/lib-b@0.3.0",
+          "type": "application",
+          "version": "0.3.0"
+        }
+      ],
+      "description": "Minimal uv workspace reproduction for cdxgen#4445",
+      "name": "ws-root",
+      "properties": [
+        {
+          "name": "cdx:pypi:requiresPython",
+          "value": ">=3.9"
+        },
+        {
+          "name": "internal:SrcFile",
+          "value": "$ROOT/pyproject.toml"
+        }
+      ],
+      "purl": "pkg:pypi/ws-root@0.1.0",
+      "type": "application",
+      "version": "0.1.0"
+    },
+    "lifecycles": [
+      {
+        "phase": "pre-build"
+      }
+    ],
+    "timestamp": "1970-01-01T00:00:00.000Z",
+    "tools": {
+      "components": [
+        {
+          "authors": [
+            {
+              "name": "OWASP Foundation"
+            }
+          ],
+          "bom-ref": "pkg:npm/%40cdxgen/cdxgen@0.0.0-normalized",
+          "group": "@cdxgen",
+          "name": "cdxgen",
+          "publisher": "OWASP Foundation",
+          "purl": "pkg:npm/%40cdxgen/cdxgen@0.0.0-normalized",
+          "type": "application",
+          "version": "0.0.0-normalized"
+        }
+      ]
+    }
+  },
+  "serialNumber": "urn:uuid:00000000-0000-0000-0000-000000000000",
+  "services": [],
+  "specVersion": "1.7",
+  "version": 1
+}
