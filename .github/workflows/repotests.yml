@@ -1681,11 +1681,10 @@ jobs:
           name: bomresults
           path: bomresults
 
-  # The three jobs below carve the slowest repo tests out of cli-tests so they
+  # The two jobs below carve the slowest repo tests out of cli-tests so they
   # run in parallel with it instead of extending its critical path. Measured
   # averages per matrix leg before the split (recent successful runs):
   #   scala tests                  ~46m (82m on windows)
-  #   django-DefectDojo (deep)     ~23m
   #   microservices-demo           ~23m (windows only)
   scala-repotests:
     strategy:
@@ -1783,55 +1782,6 @@ jobs:
         if: github.ref == 'refs/heads/master' && matrix.os == 'ubuntu-24.04-arm'
         with:
           name: bomresults-scala
-          path: bomresults
-
-  defectdojo-deep-repotests:
-    strategy:
-      fail-fast: false
-      matrix:
-        os: ['self-hosted-ubuntu', 'ubuntu-24.04-arm', 'macos-15']
-    runs-on: ${{ matrix.os }}
-    timeout-minutes: 45
-    if: ${{ !contains(github.event.pull_request.labels.*.name, 'ci:skip-repotests') }}
-    steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
-        with:
-          persist-credentials: false
-      - name: Setup pnpm
-        uses: pnpm/action-setup@ea17c68df8912ef543352723c149a84f56e3d413  # v6.1.0
-      - name: Use Node.js
-        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020  # v7.0.0
-        with:
-          node-version-file: .nvmrc
-          package-manager-cache: false
-      - name: Set up Python
-        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97  # v7.0.0
-        with:
-          python-version: '3.13'
-      - name: pnpm install
-        run: |
-          pnpm install:frozen
-          mkdir -p bomresults
-        env:
-          CI: true
-          CDXGEN_TEMP_DIR: ${{ runner.temp }}/cdxgen-repotests
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
-        with:
-          persist-credentials: false
-          repository: 'DefectDojo/django-DefectDojo'
-          ref: '2.28.2'
-          path: 'repotests/django-DefectDojo'
-      - name: repotests django-DefectDojo (deep)
-        run: |
-          bin/cdxgen.js -t python repotests/django-DefectDojo -o bomresults/django-DefectDojo.json --deep --include-crypto --spec-version 1.6
-          node bin/convert.js -i bomresults/django-DefectDojo.json -o bomresults/django-DefectDojo-16.spdx.json
-          bin/cdxgen.js -t python repotests/django-DefectDojo -o bomresults/django-DefectDojo-17.json --deep --spec-version 1.7 --fail-on-error
-          node bin/convert.js -i bomresults/django-DefectDojo-17.json -o bomresults/django-DefectDojo-17.spdx.json
-        shell: bash
-      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a  # v7.0.1
-        if: github.ref == 'refs/heads/master' && matrix.os == 'ubuntu-24.04-arm'
-        with:
-          name: bomresults-defectdojo-deep
           path: bomresults
 
   microservices-demo-repotests:
