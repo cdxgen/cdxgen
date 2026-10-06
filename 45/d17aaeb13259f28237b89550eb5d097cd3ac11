@@ -1,0 +1,21 @@
+contrib/README.md
+  s_5e2537d4d8b695::t_c7037dce7e70a8 36-48
+contrib/record-scalasem-reports.js
+  s_5e2537d4d8b695::t_6922ca6922dd37 1-76
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "45d17aaeb13259f28237b89550eb5d097cd3ac11",
+  "prompts": {},
+  "sessions": {
+    "s_5e2537d4d8b695": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6f7efc66-79d8-4800-a24c-ed735a57590d",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
