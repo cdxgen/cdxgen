@@ -89,8 +89,21 @@ for (const cacheVar of [
   "GRADLE_USER_HOME",
   "GRADLE_CACHE_DIR",
   "MAVEN_CACHE_DIR",
+  "COURSIER_CACHE",
+  "XDG_CACHE_HOME",
 ]) {
   process.env[cacheVar] = GOLDEN_SCRATCH_HOME;
+}
+// These name further local repositories (-Dmaven.repo.local, a settings file
+// passed with -s, Gradle's shared read-only cache), so they are unset rather
+// than redirected.
+for (const repoVar of [
+  "MVN_ARGS",
+  "MAVEN_ARGS",
+  "MAVEN_OPTS",
+  "GRADLE_RO_DEP_CACHE",
+]) {
+  delete process.env[repoVar];
 }
 
 /**
