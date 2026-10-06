@@ -885,6 +885,7 @@ The grouped lists below remain the authoritative inventory. The compact tables, 
 | `cdx:deno:jsrKey`                         | component             | string                          | `@std/assert@1.0.19`                                                       | On JSR components, whose purl is rewritten to the `@jsr/<owner>__<name>` npm-compat form                                                          | Preserves the original JSR identity for traceability and to pivot back from the npm-compat purl                                                                                                                                                                                                       | Context only     |
 | `cdx:deno:integrity`                      | component             | string                          | `eaada96ee120...` (raw sha256 hex)                                         | On JSR components that carry a Deno-provided integrity hash                                                                                       | Records the source-verbatim JSR integrity digest as published in `deno.lock` for reproducibility and verification                                                                                                                                                                                     | Context only     |
 | `cdx:scala:compilerVersion`               | component             | string                          | `3`, `2.13`                                                                | The Scala compiler target binary version extracted from the artifact name suffix                                                                  | Supports downstream package matching and precise Scala version verification                                                                                                                                                                                                                           | Context only     |
+| `cdx:sbt:failedProjects`                  | component             | comma-separated project ids     | `backend, ui`                                                              | On the metadata component when the sbt dependency tree of one or more subprojects could not be resolved after a per-subproject retry              | Explains why an sbt SBOM may be incomplete and names the subprojects to fix                                                                                                                                                                                                                            | Warning / triage |
 
 #### High-value combinations
 
@@ -1999,6 +2000,7 @@ annotation text exactly the way `cdx:audit:*` findings are:
 **`cdx:sbt:*`**
 
 - `cdx:sbt:package:development`
+- `cdx:sbt:failedProjects`
 
 **`cdx:service:*`**
 
