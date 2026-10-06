@@ -16,7 +16,7 @@ import {
   writeFileSync,
 } from "node:fs";
 import { homedir, tmpdir } from "node:os";
-import { join, resolve } from "node:path";
+import { dirname, join, resolve } from "node:path";
 import process from "node:process";
 
 const [projectsArg, ...names] = process.argv.slice(2);
@@ -34,8 +34,14 @@ const scalasem =
 const recorded = names.length
   ? names
   : readdirSync(outDir)
-      .filter((f) => f.endsWith(".json"))
+      .filter((f) => f.endsWith(".json") && f !== "canonical-algorithms.json")
       .map((f) => f.replace(/\.json$/, ""));
+
+// The canonical algorithm names the rules can emit are recorded beside the reports, so the
+// consumer test can check its OID alias table against the exact list this scalasem emits.
+const { CANONICAL_ALGORITHMS } = await import(
+  join(dirname(scalasem), "lib", "scalasem", "derive", "algorithms.js")
+);
 
 // Library jars live in a Coursier cache or a local Maven repository; only the part below the
 // cache root is kept.
@@ -70,6 +76,10 @@ try {
     }
     writeFileSync(join(outDir, `${name}.json`), `${text}\n`);
     console.log(`${name}: ${report._meta.counts?.files ?? 0} files`);
+    writeFileSync(
+      join(outDir, "canonical-algorithms.json"),
+      `${JSON.stringify(CANONICAL_ALGORITHMS, null, 2)}\n`,
+    );
   }
 } finally {
   rmSync(scratch, { recursive: true, force: true });
