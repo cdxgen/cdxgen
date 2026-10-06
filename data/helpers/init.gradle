@@ -17,14 +17,51 @@ allprojects {
         // attached to the matching component instead of guessing the first repository.
         if (project.hasProperty('cdxgenResolveDistribution') &&
                 project.property('cdxgenResolveDistribution').toString() == 'true') {
-            def resolvedKeys = [] as Set
+            // Shared by every project in the build, so a dependency declared in
+            // many subprojects is probed once, and a repository host that
+            // answers 429 is left alone for the rest of the build.
+            if (!gradle.ext.has('cdxgenResolvedKeys')) {
+                gradle.ext.cdxgenResolvedKeys = java.util.concurrent.ConcurrentHashMap.newKeySet()
+                gradle.ext.cdxgenPausedHosts = java.util.concurrent.ConcurrentHashMap.newKeySet()
+            }
+            def resolvedKeys = gradle.ext.cdxgenResolvedKeys
+            def pausedHosts = gradle.ext.cdxgenPausedHosts
+            // A HEAD request answers whether the repository serves the file
+            // without downloading it. Other URL schemes, such as file:, are
+            // opened and closed.
+            def artifactExists = { String artifactUrl ->
+                try {
+                    def url = new URL(artifactUrl)
+                    if (url.protocol == 'http' || url.protocol == 'https') {
+                        if (pausedHosts.contains(url.host)) {
+                            return false
+                        }
+                        def connection = (HttpURLConnection) url.openConnection()
+                        connection.requestMethod = 'HEAD'
+                        connection.instanceFollowRedirects = true
+                        connection.connectTimeout = 10000
+                        connection.readTimeout = 10000
+                        def code = connection.responseCode
+                        connection.disconnect()
+                        if (code == 429) {
+                            pausedHosts.add(url.host)
+                        }
+                        return code >= 200 && code < 300
+                    }
+                    def stream = url.openStream()
+                    stream.close()
+                    return true
+                } catch (Exception ignored) {
+                    return false
+                }
+            }
             project.configurations.each { configuration ->
                 configuration.dependencies.each { dependency ->
                     if (dependency.group == null || dependency.version == null) {
                         return
                     }
                     def depKey = String.format("%s:%s:%s", dependency.group, dependency.name, dependency.version)
-                    if (resolvedKeys.contains(depKey)) {
+                    if (!resolvedKeys.add(depKey)) {
                         return
                     }
                     def groupPath = dependency.group.replace('.', '/')
@@ -40,28 +77,16 @@ allprojects {
                         def jarUrl = String.format("%s%s/%s/%s/%s-%s.jar", urlString,
                                 groupPath, dependency.name, dependency.version,
                                 dependency.name, dependency.version)
+                        if (artifactExists(jarUrl)) {
+                            println "<CDXGEN:distribution>:" + depKey + " -> " + jarUrl
+                            break
+                        }
                         def aarUrl = String.format("%s%s/%s/%s/%s-%s.aar", urlString,
                                 groupPath, dependency.name, dependency.version,
                                 dependency.name, dependency.version)
-                        try {
-                            def inStreamJar = new URL(jarUrl).openStream()
-                            if (inStreamJar != null) {
-                                inStreamJar.close()
-                                println "<CDXGEN:distribution>:" + depKey + " -> " + jarUrl
-                                resolvedKeys.add(depKey)
-                                break
-                            }
-                        } catch (Exception ignored) {
-                        }
-                        try {
-                            def inStreamAar = new URL(aarUrl).openStream()
-                            if (inStreamAar != null) {
-                                inStreamAar.close()
-                                println "<CDXGEN:distribution>:" + depKey + " -> " + aarUrl
-                                resolvedKeys.add(depKey)
-                                break
-                            }
-                        } catch (Exception ignored) {
+                        if (artifactExists(aarUrl)) {
+                            println "<CDXGEN:distribution>:" + depKey + " -> " + aarUrl
+                            break
                         }
                     }
                 }
