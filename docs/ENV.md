@@ -288,7 +288,7 @@ searches skip `.chen`.
 
 | Variable      | Description                                                  |
 | ------------- | ------------------------------------------------------------ |
-| SBT_CACHE_DIR | Specify sbt cache directory. Useful for class name resolving |
+| SBT_CACHE_DIR | Ivy cache directory that `-t sbt-cache` reads in addition to the Coursier cache. Defaults to `~/.ivy2/cache`, which only sbt older than 1.3 populates. |
 
 ### Swift
 
