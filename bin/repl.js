@@ -1741,6 +1741,69 @@ cdxgenRepl.defineCommand("golemcoverage", {
     this.displayPrompt();
   },
 });
+function hasScalasemProperties(component) {
+  return Boolean(
+    component?.properties?.some((property) =>
+      property?.name?.startsWith("cdx:scalasem:"),
+    ),
+  );
+}
+
+cdxgenRepl.defineCommand("scalasemsummary", {
+  help: "summarize Scala Evinse/scalasem metadata and evidence coverage",
+  action() {
+    const interactiveBom = getInteractiveBom();
+    if (!interactiveBom) {
+      console.log("⚠ No BOM is loaded. Use .import command to import an SBOM");
+      this.displayPrompt();
+      return;
+    }
+    if (!hasScalasemProperties(interactiveBom.metadata?.component)) {
+      console.log(
+        "No scalasem properties found. Generate an evidence BOM with evinse -l scala or cdxgen --evidence to use this view.",
+      );
+      this.displayPrompt();
+      return;
+    }
+    const rootComponent = interactiveBom.metadata?.component || {};
+    const components = interactiveBom.components || [];
+    const occurrences = components.reduce(
+      (total, component) =>
+        total + (component?.evidence?.occurrences?.length || 0),
+      0,
+    );
+    const occurrencesWithLine = components.reduce(
+      (total, component) =>
+        total +
+        (component?.evidence?.occurrences || []).filter(
+          (occurrence) => occurrence?.line,
+        ).length,
+      0,
+    );
+    const callstacks = components.filter(
+      (component) => component?.evidence?.callstack?.frames?.length,
+    ).length;
+    const cryptoAssets = components.filter(
+      (component) => component?.type === "cryptographic-asset",
+    ).length;
+    printKeyValueTable("Scala Evinse / scalasem summary", [
+      ["Schema version", getPropertyValue(rootComponent, "cdx:scalasem:schemaVersion")],
+      ["Facts source", getPropertyValue(rootComponent, "cdx:scalasem:factsSource")],
+      ["Scala versions", getPropertyValue(rootComponent, "cdx:scalasem:scalaVersions")],
+      ["Platforms", getPropertyValue(rootComponent, "cdx:scalasem:platforms")],
+      ["Files analyzed", getPropertyValue(rootComponent, "cdx:scalasem:filesAnalyzed")],
+      ["Degraded", getPropertyValue(rootComponent, "cdx:scalasem:degraded")],
+      ["Components with occurrences", components.filter((c) => c?.evidence?.occurrences?.length).length],
+      ["Occurrences", occurrences],
+      ["Occurrences with line", occurrencesWithLine],
+      ["Components with call stacks", callstacks],
+      ["Crypto assets", cryptoAssets],
+      ["Services", (interactiveBom.services || []).length],
+    ]);
+    this.displayPrompt();
+  },
+});
+
 cdxgenRepl.defineCommand("auditfindings", {
   help: "summarize cdx-audit and bom-audit annotations from the loaded BOM",
   action() {

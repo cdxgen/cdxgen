@@ -203,14 +203,15 @@ cdxgen -t swift --evidence -o bom.json .
 cdxgen -t swift --evidence --required-only -o bom.json .
 ```
 
-### Scala evidence through the semantics slice
+### Scala evidence through scalasem
 
-Scala projects carry their dependencies through the JVM BOM path (`-t sbt`, `-t mill`, `-t scala-cli`, or plain `-t java`), and the evidence step treats every one of those project types the same as `evinse -l scala`.
+Scala projects carry their dependencies through the JVM BOM path (`-t sbt`, `-t mill`, `-t scala-cli`, or plain `-t java`), and the evidence step treats every one of those project types the same as `evinse -l scala`. The analyzer is scalasem from `@appthreat/atom-parsetools`; atom is never invoked for Scala. See [SCALA_EVINSE.md](SCALA_EVINSE.md) for the full pipeline.
 
-- The semantics slice maps used types back to the components of the input BOM through the `internal:Namespaces` properties. Components emitted from sbt, Mill and scala-cli builds name their artifacts the same way: the Scala binary suffix (`_3`, `_2.13`) is stripped and the version it carried is recorded in `cdx:scala:compilerVersion`, which is what vulnerability matching needs.
-- Locations found by the semantics pass are merged with the ones the usages step collected; a purl keeps both.
-- A user-supplied `--openapi-spec-file` produces services even when the usages slice is empty, which is the usual case for Scala.
-- An absolute `--semantics-slices-file` is used as given. A slice is reused only when it describes the same project directory and is not older than the input SBOM; version 1 slices must additionally refer to source files that still exist under the project.
+- Occurrences, crypto assets, services and call stacks come straight from the scalasem report, with source file and line. Components are joined through the dependency classpath the report records, the `internal:Namespaces` properties and the jar namespace map, so the join also works for builds that report no namespaces. Components emitted from sbt, Mill and scala-cli builds name their artifacts the same way: the Scala binary suffix (`_3`, `_2.13`) is stripped and the version it carried is recorded in `cdx:scala:compilerVersion`, which is what vulnerability matching needs.
+- A version 1 semantics slice passed with `--semantics-slices-file` is still read: its used types join onto the report evidence instead of replacing it.
+- A user-supplied `--openapi-spec-file` produces services even when the report has none.
+- An absolute `--semantics-slices-file` is used as given, and a report is reused only when it is a version 2 report of the same project directory that is not older than the input SBOM.
+- A failed or degraded run is never silent: the reason is printed once and recorded as `cdx:scalasem:diagnostic` properties, and `--fail-on-error` claims the exit status.
 
 ## Practical guidance
 

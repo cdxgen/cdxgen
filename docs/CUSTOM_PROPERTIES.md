@@ -1124,6 +1124,61 @@ decides whether an empty result is a measurement or a silence.
 | `cdx:kosi:endpoint:produces`       | Media types the endpoint returns.                                                                                                                                                                                                                                                                                                                          |
 | `cdx:kosi:endpoint:substantiated`  | Present, and only ever `false`, when kosi read NONE of the code behind this endpoint — an Android manifest component whose class is not among the analysed declarations (a library component, or a run that discovered no sources). The endpoint is still published, because the manifest declares it; absence of the property means the handler was read. |
 
+<a id="scalasem-scala-semantic-evidence"></a>
+
+#### Scalasem Scala semantic evidence
+
+Emitted by `evinse -l scala` and `cdxgen --evidence` for every Scala project type,
+from the scalasem report of `@appthreat/atom-parsetools`.
+
+Run context, on the metadata component:
+
+| Property | Meaning |
+ | --- | --- |
+| `cdx:scalasem:schemaVersion` | Report schema version, `scalasem/2`. |
+| `cdx:scalasem:factsSource` | Which readers produced the facts, `tasty` or `semanticdb`, comma separated. |
+| `cdx:scalasem:compilerSource` | Where the compilers came from, such as `sbt`, comma separated. |
+| `cdx:scalasem:scalaVersions` | Scala releases the modules were compiled with, comma separated. |
+| `cdx:scalasem:platforms` | Platforms the project builds for: `jvm`, `js`, `native`. |
+| `cdx:scalasem:filesAnalyzed` | Number of source files the report covers. |
+| `cdx:scalasem:degraded` | `true` when the report is truncated or carries diagnostics. |
+| `cdx:scalasem:diagnostic:<code>` | Count per diagnostic code, from a degraded report or a failed run (`scalasem-timeout`, `scalasem-failed`, `scalasem-no-report`, `scalasem-missing`). A Scala run never ends with no evidence and no explanation. |
+| `cdx:scalasem:jsModules` | JavaScript modules the Scala.js facades import that no npm component covers, comma separated. |
+
+Per component:
+
+| Property | Meaning |
+| --- | --- |
+| `cdx:scalasem:usageScopes` | `main`, `test` or both, for the scopes this component is used from. |
+| `cdx:scalasem:platforms` | Platforms of the files that use this component. |
+| `cdx:scalasem:callSites` | How many of the occurrences are calls rather than references. |
+| `cdx:scalasem:cryptoAlgorithms` | Algorithm the providing library was found to generate, one per algorithm. |
+| `cdx:scalasem:crypto:<kind>` | A crypto finding without a registry OID, as `name@file#line`, on the providing component or the project component for JDK APIs. |
+| `cdx:scalasem:jsModule` | JavaScript module this npm component was imported as, one per module. |
+
+On crypto assets:
+
+| Property | Meaning |
+| --- | --- |
+| `cdx:scalasem:crypto:resolution` | How the algorithm name was resolved (literal, constant, argument, inline, unresolved). |
+| `cdx:scalasem:crypto:api` | API family of the call site, such as `JCA`, `BouncyCastle` or `WebCrypto`. |
+| `cdx:scalasem:crypto:provider` | Library or runtime the algorithm comes from. |
+| `cdx:scalasem:crypto:weak` | `true` for a weak algorithm, mode or key size. |
+| `cdx:scalasem:crypto:nativeFunction` | The C function a Scala Native binding or call resolves to. |
+| `cdx:scalasem:crypto:nativeLibrary` | The native library that function comes from, such as `crypto`. |
+| `cdx:scalasem:crypto:gcmTagBits` | GCM tag length in bits, where the source sets one. |
+
+On services:
+
+| Property | Meaning |
+| --- | --- |
+| `cdx:scalasem:service:kind` | `http-client`, `websocket`, `datastore`, `messaging` or `cloud`. |
+| `cdx:scalasem:service:client` | Client library of the outbound call. |
+| `cdx:scalasem:service:resolution` | How the target was resolved (literal, constant, config, interpolated, unresolved). |
+| `cdx:scalasem:service:location` | `file#line` of a call site (outbound) or declaration (inbound), one property per site. The same locations are `services[].evidence.occurrences[]`, which spec-version compatibility strips below CycloneDX 2.0 — this property is where they survive at 1.6 and 1.7. |
+| `cdx:scalasem:endpoint:framework` | Framework that declares the inbound endpoint. |
+| `cdx:scalasem:endpoint:handler` | Handler method serving the endpoint. |
+
 <a id="dosai-dotnet-reachability-confidence"></a>
 
 #### Dosai .NET reachability confidence

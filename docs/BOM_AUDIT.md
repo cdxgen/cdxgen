@@ -91,6 +91,8 @@ The categories that work best in dry-run mode are the formulation-centric ones:
 - `golem-security`
 - `golem-performance`
 - `golem-compliance`
+- `scala-security`
+- `scala-compliance`
 - `hbom-security`
 - `hbom-performance`
 - `hbom-compliance`
@@ -282,6 +284,31 @@ Typical reviewer actions:
 - review native, generated, and embedded asset surfaces for reproducibility, license coverage, and cross-platform build behavior
 - treat truncated data-flow evidence as coverage-limited and rerun with narrower patterns or larger limits before relying on a clean result
 - document why each `go.mod` exclude directive exists and verify the selected module versions are safe and reproducible
+
+### `scala-security`, `scala-compliance` — Scala Evinse semantic evidence review
+
+Rules that evaluate `cdx:scalasem:*` properties and the crypto assets emitted by `evinse -l scala` and `cdxgen --evidence` for Scala projects. Run them after the enriched BOM exists.
+
+```bash
+cdxgen -t scala --deep --evidence -o bom.evinse.json /absolute/path/to/scala/project
+cdx-audit --bom bom.evinse.json --direct-bom-audit --categories scala
+```
+
+`scala` is an alias for `scala-security,scala-compliance`.
+
+| Rule          | Category        | Severity | Description                                                   |
+| ------------- | --------------- | -------- | ------------------------------------------------------------- |
+| SCALA-SEC-001 | scala-security  | medium   | Scala source uses a weak cryptographic algorithm in runtime code |
+| SCALA-SEC-002 | scala-security  | medium   | Scala source calls an outbound service over plaintext transport |
+| SCALA-SEC-003 | scala-security  | low      | Admin-like Scala endpoint declares no authentication signal   |
+
+These rules use the `cdx:scalasem:crypto:weak`, `cdx:scalasem:service:kind`, `cdx:scalasem:service:location`, `cdx:scalasem:endpoint:framework` and `cdx:scalasem:endpoint:handler` properties over the crypto assets and services the Scala analyzer produced.
+
+Typical reviewer actions:
+
+- open the occurrence location of a weak algorithm finding and move the call to a modern algorithm, mode and key size
+- switch plaintext `http://` and `ws://` targets to encrypted transports, or a local socket for same-host peers
+- confirm admin-like routes are protected by middleware or a gateway, and require authentication where they are not
 
 ### `asar-archive` — Electron ASAR release artifact review
 

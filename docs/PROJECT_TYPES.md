@@ -83,6 +83,8 @@ _*NOTE:*_
 > - gradle or gradlew is required to parse gradle projects.
 > - quarkus plugin is automatically detected and used by parsing pom.xml files (since cdxgen version 11.0.5) for java types. To explicitly specify this type, use `-t quarkus`. This is especially needed when cdxgen is invoked with `--no-recurse` argument for performance reasons.
 > - sbt is required for parsing scala sbt projects. Only scala 2.10 + sbt 0.13.6+ and 2.12 + sbt 1.0+ are currently supported.
+> - Scala evidence (`--evidence`, `evinse -l scala`, `cbom`, `saasbom`) runs the scalasem analyzer from `@appthreat/atom-parsetools`, never atom. Scala 2 modules need SemanticDB, which scalasem requests from the build without editing any build file. With `--no-install-deps` no build tool runs at all. See [SCALA_EVINSE.md](SCALA_EVINSE.md).
+> - Scala.js builds bundle npm packages: the scalajs-bundler manifest under `target` and a bundler workspace's `package.json` beside the build both contribute npm components to the BOM. Scala Native and Scala.js libraries keep their platform suffix (`_sjs1`, `_native0.x`) in the purl.
 >   - Alternatively, create a lock file using sbt-dependency-lock [plugin](https://github.com/stringbean/sbt-dependency-lock)
 > - sdkman must be installed and setup to use Java version types such as `java8`, `java11`, `java25`, and `java26`.
 > - sdkman is also used to provision pinned JVM build tools passed as versioned types such as `-t maven3.9.9`, `-t gradle8.14`, `-t sbt1.10.11`, or `-t scala3.6.4`. A compatible JDK is installed automatically when the current Java is too old for the pinned tool. Pass `--feature-flags jvm-tool-setup` to derive the toolchain from the repository (`.sdkmanrc`, wrappers, `project/build.properties`) instead.

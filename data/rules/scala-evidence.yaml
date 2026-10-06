@@ -1,0 +1,73 @@
+# Scala Evinse and scalasem Rules
+# Categories: scala-security, scala-compliance
+# Evaluates cdx:scalasem:* properties and the crypto assets emitted by
+# evinse -l scala and cdxgen --evidence for Scala projects.
+
+- id: SCALA-SEC-001
+  name: "Scala source uses a weak cryptographic algorithm in runtime code"
+  description: "scalasem flagged a weak algorithm, mode or key size at a call site the analyzed sources reach (MD5, SHA-1, DES, ECB, or a key below the modern floor)"
+  severity: medium
+  category: scala-security
+  dry-run-support: full
+  condition: |
+    components[
+      type = 'cryptographic-asset'
+      and $prop($, 'cdx:scalasem:crypto:weak') = 'true'
+      and $exists(evidence.occurrences)
+    ]
+  location: |
+    { "bomRef": $."bom-ref", "name": name }
+  message: "Weak cryptographic algorithm '{{ name }}' used in Scala source"
+  mitigation: "Move to the modern equivalent of this algorithm, mode and key size, and confirm no compatibility constraint forces the weak one. The occurrence evidence names the exact call site"
+  evidence: |
+    {
+      "algorithm": name,
+      "oid": cryptoProperties.oid,
+      "api": $prop($, 'cdx:scalasem:crypto:api'),
+      "locations": evidence.occurrences.location
+    }
+
+- id: SCALA-SEC-002
+  name: "Scala source calls an outbound service over plaintext transport"
+  description: "scalasem found an outbound HTTP or websocket client whose target URL starts with http:// or ws://, so traffic and credentials cross the network unencrypted"
+  severity: medium
+  category: scala-security
+  dry-run-support: full
+  condition: |
+    services[
+      $exists($filter(endpoints, function($e) { $contains($e, 'http://') or $contains($e, 'ws://') }))
+      and $prop($, 'cdx:scalasem:service:kind') != null
+    ]
+  location: |
+    { "name": name, "endpoints": endpoints }
+  message: "Outbound service '{{ name }}' is called over plaintext"
+  mitigation: "Switch the target to https:// or wss://, or a local socket if the peer is on the same host. The call site is named by the service's cdx:scalasem:service:location property"
+  evidence: |
+    {
+      "kind": $prop($, 'cdx:scalasem:service:kind'),
+      "client": $prop($, 'cdx:scalasem:service:client'),
+      "locations": $filter(properties, function($p) { $p.name = 'cdx:scalasem:service:location' }).value
+    }
+
+- id: SCALA-SEC-003
+  name: "Admin-like Scala endpoint declares no authentication signal"
+  description: "scalasem found an inbound route on an admin-like path (admin, internal, manage, debug) where neither the route nor its handler carries an authentication signal"
+  severity: low
+  category: scala-security
+  dry-run-support: full
+  condition: |
+    services[
+      $exists($filter(endpoints, function($e) { $contains($e, '/admin') or $contains($e, '/internal') or $contains($e, '/manage') or $contains($e, '/debug') }))
+      and $prop($, 'cdx:scalasem:endpoint:framework') != null
+      and $not(authenticated = true)
+    ]
+  location: |
+    { "name": name, "endpoints": endpoints }
+  message: "Endpoint '{{ name }}' looks administrative and declares no authentication"
+  mitigation: "Confirm the route is protected by middleware or a gateway the source does not show, and otherwise require authentication on it. The declaration site is named by the service's cdx:scalasem:service:location property"
+  evidence: |
+    {
+      "framework": $prop($, 'cdx:scalasem:endpoint:framework'),
+      "handler": $prop($, 'cdx:scalasem:endpoint:handler'),
+      "locations": $filter(properties, function($p) { $p.name = 'cdx:scalasem:service:location' }).value
+    }

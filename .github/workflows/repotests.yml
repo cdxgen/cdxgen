@@ -1771,7 +1771,22 @@ jobs:
           bin/cdxgen.js -t scala $GITHUB_WORKSPACE/repotests/play-samples/play-scala-slick-example --profile research -o bomresults/bom-play-scala-slick-example.json $GITHUB_WORKSPACE/repotests/play-samples/play-scala-slick-example
           bin/cdxgen.js -t scala $GITHUB_WORKSPACE/repotests/play-samples/play-scala-rest-api-example --profile research -o bomresults/bom-play-scala-rest-api-example.json $GITHUB_WORKSPACE/repotests/play-samples/play-scala-rest-api-example
           bin/cdxgen.js -t scala $GITHUB_WORKSPACE/repotests/play-samples/play-scala-grpc-example --profile research -o bomresults/bom-pplay-scala-grpc-example.json $GITHUB_WORKSPACE/repotests/play-samples/play-scala-grpc-example
+          # The research profile carries the scala semantic evidence: every
+          # produced BOM must have occurrences with lines and at least one
+          # service from the framework routes, and no scala-openapi.json may
+          # be written beside them.
           rm -rf repotests/play-samples || true
+          status=0
+          for bom in bomresults/bom-play-scala-slick-example.json bomresults/bom-play-scala-rest-api-example.json bomresults/bom-pplay-scala-grpc-example.json; do
+            echo "asserting $bom"
+            lines=$(jq '[.components[].evidence.occurrences[]? | select(.line != null)] | length' $bom)
+            services=$(jq '[.services[]?] | length' $bom)
+            echo "  occurrences-with-line $lines, services $services"
+            [ "$lines" -gt 0 ] || status=1
+            [ "$services" -gt 0 ] || status=1
+          done
+          ls bomresults/scala-openapi.json 2>/dev/null && status=1
+          exit $status
           if [ "$RUNNER_ENVIRONMENT" = "self-hosted" ]; then
             rm -rf ~/.cache/coursier ~/.ivy2 || true
           fi
@@ -1782,6 +1797,86 @@ jobs:
         if: github.ref == 'refs/heads/master' && matrix.os == 'ubuntu-24.04-arm'
         with:
           name: bomresults-scala
+          path: bomresults
+
+  # Scala semantic evidence over the trimmed corpus fixtures: the scalasem
+  # analyzer must produce occurrences with lines, crypto assets, services and
+  # call stacks through cdxgen --evidence, without atom.
+  scala-evidence-fixture-hosted:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    if: ${{ !contains(github.event.pull_request.labels.*.name, 'ci:skip-repotests') }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Set up JDK
+        uses: actions/setup-java@de7274f081f381c8f8158605e0321c36c3762e6  # v6.0.1
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+      - uses: sbt/setup-sbt@6158cb0903b8ceeae04f830055f3155e1b6a5ad7  # v1.5.11
+      - name: Setup pnpm
+        uses: pnpm/action-setup@ea17c68df8912ef543352723c149a84f56e3d413  # v6.1.0
+      - name: Use Node.js
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020  # v7.0.0
+        with:
+          node-version-file: .nvmrc
+          package-manager-cache: false
+      - name: pnpm install
+        run: |
+          pnpm install:frozen
+          npm install --no-save git+https://github.com/AppThreat/atom-parsetools.git#feat/scala-ng
+        env:
+          CI: true
+          CDXGEN_TEMP_DIR: ${{ runner.temp }}/cdxgen-scala-evidence
+      - name: scala evidence fixtures
+        run: |
+          mkdir -p bomresults
+          for fixture in crypto-jvm services-jvm play-app scala2-akka cross-platform; do
+            echo "::group::$fixture"
+            bin/cdxgen.js -t scala --deep --evidence \
+              -o bomresults/$fixture.evinse.json \
+              test/data/scala-evidence-repotest/$fixture
+            echo "::endgroup::"
+          done
+          expected=test/data/scala-evidence-repotest/expected.json
+          status=0
+          for fixture in crypto-jvm services-jvm play-app scala2-akka cross-platform; do
+            bom=bomresults/$fixture.evinse.json
+            floor=$(jq -r --arg f "$fixture" '.[$f].minOccurrencesWithLine // 0' $expected)
+            actual=$(jq '[.components[].evidence.occurrences[]? | select(.line != null)] | length' $bom)
+            echo "$fixture occurrences-with-line $actual >= $floor"
+            [ "$actual" -ge "$floor" ] || status=1
+
+            floor=$(jq -r --arg f "$fixture" '.[$f].minComponentsWithOccurrences // 0' $expected)
+            actual=$(jq '[.components[] | select(.evidence.occurrences != null and (.evidence.occurrences | length) > 0)] | length' $bom)
+            echo "$fixture components-with-occurrences $actual >= $floor"
+            [ "$actual" -ge "$floor" ] || status=1
+
+            floor=$(jq -r --arg f "$fixture" '.[$f].minCryptoAssets // 0' $expected)
+            actual=$(jq '[.components[] | select(.type == "cryptographic-asset")] | length' $bom)
+            echo "$fixture crypto-assets $actual >= $floor"
+            [ "$actual" -ge "$floor" ] || status=1
+
+            floor=$(jq -r --arg f "$fixture" '.[$f].minServices // 0' $expected)
+            actual=$(jq '[.services[]? | select((.properties // []) | any(.name == "cdx:scalasem:service:location"))] | length' $bom)
+            echo "$fixture services-with-source-locations $actual >= $floor"
+            [ "$actual" -ge "$floor" ] || status=1
+
+            floor=$(jq -r --arg f "$fixture" '.[$f].minCallstackComponents // 0' $expected)
+            actual=$(jq '[.components[] | select(.evidence.callstack.frames != null and (.evidence.callstack.frames | length) > 0)] | length' $bom)
+            echo "$fixture components-with-callstack $actual >= $floor"
+            [ "$actual" -ge "$floor" ] || status=1
+          done
+          exit $status
+        shell: bash
+        env:
+          CDXGEN_DEBUG_MODE: debug
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a  # v7.0.1
+        if: github.ref == 'refs/heads/master'
+        with:
+          name: bomresults-scala-evidence
           path: bomresults
 
   microservices-demo-repotests:

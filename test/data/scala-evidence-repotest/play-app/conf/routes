@@ -1,0 +1,12 @@
+# Routes for the play-app fixture. `@expect-next` markers apply to the following route line.
+# @expect-next endpoint method=GET path=/ fw=play handler=controllers.HomeController.index
+GET     /                           controllers.HomeController.index()
+# @expect-next endpoint method=GET path=/accounts/{id} fw=play handler=controllers.AccountController.show
+GET     /accounts/:id               controllers.AccountController.show(id: Long)
+# @expect-next endpoint method=POST path=/accounts fw=play handler=controllers.AccountController.create
+POST    /accounts                   controllers.AccountController.create()
+# @expect-next endpoint method=GET path=/files/{path} fw=play handler=controllers.AccountController.file
+GET     /files/*path                controllers.AccountController.file(path: String)
+# @expect-next endpoint method=GET path=/admin/stats fw=play handler=admin.Routes
+->      /admin                      admin.Routes
+GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
