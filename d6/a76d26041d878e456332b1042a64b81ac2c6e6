@@ -1,0 +1,39 @@
+test/data/scalasem/mill-cask.json
+  s_5e2537d4d8b695::t_03ec0d107ab013 1
+test/data/scalasem/crypto-jvm.json
+  s_5e2537d4d8b695::t_03ec0d107ab013 1
+test/data/scalasem/scala2-akka.json
+  s_5e2537d4d8b695::t_34690dfa587ea6 1
+test/data/scalasem/play-app.json
+  s_5e2537d4d8b695::t_03ec0d107ab013 1
+test/data/scalasem/callstack-app.json
+  s_5e2537d4d8b695::t_03ec0d107ab013 1
+test/data/scalasem/scala-cli-app.json
+  s_5e2537d4d8b695::t_34690dfa587ea6 1
+test/data/scalasem/maven-scala.json
+  s_5e2537d4d8b695::t_03ec0d107ab013 1
+test/data/scalasem/services-jvm.json
+  s_5e2537d4d8b695::t_34690dfa587ea6 1
+test/data/scalasem/scala-native-app.json
+  s_5e2537d4d8b695::t_34690dfa587ea6 1
+test/data/scalasem/scalajs-app.json
+  s_5e2537d4d8b695::t_34690dfa587ea6 1
+test/data/scalasem/cross-platform.json
+  s_5e2537d4d8b695::t_03ec0d107ab013 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "d6a76d26041d878e456332b1042a64b81ac2c6e6",
+  "prompts": {},
+  "sessions": {
+    "s_5e2537d4d8b695": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6f7efc66-79d8-4800-a24c-ed735a57590d",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
