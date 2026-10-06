@@ -1187,5 +1187,26 @@
       ]
     },
     "docs": "https://cyclonedx.github.io/cdxgen/#/ENV"
+  },
+  "policy.rate-limited": {
+    "ecosystem": "generic",
+    "kind": "evidence.degraded",
+    "impact": "licenses",
+    "title": "A registry rate limited this run, so its metadata came from local caches only",
+    "targetTier": null,
+    "actions": [
+      {
+        "kind": "env",
+        "command": "Point MAVEN_CENTRAL_URL at a mirror or repository manager, or wait for the block to expire, then re-run"
+      }
+    ],
+    "verify": {
+      "rules": [],
+      "expectTier": null,
+      "eventsCleared": [
+        "policy.rate-limited"
+      ]
+    },
+    "docs": "https://cyclonedx.github.io/cdxgen/#/ENV"
   }
 }

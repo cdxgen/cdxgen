@@ -909,6 +909,26 @@ cdxgen --dry-run --feature-flags jvm-tool-setup -t java /src
 
 Tool versions are left unresolved in this mode, because resolving a partial pin such as `maven3.9` means querying sdkman over the network. The JDK is reported as a requirement rather than an install unless a `javaNN` type was passed explicitly, since cdxgen would run `java --version` to decide whether the active JDK is new enough, and a dry run does not run it.
 
+### Maven Central rate limits
+
+Maven Central answers heavy consumers with HTTP 429 and keeps an IP blocked for longer the more requests arrive during a block. cdxgen keeps its own traffic to Central small:
+
+- POMs, licences, hashes and jar coordinates are read from the local Maven repository, the Gradle module cache and the Coursier cache first, including every parent POM. A project that has been built usually needs no request at all. `MAVEN_CACHE_DIR`, `-Dmaven.repo.local`, `<localRepository>`, `GRADLE_USER_HOME`, `GRADLE_RO_DEP_CACHE` and `COURSIER_CACHE` are honoured.
+- License enrichment fetches POMs remotely only with `FETCH_LICENSE=true`, and never for snapshots or the project's own modules.
+- After the first 429, cdxgen stops contacting that host for ten minutes, or for as long as `Retry-After` asks, and prints one warning.
+
+When enrichment needs the network and Central is limiting you, point cdxgen at a repository manager or a mirror, and keep the build tools away from Central:
+
+```shell
+export MAVEN_CENTRAL_URL=https://maven-central.storage-download.googleapis.com/maven2/
+export MVN_ARGS="-o"            # Maven resolves from ~/.m2 only
+export GRADLE_ARGS="--offline"  # Gradle resolves from its cache only
+export SEARCH_MAVEN_ORG=false   # skip the jar hash search on central.sonatype.com
+cdxgen -t java -o bom.json .
+```
+
+`MAVEN_CENTRAL_URL` only changes where cdxgen itself fetches POMs from. Maven, Gradle and sbt keep using the repositories their own configuration names.
+
 ## Nydus - next-generation container image
 
 [Nydus](https://github.com/dragonflyoss/nydus) enhances the current OCI image specification by improving container launch speed, image space and network bandwidth efficiency, and data integrity. cdxgen container images are available in nydus format with the `-nydus` suffix.
