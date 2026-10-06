@@ -1787,13 +1787,28 @@ cdxgenRepl.defineCommand("scalasemsummary", {
       (component) => component?.type === "cryptographic-asset",
     ).length;
     printKeyValueTable("Scala Evinse / scalasem summary", [
-      ["Schema version", getPropertyValue(rootComponent, "cdx:scalasem:schemaVersion")],
-      ["Facts source", getPropertyValue(rootComponent, "cdx:scalasem:factsSource")],
-      ["Scala versions", getPropertyValue(rootComponent, "cdx:scalasem:scalaVersions")],
+      [
+        "Schema version",
+        getPropertyValue(rootComponent, "cdx:scalasem:schemaVersion"),
+      ],
+      [
+        "Facts source",
+        getPropertyValue(rootComponent, "cdx:scalasem:factsSource"),
+      ],
+      [
+        "Scala versions",
+        getPropertyValue(rootComponent, "cdx:scalasem:scalaVersions"),
+      ],
       ["Platforms", getPropertyValue(rootComponent, "cdx:scalasem:platforms")],
-      ["Files analyzed", getPropertyValue(rootComponent, "cdx:scalasem:filesAnalyzed")],
+      [
+        "Files analyzed",
+        getPropertyValue(rootComponent, "cdx:scalasem:filesAnalyzed"),
+      ],
       ["Degraded", getPropertyValue(rootComponent, "cdx:scalasem:degraded")],
-      ["Components with occurrences", components.filter((c) => c?.evidence?.occurrences?.length).length],
+      [
+        "Components with occurrences",
+        components.filter((c) => c?.evidence?.occurrences?.length).length,
+      ],
       ["Occurrences", occurrences],
       ["Occurrences with line", occurrencesWithLine],
       ["Components with call stacks", callstacks],
