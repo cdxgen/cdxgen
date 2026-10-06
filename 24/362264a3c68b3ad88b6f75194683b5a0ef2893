@@ -1,0 +1,91 @@
+test/data/scala-evidence-repotest/cross-platform/build.sbt
+  s_5e2537d4d8b695::t_08b3c9bdf0ebaf 1-16
+test/data/scala-evidence-repotest/cross-platform/js/src/main/scala/corpus/cross/Platform.scala
+  s_5e2537d4d8b695::t_9c9b2ff4d84578 1-10
+test/data/scala-evidence-repotest/cross-platform/jvm/src/main/scala/corpus/cross/Platform.scala
+  s_5e2537d4d8b695::t_ad9a16f902c0c1 1-8
+test/data/scala-evidence-repotest/cross-platform/native/src/main/scala/corpus/cross/Platform.scala
+  s_5e2537d4d8b695::t_a1c0095b1bf9f5 1-17
+test/data/scala-evidence-repotest/cross-platform/project/build.properties
+  s_5e2537d4d8b695::t_e57d9cf7234709 1
+test/data/scala-evidence-repotest/cross-platform/shared/src/main/scala/corpus/cross/Envelope.scala
+  s_5e2537d4d8b695::t_1449f76440b006 1-10
+test/data/scala-evidence-repotest/crypto-jvm/build.sbt
+  s_5e2537d4d8b695::t_71aa9ae062f548 1-18
+test/data/scala-evidence-repotest/crypto-jvm/project/build.properties
+  s_5e2537d4d8b695::t_e8cbcdcb6a5b0b 1
+test/data/scala-evidence-repotest/crypto-jvm/src/main/scala-2/corpus/crypto/Scala2Crypto.scala
+  s_5e2537d4d8b695::t_182b65fe27103e 1-19
+test/data/scala-evidence-repotest/crypto-jvm/src/main/scala-3/corpus/crypto/Scala3Crypto.scala
+  s_5e2537d4d8b695::t_1185e662e3b052 1-16
+test/data/scala-evidence-repotest/crypto-jvm/src/main/scala/corpus/crypto/BouncyCastleOps.scala
+  s_5e2537d4d8b695::t_fa40bd12d30cbc 1-30
+test/data/scala-evidence-repotest/crypto-jvm/src/main/scala/corpus/crypto/Main.scala
+  s_5e2537d4d8b695::t_3192407f70d6b7 1-10
+test/data/scala-evidence-repotest/crypto-jvm/src/main/scala/corpus/crypto/TokenOps.scala
+  s_5e2537d4d8b695::t_0060a0ca6b47ce 1-15
+test/data/scala-evidence-repotest/play-app/app/controllers/AccountController.scala
+  s_5e2537d4d8b695::t_c1bdb9df7b255f 1-31
+test/data/scala-evidence-repotest/play-app/app/controllers/HomeController.scala
+  s_5e2537d4d8b695::t_1dc5f05e45a215 1-11
+test/data/scala-evidence-repotest/play-app/app/services/PaymentsClient.scala
+  s_5e2537d4d8b695::t_4454c3af8636e3 1-22
+test/data/scala-evidence-repotest/play-app/build.sbt
+  s_5e2537d4d8b695::t_424e90fbfa046c 1-14
+test/data/scala-evidence-repotest/play-app/conf/admin.routes
+  s_5e2537d4d8b695::t_4cf9dcb373c028 1
+test/data/scala-evidence-repotest/play-app/conf/application.conf
+  s_5e2537d4d8b695::t_c15d3ea5ad187f 1-3
+test/data/scala-evidence-repotest/play-app/conf/routes
+  s_5e2537d4d8b695::t_b77372bc657b0e 1-12
+test/data/scala-evidence-repotest/play-app/project/build.properties
+  s_5e2537d4d8b695::t_e841bf2b5d6c3b 1
+test/data/scala-evidence-repotest/scala2-akka/build.sbt
+  s_5e2537d4d8b695::t_a8f7288fb73fee 1-15
+test/data/scala-evidence-repotest/scala2-akka/project/build.properties
+  s_5e2537d4d8b695::t_6f1968b3566cb7 1
+test/data/scala-evidence-repotest/scala2-akka/src/main/scala/corpus/legacy/Routes.scala
+  s_5e2537d4d8b695::t_3449e7859ac4be 1-24
+test/data/scala-evidence-repotest/scala2-akka/src/main/scala/corpus/legacy/Store.scala
+  s_5e2537d4d8b695::t_e56291faa0f34e 1-19
+test/data/scala-evidence-repotest/services-jvm/build.sbt
+  s_5e2537d4d8b695::t_40678c45f61460 1-26
+test/data/scala-evidence-repotest/services-jvm/project/build.properties
+  s_5e2537d4d8b695::t_26283698f4b110 1
+test/data/scala-evidence-repotest/services-jvm/src/main/scala/corpus/services/CaskRoutes.scala
+  s_5e2537d4d8b695::t_a34b190fd2ea5a 1-11
+test/data/scala-evidence-repotest/services-jvm/src/main/scala/corpus/services/DataStores.scala
+  s_5e2537d4d8b695::t_e6dda4586f0047 1-22
+test/data/scala-evidence-repotest/services-jvm/src/main/scala/corpus/services/Http4sClients.scala
+  s_5e2537d4d8b695::t_fe6bea1fdf3bcc 1-10
+test/data/scala-evidence-repotest/services-jvm/src/main/scala/corpus/services/Http4sRoutes.scala
+  s_5e2537d4d8b695::t_51ce379922d0ae 1-18
+test/data/scala-evidence-repotest/services-jvm/src/main/scala/corpus/services/Main.scala
+  s_5e2537d4d8b695::t_241d49769d9ae5 1-12
+test/data/scala-evidence-repotest/services-jvm/src/main/scala/corpus/services/OutboundClients.scala
+  s_5e2537d4d8b695::t_cef3742c448047 1-20
+test/data/scala-evidence-repotest/services-jvm/src/main/scala/corpus/services/PekkoRoutes.scala
+  s_5e2537d4d8b695::t_b0d612c584bd89 1-14
+test/data/scala-evidence-repotest/services-jvm/src/main/scala/corpus/services/SttpClients.scala
+  s_5e2537d4d8b695::t_2a13f6c69340c1 1-17
+test/data/scala-evidence-repotest/services-jvm/src/main/scala/corpus/services/TapirEndpoints.scala
+  s_5e2537d4d8b695::t_d5a954b100242b 1-8
+test/data/scala-evidence-repotest/services-jvm/src/main/scala/corpus/services/ZioRoutes.scala
+  s_5e2537d4d8b695::t_0758cb166694b1 1-10
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "24362264a3c68b3ad88b6f75194683b5a0ef2893",
+  "prompts": {},
+  "sessions": {
+    "s_5e2537d4d8b695": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6f7efc66-79d8-4800-a24c-ed735a57590d",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
