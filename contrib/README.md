@@ -32,3 +32,14 @@ Abort mid-generation and compare the wasted CPU against a full generation:
 ```shell
 node contrib/server-abort-poc.mjs --mode amplify --requests 20 --port 19341
 ```
+
+## Work around a rate-limited Maven Central
+
+When Maven Central answers HTTP 429, a local caching proxy keeps Maven and `cdxgen --deep` sbt
+scans working. It serves what the local caches already hold and fetches the rest from a public
+mirror. See [maven-proxy/README.md](maven-proxy/README.md).
+
+```shell
+contrib/maven-proxy/maven-proxy.sh start
+eval "$(contrib/maven-proxy/maven-proxy.sh env)"
+```
