@@ -28,6 +28,9 @@ jobs:
         with:
           node-version: 26-nightly
           package-manager-cache: false
+      - name: Route Maven Central through Google's mirror
+        if: runner.environment == 'github-hosted'
+        run: node ci/maven-central-mirror.js
       - name: Test
         run: |
           pnpm install:frozen

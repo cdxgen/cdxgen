@@ -149,6 +149,9 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '23'
+      - name: Route Maven Central through Google's mirror
+        if: runner.environment == 'github-hosted'
+        run: node ci/maven-central-mirror.js
       - name: Install php and composer
         if: ${{ matrix.os == 'darwin' }}
         run: brew install php composer

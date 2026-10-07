@@ -516,6 +516,9 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: ${{ matrix.java-version }}
+      - name: Route Maven Central through Google's mirror
+        if: runner.environment == 'github-hosted'
+        run: node ci/maven-central-mirror.js
       - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e  # v7.0.0
         with:
           go-version: '1.27.0'
@@ -1464,6 +1467,9 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '21'
+      - name: Route Maven Central through Google's mirror
+        if: runner.environment == 'github-hosted'
+        run: node ci/maven-central-mirror.js
       - name: repotests blint
         run: |
           bin/cdxgen.js -t python repotests/blint -o bomresults/bom-blint.json --fail-on-error
@@ -1561,21 +1567,21 @@ jobs:
       - name: standalone jar files
         run: |
           mkdir -p standalone-jar-files
-          curl --output-dir standalone-jar-files -LO https://repo1.maven.org/maven2/org/jacoco/org.jacoco.report/0.8.8/org.jacoco.report-0.8.8.jar
-          curl --output-dir standalone-jar-files -LO https://repo1.maven.org/maven2/org/apache/ws/xmlschema/xmlschema-core/2.2.5/xmlschema-core-2.2.5.jar
-          curl --output-dir standalone-jar-files -LO https://repo1.maven.org/maven2/com/fasterxml/jackson/core/jackson-core/2.16.0/jackson-core-2.16.0.jar
-          curl --output-dir standalone-jar-files -LO https://repo1.maven.org/maven2/junit/junit/4.13.2/junit-4.13.2.jar
-          curl --output-dir standalone-jar-files -LO https://repo1.maven.org/maven2/wsdl4j/wsdl4j/1.6.3/wsdl4j-1.6.3.jar
-          curl --output-dir standalone-jar-files -LO https://repo1.maven.org/maven2/org/apache/maven/maven-core/3.9.2/maven-core-3.9.2.jar
-          curl --output-dir standalone-jar-files -LO https://repo1.maven.org/maven2/org/apache/ant/ant/1.10.13/ant-1.10.13.jar
-          curl --output-dir standalone-jar-files -LO https://repo1.maven.org/maven2/ch/qos/logback/logback-classic/1.4.7/logback-classic-1.4.7.jar
-          curl --output-dir standalone-jar-files -LO https://repo1.maven.org/maven2/org/apache/velocity/velocity/1.7/velocity-1.7.jar
-          curl --output-dir standalone-jar-files -LO https://repo1.maven.org/maven2/org/apache/commons/commons-math3/3.6.1/commons-math3-3.6.1.jar
-          curl --output-dir standalone-jar-files -LO https://repo1.maven.org/maven2/displaytag/displaytag/1.2/displaytag-1.2.jar
-          curl --output-dir standalone-jar-files -LO https://repo1.maven.org/maven2/org/apache/poi/poi/3.17/poi-3.17.jar
-          curl --output-dir standalone-jar-files -LO https://repo1.maven.org/maven2/org/jacoco/org.jacoco.agent/0.8.8/org.jacoco.agent-0.8.8.jar
-          curl --output-dir standalone-jar-files -LO https://repo1.maven.org/maven2/javax/jws/javax.jws-api/1.1/javax.jws-api-1.1.jar
-          curl --output-dir standalone-jar-files -LO https://repo1.maven.org/maven2/org/jrobin/jrobin/1.5.9/jrobin-1.5.9.jar
+          curl --output-dir standalone-jar-files -LO https://maven-central.storage-download.googleapis.com/maven2/org/jacoco/org.jacoco.report/0.8.8/org.jacoco.report-0.8.8.jar
+          curl --output-dir standalone-jar-files -LO https://maven-central.storage-download.googleapis.com/maven2/org/apache/ws/xmlschema/xmlschema-core/2.2.5/xmlschema-core-2.2.5.jar
+          curl --output-dir standalone-jar-files -LO https://maven-central.storage-download.googleapis.com/maven2/com/fasterxml/jackson/core/jackson-core/2.16.0/jackson-core-2.16.0.jar
+          curl --output-dir standalone-jar-files -LO https://maven-central.storage-download.googleapis.com/maven2/junit/junit/4.13.2/junit-4.13.2.jar
+          curl --output-dir standalone-jar-files -LO https://maven-central.storage-download.googleapis.com/maven2/wsdl4j/wsdl4j/1.6.3/wsdl4j-1.6.3.jar
+          curl --output-dir standalone-jar-files -LO https://maven-central.storage-download.googleapis.com/maven2/org/apache/maven/maven-core/3.9.2/maven-core-3.9.2.jar
+          curl --output-dir standalone-jar-files -LO https://maven-central.storage-download.googleapis.com/maven2/org/apache/ant/ant/1.10.13/ant-1.10.13.jar
+          curl --output-dir standalone-jar-files -LO https://maven-central.storage-download.googleapis.com/maven2/ch/qos/logback/logback-classic/1.4.7/logback-classic-1.4.7.jar
+          curl --output-dir standalone-jar-files -LO https://maven-central.storage-download.googleapis.com/maven2/org/apache/velocity/velocity/1.7/velocity-1.7.jar
+          curl --output-dir standalone-jar-files -LO https://maven-central.storage-download.googleapis.com/maven2/org/apache/commons/commons-math3/3.6.1/commons-math3-3.6.1.jar
+          curl --output-dir standalone-jar-files -LO https://maven-central.storage-download.googleapis.com/maven2/displaytag/displaytag/1.2/displaytag-1.2.jar
+          curl --output-dir standalone-jar-files -LO https://maven-central.storage-download.googleapis.com/maven2/org/apache/poi/poi/3.17/poi-3.17.jar
+          curl --output-dir standalone-jar-files -LO https://maven-central.storage-download.googleapis.com/maven2/org/jacoco/org.jacoco.agent/0.8.8/org.jacoco.agent-0.8.8.jar
+          curl --output-dir standalone-jar-files -LO https://maven-central.storage-download.googleapis.com/maven2/javax/jws/javax.jws-api/1.1/javax.jws-api-1.1.jar
+          curl --output-dir standalone-jar-files -LO https://maven-central.storage-download.googleapis.com/maven2/org/jrobin/jrobin/1.5.9/jrobin-1.5.9.jar
           FETCH_LICENSE=true bin/cdxgen.js standalone-jar-files -o bomresults/bom-standalone-jar-files.json
           rm -rf standalone-jar-files || true
         shell: bash
@@ -1706,6 +1712,9 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '21'
+      - name: Route Maven Central through Google's mirror
+        if: runner.environment == 'github-hosted'
+        run: node ci/maven-central-mirror.js
       - uses: sbt/setup-sbt@6158cb0903b8ceeae04f830055f3155e1b6a5ad7  # v1.5.11
       - uses: coursier/setup-action@3174df5c784a0c8724f06b7924b849551c40c39e  # v3.0.3
         with:
@@ -1838,6 +1847,9 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '21'
+      - name: Route Maven Central through Google's mirror
+        if: runner.environment == 'github-hosted'
+        run: node ci/maven-central-mirror.js
       - uses: sbt/setup-sbt@6158cb0903b8ceeae04f830055f3155e1b6a5ad7  # v1.5.11
       - name: Setup pnpm
         uses: pnpm/action-setup@ea17c68df8912ef543352723c149a84f56e3d413  # v6.1.0
@@ -1926,6 +1938,9 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '24'
+      - name: Route Maven Central through Google's mirror
+        if: runner.environment == 'github-hosted'
+        run: node ci/maven-central-mirror.js
       - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e  # v7.0.0
         with:
           go-version: '1.27.0'
@@ -1980,6 +1995,9 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: ${{ matrix.java-version }}
+      - name: Route Maven Central through Google's mirror
+        if: runner.environment == 'github-hosted'
+        run: node ci/maven-central-mirror.js
       - name: Setup pnpm
         uses: pnpm/action-setup@ea17c68df8912ef543352723c149a84f56e3d413  # v6.1.0
       - name: Use Node.js
@@ -2482,6 +2500,9 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '21'
+      - name: Route Maven Central through Google's mirror
+        if: runner.environment == 'github-hosted'
+        run: node ci/maven-central-mirror.js
       - name: Setup pnpm
         uses: pnpm/action-setup@ea17c68df8912ef543352723c149a84f56e3d413  # v6.1.0
       - name: Use Node.js
@@ -2505,7 +2526,8 @@ jobs:
           jq -e 'any(.components[]; .group == "org.slf4j" and .name == "slf4j-api" and .version == "2.0.7")' bomresults/bom-gradle-repotest.json
           jq -e 'any(.metadata.tools.components[]?; .group == "org.gradle" and .name == "gradle" and .version == "9.6.0" and any((.externalReferences // [])[]; .type == "distribution" and .url == "https://services.gradle.org/distributions/gradle-9.6.0-bin.zip") and any((.hashes // [])[]; .alg == "SHA-256" and .content == "bbaeb2fef8710818cf0e261201dab964c572f92b942812df0c3620d62a529a01"))' bomresults/bom-gradle-repotest.json
           bin/cdxgen.js -t gradle test/data/gradle-repotest -o bomresults/bom-gradle-repotest-resolve-dist.json --feature-flags resolve-gradle-distribution --fail-on-error
-          jq -e 'any(.components[]; .group == "org.slf4j" and .name == "slf4j-api" and .version == "2.0.7" and any((.externalReferences // [])[]; .type == "distribution" and .url == "https://repo.maven.apache.org/maven2/org/slf4j/slf4j-api/2.0.7/slf4j-api-2.0.7.jar"))' bomresults/bom-gradle-repotest-resolve-dist.json
+          # The CI routes Maven Central through Google's mirror, and the distribution names the repository Gradle used.
+          jq -e 'any(.components[]; .group == "org.slf4j" and .name == "slf4j-api" and .version == "2.0.7" and any((.externalReferences // [])[]; .type == "distribution" and (.url == "https://repo.maven.apache.org/maven2/org/slf4j/slf4j-api/2.0.7/slf4j-api-2.0.7.jar" or .url == "https://maven-central.storage-download.googleapis.com/maven2/org/slf4j/slf4j-api/2.0.7/slf4j-api-2.0.7.jar")))' bomresults/bom-gradle-repotest-resolve-dist.json
           jq -e 'any(.components[]; .group == "com.google.android.gms" and .name == "play-services-basement" and any((.externalReferences // [])[]; .type == "distribution" and (.url | contains("dl.google.com"))))' bomresults/bom-gradle-repotest-resolve-dist.json
         shell: bash
 
@@ -2522,6 +2544,9 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '21'
+      - name: Route Maven Central through Google's mirror
+        if: runner.environment == 'github-hosted'
+        run: node ci/maven-central-mirror.js
       - name: Setup pnpm
         uses: pnpm/action-setup@ea17c68df8912ef543352723c149a84f56e3d413  # v6.1.0
       - name: Use Node.js
@@ -2593,6 +2618,9 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: ${{ matrix.java-version }}
+      - name: Route Maven Central through Google's mirror
+        if: runner.environment == 'github-hosted'
+        run: node ci/maven-central-mirror.js
       - uses: sbt/setup-sbt@6158cb0903b8ceeae04f830055f3155e1b6a5ad7  # v1.5.11
       - uses: coursier/setup-action@3174df5c784a0c8724f06b7924b849551c40c39e  # v3.0.3
         with:
@@ -2724,6 +2752,9 @@ jobs:
         with:
           distribution: temurin
           java-version: 21
+      - name: Route Maven Central through Google's mirror
+        if: runner.environment == 'github-hosted'
+        run: node ci/maven-central-mirror.js
       # go-smoke ships no go.sum, so its `resolved` row needs a real go
       # toolchain; the macOS images carry none. The row skips itself when go
       # is absent, and this keeps it measured on all three platforms.
