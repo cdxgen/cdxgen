@@ -71,11 +71,38 @@ function fileIfPresent(path) {
   }
 }
 
+// A Maven repository path is a run of plain segments: group, artifact, version
+// and file names. Anything else is refused before it can shape a request.
+const REPO_SEGMENT = /^[A-Za-z0-9_][A-Za-z0-9._+-]*$/;
+
+/**
+ * The upstream URL of a repository path, kept on the upstream's own origin and
+ * under its own path.
+ *
+ * @param {string} base Upstream repository URL
+ * @param {string[]} segments Validated repository path segments
+ * @returns {URL|undefined} The URL, or undefined when it would leave the upstream
+ */
+function upstreamUrl(base, segments) {
+  const root = new URL(base.endsWith("/") ? base : `${base}/`);
+  const url = new URL(segments.map(encodeURIComponent).join("/"), root);
+  return url.origin === root.origin && url.pathname.startsWith(root.pathname)
+    ? url
+    : undefined;
+}
+
 async function fetchUpstream(rel) {
-  const urlPath = rel.split(sep).join("/");
+  const segments = rel.split(sep);
+  if (!segments.every((segment) => REPO_SEGMENT.test(segment))) {
+    return { ok: false, status: 400 };
+  }
   for (const base of upstreams) {
+    const url = upstreamUrl(base, segments);
+    if (!url) {
+      continue;
+    }
     try {
-      const res = await fetch(`${base}/${urlPath}`, {
+      const res = await fetch(url, {
         redirect: "follow",
         signal: AbortSignal.timeout(120000),
       });
@@ -142,7 +169,8 @@ async function handle(req, res) {
     rel === "." ||
     rel.startsWith("..") ||
     rel.startsWith(sep) ||
-    rel.includes("\0")
+    rel.includes("\0") ||
+    !rel.split(sep).every((segment) => REPO_SEGMENT.test(segment))
   ) {
     res.writeHead(400).end();
     return;
