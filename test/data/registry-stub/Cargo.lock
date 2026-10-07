@@ -1,0 +1,27 @@
+version = 3
+
+[[package]]
+name = "myapp"
+version = "0.1.0"
+dependencies = ["mylocal", "gitcrate", "altcrate", "serde"]
+
+[[package]]
+name = "mylocal"
+version = "0.2.0"
+
+[[package]]
+name = "gitcrate"
+version = "0.3.0"
+source = "git+https://github.com/acme/gitcrate?branch=main#0123456789abcdef0123456789abcdef01234567"
+
+[[package]]
+name = "altcrate"
+version = "0.4.0"
+source = "sparse+https://cargo.acme.invalid/index/"
+checksum = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+
+[[package]]
+name = "serde"
+version = "1.0.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
