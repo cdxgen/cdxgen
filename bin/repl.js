@@ -1805,6 +1805,14 @@ cdxgenRepl.defineCommand("scalasemsummary", {
         getPropertyValue(rootComponent, "cdx:scalasem:filesAnalyzed"),
       ],
       ["Degraded", getPropertyValue(rootComponent, "cdx:scalasem:degraded")],
+      ...(rootComponent.properties || [])
+        .filter((property) =>
+          property?.name?.startsWith("cdx:scalasem:diagnostic:"),
+        )
+        .map((property) => [
+          `Diagnostic ${property.name.slice("cdx:scalasem:diagnostic:".length)}`,
+          property.value,
+        ]),
       [
         "Components with occurrences",
         components.filter((c) => c?.evidence?.occurrences?.length).length,

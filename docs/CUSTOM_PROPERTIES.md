@@ -78,6 +78,7 @@ CycloneDX custom properties are emitted as name/value pairs, so consumers should
 | `cdx:golem:*`                                                                              | Go Evinse evidence                                                                  | Semantic Go usage scopes, occurrence kinds, call graph mode, build directives, native artifacts, security signals, vendoring, and module replacement context                                                 | Prioritize reachable Go dependency review, flag local replacements and private modules, audit generated/native build surfaces, and separate runtime from test-only usage                                                                        | [Golem Go Evinse evidence](#golem-go-evinse-evidence)                | [4](#example-4)                  |
 | `cdx:rusi:*`                                                                               | Rust Evinse evidence                                                                | Semantic Rust usage scopes, occurrence kinds, call graph mode, data-flow slices, crypto assets, and security signals                                                                                         | Prioritize reachable Rust dependency review, audit crypto reachability and data-flow provenance, flag security-sensitive API usage, and separate runtime from test-only usage                                                                   | [Rusi Rust Evinse evidence](#rusi-rust-evinse-evidence)              | [5](#example-5)                  |
 | `cdx:kosi:*`                                                                               | Kotlin Evinse evidence                                                              | Kotlin data-flow slices, trace completeness, reachability from roots, crypto assets, outbound services, and inbound endpoints                                                                                | Prioritize reachable Kotlin dependency review, audit crypto and cross-dependency flows, and map inbound API exposure with its authentication posture                                                                                            | [Kosi Kotlin Evinse evidence](#kosi-kotlin-evinse-evidence)          | [5](#example-5)                  |
+| `cdx:scalasem:*`                                                                           | Scala Evinse evidence                                                               | Scala run context and diagnostics, usage scopes and platforms, crypto findings without an OID, services and their source locations                                                                           | Prioritize reachable Scala dependency review, audit crypto use and weak findings, and map inbound and outbound API surfaces                                                                                                                     | [Scala semantic evidence](#scalasem-scala-semantic-evidence)         | [5](#example-5)                  |
 | `cdx:dotnet:*`                                                                             | .NET / NuGet / assemblies                                                           | Target framework, project guid, assembly identity/version, hint path, Azure Functions version                                                                                                                | Verify framework support policy, detect assembly/package identity mismatches, analyze implicit GAC/hint-path sourced dependencies                                                                                                               | [Package manager and language ecosystems](#inventory-packages)       | [5](#example-5)                  |
 | `cdx:maven:*`, `cdx:gradle:*`                                                              | Java (Maven/Gradle)                                                                 | Effective component scope, shaded namespace evidence, Gradle root path context                                                                                                                               | Identify shadowed/relocated classes (obfuscation or vendoring risk), enforce dependency-scope policy, track monorepo/root provenance                                                                                                            | [Package manager and language ecosystems](#inventory-packages)       | [5](#example-5)                  |
 | `cdx:nix:*`                                                                                | Nix flakes                                                                          | Input source URLs, lock revision/ref/hash/time, flake directory                                                                                                                                              | Validate immutable lock intent, detect unexpected source URL changes, support reproducibility/provenance checks                                                                                                                                 | [Package manager and language ecosystems](#inventory-packages)       | [4](#example-4)                  |
@@ -1134,26 +1135,27 @@ from the scalasem report of `@appthreat/atom-parsetools`.
 Run context, on the metadata component:
 
 | Property | Meaning |
- | --- | --- |
+| --- | --- |
 | `cdx:scalasem:schemaVersion` | Report schema version, `scalasem/2`. |
 | `cdx:scalasem:factsSource` | Which readers produced the facts, `tasty` or `semanticdb`, comma separated. |
 | `cdx:scalasem:compilerSource` | Where the compilers came from, such as `sbt`, comma separated. |
 | `cdx:scalasem:scalaVersions` | Scala releases the modules were compiled with, comma separated. |
 | `cdx:scalasem:platforms` | Platforms the project builds for: `jvm`, `js`, `native`. |
 | `cdx:scalasem:filesAnalyzed` | Number of source files the report covers. |
-| `cdx:scalasem:degraded` | `true` when the report is truncated or carries diagnostics. |
-| `cdx:scalasem:diagnostic:<code>` | Count per diagnostic code, from a degraded report or a failed run (`scalasem-timeout`, `scalasem-failed`, `scalasem-no-report`, `scalasem-missing`). A Scala run never ends with no evidence and no explanation. |
+| `cdx:scalasem:degraded` | `true` when the report is truncated or the run has any diagnostic. |
+| `cdx:scalasem:diagnostic:<code>` | Count per diagnostic code: the codes a degraded report carries, and the ones a run that fell short adds (`scalasem-missing`, `scalasem-not-runnable`, `scalasem-timeout`, `scalasem-no-report`, `scalasem-invalid-report`, `scalasem-old-report`, `scalasem-exit-status`). A Scala run never ends with no evidence and no explanation. |
 | `cdx:scalasem:jsModules` | JavaScript modules the Scala.js facades import that no npm component covers, comma separated. |
 
 Per component:
 
 | Property | Meaning |
 | --- | --- |
-| `cdx:scalasem:usageScopes` | `main`, `test` or both, for the scopes this component is used from. |
+| `cdx:scalasem:usageScopes` | `main`, `generated`, `test`, comma separated, for the scopes of the sources this component is used from. |
 | `cdx:scalasem:platforms` | Platforms of the files that use this component. |
-| `cdx:scalasem:callSites` | How many of the occurrences are calls rather than references. |
+| `cdx:scalasem:callSites` | How many calls into this component the report holds, whatever the occurrence cap kept. |
 | `cdx:scalasem:cryptoAlgorithms` | Algorithm the providing library was found to generate, one per algorithm. |
 | `cdx:scalasem:crypto:<kind>` | A crypto finding without a registry OID, as `name@file#line`, on the providing component or the project component for JDK APIs. |
+| `cdx:scalasem:crypto:weakFinding` | The same `name@file#line` for such a finding that is weak, since no asset carries the verdict. |
 | `cdx:scalasem:jsModule` | JavaScript module this npm component was imported as, one per module. |
 
 On crypto assets:
@@ -1164,6 +1166,7 @@ On crypto assets:
 | `cdx:scalasem:crypto:api` | API family of the call site, such as `JCA`, `BouncyCastle` or `WebCrypto`. |
 | `cdx:scalasem:crypto:provider` | Library or runtime the algorithm comes from. |
 | `cdx:scalasem:crypto:weak` | `true` for a weak algorithm, mode or key size. |
+| `cdx:scalasem:usageScopes` | Scopes of the sources the algorithm is used from: `main`, `generated` or `test`, one property per scope. |
 | `cdx:scalasem:crypto:nativeFunction` | The C function a Scala Native binding or call resolves to. |
 | `cdx:scalasem:crypto:nativeLibrary` | The native library that function comes from, such as `crypto`. |
 | `cdx:scalasem:crypto:gcmTagBits` | GCM tag length in bits, where the source sets one. |
@@ -1175,7 +1178,7 @@ On services:
 | `cdx:scalasem:service:kind` | `http-client`, `websocket`, `datastore`, `messaging` or `cloud`. |
 | `cdx:scalasem:service:client` | Client library of the outbound call. |
 | `cdx:scalasem:service:resolution` | How the target was resolved (literal, constant, config, interpolated, unresolved). |
-| `cdx:scalasem:service:location` | `file#line` of a call site (outbound) or declaration (inbound), one property per site. The same locations are `services[].evidence.occurrences[]`, which spec-version compatibility strips below CycloneDX 2.0 — this property is where they survive at 1.6 and 1.7. |
+| `cdx:scalasem:service:location` | `file#line` of a call site (outbound) or declaration (inbound), one property per site. The same locations are `services[].evidence.occurrences[]`, which spec-version compatibility keeps only at CycloneDX 2.0, so this property is how the locations reach a 1.6 or 1.7 BOM. |
 | `cdx:scalasem:endpoint:framework` | Framework that declares the inbound endpoint. |
 | `cdx:scalasem:endpoint:handler` | Handler method serving the endpoint. |
 

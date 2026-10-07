@@ -9,6 +9,7 @@
 - [cdx-verify — Verify BOM signatures](CDX_VERIFY.md)
 - [evinse — Evidence and SaaSBOM enrichment](EVINSE.md)
 - [Go Evinse with Golem](GO_EVINSE_GOLEM.md)
+- [Scala Evinse with scalasem](SCALA_EVINSE.md)
 - [REPL / cdxi](REPL.md)
 - [Server Usage](SERVER.md)
 - [Getting Started - Development](GETTING_STARTED.md)
