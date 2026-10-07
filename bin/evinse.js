@@ -275,9 +275,10 @@ const args = yargs(hideBin(process.argv))
     default: false,
     type: "boolean",
   })
-  .option("no-scalasem", {
-    description: "Skip the Scala semantic analyzer and keep the plain BOM.",
-    default: false,
+  .option("scalasem", {
+    description:
+      "Run the Scala semantic analyzer for Scala projects. Use --no-scalasem to skip it and keep the plain BOM.",
+    default: true,
     type: "boolean",
   })
   .option("data-flow-slices-file", {

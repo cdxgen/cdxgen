@@ -457,6 +457,23 @@ const args = _yargs
     default: false,
     description: "Generate SBOM with evidence for supported languages.",
   })
+  .option("scalasem", {
+    type: "boolean",
+    default: true,
+    description:
+      "Run the Scala semantic analyzer for the evidence of Scala projects. Use --no-scalasem to skip it.",
+  })
+  .option("scalasem-command", {
+    type: "string",
+    description:
+      "Use a specific scalasem script for the Scala evidence. Defaults to SCALASEM_CMD.",
+  })
+  .option("scalasem-include-tests", {
+    type: "boolean",
+    default: false,
+    description:
+      "Include test sources in the Scala evidence, tagged with their usage scope.",
+  })
   .option("deps-slices-file", {
     description: "Path for the parsedeps slice file created by atom.",
     default: "deps.slices.json",
@@ -2153,7 +2170,9 @@ const writeCycloneDxOutput = (jsonFile, bomJson, options) => {
         sourcePath: filePath,
       });
       const evinserModule = await import("../lib/evinser/evinser.js");
-      options.projectType = options.projectType || ["java"];
+      options.projectType = options.projectType || [
+        evinserModule.defaultEvidenceLanguage(filePath),
+      ];
       const evinseOptions = evinserModule.buildEvinseOptions(
         options,
         args,
