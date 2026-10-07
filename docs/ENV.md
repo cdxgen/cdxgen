@@ -224,7 +224,7 @@ When `CDXGEN_PLUGINS_DIR` points at a packaged plugins directory, cdxgen also lo
 | ---------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | PIP_INSTALL_ARGS | Provides additional arguments for `pip install` commands, such as `--python-version`, `--ignore-requires-python`, and `--no-warn-conflicts`. Useful for custom Python dependency installations. |
 | PIP_TARGET       | Specifies the target directory for pip installations, often used when dependencies are installed into temporary or isolated directories.                                                        |
-| PYPI_URL         | Override PyPi URL. Default: https://pypi.org/pypi/                                                                                                                                              |
+| PYPI_URL         | Override PyPi URL. Default: https://pypi.org/pypi/. Git, URL, path, editable and virtual sources are never looked up. A package the lockfile resolved from another index is looked up only when this URL is on that index's server, as with a repository manager. |
 
 ### Ruby
 
