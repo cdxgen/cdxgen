@@ -1,5 +1,5 @@
 // Play ground-truth fixture: conf/routes (including a `->` sub-router), controllers, WS client, signed cookies.
-ThisBuild / organization := "corpus.scala"
+ThisBuild / organization := "sample.scala"
 ThisBuild / version := "0.1.0"
 lazy val scala3 = "3.3.7"
 lazy val scala213 = "2.13.18"

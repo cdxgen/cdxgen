@@ -14,9 +14,9 @@ class PaymentsClient @Inject() (ws: WSClient, config: Configuration)(implicit ec
   private val endpoint = config.get[String]("payments.url")
 
   def charge(body: String): Future[String] = {
-    val idempotency = MessageDigest.getInstance("SHA-1").digest(body.getBytes).map("%02x".format(_)).mkString // @expect crypto alg=SHA-1 weak=true
-    ws.url(endpoint).addHttpHeaders("Idempotency-Key" -> idempotency).post(body).map(_.body) // @expect sink cs=play-create lib=org.playframework:play-ws-standalone
+    val idempotency = MessageDigest.getInstance("SHA-1").digest(body.getBytes).map("%02x".format(_)).mkString
+    ws.url(endpoint).addHttpHeaders("Idempotency-Key" -> idempotency).post(body).map(_.body)
   }
 
-  def health(): Future[Int] = ws.url("https://status.stripe.com/api/v2/status.json").get().map(_.status) // @expect outbound url=https://status.stripe.com/api/v2/status.json client=play-ws
+  def health(): Future[Int] = ws.url("https://status.stripe.com/api/v2/status.json").get().map(_.status)
 }

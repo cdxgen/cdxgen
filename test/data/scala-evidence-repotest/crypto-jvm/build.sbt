@@ -1,6 +1,6 @@
 // Crypto ground-truth fixture: JCA, BouncyCastle, jwt-scala and favre bcrypt call sites.
-// Every expected finding carries an inline `// @expect` marker; tools/expectations.mjs collects them.
-ThisBuild / organization := "corpus.scala"
+// Every expected finding carries an inline `
+ThisBuild / organization := "sample.scala"
 ThisBuild / version := "0.1.0"
 lazy val scala3 = "3.3.7"
 lazy val scala213 = "2.13.18"

@@ -1,5 +1,5 @@
 // Scala 2.12-only fixture: Akka HTTP 10.2 routes and client, Slick, JCA. No TASTy is ever produced.
-ThisBuild / organization := "corpus.scala"
+ThisBuild / organization := "sample.scala"
 ThisBuild / version := "0.1.0"
 ThisBuild / scalaVersion := "2.12.20"
 

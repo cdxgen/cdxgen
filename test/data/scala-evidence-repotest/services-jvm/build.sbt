@@ -1,6 +1,6 @@
 // Services ground-truth fixture: server routes (http4s, pekko-http, tapir, zio-http, cask),
 // outbound HTTP clients (sttp, http4s ember, java.net.http, pekko-http) and data stores (JDBC, Kafka).
-ThisBuild / organization := "corpus.scala"
+ThisBuild / organization := "sample.scala"
 ThisBuild / version := "0.1.0"
 lazy val scala3 = "3.3.7"
 lazy val scala213 = "2.13.18"

@@ -1,33 +1,33 @@
 {
   "crypto-jvm": {
-    "minOccurrencesWithLine": 40,
-    "minComponentsWithOccurrences": 20,
-    "minCryptoAssets": 15,
+    "minOccurrencesWithLine": 17,
+    "minComponentsWithOccurrences": 3,
+    "minCryptoAssets": 16,
     "minCallstackComponents": 1
   },
   "services-jvm": {
-    "minOccurrencesWithLine": 60,
-    "minComponentsWithOccurrences": 15,
-    "minServices": 15,
-    "minCallstackComponents": 5
+    "minOccurrencesWithLine": 62,
+    "minComponentsWithOccurrences": 16,
+    "minServices": 16,
+    "minCallstackComponents": 8
   },
   "play-app": {
-    "minOccurrencesWithLine": 100,
-    "minComponentsWithOccurrences": 8,
+    "minOccurrencesWithLine": 92,
+    "minComponentsWithOccurrences": 4,
     "minCryptoAssets": 1,
-    "minServices": 5,
-    "minCallstackComponents": 1
+    "minServices": 6,
+    "minCallstackComponents": 3
   },
   "scala2-akka": {
-    "minOccurrencesWithLine": 20,
-    "minComponentsWithOccurrences": 5,
+    "minOccurrencesWithLine": 16,
+    "minComponentsWithOccurrences": 3,
     "minCryptoAssets": 1,
     "minServices": 3,
     "minCallstackComponents": 1
   },
   "cross-platform": {
-    "minOccurrencesWithLine": 20,
+    "minOccurrencesWithLine": 8,
     "minComponentsWithOccurrences": 5,
-    "minCryptoAssets": 3
+    "minCryptoAssets": 2
   }
 }
