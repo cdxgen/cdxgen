@@ -1,0 +1,82 @@
+test/data/scala-evidence-repotest/crypto-jvm/src/main/scala/sample/crypto/Main.scala
+  s_5e2537d4d8b695::t_c7b502caa06966 1-10
+test/data/scala-evidence-repotest/crypto-jvm/src/main/scala-3/sample/crypto/Scala3Crypto.scala
+  s_5e2537d4d8b695::t_c7b502caa06966 1-16
+bin/repl.js
+  s_5e2537d4d8b695::t_b4d8c6d4ca4b3e 1808-1815
+test/data/scala-evidence-repotest/services-jvm/src/main/scala/sample/services/ZioRoutes.scala
+  s_5e2537d4d8b695::t_c7b502caa06966 1-10
+test/data/scala-evidence-repotest/services-jvm/src/main/scala/sample/services/PekkoRoutes.scala
+  s_5e2537d4d8b695::t_c7b502caa06966 1-14
+test/data/scala-evidence-repotest/services-jvm/src/main/scala/sample/services/SttpClients.scala
+  s_5e2537d4d8b695::t_c7b502caa06966 1-17
+test/data/scala-evidence-repotest/crypto-jvm/src/main/scala/sample/crypto/TokenOps.scala
+  s_5e2537d4d8b695::t_c7b502caa06966 1-15
+docs/_sidebar.md
+  s_5e2537d4d8b695::t_1c359aef2c3408 12
+docs/CUSTOM_PROPERTIES.md
+  s_5e2537d4d8b695::t_7d235155701950 81,1138,1145,1153,1155,1158,1169,1181
+  s_5e2537d4d8b695::t_30018deede81d1 1146
+test/data/scala-evidence-repotest/services-jvm/src/main/scala/sample/services/CaskRoutes.scala
+  s_5e2537d4d8b695::t_c7b502caa06966 1-11
+docs/EVINSE.md
+  s_5e2537d4d8b695::t_40862963a8fd10 208,211-212,214
+test/data/scala-evidence-repotest/services-jvm/src/main/scala/sample/services/Http4sClients.scala
+  s_5e2537d4d8b695::t_c7b502caa06966 1-10
+test/data/scala-evidence-repotest/cross-platform/jvm/src/main/scala/sample/cross/Platform.scala
+  s_5e2537d4d8b695::t_c7b502caa06966 1-8
+test/data/scala-evidence-repotest/services-jvm/src/main/scala/sample/services/OutboundClients.scala
+  s_5e2537d4d8b695::t_c7b502caa06966 1-20
+test/data/scala-evidence-repotest/crypto-jvm/src/main/scala-2/sample/crypto/Scala2Crypto.scala
+  s_5e2537d4d8b695::t_c7b502caa06966 1-19
+test/data/scala-evidence-repotest/cross-platform/native/src/main/scala/sample/cross/Platform.scala
+  s_5e2537d4d8b695::t_c7b502caa06966 1-17
+test/data/scala-evidence-repotest/cross-platform/shared/src/main/scala/sample/cross/Envelope.scala
+  s_5e2537d4d8b695::t_c7b502caa06966 1-10
+test/data/scala-evidence-repotest/services-jvm/src/main/scala/sample/services/Http4sRoutes.scala
+  s_5e2537d4d8b695::t_c7b502caa06966 1-18
+test/data/scala-evidence-repotest/services-jvm/src/main/scala/sample/services/DataStores.scala
+  s_5e2537d4d8b695::t_c7b502caa06966 1-22
+test/data/scala-evidence-repotest/scala2-akka/src/main/scala/sample/legacy/Store.scala
+  s_5e2537d4d8b695::t_c7b502caa06966 1-19
+test/data/scala-evidence-repotest/cross-platform/js/src/main/scala/sample/cross/Platform.scala
+  s_5e2537d4d8b695::t_c7b502caa06966 1-10
+test/data/scala-evidence-repotest/services-jvm/src/main/scala/sample/services/Main.scala
+  s_5e2537d4d8b695::t_c7b502caa06966 1-12
+docs/PROJECT_TYPES.md
+  s_5e2537d4d8b695::t_40862963a8fd10 87-88
+  s_5e2537d4d8b695::t_dc21721baf6c17 23,29
+docs/SCALA_EVINSE.md
+  s_5e2537d4d8b695::t_ffa8e71e62dcfa 180-181
+  s_5e2537d4d8b695::t_797cc17b97eef9 6-12,45-60,62-85,87-110,122,124-131,141-145,152-161,164-166,169,175-179
+  s_5e2537d4d8b695::t_7b1f24c078b953 86,114-121,123,132-140
+test/data/scala-evidence-repotest/crypto-jvm/src/main/scala/sample/crypto/BouncyCastleOps.scala
+  s_5e2537d4d8b695::t_c7b502caa06966 1-30
+docs/REPL.md
+  s_5e2537d4d8b695::t_1c359aef2c3408 94-99,208-214
+  s_5e2537d4d8b695::t_6615f79e2dd162 215
+test/data/scala-evidence-repotest/scala2-akka/src/main/scala/sample/legacy/Routes.scala
+  s_5e2537d4d8b695::t_c7b502caa06966 1-24
+test/data/scala-evidence-repotest/services-jvm/src/main/scala/sample/services/TapirEndpoints.scala
+  s_5e2537d4d8b695::t_c7b502caa06966 1-8
+test/data/scala-evidence-repotest/crypto-jvm/src/main/scala/sample/crypto/JcaOps.scala
+  s_5e2537d4d8b695::t_c7b502caa06966 1-94
+docs/ENV.md
+  s_5e2537d4d8b695::t_7d235155701950 277-279
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "bfd2bd7a93d798a3685afab4dc2c18fda8b2f3d6",
+  "prompts": {},
+  "sessions": {
+    "s_5e2537d4d8b695": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6f7efc66-79d8-4800-a24c-ed735a57590d",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": null
+    }
+  }
+}
