@@ -1,0 +1,32 @@
+lib/cli/index.poku.js
+  s_5e2537d4d8b695::t_48e081c067b91c 1380,1396,1414-1418,1434,1438,1447
+  s_5e2537d4d8b695::t_77857ae39c25d2 1315-1317,1324-1361,1369-1379,1393-1395,1397-1413,1419-1433,1435-1437,1439-1446,1448-1454
+lib/evinser/scalasem.poku.js
+  s_5e2537d4d8b695::t_ee33c30a4cac44 196-200
+bin/cdxgen.js
+  s_5e2537d4d8b695::t_59ed3b6dc9a17f 2183-2190,2193-2204,2206-2218,2220-2226
+  s_5e2537d4d8b695::t_0425c305102f19 2173-2182,2205,2219,2227
+docs/EVINSE.md
+  s_5e2537d4d8b695::t_418a7d83b9d4a7 88-89
+lib/evinser/evinseOptions.poku.js
+  s_5e2537d4d8b695::t_48e081c067b91c 101,113-116,130-133
+  s_5e2537d4d8b695::t_ee33c30a4cac44 75-100,102-112,117-129,134-147
+lib/evinser/evinser.js
+  s_5e2537d4d8b695::t_f796cc9db0463a 18,158-176,179-185,188-190,192,199-230
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "e8685f17796780667f224704de81135205640b28",
+  "prompts": {},
+  "sessions": {
+    "s_5e2537d4d8b695": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6f7efc66-79d8-4800-a24c-ed735a57590d",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
