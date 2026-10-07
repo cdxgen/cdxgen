@@ -1815,10 +1815,19 @@ jobs:
 
   # Scala semantic evidence over small fixture projects: the scalasem
   # analyzer must produce occurrences with lines, crypto assets, services and
-  # call stacks through cdxgen --evidence, without atom.
+  # call stacks through cdxgen --evidence, without atom. The Windows leg
+  # covers the analyzer's Windows builds: sbt runs through sbt.bat, the
+  # SemanticDB targets and the caches sit under the Windows profile, and the
+  # report paths come out forward slashed all the same.
   scala-evidence-fixture-hosted:
-    runs-on: ubuntu-24.04
-    timeout-minutes: 45
+    strategy:
+      fail-fast: false
+      matrix:
+        # The matrix context is not available to a job-level `if`, so the
+        # ci:skip-windows label drops the windows leg from the matrix itself.
+        os: ${{ fromJSON(contains(github.event.pull_request.labels.*.name, 'ci:skip-windows') && '["ubuntu-24.04"]' || '["ubuntu-24.04", "windows-latest"]') }}
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 60
     if: ${{ !contains(github.event.pull_request.labels.*.name, 'ci:skip-repotests') }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
@@ -1899,7 +1908,7 @@ jobs:
       - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a  # v7.0.1
         if: github.ref == 'refs/heads/master'
         with:
-          name: bomresults-scala-evidence
+          name: bomresults-scala-evidence-${{ matrix.os }}
           path: bomresults
 
   microservices-demo-repotests:
