@@ -271,7 +271,10 @@ cdxgen addresses this in two ways:
    the project's compilation database, outside the source directories of its
    fetched, submodule and vendored dependencies. A C standard library or POSIX
    header (`stdio.h`, `sys/mman.h`, `unistd.h`, ...) is a component only when an
-   OS package provides it.
+   OS package provides it. Unless a usages slice is reused, neither atom nor
+   the osquery lookup of installed development packages runs when the tree has
+   no C or C++ source, header or module file outside `node_modules` and dot
+   directories.
 
    With atom 4 and later each include's usages slice names the file it
    resolved to (`resolvedPath`) and the functions the including file calls

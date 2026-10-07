@@ -110,7 +110,9 @@ module at the root or in `src/`, and the top-level packages found anywhere in
 the tree (with the modules beside them), so libraries a repository keeps in
 places such as `dev_tools/pylibs/` do not become PyPI components. Virtual
 environments and `site-packages` directories are not counted as the project's
-own.
+own. Import analysis runs only when the tree holds Python files outside
+`node_modules` and dot directories, so a deep scan of a project with no Python
+code does not start atom.
 
 ## Step 4: Deep mode
 
