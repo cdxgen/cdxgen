@@ -91,6 +91,12 @@ If `bom.json` exists in the current directory, `cdxi` imports it automatically.
 .golemtips
 ```
 
+### Review Scala Evinse evidence
+
+```text
+.scalasemsummary
+```
+
 ### Review evidence and services
 
 ```text
@@ -198,6 +204,14 @@ These commands are most useful after importing a Cargo SBOM generated with `--in
 | `.golemtips`     | Print suggested Go Evinse/Golem investigation pivots                                         |
 
 These commands are most useful after importing a BOM generated with `evinse -i bom.json -o bom.evinse.json -l go`. Pair them with `.occurrences`, `.callstack`, and `.auditfindings` for source evidence and BOM audit triage.
+
+### Scala Evinse command
+
+| Command            | Description                                                                                  |
+| ------------------ | -------------------------------------------------------------------------------------------- |
+| `.scalasemsummary` | Summarize the scalasem run context, its diagnostics, and the occurrence and service coverage |
+
+It works on a BOM generated with `evinse -l scala` or `cdxgen --evidence` for a Scala project, and says so when the loaded BOM carries no scalasem properties.
 
 ### Evidence and SaaSBOM review
 

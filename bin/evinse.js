@@ -264,6 +264,23 @@ const args = yargs(hideBin(process.argv))
     description: "Use an existing usages slices file.",
     default: "usages.slices.json",
   })
+  .option("scalasem-command", {
+    description:
+      "Use a specific scalasem script for Scala evidence analysis. Defaults to SCALASEM_CMD.",
+    default: readEnvironmentVariable("SCALASEM_CMD"),
+  })
+  .option("scalasem-include-tests", {
+    description:
+      "Include test sources in the Scala semantic evidence, tagged with their usage scope.",
+    default: false,
+    type: "boolean",
+  })
+  .option("scalasem", {
+    description:
+      "Run the Scala semantic analyzer for Scala projects. Use --no-scalasem to skip it and keep the plain BOM.",
+    default: true,
+    type: "boolean",
+  })
   .option("data-flow-slices-file", {
     description: "Use an existing data-flow slices file.",
     default: "data-flow.slices.json",

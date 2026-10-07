@@ -1,0 +1,1 @@
+GET     /stats                      controllers.AdminController.stats()

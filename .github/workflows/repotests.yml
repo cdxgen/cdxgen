@@ -516,6 +516,9 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: ${{ matrix.java-version }}
+      - name: Route Maven Central through Google's mirror
+        if: runner.environment == 'github-hosted'
+        run: node ci/maven-central-mirror.js
       - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e  # v7.0.0
         with:
           go-version: '1.27.0'
@@ -1464,6 +1467,9 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '21'
+      - name: Route Maven Central through Google's mirror
+        if: runner.environment == 'github-hosted'
+        run: node ci/maven-central-mirror.js
       - name: repotests blint
         run: |
           bin/cdxgen.js -t python repotests/blint -o bomresults/bom-blint.json --fail-on-error
@@ -1561,21 +1567,21 @@ jobs:
       - name: standalone jar files
         run: |
           mkdir -p standalone-jar-files
-          curl --output-dir standalone-jar-files -LO https://repo1.maven.org/maven2/org/jacoco/org.jacoco.report/0.8.8/org.jacoco.report-0.8.8.jar
-          curl --output-dir standalone-jar-files -LO https://repo1.maven.org/maven2/org/apache/ws/xmlschema/xmlschema-core/2.2.5/xmlschema-core-2.2.5.jar
-          curl --output-dir standalone-jar-files -LO https://repo1.maven.org/maven2/com/fasterxml/jackson/core/jackson-core/2.16.0/jackson-core-2.16.0.jar
-          curl --output-dir standalone-jar-files -LO https://repo1.maven.org/maven2/junit/junit/4.13.2/junit-4.13.2.jar
-          curl --output-dir standalone-jar-files -LO https://repo1.maven.org/maven2/wsdl4j/wsdl4j/1.6.3/wsdl4j-1.6.3.jar
-          curl --output-dir standalone-jar-files -LO https://repo1.maven.org/maven2/org/apache/maven/maven-core/3.9.2/maven-core-3.9.2.jar
-          curl --output-dir standalone-jar-files -LO https://repo1.maven.org/maven2/org/apache/ant/ant/1.10.13/ant-1.10.13.jar
-          curl --output-dir standalone-jar-files -LO https://repo1.maven.org/maven2/ch/qos/logback/logback-classic/1.4.7/logback-classic-1.4.7.jar
-          curl --output-dir standalone-jar-files -LO https://repo1.maven.org/maven2/org/apache/velocity/velocity/1.7/velocity-1.7.jar
-          curl --output-dir standalone-jar-files -LO https://repo1.maven.org/maven2/org/apache/commons/commons-math3/3.6.1/commons-math3-3.6.1.jar
-          curl --output-dir standalone-jar-files -LO https://repo1.maven.org/maven2/displaytag/displaytag/1.2/displaytag-1.2.jar
-          curl --output-dir standalone-jar-files -LO https://repo1.maven.org/maven2/org/apache/poi/poi/3.17/poi-3.17.jar
-          curl --output-dir standalone-jar-files -LO https://repo1.maven.org/maven2/org/jacoco/org.jacoco.agent/0.8.8/org.jacoco.agent-0.8.8.jar
-          curl --output-dir standalone-jar-files -LO https://repo1.maven.org/maven2/javax/jws/javax.jws-api/1.1/javax.jws-api-1.1.jar
-          curl --output-dir standalone-jar-files -LO https://repo1.maven.org/maven2/org/jrobin/jrobin/1.5.9/jrobin-1.5.9.jar
+          curl --output-dir standalone-jar-files -LO https://maven-central.storage-download.googleapis.com/maven2/org/jacoco/org.jacoco.report/0.8.8/org.jacoco.report-0.8.8.jar
+          curl --output-dir standalone-jar-files -LO https://maven-central.storage-download.googleapis.com/maven2/org/apache/ws/xmlschema/xmlschema-core/2.2.5/xmlschema-core-2.2.5.jar
+          curl --output-dir standalone-jar-files -LO https://maven-central.storage-download.googleapis.com/maven2/com/fasterxml/jackson/core/jackson-core/2.16.0/jackson-core-2.16.0.jar
+          curl --output-dir standalone-jar-files -LO https://maven-central.storage-download.googleapis.com/maven2/junit/junit/4.13.2/junit-4.13.2.jar
+          curl --output-dir standalone-jar-files -LO https://maven-central.storage-download.googleapis.com/maven2/wsdl4j/wsdl4j/1.6.3/wsdl4j-1.6.3.jar
+          curl --output-dir standalone-jar-files -LO https://maven-central.storage-download.googleapis.com/maven2/org/apache/maven/maven-core/3.9.2/maven-core-3.9.2.jar
+          curl --output-dir standalone-jar-files -LO https://maven-central.storage-download.googleapis.com/maven2/org/apache/ant/ant/1.10.13/ant-1.10.13.jar
+          curl --output-dir standalone-jar-files -LO https://maven-central.storage-download.googleapis.com/maven2/ch/qos/logback/logback-classic/1.4.7/logback-classic-1.4.7.jar
+          curl --output-dir standalone-jar-files -LO https://maven-central.storage-download.googleapis.com/maven2/org/apache/velocity/velocity/1.7/velocity-1.7.jar
+          curl --output-dir standalone-jar-files -LO https://maven-central.storage-download.googleapis.com/maven2/org/apache/commons/commons-math3/3.6.1/commons-math3-3.6.1.jar
+          curl --output-dir standalone-jar-files -LO https://maven-central.storage-download.googleapis.com/maven2/displaytag/displaytag/1.2/displaytag-1.2.jar
+          curl --output-dir standalone-jar-files -LO https://maven-central.storage-download.googleapis.com/maven2/org/apache/poi/poi/3.17/poi-3.17.jar
+          curl --output-dir standalone-jar-files -LO https://maven-central.storage-download.googleapis.com/maven2/org/jacoco/org.jacoco.agent/0.8.8/org.jacoco.agent-0.8.8.jar
+          curl --output-dir standalone-jar-files -LO https://maven-central.storage-download.googleapis.com/maven2/javax/jws/javax.jws-api/1.1/javax.jws-api-1.1.jar
+          curl --output-dir standalone-jar-files -LO https://maven-central.storage-download.googleapis.com/maven2/org/jrobin/jrobin/1.5.9/jrobin-1.5.9.jar
           FETCH_LICENSE=true bin/cdxgen.js standalone-jar-files -o bomresults/bom-standalone-jar-files.json
           rm -rf standalone-jar-files || true
         shell: bash
@@ -1706,6 +1712,9 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '21'
+      - name: Route Maven Central through Google's mirror
+        if: runner.environment == 'github-hosted'
+        run: node ci/maven-central-mirror.js
       - uses: sbt/setup-sbt@6158cb0903b8ceeae04f830055f3155e1b6a5ad7  # v1.5.11
       - uses: coursier/setup-action@3174df5c784a0c8724f06b7924b849551c40c39e  # v3.0.3
         with:
@@ -1771,10 +1780,28 @@ jobs:
           bin/cdxgen.js -t scala $GITHUB_WORKSPACE/repotests/play-samples/play-scala-slick-example --profile research -o bomresults/bom-play-scala-slick-example.json $GITHUB_WORKSPACE/repotests/play-samples/play-scala-slick-example
           bin/cdxgen.js -t scala $GITHUB_WORKSPACE/repotests/play-samples/play-scala-rest-api-example --profile research -o bomresults/bom-play-scala-rest-api-example.json $GITHUB_WORKSPACE/repotests/play-samples/play-scala-rest-api-example
           bin/cdxgen.js -t scala $GITHUB_WORKSPACE/repotests/play-samples/play-scala-grpc-example --profile research -o bomresults/bom-pplay-scala-grpc-example.json $GITHUB_WORKSPACE/repotests/play-samples/play-scala-grpc-example
+          # The research profile carries the scala semantic evidence: every
+          # produced BOM must have occurrences with lines and at least one
+          # service from the framework routes, and no scala-openapi.json may
+          # be written, into the projects or beside the BOMs.
+          status=0
+          for bom in bomresults/bom-play-scala-slick-example.json bomresults/bom-play-scala-rest-api-example.json bomresults/bom-pplay-scala-grpc-example.json; do
+            echo "asserting $bom"
+            lines=$(jq '[.components[] | select(.type != "cryptographic-asset") | .evidence.occurrences[]? | select(.line != null)] | length' "$bom")
+            services=$(jq '[.services[]? | select((.properties // []) | any(.name == "cdx:scalasem:service:location"))] | length' "$bom")
+            echo "  occurrences-with-line ${lines:-missing}, services-with-source-locations ${services:-missing}"
+            [ "${lines:-0}" -gt 0 ] || status=1
+            [ "${services:-0}" -gt 0 ] || status=1
+          done
+          if find repotests/play-samples bomresults -name 'scala-openapi.json' | grep -q .; then
+            echo "scala-openapi.json was written"
+            status=1
+          fi
           rm -rf repotests/play-samples || true
           if [ "$RUNNER_ENVIRONMENT" = "self-hosted" ]; then
             rm -rf ~/.cache/coursier ~/.ivy2 || true
           fi
+          exit $status
         shell: bash
         env:
           CDXGEN_DEBUG_MODE: debug
@@ -1782,6 +1809,96 @@ jobs:
         if: github.ref == 'refs/heads/master' && matrix.os == 'ubuntu-24.04-arm'
         with:
           name: bomresults-scala
+          path: bomresults
+
+  # Scala semantic evidence over small fixture projects: the scalasem
+  # analyzer must produce occurrences with lines, crypto assets, services and
+  # call stacks through cdxgen --evidence, without atom. The Windows leg
+  # covers the analyzer's Windows builds: sbt runs through sbt.bat, the
+  # SemanticDB targets and the caches sit under the Windows profile, and the
+  # report paths come out forward slashed all the same.
+  scala-evidence-fixture-hosted:
+    strategy:
+      fail-fast: false
+      matrix:
+        # The matrix context is not available to a job-level `if`, so the
+        # ci:skip-windows label drops the windows leg from the matrix itself.
+        os: ${{ fromJSON(contains(github.event.pull_request.labels.*.name, 'ci:skip-windows') && '["ubuntu-24.04"]' || '["ubuntu-24.04", "windows-latest"]') }}
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 60
+    if: ${{ !contains(github.event.pull_request.labels.*.name, 'ci:skip-repotests') }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Set up JDK
+        uses: actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6  # v6.0.1
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+      - name: Route Maven Central through Google's mirror
+        if: runner.environment == 'github-hosted'
+        run: node ci/maven-central-mirror.js
+      - uses: sbt/setup-sbt@6158cb0903b8ceeae04f830055f3155e1b6a5ad7  # v1.5.11
+      - name: Setup pnpm
+        uses: pnpm/action-setup@ea17c68df8912ef543352723c149a84f56e3d413  # v6.1.0
+      - name: Use Node.js
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020  # v7.0.0
+        with:
+          node-version-file: .nvmrc
+          package-manager-cache: false
+      - name: pnpm install
+        run: pnpm install:frozen
+        env:
+          CI: true
+          CDXGEN_TEMP_DIR: ${{ runner.temp }}/cdxgen-scala-evidence
+      - name: scala evidence fixtures
+        run: |
+          mkdir -p bomresults
+          for fixture in crypto-jvm services-jvm play-app scala2-akka cross-platform; do
+            echo "::group::$fixture"
+            bin/cdxgen.js -t scala --deep --evidence \
+              -o bomresults/$fixture.evinse.json \
+              test/data/scala-evidence-repotest/$fixture
+            echo "::endgroup::"
+          done
+          expected=test/data/scala-evidence-repotest/expected.json
+          status=0
+          for fixture in crypto-jvm services-jvm play-app scala2-akka cross-platform; do
+            bom=bomresults/$fixture.evinse.json
+            floor=$(jq -r --arg f "$fixture" '.[$f].minOccurrencesWithLine // 0' "$expected")
+            actual=$(jq '[.components[] | select(.type != "cryptographic-asset") | .evidence.occurrences[]? | select(.line != null)] | length' "$bom")
+            echo "$fixture occurrences-with-line $actual >= $floor"
+            [ "$actual" -ge "$floor" ] || status=1
+
+            floor=$(jq -r --arg f "$fixture" '.[$f].minComponentsWithOccurrences // 0' "$expected")
+            actual=$(jq '[.components[] | select(.type != "cryptographic-asset" and .evidence.occurrences != null and (.evidence.occurrences | length) > 0)] | length' "$bom")
+            echo "$fixture components-with-occurrences $actual >= $floor"
+            [ "$actual" -ge "$floor" ] || status=1
+
+            floor=$(jq -r --arg f "$fixture" '.[$f].minCryptoAssets // 0' "$expected")
+            actual=$(jq '[.components[] | select(.type == "cryptographic-asset")] | length' "$bom")
+            echo "$fixture crypto-assets $actual >= $floor"
+            [ "$actual" -ge "$floor" ] || status=1
+
+            floor=$(jq -r --arg f "$fixture" '.[$f].minServices // 0' "$expected")
+            actual=$(jq '[.services[]? | select((.properties // []) | any(.name == "cdx:scalasem:service:location"))] | length' "$bom")
+            echo "$fixture services-with-source-locations $actual >= $floor"
+            [ "$actual" -ge "$floor" ] || status=1
+
+            floor=$(jq -r --arg f "$fixture" '.[$f].minCallstackComponents // 0' "$expected")
+            actual=$(jq '[.components[] | select(.evidence.callstack.frames != null and (.evidence.callstack.frames | length) > 0)] | length' "$bom")
+            echo "$fixture components-with-callstack $actual >= $floor"
+            [ "$actual" -ge "$floor" ] || status=1
+          done
+          exit $status
+        shell: bash
+        env:
+          CDXGEN_DEBUG_MODE: debug
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a  # v7.0.1
+        if: github.ref == 'refs/heads/master'
+        with:
+          name: bomresults-scala-evidence-${{ matrix.os }}
           path: bomresults
 
   microservices-demo-repotests:
@@ -1799,6 +1916,9 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '24'
+      - name: Route Maven Central through Google's mirror
+        if: runner.environment == 'github-hosted'
+        run: node ci/maven-central-mirror.js
       - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e  # v7.0.0
         with:
           go-version: '1.27.0'
@@ -1853,6 +1973,9 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: ${{ matrix.java-version }}
+      - name: Route Maven Central through Google's mirror
+        if: runner.environment == 'github-hosted'
+        run: node ci/maven-central-mirror.js
       - name: Setup pnpm
         uses: pnpm/action-setup@ea17c68df8912ef543352723c149a84f56e3d413  # v6.1.0
       - name: Use Node.js
@@ -2355,6 +2478,9 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '21'
+      - name: Route Maven Central through Google's mirror
+        if: runner.environment == 'github-hosted'
+        run: node ci/maven-central-mirror.js
       - name: Setup pnpm
         uses: pnpm/action-setup@ea17c68df8912ef543352723c149a84f56e3d413  # v6.1.0
       - name: Use Node.js
@@ -2378,7 +2504,8 @@ jobs:
           jq -e 'any(.components[]; .group == "org.slf4j" and .name == "slf4j-api" and .version == "2.0.7")' bomresults/bom-gradle-repotest.json
           jq -e 'any(.metadata.tools.components[]?; .group == "org.gradle" and .name == "gradle" and .version == "9.6.0" and any((.externalReferences // [])[]; .type == "distribution" and .url == "https://services.gradle.org/distributions/gradle-9.6.0-bin.zip") and any((.hashes // [])[]; .alg == "SHA-256" and .content == "bbaeb2fef8710818cf0e261201dab964c572f92b942812df0c3620d62a529a01"))' bomresults/bom-gradle-repotest.json
           bin/cdxgen.js -t gradle test/data/gradle-repotest -o bomresults/bom-gradle-repotest-resolve-dist.json --feature-flags resolve-gradle-distribution --fail-on-error
-          jq -e 'any(.components[]; .group == "org.slf4j" and .name == "slf4j-api" and .version == "2.0.7" and any((.externalReferences // [])[]; .type == "distribution" and .url == "https://repo.maven.apache.org/maven2/org/slf4j/slf4j-api/2.0.7/slf4j-api-2.0.7.jar"))' bomresults/bom-gradle-repotest-resolve-dist.json
+          # The CI routes Maven Central through Google's mirror, and the distribution names the repository Gradle used.
+          jq -e 'any(.components[]; .group == "org.slf4j" and .name == "slf4j-api" and .version == "2.0.7" and any((.externalReferences // [])[]; .type == "distribution" and (.url == "https://repo.maven.apache.org/maven2/org/slf4j/slf4j-api/2.0.7/slf4j-api-2.0.7.jar" or .url == "https://maven-central.storage-download.googleapis.com/maven2/org/slf4j/slf4j-api/2.0.7/slf4j-api-2.0.7.jar")))' bomresults/bom-gradle-repotest-resolve-dist.json
           jq -e 'any(.components[]; .group == "com.google.android.gms" and .name == "play-services-basement" and any((.externalReferences // [])[]; .type == "distribution" and (.url | contains("dl.google.com"))))' bomresults/bom-gradle-repotest-resolve-dist.json
         shell: bash
 
@@ -2395,6 +2522,9 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '21'
+      - name: Route Maven Central through Google's mirror
+        if: runner.environment == 'github-hosted'
+        run: node ci/maven-central-mirror.js
       - name: Setup pnpm
         uses: pnpm/action-setup@ea17c68df8912ef543352723c149a84f56e3d413  # v6.1.0
       - name: Use Node.js
@@ -2466,6 +2596,9 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: ${{ matrix.java-version }}
+      - name: Route Maven Central through Google's mirror
+        if: runner.environment == 'github-hosted'
+        run: node ci/maven-central-mirror.js
       - uses: sbt/setup-sbt@6158cb0903b8ceeae04f830055f3155e1b6a5ad7  # v1.5.11
       - uses: coursier/setup-action@3174df5c784a0c8724f06b7924b849551c40c39e  # v3.0.3
         with:
@@ -2597,6 +2730,9 @@ jobs:
         with:
           distribution: temurin
           java-version: 21
+      - name: Route Maven Central through Google's mirror
+        if: runner.environment == 'github-hosted'
+        run: node ci/maven-central-mirror.js
       # go-smoke ships no go.sum, so its `resolved` row needs a real go
       # toolchain; the macOS images carry none. The row skips itself when go
       # is absent, and this keeps it measured on all three platforms.

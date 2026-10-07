@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+# sbt, with a Coursier cache of its own resolved through the local Maven Central stand-in.
+# The shared cache is never routed: Coursier files mirrored downloads under the mirror's host,
+# and cdxgen reads repository_url from that path.
+here=$(cd "$(dirname "$0")" && pwd)
+if [ -n "${COURSIER_SHARED_CACHE:-}" ]; then
+  shared=$COURSIER_SHARED_CACHE
+elif [ "$(uname)" = "Darwin" ]; then
+  shared=$HOME/Library/Caches/Coursier/v1
+else
+  shared=${XDG_CACHE_HOME:-$HOME/.cache}/coursier/v1
+fi
+if [ -n "${COURSIER_CACHE:-}" ] && [ "${COURSIER_CACHE%/}" != "${shared%/}" ] &&
+  [ -f "${MAVEN_PROXY_STATE:-}/mirror.properties" ]; then
+  export COURSIER_MIRRORS=$MAVEN_PROXY_STATE/mirror.properties
+fi
+PATH=$(printf '%s' "$PATH" | tr ':' '\n' | grep -vx "$here" | paste -sd: -)
+exec sbt "$@"

@@ -1,0 +1,115 @@
+# Scala Evinse and scalasem Rules
+# Categories: scala-security, scala-compliance
+# Evaluates cdx:scalasem:* properties and the crypto assets emitted by
+# evinse -l scala and cdxgen --evidence for Scala projects.
+
+- id: SCALA-SEC-001
+  name: "Scala source uses a weak cryptographic algorithm in runtime code"
+  description: "scalasem flagged a weak algorithm, mode or key size at a call site in main or generated sources (MD5, SHA-1, DES, ECB, or a key below the modern floor)"
+  severity: medium
+  category: scala-security
+  dry-run-support: full
+  condition: |
+    components[
+      type = 'cryptographic-asset'
+      and $prop($, 'cdx:scalasem:crypto:weak') = 'true'
+      and (
+        'main' in properties[name = 'cdx:scalasem:usageScopes'].value
+        or 'generated' in properties[name = 'cdx:scalasem:usageScopes'].value
+      )
+    ]
+  location: |
+    { "bomRef": $."bom-ref", "name": name }
+  message: "Weak cryptographic algorithm '{{ name }}' used in Scala source"
+  mitigation: "Move to the modern equivalent of this algorithm, mode and key size, and confirm no compatibility constraint forces the weak one. The locations name the exact call sites"
+  evidence: |
+    {
+      "algorithm": name,
+      "oid": cryptoProperties.oid,
+      "api": $prop($, 'cdx:scalasem:crypto:api'),
+      "locations": evidence.occurrences.(location & '#' & line)
+    }
+
+- id: SCALA-SEC-002
+  name: "Scala source calls an outbound service over plaintext transport"
+  description: "scalasem found an outbound HTTP or websocket client whose target URL starts with http:// or ws:// and is not a loopback address, so traffic and credentials cross the network unencrypted"
+  severity: medium
+  category: scala-security
+  dry-run-support: full
+  condition: |
+    services[
+      $exists($filter(endpoints, function($e) {
+        ($contains($e, 'http://') or $contains($e, 'ws://'))
+        and $not($contains($e, /:\/\/(localhost|127\.[0-9.]+|\[::1\])(:|\/|$)/))
+      }))
+      and $prop($, 'cdx:scalasem:service:kind') != null
+    ]
+  location: |
+    { "name": name, "endpoints": endpoints }
+  message: "Outbound service '{{ name }}' is called over plaintext"
+  mitigation: "Switch the target to https:// or wss://, or a local socket if the peer is on the same host. The call sites are named by the service's cdx:scalasem:service:location properties"
+  evidence: |
+    {
+      "kind": $prop($, 'cdx:scalasem:service:kind'),
+      "client": $prop($, 'cdx:scalasem:service:client'),
+      "locations": $filter(properties, function($p) { $p.name = 'cdx:scalasem:service:location' }).value
+    }
+
+- id: SCALA-SEC-003
+  name: "Admin-like Scala endpoint is not marked as authenticated"
+  description: "scalasem found an inbound route with an admin, internal, manage or debug path segment that the report does not mark as authenticated. The source analysis does not see middleware or gateways, so this is a path-based prompt for review"
+  severity: low
+  category: scala-security
+  dry-run-support: full
+  condition: |
+    services[
+      $exists($filter(endpoints, function($e) { $contains($e, /(^|\/)(admin|internal|manage|debug)(\/|$)/) }))
+      and $prop($, 'cdx:scalasem:endpoint:framework') != null
+      and $not(authenticated = true)
+    ]
+  location: |
+    { "name": name, "endpoints": endpoints }
+  message: "Endpoint '{{ name }}' looks administrative and is not marked as authenticated"
+  mitigation: "Confirm the route is protected by middleware or a gateway the source does not show, and otherwise require authentication on it. The declaration site is named by the service's cdx:scalasem:service:location property"
+  evidence: |
+    {
+      "framework": $prop($, 'cdx:scalasem:endpoint:framework'),
+      "handler": $prop($, 'cdx:scalasem:endpoint:handler'),
+      "locations": $filter(properties, function($p) { $p.name = 'cdx:scalasem:service:location' }).value
+    }
+
+- id: SCALA-SEC-004
+  name: "Scala source uses a weak algorithm that has no registry OID"
+  description: "scalasem flagged a weak algorithm that the OID registry cannot name, such as an MD5 or SHA-1 based signature or an RC4 password scheme, so it is recorded as a property instead of a crypto asset"
+  severity: medium
+  category: scala-security
+  dry-run-support: full
+  condition: |
+    $append(components, metadata.component)[
+      $exists(properties[name = 'cdx:scalasem:crypto:weakFinding'])
+    ]
+  location: |
+    { "bomRef": $."bom-ref", "name": name }
+  message: "Weak cryptographic algorithm used in Scala source, recorded on '{{ name }}'"
+  mitigation: "Move to a modern algorithm. Each finding names the algorithm and its call site as name@file#line"
+  evidence: |
+    {
+      "findings": properties[name = 'cdx:scalasem:crypto:weakFinding'].value
+    }
+
+- id: SCALA-COMP-001
+  name: "Scala semantic evidence is incomplete"
+  description: "The scalasem run behind this BOM was degraded, for example by class files no compiler could read, a missing classpath, a timeout or a failed analyzer, so the BOM's Scala evidence may be missing usages, crypto findings or services"
+  severity: low
+  category: scala-compliance
+  dry-run-support: full
+  condition: |
+    metadata.component[$prop($, 'cdx:scalasem:degraded') = 'true']
+  location: |
+    { "bomRef": $."bom-ref", "name": name }
+  message: "The Scala semantic evidence for '{{ name }}' is incomplete"
+  mitigation: "Read the cdx:scalasem:diagnostic:* metadata properties for the cause, and build the project before scanning when the diagnostics name missing class files or a missing classpath"
+  evidence: |
+    {
+      "diagnostics": $filter(properties, function($p) { $contains($p.name, 'cdx:scalasem:diagnostic:') }).(name & '=' & value)
+    }

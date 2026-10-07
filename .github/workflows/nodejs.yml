@@ -83,6 +83,9 @@ jobs:
         with:
           distribution: 'liberica'
           java-version: '24'
+      - name: Route Maven Central through Google's mirror
+        if: runner.environment == 'github-hosted'
+        run: node ci/maven-central-mirror.js
       - name: Setup pnpm
         uses: pnpm/action-setup@ea17c68df8912ef543352723c149a84f56e3d413  # v6.1.0
       - name: Use Node.js ${{ matrix.node-version }}
@@ -121,6 +124,9 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: ${{ matrix.java-version }}
+      - name: Route Maven Central through Google's mirror
+        if: runner.environment == 'github-hosted'
+        run: node ci/maven-central-mirror.js
       - name: Trim CI agent
         run: rm -rf /tmp/docker-images-* /tmp/atom-* /tmp/mvn-deps*
       - name: Setup pnpm
@@ -211,6 +217,9 @@ jobs:
         with:
           distribution: 'liberica'
           java-version: '24'
+      - name: Route Maven Central through Google's mirror
+        if: runner.environment == 'github-hosted'
+        run: node ci/maven-central-mirror.js
       - name: Setup pnpm
         uses: pnpm/action-setup@ea17c68df8912ef543352723c149a84f56e3d413  # v6.1.0
       - name: Use Node.js

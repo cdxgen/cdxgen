@@ -1,0 +1,6 @@
+GET     /                           controllers.HomeController.index()
+GET     /accounts/:id               controllers.AccountController.show(id: Long)
+POST    /accounts                   controllers.AccountController.create()
+GET     /files/*path                controllers.AccountController.file(path: String)
+->      /admin                      admin.Routes
+GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)

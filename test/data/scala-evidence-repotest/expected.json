@@ -1,0 +1,33 @@
+{
+  "crypto-jvm": {
+    "minOccurrencesWithLine": 17,
+    "minComponentsWithOccurrences": 3,
+    "minCryptoAssets": 16,
+    "minCallstackComponents": 1
+  },
+  "services-jvm": {
+    "minOccurrencesWithLine": 62,
+    "minComponentsWithOccurrences": 16,
+    "minServices": 16,
+    "minCallstackComponents": 8
+  },
+  "play-app": {
+    "minOccurrencesWithLine": 92,
+    "minComponentsWithOccurrences": 4,
+    "minCryptoAssets": 1,
+    "minServices": 6,
+    "minCallstackComponents": 3
+  },
+  "scala2-akka": {
+    "minOccurrencesWithLine": 16,
+    "minComponentsWithOccurrences": 3,
+    "minCryptoAssets": 1,
+    "minServices": 3,
+    "minCallstackComponents": 1
+  },
+  "cross-platform": {
+    "minOccurrencesWithLine": 8,
+    "minComponentsWithOccurrences": 5,
+    "minCryptoAssets": 2
+  }
+}
