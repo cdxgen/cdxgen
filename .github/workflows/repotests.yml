@@ -1743,7 +1743,7 @@ jobs:
           echo "SCALASEM_CMD=$RUNNER_TEMP/parsetools/node_modules/@appthreat/atom-parsetools/scalasem.js" >> "$GITHUB_ENV"
         shell: bash
         env:
-          ATOM_PARSETOOLS_REF: 140e47cd3abad136bb2997a04371e843c1237c8c
+          ATOM_PARSETOOLS_REF: 2020cb4ecc8a73848fb5d6ef654f7ae1f5da5da5
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
         with:
           persist-credentials: false
@@ -1861,7 +1861,7 @@ jobs:
           echo "SCALASEM_CMD=$RUNNER_TEMP/parsetools/node_modules/@appthreat/atom-parsetools/scalasem.js" >> "$GITHUB_ENV"
         shell: bash
         env:
-          ATOM_PARSETOOLS_REF: 140e47cd3abad136bb2997a04371e843c1237c8c
+          ATOM_PARSETOOLS_REF: 2020cb4ecc8a73848fb5d6ef654f7ae1f5da5da5
       - name: scala evidence fixtures
         run: |
           mkdir -p bomresults
