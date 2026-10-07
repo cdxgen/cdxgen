@@ -1,0 +1,28 @@
+lib/ecosystems/scalasem.poku.js
+  s_5e2537d4d8b695::t_628cc01b32b0f3 4,1685-1768
+lib/ecosystems/scalasem.js
+  s_5e2537d4d8b695::t_559ed806d1c012 2357-2363,2367,2369-2370,2372-2376,2381,2383,2386-2388,2390,2394,2396-2405,2410-2432,2436-2448
+  s_5e2537d4d8b695::t_f8f40eaae21941 27
+  s_5e2537d4d8b695::t_b00389d26f75b1 2449
+lib/cli/jvmBom.js
+  s_5e2537d4d8b695::t_f8f40eaae21941 2369-2373,2375-2379,2382,2384
+  s_5e2537d4d8b695::t_628cc01b32b0f3 2389
+test/data/scalajs-npm/client/package.json
+  s_5e2537d4d8b695::t_628cc01b32b0f3 7-9
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "6ea548b3a55904598ecc50ee9932d778571b8b35",
+  "prompts": {},
+  "sessions": {
+    "s_5e2537d4d8b695": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6f7efc66-79d8-4800-a24c-ed735a57590d",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
