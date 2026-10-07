@@ -285,30 +285,33 @@ Typical reviewer actions:
 - treat truncated data-flow evidence as coverage-limited and rerun with narrower patterns or larger limits before relying on a clean result
 - document why each `go.mod` exclude directive exists and verify the selected module versions are safe and reproducible
 
-### `scala-security`, `scala-compliance` — Scala Evinse semantic evidence review
+### `scala-security`, `scala-compliance`: Scala Evinse semantic evidence review
 
 Rules that evaluate `cdx:scalasem:*` properties and the crypto assets emitted by `evinse -l scala` and `cdxgen --evidence` for Scala projects. Run them after the enriched BOM exists.
 
 ```bash
-cdxgen -t scala --deep --evidence -o bom.evinse.json /absolute/path/to/scala/project
+cdxgen -t scala --evidence -o bom.evinse.json /absolute/path/to/scala/project
 cdx-audit --bom bom.evinse.json --direct-bom-audit --categories scala
 ```
 
 `scala` is an alias for `scala-security,scala-compliance`.
 
-| Rule          | Category        | Severity | Description                                                   |
-| ------------- | --------------- | -------- | ------------------------------------------------------------- |
-| SCALA-SEC-001 | scala-security  | medium   | Scala source uses a weak cryptographic algorithm in runtime code |
-| SCALA-SEC-002 | scala-security  | medium   | Scala source calls an outbound service over plaintext transport |
-| SCALA-SEC-003 | scala-security  | low      | Admin-like Scala endpoint declares no authentication signal   |
+| Rule           | Category         | Severity | Description                                                      |
+| -------------- | ---------------- | -------- | ---------------------------------------------------------------- |
+| SCALA-SEC-001  | scala-security   | medium   | Scala source uses a weak cryptographic algorithm in runtime code |
+| SCALA-SEC-002  | scala-security   | medium   | Scala source calls an outbound service over plaintext transport  |
+| SCALA-SEC-003  | scala-security   | low      | Admin-like Scala endpoint is not marked as authenticated         |
+| SCALA-SEC-004  | scala-security   | medium   | Scala source uses a weak algorithm that has no registry OID      |
+| SCALA-COMP-001 | scala-compliance | low      | Scala semantic evidence is incomplete                            |
 
-These rules use the `cdx:scalasem:crypto:weak`, `cdx:scalasem:service:kind`, `cdx:scalasem:service:location`, `cdx:scalasem:endpoint:framework` and `cdx:scalasem:endpoint:handler` properties over the crypto assets and services the Scala analyzer produced.
+SCALA-SEC-001 reads crypto assets with `cdx:scalasem:crypto:weak` whose `cdx:scalasem:usageScopes` include `main` or `generated`, so test-only use is left out. SCALA-SEC-002 reads outbound services with a `cdx:scalasem:service:kind` and an `http://` or `ws://` endpoint other than a loopback address. SCALA-SEC-003 matches whole `admin`, `internal`, `manage` and `debug` path segments of inbound routes with a `cdx:scalasem:endpoint:framework`; the source analysis does not see middleware or gateways, so the rule is a prompt for review rather than a verdict. SCALA-SEC-004 reads `cdx:scalasem:crypto:weakFinding`, which records weak algorithms the OID registry cannot name. SCALA-COMP-001 reads `cdx:scalasem:degraded` on the metadata component and lists the `cdx:scalasem:diagnostic:*` properties.
 
 Typical reviewer actions:
 
-- open the occurrence location of a weak algorithm finding and move the call to a modern algorithm, mode and key size
+- open the call sites of a weak algorithm finding and move them to a modern algorithm, mode and key size
 - switch plaintext `http://` and `ws://` targets to encrypted transports, or a local socket for same-host peers
 - confirm admin-like routes are protected by middleware or a gateway, and require authentication where they are not
+- build the project before scanning when the diagnostics of a degraded run name missing class files or a missing classpath
 
 ### `asar-archive` — Electron ASAR release artifact review
 
