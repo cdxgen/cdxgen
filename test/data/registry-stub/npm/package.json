@@ -1,1 +1,15 @@
-{"name":"root","version":"1.0.0","workspaces":["packages/*"],"dependencies":{"left-pad":"1.3.0","nolic":"1.0.0","@acme/private":"2.0.0","gitdep":"git+ssh://git@github.com/acme/gitdep.git","localdep":"file:./localdep"}}
+{
+  "name": "root",
+  "version": "1.0.0",
+  "workspaces": [
+    "packages/*"
+  ],
+  "dependencies": {
+    "left-pad": "1.3.0",
+    "nolic": "1.0.0",
+    "@acme/private": "2.0.0",
+    "gitdep": "git+ssh://git@github.com/acme/gitdep.git",
+    "localdep": "file:./localdep",
+    "completepkg": "2.0.0"
+  }
+}
