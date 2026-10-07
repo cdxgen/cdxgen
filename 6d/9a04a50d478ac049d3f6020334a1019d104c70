@@ -1,0 +1,24 @@
+lib/ecosystems/pypiMetadata.poku.js
+  s_755a56872480ac::t_a4573c32e08e76 1-100
+lib/ecosystems/ecosystems.js
+  s_755a56872480ac::t_8a957fbd601c3e 1241-1250
+  s_755a56872480ac::t_92dd3e3fd3a6a0 1209-1211
+  s_755a56872480ac::t_7681a86d71cd4e 1124-1186
+  s_755a56872480ac::t_d8090c4162814e 1187
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "6d9a04a50d478ac049d3f6020334a1019d104c70",
+  "prompts": {},
+  "sessions": {
+    "s_755a56872480ac": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "fcd63641-a6ba-4dfb-b81e-a2a956bec8f0",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
