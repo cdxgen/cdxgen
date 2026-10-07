@@ -4,5 +4,8 @@
   "private": true,
   "dependencies": {
     "chart.js": "^4.4.1"
+  },
+  "devDependencies": {
+    "@scala-js/vite-plugin-scalajs": "^1.0.0"
   }
 }
