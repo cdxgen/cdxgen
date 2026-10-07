@@ -1,0 +1,22 @@
+lib/ecosystems/ecosystems.js
+  s_755a56872480ac::t_d546d5228219a5 2163-2173,2175-2176
+lib/ecosystems/cratesMetadata.poku.js
+  s_755a56872480ac::t_bb6d6b7d47be2a 53-55,76-79
+  s_755a56872480ac::t_185bc6ea471e56 1-52,56-75,80-90
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "fbec1d211fd05f3798043d250562e1020673dd46",
+  "prompts": {},
+  "sessions": {
+    "s_755a56872480ac": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "fcd63641-a6ba-4dfb-b81e-a2a956bec8f0",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
