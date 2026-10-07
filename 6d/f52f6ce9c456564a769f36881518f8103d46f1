@@ -1,0 +1,38 @@
+docs/EVINSE.md
+  s_5e2537d4d8b695::t_40862963a8fd10 208,211-212,214
+docs/REPL.md
+  s_5e2537d4d8b695::t_1c359aef2c3408 94-99,208-214
+  s_5e2537d4d8b695::t_6615f79e2dd162 215
+docs/CUSTOM_PROPERTIES.md
+  s_5e2537d4d8b695::t_30018deede81d1 81-133,489-889,1137-1147,1151-1159,1163-1172,1176-1181
+  s_5e2537d4d8b695::t_0bd824f79e1e53 66-80,1182-1183
+docs/SCALA_EVINSE.md
+  s_5e2537d4d8b695::t_797cc17b97eef9 6-12,45-60,62-110,114-145,152-161,164-166,169,175-179
+  s_5e2537d4d8b695::t_ffa8e71e62dcfa 180-181
+docs/_sidebar.md
+  s_5e2537d4d8b695::t_1c359aef2c3408 12
+bin/repl.js
+  s_5e2537d4d8b695::t_b4d8c6d4ca4b3e 1808-1815
+docs/ENV.md
+  s_5e2537d4d8b695::t_40862963a8fd10 277-279
+  s_5e2537d4d8b695::t_77a5d56b7dd35a 163-180,264-276,280,295-297
+docs/PROJECT_TYPES.md
+  s_5e2537d4d8b695::t_40862963a8fd10 87-88
+  s_5e2537d4d8b695::t_dc21721baf6c17 23,29
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "6df52f6ce9c456564a769f36881518f8103d46f1",
+  "prompts": {},
+  "sessions": {
+    "s_5e2537d4d8b695": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6f7efc66-79d8-4800-a24c-ed735a57590d",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
