@@ -1,0 +1,37 @@
+packages:
+  flutter:
+    dependency: "direct main"
+    description: flutter
+    source: sdk
+    version: "0.0.0"
+  sky_engine:
+    dependency: transitive
+    description: flutter
+    source: sdk
+    version: "0.0.99"
+  mypath:
+    dependency: "direct main"
+    description:
+      path: "../mypath"
+      relative: true
+    source: path
+    version: "1.0.0"
+  mygit:
+    dependency: "direct main"
+    description:
+      path: "."
+      ref: main
+      resolved-ref: "0123456789abcdef0123456789abcdef01234567"
+      url: "https://github.com/acme/mygit.git"
+    source: git
+    version: "2.0.0"
+  privhosted:
+    dependency: "direct main"
+    description:
+      name: privhosted
+      sha256: "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+      url: "https://pub.acme.invalid"
+    source: hosted
+    version: "3.0.0"
+sdks:
+  dart: ">=3.0.0 <4.0.0"
