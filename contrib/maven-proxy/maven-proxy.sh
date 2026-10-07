@@ -3,7 +3,7 @@
 #
 #   contrib/maven-proxy/maven-proxy.sh start | stop | status | env
 #
-# `env` prints the exports that route Maven, and sbt on a throwaway Coursier cache, through
+# `env` prints the exports that route Maven, and sbt on a Coursier cache of its own, through
 # the proxy: eval "$(contrib/maven-proxy/maven-proxy.sh env)"
 set -u
 here=$(cd "$(dirname "$0")" && pwd)

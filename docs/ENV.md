@@ -294,8 +294,8 @@ searches skip `.chen`.
 
 | Variable      | Description                                                  |
 | ------------- | ------------------------------------------------------------ |
-| SBT_CACHE_DIR | Ivy cache directory that `-t sbt-cache` reads in addition to the Coursier cache. Defaults to `~/.ivy2/cache`, which only sbt older than 1.3 populates. |
-| COURSIER_CACHE | Coursier cache cdxgen reads jars, hashes and POMs from for sbt, Mill and other JVM projects. Defaults to `~/.cache/coursier/v1` (or `$XDG_CACHE_HOME/coursier/v1`) on Linux, `~/Library/Caches/Coursier/v1` on macOS and `%LOCALAPPDATA%\Coursier\Cache\v1` on Windows. |
+| SBT_CACHE_DIR | Ivy cache directory that `-t sbt-cache` reads in addition to the Coursier cache, and where `--deep` looks for the jars of builds that resolve with Ivy. Defaults to `~/.ivy2/cache`, which only sbt older than 1.3 populates. |
+| COURSIER_CACHE | Coursier cache cdxgen reads jars, hashes and POMs from for sbt, Mill and other JVM projects. sbt runs on it unchanged, `--deep` included, and `--deep` reads the namespaces of each resolved jar from it. Defaults to `~/.cache/coursier/v1` (or `$XDG_CACHE_HOME/coursier/v1`) on Linux, `~/Library/Caches/Coursier/v1` on macOS and `%LOCALAPPDATA%\Coursier\Cache\v1` on Windows. |
 
 ### Swift
 

@@ -1,9 +1,8 @@
 # Local Maven Central stand-in
 
 Maven Central sometimes answers HTTP 429 to every request from a machine that has downloaded a
-lot, for example a CI host or a laptop that runs many scans. Builds then fail to resolve, and a
-`cdxgen --deep` scan of an sbt project ends with no components, because it resolves into a fresh
-Coursier cache on every run (see cdxgen/cdxgen#4459).
+lot, for example a CI host or a laptop that runs many scans. Builds then fail to resolve whatever
+the local caches do not already hold.
 
 This directory holds a small caching proxy for that situation. It answers Maven repository
 requests on `127.0.0.1` only. Files already present in the local Coursier cache or in
@@ -17,7 +16,7 @@ proxy needs Node.js and a POSIX shell.
 ```bash
 contrib/maven-proxy/maven-proxy.sh start
 eval "$(contrib/maven-proxy/maven-proxy.sh env)"
-cdxgen -t sbt --deep -o bom.json /path/to/project
+cdxgen -t maven --deep -o bom.json /path/to/project
 contrib/maven-proxy/maven-proxy.sh stop
 ```
 
@@ -33,10 +32,12 @@ mirror there keeps the repository id `central`, so the bookkeeping Maven writes 
 `~/.m2/repository` stays valid once the proxy is gone. Use Maven 3.9 or later, the first release
 that reads `MAVEN_ARGS`.
 
-sbt is routed only when it runs on a throwaway Coursier cache, which is what `cdxgen --deep`
-does. The exported `PATH` puts a small `sbt` wrapper first, and that wrapper sets
-`COURSIER_MIRRORS` only when `COURSIER_CACHE` points somewhere other than the shared cache.
-Mill, scala-cli and sbt on the shared cache are not routed on purpose. Coursier files mirrored
+sbt is routed only when it runs on a Coursier cache of its own, such as a clean cache on a CI
+host named by `COURSIER_CACHE`. The exported `PATH` puts a small `sbt` wrapper first, and that
+wrapper sets `COURSIER_MIRRORS` only when `COURSIER_CACHE` points somewhere other than the shared
+cache. cdxgen runs sbt on the shared cache, with `--deep` too, so a project that has been built
+resolves from there without the network. Mill, scala-cli and sbt on the shared cache are not
+routed on purpose. Coursier files mirrored
 downloads under the mirror's host name, and cdxgen derives the `repository_url` qualifier of sbt
 purls from that path. Routing the shared cache would duplicate it under
 `http/127.0.0.1%3A18081/` and give every later scan the wrong qualifier.

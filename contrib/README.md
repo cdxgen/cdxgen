@@ -48,9 +48,9 @@ depend on the machine.
 
 ## Work around a rate-limited Maven Central
 
-When Maven Central answers HTTP 429, a local caching proxy keeps Maven and `cdxgen --deep` sbt
-scans working. It serves what the local caches already hold and fetches the rest from a public
-mirror. See [maven-proxy/README.md](maven-proxy/README.md).
+When Maven Central answers HTTP 429, a local caching proxy keeps Maven builds, and sbt builds on
+a Coursier cache of their own, working. It serves what the local caches already hold and fetches
+the rest from a public mirror. See [maven-proxy/README.md](maven-proxy/README.md).
 
 ```shell
 contrib/maven-proxy/maven-proxy.sh start

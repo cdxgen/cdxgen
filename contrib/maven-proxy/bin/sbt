@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
-# sbt, with a throwaway Coursier cache resolved through the local Maven Central stand-in.
-# cdxgen --deep gives sbt such a cache. The shared cache is never routed: Coursier files
-# mirrored downloads under the mirror's host, and cdxgen reads repository_url from that path.
+# sbt, with a Coursier cache of its own resolved through the local Maven Central stand-in.
+# The shared cache is never routed: Coursier files mirrored downloads under the mirror's host,
+# and cdxgen reads repository_url from that path.
 here=$(cd "$(dirname "$0")" && pwd)
 if [ -n "${COURSIER_SHARED_CACHE:-}" ]; then
   shared=$COURSIER_SHARED_CACHE
