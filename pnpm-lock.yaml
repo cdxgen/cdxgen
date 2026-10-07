@@ -270,8 +270,8 @@ importers:
         specifier: 3.1.1
         version: 3.1.1
       '@appthreat/atom-parsetools':
-        specifier: 1.9.0
-        version: 1.9.0
+        specifier: 1.10.0
+        version: 1.10.0
       '@bufbuild/protobuf':
         specifier: 2.15.0
         version: 2.15.0
@@ -372,8 +372,8 @@ packages:
     os: [linux]
     libc: [glibc]
 
-  '@appthreat/atom-parsetools@1.9.0':
-    resolution: {integrity: sha512-LkfXoabqfjrMARuZDfDaQEFsI0KBaBnEUoRpvrakI+MwpUD22Ijei9TpVPewZ/rT20rS8eIH/zgS1xWtL0q0Ww==, tarball: https://registry.npmjs.org/@appthreat/atom-parsetools/-/atom-parsetools-1.9.0.tgz}
+  '@appthreat/atom-parsetools@1.10.0':
+    resolution: {integrity: sha512-X5QDzpSR+P1WAOkzQ7rc/BpXXq2LQ9BrO93oF1zuh3cgsRXQ1tKM7ZcfH3MlXP1db6BmFk4kYFDHynyS581pbw==, tarball: https://registry.npmjs.org/@appthreat/atom-parsetools/-/atom-parsetools-1.10.0.tgz}
     engines: {node: '>=22.0.0'}
     hasBin: true
 
@@ -1379,7 +1379,7 @@ snapshots:
   '@appthreat/atom-linux-arm64@3.1.1':
     optional: true
 
-  '@appthreat/atom-parsetools@1.9.0':
+  '@appthreat/atom-parsetools@1.10.0':
     dependencies:
       '@appthreat/atom-common': 1.1.0
       '@babel/parser': 8.0.6

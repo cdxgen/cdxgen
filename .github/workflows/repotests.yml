@@ -1742,17 +1742,6 @@ jobs:
         env:
           CI: true
           CDXGEN_TEMP_DIR: ${{ runner.temp }}/cdxgen-repotests
-      - name: Install the scalasem schema 2 analyzer
-        # The @appthreat/atom-parsetools release cdxgen pins writes scalasem
-        # schema 1 reports. Until a release carries schema 2, the Scala
-        # evidence jobs run the analyzer from this commit, installed beside
-        # cdxgen and named through SCALASEM_CMD.
-        run: |
-          npm install --no-save --prefix "$RUNNER_TEMP/parsetools" "git+https://github.com/AppThreat/atom-parsetools.git#$ATOM_PARSETOOLS_REF"
-          echo "SCALASEM_CMD=$RUNNER_TEMP/parsetools/node_modules/@appthreat/atom-parsetools/scalasem.js" >> "$GITHUB_ENV"
-        shell: bash
-        env:
-          ATOM_PARSETOOLS_REF: 2020cb4ecc8a73848fb5d6ef654f7ae1f5da5da5
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
         with:
           persist-credentials: false
@@ -1863,17 +1852,6 @@ jobs:
         env:
           CI: true
           CDXGEN_TEMP_DIR: ${{ runner.temp }}/cdxgen-scala-evidence
-      - name: Install the scalasem schema 2 analyzer
-        # The @appthreat/atom-parsetools release cdxgen pins writes scalasem
-        # schema 1 reports. Until a release carries schema 2, the Scala
-        # evidence jobs run the analyzer from this commit, installed beside
-        # cdxgen and named through SCALASEM_CMD.
-        run: |
-          npm install --no-save --prefix "$RUNNER_TEMP/parsetools" "git+https://github.com/AppThreat/atom-parsetools.git#$ATOM_PARSETOOLS_REF"
-          echo "SCALASEM_CMD=$RUNNER_TEMP/parsetools/node_modules/@appthreat/atom-parsetools/scalasem.js" >> "$GITHUB_ENV"
-        shell: bash
-        env:
-          ATOM_PARSETOOLS_REF: 2020cb4ecc8a73848fb5d6ef654f7ae1f5da5da5
       - name: scala evidence fixtures
         run: |
           mkdir -p bomresults
