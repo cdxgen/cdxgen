@@ -85,6 +85,8 @@ evinse -i bom.json -o bom.evinse.json -l java --with-data-flow .
 - `csharp`, `cs`, `dotnet`, `vb`, `vbnet`, `visualbasic`, `f#`, `fs`, `fsharp`
 - `php`, `ruby`, `swift`, `ios`
 
+A `cdxgen --evidence` run without `-t` picks the language from the project: Scala for a directory with an sbt, Mill or scala-cli build, Java when the BOM lists Maven packages, and otherwise the language most of the BOM's packages belong to. Generic packages count as C only when the tree holds C or C++ sources. When the BOM lists no package in a supported language, the evidence analysis is skipped; pass `-t` to choose the language.
+
 ## Evidence modes
 
 ### Occurrence evidence

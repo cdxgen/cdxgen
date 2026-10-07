@@ -2170,42 +2170,61 @@ const writeCycloneDxOutput = (jsonFile, bomJson, options) => {
         sourcePath: filePath,
       });
       const evinserModule = await import("../lib/evinser/evinser.js");
-      options.projectType = options.projectType || [
-        evinserModule.defaultEvidenceLanguage(filePath),
-      ];
-      const evinseOptions = evinserModule.buildEvinseOptions(
-        options,
-        args,
-        internalCycloneDxInputPath || options.output,
-      );
-      try {
-        const dbObjMap = await evinserModule.prepareDB(evinseOptions);
-        if (dbObjMap) {
-          const sliceArtefacts = await evinserModule.analyzeProject(
-            dbObjMap,
-            evinseOptions,
-          );
-          const evinseJson = await evinserModule.createEvinseFile(
-            sliceArtefacts,
-            evinseOptions,
-          );
-          // The scope filter is deferred until here so the analyzers get to
-          // prove that an optional dependency is actually used.
-          bomNSData.bomJson = applyEvidenceBasedFilter(evinseJson, options);
-          if (options.print && evinseJson) {
-            printOccurrences(evinseJson);
-            printCallStack(evinseJson);
-            printReachables(sliceArtefacts);
-            printServices(evinseJson);
-          }
+      if (!options.projectType) {
+        const evidenceLanguage = evinserModule.defaultEvidenceLanguage(
+          filePath,
+          bomNSData?.bomJson,
+          options,
+        );
+        if (evidenceLanguage) {
+          options.projectType = [evidenceLanguage];
         }
-      } catch (err) {
-        // A rusi/golem analysis failure under --fail-on-error on an
-        // introspected run defers its exit so the BOM and the reports are
-        // still written; the run continues here without the reachability
-        // evidence, exactly as the deferral contract describes.
-        if (!isDeferredFailOnError(err)) {
-          throw err;
+      }
+      if (!options.projectType) {
+        console.log(
+          "Skipping the evidence analysis since the BOM lists no package in a language it supports. Pass -t to choose the language.",
+        );
+        if (bomNSData) {
+          bomNSData.bomJson = applyEvidenceBasedFilter(
+            bomNSData.bomJson,
+            options,
+          );
+        }
+      } else {
+        const evinseOptions = evinserModule.buildEvinseOptions(
+          options,
+          args,
+          internalCycloneDxInputPath || options.output,
+        );
+        try {
+          const dbObjMap = await evinserModule.prepareDB(evinseOptions);
+          if (dbObjMap) {
+            const sliceArtefacts = await evinserModule.analyzeProject(
+              dbObjMap,
+              evinseOptions,
+            );
+            const evinseJson = await evinserModule.createEvinseFile(
+              sliceArtefacts,
+              evinseOptions,
+            );
+            // The scope filter is deferred until here so the analyzers get to
+            // prove that an optional dependency is actually used.
+            bomNSData.bomJson = applyEvidenceBasedFilter(evinseJson, options);
+            if (options.print && evinseJson) {
+              printOccurrences(evinseJson);
+              printCallStack(evinseJson);
+              printReachables(sliceArtefacts);
+              printServices(evinseJson);
+            }
+          }
+        } catch (err) {
+          // A rusi/golem analysis failure under --fail-on-error on an
+          // introspected run defers its exit so the BOM and the reports are
+          // still written; the run continues here without the reachability
+          // evidence, exactly as the deferral contract describes.
+          if (!isDeferredFailOnError(err)) {
+            throw err;
+          }
         }
       }
     }
