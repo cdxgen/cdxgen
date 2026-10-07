@@ -1,0 +1,24 @@
+data/rules/scala-evidence.yaml
+  s_5e2537d4d8b695::t_664a76c8bb64ea 8,16-19,24,30,35,41-44,50,59-60,66,72,80-115
+lib/stages/postgen/auditBom.poku.js
+  s_5e2537d4d8b695::t_5ce6840b7bef66 5681,5685,5687,5690-5691,5697,5699,5702-5709,5711-5719,5721-5733,5736-5737,5741-5743,5747,5749-5755,5765,5770,5774-5790,5792,5794-5797,5800,5805-5816,5818-5821,5826,5831,5840-5853,5856-5859,5862-5914
+  s_5e2537d4d8b695::t_8a256911583a60 1
+docs/BOM_AUDIT.md
+  s_5e2537d4d8b695::t_39e65cefacc070 288,293,299-305,307,311,314
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "67c8f545185e6f0066a5c2c411973c145b920f5f",
+  "prompts": {},
+  "sessions": {
+    "s_5e2537d4d8b695": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6f7efc66-79d8-4800-a24c-ed735a57590d",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
