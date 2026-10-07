@@ -1,0 +1,29 @@
+docs/ENV.md
+  s_755a56872480ac::t_ee420c5afe8516 191
+lib/cli/jvmBomProjectSettings.poku.js
+  s_755a56872480ac::t_520726495921cf 1-95
+lib/inventory/mavenSettingsArgs.poku.js
+  s_755a56872480ac::t_9ab999867d29bf 1,3,8-16,18,20-21,28-55
+  s_755a56872480ac::t_8cd7bbd28fc0c6 2,4-7,17,19,22-27,56-66
+lib/inventory/jvmLocalRepos.js
+  s_755a56872480ac::t_73a63ec7ca0966 188-192,196-197,200,202-208,219-223
+  s_755a56872480ac::t_96a7fa512e39db 193-195,198-199,201,209-218
+lib/cli/jvmBom.js
+  s_755a56872480ac::t_3cb344a1e7ec98 10-14,104,666-680,747,760-763,788,850
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "f314811197a521409f7dc3ff977e7610f8ba6572",
+  "prompts": {},
+  "sessions": {
+    "s_755a56872480ac": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "fcd63641-a6ba-4dfb-b81e-a2a956bec8f0",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
