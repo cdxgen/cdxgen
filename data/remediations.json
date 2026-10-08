@@ -280,7 +280,11 @@
       },
       {
         "kind": "config",
-        "command": "sbt, Mill and scala-cli: set central.from and central.to in Coursier's mirror.properties, separating several central.from URLs with semicolons"
+        "command": "sbt: list the mirror in ~/.sbt/repositories and pass -Dsbt.override.build.repos=true in SBT_OPTS or .sbtopts"
+      },
+      {
+        "kind": "config",
+        "command": "Mill and scala-cli: set central.from and central.to in Coursier's mirror.properties, separating several central.from URLs with semicolons"
       },
       {
         "kind": "env",

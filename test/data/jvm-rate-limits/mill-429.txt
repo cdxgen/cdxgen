@@ -1,0 +1,23 @@
+mill __.showMvnDepsTree
+build.mill-68] compile compiling 1 Scala source to out/mill-build/compile.dest/classes ...
+build.mill-68] done compiling
+11] app.showMvnDepsTree
+11] [error] app.showMvnDepsTree task failed
+11/11, 1 FAILED] mill __.showMvnDepsTree 11s
+11] [error] app.showMvnDepsTree
+java.lang.RuntimeException: 
+Resolution failed for 1 modules:
+--------------------------------------------
+  junit:junit:4.13.2 
+	Not an internal Mill module: junit:junit:4.13.2
+	retryable HTTP error: http://127.0.0.1:18431/maven/junit/junit/4.13.2/junit-4.13.2.pom (HTTP 429)
+
+--------------------------------------------
+
+For additional information on library dependencies, see the docs at
+https://mill-build.org/mill/Library_Dependencies.html
+
+
+  scala.sys.package$.error(package.scala:28)
+  mill.api.daemon.Result$Failure.get(Result.scala:66)
+  mill.api.daemon.Result$Failure.get(Result.scala:61)

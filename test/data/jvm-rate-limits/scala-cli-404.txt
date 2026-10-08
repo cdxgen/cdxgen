@@ -1,0 +1,11 @@
+Downloading http://127.0.0.1:18431/maven/junit/junit/4.13.2/junit-4.13.2.pom
+Failed to download http://127.0.0.1:18431/maven/junit/junit/4.13.2/junit-4.13.2.pom
+Downloading http://127.0.0.1:18431/maven/junit/junit/4.13.2/junit-4.13.2.pom.sha1
+Failed to download http://127.0.0.1:18431/maven/junit/junit/4.13.2/junit-4.13.2.pom.sha1
+[[31merror[0m] ./Main.scala:2:15
+[[31merror[0m] Error downloading junit:junit:4.13.2
+[[31merror[0m]   not found: /Users/user/Library/Caches/ScalaCli/local-repo/1.17.1/junit/junit/4.13.2/ivys/ivy.xml
+[[31merror[0m]   No fallback URL found
+[[31merror[0m]   not found: http://127.0.0.1:18431/maven/junit/junit/4.13.2/junit-4.13.2.pom
+[[31merror[0m] //> using dep junit:junit:4.13.2
+[[31merror[0m]               ^^^^^^^^^^^^^^^^^^

@@ -7,11 +7,11 @@
 [error] sbt.librarymanagement.ResolveException: Error downloading org.eclipse.jetty:jetty-server:11.0.24
 [error]   Not found
 [error]   Not found
-[error]   not found: /Users/prabhu/.ivy2/local/org.eclipse.jetty/jetty-server/11.0.24/ivys/ivy.xml
+[error]   not found: /Users/user/.ivy2/local/org.eclipse.jetty/jetty-server/11.0.24/ivys/ivy.xml
 [error]   not found: http://127.0.0.1:18431/maven/org/eclipse/jetty/jetty-server/11.0.24/jetty-server-11.0.24.pom
 [error] (update) sbt.librarymanagement.ResolveException: Error downloading org.eclipse.jetty:jetty-server:11.0.24
 [error]   Not found
 [error]   Not found
-[error]   not found: /Users/prabhu/.ivy2/local/org.eclipse.jetty/jetty-server/11.0.24/ivys/ivy.xml
+[error]   not found: /Users/user/.ivy2/local/org.eclipse.jetty/jetty-server/11.0.24/ivys/ivy.xml
 [error]   not found: http://127.0.0.1:18431/maven/org/eclipse/jetty/jetty-server/11.0.24/jetty-server-11.0.24.pom
 [error] Total time: 0 s

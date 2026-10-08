@@ -1,0 +1,17 @@
+[info] welcome to sbt 2.0.10 (Eclipse Adoptium Java 26.0.2)
+[info] loading project definition from /sbt2-proj/project
+[error] sbt.librarymanagement.ResolveException: Error downloading com.fasterxml.jackson:jackson-parent:2.12
+[error]   Not found
+[error]   Not found
+[error]   not found: /Users/user/.ivy2/local/com.fasterxml.jackson/jackson-parent/2.12/ivys/ivy.xml
+[error]   retryable HTTP error: http://127.0.0.1:18431/maven/com/fasterxml/jackson/jackson-parent/2.12/jackson-parent-2.12.pom (HTTP 429, Retry-After: 59543 milliseconds)
+[error] Error downloading com.vladsch.flexmark:flexmark-util-options:0.62.2
+[error]   Not found
+[error]   Not found
+[error]   not found: /Users/user/.ivy2/local/com.vladsch.flexmark/flexmark-util-options/0.62.2/ivys/ivy.xml
+[error]   retryable HTTP error: http://127.0.0.1:18431/maven/com/vladsch/flexmark/flexmark-util-options/0.62.2/flexmark-util-options-0.62.2.pom (HTTP 429, Retry-After: 59750 milliseconds)
+[error] Error downloading org.antlr:antlr4-master:4.7.2
+[error]   Not found
+[error]   Not found
+[error]   not found: /Users/user/.ivy2/local/org.antlr/antlr4-master/4.7.2/ivys/ivy.xml
+[error]   retryable HTTP error: http://127.0.0.1:18431/maven/org/antlr/antlr4-master/4.7.2/antlr4-master-4.7.2.pom (HTTP 429, Retry-After: 59545 milliseconds)
