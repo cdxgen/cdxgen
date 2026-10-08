@@ -911,7 +911,7 @@ const args = _yargs
     type: "boolean",
     default: true,
     description:
-      "Use the on-disk metadata cache for registry lookups. Pass --no-cache to bypass it for this run.",
+      "Use the on-disk metadata cache for registry lookups. Pass --no-cache to bypass it for this run; answers are still remembered within the run.",
   })
   .option("cache-ttl", {
     type: "number",

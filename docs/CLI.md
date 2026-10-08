@@ -511,7 +511,7 @@ Options:
       --rust                      Use Rust-native (cdxrs) acceleration where available. Pass --no-rust to force the JS
                                   path.                                                        [boolean] [default: true]
       --cache                     Use the on-disk metadata cache for registry lookups. Pass --no-cache to bypass it for
-                                  this run.                                                    [boolean] [default: true]
+                                  this run; answers are still remembered within the run.       [boolean] [default: true]
       --cache-ttl                 Override the metadata cache TTL in seconds. 0 means never expire. Default: 86400
                                   (24h).                                                                        [number]
 
