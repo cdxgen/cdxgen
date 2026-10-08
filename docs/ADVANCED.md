@@ -935,7 +935,8 @@ Every registry request cdxgen makes, batched or not, waits behind one rate gate 
 
 - a request that keeps failing with a server error or HTTP 429 is retried with back-off, honouring `Retry-After`, and then left alone for the rest of that pass;
 - a host that answers HTTP 429 to three requests is not contacted for ten minutes, or for as long as `Retry-After` asks, and cdxgen prints one warning;
-- a document that answered 404 or 410 is not asked for again.
+- a document that answered 404 or 410 is not asked for again;
+- when GitHub's API reports that its rate limit is used up, it is not called again until the reset time it gives. Set `GITHUB_TOKEN` to raise the limit from 60 to 5,000 requests an hour.
 
 The affected components keep the metadata found in lockfiles, manifests and local caches.
 

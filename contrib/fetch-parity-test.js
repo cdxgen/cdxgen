@@ -425,7 +425,9 @@ export async function main() {
         ]);
       },
       // Both paths resolve the GitHub API base through GITHUB_API_URL, so the
-      // double stands in for api.github.com for both.
+      // double stands in for api.github.com for both. The GitHub API is always
+      // asked through the JS pool, whose responses carry the quota headers, so
+      // this case checks that enabling cdxrs changes nothing for it.
       (url) => ({ GITHUB_API_URL: url, GITHUB_TOKEN: undefined }),
     );
     assert.equal(rust[0].license?.id, "Apache-2.0");
