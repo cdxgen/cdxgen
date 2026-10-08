@@ -1,0 +1,21 @@
+lib/ecosystems/cargoCacheSafety.poku.js
+  s_755a56872480ac::t_4202ca2107b05c 1-73
+lib/ecosystems/cargoCache.js
+  s_755a56872480ac::t_fed3f96a98767a 3-4,7,175,179-184,191-215,218-239,242-255,261,263-267,283-284,288-289,291,311-317,349,351-352,355-359,361-362,400,403-405,407
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "4914f7f923f10a0122aba42d42f030e612127346",
+  "prompts": {},
+  "sessions": {
+    "s_755a56872480ac": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "fcd63641-a6ba-4dfb-b81e-a2a956bec8f0",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
