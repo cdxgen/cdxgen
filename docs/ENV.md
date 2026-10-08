@@ -155,7 +155,10 @@ When `CDXGEN_PLUGINS_DIR` points at a packaged plugins directory, cdxgen also lo
 | Variable     | Description                                                                                                                                                                                            |
 | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | GO_FETCH_VCS | Set this variable to `true` or `1` to fetch vcs url from pkg.go.dev. For golang                                                                                                                        |
-| GO_PKG_URL   | Override Go pkg URL. Default: https://pkg.go.dev/                                                                                                                                                      |
+| GO_PKG_URL   | Override Go pkg URL. Default: https://pkg.go.dev/ The pinned version is part of the URL.                                                                                                               |
+| GOMODCACHE   | Read from it, and from `GOPATH/pkg/mod`, for the `LICENSE*` and `COPYING*` notices of the modules the cache holds, before pkg.go.dev is asked                                                            |
+| GOPATH       | Read from it for the module cache location when `GOMODCACHE` is unset, as above                                                                                                                         |
+| GOPRIVATE    | Modules whose path matches one of its comma-separated globs, or those of `GONOPROXY`/`GONOSUMDB` when set, are never sent to pkg.go.dev                                                                  |
 | USE_GOSUM    | Set to `true` or `1` to generate BOMs for golang projects using go.sum as the dependency source of truth, instead of go.mod. `go mod why` then decides whether each module is `required` or `optional` |
 
 ### Gradle

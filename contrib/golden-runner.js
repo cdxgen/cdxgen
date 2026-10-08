@@ -91,6 +91,9 @@ for (const cacheVar of [
   "MAVEN_CACHE_DIR",
   "COURSIER_CACHE",
   "XDG_CACHE_HOME",
+  "GOMODCACHE",
+  "GOPATH",
+  "NUGET_PACKAGES",
 ]) {
   process.env[cacheVar] = GOLDEN_SCRATCH_HOME;
 }

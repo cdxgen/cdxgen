@@ -1,0 +1,2 @@
+gofix.example.com/hello||false|<PROJECT>/go.mod|1.27.1|true|<nil>|||<PROJECT>
+golang.org/x/text|v0.42.0|false|<GOMODCACHE>/cache/download/golang.org/x/text/@v/v0.42.0.mod|1.26.0|false|2026-09-08 16:29:55 +0000 UTC||h1:ojzP1Z+2QtioaF8DTtO8K5q7JWVVYwZKenzujK0Zd0E=|<GOMODCACHE>/golang.org/x/text@v0.42.0
