@@ -168,7 +168,7 @@
         },
         {
           "name": "cdx:npm:binPaths",
-          "value": "$ROOT/node_modules/.bin/semver"
+          "value": "node_modules/.bin/semver"
         },
         {
           "name": "cdx:npm:has_binary",

@@ -1,0 +1,10 @@
+{
+  "name": "legacy-licenses-project",
+  "version": "1.0.0",
+  "description": "Fixture with dependencies using the legacy npm licenses array format and a bin command",
+  "license": "MIT",
+  "dependencies": {
+    "fuzzy": "0.1.3",
+    "semver": "5.7.2"
+  }
+}

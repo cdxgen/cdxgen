@@ -184,5 +184,14 @@ test/data/mcp-repotest/js-openapi.json
 # machine other than the one that wrote the golden.
 !test/repotests/**/fixture/**/node_modules/
 !test/repotests/**/fixture/**/node_modules/**
+# The legacy-licenses fixture ships the lockfile and node_modules manifests of
+# a real npm install of fuzzy 0.1.3 (legacy `licenses` array) and semver 5.7.2
+# (bin command), so deep-mode parsing is exercised against genuine on-disk
+# layouts rather than mocks (issues 4466 and 4467).
+!test/data/package-json/legacy-licenses/node_modules/
+!test/data/package-json/legacy-licenses/node_modules/**
 test/data/rust-dataflow-repotest/target
 package-lock.json
+# Negated after the blanket rule above: gitignore takes the last match, and
+# this fixture lockfile is committed test input.
+!test/data/package-json/legacy-licenses/package-lock.json
