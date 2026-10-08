@@ -535,6 +535,7 @@ describe("myFunction()", () => {
 ```
 
 - Use `assert` and `describe`/`it`/`test` from `poku` (they re-export Node's assert plus test grouping).
+- Tests run with `CDXGEN_NO_CACHE=true`, loaded from `test/poku.env`, so a stubbed registry answer never reaches this machine's on-disk metadata cache and no test is answered from it. A test of that cache unsets the variable and points `CDXGEN_CACHE_DIR` at a temporary directory.
 - For async tests, return the promise or use `async`/`await` inside `it`/`test`.
 - For tests that need to mock ES-module dependencies, use **esmock** + **sinon**:
 
