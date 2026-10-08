@@ -213,6 +213,7 @@ When `CDXGEN_PLUGINS_DIR` points at a packaged plugins directory, cdxgen also lo
 | NPM_INSTALL_ARGS         | Set to pass additional arguments such as `--package-lock` or `--legacy-peer-deps` to the npm install command                                           |
 | NPM_INSTALL_COUNT        | Limit the number of automatic npm install to this count. Default: 2. Since cdxgen 11.0.5                                                               |
 | NPM_URL                  | Override NPM registry URL. Default: https://registry.npmjs.org/. A scope that `.npmrc` maps to another registry, or whose lockfile tarball came from one, is looked up at that registry instead, except in secure mode, where it is not looked up. Workspace, link, file and git packages are never looked up. |
+| JSR_API_URL              | Override the jsr metadata API used for deno `jsr:` packages, whose licence is not part of jsr's npm mirror. Default: https://api.jsr.io/                                                                                                                                                              |
 | NVM_DIR                  | Defines the directory where Node Version Manager (NVM) is installed. Used to locate and manage Node.js versions in environments where NVM is utilized. |
 
 ### Nuget
