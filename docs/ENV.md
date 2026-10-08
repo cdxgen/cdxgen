@@ -219,6 +219,7 @@ When `CDXGEN_PLUGINS_DIR` points at a packaged plugins directory, cdxgen also lo
 
 | Variable  | Description                                                                                                                                                                                                                           |
 | --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| NUGET_PACKAGES | The global NuGet packages folder. The nuspec of an installed package version is read from it, with its licence expression, before the NuGet service is asked. Default: `~/.nuget/packages` |
 | NUGET_URL | Override NuGet URL. Default is URL from registration hive "RegistrationsBaseUrl/3.6.0" at NuGet V3 API (https://api.nuget.org/v3/index.json). See more at https://learn.microsoft.com/en-us/nuget/api/registration-base-url-resource/ |
 
 ### Pip
