@@ -1,0 +1,23 @@
+[INFO] Scanning for projects...
+[INFO] Downloading from local-fixture: http://127.0.0.1:18431/maven/org/apache/maven/plugins/maven-dependency-plugin/3.7.0/maven-dependency-plugin-3.7.0.pom
+[WARNING] Failed to retrieve plugin descriptor for org.apache.maven.plugins:maven-dependency-plugin:3.7.0: Plugin org.apache.maven.plugins:maven-dependency-plugin:3.7.0 or one of its dependencies could not be resolved:
+	The following artifacts could not be resolved: org.apache.maven.plugins:maven-dependency-plugin:pom:3.7.0 (present, but unavailable): Could not transfer artifact org.apache.maven.plugins:maven-dependency-plugin:pom:3.7.0 from/to local-fixture (http://127.0.0.1:18431/maven): status code: 429, reason phrase: Too Many Requests (429)
+
+[INFO] Downloading from local-fixture: http://127.0.0.1:18431/maven/org/apache/maven/plugins/maven-clean-plugin/3.2.0/maven-clean-plugin-3.2.0.pom
+[WARNING] Failed to retrieve plugin descriptor for org.apache.maven.plugins:maven-clean-plugin:3.2.0: Plugin org.apache.maven.plugins:maven-clean-plugin:3.2.0 or one of its dependencies could not be resolved:
+	The following artifacts could not be resolved: org.apache.maven.plugins:maven-clean-plugin:pom:3.2.0 (absent): Could not transfer artifact org.apache.maven.plugins:maven-clean-plugin:pom:3.2.0 from/to local-fixture (http://127.0.0.1:18431/maven): status code: 429, reason phrase: Too Many Requests (429)
+
+[INFO] Downloading from local-fixture: http://127.0.0.1:18431/maven/org/apache/maven/plugins/maven-metadata.xml
+[WARNING] Could not transfer metadata org.apache.maven.plugins/maven-metadata.xml from/to local-fixture (http://127.0.0.1:18431/maven): status code: 429, reason phrase: Too Many Requests (429)
+[WARNING] org.apache.maven.plugins/maven-metadata.xml failed to transfer from http://127.0.0.1:18431/maven during a previous attempt. This failure was cached in the local repository and resolution will not be reattempted until the update interval of local-fixture has elapsed or updates are forced. Original error: Could not transfer metadata org.apache.maven.plugins/maven-metadata.xml from/to local-fixture (http://127.0.0.1:18431/maven): status code: 429, reason phrase: Too Many Requests (429)
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  30.443 s
+[INFO] ------------------------------------------------------------------------
+[ERROR] No plugin found for prefix 'dependency' in the current project and in the plugin groups [org.apache.maven.plugins, org.codehaus.mojo] available from the repositories [local (/tmp/mvn/repo), local-fixture (http://127.0.0.1:18431/maven)] -> [Help 1]
+[ERROR]
+[ERROR] To see the full stack trace, re-run Maven with the -e switch.
+[ERROR]
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/NoPluginFoundForPrefixException

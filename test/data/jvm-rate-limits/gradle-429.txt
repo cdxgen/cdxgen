@@ -1,0 +1,22 @@
+> Task :compileJava FAILED
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':compileJava' (registered by plugin class 'org.gradle.api.plugins.JavaBasePlugin').
+> Could not resolve all files for configuration ':compileClasspath'.
+   > Could not resolve junit:junit:4.13.2.
+     Required by:
+         root project 'gradle-proj'
+      > Could not resolve junit:junit:4.13.2.
+         > Could not get resource 'http://127.0.0.1:18431/maven/junit/junit/4.13.2/junit-4.13.2.pom'.
+            > Could not HEAD 'http://127.0.0.1:18431/maven/junit/junit/4.13.2/junit-4.13.2.pom'. Received status code 429 from server: Too Many Requests
+
+* Try:
+> Run with --stacktrace option to get the stack trace.
+> Run with --info or --debug option to get more log output.
+> Run with --scan to get full insights from a Build Scan (powered by Develocity).
+> Get more help at https://help.gradle.org.
+
+BUILD FAILED in 5s
+1 actionable task: 1 executed

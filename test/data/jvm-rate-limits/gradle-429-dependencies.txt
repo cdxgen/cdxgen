@@ -1,0 +1,24 @@
+> Task :dependencies
+
+Root project 'gradle-proj'
+
+annotationProcessor - Annotation processors and their dependencies for source set 'main'.
+No dependencies
+
+compileClasspath - Compile classpath for source set 'main'.
+Failed to get resource: HEAD. [HTTP 429: http://127.0.0.1:18431/maven/junit/junit/4.13.2/junit-4.13.2.pom)]
+Failed to get resource: HEAD. [HTTP 429: http://127.0.0.1:18431/maven/junit/junit/4.13.2/junit-4.13.2.pom)]
+Failed to get resource: HEAD. [HTTP 429: http://127.0.0.1:18431/maven/junit/junit/4.13.2/junit-4.13.2.pom)]
+\--- junit:junit:4.13.2 FAILED
+
+compileOnly - Compile-only dependencies for the 'main' feature. (n)
+No dependencies
+
+implementation - Implementation dependencies for the 'main' feature. (n)
+\--- junit:junit:4.13.2 (n)
+
+runtimeClasspath - Runtime classpath of source set 'main'.
+\--- junit:junit:4.13.2 FAILED
+
+BUILD SUCCESSFUL in 5s
+1 actionable task: 1 executed

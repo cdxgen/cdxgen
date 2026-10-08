@@ -1,0 +1,22 @@
+> Task :compileJava FAILED
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':compileJava' (registered by plugin class 'org.gradle.api.plugins.JavaBasePlugin').
+> Could not resolve all files for configuration ':compileClasspath'.
+   > Could not find junit:junit:4.13.2.
+     Searched in the following locations:
+       - http://127.0.0.1:18431/maven/junit/junit/4.13.2/junit-4.13.2.pom
+     Required by:
+         root project 'gradle-proj'
+
+* Try:
+> If the artifact you are trying to retrieve can be found in the repository but without metadata in 'Maven POM' format, you need to adjust the 'metadataSources { ... }' of the repository declaration.
+> Run with --stacktrace option to get the stack trace.
+> Run with --info or --debug option to get more log output.
+> Run with --scan to get full insights from a Build Scan (powered by Develocity).
+> Get more help at https://help.gradle.org.
+
+BUILD FAILED in 2s
+1 actionable task: 1 executed
