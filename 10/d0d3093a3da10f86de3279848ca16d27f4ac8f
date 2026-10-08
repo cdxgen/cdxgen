@@ -1,0 +1,21 @@
+lib/ecosystems/registryMemos.poku.js
+  s_755a56872480ac::t_a009538425a146 1-103
+lib/ecosystems/ecosystems.js
+  s_755a56872480ac::t_942b71d279335d 110-126,463-464,471,2203,2241-2242,2270,2302-2303,2311,3928-3929,3938,3965,3982,4003
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "10d0d3093a3da10f86de3279848ca16d27f4ac8f",
+  "prompts": {},
+  "sessions": {
+    "s_755a56872480ac": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "fcd63641-a6ba-4dfb-b81e-a2a956bec8f0",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
