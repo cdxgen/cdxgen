@@ -929,6 +929,16 @@ cdxgen -t java -o bom.json .
 
 `MAVEN_CENTRAL_URL` only changes where cdxgen itself fetches POMs from. Maven, Gradle and sbt keep using the repositories their own configuration names.
 
+### Other registry rate limits
+
+Every registry request cdxgen makes, batched or not, waits behind one rate gate per host. Within a run:
+
+- a request that keeps failing with a server error or HTTP 429 is retried with back-off, honouring `Retry-After`, and then left alone for the rest of that pass;
+- a host that answers HTTP 429 to three requests is not contacted for ten minutes, or for as long as `Retry-After` asks, and cdxgen prints one warning;
+- a document that answered 404 or 410 is not asked for again.
+
+The affected components keep the metadata found in lockfiles, manifests and local caches.
+
 ## Nydus - next-generation container image
 
 [Nydus](https://github.com/dragonflyoss/nydus) enhances the current OCI image specification by improving container launch speed, image space and network bandwidth efficiency, and data integrity. cdxgen container images are available in nydus format with the `-nydus` suffix.
