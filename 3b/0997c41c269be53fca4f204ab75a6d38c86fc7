@@ -1,0 +1,25 @@
+lib/inventory/fetchBatch.js
+  s_755a56872480ac::t_d87c304ce3bcf4 42-43,384-386,395-411
+  s_755a56872480ac::t_04ad9c3a45b997 15-18
+  s_755a56872480ac::t_c628f6d6c964f3 412-413
+lib/inventory/fetchBatch.policy.poku.js
+  s_755a56872480ac::t_b2c7d17731806c 1-103
+docs/ENV.md
+  s_755a56872480ac::t_b3725ece059c94 342
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "3b0997c41c269be53fca4f204ab75a6d38c86fc7",
+  "prompts": {},
+  "sessions": {
+    "s_755a56872480ac": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "fcd63641-a6ba-4dfb-b81e-a2a956bec8f0",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
