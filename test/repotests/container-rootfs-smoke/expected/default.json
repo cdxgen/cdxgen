@@ -4,30 +4,8 @@
     {
       "bom-ref": "pkg:npm/container-app@1.2.3",
       "description": "Container rootfs golden fixture app",
-      "evidence": {
-        "identity": [
-          {
-            "concludedValue": "$ROOT/app/package.json",
-            "confidence": 0.7,
-            "field": "purl",
-            "methods": [
-              {
-                "confidence": 0.7,
-                "technique": "manifest-analysis",
-                "value": "$ROOT/app/package.json"
-              }
-            ]
-          }
-        ]
-      },
       "group": "",
       "name": "container-app",
-      "properties": [
-        {
-          "name": "internal:SrcFile",
-          "value": "$ROOT/app/package.json"
-        }
-      ],
       "purl": "pkg:npm/container-app@1.2.3",
       "type": "library",
       "version": "1.2.3"
@@ -35,22 +13,6 @@
     {
       "bom-ref": "pkg:npm/left-pad@1.3.0",
       "description": "String left pad",
-      "evidence": {
-        "identity": [
-          {
-            "concludedValue": "$ROOT/app/node_modules/left-pad/package.json",
-            "confidence": 0.7,
-            "field": "purl",
-            "methods": [
-              {
-                "confidence": 0.7,
-                "technique": "manifest-analysis",
-                "value": "$ROOT/app/node_modules/left-pad/package.json"
-              }
-            ]
-          }
-        ]
-      },
       "externalReferences": [
         {
           "type": "vcs",
@@ -67,12 +29,6 @@
         }
       ],
       "name": "left-pad",
-      "properties": [
-        {
-          "name": "internal:SrcFile",
-          "value": "$ROOT/app/node_modules/left-pad/package.json"
-        }
-      ],
       "purl": "pkg:npm/left-pad@1.3.0",
       "type": "library",
       "version": "1.3.0"
@@ -80,22 +36,6 @@
     {
       "bom-ref": "pkg:npm/semver@7.3.5",
       "description": "The semantic version parser used by npm",
-      "evidence": {
-        "identity": [
-          {
-            "concludedValue": "$ROOT/usr/lib/node_modules/semver/package.json",
-            "confidence": 0.7,
-            "field": "purl",
-            "methods": [
-              {
-                "confidence": 0.7,
-                "technique": "manifest-analysis",
-                "value": "$ROOT/usr/lib/node_modules/semver/package.json"
-              }
-            ]
-          }
-        ]
-      },
       "group": "",
       "licenses": [
         {
@@ -106,12 +46,6 @@
         }
       ],
       "name": "semver",
-      "properties": [
-        {
-          "name": "internal:SrcFile",
-          "value": "$ROOT/usr/lib/node_modules/semver/package.json"
-        }
-      ],
       "purl": "pkg:npm/semver@7.3.5",
       "type": "library",
       "version": "7.3.5"
