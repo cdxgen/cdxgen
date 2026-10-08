@@ -24,7 +24,7 @@ environment; it never fixes the project.
 
 The remediation catalog in `data/remediations.json` is deepest where the
 build ecosystems are mainstream: java, npm, python and the generic findings
-carry most of the 44 entries, and go, rust, php, clojure, swift, ruby, dart,
+carry most of the 45 entries, and go, rust, php, clojure, swift, ruby, dart,
 elixir, haskell, csharp and cocoa each carry at least one concrete repair.
 It is shallowest — **zero entries — for c/cpp**: nothing in cdxgen today
 reads a compilation database, so a c/cpp row grading `absent` is the honest
