@@ -1,0 +1,22 @@
+lib/ecosystems/nugetLocalNuspec.poku.js
+  s_755a56872480ac::t_868b00d264392f 110-123
+lib/ecosystems/ecosystems.js
+  s_755a56872480ac::t_db85428cfd7212 3844-3911,3959-3961,3964,3968,3973-3979,3982-3991,3994-3997,4000
+  s_755a56872480ac::t_3f22728e95678b 3843,3963,3980,4001-4002
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "6fe322521dfc1ccac73e42d7c24cf6739c92cd9b",
+  "prompts": {},
+  "sessions": {
+    "s_755a56872480ac": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "fcd63641-a6ba-4dfb-b81e-a2a956bec8f0",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
