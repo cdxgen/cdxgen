@@ -1,0 +1,39 @@
+lib/cli/registryDiskCache.poku.js
+  s_755a56872480ac::t_d8fb3e26dfc865 104-108,115-119,133-137
+lib/ecosystems/denoutils.js
+  s_755a56872480ac::t_d8fb3e26dfc865 9,16
+lib/ecosystems/parsers-elm.js
+  s_755a56872480ac::t_d8fb3e26dfc865 8,13
+lib/ecosystems/rubyutils.js
+  s_755a56872480ac::t_d8fb3e26dfc865 18,27
+lib/ecosystems/githubQuota.poku.js
+  s_755a56872480ac::t_d8fb3e26dfc865 78-81,105-107
+lib/inventory/source.js
+  s_755a56872480ac::t_d8fb3e26dfc865 30
+lib/ecosystems/registryMemos.poku.js
+  s_755a56872480ac::t_d8fb3e26dfc865 53-56
+lib/inventory/fetchDiskCache.js
+  s_755a56872480ac::t_d8fb3e26dfc865 37,69
+lib/ecosystems/parsers-misc.js
+  s_755a56872480ac::t_d8fb3e26dfc865 15,34
+lib/inventory/fetchBatch.js
+  s_755a56872480ac::t_d8fb3e26dfc865 404-407,564
+lib/inventory/fetchDiskCache.poku.js
+  s_755a56872480ac::t_d8fb3e26dfc865 10-16,50-52,108-111,118-122,178-182,198-206
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "57a4c19cbb99bb54b7402184d4016e6c45d666d4",
+  "prompts": {},
+  "sessions": {
+    "s_755a56872480ac": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "fcd63641-a6ba-4dfb-b81e-a2a956bec8f0",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
