@@ -1,0 +1,518 @@
+{
+  "bomFormat": "CycloneDX",
+  "components": [
+    {
+      "bom-ref": "pkg:generic/registry.terraform.io/cloudposse/label/null@0.25.0",
+      "evidence": {
+        "identity": [
+          {
+            "concludedValue": ".terraform/modules/modules.json",
+            "confidence": 1,
+            "field": "purl",
+            "methods": [
+              {
+                "confidence": 1,
+                "technique": "manifest-analysis",
+                "value": ".terraform/modules/modules.json"
+              }
+            ]
+          }
+        ],
+        "occurrences": [
+          {
+            "line": 1,
+            "location": "modules/network/main.tf",
+            "symbol": "module.label"
+          }
+        ]
+      },
+      "group": "registry.terraform.io/cloudposse",
+      "licenses": [
+        {
+          "license": {
+            "id": "BSD-3-Clause",
+            "url": "https://opensource.org/licenses/BSD-3-Clause"
+          }
+        }
+      ],
+      "name": "label/null",
+      "properties": [
+        {
+          "name": "cdx:purl:proposedType",
+          "value": "terraform-module"
+        },
+        {
+          "name": "cdx:tf:address",
+          "value": "registry.terraform.io/cloudposse/label/null"
+        },
+        {
+          "name": "cdx:tf:constraints",
+          "value": "0.25.0"
+        },
+        {
+          "name": "cdx:tf:kind",
+          "value": "module"
+        },
+        {
+          "name": "cdx:tf:licenseFile",
+          "value": ".terraform/modules/network.label/LICENSE"
+        },
+        {
+          "name": "cdx:tf:licenseSource",
+          "value": "file"
+        },
+        {
+          "name": "cdx:tf:module:installed",
+          "value": "true"
+        },
+        {
+          "name": "cdx:tf:module:pinning",
+          "value": "exact"
+        },
+        {
+          "name": "cdx:tf:module:source",
+          "value": "registry.terraform.io/cloudposse/label/null"
+        },
+        {
+          "name": "cdx:tf:module:sourceType",
+          "value": "registry"
+        },
+        {
+          "name": "internal:SrcFile",
+          "value": "$ROOT/modules/network/main.tf"
+        }
+      ],
+      "purl": "pkg:generic/registry.terraform.io/cloudposse/label/null@0.25.0",
+      "scope": "required",
+      "type": "library",
+      "version": "0.25.0"
+    },
+    {
+      "bom-ref": "pkg:generic/registry.terraform.io/hashicorp/aws@5.80.0",
+      "evidence": {
+        "identity": [
+          {
+            "concludedValue": ".terraform.lock.hcl",
+            "confidence": 1,
+            "field": "purl",
+            "methods": [
+              {
+                "confidence": 1,
+                "technique": "manifest-analysis",
+                "value": ".terraform.lock.hcl"
+              }
+            ]
+          }
+        ],
+        "occurrences": [
+          {
+            "line": 3,
+            "location": ".terraform/modules/vpc/modules/endpoints/main.tf",
+            "symbol": "required_providers.aws"
+          },
+          {
+            "line": 3,
+            "location": ".terraform/modules/vpc/versions.tf",
+            "symbol": "required_providers.aws"
+          },
+          {
+            "line": 5,
+            "location": "versions.tf",
+            "symbol": "required_providers.aws"
+          }
+        ]
+      },
+      "group": "registry.terraform.io/hashicorp",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "274f8d3e3a20b9604baa5e6ccc70c6a904a0973f3e6274b6ffef6d02a4d3c6b4"
+        },
+        {
+          "alg": "SHA-256",
+          "content": "8dcb9bd1a0ba1bbd0ec64a1ba5e0e2e0c2e4b8c9d0a1e6f3b2c5d8e9f0a1b2c3"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MPL-2.0",
+            "url": "https://opensource.org/licenses/MPL-2.0"
+          }
+        }
+      ],
+      "name": "aws",
+      "properties": [
+        {
+          "name": "cdx:purl:proposedType",
+          "value": "terraform-provider"
+        },
+        {
+          "name": "cdx:tf:address",
+          "value": "registry.terraform.io/hashicorp/aws"
+        },
+        {
+          "name": "cdx:tf:constraints",
+          "value": ">= 5.0.0"
+        },
+        {
+          "name": "cdx:tf:h1",
+          "value": "h1:JNWQeVmmv5FTRgQ4lFzptzk3PQBIJDYzI8+qNjsVgp0="
+        },
+        {
+          "name": "cdx:tf:kind",
+          "value": "provider"
+        },
+        {
+          "name": "cdx:tf:licenseFile",
+          "value": ".terraform/providers/registry.terraform.io/hashicorp/aws/5.80.0/linux_amd64/LICENSE"
+        },
+        {
+          "name": "cdx:tf:licenseSource",
+          "value": "file"
+        },
+        {
+          "name": "internal:SrcFile",
+          "value": "$ROOT/.terraform.lock.hcl"
+        }
+      ],
+      "purl": "pkg:generic/registry.terraform.io/hashicorp/aws@5.80.0",
+      "scope": "required",
+      "type": "library",
+      "version": "5.80.0"
+    },
+    {
+      "bom-ref": "pkg:generic/registry.terraform.io/hashicorp/random@3.6.3",
+      "evidence": {
+        "identity": [
+          {
+            "concludedValue": ".terraform.lock.hcl",
+            "confidence": 1,
+            "field": "purl",
+            "methods": [
+              {
+                "confidence": 1,
+                "technique": "manifest-analysis",
+                "value": ".terraform.lock.hcl"
+              }
+            ]
+          }
+        ],
+        "occurrences": [
+          {
+            "line": 3,
+            "location": ".terraform/modules/network.label/main.tf",
+            "symbol": "required_providers.random"
+          },
+          {
+            "line": 9,
+            "location": "versions.tf",
+            "symbol": "required_providers.random"
+          }
+        ]
+      },
+      "group": "registry.terraform.io/hashicorp",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "1b12d1c5b7f83f80a76c38af2aa0ecdfcb8a10f8d6183e47a3f1e0ec074b30ec"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MPL-2.0",
+            "url": "https://opensource.org/licenses/MPL-2.0"
+          }
+        }
+      ],
+      "name": "random",
+      "properties": [
+        {
+          "name": "cdx:purl:proposedType",
+          "value": "terraform-provider"
+        },
+        {
+          "name": "cdx:tf:address",
+          "value": "registry.terraform.io/hashicorp/random"
+        },
+        {
+          "name": "cdx:tf:constraints",
+          "value": ">= 3.6.0"
+        },
+        {
+          "name": "cdx:tf:h1",
+          "value": "h1:xZcaobHj6bc4S7g4Em3p6iZr8thjpCgxoQmuZO8M4Ew="
+        },
+        {
+          "name": "cdx:tf:kind",
+          "value": "provider"
+        },
+        {
+          "name": "cdx:tf:licenseFile",
+          "value": ".terraform/providers/registry.terraform.io/hashicorp/random/3.6.3/linux_amd64/LICENSE.txt"
+        },
+        {
+          "name": "cdx:tf:licenseSource",
+          "value": "file"
+        },
+        {
+          "name": "internal:SrcFile",
+          "value": "$ROOT/.terraform.lock.hcl"
+        }
+      ],
+      "purl": "pkg:generic/registry.terraform.io/hashicorp/random@3.6.3",
+      "scope": "required",
+      "type": "library",
+      "version": "3.6.3"
+    },
+    {
+      "bom-ref": "pkg:generic/registry.terraform.io/terraform-aws-modules/vpc/aws@5.1.2",
+      "evidence": {
+        "identity": [
+          {
+            "concludedValue": ".terraform/modules/modules.json",
+            "confidence": 1,
+            "field": "purl",
+            "methods": [
+              {
+                "confidence": 1,
+                "technique": "manifest-analysis",
+                "value": ".terraform/modules/modules.json"
+              }
+            ]
+          }
+        ],
+        "occurrences": [
+          {
+            "line": 7,
+            "location": "main.tf",
+            "symbol": "module.vpc"
+          }
+        ]
+      },
+      "group": "registry.terraform.io/terraform-aws-modules",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0",
+            "url": "https://opensource.org/licenses/Apache-2.0"
+          }
+        }
+      ],
+      "name": "vpc/aws",
+      "properties": [
+        {
+          "name": "cdx:purl:proposedType",
+          "value": "terraform-module"
+        },
+        {
+          "name": "cdx:tf:address",
+          "value": "registry.terraform.io/terraform-aws-modules/vpc/aws"
+        },
+        {
+          "name": "cdx:tf:constraints",
+          "value": "~> 5.1"
+        },
+        {
+          "name": "cdx:tf:kind",
+          "value": "module"
+        },
+        {
+          "name": "cdx:tf:licenseFile",
+          "value": ".terraform/modules/vpc/LICENSE"
+        },
+        {
+          "name": "cdx:tf:licenseSource",
+          "value": "file"
+        },
+        {
+          "name": "cdx:tf:module:installed",
+          "value": "true"
+        },
+        {
+          "name": "cdx:tf:module:pinning",
+          "value": "range"
+        },
+        {
+          "name": "cdx:tf:module:source",
+          "value": "registry.terraform.io/terraform-aws-modules/vpc/aws"
+        },
+        {
+          "name": "cdx:tf:module:sourceType",
+          "value": "registry"
+        },
+        {
+          "name": "internal:SrcFile",
+          "value": "$ROOT/main.tf"
+        }
+      ],
+      "purl": "pkg:generic/registry.terraform.io/terraform-aws-modules/vpc/aws@5.1.2",
+      "scope": "required",
+      "type": "library",
+      "version": "5.1.2"
+    },
+    {
+      "bom-ref": "pkg:github/cloudposse/terraform-null-label@0.25.0",
+      "evidence": {
+        "identity": [
+          {
+            "concludedValue": ".terraform/modules/modules.json",
+            "confidence": 1,
+            "field": "purl",
+            "methods": [
+              {
+                "confidence": 1,
+                "technique": "manifest-analysis",
+                "value": ".terraform/modules/modules.json"
+              }
+            ]
+          }
+        ],
+        "occurrences": [
+          {
+            "line": 15,
+            "location": "main.tf",
+            "symbol": "module.label_git"
+          }
+        ]
+      },
+      "group": "cloudposse",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT",
+            "url": "https://opensource.org/licenses/MIT"
+          }
+        }
+      ],
+      "name": "terraform-null-label",
+      "properties": [
+        {
+          "name": "cdx:tf:kind",
+          "value": "module"
+        },
+        {
+          "name": "cdx:tf:licenseFile",
+          "value": ".terraform/modules/label_git/LICENSE"
+        },
+        {
+          "name": "cdx:tf:licenseSource",
+          "value": "file"
+        },
+        {
+          "name": "cdx:tf:module:installed",
+          "value": "true"
+        },
+        {
+          "name": "cdx:tf:module:pinning",
+          "value": "tag"
+        },
+        {
+          "name": "cdx:tf:module:ref",
+          "value": "0.25.0"
+        },
+        {
+          "name": "cdx:tf:module:source",
+          "value": "git::https://github.com/cloudposse/terraform-null-label.git"
+        },
+        {
+          "name": "cdx:tf:module:sourceType",
+          "value": "git"
+        },
+        {
+          "name": "internal:SrcFile",
+          "value": "$ROOT/main.tf"
+        }
+      ],
+      "purl": "pkg:github/cloudposse/terraform-null-label@0.25.0",
+      "scope": "required",
+      "type": "application",
+      "version": "0.25.0"
+    }
+  ],
+  "dependencies": [
+    {
+      "dependsOn": [
+        "pkg:generic/registry.terraform.io/hashicorp/random@3.6.3"
+      ],
+      "ref": "pkg:generic/registry.terraform.io/cloudposse/label/null@0.25.0"
+    },
+    {
+      "dependsOn": [],
+      "ref": "pkg:generic/registry.terraform.io/hashicorp/aws@5.80.0"
+    },
+    {
+      "dependsOn": [],
+      "ref": "pkg:generic/registry.terraform.io/hashicorp/random@3.6.3"
+    },
+    {
+      "dependsOn": [
+        "pkg:generic/registry.terraform.io/hashicorp/aws@5.80.0"
+      ],
+      "ref": "pkg:generic/registry.terraform.io/terraform-aws-modules/vpc/aws@5.1.2"
+    },
+    {
+      "dependsOn": [
+        "pkg:generic/registry.terraform.io/cloudposse/label/null@0.25.0",
+        "pkg:generic/registry.terraform.io/hashicorp/aws@5.80.0",
+        "pkg:generic/registry.terraform.io/hashicorp/random@3.6.3",
+        "pkg:generic/registry.terraform.io/terraform-aws-modules/vpc/aws@5.1.2",
+        "pkg:github/cloudposse/terraform-null-label@0.25.0"
+      ],
+      "ref": "pkg:generic/terraform-modules@latest"
+    },
+    {
+      "dependsOn": [],
+      "ref": "pkg:github/cloudposse/terraform-null-label@0.25.0"
+    }
+  ],
+  "metadata": {
+    "authors": [],
+    "component": {
+      "bom-ref": "pkg:generic/terraform-modules@latest",
+      "group": "",
+      "name": "terraform-modules",
+      "properties": [
+        {
+          "name": "cdx:tf:requiredVersion",
+          "value": ">= 1.6.0"
+        },
+        {
+          "name": "cdx:tf:root",
+          "value": "."
+        }
+      ],
+      "purl": "pkg:generic/terraform-modules@latest",
+      "type": "application",
+      "version": "latest"
+    },
+    "lifecycles": [
+      {
+        "phase": "pre-build"
+      }
+    ],
+    "timestamp": "1970-01-01T00:00:00.000Z",
+    "tools": {
+      "components": [
+        {
+          "authors": [
+            {
+              "name": "OWASP Foundation"
+            }
+          ],
+          "bom-ref": "pkg:npm/%40cdxgen/cdxgen@0.0.0-normalized",
+          "group": "@cdxgen",
+          "name": "cdxgen",
+          "publisher": "OWASP Foundation",
+          "purl": "pkg:npm/%40cdxgen/cdxgen@0.0.0-normalized",
+          "type": "application",
+          "version": "0.0.0-normalized"
+        }
+      ]
+    }
+  },
+  "serialNumber": "urn:uuid:00000000-0000-0000-0000-000000000000",
+  "specVersion": "1.7",
+  "version": 1
+}

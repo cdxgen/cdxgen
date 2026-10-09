@@ -1,0 +1,720 @@
+{
+  "bomFormat": "CycloneDX",
+  "components": [
+    {
+      "bom-ref": "pkg:generic/artifacts.example.com/vpc-1.4.0_download_url_https:%2F%2Fartifacts.example.com%2Fmodules%2Fvpc-1.4.0.zip",
+      "evidence": {
+        "identity": [
+          {
+            "concludedValue": "main.tf",
+            "confidence": 0.6,
+            "field": "purl",
+            "methods": [
+              {
+                "confidence": 0.6,
+                "technique": "manifest-analysis",
+                "value": "main.tf"
+              }
+            ]
+          }
+        ],
+        "occurrences": [
+          {
+            "line": 32,
+            "location": "main.tf",
+            "symbol": "module.vpc_archive"
+          }
+        ]
+      },
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://artifacts.example.com/modules/vpc-1.4.0.zip"
+        }
+      ],
+      "group": "artifacts.example.com",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08"
+        }
+      ],
+      "name": "vpc-1.4.0",
+      "properties": [
+        {
+          "name": "cdx:tf:kind",
+          "value": "module"
+        },
+        {
+          "name": "cdx:tf:module:installed",
+          "value": "false"
+        },
+        {
+          "name": "cdx:tf:module:pinning",
+          "value": "checksum"
+        },
+        {
+          "name": "cdx:tf:module:source",
+          "value": "https://artifacts.example.com/modules/vpc-1.4.0.zip"
+        },
+        {
+          "name": "cdx:tf:module:sourceType",
+          "value": "http"
+        },
+        {
+          "name": "internal:SrcFile",
+          "value": "$ROOT/main.tf"
+        }
+      ],
+      "purl": "pkg:generic/artifacts.example.com/vpc-1.4.0?download_url=https:%2F%2Fartifacts.example.com%2Fmodules%2Fvpc-1.4.0.zip",
+      "scope": "required",
+      "type": "library"
+    },
+    {
+      "bom-ref": "pkg:generic/example.com/platform/network@main_vcs_url_ssh:%2F%2Fexample.com%2Fplatform%2Fnetwork.git_modules/vpc",
+      "evidence": {
+        "identity": [
+          {
+            "concludedValue": "main.tf",
+            "confidence": 0.6,
+            "field": "purl",
+            "methods": [
+              {
+                "confidence": 0.6,
+                "technique": "manifest-analysis",
+                "value": "main.tf"
+              }
+            ]
+          }
+        ],
+        "occurrences": [
+          {
+            "line": 24,
+            "location": "main.tf",
+            "symbol": "module.network"
+          }
+        ]
+      },
+      "group": "example.com/platform",
+      "name": "network",
+      "properties": [
+        {
+          "name": "cdx:tf:kind",
+          "value": "module"
+        },
+        {
+          "name": "cdx:tf:module:installed",
+          "value": "false"
+        },
+        {
+          "name": "cdx:tf:module:pinning",
+          "value": "branch"
+        },
+        {
+          "name": "cdx:tf:module:ref",
+          "value": "main"
+        },
+        {
+          "name": "cdx:tf:module:source",
+          "value": "git::ssh://example.com/platform/network.git//modules/vpc"
+        },
+        {
+          "name": "cdx:tf:module:sourceType",
+          "value": "git"
+        },
+        {
+          "name": "internal:SrcFile",
+          "value": "$ROOT/main.tf"
+        }
+      ],
+      "purl": "pkg:generic/example.com/platform/network@main?vcs_url=ssh:%2F%2Fexample.com%2Fplatform%2Fnetwork.git#modules/vpc",
+      "scope": "required",
+      "type": "library",
+      "version": "main"
+    },
+    {
+      "bom-ref": "pkg:generic/git.example.com/infra/db@v2.0.0_vcs_url_https:%2F%2Fgit.example.com%2Finfra%2Fdb.git",
+      "evidence": {
+        "identity": [
+          {
+            "concludedValue": "main.tf",
+            "confidence": 0.6,
+            "field": "purl",
+            "methods": [
+              {
+                "confidence": 0.6,
+                "technique": "manifest-analysis",
+                "value": "main.tf"
+              }
+            ]
+          }
+        ],
+        "occurrences": [
+          {
+            "line": 36,
+            "location": "main.tf",
+            "symbol": "module.db"
+          }
+        ]
+      },
+      "group": "git.example.com/infra",
+      "name": "db",
+      "properties": [
+        {
+          "name": "cdx:tf:kind",
+          "value": "module"
+        },
+        {
+          "name": "cdx:tf:module:credentialInSource",
+          "value": "true"
+        },
+        {
+          "name": "cdx:tf:module:installed",
+          "value": "false"
+        },
+        {
+          "name": "cdx:tf:module:pinning",
+          "value": "tag"
+        },
+        {
+          "name": "cdx:tf:module:ref",
+          "value": "v2.0.0"
+        },
+        {
+          "name": "cdx:tf:module:source",
+          "value": "git::https://git.example.com/infra/db.git"
+        },
+        {
+          "name": "cdx:tf:module:sourceType",
+          "value": "git"
+        },
+        {
+          "name": "internal:SrcFile",
+          "value": "$ROOT/main.tf"
+        }
+      ],
+      "purl": "pkg:generic/git.example.com/infra/db@v2.0.0?vcs_url=https:%2F%2Fgit.example.com%2Finfra%2Fdb.git",
+      "scope": "required",
+      "type": "library",
+      "version": "v2.0.0"
+    },
+    {
+      "bom-ref": "pkg:generic/registry.terraform.io/hashicorp/consul/aws_modules/consul-cluster",
+      "evidence": {
+        "identity": [
+          {
+            "concludedValue": "main.tf",
+            "confidence": 0.6,
+            "field": "purl",
+            "methods": [
+              {
+                "confidence": 0.6,
+                "technique": "manifest-analysis",
+                "value": "main.tf"
+              }
+            ]
+          }
+        ],
+        "occurrences": [
+          {
+            "line": 20,
+            "location": "main.tf",
+            "symbol": "module.consul"
+          }
+        ]
+      },
+      "group": "registry.terraform.io/hashicorp",
+      "name": "consul/aws",
+      "properties": [
+        {
+          "name": "cdx:purl:proposedType",
+          "value": "terraform-module"
+        },
+        {
+          "name": "cdx:tf:address",
+          "value": "registry.terraform.io/hashicorp/consul/aws"
+        },
+        {
+          "name": "cdx:tf:kind",
+          "value": "module"
+        },
+        {
+          "name": "cdx:tf:module:installed",
+          "value": "false"
+        },
+        {
+          "name": "cdx:tf:module:pinning",
+          "value": "none"
+        },
+        {
+          "name": "cdx:tf:module:source",
+          "value": "registry.terraform.io/hashicorp/consul/aws//modules/consul-cluster"
+        },
+        {
+          "name": "cdx:tf:module:sourceType",
+          "value": "registry"
+        },
+        {
+          "name": "internal:SrcFile",
+          "value": "$ROOT/main.tf"
+        }
+      ],
+      "purl": "pkg:generic/registry.terraform.io/hashicorp/consul/aws#modules/consul-cluster",
+      "scope": "required",
+      "type": "library"
+    },
+    {
+      "bom-ref": "pkg:generic/registry.terraform.io/hashicorp/google@6.10.0",
+      "evidence": {
+        "identity": [
+          {
+            "concludedValue": "main.tf",
+            "confidence": 0.6,
+            "field": "purl",
+            "methods": [
+              {
+                "confidence": 0.6,
+                "technique": "manifest-analysis",
+                "value": "main.tf"
+              }
+            ]
+          }
+        ],
+        "occurrences": [
+          {
+            "line": 3,
+            "location": "main.tf",
+            "symbol": "required_providers.google"
+          }
+        ]
+      },
+      "externalReferences": [
+        {
+          "type": "vcs",
+          "url": "https://github.com/hashicorp/terraform-provider-google"
+        }
+      ],
+      "group": "registry.terraform.io/hashicorp",
+      "licenses": [
+        {
+          "license": {
+            "id": "MPL-2.0",
+            "url": "https://opensource.org/licenses/MPL-2.0"
+          }
+        }
+      ],
+      "name": "google",
+      "properties": [
+        {
+          "name": "cdx:purl:proposedType",
+          "value": "terraform-provider"
+        },
+        {
+          "name": "cdx:tf:address",
+          "value": "registry.terraform.io/hashicorp/google"
+        },
+        {
+          "name": "cdx:tf:constraints",
+          "value": "6.10.0"
+        },
+        {
+          "name": "cdx:tf:kind",
+          "value": "provider"
+        },
+        {
+          "name": "cdx:tf:licenseSource",
+          "value": "opentofu-registry"
+        },
+        {
+          "name": "cdx:tf:registry:tier",
+          "value": "official"
+        },
+        {
+          "name": "internal:SrcFile",
+          "value": "$ROOT/main.tf"
+        }
+      ],
+      "purl": "pkg:generic/registry.terraform.io/hashicorp/google@6.10.0",
+      "scope": "required",
+      "type": "library",
+      "version": "6.10.0"
+    },
+    {
+      "bom-ref": "pkg:generic/registry.terraform.io/hashicorp/random",
+      "evidence": {
+        "identity": [
+          {
+            "concludedValue": "sub/main.tf",
+            "confidence": 0.6,
+            "field": "purl",
+            "methods": [
+              {
+                "confidence": 0.6,
+                "technique": "manifest-analysis",
+                "value": "sub/main.tf"
+              }
+            ]
+          }
+        ],
+        "occurrences": [
+          {
+            "line": 3,
+            "location": "sub/main.tf",
+            "symbol": "required_providers.random"
+          }
+        ]
+      },
+      "group": "registry.terraform.io/hashicorp",
+      "name": "random",
+      "properties": [
+        {
+          "name": "cdx:purl:proposedType",
+          "value": "terraform-provider"
+        },
+        {
+          "name": "cdx:tf:address",
+          "value": "registry.terraform.io/hashicorp/random"
+        },
+        {
+          "name": "cdx:tf:constraints",
+          "value": "~> 3.0"
+        },
+        {
+          "name": "cdx:tf:kind",
+          "value": "provider"
+        },
+        {
+          "name": "internal:SrcFile",
+          "value": "$ROOT/sub/main.tf"
+        }
+      ],
+      "purl": "pkg:generic/registry.terraform.io/hashicorp/random",
+      "scope": "required",
+      "type": "library"
+    },
+    {
+      "bom-ref": "pkg:generic/registry.terraform.io/terraform-aws-modules/iam/aws",
+      "evidence": {
+        "identity": [
+          {
+            "concludedValue": "main.tf",
+            "confidence": 0.6,
+            "field": "purl",
+            "methods": [
+              {
+                "confidence": 0.6,
+                "technique": "manifest-analysis",
+                "value": "main.tf"
+              }
+            ]
+          }
+        ],
+        "occurrences": [
+          {
+            "line": 15,
+            "location": "main.tf",
+            "symbol": "module.iam"
+          }
+        ]
+      },
+      "group": "registry.terraform.io/terraform-aws-modules",
+      "name": "iam/aws",
+      "properties": [
+        {
+          "name": "cdx:purl:proposedType",
+          "value": "terraform-module"
+        },
+        {
+          "name": "cdx:tf:address",
+          "value": "registry.terraform.io/terraform-aws-modules/iam/aws"
+        },
+        {
+          "name": "cdx:tf:constraints",
+          "value": ">= 5.0, < 6.0"
+        },
+        {
+          "name": "cdx:tf:kind",
+          "value": "module"
+        },
+        {
+          "name": "cdx:tf:module:installed",
+          "value": "false"
+        },
+        {
+          "name": "cdx:tf:module:pinning",
+          "value": "range"
+        },
+        {
+          "name": "cdx:tf:module:source",
+          "value": "registry.terraform.io/terraform-aws-modules/iam/aws"
+        },
+        {
+          "name": "cdx:tf:module:sourceType",
+          "value": "registry"
+        },
+        {
+          "name": "internal:SrcFile",
+          "value": "$ROOT/main.tf"
+        }
+      ],
+      "purl": "pkg:generic/registry.terraform.io/terraform-aws-modules/iam/aws",
+      "scope": "required",
+      "type": "library"
+    },
+    {
+      "bom-ref": "pkg:generic/registry.terraform.io/terraform-aws-modules/s3-bucket/aws@4.2.1",
+      "description": "Terraform module which creates S3 bucket resources on AWS",
+      "evidence": {
+        "identity": [
+          {
+            "concludedValue": "main.tf",
+            "confidence": 0.6,
+            "field": "purl",
+            "methods": [
+              {
+                "confidence": 0.6,
+                "technique": "manifest-analysis",
+                "value": "main.tf"
+              }
+            ]
+          }
+        ],
+        "occurrences": [
+          {
+            "line": 10,
+            "location": "main.tf",
+            "symbol": "module.s3_bucket"
+          }
+        ]
+      },
+      "externalReferences": [
+        {
+          "type": "vcs",
+          "url": "https://github.com/terraform-aws-modules/terraform-aws-s3-bucket"
+        }
+      ],
+      "group": "registry.terraform.io/terraform-aws-modules",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0",
+            "url": "https://opensource.org/licenses/Apache-2.0"
+          }
+        }
+      ],
+      "name": "s3-bucket/aws",
+      "properties": [
+        {
+          "name": "cdx:purl:proposedType",
+          "value": "terraform-module"
+        },
+        {
+          "name": "cdx:tf:address",
+          "value": "registry.terraform.io/terraform-aws-modules/s3-bucket/aws"
+        },
+        {
+          "name": "cdx:tf:constraints",
+          "value": "= 4.2.1"
+        },
+        {
+          "name": "cdx:tf:kind",
+          "value": "module"
+        },
+        {
+          "name": "cdx:tf:licenseSource",
+          "value": "opentofu-registry"
+        },
+        {
+          "name": "cdx:tf:module:installed",
+          "value": "false"
+        },
+        {
+          "name": "cdx:tf:module:pinning",
+          "value": "exact"
+        },
+        {
+          "name": "cdx:tf:module:source",
+          "value": "registry.terraform.io/terraform-aws-modules/s3-bucket/aws"
+        },
+        {
+          "name": "cdx:tf:module:sourceType",
+          "value": "registry"
+        },
+        {
+          "name": "cdx:tf:registry:verified",
+          "value": "true"
+        },
+        {
+          "name": "internal:SrcFile",
+          "value": "$ROOT/main.tf"
+        }
+      ],
+      "purl": "pkg:generic/registry.terraform.io/terraform-aws-modules/s3-bucket/aws@4.2.1",
+      "scope": "required",
+      "type": "library",
+      "version": "4.2.1"
+    },
+    {
+      "bom-ref": "pkg:github/acme/terraform-modules@3d8f2c9a1b07e645f2c9ab8d0e1f23456789abcd_dns",
+      "evidence": {
+        "identity": [
+          {
+            "concludedValue": "main.tf",
+            "confidence": 0.6,
+            "field": "purl",
+            "methods": [
+              {
+                "confidence": 0.6,
+                "technique": "manifest-analysis",
+                "value": "main.tf"
+              }
+            ]
+          }
+        ],
+        "occurrences": [
+          {
+            "line": 28,
+            "location": "main.tf",
+            "symbol": "module.dns"
+          }
+        ]
+      },
+      "group": "acme",
+      "name": "terraform-modules",
+      "properties": [
+        {
+          "name": "cdx:tf:kind",
+          "value": "module"
+        },
+        {
+          "name": "cdx:tf:module:installed",
+          "value": "false"
+        },
+        {
+          "name": "cdx:tf:module:pinning",
+          "value": "sha"
+        },
+        {
+          "name": "cdx:tf:module:ref",
+          "value": "3d8f2c9a1b07e645f2c9ab8d0e1f23456789abcd"
+        },
+        {
+          "name": "cdx:tf:module:source",
+          "value": "git::https://github.com/acme/terraform-modules.git//dns"
+        },
+        {
+          "name": "cdx:tf:module:sourceType",
+          "value": "git"
+        },
+        {
+          "name": "internal:SrcFile",
+          "value": "$ROOT/main.tf"
+        }
+      ],
+      "purl": "pkg:github/acme/terraform-modules@3d8f2c9a1b07e645f2c9ab8d0e1f23456789abcd#dns",
+      "scope": "required",
+      "type": "application",
+      "version": "3d8f2c9a1b07e645f2c9ab8d0e1f23456789abcd"
+    }
+  ],
+  "dependencies": [
+    {
+      "dependsOn": [],
+      "ref": "pkg:generic/artifacts.example.com/vpc-1.4.0_download_url_https:%2F%2Fartifacts.example.com%2Fmodules%2Fvpc-1.4.0.zip"
+    },
+    {
+      "dependsOn": [],
+      "ref": "pkg:generic/example.com/platform/network@main_vcs_url_ssh:%2F%2Fexample.com%2Fplatform%2Fnetwork.git_modules/vpc"
+    },
+    {
+      "dependsOn": [],
+      "ref": "pkg:generic/git.example.com/infra/db@v2.0.0_vcs_url_https:%2F%2Fgit.example.com%2Finfra%2Fdb.git"
+    },
+    {
+      "dependsOn": [],
+      "ref": "pkg:generic/registry.terraform.io/hashicorp/consul/aws_modules/consul-cluster"
+    },
+    {
+      "dependsOn": [],
+      "ref": "pkg:generic/registry.terraform.io/hashicorp/google@6.10.0"
+    },
+    {
+      "dependsOn": [],
+      "ref": "pkg:generic/registry.terraform.io/hashicorp/random"
+    },
+    {
+      "dependsOn": [],
+      "ref": "pkg:generic/registry.terraform.io/terraform-aws-modules/iam/aws"
+    },
+    {
+      "dependsOn": [],
+      "ref": "pkg:generic/registry.terraform.io/terraform-aws-modules/s3-bucket/aws@4.2.1"
+    },
+    {
+      "dependsOn": [
+        "pkg:generic/artifacts.example.com/vpc-1.4.0_download_url_https:%2F%2Fartifacts.example.com%2Fmodules%2Fvpc-1.4.0.zip",
+        "pkg:generic/example.com/platform/network@main_vcs_url_ssh:%2F%2Fexample.com%2Fplatform%2Fnetwork.git_modules/vpc",
+        "pkg:generic/git.example.com/infra/db@v2.0.0_vcs_url_https:%2F%2Fgit.example.com%2Finfra%2Fdb.git",
+        "pkg:generic/registry.terraform.io/hashicorp/consul/aws_modules/consul-cluster",
+        "pkg:generic/registry.terraform.io/hashicorp/google@6.10.0",
+        "pkg:generic/registry.terraform.io/hashicorp/random",
+        "pkg:generic/registry.terraform.io/terraform-aws-modules/iam/aws",
+        "pkg:generic/registry.terraform.io/terraform-aws-modules/s3-bucket/aws@4.2.1",
+        "pkg:github/acme/terraform-modules@3d8f2c9a1b07e645f2c9ab8d0e1f23456789abcd_dns"
+      ],
+      "ref": "pkg:generic/terraform-static@latest"
+    },
+    {
+      "dependsOn": [],
+      "ref": "pkg:github/acme/terraform-modules@3d8f2c9a1b07e645f2c9ab8d0e1f23456789abcd_dns"
+    }
+  ],
+  "metadata": {
+    "authors": [],
+    "component": {
+      "bom-ref": "pkg:generic/terraform-static@latest",
+      "group": "",
+      "name": "terraform-static",
+      "properties": [
+        {
+          "name": "cdx:tf:root",
+          "value": "."
+        },
+        {
+          "name": "cdx:tf:unresolvedModuleCalls",
+          "value": "1"
+        }
+      ],
+      "purl": "pkg:generic/terraform-static@latest",
+      "type": "application",
+      "version": "latest"
+    },
+    "lifecycles": [
+      {
+        "phase": "pre-build"
+      }
+    ],
+    "timestamp": "1970-01-01T00:00:00.000Z",
+    "tools": {
+      "components": [
+        {
+          "authors": [
+            {
+              "name": "OWASP Foundation"
+            }
+          ],
+          "bom-ref": "pkg:npm/%40cdxgen/cdxgen@0.0.0-normalized",
+          "group": "@cdxgen",
+          "name": "cdxgen",
+          "publisher": "OWASP Foundation",
+          "purl": "pkg:npm/%40cdxgen/cdxgen@0.0.0-normalized",
+          "type": "application",
+          "version": "0.0.0-normalized"
+        }
+      ]
+    }
+  },
+  "serialNumber": "urn:uuid:00000000-0000-0000-0000-000000000000",
+  "specVersion": "1.7",
+  "version": 1
+}
