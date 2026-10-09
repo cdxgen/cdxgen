@@ -153,7 +153,8 @@ nothing to enable beyond the caps.
 
 The report is written to the `--semantics-slices-file` path: an absolute path as given,
 a file name in the directory of the output BOM. It is reused instead of running scalasem
-again when it names this project and is newer than the input BOM.
+again when it names this project and is newer than the input BOM. A run that produces no
+usable report leaves the file at that path as it was.
 
 Slices the user passes are still read: a version 1 semantics slice whose files exist in
 this project, usages and reachables slices as for any other language, and an OpenAPI
