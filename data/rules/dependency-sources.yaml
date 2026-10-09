@@ -234,3 +234,70 @@
       "registry": $prop($, 'cdx:pypi:registry'),
       "resolvedFrom": $prop($, 'cdx:pypi:resolved_from')
     }
+- id: PKG-012
+  name: "Terraform module from mutable VCS reference"
+  description: "Terraform modules sourced from git or mercurial without a commit or tag pin are not locked, so the next init can fetch different code"
+  severity: high
+  category: dependency-source
+  dry-run-support: full
+  condition: |
+    components[
+      $hasProp($, 'cdx:tf:kind') and $prop($, 'cdx:tf:kind') = 'module'
+      and $hasProp($, 'cdx:tf:module:sourceType')
+      and ($prop($, 'cdx:tf:module:sourceType') = 'git' or $prop($, 'cdx:tf:module:sourceType') = 'hg')
+      and ($prop($, 'cdx:tf:module:pinning') = 'branch' or $prop($, 'cdx:tf:module:pinning') = 'none')
+    ]
+  location: |
+    { "bomRef": $."bom-ref", "purl": purl }
+  message: "Terraform module '{{ name }}@{{ version }}' tracks VCS source '{{ $prop($, 'cdx:tf:module:source') }}' at a mutable reference"
+  mitigation: "Pin the module source with `?ref=<commit sha>` or a reviewed, signed tag; the dependency lock file does not cover modules"
+  evidence: |
+    {
+      "source": $prop($, 'cdx:tf:module:source'),
+      "sourceType": $prop($, 'cdx:tf:module:sourceType'),
+      "ref": $prop($, 'cdx:tf:module:ref'),
+      "pinning": $prop($, 'cdx:tf:module:pinning')
+    }
+- id: PKG-013
+  name: "Terraform registry module not pinned to an exact version"
+  description: "Registry modules whose version argument is a range or absent resolve to whatever the registry serves at the next init"
+  severity: low
+  category: dependency-source
+  dry-run-support: full
+  condition: |
+    components[
+      $hasProp($, 'cdx:tf:kind') and $prop($, 'cdx:tf:kind') = 'module'
+      and $hasProp($, 'cdx:tf:module:sourceType') and $prop($, 'cdx:tf:module:sourceType') = 'registry'
+      and ($prop($, 'cdx:tf:module:pinning') = 'range' or $prop($, 'cdx:tf:module:pinning') = 'none')
+    ]
+  location: |
+    { "bomRef": $."bom-ref", "purl": purl }
+  message: "Terraform registry module '{{ name }}@{{ version }}' is constrained by '{{ $prop($, 'cdx:tf:constraints') }}' rather than an exact version"
+  mitigation: "Set the module's `version` argument to a single exact version and review upgrades deliberately"
+  evidence: |
+    {
+      "constraints": $prop($, 'cdx:tf:constraints'),
+      "pinning": $prop($, 'cdx:tf:module:pinning'),
+      "address": $prop($, 'cdx:tf:address')
+    }
+- id: PKG-014
+  name: "Terraform module source embeds credentials"
+  description: "A module source string carries a credential such as URL userinfo, a git sshkey parameter or S3 keys, exposing the secret to every reader of the configuration"
+  severity: high
+  category: dependency-source
+  dry-run-support: full
+  condition: |
+    components[
+      $hasProp($, 'cdx:tf:module:credentialInSource')
+      and $prop($, 'cdx:tf:module:credentialInSource') = 'true'
+    ]
+  location: |
+    { "bomRef": $."bom-ref", "purl": purl }
+  message: "Terraform module '{{ name }}@{{ version }}' resolves from a source that embeds credentials"
+  mitigation: "Rotate the exposed credential, move authentication to git credential helpers or an SSH agent, and keep the source URL credential-free"
+  evidence: |
+    {
+      "source": $prop($, 'cdx:tf:module:source'),
+      "sourceType": $prop($, 'cdx:tf:module:sourceType'),
+      "credentialInSource": $prop($, 'cdx:tf:module:credentialInSource')
+    }

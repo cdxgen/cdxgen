@@ -123,6 +123,21 @@ unpacked directory — and what makes it useless as an artifact checksum. Decode
 it and label it SHA-256 and you have handed the consumer a digest that will
 never match the file they downloaded. It is kept as `cdx:tf:h1` instead.
 
+Modules complete the picture, and they are deliberately not in the lock
+file — Terraform only locks providers. Module identity comes from the `source`
+argument: registry shorthand becomes
+`pkg:generic/<host>/<namespace>/<name>/<system>@<version>` (the whole address
+is the purl path, with `cdx:purl:proposedType=terraform-module`), git and
+mercurial sources reuse the `.gitmodules` convention (`pkg:github` for GitHub,
+otherwise `pkg:generic` with a sanitized `vcs_url`), and archive URLs become
+generic purls with a `download_url` qualifier. When `terraform init` has run,
+`.terraform/modules/modules.json` supplies the resolved versions and the
+installed commits, and each module package's `LICENSE` file resolves the
+license offline; without it, the `module` blocks in the `*.tf` files still
+declare the graph, marked `installed=false`. The BOM then carries the edges
+the lock file cannot express: every module to the providers its own files
+require, and the root to everything else.
+
 Two small footnotes. A Gradle version catalog (`gradle/libs.versions.toml`) is
 only consulted when Gradle itself produced no dependency information, and the
 resulting components carry `cdx:gradle:catalog=true` so nobody mistakes a
