@@ -33,6 +33,35 @@
  *    not re-request it only to get the same 404.
  */
 /**
+ * Whether requests to a host are paused.
+ *
+ * @param {string|null} host Hostname.
+ * @returns {boolean}
+ */
+export declare function isHostCircuitOpen(host: string | null): boolean;
+/**
+ * Pause requests to a host, for at least {@link DEFAULT_CIRCUIT_OPEN_MS} or for
+ * as long as the server asked. Warns once per pause.
+ *
+ * @param {string} host Hostname.
+ * @param {{delayMs?: number|null, cause?: string, quiet?: boolean}} [details]
+ *   Server-supplied delay, a short description of what happened, and whether
+ *   to pause without a warning or a degradation record (for failures that are
+ *   not the host's doing, such as a dry run or an allowlist block).
+ * @returns {void}
+ */
+export declare function openHostCircuit(host: string, { delayMs, cause, quiet }?: {
+    delayMs?: number | null;
+    cause?: string;
+    quiet?: boolean;
+}): void;
+/**
+ * Clear every paused host. Tests only.
+ *
+ * @returns {void}
+ */
+export declare function resetHostCircuits(): void;
+/**
  * @returns {Object|null} Stats from the last batch (requests, unique, ok,
  *   failures, cacheHits, elapsedMs, peakConcurrency), or null.
  */
@@ -132,12 +161,24 @@ export declare function recordPolicyDegradationFromError(err: Error): void;
  * The per-host semaphore and limiter are module state, so this shares one gate
  * per host for the life of the process.
  *
+ * A host paused by its circuit breaker fails at once with a 429-shaped error,
+ * and a 429 from a breaker host pauses it.
+ *
+ * With `deferGate`, `issue` receives request options carrying a
+ * `beforeNetwork` hook and must pass them to `cdxgenAgent`. The rate limiter
+ * then runs only when the request misses the response cache, so a cached
+ * answer does not wait for a slot. Without it, the limiter runs before
+ * `issue`, as before.
+ *
  * @template T
  * @param {string} url The URL about to be requested.
- * @param {() => Promise<T>} issue Issues the request and resolves its result.
+ * @param {(gate: Object) => Promise<T>} issue Issues the request and resolves its result.
+ * @param {{deferGate?: boolean}} [opts]
  * @returns {Promise<T>} Whatever `issue` resolves to.
  */
-export declare function withHostRateLimit<T>(url: string, issue: () => Promise<T>): Promise<T>;
+export declare function withHostRateLimit<T>(url: string, issue: (gate: Object) => Promise<T>, { deferGate }?: {
+    deferGate?: boolean;
+}): Promise<T>;
 /**
  * Read a prefetched response, or signal that the caller should fetch it itself.
  *

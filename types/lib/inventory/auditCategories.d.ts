@@ -6,6 +6,8 @@ export declare const CBOM_AUDIT_CATEGORIES: readonly string[];
 export declare const HOST_TOPOLOGY_AUDIT_CATEGORIES: readonly string[];
 /** Frozen list of Golem (Go Evinse) audit categories. */
 export declare const GOLEM_AUDIT_CATEGORIES: readonly string[];
+/** Frozen list of Scala Evinse (scalasem) audit categories. */
+export declare const SCALA_AUDIT_CATEGORIES: readonly string[];
 /** Frozen list of Cargo (Rust) audit categories. */
 export declare const CARGO_AUDIT_CATEGORIES: readonly string[];
 /**
@@ -36,6 +38,7 @@ export declare const BOM_AUDIT_CATEGORY_ALIASES: Readonly<{
     golem: string[];
     hbom: string[];
     rust: string[];
+    scala: string[];
     host: string[];
 }>;
 /**

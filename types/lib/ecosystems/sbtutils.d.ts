@@ -60,6 +60,14 @@ export declare function testUrlExists(url: string): Promise<boolean>;
  */
 export declare function findLocalJarPath(group: string, name: string, version: string): string | null;
 /**
+ * Forget every memoised Coursier lookup, including misses. A long-lived
+ * process calls this per scan so that artifacts downloaded since the previous
+ * scan are found.
+ *
+ * @returns {void}
+ */
+export declare function resetSbtResolutionCaches(): void;
+/**
  * Resolve the repo/jar download URLs and optional hashes for a Maven coordinate.
  *
  * Looks up the Coursier registry URL for the coordinate and, when the jar is
@@ -87,9 +95,12 @@ export declare function resolveJarDistribution(group: string, name: string, vers
  * coordinates, building a hierarchical dependency graph. Evicted packages and ranges are ignored.
  *
  * @param {string} sbtTreeFile Path to the sbt dependency tree output file
+ * @param {string} [srcFile] Build definition the tree was resolved from, named as the
+ *   identity source of every component. The tree file itself is a temporary file cdxgen
+ *   deletes after the scan, and naming it would make the BOM differ between two runs.
  * @returns {{ pkgList: Object[], dependenciesList: Object[] }}
  */
-export declare function parseSbtTree(sbtTreeFile: string): {
+export declare function parseSbtTree(sbtTreeFile: string, srcFile?: string): {
     pkgList: Object[];
     dependenciesList: Object[];
 };
@@ -100,7 +111,7 @@ export declare function parseSbtTree(sbtTreeFile: string): {
  */
 export declare function parseSbtLock(pkgLockFile: string): Promise<{
     group: any;
-    name: any;
+    name: string;
     version: any;
     _integrity: string;
     scope: string | undefined;
@@ -170,10 +181,85 @@ export declare function parseSbtProjects(stdout: string): {
     root: string | undefined;
 };
 /**
+ * Build the single command line an sbt 2 dependency tree session runs.
+ *
+ * sbt 2 joins separate command-line arguments into one command line, so the
+ * commands are joined with `;` and passed as one argument. Each tree is
+ * printed to stdout because `dependencyTree / toFile` no longer exists.
+ * Each tree is scoped to its project, so one unresolvable subproject cannot
+ * fail the others.
+ *
+ * @param {string[]} subprojects Project ids, or an empty list for the root
+ * @returns {string} The `;`-joined command line
+ */
+export declare function sbt2DependencyTreeCommand(subprojects: string[]): string;
+/**
+ * Split the captured stdout of an sbt dependency tree session into one chunk
+ * per project tree.
+ *
+ * sbt 2 joins separate command-line arguments into a single command line and
+ * no longer offers `dependencyTree / toFile`, so the trees of all subprojects
+ * are captured from stdout in one session. Every tree starts with the root
+ * coordinate at the start of a line; log lines carry an `[info]`-style prefix
+ * or a shell prompt marker and never look like a root coordinate.
+ *
+ * @param {string} stdout Raw stdout of the sbt session
+ * @returns {string[]} One chunk of output per dependency tree, empty when
+ *   nothing parsed as a tree
+ */
+export declare function splitSbtDependencyTrees(stdout: string): string[];
+/**
  * Parse plugins.sbt files to extract sbt plugins as development dependencies.
  *
  * @param {string} projectPath Directory path of the project
  * @returns {Object[]} List of parsed dependency components
  */
 export declare function parseSbtPlugins(projectPath: string): Object[];
+/**
+ * The sbt launcher jar beside the `sbt.bat` on PATH, or under `SBT_HOME`.
+ * `SBT_LAUNCH_JAR` names one directly.
+ *
+ * @returns {string|undefined} Path of `sbt-launch.jar`
+ */
+export declare function sbtLaunchJar(): string | undefined;
+/**
+ * Split sbt arguments written for a POSIX shell into the arguments the shell
+ * would pass: whitespace separates them outside quotes, and single or double
+ * quotes group words without escapes, so a Windows path keeps its
+ * backslashes.
+ *
+ * @param {string[]} args Shell-quoted argument fragments
+ * @returns {string[]} The arguments
+ */
+export declare function splitSbtShellArgs(args: string[]): string[];
+/**
+ * The command line that starts sbt from its launcher jar. The options
+ * `sbt.bat` handles itself become what it makes of them: `-no-colors` and
+ * `-D` properties are JVM options, `-addPluginSbtFile` is sbt's own
+ * `--addPluginSbtFile`, and `-batch` and the thin client switches have no
+ * meaning there. The JVM options of `SBT_OPTS`, `JAVA_OPTS` and the build's
+ * `.jvmopts` are kept.
+ *
+ * @param {string[]} args Arguments as given to `sbt`
+ * @param {string} jar The sbt launcher jar
+ * @param {string} [dir] Build directory
+ * @returns {{ command: string, args: string[] }}
+ */
+export declare function sbtLauncherCommand(args: string[], jar: string, dir?: string): {
+    command: string;
+    args: string[];
+};
+/**
+ * Run sbt. On Windows, `sbt.bat` parses its arguments as batch syntax, which
+ * keeps the POSIX quoting of the commands and mangles quotes inside them, so
+ * sbt starts there from its launcher jar with each command one argument.
+ * Elsewhere, or without a launcher jar, sbt runs as given.
+ *
+ * @param {string} sbtCmd sbt executable
+ * @param {string[]} args sbt arguments
+ * @param {Object} options Spawn options, as for safeSpawnSync
+ * @param {boolean} [shellQuoted] Whether the arguments carry POSIX shell quoting
+ * @returns {Object} The spawn result
+ */
+export declare function sbtSpawnSync(sbtCmd: string, args: string[], options: Object, shellQuoted?: boolean): Object;
 //# sourceMappingURL=sbtutils.d.ts.map

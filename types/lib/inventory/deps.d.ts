@@ -1,4 +1,11 @@
 /**
+ * Whether a jar holds sources or javadoc rather than classes.
+ *
+ * @param {string} jarName Jar file name.
+ * @returns {boolean}
+ */
+export declare function isDocumentationJar(jarName: string): boolean;
+/**
  * Collect maven dependencies
  *
  * @param {string} mavenCmd Maven command to use
@@ -67,11 +74,17 @@ export declare function parsePomProperties(pomProperties: string): Object;
 /**
  * Method to get pom properties from maven directory
  *
+ * A shaded or fat jar carries a `pom.properties` for every artifact folded
+ * into it. When the jar's file name is known, the descriptor whose
+ * `artifactId-version` (or `artifactId`) starts the file name is the jar's
+ * own; otherwise the first descriptor is used, as before.
+ *
  * @param {string} mavenDir Path to maven directory
+ * @param {string} [jarName] File name of the jar the directory came from
  *
  * @return array with pom properties
  */
-export declare function getPomPropertiesFromMavenDir(mavenDir: string): {};
+export declare function getPomPropertiesFromMavenDir(mavenDir: string, jarName?: string): any;
 /**
  * Method to read a single file entry from a zip file
  *

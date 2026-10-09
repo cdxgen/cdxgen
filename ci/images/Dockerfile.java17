@@ -1,7 +1,7 @@
 ARG IMAGE_TYPE
 
 # Base-image (slim)
-FROM registry.suse.com/bci/openjdk-devel:17.0.20.1@sha256:fe787a20666c37de2c5e47345a96eede6d56ae78e31688369a69760d28db3716 AS base-slim
+FROM registry.suse.com/bci/openjdk-devel:17.0.20.1@sha256:39f28c3c47431e334eb5a3d2dea8ec7d92433ea611ac6e4f1822db0e6dc91c62 AS base-slim
 
 ARG GITHUB_URL=https://github.com
 ARG GRADLE_8

@@ -19,6 +19,25 @@ export declare const GRADLE_INIT_SCRIPT: string;
  */
 export declare const SBT_CACHE_DIR: string;
 /**
+ * Collect the namespaces of the jars of resolved sbt dependencies. sbt has
+ * just downloaded them into the user's caches, so each is read from there;
+ * the rest of the cache is never walked.
+ *
+ * @param {Object[]} pkgList Packages from the sbt dependency trees.
+ * @param {Object} [known] Jar namespace mapping already collected. Packages
+ *   it covers are skipped.
+ * @returns {Promise<Object>} Jar namespace mapping keyed by package purl.
+ */
+export declare function collectSbtDependencyJars(pkgList: Object[], known?: Object): Promise<Object>;
+/**
+ * The purls and bom-refs of a parent component and the module components
+ * nested under it.
+ *
+ * @param {Object} parentComponent Parent component.
+ * @returns {Set<string>} Purls and bom-refs.
+ */
+export declare function ownComponentRefs(parentComponent: Object): Set<string>;
+/**
  * Function to create bom string for Java jars
  *
  * @param {string} path to the project
@@ -34,15 +53,19 @@ export declare function createJarBom(path: string, options: Object): Object;
  * (commented-out code, examples, values that merely resemble project defs) that
  * can lead to hangs when those bogus scopes are later passed to `dependencyTree`.
  *
+ * The root project is kept when it has sources of its own, since it is then
+ * the application rather than a pure aggregator.
+ *
  * Falls back to the regex-based {@link discoverSbtProjects} heuristic when the
  * sbt invocation fails or yields nothing useful.
  *
  * @param {string} basePath Directory of the sbt build
  * @param {string} sbtCmd sbt executable
  * @param {Object} env Environment for the spawned process
+ * @param {string[]} [launcherArgs] Launcher options placed before the sbt arguments
  * @returns {string[]} List of sbt project ids
  */
-export declare function discoverSbtProjectsFromCmd(basePath: string, sbtCmd: string, env: Object): string[];
+export declare function discoverSbtProjectsFromCmd(basePath: string, sbtCmd: string, env: Object, launcherArgs?: string[]): string[];
 /**
  * Function to create bom string for Java projects
  *

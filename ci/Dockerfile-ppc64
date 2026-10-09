@@ -1,10 +1,10 @@
-FROM almalinux:10.2-minimal@sha256:77aeeeef6889af731a91d83f65b08ef9930bde10332ae2e3fd6e0f0c47066a7b
+FROM almalinux:10.2-minimal@sha256:7127d3a958a0ba8bb673d7b4cd378c11052404ce1897940c32f1dd944448f7ab
 
 LABEL maintainer="cyclonedx" \
       org.opencontainers.image.authors="Prabhu Subramanian <prabhu@appthreat.com>" \
       org.opencontainers.image.source="https://github.com/cdxgen/cdxgen" \
       org.opencontainers.image.url="https://github.com/cdxgen/cdxgen" \
-      org.opencontainers.image.version="13.2.x" \
+      org.opencontainers.image.version="13.4.x" \
       org.opencontainers.image.vendor="cyclonedx" \
       org.opencontainers.image.licenses="Apache-2.0" \
       org.opencontainers.image.title="cdxgen" \
@@ -13,7 +13,7 @@ LABEL maintainer="cyclonedx" \
 
 ARG SBT_VERSION=1.13.0
 # renovate: datasource=maven lookupName=org.apache.maven:maven
-ARG MAVEN_VERSION=3.9.16
+ARG MAVEN_VERSION=3.10.0
 # renovate: datasource=gradle-version depName=gradle
 ARG GRADLE_VERSION=9.7.0
 # renovate: datasource=golang-version depName=golang

@@ -22,9 +22,11 @@ declare function toRepoRelative(absPath: string, scanRoot: string): string | nul
 /**
  * Detect the build directory that holds a `CMakeCache.txt`.
  *
- * Looks for `build/`, `cmake-build-* /`, and `out/` under the scan root. An
- * explicit `--cmake-cache <path>` option (passed via `options.cmakeCache`)
- * takes precedence and skips autodetection.
+ * An explicit `--cmake-cache <path>` option (passed via `options.cmakeCache`)
+ * takes precedence and skips autodetection. Otherwise the project's build
+ * directories are searched in order: those its CMake presets configure, then
+ * the conventional `build`, `out`, `builddir` and `cmake-build-` directories
+ * (see `cmakeBuildDirCandidates`).
  *
  * @param {string} path Project scan root
  * @param {Object} options CLI options; `options.cmakeCache` is an explicit override

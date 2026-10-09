@@ -16,6 +16,17 @@ export declare function getVenvMetadata(env?: Object, explicitPath?: string): Ob
  */
 export declare function get_python_command_from_env(env: string): string;
 /**
+ * The top-level packages and modules a project provides, wherever they sit
+ * in its tree: each outermost package directory (one with an `__init__.py`
+ * whose parent has none), and the module files beside such packages, since
+ * their directory is a source root. Directories of installed packages
+ * (virtual environments, `site-packages`) are not the project's.
+ *
+ * @param {string} src Path to the project being analysed
+ * @returns {Set<string>} Module names
+ */
+export declare function projectModuleNames(src: string): Set<string>;
+/**
  * Is this import satisfied by a module that lives in the project itself?
  *
  * `atom parsedeps` reports every non-stdlib import it sees, including imports of the
@@ -28,13 +39,27 @@ export declare function get_python_command_from_env(env: string): string;
  * filesystem whether the module is ours answers it exactly.
  *
  * Checks the project root and a `src/` layout for a module file, a package directory,
- * and a PEP 420 namespace package directory.
+ * and a PEP 420 namespace package directory, then the top-level packages found
+ * anywhere in the project and the modules beside them (tool-heavy repositories
+ * keep their Python libraries in places such as `dev_tools/pylibs/`).
  *
  * @param {string} src Path to the project being analysed
  * @param {string} name Imported top-level module name
  * @returns {boolean} `true` if the project supplies this module itself
  */
 export declare function isFirstPartyModule(src: string, name: string): boolean;
+/**
+ * Whether a directory holds Python sources for atom to parse.
+ *
+ * The search skips the directories the manifest searches skip, such as
+ * node_modules and dot directories, and honours the exclude patterns, so a
+ * Python file shipped inside an npm package does not count.
+ *
+ * @param {string} src directory
+ * @param {Object} options CLI options
+ * @returns {boolean} true when the directory holds at least one Python file
+ */
+export declare function hasPythonSources(src: string, options?: Object): boolean;
 /**
  * Method to find python modules by parsing the imports and then checking with PyPI to obtain the latest version
  *

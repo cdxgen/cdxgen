@@ -25,6 +25,18 @@ export declare function buildGradleCommandArguments(gradleArguments: string[], g
 /**
  * Method to split the output produced by Gradle using parallel processing by project
  *
+ * Gradle groups console output by task and prints a `> Task :path` header
+ * before each group, repeating it whenever a task's output resumes after
+ * another task's. Each group is therefore keyed by the project in its own
+ * header (`> Task :app:dependencies` belongs to `:app`), never by whatever
+ * report header happened to precede it, and the groups of one project are
+ * concatenated in order, so reordering or interrupting the task reports cannot
+ * move a report to another project or overwrite one (issue 4465). The groups
+ * of a root task (`:dependencies`) all take the root project's name from the
+ * `Root project '…'` header that only a root task prints, so a continuation
+ * group, which carries no report header, stays with the rest of the root
+ * report. The groups of other tasks are dropped along with their headers.
+ *
  * @param {string} rawOutput Full output produced by Gradle using parallel processing
  * @param {string[]} relevantTasks The list of gradle tasks whose output need to be considered.
  * @returns {map} Map with subProject names as keys and corresponding dependency task outputs as values.
@@ -173,6 +185,44 @@ _includeCacheDir?: boolean): Promise<Object>;
  * @param {Object} [options] CLI options (`installDeps` gates wrapper use)
  */
 export declare function getMillCommand(srcPath: string, options?: Object): string;
+/**
+ * Determine the Mill version of a build.
+ *
+ * The version is read from the `.mill-version` file, from the
+ * `//| mill-version:` header of the build file, or from the launcher itself.
+ *
+ * @param {string} millRootPath Root of the Mill build
+ * @param {string} millCmd Mill command to use for the fallback probe
+ * @returns {string|null} The Mill version, or null when it cannot be determined
+ */
+export declare function getMillVersion(millRootPath: string, millCmd: string): string | null;
+/**
+ * Find the Mill daemons running under a tree.
+ *
+ * Daemons record their process id in `out/mill-daemon*` (Mill 1.x) or
+ * `out/mill-server*` directories, directly or one level below (Mill 0.12
+ * keeps one subdirectory per server). Only processes that are still alive
+ * are returned.
+ *
+ * @param {string} rootPath Tree to search
+ * @returns {Map<string, Set<number>>} Live daemon process ids by the root of
+ *   the build they belong to
+ */
+export declare function findMillDaemons(rootPath: string): Map<string, Set<number>>;
+/**
+ * Stop the Mill daemons that started under the scanned tree during the scan.
+ *
+ * cdxgen's own Mill calls run with --no-server, but a project build cdxgen
+ * runs can shell out to Mill without it and leave a daemon behind. Daemons
+ * that were already running when the scan started belong to the user, for
+ * example to an IDE, and are left alone; every other live daemon is shut
+ * down through the launcher of the build it belongs to.
+ *
+ * @param {string} rootPath Scanned tree
+ * @param {Map<string, Set<number>>} [runningBefore] Result of
+ *   {@link findMillDaemons} taken before the scan
+ */
+export declare function stopMillDaemons(rootPath: string, runningBefore?: Map<string, Set<number>>): void;
 /**
  * Method to return the maven command to use.
  *
