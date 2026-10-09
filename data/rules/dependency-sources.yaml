@@ -272,7 +272,7 @@
     ]
   location: |
     { "bomRef": $."bom-ref", "purl": purl }
-  message: "Terraform registry module '{{ name }}@{{ version }}' is constrained by '{{ $prop($, 'cdx:tf:constraints') }}' rather than an exact version"
+  message: "Terraform registry module '{{ $prop($, 'cdx:tf:address') }}' is not pinned to an exact version (pinning: {{ $prop($, 'cdx:tf:module:pinning') }})"
   mitigation: "Set the module's `version` argument to a single exact version and review upgrades deliberately"
   evidence: |
     {

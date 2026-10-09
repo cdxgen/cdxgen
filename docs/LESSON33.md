@@ -136,7 +136,11 @@ installed commits, and each module package's `LICENSE` file resolves the
 license offline; without it, the `module` blocks in the `*.tf` files still
 declare the graph, marked `installed=false`. The BOM then carries the edges
 the lock file cannot express: every module to the providers its own files
-require, and the root to everything else.
+require, and the root to everything else. With `FETCH_LICENSE`, components
+that have no license file are looked up in the OpenTofu registry docs API and
+then the GitHub license API; GitHub answers for the default branch, so treat a
+`cdx:tf:licenseSource=github` license as a hint about the pinned tag, not a
+statement of it.
 
 Two small footnotes. A Gradle version catalog (`gradle/libs.versions.toml`) is
 only consulted when Gradle itself produced no dependency information, and the

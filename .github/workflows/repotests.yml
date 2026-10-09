@@ -188,12 +188,14 @@ jobs:
           for d in terraform-modules terraform-static terraform-monorepo terraform-tofu; do
             bin/cdxgen.js -t terraform test/data/$d -o bomresults/bom-$d.json --fail-on-error
           done
-          jq -e 'any(.components[]; .name == "vpc/aws" and .version == "5.1.2" and .license == "Apache-2.0" and any((.properties // [])[]; .name == "cdx:tf:licenseSource" and .value == "file"))' bomresults/bom-terraform-modules.json
-          jq -e 'any(.components[]; .name == "aws" and .version == "5.80.0" and .license == "MPL-2.0")' bomresults/bom-terraform-modules.json
+          jq -e 'any(.components[]; .name == "vpc/aws" and .version == "5.1.2" and any(.licenses[]?; .license.id == "Apache-2.0") and any((.properties // [])[]; .name == "cdx:tf:licenseSource" and .value == "file"))' bomresults/bom-terraform-modules.json
+          jq -e 'any(.components[]; .name == "aws" and .version == "5.80.0" and any(.licenses[]?; .license.id == "MPL-2.0"))' bomresults/bom-terraform-modules.json
           jq -e 'any(.components[]; .name == "network" and .version == "main" and any((.properties // [])[]; .name == "cdx:tf:module:pinning" and .value == "branch"))' bomresults/bom-terraform-static.json
           jq -e 'any(.components[]; any((.properties // [])[]; .name == "cdx:tf:module:credentialInSource" and .value == "true"))' bomresults/bom-terraform-static.json
           jq -e 'any(.components[]; .type == "application" and .["bom-ref"] == "terraform-root:envs/dev")' bomresults/bom-terraform-monorepo.json
           jq -e 'any(.components[]; .name == "vpc/aws" and .version == "5.1.0" and (.purl | contains("registry.opentofu.org")))' bomresults/bom-terraform-tofu.json
+          bin/cdxgen.js test/data/terraform-modules -o bomresults/bom-terraform-modules-default.json --fail-on-error
+          jq -e 'any(.components[]; .name == "vpc/aws" and .version == "5.1.2") and all(.components[]; ((.purl // "") | contains("#.terraform/") | not))' bomresults/bom-terraform-modules-default.json
         shell: bash
       - name: repotests elm-spa-example
         run: |
