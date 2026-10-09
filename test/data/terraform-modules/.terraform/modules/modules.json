@@ -1,0 +1,36 @@
+{
+  "Modules": [
+    {
+      "Key": "",
+      "Source": "",
+      "Dir": "."
+    },
+    {
+      "Key": "vpc",
+      "Source": "registry.terraform.io/terraform-aws-modules/vpc/aws",
+      "Version": "5.1.2",
+      "Dir": ".terraform/modules/vpc"
+    },
+    {
+      "Key": "vpc.endpoints",
+      "Source": "./modules/endpoints",
+      "Dir": ".terraform/modules/vpc/modules/endpoints"
+    },
+    {
+      "Key": "label_git",
+      "Source": "git::https://github.com/cloudposse/terraform-null-label.git?ref=0.25.0",
+      "Dir": ".terraform/modules/label_git"
+    },
+    {
+      "Key": "network",
+      "Source": "./modules/network",
+      "Dir": "modules/network"
+    },
+    {
+      "Key": "network.label",
+      "Source": "registry.terraform.io/cloudposse/label/null",
+      "Version": "0.25.0",
+      "Dir": ".terraform/modules/network.label"
+    }
+  ]
+}
