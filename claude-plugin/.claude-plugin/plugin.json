@@ -1,7 +1,7 @@
 {
   "name": "cdxgen",
   "description": "OWASP cdxgen toolkit for Claude Code: generate, enrich, audit, sign, validate, convert, and explore CycloneDX BOMs (SBOM, CBOM, HBOM, OBOM, SaaSBOM, AI-BOM, VDR) across source code, containers, live hosts, and hardware.",
-  "version": "13.3.0",
+  "version": "13.4.0",
   "author": {
     "name": "Prabhu Subramanian",
     "email": "prabhu@appthreat.com",

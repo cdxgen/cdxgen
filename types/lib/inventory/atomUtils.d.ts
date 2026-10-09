@@ -9,9 +9,12 @@ export declare const ATOM_NATIVE_PACKAGES: Set<string>;
  * language its build uses.
  *
  * An explicit `options.compileCommands` (a file, or a directory holding one
- * directly or under `build/`) wins. Otherwise the scan root, `build/`, `out/`,
- * `builddir/`, `cmake-build-*` and the directory of `options.cmakeCache` are
- * searched. A database can come with the code it describes, and atom asks the
+ * directly or under `build/`) wins. Otherwise the scan root and the project's
+ * build directories are searched: the directory of `options.cmakeCache`, the
+ * build directories of its CMake presets, and the conventional `build`,
+ * `out`, `builddir` and `cmake-build-` directories (see
+ * `cmakeBuildDirCandidates`). A database can come with the code it describes,
+ * and atom asks the
  * GCC or Clang driver it names (from the PATH, or an absolute path outside
  * the project) for its predefined macros, so in secure mode only an explicit
  * database is used.
@@ -132,20 +135,39 @@ export declare function resolveAtomProvider(opts?: {
  * ceiling differently, and a native-image runtime option on a jar run reaches
  * atom as an unknown argument that fails every slice. So the kind follows what
  * is installed where cdxgen can see it: the native binary means native, the jar
- * package without it means jar. With neither in view (a custom `ATOM_CMD`, an
- * install elsewhere) the platform's kind stands.
+ * package without it means jar. An `ATOM_CMD` is classified by what it names
+ * (see `atomCommandKind`). With nothing in view (an install elsewhere) the
+ * platform's kind stands.
  *
  * Also used to gate Java/JDK advice, so users on the five native platforms are
  * not told to install a JDK for a failure that has nothing to do with Java.
  */
 export declare function atomProviderKind(): "jar" | "native";
 /**
+ * Whether `ATOM_CMD` launches a jar or follows the platform.
+ *
+ * The jar launchers (`plugins/bin/atom`, `plugins/bin/atom.bat`) sit next to a
+ * `plugins/lib` directory holding atom's jars, so a launcher with that sibling,
+ * or any `.bat` (only the jar payload ships one), runs on the JVM whatever the
+ * platform is. Everything else, including the npm dispatcher (`node
+ * .../index.js`, its `atom`/`atom.cmd` bin shims) and a native binary, follows
+ * the platform's kind. A GraalVM `-XX:` heap argument handed to a jar launcher
+ * is rejected by atom's option parser before any analysis starts, and a
+ * `JAVA_TOOL_OPTIONS` ceiling handed to a native image is silently ignored, so
+ * the distinction decides whether the heap is bounded at all.
+ *
+ * @param {string} command The `ATOM_CMD` value
+ * @param {"native"|"jar"} platformKind Kind the platform prefers
+ * @returns {"native"|"jar"}
+ */
+export declare function atomCommandKind(command: string, platformKind: "native" | "jar"): "native" | "jar";
+/**
  * Locate the `php-parse` binary that the PHP frontend needs.
  *
  * atom 3's dispatcher unconditionally sets `PHP_PARSER_BIN=<ATOM_HOME>/bin/php-parse`,
  * which for a native sub-package does not exist and also clobbers a caller-set
- * value. cdxgen therefore resolves the real location and forwards it through
- * the child env (see `buildAtomCommandEnv`); `executeAtom` then spawns the
+ * value. cdxgen therefore resolves the real location and forwards it through the
+ * child env (see `buildAtomCommandEnv`); `executeAtom` then spawns the
  * native binary directly for PHP so the dispatcher cannot clobber it (see
  * `resolveDirectAtomBinaryPath`). Resolution order:
  *   1. explicit `PHP_PARSER_BIN` env var (operators / container images)
@@ -159,6 +181,35 @@ export declare function atomProviderKind(): "jar" | "native";
  * @returns {string|undefined}
  */
 export declare function resolvePhpParseBin(): string | undefined;
+/**
+ * Locate the `phpastgen` generator that lets the PHP frontend parse whole
+ * directories in one batch.
+ *
+ * `php-parse` (forwarded as `PHP_PARSER_BIN`) is the per-file parser: atom
+ * starts a php interpreter for every `.php` file, which on windows turns a
+ * vendored PHP project (thousands of files under `vendor/`) into an hours-long
+ * run that no timeout can rescue. `phpastgen` answers the `--parser-info`
+ * capability probe, so atom's batch path engages, and atom-parsetools 1.9 and
+ * later parse the whole tree, vendor included, with a few interpreters that
+ * each take a chunk of files. It is a Node script, so the frontend launches it
+ * with `node` rather than `php`; an atom that does not know `PHP_ASTGEN_BIN`
+ * simply ignores it and keeps today's per-file behaviour. Resolution order:
+ *   1. explicit `PHP_ASTGEN_BIN` env var (operators / container images)
+ *   2. `@appthreat/atom-parsetools/phpastgen.js` under cdxgen's own
+ *      node_modules, then under `GLOBAL_NODE_MODULES_PATH` for global installs
+ *
+ * @returns {string|undefined}
+ */
+export declare function resolvePhpAstgenBin(): string | undefined;
+/**
+ * Resolve a file inside the installed `@appthreat/atom-parsetools` package,
+ * searching cdxgen's own node_modules and `GLOBAL_NODE_MODULES_PATH` for global
+ * installs.
+ *
+ * @param {...string} segments Path segments below the package root
+ * @returns {string|undefined}
+ */
+export declare function parsetoolsFile(...segments: string[]): string | undefined;
 /**
  * Resolve the atom native binary path directly, bypassing the dispatcher.
  *
@@ -217,13 +268,34 @@ export declare function atomTimeouts(): {
     spawnTimeoutMs: number;
 };
 /**
+ * Reap everything a timed-out atom run left behind on Windows.
+ *
+ * cdxgen starts atom through a shell there (`shell: isWin`), so the spawn
+ * timeout terminates only that `cmd.exe`, and the runtime and every parser
+ * worker under it (one `php.exe` per file for the per-file PHP frontend) keep
+ * running against the next slice of the same run. See
+ * {@link reapProcessTree} for how they are found. A chain broken by an
+ * intermediate that already exited (the npm dispatcher stopping its runtime
+ * itself) cannot be followed, and atom 4 stops its helpers once
+ * `ATOM_PARENT_PID` is gone.
+ *
+ * @param {number|undefined} rootPid pid of the process cdxgen spawned
+ * @param {number} startedAt Epoch milliseconds at which the run started
+ * @param {number} [endedAt] Epoch milliseconds at which the spawned process ended
+ * @returns {number[]} The pids that were stopped
+ */
+export declare function reapAtomProcessTree(rootPid: number | undefined, startedAt: number, endedAt?: number): number[];
+/**
  * Whether an atom run ended because it ran out of time.
  *
  * The dispatcher reports its own limit with status 124. cdxgen's spawn timeout
  * shows up as `ETIMEDOUT`. A dispatcher older than the status code stops atom
- * with SIGTERM and exits 1, so status 1 at or past the limit counts as well,
- * unless atom's own output shows it failed for another reason first (an
- * exhausted heap, a crash), which deserves its own diagnosis.
+ * with SIGTERM and passes on how the runtime ended: 1, or the runtime's own
+ * exit on SIGTERM (143) or SIGKILL (137), which is what atom 3.1 reports. Those
+ * statuses at or past the limit count as well, unless atom's own output shows
+ * it failed for another reason first (an exhausted heap, a crash), which
+ * deserves its own diagnosis. Missing one leaves the half-written atom behind,
+ * and the next slice of the run fails to load it.
  *
  * @param {Object} result spawnSync result
  * @param {number} elapsedMs How long the run took

@@ -98,6 +98,21 @@ export declare function collectNpmManifestSources(node: object): {
     value: string;
 }[];
 /**
+ * Resolve the license of an npm-style manifest, honouring the legacy plural
+ * `licenses` field that packages published before the SPDX convention still
+ * carry (issue 4466). A modern `license` value is returned unchanged. The
+ * legacy field may hold one entry or an array of them, each a string or a
+ * `{ type, url }` object; one entry is returned as it is. npm documents an
+ * array of several entries as a choice between them, so when every entry is an
+ * SPDX identifier the array becomes the equivalent `MIT OR Apache-2.0`
+ * expression, and otherwise stays a list for `getLicenses` to convert entry by
+ * entry.
+ *
+ * @param {object} pkgData Parsed package.json (or bower.json) manifest
+ * @returns {string|object|Array|undefined} The effective license value
+ */
+export declare function resolveNpmLicense(pkgData: object): string | object | any[] | undefined;
+/**
  * Hydrates sparse npm package metadata from the installed package.json in deep mode.
  * Existing metadata on the Arborist node wins over on-disk values.
  *

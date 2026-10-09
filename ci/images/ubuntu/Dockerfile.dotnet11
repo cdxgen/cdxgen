@@ -1,5 +1,5 @@
 # Base-image
-FROM mcr.microsoft.com/dotnet/sdk:11.0-resolute@sha256:dbfff067552406b140d236bc7fddc6a1df52f3b4b76e184f08067f36c6170806 AS base
+FROM mcr.microsoft.com/dotnet/sdk:11.0-resolute@sha256:d0a39ca4acefe992f26030f8fb8c60e1b14ac088822cb3fdfbe536ecf843a675 AS base
 
 ARG GITHUB_RAW_URL=https://raw.githubusercontent.com
 ARG GITHUB_URL=https://github.com

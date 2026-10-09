@@ -76,6 +76,36 @@ export declare function readDosaiDataFlowReport(reportFile: string, options?: {
     maxTextBytes?: number;
 }): Object | undefined;
 /**
+ * Whether a dosai run ended because it ran out of time.
+ *
+ * dosai has no limit of its own: cdxgen's spawn timeout
+ * (CDXGEN_TIMEOUT_MS) stops the process, which reaches the caller only as an
+ * ETIMEDOUT error looking like any other failure (issue 4438).
+ *
+ * @param {Object} result spawnSync result
+ * @returns {boolean} true when the run was stopped by the spawn timeout
+ */
+export declare function dosaiRunTimedOut(result: Object): boolean;
+/**
+ * How a dosai run was stopped before it could finish, if it was.
+ *
+ * Besides the spawn timeout, a run is stopped when its console output outgrows
+ * CDXGEN_MAX_BUFFER (ENOBUFS) or a signal ends it, such as the kernel's
+ * out-of-memory killer. A stopped run can leave its slice half written.
+ *
+ * @param {Object} result spawnSync result
+ * @returns {"timeout"|"buffer"|"signal"|undefined} Why the run was stopped, or undefined when it ended by itself
+ */
+export declare function dosaiRunStopReason(result: Object): "timeout" | "buffer" | "signal" | undefined;
+/**
+ * Whether the dosai run that should have written a file was stopped (by the
+ * time limit, the output buffer limit, or a signal) and already reported so.
+ *
+ * @param {string} outputFile Output file passed to the dosai run
+ * @returns {boolean} true when the run was stopped
+ */
+export declare function dosaiRunWasStopped(outputFile: string): boolean;
+/**
  * Run a dosai subcommand ("methods", "dataflows", or "crypto") against a source
  * tree and write its JSON output to the given file.
  *
@@ -138,17 +168,21 @@ export declare function persistDosaiSemanticsReport(options: any, methodsSlice: 
  * Build a purl alias map for a list of components.
  *
  * @param {Object[]} [components] Component objects with purl fields
- * @returns {Map<string, string>} Map of exact purls and normalized type/namespace/name keys to canonical purls
+ * @param {Object} [options] Options passed to {@link buildDosaiPurlAliasMap} (`srcPath`)
+ * @returns {Map<string, string>} Map of component purls, carrying the version-free identity index
  */
-export declare function buildPurlAliasMap(components?: Object[]): Map<string, string>;
+export declare function buildPurlAliasMap(components?: Object[], options?: Object): Map<string, string>;
 /**
- * Resolve a possibly-aliased purl to the canonical component purl.
+ * Resolve a dosai purl to the canonical component purl, by version, and for a
+ * package the BOM holds in several versions by the record's location.
  *
  * @param {string} purl Purl from a dosai report
  * @param {Map<string, string>} purlAliasMap Alias map built by buildPurlAliasMap
- * @returns {string|undefined} Canonical component purl, the input purl when unaliased, or undefined when empty
+ * @param {string} [location] Source location of the dosai record
+ * @returns {string|undefined} Canonical component purl, the input purl when the BOM has no such package,
+ *          or undefined when empty or ambiguous
  */
-export declare function resolveComponentPurl(purl: string, purlAliasMap: Map<string, string>): string | undefined;
+export declare function resolveComponentPurl(purl: string, purlAliasMap: Map<string, string>, location?: string): string | undefined;
 /**
  * Copy one dosai PackageReachability fact onto a component as properties.
  *
@@ -169,9 +203,14 @@ export declare function addDosaiReachabilityProperties(component: Object, reacha
  *
  * @param {Object} methodsSlice Parsed dosai methods slice JSON
  * @param {Object[]} [components] BOM components used to resolve purl aliases and mutate
+ * @param {Object} [options] Options
+ * @param {string} [options.srcPath] Directory dosai analyzed; a package the BOM holds in several
+ *        versions is matched by the project of the record's file
  * @returns {number} Number of distinct components enriched
  */
-export declare function applyDosaiReachabilityEvidence(methodsSlice: Object, components?: Object[]): number;
+export declare function applyDosaiReachabilityEvidence(methodsSlice: Object, components?: Object[], options?: {
+    srcPath?: string;
+}): number;
 /**
  * Map a dosai methods slice to per-purl occurrence evidence.
  *
@@ -180,9 +219,14 @@ export declare function applyDosaiReachabilityEvidence(methodsSlice: Object, com
  *
  * @param {Object} methodsSlice Parsed dosai methods slice JSON
  * @param {Object[]} [components] BOM components used to resolve purl aliases
+ * @param {Object} [options] Options
+ * @param {string} [options.srcPath] Directory dosai analyzed; a package the BOM holds in several
+ *        versions is matched by the project of the record's file
  * @returns {Object} Object with purlLocationMap, purlModulesMap, and purlMethodsMap keyed by purl
  */
-export declare function collectDosaiPurlEvidence(methodsSlice: Object, components?: Object[]): Object;
+export declare function collectDosaiPurlEvidence(methodsSlice: Object, components?: Object[], options?: {
+    srcPath?: string;
+}): Object;
 /**
  * Extract data-flow call frames per component purl from a dosai data-flow result.
  *
@@ -191,9 +235,14 @@ export declare function collectDosaiPurlEvidence(methodsSlice: Object, component
  *
  * @param {Object} dataFlowResult Parsed dosai data-flow slice JSON
  * @param {Object[]} [components] BOM components used to resolve purl aliases
+ * @param {Object} [options] Options
+ * @param {string} [options.srcPath] Directory dosai analyzed; a package the BOM holds in several
+ *        versions is matched by the project of the record's file
  * @returns {Object} Map of canonical purl to arrays of call-stack frame objects
  */
-export declare function collectDosaiDataFlowFrames(dataFlowResult: Object, components?: Object[]): Object;
+export declare function collectDosaiDataFlowFrames(dataFlowResult: Object, components?: Object[], options?: {
+    srcPath?: string;
+}): Object;
 /**
  * Consume dosai's AiComponents[] inventory (schema 4.0.0): model identifiers,
  * on-disk model artifacts with hashes, MCP tools, prompts (redacted), and agents

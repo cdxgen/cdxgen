@@ -58,6 +58,15 @@ export declare function readLicenseText(licenseFilepath: any, licenseContentType
  */
 export declare function findLicenseId(name: string): any;
 /**
+ * Identify a license from the title and opening of its full text. A license
+ * text quotes other licenses (the GNU GPL's text names the GNU Lesser GPL),
+ * so the substring scan of `guessLicenseId` alone can name the wrong one.
+ *
+ * @param {string} content License file contents
+ * @returns {string|undefined} SPDX license id or expression
+ */
+export declare function licenseIdFromText(content: string): string | undefined;
+/**
  * Method to guess the spdx license id from license contents
  *
  * @param {string} content License file contents

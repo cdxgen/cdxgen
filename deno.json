@@ -1,6 +1,6 @@
 {
   "name": "@cdxgen/cdxgen",
-  "version": "13.3.0",
+  "version": "13.4.0",
   "exports": "./lib/cli/index.js",
   "compilerOptions": {
     "lib": ["deno.window"],
@@ -85,7 +85,7 @@
     "@appthreat/atom": "npm:@appthreat/atom@3.1.1",
     "@cdxgen/cdx-hbom": "npm:@cdxgen/cdx-hbom@0.5.1",
     "@cdxgen/cdx-proto": "npm:@cdxgen/cdx-proto@2.3.0",
-    "@bufbuild/protobuf": "npm:@bufbuild/protobuf@2.15.0",
+    "@bufbuild/protobuf": "npm:@bufbuild/protobuf@2.16.0",
     "@babel/parser": "npm:@babel/parser@8.0.6",
     "@babel/traverse": "npm:@babel/traverse@8.0.6",
     "ajv": "npm:ajv@8.20.0",
@@ -102,10 +102,10 @@
     "compression": "npm:compression@1.8.2",
     "connect": "npm:connect@3.7.0",
     "jsonata": "npm:jsonata@2.2.2",
-    "smol-toml": "npm:smol-toml@1.8.0",
+    "smol-toml": "npm:smol-toml@1.9.0",
     "@cdxgen/safer-exec": "npm:@cdxgen/safer-exec@1.0.1",
-    "@cdxgen/cdxgen-plugins-bin": "npm:@cdxgen/cdxgen-plugins-bin@4.1.0",
-    "undici": "npm:undici@8.11.0",
+    "@cdxgen/cdxgen-plugins-bin": "npm:@cdxgen/cdxgen-plugins-bin@4.1.1",
+    "undici": "npm:undici@8.11.2",
     "@appthreat/atom-parsetools": "npm:@appthreat/atom-parsetools@1.10.0"
   }
 }

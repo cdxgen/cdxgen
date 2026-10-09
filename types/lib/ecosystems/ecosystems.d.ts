@@ -16,6 +16,10 @@ export declare function getSwiftPackageMetadata(pkgList: Object[]): Promise<Obje
 /**
  * Method to retrieve metadata for npm packages by querying npmjs
  *
+ * A license the registry declares replaces the one the package arrived with.
+ * When the registry declares none, the package keeps its own, and only a
+ * package with neither falls back to its repository's license.
+ *
  * @param {Array} pkgList Package list
  */
 export declare function getNpmMetadata(pkgList: any[], registryUrl: any): Promise<any[]>;
@@ -29,15 +33,25 @@ export declare function getNpmMetadata(pkgList: any[], registryUrl: any): Promis
  */
 export declare function findLocalMvnArtifact(group: string, name: string, version: string): Object | null;
 /**
- * Method to retrieve metadata for maven packages by querying maven central
+ * Method to retrieve metadata for maven packages, from the local caches first
+ * and from Maven Central only for what remains.
+ *
+ * Every package is first enriched from data on disk. Only when license
+ * fetching is enabled (FETCH_LICENSE) or `force` is set are the packages
+ * still without a licence looked up remotely, and then only those a public
+ * repository can hold.
  *
  * @param {Array} pkgList Package list
  * @param {Object} jarNSMapping Jar Namespace mapping object
  * @param {Boolean} force Force fetching of license
+ * @param {{skipPurls?: Set<string>}} [context] Purls or bom-refs of the
+ *   project's own modules, which are never looked up remotely.
  *
  * @returns {Array} Updated package list
  */
-export declare function getMvnMetadata(pkgList: any[], jarNSMapping?: Object, force?: boolean): any[];
+export declare function getMvnMetadata(pkgList: any[], jarNSMapping?: Object, force?: boolean, context?: {
+    skipPurls?: Set<string>;
+}): any[];
 /**
  * Method to compose URL of pom.xml
  *
@@ -50,7 +64,10 @@ export declare function getMvnMetadata(pkgList: any[], jarNSMapping?: Object, fo
  */
 export declare function composePomXmlUrl({ urlPrefix, group, name, version }: string): string;
 /**
- * Method to fetch pom.xml data and parse it to JSON
+ * Method to fetch pom.xml data and parse it to JSON, merged with its parents.
+ *
+ * Each level is read from the local caches first. When a parent cannot be
+ * found, the child and any nearer parents are still returned.
  *
  * @param {String} urlPrefix
  * @param {String} group
@@ -61,7 +78,7 @@ export declare function composePomXmlUrl({ urlPrefix, group, name, version }: st
  */
 export declare function fetchPomXmlAsJson({ urlPrefix, group, name, version }: string): Object | undefined;
 /**
- * Method to fetch pom.xml data
+ * Method to fetch pom.xml data, from the local caches when present.
  *
  * @param {String} urlPrefix
  * @param {String} group

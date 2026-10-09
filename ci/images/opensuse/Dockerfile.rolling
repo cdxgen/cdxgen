@@ -1,5 +1,5 @@
 # Base-image
-FROM opensuse/tumbleweed:latest@sha256:e87be31c93bf80e5e345e6a6822e0362afff17273324db10c557ec801074cd5c AS base
+FROM opensuse/tumbleweed:latest@sha256:250c8352da8a67c86f88083b09a925e6557f65c3efdf9d8df9c8f940e6e3158b AS base
 
 ARG DOTNET_SDK_VERSION=9.0.318
 ARG DOTNETCLI_URL=https://dotnetcli.azureedge.net

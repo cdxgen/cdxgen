@@ -7,6 +7,10 @@ minimumReleaseAgeExclude:
   - '@appthreat/*'
   - 'typescript'
   - '@typescript/*'
+  # the packageManager self-reference is not a real dependency; the latest
+  # pnpm must be usable as soon as the hash in package.json is refreshed
+  - 'pnpm'
+  - '@pnpm/*'
 optimisticRepeatInstall: true
 preferSymlinkedExecutables: false
 strictDepBuilds: true

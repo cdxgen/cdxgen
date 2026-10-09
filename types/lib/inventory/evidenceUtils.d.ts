@@ -44,15 +44,30 @@ export declare function attachIdentityTools(subjects: Object | Object[], toolRef
  * Enrich .NET package components with occurrence evidence and imported module/method
  * information from a dosai dependency slices file.
  *
- * Builds a mapping of DLL filenames to purls using the `internal:PackageFiles` property of each
- * package, then reads the slices file to add occurrence locations, imported modules,
- * called methods, and assembly version information where available.
+ * Each dosai record names its package by purl, resolved in the project of the
+ * record's file, and is attached to the component of that version (see
+ * {@link resolveDosaiComponentPurl}). The DLL files of each package
+ * (`internal:PackageFiles`) only fill in for a record whose purl names no
+ * component, and only when the DLL belongs to one component or the record's
+ * location says which: two versions of a package ship the same DLL names.
+ *
+ * The fallback is needed because dosai names a `System.*` assembly it cannot
+ * map to a package with a framework purl (`pkg:nuget/System.Runtime`), as it
+ * does whenever the tree has lock files but no restore output: the DLL of
+ * System.Data.SQLite.Core is still the package's. A DLL that only a package's
+ * build-time folders carry is not listed in `internal:PackageFiles`, so it
+ * credits no package with the project's framework calls (issue 4441).
  *
  * @param {Object[]} pkgList Array of .NET package component objects to enrich
  * @param {string} slicesFile Path to the dosai dependency slices JSON file
+ * @param {Object} [options] Options
+ * @param {string} [options.srcPath] Directory dosai analyzed, which its relative locations
+ *        and the components' relative manifest paths are relative to
  * @returns {Object[]} The enriched package list (same array, mutated in place)
  */
-export declare function addEvidenceForDotnet(pkgList: Object[], slicesFile: string): Object[];
+export declare function addEvidenceForDotnet(pkgList: Object[], slicesFile: string, options?: {
+    srcPath?: string;
+}): Object[];
 /**
  * Convert OS query results
  *

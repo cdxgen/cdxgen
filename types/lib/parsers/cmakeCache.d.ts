@@ -67,4 +67,20 @@ export declare function resolveCmakeCacheFacts(map: Map<string, {
     findPackages: Map<string, string>;
     fetchContentBase?: string;
 };
+/**
+ * Parse a compiler description CMake writes when it configures a build
+ * (`CMakeFiles/<cmake version>/CMake<LANG>Compiler.cmake`): the compiler's
+ * path, CMake's id for it and its version, all identified by CMake itself.
+ *
+ * @param {string} text File contents
+ * @returns {{language: string, compiler: string, family: string, id: string, version: string}|null}
+ *   `null` when the text names no compiler
+ */
+export declare function parseCmakeCompilerFile(text: string): {
+    language: string;
+    compiler: string;
+    family: string;
+    id: string;
+    version: string;
+} | null;
 //# sourceMappingURL=cmakeCache.d.ts.map

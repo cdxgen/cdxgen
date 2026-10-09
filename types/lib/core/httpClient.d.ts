@@ -86,6 +86,20 @@ export declare function getDefaultHttpTimeoutMs(): number;
  */
 export declare function resolveTimeout(timeout?: number | Object): number | undefined;
 /**
+ * Override the response cache bounds. Returns the previous bounds so tests can
+ * restore them. Not part of the public API.
+ *
+ * @param {{ttlMs?: number, maxBytes?: number}} limits New bounds.
+ * @returns {{ttlMs: number, maxBytes: number}} Previous bounds.
+ */
+export declare function _setHttpCacheLimits(limits: {
+    ttlMs?: number;
+    maxBytes?: number;
+}): {
+    ttlMs: number;
+    maxBytes: number;
+};
+/**
  * Determine whether the in-memory HTTP response cache is disabled via the
  * CDXGEN_NO_CACHE environment variable. Evaluated per request so tests and
  * callers can toggle it at runtime.

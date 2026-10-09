@@ -8,7 +8,7 @@ ARG SWIFT_WEBROOT=https://download.swift.org
 ARG JAVA_VERSION=25.0.4-tem
 ARG SBT_VERSION=1.13.0
 # renovate: datasource=maven lookupName=org.apache.maven:maven
-ARG MAVEN_VERSION=3.9.16
+ARG MAVEN_VERSION=3.10.0
 # renovate: datasource=gradle-version depName=gradle
 ARG GRADLE_VERSION=9.7.0
 # renovate: datasource=golang-version depName=golang
@@ -150,7 +150,7 @@ LABEL maintainer="cyclonedx" \
       org.opencontainers.image.authors="Prabhu Subramanian <prabhu@appthreat.com>" \
       org.opencontainers.image.source="https://github.com/cdxgen/cdxgen" \
       org.opencontainers.image.url="https://github.com/cdxgen/cdxgen" \
-      org.opencontainers.image.version="13.2.x" \
+      org.opencontainers.image.version="13.4.x" \
       org.opencontainers.image.vendor="cyclonedx" \
       org.opencontainers.image.licenses="Apache-2.0" \
       org.opencontainers.image.title="cdxgen" \

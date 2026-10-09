@@ -34,14 +34,21 @@ export declare function parseMavenTree(rawOutput: string, pomFile: string): Obje
 /**
  * Parse mill dependencies from file
  *
+ * Scala artifacts are emitted in the sbt purl form: the Scala binary suffix
+ * is stripped from the artifact name and the version it carried is recorded
+ * in the cdx:scala:compilerVersion property, so one library keeps a single
+ * purl whichever build tool reported it.
+ *
  * @param {string} module name of the module
  * @param {map} dependencies the parsed dependencies
  * @param {map} relations a map containing all relations
  * @param {string} millRootPath root of the project
+ * @param {string} logFileName name of the tree log the module wrote
  *
  * @returns the bom-ref of the module
  */
-export declare function parseMillDependency(module: string, dependencies: map, relations: map, millRootPath: string): any;
+export declare function parseMillDependency(module: string, dependencies: map, relations: map, millRootPath: string, logFileName?: string): any;
+export declare function completeComponent(component: any): any;
 /**
  * Parse clojure cli dependencies output
  * @param {string} rawOutput Raw string output
