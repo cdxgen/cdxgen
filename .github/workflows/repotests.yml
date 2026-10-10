@@ -17,6 +17,7 @@ on:
       - 'test/data/atom-exclude-repotest/**'
       - 'test/data/introspection-polyglot/**'
       - 'test/data/angular-cli-scripts-repotest/**'
+      - 'test/data/angular-app-config-repotest/**'
       - 'test/data/angular-css-config-repotest/**'
       - 'test/data/angular-template-repotest/**'
       - 'test/data/svelte-repotest/**'
@@ -252,6 +253,7 @@ jobs:
           bin/cdxgen.js -t js test/data/angular-css-config-repotest -o bomresults/bom-angular-css-config-fixture.json --deep --evidence --fail-on-error
           bin/cdxgen.js -t js test/data/angular-template-repotest -o bomresults/bom-angular-template-fixture.json --deep --evidence --fail-on-error
           bin/cdxgen.js -t js test/data/angular-cli-scripts-repotest -o bomresults/bom-angular-cli-scripts-fixture.json --deep --evidence --fail-on-error
+          bin/cdxgen.js -t js test/data/angular-app-config-repotest -o bomresults/bom-angular-app-config-fixture.json --deep --evidence --fail-on-error
           jq -e 'any(.components[]; .purl == "pkg:npm/material-symbols@0.28.2" and .scope == "required")' bomresults/bom-angular-css-config-fixture.json
           jq -e 'any(.components[]; .purl == "pkg:npm/bootstrap@5.3.3" and .scope == "required")' bomresults/bom-angular-css-config-fixture.json
           jq -e 'any(.components[]; .purl == "pkg:npm/angular-i18n@1.8.3" and .scope == "required")' bomresults/bom-angular-css-config-fixture.json
@@ -264,6 +266,9 @@ jobs:
           jq -e 'any(.components[]; .purl == "pkg:npm/license-report@6.5.0" and .scope == "required" and any((.properties // [])[]; .name == "cdx:npm:bin" and (.value | contains("license-report"))))' bomresults/bom-angular-cli-scripts-fixture.json
           jq -e 'any(.components[]; .group == "@angular" and .name == "cli" and .scope == "required")' bomresults/bom-angular-cli-scripts-fixture.json
           jq -e 'any(.components[]; .purl == "pkg:npm/left-pad@1.3.0" and (.scope // "required") == "required")' bomresults/bom-angular-cli-scripts-fixture.json
+          jq -e 'any(.components[]; .group == "@ngrx" and .name == "store" and .scope == "required" and any((.evidence.occurrences // [])[]; .location == "src/app/app.config.ts"))' bomresults/bom-angular-app-config-fixture.json
+          jq -e 'any(.components[]; .group == "@angular" and .name == "service-worker" and .scope == "required" and any((.evidence.occurrences // [])[]; .location == "src/app/app.config.ts"))' bomresults/bom-angular-app-config-fixture.json
+          jq -e 'any(.components[]; .purl == "pkg:npm/https-proxy-agent@7.0.6" and .scope == "optional" and ((.evidence.occurrences // []) | length) == 0)' bomresults/bom-angular-app-config-fixture.json
         shell: bash
       - name: repotests npm unused runtime dependency fixture
         run: |
