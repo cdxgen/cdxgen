@@ -1,5 +1,6 @@
 /**
- * `cdxgen cache` subcommand — inspect and purge the metadata fetch cache.
+ * `cdxgen cache` subcommand — inspect and purge the metadata fetch cache that
+ * cdxrs and the JS batch pool share.
  *
  * This module operates directly on the filesystem because JS is the authority
  * for the cache directory. The cache layout is:

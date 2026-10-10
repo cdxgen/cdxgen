@@ -209,9 +209,17 @@ export declare function collectGemModuleNames(rubyCommand: string, bundleCommand
  * @param {Object} [options] Parse options
  * @param {Object<string, string>} [options.lockedVersions] Locked versions of
  *   the gems the project directory serves, by gem name
+ * @param {boolean} [options.projectGemspec] The gemspec describes the project
+ *   being scanned. No registry holds the project, so its gem is never looked
+ *   up and keeps what the gemspec says.
+ * @param {boolean} [options.noFetch] Read the gemspec for the fields it holds
+ *   without asking the registry about the gem. The local cache enricher uses
+ *   this, since the caller is responsible for the registry round.
  */
 export declare function parseGemspecData(gemspecData: string, gemspecFile: string, options?: {
     lockedVersions?: Record<string, string>;
+    projectGemspec?: boolean;
+    noFetch?: boolean;
 }): Promise<any[]>;
 /**
  * Method to parse Gemfile.lock
@@ -221,10 +229,22 @@ export declare function parseGemspecData(gemspecData: string, gemspecFile: strin
  * directory (`PATH` with `remote: .`), which is how Bundler records the gem a
  * project builds when its Gemfile uses the `gemspec` directive.
  *
+ * Gems the lockfile serves from a git remote or from a path outside the
+ * project are never sent to rubygems.org: no public registry holds the release
+ * they pinned. Before the registry round, the caches on this machine are read
+ * first, so a gem whose installed gemspec or compact index entry is present
+ * keeps those answers.
+ *
  * @param {object} gemLockData Gemfile.lock data
  * @param {string} lockFile Lock file
+ * @param {object} [options] Options
+ * @param {string} [options.gemHome] GEM_HOME to read installed gemspecs from
+ * @param {string} [options.compactIndexCacheDir] Bundler compact index cache
  */
-export declare function parseGemfileLockData(gemLockData: object, lockFile: string): Promise<any[] | {
+export declare function parseGemfileLockData(gemLockData: object, lockFile: string, options?: {
+    gemHome?: string;
+    compactIndexCacheDir?: string;
+}): Promise<any[] | {
     pkgList: any[];
     dependenciesList: {
         ref: string;

@@ -1,27 +1,12 @@
 /**
- * Terraform and OpenTofu parser for `.terraform.lock.hcl`.
+ * Whether a path holds any Terraform or OpenTofu configuration or lock file
+ * the workspace assembly would consider; used by project-type autodetection.
  *
- * The lock file pins every provider the configuration resolves to, with its
- * exact version, the version constraints that produced it, and content
- * hashes. It is written in a small, regular subset of HCL: provider blocks,
- * `version` and `constraints` attributes, and a `hashes` list of prefixed
- * digests. A line scanner is sufficient and avoids a general HCL parser.
- *
- * Provider addresses look like `registry.terraform.io/hashicorp/aws`; the
- * registry host and namespace identify the provider upstream, so they are
- * kept in the component group and a generic purl
- * (`pkg:generic/<host>/<namespace>/<type>@<version>`), with the intended type
- * recorded as a `cdx:purl:proposedType` property because no `terraform`
- * purl type is registered.
- *
- * The two hash schemes in the `hashes` list mean different things. A `zh:`
- * digest is a SHA-256 of the official `.zip` package as the registry indexes
- * it, so it is the one a consumer can check an artifact against and the one
- * emitted in the CycloneDX `hashes` array. An `h1:` digest is base64 over a
- * hash of the package's *contents* rather than the archive, which lets
- * Terraform verify an unpacked directory but makes it useless as an artifact
- * checksum; it is kept as a property instead of being mislabelled SHA-256.
+ * @param {string} scanPath Directory to scan
+ * @param {Object} [options] CLI options
+ * @returns {boolean}
  */
+export declare function hasTerraformConfiguration(scanPath: string, options?: Object): boolean;
 /**
  * Parse a `.terraform.lock.hcl` file.
  *
@@ -30,5 +15,37 @@
  */
 export declare function parseTerraformLockFile(lockFile: string): {
     pkgList: object[];
+};
+/**
+ * Locate the Terraform roots under `scanPath`: directories that own a
+ * configuration — those with a lock file or module manifest, plus config
+ * directories no other config directory references through a local module
+ * call.
+ *
+ * @param {string} scanPath Directory to scan
+ * @param {Object} options CLI options
+ * @returns {{ dir: string, lockFile?: string, manifestFile?: string }[]} Roots sorted by relative POSIX path
+ */
+export declare function findTerraformRoots(scanPath: string, options?: Object): {
+    dir: string;
+    lockFile?: string;
+    manifestFile?: string;
+}[];
+/**
+ * Inventory a Terraform workspace: providers from the lock file and
+ * `required_providers`, modules from the manifest or the configuration, the
+ * dependency graph between them, and offline licenses from the installed
+ * packages.
+ *
+ * @param {string} scanPath Directory to scan
+ * @param {Object} options CLI options
+ * @param {string} parentRef `bom-ref` of the parent component the CLI built
+ * @returns {{ pkgList: object[], dependencies: object[], parentProperties: object[], srcFiles: string[] }}
+ */
+export declare function parseTerraformWorkspace(scanPath: string, options: Object, parentRef: string): {
+    pkgList: object[];
+    dependencies: object[];
+    parentProperties: object[];
+    srcFiles: string[];
 };
 //# sourceMappingURL=parsers-terraform.d.ts.map

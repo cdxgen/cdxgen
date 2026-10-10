@@ -31,6 +31,15 @@ export declare function parseMavenArgs(argsString: string): string[];
  */
 export declare function shouldFetchLicense(): boolean;
 /**
+ * Determines whether registry provenance, such as publish times, publishers
+ * and trusted-publishing signals, is wanted. `--bom-audit` turns it on through
+ * CDXGEN_FETCH_PKG_METADATA. Local data cannot answer these questions, so a
+ * package whose licence and description are known locally is still looked up.
+ *
+ * @returns {boolean} True if CDXGEN_FETCH_PKG_METADATA is "true" or "1"
+ */
+export declare function shouldFetchRegistryProvenance(): boolean;
+/**
  * Determines whether remote package metadata should be fetched for enrichment.
  *
  * @returns {boolean} True when registry metadata enrichment is enabled.

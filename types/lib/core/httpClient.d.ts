@@ -26,9 +26,8 @@
  *   `Content-Encoding` header, matching `got`'s transparent decoding.
  * - Proxy support via the standard `HTTP_PROXY`/`HTTPS_PROXY`/`NO_PROXY`
  *   environment variables (through undici's `EnvHttpProxyAgent`).
- * - An in-memory GET response cache (enabled by default, disabled by setting
- *   the `CDXGEN_NO_CACHE` environment variable) that replaces the got + Keyv
- *   cache cdxgen previously relied on.
+ * - An in-memory GET response cache that replaces the got + Keyv cache cdxgen
+ *   previously relied on. A request opts out with `cache: false`.
  * - Response objects exposing `statusCode`, `headers`, `body`, `rawBody`,
  *   `url` and `request.options`.
  * - A lazily-resolved `.json()` method on the returned promise, mirroring
@@ -99,14 +98,6 @@ export declare function _setHttpCacheLimits(limits: {
     ttlMs: number;
     maxBytes: number;
 };
-/**
- * Determine whether the in-memory HTTP response cache is disabled via the
- * CDXGEN_NO_CACHE environment variable. Evaluated per request so tests and
- * callers can toggle it at runtime.
- *
- * @returns {boolean} True when caching should be skipped.
- */
-export declare function isCacheDisabled(): boolean;
 /**
  * Clear the in-memory HTTP response cache. Primarily useful for tests.
  *

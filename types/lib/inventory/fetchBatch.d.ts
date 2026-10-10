@@ -10,11 +10,13 @@
  * read instead of the network.
  *
  * There is one policy layer (`fetchRate.js`, mirrored by the Rust `rate.rs`)
- * and two transports. When the `cdxrs` binary is available it is preferred,
- * because it brings an on-disk conditional cache (D26) the JS pool does not
- * have. When it is absent, disabled, or unusable, the JS pool runs every
- * request through `cdxgenAgent` so the secure-mode host allowlist, the
- * activity recorder and the test cassette interceptor all still apply.
+ * and two transports. When the `cdxrs` binary is available it is preferred for
+ * the JSON it can carry. When it is absent, disabled, or unusable, and whenever
+ * a dry run, secure mode or a host allowlist is in force, the JS pool runs
+ * every request through `cdxgenAgent` so those policies, the activity recorder
+ * and the test cassette interceptor all still apply. The JS pool keeps the same
+ * on-disk conditional cache as cdxrs (`fetchDiskCache.js`), in the same
+ * directory and layout.
  *
  * Two properties are deliberate and load-bearing:
  *
@@ -27,10 +29,11 @@
  *    JS on all three registries it covered.
  *
  * 2. **Fallback is per URL, not per run.** A URL that the batch could not
- *    resolve for a transport reason is simply absent from the map, and the
- *    caller's own `cdxgenAgent.get` runs for it exactly as before. A URL that
- *    resolved to a definite HTTP error is recorded as such, so the caller does
- *    not re-request it only to get the same 404.
+ *    resolve for a transport reason is left to the caller, whose own request
+ *    goes through {@link gatedGet} and the same per-host gate. A URL the server
+ *    answered with an error status, after the batch's retries, is recorded as
+ *    such, so the caller does not ask again only to get the same answer, and a
+ *    404 or 410 is remembered for the rest of the run.
  */
 /**
  * Whether requests to a host are paused.
@@ -44,16 +47,18 @@ export declare function isHostCircuitOpen(host: string | null): boolean;
  * as long as the server asked. Warns once per pause.
  *
  * @param {string} host Hostname.
- * @param {{delayMs?: number|null, cause?: string, quiet?: boolean}} [details]
- *   Server-supplied delay, a short description of what happened, and whether
- *   to pause without a warning or a degradation record (for failures that are
- *   not the host's doing, such as a dry run or an allowlist block).
+ * @param {{delayMs?: number|null, cause?: string, quiet?: boolean, minimumMs?: number}} [details]
+ *   Server-supplied delay, a short description of what happened, whether to
+ *   pause without a warning or a degradation record (for failures that are not
+ *   the host's doing, such as a dry run or an allowlist block), and the
+ *   shortest pause, which a host that says exactly when it recovers sets to 0.
  * @returns {void}
  */
-export declare function openHostCircuit(host: string, { delayMs, cause, quiet }?: {
+export declare function openHostCircuit(host: string, { delayMs, cause, quiet, minimumMs }?: {
     delayMs?: number | null;
     cause?: string;
     quiet?: boolean;
+    minimumMs?: number;
 }): void;
 /**
  * Clear every paused host. Tests only.
@@ -98,6 +103,11 @@ export type BatchEntry = {
      * other than 429) and re-requesting it in JS would be pointless.
      */
     definite?: boolean;
+    /**
+     * Response headers of a failed request, when the
+     * JS pool made it. cdxrs reports no headers.
+     */
+    headers?: Object;
 };
 /**
  * Fetch a batch of registry URLs concurrently.
@@ -180,15 +190,33 @@ export declare function withHostRateLimit<T>(url: string, issue: (gate: Object) 
     deferGate?: boolean;
 }): Promise<T>;
 /**
+ * Request a URL the batch did not answer, the way the pool would have: behind
+ * the per-host gate, failing at once for a document that already answered 404
+ * or 410 this run, and remembering such an answer for the next pass.
+ *
+ * This is the fallback every metadata function uses after a prefetch. Without
+ * it, a URL the batch left open went straight to the network with no rate gate,
+ * and the same miss was asked again on every pass.
+ *
+ * @param {string} url URL to request.
+ * @param {Object} [options] `cdxgenAgent.get` options.
+ * @returns {Promise<Object>} The response.
+ * @throws {Error} The request's own error, or a 404-shaped error for a
+ *   remembered miss, so the caller's `catch` runs as it would for the network.
+ */
+export declare function gatedGet(url: string, options?: Object): Promise<Object>;
+/**
  * Read a prefetched response, or signal that the caller should fetch it itself.
  *
  * @param {Map<string, BatchEntry>} prefetched Result of {@link prefetchJson}.
  * @param {string} url The URL the caller is about to request.
  * @returns {{body: *}|undefined} A response-shaped object when the body is
  *   available, or `undefined` when the caller should issue its own request.
- * @throws {Error} When the batch established a definite HTTP error for this
- *   URL, so that the caller's existing `catch` treats it exactly as it treats a
- *   failed `cdxgenAgent.get`.
+ * @throws {Error} When the server answered with an error status, so that the
+ *   caller's existing `catch` treats it exactly as it treats a failed
+ *   `cdxgenAgent.get`. A 5xx or a 429 is the answer after the batch's own
+ *   retries, and asking once more at once would only add to the load. Only a
+ *   transport failure, with no status, is left to the caller to retry.
  */
 export declare function prefetchedResponse(prefetched: Map<string, BatchEntry>, url: string): {
     body: any;

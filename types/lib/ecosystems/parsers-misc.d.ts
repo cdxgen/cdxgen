@@ -453,9 +453,11 @@ export declare function parseMakeDFile(dfile: string): Object;
  *
  * @param {Object} podfileLock The content of the podfile.lock as an Object
  * @param {String} projectPath The path to the project root
+ * @param {String} [scanRoot] Directory the scan was asked for. Local `:path`
+ *   and `:podspec` sources outside it are not read. Defaults to projectPath.
  * @returns {Map} Map of all dependencies with their direct dependencies
  */
-export declare function parsePodfileLock(podfileLock: Object, projectPath: string): Map<any, any>;
+export declare function parsePodfileLock(podfileLock: Object, projectPath: string, scanRoot?: string): Map<any, any>;
 /**
  * Parse all targets and their direct dependencies from the 'Podfile'
  *

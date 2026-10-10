@@ -7,10 +7,15 @@ import { Buffer } from "node:buffer";
  *   identity evidence and skip npm registry metadata fetching.
  * @param {boolean} [securityProps=false] When true, append npm security-relevant
  *   properties such as lifecycle scripts, binaries, native addons, and deprecation notices.
+ * @param {Object} [options] Options
+ * @param {boolean} [options.fetchMetadata=true] When false, skip the npm
+ *   registry round so that a caller can make one round for many manifests.
  * @returns {Promise<Array<object>>} Parsed component list, enriched with npm
  *   registry metadata when available and not in simple mode.
  */
-export declare function parsePkgJson(pkgJsonFile: string, simple?: boolean, securityProps?: boolean): Promise<Array<object>>;
+export declare function parsePkgJson(pkgJsonFile: string, simple?: boolean, securityProps?: boolean, options?: {
+    fetchMetadata?: boolean;
+}): Promise<Array<object>>;
 /**
  * Hash a root `.npm-extension` file exactly as npm does: ssri sha512 over
  * `npm-extension:v1:<format>\n` followed by the raw file bytes. Mirrors

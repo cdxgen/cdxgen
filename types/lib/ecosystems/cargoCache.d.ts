@@ -72,4 +72,16 @@ export declare function getCargoRegistryDir(): string;
  *   local source has this crate.
  */
 export declare function readCargoCacheMetadata(name: string, version: string): CargoCacheMetadata | undefined;
+/**
+ * The manifest values of a `.crate` archive, read without extracting it.
+ *
+ * @param {string} crateFile Path to the `.crate` archive
+ * @param {string} name Crate name, for the archive's inner directory
+ * @param {string} version Crate version
+ * @returns {Promise<{values: Object, source: string}|undefined>}
+ */
+export declare function readCrateArchiveValues(crateFile: string, name: string, version: string): Promise<{
+    values: Object;
+    source: string;
+} | undefined>;
 //# sourceMappingURL=cargoCache.d.ts.map

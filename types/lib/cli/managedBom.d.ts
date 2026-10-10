@@ -127,12 +127,15 @@ export declare function createPerlBom(path: string, options: Object): Object;
 /**
  * Function to create bom string for Terraform and OpenTofu projects.
  *
- * The `.terraform.lock.hcl` file pins the providers the configuration
- * resolves to, with content hashes suitable for the CycloneDX hashes array.
+ * The workspace assembly turns the provider lock file, the module manifest
+ * `init` writes and the configuration files into module and provider
+ * components with a dependency graph and offline licenses. When metadata
+ * fetching is enabled, the public registries add licenses, repository URLs
+ * and registry flags to components the offline pass could not resolve.
  *
  * @param {string} path to the project
  * @param {Object} options Parse options from the cli
- * @returns {Object} BOM object
+ * @returns {Promise<Object>} BOM object
  */
-export declare function createTerraformBom(path: string, options: Object): Object;
+export declare function createTerraformBom(path: string, options: Object): Promise<Object>;
 //# sourceMappingURL=managedBom.d.ts.map
