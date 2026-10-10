@@ -1,4 +1,26 @@
 /**
+ * The licence or copying notice of a module that is already on this machine,
+ * from the directory `go list` reported, from the project's `vendor/` tree, or
+ * from the module cache. Reading it costs no network round trip, so it answers
+ * before pkg.go.dev is asked.
+ *
+ * The directory `go list` reported is always read. The vendor tree and the
+ * module cache stand in for pkg.go.dev, so they are read only when licences
+ * are being fetched.
+ *
+ * @param {string} name Full module path
+ * @param {string} [version] Module version, for the module cache layout
+ * @param {Object} [options] Options
+ * @param {string} [options.dir] The module's directory, as `go list` reports it
+ * @param {string} [options.projectRoot] Project root holding a `vendor/` tree
+ * @returns {string|undefined} The notice text, or undefined when none is held
+ *   locally
+ */
+export declare function readLocalGoLicense(name: string, version?: string, options?: {
+    dir?: string;
+    projectRoot?: string;
+}): string | undefined;
+/**
  * Builds a Go package component object containing purl, bom-ref, integrity hash,
  * and optionally license and VCS external reference information.
  *
@@ -6,9 +28,21 @@
  * @param {string} name Package name (full module path when group is empty)
  * @param {string} version Package version string
  * @param {string} hash Integrity hash (e.g. "sha256-…"), used as _integrity
+ * @param {Object} [options] Options
+ * @param {boolean} [options.skipRegistryLookups] Leave the licence and VCS
+ *   URL unset instead of asking pkg.go.dev. Used for the main module, which
+ *   no registry holds.
+ * @param {string} [options.dir] The module's directory, as `go list` reports
+ *   it, where a local licence notice is read first
+ * @param {string} [options.projectRoot] Project root holding a `vendor/` tree
+ *   the module may be vendored in
  * @returns {Promise<Object>} Component object ready for inclusion in a BOM package list
  */
-export declare function getGoPkgComponent(group: string, name: string, version: string, hash: string): Promise<Object>;
+export declare function getGoPkgComponent(group: string, name: string, version: string, hash: string, options?: {
+    skipRegistryLookups?: boolean;
+    dir?: string;
+    projectRoot?: string;
+}): Promise<Object>;
 /**
  * Method to parse go.mod files
  *
@@ -77,11 +111,19 @@ export declare function parseGoModWhy(rawOutput: string): string | undefined;
  */
 export declare function isGoModWhyNotNeeded(rawOutput: string): boolean;
 /**
+ * Read the `module@version` to hash map out of go.sum contents, without
+ * building components or touching the network.
+ *
+ * @param {string} gosumData Content of go.sum
+ * @returns {Object} Map of `module@version` keys to `sha256-…` values
+ */
+export declare function parseGosumHashes(gosumData: string): Object;
+/**
  * Parse go sum data
  * @param {string} gosumData Content of go.sum
  * @returns package list
  */
-export declare function parseGosumData(gosumData: string): Promise<any[]>;
+export declare function parseGosumData(gosumData: string): Promise<Object[]>;
 /**
  * Parses the contents of a Gopkg.lock or Gopkg.toml file (dep tool format) and
  * returns a list of Go package components. Optionally fetches license information

@@ -198,3 +198,4 @@ package-lock.json
 # Negated after the blanket rule above: gitignore takes the last match, and
 # this fixture lockfile is committed test input.
 !test/data/package-json/legacy-licenses/package-lock.json
+!test/data/angular-app-config-repotest/package-lock.json

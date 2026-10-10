@@ -1,10 +1,10 @@
-export declare let metadata_cache: {};
 /**
- * Internal helper to reset metadata_cache. Used by parseGoModData (still in
- * utils.js until batch 6) because ESM forbids reassigning an imported binding.
- * NOT re-exported through the utils.js barrel.
+ * No longer used. Registry answers are kept per ecosystem and for one run; this
+ * object stays exported for callers that imported it.
+ *
+ * @deprecated
  */
-export declare function _clearMetadataCache(): void;
+export declare const metadata_cache: {};
 /**
  * Fetches license information for a list of Swift packages by querying the
  * GitHub repository license API for packages hosted on github.com.
@@ -16,13 +16,27 @@ export declare function getSwiftPackageMetadata(pkgList: Object[]): Promise<Obje
 /**
  * Method to retrieve metadata for npm packages by querying npmjs
  *
- * A license the registry declares replaces the one the package arrived with.
- * When the registry declares none, the package keeps its own, and only a
- * package with neither falls back to its repository's license.
+ * Packages a public registry cannot hold are skipped: the project itself,
+ * workspace and link members, file and git sources, and scopes served by
+ * another registry. See {@link npmLookupRegistry}. A package whose licence,
+ * description and repository the project or lockfile already supplied is left
+ * alone as well: the registry answers only what is still missing, and never
+ * overwrites a licence that is already set. The registry's licence is read
+ * with its legacy `licenses` field, and only a package for which neither the
+ * package nor the registry names one falls back to its repository's licence.
  *
  * @param {Array} pkgList Package list
+ * @param {string} [registryUrl] Registry to query instead of NPM_URL
+ * @param {Object} [options] Options
+ * @param {Object} [options.npmrcConfig] Merged .npmrc configuration, used to
+ *   resolve a scope's own registry
+ * @param {boolean} [options.secureMode] Whether secure mode is on. Defaults to
+ *   the process-wide setting.
  */
-export declare function getNpmMetadata(pkgList: any[], registryUrl: any): Promise<any[]>;
+export declare function getNpmMetadata(pkgList: any[], registryUrl?: string, options?: {
+    npmrcConfig?: Object;
+    secureMode?: boolean;
+}): Promise<any[]>;
 /**
  * Method to locate local Gradle, Maven, or Coursier cache files for a given maven coordinate.
  *
@@ -248,8 +262,9 @@ export declare function getGoPkgLicense(repoMetadata: Object): Promise<any>;
  *
  * @param {String} group Package group
  * @param {String} name Package name
+ * @param {String} [version] Package version, part of the page URL
  */
-export declare function getGoPkgVCSUrl(group: string, name: string): Promise<any>;
+export declare function getGoPkgVCSUrl(group: string, name: string, version?: string): Promise<any>;
 /**
  * Method to retrieve metadata for rust packages by querying crates
  *
@@ -260,7 +275,13 @@ export declare function getGoPkgVCSUrl(group: string, name: string): Promise<any
  *
  * What it does not hold is publisher identity, so a caller that needs the
  * publisher-drift and release-cadence signals — the predictive audit does —
- * passes `preferLocalCache: false` and takes the slower registry path.
+ * passes `preferLocalCache: false` and takes the slower registry path. That is
+ * also the only caller that needs the crate's owners, so the `/owners` request
+ * is made for it alone.
+ *
+ * Crates a public registry cannot hold are skipped: the project itself, path
+ * and git crates, and crates from an alternate registry. See
+ * {@link canCratesIoServe}.
  *
  * @param {Array} pkgList Package list
  * @param {Object} [options] Options
@@ -273,9 +294,20 @@ export declare function getCratesMetadata(pkgList: any[], options?: {
 /**
  * Method to retrieve metadata for dart packages by querying pub.dev
  *
+ * A hosted package whose lockfile names another registry is looked up there;
+ * the score endpoint that carries the licence tag is pub.dev's, so a private
+ * registry is asked only for the package document. In secure mode cdxgen does
+ * not contact a registry the scanned project names, so such a package is not
+ * looked up at all.
+ *
  * @param {Array} pkgList Package list
+ * @param {Object} [options] Options
+ * @param {boolean} [options.secureMode] Whether secure mode is on. Defaults to
+ *   the process-wide setting.
  */
-export declare function getDartMetadata(pkgList: any[]): Promise<any[]>;
+export declare function getDartMetadata(pkgList: any[], options?: {
+    secureMode?: boolean;
+}): Promise<any[]>;
 /**
  * Normalize a Cargo checksum/integrity string into canonical hex-prefixed form.
  *

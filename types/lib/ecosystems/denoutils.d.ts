@@ -28,9 +28,15 @@ export declare function findDenoJson(dir: string): string | undefined;
 /**
  * Fetch JSR registry metadata for deno/jsr package components.
  *
- * For each component carrying a `cdx:deno:jsrKey` property, fetches the version
- * and package endpoints from the JSR API (batched in a single prefetch round
- * when enabled) and fills in license, description, and the GitHub source link.
+ * For each component carrying a `cdx:deno:jsrKey` property, fetches the
+ * version and package endpoints from the JSR API and fills in license,
+ * description, and the GitHub source link. A document is requested only for
+ * a component that still misses a field that document supplies: the version
+ * document carries the license, the package document the description and the
+ * repository link, so whatever the lockfile and the installed-manifest
+ * mining filled is never asked for again. Neither document carries
+ * provenance, so a provenance fetch, as under --bom-audit, asks for nothing
+ * more.
  *
  * @param {Array<object>} pkgList Package components potentially enriched with `cdx:deno:jsrKey`.
  * @returns {Promise<Array<object>>} The enriched package list (same reference as pkgList).

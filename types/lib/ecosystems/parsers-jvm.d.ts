@@ -6,6 +6,44 @@
  */
 export declare function parsePom(pomFile: string): Object;
 /**
+ * Every pom file of the reactor an aggregator pom builds: its own modules,
+ * recursively through nested aggregators. A recursive dependency:tree run
+ * from the aggregator resolves all of them, so their own runs repeat it.
+ *
+ * A module entry names a directory relative to its pom, sometimes a direct
+ * path to a pom file. Entries that are absolute, or that climb out of the
+ * aggregator's directory, are ignored: the scan never listed them, and the
+ * walk must not follow a pom's pointers outside its own tree.
+ *
+ * @param {string} rootPom Path of the aggregator pom.
+ * @returns {Set<string>} Pom files of the reactor, excluding the aggregator.
+ */
+export declare function resolveReactorPomFiles(rootPom: string): Set<string>;
+/**
+ * File name stem for the trees of one recursive dependency:tree run. Maven
+ * expands the project expressions for each reactor module, so every module
+ * writes its own file; a fixed name would hold only the last module's tree.
+ */
+export declare const MAVEN_MODULE_TREE_STEM = "${project.groupId}-${project.artifactId}";
+/**
+ * Read the trees one dependency:tree run wrote, one file per reactor module
+ * (see MAVEN_MODULE_TREE_STEM), and tell which of the reactor's pom files
+ * they cover. The pom the run started from comes first, then its modules in
+ * reactor order. A module pom counts as covered only when its own tree is
+ * among the files, so a module the run left out still runs on its own.
+ *
+ * @param {string} treeDir Directory the run wrote its trees into.
+ * @param {string} rootPom The pom file the run started from.
+ * @returns {{trees: Array<{pomFile: string, text: string}>, covered: Set<string>}}
+ */
+export declare function readMavenModuleTrees(treeDir: string, rootPom: string): {
+    trees: Array<{
+        pomFile: string;
+        text: string;
+    }>;
+    covered: Set<string>;
+};
+/**
  * Parse maven dependency:tree json output
  *
  * @param rawOutput

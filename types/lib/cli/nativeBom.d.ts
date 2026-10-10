@@ -25,7 +25,9 @@ export declare function createRustBom(path: any, options: any): Promise<Object |
 export declare function buildCargoCacheComponent(crateFile: string): object | undefined;
 /**
  * Enriches a cargo cache component with a SHA-256 hash and filename-based
- * identity evidence (confidence 0.5). Hash computation failures are ignored.
+ * identity evidence (confidence 0.5), and with what the archive's own manifest
+ * says: its licence, description and repository, read from the archive without
+ * extracting it anywhere. Hash computation failures are ignored.
  *
  * @param {string} crateFile Absolute path to the `.crate` archive
  * @param {object} [component] Component produced by `buildCargoCacheComponent`
