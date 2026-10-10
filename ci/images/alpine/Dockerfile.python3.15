@@ -1,0 +1,75 @@
+# Base-image
+FROM python:3.15.0rc3-alpine@sha256:f288a00331ddad8ddf86aa9d83331f188d9a5b1999dea3762adf2af1968b0c04 AS base
+
+ARG ALPINE_REPO
+ARG NODEJS_DIST_URL
+ARG NPM_REPO
+ARG PIP_CONFIG
+
+ENV CFLAGS="-fcommon" \
+    PATH=${PATH}:/usr/local/bin
+
+COPY ci/images/common/mirrors.sh /tmp/common/mirrors.sh
+
+RUN set -e; \
+    . /tmp/common/mirrors.sh; \
+    mirrors_on; \
+    apk update \
+ && apk add --no-cache \
+      build-base \
+      cyrus-sasl-dev \
+      krb5-dev \
+      libffi-dev \
+      libxml2-dev \
+      libxslt-dev \
+      nodejs \
+      npm \
+      openldap-dev \
+      openssl-dev \
+      postgresql-dev \
+      sqlite-dev \
+      xz-dev \
+ && npm install -g corepack \
+ && python --version \
+ && python -m pip install \
+      --break-system-packages \
+      --no-cache-dir \
+      --target ${PYTHONPATH} \
+      --upgrade \
+        atom-tools \
+ && node -v \
+ && npm -v \
+ && rm -rf /var/cache/apk/* /tmp/common \
+    && mirrors_off
+
+
+# cdxgen-builder-image
+FROM base AS cdxgen-builder
+
+ARG ALPINE_REPO
+ARG NODEJS_DIST_URL
+ARG NPM_REPO
+ARG PIP_CONFIG
+
+ENV NODE_COMPILE_CACHE="/opt/cdxgen-node-cache"
+
+COPY . /opt/cdxgen
+COPY ci/images/common/ /tmp/common/
+
+RUN sh /tmp/common/cdxgen-build.sh
+
+# cdxgen-image
+FROM base AS cdxgen
+
+ENV CDXGEN_IN_CONTAINER=true \
+    NODE_COMPILE_CACHE="/opt/cdxgen-node-cache" \
+    PATH=${PATH}:/opt/cdxgen/node_modules/.bin
+
+COPY --from=cdxgen-builder /opt/cdxgen /opt/cdxgen
+COPY --from=cdxgen-builder /opt/cdxgen-node-cache /opt/cdxgen-node-cache
+
+RUN chmod a-w -R /opt
+
+WORKDIR /app
+
+ENTRYPOINT ["node", "/opt/cdxgen/bin/cdxgen.js"]

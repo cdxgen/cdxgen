@@ -231,12 +231,16 @@ jobs:
             distro: alpine
           - lang: python3.14
             distro: alpine
+          - lang: python3.15
+            distro: alpine
 
           - lang: python3.12
             distro: debian
           - lang: python3.13
             distro: debian
           - lang: python3.14
+            distro: debian
+          - lang: python3.15
             distro: debian
 
           - lang: ruby2.5

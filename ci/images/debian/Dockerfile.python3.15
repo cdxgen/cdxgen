@@ -1,0 +1,87 @@
+# Base-image
+FROM python:3.15.0rc3-bookworm@sha256:461268c793ba85d7781455ee870dc3ea2a0e307be535b6584d2de1922b577a2c AS base
+
+ARG DEBIAN_REPO
+ARG GITHUB_RAW_URL=https://raw.githubusercontent.com
+ARG GITHUB_URL=https://github.com
+ARG NODE_26
+ARG NODE_VERSION=${NODE_26}
+ARG NODEJS_DIST_URL
+ARG NPM_REPO
+ARG NVM
+ARG NVM_VERSION=${NVM:-v0.40.8}
+ARG PIP_CONFIG
+
+ENV CFLAGS="-fcommon" \
+    NVM_DIR="/root/.nvm" \
+    PYTHONPATH=/opt/pypi
+ENV PATH=${PATH}:/usr/local/bin:/root/.local/bin:${NVM_DIR}/versions/node/v${NODE_VERSION}/bin
+
+COPY ci/images/debian/install.sh /tmp/
+COPY ci/images/common/mirrors.sh /tmp/common/mirrors.sh
+
+RUN set -e; \
+    . /tmp/common/mirrors.sh; \
+    mirrors_on; \
+    apt-get update \
+ && apt-get install -qq -y --no-install-recommends \
+      bash \
+      bzip2 \
+      curl \
+      gawk \
+      git-core \
+      make \
+      unzip \
+      zip \
+ && apt-get install -qq -y \
+      build-essential \
+      locales \
+ && chmod +x /tmp/install.sh \
+ && SKIP_ATOM=yes /tmp/install.sh \
+ && rm /tmp/install.sh \
+ && pip install \
+      --no-cache-dir \
+      --target ${PYTHONPATH} \
+      --upgrade \
+        atom-tools \
+ && python --version \
+ && node -v \
+ && npm -v \
+ && apt-get purge -y --auto-remove \
+      -o APT::AutoRemove::RecommendsImportant=false \
+ && rm -rf /var/lib/apt/lists/* /tmp/common \
+    && mirrors_off
+
+CMD ["/bin/bash"]
+
+
+# cdxgen-builder-image
+FROM base AS cdxgen-builder
+
+ARG DEBIAN_REPO
+ARG NODEJS_DIST_URL
+ARG NPM_REPO
+ARG PIP_CONFIG
+
+ENV NODE_COMPILE_CACHE="/opt/cdxgen-node-cache"
+
+COPY . /opt/cdxgen
+COPY ci/images/common/ /tmp/common/
+
+RUN sh /tmp/common/cdxgen-build.sh
+
+# cdxgen-image
+FROM base AS cdxgen
+
+ENV CDXGEN_IN_CONTAINER=true \
+    NODE_COMPILE_CACHE="/opt/cdxgen-node-cache" \
+    PATH=${PATH}:${PYTHONPATH}/bin:/opt/cdxgen/node_modules/.bin
+
+COPY --from=cdxgen-builder /opt/cdxgen /opt/cdxgen
+COPY --from=cdxgen-builder /opt/cdxgen-node-cache /opt/cdxgen-node-cache
+
+RUN chmod a-w -R /opt
+
+WORKDIR /app
+
+ENTRYPOINT ["node", "/opt/cdxgen/bin/cdxgen.js"]
