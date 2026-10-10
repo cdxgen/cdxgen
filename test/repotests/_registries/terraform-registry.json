@@ -1,0 +1,68 @@
+{
+  "/registry/docs/modules/terraform-aws-modules/s3-bucket/aws/v4.2.1/index.json": {
+    "licenses": [
+      {
+        "spdx": "Apache-2.0",
+        "confidence": 0.93,
+        "file": "LICENSE",
+        "link": "https://github.com/terraform-aws-modules/terraform-aws-s3-bucket/tree/v4.2.1/LICENSE"
+      }
+    ],
+    "link": "https://github.com/terraform-aws-modules/terraform-aws-s3-bucket/tree/v4.2.1",
+    "providers": [
+      {
+        "full_name": "registry.terraform.io/hashicorp/aws",
+        "version_constraint": ">= 5.0"
+      }
+    ]
+  },
+  "/registry/docs/providers/hashicorp/google/v6.10.0/index.json": {
+    "license": [
+      {
+        "spdx": "MPL-2.0",
+        "confidence": 0.99,
+        "file": "LICENSE",
+        "link": "https://github.com/hashicorp/terraform-provider-google/tree/v6.10.0/LICENSE"
+      }
+    ],
+    "link": "https://github.com/hashicorp/terraform-provider-google/tree/v6.10.0"
+  },
+  "/v1/modules/terraform-aws-modules/s3-bucket/aws/4.2.1": {
+    "id": "terraform-aws-modules/s3-bucket/aws/4.2.1",
+    "owner": "terraform-aws-modules",
+    "namespace": "terraform-aws-modules",
+    "name": "s3-bucket",
+    "alias": null,
+    "version": "4.2.1",
+    "tag": "v4.2.1",
+    "description": "Terraform module which creates S3 bucket resources on AWS",
+    "source": "https://github.com/terraform-aws-modules/terraform-aws-s3-bucket",
+    "published_at": "2024-10-06T10:22:31.000000Z",
+    "downloads": 42000000,
+    "verified": true,
+    "root": {
+      "providers": [
+        {
+          "name": "aws",
+          "namespace": "hashicorp",
+          "version": ">= 3.72"
+        }
+      ]
+    }
+  },
+  "/v1/providers/hashicorp/google/6.10.0": {
+    "id": "hashicorp/google/6.10.0",
+    "tag": "v6.10.0",
+    "version": "6.10.0",
+    "builds": [
+      {
+        "arch": "amd64",
+        "os": "darwin",
+        "filename": "terraform-provider-google_6.10.0_darwin_amd64.zip"
+      }
+    ],
+    "source": "https://github.com/hashicorp/terraform-provider-google",
+    "published_at": "2024-10-02T09:36:23.000000Z",
+    "tier": "official"
+  }
+}

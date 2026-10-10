@@ -215,6 +215,9 @@ Rules that check package manager data for non-registry, local, or mutable depend
 | PKG-006 | medium   | Python package from non-default PyPI registry                     |
 | PKG-007 | high     | Cargo dependency tracks mutable git source without immutable pin  |
 | PKG-008 | high     | Cargo dependency uses local path source                           |
+| PKG-012 | high     | Terraform module from mutable VCS reference                       |
+| PKG-013 | low      | Terraform registry module not pinned to an exact version          |
+| PKG-014 | high     | Terraform module source embeds credentials                        |
 
 ### `package-integrity` — Package Integrity and Lifecycle
 

@@ -1,0 +1,11 @@
+{
+  "description": "Terraform modules from an installed layout: the lock file pins the providers, modules.json records the resolved modules and installed packages carry their licenses, all offline.",
+  "fixture": "../../data/terraform-modules",
+  "scenarios": [
+    {
+      "name": "default",
+      "projectType": ["terraform"],
+      "options": {}
+    }
+  ]
+}

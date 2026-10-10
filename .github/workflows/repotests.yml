@@ -25,6 +25,7 @@ on:
       - 'test/data/cargo-cache-fixture/**'
       - 'test/data/cache-disable-repotest/**'
       - 'test/data/cbom-js-repotest/**'
+      - 'test/data/terraform-*/**'
       - 'test/data/cargo-workspace-repotest/**'
       - 'test/data/evinse-php-repotest/**'
       - 'test/data/evinse-cpp-repotest/**'
@@ -92,6 +93,12 @@ jobs:
           persist-credentials: false
           repository: 'rtfeldman/elm-spa-example'
           path: 'repotests/elm-spa-example'
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
+        with:
+          persist-credentials: false
+          repository: 'hashicorp-education/learn-terraform-modules-use'
+          ref: '753518c20cdca94c67e1f0e2890e71f6a96af262'
+          path: 'repotests/learn-terraform-modules-use'
       - name: Trim CI agent
         run: |
           rm -rf /tmp/docker-images-* /tmp/atom-usages-* /tmp/atom-reachables-* /tmp/cdx*
@@ -163,6 +170,32 @@ jobs:
           jq -e 'any(.annotations[]?; (.text // "") | contains("INT-013"))' bomresults/bom-cargo-workspace-fixture.json
           CARGO_CACHE_DIR=test/data/cargo-cache-fixture/registry/cache/index.crates.io-1949cf8c6b5b557f bin/cdxgen.js -t cargo-cache . -o bomresults/bom-cargo-cache-fixture.json --fail-on-error
           jq -e 'any(.components[]; .name == "serde" and any((.properties // [])[]; .name == "cdx:cargo:cacheSource" and .value == "registry-cache"))' bomresults/bom-cargo-cache-fixture.json
+        shell: bash
+      - name: repotests learn-terraform-modules-use
+        run: |
+          bin/cdxgen.js -t terraform repotests/learn-terraform-modules-use -o bomresults/bom-learn-terraform-modules.json --fail-on-error
+          jq -e 'any(.components[]; .name == "vpc/aws" and .version == "3.18.1" and any((.properties // [])[]; .name == "cdx:tf:kind" and .value == "module") and any((.properties // [])[]; .name == "cdx:tf:module:pinning" and .value == "exact"))' bomresults/bom-learn-terraform-modules.json
+          jq -e 'any(.components[]; .name == "ec2-instance/aws" and .version == "4.3.0" and any((.properties // [])[]; .name == "cdx:tf:kind" and .value == "module") and any((.properties // [])[]; .name == "cdx:tf:module:pinning" and .value == "exact"))' bomresults/bom-learn-terraform-modules.json
+          jq -e 'any(.components[]; .name == "aws" and .version == "4.49.0" and any((.properties // [])[]; .name == "cdx:tf:kind" and .value == "provider"))' bomresults/bom-learn-terraform-modules.json
+          jq -e 'any(.metadata.component.properties[]?; .name == "cdx:tf:root" and .value == ".")' bomresults/bom-learn-terraform-modules.json
+          PARENT_REF=$(jq -r '.metadata.component["bom-ref"]' bomresults/bom-learn-terraform-modules.json)
+          jq -e --arg pref "$PARENT_REF" 'any(.dependencies[]; .ref == $pref and any(.dependsOn[]; startswith("pkg:generic/registry.terraform.io/terraform-aws-modules/vpc/aws@"))) and all(.components[]?; ((.purl // "") | startswith("pkg:terraform/") | not))' bomresults/bom-learn-terraform-modules.json
+          bin/cdxgen.js repotests/learn-terraform-modules-use -o bomresults/bom-learn-terraform-modules-default.json --fail-on-error
+          jq -e 'any(.components[]; .name == "vpc/aws" and .version == "3.18.1")' bomresults/bom-learn-terraform-modules-default.json
+        shell: bash
+      - name: repotests terraform fixtures
+        run: |
+          for d in terraform-modules terraform-static terraform-monorepo terraform-tofu; do
+            bin/cdxgen.js -t terraform test/data/$d -o bomresults/bom-$d.json --fail-on-error
+          done
+          jq -e 'any(.components[]; .name == "vpc/aws" and .version == "5.1.2" and any(.licenses[]?; .license.id == "Apache-2.0") and any((.properties // [])[]; .name == "cdx:tf:licenseSource" and .value == "file"))' bomresults/bom-terraform-modules.json
+          jq -e 'any(.components[]; .name == "aws" and .version == "5.80.0" and any(.licenses[]?; .license.id == "MPL-2.0"))' bomresults/bom-terraform-modules.json
+          jq -e 'any(.components[]; .name == "network" and .version == "main" and any((.properties // [])[]; .name == "cdx:tf:module:pinning" and .value == "branch"))' bomresults/bom-terraform-static.json
+          jq -e 'any(.components[]; any((.properties // [])[]; .name == "cdx:tf:module:credentialInSource" and .value == "true"))' bomresults/bom-terraform-static.json
+          jq -e 'any(.components[]; .type == "application" and .["bom-ref"] == "terraform-root:envs/dev")' bomresults/bom-terraform-monorepo.json
+          jq -e 'any(.components[]; .name == "vpc/aws" and .version == "5.1.0" and (.purl | contains("registry.opentofu.org")))' bomresults/bom-terraform-tofu.json
+          bin/cdxgen.js test/data/terraform-modules -o bomresults/bom-terraform-modules-default.json --fail-on-error
+          jq -e 'any(.components[]; .name == "vpc/aws" and .version == "5.1.2") and all(.components[]; ((.purl // "") | contains("#.terraform/") | not))' bomresults/bom-terraform-modules-default.json
         shell: bash
       - name: repotests elm-spa-example
         run: |

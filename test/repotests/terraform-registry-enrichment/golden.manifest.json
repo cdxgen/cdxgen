@@ -1,0 +1,22 @@
+{
+  "description": "Terraform modules enriched from a local registry double: per-version SPDX ids from the OpenTofu docs API and repository/tier metadata from the Terraform registry, gated on FETCH_LICENSE. Unrouted paths answer 404, which is also what the GitHub license fallback sees.",
+  "fixture": "../../data/terraform-static",
+  "scenarios": [
+    {
+      "name": "registry-enrichment",
+      "projectType": ["terraform"],
+      "options": {},
+      "env": {
+        "FETCH_LICENSE": "true"
+      },
+      "registry": {
+        "fixture": "terraform-registry.json",
+        "env": [
+          "CDXGEN_TF_REGISTRY_URL",
+          "CDXGEN_TOFU_DOCS_URL",
+          "GITHUB_API_URL"
+        ]
+      }
+    }
+  ]
+}
