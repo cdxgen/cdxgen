@@ -1,0 +1,6 @@
+# golang.org/x/text v0.42.0
+## explicit; go 1.26.0
+golang.org/x/text/internal/language
+golang.org/x/text/internal/language/compact
+golang.org/x/text/internal/tag
+golang.org/x/text/language

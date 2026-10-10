@@ -914,8 +914,11 @@ Tool versions are left unresolved in this mode, because resolving a partial pin 
 Maven Central answers heavy consumers with HTTP 429 and keeps an IP blocked for longer the more requests arrive during a block. cdxgen keeps its own traffic to Central small:
 
 - POMs, licences, hashes and jar coordinates are read from the local Maven repository, the Gradle module cache and the Coursier cache first, including every parent POM. A project that has been built usually needs no request at all. `MAVEN_CACHE_DIR`, `-Dmaven.repo.local`, `<localRepository>`, `GRADLE_USER_HOME`, `GRADLE_RO_DEP_CACHE` and `COURSIER_CACHE` are honoured.
+- A jar also carries its own metadata: the `pom.xml` under `META-INF/maven` inside it, chosen by the `pom.properties` that matches the jar's own coordinates even in a shaded jar, and the `Bundle-License` the MANIFEST names. Both are read in the local phase, before any remote POM, and a licence the package already has always wins.
 - License enrichment fetches POMs remotely only with `FETCH_LICENSE=true`, and never for snapshots or the project's own modules.
+- A Maven reactor is resolved once, from its aggregator: the recursive `dependency:tree` writes one tree per module, and a member `pom.xml` whose tree came back is not run again. Poms outside the reactor, and every pom after a failed aggregator run, still run on their own.
 - After the first 429, cdxgen stops contacting that host for ten minutes, or for as long as `Retry-After` asks, and prints one warning.
+- The build tools are stopped as well. When Maven, Gradle or sbt reports an HTTP 429 from its repository, cdxgen runs no further resolution with that tool in the scan: no text-format `dependency:tree` retry, no parent `-N` retry, no Maven run for the remaining pom files, no `copy-dependencies`, no further Gradle task or properties round, no per-subproject sbt retry and no further sbt build. The direct dependencies each remaining `pom.xml` declares are still parsed. Mill and scala-cli resolve in one run, which is reported the same way. In every case one warning names the setting that moves that tool to a mirror: a `<mirror>` in the Maven `settings.xml` or `MVNW_REPOURL` for the wrapper, a repository in a Gradle init script, `~/.sbt/repositories` with `-Dsbt.override.build.repos=true` for sbt, or Coursier's `mirror.properties` with `central.from` and `central.to` for Mill and scala-cli, where several `from` URLs are separated by semicolons. The finding is recorded under the `build.rate-limited` remediation, and a 429 is never read as a missing artifact.
 
 When enrichment needs the network and Central is limiting you, point cdxgen at a repository manager or a mirror, and keep the build tools away from Central:
 
@@ -928,6 +931,17 @@ cdxgen -t java -o bom.json .
 ```
 
 `MAVEN_CENTRAL_URL` only changes where cdxgen itself fetches POMs from. Maven, Gradle and sbt keep using the repositories their own configuration names.
+
+### Other registry rate limits
+
+Every registry request cdxgen makes, batched or not, waits behind one rate gate per host. Within a run:
+
+- a request that keeps failing with a server error or HTTP 429 is retried with back-off, honouring `Retry-After`, and then left alone for the rest of that pass;
+- a host that answers HTTP 429 to three requests is not contacted for ten minutes, or for as long as `Retry-After` asks, and cdxgen prints one warning;
+- a document that answered 404 or 410 is not asked for again;
+- when GitHub's API reports that its rate limit is used up, it is not called again until the reset time it gives. Set `GITHUB_TOKEN` to raise the limit from 60 to 5,000 requests an hour.
+
+The affected components keep the metadata found in lockfiles, manifests and local caches.
 
 ## Nydus - next-generation container image
 

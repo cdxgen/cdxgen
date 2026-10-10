@@ -1,0 +1,12 @@
+lock-version = "1.0"
+created-by = "test"
+
+[[packages]]
+name = "dirpylock"
+version = "0.2.0"
+directory = { path = "libs/dirpylock" }
+
+[[packages]]
+name = "archivepylock"
+version = "0.3.0"
+archive = { url = "https://downloads.acme.invalid/archivepylock-0.3.0.tar.gz", hashes = { sha256 = "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee" } }

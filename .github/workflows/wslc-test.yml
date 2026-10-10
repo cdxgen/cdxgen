@@ -123,14 +123,13 @@ jobs:
           grep -q "Using wslc (WSL Containers) as the container CLI" alpine-scan.log
           grep -q "using wslc cli" alpine-scan.log
           grep -q "container-cli:wslc" alpine-scan.log
-          # The parent purl carries the digest, so wslc inspect returned
+          # The parent purl carries the digest, so wslc image inspect returned
           # docker-compatible RepoTags and RepoDigests.
           node -e "const b=require('./bom-alpine.cdx.json'); if(!b.components||b.components.length<10){throw new Error('expected OS components in the alpine BOM, got '+b.components?.length)}; const p=b.metadata?.component?.purl||''; if(!p.startsWith('pkg:oci/alpine@sha256:')){throw new Error('expected a digest-pinned parent purl, got '+p)}; console.log('alpine BOM components:', b.components.length, 'parent:', p)"
           # A second scan must reuse the image from the wslc store: the local
-          # cache lookup parses wslc images --format=json (docker-style keys).
+          # check asks wslc image inspect about the reference itself.
           node bin/cdxgen.js -t oci -o bom-alpine-cached.cdx.json alpine:3.20 2>&1 | tee alpine-rescan.log
-          grep -q "wslc images --format=json" alpine-rescan.log
-          grep -q "wslc inspect alpine:3.20" alpine-rescan.log
+          grep -q "wslc image inspect alpine:3.20" alpine-rescan.log
           if grep -q "wslc pull alpine:3.20" alpine-rescan.log; then
             echo "expected the rescan to reuse alpine:3.20 from the wslc image store"
             exit 1

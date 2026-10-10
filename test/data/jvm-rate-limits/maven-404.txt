@@ -1,0 +1,22 @@
+[INFO] Scanning for projects...
+[INFO] Downloading from local-fixture: http://127.0.0.1:18431/maven/org/apache/maven/plugins/maven-dependency-plugin/3.7.0/maven-dependency-plugin-3.7.0.pom
+[WARNING] The POM for org.apache.maven.plugins:maven-dependency-plugin:jar:3.7.0 is missing, no dependency information available
+[INFO] Downloading from local-fixture: http://127.0.0.1:18431/maven/org/apache/maven/plugins/maven-dependency-plugin/3.7.0/maven-dependency-plugin-3.7.0.jar
+[WARNING] Failed to retrieve plugin descriptor for org.apache.maven.plugins:maven-dependency-plugin:3.7.0: Plugin org.apache.maven.plugins:maven-dependency-plugin:3.7.0 or one of its dependencies could not be resolved:
+	Could not find artifact org.apache.maven.plugins:maven-dependency-plugin:jar:3.7.0 in local-fixture (http://127.0.0.1:18431/maven)
+
+[INFO] Downloading from local-fixture: http://127.0.0.1:18431/maven/org/apache/maven/plugins/maven-clean-plugin/3.2.0/maven-clean-plugin-3.2.0.pom
+[WARNING] The POM for org.apache.maven.plugins:maven-clean-plugin:jar:3.2.0 is missing, no dependency information available
+[WARNING] Failed to retrieve plugin descriptor for org.apache.maven.plugins:maven-clean-plugin:3.2.0: Plugin org.apache.maven.plugins:maven-clean-plugin:3.2.0 or one of its dependencies could not be resolved:
+	Could not find artifact org.apache.maven.plugins:maven-clean-plugin:jar:3.2.0 in local-fixture (http://127.0.0.1:18431/maven)
+
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  0.163 s
+[INFO] ------------------------------------------------------------------------
+[ERROR] No plugin found for prefix 'dependency' in the current project and in the plugin groups [org.apache.maven.plugins, org.codehaus.mojo] available from the repositories [local (/tmp/mvn/repo), local-fixture (http://127.0.0.1:18431/maven)] -> [Help 1]
+[ERROR]
+[ERROR] To see the full stack trace, re-run Maven with the -e switch.
+[ERROR]
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/NoPluginFoundForPrefixException

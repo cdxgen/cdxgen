@@ -1,0 +1,62 @@
+[
+  {
+    "Id": "sha256:f7d23353e1b15400d22ebe31189f4d314b87a4c129cc400c8c2d8d4ca127bf81",
+    "RepoTags": [
+      "postgres:15-alpine"
+    ],
+    "RepoDigests": [
+      "postgres@sha256:f7d23353e1b15400d22ebe31189f4d314b87a4c129cc400c8c2d8d4ca127bf81"
+    ],
+    "Comment": "buildkit.dockerfile.v0",
+    "Created": "2026-09-17T21:33:44.32108193Z",
+    "Config": {
+      "ExposedPorts": {
+        "5432/tcp": {}
+      },
+      "Env": [
+        "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+        "GOSU_VERSION=1.19",
+        "LANG=en_US.utf8",
+        "PG_MAJOR=15",
+        "PG_VERSION=15.19",
+        "PG_SHA256=e1a64a87a46b825b88c082e4518161a47aab53c45694964f8ba1df28f7859f89",
+        "DOCKER_PG_LLVM_DEPS=llvm21-dev \t\tclang21",
+        "PGDATA=/var/lib/postgresql/data"
+      ],
+      "Entrypoint": [
+        "docker-entrypoint.sh"
+      ],
+      "Cmd": [
+        "postgres"
+      ],
+      "Volumes": {
+        "/var/lib/postgresql/data": {}
+      },
+      "WorkingDir": "/",
+      "StopSignal": "SIGINT"
+    },
+    "Architecture": "arm64",
+    "Variant": "v8",
+    "Os": "linux",
+    "Size": 113090414,
+    "RootFS": {
+      "Type": "layers",
+      "Layers": [
+        "sha256:1b349a3334531b575b01d409540dd8aca14ef29abddacd50f36643d7c949db4b",
+        "sha256:8165529178ed574d5bad595d7e64c4e62250ddfbc1af48594c09ea5bbad40e9d"
+      ]
+    },
+    "Descriptor": {
+      "mediaType": "application/vnd.oci.image.index.v1+json",
+      "digest": "sha256:f7d23353e1b15400d22ebe31189f4d314b87a4c129cc400c8c2d8d4ca127bf81",
+      "size": 10301
+    },
+    "Identity": {
+      "Pull": [
+        {
+          "Repository": "docker.io/library/postgres"
+        }
+      ]
+    }
+  }
+]

@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>Ardalis.Result</id>
+    <version>7.0.0</version>
+    <title>Ardalis.Result</title>
+    <authors>Steve Smith (@ardalis),Shady Nagy (@ShadyNagy)</authors>
+    <license type="expression">MIT</license>
+    <licenseUrl>https://licenses.nuget.org/MIT</licenseUrl>
+    <icon>icon.png</icon>
+    <projectUrl>https://github.com/ardalis/result</projectUrl>
+    <description>A simple package to implement the Result pattern for returning from services.</description>
+    <releaseNotes>PRs 92 and 112. Adding support for .NET 7</releaseNotes>
+    <tags>result pattern web api aspnetcore mvc</tags>
+    <repository url="https://github.com/ardalis/result" />
+    <dependencies>
+      <group targetFramework="net7.0" />
+      <group targetFramework=".NETStandard2.0" />
+    </dependencies>
+  </metadata>
+</package>
