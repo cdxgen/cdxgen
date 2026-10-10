@@ -1,0 +1,27 @@
+lib/ecosystems/denoJsrMetadata.poku.js
+  s_755a56872480ac::t_b8bfe6832b72dd 13,134-136
+docs/ENV.md
+  s_755a56872480ac::t_669149e2d8bb49 212
+lib/ecosystems/parsers-elm.js
+  s_755a56872480ac::t_46962b2d99a8db 692-694,704
+lib/ecosystems/denoutils.js
+  s_755a56872480ac::t_b8bfe6832b72dd 10,495-497,512,515
+lib/ecosystems/parsers-elm.poku.js
+  s_755a56872480ac::t_46962b2d99a8db 467-469,490-491
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "3e63b8d09e011cb87c947dddd6c34b271addaadd",
+  "prompts": {},
+  "sessions": {
+    "s_755a56872480ac": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "fcd63641-a6ba-4dfb-b81e-a2a956bec8f0",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
