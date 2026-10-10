@@ -1,0 +1,445 @@
+.github/workflows/fix-renovate-pnpm-checksum.yml
+  s_755a56872480ac::t_acaa4bcf1a7604 26
+types/lib/inventory/fetchBatch.d.ts
+  s_755a56872480ac::t_acaa4bcf1a7604 35-63,164-172,175-176,179-181
+ci/images/alpine/Dockerfile.elixir1
+  s_755a56872480ac::t_acaa4bcf1a7604 2
+types/lib/inventory/evidenceUtils.d.ts
+  s_755a56872480ac::t_acaa4bcf1a7604 47-59,63-65,68-70
+types/lib/parsers/cmakeCache.d.ts
+  s_755a56872480ac::t_acaa4bcf1a7604 70-85
+ci/images/alpine/Dockerfile.php8.5
+  s_755a56872480ac::t_acaa4bcf1a7604 2
+ci/images/debian/Dockerfile.ruby3.3
+  s_755a56872480ac::t_acaa4bcf1a7604 2
+lib/inventory/spdx.poku.js
+  s_755a56872480ac::t_acaa4bcf1a7604 222-246
+lib/ecosystems/scalasem.poku.js
+  s_755a56872480ac::t_acaa4bcf1a7604 177-243,1717
+.versions/maven_4
+  s_755a56872480ac::t_acaa4bcf1a7604 2
+jsr.json
+  s_755a56872480ac::t_acaa4bcf1a7604 3
+ci/images/alpine/Dockerfile.ruby4
+  s_755a56872480ac::t_acaa4bcf1a7604 2
+ci/images/Dockerfile.python3.6
+  s_755a56872480ac::t_acaa4bcf1a7604 2
+types/lib/inventory/dosaiParsers.d.ts
+  s_755a56872480ac::t_acaa4bcf1a7604 27-45,63-66,69-72,74-76,78-96,100-102,104
+ci/images/debian/Dockerfile.rust1
+  s_755a56872480ac::t_acaa4bcf1a7604 2
+.github/workflows/lint.yml
+  s_755a56872480ac::t_acaa4bcf1a7604 39,58
+.github/workflows/check-renovate-dependency.yml
+  s_755a56872480ac::t_acaa4bcf1a7604 24
+ci/Dockerfile-bun
+  s_755a56872480ac::t_acaa4bcf1a7604 1,7,22
+.github/workflows/obom-artifacts.yml
+  s_755a56872480ac::t_acaa4bcf1a7604 32,65
+ci/images/debian/Dockerfile.node26
+  s_755a56872480ac::t_acaa4bcf1a7604 2
+types/lib/ecosystems/cppBuildContext.d.ts
+  s_755a56872480ac::t_acaa4bcf1a7604 1-55
+ci/images/debian/Dockerfile.php8.4
+  s_755a56872480ac::t_acaa4bcf1a7604 2
+types/lib/inventory/auditCategories.d.ts
+  s_755a56872480ac::t_acaa4bcf1a7604 9-10,41
+ci/images/temurin/Dockerfile.java26
+  s_755a56872480ac::t_acaa4bcf1a7604 2
+lib/ecosystems/scalasem.js
+  s_755a56872480ac::t_acaa4bcf1a7604 11,13,336-343,370-371,405,442-457,459
+ci/images/debian/Dockerfile.golang1.27
+  s_755a56872480ac::t_acaa4bcf1a7604 2
+types/lib/ecosystems/cppIncludeResolver.d.ts
+  s_755a56872480ac::t_acaa4bcf1a7604 1-92
+ci/images/debian/Dockerfile.python3.14
+  s_755a56872480ac::t_acaa4bcf1a7604 2
+ci/images/debian/Dockerfile.node24
+  s_755a56872480ac::t_acaa4bcf1a7604 2
+lib/ecosystems/gradleutils.poku.js
+  s_755a56872480ac::t_acaa4bcf1a7604 117-336
+test/data/package-json/legacy-licenses/package.json
+  s_755a56872480ac::t_acaa4bcf1a7604 1-10
+types/lib/inventory/dosai.d.ts
+  s_755a56872480ac::t_acaa4bcf1a7604 78-107,171-172,174,176-177,181-183,185,206-208,211-213,222-224,227-229,238-240,243-245
+ci/images/debian/Dockerfile.dotnet8
+  s_755a56872480ac::t_acaa4bcf1a7604 2
+.github/workflows/java-reachables-test.yml
+  s_755a56872480ac::t_acaa4bcf1a7604 47,82
+.github/workflows/wslc-test.yml
+  s_755a56872480ac::t_acaa4bcf1a7604 36,178
+ci/images/temurin/Dockerfile.java8
+  s_755a56872480ac::t_acaa4bcf1a7604 2
+ci/images/alpine/Dockerfile.ruby3.3
+  s_755a56872480ac::t_acaa4bcf1a7604 2
+ci/images/opensuse/Dockerfile.rolling
+  s_755a56872480ac::t_acaa4bcf1a7604 2
+ci/images/temurin/Dockerfile.java25
+  s_755a56872480ac::t_acaa4bcf1a7604 2
+lib/ecosystems/denoutils.js
+  s_755a56872480ac::t_acaa4bcf1a7604 24,317-321
+lib/ecosystems/parsers-js.js
+  s_755a56872480ac::t_acaa4bcf1a7604 34,484,917-919,1119-1122,1125-1129,1228-1238,1294-1296,1298,4221
+test/repotests/npm-smoke/expected/spec-1.7.json
+  s_755a56872480ac::t_acaa4bcf1a7604 171
+types/lib/inventory/scalaCoords.d.ts
+  s_755a56872480ac::t_acaa4bcf1a7604 1-80
+types/lib/ecosystems/scalasem.d.ts
+  s_755a56872480ac::t_acaa4bcf1a7604 1-311
+.github/workflows/deno.yml
+  s_755a56872480ac::t_acaa4bcf1a7604 54
+lib/ecosystems/parsers-rust.js
+  s_755a56872480ac::t_acaa4bcf1a7604 11,207,1085,1293
+ci/images/alpine/Dockerfile.python3.12
+  s_755a56872480ac::t_acaa4bcf1a7604 2
+ci/images/Dockerfile.ruby2.5
+  s_755a56872480ac::t_acaa4bcf1a7604 2
+ci/images/ubuntu/Dockerfile.dotnet11
+  s_755a56872480ac::t_acaa4bcf1a7604 2
+ci/images/debian/Dockerfile.php8.5
+  s_755a56872480ac::t_acaa4bcf1a7604 2
+lib/ecosystems/cargoCache.js
+  s_755a56872480ac::t_ea9dbc867bccc8 300
+  s_755a56872480ac::t_acaa4bcf1a7604 11,383
+ci/images/alpine/Dockerfile.ruby3.4
+  s_755a56872480ac::t_acaa4bcf1a7604 2
+lib/inventory/mcpConfigParser.js
+  s_755a56872480ac::t_acaa4bcf1a7604 8,815
+ci/Dockerfile-secure
+  s_755a56872480ac::t_acaa4bcf1a7604 7
+ci/images/Dockerfile.dotnet9
+  s_755a56872480ac::t_acaa4bcf1a7604 2
+test/gradle-dep-parallel-interleaved.out
+  s_755a56872480ac::t_acaa4bcf1a7604 1-519
+types/lib/inventory/jvmLocalRepos.d.ts
+  s_755a56872480ac::t_acaa4bcf1a7604 1-178
+lib/ecosystems/parsers-gleam.js
+  s_755a56872480ac::t_acaa4bcf1a7604 3,37,72
+ci/images/debian/Dockerfile.dotnet9
+  s_755a56872480ac::t_acaa4bcf1a7604 2
+ci/images/temurin/Dockerfile.java21
+  s_755a56872480ac::t_acaa4bcf1a7604 2
+ci/Dockerfile-ppc64
+  s_755a56872480ac::t_acaa4bcf1a7604 1,7,16
+docs/SCALA_EVINSE.md
+  s_755a56872480ac::t_acaa4bcf1a7604 156-157
+lib/inventory/rustFormulationParser.js
+  s_755a56872480ac::t_acaa4bcf1a7604 5,69,254
+.github/workflows/bun.yml
+  s_755a56872480ac::t_acaa4bcf1a7604 50
+lib/ecosystems/parsers-js.poku.js
+  s_755a56872480ac::t_acaa4bcf1a7604 2,683-787
+  s_755a56872480ac::t_1efa992665907c 788
+lib/ecosystems/npmutils.poku.js
+  s_755a56872480ac::t_acaa4bcf1a7604 13,302-398
+.versions/node_26
+  s_755a56872480ac::t_acaa4bcf1a7604 2
+pnpm-workspace.yaml
+  s_755a56872480ac::t_acaa4bcf1a7604 10-13
+types/lib/cli/jvmBom.d.ts
+  s_755a56872480ac::t_acaa4bcf1a7604 21-39,56-58,65,68
+ci/images/debian/Dockerfile.dart3
+  s_755a56872480ac::t_acaa4bcf1a7604 2
+ci/images/debian/Dockerfile.swift6
+  s_755a56872480ac::t_acaa4bcf1a7604 2
+ci/images/alpine/Dockerfile.node26
+  s_755a56872480ac::t_acaa4bcf1a7604 2
+ci/images/Dockerfile.python3.11
+  s_755a56872480ac::t_acaa4bcf1a7604 2
+types/lib/ecosystems/ecosystems.d.ts
+  s_755a56872480ac::t_acaa4bcf1a7604 19-22,36-42,47-48,52-54,67-70,81
+types/lib/evinser/evinser.d.ts
+  s_755a56872480ac::t_acaa4bcf1a7604 13-28,57-66,70-72,94,170-171,180-189,196,309-339,369
+.gitignore
+  s_755a56872480ac::t_acaa4bcf1a7604 187-195,198-200
+ci/images/debian/Dockerfile.php8.3
+  s_755a56872480ac::t_acaa4bcf1a7604 2
+.github/workflows/codeql.yml
+  s_755a56872480ac::t_acaa4bcf1a7604 43,59
+ci/images/debian/Dockerfile.python3.13
+  s_755a56872480ac::t_acaa4bcf1a7604 2
+README.md
+  s_755a56872480ac::t_acaa4bcf1a7604 219,233,247,272
+types/lib/core/processTree.d.ts
+  s_755a56872480ac::t_acaa4bcf1a7604 1-36
+types/lib/inventory/atomUtils.d.ts
+  s_755a56872480ac::t_acaa4bcf1a7604 12-17,138-140,146-163,169-170,184-212,270-287,293-298
+.github/workflows/npm-release.yml
+  s_755a56872480ac::t_acaa4bcf1a7604 51,200,327,359,534,566,726,758,812,975,1007
+ci/Dockerfile-deno
+  s_755a56872480ac::t_acaa4bcf1a7604 7,22
+.github/workflows/nydus-demo.yml
+  s_755a56872480ac::t_acaa4bcf1a7604 35
+.github/workflows/renovate.yml
+  s_755a56872480ac::t_acaa4bcf1a7604 31
+ci/images/ubuntu/Dockerfile.dotnet10
+  s_755a56872480ac::t_acaa4bcf1a7604 2
+types/lib/ecosystems/cppEvidence.d.ts
+  s_755a56872480ac::t_acaa4bcf1a7604 2-12,20-23,25,38,45
+  s_755a56872480ac::t_48738d06de0f50 1
+types/lib/ecosystems/cmakeResolver.d.ts
+  s_755a56872480ac::t_acaa4bcf1a7604 25-29
+deno.json
+  s_755a56872480ac::t_acaa4bcf1a7604 3,88,105,107-108
+types/lib/ecosystems/sbtutils.d.ts
+  s_755a56872480ac::t_acaa4bcf1a7604 62-69,98-100,103,114,183-210,218-264
+claude-plugin/.claude-plugin/plugin.json
+  s_755a56872480ac::t_acaa4bcf1a7604 4
+pyproject.toml
+  s_755a56872480ac::t_acaa4bcf1a7604 3
+types/lib/inventory/deps.d.ts
+  s_755a56872480ac::t_acaa4bcf1a7604 2-7,77-81,83,87
+  s_755a56872480ac::t_d479cd022683b8 1
+types/lib/inventory/cmakeBuildDirs.d.ts
+  s_755a56872480ac::t_acaa4bcf1a7604 1-58
+ci/images/debian/Dockerfile.golang1.26
+  s_755a56872480ac::t_acaa4bcf1a7604 2
+lib/ecosystems/ecosystems.js
+  s_755a56872480ac::t_55ed09ceeb820a 101,411-413
+  s_755a56872480ac::t_acaa4bcf1a7604 388-402,478,512
+  s_755a56872480ac::t_9fe7ad4e2ce4ad 387
+.github/workflows/nodejs.yml
+  s_755a56872480ac::t_acaa4bcf1a7604 92,177,226,300
+lib/ecosystems/ecosystems.poku.js
+  s_755a56872480ac::t_acaa4bcf1a7604 1338-1421
+lib/ecosystems/parsers-python.js
+  s_755a56872480ac::t_acaa4bcf1a7604 13,408,1055,2176,2252
+types/lib/core/httpClient.d.ts
+  s_755a56872480ac::t_acaa4bcf1a7604 89-101
+  s_755a56872480ac::t_21dfbeff8ea320 88
+types/lib/ecosystems/gradleutils.d.ts
+  s_755a56872480ac::t_acaa4bcf1a7604 28-39,188-225
+.github/workflows/license-policy.yml
+  s_755a56872480ac::t_acaa4bcf1a7604 32
+lib/ecosystems/npmutils.js
+  s_755a56872480ac::t_acaa4bcf1a7604 9,23-25,317-375
+  s_755a56872480ac::t_70dd509c6521fa 376
+types/lib/ecosystems/vendoredCode.d.ts
+  s_755a56872480ac::t_acaa4bcf1a7604 1-32
+ci/images/debian/Dockerfile.python3.12
+  s_755a56872480ac::t_acaa4bcf1a7604 2
+types/lib/ecosystems/pythonutils.d.ts
+  s_755a56872480ac::t_acaa4bcf1a7604 18-28,42-44,51-62
+.github/workflows/binary-builds.yml
+  s_755a56872480ac::t_acaa4bcf1a7604 136,373
+types/lib/inventory/spdx.d.ts
+  s_755a56872480ac::t_acaa4bcf1a7604 61-68
+  s_755a56872480ac::t_2584a7870f019e 60
+ci/images/alpine/Dockerfile.php8.4
+  s_755a56872480ac::t_acaa4bcf1a7604 2
+lib/ecosystems/asarutils.poku.js
+  s_755a56872480ac::t_acaa4bcf1a7604 199-225
+lib/helpers/agenticToolutils.js
+  s_755a56872480ac::t_acaa4bcf1a7604 11,479
+types/lib/ecosystems/parsers-jvm.d.ts
+  s_755a56872480ac::t_acaa4bcf1a7604 37-41,46,50-51
+ci/images/al10/Dockerfile.ruby-builder
+  s_755a56872480ac::t_acaa4bcf1a7604 1,7
+types/lib/inventory/parentSelection.d.ts
+  s_755a56872480ac::t_acaa4bcf1a7604 1-34
+ci/images/alpine/Dockerfile.php8.3
+  s_755a56872480ac::t_acaa4bcf1a7604 2
+.github/workflows/copilot-setup-steps.yml
+  s_755a56872480ac::t_acaa4bcf1a7604 28
+ci/images/Dockerfile.java17
+  s_755a56872480ac::t_acaa4bcf1a7604 4
+types/lib/parsers/compileCommands.d.ts
+  s_755a56872480ac::t_acaa4bcf1a7604 1-115
+lib/ecosystems/gradleutils.js
+  s_755a56872480ac::t_acaa4bcf1a7604 287-308,312-323,330-344,346-349,352-357,360-366,1732
+  s_755a56872480ac::t_ea9dbc867bccc8 26
+  s_755a56872480ac::t_06488ae9495319 286
+types/lib/core/toml.d.ts
+  s_755a56872480ac::t_acaa4bcf1a7604 1-20
+ci/Dockerfile
+  s_755a56872480ac::t_acaa4bcf1a7604 11,153
+types/lib/core/pluginRun.d.ts
+  s_755a56872480ac::t_acaa4bcf1a7604 1-97
+lib/core/toml.js
+  s_755a56872480ac::t_acaa4bcf1a7604 1-72
+test/repotests/npm-smoke/expected/spec-1.6.json
+  s_755a56872480ac::t_acaa4bcf1a7604 171
+.github/workflows/image-build.yml
+  s_755a56872480ac::t_acaa4bcf1a7604 692,738,784,826,872,914,980,1090
+package.json
+  s_755a56872480ac::t_acaa4bcf1a7604 3,163,167,173,182,185-195,202
+.versions/maven_3
+  s_755a56872480ac::t_acaa4bcf1a7604 2
+.github/workflows/repotests.yml
+  s_755a56872480ac::t_acaa4bcf1a7604 101,453,528,1684,1719,1725,1808,1846,1898,1928,1952,1982,2165,2330,2487,2531,2603,2612,2745
+types/lib/ecosystems/npmutils.d.ts
+  s_755a56872480ac::t_acaa4bcf1a7604 101-114
+  s_755a56872480ac::t_f43131d3e60441 100
+types/lib/ecosystems/scalacliutils.d.ts
+  s_755a56872480ac::t_acaa4bcf1a7604 1-56
+lib/ecosystems/asarutils.js
+  s_755a56872480ac::t_acaa4bcf1a7604 33,1044-1046
+ci/images/alpine/Dockerfile.python3.14
+  s_755a56872480ac::t_acaa4bcf1a7604 2
+lib/ecosystems/denoutils.poku.js
+  s_755a56872480ac::t_acaa4bcf1a7604 334,337-347,362-368,406-410
+types/lib/ecosystems/parsers-dotnet.d.ts
+  s_755a56872480ac::t_acaa4bcf1a7604 20-101,163-171,175-180,183-184,186-187,190-194,198-206,216-217,222
+lib/ecosystems/parsers-julia.js
+  s_755a56872480ac::t_acaa4bcf1a7604 3,262
+biome.json
+  s_755a56872480ac::t_acaa4bcf1a7604 2
+ci/images/alpine/Dockerfile.python3.13
+  s_755a56872480ac::t_acaa4bcf1a7604 2
+test/repotests/npm-smoke/expected/default.json
+  s_755a56872480ac::t_acaa4bcf1a7604 171
+types/lib/parsers/cmakePresets.d.ts
+  s_755a56872480ac::t_acaa4bcf1a7604 1-78
+.github/workflows/dockertests.yml
+  s_755a56872480ac::t_acaa4bcf1a7604 40,98,117,140,164,192,205,221,235
+.github/workflows/python-atom-tests.yml
+  s_755a56872480ac::t_acaa4bcf1a7604 41
+ci/images/debian/Dockerfile.elixir1
+  s_755a56872480ac::t_acaa4bcf1a7604 2
+ci/images/debian/Dockerfile.ruby4
+  s_755a56872480ac::t_acaa4bcf1a7604 2
+ci/images/Dockerfile.dotnet8
+  s_755a56872480ac::t_acaa4bcf1a7604 2
+.github/workflows/test-nodejs-nightly.yml
+  s_755a56872480ac::t_acaa4bcf1a7604 27
+.github/workflows/v13-diff.yml
+  s_755a56872480ac::t_acaa4bcf1a7604 32
+ci/images/alpine/Dockerfile.rust1
+  s_755a56872480ac::t_acaa4bcf1a7604 2
+ci/images/debian/Dockerfile.ruby3.4
+  s_755a56872480ac::t_acaa4bcf1a7604 2
+pnpm-lock.yaml
+  s_755a56872480ac::t_fd0cc1c972ac85 10-11,15-16,20-21,25-26,30-31,35-36,40-41,46-47,52-53,58-59,64-65,70-71,76-77,82-83,87-88,92-93,99,102,105,108,111,114,117,120,123,126,129,132,135,138,141,143-156,229-230,241-242,254-255,276-277,285-286,288-289,291-292,294-295,297-298,300-301,303-304,306-307,309-310,312-313,315-316,448-449,453-454,459-460,465-466,472-473,479-480,486-487,493-494,499-500,508-510,525-526,530-531,535-536,541-542,547-548,553-554,559-560,565-566,571-572,576-577,581-582,1231-1232,1302-1303,1474,1476-1483,1485,1488,1491,1494,1497,1500,1503,1506,1512-1514,1525,1528,1531,1534,1537,1540,1543,1546,1549,1552,1555,2183,2288
+test/data/package-json/legacy-licenses/node_modules/fuzzy/package.json
+  s_755a56872480ac::t_3e2feae91b4479 1-46
+test/data/package-json/legacy-licenses/node_modules/semver/package.json
+  s_755a56872480ac::t_c479966480575c 1-38
+test/data/package-json/legacy-licenses/package-lock.json
+  s_755a56872480ac::t_871db8362c6ef2 1-34
+types/lib/cli/index.d.ts.map
+  s_755a56872480ac::t_52e71e08e5b290 1
+types/lib/cli/jvmBom.d.ts.map
+  s_755a56872480ac::t_cda5f11967c33c 1
+types/lib/cli/managedBom.d.ts.map
+  s_755a56872480ac::t_d5061ba921b7ba 1
+types/lib/cli/nativeBom.d.ts.map
+  s_755a56872480ac::t_2ee6b517974b61 1
+types/lib/core/fs.d.ts.map
+  s_755a56872480ac::t_59576f3dcbe573 1
+types/lib/core/httpClient.d.ts.map
+  s_755a56872480ac::t_c704f8fafd4b43 1
+types/lib/core/pluginRun.d.ts.map
+  s_755a56872480ac::t_19f797b6d53d80 1
+types/lib/core/processTree.d.ts.map
+  s_755a56872480ac::t_792981b30998ee 1
+types/lib/core/toml.d.ts.map
+  s_755a56872480ac::t_33728519d5c877 1
+types/lib/ecosystems/asarutils.d.ts.map
+  s_755a56872480ac::t_2bfdb5bbdb5fa6 1
+types/lib/ecosystems/cargoCache.d.ts.map
+  s_755a56872480ac::t_4bae59354b5436 1
+types/lib/ecosystems/cmakeResolver.d.ts.map
+  s_755a56872480ac::t_a6c98fe5ca1daa 1
+types/lib/ecosystems/cppBuildContext.d.ts.map
+  s_755a56872480ac::t_b0361e29a14f95 1
+types/lib/ecosystems/cppEvidence.d.ts.map
+  s_755a56872480ac::t_491cca1282a3b4 1
+types/lib/ecosystems/cppIncludeResolver.d.ts.map
+  s_755a56872480ac::t_695a4163cbc26c 1
+types/lib/ecosystems/denoutils.d.ts.map
+  s_755a56872480ac::t_1111f9c0118aaa 1
+types/lib/ecosystems/ecosystems.d.ts.map
+  s_755a56872480ac::t_06eec1914203e9 1
+types/lib/ecosystems/golem.d.ts.map
+  s_755a56872480ac::t_e9bd09b98e70d7 1
+types/lib/ecosystems/gradleutils.d.ts.map
+  s_755a56872480ac::t_a298386757c60b 1
+types/lib/ecosystems/kosi.d.ts.map
+  s_755a56872480ac::t_f2f76b086acf45 1
+types/lib/ecosystems/npmutils.d.ts.map
+  s_755a56872480ac::t_430f9a6e06b93e 1
+types/lib/ecosystems/parsers-dotnet.d.ts.map
+  s_755a56872480ac::t_ef4ec6d1a6fb47 1
+types/lib/ecosystems/parsers-gleam.d.ts.map
+  s_755a56872480ac::t_eb4bcdcc9173d5 1
+types/lib/ecosystems/parsers-js.d.ts.map
+  s_755a56872480ac::t_981257f10256d3 1
+types/lib/ecosystems/parsers-julia.d.ts.map
+  s_755a56872480ac::t_7db3e63e857b63 1
+types/lib/ecosystems/parsers-jvm.d.ts.map
+  s_755a56872480ac::t_02284fa3d35e6a 1
+types/lib/ecosystems/pythonutils.d.ts.map
+  s_755a56872480ac::t_2e7b451b89a1b6 1
+types/lib/ecosystems/rusi.d.ts.map
+  s_755a56872480ac::t_c180c31c3c6c4a 1
+types/lib/ecosystems/sbtutils.d.ts.map
+  s_755a56872480ac::t_64ed24de09d906 1
+types/lib/ecosystems/scalacliutils.d.ts.map
+  s_755a56872480ac::t_b0b219e75878f8 1
+types/lib/ecosystems/scalasem.d.ts.map
+  s_755a56872480ac::t_7e2c255f6b2d4e 1
+types/lib/ecosystems/vendoredCode.d.ts.map
+  s_755a56872480ac::t_964c490666e67c 1
+types/lib/evinser/evinser.d.ts.map
+  s_755a56872480ac::t_0477a1e96da63a 1
+types/lib/inventory/atomUtils.d.ts.map
+  s_755a56872480ac::t_cf52421dc10374 1
+types/lib/inventory/auditCategories.d.ts.map
+  s_755a56872480ac::t_4a3497c2ef4c89 1
+types/lib/inventory/cmakeBuildDirs.d.ts.map
+  s_755a56872480ac::t_e36f77a5fbe518 1
+types/lib/inventory/deps.d.ts.map
+  s_755a56872480ac::t_867f6abffd6919 1
+types/lib/inventory/dosai.d.ts.map
+  s_755a56872480ac::t_d1542a788bea47 1
+types/lib/inventory/dosaiParsers.d.ts.map
+  s_755a56872480ac::t_843e894a7c4b20 1
+types/lib/inventory/evidenceUtils.d.ts.map
+  s_755a56872480ac::t_a7d8e567a0dca5 1
+types/lib/inventory/fetchBatch.d.ts.map
+  s_755a56872480ac::t_4f87a1f3c55fc5 1
+types/lib/inventory/jvmLocalRepos.d.ts.map
+  s_755a56872480ac::t_21a97864bf13dc 1
+types/lib/inventory/mcpConfigParser.d.ts.map
+  s_755a56872480ac::t_941171cb218a1d 1
+types/lib/inventory/parentSelection.d.ts.map
+  s_755a56872480ac::t_e001364d6eab19 1
+types/lib/inventory/rustFormulationParser.d.ts.map
+  s_755a56872480ac::t_2035dad460a314 1
+types/lib/inventory/scalaCoords.d.ts.map
+  s_755a56872480ac::t_7f5001a978e0c2 1
+types/lib/inventory/source.d.ts.map
+  s_755a56872480ac::t_b72d74da95ff16 1
+types/lib/inventory/spdx.d.ts.map
+  s_755a56872480ac::t_a96fb56d1aa972 1
+types/lib/managers/oci.d.ts.map
+  s_755a56872480ac::t_8db800e949430e 1
+types/lib/parsers/cmakeCache.d.ts.map
+  s_755a56872480ac::t_c8496fc940c0f4 1
+types/lib/parsers/cmakePresets.d.ts.map
+  s_755a56872480ac::t_8a9fcd0558d3d0 1
+types/lib/parsers/compileCommands.d.ts.map
+  s_755a56872480ac::t_5f96949ed0c634 1
+types/lib/server/server.d.ts.map
+  s_755a56872480ac::t_097ec73193a4c9 1
+types/lib/stages/postgen/postgen.d.ts.map
+  s_755a56872480ac::t_01a43ae893fbe6 1
+types/lib/stages/postgen/specVersionCompat.d.ts.map
+  s_755a56872480ac::t_8b60eea837fa3a 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "f3d28ead160276e9ba75dd3b199587d34c978e81",
+  "prompts": {},
+  "sessions": {
+    "s_755a56872480ac": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "fcd63641-a6ba-4dfb-b81e-a2a956bec8f0",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
