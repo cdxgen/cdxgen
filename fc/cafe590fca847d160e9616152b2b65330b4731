@@ -1,7 +1,27 @@
+lib/ecosystems/rubyutils.js
+  s_755a56872480ac::t_fcdaed2580f3c5 2007
+lib/ecosystems/ecosystems.js
+  s_755a56872480ac::t_fcdaed2580f3c5 96
+lib/ecosystems/parsers-go.js
+  s_755a56872480ac::t_fcdaed2580f3c5 589-590
+lib/ecosystems/rubyProjectGem.poku.js
+  s_755a56872480ac::t_fcdaed2580f3c5 52-62,90-98
+lib/ecosystems/parsers-misc.js
+  s_755a56872480ac::t_fcdaed2580f3c5 90
 ---
 {
   "schema_version": "authorship/3.0.0",
   "git_ai_version": "1.6.10",
   "base_commit_sha": "fccafe590fca847d160e9616152b2b65330b4731",
-  "prompts": {}
+  "prompts": {},
+  "sessions": {
+    "s_755a56872480ac": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "fcd63641-a6ba-4dfb-b81e-a2a956bec8f0",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
 }
