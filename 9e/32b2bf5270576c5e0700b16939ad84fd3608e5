@@ -1,0 +1,24 @@
+lib/ecosystems/parsersCocoaLocalPodspecs.poku.js
+  s_755a56872480ac::t_03fb04842aa560 92-93,144,148-184
+lib/cli/nativeBom.js
+  s_755a56872480ac::t_0b89a6155877fa 2440
+lib/ecosystems/parsers-misc.js
+  s_755a56872480ac::t_551e0673054139 3083-3084
+  s_755a56872480ac::t_0b89a6155877fa 3028-3032,3034,3036-3037,3040,3052-3053,3059-3077,3087,3109,3141-3142,3145-3153,3162,3165,3186,3189
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "9e32b2bf5270576c5e0700b16939ad84fd3608e5",
+  "prompts": {},
+  "sessions": {
+    "s_755a56872480ac": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "fcd63641-a6ba-4dfb-b81e-a2a956bec8f0",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}

@@ -1,0 +1,47 @@
+lib/cli/registryDiskCache.poku.js
+  s_755a56872480ac::t_2243f36cd571e2 1-132
+.pokurc.jsonc
+  s_755a56872480ac::t_643cac5c4bb3d8 5
+lib/inventory/fetchBatch.js
+  s_755a56872480ac::t_69dbcaba3a8cf5 14-19
+  s_755a56872480ac::t_a44e9368bd819b 13,55-60,1016,1024-1035,1045-1051,1086-1093,1240-1258,1267-1274,1425,1463
+  s_755a56872480ac::t_6c9db778c30a6b 54
+lib/inventory/fetchDiskCache.poku.js
+  s_755a56872480ac::t_1da867fa94d2ec 1-56,61-150,152-164,181,183-202
+  s_755a56872480ac::t_305d174bd92c3a 151,182
+  s_755a56872480ac::t_e63c497fe5d500 57-60,165-180
+test/poku.env
+  s_755a56872480ac::t_643cac5c4bb3d8 1-8
+lib/inventory/cacheCommands.js
+  s_755a56872480ac::t_094c666055c225 2-3
+lib/inventory/fetchDiskCache.js
+  s_755a56872480ac::t_b6ca77bdb4bf30 1-28,32-433,438-461,466-600
+  s_755a56872480ac::t_18b9f8e38ca8d3 434-437
+  s_755a56872480ac::t_faaa0d0e3c28eb 29-31,462-465
+docs/ENV.md
+  s_755a56872480ac::t_8f8cf2454eebc4 322-324
+  s_755a56872480ac::t_60100f24b00054 25
+lib/ecosystems/ecosystems.js
+  s_755a56872480ac::t_54a3f1ba128f6b 1177-1198,1223-1226,1230
+  s_755a56872480ac::t_657670824a3f21 1176
+contrib/golden-runner.js
+  s_755a56872480ac::t_094c666055c225 97
+AGENTS.md
+  s_755a56872480ac::t_505e8ef4bf919d 538
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "123a6579e1f6819c114107eeefa83c0fe820b20a",
+  "prompts": {},
+  "sessions": {
+    "s_755a56872480ac": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "fcd63641-a6ba-4dfb-b81e-a2a956bec8f0",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": null
+    }
+  }
+}

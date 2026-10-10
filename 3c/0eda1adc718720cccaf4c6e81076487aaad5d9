@@ -1,0 +1,46 @@
+docs/ADVANCED.md
+  s_755a56872480ac::t_70c538fb0621ea 920
+lib/inventory/buildToolRateLimit.js
+  s_755a56872480ac::t_66398d7e9341cc 40-42,51,56-63,128-130,132
+  s_755a56872480ac::t_da068ebe02ea4d 11-15,22
+test/data/jvm-rate-limits/sbt-coursier-404.txt
+  s_755a56872480ac::t_60cc3c06f35666 10,15
+test/data/jvm-rate-limits/sbt2-coursier-404.txt
+  s_755a56872480ac::t_60cc3c06f35666 1-7
+test/data/jvm-rate-limits/scala-cli-429.txt
+  s_755a56872480ac::t_60cc3c06f35666 1-11
+lib/inventory/buildToolRateLimit.poku.js
+  s_755a56872480ac::t_b7028e22be58ad 119,131-140
+  s_755a56872480ac::t_877d1f057b75da 37-42,44-45,55-57
+test/data/jvm-rate-limits/scala-cli-404.txt
+  s_755a56872480ac::t_60cc3c06f35666 1-11
+data/remediations.json
+  s_755a56872480ac::t_66398d7e9341cc 283-287
+test/data/jvm-rate-limits/README.md
+  s_755a56872480ac::t_2efd1d52d03e6a 3
+  s_755a56872480ac::t_21b079c40bcef5 32-48,51-52
+test/data/jvm-rate-limits/sbt2-coursier-429.txt
+  s_755a56872480ac::t_60cc3c06f35666 1-17
+test/data/jvm-rate-limits/sbt-coursier-429.txt
+  s_755a56872480ac::t_60cc3c06f35666 10,15
+test/data/jvm-rate-limits/mill-404.txt
+  s_755a56872480ac::t_60cc3c06f35666 1-23
+test/data/jvm-rate-limits/mill-429.txt
+  s_755a56872480ac::t_60cc3c06f35666 1-23
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "3c0eda1adc718720cccaf4c6e81076487aaad5d9",
+  "prompts": {},
+  "sessions": {
+    "s_755a56872480ac": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "fcd63641-a6ba-4dfb-b81e-a2a956bec8f0",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}

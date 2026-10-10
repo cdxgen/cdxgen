@@ -1,0 +1,24 @@
+lib/cli/jvmBomRateLimit.poku.js
+  s_755a56872480ac::t_92077c73b5007c 36,39-41,44-45,47,88,92,99-102,132,135-139,149-150,180-203,211-212,233
+lib/ecosystems/gradleutils.js
+  s_755a56872480ac::t_694eb95d60a9bf 540-541,548-550
+lib/cli/jvmBom.js
+  s_755a56872480ac::t_021a5bfb34d051 680-688
+  s_755a56872480ac::t_273bc367431b6c 689-695,788-789,2421,2430-2443,2446,2449
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "ffcdbea8af8fd642632cd7fc3b71d08eeda0b3ac",
+  "prompts": {},
+  "sessions": {
+    "s_755a56872480ac": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "fcd63641-a6ba-4dfb-b81e-a2a956bec8f0",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}

@@ -1,0 +1,54 @@
+lib/inventory/fetchBatch.js
+  s_755a56872480ac::t_089cc623e180d8 854-856
+  s_755a56872480ac::t_2808a9440bb973 44
+lib/ecosystems/parsers-misc.js
+  s_755a56872480ac::t_2808a9440bb973 31
+  s_755a56872480ac::t_089cc623e180d8 3435-3436
+lib/server/server.js
+  s_755a56872480ac::t_543974150b79ba 18,248-267,417,631
+lib/core/httpClient.js
+  s_755a56872480ac::t_089cc623e180d8 13-14,446
+  s_755a56872480ac::t_de25a7784a58b8 447
+lib/ecosystems/cargoCache.js
+  s_755a56872480ac::t_2808a9440bb973 10
+  s_755a56872480ac::t_089cc623e180d8 75-76
+lib/ecosystems/denoutils.js
+  s_755a56872480ac::t_2808a9440bb973 16
+  s_755a56872480ac::t_089cc623e180d8 42
+lib/inventory/jvmLocalRepos.js
+  s_755a56872480ac::t_089cc623e180d8 60-61
+  s_755a56872480ac::t_2808a9440bb973 16
+lib/ecosystems/remote/huggingface.js
+  s_755a56872480ac::t_089cc623e180d8 171-172
+  s_755a56872480ac::t_2808a9440bb973 8
+lib/core/runState.js
+  s_755a56872480ac::t_f6b5b64a6fce40 1-39
+lib/ecosystems/sbtutils.js
+  s_755a56872480ac::t_089cc623e180d8 252
+  s_755a56872480ac::t_543974150b79ba 9
+lib/server/serverRunState.poku.js
+  s_755a56872480ac::t_56a8f95d8c3416 83-87
+  s_755a56872480ac::t_4cf3121d32a9fa 1-82,88-115
+lib/ecosystems/ecosystems.js
+  s_755a56872480ac::t_089cc623e180d8 52,129-137
+  s_755a56872480ac::t_813502093e567b 138
+lib/inventory/source.js
+  s_755a56872480ac::t_2808a9440bb973 27
+  s_755a56872480ac::t_089cc623e180d8 1169-1170
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "0b7b4f53ca34c0bc48262c06112785b8e0b13d71",
+  "prompts": {},
+  "sessions": {
+    "s_755a56872480ac": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "fcd63641-a6ba-4dfb-b81e-a2a956bec8f0",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}

@@ -1,0 +1,32 @@
+lib/ecosystems/ecosystems.js
+  s_755a56872480ac::t_7cc0fab04fd35e 1278,1280-1285,1288,1291,1299-1306,1309,1312-1318,1331,1334,1339,1436,1453
+lib/ecosystems/pypiSourceSkips.poku.js
+  s_755a56872480ac::t_ba51f05ca973f2 126
+  s_755a56872480ac::t_66ec1e5fda2919 91-125,127-129
+test/data/registry-stub/py/pylock.toml
+  s_755a56872480ac::t_66ec1e5fda2919 1-12
+lib/ecosystems/parsers-python.js
+  s_755a56872480ac::t_801b41e837c0e8 277,280-282
+docs/ENV.md
+  s_755a56872480ac::t_5dc9f9336913ff 227
+test/data/registry-stub/py/poetry.lock
+  s_755a56872480ac::t_b955fbd41b7be8 1-53
+test/data/registry-stub/py/uv.lock
+  s_755a56872480ac::t_d89ac321a2ff48 28-32
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "09cbed9190e0315b45e57641d3de110a25d32916",
+  "prompts": {},
+  "sessions": {
+    "s_755a56872480ac": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "fcd63641-a6ba-4dfb-b81e-a2a956bec8f0",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}

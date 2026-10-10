@@ -1,0 +1,26 @@
+lib/ecosystems/prefetchMemo.poku.js
+  s_755a56872480ac::t_d974cdc321bdf8 1-83
+lib/ecosystems/npmRegistrySkips.poku.js
+  s_755a56872480ac::t_66b53fa7369a52 87-100,142
+lib/ecosystems/denoutils.js
+  s_755a56872480ac::t_f50686894d3f4c 488-489,495-497
+lib/ecosystems/ecosystems.js
+  s_755a56872480ac::t_2b27d9d600fbe4 465,470-471,2036-2045
+  s_755a56872480ac::t_f50686894d3f4c 452-453,455-459
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "3ecde8e827f26feef4f9e5e246ae35aa9d0e6d7a",
+  "prompts": {},
+  "sessions": {
+    "s_755a56872480ac": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "fcd63641-a6ba-4dfb-b81e-a2a956bec8f0",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}

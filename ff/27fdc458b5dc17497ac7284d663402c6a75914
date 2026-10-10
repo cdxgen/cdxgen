@@ -1,0 +1,50 @@
+lib/ecosystems/parsers-misc.js
+  s_755a56872480ac::t_3e8d8faef05902 35,37,3539
+lib/ecosystems/denoutils.poku.js
+  s_755a56872480ac::t_72d0a8865e022d 437-439,442-445
+lib/ecosystems/rubyutils.js
+  s_755a56872480ac::t_3e8d8faef05902 28,30,1212,1291
+lib/parsers/htmlExtract.poku.js
+  s_755a56872480ac::t_32f3c6ff5ab1e5 289-291,313-315,335-337,352-354,366-368,378-380
+lib/inventory/fetchBatch.poku.js
+  s_755a56872480ac::t_f67548d09dad42 93,95-96,103-110
+lib/inventory/fetchBatch.js
+  s_755a56872480ac::t_7e126d66ea9065 31-35
+  s_755a56872480ac::t_2019310e3d0c71 130-150,196-197,201,205-208,224,268-340,473-474,476,479-483,489,497-503,768-770,989-990
+  s_755a56872480ac::t_e2d9395964ba93 38-39,129,991,1078,1200-1206,1214-1256,1344-1363,1371-1375,1385-1386
+lib/inventory/source.poku.js
+  s_755a56872480ac::t_32f3c6ff5ab1e5 95-97,130-132,203-205,231-233,266-268,396-398
+  s_755a56872480ac::t_c15dfbda573471 439-441
+lib/inventory/source.js
+  s_755a56872480ac::t_3e8d8faef05902 28,30,1223-1226
+lib/ecosystems/ecosystems.js
+  s_755a56872480ac::t_7e126d66ea9065 65,493,1189-1190,1206,1208,1408-1410,1417-1420,1444,2058,2060,2214,2275,2602,2609,2858,2872,3538
+lib/ecosystems/denoutils.js
+  s_755a56872480ac::t_3e8d8faef05902 17,19,524,536
+lib/ecosystems/fallbackGate.poku.js
+  s_755a56872480ac::t_0c61a7d2f10259 1-139
+lib/inventory/fetchBatch.misses.poku.js
+  s_755a56872480ac::t_98576678993faf 1-120
+lib/ecosystems/parsers-elm.js
+  s_755a56872480ac::t_3e8d8faef05902 14,16,793
+docs/ADVANCED.md
+  s_755a56872480ac::t_1e4201f663e661 932-941
+lib/ecosystems/nugetMetadata.poku.js
+  s_755a56872480ac::t_df1d57b00a6c14 56-59,96
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "ff27fdc458b5dc17497ac7284d663402c6a75914",
+  "prompts": {},
+  "sessions": {
+    "s_755a56872480ac": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "fcd63641-a6ba-4dfb-b81e-a2a956bec8f0",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}

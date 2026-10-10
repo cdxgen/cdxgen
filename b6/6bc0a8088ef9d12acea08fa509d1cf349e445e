@@ -1,0 +1,21 @@
+lib/ecosystems/rubyProjectGem.poku.js
+  s_755a56872480ac::t_b92324a8cf6f06 1,124
+lib/ecosystems/cargoSourceSkips.poku.js
+  s_755a56872480ac::t_b92324a8cf6f06 1,24-25,80
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "b66bc0a8088ef9d12acea08fa509d1cf349e445e",
+  "prompts": {},
+  "sessions": {
+    "s_755a56872480ac": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "fcd63641-a6ba-4dfb-b81e-a2a956bec8f0",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}

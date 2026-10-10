@@ -1,0 +1,29 @@
+lib/ecosystems/npmLocalMetadata.poku.js
+  s_755a56872480ac::t_7debf7a9e5444f 20,22,90-102,108
+test/repotests/container-rootfs-smoke/expected/default.json
+  s_755a56872480ac::t_e0890acb644816 7-22,25-30,38-53,70-75,83-98,109-114
+lib/core/env.js
+  s_755a56872480ac::t_19caee9f4c9203 115-127,134
+  s_755a56872480ac::t_961bf8e0745dab 114
+lib/ecosystems/ecosystems.js
+  s_755a56872480ac::t_59d9b00a71cace 1537-1539,1542,1544,1550-1553,1561-1564,1570-1571,1577-1583,1586-1587,1591-1594
+  s_755a56872480ac::t_19caee9f4c9203 35,415-417,419,1392,1507
+  s_755a56872480ac::t_b9d687dc791379 1358-1369
+  s_755a56872480ac::t_1cffe3876ce961 1357
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "242c193d7f00c209aa5f1fbc369f0fa600e9613d",
+  "prompts": {},
+  "sessions": {
+    "s_755a56872480ac": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "fcd63641-a6ba-4dfb-b81e-a2a956bec8f0",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}

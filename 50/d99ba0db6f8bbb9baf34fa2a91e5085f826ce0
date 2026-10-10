@@ -1,0 +1,26 @@
+lib/ecosystems/parsers-jvm.js
+  s_755a56872480ac::t_16bda7a5658646 262
+  s_755a56872480ac::t_5d6119a2643e8d 261,263
+lib/cli/jvmBom.js
+  s_755a56872480ac::t_5d6119a2643e8d 902-905
+lib/cli/jvmBomRateLimit.poku.js
+  s_755a56872480ac::t_5d6119a2643e8d 135-137
+lib/inventory/depsEmbeddedPom.poku.js
+  s_755a56872480ac::t_5d6119a2643e8d 206
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "50d99ba0db6f8bbb9baf34fa2a91e5085f826ce0",
+  "prompts": {},
+  "sessions": {
+    "s_755a56872480ac": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "fcd63641-a6ba-4dfb-b81e-a2a956bec8f0",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}

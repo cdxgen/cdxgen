@@ -1,0 +1,33 @@
+lib/core/httpClient.js
+  s_755a56872480ac::t_f2cf98713d0d9f 47-48,329-332,715
+docs/CLI.md
+  s_755a56872480ac::t_e5427b532afba3 514
+bin/cdxgen.js
+  s_755a56872480ac::t_f2cf98713d0d9f 914
+lib/core/httpClient.poku.js
+  s_755a56872480ac::t_48835221927bb8 417,439-440,452-455,457-462
+docs/ENV.md
+  s_755a56872480ac::t_8f8cf2454eebc4 25
+AGENTS.md
+  s_755a56872480ac::t_b8920581261499 345
+docs/CDXRS_PROTOCOL.md
+  s_755a56872480ac::t_0c521e39be017a 201
+lib/inventory/fetchBatch.js
+  s_755a56872480ac::t_e43c0e9f2f0f04 96,1370-1371
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "6ddc5f03d9235e7c150117f3360188bb652d6da7",
+  "prompts": {},
+  "sessions": {
+    "s_755a56872480ac": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "fcd63641-a6ba-4dfb-b81e-a2a956bec8f0",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": null
+    }
+  }
+}
