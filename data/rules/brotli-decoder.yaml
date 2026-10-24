@@ -1,0 +1,87 @@
+# Embedded Brotli decoder rules
+# Category: brotli-security
+# Evaluates the cdx:brotli:* properties recorded for native files (container,
+# rootfs and OS scans) and vendored source trees (C/C++ source scans).
+# CVE-2026-111497 is an out-of-bounds write in Google's Brotli decoder
+# (CWE-252, CWE-787) reachable from any Brotli stream an attacker controls:
+# an HTTP response a client decodes, a request body a server inflates, a
+# compressed file. Fixed in google/brotli 1.0.10, 1.1.1 and 1.2.1 (commit
+# 0ed4268). The Go port, andybalholm/brotli, had the same logic error but
+# only crashes; it is fixed in v1.2.7.
+# https://github.com/google/brotli/commit/0ed4268a4401abcb4472096340477cf4af7d1a2b
+#
+# The fix is read from the decoder itself (its BLOCK_SWITCH error name), not
+# from a version number, so a distro backport that keeps the old version is
+# recognised as fixed and a Node.js that still reports brotli 1.2.0 after the
+# fix is not flagged.
+
+- id: BROTLI-RCE-001
+  name: "Native file embeds a Brotli decoder affected by CVE-2026-111497"
+  description: "A binary, shared library or extension module carries its own copy of Google's C Brotli decoder without the fix for CVE-2026-111497. Updating the system libbrotli does not fix a private copy: the file itself has to be replaced by a release built from a fixed decoder."
+  severity: high
+  category: brotli-security
+  dry-run-support: full
+  condition: |
+    components[
+      $hasProp($, 'cdx:brotli:decoder', 'c')
+      and $hasProp($, 'cdx:brotli:blockSwitchFix', 'false')
+    ]
+  location: |
+    {
+      "bomRef": $firstNonEmpty($."bom-ref", bom.serialNumber)
+    }
+  message: "'{{ name }}' embeds a Brotli decoder without the CVE-2026-111497 fix; a crafted Brotli stream can write past a decoder buffer (possible code execution). {{ $hasProp($, 'cdx:node:buildVersion') ? 'Upgrade Node.js ' & $prop($, 'cdx:node:buildVersion') & ' to 22.23.4, 24.22.1, 26.12.1 or later.' : 'Replace it with a build that bundles brotli 1.0.10, 1.1.1 or 1.2.1 (or google/brotli commit 0ed4268).' }}"
+  mitigation: "Node.js: 22.23.4, 24.22.1, 26.12.1. Python: Brotli 1.2.1, brotlicffi 1.2.1.0. Ruby: brotli gem 0.9.2. Java: Brotli4j 1.24.0. Other software: a release that bundles brotli 1.0.10, 1.1.1 or 1.2.1, or a rebuild with google/brotli commit 0ed4268. Until then, reject Content-Encoding: br request bodies at the proxy and keep untrusted Brotli data away from the affected process."
+  evidence: |
+    {
+      "srcFile": $prop($, 'internal:SrcFile'),
+      "decoder": $prop($, 'cdx:brotli:decoder'),
+      "nodeVersion": $prop($, 'cdx:node:buildVersion')
+    }
+
+- id: BROTLI-RCE-002
+  name: "Vendored Brotli source affected by CVE-2026-111497"
+  description: "The project carries a copy of Google's Brotli sources whose decoder lacks the fix for CVE-2026-111497. Everything built from this tree inherits the bug, and no package manager or distro update will reach it."
+  severity: high
+  category: brotli-security
+  dry-run-support: full
+  condition: |
+    components[
+      $hasProp($, 'cdx:vendored', 'true')
+      and $hasProp($, 'cdx:brotli:blockSwitchFix', 'false')
+    ]
+  location: |
+    {
+      "bomRef": $firstNonEmpty($."bom-ref", bom.serialNumber)
+    }
+  message: "Vendored Brotli {{ version }} at '{{ $prop($, 'cdx:vendored:path') }}' lacks the CVE-2026-111497 fix; update it to 1.0.10, 1.1.1 or 1.2.1, or cherry-pick google/brotli commit 0ed4268."
+  mitigation: "Update the vendored copy to brotli 1.0.10, 1.1.1 or 1.2.1, or cherry-pick google/brotli commit 0ed4268 (with 50a9b70, b418fa8 and da98063), then rebuild everything that links it."
+  evidence: |
+    {
+      "path": $prop($, 'cdx:vendored:path'),
+      "version": version,
+      "versionSource": $prop($, 'cdx:vendored:versionSource')
+    }
+
+- id: BROTLI-DOS-001
+  name: "Go binary embeds a Brotli port affected by the CVE-2026-111497 logic error"
+  description: "The Go port of the Brotli decoder (github.com/andybalholm/brotli) before v1.2.7 has the same unchecked block-switch error as the C decoder. Go's bounds checks turn it into a panic rather than a memory write, so a crafted stream crashes the process."
+  severity: medium
+  category: brotli-security
+  dry-run-support: full
+  condition: |
+    components[
+      $hasProp($, 'cdx:brotli:decoder', 'go')
+      and $hasProp($, 'cdx:brotli:blockSwitchFix', 'false')
+    ]
+  location: |
+    {
+      "bomRef": $firstNonEmpty($."bom-ref", bom.serialNumber)
+    }
+  message: "'{{ name }}' embeds github.com/andybalholm/brotli older than v1.2.7; a crafted Brotli stream makes it panic. Rebuild with v1.2.7 or later."
+  mitigation: "Update github.com/andybalholm/brotli to v1.2.7 or later and rebuild the binary."
+  evidence: |
+    {
+      "srcFile": $prop($, 'internal:SrcFile'),
+      "decoder": $prop($, 'cdx:brotli:decoder')
+    }

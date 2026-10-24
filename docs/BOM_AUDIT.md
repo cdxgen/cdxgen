@@ -86,6 +86,7 @@ The categories that work best in dry-run mode are the formulation-centric ones:
 - `cbom-security`
 - `go-security`
 - `php-security`
+- `brotli-security`
 - `chrome-extension`
 - `ci-permission`
 - `container-risk`
@@ -723,6 +724,28 @@ flagged because the fix landed in `php-8.6.0RC4`; RC4 and later are not.
 Builds from the php-src `PHP-<M.m>-CVE-2026-109618-109619` backport branches
 keep their old version number, so 8.1-and-older findings are false positives
 for those builds.
+
+### `brotli-security`
+
+Rules for Brotli decoders that ship inside files no package version describes:
+Node.js, the Python `Brotli` and `brotlicffi` wheels, the PHP and Ruby
+extensions, the .NET runtime's native libraries, static binaries, Go binaries
+built with `github.com/andybalholm/brotli`, and Brotli sources vendored into a
+C or C++ tree. They read `cdx:brotli:decoder` and `cdx:brotli:blockSwitchFix`,
+which container, rootfs and OS (`obom`) scans record on unpackaged native files
+and C/C++ source scans record on vendored brotli directories. The fix state is
+read from the decoder's own error-name table, not from a version: a distro
+build that backported the fix under its old version, such as Debian's
+`1.0.9-2+deb12u1`, is not flagged, and Node.js 24.22.1, which still reports
+`process.versions.brotli` as `1.2.0`, is not flagged either. Package-managed
+copies (`libbrotli1`, `brotli-libs`, `pkg:pypi/brotli`) are left to the
+vulnerability database.
+
+| Rule           | Severity | Description                                                                                                      |
+| -------------- | -------- | ---------------------------------------------------------------------------------------------------------------- |
+| BROTLI-RCE-001 | high     | A native file embeds Google's C decoder without the CVE-2026-111497 fix (possible code execution from a crafted stream) |
+| BROTLI-RCE-002 | high     | A vendored brotli source tree lacks the fix, so everything built from it inherits the bug                         |
+| BROTLI-DOS-001 | medium   | A Go binary embeds andybalholm/brotli older than v1.2.7, which panics on the same crafted stream                  |
 
 ### `cbom-compliance`
 
