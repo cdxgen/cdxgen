@@ -1,0 +1,29 @@
+claude-plugin/.claude-plugin/plugin.json
+  s_e335fe820b41b8::t_05095b9a57f3ff 4
+deno.json
+  s_e335fe820b41b8::t_05095b9a57f3ff 3
+jsr.json
+  s_e335fe820b41b8::t_05095b9a57f3ff 3
+README.md
+  s_e335fe820b41b8::t_05095b9a57f3ff 219,233,247,272
+package.json
+  s_e335fe820b41b8::t_05095b9a57f3ff 3
+pyproject.toml
+  s_e335fe820b41b8::t_05095b9a57f3ff 3
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "f621f22e79348a9b6695ffe67850c19983487203",
+  "prompts": {},
+  "sessions": {
+    "s_e335fe820b41b8": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "120fe233-8899-4149-b780-6eac261dbd9d",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Team AppThreat <cloud@appthreat.com>"
+    }
+  }
+}
