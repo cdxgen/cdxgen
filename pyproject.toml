@@ -1,6 +1,6 @@
 [project]
 name = "cdxgen"
-version = "13.5.0"
+version = "13.6.0"
 description = "Manage python dependencies for cdxgen"
 readme = "README.md"
 requires-python = ">=3.10"
