@@ -94,9 +94,9 @@ appears on one side only. The per-ecosystem coverage today:
 | Ecosystem | Entries | Produced by                                                                                                                            |
 | --------- | ------- | -------------------------------------------------------------------------------------------------------------------------------------- |
 | java      | 9       | Maven, Gradle and sbt fallbacks and command failures, the jar heuristic, and Maven skipped with installs off                           |
-| generic   | 8       | Binary and OS package inventory, build rate limits, secure mode, host allow-list, dry-run, offline and rate-limit policy               |
+| generic   | 9       | Binary and OS package inventory, the Brotli decoder probe's caps, build rate limits, secure mode, host allow-list, dry-run, offline and rate-limit policy |
 | python    | 7       | The generic lockfile and pyproject entries, per-manager uv/poetry/pdm/pipenv variants, and poetry/pdm export skipped with installs off |
-| npm       | 5       | Missing lockfile, missing `node_modules`, unparseable or old lockfiles, git dependencies                                               |
+| npm       | 6       | Missing lockfile, missing `node_modules`, unparseable or old lockfiles, git dependencies, and the Node.js host probe's unreadable package databases |
 | csharp    | 5       | The .NET SDK unavailable, msbuild skipped with installs off, and dosai reports that could not be kept whole                            |
 | clojure   | 3       | lein and the Clojure CLI unavailable, and lein skipped with installs off                                                               |
 | swift     | 3       | Toolchain and `swift package resolve` failures, and SwiftPM skipped with installs off                                                  |

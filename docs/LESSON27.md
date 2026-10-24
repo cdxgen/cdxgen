@@ -98,20 +98,23 @@ resolved coordinates.
 
 ## 3) vcpkg support
 
-cdxgen reads the vcpkg manifest, `vcpkg.json`, inside `getCppModules`
-(`lib/ecosystems/cppEvidence.js`). When present it is treated as a strong hint
-about the parent project and its direct dependencies:
+cdxgen reads the vcpkg manifest, `vcpkg.json`, with `parseVcpkgManifest`
+(`lib/ecosystems/cppEvidence.js`). The read runs no tool, so it happens in every
+C/C++ scan, including an auto-detected one where the atom analysis of step 6 is
+skipped. When present the manifest is treated as a strong hint about the parent
+project and its direct dependencies:
 
 - The manifest `name` and `version` become the parent component.
 - Each entry in `dependencies[]` becomes a `generic` component. String entries
   and object entries with a `name` are both accepted. A dependency that declares
   `host: true` is tagged `scope: optional`.
-
-What cdxgen does **not** read is the vcpkg installed tree. There is no parsing
-of `vcpkg.lock` or `vcpkg_installed/vcpkg/status`. The manifest is the source of
-truth, so it is accurate for declared dependencies but carries no resolved
-version. If you need resolved versions, prefer a Conan lock or let the include
-analysis in step 6 resolve names against OS packages.
+- A port's version is the one vcpkg installed, read from
+  `vcpkg_installed/vcpkg/info` in the project or a build directory, with its
+  triplet in `cdx:vcpkg:triplet`. Without an installed tree, a version the
+  manifest pins in `overrides` is used, marked `cdx:vcpkg:versionSource=override`;
+  its `port-version` is a packaging revision and is kept apart in
+  `cdx:vcpkg:portVersion`. A `version>=` constraint is only a lower bound, so it
+  is recorded as `cdx:vcpkg:minimumVersion` and never becomes the version.
 
 List the vcpkg-sourced components:
 
@@ -137,6 +140,15 @@ canonical WrapDB name, tagged `cdx:meson:wrapdb:wrap` and
 `distribution` external reference carrying its SHA-256. The hash stays on the
 reference: it describes that release, not necessarily the version the project
 builds. Confidence rises from 0 to 0.5 because the name and URL are now known.
+
+The project's own `subprojects/*.wrap` files pin what a `dependency()` falls back
+to, and cdxgen reads them for the version. A WrapDB wrap records
+`wrapdb_version = <upstream>-<wrap revision>`; any `[wrap-file]` names the
+`directory` and archive the release unpacks to; a `[wrap-git]` pins a `revision`
+that is often a version tag. The wrap's `[provide]` section says which
+dependency names it answers. The component then carries the version,
+`cdx:meson:wrap`, `cdx:meson:wrap:versionSource` and, for a WrapDB wrap,
+`cdx:meson:wrap:revision`, and its confidence rises to 0.7.
 
 ## 5) CMake: cache resolution and FetchContent
 
@@ -258,7 +270,16 @@ cdxgen addresses this in two ways:
    names the GNU Lesser GPL). Directories CMake already knows as fetched or
    submodule sources, and build trees, are not searched, and a directory inside
    a vendored one is part of it. Headers under a vendored directory are not
-   the project's own headers.
+   the project's own headers. The version comes from the library's own version
+   header when it is one cdxgen knows (brotli's `c/common/version.h`, `zlib.h`,
+   zstd's `lib/zstd.h`, lz4's `lib/lz4.h`, `png.h`, `sqlite3.h`, expat's
+   `lib/expat.h`), which also gives the component the CPE NVD names it by, or
+   else from the directory's `CMakeLists.txt` `project(... VERSION ...)`;
+   `cdx:vendored:versionSource` names the file. A vendored brotli tree also
+   carries `cdx:brotli:c:blockSwitchFix`, read from its `decode.h`, which the
+   `BROTLI-RCE-002` audit rule checks for CVE-2026-111497. Bazel workspaces
+   under `third_party/`, `vendor/` or `external/` belong to the copied
+   project: they are neither built nor read for `bazel_dep` entries.
 3. **Include analysis with atom.** When C/C++ is requested explicitly with `-t`,
    or `--deep` is passed (and the project is not a container/OS scan),
    `getCppModules` invokes the `atom` companion helper to produce C usage

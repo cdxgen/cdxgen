@@ -94,6 +94,10 @@ Typical examples include:
 4. Restart that application.
 5. Re-run `obom`.
 
+### Folders the host probes leave alone
+
+The Node.js and Python environment probes look in fixed places under each home directory (`~/.nvm`, `~/.virtualenvs`, `~/Library/Caches/pypoetry/virtualenvs`, a project's `.venv` one or two folders below the home, and so on). Their wildcards never enter `~/Desktop`, `~/Documents`, `~/Downloads`, `~/Movies`, `~/Music`, `~/Pictures` or `~/Library`, so an `obom` run does not make macOS ask for access to them. A virtual environment kept inside one of those folders is not inventoried; move it or name it with `-t python` on that project instead.
+
 ## When to use sudo
 
 With the shell-mode change, many macOS tables now work without `sudo`. However, local policy, TCC state, or enterprise controls can still block some tables.

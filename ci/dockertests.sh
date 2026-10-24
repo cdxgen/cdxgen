@@ -134,6 +134,16 @@ run_docker_tests() {
   assert_container_file_inventory_bom bomresults/bom-alpine.rootfs.json
   assert_same_component_signature bomresults/bom-alpine.tar.json bomresults/bom-alpine.rootfs.json
 
+  # Node.js 24.22.0 bundles an unpatched Brotli decoder; 24.22.1 has the
+  # CVE-2026-111497 fix but still reports process.versions.brotli as 1.2.0.
+  for node_tag in 24.22.0-alpine:false 24.22.1-alpine:true; do
+    local node_image="node:${node_tag%%:*}"
+    local node_fixed="${node_tag##*:}"
+    local node_version="${node_tag%%-*}"
+    docker pull "$node_image"
+    bin/cdxgen.js "$node_image" -t docker -o "bomresults/bom-node-${node_version}.json" --fail-on-error
+    assert_node_brotli_bom "bomresults/bom-node-${node_version}.json" "$node_version" "$node_fixed"
+  done
   run_cdxgen_image_inventory_tests
 }
 

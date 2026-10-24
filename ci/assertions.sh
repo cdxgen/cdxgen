@@ -210,3 +210,29 @@ assert_same_container_audit_signature() {
     return 1
   fi
 }
+
+# A Node.js image: the runtime is a platform component with its CPE, and the
+# node binary says whether its Brotli decoder has the CVE-2026-111497 fix.
+assert_node_brotli_bom() {
+  local bom_file="$1"
+  local version="$2"
+  local fixed="$3"
+  jq -e --arg version "$version" '
+    any(.components[]?;
+      .purl == "pkg:generic/node@\($version)"
+      and .type == "platform"
+      and .cpe == "cpe:2.3:a:nodejs:node.js:\($version):*:*:*:*:*:*:*")
+  ' "$bom_file" >/dev/null || {
+    echo "Expected a pkg:generic/node@$version platform component in $bom_file"
+    return 1
+  }
+  jq -e --arg version "$version" --arg fixed "$fixed" '
+    any(.components[]?;
+      .type == "file" and .name == "node"
+      and any((.properties // [])[]; .name == "cdx:node:buildVersion" and .value == $version)
+      and any((.properties // [])[]; .name == "cdx:brotli:c:blockSwitchFix" and .value == $fixed))
+  ' "$bom_file" >/dev/null || {
+    echo "Expected the node binary in $bom_file to carry cdx:brotli:c:blockSwitchFix=$fixed"
+    return 1
+  }
+}
