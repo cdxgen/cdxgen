@@ -1,0 +1,23 @@
+lib/evinser/evinser.js
+  s_e335fe820b41b8::t_0de5b2c26e88f7 2,102-103,1973-1981,2004-2009,2012-2024,2065-2066,2166,2174,2196,2604-2614,2627,2629,2631,2634,2636,2638,2644,2648,2650,3439-3555
+  s_e335fe820b41b8::t_79b2d2d22b869f 3556
+lib/evinser/evinser.poku.js
+  s_e335fe820b41b8::t_c15289f0def8b7 762-806,812-903,907-911,916-948,954-975,979-981
+  s_e335fe820b41b8::t_42ed552603fd82 807-811,904-906,912-915,949-953,976-978
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "b4d05e3631aa6f387b7c454fe16b11c0d167a9d0",
+  "prompts": {},
+  "sessions": {
+    "s_e335fe820b41b8": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "120fe233-8899-4149-b780-6eac261dbd9d",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Team AppThreat <cloud@appthreat.com>"
+    }
+  }
+}
