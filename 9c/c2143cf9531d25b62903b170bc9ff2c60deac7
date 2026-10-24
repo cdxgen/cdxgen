@@ -1,0 +1,28 @@
+.github/workflows/repotests.yml
+  s_1d1e2598f8cdc5::t_652dec506ca346 24,2117-2135
+  s_1d1e2598f8cdc5::t_dce1b49724da23 2136
+docs/CUSTOM_PROPERTIES.md
+  s_1d1e2598f8cdc5::t_6d2f4c61d11043 478
+  s_1d1e2598f8cdc5::t_346a01b8883c72 77,2375
+  s_1d1e2598f8cdc5::t_2a484df215feca 78,479,481,483,2373-2374,2376
+  s_1d1e2598f8cdc5::t_c4c902a81fb5c1 2377
+test/data/brotli-exposure/README.md
+  s_1d1e2598f8cdc5::t_d13e9a8a7bd1f9 1-15
+  s_1d1e2598f8cdc5::t_ce52f568d157a6 16-17
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "9cc2143cf9531d25b62903b170bc9ff2c60deac7",
+  "prompts": {},
+  "sessions": {
+    "s_1d1e2598f8cdc5": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "0f18b3fe-1204-49e8-8438-701d12ccdff7",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
