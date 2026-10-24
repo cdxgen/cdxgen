@@ -276,7 +276,7 @@ cdxgen addresses this in two ways:
    `lib/expat.h`), which also gives the component the CPE NVD names it by, or
    else from the directory's `CMakeLists.txt` `project(... VERSION ...)`;
    `cdx:vendored:versionSource` names the file. A vendored brotli tree also
-   carries `cdx:brotli:blockSwitchFix`, read from its `decode.h`, which the
+   carries `cdx:brotli:c:blockSwitchFix`, read from its `decode.h`, which the
    `BROTLI-RCE-002` audit rule checks for CVE-2026-111497. Bazel workspaces
    under `third_party/`, `vendor/` or `external/` belong to the copied
    project: they are neither built nor read for `bazel_dep` entries.
