@@ -1,0 +1,91 @@
+lib/inventory/nodeBuildInfo.js
+  s_1d1e2598f8cdc5::t_931177dfee0bad 13-16,104,110,113
+lib/core/brotliProbe.js
+  s_1d1e2598f8cdc5::t_ed2f69c4492986 146-154
+  s_1d1e2598f8cdc5::t_2f91d64199d4c5 10,12-28,30-38,46-47,51-63,65,69-70,77,79,81,91,93-94,96,98-101,104-145,155-179,181
+docs/BOM_AUDIT.md
+  s_1d1e2598f8cdc5::t_e70a974c696101 746-754
+  s_1d1e2598f8cdc5::t_65597d114c68c9 734-744,755-760
+  s_1d1e2598f8cdc5::t_69d05fb38152fe 745
+docs/INTROSPECTION.md
+  s_1d1e2598f8cdc5::t_e70a974c696101 97
+claude-plugin/skills/sbom-fidelity-loop/SKILL.md
+  s_1d1e2598f8cdc5::t_f9960845fb3dda 26
+data/remediations.json
+  s_1d1e2598f8cdc5::t_88e6c587e9fcc8 1428-1451
+lib/core/httpClient.js
+  s_1d1e2598f8cdc5::t_931177dfee0bad 263-264
+lib/inventory/brotliDecoder.js
+  s_1d1e2598f8cdc5::t_5c06ededebb21d 5-9,12,15-16,18,22-38,43-46,58,61-65,72,75-81,85-87,89,91,94-101,105,107,109-110,123,133
+lib/managers/binary.poku.js
+  s_1d1e2598f8cdc5::t_26ad39a51dbf3c 118-122,125,2816-2895,2897
+  s_1d1e2598f8cdc5::t_2f2e114748569a 2585-2587,2677,2707-2708,2712,2761-2762,2772-2784,2800-2802,2805-2807,2811-2815
+data/rules/brotli-decoder.yaml
+  s_1d1e2598f8cdc5::t_931177dfee0bad 26-27,38,51,74,82-102,106
+lib/stages/postgen/auditBom.poku.js
+  s_1d1e2598f8cdc5::t_51d8b04e1d1289 6936,6942-6953,6964,6966,6973-6984,6987-6992,6995,7002,7005-7007,7011-7015,7018-7032,7034
+docs/CUSTOM_PROPERTIES.md
+  s_1d1e2598f8cdc5::t_65597d114c68c9 77-78
+  s_1d1e2598f8cdc5::t_6bc7329920975e 2375
+lib/cli/index.poku.js
+  s_1d1e2598f8cdc5::t_c0539308aa44a9 1599
+lib/cli/index.js
+  s_1d1e2598f8cdc5::t_b661889e079e09 822,887
+docs/ADVANCED.md
+  s_1d1e2598f8cdc5::t_7d240040e1142c 995
+lib/inventory/osPackageResolver.js
+  s_1d1e2598f8cdc5::t_65b092b4dc5586 503,507,514-516
+.github/workflows/repotests.yml
+  s_1d1e2598f8cdc5::t_65597d114c68c9 2125,2128
+ci/assertions.sh
+  s_1d1e2598f8cdc5::t_65597d114c68c9 233,235
+lib/core/brotliProbe.poku.js
+  s_1d1e2598f8cdc5::t_ed2f69c4492986 205-206
+  s_1d1e2598f8cdc5::t_7c31c8dfad1c19 252-254,256,259
+  s_1d1e2598f8cdc5::t_edf8ebba07befa 10-14,22-61,82-83,86-89,93,95-98,105,110,119,124-128,131-141,143,145-147,151-156,159-160,164,174,178-204,207-218,220-223,238-249,255,260,262-265
+  s_1d1e2598f8cdc5::t_7f90efe9f6e59a 250-251,257-258,261
+lib/core/boundedFile.poku.js
+  s_1d1e2598f8cdc5::t_57589621d6aa8b 142-146
+  s_1d1e2598f8cdc5::t_181cedf1dbc333 15-19,83-85,107-109,123,125,129,151-173
+  s_1d1e2598f8cdc5::t_7869010d42a154 174-176
+lib/core/boundedFile.js
+  s_1d1e2598f8cdc5::t_9d81d60b898deb 10,21-24,28,32,36,66,85-106,114-130,138,148-151,174-178,192-194,203,212,215,221,227,234,240
+  s_1d1e2598f8cdc5::t_ed2f69c4492986 25-27,107-113
+lib/inventory/phpBuildInfo.js
+  s_1d1e2598f8cdc5::t_181cedf1dbc333 220-222,228
+.agents/skills/sbom-fidelity-loop/SKILL.md
+  s_1d1e2598f8cdc5::t_f9960845fb3dda 26
+lib/inventory/osPackageResolver.poku.js
+  s_1d1e2598f8cdc5::t_a5285d31a584cc 248-252,261-263
+lib/ecosystems/vendoredCode.js
+  s_1d1e2598f8cdc5::t_37516c413988d0 215-216
+  s_1d1e2598f8cdc5::t_cb4899146fe117 108-115,124-125,131,214,221,224-225,236-247,356,364
+  s_1d1e2598f8cdc5::t_931177dfee0bad 137
+lib/managers/binary.js
+  s_1d1e2598f8cdc5::t_b661889e079e09 49,1504,1514-1517,3938-3939,3956-3967,3979-3983,3987,3993,4001-4010,4014
+  s_1d1e2598f8cdc5::t_88e6c587e9fcc8 4015-4023
+  s_1d1e2598f8cdc5::t_8093128a25aee8 3940-3941
+  s_1d1e2598f8cdc5::t_4c1824de7787bd 41
+  s_1d1e2598f8cdc5::t_789280904cc9d2 4024
+lib/inventory/brotliDecoder.poku.js
+  s_1d1e2598f8cdc5::t_83ae9a61c4dbff 11-13,15,17-23,27-45,53-67,72,74,79-83,85
+lib/ecosystems/vendoredCode.poku.js
+  s_1d1e2598f8cdc5::t_c0539308aa44a9 165,212
+  s_1d1e2598f8cdc5::t_b5c940eda64bff 250-276
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "dbbf23c25c215a109bf8fcf7f6a15fb830e6c389",
+  "prompts": {},
+  "sessions": {
+    "s_1d1e2598f8cdc5": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "0f18b3fe-1204-49e8-8438-701d12ccdff7",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
