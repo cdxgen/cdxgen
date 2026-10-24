@@ -1,0 +1,37 @@
+lib/inventory/phpHostProbe.js
+  s_1d1e2598f8cdc5::t_115ae8215f0951 163-164
+lib/inventory/hostRuntimeProbe.js
+  s_1d1e2598f8cdc5::t_115ae8215f0951 285-288
+  s_1d1e2598f8cdc5::t_a730a2f06597e2 223-227,233-284,289-302,423,447-449,540-542
+docs/OBOM_LESSONS.md
+  s_1d1e2598f8cdc5::t_71cbcb7c599e38 190
+  s_1d1e2598f8cdc5::t_65597d114c68c9 186-187,191
+lib/inventory/nodeHostProbe.poku.js
+  s_1d1e2598f8cdc5::t_c0539308aa44a9 90-94,100
+  s_1d1e2598f8cdc5::t_df2f4f88e3efe1 135-186
+  s_1d1e2598f8cdc5::t_029f15ba0879a5 187-188
+lib/ecosystems/venvProbe.poku.js
+  s_1d1e2598f8cdc5::t_13605214f19884 74-95
+docs/OBOM_MACOS_TROUBLESHOOTING.md
+  s_1d1e2598f8cdc5::t_c2d9fd8b2e538a 97-100
+lib/ecosystems/venvProbe.js
+  s_1d1e2598f8cdc5::t_e81a9947e0219c 51-64,90-92,94,103,133-134,136,140,142
+lib/inventory/nodeHostProbe.js
+  s_1d1e2598f8cdc5::t_115ae8215f0951 113-119,124,174
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "1466671392380e5b1ae8cdcff98167a69790f347",
+  "prompts": {},
+  "sessions": {
+    "s_1d1e2598f8cdc5": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "0f18b3fe-1204-49e8-8438-701d12ccdff7",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
