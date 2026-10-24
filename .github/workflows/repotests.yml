@@ -21,6 +21,7 @@ on:
       - 'test/data/angular-css-config-repotest/**'
       - 'test/data/angular-template-repotest/**'
       - 'test/data/svelte-repotest/**'
+      - 'test/data/brotli-exposure/**'
       - 'test/data/svelte-legacy-repotest/**'
       - 'test/data/svelte-precision/**'
       - 'test/data/cargo-cache-fixture/**'
@@ -2112,6 +2113,26 @@ jobs:
           CDXGEN_DEBUG_MODE=verbose ASTGEN_IGNORE_DIRS="" FETCH_LICENSE=false bin/cdxgen.js -t svelte repotests/sveltejs-examples -o bomresults/bom-svelte.json
           CDXGEN_DEBUG_MODE=verbose ASTGEN_IGNORE_DIRS="" node bin/evinse.js -i bomresults/bom-svelte.json -o bomresults/bom-svelte.evinse.json -l js --with-data-flow repotests/sveltejs-examples
           CDXGEN_DEBUG_MODE=verbose ASTGEN_IGNORE_DIRS="" node bin/evinse.js -i bomresults/bom-svelte.json -o bomresults/bom-svelte.evinse.json -l js --with-reachables repotests/sveltejs-examples
+        shell: bash
+      - name: repotests Brotli exposure fixtures
+        run: |
+          bin/cdxgen.js test/data/brotli-exposure/vendored -o bomresults/bom-brotli-vendored.json --bom-audit --bom-audit-categories brotli-security --fail-on-error
+          bin/cdxgen.js test/data/brotli-exposure/vendored-fixed -o bomresults/bom-brotli-vendored-fixed.json --bom-audit --bom-audit-categories brotli-security --fail-on-error
+          bin/cdxgen.js test/data/brotli-exposure/vcpkg-cmake -o bomresults/bom-brotli-vcpkg-cmake.json --fail-on-error
+          bin/cdxgen.js test/data/brotli-exposure/vcpkg-only -o bomresults/bom-brotli-vcpkg-only.json --fail-on-error
+          bin/cdxgen.js test/data/brotli-exposure/meson-wrap -o bomresults/bom-brotli-meson.json --fail-on-error
+          bin/cdxgen.js -t python test/data/brotli-exposure/uv-extras -o bomresults/bom-brotli-uv.json --fail-on-error
+          jq -e 'any(.components[]; .purl == "pkg:generic/brotli@1.2.0#third_party/brotli" and .cpe == "cpe:2.3:a:google:brotli:1.2.0:*:*:*:*:*:*:*" and any((.properties // [])[]; .name == "cdx:brotli:blockSwitchFix" and .value == "false"))' bomresults/bom-brotli-vendored.json
+          jq -e 'any((.annotations // [])[]; .text | contains("BROTLI-RCE-002"))' bomresults/bom-brotli-vendored.json
+          jq -e 'all(.components[]; (.purl // "") | startswith("pkg:bazel/brotli") | not)' bomresults/bom-brotli-vendored.json
+          jq -e 'any(.components[]; .purl == "pkg:generic/brotli@1.2.1#third_party/brotli" and any((.properties // [])[]; .name == "cdx:brotli:blockSwitchFix" and .value == "true"))' bomresults/bom-brotli-vendored-fixed.json
+          jq -e 'all((.annotations // [])[]; .text | contains("BROTLI-") | not)' bomresults/bom-brotli-vendored-fixed.json
+          jq -e 'any(.components[]; .purl == "pkg:generic/brotli@1.1.0" and any((.properties // [])[]; .name == "cdx:vcpkg:versionSource" and .value == "override"))' bomresults/bom-brotli-vcpkg-cmake.json
+          jq -e 'any(.components[]; .purl == "pkg:generic/brotli@1.1.0")' bomresults/bom-brotli-vcpkg-only.json
+          jq -e 'any(.components[]; .purl == "pkg:generic/google-brotli@1.1.0")' bomresults/bom-brotli-meson.json
+          jq -e 'any(.dependencies[]; .ref == "pkg:pypi/urllib3@2.8.0" and (.dependsOn | index("pkg:pypi/brotli@1.2.0")))' bomresults/bom-brotli-uv.json
+          jq -e 'any(.components[]; .name == "brotlicffi" and .scope == "optional")' bomresults/bom-brotli-uv.json
+          jq -e 'any(.components[]; .name == "brotli" and .scope != "optional")' bomresults/bom-brotli-uv.json
         shell: bash
       - name: repotests svelte analyzer fixtures
         run: |
