@@ -270,7 +270,16 @@ cdxgen addresses this in two ways:
    names the GNU Lesser GPL). Directories CMake already knows as fetched or
    submodule sources, and build trees, are not searched, and a directory inside
    a vendored one is part of it. Headers under a vendored directory are not
-   the project's own headers.
+   the project's own headers. The version comes from the library's own version
+   header when it is one cdxgen knows (brotli's `c/common/version.h`, `zlib.h`,
+   zstd's `lib/zstd.h`, lz4's `lib/lz4.h`, `png.h`, `sqlite3.h`, expat's
+   `lib/expat.h`), which also gives the component the CPE NVD names it by, or
+   else from the directory's `CMakeLists.txt` `project(... VERSION ...)`;
+   `cdx:vendored:versionSource` names the file. A vendored brotli tree also
+   carries `cdx:brotli:blockSwitchFix`, read from its `decode.h`, which the
+   `BROTLI-RCE-002` audit rule checks for CVE-2026-111497. Bazel workspaces
+   under `third_party/`, `vendor/` or `external/` belong to the copied
+   project: they are neither built nor read for `bazel_dep` entries.
 3. **Include analysis with atom.** When C/C++ is requested explicitly with `-t`,
    or `--deep` is passed (and the project is not a container/OS scan),
    `getCppModules` invokes the `atom` companion helper to produce C usage

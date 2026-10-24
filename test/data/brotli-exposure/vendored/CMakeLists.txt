@@ -1,0 +1,5 @@
+cmake_minimum_required(VERSION 3.16)
+project(vendored_consumer C)
+add_subdirectory(third_party/brotli)
+add_executable(app main.c)
+target_link_libraries(app brotlidec)
