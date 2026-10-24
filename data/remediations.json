@@ -1282,6 +1282,30 @@
     },
     "docs": "https://cyclonedx.github.io/cdxgen/#/PROJECT_TYPES?id=php"
   },
+  "npm.host-probe.package-db-unreadable": {
+    "ecosystem": "npm",
+    "kind": "evidence.degraded",
+    "impact": "components",
+    "title": "A package database could not be read in full, so the Node.js no package owns on this host was not identified",
+    "targetTier": null,
+    "actions": [
+      {
+        "kind": "config",
+        "command": "Run cdxgen as a user that can read the package databases (for example with sudo), so node binaries can be matched to the packages that own them"
+      },
+      {
+        "kind": "rerun"
+      }
+    ],
+    "verify": {
+      "rules": [],
+      "expectTier": null,
+      "eventsCleared": [
+        "npm.host-probe.package-db-unreadable"
+      ]
+    },
+    "docs": "https://cyclonedx.github.io/cdxgen/#/OBOM_LESSONS"
+  },
   "php.composer.platform-unattributed": {
     "ecosystem": "php",
     "kind": "evidence.degraded",

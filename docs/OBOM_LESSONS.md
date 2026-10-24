@@ -173,6 +173,25 @@ jq -r '.components[] | select(.type=="file") | select((.properties // [])[] | se
 4. A package database that exists but cannot be read, for example because the scan does not run as root, leaves ownership unknown. The probe then emits nothing for those files, and the `php.host-probe.package-db-unreadable` degradation is recorded when introspection is on. Re-run as a user that can read the database.
 5. PHP bundled inside an application (MAMP, Laravel Herd), PHP deeper under `/opt` than `/opt/<name>/bin` (Remi SCL, cPanel `ea-php`), and Windows installs outside the roots above are not probed.
 
+## 12a) Unpackaged Node.js, Python environments and embedded Brotli decoders
+
+The release tarballs, the nodejs.org installer and the version managers put
+Node.js where no package database records it, and osquery's `python_packages`
+table reads only the interpreter's own site-packages. An OBOM fills both gaps
+from the files, which is what CVE-2026-111497 (the Brotli decoder bug that
+Node.js, the Python `Brotli` and `brotlicffi` wheels and others carry) needs:
+
+```bash
+cdxgen -t os -o obom.json --bom-audit --bom-audit-categories brotli-security
+jq -r '.components[] | select((.properties // [])[] | select(.name=="cdx:brotli:blockSwitchFix"))
+  | [.name, (.purl // ""), ([.properties[] | select(.name=="cdx:brotli:blockSwitchFix")][0].value)] | @tsv' obom.json
+```
+
+1. Node.js candidates are `node` files in `/usr/local/bin`, `/opt/<name>/bin` and `/usr/local/n/versions/node/*/bin`, plus each home directory's nvm, fnm, volta, asdf and mise trees (`~/.nvm/versions/node/*/bin`, `~/.local/share/fnm/node-versions/*/installation/bin`, `~/.volta/tools/image/node/*/bin`, `~/.asdf/installs/nodejs/*/bin`, `~/.local/share/mise/installs/node/*/bin`), and `%ProgramFiles%\nodejs` and `%APPDATA%\nvm\*` on Windows. The same package-ownership rules as the PHP probe apply: a Homebrew or distro `node` is identified by its package.
+2. Each unpackaged `node` becomes a `file` component named by its path, with `cdx:node:buildVersion` read from the release URL compiled into it, a `pkg:generic/node@<version>` platform component with a CPE, and `cdx:brotli:decoder` / `cdx:brotli:blockSwitchFix` for the decoder inside it. `process.versions.brotli` cannot be used for this: Node.js 24.22.1 still reports `1.2.0` after the fix.
+3. Python packages in virtual environments (directories holding `pyvenv.cfg` under `/opt`, `/srv`, `/app`, `/usr/local` and the home directories, including `.venv`, `.virtualenvs`, pipenv and Poetry environments) and pyenv interpreters are read from their `*.dist-info/METADATA`. Each package is one component with an occurrence per installation and `cdx:python:environment`; a package the system site-packages also holds keeps its osquery component and gains the occurrence.
+4. A Homebrew or distro Node.js that links brotli as a shared library carries no decoder of its own: check the `brotli` / `libbrotli1` package instead, or the formulation section of a source scan, which records the shared library's state.
+
 ## 13) Package identity: the same package, the same purl
 
 An OBOM names the OS packages of a host the way `cdxgen -t docker` names the packages of an image, so findings, vulnerability matches and diffs carry over from one to the other:
