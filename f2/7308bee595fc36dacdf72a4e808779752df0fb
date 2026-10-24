@@ -1,0 +1,29 @@
+ci/Dockerfile
+  s_e335fe820b41b8::t_21f371025ac92d 160
+ci/Dockerfile-ppc64
+  s_e335fe820b41b8::t_21f371025ac92d 7
+ci/Dockerfile-bun
+  s_e335fe820b41b8::t_21f371025ac92d 7
+ci/Dockerfile-deno
+  s_e335fe820b41b8::t_21f371025ac92d 7
+ci/Dockerfile-secure
+  s_e335fe820b41b8::t_21f371025ac92d 11
+ci/images/al10/Dockerfile.ruby-builder
+  s_e335fe820b41b8::t_21f371025ac92d 7
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "f27308bee595fc36dacdf72a4e808779752df0fb",
+  "prompts": {},
+  "sessions": {
+    "s_e335fe820b41b8": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "120fe233-8899-4149-b780-6eac261dbd9d",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Team AppThreat <cloud@appthreat.com>"
+    }
+  }
+}
