@@ -98,20 +98,23 @@ resolved coordinates.
 
 ## 3) vcpkg support
 
-cdxgen reads the vcpkg manifest, `vcpkg.json`, inside `getCppModules`
-(`lib/ecosystems/cppEvidence.js`). When present it is treated as a strong hint
-about the parent project and its direct dependencies:
+cdxgen reads the vcpkg manifest, `vcpkg.json`, with `parseVcpkgManifest`
+(`lib/ecosystems/cppEvidence.js`). The read runs no tool, so it happens in every
+C/C++ scan, including an auto-detected one where the atom analysis of step 6 is
+skipped. When present the manifest is treated as a strong hint about the parent
+project and its direct dependencies:
 
 - The manifest `name` and `version` become the parent component.
 - Each entry in `dependencies[]` becomes a `generic` component. String entries
   and object entries with a `name` are both accepted. A dependency that declares
   `host: true` is tagged `scope: optional`.
-
-What cdxgen does **not** read is the vcpkg installed tree. There is no parsing
-of `vcpkg.lock` or `vcpkg_installed/vcpkg/status`. The manifest is the source of
-truth, so it is accurate for declared dependencies but carries no resolved
-version. If you need resolved versions, prefer a Conan lock or let the include
-analysis in step 6 resolve names against OS packages.
+- A port's version is the one vcpkg installed, read from
+  `vcpkg_installed/vcpkg/info` in the project or a build directory, with its
+  triplet in `cdx:vcpkg:triplet`. Without an installed tree, a version the
+  manifest pins in `overrides` is used, marked `cdx:vcpkg:versionSource=override`;
+  its `port-version` is a packaging revision and is kept apart in
+  `cdx:vcpkg:portVersion`. A `version>=` constraint is only a lower bound, so it
+  is recorded as `cdx:vcpkg:minimumVersion` and never becomes the version.
 
 List the vcpkg-sourced components:
 
@@ -137,6 +140,15 @@ canonical WrapDB name, tagged `cdx:meson:wrapdb:wrap` and
 `distribution` external reference carrying its SHA-256. The hash stays on the
 reference: it describes that release, not necessarily the version the project
 builds. Confidence rises from 0 to 0.5 because the name and URL are now known.
+
+The project's own `subprojects/*.wrap` files pin what a `dependency()` falls back
+to, and cdxgen reads them for the version. A WrapDB wrap records
+`wrapdb_version = <upstream>-<wrap revision>`; any `[wrap-file]` names the
+`directory` and archive the release unpacks to; a `[wrap-git]` pins a `revision`
+that is often a version tag. The wrap's `[provide]` section says which
+dependency names it answers. The component then carries the version,
+`cdx:meson:wrap`, `cdx:meson:wrap:versionSource` and, for a WrapDB wrap,
+`cdx:meson:wrap:revision`, and its confidence rises to 0.7.
 
 ## 5) CMake: cache resolution and FetchContent
 
