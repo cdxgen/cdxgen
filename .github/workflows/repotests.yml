@@ -2122,10 +2122,10 @@ jobs:
           bin/cdxgen.js test/data/brotli-exposure/vcpkg-only -o bomresults/bom-brotli-vcpkg-only.json --fail-on-error
           bin/cdxgen.js test/data/brotli-exposure/meson-wrap -o bomresults/bom-brotli-meson.json --fail-on-error
           bin/cdxgen.js -t python test/data/brotli-exposure/uv-extras -o bomresults/bom-brotli-uv.json --fail-on-error
-          jq -e 'any(.components[]; .purl == "pkg:generic/brotli@1.2.0#third_party/brotli" and .cpe == "cpe:2.3:a:google:brotli:1.2.0:*:*:*:*:*:*:*" and any((.properties // [])[]; .name == "cdx:brotli:blockSwitchFix" and .value == "false"))' bomresults/bom-brotli-vendored.json
+          jq -e 'any(.components[]; .purl == "pkg:generic/brotli@1.2.0#third_party/brotli" and .cpe == "cpe:2.3:a:google:brotli:1.2.0:*:*:*:*:*:*:*" and any((.properties // [])[]; .name == "cdx:brotli:c:blockSwitchFix" and .value == "false"))' bomresults/bom-brotli-vendored.json
           jq -e 'any((.annotations // [])[]; .text | contains("BROTLI-RCE-002"))' bomresults/bom-brotli-vendored.json
           jq -e 'all(.components[]; (.purl // "") | startswith("pkg:bazel/brotli") | not)' bomresults/bom-brotli-vendored.json
-          jq -e 'any(.components[]; .purl == "pkg:generic/brotli@1.2.1#third_party/brotli" and any((.properties // [])[]; .name == "cdx:brotli:blockSwitchFix" and .value == "true"))' bomresults/bom-brotli-vendored-fixed.json
+          jq -e 'any(.components[]; .purl == "pkg:generic/brotli@1.2.1#third_party/brotli" and any((.properties // [])[]; .name == "cdx:brotli:c:blockSwitchFix" and .value == "true"))' bomresults/bom-brotli-vendored-fixed.json
           jq -e 'all((.annotations // [])[]; .text | contains("BROTLI-") | not)' bomresults/bom-brotli-vendored-fixed.json
           jq -e 'any(.components[]; .purl == "pkg:generic/brotli@1.1.0" and any((.properties // [])[]; .name == "cdx:vcpkg:versionSource" and .value == "override"))' bomresults/bom-brotli-vcpkg-cmake.json
           jq -e 'any(.components[]; .purl == "pkg:generic/brotli@1.1.0")' bomresults/bom-brotli-vcpkg-only.json

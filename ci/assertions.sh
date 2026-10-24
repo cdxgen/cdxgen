@@ -230,9 +230,9 @@ assert_node_brotli_bom() {
     any(.components[]?;
       .type == "file" and .name == "node"
       and any((.properties // [])[]; .name == "cdx:node:buildVersion" and .value == $version)
-      and any((.properties // [])[]; .name == "cdx:brotli:blockSwitchFix" and .value == $fixed))
+      and any((.properties // [])[]; .name == "cdx:brotli:c:blockSwitchFix" and .value == $fixed))
   ' "$bom_file" >/dev/null || {
-    echo "Expected the node binary in $bom_file to carry cdx:brotli:blockSwitchFix=$fixed"
+    echo "Expected the node binary in $bom_file to carry cdx:brotli:c:blockSwitchFix=$fixed"
     return 1
   }
 }

@@ -1425,6 +1425,30 @@
     },
     "docs": "https://cyclonedx.github.io/cdxgen/#/PROJECT_TYPES"
   },
+  "binary.brotli-probe.capped": {
+    "ecosystem": "generic",
+    "kind": "evidence.degraded",
+    "impact": "components",
+    "title": "The Brotli decoder probe reached its file or byte cap, so some native files were not read for an embedded decoder",
+    "targetTier": null,
+    "actions": [
+      {
+        "kind": "config",
+        "command": "Scan the image or root filesystem in smaller parts (for example one application directory at a time with -t rootfs), so every native file is read for an embedded Brotli decoder"
+      },
+      {
+        "kind": "rerun"
+      }
+    ],
+    "verify": {
+      "rules": [],
+      "expectTier": null,
+      "eventsCleared": [
+        "binary.brotli-probe.capped"
+      ]
+    },
+    "docs": "https://cyclonedx.github.io/cdxgen/#/BOM_AUDIT?id=brotli-security"
+  },
   "os.apk-installed-db.unreadable": {
     "ecosystem": "generic",
     "kind": "evidence.degraded",

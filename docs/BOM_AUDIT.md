@@ -731,21 +731,33 @@ Rules for Brotli decoders that ship inside files no package version describes:
 Node.js, the Python `Brotli` and `brotlicffi` wheels, the PHP and Ruby
 extensions, the .NET runtime's native libraries, static binaries, Go binaries
 built with `github.com/andybalholm/brotli`, and Brotli sources vendored into a
-C or C++ tree. They read `cdx:brotli:decoder` and `cdx:brotli:blockSwitchFix`,
-which container, rootfs and OS (`obom`) scans record on unpackaged native files
-and C/C++ source scans record on vendored brotli directories. The fix state is
-read from the decoder's own error-name table, not from a version: a distro
-build that backported the fix under its old version, such as Debian's
-`1.0.9-2+deb12u1`, is not flagged, and Node.js 24.22.1, which still reports
-`process.versions.brotli` as `1.2.0`, is not flagged either. Package-managed
-copies (`libbrotli1`, `brotli-libs`, `pkg:pypi/brotli`) are left to the
-vulnerability database.
+C or C++ tree. They read `cdx:brotli:c:blockSwitchFix` and
+`cdx:brotli:go:blockSwitchFix`, which container, rootfs and OS (`obom`) scans
+record on native files no package manager owns and C/C++ source scans record on
+vendored brotli directories. The fix state is read from the decoder's own
+error-name table, not from a version, so Node.js 24.22.1, which still reports
+`process.versions.brotli` as `1.2.0`, is not flagged. Files an OS package owns
+(`libbrotli1`, `brotli-libs`) are not read; they and their packages are left to
+the vulnerability database, which knows the distro's backports. A pip-installed
+`Brotli` wheel is a component of its own (`pkg:pypi/brotli`) and its
+`_brotli*.so` is also read, so both a PyPI advisory and `BROTLI-RCE-001` can
+point at it.
 
-| Rule           | Severity | Description                                                                                                      |
-| -------------- | -------- | ---------------------------------------------------------------------------------------------------------------- |
-| BROTLI-RCE-001 | high     | A native file embeds Google's C decoder without the CVE-2026-111497 fix (possible code execution from a crafted stream) |
-| BROTLI-RCE-002 | high     | A vendored brotli source tree lacks the fix, so everything built from it inherits the bug                         |
-| BROTLI-DOS-001 | medium   | A Go binary embeds andybalholm/brotli older than v1.2.7, which panics on the same crafted stream                  |
+An extension module (a Python `.so` or `.pyd`, a PHP, Ruby or Node.js addon,
+the .NET runtime's compression library) becomes a file component only when a
+decoder is found in it, and it is not counted in
+`cdx:container:unpackagedSharedLibraryCount`. One scan reads at most 4096
+executables and libraries, 4096 extension modules and 16 GiB in all; a file
+over 2 GiB is not read and carries `cdx:brotli:probe=too-large`. When a cap
+leaves files unread, the `binary.brotli-probe.capped` degradation is recorded,
+so a clean result is never mistaken for a complete one.
+
+| Rule           | Severity | Description                                                                                                                       |
+| -------------- | -------- | --------------------------------------------------------------------------------------------------------------------------------- |
+| BROTLI-RCE-001 | high     | A native file embeds Google's C decoder without the CVE-2026-111497 fix (possible code execution from a crafted stream)           |
+| BROTLI-RCE-002 | high     | A vendored brotli source tree lacks the fix, so everything built from it inherits the bug                                          |
+| BROTLI-RCE-003 | low      | A native file embeds the C decoder, but the linker dropped the error-name table, so its fix state has to be settled from its release |
+| BROTLI-DOS-001 | medium   | A Go binary embeds andybalholm/brotli older than v1.2.7, which panics on the same crafted stream                                   |
 
 ### `cbom-compliance`
 

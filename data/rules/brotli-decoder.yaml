@@ -23,8 +23,8 @@
   dry-run-support: full
   condition: |
     components[
-      $hasProp($, 'cdx:brotli:decoder', 'c')
-      and $hasProp($, 'cdx:brotli:blockSwitchFix', 'false')
+      $hasProp($, 'cdx:brotli:c:blockSwitchFix', 'false')
+      and $not($hasProp($, 'cdx:vendored', 'true'))
     ]
   location: |
     {
@@ -35,7 +35,7 @@
   evidence: |
     {
       "srcFile": $prop($, 'internal:SrcFile'),
-      "decoder": $prop($, 'cdx:brotli:decoder'),
+      "evidence": $prop($, 'cdx:brotli:c:evidence'),
       "nodeVersion": $prop($, 'cdx:node:buildVersion')
     }
 
@@ -48,7 +48,7 @@
   condition: |
     components[
       $hasProp($, 'cdx:vendored', 'true')
-      and $hasProp($, 'cdx:brotli:blockSwitchFix', 'false')
+      and $hasProp($, 'cdx:brotli:c:blockSwitchFix', 'false')
     ]
   location: |
     {
@@ -71,8 +71,7 @@
   dry-run-support: full
   condition: |
     components[
-      $hasProp($, 'cdx:brotli:decoder', 'go')
-      and $hasProp($, 'cdx:brotli:blockSwitchFix', 'false')
+      $hasProp($, 'cdx:brotli:go:blockSwitchFix', 'false')
     ]
   location: |
     {
@@ -82,6 +81,27 @@
   mitigation: "Update github.com/andybalholm/brotli to v1.2.7 or later and rebuild the binary."
   evidence: |
     {
+      "srcFile": $prop($, 'internal:SrcFile')
+    }
+
+- id: BROTLI-RCE-003
+  name: "Native file embeds a Brotli decoder whose CVE-2026-111497 fix state cannot be read"
+  description: "A binary, shared library or extension module carries Google's C Brotli decoder, recognised by its decoding tables, but the linker dropped the error-name table that shows whether the fix is in (--gc-sections, LTO and -dead_strip do this when nothing calls BrotliDecoderErrorString). Whether the copy is vulnerable has to be settled from the release that built the file."
+  severity: low
+  category: brotli-security
+  dry-run-support: full
+  condition: |
+    components[
+      $hasProp($, 'cdx:brotli:c:blockSwitchFix', 'unknown')
+    ]
+  location: |
+    {
+      "bomRef": $firstNonEmpty($."bom-ref", bom.serialNumber)
+    }
+  message: "'{{ name }}' embeds a Brotli decoder whose CVE-2026-111497 fix state cannot be read from the file; check that it was built from brotli 1.0.10, 1.1.1, 1.2.1 or later, or with google/brotli commit 0ed4268."
+  mitigation: "Find the release the file belongs to and confirm it bundles a fixed decoder (brotli 1.0.10, 1.1.1, 1.2.1, or commit 0ed4268); replace it otherwise."
+  evidence: |
+    {
       "srcFile": $prop($, 'internal:SrcFile'),
-      "decoder": $prop($, 'cdx:brotli:decoder')
+      "evidence": $prop($, 'cdx:brotli:c:evidence')
     }
