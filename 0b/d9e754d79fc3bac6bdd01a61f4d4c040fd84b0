@@ -1,0 +1,27 @@
+lib/core/boundedFile.js
+  s_1d1e2598f8cdc5::t_e00eb4cb552efc 1-188
+lib/inventory/phpBuildInfo.poku.js
+  s_1d1e2598f8cdc5::t_3ece0e12c1f4cd 151-169
+lib/inventory/phpBuildInfo.js
+  s_1d1e2598f8cdc5::t_3ece0e12c1f4cd 23,26,216-219
+lib/core/boundedFile.poku.js
+  s_1d1e2598f8cdc5::t_e3a0342bde0d39 39-42,134-141
+  s_1d1e2598f8cdc5::t_7f769a52af69f7 3,38
+  s_1d1e2598f8cdc5::t_f069420d0b79fa 1-2,4-37,43-133,142-145
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "0bd9e754d79fc3bac6bdd01a61f4d4c040fd84b0",
+  "prompts": {},
+  "sessions": {
+    "s_1d1e2598f8cdc5": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "0f18b3fe-1204-49e8-8438-701d12ccdff7",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
