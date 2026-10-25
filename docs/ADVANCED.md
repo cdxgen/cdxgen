@@ -585,6 +585,7 @@ Options:
                                  Atom evidence generation.          [array]
       --usages-slices-file       Use an existing usages slices file.
                                                  [default: "usages.slices.json"]
+      --callsites-slices-file    Use an existing callsites slices file (JS/TS).
       --data-flow-slices-file    Use an existing data-flow slices file.
                                               [default: "data-flow.slices.json"]
       --reachables-slices-file   Use an existing reachables slices file.

@@ -269,6 +269,9 @@ const args = yargs(hideBin(process.argv))
     description: "Use an existing usages slices file.",
     default: "usages.slices.json",
   })
+  .option("callsites-slices-file", {
+    description: "Use an existing callsites slices file (JS/TS).",
+  })
   .option("scalasem-command", {
     description:
       "Use a specific scalasem script for Scala evidence analysis. Defaults to SCALASEM_CMD.",
