@@ -1,0 +1,35 @@
+bin/evinse.js
+  h_6a4cc5cdf68def 272-274
+lib/evinser/evinser.js
+  s_e335fe820b41b8::t_a194407c0be6c1 1579,1589,1679-1687
+  s_e335fe820b41b8::t_10af34d959a3ad 3608
+  h_6a4cc5cdf68def 266,1669-1678,1688-1697,3589-3607,3609-3619
+bin/cdxgen.js
+  h_6a4cc5cdf68def 493-496
+lib/evinser/evinser.poku.js
+  s_e335fe820b41b8::t_10af34d959a3ad 1006,1017,1028,1039,1050,1052-1062,1076-1077,1101
+  h_6a4cc5cdf68def 17,983-1005,1007-1016,1018-1027,1029-1038,1040-1049,1051,1063-1075,1078-1100,1102-1111
+docs/ADVANCED.md
+  s_e335fe820b41b8::t_37986d83b942cd 588
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "60304d6a9a684980165929abafb1455c0f865dfc",
+  "prompts": {},
+  "humans": {
+    "h_6a4cc5cdf68def": {
+      "author": "Team AppThreat <cloud@appthreat.com>"
+    }
+  },
+  "sessions": {
+    "s_e335fe820b41b8": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "120fe233-8899-4149-b780-6eac261dbd9d",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": null
+    }
+  }
+}
