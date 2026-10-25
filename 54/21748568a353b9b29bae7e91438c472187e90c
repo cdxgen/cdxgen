@@ -1,0 +1,20 @@
+bin/cdxgen.js
+  h_6a4cc5cdf68def 493-496
+bin/evinse.js
+  h_6a4cc5cdf68def 272-274
+lib/evinser/evinser.js
+  h_6a4cc5cdf68def 266,1667-1686,3578-3608
+lib/evinser/evinser.poku.js
+  h_6a4cc5cdf68def 17,983-1097
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "5421748568a353b9b29bae7e91438c472187e90c",
+  "prompts": {},
+  "humans": {
+    "h_6a4cc5cdf68def": {
+      "author": "Team AppThreat <cloud@appthreat.com>"
+    }
+  }
+}
