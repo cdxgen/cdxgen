@@ -1,0 +1,30 @@
+lib/managers/docker.js
+  s_1d1e2598f8cdc5::t_29f3167f8c65e9 2491-2527,2571,2586,2597-2601
+  s_1d1e2598f8cdc5::t_7a2d6cb7aaad5b 2490
+lib/ecosystems/rubyutils.poku.js
+  s_1d1e2598f8cdc5::t_e3a0342bde0d39 2081-2084
+  s_1d1e2598f8cdc5::t_c2cf6dd19cc48a 2074-2080,2085-2088
+lib/ecosystems/rubyutils.js
+  s_1d1e2598f8cdc5::t_29f3167f8c65e9 1591-1607,1614
+lib/cli/managedBom.js
+  s_1d1e2598f8cdc5::t_29f3167f8c65e9 1432-1439
+lib/managers/docker.poku.js
+  s_1d1e2598f8cdc5::t_c2cf6dd19cc48a 25-26,3250-3295,3297-3298
+  s_1d1e2598f8cdc5::t_9db61184d25668 3296
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "e83a0c9ac6049dd45df199224f44130abec8e839",
+  "prompts": {},
+  "sessions": {
+    "s_1d1e2598f8cdc5": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "0f18b3fe-1204-49e8-8438-701d12ccdff7",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}

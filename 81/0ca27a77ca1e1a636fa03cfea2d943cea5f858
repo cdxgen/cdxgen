@@ -1,0 +1,52 @@
+lib/inventory/nodeHostProbe.js
+  s_1d1e2598f8cdc5::t_5b1c045683d830 1-184,186-196
+  s_1d1e2598f8cdc5::t_e3a0342bde0d39 185
+lib/cli/index.js
+  s_1d1e2598f8cdc5::t_229d297c59617f 327-328
+  s_1d1e2598f8cdc5::t_c4c902a81fb5c1 86-88,329-332
+  s_1d1e2598f8cdc5::t_e3a0342bde0d39 73
+  s_1d1e2598f8cdc5::t_eac43e38c087f1 318-325
+  s_1d1e2598f8cdc5::t_02f0cdca3edf18 85,326
+lib/inventory/nodeHostProbe.poku.js
+  s_1d1e2598f8cdc5::t_e3a0342bde0d39 1-7,53-57,60-64,68-71,83-85,104-108,132
+  s_1d1e2598f8cdc5::t_346a01b8883c72 90
+  s_1d1e2598f8cdc5::t_7c61e7a3fcee02 8-52,58-59,65-67,72-82,86-89,91-103,109-131,133-156
+lib/ecosystems/venvProbe.poku.js
+  s_1d1e2598f8cdc5::t_e3a0342bde0d39 25-29,55-57,100-102,147-150,160-163,173-176,185-188,190-192
+  s_1d1e2598f8cdc5::t_c4c902a81fb5c1 11,133-146,151-159,164-172,177-184,189
+  s_1d1e2598f8cdc5::t_43d009330c187f 1-10,12-24,30-54,58-99,103-132,193-194
+lib/inventory/hostRuntimeProbe.js
+  s_1d1e2598f8cdc5::t_ce866cf6075590 272,275-276,299
+  s_1d1e2598f8cdc5::t_b522112224118b 1-271,273-274,277-298,300-314,322-532
+  s_1d1e2598f8cdc5::t_33b0cf260c01f8 316-321
+  s_1d1e2598f8cdc5::t_a9ef7445729ee0 315
+lib/inventory/phpHostProbe.js
+  s_1d1e2598f8cdc5::t_1a9454ec1fb2ee 17,26-29,156-158,160-181
+docs/OBOM_LESSONS.md
+  s_1d1e2598f8cdc5::t_461888fd34763a 176-194
+lib/ecosystems/venvProbe.js
+  s_1d1e2598f8cdc5::t_c4c902a81fb5c1 293-342
+  s_1d1e2598f8cdc5::t_273cf49ccc78d7 1-292
+data/remediations.json
+  s_1d1e2598f8cdc5::t_7c7970114a473b 1285-1308
+docs/INTROSPECTION.md
+  s_1d1e2598f8cdc5::t_63c166ae7cd570 99
+lib/cli/index.poku.js
+  s_1d1e2598f8cdc5::t_73b03713192057 1569-1573,1586-1587,1591-1641,1844-1849
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "810ca27a77ca1e1a636fa03cfea2d943cea5f858",
+  "prompts": {},
+  "sessions": {
+    "s_1d1e2598f8cdc5": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "0f18b3fe-1204-49e8-8438-701d12ccdff7",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}

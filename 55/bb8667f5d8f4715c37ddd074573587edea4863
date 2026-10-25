@@ -1,0 +1,29 @@
+lib/inventory/osPackageResolver.js
+  s_1d1e2598f8cdc5::t_56f63afb9ef4dc 562-629
+lib/inventory/osPackageResolver.poku.js
+  s_1d1e2598f8cdc5::t_88b6b027e817e7 11,270-275,280-296,299-306,309-332,337
+  s_1d1e2598f8cdc5::t_e3a0342bde0d39 276-279,297-298,307-308,333-336
+  s_1d1e2598f8cdc5::t_9e3dcbe8ac31b2 338-339
+lib/cli/index.js
+  s_1d1e2598f8cdc5::t_56f63afb9ef4dc 802,1975-1981
+  s_1d1e2598f8cdc5::t_2c256f6a4fe18f 781,817
+  s_1d1e2598f8cdc5::t_aec8ce3710d674 73
+lib/managers/binary.js
+  s_1d1e2598f8cdc5::t_07468ac20f294d 1400,1514,2753,2764-2767,2806
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "55bb8667f5d8f4715c37ddd074573587edea4863",
+  "prompts": {},
+  "sessions": {
+    "s_1d1e2598f8cdc5": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "0f18b3fe-1204-49e8-8438-701d12ccdff7",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
