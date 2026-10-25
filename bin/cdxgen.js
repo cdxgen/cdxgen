@@ -490,6 +490,10 @@ const args = _yargs
     description: "Path for the usages slices file created by atom.",
     hidden: true,
   })
+  .option("callsites-slices-file", {
+    description: "Path for the callsites slices file created by atom.",
+    hidden: true,
+  })
   .option("data-flow-slices-file", {
     description: "Path for the data-flow slices file created by atom.",
     hidden: true,
