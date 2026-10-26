@@ -62,6 +62,17 @@ export declare function atomFrontendArgKeys(language: string): Set<string>;
  */
 export declare function atomCompileCommandsArgs(src: string, language: string, options?: Object): string[];
 /**
+ * The `--bom-file` a reachables slice takes package purls from: the BOM evinse
+ * annotates. atom would otherwise only find a BOM saved as `bom.json` inside
+ * the scanned directory, so a BOM written anywhere else gave every reachable
+ * flow no purl.
+ *
+ * @param {string} sliceType atom slice command
+ * @param {Object} options CLI options, for `input`
+ * @returns {string[]} Arguments to add to the atom command
+ */
+export declare function atomBomFileArgs(sliceType: string, options?: Object): string[];
+/**
  * The arguments that stop atom's Java frontend from running the scanned
  * project's build. In its default delombok mode, atom runs
  * `mvn dependency:build-classpath` inside a Maven project, which loads the
