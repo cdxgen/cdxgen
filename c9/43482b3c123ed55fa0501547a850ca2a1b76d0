@@ -1,0 +1,23 @@
+docs/ENV.md
+  s_9537aa97689c8a::t_7a9ab78650cb4d 48
+lib/inventory/licenseEnhancer.poku.js
+  s_9537aa97689c8a::t_7a9ab78650cb4d 313-327
+lib/inventory/licenseEnhancer.js
+  s_9537aa97689c8a::t_aa41d66786f145 131-142
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "c943482b3c123ed55fa0501547a850ca2a1b76d0",
+  "prompts": {},
+  "sessions": {
+    "s_9537aa97689c8a": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "dc51e2c7-07d8-4772-82ae-cd87ed92d8a7",
+        "model": "claude-sonnet-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
