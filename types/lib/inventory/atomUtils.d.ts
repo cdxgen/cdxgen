@@ -50,6 +50,13 @@ export declare function splitAtomCommand(command: string): [string, string | und
  */
 export declare function atomFrontendArgKeys(language: string): Set<string>;
 /**
+ * The options the installed atom accepts, as `atom --help` lists them. Asked
+ * once per atom command. An atom that fails to start accepts none.
+ *
+ * @returns {Set<string>} Supported options, such as `--bom-file`
+ */
+export declare function atomOptions(): Set<string>;
+/**
  * The `--frontend-args` atom takes for a C/C++ language: the project's
  * compilation database, when there is one and the installed atom reads it
  * (atom 4 and later). An older atom is given the arguments it has always
@@ -65,7 +72,8 @@ export declare function atomCompileCommandsArgs(src: string, language: string, o
  * The `--bom-file` a reachables slice takes package purls from: the BOM evinse
  * annotates. atom would otherwise only find a BOM saved as `bom.json` inside
  * the scanned directory, so a BOM written anywhere else gave every reachable
- * flow no purl.
+ * flow no purl. An atom without `--bom-file` is given the arguments it has
+ * always been given, and still reads a `bom.json` in the scanned directory.
  *
  * @param {string} sliceType atom slice command
  * @param {Object} options CLI options, for `input`
