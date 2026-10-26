@@ -1,0 +1,29 @@
+types/lib/inventory/atomUtils.d.ts
+  s_e335fe820b41b8::t_5e14dc41ae9b34 65-74
+  s_e335fe820b41b8::t_457dc1cf5d180a 64
+lib/inventory/atomUtils.js
+  s_e335fe820b41b8::t_f6d2b47df97ece 319-347
+  s_e335fe820b41b8::t_b936cf22e608bd 318
+lib/evinser/evinser.js
+  s_e335fe820b41b8::t_f6d2b47df97ece 58,741
+lib/inventory/atomUtils.poku.js
+  s_e335fe820b41b8::t_f6d2b47df97ece 26,1489-1514,1519-1522
+  s_e335fe820b41b8::t_6d4ade2ee21d36 1515-1518
+  s_e335fe820b41b8::t_b1c4dd9f5e5471 1523-1524
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "d3d23cb68b9ebf2bace2311422997a40cd903af6",
+  "prompts": {},
+  "sessions": {
+    "s_e335fe820b41b8": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "120fe233-8899-4149-b780-6eac261dbd9d",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Team AppThreat <cloud@appthreat.com>"
+    }
+  }
+}
