@@ -1,0 +1,22 @@
+lib/inventory/evidenceUtils.poku.js
+  s_55ad73a6b11975::t_688285afb735d6 113-175
+lib/inventory/evidenceUtils.js
+  s_55ad73a6b11975::t_c95fd9ac7309dd 254-283,560-572
+  s_55ad73a6b11975::t_7f4a8f85e22c25 253
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "83c76a8cc2989dedc413f528fe1534359f59d298",
+  "prompts": {},
+  "sessions": {
+    "s_55ad73a6b11975": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "e9e89905-a5b1-4c34-a25c-f60239e49468",
+        "model": "claude-sonnet-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
