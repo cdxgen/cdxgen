@@ -1,0 +1,12 @@
+{
+  "name": "alias-repro",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "dev-alias": "npm:@sindresorhus/is@^7.0.0",
+    "left-alias": "npm:@sindresorhus/is@^7.0.0",
+    "num-alias": "npm:is-number@^7.0.0",
+    "star-alias": "npm:@sindresorhus/is@*",
+    "tag-alias": "npm:@sindresorhus/is@latest"
+  }
+}

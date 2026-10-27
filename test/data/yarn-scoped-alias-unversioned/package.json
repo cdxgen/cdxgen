@@ -1,0 +1,7 @@
+{
+  "name": "fixture-site",
+  "private": true,
+  "dependencies": {
+    "left-alias": "npm:@example/left-lib"
+  }
+}
