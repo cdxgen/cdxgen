@@ -1,0 +1,22 @@
+types/lib/evinser/evinser.d.ts
+  h_6a4cc5cdf68def 468-496
+lib/evinser/evinser.js
+  h_6a4cc5cdf68def 96,2898-2963,3008-3016,3037-3042,3056-3069,3101-3102,3107-3108,3353-3354,3356,3358-3361
+lib/inventory/cbomutils.poku.js
+  h_6a4cc5cdf68def 11,711-769
+lib/inventory/cbomutils.js
+  h_6a4cc5cdf68def 604-612,617-635,638-651
+lib/evinser/evinser.poku.js
+  h_6a4cc5cdf68def 19,24-25,32,1116-1255
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "f9b2a7994ffdbc093769fc8ebb7dff0d84f1ca7e",
+  "prompts": {},
+  "humans": {
+    "h_6a4cc5cdf68def": {
+      "author": "Team AppThreat <cloud@appthreat.com>"
+    }
+  }
+}
