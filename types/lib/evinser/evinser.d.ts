@@ -466,6 +466,35 @@ export declare function extractEndpoints(language: string, code: string): string
  */
 export declare function createEvinseFile(sliceArtefacts: Object, options: Object): Promise<any>;
 /**
+ * Key naming the package a purl refers to, independent of its version,
+ * qualifiers and subpath. Namespace and name are the decoded purl segments,
+ * so an encoded scope (`%40angular/common`) keys like a plain one.
+ *
+ * @param {string} purl Purl string
+ * @returns {string|undefined} `type/namespace/name`, or undefined for a non-purl
+ */
+export declare function versionlessPurlKey(purl: string): string | undefined;
+/**
+ * Index the data-flow frames recorded under versionless flow purls by
+ * {@link versionlessPurlKey}. A flow purl without a version attaches to every
+ * BOM component of the same package name, whatever its version (maintainer
+ * decision, 2026-10-27); chen leaves the version off exactly when it cannot
+ * pick one between apps that pin the package differently.
+ *
+ * @param {Object} dataFlowFrames Frames keyed by flow purl
+ * @returns {Object} Frames keyed by versionless purl key
+ */
+export declare function indexVersionlessPurls(dataFlowFrames: Object): Object;
+/**
+ * Index the crypto generate pools recorded under versionless flow purls by
+ * {@link versionlessPurlKey}, the crypto counterpart of
+ * {@link indexVersionlessPurls}.
+ *
+ * @param {Object} cryptoGeneratePurls Algorithm bom-refs keyed by flow purl
+ * @returns {Object} Algorithm bom-ref sets keyed by versionless purl key
+ */
+export declare function indexVersionlessCrypto(cryptoGeneratePurls: Object): Object;
+/**
  * Method to convert dataflow slice into usable callstack frames
  * Implemented based on the logic proposed here - https://github.com/AppThreat/atom/blob/main/specification/docs/slices.md#data-flow-slice
  *
