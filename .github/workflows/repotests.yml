@@ -395,6 +395,13 @@ jobs:
           DOCKER_CONFIG=/tmp/cdxgen-docker-config bin/cdxgen.js --dry-run -t oci docker.io/library/alpine:3.20 --no-banner
           bin/cdxgen.js --dry-run -t js "pkg:npm/lodash@4.17.21" --no-banner
         shell: bash
+      - name: repotests yarn scoped alias fixture
+        run: |
+          # An npm: alias to a scoped package without a version must resolve to
+          # the real package instead of failing with an empty purl name.
+          bin/cdxgen.js -t js test/data/yarn-scoped-alias-unversioned -o bomresults/bom-yarn-scoped-alias-unversioned.json --no-install-deps --no-recurse --fail-on-error
+          jq -e 'any(.components[]; .purl == "pkg:npm/%40example/left-lib@1.2.3" and .name == "left-lib" and .group == "@example")' bomresults/bom-yarn-scoped-alias-unversioned.json
+        shell: bash
       - name: repotests MCP fixture
         run: |
           bin/cdxgen.js -t js test/data/mcp-repotest -o bomresults/bom-mcp-repotest.json --bom-audit --bom-audit-categories mcp-server --fail-on-error

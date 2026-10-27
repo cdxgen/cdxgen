@@ -1,0 +1,7 @@
+# yarn lockfile v1
+
+
+"left-alias@npm:@example/left-lib@^1.2.3":
+  version "1.2.3"
+  resolved "https://registry.yarnpkg.com/@example/left-lib/-/left-lib-1.2.3.tgz#0000000000000000000000000000000000000000"
+  integrity sha512-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==

@@ -1,0 +1,13 @@
+{
+  "name": "alias-mixed",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "left-pad": "^1.3.0",
+    "left-alias": "npm:@example/left-lib",
+    "odd-alias": "npm:is-number"
+  },
+  "devDependencies": {
+    "right-alias": "npm:@example/right-lib@^2.0.0"
+  }
+}
