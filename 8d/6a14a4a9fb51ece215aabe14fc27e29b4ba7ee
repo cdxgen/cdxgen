@@ -1,0 +1,14 @@
+lib/inventory/cbomutils.poku.js
+  h_6a4cc5cdf68def 727-730
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "8d6a14a4a9fb51ece215aabe14fc27e29b4ba7ee",
+  "prompts": {},
+  "humans": {
+    "h_6a4cc5cdf68def": {
+      "author": "Team AppThreat <cloud@appthreat.com>"
+    }
+  }
+}
