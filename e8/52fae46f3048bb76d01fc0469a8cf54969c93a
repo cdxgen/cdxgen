@@ -1,0 +1,23 @@
+test/data/yarn-berry-scoped-alias/package.json
+  s_614944c9b9303e::t_3d2d642274c035 1-12
+lib/ecosystems/parsers-js.poku.js
+  s_614944c9b9303e::t_41405182fdef7d 2995-3020
+test/data/yarn-berry-scoped-alias/yarn.lock
+  s_614944c9b9303e::t_03331fd0e70189 1-39
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "e852fae46f3048bb76d01fc0469a8cf54969c93a",
+  "prompts": {},
+  "sessions": {
+    "s_614944c9b9303e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "867339d3-c0e7-4137-9d0d-bce767fa5bb9",
+        "model": "claude-sonnet-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
