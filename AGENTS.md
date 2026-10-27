@@ -597,6 +597,7 @@ CDXGEN_VERIFY_TYPES=1 pnpm test
 | `nodejs.yml`         | PR / push to master | Unit tests (poku) on a matrix of Node versions × OS |
 | `lint.yml`           | PR / push to master | `pnpm run lint:check` (Biome)                       |
 | `repotests.yml`      | PR / push to master | Integration tests against real projects             |
+| `repotests-quick.yml` | PR / merge-group   | Quick tier of the repo tests; required status check |
 | `snapshot-tests.yml` | PR / push           | Snapshot comparisons of generated BOMs              |
 | `codeql.yml`         | Push / schedule     | CodeQL security analysis                            |
 | `build-image.yml`    | PR / push           | Docker image builds                                 |

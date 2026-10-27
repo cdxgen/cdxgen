@@ -956,8 +956,6 @@ ghcr.io/cdxgen/cdxgen:master-nydus
 
 ### Example invocation using nerdctl
 
-Refer to the nydus-demo.yml workflow for an example github action that demonstrates the use of nydus snapshotter to improve the performance of cdxgen.
-
 ```shell
 sudo nerdctl --snapshotter nydus run --rm -v $HOME/.m2:/root/.m2 -v $(pwd):/app ghcr.io/cdxgen/cdxgen:master-nydus -p -t java /app
 ```

@@ -1,9 +1,10 @@
 name: Node CI
 
-# golden-tests and rust-fetch-tests are required status checks on master and
-# run on every pull request and merge-group build. The heavy jobs below are
-# path-gated through the changes job instead, and stay out of merge-group
-# builds, where only the required checks re-run.
+# Every job in this workflow runs on every pull request and merge-group
+# build; nothing is path-gated, so a required check can no longer go green
+# by never starting. quick-tests, golden-tests and rust-fetch-tests are
+# required status checks on master. The expensive matrix jobs stay out of
+# merge-group builds, where only the required checks re-run.
 on:
   pull_request:
   merge_group:
@@ -36,34 +37,6 @@ concurrency:
 permissions: {}
 
 jobs:
-  changes:
-    runs-on: 'ubuntu-latest'
-    outputs:
-      code: ${{ steps.filter.outputs.code }}
-    steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
-        with:
-          persist-credentials: false
-      - uses: dorny/paths-filter@ceb8a2b8f2d89434be7ff52d3de7ec3738c5cc9d  # v4.0.3
-        id: filter
-        with:
-          filters: |
-            code:
-              - '.github/workflows/nodejs.yml'
-              - '.github/actions/**'
-              - '.nvmrc'
-              - '.pnpmfile.cjs'
-              - '.versions/node_*'
-              - 'bin/**'
-              - 'contrib/**'
-              - 'data/**'
-              - 'index.cjs'
-              - 'lib/**'
-              - 'package.json'
-              - 'pnpm-lock.yaml'
-              - 'test/repotests/**'
-              - 'devenv*'
-
   read-node-versions:
     runs-on: 'ubuntu-latest'
     outputs:
@@ -93,9 +66,33 @@ jobs:
           VERSIONS=[`awk 'BEGIN {ORS=""}; NR>2 && NR%2==0 {print ","}; FNR==2 {print "'\''"$1"'\''"}' .versions/node_*`]
           echo "versions=$VERSIONS" >> "$GITHUB_OUTPUT"
 
+  # The quick tier of the Node CI: the poku unit suite on the pinned Node.js
+  # version. It is a required status check on master and has no `if`, so it
+  # runs on every pull request and merge-group build and can never be skipped
+  # by a path filter.
+  quick-tests:
+    runs-on: 'ubuntu-latest'
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Setup pnpm
+        uses: pnpm/action-setup@ea17c68df8912ef543352723c149a84f56e3d413  # v6.1.0
+      - name: Use Node.js
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1  # v7.1.0
+        with:
+          node-version-file: .nvmrc
+          package-manager-cache: false
+      - name: pnpm install and test
+        run: |
+          pnpm install:frozen
+          pnpm test
+        env:
+          CI: true
+
   matrix-unit-test:
-    needs: [read-node-versions, changes]
-    if: needs.changes.outputs.code == 'true' && github.event_name != 'merge_group'
+    needs: [read-node-versions]
+    if: github.event_name != 'merge_group'
     strategy:
       fail-fast: false
       matrix:
@@ -139,8 +136,7 @@ jobs:
           CI: true
 
   depscan:
-    needs: changes
-    if: needs.changes.outputs.code == 'true' && github.event_name != 'merge_group'
+    if: github.event_name == 'push'
     continue-on-error: true
     runs-on: ["self-hosted", "ubuntu", "arm64"]
     permissions:
@@ -204,8 +200,6 @@ jobs:
           rm -rf /tmp/docker-images* /tmp/atom-* /tmp/mvn-deps*
 
   golden-tests:
-    needs: changes
-    if: needs.changes.outputs.code == 'true' && github.event_name != 'merge_group'
     runs-on: 'ubuntu-latest'
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
@@ -239,8 +233,6 @@ jobs:
   # a failure, so this job cannot go green by skipping everything it is here to
   # check.
   rust-fetch-tests:
-    needs: changes
-    if: needs.changes.outputs.code == 'true' && github.event_name != 'merge_group'
     runs-on: 'ubuntu-latest'
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
@@ -297,8 +289,7 @@ jobs:
           CDXGEN_REQUIRE_CDXRS: '1'
 
   deno-build:
-    needs: changes
-    if: needs.changes.outputs.code == 'true' && github.event_name != 'merge_group'
+    if: github.event_name != 'merge_group'
     strategy:
       fail-fast: true
       matrix:
