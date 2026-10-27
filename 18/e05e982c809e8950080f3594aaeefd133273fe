@@ -1,0 +1,30 @@
+.github/workflows/repotests.yml
+  h_0926447d100ad2 398-404
+lib/ecosystems/parsers-js.js
+  h_0926447d100ad2 1724,1727-1738,1740,1810-1816,1844-1855,1857-1859
+lib/ecosystems/parsers-js.poku.js
+  h_0926447d100ad2 2928-3071
+test/data/yarn-alias-mixed/package.json
+  h_0926447d100ad2 1-13
+test/data/yarn-alias-mixed/yarn.lock
+  h_0926447d100ad2 1-35
+test/data/yarn-scoped-alias-unversioned/package.json
+  h_0926447d100ad2 1-7
+test/data/yarn-scoped-alias-unversioned/yarn.lock
+  h_0926447d100ad2 1-7
+test/data/yarn-scoped-alias-versioned/package.json
+  h_0926447d100ad2 1-7
+test/data/yarn-scoped-alias-versioned/yarn.lock
+  h_0926447d100ad2 1-7
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "18e05e982c809e8950080f3594aaeefd133273fe",
+  "prompts": {},
+  "humans": {
+    "h_0926447d100ad2": {
+      "author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
