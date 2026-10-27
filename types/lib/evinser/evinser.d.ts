@@ -458,14 +458,6 @@ export declare function constructServiceName(_language: string, slice: Object): 
  */
 export declare function extractEndpoints(language: string, code: string): string[] | undefined;
 /**
- * Method to create the SBOM with evidence file called evinse file.
- *
- * @param {Object} sliceArtefacts Various artefacts from the slice operation
- * @param {Object} options Command line options
- * @returns
- */
-export declare function createEvinseFile(sliceArtefacts: Object, options: Object): Promise<any>;
-/**
  * Key naming the package a purl refers to, independent of its version,
  * qualifiers and subpath. Namespace and name are the decoded purl segments,
  * so an encoded scope (`%40angular/common`) keys like a plain one.
@@ -494,6 +486,14 @@ export declare function indexVersionlessPurls(dataFlowFrames: Object): Object;
  * @returns {Object} Algorithm bom-ref sets keyed by versionless purl key
  */
 export declare function indexVersionlessCrypto(cryptoGeneratePurls: Object): Object;
+/**
+ * Method to create the SBOM with evidence file called evinse file.
+ *
+ * @param {Object} sliceArtefacts Various artefacts from the slice operation
+ * @param {Object} options Command line options
+ * @returns
+ */
+export declare function createEvinseFile(sliceArtefacts: Object, options: Object): Promise<any>;
 /**
  * Method to convert dataflow slice into usable callstack frames
  * Implemented based on the logic proposed here - https://github.com/AppThreat/atom/blob/main/specification/docs/slices.md#data-flow-slice
