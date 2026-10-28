@@ -2,7 +2,10 @@ name: Node CI
 
 # Every job in this workflow runs on every pull request and merge-group
 # build; nothing is path-gated, so a required check can no longer go green
-# by never starting. quick-tests, golden-tests and rust-fetch-tests are
+# by never starting. The one exception is the fast lane: when a change touches
+# only files that no test reads (see .github/scripts/docs-only.mjs), the
+# required jobs still start and report success, but skip their steps and say
+# why in the job summary. quick-tests, golden-tests and rust-fetch-tests are
 # required status checks on master. The expensive matrix jobs stay out of
 # merge-group builds, where only the required checks re-run.
 on:
@@ -66,29 +69,61 @@ jobs:
           VERSIONS=[`awk 'BEGIN {ORS=""}; NR>2 && NR%2==0 {print ","}; FNR==2 {print "'\''"$1"'\''"}' .versions/node_*`]
           echo "versions=$VERSIONS" >> "$GITHUB_OUTPUT"
 
+  # Decides whether the change touches only files no test reads, see
+  # .github/scripts/docs-only.mjs. The jobs that need it still run and still
+  # report success; they skip their steps and say why in the job summary. If
+  # this job fails, they run in full.
+  lane:
+    runs-on: 'ubuntu-latest'
+    permissions:
+      contents: read
+    outputs:
+      docs-only: ${{ steps.lane.outputs.docs-only }}
+      reason: ${{ steps.lane.outputs.reason }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
+        with:
+          fetch-depth: 2
+          persist-credentials: false
+      - id: lane
+        run: node .github/scripts/docs-only.mjs
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+
   # The quick tier of the Node CI: the poku unit suite on the pinned Node.js
   # version. It is a required status check on master and has no `if`, so it
   # runs on every pull request and merge-group build and can never be skipped
   # by a path filter.
   quick-tests:
+    needs: [lane]
+    if: ${{ !cancelled() }}
     runs-on: 'ubuntu-latest'
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
         with:
           persist-credentials: false
       - name: Setup pnpm
+        if: needs.lane.outputs.docs-only != 'true'
         uses: pnpm/action-setup@ea17c68df8912ef543352723c149a84f56e3d413  # v6.1.0
       - name: Use Node.js
+        if: needs.lane.outputs.docs-only != 'true'
         uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1  # v7.1.0
         with:
           node-version-file: .nvmrc
           package-manager-cache: false
       - name: pnpm install and test
+        if: needs.lane.outputs.docs-only != 'true'
         run: |
           pnpm install:frozen
           pnpm test
         env:
           CI: true
+      - name: Skipped the suites
+        if: needs.lane.outputs.docs-only == 'true'
+        env:
+          REASON: ${{ needs.lane.outputs.reason }}
+        run: |
+          echo "Fast lane: $REASON, so the suites were not run." >> "$GITHUB_STEP_SUMMARY"
 
   matrix-unit-test:
     needs: [read-node-versions]
@@ -200,21 +235,27 @@ jobs:
           rm -rf /tmp/docker-images* /tmp/atom-* /tmp/mvn-deps*
 
   golden-tests:
+    needs: [lane]
+    if: ${{ !cancelled() }}
     runs-on: 'ubuntu-latest'
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
         with:
           persist-credentials: false
       - name: Setup pnpm
+        if: needs.lane.outputs.docs-only != 'true'
         uses: pnpm/action-setup@ea17c68df8912ef543352723c149a84f56e3d413  # v6.1.0
       - name: Use Node.js
+        if: needs.lane.outputs.docs-only != 'true'
         uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1  # v7.1.0
         with:
           node-version-file: .nvmrc
           package-manager-cache: false
       - name: pnpm install
+        if: needs.lane.outputs.docs-only != 'true'
         run: pnpm install:frozen
       - name: Run golden SBOM tests
+        if: needs.lane.outputs.docs-only != 'true'
         run: pnpm run test:golden
         env:
           CI: true
@@ -224,6 +265,7 @@ jobs:
       # JS path with itself and still catches golden drift); the job below is the
       # one that gives it teeth.
       - name: Run CDXGEN_RS_DISABLE byte-identical tests
+        if: needs.lane.outputs.docs-only != 'true'
         run: pnpm run test:rs-disable
         env:
           CI: true
@@ -232,7 +274,15 @@ jobs:
   # binary exists. CDXGEN_REQUIRE_CDXRS=1 turns a missing or too-old binary into
   # a failure, so this job cannot go green by skipping everything it is here to
   # check.
+      - name: Skipped the suites
+        if: needs.lane.outputs.docs-only == 'true'
+        env:
+          REASON: ${{ needs.lane.outputs.reason }}
+        run: |
+          echo "Fast lane: $REASON, so the suites were not run." >> "$GITHUB_STEP_SUMMARY"
   rust-fetch-tests:
+    needs: [lane]
+    if: ${{ !cancelled() }}
     runs-on: 'ubuntu-latest'
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
@@ -247,23 +297,28 @@ jobs:
       # on the same distribution and release the unit-test matrix pins, and
       # above the Java 23 floor atom needs.
       - name: Set up JDK
+        if: needs.lane.outputs.docs-only != 'true'
         uses: actions/setup-java@b843ebf9b913146b38da2eaa7aeddf76074ae1ad  # v6.1.0
         with:
           distribution: 'liberica'
           java-version: '24'
       - name: Route Maven Central through Google's mirror
-        if: runner.environment == 'github-hosted'
+        if: needs.lane.outputs.docs-only != 'true' && (runner.environment == 'github-hosted')
         run: node ci/maven-central-mirror.js
       - name: Setup pnpm
+        if: needs.lane.outputs.docs-only != 'true'
         uses: pnpm/action-setup@ea17c68df8912ef543352723c149a84f56e3d413  # v6.1.0
       - name: Use Node.js
+        if: needs.lane.outputs.docs-only != 'true'
         uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1  # v7.1.0
         with:
           node-version-file: .nvmrc
           package-manager-cache: false
       - name: pnpm install
+        if: needs.lane.outputs.docs-only != 'true'
         run: pnpm install:frozen
       - name: Check the cdxrs binary from cdxgen-plugins-bin
+        if: needs.lane.outputs.docs-only != 'true'
         run: |
           node --input-type=module -e '
           import { cdxrsAvailable, cdxrsBinaryPath } from "./lib/inventory/cdxrs.js";
@@ -277,16 +332,24 @@ jobs:
           '
         shell: bash
       - name: Unit tests with the Rust path enabled
+        if: needs.lane.outputs.docs-only != 'true'
         run: pnpm test
         env:
           CI: true
       - name: Golden and byte-identical tests with the Rust path enabled
+        if: needs.lane.outputs.docs-only != 'true'
         run: |
           pnpm run test:golden
           pnpm run test:rs-disable
         env:
           CI: true
           CDXGEN_REQUIRE_CDXRS: '1'
+      - name: Skipped the suites
+        if: needs.lane.outputs.docs-only == 'true'
+        env:
+          REASON: ${{ needs.lane.outputs.reason }}
+        run: |
+          echo "Fast lane: $REASON, so the suites were not run." >> "$GITHUB_STEP_SUMMARY"
 
   deno-build:
     if: github.event_name != 'merge_group'
