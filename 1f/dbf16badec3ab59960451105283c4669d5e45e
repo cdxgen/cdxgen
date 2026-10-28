@@ -1,0 +1,38 @@
+lib/ecosystems/parsers-js.poku.js
+  s_d125d44b622923::t_f989a5e6436112 30
+  s_d125d44b622923::t_d7af3e63f3f3b1 1380-1538,1543-1544,1549-1567
+  s_d125d44b622923::t_d100255d34bf60 1539-1542,1545-1548
+docs/CUSTOM_PROPERTIES.md
+  s_d125d44b622923::t_9cf24cac03671c 735
+  s_d125d44b622923::t_4a68efcef658b8 73,448
+lib/cli/jsBom.js
+  s_d125d44b622923::t_ff7a49c4d9f34d 909-911
+  s_d125d44b622923::t_6c51f8581ebfc2 169-171
+  s_d125d44b622923::t_b774cc06088dc1 1563
+test/data/pnpm-lock12-boot.yaml
+  s_d125d44b622923::t_8f31462892775f 1-197
+lib/ecosystems/parsers-js.js
+  s_d125d44b622923::t_f6e82b6d6214e1 3209-3240
+  s_d125d44b622923::t_67fdbf1e51ad55 3347-3348,4129-4230
+  s_d125d44b622923::t_e9ad83348d4f2a 3309-3310,3313-3314,3316-3317,3331-3346
+  s_d125d44b622923::t_9c8cc32f0df1ed 3265
+  s_d125d44b622923::t_84a7fa875f9142 4378-4383,4385-4390,4400,4404-4409
+  s_d125d44b622923::t_005b24647c8713 4415
+  s_d125d44b622923::t_fa9719da4e9d9a 3208,4384,4391-4399,4401-4403,4410
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "1fdbf16badec3ab59960451105283c4669d5e45e",
+  "prompts": {},
+  "sessions": {
+    "s_d125d44b622923": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "session_cd2813c8b4aa31f276a39ed97c4113e8",
+        "model": "GLM-5.3-Flash"
+      },
+      "human_author": "Team AppThreat <cloud@appthreat.com>"
+    }
+  }
+}
