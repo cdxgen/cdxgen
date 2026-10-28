@@ -50,4 +50,42 @@ export declare function collectExecutables(basePath: any, binPaths: any, exclude
  * @return {Array[String]} List of executables
  */
 export declare function collectSharedLibs(basePath: any, libPaths: any, ldConf: string, ldConfDirPattern: string, excludePaths?: any, extraLibGlobs?: any): any;
+/**
+ * The most native extension candidates one scan returns.
+ *
+ * @type {number}
+ */
+export declare const MAX_NATIVE_EXTENSIONS: number;
+/**
+ * Collect native extension modules under a root file system that the library
+ * collector does not see, leaving out paths a package database owns and paths
+ * already collected. Symlinks are not followed, so a link pointing out of the
+ * root is never listed.
+ *
+ * @param {string} basePath extracted root file system
+ * @param {string[]} [excludePaths] root-relative paths to leave out
+ * @returns {string[]} root-relative paths, sorted, capped at MAX_NATIVE_EXTENSIONS
+ */
+export declare function collectNativeExtensions(basePath: string, excludePaths?: string[]): string[];
+/**
+ * Mark language packages that an OS package installed. Alpine's py3-brotli
+ * ships a Brotli-1.1.0.dist-info that a Python scan reports as
+ * pkg:pypi/brotli@1.1.0, but a distro fixes it by backporting under the same
+ * upstream version, so a PyPI advisory range keeps matching after the fix. The
+ * `cdx:os:installedBy` property names the OS package that owns the
+ * installation record, so a consumer can judge the component by that package
+ * instead.
+ *
+ * A component is marked only when every installation record it was read from
+ * belongs to an OS package: a copy that pip put in a virtual environment
+ * beside the distro's is not the distro's to fix. Run it after duplicates
+ * merge, so that a merged component carries all of its records.
+ *
+ * @param {Object[]} components BOM components, mutated in place
+ * @param {Map<string, string>|undefined} ownerByPath root-relative file path to
+ *   owning OS package bom-ref
+ * @param {string} [rootDir] extracted root, stripped from absolute source paths
+ * @returns {number} how many components were marked
+ */
+export declare function markOsInstalledLanguagePackages(components: Object[], ownerByPath: Map<string, string> | undefined, rootDir?: string): number;
 //# sourceMappingURL=osPackageResolver.d.ts.map

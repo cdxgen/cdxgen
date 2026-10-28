@@ -105,6 +105,16 @@ export declare function validateAndRejectGitSource(filePath: string): Object | n
  */
 export declare function getGitRemoteHost(remote: string): string | undefined;
 /**
+ * Remove credentials from git output before it is logged. Every URL in the
+ * text loses its user name and password, which git copies into its error
+ * messages from the remote it was given.
+ *
+ * @param {string|undefined} text Output of a git command
+ * @param {string|undefined} repoUrl Remote the command was given
+ * @returns {string|undefined} Output with credentials replaced by ***
+ */
+export declare function redactGitOutput(text: string | undefined, repoUrl: string | undefined): string | undefined;
+/**
  * Clone a git repository into a temporary directory.
  *
  * @param {string} repoUrl Repository URL

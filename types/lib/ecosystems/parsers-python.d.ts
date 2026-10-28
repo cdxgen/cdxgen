@@ -83,6 +83,16 @@ export declare function installedMetadataKey(p: Object): string | undefined;
  */
 export declare function enrichFromInstalledMetadata(pkgList: Object[], installedMetadata: Object[]): Set<string>;
 /**
+ * Whether an environment marker is false for every CPython interpreter. Only
+ * `platform_python_implementation` and `implementation_name` clauses are
+ * decided; anything else, or a marker with parentheses, is treated as possibly
+ * true, so the answer errs towards keeping a package.
+ *
+ * @param {string} marker PEP 508 environment marker
+ * @returns {boolean} true when no CPython environment satisfies the marker
+ */
+export declare function markerExcludesCPython(marker: string): boolean;
+/**
  * Method to parse python lock files such as poetry.lock, pdm.lock, uv.lock, and pylock.toml.
  *
  * @param {string} lockData Raw TOML text from poetry.lock, pdm.lock, uv.lock, or pylock.toml

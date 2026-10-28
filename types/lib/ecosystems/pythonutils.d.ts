@@ -85,6 +85,24 @@ export declare function getPyModules(src: string, epkgList: any[], options: Obje
  */
 export declare function createUVLock(basePath: string, options: Object): void;
 /**
+ * Check whether a pyproject.toml requires poetry-core 2 or newer to build.
+ *
+ * @param {string} pyprojectFile Path to pyproject.toml
+ * @returns {boolean} true when the project needs Poetry 2 or newer
+ */
+export declare function isPoetry2Project(pyprojectFile: string): boolean;
+/**
+ * Build the poetry install arguments for a poetry project.
+ *
+ * Poetry 2 installs only the main dependency group and no extras by default,
+ * so projects requiring poetry-core 2 or newer also get --all-groups and
+ * --all-extras. Callers prepend the python invocation such as -m poetry.
+ *
+ * @param {string} pyprojectFile pyproject.toml or poetry.lock path of the project
+ * @returns {string[]} poetry install arguments
+ */
+export declare function getPoetryInstallArgs(pyprojectFile: string): string[];
+/**
  * Execute pip freeze by creating a virtual env in a temp directory and construct the dependency tree
  *
  * @param {string} basePath Base path
@@ -96,9 +114,9 @@ export declare function createUVLock(basePath: string, options: Object): void;
  */
 export declare function getPipFrozenTree(basePath: string, reqOrSetupFile: string, tempVenvDir: string, parentComponent: Object, projectRoot: any, getTreeWithPluginFn: any): Object;
 export declare function getPipTreeForPackages(basePath: any, pkgList: any, tempVenvDir: any, parentComponent: any, getTreeWithPluginFn: any): {
+    rootList?: undefined;
     dependenciesList?: undefined;
     failedPkgList?: undefined;
-    rootList?: undefined;
 } | {
     failedPkgList: any[];
     rootList: {
