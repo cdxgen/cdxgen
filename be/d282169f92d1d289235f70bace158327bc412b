@@ -1,0 +1,21 @@
+claude-plugin/skills/sbom-fidelity-loop/SKILL.md
+  s_18f08e2c47200e::t_19e8c70b962dcf 26
+.agents/skills/sbom-fidelity-loop/SKILL.md
+  s_18f08e2c47200e::t_19e8c70b962dcf 26
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "bed282169f92d1d289235f70bace158327bc412b",
+  "prompts": {},
+  "sessions": {
+    "s_18f08e2c47200e": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "session_6df9577b2fe85ae8509ed6ef79fa00cc",
+        "model": "unknown"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
