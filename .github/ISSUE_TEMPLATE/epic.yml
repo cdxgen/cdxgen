@@ -1,0 +1,39 @@
+name: Epic
+description: A planned body of work that has a plan document and several deliverables
+type: Epic
+body:
+  - type: input
+    id: plan
+    attributes:
+      label: Plan
+      description: Permalink to the plan file, pinned to a commit. See plans/README.md in cdxgen/.github.
+      placeholder: https://github.com/cdxgen/.github/blob/COMMIT/plans/NAME.md
+    validations:
+      required: true
+  - type: textarea
+    id: goal
+    attributes:
+      label: Goal
+      description: What will be true when this epic is done, in a few sentences.
+    validations:
+      required: true
+  - type: textarea
+    id: deliverables
+    attributes:
+      label: Deliverables
+      description: One line per deliverable. Create each one as a sub-issue after the epic is opened.
+    validations:
+      required: true
+  - type: dropdown
+    id: ai-use
+    attributes:
+      label: Expected AI use
+      description: The level that fits how the work is expected to be done, as in CONTRIBUTING.md.
+      options:
+        - None
+        - Assist
+        - Pair
+        - Copilot
+        - Auto
+    validations:
+      required: true
