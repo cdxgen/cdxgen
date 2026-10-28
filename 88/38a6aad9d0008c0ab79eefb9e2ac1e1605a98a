@@ -1,0 +1,21 @@
+docs/PROJECT_TYPES.md
+  s_18f08e2c47200e::t_5b4e7438b6be5c 106
+docs/EVINSE.md
+  s_18f08e2c47200e::t_4203402902cc1e 204
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "8838a6aad9d0008c0ab79eefb9e2ac1e1605a98a",
+  "prompts": {},
+  "sessions": {
+    "s_18f08e2c47200e": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "session_6df9577b2fe85ae8509ed6ef79fa00cc",
+        "model": "unknown"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
