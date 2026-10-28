@@ -158,6 +158,18 @@ export declare const extractFromManifest: (manifestFile: string, localData: Obje
  */
 export declare const exportImage: (fullImageName: any, options: any) => Promise<any>;
 /**
+ * The gem directories an image's environment names in GEM_HOME, GEM_PATH and
+ * BUNDLE_PATH. Only absolute paths without `..` segments are kept, so an image
+ * cannot steer the scan outside its own root, and each is normalized; the root
+ * and broad system directories such as /usr or /var are refused, so an image
+ * cannot turn the gem scan into a scan of the whole tree.
+ *
+ * @param {string[]|undefined} env image config Env entries, `NAME=value`
+ * @returns {string[]} absolute in-image directories, deduplicated, at most
+ *   MAX_IMAGE_GEM_DIRS
+ */
+export declare function imageGemDirs(env: string[] | undefined): string[];
+/**
  * Method to retrieve path list for system-level packages
  */
 export declare const getPkgPathList: (exportData: any, lastWorkingDir: any) => any[];
