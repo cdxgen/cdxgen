@@ -935,6 +935,15 @@ cdxgen -t java -o bom.json .
 
 `MAVEN_CENTRAL_URL` only changes where cdxgen itself fetches POMs from. Maven, Gradle and sbt keep using the repositories their own configuration names.
 
+To move the build tools as well, set `MAVEN_CENTRAL_MIRROR`:
+
+```shell
+export MAVEN_CENTRAL_MIRROR=true   # or eu, asia, or a https:// URL of your own mirror
+cdxgen -t java -o bom.json .
+```
+
+cdxgen then sends Maven Central to Google's mirror for itself and for every JVM build tool it runs, without changing the scanned project or your home directory: Maven and the Maven wrapper get a generated global `settings.xml` (or `MVNW_REPOURL`), Gradle a generated init script, sbt a generated repositories file named in `SBT_OPTS`, the Coursier tools the `COURSIER_REPOSITORIES` environment variable, Bazel a `--repo_env` flag, and the Clojure CLI a `-Sdeps` repository override (Leiningen a `lein update-in` transformation). Only the default Central URLs move: a repository your own settings, init script or build declares is never replaced, and a `MAVEN_CENTRAL_URL` you set explicitly still wins for cdxgen's own lookups. The BOM keeps reporting Maven Central URLs. Mill resolves through Coursier libraries that have no project-free override, so there the env var covers the Coursier-driven parts. The injections are skipped in secure mode and removed with the run.
+
 ### Other registry rate limits
 
 Every registry request cdxgen makes, batched or not, waits behind one rate gate per host. Within a run:
