@@ -193,12 +193,11 @@ export declare function parsePnpmAliasRef(value: string): Object | undefined;
  * @param {Object} parentComponent parent component
  * @param {Array[String]} workspacePackages Workspace packages
  * @param {Object} workspaceSrcFiles Workspace package.json files
- * @param {Object} _workspaceCatalogs Workspace catalogs
  * @param {Object} _workspaceDirectDeps Direct dependencies of each workspace
  * @param {Object} depsWorkspaceRefs Workspace references for each dependency
  * @param {string} projectRoot Root path used to relativize pnpm-lock evidence paths
  */
-export declare function parsePnpmLock(pnpmLock: string, parentComponent?: Object, workspacePackages?: any, workspaceSrcFiles?: Object, _workspaceCatalogs?: Object, _workspaceDirectDeps?: Object, depsWorkspaceRefs?: Object, projectRoot?: string): Promise<{
+export declare function parsePnpmLock(pnpmLock: string, parentComponent?: Object, workspacePackages?: any, workspaceSrcFiles?: Object, _workspaceDirectDeps?: Object, depsWorkspaceRefs?: Object, projectRoot?: string): Promise<{
     pkgList?: undefined;
     dependenciesList?: undefined;
     parentSubComponents?: undefined;
