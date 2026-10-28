@@ -187,6 +187,22 @@ export declare function pnpmMetadata(pkgList: any[], lockFilePath: string): any[
  */
 export declare function parsePnpmAliasRef(value: string): Object | undefined;
 /**
+ * Decide whether a parsed pnpm lockfile document is a boot document.
+ *
+ * Since pnpm 12 a lockfile can hold two YAML documents. The first, the boot
+ * document, records the project's config dependencies and the resolved pnpm
+ * version under its importers, and the last is the project lockfile. The
+ * boot document is recognised by these keys rather than by its position
+ * alone, and tolerates either key missing.
+ *
+ * See: https://pnpm.io/lockfile
+ *
+ * @param {Object} docObj Parsed YAML document
+ *
+ * @returns {boolean} true when the document looks like a boot document
+ */
+export declare function isPnpmBootDocument(docObj: Object): boolean;
+/**
  * Parse nodejs pnpm lock file
  *
  * @param {string} pnpmLock pnpm-lock.yaml file
@@ -197,25 +213,7 @@ export declare function parsePnpmAliasRef(value: string): Object | undefined;
  * @param {Object} depsWorkspaceRefs Workspace references for each dependency
  * @param {string} projectRoot Root path used to relativize pnpm-lock evidence paths
  */
-export declare function parsePnpmLock(pnpmLock: string, parentComponent?: Object, workspacePackages?: any, workspaceSrcFiles?: Object, _workspaceDirectDeps?: Object, depsWorkspaceRefs?: Object, projectRoot?: string): Promise<{
-    pkgList?: undefined;
-    dependenciesList?: undefined;
-    parentSubComponents?: undefined;
-} | {
-    pkgList: any[];
-    dependenciesList: {
-        ref: string;
-        dependsOn: any[];
-    }[];
-    parentSubComponents: {
-        group: any;
-        name: any;
-        version: any;
-        type: string;
-        purl: any;
-        "bom-ref": string;
-    }[];
-}>;
+export declare function parsePnpmLock(pnpmLock: string, parentComponent?: Object, workspacePackages?: any, workspaceSrcFiles?: Object, _workspaceDirectDeps?: Object, depsWorkspaceRefs?: Object, projectRoot?: string): Promise<{}>;
 /**
  * Parse bower json file
  *

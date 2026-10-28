@@ -417,14 +417,7 @@ export declare function isFilterableType(language: string, userDefinedTypesMap: 
  * @returns {void}
  */
 export declare function detectServicesFromOpenAPI(_language: string, openapiSpecFile: string, servicesMap: Object): void;
-/**
- * Method to detect services from annotation objects in the usage slice
- *
- * @param {string} language Application language
- * @param {Array} slice Usages array for each objectSlice
- * @param {Object} servicesMap Existing service map
- */
-export declare function detectServicesFromUsages(language: string, slice: any[], servicesMap?: Object): never[] | undefined;
+export declare function detectServicesFromUsages(language: any, slice: any, servicesMap?: {}): never[] | undefined;
 /**
  * Method to detect services from user defined types in the usage slice
  *
@@ -555,4 +548,37 @@ export declare function simplifyType(typeFullName: string): string;
  * @returns {string|undefined} Enclosing class type or `undefined` when it cannot be resolved
  */
 export declare function getClassTypeFromSignature(language: string, typeFullName: string): string | undefined;
+/**
+ * npm package name of a JavaScript module specifier: `@scope/pkg/sub` -> `@scope/pkg`,
+ * `lodash/fp` -> `lodash`. Node.js builtins (`node:fs`, `fs`) are not packages.
+ *
+ * @param {string} module module specifier
+ * @returns {string|undefined} package name
+ */
+export declare function jsPackageOfModule(module: string): string | undefined;
+/**
+ * Attribute a JavaScript usage's module-qualified entries to the packages providing them.
+ *
+ * Each call entry with a `module` is a use of that module's package at the call's line. When
+ * the slice's object is an import binding (defined by a require/import naming the module),
+ * every call the object takes part in is a use of that package too.
+ *
+ * @param {Object} ausage usage entry of an object slice
+ * @param {string} fileName file of the slice
+ * @param {Object} purlImportsMap purl -> imported modules and symbols
+ * @param {Object} purlLocationMap purl -> Set of `file#line`
+ */
+export declare function attributeJsModules(ausage: Object, fileName: string, purlImportsMap: Object, purlLocationMap: Object): void;
+/**
+ * Attribute a callsites slice's records to the packages providing their modules.
+ *
+ * Each record of `{"callsites": [...]}` (atom `callsites` command) is one external use site
+ * carrying its own file and line; the record is an occurrence of every purl whose package
+ * matches the record's module.
+ *
+ * @param {Object} callsitesSlice callsites slice with a `callsites` array
+ * @param {Object} purlImportsMap purl -> imported modules and symbols
+ * @param {Object} purlLocationMap purl -> Set of `file#line`
+ */
+export declare function attributeJsCallsites(callsitesSlice: Object, purlImportsMap: Object, purlLocationMap: Object): void;
 //# sourceMappingURL=evinser.d.ts.map

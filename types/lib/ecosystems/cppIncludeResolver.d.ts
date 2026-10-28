@@ -33,12 +33,13 @@ export declare function parseCIncludeSlices(sliceData: Object): Map<string, {
  * line relative to the installed directory.
  *
  * @param {string[]} installedDirs `vcpkg_installed` directories
- * @returns {Map<string, {port: string, version: string, triplet: string}>}
+ * @returns {Map<string, {port: string, version: string, triplet: string, portVersion?: string}>}
  */
 export declare function readVcpkgInstalledIndex(installedDirs: string[]): Map<string, {
     port: string;
     version: string;
     triplet: string;
+    portVersion?: string;
 }>;
 /**
  * The package folders of a Conan 2 cache, from its database

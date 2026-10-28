@@ -382,6 +382,17 @@ export declare function gitAiNotes(dir: string, options?: {
  */
 export declare function gitRevertsAndHotfixes(dir: string, maxCount?: number): Array<Object>;
 /**
+ * Whether the running Node.js links a bundled dependency as a shared library,
+ * from the `node_shared_<name>` configure variables it reports.
+ *
+ * @param {string} name key of process.versions
+ * @param {Object} [variables] configure variables, process.config.variables
+ *   by default
+ * @returns {string|undefined} `shared`, `bundled`, or undefined when the build
+ *   does not say
+ */
+export declare function nodeComponentLinkage(name: string, variables?: Object): string | undefined;
+/**
  * Get information about the runtime.
  *
  * @returns {Object} Object containing the name and version of the runtime

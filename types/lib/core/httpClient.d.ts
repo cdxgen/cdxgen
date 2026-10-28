@@ -85,6 +85,30 @@ export declare function getDefaultHttpTimeoutMs(): number;
  */
 export declare function resolveTimeout(timeout?: number | Object): number | undefined;
 /**
+ * Set or clear the cached runtime Brotli verdict. Exported for unit tests only.
+ *
+ * @param {boolean|undefined} verdict verdict to use, or undefined to re-check
+ */
+export declare function _setRuntimeBrotliVerdict(verdict: boolean | undefined): void;
+/**
+ * Whether the Brotli decoder of the runtime cdxgen runs on carries the
+ * CVE-2026-111497 fix, read once from the decoder itself: the node binary, or
+ * the shared libbrotlidec a `--shared-brotli` build (Homebrew, distro
+ * packages) loads; under Bun, the bun binary, which carries its own copy.
+ * process.versions.brotli cannot answer this, since Node.js backports the fix
+ * without changing it. Deno decodes Brotli in Rust, which was never affected.
+ *
+ * On Node.js cdxgen never asks for `br`, so a Brotli response comes only from
+ * a server that sends it unasked. When the decoder cannot be shown to be
+ * patched, such a body is left undecoded rather than handed to a decoder an
+ * attacker can write past. Bun decodes in its transport, so there the client
+ * stops asking for `br` instead.
+ *
+ * @param {Object} [runtime] the runtime to judge, for tests
+ * @returns {boolean} true when Brotli bodies may be decoded
+ */
+export declare function runtimeBrotliDecoderIsPatched(runtime?: Object): boolean;
+/**
  * Override the response cache bounds. Returns the previous bounds so tests can
  * restore them. Not part of the public API.
  *

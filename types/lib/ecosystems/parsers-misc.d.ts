@@ -370,6 +370,25 @@ export declare function parseCmakeDotFile(dotFile: string, pkgType: string, opti
  */
 export declare function cmakeFetchDependencyComponent(dep: Object, srcFile: string): Object;
 /**
+ * Read the wrap files of a meson project's subprojects directory: which
+ * dependency names each wrap provides, and the version it pins.
+ * https://mesonbuild.com/Wrap-dependency-system-manual.html
+ *
+ * A WrapDB wrap records `wrapdb_version = <upstream>-<wrap revision>`; any wrap
+ * names its unpacked `directory` and its archive, which carry the upstream
+ * version; a git wrap pins a `revision` that is often a version tag.
+ *
+ * @param {string} subprojectsDir path of the subprojects directory
+ * @returns {Map<string, {wrap: string, version: string, source: string, revision?: string}>}
+ *   by provided dependency name, lower-case
+ */
+export declare function readMesonWraps(subprojectsDir: string): Map<string, {
+    wrap: string;
+    version: string;
+    source: string;
+    revision?: string;
+}>;
+/**
  * Parse a CMake-like build file (CMakeLists.txt, meson.build, etc.) and extract the
  * parent component and list of dependency packages.
  *
