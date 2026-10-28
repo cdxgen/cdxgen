@@ -1,0 +1,11 @@
+{
+  "name": "@repo/lib",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "ms": "2.1.3"
+  },
+  "devDependencies": {
+    "picocolors": "^1.0.0"
+  }
+}
