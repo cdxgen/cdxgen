@@ -1,0 +1,32 @@
+rules:
+  # The workflows under test/ (cache-disable.yml, cargo.yml and ci.yml) are
+  # inputs that cdxgen scans in its own tests. They are intentionally naive,
+  # so they are not audited. zizmor matches ignores on the file name only, and
+  # no workflow under .github/workflows uses these names.
+  unpinned-uses:
+    ignore:
+      - cache-disable.yml
+      - cargo.yml
+      - ci.yml
+  artipacked:
+    ignore:
+      - cache-disable.yml
+      - cargo.yml
+      - ci.yml
+  excessive-permissions:
+    ignore:
+      - cache-disable.yml
+      - cargo.yml
+      - ci.yml
+  # project-sync.yml runs with empty permissions, never checks out or runs
+  # pull request code, and only calls a SHA-pinned reusable workflow with an
+  # explicit secret list. Re-review it if the delegate changes.
+  dangerous-triggers:
+    ignore:
+      - project-sync.yml
+  # These workflows only run tests and publish nothing from cached state.
+  cache-poisoning:
+    ignore:
+      - repotests.yml
+      - repotests-quick.yml
+      - bun.yml
