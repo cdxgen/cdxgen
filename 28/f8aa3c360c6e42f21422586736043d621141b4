@@ -1,0 +1,33 @@
+.github/scripts/docs-only.test.mjs
+  s_7259a555d05c3e::t_73edae2db02fc7 4,23-44,52,62
+  s_7259a555d05c3e::t_0359de70e99d22 1-3,5-22,45-51,53-61,63-81
+.github/workflows/repotests-quick.yml
+  s_7259a555d05c3e::t_b7d6620ebb6b54 7-9
+  s_7259a555d05c3e::t_1165dc92e34c93 35-55,57,60,66,70,76,82,89,92,98,107,141,151,164,177,192,201,231,239,246,269,280,290,307,316,370,384,402,410,428,467-468,474,477,483,487,494,501,508,515,521,524,527,533,542,552,558,567,572,579,581-582
+  s_7259a555d05c3e::t_7fe190b756c20b 469-472,583-586
+.github/workflows/lint.yml
+  s_7259a555d05c3e::t_b7d6620ebb6b54 46-47
+.github/scripts/docs-only.mjs
+  s_7259a555d05c3e::t_0359de70e99d22 1-4,9-21,36-56,76-87,93-141
+  s_7259a555d05c3e::t_73edae2db02fc7 5-8,22-35,57-75,88-92
+.github/workflows/nodejs.yml
+  s_7259a555d05c3e::t_b7d6620ebb6b54 5-8
+  s_7259a555d05c3e::t_1165dc92e34c93 43-63,98-99,106,109,115,121-122,238-239,246,249,255,258,268,277-278,284-285,300,306,309,312,318,321,335,340,347-348
+  s_7259a555d05c3e::t_7fe190b756c20b 123-126,279-282,349-352
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "28f8aa3c360c6e42f21422586736043d621141b4",
+  "prompts": {},
+  "sessions": {
+    "s_7259a555d05c3e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "369df51b-6592-47e6-a54c-85110ab6d9b9",
+        "model": "claude-sonnet-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
