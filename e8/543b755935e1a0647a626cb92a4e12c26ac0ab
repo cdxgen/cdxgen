@@ -1,0 +1,29 @@
+test/data/pnpm-catalogs-repotest/package.json
+  s_a07fc29b45e734::t_b598c83edcb3e2 1-8
+test/data/pnpm-catalogs-repotest/packages/app/package.json
+  s_a07fc29b45e734::t_b598c83edcb3e2 1-9
+lib/cli/jsBom.poku.js
+  s_a07fc29b45e734::t_67d8e4875cdd65 1013-1035
+test/data/pnpm-catalogs-repotest/pnpm-workspace.yaml
+  s_a07fc29b45e734::t_b598c83edcb3e2 1-8
+lib/ecosystems/parsers-js.poku.js
+  s_a07fc29b45e734::t_67d8e4875cdd65 1612-1652
+test/data/pnpm-catalogs-repotest/pnpm-lock.yaml
+  s_a07fc29b45e734::t_f321375c2e5460 1-55
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "e8543b755935e1a0647a626cb92a4e12c26ac0ab",
+  "prompts": {},
+  "sessions": {
+    "s_a07fc29b45e734": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "session_a4355731dd1d04d6c2ee19c8bc2aab72",
+        "model": "unknown"
+      },
+      "human_author": "Team AppThreat <cloud@appthreat.com>"
+    }
+  }
+}
