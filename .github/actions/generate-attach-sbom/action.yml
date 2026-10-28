@@ -37,16 +37,16 @@ runs:
     - name: Generate and attach SBOM
       shell: bash
       run: |
-        node bin/cdxgen.js -t docker -o sbom-oci-image.cdx.json ${{ runner.temp }}/image.tar
+        node bin/cdxgen.js -t docker -o sbom-oci-image.cdx.json "$RUNNER_TEMP/image.tar"
         node bin/verify.js -i sbom-oci-image.cdx.json --public-key contrib/bom-signer/public.key
-        raw_tags="${{ inputs.tags }}"
+        raw_tags="$TAGS"
         tags_list=$(echo "$raw_tags" | tr ',' ' ' | tr '\n' ' ')
         for tag in $tags_list; do
           attached=false
           for attempt in 1 2 3; do
             echo "Attaching SBOM to $tag"
             if node bin/sign.js -i sbom-oci-image.cdx.json --attach "$tag" \
-              && node bin/verify.js -i "$tag" --platform ${{ inputs.platform }} --public-key contrib/bom-signer/public.key; then
+              && node bin/verify.js -i "$tag" --platform "$PLATFORM" --public-key contrib/bom-signer/public.key; then
               attached=true
               break
             fi
@@ -58,8 +58,10 @@ runs:
             exit 1
           fi
         done
-        rm sbom-oci-image.cdx.json ${{ runner.temp }}/image.tar
+        rm sbom-oci-image.cdx.json "$RUNNER_TEMP/image.tar"
       env:
+        TAGS: ${{ inputs.tags }}
+        PLATFORM: ${{ inputs.platform }}
         CDXGEN_OCI_TIMEOUT_MS: 60000
         CDXGEN_TEMP_DIR: ${{ runner.temp }}/cdxgen-sboms
         DOCKER_USE_CLI: true

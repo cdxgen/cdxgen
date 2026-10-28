@@ -26,7 +26,8 @@ jobs:
       packages: write  # needed for publishing images on GH package registry
     if: github.repository == 'cdxgen/cdxgen'
     uses: ./.github/workflows/image-build.yml
-    secrets: inherit
+    secrets:
+      SBOM_SIGN_PRIVATE_KEY: ${{ secrets.SBOM_SIGN_PRIVATE_KEY }}
     with:
       image: |
         {
