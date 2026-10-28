@@ -1,0 +1,16 @@
+lib/ecosystems/pythonutils.js
+  h_0926447d100ad2 14,29,617-738,869-871,885
+lib/ecosystems/pythonutils.poku.js
+  h_0926447d100ad2 17,22,554-672
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "11a6f493fcd4c039386b3b22282a6d68d3a17595",
+  "prompts": {},
+  "humans": {
+    "h_0926447d100ad2": {
+      "author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
