@@ -1,0 +1,19 @@
+lib/ecosystems/parsers-js.js
+  s_85aedb622b3a40::t_83b970b2f03495 4379,4383-4385,4387,4389
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "58aae439c3e1cf1d0bd4d5bb44e173edd9474c70",
+  "prompts": {},
+  "sessions": {
+    "s_85aedb622b3a40": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "44059939-15eb-4b1e-b801-b16809b967d4",
+        "model": "claude-sonnet-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
