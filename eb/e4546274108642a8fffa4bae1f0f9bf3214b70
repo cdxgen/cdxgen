@@ -1,0 +1,20 @@
+lib/cli/cryptoCertsPlugin.poku.js
+  s_85aedb622b3a40::t_b4a42d14182d43 82,84-95,143,145,194,196,242,268,270
+  s_85aedb622b3a40::t_19d39f2fd4d393 16-17,24-25,27-28,37,40-56,58-70,74
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "ebe4546274108642a8fffa4bae1f0f9bf3214b70",
+  "prompts": {},
+  "sessions": {
+    "s_85aedb622b3a40": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "44059939-15eb-4b1e-b801-b16809b967d4",
+        "model": "claude-sonnet-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
