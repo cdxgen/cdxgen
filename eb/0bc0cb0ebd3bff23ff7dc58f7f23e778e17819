@@ -1,0 +1,19 @@
+.github/zizmor.yml
+  s_9ef41a999f4dfc::t_fa0b48a7ee841d 33-42
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "eb0bc0cb0ebd3bff23ff7dc58f7f23e778e17819",
+  "prompts": {},
+  "sessions": {
+    "s_9ef41a999f4dfc": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "664079b5-fb65-49df-a81f-2b91f06cbafa",
+        "model": "claude-sonnet-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
