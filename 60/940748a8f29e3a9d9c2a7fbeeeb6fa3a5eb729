@@ -1,0 +1,33 @@
+lib/ecosystems/parsers-js.js
+  s_a07fc29b45e734::t_61eb7770292711 3355-3382,4027-4046
+test/data/pnpm-patched-repotest/package.json
+  s_a07fc29b45e734::t_4fc6a32c9a227b 1-8
+test/data/pnpm-patched-repotest/patches/ms@2.1.3.patch
+  s_a07fc29b45e734::t_4fc6a32c9a227b 1-12
+docs/CUSTOM_PROPERTIES.md
+  s_a07fc29b45e734::t_61eb7770292711 448,736-738
+lib/ecosystems/parsers-js.poku.js
+  s_a07fc29b45e734::t_61eb7770292711 1568-1611
+test/data/pnpm-patched-repotest/pnpm-workspace.yaml
+  s_a07fc29b45e734::t_4fc6a32c9a227b 1-2
+lib/cli/jsBom.poku.js
+  s_a07fc29b45e734::t_61eb7770292711 942-1015
+test/data/pnpm-patched-repotest/pnpm-lock.yaml
+  s_a07fc29b45e734::t_e9cba1026e7813 1-25
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "60940748a8f29e3a9d9c2a7fbeeeb6fa3a5eb729",
+  "prompts": {},
+  "sessions": {
+    "s_a07fc29b45e734": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "session_a4355731dd1d04d6c2ee19c8bc2aab72",
+        "model": "unknown"
+      },
+      "human_author": "Team AppThreat <cloud@appthreat.com>"
+    }
+  }
+}
