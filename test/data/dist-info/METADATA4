@@ -1,0 +1,15 @@
+Metadata-Version: 2.4
+Name: samplepkg
+Version: 2.4.0
+Summary: Sample package with both new and old license fields
+Author: Sample Author
+License: Apache-2.0 OR GPL-3.0-or-later
+Classifier: Development Status :: 4 - Beta
+Classifier: License :: OSI Approved :: Apache Software License
+Classifier: Programming Language :: Python :: 3
+License-Expression: MIT OR Apache-2.0
+License-File: LICENSE
+Requires-Python: >=3.9
+Description-Content-Type: text/plain
+
+Sample package carrying both the PEP 639 fields and the older ones.
