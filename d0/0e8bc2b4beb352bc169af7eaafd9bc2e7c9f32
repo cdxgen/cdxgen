@@ -1,0 +1,126 @@
+types/lib/cli/index.d.ts.map
+  h_6a4cc5cdf68def 1
+types/lib/cli/jvmBom.d.ts.map
+  h_6a4cc5cdf68def 1
+types/lib/cli/managedBom.d.ts.map
+  h_6a4cc5cdf68def 1
+types/lib/cli/nativeBom.d.ts.map
+  h_6a4cc5cdf68def 1
+types/lib/core/boundedFile.d.ts
+  h_6a4cc5cdf68def 1-70
+types/lib/core/boundedFile.d.ts.map
+  h_6a4cc5cdf68def 1
+types/lib/core/brotliProbe.d.ts
+  h_6a4cc5cdf68def 1-37
+types/lib/core/brotliProbe.d.ts.map
+  h_6a4cc5cdf68def 1
+types/lib/core/httpClient.d.ts
+  h_6a4cc5cdf68def 87-110
+types/lib/core/httpClient.d.ts.map
+  h_6a4cc5cdf68def 1
+types/lib/ecosystems/cppEvidence.d.ts
+  h_6a4cc5cdf68def 13-52
+types/lib/ecosystems/cppEvidence.d.ts.map
+  h_6a4cc5cdf68def 1
+types/lib/ecosystems/cppIncludeResolver.d.ts
+  h_6a4cc5cdf68def 36,42
+types/lib/ecosystems/cppIncludeResolver.d.ts.map
+  h_6a4cc5cdf68def 1
+types/lib/ecosystems/parsers-bazel.d.ts.map
+  h_6a4cc5cdf68def 1
+types/lib/ecosystems/parsers-js.d.ts
+  h_6a4cc5cdf68def 189-204,216
+types/lib/ecosystems/parsers-js.d.ts.map
+  h_6a4cc5cdf68def 1
+types/lib/ecosystems/parsers-misc.d.ts
+  h_6a4cc5cdf68def 372-390
+types/lib/ecosystems/parsers-misc.d.ts.map
+  h_6a4cc5cdf68def 1
+types/lib/ecosystems/parsers-python.d.ts
+  h_6a4cc5cdf68def 85-94
+types/lib/ecosystems/parsers-python.d.ts.map
+  h_6a4cc5cdf68def 1
+types/lib/ecosystems/pythonutils.d.ts
+  h_6a4cc5cdf68def 87-104,117
+types/lib/ecosystems/pythonutils.d.ts.map
+  h_6a4cc5cdf68def 1
+types/lib/ecosystems/rubyutils.d.ts.map
+  h_6a4cc5cdf68def 1
+types/lib/ecosystems/vendoredCode.d.ts
+  h_6a4cc5cdf68def 17-42
+types/lib/ecosystems/vendoredCode.d.ts.map
+  h_6a4cc5cdf68def 1
+types/lib/ecosystems/venvProbe.d.ts
+  h_6a4cc5cdf68def 1-40
+types/lib/ecosystems/venvProbe.d.ts.map
+  h_6a4cc5cdf68def 1
+types/lib/evinser/evinser.d.ts
+  h_6a4cc5cdf68def 420,551-583
+types/lib/evinser/evinser.d.ts.map
+  h_6a4cc5cdf68def 1
+types/lib/inventory/atomUtils.d.ts.map
+  h_6a4cc5cdf68def 1
+types/lib/inventory/brotliDecoder.d.ts
+  h_6a4cc5cdf68def 1-58
+types/lib/inventory/brotliDecoder.d.ts.map
+  h_6a4cc5cdf68def 1
+types/lib/inventory/cbomutils.d.ts
+  h_6a4cc5cdf68def 33-49
+types/lib/inventory/cbomutils.d.ts.map
+  h_6a4cc5cdf68def 1
+types/lib/inventory/dotnetRuntime.d.ts
+  h_6a4cc5cdf68def 1-44
+types/lib/inventory/dotnetRuntime.d.ts.map
+  h_6a4cc5cdf68def 1
+types/lib/inventory/envcontext.d.ts
+  h_6a4cc5cdf68def 384-394
+types/lib/inventory/envcontext.d.ts.map
+  h_6a4cc5cdf68def 1
+types/lib/inventory/gtfobins.d.ts.map
+  h_6a4cc5cdf68def 1
+types/lib/inventory/hostRuntimeProbe.d.ts
+  h_6a4cc5cdf68def 1-26
+types/lib/inventory/hostRuntimeProbe.d.ts.map
+  h_6a4cc5cdf68def 1
+types/lib/inventory/licenseEnhancer.d.ts.map
+  h_6a4cc5cdf68def 1
+types/lib/inventory/nodeBuildInfo.d.ts
+  h_6a4cc5cdf68def 1-95
+types/lib/inventory/nodeBuildInfo.d.ts.map
+  h_6a4cc5cdf68def 1
+types/lib/inventory/nodeHostProbe.d.ts
+  h_6a4cc5cdf68def 1-15
+types/lib/inventory/nodeHostProbe.d.ts.map
+  h_6a4cc5cdf68def 1
+types/lib/inventory/osPackageResolver.d.ts
+  h_6a4cc5cdf68def 53-90
+types/lib/inventory/osPackageResolver.d.ts.map
+  h_6a4cc5cdf68def 1
+types/lib/inventory/phpBuildInfo.d.ts.map
+  h_6a4cc5cdf68def 1
+types/lib/inventory/phpHostProbe.d.ts.map
+  h_6a4cc5cdf68def 1
+types/lib/inventory/source.d.ts
+  h_6a4cc5cdf68def 107-116
+types/lib/inventory/source.d.ts.map
+  h_6a4cc5cdf68def 1
+types/lib/managers/binary.d.ts.map
+  h_6a4cc5cdf68def 1
+types/lib/managers/docker.d.ts
+  h_6a4cc5cdf68def 160-171
+types/lib/managers/docker.d.ts.map
+  h_6a4cc5cdf68def 1
+types/lib/server/server.d.ts.map
+  h_6a4cc5cdf68def 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "d00e8bc2b4beb352bc169af7eaafd9bc2e7c9f32",
+  "prompts": {},
+  "humans": {
+    "h_6a4cc5cdf68def": {
+      "author": "Team AppThreat <cloud@appthreat.com>"
+    }
+  }
+}
