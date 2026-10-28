@@ -1,0 +1,12 @@
+{
+  "name": "web",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "@repo/lib": "workspace:*",
+    "clsx": "^2.1.1"
+  },
+  "devDependencies": {
+    "chalk": "^5.0.0"
+  }
+}
