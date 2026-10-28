@@ -1,0 +1,26 @@
+docs/CUSTOM_PROPERTIES.md
+  s_85aedb622b3a40::t_9add29b8814f9a 738
+  s_85aedb622b3a40::t_283ef889cd2c0a 736-737
+lib/ecosystems/parsers-js.js
+  s_85aedb622b3a40::t_9a1151e0b3d209 3209-3248,3406-3408
+  s_85aedb622b3a40::t_b6b8fd0aecd225 3208
+lib/ecosystems/parsers-js.poku.js
+  s_85aedb622b3a40::t_a4422f769c71bb 4675-4707
+  s_85aedb622b3a40::t_2c57930817d523 2
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "7db03fd55e0e10b1695c0a0d5ec960cc63517932",
+  "prompts": {},
+  "sessions": {
+    "s_85aedb622b3a40": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "44059939-15eb-4b1e-b801-b16809b967d4",
+        "model": "claude-sonnet-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
