@@ -1,0 +1,27 @@
+name: Project sync
+
+# Keeps the cdxgen roadmap project in step with issues and pull requests, for
+# the cases the project's built-in workflows cannot handle. See
+# https://github.com/cdxgen/.github/tree/main/project
+on:
+  issues:
+    types: [labeled, unlabeled]
+  pull_request_target:
+    types: [opened, reopened, edited, ready_for_review, converted_to_draft, closed, labeled]
+
+concurrency:
+  group: project-sync-${{ github.event.issue.number || github.event.pull_request.number }}
+  cancel-in-progress: false
+
+permissions: {}
+
+jobs:
+  sync:
+    permissions:
+      contents: read
+    uses: cdxgen/.github/.github/workflows/project-sync.yml@356d29f9c02ed529c95ba2a8ec7b6ea2cf022571  # main
+    with:
+      project-number: ${{ vars.PROJECT_NUMBER }}
+      ref: 356d29f9c02ed529c95ba2a8ec7b6ea2cf022571
+    secrets:
+      PROJECT_TOKEN: ${{ secrets.PROJECT_TOKEN }}
