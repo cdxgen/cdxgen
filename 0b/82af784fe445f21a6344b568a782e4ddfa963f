@@ -1,0 +1,29 @@
+test/data/dist-info/METADATA5
+  s_18f08e2c47200e::t_329515af2a124e 1-8
+lib/ecosystems/ecosystems.poku.js
+  s_18f08e2c47200e::t_9ad18f03558e76 1006-1035
+lib/ecosystems/ecosystems.js
+  s_18f08e2c47200e::t_aaf9e4c5a76bcf 1775-1778,1805,1808-1809
+  s_18f08e2c47200e::t_0a85dc78351499 95
+  s_18f08e2c47200e::t_7ea24c08d49a6a 1869-1882
+test/data/dist-info/METADATA4
+  s_18f08e2c47200e::t_d0bc8a15afa04f 1-15
+test/data/dist-info/METADATA6
+  s_18f08e2c47200e::t_59bd34280dcffa 1-11
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "0b82af784fe445f21a6344b568a782e4ddfa963f",
+  "prompts": {},
+  "sessions": {
+    "s_18f08e2c47200e": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "session_6df9577b2fe85ae8509ed6ef79fa00cc",
+        "model": "unknown"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
