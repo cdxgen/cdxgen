@@ -608,6 +608,22 @@ All GitHub Actions workflows pin action SHA digests and have `permissions: {}` a
 
 ---
 
+## Planning, issues and the project board
+
+Work is tracked on the [cdxgen roadmap](https://github.com/orgs/cdxgen/projects/1), a GitHub project that holds issues. Its built-in workflows set Status from what happens to the issue and its pull request, and the maintainer sets Horizon, Priority and the milestone. The fields and rules are described in [project/README.md](https://github.com/cdxgen/.github/blob/main/project/README.md) and plans in [plans/README.md](https://github.com/cdxgen/.github/blob/main/plans/README.md), both in the organization's `.github` repository.
+
+Start from an issue. If the task has none, put the proposed title and a short description at the top of the pull request description, and tell the maintainer. Do not open issues or pull requests from a subagent: the main session does that when the maintainer asks, and then labels the pull request with the `ai-*` level from [CONTRIBUTING.md](https://github.com/cdxgen/.github/blob/main/CONTRIBUTING.md) plus the type labels, and `lts` for a backport.
+
+Write `Closes #123` in the pull request description for the issue it resolves, and `Refs #123` for a partial change or an epic. The board follows that link: an issue moves to In progress when a pull request that closes it is opened, and to Done when the pull request merges. GitHub records no closing link for a pull request that targets a branch other than the default, such as a backport to `release/12.0.x`, so name the issue there too, and expect the maintainer to close it.
+
+Leave the planning fields to the maintainer. Do not create or assign milestones, set Horizon or Priority, add an issue to an epic, or edit the board with `gh project` or the GraphQL API unless the maintainer asks for that in the session. `master` carries the next release, which is the version in `package.json`. If a change belongs in that release, say so in the pull request description.
+
+When you are blocked or a decision is the maintainer's to make, say so in the pull request description under a "Needs decision" or "Blocked by" heading, and in your final message to the maintainer. They apply the `blocked` and `needs-decision` labels. Do not guess and carry on.
+
+Larger work gets a plan document and an epic, as described in the plans guide. Draft the plan locally and give it to the maintainer to publish. If the plan depends on test data that does not belong in git, list it in a corpus manifest with a SHA-256 digest, and refer to the data by that digest.
+
+---
+
 ## Dependency management
 
 - Package manager: **pnpm ≥ 10** (`packageManager` field in `package.json`).
