@@ -30,3 +30,13 @@ rules:
       - repotests.yml
       - repotests-quick.yml
       - bun.yml
+  # Local `uses: ./.github/...` references run the action from the commit under
+  # test, so a change to an action is exercised in the pull request that makes
+  # it. A pinned remote reference would run an older copy instead.
+  self-repository:
+    ignore:
+      - build-image.yml
+      - build-images.yml
+      - build-rolling-image.yml
+      - image-build.yml
+      - action.yml
