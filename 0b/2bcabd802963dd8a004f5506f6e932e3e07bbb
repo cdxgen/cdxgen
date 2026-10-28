@@ -1,0 +1,31 @@
+lib/cli/nativeBom.js
+  s_85aedb622b3a40::t_379399db539fd5 2097
+lib/inventory/mavenCentralMirror.js
+  s_236e880d3ee8e7::t_2516b3526660ed 147,306,318-319,326-328,330-331,334-338,341-344
+lib/inventory/mavenCentralMirror.poku.js
+  s_85aedb622b3a40::t_475746d62d7d12 235-239
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "0b2bcabd802963dd8a004f5506f6e932e3e07bbb",
+  "prompts": {},
+  "sessions": {
+    "s_236e880d3ee8e7": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "52eeaa6b-eddb-4834-83cf-34eb1a185cc1",
+        "model": "unknown"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    },
+    "s_85aedb622b3a40": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "44059939-15eb-4b1e-b801-b16809b967d4",
+        "model": "unknown"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
