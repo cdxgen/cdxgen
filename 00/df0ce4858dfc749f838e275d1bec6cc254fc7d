@@ -1,0 +1,21 @@
+lib/inventory/source.js
+  s_7259a555d05c3e::t_850a28671a44fb 798-839,905
+lib/server/server.poku.js
+  s_7259a555d05c3e::t_58616a3353c54b 1229-1256
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "00df0ce4858dfc749f838e275d1bec6cc254fc7d",
+  "prompts": {},
+  "sessions": {
+    "s_7259a555d05c3e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "369df51b-6592-47e6-a54c-85110ab6d9b9",
+        "model": "claude-sonnet-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
