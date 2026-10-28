@@ -1,0 +1,16 @@
+lib/ecosystems/parsers-misc.js
+  h_0926447d100ad2 56-61,2946-2964,2980-3011,3072
+lib/ecosystems/parsers-misc.poku.js
+  h_0926447d100ad2 2185-2284
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "f0fee6d0253922479721bbd4f4870111b7677e3c",
+  "prompts": {},
+  "humans": {
+    "h_0926447d100ad2": {
+      "author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
