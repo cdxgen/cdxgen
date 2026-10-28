@@ -175,7 +175,7 @@ The server also refuses the following requests, whatever mode it runs in:
 - A `serverUrl` on another origin than the one the server was started with, when the request reuses the operator's API key. In secure mode such a `serverUrl` also needs `CDXGEN_ALLOWED_HOSTS`, which every redirect hop is checked against as well.
 - A `path` whose real location, after following symlinks, is outside `CDXGEN_ALLOWED_PATHS`.
 
-`failOnError` never applies to server requests, so a failing scan returns an error to its client instead of stopping the server. Repositories are cloned with `core.symlinks=false`, so a link in a cloned repository is checked out as a plain file and cannot point the scan at files on the server.
+`failOnError` never applies to server requests, so a failing scan returns an error to its client instead of stopping the server. A git clone that fails answers `500` with an `Unable to clone repository` error instead of an empty BOM. Repositories are cloned with `core.symlinks=false`, so a link in a cloned repository is checked out as a plain file and cannot point the scan at files on the server.
 
 ## Health endpoint
 
