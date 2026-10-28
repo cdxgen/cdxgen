@@ -50,7 +50,9 @@ const TEST_SOURCES = [
  * @returns {boolean}
  */
 export function isDocsMarkdown(file) {
-  return file.endsWith(".md") && (!file.includes("/") || file.startsWith("docs/"));
+  return (
+    file.endsWith(".md") && (!file.includes("/") || file.startsWith("docs/"))
+  );
 }
 
 /**
@@ -123,7 +125,10 @@ function referencedByTests(file) {
 
 function main() {
   const event = process.env.EVENT_NAME;
-  let result = { docsOnly: false, reason: `a ${event} run always runs the suites` };
+  let result = {
+    docsOnly: false,
+    reason: `a ${event} run always runs the suites`,
+  };
   if (event === "pull_request" || event === "merge_group") {
     result = classify(changedFiles(), referencedByTests);
   }

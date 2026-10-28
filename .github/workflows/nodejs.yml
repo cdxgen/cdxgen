@@ -40,27 +40,6 @@ concurrency:
 permissions: {}
 
 jobs:
-  # Decides whether the change touches only files no test reads, see
-  # .github/scripts/docs-only.mjs. The jobs that need it still run and still
-  # report success; they skip their steps and say why in the job summary. If
-  # this job fails, they run in full.
-  lane:
-    runs-on: 'ubuntu-latest'
-    permissions:
-      contents: read
-    outputs:
-      docs-only: ${{ steps.lane.outputs.docs-only }}
-      reason: ${{ steps.lane.outputs.reason }}
-    steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
-        with:
-          fetch-depth: 2
-          persist-credentials: false
-      - id: lane
-        run: node .github/scripts/docs-only.mjs
-        env:
-          EVENT_NAME: ${{ github.event_name }}
-
   read-node-versions:
     runs-on: 'ubuntu-latest'
     outputs:
@@ -89,6 +68,27 @@ jobs:
         run: |
           VERSIONS=[`awk 'BEGIN {ORS=""}; NR>2 && NR%2==0 {print ","}; FNR==2 {print "'\''"$1"'\''"}' .versions/node_*`]
           echo "versions=$VERSIONS" >> "$GITHUB_OUTPUT"
+
+  # Decides whether the change touches only files no test reads, see
+  # .github/scripts/docs-only.mjs. The jobs that need it still run and still
+  # report success; they skip their steps and say why in the job summary. If
+  # this job fails, they run in full.
+  lane:
+    runs-on: 'ubuntu-latest'
+    permissions:
+      contents: read
+    outputs:
+      docs-only: ${{ steps.lane.outputs.docs-only }}
+      reason: ${{ steps.lane.outputs.reason }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
+        with:
+          fetch-depth: 2
+          persist-credentials: false
+      - id: lane
+        run: node .github/scripts/docs-only.mjs
+        env:
+          EVENT_NAME: ${{ github.event_name }}
 
   # The quick tier of the Node CI: the poku unit suite on the pinned Node.js
   # version. It is a required status check on master and has no `if`, so it
