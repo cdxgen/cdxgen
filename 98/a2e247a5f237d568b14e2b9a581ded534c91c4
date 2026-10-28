@@ -1,0 +1,39 @@
+data/remediations.json
+  s_18f08e2c47200e::t_4ef9ac22168021 938-961
+lib/inventory/dosai.largeReport.poku.js
+  s_18f08e2c47200e::t_c3bc264e2638ee 366
+  s_18f08e2c47200e::t_d02132dd3e9dfe 15,367-473,512-552,556-584
+  s_18f08e2c47200e::t_46e07705a2df3d 474-511
+  s_18f08e2c47200e::t_717fd97cc6a166 553,555
+  s_18f08e2c47200e::t_de09b551ba887e 4,20,554
+lib/parsers/largeJson.js
+  s_18f08e2c47200e::t_3d0f1685748709 386
+  s_18f08e2c47200e::t_bdb24358af8681 468-471
+  s_18f08e2c47200e::t_7faf8e4a646f33 57-67,69-70
+  s_18f08e2c47200e::t_cc77d0ec623a57 308-311,325-330
+lib/inventory/dosai.js
+  s_18f08e2c47200e::t_a5db869a4b837c 900-904,910-911,944-945
+  s_18f08e2c47200e::t_7364959dd755fe 884-888,894
+  s_18f08e2c47200e::t_7abbb6d3c783ea 792-793,798
+  s_18f08e2c47200e::t_d73e9c1f50106e 863-869
+  s_18f08e2c47200e::t_15363bc3f3c0d9 730-791,794-795,799-828
+  s_18f08e2c47200e::t_c839fbc1a52fb4 926-933,936,942
+  s_18f08e2c47200e::t_9a1297e02f4109 934-935,937-941,943
+  s_18f08e2c47200e::t_5782279e2188df 796-797
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "98a2e247a5f237d568b14e2b9a581ded534c91c4",
+  "prompts": {},
+  "sessions": {
+    "s_18f08e2c47200e": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "session_6df9577b2fe85ae8509ed6ef79fa00cc",
+        "model": "unknown"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
