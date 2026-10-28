@@ -1,0 +1,22 @@
+.github/workflows/nodejs.yml
+  s_7259a555d05c3e::t_4cf121132908b6 72-91
+  s_7259a555d05c3e::t_e2673ec5f49761 92
+.github/scripts/docs-only.mjs
+  s_7259a555d05c3e::t_587062fb0d2855 53-55,128-131
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "fd92343ffa5dc786576e46a6b302e1e8c4ae08f9",
+  "prompts": {},
+  "sessions": {
+    "s_7259a555d05c3e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "369df51b-6592-47e6-a54c-85110ab6d9b9",
+        "model": "claude-sonnet-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
