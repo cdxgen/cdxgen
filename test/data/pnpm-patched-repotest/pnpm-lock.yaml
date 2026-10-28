@@ -1,0 +1,25 @@
+lockfileVersion: '9.0'
+
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
+patchedDependencies:
+  ms@2.1.3: c6ceb382c04a7525a921a4b6a8e55ca982ae639d09618ea6b85cca5d6cbdf015
+
+importers:
+
+  .:
+    dependencies:
+      ms:
+        specifier: 2.1.3
+        version: 2.1.3(patch_hash=c6ceb382c04a7525a921a4b6a8e55ca982ae639d09618ea6b85cca5d6cbdf015)
+
+packages:
+
+  ms@2.1.3:
+    resolution: {integrity: sha512-6FlzubTLZG3J2a/NVCAleEhjzq5oxgHyaCU9yYXvcLsvoVaHJq/s5xXI6/XXP6tz7R9xAOtHnSO/tXtF3WRTlA==}
+
+snapshots:
+
+  ms@2.1.3(patch_hash=c6ceb382c04a7525a921a4b6a8e55ca982ae639d09618ea6b85cca5d6cbdf015): {}

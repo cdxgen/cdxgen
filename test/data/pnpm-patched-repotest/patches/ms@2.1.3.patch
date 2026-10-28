@@ -1,0 +1,12 @@
+diff --git a/package.json b/package.json
+index 49971890df8e2b9a4a5f4909fbd6678b862d8a50..a24a2a9143d73418063748b6e9efb05fa035944c 100644
+--- a/package.json
++++ b/package.json
+@@ -34,5 +34,6 @@
+     "lint-staged": "5.0.0",
+     "mocha": "4.0.1",
+     "prettier": "2.0.5"
+-  }
++  },
++  "cdxgenFixture": "patched"
+ }
