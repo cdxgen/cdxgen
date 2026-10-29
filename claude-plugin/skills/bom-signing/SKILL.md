@@ -1,6 +1,7 @@
 ---
 name: bom-signing
 description: Signs and verifies CycloneDX BOMs using cdxgen's native JSON Signature Format (JSF) implementation via cdx-sign and cdx-verify, supporting granular component, service, and annotation signatures, parallel multi-signatures, and sequential signature chains. Use when asked to sign an SBOM, verify a BOM signature, establish BOM authenticity or non-repudiation, build an approval trail across pipeline stages, or generate signing keys.
+disable-model-invocation: true
 ---
 
 # Sign and verify BOMs

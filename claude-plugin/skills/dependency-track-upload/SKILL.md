@@ -1,6 +1,7 @@
 ---
 name: dependency-track-upload
 description: Publishes CycloneDX BOMs to Dependency-Track or a TEA (Transparency Exchange API) server from cdxgen, and runs cdxgen in HTTP server mode to generate BOMs on demand for local paths, Git URLs, or package URLs. Use when asked to upload or submit an SBOM to Dependency-Track, register a project or parent-child project hierarchy, publish to a TEA collection, or run cdxgen as an SBOM service or API.
+disable-model-invocation: true
 ---
 
 # Publish BOMs and run cdxgen as a service

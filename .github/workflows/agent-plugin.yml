@@ -1,0 +1,47 @@
+name: Agent plugin
+
+# Validates the coding-agent plugin in claude-plugin/ with Claude Code's own
+# validator and runs the tests for its hook scripts. The repository-wide
+# structural checks (versions, skill frontmatter, links) run in lint.yml.
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/agent-plugin.yml'
+      - '.claude-plugin/**'
+      - 'claude-plugin/**'
+  push:
+    branches:
+      - master
+      - release/*
+    paths:
+      - '.github/workflows/agent-plugin.yml'
+      - '.claude-plugin/**'
+      - 'claude-plugin/**'
+  workflow_dispatch:
+
+permissions: {}
+
+jobs:
+  validate:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1  # v7.1.0
+        with:
+          node-version-file: .nvmrc
+          package-manager-cache: false
+      - name: Install Claude Code
+        # Pinned to an exact release. The validator only reads files and needs
+        # no API key.
+        run: npm install --no-save --no-fund --prefix "$RUNNER_TEMP/claude" @anthropic-ai/claude-code@2.1.299
+      - name: Validate the plugin and the marketplace
+        run: |
+          "$RUNNER_TEMP/claude/node_modules/.bin/claude" plugin validate --strict ./claude-plugin
+          "$RUNNER_TEMP/claude/node_modules/.bin/claude" plugin validate --strict .
+        env:
+          DISABLE_AUTOUPDATER: "1"
+          CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC: "1"
+      - name: Test the hook scripts
+        run: node --test claude-plugin/hooks/hooks.test.mjs

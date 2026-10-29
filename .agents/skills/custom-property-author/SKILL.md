@@ -5,7 +5,7 @@ description: "Guides defining and emitting new CycloneDX cdx: custom properties 
 
 # Custom property author
 
-Use this skill when adding or changing any `cdx:*` (or `internal:*`) property emitted into BOM output. The full property inventory and policy guidance is [docs/CUSTOM_PROPERTIES.md](../../docs/CUSTOM_PROPERTIES.md).
+Use this skill when adding or changing any `cdx:*` (or `internal:*`) property emitted into BOM output. The full property inventory and policy guidance is [docs/CUSTOM_PROPERTIES.md](../../../docs/CUSTOM_PROPERTIES.md).
 
 ## Gate 0: prefer standard CycloneDX fields first
 

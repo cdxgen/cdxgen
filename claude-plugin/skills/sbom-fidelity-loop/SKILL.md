@@ -1,6 +1,6 @@
 ---
 name: sbom-fidelity-loop
-description: Runs the cdxgen SBOM fidelity loop: scan with --introspect or --profile introspect, read the cdxgen fidelity report, execute its ranked remediations (the catalog spans the mainstream build ecosystems, and the loop may add one evidence-driven host repair the catalog missed), and re-scan until the fidelity tiers stop improving. Use when improving SBOM accuracy or completeness, fixing missing transitive dependencies in a generated BOM, build tool setup for SBOM generation, or interpreting a cdxgen fidelity/introspection report.
+description: Runs the cdxgen SBOM fidelity loop, which scans with --introspect or --profile introspect, reads the cdxgen fidelity report, executes its ranked remediations (the catalog spans the mainstream build ecosystems, and the loop may add one evidence-driven host repair the catalog missed), and re-scans until the fidelity tiers stop improving. Use when improving SBOM accuracy or completeness, fixing missing transitive dependencies in a generated BOM, build tool setup for SBOM generation, or interpreting a cdxgen fidelity/introspection report.
 ---
 
 # SBOM fidelity loop
