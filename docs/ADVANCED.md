@@ -797,6 +797,10 @@ Use the argument `--author` to override the author name. Use double quotes when 
 cdxgen --author "OWASP Foundation" --author "Apache Foundation" -t java ...
 ```
 
+## metadata.tools records the tools that ran
+
+Besides cdxgen itself, the BOM's `metadata.tools.components` names every external helper and build tool this run actually executed, such as the bundled plugin helpers (trivy, osquery, dosai, sourcekitten, golem) and the build tools cdxgen probed or provisioned (mvn, gradle, sbt, pnpm). Each entry carries the tool's version when a probe already knew it, and bundled helpers are reported with the version and identity of the `cdxgen-plugins-bin` package that ships them. Entries are sorted by name, so repeated scans of an unchanged project produce stable `metadata.tools` diffs. Wrapper shells and the Node.js runtime are never listed, and a run that spawned nothing external keeps the tools block exactly as before. This satisfies the CISA 2026 minimum element that requires the name and version of every tool that generated or amended an SBOM. For spec version 1.4 output the entries appear in the legacy `tools` array instead.
+
 ## Generate bash/zsh command completions
 
 Run the commands such as cdxgen, evinse, etc with completion as the argument.
