@@ -1,0 +1,82 @@
+types/lib/cli/index.d.ts.map
+  h_0926447d100ad2 1
+types/lib/cli/jsBom.d.ts.map
+  h_0926447d100ad2 1
+types/lib/cli/jvmBom.d.ts.map
+  h_0926447d100ad2 1
+types/lib/cli/managedBom.d.ts.map
+  h_0926447d100ad2 1
+types/lib/cli/nativeBom.d.ts.map
+  h_0926447d100ad2 1
+types/lib/core/env.d.ts
+  h_0926447d100ad2 116-119
+types/lib/core/env.d.ts.map
+  h_0926447d100ad2 1
+types/lib/ecosystems/ecosystems.d.ts.map
+  h_0926447d100ad2 1
+types/lib/ecosystems/gemHostProbe.d.ts
+  h_0926447d100ad2 1-28
+types/lib/ecosystems/gemHostProbe.d.ts.map
+  h_0926447d100ad2 1
+types/lib/ecosystems/gradleutils.d.ts.map
+  h_0926447d100ad2 1
+types/lib/ecosystems/rubyutils.d.ts
+  h_0926447d100ad2 194-201,321-435,439-452,456,458-461,467,471
+types/lib/ecosystems/rubyutils.d.ts.map
+  h_0926447d100ad2 1
+types/lib/ecosystems/scalacliutils.d.ts.map
+  h_0926447d100ad2 1
+types/lib/inventory/deps.d.ts.map
+  h_0926447d100ad2 1
+types/lib/inventory/dosai.d.ts
+  h_0926447d100ad2 131-140,147-151,157,164
+types/lib/inventory/dosai.d.ts.map
+  h_0926447d100ad2 1
+types/lib/inventory/envcontext.d.ts
+  h_0926447d100ad2 180-196,201-224
+types/lib/inventory/envcontext.d.ts.map
+  h_0926447d100ad2 1
+types/lib/inventory/evidenceUtils.d.ts.map
+  h_0926447d100ad2 1
+types/lib/inventory/formulationParsers.d.ts.map
+  h_0926447d100ad2 1
+types/lib/inventory/hostRuntimeProbe.d.ts
+  h_0926447d100ad2 26-43
+types/lib/inventory/hostRuntimeProbe.d.ts.map
+  h_0926447d100ad2 1
+types/lib/inventory/mavenCentralMirror.d.ts
+  h_0926447d100ad2 1-170
+types/lib/inventory/mavenCentralMirror.d.ts.map
+  h_0926447d100ad2 1
+types/lib/inventory/rubyBuildInfo.d.ts
+  h_0926447d100ad2 1-275
+types/lib/inventory/rubyBuildInfo.d.ts.map
+  h_0926447d100ad2 1
+types/lib/inventory/rubyHostProbe.d.ts
+  h_0926447d100ad2 1-47
+types/lib/inventory/rubyHostProbe.d.ts.map
+  h_0926447d100ad2 1
+types/lib/inventory/source.d.ts.map
+  h_0926447d100ad2 1
+types/lib/managers/binary.d.ts.map
+  h_0926447d100ad2 1
+types/lib/parsers/largeJson.d.ts
+  h_0926447d100ad2 38-41
+types/lib/parsers/largeJson.d.ts.map
+  h_0926447d100ad2 1
+types/lib/stages/pregen/pregen.d.ts
+  h_0926447d100ad2 196
+types/lib/stages/pregen/pregen.d.ts.map
+  h_0926447d100ad2 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "7f31f420222db15b3c7bc8a619768c4b37e92775",
+  "prompts": {},
+  "humans": {
+    "h_0926447d100ad2": {
+      "author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
