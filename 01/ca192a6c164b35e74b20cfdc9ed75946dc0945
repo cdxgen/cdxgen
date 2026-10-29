@@ -1,0 +1,19 @@
+lib/cli/jvmBomMirrorInjection.poku.js
+  s_85aedb622b3a40::t_ffdaaf425abfb3 102,112-113
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "01ca192a6c164b35e74b20cfdc9ed75946dc0945",
+  "prompts": {},
+  "sessions": {
+    "s_85aedb622b3a40": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "44059939-15eb-4b1e-b801-b16809b967d4",
+        "model": "claude-sonnet-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
