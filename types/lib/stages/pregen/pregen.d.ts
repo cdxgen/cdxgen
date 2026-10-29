@@ -79,11 +79,14 @@ export declare function detectJvmToolsFromRepo(filePath: string, explicitPins: a
  * and to pick defaults.
  *
  * @param {Object} pin `{ tool, version?, source }`
+ * @param {Number|undefined} javaMajor JDK major the project declared or
+ *   configured, when known. Constrains the default Gradle install so a
+ *   project on a new JDK never resolves a Gradle that cannot run on it.
  *
  * @returns {Object|undefined} Pin with an exact version, or undefined when no
  *   version could be determined.
  */
-export declare function resolveJvmToolPinVersion(pin: Object): Object | undefined;
+export declare function resolveJvmToolPinVersion(pin: Object, javaMajor?: number): Object | undefined;
 /**
  * Fetch the versions available for a candidate via `sdk list`.
  *
