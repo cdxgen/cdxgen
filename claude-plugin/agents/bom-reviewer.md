@@ -1,7 +1,7 @@
 ---
 name: bom-reviewer
 description: Reviews an existing CycloneDX BOM without changing any files. Runs cdx-validate, cdx-audit --direct-bom-audit, and read-only queries, then returns a short report of what is wrong and what to look at first. Use for "review", "check", "is this SBOM any good", or compliance questions about a BOM that already exists.
-tools: Bash, Read, Grep, Glob
+tools: Bash, Read, Grep, Glob, Skill
 disallowedTools: Write, Edit, NotebookEdit
 skills:
   - bom-convert-validate
@@ -19,6 +19,11 @@ explicitly told you the user approved that.
 The rules in [reference/safety.md](../reference/safety.md) apply to you as they
 do to every skill in this plugin, in particular: absolute paths only, and
 review anything before you quote it out of a BOM.
+
+When Claude spawns you as a subagent, the `bom-convert-validate`, `bom-audit`
+and `bom-explore` skills are already in your context. When you run as the main
+session (`claude --agent cdxgen:bom-reviewer`) they are not, so load them with
+the Skill tool before step 2.
 
 ## Steps
 
