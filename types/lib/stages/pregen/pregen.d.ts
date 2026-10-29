@@ -125,6 +125,13 @@ export declare function isJvmToolUsable(tool: string): boolean;
  */
 export declare function ensureCompatibleJdk(filePath: string, options: Object, knownToolVersions: any[], javaVersionHint: number): number | undefined;
 /**
+ * JDK major a versioned java project type names, such as 27 for `java27`.
+ *
+ * @param {string} projectType Project type
+ * @returns {number|undefined} The major, or undefined for any other type
+ */
+export declare function javaMajorFromProjectType(projectType: string): number | undefined;
+/**
  * Pick the closest `javaNN` alias covering a required JDK major.
  *
  * @param {Number} major Required JDK major
