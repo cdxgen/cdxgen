@@ -1,0 +1,8 @@
+Metadata-Version: 2.4
+Name: samplepkg-ref
+Version: 1.0.0
+Summary: Sample package whose license expression uses LicenseRef
+License-Expression: LicenseRef-internal-1.0
+License-File: NOTICE
+
+Sample package without any of the older license fields.

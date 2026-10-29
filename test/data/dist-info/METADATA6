@@ -1,0 +1,11 @@
+Metadata-Version: 2.4
+Name: samplepkg-invalid
+Version: 0.9.0
+Summary: Sample package with an invalid license expression
+License: BSD-3-Clause
+Classifier: Development Status :: 3 - Alpha
+Classifier: License :: OSI Approved :: BSD License
+License-Expression: MIT OR (Apache-2.0
+Description-Content-Type: text/plain
+
+Sample package whose License-Expression does not parse as SPDX.

@@ -935,6 +935,30 @@
     },
     "docs": "https://cyclonedx.github.io/cdxgen/#/EVINSE"
   },
+  "dosai.method-calls-capped": {
+    "ecosystem": "csharp",
+    "kind": "evidence.degraded",
+    "impact": "components",
+    "title": "The dosai report holds more distinct method calls than cdxgen keeps, so some occurrence evidence was dropped",
+    "targetTier": "resolved",
+    "actions": [
+      {
+        "kind": "config",
+        "detail": "Raise the cap with CDXGEN_DOSAI_MAX_METHOD_CALLS, or write the report with dosai's --sections so it holds less."
+      },
+      {
+        "kind": "rerun"
+      }
+    ],
+    "verify": {
+      "rules": [],
+      "expectTier": "resolved",
+      "eventsCleared": [
+        "dosai.method-calls-capped"
+      ]
+    },
+    "docs": "https://cyclonedx.github.io/cdxgen/#/EVINSE"
+  },
   "cocoa.pods.missing": {
     "ecosystem": "cocoa",
     "kind": "fallback.engaged",
