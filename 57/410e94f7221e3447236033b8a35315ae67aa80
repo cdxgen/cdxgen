@@ -1,0 +1,22 @@
+lib/inventory/atomUtils.poku.js
+  s_f4ae7fa4f71afc::t_00c5fce47ab581 785-786,789
+lib/core/processTree.js
+  s_f4ae7fa4f71afc::t_0b18c533cd0dd0 84
+  s_f4ae7fa4f71afc::t_00c5fce47ab581 40-41,82-83
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "57410e94f7221e3447236033b8a35315ae67aa80",
+  "prompts": {},
+  "sessions": {
+    "s_f4ae7fa4f71afc": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "10c90dba-a063-4a43-9f8c-4544727070fc",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
