@@ -1,0 +1,26 @@
+test/repotests/ruby-otel-action-mailer/expected/registry-enrichment.json
+  s_05c98230e0bb80::t_de574e0c601dae 189-221,2122
+  s_05c98230e0bb80::t_890242fa6f76e8 188
+test/repotests/ruby-otel-action-mailer/expected/default.json
+  s_05c98230e0bb80::t_de574e0c601dae 189-221,1931
+  s_05c98230e0bb80::t_54ee7efc46a1fb 188
+test/repotests/ruby-smoke/expected/default.json
+  s_05c98230e0bb80::t_de574e0c601dae 525-557,4197
+  s_05c98230e0bb80::t_7b0e5b12581c78 524
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "8f843b05f0c48ad57fc47c6f9e8ec1b977d075e7",
+  "prompts": {},
+  "sessions": {
+    "s_05c98230e0bb80": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "dd336703-9db7-44f6-afb3-83e6d81567eb",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
