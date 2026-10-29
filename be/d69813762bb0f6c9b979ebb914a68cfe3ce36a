@@ -1,0 +1,50 @@
+lib/third-party/arborist/lib/override-set.js
+  s_541491761dc9cf::t_57a4324a5e9ca3 212,218,239,248
+lib/third-party/arborist/lib/spec-from-lock.js
+  s_541491761dc9cf::t_57a4324a5e9ca3 7,14,16,22,28
+lib/third-party/arborist/spec-from-lock.poku.js
+  s_541491761dc9cf::t_57a4324a5e9ca3 181,186-211,213,215-216,218,225
+lib/ecosystems/parsers-js.poku.js
+  s_541491761dc9cf::t_6e3392657c8763 4777-4798,4800-4827,4829-4842,4844-4847,4849-4862,4865,4867-4869,4878-4880,4882-4909,4911-4928,4930,4932,4934-4966,4969-4985
+  s_541491761dc9cf::t_d377a2dda37227 4870-4876
+docs/PERMISSIONS.md
+  s_541491761dc9cf::t_e1786f1fe125d6 11-14
+lib/core/lockPaths.js
+  s_541491761dc9cf::t_752fb810df61c1 4-7,9-12,14-15,18,20,27,29-30,32-34
+lib/ecosystems/parsers-js.js
+  s_541491761dc9cf::t_3e67e7f894abba 7,11,18-22
+  s_541491761dc9cf::t_2d08e4f3728e43 875,877-878,880-885,906,951
+  s_541491761dc9cf::t_8ed60cbebd625e 886-893,895-905,907-914,929,934,945,950,953,963-968,979-985,987-996,998-1002,1004,1025-1028,1446-1448,1500-1502,1535-1537,1806-1823
+  s_541491761dc9cf::t_c9a3cc81edab46 916-920,922-926,931-932,935-938,940-944,948-949,952,955-957,997
+  s_541491761dc9cf::t_830c7639fd76f6 986
+  s_541491761dc9cf::t_220794316707a7 1003,1005
+  s_541491761dc9cf::t_dbe277f06634d0 879,954
+data/remediations.json
+  s_541491761dc9cf::t_4c348cd1ff9e4a 438,442-446
+  s_541491761dc9cf::t_830c7639fd76f6 447
+lib/ecosystems/parsers-js-lockpath.poku.js
+  s_541491761dc9cf::t_c0375a1bc35d7a 2,9-10,14-20,22-40,49,59
+  s_541491761dc9cf::t_7a646c1e610176 41-48,50-56
+lib/core/lockPaths.poku.js
+  s_541491761dc9cf::t_fad8a87883f2fb 1,5,7-8,10-13,15,20-27,29,33,37,40-44
+  s_541491761dc9cf::t_d377a2dda37227 17-18,49-51
+  s_541491761dc9cf::t_faa14292784c77 47-48,52-54
+contrib/arborist-manifest.json
+  s_541491761dc9cf::t_57a4324a5e9ca3 9,25,32
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "bed69813762bb0f6c9b979ebb914a68cfe3ce36a",
+  "prompts": {},
+  "sessions": {
+    "s_541491761dc9cf": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "20b4a167-8c9b-42eb-bef3-e9a02e7ff941",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
