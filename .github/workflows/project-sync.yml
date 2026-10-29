@@ -20,12 +20,9 @@ permissions: {}
 
 jobs:
   sync:
-    # Skip runs that cannot change the board: before the organization variable
-    # is shared with this repository, and for edits that leave the description,
-    # where the closing keywords live, unchanged (a title edit, for example).
-    if: >-
-      vars.PROJECT_NUMBER != '' &&
-      (github.event.action != 'edited' || github.event.changes.body != null)
+    # An edit that leaves the description unchanged, such as a title edit,
+    # cannot change the board: the closing keywords live in the description.
+    if: github.event.action != 'edited' || github.event.changes.body != null
     permissions:
       contents: read
     uses: cdxgen/.github/.github/workflows/project-sync.yml@9e476b9489d771ac7118e04053240a64da0be8f7  # main
