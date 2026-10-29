@@ -1,0 +1,19 @@
+.github/workflows/project-sync.yml
+  s_541491761dc9cf::t_b6390f0f92e0a2 9-11,13,23-28
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "8092b10efc6c44e265c20511384c45baaafec3b0",
+  "prompts": {},
+  "sessions": {
+    "s_541491761dc9cf": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "20b4a167-8c9b-42eb-bef3-e9a02e7ff941",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
