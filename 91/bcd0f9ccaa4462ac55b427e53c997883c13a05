@@ -1,0 +1,21 @@
+lib/ecosystems/gemHostProbe.poku.js
+  s_05c98230e0bb80::t_749ff76bb273f5 128-129
+lib/inventory/rubyHostProbe.poku.js
+  s_05c98230e0bb80::t_749ff76bb273f5 128,131
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "91bcd0f9ccaa4462ac55b427e53c997883c13a05",
+  "prompts": {},
+  "sessions": {
+    "s_05c98230e0bb80": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "dd336703-9db7-44f6-afb3-83e6d81567eb",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
