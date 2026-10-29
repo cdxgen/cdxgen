@@ -56,17 +56,6 @@ export declare const addToolsSection: (options: object, context?: object) => {
     tools?: object[];
 };
 /**
- * Builds the tool components for the external helpers and build tools this
- * run executed, from the run-scoped registry (issue #598). Bundled plugin
- * helpers are enriched with the manifest component of the plugin package that
- * ships them, so the plugin package's version and identity travel with the
- * helper. Empty when the run spawned nothing external, which keeps such BOMs
- * byte-identical to the previous behaviour.
- *
- * @returns {object[]} Sorted CycloneDX tool components
- */
-export declare const buildExternalToolComponents: () => object[];
-/**
  * Renders a component's group/name@version as a simple display string.
  *
  * @param {object} comp Component object
