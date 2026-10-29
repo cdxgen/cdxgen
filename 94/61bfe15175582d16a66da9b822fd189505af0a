@@ -1,0 +1,185 @@
+.agents/skills/sbom-fidelity-loop/SKILL.md
+  s_541491761dc9cf::t_4e2b9b3876b909 26
+.github/workflows/build-images.yml
+  s_541491761dc9cf::t_8b8cef735634dc 161-162,173-175
+.github/workflows/java-reachables-test.yml
+  s_541491761dc9cf::t_87b26e75aedade 29-31
+.gitignore
+  s_541491761dc9cf::t_300fc500edd020 203-206
+.versions/gradle_9
+  s_541491761dc9cf::t_3619047d2cd2d5 2
+ci/Dockerfile
+  s_541491761dc9cf::t_fe20d8edda2fe5 13-14
+ci/Dockerfile-bun
+  s_541491761dc9cf::t_17e3a8477ca835 1,24-25
+ci/Dockerfile-deno
+  s_541491761dc9cf::t_d52bfbc3c0f329 24-25
+ci/Dockerfile-ppc64
+  s_541491761dc9cf::t_51a68164a1018d 1,18-19
+ci/images/Dockerfile.dotnet8
+  s_541491761dc9cf::t_ccfa808165efc4 2
+ci/images/Dockerfile.dotnet9
+  s_541491761dc9cf::t_f41c6a510d765d 2
+ci/images/Dockerfile.java17
+  s_541491761dc9cf::t_c47cf8eef394bd 4
+ci/images/Dockerfile.python3.11
+  s_541491761dc9cf::t_667a45f79a2e57 2
+ci/images/Dockerfile.python3.6
+  s_541491761dc9cf::t_3b4478b7b8ab7d 2
+ci/images/Dockerfile.ruby2.5
+  s_541491761dc9cf::t_3380df2aa8cc2e 2
+ci/images/README.md
+  s_541491761dc9cf::t_6b053be0956fe8 85
+ci/images/al10/Dockerfile.ruby-builder
+  s_541491761dc9cf::t_11024894195038 1
+ci/images/alpine/Dockerfile.dotnet10
+  s_541491761dc9cf::t_64ada1dd4c3bed 2
+ci/images/alpine/Dockerfile.dotnet11
+  s_541491761dc9cf::t_8e73363f57d78a 2
+ci/images/alpine/Dockerfile.dotnet9
+  s_541491761dc9cf::t_a4ee24a7441897 2
+ci/images/alpine/Dockerfile.elixir1
+  s_541491761dc9cf::t_7a722a87a9548e 2
+ci/images/alpine/Dockerfile.java27
+  s_541491761dc9cf::t_28acb86f5dab0d 1-93
+ci/images/alpine/Dockerfile.php8.3
+  s_541491761dc9cf::t_3f18ac184c54c4 2
+ci/images/alpine/Dockerfile.php8.4
+  s_541491761dc9cf::t_ef8aba3593d0cd 2
+ci/images/alpine/Dockerfile.php8.5
+  s_541491761dc9cf::t_f9a05f761f6821 2
+ci/images/alpine/Dockerfile.python3.12
+  s_541491761dc9cf::t_2ad3cd21a7da14 2
+ci/images/alpine/Dockerfile.ruby3.3
+  s_541491761dc9cf::t_522c819478611b 2
+ci/images/alpine/Dockerfile.ruby3.4
+  s_541491761dc9cf::t_3e54ec08be455a 2
+ci/images/alpine/Dockerfile.ruby4
+  s_541491761dc9cf::t_bb65dcef11f1e5 2
+ci/images/common/install-gradle.sh
+  s_541491761dc9cf::t_cda8f99358815a 1-56
+ci/images/debian/Dockerfile.elixir1
+  s_541491761dc9cf::t_b449704023dd45 2
+ci/images/debian/Dockerfile.node24
+  s_541491761dc9cf::t_e5cafd646f0664 2
+ci/images/debian/Dockerfile.node26
+  s_541491761dc9cf::t_1419393e8b0f5d 2
+ci/images/debian/Dockerfile.php8.3
+  s_541491761dc9cf::t_537e689d78d496 2
+ci/images/debian/Dockerfile.php8.4
+  s_541491761dc9cf::t_e74efbdd209eb1 2
+ci/images/debian/Dockerfile.php8.5
+  s_541491761dc9cf::t_05bb39394d395d 2
+ci/images/debian/Dockerfile.python3.12
+  s_541491761dc9cf::t_9030ce49d4d3f6 2
+ci/images/debian/Dockerfile.python3.13
+  s_541491761dc9cf::t_71f134fadb84b7 2
+ci/images/debian/Dockerfile.python3.14
+  s_541491761dc9cf::t_8c5f963a6dc392 2
+ci/images/debian/Dockerfile.ruby3.3
+  s_541491761dc9cf::t_b67c43d4f453fd 2
+ci/images/debian/Dockerfile.ruby3.4
+  s_541491761dc9cf::t_c889cc5544ef66 2
+ci/images/debian/Dockerfile.ruby4
+  s_541491761dc9cf::t_595d0ffb6faddf 2
+ci/images/debian/Dockerfile.swift6
+  s_541491761dc9cf::t_f33cfd44878585 2
+ci/images/opensuse/Dockerfile.rolling
+  s_541491761dc9cf::t_feffeb27da8dfe 2,49-50,123-127
+ci/images/temurin/Dockerfile.java27
+  s_541491761dc9cf::t_23b1f3a318df64 1-163
+ci/images/temurin/Dockerfile.java8
+  s_541491761dc9cf::t_71aa31ff4a552e 2
+ci/images/ubuntu/Dockerfile.dotnet11
+  s_541491761dc9cf::t_c3be93bd3f7860 2
+claude-plugin/skills/sbom-fidelity-loop/SKILL.md
+  s_541491761dc9cf::t_7b7d63beaf202e 26
+contrib/generate-license-data.py
+  s_541491761dc9cf::t_51168132d58eea 76-104
+contrib/golden-runner.js
+  s_541491761dc9cf::t_ec0d48cde18e20 122-127,304-307
+data/license-aliases.json
+  s_541491761dc9cf::t_416e2326166061 31,37,261-262,314-315,338-339,354,362-363,368-369,378-379,436-437,675-676,815-816,895-896,1684
+data/remediations.json
+  s_541491761dc9cf::t_601901f9643082 434-461
+data/spdx-license-list.json
+  s_541491761dc9cf::t_d80e1438846153 497-505,749-760,892-900,976-984,1021-1029,1048-1056,1094-1102,1361-1369,1956,1959-1960,2107,2110-2111,2471-2472,2513-2521,3203-3211,3576-3585,5635,5640-5641,7475-7481
+data/spdx-licenses.json
+  s_541491761dc9cf::t_b07414eb01565f 12,26,51-52,55,69,73,81-82,97,99,106,109,111,114,118-119,128,148,225,237,259-261,271,280,282-283,287,342,346,369,372,376,386,396,399,425,456,474,479,497,510,514,526,568,576,583,585,630,644,658,668,694-696,700,709,711,717,755,758,775,787,803,811,815-817
+data/spdx.schema.json
+  s_541491761dc9cf::t_74a943363dea70 4,60,78,87,102,111,116,119,124,153,276,351,391,502,780,821,833-1661
+docs/ADVANCED.md
+  s_541491761dc9cf::t_74e4d6d823d941 800-803,1355
+docs/ENV.md
+  s_541491761dc9cf::t_521c4312ee3892 59
+docs/INTROSPECTION.md
+  s_541491761dc9cf::t_f0d6a84fefee29 99
+docs/PERMISSIONS.md
+  s_541491761dc9cf::t_e502e1b37fd146 11-14
+docs/PROJECT_TYPES.md
+  s_541491761dc9cf::t_dcb1900d11fb54 90
+lib/cli/bomAssembly.js
+  s_541491761dc9cf::t_e2c502c4053c73 28,64,297-370,374-375,383,391-395,416
+lib/cli/bomAssembly.poku.js
+  s_541491761dc9cf::t_522b8ad2c566f5 5-12,16,911-1061
+lib/core/fs.js
+  s_541491761dc9cf::t_5bb4b0fbb2c360 46,995-996,1006-1014
+lib/core/fs.poku.js
+  s_541491761dc9cf::t_c3f3fa64864558 23,340-370
+lib/core/lockPaths.js
+  s_541491761dc9cf::t_656d7e63c42084 1-38
+lib/core/lockPaths.poku.js
+  s_541491761dc9cf::t_2eb79f5fe2f440 1-55
+lib/core/toolRegistry.js
+  s_541491761dc9cf::t_f2b77f00976c84 1-170
+lib/core/toolRegistry.poku.js
+  s_541491761dc9cf::t_0f996a05085141 1-101
+lib/ecosystems/parsers-js-lockpath.poku.js
+  s_541491761dc9cf::t_ca9a3ea572f553 1-65
+lib/ecosystems/parsers-js.js
+  s_541491761dc9cf::t_d97003cb73495d 7,11,18-22,26,874-962,979-1005,1025-1029,1446-1448,1500-1502,1535-1537,1806-1825
+lib/ecosystems/parsers-js.poku.js
+  s_541491761dc9cf::t_cb1931a13e8dfb 4776-4986
+lib/inventory/envcontext.js
+  s_541491761dc9cf::t_3c59f9fe7f6d96 149-153
+lib/inventory/jvmToolEnv.js
+  s_541491761dc9cf::t_f3b9b45132ea97 352,408-435
+lib/inventory/jvmToolEnv.poku.js
+  s_541491761dc9cf::t_7715e8ceae3d72 31,348,352-376
+lib/stages/pregen/envAudit.js
+  s_541491761dc9cf::t_3cabe2e298a879 113
+lib/stages/pregen/pregen.js
+  s_541491761dc9cf::t_3721503823409e 32,71,323-343,428-444,447,466-470,780-782,787,818-821,826-832,836,838,841
+lib/stages/pregen/pregen.poku.js
+  s_541491761dc9cf::t_b00ee3f5bd4d98 647-691,1320-1375
+lib/validator/bomValidator.poku.js
+  s_541491761dc9cf::t_07c771f1b16a5d 7,330-395
+lib/validator/generated/validate-1.6.mjs
+  s_541491761dc9cf::t_67d22dba08b238 478
+lib/validator/generated/validate-1.7.mjs
+  s_541491761dc9cf::t_87bf1d6363dd9b 480
+lib/validator/generated/validate-2.0.mjs
+  s_541491761dc9cf::t_7df4eeed9bce1e 745
+lib/validator/schema-drift.poku.js
+  s_541491761dc9cf::t_07d525ce281d92 29
+test/data/package-json/malicious-path/package-lock.json
+  s_541491761dc9cf::t_fa7b3ff633a1f8 1-33
+test/data/package-json/outside-paths/package-lock.json
+  s_541491761dc9cf::t_6a784fb2c3fc54 1-68
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "9461bfe15175582d16a66da9b822fd189505af0a",
+  "prompts": {},
+  "sessions": {
+    "s_541491761dc9cf": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "20b4a167-8c9b-42eb-bef3-e9a02e7ff941",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
