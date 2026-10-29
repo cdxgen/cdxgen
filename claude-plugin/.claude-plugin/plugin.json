@@ -25,5 +25,13 @@
     "obom",
     "aibom",
     "scrm"
-  ]
+  ],
+  "userConfig": {
+    "lockfile_reminder": {
+      "type": "boolean",
+      "title": "Lockfile reminder",
+      "description": "Remind Claude that an SBOM is stale after it edits a lockfile or dependency manifest.",
+      "default": false
+    }
+  }
 }

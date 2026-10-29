@@ -54,6 +54,30 @@ Optional enrichment: `@cdxgen/cdxgen-plugins-bin` (Trivy, osquery, `golem`,
 Invoke one directly as `/cdxgen:sbom-generate`, or just describe what you want
 and let Claude select.
 
+`bom-signing` and `dependency-track-upload` are the exceptions: they handle
+signing keys and publish to servers, so Claude never picks them on its own. Run
+them as `/cdxgen:bom-signing` and `/cdxgen:dependency-track-upload`.
+
+## Agents
+
+| Agent                  | Does                                                                                   |
+| ---------------------- | -------------------------------------------------------------------------------------- |
+| `cdxgen:bom-reviewer`  | Reviews an existing BOM with `cdx-validate`, `cdx-audit --direct-bom-audit` and `cdxi`, without editing files, and returns a short report |
+
+Ask for a review ("have the bom-reviewer check /abs/path/bom.json") and Claude
+delegates to it, so the validator and audit output stays out of your
+conversation.
+
+## Hooks
+
+| Event          | Does                                                                                         |
+| -------------- | -------------------------------------------------------------------------------------------- |
+| `SessionStart` | Warns once if `cdxgen` is not on `PATH`, or is older than the plugin. Never installs anything |
+| `PostToolUse`  | Off by default. When enabled, reminds Claude that the SBOM is stale after it edits a lockfile or manifest |
+
+Turn the lockfile reminder on with the plugin's `Lockfile reminder` option in
+`/config`. Neither hook sends anything over the network.
+
 ## Safety posture
 
 Every skill loads [reference/safety.md](reference/safety.md), which encodes the
