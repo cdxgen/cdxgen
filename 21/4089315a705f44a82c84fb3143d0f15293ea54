@@ -1,0 +1,20 @@
+claude-plugin/agents/bom-reviewer.md
+  s_8ba45a1b739c98::t_db53c3061a3365 4,23-26
+  s_8ba45a1b739c98::t_8b26bab06d8397 27
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "214089315a705f44a82c84fb3143d0f15293ea54",
+  "prompts": {},
+  "sessions": {
+    "s_8ba45a1b739c98": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "d3e83c12-f1d6-4bb1-9db6-479955b7aa60",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
