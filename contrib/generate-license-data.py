@@ -78,18 +78,29 @@ def main():
     # licenses first, then exceptions, so diffs against a new SPDX release
     # stay readable.
     spdx_ids_path = DATA_DIR / "spdx-licenses.json"
+    spdx_ids = [
+        lic["licenseId"] for lic in spdx_raw_licenses.get("licenses", [])
+    ] + [
+        exc["licenseExceptionId"]
+        for exc in spdx_raw_exceptions.get("exceptions", [])
+    ]
     with open(spdx_ids_path, "w") as f:
-        json.dump(
-            [lic["licenseId"] for lic in spdx_raw_licenses.get("licenses", [])]
-            + [
-                exc["licenseExceptionId"]
-                for exc in spdx_raw_exceptions.get("exceptions", [])
-            ],
-            f,
-            indent=2,
-        )
+        json.dump(spdx_ids, f, indent=2)
         f.write("\n")
     print(f"Wrote {spdx_ids_path}")
+    # cdxgen emits these identifiers as license.id, which the bundled
+    # CycloneDX spdx.schema.json enum must accept. Refresh it from
+    # CycloneDX/specification, then run pnpm run gen:validators and update
+    # lib/validator/schema-drift.poku.js and cdxgen-plugins-bin in step.
+    with open(DATA_DIR / "spdx.schema.json") as f:
+        schema_ids = set(json.load(f).get("enum", []))
+    missing_ids = [spdx_id for spdx_id in spdx_ids if spdx_id not in schema_ids]
+    if missing_ids:
+        print(
+            "WARNING: data/spdx.schema.json lacks "
+            f"{len(missing_ids)} identifiers: {', '.join(missing_ids)}. "
+            "Refresh it from CycloneDX/specification before committing."
+        )
 
     # Load ScanCode licenses
     print("Loading ScanCode licenses...")
