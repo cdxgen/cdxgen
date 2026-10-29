@@ -1,0 +1,19 @@
+lib/inventory/rubyBuildInfo.poku.js
+  s_05c98230e0bb80::t_fcfbd545be7945 740-742
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "3e760c36f62e1de482a1d60c66e869780784eead",
+  "prompts": {},
+  "sessions": {
+    "s_05c98230e0bb80": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "dd336703-9db7-44f6-afb3-83e6d81567eb",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
