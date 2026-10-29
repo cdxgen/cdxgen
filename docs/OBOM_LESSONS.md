@@ -192,6 +192,28 @@ jq -r '.components[] | select((.properties // [])[] | select(.name=="cdx:brotli:
 3. Python packages in virtual environments (directories holding `pyvenv.cfg` under `/opt`, `/srv`, `/app`, `/usr/local` and the home directories, including `.venv`, `.virtualenvs`, pipenv and Poetry environments) and pyenv interpreters are read from their `*.dist-info/METADATA`. Each package is one component with an occurrence per installation and `cdx:python:environment`; a package the system site-packages also holds keeps its osquery component and gains the occurrence.
 4. A Homebrew or distro Node.js that links brotli as a shared library carries no decoder of its own: check the `brotli` / `libbrotli1` package instead, or the formulation section of a source scan, which records the shared library's state.
 
+## 12b) Ruby runtimes and gems
+
+osquery has no table for RubyGems and its package tables cannot see a Ruby
+that ruby-build, rbenv, rvm, asdf, mise, chruby, frum or a toolcache tarball
+installed. Both matter for advisories such as the Ruby 3.3.13, 3.4.12 and 4.0.9
+releases, whose Onigmo fixes are in the interpreter core and whose `resolv`
+fixes are in a default gem. An OBOM names each Ruby by its upstream version
+and lists the gems of every gem home:
+
+```bash
+cdxgen -t os -o obom.json
+jq -r '.components[] | select(.purl // "" | startswith("pkg:generic/ruby@"))
+  | [.version, (.cpe // "no CPE"), ([.properties[]? | select(.name=="cdx:os:installedBy")][0].value // "unpackaged")] | @tsv' obom.json
+jq -r '.components[] | select(.name=="resolv") | [.purl, (.evidence.occurrences // [] | map(.location) | join(" "))] | @tsv' obom.json
+```
+
+1. Ruby candidates are `ruby` files in `/usr/local/bin`, `/opt/<name>/bin`, `/opt/rubies/*/bin`, `/opt/hostedtoolcache/Ruby/*/*/bin`, `/usr/local/rbenv/versions/*/bin` and `/usr/local/rvm/rubies/*/bin`, plus each home directory's rbenv, rvm, asdf, mise, chruby, frum and rv trees; on Windows, `C:\Ruby*`, `C:\tools\ruby*` and the hosted toolcache.
+2. A file a package owns is skipped, under the same ownership rules as the PHP probe. What no package owns is read without being run: the version comes from the MAJOR, MINOR and TEENY entries of the install's `rbconfig.rb` (its `RUBY_PROGRAM_VERSION` is an unexpanded template), with the description compiled into libruby naming a preview or release candidate. Each version becomes `pkg:generic/ruby@<version>` with `cpe:2.3:a:ruby-lang:ruby:<version>`.
+3. A Ruby a package manager installed keeps its package (`pkg:deb/ubuntu/libruby3.2@3.2.3-1ubuntu0.24.04.8`) and also gets `pkg:generic/ruby@3.2.3`, with `cdx:os:installedBy` naming the package. A distro's carries no CPE, since distros backport fixes under the old upstream version; Homebrew's, Chocolatey's and the RubyInstaller's do.
+4. Gems are read from the `specifications` directory of each gem home: the distro and `gem install` homes (`/usr/lib/ruby/gems/*`, `/usr/share/gems`, `/var/lib/gems/*`, `/usr/local/lib/ruby/gems/*`), each version manager's install, and `~/.gem/ruby/*`. Default gems carry `cdx:gem:defaultGem`, and a gem a package database lists carries `cdx:os:installedBy`. Each gem is one component with an occurrence per gem home.
+5. A package database that cannot be read leaves ownership unknown and records `ruby.host-probe.package-db-unreadable`.
+
 ## 13) Package identity: the same package, the same purl
 
 An OBOM names the OS packages of a host the way `cdxgen -t docker` names the packages of an image, so findings, vulnerability matches and diffs carry over from one to the other:

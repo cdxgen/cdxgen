@@ -102,7 +102,7 @@ appears on one side only. The per-ecosystem coverage today:
 | swift     | 3       | Toolchain and `swift package resolve` failures, and SwiftPM skipped with installs off                                                  |
 | cocoa     | 3       | cocoapods unavailable, and the Podfile or Ruby podspecs not evaluated with installs off                                                |
 | rust      | 3       | `rust.cargo-lock-missing` (manifest-only parse), `rust.toolchain.missing` (cargo could not run) and `rust.cargo-metadata-unavailable`  |
-| ruby      | 2       | host build-requirements gaps                                                                                                           |
+| ruby      | 3       | host build-requirements gaps, and the Ruby host probe's unreadable package databases                                                 |
 | go        | 2       | `go.toolchain.missing` (the go executable could not run) and `go.mod-only-fallback` (the manual `go.mod` parse)                        |
 | php       | 4       | `php.no-lockfile`, `php.composer.missing`, `php.host-probe.package-db-unreadable` and `php.composer.platform-unattributed`             |
 | dart      | 1       | `dart.pub-get-needed`: `pubspec.yaml` parsed without `pubspec.lock`                                                                    |
