@@ -1,0 +1,19 @@
+lib/ecosystems/gradleutils.poku.js
+  s_f4ae7fa4f71afc::t_eb4118a353286b 23,1572-1576,1639,1701-1702,1743-1755,1934-1936,1941-1946,2063-2065
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "b516e3668800354c6b9ac7297771dd1c0ba31979",
+  "prompts": {},
+  "sessions": {
+    "s_f4ae7fa4f71afc": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "10c90dba-a063-4a43-9f8c-4544727070fc",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
