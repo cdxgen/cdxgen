@@ -1,0 +1,39 @@
+claude-plugin/.claude-plugin/plugin.json
+  s_8ba45a1b739c98::t_6441833dcccd93 28-36
+claude-plugin/README.md
+  s_8ba45a1b739c98::t_5ed449099ea236 57-80
+claude-plugin/agents/bom-reviewer.md
+  s_541491761dc9cf::t_ab5a5ad65dfb97 1-52
+claude-plugin/hooks/check-cdxgen.mjs
+  s_8ba45a1b739c98::t_92a05087f1c30f 1-145
+claude-plugin/hooks/hooks.json
+  s_541491761dc9cf::t_e1fd1cbc7e2b16 1-30
+claude-plugin/hooks/hooks.test.mjs
+  s_8ba45a1b739c98::t_ea8cb216f45e5d 1-136
+claude-plugin/hooks/stale-sbom.mjs
+  s_8ba45a1b739c98::t_50ac45f0e1371c 1-119
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "bf5b29267f597fe411b0b9832ee1a6de4ee8bf42",
+  "prompts": {},
+  "sessions": {
+    "s_541491761dc9cf": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "20b4a167-8c9b-42eb-bef3-e9a02e7ff941",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    },
+    "s_8ba45a1b739c98": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "d3e83c12-f1d6-4bb1-9db6-479955b7aa60",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
