@@ -1,0 +1,67 @@
+lib/ecosystems/rubyRuntimeDeclarations.poku.js
+  s_05c98230e0bb80::t_440fef327c3018 1-11,318-437
+  s_05c98230e0bb80::t_1d8a2173fd7563 438
+docs/PROJECT_TYPES.md
+  s_05c98230e0bb80::t_1793fc5cd37515 98
+lib/cli/managedBom.poku.js
+  s_05c98230e0bb80::t_8caf61e35556db 3149-3225
+docs/OBOM_LESSONS.md
+  s_05c98230e0bb80::t_1793fc5cd37515 214
+lib/inventory/envcontext.js
+  s_05c98230e0bb80::t_c3fde47cf7a300 672-673,682-686,693-721,743
+lib/inventory/rubyBuildInfo.poku.js
+  s_05c98230e0bb80::t_1cb16130eec98a 713-771
+lib/inventory/rubyHostProbe.poku.js
+  s_05c98230e0bb80::t_e5d2e5fefa484b 241-281
+lib/ecosystems/gemHostProbe.poku.js
+  s_05c98230e0bb80::t_1cb16130eec98a 1-7,10,193-246
+  s_05c98230e0bb80::t_f66d80fc95ae33 247
+lib/inventory/envcontext.poku.js
+  s_05c98230e0bb80::t_e5d2e5fefa484b 940,942,981-992,994-1023,1028-1029
+  s_05c98230e0bb80::t_8caf61e35556db 993
+  s_05c98230e0bb80::t_3581105591eb25 1-7,9,1024-1027
+  s_05c98230e0bb80::t_34d0930b8da511 1030
+lib/inventory/formulationParsers.poku.js
+  s_05c98230e0bb80::t_e5d2e5fefa484b 491-496
+lib/cli/managedBom.js
+  s_05c98230e0bb80::t_f76de05b189862 1477-1478
+  s_05c98230e0bb80::t_d4468b86f34a32 9,1568-1569,1581-1584,1668-1670,1684,1695,1815-1824,1826-1859,1864-1874,1876
+lib/inventory/rubyBuildInfo.js
+  s_05c98230e0bb80::t_f76de05b189862 744,858-862,865,868,872-883,885
+  s_05c98230e0bb80::t_c3fde47cf7a300 549-554,646-652,700-702,739-743
+lib/inventory/hostRuntimeProbe.js
+  s_05c98230e0bb80::t_55c6962431d4e1 49-50,183,187-202
+  s_05c98230e0bb80::t_11b086f2aeebe7 203
+lib/ecosystems/rubyutils.js
+  s_05c98230e0bb80::t_c3fde47cf7a300 3256-3267,3291,3390-3393
+  s_05c98230e0bb80::t_1010f1276a73fc 19,2913-2914,3154-3158,3181-3183,3188,3190-3193,3196,3199-3201
+  s_05c98230e0bb80::t_f76de05b189862 3017-3018,3068-3072,3208-3216
+lib/inventory/formulationParsers.js
+  s_05c98230e0bb80::t_55c6962431d4e1 7,192-201,303-307
+docs/CUSTOM_PROPERTIES.md
+  s_05c98230e0bb80::t_1793fc5cd37515 451,2380-2381
+docs/ADVANCED.md
+  s_05c98230e0bb80::t_1793fc5cd37515 1005
+lib/ecosystems/gemHostProbe.js
+  s_05c98230e0bb80::t_55c6962431d4e1 41-43
+  s_05c98230e0bb80::t_1010f1276a73fc 20-21,222-229,233-237
+  s_05c98230e0bb80::t_c3fde47cf7a300 242-244
+lib/cli/jsBom.js
+  s_05c98230e0bb80::t_f76de05b189862 135-136,241,337,345,353,364,372,514,522,752,760,768
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "427fc75e199a78eab93bf6b24af09608b275b1d7",
+  "prompts": {},
+  "sessions": {
+    "s_05c98230e0bb80": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "dd336703-9db7-44f6-afb3-83e6d81567eb",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
