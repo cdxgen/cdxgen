@@ -192,6 +192,14 @@ export declare function toGemModuleNames(name: any): string[];
  */
 export declare function collectGemModuleNames(rubyCommand: string, bundleCommand: string, gemHome: string, gemName: string, filePath: string): Array<string>;
 /**
+ * Whether a gemspec is a default gem, one that ships with Ruby: RubyGems
+ * keeps them under `specifications/default/`.
+ *
+ * @param {string} gemspecFile path of the gemspec, either separator
+ * @returns {boolean}
+ */
+export declare function isDefaultGemspecPath(gemspecFile: string): boolean;
+/**
  * Method to parse Gemspec file contents.
  *
  * A source gemspec is Ruby code. The values that can be read without running
@@ -310,33 +318,157 @@ export declare function addRubyGemsDistributionUrls(pkgList: any[]): any[];
  */
 export declare function rubyRequirementToVers(requirements: string[]): string | null | undefined;
 /**
- * Describe the Ruby runtime the gems require as one external `platform`
+ * Read the Ruby a `.ruby-version` file selects, as rbenv, chruby, rvm, asdf
+ * and mise read it: `3.3.6`, `ruby-3.3.6`, `3.3`, `jruby-9.4.8.0`,
+ * `truffleruby-24.1.0`, `truffleruby+graalvm-24.1.0`. Only the first word
+ * counts; comments and blank lines are skipped.
+ *
+ * @param {string} text file contents
+ * @returns {{engine: string, version?: string, requirement?: string, source: string}|undefined}
+ */
+export declare function parseRubyVersionFile(text: string): {
+    engine: string;
+    version?: string;
+    requirement?: string;
+    source: string;
+} | undefined;
+/**
+ * Read the Ruby an asdf `.tool-versions` file selects: the first version on
+ * the `ruby` line, e.g. `ruby 3.3.6 3.2.2`.
+ *
+ * @param {string} text file contents
+ * @returns {{engine: string, version?: string, requirement?: string, source: string}|undefined}
+ */
+export declare function parseToolVersionsRuby(text: string): {
+    engine: string;
+    version?: string;
+    requirement?: string;
+    source: string;
+} | undefined;
+/**
+ * Read the Ruby a mise configuration selects from its `[tools]` table:
+ * `ruby = "3.3.6"`, `ruby = ["3.3.6", "3.2"]` or `ruby = { version = "3.3.6" }`.
+ *
+ * @param {string} text mise.toml contents
+ * @param {string} [source="mise.toml"] the file name, for the result
+ * @returns {{engine: string, version?: string, requirement?: string, source: string}|undefined}
+ */
+export declare function parseMiseRuby(text: string, source?: string): {
+    engine: string;
+    version?: string;
+    requirement?: string;
+    source: string;
+} | undefined;
+/**
+ * Read the `ruby` directive of a Gemfile: `ruby "3.3.6"`, `ruby "~> 3.3"`,
+ * `ruby "3.1.4", engine: "jruby", engine_version: "9.4.8.0"`, or
+ * `ruby file: ".ruby-version"`. The Gemfile is never evaluated, so a
+ * directive built from an expression, such as `ruby RUBY_VERSION`, says
+ * nothing.
+ *
+ * @param {string} text Gemfile contents
+ * @returns {{engine: string, version?: string, requirement?: string,
+ *   file?: string, source: string}|undefined}
+ */
+export declare function parseGemfileRubyDirective(text: string): {
+    engine: string;
+    version?: string;
+    requirement?: string;
+    file?: string;
+    source: string;
+} | undefined;
+/**
+ * Read the `RUBY VERSION` section of a Gemfile.lock, which Bundler writes when
+ * the Gemfile has a `ruby` directive: `ruby 3.3.6p108`, `ruby 3.4.0p-1` for a
+ * pre-release, or `ruby 3.1.4p0 (jruby 9.4.8.0)` for another engine.
+ *
+ * @param {string} text Gemfile.lock contents
+ * @returns {{engine: string, version: string, patchlevel?: string,
+ *   rubyVersion?: string, source: string}|undefined}
+ */
+export declare function parseGemfileLockRubyVersion(text: string): {
+    engine: string;
+    version: string;
+    patchlevel?: string;
+    rubyVersion?: string;
+    source: string;
+} | undefined;
+/**
+ * Collect every Ruby a project directory declares, from the Gemfile.lock
+ * `RUBY VERSION` section, `.ruby-version`, `.tool-versions`, mise.toml and the
+ * Gemfile `ruby` directive. Each declaration names its source.
+ *
+ * @param {string} projectPath project directory
+ * @param {string} [lockData] Gemfile.lock contents, when already read
+ * @returns {Array<{engine: string, version?: string, requirement?: string,
+ *   patchlevel?: string, source: string, path: string}>}
+ */
+export declare function collectProjectRubyDeclarations(projectPath: string, lockData?: string): Array<{
+    engine: string;
+    version?: string;
+    requirement?: string;
+    patchlevel?: string;
+    source: string;
+    path: string;
+}>;
+/**
+ * Settle the Ruby a project runs on from its declarations: the exact version
+ * of the most authoritative source that has one, and the requirements of the
+ * sources that only constrain it.
+ *
+ * @param {Array<Object>} declarations result of collectProjectRubyDeclarations
+ * @returns {{engine: string, version?: string, patchlevel?: string,
+ *   prerelease?: boolean, rubyVersion?: string, source?: string,
+ *   requirements: string[], conflicts: string[]}|undefined}
+ */
+export declare function resolveProjectRuby(declarations: Array<Object>): {
+    engine: string;
+    version?: string;
+    patchlevel?: string;
+    prerelease?: boolean;
+    rubyVersion?: string;
+    source?: string;
+    requirements: string[];
+    conflicts: string[];
+} | undefined;
+/**
+ * Describe the Ruby runtime of a project as one external `platform`
  * component, and make the components that declare a `required_ruby_version`
  * depend on it (discussion 4409).
  *
- * The component stands for the Ruby the bundle as a whole runs on, so its
- * `versionRange` is the intersection of every requirement that could be read,
- * in the `vers` syntax CycloneDX mandates for the field. Each component's own
- * requirement stays in its `cdx:gem:rubyVersionSpecifiers` property. One
- * runtime component per distinct requirement would describe the same
- * interpreter many times over: a modest bundle spells `>= 2.x` a dozen ways.
+ * When the project pins a Ruby (Gemfile.lock `RUBY VERSION`, `.ruby-version`,
+ * `.tool-versions`, mise or the Gemfile `ruby` directive), the component names
+ * that version, `pkg:generic/ruby@3.3.6`, with the CPE a scanner matches
+ * interpreter advisories by. The requirements of the gems then stay in the
+ * `cdx:ruby:requiredVersionRange` property, since CycloneDX allows a
+ * `versionRange` only on a component without a version.
+ *
+ * Without a pin, the component stands for the Ruby the bundle as a whole runs
+ * on, so its `versionRange` is the intersection of every requirement that
+ * could be read, in the `vers` syntax CycloneDX mandates for the field. Each
+ * component's own requirement stays in its `cdx:gem:rubyVersionSpecifiers`
+ * property. One runtime component per distinct requirement would describe the
+ * same interpreter many times over: a modest bundle spells `>= 2.x` a dozen
+ * ways.
  *
  * The type is `platform`, the CycloneDX type for a runtime environment that
  * interprets software, and the one cdxgen gives the Ruby it finds in the
- * build environment. The purl names no version, since a range is not one.
+ * build environment. A range is not a version, so an unpinned purl names none.
  *
- * `isExternal` and `versionRange` are CycloneDX 1.7 fields, and without them
- * the component would claim the product bundles its interpreter, so the caller
- * decides whether the BOM should carry it at all.
+ * `isExternal` and `versionRange` are CycloneDX 1.7 fields. A pinned runtime
+ * also carries the `cdx:ruby:isExternal` property, which says the interpreter
+ * comes with the deployment environment in a BOM of an older spec; the caller
+ * decides whether such a BOM should carry an unpinned runtime at all.
  *
  * @param {Array} pkgList Components
  * @param {object} parentComponent The metadata.component, when the project is
  *   itself a gem
  * @param {Array} dependencies Dependency edges
+ * @param {object} [projectRuby] result of resolveProjectRuby
  * @returns {{pkgList: Array, dependencies: Array}} Components and edges with
  *   the runtime component added
  */
-export declare function addRubyRuntimeComponent(pkgList: any[], parentComponent: object, dependencies: any[]): {
+export declare function addRubyRuntimeComponent(pkgList: any[], parentComponent: object, dependencies: any[], projectRuby?: object): {
     pkgList: any[];
     dependencies: any[];
 };

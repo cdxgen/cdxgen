@@ -23,4 +23,22 @@ export declare function probeHostRuntime(options: Object, spec: Object): {
     components: Object[];
     dependencies: Object[];
 };
+/**
+ * Ask the package databases of a POSIX host which package owns each path.
+ * The paths are named as the host names them (`/usr/lib/ruby/...`). A
+ * database that exists but cannot be read is reported, so the caller can tell
+ * "no owner" from "unknown".
+ *
+ * @param {Object} options probe options, as probeHostRuntime takes them
+ * @param {string[]} paths logical paths to look up
+ * @returns {{owners: Map<string, {database: string, packageName: string}>,
+ *   unreadable: string[]}}
+ */
+export declare function findHostPathOwners(options: Object, paths: string[]): {
+    owners: Map<string, {
+        database: string;
+        packageName: string;
+    }>;
+    unreadable: string[];
+};
 //# sourceMappingURL=hostRuntimeProbe.d.ts.map

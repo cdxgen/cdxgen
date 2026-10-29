@@ -203,11 +203,5 @@ export declare function doNpmInstall(filePath: string, nvmNodePath: string, opti
  * @param {Object} options CLI Options
  */
 export declare function prepareSwiftEnv(filePath: string, options: Object): void;
-/**
- * Method to check and prepare the environment for Ruby projects
- *
- * @param {String} filePath Path
- * @param {Object} options CLI Options
- */
-export declare function prepareRubyEnv(filePath: string, options: Object): void;
+export declare function prepareRubyEnv(filePath: any, options: any): void;
 //# sourceMappingURL=pregen.d.ts.map

@@ -1,0 +1,6 @@
+[env]
+RUBY_YJIT_ENABLE = "1"
+
+[tools]
+node = "24"
+ruby = "3.2.9"

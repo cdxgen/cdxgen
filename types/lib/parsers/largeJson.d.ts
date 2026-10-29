@@ -35,9 +35,10 @@ export declare function readJsonMember(filePath: string, name: string, options?:
  * more than a bounded run of it in one string.
  *
  * `spec` narrows what is kept. `{ members: { name: spec } }` keeps only the
- * named members of an object, each narrowed by its own spec. `{ filter }`
- * keeps the elements of an array that `filter(element)` accepts. Anything else
- * keeps the whole value.
+ * named members of an object, each narrowed by its own spec. `{ map }`
+ * transforms each element of an array, an undefined result dropping it, and
+ * `{ filter }` keeps the mapped elements that `filter(element)` accepts.
+ * Anything else keeps the whole value.
  *
  * @param {string} filePath JSON file
  * @param {{start: number, end: number}} range Byte range of the value, such as one returned by indexJsonObject

@@ -113,6 +113,10 @@ export declare let CDXGEN_TEMP_DIR: string;
 export declare const SWIFT_CMD: string;
 /** Resolved Ruby executable command (RUBY_CMD env var, or "ruby"). */
 export declare const RUBY_CMD: string;
+/** Resolved RubyGems executable command (CDXGEN_GEM_CMD env var, or "gem"). */
+export declare const GEM_CMD: string;
+/** Resolved Bundler executable command (CDXGEN_BUNDLE_CMD env var, or "bundle"). */
+export declare const BUNDLE_CMD: string;
 /** Resolved PHP executable command (PHP_CMD env var, or "php"). */
 export declare const PHP_CMD: string;
 /** Resolved Composer executable command (COMPOSER_CMD env var, or "composer"). */
