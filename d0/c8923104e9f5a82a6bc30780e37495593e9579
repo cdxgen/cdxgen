@@ -1,0 +1,38 @@
+lib/stages/pregen/pregen.js
+  s_541491761dc9cf::t_4364a849bd8af9 32,337-341,466-467
+  s_541491761dc9cf::t_41e358396bc61a 825-827
+  s_541491761dc9cf::t_65f07e49795945 321-336,429-438,824,828-830,834,836,839
+docs/ENV.md
+  s_541491761dc9cf::t_62d673e66b23c4 59
+ci/images/opensuse/Dockerfile.rolling
+  s_541491761dc9cf::t_e8f395cc6e11b6 49-50,123-127
+lib/inventory/envcontext.js
+  s_541491761dc9cf::t_65f07e49795945 142
+  s_541491761dc9cf::t_291c98cb1ee561 143-146
+ci/images/common/install-gradle.sh
+  s_541491761dc9cf::t_a244a45ccd5578 1-56
+docs/PROJECT_TYPES.md
+  s_541491761dc9cf::t_291c98cb1ee561 90
+ci/images/temurin/Dockerfile.java27
+  s_541491761dc9cf::t_5b7f3f5536dd64 47,116-122
+ci/images/alpine/Dockerfile.java27
+  s_541491761dc9cf::t_5b7f3f5536dd64 17,50-52
+lib/stages/pregen/pregen.poku.js
+  s_541491761dc9cf::t_41e358396bc61a 1319-1374
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "d0c8923104e9f5a82a6bc30780e37495593e9579",
+  "prompts": {},
+  "sessions": {
+    "s_541491761dc9cf": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "20b4a167-8c9b-42eb-bef3-e9a02e7ff941",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
