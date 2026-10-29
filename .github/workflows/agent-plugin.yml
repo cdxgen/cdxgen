@@ -44,4 +44,4 @@ jobs:
           DISABLE_AUTOUPDATER: "1"
           CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC: "1"
       - name: Test the hook scripts
-        run: node --test claude-plugin/hooks/
+        run: node --test claude-plugin/hooks/hooks.test.mjs
