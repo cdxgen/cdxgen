@@ -522,6 +522,40 @@
       "version": "0.2.0"
     },
     {
+      "bom-ref": "pkg:gem/bundler@1.17.2",
+      "evidence": {
+        "identity": [
+          {
+            "confidence": 0.8,
+            "field": "purl",
+            "methods": [
+              {
+                "confidence": 0.8,
+                "technique": "manifest-analysis",
+                "value": "$ROOT/Gemfile.lock"
+              }
+            ]
+          }
+        ]
+      },
+      "group": "",
+      "name": "bundler",
+      "properties": [
+        {
+          "name": "cdx:gem:bundledWith",
+          "value": "true"
+        },
+        {
+          "name": "internal:SrcFile",
+          "value": "$ROOT/Gemfile.lock"
+        }
+      ],
+      "purl": "pkg:gem/bundler@1.17.2",
+      "scope": "required",
+      "type": "library",
+      "version": "1.17.2"
+    },
+    {
       "bom-ref": "pkg:gem/claide@1.1.0",
       "evidence": {
         "identity": [
@@ -4160,6 +4194,7 @@
     },
     {
       "dependsOn": [
+        "pkg:gem/bundler@1.17.2",
         "pkg:gem/fastlane@2.230.0"
       ],
       "ref": "pkg:gem/ruby-smoke@1.0.0"

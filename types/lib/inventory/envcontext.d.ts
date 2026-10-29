@@ -177,16 +177,51 @@ export declare function collectSwiftInfo(dir: string): {
     version: string;
 } | undefined;
 /**
- * Collect Ruby version
+ * Whether a Ruby executable is one the operating system or a package manager
+ * owns. Distros backport fixes under the old upstream version, so its version
+ * must not be matched against upstream advisories by CPE.
+ *
+ * @param {string|undefined} realPath real path of the executable
+ * @returns {boolean}
+ */
+export declare function isPackagedRubyPath(realPath: string | undefined): boolean;
+/**
+ * Collect the Ruby on the PATH.
+ *
+ * `ruby --version` prints the interpreter's description, such as
+ * `ruby 3.3.6 (2024-11-05 revision 75015d4c1f) [x86_64-linux]`, which is kept
+ * as the component description. The identity is `pkg:generic/ruby@3.3.6`
+ * (or jruby, truffleruby), with the CPE of the release unless a package
+ * manager owns the executable: a distro backports fixes under the old upstream
+ * version.
  *
  * @param {string} dir Working directory
  * @returns Object containing Ruby details
  */
-export declare function collectRubyInfo(dir: string): {
-    type: string;
-    name: string;
-    version: string;
-} | undefined;
+export declare function collectRubyInfo(dir: string): Object | undefined;
+/**
+ * Whether the Ruby collectRubyInfo found is the MRI release a project needs.
+ *
+ * @param {Object|undefined} info result of collectRubyInfo
+ * @param {string} version wanted MRI version
+ * @returns {boolean}
+ */
+export declare function isRubyVersionActive(info: Object | undefined, version: string): boolean;
+/**
+ * Collect the RubyGems version. `gem --version` prints the bare version.
+ *
+ * @param {string} dir Working directory
+ * @returns {Object|undefined} the RubyGems component
+ */
+export declare function collectRubyGemsInfo(dir: string): Object | undefined;
+/**
+ * Collect the Bundler version. `bundle --version` prints `Bundler version
+ * 2.5.22`, or the bare version from Bundler 2.6 on.
+ *
+ * @param {string} dir Working directory
+ * @returns {Object|undefined} the Bundler component
+ */
+export declare function collectBundlerInfo(dir: string): Object | undefined;
 /**
  * Collect the PHP version of the PHP found on the PATH.
  *

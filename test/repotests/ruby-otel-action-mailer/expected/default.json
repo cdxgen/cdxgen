@@ -186,6 +186,40 @@
       "version": "4.1.2"
     },
     {
+      "bom-ref": "pkg:gem/bundler@4.0.16",
+      "evidence": {
+        "identity": [
+          {
+            "confidence": 0.8,
+            "field": "purl",
+            "methods": [
+              {
+                "confidence": 0.8,
+                "technique": "manifest-analysis",
+                "value": "$ROOT/Gemfile.lock"
+              }
+            ]
+          }
+        ]
+      },
+      "group": "",
+      "name": "bundler",
+      "properties": [
+        {
+          "name": "cdx:gem:bundledWith",
+          "value": "true"
+        },
+        {
+          "name": "internal:SrcFile",
+          "value": "$ROOT/Gemfile.lock"
+        }
+      ],
+      "purl": "pkg:gem/bundler@4.0.16",
+      "scope": "required",
+      "type": "library",
+      "version": "4.0.16"
+    },
+    {
       "bom-ref": "pkg:gem/crack@1.0.1",
       "evidence": {
         "identity": [
@@ -1894,6 +1928,7 @@
     {
       "dependsOn": [
         "pkg:gem/appraisal@2.5.0",
+        "pkg:gem/bundler@4.0.16",
         "pkg:gem/jar-dependencies",
         "pkg:gem/minitest@6.0.6",
         "pkg:gem/opentelemetry-instrumentation-active_support@0.12.1",

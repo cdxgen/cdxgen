@@ -1306,6 +1306,30 @@
     },
     "docs": "https://cyclonedx.github.io/cdxgen/#/PROJECT_TYPES?id=php"
   },
+  "ruby.host-probe.package-db-unreadable": {
+    "ecosystem": "ruby",
+    "kind": "evidence.degraded",
+    "impact": "components",
+    "title": "A package database could not be read in full, so the Ruby no package owns on this host was not identified",
+    "targetTier": null,
+    "actions": [
+      {
+        "kind": "config",
+        "command": "Run cdxgen as a user that can read the package databases (for example with sudo), so Ruby files can be matched to the packages that own them"
+      },
+      {
+        "kind": "rerun"
+      }
+    ],
+    "verify": {
+      "rules": [],
+      "expectTier": null,
+      "eventsCleared": [
+        "ruby.host-probe.package-db-unreadable"
+      ]
+    },
+    "docs": "https://cyclonedx.github.io/cdxgen/#/PROJECT_TYPES?id=ruby"
+  },
   "npm.host-probe.package-db-unreadable": {
     "ecosystem": "npm",
     "kind": "evidence.degraded",

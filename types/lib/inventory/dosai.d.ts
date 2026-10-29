@@ -129,23 +129,39 @@ export declare function dosaiReportFileOmittedSections(reportFile: string): stri
  */
 export declare function dosaiSectionsCdxgenReads(omittedSections: string[]): string[];
 /**
+ * The largest number of distinct method calls cdxgen keeps from one report.
+ *
+ * Reports in the millions of calls repeat the same call sites heavily, so the
+ * aggregated rows stay far below this; the cap exists so a report whose calls
+ * are all distinct degrades the occurrence evidence instead of the process.
+ *
+ * @returns {number} Cap on distinct kept rows
+ */
+export declare function maxDosaiMethodCalls(): number;
+/**
  * Read a dosai methods report of any size.
  *
  * A report that fits in one JavaScript string is parsed whole. A larger one is
  * read in bounded runs, keeping the requested sections, the CallGraph nodes and
  * edges that PackageReachability references, and the MethodCalls accepted by
- * `keepMethodCall` (none when it is omitted). Nothing cdxgen reads is lost.
+ * `keepMethodCall` (none when it is omitted). A kept MethodCalls row is
+ * reduced to the fields cdxgen reads and aggregated by them, so a call site
+ * reached many times is held once with a `CallCount`; distinct rows past
+ * {@link maxDosaiMethodCalls} are dropped with one warning. Nothing cdxgen
+ * reads is lost.
  *
  * @param {string} reportFile Path to the dosai methods JSON
  * @param {Object} [options] Options
  * @param {string[]} [options.sections] Sections to keep from a large report (default: every section cdxgen reads)
  * @param {Function} [options.keepMethodCall] Predicate choosing the MethodCalls to keep from a large report
+ * @param {number} [options.maxMethodCalls] Cap on distinct kept MethodCalls, for tests
  * @param {number} [options.maxTextBytes] Largest report parsed whole, for tests
  * @returns {Object|undefined} Parsed report, or undefined when missing or invalid
  */
 export declare function readDosaiMethodsReport(reportFile: string, options?: {
     sections?: string[];
     keepMethodCall?: Function;
+    maxMethodCalls?: number;
     maxTextBytes?: number;
 }): Object | undefined;
 /**
