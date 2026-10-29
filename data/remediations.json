@@ -435,12 +435,16 @@
     "ecosystem": "npm",
     "kind": "evidence.degraded",
     "impact": "transitive-deps",
-    "title": "package-lock.json carried dependency paths outside the project",
+    "title": "Secure mode omitted package-lock.json entries whose paths point outside the project",
     "targetTier": "lockfile",
     "actions": [
       {
-        "kind": "build",
-        "command": "npm install --package-lock-only"
+        "kind": "config",
+        "command": "Review the file: and link entries the warning names; remove any you did not add, and regenerate the lockfile with npm install --package-lock-only"
+      },
+      {
+        "kind": "config",
+        "command": "For trusted sibling file: or npm link dependencies, rerun outside secure mode on a trusted checkout to keep them"
       },
       {
         "kind": "rerun"

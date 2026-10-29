@@ -8,6 +8,10 @@ cdxgen supports the Node.js permission [model](https://nodejs.org/api/permission
 - **Dry-run mode** (`cdxgen --dry-run` or `CDXGEN_DRY_RUN=true`) makes cdxgen read-only. It reads local files, blocks writes, child processes, temp directories, repository cloning, and remote submission, then prints an activity summary table for review. `--bom-audit` remains available, but only the in-memory formulation audit runs fully; the predictive dependency audit is reduced to target planning.
 - You can combine the two when you want both hardened execution guidance and a read-only review workflow.
 
+### npm lockfile paths outside the project
+
+A `package-lock.json` or `npm-shrinkwrap.json` can name `file:` and `link:` paths, and link targets, that point outside the directory holding the lockfile. Legitimate lockfiles do this for sibling `file:` and `npm link` dependencies; a crafted one can use it to point at arbitrary directories and to put traversal strings such as `file:../../../tmp/x` into purls. cdxgen warns once per lockfile when it sees such entries. Outside secure mode they are kept, so the SBOM is unchanged; in secure mode they are omitted together with the dependency edges into them, and a `js.lockfile-unsafe-path` event is recorded for the introspection report.
+
 ## Benefits of Permissions Model
 
 Permissions can be used to control what system resources cdxgen has access to or what actions it can take with those resources. In secure mode cdxgen turns off package installations by default. With installs off it also skips the scanned project's own build tooling, such as Maven, Gradle, sbt, Mill, Leiningen, `poetry export`, `dotnet msbuild`, SwiftPM and CocoaPods, and reads manifests and lock files instead. The `cdxgen-secure` command and the `ghcr.io/cdxgen/cdxgen-secure` image both run in secure mode, so neither needs `--no-install-deps`. The `cdxgen-secure` command keeps installs off even when `--install-deps` is passed; with `CDXGEN_SECURE_MODE=true`, only an explicit `--install-deps` on the command line, or `CDXGEN_INSTALL_DEPS=true`, turns them back on. A config file such as `.cdxgenrc` in the working directory cannot.
