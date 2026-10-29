@@ -1,0 +1,81 @@
+contrib/arborist-patches/spec-from-lock-safe-path.patch
+  s_3c9a6ff570c1b9::t_269f10ca26a717 1-10,13-25,35-85
+  s_3c9a6ff570c1b9::t_df7a24ad1b8270 11-12
+  s_3c9a6ff570c1b9::t_f4bf29377508a7 26-34
+docs/INTROSPECTION.md
+  s_3c9a6ff570c1b9::t_df16b2fd57b2fb 99
+lib/ecosystems/parsers-js.js
+  s_3c9a6ff570c1b9::t_24f006dea2e732 875-880,882,887,894
+  s_3c9a6ff570c1b9::t_1c74b92852787b 962-974
+  s_3c9a6ff570c1b9::t_46233eda62a6c1 874,881,888-893,895-918,923-928,975
+  s_3c9a6ff570c1b9::t_1c861c93924ce1 20
+  s_3c9a6ff570c1b9::t_cd92a461a02f18 883-886,919-922
+  s_3c9a6ff570c1b9::t_8aac1c481ed858 939-942,1743-1755
+  s_3c9a6ff570c1b9::t_9b44d7f74e3aeb 1756
+lib/core/lockPaths.poku.js
+  s_3c9a6ff570c1b9::t_1c861c93924ce1 26-29,32-39,49
+  s_3c9a6ff570c1b9::t_b1ab7a22903aeb 1-25,30-31,40-48,50-53,56-57
+  s_3c9a6ff570c1b9::t_277b21c806fde6 54-55
+data/remediations.json
+  s_3c9a6ff570c1b9::t_3196b0ec8ee3e2 434-457
+lib/ecosystems/parsers-js-lockpath.poku.js
+  s_3c9a6ff570c1b9::t_ca9e64f0b03763 1-3,5-31,34,39-50,55-60,62-66
+  s_3c9a6ff570c1b9::t_53be3ea10ed595 32-33,38,61
+  s_3c9a6ff570c1b9::t_1c861c93924ce1 4,35-37,51-54
+contrib/arborist-patches/load-virtual-safe-link-target.patch
+  s_3c9a6ff570c1b9::t_a26b25622dbbda 1-11,13-30
+  s_3c9a6ff570c1b9::t_05f46de2b047d0 12
+lib/ecosystems/parsers-js.poku.js
+  s_3c9a6ff570c1b9::t_1ead63e0414aa6 4784-4790,4793,4929-4930
+  s_3c9a6ff570c1b9::t_0eaf3cf3e2d096 4829
+  s_3c9a6ff570c1b9::t_2371adb1ff549a 4830-4832
+  s_3c9a6ff570c1b9::t_5829cbc5c3d347 4940
+  s_3c9a6ff570c1b9::t_9fcac2ae45a852 4833,4856,4861
+  s_3c9a6ff570c1b9::t_491c6c181761ba 4946-4951
+  s_3c9a6ff570c1b9::t_b191a2ba385aff 4779-4782,4792,4794-4802,4804-4805,4810,4813-4815,4866-4877,4879,4883,4941-4945,4952-4956
+  s_3c9a6ff570c1b9::t_53be3ea10ed595 4808-4809,4811-4812
+  s_3c9a6ff570c1b9::t_af764ab5be884e 4776,4791,4807,4817,4841,4843,4865,4878,4881,4895,4897,4958
+  s_3c9a6ff570c1b9::t_c34a63d1d3a71a 4777-4778,4783,4803,4806,4816,4818-4828,4834-4840,4842,4844-4855,4857-4860,4862-4864,4880,4882,4884-4894,4896,4898-4928,4931-4939,4957
+claude-plugin/skills/sbom-fidelity-loop/SKILL.md
+  s_3c9a6ff570c1b9::t_1d60decb3315b2 26
+lib/third-party/arborist/lib/arborist/load-virtual.js
+  s_3c9a6ff570c1b9::t_5a3b940c80fbff 7,190-196
+.agents/skills/sbom-fidelity-loop/SKILL.md
+  s_3c9a6ff570c1b9::t_334ea4adbce43c 26
+types/lib/core/lockPaths.d.ts
+  s_3c9a6ff570c1b9::t_0008ab86ed2bb2 1-39
+lib/third-party/arborist/spec-from-lock.poku.js
+  s_3c9a6ff570c1b9::t_fb5257eda2980a 181-185,191,193-194,196,203-248,250
+  s_3c9a6ff570c1b9::t_59d91b40d13e58 249
+lib/core/lockPaths.js
+  s_3c9a6ff570c1b9::t_5ffaee91c7aaf1 27-28,47
+  s_3c9a6ff570c1b9::t_2d5de2b883d37d 73,76,80-81
+  s_3c9a6ff570c1b9::t_a00a4865597713 63-65,67,72
+  s_3c9a6ff570c1b9::t_1931f3250bb6f9 58-62,66,68-71,74-75,77-79,82-84,86
+  s_3c9a6ff570c1b9::t_ed0f187d77012d 2-26,29-40,42-46,48-49,57
+  s_3c9a6ff570c1b9::t_86e9f3a89f1b03 50-55
+  s_3c9a6ff570c1b9::t_1c861c93924ce1 56,85
+  s_3c9a6ff570c1b9::t_dd49fd9f90820f 1,41
+contrib/arborist-manifest.json
+  s_3c9a6ff570c1b9::t_5a3b940c80fbff 9,25,32
+lib/third-party/arborist/lib/spec-from-lock.js
+  s_3c9a6ff570c1b9::t_5a3b940c80fbff 1-2,5-6,8-28,32,39,41,47,53
+lib/third-party/arborist/lib/override-set.js
+  s_3c9a6ff570c1b9::t_5a3b940c80fbff 212,218,239,248
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "7c94fb20567312dbcb6fa4ce03ffa0b3a213cae5",
+  "prompts": {},
+  "sessions": {
+    "s_3c9a6ff570c1b9": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "session_021b41a4029a9689df5714325dbf4557",
+        "model": "unknown"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
