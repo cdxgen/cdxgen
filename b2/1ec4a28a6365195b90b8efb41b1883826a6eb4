@@ -1,0 +1,19 @@
+.gitignore
+  s_541491761dc9cf::t_2e37de4e999f46 203-206
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "b21ec4a28a6365195b90b8efb41b1883826a6eb4",
+  "prompts": {},
+  "sessions": {
+    "s_541491761dc9cf": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "20b4a167-8c9b-42eb-bef3-e9a02e7ff941",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
