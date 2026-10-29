@@ -431,6 +431,30 @@
     },
     "docs": "https://cyclonedx.github.io/cdxgen/#/PROJECT_TYPES"
   },
+  "js.lockfile-unsafe-path": {
+    "ecosystem": "npm",
+    "kind": "evidence.degraded",
+    "impact": "transitive-deps",
+    "title": "package-lock.json carried dependency paths outside the project",
+    "targetTier": "lockfile",
+    "actions": [
+      {
+        "kind": "build",
+        "command": "npm install --package-lock-only"
+      },
+      {
+        "kind": "rerun"
+      }
+    ],
+    "verify": {
+      "rules": [],
+      "expectTier": "lockfile",
+      "eventsCleared": [
+        "js.lockfile-unsafe-path"
+      ]
+    },
+    "docs": "https://cyclonedx.github.io/cdxgen/#/PROJECT_TYPES"
+  },
   "js.pnpm-lock-unparseable": {
     "ecosystem": "npm",
     "kind": "evidence.degraded",

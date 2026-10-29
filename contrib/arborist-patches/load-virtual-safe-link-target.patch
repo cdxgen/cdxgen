@@ -1,0 +1,30 @@
+TARGET: lib/arborist/load-virtual.js
+REASON: The `resolved` of a `link: true` lockfile entry is joined with the project root and its target's package.json is read from disk. A crafted lockfile can point that target outside the project (`../../../../tmp/evil-target`), so cdxgen validates it and skips the link entirely rather than following or reading it.
+
+---
+SEARCH:
+import { resolve } from "node:path";
+
+import mapWorkspaces from "@npmcli/map-workspaces";
+REPLACE:
+import { resolve } from "node:path";
+
+import { isSafeLockfilePath } from "../../../../core/lockPaths.js";
+
+import mapWorkspaces from "@npmcli/map-workspaces";
+---
+SEARCH:
+    async #resolveLinks(links, nodes) {
+      for (const [location, meta] of links.entries()) {
+        const targetPath = resolve(this.path, meta.resolved);
+REPLACE:
+    async #resolveLinks(links, nodes) {
+      for (const [location, meta] of links.entries()) {
+        // cdxgen patch (issue #3816): a link target that is not a safe
+        // relative path inside the project is never resolved, read, or added
+        // to the tree; edges pointing at it stay invalid, which the tree
+        // already tolerates.
+        if (!isSafeLockfilePath(meta.resolved, this.path)) {
+          continue;
+        }
+        const targetPath = resolve(this.path, meta.resolved);
