@@ -1,0 +1,53 @@
+.github/workflows/java-reachables-test.yml
+  s_3c9a6ff570c1b9::t_33692709e2aef2 29-31
+.github/workflows/build-images.yml
+  s_3c9a6ff570c1b9::t_ba0b278371a016 161-162,173
+  s_3c9a6ff570c1b9::t_42d87fe6873bc8 174-175
+ci/images/README.md
+  s_3c9a6ff570c1b9::t_a2ed8217adba45 85
+types/lib/inventory/jvmToolEnv.d.ts
+  s_3c9a6ff570c1b9::t_bf307980dcebf1 130-140
+  s_3c9a6ff570c1b9::t_cd0d33f478449e 129
+lib/stages/pregen/pregen.js
+  s_3c9a6ff570c1b9::t_8178138d67fc43 68
+  s_3c9a6ff570c1b9::t_c92fdd17d5e8b0 404-415,418
+  s_3c9a6ff570c1b9::t_47f00ee8e14efd 746-748,753,784-787
+ci/images/alpine/Dockerfile.java27
+  s_3c9a6ff570c1b9::t_09f1bafe1f4213 1-13,16-97
+  s_3c9a6ff570c1b9::t_39f6b40880cb9a 14-15
+docs/ADVANCED.md
+  s_3c9a6ff570c1b9::t_a2ed8217adba45 1349
+lib/inventory/jvmToolEnv.js
+  s_3c9a6ff570c1b9::t_10efb7f0d0e72d 409-435
+  s_3c9a6ff570c1b9::t_a95fb07ee0b703 352
+  s_3c9a6ff570c1b9::t_88de41c0c4450b 408
+types/lib/stages/pregen/pregen.d.ts
+  s_3c9a6ff570c1b9::t_bf307980dcebf1 82-84,89
+ci/images/temurin/Dockerfile.java27
+  s_3c9a6ff570c1b9::t_8f4426f7bd47b2 1-165
+lib/stages/pregen/pregen.poku.js
+  s_3c9a6ff570c1b9::t_51880c2a3b3a24 647-691
+lib/inventory/envcontext.js
+  s_3c9a6ff570c1b9::t_c9f7d6d1622476 142
+lib/inventory/jvmToolEnv.poku.js
+  s_3c9a6ff570c1b9::t_b6558898bd8b53 31,348,352-368
+  s_3c9a6ff570c1b9::t_90c8dccf40aeb6 369-370
+lib/stages/pregen/envAudit.js
+  s_3c9a6ff570c1b9::t_ce04d566e5e362 113
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "b8568632f68d4bc961fafbd5c5a1ef4df8463a78",
+  "prompts": {},
+  "sessions": {
+    "s_3c9a6ff570c1b9": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "session_021b41a4029a9689df5714325dbf4557",
+        "model": "unknown"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
