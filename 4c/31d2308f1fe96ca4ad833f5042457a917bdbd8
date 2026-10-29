@@ -1,0 +1,45 @@
+lib/cli/bomAssembly.poku.js
+  s_3c9a6ff570c1b9::t_2577c17fb49be8 5-10,1015,1019
+  s_3c9a6ff570c1b9::t_ae4c384385c964 909-1014,1016-1018
+  s_3c9a6ff570c1b9::t_cd98ec4d0c7d5a 14
+lib/core/toolRegistry.js
+  s_3c9a6ff570c1b9::t_cf6ea272f3085c 42,45-50
+  s_3c9a6ff570c1b9::t_6c24be899e396a 1-41,43-44,51-90,96-107
+  s_3c9a6ff570c1b9::t_2577c17fb49be8 91-95
+lib/core/fs.js
+  s_3c9a6ff570c1b9::t_2577c17fb49be8 46
+  s_3c9a6ff570c1b9::t_cb4c9420640c1e 995-997
+lib/core/toolRegistry.poku.js
+  s_3c9a6ff570c1b9::t_01446abfe6c8fc 1-78
+docs/ADVANCED.md
+  s_3c9a6ff570c1b9::t_85049766f9a43c 800-803
+types/lib/core/toolRegistry.d.ts
+  s_3c9a6ff570c1b9::t_08e0a2a7c9499a 1-26
+lib/stages/pregen/pregen.js
+  s_3c9a6ff570c1b9::t_19fed923d2fcba 438-442
+  s_3c9a6ff570c1b9::t_2577c17fb49be8 32
+lib/cli/bomAssembly.js
+  s_3c9a6ff570c1b9::t_34a542b5759fcd 28,297-336,368-369,377,385-388
+  s_3c9a6ff570c1b9::t_27cac248a63d5c 64
+  s_3c9a6ff570c1b9::t_84ae3476edd972 337-344,347-348,352-353,360-364,409
+  s_3c9a6ff570c1b9::t_e9048d40e3c3bd 345-346,349-351,354-359
+types/lib/cli/bomAssembly.d.ts
+  s_3c9a6ff570c1b9::t_3493d54b11142d 59-68
+  s_3c9a6ff570c1b9::t_26e80f673cac82 58
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "4c31d2308f1fe96ca4ad833f5042457a917bdbd8",
+  "prompts": {},
+  "sessions": {
+    "s_3c9a6ff570c1b9": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "session_021b41a4029a9689df5714325dbf4557",
+        "model": "unknown"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
