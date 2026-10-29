@@ -1,0 +1,107 @@
+ci/images/debian/Dockerfile.ruby3.4
+  s_3c9a6ff570c1b9::t_5812c5b5b6219d 2
+ci/images/alpine/Dockerfile.ruby3.4
+  s_3c9a6ff570c1b9::t_5812c5b5b6219d 2
+data/spdx-licenses.json
+  s_3c9a6ff570c1b9::t_3889762d8626df 12,26,51-52,55,69,73,81-82,97,99,106,109,111,114,118-119,128,148,225,237,259-261,271,280,282-283,287,342,346,369,372,376,386,396,399,425,456,474,479,497,510,514,526,568,576,583,585,630,644,658,668,694-696,700,709,711,717,755,758,775,787,803,811,815-817
+ci/images/debian/Dockerfile.python3.14
+  s_3c9a6ff570c1b9::t_5812c5b5b6219d 2
+ci/images/Dockerfile.python3.11
+  s_3c9a6ff570c1b9::t_5812c5b5b6219d 2
+ci/images/Dockerfile.ruby2.5
+  s_3c9a6ff570c1b9::t_5812c5b5b6219d 2
+ci/Dockerfile-ppc64
+  s_3c9a6ff570c1b9::t_2b3530754f5427 18-19
+  s_3c9a6ff570c1b9::t_5812c5b5b6219d 1
+ci/images/Dockerfile.python3.6
+  s_3c9a6ff570c1b9::t_5812c5b5b6219d 2
+ci/Dockerfile-deno
+  s_3c9a6ff570c1b9::t_2b3530754f5427 24-25
+ci/images/debian/Dockerfile.php8.4
+  s_3c9a6ff570c1b9::t_5812c5b5b6219d 2
+ci/images/alpine/Dockerfile.php8.4
+  s_3c9a6ff570c1b9::t_5812c5b5b6219d 2
+ci/images/debian/Dockerfile.php8.3
+  s_3c9a6ff570c1b9::t_5812c5b5b6219d 2
+ci/images/debian/Dockerfile.python3.12
+  s_3c9a6ff570c1b9::t_5812c5b5b6219d 2
+ci/images/alpine/Dockerfile.dotnet10
+  s_3c9a6ff570c1b9::t_5812c5b5b6219d 2
+ci/images/debian/Dockerfile.node24
+  s_3c9a6ff570c1b9::t_5812c5b5b6219d 2
+ci/images/debian/Dockerfile.swift6
+  s_3c9a6ff570c1b9::t_5812c5b5b6219d 2
+ci/images/Dockerfile.dotnet8
+  s_3c9a6ff570c1b9::t_5812c5b5b6219d 2
+data/spdx-license-list.json
+  s_3c9a6ff570c1b9::t_98061bea722834 497-505,749-760,892-900,976-984,1021-1029,1048-1056,1094-1102,1361-1369,1956,1959-1960,2107,2110-2111,2471-2472,2513-2521,3203-3211,3576-3585,5635,5640-5641,7475-7481
+ci/images/temurin/Dockerfile.java8
+  s_3c9a6ff570c1b9::t_5812c5b5b6219d 2
+data/license-aliases.json
+  s_3c9a6ff570c1b9::t_98061bea722834 31,37,261-262,314-315,338-339,354,362-363,368-369,378-379,436-437,675-676,815-816,895-896,1684
+ci/Dockerfile-bun
+  s_3c9a6ff570c1b9::t_5812c5b5b6219d 1
+  s_3c9a6ff570c1b9::t_2b3530754f5427 24-25
+ci/images/debian/Dockerfile.php8.5
+  s_3c9a6ff570c1b9::t_5812c5b5b6219d 2
+ci/Dockerfile
+  s_3c9a6ff570c1b9::t_eb525d437f15ee 13-14
+.github/workflows/project-sync.yml
+  s_3c9a6ff570c1b9::t_a1cdc2a405e0e7 22,25
+ci/images/alpine/Dockerfile.php8.3
+  s_3c9a6ff570c1b9::t_5812c5b5b6219d 2
+ci/images/alpine/Dockerfile.php8.5
+  s_3c9a6ff570c1b9::t_5812c5b5b6219d 2
+ci/images/Dockerfile.java17
+  s_3c9a6ff570c1b9::t_5812c5b5b6219d 4
+ci/images/debian/Dockerfile.elixir1
+  s_3c9a6ff570c1b9::t_5812c5b5b6219d 2
+ci/images/ubuntu/Dockerfile.dotnet11
+  s_3c9a6ff570c1b9::t_5812c5b5b6219d 2
+ci/images/al10/Dockerfile.ruby-builder
+  s_3c9a6ff570c1b9::t_5812c5b5b6219d 1
+.versions/gradle_9
+  s_3c9a6ff570c1b9::t_ebc220a12f992b 2
+ci/images/alpine/Dockerfile.ruby4
+  s_3c9a6ff570c1b9::t_5812c5b5b6219d 2
+ci/images/Dockerfile.dotnet9
+  s_3c9a6ff570c1b9::t_5812c5b5b6219d 2
+ci/images/alpine/Dockerfile.dotnet9
+  s_3c9a6ff570c1b9::t_5812c5b5b6219d 2
+ci/images/opensuse/Dockerfile.rolling
+  s_3c9a6ff570c1b9::t_5812c5b5b6219d 2
+contrib/generate-license-data.py
+  s_3c9a6ff570c1b9::t_e3cd3d4a1edc17 76-93
+ci/images/debian/Dockerfile.ruby4
+  s_3c9a6ff570c1b9::t_5812c5b5b6219d 2
+ci/images/debian/Dockerfile.ruby3.3
+  s_3c9a6ff570c1b9::t_5812c5b5b6219d 2
+ci/images/alpine/Dockerfile.ruby3.3
+  s_3c9a6ff570c1b9::t_5812c5b5b6219d 2
+ci/images/debian/Dockerfile.node26
+  s_3c9a6ff570c1b9::t_5812c5b5b6219d 2
+ci/images/alpine/Dockerfile.dotnet11
+  s_3c9a6ff570c1b9::t_5812c5b5b6219d 2
+ci/images/alpine/Dockerfile.elixir1
+  s_3c9a6ff570c1b9::t_5812c5b5b6219d 2
+ci/images/alpine/Dockerfile.python3.12
+  s_3c9a6ff570c1b9::t_5812c5b5b6219d 2
+ci/images/debian/Dockerfile.python3.13
+  s_3c9a6ff570c1b9::t_5812c5b5b6219d 2
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "00064b301ee9047bc76a9fc9c7b70ff59696eb81",
+  "prompts": {},
+  "sessions": {
+    "s_3c9a6ff570c1b9": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "session_021b41a4029a9689df5714325dbf4557",
+        "model": "unknown"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
