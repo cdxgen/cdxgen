@@ -25,9 +25,9 @@ jobs:
     if: github.event.action != 'edited' || github.event.changes.body != null
     permissions:
       contents: read
-    uses: cdxgen/.github/.github/workflows/project-sync.yml@9e476b9489d771ac7118e04053240a64da0be8f7  # main
+    uses: cdxgen/.github/.github/workflows/project-sync.yml@e411ed58599b08d426d352592cab3fcf0736f31d  # main
     with:
-      project-number: ${{ vars.PROJECT_NUMBER }}
-      ref: 9e476b9489d771ac7118e04053240a64da0be8f7
+      ref: e411ed58599b08d426d352592cab3fcf0736f31d
     secrets:
       PROJECT_TOKEN: ${{ secrets.PROJECT_TOKEN }}
+      PROJECT_NUMBER: ${{ secrets.PROJECT_NUMBER }}
