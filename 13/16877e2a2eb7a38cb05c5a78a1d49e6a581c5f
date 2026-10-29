@@ -1,0 +1,35 @@
+.github/workflows/lint.yml
+  s_8ba45a1b739c98::t_eb7383c58bcc2a 66
+.agents/skills/custom-property-author/SKILL.md
+  s_8ba45a1b739c98::t_329ed45c1fec5e 8
+.agents/skills/ecosystem-onboarding/SKILL.md
+  s_8ba45a1b739c98::t_329ed45c1fec5e 8
+contrib/check-agent-plugin.js
+  s_8ba45a1b739c98::t_3d905c633a1d57 1-9,12-41,45-47,56-92,94,99-135,140-197,200-223
+  s_8ba45a1b739c98::t_6ed3e18afa7c6b 93,95-98,136-139
+  s_8ba45a1b739c98::t_2efd622b87b4e9 42-44,48-55
+  s_8ba45a1b739c98::t_eb7383c58bcc2a 10-11,198-199
+.agents/skills/sbom-fidelity-loop/SKILL.md
+  s_8ba45a1b739c98::t_e81aad649fb795 3
+  s_8ba45a1b739c98::t_329ed45c1fec5e 15-16
+claude-plugin/skills/sbom-fidelity-loop/SKILL.md
+  s_8ba45a1b739c98::t_e81aad649fb795 3
+package.json
+  s_8ba45a1b739c98::t_eb7383c58bcc2a 126
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "1316877e2a2eb7a38cb05c5a78a1d49e6a581c5f",
+  "prompts": {},
+  "sessions": {
+    "s_8ba45a1b739c98": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "d3e83c12-f1d6-4bb1-9db6-479955b7aa60",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
