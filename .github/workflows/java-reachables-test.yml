@@ -26,7 +26,9 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        java-version: ['24']
+        # 27 exercises the newest JDK GA: the compile and reachables steps
+        # surface build-tool or plugin incompatibilities on Java 27 early.
+        java-version: ['24', '27']
         os: ['ubuntu-24.04']
     runs-on: ${{ matrix.os }}
     steps:

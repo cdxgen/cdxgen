@@ -1,0 +1,163 @@
+# Base-image
+FROM eclipse-temurin:27_35-jdk-ubi10-minimal@sha256:5b75c0bdf493328878ab860290df4abaf0e815501d17e975fa0a9c9442debbb6 AS base
+
+ARG GITHUB_RAW_URL=https://raw.githubusercontent.com
+ARG GRADLE_9
+ARG GRADLE_VERSION=${GRADLE_9}
+ARG MAVEN_3
+ARG MAVEN_VERSION=${MAVEN_3}
+ARG NODE_24
+ARG NODE_VERSION=${NODE_24}
+ARG NODEJS_DIST_URL
+ARG NPM_REPO
+ARG NVM
+ARG NVM_VERSION=${NVM:-v0.40.8}
+ARG PIP_CONFIG
+ARG PYTHON_VERSION=3.12
+ARG REDHAT_REPO
+ARG SBT_VERSION=1.13.0
+ARG SCALA_VERSION=3.9.0
+ARG SDKMAN_URL=https://api.sdkman.io/2
+
+ENV CDXGEN_IN_CONTAINER=true \
+    GRADLE_HOME="/root/.sdkman/candidates/gradle/${GRADLE_VERSION}" \
+    GRADLE_OPTS="-Dorg.gradle.daemon=false" \
+    GRADLE_VERSION=$GRADLE_VERSION \
+    JAVA_TOOL_OPTIONS="-Dfile.encoding=UTF-8" \
+    MAVEN_HOME="/root/.sdkman/candidates/maven/${MAVEN_VERSION}" \
+    MAVEN_VERSION=$MAVEN_VERSION \
+    NODE_COMPILE_CACHE="/opt/cdxgen-node-cache" \
+    NODE_VERSION=$NODE_VERSION \
+    NVM_DIR="/root/.nvm" \
+    PYTHON_CMD=/usr/bin/python$PYTHON_VERSION \
+    PYTHON_VERSION=$PYTHON_VERSION \
+    PYTHONIOENCODING="utf-8" \
+    PYTHONPATH=/opt/pypi \
+    PYTHONUNBUFFERED=1 \
+    SBT_HOME="/root/.sdkman/candidates/sbt/${SBT_VERSION}" \
+    SBT_VERSION=$SBT_VERSION \
+    SCALA_HOME="/root/.sdkman/candidates/scala/${SCALA_VERSION}" \
+    SCALA_VERSION=$SCALA_VERSION \
+    SDKMAN_CANDIDATES_DIR=/root/.sdkman/candidates \
+    SDKMAN_DIR=/root/.sdkman \
+    TMPDIR=/tmp \
+    npm_config_build_from_source=true
+ENV PATH=${PATH}:/usr/local/bin/:/root/.local/bin:${NVM_DIR}/versions/node/v${NODE_VERSION}/bin:${MAVEN_HOME}/bin:${GRADLE_HOME}/bin:${SCALA_HOME}/bin:${SBT_HOME}/bin:${PYTHONPATH}/bin
+
+COPY ci/images/common/mirrors.sh ci/images/common/install-gradle.sh /tmp/common/
+
+RUN set -e; \
+    . /tmp/common/mirrors.sh; \
+    mirrors_on; \
+    ARCH_NAME="$(rpm --eval '%{_arch}')"; \
+    case "${ARCH_NAME##*-}" in \
+      'amd64' | 'x86_64') \
+        OS_ARCH_SUFFIX=''; \
+        ;; \
+      'aarch64' | 'arm64') \
+        OS_ARCH_SUFFIX='-aarch64'; \
+        ;; \
+      *) \
+        echo >&2 "error: unsupported architecture: '$ARCH_NAME'"; \
+        exit 1 \
+        ;; \
+    esac \
+ && microdnf install -y \
+      autoconf \
+      bzip2 \
+      findutils \
+      gcc \
+      gcc-c++ \
+      git-core \
+      glibc-all-langpacks \
+      glibc-common \
+      gnupg2 \
+      gzip \
+      make \
+      ncurses \
+      pcre2 \
+      python${PYTHON_VERSION} \
+      python${PYTHON_VERSION}-devel \
+      python${PYTHON_VERSION}-pip \
+      sudo \
+      tar \
+      unzip \
+      which \
+      zip \
+ && alternatives --install /usr/bin/python3 python /usr/bin/python${PYTHON_VERSION} 10 \
+ && alternatives --install /usr/bin/python3 python3 /usr/bin/python${PYTHON_VERSION} 10 \
+ && ${PYTHON_CMD} --version \
+ && ${PYTHON_CMD} -m pip install \
+      --no-cache-dir \
+      --upgrade \
+        pip \
+        setuptools \
+        virtualenv \
+        wheel \
+ && ${PYTHON_CMD} -m pip install \
+      --no-cache-dir \
+      --target ${PYTHONPATH} \
+      --upgrade \
+        atom-tools \
+        pipenv \
+ && curl -o- $GITHUB_RAW_URL/nvm-sh/nvm/$NVM_VERSION/install.sh | bash \
+ && source ${NVM_DIR}/nvm.sh \
+ && nvm install ${NODE_VERSION} \
+ && node --version \
+ && curl -L "https://get.sdkman.io" | bash \
+ && SDKMAN_BROKER_API="$SDKMAN_URL/broker" \
+ && SDKMAN_CANDIDATES_API="$SDKMAN_URL" \
+ && printf "sdkman_auto_answer=true\nsdkman_selfupdate_feature=false\nsdkman_auto_env=true\nsdkman_curl_connect_timeout=20\nsdkman_curl_max_time=0" \
+      >> $HOME/.sdkman/etc/config \
+ && source "$HOME/.sdkman/bin/sdkman-init.sh" \
+ && sdk install maven $MAVEN_VERSION \
+ && sdk install scala $SCALA_VERSION \
+ && sdk install sbt $SBT_VERSION \
+# Gradle is installed straight from the upstream distribution, checksum
+# verified, not via the sdkman broker: the broker does not serve gradle 9.7.1+
+# yet, and Gradle 8 cannot run on this JDK. The sdkman candidates layout,
+# including the current link, is kept so cdxgen's tool detection recognises
+# the install.
+ && sh /tmp/common/install-gradle.sh "${GRADLE_VERSION}" "/root/.sdkman/candidates/gradle/${GRADLE_VERSION}" \
+ && ln -s "${GRADLE_VERSION}" /root/.sdkman/candidates/gradle/current \
+ && ${GRADLE_HOME}/bin/gradle --version \
+ && useradd -ms /bin/bash cyclonedx \
+ && npm install -g npm \
+ && npm install -g node-gyp corepack \
+ && npx node-gyp install \
+ && rm -rf /var/cache/yum /root/.cache/node \
+ && microdnf clean all \
+ && rm -rf /tmp/common \
+    && mirrors_off
+
+CMD ["/bin/bash"]
+
+
+# cdxgen-builder-image
+FROM base AS cdxgen-builder
+
+ARG NODEJS_DIST_URL
+ARG NPM_REPO
+ARG PIP_CONFIG
+
+ENV NODE_COMPILE_CACHE="/opt/cdxgen-node-cache"
+
+COPY . /opt/cdxgen
+COPY ci/images/common/ /tmp/common/
+
+RUN sh /tmp/common/cdxgen-build.sh
+
+# cdxgen-image
+FROM base AS cdxgen
+
+ENV CDXGEN_IN_CONTAINER=true \
+    PATH=${PATH}:/opt/cdxgen/node_modules/.bin
+
+COPY --from=cdxgen-builder /opt/cdxgen /opt/cdxgen
+COPY --from=cdxgen-builder /opt/cdxgen-node-cache /opt/cdxgen-node-cache
+
+RUN chmod a-w -R /opt
+
+WORKDIR /app
+
+ENTRYPOINT ["node", "/opt/cdxgen/bin/cdxgen.js"]

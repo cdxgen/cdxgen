@@ -494,6 +494,15 @@
         "https://github.com/AcademySoftwareFoundation/foundation/blob/main/digital_assets/aswf_digital_assets_license_v1.1.txt"
       ]
     },
+    "atc-game": {
+      "name": "atc Game License",
+      "isDeprecated": false,
+      "isOsiApproved": false,
+      "isFsfLibre": false,
+      "seeAlso": [
+        "https://github.com/vattam/BSDGames/blob/master/atc/extern.c#L36"
+      ]
+    },
     "Baekmuk": {
       "name": "Baekmuk License",
       "isDeprecated": false,
@@ -737,6 +746,18 @@
         "https://github.com/audacious-media-player/audacious/blob/master/COPYING"
       ]
     },
+    "BSD-2-Clause-pos-unchanged": {
+      "name": "BSD 2-Clause - position unchanged variant",
+      "isDeprecated": false,
+      "isOsiApproved": false,
+      "isFsfLibre": false,
+      "seeAlso": [
+        "https://scancode-licensedb.aboutcode.org/bsd-unchanged",
+        "https://cgit.freebsd.org/src/tree/usr.bin/sockstat/sockstat.c",
+        "https://github.com/libarchive/libarchive/blob/master/libarchive_fe/line_reader.c",
+        "https://github.com/freebsd/pkg/blob/main/src/add.c"
+      ]
+    },
     "BSD-2-Clause-Views": {
       "name": "BSD 2-Clause with views sentence",
       "isDeprecated": false,
@@ -868,6 +889,15 @@
         "http://www.netlib.org/lapack/LICENSE.txt"
       ]
     },
+    "BSD-3-Clause-OpenWebUI": {
+      "name": "BSD 3-Clause - OpenWebUI variant",
+      "isDeprecated": false,
+      "isOsiApproved": false,
+      "isFsfLibre": false,
+      "seeAlso": [
+        "https://github.com/open-webui/open-webui/blob/main/LICENSE"
+      ]
+    },
     "BSD-3-Clause-Sun": {
       "name": "BSD 3-Clause Sun Microsystems",
       "isDeprecated": false,
@@ -943,6 +973,15 @@
         "https://github.com/python-excel/xlrd/blob/master/LICENSE#L33"
       ]
     },
+    "BSD-ask-to-endorse": {
+      "name": "BSD - ask to endorse",
+      "isDeprecated": false,
+      "isOsiApproved": true,
+      "isFsfLibre": false,
+      "seeAlso": [
+        "https://github.com/sudo-project/sudo/blob/c1307ea9ff340ce0538779f8e456501461fc44b7/plugins/sudoers/redblack.c#L24-L43"
+      ]
+    },
     "BSD-Attribution-HPND-disclaimer": {
       "name": "BSD with Attribution and HPND disclaimer",
       "isDeprecated": false,
@@ -979,6 +1018,15 @@
         "https://fedoraproject.org/wiki/Licensing/BSD_Protection_License"
       ]
     },
+    "BSD-Source-alt-GPL": {
+      "name": "BSD Source Code Attribution - GPL alternative",
+      "isDeprecated": false,
+      "isOsiApproved": false,
+      "isFsfLibre": false,
+      "seeAlso": [
+        "https://cgit.freebsd.org/src/plain/sys/dev/aic7xxx/aic7xxx_osm.c"
+      ]
+    },
     "BSD-Source-beginning-file": {
       "name": "BSD Source Code Attribution - beginning of file variant",
       "isDeprecated": false,
@@ -995,6 +1043,15 @@
       "isFsfLibre": false,
       "seeAlso": [
         "https://github.com/robbiehanson/CocoaHTTPServer/blob/master/LICENSE.txt"
+      ]
+    },
+    "BSD-Source-Code-no-disclaimer": {
+      "name": "BSD Source Code Attribution - no disclaimer",
+      "isDeprecated": false,
+      "isOsiApproved": false,
+      "isFsfLibre": false,
+      "seeAlso": [
+        "https://github.com/PicoEFI/PicoEFI/blob/2263ac1a2bc98e5534d64a4896d3cfbbae00745a/LICENSES/LicenseRef-scancode-bsd-no-disclaimer-unmodified.txt"
       ]
     },
     "BSD-Systemics": {
@@ -1032,6 +1089,15 @@
       "isFsfLibre": false,
       "seeAlso": [
         "https://sourceforge.net/p/buddy/gitcode/ci/master/tree/README"
+      ]
+    },
+    "Bugroff": {
+      "name": "Bugroff License",
+      "isDeprecated": false,
+      "isOsiApproved": false,
+      "isFsfLibre": false,
+      "seeAlso": [
+        "https://tunes.org/legalese/bugroff.html"
       ]
     },
     "BUSL-1.1": {
@@ -1290,6 +1356,15 @@
       "isFsfLibre": false,
       "seeAlso": [
         "https://creativecommons.org/licenses/by-nc/3.0/de/legalcode"
+      ]
+    },
+    "CC-BY-NC-3.0-IGO": {
+      "name": "Creative Commons Attribution Non Commercial 3.0 IGO",
+      "isDeprecated": false,
+      "isOsiApproved": false,
+      "isFsfLibre": false,
+      "seeAlso": [
+        "https://creativecommons.org/licenses/by-nc/3.0/igo/legalcode"
       ]
     },
     "CC-BY-NC-4.0": {
@@ -1878,10 +1953,11 @@
     "CNRI-Python-GPL-Compatible": {
       "name": "CNRI Python Open Source GPL Compatible License Agreement",
       "isDeprecated": false,
-      "isOsiApproved": false,
+      "isOsiApproved": true,
       "isFsfLibre": false,
       "seeAlso": [
-        "http://www.python.org/download/releases/1.6.1/download_win/"
+        "http://www.python.org/download/releases/1.6.1/download_win/",
+        "https://opensource.org/license/CNRI-Python-GPL-Compatible"
       ]
     },
     "COIL-1.0": {
@@ -2028,10 +2104,11 @@
     "curl": {
       "name": "curl License",
       "isDeprecated": false,
-      "isOsiApproved": false,
+      "isOsiApproved": true,
       "isFsfLibre": false,
       "seeAlso": [
-        "https://github.com/bagder/curl/blob/master/COPYING"
+        "https://github.com/bagder/curl/blob/master/COPYING",
+        "https://opensource.org/license/curl"
       ]
     },
     "cve-tou": {
@@ -2391,7 +2468,8 @@
         "https://joinup.ec.europa.eu/sites/default/files/custom-page/attachment/2020-03/EUPL-1.2%20EN.txt",
         "https://joinup.ec.europa.eu/sites/default/files/inline-files/EUPL%20v1_2%20EN(1).txt",
         "http://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=CELEX:32017D0863",
-        "https://opensource.org/license/EUPL-1.2"
+        "https://opensource.org/license/EUPL-1.2",
+        "https://interoperable-europe.ec.europa.eu/sites/default/files/inline-files/EUPL%20v1_2%20EN(1).txt"
       ]
     },
     "Eurosym": {
@@ -2430,6 +2508,15 @@
       "seeAlso": [
         "https://fedoraproject.org/wiki/Licensing/FDK-AAC",
         "https://directory.fsf.org/wiki/License:Fdk"
+      ]
+    },
+    "FDK-MPEG-H": {
+      "name": "Fraunhofer FDK MPEG-H Software",
+      "isDeprecated": false,
+      "isOsiApproved": false,
+      "isFsfLibre": false,
+      "seeAlso": [
+        "https://github.com/Fraunhofer-IIS/mpeghdec/blob/main/LICENSE.txt"
       ]
     },
     "Ferguson-Twofish": {
@@ -3113,6 +3200,15 @@
         "https://github.com/EthicalSource/hippocratic-license/blob/58c0e646d64ff6fbee275bfe2b9492f914e3ab2a/LICENSE.txt"
       ]
     },
+    "Hippocratic-3.0-core": {
+      "name": "Hippocratic License 3.0",
+      "isDeprecated": false,
+      "isOsiApproved": false,
+      "isFsfLibre": false,
+      "seeAlso": [
+        "https://firstdonoharm.dev/version/3/0/core.txt"
+      ]
+    },
     "HP-1986": {
       "name": "Hewlett-Packard 1986 License",
       "isDeprecated": false,
@@ -3475,6 +3571,16 @@
       "isFsfLibre": false,
       "seeAlso": [
         "http://www.info-zip.org/license.html"
+      ]
+    },
+    "Informatica": {
+      "name": "Informatica License",
+      "isDeprecated": false,
+      "isOsiApproved": false,
+      "isFsfLibre": false,
+      "seeAlso": [
+        "https://raw.githubusercontent.com/landtuna/open-mtools/6c04c2882eca7c4313ec267766ea53ac9bfe129b/msend.c",
+        "https://raw.githubusercontent.com/landtuna/open-mtools/6c04c2882eca7c4313ec267766ea53ac9bfe129b/mdump.c"
       ]
     },
     "Inner-Net-2.0": {
@@ -5526,12 +5632,13 @@
     "Python-2.0.1": {
       "name": "Python License 2.0.1",
       "isDeprecated": false,
-      "isOsiApproved": false,
+      "isOsiApproved": true,
       "isFsfLibre": false,
       "seeAlso": [
         "https://www.python.org/download/releases/2.0.1/license/",
         "https://docs.python.org/3/license.html",
-        "https://github.com/python/cpython/blob/main/LICENSE"
+        "https://github.com/python/cpython/blob/main/LICENSE",
+        "https://opensource.org/license/Python-2.0.1"
       ]
     },
     "python-ldap": {
@@ -7363,6 +7470,13 @@
       "isDeprecated": false,
       "seeAlso": [
         "https://sourceforge.net/p/teem/code/HEAD/tree/teem/trunk/LICENSE.txt"
+      ]
+    },
+    "Spelling-Provider-LGPL-exception": {
+      "name": "Spelling Provider LGPL exception",
+      "isDeprecated": false,
+      "seeAlso": [
+        "https://github.com/rrthomas/enchant/blob/774ff6dc2e441ba2b9b786f8edbe00e014960408/lib/internal.vapi#L18"
       ]
     },
     "sqlitestudio-OpenSSL-exception": {

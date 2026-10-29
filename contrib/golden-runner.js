@@ -119,6 +119,12 @@ async function getCreateBom() {
   return mod.createBom;
 }
 
+/** Empty cdxgen's per-run state, loaded lazily like createBom. */
+async function resetRunState() {
+  const mod = await import(path.join(REPO_ROOT, "lib", "core", "runState.js"));
+  mod.resetRunState();
+}
+
 /**
  * Discover all golden scenario manifests under test/repotests/.
  * @returns {{ project: string, manifestPath: string, manifest: Object }[]}
@@ -295,6 +301,10 @@ export async function runScenario(project, scenario, manifest) {
       ...scenario.options,
     };
 
+    // Scenarios share this process the way server scans do, so empty the
+    // per-run state between them, as the server does: otherwise one scan's
+    // caches, and the tools it ran, would carry into the next golden.
+    await resetRunState();
     const result = await createBom(fixtureDir, options);
     const bom = result?.bomJson || result;
     if (!bom || typeof bom !== "object") {

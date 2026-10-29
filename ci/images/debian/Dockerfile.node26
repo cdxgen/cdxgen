@@ -1,5 +1,5 @@
 # Base-image
-FROM node:26.12.1-trixie@sha256:a98e6fda54fdbb22d4238054cca9a2a113bcd1191c09193a535aae22f400aa8e AS base
+FROM node:26.12.1-trixie@sha256:97fa0f1b59035c6072721a88d55be1371c7cb1cc942b521e1cc5c72ec87655f4 AS base
 
 ARG DEBIAN_REPO
 ARG NODEJS_DIST_URL

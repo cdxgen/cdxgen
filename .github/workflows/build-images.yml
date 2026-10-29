@@ -158,6 +158,8 @@ jobs:
             distro: alpine
           - lang: java26
             distro: alpine
+          - lang: java27
+            distro: alpine
 
           - lang: java24
             distro: temurin
@@ -166,6 +168,9 @@ jobs:
             distro: temurin
             fix-qemu: true
           - lang: java26
+            distro: temurin
+            fix-qemu: true
+          - lang: java27
             distro: temurin
             fix-qemu: true
 
