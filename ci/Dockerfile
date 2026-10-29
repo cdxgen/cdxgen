@@ -10,6 +10,8 @@ ARG SBT_VERSION=1.13.0
 # renovate: datasource=maven lookupName=org.apache.maven:maven
 ARG MAVEN_VERSION=3.10.0
 # renovate: datasource=gradle-version depName=gradle
+# Pinned to 9.7.0, not the 9.8.x tracked by .versions/gradle_9: the sdkman
+# broker does not serve gradle 9.7.1+ yet (404 on the download redirect).
 ARG GRADLE_VERSION=9.7.0
 # renovate: datasource=golang-version depName=golang
 ARG GO_VERSION=1.27.1

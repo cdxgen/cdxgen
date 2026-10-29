@@ -1,0 +1,93 @@
+# Base-image
+FROM eclipse-temurin:27_35-jdk-alpine@sha256:63c4f0092cb994c7a8c0446aace33a2de3763128fcc68c211d7ad3577c75b59f AS base
+
+ARG ALPINE_REPO
+ARG GRADLE_9
+ARG GRADLE_VERSION=${GRADLE_9}
+ARG NODEJS_DIST_URL
+ARG NPM_REPO
+ARG PIP_CONFIG
+
+ENV GRADLE_HOME=/opt/gradle \
+    GRADLE_VERSION=$GRADLE_VERSION \
+    PYTHONPATH=/opt/pypi
+
+ENV PATH=${PATH}:/usr/local/bin:/root/.local/bin:${GRADLE_HOME}/bin
+
+COPY ci/images/common/mirrors.sh ci/images/common/install-gradle.sh /tmp/common/
+
+RUN set -e; \
+    . /tmp/common/mirrors.sh; \
+    mirrors_on; \
+    apk update \
+ && apk add --no-cache --upgrade \
+      bash \
+      curl \
+      expat \
+      gcc \
+      git \
+      g++ \
+      unzip \
+      make \
+      maven \
+      musl-dev \
+      nodejs \
+      npm \
+      python3 \
+      python3-dev \
+      py3-pip \
+      py3-virtualenv \
+      tar \
+ && npm install -g corepack \
+ && python3 --version \
+ && python3 -m pip install \
+      --break-system-packages \
+      --no-cache-dir \
+      --target ${PYTHONPATH} \
+      --upgrade \
+        atom-tools \
+        pipenv \
+# Gradle is installed straight from the upstream distribution, checksum
+# verified: the Alpine gradle package is 8.14 and cannot run on this JDK.
+ && sh /tmp/common/install-gradle.sh "${GRADLE_VERSION}" /opt/gradle \
+ && node -v \
+ && npm -v \
+ && mvn -v \
+ && gradle -v \
+ && python3 --version \
+ && rm -rf /var/cache/apk/* /tmp/common \
+    && mirrors_off
+
+
+# cdxgen-builder-image
+FROM base AS cdxgen-builder
+
+ARG ALPINE_REPO
+ARG GRADLE_9
+ARG GRADLE_VERSION=${GRADLE_9}
+ARG NODEJS_DIST_URL
+ARG NPM_REPO
+ARG PIP_CONFIG
+
+ENV NODE_COMPILE_CACHE="/opt/cdxgen-node-cache"
+
+COPY . /opt/cdxgen
+COPY ci/images/common/ /tmp/common/
+
+RUN sh /tmp/common/cdxgen-build.sh
+
+# cdxgen-image
+FROM base AS cdxgen
+
+ENV CDXGEN_IN_CONTAINER=true \
+    NODE_COMPILE_CACHE="/opt/cdxgen-node-cache" \
+    PATH=${PATH}:${PYTHONPATH}/bin:/opt/cdxgen/node_modules/.bin
+
+COPY --from=cdxgen-builder /opt/cdxgen /opt/cdxgen
+COPY --from=cdxgen-builder /opt/cdxgen-node-cache /opt/cdxgen-node-cache
+
+RUN chmod a-w -R /opt
+
+WORKDIR /app
+
+ENTRYPOINT ["node", "/opt/cdxgen/bin/cdxgen.js"]

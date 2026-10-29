@@ -200,10 +200,8 @@ test/data/js-pnpm-metadata-repotest/node_modules/**
 !test/data/js-pnpm-metadata-repotest/node_modules/**/
 !test/data/js-pnpm-metadata-repotest/node_modules/**/package.json
 test/data/rust-dataflow-repotest/target
-package-lock.json
-# Negated after the blanket rule above: gitignore takes the last match, and
-# this fixture lockfile is committed test input.
-!test/data/package-json/legacy-licenses/package-lock.json
-!test/data/angular-app-config-repotest/package-lock.json
-!test/data/js-deep-metadata-repotest/package-lock.json
+# Only the repository's own lockfile: package-lock.json files under test/ are
+# committed fixtures. The one below is written by the securityGates e2e scan.
+/package-lock.json
+test/data/sec-npmrc-protocrash/package-lock.json
 !test/data/tracebom-chain/bom.json
