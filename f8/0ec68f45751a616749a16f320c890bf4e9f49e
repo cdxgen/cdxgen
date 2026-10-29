@@ -1,0 +1,25 @@
+types/lib/core/lockPaths.d.ts
+  s_541491761dc9cf::t_ec0f7c05066564 2-5,7-10,12-13,16,18
+types/lib/core/toolRegistry.d.ts
+  s_541491761dc9cf::t_ec0f7c05066564 11-18,30-31
+  s_541491761dc9cf::t_89c47084c4704c 10
+types/lib/stages/pregen/pregen.d.ts
+  s_541491761dc9cf::t_ec0f7c05066564 128-133
+  s_541491761dc9cf::t_9fd33cb6ea59d7 127
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "f80ec68f45751a616749a16f320c890bf4e9f49e",
+  "prompts": {},
+  "sessions": {
+    "s_541491761dc9cf": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "20b4a167-8c9b-42eb-bef3-e9a02e7ff941",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
