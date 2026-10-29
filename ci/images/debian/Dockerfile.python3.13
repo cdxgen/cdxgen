@@ -1,5 +1,5 @@
 # Base-image
-FROM python:3.13.16-bookworm@sha256:073ffebb96ae4d0ed73ccad59f08c47bd84af8a79f5258130f8458ac50ad9ff4 AS base
+FROM python:3.13.16-bookworm@sha256:dc02fc25f16160c36dee14de37869973422b2fa9e0096888328793c949c166df AS base
 
 ARG DEBIAN_REPO
 ARG GITHUB_RAW_URL=https://raw.githubusercontent.com

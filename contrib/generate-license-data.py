@@ -73,7 +73,24 @@ def main():
     with open(spdx_list_path, "w") as f:
         json.dump(spdx_license_list, f, indent=2)
     print(f"Wrote {spdx_list_path}")
-    
+
+    # 2. Build spdx-licenses.json: all identifiers in upstream list order,
+    # licenses first, then exceptions, so diffs against a new SPDX release
+    # stay readable.
+    spdx_ids_path = DATA_DIR / "spdx-licenses.json"
+    with open(spdx_ids_path, "w") as f:
+        json.dump(
+            [lic["licenseId"] for lic in spdx_raw_licenses.get("licenses", [])]
+            + [
+                exc["licenseExceptionId"]
+                for exc in spdx_raw_exceptions.get("exceptions", [])
+            ],
+            f,
+            indent=2,
+        )
+        f.write("\n")
+    print(f"Wrote {spdx_ids_path}")
+
     # Load ScanCode licenses
     print("Loading ScanCode licenses...")
     scancode_licenses = load_licenses(with_deprecated=True)
