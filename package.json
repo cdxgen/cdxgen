@@ -123,6 +123,7 @@
     "index.cjs"
   ],
   "scripts": {
+    "check:agent-plugin": "node contrib/check-agent-plugin.js",
     "check:boundaries": "node contrib/check-boundaries.js",
     "check:lib-paths": "node contrib/check-lib-paths.js",
     "check:validators": "node contrib/gen-validators.mjs --check",

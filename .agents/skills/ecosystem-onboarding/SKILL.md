@@ -5,7 +5,7 @@ description: Guides adding support for a new language, package manager, or lockf
 
 # Ecosystem onboarding
 
-Use this skill when adding a new language, package manager, or lockfile/manifest format to cdxgen. The full contributor guide is [docs/ADD_ECOSYSTEM.md](../../docs/ADD_ECOSYSTEM.md); this skill gives the checklist and the conventions most often missed.
+Use this skill when adding a new language, package manager, or lockfile/manifest format to cdxgen. The full contributor guide is [docs/ADD_ECOSYSTEM.md](../../../docs/ADD_ECOSYSTEM.md); this skill gives the checklist and the conventions most often missed.
 
 ## Before writing code
 

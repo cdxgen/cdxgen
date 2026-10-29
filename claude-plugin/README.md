@@ -83,7 +83,7 @@ Run `/reload-plugins` after edits rather than restarting.
 
 The `sbom-fidelity-loop` and `bom-slimmer` skills are copies; `.agents/skills/`
 in the repository root is their source of truth. Update them there first, then
-copy them here, with `../../docs/<Name>.md` links rewritten to
+copy them here, with `../../../docs/<Name>.md` links rewritten to
 `https://cdxgen.github.io/cdxgen/#/<Name>`. A test fails when a copy drifts.
 
 ## Links
