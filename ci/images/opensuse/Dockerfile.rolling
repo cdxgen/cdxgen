@@ -46,6 +46,8 @@ ENV CC=gcc \
     SCALA_VERSION=$SCALA_VERSION
 ENV PATH=${PATH}:/usr/local/bin:${NVM_DIR}/versions/node/v${NODE_VERSION}/bin:${MAVEN_HOME}/bin:${GRADLE_HOME}/bin:${SCALA_HOME}/bin:${SBT_HOME}/bin:${PYTHONPATH}/bin:/usr/share/dotnet
 
+COPY ci/images/common/install-gradle.sh /tmp/install-gradle.sh
+
 RUN set -e; \
     if [ -n "$NODEJS_DIST_URL" ]; then \
       export "NVM_NODEJS_ORG_MIRROR=$NODEJS_DIST_URL"; \
@@ -118,7 +120,11 @@ RUN set -e; \
       >> $HOME/.sdkman/etc/config \
  && source "$HOME/.sdkman/bin/sdkman-init.sh" \
  && sdk install maven $MAVEN_VERSION \
- && sdk install gradle $GRADLE_VERSION \
+# GRADLE_VERSION follows .versions/gradle_9, and the sdkman broker does not
+# serve Gradle 9.7.1+, so Gradle comes checksum-verified from its upstream
+# distribution into the sdkman candidates layout moved to /opt below.
+ && sh /tmp/install-gradle.sh "$GRADLE_VERSION" "$HOME/.sdkman/candidates/gradle/$GRADLE_VERSION" \
+ && rm /tmp/install-gradle.sh \
  && sdk install scala $SCALA_VERSION \
  && sdk install sbt $SBT_VERSION \
  && mv /root/.sdkman/candidates/* /opt/ \

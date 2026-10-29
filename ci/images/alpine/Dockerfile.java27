@@ -14,7 +14,7 @@ ENV GRADLE_HOME=/opt/gradle \
 
 ENV PATH=${PATH}:/usr/local/bin:/root/.local/bin:${GRADLE_HOME}/bin
 
-COPY ci/images/common/mirrors.sh /tmp/common/mirrors.sh
+COPY ci/images/common/mirrors.sh ci/images/common/install-gradle.sh /tmp/common/
 
 RUN set -e; \
     . /tmp/common/mirrors.sh; \
@@ -47,13 +47,9 @@ RUN set -e; \
       --upgrade \
         atom-tools \
         pipenv \
-# Gradle is installed straight from the upstream distribution: the Alpine
-# gradle package is 8.14 and cannot run on this JDK.
- && mkdir -p /opt \
- && curl -fsSL -o /tmp/gradle.zip "https://services.gradle.org/distributions/gradle-${GRADLE_VERSION}-bin.zip" \
- && unzip -q /tmp/gradle.zip -d /opt \
- && mv /opt/gradle-${GRADLE_VERSION} /opt/gradle \
- && rm -f /tmp/gradle.zip \
+# Gradle is installed straight from the upstream distribution, checksum
+# verified: the Alpine gradle package is 8.14 and cannot run on this JDK.
+ && sh /tmp/common/install-gradle.sh "${GRADLE_VERSION}" /opt/gradle \
  && node -v \
  && npm -v \
  && mvn -v \
