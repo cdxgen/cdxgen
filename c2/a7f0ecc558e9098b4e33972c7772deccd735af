@@ -1,0 +1,41 @@
+lib/core/toolRegistry.poku.js
+  s_541491761dc9cf::t_d377a2dda37227 6,79-95
+  s_541491761dc9cf::t_2b0935e2e2172d 96
+lib/cli/bomAssembly.js
+  s_541491761dc9cf::t_425677cae42855 391-395
+  s_541491761dc9cf::t_ad069b3b0a4797 337-340,342-344,346,349-356,358,360,375,416
+lib/core/fs.js
+  s_541491761dc9cf::t_ad069b3b0a4797 995-996,1006-1007,1013-1014
+  s_541491761dc9cf::t_70728fe7599bb1 1008-1012
+docs/ADVANCED.md
+  s_541491761dc9cf::t_b72da54320bb35 802
+lib/core/fs.poku.js
+  s_541491761dc9cf::t_fe657263be30eb 23,340-345,358-369
+  s_541491761dc9cf::t_a7d82a5214e43c 347-357
+  s_541491761dc9cf::t_70728fe7599bb1 346
+  s_541491761dc9cf::t_d2583e4658e4d5 370
+lib/core/toolRegistry.js
+  s_541491761dc9cf::t_d377a2dda37227 132-137
+  s_541491761dc9cf::t_4364a849bd8af9 23-31,96-118,126-131,148
+  s_541491761dc9cf::t_ad069b3b0a4797 3-4,7-9,16-17,141-142,150-151
+lib/cli/bomAssembly.poku.js
+  s_541491761dc9cf::t_d377a2dda37227 983-984
+  s_541491761dc9cf::t_5eecdbe212daa7 5-6,923-924,926,933,969,971,976-982,985-1014
+  s_541491761dc9cf::t_8feb2da32b9240 1015
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "c2a7f0ecc558e9098b4e33972c7772deccd735af",
+  "prompts": {},
+  "sessions": {
+    "s_541491761dc9cf": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "20b4a167-8c9b-42eb-bef3-e9a02e7ff941",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
