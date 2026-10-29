@@ -6,8 +6,11 @@ name: Project sync
 on:
   issues:
     types: [labeled, unlabeled]
+  # No `labeled`: a pull request opened with N labels fired N+1 runs that all
+  # queued behind one another, and the sync reads a pull request's labels from
+  # the events below anyway (they only fill an issue's empty Area).
   pull_request_target:
-    types: [opened, reopened, edited, ready_for_review, converted_to_draft, closed, labeled]
+    types: [opened, reopened, edited, ready_for_review, converted_to_draft, closed]
 
 concurrency:
   group: project-sync-${{ github.event.issue.number || github.event.pull_request.number }}
@@ -17,11 +20,14 @@ permissions: {}
 
 jobs:
   sync:
+    # An edit that leaves the description unchanged, such as a title edit,
+    # cannot change the board: the closing keywords live in the description.
+    if: github.event.action != 'edited' || github.event.changes.body != null
     permissions:
       contents: read
-    uses: cdxgen/.github/.github/workflows/project-sync.yml@183deec703d7a7201a900c6a481fb2a2202a675d  # main
+    uses: cdxgen/.github/.github/workflows/project-sync.yml@e411ed58599b08d426d352592cab3fcf0736f31d  # main
     with:
-      project-number: ${{ vars.PROJECT_NUMBER }}
-      ref: 183deec703d7a7201a900c6a481fb2a2202a675d
+      ref: e411ed58599b08d426d352592cab3fcf0736f31d
     secrets:
       PROJECT_TOKEN: ${{ secrets.PROJECT_TOKEN }}
+      PROJECT_NUMBER: ${{ secrets.PROJECT_NUMBER }}
