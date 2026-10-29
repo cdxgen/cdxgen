@@ -1,0 +1,21 @@
+claude-plugin/skills/bom-signing/SKILL.md
+  s_8ba45a1b739c98::t_df0304d32e7eab 4
+claude-plugin/skills/dependency-track-upload/SKILL.md
+  s_8ba45a1b739c98::t_cd34977d3ca1db 4
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "c5ac3060714066e56564ba83e8dbe97d099aaa70",
+  "prompts": {},
+  "sessions": {
+    "s_8ba45a1b739c98": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "d3e83c12-f1d6-4bb1-9db6-479955b7aa60",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
