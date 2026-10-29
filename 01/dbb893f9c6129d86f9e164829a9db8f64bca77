@@ -1,0 +1,19 @@
+lib/inventory/jvmToolEnv.poku.js
+  s_3c9a6ff570c1b9::t_cdc098682411c1 361-364,371-374
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "01dbb893f9c6129d86f9e164829a9db8f64bca77",
+  "prompts": {},
+  "sessions": {
+    "s_3c9a6ff570c1b9": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "session_021b41a4029a9689df5714325dbf4557",
+        "model": "unknown"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
