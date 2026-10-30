@@ -9,8 +9,10 @@ on:
   # No `labeled`: a pull request opened with N labels fired N+1 runs that all
   # queued behind one another, and the sync reads a pull request's labels from
   # the events below anyway (they only fill an issue's empty Area).
+  # milestoned puts a pull request on the board as soon as someone aims it at
+  # a release.
   pull_request_target:
-    types: [opened, reopened, edited, ready_for_review, converted_to_draft, closed]
+    types: [opened, reopened, edited, ready_for_review, converted_to_draft, closed, milestoned]
 
 concurrency:
   group: project-sync-${{ github.event.issue.number || github.event.pull_request.number }}
@@ -23,11 +25,15 @@ jobs:
     # An edit that leaves the description unchanged, such as a title edit,
     # cannot change the board: the closing keywords live in the description.
     if: github.event.action != 'edited' || github.event.changes.body != null
+    # pull-requests write lets the sync give a pull request the milestone of
+    # the issues it closes. The job runs no code from the pull request.
     permissions:
       contents: read
-    uses: cdxgen/.github/.github/workflows/project-sync.yml@e411ed58599b08d426d352592cab3fcf0736f31d  # main
+      pull-requests: write
+    uses: cdxgen/.github/.github/workflows/project-sync.yml@b1465b8f2735aec854721269d1285f61a3895156  # main
     with:
-      ref: e411ed58599b08d426d352592cab3fcf0736f31d
+      ref: b1465b8f2735aec854721269d1285f61a3895156
     secrets:
       PROJECT_TOKEN: ${{ secrets.PROJECT_TOKEN }}
       PROJECT_NUMBER: ${{ secrets.PROJECT_NUMBER }}
+      REPO_TOKEN: ${{ github.token }}
