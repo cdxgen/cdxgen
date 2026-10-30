@@ -80,6 +80,7 @@ RUN set -e; \
           libopenssl-devel \
           libxml2-devel \
           libxslt-devel \
+          libatomic1 \
           make \
           openldap2-devel \
           postgresql-devel \

@@ -70,6 +70,7 @@ RUN set -e; \
       glibc-common \
       gnupg2 \
       gzip \
+      libatomic \
       make \
       ncurses \
       pcre2 \

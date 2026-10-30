@@ -74,6 +74,7 @@ RUN set -e; \
         --no-recommends \
           gawk \
           git-core \
+          libatomic1 \
           make \
           python311 \
           python311-pip \
