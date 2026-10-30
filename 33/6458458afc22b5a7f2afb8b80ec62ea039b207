@@ -1,0 +1,367 @@
+lib/helpers/vsixutils.ide.poku.js
+  s_2b745e87ccc4f4::t_f5a9f2cc9db090 1-514
+  s_2b745e87ccc4f4::t_e93bd0b2962907 515-1081
+test/data/ide-extensions/README.md
+  s_2b745e87ccc4f4::t_90d1978ea8a30b 1-71
+lib/parsers/vscodeExtensionId.poku.js
+  s_2b745e87ccc4f4::t_038716c4926dcd 1-90
+  s_2b745e87ccc4f4::t_8d8cd5a137590f 91-142
+.gitattributes
+  s_2b745e87ccc4f4::t_b0c678811d8011 12-14
+.github/workflows/repotests.yml
+  s_2b745e87ccc4f4::t_d675982f89eb34 1200-1202,1205-1220
+data/rules/vscode-extensions.yaml
+  s_2b745e87ccc4f4::t_2f5de189ae0af7 238-312
+docs/AGENTIC_INVENTORY.md
+  s_2b745e87ccc4f4::t_76911ca856e1cf 65-111,123-127
+docs/BOM_AUDIT.md
+  s_2b745e87ccc4f4::t_a79849e993bdb5 656-658
+docs/CUSTOM_PROPERTIES.md
+  s_2b745e87ccc4f4::t_d1aae08ca2ff1c 127,238-244,1511-1512,1521-1522,1575-1601,1665-1667,1670
+docs/PROJECT_TYPES.md
+  s_2b745e87ccc4f4::t_781c5eed26f992 66,120
+lib/cli/index.js
+  s_2b745e87ccc4f4::t_59d586d1d13bd3 53,256-277,384-393
+lib/cli/index.poku.js
+  s_2b745e87ccc4f4::t_6887bd30b0b68f 1598,1924
+lib/cli/jsBom.js
+  s_2b745e87ccc4f4::t_d4efc3762bba76 73,76-79,1772-1773,1778,1813-1859,1862,1865-1874,1883-1885,2276,2283,2295-2297
+lib/cli/jsBom.poku.js
+  s_2b745e87ccc4f4::t_5801782faee3ce 2,299-310,315,318-320,335,345-356,361,364-366,387,1403-1506
+lib/core/boundedFile.js
+  s_2b745e87ccc4f4::t_8f1ec524664335 8,19,253-344
+lib/core/boundedFile.poku.js
+  s_2b745e87ccc4f4::t_4d0b166499b9d7 2,17-18,21,181-247
+lib/core/env.js
+  s_2b745e87ccc4f4::t_c6699a14e8219f 530
+lib/core/paths.js
+  s_2b745e87ccc4f4::t_65490016820879 17,71-93
+lib/helpers/agenticToolutils.js
+  s_2b745e87ccc4f4::t_3afa1c2d440830 1,3,9,11,13-15,79-84,87-90,92-93,95-96,98-99,105-111,136-137,163-164,170-267,286-289,295,313-314,317,319-321,327-334,339-355,358,467-494,496-512,547,653,671-693,702,734-808,817-819,822-844,860-861,866-867,874,876,879-882,885,887,893,896-913,939-944,961,964,987,1031,1034,1070,1120,1131,1134,1149,1166,1169,1172-1175,1177-1180,1184,1198,1200-1202,1205,1209-1210,1212,1215-1220
+lib/helpers/agenticToolutils.poku.js
+  s_2b745e87ccc4f4::t_95824ffd1cd934 1-8,10,16,19-20,25-26,324-545
+lib/helpers/vsixutils.js
+  s_2b745e87ccc4f4::t_7b2fd6b0e8392a 1,3,9-14,22-28,43-57,59-61,63-76,78-90,92-107,109-118,120-129,131-140,142-151,153-163,165-174,176-185,187-196,198-207,209-254,256-336,340-342,344-345,347-435,437-438,440-441,443-450,456-708,928-934,961-979,1003-1005,1009-1011,1015-1017,1021-1023,1083-1085,1087-1089,1113-1128,1209-1210,1213,1216-1217,1220,1263-1269,1271-1279,1301-1330,1339-1341,1414-1416,1463-1473,1493,1495-1504,1506-1537,1541-1542,1544-1572,1574-1701,1703-1735,1737-1740,1742-1831,1836,1843-1848,1851-1926,1928-2066,2069-2138,2140-2152,2154-2163,2165-2181,2191-2193,2195-2209,2212-2244,2246,2249-2327
+lib/inventory/evidenceUtils.js
+  s_2b745e87ccc4f4::t_697dbc508cb246 9,623-629
+lib/inventory/evidenceUtils.poku.js
+  s_2b745e87ccc4f4::t_c6c027a33c3407 2380
+lib/parsers/vscodeExtensionId.js
+  s_2b745e87ccc4f4::t_fd018c8e6a5d27 1-183
+lib/stages/postgen/auditBom.poku.js
+  s_2b745e87ccc4f4::t_fde2a6a0e4b1df 7050-7167
+test/data/ide-extensions/cursor-macos-home/.cursor/cli-config.json
+  s_2b745e87ccc4f4::t_ac6a9623e20021 1-12
+test/data/ide-extensions/cursor-macos-home/.cursor/extensions/.obsolete
+  s_2b745e87ccc4f4::t_3dddf9dfea8fc7 1-3
+test/data/ide-extensions/cursor-macos-home/.cursor/extensions/acme.sideloaded-0.1.0/index.js
+  s_2b745e87ccc4f4::t_d06f7adc8ec1b0 1
+test/data/ide-extensions/cursor-macos-home/.cursor/extensions/acme.sideloaded-0.1.0/package.json
+  s_2b745e87ccc4f4::t_981f0d48fc836e 1-12
+test/data/ide-extensions/cursor-macos-home/.cursor/extensions/anthropic.claude-code-2.1.313-darwin-arm64/.vsixmanifest
+  s_2b745e87ccc4f4::t_5ddcf63f3c5ff2 1-24
+test/data/ide-extensions/cursor-macos-home/.cursor/extensions/anthropic.claude-code-2.1.313-darwin-arm64/extension.js
+  s_2b745e87ccc4f4::t_5e5e544a0c4fbf 1-2
+test/data/ide-extensions/cursor-macos-home/.cursor/extensions/anthropic.claude-code-2.1.313-darwin-arm64/package.json
+  s_2b745e87ccc4f4::t_09f8c1ef38662e 1-27
+test/data/ide-extensions/cursor-macos-home/.cursor/extensions/extensions.json
+  s_2b745e87ccc4f4::t_4ece1d430d9156 1-62
+test/data/ide-extensions/cursor-macos-home/.cursor/extensions/redhat.vscode-yaml-1.18.0/.vsixmanifest
+  s_2b745e87ccc4f4::t_b8dea753d79ccd 1-24
+test/data/ide-extensions/cursor-macos-home/.cursor/extensions/redhat.vscode-yaml-1.18.0/package.json
+  s_2b745e87ccc4f4::t_ce594bf383afdd 1-26
+test/data/ide-extensions/cursor-macos-home/.cursor/extensions/redhat.vscode-yaml-1.19.0/.vsixmanifest
+  s_2b745e87ccc4f4::t_6a31ba9a9f401e 1-24
+test/data/ide-extensions/cursor-macos-home/.cursor/extensions/redhat.vscode-yaml-1.19.0/package.json
+  s_2b745e87ccc4f4::t_2bcc0dd2214357 1-26
+test/data/ide-extensions/cursor-macos-home/.cursor/mcp.json
+  s_2b745e87ccc4f4::t_12f836398b56bc 1-17
+test/data/ide-extensions/cursor-macos-home/.cursor/rules/security.mdc
+  s_2b745e87ccc4f4::t_a31114d2447bea 1-4
+test/data/ide-extensions/cursor-macos-home/.cursor/skills/review/SKILL.md
+  s_2b745e87ccc4f4::t_ff28e3c12df9af 1-5
+"test/data/ide-extensions/cursor-macos-home/Library/Application Support/Cursor/User/settings.json"
+  s_2b745e87ccc4f4::t_56c7dcbc1ca10b 1-3
+test/data/ide-extensions/linux-ide-lab-home/.cursor/extensions/.obsolete
+  s_2b745e87ccc4f4::t_a124e4b5066db8 1-3
+test/data/ide-extensions/linux-ide-lab-home/.cursor/extensions/anthropic.claude-code-2.1.314-linux-x64/.vsixmanifest
+  s_2b745e87ccc4f4::t_35e01431b001a1 1-44
+test/data/ide-extensions/linux-ide-lab-home/.cursor/extensions/anthropic.claude-code-2.1.314-linux-x64/extension.js
+  s_2b745e87ccc4f4::t_654179646dfcdb 1
+test/data/ide-extensions/linux-ide-lab-home/.cursor/extensions/anthropic.claude-code-2.1.314-linux-x64/package.json
+  s_2b745e87ccc4f4::t_6e11799f09560c 1-35
+test/data/ide-extensions/linux-ide-lab-home/.cursor/extensions/anysphere.cursorpyright-1.0.12/.vsixmanifest
+  s_2b745e87ccc4f4::t_18a0a53b3a8007 1-48
+test/data/ide-extensions/linux-ide-lab-home/.cursor/extensions/anysphere.cursorpyright-1.0.12/package.json
+  s_2b745e87ccc4f4::t_9b74189d20e2ab 1-30
+test/data/ide-extensions/linux-ide-lab-home/.cursor/extensions/extensions.json
+  s_2b745e87ccc4f4::t_575601c1a809e4 1-133
+test/data/ide-extensions/linux-ide-lab-home/.cursor/extensions/ms-python.debugpy-2026.6.0-linux-x64/.vsixmanifest
+  s_2b745e87ccc4f4::t_ec2712f869f648 1-47
+test/data/ide-extensions/linux-ide-lab-home/.cursor/extensions/ms-python.debugpy-2026.6.0-linux-x64/package.json
+  s_2b745e87ccc4f4::t_262acbaa7bfbe2 1-38
+test/data/ide-extensions/linux-ide-lab-home/.cursor/extensions/ms-python.python-2025.6.1-linux-x64/.vsixmanifest
+  s_2b745e87ccc4f4::t_f4195c3077610b 1-48
+test/data/ide-extensions/linux-ide-lab-home/.cursor/extensions/ms-python.python-2025.6.1-linux-x64/out/client/extension.js
+  s_2b745e87ccc4f4::t_62b21a07378231 1
+test/data/ide-extensions/linux-ide-lab-home/.cursor/extensions/ms-python.python-2025.6.1-linux-x64/package.json
+  s_2b745e87ccc4f4::t_d0c137fc3a04ae 1-57
+test/data/ide-extensions/linux-ide-lab-home/.cursor/extensions/redhat.vscode-yaml-1.15.0-universal/.vsixmanifest
+  s_2b745e87ccc4f4::t_8789d5e426c9e5 1-46
+test/data/ide-extensions/linux-ide-lab-home/.cursor/extensions/redhat.vscode-yaml-1.15.0-universal/package.json
+  s_2b745e87ccc4f4::t_4ef70890a4e38a 1-28
+test/data/ide-extensions/linux-ide-lab-home/.cursor/extensions/redhat.vscode-yaml-2.0.0-universal/.vsixmanifest
+  s_2b745e87ccc4f4::t_62172b14b537d9 1-48
+test/data/ide-extensions/linux-ide-lab-home/.cursor/extensions/redhat.vscode-yaml-2.0.0-universal/package.json
+  s_2b745e87ccc4f4::t_06ea0d05e7f6ee 1-31
+test/data/ide-extensions/linux-ide-lab-home/.devin/extensions/anthropic.claude-code-2.1.89-universal/.vsixmanifest
+  s_2b745e87ccc4f4::t_273e95e75c3fc4 1-44
+test/data/ide-extensions/linux-ide-lab-home/.devin/extensions/anthropic.claude-code-2.1.89-universal/extension.js
+  s_2b745e87ccc4f4::t_0ce5bef72ba6ed 1
+test/data/ide-extensions/linux-ide-lab-home/.devin/extensions/anthropic.claude-code-2.1.89-universal/package.json
+  s_2b745e87ccc4f4::t_2eadb0d4ed16bb 1-35
+test/data/ide-extensions/linux-ide-lab-home/.devin/extensions/extensions.json
+  s_2b745e87ccc4f4::t_cfdaca18beffcc 1-130
+test/data/ide-extensions/linux-ide-lab-home/.devin/extensions/ms-python.debugpy-2026.6.0-linux-x64/.vsixmanifest
+  s_2b745e87ccc4f4::t_7deda41d040018 1-47
+test/data/ide-extensions/linux-ide-lab-home/.devin/extensions/ms-python.debugpy-2026.6.0-linux-x64/package.json
+  s_2b745e87ccc4f4::t_1814270d3a31cb 1-38
+test/data/ide-extensions/linux-ide-lab-home/.devin/extensions/ms-python.python-2026.4.0-universal/.vsixmanifest
+  s_2b745e87ccc4f4::t_3c5245bec4db04 1-46
+test/data/ide-extensions/linux-ide-lab-home/.devin/extensions/ms-python.python-2026.4.0-universal/out/client/extension.js
+  s_2b745e87ccc4f4::t_9d8e25c99cf3d2 1
+test/data/ide-extensions/linux-ide-lab-home/.devin/extensions/ms-python.python-2026.4.0-universal/package.json
+  s_2b745e87ccc4f4::t_1104e30cb6be93 1-58
+test/data/ide-extensions/linux-ide-lab-home/.devin/extensions/ms-python.vscode-python-envs-1.40.0-universal/.vsixmanifest
+  s_2b745e87ccc4f4::t_5e01f6b1e85e34 1-47
+test/data/ide-extensions/linux-ide-lab-home/.devin/extensions/ms-python.vscode-python-envs-1.40.0-universal/package.json
+  s_2b745e87ccc4f4::t_4db5b61445e75c 1-35
+test/data/ide-extensions/linux-ide-lab-home/.devin/extensions/redhat.vscode-yaml-2.0.0-universal/.vsixmanifest
+  s_2b745e87ccc4f4::t_085dabfeec4b97 1-48
+test/data/ide-extensions/linux-ide-lab-home/.devin/extensions/redhat.vscode-yaml-2.0.0-universal/package.json
+  s_2b745e87ccc4f4::t_8a6a1cfdb64095 1-31
+test/data/ide-extensions/linux-ide-lab-home/.local/share/code-server/extensions/anthropic.claude-code-2.1.314-linux-x64/.vsixmanifest
+  s_2b745e87ccc4f4::t_6aaf5eff376caf 1-44
+test/data/ide-extensions/linux-ide-lab-home/.local/share/code-server/extensions/anthropic.claude-code-2.1.314-linux-x64/extension.js
+  s_2b745e87ccc4f4::t_608d314beb31e7 1
+test/data/ide-extensions/linux-ide-lab-home/.local/share/code-server/extensions/anthropic.claude-code-2.1.314-linux-x64/package.json
+  s_2b745e87ccc4f4::t_21beddc23c30ce 1-35
+test/data/ide-extensions/linux-ide-lab-home/.local/share/code-server/extensions/extensions.json
+  s_2b745e87ccc4f4::t_fa66049fc242ed 1-130
+test/data/ide-extensions/linux-ide-lab-home/.local/share/code-server/extensions/ms-python.debugpy-2026.6.0-linux-x64/.vsixmanifest
+  s_2b745e87ccc4f4::t_714655dbe70b93 1-47
+test/data/ide-extensions/linux-ide-lab-home/.local/share/code-server/extensions/ms-python.debugpy-2026.6.0-linux-x64/package.json
+  s_2b745e87ccc4f4::t_ae6aa2d2806aa2 1-38
+test/data/ide-extensions/linux-ide-lab-home/.local/share/code-server/extensions/ms-python.python-2026.4.0-universal/.vsixmanifest
+  s_2b745e87ccc4f4::t_07cf092974123c 1-46
+test/data/ide-extensions/linux-ide-lab-home/.local/share/code-server/extensions/ms-python.python-2026.4.0-universal/out/client/extension.js
+  s_2b745e87ccc4f4::t_e13f96343bfac7 1
+test/data/ide-extensions/linux-ide-lab-home/.local/share/code-server/extensions/ms-python.python-2026.4.0-universal/package.json
+  s_2b745e87ccc4f4::t_2f38bf672fba66 1-58
+test/data/ide-extensions/linux-ide-lab-home/.local/share/code-server/extensions/ms-python.vscode-python-envs-1.40.0-universal/.vsixmanifest
+  s_2b745e87ccc4f4::t_6a55951be19106 1-47
+test/data/ide-extensions/linux-ide-lab-home/.local/share/code-server/extensions/ms-python.vscode-python-envs-1.40.0-universal/package.json
+  s_2b745e87ccc4f4::t_d8b172d1543997 1-35
+test/data/ide-extensions/linux-ide-lab-home/.local/share/code-server/extensions/redhat.vscode-yaml-2.0.0-universal/.vsixmanifest
+  s_2b745e87ccc4f4::t_a0d726b442c1be 1-48
+test/data/ide-extensions/linux-ide-lab-home/.local/share/code-server/extensions/redhat.vscode-yaml-2.0.0-universal/package.json
+  s_2b745e87ccc4f4::t_9704e32b281370 1-31
+test/data/ide-extensions/linux-ide-lab-home/.openvscode-server/extensions/anthropic.claude-code-2.1.314-linux-x64/.vsixmanifest
+  s_2b745e87ccc4f4::t_7a292bfa9e1c11 1-44
+test/data/ide-extensions/linux-ide-lab-home/.openvscode-server/extensions/anthropic.claude-code-2.1.314-linux-x64/extension.js
+  s_2b745e87ccc4f4::t_0333746cdf3529 1
+test/data/ide-extensions/linux-ide-lab-home/.openvscode-server/extensions/anthropic.claude-code-2.1.314-linux-x64/package.json
+  s_2b745e87ccc4f4::t_70b0da472aaec2 1-35
+test/data/ide-extensions/linux-ide-lab-home/.openvscode-server/extensions/extensions.json
+  s_2b745e87ccc4f4::t_df0e4690b24cd5 1-130
+test/data/ide-extensions/linux-ide-lab-home/.openvscode-server/extensions/ms-python.debugpy-2026.6.0-linux-x64/.vsixmanifest
+  s_2b745e87ccc4f4::t_9a7509b1c617e4 1-47
+test/data/ide-extensions/linux-ide-lab-home/.openvscode-server/extensions/ms-python.debugpy-2026.6.0-linux-x64/package.json
+  s_2b745e87ccc4f4::t_f77f3f7b552978 1-38
+test/data/ide-extensions/linux-ide-lab-home/.openvscode-server/extensions/ms-python.python-2026.4.0-universal/.vsixmanifest
+  s_2b745e87ccc4f4::t_60324024ed87ca 1-46
+test/data/ide-extensions/linux-ide-lab-home/.openvscode-server/extensions/ms-python.python-2026.4.0-universal/out/client/extension.js
+  s_2b745e87ccc4f4::t_fb2a86ebd6a26c 1
+test/data/ide-extensions/linux-ide-lab-home/.openvscode-server/extensions/ms-python.python-2026.4.0-universal/package.json
+  s_2b745e87ccc4f4::t_7b925c3995f8d9 1-58
+test/data/ide-extensions/linux-ide-lab-home/.openvscode-server/extensions/ms-python.vscode-python-envs-1.20.1-universal/.vsixmanifest
+  s_2b745e87ccc4f4::t_0a2999ec2446fe 1-47
+test/data/ide-extensions/linux-ide-lab-home/.openvscode-server/extensions/ms-python.vscode-python-envs-1.20.1-universal/package.json
+  s_2b745e87ccc4f4::t_301b34dee79124 1-35
+test/data/ide-extensions/linux-ide-lab-home/.openvscode-server/extensions/redhat.vscode-yaml-2.0.0-universal/.vsixmanifest
+  s_2b745e87ccc4f4::t_2756b20567a38e 1-48
+test/data/ide-extensions/linux-ide-lab-home/.openvscode-server/extensions/redhat.vscode-yaml-2.0.0-universal/package.json
+  s_2b745e87ccc4f4::t_e697c6eea0c695 1-31
+test/data/ide-extensions/linux-ide-lab-home/.positron/extensions/anthropic.claude-code-2.1.314-linux-x64/.vsixmanifest
+  s_2b745e87ccc4f4::t_f3365ed9d97832 1-44
+test/data/ide-extensions/linux-ide-lab-home/.positron/extensions/anthropic.claude-code-2.1.314-linux-x64/extension.js
+  s_2b745e87ccc4f4::t_f2af690c96b435 1
+test/data/ide-extensions/linux-ide-lab-home/.positron/extensions/anthropic.claude-code-2.1.314-linux-x64/package.json
+  s_2b745e87ccc4f4::t_30303067d1d176 1-35
+test/data/ide-extensions/linux-ide-lab-home/.positron/extensions/extensions.json
+  s_2b745e87ccc4f4::t_ba832ee6999471 1-53
+test/data/ide-extensions/linux-ide-lab-home/.positron/extensions/redhat.vscode-yaml-2.0.0-universal/.vsixmanifest
+  s_2b745e87ccc4f4::t_005a2ae444d125 1-48
+test/data/ide-extensions/linux-ide-lab-home/.positron/extensions/redhat.vscode-yaml-2.0.0-universal/package.json
+  s_2b745e87ccc4f4::t_c2da173a9284af 1-31
+test/data/ide-extensions/linux-ide-lab-home/.trae/extensions/anthropic.claude-code-1.0.127-universal/.vsixmanifest
+  s_2b745e87ccc4f4::t_18a90ee6ddabeb 1-44
+test/data/ide-extensions/linux-ide-lab-home/.trae/extensions/anthropic.claude-code-1.0.127-universal/extension.js
+  s_2b745e87ccc4f4::t_fd4f3899a528ed 1
+test/data/ide-extensions/linux-ide-lab-home/.trae/extensions/anthropic.claude-code-1.0.127-universal/package.json
+  s_2b745e87ccc4f4::t_3045012c0b7f2a 1-23
+test/data/ide-extensions/linux-ide-lab-home/.trae/extensions/extensions.json
+  s_2b745e87ccc4f4::t_e4690336ab439a 1-130
+test/data/ide-extensions/linux-ide-lab-home/.trae/extensions/ms-python.debugpy-2026.6.0-linux-x64/.vsixmanifest
+  s_2b745e87ccc4f4::t_54f59edcc84876 1-47
+test/data/ide-extensions/linux-ide-lab-home/.trae/extensions/ms-python.debugpy-2026.6.0-linux-x64/package.json
+  s_2b745e87ccc4f4::t_8e073b15ee194d 1-38
+test/data/ide-extensions/linux-ide-lab-home/.trae/extensions/ms-python.python-2026.4.0-universal/.vsixmanifest
+  s_2b745e87ccc4f4::t_d7bc54d1478683 1-46
+test/data/ide-extensions/linux-ide-lab-home/.trae/extensions/ms-python.python-2026.4.0-universal/out/client/extension.js
+  s_2b745e87ccc4f4::t_3859ee548cea7b 1
+test/data/ide-extensions/linux-ide-lab-home/.trae/extensions/ms-python.python-2026.4.0-universal/package.json
+  s_2b745e87ccc4f4::t_e5d26854f1afcb 1-58
+test/data/ide-extensions/linux-ide-lab-home/.trae/extensions/ms-python.vscode-python-envs-1.20.1-universal/.vsixmanifest
+  s_2b745e87ccc4f4::t_04833fbf737ce7 1-47
+test/data/ide-extensions/linux-ide-lab-home/.trae/extensions/ms-python.vscode-python-envs-1.20.1-universal/package.json
+  s_2b745e87ccc4f4::t_38bb66e7584bc9 1-35
+test/data/ide-extensions/linux-ide-lab-home/.trae/extensions/redhat.vscode-yaml-2.0.0-universal/.vsixmanifest
+  s_2b745e87ccc4f4::t_a0fe0b04c4181c 1-48
+test/data/ide-extensions/linux-ide-lab-home/.trae/extensions/redhat.vscode-yaml-2.0.0-universal/package.json
+  s_2b745e87ccc4f4::t_4aa47254de61b3 1-31
+test/data/ide-extensions/linux-ide-lab-home/.vscode-oss/extensions/anthropic.claude-code-2.1.314-linux-x64/.vsixmanifest
+  s_2b745e87ccc4f4::t_949d19b166c266 1-44
+test/data/ide-extensions/linux-ide-lab-home/.vscode-oss/extensions/anthropic.claude-code-2.1.314-linux-x64/extension.js
+  s_2b745e87ccc4f4::t_ebc250f182e63b 1
+test/data/ide-extensions/linux-ide-lab-home/.vscode-oss/extensions/anthropic.claude-code-2.1.314-linux-x64/package.json
+  s_2b745e87ccc4f4::t_127bc76b444c20 1-35
+test/data/ide-extensions/linux-ide-lab-home/.vscode-oss/extensions/extensions.json
+  s_2b745e87ccc4f4::t_4bb9fa1bb10d01 1-130
+test/data/ide-extensions/linux-ide-lab-home/.vscode-oss/extensions/ms-python.debugpy-2026.6.0-linux-x64/.vsixmanifest
+  s_2b745e87ccc4f4::t_77e51a2b07267a 1-47
+test/data/ide-extensions/linux-ide-lab-home/.vscode-oss/extensions/ms-python.debugpy-2026.6.0-linux-x64/package.json
+  s_2b745e87ccc4f4::t_c5f22292e23139 1-38
+test/data/ide-extensions/linux-ide-lab-home/.vscode-oss/extensions/ms-python.python-2026.4.0-universal/.vsixmanifest
+  s_2b745e87ccc4f4::t_35829d7af0eec7 1-46
+test/data/ide-extensions/linux-ide-lab-home/.vscode-oss/extensions/ms-python.python-2026.4.0-universal/out/client/extension.js
+  s_2b745e87ccc4f4::t_19980bdc777951 1
+test/data/ide-extensions/linux-ide-lab-home/.vscode-oss/extensions/ms-python.python-2026.4.0-universal/package.json
+  s_2b745e87ccc4f4::t_64377d5ab8b3dd 1-58
+test/data/ide-extensions/linux-ide-lab-home/.vscode-oss/extensions/ms-python.vscode-python-envs-1.40.0-universal/.vsixmanifest
+  s_2b745e87ccc4f4::t_24e5490b4f0ca7 1-47
+test/data/ide-extensions/linux-ide-lab-home/.vscode-oss/extensions/ms-python.vscode-python-envs-1.40.0-universal/package.json
+  s_2b745e87ccc4f4::t_05e81182399d67 1-35
+test/data/ide-extensions/linux-ide-lab-home/.vscode-oss/extensions/redhat.vscode-yaml-2.0.0-universal/.vsixmanifest
+  s_2b745e87ccc4f4::t_497c50c574c912 1-48
+test/data/ide-extensions/linux-ide-lab-home/.vscode-oss/extensions/redhat.vscode-yaml-2.0.0-universal/package.json
+  s_2b745e87ccc4f4::t_3f386f0159202d 1-31
+test/data/ide-extensions/linux-ide-lab-home/.vscode-server/extensions/anthropic.claude-code-2.1.314-linux-x64/.vsixmanifest
+  s_2b745e87ccc4f4::t_24e1f16e6a7c8e 1-44
+test/data/ide-extensions/linux-ide-lab-home/.vscode-server/extensions/anthropic.claude-code-2.1.314-linux-x64/extension.js
+  s_2b745e87ccc4f4::t_80ace9d9f5e1f5 1
+test/data/ide-extensions/linux-ide-lab-home/.vscode-server/extensions/anthropic.claude-code-2.1.314-linux-x64/package.json
+  s_2b745e87ccc4f4::t_803b5deaf86fbc 1-35
+test/data/ide-extensions/linux-ide-lab-home/.vscode-server/extensions/extensions.json
+  s_2b745e87ccc4f4::t_e9e6ff1a167da8 1-156
+test/data/ide-extensions/linux-ide-lab-home/.vscode-server/extensions/ms-python.debugpy-2026.6.0-linux-x64/.vsixmanifest
+  s_2b745e87ccc4f4::t_669ab50ef85123 1-47
+test/data/ide-extensions/linux-ide-lab-home/.vscode-server/extensions/ms-python.debugpy-2026.6.0-linux-x64/package.json
+  s_2b745e87ccc4f4::t_76c7bddb9524a0 1-38
+test/data/ide-extensions/linux-ide-lab-home/.vscode-server/extensions/ms-python.python-2026.10.0-linux-x64/.vsixmanifest
+  s_2b745e87ccc4f4::t_e7a716dd64f01a 1-48
+test/data/ide-extensions/linux-ide-lab-home/.vscode-server/extensions/ms-python.python-2026.10.0-linux-x64/out/client/extension.js
+  s_2b745e87ccc4f4::t_9cbdef11d8674c 1
+test/data/ide-extensions/linux-ide-lab-home/.vscode-server/extensions/ms-python.python-2026.10.0-linux-x64/package.json
+  s_2b745e87ccc4f4::t_ddfdddcf7be12e 1-58
+test/data/ide-extensions/linux-ide-lab-home/.vscode-server/extensions/ms-python.vscode-pylance-2026.4.1/.vsixmanifest
+  s_2b745e87ccc4f4::t_bdc891dcd9b385 1-48
+test/data/ide-extensions/linux-ide-lab-home/.vscode-server/extensions/ms-python.vscode-pylance-2026.4.1/package.json
+  s_2b745e87ccc4f4::t_19e619196c34e0 1-49
+test/data/ide-extensions/linux-ide-lab-home/.vscode-server/extensions/ms-python.vscode-python-envs-1.40.0-linux-x64/.vsixmanifest
+  s_2b745e87ccc4f4::t_3a679b5dcae66b 1-47
+test/data/ide-extensions/linux-ide-lab-home/.vscode-server/extensions/ms-python.vscode-python-envs-1.40.0-linux-x64/package.json
+  s_2b745e87ccc4f4::t_2bf9503afa8f58 1-35
+test/data/ide-extensions/linux-ide-lab-home/.vscode-server/extensions/redhat.vscode-yaml-2.0.0/.vsixmanifest
+  s_2b745e87ccc4f4::t_7a9004644eb55c 1-48
+test/data/ide-extensions/linux-ide-lab-home/.vscode-server/extensions/redhat.vscode-yaml-2.0.0/package.json
+  s_2b745e87ccc4f4::t_e9872c48b7fc3a 1-31
+test/data/ide-extensions/products/code-server/package.json
+  s_2b745e87ccc4f4::t_d13c3b9c203287 1-4
+test/data/ide-extensions/products/code-server/product.json
+  s_2b745e87ccc4f4::t_e2f6c54d61c029 1-11
+test/data/ide-extensions/products/cursor/package.json
+  s_2b745e87ccc4f4::t_fce0fbc95726a1 1-4
+test/data/ide-extensions/products/cursor/product.json
+  s_2b745e87ccc4f4::t_4119013051b7a0 1-11
+test/data/ide-extensions/products/kiro/package.json
+  s_2b745e87ccc4f4::t_1ca58aaaa599a6 1-4
+test/data/ide-extensions/products/kiro/product.json
+  s_2b745e87ccc4f4::t_7c6e9688b615c1 1-10
+test/data/ide-extensions/products/openvscode-server/package.json
+  s_2b745e87ccc4f4::t_da85d85dd0f2aa 1-4
+test/data/ide-extensions/products/openvscode-server/product.json
+  s_2b745e87ccc4f4::t_f47942d8613737 1-10
+test/data/ide-extensions/products/positron/package.json
+  s_2b745e87ccc4f4::t_0ca8ca32aae3e9 1-4
+test/data/ide-extensions/products/positron/product.json
+  s_2b745e87ccc4f4::t_cc2710a42bf669 1-11
+test/data/ide-extensions/products/trae/package.json
+  s_2b745e87ccc4f4::t_4f3c663b8f7bc3 1-4
+test/data/ide-extensions/products/trae/product.json
+  s_2b745e87ccc4f4::t_905c3ee056c8cd 1-12
+test/data/ide-extensions/products/vscode-server/package.json
+  s_2b745e87ccc4f4::t_6b7dc45cd3b02b 1-4
+test/data/ide-extensions/products/vscode-server/product.json
+  s_2b745e87ccc4f4::t_28ca7e8ec5eb6f 1-10
+test/data/ide-extensions/products/vscode/package.json
+  s_2b745e87ccc4f4::t_0486add7e8ce87 1-4
+test/data/ide-extensions/products/vscode/product.json
+  s_2b745e87ccc4f4::t_92d8694f552987 1-10
+test/data/ide-extensions/products/vscodium/package.json
+  s_2b745e87ccc4f4::t_0147b257e40ea7 1-4
+test/data/ide-extensions/products/vscodium/product.json
+  s_2b745e87ccc4f4::t_95fa585fce3170 1-10
+test/data/ide-extensions/products/windsurf-devin/package.json
+  s_2b745e87ccc4f4::t_7231c376194a8f 1-4
+test/data/ide-extensions/products/windsurf-devin/product.json
+  s_2b745e87ccc4f4::t_35b6751d954e09 1-11
+test/data/ide-extensions/remote-linux-home/.cursor-server/cli/servers/Stable-b1aa50cb6db84fd3e8c808259cb172ea73425c10/server/package.json
+  s_2b745e87ccc4f4::t_adf88359f90ca1 1-4
+test/data/ide-extensions/remote-linux-home/.cursor-server/cli/servers/Stable-b1aa50cb6db84fd3e8c808259cb172ea73425c10/server/product.json
+  s_2b745e87ccc4f4::t_8b36303d2e04a2 1-11
+test/data/ide-extensions/remote-linux-home/.cursor-server/extensions/anthropic.claude-code-2.1.313-linux-x64/.vsixmanifest
+  s_2b745e87ccc4f4::t_1e38da46663b14 1-24
+test/data/ide-extensions/remote-linux-home/.cursor-server/extensions/anthropic.claude-code-2.1.313-linux-x64/extension.js
+  s_2b745e87ccc4f4::t_07e1727425e770 1-2
+test/data/ide-extensions/remote-linux-home/.cursor-server/extensions/anthropic.claude-code-2.1.313-linux-x64/package.json
+  s_2b745e87ccc4f4::t_4bcf4a60396186 1-27
+test/data/ide-extensions/remote-linux-home/.cursor-server/extensions/extensions.json
+  s_2b745e87ccc4f4::t_eb09518c0b2dce 1-32
+test/data/ide-extensions/remote-linux-home/.vscode-server/cli/servers/Stable-2c33b50b16c472efe58357d1d2a8a5414bc23fbf/server/package.json
+  s_2b745e87ccc4f4::t_1af9d8d719d7a4 1-4
+test/data/ide-extensions/remote-linux-home/.vscode-server/cli/servers/Stable-2c33b50b16c472efe58357d1d2a8a5414bc23fbf/server/product.json
+  s_2b745e87ccc4f4::t_eee79ff471c005 1-10
+test/data/ide-extensions/remote-linux-home/.vscode-server/extensions/extensions.json
+  s_2b745e87ccc4f4::t_b34a2b01c63182 1-32
+test/data/ide-extensions/remote-linux-home/.vscode-server/extensions/redhat.vscode-yaml-1.19.0/.vsixmanifest
+  s_2b745e87ccc4f4::t_10d7edb23a9309 1-24
+test/data/ide-extensions/remote-linux-home/.vscode-server/extensions/redhat.vscode-yaml-1.19.0/package.json
+  s_2b745e87ccc4f4::t_8ec9c6cf58eddf 1-26
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "336458458afc22b5a7f2afb8b80ec62ea039b207",
+  "prompts": {},
+  "sessions": {
+    "s_2b745e87ccc4f4": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "b26feb36-b3ba-43a0-84b0-ee741a8f03ad",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
