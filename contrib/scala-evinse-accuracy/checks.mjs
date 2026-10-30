@@ -1,45 +1,54 @@
 // Pure checks over a Scala evidence BOM produced from a chen run, shared by
 // check-chen.mjs and its unit tests. Nothing here reads files or spawns
-// processes: every check takes the parsed BOM plus a small file resolver, so
-// the tests can drive them with hand-written fixtures.
+// processes: every check takes the parsed BOM, the parsed scalasem report and
+// a small resolver, so the tests can drive them with hand-written fixtures.
 
 import { isAbsolute, join } from "node:path";
 
+import {
+  parseScalaArtifact,
+  scalaCoordinateOfPurl,
+} from "../../lib/inventory/scalaCoords.js";
+
 /**
- * Chen's main dependencies that its class files reference. Each entry matches
- * a component's name, or the artifact part of its purl, exactly, or as a
- * prefix when the entry ends with `*`. Edit this list as chen's build moves;
- * a run that stops joining one of these libraries to its sources is the
- * failure this check exists to catch. The shaded compiler jar
+ * Chen's main dependencies that its class files reference, by published
+ * artifact name without the Scala binary suffix. Each one must be in the BOM
+ * and have at least one evidence occurrence of its own. Edit this list as
+ * chen's build moves; a run that stops joining one of these libraries to its
+ * sources is the failure this check exists to catch. The shaded compiler jar
  * (`org.scala-lang.modules:scala-asm`) is deliberately absent: chen's own
  * classes never reference it, so it can have no occurrence to demand.
  */
 export const EXPECTED_DEPENDENCIES = [
-  "cpg2*",
+  "cpg2",
   "javaparser-symbol-solver-core",
-  "circe-*",
-  "upickle*",
-  "asm*",
+  "circe-core",
+  "circe-parser",
+  "upickle",
+  "asm",
 ];
 
-/** Occurrence offenders listed per component before the rest are cut off. */
+/** Occurrence offenders listed per component before the rest are counted only. */
 export const MAX_OFFENDERS_PER_COMPONENT = 5;
 
 const DIAGNOSTIC_PROPERTY_PREFIX = "cdx:scalasem:diagnostic:";
 
+function metadataProperty(bom, name) {
+  return (bom?.metadata?.component?.properties || []).find(
+    (property) => property?.name === name,
+  )?.value;
+}
+
 /**
  * The names one component answers to: its own name (without a `group:`
  * prefix, since Maven components sometimes carry one) and the artifact part
- * of its purl.
+ * of its purl, each also without its Scala binary and platform suffixes.
  */
 export function componentArtifacts(component) {
   const names = new Set();
   const name = String(component?.name || "").trim();
   if (name) {
-    names.add(name);
-    if (name.includes(":")) {
-      names.add(name.slice(name.lastIndexOf(":") + 1));
-    }
+    names.add(name.includes(":") ? name.slice(name.lastIndexOf(":") + 1) : name);
   }
   const purlArtifact = /^pkg:[^/]+\/(?:([^/@?]+)\/)?([^/@?]+)/.exec(
     String(component?.purl || ""),
@@ -51,34 +60,75 @@ export function componentArtifacts(component) {
       names.add(purlArtifact);
     }
   }
+  for (const known of [...names]) {
+    names.add(parseScalaArtifact(known).artifactBase);
+  }
   return [...names].filter(Boolean);
 }
 
 /**
- * Whether a component matches one EXPECTED_DEPENDENCIES entry.
+ * Whether a component is the expected dependency: its name, or its name
+ * without the Scala suffixes, is the entry exactly.
  *
- * @param {string} entry Dependency name, or a prefix when it ends with `*`.
+ * @param {string} entry Published artifact name without the Scala suffix.
  * @param {Object} component BOM component.
  */
 export function matchesDependency(entry, component) {
-  const artifacts = componentArtifacts(component);
-  if (entry.endsWith("*")) {
-    const prefix = entry.slice(0, -1);
-    return artifacts.some((name) => name.startsWith(prefix));
-  }
-  return artifacts.includes(entry);
+  return componentArtifacts(component).includes(entry);
 }
 
 /**
- * Check (a): the metadata component carries no `cdx:scalasem:diagnostic:*`
- * property. Every way a scalasem run can fall short becomes one, so any
- * property here means the evidence in this BOM was produced by a degraded
- * run, such as one that analysed no Scala 3.10 module.
+ * Check (a): scalasem ran and its report is the one the BOM describes. The
+ * metadata component names the report schema and a positive number of files
+ * analysed, and a report was read. A run with the analyzer disabled or
+ * missing leaves neither, and every later check would then pass on whatever
+ * other evidence the BOM holds.
  *
  * @param {Object} bom Parsed BOM document.
- * @returns {{ found: {name: string, value: string}[] }}
+ * @param {Object|undefined} report Parsed scalasem report.
+ * @returns {{ problems: string[], filesAnalyzed: number }}
  */
-export function checkNoScalasemDiagnostics(bom) {
+export function checkScalasemRan(bom, report) {
+  const problems = [];
+  const schemaVersion = metadataProperty(bom, "cdx:scalasem:schemaVersion");
+  const filesAnalyzed = Number(
+    metadataProperty(bom, "cdx:scalasem:filesAnalyzed"),
+  );
+  if (schemaVersion !== "scalasem/2") {
+    problems.push(
+      `cdx:scalasem:schemaVersion is ${schemaVersion === undefined ? "absent" : `"${schemaVersion}"`}, not "scalasem/2"`,
+    );
+  }
+  if (!Number.isInteger(filesAnalyzed) || filesAnalyzed < 1) {
+    problems.push("cdx:scalasem:filesAnalyzed is absent or not positive");
+  }
+  if (!report?._meta) {
+    problems.push("no scalasem report was read");
+  } else if (report._meta.schemaVersion !== "scalasem/2") {
+    problems.push(
+      `the report has schema ${report._meta.schemaVersion || "none"}, not scalasem/2`,
+    );
+  }
+  return {
+    problems,
+    filesAnalyzed: Number.isFinite(filesAnalyzed) ? filesAnalyzed : 0,
+  };
+}
+
+/**
+ * Check (b): the metadata component carries no `cdx:scalasem:diagnostic:*`
+ * property. Every way a scalasem run can degrade becomes one, so any property
+ * here means the evidence in this BOM was produced by a degraded run, such as
+ * one that analysed no Scala 3.10 module. The counts scalasem keeps on a
+ * healthy run (`stale-output`, `unresolved-symbols`) never reach the BOM; they
+ * are read from the report and listed without failing the check, since a
+ * stale build skipped is the analyzer working as meant.
+ *
+ * @param {Object} bom Parsed BOM document.
+ * @param {Object|undefined} report Parsed scalasem report.
+ * @returns {{ found: {name: string, value: string}[], informational: {code: string, count: number}[] }}
+ */
+export function checkNoScalasemDiagnostics(bom, report) {
   const found = (bom?.metadata?.component?.properties || [])
     .filter(
       (property) =>
@@ -86,16 +136,33 @@ export function checkNoScalasemDiagnostics(bom) {
         property.name.startsWith(DIAGNOSTIC_PROPERTY_PREFIX),
     )
     .map((property) => ({ name: property.name, value: property.value }));
-  return { found };
+  const reported = new Set(
+    found.map((property) =>
+      property.name.slice(DIAGNOSTIC_PROPERTY_PREFIX.length),
+    ),
+  );
+  // The report counts per module; the summary counts per code.
+  const counts = new Map();
+  for (const diagnostic of report?._meta?.diagnostics || []) {
+    if (diagnostic?.code && !reported.has(diagnostic.code)) {
+      counts.set(
+        diagnostic.code,
+        (counts.get(diagnostic.code) || 0) + (Number(diagnostic.count) || 1),
+      );
+    }
+  }
+  const informational = [...counts]
+    .sort(([left], [right]) => left.localeCompare(right))
+    .map(([code, count]) => ({ code, count }));
+  return { found, informational };
 }
 
 /**
- * Check (b): every expected dependency has at least one evidence occurrence
- * on a matching component. A dependency the BOM does not hold at all is
- * reported as `missing` rather than as one without occurrences, since the
- * two failures have different causes: the first is a dependency or join
- * problem, the second means the component is there but no source was
- * attributed to it.
+ * Check (c): every expected dependency is in the BOM and has evidence
+ * occurrences of its own. A dependency the BOM does not hold at all is
+ * reported as `missing` rather than as one without occurrences, since the two
+ * failures have different causes: the first is a dependency or join problem,
+ * the second means the component is there but no source was attributed to it.
  *
  * @param {Object} bom Parsed BOM document.
  * @param {string[]} [expected] Dependencies to require, defaulting to
@@ -127,35 +194,34 @@ export function checkDependencyOccurrences(
 }
 
 /**
- * The file paths an occurrence location may live at: the location against
- * each root, or the location itself when it is already absolute.
+ * The parts of an occurrence: the file, and the line, from the `line` field
+ * or from a `#N` suffix of the location. A line that is not a positive whole
+ * number, and a `line` field that disagrees with the suffix, are problems of
+ * their own.
  */
-function candidatePaths(location, roots) {
-  if (isAbsolute(location)) {
-    return [location];
+function occurrenceParts(occurrence) {
+  let location = String(occurrence?.location || "").trim();
+  let suffixLine;
+  const hash = location.lastIndexOf("#");
+  if (hash >= 0 && /^\d+$/.test(location.slice(hash + 1))) {
+    suffixLine = Number(location.slice(hash + 1));
+    location = location.slice(0, hash);
   }
-  return (roots || []).map((root) => join(root, location));
-}
-
-/**
- * Occurrence entries of one component, with the line split out of the
- * location when the entry carries none of its own.
- */
-function occurrencesOf(container) {
-  return (container?.evidence?.occurrences || [])
-    .map((occurrence) => {
-      let location = String(occurrence?.location || "").trim();
-      let line = Number(occurrence?.line);
-      if (/#\d+$/.test(location)) {
-        const hash = location.lastIndexOf("#");
-        if (!Number.isFinite(line)) {
-          line = Number(location.slice(hash + 1));
-        }
-        location = location.slice(0, hash);
-      }
-      return { location, line };
-    })
-    .filter((occurrence) => occurrence.location);
+  const hasField = occurrence?.line !== undefined && occurrence?.line !== null;
+  const fieldLine = hasField ? Number(occurrence.line) : undefined;
+  let problem;
+  if (
+    hasField &&
+    suffixLine !== undefined &&
+    fieldLine !== suffixLine
+  ) {
+    problem = `line ${occurrence.line} disagrees with the location's #${suffixLine}`;
+  }
+  const line = hasField ? fieldLine : suffixLine;
+  if (!problem && line !== undefined && (!Number.isInteger(line) || line < 1)) {
+    problem = "line must be a positive whole number";
+  }
+  return { location, line, problem };
 }
 
 function containerLabel(container) {
@@ -166,60 +232,43 @@ function containerLabel(container) {
   );
 }
 
-function locationOffender(occurrence, resolver) {
-  let found;
-  for (const candidate of candidatePaths(occurrence.location, resolver?.roots)) {
-    const stat = resolver?.statFile?.(candidate);
-    if (stat?.exists) {
-      found = stat;
-      break;
-    }
+// Occurrence locations are relative to the project root, which is where
+// scalasem reports them from; an absolute one is taken as it is.
+function locationOffender({ location, line, problem }, resolver) {
+  if (problem) {
+    return { location, line, reason: problem };
   }
-  if (!found) {
-    return {
-      location: occurrence.location,
-      line: occurrence.line,
-      reason: "file not found",
-    };
+  const path = isAbsolute(location) ? location : join(resolver.root, location);
+  const stat = resolver.statFile(path);
+  if (!stat?.exists) {
+    return { location, line, reason: "file not found" };
   }
-  if (!Number.isFinite(occurrence.line)) {
-    // A file-only occurrence: existence is all there is to check.
+  if (line === undefined || stat.lineCount === undefined) {
+    // A file-only occurrence, or a file whose length could not be counted:
+    // existence is all there is to check.
     return undefined;
   }
-  if (occurrence.line < 1) {
+  if (line > stat.lineCount) {
     return {
-      location: occurrence.location,
-      line: occurrence.line,
-      reason: "line must be positive",
-    };
-  }
-  if (found.lineCount === undefined) {
-    // The file is there but its length could not be counted; give it the
-    // benefit of the doubt rather than fail on an unreadable file.
-    return undefined;
-  }
-  if (occurrence.line > found.lineCount) {
-    return {
-      location: occurrence.location,
-      line: occurrence.line,
-      reason: `line beyond end of file (${found.lineCount} lines)`,
+      location,
+      line,
+      reason: `line beyond end of file (${stat.lineCount} lines)`,
     };
   }
   return undefined;
 }
 
 /**
- * Check (c): every occurrence points at a file that exists under one of the
- * roots, at a line the file has. Roots are the chen checkout plus any source
- * roots the scalasem report extracted; the first root that holds the file
- * wins. An occurrence without a line is checked for the file only. The first
- * `maxOffenders` offenders per component are reported.
+ * Check (d): every occurrence points at a file that exists under the project
+ * root, at a line the file has. An occurrence without a line is checked for
+ * the file only. Every offender is counted; the first `maxOffenders` of each
+ * component are listed.
  *
  * @param {Object} bom Parsed BOM document.
- * @param {{roots: string[], statFile: (path: string) => {exists: boolean, lineCount?: number}|undefined}} resolver
- *   File resolver: `statFile` answers for one absolute path without I/O here.
+ * @param {{root: string, statFile: (path: string) => {exists: boolean, lineCount?: number}|undefined}} resolver
+ *   File resolver: `statFile` answers for one absolute path.
  * @param {{maxOffenders?: number}} [options]
- * @returns {{ checked: number, componentsWithOccurrences: number, offenders: {component: string, location: string, line: number|undefined, reason: string}[] }}
+ * @returns {{ checked: number, componentsWithOccurrences: number, offenderCount: number, offenders: {component: string, location: string, line: number|undefined, reason: string}[] }}
  */
 export function checkOccurrenceLocations(bom, resolver, options = {}) {
   const maxOffenders = options.maxOffenders ?? MAX_OFFENDERS_PER_COMPONENT;
@@ -230,9 +279,12 @@ export function checkOccurrenceLocations(bom, resolver, options = {}) {
   ];
   const offenders = [];
   let checked = 0;
+  let offenderCount = 0;
   let componentsWithOccurrences = 0;
   for (const container of containers) {
-    const occurrences = occurrencesOf(container);
+    const occurrences = (container?.evidence?.occurrences || []).map(
+      occurrenceParts,
+    );
     if (!occurrences.length) {
       continue;
     }
@@ -240,41 +292,84 @@ export function checkOccurrenceLocations(bom, resolver, options = {}) {
     let listed = 0;
     for (const occurrence of occurrences) {
       checked++;
-      if (listed >= maxOffenders) {
+      const offender = occurrence.location
+        ? locationOffender(occurrence, resolver)
+        : { location: "", line: occurrence.line, reason: "no location" };
+      if (!offender) {
         continue;
       }
-      const offender = locationOffender(occurrence, resolver);
-      if (offender) {
-        offenders.push({
-          component: containerLabel(container),
-          ...offender,
-        });
+      offenderCount++;
+      if (listed < maxOffenders) {
+        offenders.push({ component: containerLabel(container), ...offender });
         listed++;
       }
     }
   }
-  return { checked, componentsWithOccurrences, offenders };
+  return { checked, componentsWithOccurrences, offenderCount, offenders };
+}
+
+// The binary name a class goes by in a jar, from the report's spelling of a
+// class nested in an object (`Outer$.Inner` is `Outer$Inner`).
+function binaryClassName(className) {
+  return String(className || "").replaceAll("$.", "$");
+}
+
+// Whether a jar's namespaces hold a class, by its binary name or by the class
+// it is nested in.
+function namespaceCovers(namespaces, className) {
+  const binary = binaryClassName(className).replace(/\$+$/, "");
+  if (!binary) {
+    return false;
+  }
+  const outer = binary.split("$")[0];
+  return namespaces.some((namespace) => {
+    const name = String(namespace || "").replace(/\$+$/, "");
+    return name === binary || name === outer || name.split("$")[0] === outer;
+  });
+}
+
+// The classes a report stack calls at its sink: the sink's owner, and every
+// call the report records on the sink's line, which is how the join decides
+// which components a stack is evidence for.
+function sinkOwners(report, stack) {
+  const sink = stack?.sink;
+  const owners = new Set(sink?.owner ? [sink.owner] : []);
+  for (const call of report?.[sink?.file]?.calls || []) {
+    if (call?.line === sink.line && call.owner) {
+      owners.add(call.owner);
+    }
+  }
+  return [...owners];
 }
 
 /**
- * Check (d): every call stack in evidence ends in a component of the BOM.
- * cdxgen publishes a stack on the component the stack ends in, so the
- * component carrying each frame sequence must be identifiable by a bom-ref
- * or purl, and the sequence must be intact, with a final frame that names
- * where it ends. Evidence without frames, or a stack that stops at an
- * anonymous frame, says the terminal hop no longer resolves.
+ * Check (e): the call stacks are intact and end in the component that carries
+ * them. cdxgen publishes a report stack on each component that ships a class
+ * the stack's sink calls, and the published frames end at the sink's call
+ * site. So for every published stack, a report stack must end at the same
+ * file and line, and one of the classes called there must be one the
+ * component ships, as the jar namespace map beside the BOM records. Every
+ * frame names a class or a file, and lines are positive. A BOM without any
+ * stack fails, since the research profile always asks for them. A component
+ * the namespace map holds nothing for cannot be verified and is counted, not
+ * failed.
  *
  * @param {Object} bom Parsed BOM document.
- * @returns {{ stacks: number, offenders: {component: string, ref: string, reason: string}[] }}
+ * @param {Object|undefined} report Parsed scalasem report.
+ * @param {{namespacesOf?: (component: Object) => string[]|undefined}} [resolver]
+ * @returns {{ stacks: number, verified: number, unverifiable: number, offenders: {component: string, reason: string}[] }}
  */
-export function checkCallStacks(bom) {
-  const containers = [
-    ...(bom?.metadata?.component ? [bom.metadata.component] : []),
-    ...(bom?.components || []),
-  ];
+export function checkCallStacks(bom, report, resolver = {}) {
   const offenders = [];
   let stacks = 0;
-  for (const container of containers) {
+  let verified = 0;
+  let unverifiable = 0;
+  const reportStacksBySink = new Map();
+  for (const stack of report?.callStacks || []) {
+    const key = `${stack?.sink?.file}#${stack?.sink?.line}`;
+    reportStacksBySink.set(key, [...(reportStacksBySink.get(key) || []), stack]);
+  }
+  for (const container of bom?.components || []) {
     const frames = container?.evidence?.callstack?.frames;
     if (frames === undefined || frames === null) {
       continue;
@@ -283,35 +378,132 @@ export function checkCallStacks(bom) {
     if (!Array.isArray(frames) || !frames.length) {
       offenders.push({
         component: label,
-        ref: label,
         reason: "call stack evidence without frames",
       });
       continue;
     }
     stacks++;
-    if (!container["bom-ref"] && !container.purl) {
+    const broken = frames.findIndex(
+      (frame) =>
+        !frame ||
+        typeof frame !== "object" ||
+        (!frame.module && !frame.fullFilename) ||
+        (frame.line !== undefined &&
+          (!Number.isInteger(frame.line) || frame.line < 1)),
+    );
+    if (broken >= 0) {
       offenders.push({
         component: label,
-        ref: label,
-        reason: "call stack on a component without a bom-ref or purl",
+        reason: `frame ${broken + 1} of ${frames.length} names no class or file, or has no positive line`,
       });
+      continue;
     }
     const last = frames[frames.length - 1];
-    if (!last || typeof last !== "object") {
+    const reportStacks =
+      reportStacksBySink.get(`${last.fullFilename}#${last.line}`) || [];
+    if (!reportStacks.length) {
       offenders.push({
         component: label,
-        ref: label,
-        reason: "call stack without a final frame",
+        reason: `no report stack has its sink at ${last.fullFilename}#${last.line}`,
       });
-    } else if (!last.module && !last.fullFilename) {
+      continue;
+    }
+    const namespaces = resolver.namespacesOf?.(container);
+    if (!namespaces?.length) {
+      unverifiable++;
+      continue;
+    }
+    const owners = reportStacks.flatMap((stack) => sinkOwners(report, stack));
+    if (owners.some((owner) => namespaceCovers(namespaces, owner))) {
+      verified++;
+    } else {
       offenders.push({
         component: label,
-        ref: label,
-        reason: "final frame names neither a class nor a file",
+        reason: `the stack ends calling ${owners.join(", ") || "nothing"}, which the component does not ship`,
       });
     }
   }
-  return { stacks, offenders };
+  if (!stacks && !offenders.length) {
+    offenders.push({
+      component: "BOM",
+      reason: "no component carries a call stack",
+    });
+  }
+  return { stacks, verified, unverifiable, offenders };
+}
+
+// The Scala binary versions a component was built for.
+function binaryVersionsOf(component) {
+  const suffix = scalaCoordinateOfPurl(component?.purl)?.binaryVersion;
+  if (suffix) {
+    return new Set([suffix]);
+  }
+  return new Set(
+    (component?.properties || [])
+      .filter((property) => property?.name === "cdx:scala:compilerVersion")
+      .map((property) => property.value),
+  );
+}
+
+/**
+ * Check (f): each library is listed once. Two Maven components with the same
+ * normalized coordinates built for an overlapping set of Scala binary
+ * versions, or a component whose name is another's group-prefixed staged
+ * spelling (`io.appthreat.cpg2-protos_3` beside `io.appthreat:cpg2-protos`),
+ * are one library the merge left as two.
+ *
+ * @param {Object} bom Parsed BOM document.
+ * @returns {{ duplicates: {library: string, purls: string[]}[] }}
+ */
+export function checkSingleSpelling(bom) {
+  const components = (bom?.components || []).filter((component) =>
+    String(component?.purl || "").startsWith("pkg:maven/"),
+  );
+  const byKey = new Map();
+  for (const component of components) {
+    const key = scalaCoordinateOfPurl(component.purl)?.key;
+    if (key) {
+      byKey.set(key, [...(byKey.get(key) || []), component]);
+    }
+  }
+  const duplicates = [];
+  for (const [key, group] of byKey) {
+    for (let i = 0; i < group.length; i++) {
+      for (let j = i + 1; j < group.length; j++) {
+        const left = binaryVersionsOf(group[i]);
+        const right = binaryVersionsOf(group[j]);
+        const overlap =
+          (!left.size && !right.size) ||
+          [...left].some((version) => right.has(version));
+        if (overlap) {
+          duplicates.push({
+            library: key,
+            purls: [group[i].purl, group[j].purl],
+          });
+        }
+      }
+    }
+  }
+  const byStagedStem = new Map();
+  for (const component of components) {
+    if (component.group && component.name) {
+      const stem = `${component.group}.${component.name}@${component.version}`;
+      byStagedStem.set(stem, [...(byStagedStem.get(stem) || []), component]);
+    }
+  }
+  for (const component of components) {
+    const stem = `${parseScalaArtifact(component.name).artifactBase}@${component.version}`;
+    const owner = (byStagedStem.get(stem) || []).find(
+      (candidate) => candidate !== component,
+    );
+    if (owner) {
+      duplicates.push({
+        library: `${owner.group}:${owner.name}`,
+        purls: [owner.purl, component.purl],
+      });
+    }
+  }
+  return { duplicates };
 }
 
 /**
@@ -320,21 +512,37 @@ export function checkCallStacks(bom) {
  * ready-to-print failure details.
  *
  * @param {Object} bom Parsed BOM document.
- * @param {{roots: string[], statFile: Function}} resolver File resolver for check (c).
+ * @param {Object|undefined} report Parsed scalasem report.
+ * @param {{root: string, statFile: Function, namespacesOf?: Function}} resolver
  * @param {{expectedDependencies?: string[], maxOffenders?: number}} [options]
  * @returns {{check: string, pass: boolean, summary: string, details: string[], result: Object}[]}
  */
-export function runAllChecks(bom, resolver, options = {}) {
+export function runAllChecks(bom, report, resolver, options = {}) {
   const rows = [];
 
-  const diagnostics = checkNoScalasemDiagnostics(bom);
+  const ran = checkScalasemRan(bom, report);
+  rows.push({
+    check: "scalasem ran over the project",
+    pass: ran.problems.length === 0,
+    summary: ran.problems.length
+      ? `${ran.problems.length} problem(s)`
+      : `${ran.filesAnalyzed} files analysed`,
+    details: ran.problems,
+    result: ran,
+  });
+
+  const diagnostics = checkNoScalasemDiagnostics(bom, report);
+  const informational = diagnostics.informational
+    .map((diagnostic) => `${diagnostic.code} ${diagnostic.count}`)
+    .join(", ");
   rows.push({
     check: "no scalasem diagnostics on the metadata component",
     pass: diagnostics.found.length === 0,
-    summary:
+    summary: `${
       diagnostics.found.length === 0
         ? "no diagnostic properties"
-        : `${diagnostics.found.length} diagnostic properties found`,
+        : `${diagnostics.found.length} diagnostic properties found`
+    }${informational ? `; informational: ${informational}` : ""}`,
     details: diagnostics.found.map(
       (diagnostic) => `${diagnostic.name} = ${diagnostic.value}`,
     ),
@@ -369,43 +577,55 @@ export function runAllChecks(bom, resolver, options = {}) {
   });
 
   const locations = checkOccurrenceLocations(bom, resolver, options);
-  const byComponent = new Map();
-  for (const offender of locations.offenders) {
-    let list = byComponent.get(offender.component);
-    if (!list) {
-      list = [];
-      byComponent.set(offender.component, list);
-    }
-    list.push(offender);
-  }
+  const listed = locations.offenders.length;
   rows.push({
     check: "occurrence locations resolve",
-    pass: locations.offenders.length === 0,
+    pass: locations.offenderCount === 0,
     summary:
-      locations.offenders.length === 0
+      locations.offenderCount === 0
         ? `${locations.checked} occurrences checked`
-        : `${locations.offenders.length} of ${locations.checked} occurrences point nowhere`,
-    details: [...byComponent.entries()].flatMap(([component, list]) =>
-      list.map(
-        (offender) =>
-          `${component}: ${offender.location}#${offender.line ?? "?"} (${offender.reason})`,
-      ),
+        : `${locations.offenderCount} of ${locations.checked} occurrences point nowhere${
+            listed < locations.offenderCount ? ` (${listed} listed)` : ""
+          }`,
+    details: locations.offenders.map(
+      (offender) =>
+        `${offender.component}: ${offender.location}${
+          offender.line === undefined ? "" : `#${offender.line}`
+        } (${offender.reason})`,
     ),
     result: locations,
   });
 
-  const callStacks = checkCallStacks(bom);
+  const callStacks = checkCallStacks(bom, report, resolver);
   rows.push({
-    check: "call stacks end in a component of the BOM",
+    check: "call stacks end in the component that carries them",
     pass: callStacks.offenders.length === 0,
-    summary:
-      callStacks.offenders.length === 0
-        ? `${callStacks.stacks} call stacks checked`
-        : `${callStacks.offenders.length} offender(s) over ${callStacks.stacks} call stacks`,
+    summary: `${callStacks.stacks} call stacks, ${callStacks.verified} verified${
+      callStacks.unverifiable
+        ? `, ${callStacks.unverifiable} without namespaces to verify against`
+        : ""
+    }${
+      callStacks.offenders.length
+        ? `, ${callStacks.offenders.length} offender(s)`
+        : ""
+    }`,
     details: callStacks.offenders.map(
       (offender) => `${offender.component}: ${offender.reason}`,
     ),
     result: callStacks,
+  });
+
+  const spellings = checkSingleSpelling(bom);
+  rows.push({
+    check: "each library is listed once",
+    pass: spellings.duplicates.length === 0,
+    summary: spellings.duplicates.length
+      ? `${spellings.duplicates.length} library(ies) listed more than once`
+      : "no duplicate spellings",
+    details: spellings.duplicates.map(
+      (duplicate) => `${duplicate.library}: ${duplicate.purls.join(" and ")}`,
+    ),
+    result: spellings,
   });
 
   return rows;

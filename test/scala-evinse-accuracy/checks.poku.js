@@ -1,7 +1,7 @@
 // Unit tests for the check logic of the Scala evinse accuracy script
 // (contrib/scala-evinse-accuracy/check-chen.mjs). The checks are pure, so
-// every fixture is a hand-written BOM and a file resolver that answers from a
-// Map; no cdxgen run and no chen checkout is involved.
+// every fixture is a hand-written BOM, report and file resolver that answers
+// from a Map; no cdxgen run and no chen checkout is involved.
 import { join, normalize, resolve } from "node:path";
 
 import { assert, describe, it } from "poku";
@@ -11,22 +11,31 @@ import {
   checkDependencyOccurrences,
   checkNoScalasemDiagnostics,
   checkOccurrenceLocations,
+  checkScalasemRan,
+  checkSingleSpelling,
   componentArtifacts,
-  matchesDependency,
+  EXPECTED_DEPENDENCIES,
   MAX_OFFENDERS_PER_COMPONENT,
+  matchesDependency,
   runAllChecks,
 } from "../../contrib/scala-evinse-accuracy/checks.mjs";
 
-/** A BOM that passes every check, over a resolver that holds its files. */
+const CPG2 = "pkg:maven/io.appthreat/cpg2@3.1.1?type=jar";
+
+/** A BOM that passes every check, with its report and resolver. */
 function passingBom() {
   return {
-    specVersion: "1.5",
+    specVersion: "1.6",
     metadata: {
       component: {
         type: "application",
         "bom-ref": "pkg:generic/io.appthreat/chen@4.0.0",
         purl: "pkg:generic/io.appthreat/chen@4.0.0",
         name: "chen",
+        properties: [
+          { name: "cdx:scalasem:schemaVersion", value: "scalasem/2" },
+          { name: "cdx:scalasem:filesAnalyzed", value: "525" },
+        ],
         evidence: {
           occurrences: [{ location: "src/Main.scala", line: 4 }],
         },
@@ -35,25 +44,27 @@ function passingBom() {
     components: [
       {
         type: "library",
-        "bom-ref": "pkg:maven/io.appthreat/cpg2_3@3.1.1?type=jar",
-        purl: "pkg:maven/io.appthreat/cpg2_3@3.1.1?type=jar",
-        name: "cpg2_3",
+        "bom-ref": CPG2,
+        purl: CPG2,
+        group: "io.appthreat",
+        name: "cpg2",
+        version: "3.1.1",
+        properties: [{ name: "cdx:scala:compilerVersion", value: "3" }],
         evidence: {
           occurrences: [
             { location: "semanticcpg/src/main/scala/Explorer.scala", line: 12 },
-            { location: "extracted/Gen.scala", line: 3 },
           ],
           callstack: {
             frames: [
               {
-                module: "io.appthreat.chen.Main",
+                module: "io.appthreat.chen.Main$",
                 function: "run",
                 line: 4,
                 fullFilename: "src/Main.scala",
               },
               {
-                module: "io.shiftleft.cpg2.Cpg",
-                function: "apply",
+                module: "io.shiftleft.semanticcpg.Explorer$.Walker",
+                function: "walk",
                 line: 12,
                 fullFilename: "semanticcpg/src/main/scala/Explorer.scala",
               },
@@ -65,27 +76,55 @@ function passingBom() {
         type: "library",
         "bom-ref": "pkg:maven/com.lihaoyi/upickle_3@4.4.3?type=jar",
         purl: "pkg:maven/com.lihaoyi/upickle_3@4.4.3?type=jar",
+        group: "com.lihaoyi",
         name: "upickle_3",
+        version: "4.4.3",
         evidence: {
           occurrences: [{ location: "src/Main.scala", line: 9 }],
         },
       },
       {
         type: "library",
-        "bom-ref": "pkg:maven/io.circe/circe-core_3@0.14.16?type=jar",
-        purl: "pkg:maven/io.circe/circe-core_3@0.14.16?type=jar",
-        name: "circe-core_3",
+        "bom-ref": "pkg:maven/org.ow2.asm/asm@9.10.1?type=jar",
+        purl: "pkg:maven/org.ow2.asm/asm@9.10.1?type=jar",
+        group: "org.ow2.asm",
+        name: "asm",
+        version: "9.10.1",
         evidence: {
-          occurrences: [{ location: "extracted/Gen.scala", line: 3 }],
+          occurrences: [{ location: "src/Main.scala#11" }],
         },
       },
       {
         type: "library",
-        "bom-ref": "pkg:maven/org.ow2.asm/asm-util@9.10.1?type=jar",
         purl: "pkg:maven/org.ow2.asm/asm-util@9.10.1?type=jar",
+        group: "org.ow2.asm",
         name: "asm-util",
-        evidence: {
-          occurrences: [{ location: "platform/frontends/jimple2cpg/Asm.scala", line: 21 }],
+        version: "9.10.1",
+      },
+    ],
+  };
+}
+
+function passingReport() {
+  return {
+    _meta: {
+      schemaVersion: "scalasem/2",
+      diagnostics: [
+        { code: "unresolved-symbols", module: "a", count: 3 },
+        { code: "unresolved-symbols", module: "b", count: 4 },
+        { code: "stale-output", module: "a", count: 1 },
+      ],
+    },
+    "semanticcpg/src/main/scala/Explorer.scala": {
+      calls: [{ line: 12, owner: "io.shiftleft.codepropertygraph.Cpg" }],
+    },
+    callStacks: [
+      {
+        frames: [],
+        sink: {
+          file: "semanticcpg/src/main/scala/Explorer.scala",
+          line: 12,
+          owner: "io.shiftleft.semanticcpg.Unrelated",
         },
       },
     ],
@@ -103,222 +142,298 @@ function passingResolver() {
         join(chen, "semanticcpg", "src", "main", "scala", "Explorer.scala"),
         { exists: true, lineCount: 15 },
       ],
-      [
-        join(chen, "extracted-roots", "overlay", "extracted", "Gen.scala"),
-        { exists: true, lineCount: 5 },
-      ],
-      [
-        join(chen, "platform", "frontends", "jimple2cpg", "Asm.scala"),
-        { exists: true, lineCount: 30 },
-      ],
+      [join(chen, "empty.scala"), { exists: true, lineCount: 0 }],
     ].map(([path, stat]) => [normalize(path), stat]),
   );
   return {
-    roots: [chen, join(chen, "extracted-roots", "overlay")],
-    statFile: (path) => files.get(normalize(path)),
+    root: chen,
+    statFile: (path) => files.get(normalize(path)) || { exists: false },
+    namespacesOf: (component) =>
+      component.purl === CPG2
+        ? ["io.shiftleft.codepropertygraph.Cpg", "io.shiftleft.Implicits$"]
+        : undefined,
   };
 }
 
 describe("dependency matching", () => {
-  it("collects the name and the purl artifact of a component", () => {
+  it("collects the names a component answers to, with and without Scala suffixes", () => {
     assert.deepEqual(
       componentArtifacts({
         name: "upickle_3",
         purl: "pkg:maven/com.lihaoyi/upickle_3@4.4.3?type=jar",
       }),
-      ["upickle_3"],
+      ["upickle_3", "upickle"],
     );
     assert.deepEqual(
       componentArtifacts({ name: "org.ow2.asm:asm-util", purl: undefined }),
-      ["org.ow2.asm:asm-util", "asm-util"],
+      ["asm-util"],
     );
   });
 
-  it("matches entries exactly and by prefix", () => {
-    const upickle = { name: "upickle_3", purl: "pkg:maven/com.lihaoyi/upickle_3@4.4.3" };
-    const upickleCore = { name: "upickle-core_3", purl: "pkg:maven/com.lihaoyi/upickle-core_3@4.4.3" };
-    assert.ok(matchesDependency("upickle*", upickle));
-    assert.ok(matchesDependency("upickle*", upickleCore));
+  it("matches the artifact exactly, never by prefix", () => {
+    const upickleCore = {
+      name: "upickle-core_3",
+      purl: "pkg:maven/com.lihaoyi/upickle-core_3@4.4.3",
+    };
     assert.ok(!matchesDependency("upickle", upickleCore));
-    assert.ok(matchesDependency("javaparser-symbol-solver-core", {
-      name: "javaparser-symbol-solver-core",
-      purl: "pkg:maven/com.github.javaparser/javaparser-symbol-solver-core@3.27.0",
-    }));
-    assert.ok(matchesDependency("asm*", { name: "asm-util", purl: undefined }));
+    assert.ok(matchesDependency("upickle-core", upickleCore));
+    assert.ok(matchesDependency("asm", { name: "asm", purl: undefined }));
+    assert.ok(!matchesDependency("asm", { name: "asmack", purl: undefined }));
+    assert.ok(!EXPECTED_DEPENDENCIES.some((entry) => entry.endsWith("*")));
   });
 });
 
-describe("check (a): scalasem diagnostics", () => {
-  it("passes when the metadata component carries no diagnostic property", () => {
-    const bom = passingBom();
-    bom.metadata.component.properties = [
-      { name: "cdx:scalasem:degraded", value: "false" },
-      { name: "cdx:scalasem:schemaVersion", value: "scalasem/2" },
-    ];
-    assert.deepEqual(checkNoScalasemDiagnostics(bom).found, []);
+describe("check (a): scalasem ran", () => {
+  it("passes when the BOM names the report schema and analysed files", () => {
+    assert.deepEqual(
+      checkScalasemRan(passingBom(), passingReport()).problems,
+      [],
+    );
   });
 
+  it("fails a BOM from a run with the analyzer disabled or without a report", () => {
+    const bom = passingBom();
+    bom.metadata.component.properties = [];
+    const { problems } = checkScalasemRan(bom, undefined);
+    assert.equal(problems.length, 3);
+    assert.ok(problems.some((problem) => problem.includes("no scalasem report")));
+    const empty = passingBom();
+    empty.metadata.component.properties[1].value = "0";
+    assert.equal(checkScalasemRan(empty, passingReport()).problems.length, 1);
+  });
+});
+
+describe("check (b): scalasem diagnostics", () => {
   it("lists every cdx:scalasem:diagnostic:* property", () => {
     const bom = passingBom();
-    bom.metadata.component.properties = [
+    bom.metadata.component.properties.push(
       { name: "cdx:scalasem:diagnostic:helper-compile-failed", value: "12" },
-      { name: "cdx:scalasem:diagnostic:stale-output", value: "3" },
       { name: "cdx:scalasem:degraded", value: "true" },
-    ];
-    const { found } = checkNoScalasemDiagnostics(bom);
-    assert.equal(found.length, 2);
+    );
+    const { found } = checkNoScalasemDiagnostics(bom, passingReport());
     assert.deepEqual(
-      found.map((d) => d.name),
+      found.map((diagnostic) => diagnostic.name),
+      ["cdx:scalasem:diagnostic:helper-compile-failed"],
+    );
+  });
+
+  it("sums the report's informational counts per code without failing", () => {
+    const { found, informational } = checkNoScalasemDiagnostics(
+      passingBom(),
+      passingReport(),
+    );
+    assert.deepEqual(found, []);
+    assert.deepEqual(informational, [
+      { code: "stale-output", count: 1 },
+      { code: "unresolved-symbols", count: 7 },
+    ]);
+  });
+});
+
+describe("check (c): expected dependencies have occurrences", () => {
+  it("tells a dependency missing from the BOM from one without occurrences", () => {
+    const { results } = checkDependencyOccurrences(passingBom(), [
+      "cpg2",
+      "upickle",
+      "asm",
+      "asm-util",
+      "javaparser-symbol-solver-core",
+    ]);
+    assert.deepEqual(
+      Object.fromEntries(results.map((r) => [r.dependency, r.status])),
+      {
+        cpg2: "ok",
+        upickle: "ok",
+        asm: "ok",
+        "asm-util": "no-occurrence",
+        "javaparser-symbol-solver-core": "missing",
+      },
+    );
+  });
+});
+
+describe("check (d): occurrence locations resolve", () => {
+  it("resolves locations against the project root, with the line inline or apart", () => {
+    const { checked, offenderCount, offenders } = checkOccurrenceLocations(
+      passingBom(),
+      passingResolver(),
+    );
+    assert.equal(checked, 4);
+    assert.equal(offenderCount, 0);
+    assert.deepEqual(offenders, []);
+  });
+
+  it("fails missing files, lines past the end, and lines that are no positive whole number", () => {
+    const bom = passingBom();
+    bom.components[1].evidence.occurrences = [
+      { location: "gone/Vanished.scala", line: 2 },
+      { location: "src/Main.scala", line: 21 },
+      { location: "src/Main.scala", line: 0 },
+      { location: "src/Main.scala", line: 3.5 },
+      { location: "src/Main.scala#99", line: 2 },
+      { location: "empty.scala", line: 1 },
+      // A file-only occurrence, and one whose line is null, are checked for
+      // the file alone.
+      { location: "src/Main.scala" },
+      { location: "src/Main.scala", line: null },
+      { location: "" },
+    ];
+    const { offenders, offenderCount } = checkOccurrenceLocations(
+      bom,
+      passingResolver(),
+      { maxOffenders: 10 },
+    );
+    assert.equal(offenderCount, 7);
+    assert.deepEqual(
+      offenders.map((offender) => offender.reason),
       [
-        "cdx:scalasem:diagnostic:helper-compile-failed",
-        "cdx:scalasem:diagnostic:stale-output",
+        "file not found",
+        "line beyond end of file (20 lines)",
+        "line must be a positive whole number",
+        "line must be a positive whole number",
+        "line 2 disagrees with the location's #99",
+        "line beyond end of file (0 lines)",
+        "no location",
+      ],
+    );
+  });
+
+  it("counts every offender while listing the first ones per component", () => {
+    const bom = passingBom();
+    bom.components[1].evidence.occurrences = Array.from(
+      { length: MAX_OFFENDERS_PER_COMPONENT + 45 },
+      (_, index) => ({ location: `gone/Gone${index}.scala`, line: 1 }),
+    );
+    const { offenders, offenderCount } = checkOccurrenceLocations(
+      bom,
+      passingResolver(),
+    );
+    assert.equal(offenders.length, MAX_OFFENDERS_PER_COMPONENT);
+    assert.equal(offenderCount, MAX_OFFENDERS_PER_COMPONENT + 45);
+    const row = runAllChecks(bom, passingReport(), passingResolver()).find(
+      (candidate) => candidate.check === "occurrence locations resolve",
+    );
+    assert.match(row.summary, /^50 of 53 occurrences point nowhere \(5 listed\)$/);
+  });
+});
+
+describe("check (e): call stacks end in the component that carries them", () => {
+  it("verifies the stack against a class called at the report sink", () => {
+    const result = checkCallStacks(
+      passingBom(),
+      passingReport(),
+      passingResolver(),
+    );
+    assert.deepEqual(result, {
+      stacks: 1,
+      verified: 1,
+      unverifiable: 0,
+      offenders: [],
+    });
+  });
+
+  it("fails a stack that calls a class the component does not ship", () => {
+    const report = passingReport();
+    report["semanticcpg/src/main/scala/Explorer.scala"].calls = [];
+    const { offenders } = checkCallStacks(
+      passingBom(),
+      report,
+      passingResolver(),
+    );
+    assert.equal(offenders.length, 1);
+    assert.match(offenders[0].reason, /does not ship/);
+  });
+
+  it("fails a stack no report stack ends at, and broken frames", () => {
+    const report = passingReport();
+    report.callStacks[0].sink.line = 13;
+    assert.match(
+      checkCallStacks(passingBom(), report, passingResolver()).offenders[0]
+        .reason,
+      /no report stack has its sink/,
+    );
+    const bom = passingBom();
+    bom.components[0].evidence.callstack.frames[0].line = 0;
+    assert.match(
+      checkCallStacks(bom, passingReport(), passingResolver()).offenders[0]
+        .reason,
+      /frame 1 of 2/,
+    );
+    bom.components[0].evidence.callstack.frames = [];
+    assert.match(
+      checkCallStacks(bom, passingReport(), passingResolver()).offenders[0]
+        .reason,
+      /without frames/,
+    );
+  });
+
+  it("counts a component without namespaces, and fails a BOM without stacks", () => {
+    const unverified = checkCallStacks(passingBom(), passingReport(), {});
+    assert.equal(unverified.unverifiable, 1);
+    assert.deepEqual(unverified.offenders, []);
+    const bom = passingBom();
+    delete bom.components[0].evidence.callstack;
+    assert.match(
+      checkCallStacks(bom, passingReport(), passingResolver()).offenders[0]
+        .reason,
+      /no component carries a call stack/,
+    );
+  });
+});
+
+describe("check (f): each library is listed once", () => {
+  it("passes distinct libraries and the artifacts of different Scala versions", () => {
+    const bom = passingBom();
+    bom.components.push(
+      {
+        purl: "pkg:maven/org.apache.kafka/kafka_2.12@3.6.0",
+        group: "org.apache.kafka",
+        name: "kafka_2.12",
+        version: "3.6.0",
+      },
+      {
+        purl: "pkg:maven/org.apache.kafka/kafka_2.13@3.6.0",
+        group: "org.apache.kafka",
+        name: "kafka_2.13",
+        version: "3.6.0",
+      },
+    );
+    assert.deepEqual(checkSingleSpelling(bom).duplicates, []);
+  });
+
+  it("finds a library spelled twice, and a staged spelling left beside it", () => {
+    const bom = passingBom();
+    bom.components.push(
+      {
+        purl: "pkg:maven/io.appthreat/cpg2_3@3.1.1?type=jar",
+        group: "io.appthreat",
+        name: "cpg2_3",
+        version: "3.1.1",
+      },
+      {
+        purl: "pkg:maven/cpg2/io.appthreat.cpg2_3@3.1.1?type=jar",
+        group: "cpg2",
+        name: "io.appthreat.cpg2_3",
+        version: "3.1.1",
+      },
+    );
+    const { duplicates } = checkSingleSpelling(bom);
+    assert.deepEqual(
+      duplicates.map((duplicate) => duplicate.purls[1]),
+      [
+        "pkg:maven/io.appthreat/cpg2_3@3.1.1?type=jar",
+        "pkg:maven/cpg2/io.appthreat.cpg2_3@3.1.1?type=jar",
       ],
     );
   });
 });
 
-describe("check (b): expected dependencies have occurrences", () => {
-  it("passes when every expected dependency has an occurrence", () => {
-    const { results } = checkDependencyOccurrences(passingBom(), [
-      "cpg2*",
-      "upickle*",
-      "circe-*",
-      "asm*",
-      "javaparser-symbol-solver-core",
-    ]);
-    // javaparser-symbol-solver-core is not in this fixture's BOM; only the
-    // four present dependencies must be ok.
-    const statuses = Object.fromEntries(
-      results.map((r) => [r.dependency, r.status]),
-    );
-    assert.equal(statuses["cpg2*"], "ok");
-    assert.equal(statuses["upickle*"], "ok");
-    assert.equal(statuses["circe-*"], "ok");
-    assert.equal(statuses["asm*"], "ok");
-    assert.equal(statuses["javaparser-symbol-solver-core"], "missing");
-  });
-
-  it("reports a dependency that is not in the BOM as missing", () => {
-    const bom = passingBom();
-    bom.components = bom.components.filter((c) => c.name !== "upickle_3");
-    const { results } = checkDependencyOccurrences(bom, ["upickle*"]);
-    assert.equal(results[0].status, "missing");
-    assert.equal(results[0].components, 0);
-  });
-
-  it("reports a present dependency without occurrences separately", () => {
-    const bom = passingBom();
-    delete bom.components[1].evidence.occurrences;
-    const { results } = checkDependencyOccurrences(bom, ["upickle*"]);
-    assert.equal(results[0].status, "no-occurrence");
-    assert.equal(results[0].components, 1);
-    assert.equal(results[0].occurrences, 0);
-  });
-});
-
-describe("check (c): occurrence locations resolve", () => {
-  it("passes when every occurrence resolves through the roots", () => {
-    const bom = passingBom();
-    // A location that still carries its line in the string resolves the same.
-    bom.metadata.component.evidence.occurrences[0] = {
-      location: "src/Main.scala#4",
-    };
-    const { checked, offenders } = checkOccurrenceLocations(
-      bom,
-      passingResolver(),
-    );
-    assert.equal(checked, 6);
-    assert.deepEqual(offenders, []);
-  });
-
-  it("fails an occurrence whose file no root holds", () => {
-    const bom = passingBom();
-    bom.components[1].evidence.occurrences.push({
-      location: "gone/Vanished.scala",
-      line: 2,
-    });
-    const { offenders } = checkOccurrenceLocations(bom, passingResolver());
-    assert.equal(offenders.length, 1);
-    assert.equal(offenders[0].location, "gone/Vanished.scala");
-    assert.equal(offenders[0].reason, "file not found");
-  });
-
-  it("fails an occurrence whose line is beyond the file", () => {
-    const bom = passingBom();
-    bom.components[1].evidence.occurrences = [
-      { location: "src/Main.scala", line: 21 },
-    ];
-    const { offenders } = checkOccurrenceLocations(bom, passingResolver());
-    assert.equal(offenders.length, 1);
-    assert.match(offenders[0].reason, /beyond end of file \(20 lines\)/);
-  });
-
-  it("fails a non-positive line and accepts a file-only occurrence", () => {
-    const bom = passingBom();
-    bom.components[1].evidence.occurrences = [
-      { location: "src/Main.scala", line: 0 },
-      { location: "src/Main.scala" },
-    ];
-    const { offenders, checked } = checkOccurrenceLocations(bom, passingResolver());
-    // The other components still contribute their occurrences to the count.
-    assert.equal(checked, 7);
-    assert.equal(offenders.length, 1);
-    assert.equal(offenders[0].reason, "line must be positive");
-  });
-
-  it("reports at most the first offenders per component", () => {
-    const bom = passingBom();
-    bom.components[1].evidence.occurrences = Array.from(
-      { length: MAX_OFFENDERS_PER_COMPONENT + 3 },
-      (_, index) => ({ location: `gone/Gone${index}.scala`, line: 1 }),
-    );
-    const { offenders } = checkOccurrenceLocations(bom, passingResolver());
-    assert.equal(offenders.length, MAX_OFFENDERS_PER_COMPONENT);
-  });
-});
-
-describe("check (d): call stacks end in a component of the BOM", () => {
-  it("passes on an intact stack over an identified component", () => {
-    const { stacks, offenders } = checkCallStacks(passingBom());
-    assert.equal(stacks, 1);
-    assert.deepEqual(offenders, []);
-  });
-
-  it("fails call stack evidence without frames", () => {
-    const bom = passingBom();
-    bom.components[0].evidence.callstack.frames = [];
-    const { offenders } = checkCallStacks(bom);
-    assert.equal(offenders.length, 1);
-    assert.match(offenders[0].reason, /without frames/);
-  });
-
-  it("fails a stack whose final frame names neither a class nor a file", () => {
-    const bom = passingBom();
-    bom.components[0].evidence.callstack.frames = [
-      { module: "io.appthreat.chen.Main", function: "run", fullFilename: "src/Main.scala", line: 4 },
-      { function: "apply" },
-    ];
-    const { offenders } = checkCallStacks(bom);
-    assert.equal(offenders.length, 1);
-    assert.match(offenders[0].reason, /neither a class nor a file/);
-  });
-
-  it("fails a stack on a component without a bom-ref or purl", () => {
-    const bom = passingBom();
-    delete bom.components[0]["bom-ref"];
-    delete bom.components[0].purl;
-    const { offenders } = checkCallStacks(bom);
-    assert.equal(offenders.length, 1);
-    assert.match(offenders[0].reason, /without a bom-ref or purl/);
-  });
-});
-
 describe("runAllChecks", () => {
   it("passes every row on a sound BOM", () => {
-    const rows = runAllChecks(passingBom(), passingResolver(), {
-      expectedDependencies: ["cpg2*", "upickle*", "circe-*", "asm*"],
+    const rows = runAllChecks(passingBom(), passingReport(), passingResolver(), {
+      expectedDependencies: ["cpg2", "upickle", "asm"],
     });
-    assert.equal(rows.length, 4);
+    assert.equal(rows.length, 6);
     for (const row of rows) {
       assert.ok(row.pass, `${row.check}: ${row.summary}`);
     }
@@ -326,23 +441,24 @@ describe("runAllChecks", () => {
 
   it("fails the rows of an unsound BOM and says why", () => {
     const bom = passingBom();
-    bom.metadata.component.properties = [
-      { name: "cdx:scalasem:diagnostic:helper-compile-failed", value: "12" },
-    ];
+    bom.metadata.component.properties.push({
+      name: "cdx:scalasem:diagnostic:helper-compile-failed",
+      value: "12",
+    });
     bom.components = bom.components.filter((c) => c.name !== "upickle_3");
     bom.components[0].evidence.occurrences.push({
       location: "gone/Vanished.scala",
       line: 2,
     });
-    const rows = runAllChecks(bom, passingResolver(), {
-      expectedDependencies: ["cpg2*", "upickle*"],
+    const rows = runAllChecks(bom, passingReport(), passingResolver(), {
+      expectedDependencies: ["cpg2", "upickle"],
     });
     assert.deepEqual(
       rows.map((row) => row.pass),
-      [false, false, false, true],
+      [true, false, false, false, true, true],
     );
-    assert.ok(rows[0].details[0].includes("helper-compile-failed"));
-    assert.ok(rows[1].details[0].includes("missing from BOM"));
-    assert.ok(rows[2].details[0].includes("gone/Vanished.scala"));
+    assert.ok(rows[1].details[0].includes("helper-compile-failed"));
+    assert.ok(rows[2].details[0].includes("missing from BOM"));
+    assert.ok(rows[3].details[0].includes("gone/Vanished.scala"));
   });
 });

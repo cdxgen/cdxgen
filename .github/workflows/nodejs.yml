@@ -30,6 +30,7 @@ on:
       - 'package.json'
       - 'pnpm-lock.yaml'
       - 'test/repotests/**'
+      - 'test/scala-evinse-accuracy/**'
   workflow_dispatch:
 
 concurrency:
