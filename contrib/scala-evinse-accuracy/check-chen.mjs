@@ -225,7 +225,7 @@ function runAndCheck() {
     }
   }
   console.log(
-    `Running cdxgen with ${analyzer} over ${chenPath}. The build runs in that checkout; the BOM, the report and the log land in ${workDir}. A chen build and analysis take minutes.`,
+    `Running cdxgen with ${analyzer} over ${chenPath}. The build runs in that checkout; the BOM, the report and the log land in ${workDir}. A build and analysis take minutes.`,
   );
   const startedAt = Date.now();
   const log = openSync(logFile, "w");
