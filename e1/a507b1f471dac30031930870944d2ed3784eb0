@@ -1,0 +1,71 @@
+ci/images/opensuse/Dockerfile.python3.9
+  s_60b9b993b509a6::t_b913c1817babe4 6-7
+ci/images/temurin/Dockerfile.java25
+  s_60b9b993b509a6::t_b913c1817babe4 9-10
+ci/images/debian/Dockerfile.php8.3
+  s_60b9b993b509a6::t_b913c1817babe4 9-10
+ci/images/debian/Dockerfile.php8.4
+  s_60b9b993b509a6::t_b913c1817babe4 9-10
+ci/images/Dockerfile.python3.11
+  s_60b9b993b509a6::t_b913c1817babe4 13-14
+ci/images/temurin/Dockerfile.java27
+  s_60b9b993b509a6::t_b913c1817babe4 9-10
+ci/images/temurin/Dockerfile.java26
+  s_60b9b993b509a6::t_b913c1817babe4 9-10
+ci/images/Dockerfile.python3.6
+  s_60b9b993b509a6::t_b913c1817babe4 10-11
+ci/images/debian/Dockerfile.ruby3.3
+  s_60b9b993b509a6::t_b913c1817babe4 9-10
+.oss-scanner/Dockerfile
+  s_60b9b993b509a6::t_68e22c5beba30d 5
+ci/images/debian/Dockerfile.ruby4
+  s_60b9b993b509a6::t_b913c1817babe4 8-9
+ci/images/debian/Dockerfile.dotnet9
+  s_60b9b993b509a6::t_b913c1817babe4 7-8
+ci/images/temurin/Dockerfile.java21
+  s_60b9b993b509a6::t_b913c1817babe4 9-10
+ci/images/temurin/Dockerfile.java24
+  s_60b9b993b509a6::t_b913c1817babe4 9-10
+ci/Dockerfile-ppc64
+  s_60b9b993b509a6::t_ee0d6cf07de153 27
+ci/images/Dockerfile.python3.12
+  s_60b9b993b509a6::t_b913c1817babe4 10-11
+ci/images/debian/Dockerfile.dotnet8
+  s_60b9b993b509a6::t_b913c1817babe4 7-8
+ci/images/Dockerfile.python3.13
+  s_60b9b993b509a6::t_b913c1817babe4 10-11
+ci/images/temurin/Dockerfile.java8
+  s_60b9b993b509a6::t_b913c1817babe4 9-10
+ci/images/debian/Dockerfile.ruby2.6
+  s_60b9b993b509a6::t_b913c1817babe4 9-10
+ci/images/debian/Dockerfile.php8.5
+  s_60b9b993b509a6::t_b913c1817babe4 9-10
+ci/Dockerfile
+  s_60b9b993b509a6::t_ee0d6cf07de153 19
+ci/images/debian/Dockerfile.swift6
+  s_60b9b993b509a6::t_b913c1817babe4 7-8
+ci/images/debian/Dockerfile.ruby3.4
+  s_60b9b993b509a6::t_b913c1817babe4 8-9
+ci/images/opensuse/Dockerfile.python3.10
+  s_60b9b993b509a6::t_b913c1817babe4 9-10
+ci/images/Dockerfile.java11
+  s_60b9b993b509a6::t_b913c1817babe4 10-11
+ci/images/debian/Dockerfile.golang1.23
+  s_60b9b993b509a6::t_b913c1817babe4 7-8
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "e1a507b1f471dac30031930870944d2ed3784eb0",
+  "prompts": {},
+  "sessions": {
+    "s_60b9b993b509a6": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "session_456a1290a0f38c7613a3b42909b79a83",
+        "model": "unknown"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
