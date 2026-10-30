@@ -1,0 +1,25 @@
+deno.json
+  s_c2ffc35a6355af::t_05152d3d2f6ad3 109
+pnpm-lock.yaml
+  s_c2ffc35a6355af::t_0149286fabdf40 273-274,375-376,1379
+contrib/scala-evinse-accuracy/checks.mjs
+  s_c2ffc35a6355af::t_31942a851c5357 13-15
+package.json
+  s_c2ffc35a6355af::t_7e5641daf44c83 182
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "68c6f34953cf00a54418372f460c65b71b6aec67",
+  "prompts": {},
+  "sessions": {
+    "s_c2ffc35a6355af": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "session_5b3c49d51ef0bfabe84a316f60a13ad2",
+        "model": "unknown"
+      },
+      "human_author": null
+    }
+  }
+}
