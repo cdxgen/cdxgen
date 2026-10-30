@@ -60,13 +60,13 @@ jobs:
           persist-credentials: false
           repository: 'DependencyTrack/dependency-track'
           path: 'repotests/dependency-track'
-          ref: '4.11.1'
+          ref: '08f93725a250935e0c7ef60ffc6dc1c13604cd0e'  # 4.11.1 as of 2026-10-29
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
         with:
           persist-credentials: false
           repository: 'DependencyTrack/frontend'
           path: 'repotests/frontend'
-          ref: '4.13.0'
+          ref: '7beba5a31f468880edd721d2acec4ed8eaa9273c'  # 4.13.0 as of 2026-10-29
       - name: compile
         run: |
           cd repotests/dependency-track

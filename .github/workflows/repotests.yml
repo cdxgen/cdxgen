@@ -200,37 +200,44 @@ jobs:
         with:
           persist-credentials: false
           repository: 'ShiftLeftSecurity/shiftleft-java-example'
+          ref: 'cdeeba0883c06c8b210d4986288087cd9b39cee0'  # master as of 2026-10-29
           path: 'repotests/shiftleft-java-example'
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
         with:
           persist-credentials: false
           repository: 'ShiftLeftSecurity/shiftleft-ts-example'
+          ref: 'bf1b887caef9150a628fc0431866d5234d65386e'  # master as of 2026-10-29
           path: 'repotests/shiftleft-ts-example'
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
         with:
           persist-credentials: false
           repository: 'HooliCorp/vulnerable_net_core'
+          ref: 'a20ecb5fcac9edaf1732729dc2bc3b2e81894552'  # main as of 2026-10-29
           path: 'repotests/vulnerable_net_core'
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
         with:
           persist-credentials: false
           repository: 'HooliCorp/Goatly.NET'
+          ref: '1419cf7b242c301272936e992ef5ab971f785da5'  # main as of 2026-10-29
           path: 'repotests/Goatly.NET'
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
         with:
           persist-credentials: false
           repository: 'HooliCorp/DjanGoat'
+          ref: 'dc75c49c8f7250bfbccf44d5357e6347191b94d2'  # master as of 2026-10-29
           path: 'repotests/DjanGoat'
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
         with:
           persist-credentials: false
           repository: 'prabhu/Vulnerable-Web-Application'
+          ref: '6cadbd9a6e0ae177a8e2a33c46359fa79b3f8e3d'  # master as of 2026-10-29
           path: 'repotests/Vulnerable-Web-Application'
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
         if: matrix.os != 'windows-latest'
         with:
           persist-credentials: false
           repository: 'prabhu/railsgoat'
+          ref: '57f282338fe6e45be17b613d1caa5f158ee4b976'  # master as of 2026-10-29
           path: 'repotests/railsgoat'
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
         with:
@@ -242,7 +249,7 @@ jobs:
         with:
           persist-credentials: false
           repository: 'gojek/ziggurat'
-          ref: '4.9.4'
+          ref: '900d01078bc9857007bcfcfafdd9d5990d7a19c8'  # 4.9.4 as of 2026-10-29
           path: 'repotests/ziggurat'
       # Cloned only where the swift-markdown step below runs.
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
@@ -250,126 +257,134 @@ jobs:
         with:
           persist-credentials: false
           repository: 'apple/swift-markdown'
-          ref: '0.3.0'
+          ref: 'e4f95e2dc23097a1a9a1dfdfe3fe3ee44de77378'  # 0.3.0 as of 2026-10-29
           path: 'repotests/swift-markdown'
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
         with:
           persist-credentials: false
           repository: 'patrickjuchli/basic-ftp'
+          ref: 'c6d277c560eaefab377bc98393da9093faf94a8f'  # master as of 2026-10-29
           path: 'repotests/basic-ftp'
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
         with:
           persist-credentials: false
           repository: 'Atome-FE/llama-node'
+          ref: '3ad64d0af36ea4763e87ec97b4547a1c05d39029'  # main as of 2026-10-29
           path: 'repotests/llama-node'
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
         with:
           persist-credentials: false
           repository: 'DIYgod/RSSHub'
+          ref: '9dae4709c8fc2bbd4a0012e2412de609eb0c6872'  # master as of 2026-10-29
           path: 'repotests/RSSHub'
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
         with:
           persist-credentials: false
           repository: 'openpbs/openpbs'
-          ref: 'v23.06.06'
+          ref: 'be361a18ef37652bece0811ec709f0fe4fc52710'  # v23.06.06 as of 2026-10-29
           path: 'repotests/openpbs'
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
         with:
           persist-credentials: false
           repository: 'home-assistant/android'
-          ref: '2023.11.3'
+          ref: 'a75d1da1d7a9a805215c2c39a8fdc5ff05e46d50'  # 2023.11.3 as of 2026-10-29
           path: 'repotests/ha-android'
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
         with:
           persist-credentials: false
           repository: 'rust-lang/rust'
-          ref: '1.74.0'
+          ref: '79e9716c980570bfd1f666e3b16ac583f0168962'  # 1.74.0 as of 2026-10-29
           path: 'repotests/rs-rust'
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
         with:
           persist-credentials: false
           repository: 'rust-lang/cargo'
-          ref: '0.75.0'
+          ref: 'ecb9851afd3095e988daaa35a48bc7f3cb748e04'  # 0.75.0 as of 2026-10-29
           path: 'repotests/rs-cargo'
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
         with:
           persist-credentials: false
           repository: 'Keats/validator'
-          ref: 'v0.15.0'
+          ref: '0d53b10af0151c0e1e628307ca8351f05c84fe5c'  # v0.15.0 as of 2026-10-29
           path: 'repotests/rs-validator'
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
         with:
           persist-credentials: false
           repository: 'tokio-rs/axum'
-          ref: 'axum-v0.6.20'
+          ref: '3b92cd7593a900d3c79c2aeb411f90be052a9a5c'  # axum-v0.6.20 as of 2026-10-29
           path: 'repotests/rs-axum'
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
         with:
           persist-credentials: false
           repository: 'fsprojects/FAKE'
-          ref: '6.0.0'
+          ref: '40dfff00e604545fb4e185d3c613fd049b4cb714'  # 6.0.0 as of 2026-10-29
           path: 'repotests/dotnet-paket'
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
         with:
           persist-credentials: false
           repository: 'timheuer/SimpleFrameworkApp'
-          ref: 'master'
+          ref: '3169a4cf6f8a72cce1b0c9e69dcf630b8a94ed86'  # master as of 2026-10-29
           path: 'repotests/SimpleFrameworkApp'
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
         with:
           persist-credentials: false
           repository: 'appthreat/blint'
-          ref: 'v1.0.34'
+          ref: 'c53fb658062cddba255b3febaf90e6b8e97bd77f'  # v1.0.34 as of 2026-10-29
           path: 'repotests/blint'
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
         with:
           persist-credentials: false
           repository: 'hoolicorp/java-sec-code'
+          ref: '7f7f02a9e030736dd4ef4fa657511b26c4c5c016'  # master as of 2026-10-29
           path: 'repotests/java-sec-code'
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
         with:
           persist-credentials: false
           repository: 'DefectDojo/django-DefectDojo'
-          ref: '2.28.2'
+          ref: '8b43e6750576adb93476a52fc937f009211ba4d7'  # 2.28.2 as of 2026-10-29
           path: 'repotests/django-DefectDojo'
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
         with:
           persist-credentials: false
           repository: 'googleprojectzero/Jackalope'
+          ref: '8fb27c9039c10a53639455d22ac4b2158d2256e3'  # main as of 2026-10-29
           path: 'repotests/Jackalope'
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
         with:
           persist-credentials: false
           repository: 'google/leveldb'
-          ref: '1.23'
+          ref: '99b3c03b3284f5886f9ef9a4ef703d57373e61be'  # 1.23 as of 2026-10-29
           path: 'repotests/leveldb'
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
         with:
           persist-credentials: false
           repository: 'hritik14/broken-mvn-wrapper'
+          ref: '4b46d946495c543cd54a120bc35abbec64bfef93'  # main as of 2026-10-29
           path: 'repotests/broken-mvn-wrapper'
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
         with:
           persist-credentials: false
           repository: 'microsoft/dotnet-podcasts'
+          ref: '5ee8be2990b81eb681bbd100875c263aaa5ab68a'  # main as of 2026-10-29
           path: 'repotests/dotnet-podcasts'
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
         with:
           persist-credentials: false
           repository: 'microsoft/react-native-windows'
+          ref: 'fe83d8920a84830809e2e50d08253307f1008731'  # main as of 2026-10-29
           path: 'repotests/react-native-windows'
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
         with:
           persist-credentials: false
           repository: 'oracle/dbt-oracle'
           path: 'repotests/dbt-oracle'
-          ref: 'v1.7.6'
+          ref: '5eade6efbef8c4290e49a93251d0e338a235b8cf'  # v1.7.6 as of 2026-10-29
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
         with:
           persist-credentials: false
           repository: 'fortra/impacket'
           path: 'repotests/impacket'
-          ref: 'impacket_0_9_20'
+          ref: '647d7be7cb1328ea69340d3b689693220cd5762f'  # impacket_0_9_20 as of 2026-10-29
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
         with:
           persist-credentials: false
@@ -381,31 +396,32 @@ jobs:
           persist-credentials: false
           repository: 'owasp-dep-scan/blint'
           path: 'repotests/blint'
-          ref: 'v2.2.2'
+          ref: '4409243d442d931ad58ffd40dd5422094245f0e5'  # v2.2.2 as of 2026-10-29
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
         with:
           persist-credentials: false
           repository: 'malice00/cdxgen-expo-test'
-          ref: 'main'
+          ref: 'd4c738b9b1b0d3ecebd19ac9bfc07efbf8567c1e'  # main as of 2026-10-29
           path: 'repotests/expo-test'
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
         with:
           persist-credentials: false
           repository: 'malice00/cdxgen-cocoapods-test'
-          ref: 'main'
+          ref: 'df061499ca5420f565d14493285cf978b5f4c789'  # main as of 2026-10-29
           path: 'repotests/cocoapods-test'
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
         if: runner.os != 'Windows'
         with:
           persist-credentials: false
           repository: 'elastic/elasticsearch'
+          ref: '93df2aa58d3582f000fa78c9e116ee6e0ca4f2ce'  # main as of 2026-10-29
           path: 'repotests/elasticsearch'
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
         with:
           persist-credentials: false
           repository: 'quarkusio/quarkus-quickstarts'
           path: 'repotests/quarkus-quickstarts'
-          ref: '3.17.3'
+          ref: 'a13c0b8aa0882e3310caf19874cede140ebfdd7a'  # 3.17.3 as of 2026-10-29
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
         if: matrix.os != 'windows-latest'
         with:
@@ -418,7 +434,7 @@ jobs:
           persist-credentials: false
           repository: 'MaibornWolff/SecObserve'
           path: 'repotests/SecObserve'
-          ref: 'v1.28.0'
+          ref: '4e0fbed513619ec0bcdd9fece36b9467adf55617'  # v1.28.0 as of 2026-10-29
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
         with:
           persist-credentials: false
@@ -430,12 +446,13 @@ jobs:
           persist-credentials: false
           repository: 'com-lihaoyi/mill'
           path: 'repotests/mill'
-          ref: '0.12.10'
+          ref: '4c6a548c940ba3bd9cd6d64540281d57892fe07a'  # 0.12.10 as of 2026-10-29
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
         if: matrix.os != 'windows-latest'
         with:
           persist-credentials: false
           repository: 'ngudbhav/rails-api-boilerplate'
+          ref: 'bd1c947ae3fe2f5a56cb0c4adf66ff8b37b84311'  # main as of 2026-10-29
           path: 'repotests/rails-api-boilerplate'
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
         with:
@@ -1529,7 +1546,7 @@ jobs:
         with:
           persist-credentials: false
           repository: 'GoogleCloudPlatform/microservices-demo'
-          ref: 'v0.8.1'
+          ref: 'a51df6b0d8b2b53d6d7a9566dba4b17442e5b908'  # v0.8.1 as of 2026-10-29
           path: 'repotests/microservices-demo'
       - name: repotests microservices-demo
         run: |
@@ -1580,38 +1597,43 @@ jobs:
         with:
           persist-credentials: false
           repository: 'ShiftLeftSecurity/shiftleft-java-example'
+          ref: 'cdeeba0883c06c8b210d4986288087cd9b39cee0'  # master as of 2026-10-29
           path: 'repotests/shiftleft-java-example'
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
         with:
           persist-credentials: false
           repository: 'ShiftLeftSecurity/shiftleft-ts-example'
+          ref: 'bf1b887caef9150a628fc0431866d5234d65386e'  # master as of 2026-10-29
           path: 'repotests/shiftleft-ts-example'
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
         with:
           persist-credentials: false
           repository: 'zoom/meetingsdk-vuejs-sample'
-          ref: 'v2.18.0'
+          ref: 'a124d77c1e654581cbfcee8c619e97f9b7d39d94'  # v2.18.0 as of 2026-10-29
           path: 'repotests/meetingsdk-vuejs-sample'
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
         with:
           persist-credentials: false
           repository: 'sveltejs/examples'
+          ref: '119e836c85f469c0317d9821f80af41c41f399ea'  # main as of 2026-10-29
           path: 'repotests/sveltejs-examples'
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
         with:
           persist-credentials: false
           repository: 'sveltejs/realworld'
+          ref: 'df796708040f5200ec572b28ab7f88ecee5794dd'  # master as of 2026-10-29
           path: 'repotests/sveltejs-realworld'
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
         with:
           persist-credentials: false
           repository: 'kriasoft/react-app'
+          ref: 'd9c9a1f4840266c1275891995fac655914018e12'  # master as of 2026-10-29
           path: 'repotests/react-app'
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
         with:
           persist-credentials: false
           repository: 'chabbasaad/Reporting-Windows-Application'
-          ref: 'master'
+          ref: 'a84d8c0a7ed31d2a06e65a4a77bdc14f897d831d'  # master as of 2026-10-29
           path: 'repotests/Reporting-Windows-Application'
       - name: pnpm install
         run: |
@@ -2270,19 +2292,20 @@ jobs:
         with:
           persist-credentials: false
           repository: 'hoolicorp/java-sec-code'
+          ref: '7f7f02a9e030736dd4ef4fa657511b26c4c5c016'  # master as of 2026-10-29
           path: 'repotests/java-sec-code'
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
         with:
           persist-credentials: false
           repository: 'quarkusio/quarkus-quickstarts'
           path: 'repotests/quarkus-quickstarts'
-          ref: '3.17.3'
+          ref: 'a13c0b8aa0882e3310caf19874cede140ebfdd7a'  # 3.17.3 as of 2026-10-29
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
         with:
           persist-credentials: false
           repository: 'aws-solutions/iot-device-simulator'
           path: 'repotests/iot-device-simulator'
-          ref: 'v3.0.9'
+          ref: 'ca32f733350c7a2be8e05403bed3aee3cd5bd89e'  # v3.0.9 as of 2026-10-29
       - name: repotests - no exec
         run: |
           bin/cdxgen.js -t pnpm ${GITHUB_WORKSPACE} --no-recurse -o ${GITHUB_WORKSPACE}/bomresults/bom-self.json --fail-on-error
@@ -2383,6 +2406,7 @@ jobs:
         with:
           persist-credentials: false
           repository: 'hoolicorp/java-sec-code'
+          ref: '7f7f02a9e030736dd4ef4fa657511b26c4c5c016'  # master as of 2026-10-29
           path: 'repotests/java-sec-code'
       - name: Public repo passes the fidelity gate
         if: matrix.os == 'ubuntu-latest'
