@@ -106,6 +106,6 @@
     "@cdxgen/safer-exec": "npm:@cdxgen/safer-exec@1.0.1",
     "@cdxgen/cdxgen-plugins-bin": "npm:@cdxgen/cdxgen-plugins-bin@4.2.0",
     "undici": "npm:undici@8.12.2",
-    "@appthreat/atom-parsetools": "npm:@appthreat/atom-parsetools@1.10.5"
+    "@appthreat/atom-parsetools": "npm:@appthreat/atom-parsetools@1.10.6"
   }
 }
