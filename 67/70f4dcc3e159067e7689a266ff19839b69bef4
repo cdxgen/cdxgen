@@ -1,0 +1,19 @@
+test/scala-evinse-accuracy/checks.poku.js
+  s_474d33a1b10cd3::t_81a5b954f7a7c9 5-6,95-96,98-115,117-118
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "6770f4dcc3e159067e7689a266ff19839b69bef4",
+  "prompts": {},
+  "sessions": {
+    "s_474d33a1b10cd3": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "89922bb1-1482-456b-b779-2e8b380ce10e",
+        "model": "claude-sonnet-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
