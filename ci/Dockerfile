@@ -16,7 +16,7 @@ ARG GRADLE_VERSION=9.7.0
 # renovate: datasource=golang-version depName=golang
 ARG GO_VERSION=1.27.1
 # renovate: datasource=node-version depName=node
-ARG NODE_VERSION=24.22.1
+ARG NODE_VERSION=26.12.1
 ARG RUBY_VERSION=4.0.7
 ARG JAVA_TOOL_OPTIONS="-Dfile.encoding=UTF-8"
 ARG SCALA_VERSION=3.9.0
@@ -79,7 +79,7 @@ RUN set -e; \
             ;; \
         *) echo >&2 "error: unsupported architecture: '$ARCH_NAME'"; exit 1 ;; \
     esac \
-    && microdnf install -y php php-curl php-zip php-bcmath php-json php-pear php-mbstring php-devel make gcc git-core \
+    && microdnf install -y php php-curl php-zip php-bcmath php-json php-pear php-mbstring php-devel make gcc libatomic git-core \
         python3 python3-devel python3-pip glibc-common glibc-all-langpacks \
         openssl-devel libffi-devel libyaml zlib-devel openldap-devel cyrus-sasl-devel libxml2-devel libxslt-devel \
         pcre2 which tar gzip zip unzip bzip2 sudo ncurses ncurses-devel gnupg2 dotnet-sdk-10.0 rust cargo \

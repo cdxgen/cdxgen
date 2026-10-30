@@ -3,8 +3,8 @@ FROM registry.opensuse.org/opensuse/bci/python:3.9@sha256:47094e244334645440158a
 
 ARG GITHUB_RAW_URL=https://raw.githubusercontent.com
 ARG GITHUB_URL=https://github.com
-ARG NODE_24
-ARG NODE_VERSION=${NODE_24}
+ARG NODE_26
+ARG NODE_VERSION=${NODE_26}
 ARG NODEJS_DIST_URL
 ARG NPM_REPO
 ARG NVM
@@ -70,6 +70,7 @@ RUN set -e; \
           git-core \
           java-25-openjdk-devel \
           libxml2-devel \
+          libatomic1 \
           make \
           python39 \
           python39-devel \

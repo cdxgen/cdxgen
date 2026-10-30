@@ -6,8 +6,8 @@ ARG GITHUB_URL=https://github.com
 # renovate: datasource=golang-version depName=golang
 ARG GO_VERSION=1.27.1
 ARG GOOGLE_URL=https://dl.google.com
-ARG NODE_24
-ARG NODE_VERSION=${NODE_24}
+ARG NODE_26
+ARG NODE_VERSION=${NODE_26}
 ARG NODEJS_DIST_URL
 ARG NPM_REPO
 ARG NVM
@@ -75,6 +75,7 @@ RUN set -e; \
           git-core \
           java-25-openjdk-devel \
           libxml2-devel \
+          libatomic1 \
           make \
           python310 \
           python310-devel \

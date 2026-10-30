@@ -24,7 +24,7 @@ ARG PYTHON_VERSION=3.12
 # AlmaLinux's own nodejs package trails the upstream security releases, so the
 # official build for this version is installed instead.
 # renovate: datasource=node-version depName=node
-ARG NODE_VERSION=24.22.1
+ARG NODE_VERSION=26.12.1
 # pecl.php.net no longer answers the release lookup `pecl install timezonedb`
 # relies on (rest/r/timezonedb/allreleases2.xml is a 404), so the release
 # tarball is pinned by checksum and installed from a local file.
@@ -72,7 +72,7 @@ RUN set -e; \
             ;; \
         *) echo >&2 "error: unsupported architecture: '$ARCH_NAME'"; exit 1 ;; \
     esac; \
-    microdnf install --nodocs -y php php-curl php-zip php-bcmath php-json php-pear php-mbstring php-devel make gcc git-core \
+    microdnf install --nodocs -y php php-curl php-zip php-bcmath php-json php-pear php-mbstring php-devel make gcc libatomic git-core \
         python${PYTHON_VERSION} python${PYTHON_VERSION}-devel python${PYTHON_VERSION}-pip ruby ruby-devel java-21-openjdk-headless \
         pcre2 which tar xz gzip zip unzip bzip2 sudo ncurses gnupg2 \
     && NODE_TARBALL="node-v${NODE_VERSION}-linux-${NODE_ARCH}.tar.xz" \

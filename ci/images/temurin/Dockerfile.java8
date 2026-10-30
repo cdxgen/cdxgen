@@ -6,8 +6,8 @@ ARG GRADLE_8
 ARG GRADLE_VERSION=${GRADLE_8}
 ARG MAVEN_3
 ARG MAVEN_VERSION=${MAVEN_3}
-ARG NODE_24
-ARG NODE_VERSION=${NODE_24}
+ARG NODE_26
+ARG NODE_VERSION=${NODE_26}
 ARG NODEJS_DIST_URL
 ARG NPM_REPO
 ARG NVM
@@ -70,6 +70,7 @@ RUN set -e; \
       glibc-common \
       gnupg2 \
       gzip \
+      libatomic \
       make \
       ncurses \
       pcre2 \

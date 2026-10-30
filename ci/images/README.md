@@ -69,11 +69,11 @@ Below table summarizes all available container image versions. These images incl
 
 | Language   | Version                      | Container Image Tags                                                                                                                                                                                                      | Comments                                                                                               |
 | ---------- | ---------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------ |
-| All-in-One | Default (Java 25 + Node 24)  | ghcr.io/cdxgen/cdxgen:master, ghcr.io/cdxgen/cdxgen:v13                                                                                                                                                             | Default all-in-one container image with all the latest and greatest tools. Permission model is opt-in. |
-| All-in-One | Secure (Java 25 + Node 24)   | ghcr.io/cdxgen/cdxgen-secure:master, ghcr.io/cdxgen/cdxgen-secure:v13                                                                                                                                               | Secure all-in-one container image. Uses Node.js permissions model by default.                          |
+| All-in-One | Default (Java 25 + Node 26)  | ghcr.io/cdxgen/cdxgen:master, ghcr.io/cdxgen/cdxgen:v13                                                                                                                                                             | Default all-in-one container image with all the latest and greatest tools. Permission model is opt-in. |
+| All-in-One | Secure (Java 25 + Node 26)   | ghcr.io/cdxgen/cdxgen-secure:master, ghcr.io/cdxgen/cdxgen-secure:v13                                                                                                                                               | Secure all-in-one container image. Uses Node.js permissions model by default.                          |
 | All-in-One | Deno (Java 25 + Deno)        | ghcr.io/cdxgen/cdxgen-deno:master, ghcr.io/cdxgen/cdxgen-deno:v13                                                                                                                                                   | All-in-one container image with Deno runtime. Uses Deno permissions model by default.                  |
 | All-in-One | Bun (Java 25 + Bun)          | ghcr.io/cdxgen/cdxgen-bun:master, ghcr.io/cdxgen/cdxgen-bun:v13                                                                                                                                                     | All-in-one container image with Bun runtime.                                                           |
-| All-in-One | PowerPC (Java 25 + Node 24)  | ghcr.io/cdxgen/cdxgen-ppc64:master, ghcr.io/cdxgen/cdxgen-ppc64:v13                                                                                                                                                 | All-in-one container image optimized for PowerPC (ppc64le) architecture.                               |
+| All-in-One | PowerPC (Java 25 + Node 26)  | ghcr.io/cdxgen/cdxgen-ppc64:master, ghcr.io/cdxgen/cdxgen-ppc64:v13                                                                                                                                                 | All-in-one container image optimized for PowerPC (ppc64le) architecture.                               |
 | All-in-One | Rolling (OpenSUSE)           | ghcr.io/cdxgen/cdxgen-opensuse-rolling:master                                                                                                                                                                          | Rolling all-in-one container image based on OpenSUSE. Rebuilt daily.                                   |
 | Java       | 8                            | ghcr.io/cdxgen/cdxgen-temurin-java8:v13                                                                                                                                                                                | Java 8 version.                                                                                        |
 | Java       | 11                           | ghcr.io/cdxgen/cdxgen-java11-slim:v13, ghcr.io/cdxgen/cdxgen-java11:v13, ghcr.io/cdxgen/cdxgen-java:v13, ghcr.io/cdxgen/cdxgen-java-slim:v13                                                                  | Java 11 version. Includes slim-only and standard variants.                                             |
@@ -101,9 +101,9 @@ Below table summarizes all available container image versions. These images incl
 | Python     | 3.13                         | ghcr.io/cdxgen/cdxgen-python313:v13, ghcr.io/cdxgen/cdxgen-alpine-python313:v13, ghcr.io/cdxgen/cdxgen-debian-python313:v13                                                                                        | Python 3.13 version. Includes standard, Alpine-based, and Debian-based variants.                       |
 | Python     | 3.14                         | ghcr.io/cdxgen/cdxgen-alpine-python314:v13, ghcr.io/cdxgen/cdxgen-debian-python314:v13                                                                                                                              | Python 3.14 version. Includes Alpine-based and Debian-based variants.                                  |
 | Python     | 3.15                         | ghcr.io/cdxgen/cdxgen-alpine-python315:v13, ghcr.io/cdxgen/cdxgen-debian-python315:v13                                                                                                                              | Python 3.15 version. Includes Alpine-based and Debian-based variants. Based on 3.15.0rc3 until final upstream images are published.                                   |
-| Node.js    | 24                           | ghcr.io/cdxgen/cdxgen-alpine-node24:v13, ghcr.io/cdxgen/cdxgen-debian-node24:v13, ghcr.io/cdxgen/cdxgen-node:v13                                                                                                    | Node.js 24 version. Includes rolling alias `cdxgen-node`. Default all-in-one uses Node 24 runtime.     |
+| Node.js    | 24                           | ghcr.io/cdxgen/cdxgen-alpine-node24:v13, ghcr.io/cdxgen/cdxgen-debian-node24:v13                                                                                                                                    | Node.js 24 version. Alpine and Debian-based variants. Node.js 24 is the secondary supported runtime.   |
 | Node.js    | 25                           | ghcr.io/cdxgen/cdxgen-alpine-node25:v13                                                                                                                                                                                | Node.js 25 Alpine version.                                                                             |
-| Node.js    | 26                           | ghcr.io/cdxgen/cdxgen-alpine-node26:v13, ghcr.io/cdxgen/cdxgen-debian-node26:v13                                                                                                                                    | Node.js 26 version. Alpine and Debian-based variants.                                                  |
+| Node.js    | 26                           | ghcr.io/cdxgen/cdxgen-alpine-node26:v13, ghcr.io/cdxgen/cdxgen-debian-node26:v13, ghcr.io/cdxgen/cdxgen-node:v13                                                                                                    | Node.js 26 version. Alpine and Debian-based variants. Includes rolling alias `cdxgen-node`. Default all-in-one uses Node 26 runtime.                                    |
 | Ruby       | 4.0.x                        | ghcr.io/cdxgen/cdxgen-debian-ruby4:v13, ghcr.io/cdxgen/cdxgen-alpine-ruby4:v13                                                                                                                                      | Ruby 4.0.x. Supports automatic installation for other Ruby versions.                                   |
 | Ruby       | 3.3.x                        | ghcr.io/cdxgen/cdxgen-debian-ruby33:v13, ghcr.io/cdxgen/cdxgen-alpine-ruby33:v13                                                                                                                                    | Ruby 3.3.x. Supports automatic installation (e.g., `-t ruby3.3.1`).                                    |
 | Ruby       | 3.4.x                        | ghcr.io/cdxgen/cdxgen-debian-ruby34:v13, ghcr.io/cdxgen/cdxgen-alpine-ruby34:v13                                                                                                                                    | Ruby 3.4.x. Supports automatic installation (e.g., `-t ruby3.4.0`).                                    |
@@ -341,12 +341,14 @@ docker run --rm -e CDXGEN_DEBUG_MODE=verbose -v /tmp:/tmp -v $(pwd):/app:rw -t g
 
 ### Node.js applications
 
-Use the custom image `ghcr.io/cdxgen/cdxgen-alpine-node24:v13`.
+The default image already runs Node.js 26, the primary runtime. To pin a specific
+Node.js version, use the matching variant such as `ghcr.io/cdxgen/cdxgen-alpine-node26:v13`;
+`ghcr.io/cdxgen/cdxgen-alpine-node24:v13` stays available for the secondary Node.js 24 runtime.
 
-Node.js 24
+Node.js 26
 
 ```shell
-docker run --rm -e CDXGEN_DEBUG_MODE=verbose -v /tmp:/tmp -v $(pwd):/app:rw -t ghcr.io/cdxgen/cdxgen-alpine-node24:v13 -r /app -o /app/bom.json -t js
+docker run --rm -e CDXGEN_DEBUG_MODE=verbose -v /tmp:/tmp -v $(pwd):/app:rw -t ghcr.io/cdxgen/cdxgen-alpine-node26:v13 -r /app -o /app/bom.json -t js
 ```
 
 Applications that only build on an older Node.js runtime can pass an install-version
@@ -500,7 +502,7 @@ Include the below argument with the `nerdctl run` command.
 Example:
 
 ```shell
-nerdctl run --rm --platform=linux/arm64 -e CDXGEN_DEBUG_MODE=verbose -v /tmp:/tmp -v $(pwd):/app:rw -t ghcr.io/cdxgen/cdxgen-alpine-node24:v13 -r /app -o /app/bom.json -t js
+nerdctl run --rm --platform=linux/arm64 -e CDXGEN_DEBUG_MODE=verbose -v /tmp:/tmp -v $(pwd):/app:rw -t ghcr.io/cdxgen/cdxgen-alpine-node26:v13 -r /app -o /app/bom.json -t js
 ```
 
 ## License

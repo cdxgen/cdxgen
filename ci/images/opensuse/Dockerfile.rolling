@@ -100,6 +100,7 @@ RUN set -e; \
           git-core \
           java-25-openjdk-devel \
           libicu-devel \
+          libatomic1 \
           make \
           python313 \
           python313-devel \

@@ -10,8 +10,8 @@ ARG GOOGLE_URL=https://dl.google.com
 ARG JAVA_VERSION=25.0.4-tem
 ARG MAVEN_3
 ARG MAVEN_VERSION=${MAVEN_3}
-ARG NODE_24
-ARG NODE_VERSION=${NODE_24}
+ARG NODE_26
+ARG NODE_VERSION=${NODE_26}
 ARG NODEJS_DIST_URL
 ARG NPM_REPO
 ARG NVM
@@ -86,6 +86,7 @@ RUN set -e; \
           libopenssl-devel \
           libxml2-devel \
           libxslt-devel \
+          libatomic1 \
           make \
           openldap2-devel \
           postgresql-devel \
