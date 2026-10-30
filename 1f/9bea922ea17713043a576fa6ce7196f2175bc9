@@ -1,0 +1,19 @@
+.github/workflows/copilot-setup-steps.yml
+  s_a64d1dd7bff42a::t_fd557cc7357e53 16-18
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "1f9bea922ea17713043a576fa6ce7196f2175bc9",
+  "prompts": {},
+  "sessions": {
+    "s_a64d1dd7bff42a": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "session_a3910269efc9336eabfadd52e7eb4a91",
+        "model": "unknown"
+      },
+      "human_author": "Team AppThreat <cloud@appthreat.com>"
+    }
+  }
+}
