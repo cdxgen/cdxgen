@@ -1,0 +1,23 @@
+docs/CUSTOM_PROPERTIES.md
+  s_474d33a1b10cd3::t_ad1f414fe7c673 1192
+lib/ecosystems/scalasem.js
+  s_474d33a1b10cd3::t_3a073d92ede91f 434-436,469-483,510,512
+lib/ecosystems/scalasem.poku.js
+  s_474d33a1b10cd3::t_b73a3e55c5edf9 437-452
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "3ab6a8bdf9122d71df7fb25afe52985e0e5161ca",
+  "prompts": {},
+  "sessions": {
+    "s_474d33a1b10cd3": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "89922bb1-1482-456b-b779-2e8b380ce10e",
+        "model": "claude-sonnet-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
