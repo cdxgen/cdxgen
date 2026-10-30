@@ -23,6 +23,14 @@ concurrency:
 # https://docs.github.com/en/actions/writing-workflows/choosing-what-your-workflow-does/controlling-permissions-for-github_token
 permissions: {}
 
+# Pinned by digest so a moved tag cannot change what these tests scan. The
+# digests were resolved on 2026-10-29; shiftleft/scan-slim has no release tag
+# matching its latest build, so only the digest is recorded for it.
+env:
+  UBUNTU_IMAGE: ubuntu:26.04@sha256:6a06111c3b0a8600feadb270aec771dc239bf407b25625f93f44ab00e11f4d3c
+  ALPINE_IMAGE: alpine:3.24@sha256:be2656061b536c1883c4034790e21d0a09c5aaaf51968b89368a3c0371ea2c9a
+  SCAN_SLIM_IMAGE: shiftleft/scan-slim@sha256:1d6fdd871ae0bc80972aa4cc741bd202635c6b4d3c696d0aa15f36f6a2890e3a
+
 jobs:
   linux-tests:
     strategy:
@@ -52,23 +60,23 @@ jobs:
         if: matrix.os == 'ubuntu-24.04'
         run: |
           source ci/assertions.sh
-          bin/cdxgen.js ubuntu:26.04@sha256:6a06111c3b0a8600feadb270aec771dc239bf407b25625f93f44ab00e11f4d3c -p -t docker -o bomresults/bom-ubuntu.json --fail-on-error
-          bin/cdxgen.js ubuntu:26.04@sha256:6a06111c3b0a8600feadb270aec771dc239bf407b25625f93f44ab00e11f4d3c -p -t docker -o bomresults/bom-ubuntu-audit.json --bom-audit --bom-audit-categories container-risk --fail-on-error
+          bin/cdxgen.js "$UBUNTU_IMAGE" -p -t docker -o bomresults/bom-ubuntu.json --fail-on-error
+          bin/cdxgen.js "$UBUNTU_IMAGE" -p -t docker -o bomresults/bom-ubuntu-audit.json --bom-audit --bom-audit-categories container-risk --fail-on-error
           assert_container_audit_bom bomresults/bom-ubuntu-audit.json
           assert_trivy_tool_identity_bom bomresults/bom-ubuntu-audit.json
-          docker rmi ubuntu:26.04@sha256:6a06111c3b0a8600feadb270aec771dc239bf407b25625f93f44ab00e11f4d3c
-          bin/cdxgen.js alpine:3.24@sha256:be2656061b536c1883c4034790e21d0a09c5aaaf51968b89368a3c0371ea2c9a -p -t docker -o bomresults/bom-alpine.json --fail-on-error
-          bin/cdxgen.js alpine:3.24@sha256:be2656061b536c1883c4034790e21d0a09c5aaaf51968b89368a3c0371ea2c9a -p -t docker -o bomresults/bom-alpine-audit.json --bom-audit --bom-audit-categories container-risk --fail-on-error
+          docker rmi "$UBUNTU_IMAGE"
+          bin/cdxgen.js "$ALPINE_IMAGE" -p -t docker -o bomresults/bom-alpine.json --fail-on-error
+          bin/cdxgen.js "$ALPINE_IMAGE" -p -t docker -o bomresults/bom-alpine-audit.json --bom-audit --bom-audit-categories container-risk --fail-on-error
           assert_container_audit_bom bomresults/bom-alpine-audit.json
           assert_trivy_tool_identity_bom bomresults/bom-alpine-audit.json
-          docker rmi alpine:3.24@sha256:be2656061b536c1883c4034790e21d0a09c5aaaf51968b89368a3c0371ea2c9a
+          docker rmi "$ALPINE_IMAGE"
           bin/cdxgen.js almalinux:9.4-minimal -p -t docker -o bomresults/bom-almalinux.json --fail-on-error
           docker rmi almalinux:9.4-minimal
           bin/cdxgen.js phpmyadmin@sha256:1092481630056189e43cc0fe66fd01defcc9334d78ab4611b22f65e9a39869bd -p -o bomresults/bom-phpmyadmin.json --fail-on-error
           jq -e '.components | map(select((.properties // [])[] | select(.name == "cdx:php:buildVersion"))) | length > 0' bomresults/bom-phpmyadmin.json
           docker rmi phpmyadmin@sha256:1092481630056189e43cc0fe66fd01defcc9334d78ab4611b22f65e9a39869bd
-          bin/cdxgen.js shiftleft/scan-slim@sha256:1d6fdd871ae0bc80972aa4cc741bd202635c6b4d3c696d0aa15f36f6a2890e3a -o bomresults/bom-scanslim.json -p -t container --fail-on-error
-          docker rmi shiftleft/scan-slim@sha256:1d6fdd871ae0bc80972aa4cc741bd202635c6b4d3c696d0aa15f36f6a2890e3a
+          bin/cdxgen.js "$SCAN_SLIM_IMAGE" -o bomresults/bom-scanslim.json -p -t container --fail-on-error
+          docker rmi "$SCAN_SLIM_IMAGE"
           bin/cdxgen.js redmine@sha256:a5c5f8a64a0d9a436a0a6941bc3fb156be0c89996add834fe33b66ebeed2439e -p -o bomresults/bom-redmine.json --fail-on-error
           docker rmi redmine@sha256:a5c5f8a64a0d9a436a0a6941bc3fb156be0c89996add834fe33b66ebeed2439e
           bin/cdxgen.js rocket.chat@sha256:379f7afa0e67497c363ac9a9b3e7e6a6d31deee228233307c987e4a0c68b28e6 -p -o bomresults/bom-rocket.json --fail-on-error
@@ -79,9 +87,9 @@ jobs:
           docker rmi zookeeper@sha256:5bf00616677db5ef57d8a2da7c5dadf67f1a6be54b0c33a79be3332c9c80aeb6
           # shiftleft/scan-slim:latest is a continuously built tag with no
           # matching version tag, so pin the digest it pointed to on 2026-10-29.
-          docker pull shiftleft/scan-slim@sha256:1d6fdd871ae0bc80972aa4cc741bd202635c6b4d3c696d0aa15f36f6a2890e3a
-          docker save shiftleft/scan-slim@sha256:1d6fdd871ae0bc80972aa4cc741bd202635c6b4d3c696d0aa15f36f6a2890e3a -o /tmp/scanslim.tar
-          docker rmi shiftleft/scan-slim@sha256:1d6fdd871ae0bc80972aa4cc741bd202635c6b4d3c696d0aa15f36f6a2890e3a
+          docker pull "$SCAN_SLIM_IMAGE"
+          docker save "$SCAN_SLIM_IMAGE" -o /tmp/scanslim.tar
+          docker rmi "$SCAN_SLIM_IMAGE"
           bin/cdxgen.js /tmp/scanslim.tar -p -o bomresults/bom-scanarch.json --fail-on-error
           rm /tmp/scanslim.tar
           ls -ltr bomresults
@@ -89,10 +97,10 @@ jobs:
           CDXGEN_DEBUG_MODE: debug
       - name: dockertests arm
         run: |
-          bin/cdxgen.js ubuntu:26.04@sha256:6a06111c3b0a8600feadb270aec771dc239bf407b25625f93f44ab00e11f4d3c -p -t docker -o bomresults/bom-ubuntu.json --fail-on-error
-          docker rmi ubuntu:26.04@sha256:6a06111c3b0a8600feadb270aec771dc239bf407b25625f93f44ab00e11f4d3c
-          bin/cdxgen.js alpine:3.24@sha256:be2656061b536c1883c4034790e21d0a09c5aaaf51968b89368a3c0371ea2c9a -p -t docker -o bomresults/bom-alpine.json --fail-on-error
-          docker rmi alpine:3.24@sha256:be2656061b536c1883c4034790e21d0a09c5aaaf51968b89368a3c0371ea2c9a
+          bin/cdxgen.js "$UBUNTU_IMAGE" -p -t docker -o bomresults/bom-ubuntu.json --fail-on-error
+          docker rmi "$UBUNTU_IMAGE"
+          bin/cdxgen.js "$ALPINE_IMAGE" -p -t docker -o bomresults/bom-alpine.json --fail-on-error
+          docker rmi "$ALPINE_IMAGE"
           bin/cdxgen.js almalinux:9.4-minimal -p -t docker -o bomresults/bom-almalinux.json --fail-on-error
           docker rmi almalinux:9.4-minimal
           ls -ltr bomresults
