@@ -1,0 +1,12 @@
+{
+  "name": "sideloaded",
+  "publisher": "acme",
+  "version": "0.1.0",
+  "main": "./index.js",
+  "engines": {
+    "vscode": "^1.90.0"
+  },
+  "activationEvents": [
+    "*"
+  ]
+}

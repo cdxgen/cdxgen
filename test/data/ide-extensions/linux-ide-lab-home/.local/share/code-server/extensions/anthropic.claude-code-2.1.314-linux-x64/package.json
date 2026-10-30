@@ -1,0 +1,35 @@
+{
+  "name": "claude-code",
+  "displayName": "Claude Code for VS Code",
+  "publisher": "Anthropic",
+  "version": "2.1.314",
+  "license": "\u00a9 Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.",
+  "main": "./extension.js",
+  "engines": {
+    "vscode": "^1.94.0"
+  },
+  "activationEvents": [
+    "onStartupFinished",
+    "onWebviewPanel:claudeVSCodePanel"
+  ],
+  "capabilities": {
+    "untrustedWorkspaces": {
+      "supported": false,
+      "description": "untusted workspaces are not supported"
+    }
+  },
+  "contributes": {
+    "commands": [
+      {
+        "command": "claude-vscode.editor.open",
+        "title": "Claude Code: Open in New Tab"
+      }
+    ],
+    "walkthroughs": [
+      {
+        "id": "claude-code-walkthrough",
+        "title": "Get started with Claude Code"
+      }
+    ]
+  }
+}

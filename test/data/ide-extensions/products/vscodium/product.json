@@ -1,0 +1,10 @@
+{
+  "nameShort": "VSCodium",
+  "nameLong": "VSCodium",
+  "applicationName": "codium",
+  "dataFolderName": ".vscode-oss",
+  "serverDataFolderName": ".vscodium-server",
+  "quality": "stable",
+  "commit": "c072cf642cbbadabefa22f39c58cc902a8b7427f",
+  "version": "1.143.17232"
+}

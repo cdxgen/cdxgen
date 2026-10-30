@@ -1,0 +1,10 @@
+{
+  "nameShort": "Kiro",
+  "nameLong": "Kiro",
+  "applicationName": "kiro",
+  "dataFolderName": ".kiro",
+  "serverDataFolderName": ".kiro-server",
+  "quality": "stable",
+  "commit": "8afe855172044f1d29d45a1ca6c7a1084c6ac123",
+  "version": "1.4.62"
+}

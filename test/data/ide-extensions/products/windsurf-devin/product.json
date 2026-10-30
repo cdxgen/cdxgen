@@ -1,0 +1,11 @@
+{
+  "nameShort": "Devin",
+  "nameLong": "Devin",
+  "applicationName": "devin-desktop",
+  "dataFolderName": ".devin",
+  "serverDataFolderName": ".devin-server",
+  "quality": "stable",
+  "commit": "92c83011d1139eee53ac0629125938d536d4cd9c",
+  "version": "1.126.0",
+  "windsurfVersion": "3.11.234"
+}

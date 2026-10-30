@@ -1,0 +1,10 @@
+{
+  "nameShort": "Code",
+  "nameLong": "Visual Studio Code",
+  "applicationName": "code",
+  "dataFolderName": ".vscode",
+  "serverDataFolderName": ".vscode-server",
+  "quality": "stable",
+  "commit": "2c33b50b16c472efe58357d1d2a8a5414bc23fbf",
+  "version": "1.144.0"
+}

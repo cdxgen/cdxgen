@@ -235,3 +235,78 @@
       "main": $prop($, 'cdx:vscode-extension:main'),
       "contributes": $prop($, 'cdx:vscode-extension:contributes')
     }
+
+- id: VSC-010
+  name: "Extension folder the editor never registered"
+  description: "An extension folder that is on disk but missing from the editor's extensions.json was copied in by hand rather than installed by the editor, so no marketplace or signature check applied to it"
+  severity: high
+  category: vscode-extension
+  dry-run-support: full
+  condition: |
+    components[
+      $startsWith(purl, 'pkg:vscode-extension/')
+      and $prop($, 'cdx:vscode-extension:registered') = 'false'
+    ]
+  location: |
+    {
+      "bomRef": $. "bom-ref",
+      "purl": purl,
+      "srcFile": $prop($, 'internal:SrcFile')
+    }
+  message: "VS Code extension '{{ publisher }}.{{ name }}@{{ version }}' is in the extensions folder of {{ $prop($, 'cdx:vscode-extension:ide') }} but not in its registry"
+  mitigation: "Find out who placed the folder; remove it and reinstall the extension from the marketplace if it is wanted"
+  evidence: |
+    {
+      "ide": $prop($, 'cdx:vscode-extension:ide'),
+      "activationEvents": $prop($, 'cdx:vscode-extension:activationEvents'),
+      "main": $prop($, 'cdx:vscode-extension:main')
+    }
+
+- id: VSC-011
+  name: "Extension installed from a .vsix file"
+  description: "An extension installed from a local .vsix file bypassed the marketplace, so its publisher, signature and version history were not checked at install time"
+  severity: medium
+  category: vscode-extension
+  dry-run-support: full
+  condition: |
+    components[
+      $startsWith(purl, 'pkg:vscode-extension/')
+      and $listContains($propList($, 'cdx:vscode-extension:installSource'), 'vsix')
+    ]
+  location: |
+    {
+      "bomRef": $. "bom-ref",
+      "purl": purl,
+      "srcFile": $prop($, 'internal:SrcFile')
+    }
+  message: "VS Code extension '{{ publisher }}.{{ name }}@{{ version }}' was installed from a .vsix file in {{ $prop($, 'cdx:vscode-extension:ide') }}"
+  mitigation: "Confirm where the .vsix came from and compare the entry-file hash with the marketplace build of the same version"
+  evidence: |
+    {
+      "ide": $prop($, 'cdx:vscode-extension:ide'),
+      "installedAt": $prop($, 'cdx:vscode-extension:installedAt')
+    }
+
+- id: VSC-012
+  name: "Two copies of one extension build run different code"
+  description: "The same publisher, name, version and platform is installed in more than one place, but the entry files differ, so at least one copy was changed after it was installed"
+  severity: high
+  category: vscode-extension
+  dry-run-support: full
+  condition: |
+    components[
+      $startsWith(purl, 'pkg:vscode-extension/')
+      and $prop($, 'cdx:vscode-extension:entryHashMismatch') = 'true'
+    ]
+  location: |
+    {
+      "bomRef": $. "bom-ref",
+      "purl": purl
+    }
+  message: "VS Code extension '{{ publisher }}.{{ name }}@{{ version }}' has different entry-file bytes in {{ $prop($, 'cdx:vscode-extension:ide') }}"
+  mitigation: "Compare each copy's entry-file SHA-256 with the marketplace build of the same version, remove the copy that differs and reinstall it from the marketplace"
+  evidence: |
+    {
+      "ide": $prop($, 'cdx:vscode-extension:ide'),
+      "entryFiles": components.{ "name": name, "sha256": hashes[0].content }
+    }

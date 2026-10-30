@@ -1,0 +1,10 @@
+{
+  "nameShort": "OpenVSCode Server",
+  "nameLong": "OpenVSCode Server",
+  "applicationName": "openvscode-server",
+  "dataFolderName": ".openvscode-server",
+  "serverDataFolderName": ".openvscode-server",
+  "quality": "stable",
+  "commit": "072586267e68ece9a47aa43f8c108e0dcbf44622",
+  "version": "1.109.5"
+}

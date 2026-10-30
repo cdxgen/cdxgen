@@ -1,0 +1,57 @@
+{
+  "name": "python",
+  "displayName": "Python",
+  "publisher": "ms-python",
+  "version": "2025.6.1",
+  "license": "MIT",
+  "main": "./out/client/extension",
+  "browser": "./dist/extension.browser.js",
+  "engines": {
+    "vscode": "^1.94.0-20240918"
+  },
+  "activationEvents": [
+    "onDebugInitialConfigurations",
+    "onLanguage:python",
+    "onDebugResolve:python",
+    "onCommand:python.copilotSetupTests",
+    "workspaceContains:mspythonconfig.json"
+  ],
+  "extensionPack": [
+    "ms-python.vscode-pylance",
+    "ms-python.debugpy"
+  ],
+  "capabilities": {
+    "untrustedWorkspaces": {
+      "supported": "limited",
+      "description": "Only Partial IntelliSense with Pylance is supported. Cannot execute Python with untrusted files."
+    },
+    "virtualWorkspaces": {
+      "supported": "limited",
+      "description": "Only Partial IntelliSense supported."
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Microsoft/vscode-python"
+  },
+  "contributes": {
+    "walkthroughs": [
+      {
+        "id": "pythonWelcome",
+        "title": "%walkthrough.pythonWelcome.title%"
+      }
+    ],
+    "commands": [
+      {
+        "command": "python.createNewFile",
+        "title": "%python.command.python.createNewFile.title%"
+      }
+    ],
+    "debuggers": [
+      {
+        "type": "python",
+        "label": "Python"
+      }
+    ]
+  }
+}

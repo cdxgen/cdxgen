@@ -1,0 +1,23 @@
+{
+  "name": "claude-code",
+  "displayName": "Claude Code for VS Code",
+  "publisher": "Anthropic",
+  "version": "1.0.127",
+  "license": "MIT",
+  "main": "./extension.js",
+  "engines": {
+    "node": ">=18.0.0",
+    "vscode": "^1.94.0"
+  },
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "contributes": {
+    "commands": [
+      {
+        "command": "claude-code.runClaude",
+        "title": "Run Claude Code"
+      }
+    ]
+  }
+}

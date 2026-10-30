@@ -1,0 +1,28 @@
+{
+  "name": "vscode-yaml",
+  "displayName": "YAML",
+  "publisher": "redhat",
+  "version": "1.15.0",
+  "license": "MIT",
+  "main": "./dist/extension",
+  "browser": "./dist/extension-web",
+  "engines": {
+    "npm": ">=7.0.0",
+    "vscode": "^1.63.0"
+  },
+  "activationEvents": [
+    "onLanguage:yaml",
+    "onLanguage:dockercompose"
+  ],
+  "extensionDependencies": [],
+  "capabilities": {
+    "untrustedWorkspaces": {
+      "supported": true
+    },
+    "virtualWorkspaces": true
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/redhat-developer/vscode-yaml"
+  }
+}

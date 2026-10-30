@@ -9,3 +9,6 @@ test/data/introspection/** text eol=lf
 lib/third-party/arborist/** text eol=lf
 contrib/arborist-manifest.json text eol=lf
 contrib/arborist-patches/*.patch text eol=lf
+
+# A .vsix is a zip archive whose SHA-256 the tests compare.
+test/data/ide-extensions/**/*.vsix binary

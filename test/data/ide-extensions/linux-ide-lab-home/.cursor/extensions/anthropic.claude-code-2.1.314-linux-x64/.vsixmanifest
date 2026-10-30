@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+	<PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
+		<Metadata>
+			<Identity Language="en-US" Id="claude-code" Version="2.1.314" Publisher="Anthropic" TargetPlatform="linux-x64"/>
+			<DisplayName>Claude Code for VS Code</DisplayName>
+			<Description xml:space="preserve">Claude Code for VS Code: Harness the power of Claude Code without leaving your IDE</Description>
+			<Tags>claude,sonnet,ai,mcp,agent,keybindings,json</Tags>
+			<Categories>AI,Chat</Categories>
+			<GalleryFlags>Public</GalleryFlags>
+			
+			<Properties>
+				<Property Id="Microsoft.VisualStudio.Code.Engine" Value="^1.94.0" />
+				<Property Id="Microsoft.VisualStudio.Code.ExtensionDependencies" Value="" />
+				<Property Id="Microsoft.VisualStudio.Code.ExtensionPack" Value="" />
+				<Property Id="Microsoft.VisualStudio.Code.ExtensionKind" Value="workspace" />
+				<Property Id="Microsoft.VisualStudio.Code.LocalizedLanguages" Value="" />
+				<Property Id="Microsoft.VisualStudio.Code.EnabledApiProposals" Value="" />
+				
+				<Property Id="Microsoft.VisualStudio.Code.ExecutesCode" Value="true" />
+				
+				
+				<Property Id="Microsoft.VisualStudio.Services.Links.Support" Value="https://github.com/anthropics/claude-code/issues" />
+				
+				
+				
+				<Property Id="Microsoft.VisualStudio.Services.GitHubFlavoredMarkdown" Value="true" />
+				<Property Id="Microsoft.VisualStudio.Services.Content.Pricing" Value="Free"/>
+
+				
+				
+			</Properties>
+			
+			<Icon>extension/resources/claude-logo.png</Icon>
+		</Metadata>
+		<Installation>
+			<InstallationTarget Id="Microsoft.VisualStudio.Code"/>
+		</Installation>
+		<Dependencies/>
+		<Assets>
+			<Asset Type="Microsoft.VisualStudio.Code.Manifest" Path="extension/package.json" Addressable="true" />
+			<Asset Type="Microsoft.VisualStudio.Services.Content.Details" Path="extension/README.md" Addressable="true" />
+<Asset Type="Microsoft.VisualStudio.Services.Icons.Default" Path="extension/resources/claude-logo.png" Addressable="true" />
+		</Assets>
+	</PackageManifest>
