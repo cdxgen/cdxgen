@@ -10,11 +10,17 @@
 // not a CI job: run it by hand when the atom-parsetools version cdxgen
 // depends on changes, or when lib/ecosystems/scalasem.js changes.
 import { spawnSync } from "node:child_process";
-import { existsSync, mkdtempSync, readFileSync, rmSync, statSync } from "node:fs";
+import {
+  existsSync,
+  mkdtempSync,
+  readFileSync,
+  rmSync,
+  statSync,
+} from "node:fs";
 import { tmpdir } from "node:os";
 import { dirname, join, resolve } from "node:path";
-import { fileURLToPath } from "node:url";
 import process from "node:process";
+import { fileURLToPath } from "node:url";
 
 import { runAllChecks } from "./checks.mjs";
 
@@ -35,10 +41,6 @@ const cdxgenBin = join(repoRoot, "bin", "cdxgen.js");
 function fail(message, code = 1) {
   console.error(`check-chen: ${message}`);
   process.exit(code);
-}
-
-function usage() {
-  console.log(usageText);
 }
 
 const usageText =
@@ -93,18 +95,6 @@ if (!existsSync(join(parsetoolsDir, "scalasem.js"))) {
   fail(
     `the atom-parsetools package is not installed under "${parsetoolsDir}". Run pnpm install in this checkout first; without it cdxgen produces no Scala evidence.`,
   );
-}
-
-// The scalasem entry point a run uses, so the report says which analyzer the
-// numbers belong to. SCALASEM_CMD, if set, wins inside cdxgen itself.
-let scalasemUsed = process.env.SCALASEM_CMD;
-if (!scalasemUsed) {
-  try {
-    const require = createRequire(join(repoRoot, "package.json"));
-    scalasemUsed = require.resolve("@appthreat/atom-parsetools/scalasem.js");
-  } catch (_err) {
-    scalasemUsed = undefined;
-  }
 }
 
 const workDir = mkdtempSync(join(tmpdir(), "cdxgen-check-chen-"));
