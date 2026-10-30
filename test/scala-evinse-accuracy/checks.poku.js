@@ -2,6 +2,8 @@
 // (contrib/scala-evinse-accuracy/check-chen.mjs). The checks are pure, so
 // every fixture is a hand-written BOM and a file resolver that answers from a
 // Map; no cdxgen run and no chen checkout is involved.
+import { join, normalize, resolve } from "node:path";
+
 import { assert, describe, it } from "poku";
 
 import {
@@ -90,27 +92,30 @@ function passingBom() {
   };
 }
 
+// Paths go through node:path so the fixture answers for the separators the
+// checks produce on Windows as well as on POSIX.
 function passingResolver() {
+  const chen = resolve("/chen");
+  const files = new Map(
+    [
+      [join(chen, "src", "Main.scala"), { exists: true, lineCount: 20 }],
+      [
+        join(chen, "semanticcpg", "src", "main", "scala", "Explorer.scala"),
+        { exists: true, lineCount: 15 },
+      ],
+      [
+        join(chen, "extracted-roots", "overlay", "extracted", "Gen.scala"),
+        { exists: true, lineCount: 5 },
+      ],
+      [
+        join(chen, "platform", "frontends", "jimple2cpg", "Asm.scala"),
+        { exists: true, lineCount: 30 },
+      ],
+    ].map(([path, stat]) => [normalize(path), stat]),
+  );
   return {
-    roots: ["/chen", "/chen/extracted-roots/overlay"],
-    statFile: (path) => {
-      const files = {
-        "/chen/src/Main.scala": { exists: true, lineCount: 20 },
-        "/chen/semanticcpg/src/main/scala/Explorer.scala": {
-          exists: true,
-          lineCount: 15,
-        },
-        "/chen/extracted-roots/overlay/extracted/Gen.scala": {
-          exists: true,
-          lineCount: 5,
-        },
-        "/chen/platform/frontends/jimple2cpg/Asm.scala": {
-          exists: true,
-          lineCount: 30,
-        },
-      };
-      return files[path];
-    },
+    roots: [chen, join(chen, "extracted-roots", "overlay")],
+    statFile: (path) => files.get(normalize(path)),
   };
 }
 
