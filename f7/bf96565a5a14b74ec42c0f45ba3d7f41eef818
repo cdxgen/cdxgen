@@ -1,0 +1,32 @@
+lib/inventory/scalaDedupe.js
+  s_f49da5fa3d8aef::t_e7f91c86e14e47 3-4,7,11-15,23-30,36,44-57,61-65,67,71-92,94-96,118-169,174-191,201-207,209-212,216-219,222,231,234,237,240-241,246,251-253,257-292,297-301,304-305,309-313,322-328,336,339-341,346,350-379,383-384,389-395
+  s_f49da5fa3d8aef::t_a0c357605553bb 396-397,402-440
+lib/cli/jvmBom.js
+  s_f49da5fa3d8aef::t_348bb416a9907d 105,129-132,2518-2524,2776-2781
+lib/inventory/deps.js
+  s_f49da5fa3d8aef::t_231f6710b961b1 345-373
+lib/inventory/deps.poku.js
+  s_f49da5fa3d8aef::t_a72e58fbcd6c87 19-23,267-293
+lib/inventory/scalaCoords.js
+  s_f49da5fa3d8aef::t_64a085e01ab037 10,126-127,130
+lib/inventory/scalaCoords.poku.js
+  s_f49da5fa3d8aef::t_bb27c70a08532a 6,108-139
+lib/inventory/scalaDedupe.poku.js
+  s_f49da5fa3d8aef::t_5a00d634f508e5 5-8,167-462
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "f7bf96565a5a14b74ec42c0f45ba3d7f41eef818",
+  "prompts": {},
+  "sessions": {
+    "s_f49da5fa3d8aef": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6b3c945b-729b-457f-97c9-73ed040ad3c2",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
