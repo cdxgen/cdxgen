@@ -1,0 +1,29 @@
+test/scala-evinse-accuracy/checks.poku.js
+  s_c2ffc35a6355af::t_aadacb72c613b0 225
+  s_c2ffc35a6355af::t_080e1584eab5b7 1-215,221,223-224,226-257,260-343
+  s_c2ffc35a6355af::t_afc0f177541fac 258-259
+  s_c2ffc35a6355af::t_f096bbee9e3f17 216-220,222
+.pokurc.jsonc
+  s_c2ffc35a6355af::t_c35ee9b13bf8ed 3
+contrib/scala-evinse-accuracy/checks.mjs
+  s_c2ffc35a6355af::t_a22e6a31ddeb7f 145-152,154
+  s_c2ffc35a6355af::t_57b6ebdae97f76 73-74,99-100,103-106,113-114,117-121,138-141,165-206,222,260-263,280,283-284,290,292-294,300-301,304-309,348-350,353,372-377,402
+  s_c2ffc35a6355af::t_5cc1829ce84b79 1-72,75-98,101-102,107-112,115-116,122-137,142-144,153,155-164,207-221,223-259,264-279,281-282,285-289,291,295-299,302-303,310-347,351-352,354-371,378-401,403-411
+  s_c2ffc35a6355af::t_0e1098da548885 412
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "08737c82635060687facbc72ee585a2fd6053c65",
+  "prompts": {},
+  "sessions": {
+    "s_c2ffc35a6355af": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "session_5b3c49d51ef0bfabe84a316f60a13ad2",
+        "model": "unknown"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
