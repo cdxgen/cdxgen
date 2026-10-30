@@ -1,0 +1,72 @@
+types/lib/cli/bomAssembly.d.ts
+  h_6a4cc5cdf68def 44-54,58-59
+types/lib/cli/bomAssembly.d.ts.map
+  h_6a4cc5cdf68def 1
+types/lib/cli/jsBom.d.ts
+  h_6a4cc5cdf68def 1
+types/lib/cli/jsBom.d.ts.map
+  h_6a4cc5cdf68def 1
+types/lib/cli/jvmBom.d.ts.map
+  h_6a4cc5cdf68def 1
+types/lib/cli/managedBom.d.ts.map
+  h_6a4cc5cdf68def 1
+types/lib/core/fs.d.ts.map
+  h_6a4cc5cdf68def 1
+types/lib/core/lockPaths.d.ts
+  h_6a4cc5cdf68def 1-19
+types/lib/core/lockPaths.d.ts.map
+  h_6a4cc5cdf68def 1
+types/lib/core/processTree.d.ts
+  h_6a4cc5cdf68def 28-29
+types/lib/core/processTree.d.ts.map
+  h_6a4cc5cdf68def 1
+types/lib/core/toolRegistry.d.ts
+  h_6a4cc5cdf68def 1-36
+types/lib/core/toolRegistry.d.ts.map
+  h_6a4cc5cdf68def 1
+types/lib/ecosystems/gemHostProbe.d.ts.map
+  h_6a4cc5cdf68def 1
+types/lib/ecosystems/gradleutils.d.ts
+  h_6a4cc5cdf68def 113-136,140-154,156-159,161-164
+types/lib/ecosystems/gradleutils.d.ts.map
+  h_6a4cc5cdf68def 1
+types/lib/ecosystems/parsers-js.d.ts.map
+  h_6a4cc5cdf68def 1
+types/lib/ecosystems/pythonutils.d.ts
+  h_6a4cc5cdf68def 119
+types/lib/ecosystems/rubyutils.d.ts.map
+  h_6a4cc5cdf68def 1
+types/lib/inventory/envcontext.d.ts
+  h_6a4cc5cdf68def 181-182
+types/lib/inventory/envcontext.d.ts.map
+  h_6a4cc5cdf68def 1
+types/lib/inventory/formulationParsers.d.ts.map
+  h_6a4cc5cdf68def 1
+types/lib/inventory/hostRuntimeProbe.d.ts.map
+  h_6a4cc5cdf68def 1
+types/lib/inventory/jvmToolEnv.d.ts
+  h_6a4cc5cdf68def 129-140
+types/lib/inventory/jvmToolEnv.d.ts.map
+  h_6a4cc5cdf68def 1
+types/lib/inventory/rubyBuildInfo.d.ts
+  h_6a4cc5cdf68def 244-248,251,254
+types/lib/inventory/rubyBuildInfo.d.ts.map
+  h_6a4cc5cdf68def 1
+types/lib/stages/pregen/envAudit.d.ts.map
+  h_6a4cc5cdf68def 1
+types/lib/stages/pregen/pregen.d.ts
+  h_6a4cc5cdf68def 26-32,89-91,96
+types/lib/stages/pregen/pregen.d.ts.map
+  h_6a4cc5cdf68def 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "1453e514431911c8be569ac4636f0e446bf5239a",
+  "prompts": {},
+  "humans": {
+    "h_6a4cc5cdf68def": {
+      "author": "Team AppThreat <cloud@appthreat.com>"
+    }
+  }
+}
