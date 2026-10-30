@@ -220,7 +220,7 @@ function runAndCheck() {
   const env = { ...process.env };
   for (const name of ["CDXGEN_SCALASEM_DISABLE", "CDXGEN_DRY_RUN"]) {
     if (env[name]) {
-      console.log(`Ignoring ${name}=${env[name]} for this run.`);
+      console.log(`Ignoring ${name} for this run.`);
       delete env[name];
     }
   }
