@@ -1,0 +1,103 @@
+lib/ecosystems/gradle-root-named.poku.js
+  s_e2e3bfd431eb57::t_9a1d9777699140 107-112
+  s_e2e3bfd431eb57::t_b75f533b918a66 1-106,113-126
+lib/cli/jvmBom.js
+  s_e2e3bfd431eb57::t_72ff49e8e86c4a 1642-1647
+  s_e2e3bfd431eb57::t_5890998be75f2c 47,54-55,1347-1349,1352-1354,1533-1534,1537-1539,1542,1593-1597,1600-1602,1649,1651,1718,1725,1728-1735
+lib/ecosystems/gradleutils.js
+  s_e2e3bfd431eb57::t_04f2c89c55da42 353-357,361
+  s_e2e3bfd431eb57::t_2ad16f9a6e5b08 307-313,1313
+  s_e2e3bfd431eb57::t_21957fdfe00d79 222-265,365
+  s_e2e3bfd431eb57::t_fe86bdd830b0d3 366-398,518,1299,1302,1312,1387,1395
+  s_e2e3bfd431eb57::t_cf96f9c212ccd7 290
+  s_e2e3bfd431eb57::t_733314c320ddaf 516-517,519,522,526,562-563,578,604,608,1296-1298,1300-1301,1303-1311,1314-1315,1386,1388-1390,1403,1432-1439,1627-1631
+.github/workflows/repotests.yml
+  s_e2e3bfd431eb57::t_a787af7aae44f4 2142-2152
+  s_e2e3bfd431eb57::t_135b30b63ba866 2153-2163
+README.md
+  s_e2e3bfd431eb57::t_79bfd178d5b42f 340
+docs/CLI.md
+  s_e2e3bfd431eb57::t_a714b63a561edd 247
+docs/ENV.md
+  s_e2e3bfd431eb57::t_0d9710e70e1058 170-171
+docs/README.md
+  s_e2e3bfd431eb57::t_fa1dc1ed88ee1d 101
+lib/ecosystems/gradle-edge-cases.poku.js
+  s_e2e3bfd431eb57::t_335d6e839c5f26 1-135
+lib/ecosystems/gradle-isolated.poku.js
+  s_e2e3bfd431eb57::t_619248907e9ffc 21,27-30,43-50,53,56,96,101,143
+lib/ecosystems/gradleutils.poku.js
+  s_e2e3bfd431eb57::t_11c87909137655 12,17-18,755,763,800,829,2149-2485
+test/data/gradle-dependencies-4695.txt
+  s_e2e3bfd431eb57::t_74095dceb40e04 1-244
+test/data/gradle-properties-4695.txt
+  s_e2e3bfd431eb57::t_f3c1b1c711f32b 1-414
+test/helpers/gradle-e2e.js
+  s_e2e3bfd431eb57::t_f1f090e3b5080c 1-151
+test/repotests/gradle-edge-cases/.gitignore
+  s_e2e3bfd431eb57::t_7668c56bbaece3 1-2
+test/repotests/gradle-edge-cases/app/build.gradle
+  s_e2e3bfd431eb57::t_8639b61e97ae37 1-16
+test/repotests/gradle-edge-cases/build-logic/.gitignore
+  s_e2e3bfd431eb57::t_2f6009c31c3232 1-2
+test/repotests/gradle-edge-cases/build-logic/build.gradle
+  s_e2e3bfd431eb57::t_970bd6937782a8 1-22
+test/repotests/gradle-edge-cases/build-logic/settings.gradle
+  s_e2e3bfd431eb57::t_415b521c267497 1
+test/repotests/gradle-edge-cases/build.gradle
+  s_e2e3bfd431eb57::t_ce8f3a45c44b26 1
+test/repotests/gradle-edge-cases/gradle.properties
+  s_e2e3bfd431eb57::t_d037fb92a3d439 1-2
+test/repotests/gradle-edge-cases/gradle/wrapper/gradle-wrapper.properties
+  s_e2e3bfd431eb57::t_4b51f60d9940e3 1-10
+test/repotests/gradle-edge-cases/gradlew
+  s_e2e3bfd431eb57::t_5525a259344874 1-248
+test/repotests/gradle-edge-cases/gradlew.bat
+  s_e2e3bfd431eb57::t_78e36509a97548 1-82
+"test/repotests/gradle-edge-cases/my lib/build.gradle"
+  s_e2e3bfd431eb57::t_96a8917bbd48e5 1-15
+test/repotests/gradle-edge-cases/settings.gradle
+  s_e2e3bfd431eb57::t_db468bee6b5e62 1-13
+test/repotests/gradle-edge-cases/tools/.gitignore
+  s_e2e3bfd431eb57::t_ccac98c57004f0 1-2
+test/repotests/gradle-edge-cases/tools/build.gradle
+  s_e2e3bfd431eb57::t_ca1e0ebf8678be 1-12
+test/repotests/gradle-edge-cases/tools/settings.gradle
+  s_e2e3bfd431eb57::t_3116c0f7a22887 1
+test/repotests/gradle-root-named-module/.gitignore
+  s_e2e3bfd431eb57::t_b2feee8acf40f4 1-2
+test/repotests/gradle-root-named-module/build.gradle
+  s_e2e3bfd431eb57::t_c581ea7f634491 1
+test/repotests/gradle-root-named-module/example-service-it/build.gradle
+  s_e2e3bfd431eb57::t_f0d77e7658e5a7 1-11
+test/repotests/gradle-root-named-module/example-service-rest-api/build.gradle
+  s_e2e3bfd431eb57::t_8fd19142a575b3 1-11
+test/repotests/gradle-root-named-module/example-service/build.gradle.kts
+  s_e2e3bfd431eb57::t_ec16914da3d056 1-13
+test/repotests/gradle-root-named-module/gradle.properties
+  s_e2e3bfd431eb57::t_540a646f9dd7b2 1-4
+test/repotests/gradle-root-named-module/gradle/wrapper/gradle-wrapper.properties
+  s_e2e3bfd431eb57::t_245f8f85f9d70a 1-10
+test/repotests/gradle-root-named-module/gradlew
+  s_e2e3bfd431eb57::t_c0ec3cc7f59c5f 1-248
+test/repotests/gradle-root-named-module/gradlew.bat
+  s_e2e3bfd431eb57::t_7498391a2b5452 1-82
+test/repotests/gradle-root-named-module/settings.gradle.kts
+  s_e2e3bfd431eb57::t_b2cfcd4315ed84 1-7
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "160fbfedb455c2505abb6e64467808eece2c7877",
+  "prompts": {},
+  "sessions": {
+    "s_e2e3bfd431eb57": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "656769dc-b9c9-4048-b528-27cf4c04ab25",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
