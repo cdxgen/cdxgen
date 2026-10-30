@@ -5,6 +5,11 @@ set -euo pipefail
 SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 REPO_ROOT="$(cd -- "$SCRIPT_DIR/.." && pwd)"
 readonly PODMAN_SOCKET_RETRIES=10
+# Pinned base images shared by the docker, podman and nerdctl lanes. Every
+# lane must scan byte-identical image content for the cross-runtime audit
+# signatures to match, so each ref resolves to a single immutable digest.
+readonly ALPINE_IMAGE="docker.io/library/alpine:3.24@sha256:be2656061b536c1883c4034790e21d0a09c5aaaf51968b89368a3c0371ea2c9a" # alpine 3.24 as of 2026-10-29
+readonly UBUNTU_IMAGE="docker.io/library/ubuntu:26.04@sha256:6a06111c3b0a8600feadb270aec771dc239bf407b25625f93f44ab00e11f4d3c" # ubuntu 26.04 as of 2026-10-29
 
 source "$SCRIPT_DIR/assertions.sh"
 TEST_TMP_DIR=""
@@ -105,9 +110,9 @@ run_docker_tests() {
   local alpine_extracted_dir="$TEST_TMP_DIR/alpine-archive"
   local alpine_rootfs_dir="$TEST_TMP_DIR/alpine-rootfs"
 
-  docker pull ubuntu:latest
-  docker save -o "$ubuntu_archive" ubuntu:latest
-  docker rmi ubuntu:latest
+  docker pull "$UBUNTU_IMAGE"
+  docker save -o "$ubuntu_archive" "$UBUNTU_IMAGE"
+  docker rmi "$UBUNTU_IMAGE"
   bin/cdxgen.js "$ubuntu_archive" -p -t docker -o bomresults/bom-ubuntu.tar.json --fail-on-error
   bin/cdxgen.js "$ubuntu_archive" -p -t docker -o bomresults/bom-ubuntu.tar-audit.json --bom-audit --bom-audit-categories container-risk --fail-on-error
   assert_container_audit_bom bomresults/bom-ubuntu.tar-audit.json
@@ -121,9 +126,9 @@ run_docker_tests() {
   assert_same_component_signature bomresults/bom-ubuntu.tar.json bomresults/bom-ubuntu.rootfs.json
   assert_same_os_repository_crypto_signature bomresults/bom-ubuntu.tar.json bomresults/bom-ubuntu.rootfs.json
 
-  docker pull alpine:latest
-  docker save -o "$alpine_archive" alpine:latest
-  docker rmi alpine:latest
+  docker pull "$ALPINE_IMAGE"
+  docker save -o "$alpine_archive" "$ALPINE_IMAGE"
+  docker rmi "$ALPINE_IMAGE"
   bin/cdxgen.js "$alpine_archive" -p -t docker -o bomresults/bom-alpine.tar.json --fail-on-error
   bin/cdxgen.js "$alpine_archive" -p -t docker -o bomresults/bom-alpine.tar-audit.json --bom-audit --bom-audit-categories container-risk --fail-on-error
   assert_container_audit_bom bomresults/bom-alpine.tar-audit.json
@@ -159,12 +164,12 @@ run_podman_tests() {
     return 0
   fi
 
-  docker pull alpine:latest
-  bin/cdxgen.js alpine:latest -p -t docker -o bomresults/bom-docker-alpine-audit.json --bom-audit --bom-audit-categories container-risk --fail-on-error
+  docker pull "$ALPINE_IMAGE"
+  bin/cdxgen.js "$ALPINE_IMAGE" -p -t docker -o bomresults/bom-docker-alpine-audit.json --bom-audit --bom-audit-categories container-risk --fail-on-error
   assert_container_audit_bom bomresults/bom-docker-alpine-audit.json
   assert_trivy_tool_identity_bom bomresults/bom-docker-alpine-audit.json
-  docker save -o "$docker_archive" alpine:latest
-  docker rmi alpine:latest
+  docker save -o "$docker_archive" "$ALPINE_IMAGE"
+  docker rmi "$ALPINE_IMAGE"
   bin/cdxgen.js "$docker_archive" -p -t docker -o "$docker_archive_audit" --bom-audit --bom-audit-categories container-risk --fail-on-error
   assert_container_audit_bom "$docker_archive_audit"
   assert_trivy_tool_identity_bom "$docker_archive_audit"
@@ -188,20 +193,20 @@ run_podman_tests() {
   fi
 
   export DOCKER_HOST="unix://$XDG_RUNTIME_DIR/podman/podman.sock"
-  podman pull docker.io/library/alpine:latest
-  bin/cdxgen.js docker.io/library/alpine:latest -p -t docker -o bomresults/bom-podman-alpine.json --fail-on-error
-  bin/cdxgen.js docker.io/library/alpine:latest -p -t docker -o bomresults/bom-podman-alpine-audit.json --bom-audit --bom-audit-categories container-risk --fail-on-error
+  podman pull "$ALPINE_IMAGE"
+  bin/cdxgen.js "$ALPINE_IMAGE" -p -t docker -o bomresults/bom-podman-alpine.json --fail-on-error
+  bin/cdxgen.js "$ALPINE_IMAGE" -p -t docker -o bomresults/bom-podman-alpine-audit.json --bom-audit --bom-audit-categories container-risk --fail-on-error
   assert_container_audit_bom bomresults/bom-podman-alpine-audit.json
   assert_same_container_audit_signature bomresults/bom-docker-alpine-audit.json bomresults/bom-podman-alpine-audit.json
 
-  podman save -q --format docker-archive -o "$podman_docker_archive" docker.io/library/alpine:latest
+  podman save -q --format docker-archive -o "$podman_docker_archive" "$ALPINE_IMAGE"
   bin/cdxgen.js "$podman_docker_archive" -p -t docker -o bomresults/bom-podman-docker-archive.json --fail-on-error
   bin/cdxgen.js "$podman_docker_archive" -p -t docker -o bomresults/bom-podman-docker-archive-audit.json --bom-audit --bom-audit-categories container-risk --fail-on-error
   assert_container_audit_bom bomresults/bom-podman-docker-archive-audit.json
   assert_same_container_audit_signature "$docker_archive_audit" bomresults/bom-podman-docker-archive-audit.json
 
-  podman save -q --format oci-archive -o "$podman_oci_archive" docker.io/library/alpine:latest
-  podman rmi docker.io/library/alpine:latest
+  podman save -q --format oci-archive -o "$podman_oci_archive" "$ALPINE_IMAGE"
+  podman rmi "$ALPINE_IMAGE"
   bin/cdxgen.js "$podman_oci_archive" -p -t docker -o bomresults/bom-podman-oci-archive.json --fail-on-error
   bin/cdxgen.js "$podman_oci_archive" -p -t docker -o bomresults/bom-podman-oci-archive-audit.json --bom-audit --bom-audit-categories container-risk --fail-on-error
   assert_container_audit_bom bomresults/bom-podman-oci-archive-audit.json
@@ -222,15 +227,15 @@ run_nerdctl_tests() {
   fi
 
   export DOCKER_CMD=nerdctl
-  nerdctl pull docker.io/library/alpine:latest
-  bin/cdxgen.js docker.io/library/alpine:latest -p -t docker -o bomresults/bom-nerdctl-alpine.json --fail-on-error
-  bin/cdxgen.js docker.io/library/alpine:latest -p -t docker -o "$baseline_audit" --bom-audit --bom-audit-categories container-risk --fail-on-error
+  nerdctl pull "$ALPINE_IMAGE"
+  bin/cdxgen.js "$ALPINE_IMAGE" -p -t docker -o bomresults/bom-nerdctl-alpine.json --fail-on-error
+  bin/cdxgen.js "$ALPINE_IMAGE" -p -t docker -o "$baseline_audit" --bom-audit --bom-audit-categories container-risk --fail-on-error
   assert_container_file_inventory_bom bomresults/bom-nerdctl-alpine.json
   assert_container_audit_bom "$baseline_audit"
   assert_trivy_tool_identity_bom "$baseline_audit"
 
-  nerdctl save -o "$nerdctl_archive" docker.io/library/alpine:latest
-  nerdctl rmi docker.io/library/alpine:latest
+  nerdctl save -o "$nerdctl_archive" "$ALPINE_IMAGE"
+  nerdctl rmi "$ALPINE_IMAGE"
   bin/cdxgen.js "$nerdctl_archive" -p -t docker -o bomresults/bom-nerdctl-alpine-tar.json --fail-on-error
   bin/cdxgen.js "$nerdctl_archive" -p -t docker -o bomresults/bom-nerdctl-alpine-tar-audit.json --bom-audit --bom-audit-categories container-risk --fail-on-error
   assert_container_file_inventory_bom bomresults/bom-nerdctl-alpine-tar.json
