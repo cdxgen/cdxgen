@@ -19,6 +19,7 @@ import process from "node:process";
 import yargs from "yargs";
 import { hideBin } from "yargs/helpers";
 
+import { installConsoleShim, restoreConsole } from "../lib/core/ui.js";
 import {
   dirNameStr,
   retrieveCdxgenVersion,
@@ -143,6 +144,11 @@ const args = _yargs
   .version(retrieveCdxgenVersion())
   .help()
   .wrap(Math.min(120, yargs().terminalWidth())).argv;
+
+// stdout carries the report and nothing else; messages from the validators
+// go to the diagnostic stream so `-r json` and `-r sarif` stay parseable.
+installConsoleShim();
+process.once("exit", restoreConsole);
 
 /**
  * Loads the BOM. When signatures are verified, the text must also pass

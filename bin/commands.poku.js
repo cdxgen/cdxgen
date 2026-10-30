@@ -98,6 +98,67 @@ describe("bin commands over a CycloneDX document", () => {
     assert.ok((stdout + stderr).length > 0);
   });
 
+  it("cdx-validate keeps stdout parseable when the schema check fails", async () => {
+    const badBom = join(workDir, "schema-invalid.json");
+    writeFileSync(
+      badBom,
+      JSON.stringify({
+        bomFormat: "CycloneDX",
+        specVersion: "1.6",
+        version: 1,
+        components: [{ name: "left-pad", version: "1.3.0" }],
+      }),
+    );
+    for (const reporter of ["json", "sarif"]) {
+      const { stdout, stderr } = await run([
+        binFor("validate"),
+        "-i",
+        badBom,
+        "-r",
+        reporter,
+        "--benchmark",
+        "none",
+      ]);
+      assert.doesNotThrow(() => JSON.parse(stdout), reporter);
+      assert.ok(stderr.includes("Schema validation failed"), reporter);
+    }
+  });
+
+  it("cdx-validate runs the deep validators once and reports a passing schema", async () => {
+    const badBom = join(workDir, "deep-invalid.json");
+    writeFileSync(
+      badBom,
+      JSON.stringify({
+        bomFormat: "CycloneDX",
+        specVersion: "1.6",
+        version: 1,
+        components: [
+          {
+            type: "cryptographic-asset",
+            name: "aes-256-gcm",
+            purl: "pkg:generic/aes-256-gcm",
+          },
+        ],
+      }),
+    );
+    const { stdout, stderr } = await run([
+      binFor("validate"),
+      "-i",
+      badBom,
+      "-r",
+      "json",
+      "--benchmark",
+      "none",
+    ]);
+    const report = JSON.parse(stdout);
+    assert.strictEqual(report.schemaValid, true);
+    assert.strictEqual(report.deepValid, false);
+    assert.strictEqual(
+      stderr.split("purl should not be defined for cryptographic-asset").length,
+      2,
+    );
+  });
+
   it("cdx-convert exports an SPDX document", async () => {
     const spdxFile = join(workDir, "bom.spdx.json");
     const { status } = await run([
