@@ -152,9 +152,22 @@ nothing to enable beyond the caps.
 ## Reports and slices
 
 The report is written to the `--semantics-slices-file` path: an absolute path as given,
-a file name in the directory of the output BOM. It is reused instead of running scalasem
-again when it names this project and is newer than the input BOM. A run that produces no
-usable report leaves the file at that path as it was.
+a file name in the directory of the output BOM. Without an output BOM there is nowhere
+to keep it, and the report lives only as long as the run. A kept report records the
+settings of the run that made it (whether the build ran, whether tests were included).
+
+A report at that path is reused instead of running scalasem again when all of these hold:
+
+- it names this project, compared through symbolic links (`/var` and `/private/var` on
+  macOS) and without regard to case on Windows; a report that names no project is
+  never reused
+- it is newer than the input BOM, than the build files (`build.sbt`, `build.sc`,
+  `build.mill`, `pom.xml`, `project.scala`, `project/build.properties`), and than every
+  source file it describes, and none of those sources has gone away
+- cdxgen kept it from a run with the same settings; a report written by scalasem
+  directly records none, and the freshness checks alone decide
+
+A run that produces no usable report leaves the file at that path as it was.
 
 Slices the user passes are still read: a version 1 semantics slice whose files exist in
 this project, usages and reachables slices as for any other language, and an OpenAPI
@@ -170,6 +183,62 @@ scalasem report, with no usages slice:
 cdxgen -t scala --evidence --semantics-slices-file "$(pwd)/scalasem.slices.json" -o bom.json .
 atom-tools convert -t scala -e scalasem.slices.json -o openapi.json
 ```
+
+## Local accuracy check
+
+The repo tests run the Scala evidence over small Play samples and recorded
+reports, which lag behind the current Scala and sbt releases. A large, current
+project can break the join in ways they never see: scalasem 1.10.4, for
+example, analysed none of chen's Scala 3.10 modules, and cdxgen reported facts
+from a stale build as if they were current. `contrib/scala-evinse-accuracy`
+guards against that with a development check run over a local
+[chen](https://github.com/AppThreat/chen) checkout. It is not a CI job; its
+unit tests under `test/scala-evinse-accuracy` are.
+
+Run it when the `@appthreat/atom-parsetools` version cdxgen depends on changes,
+and when `lib/ecosystems/scalasem.js` changes. It needs an installed checkout
+(`pnpm install`) whose atom-parsetools is the version `package.json` pins, and a
+chen checkout:
+
+```shell
+node contrib/scala-evinse-accuracy/check-chen.mjs <path-to-chen>
+```
+
+| Option                  | Effect                                                                                                                                                      |
+| ----------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--no-install-deps`     | No build tool runs, and only what a previous build left on disk is read. This is the mode the known scalasem failures over chen were found in.             |
+| `--keep`                | Keep the run directory: `bom.json`, `bom.json.map`, `scalasem.slices.json` and `cdxgen.log`.                                                                |
+| `--expect <a,b,...>`    | The dependencies that must have occurrences, by artifact name without the Scala suffix. Defaults to chen's list, so other projects such as atom can be checked. |
+| `--timeout-minutes <n>` | Stop cdxgen after this long. The default is 60.                                                                                                              |
+
+Set `SCALASEM_CMD` to check another analyzer release over the same checkout; the
+version check is skipped then. `CDXGEN_SCALASEM_DISABLE` and `CDXGEN_DRY_RUN` are
+removed from the environment of the run, since either would leave the checks
+measuring other evidence.
+
+The script runs this checkout's cdxgen with `--profile research` over the
+checkout you name. The build runs in that checkout; the BOM, the report, the
+namespace map and the log go to a temporary directory. It then checks the BOM:
+
+| Check                                              | What it means                                                                                                                                                                                                                                                                                                                                                      |
+| -------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| scalasem ran over the project                      | The metadata component names the `scalasem/2` report schema and a positive `cdx:scalasem:filesAnalyzed`, and a report was read. Without this, a run with the analyzer off would pass every later check on whatever other evidence the BOM holds.                                                                                                                   |
+| no scalasem diagnostics on the metadata component  | No `cdx:scalasem:diagnostic:*` property. Any of them means the run degraded: the analyzer compiled no helper, could not read the TASTy, or stopped early. The counts a healthy run keeps (`unresolved-symbols`, `stale-output`) never reach the BOM; they are read from the report and printed beside the result without failing it.                                 |
+| expected dependencies have occurrences             | chen's main dependencies (`cpg2`, `javaparser-symbol-solver-core`, `circe-core`, `circe-parser`, `upickle` and `asm`; the list is the `EXPECTED_DEPENDENCIES` constant at the top of `checks.mjs`) are each in the BOM with at least one evidence occurrence. Names match exactly, with or without the Scala suffix. A dependency the BOM does not hold at all is reported as *missing from BOM*. |
+| occurrence locations resolve                       | Every occurrence points at a file under the project root, at a line the file has. A line that is not a positive whole number, or a `line` that disagrees with a `#N` in the location, fails too. Every offender is counted; the first few per component are listed.                                                                                                 |
+| call stacks end in the component that carries them | Every published stack ends where a stack of the report has its sink, and one of the classes called there is a class the component ships, as the jar namespace map beside the BOM records. Frames name a class or a file, with positive lines. A BOM without any stack fails. A component the map holds no namespaces for is counted as unverifiable.                    |
+| each library is listed once                        | No two Maven components share normalized coordinates and a Scala binary version, and no component is the `<group>.<artifact>` staged spelling of another at the same version.                                                                                                                                                                                       |
+
+The script prints one line per check and exits non-zero when any check fails.
+A failing result on a known-bad analyzer is the correct outcome: fix the
+version or the join, not the check.
+
+The checks see what the join produced, not everything the join dropped: a
+stack or occurrence that never reached the BOM is invisible here. The detailed
+accuracy measurement of scalasem itself - coverage per module, library usage
+against the class files, spot-checked locations - is the matching local script
+in [atom-parsetools](https://github.com/AppThreat/atom-parsetools); this check
+guards the join on the cdxgen side.
 
 ## Limits that remain by design
 

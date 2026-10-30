@@ -1,6 +1,6 @@
 {
   "$schema": "https://poku.io/schemas/configs.json",
-  "include": ["lib", "bin"],
+  "include": ["lib", "bin", "test/scala-evinse-accuracy"],
   "filter": ".poku.js",
   "envFile": "test/poku.env",
   "reporter": "compact"
