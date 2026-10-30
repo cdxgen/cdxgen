@@ -1,0 +1,27 @@
+bin/commands.poku.js
+  s_5d60362ff70d6f::t_29a5a72755f888 101-161
+bin/validate.js
+  s_5d60362ff70d6f::t_c2a8c2317f328b 22,148-151
+  s_5d60362ff70d6f::t_8451b778059c5b 152
+lib/validator/bomValidator.js
+  s_5d60362ff70d6f::t_c2a8c2317f328b 266-267,271,297-298
+  s_5d60362ff70d6f::t_db48458fa74ea1 299
+lib/validator/index.js
+  s_5d60362ff70d6f::t_c2a8c2317f328b 129
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "90baa955934985ea4a18630e8e382c96bc18a0bd",
+  "prompts": {},
+  "sessions": {
+    "s_5d60362ff70d6f": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "58493ab1-a12c-4ed5-8815-6932b84c41ee",
+        "model": "claude-sonnet-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
