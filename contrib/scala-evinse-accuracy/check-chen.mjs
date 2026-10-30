@@ -172,6 +172,14 @@ const workDir = mkdtempSync(join(tmpdir(), "cdxgen-check-chen-"));
 const bomFile = join(workDir, "bom.json");
 const reportFile = join(workDir, "scalasem.slices.json");
 const logFile = join(workDir, "cdxgen.log");
+// Ctrl-C or a kill reaches cdxgen too; listening keeps this process alive
+// long enough to remove the run directory once cdxgen has stopped.
+let interrupted;
+for (const signal of ["SIGINT", "SIGTERM"]) {
+  process.on(signal, () => {
+    interrupted = signal;
+  });
+}
 let exitCode = 1;
 try {
   exitCode = runAndCheck();
@@ -188,7 +196,7 @@ try {
     }
   }
 }
-process.exit(exitCode);
+process.exit(interrupted ? 130 : exitCode);
 
 function runAndCheck() {
   const cdxgenArgs = [
