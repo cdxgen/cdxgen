@@ -1,0 +1,21 @@
+lib/ecosystems/scalasem.js
+  s_474d33a1b10cd3::t_b3ed04f944a96a 896-914,920-923,928,936-944
+lib/ecosystems/scalasem.poku.js
+  s_474d33a1b10cd3::t_1fa34012d8c4af 602-639
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "51a2b1533f0196526f67354ac9da63082a940de5",
+  "prompts": {},
+  "sessions": {
+    "s_474d33a1b10cd3": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "89922bb1-1482-456b-b779-2e8b380ce10e",
+        "model": "claude-sonnet-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
