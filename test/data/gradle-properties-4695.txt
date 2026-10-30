@@ -1,0 +1,414 @@
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/9.6.0/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build 
+
+> Configure project :
+<CDXGEN:repository>:Reposilite:https://appthreats-mini.tailf64ad.ts.net/maven
+
+> Configure project :example-service
+<CDXGEN:repository>:Reposilite:https://appthreats-mini.tailf64ad.ts.net/maven
+<CDXGEN:repository>:MavenRepo:https://repo.maven.apache.org/maven2/
+
+> Configure project :example-service-it
+<CDXGEN:repository>:Reposilite:https://appthreats-mini.tailf64ad.ts.net/maven
+<CDXGEN:repository>:MavenRepo:https://repo.maven.apache.org/maven2/
+
+> Configure project :example-service-rest-api
+<CDXGEN:repository>:Reposilite:https://appthreats-mini.tailf64ad.ts.net/maven
+<CDXGEN:repository>:MavenRepo:https://repo.maven.apache.org/maven2/
+
+> Task :properties
+
+------------------------------------------------------------
+Root project 'example-service'
+------------------------------------------------------------
+
+allprojects: [root project 'example-service', project ':example-service', project ':example-service-it', project ':example-service-rest-api']
+ant: org.gradle.api.internal.project.DefaultAntBuilder@6bac517b
+antBuilderFactory: org.gradle.api.internal.project.DefaultAntBuilderFactory@5bbc2e56
+artifacts: org.gradle.api.internal.artifacts.dsl.DefaultArtifactHandler_Decorated@14a5c5da
+asDynamicObject: DynamicObject for root project 'example-service'
+baseClassLoaderScope: org.gradle.api.internal.initialization.DefaultClassLoaderScope@4a662c2
+buildDir: /workspace/example-service/build
+buildFile: /workspace/example-service/build.gradle
+buildPath: :
+buildScriptSource: org.gradle.groovy.scripts.TextResourceScriptSource@d88dca4
+buildTreePath: :
+buildscript: org.gradle.api.internal.initialization.DefaultScriptHandler_Decorated@377c9ddd
+childProjects: {example-service=project ':example-service', example-service-it=project ':example-service-it', example-service-rest-api=project ':example-service-rest-api'}
+class: class org.gradle.api.internal.project.DefaultProject_Decorated
+classLoaderScope: org.gradle.api.internal.initialization.DefaultClassLoaderScope@1751e609
+components: SoftwareComponent container
+configurationActions: org.gradle.configuration.project.DefaultProjectConfigurationActionContainer@d4d15fd
+configurationTargetIdentifier: org.gradle.configuration.ConfigurationTargetIdentifier$1@3a4ad6e4
+configurations: configuration container for root project 'example-service'
+crossProjectModelAccess: org.gradle.api.internal.project.DefaultCrossProjectModelAccess@71ec50f5
+defaultTasks: []
+deferredProjectConfiguration: org.gradle.api.internal.project.DeferredProjectConfiguration@222db960
+dependencies: org.gradle.api.internal.artifacts.dsl.dependencies.DefaultDependencyHandler_Decorated@47aaa225
+dependencyFactory: org.gradle.api.internal.artifacts.DefaultDependencyFactory@2bbba1c2
+dependencyLocking: org.gradle.internal.locking.DefaultDependencyLockingHandler_Decorated@38c327b8
+depth: 0
+description: null
+detachedState: false
+displayName: root project 'example-service'
+ext: org.gradle.internal.extensibility.DefaultExtraPropertiesExtension@776a6f79
+extensions: org.gradle.internal.extensibility.DefaultExtensionContainer@65c3403b
+fileOperations: org.gradle.api.internal.file.DefaultFileOperations@130058f0
+fileResolver: org.gradle.api.internal.file.BaseDirFileResolver@325f53cf
+gradle: build ':'
+group: com.example
+identityPath: :
+inheritedScope: org.gradle.internal.extensibility.ExtensibleDynamicObject$InheritedDynamicObject@16eae35a
+internalStatus: property(java.lang.Object, fixed(class java.lang.String, release))
+isolated: DefaultIsolatedProject{root project 'example-service'}
+isolatedProjectsProblemsReporter: org.gradle.internal.configuration.problems.NoOpIsolatedProjectsProblemsReporter@7881b936
+layout: org.gradle.api.internal.file.DefaultProjectLayout@30884cc2
+lifecycleActionsState: null
+listenerBuildOperationDecorator: org.gradle.configuration.internal.DefaultListenerBuildOperationDecorator@71b989ba
+logger: org.gradle.internal.logging.slf4j.OutputEventListenerBackedLogger@25e39222
+logging: org.gradle.internal.logging.services.DefaultLoggingManager@505ed7a1
+model: root project 'example-service'
+modelIdentityDisplayName: null
+modelRegistry: org.gradle.model.internal.registry.DefaultModelRegistry@22c27f34
+name: example-service
+normalization: org.gradle.normalization.internal.DefaultInputNormalizationHandler_Decorated@1f0bc68f
+objects: org.gradle.api.internal.model.DefaultObjectFactory@264025ce
+owner: root project 'example-service'
+parent: null
+parentIdentifier: null
+path: :
+pluginContext: false
+pluginManager: org.gradle.api.internal.plugins.DefaultPluginManager_Decorated@850d78
+plugins: Plugin collection
+processOperations: org.gradle.process.internal.DefaultExecActionFactory@310ff983
+project: root project 'example-service'
+projectConfigurator: org.gradle.api.internal.project.BuildOperationCrossProjectConfigurator@70f17e93
+projectDir: /workspace/example-service
+projectEvaluationBroadcaster: ProjectEvaluationListener broadcast
+projectEvaluator: org.gradle.configuration.project.LifecycleProjectEvaluator@57385b16
+projectIdentity: root project 'example-service'
+projectPath: :
+properties: {...}
+providers: org.gradle.api.internal.provider.DefaultProviderFactory_Decorated@7f7e7244
+repositories: repository container
+resources: org.gradle.api.internal.resources.DefaultResourceHandler@31f34fc9
+rootDir: /workspace/example-service
+rootProject: root project 'example-service'
+rootScript: false
+script: false
+scriptHandlerFactory: org.gradle.api.internal.initialization.DefaultScriptHandlerFactory@4a8dba82
+scriptPluginFactory: org.gradle.configuration.ScriptPluginFactorySelector@5ff8a82e
+services: project services
+standardOutputCapture: org.gradle.internal.logging.services.DefaultLoggingManager@505ed7a1
+state: project state 'EXECUTED'
+status: release
+subprojects: [project ':example-service', project ':example-service-it', project ':example-service-rest-api']
+taskDependencyFactory: org.gradle.api.internal.tasks.DefaultTaskDependencyFactory@53181dc7
+taskThatOwnsThisObject: null
+tasks: task set
+version: 1.0.0
+versionCatalogs: extension 'versionCatalogs'
+
+> Task :example-service:properties
+
+------------------------------------------------------------
+Project ':example-service'
+------------------------------------------------------------
+
+allprojects: [project ':example-service']
+ant: org.gradle.api.internal.project.DefaultAntBuilder@5c44b682
+antBuilderFactory: org.gradle.api.internal.project.DefaultAntBuilderFactory@75da64f1
+artifacts: org.gradle.api.internal.artifacts.dsl.DefaultArtifactHandler_Decorated@61508dc4
+asDynamicObject: DynamicObject for project ':example-service'
+base: extension 'base'
+baseClassLoaderScope: org.gradle.api.internal.initialization.DefaultClassLoaderScope@4a662c2
+buildDir: /workspace/example-service/example-service/build
+buildFile: /workspace/example-service/example-service/build.gradle.kts
+buildPath: :
+buildScriptSource: org.gradle.groovy.scripts.TextResourceScriptSource@6750da9d
+buildTreePath: :example-service
+buildscript: org.gradle.api.internal.initialization.DefaultScriptHandler_Decorated@1ed99053
+childProjects: {}
+class: class org.gradle.api.internal.project.DefaultProject_Decorated
+classLoaderScope: org.gradle.api.internal.initialization.DefaultClassLoaderScope@735f955
+clean: task ':example-service:clean'
+components: SoftwareComponent container
+configurationActions: org.gradle.configuration.project.DefaultProjectConfigurationActionContainer@38029295
+configurationTargetIdentifier: org.gradle.configuration.ConfigurationTargetIdentifier$1@5dd916fc
+configurations: configuration container for project ':example-service'
+crossProjectModelAccess: org.gradle.api.internal.project.DefaultCrossProjectModelAccess@71ec50f5
+defaultTasks: []
+deferredProjectConfiguration: org.gradle.api.internal.project.DeferredProjectConfiguration@3c3cabe8
+dependencies: org.gradle.api.internal.artifacts.dsl.dependencies.DefaultDependencyHandler_Decorated@6e35ff34
+dependencyFactory: org.gradle.api.internal.artifacts.DefaultDependencyFactory@420f5e5d
+dependencyLocking: org.gradle.internal.locking.DefaultDependencyLockingHandler_Decorated@57f4de16
+depth: 1
+description: null
+detachedState: false
+displayName: project ':example-service'
+ext: org.gradle.internal.extensibility.DefaultExtraPropertiesExtension@e4e5ceb
+extensions: org.gradle.internal.extensibility.DefaultExtensionContainer@4f43de49
+fileOperations: org.gradle.api.internal.file.DefaultFileOperations@77069c4a
+fileResolver: org.gradle.api.internal.file.BaseDirFileResolver@6f3e8d2
+gradle: build ':'
+group: com.example
+identityPath: :example-service
+inheritedScope: org.gradle.internal.extensibility.ExtensibleDynamicObject$InheritedDynamicObject@7aa645e3
+internalStatus: property(java.lang.Object, fixed(class java.lang.String, integration))
+isolated: DefaultIsolatedProject{project ':example-service'}
+isolatedProjectsProblemsReporter: org.gradle.internal.configuration.problems.NoOpIsolatedProjectsProblemsReporter@7881b936
+java: extension 'java'
+javaToolchains: extension 'javaToolchains'
+layout: org.gradle.api.internal.file.DefaultProjectLayout@2b467d68
+lifecycleActionsState: null
+listenerBuildOperationDecorator: org.gradle.configuration.internal.DefaultListenerBuildOperationDecorator@71b989ba
+logger: org.gradle.internal.logging.slf4j.OutputEventListenerBackedLogger@25e39222
+logging: org.gradle.internal.logging.services.DefaultLoggingManager@68614086
+model: project ':example-service'
+modelIdentityDisplayName: null
+modelRegistry: org.gradle.model.internal.registry.DefaultModelRegistry@714d8020
+name: example-service
+normalization: org.gradle.normalization.internal.DefaultInputNormalizationHandler_Decorated@390c4ab7
+objects: org.gradle.api.internal.model.DefaultObjectFactory@2139ddc3
+owner: project ':example-service'
+parent: root project 'example-service'
+parentIdentifier: root project 'example-service'
+path: :example-service
+pluginContext: false
+pluginManager: org.gradle.api.internal.plugins.DefaultPluginManager_Decorated@433edc12
+plugins: Plugin collection
+processOperations: org.gradle.process.internal.DefaultExecActionFactory@5eef08d5
+project: project ':example-service'
+projectConfigurator: org.gradle.api.internal.project.BuildOperationCrossProjectConfigurator@70f17e93
+projectDir: /workspace/example-service/example-service
+projectEvaluationBroadcaster: ProjectEvaluationListener broadcast
+projectEvaluator: org.gradle.configuration.project.LifecycleProjectEvaluator@57385b16
+projectIdentity: project ':example-service'
+projectPath: :example-service
+properties: {...}
+providers: org.gradle.api.internal.provider.DefaultProviderFactory_Decorated@7f7e7244
+reporting: extension 'reporting'
+repositories: repository container
+resources: org.gradle.api.internal.resources.DefaultResourceHandler@5eda84d
+rootDir: /workspace/example-service
+rootProject: root project 'example-service'
+rootScript: false
+script: false
+scriptHandlerFactory: org.gradle.api.internal.initialization.DefaultScriptHandlerFactory@4a8dba82
+scriptPluginFactory: org.gradle.configuration.ScriptPluginFactorySelector@5ff8a82e
+services: project services
+sourceSets: SourceSet container
+standardOutputCapture: org.gradle.internal.logging.services.DefaultLoggingManager@68614086
+state: project state 'EXECUTED'
+status: integration
+subprojects: []
+taskDependencyFactory: org.gradle.api.internal.tasks.DefaultTaskDependencyFactory@6a55baf6
+taskThatOwnsThisObject: null
+tasks: task set
+testing: extension 'testing'
+version: 1.0.0
+versionCatalogs: extension 'versionCatalogs'
+
+> Task :example-service-it:properties
+
+------------------------------------------------------------
+Project ':example-service-it'
+------------------------------------------------------------
+
+allprojects: [project ':example-service-it']
+ant: org.gradle.api.internal.project.DefaultAntBuilder@79312760
+antBuilderFactory: org.gradle.api.internal.project.DefaultAntBuilderFactory@11f647cb
+artifacts: org.gradle.api.internal.artifacts.dsl.DefaultArtifactHandler_Decorated@56b3cd09
+asDynamicObject: DynamicObject for project ':example-service-it'
+base: extension 'base'
+baseClassLoaderScope: org.gradle.api.internal.initialization.DefaultClassLoaderScope@4a662c2
+buildDir: /workspace/example-service/example-service-it/build
+buildFile: /workspace/example-service/example-service-it/build.gradle
+buildPath: :
+buildScriptSource: org.gradle.groovy.scripts.TextResourceScriptSource@788c7308
+buildTreePath: :example-service-it
+buildscript: org.gradle.api.internal.initialization.DefaultScriptHandler_Decorated@876515e
+childProjects: {}
+class: class org.gradle.api.internal.project.DefaultProject_Decorated
+classLoaderScope: org.gradle.api.internal.initialization.DefaultClassLoaderScope@2b1d9784
+clean: task ':example-service-it:clean'
+components: SoftwareComponent container
+configurationActions: org.gradle.configuration.project.DefaultProjectConfigurationActionContainer@638ecc6b
+configurationTargetIdentifier: org.gradle.configuration.ConfigurationTargetIdentifier$1@7881e721
+configurations: configuration container for project ':example-service-it'
+crossProjectModelAccess: org.gradle.api.internal.project.DefaultCrossProjectModelAccess@71ec50f5
+defaultTasks: []
+deferredProjectConfiguration: org.gradle.api.internal.project.DeferredProjectConfiguration@4247b5ce
+dependencies: org.gradle.api.internal.artifacts.dsl.dependencies.DefaultDependencyHandler_Decorated@521abb5
+dependencyFactory: org.gradle.api.internal.artifacts.DefaultDependencyFactory@10d9c2ee
+dependencyLocking: org.gradle.internal.locking.DefaultDependencyLockingHandler_Decorated@6716873b
+depth: 1
+description: null
+detachedState: false
+displayName: project ':example-service-it'
+ext: org.gradle.internal.extensibility.DefaultExtraPropertiesExtension@1880b7d2
+extensions: org.gradle.internal.extensibility.DefaultExtensionContainer@1074db74
+fileOperations: org.gradle.api.internal.file.DefaultFileOperations@4ee4a526
+fileResolver: org.gradle.api.internal.file.BaseDirFileResolver@1d98dc9e
+gradle: build ':'
+group: com.example
+identityPath: :example-service-it
+inheritedScope: org.gradle.internal.extensibility.ExtensibleDynamicObject$InheritedDynamicObject@3bc6d8
+internalStatus: property(java.lang.Object, fixed(class java.lang.String, integration))
+isolated: DefaultIsolatedProject{project ':example-service-it'}
+isolatedProjectsProblemsReporter: org.gradle.internal.configuration.problems.NoOpIsolatedProjectsProblemsReporter@7881b936
+java: extension 'java'
+javaToolchains: extension 'javaToolchains'
+layout: org.gradle.api.internal.file.DefaultProjectLayout@362202d0
+lifecycleActionsState: null
+listenerBuildOperationDecorator: org.gradle.configuration.internal.DefaultListenerBuildOperationDecorator@71b989ba
+logger: org.gradle.internal.logging.slf4j.OutputEventListenerBackedLogger@25e39222
+logging: org.gradle.internal.logging.services.DefaultLoggingManager@5d845ca7
+model: project ':example-service-it'
+modelIdentityDisplayName: null
+modelRegistry: org.gradle.model.internal.registry.DefaultModelRegistry@62307a5
+name: example-service-it
+normalization: org.gradle.normalization.internal.DefaultInputNormalizationHandler_Decorated@58701cbf
+objects: org.gradle.api.internal.model.DefaultObjectFactory@7e62b1e3
+owner: project ':example-service-it'
+parent: root project 'example-service'
+parentIdentifier: root project 'example-service'
+path: :example-service-it
+pluginContext: false
+pluginManager: org.gradle.api.internal.plugins.DefaultPluginManager_Decorated@17cabec
+plugins: Plugin collection
+processOperations: org.gradle.process.internal.DefaultExecActionFactory@1ffc8a49
+project: project ':example-service-it'
+projectConfigurator: org.gradle.api.internal.project.BuildOperationCrossProjectConfigurator@70f17e93
+projectDir: /workspace/example-service/example-service-it
+projectEvaluationBroadcaster: ProjectEvaluationListener broadcast
+projectEvaluator: org.gradle.configuration.project.LifecycleProjectEvaluator@57385b16
+projectIdentity: project ':example-service-it'
+projectPath: :example-service-it
+properties: {...}
+providers: org.gradle.api.internal.provider.DefaultProviderFactory_Decorated@7f7e7244
+reporting: extension 'reporting'
+repositories: repository container
+resources: org.gradle.api.internal.resources.DefaultResourceHandler@4731f8ed
+rootDir: /workspace/example-service
+rootProject: root project 'example-service'
+rootScript: false
+script: false
+scriptHandlerFactory: org.gradle.api.internal.initialization.DefaultScriptHandlerFactory@4a8dba82
+scriptPluginFactory: org.gradle.configuration.ScriptPluginFactorySelector@5ff8a82e
+services: project services
+sourceSets: SourceSet container
+standardOutputCapture: org.gradle.internal.logging.services.DefaultLoggingManager@5d845ca7
+state: project state 'EXECUTED'
+status: integration
+subprojects: []
+taskDependencyFactory: org.gradle.api.internal.tasks.DefaultTaskDependencyFactory@2c37b441
+taskThatOwnsThisObject: null
+tasks: task set
+testing: extension 'testing'
+version: 1.0.0
+versionCatalogs: extension 'versionCatalogs'
+
+> Task :example-service-rest-api:properties
+
+------------------------------------------------------------
+Project ':example-service-rest-api'
+------------------------------------------------------------
+
+allprojects: [project ':example-service-rest-api']
+ant: org.gradle.api.internal.project.DefaultAntBuilder@33253c65
+antBuilderFactory: org.gradle.api.internal.project.DefaultAntBuilderFactory@7b1b5c7c
+artifacts: org.gradle.api.internal.artifacts.dsl.DefaultArtifactHandler_Decorated@6a9f6ae2
+asDynamicObject: DynamicObject for project ':example-service-rest-api'
+base: extension 'base'
+baseClassLoaderScope: org.gradle.api.internal.initialization.DefaultClassLoaderScope@4a662c2
+buildDir: /workspace/example-service/example-service-rest-api/build
+buildFile: /workspace/example-service/example-service-rest-api/build.gradle
+buildPath: :
+buildScriptSource: org.gradle.groovy.scripts.TextResourceScriptSource@20ea0118
+buildTreePath: :example-service-rest-api
+buildscript: org.gradle.api.internal.initialization.DefaultScriptHandler_Decorated@3a36c774
+childProjects: {}
+class: class org.gradle.api.internal.project.DefaultProject_Decorated
+classLoaderScope: org.gradle.api.internal.initialization.DefaultClassLoaderScope@1bef94f2
+clean: task ':example-service-rest-api:clean'
+components: SoftwareComponent container
+configurationActions: org.gradle.configuration.project.DefaultProjectConfigurationActionContainer@a363517
+configurationTargetIdentifier: org.gradle.configuration.ConfigurationTargetIdentifier$1@7a240788
+configurations: configuration container for project ':example-service-rest-api'
+crossProjectModelAccess: org.gradle.api.internal.project.DefaultCrossProjectModelAccess@71ec50f5
+defaultTasks: []
+deferredProjectConfiguration: org.gradle.api.internal.project.DeferredProjectConfiguration@762562df
+dependencies: org.gradle.api.internal.artifacts.dsl.dependencies.DefaultDependencyHandler_Decorated@118a20ed
+dependencyFactory: org.gradle.api.internal.artifacts.DefaultDependencyFactory@2a2f2146
+dependencyLocking: org.gradle.internal.locking.DefaultDependencyLockingHandler_Decorated@706d6bcc
+depth: 1
+description: null
+detachedState: false
+displayName: project ':example-service-rest-api'
+ext: org.gradle.internal.extensibility.DefaultExtraPropertiesExtension@2d03dc84
+extensions: org.gradle.internal.extensibility.DefaultExtensionContainer@6d4e0c81
+fileOperations: org.gradle.api.internal.file.DefaultFileOperations@3eb8357f
+fileResolver: org.gradle.api.internal.file.BaseDirFileResolver@25101a6f
+gradle: build ':'
+group: com.example
+identityPath: :example-service-rest-api
+inheritedScope: org.gradle.internal.extensibility.ExtensibleDynamicObject$InheritedDynamicObject@164405b5
+internalStatus: property(java.lang.Object, fixed(class java.lang.String, integration))
+isolated: DefaultIsolatedProject{project ':example-service-rest-api'}
+isolatedProjectsProblemsReporter: org.gradle.internal.configuration.problems.NoOpIsolatedProjectsProblemsReporter@7881b936
+java: extension 'java'
+javaToolchains: extension 'javaToolchains'
+layout: org.gradle.api.internal.file.DefaultProjectLayout@b7339f8
+lifecycleActionsState: null
+listenerBuildOperationDecorator: org.gradle.configuration.internal.DefaultListenerBuildOperationDecorator@71b989ba
+logger: org.gradle.internal.logging.slf4j.OutputEventListenerBackedLogger@25e39222
+logging: org.gradle.internal.logging.services.DefaultLoggingManager@741ff624
+model: project ':example-service-rest-api'
+modelIdentityDisplayName: null
+modelRegistry: org.gradle.model.internal.registry.DefaultModelRegistry@517949aa
+name: example-service-rest-api
+normalization: org.gradle.normalization.internal.DefaultInputNormalizationHandler_Decorated@67a6879d
+objects: org.gradle.api.internal.model.DefaultObjectFactory@7508de68
+owner: project ':example-service-rest-api'
+parent: root project 'example-service'
+parentIdentifier: root project 'example-service'
+path: :example-service-rest-api
+pluginContext: false
+pluginManager: org.gradle.api.internal.plugins.DefaultPluginManager_Decorated@7eadb83b
+plugins: Plugin collection
+processOperations: org.gradle.process.internal.DefaultExecActionFactory@65028a5d
+project: project ':example-service-rest-api'
+projectConfigurator: org.gradle.api.internal.project.BuildOperationCrossProjectConfigurator@70f17e93
+projectDir: /workspace/example-service/example-service-rest-api
+projectEvaluationBroadcaster: ProjectEvaluationListener broadcast
+projectEvaluator: org.gradle.configuration.project.LifecycleProjectEvaluator@57385b16
+projectIdentity: project ':example-service-rest-api'
+projectPath: :example-service-rest-api
+properties: {...}
+providers: org.gradle.api.internal.provider.DefaultProviderFactory_Decorated@7f7e7244
+reporting: extension 'reporting'
+repositories: repository container
+resources: org.gradle.api.internal.resources.DefaultResourceHandler@364b730f
+rootDir: /workspace/example-service
+rootProject: root project 'example-service'
+rootScript: false
+script: false
+scriptHandlerFactory: org.gradle.api.internal.initialization.DefaultScriptHandlerFactory@4a8dba82
+scriptPluginFactory: org.gradle.configuration.ScriptPluginFactorySelector@5ff8a82e
+services: project services
+sourceSets: SourceSet container
+standardOutputCapture: org.gradle.internal.logging.services.DefaultLoggingManager@741ff624
+state: project state 'EXECUTED'
+status: integration
+subprojects: []
+taskDependencyFactory: org.gradle.api.internal.tasks.DefaultTaskDependencyFactory@5030030
+taskThatOwnsThisObject: null
+tasks: task set
+testing: extension 'testing'
+version: 1.0.0
+versionCatalogs: extension 'versionCatalogs'
+
+BUILD SUCCESSFUL in 8s
+4 actionable tasks: 4 executed
+Consider enabling configuration cache to speed up this build: https://docs.gradle.org/9.6.0/userguide/configuration_cache_enabling.html

@@ -91,9 +91,14 @@ cdxgen -t java -o /tmp/bom.json -p --required-only
 Languages supported:
 
 - Java with Maven
+- Java with Gradle
 - Node.js
 - Go
 - Php
+
+For Gradle, the scope comes from the configurations that resolved a dependency. Runtime classpaths (including Android variants such as `debugRuntimeClasspath` and Kotlin targets such as `jvmRuntimeClasspath`), Kotlin/Native klibraries, the Gradle 6 `compile` and `default` configurations, and the Shadow plugin's `shadow` configuration give `required`. Test configurations give `optional`. Everything else gives `excluded`: compile-only dependencies (like Maven's `provided`), annotation processors, compiler and code-quality classpaths, configurations of included builds that build Gradle plugins, and any configuration no rule names. A dependency keeps the strongest scope among the configurations that list it. Platforms and BOMs, such as `jackson-bom`, become `pkg:maven/...?type=pom` components with the `excluded` scope.
+
+Two projects that declare the same coordinates stay separate components. In Gradle, a subproject that shares its group, name and version with an earlier one, such as `:legacy:util` and `:shared:util`, gets its project path as the purl subpath (`pkg:maven/com.example/util@1.0?type=jar#shared/util`). In Maven, an independent pom.xml that repeats another project's coordinates gets its directory, relative to the scanned path, as the subpath. A Gradle module that shares the root project's coordinates is the root's own artifact and stays merged with it.
 
 ### Purl and properties filter
 
