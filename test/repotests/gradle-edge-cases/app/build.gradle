@@ -9,8 +9,18 @@ repositories {
     mavenCentral()
 }
 
+configurations {
+    // A configuration no rule names, so its dependencies are build tooling.
+    codegen
+}
+
 dependencies {
     implementation project(':my lib')
+    implementation project(':shared:util')
+    // A platform is a pom with constraints only.
+    implementation platform('com.fasterxml.jackson:jackson-bom:2.21.1')
+    implementation 'com.fasterxml.jackson.core:jackson-databind'
+    codegen 'com.google.guava:guava:33.0.0-jre'
     // Wins the conflict with the 2.0.7 that ':my lib' declares.
     implementation 'org.slf4j:slf4j-api:2.0.17'
 }

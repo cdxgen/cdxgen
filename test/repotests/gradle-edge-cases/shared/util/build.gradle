@@ -1,0 +1,15 @@
+plugins {
+    id 'java-library'
+}
+
+// Both util projects publish as com.example:util:1.0.
+group = 'com.example'
+version = '1.0'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    api 'com.google.code.gson:gson:2.11.0'
+}
