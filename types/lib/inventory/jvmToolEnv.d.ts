@@ -127,6 +127,18 @@ export declare function determineRequiredJavaVersion(toolPins: Array<{
  */
 export declare function minimumGradleVersionForJava(javaMajor: number): string | undefined;
 /**
+ * Pick the newest stable Gradle version from `sdk list` output that can run on
+ * the given JDK major. Without a known cap this is the newest stable version,
+ * matching the plain default install; with a cap, versions below it are
+ * skipped so a project that declared a new JDK never gets a Gradle that
+ * refuses to run on it, even when the sdkman list is stale.
+ *
+ * @param {string} stdout Raw `sdk list gradle` output
+ * @param {number|undefined} javaMajor JDK major the Gradle daemon must run on
+ * @returns {string|undefined} Best matching version identifier.
+ */
+export declare function resolveGradleVersionForJava(stdout: string, javaMajor: number | undefined): string | undefined;
+/**
  * Collect the version tokens printed by `sdk list <candidate>`. The output is
  * a fixed-width table whose cells may carry `+`, `*`, or `>` status markers;
  * every token that passes the sdkman version validator is kept, which

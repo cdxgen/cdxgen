@@ -178,8 +178,8 @@ export declare function collectSwiftInfo(dir: string): {
 } | undefined;
 /**
  * Whether a Ruby executable is one the operating system or a package manager
- * owns. Distros backport fixes under the old upstream version, so its version
- * must not be matched against upstream advisories by CPE.
+ * that patches it owns. Distros backport fixes under the old upstream version,
+ * so its version must not be matched against upstream advisories by CPE.
  *
  * @param {string|undefined} realPath real path of the executable
  * @returns {boolean}

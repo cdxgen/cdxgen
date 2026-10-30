@@ -111,23 +111,57 @@ export declare function recordGradleInvocationFailure(result: Object, context?: 
     gradleVersion?: string;
 }): void;
 /**
+ * Read the properties of every project the dependency reports name that
+ * `gradleModules` does not have yet, such as a project of an included build,
+ * and add a module for each one whose properties task printed a report. One
+ * Gradle invocation covers all of them.
+ *
+ * @param {Iterable<string>} reports Text of the `gradle dependencies` reports
+ * @param {Map} gradleModules Modules keyed by project path, updated in place
+ * @param {string} gradleRootPath Directory to run Gradle in
+ * @param {Object} options CLI options
+ * @returns {Promise<string[]>} Paths of the projects added
+ */
+export declare function loadGradleModulesForReports(reports: Iterable<string>, gradleModules: Map<any, any>, gradleRootPath: string, options?: Object): Promise<string[]>;
+/**
+ * Reconcile the copies of a component that several Gradle projects report.
+ * Every copy gets the strongest scope any project gave it, so a library one
+ * module only tests with stays required when another module compiles against
+ * it, and a dependency one project failed to resolve loses its failure
+ * properties when another project resolved it.
+ *
+ * @param {Object[]} pkgList Components from all the projects, updated in place
+ * @returns {Object[]} The same list
+ */
+export declare function reconcileGradleComponents(pkgList: Object[]): Object[];
+/**
  * Method to resolve dependencies from a gradle output
  *
+ * A constraint line (`(c)`) adds neither a component nor an edge. Gradle
+ * prints a nested constraint under the platform or module that declares it,
+ * and only when the dependency it affects is resolved elsewhere in the tree,
+ * where that dependency gets its component and edges. A top-level
+ * `{strictly …}` constraint from consistent resolution can name a module the
+ * configuration never resolves. A dependency that failed to resolve carries
+ * `cdx:gradle:resolutionFailed`, keeps the version it was requested at when
+ * that is a concrete version, and otherwise records the request in
+ * `cdx:gradle:requestedVersion`. A dependency seen in several configurations
+ * keeps the strongest scope among them.
+ *
+ * The parser runs no Gradle task. A project the tree names but `gradleModules`
+ * lacks gets a component built from the root project's group and version; use
+ * `loadGradleModulesForReports` first to read such projects' properties.
+ *
  * @param {string} rawOutput Text output from gradle dependencies task
- * @param {string} rootProjectName Name of the root project
- * @param {map} gradleModules Cache with all gradle modules that have already been read
- * @param {string} gradleRootPath Root path where Gradle is to be run when getting module information
+ * @param {string} rootProjectName Key in `gradleModules` of the project the report belongs to
+ * @param {map} gradleModules Gradle modules keyed by project path, and the root project by its name
+ * @param {string} gradleRootPath Directory Gradle ran in, recorded as `cdx:gradle:GradleRootPath`
+ * @returns {{pkgList: Object[], dependenciesList: Object[]}|{}} The components and dependency graph
  */
-export declare function parseGradleDep(rawOutput: string, rootProjectName?: string, gradleModules?: map, gradleRootPath?: string): Promise<{
-    pkgList: any[];
-    dependenciesList: {
-        ref: string;
-        dependsOn: any[];
-    }[];
-} | {
-    pkgList?: undefined;
-    dependenciesList?: undefined;
-}>;
+export declare function parseGradleDep(rawOutput: string, rootProjectName?: string, gradleModules?: map, gradleRootPath?: string): {
+    pkgList: Object[];
+    dependenciesList: Object[];
+} | {};
 /**
  * Method that handles object creation for gradle modules.
  *

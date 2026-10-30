@@ -25,6 +25,8 @@ export declare function formatDuration(ms: number): string;
  * its end: once the root is gone its pid can be handed to an unrelated
  * process, whose children would otherwise look like the run's. Elsewhere this
  * does nothing: an orphan is re-parented and can no longer be told apart.
+ * It returns once the stopped processes have exited, or after ten seconds,
+ * so the caller can remove files the run left half-written.
  *
  * @param {number|undefined} rootPid pid of the process cdxgen spawned
  * @param {number} startedAt Epoch milliseconds at which the run started

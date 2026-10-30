@@ -42,9 +42,21 @@ export declare const createDefaultParentComponent: (path: string, type?: string,
  */
 export declare const determineParentComponent: (options: object) => object | undefined;
 /**
+ * Builds the tool components for the external helpers and build tools this
+ * run executed, from the run-scoped registry (issue #598). Bundled plugin
+ * helpers are enriched with the manifest component of the plugin package that
+ * ships them, so the plugin package's version and identity travel with the
+ * helper. Empty when the run spawned nothing external, which keeps such BOMs
+ * byte-identical to the previous behaviour.
+ *
+ * @returns {object[]} Sorted CycloneDX tool components
+ */
+export declare const buildExternalToolComponents: () => object[];
+/**
  * Assembles the `metadata.tools` block, including the cdxgen tool entry and,
  * for spec versions prior to 1.5, the legacy tools array. For spec version
- * 1.6+ the author field is converted to the authors array.
+ * 1.6+ the author field is converted to the authors array. The tools this run
+ * executed follow the context tools, sorted by name, and cdxgen comes last.
  *
  * @param {object} options CLI options
  * @param {object} [context={}] Additional context carrying existing components
