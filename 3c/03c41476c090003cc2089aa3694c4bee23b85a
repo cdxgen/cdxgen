@@ -1,0 +1,19 @@
+.github/workflows/dockertests.yml
+  s_474d33a1b10cd3::t_334ec4e445976b 26-33,63-64,67-69,72,78-79,90-92,100-103
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "3c03c41476c090003cc2089aa3694c4bee23b85a",
+  "prompts": {},
+  "sessions": {
+    "s_474d33a1b10cd3": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "89922bb1-1482-456b-b779-2e8b380ce10e",
+        "model": "claude-sonnet-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
