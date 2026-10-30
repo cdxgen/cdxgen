@@ -1,0 +1,43 @@
+.github/workflows/repotests.yml
+  s_e2e3bfd431eb57::t_9c0a4624b65354 2156-2159,2165-2167
+docs/ADVANCED.md
+  s_e2e3bfd431eb57::t_3431beac4dc465 94,99-102
+lib/cli/bomAssembly.js
+  s_e2e3bfd431eb57::t_c6ef25ef108121 610-616
+lib/cli/bomAssembly.poku.js
+  s_e2e3bfd431eb57::t_25dc8392d008fb 912-939
+lib/cli/jvmBom.js
+  s_e2e3bfd431eb57::t_0f42427dcf4cb5 4,130,275-335,1281-1286,1414-1416,1609-1612,1663-1670,1672-1674,1676-1695,1698,1863-1869,1871
+lib/cli/jvmBom.poku.js
+  s_e2e3bfd431eb57::t_f3c0c84d2edd35 17,238-291
+lib/ecosystems/gradle-edge-cases.poku.js
+  s_e2e3bfd431eb57::t_7b0a19ba1b01a5 16-22,50-53,137-171
+lib/ecosystems/gradleutils.js
+  s_e2e3bfd431eb57::t_60ea8851132a3c 1022-1024,1035,1038-1045,1048-1063,1066,1075,1084-1088,1091,1392-1449,1462-1463,1726,1729-1732
+lib/ecosystems/gradleutils.poku.js
+  s_e2e3bfd431eb57::t_46998d244e234a 488,494,498,1579-1582,1589,2006-2026,2464-2515
+test/repotests/gradle-edge-cases/app/build.gradle
+  s_e2e3bfd431eb57::t_bbf682767a1b8e 12-16,19-23
+test/repotests/gradle-edge-cases/legacy/util/build.gradle
+  s_e2e3bfd431eb57::t_b47ce93c5805a7 1-16
+test/repotests/gradle-edge-cases/settings.gradle
+  s_e2e3bfd431eb57::t_c6d76fb4a7df3f 1-7,14
+test/repotests/gradle-edge-cases/shared/util/build.gradle
+  s_e2e3bfd431eb57::t_9c02a9d9bf38c6 1-15
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "bd09060d548ca1aec3fb71e09dfc99fe25c82ada",
+  "prompts": {},
+  "sessions": {
+    "s_e2e3bfd431eb57": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "656769dc-b9c9-4048-b528-27cf4c04ab25",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
