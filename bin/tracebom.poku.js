@@ -1,4 +1,3 @@
-import { strict as assert } from "node:assert";
 import { spawn } from "node:child_process";
 import {
   existsSync,
@@ -12,7 +11,7 @@ import { tmpdir } from "node:os";
 import { join } from "node:path";
 import process from "node:process";
 
-import { describe, it } from "poku";
+import { strict as assert, describe, it } from "poku";
 
 const binPath = join(process.cwd(), "bin", "tracebom.js");
 
