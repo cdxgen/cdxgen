@@ -1,0 +1,23 @@
+.nvmrc
+  s_60b9b993b509a6::t_3cc04f9d339145 1
+.github/workflows/nodejs.yml
+  s_60b9b993b509a6::t_f415ddf34c09f0 53-55,59,61-62
+.github/workflows/build-images.yml
+  s_60b9b993b509a6::t_5874d4e5a71a31 181-182,185-186
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "9c9221ba678b7c7ced9dcadc7cc1c3f071851701",
+  "prompts": {},
+  "sessions": {
+    "s_60b9b993b509a6": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "session_456a1290a0f38c7613a3b42909b79a83",
+        "model": "unknown"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
