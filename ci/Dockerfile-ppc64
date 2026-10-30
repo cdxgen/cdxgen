@@ -24,7 +24,7 @@ ARG PYTHON_VERSION=3.12
 # AlmaLinux's own nodejs package trails the upstream security releases, so the
 # official build for this version is installed instead.
 # renovate: datasource=node-version depName=node
-ARG NODE_VERSION=24.22.1
+ARG NODE_VERSION=26.12.1
 # pecl.php.net no longer answers the release lookup `pecl install timezonedb`
 # relies on (rest/r/timezonedb/allreleases2.xml is a 404), so the release
 # tarball is pinned by checksum and installed from a local file.

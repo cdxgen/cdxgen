@@ -2,7 +2,7 @@
 # The scanner builds this file with the repository as the build context, then analyses the finished
 # image with no network, so everything cdxgen and its tests need is fetched here.
 # Node.js matches .nvmrc.
-FROM node:24.22.1-trixie@sha256:016f604a11c4c725f0a4c62e29ff11adab153d297bf97046c9bf2ddb9f1011d3
+FROM node:26.12.1-trixie@sha256:97fa0f1b59035c6072721a88d55be1371c7cb1cc942b521e1cc5c72ec87655f4
 
 ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && apt-get install -y --no-install-recommends \
