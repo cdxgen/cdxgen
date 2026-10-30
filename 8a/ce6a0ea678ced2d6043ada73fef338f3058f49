@@ -1,0 +1,95 @@
+bin/commands.poku.js
+  s_2b745e87ccc4f4::t_24e8ad5a2e36be 15
+bin/tracebom.poku.js
+  s_2b745e87ccc4f4::t_516c7bfd09dc19 14
+lib/ecosystems/bunutils.poku.js
+  s_2b745e87ccc4f4::t_79c2ed9c104296 1
+lib/ecosystems/chromextutils.poku.js
+  s_2b745e87ccc4f4::t_0a366388e953d9 12
+lib/ecosystems/cmakeResolver.poku.js
+  s_2b745e87ccc4f4::t_d586df5447d84a 5
+lib/ecosystems/denoutils.poku.js
+  s_2b745e87ccc4f4::t_efd2d597df1daf 6
+lib/ecosystems/parsers-cocoapods-batch.poku.js
+  s_2b745e87ccc4f4::t_fb6c7077d6df6d 16
+lib/ecosystems/pep770.poku.js
+  s_2b745e87ccc4f4::t_2e6f542f1bc19e 3
+lib/ecosystems/pypiClassifiers.poku.js
+  s_2b745e87ccc4f4::t_e3fad21a5a4a85 1
+lib/ecosystems/tea.poku.js
+  s_2b745e87ccc4f4::t_509aae4eea74fa 4
+lib/helpers/bomSigner.poku.js
+  s_2b745e87ccc4f4::t_fa74212a5a5157 6
+lib/helpers/versutils.poku.js
+  s_2b745e87ccc4f4::t_50bef408a9ecf9 1
+lib/helpers/vsixutils.poku.js
+  s_2b745e87ccc4f4::t_4c1216f342d977 12,58,68-71,77-88,118-124,2022
+lib/inventory/citations.poku.js
+  s_2b745e87ccc4f4::t_f73fcfb86c7326 1
+lib/inventory/containerRisk.poku.js
+  s_2b745e87ccc4f4::t_ff4c6dbb3af90f 1
+lib/inventory/cryptoAlgorithmFamily.poku.js
+  s_2b745e87ccc4f4::t_cf5e4921d43198 4
+lib/inventory/fetchBatch.batch.poku.js
+  s_2b745e87ccc4f4::t_100568c4d8b3f2 21
+lib/inventory/fetchBatch.routing.poku.js
+  s_2b745e87ccc4f4::t_6d2cc1d477e8c7 18
+lib/inventory/fetchBatch.securemode.poku.js
+  s_2b745e87ccc4f4::t_5dad3cd33c25ab 11
+lib/inventory/forgeEnricher.poku.js
+  s_2b745e87ccc4f4::t_12e98ff5f739c0 11
+lib/inventory/gtfobins.poku.js
+  s_2b745e87ccc4f4::t_aaf43523be402f 1
+lib/inventory/licenseEnhancer.poku.js
+  s_2b745e87ccc4f4::t_854375e2bd6e23 4
+lib/inventory/lolbas.poku.js
+  s_2b745e87ccc4f4::t_a76b8a23054dc1 1
+lib/inventory/mcpPinning.poku.js
+  s_2b745e87ccc4f4::t_ffd7dc3e2f3a78 1
+lib/inventory/sbomDocument.poku.js
+  s_2b745e87ccc4f4::t_a538dfdf1ec566 1
+lib/inventory/scalaDedupe.poku.js
+  s_2b745e87ccc4f4::t_aa08d63f43ad89 1
+lib/inventory/source.batch.poku.js
+  s_2b745e87ccc4f4::t_963a972a8b5c22 13,79-87
+lib/inventory/spdxExpression.poku.js
+  s_2b745e87ccc4f4::t_ae8c08c3e858be 1
+lib/parsers/cmakeCache.poku.js
+  s_2b745e87ccc4f4::t_5543fa28ae943e 5
+lib/parsers/email.poku.js
+  s_2b745e87ccc4f4::t_0bf825f19826a3 1
+lib/parsers/gitmodules.poku.js
+  s_2b745e87ccc4f4::t_a412082d882bd1 5
+lib/parsers/htmlExtract.poku.js
+  s_2b745e87ccc4f4::t_ceb687c260224e 4
+lib/parsers/iri.poku.js
+  s_2b745e87ccc4f4::t_7e7cb2f50ca8b9 1
+lib/parsers/npmrc.poku.js
+  s_2b745e87ccc4f4::t_fd29ced8ff6789 1
+lib/parsers/strictJson.poku.js
+  s_2b745e87ccc4f4::t_3d09655fac5ebb 1
+lib/parsers/terraformConfig.poku.js
+  s_2b745e87ccc4f4::t_4704a0d5827f3c 1
+lib/stages/pregen/envAudit.poku.js
+  s_2b745e87ccc4f4::t_509a5ef41af1cb 3
+lib/testConventions.poku.js
+  s_2b745e87ccc4f4::t_f6268a3eed16ee 1-15
+lib/validator/reporter-parity.poku.js
+  s_2b745e87ccc4f4::t_32bdac4732c97a 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "8ace6a0ea678ced2d6043ada73fef338f3058f49",
+  "prompts": {},
+  "sessions": {
+    "s_2b745e87ccc4f4": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "b26feb36-b3ba-43a0-84b0-ee741a8f03ad",
+        "model": "unknown"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
