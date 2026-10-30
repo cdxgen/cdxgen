@@ -236,26 +236,22 @@ export declare function defaultGemInstall(gemspecPath: string): {
     abi: string;
 } | undefined;
 /**
- * Globs for the contents of installed gems in the gem homes RubyGems, Bundler
- * and the distros use. A gem's sources can carry lockfiles and manifests of
- * other ecosystems (typeprof ships a VS Code extension with a
- * package-lock.json, actionview the package.json of rails-ujs) that install
- * nothing, so an image or host scan leaves them out.
- *
- * @type {string[]}
- */
-export declare const INSTALLED_GEM_CONTENT_GLOBS: string[];
-/**
  * Whether a path lies inside an installed gem's own directory,
  * <gem home>/gems/<name>-<version>/..., beside the specifications directory of
  * that gem home. The lockfiles, manifests and nested gemspecs there belong to
  * the gem's own development, not to anything installed.
  *
+ * Only the part of the path from the scanned directory down counts, so a scan
+ * of one installed gem (`cdxgen /usr/local/bundle/gems/rails-7.1.0`) still
+ * reads that gem's files. The scanned directory may itself be the `gems`
+ * directory, as when an image scan reads each gem home on its own.
+ *
  * @param {string} filePath absolute path, either separator
  * @param {function(string): boolean} exists existence check
+ * @param {string} [scanRoot] the directory the scan started from
  * @returns {boolean}
  */
-export declare function isInsideInstalledGem(filePath: string, exists: Function): boolean;
+export declare function isInsideInstalledGem(filePath: string, exists: Function, scanRoot?: string): boolean;
 /**
  * Link the default gems of an unpackaged Ruby to the runtime they ship with.
  * The runtime is known from its `file` components, which carry the build

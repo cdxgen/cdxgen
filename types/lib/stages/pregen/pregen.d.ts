@@ -24,6 +24,13 @@ export declare function prepareDotnetEnv(filePath: string, options: Object): voi
  */
 export declare function prepareSdkmanBuild(projectType: string): boolean | undefined;
 /**
+ * JDK major a versioned java project type names, such as 27 for `java27`.
+ *
+ * @param {string} projectType Project type
+ * @returns {number|undefined} The major, or undefined for any other type
+ */
+export declare function javaMajorFromProjectType(projectType: string): number | undefined;
+/**
  * Method to detect and provision JVM build tools (maven, gradle, sbt, scala)
  * plus a compatible JDK before BOM generation.
  *
@@ -79,11 +86,14 @@ export declare function detectJvmToolsFromRepo(filePath: string, explicitPins: a
  * and to pick defaults.
  *
  * @param {Object} pin `{ tool, version?, source }`
+ * @param {Number|undefined} javaMajor JDK major the project declared or
+ *   configured, when known. Constrains the default Gradle install so a
+ *   project on a new JDK never resolves a Gradle that cannot run on it.
  *
  * @returns {Object|undefined} Pin with an exact version, or undefined when no
  *   version could be determined.
  */
-export declare function resolveJvmToolPinVersion(pin: Object): Object | undefined;
+export declare function resolveJvmToolPinVersion(pin: Object, javaMajor: number | undefined): Object | undefined;
 /**
  * Fetch the versions available for a candidate via `sdk list`.
  *
