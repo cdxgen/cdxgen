@@ -1,4 +1,3 @@
-import { strict as assert } from "node:assert";
 import { execFileSync, spawn } from "node:child_process";
 import crypto from "node:crypto";
 import {
@@ -13,7 +12,7 @@ import { tmpdir } from "node:os";
 import { join } from "node:path";
 import process from "node:process";
 
-import { describe, it } from "poku";
+import { strict as assert, describe, it } from "poku";
 
 // Every command exposed on the `bin` field of package.json that takes
 // arguments. `repl` is excluded: it is an interactive shell that treats

@@ -1,0 +1,32 @@
+[
+  {
+    "identifier": {
+      "id": "redhat.vscode-yaml",
+      "uuid": "2061917f-f76a-458a-8da9-f162de4eab30"
+    },
+    "version": "1.19.0",
+    "location": {
+      "$mid": 1,
+      "path": "/home/dev/.vscode-server/extensions/redhat.vscode-yaml-1.19.0",
+      "scheme": "file"
+    },
+    "relativeLocation": "redhat.vscode-yaml-1.19.0",
+    "metadata": {
+      "isApplicationScoped": false,
+      "isMachineScoped": false,
+      "isBuiltin": false,
+      "installedTimestamp": 1791390374421,
+      "pinned": false,
+      "source": "gallery",
+      "id": "2061917f-f76a-458a-8da9-f162de4eab30",
+      "publisherId": "00000000-0000-4000-8000-000000000001",
+      "publisherDisplayName": "Red Hat",
+      "targetPlatform": "undefined",
+      "updated": false,
+      "private": false,
+      "isPreReleaseVersion": false,
+      "hasPreReleaseVersion": false,
+      "preRelease": false
+    }
+  }
+]

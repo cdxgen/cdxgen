@@ -1,0 +1,12 @@
+{
+  "nameShort": "Trae",
+  "nameLong": "Trae",
+  "applicationName": "trae",
+  "dataFolderName": ".trae",
+  "serverDataFolderName": ".trae-server",
+  "quality": "stable",
+  "commit": "77f41624cc0c27d6d65bafb87a3150742bcc77cc",
+  "version": "1.107.1",
+  "vscodeVersion": "1.107.1",
+  "appVersion": "3.6.4"
+}

@@ -1,0 +1,49 @@
+{
+  "name": "vscode-pylance",
+  "displayName": "Pylance",
+  "publisher": "ms-python",
+  "version": "2026.4.1",
+  "license": "SEE LICENSE IN LICENSE.txt",
+  "main": "./dist/extension.bundle.js",
+  "browser": "./dist/browser.extension.bundle.js",
+  "engines": {
+    "vscode": "^1.107.0"
+  },
+  "activationEvents": [
+    "onLanguage:python",
+    "workspaceContains:pyrightconfig.json",
+    "workspaceContains:pyproject.toml"
+  ],
+  "extensionDependencies": [],
+  "capabilities": {
+    "untrustedWorkspaces": {
+      "supported": "limited",
+      "description": "Python will not be executed; the latest Python version will be used for analysis and installed libraries will not be available.",
+      "restrictedConfigurations": [
+        "python.analysis.enableExternalTypeServer",
+        "python.analysis.useLegacyTypeServerBackgroundProcess",
+        "python.analysis.nodeArguments",
+        "python.analysis.nodeExecutable",
+        "python.analysis.typeServerArguments",
+        "python.analysis.typeServerExecutable",
+        "python.pythonPath"
+      ]
+    },
+    "virtualWorkspaces": {
+      "supported": "limited",
+      "description": "Analysis is limited to opened files."
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/microsoft/pylance-release"
+  },
+  "contributes": {
+    "commands": [
+      {
+        "command": "pylance.reportIssue",
+        "title": "%commands.pylance.reportIssue.title%"
+      }
+    ]
+  }
+}

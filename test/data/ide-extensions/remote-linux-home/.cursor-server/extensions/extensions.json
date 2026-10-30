@@ -1,0 +1,32 @@
+[
+  {
+    "identifier": {
+      "id": "anthropic.claude-code",
+      "uuid": "3c13ae49-babe-45fe-8c48-5e45077a62bf"
+    },
+    "version": "2.1.313",
+    "location": {
+      "$mid": 1,
+      "path": "/home/dev/.cursor-server/extensions/anthropic.claude-code-2.1.313-linux-x64",
+      "scheme": "file"
+    },
+    "relativeLocation": "anthropic.claude-code-2.1.313-linux-x64",
+    "metadata": {
+      "isApplicationScoped": false,
+      "isMachineScoped": false,
+      "isBuiltin": false,
+      "installedTimestamp": 1793266800000,
+      "pinned": false,
+      "source": "gallery",
+      "id": "3c13ae49-babe-45fe-8c48-5e45077a62bf",
+      "publisherId": "00000000-0000-4000-8000-000000000001",
+      "publisherDisplayName": "Anthropic",
+      "targetPlatform": "linux-x64",
+      "updated": false,
+      "private": false,
+      "isPreReleaseVersion": false,
+      "hasPreReleaseVersion": false,
+      "preRelease": false
+    }
+  }
+]

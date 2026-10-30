@@ -1,0 +1,11 @@
+{
+  "nameShort": "Cursor",
+  "nameLong": "Cursor",
+  "applicationName": "cursor",
+  "dataFolderName": ".cursor",
+  "serverDataFolderName": ".cursor-server",
+  "quality": "stable",
+  "commit": "b1aa50cb6db84fd3e8c808259cb172ea73425c10",
+  "version": "3.27.22",
+  "vscodeVersion": "1.128.0"
+}

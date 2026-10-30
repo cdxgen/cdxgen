@@ -1,0 +1,62 @@
+[
+  {
+    "identifier": {
+      "id": "anthropic.claude-code",
+      "uuid": "3c13ae49-babe-45fe-8c48-5e45077a62bf"
+    },
+    "version": "2.1.313",
+    "location": {
+      "$mid": 1,
+      "path": "/Users/dev/.cursor/extensions/anthropic.claude-code-2.1.313-darwin-arm64",
+      "scheme": "file"
+    },
+    "relativeLocation": "anthropic.claude-code-2.1.313-darwin-arm64",
+    "metadata": {
+      "isApplicationScoped": false,
+      "isMachineScoped": false,
+      "isBuiltin": false,
+      "installedTimestamp": 1793266800000,
+      "pinned": false,
+      "source": "gallery",
+      "id": "3c13ae49-babe-45fe-8c48-5e45077a62bf",
+      "publisherId": "00000000-0000-4000-8000-000000000001",
+      "publisherDisplayName": "Anthropic",
+      "targetPlatform": "darwin-arm64",
+      "updated": true,
+      "private": false,
+      "isPreReleaseVersion": false,
+      "hasPreReleaseVersion": false,
+      "preRelease": false
+    }
+  },
+  {
+    "identifier": {
+      "id": "redhat.vscode-yaml",
+      "uuid": "2061917f-f76a-458a-8da9-f162de4eab30"
+    },
+    "version": "1.19.0",
+    "location": {
+      "$mid": 1,
+      "path": "/Users/dev/.cursor/extensions/redhat.vscode-yaml-1.19.0",
+      "scheme": "file"
+    },
+    "relativeLocation": "redhat.vscode-yaml-1.19.0",
+    "metadata": {
+      "isApplicationScoped": false,
+      "isMachineScoped": false,
+      "isBuiltin": false,
+      "installedTimestamp": 1791390374421,
+      "pinned": false,
+      "source": "gallery",
+      "id": "2061917f-f76a-458a-8da9-f162de4eab30",
+      "publisherId": "00000000-0000-4000-8000-000000000001",
+      "publisherDisplayName": "Red Hat",
+      "targetPlatform": "universal",
+      "updated": true,
+      "private": false,
+      "isPreReleaseVersion": false,
+      "hasPreReleaseVersion": false,
+      "preRelease": false
+    }
+  }
+]

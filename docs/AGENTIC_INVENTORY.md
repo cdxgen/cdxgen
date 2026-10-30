@@ -62,22 +62,53 @@ lists every supported home directory.
 
 ## Supported tools
 
-| Tool               | Home directory scanned                                         |
-| ------------------ | -------------------------------------------------------------- |
-| Kiro CLI           | `~/.kiro` and the platform support directory                   |
-| zcode              | `~/.zcode`                                                     |
-| opencode           | `~/.config/opencode`, `~/.opencode`, `~/.local/share/opencode` |
-| Claude Code        | `~/.claude`                                                    |
-| OpenAI Codex       | `~/.codex`                                                     |
-| Gemini CLI         | `~/.gemini`                                                    |
-| Amazon Q           | `~/.aws/amazonq`                                               |
-| Aider              | `~/.aider`                                                     |
-| Cursor             | `~/.cursor`                                                    |
-| Windsurf           | `~/.codeium/windsurf`                                          |
-| Goose              | `~/.config/goose`                                              |
-| Amp                | `~/.config/amp`                                                |
-| GitHub Copilot CLI | `~/.copilot-cli`, `~/.copilot`                                 |
-| Crush              | `~/.config/crush`                                              |
+| Tool               | Home directory scanned                                                                                       |
+| ------------------ | ------------------------------------------------------------------------------------------------------------ |
+| Kiro CLI           | `~/.kiro`, recognised by `settings/cli.json` or `sessions/cli`, and the platform support directory           |
+| Kiro (editor)      | `~/.kiro`, recognised by `~/.kiro/extensions`                                                                |
+| zcode              | `~/.zcode`                                                                                                   |
+| opencode           | `~/.config/opencode`, `~/.opencode`, `~/.local/share/opencode`                                               |
+| Claude Code        | `~/.claude`, plus the user MCP servers in `~/.claude.json`                                                   |
+| Claude Desktop     | `~/Library/Application Support/Claude`, `%APPDATA%\Claude`, `~/.config/Claude`                               |
+| OpenAI Codex       | `~/.codex`                                                                                                   |
+| Gemini CLI         | `~/.gemini`                                                                                                  |
+| Qwen Code          | `~/.qwen`                                                                                                    |
+| Amazon Q           | `~/.aws/amazonq`                                                                                             |
+| Aider              | `~/.aider`                                                                                                   |
+| Cursor             | `~/.cursor`                                                                                                  |
+| Windsurf           | `~/.codeium/windsurf`                                                                                        |
+| Devin Desktop      | `~/.devin`, with MCP servers in `~/.config/devin/config.json`                                                |
+| Trae               | `~/.trae`                                                                                                    |
+| Antigravity        | `~/.antigravity`                                                                                             |
+| Antigravity IDE    | `~/.antigravity-ide`                                                                                         |
+| Qoder              | `~/.qoder`                                                                                                   |
+| Void               | `~/.void-editor`                                                                                             |
+| Goose              | `~/.config/goose`                                                                                            |
+| Amp                | `~/.config/amp`                                                                                              |
+| GitHub Copilot CLI | `~/.copilot-cli`, `~/.copilot`                                                                               |
+| Crush              | `~/.config/crush`                                                                                            |
+| Factory Droid      | `~/.factory`                                                                                                 |
+| Augment Auggie CLI | `~/.augment`                                                                                                 |
+| Continue           | `~/.continue`                                                                                                |
+| Cline CLI          | `~/.cline`                                                                                                   |
+
+The AI editors in this list (Cursor, Windsurf, Devin Desktop, Kiro, Trae,
+Antigravity, Qoder and Void) also report the version of the installed editor,
+read from its `product.json` without running it, its install folder in
+`cdx:agentic:ideInstallDir`, and the number of extensions in its extensions
+folder in `cdx:agentic:extensionCount`. `cdx:agentic:ide` and the `ai-ide` tag
+are added only when the editor itself is found, because `~/.cursor` or
+`~/.codeium/windsurf` can also come from a CLI or an editor plugin alone. To list those extensions themselves,
+with their versions, target platforms, install times and entry-file hashes,
+run `cdxgen -t vscode-extension` (see [PROJECT_TYPES.md](PROJECT_TYPES.md)); the
+two types can be combined as `-t agentic,vscode-extension`. For Cursor, the scan
+also counts the user rules in `~/.cursor/rules`, the skills in `~/.cursor/skills`
+and the allow and deny rules in the Cursor CLI's `cli-config.json`, without
+copying the rules.
+
+Claude Code and Codex versions come from the release folder that the native
+installer's launcher links to (`~/.local/bin/claude` and
+`~/.codex/packages/standalone/current`).
 
 ## Safety and privacy
 
@@ -88,6 +119,11 @@ counts and small enumerated values such as the default agent name, but it never
 opens credential stores, session logs, or transcript files, and it never copies
 prompt text or secret values into the BOM. The emitted properties are limited to
 tool identity, versions, directory paths, and structural counts.
+
+Configuration files are read only when they are regular files of bounded
+size, so a FIFO or a device in their place cannot stall the scan. A symlinked
+configuration file, as dotfile managers create, is followed, except when cdxgen
+runs as root.
 
 Local filesystem paths are redacted to a `~`-relative form (for example
 `~/.kiro`) so the BOM does not carry the local user name in `cdx:agentic:home`,

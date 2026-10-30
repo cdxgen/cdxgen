@@ -1,0 +1,35 @@
+{
+  "name": "vscode-python-envs",
+  "displayName": "Python Environments",
+  "publisher": "ms-python",
+  "version": "1.20.1",
+  "main": "./dist/extension.js",
+  "engines": {
+    "vscode": "^1.106.0"
+  },
+  "activationEvents": [
+    "onLanguage:python"
+  ],
+  "capabilities": {
+    "untrustedWorkspaces": {
+      "supported": false,
+      "description": "This extension doesn't support untrusted workspaces."
+    },
+    "virtualWorkspaces": {
+      "supported": false,
+      "description": "This extension doesn't support virtual workspaces."
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/microsoft/vscode-python-environments.git"
+  },
+  "contributes": {
+    "commands": [
+      {
+        "command": "python-envs.setEnvManager",
+        "title": "%python-envs.setEnvManager.title%"
+      }
+    ]
+  }
+}

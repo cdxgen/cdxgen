@@ -1,0 +1,58 @@
+{
+  "name": "python",
+  "displayName": "Python",
+  "publisher": "ms-python",
+  "version": "2026.4.0",
+  "license": "MIT",
+  "main": "./out/client/extension",
+  "browser": "./dist/extension.browser.js",
+  "engines": {
+    "vscode": "^1.95.0"
+  },
+  "activationEvents": [
+    "onDebugInitialConfigurations",
+    "onLanguage:python",
+    "onDebugResolve:python",
+    "onCommand:python.copilotSetupTests",
+    "workspaceContains:mspythonconfig.json"
+  ],
+  "extensionPack": [
+    "ms-python.vscode-pylance",
+    "ms-python.debugpy",
+    "ms-python.vscode-python-envs"
+  ],
+  "capabilities": {
+    "untrustedWorkspaces": {
+      "supported": false,
+      "description": "The Python extension is not available in untrusted workspaces. Use Pylance to get partial IntelliSense support for Python files."
+    },
+    "virtualWorkspaces": {
+      "supported": "limited",
+      "description": "Only Partial IntelliSense supported."
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Microsoft/vscode-python"
+  },
+  "contributes": {
+    "walkthroughs": [
+      {
+        "id": "pythonWelcome",
+        "title": "%walkthrough.pythonWelcome.title%"
+      }
+    ],
+    "commands": [
+      {
+        "command": "python.createNewFile",
+        "title": "%python.command.python.createNewFile.title%"
+      }
+    ],
+    "debuggers": [
+      {
+        "type": "python",
+        "label": "Python"
+      }
+    ]
+  }
+}

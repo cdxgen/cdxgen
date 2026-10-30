@@ -1,0 +1,27 @@
+{
+  "name": "claude-code",
+  "displayName": "Claude Code for VS Code",
+  "publisher": "Anthropic",
+  "version": "2.1.312",
+  "main": "./extension.js",
+  "engines": {
+    "vscode": "^1.94.0"
+  },
+  "activationEvents": [
+    "onStartupFinished",
+    "onWebviewPanel:claudeVSCodePanel"
+  ],
+  "contributes": {
+    "commands": [
+      {
+        "command": "claude-vscode.editor.open",
+        "title": "Open in New Tab"
+      }
+    ],
+    "walkthroughs": [
+      {
+        "id": "claude-code-walkthrough"
+      }
+    ]
+  }
+}

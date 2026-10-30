@@ -653,6 +653,9 @@ Rules that evaluate VS Code extension metadata for install-time execution, alway
 | VSC-003 | high     | Extension runs in untrusted workspaces with filesystem access       |
 | VSC-006 | high     | Extension contributes debugger/authentication provider capabilities |
 | VSC-007 | high     | Workspace-context extension executes code                           |
+| VSC-010 | high     | Extension folder is on disk but not in the editor's registry        |
+| VSC-011 | medium   | Extension was installed from a local `.vsix` file                   |
+| VSC-012 | high     | Two copies of one extension build have different entry files       |
 
 ### `chrome-extension` — Chromium Browser Extension Security
 

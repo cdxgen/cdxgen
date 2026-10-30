@@ -1,0 +1,53 @@
+[
+  {
+    "identifier": {
+      "id": "redhat.vscode-yaml",
+      "uuid": "2061917f-f76a-458a-8da9-f162de22b97e"
+    },
+    "version": "2.0.0",
+    "location": {
+      "$mid": 1,
+      "path": "/home/dev/.positron/extensions/redhat.vscode-yaml-2.0.0-universal",
+      "scheme": "file"
+    },
+    "relativeLocation": "redhat.vscode-yaml-2.0.0-universal",
+    "metadata": {
+      "installedTimestamp": 1793378555673,
+      "source": "gallery",
+      "id": "2061917f-f76a-458a-8da9-f162de22b97e",
+      "publisherId": "455da6bb-00aa-4f13-91a3-9fa4780cadaa",
+      "publisherDisplayName": "Red Hat",
+      "targetPlatform": "universal",
+      "updated": false,
+      "private": false,
+      "isPreReleaseVersion": false,
+      "hasPreReleaseVersion": false
+    }
+  },
+  {
+    "identifier": {
+      "id": "anthropic.claude-code"
+    },
+    "version": "2.1.314",
+    "location": {
+      "$mid": 1,
+      "fsPath": "/home/dev/.positron/extensions/anthropic.claude-code-2.1.314-linux-x64",
+      "external": "file:///home/dev/.positron/extensions/anthropic.claude-code-2.1.314-linux-x64",
+      "path": "/home/dev/.positron/extensions/anthropic.claude-code-2.1.314-linux-x64",
+      "scheme": "file"
+    },
+    "relativeLocation": "anthropic.claude-code-2.1.314-linux-x64",
+    "metadata": {
+      "installedTimestamp": 1793378557256,
+      "source": "gallery",
+      "id": "3c13ae49-babe-45fe-8c48-5e45077a62bf",
+      "publisherId": "89769da0-cc4b-40b0-8216-93ffb5a96b56",
+      "publisherDisplayName": "Anthropic",
+      "targetPlatform": "linux-x64",
+      "updated": false,
+      "private": false,
+      "isPreReleaseVersion": false,
+      "hasPreReleaseVersion": false
+    }
+  }
+]

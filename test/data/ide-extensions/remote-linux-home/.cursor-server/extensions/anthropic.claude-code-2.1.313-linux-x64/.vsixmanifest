@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+	<PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
+		<Metadata>
+			<Identity Language="en-US" Id="claude-code" Version="2.1.313" Publisher="Anthropic" TargetPlatform="linux-x64"/>
+			<DisplayName>Claude Code for VS Code</DisplayName>
+			<Description xml:space="preserve">Claude Code for VS Code: Harness the power of Claude Code without leaving your IDE</Description>
+			<GalleryFlags>Public</GalleryFlags>
+			<Properties>
+				<Property Id="Microsoft.VisualStudio.Code.Engine" Value="^1.94.0" />
+				<Property Id="Microsoft.VisualStudio.Code.ExtensionDependencies" Value="" />
+				<Property Id="Microsoft.VisualStudio.Code.ExtensionPack" Value="" />
+				<Property Id="Microsoft.VisualStudio.Code.ExtensionKind" Value="workspace" />
+				<Property Id="Microsoft.VisualStudio.Code.ExecutesCode" Value="true" />
+				<Property Id="Microsoft.VisualStudio.Services.Links.Support" Value="https://github.com/anthropics/claude-code/issues" />
+			</Properties>
+		</Metadata>
+		<Installation>
+			<InstallationTarget Id="Microsoft.VisualStudio.Code"/>
+		</Installation>
+		<Dependencies/>
+		<Assets>
+			<Asset Type="Microsoft.VisualStudio.Code.Manifest" Path="extension/package.json" Addressable="true" />
+		</Assets>
+	</PackageManifest>

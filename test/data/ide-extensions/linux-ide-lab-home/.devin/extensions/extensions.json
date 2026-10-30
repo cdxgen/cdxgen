@@ -1,0 +1,130 @@
+[
+  {
+    "identifier": {
+      "id": "redhat.vscode-yaml",
+      "uuid": "2061917f-f76a-458a-8da9-f162de22b97e"
+    },
+    "version": "2.0.0",
+    "location": {
+      "$mid": 1,
+      "path": "/home/dev/.devin/extensions/redhat.vscode-yaml-2.0.0-universal",
+      "scheme": "file"
+    },
+    "relativeLocation": "redhat.vscode-yaml-2.0.0-universal",
+    "metadata": {
+      "installedTimestamp": 1793378535895,
+      "source": "gallery",
+      "id": "2061917f-f76a-458a-8da9-f162de22b97e",
+      "publisherId": "1deab481-4801-4170-8a64-801999f5ee73",
+      "publisherDisplayName": "Red Hat",
+      "targetPlatform": "universal",
+      "updated": false,
+      "private": false,
+      "isPreReleaseVersion": false,
+      "hasPreReleaseVersion": false
+    }
+  },
+  {
+    "identifier": {
+      "id": "anthropic.claude-code",
+      "uuid": "3c13ae49-babe-45fe-8c48-5e45077a62bf"
+    },
+    "version": "2.1.89",
+    "location": {
+      "$mid": 1,
+      "path": "/home/dev/.devin/extensions/anthropic.claude-code-2.1.89-universal",
+      "scheme": "file"
+    },
+    "relativeLocation": "anthropic.claude-code-2.1.89-universal",
+    "metadata": {
+      "installedTimestamp": 1793378538386,
+      "source": "gallery",
+      "id": "3c13ae49-babe-45fe-8c48-5e45077a62bf",
+      "publisherId": "89769da0-cc4b-40b0-8216-93ffb5a96b56",
+      "publisherDisplayName": "Anthropic",
+      "targetPlatform": "universal",
+      "updated": false,
+      "private": false,
+      "isPreReleaseVersion": false,
+      "hasPreReleaseVersion": false
+    }
+  },
+  {
+    "identifier": {
+      "id": "ms-python.debugpy",
+      "uuid": "4bd5d2c9-9d65-401a-b0b2-7498d9f17615"
+    },
+    "version": "2026.6.0",
+    "location": {
+      "$mid": 1,
+      "path": "/home/dev/.devin/extensions/ms-python.debugpy-2026.6.0-linux-x64",
+      "scheme": "file"
+    },
+    "relativeLocation": "ms-python.debugpy-2026.6.0-linux-x64",
+    "metadata": {
+      "installedTimestamp": 1793378543823,
+      "pinned": false,
+      "source": "gallery",
+      "id": "4bd5d2c9-9d65-401a-b0b2-7498d9f17615",
+      "publisherId": "998b010b-e2af-44a5-a6cd-0b5fd3b9b6f8",
+      "publisherDisplayName": "ms-python",
+      "targetPlatform": "linux-x64",
+      "updated": false,
+      "private": false,
+      "isPreReleaseVersion": false,
+      "hasPreReleaseVersion": false
+    }
+  },
+  {
+    "identifier": {
+      "id": "ms-python.python",
+      "uuid": "f1f59ae4-9318-4f3c-a9b5-81b2eaa5f8a5"
+    },
+    "version": "2026.4.0",
+    "location": {
+      "$mid": 1,
+      "path": "/home/dev/.devin/extensions/ms-python.python-2026.4.0-universal",
+      "scheme": "file"
+    },
+    "relativeLocation": "ms-python.python-2026.4.0-universal",
+    "metadata": {
+      "installedTimestamp": 1793378543819,
+      "source": "gallery",
+      "id": "f1f59ae4-9318-4f3c-a9b5-81b2eaa5f8a5",
+      "publisherId": "998b010b-e2af-44a5-a6cd-0b5fd3b9b6f8",
+      "publisherDisplayName": "ms-python",
+      "targetPlatform": "universal",
+      "updated": false,
+      "private": false,
+      "isPreReleaseVersion": false,
+      "hasPreReleaseVersion": false
+    }
+  },
+  {
+    "identifier": {
+      "id": "ms-python.vscode-python-envs"
+    },
+    "version": "1.40.0",
+    "location": {
+      "$mid": 1,
+      "fsPath": "/home/dev/.devin/extensions/ms-python.vscode-python-envs-1.40.0-universal",
+      "external": "file:///home/dev/.devin/extensions/ms-python.vscode-python-envs-1.40.0-universal",
+      "path": "/home/dev/.devin/extensions/ms-python.vscode-python-envs-1.40.0-universal",
+      "scheme": "file"
+    },
+    "relativeLocation": "ms-python.vscode-python-envs-1.40.0-universal",
+    "metadata": {
+      "installedTimestamp": 1793378543821,
+      "pinned": false,
+      "source": "gallery",
+      "id": "b41d8e8a-b6d4-4202-8f07-7189bdda81be",
+      "publisherId": "998b010b-e2af-44a5-a6cd-0b5fd3b9b6f8",
+      "publisherDisplayName": "ms-python",
+      "targetPlatform": "universal",
+      "updated": false,
+      "private": false,
+      "isPreReleaseVersion": false,
+      "hasPreReleaseVersion": false
+    }
+  }
+]

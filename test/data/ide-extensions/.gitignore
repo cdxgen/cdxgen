@@ -1,0 +1,6 @@
+# These fixtures are copies of editor folders. The repository ignores every
+# dist/ and .vscode/ folder, and common global ignore files exclude .kiro/, so
+# they are included again here.
+!dist/
+!.vscode/
+!.kiro/

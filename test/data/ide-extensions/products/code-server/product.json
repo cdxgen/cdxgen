@@ -1,0 +1,11 @@
+{
+  "nameShort": "code-server",
+  "nameLong": "code-server",
+  "applicationName": "code-server",
+  "dataFolderName": ".code-server",
+  "serverDataFolderName": ".vscode-server-oss",
+  "quality": "stable",
+  "commit": "ee31cdbe02c07b3ba718007f221d14c890696c61",
+  "version": "1.144.0",
+  "codeServerVersion": "4.144.0"
+}
