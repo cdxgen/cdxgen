@@ -176,12 +176,14 @@ jobs:
 
           - lang: node24
             distro: alpine
-            cdxgen-image:
-              additional-image: cdxgen-node
           - lang: node25
             distro: alpine
+          # node26 is the primary runtime, so the rolling cdxgen-node alias
+          # tracks the alpine node26 variant the way it tracked node24 before.
           - lang: node26
             distro: alpine
+            cdxgen-image:
+              additional-image: cdxgen-node
 
           - lang: node24
             distro: debian
