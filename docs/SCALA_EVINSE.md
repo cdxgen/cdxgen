@@ -171,6 +171,52 @@ cdxgen -t scala --evidence --semantics-slices-file "$(pwd)/scalasem.slices.json"
 atom-tools convert -t scala -e scalasem.slices.json -o openapi.json
 ```
 
+## Local accuracy check
+
+The repo tests run the Scala evidence over small Play samples and recorded
+reports, which lag behind the current Scala and sbt releases. A large, current
+project can break the join in ways they never see: scalasem 1.10.4, for
+example, analysed none of chen's Scala 3.10 modules, and cdxgen reported facts
+from a stale build as if they were current. `contrib/scala-evinse-accuracy`
+guards against that with a development check run over a local
+[chen](https://github.com/AppThreat/chen) checkout. It is not a CI job.
+
+Run it when the `@appthreat/atom-parsetools` version cdxgen depends on changes,
+and when `lib/ecosystems/scalasem.js` changes. It needs an installed checkout
+(`pnpm install`) and a chen checkout that sbt has built at its current head:
+
+```shell
+node contrib/scala-evinse-accuracy/check-chen.mjs <path-to-chen>
+```
+
+Pass `--no-install-deps` to run the way the known scalasem failures over chen
+were found: no build tool runs, and only what a previous build left on disk is
+read. Pass `--keep` to keep the temporary directory holding the BOM and the
+scalasem report when a check fails and you want to know why. `SCALASEM_CMD`
+works here as anywhere else, which makes it easy to compare two analyzer
+releases over the same checkout.
+
+The script runs this checkout's cdxgen with `--profile research` over the
+checkout you name, in a temporary directory, and checks the BOM it gets:
+
+| Check                                          | What it means                                                                                                                                             |
+| ---------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| no scalasem diagnostics on the metadata component | No `cdx:scalasem:diagnostic:*` property. Any of them means the run degraded - the analyzer compiled no helper, read stale output, or stopped early - and the evidence below is what a degraded run left. |
+| expected dependencies have occurrences         | chen's main dependencies (`cpg2`, `javaparser-symbol-solver-core`, `circe`, `upickle` and the ASM jars; the list is the `EXPECTED_DEPENDENCIES` constant at the top of `checks.mjs`) each have at least one evidence occurrence. A dependency the BOM does not hold at all is reported as *missing from BOM* rather than as one without occurrences. |
+| occurrence locations resolve                   | Every occurrence points at a file that exists in the chen checkout (or in a source root the report extracted), at a line the file has. The first few offenders per component are listed. |
+| call stacks end in a component of the BOM      | Every call stack published in evidence sits on a component the BOM can name, and its final frame says where the stack ends.                                |
+
+The script prints one line per check and exits non-zero when any check fails.
+A failing result on a known-bad analyzer is the correct outcome: fix the
+version or the join, not the check.
+
+The checks see what the join produced, not everything the join dropped: a
+stack or occurrence that never reached the BOM is invisible here. The detailed
+accuracy measurement of scalasem itself - coverage per module, library usage
+against the class files, spot-checked locations - is the matching local script
+in [atom-parsetools](https://github.com/AppThreat/atom-parsetools); this check
+guards the join on the cdxgen side.
+
 ## Limits that remain by design
 
 - Findings without a registry OID are properties, not assets. Adding OIDs the registry
