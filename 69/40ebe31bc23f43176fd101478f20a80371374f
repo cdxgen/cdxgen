@@ -1,0 +1,21 @@
+lib/cli/degradation.poku.js
+  s_2b745e87ccc4f4::t_22986b15241183 266-270
+test/poku.env
+  s_2b745e87ccc4f4::t_d8ff6bd2125109 9-14
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "6940ebe31bc23f43176fd101478f20a80371374f",
+  "prompts": {},
+  "sessions": {
+    "s_2b745e87ccc4f4": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "b26feb36-b3ba-43a0-84b0-ee741a8f03ad",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
