@@ -1,0 +1,28 @@
+ci/dockertests.sh
+  s_a64d1dd7bff42a::t_7438de08f16711 8-12
+  s_a64d1dd7bff42a::t_8a726de48769d1 113-115
+  s_a64d1dd7bff42a::t_e0b173c11ed202 196-198,202,208-209,230-232,237-238
+  s_a64d1dd7bff42a::t_8ef17ecf45417c 129-131,167-168,171-172
+.github/workflows/dockertests.yml
+  s_a64d1dd7bff42a::t_e412bcab883ca2 55-56,59,92-93
+  s_a64d1dd7bff42a::t_b7c1453f199d38 80-81
+  s_a64d1dd7bff42a::t_6c20f6567b2614 70-71
+  s_a64d1dd7bff42a::t_e7bb0491bab40c 82-84
+  s_a64d1dd7bff42a::t_2cc4a7adf92d93 60-61,64,94-95
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "c75cebd14a992404e0dbe9e7f973a390e703eb66",
+  "prompts": {},
+  "sessions": {
+    "s_a64d1dd7bff42a": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "session_a3910269efc9336eabfadd52e7eb4a91",
+        "model": "unknown"
+      },
+      "human_author": "Team AppThreat <cloud@appthreat.com>"
+    }
+  }
+}
