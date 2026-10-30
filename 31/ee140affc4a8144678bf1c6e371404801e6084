@@ -1,0 +1,25 @@
+contrib/scala-evinse-accuracy/check-chen.mjs
+  s_c2ffc35a6355af::t_9187bf05d7aae2 211
+  s_c2ffc35a6355af::t_26bf268452c6d4 1-12,14,16-32,34-40,42-43,64-65,263
+  s_c2ffc35a6355af::t_cc0ce6647aff4e 233-242
+  s_c2ffc35a6355af::t_44c716b82bfa73 41
+  s_c2ffc35a6355af::t_9f21f413aed332 13,33,52,66-210,212-232,243-262
+  s_c2ffc35a6355af::t_3f31e82386f6fb 15
+  s_c2ffc35a6355af::t_9e25d3b564e414 44-51,53-63
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "31ee140affc4a8144678bf1c6e371404801e6084",
+  "prompts": {},
+  "sessions": {
+    "s_c2ffc35a6355af": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "session_5b3c49d51ef0bfabe84a316f60a13ad2",
+        "model": "unknown"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
