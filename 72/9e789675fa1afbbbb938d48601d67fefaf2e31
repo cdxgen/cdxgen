@@ -1,0 +1,19 @@
+contrib/scala-evinse-accuracy/check-chen.mjs
+  s_474d33a1b10cd3::t_c68d25581c0593 13-19,23
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "729e789675fa1afbbbb938d48601d67fefaf2e31",
+  "prompts": {},
+  "sessions": {
+    "s_474d33a1b10cd3": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "89922bb1-1482-456b-b779-2e8b380ce10e",
+        "model": "claude-sonnet-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
