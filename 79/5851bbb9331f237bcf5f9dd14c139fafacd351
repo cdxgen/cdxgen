@@ -1,0 +1,49 @@
+ci/Dockerfile
+  s_474d33a1b10cd3::t_984cd06cc89875 82
+ci/Dockerfile-ppc64
+  s_474d33a1b10cd3::t_3dd9279a2d989d 75
+ci/images/Dockerfile.java11
+  s_474d33a1b10cd3::t_d2ba10e85b60bf 77
+ci/images/Dockerfile.python3.11
+  s_474d33a1b10cd3::t_ce64df1156ce96 89
+ci/images/Dockerfile.python3.12
+  s_474d33a1b10cd3::t_5392e22c5ade06 83
+ci/images/Dockerfile.python3.13
+  s_474d33a1b10cd3::t_d2fa55318c1562 83
+ci/images/Dockerfile.python3.6
+  s_474d33a1b10cd3::t_79dd22ef00982b 76
+ci/images/opensuse/Dockerfile.python3.10
+  s_474d33a1b10cd3::t_092cc5c6a75c02 78
+ci/images/opensuse/Dockerfile.python3.9
+  s_474d33a1b10cd3::t_55e424e05b2712 73
+ci/images/opensuse/Dockerfile.rolling
+  s_474d33a1b10cd3::t_970e4c37e6b286 103
+ci/images/temurin/Dockerfile.java21
+  s_474d33a1b10cd3::t_6bd74e7ec582d9 76
+ci/images/temurin/Dockerfile.java24
+  s_474d33a1b10cd3::t_5fe7dd2ee42cee 76
+ci/images/temurin/Dockerfile.java25
+  s_474d33a1b10cd3::t_4308a70cdfefe9 76
+ci/images/temurin/Dockerfile.java26
+  s_474d33a1b10cd3::t_e1ec561502bd70 76
+ci/images/temurin/Dockerfile.java27
+  s_474d33a1b10cd3::t_734acf00ec3c99 76
+ci/images/temurin/Dockerfile.java8
+  s_474d33a1b10cd3::t_188bed9b704928 73
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "795851bbb9331f237bcf5f9dd14c139fafacd351",
+  "prompts": {},
+  "sessions": {
+    "s_474d33a1b10cd3": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "89922bb1-1482-456b-b779-2e8b380ce10e",
+        "model": "claude-sonnet-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
