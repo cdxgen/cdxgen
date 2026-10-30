@@ -1,0 +1,21 @@
+deno.json
+  s_2b745e87ccc4f4::t_604138872430cb 84,104,106
+lib/packaging.poku.js
+  s_2b745e87ccc4f4::t_17c4fc56630778 250-285
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "4df5e4fcbcfcbf31dd8be638d0572057fb9c27e8",
+  "prompts": {},
+  "sessions": {
+    "s_2b745e87ccc4f4": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "b26feb36-b3ba-43a0-84b0-ee741a8f03ad",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
