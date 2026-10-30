@@ -2139,6 +2139,28 @@ jobs:
           jq -e 'any(.components[]; .group == "org.slf4j" and .name == "slf4j-api" and .version == "2.0.7" and any((.externalReferences // [])[]; .type == "distribution" and (.url == "https://repo.maven.apache.org/maven2/org/slf4j/slf4j-api/2.0.7/slf4j-api-2.0.7.jar" or .url == "https://maven-central.storage-download.googleapis.com/maven2/org/slf4j/slf4j-api/2.0.7/slf4j-api-2.0.7.jar")))' bomresults/bom-gradle-repotest-resolve-dist.json
           jq -e 'any(.components[]; .group == "com.google.android.gms" and .name == "play-services-basement" and any((.externalReferences // [])[]; .type == "distribution" and (.url | contains("dl.google.com"))))' bomresults/bom-gradle-repotest-resolve-dist.json
         shell: bash
+      - name: repotests gradle module named after the root project
+        run: |
+          # The main module shares the root project's purl (issue #4695); its
+          # own libraries must stay required instead of arriving as optional
+          # through the integration-test module's test classpath.
+          bin/cdxgen.js -t gradle test/repotests/gradle-root-named-module -o bomresults/bom-gradle-root-named.json --fail-on-error
+          for name in slf4j-api commons-lang3 okio; do
+            jq -e --arg name "$name" 'any(.components[]; .name == $name and .scope != "optional")' bomresults/bom-gradle-root-named.json
+          done
+          jq -e 'any(.dependencies[]; .ref == "pkg:maven/com.example/example-service@1.0.0?type=jar" and (.dependsOn | index("pkg:maven/org.slf4j/slf4j-api@2.0.7?type=jar")))' bomresults/bom-gradle-root-named.json
+        shell: bash
+      - name: repotests gradle edge-case layouts
+        run: |
+          # A root and an included build without a group, a plugin build, a
+          # project path with a space, a quiet log level in gradle.properties,
+          # and a version chosen by the consumer's conflict resolution.
+          bin/cdxgen.js -t gradle test/repotests/gradle-edge-cases -o bomresults/bom-gradle-edge-cases.json --fail-on-error
+          jq -e '.metadata.component.components | map(."bom-ref") | (index("application:tools:latest") and index("pkg:maven/com.other/my lib@7?type=jar"))' bomresults/bom-gradle-edge-cases.json
+          jq -e 'any(.dependencies[]; .ref == "application:tools:latest" and .dependsOn == ["pkg:maven/com.google.code.gson/gson@2.11.0?type=jar"])' bomresults/bom-gradle-edge-cases.json
+          jq -e 'any(.dependencies[]; .ref == "pkg:maven/com.other/my lib@7?type=jar" and (.dependsOn | index("pkg:maven/org.slf4j/slf4j-api@2.0.7?type=jar")) and (.dependsOn | index("pkg:maven/org.slf4j/slf4j-api@2.0.17?type=jar") | not))' bomresults/bom-gradle-edge-cases.json
+          jq -e 'any(.components[]; .name == "okio" and .scope == "excluded")' bomresults/bom-gradle-edge-cases.json
+        shell: bash
 
   jvm-tools-repotest:
     runs-on: ubuntu-latest

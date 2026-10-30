@@ -1,0 +1,13 @@
+// Gradle layouts that once lost components or edges in cdxgen: a root and
+// an included build without a group (so neither has a purl), a plugin build
+// included from pluginManagement, a project path with a space, a quiet log
+// level in gradle.properties, and a library version that only the consuming
+// project's conflict resolution selects.
+pluginManagement {
+    includeBuild 'build-logic'
+}
+
+rootProject.name = 'edge-cases'
+
+include 'app', 'my lib'
+includeBuild 'tools'

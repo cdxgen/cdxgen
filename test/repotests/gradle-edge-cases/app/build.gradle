@@ -1,0 +1,16 @@
+plugins {
+    id 'java'
+}
+
+group = 'com.example'
+version = '1.0'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation project(':my lib')
+    // Wins the conflict with the 2.0.7 that ':my lib' declares.
+    implementation 'org.slf4j:slf4j-api:2.0.17'
+}

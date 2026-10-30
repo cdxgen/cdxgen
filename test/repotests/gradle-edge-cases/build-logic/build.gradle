@@ -1,0 +1,22 @@
+// A convention-plugin build. Its classpath is build tooling, so the BOM
+// gives the components only it uses the excluded scope.
+plugins {
+    id 'java-gradle-plugin'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'com.squareup.okio:okio:3.9.0'
+}
+
+gradlePlugin {
+    plugins {
+        conventions {
+            id = 'edge.conventions'
+            implementationClass = 'edge.ConventionsPlugin'
+        }
+    }
+}

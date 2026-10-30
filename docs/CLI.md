@@ -244,7 +244,7 @@ npm install -g @cdxgen/cdxgen --omit=optional --ignore-scripts --min-release-age
 **pnpm**:
 
 ```shell
-pnpm add -g @cdxgen/cdxgen --omit=optional --ignore-scripts --minimum-release-age=2880
+pnpm add -g @cdxgen/cdxgen --ignore-scripts --config.minimum-release-age=2880
 ```
 
 **bun**:
