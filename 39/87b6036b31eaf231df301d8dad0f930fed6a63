@@ -1,0 +1,24 @@
+lib/inventory/scalaDedupe.js
+  s_474d33a1b10cd3::t_a19d317e2bc552 1-181,184-185
+  s_474d33a1b10cd3::t_9a9d21fab29287 182-183,186-262
+lib/cli/jvmBom.js
+  s_474d33a1b10cd3::t_93234486155387 128,2777-2782
+lib/inventory/scalaDedupe.poku.js
+  s_474d33a1b10cd3::t_f022aeb0ea3f31 1-164
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "3987b6036b31eaf231df301d8dad0f930fed6a63",
+  "prompts": {},
+  "sessions": {
+    "s_474d33a1b10cd3": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "89922bb1-1482-456b-b779-2e8b380ce10e",
+        "model": "claude-sonnet-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
