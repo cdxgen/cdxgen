@@ -1,0 +1,25 @@
+deno.json
+  s_c2ffc35a6355af::t_05152d3d2f6ad3 109
+package.json
+  s_c2ffc35a6355af::t_7e5641daf44c83 182
+pnpm-lock.yaml
+  s_c2ffc35a6355af::t_0149286fabdf40 273-274,375-376,1379
+docs/SCALA_EVINSE.md
+  s_c2ffc35a6355af::t_382f1d1bb7a303 202-207
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "d26f33172560d890fd7bf9c3acf59cd4ab59da19",
+  "prompts": {},
+  "sessions": {
+    "s_c2ffc35a6355af": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "session_5b3c49d51ef0bfabe84a316f60a13ad2",
+        "model": "unknown"
+      },
+      "human_author": null
+    }
+  }
+}
