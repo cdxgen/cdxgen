@@ -62,41 +62,48 @@ jobs:
           persist-credentials: false
           repository: 'scipy/scipy'
           path: 'repotests/scipy'
-          ref: 'v1.15.2'
+          ref: '0f1fd4a7268b813fa2b844ca6038e4dfdf90084a'  # v1.15.2 as of 2026-10-29
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
         with:
           persist-credentials: false
           repository: 'psf/black'
+          ref: 'd16946630ead57eebf0db464c0cf2a58e4df7101'  # main as of 2026-10-29
           path: 'repotests/black'
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
         with:
           persist-credentials: false
           repository: 'psf/pyperf'
+          ref: '00556e18777c36cfd96c91fdf1cd6bf70dd8c276'  # main as of 2026-10-29
           path: 'repotests/pyperf'
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
         with:
           persist-credentials: false
           repository: 'psf/cachecontrol'
+          ref: '1edf642763a4f4a943c06a4adfd0d208c44404c6'  # master as of 2026-10-29
           path: 'repotests/cachecontrol'
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
         with:
           persist-credentials: false
           repository: 'pallets/flask'
+          ref: 'd086db856be187255b8ec61ef409357393020f32'  # main as of 2026-10-29
           path: 'repotests/flask'
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
         with:
           persist-credentials: false
           repository: 'pallets/click'
+          ref: '2247b35ea1c47c727d7a06e51fa280e12a863ff6'  # main as of 2026-10-29
           path: 'repotests/click'
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
         with:
           persist-credentials: false
           repository: 'pallets/jinja'
+          ref: '5ef70112a1ff19c05324ff889dd30405b1002044'  # main as of 2026-10-29
           path: 'repotests/jinja'
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
         with:
           persist-credentials: false
           repository: 'pypa/bandersnatch'
+          ref: 'e88de09a0660921f6947e4abe29ce2410413eeae'  # main as of 2026-10-29
           path: 'repotests/bandersnatch'
       - name: repotests
         run: |

@@ -71,12 +71,14 @@ jobs:
         with:
           persist-credentials: false
           repository: 'hoolicorp/java-sec-code'
+          ref: '7f7f02a9e030736dd4ef4fa657511b26c4c5c016'  # master as of 2026-10-29
           path: 'repotests/java-sec-code'
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
         if: needs.lane.outputs.docs-only != 'true'
         with:
           persist-credentials: false
           repository: 'rtfeldman/elm-spa-example'
+          ref: 'cb32acd73c3d346d0064e7923049867d8ce67193'  # master as of 2026-10-29
           path: 'repotests/elm-spa-example'
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
         if: needs.lane.outputs.docs-only != 'true'
@@ -489,33 +491,34 @@ jobs:
           persist-credentials: false
           repository: 'aws-solutions/iot-device-simulator'
           path: 'repotests/iot-device-simulator'
-          ref: 'v3.0.9'
+          ref: 'ca32f733350c7a2be8e05403bed3aee3cd5bd89e'  # v3.0.9 as of 2026-10-29
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
         if: needs.lane.outputs.docs-only != 'true'
         with:
           persist-credentials: false
           repository: 'ollama/ollama'
           path: 'repotests/ollama'
-          ref: 'v0.5.7'
+          ref: 'a420a453b4783841e3e79c248ef0fe9548df6914'  # v0.5.7 as of 2026-10-29
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
         if: needs.lane.outputs.docs-only != 'true'
         with:
           persist-credentials: false
           repository: 'caddyserver/caddy'
           path: 'repotests/caddy'
-          ref: 'v2.9.1'
+          ref: '0e570e0cc717f02cf3800ae741df70cd074c7275'  # v2.9.1 as of 2026-10-29
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
         if: needs.lane.outputs.docs-only != 'true'
         with:
           persist-credentials: false
           repository: 'flutter/gallery'
-          ref: 'v2.10.2'
+          ref: 'd77920b4ced4a105ad35659fbe3958800d418fb9'  # v2.10.2 as of 2026-10-29
           path: 'repotests/gallery'
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
         if: needs.lane.outputs.docs-only != 'true'
         with:
           persist-credentials: false
           repository: 'ShiftLeftSecurity/shiftleft-go-example'
+          ref: '7598cbbd2ac75f8cfc25572d8b658e39b52ea058'  # master as of 2026-10-29
           path: 'repotests/shiftleft-go-example'
       - name: Trim CI agent
         if: needs.lane.outputs.docs-only != 'true'
