@@ -76,14 +76,12 @@
     "@npmcli/name-from-folder": "npm:@npmcli/name-from-folder@5.0.0",
     "@npmcli/package-json": "npm:@npmcli/package-json@8.0.0",
     "common-ancestor-path": "npm:common-ancestor-path@2.0.0",
-    "json-stringify-nice": "npm:json-stringify-nice@1.1.4",
     "npm-package-arg": "npm:npm-package-arg@14.0.0",
     "parse-conflict-json": "npm:parse-conflict-json@6.0.0",
-    "read-package-json-fast": "npm:read-package-json-fast@6.0.0",
     "treeverse": "npm:treeverse@3.0.0",
     "walk-up-path": "npm:walk-up-path@4.0.0",
     "@appthreat/atom": "npm:@appthreat/atom@3.1.1",
-    "@cdxgen/cdx-hbom": "npm:@cdxgen/cdx-hbom@0.6.0",
+    "@cdxgen/cdx-hbom": "npm:@cdxgen/cdx-hbom@0.7.0",
     "@cdxgen/cdx-proto": "npm:@cdxgen/cdx-proto@2.3.0",
     "@bufbuild/protobuf": "npm:@bufbuild/protobuf@2.16.0",
     "@babel/parser": "npm:@babel/parser@8.0.7",
@@ -103,9 +101,9 @@
     "connect": "npm:connect@3.7.0",
     "jsonata": "npm:jsonata@2.2.2",
     "smol-toml": "npm:smol-toml@1.9.1",
-    "@cdxgen/safer-exec": "npm:@cdxgen/safer-exec@1.0.1",
+    "@cdxgen/safer-exec": "npm:@cdxgen/safer-exec@1.2.1",
     "@cdxgen/cdxgen-plugins-bin": "npm:@cdxgen/cdxgen-plugins-bin@4.2.0",
-    "undici": "npm:undici@8.12.2",
+    "undici": "npm:undici@8.12.3",
     "@appthreat/atom-parsetools": "npm:@appthreat/atom-parsetools@1.10.6"
   }
 }
