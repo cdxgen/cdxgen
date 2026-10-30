@@ -1,0 +1,19 @@
+docs/SCALA_EVINSE.md
+  s_c2ffc35a6355af::t_0d1b740969e529 174-214
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "c85ae55f1a8a7c45b0ee8c5767f0ad25df280834",
+  "prompts": {},
+  "sessions": {
+    "s_c2ffc35a6355af": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "session_5b3c49d51ef0bfabe84a316f60a13ad2",
+        "model": "unknown"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
