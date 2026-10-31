@@ -1,0 +1,23 @@
+data/rules/ai-bom.yaml
+  s_4da36b0706480b::t_aa7c363ef834db 333
+lib/stages/postgen/auditBom.poku.js
+  s_4da36b0706480b::t_f843173fdd8250 2068-2086
+.github/workflows/repotests.yml
+  s_4da36b0706480b::t_4b9420bc96ec3e 1213-1216
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "8b2f59ed4f452bda4035f8db77267e72e1c4b3e9",
+  "prompts": {},
+  "sessions": {
+    "s_4da36b0706480b": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "94fb225b-189f-40c5-a1db-6818280a4a84",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
