@@ -330,7 +330,7 @@
     components[
       type = 'machine-learning-model'
       and $prop($, 'cdx:ai:artifactFormat') = 'onnx'
-      and not $hasProp($, 'cdx:onnx:producer')
+      and $not($hasProp($, 'cdx:onnx:producer'))
     ]
   location: |
     {

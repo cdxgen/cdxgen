@@ -1210,8 +1210,10 @@ jobs:
           jq -e '.components[] | select(.purl == "pkg:vscode-extension/anthropic/claude-code@2.1.313?platform=darwin-arm64") | .components[] | select(.name == "extension.js") | .hashes[0].content' bomresults/bom-cursor-extensions.json
           mkdir -p ide-host-scan
           cd ide-host-scan
-          HOME="$GITHUB_WORKSPACE/test/data/ide-extensions/linux-ide-lab-home" "$GITHUB_WORKSPACE/bin/cdxgen.js" -t ide -o "$GITHUB_WORKSPACE/bomresults/bom-ide-lab-home.json"
-          HOME="$GITHUB_WORKSPACE/test/data/ide-extensions/linux-ide-lab-home" "$GITHUB_WORKSPACE/bin/cdxgen.js" -t agentic -o "$GITHUB_WORKSPACE/bomresults/bom-agentic-lab-home.json"
+          # Node.js reads the home folder from USERPROFILE on Windows and HOME elsewhere.
+          LAB_HOME="$GITHUB_WORKSPACE/test/data/ide-extensions/linux-ide-lab-home"
+          HOME="$LAB_HOME" USERPROFILE="$LAB_HOME" "$GITHUB_WORKSPACE/bin/cdxgen.js" -t ide -o "$GITHUB_WORKSPACE/bomresults/bom-ide-lab-home.json"
+          HOME="$LAB_HOME" USERPROFILE="$LAB_HOME" "$GITHUB_WORKSPACE/bin/cdxgen.js" -t agentic -o "$GITHUB_WORKSPACE/bomresults/bom-agentic-lab-home.json"
           cd "$GITHUB_WORKSPACE"
           rm -rf ide-host-scan
           test "$(jq '[.components[] | select(.purl | startswith("pkg:generic/cdxgen-ide/"))] | length' bomresults/bom-ide-lab-home.json)" -eq 10
