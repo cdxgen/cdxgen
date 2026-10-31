@@ -5,9 +5,9 @@ name: Node CI
 # by never starting. The one exception is the fast lane: when a change touches
 # only files that no test reads (see .github/scripts/docs-only.mjs), the
 # required jobs still start and report success, but skip their steps and say
-# why in the job summary. quick-tests, golden-tests and rust-fetch-tests are
-# required status checks on master. The expensive matrix jobs stay out of
-# merge-group builds, where only the required checks re-run.
+# why in the job summary. quick-tests, golden-tests, rust-fetch-tests and
+# unit-tests are required status checks on master. The expensive matrix jobs
+# stay out of merge-group builds, where only the required checks re-run.
 on:
   pull_request:
   merge_group:
@@ -178,6 +178,32 @@ jobs:
           pnpm test
         env:
           CI: true
+
+  # The required status check for the unit-test matrix. The matrix job names
+  # carry the Node.js version, which Renovate bumps, and the matrix does not
+  # run in merge-group builds, so branch protection requires this job instead.
+  # It fails on a pull request or push unless every Linux, macOS and Windows
+  # job in the matrix passed, and passes in merge-group builds, where the
+  # matrix is skipped.
+  unit-tests:
+    needs: [read-node-versions, matrix-unit-test]
+    if: ${{ always() }}
+    runs-on: 'ubuntu-latest'
+    steps:
+      - name: Check the unit-test matrix result
+        run: |
+          if [ "$EVENT_NAME" = "merge_group" ]; then
+            echo "The unit-test matrix does not run in merge-group builds."
+            exit 0
+          fi
+          if [ "$VERSIONS_RESULT" != "success" ] || [ "$MATRIX_RESULT" != "success" ]; then
+            echo "::error::read-node-versions was $VERSIONS_RESULT and matrix-unit-test was $MATRIX_RESULT"
+            exit 1
+          fi
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          VERSIONS_RESULT: ${{ needs.read-node-versions.result }}
+          MATRIX_RESULT: ${{ needs.matrix-unit-test.result }}
 
   depscan:
     if: github.event_name == 'push'
