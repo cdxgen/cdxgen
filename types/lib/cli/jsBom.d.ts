@@ -96,6 +96,7 @@ export declare function analyzeExtensionDir(extDir: string, options: Object): Pr
  * @param {Object} options CLI options
  * @param {Object[]} pkgList Mutable array to push discovered components into
  * @param {Object[]} dependencies Mutable array to merge dependencies into
+ * @param {string} [onlyEntry] Analyze only this extension folder
  */
-export declare function analyzeInstalledExtensionDirs(extensionsDir: string, options: Object, pkgList: Object[], dependencies: Object[]): Promise<void>;
+export declare function analyzeInstalledExtensionDirs(extensionsDir: string, options: Object, pkgList: Object[], dependencies: Object[], onlyEntry?: string): Promise<void>;
 //# sourceMappingURL=jsBom.d.ts.map

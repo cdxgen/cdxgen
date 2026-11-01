@@ -84,7 +84,11 @@ export declare function coursierCacheDir(): string | undefined;
  */
 export declare function coursierPrefixToUrl(parts: string[]): string | null;
 /**
- * Locate a Maven coordinate's directory in the Coursier cache.
+ * Locate a Maven coordinate's directory in the Coursier cache. Coursier
+ * leaves an empty version directory behind in every repository it asked and
+ * missed, so a directory counts only when it holds the artifact's jar or POM;
+ * otherwise a project's own module would be credited to whichever repository
+ * the build happened to probe first.
  *
  * @param {string} group Maven groupId.
  * @param {string} name Maven artifactId, including any Scala suffix.

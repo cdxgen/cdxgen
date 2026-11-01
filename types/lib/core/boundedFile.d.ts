@@ -67,4 +67,34 @@ export declare function scanFileMarkers(absPath: string, rootDir: string | undef
     size: number;
     skipped?: string;
 } | undefined;
+/**
+ * Compute the digest of a regular file with bounded chunked reads, under the
+ * same rules as readRegularTextFile: a FIFO, a directory, a symlink, a file
+ * that resolves outside rootDir or one larger than maxBytes yields undefined.
+ *
+ * @param {string} absPath absolute path
+ * @param {number} maxBytes largest size hashed
+ * @param {string|undefined} [rootDir] root the path must stay under
+ * @param {string} [algorithm="sha256"] node:crypto hash algorithm
+ * @returns {string|undefined} the hex digest, or undefined
+ */
+export declare function hashRegularFile(absPath: string, maxBytes: number, rootDir?: string | undefined, algorithm?: string): string | undefined;
+/**
+ * True when the process runs as root, where a symlink planted in a user's
+ * home could point a scan at files only root can read.
+ *
+ * @returns {boolean} true for uid 0
+ */
+export declare function isRunningAsRoot(): boolean;
+/**
+ * Read a small text file a user keeps in their home, such as an editor's or an
+ * agent's configuration. Dotfile managers often make these symlinks, so a
+ * symlink to a regular file is followed, except when the process runs as root.
+ * The target must still be a regular file no larger than maxBytes.
+ *
+ * @param {string} absPath absolute path
+ * @param {number} maxBytes largest size read
+ * @returns {string|undefined} the text, or undefined
+ */
+export declare function readUserFileText(absPath: string, maxBytes: number): string | undefined;
 //# sourceMappingURL=boundedFile.d.ts.map

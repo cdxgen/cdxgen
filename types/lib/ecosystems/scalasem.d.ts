@@ -30,12 +30,13 @@ export declare function resolveScalasemCommand(): string | undefined;
 /**
  * Where the scalasem report is persisted. An absolute --semantics-slices-file
  * keeps its directory; anything else lands in the evinse output directory, the
- * same rule the atom slice writer follows.
+ * same rule the atom slice writer follows. Without either there is nowhere to
+ * keep it, and the report lives only as long as the run.
  *
  * @param {Object} options CLI options carrying `output` and `semanticsSlicesFile`.
- * @returns {string} Absolute report path.
+ * @returns {string|undefined} Absolute report path.
  */
-export declare function scalasemOutputFile(options?: Object): string;
+export declare function scalasemOutputFile(options?: Object): string | undefined;
 /**
  * A version 1 semantics slice (the shape atom's scalasem wrote before schema
  * version 2): keyed by .scala files with `usedTypes`, no `_meta.schemaVersion`.
@@ -46,8 +47,9 @@ export declare function scalasemOutputFile(options?: Object): string;
 export declare function isV1SemanticsSlice(parsed: Object): boolean;
 /**
  * Run scalasem over a Scala project and return its report, reusing a
- * persisted version 2 report that belongs to this project and is newer than
- * the input BOM.
+ * persisted version 2 report that belongs to this project, is newer than the
+ * input BOM and than the build files and sources it describes, and, when
+ * cdxgen kept it, was made with the settings this run asks for.
  *
  * Failures are visible rather than silent: the reason is printed once, the
  * run's diagnostics reach the caller as `cdx:scalasem:diagnostic` properties,
@@ -70,11 +72,13 @@ export declare function analyzeScalaProject(src: string, options?: Object): Obje
  * @param {Object[]} diagnostics Run diagnostics, from the report or the spawn.
  * @returns {Object[]} Metadata properties.
  */
-export declare function scalasemMetadataProperties(report: Object | undefined, diagnostics?: Object[]): Object[];
+export declare function scalasemMetadataProperties(report: Object | undefined, allDiagnostics?: any): Object[];
 export declare function sortedCsv(values: any): string | undefined;
 /**
  * The platform a purl's artifact name targets: `_sjs1` is Scala.js,
- * `_native0.x` is Scala Native, and neither is the JVM.
+ * `_native0.x` is Scala Native, and neither is the JVM. The platform suffix
+ * counts whether the Scala binary suffix follows it (`upickle_sjs1_3`, the
+ * published name a jar scan keeps) or not (`upickle_sjs1`, the sbt name).
  *
  * @param {string} purl Package URL.
  * @returns {"jvm"|"js"|"native"} Platform key.
@@ -136,6 +140,12 @@ export declare class ScalaJoinIndex {
      * sits in. A package the project also fills is ambiguous and joins nothing,
      * and `javax.` names join only through an exact class, since the JDK ships
      * most of them.
+     *
+     * The package is the part of the symbol before its first type name, which
+     * starts with a capital letter (`io.circe` of `io.circe.Json.fromString`). A
+     * symbol without one names a package (`io.circe`) or a member of one, such
+     * as a package object member (`io.circe.syntax.asJson`). Parent packages
+     * never answer: a missing `io.circe.generic` is not circe-core.
      */
     packageOwners(symbol: any): any;
     /**
@@ -175,8 +185,13 @@ export declare function isReportFileKey(key: any): boolean;
  * Index the BOM components by their normalized Scala coordinates, both with
  * and without the version, so a classpath jar, a namespace property and a map
  * entry of the same library meet on one component. Each entry keeps the Scala
- * binary version the component was built for, so the `_2.13` and `_3`
- * artifacts of one library in a Maven build stay apart.
+ * binary versions the component was built for, so the `_2.13` and `_3`
+ * artifacts of one library in a Maven build stay apart. Components that share
+ * a normalized coordinate and were built for an overlapping set of Scala
+ * binary versions are one library listed more than once (a repository_url
+ * qualifier, a `_3` suffix beside the sbt name built for 2.13 and 3, a stale
+ * duplicate), so they share one entry, which the preferred component of the
+ * group stands for.
  */
 export declare function componentCoordinateIndex(components?: any[]): {
     byVersion: Map<any, any>;
@@ -192,13 +207,31 @@ export declare function componentCoordinateIndex(components?: any[]): {
  * @returns {{component: Object, exact: boolean}|undefined} The component, and
  *   whether its version is the one on the classpath.
  */
-export declare function matchClasspathEntry(entry: any, { byVersion, withoutVersion }: {
-    byVersion: any;
-    withoutVersion: any;
-}, platform: any): {
+export declare function matchClasspathEntry(entry: any, coordinateIndex: any, platform: any): {
     component: Object;
     exact: boolean;
 } | undefined;
+/**
+ * The coordinates a classpath jar's path spells, for the layouts the report
+ * does not read itself, most specific first:
+ *
+ * - a Maven layout `<group dirs>/<artifact>/<version>/<file>` whose group is
+ *   a dotted tail of the group the report recorded, so a group is only ever
+ *   shortened by the directories the report took for it, never guessed
+ * - the Gradle cache `files-2.1/<group>/<artifact>/<version>/<sha1>/<file>`
+ * - an Ivy cache `<org>/<artifact>/jars/<artifact>-<version>.jar`, as sbt 0.13
+ *   and sbt 1.0 to 1.2 keep it, and an Ivy local repository
+ *   `<org>/<artifact>/<version>/jars/<artifact>.jar`
+ *
+ * @param {Object} entry Classpath entry with `path` and, when the report read
+ *   them, `group`, `artifact` and `version`.
+ * @returns {{group: string, artifact: string, version: string}[]}
+ */
+export declare function jarPathCoordinates(entry: Object): {
+    group: string;
+    artifact: string;
+    version: string;
+}[];
 /**
  * Build the symbol index from the three sources, reading each classpath jar
  * once, and only for components that carry no namespaces yet.
@@ -241,9 +274,18 @@ export declare function collectScalasemEvidence(report?: Object, components?: Ob
 /**
  * The component purl of the library a crypto finding names as its provider.
  * Maven coordinates match on group and base artifact; the short aliases cover
- * the providers the rules emit for libraries without a coordinate.
+ * the providers the rules emit for libraries without a coordinate. Of several
+ * matching components, one on the referencing module's classpath wins, then
+ * the artifact whose name extends the provider's least (`bcprov-jdk18on`
+ * over `bcprov-ext-jdk18on`), then the first purl, so the choice never
+ * depends on the order of the BOM.
+ *
+ * @param {string} provider Provider the finding names.
+ * @param {Object[]} components BOM components.
+ * @param {Set<string>} [classpathPurls] Purls on the module's classpath.
+ * @returns {string|undefined} Component purl.
  */
-export declare function scalasemProviderPurl(provider: any, components?: any[]): any;
+export declare function scalasemProviderPurl(provider: string, components?: Object[], classpathPurls?: Set<string>): string | undefined;
 /**
  * A JDBC address without what may carry credentials: userinfo, the Oracle
  * `user/password@` prefix, URL parameters and the `;key=value` properties
@@ -265,7 +307,7 @@ export declare function scalasemServiceName(service: any): any;
  * host, a host as it is, a topic as `client:topic`, a JDBC URL with its
  * credentials and parameters dropped.
  */
-export declare function scalasemServiceEndpoint(service: any): any;
+export declare function scalasemServiceEndpoint(service: any): string | undefined;
 /**
  * Outbound services: HTTP and websocket clients, data stores, messaging
  * topics and cloud clients. Locations ride in

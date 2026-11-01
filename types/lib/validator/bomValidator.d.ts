@@ -2,10 +2,14 @@
  * Validate the generated bom using jsonschema
  *
  * @param {object} bomJson content
+ * @param {object} [options] Validation options
+ * @param {boolean} [options.deep] Run the deep validators after the schema check. Defaults to true.
  *
  * @returns {Promise<Boolean>} true if the BOM is valid. false otherwise.
  */
-export declare const validateBom: (bomJson: object) => Promise<boolean>;
+export declare const validateBom: (bomJson: object, options?: {
+    deep?: boolean;
+}) => Promise<boolean>;
 /**
  * Validate the generated SPDX export.
  *
