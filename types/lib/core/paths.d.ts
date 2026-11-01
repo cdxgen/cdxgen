@@ -33,4 +33,13 @@ export declare function isValidDriveRoot(root: string): boolean;
  * @returns {string} camelCase representation of the input.
  */
 export declare function toCamel(str: string): string;
+/**
+ * Rewrite an absolute path under the user's home directory to a `~`-relative
+ * form so the emitted BOM does not carry the local username.
+ *
+ * @param {string} filePath Absolute path
+ * @param {string} [home] Home directory, defaulting to the current user's
+ * @returns {string} Home-relative path when applicable, else the input
+ */
+export declare function redactHomePath(filePath: string, home?: string): string;
 //# sourceMappingURL=paths.d.ts.map

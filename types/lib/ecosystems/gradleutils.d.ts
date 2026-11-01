@@ -13,6 +13,15 @@ export { isProjectToolingAllowed };
  */
 export declare function getGradleCommand(srcPath: string, rootPath: string | null, options?: Object): string;
 /**
+ * Read a whitespace-separated list of Gradle arguments from an environment
+ * variable such as `GRADLE_ARGS`. Repeated, leading or trailing whitespace
+ * adds no empty argument, which Gradle would read as a task path.
+ *
+ * @param {string} name Name of the environment variable
+ * @returns {string[]} The arguments, empty when the variable is unset
+ */
+export declare function gradleArgsFromEnv(name: string): string[];
+/**
  * Method to combine the general gradle arguments, the sub-commands and the sub-commands' arguments in the correct way
  *
  * @param {string[]} gradleArguments The general gradle arguments, which must only be added once
@@ -23,6 +32,23 @@ export declare function getGradleCommand(srcPath: string, rootPath: string | nul
  * @returns {string[]} Array of arrays of arguments to be added to the gradle command
  */
 export declare function buildGradleCommandArguments(gradleArguments: string[], gradleSubCommands: string[], gradleSubCommandArguments: string[], gradleCommandLength: int): string[];
+/**
+ * List the dependency tasks to run for the root project and every module read
+ * from `gradle properties`.
+ *
+ * The root project is recognised by identity, never by purl. A module named
+ * after the root project that inherits its group and version has the root's
+ * purl (issue 4695), and it still needs its own `:module:dependencies` task.
+ * `root` in `modulesToSkip` drops the root task; any other entry is a module
+ * path.
+ *
+ * @param {Map<string, Object>} gradleModules Modules keyed by project path, and the root project by its name
+ * @param {Object} rootComponent The component built for the root project
+ * @param {string} gradleDepTask Name of the dependency task, usually `dependencies`
+ * @param {string[]} modulesToSkip Module paths, or `root`, to leave out
+ * @returns {string[]} Task paths in the order Gradle should run them
+ */
+export declare function gradleDependencyTasks(gradleModules: Map<string, Object>, rootComponent: Object, gradleDepTask: string, modulesToSkip?: string[]): string[];
 /**
  * Method to split the output produced by Gradle using parallel processing by project
  *
@@ -55,17 +81,19 @@ export declare function parseGradleProjects(rawOutput: string): {
 /**
  * Parse gradle properties output
  *
+ * `gradlePlugin` is true when the project has the `gradlePlugin` extension,
+ * which `java-gradle-plugin`, `kotlin-dsl` and `groovy-gradle-plugin` add: the
+ * project builds Gradle plugins, as a `build-logic` build does.
+ *
  * @param {string} rawOutput Raw string output
  * @param {string} gradleModuleName The name (or 'path') of the module as seen from the root of the project
+ * @returns {{rootProject: string, projects: string[], metadata: Object, gradlePlugin: boolean}} The parsed properties
  */
 export declare function parseGradleProperties(rawOutput: string, gradleModuleName?: string): {
     rootProject: string;
-    projects: any[];
-    metadata: {
-        group: string;
-        version: string;
-        properties: never[];
-    };
+    projects: string[];
+    metadata: Object;
+    gradlePlugin: boolean;
 };
 /**
  * Execute gradle properties command using multi-threading and return parsed output
@@ -124,6 +152,17 @@ export declare function recordGradleInvocationFailure(result: Object, context?: 
  */
 export declare function loadGradleModulesForReports(reports: Iterable<string>, gradleModules: Map<any, any>, gradleRootPath: string, options?: Object): Promise<string[]>;
 /**
+ * Give the components of a build-tooling report, such as that of an included
+ * build that builds Gradle plugins, the `excluded` scope that build-tool
+ * configurations get. `reconcileGradleComponents` later keeps a stronger
+ * scope that another project's report gives the same component.
+ *
+ * @param {Object[]} pkgList Components from one project's report, updated in place
+ * @param {Map<string, Object>} gradleModules Modules, which keep their own scope
+ * @returns {Object[]} The same list
+ */
+export declare function excludeGradleBuildTooling(pkgList: Object[], gradleModules: Map<string, Object>): Object[];
+/**
  * Reconcile the copies of a component that several Gradle projects report.
  * Every copy gets the strongest scope any project gave it, so a library one
  * module only tests with stays required when another module compiles against
@@ -146,19 +185,26 @@ export declare function reconcileGradleComponents(pkgList: Object[]): Object[];
  * `cdx:gradle:resolutionFailed`, keeps the version it was requested at when
  * that is a concrete version, and otherwise records the request in
  * `cdx:gradle:requestedVersion`. A dependency seen in several configurations
- * keeps the strongest scope among them.
+ * keeps the strongest scope among them. Platforms and BOMs get a `pom` type
+ * and the `excluded` scope.
  *
  * The parser runs no Gradle task. A project the tree names but `gradleModules`
  * lacks gets a component built from the root project's group and version; use
  * `loadGradleModulesForReports` first to read such projects' properties.
  *
+ * The lines Gradle prints under another project, such as `project ':lib'` in
+ * the report of `:app`, show that project's dependencies as `:app` resolved
+ * them, after conflict resolution. When `reportedProjects` names that project,
+ * its own report supplies its edges, so these lines add no edge from it.
+ *
  * @param {string} rawOutput Text output from gradle dependencies task
  * @param {string} rootProjectName Key in `gradleModules` of the project the report belongs to
  * @param {map} gradleModules Gradle modules keyed by project path, and the root project by its name
  * @param {string} gradleRootPath Directory Gradle ran in, recorded as `cdx:gradle:GradleRootPath`
+ * @param {Set<string>} [reportedProjects] Keys in `gradleModules` of the projects whose own reports are parsed
  * @returns {{pkgList: Object[], dependenciesList: Object[]}|{}} The components and dependency graph
  */
-export declare function parseGradleDep(rawOutput: string, rootProjectName?: string, gradleModules?: map, gradleRootPath?: string): {
+export declare function parseGradleDep(rawOutput: string, rootProjectName?: string, gradleModules?: map, gradleRootPath?: string, reportedProjects?: Set<string>): {
     pkgList: Object[];
     dependenciesList: Object[];
 } | {};

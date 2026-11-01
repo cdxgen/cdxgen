@@ -30,6 +30,21 @@ export declare const SBT_CACHE_DIR: string;
  */
 export declare function collectSbtDependencyJars(pkgList: Object[], known?: Object): Promise<Object>;
 /**
+ * Keep apart two independent Maven projects that declare the same
+ * coordinates, such as sample projects in `one/` and `two/` that both call
+ * themselves `com.example:demo:0.0.1-SNAPSHOT`. When `component` has the
+ * bom-ref of the parent or of a module already collected but comes from a
+ * different pom.xml, it gets the directory of its pom, relative to the scan
+ * root, as the purl subpath, and the dependency entries that name it follow.
+ *
+ * @param {Object} component Root component of a Maven tree, updated in place
+ * @param {Object} parentComponent Parent component and the modules under it
+ * @param {string} rootPath Directory being scanned
+ * @param {Object[]} dependenciesList Dependency entries of the tree, updated in place
+ * @returns {boolean} True when the component got a distinct identity
+ */
+export declare function separateDuplicateMavenProject(component: Object, parentComponent: Object, rootPath: string, dependenciesList?: Object[]): boolean;
+/**
  * The purls and bom-refs of a parent component and the module components
  * nested under it.
  *

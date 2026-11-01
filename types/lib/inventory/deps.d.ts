@@ -25,6 +25,18 @@ export declare function collectMvnDependencies(mavenCmd: string, basePath: strin
  */
 export declare function collectJarNS(jarPath: string, pomPathMap?: object): Promise<{}>;
 /**
+ * The jar namespace map entries of components a jar scan produced, in the
+ * shape {@link collectJarNS} writes (`{ namespaces: string[] }`), from their
+ * `internal:Namespaces` properties. The scan reads each jar from a temporary
+ * copy, so no `jarFile` is recorded. Purls `existing` already maps keep the
+ * entry they have, which names the jar it was read from.
+ *
+ * @param {Object[]} components Components with `internal:Namespaces` properties
+ * @param {Object} [existing] Jar namespace map already collected
+ * @returns {Object} New entries keyed by purl
+ */
+export declare function namespaceMappingOfComponents(components: Object[], existing?: Object): Object;
+/**
  * Convert a JAR namespace mapping (produced by {@link collectJarNS}) into an array
  * of CycloneDX package component objects.
  *
