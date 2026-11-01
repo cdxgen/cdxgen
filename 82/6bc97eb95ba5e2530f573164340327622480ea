@@ -1,0 +1,78 @@
+types/lib/cli/bomAssembly.d.ts.map
+  h_6a4cc5cdf68def 1
+types/lib/cli/index.d.ts.map
+  h_6a4cc5cdf68def 1
+types/lib/cli/jsBom.d.ts
+  h_6a4cc5cdf68def 99,101
+types/lib/cli/jsBom.d.ts.map
+  h_6a4cc5cdf68def 1
+types/lib/cli/jvmBom.d.ts
+  h_6a4cc5cdf68def 32-46
+types/lib/cli/jvmBom.d.ts.map
+  h_6a4cc5cdf68def 1
+types/lib/core/boundedFile.d.ts
+  h_6a4cc5cdf68def 70-99
+types/lib/core/boundedFile.d.ts.map
+  h_6a4cc5cdf68def 1
+types/lib/core/env.d.ts.map
+  h_6a4cc5cdf68def 1
+types/lib/core/paths.d.ts
+  h_6a4cc5cdf68def 36-44
+types/lib/core/paths.d.ts.map
+  h_6a4cc5cdf68def 1
+types/lib/ecosystems/gradleutils.d.ts
+  h_6a4cc5cdf68def 15-23,35-51,84-87,90,94-96,154-164,188-189,195-199,204,207
+types/lib/ecosystems/gradleutils.d.ts.map
+  h_6a4cc5cdf68def 1
+types/lib/ecosystems/pythonutils.d.ts
+  h_6a4cc5cdf68def 119
+types/lib/ecosystems/scalasem.d.ts
+  h_6a4cc5cdf68def 33-34,37,39,50-52,75,79-81,143-148,188-194,210,214-234,277-286,288,310
+types/lib/ecosystems/scalasem.d.ts.map
+  h_6a4cc5cdf68def 1
+types/lib/helpers/agenticToolutils.d.ts
+  h_6a4cc5cdf68def 1-2,17-22,25,30-34,40-41,44,49-50,52-66,75-77,80-83,87,89,97-99,107,109-111,114-116
+types/lib/helpers/agenticToolutils.d.ts.map
+  h_6a4cc5cdf68def 1
+types/lib/helpers/vsixutils.d.ts
+  h_6a4cc5cdf68def 6-48,50-57,59-60,62-64,66,68-70,72-73,75,77,79-135,189-196,219-271,273-282,285-287,290,297-368,379-413
+types/lib/helpers/vsixutils.d.ts.map
+  h_6a4cc5cdf68def 1
+types/lib/inventory/deps.d.ts
+  h_6a4cc5cdf68def 27-38
+types/lib/inventory/deps.d.ts.map
+  h_6a4cc5cdf68def 1
+types/lib/inventory/evidenceUtils.d.ts.map
+  h_6a4cc5cdf68def 1
+types/lib/inventory/jvmLocalRepos.d.ts
+  h_6a4cc5cdf68def 87-91
+types/lib/inventory/jvmLocalRepos.d.ts.map
+  h_6a4cc5cdf68def 1
+types/lib/inventory/scalaCoords.d.ts.map
+  h_6a4cc5cdf68def 1
+types/lib/inventory/scalaDedupe.d.ts
+  h_6a4cc5cdf68def 1-43
+types/lib/inventory/scalaDedupe.d.ts.map
+  h_6a4cc5cdf68def 1
+types/lib/parsers/vscodeExtensionId.d.ts
+  h_6a4cc5cdf68def 1-48
+types/lib/parsers/vscodeExtensionId.d.ts.map
+  h_6a4cc5cdf68def 1
+types/lib/stages/postgen/ruleEngine.d.ts.map
+  h_6a4cc5cdf68def 1
+types/lib/validator/bomValidator.d.ts
+  h_6a4cc5cdf68def 5-6,10-12
+types/lib/validator/bomValidator.d.ts.map
+  h_6a4cc5cdf68def 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "826bc97eb95ba5e2530f573164340327622480ea",
+  "prompts": {},
+  "humans": {
+    "h_6a4cc5cdf68def": {
+      "author": "Team AppThreat <cloud@appthreat.com>"
+    }
+  }
+}
