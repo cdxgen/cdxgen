@@ -1,0 +1,95 @@
+# Example: generate an SBOM through OpenAI Codex with openai/codex-action.
+#
+# Copy this file to .github/workflows/ in your own repository. It is not run by
+# the cdxgen project. See docs/AGENT_CI.md for what each setting does.
+#
+# Needs one repository secret, OPENAI_API_KEY, that you create yourself.
+name: SBOM through Codex
+
+on:
+  workflow_dispatch:
+
+permissions: {}
+
+jobs:
+  sbom:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    permissions:
+      contents: read
+    env:
+      # Exact releases. Change them on purpose, never to "latest".
+      CDXGEN_VERSION: "13.7.0"
+      CODEX_VERSION: "0.137.0"
+      # The cdxgen tag that holds the skills. A commit SHA pins it harder.
+      CDXGEN_REF: "v13.7.0"
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Set up Node.js
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1  # v7.1.0
+        with:
+          node-version: "24"
+          package-manager-cache: false
+
+      - name: Install cdxgen
+        run: |
+          npm install --global --no-fund --omit=optional --ignore-scripts "@cdxgen/cdxgen@${CDXGEN_VERSION}"
+          cdxgen --version
+
+      - name: Make the cdxgen skills available to Codex
+        # The skills link to ../../reference/safety.md, so both folders go
+        # into the Codex home directory.
+        run: |
+          git init --quiet "$RUNNER_TEMP/cdxgen-src"
+          git -C "$RUNNER_TEMP/cdxgen-src" fetch --quiet --depth 1 https://github.com/cdxgen/cdxgen.git "$CDXGEN_REF"
+          git -C "$RUNNER_TEMP/cdxgen-src" checkout --quiet FETCH_HEAD
+          mkdir -p "$RUNNER_TEMP/codex-home"
+          cp -R "$RUNNER_TEMP/cdxgen-src/agent-plugin/skills" "$RUNNER_TEMP/cdxgen-src/agent-plugin/reference" "$RUNNER_TEMP/codex-home/"
+
+      - name: Generate the SBOM with Codex
+        # Keep this the last step that needs privileges: the default
+        # safety-strategy, drop-sudo, removes sudo from the runner user.
+        id: codex
+        uses: openai/codex-action@bdf19a4a223ec2549a3e2274a0cf61556bc07675  # v1.13
+        with:
+          openai-api-key: ${{ secrets.OPENAI_API_KEY }}
+          codex-version: ${{ env.CODEX_VERSION }}
+          codex-home: ${{ runner.temp }}/codex-home
+          permission-profile: ":workspace"
+          safety-strategy: drop-sudo
+          prompt: |
+            Use the cdxgen skills to generate a CycloneDX SBOM of the project at
+            ${{ github.workspace }} and write it to ${{ github.workspace }}/bom.json.
+
+            This is an unattended CI run and nobody can answer questions, so the
+            approval that the safety rules ask for is given here, for this one
+            scan only:
+            - Run cdxgen with --dry-run --activity-report json first. Stop
+              without scanning if the report shows package installs, network
+              access beyond package registries, or writes outside the workspace.
+            - Run the real scan with --no-install-deps and absolute paths.
+            - Run no other command, upload nothing, and never print environment
+              variables or credentials.
+
+            End with a short Markdown summary: the command you ran, the number
+            of components in the BOM, and anything a person needs to look at.
+
+      - name: Write the summary
+        if: ${{ !cancelled() }}
+        env:
+          FINAL_MESSAGE: ${{ steps.codex.outputs.final-message }}
+        run: |
+          printf '%s\n' "$FINAL_MESSAGE" >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload the BOM
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9  # v7.0.2
+        with:
+          name: bom
+          path: bom.json
+          if-no-files-found: error
+          retention-days: 7
