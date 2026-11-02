@@ -130,6 +130,44 @@ const TARGETS = [
       ],
     }),
   },
+  {
+    // Cursor imports a repository that has .cursor-plugin/marketplace.json at
+    // its root. `source` is a bare directory name, not a ./ path. The plugin
+    // directory holds a root Agent Plugins plugin.json, which Cursor loads.
+    // https://cursor.com/docs/reference/plugins.md
+    file: ".cursor-plugin/marketplace.json",
+    build: (shared) => ({
+      name: shared.marketplace.name,
+      owner: { name: shared.author.name, email: shared.author.email },
+      metadata: { description: shared.description, version: shared.version },
+      plugins: [
+        {
+          name: PLUGIN_NAME,
+          source: PLUGIN_DIR.replace("./", ""),
+          description: shared.description,
+          version: shared.version,
+          author: { name: shared.author.name, email: shared.author.email },
+          homepage: shared.homepage,
+          repository: shared.repository,
+          license: shared.license,
+          keywords: shared.keywords,
+          category: shared.marketplace.category,
+        },
+      ],
+    }),
+  },
+  {
+    // Gemini CLI installs an extension from a directory that holds
+    // gemini-extension.json and a skills/ folder, so the file sits in the
+    // plugin directory next to skills/.
+    // https://github.com/google-gemini/gemini-cli/blob/main/docs/extensions/reference.md
+    file: "agent-plugin/gemini-extension.json",
+    build: (shared) => ({
+      name: PLUGIN_NAME,
+      version: shared.version,
+      description: shared.description,
+    }),
+  },
 ];
 
 function sharedFields() {

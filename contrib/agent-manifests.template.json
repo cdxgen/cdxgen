@@ -25,7 +25,8 @@
   ],
   "marketplace": {
     "name": "cdxgen-plugins",
-    "displayName": "OWASP cdxgen"
+    "displayName": "OWASP cdxgen",
+    "category": "security"
   },
   "codex": {
     "installation": "AVAILABLE",
