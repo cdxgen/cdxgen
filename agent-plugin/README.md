@@ -166,9 +166,9 @@ copy them here, with `../../../docs/<Name>.md` links rewritten to
 
 ## Evals
 
-`evals/` holds 27 cases for `claude plugin eval`. They check that a plain
-request picks the right skill (one case for each of the 12 skills that Claude may
-start by itself, plus one case each showing that `bom-signing` and
+`evals/` holds 26 cases for `claude plugin eval`. They check that a plain
+request picks the right skill (one case for each skill that Claude may start by
+itself except `bom-slimmer`, plus one case each showing that `bom-signing` and
 `dependency-track-upload` do not start without their slash command) and that the
 rules in [reference/safety.md](reference/safety.md) hold: dry run first, absolute
 paths, no installs in CI, no hand-written purls, no secrets or Golem values in
@@ -180,6 +180,10 @@ release and after a skill changes:
 ```bash
 claude plugin eval ./agent-plugin --threshold 0.8 --no-publish
 ```
+
+There is no selection case for `bom-slimmer`. Asked which small packages could
+become built-in code, Sonnet answers with cdxgen commands from its own knowledge
+and does not load the skill, whatever its description says.
 
 Every case runs three times with the plugin and three times without it, and
 each `llm` grader adds three judge calls, so a full run makes several hundred
