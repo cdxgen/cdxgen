@@ -6,19 +6,17 @@ The plugin lives in [`agent-plugin/`](https://github.com/cdxgen/cdxgen/tree/mast
 
 ## How far each client has been tested
 
-The project has not yet confirmed that every client loads the plugin. This table says what was run, and the sections below say how to install in each client. A client marked "not yet tested" should work according to its documentation, but nobody has tried it.
+A client marked "not yet tested" should load the plugin according to its own documentation, but the project has not confirmed it. Please open an issue if you try one, whether it works or not.
 
-| Client             | Status                                                                                                                                                       |
-| ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Claude Code        | Loads with `--plugin-dir` (Claude Code 2.1.278) and passes `claude plugin validate --strict`. Install from the GitHub marketplace not yet tested.             |
-| Codex              | `codex plugin marketplace add`, `codex plugin list` and `codex plugin add` worked from a local checkout (Codex 0.137.0). No session was started, so skill invocation is not yet tested. |
-| Copilot CLI and app | not yet tested                                                                                                                                              |
-| Cursor             | not yet tested                                                                                                                                               |
-| Gemini CLI         | not yet tested                                                                                                                                               |
-| Kiro               | not yet tested                                                                                                                                               |
-| opencode           | Lists all 14 skills when its config points at the skills folder (opencode 1.19.0). It does not find them by itself, and no session was started.               |
-
-Tell the project in an issue if you try a client and it works or fails.
+| Client              | Status                                                                                                                         |
+| ------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
+| Claude Code         | Loads the plugin from a directory and passes `claude plugin validate --strict`. Installing from the GitHub marketplace is not yet tested. |
+| Codex               | Adds the marketplace and installs the plugin from a local checkout (Codex 0.137.0). Skill invocation is not yet tested.      |
+| Copilot CLI and app | Not yet tested                                                                                                                 |
+| Cursor              | Not yet tested                                                                                                                 |
+| Gemini CLI          | Not yet tested                                                                                                                 |
+| Kiro                | Not yet tested                                                                                                                 |
+| opencode            | Lists all 14 skills when its `skills` setting points at the skills folder (opencode 1.19.0). Skill invocation is not yet tested. |
 
 ## Claude Code
 
@@ -89,9 +87,9 @@ Update with `gemini extensions update cdxgen` after you pull. Installing the rep
 
 ## Kiro
 
-Kiro installs plugins as powers and reads the Agent Plugins `plugin.json`. In the IDE, open the Powers panel and import the power from the GitHub URL `https://github.com/cdxgen/cdxgen`, or from a local path to `agent-plugin`. In Kiro CLI, the local-path form is `kiro-cli powers install /absolute/path/to/agent-plugin`. According to the [Kiro documentation](https://kiro.dev/docs/powers/installation/), update a power from the Powers panel with Check for updates, and Kiro activates an installed power when a prompt matches its keywords.
+Kiro installs plugins as powers and reads the Agent Plugins `plugin.json`. In the IDE, open the Powers panel and import the power from a local path to `agent-plugin` in a checkout of the repository. In Kiro CLI, the local-path form is `kiro-cli powers install /absolute/path/to/agent-plugin`. According to the [Kiro documentation](https://kiro.dev/docs/powers/installation/), update a power from the Powers panel with Check for updates, and Kiro activates an installed power when a prompt matches its keywords.
 
-Not yet tested, and the GitHub URL points at the repository root where there is no `plugin.json`, so the local path is the form to try first. The hooks, the `bom-reviewer` agent and `userConfig` do not apply.
+Not yet tested. Importing by the repository's GitHub URL does not work, because the repository root has no `plugin.json`. The hooks, the `bom-reviewer` agent and `userConfig` do not apply.
 
 ## opencode
 

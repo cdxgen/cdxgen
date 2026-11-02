@@ -94,6 +94,6 @@ The GitHub Copilot cloud agent has no recipe yet. It needs the cdxgen MCP server
 Before you copy one, change these values:
 
 - Set `CDXGEN_VERSION`, and the agent version, to releases you have chosen. Keep the plugin tag or commit in step with the cdxgen version.
-- Replace `workflow_dispatch` only with another trigger if the prompt stays fixed and only people you trust can start it.
+- Replace `workflow_dispatch` with another trigger only if the prompt stays fixed and only people you trust can start it.
 - Add a Dependency-Track or other upload step in your own job, with its own secret, if you want one. The recipes leave it out on purpose.
 - Keep `timeout-minutes` and `--max-turns` low, and put a spending limit on the model key.

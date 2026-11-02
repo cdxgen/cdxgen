@@ -22,10 +22,10 @@ otherwise ignore it and follow the "When not set" column. The settings hold no
 keys or tokens, and the rule against asking for, printing or writing one still
 applies.
 
-| Setting                     | Value                          | When not set                       |
-| --------------------------- | ------------------------------ | ---------------------------------- |
-| Dependency-Track server URL | `${user_config.dependency_track_url}` | Ask the user for the URL     |
-| TEA endpoint                | `${user_config.tea_endpoint}`  | Ask the user for the endpoint      |
+| Setting                     | Value                                 | When not set                  |
+| --------------------------- | ------------------------------------- | ----------------------------- |
+| Dependency-Track server URL | `${user_config.dependency_track_url}` | Ask the user for the URL      |
+| TEA endpoint                | `${user_config.tea_endpoint}`         | Ask the user for the endpoint |
 
 A configured URL is a suggestion for `--server-url` or `--tea-publish`. Show it
 to the user and get a yes before any upload, as described below.

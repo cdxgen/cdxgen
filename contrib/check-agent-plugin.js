@@ -2,8 +2,9 @@
 // check-agent-plugin.js — structural checks for the coding-agent plugin in
 // agent-plugin/ that `claude plugin validate` does not make.
 //
-// The plugin version is bumped by hand alongside package.json, deno.json,
-// jsr.json and pyproject.toml, and has drifted before. Skills link to the
+// The release version is bumped by hand in package.json, deno.json, jsr.json
+// and pyproject.toml, and the plugin manifests take it from package.json
+// through contrib/gen-agent-manifests.js; the two have drifted before. Skills link to the
 // shared reference/ files with relative paths that break silently when a file
 // moves. Agent Skills clients other than Claude Code (Codex, Copilot, Cursor)
 // reject a skill whose name does not match its directory or whose description

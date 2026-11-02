@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// gen-agent-manifests.js — write the shared fields of every coding-agent
+// gen-agent-manifests.js: write the shared fields of every coding-agent
 // manifest from package.json and contrib/agent-manifests.template.json.
 //
 // The version comes from package.json. The description, author, homepage,
@@ -13,9 +13,9 @@
 //   node contrib/gen-agent-manifests.js --check   // exit 1 and name the files that differ
 //
 // Exit codes:
-//   0 — manifests written, or all up to date with --check
-//   1 — --check found files that differ from the generated output
-//   2 — internal error
+//   0: manifests written, or all up to date with --check
+//   1: --check found files that differ from the generated output
+//   2: internal error
 
 import {
   existsSync,

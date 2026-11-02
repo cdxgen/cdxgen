@@ -20,10 +20,10 @@ otherwise ignore it and follow the "When not set" column. The settings hold no
 keys or tokens, and the rule against asking for, printing or writing one still
 applies.
 
-| Setting                  | Value                       | When not set                                  |
-| ------------------------ | --------------------------- | --------------------------------------------- |
-| Default `--spec-version` | `${user_config.spec_version}` | Omit the flag; cdxgen defaults to `1.7`       |
-| Preferred runtime        | `${user_config.runtime}`    | Use `cdxgen` on `PATH`                        |
+| Setting                  | Value                         | When not set                            |
+| ------------------------ | ----------------------------- | --------------------------------------- |
+| Default `--spec-version` | `${user_config.spec_version}` | Omit the flag; cdxgen defaults to `1.7` |
+| Preferred runtime        | `${user_config.runtime}`      | Use `cdxgen` on `PATH`                  |
 
 When the spec version is set, add `--spec-version <value>` to the real run,
 unless the user asks for another version. When the runtime is `container`, use
