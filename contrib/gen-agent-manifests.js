@@ -17,7 +17,12 @@
 //   1 — --check found files that differ from the generated output
 //   2 — internal error
 
-import { existsSync, readFileSync, writeFileSync } from "node:fs";
+import {
+  existsSync,
+  mkdirSync,
+  readFileSync,
+  writeFileSync,
+} from "node:fs";
 import path from "node:path";
 import process from "node:process";
 import { fileURLToPath } from "node:url";
@@ -34,6 +39,7 @@ const TEMPLATE = path.join(
 export const AGENT_PLUGINS_SCHEMA_URL =
   "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json";
 const PLUGIN_NAME = "cdxgen";
+const PLUGIN_DIR = "./agent-plugin";
 
 const readJson = (file) => JSON.parse(readFileSync(file, "utf-8"));
 
@@ -102,6 +108,28 @@ const TARGETS = [
       return marketplace;
     },
   },
+  {
+    // Codex reads .agents/plugins/marketplace.json and resolves source.path
+    // against the repository root. The portable plugin.json in agent-plugin/
+    // is what it loads. Every Codex entry needs policy and category.
+    // https://developers.openai.com/codex/plugins/build#marketplace-metadata
+    file: ".agents/plugins/marketplace.json",
+    build: (shared) => ({
+      name: shared.marketplace.name,
+      interface: { displayName: shared.marketplace.displayName },
+      plugins: [
+        {
+          name: PLUGIN_NAME,
+          source: { source: "local", path: PLUGIN_DIR },
+          policy: {
+            installation: shared.codex.installation,
+            authentication: shared.codex.authentication,
+          },
+          category: shared.codex.category,
+        },
+      ],
+    }),
+  },
 ];
 
 function sharedFields() {
@@ -115,6 +143,8 @@ function sharedFields() {
     repository: template.repository,
     license: pkg.license,
     keywords: template.keywords,
+    marketplace: template.marketplace,
+    codex: template.codex,
   };
 }
 
@@ -162,6 +192,7 @@ function main() {
   }
   for (const { file, content, current } of renderAll()) {
     if (content !== current) {
+      mkdirSync(path.dirname(path.join(REPO_ROOT, file)), { recursive: true });
       writeFileSync(path.join(REPO_ROOT, file), content);
       console.log(`wrote ${file}`);
     }

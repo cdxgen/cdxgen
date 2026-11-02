@@ -1,0 +1,20 @@
+{
+  "name": "cdxgen-plugins",
+  "interface": {
+    "displayName": "OWASP cdxgen"
+  },
+  "plugins": [
+    {
+      "name": "cdxgen",
+      "source": {
+        "source": "local",
+        "path": "./agent-plugin"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Developer Tools"
+    }
+  ]
+}

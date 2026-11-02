@@ -22,5 +22,14 @@
     "obom",
     "aibom",
     "scrm"
-  ]
+  ],
+  "marketplace": {
+    "name": "cdxgen-plugins",
+    "displayName": "OWASP cdxgen"
+  },
+  "codex": {
+    "installation": "AVAILABLE",
+    "authentication": "ON_INSTALL",
+    "category": "Developer Tools"
+  }
 }

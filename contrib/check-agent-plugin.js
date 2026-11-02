@@ -202,6 +202,41 @@ function checkAgentPluginsManifest(pluginRoot, problems) {
   }
 }
 
+// Codex lists the plugin in .agents/plugins/marketplace.json. Every entry needs
+// a policy and a category, and source.path must lead to a plugin directory.
+// https://developers.openai.com/codex/plugins/build#marketplace-metadata
+function checkCodexMarketplace(problems) {
+  const file = path.join(REPO_ROOT, ".agents", "plugins", "marketplace.json");
+  const rel = path.relative(REPO_ROOT, file);
+  if (!existsSync(file)) {
+    problems.push({ file: rel, problem: "Codex marketplace not found" });
+    return;
+  }
+  for (const plugin of readJson(file).plugins || []) {
+    const pluginPath = plugin.source?.path;
+    if (!pluginPath?.startsWith("./")) {
+      problems.push({
+        file: rel,
+        problem: `${plugin.name}: source.path must start with ./`,
+      });
+    } else if (!existsSync(path.join(REPO_ROOT, pluginPath, "plugin.json"))) {
+      problems.push({
+        file: rel,
+        problem: `${plugin.name}: no plugin.json under ${pluginPath}`,
+      });
+    }
+    for (const [field, value] of [
+      ["policy.installation", plugin.policy?.installation],
+      ["policy.authentication", plugin.policy?.authentication],
+      ["category", plugin.category],
+    ]) {
+      if (!value) {
+        problems.push({ file: rel, problem: `${plugin.name}: missing ${field}` });
+      }
+    }
+  }
+}
+
 function collectProblems() {
   const problems = [];
   for (const file of staleManifests()) {
@@ -239,6 +274,7 @@ function collectProblems() {
     checkAgents(pluginRoot, problems);
     checkHooks(pluginRoot, problems);
   }
+  checkCodexMarketplace(problems);
   // The contributor skills in .agents/skills follow the same spec.
   checkSkills(path.join(REPO_ROOT, ".agents"), problems);
   return problems;
