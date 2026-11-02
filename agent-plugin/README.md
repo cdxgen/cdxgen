@@ -1,12 +1,21 @@
-# OWASP cdxgen plugin for Claude Code
+# OWASP cdxgen plugin for coding agents
 
-Brings the [OWASP cdxgen](https://cdxgen.github.io/cdxgen) toolkit into Claude
-Code as a set of Agent Skills. Claude picks the right skill from your request,
-then drives the correct cdxgen command with the right flags — including the
-safety constraints that keep an agent from installing packages or leaking
+Brings the [OWASP cdxgen](https://cdxgen.github.io/cdxgen) toolkit into a
+coding agent as a set of Agent Skills. The agent picks the right skill from your
+request, then drives the correct cdxgen command with the right flags, including
+the safety constraints that keep an agent from installing packages or leaking
 secrets on your behalf.
 
+The folder is an [Agent Plugins](https://agent-plugins.org) package (`plugin.json`,
+`skills/`) that also carries a Claude Code manifest. It is meant for Claude Code,
+OpenAI Codex, the GitHub Copilot CLI and app, Cursor, Gemini CLI, Kiro and
+opencode. Only Claude Code and Codex have been tried so far; the
+[installation guide](https://cdxgen.github.io/cdxgen/#/AGENT_PLUGINS) says what
+was tested in each client.
+
 ## Install
+
+In Claude Code:
 
 ```bash
 claude plugin marketplace add cdxgen/cdxgen
@@ -14,6 +23,18 @@ claude plugin install cdxgen@cdxgen-plugins
 ```
 
 Then run `/reload-plugins` if the install summary asks you to.
+
+In Codex:
+
+```bash
+codex plugin marketplace add cdxgen/cdxgen
+codex plugin add cdxgen@cdxgen-plugins
+```
+
+For Copilot, Cursor, Gemini CLI, Kiro and opencode, and for how to update and
+invoke a skill in each client, see the
+[installation guide](https://cdxgen.github.io/cdxgen/#/AGENT_PLUGINS) (in this
+repository, [docs/AGENT_PLUGINS.md](../docs/AGENT_PLUGINS.md)).
 
 ## Prerequisites
 
@@ -51,14 +72,16 @@ Optional enrichment: `@cdxgen/cdxgen-plugins-bin` (Trivy, osquery, `golem`,
 | `sbom-fidelity-loop`       | Raise a shallow SBOM to a fully resolved one via `--profile introspect`             |
 | `bom-slimmer`              | Shrink dependency footprint using SBOM evidence and license risk                    |
 
-Invoke one directly as `/cdxgen:sbom-generate`, or just describe what you want
-and let Claude select.
+Describe what you want and let the agent select a skill, or invoke one by name.
+In Claude Code that is `/cdxgen:sbom-generate`; the guide lists the form for each
+client.
 
 `bom-signing` and `dependency-track-upload` are the exceptions: they handle
-signing keys and publish to servers, so Claude never picks them on its own. Run
-them as `/cdxgen:bom-signing` and `/cdxgen:dependency-track-upload`.
+signing keys and publish to servers, so Claude Code never picks them on its own.
+Run them as `/cdxgen:bom-signing` and `/cdxgen:dependency-track-upload`. Other
+clients may not honor that setting, so the skills also ask before any upload.
 
-## Agents
+## Agents (Claude Code only)
 
 | Agent                  | Does                                                                                   |
 | ---------------------- | -------------------------------------------------------------------------------------- |
@@ -68,7 +91,7 @@ Ask for a review ("have the bom-reviewer check /abs/path/bom.json") and Claude
 delegates to it, so the validator and audit output stays out of your
 conversation.
 
-## Hooks
+## Hooks (Claude Code only)
 
 | Event          | Does                                                                                         |
 | -------------- | -------------------------------------------------------------------------------------------- |
@@ -78,7 +101,7 @@ conversation.
 Turn the lockfile reminder on with the plugin's `Lockfile reminder` option in
 `/config`. Neither hook sends anything over the network.
 
-## Settings
+## Settings (Claude Code only)
 
 Claude Code asks for these options when the plugin is enabled, and lists them
 in `/config`. All of them are optional and none is secret.

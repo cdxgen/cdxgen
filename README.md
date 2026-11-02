@@ -121,7 +121,9 @@ Sections include:
 - [MCP Inventory](docs/MCP.md)
 - [REPL Guide](docs/REPL.md)
 - [Custom Properties](docs/CUSTOM_PROPERTIES.md)
-- [Claude Code Plugin](agent-plugin/README.md)
+- [Coding Agent Plugin](agent-plugin/README.md)
+- [Installing the plugin in coding agents](docs/AGENT_PLUGINS.md)
+- [Agent CI recipes](docs/AGENT_CI.md)
 - [Deprecations](docs/DEPRECATIONS.md)
 - [Security Policy](SECURITY.md)
 - [Threat Model](docs/THREAT_MODEL.md)
@@ -621,16 +623,21 @@ cdxgen can retain the dependency tree under the `dependencies` attribute for a s
 pnpm dlx @cdxgen/cdxgen-plugins-bin
 ```
 
-## Claude Code plugin
+## Coding agent plugin
 
-The cdxgen toolkit is also packaged as a [Claude Code](https://claude.com/claude-code) plugin, so agents drive the correct command and flags — including the dry-run-first and no-auto-install safety constraints — instead of guessing.
+The cdxgen toolkit is also packaged as a plugin for coding agents, so agents drive the correct command and flags, including the dry-run-first and no-auto-install safety constraints, instead of guessing. It is meant for Claude Code, OpenAI Codex, the GitHub Copilot CLI and app, Cursor, Gemini CLI, Kiro and opencode, and has been tried in Claude Code and Codex so far.
 
 ```shell
 claude plugin marketplace add cdxgen/cdxgen
 claude plugin install cdxgen@cdxgen-plugins
 ```
 
-It ships skills covering SBOM generation, container and rootfs scans, OBOM/HBOM, CBOM, AI-BOM and MCP inventory, BOM auditing, signing, validation, conversion, evidence enrichment, runtime tracing, and Dependency-Track publishing. See [agent-plugin/README.md](agent-plugin/README.md).
+```shell
+codex plugin marketplace add cdxgen/cdxgen
+codex plugin add cdxgen@cdxgen-plugins
+```
+
+It ships skills covering SBOM generation, container and rootfs scans, OBOM/HBOM, CBOM, AI-BOM and MCP inventory, BOM auditing, signing, validation, conversion, evidence enrichment, runtime tracing, and Dependency-Track publishing. See [agent-plugin/README.md](agent-plugin/README.md) and the [installation guide](docs/AGENT_PLUGINS.md) for each client. To run cdxgen through an agent in GitHub Actions, see the [agent CI recipes](docs/AGENT_CI.md).
 
 ## Rust accelerator (cdxrs)
 
