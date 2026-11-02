@@ -1,0 +1,20 @@
+lib/cli/multiXBomSteps.poku.js
+  s_000c558fa3b5ce::t_0376f6ff7d165b 1-142,146-147,157-204
+  s_000c558fa3b5ce::t_cfe37a3ff308f6 143-145,148-156
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "290c1fd522d4434fed30339669be9288488a4a26",
+  "prompts": {},
+  "sessions": {
+    "s_000c558fa3b5ce": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "83b91043-3da3-49a2-b9f3-6505b7774934",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
