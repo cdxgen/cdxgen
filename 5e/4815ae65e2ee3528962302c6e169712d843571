@@ -1,0 +1,29 @@
+jsr.json
+  s_35420fd0a3f4a7::t_1d6d8ad1dfc7b7 3
+package.json
+  s_35420fd0a3f4a7::t_1d6d8ad1dfc7b7 3
+deno.json
+  s_35420fd0a3f4a7::t_1d6d8ad1dfc7b7 3
+claude-plugin/.claude-plugin/plugin.json
+  s_35420fd0a3f4a7::t_1d6d8ad1dfc7b7 4
+pyproject.toml
+  s_35420fd0a3f4a7::t_1d6d8ad1dfc7b7 3
+README.md
+  s_35420fd0a3f4a7::t_1d6d8ad1dfc7b7 219,233,247,272
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "5e4815ae65e2ee3528962302c6e169712d843571",
+  "prompts": {},
+  "sessions": {
+    "s_35420fd0a3f4a7": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "434c5ce0-0807-43bf-a23c-ab3cf5706364",
+        "model": "claude-sonnet-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
