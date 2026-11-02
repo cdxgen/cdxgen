@@ -1,6 +1,6 @@
 ---
 name: bom-evidence
-description: Enriches an existing CycloneDX BOM with occurrence, callstack, reachability, data-flow, and crypto-flow evidence using cdxgen evinse, including Go analysis via Golem and Rust analysis via Rusi, and produces SaaSBOM service and endpoint inventory. Use when asked which dependencies are actually used or reachable, for callstack or usage evidence, a SaaSBOM, API endpoint inventory, data-flow or taint analysis, or to distinguish real from declared dependency usage, or what Golem found in a Go project.
+description: Enriches an existing CycloneDX BOM with occurrence, callstack, reachability, data-flow, and crypto-flow evidence using cdxgen evinse, including Go analysis via Golem and Rust analysis via Rusi, and produces SaaSBOM service and endpoint inventory. Use when asked which dependencies are actually used or reachable, for callstack or usage evidence, a SaaSBOM, API endpoint inventory, data-flow or taint analysis, or to distinguish real from declared dependency usage, or what Golem found in a Go project, including requests to show Golem's raw values.
 ---
 
 # Add evidence to a BOM

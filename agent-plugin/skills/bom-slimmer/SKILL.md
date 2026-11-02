@@ -1,6 +1,6 @@
 ---
 name: bom-slimmer
-description: Reviews a codebase's direct dependencies and designs lightweight, low-risk, zero-dependency custom replacements using cdxgen SBOM evidence, occurrence/callstack usage data, and license and supply-chain risk evaluation. Use when asked to shrink node_modules, reduce dependency bloat or copyleft exposure, or replace utility packages with native or built-in implementations.
+description: Reviews a codebase's direct dependencies and designs lightweight, low-risk, zero-dependency custom replacements using cdxgen SBOM evidence, occurrence/callstack usage data, and license and supply-chain risk evaluation. Use when asked to shrink node_modules, reduce dependency bloat or copyleft exposure, find small or utility packages that could be replaced with built-in code, or replace utility packages with native or built-in implementations. Load it before suggesting any command for that analysis, even when the user only wants to see the commands.
 ---
 
 # Skill: BOM Slimmer
