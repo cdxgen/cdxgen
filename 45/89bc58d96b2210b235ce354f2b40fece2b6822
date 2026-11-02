@@ -1,0 +1,25 @@
+agent-plugin/.claude-plugin/plugin.json
+  s_79a7c562b49300::t_73cb1d63ced911 35-54
+agent-plugin/skills/container-sbom/SKILL.md
+  s_79a7c562b49300::t_118f801567eced 14-31
+agent-plugin/skills/dependency-track-upload/SKILL.md
+  s_79a7c562b49300::t_9fb120c88d505c 16-32
+agent-plugin/skills/sbom-generate/SKILL.md
+  s_79a7c562b49300::t_8f3af195af2ec3 16-42
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "4589bc58d96b2210b235ce354f2b40fece2b6822",
+  "prompts": {},
+  "sessions": {
+    "s_79a7c562b49300": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "e06ad8c2-0767-47dd-913e-35689e5f05ba",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
