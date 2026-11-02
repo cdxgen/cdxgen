@@ -1,6 +1,6 @@
 ---
 type: regex
 target: last_message
-pattern: 'CDXGEN_FETCH_LICENSE'
+pattern: '\bFETCH_LICENSE\b'
 flags: i
 ---

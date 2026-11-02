@@ -206,7 +206,7 @@ These indicators affect **which packages are audited first**, not the final seve
 5. **Java is only needed on jar-based atom platforms.** C/C++, Python, and CBOM source analysis uses the atom companion, which ships as a native binary (no JDK) on linux-amd64, linux-arm64 (glibc), linux-amd64-musl, darwin-arm64, and windows-amd64. On darwin-amd64, windows-arm64, and linux-arm64-musl it runs on the JVM and requires Java ≥ 23; older versions cause silent freezes.
 6. **NEVER** construct PackageURL (purl) strings manually in prompts or scripts. Let `cdxgen` handle resolution.
 7. **Secure Mode** (`CDXGEN_SECURE_MODE=true`) requires explicit Node.js `--permission` flags. Do not grant `--allow-fs-read="*"` or `--allow-fs-write="*"`.
-8. **Environment Variables** must use `CDXGEN_` prefix (e.g., `CDXGEN_TYPE=java`, `CDXGEN_FETCH_LICENSE=true`).
+8. **Environment Variables**: a CLI option can be set as `CDXGEN_` plus the option name (e.g., `CDXGEN_TYPE=java`). Settings that are not CLI options keep their own names with no prefix (e.g., `FETCH_LICENSE=true`); see `docs/ENV.md`.
 9. **ALWAYS run `--dry-run` first** for agent-driven workflows. Review the activity summary, prefer `--activity-report json` or `jsonl` for machine-readable inspection, and ask the user for permission before rerunning without `--dry-run`.
 10. **DO NOT** mix `hbom` / `hardware` with software project types such as `js`, `java`, `python`, `os`, or `oci` in the same run. Generate HBOM separately.
 11. When using server mode or BOM upload features, keep `CDXGEN_ALLOWED_HOSTS` and related host allowlists narrow. Prefer exact hosts; server-side Dependency-Track submission interprets wildcard entries as real subdomains only (for example, `*.example.com`), not suffix matches.

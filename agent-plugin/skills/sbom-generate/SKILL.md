@@ -1,6 +1,6 @@
 ---
 name: sbom-generate
-description: Generates a CycloneDX SBOM from source code with OWASP cdxgen, covering project-type selection across 30+ ecosystems, monorepo recursion, lifecycle phases, generation profiles, component filtering, and spec-version targeting. Use when asked to create an SBOM or BOM for a repository or directory, produce a dependency inventory, resolve licenses, or export SPDX from source.
+description: Generates a CycloneDX SBOM from source code with OWASP cdxgen, covering project-type selection across 30+ ecosystems, monorepo recursion, lifecycle phases, generation profiles, component filtering, and spec-version targeting. Use when asked to create an SBOM or BOM for a repository or directory, produce a dependency inventory, resolve licenses, or export SPDX from source. Also use when choosing cdxgen flags or paths for a scan, running cdxgen in CI or in secure mode, when cdxgen hangs or returns a thin or empty BOM, or when asked to add components or purls to a BOM by hand. Load it before writing any cdxgen command, even when the user only wants to see the command.
 ---
 
 # Generate an SBOM from source
@@ -10,8 +10,24 @@ repository or directory. For containers and binaries use `container-sbom`; for
 live hosts use `os-hardware-inventory`; to improve an SBOM that came back thin
 use `sbom-fidelity-loop`.
 
-Read [reference/safety.md](../../reference/safety.md) before running anything.
-The dry-run-first rule and the absolute-path rule are not optional.
+These rules apply to every command this skill produces, including commands
+that are only shown to the user. [reference/safety.md](../../reference/safety.md)
+explains each one.
+
+- Run `--dry-run --activity-report json` first, summarize what it would do, and
+  ask before the real run.
+- Use absolute paths for the project and for `-o`.
+- In CI, containers or air-gapped hosts, add `--no-install-deps` or
+  `--lifecycle pre-build`.
+- Never write a purl or a component by hand, even when asked to. Add the
+  package to the project's manifest and regenerate the BOM with cdxgen instead.
+- Never run secure mode as root, and never grant `--allow-fs-read="*"` or
+  `--allow-fs-write="*"`.
+- Never repeat a secret, key or token, including one the user pasted.
+- Command-line options win over `CDXGEN_<OPTION>` environment variables, which
+  win over `.cdxgenrc` and `.cdxgen.json`. License fetching is switched on by
+  the `FETCH_LICENSE=true` variable; there is no `--fetch-license` flag.
+- The npm package is `@cdxgen/cdxgen`.
 
 ## Plugin settings
 
