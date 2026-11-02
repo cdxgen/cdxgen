@@ -162,10 +162,17 @@ For .NET projects, `evinse` uses the bundled `dosai` helper from `@cdxgen/cdxgen
   of running dosai a second time. `--evidence` implies `--deep`, so this
   covers `cdxgen --evidence` as well. `--deps-slices-file` takes an absolute
   path as given and resolves a relative one against the scanned directory. An
-  existing `deps.slices.json` is reused as-is, including one created with
-  different `--exclude` patterns or an older cdxgen release, so a stale cache
-  can ignore your current excludes; delete the file to force a fresh analysis.
-  Pass `--usages-slices-file` to prefer your own slice.
+  existing `deps.slices.json` is reused only when it is newer than the files
+  dosai analyses under the scanned directory (the C#, VB, and F# sources, the
+  project and MSBuild files, the Razor templates, and `packages.config`, but
+  not `bin`, `obj`, `node_modules`, or `.git`). A slice that predates an edit
+  holds the occurrences of the sources as they were when it was written, so
+  cdxgen regenerates it instead of reusing it, in the BOM leg and again for
+  the usages analysis if it stayed stale. The slice is still not checked
+  against the current `--exclude` patterns, so one created with different
+  patterns or by an older cdxgen release can ignore your current excludes;
+  delete the file to force a fresh analysis. Pass `--usages-slices-file` to
+  prefer your own slice; it is used as given, whatever its age.
 - A `--deep` run that does not run evidence or crypto analysis writes a trimmed
   methods report: dosai is invoked with `--sections` naming the sections cdxgen
   reads, and `Metadata.OmittedSections` in the file names what was left out.
