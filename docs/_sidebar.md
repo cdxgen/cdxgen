@@ -19,6 +19,8 @@
 - [AI-BOM Guide](AI_BOM.md)
 - [AI Provenance](AI_PROVENANCE.md)
 - [MCP Inventory](MCP.md)
+- [Agent plugin install](AGENT_PLUGINS.md)
+- [Agent CI recipes](AGENT_CI.md)
 - [cdx: Custom Properties](CUSTOM_PROPERTIES.md)
 - [BOM Audit](BOM_AUDIT.md)
 - [Supply-chain transparency](SUPPLY_CHAIN_TRANSPARENCY.md)

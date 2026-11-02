@@ -1,0 +1,43 @@
+{
+  "name": "cdxgen-plugins",
+  "owner": {
+    "name": "Prabhu Subramanian",
+    "email": "prabhu@appthreat.com"
+  },
+  "metadata": {
+    "description": "OWASP cdxgen toolkit for coding agents: generate, enrich, audit, sign, validate, convert, and explore CycloneDX BOMs (SBOM, CBOM, HBOM, OBOM, SaaSBOM, AI-BOM, VDR) across source code, containers, live hosts, and hardware.",
+    "version": "13.7.0"
+  },
+  "plugins": [
+    {
+      "name": "cdxgen",
+      "source": "agent-plugin",
+      "description": "OWASP cdxgen toolkit for coding agents: generate, enrich, audit, sign, validate, convert, and explore CycloneDX BOMs (SBOM, CBOM, HBOM, OBOM, SaaSBOM, AI-BOM, VDR) across source code, containers, live hosts, and hardware.",
+      "version": "13.7.0",
+      "author": {
+        "name": "Prabhu Subramanian",
+        "email": "prabhu@appthreat.com"
+      },
+      "homepage": "https://cdxgen.github.io/cdxgen",
+      "repository": "https://github.com/cdxgen/cdxgen",
+      "license": "Apache-2.0",
+      "keywords": [
+        "sbom",
+        "bom",
+        "cyclonedx",
+        "spdx",
+        "package-url",
+        "purl",
+        "owasp",
+        "supply-chain",
+        "appsec",
+        "cbom",
+        "hbom",
+        "obom",
+        "aibom",
+        "scrm"
+      ],
+      "category": "security"
+    }
+  ]
+}

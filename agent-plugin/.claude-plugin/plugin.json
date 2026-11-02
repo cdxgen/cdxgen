@@ -1,0 +1,57 @@
+{
+  "name": "cdxgen",
+  "description": "OWASP cdxgen toolkit for coding agents: generate, enrich, audit, sign, validate, convert, and explore CycloneDX BOMs (SBOM, CBOM, HBOM, OBOM, SaaSBOM, AI-BOM, VDR) across source code, containers, live hosts, and hardware.",
+  "version": "13.7.0",
+  "author": {
+    "name": "Prabhu Subramanian",
+    "email": "prabhu@appthreat.com",
+    "url": "https://github.com/prabhu"
+  },
+  "homepage": "https://cdxgen.github.io/cdxgen",
+  "repository": "https://github.com/cdxgen/cdxgen",
+  "license": "Apache-2.0",
+  "keywords": [
+    "sbom",
+    "bom",
+    "cyclonedx",
+    "spdx",
+    "package-url",
+    "purl",
+    "owasp",
+    "supply-chain",
+    "appsec",
+    "cbom",
+    "hbom",
+    "obom",
+    "aibom",
+    "scrm"
+  ],
+  "userConfig": {
+    "lockfile_reminder": {
+      "type": "boolean",
+      "title": "Lockfile reminder",
+      "description": "Remind Claude that an SBOM is stale after it edits a lockfile or dependency manifest.",
+      "default": false
+    },
+    "dependency_track_url": {
+      "type": "string",
+      "title": "Dependency-Track server URL",
+      "description": "Base URL of your Dependency-Track server, for example https://deptrack.example.com. Leave empty to be asked each time. The API key is not stored here; set it in your own shell environment."
+    },
+    "tea_endpoint": {
+      "type": "string",
+      "title": "TEA endpoint",
+      "description": "Base URL of your TEA server for --tea-publish. Leave empty to be asked each time. The TEA token is not stored here; set TEA_TOKEN in your own shell environment."
+    },
+    "spec_version": {
+      "type": "string",
+      "title": "Default CycloneDX spec version",
+      "description": "Value for --spec-version when you do not ask for one, for example 1.6, 1.7 or 2.0. Leave empty to use the cdxgen default."
+    },
+    "runtime": {
+      "type": "string",
+      "title": "Preferred runtime",
+      "description": "Enter local to run the cdxgen CLI from PATH, or container to run the ghcr.io/cdxgen/cdxgen image. Leave empty for local."
+    }
+  }
+}

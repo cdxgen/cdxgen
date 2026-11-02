@@ -26,6 +26,9 @@ test/data/swift-evinse-demo/.swiftpm/
 # artifacts, not fixtures; the recorded baseline lives in test/matrix/.
 results/
 
+# Reports written by `claude plugin eval` (agent-plugin/README.md)
+agent-plugin/evals/results/
+
 # Logs
 logs
 *.log

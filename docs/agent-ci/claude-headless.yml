@@ -1,0 +1,102 @@
+# Example: generate an SBOM with `claude -p` and fail the job when the plugin
+# did not load.
+#
+# Copy this file to .github/workflows/ in your own repository. It is not run by
+# the cdxgen project. See docs/AGENT_CI.md for what each setting does.
+#
+# Needs one repository secret, ANTHROPIC_API_KEY, that you create yourself.
+name: SBOM through claude -p
+
+on:
+  workflow_dispatch:
+
+permissions: {}
+
+jobs:
+  sbom:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    permissions:
+      contents: read
+    env:
+      # Exact releases. Change them on purpose, never to "latest".
+      CDXGEN_VERSION: "13.7.0"
+      CLAUDE_CODE_VERSION: "2.1.299"
+      # The cdxgen tag that holds the plugin. A commit SHA pins it harder.
+      CDXGEN_REF: "v13.7.0"
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Set up Node.js
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1  # v7.1.0
+        with:
+          node-version: "24"
+          package-manager-cache: false
+
+      - name: Install cdxgen and Claude Code
+        run: |
+          npm install --global --no-fund --omit=optional --ignore-scripts "@cdxgen/cdxgen@${CDXGEN_VERSION}"
+          npm install --global --no-fund "@anthropic-ai/claude-code@${CLAUDE_CODE_VERSION}"
+          cdxgen --version
+          claude --version
+
+      - name: Fetch the cdxgen plugin
+        run: |
+          git init --quiet "$RUNNER_TEMP/cdxgen-src"
+          git -C "$RUNNER_TEMP/cdxgen-src" fetch --quiet --depth 1 https://github.com/cdxgen/cdxgen.git "$CDXGEN_REF"
+          git -C "$RUNNER_TEMP/cdxgen-src" checkout --quiet FETCH_HEAD
+          claude plugin validate --strict "$RUNNER_TEMP/cdxgen-src/agent-plugin"
+        env:
+          DISABLE_AUTOUPDATER: "1"
+
+      - name: Generate the SBOM
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          DISABLE_AUTOUPDATER: "1"
+          CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC: "1"
+          WORKSPACE: ${{ github.workspace }}
+        run: |
+          PROMPT="Use the cdxgen skills to generate a CycloneDX SBOM of the project at ${WORKSPACE} and write it to ${WORKSPACE}/bom.json.
+
+          This is an unattended CI run and nobody can answer questions, so the approval that the safety rules ask for is given here, for this one scan only:
+          - Run cdxgen with --dry-run --activity-report json first. Stop without scanning if the report shows package installs, network access beyond package registries, or writes outside the workspace.
+          - Run the real scan with --no-install-deps and absolute paths.
+          - Run no other command, upload nothing, and never print environment variables or credentials.
+
+          End with a short Markdown summary: the command you ran, the number of components in the BOM, and anything a person needs to look at."
+          claude -p "$PROMPT" \
+            --plugin-dir "$RUNNER_TEMP/cdxgen-src/agent-plugin" \
+            --output-format stream-json --verbose \
+            --max-turns 20 \
+            --allowedTools "Skill,Read,Glob,Grep,Bash(cdxgen:*)" \
+            > "$RUNNER_TEMP/claude.jsonl"
+
+      - name: Fail when the plugin did not load
+        # The system/init event is the first event of the stream. It lists
+        # plugin_errors when a plugin failed to load.
+        if: ${{ !cancelled() }}
+        run: |
+          jq -e 'select(.type == "system" and .subtype == "init")
+                 | ((.plugin_errors // []) | length == 0)
+                   and any(.plugins[]?; .name == "cdxgen")' \
+            "$RUNNER_TEMP/claude.jsonl" > /dev/null \
+            || { echo "::error::The cdxgen plugin did not load; see the system/init event"; \
+                 jq -c 'select(.type == "system" and .subtype == "init") | {plugins, plugin_errors}' "$RUNNER_TEMP/claude.jsonl"; \
+                 exit 1; }
+
+      - name: Write the summary
+        if: ${{ !cancelled() }}
+        run: |
+          jq -r 'select(.type == "result") | .result' "$RUNNER_TEMP/claude.jsonl" >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload the BOM
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9  # v7.0.2
+        with:
+          name: bom
+          path: bom.json
+          if-no-files-found: error
+          retention-days: 7

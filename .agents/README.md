@@ -25,13 +25,13 @@ Skills follow the [Agent Skills](https://agentskills.io/specification) open stan
 
 ## Relationship to the Claude Code plugin
 
-[`claude-plugin/`](../claude-plugin/README.md) packages the user-facing cdxgen
+[`agent-plugin/`](../agent-plugin/README.md) packages the user-facing cdxgen
 capabilities as a Claude Code plugin, distributed through the marketplace
 manifest at [`.claude-plugin/marketplace.json`](../.claude-plugin/marketplace.json).
 
 Two skills are mirrored into that plugin: **BOM Slimmer** and **SBOM Fidelity
 Loop**. This directory remains their source of truth — change them here first,
-then copy into `claude-plugin/skills/` in the same change. The copy differs in
+then copy into `agent-plugin/skills/` in the same change. The copy differs in
 one way only: an installed plugin has no repository around it, so a
 `../../../docs/<Name>.md` link becomes `https://cdxgen.github.io/cdxgen/#/<Name>`.
 `lib/stages/postgen/introspection/skill.poku.js` fails when a copy drifts.
