@@ -1,0 +1,35 @@
+lib/cli/index.js
+  s_000c558fa3b5ce::t_1a793da7cdc7d3 874
+  s_000c558fa3b5ce::t_db43e537262a48 1028,1030-1031
+  s_000c558fa3b5ce::t_ef5709215b4f59 1024-1027,1029
+  s_000c558fa3b5ce::t_74888b1d8b6b98 1489,1492-1494
+  s_000c558fa3b5ce::t_a354eb5df9efed 863
+  s_000c558fa3b5ce::t_f6556fe93acfcd 860-862
+  s_000c558fa3b5ce::t_66b3acb2004f90 864-866,871-873
+  s_000c558fa3b5ce::t_b99d4642d5783d 1022-1023
+  s_000c558fa3b5ce::t_26160e30b2099b 1032-1034
+  s_000c558fa3b5ce::t_92973fa74fc8a0 1486-1488
+  s_000c558fa3b5ce::t_63084e1960287d 1490-1491
+  s_000c558fa3b5ce::t_a30af114e2961c 1495-1497
+lib/cli/index.typecheck.poku.js
+  s_000c558fa3b5ce::t_ce962da4b58cf3 24-28,31-46,48-50
+  s_000c558fa3b5ce::t_7f907be060db77 90-103
+  s_000c558fa3b5ce::t_6083bfed70f0a5 1-16,18-23,29-30,47,51-56,60-81,83-89,104-109
+  s_000c558fa3b5ce::t_75ea27d3fbccfc 17,57-59,82,110-111
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "fa7bc2ca6c2bcce38986913f0fe744cdf5912f77",
+  "prompts": {},
+  "sessions": {
+    "s_000c558fa3b5ce": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "83b91043-3da3-49a2-b9f3-6505b7774934",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
