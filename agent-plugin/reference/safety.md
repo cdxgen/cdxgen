@@ -62,8 +62,10 @@ than no purl, because it silently poisons downstream matching.
 ## Configuration precedence
 
 `CLI args` > `CDXGEN_*` env vars > `.cdxgenrc` / `.cdxgen.json` / `.cdxgen.yml` /
-`.cdxgen.yaml`. Environment variables must use the `CDXGEN_` prefix, for example
-`CDXGEN_TYPE=java`, `CDXGEN_FETCH_LICENSE=true`. Full list:
+`.cdxgen.yaml`. A CLI option can be set from the environment as `CDXGEN_` plus
+the option name, for example `CDXGEN_TYPE=java` for `--type`. Settings that are
+not CLI options keep their own names and have no prefix, for example
+`FETCH_LICENSE=true` to fetch licenses. Full list:
 <https://cdxgen.github.io/cdxgen/#/ENV>.
 
 ## Do not mix hardware with software types
@@ -88,7 +90,8 @@ For Go Evinse/Golem evidence specifically, never surface raw `go:generate`
 commands, environment values, HTTP parameter values, key material, plaintext,
 ciphertext, embedded file contents, generated source, or secrets. Review through
 the emitted `cdx:golem:*` counts, categories, rule IDs, taint kinds, scopes,
-call-stack frames, and crypto algorithm/OID pivots instead.
+call-stack frames, and crypto algorithm/OID pivots instead. When the user's own
+message contains such a value, decline without repeating it.
 
 ## Output expectations
 

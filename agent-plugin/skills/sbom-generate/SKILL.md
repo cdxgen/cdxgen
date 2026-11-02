@@ -1,6 +1,6 @@
 ---
 name: sbom-generate
-description: Generates a CycloneDX SBOM from source code with OWASP cdxgen, covering project-type selection across 30+ ecosystems, monorepo recursion, lifecycle phases, generation profiles, component filtering, and spec-version targeting. Use when asked to create an SBOM or BOM for a repository or directory, produce a dependency inventory, resolve licenses, or export SPDX from source.
+description: Generates a CycloneDX SBOM from source code with OWASP cdxgen, covering project-type selection across 30+ ecosystems, monorepo recursion, lifecycle phases, generation profiles, component filtering, and spec-version targeting. Use when asked to create an SBOM or BOM for a repository or directory, produce a dependency inventory, resolve licenses, or export SPDX from source. Also use when choosing cdxgen flags or paths for a scan, running cdxgen in CI or in secure mode, when cdxgen hangs or returns a thin or empty BOM, or when asked to add components or purls to a BOM by hand.
 ---
 
 # Generate an SBOM from source

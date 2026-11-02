@@ -1,6 +1,6 @@
 ---
 name: os-hardware-inventory
-description: Collects live operating-system inventory (OBOM) and host hardware inventory (HBOM) as CycloneDX documents using the cdxgen obom and hbom commands, including osquery-backed runtime artifacts, apk packages on Alpine, Wolfi and Chainguard, Linux hardening snapshots, GTFOBins enrichment, firmware and bus topology, and macOS permission troubleshooting. Use when asked to inventory a live machine, audit a running host's packages or services, compare a host's packages with a container scan of the same image, produce a hardware BOM, or check host trust posture.
+description: Collects live operating-system inventory (OBOM) and host hardware inventory (HBOM) as CycloneDX documents using the cdxgen obom and hbom commands, including osquery-backed runtime artifacts, apk packages on Alpine, Wolfi and Chainguard, Linux hardening snapshots, GTFOBins enrichment, firmware and bus topology, and macOS permission troubleshooting. Use when asked to inventory a live machine, audit a running host's packages or services, compare a host's packages with a container scan of the same image, produce a hardware BOM, cover a project and the machine's hardware in one BOM, or check host trust posture.
 ---
 
 # Live OS and hardware inventory
