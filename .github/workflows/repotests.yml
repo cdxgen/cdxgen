@@ -920,6 +920,59 @@ jobs:
             }),
           );
           EOF
+          # The first scan left deps.slices.json in the project. An edit that
+          # removes the only call sites of a package must not be masked by
+          # that slice: the second scan finds it older than the sources and
+          # regenerates it, so the occurrences of the removed call sites
+          # disappear (issue 4675).
+          cd repotests/dotnet-api-smoke
+          cat > Program.cs <<'EOF'
+          using Microsoft.AspNetCore.Mvc;
+
+          var builder = WebApplication.CreateBuilder(args);
+          builder.Services.AddControllers();
+          var app = builder.Build();
+          app.MapControllers();
+          app.MapGet("/api/ping", () => Results.Ok(new { Message = "pong" }));
+          app.Run();
+          EOF
+          dotnet build -v q --nologo
+          cd "$GITHUB_WORKSPACE"
+          bin/cdxgen.js -r -t dotnet repotests/dotnet-api-smoke -o bomresults/bom-dotnet-api-smoke-edited.json --evidence --spec-version 1.6
+          node --input-type=module <<'EOF'
+          import { existsSync, readFileSync } from "node:fs";
+          import { join } from "node:path";
+
+          import { resolveCdxgenPlugins } from "./lib/inventory/plugins.js";
+
+          // dosai ships in the optional plugins-bin package, so the stale
+          // slice can only be asserted when the binary resolved for this
+          // platform.
+          const { pluginsDir } = resolveCdxgenPlugins();
+          const hasDosai =
+            Boolean(pluginsDir) && existsSync(join(pluginsDir, "dosai"));
+          if (!hasDosai) {
+            console.log("Skipping the stale deps slice check: no dosai.");
+          } else {
+            const bom = JSON.parse(
+              readFileSync(
+                "bomresults/bom-dotnet-api-smoke-edited.json",
+                "utf-8",
+              ),
+            );
+            const newtonsoft = (bom.components || []).find((component) =>
+              String(component.purl || "").startsWith(
+                "pkg:nuget/Newtonsoft.Json@",
+              ),
+            );
+            const occurrences = newtonsoft?.evidence?.occurrences || [];
+            if (occurrences.length) {
+              throw new Error(
+                `Expected no occurrences for the removed Newtonsoft.Json call sites after the edit, found ${occurrences.length}: ${JSON.stringify(occurrences)}`,
+              );
+            }
+          }
+          EOF
           bin/cdxgen.js -r -t dotnet repotests/react-native-windows -o bomresults/bom-react-native-windows.json
           rm -rf repotests/dotnet-paket repotests/dotnet-podcasts repotests/react-native-windows repotests/dotnet-api-smoke || true
         shell: bash
