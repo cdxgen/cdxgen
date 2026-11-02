@@ -1,0 +1,23 @@
+lib/cli/index.js
+  s_000c558fa3b5ce::t_b56480173ffe67 1028-1047,1367-1372,1428,1447-1448,1510-1511,1519,1521-1523,1592-1594,1603,1670
+lib/cli/index.typecheck.poku.js
+  s_000c558fa3b5ce::t_9e727151534533 9-12,24,84-94,102-104,106
+lib/cli/multiXBomSteps.poku.js
+  s_000c558fa3b5ce::t_1ec5d2bfa8b746 6,25-26,30-31,33,86-102,222-416
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "a573b0710c4adf6ee1ec95d0964d77102e2a3132",
+  "prompts": {},
+  "sessions": {
+    "s_000c558fa3b5ce": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "83b91043-3da3-49a2-b9f3-6505b7774934",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
