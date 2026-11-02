@@ -1,0 +1,27 @@
+lib/ecosystems/parsers-python.js
+  s_000c558fa3b5ce::t_7e71f941838889 1144-1154
+lib/cli/index.typecheck.poku.js
+  s_000c558fa3b5ce::t_a794698f0769c9 97-98
+lib/cli/multiXBomSteps.poku.js
+  s_000c558fa3b5ce::t_17cd0b43cde491 320-356,358
+lib/ecosystems/parsers-python.poku.js
+  s_000c558fa3b5ce::t_985a2e92fb5b93 1941-1949,1954-1955,1960,1963-1977
+types/lib/ecosystems/parsers-python.d.ts.map
+  s_000c558fa3b5ce::t_e106872d2c5369 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "8bf954a3ee178c0d40a0cb18f2c5f190eb6cfa48",
+  "prompts": {},
+  "sessions": {
+    "s_000c558fa3b5ce": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "83b91043-3da3-49a2-b9f3-6505b7774934",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
