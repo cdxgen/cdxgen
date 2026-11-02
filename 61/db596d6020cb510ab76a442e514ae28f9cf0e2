@@ -1,0 +1,37 @@
+agent-plugin/evals/select-sbom-generate/graders/runs-the-command.md
+  s_7e5f47b40b9a6f::t_3815808b29255c 4
+agent-plugin/evals/select-os-hardware-inventory/graders/runs-the-command.md
+  s_7e5f47b40b9a6f::t_979ce08fff2dc1 4
+SKILL.md
+  s_7e5f47b40b9a6f::t_979ce08fff2dc1 209
+agent-plugin/skills/sbom-generate/SKILL.md
+  s_7e5f47b40b9a6f::t_979ce08fff2dc1 3
+agent-plugin/evals/safety-config-precedence/graders/license-variable.md
+  s_7e5f47b40b9a6f::t_3815808b29255c 4
+agent-plugin/skills/os-hardware-inventory/SKILL.md
+  s_7e5f47b40b9a6f::t_979ce08fff2dc1 3
+agent-plugin/reference/safety.md
+  s_7e5f47b40b9a6f::t_d110ccf9372801 93-94
+  s_7e5f47b40b9a6f::t_979ce08fff2dc1 65-68
+agent-plugin/skills/bom-evidence/SKILL.md
+  s_7e5f47b40b9a6f::t_d110ccf9372801 143-144
+  s_7e5f47b40b9a6f::t_979ce08fff2dc1 3
+agent-plugin/evals/select-bom-slimmer/graders/runs-the-command.md
+  s_7e5f47b40b9a6f::t_979ce08fff2dc1 4
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "61db596d6020cb510ab76a442e514ae28f9cf0e2",
+  "prompts": {},
+  "sessions": {
+    "s_7e5f47b40b9a6f": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "e6d3f67e-2997-4ba4-8999-46e49eac509f",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
