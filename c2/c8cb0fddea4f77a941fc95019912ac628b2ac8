@@ -1,0 +1,31 @@
+types/lib/cli/index.d.ts.map
+  s_000c558fa3b5ce::t_39157d8f392b21 1
+types/lib/cli/managedBom.d.ts.map
+  s_000c558fa3b5ce::t_dfe923c11362a8 1
+types/lib/cli/nativeBom.d.ts.map
+  s_000c558fa3b5ce::t_7bdc6fcd4d7e0b 1
+types/lib/ecosystems/parsers-python.d.ts.map
+  s_000c558fa3b5ce::t_393d93dbf545b1 1
+types/lib/evinser/evinser.d.ts.map
+  s_000c558fa3b5ce::t_b6345b412c226c 1
+types/lib/inventory/dosai.d.ts
+  s_000c558fa3b5ce::t_593f2f95358b03 131-149
+types/lib/inventory/dosai.d.ts.map
+  s_000c558fa3b5ce::t_bc8d357cb2b3b0 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "c2c8cb0fddea4f77a941fc95019912ac628b2ac8",
+  "prompts": {},
+  "sessions": {
+    "s_000c558fa3b5ce": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "83b91043-3da3-49a2-b9f3-6505b7774934",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
