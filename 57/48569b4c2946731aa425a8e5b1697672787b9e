@@ -1,0 +1,20 @@
+.agents/plugins/marketplace.json
+  h_0926447d100ad2 1-20
+contrib/agent-manifests.template.json
+  h_0926447d100ad2 25-34
+contrib/check-agent-plugin.js
+  h_0926447d100ad2 205-239,277
+contrib/gen-agent-manifests.js
+  h_0926447d100ad2 20-25,42,111-132,146-147,195
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "5748569b4c2946731aa425a8e5b1697672787b9e",
+  "prompts": {},
+  "humans": {
+    "h_0926447d100ad2": {
+      "author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
