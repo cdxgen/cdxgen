@@ -141,6 +141,36 @@ in the repository root is their source of truth. Update them there first, then
 copy them here, with `../../../docs/<Name>.md` links rewritten to
 `https://cdxgen.github.io/cdxgen/#/<Name>`. A test fails when a copy drifts.
 
+## Evals
+
+`evals/` holds 27 cases for `claude plugin eval`. They check that a plain
+request picks the right skill (one case for each of the 12 skills that Claude may
+start by itself, plus one case each showing that `bom-signing` and
+`dependency-track-upload` do not start without their slash command) and that the
+rules in [reference/safety.md](reference/safety.md) hold: dry run first, absolute
+paths, no installs in CI, no hand-written purls, no secrets or Golem values in
+the reply, and a question before any upload.
+
+Run the suite on your own machine, with your own Claude Code login, before a
+release and after a skill changes:
+
+```bash
+claude plugin eval ./agent-plugin --threshold 0.8 --no-publish
+```
+
+Every case runs three times with the plugin and three times without it, and
+each `llm` grader adds three judge calls, so a full run makes several hundred
+model calls on your account. Add `--ablation none` to skip the runs without the
+plugin, `--case 'safety-*'` or `--tag selection` to run part of the suite, and
+`--max-cost-usd` to cap the spend. Nothing runs in the repository's CI, and no
+model API key is stored in its secrets.
+
+The cases do not grant `Bash`, so no cdxgen command runs and no scan happens.
+Each prompt asks for the command lines, and the graders read the reply. Under
+the default `with-without` mode, the `tool_used: Skill` graders only show that
+the plugin fired; the regex and `llm` graders carry the score. Reports go to
+`evals/results/`, which git ignores.
+
 ## Links
 
 - Docs: <https://cdxgen.github.io/cdxgen>
