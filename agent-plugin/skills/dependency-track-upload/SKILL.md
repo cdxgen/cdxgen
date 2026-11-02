@@ -13,6 +13,23 @@ Read [reference/safety.md](../../reference/safety.md) first. Both halves of this
 skill touch the network and credentials, so the constraints below are not
 optional.
 
+## Plugin settings
+
+Claude Code replaces the `${user_config.*}` values in this table with the
+options the user set for the plugin. Other clients show the text as written. A
+value counts as set only when it is not empty and does not start with `${`;
+otherwise ignore it and follow the "When not set" column. The settings hold no
+keys or tokens, and the rule against asking for, printing or writing one still
+applies.
+
+| Setting                     | Value                          | When not set                       |
+| --------------------------- | ------------------------------ | ---------------------------------- |
+| Dependency-Track server URL | `${user_config.dependency_track_url}` | Ask the user for the URL     |
+| TEA endpoint                | `${user_config.tea_endpoint}`  | Ask the user for the endpoint      |
+
+A configured URL is a suggestion for `--server-url` or `--tea-publish`. Show it
+to the user and get a yes before any upload, as described below.
+
 ## Confirm before uploading
 
 Uploading a BOM **publishes it to an external system**. Before any submission:

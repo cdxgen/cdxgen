@@ -78,6 +78,28 @@ conversation.
 Turn the lockfile reminder on with the plugin's `Lockfile reminder` option in
 `/config`. Neither hook sends anything over the network.
 
+## Settings
+
+Claude Code asks for these options when the plugin is enabled, and lists them
+in `/config`. All of them are optional and none is secret.
+
+| Option                | Used by                                      | Effect                                                              |
+| --------------------- | -------------------------------------------- | ------------------------------------------------------------------- |
+| `dependency_track_url` | `dependency-track-upload`                   | Suggested `--server-url`; the skill still asks before uploading     |
+| `tea_endpoint`        | `dependency-track-upload`                    | Suggested `--tea-publish` endpoint                                  |
+| `spec_version`        | `sbom-generate`, `container-sbom`            | Adds `--spec-version` to real runs                                  |
+| `runtime`             | `sbom-generate`, `container-sbom`            | `local` for the CLI on `PATH`, `container` for `ghcr.io/cdxgen/cdxgen` |
+| `lockfile_reminder`   | Hook                                         | Turns the stale-SBOM reminder on                                    |
+
+The Dependency-Track API key and the TEA token are not options. Claude Code does
+not pass sensitive option values to the commands an agent runs, so an upload
+could not use them. Set `CDXGEN_*` and `TEA_TOKEN` style variables in your own
+shell, as the skills already tell you to.
+
+The skills refer to the options as `${user_config.KEY}`. Only Claude Code
+substitutes them; other clients show the text as written, and the skills then
+fall back to their defaults.
+
 ## Safety posture
 
 Every skill loads [reference/safety.md](reference/safety.md), which encodes the

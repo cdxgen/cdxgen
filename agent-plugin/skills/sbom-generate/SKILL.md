@@ -13,6 +13,33 @@ use `sbom-fidelity-loop`.
 Read [reference/safety.md](../../reference/safety.md) before running anything.
 The dry-run-first rule and the absolute-path rule are not optional.
 
+## Plugin settings
+
+Claude Code replaces the `${user_config.*}` values in this table with the
+options the user set for the plugin. Other clients show the text as written. A
+value counts as set only when it is not empty and does not start with `${`;
+otherwise ignore it and follow the "When not set" column. The settings hold no
+keys or tokens, and the rule against asking for, printing or writing one still
+applies.
+
+| Setting                  | Value                       | When not set                                  |
+| ------------------------ | --------------------------- | --------------------------------------------- |
+| Default `--spec-version` | `${user_config.spec_version}` | Omit the flag; cdxgen defaults to `1.7`       |
+| Preferred runtime        | `${user_config.runtime}`    | Use `cdxgen` on `PATH`                        |
+
+When the spec version is set, add `--spec-version <value>` to the real run,
+unless the user asks for another version. When the runtime is `container`, run
+cdxgen from the image instead of the local CLI, with the project mounted at
+`/app` and `/app` paths in the command:
+
+```bash
+docker run --rm -v /absolute/path/to/project:/app:rw \
+  ghcr.io/cdxgen/cdxgen:master /app -o /app/bom.json
+```
+
+Apply the dry-run-first rule to this form too, by adding `--dry-run
+--activity-report json`.
+
 ## Core syntax
 
 ```bash

@@ -32,6 +32,26 @@
       "title": "Lockfile reminder",
       "description": "Remind Claude that an SBOM is stale after it edits a lockfile or dependency manifest.",
       "default": false
+    },
+    "dependency_track_url": {
+      "type": "string",
+      "title": "Dependency-Track server URL",
+      "description": "Base URL of your Dependency-Track server, for example https://deptrack.example.com. Leave empty to be asked each time. The API key is not stored here; set it in your own shell environment."
+    },
+    "tea_endpoint": {
+      "type": "string",
+      "title": "TEA endpoint",
+      "description": "Base URL of your TEA server for --tea-publish. Leave empty to be asked each time. The TEA token is not stored here; set TEA_TOKEN in your own shell environment."
+    },
+    "spec_version": {
+      "type": "string",
+      "title": "Default CycloneDX spec version",
+      "description": "Value for --spec-version when you do not ask for one, for example 1.6, 1.7 or 2.0. Leave empty to use the cdxgen default."
+    },
+    "runtime": {
+      "type": "string",
+      "title": "Preferred runtime",
+      "description": "Enter local to run the cdxgen CLI from PATH, or container to run the ghcr.io/cdxgen/cdxgen image. Leave empty for local."
     }
   }
 }
