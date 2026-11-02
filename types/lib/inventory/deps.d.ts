@@ -16,9 +16,10 @@ export declare function isDocumentationJar(jarName: string): boolean;
  */
 export declare function collectMvnDependencies(mavenCmd: string, basePath: string, cleanup?: boolean, includeCacheDir?: boolean): Promise<{}>;
 /**
- * Method to collect class names from all jars in a directory
+ * Method to collect class names from all jars and Android libraries in a
+ * directory
  *
- * @param {string} jarPath Path containing jars
+ * @param {string} jarPath Path containing jars, or a single jar or aar file
  * @param {object} pomPathMap Map containing jar to pom names. Required to successfully parse gradle cache.
  *
  * @return object containing jar name and class list
@@ -186,6 +187,16 @@ export declare function readZipEntriesMatching(zipFile: string, pathFragment: st
  * @returns List of classes and sources matching certain known patterns
  */
 export declare function getJarClasses(jarFile: string): Promise<any>;
+/**
+ * Method to get the classes of an Android library. An `.aar` keeps its code
+ * in `classes.jar` at its root and any number of further jars under `libs/`,
+ * each of which is read in turn.
+ *
+ * @param {string} aarFile Aar file to read
+ *
+ * @returns {Promise<string[]>} Sorted class names of every jar inside
+ */
+export declare function getAarClasses(aarFile: string): Promise<string[]>;
 /**
  * Recursively flatten a Python package's transitive dependencies into the
  * dependencies map and flat package list.
