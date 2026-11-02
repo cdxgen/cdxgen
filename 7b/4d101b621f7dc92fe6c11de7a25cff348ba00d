@@ -1,0 +1,48 @@
+lib/cli/managedBom.poku.js
+  s_30e69063093327::t_926b3315b4b0b1 2673-2675,2678-2691
+  s_30e69063093327::t_37e2b9fb778a33 2701,2737
+  s_30e69063093327::t_4104cb77073bc7 8
+  s_30e69063093327::t_06785b78e17eea 2630-2672,2676-2677,2692,2695-2700,2702-2736,2738-2760
+  s_30e69063093327::t_fb210c95d8152b 2693-2694
+docs/EVINSE.md
+  s_30e69063093327::t_392ab3e398cccf 165-175
+lib/inventory/dosai.poku.js
+  s_30e69063093327::t_f8aae8c6b031cc 2394-2396
+  s_30e69063093327::t_83c021b3eaf91a 2340,2358
+  s_30e69063093327::t_154772a411dcb3 2338-2339,2341-2357,2359-2393,2397-2483
+  s_30e69063093327::t_480ea11349ff1f 8,32
+lib/evinser/evinser.js
+  s_30e69063093327::t_eaaf792824bf27 89
+  s_30e69063093327::t_5bf50b9928a676 1453-1463
+lib/inventory/dosai.js
+  s_30e69063093327::t_83c021b3eaf91a 5
+  s_30e69063093327::t_fa3de22c81a1ed 42
+  s_30e69063093327::t_9a00d9d7521ebe 11-19
+  s_30e69063093327::t_b2ed9d7b449922 725-921
+lib/cli/managedBom.js
+  s_30e69063093327::t_86019fd39fd187 2509,2511-2515,2528-2537
+  s_30e69063093327::t_2f3a5855bacad1 2570
+  s_30e69063093327::t_2349a0d569a0d4 150
+  s_30e69063093327::t_51afb96012be99 2538
+lib/evinser/evinseOptions.poku.js
+  s_30e69063093327::t_bf967fa19407f4 1-7
+  s_30e69063093327::t_063b83150ab7d3 319-357
+.github/workflows/repotests.yml
+  s_30e69063093327::t_1f82ff8be4ed28 923-975
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "7b4d101b621f7dc92fe6c11de7a25cff348ba00d",
+  "prompts": {},
+  "sessions": {
+    "s_30e69063093327": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_eff94fcc-fe0b-4c6c-a8e2-d6b0e057072e",
+        "model": "unknown"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
