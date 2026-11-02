@@ -1,0 +1,38 @@
+docs/agent-ci/codex-action.yml
+  s_7e5f47b40b9a6f::t_0739e7ef5f51f4 1-95
+docs/agent-ci/codex-exec.yml
+  s_7e5f47b40b9a6f::t_0739e7ef5f51f4 1-96
+docs/agent-ci/claude-headless.yml
+  s_7e5f47b40b9a6f::t_0739e7ef5f51f4 80,91,96
+  s_7e5f47b40b9a6f::t_58e1e73e667ef3 1-79,81-90,92-95,97-102
+docs/AGENT_CI.md
+  s_c0804e5357f0c5::t_f500d0f9852dcd 1-99
+docs/_sidebar.md
+  s_c0804e5357f0c5::t_904aee258f101e 22
+docs/agent-ci/claude-code-action.yml
+  s_7e5f47b40b9a6f::t_876ef74c97aa5a 1-75
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "27ed1bb4d2903af40142728cb983b4316c16eb6a",
+  "prompts": {},
+  "sessions": {
+    "s_7e5f47b40b9a6f": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "e6d3f67e-2997-4ba4-8999-46e49eac509f",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    },
+    "s_c0804e5357f0c5": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "75227701-fd30-4fc7-8eae-71a8df8f3a1c",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
