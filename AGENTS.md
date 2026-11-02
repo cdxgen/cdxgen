@@ -577,15 +577,16 @@ Types are generated — do not write or edit files under `types/` manually. Sour
 export function parseCargoData(cargoLockFile, options) { … }
 ```
 
-`gen-types` is a maintainer step, run by hand before a release. Do not run it
-as part of ordinary changes and never wire it into a test or a golden: the test
-suite is decoupled from the freshness of `types/`, so adding a source file does
-not require regenerating declarations first. To check the generated tree after
-running it:
+`pnpm run gen-types` finishes in a few seconds (it took about an hour until
+#4555). A change that adds or changes exported functions, or their JSDoc, runs
+it and commits the regenerated `types/` in the same pull request; review the
+`types/` diff, since it shows how the change looks to library users. Never wire
+it into a test or a golden: the test suite stays independent of how fresh
+`types/` is.
 
 ```bash
 pnpm run gen-types
-CDXGEN_VERIFY_TYPES=1 pnpm test
+git diff --stat types/
 ```
 
 ---
