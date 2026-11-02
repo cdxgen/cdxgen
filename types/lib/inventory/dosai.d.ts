@@ -129,6 +129,25 @@ export declare function dosaiReportFileOmittedSections(reportFile: string): stri
  */
 export declare function dosaiSectionsCdxgenReads(omittedSections: string[]): string[];
 /**
+ * Whether an existing dosai methods slice is newer than the sources it
+ * describes.
+ *
+ * A slice written by an earlier scan holds the occurrences of the sources as
+ * they were then, so a slice that predates an edit must be regenerated rather
+ * than reused: reusing one keeps occurrences of call sites that no longer
+ * exist (issue 4675). The slice is fresh only when its mtime is not older
+ * than the newest mtime among the files dosai analyses under the directory.
+ * A missing slice, a slice whose mtime cannot be read, a source that cannot
+ * be stat-ed, and a tree that exceeds the walk bounds all count as stale: the
+ * callers regenerate the slice, which is the run a fresh scan pays anyway.
+ *
+ * @param {string} slicesFile Candidate dosai methods slice
+ * @param {string} projectDir Directory dosai analyses
+ * @param {Object} [options] Scan options; options.exclude prunes the walk
+ * @returns {boolean} True when the slice is newer than every source it describes
+ */
+export declare function dosaiSlicesFileIsFresh(slicesFile: string, projectDir: string, options?: Object): boolean;
+/**
  * The largest number of distinct method calls cdxgen keeps from one report.
  *
  * Reports in the millions of calls repeat the same call sites heavily, so the
