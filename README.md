@@ -121,7 +121,7 @@ Sections include:
 - [MCP Inventory](docs/MCP.md)
 - [REPL Guide](docs/REPL.md)
 - [Custom Properties](docs/CUSTOM_PROPERTIES.md)
-- [Claude Code Plugin](claude-plugin/README.md)
+- [Claude Code Plugin](agent-plugin/README.md)
 - [Deprecations](docs/DEPRECATIONS.md)
 - [Security Policy](SECURITY.md)
 - [Threat Model](docs/THREAT_MODEL.md)
@@ -630,7 +630,7 @@ claude plugin marketplace add cdxgen/cdxgen
 claude plugin install cdxgen@cdxgen-plugins
 ```
 
-It ships skills covering SBOM generation, container and rootfs scans, OBOM/HBOM, CBOM, AI-BOM and MCP inventory, BOM auditing, signing, validation, conversion, evidence enrichment, runtime tracing, and Dependency-Track publishing. See [claude-plugin/README.md](claude-plugin/README.md).
+It ships skills covering SBOM generation, container and rootfs scans, OBOM/HBOM, CBOM, AI-BOM and MCP inventory, BOM auditing, signing, validation, conversion, evidence enrichment, runtime tracing, and Dependency-Track publishing. See [agent-plugin/README.md](agent-plugin/README.md).
 
 ## Rust accelerator (cdxrs)
 

@@ -99,11 +99,20 @@ Native-binary platforms need no JDK at all.
 ## Development
 
 ```bash
-claude --plugin-dir ./claude-plugin
-claude plugin validate ./claude-plugin
+claude --plugin-dir ./agent-plugin
+claude plugin validate ./agent-plugin
 ```
 
 Run `/reload-plugins` after edits rather than restarting.
+
+The shared fields of every manifest (version, description, author, homepage,
+repository, license and keywords) are written by
+`node contrib/gen-agent-manifests.js` from `package.json` and
+`contrib/agent-manifests.template.json`. Edit those, run the script, and commit
+the result. `pnpm run check:agent-plugin` fails when a manifest has drifted and
+validates `plugin.json` against the vendored Agent Plugins schema. Claude-only
+settings such as `userConfig` stay in `.claude-plugin/plugin.json`, which the
+script preserves.
 
 The `sbom-fidelity-loop` and `bom-slimmer` skills are copies; `.agents/skills/`
 in the repository root is their source of truth. Update them there first, then

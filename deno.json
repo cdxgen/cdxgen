@@ -23,7 +23,7 @@
     "plugins",
     "tsconfig.json",
     "index.cjs",
-    "claude-plugin/",
+    "agent-plugin/",
     "uv.lock",
     "**/*.poku.js",
     "**/*.d.ts.map",

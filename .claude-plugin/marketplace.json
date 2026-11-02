@@ -9,9 +9,9 @@
   "plugins": [
     {
       "name": "cdxgen",
-      "source": "./claude-plugin",
+      "source": "./agent-plugin",
       "displayName": "OWASP cdxgen",
-      "description": "Generate, enrich, audit, sign, validate, convert, and explore CycloneDX BOMs (SBOM, CBOM, HBOM, OBOM, SaaSBOM, AI-BOM, VDR) across source code, containers, live hosts, and hardware.",
+      "description": "OWASP cdxgen toolkit for coding agents: generate, enrich, audit, sign, validate, convert, and explore CycloneDX BOMs (SBOM, CBOM, HBOM, OBOM, SaaSBOM, AI-BOM, VDR) across source code, containers, live hosts, and hardware.",
       "category": "security",
       "keywords": [
         "sbom",
