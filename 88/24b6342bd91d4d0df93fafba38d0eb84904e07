@@ -1,0 +1,20 @@
+.cursor-plugin/marketplace.json
+  h_0926447d100ad2 1-43
+agent-plugin/gemini-extension.json
+  h_0926447d100ad2 1-5
+contrib/agent-manifests.template.json
+  h_0926447d100ad2 28-29
+contrib/gen-agent-manifests.js
+  h_0926447d100ad2 133-170
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "8824b6342bd91d4d0df93fafba38d0eb84904e07",
+  "prompts": {},
+  "humans": {
+    "h_0926447d100ad2": {
+      "author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
