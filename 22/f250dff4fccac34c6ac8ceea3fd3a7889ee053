@@ -1,0 +1,19 @@
+lib/inventory/dosai.js
+  s_35420fd0a3f4a7::t_7f296abd9a2b8d 42,777,780,804-807,840-841,847,851,853,855-857,870,901-908
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "22f250dff4fccac34c6ac8ceea3fd3a7889ee053",
+  "prompts": {},
+  "sessions": {
+    "s_35420fd0a3f4a7": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "434c5ce0-0807-43bf-a23c-ab3cf5706364",
+        "model": "claude-sonnet-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
