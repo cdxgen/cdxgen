@@ -1,0 +1,34 @@
+test/data/pip-requirement-ranges/requirements.txt
+  s_876b127e2d0d97::t_5e9db916e3b787 1-15
+.github/workflows/repotests.yml
+  s_876b127e2d0d97::t_6ed3d06ea6e613 43
+  s_876b127e2d0d97::t_f733f8c1014098 566,569
+  s_876b127e2d0d97::t_0a6079092ebc93 564-565
+  s_876b127e2d0d97::t_2e8e5f5fe717b7 567-568
+lib/ecosystems/parsers-python.js
+  s_876b127e2d0d97::t_5dd469773d1c93 1898-1901,1938
+  s_876b127e2d0d97::t_3b3fd92f5caabe 1645-1646,1648-1649,1651-1678
+  s_876b127e2d0d97::t_7a007cd8fc8485 1867,1878
+  s_876b127e2d0d97::t_cb94593ddbe9c5 1949-1952
+docs/CUSTOM_PROPERTIES.md
+  s_876b127e2d0d97::t_1dce4775cd4ccf 607,789
+lib/ecosystems/parsers-python.poku.js
+  s_876b127e2d0d97::t_da6753b1984c73 1871-1875
+  s_876b127e2d0d97::t_3e28354f6757cc 1837-1870,1876-1911
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "4a4e4196f655dd9d36b21ff1fa3b0915fc39f2eb",
+  "prompts": {},
+  "sessions": {
+    "s_876b127e2d0d97": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_b9dbebc5-e628-4653-ad3c-dfcafe562873",
+        "model": "GLM-5.3"
+      },
+      "human_author": "Team AppThreat <cloud@appthreat.com>"
+    }
+  }
+}
