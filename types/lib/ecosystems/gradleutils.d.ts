@@ -411,4 +411,19 @@ export declare function parseGradleLockfiles(lockFiles: string[], options?: Obje
  * @returns {string[]} Lockfile paths, in a stable order
  */
 export declare function findGradleLockfiles(rootPath: string, options?: Object): string[];
+/**
+ * Read the root project name a Gradle settings script assigns with
+ * `rootProject.name = '<name>'` or `rootProject.name = "<name>"`, without
+ * running Gradle.
+ *
+ * `settings.gradle` is read before `settings.gradle.kts`, and the last
+ * assignment in the file wins, as it does in Gradle. Only a plain string
+ * literal is accepted: a value built from a variable, a template
+ * (`"${x}"`) or a method call is not something a static read can resolve.
+ *
+ * @param {string} gradleRootPath Root directory of the Gradle build
+ * @returns {string|undefined} The root project name, or undefined when no
+ *   settings script assigns one as a plain literal
+ */
+export declare function readGradleRootProjectName(gradleRootPath: string): string | undefined;
 //# sourceMappingURL=gradleutils.d.ts.map
