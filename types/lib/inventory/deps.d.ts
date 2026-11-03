@@ -192,11 +192,21 @@ export declare function getJarClasses(jarFile: string): Promise<any>;
  * in `classes.jar` at its root and any number of further jars under `libs/`,
  * each of which is read in turn.
  *
+ * Each inner jar is unpacked to a temporary file, so in dry run mode, which
+ * blocks those writes, an aar yields no classes. An inner jar that declares
+ * more than `maxInnerJarBytes` uncompressed is skipped without being
+ * decompressed, because the whole entry is held in memory while it is copied.
+ *
  * @param {string} aarFile Aar file to read
+ * @param {Object} [opts] Options
+ * @param {number} [opts.maxInnerJarBytes] Uncompressed size bound for each
+ *   inner jar. Defaults to 256 MiB.
  *
  * @returns {Promise<string[]>} Sorted class names of every jar inside
  */
-export declare function getAarClasses(aarFile: string): Promise<string[]>;
+export declare function getAarClasses(aarFile: string, { maxInnerJarBytes }?: {
+    maxInnerJarBytes?: number;
+}): Promise<string[]>;
 /**
  * Recursively flatten a Python package's transitive dependencies into the
  * dependencies map and flat package list.

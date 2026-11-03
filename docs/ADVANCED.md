@@ -707,6 +707,8 @@ evinse -i bom.json -o bom.evinse.json --usages-slices-file usages.json --reachab
 There could be Java applications with complex dependency requirements. Or you might be interested in cataloging your Maven or gradle cache.
 A bonus of this mode is that the resulting SBOM would have a property called `internal:Namespaces` with a list of class names belonging to each jar.
 
+Android libraries published as `.aar` files are read too. Their class names come from `classes.jar` and every jar under `libs/` inside the `.aar`, and the hashes are those of the `.aar` file itself. Each inner jar is copied to a temporary file to be read, so a dry run lists no class names for an `.aar`.
+
 ### Generate evidence of usage
 
 After generating an SBOM from a cache, you can look for evidence of direct usage with evinse.
