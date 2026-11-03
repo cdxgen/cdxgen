@@ -923,6 +923,20 @@ cdxgen --dry-run --feature-flags jvm-tool-setup -t java /src
 
 Tool versions are left unresolved in this mode, because resolving a partial pin such as `maven3.9` means querying sdkman over the network. The JDK is reported as a requirement rather than an install unless a `javaNN` type was passed explicitly, since cdxgen would run `java --version` to decide whether the active JDK is new enough, and a dry run does not run it.
 
+### Gradle dependency lockfiles
+
+A Gradle build that uses [dependency locking](https://docs.gradle.org/current/userguide/dependency_locking.html) commits a `gradle.lockfile` per project directory, and cdxgen can read those files without running Gradle. Both the Gradle 6+ layout (`gradle.lockfile`, plus `buildscript-gradle.lockfile` and `settings-gradle.lockfile` for the buildscript classpaths) and the Gradle 4.8 to 5.x layout (`gradle/dependency-locks/<configuration>.lockfile`) are parsed. The versions in a lockfile are the ones Gradle resolved, so the components carry them with full identity confidence, scoped by the configurations that lock them: a buildscript or settings lock is build tooling with the `excluded` scope.
+
+The lockfiles are read instead of a Gradle run when dependency installation is disabled, or when the `gradle-prefer-lockfile` feature flag asks for it:
+
+```shell
+cdxgen --feature-flags gradle-prefer-lockfile -t gradle /src
+```
+
+The `GRADLE_PREFER_LOCKFILE` environment variable set to `true` is the same switch; see [ENV.md](ENV.md). When Gradle runs and succeeds it enforces the lockfiles itself, so cdxgen does not parse them a second time; when a Gradle run yields nothing, the lockfiles are the fallback before the `gradle/libs.versions.toml` catalog. The version catalog, which declares coordinates without resolving them, also answers on its own when dependency installation is disabled and the build has neither a wrapper nor Gradle to run.
+
+A lockfile says nothing about which module depends on which, so lockfile-only components carry no dependency edges, and the scan records `jvm.gradle.lockfile-only` in the build ledger to say so. Custom `dependencyLocking.lockFile` paths, the Nebula `dependencies.lock` and Palantir `versions.lock` formats, and the hashes in `gradle/verification-metadata.xml` are not read.
+
 ### Maven Central rate limits
 
 Maven Central answers heavy consumers with HTTP 429 and keeps an IP blocked for longer the more requests arrive during a block. cdxgen keeps its own traffic to Central small:
