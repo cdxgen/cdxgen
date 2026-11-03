@@ -184,10 +184,13 @@ export declare function applyPostConstructionOverrides(options: object, context:
  * @param {object} options    The options object
  * @param {object} [context]
  * @param {boolean} [context.isSecureMode]  Whether cdxgen runs in secure mode
+ * @param {string} [context.invokedCommandName] Binary name (e.g. "cbom"),
+ *                                              which can turn on formulation
  * @returns {OptionsWarning[]} Warnings for the caller
  */
 export declare function applyAdvancedOptions(options: object, context?: {
     isSecureMode?: boolean;
+    invokedCommandName?: string;
 }): OptionsWarning[];
 /**
  * Build the complete `options` object from parsed CLI arguments.
@@ -215,6 +218,8 @@ export declare function applyAdvancedOptions(options: object, context?: {
  * @param {object} [context.projectConfig]     Sanitized config file contents,
  *                                             whose metadata properties merge
  *                                             with the other sources'
+ * @param {string[]} [context.argv]            Raw command-line arguments,
+ *                                             process.argv when absent
  * @returns {{ options: object, warnings: OptionsWarning[] }}
  */
 export declare function buildOptionsFromArgs(args: object, context: {
@@ -225,6 +230,7 @@ export declare function buildOptionsFromArgs(args: object, context: {
     isDryRun?: boolean;
     isSecureMode?: boolean;
     projectConfig?: object;
+    argv?: string[];
 }): {
     options: object;
     warnings: OptionsWarning[];

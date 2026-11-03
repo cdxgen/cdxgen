@@ -72,6 +72,18 @@ export declare function toHuggingFaceAssetPath(assetType: string, repoId: string
  */
 export declare function toHuggingFaceAssetUrl(assetType: string, repoId: string): string | undefined;
 /**
+ * Build the supplier entity for a Hugging Face namespace: the namespace as
+ * the name and its organisation or user page as the url. The url is left
+ * out when the namespace has characters a Hub account name cannot have.
+ *
+ * @param {string} namespace Hugging Face organisation or user name
+ * @returns {{ name: string, url?: string[] }|undefined} supplier entity
+ */
+export declare function toHuggingFaceSupplier(namespace: string): {
+    name: string;
+    url?: string[];
+} | undefined;
+/**
  * Convert a Hugging Face repo reference to a package URL.
  *
  * @param {string} repoId Hugging Face repository id

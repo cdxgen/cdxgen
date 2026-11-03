@@ -1,12 +1,12 @@
 /**
- * Orchestrates evaluation of internal compliance rule packs (SCVS + CRA) and
- * aggregates results into per-benchmark scorecards.
+ * Orchestrates evaluation of internal compliance rule packs (SCVS + CRA + CISA)
+ * and aggregates results into per-benchmark scorecards.
  *
  * This module is deliberately independent of the CycloneDX BOM audit engine
  * (lib/stages/postgen/auditBom.js). The two engines share similar *Finding*
  * output shape so reporters can consume either source uniformly.
  */
-import { getAllComplianceRules, getCraRules, getScvsRules } from "./complianceRules.js";
+import { getAllComplianceRules, getCisaAiRules, getCisaRules, getCraRules, getScvsRules } from "./complianceRules.js";
 /**
  * Resolve a benchmark alias (case-insensitive). Returns null when unknown.
  *
@@ -68,5 +68,5 @@ export declare function scoreBenchmark(benchmark: object, findings: Array<object
  * @returns {Array<object>}
  */
 export declare function buildBenchmarkReports(findings: Array<object>, requestedAliases?: Array<string>): Array<object>;
-export { getAllComplianceRules, getCraRules, getScvsRules };
+export { getAllComplianceRules, getCisaAiRules, getCisaRules, getCraRules, getScvsRules, };
 //# sourceMappingURL=complianceEngine.d.ts.map

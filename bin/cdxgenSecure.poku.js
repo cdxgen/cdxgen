@@ -106,6 +106,9 @@ function scan(entryFor, extraArgs) {
         "-t",
         "java",
         ...extraArgs,
+        // These tests are about secure mode; the formulation CI=true turns
+        // on adds slow toolchain probes and nothing they check.
+        "--no-include-formulation",
         "--no-banner",
         "-o",
         path.join(root, "bom.json"),

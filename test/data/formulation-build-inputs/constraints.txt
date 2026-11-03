@@ -1,0 +1,4 @@
+# Lock file for CI: exact versions only, no options, no hashes.
+requests==2.32.3
+urllib3==2.2.2
+certifi==2024.6.2

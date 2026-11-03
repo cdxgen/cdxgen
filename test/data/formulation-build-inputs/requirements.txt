@@ -1,0 +1,10 @@
+# Direct requirements for the demo service.
+# Option lines and comments must not count as pins.
+--index-url https://pypi.org/simple
+
+requests==2.32.3
+flask==3.0.3
+urllib3==2.2.2 --hash=sha256:a8484d2a94a1de7e780b0b721c6b352b83d671f2f4dc6f667651d8b78cade874
+
+# A lower bound, which is a requirement but not an exact pin.
+certifi>=2024.2.2

@@ -42,13 +42,17 @@ export declare function repoIdFromFixtureDirectory(filePath: string): string | u
  *
  * @param {string} modelRef model, dataset, or space reference
  * @param {{ includeDatasetPurl?: boolean }} [options={}] pedigree reference options
- * @returns {{ "bom-ref": string, group: string, name: string, purl?: string, type: string }|undefined} component reference
+ * @returns {{ "bom-ref": string, group: string, name: string, purl?: string, supplier?: { name: string, url?: string[] }, type: string }|undefined} component reference
  */
 export declare function createHuggingFaceComponentReference(modelRef: string, _options?: {}): {
     "bom-ref": string;
     group: string;
     name: string;
     purl?: string;
+    supplier?: {
+        name: string;
+        url?: string[];
+    };
     type: string;
 } | undefined;
 /**
@@ -75,6 +79,7 @@ export declare function createHuggingFaceComponentReference(modelRef: string, _o
  *     properties?: Array<object>,
  *     purl?: string,
  *     scope?: string,
+ *     supplier?: { name: string, url?: string[] },
  *     tags?: string[],
  *     type: "data",
  *   },
@@ -110,6 +115,10 @@ export declare function createHuggingFaceDatasetReference(dataset: object | stri
         properties?: Array<object>;
         purl?: string;
         scope?: string;
+        supplier?: {
+            name: string;
+            url?: string[];
+        };
         tags?: string[];
         type: "data";
     };

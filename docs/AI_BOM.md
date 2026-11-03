@@ -215,6 +215,108 @@ Non-GGUF quantization methods (GPTQ, AWQ, EXL2, bitsandbytes, and similar) are r
 
 `cdxi` now includes an `.aibom` command that renders an operator-friendly AI view with pedigree trees, fine-tune/distillation lineage, quantization explanations, licenses, and dataset summaries.
 
+## CISA and G7 minimum elements for AI SBOMs
+
+On 12 May 2026 the G7 Cybersecurity Working Group (BSI, ACN, ANSSI, CSE, CISA,
+NCSC and NCO, with the European Commission) published [Software Bill of
+Materials for AI: Minimum Elements](https://www.cisa.gov/resources-tools/resources/software-bill-materials-si-minimum-elements)
+([PDF](https://www.bsi.bund.de/SharedDocs/Downloads/EN/BSI/KI/SBOM-for-AI_minimum-elements.pdf?__blob=publicationFile&v=4)),
+a voluntary baseline organised in seven clusters. Its elements are in
+addition to the general SBOM minimum elements, so `cdx-validate --benchmark
+cisa` checks the general elements, and the AI-specific elements that a BOM can
+show are rules under `cdx-validate --benchmark cisa-ai` (rule ids
+`CISA-AI-001` to `CISA-AI-016`). Every AI rule, the system rules included,
+passes with a note on a BOM that holds no model or dataset components.
+
+The tables below list all 50 elements under the names the guidance uses: 10
+in the Metadata cluster, 9 System Level Properties, 13 Models, 10 Datasets, 2
+Infrastructure, 4 Security Properties and 2 Key Performance Indicators. The
+test suite checks that the rules cite every element outside the Metadata
+cluster, apart from System components and Infrastructure software, which are
+the component inventory itself.
+
+### Metadata cluster
+
+| Element | Where it lands in a cdxgen AI-BOM | Rule |
+| --- | --- | --- |
+| SBOM author | `metadata.authors[]`, from `--author` | `CISA-MIN-001` |
+| SBOM version | `version` and `serialNumber` | `CISA-MIN-006` |
+| SBOM data format name | `bomFormat` (`specFormat` in 2.0) | `CISA-MIN-003` |
+| SBOM data format version | `specVersion` | `CISA-MIN-003` |
+| SBOM author signature | the JSF `signature` written by `cdx-sign` | `CISA-MIN-002` |
+| SBOM tool name | `metadata.tools.components[].name` | `CISA-MIN-005` |
+| SBOM tool version | `metadata.tools.components[].version` | `CISA-MIN-005` |
+| SBOM generation context | `metadata.lifecycles[].phase` | `CISA-MIN-004` |
+| SBOM timestamp | `metadata.timestamp` | `CISA-MIN-007` |
+| SBOM dependency relationship | `dependencies[]` for inclusion; a model fine-tuned, adapted, distilled, merged or quantised from another records it in `pedigree.ancestors[]`, and other relations in `pedigree.variants[]` | `CISA-MIN-014` (inclusion only) |
+
+These rules belong to the `cisa` benchmark and are documented in
+[CDX_VALIDATE.md](CDX_VALIDATE.md).
+
+### System Level Properties cluster
+
+| Element | Where it lands in a cdxgen AI-BOM | Rule |
+| --- | --- | --- |
+| System name | `metadata.component.name` | `CISA-AI-001` |
+| System components | `components[]` (models, datasets, software) and `services[]` (inference endpoints) | none; the `cisa-ai` rules apply only when such components exist |
+| System producer | `metadata.supplier.name`, the deprecated `metadata.manufacture.name`, or the `manufacturer`, `supplier` or `authors` of `metadata.component`; cdxgen does not populate any of them, so add the producer after generation | `CISA-AI-002` |
+| System version | `metadata.component.version` | `CISA-AI-001` |
+| System timestamp | not emitted; `metadata.timestamp` records when the BOM was generated, not when the system last changed | `CISA-AI-011` |
+| System data flow | `services[].endpoints` for inference and MCP services; a data-flow graph between components is not emitted | `CISA-AI-011` |
+| System data usage | not emitted; needs the producer's technical documentation | `CISA-AI-011` |
+| System input/output properties | not emitted at system level; per-model inputs and outputs are in `modelCard.modelParameters` | `CISA-AI-011` |
+| Intended application area | not emitted at system level; models with a Hub model card carry `modelCard.considerations.useCases[]` | `CISA-AI-011` |
+
+### Models cluster
+
+| Element | Where it lands in a cdxgen AI-BOM | Rule |
+| --- | --- | --- |
+| Model name | `components[type=machine-learning-model].name` | `CISA-AI-003` |
+| Model identifier | `purl` (`pkg:huggingface/<namespace>/<name>@<revision>`) | `CISA-AI-005` |
+| Model version | `version` (repository sha or revision) | `CISA-AI-003` |
+| Model timestamp | the `cdx:huggingface:lastModified` property on Hub models; CycloneDX has no standard component timestamp, and local-only artifacts have none | `CISA-AI-011` |
+| Model producer | The organisation that created the model is recorded as `manufacturer.name` (CycloneDX 1.6 and later) under its full name: OpenAI, Anthropic, Google, Meta, Mistral AI, Cohere, DeepSeek, xAI, Zhipu AI or Alibaba Cloud. The Hugging Face account that published the repository is recorded separately as `supplier.name`, with `supplier.url` set to `https://huggingface.co/<namespace>` when the model comes from the Hub, because a namespace such as TheBloke, unsloth or mlx-community supplies a re-packaged model it did not create. The manufacturer is taken from the first source that applies: the `general.organization` field of a GGUF file (trimmed, dropped above 128 characters, written with the full name when it names a known creator); a Hub namespace that is the creator's own organisation, such as meta-llama, mistralai, google or Qwen; or, for a model that source code or dosai names, a model name prefix only one creator uses, such as `claude`, `gpt-4`, `o3`, `gemini`, `gemma`, `mixtral`, `command-r`, `llama`, `grok`, `qwen` or `glm`. A name-based creator is kept when the code uses no SDK or host, uses that creator's own SDK or host or a hosting or routing service, or also uses the creator's SDK elsewhere in the file. Another creator's SDK leaves it unset, as does the openai SDK alone, since an OpenAI-compatible client can point at any server. An unrecognised name is credited only to an API that serves nothing but its creator's models (Anthropic, Cohere, DeepSeek, Mistral AI, xAI, Zhipu AI). Local runtimes such as ollama, vLLM, LM Studio and llama.cpp name no creator. litellm routes such as `groq/llama3-8b-8192` and Google resource names such as `models/gemini-1.5-flash` are not treated as Hub repositories. Hosting and routing providers stay in `cdx:ai:provider` and are never the manufacturer or supplier. | `CISA-AI-004` |
+| Model description | `description` and the CycloneDX `modelCard` for capabilities and limitations; lineage in `pedigree.ancestors[]` from the card's `base_model` | `CISA-AI-008` |
+| Model hash value | `hashes[].content` (dosai computes SHA-256 for artifacts) | `CISA-AI-006` |
+| Model hash algorithm | `hashes[].alg` | `CISA-AI-006` |
+| Model properties | `modelCard.modelParameters.architectureFamily` and `modelArchitecture`, from a Hub `config.json` or the GGUF header, plus the `cdx:ai:quantization`, `cdx:ai:parameterCount` and `cdx:ai:contextWindow` properties | `CISA-AI-012` |
+| Model input-output properties | `modelCard.modelParameters.inputs[]` / `outputs[]`, from the Hub pipeline tag or the GGUF tokenizer | `CISA-AI-013` |
+| Model training properties | not emitted; CycloneDX `modelCard.modelParameters.approach.type` holds the learning type, and the post-training techniques need the producer's model card | `CISA-AI-011` |
+| Model license | `licenses[]` from the model card | `CISA-AI-007` |
+| Model external references | `externalReferences[]` (repository, DOI, arXiv, license link) | `CISA-AI-014` |
+
+### Datasets cluster
+
+| Element | Where it lands in a cdxgen AI-BOM | Rule |
+| --- | --- | --- |
+| Dataset name | `components[type=data].name` and `data[].name` | `CISA-AI-009` |
+| Dataset description | `description` / `data[].description` from the dataset card | `CISA-AI-015` |
+| Dataset content | `data[].contents.url`; a description of the content and its format is not emitted | `CISA-AI-011` |
+| Dataset identifier | `purl` with the datasets repository URL, or `data[].contents.url` | `CISA-AI-009` |
+| Dataset hash | not emitted; Hub datasets are referenced by repository, not hashed | `CISA-AI-016` |
+| Dataset provenance | `supplier.name` and `supplier.url` (the namespace and its Hub page) plus the repository URL; the collection, processing and labelling methods are not emitted | `CISA-AI-011` |
+| Dataset statistical properties | the Hub row count and size, folded into the description; distribution statistics are not emitted | `CISA-AI-011` |
+| Dataset sensitivity | not emitted; CycloneDX `data[].classification` and `sensitiveData` can carry the producer's declaration | `CISA-AI-011` |
+| Dataset dependency relationship | not emitted; the element lists the software used to create and maintain the dataset and the datasets it derives from, which the dataset card does not provide. The `dependencies[]` edges from a model to its datasets record the model's use of them, not this relationship | `CISA-AI-011` |
+| Dataset license | `licenses[]` from the dataset card | `CISA-AI-010` |
+
+### Infrastructure, Security Properties and KPI clusters
+
+Infrastructure software is the regular dependency inventory cdxgen already
+emits. The other elements need producer documentation a BOM alone cannot
+carry, so `CISA-AI-011` reports them for manual review.
+
+| Element | Where it lands in a cdxgen AI-BOM | Rule |
+| --- | --- | --- |
+| Infrastructure software | `components[]`, the regular dependency inventory | `cisa` benchmark |
+| Infrastructure hardware | not emitted; link an HBOM generated separately with the `hbom` command | `CISA-AI-011` |
+| Security controls | not emitted; `cdx:ai:unsafeDeserialization` flags a risk in a model file, which is not a control | `CISA-AI-011` |
+| Security compliance | not emitted; needs the producer's documentation | `CISA-AI-011` |
+| Cybersecurity policy information | not emitted; a link to the producer's `security.txt` | `CISA-AI-011` |
+| Vulnerability referencing | not emitted; needs the producer's documentation | `CISA-AI-011` |
+| Security metrics | not emitted; needs the producer's documentation | `CISA-AI-011` |
+| Operational performance KPIs | not emitted; needs the producer's documentation | `CISA-AI-011` |
+
 ## Standards mappings
 
 The AI, agent, and MCP rule packs now include guidance mappings for:
