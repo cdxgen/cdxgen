@@ -1006,7 +1006,7 @@ The resulting protobuf BOM can be consumed directly by companion commands such a
 
 ## Include formulation
 
-Pass the argument `--include-formulation` to collect the following information under the `formulation` section:
+Pass the argument `--include-formulation` to collect the following information under the `formulation` section. It is also included by default, with the same privacy notice, when the environment variable `CI` is `true`, when the `research` profile runs, and when the output is an obom (`-t os`) or a cbom (`-t crypto`), because the generation context element of the CISA 2026 minimum elements reads it. HBOM-only invocations never collect formulation.
 
 - git metadata such as files in the tree, origin url, branch, and CI environment variables
 - build tools versions (Java, Python, Node.js, gcc, dotnet, rustc, Go, Ruby, RubyGems, Bundler, PHP and Composer)
