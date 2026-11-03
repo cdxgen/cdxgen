@@ -12,7 +12,7 @@
  *   id            - Stable short identifier (e.g. "SCVS-1.1").
  *   name          - Human readable short name.
  *   description   - Long description (wording taken from the source standard).
- *   standard      - Source standard key: "SCVS" or "CRA".
+ *   standard      - Source standard key: "SCVS", "CRA" or "CISA".
  *   standardRefs  - Array of canonical control identifiers.
  *   category      - Grouping used by --categories.
  *   severity      - Severity emitted for a failing automatable rule.
@@ -34,7 +34,7 @@
  *   }
  */
 /**
- * Returns the full catalog of compliance rules (SCVS + CRA).
+ * Returns the full catalog of compliance rules (SCVS + CRA + CISA).
  *
  * @returns {Array<object>}
  */
@@ -51,6 +51,12 @@ export declare function getScvsRules(): Array<object>;
  * @returns {Array<object>}
  */
 export declare function getCraRules(): Array<object>;
+/**
+ * Returns only CISA 2026 minimum elements rules.
+ *
+ * @returns {Array<object>}
+ */
+export declare function getCisaRules(): Array<object>;
 /**
  * Test-only export exposing internal helper functions for unit tests.
  * Double-underscore prefixed to discourage external use.
