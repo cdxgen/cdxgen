@@ -1,0 +1,16 @@
+[package]
+name = "repro"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+serde = "1.0"
+tokio = { version = "1.36", features = ["rt"] }
+regex = "^1.10"
+tracing = ">=0.1.40"
+itoa = "=1.0.11"
+either = "=1.0"
+prerel = "=1.0.0-beta.2"
+memchr = { git = "https://github.com/BurntSushi/memchr", version = "2" }
+local = { path = "local", version = "0.2" }
+gitonly = { git = "https://github.com/acme/gitonly.git" }
