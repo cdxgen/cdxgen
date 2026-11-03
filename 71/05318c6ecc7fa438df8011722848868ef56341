@@ -1,0 +1,29 @@
+lib/validator/complianceRules.poku.js
+  s_62c10535cfdb71::t_4536ea27e9e726 106-107,372-559,561-610
+  s_62c10535cfdb71::t_d36406542790bc 62,67-68,97-105
+  s_62c10535cfdb71::t_82f46e33c88f87 6
+  s_62c10535cfdb71::t_590521a41677d1 560
+  s_62c10535cfdb71::t_01642bc44022d0 611
+lib/validator/complianceEngine.poku.js
+  s_62c10535cfdb71::t_a1bb5d325756d5 129-140,169
+  s_62c10535cfdb71::t_590521a41677d1 164-167
+  s_62c10535cfdb71::t_2fe202b00e7b88 56,74
+  s_62c10535cfdb71::t_7525704d104f0c 159-163,168
+  s_62c10535cfdb71::t_29d27b42780c20 170
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "7105318c6ecc7fa438df8011722848868ef56341",
+  "prompts": {},
+  "sessions": {
+    "s_62c10535cfdb71": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_db60977c-dbe2-4091-9ddf-792041fda467",
+        "model": "GLM-5.3"
+      },
+      "human_author": "Team AppThreat <cloud@appthreat.com>"
+    }
+  }
+}
