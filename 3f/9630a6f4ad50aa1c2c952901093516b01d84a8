@@ -1,0 +1,26 @@
+lib/core/toolRegistry.poku.js
+  s_147227fef7a734::t_2bcdc6ef30d9ee 77-79
+  s_147227fef7a734::t_faec7d1704f5c4 70
+lib/core/toolRegistry.js
+  s_147227fef7a734::t_b4523aef861a19 110-114
+  s_147227fef7a734::t_5a7309e26dee1d 52-60
+  s_147227fef7a734::t_fa2cfa8e2df1bc 51
+lib/validator/cisaDefaultBom.poku.js
+  s_147227fef7a734::t_36995917c910e1 33,65-71,101,122,137,149,163,179,184,199
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "3f9630a6f4ad50aa1c2c952901093516b01d84a8",
+  "prompts": {},
+  "sessions": {
+    "s_147227fef7a734": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "a0fc8339-d310-4b54-b844-f69b5cd28fdc",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
