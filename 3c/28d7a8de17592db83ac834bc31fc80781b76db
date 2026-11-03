@@ -1,0 +1,22 @@
+lib/stages/postgen/introspection/rules.poku.js
+  s_442c0e7f27da15::t_98ef9e6a110aa5 143,149-154
+  s_442c0e7f27da15::t_e1f472b6af580a 144-148
+lib/stages/postgen/introspection/reflect.poku.js
+  s_442c0e7f27da15::t_e424e617eade95 753,763-767
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "3c28d7a8de17592db83ac834bc31fc80781b76db",
+  "prompts": {},
+  "sessions": {
+    "s_442c0e7f27da15": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_a2a1a59a-d740-48b5-8a64-72c7ce805053",
+        "model": "GLM-5.3"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
