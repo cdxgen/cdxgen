@@ -1,0 +1,56 @@
+lib/ecosystems/parsers-python.poku.js
+  s_147227fef7a734::t_f0e4a52f7a5cc4 974-1030
+lib/cli/bomAssembly.js
+  s_147227fef7a734::t_d084299310e68f 1118-1119,1121,1123-1126,1128,1131-1132,1135,1138-1139,1141-1142,1148-1149,1152-1170,1172,1343-1350,1355-1360
+lib/inventory/aiProviders.poku.js
+  s_147227fef7a734::t_accacd7d5337f2 1-138
+lib/inventory/aiCollector.js
+  s_147227fef7a734::t_8be4c35105c689 2222-2223
+  s_147227fef7a734::t_0442b5dc34437f 121-123
+  s_147227fef7a734::t_3396b4e6563f7b 1360-1389,1409-1416,1427-1430,1435-1438,1454-1459,1482-1485,1870,1872-1879
+  s_147227fef7a734::t_78b4b075371466 2013-2016
+  s_147227fef7a734::t_73767a4cf422ab 1829-1831,2010-2011,2023-2027
+  s_147227fef7a734::t_1fbb108cb14137 41-46,108-109
+lib/inventory/aiCollector.poku.js
+  s_147227fef7a734::t_61531b13d75e62 325,327,418-422
+  s_147227fef7a734::t_cf37a4bb7d6cf7 100-114,116,120,122-125,128,135,137-143,150,162,185,193-210,218,230,256-306,310,315-316,318,321-322,337-417,423-505,513-515,518,520-522,525,547,565-566,570,1139,1144,1146-1149
+  s_147227fef7a734::t_e46ea62745cb5b 323-324
+lib/ecosystems/parsers-python.js
+  s_147227fef7a734::t_25bd6ae401d9ce 11,2080-2106,2196,2201-2202,2210-2211
+lib/inventory/aiProviders.js
+  s_147227fef7a734::t_d1edcd9cec2593 2-44,54-194,196-199,201-291,294-323
+lib/ecosystems/remote/huggingface.js
+  s_147227fef7a734::t_80e716194dad87 13-16,1199-1203,1208-1214
+  s_147227fef7a734::t_d091aa97311402 1215
+lib/inventory/dosai.poku.js
+  s_147227fef7a734::t_61531b13d75e62 724-727
+  s_147227fef7a734::t_bf32c80374283e 742,758-764,777-779
+  s_147227fef7a734::t_851ed78168bf79 691-711,713-714,716,720,722,729-730,738-741,743-757,765-776,835-836,841-842
+  s_147227fef7a734::t_2f93027b0b5e66 723
+lib/cli/bomAssembly.poku.js
+  s_147227fef7a734::t_e2c06ffbbe826f 22,197-279
+  s_147227fef7a734::t_67ad358902cfc7 280
+lib/inventory/dosai.js
+  s_147227fef7a734::t_bf32c80374283e 36,46-50,2196-2208
+  s_147227fef7a734::t_b05cdad69fc0d9 37-39
+  s_147227fef7a734::t_61531b13d75e62 2220-2222
+  s_147227fef7a734::t_78b4b075371466 2192-2195,2216-2219
+lib/ecosystems/remote/huggingface.poku.js
+  s_147227fef7a734::t_6ed314e979dbf2 385,389-392,400-414
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "e4aa432eff33c3208fb6fa1cafdaee3edbee924a",
+  "prompts": {},
+  "sessions": {
+    "s_147227fef7a734": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "a0fc8339-d310-4b54-b844-f69b5cd28fdc",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
