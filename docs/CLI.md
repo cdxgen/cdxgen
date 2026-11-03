@@ -475,7 +475,9 @@ Options:
       --format                    Export format(s). Supports cyclonedx, spdx, repeated --format flags, or a
                                   comma-separated list such as cyclonedx,spdx.                                   [array]
       --proto-bin-file            Path for the serialized protobuf binary.                          [default: "bom.cdx"]
-      --include-formulation       Generate formulation section with git metadata and build tools. Defaults to false.
+      --include-formulation       Generate formulation section with git metadata, build tools and build inputs. On by
+                                  default when CI=true, for BOM audits, the research and introspect profiles, OS project
+                                  types and the cbom command; --no-include-formulation turns it off.
                                                                                               [boolean] [default: false]
       --include-crypto            Include crypto libraries as components.                     [boolean] [default: false]
       --license-policy            Path to a license compliance policy YAML file.                                 [string]

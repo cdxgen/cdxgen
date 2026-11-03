@@ -634,7 +634,7 @@ const args = _yargs
     type: "boolean",
     default: false,
     description:
-      "Generate formulation section with git metadata and build tools. Defaults to false.",
+      "Generate formulation section with git metadata, build tools and build inputs. On by default when CI=true, for BOM audits, the research and introspect profiles, OS project types and the cbom command; --no-include-formulation turns it off.",
   })
   .option("include-crypto", {
     type: "boolean",

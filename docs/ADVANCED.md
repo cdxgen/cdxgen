@@ -1006,7 +1006,7 @@ The resulting protobuf BOM can be consumed directly by companion commands such a
 
 ## Include formulation
 
-Pass the argument `--include-formulation` to collect the following information under the `formulation` section. It is also included by default, with the same privacy notice, in these cases (cdxgen#859):
+Pass the argument `--include-formulation` to collect the following information under the `formulation` section. It is also included by default in these cases, with a privacy notice that names the case (cdxgen#859):
 
 - the environment variable `CI` is `true`, which GitHub Actions, GitLab CI and most CI services set
 - the `research` or `introspect` profile runs
@@ -1014,13 +1014,13 @@ Pass the argument `--include-formulation` to collect the following information u
 - an OS project type is requested, such as `-t os`, `-t linux`, `-t windows` or `-t macos`, which is what the `obom` command does
 - the `cbom` command runs
 
-When `--server-url` is set, the notice names the server the formulation will be submitted to. In secure mode with `--server-url`, formulation is not turned on automatically, because secure mode does not submit it. An explicit `--no-include-formulation`, `--include-formulation=false` or `CDXGEN_INCLUDE_FORMULATION=false` wins over every case above, and cdxgen prints a note saying which trigger it overrode. HBOM-only invocations never collect formulation.
+When `--server-url` is set, the notice names the server the formulation will be submitted to. In secure mode with `--server-url`, formulation is not turned on automatically, because secure mode does not submit it. An explicit `--no-include-formulation`, `--include-formulation=false` or `CDXGEN_INCLUDE_FORMULATION=false` wins over every case above, and cdxgen prints a note saying which trigger it overrode. HBOM-only invocations never collect formulation. With `--include-crypto` (which the `cbom` command and the `research` profile set), an explicit `--include-formulation` also adds the scanning host's crypto libraries, certificates, authorized keys and keychain items from osquery; formulation turned on by one of the cases above leaves that host material out.
 
 Formulation is not what satisfies the generation context element of the CISA 2026 minimum elements: `CISA-MIN-004` reads `metadata.lifecycles`, which cdxgen fills without formulation.
 
-- git metadata such as files in the tree, origin url, branch, and CI environment variables
+- git metadata such as files in the tree, origin url, branch, and CI environment variables (a URL in an environment value keeps only its scheme, host and path; userinfo, query string and fragment are removed)
 - build tools versions (Java, Python, Node.js, gcc, dotnet, rustc, Go, Ruby, RubyGems, Bundler, PHP and Composer)
-- build inputs cdxgen can read without running a build: `Cargo.toml` (build dependencies, build-script capabilities), make and CMake files (target, include and variable names), `go.mod` (module, toolchain), pip requirements and constraints files, and .NET `project.assets.json` restore output and `.csproj` files. Go binaries are read by the binary/OBOM path through the bounded buildinfo reader, not by formulation. Build files larger than 2 MB (32 MB for `project.assets.json`) are skipped without being read, lines longer than 4096 characters are ignored, and the file search honours `--exclude`.
+- build inputs cdxgen can read without running a build: `Cargo.toml` (build dependencies, build-script capabilities), make and CMake files (target, include and variable names), `go.mod` (module, toolchain), pip requirements and constraints files, and .NET `project.assets.json` restore output and `.csproj` files. Go binaries are read by the binary/OBOM path through the bounded buildinfo reader, not by formulation. Build files larger than 2 MB (32 MB for `project.assets.json`) are skipped without being read, lines longer than 4096 characters are ignored, and the file search honours `--exclude`. Each build-input component records its file relative to the scanned directory; a build file that is a symlink, or resolves outside that directory, is not read. OS inventories (`-t os` and the `obom` command) skip this discovery and the CI and README scans, because their path is usually a home directory or `/` rather than a project.
 
 The `Node.js` component carries `pkg:generic/node@<version>` and `cpe:2.3:a:nodejs:node.js:<version>`, without a `bom-ref`, like the other toolchains. Each library the running Node.js reports (`process.versions`) is a nested component with `cdx:node:linkage`, `bundled` or `shared`: Homebrew and distro builds link brotli, OpenSSL, zlib and others as shared libraries, so their versions are the shared libraries' and updating Node.js alone does not update them. The `brotli` entry also carries `cdx:brotli:c:blockSwitchFix`, read from the decoder the runtime actually uses (the node binary, or the shared `libbrotlidec`), because `process.versions.brotli` stays `1.2.0` after the CVE-2026-111497 fix.
 
