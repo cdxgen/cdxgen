@@ -1,0 +1,22 @@
+docs/CUSTOM_PROPERTIES.md
+  s_62c10535cfdb71::t_d9071e59e13127 117
+  s_62c10535cfdb71::t_25759ba881a1aa 494
+lib/cli/cliOptions.js
+  s_62c10535cfdb71::t_e6d7ea19c47b3e 766-767
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "54522acc13c0a3ed7e110b7fdfd5fd6355fef31b",
+  "prompts": {},
+  "sessions": {
+    "s_62c10535cfdb71": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_db60977c-dbe2-4091-9ddf-792041fda467",
+        "model": "GLM-5.3"
+      },
+      "human_author": "Team AppThreat <cloud@appthreat.com>"
+    }
+  }
+}
