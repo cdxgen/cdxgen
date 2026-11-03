@@ -1,0 +1,20 @@
+.github/workflows/repotests.yml
+  s_5ccefce07dc343::t_2f645db1b87880 2243-2254,2256-2269
+  s_5ccefce07dc343::t_ce76e3f5843920 2255
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "846567de42d6fe856feabe115c8f98ed682f441a",
+  "prompts": {},
+  "sessions": {
+    "s_5ccefce07dc343": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_a458c27b-c0b9-4e03-b488-2facecf91069",
+        "model": "unknown"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
