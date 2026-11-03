@@ -933,7 +933,9 @@ The lockfiles are read instead of a Gradle run when dependency installation is d
 cdxgen --feature-flags gradle-prefer-lockfile -t gradle /src
 ```
 
-The `GRADLE_PREFER_LOCKFILE` environment variable set to `true` is the same switch; see [ENV.md](ENV.md). When Gradle runs and succeeds it enforces the lockfiles itself, so cdxgen does not parse them a second time; when a Gradle run yields nothing, the lockfiles are the fallback before the `gradle/libs.versions.toml` catalog. The version catalog, which declares coordinates without resolving them, also answers on its own when dependency installation is disabled and the build has neither a wrapper nor Gradle to run.
+The `GRADLE_PREFER_LOCKFILE` environment variable set to `true` is the same switch; see [ENV.md](ENV.md). The preference stops every Gradle invocation, `gradle properties` included. A scan with dependency installation disabled skips only `gradle dependencies`, so `gradle properties` still names the root project and the subprojects wherever project tooling is allowed. When Gradle runs and succeeds it enforces the lockfiles itself, so cdxgen does not parse them a second time; when a Gradle run yields no components of its own, the lockfiles are the fallback. The version catalog `gradle/libs.versions.toml`, which declares coordinates without resolving them, is used when neither Gradle nor the lockfiles produced any components.
+
+When nothing ran `gradle properties`, the primary component of a lockfile-only BOM is named after `rootProject.name` in `settings.gradle` or `settings.gradle.kts` when that is a plain string literal, and after the build's directory otherwise.
 
 A lockfile says nothing about which module depends on which, so lockfile-only components carry no dependency edges, and the scan records `jvm.gradle.lockfile-only` in the build ledger to say so. Custom `dependencyLocking.lockFile` paths, the Nebula `dependencies.lock` and Palantir `versions.lock` formats, and the hashes in `gradle/verification-metadata.xml` are not read.
 
