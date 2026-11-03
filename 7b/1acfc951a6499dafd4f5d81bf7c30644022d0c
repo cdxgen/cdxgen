@@ -1,0 +1,27 @@
+test/data/gradle-aar-cache/README.md
+  s_62c10535cfdb71::t_ac09db65241fbb 1-28
+test/data/gradle-aar-cache/modules-2/files-2.1/androidx.core/core-ktx/1.13.1/54a5c92a6c9ad8d80f9262980b2c0d990c722695/core-ktx-1.13.1.pom
+  s_62c10535cfdb71::t_d429865021a509 1-66
+test/data/gradle-aar-cache/modules-2/files-2.1/androidx.core/core-ktx/1.13.1/633df4a001e1f4be809101d3246a9beea4abac0b/core-ktx-1.13.1.module
+  s_62c10535cfdb71::t_a60a85a0d48e4c 1-152
+test/data/gradle-aar-cache/modules-2/files-2.1/androidx.core/core/1.13.1/9ca2e920780344b9f4b38c3967f88f780a69e966/core-1.13.1.pom
+  s_62c10535cfdb71::t_0ea9272317a553 1-103
+test/data/gradle-aar-cache/modules-2/files-2.1/com.android.support/support-v13/23.0.1/fa78b940f81d598bee18b063f2eef31402b2d2d4/support-v13-23.0.1.pom
+  s_62c10535cfdb71::t_a2a9615cd718e2 1-38
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "7b1acfc951a6499dafd4f5d81bf7c30644022d0c",
+  "prompts": {},
+  "sessions": {
+    "s_62c10535cfdb71": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_db60977c-dbe2-4091-9ddf-792041fda467",
+        "model": "GLM-5.3"
+      },
+      "human_author": "Team AppThreat <cloud@appthreat.com>"
+    }
+  }
+}

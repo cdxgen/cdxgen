@@ -1,0 +1,26 @@
+docs/ADVANCED.md
+  h_6a4cc5cdf68def 710-711
+docs/PROJECT_TYPES.md
+  h_6a4cc5cdf68def 30
+lib/inventory/deps.js
+  h_6a4cc5cdf68def 1,16,20,39-42,223,225,229,235-237,249-250,1162-1166,1168-1170,1174-1177,1180,1183,1190-1196,1198-1212,1215-1218,1220-1222,1224,1226
+lib/inventory/deps.poku.js
+  h_6a4cc5cdf68def 6,464-520
+lib/inventory/depsAarDryRun.poku.js
+  h_6a4cc5cdf68def 1-42
+types/lib/inventory/deps.d.ts
+  h_6a4cc5cdf68def 195-199,201-203,207-209
+types/lib/inventory/deps.d.ts.map
+  h_6a4cc5cdf68def 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "0765c4e1ea9f9372ffed94dc5b5c895fe8648f85",
+  "prompts": {},
+  "humans": {
+    "h_6a4cc5cdf68def": {
+      "author": "Team AppThreat <cloud@appthreat.com>"
+    }
+  }
+}
