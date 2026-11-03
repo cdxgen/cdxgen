@@ -1,0 +1,26 @@
+docs/VALIDATION_RULES.md
+  s_62c10535cfdb71::t_8f1d707fb917de 92-94
+docs/AI_BOM.md
+  s_62c10535cfdb71::t_46d475655ace0f 218-294
+docs/CDX_VALIDATE.md
+  s_62c10535cfdb71::t_0d383956ec49a1 14-16
+  s_62c10535cfdb71::t_b316d09e18e081 287-316
+  s_62c10535cfdb71::t_f0814f1b9367dd 60-61
+  s_62c10535cfdb71::t_d07c383804aa66 317-318
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "e5da69032e7070f1c1fec495434dd71199621a35",
+  "prompts": {},
+  "sessions": {
+    "s_62c10535cfdb71": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_db60977c-dbe2-4091-9ddf-792041fda467",
+        "model": "GLM-5.3"
+      },
+      "human_author": "Team AppThreat <cloud@appthreat.com>"
+    }
+  }
+}
