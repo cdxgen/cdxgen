@@ -1,0 +1,33 @@
+.github/workflows/repotests.yml
+  s_876b127e2d0d97::t_3eeb88540aa3e0 32
+  s_876b127e2d0d97::t_47bd793f1b1cac 574-583
+test/data/cargo-manifest-ranges/local/Cargo.toml
+  s_876b127e2d0d97::t_667152c0c1707c 1-3
+lib/cli/nativeBom.poku.js
+  s_876b127e2d0d97::t_c5da991adb45f7 496-504
+lib/ecosystems/parsers-rust.js
+  s_876b127e2d0d97::t_d54dfefd4f2069 725
+  s_876b127e2d0d97::t_027de053cb8afa 659-690
+test/data/cargo-manifest-ranges/Cargo.toml
+  s_876b127e2d0d97::t_7b969ec2776039 1-16
+lib/ecosystems/parsers-rust.poku.js
+  s_876b127e2d0d97::t_3a917357700003 594-639
+  s_876b127e2d0d97::t_d9bf48288420cc 588-591
+  s_876b127e2d0d97::t_d81abccf77157f 592-593
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "355a8bd5a48279aed39bab0cedb4fe7e6e0f976d",
+  "prompts": {},
+  "sessions": {
+    "s_876b127e2d0d97": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_b9dbebc5-e628-4653-ad3c-dfcafe562873",
+        "model": "GLM-5.3"
+      },
+      "human_author": "Team AppThreat <cloud@appthreat.com>"
+    }
+  }
+}
