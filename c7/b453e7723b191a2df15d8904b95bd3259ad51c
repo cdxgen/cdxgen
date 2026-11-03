@@ -1,0 +1,19 @@
+lib/inventory/depsAarDryRun.poku.js
+  s_147227fef7a734::t_cb77c950eddcac 1-2,12-19,38,46,49
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "c7b453e7723b191a2df15d8904b95bd3259ad51c",
+  "prompts": {},
+  "sessions": {
+    "s_147227fef7a734": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "a0fc8339-d310-4b54-b844-f69b5cd28fdc",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
