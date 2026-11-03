@@ -1,3 +1,5 @@
+export declare const MAX_READ_BYTES: number;
+export declare const MAX_ASSETS_READ_BYTES: number;
 /**
  * Parser for make and CMake build inputs (C/C++ and friends).
  *

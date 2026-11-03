@@ -6,6 +6,9 @@ CXX ?= c++
 CFLAGS := -O2 -Wall
 
 include extra.mk
+# Absolute and parent-relative includes describe the machine or the tree
+# around the project, so the parser drops them.
+-include /usr/local/share/mk/site.mk ../shared/rules.mk
 
 .PHONY: all clean test
 

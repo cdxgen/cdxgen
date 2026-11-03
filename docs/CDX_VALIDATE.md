@@ -245,13 +245,13 @@ component license) pass when that marker is present.
 
 | Id            | CISA element(s)                                | CycloneDX field read                                                       |
 | ------------- | ---------------------------------------------- | -------------------------------------------------------------------------- |
-| `CISA-MIN-001` | SBOM Author                                    | `metadata.authors[].name` (1.4: `metadata.author.name`)                    |
+| `CISA-MIN-001` | SBOM Author                                    | `metadata.authors[].name` (1.4: `metadata.author.name`); the `--author` default `OWASP Foundation` alone does not count |
 | `CISA-MIN-002` | SBOM Author Signature                          | `signature` (the JSF block `cdx-sign` writes)                              |
 | `CISA-MIN-003` | SBOM Data Format Name, Data Format Version     | `bomFormat`, `specVersion` (1.0 to 1.3 count as deprecated)                |
 | `CISA-MIN-004` | SBOM Generation Context                        | `metadata.lifecycles[].phase`                                              |
 | `CISA-MIN-005` | SBOM Tool Name, SBOM Tool Version              | `metadata.tools` (array or `components`/`services`)                        |
 | `CISA-MIN-006` | SBOM Version                                   | `version` (integer of 1 or more)                                           |
-| `CISA-MIN-007` | SBOM Timestamp                                 | `metadata.timestamp` (RFC 9557 shape)                                      |
+| `CISA-MIN-007` | SBOM Timestamp                                 | `metadata.timestamp` (RFC 9557 shape with a real calendar day, hour 0-23, minute 0-59 and second 0-60, so a leap second passes) |
 | `CISA-MIN-008` | Component Name                                 | `components[].name`                                                        |
 | `CISA-MIN-009` | Component Version                              | `components[].version`                                                     |
 | `CISA-MIN-010` | Component Producer                              | `components[].supplier.name` or `manufacturer.name`                        |
@@ -261,22 +261,32 @@ component license) pass when that marker is present.
 | `CISA-MIN-014` | Component Dependency Relationship, Coverage    | `dependencies[]` covering every component                                  |
 | `CISA-MIN-015` | Explicitly Identifying Unknown Information     | manual review; not decidable from the BOM alone                            |
 
-Checked against a default `cdxgen` BOM for a small npm project (spec 1.7), the
-profile scores 10 pass, 4 fail, 1 manual. cdxgen fills the author, data
-format, generation context, tool, SBOM version, timestamp, component name,
-version, identifier and dependency elements by default. The remaining gaps and
+Measured on a default `cdxgen -t js --no-install-deps` BOM (spec 1.7) for
+`test/data/svelte-precision`, an npm project with a lockfile version 3 whose
+entries carry `integrity` and `license`, the profile scores 11 pass, 3 fail,
+1 manual. cdxgen fills the data format, generation context, tool, SBOM
+version, timestamp, component name, version, identifier, hash, license and
+dependency elements by default. Hashes come from the lockfile's `integrity`
+values (SHA-512), so no installed packages are needed. Licenses come from the
+lockfile's `license` fields: on `test/data/package-json/v3`, also lockfile
+version 3 but without `license` fields, `CISA-MIN-013` fails as well and the
+score is 10 pass, 4 fail, 1 manual. A lockfile entry with only a SHA-1
+`integrity` value leaves that component without an approved hash (one of 129
+components on `test/data/package-json/v2`). `lib/validator/cisaDefaultBom.poku.js`
+regenerates these BOMs and checks every rule outcome. The failing rules and
 the step that fills each one:
 
-- **Author signature**: sign the generated BOM with `cdx-sign`; cdxgen keeps
-  signing an explicit step.
-- **Component producer**: cdxgen does not record the maintaining organisation
-  for packages by default; record it in `supplier.name`, or `"unknown"` to
-  mark the provenance unknown.
-- **Component hashes**: a lockfile-only npm generation records no hashes;
-  generate where the artifacts are reachable (installed directories, image
-  scans) so hashes can be computed.
-- **Component license**: run with `FETCH_LICENSE=true` or a license allow-list
-  so licenses are resolved.
+- **Author** (`CISA-MIN-001`): the `--author` default `OWASP Foundation`
+  names the tool's maintainer, so it does not count; pass `--author` with the
+  person or organisation generating the SBOM.
+- **Author signature** (`CISA-MIN-002`): sign the generated BOM with
+  `cdx-sign`; cdxgen keeps signing an explicit step.
+- **Component producer** (`CISA-MIN-010`): cdxgen does not record the
+  maintaining organisation for npm packages; record it in `supplier.name`, or
+  `"unknown"` to mark the provenance unknown.
+- **Component license** (`CISA-MIN-013`), when the lockfile has no license
+  fields: run with `FETCH_LICENSE=true` so licenses are looked up in the
+  registry.
 
 Run the profile on its own with:
 
@@ -288,18 +298,22 @@ cdx-validate -i bom.json --benchmark cisa --fail-severity medium
 
 Eleven rules for the [minimum elements for AI
 SBOMs](https://www.cisa.gov/resources-tools/resources/software-bill-materials-si-minimum-elements)
-that CISA and its G7 partners published on 12 May 2026. The guidance's
-Metadata cluster repeats the 2026 minimum elements, so those stay in the
-`cisa` benchmark; the rules below cover the AI-specific clusters, and the
-element-by-element mapping, including the elements cdxgen does not emit, is in
-[AI_BOM.md](AI_BOM.md). Model and dataset rules pass with a note on a BOM
-without AI components, and AI model components count towards the plain `cisa`
-benchmark's component elements as well.
+that CISA and its G7 partners published on 12 May 2026. The AI guidance
+supplements the general SBOM minimum elements and is meant to be considered
+in addition to them, so the general elements stay in the `cisa` benchmark;
+the rules below cover the AI-specific clusters, and the element-by-element
+mapping, including the elements cdxgen does not emit, is in
+[AI_BOM.md](AI_BOM.md). Every `cisa-ai` rule, the system rules included,
+passes with a note on a BOM without model or dataset components, and AI model
+components count towards the plain `cisa` benchmark's component elements as
+well. cdxgen does not populate the system producer that `CISA-AI-002` reads;
+add it to `metadata.supplier` after generation, for example by post-processing
+the BOM before signing it.
 
 | Id             | CISA/G7 element(s)                          | CycloneDX field read                                        |
 | -------------- | -------------------------------------------- | ------------------------------------------------------------ |
 | `CISA-AI-001`  | System name, System version                  | `metadata.component.name` / `.version`                      |
-| `CISA-AI-002`  | System producer                               | `metadata.supplier.name` or `metadata.component.supplier`   |
+| `CISA-AI-002`  | System producer                               | `metadata.supplier.name`, the deprecated `metadata.manufacture.name`, or `metadata.component.supplier`/`manufacturer` |
 | `CISA-AI-003`  | Model name, Model version                     | model component `name` / `version`                          |
 | `CISA-AI-004`  | Model producer                                | model component `supplier.name` / `manufacturer.name`       |
 | `CISA-AI-005`  | Model identifier                              | model component `purl`, `cpe`, `swid.tagId`                 |

@@ -1280,6 +1280,7 @@ if (options.lifecycle) {
 const isHbomOnlyInvocation = isHbomOnlyProjectTypes(options.projectType);
 const advancedWarnings = applyAdvancedOptionsImpl(options, {
   isSecureMode: isSecureModeActive(),
+  invokedCommandName,
 });
 // The config file comes from the working directory, usually the scanned
 // project, so whether the project's own code may run stays the operator's
