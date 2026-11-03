@@ -1,0 +1,54 @@
+bin/validate.js
+  s_62c10535cfdb71::t_37e34c41873ae8 83,88
+lib/validator/complianceEngine.poku.js
+  s_62c10535cfdb71::t_b9c35cd266f682 56-63
+  s_62c10535cfdb71::t_6529783a69e3e3 82
+  s_62c10535cfdb71::t_e40428d5e59ebe 141,149-164
+  s_62c10535cfdb71::t_2c1122bcb700bd 165
+lib/validator/complianceEngine.js
+  s_62c10535cfdb71::t_3578c2996212d7 12
+  s_62c10535cfdb71::t_b9c35cd266f682 75-77
+  s_62c10535cfdb71::t_979be8390ba8aa 262-268
+  s_62c10535cfdb71::t_c0179843288dd2 72-74,78-84
+types/lib/validator/complianceEngine.d.ts
+  s_62c10535cfdb71::t_3bbaf9d530f061 9,71
+types/lib/validator/complianceRules.d.ts
+  s_62c10535cfdb71::t_3bbaf9d530f061 61-65
+  s_62c10535cfdb71::t_f96137d0222028 60
+lib/validator/complianceRules.js
+  s_62c10535cfdb71::t_592336cb0ca640 2267-2279,2695
+  s_62c10535cfdb71::t_b9c35cd266f682 2260-2262,2419-2421,2567
+  s_62c10535cfdb71::t_fd7cd5ba7b7ebc 1935,1966,2001,2039,2076,2118,2153
+  s_62c10535cfdb71::t_21fde575da89d6 2210-2259,2263-2266,2280-2418,2422-2566,2568-2647,2658,2688-2694
+  s_62c10535cfdb71::t_19cce1e0d2ac1e 2696
+lib/validator/complianceRules.poku.js
+  s_62c10535cfdb71::t_51e1b3276f60f0 113-120
+  s_62c10535cfdb71::t_05d7505eba166d 767-769
+  s_62c10535cfdb71::t_b9c35cd266f682 731,737,747-748,753,772,778
+  s_62c10535cfdb71::t_dcf7856285d900 69-73
+  s_62c10535cfdb71::t_fe6536746c714d 122-123,628-730,732-736,738-746,754-766,770-771,773-777,779-787
+  s_62c10535cfdb71::t_06a0d7a6e80aa8 749-752
+  s_62c10535cfdb71::t_2403ddc80ae5d2 6
+  s_62c10535cfdb71::t_e5eccb826f6f5d 121
+  s_62c10535cfdb71::t_66467d6d16bf98 788
+types/lib/validator/complianceEngine.d.ts.map
+  s_62c10535cfdb71::t_017b7b2d4f3997 1
+types/lib/validator/complianceRules.d.ts.map
+  s_62c10535cfdb71::t_fad5f9de6163a5 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "2a4880e8ac25c38804c9ba66044f19e67b335ef0",
+  "prompts": {},
+  "sessions": {
+    "s_62c10535cfdb71": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_db60977c-dbe2-4091-9ddf-792041fda467",
+        "model": "GLM-5.3"
+      },
+      "human_author": "Team AppThreat <cloud@appthreat.com>"
+    }
+  }
+}
