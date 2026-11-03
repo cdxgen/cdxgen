@@ -1,0 +1,16 @@
+lib/ecosystems/gradleutils.js
+  h_0926447d100ad2 1228-1233,1245-1249,1258-1260,1262-1263
+lib/ecosystems/gradleutils.poku.js
+  h_0926447d100ad2 1679-1748
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "00ac26081b276c106c0017b6f06976241f55264c",
+  "prompts": {},
+  "humans": {
+    "h_0926447d100ad2": {
+      "author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
