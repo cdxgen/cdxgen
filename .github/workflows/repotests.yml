@@ -29,6 +29,7 @@ on:
       - 'test/data/cbom-js-repotest/**'
       - 'test/data/terraform-*/**'
       - 'test/data/cargo-workspace-repotest/**'
+      - 'test/data/cargo-manifest-ranges/**'
       - 'test/data/evinse-php-repotest/**'
       - 'test/data/evinse-cpp-repotest/**'
       - 'test/data/evinse-python-repotest/**'
@@ -570,6 +571,16 @@ jobs:
         shell: bash
         env:
           CDXGEN_DEBUG_MODE: debug
+      - name: repotests cargo manifest requirement ranges
+        run: |
+          # A Cargo.toml requirement must not reach the purl as a version
+          # unless it is an exact =X.Y.Z pin (cdxgen issue #4716).
+          bin/cdxgen.js -t cargo test/data/cargo-manifest-ranges -o bomresults/bom-cargo-ranges.json --fail-on-error
+          jq -e 'any(.components[]; .purl == "pkg:cargo/serde")' bomresults/bom-cargo-ranges.json
+          jq -e 'any(.components[]; .purl == "pkg:cargo/memchr")' bomresults/bom-cargo-ranges.json
+          jq -e 'any(.components[]; .purl == "pkg:cargo/itoa@1.0.11")' bomresults/bom-cargo-ranges.json
+          jq -e '[.components[] | select((.purl // "") | startswith("pkg:cargo/")) | select(.purl | test("%5E|%3E|%3C|%3D|%21"))] | length == 0' bomresults/bom-cargo-ranges.json
+        shell: bash
       - name: repotests django-DefectDojo
         run: |
           bin/cdxgen.js -t python repotests/django-DefectDojo -o bomresults/django-DefectDojo-safe.json --feature-flags safe-pip-install --fail-on-error
