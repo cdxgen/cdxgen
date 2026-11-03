@@ -145,7 +145,9 @@ statement of it.
 Two small footnotes. A Gradle version catalog (`gradle/libs.versions.toml`) is
 only consulted when Gradle itself produced no dependency information, and the
 resulting components carry `cdx:gradle:catalog=true` so nobody mistakes a
-declared catalog for a resolved graph. And on the vcpkg side, the manifest's
+declared catalog for a resolved graph. The catalog also answers now when
+dependency installation is disabled, which previously left such scans with no
+Gradle components at all unless the build committed a `gradle.lockfile`. And on the vcpkg side, the manifest's
 `builtin-baseline` is now recorded as `cdx:vcpkg:baseline` on the parent
 component, which names the port set the declaration resolves against even
 though the manifest carries no versions.

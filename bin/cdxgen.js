@@ -697,6 +697,7 @@ const args = _yargs
       "suggest-build-tools",
       "ruby-docker-install",
       "resolve-gradle-distribution",
+      "gradle-prefer-lockfile",
       "jvm-tool-setup",
     ],
   })

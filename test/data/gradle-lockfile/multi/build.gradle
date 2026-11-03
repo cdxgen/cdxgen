@@ -1,0 +1,31 @@
+buildscript {
+    repositories {
+        gradlePluginPortal()
+    }
+    dependencies {
+        classpath 'com.github.ben-manes:gradle-versions-plugin:0.50.0'
+    }
+    configurations.classpath {
+        resolutionStrategy.activateDependencyLocking()
+    }
+}
+
+plugins {
+    id 'java'
+}
+
+allprojects {
+    repositories {
+        mavenCentral()
+    }
+}
+
+dependencyLocking {
+    lockAllConfigurations()
+}
+
+dependencies {
+    implementation libs.guava
+    testImplementation 'org.slf4j:slf4j-api:2.0.9'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.0'
+}
