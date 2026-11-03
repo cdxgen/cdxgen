@@ -215,6 +215,83 @@ Non-GGUF quantization methods (GPTQ, AWQ, EXL2, bitsandbytes, and similar) are r
 
 `cdxi` now includes an `.aibom` command that renders an operator-friendly AI view with pedigree trees, fine-tune/distillation lineage, quantization explanations, licenses, and dataset summaries.
 
+## CISA and G7 minimum elements for AI SBOMs
+
+On 12 May 2026 CISA and its G7 partners published [Software Bill of Materials
+for AI: Minimum Elements](https://www.cisa.gov/resources-tools/resources/software-bill-materials-si-minimum-elements),
+a voluntary baseline organised in seven clusters. Its Metadata cluster repeats
+the 2026 SBOM minimum elements, so `cdx-validate --benchmark cisa` already
+checks those. The AI-specific clusters map onto a cdxgen AI-BOM as follows,
+and the checkable elements are rules under `cdx-validate --benchmark cisa-ai`
+(rule ids `CISA-AI-001` to `CISA-AI-011`). AI rules pass with a note on a BOM
+that holds no AI components.
+
+### Metadata cluster
+
+Checked by the `cisa` benchmark: SBOM author, version, data format name and
+version, author signature, tool name and version, generation context,
+timestamp and dependency relationship map to `metadata.authors`, `version`,
+`bomFormat`/`specVersion`, the JSF `signature` written by `cdx-sign`,
+`metadata.tools`, `metadata.lifecycles`, `metadata.timestamp` and
+`dependencies[]`, as documented in [CDX_VALIDATE.md](CDX_VALIDATE.md).
+
+### System Level Properties cluster
+
+| Element | Where it lands in a cdxgen AI-BOM | Rule |
+| --- | --- | --- |
+| System name | `metadata.component.name` | `CISA-AI-001` |
+| System components | `components[]` (models, datasets, software) and `services[]` (inference endpoints) | - |
+| System producer | `metadata.supplier.name` or `metadata.component.supplier.name` | `CISA-AI-002` |
+| System version | `metadata.component.version` | `CISA-AI-001` |
+| System timestamp | `metadata.timestamp` records BOM generation; the system's own update time is not recorded separately | - |
+| System data flow | `services[].endpoints` for inference and MCP services; a full data-flow graph is not emitted | - |
+| System data usage | not emitted; needs the producer's technical documentation | - |
+| System input/output properties | `modelCard.modelParameters.inputs[]` / `outputs[]` per model; system-level I/O is not emitted | - |
+| Intended application area | `modelCard.considerations.useCases[]` for models with a Hub model card; system-level area is not emitted | - |
+
+### Models cluster
+
+| Element | Where it lands in a cdxgen AI-BOM | Rule |
+| --- | --- | --- |
+| Model name | `components[type=machine-learning-model].name` | `CISA-AI-003` |
+| Model identifier | `purl` (`pkg:huggingface/<namespace>/<name>@<revision>`) | `CISA-AI-005` |
+| Model version | `version` (repository sha or revision) | `CISA-AI-003` |
+| Model timestamp | `cdx:huggingface:lastModified` property; local-only artifacts have none | - |
+| Model producer | `supplier.name`, filled from the Hugging Face namespace or the dosai provider | `CISA-AI-004` |
+| Model description | `description` and the CycloneDX `modelCard` | `CISA-AI-008` |
+| Model hash value | `hashes[].content` (dosai computes SHA-256 for artifacts) | `CISA-AI-006` |
+| Model hash algorithm | `hashes[].alg` | `CISA-AI-006` |
+| Model properties | `modelCard.modelParameters` (architecture, task) plus `cdx:ai:*` properties (quantization, parameter count, context window) | - |
+| Model input-output properties | `modelCard.modelParameters.inputs[]` / `outputs[]`, including tokenizer-derived I/O for GGUF | - |
+| Model training properties | `pedigree.ancestors[]` for lineage; training-technique documentation links ride on `externalReferences` | - |
+| Model license | `licenses[]` from the model card | `CISA-AI-007` |
+| Model external references | `externalReferences[]` (repository, DOI, arXiv, license link) | - |
+
+### Datasets cluster
+
+| Element | Where it lands in a cdxgen AI-BOM | Rule |
+| --- | --- | --- |
+| Dataset name | `components[type=data].name` and `data[].name` | `CISA-AI-009` |
+| Dataset description | `description` / `data[].description`, including Hub dataset statistics | - |
+| Dataset content | `data[].contents` (url); a content description is only kept when the Hub provides one | - |
+| Dataset identifier | `purl` with the datasets repository URL, or `data[].contents.url` | `CISA-AI-009` |
+| Dataset hash | not emitted | - |
+| Dataset provenance | `supplier.name` (the namespace) plus the repository URL; collection and processing methods are not emitted | - |
+| Dataset statistical properties | Hub statistics folded into the description | - |
+| Dataset sensitivity | not emitted; needs the producer's declaration | - |
+| Dataset dependency relationship | `dependencies[]` edges from the model to its datasets | - |
+| Dataset license | `licenses[]` from the dataset card | `CISA-AI-010` |
+
+### Infrastructure, Security Properties and KPI clusters
+
+Infrastructure software is the regular dependency inventory cdxgen already
+emits. The remaining elements need producer documentation a BOM alone cannot
+carry, so `CISA-AI-011` reports them as one manual-review item: infrastructure
+hardware (link an HBOM generated separately), security controls (cdxgen only
+flags unsafe pickle deserialization through `cdx:ai:unsafeDeserialization`),
+security compliance, the producer's `security.txt`, vulnerability referencing,
+security metrics and operational KPIs.
+
 ## Standards mappings
 
 The AI, agent, and MCP rule packs now include guidance mappings for:

@@ -11,8 +11,9 @@ It combines three layers:
    checks, also from `lib/validator/bomValidator.js`.
 3. **Compliance rule packs** – internal JavaScript rule catalog covering
    **OWASP SCVS (all 87 controls across L1/L2/L3)**, **EU Cyber Resilience
-   Act (CRA) SBOM expectations** (8 controls) and the **CISA 2026 minimum
-   elements for an SBOM** (15 rules). Rules that cannot be decided
+   Act (CRA) SBOM expectations** (8 controls), the **CISA 2026 minimum
+   elements for an SBOM** (15 rules) and the **CISA and G7 minimum elements
+   for an AI SBOM** (11 rules). Rules that cannot be decided
    from a BOM alone (for example, "SBOMs are required for new procurements")
    are surfaced as _manual-review_ items so coverage can still be tracked.
 
@@ -56,8 +57,8 @@ cdx-validate -i bom.json -r json --fail-severity medium
 | `-o, --report-file`                        | stdout     | Write the report to a file.                                                                                                   |
 | `--schema` / `--no-schema`                 | on         | Toggle JSON-schema validation.                                                                                                |
 | `--deep` / `--no-deep`                     | on         | Toggle metadata / purl / ref / property deep checks.                                                                          |
-| `-b, --benchmark`                          | all        | Comma list of `scvs`, `scvs-l1`, `scvs-l2`, `scvs-l3`, `cra`, `cisa`.                                                         |
-| `--categories`                             | all        | Comma list of rule categories (`compliance-scvs`, `compliance-cra`, `compliance-cisa`).                                       |
+| `-b, --benchmark`                          | all        | Comma list of `scvs`, `scvs-l1`, `scvs-l2`, `scvs-l3`, `cra`, `cisa`, `cisa-ai`.                                              |
+| `--categories`                             | all        | Comma list of rule categories (`compliance-scvs`, `compliance-cra`, `compliance-cisa`, `compliance-cisa-ai`).                 |
 | `--min-severity`                           | `info`     | Drop findings below this severity from the report.                                                                            |
 | `--fail-severity`                          | `high`     | Exit code 3 if any failing finding is ≥ this severity.                                                                        |
 | `--include-manual` / `--no-include-manual` | on         | Show non-automatable manual-review findings.                                                                                  |
@@ -281,6 +282,38 @@ Run the profile on its own with:
 
 ```shell
 cdx-validate -i bom.json --benchmark cisa --fail-severity medium
+```
+
+### CISA and G7 minimum elements for an AI SBOM
+
+Eleven rules for the [minimum elements for AI
+SBOMs](https://www.cisa.gov/resources-tools/resources/software-bill-materials-si-minimum-elements)
+that CISA and its G7 partners published on 12 May 2026. The guidance's
+Metadata cluster repeats the 2026 minimum elements, so those stay in the
+`cisa` benchmark; the rules below cover the AI-specific clusters, and the
+element-by-element mapping, including the elements cdxgen does not emit, is in
+[AI_BOM.md](AI_BOM.md). Model and dataset rules pass with a note on a BOM
+without AI components, and AI model components count towards the plain `cisa`
+benchmark's component elements as well.
+
+| Id             | CISA/G7 element(s)                          | CycloneDX field read                                        |
+| -------------- | -------------------------------------------- | ------------------------------------------------------------ |
+| `CISA-AI-001`  | System name, System version                  | `metadata.component.name` / `.version`                      |
+| `CISA-AI-002`  | System producer                               | `metadata.supplier.name` or `metadata.component.supplier`   |
+| `CISA-AI-003`  | Model name, Model version                     | model component `name` / `version`                          |
+| `CISA-AI-004`  | Model producer                                | model component `supplier.name` / `manufacturer.name`       |
+| `CISA-AI-005`  | Model identifier                              | model component `purl`, `cpe`, `swid.tagId`                 |
+| `CISA-AI-006`  | Model hash value, Model hash algorithm        | model component `hashes[]`                                  |
+| `CISA-AI-007`  | Model license                                 | model component `licenses`                                  |
+| `CISA-AI-008`  | Model description                             | model component `description` or `modelCard`                |
+| `CISA-AI-009`  | Dataset name, Dataset identifier              | dataset component `name`, `purl`, `data[].contents.url`     |
+| `CISA-AI-010`  | Dataset license                               | dataset component `licenses`                                |
+| `CISA-AI-011`  | Descriptive AI elements (data flow, training, security, KPI) | manual review; not decidable from the BOM alone |
+
+Check an AI-BOM with both profiles:
+
+```shell
+cdx-validate -i aibom.json --benchmark cisa,cisa-ai
 ```
 
 ---

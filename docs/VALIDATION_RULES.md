@@ -89,9 +89,9 @@ They are cdxgen quality checks, not CycloneDX spec violations.
 
 ## Not covered by these rules
 
-- **Compliance benchmarks** (SCVS, CRA, CISA 2026 minimum elements). Those
-  answer "does this satisfy a policy?" rather than "is this well-formed
-  CycloneDX?" and are selected with `--benchmark`.
+- **Compliance benchmarks** (SCVS, CRA, the CISA 2026 minimum elements and
+  their AI extension). Those answer "does this satisfy a policy?" rather than
+  "is this well-formed CycloneDX?" and are selected with `--benchmark`.
 - **SPDX export validation.** Converted SPDX documents are checked against the
   SPDX schema, not against this registry.
 - **CycloneDX 1.4 and 1.5.** Below the v13 floor; both validators reject them
