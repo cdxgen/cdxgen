@@ -1,0 +1,48 @@
+types/lib/ecosystems/gradleutils.d.ts
+  s_5ccefce07dc343::t_ae7952cf364784 340-413
+lib/ecosystems/gradleutils.js
+  s_5ccefce07dc343::t_b660d8bfd52d0b 4,15,36,38,2438-2445,2468,2473-2623,2625-2828
+  s_5ccefce07dc343::t_013a4fc0ba0696 2624
+  s_5ccefce07dc343::t_4032e6eea373be 2829
+lib/ecosystems/gradleutils.poku.js
+  s_5ccefce07dc343::t_994f42c832a0dd 2843,2865,2868,2871,2874
+  s_5ccefce07dc343::t_b660d8bfd52d0b 1-9,22,31-32,2574-2632,2637-2656,2665,2670-2691,2694-2834,2855,2862-2864,2866-2867,2869-2870,2872-2873,2875,2880-2891
+  s_5ccefce07dc343::t_4032e6eea373be 2892-2893
+  s_5ccefce07dc343::t_013a4fc0ba0696 2633-2636,2657-2664,2666-2669,2692-2693,2835-2842,2844-2854,2856-2861,2876-2879
+test/data/gradle-lockfile/multi/app/gradle.lockfile
+  s_74398300cc48c7::t_5de286eccf5d50 1-9
+test/data/gradle-lockfile/multi/settings.gradle
+  s_74398300cc48c7::t_9ebb2df9f69c6a 1-2
+test/data/gradle-lockfile/single/build.gradle
+  s_74398300cc48c7::t_86c3c62a5e19d7 1-17
+test/data/gradle-lockfile/single/gradle.lockfile
+  s_74398300cc48c7::t_b82f36b50745bd 1-7
+test/data/gradle-lockfile/single/settings.gradle
+  s_74398300cc48c7::t_f370f8b9ab3074 1
+types/lib/ecosystems/gradleutils.d.ts.map
+  s_5ccefce07dc343::t_138c41032c6eaf 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "1e293c24ec7c2e0d04f2bea8965e4cd488e143e5",
+  "prompts": {},
+  "sessions": {
+    "s_5ccefce07dc343": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_a458c27b-c0b9-4e03-b488-2facecf91069",
+        "model": "unknown"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    },
+    "s_74398300cc48c7": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "d0904532-37d4-48a7-8f6e-50bec4d75023",
+        "model": "claude-sonnet-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
