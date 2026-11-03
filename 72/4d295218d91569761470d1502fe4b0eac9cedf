@@ -1,0 +1,26 @@
+docs/ENV.md
+  s_5ccefce07dc343::t_e3471c4ed960a3 179
+docs/PROJECT_TYPES.md
+  s_5ccefce07dc343::t_2b78f0b1750916 83
+  s_5ccefce07dc343::t_dfde53ebfb38b6 23-24,126
+docs/LESSON33.md
+  s_5ccefce07dc343::t_68d620b86d40b0 148-150
+docs/ADVANCED.md
+  s_5ccefce07dc343::t_4c31604734a180 926-939
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "724d295218d91569761470d1502fe4b0eac9cedf",
+  "prompts": {},
+  "sessions": {
+    "s_5ccefce07dc343": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_a458c27b-c0b9-4e03-b488-2facecf91069",
+        "model": "unknown"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
