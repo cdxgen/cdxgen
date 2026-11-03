@@ -1,0 +1,15 @@
+httpx>=0.27
+six<2.0
+idna!=1.5
+attrs~=23.1
+requests>=2.31,<3
+markupsafe (>=2.0)
+pytz==2024.*
+werkzeug!=3.0.0,==3.0.3
+flask==3.0.0,!=3.0.1
+certifi==2024.2.2
+charset-normalizer===3.3.2
+urllib3
+aiohttp [speedups]==3.9.5
+uvicorn [standard]>=0.29
+ninja==1.11.1 --config-settings=foo=bar
