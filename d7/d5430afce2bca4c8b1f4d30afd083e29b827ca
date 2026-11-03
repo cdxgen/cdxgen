@@ -1,0 +1,50 @@
+test/data/formulation-build-inputs/requirements.txt
+  s_62c10535cfdb71::t_0fd74540e5bab5 1-10
+test/data/formulation-build-inputs/go.mod
+  s_62c10535cfdb71::t_b3e8608e9112e4 1-10
+types/lib/inventory/ecosystemFormulationParsers.d.ts
+  s_62c10535cfdb71::t_6a8dc3e2ad596c 1-52
+test/data/formulation-build-inputs/Makefile
+  s_62c10535cfdb71::t_5f4c7db519cf70 1-30
+test/data/formulation-build-inputs/project.assets.json
+  s_62c10535cfdb71::t_0db922a6bf8d1a 1-58
+test/data/formulation-build-inputs/README.md
+  s_62c10535cfdb71::t_6465fb4305dab6 1-18
+test/data/formulation-build-inputs/constraints.txt
+  s_62c10535cfdb71::t_1f88414533f5d1 1-4
+lib/inventory/ecosystemFormulationParsers.js
+  s_62c10535cfdb71::t_c7054963a4d4d7 1-119,121-139,143,146-203,206,208-273,279-331,337-338,344-406
+  s_62c10535cfdb71::t_6a8dc3e2ad596c 120,140-142,144-145,204-205,207,274-278,332-336,339-343
+lib/inventory/formulationParsers.js
+  s_62c10535cfdb71::t_3bd79fc51538e1 108-111
+  s_62c10535cfdb71::t_6a8dc3e2ad596c 18-22
+  s_62c10535cfdb71::t_aa33ecab3319d1 17
+test/data/formulation-build-inputs/Demo.csproj
+  s_62c10535cfdb71::t_ada0568fad8480 1-14
+lib/inventory/ecosystemFormulationParsers.poku.js
+  s_62c10535cfdb71::t_8872ae9ad616b6 1-108,110-113,115,118-120,125-138
+  s_62c10535cfdb71::t_ad91ab91a4a9f7 109
+  s_62c10535cfdb71::t_6a8dc3e2ad596c 114,116-117,121-124
+test/data/formulation-build-inputs/CMakeLists.txt
+  s_62c10535cfdb71::t_ea844af6119073 1-7
+types/lib/inventory/ecosystemFormulationParsers.d.ts.map
+  s_62c10535cfdb71::t_15a53899f60150 1
+types/lib/inventory/formulationParsers.d.ts.map
+  s_62c10535cfdb71::t_3db47a520face3 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "d7d5430afce2bca4c8b1f4d30afd083e29b827ca",
+  "prompts": {},
+  "sessions": {
+    "s_62c10535cfdb71": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_db60977c-dbe2-4091-9ddf-792041fda467",
+        "model": "GLM-5.3"
+      },
+      "human_author": "Team AppThreat <cloud@appthreat.com>"
+    }
+  }
+}

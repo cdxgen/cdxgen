@@ -1,0 +1,108 @@
+bin/cdxgen.js
+  h_6a4cc5cdf68def 1283
+docs/ADVANCED.md
+  h_6a4cc5cdf68def 1009-1019,1023
+docs/AI_BOM.md
+  h_6a4cc5cdf68def 222-236,240-254,262,278,297,307-318
+docs/CDX_VALIDATE.md
+  h_6a4cc5cdf68def 248,254,264-276,279-289,301-311,316
+docs/CUSTOM_PROPERTIES.md
+  h_6a4cc5cdf68def 117,494
+docs/ENV.md
+  h_6a4cc5cdf68def 15
+lib/cli/bomAssembly.js
+  h_6a4cc5cdf68def 1116-1163,1335-1340
+lib/cli/bomAssembly.poku.js
+  h_6a4cc5cdf68def 142-195
+lib/cli/cliOptions.js
+  h_6a4cc5cdf68def 111-134,427-441,469-473,486-489,679-680,688,726,806-813,817-843,845-855,857,890-891,902,910,919
+lib/cli/cliOptions.poku.js
+  h_6a4cc5cdf68def 679,681-685,687-699,712-732,735,738-792,794-876
+lib/cli/managedBom.poku.js
+  h_6a4cc5cdf68def 2879-2900
+lib/ecosystems/parsers-python.js
+  h_6a4cc5cdf68def 2179-2181
+lib/ecosystems/remote/huggingface.js
+  h_6a4cc5cdf68def 29,1196-1197,1200
+lib/ecosystems/remote/huggingface.poku.js
+  h_6a4cc5cdf68def 377
+lib/inventory/aiCollector.js
+  h_6a4cc5cdf68def 32,41,547-632,1417-1437,1440,1442,1468-1471,1477-1480,1483-1491,1500,1522-1524,2035-2039,2046-2050,2245-2247
+lib/inventory/aiCollector.poku.js
+  h_6a4cc5cdf68def 100-326,889,894
+lib/inventory/aiProviders.js
+  h_6a4cc5cdf68def 1-36
+lib/inventory/dosai.js
+  h_6a4cc5cdf68def 42,2184,2192-2195
+lib/inventory/dosai.poku.js
+  h_6a4cc5cdf68def 691-724,783-784
+lib/inventory/ecosystemFormulationParsers.js
+  h_6a4cc5cdf68def 1,12-13,15-32,34-38,44-66,92-122,126-127,136,138,142,145-147,150-169,172-178,220-249,258,313-385,391-392,396,398-401,428-431,434,437,440-459,463-472,475-491,493,501,508,510-514,589-592,595
+lib/inventory/ecosystemFormulationParsers.poku.js
+  h_6a4cc5cdf68def 1-2,11-12,36-58,71,85-138,156-186,206-234,236-240,284-320
+lib/parsers/huggingfaceManifest.js
+  h_6a4cc5cdf68def 18,282,308,336,379
+lib/parsers/huggingfaceManifest.poku.js
+  h_6a4cc5cdf68def 58
+lib/parsers/huggingfaceUtils.js
+  h_6a4cc5cdf68def 198-215
+lib/validator/cisaDefaultBom.poku.js
+  h_6a4cc5cdf68def 1-146
+lib/validator/complianceRules.js
+  h_6a4cc5cdf68def 1655-1706,1750-1755,1784,1787-1795,1971-1977,2279-2280,2334-2376,2404-2407,2409-2422,2437-2446,2503,2748-2756
+lib/validator/complianceRules.poku.js
+  h_6a4cc5cdf68def 437-459,551-585,746-748,750-759,764-773,788-794,799-808
+test/data/formulation-build-inputs/Makefile
+  h_6a4cc5cdf68def 9-11
+test/data/formulation-build-inputs/README.md
+  h_6a4cc5cdf68def 12,14-15
+test/data/formulation-build-inputs/go.mod
+  h_6a4cc5cdf68def 11-22
+test/data/formulation-build-inputs/requirements.txt
+  h_6a4cc5cdf68def 9
+types/lib/cli/bomAssembly.d.ts
+  h_6a4cc5cdf68def 185-197
+types/lib/cli/bomAssembly.d.ts.map
+  h_6a4cc5cdf68def 1
+types/lib/cli/cliOptions.d.ts
+  h_6a4cc5cdf68def 187-188,193,221-222,233
+types/lib/cli/cliOptions.d.ts.map
+  h_6a4cc5cdf68def 1
+types/lib/ecosystems/parsers-python.d.ts.map
+  h_6a4cc5cdf68def 1
+types/lib/ecosystems/remote/huggingface.d.ts.map
+  h_6a4cc5cdf68def 1
+types/lib/inventory/aiCollector.d.ts.map
+  h_6a4cc5cdf68def 1
+types/lib/inventory/aiProviders.d.ts
+  h_6a4cc5cdf68def 1-18
+types/lib/inventory/aiProviders.d.ts.map
+  h_6a4cc5cdf68def 1
+types/lib/inventory/dosai.d.ts.map
+  h_6a4cc5cdf68def 1
+types/lib/inventory/ecosystemFormulationParsers.d.ts
+  h_6a4cc5cdf68def 1-2
+types/lib/inventory/ecosystemFormulationParsers.d.ts.map
+  h_6a4cc5cdf68def 1
+types/lib/parsers/huggingfaceManifest.d.ts
+  h_6a4cc5cdf68def 45,54,82,120
+types/lib/parsers/huggingfaceManifest.d.ts.map
+  h_6a4cc5cdf68def 1
+types/lib/parsers/huggingfaceUtils.d.ts
+  h_6a4cc5cdf68def 74-85
+types/lib/parsers/huggingfaceUtils.d.ts.map
+  h_6a4cc5cdf68def 1
+types/lib/validator/complianceRules.d.ts.map
+  h_6a4cc5cdf68def 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "705b5f7afadd98845009f14e535473f93edec6df",
+  "prompts": {},
+  "humans": {
+    "h_6a4cc5cdf68def": {
+      "author": "Team AppThreat <cloud@appthreat.com>"
+    }
+  }
+}

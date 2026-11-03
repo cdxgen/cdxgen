@@ -1,0 +1,31 @@
+types/lib/parsers/huggingfaceManifest.d.ts
+  s_62c10535cfdb71::t_3bbaf9d530f061 45,52-54,81,117-119
+docs/ADVANCED.md
+  s_62c10535cfdb71::t_37af741d391c87 1013
+types/lib/cli/cliOptions.d.ts.map
+  s_62c10535cfdb71::t_05e34345071f75 1
+types/lib/ecosystems/remote/huggingface.d.ts.map
+  s_62c10535cfdb71::t_d3d79b594230f6 1
+types/lib/inventory/aiCollector.d.ts.map
+  s_62c10535cfdb71::t_5ec85271c35fdd 1
+types/lib/inventory/dosai.d.ts.map
+  s_62c10535cfdb71::t_0bb3f30ddbf3bc 1
+types/lib/parsers/huggingfaceManifest.d.ts.map
+  s_62c10535cfdb71::t_0fbcb14b74d2ca 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "2f1d4b86cf6af9c875060497f5a59d46d26c5636",
+  "prompts": {},
+  "sessions": {
+    "s_62c10535cfdb71": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_db60977c-dbe2-4091-9ddf-792041fda467",
+        "model": "GLM-5.3"
+      },
+      "human_author": "Team AppThreat <cloud@appthreat.com>"
+    }
+  }
+}

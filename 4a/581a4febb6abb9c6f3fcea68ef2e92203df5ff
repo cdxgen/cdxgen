@@ -1,0 +1,36 @@
+lib/inventory/aiCollector.poku.js
+  s_62c10535cfdb71::t_cc493100cea36a 660-669
+lib/parsers/huggingfaceManifest.poku.js
+  s_62c10535cfdb71::t_b047a839a405f5 56-60
+lib/inventory/dosai.poku.js
+  s_62c10535cfdb71::t_eb4c63d7916eae 744
+lib/ecosystems/remote/huggingface.js
+  s_62c10535cfdb71::t_cb48433e7be6e0 1194-1204
+lib/ecosystems/remote/huggingface.poku.js
+  s_62c10535cfdb71::t_19cd28e1411a2d 375-387
+lib/inventory/aiCollector.js
+  s_62c10535cfdb71::t_1d01b11b0dea2c 1393-1395
+lib/parsers/huggingfaceManifest.js
+  s_62c10535cfdb71::t_75e0eb736aa0dd 281
+  s_62c10535cfdb71::t_4ba22ad9429c40 305-307
+  s_62c10535cfdb71::t_5e44ca852a52ea 376-380
+  s_62c10535cfdb71::t_1f1a94be1f13be 335
+lib/inventory/dosai.js
+  s_62c10535cfdb71::t_55ea83fbc79f37 2190-2192
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "4a581a4febb6abb9c6f3fcea68ef2e92203df5ff",
+  "prompts": {},
+  "sessions": {
+    "s_62c10535cfdb71": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_db60977c-dbe2-4091-9ddf-792041fda467",
+        "model": "GLM-5.3"
+      },
+      "human_author": "Team AppThreat <cloud@appthreat.com>"
+    }
+  }
+}

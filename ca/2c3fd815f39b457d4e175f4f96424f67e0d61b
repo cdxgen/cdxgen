@@ -1,0 +1,27 @@
+lib/cli/cliOptions.js
+  s_62c10535cfdb71::t_a4a544d1281660 755-765,768-773,779
+docs/ADVANCED.md
+  s_62c10535cfdb71::t_065a021b7db046 1009
+lib/cli/cliOptions.poku.js
+  s_62c10535cfdb71::t_37efcd13f3992d 656-740
+lib/core/ui.stream-contract.poku.js
+  s_62c10535cfdb71::t_e3c0b362fb7921 20-23
+lib/cli/securityGates.e2e.poku.js
+  s_62c10535cfdb71::t_8ba79e98505607 34-37
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "ca2c3fd815f39b457d4e175f4f96424f67e0d61b",
+  "prompts": {},
+  "sessions": {
+    "s_62c10535cfdb71": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_db60977c-dbe2-4091-9ddf-792041fda467",
+        "model": "GLM-5.3"
+      },
+      "human_author": "Team AppThreat <cloud@appthreat.com>"
+    }
+  }
+}

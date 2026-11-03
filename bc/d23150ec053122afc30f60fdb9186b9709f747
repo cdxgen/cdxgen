@@ -1,0 +1,21 @@
+lib/cli/bomAssembly.js
+  s_62c10535cfdb71::t_ffeb2635996c26 1284-1290
+types/lib/cli/bomAssembly.d.ts.map
+  s_62c10535cfdb71::t_a8e65d093613c8 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "bcd23150ec053122afc30f60fdb9186b9709f747",
+  "prompts": {},
+  "sessions": {
+    "s_62c10535cfdb71": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_db60977c-dbe2-4091-9ddf-792041fda467",
+        "model": "GLM-5.3"
+      },
+      "human_author": "Team AppThreat <cloud@appthreat.com>"
+    }
+  }
+}
