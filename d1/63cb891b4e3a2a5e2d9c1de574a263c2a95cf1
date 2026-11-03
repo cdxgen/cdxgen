@@ -1,0 +1,41 @@
+lib/cli/jvmBom.js
+  s_5ccefce07dc343::t_be2473ac0ba230 1779-1780
+  s_5ccefce07dc343::t_b1b37539f64af1 49
+  s_5ccefce07dc343::t_013a4fc0ba0696 1573
+  s_5ccefce07dc343::t_476c3780f13317 2023,2060,2062-2081
+  s_5ccefce07dc343::t_4a0bdce45cc57b 1960-1965,1968-2022
+  s_5ccefce07dc343::t_de78cfa31c3aa7 62
+  s_5ccefce07dc343::t_d13ecb0c1ea710 1441-1471,1533-1572
+.agents/skills/sbom-fidelity-loop/SKILL.md
+  s_5ccefce07dc343::t_c523309aabfaf0 26
+lib/cli/jvmBom.poku.js
+  s_5ccefce07dc343::t_013a4fc0ba0696 22,371,376,422-424
+  s_5ccefce07dc343::t_e657107abc8f03 465-467,470
+  s_5ccefce07dc343::t_61541cf100fa9d 297-359,416-421,425-464,468-469,471-524
+  s_5ccefce07dc343::t_a35b5fab4b86bf 1,7,12,14,23,360-370,372-375,377-415
+  s_5ccefce07dc343::t_7e6631428f6c93 525
+bin/cdxgen.js
+  s_5ccefce07dc343::t_50e0d4ae4b9072 700
+agent-plugin/skills/sbom-fidelity-loop/SKILL.md
+  s_5ccefce07dc343::t_c523309aabfaf0 26
+data/remediations.json
+  s_5ccefce07dc343::t_9f1b7ecaeb2338 170-193
+types/lib/cli/jvmBom.d.ts.map
+  s_5ccefce07dc343::t_d739f2452b3c5a 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "d163cb891b4e3a2a5e2d9c1de574a263c2a95cf1",
+  "prompts": {},
+  "sessions": {
+    "s_5ccefce07dc343": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_a458c27b-c0b9-4e03-b488-2facecf91069",
+        "model": "unknown"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
