@@ -1,0 +1,26 @@
+lib/cli/jvmBom.js
+  h_0926447d100ad2 66,1452-1457,1460-1465,1471-1472,1539-1545,1548-1583,1586-1587,1589,1792-1819,1953-1965,2017,2025-2031,2033-2047,2049-2053
+lib/cli/jvmBom.poku.js
+  h_0926447d100ad2 333-462
+lib/ecosystems/gradleutils.js
+  h_0926447d100ad2 4,2637,2640-2657,2821-2823,2855-2931
+lib/ecosystems/gradleutils.poku.js
+  h_0926447d100ad2 37,2819-2835,2981-3069
+types/lib/cli/jvmBom.d.ts.map
+  h_0926447d100ad2 1
+types/lib/ecosystems/gradleutils.d.ts
+  h_0926447d100ad2 414-428
+types/lib/ecosystems/gradleutils.d.ts.map
+  h_0926447d100ad2 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "8af2696811a5b80294ded41421ad9b50e41dd78a",
+  "prompts": {},
+  "humans": {
+    "h_0926447d100ad2": {
+      "author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
