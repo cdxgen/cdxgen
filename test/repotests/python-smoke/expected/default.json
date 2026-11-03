@@ -2,7 +2,7 @@
   "bomFormat": "CycloneDX",
   "components": [
     {
-      "bom-ref": "pkg:pypi/flask@2.0.0",
+      "bom-ref": "pkg:pypi/flask",
       "evidence": {
         "identity": [
           {
@@ -31,9 +31,8 @@
           "value": "$ROOT/requirements.txt"
         }
       ],
-      "purl": "pkg:pypi/flask@2.0.0",
-      "type": "library",
-      "version": "2.0.0"
+      "purl": "pkg:pypi/flask",
+      "type": "library"
     },
     {
       "bom-ref": "pkg:pypi/requests@2.28.0",

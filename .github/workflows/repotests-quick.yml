@@ -162,6 +162,32 @@ jobs:
           CARGO_CACHE_DIR=test/data/cargo-cache-fixture/registry/cache/index.crates.io-1949cf8c6b5b557f bin/cdxgen.js -t cargo-cache . -o bomresults/bom-cargo-cache-fixture.json --fail-on-error
           jq -e 'any(.components[]; .name == "serde" and any((.properties // [])[]; .name == "cdx:cargo:cacheSource" and .value == "registry-cache"))' bomresults/bom-cargo-cache-fixture.json
         shell: bash
+      # The requirement-range regressions of issues #4716 and #4717 live here
+      # rather than in repotests.yml: this job is a required status check on
+      # master, so a parser that turns a requirement range back into a version
+      # cannot merge even when the heavy suite's paths filter keeps that
+      # workflow from starting.
+      - name: repotests pip manifest requirement ranges
+        if: needs.lane.outputs.docs-only != 'true'
+        run: |
+          # A requirement range or wildcard must leave the purl version-less,
+          # and only an exact pin may carry one (cdxgen issue #4717).
+          bin/cdxgen.js -t pip --no-install-deps test/data/pip-requirement-ranges -o bomresults/bom-pip-ranges.json --fail-on-error
+          jq -e 'any(.components[]; .purl == "pkg:pypi/httpx")' bomresults/bom-pip-ranges.json
+          jq -e 'any(.components[]; .purl == "pkg:pypi/pytz")' bomresults/bom-pip-ranges.json
+          jq -e 'any(.components[]; .purl == "pkg:pypi/werkzeug@3.0.3")' bomresults/bom-pip-ranges.json
+        shell: bash
+      - name: repotests cargo manifest requirement ranges
+        if: needs.lane.outputs.docs-only != 'true'
+        run: |
+          # A Cargo.toml requirement must not reach the purl as a version
+          # unless it is an exact =X.Y.Z pin (cdxgen issue #4716).
+          bin/cdxgen.js -t cargo test/data/cargo-manifest-ranges -o bomresults/bom-cargo-ranges.json --fail-on-error
+          jq -e 'any(.components[]; .purl == "pkg:cargo/serde")' bomresults/bom-cargo-ranges.json
+          jq -e 'any(.components[]; .purl == "pkg:cargo/memchr")' bomresults/bom-cargo-ranges.json
+          jq -e 'any(.components[]; .purl == "pkg:cargo/itoa@1.0.11")' bomresults/bom-cargo-ranges.json
+          jq -e '[.components[] | select((.purl // "") | startswith("pkg:cargo/")) | select(.purl | test("%5E|%3E|%3C|%3D|%21"))] | length == 0' bomresults/bom-cargo-ranges.json
+        shell: bash
       - name: repotests learn-terraform-modules-use
         if: needs.lane.outputs.docs-only != 'true'
         run: |
