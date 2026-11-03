@@ -1,0 +1,23 @@
+lib/inventory/envcontext.js
+  s_147227fef7a734::t_3ee308342f888d 417,419,447,449,472,474,513,560-561,583-584,606,627,713,741,833,897,939,1058-1075
+  s_147227fef7a734::t_1f148584a08388 803-805
+  s_147227fef7a734::t_0b7c9b57c1c940 1076
+bin/cdxgenSecure.poku.js
+  s_147227fef7a734::t_52f46237d76d34 109-111
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "61b08eccf0d406d9b9a0e640bd9591cff66b7724",
+  "prompts": {},
+  "sessions": {
+    "s_147227fef7a734": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "a0fc8339-d310-4b54-b844-f69b5cd28fdc",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
