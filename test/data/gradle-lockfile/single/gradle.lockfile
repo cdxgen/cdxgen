@@ -1,0 +1,7 @@
+# This is a Gradle generated file for dependency locking.
+# Manual edits can break the build and are not advised.
+# This file is expected to be part of source control.
+com.google.code.findbugs:jsr305:3.0.2=compileClasspath
+com.google.guava:guava:31.1-jre=compileClasspath,runtimeClasspath
+org.junit.jupiter:junit-jupiter-api:5.10.0=testCompileClasspath,testRuntimeClasspath
+empty=annotationProcessor,testAnnotationProcessor

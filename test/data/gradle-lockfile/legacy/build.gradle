@@ -1,0 +1,26 @@
+buildscript {
+    repositories {
+        gradlePluginPortal()
+    }
+    dependencies {
+        classpath 'com.github.ben-manes:gradle-versions-plugin:0.20.0'
+    }
+    configurations.classpath {
+        resolutionStrategy.activateDependencyLocking()
+    }
+}
+
+apply plugin: 'java'
+
+repositories {
+    mavenCentral()
+}
+
+dependencyLocking {
+    lockAllConfigurations()
+}
+
+dependencies {
+    implementation 'com.google.guava:guava:27.0.1-jre'
+    testImplementation 'junit:junit:4.12'
+}
