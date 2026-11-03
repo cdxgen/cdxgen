@@ -1010,6 +1010,7 @@ Pass the argument `--include-formulation` to collect the following information u
 
 - git metadata such as files in the tree, origin url, branch, and CI environment variables
 - build tools versions (Java, Python, Node.js, gcc, dotnet, rustc, Go, Ruby, RubyGems, Bundler, PHP and Composer)
+- build inputs cdxgen can read without running a build: `Cargo.toml` (build dependencies, build-script capabilities), make and CMake files (target, include and variable names), `go.mod` (module, toolchain), pip requirements and constraints files, and .NET `project.assets.json` restore output and `.csproj` files. Go binaries are read by the binary/OBOM path through the bounded buildinfo reader, not by formulation.
 
 The `Node.js` component carries `pkg:generic/node@<version>` and `cpe:2.3:a:nodejs:node.js:<version>`, without a `bom-ref`, like the other toolchains. Each library the running Node.js reports (`process.versions`) is a nested component with `cdx:node:linkage`, `bundled` or `shared`: Homebrew and distro builds link brotli, OpenSSL, zlib and others as shared libraries, so their versions are the shared libraries' and updating Node.js alone does not update them. The `brotli` entry also carries `cdx:brotli:c:blockSwitchFix`, read from the decoder the runtime actually uses (the node binary, or the shared `libbrotlidec`), because `process.versions.brotli` stays `1.2.0` after the CVE-2026-111497 fix.
 
