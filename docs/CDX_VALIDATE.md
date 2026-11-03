@@ -12,8 +12,8 @@ It combines three layers:
 3. **Compliance rule packs** – internal JavaScript rule catalog covering
    **OWASP SCVS (all 87 controls across L1/L2/L3)**, **EU Cyber Resilience
    Act (CRA) SBOM expectations** (8 controls), the **CISA 2026 minimum
-   elements for an SBOM** (15 rules) and the **CISA and G7 minimum elements
-   for an AI SBOM** (11 rules). Rules that cannot be decided
+   elements for an SBOM** (18 rules) and the **CISA and G7 minimum elements
+   for an AI SBOM** (16 rules). Rules that cannot be decided
    from a BOM alone (for example, "SBOMs are required for new procurements")
    are surfaced as _manual-review_ items so coverage can still be tracked.
 
@@ -234,59 +234,87 @@ workflow/provenance checks.
 
 ### CISA 2026 minimum elements
 
-Fifteen rules for the [2026 Minimum Elements for a Software Bill of
+Eighteen rules for the [2026 Minimum Elements for a Software Bill of
 Materials](https://www.cisa.gov/resources-tools/resources/2026-minimum-elements-software-bill-materials-sbom)
-published by CISA, NSA, FBI and international partners on 29 July 2026, which
-replace the NTIA 2021 elements. Every rule cites the element it implements in
-`standardRefs` (for example `CISA-2026-COMPONENT-HASH-VALUE`) so a user can
-judge the mapping against the source. Elements the guidance allows to carry an
-explicit `unknown` value (component version, tool version, component producer,
-component license) pass when that marker is present.
+(version 2.1, [PDF](https://www.cisa.gov/sites/default/files/2026-07/2026_cisa_sbom_minimum_elements_508c.pdf)),
+published by CISA, NSA, FBI and international partners on 29 July 2026 to
+replace the NTIA 2021 elements. The guidance defines seventeen data fields
+(Appendix A, Table 1) and six practices and processes. Every rule cites the
+elements it implements in `standardRefs`, for example
+`CISA-2026-COMPONENT-HASH-VALUE`, and `lib/validator/complianceRules.poku.js`
+checks that the rules together cite all twenty-three.
 
-| Id            | CISA element(s)                                | CycloneDX field read                                                       |
-| ------------- | ---------------------------------------------- | -------------------------------------------------------------------------- |
-| `CISA-MIN-001` | SBOM Author                                    | `metadata.authors[].name` (1.4: `metadata.author.name`); the `--author` default `OWASP Foundation` alone does not count |
-| `CISA-MIN-002` | SBOM Author Signature                          | `signature` (the JSF block `cdx-sign` writes)                              |
-| `CISA-MIN-003` | SBOM Data Format Name, Data Format Version     | `bomFormat`, `specVersion` (1.0 to 1.3 count as deprecated)                |
-| `CISA-MIN-004` | SBOM Generation Context                        | `metadata.lifecycles[].phase`                                              |
-| `CISA-MIN-005` | SBOM Tool Name, SBOM Tool Version              | `metadata.tools` (array or `components`/`services`)                        |
-| `CISA-MIN-006` | SBOM Version                                   | `version` (integer of 1 or more)                                           |
-| `CISA-MIN-007` | SBOM Timestamp                                 | `metadata.timestamp` (RFC 9557 shape with a real calendar day, hour 0-23, minute 0-59 and second 0-60, so a leap second passes) |
-| `CISA-MIN-008` | Component Name                                 | `components[].name`                                                        |
-| `CISA-MIN-009` | Component Version                              | `components[].version`                                                     |
-| `CISA-MIN-010` | Component Producer                              | `components[].supplier.name` or `manufacturer.name`                        |
-| `CISA-MIN-011` | Component Identifiers                          | `components[].purl`, `cpe`, `swid.tagId`                                   |
-| `CISA-MIN-012` | Component Hash Value, Component Hash Algorithm | `components[].hashes[]` (`alg` plus hex `content`; MD5/SHA-1 do not alone)  |
-| `CISA-MIN-013` | Component License                              | `components[].licenses`                                                    |
-| `CISA-MIN-014` | Component Dependency Relationship, Coverage    | `dependencies[]` covering every component                                  |
-| `CISA-MIN-015` | Explicitly Identifying Unknown Information     | manual review; not decidable from the BOM alone                            |
+The component rules judge the target component, `metadata.component`, as well
+as every software component in `components[]` (applications, frameworks,
+libraries, containers, operating systems, firmware, device drivers and AI
+models), because the guidance applies the component elements to "the target
+component (the component for which the SBOM is generated) and all enumerated
+subcomponents". Where the guidance allows an explicit unknown (tool version,
+component version, component producer, component license), the string
+`unknown` in that field passes.
+
+| Id             | CISA element(s)                                               | CycloneDX field read                                                                                                                                     |
+| -------------- | ------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `CISA-MIN-001` | SBOM Author                                                   | `metadata.authors[].name` or `metadata.manufacturer.name`; the `--author` default `OWASP Foundation` alone does not count                                 |
+| `CISA-MIN-002` | SBOM Author Signature                                         | JSF `signature` with a `value`, or its `signers[]` or `chain[]`, from an RSA, RSA-PSS, ECDSA or EdDSA key; an HMAC (`HS256` to `HS512`) does not count    |
+| `CISA-MIN-003` | SBOM Data Format Name, Data Format Version, Machine-Processable Data | `bomFormat` (1.x) or `specFormat` (2.0) and a published `specVersion`; CycloneDX has declared no version deprecated                                  |
+| `CISA-MIN-004` | SBOM Generation Context                                       | `metadata.lifecycles[]`: a CycloneDX `phase` or a named lifecycle                                                                                        |
+| `CISA-MIN-005` | SBOM Tool Name, SBOM Tool Version                             | `metadata.tools` (array or `components`/`services`)                                                                                                      |
+| `CISA-MIN-006` | SBOM Version                                                  | `version` (integer of 1 or more), and `serialNumber`, when present, as an RFC 9562 UUID URN                                                              |
+| `CISA-MIN-007` | SBOM Timestamp                                                | `metadata.timestamp` (RFC 9557 shape with a real calendar day, hour 0-23, minute 0-59 and second 0-60, so a leap second passes)                          |
+| `CISA-MIN-008` | Component Name                                                | `metadata.component.name` and `components[].name`; a BOM without `metadata.component` fails                                                              |
+| `CISA-MIN-009` | Component Version                                             | `version` of the target and every component                                                                                                              |
+| `CISA-MIN-010` | Component Producer                                            | `manufacturer.name`, `supplier.name`, `authors[].name` or the deprecated `author` of the target and every component                                     |
+| `CISA-MIN-011` | Component Identifiers                                         | `purl`, `cpe`, `swid.tagId`, `omniborId[]` or `swhid[]` of the target and every component                                                               |
+| `CISA-MIN-012` | Component Hash Value, Component Hash Algorithm                | `hashes[]` (`alg` plus hex `content`; MD5 and SHA-1 do not count alone) of every component, and of the target once a lifecycle phase is after build     |
+| `CISA-MIN-013` | Component License                                             | `licenses` of the target and every component                                                                                                             |
+| `CISA-MIN-014` | Component Dependency Relationship, Coverage                   | `dependencies[]`: every component is in some node's `dependsOn` or `provides`                                                                            |
+| `CISA-MIN-015` | Explicitly Identifying Unknown Information                    | manual review                                                                                                                                            |
+| `CISA-MIN-016` | Accommodation of Updates to SBOM Data                         | manual review                                                                                                                                            |
+| `CISA-MIN-017` | Distribution and Delivery                                     | manual review                                                                                                                                            |
+| `CISA-MIN-018` | Frequency                                                     | manual review                                                                                                                                            |
+
+Three rules read the guidance where it leaves room. The hash element covers "an
+executable component artifact", which does not exist for the target of an
+SBOM generated before or during the build, so `CISA-MIN-012` judges the
+target's hash only when `metadata.lifecycles` records `post-build`,
+`operations`, `discovery` or `decommission`. The producer element replaces the
+NTIA 2021 Supplier Name; CycloneDX `manufacturer` and `authors` name the
+creator the element asks for, and `supplier` is accepted as well because it is
+what most ecosystems record and where an `unknown` provenance marking goes. A
+component that appears in `dependencies[]` only as its own node, with no other
+node depending on it, is not related to the target, so `CISA-MIN-014` does not
+count it as covered.
 
 Measured on a default `cdxgen -t js --no-install-deps` BOM (spec 1.7) for
 `test/data/svelte-precision`, an npm project with a lockfile version 3 whose
-entries carry `integrity` and `license`, the profile scores 11 pass, 3 fail,
-1 manual. cdxgen fills the data format, generation context, tool, SBOM
-version, timestamp, component name, version, identifier, hash, license and
-dependency elements by default. Hashes come from the lockfile's `integrity`
-values (SHA-512), so no installed packages are needed. Licenses come from the
-lockfile's `license` fields: on `test/data/package-json/v3`, also lockfile
-version 3 but without `license` fields, `CISA-MIN-013` fails as well and the
-score is 10 pass, 4 fail, 1 manual. A lockfile entry with only a SHA-1
-`integrity` value leaves that component without an approved hash (one of 129
-components on `test/data/package-json/v2`). `lib/validator/cisaDefaultBom.poku.js`
-regenerates these BOMs and checks every rule outcome. The failing rules and
-the step that fills each one:
+entries carry `integrity` and `license`, the profile scores 10 pass, 4 fail
+and 4 manual. cdxgen fills the data format, generation context, tool, SBOM
+version, timestamp, component name, version, identifier, hash and dependency
+elements by default. Hashes come from the lockfile's `integrity` values
+(SHA-512), so no installed packages are needed. A lockfile entry with only a
+SHA-1 `integrity` value leaves that component without an approved hash (one
+of 129 components on `test/data/package-json/v2`). The same scores hold for
+`--spec-version 2.0`. `lib/validator/cisaDefaultBom.poku.js` regenerates these
+BOMs and checks every rule outcome. The failing rules and the step that fills
+each one:
 
 - **Author** (`CISA-MIN-001`): the `--author` default `OWASP Foundation`
   names the tool's maintainer, so it does not count; pass `--author` with the
   person or organisation generating the SBOM.
 - **Author signature** (`CISA-MIN-002`): sign the generated BOM with
-  `cdx-sign`; cdxgen keeps signing an explicit step.
+  `cdx-sign` and an RSA, ECDSA or EdDSA key; cdxgen keeps signing an explicit
+  step.
 - **Component producer** (`CISA-MIN-010`): cdxgen does not record the
-  maintaining organisation for npm packages; record it in `supplier.name`, or
-  `"unknown"` to mark the provenance unknown.
-- **Component license** (`CISA-MIN-013`), when the lockfile has no license
-  fields: run with `FETCH_LICENSE=true` so licenses are looked up in the
-  registry.
+  maintaining organisation for npm packages read from a lockfile; record it in
+  `manufacturer.name` or `supplier.name`, or `"unknown"` to mark the
+  provenance unknown.
+- **Component license** (`CISA-MIN-013`): `svelte-precision` declares no
+  license in its own `package.json`, so the target component fails although
+  every dependency carries the lockfile's license. On
+  `test/data/package-json/v3`, whose `package.json` declares `ISC` but whose
+  lockfile has no `license` fields, the dependencies fail instead; run with
+  `FETCH_LICENSE=true` so their licenses are looked up in the registry.
 
 Run the profile on its own with:
 
@@ -296,33 +324,42 @@ cdx-validate -i bom.json --benchmark cisa --fail-severity medium
 
 ### CISA and G7 minimum elements for an AI SBOM
 
-Eleven rules for the [minimum elements for AI
-SBOMs](https://www.cisa.gov/resources-tools/resources/software-bill-materials-si-minimum-elements)
-that CISA and its G7 partners published on 12 May 2026. The AI guidance
-supplements the general SBOM minimum elements and is meant to be considered
-in addition to them, so the general elements stay in the `cisa` benchmark;
-the rules below cover the AI-specific clusters, and the element-by-element
-mapping, including the elements cdxgen does not emit, is in
-[AI_BOM.md](AI_BOM.md). Every `cisa-ai` rule, the system rules included,
-passes with a note on a BOM without model or dataset components, and AI model
-components count towards the plain `cisa` benchmark's component elements as
-well. cdxgen does not populate the system producer that `CISA-AI-002` reads;
-add it to `metadata.supplier` after generation, for example by post-processing
-the BOM before signing it.
+Sixteen rules for [Software Bill of Materials for AI: Minimum
+Elements](https://www.cisa.gov/resources-tools/resources/software-bill-materials-si-minimum-elements)
+([PDF](https://www.bsi.bund.de/SharedDocs/Downloads/EN/BSI/KI/SBOM-for-AI_minimum-elements.pdf?__blob=publicationFile&v=4)),
+which the G7 Cybersecurity Working Group (BSI, ACN, ANSSI, CSE, CISA, NCSC and
+NCO, with the European Commission) published on 12 May 2026. Its elements are
+in addition to the general SBOM minimum elements, so its Metadata cluster and
+the component elements stay in the `cisa` benchmark, where AI model
+components count as well. The `cisa-ai` rules cover the System Level
+Properties, Models and Datasets clusters, and report the elements that need
+the producer's documentation, including the Infrastructure, Security
+Properties and KPI clusters, as one manual-review item. The test suite checks
+that the rules cite every one of those elements, and
+[AI_BOM.md](AI_BOM.md) maps all fifty elements onto a cdxgen AI-BOM. Every
+`cisa-ai` rule, the system rules included, passes with a note on a BOM
+without model or dataset components. cdxgen does not populate the system
+producer that `CISA-AI-002` reads; add it to `metadata.supplier` after
+generation, for example by post-processing the BOM before signing it.
 
-| Id             | CISA/G7 element(s)                          | CycloneDX field read                                        |
-| -------------- | -------------------------------------------- | ------------------------------------------------------------ |
-| `CISA-AI-001`  | System name, System version                  | `metadata.component.name` / `.version`                      |
-| `CISA-AI-002`  | System producer                               | `metadata.supplier.name`, the deprecated `metadata.manufacture.name`, or `metadata.component.supplier`/`manufacturer` |
-| `CISA-AI-003`  | Model name, Model version                     | model component `name` / `version`                          |
-| `CISA-AI-004`  | Model producer                                | model component `supplier.name` / `manufacturer.name`       |
-| `CISA-AI-005`  | Model identifier                              | model component `purl`, `cpe`, `swid.tagId`                 |
-| `CISA-AI-006`  | Model hash value, Model hash algorithm        | model component `hashes[]`                                  |
-| `CISA-AI-007`  | Model license                                 | model component `licenses`                                  |
-| `CISA-AI-008`  | Model description                             | model component `description` or `modelCard`                |
-| `CISA-AI-009`  | Dataset name, Dataset identifier              | dataset component `name`, `purl`, `data[].contents.url`     |
-| `CISA-AI-010`  | Dataset license                               | dataset component `licenses`                                |
-| `CISA-AI-011`  | Descriptive AI elements (data flow, training, security, KPI) | manual review; not decidable from the BOM alone |
+| Id            | CISA/G7 element(s)                                                                                 | CycloneDX field read                                                                                                               |
+| ------------- | -------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
+| `CISA-AI-001` | System name, System version                                                                        | `metadata.component.name` / `.version`                                                                                             |
+| `CISA-AI-002` | System producer                                                                                    | `metadata.supplier.name`, the deprecated `metadata.manufacture.name`, or the producer fields of `metadata.component`              |
+| `CISA-AI-003` | Model name, Model version                                                                          | model component `name` / `version`                                                                                                 |
+| `CISA-AI-004` | Model producer                                                                                     | model component `manufacturer.name`, `supplier.name` or `authors[].name`                                                          |
+| `CISA-AI-005` | Model identifier                                                                                   | model component `purl`, `cpe`, `swid.tagId`, `omniborId[]` or `swhid[]`                                                           |
+| `CISA-AI-006` | Model hash value, Model hash algorithm                                                             | model component `hashes[]`                                                                                                         |
+| `CISA-AI-007` | Model license                                                                                      | model component `licenses`                                                                                                         |
+| `CISA-AI-008` | Model description                                                                                  | model component `description` or `modelCard`                                                                                       |
+| `CISA-AI-009` | Dataset name, Dataset identifier                                                                   | dataset component `name`, and a `purl` or other identifier, `data[].contents.url` or an `externalReferences[].url`                 |
+| `CISA-AI-010` | Dataset license                                                                                    | dataset component `licenses`                                                                                                       |
+| `CISA-AI-011` | System timestamp, data flow, data usage, input/output properties and intended application area; Model timestamp and training properties; Dataset content, provenance, statistical properties, sensitivity and dependency relationship; Infrastructure hardware; the Security Properties and KPI clusters | manual review                                                                                                                      |
+| `CISA-AI-012` | Model properties                                                                                   | model component `modelCard.modelParameters.architectureFamily` or `modelArchitecture`                                              |
+| `CISA-AI-013` | Model input-output properties                                                                      | model component `modelCard.modelParameters.inputs[]` and `outputs[]`                                                               |
+| `CISA-AI-014` | Model external references                                                                          | model component `externalReferences[].url`                                                                                         |
+| `CISA-AI-015` | Dataset description                                                                                | dataset component `description` or `data[].description`                                                                           |
+| `CISA-AI-016` | Dataset hash                                                                                       | dataset component `hashes[]`; cdxgen references Hub datasets by repository and records no file hash, so this rule fails on them    |
 
 Check an AI-BOM with both profiles:
 
