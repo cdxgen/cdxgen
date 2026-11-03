@@ -80,12 +80,12 @@ const args = _yargs
     alias: "b",
     type: "string",
     description:
-      "Comma-separated list of compliance benchmark aliases to include in the scorecards (scvs, scvs-l1, scvs-l2, scvs-l3, cra, cisa). Defaults to all.",
+      "Comma-separated list of compliance benchmark aliases to include in the scorecards (scvs, scvs-l1, scvs-l2, scvs-l3, cra, cisa, cisa-ai). Defaults to all.",
   })
   .option("categories", {
     type: "string",
     description:
-      "Comma-separated list of compliance rule categories to evaluate (compliance-scvs, compliance-cra, compliance-cisa). Defaults to all.",
+      "Comma-separated list of compliance rule categories to evaluate (compliance-scvs, compliance-cra, compliance-cisa, compliance-cisa-ai). Defaults to all.",
   })
   .option("min-severity", {
     type: "string",

@@ -58,6 +58,12 @@ export declare function getCraRules(): Array<object>;
  */
 export declare function getCisaRules(): Array<object>;
 /**
+ * Returns only the CISA and G7 AI SBOM element rules.
+ *
+ * @returns {Array<object>}
+ */
+export declare function getCisaAiRules(): Array<object>;
+/**
  * Test-only export exposing internal helper functions for unit tests.
  * Double-underscore prefixed to discourage external use.
  *

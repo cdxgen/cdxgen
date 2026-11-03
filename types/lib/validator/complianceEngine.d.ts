@@ -6,7 +6,7 @@
  * (lib/stages/postgen/auditBom.js). The two engines share similar *Finding*
  * output shape so reporters can consume either source uniformly.
  */
-import { getAllComplianceRules, getCisaRules, getCraRules, getScvsRules } from "./complianceRules.js";
+import { getAllComplianceRules, getCisaAiRules, getCisaRules, getCraRules, getScvsRules } from "./complianceRules.js";
 /**
  * Resolve a benchmark alias (case-insensitive). Returns null when unknown.
  *
@@ -68,5 +68,5 @@ export declare function scoreBenchmark(benchmark: object, findings: Array<object
  * @returns {Array<object>}
  */
 export declare function buildBenchmarkReports(findings: Array<object>, requestedAliases?: Array<string>): Array<object>;
-export { getAllComplianceRules, getCisaRules, getCraRules, getScvsRules };
+export { getAllComplianceRules, getCisaAiRules, getCisaRules, getCraRules, getScvsRules, };
 //# sourceMappingURL=complianceEngine.d.ts.map
