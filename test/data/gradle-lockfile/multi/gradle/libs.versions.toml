@@ -1,0 +1,9 @@
+[versions]
+guava = "32.1.3-jre"
+commons-lang3 = "3.14.0"
+
+[libraries]
+guava = { module = "com.google.guava:guava", version.ref = "guava" }
+# Declared but never referenced by a build script. The lockfiles win over
+# the catalog, so this entry must not appear when they are parsed.
+commons-lang3 = { module = "org.apache.commons:commons-lang3", version.ref = "commons-lang3" }

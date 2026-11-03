@@ -2240,6 +2240,33 @@ jobs:
           jq -e 'any(.components[]; .purl == "pkg:maven/com.fasterxml.jackson/jackson-bom@2.21.1?type=pom" and .scope == "excluded")' bomresults/bom-gradle-edge-cases.json
           jq -e 'any(.components[]; .name == "guava" and .scope == "excluded")' bomresults/bom-gradle-edge-cases.json
         shell: bash
+      - name: repotests gradle lockfiles
+        run: |
+          # The committed gradle.lockfile files are the inventory source. A
+          # multi-project build keeps one lockfile per project plus the
+          # buildscript classpath lock, and the legacy
+          # gradle/dependency-locks layout reads the configuration from the
+          # file name.
+          bin/cdxgen.js -t gradle --no-install-deps test/data/gradle-lockfile/multi -o bomresults/bom-gradle-lockfile.json
+          jq -e 'any(.components[]; .group == "com.google.guava" and .name == "guava" and .version == "32.1.3-jre" and .scope == "required")' bomresults/bom-gradle-lockfile.json
+          jq -e 'any(.components[]; .group == "org.junit.jupiter" and .name == "junit-jupiter-api" and .version == "5.10.0" and .scope == "optional")' bomresults/bom-gradle-lockfile.json
+          jq -e 'any(.components[]; .group == "com.github.ben-manes" and .name == "gradle-versions-plugin" and .version == "0.50.0" and .scope == "excluded")' bomresults/bom-gradle-lockfile.json
+          jq -e 'any(.components[]; .group == "org.slf4j" and .name == "slf4j-api" and .scope == "required") and ([.components[] | select(.name == "slf4j-api")] | length == 1)' bomresults/bom-gradle-lockfile.json
+          jq -e 'all(.components[]; .name != "commons-lang3")' bomresults/bom-gradle-lockfile.json
+          bin/cdxgen.js -t gradle --no-install-deps test/data/gradle-lockfile/legacy -o bomresults/bom-gradle-lockfile-legacy.json
+          jq -e 'any(.components[]; .group == "com.google.guava" and .name == "failureaccess" and .version == "1.0.1" and .scope == "required")' bomresults/bom-gradle-lockfile-legacy.json
+          # The gradle-prefer-lockfile flag and the GRADLE_PREFER_LOCKFILE
+          # variable each make cdxgen read the lockfiles instead of running
+          # Gradle, even with dependency installation enabled.
+          bin/cdxgen.js -t gradle --feature-flags gradle-prefer-lockfile test/data/gradle-lockfile/multi -o bomresults/bom-gradle-lockfile-flag.json
+          jq -e 'any(.components[]; .group == "com.google.guava" and .name == "guava" and .version == "32.1.3-jre" and .scope == "required")' bomresults/bom-gradle-lockfile-flag.json
+          jq -e 'any(.components[]; .group == "org.junit.jupiter" and .name == "junit-jupiter-api" and .scope == "optional")' bomresults/bom-gradle-lockfile-flag.json
+          jq -e 'any(.components[]; .group == "com.github.ben-manes" and .name == "gradle-versions-plugin" and .scope == "excluded")' bomresults/bom-gradle-lockfile-flag.json
+          GRADLE_PREFER_LOCKFILE=true bin/cdxgen.js -t gradle test/data/gradle-lockfile/multi -o bomresults/bom-gradle-lockfile-env.json
+          jq -e 'any(.components[]; .group == "com.google.guava" and .name == "guava" and .version == "32.1.3-jre" and .scope == "required")' bomresults/bom-gradle-lockfile-env.json
+          jq -e 'any(.components[]; .group == "org.junit.jupiter" and .name == "junit-jupiter-api" and .scope == "optional")' bomresults/bom-gradle-lockfile-env.json
+          jq -e 'any(.components[]; .group == "com.github.ben-manes" and .name == "gradle-versions-plugin" and .scope == "excluded")' bomresults/bom-gradle-lockfile-env.json
+        shell: bash
 
   jvm-tools-repotest:
     runs-on: ubuntu-latest

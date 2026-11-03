@@ -337,4 +337,93 @@ export declare function getMavenCommand(srcPath: string, rootPath: string, optio
  * @returns {Object[]} Package records for resolvable library entries
  */
 export declare function parseGradleVersionCatalog(catalogFile: string): Object[];
+/**
+ * Parse one Gradle dependency lockfile.
+ *
+ * Both layouts are read. A Gradle 6+ `gradle.lockfile` has one
+ * `group:name:version=configuration,configuration` line per module and an
+ * `empty=` line naming the configurations that resolved nothing. A legacy
+ * `gradle/dependency-locks/<configuration>.lockfile` has one
+ * `group:name:version` line per module, and the file name is the
+ * configuration.
+ *
+ * The scope of a module is the strongest that `gradleConfigurationScope`
+ * gives any of its configurations, so a module locked for both
+ * `testRuntimeClasspath` and `runtimeClasspath` is `required`. Everything in
+ * a buildscript or settings lockfile is build tooling and `excluded`.
+ *
+ * A lockfile records resolved versions, so components carry a purl identity
+ * with confidence 1 and the lockfile path as the evidence value. The purl and
+ * bom-ref match what `parseGradleDep` builds for the same coordinate, so a
+ * component reads the same whether Gradle ran or not. A lockfile is flat: it
+ * says nothing about which module depends on which, so no dependency graph is
+ * returned.
+ *
+ * The file is untrusted input. It is read only when it is a regular file no
+ * larger than 8 MiB, at most 100000 lines are read, and a malformed line
+ * costs only itself. Line content never reaches a property.
+ *
+ * @param {string} lockFile Path to the lockfile
+ * @param {Object} [options] Parse options
+ * @param {string} [options.rootDir] Directory the lockfile must resolve inside
+ * @returns {Object[]} Components, one per locked module
+ */
+export declare function parseGradleLockfile(lockFile: string, options?: {
+    rootDir?: string;
+}): Object[];
+/**
+ * Parse several Gradle lockfiles of one build and merge the result.
+ *
+ * Every project of a multi-project build has its own lockfile, so the same
+ * module often appears in several of them with different configurations. The
+ * copies collapse into one component with the strongest scope any lockfile
+ * gave it (see `reconcileGradleComponents`), and its evidence lists every
+ * lockfile that locked it. The first lockfile that locked a module stays its
+ * `internal:SrcFile`.
+ *
+ * @param {string[]} lockFiles Paths to the lockfiles
+ * @param {Object} [options] Parse options, as for `parseGradleLockfile`
+ * @returns {Object[]} Components, one per locked module
+ */
+export declare function parseGradleLockfiles(lockFiles: string[], options?: Object): Object[];
+/**
+ * Find the Gradle dependency lockfiles of one build.
+ *
+ * Both layouts are searched below `rootPath`, recursively even when
+ * `options.multiProject` is off: every subproject of a Gradle build locks its
+ * own configurations, and the subprojects belong to the same build. The
+ * Gradle 6+ names are `gradle.lockfile`, `buildscript-gradle.lockfile` and
+ * `settings-gradle.lockfile`; the Gradle 4.8 to 5.x layout is
+ * `gradle/dependency-locks/<configuration>.lockfile`.
+ *
+ * A lockfile is accepted only when the project directory that owns it holds a
+ * Gradle build file, and never when it sits under `build/`, `.gradle/`,
+ * `node_modules/` or a vendored directory. `getAllFiles` already leaves
+ * `.git`, `.hg`, `.chen` and `node_modules` out; `build/` and `.gradle/` are
+ * Gradle's own output and cache directories, which a lockfile in them cannot
+ * belong to the project's source of truth.
+ *
+ * Custom `dependencyLocking.lockFile` paths, the Nebula `dependencies.lock`
+ * and Palantir `versions.lock` formats are not looked for.
+ *
+ * @param {string} rootPath Directory to search
+ * @param {Object} [options] CLI options
+ * @returns {string[]} Lockfile paths, in a stable order
+ */
+export declare function findGradleLockfiles(rootPath: string, options?: Object): string[];
+/**
+ * Read the root project name a Gradle settings script assigns with
+ * `rootProject.name = '<name>'` or `rootProject.name = "<name>"`, without
+ * running Gradle.
+ *
+ * `settings.gradle` is read before `settings.gradle.kts`, and the last
+ * assignment in the file wins, as it does in Gradle. Only a plain string
+ * literal is accepted: a value built from a variable, a template
+ * (`"${x}"`) or a method call is not something a static read can resolve.
+ *
+ * @param {string} gradleRootPath Root directory of the Gradle build
+ * @returns {string|undefined} The root project name, or undefined when no
+ *   settings script assigns one as a plain literal
+ */
+export declare function readGradleRootProjectName(gradleRootPath: string): string | undefined;
 //# sourceMappingURL=gradleutils.d.ts.map
