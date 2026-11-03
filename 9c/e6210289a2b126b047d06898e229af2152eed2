@@ -1,0 +1,16 @@
+docs/ADVANCED.md
+  h_0926447d100ad2 936-938
+docs/PROJECT_TYPES.md
+  h_0926447d100ad2 126
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "9ce6210289a2b126b047d06898e229af2152eed2",
+  "prompts": {},
+  "humans": {
+    "h_0926447d100ad2": {
+      "author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
