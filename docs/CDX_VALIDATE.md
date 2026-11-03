@@ -10,8 +10,9 @@ It combines three layers:
 2. **Deep validation** – metadata, purl, bom-ref and property consistency
    checks, also from `lib/validator/bomValidator.js`.
 3. **Compliance rule packs** – internal JavaScript rule catalog covering
-   **OWASP SCVS (all 87 controls across L1/L2/L3)** and **EU Cyber Resilience
-   Act (CRA) SBOM expectations** (8 controls). Rules that cannot be decided
+   **OWASP SCVS (all 87 controls across L1/L2/L3)**, **EU Cyber Resilience
+   Act (CRA) SBOM expectations** (8 controls) and the **CISA 2026 minimum
+   elements for an SBOM** (15 rules). Rules that cannot be decided
    from a BOM alone (for example, "SBOMs are required for new procurements")
    are surfaced as _manual-review_ items so coverage can still be tracked.
 
@@ -55,8 +56,8 @@ cdx-validate -i bom.json -r json --fail-severity medium
 | `-o, --report-file`                        | stdout     | Write the report to a file.                                                                                                   |
 | `--schema` / `--no-schema`                 | on         | Toggle JSON-schema validation.                                                                                                |
 | `--deep` / `--no-deep`                     | on         | Toggle metadata / purl / ref / property deep checks.                                                                          |
-| `-b, --benchmark`                          | all        | Comma list of `scvs`, `scvs-l1`, `scvs-l2`, `scvs-l3`, `cra`.                                                                 |
-| `--categories`                             | all        | Comma list of rule categories (`compliance-scvs`, `compliance-cra`).                                                          |
+| `-b, --benchmark`                          | all        | Comma list of `scvs`, `scvs-l1`, `scvs-l2`, `scvs-l3`, `cra`, `cisa`.                                                         |
+| `--categories`                             | all        | Comma list of rule categories (`compliance-scvs`, `compliance-cra`, `compliance-cisa`).                                       |
 | `--min-severity`                           | `info`     | Drop findings below this severity from the report.                                                                            |
 | `--fail-severity`                          | `high`     | Exit code 3 if any failing finding is ≥ this severity.                                                                        |
 | `--include-manual` / `--no-include-manual` | on         | Show non-automatable manual-review findings.                                                                                  |
@@ -229,6 +230,58 @@ therefore **not** currently mapped to an additional `CRA-MIN-*` rule. You can
 still use `cdx-audit` as supplementary evidence during a broader CRA review,
 but cdxgen does not currently claim a direct CRA control mapping for those
 workflow/provenance checks.
+
+### CISA 2026 minimum elements
+
+Fifteen rules for the [2026 Minimum Elements for a Software Bill of
+Materials](https://www.cisa.gov/resources-tools/resources/2026-minimum-elements-software-bill-materials-sbom)
+published by CISA, NSA, FBI and international partners on 29 July 2026, which
+replace the NTIA 2021 elements. Every rule cites the element it implements in
+`standardRefs` (for example `CISA-2026-COMPONENT-HASH-VALUE`) so a user can
+judge the mapping against the source. Elements the guidance allows to carry an
+explicit `unknown` value (component version, tool version, component producer,
+component license) pass when that marker is present.
+
+| Id            | CISA element(s)                                | CycloneDX field read                                                       |
+| ------------- | ---------------------------------------------- | -------------------------------------------------------------------------- |
+| `CISA-MIN-001` | SBOM Author                                    | `metadata.authors[].name` (1.4: `metadata.author.name`)                    |
+| `CISA-MIN-002` | SBOM Author Signature                          | `signature` (the JSF block `cdx-sign` writes)                              |
+| `CISA-MIN-003` | SBOM Data Format Name, Data Format Version     | `bomFormat`, `specVersion` (1.0 to 1.3 count as deprecated)                |
+| `CISA-MIN-004` | SBOM Generation Context                        | `metadata.lifecycles[].phase`                                              |
+| `CISA-MIN-005` | SBOM Tool Name, SBOM Tool Version              | `metadata.tools` (array or `components`/`services`)                        |
+| `CISA-MIN-006` | SBOM Version                                   | `version` (integer of 1 or more)                                           |
+| `CISA-MIN-007` | SBOM Timestamp                                 | `metadata.timestamp` (RFC 9557 shape)                                      |
+| `CISA-MIN-008` | Component Name                                 | `components[].name`                                                        |
+| `CISA-MIN-009` | Component Version                              | `components[].version`                                                     |
+| `CISA-MIN-010` | Component Producer                              | `components[].supplier.name` or `manufacturer.name`                        |
+| `CISA-MIN-011` | Component Identifiers                          | `components[].purl`, `cpe`, `swid.tagId`                                   |
+| `CISA-MIN-012` | Component Hash Value, Component Hash Algorithm | `components[].hashes[]` (`alg` plus hex `content`; MD5/SHA-1 do not alone)  |
+| `CISA-MIN-013` | Component License                              | `components[].licenses`                                                    |
+| `CISA-MIN-014` | Component Dependency Relationship, Coverage    | `dependencies[]` covering every component                                  |
+| `CISA-MIN-015` | Explicitly Identifying Unknown Information     | manual review; not decidable from the BOM alone                            |
+
+Checked against a default `cdxgen` BOM for a small npm project (spec 1.7), the
+profile scores 10 pass, 4 fail, 1 manual. cdxgen fills the author, data
+format, generation context, tool, SBOM version, timestamp, component name,
+version, identifier and dependency elements by default. The remaining gaps and
+the step that fills each one:
+
+- **Author signature**: sign the generated BOM with `cdx-sign`; cdxgen keeps
+  signing an explicit step.
+- **Component producer**: cdxgen does not record the maintaining organisation
+  for packages by default; record it in `supplier.name`, or `"unknown"` to
+  mark the provenance unknown.
+- **Component hashes**: a lockfile-only npm generation records no hashes;
+  generate where the artifacts are reachable (installed directories, image
+  scans) so hashes can be computed.
+- **Component license**: run with `FETCH_LICENSE=true` or a license allow-list
+  so licenses are resolved.
+
+Run the profile on its own with:
+
+```shell
+cdx-validate -i bom.json --benchmark cisa --fail-severity medium
+```
 
 ---
 
