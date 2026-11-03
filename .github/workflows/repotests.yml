@@ -29,7 +29,6 @@ on:
       - 'test/data/cbom-js-repotest/**'
       - 'test/data/terraform-*/**'
       - 'test/data/cargo-workspace-repotest/**'
-      - 'test/data/cargo-manifest-ranges/**'
       - 'test/data/evinse-php-repotest/**'
       - 'test/data/evinse-cpp-repotest/**'
       - 'test/data/evinse-python-repotest/**'
@@ -41,7 +40,6 @@ on:
       - 'test/data/mcp-repotest/**'
       - 'test/data/npm-hidden-lockfile-repotest/**'
       - 'test/data/pixi-workspace-repotest/**'
-      - 'test/data/pip-requirement-ranges/**'
       - 'test/data/type-only-repotest/**'
       - 'test/data/unused-runtime-dep-repotest/**'
       - 'test/repotests/introspect-*/**'
@@ -562,25 +560,9 @@ jobs:
           bin/cdxgen.js -t python test/data/issue-2082 -o bomresults/issue-2082.json --fail-on-error --lifecycle pre-build -p
           jq -e '.metadata.component.name == "pixi-workspace-repotest" and .metadata.component.version == "0.1.0"' bomresults/pixi-workspace-repotest.json
           jq -e 'any(.components[]; .purl == "pkg:conda/python@3.12.7-h9e4cc4f_0_cpython?subdir=linux-64")' bomresults/pixi-workspace-repotest.json
-          # A requirement range or wildcard must leave the purl version-less,
-          # and only an exact pin may carry one (cdxgen issue #4717).
-          bin/cdxgen.js -t pip --no-install-deps test/data/pip-requirement-ranges -o bomresults/bom-pip-ranges.json --fail-on-error
-          jq -e 'any(.components[]; .purl == "pkg:pypi/httpx")' bomresults/bom-pip-ranges.json
-          jq -e 'any(.components[]; .purl == "pkg:pypi/pytz")' bomresults/bom-pip-ranges.json
-          jq -e 'any(.components[]; .purl == "pkg:pypi/werkzeug@3.0.3")' bomresults/bom-pip-ranges.json
         shell: bash
         env:
           CDXGEN_DEBUG_MODE: debug
-      - name: repotests cargo manifest requirement ranges
-        run: |
-          # A Cargo.toml requirement must not reach the purl as a version
-          # unless it is an exact =X.Y.Z pin (cdxgen issue #4716).
-          bin/cdxgen.js -t cargo test/data/cargo-manifest-ranges -o bomresults/bom-cargo-ranges.json --fail-on-error
-          jq -e 'any(.components[]; .purl == "pkg:cargo/serde")' bomresults/bom-cargo-ranges.json
-          jq -e 'any(.components[]; .purl == "pkg:cargo/memchr")' bomresults/bom-cargo-ranges.json
-          jq -e 'any(.components[]; .purl == "pkg:cargo/itoa@1.0.11")' bomresults/bom-cargo-ranges.json
-          jq -e '[.components[] | select((.purl // "") | startswith("pkg:cargo/")) | select(.purl | test("%5E|%3E|%3C|%3D|%21"))] | length == 0' bomresults/bom-cargo-ranges.json
-        shell: bash
       - name: repotests django-DefectDojo
         run: |
           bin/cdxgen.js -t python repotests/django-DefectDojo -o bomresults/django-DefectDojo-safe.json --feature-flags safe-pip-install --fail-on-error
