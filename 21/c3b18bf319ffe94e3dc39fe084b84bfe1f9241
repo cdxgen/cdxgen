@@ -1,0 +1,23 @@
+types/lib/cli/jvmBom.d.ts.map
+  s_ad6fc5f26fb5a7::t_431bca1c772e77 1
+types/lib/ecosystems/gradleutils.d.ts.map
+  s_ad6fc5f26fb5a7::t_575513158856d4 1
+types/lib/ecosystems/gradleutils.d.ts
+  s_ad6fc5f26fb5a7::t_3d811d363e76e2 429-521
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "21c3b18bf319ffe94e3dc39fe084b84bfe1f9241",
+  "prompts": {},
+  "sessions": {
+    "s_ad6fc5f26fb5a7": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_fe574c86-6d1b-4ced-8379-a5fc0f780c5e",
+        "model": "GLM-5.3-Flash"
+      },
+      "human_author": null
+    }
+  }
+}

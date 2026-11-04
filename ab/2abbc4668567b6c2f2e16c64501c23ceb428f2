@@ -1,0 +1,35 @@
+data/rules/package-integrity.yaml
+  s_ad6fc5f26fb5a7::t_2ef5c89c42b179 365-390
+lib/ecosystems/gradleutils.js
+  s_ad6fc5f26fb5a7::t_50d7b42c2db817 3404-3415,3417-3421,3426-3428,3438,3440,3456-3473,3475,3488-3491,3497-3500,3507-3508,3510-3512,3515-3520,3522
+  s_ad6fc5f26fb5a7::t_864e10049f9e17 2998-3002,3004-3006,3009-3010
+  s_ad6fc5f26fb5a7::t_0e9fc3edc6f133 3165-3166,3180-3182,3196,3201,3206,3211,3272,3342
+  s_ad6fc5f26fb5a7::t_f3ed6533402293 3474
+  s_ad6fc5f26fb5a7::t_fbcd31c97f6703 3183-3192,3215-3219,3243-3247,3279-3283,3311-3315,3318-3322,3324-3328,3332-3341
+lib/ecosystems/gradleutils.poku.js
+  s_ad6fc5f26fb5a7::t_47d822b8510bbf 3237,3244-3251,3258,3261-3264
+  s_ad6fc5f26fb5a7::t_c87e00aa5f2173 3259-3260,3495-3497,3521,3531-3587,3594,3601-3612,3615-3626
+lib/stages/postgen/auditBom.poku.js
+  s_ad6fc5f26fb5a7::t_00b2809415f66c 1482-1502
+  s_ad6fc5f26fb5a7::t_6b78d153ab92d3 4872,4875,4879
+docs/BOM_AUDIT.md
+  s_ad6fc5f26fb5a7::t_a6d540d89fc00b 244-246
+docs/CUSTOM_PROPERTIES.md
+  s_ad6fc5f26fb5a7::t_60715870865eba 470,916,918,921
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "ab2abbc4668567b6c2f2e16c64501c23ceb428f2",
+  "prompts": {},
+  "sessions": {
+    "s_ad6fc5f26fb5a7": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_fe574c86-6d1b-4ced-8379-a5fc0f780c5e",
+        "model": "GLM-5.3-Flash"
+      },
+      "human_author": "Team AppThreat <cloud@appthreat.com>"
+    }
+  }
+}

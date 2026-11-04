@@ -1,0 +1,62 @@
+types/lib/cli/bomAssembly.d.ts
+  s_ad6fc5f26fb5a7::t_3d811d363e76e2 187-188,190,192-195,197,200
+types/lib/inventory/aiProviders.d.ts
+  s_ad6fc5f26fb5a7::t_3d811d363e76e2 2-5,7,9-77,79-80,82-84
+types/lib/inventory/rustFormulationParser.d.ts
+  s_ad6fc5f26fb5a7::t_3d811d363e76e2 8-11,16-18
+types/lib/ecosystems/gradleutils.d.ts
+  s_ad6fc5f26fb5a7::t_3d811d363e76e2 429-521
+types/lib/ecosystems/pythonutils.d.ts
+  s_ad6fc5f26fb5a7::t_3d811d363e76e2 117
+types/lib/inventory/ecosystemFormulationParsers.d.ts
+  s_ad6fc5f26fb5a7::t_3d811d363e76e2 4-13,17,22-24,32,37-39,46,51-53,62,67-69
+  s_ad6fc5f26fb5a7::t_b63a653e57c81f 3
+types/lib/cli/bomAssembly.d.ts.map
+  s_ad6fc5f26fb5a7::t_26267217a9b83f 1
+types/lib/cli/cliOptions.d.ts.map
+  s_ad6fc5f26fb5a7::t_26d26d8da4608b 1
+types/lib/cli/jvmBom.d.ts.map
+  s_ad6fc5f26fb5a7::t_431bca1c772e77 1
+types/lib/core/toolRegistry.d.ts.map
+  s_ad6fc5f26fb5a7::t_ade38c3a52fa50 1
+types/lib/ecosystems/gradleutils.d.ts.map
+  s_ad6fc5f26fb5a7::t_575513158856d4 1
+types/lib/ecosystems/parsers-python.d.ts.map
+  s_ad6fc5f26fb5a7::t_aa83c75f1bfa1a 1
+types/lib/ecosystems/parsers-rust.d.ts.map
+  s_ad6fc5f26fb5a7::t_1e191c2f5ad65d 1
+types/lib/ecosystems/remote/huggingface.d.ts.map
+  s_ad6fc5f26fb5a7::t_4714d6d2b56ed8 1
+types/lib/inventory/aiCollector.d.ts.map
+  s_ad6fc5f26fb5a7::t_2ad6f60e7004b1 1
+types/lib/inventory/aiProviders.d.ts.map
+  s_ad6fc5f26fb5a7::t_ca719838800528 1
+types/lib/inventory/dosai.d.ts.map
+  s_ad6fc5f26fb5a7::t_9e982d854ac01a 1
+types/lib/inventory/ecosystemFormulationParsers.d.ts.map
+  s_ad6fc5f26fb5a7::t_a00be1b4a2ca6f 1
+types/lib/inventory/envcontext.d.ts.map
+  s_ad6fc5f26fb5a7::t_1ea6fca28e741c 1
+types/lib/inventory/formulationParsers.d.ts.map
+  s_ad6fc5f26fb5a7::t_9f33e156198f5a 1
+types/lib/inventory/rustFormulationParser.d.ts.map
+  s_ad6fc5f26fb5a7::t_d710ec3af7b42e 1
+types/lib/validator/complianceRules.d.ts.map
+  s_ad6fc5f26fb5a7::t_ed1328ea4ed9a6 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "0c21e98528ded420e5842048b2955d1af7402aec",
+  "prompts": {},
+  "sessions": {
+    "s_ad6fc5f26fb5a7": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_fe574c86-6d1b-4ced-8379-a5fc0f780c5e",
+        "model": "GLM-5.3-Flash"
+      },
+      "human_author": "Team AppThreat <cloud@appthreat.com>"
+    }
+  }
+}

@@ -1,0 +1,21 @@
+agent-plugin/skills/sbom-fidelity-loop/SKILL.md
+  s_ad6fc5f26fb5a7::t_008d3cdc4a3705 26
+.agents/skills/sbom-fidelity-loop/SKILL.md
+  s_ad6fc5f26fb5a7::t_68abc4229b721e 26
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "d294d8e73f451fd728d19e5585c01b75f80cd73c",
+  "prompts": {},
+  "sessions": {
+    "s_ad6fc5f26fb5a7": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_fe574c86-6d1b-4ced-8379-a5fc0f780c5e",
+        "model": "GLM-5.3-Flash"
+      },
+      "human_author": "Team AppThreat <cloud@appthreat.com>"
+    }
+  }
+}
