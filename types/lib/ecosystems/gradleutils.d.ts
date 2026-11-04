@@ -510,9 +510,12 @@ export declare function gradleVerificationMainArtifact(component: object, wantsP
  * records a different digest for an algorithm the component already has,
  * the recorded digest never wins: the component keeps its own, and the
  * component gains the cdx:gradle:verificationMismatch=true property so the
- * disagreement is visible. A stale metadata file explains most mismatches,
- * which is what the remediation entry says to refresh; one that survives a
- * refresh is worth checking as possible tampering.
+ * disagreement is visible. A released Maven version does not change after
+ * publishing, so a stale file cannot explain a mismatch: a stale file names
+ * old versions, which match nothing. The likely causes are an artifact
+ * republished on a mirror or internal repository, or a corrupted or
+ * tampered cache. SNAPSHOT versions and digests that are not hex are not
+ * compared.
  *
  * Every matched component also gains two properties naming the verification
  * methods and the PGP key ids of its artifact. The evidence of the

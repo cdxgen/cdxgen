@@ -369,9 +369,11 @@
     A component carries cdx:gradle:verificationMismatch=true: the digest
     gradle/verification-metadata.xml records for this component's artifact
     differs from the digest cdxgen computed from the artifact in the local
-    cache. A metadata file left behind by an upgrade explains most cases, and
-    the recorded digest is never applied over the artifact's own; a mismatch
-    that survives a refresh is a tampering signal worth checking.
+    cache. A released Maven version does not change after publishing, so a
+    stale file cannot explain this. The likely causes are an artifact
+    republished on a mirror or internal repository, or a corrupted or
+    tampered cache. The recorded digest is never applied over the
+    artifact's own, and SNAPSHOT versions are not compared.
   severity: high
   category: package-integrity
   dry-run-support: full
@@ -382,7 +384,7 @@
   location: |
     { "bomRef": $."bom-ref", "purl": purl }
   message: "The digest gradle/verification-metadata.xml records for '{{ name }}@{{ version }}' differs from the digest of the artifact on disk"
-  mitigation: "Refresh the stale entries with 'gradle --write-verification-metadata' and commit the result; if a mismatch survives the refresh, compare the jar in the local cache against the copy the repository serves before trusting either"
+  mitigation: "Compare the jar in the local cache with the copy the repository serves, and find out which repository or mirror served the differing one. Regenerate gradle/verification-metadata.xml only after that check: regenerating it first records the suspect digest and removes the evidence"
   evidence: |
     {
       "verificationMethods": $prop($, 'cdx:gradle:verificationMethods'),
