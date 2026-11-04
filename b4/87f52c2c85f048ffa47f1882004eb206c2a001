@@ -1,0 +1,23 @@
+lib/ecosystems/gradleutils.js
+  s_ad6fc5f26fb5a7::t_3e252e30e0e223 3091-3094,3162-3164,3247,3280-3281,3286-3287
+  s_ad6fc5f26fb5a7::t_c268c8d1d23104 3336
+  s_ad6fc5f26fb5a7::t_b26582d35b5755 34,38
+  s_ad6fc5f26fb5a7::t_be32816b64ef08 2934-3090,3095-3161,3165-3246,3248-3279,3282-3285,3288-3335,3337-3385,3387-3392,3394-3397,3403-3449
+  s_ad6fc5f26fb5a7::t_1b498fc7b44219 3386,3393,3398-3402
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "b487f52c2c85f048ffa47f1882004eb206c2a001",
+  "prompts": {},
+  "sessions": {
+    "s_ad6fc5f26fb5a7": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_fe574c86-6d1b-4ced-8379-a5fc0f780c5e",
+        "model": "GLM-5.3-Flash"
+      },
+      "human_author": "Team AppThreat <cloud@appthreat.com>"
+    }
+  }
+}
