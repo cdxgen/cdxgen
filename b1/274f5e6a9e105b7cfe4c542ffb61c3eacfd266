@@ -1,0 +1,19 @@
+lib/cli/managedBom.poku.js
+  s_c0804e5357f0c5::t_c2227aa9f457c5 45-47,2190-2191,2198-2200,2721-2723,2759-2761
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "b1274f5e6a9e105b7cfe4c542ffb61c3eacfd266",
+  "prompts": {},
+  "sessions": {
+    "s_c0804e5357f0c5": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "75227701-fd30-4fc7-8eae-71a8df8f3a1c",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
