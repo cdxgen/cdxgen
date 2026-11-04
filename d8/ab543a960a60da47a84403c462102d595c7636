@@ -1,0 +1,21 @@
+package.json
+  s_f2c47064e41b70::t_ae0581d7d22e90 203
+pnpm-lock.yaml
+  s_f2c47064e41b70::t_e668c15bf69dd3 10-11,15-16,20-21,25-26,30-31,35-36,40-41,46-47,52-53,58-59,64-65,70-71,76-77,82-83,87-88,92-94,99,102,105,108,111,114,117,120,123,126,129,132,135,138,141,143-156
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "d8ab543a960a60da47a84403c462102d595c7636",
+  "prompts": {},
+  "sessions": {
+    "s_f2c47064e41b70": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "30cec1cc-92e8-409e-af0c-f138a9bf7ac0",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
