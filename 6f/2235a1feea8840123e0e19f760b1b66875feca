@@ -1,0 +1,19 @@
+lib/ecosystems/scalasem.poku.js
+  s_4d043a97299a87::t_b32e2a74bbcd1b 942-970
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "6f2235a1feea8840123e0e19f760b1b66875feca",
+  "prompts": {},
+  "sessions": {
+    "s_4d043a97299a87": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_4fb3595e-5000-4fe6-9bff-fc8f62e409b2",
+        "model": "unknown"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
