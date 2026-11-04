@@ -1,0 +1,33 @@
+docs/EVINSE.md
+  s_c0804e5357f0c5::t_323a97cd9ee36f 97-103
+lib/evinser/evinser.js
+  s_c0804e5357f0c5::t_91ed07a6001c73 3743-3747
+lib/evinser/evinser.poku.js
+  s_c0804e5357f0c5::t_4ec60849151fe6 1317,1358-1361,1371,1382,1490
+lib/inventory/occurrenceKey.js
+  s_c0804e5357f0c5::t_b38dac118097de 14-15,27,38
+lib/inventory/occurrenceKey.poku.js
+  s_c0804e5357f0c5::t_9a0e5face46bd9 65-71,73-74
+types/lib/evinser/evinser.d.ts
+  s_c0804e5357f0c5::t_d47413bf6b24f3 585-589
+types/lib/inventory/occurrenceKey.d.ts
+  s_c0804e5357f0c5::t_825736a5f3461f 14-15,27
+types/lib/inventory/occurrenceKey.d.ts.map
+  s_c0804e5357f0c5::t_974c2ba1f5bd09 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "0fde08607410599d84c90493c45c35be40484238",
+  "prompts": {},
+  "sessions": {
+    "s_c0804e5357f0c5": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "75227701-fd30-4fc7-8eae-71a8df8f3a1c",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
