@@ -1,0 +1,20 @@
+lib/cli/jvmBom.poku.js
+  s_ad6fc5f26fb5a7::t_dcd3b8e24c7c56 694,696,699,701
+  s_ad6fc5f26fb5a7::t_4bff70cc05d913 655-693,695,697-698,700,702-861
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "b50048142acb9763eb1546207dde2bc167050cc7",
+  "prompts": {},
+  "sessions": {
+    "s_ad6fc5f26fb5a7": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_fe574c86-6d1b-4ced-8379-a5fc0f780c5e",
+        "model": "GLM-5.3-Flash"
+      },
+      "human_author": "Team AppThreat <cloud@appthreat.com>"
+    }
+  }
+}
