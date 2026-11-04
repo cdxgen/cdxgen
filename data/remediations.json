@@ -191,6 +191,34 @@
     },
     "docs": "https://cyclonedx.github.io/cdxgen/#/PROJECT_TYPES?id=java"
   },
+  "jvm.gradle.verification-metadata-only": {
+    "ecosystem": "java",
+    "kind": "fallback.engaged",
+    "impact": "transitive-deps",
+    "title": "The components came from gradle/verification-metadata.xml, which records no dependency graph between them",
+    "targetTier": "resolved",
+    "actions": [
+      {
+        "kind": "config",
+        "command": "Let Gradle run to read the resolved dependency graph: drop --no-install-deps, and drop the gradle-prefer-lockfile flag or the GRADLE_PREFER_LOCKFILE variable if either is set."
+      },
+      {
+        "kind": "config",
+        "command": "Commit Gradle dependency lockfiles for a flat but resolved inventory: enable dependencyLocking and run 'gradle dependencies --write-locks'."
+      },
+      {
+        "kind": "rerun"
+      }
+    ],
+    "verify": {
+      "rules": [],
+      "expectTier": "resolved",
+      "eventsCleared": [
+        "jvm.gradle.verification-metadata-only"
+      ]
+    },
+    "docs": "https://cyclonedx.github.io/cdxgen/#/PROJECT_TYPES?id=java"
+  },
   "jvm.gradle.invocation-failed": {
     "ecosystem": "java",
     "kind": "command.failed",
