@@ -426,4 +426,97 @@ export declare function findGradleLockfiles(rootPath: string, options?: Object):
  *   settings script assigns one as a plain literal
  */
 export declare function readGradleRootProjectName(gradleRootPath: string): string | undefined;
+/**
+ * Parse a `gradle/verification-metadata.xml` file.
+ *
+ * The file is untrusted input. It records what Gradle verified when
+ * `gradle --write-verification-metadata` last ran, which does not prove that
+ * the artifacts in this BOM match: the file travels with the source, and
+ * nothing here re-checks the digests. Trust rules (`trusted-artifacts`,
+ * `trusted-keys`, `ignored-keys`) may be regular expressions, so they are
+ * only counted, never evaluated, and no free text of the file (an `origin`, a
+ * `reason`, a key-server URI) reaches the result. Only checksum digests,
+ * PGP key ids and the configuration flags survive.
+ *
+ * The read is bounded: the file must be a regular file no larger than
+ * 32 MiB inside `options.rootDir`, at most 200000 components and 64
+ * artifacts per component are read, and a malformed file yields undefined
+ * rather than an error.
+ *
+ * @param {string} metadataFile Path to verification-metadata.xml
+ * @param {Object} [options] Parse options
+ * @param {string} [options.rootDir] Directory the file must resolve inside
+ * @returns {{configuration: {verifyMetadata: (boolean|undefined), verifySignatures: (boolean|undefined), trustedKeyCount: number, trustedArtifactRuleCount: number, ignoredKeyCount: number, keyServerCount: number}, components: Map<string, {group: string, name: string, version: string, artifacts: {fileName: string, classifier: string, extension: string, hashes: {alg: string, content: string}[], pgpKeyIds: string[]}[]}>}|undefined}
+ *   The parsed metadata, or undefined when the file could not be read
+ */
+export declare function parseGradleVerificationMetadata(metadataFile: string, options?: {
+    rootDir?: string;
+}): {
+    configuration: {
+        verifyMetadata: (boolean | undefined);
+        verifySignatures: (boolean | undefined);
+        trustedKeyCount: number;
+        trustedArtifactRuleCount: number;
+        ignoredKeyCount: number;
+        keyServerCount: number;
+    };
+    components: Map<string, {
+        group: string;
+        name: string;
+        version: string;
+        artifacts: {
+            fileName: string;
+            classifier: string;
+            extension: string;
+            hashes: {
+                alg: string;
+                content: string;
+            }[];
+            pgpKeyIds: string[];
+        }[];
+    }>;
+} | undefined;
+/**
+ * Find the gradle/verification-metadata.xml of one Gradle build.
+ *
+ * Gradle reads one verification file per build, from the root build's
+ * `gradle` directory; included builds' copies are ignored, so nothing is
+ * searched below the root. The file is accepted only when the directory is a
+ * Gradle project of its own, so a file copied into a nested folder is not
+ * read as an inventory source.
+ *
+ * @param {string} gradleRootPath Root directory of the Gradle build
+ * @returns {string|undefined} The metadata file path, or undefined
+ */
+export declare function findGradleVerificationMetadata(gradleRootPath: string): string | undefined;
+/**
+ * The artifact of a coordinate whose hashes describe the component itself:
+ * the `.pom` artifact for a platform or BOM component, else the main jar,
+ * else the main aar. Sources, javadoc and other classifiers, and the
+ * `.module` and `.pom` hashes of a jar component, are never used.
+ *
+ * @param {object} component Parsed verification metadata component
+ * @param {boolean} wantsPom True for a component with purl qualifier type=pom
+ * @returns {object|undefined} The artifact, or undefined
+ */
+export declare function gradleVerificationMainArtifact(component: object, wantsPom: boolean): object | undefined;
+/**
+ * Attach the checksums and PGP key ids a verification-metadata.xml records
+ * to the components of a package list.
+ *
+ * A component is enriched only when it has no hashes of its own: hashes that
+ * another source found are never overwritten. The recorded digests are not
+ * re-checked against any artifact, so they carry the same trust as the file
+ * itself. Each enriched component also gains the evidence that its identity
+ * came from this file, the same as a lockfile component, and two properties
+ * naming the verification methods and the PGP key ids of its artifact.
+ *
+ * @param {Object[]} pkgList Components to enrich in place
+ * @param {Object} metadata Parsed metadata, as parseGradleVerificationMetadata
+ *   returns
+ * @param {string} metadataFile Path to the verification-metadata.xml, used as
+ *   the evidence value
+ * @returns {number} The number of components enriched
+ */
+export declare function applyGradleVerificationMetadata(pkgList: Object[], metadata: Object, metadataFile: string): number;
 //# sourceMappingURL=gradleutils.d.ts.map
