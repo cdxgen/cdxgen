@@ -1,0 +1,25 @@
+docs/PROJECT_TYPES.md
+  s_ad6fc5f26fb5a7::t_d0caedc222db33 126
+  s_ad6fc5f26fb5a7::t_b08136f84c40c8 23-24
+docs/ADVANCED.md
+  s_ad6fc5f26fb5a7::t_8ccd5eb146428a 940-948
+docs/CUSTOM_PROPERTIES.md
+  s_ad6fc5f26fb5a7::t_7aa1cdd76f390c 470
+  s_ad6fc5f26fb5a7::t_f8b14c2759e435 916-920
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "c4b96f8775c8e768c29674118fa3cc34776f5406",
+  "prompts": {},
+  "sessions": {
+    "s_ad6fc5f26fb5a7": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_fe574c86-6d1b-4ced-8379-a5fc0f780c5e",
+        "model": "GLM-5.3-Flash"
+      },
+      "human_author": "Team AppThreat <cloud@appthreat.com>"
+    }
+  }
+}
