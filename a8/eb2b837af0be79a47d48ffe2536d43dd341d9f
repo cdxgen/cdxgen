@@ -1,0 +1,18 @@
+lib/cli/jvmBom.js
+  h_6a4cc5cdf68def 1644-1645,1647,2126-2128,2176-2178
+lib/cli/jvmBom.poku.js
+  h_6a4cc5cdf68def 654-703
+types/lib/cli/jvmBom.d.ts.map
+  h_6a4cc5cdf68def 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "a8eb2b837af0be79a47d48ffe2536d43dd341d9f",
+  "prompts": {},
+  "humans": {
+    "h_6a4cc5cdf68def": {
+      "author": "Team AppThreat <cloud@appthreat.com>"
+    }
+  }
+}
