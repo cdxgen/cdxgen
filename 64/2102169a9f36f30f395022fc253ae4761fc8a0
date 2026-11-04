@@ -1,0 +1,88 @@
+lib/inventory/occurrenceKey.poku.js
+  s_4d043a97299a87::t_93adb9c08b3c7a 1-47
+  s_4d043a97299a87::t_6a7c7ab61f8771 48-50
+lib/evinser/evinser.js
+  s_4d043a97299a87::t_36aa7a2c20e793 3668
+  s_4d043a97299a87::t_e32fc15a1fe7b7 1896
+  s_4d043a97299a87::t_e07bd2a131031c 2299
+  s_4d043a97299a87::t_b65fc80d3746f2 891-894,896-898
+  s_4d043a97299a87::t_8d7cf422147093 2309
+  s_4d043a97299a87::t_f9856b3b97b99f 3731
+  s_4d043a97299a87::t_462a83fffc0a15 97
+  s_4d043a97299a87::t_15ad2863142333 3720-3722
+lib/inventory/dosai.poku.js
+  s_4d043a97299a87::t_3fec5537c7228a 176-204
+lib/evinser/evinser.poku.js
+  s_4d043a97299a87::t_ed333674c0da27 413-448
+  s_4d043a97299a87::t_b44db1ea8e26fe 589-619
+  s_4d043a97299a87::t_a25a4b6a4451c6 248-265
+  s_4d043a97299a87::t_cf9fc564118484 449,1003-1047,1052-1053,1055-1060
+  s_4d043a97299a87::t_31911744445fa3 450,620-621,623-624,1048,1061,1282-1381
+  s_4d043a97299a87::t_ba102dd2ff93c1 17,19
+  s_4d043a97299a87::t_120617c160e20a 32
+  s_4d043a97299a87::t_d2e008c868b12e 451-452,622,625-627,1049-1051,1054,1062-1067,1382-1389
+lib/ecosystems/kosi.poku.js
+  s_4d043a97299a87::t_1743ed943d2f1c 256,259-281
+  s_4d043a97299a87::t_2d81b8a6b62fe8 253-255
+  s_4d043a97299a87::t_a6a668009a0319 257-258
+lib/ecosystems/rusi.poku.js
+  s_4d043a97299a87::t_18ba459f3ff072 334-356
+lib/inventory/occurrenceKey.js
+  s_4d043a97299a87::t_8f3772e309ac0d 1-5,12-14,16,18-21,23
+  s_4d043a97299a87::t_4c7ea016095001 6-11,15,17,22
+lib/ecosystems/golem.poku.js
+  s_4d043a97299a87::t_b20a11914c1145 271-305
+  s_4d043a97299a87::t_8c075bd3d99de0 306-309
+lib/evinser/scalasem.poku.js
+  s_4d043a97299a87::t_d1420a3abae4a7 47-61
+lib/ecosystems/golem.js
+  s_4d043a97299a87::t_852bd33fb5619c 23,97,104
+lib/ecosystems/kosi.js
+  s_4d043a97299a87::t_8c963af5eaa2d3 14,335,844
+lib/ecosystems/rusi.js
+  s_4d043a97299a87::t_895820c27c1bdc 19,71
+lib/ecosystems/scalasem.js
+  s_4d043a97299a87::t_2b03aedabc3c1f 33,1988
+lib/evinser/scalasem.js
+  s_4d043a97299a87::t_a0f21158e16ef6 1-2,57-59
+lib/inventory/dosaiParsers.js
+  s_4d043a97299a87::t_1265bd8a104c86 15,72,111
+lib/inventory/evidenceUtils.js
+  s_4d043a97299a87::t_a98618727de1c2 26,374
+types/lib/ecosystems/golem.d.ts.map
+  s_4d043a97299a87::t_0ca0fa10814924 1
+types/lib/ecosystems/kosi.d.ts.map
+  s_4d043a97299a87::t_a5486e16617dc2 1
+types/lib/ecosystems/rusi.d.ts.map
+  s_4d043a97299a87::t_a636970f6f5054 1
+types/lib/ecosystems/scalasem.d.ts.map
+  s_4d043a97299a87::t_a762e88576e160 1
+types/lib/evinser/evinser.d.ts.map
+  s_4d043a97299a87::t_8baac4c1a1ec89 1
+types/lib/evinser/scalasem.d.ts.map
+  s_4d043a97299a87::t_f82277709c78e5 1
+types/lib/inventory/dosaiParsers.d.ts.map
+  s_4d043a97299a87::t_e3a8c15ab2f20f 1
+types/lib/inventory/evidenceUtils.d.ts.map
+  s_4d043a97299a87::t_6c6b4f5c8408f1 1
+types/lib/inventory/occurrenceKey.d.ts
+  s_4d043a97299a87::t_d6d476fa82cce8 1-18
+types/lib/inventory/occurrenceKey.d.ts.map
+  s_4d043a97299a87::t_9765e4f9f1a6c6 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "642102169a9f36f30f395022fc253ae4761fc8a0",
+  "prompts": {},
+  "sessions": {
+    "s_4d043a97299a87": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_4fb3595e-5000-4fe6-9bff-fc8f62e409b2",
+        "model": "unknown"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
