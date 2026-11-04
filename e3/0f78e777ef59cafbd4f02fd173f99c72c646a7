@@ -1,0 +1,39 @@
+test/data/gradle-verification/generated/README.md
+  s_ad6fc5f26fb5a7::t_4d26ae264aff8d 1-16
+test/data/gradle-verification/issue-978/README.md
+  s_ad6fc5f26fb5a7::t_7bb8e141325d40 1-13
+test/data/gradle-verification/gradle-pgp/README.md
+  s_ad6fc5f26fb5a7::t_1d4ef4e0fbcc4e 1-19
+test/data/gradle-verification/generated/build.gradle
+  s_ad6fc5f26fb5a7::t_eca7928367a7f5 1-14
+test/data/gradle-verification/generated/gradle.lockfile
+  s_ad6fc5f26fb5a7::t_8090b3ee33576b 1-19
+test/data/gradle-verification/generated/gradle/verification-metadata.xml
+  s_ad6fc5f26fb5a7::t_1050f8ce894f0f 1-191
+test/data/gradle-verification/generated/settings.gradle
+  s_ad6fc5f26fb5a7::t_abd21c0ab7773e 1
+test/data/gradle-verification/gradle-pgp/gradle/verification-metadata.xml
+  s_ad6fc5f26fb5a7::t_a87c6a05cc2cca 1-253
+test/data/gradle-verification/issue-978/build.gradle
+  s_ad6fc5f26fb5a7::t_d5c5e6a38f98a9 1-9
+test/data/gradle-verification/issue-978/gradle/verification-metadata.xml
+  s_ad6fc5f26fb5a7::t_aa5eaaad92a182 1-797
+test/data/gradle-verification/issue-978/settings.gradle
+  s_ad6fc5f26fb5a7::t_ef2244b6c266a4 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "e30f78e777ef59cafbd4f02fd173f99c72c646a7",
+  "prompts": {},
+  "sessions": {
+    "s_ad6fc5f26fb5a7": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_fe574c86-6d1b-4ced-8379-a5fc0f780c5e",
+        "model": "GLM-5.3-Flash"
+      },
+      "human_author": "Team AppThreat <cloud@appthreat.com>"
+    }
+  }
+}
