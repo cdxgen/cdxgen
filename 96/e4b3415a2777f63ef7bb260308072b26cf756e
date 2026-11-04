@@ -1,0 +1,23 @@
+lib/ecosystems/gradleutils.poku.js
+  s_ad6fc5f26fb5a7::t_e915f6deae23b8 3392,3400-3401
+  s_ad6fc5f26fb5a7::t_85694793960011 3134
+  s_ad6fc5f26fb5a7::t_fa33214aacff48 3169
+  s_ad6fc5f26fb5a7::t_c1a5beaf758d8e 18,24,38
+  s_ad6fc5f26fb5a7::t_7a6a8920517f18 3074-3133,3135-3168,3170-3391,3393-3399,3402-3696
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "96e4b3415a2777f63ef7bb260308072b26cf756e",
+  "prompts": {},
+  "sessions": {
+    "s_ad6fc5f26fb5a7": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_fe574c86-6d1b-4ced-8379-a5fc0f780c5e",
+        "model": "GLM-5.3-Flash"
+      },
+      "human_author": "Team AppThreat <cloud@appthreat.com>"
+    }
+  }
+}
