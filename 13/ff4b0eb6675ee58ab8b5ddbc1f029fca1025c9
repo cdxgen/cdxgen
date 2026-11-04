@@ -1,0 +1,40 @@
+lib/cli/jvmBom.js
+  s_ad6fc5f26fb5a7::t_7ac6f0698175b0 1685-1692,3177-3227
+  s_ad6fc5f26fb5a7::t_5db4c8e258bbcb 655-681,1494,1498
+  s_ad6fc5f26fb5a7::t_84b87616457630 1634-1684,1693-1745,2124,2251-2255
+bin/cdxgen.js
+  s_ad6fc5f26fb5a7::t_6830bea46d931e 701
+docs/PROJECT_TYPES.md
+  s_ad6fc5f26fb5a7::t_0130c122d9753a 126
+.github/workflows/repotests.yml
+  s_ad6fc5f26fb5a7::t_9454585fbf4ff4 2298-2301
+lib/cli/jvmBom.poku.js
+  s_ad6fc5f26fb5a7::t_48bfa4399b282a 684-694,707-711,720-722,729-736,767-769,774,780-791,793,795-797,815-816,818-824,826-829,832,892-894,900-901
+  s_ad6fc5f26fb5a7::t_ff67268d672c7e 695-706
+docs/ADVANCED.md
+  s_ad6fc5f26fb5a7::t_d6da07a9fb938e 944,948-954
+types/lib/ecosystems/gradleutils.d.ts
+  s_ad6fc5f26fb5a7::t_3f4acde6a37223 504-521,526-528
+docs/ENV.md
+  s_ad6fc5f26fb5a7::t_a56c721bb07192 181
+types/lib/cli/jvmBom.d.ts.map
+  s_ad6fc5f26fb5a7::t_d04ac4cf122761 1
+types/lib/ecosystems/gradleutils.d.ts.map
+  s_ad6fc5f26fb5a7::t_333bd13a5cb4c5 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "13ff4b0eb6675ee58ab8b5ddbc1f029fca1025c9",
+  "prompts": {},
+  "sessions": {
+    "s_ad6fc5f26fb5a7": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_fe574c86-6d1b-4ced-8379-a5fc0f780c5e",
+        "model": "GLM-5.3-Flash"
+      },
+      "human_author": "Team AppThreat <cloud@appthreat.com>"
+    }
+  }
+}
