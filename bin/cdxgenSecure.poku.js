@@ -99,6 +99,11 @@ function scan(entryFor, extraArgs) {
     env.HOME = home;
     env.USERPROFILE = home;
     env.CDXGEN_TEMP_DIR = path.join(root, "tmp");
+    // Secure mode refuses to run as root outside the cdxgen container image,
+    // which would end the scan before the Maven step.
+    if (process.getuid?.() === 0) {
+      env.CDXGEN_IN_CONTAINER = "true";
+    }
     const result = spawnSync(
       process.execPath,
       [

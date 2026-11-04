@@ -144,8 +144,8 @@
     "watch": "poku --watch"
   },
   "dependencies": {
-    "@babel/parser": "8.0.7",
-    "@babel/traverse": "8.0.7",
+    "@babel/parser": "8.0.10",
+    "@babel/traverse": "8.0.10",
     "@cdxgen/cdx-purl": "0.0.6",
     "@isaacs/string-locale-compare": "1.1.0",
     "@npmcli/fs": "6.0.0",
@@ -156,7 +156,7 @@
     "ajv-formats": "3.0.1",
     "common-ancestor-path": "2.0.0",
     "edn-data": "1.2.2",
-    "glob": "13.0.6",
+    "glob": "14.0.3",
     "node-stream-zip": "1.16.0",
     "npm-package-arg": "14.0.0",
     "parse-conflict-json": "6.0.0",
@@ -171,14 +171,14 @@
     "yargs": "18.2.0"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.5.15",
-    "esmock": "2.8.0",
+    "@biomejs/biome": "2.6.4",
+    "esmock": "3.0.0",
     "poku": "4.5.0",
     "sinon": "22.1.0",
     "typescript": "^7.0.2"
   },
   "optionalDependencies": {
-    "@appthreat/atom": "3.1.1",
+    "@appthreat/atom": "3.2.1",
     "@appthreat/atom-parsetools": "1.10.6",
     "@bufbuild/protobuf": "2.16.0",
     "@cdxgen/cdx-hbom": "0.7.0",
@@ -195,12 +195,12 @@
     "@cdxgen/cdxgen-plugins-bin-windows-amd64": "4.2.0",
     "@cdxgen/cdxgen-plugins-bin-windows-arm64": "4.2.0",
     "@cdxgen/safer-exec": "1.2.1",
-    "body-parser": "2.3.0",
+    "body-parser": "2.4.0",
     "compression": "1.8.2",
     "connect": "3.7.0",
     "jsonata": "2.2.2"
   },
-  "packageManager": "pnpm@12.10.1+sha512.ba40a37eb1a370d60fea8c4cf1d364c13bcccef518e98ad2bcee954f539d38da37458e58261a3fa55e06523450ea0ffff9f497b135be41f2c15c1642bacace6c",
+  "packageManager": "pnpm@12.16.1+sha512.091d1dee7927575661b25dab3c2ae31cafc1c54d6b71ed6a6600cf0c1cb10434a447eae14015f1b23e2e6bedeed79df94a932e2164d2832280dce3fb32f656d1",
   "engines": {
     "node": ">=24",
     "pnpm": ">=12"
