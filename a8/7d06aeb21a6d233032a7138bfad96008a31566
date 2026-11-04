@@ -1,0 +1,26 @@
+data/rules/package-integrity.yaml
+  h_6a4cc5cdf68def 372-376,387
+docs/ADVANCED.md
+  h_6a4cc5cdf68def 944
+docs/CUSTOM_PROPERTIES.md
+  h_6a4cc5cdf68def 921
+lib/ecosystems/gradleutils.js
+  h_6a4cc5cdf68def 3413-3418,3461-3464,3472-3480
+lib/ecosystems/gradleutils.poku.js
+  h_6a4cc5cdf68def 3629-3729
+types/lib/ecosystems/gradleutils.d.ts
+  h_6a4cc5cdf68def 513-518
+types/lib/ecosystems/gradleutils.d.ts.map
+  h_6a4cc5cdf68def 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "a87d06aeb21a6d233032a7138bfad96008a31566",
+  "prompts": {},
+  "humans": {
+    "h_6a4cc5cdf68def": {
+      "author": "Team AppThreat <cloud@appthreat.com>"
+    }
+  }
+}
