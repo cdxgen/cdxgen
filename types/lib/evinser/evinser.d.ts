@@ -582,11 +582,11 @@ export declare function attributeJsModules(ausage: Object, fileName: string, pur
  *
  * Each record of `{"callsites": [...]}` (atom `callsites` command) is one external use site
  * carrying its own file, line and column; the record is an occurrence of every purl whose
- * package matches the record's module. A record with a column is keyed `file:line:col`, so
- * two use sites on one line are two occurrences, and its occurrence carries the column as
- * `offset` and `module` joined with `path` by `.` as `symbol`. A record without a column
- * keys the line (`file#line`) and its occurrence carries the `symbol` alone; a record
- * without a `path` leaves the symbol at the bare `module`.
+ * package matches the record's module. A record with a column (0 or more; atom writes -1 for
+ * none) is keyed `file:line:col`, so two use sites on one line are two occurrences, and its
+ * occurrence carries the column as `offset` and `module` joined with `path` by `.` as
+ * `symbol`. A record without a column keys the line (`file#line`) and its occurrence carries
+ * the `symbol` alone; a record without a `path` leaves the symbol at the bare `module`.
  *
  * @param {Object} callsitesSlice callsites slice with a `callsites` array
  * @param {Object} purlImportsMap purl -> imported modules and symbols

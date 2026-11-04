@@ -11,7 +11,8 @@
  * case folding, no stripping of a leading `./`.
  *
  * A place a line already names is keyed `file#line`; a place a callsites
- * record names down to its column is keyed `file:line:offset`, so two use
+ * record names down to its column (counted from 0, as atom writes it) is keyed
+ * `file:line:offset`, so two use
  * sites on one line are two occurrences. An occurrence with only `location`
  * and `line` names the line as a whole: it is the same place as any use site
  * that line carries, and it is kept as an occurrence of its own only while no
@@ -23,7 +24,7 @@
  *
  * @param {string} location File path or other location text
  * @param {number} [line] Line number; not a positive number means the location names no line
- * @param {number} [offset] Column within the line; not a positive number means the place is the line
+ * @param {number} [offset] Column within the line, counted from 0 as atom writes it; a value that is not an integer of 0 or more (atom writes -1 for an unknown column) means the place is the line
  * @returns {string|undefined} Key in the `file:line:offset`, `file#line` or plain `file` shape; undefined when the location is empty
  */
 export declare function occurrenceLocationKey(location: string, line?: number, offset?: number): string | undefined;
