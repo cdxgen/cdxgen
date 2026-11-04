@@ -1,0 +1,27 @@
+data/remediations.json
+  s_ad6fc5f26fb5a7::t_68b5586287596e 194-221
+lib/cli/jvmBom.js
+  s_ad6fc5f26fb5a7::t_64c8d8a9aebdd3 59
+  s_ad6fc5f26fb5a7::t_4d02a078024055 1462-1470
+  s_ad6fc5f26fb5a7::t_924293ed17d4b3 44,51,68
+  s_ad6fc5f26fb5a7::t_3e252e30e0e223 2180-2185
+  s_ad6fc5f26fb5a7::t_cddbb1dd335d1b 2134-2179,2186-2268
+  s_ad6fc5f26fb5a7::t_49a265e37ee9c5 1552-1554,1560-1565,1580-1603
+  s_ad6fc5f26fb5a7::t_fa9c6788580342 2269-2271
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "4bbd57f4f38706e8397ed6efd5066b7a2ca34f9a",
+  "prompts": {},
+  "sessions": {
+    "s_ad6fc5f26fb5a7": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_fe574c86-6d1b-4ced-8379-a5fc0f780c5e",
+        "model": "GLM-5.3-Flash"
+      },
+      "human_author": "Team AppThreat <cloud@appthreat.com>"
+    }
+  }
+}
