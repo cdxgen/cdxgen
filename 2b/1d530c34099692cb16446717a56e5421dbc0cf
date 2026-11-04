@@ -1,0 +1,19 @@
+lib/inventory/evidenceUtils.poku.js
+  s_4d043a97299a87::t_db2b6e05bed8d1 963-964,970
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "2b1d530c34099692cb16446717a56e5421dbc0cf",
+  "prompts": {},
+  "sessions": {
+    "s_4d043a97299a87": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_4fb3595e-5000-4fe6-9bff-fc8f62e409b2",
+        "model": "unknown"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
