@@ -937,7 +937,15 @@ The `GRADLE_PREFER_LOCKFILE` environment variable set to `true` is the same swit
 
 When nothing ran `gradle properties`, the primary component of a lockfile-only BOM is named after `rootProject.name` in `settings.gradle` or `settings.gradle.kts` when that is a plain string literal, and after the build's directory otherwise.
 
-A lockfile says nothing about which module depends on which, so lockfile-only components carry no dependency edges, and the scan records `jvm.gradle.lockfile-only` in the build ledger to say so. Custom `dependencyLocking.lockFile` paths, the Nebula `dependencies.lock` and Palantir `versions.lock` formats, and the hashes in `gradle/verification-metadata.xml` are not read.
+A lockfile says nothing about which module depends on which, so lockfile-only components carry no dependency edges, and the scan records `jvm.gradle.lockfile-only` in the build ledger to say so. Custom `dependencyLocking.lockFile` paths, the Nebula `dependencies.lock` and Palantir `versions.lock` formats are not read.
+
+### Gradle verification metadata
+
+A Gradle build can commit a `gradle/verification-metadata.xml`, written by [`gradle --write-verification-metadata`](https://docs.gradle.org/current/userguide/dependency_verification.html), which records the checksums and PGP key ids Gradle verified for every artifact it resolved. cdxgen reads that file without running Gradle, the way it reads the lockfiles. The digests it records enrich every maven component of the scan whose coordinates match, whichever source produced the component, as long as the component carries no hashes of its own. A component enriched this way also names the verification methods and, when the artifact is signed, the PGP key ids in `cdx:gradle:*` properties, and the primary component of the BOM records whether the build verifies metadata and signatures at all.
+
+The file records what Gradle verified when it was written; it travels with the source, and cdxgen does not re-check the digests against the artifacts. Trust rules, key-server URIs, origins and reasons are counted or dropped rather than evaluated, and the keyring file the configuration may name is not read.
+
+When neither a Gradle run, nor the lockfiles, nor a version catalog produced any components, the coordinates of the verification file stand in as the last resort. A component is emitted for each coordinate that has a main jar or aar artifact, marked `cdx:gradle:verificationMetadata=true`, without a scope, since the file cannot tell a runtime dependency from build tooling, and the scan records `jvm.gradle.verification-metadata-only` in the build ledger to say so.
 
 ### Maven Central rate limits
 
