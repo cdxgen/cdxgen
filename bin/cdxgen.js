@@ -698,6 +698,7 @@ const args = _yargs
       "ruby-docker-install",
       "resolve-gradle-distribution",
       "gradle-prefer-lockfile",
+      "gradle-verification-fallback",
       "jvm-tool-setup",
     ],
   })

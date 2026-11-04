@@ -501,22 +501,31 @@ export declare function findGradleVerificationMetadata(gradleRootPath: string): 
  */
 export declare function gradleVerificationMainArtifact(component: object, wantsPom: boolean): object | undefined;
 /**
- * Attach the checksums and PGP key ids a verification-metadata.xml records
- * to the components of a package list.
+ * Merge the checksums and PGP key ids a verification-metadata.xml records
+ * into the components of a package list.
  *
- * A component is enriched only when it has no hashes of its own: hashes that
- * another source found are never overwritten. The recorded digests are not
- * re-checked against any artifact, so they carry the same trust as the file
- * itself. Each enriched component also gains the evidence that its identity
- * came from this file, the same as a lockfile component, and two properties
- * naming the verification methods and the PGP key ids of its artifact.
+ * A digest of the artifact itself, computed from the jar in the local cache
+ * or found by another collector, is the stronger claim, so the recorded
+ * digests only fill the algorithms a component still lacks. Where the file
+ * records a different digest for an algorithm the component already has,
+ * the recorded digest never wins: the component keeps its own, and the
+ * component gains the cdx:gradle:verificationMismatch=true property so the
+ * disagreement is visible. A stale metadata file explains most mismatches,
+ * which is what the remediation entry says to refresh; one that survives a
+ * refresh is worth checking as possible tampering.
+ *
+ * Every matched component also gains two properties naming the verification
+ * methods and the PGP key ids of its artifact. The evidence of the
+ * component is left alone: a component found by a Gradle run or a lockfile
+ * keeps the identity evidence of that source, and only the components the
+ * verification-metadata fallback built carry the file as their evidence.
  *
  * @param {Object[]} pkgList Components to enrich in place
  * @param {Object} metadata Parsed metadata, as parseGradleVerificationMetadata
  *   returns
- * @param {string} metadataFile Path to the verification-metadata.xml, used as
- *   the evidence value
- * @returns {number} The number of components enriched
+ * @param {string} metadataFile Path to the verification-metadata.xml, named
+ *   in the debug reasoning
+ * @returns {number} The number of components this call changed
  */
 export declare function applyGradleVerificationMetadata(pkgList: Object[], metadata: Object, metadataFile: string): number;
 //# sourceMappingURL=gradleutils.d.ts.map

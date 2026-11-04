@@ -2295,8 +2295,10 @@ jobs:
             jq -e '[.components[] | select(any((.hashes // [])[]; .alg == "SHA-256"))] | length > 500' "bomresults/bom-gradle-vm-$project.json"
             # The validator exits nonzero when scorecard controls such as
             # signature or dependency-graph expectations fail, which a
-            # metadata-only BOM cannot satisfy, so the report file carries
-            # the schema and deep verdicts this check is about.
+            # metadata-only BOM cannot satisfy, so the exit code is ignored.
+            # The jq after this still fails the step when the report is
+            # missing or does not carry the schema and deep verdicts this
+            # check is about.
             node bin/validate.js -i "bomresults/bom-gradle-vm-$project.json" -r json -o "bomresults/validate-gradle-vm-$project.json" || true
             jq -e '.schemaValid and .deepValid' "bomresults/validate-gradle-vm-$project.json"
           done
