@@ -1,0 +1,24 @@
+lib/inventory/aiCollector.js
+  h_6a4cc5cdf68def 1789-1794,1800-1804
+lib/inventory/aiCollector.poku.js
+  h_6a4cc5cdf68def 1368-1388
+lib/inventory/communityAiConfigParser.js
+  h_6a4cc5cdf68def 753-755,758-761,763
+types/lib/inventory/aiCollector.d.ts.map
+  h_6a4cc5cdf68def 1
+types/lib/inventory/aiInventory.d.ts.map
+  h_6a4cc5cdf68def 1
+types/lib/inventory/communityAiConfigParser.d.ts.map
+  h_6a4cc5cdf68def 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "1220668f22475e289af6b45a4e8909aa1d339987",
+  "prompts": {},
+  "humans": {
+    "h_6a4cc5cdf68def": {
+      "author": "Team AppThreat <cloud@appthreat.com>"
+    }
+  }
+}
