@@ -2267,6 +2267,45 @@ jobs:
           jq -e 'any(.components[]; .group == "org.junit.jupiter" and .name == "junit-jupiter-api" and .scope == "optional")' bomresults/bom-gradle-lockfile-env.json
           jq -e 'any(.components[]; .group == "com.github.ben-manes" and .name == "gradle-versions-plugin" and .scope == "excluded")' bomresults/bom-gradle-lockfile-env.json
         shell: bash
+      - name: repotests gradle verification metadata
+        run: |
+          # The committed gradle/verification-metadata.xml enriches the
+          # components with the digests Gradle verified, so a lockfile-only
+          # scan carries the SHA-256 recorded next to it, and every
+          # component whose verification methods name a checksum is hashed.
+          # Coordinates the metadata knows only as a POM, such as the two
+          # BOMs of this build, stay unhashed by design.
+          bin/cdxgen.js -t gradle --no-install-deps test/data/gradle-verification/generated -o bomresults/bom-gradle-vm-generated.json
+          jq -e 'any(.components[]; .name == "jackson-databind" and any((.hashes // [])[]; .alg == "SHA-256" and .content == "d0ed5b54cb1b0bbb0828e24ce752a43a006dc188b34e3a4ae3238acc7b637418"))' bomresults/bom-gradle-vm-generated.json
+          jq -e 'all(.components[]; (((.properties // []) | any(.name == "cdx:gradle:verificationMethods" and (.value | contains("sha256")))) | not) or any((.hashes // [])[]; .alg == "SHA-256"))' bomresults/bom-gradle-vm-generated.json
+          # Two large real verification files of public Android and JVM
+          # builds, downloaded without a full clone. With the
+          # gradle-verification-fallback flag the metadata alone is the
+          # inventory source, so the BOM holds several hundred hashed
+          # components, all optional because the file cannot tell runtime
+          # dependencies from build tooling, and passes schema and deep
+          # validation. The BOM carries no dependency graph, so the
+          # scorecard controls that expect one are not part of this check.
+          mkdir -p "$RUNNER_TEMP/signal-vm/gradle" "$RUNNER_TEMP/kotlin-vm/gradle"
+          curl -fsSL -o "$RUNNER_TEMP/signal-vm/gradle/verification-metadata.xml" https://raw.githubusercontent.com/signalapp/Signal-Android/515db93fb48206d63406cbfb48c5816f6af1d9e2/gradle/verification-metadata.xml
+          curl -fsSL -o "$RUNNER_TEMP/kotlin-vm/gradle/verification-metadata.xml" https://raw.githubusercontent.com/JetBrains/kotlin/c1a2c8dbd26066d241a13c0b6e00084b4822a8f7/gradle/verification-metadata.xml
+          for project in signal-vm kotlin-vm; do
+            printf 'plugins { id '"'"'java'"'"' }\n' > "$RUNNER_TEMP/$project/build.gradle"
+            printf 'rootProject.name = "%s"\n' "$project" > "$RUNNER_TEMP/$project/settings.gradle"
+            bin/cdxgen.js -t gradle --no-install-deps --feature-flags gradle-verification-fallback "$RUNNER_TEMP/$project" -o "bomresults/bom-gradle-vm-$project.json"
+            jq -e '.components | length > 500' "bomresults/bom-gradle-vm-$project.json"
+            jq -e '[.components[] | select(any((.hashes // [])[]; .alg == "SHA-256"))] | length > 500' "bomresults/bom-gradle-vm-$project.json"
+            jq -e 'all(.components[]; .scope == "optional")' "bomresults/bom-gradle-vm-$project.json"
+            # The validator exits nonzero when scorecard controls such as
+            # signature or dependency-graph expectations fail, which a
+            # metadata-only BOM cannot satisfy, so the exit code is ignored.
+            # The jq after this still fails the step when the report is
+            # missing or does not carry the schema and deep verdicts this
+            # check is about.
+            node bin/validate.js -i "bomresults/bom-gradle-vm-$project.json" -r json -o "bomresults/validate-gradle-vm-$project.json" || true
+            jq -e '.schemaValid and .deepValid' "bomresults/validate-gradle-vm-$project.json"
+          done
+        shell: bash
 
   jvm-tools-repotest:
     runs-on: ubuntu-latest

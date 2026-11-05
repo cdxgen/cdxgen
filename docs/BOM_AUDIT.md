@@ -241,6 +241,9 @@ Rules that detect deprecated, yanked, tampered, or suspicious packages.
 | INT-011 | medium   | Rust project uses Cargo build.rs or native build helpers                  |
 | INT-012 | medium   | Rust native build uses mutable Cargo toolchain setup action               |
 | INT-013 | medium   | Rust native build is exercised by Cargo workflow build/test/package steps |
+| INT-014 | high     | Collider package is missing a valid wrap hash integrity pin               |
+| INT-015 | low      | Ruby gem compiles native extensions at install time                       |
+| INT-016 | high     | Gradle verification metadata disagrees with the artifact digest           |
 
 ### Advanced predictive heuristics
 

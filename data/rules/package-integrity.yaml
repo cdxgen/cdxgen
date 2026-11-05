@@ -362,3 +362,31 @@
       "platform": $contains(purl, 'platform=') ? $substringAfter(purl, 'platform=') : 'ruby',
       "requiredRubyVersion": $prop($, 'cdx:gem:rubyVersionSpecifiers')
     }
+
+- id: INT-016
+  name: "Gradle verification metadata disagrees with the artifact digest"
+  description: >-
+    A component carries cdx:gradle:verificationMismatch=true: the digest
+    gradle/verification-metadata.xml records for this component's artifact
+    differs from the digest cdxgen computed from the artifact in the local
+    cache. A released Maven version does not change after publishing, so a
+    stale file cannot explain this. The likely causes are an artifact
+    republished on a mirror or internal repository, or a corrupted or
+    tampered cache. The recorded digest is never applied over the
+    artifact's own, and SNAPSHOT versions are not compared.
+  severity: high
+  category: package-integrity
+  dry-run-support: full
+  condition: |
+    components[
+      $prop($, 'cdx:gradle:verificationMismatch') = 'true'
+    ]
+  location: |
+    { "bomRef": $."bom-ref", "purl": purl }
+  message: "The digest gradle/verification-metadata.xml records for '{{ name }}@{{ version }}' differs from the digest of the artifact on disk"
+  mitigation: "Compare the jar in the local cache with the copy the repository serves, and find out which repository or mirror served the differing one. Regenerate gradle/verification-metadata.xml only after that check: regenerating it first records the suspect digest and removes the evidence"
+  evidence: |
+    {
+      "verificationMethods": $prop($, 'cdx:gradle:verificationMethods'),
+      "pgpKeyIds": $prop($, 'cdx:gradle:pgpKeyIds')
+    }

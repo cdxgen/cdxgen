@@ -1,0 +1,14 @@
+plugins { id 'java' }
+
+repositories { mavenCentral() }
+
+dependencyLocking {
+    lockAllConfigurations()
+}
+
+dependencies {
+    implementation(platform("com.fasterxml.jackson:jackson-bom:2.17.0"))
+    implementation("com.fasterxml.jackson.core:jackson-databind")
+    implementation("org.slf4j:slf4j-api:2.0.13")
+    testImplementation("org.junit.jupiter:junit-jupiter:5.10.2")
+}

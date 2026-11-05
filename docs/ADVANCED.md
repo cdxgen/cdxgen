@@ -937,7 +937,21 @@ The `GRADLE_PREFER_LOCKFILE` environment variable set to `true` is the same swit
 
 When nothing ran `gradle properties`, the primary component of a lockfile-only BOM is named after `rootProject.name` in `settings.gradle` or `settings.gradle.kts` when that is a plain string literal, and after the build's directory otherwise.
 
-A lockfile says nothing about which module depends on which, so lockfile-only components carry no dependency edges, and the scan records `jvm.gradle.lockfile-only` in the build ledger to say so. Custom `dependencyLocking.lockFile` paths, the Nebula `dependencies.lock` and Palantir `versions.lock` formats, and the hashes in `gradle/verification-metadata.xml` are not read.
+A lockfile says nothing about which module depends on which, so lockfile-only components carry no dependency edges, and the scan records `jvm.gradle.lockfile-only` in the build ledger to say so. Custom `dependencyLocking.lockFile` paths, the Nebula `dependencies.lock` and Palantir `versions.lock` formats are not read.
+
+### Gradle verification metadata
+
+A Gradle build can commit a `gradle/verification-metadata.xml`, written by [`gradle --write-verification-metadata`](https://docs.gradle.org/current/userguide/dependency_verification.html), which records the checksums and PGP key ids Gradle verified for every artifact it resolved. cdxgen reads that file without running Gradle, the way it reads the lockfiles. The digests it records are merged into every maven component of the scan whose coordinates match: a digest of the artifact itself, which the local-cache lookup computed from the jar, is the stronger claim and always wins, and the recorded digests only fill the algorithms the component still lacks. Where the file records a different digest for an algorithm the component already has, the component keeps its own digest and gains `cdx:gradle:verificationMismatch=true`, which the `INT-016` audit rule reports. A released Maven version does not change after publishing, so a stale file cannot explain a mismatch; the likely causes are an artifact republished on a mirror or internal repository, or a corrupted or tampered cache. SNAPSHOT versions are not compared, because the file can record several timestamped builds of one. A matched component also names the verification methods and, when the artifact is signed, the PGP key ids in `cdx:gradle:*` properties, and the primary component of the BOM records whether the build verifies metadata and signatures at all.
+
+The file records what Gradle verified when it was written; it travels with the source, and cdxgen does not re-check the digests against the artifacts. Trust rules, key-server URIs, origins and reasons are counted or dropped rather than evaluated, and the keyring file the configuration may name is not read.
+
+When neither a Gradle run, nor the lockfiles, nor a version catalog produced any components, the coordinates of the verification file can stand in as the last resort. Because the file may be stale and cannot tell a runtime dependency from build tooling, this fallback is off by default and runs only with the `gradle-verification-fallback` feature flag (or the `GRADLE_VERIFICATION_FALLBACK` variable):
+
+```shell
+cdxgen --feature-flags gradle-verification-fallback -t gradle /src
+```
+
+With the flag, a component is emitted for each coordinate that has a main jar or aar artifact, marked `cdx:gradle:verificationMetadata=true` and scoped `optional`, since the file cannot tell what the component's scope is, and the scan records `jvm.gradle.verification-metadata-only` in the build ledger to say so. A default run only enriches.
 
 ### Maven Central rate limits
 
