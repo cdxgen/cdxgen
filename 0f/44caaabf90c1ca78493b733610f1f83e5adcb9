@@ -1,0 +1,21 @@
+lib/inventory/aiInventory.js
+  s_24bc1ad9867f27::t_a0900958f5ae94 316-317,319-321
+lib/inventory/aiInventory.poku.js
+  s_24bc1ad9867f27::t_86eabf1a8a015f 656-668
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "0f44caaabf90c1ca78493b733610f1f83e5adcb9",
+  "prompts": {},
+  "sessions": {
+    "s_24bc1ad9867f27": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_219ec7a2-faaa-4518-ad18-885ebf2f670f",
+        "model": "GLM-5.3-Flash"
+      },
+      "human_author": "Team AppThreat <cloud@appthreat.com>"
+    }
+  }
+}
