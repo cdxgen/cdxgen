@@ -159,7 +159,7 @@ jobs:
         uses: actions/setup-java@b843ebf9b913146b38da2eaa7aeddf76074ae1ad  # v6.1.0
         with:
           distribution: 'liberica'
-          java-version: '24'
+          java-version: '25'
       - name: Route Maven Central through Google's mirror
         if: runner.environment == 'github-hosted'
         run: node ci/maven-central-mirror.js
@@ -214,7 +214,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        java-version: ['24']
+        java-version: ['25']
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
         with:
@@ -336,7 +336,7 @@ jobs:
         uses: actions/setup-java@b843ebf9b913146b38da2eaa7aeddf76074ae1ad  # v6.1.0
         with:
           distribution: 'liberica'
-          java-version: '24'
+          java-version: '25'
       - name: Route Maven Central through Google's mirror
         if: needs.lane.outputs.docs-only != 'true' && (runner.environment == 'github-hosted')
         run: node ci/maven-central-mirror.js

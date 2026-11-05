@@ -86,7 +86,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        java-version: ['24']
+        java-version: ['25']
         # The matrix context is not available to a job-level `if`, so the
         # ci:skip-windows label drops the windows leg from the matrix itself.
         os: ${{ fromJSON(contains(github.event.pull_request.labels.*.name, 'ci:skip-windows') && '["self-hosted-ubuntu", "ubuntu-24.04-arm", "macos-15"]' || '["self-hosted-ubuntu", "ubuntu-24.04-arm", "windows-latest", "macos-15"]') }}
@@ -1607,7 +1607,7 @@ jobs:
         uses: actions/setup-java@b843ebf9b913146b38da2eaa7aeddf76074ae1ad  # v6.1.0
         with:
           distribution: 'temurin'
-          java-version: '24'
+          java-version: '25'
       - name: Route Maven Central through Google's mirror
         if: runner.environment == 'github-hosted'
         run: node ci/maven-central-mirror.js
@@ -1651,7 +1651,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        java-version: ['24']
+        java-version: ['25']
         os: ${{ fromJSON(contains(github.event.pull_request.labels.*.name, 'ci:skip-windows') && '["ubuntu-24.04-arm", "macos-15"]' || '["ubuntu-24.04-arm", "windows-latest", "macos-15"]') }}
     runs-on: ${{ matrix.os }}
     timeout-minutes: 25
@@ -2390,7 +2390,7 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        java-version: ['24']
+        java-version: ['25']
         os: ['ubuntu-24.04', 'ubuntu-24.04-arm', 'macos-15']
     runs-on: ${{ matrix.os }}
     timeout-minutes: 45
