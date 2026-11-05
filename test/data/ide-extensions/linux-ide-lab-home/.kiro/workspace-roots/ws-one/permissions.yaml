@@ -1,0 +1,4 @@
+workspaceTrusted: true
+rules:
+  - capability: fs_read
+    effect: allow

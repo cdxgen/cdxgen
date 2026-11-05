@@ -1272,6 +1272,18 @@ jobs:
           test "$(jq '[.components[] | select(.purl | startswith("pkg:generic/cdxgen-ide/"))] | length' bomresults/bom-ide-lab-home.json)" -eq 10
           jq -e '.components[] | select(.purl == "pkg:vscode-extension/anthropic/claude-code@2.1.314?platform=linux-x64") | .properties[] | select(.name == "cdx:vscode-extension:ide" and (.value | contains("Cursor")))' bomresults/bom-ide-lab-home.json
           jq -e '.components[] | select(.purl | test("^pkg:generic/cdxgen-agentic/kiro(@|$)")) | .properties[] | select(.name == "cdx:agentic:extensionCount" and .value == "5")' bomresults/bom-agentic-lab-home.json
+          # The lab home carries a V3 Kiro CLI home with a user-scope
+          # permissions.yaml, two workspace permission files, and an upgraded
+          # default agent that allows every capability.
+          jq -e '.components[] | select(.purl | test("^pkg:generic/cdxgen-agentic/kiro-cli(@|$)")) | .properties[] | select(.name == "cdx:agentic:permissionRuleCount" and .value == "2")' bomresults/bom-agentic-lab-home.json
+          jq -e '.components[] | select(.purl | test("^pkg:generic/cdxgen-agentic/kiro-cli(@|$)")) | .properties[] | select(.name == "cdx:agentic:permissionDenyRuleCount" and .value == "1")' bomresults/bom-agentic-lab-home.json
+          jq -e '.components[] | select(.purl | test("^pkg:generic/cdxgen-agentic/kiro-cli(@|$)")) | .properties[] | select(.name == "cdx:agentic:permissionPolicyPresets" and .value == "approve-for-me")' bomresults/bom-agentic-lab-home.json
+          jq -e '.components[] | select(.purl | test("^pkg:generic/cdxgen-agentic/kiro-cli(@|$)")) | .properties[] | select(.name == "cdx:agentic:workspacePermissionFileCount" and .value == "2")' bomresults/bom-agentic-lab-home.json
+          jq -e '.components[] | select(.purl | test("^pkg:generic/cdxgen-agentic/kiro-cli(@|$)")) | .properties[] | select(.name == "cdx:agentic:trustedWorkspaceCount" and .value == "1")' bomresults/bom-agentic-lab-home.json
+          jq -e '.components[] | select(.purl | test("^pkg:generic/cdxgen-agentic/kiro-cli(@|$)")) | .properties[] | select(.name == "cdx:agentic:workspaceWithAllowRuleCount" and .value == "1")' bomresults/bom-agentic-lab-home.json
+          jq -e '.components[] | select(.properties[]? | select(.name == "cdx:agentic:kind" and .value == "agent-definition")) | .properties[] | select(.name == "cdx:agentic:permissionAllowsAll" and .value == "true")' bomresults/bom-agentic-lab-home.json
+          jq -e '.components[] | select(.properties[]? | select(.name == "cdx:agentic:kind" and .value == "agent-definition")) | .properties[] | select(.name == "cdx:agentic:upgradeRevision" and .value == "2")' bomresults/bom-agentic-lab-home.json
+          jq -e 'all(.components[]?; all((.properties // [])[]?; ((.value // "") | contains("Lab fixture prompt") or contains("lab-fixture-fingerprint") or contains(".ssh") or contains("rm -r")) | not))' bomresults/bom-agentic-lab-home.json
         shell: bash
       - name: standalone chrome extension manifests (AI-targeted community fixtures)
         run: |

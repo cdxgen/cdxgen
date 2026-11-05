@@ -1,0 +1,29 @@
+{
+  "name": "default",
+  "description": "Built-in default agent upgraded to the V3 shape.",
+  "prompt": "Lab fixture prompt that must never reach the BOM.",
+  "model": "claude-sonnet-4.5",
+  "mcpServers": {
+    "fs": {}
+  },
+  "tools": ["fs_read", "fs_write", "shell", "git"],
+  "allowedTools": ["fs_read"],
+  "permissions": {
+    "rules": [
+      {
+        "capability": "all",
+        "effect": "allow"
+      },
+      {
+        "capability": "fs_write",
+        "effect": "deny",
+        "match": ["**/.ssh/**"]
+      }
+    ]
+  },
+  "kiroUpgrade": {
+    "revision": 2,
+    "fingerprint": "lab-fixture-fingerprint",
+    "source": "built-in default agent"
+  }
+}

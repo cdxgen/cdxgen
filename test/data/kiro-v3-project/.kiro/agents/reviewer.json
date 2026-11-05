@@ -1,0 +1,40 @@
+{
+  "name": "reviewer",
+  "description": "Reviews diffs for regressions and policy violations.",
+  "model": "claude-sonnet-4.5",
+  "prompt": "Review the diff carefully and report findings. Never approve your own changes.",
+  "resources": [
+    {
+      "name": "review-guide",
+      "uri": "file:///docs/review-guide.md"
+    }
+  ],
+  "tools": ["fs_read", "fs_write", "shell"],
+  "allowedTools": ["fs_read"],
+  "mcpServers": {
+    "context7": {}
+  },
+  "toolsSettings": {
+    "fs_write": {
+      "disabled": false
+    }
+  },
+  "permissions": {
+    "rules": [
+      {
+        "capability": "all",
+        "effect": "allow"
+      },
+      {
+        "capability": "fs_write",
+        "effect": "deny",
+        "match": ["**/.env"]
+      }
+    ]
+  },
+  "kiroUpgrade": {
+    "revision": 2,
+    "fingerprint": "fixture-fingerprint-not-a-secret",
+    "source": "built-in default agent"
+  }
+}
