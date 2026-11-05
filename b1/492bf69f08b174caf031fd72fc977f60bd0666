@@ -1,0 +1,26 @@
+docs/ADVANCED.md
+  s_ed9e49264ff325::t_cdeab8668a299b 1061
+docs/CUSTOM_PROPERTIES.md
+  s_ed9e49264ff325::t_db63cbfd335d52 2465
+lib/inventory/dotnetRuntime.poku.js
+  s_ed9e49264ff325::t_034c3a6407625a 114-140,146-149,165-196
+  s_ed9e49264ff325::t_b31bab51509147 141-145,150-164
+lib/inventory/dotnetRuntime.js
+  s_ed9e49264ff325::t_036a946eef2f39 102-109,112-114,116,121-122,126-136,143,147,152,156-157,160-174
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "b1492bf69f08b174caf031fd72fc977f60bd0666",
+  "prompts": {},
+  "sessions": {
+    "s_ed9e49264ff325": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "fa5a2032-8e86-462a-af92-9ae295ed3d8b",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
