@@ -1,0 +1,14 @@
+lib/ecosystems/parsers-rust.poku.js
+  h_6a4cc5cdf68def 706-709,724
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "eb5efea2c3241ae259786b231a7f6adabde3c269",
+  "prompts": {},
+  "humans": {
+    "h_6a4cc5cdf68def": {
+      "author": "Team AppThreat <cloud@appthreat.com>"
+    }
+  }
+}
