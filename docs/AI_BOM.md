@@ -105,9 +105,12 @@ The accepted project-type aliases for this mode are:
 - `aibom`
 - `ai-bom`
 
-An AI-BOM scan also collects the agent-configuration overlay that `-t ai-skill`
-models: instruction files, skills, community agent configurations, and the Kiro
-project artifacts described above. Pass `--exclude-type ai-skill` to keep only
+An AI-BOM scan also includes the community agent-configuration files that
+`-t ai-skill` models: the Kiro project artifacts described above, Cursor and
+Windsurf rules, Claude Code subagents, commands and skills, OpenCode and
+Nanocoder configurations, LangGraph and CrewAI definitions. The top-level
+instruction files (`CLAUDE.md`, `.github/copilot-instructions.md`, and
+similar) stay with `-t ai-skill`. Pass `--exclude-type ai-skill` to keep only
 the models, services, and prompt-config artifacts.
 
 Use `aibom <input>` when you want the dedicated AI-oriented defaults for a single scan. Use `cdxgen -t ai ...` when you want to combine AI inventory with other `cdxgen` project types or flags explicitly.

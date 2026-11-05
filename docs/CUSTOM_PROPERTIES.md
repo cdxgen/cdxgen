@@ -249,8 +249,8 @@ These are the highest-leverage keys for first-pass policy authoring.
 | `cdx:agentic:permissionAskRuleCount`             | Number of `effect: ask` rules in a Kiro V3 permission document                                      | Warning / triage |
 | `cdx:agentic:permissionEvaluateRuleCount`        | Number of `effect: evaluate` rules in a Kiro V3 permission document                                 | Warning / triage |
 | `cdx:agentic:permissionCapabilities`             | Comma-separated capability names from a Kiro V3 permission document (for example `all,fs_write`)    | Warning / triage |
-| `cdx:agentic:permissionAllowsAll`                | True when an allow rule grants the `all` capability with no `match` restriction                     | Hard deny        |
-| `cdx:agentic:permissionUnrestrictedAllowCapabilities` | Comma-separated capabilities allowed with no `match` restriction                               | Hard deny        |
+| `cdx:agentic:permissionAllowsAll`                | True when an allow rule grants the `all` capability with no `match` restriction                     | Warning / triage |
+| `cdx:agentic:permissionUnrestrictedAllowCapabilities` | Comma-separated capabilities allowed with no `match` restriction                               | Warning / triage |
 | `cdx:agentic:permissionPolicyPresets`            | Comma-separated allowlisted policy presets such as `approve-for-me`                                 | Warning / triage |
 | `cdx:agentic:permissionWorkspaceTrusted`         | True when the summarized Kiro permission document declares `workspaceTrusted: true`                 | Informational    |
 | `cdx:agentic:upgradeRevision`                    | Integer `kiroUpgrade.revision` of a Kiro V3 agent definition                                        | Informational    |
