@@ -1,0 +1,22 @@
+docs/MCP.md
+  h_6a4cc5cdf68def 44-45
+lib/helpers/agenticToolutils.js
+  h_6a4cc5cdf68def 116
+lib/helpers/agenticToolutils.poku.js
+  h_6a4cc5cdf68def 388-402
+lib/inventory/mcpConfigParser.js
+  h_6a4cc5cdf68def 42-43,120-122
+lib/inventory/mcpConfigParser.poku.js
+  h_6a4cc5cdf68def 342-383
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "43ebdb289c090b50573df7b94d4a18e3cc759510",
+  "prompts": {},
+  "humans": {
+    "h_6a4cc5cdf68def": {
+      "author": "Team AppThreat <cloud@appthreat.com>"
+    }
+  }
+}
