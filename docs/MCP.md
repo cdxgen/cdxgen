@@ -41,7 +41,8 @@ For high-confidence JavaScript MCP patterns, cdxgen emits:
 - AI agent instruction files that reference hidden MCP endpoints or wrappers
 - MCP client configuration files such as `.vscode/mcp.json`, `.cursor/mcp.json`,
   `.mcp.json`, `claude_desktop_config.json`, `opencode.json`, `.gemini/settings.json`,
-  `.windsurf/mcp_config.json`, `.zed/settings.json`, `.roo/mcp.json`, and the Codex CLI
+  `.windsurf/mcp_config.json`, `.zed/settings.json`, `.roo/mcp.json`, the Kiro
+  `.kiro/settings/mcp.json`, and the Codex CLI
   `.codex/config.toml` (`[mcp_servers.*]` TOML tables)
 - MCP Registry `server.json` manifests, resolving declared distributable packages to
   purls and separating registry-hosted remotes (marked `composition=unknown`)

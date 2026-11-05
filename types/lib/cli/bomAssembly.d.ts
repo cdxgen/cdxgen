@@ -184,17 +184,20 @@ export declare function getPackageBinCommandNames(pkg: object): Set<string>;
 export declare function hasNpmBinCommandEvidence(allImports: object, pkg: object): boolean;
 /**
  * Return a CycloneDX organisational entity built from a collector-supplied
- * supplier, or undefined when the value is not a well-formed entity.
+ * supplier or manufacturer, or undefined when the value is not a well-formed
+ * entity.
  *
- * A supplier needs a non-empty string name. When a url is present it must be
+ * An entity needs a non-empty string name. When a url is present it must be
  * an array of valid IRI references; any other shape (a single string, an
- * array holding non-strings) drops the supplier so the BOM stays schema
- * valid. Only the fields the schema defines are copied.
+ * array holding non-strings) drops the entity so the BOM stays schema
+ * valid. Each contact is reduced to its string name, email and phone, and a
+ * contact with none of them is left out. The entity bom-ref is not copied,
+ * because CycloneDX 1.4 does not allow it there.
  *
- * @param {Object} supplier Collector-supplied supplier
+ * @param {Object} entity Collector-supplied organisational entity
  * @returns {Object|undefined} Organisational entity, or undefined
  */
-export declare function toOrganizationalEntity(supplier: Object): Object | undefined;
+export declare function toOrganizationalEntity(entity: Object): Object | undefined;
 /**
  * Given the specified package, create a CycloneDX component and add it to the list.
  */

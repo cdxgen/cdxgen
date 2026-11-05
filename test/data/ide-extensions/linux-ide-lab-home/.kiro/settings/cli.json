@@ -1,0 +1,5 @@
+{
+  "chat.defaultAgent": "default",
+  "chat.enableSubagent": true,
+  "telemetry.enabled": true
+}

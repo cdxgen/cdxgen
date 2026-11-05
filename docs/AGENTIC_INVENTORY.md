@@ -60,6 +60,46 @@ For Codex and Gemini CLI, the scan reads their MCP server declarations
 The diagram illustrates the flow for a subset of tools; the table below
 lists every supported home directory.
 
+## Kiro CLI V3 permission posture
+
+The Kiro CLI V3 upgrade rewrites the agent definitions under `~/.kiro/agents`
+with a `permissions` object holding `capability`/`effect` rules, and keeps
+scope policies in YAML files: the user-scope
+`~/.kiro/settings/permissions.yaml` and one
+`~/.kiro/workspace-roots/<hash>/permissions.yaml` per workspace. Because what
+an agent may do is more security-relevant than how many tools it lists, the
+scan summarizes all of it.
+
+Each agent definition carries the same `cdx:agentic:permission*` suffixes that
+the project scan emits under `cdx:agent:permission*`:
+
+- `permissionRuleCount` with per-effect counts (`permissionAllowRuleCount`,
+  `permissionDenyRuleCount`, `permissionAskRuleCount`,
+  `permissionEvaluateRuleCount`),
+- `permissionCapabilities`, the sorted capability names such as `all`,
+  `fs_write`, or `shell`,
+- `permissionAllowsAll` and
+  `permissionUnrestrictedAllowCapabilities`, the posture booleans and tokens
+  for allow rules with no `match` restriction,
+- `permissionPolicyPresets`, the allowlisted policy presets such as
+  `approve-for-me`, and `permissionUnknownPolicyPresetCount`, the number of
+  listed presets outside the allowlist, whose names are not copied,
+- `permissionWorkspaceTrusted` when the summarized document declares it, and
+- `upgradeRevision`, the integer `kiroUpgrade.revision` of the V3 upgrade.
+
+The kiro-cli tool component counts the MCP servers in
+`~/.kiro/settings/mcp.json` in `cdx:agentic:mcpServerCount`, and carries the user-scope posture from
+`~/.kiro/settings/permissions.yaml` plus aggregate workspace counts:
+`workspacePermissionFileCount`, `trustedWorkspaceCount`, and
+`workspaceWithAllowRuleCount`.
+
+The rule `match` and `exclude` patterns, reasons, paths, agent prompts, and
+the `kiroUpgrade` fingerprint and source are never copied. Capability names
+must match a strict lowercase token shape, and policy presets must be on the
+allowlist, so a crafted file cannot smuggle free text into the BOM. The
+hash-named workspace directories are never emitted; only the counts above
+describe them.
+
 ## Supported tools
 
 | Tool               | Home directory scanned                                                                                       |

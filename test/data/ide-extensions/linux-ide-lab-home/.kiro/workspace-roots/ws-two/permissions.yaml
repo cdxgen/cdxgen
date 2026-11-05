@@ -1,0 +1,5 @@
+rules:
+  - capability: shell
+    effect: deny
+    match:
+      - "rm -r*"

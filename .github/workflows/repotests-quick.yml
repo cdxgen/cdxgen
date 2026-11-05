@@ -270,6 +270,20 @@ jobs:
           jq -e 'any(.components[]; .type == "machine-learning-model" and .group == "HuggingFaceH4" and .name == "zephyr-7b-beta" and any((.modelCard.properties // [])[]; .name == "cdx:huggingface:language" and .value == "en") and any((.modelCard.properties // [])[]; .name == "cdx:huggingface:gatedFieldCount" and .value == "1") and .modelCard.modelParameters.inputs[0].format == "text" and .modelCard.modelParameters.outputs[0].format == "text" and any((.modelCard.considerations.environmentalConsiderations.properties // [])[]; .name == "cdx:huggingface:co2EmissionsGrams" and .value == "123.4") and any((.pedigree.ancestors // [])[]; .group == "mistralai"))' bomresults/bom-huggingface-ai-fixture.json
           jq -e 'any(.dependencies[]; .ref == "pkg:huggingface/HuggingFaceH4/zephyr-7b-beta" and any((.dependsOn // [])[]; . == "pkg:huggingface/HuggingFaceH4/ultrachat_200k?repository_url=https:%2F%2Fhuggingface.co%2Fdatasets"))' bomresults/bom-huggingface-ai-fixture.json
         shell: bash
+      - name: repotests kiro v3 ai fixture
+        if: needs.lane.outputs.docs-only != 'true'
+        run: |
+          bin/cdxgen.js -t ai test/data/kiro-v3-project -o bomresults/bom-kiro-v3-fixture.json --include-formulation --fail-on-error
+          jq -e 'any(.components[]; .type == "file" and any((.properties // [])[]; .name == "cdx:file:kind" and .value == "agent-instructions") and any((.properties // [])[]; .name == "cdx:agent:framework" and .value == "kiro"))' bomresults/bom-kiro-v3-fixture.json
+          jq -e 'any(.components[]; .type == "file" and any((.properties // [])[]; .name == "cdx:file:kind" and .value == "agent-spec") and any((.properties // [])[]; .name == "cdx:agent:framework" and .value == "kiro"))' bomresults/bom-kiro-v3-fixture.json
+          jq -e 'any(.components[]; any((.properties // [])[]; .name == "cdx:file:kind" and .value == "agent-definition") and any((.properties // [])[]; .name == "cdx:agent:permissionAllowsAll" and .value == "true") and any((.properties // [])[]; .name == "cdx:agent:permissionRuleCount" and .value == "2") and any((.properties // [])[]; .name == "cdx:agent:upgradeRevision" and .value == "2"))' bomresults/bom-kiro-v3-fixture.json
+          jq -e 'any(.components[]; .type == "file" and any((.properties // [])[]; .name == "cdx:file:kind" and .value == "permission-policy") and any((.properties // [])[]; .name == "cdx:agent:permissionDenyRuleCount" and .value == "1") and any((.properties // [])[]; .name == "cdx:agent:permissionPolicyPresets" and .value == "approve-for-me"))' bomresults/bom-kiro-v3-fixture.json
+          jq -e 'any(.components[]; .type == "file" and any((.properties // [])[]; .name == "cdx:file:kind" and .value == "hook-file") and any((.properties // [])[]; .name == "cdx:agent:credentialExposure" and .value == "true"))' bomresults/bom-kiro-v3-fixture.json
+          jq -e 'any(.components[]; .type == "file" and any((.properties // [])[]; .name == "cdx:file:kind" and .value == "workflow-file"))' bomresults/bom-kiro-v3-fixture.json
+          jq -e 'any(.components[]; .type == "machine-learning-model" and .name == "claude-opus-4.8")' bomresults/bom-kiro-v3-fixture.json
+          jq -e '[.components[] | select(.name == "field. Run")] | length == 0' bomresults/bom-kiro-v3-fixture.json
+          jq -e 'all(.components[]?; all((.properties // [])[]?; ((.value // "") | contains("fixturecanary") or contains("fixture-fingerprint") or contains("Review the diff carefully")) | not))' bomresults/bom-kiro-v3-fixture.json
+        shell: bash
       - name: repotests angular analyzer fixtures
         if: needs.lane.outputs.docs-only != 'true'
         run: |

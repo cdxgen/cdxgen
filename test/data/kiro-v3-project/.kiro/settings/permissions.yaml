@@ -1,0 +1,12 @@
+# User-scope permission posture of the fixture. The match patterns and the
+# canary below must never reach the emitted BOM.
+policies:
+  - approve-for-me
+rules:
+  - capability: shell
+    effect: allow
+  - capability: fs_write
+    effect: deny
+    match:
+      - "**/.ssh/**"
+      - "sk_fixturecanary01"

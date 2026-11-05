@@ -1,0 +1,6 @@
+{
+  "name": "kiro-v3-project",
+  "version": "1.0.0",
+  "description": "Kiro CLI V3 project layout fixture for the AI inventory (issue #4712)",
+  "private": true
+}

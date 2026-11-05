@@ -1,0 +1,9 @@
+policies:
+  - approve-for-me
+rules:
+  - capability: shell
+    effect: allow
+  - capability: fs_write
+    effect: deny
+    match:
+      - "**/.env"
