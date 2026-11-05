@@ -1,0 +1,31 @@
+docs/AI_BOM.md
+  s_24bc1ad9867f27::t_b2552745aab6c8 108-112
+  s_24bc1ad9867f27::t_5019258d04ea24 25-60
+docs/PROJECT_TYPES.md
+  s_24bc1ad9867f27::t_1ad76f319d84d1 18-19
+docs/AGENTIC_INVENTORY.md
+  s_24bc1ad9867f27::t_2c8cced200f7da 63-100
+lib/parsers/kiroPermissions.js
+  s_24bc1ad9867f27::t_41535f616ae66c 141-145
+docs/CUSTOM_PROPERTIES.md
+  s_24bc1ad9867f27::t_854c2aa2b48778 132
+  s_24bc1ad9867f27::t_b4eb1c516acc70 135
+  s_24bc1ad9867f27::t_8fdf5d75297984 246-259
+  s_24bc1ad9867f27::t_bb487ed8c3d660 1704,1706,1708,1717-1719,1722,1726-1735,1739,1741
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "a17724770496298195d183e20ff28ea44dfd966b",
+  "prompts": {},
+  "sessions": {
+    "s_24bc1ad9867f27": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_219ec7a2-faaa-4518-ad18-885ebf2f670f",
+        "model": "GLM-5.3-Flash"
+      },
+      "human_author": "Team AppThreat <cloud@appthreat.com>"
+    }
+  }
+}
