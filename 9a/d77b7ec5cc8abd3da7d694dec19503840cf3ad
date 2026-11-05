@@ -1,0 +1,21 @@
+types/lib/parsers/kiroPermissions.d.ts
+  s_24bc1ad9867f27::t_f667c4065757a2 1-60
+types/lib/parsers/kiroPermissions.d.ts.map
+  s_24bc1ad9867f27::t_1dea0fe66ad19b 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "9ad77b7ec5cc8abd3da7d694dec19503840cf3ad",
+  "prompts": {},
+  "sessions": {
+    "s_24bc1ad9867f27": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_219ec7a2-faaa-4518-ad18-885ebf2f670f",
+        "model": "GLM-5.3-Flash"
+      },
+      "human_author": "Team AppThreat <cloud@appthreat.com>"
+    }
+  }
+}
