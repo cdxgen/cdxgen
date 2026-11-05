@@ -1,0 +1,19 @@
+lib/ecosystems/parsers-rust.js
+  s_9452a625b7020e::t_37ac9727b9338b 509-529,533-534,537-548,552-557,782-787,794-796
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "456da1667e440100d361f677b904367610069ab0",
+  "prompts": {},
+  "sessions": {
+    "s_9452a625b7020e": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_8885fbac-82ed-4e3a-8e68-8a24ba52d2d8",
+        "model": "GLM-5.3"
+      },
+      "human_author": "Team AppThreat <cloud@appthreat.com>"
+    }
+  }
+}
