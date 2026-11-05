@@ -22,6 +22,42 @@ cdxgen can already emit AI-related evidence in standard CycloneDX documents, inc
 - MCP configs, discovered MCP services, MCP Registry `server.json` manifests, and
   MCPB/DXT bundles
 
+### Kiro project artifacts
+
+`-t ai` inventories the project-level artifacts of Kiro CLI V3 under `.kiro/`,
+alongside the same coverage that `.cursor/rules` and friends get:
+
+| Files                                          | Component                                                                                        |
+| ---------------------------------------------- | ------------------------------------------------------------------------------------------------ |
+| `.kiro/steering/**/*.md`                       | `file` component with `cdx:file:kind=agent-instructions`                                         |
+| `.kiro/specs/**/*.md`                          | `file` component with `cdx:file:kind=agent-spec`                                                 |
+| `.kiro/skills/*/SKILL.md`                      | skill-file component, modeled like the other Agent Skills                                        |
+| `.kiro/agents/*.json`                          | `agent-definition` component with the model, MCP server/tool counts, permission posture, and upgrade revision |
+| `.kiro/agents/*.md`                            | `agent-definition` component from the frontmatter                                                |
+| `.kiro/settings/permissions.yaml`              | `permission-policy` component with the summarized rule counts and capability names                |
+| `.kiro/settings/cli.json`                      | `settings` component with the default agent and a boolean feature-flag count                      |
+| `.kiro/hooks/*.{json,sh,bash,zsh,ps1}`         | `hook-file` component; JSON manifests add allowlisted lifecycle events, action types, and a count |
+| `.kiro/workflows/*.{yaml,yml,json}`            | `workflow-file` component                                                                        |
+
+The permission posture uses the same suffixes as the host scan, under the
+`cdx:agent:` namespace: rule counts per effect, capability names, the
+unrestricted-allow booleans, the allowlisted policy presets, and the integer
+`kiroUpgrade` revision of an agent. Match patterns, excludes, prompts,
+resource values, tool settings, fingerprints, hook commands, and workflow
+contents are never copied. A planted credential in a hook script still sets
+`cdx:agent:credentialExposure=true` through the indicator labels, never
+through its content.
+
+Repositories that keep this content outside `.kiro`, such as
+aws-samples/sample-kiro-cli-multiagent-development, are covered too, but not
+by a bare `steering/*.md` glob, which would fire on every documentation
+repository. A directory counts as a Kiro configuration root only when its
+`settings/permissions.yaml` holds rules with `capability` and `effect`, or its
+`settings/cli.json` carries a `chat.`-prefixed key. Only a validated root
+contributes its `steering/*.md`, `settings/cli.json`,
+`settings/permissions.yaml`, and `hooks/*.json`; a plain documentation
+`steering/` folder yields nothing.
+
 For Hugging Face model repositories, cdxgen uses Hugging Face Package-URL `pkg:huggingface/<namespace>/<name>@<revision>` identifiers when a compliant model repository reference is available.
 
 When model cards reference Hugging Face datasets, cdxgen also keeps those dataset links stable by emitting reusable dataset component references with explicit Hugging Face purls alongside inline dataset summaries where appropriate.
@@ -68,6 +104,11 @@ The accepted project-type aliases for this mode are:
 - `ai`
 - `aibom`
 - `ai-bom`
+
+An AI-BOM scan also collects the agent-configuration overlay that `-t ai-skill`
+models: instruction files, skills, community agent configurations, and the Kiro
+project artifacts described above. Pass `--exclude-type ai-skill` to keep only
+the models, services, and prompt-config artifacts.
 
 Use `aibom <input>` when you want the dedicated AI-oriented defaults for a single scan. Use `cdxgen -t ai ...` when you want to combine AI inventory with other `cdxgen` project types or flags explicitly.
 
