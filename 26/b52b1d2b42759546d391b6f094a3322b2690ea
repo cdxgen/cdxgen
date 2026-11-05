@@ -1,0 +1,43 @@
+lib/inventory/envcontext.poku.js
+  s_eb2ee840fedd62::t_dfe3ccc1e11e20 303-378
+docs/CUSTOM_PROPERTIES.md
+  s_eb2ee840fedd62::t_34cd29bd7dd736 2465
+lib/inventory/dotnetRuntime.js
+  s_eb2ee840fedd62::t_39ef05b1eb100d 274-276
+  s_eb2ee840fedd62::t_1acd52b5a371e8 283-284
+  s_eb2ee840fedd62::t_83cb1c80de2043 41-46
+  s_eb2ee840fedd62::t_50754f2499570e 101,165-167,180-184,200-273,277-282
+  s_eb2ee840fedd62::t_c8dd7b2c41d8ee 102-127,130-134,145,147-151,153-155,157
+lib/inventory/dotnetRuntime.poku.js
+  s_eb2ee840fedd62::t_39ef05b1eb100d 150-153,161-164,215,227,266,332-337,408-410
+  s_eb2ee840fedd62::t_328cae003debe6 59-69
+  s_eb2ee840fedd62::t_2f7e0d5f7aca3b 112-149,154-160,165-176
+  s_eb2ee840fedd62::t_68f2efb940845d 177,179-214,216-226,228-265,267-331,338-407,411-459
+  s_eb2ee840fedd62::t_36afaf39037178 7,15,18,20
+  s_eb2ee840fedd62::t_2b6ea08a4dc8c8 178
+docs/ADVANCED.md
+  s_eb2ee840fedd62::t_c436cda776937e 1061-1062
+lib/inventory/envcontext.js
+  s_eb2ee840fedd62::t_54eedc782faa56 525
+  s_eb2ee840fedd62::t_89f85392b3c32b 50-53
+  s_eb2ee840fedd62::t_ece418d00a361e 463-472,485,487-501
+  s_eb2ee840fedd62::t_213156820599b3 612
+  s_eb2ee840fedd62::t_a841906c90f585 415-429,449
+  s_eb2ee840fedd62::t_6cfca38a491726 414
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "26b52b1d2b42759546d391b6f094a3322b2690ea",
+  "prompts": {},
+  "sessions": {
+    "s_eb2ee840fedd62": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_6ab65ef5-801d-4317-a82a-00f9ca712216",
+        "model": "GLM-5.3-Flash"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
