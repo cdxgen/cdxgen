@@ -31,6 +31,7 @@
  *   unrestrictedAllowCapabilities: string[],
  *   workspaceTrusted: boolean|undefined,
  *   policyPresets: string[],
+ *   unknownPolicyPresetCount: number,
  * }} Permission posture summary
  */
 export declare function summarizeKiroPermissions(rulesOrDoc: Object | any[] | undefined): {
@@ -44,6 +45,7 @@ export declare function summarizeKiroPermissions(rulesOrDoc: Object | any[] | un
     unrestrictedAllowCapabilities: string[];
     workspaceTrusted: boolean | undefined;
     policyPresets: string[];
+    unknownPolicyPresetCount: number;
 };
 /**
  * Flatten a permission summary into property suffix/value pairs.

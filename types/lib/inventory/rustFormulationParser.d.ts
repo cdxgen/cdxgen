@@ -5,12 +5,17 @@
  * formulation components carrying build-tool, build-script capability, native
  * build dependency, and maturin metadata properties.
  *
- * @type {{id: string, patterns: string[], parse(files: string[]): {components: Object[]}}}
+ * Components record the manifest path relative to context.rootDir, the
+ * scanned project root.
+ *
+ * @type {{id: string, patterns: string[], parse(files: string[], options?: Object, context?: {rootDir?: string}): {components: Object[]}}}
  */
 export declare const rustFormulationParser: {
     id: string;
     patterns: string[];
-    parse(files: string[]): {
+    parse(files: string[], options?: Object, context?: {
+        rootDir?: string;
+    }): {
         components: Object[];
     };
 };
