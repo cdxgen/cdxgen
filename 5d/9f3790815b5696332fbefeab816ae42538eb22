@@ -1,0 +1,20 @@
+.github/workflows/java-reachables-test.yml
+  h_6a4cc5cdf68def 31
+.github/workflows/nodejs.yml
+  h_6a4cc5cdf68def 162,217,339
+.github/workflows/python-atom-tests.yml
+  h_6a4cc5cdf68def 29
+.github/workflows/repotests.yml
+  h_6a4cc5cdf68def 89,1610,1654,2393
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "5d9f3790815b5696332fbefeab816ae42538eb22",
+  "prompts": {},
+  "humans": {
+    "h_6a4cc5cdf68def": {
+      "author": "Team AppThreat <cloud@appthreat.com>"
+    }
+  }
+}
