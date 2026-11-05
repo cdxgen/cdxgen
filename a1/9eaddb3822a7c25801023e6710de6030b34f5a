@@ -1,0 +1,32 @@
+lib/parsers/kiroPermissions.js
+  s_24bc1ad9867f27::t_abf88cb74a2ee6 116-121,123-125,127-129,133,136,138-142,144-146
+  s_24bc1ad9867f27::t_1025393f3ea838 122,126,130-132,134-135,137,143
+lib/helpers/agenticToolutils.poku.js
+  s_24bc1ad9867f27::t_2dee21bc087dd6 154-170,174-176,204-211,216-219,224-230,235-274
+  s_24bc1ad9867f27::t_15e7776ee4bb18 90-95,99-104,108,212-215,220-223,231-234
+  s_24bc1ad9867f27::t_c8f2e3f07fe7f0 48-58,70-89,96-98,105-107,109
+lib/helpers/agenticToolutils.js
+  s_24bc1ad9867f27::t_87f485022c172e 1123-1125,1127-1130
+  s_24bc1ad9867f27::t_6bd735740e6fc1 369-403
+  s_24bc1ad9867f27::t_9cc2b6faef1ade 13-16
+  s_24bc1ad9867f27::t_a08466cd50f4cf 368,599-650,673,676,684-685
+  s_24bc1ad9867f27::t_023a0cb72a357f 674-675,677-683
+  s_24bc1ad9867f27::t_05cabd3bdd8ff5 1062-1065,1121-1122,1126,1131-1136,1138
+  s_24bc1ad9867f27::t_24bdb43d67ebbc 1137
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "a19eaddb3822a7c25801023e6710de6030b34f5a",
+  "prompts": {},
+  "sessions": {
+    "s_24bc1ad9867f27": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_219ec7a2-faaa-4518-ad18-885ebf2f670f",
+        "model": "GLM-5.3-Flash"
+      },
+      "human_author": "Team AppThreat <cloud@appthreat.com>"
+    }
+  }
+}
