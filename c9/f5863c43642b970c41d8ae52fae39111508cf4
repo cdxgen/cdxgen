@@ -1,0 +1,75 @@
+lib/stages/postgen/postgen.js
+  s_9452a625b7020e::t_d7cb862d6579a3 635-642
+lib/inventory/cyclonedx20.js
+  s_9452a625b7020e::t_954f2bfa131215 735-761,1716-1731
+lib/evinser/evinser.js
+  s_9452a625b7020e::t_2c47907bd3e695 20,75
+  s_9452a625b7020e::t_8a4bf4ad838afb 3030-3042
+docs/CUSTOM_PROPERTIES.md
+  s_9452a625b7020e::t_6ff0f3f99f81be 142,1441-1443
+types/lib/audit/index.d.ts
+  s_9452a625b7020e::t_d34c1a3cf0b5da 4-8,11
+lib/audit/index.js
+  s_9452a625b7020e::t_7d80e4f4f5ef49 126-130,133,146-155
+  s_9452a625b7020e::t_9b7a9a86077438 33
+lib/inventory/cyclonedx20Readers.poku.js
+  s_9452a625b7020e::t_9d932186490683 58,61
+  s_9452a625b7020e::t_cf01c39079829f 1,3,6-10,12-15,17-45,47-57,59-60,62-158,162-220,229-230,239-299,310-354,356-455,459-465
+  s_9452a625b7020e::t_2c47907bd3e695 11,159-161,300-309,355,456-458
+  s_9452a625b7020e::t_3c3865d38641c7 2,4-5,16
+  s_9452a625b7020e::t_b3616b0bfaa0c6 46
+  s_9452a625b7020e::t_f527ec5d36f35b 221-228
+  s_9452a625b7020e::t_256bd2635bea90 231-238
+lib/stages/postgen/specVersionCompat.js
+  s_9452a625b7020e::t_c11f1226502daa 30
+  s_9452a625b7020e::t_8278f7cb82e85a 119-121
+  s_9452a625b7020e::t_336f4744893ba2 125-129
+flowsummary-4985724bf2a019d34845be93d0dafc822b6140081fddd4fd875099f01f39bfb9.json
+  s_9452a625b7020e::t_2c47907bd3e695 1
+bin/convert.js
+  s_9452a625b7020e::t_be0597b3d7f959 27,224-226
+  s_9452a625b7020e::t_dff88f29cd9a2f 202-215,217-223,227-234
+  s_9452a625b7020e::t_36a036785f57b7 28-30
+  s_9452a625b7020e::t_89d4e4ba85afb6 71-76
+  s_9452a625b7020e::t_b84f69eac515f8 141-162,165,167,172
+  s_9452a625b7020e::t_f3d0d580bcb166 26
+bin/evinse.js
+  s_9452a625b7020e::t_053bcded881b21 367-372,377-382
+  s_9452a625b7020e::t_b3c11a44b09796 19
+  s_9452a625b7020e::t_2c47907bd3e695 373-376
+bin/repl.js
+  s_9452a625b7020e::t_2c47907bd3e695 21
+  s_9452a625b7020e::t_fb50eac7460e69 430-439
+bin/tracebom.js
+  s_9452a625b7020e::t_b4643b0242130c 16-20
+  s_9452a625b7020e::t_47f7f93ccde783 346-347,349-353
+  s_9452a625b7020e::t_2c47907bd3e695 355-359
+types/bin/repl.d.ts.map
+  s_9452a625b7020e::t_e5dce7b0a28a90 1
+types/lib/audit/index.d.ts.map
+  s_9452a625b7020e::t_26b012c42e6c98 1
+types/lib/evinser/evinser.d.ts.map
+  s_9452a625b7020e::t_89745d74e1c4f5 1
+types/lib/inventory/cyclonedx20.d.ts.map
+  s_9452a625b7020e::t_f69b2bad6f53c0 1
+types/lib/stages/postgen/postgen.d.ts.map
+  s_9452a625b7020e::t_2a649c0a9031f0 1
+types/lib/stages/postgen/specVersionCompat.d.ts.map
+  s_9452a625b7020e::t_edd356554406f2 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "c9f5863c43642b970c41d8ae52fae39111508cf4",
+  "prompts": {},
+  "sessions": {
+    "s_9452a625b7020e": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_8885fbac-82ed-4e3a-8e68-8a24ba52d2d8",
+        "model": "GLM-5.3"
+      },
+      "human_author": "Team AppThreat <cloud@appthreat.com>"
+    }
+  }
+}
