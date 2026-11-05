@@ -13,4 +13,5 @@ either = "=1.0"
 prerel = "=1.0.0-beta.2"
 memchr = { git = "https://github.com/BurntSushi/memchr", version = "2" }
 local = { path = "local", version = "0.2" }
+localnover = { path = "local-nover" }
 gitonly = { git = "https://github.com/acme/gitonly.git" }
