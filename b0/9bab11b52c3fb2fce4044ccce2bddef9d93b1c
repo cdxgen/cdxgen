@@ -1,0 +1,21 @@
+types/lib/inventory/dotnetRuntime.d.ts
+  s_ed9e49264ff325::t_b31bab51509147 14-24
+types/lib/inventory/dotnetRuntime.d.ts.map
+  s_ed9e49264ff325::t_9679650d0fd6f0 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "b09bab11b52c3fb2fce4044ccce2bddef9d93b1c",
+  "prompts": {},
+  "sessions": {
+    "s_ed9e49264ff325": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "fa5a2032-8e86-462a-af92-9ae295ed3d8b",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
