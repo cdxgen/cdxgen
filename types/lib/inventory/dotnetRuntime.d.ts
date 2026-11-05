@@ -11,12 +11,17 @@ export declare function runtimePackFromDepsJson(depsJson: Object, framework: str
     rid: string;
 } | undefined;
 /**
- * The CPE NVD uses for a shared framework version: `.net` from 5.0 on,
- * `.net_core` before it, and `asp.net_core` for ASP.NET Core. A pre-release
- * goes in the update field: a release candidate is `rc<N>` for every product,
- * a preview is `preview.<N>` for `.net` and `preview<N>` for the other two,
- * and a pre-release of any other kind names no version NVD has, so the version
- * gets no CPE at all.
+ * The CPE NVD uses for a shared framework version, with the version and update
+ * fields spelled the way the NVD CPE dictionary spells them.
+ *
+ * The product is `.net` from 5.0 on, `.net_core` before it, and `asp.net_core`
+ * for ASP.NET Core. NVD names a .NET Core x.y.0 release and its pre-releases
+ * with two version parts (`.net_core:3.1`, `.net_core:3.0:preview9`), and the
+ * .NET 5.0 pre-releases the same way (`.net:5.0:rc1`); every other version
+ * keeps three. A release candidate is `rc<N>`, and a preview is
+ * `preview.<N>` for .NET 7, 8 and 10 and `preview<N>` otherwise. A release
+ * keeps the `*` update, which is the only one NVD lists for some releases. A
+ * pre-release of any other kind names no version NVD has, so it gets no CPE.
  *
  * @param {string} framework framework directory name
  * @param {string} version runtime version
