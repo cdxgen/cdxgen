@@ -1,0 +1,23 @@
+lib/inventory/aiCollector.js
+  s_24bc1ad9867f27::t_839a04de14259d 1788-1810,1828-1831
+  s_24bc1ad9867f27::t_e36a99c334b4a1 1854-1860
+lib/inventory/aiCollector.poku.js
+  s_24bc1ad9867f27::t_827f8008e6ce72 1344
+  s_24bc1ad9867f27::t_6bc7bf1f4e5872 1310-1343,1345-1367
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "243b42f980c2a0960bc1856fc0b8f6fbd94d5be0",
+  "prompts": {},
+  "sessions": {
+    "s_24bc1ad9867f27": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_219ec7a2-faaa-4518-ad18-885ebf2f670f",
+        "model": "GLM-5.3-Flash"
+      },
+      "human_author": "Team AppThreat <cloud@appthreat.com>"
+    }
+  }
+}
