@@ -94,6 +94,13 @@ A `cdxgen --evidence` run without `-t` picks the language from the project: Scal
 
 The default mode. It records where dependencies appear in the codebase.
 
+Each occurrence has a `location`, written with `/` on every platform, and a `line` where the source
+names one. An occurrence that comes from atom's `callsites` slice is one use site: it also carries
+`offset`, the column of the use counted from 0, and `symbol`, the module and the member path joined
+with `.` (`@nebular/theme.NbThemeModule`). Two uses on one line are two occurrences, and a
+line-only occurrence from another source is dropped when a use site on the same line is recorded.
+Running `evinse` again over its own output gives the same occurrences.
+
 ### Reachability evidence
 
 Use `--with-reachables` when you need entry-point-to-sink style reachability signals. This is often the best trade-off for AppSec triage.

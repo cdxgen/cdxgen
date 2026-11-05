@@ -147,15 +147,18 @@ export declare function purlToLanguage(purl: string, filePath?: string): string 
  * Walks the supplied components reading `internal:ImportedModules` (or
  * `internal:Namespaces` for php/ruby, plus the `internal:ImportedSymbols` the
  * C/C++ collector records) and `evidence.occurrences` properties to construct
- * lookup maps used during slice analysis.
+ * lookup maps used during slice analysis. An occurrence that carries `offset`
+ * or `symbol` seeds those too, so a re-run over a previous evinse output keys
+ * and annotates the same use sites the fresh slice adds.
  *
  * @param {Object[]} components CycloneDX components from the input SBOM
  * @param {string} language Application language used to select the import property name
- * @returns {{ purlLocationMap: Object<string, Set>, purlImportsMap: Object<string, string[]> }} Seeded purl location and import maps
+ * @returns {{ purlLocationMap: Object<string, Set>, purlImportsMap: Object<string, string[]>, purlSymbolMap: Object<string, Object<string, string>> }} Seeded purl location, import and symbol maps
  */
 export declare function initFromSbom(components: Object[], language: string): {
     purlLocationMap: Record<string, Set<any>>;
     purlImportsMap: Record<string, string[]>;
+    purlSymbolMap: Record<string, Record<string, string>>;
 };
 /**
  * Load a semantics slices file for reuse when it belongs to this project.
@@ -223,6 +226,7 @@ export declare function analyzeProject(dbObjMap: Object, options: Object): Promi
     servicesMap: {};
     dataFlowFrames: {};
     userDefinedTypesMap: {};
+    purlSymbolMap: Record<string, Record<string, string>>;
     componentPropertiesMap?: undefined;
     metadataProperties?: undefined;
     workspaceComponent?: undefined;
@@ -246,6 +250,7 @@ export declare function analyzeProject(dbObjMap: Object, options: Object): Promi
     cryptoGeneratePurls: any;
     servicesMap: {};
     userDefinedTypesMap: {};
+    purlSymbolMap: Record<string, Record<string, string>>;
     workspaceComponent?: undefined;
     atomFile?: undefined;
     usagesSlicesFile?: undefined;
@@ -266,6 +271,7 @@ export declare function analyzeProject(dbObjMap: Object, options: Object): Promi
     servicesMap: {};
     userDefinedTypesMap: {};
     workspaceComponent: Object | undefined;
+    purlSymbolMap: Record<string, Record<string, string>>;
     atomFile?: undefined;
     usagesSlicesFile?: undefined;
     dataFlowSlicesFile?: undefined;
@@ -291,6 +297,7 @@ export declare function analyzeProject(dbObjMap: Object, options: Object): Promi
     cryptoComponents: any[];
     aiComponents: any[];
     cryptoGeneratePurls: {};
+    purlSymbolMap: Record<string, Record<string, string>>;
     atomFile?: undefined;
     reachablesSlicesFile?: undefined;
     openapiSpecFile?: undefined;
@@ -304,6 +311,7 @@ export declare function analyzeProject(dbObjMap: Object, options: Object): Promi
     reachablesSlicesFile: any;
     semanticsSlicesFile: any;
     purlLocationMap: Record<string, Set<any>>;
+    purlSymbolMap: Record<string, Record<string, string>>;
     servicesMap: {};
     dataFlowFrames: {};
     tempDir: any;
@@ -573,12 +581,17 @@ export declare function attributeJsModules(ausage: Object, fileName: string, pur
  * Attribute a callsites slice's records to the packages providing their modules.
  *
  * Each record of `{"callsites": [...]}` (atom `callsites` command) is one external use site
- * carrying its own file and line; the record is an occurrence of every purl whose package
- * matches the record's module.
+ * carrying its own file, line and column; the record is an occurrence of every purl whose
+ * package matches the record's module. A record with a column (0 or more; atom writes -1 for
+ * none) is keyed `file:line:col`, so two use sites on one line are two occurrences, and its
+ * occurrence carries the column as `offset` and `module` joined with `path` by `.` as
+ * `symbol`. A record without a column keys the line (`file#line`) and its occurrence carries
+ * the `symbol` alone; a record without a `path` leaves the symbol at the bare `module`.
  *
  * @param {Object} callsitesSlice callsites slice with a `callsites` array
  * @param {Object} purlImportsMap purl -> imported modules and symbols
- * @param {Object} purlLocationMap purl -> Set of `file#line`
+ * @param {Object} purlLocationMap purl -> Set of occurrence keys
+ * @param {Object} [purlSymbolMap] purl -> occurrence key -> symbol, filled in place
  */
-export declare function attributeJsCallsites(callsitesSlice: Object, purlImportsMap: Object, purlLocationMap: Object): void;
+export declare function attributeJsCallsites(callsitesSlice: Object, purlImportsMap: Object, purlLocationMap: Object, purlSymbolMap?: Object): void;
 //# sourceMappingURL=evinser.d.ts.map
