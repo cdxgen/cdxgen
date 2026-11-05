@@ -1,0 +1,16 @@
+docs/AI_BOM.md
+  h_6a4cc5cdf68def 108-113
+docs/CUSTOM_PROPERTIES.md
+  h_6a4cc5cdf68def 252-253
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "f21bd1c815adfafd257eb858b50dd6af69b420a5",
+  "prompts": {},
+  "humans": {
+    "h_6a4cc5cdf68def": {
+      "author": "Team AppThreat <cloud@appthreat.com>"
+    }
+  }
+}
