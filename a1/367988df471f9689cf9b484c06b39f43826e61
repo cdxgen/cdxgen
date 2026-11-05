@@ -1,0 +1,23 @@
+lib/parsers/kiroPermissions.poku.js
+  s_24bc1ad9867f27::t_70e86b6dd3cbfa 77-80
+  s_24bc1ad9867f27::t_fceb35e4e41843 1-76,81-143
+lib/parsers/kiroPermissions.js
+  s_24bc1ad9867f27::t_622da277111d74 1-85,87-115
+  s_24bc1ad9867f27::t_70e86b6dd3cbfa 86
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "a1367988df471f9689cf9b484c06b39f43826e61",
+  "prompts": {},
+  "sessions": {
+    "s_24bc1ad9867f27": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_219ec7a2-faaa-4518-ad18-885ebf2f670f",
+        "model": "GLM-5.3-Flash"
+      },
+      "human_author": "Team AppThreat <cloud@appthreat.com>"
+    }
+  }
+}
