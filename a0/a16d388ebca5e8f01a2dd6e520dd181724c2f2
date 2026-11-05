@@ -1,0 +1,28 @@
+types/lib/cli/bomAssembly.d.ts
+  s_24bc1ad9867f27::t_f667c4065757a2 187-188,190,192-195,197,200
+types/lib/inventory/rustFormulationParser.d.ts
+  s_24bc1ad9867f27::t_f667c4065757a2 8-11,16-18
+types/lib/inventory/aiProviders.d.ts
+  s_24bc1ad9867f27::t_f667c4065757a2 2-5,7,9-77,79-80,82-84
+types/lib/inventory/ecosystemFormulationParsers.d.ts
+  s_24bc1ad9867f27::t_f667c4065757a2 4-13,17,22-24,32,37-39,46,51-53,62,67-69
+  s_24bc1ad9867f27::t_bdaa744cfd7141 3
+types/lib/ecosystems/pythonutils.d.ts
+  s_24bc1ad9867f27::t_f667c4065757a2 117
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "a0a16d388ebca5e8f01a2dd6e520dd181724c2f2",
+  "prompts": {},
+  "sessions": {
+    "s_24bc1ad9867f27": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_219ec7a2-faaa-4518-ad18-885ebf2f670f",
+        "model": "GLM-5.3-Flash"
+      },
+      "human_author": "Team AppThreat <cloud@appthreat.com>"
+    }
+  }
+}
