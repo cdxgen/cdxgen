@@ -1,0 +1,36 @@
+lib/stages/postgen/specVersionCompat.js
+  s_9452a625b7020e::t_b5b2e4bb13e368 679-683
+lib/inventory/cyclonedx20.js
+  s_9452a625b7020e::t_7ae99df8953535 1824-1827
+  s_9452a625b7020e::t_3ddf7255cf4f35 868,870,874
+  s_9452a625b7020e::t_d7f508dd358da1 401-403,457-477,867,869,873,875-884,1830
+  s_9452a625b7020e::t_b5b2e4bb13e368 428-434,1831-1835
+  s_9452a625b7020e::t_45bf381c279991 1828-1829
+docs/CUSTOM_PROPERTIES.md
+  s_9452a625b7020e::t_fccf1e77fec454 143
+lib/inventory/cyclonedx20.poku.js
+  s_9452a625b7020e::t_996762f162fd14 325-326,334-340,342-405,409-434,440-447,451-456,464-469,472-479
+  s_9452a625b7020e::t_07651e49cd4660 408,450
+  s_9452a625b7020e::t_a4744a5e93bf5c 327-333,341,406-407,435-439,448-449,457-463,470-471
+  s_9452a625b7020e::t_14c523e49fccb0 682
+types/lib/inventory/cyclonedx20.d.ts.map
+  s_9452a625b7020e::t_5365252c8ba5ff 1
+types/lib/stages/postgen/specVersionCompat.d.ts.map
+  s_9452a625b7020e::t_7f93e5581e47dc 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "3bf5aed8178c12024e7daedc71daa794dc9700b3",
+  "prompts": {},
+  "sessions": {
+    "s_9452a625b7020e": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_8885fbac-82ed-4e3a-8e68-8a24ba52d2d8",
+        "model": "GLM-5.3"
+      },
+      "human_author": "Team AppThreat <cloud@appthreat.com>"
+    }
+  }
+}
