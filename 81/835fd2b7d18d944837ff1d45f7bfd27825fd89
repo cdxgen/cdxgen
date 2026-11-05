@@ -1,0 +1,20 @@
+docs/AGENTIC_INVENTORY.md
+  h_6a4cc5cdf68def 85-86,90-91
+docs/CUSTOM_PROPERTIES.md
+  h_6a4cc5cdf68def 255,1735
+lib/parsers/kiroPermissions.js
+  h_6a4cc5cdf68def 64,96-97,99-106,116,158-161
+lib/parsers/kiroPermissions.poku.js
+  h_6a4cc5cdf68def 62-68
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "81835fd2b7d18d944837ff1d45f7bfd27825fd89",
+  "prompts": {},
+  "humans": {
+    "h_6a4cc5cdf68def": {
+      "author": "Team AppThreat <cloud@appthreat.com>"
+    }
+  }
+}
