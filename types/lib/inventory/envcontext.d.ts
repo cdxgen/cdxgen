@@ -102,6 +102,12 @@ export declare function collectJavaInfo(dir: string): {
 /**
  * Collect dotnet version
  *
+ * `version` is the version `dotnet --version` prints, which is the SDK's. .NET
+ * advisories name runtime versions, so the component itself carries no purl
+ * and no CPE. Each shared framework `dotnet --list-runtimes` reports is a
+ * nested component built by createHostDotnetRuntimeComponent, without a
+ * bom-ref like the other toolchains.
+ *
  * @param {string} dir Working directory
  * @returns Object containing dotnet details
  */
