@@ -82,11 +82,13 @@ the project scan emits under `cdx:agent:permission*`:
   `permissionUnrestrictedAllowCapabilities`, the posture booleans and tokens
   for allow rules with no `match` restriction,
 - `permissionPolicyPresets`, the allowlisted policy presets such as
-  `approve-for-me`,
+  `approve-for-me`, and `permissionUnknownPolicyPresetCount`, the number of
+  listed presets outside the allowlist, whose names are not copied,
 - `permissionWorkspaceTrusted` when the summarized document declares it, and
 - `upgradeRevision`, the integer `kiroUpgrade.revision` of the V3 upgrade.
 
-The kiro-cli tool component carries the user-scope posture from
+The kiro-cli tool component counts the MCP servers in
+`~/.kiro/settings/mcp.json` in `cdx:agentic:mcpServerCount`, and carries the user-scope posture from
 `~/.kiro/settings/permissions.yaml` plus aggregate workspace counts:
 `workspacePermissionFileCount`, `trustedWorkspaceCount`, and
 `workspaceWithAllowRuleCount`.
