@@ -19,6 +19,10 @@ export declare function safeIsExecutableSync(filePath: string): boolean;
  * Permission- and dry-run-aware wrapper around writeFileSync. Records the
  * activity and returns undefined when blocked.
  *
+ * The last component of the path is never followed when it is a symbolic
+ * link: the link is replaced with a regular file. Paths under /dev and /proc,
+ * such as /dev/stdout, are written through as given.
+ *
  * @param {string} filePath File path to write.
  * @param {string|Buffer} data Data to write.
  * @param {Object} [options] writeFileSync options (encoding, mode, flag).

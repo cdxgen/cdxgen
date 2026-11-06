@@ -10,7 +10,22 @@ export declare const SUPPORTED_PURL_SOURCE_TYPES: string[];
  */
 export declare function isSafeGitRefName(refName: string | undefined): boolean;
 /**
+ * Determine whether git must refuse HTTP redirects. A git host allowlist is
+ * checked against the URL cdxgen is given, and git would otherwise follow
+ * the server's redirect on its first request to a host the allowlist never
+ * saw. Secure mode refuses redirects in the HTTP client too.
+ *
+ * @returns {boolean} true when a git host allowlist or secure mode applies
+ */
+export declare function gitRedirectsRefused(): boolean;
+/**
  * Execute git with hardened defaults.
+ *
+ * Every call runs with command-scope settings that keep the repository from
+ * running fsmonitor hooks or being opened as a bare repository. While a git
+ * host allowlist or secure mode applies, git also refuses HTTP redirects, so
+ * an allowed host cannot send a clone or ls-remote to a host the allowlist
+ * does not name.
  *
  * @param {string[]} args git arguments
  * @param {Object} options command options

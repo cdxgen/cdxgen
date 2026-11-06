@@ -181,6 +181,16 @@ export declare const PROJECT_TYPE_ALIASES: {
     dynamic: string[];
     "ai-provenance": string[];
 };
+/**
+ * Project types, with their aliases, that inventory the host cdxgen runs on
+ * rather than the scan path: installed packages, users, shell history, IDE
+ * and browser extensions, or the Maven, Gradle, sbt, Cargo and Helm caches in
+ * the user's home directory. Only the operator may select them; neither a
+ * server request nor a config file in the scanned directory can.
+ *
+ * @type {Set<string>}
+ */
+export declare const HOST_SCOPE_PROJECT_TYPES: Set<string>;
 /** Map of base package manager to the array of accepted alias strings. */
 export declare const PACKAGE_MANAGER_ALIASES: {
     scala: string[];
