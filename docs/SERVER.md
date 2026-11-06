@@ -148,6 +148,8 @@ cdxgen checks a Git URL against the host that git itself will connect to, not on
 
 To prevent SSRF and ensure the server only clones repositories from trusted sources, configure an allowlist of hostnames using `CDXGEN_GIT_ALLOWED_HOSTS` (preferred) or `CDXGEN_SERVER_ALLOWED_HOSTS` (server-mode alias).
 
+While an allowlist is set, git does not follow HTTP redirects, so an allowed host cannot send a clone to a host the list does not name. A repository that has been renamed or moved, which GitHub and GitLab serve through a redirect, has to be requested by its current URL.
+
 ```shell
 export CDXGEN_GIT_ALLOWED_HOSTS="github.com,gitlab.com"
 cdxgen --server
@@ -171,7 +173,7 @@ Some options make a scan install packages or run the scanned project's own build
 The server also refuses the following requests, whatever mode it runs in:
 
 - Project types that inventory the server host rather than the scan path, such as `os`, `hbom`, `vscode-extension`, `chrome-extension`, and the Maven, Gradle, sbt, Cargo and Helm cache types. Start the server with `-t <type>` to allow one of them.
-- `exclude` patterns that use braces or are longer than 512 characters, since brace expansion can keep the server busy for minutes.
+- `exclude` patterns that use braces, are longer than 512 characters, or number more than 128. Every pattern is matched against every file the scan walks, and brace expansion multiplies them, so either can keep the server busy for minutes.
 - A `serverUrl` on another origin than the one the server was started with, when the request reuses the operator's API key. In secure mode such a `serverUrl` also needs `CDXGEN_ALLOWED_HOSTS`, which every redirect hop is checked against as well.
 - A `path` whose real location, after following symlinks, is outside `CDXGEN_ALLOWED_PATHS`.
 

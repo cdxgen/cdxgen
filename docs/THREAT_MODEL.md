@@ -84,6 +84,7 @@ Trust boundary 5: cdxgen container ←→ container host
 **Mitigations:**
 
 - Secure mode (`CDXGEN_SECURE_MODE=true`) disables automatic package installation
+- A config file (`.cdxgenrc`, `.cdxgen.json`, `.cdxgen.yml` or `.cdxgen.yaml`) in the working directory may set only the options listed in `PROJECT_CONFIG_OPTIONS` in `lib/helpers/projectConfig.js`. It cannot start the server, turn off certificate checks for Dependency-Track uploads, or enable feature flags, and every key that is not a declared option is ignored. That covers options only library callers pass, such as `dosaiCommand` and `traceCmd`, and yargs' `extends` key, which would otherwise load a module or another config file named in the file. Project types that inventory the host, such as `os`, `hbom` or `vscode-extension`, are dropped from the file's `type`
 - `safeSpawnSync` warns when `pip`/`uv install` is invoked without `--only-binary=:all:` (prevents `setup.py` execution during wheel builds)
 - `safeSpawnSync` warns when Python is invoked without `-S` flag
 - Users are advised to run in sandboxed environments for untrusted projects
@@ -119,6 +120,8 @@ Trust boundary 5: cdxgen container ←→ container host
 - `isValidDriveRoot()` prevents Unicode lookalike drive letters on Windows (CVE-2025-27210 mitigation)
 - Node.js `--permission` model (in secure mode) restricts filesystem access to explicitly allowed paths
 - `safeExistsSync` and `safeMkdirSync` check permissions before operations
+- Path options in a config file, whether spelled out or set through an alias such as `o`, must resolve inside the config's directory after symbolic links are resolved
+- `safeWriteSync()` does not write through a symbolic link in the last component of the path. A link such as a `bom.json` committed to the scanned repository is replaced with a regular file, and the open uses `O_NOFOLLOW` where the platform has it. Node's permission model follows such links to paths outside its grants, so this also applies in secure mode. Paths under `/dev` and `/proc`, such as `/dev/stdout`, are written as given, and links in parent directories are still followed
 
 **Residual risk:** Low in secure mode, Medium in default mode.
 
@@ -130,7 +133,7 @@ Trust boundary 5: cdxgen container ←→ container host
 
 - CLI and server both use shared source validation (`validateAndRejectGitSource()`) and hardened clone behavior
 - Protocol allowlisting via `GIT_ALLOW_PROTOCOL` / `CDXGEN_GIT_ALLOW_PROTOCOL`
-- Host allowlisting via `CDXGEN_GIT_ALLOWED_HOSTS` (or `CDXGEN_SERVER_ALLOWED_HOSTS` in server mode)
+- Host allowlisting via `CDXGEN_GIT_ALLOWED_HOSTS` (or `CDXGEN_SERVER_ALLOWED_HOSTS` in server mode). While an allowlist or secure mode applies, git runs with `http.followRedirects=false`, so an allowed host cannot redirect a clone or `ls-remote` to a host the allowlist does not name
 - Temporary clone directories are removed after scan completion
 - purl resolution emits an explicit warning that registry metadata may be untrusted
 
@@ -147,6 +150,7 @@ Trust boundary 5: cdxgen container ←→ container host
 - cdxgen avoids shell interpretation for these values and treats them as filtering patterns only
 - Directory-oriented excludes are additionally forwarded as literal directory names for performance where supported by Atom and astgen
 - Server deployments should validate or constrain request options at the API boundary if untrusted clients can submit scans
+- Patterns from untrusted sources pass through `boundUntrustedGlobPatterns()` in `lib/helpers/globPatterns.js`: each may be at most 512 characters, and a list may stand for at most 128 patterns after brace expansion. The server refuses a request whose `exclude` patterns use braces or break either limit. A config file in the scanned directory may use braces, but its `exclude` and `include-regex` patterns share the 128-pattern budget, and those past it are dropped with a warning
 
 **Residual risk:** Low for intended local/CI usage where the operator controls CLI arguments. Medium for wrappers or server deployments that expose pattern options to untrusted users without additional validation.
 
@@ -254,6 +258,7 @@ Trust boundary 5: cdxgen container ←→ container host
   - `--template=` — prevents OS hook templates from being copied into the new repo
   - `GIT_CONFIG_NOSYSTEM=1` and `GIT_CONFIG_GLOBAL=/dev/null` in secure mode — prevents reading system/user configs including Git 2.54 `hook.<name>.command` entries
   - `GIT_TERMINAL_PROMPT=0` — prevents interactive prompts
+  - `http.followRedirects=false` while `CDXGEN_GIT_ALLOWED_HOSTS`, `CDXGEN_SERVER_ALLOWED_HOSTS` or secure mode applies, so the allowlisted host is the one git talks to
   - `--depth 1` — limits history to reduce attack surface
 - `GIT_ALLOW_PROTOCOL` defaults to `https:ssh` in secure mode
 
@@ -266,7 +271,7 @@ Trust boundary 5: cdxgen container ←→ container host
 **Mitigations:**
 
 - `CDXGEN_ALLOWED_HOSTS` restricts `cdxgenAgent` outbound connections
-- `CDXGEN_SERVER_ALLOWED_HOSTS` restricts Git clone target hosts
+- `CDXGEN_SERVER_ALLOWED_HOSTS` restricts Git clone target hosts, and git does not follow HTTP redirects while it is set
 - Server-side Dependency-Track submission host checks require exact matches or real subdomain matches for wildcard entries (for example, `*.example.com` matches `api.example.com` but not `evil-example.com`)
 - Dependency-Track submission redirects are disabled so an allowlisted host cannot bounce uploads to a different destination
 - Secure mode enforces HTTPS-only
@@ -296,6 +301,8 @@ Trust boundary 5: cdxgen container ←→ container host
 - Server timeout: 10 minutes (configurable via `CDXGEN_SERVER_TIMEOUT_MS`)
 - Spawn timeout: 20 minutes (configurable via `CDXGEN_TIMEOUT_MS`)
 - Max buffer: 100MB (configurable via `CDXGEN_MAX_BUFFER`)
+- Parsers of scanned project files avoid regular expressions whose work grows faster than the input. The CrewAI reader for `agents.py` and `tasks.py`, for example, reads each file once
+- Request `exclude` patterns may not use braces, run past 512 characters or number more than 128, since every pattern is matched against every file the scan walks
 
 **Residual risk:** Medium — no built-in rate limiting or concurrent request limits. The server is designed for trusted internal use. Deploy behind a reverse proxy for production exposure.
 
