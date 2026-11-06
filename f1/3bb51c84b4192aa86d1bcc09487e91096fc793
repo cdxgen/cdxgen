@@ -1,0 +1,21 @@
+lib/stages/postgen/specVersionCompat.js
+  s_9452a625b7020e::t_b5b2e4bb13e368 679-683
+docs/CUSTOM_PROPERTIES.md
+  s_9452a625b7020e::t_fccf1e77fec454 143
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "f13bb51c84b4192aa86d1bcc09487e91096fc793",
+  "prompts": {},
+  "sessions": {
+    "s_9452a625b7020e": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_8885fbac-82ed-4e3a-8e68-8a24ba52d2d8",
+        "model": "GLM-5.3"
+      },
+      "human_author": "Team AppThreat <cloud@appthreat.com>"
+    }
+  }
+}

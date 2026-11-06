@@ -1,0 +1,33 @@
+lib/inventory/pqcMigration.poku.js
+  s_9452a625b7020e::t_70f876eca4990b 209-210,212
+  s_9452a625b7020e::t_ec73d0baf98fea 1-7,9-200,204-208,211,213-238,243-246,249,253-263,269-283
+  s_9452a625b7020e::t_96a6b0ed813f39 8,201-203,239-242,247-248,250-252,264-268
+data/pqc-migration.json
+  s_9452a625b7020e::t_bb600571493068 1-74
+lib/inventory/pqcMigration.js
+  s_9452a625b7020e::t_6b4e00bec2621b 1-113,128-187,189-224
+  s_9452a625b7020e::t_70f876eca4990b 114-119
+  s_9452a625b7020e::t_96a6b0ed813f39 120-127,188
+docs/CUSTOM_PROPERTIES.md
+  s_9452a625b7020e::t_96a6b0ed813f39 144,1446-1449
+types/lib/inventory/pqcMigration.d.ts
+  s_9452a625b7020e::t_be015cf4e29df7 1-55
+types/lib/inventory/pqcMigration.d.ts.map
+  s_9452a625b7020e::t_a3e70ed6e670b3 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "019694b22bcda85c0f6eb7085ff4032c3cc51298",
+  "prompts": {},
+  "sessions": {
+    "s_9452a625b7020e": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_8885fbac-82ed-4e3a-8e68-8a24ba52d2d8",
+        "model": "GLM-5.3"
+      },
+      "human_author": "Team AppThreat <cloud@appthreat.com>"
+    }
+  }
+}

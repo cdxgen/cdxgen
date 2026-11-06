@@ -1,0 +1,54 @@
+lib/helpers/jssSigner.poku.js
+  s_9452a625b7020e::t_25c68e875bf7cf 154-155,159-160,173-177
+  s_9452a625b7020e::t_fc9e90c4d9913e 1
+  s_9452a625b7020e::t_27e1643586a88a 2-153,156-158,161-172,178-197
+lib/helpers/bomSigner.js
+  s_9452a625b7020e::t_4f6ec583961815 178,186,190,211,216,231
+bin/verify.js
+  s_9452a625b7020e::t_25c68e875bf7cf 221-223
+  s_9452a625b7020e::t_eba5dce10eff0e 22,209-220,224-240
+  s_9452a625b7020e::t_e03051067348c2 241-242
+bin/sign.js
+  s_9452a625b7020e::t_25c68e875bf7cf 20,258-259,275-286
+  s_9452a625b7020e::t_6a1c39f1a58fb2 248-252,300-304,306-307
+  s_9452a625b7020e::t_e2fbfb2d50c704 269-274,287-298
+  s_9452a625b7020e::t_d00d6531e0f703 253-257,260-268,299,305
+  s_9452a625b7020e::t_0a400cf10a3185 3
+lib/inventory/cyclonedx20.poku.js
+  s_9452a625b7020e::t_25c68e875bf7cf 901,1540,1545
+  s_9452a625b7020e::t_9b0c8721ef3787 946,1171,1518-1519
+lib/helpers/jssSigner.js
+  s_9452a625b7020e::t_797fff38a9ac29 1-30,32-36,39-56,129-136,138-141,143-204,214-227,232-233,235-247,249-277,279-341,343,345,349,370-372,381-382,384-397,401-444,450-456
+  s_9452a625b7020e::t_0aa2e4f53ac43d 38
+  s_9452a625b7020e::t_dd6b4d0d5b336e 353-367
+  s_9452a625b7020e::t_3e524a6c5427ea 398-400
+  s_9452a625b7020e::t_25c68e875bf7cf 31,37,57-128,137,142,205-213,228-231,234,248,278,445-449
+  s_9452a625b7020e::t_2d71227695b415 342,344,346-348,350-352,368-369,373-380,383
+bin/cdxgen.js
+  s_9452a625b7020e::t_25c68e875bf7cf 86,1737-1740
+  s_9452a625b7020e::t_4eaa284de0d30c 1685-1736,1741-1763
+types/lib/helpers/bomSigner.d.ts
+  s_9452a625b7020e::t_d0657760b2042f 25-34
+types/lib/helpers/bomSigner.d.ts.map
+  s_9452a625b7020e::t_9f9926fafebcf5 1
+types/lib/helpers/jssSigner.d.ts
+  s_9452a625b7020e::t_e5ab2be8a9df07 1-109
+types/lib/helpers/jssSigner.d.ts.map
+  s_9452a625b7020e::t_db2a03771c8825 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "d146cfa3acc5f1154d9027ab419c52cbeb23b3dc",
+  "prompts": {},
+  "sessions": {
+    "s_9452a625b7020e": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_8885fbac-82ed-4e3a-8e68-8a24ba52d2d8",
+        "model": "GLM-5.3"
+      },
+      "human_author": "Team AppThreat <cloud@appthreat.com>"
+    }
+  }
+}
