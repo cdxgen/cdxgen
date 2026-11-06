@@ -1,0 +1,36 @@
+tmp-agent-declared-2.0.json
+  s_9452a625b7020e::t_23d6aea22393aa 1
+lib/inventory/hbom.poku.js
+  s_9452a625b7020e::t_16f6d5fe001bd4 67
+  s_9452a625b7020e::t_0f0f2c41e4b00b 35,38-39,42
+lib/inventory/hbom.js
+  s_9452a625b7020e::t_83deb241c38299 11,479-482
+  s_9452a625b7020e::t_18fce68ffda7f4 415-416
+  s_9452a625b7020e::t_23d6aea22393aa 417
+lib/stages/postgen/postgen.js
+  s_9452a625b7020e::t_1f5f63be4482ce 44-47,646-648
+lib/inventory/hbom20.poku.js
+  s_9452a625b7020e::t_2c90f0ac3ba647 132-182
+  s_9452a625b7020e::t_4832233a1d6d2e 1-5,9,11-13,15-125,130-131,183
+  s_9452a625b7020e::t_23d6aea22393aa 6-8,10,14,126-129
+types/lib/inventory/hbom.d.ts.map
+  s_9452a625b7020e::t_f61466516565b1 1
+types/lib/stages/postgen/postgen.d.ts.map
+  s_9452a625b7020e::t_e6cdd1ff305f92 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "b9d5f6c33d86fe73433bcdd57009697e4178e22d",
+  "prompts": {},
+  "sessions": {
+    "s_9452a625b7020e": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_8885fbac-82ed-4e3a-8e68-8a24ba52d2d8",
+        "model": "GLM-5.3"
+      },
+      "human_author": "Team AppThreat <cloud@appthreat.com>"
+    }
+  }
+}

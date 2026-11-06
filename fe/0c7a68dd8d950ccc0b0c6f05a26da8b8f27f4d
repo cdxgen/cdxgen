@@ -1,0 +1,36 @@
+test/data/ai-agent-declared/package.json
+  s_9452a625b7020e::t_887a2c84dee23e 1-5
+tmp-agent-declared-2.0.json
+  s_9452a625b7020e::t_dd47fe15b30ac0 1
+lib/inventory/agentBlueprint.js
+  s_9452a625b7020e::t_438dde75e8d42b 1-167
+lib/inventory/agentBlueprint.poku.js
+  s_9452a625b7020e::t_dd47fe15b30ac0 1,9,41-42
+  s_9452a625b7020e::t_f0325082d594ca 2-8,10-40,43-201
+test/data/ai-agent-declared/AGENTS.md
+  s_9452a625b7020e::t_887a2c84dee23e 1-7
+test/data/ai-agent-declared/mcp.json
+  s_9452a625b7020e::t_887a2c84dee23e 1-12
+test/data/kiro-v3-project/package-lock.json
+  s_9452a625b7020e::t_72c276d52f1e5e 1-12
+types/lib/inventory/agentBlueprint.d.ts
+  s_9452a625b7020e::t_49c35eb87c77bf 1-52
+types/lib/inventory/agentBlueprint.d.ts.map
+  s_9452a625b7020e::t_2cb4b5697738b0 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "fe0c7a68dd8d950ccc0b0c6f05a26da8b8f27f4d",
+  "prompts": {},
+  "sessions": {
+    "s_9452a625b7020e": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_8885fbac-82ed-4e3a-8e68-8a24ba52d2d8",
+        "model": "GLM-5.3"
+      },
+      "human_author": "Team AppThreat <cloud@appthreat.com>"
+    }
+  }
+}
