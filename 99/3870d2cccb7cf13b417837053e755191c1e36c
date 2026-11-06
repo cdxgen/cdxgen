@@ -1,0 +1,19 @@
+lib/inventory/source.redirect.poku.js
+  s_1c472b30745397::t_cf6b720c5f42e2 86-89,114,131,160
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "993870d2cccb7cf13b417837053e755191c1e36c",
+  "prompts": {},
+  "sessions": {
+    "s_1c472b30745397": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "a1ed9237-cf62-498e-9c3c-7c11b1513c7e",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
