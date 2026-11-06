@@ -1,0 +1,135 @@
+{
+  "$schema": "https://cyclonedx.org/schema/2.0/cyclonedx-2.0.schema.json",
+  "specFormat": "CycloneDX",
+  "specVersion": "2.0",
+  "serialNumber": "urn:uuid:e8c355aa-2142-4084-a8c7-6d42c8610ba2",
+  "version": 1,
+  "metadata": {
+    "timestamp": "2025-07-09T12:00:00Z"
+  },
+  "inventories": [
+    {
+      "subject": {
+        "refId": "subject-1",
+        "type": "application",
+        "name": "my application",
+        "version": "1.0"
+      },
+      "components": [
+        {
+          "type": "cryptographic-asset",
+          "name": "AES-128-GCM-128-12",
+          "cryptoProperties": {
+            "assetType": "algorithm",
+            "algorithmProperties": {
+              "algorithmFamily": "AES",
+              "primitive": "ae",
+              "parameterSetIdentifier": "128",
+              "mode": "gcm",
+              "executionEnvironment": "software-plain-ram",
+              "implementationPlatform": [ "x86_64" ],
+              "cryptoFunctions": [
+                "keygen",
+                "encrypt",
+                "decrypt",
+                "tag"
+              ],
+              "classicalSecurityLevel": 128,
+              "nistQuantumSecurityLevel": 1
+            },
+            "oid": "2.16.840.1.101.3.4.1.6"
+          }
+        },
+        {
+          "name": "RSA-PKCS1-1.5-SHA512-2048",
+          "type": "cryptographic-asset",
+          "cryptoProperties": {
+            "assetType": "algorithm",
+            "algorithmProperties": {
+              "algorithmFamily": "RSASSA-PKCS1",
+              "primitive": "signature",
+              "parameterSetIdentifier": "512",
+              "executionEnvironment": "software-plain-ram",
+              "implementationPlatform": [ "x86_64" ],
+              "cryptoFunctions": [
+                "sign",
+                "verify"
+              ],
+              "nistQuantumSecurityLevel": 0
+            },
+            "oid": "1.2.840.113549.1.1.13"
+          }
+        },
+        {
+          "name": "ECDH-secp521r1",
+          "refId": "ecdhsecp521r1",
+          "type": "cryptographic-asset",
+          "cryptoProperties": {
+            "assetType": "algorithm",
+            "algorithmProperties": {
+              "algorithmFamily": "ECDH",
+              "ellipticCurve": "secg/secp521r1",
+              "primitive": "key-agree",
+              "executionEnvironment": "software-plain-ram",
+              "implementationPlatform": [ "x86_64" ],
+              "cryptoFunctions": [
+                "keygen",
+                "keyderive"
+              ],
+              "nistQuantumSecurityLevel": 0
+            },
+            "oid": "1.3.132.0.35"
+          }
+        },
+        {
+          "name": "ML-KEM-1024",
+          "refId": "mlkem1024",
+          "type": "cryptographic-asset",
+          "cryptoProperties": {
+            "assetType": "algorithm",
+            "algorithmProperties": {
+              "algorithmFamily": "ML-KEM",
+              "primitive": "kem",
+              "executionEnvironment": "software-plain-ram",
+              "implementationPlatform": [ "x86_64" ],
+              "cryptoFunctions": [
+                "keygen",
+                "keyderive"
+              ],
+              "nistQuantumSecurityLevel": 5
+            },
+            "oid": "2.16.840.1.101.3.4.1.48"
+          }
+        },
+        {
+          "name": "draft-ietf-tls-hybrid-design-13",
+          "refId": "draftietftlshybriddesign13",
+          "type": "cryptographic-asset",
+          "cryptoProperties": {
+            "assetType": "algorithm",
+            "algorithmProperties": {
+              "primitive": "combiner",
+              "executionEnvironment": "software-plain-ram",
+              "implementationPlatform": [ "x86_64" ],
+              "cryptoFunctions": [
+                "keygen",
+                "keyderive"
+              ],
+              "nistQuantumSecurityLevel": 0
+            },
+            "oid": "1.3.101.110"
+          }
+        }
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "ref": "draftietftlshybriddesign13",
+      "dependsOn": [
+        "mlkem1024",
+        "ecdhsecp521r1"
+      ]
+    }
+  ]
+}

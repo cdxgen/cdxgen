@@ -1,0 +1,153 @@
+{
+  "$comment": "Model type: conceptual. This example is a technology-neutral conceptual model of a community library. It is represented as a blueprint with no implementation detail: the key business capabilities (Membership, Catalogue, Lending) are assets linked by typed relationships, and the core domain concepts (Member, Item, Branch, Loan) are data objects whose associations are expressed as data relationships with cardinality. There are deliberately no protocols, deployments, keys, or flows, which is what distinguishes a conceptual model from a logical or data-flow one.",
+  "specFormat": "CycloneDX",
+  "specVersion": "2.0",
+  "serialNumber": "urn:uuid:b1000000-0000-4000-8000-0000000000a2",
+  "version": 1,
+  "blueprints": [
+    {
+      "refId": "bp-conceptual",
+      "name": "Community library conceptual model",
+      "description": "A technology-neutral conceptual model of a community library, capturing the key business concepts and how they relate, without any implementation detail such as databases, services, or protocols.",
+      "modelTypes": [
+        "conceptual"
+      ],
+      "metadata": {
+        "timestamp": "2026-06-05T12:05:00Z",
+        "frozen": false,
+        "authors": [
+          {
+            "roles": [
+              {
+                "role": "author"
+              }
+            ],
+            "person": {
+              "name": "Sam Rivera"
+            }
+          }
+        ]
+      },
+      "scope": {
+        "name": "Lending domain",
+        "description": "Concepts involved in lending physical items to members."
+      },
+      "assets": [
+        {
+          "refId": "cap-membership",
+          "type": "subsystem",
+          "name": "Membership",
+          "inScope": false,
+          "description": "The capability concerned with enrolling and identifying members."
+        },
+        {
+          "refId": "cap-catalogue",
+          "type": "subsystem",
+          "name": "Catalogue",
+          "description": "The capability concerned with describing and locating items."
+        },
+        {
+          "refId": "cap-lending",
+          "type": "subsystem",
+          "name": "Lending",
+          "inScope": true,
+          "description": "The capability concerned with loans, due dates, and returns."
+        }
+      ],
+      "relationships": [
+        {
+          "ref": "cap-lending",
+          "dependsOn": [
+            "cap-catalogue",
+            "cap-membership"
+          ]
+        }
+      ],
+      "dataSets": [
+        {
+          "refId": "ds-library-domain",
+          "name": "Library domain entities",
+          "description": "The conceptual entities of the lending domain and their associations.",
+          "dataObjects": [
+            {
+              "refId": "do-member",
+              "name": "Member",
+              "description": "A person enrolled to borrow items.",
+              "attributes": [
+                {
+                  "name": "memberName"
+                },
+                {
+                  "name": "membershipStatus"
+                }
+              ]
+            },
+            {
+              "refId": "do-item",
+              "name": "Item",
+              "description": "A borrowable item such as a book or recording.",
+              "attributes": [
+                {
+                  "name": "title"
+                },
+                {
+                  "name": "format"
+                }
+              ],
+              "relationships": [
+                {
+                  "name": "held at",
+                  "target": "do-branch",
+                  "cardinality": "many-to-many"
+                }
+              ]
+            },
+            {
+              "refId": "do-branch",
+              "name": "Branch",
+              "description": "A physical library location.",
+              "attributes": [
+                {
+                  "name": "branchName"
+                }
+              ]
+            },
+            {
+              "refId": "do-loan",
+              "name": "Loan",
+              "description": "The act of a member borrowing an item for a period.",
+              "attributes": [
+                {
+                  "name": "loanDate"
+                },
+                {
+                  "name": "dueDate"
+                }
+              ],
+              "relationships": [
+                {
+                  "name": "borrowed by",
+                  "target": "do-member",
+                  "cardinality": "many-to-one"
+                },
+                {
+                  "name": "for item",
+                  "target": "do-item",
+                  "cardinality": "many-to-one"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "assumptions": [
+        {
+          "refId": "asm-one-branch",
+          "description": "An item belongs to exactly one branch at a time, though it may move between branches.",
+          "topic": "business",
+          "validity": "unverified"
+        }
+      ]
+    }
+  ]
+}

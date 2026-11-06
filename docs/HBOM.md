@@ -272,7 +272,7 @@ If you import the resulting BOM into `cdxi`, the most useful host pivots for the
 
 ## Validation and safety notes
 
-- HBOM generation currently targets **CycloneDX 1.7**.
+- HBOM generation writes **CycloneDX 1.7**; `cdxgen -t hbom --spec-version 2.0` writes **2.0** (see [CycloneDX 2.0 output](#cyclonedx-20-output)). The `hbom` command supports 1.7 only.
 - By default, the collector redacts sensitive identifiers such as serial numbers and MAC addresses where appropriate.
 - Use `--sensitive` only when you explicitly need raw identifiers in the resulting BOM.
 - Linux `--privileged` enrichment may require root or passwordless sudo depending on the target environment.
@@ -281,6 +281,43 @@ If you import the resulting BOM into `cdxi`, the most useful host pivots for the
 - Prefer `hbom diagnostics` before enabling `--privileged` broadly so you can see exactly which enrichments failed due to missing commands or permissions.
 - In `--dry-run` mode, cdxgen returns a partial HBOM from safe local discovery where available, reports each blocked HBOM command in the activity summary, and still skips filesystem writes.
 - In secure mode with HBOM allowlists configured, cdxgen aborts before live collection when the dry-run plan includes commands outside `CDXGEN_ALLOWED_COMMANDS` or declared paths outside `CDXGEN_ALLOWED_PATHS`.
+
+## CycloneDX 2.0 output
+
+`cdxgen -t hbom --spec-version 2.0` always asks the `@cdxgen/cdx-hbom` collector for CycloneDX 1.7 and renders 2.0 itself, the
+same way it renders every other BOM: the 1.7 collector output becomes cdxgen's
+1.x-shaped model, post-processing runs on it, and the 2.0 renderer runs once at
+the end. If a collector answers with a 2.0 document anyway, cdxgen reads it
+into the 1.x model first, so no hardware component is lost.
+
+What each `cdx:hbom:*` property means in 2.0 is owned by cdx-hbom, through its
+optional `./cdx20` export (`toCdx20HardwareComponent`). cdxgen loads it from
+the same place it loads the collector (a local `cdx-hbom` checkout next to
+cdxgen, else the installed package) and passes it to the renderer;
+`cdx-convert --to 2.0` and `tracebom` do the same. cdx-hbom 0.8.0 is the
+first release with the export; an older cdx-hbom leaves the generic conversion
+in place.
+From the mapper's result the renderer takes, for each hardware component:
+
+- identifiers such as `serial-number`, `asset-tag`, `mac-address`, `imei` and
+  `model-number`, appended to the component's own identifiers (a purl stays)
+  and asserted by the same party as the rest of the document's identifiers
+  (`party-cdxgen`), which is declared when referenced. Per-unit identifiers
+  (serial number, asset tag, MAC address, IMEI) are asserted only when the
+  collector recorded `cdx:hbom:identifierPolicy` = `raw-identifiers-enabled`
+  for the run. A model number names the product, not the unit, so it is
+  asserted in a redacted run too. Redacted values never become identities.
+- `boardLocation` is not written: 2.0 reserves `boardLocation.designators` for
+  circuit-board reference designators, so firmware slot labels such as `DIMM3`
+  stay in the `cdx:hbom:*` properties.
+- `classification` (`category` from `cdx:hbom:hardwareClass`, and taxonomy
+  `codes` as `{standard, value}` objects; anything else is dropped and
+  counted).
+- a manufacturer party, when the component has none yet.
+
+Every `cdx:hbom:*` property stays on the component, so the `hbom-compliance`,
+`hbom-performance` and `hbom-security` audit rules find the same issues in a
+2.0 HBOM as in the 1.7 one.
 
 ## When to use HBOM vs OBOM
 

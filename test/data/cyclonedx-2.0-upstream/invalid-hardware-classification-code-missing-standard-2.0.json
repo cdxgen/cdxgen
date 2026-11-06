@@ -1,0 +1,23 @@
+{
+  "$schema": "https://cyclonedx.org/schema/2.0/cyclonedx-2.0.schema.json",
+  "specFormat": "CycloneDX",
+  "specVersion": "2.0",
+  "version": 1,
+  "serialNumber": "urn:uuid:1f0e9c2a-6b7d-4a3e-9c1f-0a2b3c4d5e07",
+  "definitions": {
+    "components": [
+      {
+        "type": "device",
+        "name": "Acme AVR8-328",
+        "classification": {
+          "category": "semiconductor",
+          "codes": [
+            {
+              "value": "8542.31"
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "$schema": "https://cyclonedx.org/schema/2.0/cyclonedx-2.0.schema.json",
+  "specFormat": "CycloneDX",
+  "specVersion": "2.0",
+  "version": 1,
+  "inventories": [
+    {
+      "subject": {
+        "refId": "subject-1",
+        "type": "device",
+        "name": "Acme Product"
+      },
+      "components": [
+        {
+          "type": "component-choice",
+          "name": "Transistor Choice",
+          "description": "missing property `operator`",
+          "components": [
+            { "type": "device", "name": "Transistor A" },
+            { "type": "device", "name": "Transistor B" }
+          ]
+        }
+      ]
+    }
+  ]
+}

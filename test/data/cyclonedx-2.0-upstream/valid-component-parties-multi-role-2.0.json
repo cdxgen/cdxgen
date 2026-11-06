@@ -1,0 +1,78 @@
+{
+  "$schema": "https://cyclonedx.org/schema/2.0/cyclonedx-2.0.schema.json",
+  "specFormat": "CycloneDX",
+  "specVersion": "2.0",
+  "version": 1,
+  "inventories": [
+    {
+      "subject": {
+        "refId": "subject-1",
+        "type": "device",
+        "name": "Industrial Sensor"
+      },
+      "components": [
+        {
+          "type": "device",
+          "name": "Temperature Probe",
+          "parties": [
+            {
+              "refId": "actor-acme",
+              "roles": [
+                {
+                  "role": "manufacturer"
+                },
+                {
+                  "role": "supplier"
+                },
+                {
+                  "role": "support-contact"
+                }
+              ],
+              "organization": {
+                "legalName": "Acme Sensors, Inc.",
+                "jurisdiction": "US-CA",
+                "url": [
+                  { "name": "homepage", "url": "https://acme-sensors.example.com" }
+                ]
+              }
+            },
+            {
+              "roles": [
+                {
+                  "role": "author"
+                }
+              ],
+              "person": {
+                "name": "Alice Wright",
+                "email": [
+                  { "name": "work", "address": "alice@acme-sensors.example.com" }
+                ],
+                "affiliation": "actor-acme"
+              }
+            },
+            {
+              "roles": [
+                {
+                  "role": "quality-control"
+                }
+              ],
+              "organization": {
+                "legalName": "Quality Lab East, LLC",
+                "jurisdiction": "US-NJ",
+                "addresses": [
+                  {
+                    "isoCode": "US-NJ",
+                    "coordinates": {
+                      "latitude": 40.7357,
+                      "longitude": -74.1724
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

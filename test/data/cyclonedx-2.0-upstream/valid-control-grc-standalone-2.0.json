@@ -1,0 +1,53 @@
+{
+  "$schema": "https://cyclonedx.org/schema/2.0/cyclonedx-2.0.schema.json",
+  "specFormat": "CycloneDX",
+  "specVersion": "2.0",
+  "serialNumber": "urn:uuid:9b3d5e1f-7a2c-4d8b-b0e6-4f1a8c6d2e73",
+  "version": 1,
+  "definitions": {
+    "requirements": [
+      {
+        "refId": "requirement-audit-logging",
+        "id": "AU-2",
+        "name": "Event logging"
+      }
+    ]
+  },
+  "controls": [
+    {
+      "refId": "control-central-logging",
+      "name": "Centralized audit logging",
+      "category": "detective",
+      "status": "recommended",
+      "satisfies": [
+        "requirement-audit-logging"
+      ]
+    },
+    {
+      "refId": "control-security-awareness",
+      "name": "Security awareness training",
+      "description": "Annual training for all personnel. Applies to the organization as a whole.",
+      "category": "deterrent",
+      "status": "implemented"
+    },
+    {
+      "refId": "control-network-airgap",
+      "name": "Air-gapped deployment",
+      "category": "preventive",
+      "status": "rejected",
+      "description": "Declined. Operational cost outweighs the benefit; compensating controls cover the risk."
+    },
+    {
+      "refId": "control-vendor-review",
+      "name": "Vendor security review",
+      "category": {
+        "name": "administrative",
+        "description": "Procedural controls executed by people rather than systems."
+      },
+      "status": {
+        "name": "piloting",
+        "description": "Operating for a subset of vendors before full rollout."
+      }
+    }
+  ]
+}

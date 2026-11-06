@@ -1,0 +1,119 @@
+{
+  "$schema": "https://cyclonedx.org/schema/2.0/cyclonedx-2.0.schema.json",
+  "specFormat": "CycloneDX",
+  "specVersion": "2.0",
+  "serialNumber": "urn:uuid:3e671687-395b-41f5-a30f-a58921a69b79",
+  "version": 1,
+  "blueprints": [
+    {
+      "refId": "blueprint-pth-payload",
+      "name": "Pass-the-Hash Payload Behavioral Blueprint",
+      "modelTypes": [
+        { "type": "behavioral" }
+      ],
+      "methodologies": [
+        { "type": "MITRE-ATTACK" }
+      ],
+      "behaviors": {
+        "instances": [
+          {
+            "refId": "b-startup-exec",
+            "behavior": "system:persistence:registersForStartup",
+            "trigger": "startup",
+            "evidence": {
+              "refId": "evidence-1",
+              "confidence": 0.95,
+              "description": "Persistence registration via Run key write observed in unpacked binary.",
+              "methods": [
+                {
+                  "technique": "binary-analysis",
+                  "confidence": 0.95,
+                  "value": "Import of advapi32!RegSetValueExW resolving to HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Run at 0x00401a20.",
+                  "tools": [{ "ref": "karambit" }],
+                  "externalReferences": {
+                    "type": "formulation",
+                    "url": "urn:cdx:3e671687-395b-41f5-a30f-a58921a69b79/1#my-workflow"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "refId": "b-decode",
+            "behavior": "evasion:obfuscation:obfuscatesStrings",
+            "trigger": "startup",
+            "evidence": {
+              "confidence": 0.9,
+              "description": "Stack-built XOR-decoded strings resolved at runtime.",
+              "methods": [
+                {
+                  "technique": "binary-analysis",
+                  "confidence": 0.9,
+                  "value": "XOR decode loop at 0x00403110 with key 0x5A resolving C2 hostnames and API names prior to use."
+                }
+              ],
+              "tools": [
+                { "ref": "karambit" }
+              ]
+            }
+          },
+          {
+            "refId": "b-credential-collect",
+            "behavior": "privacy:collection:collectsPersonalData",
+            "trigger": "startup",
+            "evidence": {
+              "confidence": 0.92,
+              "description": "LSASS memory access to harvest NTLM hashes.",
+              "methods": [
+                {
+                  "technique": "binary-analysis",
+                  "confidence": 0.92,
+                  "value": "OpenProcess on lsass.exe with PROCESS_VM_READ followed by MiniDumpWriteDump observed at 0x004044c0."
+                }
+              ],
+              "tools": [
+                { "ref": "karambit" }
+              ]
+            }
+          },
+          {
+            "refId": "b-exfil",
+            "behavior": "network:transmission:sendsData",
+            "trigger": "startup",
+            "evidence": {
+              "confidence": 0.88,
+              "description": "HTTPS POST of collected artifacts to external C2 endpoint.",
+              "methods": [
+                {
+                  "technique": "binary-analysis",
+                  "confidence": 0.88,
+                  "value": "WinHttpOpen/WinHttpConnect/WinHttpSendRequest chain at 0x00405e80 posting to 185.x.x.x/gate.php."
+                }
+              ],
+              "tools": [
+                { "ref": "karambit" }
+              ]
+            }
+          }
+        ],
+        "flows": [
+          {
+            "refId": "flow-pth-payload",
+            "trigger": "startup",
+            "acknowledgment": ["observed"],
+            "evidence": {
+              "ref": "urn:cdx:3e671687-395b-41f5-a30f-a58921a69b79/1#evidence-1"
+            },
+            "ordering": "unordered",
+            "steps": [
+              { "ordinal": 1, "ref": "b-startup-exec" },
+              { "ordinal": 2, "ref": "b-decode" },
+              { "ordinal": 3, "ref": "b-credential-collect" },
+              { "ordinal": 4, "ref": "b-exfil" }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

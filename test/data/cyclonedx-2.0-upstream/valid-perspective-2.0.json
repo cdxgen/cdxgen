@@ -1,0 +1,113 @@
+{
+  "$schema": "https://cyclonedx.org/schema/2.0/cyclonedx-2.0.schema.json",
+  "specFormat": "CycloneDX",
+  "specVersion": "2.0",
+  "serialNumber": "urn:uuid:3e671687-395b-41f5-a30f-a58921a69b79",
+  "version": 1,
+  "metadata": {
+    "timestamp": "2026-01-13T18:40:00Z",
+    "authors": [
+      {
+        "name": "Samantha Wright",
+        "email": "samantha.wright@example.com",
+        "phone": "800-555-1212"
+      }
+    ]
+  },
+  "definitions": {
+    "components": [
+      {
+        "refId": "pkg:maven/com.acme/sample-library@1.0.0?packaging=jar",
+        "type": "library",
+        "parties": [
+          {
+            "roles": [ { "role": "supplier" } ],
+            "organization": { "name": "Acme Inc" }
+          }
+        ],
+        "group": "com.acme",
+        "name": "sample-library",
+        "version": "1.0.0"
+      },
+      {
+        "refId": "pkg:maven/com.acme/sample-framework@2.1.0?packaging=jar",
+        "type": "library",
+        "parties": [
+          {
+            "roles": [ { "role": "supplier" } ],
+            "organization": { "name": "Acme Inc" }
+          }
+        ],
+        "group": "com.acme",
+        "name": "sample-framework",
+        "version": "2.1.0"
+      }
+    ]
+  },
+  "dependencies": [
+    {
+      "ref": "pkg:maven/com.acme/sample-framework@2.1.0?packaging=jar",
+      "dependsOn": [
+        "pkg:maven/com.acme/sample-library@1.0.0?packaging=jar"
+      ]
+    }
+  ],
+  "perspectives": [
+    {
+      "name": "NTIA Minimum Elements",
+      "description": "A perspective that describes the NTIA minimum elements of an SBOM.",
+      "domains": [
+        "regulatory-compliance",
+        "supply-chain-security",
+        {
+          "name": "my-custom-domain",
+          "description": "A custom domain for this perspective."
+        }
+      ],
+      "mappings": [
+        {
+          "expression": "$.components[*].supplier",
+          "nativeName": "Supplier Name",
+          "nativeDescription": "The name of an entity that creates, defines, and identifies components.",
+          "relevance": "required"
+        },
+        {
+          "expression": "$.components[*].name",
+          "nativeName": "Component Name",
+          "nativeDescription": "Designation assigned to a unit of software defined by the original supplier.",
+          "relevance": "required"
+        },
+        {
+          "expression": "$.components[*].version",
+          "nativeName": "Version of the Component",
+          "nativeDescription": "Identifier used by the supplier to specify a change in software from a previously identified version.",
+          "relevance": "required"
+        },
+        {
+          "expression": "$.components[*]['purl','cpe']",
+          "nativeName": "Other Unique Identifiers",
+          "nativeDescription": "Other identifiers that are used to identify a software component, or serve as a look-up key for relevant databases.",
+          "relevance": "required"
+        },
+        {
+          "expression": "$.dependencies[*]",
+          "nativeName": "Dependency Relationship",
+          "nativeDescription": "The ability to track and maintain the primary relationships between components.",
+          "relevance": "required"
+        },
+        {
+          "expression": "$.metadata.authors",
+          "nativeName": "Author of SBOM Data",
+          "nativeDescription": "The name of the entity that creates the SBOM data for this component.",
+          "relevance": "required"
+        },
+        {
+          "expression": "$.metadata.timestamp",
+          "nativeName": "Timestamp",
+          "nativeDescription": "A record of the date and time of the SBOM data assembly.",
+          "relevance": "required"
+        }
+      ]
+    }
+  ]
+}

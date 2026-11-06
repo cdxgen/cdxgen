@@ -1,0 +1,62 @@
+{
+  "specFormat": "CycloneDX",
+  "specVersion": "2.0",
+  "serialNumber": "urn:uuid:2b1c0d9e-7a3f-4c21-9f0a-6d5e4c3b2a10",
+  "version": 1,
+  "blueprints": [
+    {
+      "refId": "bp-payments",
+      "name": "Payment service model",
+      "modelTypes": [
+        "data-flow"
+      ],
+      "visualizations": [
+        {
+          "refId": "viz-inline-source",
+          "name": "Payment data flow",
+          "description": "Inline diagram source carried as an attachment and rendered by the consumer.",
+          "type": {
+            "type": "data-flow"
+          },
+          "attachment": {
+            "mediaType": "text/vnd.mermaid",
+            "content": "flowchart LR; user-->gateway-->ledger"
+          },
+          "level": "high"
+        },
+        {
+          "refId": "viz-base64-image",
+          "name": "Architecture overview",
+          "type": {
+            "type": "architecture"
+          },
+          "attachment": {
+            "mediaType": "image/png",
+            "encoding": "base64",
+            "content": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg=="
+          }
+        },
+        {
+          "refId": "viz-external-url",
+          "name": "Deployment topology",
+          "type": {
+            "name": "deployment topology"
+          },
+          "url": "https://example.com/diagrams/deployment.svg"
+        },
+        {
+          "refId": "viz-attack-tree",
+          "name": "Credential theft attack tree",
+          "description": "Rendered attack tree exercising a newly added visualization type.",
+          "type": {
+            "type": "attack-tree"
+          },
+          "attachment": {
+            "mediaType": "text/vnd.mermaid",
+            "content": "flowchart TD; goal-->phish; goal-->stuffing"
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "specFormat": "CycloneDX",
+  "specVersion": "2.0",
+  "compositions": [
+    {
+      "kind": "components",
+      "aggregate": "incomplete_first_party_only",
+      "targets": [ "acme-app" ]
+    }
+  ]
+}

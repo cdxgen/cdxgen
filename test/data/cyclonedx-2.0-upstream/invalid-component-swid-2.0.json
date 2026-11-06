@@ -1,0 +1,32 @@
+{
+  "$schema": "https://cyclonedx.org/schema/2.0/cyclonedx-2.0.schema.json",
+  "specFormat": "CycloneDX",
+  "specVersion": "2.0",
+  "serialNumber": "urn:uuid:3e671687-395b-41f5-a30f-a58921a69b79",
+  "version": 1,
+  "metadata": {
+    "manufacturer": {
+      "refId": "acme-inc",
+      "name": "Acme Inc."
+    }
+  },
+  "definitions": {
+    "components": [
+      {
+        "type": "application",
+        "name": "Acme Application",
+        "version": "9.1.1",
+        "identifiers": [
+          {
+            "party": "acme-inc",
+            "identities": [
+              {
+                "scheme": "swid"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

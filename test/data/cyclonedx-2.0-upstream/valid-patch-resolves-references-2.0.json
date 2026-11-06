@@ -1,0 +1,65 @@
+{
+  "$schema": "https://cyclonedx.org/schema/2.0/cyclonedx-2.0.schema.json",
+  "specFormat": "CycloneDX",
+  "specVersion": "2.0",
+  "serialNumber": "urn:uuid:3e671687-395b-41f5-a30f-a58921a69b80",
+  "version": 1,
+  "definitions": {
+    "requirements": [
+      {
+        "refId": "req-input-validation",
+        "id": "REQ-VAL-001",
+        "name": "Validate all external input"
+      }
+    ]
+  },
+  "inventories": [
+    {
+      "subject": { "refId": "acme-app", "type": "application", "name": "Acme Application", "version": "1.1" },
+      "components": [
+        {
+          "refId": "pkg:generic/acme/library-patched@1.0.1",
+          "type": "library",
+          "name": "Acme Patched Library",
+          "version": "1.0.1",
+          "pedigree": {
+            "ancestors": [
+              { "refId": "pkg:generic/acme/library@1.0.0", "type": "library", "name": "Acme Library", "version": "1.0.0" }
+            ],
+            "patches": [
+              {
+                "refId": "patch-1",
+                "type": "backport",
+                "resolves": [
+                  {
+                    "type": "defect",
+                    "id": "ACME-1234",
+                    "description": "Crash when parsing empty input"
+                  },
+                  { "ref": "vuln-2026-0003" },
+                  { "ref": "req-input-validation" }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "vulnerabilities": [
+    { "refId": "vuln-2026-0003", "id": "CVE-2026-0003",
+      "affects": [ { "ref": "pkg:generic/acme/library-patched@1.0.1" } ] }
+  ],
+  "annotations": [
+    {
+      "subjects": [ "patch-1" ],
+      "annotator": {
+        "organization": {
+          "name": "Acme Security Team"
+        }
+      },
+      "timestamp": "2026-08-28T12:00:00Z",
+      "text": "Backport verified against the 1.0 branch; upstream fix lands in 2.0."
+    }
+  ]
+}

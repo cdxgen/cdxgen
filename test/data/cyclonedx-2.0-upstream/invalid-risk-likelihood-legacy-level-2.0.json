@@ -1,0 +1,18 @@
+{
+  "specFormat": "CycloneDX",
+  "specVersion": "2.0",
+  "serialNumber": "urn:uuid:5f9b1d2c-6a3e-44b7-9c2a-0d8e7f6a1b23",
+  "version": 1,
+  "risks": {
+    "risks": [
+      {
+        "refId": "risk-y",
+        "name": "Legacy likelihood level",
+        "statement": "Uses a retired camelCase likelihood level value that should no longer validate.",
+        "inherentRisk": {
+          "likelihood": { "level": "veryHigh" }
+        }
+      }
+    ]
+  }
+}

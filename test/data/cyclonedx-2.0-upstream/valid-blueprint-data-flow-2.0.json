@@ -1,0 +1,214 @@
+{
+  "$comment": "Model type: data-flow. This example models an online banking funds transfer as a data flow diagram, the substrate most commonly used for STRIDE per-element threat analysis. It is represented as a blueprint with an external customer actor, processing services, and data stores arranged across three trust zones (internet, DMZ, core) that are separated by trust boundaries. Flows carry named data objects, authentication, and protocols as they move between zones, so each flow that crosses a boundary is visible. Zones plus boundaries plus typed data flows are the core constructs of this model type. The internet-facing boundary separates its crossingRequirements, the controls applied at each crossing such as authentication and logging, from sessionManagement, the lifecycle of the authenticated session it establishes, which is scoped to the session rather than to any single crossing.",
+  "specFormat": "CycloneDX",
+  "specVersion": "2.0",
+  "serialNumber": "urn:uuid:b1000000-0000-4000-8000-0000000000a4",
+  "version": 1,
+  "blueprints": [
+    {
+      "refId": "bp-data-flow",
+      "name": "Online banking funds transfer data flow",
+      "description": "How a customer's login and transfer request moves through the portal, authentication, and transfer services to the account store and audit log, across trust boundaries.",
+      "modelTypes": [
+        "data-flow"
+      ],
+      "zones": [
+        {
+          "refId": "zone-internet",
+          "name": "Internet",
+          "type": "trust",
+          "characteristics": [
+            "untrusted"
+          ]
+        },
+        {
+          "refId": "zone-dmz",
+          "name": "DMZ",
+          "type": "trust"
+        },
+        {
+          "refId": "zone-core",
+          "name": "Core banking",
+          "type": "trust",
+          "characteristics": [
+            "highly trusted"
+          ]
+        }
+      ],
+      "boundaries": [
+        {
+          "refId": "bnd-internet-dmz",
+          "name": "Internet to DMZ",
+          "type": "trust",
+          "zones": [
+            "zone-internet",
+            "zone-dmz"
+          ],
+          "crossingRequirements": {
+            "authentication": [
+              "form",
+              "session-cookie"
+            ],
+            "authorization": [
+              "rbac"
+            ],
+            "protocols": [
+              "https"
+            ],
+            "logging": true,
+            "monitoring": true
+          },
+          "sessionManagement": {
+            "accessTokenExpires": true,
+            "accessTokenTtl": 900,
+            "refreshToken": true,
+            "refreshTokenTtl": 86400,
+            "idleTimeout": 900,
+            "absoluteTimeout": 28800,
+            "userLogout": true,
+            "systemLogout": true
+          }
+        },
+        {
+          "refId": "bnd-dmz-core",
+          "name": "DMZ to core",
+          "type": "trust",
+          "zones": [
+            "zone-dmz",
+            "zone-core"
+          ]
+        }
+      ],
+      "actors": [
+        {
+          "refId": "act-customer",
+          "party": {
+            "roles": [
+              {
+                "role": "end-user"
+              }
+            ],
+            "persona": {
+              "archetype": "customer"
+            }
+          },
+          "description": "A retail banking customer initiating a transfer.",
+          "inScope": false,
+          "zone": "zone-internet",
+          "permissions": [
+            "initiate-transfer"
+          ]
+        }
+      ],
+      "assets": [
+        {
+          "refId": "asset-portal",
+          "type": "service",
+          "name": "Web portal",
+          "inScope": true,
+          "zone": "zone-dmz"
+        },
+        {
+          "refId": "asset-auth",
+          "type": "service",
+          "name": "Authentication service",
+          "zone": "zone-core"
+        },
+        {
+          "refId": "asset-transfer",
+          "type": "service",
+          "name": "Transfer service",
+          "zone": "zone-core",
+          "classification": {
+            "criticality": "critical"
+          }
+        },
+        {
+          "refId": "asset-accounts",
+          "type": "data-store",
+          "name": "Account store",
+          "zone": "zone-core",
+          "classification": {
+            "criticality": "critical"
+          }
+        },
+        {
+          "refId": "asset-audit",
+          "type": "data-store",
+          "name": "Audit log",
+          "zone": "zone-core"
+        }
+      ],
+      "flows": [
+        {
+          "refId": "df-login",
+          "name": "Login and transfer request",
+          "type": "data",
+          "inScope": true,
+          "source": "act-customer",
+          "destination": "asset-portal",
+          "synchronous": true,
+          "protocols": [
+            "https"
+          ],
+          "authentication": [
+            "form",
+            "totp"
+          ],
+          "dataObjects": [
+            {
+              "name": "credentials"
+            },
+            {
+              "name": "transfer-instruction"
+            }
+          ]
+        },
+        {
+          "refId": "df-authenticate",
+          "name": "Authenticate session",
+          "type": "data",
+          "source": "asset-portal",
+          "destination": "asset-auth",
+          "synchronous": true,
+          "protocols": [
+            "https"
+          ]
+        },
+        {
+          "refId": "df-debit-credit",
+          "name": "Debit and credit accounts",
+          "type": "data",
+          "source": "asset-transfer",
+          "destination": "asset-accounts",
+          "synchronous": true,
+          "authorization": [
+            "rbac"
+          ],
+          "dataObjects": [
+            {
+              "name": "ledger-entry"
+            }
+          ]
+        },
+        {
+          "refId": "df-audit",
+          "name": "Write audit record",
+          "type": "data",
+          "source": "asset-transfer",
+          "destination": "asset-audit",
+          "synchronous": false,
+          "timing": "asynchronous"
+        }
+      ],
+      "assumptions": [
+        {
+          "refId": "asm-tls",
+          "description": "All flows that cross a trust boundary are protected with mutually authenticated TLS.",
+          "topic": "security",
+          "validity": "verified"
+        }
+      ]
+    }
+  ]
+}

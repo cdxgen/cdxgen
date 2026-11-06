@@ -1,0 +1,106 @@
+{
+  "$schema": "https://cyclonedx.org/schema/2.0/cyclonedx-2.0.schema.json",
+  "specFormat": "CycloneDX",
+  "specVersion": "2.0",
+  "serialNumber": "urn:uuid:1f8a6b2c-4e7d-4f0a-9c3b-8d5e2a7f6b41",
+  "version": 1,
+  "definitions": {
+    "components": [
+      {
+        "type": "library",
+        "refId": "component-authz-lib",
+        "name": "acme-authz",
+        "version": "3.2.1"
+      },
+      {
+        "refId": "service-payment-api",
+        "type": "service",
+        "name": "Acme Payment API"
+      }
+    ],
+    "requirements": [
+      {
+        "refId": "requirement-access-enforcement",
+        "id": "AC-3",
+        "name": "Access enforcement"
+      }
+    ]
+  },
+  "controls": [
+    {
+      "refId": "control-rbac",
+      "name": "Role-based access control",
+      "description": "Enforces least-privilege access to the payment API.",
+      "category": "preventive",
+      "status": "verified",
+      "appliesTo": [
+        "service-payment-api"
+      ],
+      "implementedBy": [
+        "component-authz-lib"
+      ],
+      "satisfies": [
+        "requirement-access-enforcement"
+      ],
+      "effectiveness": {
+        "percentage": 0.95,
+        "rating": "excellent"
+      },
+      "owner": {
+        "roles": [
+          {
+            "role": "owner"
+          }
+        ],
+        "organization": {
+          "name": "Acme Security Office"
+        }
+      },
+      "externalReferences": [
+        {
+          "type": "documentation",
+          "url": "https://docs.acme.example.com/controls/rbac"
+        }
+      ],
+      "properties": [
+        {
+          "name": "internal:control-id",
+          "value": "CTRL-0042"
+        }
+      ]
+    }
+  ],
+  "threats": {
+    "threats": [
+      {
+        "refId": "threat-privilege-escalation",
+        "name": "Privilege escalation via the payment API",
+        "mitigations": [
+          "control-rbac"
+        ]
+      }
+    ]
+  },
+  "risks": {
+    "risks": [
+      {
+        "refId": "risk-unauthorized-payment",
+        "name": "Unauthorized payment initiation",
+        "statement": "An unauthorized actor initiates payments, resulting in financial loss.",
+        "responses": [
+          {
+            "refId": "response-enforce-rbac",
+            "strategy": "reduce",
+            "controls": [
+              "control-rbac"
+            ],
+            "status": "implemented",
+            "effectiveness": {
+              "rating": "good"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

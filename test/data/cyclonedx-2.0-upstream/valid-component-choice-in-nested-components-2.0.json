@@ -1,0 +1,54 @@
+{
+  "$schema": "https://cyclonedx.org/schema/2.0/cyclonedx-2.0.schema.json",
+  "specFormat": "CycloneDX",
+  "specVersion": "2.0",
+  "version": 1,
+  "inventories": [
+    {
+      "subject": {
+        "refId": "main-board",
+        "type": "device",
+        "name": "Main Board"
+      },
+      "components": [
+        {
+          "type": "device",
+          "name": "Power Management Sub-board",
+          "components": [
+            {
+              "type": "device",
+              "name": "Input Diode"
+            },
+            {
+              "type": "component-choice",
+              "name": "U1 5V LDO Regulator",
+              "operator": "XOR",
+              "components": [
+                {
+                  "type": "device",
+                  "name": "LD1117S50TR",
+                  "parties": [
+                    {
+                      "roles": [ { "role": "supplier" } ],
+                      "organization": { "name": "STMicroelectronics" }
+                    }
+                  ]
+                },
+                {
+                  "type": "device",
+                  "name": "AMS1117-5.0",
+                  "parties": [
+                    {
+                      "roles": [ { "role": "supplier" } ],
+                      "organization": { "name": "Advanced Monolithic Systems" }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

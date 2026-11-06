@@ -1,0 +1,146 @@
+{
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.7",
+  "serialNumber": "urn:uuid:5e1f5ca0-0000-4000-8000-000000000001",
+  "version": 1,
+  "metadata": {
+    "timestamp": "2026-01-01T00:00:00Z",
+    "tools": {
+      "components": [
+        {
+          "group": "@cdxgen",
+          "name": "cdxgen",
+          "version": "13.7.0",
+          "purl": "pkg:npm/%40cdxgen/cdxgen@13.7.0",
+          "type": "application",
+          "bom-ref": "pkg:npm/@cdxgen/cdxgen@13.7.0",
+          "publisher": "OWASP Foundation"
+        }
+      ]
+    },
+    "supplier": {
+      "bom-ref": "supplier-owasp",
+      "name": "OWASP Foundation",
+      "url": ["https://owasp.org"]
+    },
+    "component": {
+      "group": "@cdxgen",
+      "name": "cdxgen",
+      "version": "13.7.0",
+      "purl": "pkg:npm/%40cdxgen/cdxgen@13.7.0",
+      "type": "application",
+      "bom-ref": "pkg:npm/@cdxgen/cdxgen@13.7.0",
+      "licenses": [{ "license": { "id": "Apache-2.0" } }],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08"
+        }
+      ],
+      "properties": [{ "name": "SrcFile", "value": "package.json" }],
+      "supplier": {
+        "bom-ref": "supplier-owasp",
+        "name": "OWASP Foundation",
+        "url": ["https://owasp.org"]
+      }
+    }
+  },
+  "components": [
+    {
+      "type": "library",
+      "name": "lodash",
+      "version": "4.17.21",
+      "bom-ref": "pkg:npm/lodash@4.17.21",
+      "purl": "pkg:npm/lodash@4.17.21",
+      "supplier": {
+        "bom-ref": "supplier-owasp",
+        "name": "OWASP Foundation",
+        "url": ["https://owasp.org"]
+      }
+    },
+    {
+      "type": "library",
+      "name": "semver",
+      "version": "7.6.0",
+      "bom-ref": "pkg:npm/semver@7.6.0",
+      "purl": "pkg:npm/semver@7.6.0",
+      "supplier": {
+        "bom-ref": "supplier-owasp",
+        "name": "OWASP Foundation",
+        "url": ["https://owasp.org"]
+      }
+    },
+    {
+      "type": "application",
+      "name": "checkout",
+      "group": "actions",
+      "version": "v4",
+      "bom-ref": "pkg:github/actions/checkout@v4",
+      "purl": "pkg:github/actions/checkout@v4",
+      "properties": [{ "name": "cdx:github:action:uses", "value": "actions/checkout@v4" }]
+    },
+    {
+      "type": "application",
+      "name": "setup-node",
+      "group": "actions",
+      "version": "v4",
+      "bom-ref": "pkg:github/actions/setup-node@v4",
+      "purl": "pkg:github/actions/setup-node@v4"
+    }
+  ],
+  "dependencies": [
+    {
+      "ref": "pkg:npm/@cdxgen/cdxgen@13.7.0",
+      "dependsOn": ["pkg:npm/lodash@4.17.21", "pkg:npm/semver@7.6.0"]
+    }
+  ],
+  "annotations": [
+    {
+      "bom-ref": "annotation-older-cdxgen",
+      "subjects": ["pkg:npm/lodash@4.17.21"],
+      "annotator": {
+        "component": {
+          "group": "@cdxgen",
+          "name": "cdxgen",
+          "version": "13.6.0",
+          "type": "application",
+          "bom-ref": "pkg:npm/@cdxgen/cdxgen@13.7.0"
+        }
+      },
+      "timestamp": "2026-01-01T00:00:00Z",
+      "text": "An annotator component that repeats a refId with other members."
+    }
+  ],
+  "formulation": [
+    {
+      "bom-ref": "formula-ci",
+      "components": [
+        {
+          "type": "application",
+          "name": "setup-node",
+          "group": "actions",
+          "version": "v4",
+          "bom-ref": "pkg:github/actions/setup-node@v4",
+          "purl": "pkg:github/actions/setup-node@v4"
+        },
+        {
+          "type": "application",
+          "name": "checkout",
+          "group": "actions",
+          "version": "v4",
+          "bom-ref": "pkg:github/actions/checkout@v4",
+          "purl": "pkg:github/actions/checkout@v4",
+          "properties": [{ "name": "cdx:github:workflow:file", "value": ".github/workflows/ci.yml" }]
+        }
+      ],
+      "workflows": [
+        {
+          "bom-ref": "workflow-ci",
+          "uid": "ci",
+          "taskTypes": ["build"],
+          "resourceReferences": [{ "ref": "pkg:github/actions/checkout@v4" }]
+        }
+      ]
+    }
+  ]
+}

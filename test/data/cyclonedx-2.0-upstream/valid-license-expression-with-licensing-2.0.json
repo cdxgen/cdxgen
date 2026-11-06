@@ -1,0 +1,64 @@
+{
+  "$schema": "https://cyclonedx.org/schema/2.0/cyclonedx-2.0.schema.json",
+  "specFormat": "CycloneDX",
+  "specVersion": "2.0",
+  "serialNumber": "urn:uuid:78a32681-a31f-4097-b151-7b771cc58157",
+  "version": 1,
+  "definitions": {
+    "components": [
+      {
+        "type": "library",
+        "parties": [
+          {
+            "roles": [ { "role": "publisher" } ],
+            "organization": { "name": "Acme Inc" }
+          }
+        ],
+        "group": "com.acme",
+        "name": "cryptographic-provider",
+        "version": "2.2.0",
+        "licenses": [
+          {
+            "refId": "acme-license-1",
+            "expression": "LicenseRef-AcmeCommercialLicense",
+            "licensing": {
+              "altIds": [
+                "acme",
+                "acme-license"
+              ],
+              "licensor": {
+                "organization": {
+                  "name": "Acme Inc",
+                  "contact": [
+                    {
+                      "name": "Acme Licensing Fulfillment",
+                      "email": "licensing@example.com"
+                    }
+                  ]
+                }
+              },
+              "licensee": {
+                "organization": {
+                  "name": "Example Co."
+                }
+              },
+              "purchaser": {
+                "individual": {
+                  "name": "Samantha Wright",
+                  "email": "samantha.wright@gmail.com",
+                  "phone": "800-555-1212"
+                }
+              },
+              "purchaseOrder": "PO-12345",
+              "licenseTypes": [
+                "appliance"
+              ],
+              "lastRenewal": "2022-04-13T20:20:39+00:00",
+              "expiration": "2023-04-13T20:20:39+00:00"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

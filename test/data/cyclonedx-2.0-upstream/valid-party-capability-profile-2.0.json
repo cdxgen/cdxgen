@@ -1,0 +1,49 @@
+{
+  "$schema": "https://cyclonedx.org/schema/2.0/cyclonedx-2.0.schema.json",
+  "specFormat": "CycloneDX",
+  "specVersion": "2.0",
+  "serialNumber": "urn:uuid:44444444-4444-4444-4444-444444444444",
+  "version": 1,
+  "inventories": [
+    {
+      "subject": {
+        "refId": "subject-1",
+        "type": "device",
+        "name": "Acme Industrial Sensor"
+      },
+      "components": [
+        {
+          "refId": "comp-sensor",
+          "type": "device",
+          "name": "Temperature Probe",
+          "parties": [
+            {
+              "refId": "party-acme-mfg-primary",
+              "roles": [
+                { "role": "manufacturer", "order": 1 },
+                { "role": "supplier", "order": 1 }
+              ],
+              "organization": {
+                "name": "Acme Manufacturing",
+                "legalName": "Acme Manufacturing, Inc.",
+                "jurisdiction": "US-CA"
+              }
+            },
+            {
+              "refId": "party-acme-mfg-alternate",
+              "roles": [
+                { "role": "manufacturer", "order": 2 },
+                { "role": "supplier", "order": 2 }
+              ],
+              "organization": {
+                "name": "Acme Manufacturing East",
+                "legalName": "Acme Manufacturing East, LLC",
+                "jurisdiction": "US-NJ"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

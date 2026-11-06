@@ -1,0 +1,115 @@
+{
+  "specFormat": "CycloneDX",
+  "specVersion": "2.0",
+  "serialNumber": "urn:uuid:7c9e6679-7425-40de-944b-e07fc1f90ae7",
+  "version": 1,
+  "risks": {
+    "risks": [
+      {
+        "refId": "risk-model-bias",
+        "name": "Disparate loan approval rates",
+        "statement": "The credit model may approve loans at materially different rates across demographic groups, leading to discriminatory outcomes.",
+        "description": "Identified during fairness evaluation of the underwriting model.",
+        "domains": [
+          { "type": "ethical" },
+          { "type": { "name": "model-governance", "description": "Risks specific to the organization's model governance program." } }
+        ],
+        "affects": [ "component-credit-model", "data-training-set", "party-loan-applicants" ],
+        "relatedThreats": [ "threat-data-poisoning" ],
+        "relatedWeaknesses": [ "weakness-training-imbalance" ],
+        "relatedRequirements": [ "requirement-fairness-conformance" ],
+        "relatedStandards": [ "standard-ai-governance" ],
+        "relatedClaims": [ "claim-fairness-partial" ],
+        "inherentRisk": {
+          "likelihood": {
+            "level": "high",
+            "score": 4,
+            "probability": 0.7,
+            "timeframe": "P1Y",
+            "factors": [
+              { "name": "Training data imbalance", "type": "vulnerability", "level": "high" },
+              { "name": "Detection coverage", "type": "detectability", "level": "low" },
+              { "name": "Bespoke audit pressure", "type": { "name": "regulatory-scrutiny", "description": "Degree of active regulatory attention." }, "level": "medium" }
+            ],
+            "rationale": "Historical data is skewed and monitoring is limited."
+          },
+          "impacts": [
+            {
+              "level": "major",
+              "score": 4,
+              "polarity": "harm",
+              "categories": [ "discrimination", "human-rights", { "name": "brand-trust" } ],
+              "factors": [
+                { "name": "Discrimination harm", "category": "discrimination", "score": 8, "weight": 0.6 },
+                { "name": "Reputation damage", "category": "reputation", "score": 6, "weight": 0.4 }
+              ],
+              "range": { "minimum": 6, "mostLikely": 8, "maximum": 9 },
+              "quantification": {
+                "affectedGroups": 3,
+                "financialLossRange": { "minimum": 100000, "mostLikely": 500000, "maximum": 2000000 },
+                "currency": "USD"
+              },
+              "description": "Potential regulatory action and harm to affected applicants."
+            }
+          ],
+          "score": { "level": "high", "score": 16, "methodology": "qualitative-matrix" },
+          "detectability": { "score": 6, "description": "Bias surfaces only in aggregate metrics, so individual decisions are hard to flag." },
+          "confidence": 0.6,
+          "rationale": "Based on offline fairness metrics."
+        },
+        "residualRisk": {
+          "impacts": [ { "level": "moderate", "polarity": "harm", "categories": [ "fairness" ] } ],
+          "score": { "level": "medium" },
+          "confidence": 0.5
+        },
+        "responses": [
+          {
+            "refId": "response-reweighting",
+            "strategy": "reduce",
+            "description": "Apply reweighting and fairness constraints, with ongoing monitoring.",
+            "controls": [ "requirement-fairness-threshold", "component-bias-monitor" ],
+            "status": { "name": "in-review", "description": "Pending sign-off from the model risk committee." },
+            "effectiveness": { "rating": "good", "percentage": 0.7 },
+            "cost": "medium",
+            "priority": "high",
+            "owner": { "ref": "party-ml-team" },
+            "targetDate": "2026-09-30T00:00:00Z"
+          }
+        ],
+        "status": "assessed",
+        "owner": { "ref": "party-risk-office" }
+      }
+    ],
+    "assessments": [
+      {
+        "refId": "assessment-q2-2026",
+        "name": "Q2 2026 model risk review",
+        "type": [ "ai-impact", "model-risk" ],
+        "cadence": "periodic",
+        "timestamp": "2026-04-15T00:00:00Z",
+        "scope": "The credit underwriting model and its training pipeline.",
+        "status": "completed",
+        "assessors": [ { "ref": "party-risk-office" }, { "ref": "system-ccm-platform" } ],
+        "summary": "Quarterly fairness and model risk review.",
+        "risks": [ "risk-model-bias" ],
+        "overallRisk": {
+          "method": "average",
+          "score": { "level": "high", "score": 8, "methodology": "owasp-risk-rating" }
+        },
+        "assumptions": [ "Training data distribution is representative of the applicant population." ],
+        "recommendations": [ "Expand monitoring to per-segment fairness metrics." ],
+        "nextReview": "2026-07-15T00:00:00Z"
+      }
+    ]
+  },
+  "definitions": {
+    "weaknesses": [
+      {
+        "refId": "weakness-training-imbalance",
+        "kind": "bias",
+        "name": "Training data imbalance",
+        "description": "Statistical bias in the training data. Historical lending records under-represent some demographic groups, so the model learns a skewed decision boundary."
+      }
+    ]
+  }
+}

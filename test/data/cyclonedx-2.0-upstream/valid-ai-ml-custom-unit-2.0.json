@@ -1,0 +1,63 @@
+{
+  "$schema": "https://cyclonedx.org/schema/2.0/cyclonedx-2.0.schema.json",
+  "specFormat": "CycloneDX",
+  "specVersion": "2.0",
+  "serialNumber": "urn:uuid:9b6c2d1e-4f7a-4c3b-8e2d-1a5f6b7c8d01",
+  "version": 1,
+  "definitions": {
+    "components": [
+      {
+        "refId": "model-1",
+        "type": "machine-learning-model",
+        "name": "acme-classifier",
+        "version": "1.0.0",
+        "measurements": [
+          {
+            "type": "f1",
+            "measure": {
+              "value": 0.87,
+              "unit": "1"
+            }
+          },
+          {
+            "type": "perplexity",
+            "measure": {
+              "value": 7.2,
+              "unit": "1"
+            }
+          },
+          {
+            "type": "elo",
+            "benchmark": "chatbot-arena",
+            "measure": {
+              "value": 1180,
+              "unit": {
+                "name": "Elo rating",
+                "description": "Rating points on the Elo scale.",
+                "url": "https://ratings.example.com/elo"
+              }
+            }
+          },
+          {
+            "type": "bandwidth",
+            "measure": {
+              "value": 12.5,
+              "unit": {
+                "name": "kilobit per second",
+                "system": "ucum",
+                "code": "kbit/s"
+              }
+            }
+          },
+          {
+            "type": "latency-p50",
+            "measure": {
+              "value": 42,
+              "unit": "ms"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

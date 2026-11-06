@@ -1,0 +1,109 @@
+{
+  "$schema": "https://cyclonedx.org/schema/2.0/cyclonedx-2.0.schema.json",
+  "specFormat": "CycloneDX",
+  "specVersion": "2.0",
+  "serialNumber": "urn:uuid:3e671687-395b-41f5-a30f-a58921a69b79",
+  "version": 1,
+  "blueprints": [
+    {
+      "refId": "blueprint-pth-payload",
+      "name": "Pass-the-Hash Payload Behavioral Blueprint",
+      "modelTypes": [
+        { "type": "behavioral" }
+      ],
+      "methodologies": [
+        { "type": "MITRE-ATTACK" }
+      ],
+      "behaviors": {
+        "instances": [
+          {
+            "refId": "b-startup-exec",
+            "behavior": "system:persistence:registersForStartup",
+            "acknowledgment": ["observed"],
+            "trigger": "startup"
+          },
+          {
+            "refId": "b-decode",
+            "behavior": "evasion:obfuscation:obfuscatesStrings",
+            "acknowledgment": ["observed"],
+            "trigger": "startup"
+          },
+          {
+            "refId": "b-credential-collect",
+            "behavior": "privacy:collection:collectsPersonalData",
+            "acknowledgment": ["observed"],
+            "trigger": "startup"
+          },
+          {
+            "refId": "b-exfil",
+            "behavior": "network:transmission:sendsData",
+            "acknowledgment": ["observed"],
+            "trigger": "startup"
+          }
+        ],
+        "flows": [
+          {
+            "refId": "flow-pth-payload",
+            "trigger": "startup",
+            "acknowledgment": ["observed"],
+            "ordering": "sequential",
+            "steps": [
+              { "ordinal": 1, "ref": "b-startup-exec" },
+              { "ordinal": 2, "ref": "b-decode" },
+              { "ordinal": 3, "ref": "b-credential-collect" },
+              { "ordinal": 4, "ref": "b-exfil" }
+            ]
+          }
+        ],
+
+        "workflows": [
+          {
+            "refId": "workflow-pth-payload",
+            "name": "Pass-the-Hash Payload Workflow",
+            "trigger": {
+              "type": "startup"
+            },
+            "tasks": [
+              {
+                "b-ref": "b-startup-exec",
+                "timeStart": "2026-01-01T00:00:00Z"
+              },
+              {
+                "b-ref": "b-decode",
+                "timeStart": "2026-01-01T00:10:00Z"
+              },
+              {
+                "b-ref": "b-credential-collect",
+                "timeStart": "2026-01-01T00:12:00Z"
+              },
+              {
+                "b-ref": "b-exfil",
+                "timeStart": "2026-01-01T00:13:00Z"
+              }
+            ],
+            "taskDependencies": [
+              {
+                "ref": "b-startup-exec",
+                "dependsOn": []
+              },
+              {
+                "ref": "b-decode",
+                "dependsOn": [ "b-startup-exec" ]
+              },
+              {
+                "ref": "b-credential-collect",
+                "dependsOn": [ "b-decode" ]
+              },
+              {
+                "ref": "b-exfil",
+                "dependsOn": [ "b-credential-collect" ]
+              }
+            ]
+          }
+        ]
+
+
+      }
+    }
+  ]
+}

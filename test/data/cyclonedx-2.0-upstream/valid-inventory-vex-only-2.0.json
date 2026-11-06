@@ -1,0 +1,17 @@
+{
+  "$schema": "https://cyclonedx.org/schema/2.0/cyclonedx-2.0.schema.json",
+  "specFormat": "CycloneDX",
+  "specVersion": "2.0",
+  "serialNumber": "urn:uuid:3e671687-395b-41f5-a30f-a58921a69b7b",
+  "version": 1,
+  "definitions": {
+    "components": [
+      { "refId": "acme-gateway", "type": "device", "name": "Acme Gateway", "version": "2.1" },
+      { "refId": "acme-controller", "type": "application", "name": "Acme Controller", "version": "5.0" }
+    ]
+  },
+  "vulnerabilities": [
+    { "refId": "vuln-1", "id": "CVE-2026-0002",
+      "affects": [ { "ref": "acme-gateway" }, { "ref": "acme-controller" } ] }
+  ]
+}

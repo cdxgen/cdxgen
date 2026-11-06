@@ -1,0 +1,140 @@
+{
+  "$comment": "Model type: physical. This example models the physical realisation of a fictional building automation system. It is represented as a blueprint whose assets are tangible devices (PLC, temperature sensor, HVAC actuator, edge gateway, SCADA server) placed in physical and geographic zones. The exchanges between them use the full breadth of flow types: signal (sensor readings), control (commands), energy (power), physical (conditioned air), and data (telemetry). A behavior instance drawn from the hardware taxonomy shows an actuator controlling temperature. Device assets, physical zones, and the energy, signal, and physical flow types are the defining constructs.",
+  "specFormat": "CycloneDX",
+  "specVersion": "2.0",
+  "serialNumber": "urn:uuid:b1000000-0000-4000-8000-0000000000a7",
+  "version": 1,
+  "blueprints": [
+    {
+      "refId": "bp-physical",
+      "name": "Building automation physical model",
+      "description": "Physical devices, their power and signal connections, and the conditioned air they move on a plant floor.",
+      "modelTypes": [
+        "physical"
+      ],
+      "zones": [
+        {
+          "refId": "phys-plant",
+          "name": "Plant floor",
+          "type": "physical"
+        },
+        {
+          "refId": "phys-control-room",
+          "name": "Control room",
+          "type": "physical"
+        },
+        {
+          "refId": "geo-site",
+          "name": "Riverside site",
+          "type": "geographic"
+        }
+      ],
+      "assets": [
+        {
+          "refId": "dev-plc",
+          "type": "device",
+          "name": "Programmable logic controller",
+          "zone": "phys-plant"
+        },
+        {
+          "refId": "dev-sensor",
+          "type": "device",
+          "name": "Temperature sensor",
+          "zone": "phys-plant"
+        },
+        {
+          "refId": "dev-hvac",
+          "type": "device",
+          "name": "HVAC actuator",
+          "zone": "phys-plant"
+        },
+        {
+          "refId": "dev-gateway",
+          "type": "gateway",
+          "name": "Edge gateway",
+          "zone": "phys-control-room"
+        },
+        {
+          "refId": "dev-scada",
+          "type": "system",
+          "name": "SCADA server",
+          "zone": "phys-control-room"
+        }
+      ],
+      "relationships": [
+        {
+          "ref": "dev-plc",
+          "dependsOn": [
+            "dev-hvac"
+          ]
+        }
+      ],
+      "flows": [
+        {
+          "refId": "pflow-reading",
+          "name": "Temperature reading",
+          "type": "signal",
+          "source": "dev-sensor",
+          "destination": "dev-plc"
+        },
+        {
+          "refId": "pflow-command",
+          "name": "Actuation command",
+          "type": "control",
+          "source": "dev-plc",
+          "destination": "dev-hvac"
+        },
+        {
+          "refId": "pflow-power",
+          "name": "Mains power",
+          "type": "energy",
+          "source": "dev-gateway",
+          "destination": "dev-plc"
+        },
+        {
+          "refId": "pflow-air",
+          "name": "Conditioned air",
+          "type": "physical",
+          "source": "dev-hvac",
+          "destination": "phys-plant"
+        },
+        {
+          "refId": "pflow-telemetry",
+          "name": "Telemetry upload",
+          "type": "data",
+          "source": "dev-gateway",
+          "destination": "dev-scada",
+          "protocols": [
+            "mqtt"
+          ]
+        }
+      ],
+      "behaviors": {
+        "instances": [
+          {
+            "refId": "bi-control-temp",
+            "behavior": "hardware:actuator:controlsTemperature",
+            "trigger": "condition-based",
+            "acknowledgment": [
+              "declared"
+            ],
+            "actors": [
+              "dev-hvac"
+            ],
+            "targets": [
+              "phys-plant"
+            ]
+          }
+        ]
+      },
+      "assumptions": [
+        {
+          "refId": "asm-power",
+          "description": "Controllers are backed by an uninterruptible power supply.",
+          "topic": "availability",
+          "validity": "unverified"
+        }
+      ]
+    }
+  ]
+}

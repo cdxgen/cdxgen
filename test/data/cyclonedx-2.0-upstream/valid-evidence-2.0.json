@@ -1,0 +1,175 @@
+{
+  "$schema": "https://cyclonedx.org/schema/2.0/cyclonedx-2.0.schema.json",
+  "specFormat": "CycloneDX",
+  "specVersion": "2.0",
+  "serialNumber": "urn:uuid:3e671687-395b-41f5-a30f-a58921a69b79",
+  "version": 1,
+  "metadata": {
+    "manufacturer": {
+      "refId": "acme-inc",
+      "name": "Acme Inc."
+    }
+  },
+  "definitions": {
+    "components": [
+      {
+        "type": "application",
+        "group": "com.acme.tools",
+        "name": "acme-bug-finder",
+        "version": "3.0.0",
+        "licenses": [
+          {
+            "license": {
+              "id": "LGPL-3.0-or-later",
+              "url": "https://www.gnu.org/licenses/lgpl-3.0-standalone.html"
+            }
+          }
+        ],
+        "identifiers": [
+          {
+            "party": "acme-inc",
+            "identities": [
+              {
+                "scheme": "purl",
+                "value": "pkg:maven/com.acme.tools/acme-bug-finder@3.0.0"
+              }
+            ]
+          }
+        ],
+        "evidence": {
+          "identity": [
+            {
+              "scheme": "purl",
+              "concludedValue": "pkg:maven/com.acme.tools/acme-bug-finder@3.0.0",
+              "confidence": 1,
+              "methods": [
+                {
+                  "technique": "filename",
+                  "confidence": 0.1,
+                  "value": "acme-bug-finder-3.0.0.jar"
+                },
+                {
+                  "technique": "ast-fingerprint",
+                  "confidence": 0.9,
+                  "value": "61e4bc08251761c3a73b606b9110a65899cb7d44f3b14c81ebc1e67c98e1d9ab"
+                },
+                {
+                  "technique": "hash-comparison",
+                  "confidence": 0.7,
+                  "value": "7c547a9d67cc7bc315c93b6e2ff8e4b6b41ae5be454ac249655ecb5ca2a85abf"
+                }
+              ],
+              "tools": [
+                "refId-of-tool-that-performed-analysis"
+              ]
+            },
+            {
+              "scheme": "cpe",
+              "concludedValue": "cpe:2.3:a:acme:acme-bug-finder:3.0.0:*:*:*:*:*:*:*",
+              "confidence": 0.8,
+              "methods": [
+                {
+                  "technique": "manifest-analysis",
+                  "confidence": 0.8,
+                  "value": "META-INF/MANIFEST.MF"
+                }
+              ]
+            }
+          ],
+          "occurrences": [
+            {
+              "refId": "d6bf237e-4e11-4713-9f62-56d18d5e2079",
+              "location": "/path/to/component"
+            },
+            {
+              "refId": "b574d5d1-e3cf-4dcd-9ba5-f3507eb1b175",
+              "location": "/another/path/to/component"
+            }
+          ],
+          "callStacks": [
+            {
+              "name": "Logging call path",
+              "frames": [
+                {
+                  "package": "com.acme.logging.core",
+                  "module": "Logger.class",
+                  "function": "logMessage",
+                  "parameters": [
+                    "com.acme.HelloWorld",
+                    "Level.INFO",
+                    "null",
+                    "Hello World"
+                  ],
+                  "line": 150,
+                  "column": 17,
+                  "fullFilename": "/path/to/acme-logging-2.14.0.jar!/com/acme/logging/core/Logger.class"
+                },
+                {
+                  "module": "HelloWorld.class",
+                  "function": "main",
+                  "line": 20,
+                  "column": 12,
+                  "fullFilename": "/path/to/HelloWorld.class"
+                }
+              ]
+            }
+          ],
+          "licenses": [
+            {
+              "license": { "id": "Apache-2.0" },
+              "occurrences": [
+                {
+                  "location": "HelloWorld.class",
+                  "line": 8,
+                  "additionalContext": " *     http://www.apache.org/licenses/LICENSE-2.0"
+                }
+              ]
+            },
+            {
+              "license": { "id": "Apache-2.0" },
+              "occurrences": [
+                {
+                  "location": "HelloWorld.class",
+                  "line": 16,
+                  "additionalContext": "// SPDX-License-Identifier: Apache-2.0"
+                }
+              ]
+            },
+            {
+              "license": { "id": "MIT" },
+              "occurrences": [
+                {
+                  "location": "Example.class",
+                  "line": 22,
+                  "additionalContext": "// SPDX-License-Identifier: MIT"
+                }
+              ]
+            }
+          ],
+          "copyright": [
+            {
+              "text": "Copyright 2012 Acme Inc.",
+              "occurrences": [
+                {
+                  "location": "HelloWorld.class",
+                  "line": 2,
+                  "additionalContext": " * Copyright (c) 2012 Acme Inc."
+                }
+              ]
+            },
+            {
+              "text": "Copyright 2011 Example Corporation",
+              "occurrences": [
+                {
+                  "location": "Example.class",
+                  "line": 2,
+                  "additionalContext": " * Copyright (c) 2011 Example Corporation"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

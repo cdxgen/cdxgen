@@ -1,0 +1,39 @@
+{
+  "$schema": "https://cyclonedx.org/schema/2.0/cyclonedx-2.0.schema.json",
+  "specFormat": "CycloneDX",
+  "specVersion": "2.0",
+  "serialNumber": "urn:uuid:3e671687-395b-41f5-a30f-a58921a69b79",
+  "version": 1,
+  "inventories": [
+    {
+      "subject": {
+        "refId": "acme-application",
+        "type": "application",
+        "name": "Acme Application",
+        "version": "9.1.1",
+        "parties": [
+          {
+            "refId": "party-acme-supplier",
+            "roles": [
+              {
+                "role": "supplier"
+              }
+            ],
+            "organization": {
+              "legalName": "Acme, Inc.",
+              "url": [
+                {
+                  "name": "homepage",
+                  "url": "https://www.acme.example.com"
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "components": [
+        { "refId": "pkg:maven/acme/library@3.0", "type": "library", "name": "Acme Library", "version": "3.0" }
+      ]
+    }
+  ]
+}

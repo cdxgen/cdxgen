@@ -1,0 +1,205 @@
+{
+  "$schema": "https://cyclonedx.org/schema/2.0/cyclonedx-2.0.schema.json",
+  "$comment": "Synthetic 2.0 document for the reader's reverse converters (lib/inventory/cyclonedx20Read.poku.js).",
+  "specFormat": "CycloneDX",
+  "specVersion": "2.0",
+  "serialNumber": "urn:uuid:7a5e3a0b-0c3e-4c39-9a5e-3c2f9e5b1a01",
+  "version": 1,
+  "metadata": {
+    "timestamp": "2026-01-01T00:00:00Z",
+    "tools": {
+      "components": [
+        {
+          "type": "application",
+          "refId": "tool-scanner",
+          "name": "scanner",
+          "version": "1.0.0"
+        }
+      ]
+    },
+    "manufacturer": {
+      "refId": "metadata-manufacturer",
+      "name": "Example Corp",
+      "url": ["https://example.com"],
+      "origins": [
+        {
+          "basis": "net weight",
+          "distribution": [{ "isoCode": "US", "percentage": 100 }]
+        }
+      ]
+    }
+  },
+  "inventories": [
+    {
+      "refId": "inventory-app",
+      "subject": {
+        "type": "application",
+        "refId": "app",
+        "name": "app",
+        "version": "1.0.0"
+      },
+      "components": [
+        {
+          "type": "library",
+          "refId": "lib-a",
+          "name": "lib-a",
+          "version": "2.0.0",
+          "parties": [
+            {
+              "refId": "party-supplier",
+              "roles": [{ "role": "supplier" }],
+              "organization": {
+                "name": "Supplier Inc",
+                "legalName": "Supplier Incorporated",
+                "url": [
+                  { "url": "https://supplier.example.com" },
+                  { "name": "docs", "url": "https://docs.supplier.example.com" }
+                ],
+                "addresses": [
+                  { "country": "US", "locality": "Springfield" },
+                  { "country": "CA", "locality": "Toronto" }
+                ]
+              }
+            },
+            {
+              "roles": [{ "role": "supplier" }],
+              "person": {
+                "name": "Support Desk",
+                "email": [{ "address": "support@supplier.example.com" }],
+                "phone": [{ "number": "+1-555-0100" }, { "number": "+1-555-0101" }]
+              }
+            },
+            {
+              "roles": [{ "role": "integrator" }],
+              "organization": { "name": "Integrator Ltd" }
+            }
+          ],
+          "evidence": {
+            "identity": [
+              {
+                "scheme": "purl",
+                "confidence": 0.9,
+                "methods": [
+                  {
+                    "technique": "manifest-analysis",
+                    "confidence": 0.9,
+                    "description": "Read from the lock file",
+                    "result": "detected"
+                  },
+                  {
+                    "technique": "unknown",
+                    "confidence": 0.2
+                  }
+                ]
+              }
+            ]
+          },
+          "measurements": [
+            {
+              "activity": "training",
+              "activityEnergyCost": { "value": 10, "unit": "kWh" }
+            }
+          ]
+        },
+        {
+          "type": "cryptographic-asset",
+          "refId": "alg-aes",
+          "name": "AES-256-GCM",
+          "cryptoProperties": {
+            "assetType": "algorithm",
+            "oid": "2.16.840.1.101.3.4.1.46",
+            "algorithmProperties": {
+              "primitive": "ae",
+              "algorithmFamily": "AES",
+              "mode": "gcm",
+              "implementationPlatform": ["x86_64", "armv8-a"],
+              "cryptoFunctions": ["encrypt", "decrypt", "wrap"]
+            }
+          }
+        },
+        {
+          "type": "cryptographic-asset",
+          "refId": "key-1",
+          "name": "service-key",
+          "cryptoProperties": {
+            "assetType": "related-crypto-material",
+            "relatedCryptoMaterialProperties": {
+              "type": "secret-key",
+              "size": 256,
+              "securedBy": {
+                "mechanism": "HSM",
+                "algorithmRef": ["alg-aes", "tool-scanner"]
+              }
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "dependencies": [
+    { "ref": "app", "dependsOn": ["lib-a"] },
+    { "ref": "lib-a", "dependsOn": [] }
+  ],
+  "compositions": [
+    {
+      "kind": "components",
+      "aggregate": "incomplete-first-party-only",
+      "targets": ["inventory-app", "lib-a"]
+    },
+    {
+      "kind": "dependencies",
+      "aggregate": "complete",
+      "targets": ["app", "lib-a"]
+    }
+  ],
+  "vulnerabilities": [
+    {
+      "refId": "vuln-1",
+      "id": "CVE-2026-0001",
+      "weaknesses": [
+        {
+          "kind": "flaw",
+          "identifiers": [{ "scheme": "cwe", "value": "CWE-79" }]
+        }
+      ],
+      "tools": { "components": [{ "ref": "tool-scanner" }] },
+      "affects": [{ "ref": "lib-a" }]
+    }
+  ],
+  "annotations": [
+    {
+      "refId": "annotation-1",
+      "subjects": ["lib-a"],
+      "annotator": { "component": { "ref": "tool-scanner" } },
+      "timestamp": "2026-01-01T00:00:00Z",
+      "text": "Scanned."
+    }
+  ],
+  "formulation": [
+    {
+      "refId": "formula-1",
+      "workflows": [
+        {
+          "refId": "workflow-1",
+          "uid": "workflow-uid-1",
+          "taskTypes": ["build"],
+          "trigger": {
+            "refId": "trigger-1",
+            "uid": "trigger-uid-1",
+            "type": "api"
+          },
+          "inputs": [{ "environmentVars": { "CI": "true" } }]
+        }
+      ]
+    }
+  ],
+  "definitions": {
+    "components": [
+      {
+        "type": "platform",
+        "name": "node",
+        "version": "24.0.0"
+      }
+    ]
+  }
+}

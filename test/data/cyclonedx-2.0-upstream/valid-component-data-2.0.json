@@ -1,0 +1,32 @@
+{
+  "$schema": "https://cyclonedx.org/schema/2.0/cyclonedx-2.0.schema.json",
+  "specFormat": "CycloneDX",
+  "specVersion": "2.0",
+  "serialNumber": "urn:uuid:1b1bff0e-fdb9-4088-8b9a-1a9f2d9006da",
+  "version": 1,
+  "definitions": {
+    "components": [
+      {
+        "type": "data",
+        "name": "my-configs",
+        "version": "1337",
+        "data": [
+          {
+            "type": "configuration",
+            "name": "app.ini",
+            "contents": {
+              "url": "https://example.com/cfg/1337/app.ini"
+            }
+          },
+          {
+            "type": "other",
+            "name": ".env",
+            "contents": {
+              "url": "https://example.com/cfg/1337/env"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

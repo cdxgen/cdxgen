@@ -1,0 +1,58 @@
+{
+  "$schema": "https://cyclonedx.org/schema/2.0/cyclonedx-2.0.schema.json",
+  "specFormat": "CycloneDX",
+  "specVersion": "2.0",
+  "serialNumber": "urn:uuid:8ad91ceb-1741-4d58-8d22-4488a0f68dbe",
+  "version": 1,
+  "definitions": {
+    "components": [
+      {
+        "type": "application",
+        "name": "my-application",
+        "version": "1.33.7",
+        "description": "This application is composed of multiple things, and therefore has multiple licenses applied:\n* custom code - custom license\n* component A - EPL or GPL\n* component B - MIT\n* component C - MIT",
+        "licenses": [
+          {
+            "refId": "my-application-license",
+            "acknowledgement": "declared",
+            "expression": "LicenseRef-my-custom-license AND (EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0) AND MIT",
+            "expressionDetails": [
+              {
+                "licenseIdentifier": "LicenseRef-my-custom-license",
+                "text": {
+                  "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+                },
+                "url": "https://my-application.example.com/license.txt"
+              },
+              {
+                "licenseIdentifier": "EPL-2.0",
+                "text": {
+                  "content": "Eclipse Public License - v 2.0\n\n    THE ACCOMPANYING PROGRAM IS PROVIDED UNDER THE TERMS OF THIS ECLIPSE\n    PUBLIC LICENSE (\"AGREEMENT\"). ANY USE, REPRODUCTION OR DISTRIBUTION\n    OF THE PROGRAM CONSTITUTES RECIPIENT'S ACCEPTANCE OF THIS AGREEMENT..."
+                }
+              },
+              {
+                "licenseIdentifier": "GPL-2.0 WITH Classpath-exception-2.0",
+                "text": {
+                  "mediaType": "text/plain",
+                  "content": "                    GNU GENERAL PUBLIC LICENSE\n                       Version 2, June 1991\n\n Copyright (C) 1989, 1991 Free Software Foundation, Inc.,\n <https://fsf.org/>\n Everyone is permitted to copy and distribute verbatim copies\n of this license document, but changing it is not allowed...\n\n...\n\nLinking this library statically or dynamically with other modules is making a combined work based on this library..."
+                }
+              },
+              {
+                "licenseIdentifier": "MIT",
+                "text": {
+                  "content": "MIT License\n\nCopyright (c) 1996 Component-B-Creators Inc.\n\nPermission is hereby granted, free of charge, to any person obtaining a copy\nof this software and associated documentation files (the \"Software\"),...\n\nThe above copyright notice and this permission notice shall be included in all\ncopies or substantial portions of the Software..."
+                }
+              },
+              {
+                "licenseIdentifier": "MIT",
+                "text": {
+                  "content": "MIT License\n\nCopyright (c) 2001 Component-C-Creators Org\n\nPermission is hereby granted, free of charge, to any person obtaining a copy\nof this software and associated documentation files (the \"Software\"),...\n\nThe above copyright notice and this permission notice shall be included in all\ncopies or substantial portions of the Software..."
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

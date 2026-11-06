@@ -1,0 +1,34 @@
+{
+  "$schema": "https://cyclonedx.org/schema/2.0/cyclonedx-2.0.schema.json",
+  "specFormat": "CycloneDX",
+  "specVersion": "2.0",
+  "serialNumber": "urn:uuid:3e671687-395b-41f5-a30f-a58921a69b79",
+  "version": 1,
+  "definitions": {
+    "components": [
+      {
+        "type": "library",
+        "name": "my-json-parser",
+        "version": "1.0",
+        "tags": [
+          "json-parser",
+          "javascript",
+          "node.js"
+        ]
+      },
+      {
+        "type": "service",
+        "name": "my service",
+        "endpoints": [
+          "https://example.com/myservice"
+        ],
+        "tags": [
+          "microservice",
+          "golang",
+          "aws",
+          "us-east-1"
+        ]
+      }
+    ]
+  }
+}

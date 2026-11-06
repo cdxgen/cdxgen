@@ -176,6 +176,7 @@ The server also refuses the following requests, whatever mode it runs in:
 - `exclude` patterns that use braces, are longer than 512 characters, or number more than 128. Every pattern is matched against every file the scan walks, and brace expansion multiplies them, so either can keep the server busy for minutes.
 - A `serverUrl` on another origin than the one the server was started with, when the request reuses the operator's API key. In secure mode such a `serverUrl` also needs `CDXGEN_ALLOWED_HOSTS`, which every redirect hop is checked against as well.
 - A `path` whose real location, after following symlinks, is outside `CDXGEN_ALLOWED_PATHS`.
+- A Dependency-Track upload (`serverUrl` with `apiKey`) at `specVersion` 2.0. Dependency-Track does not ingest the CycloneDX 2.0 draft, so the server answers `400` with the error `Unsupported Spec Version For Dependency-Track` before scanning. The CLI refuses `--server-url` with `--api-key` at `--spec-version 2.0` the same way, before generating. Use `specVersion` 1.7 for uploads.
 
 `failOnError` never applies to server requests, so a failing scan returns an error to its client instead of stopping the server. A git clone that fails answers `500` with an `Unable to clone repository` error instead of an empty BOM. Repositories are cloned with `core.symlinks=false`, so a link in a cloned repository is checked out as a plain file and cannot point the scan at files on the server.
 

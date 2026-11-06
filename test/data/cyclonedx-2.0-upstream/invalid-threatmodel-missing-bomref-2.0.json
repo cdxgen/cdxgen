@@ -1,0 +1,14 @@
+{
+  "specFormat": "CycloneDX",
+  "specVersion": "2.0",
+  "threats": {
+    "threatScenarios": [
+      {
+        "name": "Scenario missing its required refId",
+        "threats": [
+          "threat-1"
+        ]
+      }
+    ]
+  }
+}

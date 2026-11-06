@@ -69,6 +69,16 @@ cdx-verify -i bom.json --public-key builder.pem --public-key auditor.pem --requi
 - If no valid signatures are present, the command exits with a failure.
 - ECDSA (`ES*`) signatures verify in both of their equivalent forms, `(r, s)` and `(r, n - s)`, as JSF and JWS allow; `cdx-sign` writes only the low-`s` form. Do not use a signature `value` as a unique identifier for a BOM.
 
+## CycloneDX 2.0 documents (JSS)
+
+A document whose `specVersion` is 2.0 or later, or that carries `specFormat`, holds JSON Signature Scheme signatures (ITU-T X.590) in `signatures` arrays instead of JSF. `cdx-verify` detects this and applies the following rules.
+
+- Only `--public-key` is accepted. X.590 clause 6.2.2 says HMAC algorithms should not be used, so `--secret-key` is refused, and so are XMSS and LMS signatures, which `node:crypto` cannot verify. Ed448 is not available under Bun.
+- The trusted keys come only from `--public-key`. An entry whose `public_key` decodes to one of those keys (whatever its base64 padding or line breaks) must verify with it, otherwise the document fails. An entry that names no given key, or whose `public_key` is not a key at all, such as the placeholder signer in the X.590 clause 7.1.6 example, is reported as untrusted and does not by itself fail the document.
+- A countersignature (the `signature` member of an entry, X.590 clause 7.2) vouches for the entry it is attached to, so it must verify with one of the given keys. A countersignature that no given key verifies fails the document, whatever `signee`, `thumbprint`, `public_cert_chain` or `cert_url` it shows; those members are not trust claims. Pass the countersigner's public key to accept it.
+- `--deep` also verifies the signatures on inventories, their components, compositions and annotations, and `--require-all` and `--allow-nested-only` work as for JSF.
+- A value that canonical JSON (JCS, IETF RFC 8785) cannot represent, such as a non-finite number or an unpaired UTF-16 surrogate, fails verification.
+
 ## Exit behavior
 
 - exit code `0` — the requested signatures verified successfully

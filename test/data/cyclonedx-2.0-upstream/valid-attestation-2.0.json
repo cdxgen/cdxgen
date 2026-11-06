@@ -1,0 +1,264 @@
+{
+  "$schema": "https://cyclonedx.org/schema/2.0/cyclonedx-2.0.schema.json",
+  "specFormat": "CycloneDX",
+  "specVersion": "2.0",
+  "serialNumber": "urn:uuid:3e671687-395b-41f5-a30f-a58921a69b79",
+  "version": 1,
+  "declarations": {
+    "assessors": [
+      {
+        "refId": "assessor-1",
+        "thirdParty": true,
+        "organization": {
+          "name": "Assessors Inc"
+        }
+      }
+    ],
+    "attestations": [
+      {
+        "summary": "Attestation summary here",
+        "assessor": "assessor-1",
+        "map": [
+          {
+            "requirement": "requirement-1",
+            "claims": ["claim-1"],
+            "counterClaims": ["counterClaim-1"],
+            "conformance": {
+              "score": 0.8,
+              "rationale": "Conformance rationale here",
+              "mitigationStrategies": ["mitigationStrategy-1"]
+            },
+            "confidence": {
+              "score": 1,
+              "rationale": "Confidence rationale here"
+            }
+          }
+        ],
+        "signatures": [
+          {
+            "hash_algorithm": "sha-256",
+            "algorithm": "ES256",
+            "public_cert_chain": [
+              "MIIBpjCCAUygAwIBAgIUJlq9zImYoVdcurFZwr37H3aCsWowCgYIKoZIzj0EAwIw",
+              "MIIDdTCCAl2gAwIBAgILBAAAAAABFUtaw5QwDQYJKoZIhvcNAQEFBQAwVzELMAkG"
+            ],
+            "value": "tqITqhKnwt4vQcRWjc1UbRp_ds2AeYNPeXCEQFXZfPGmMEW4c1JJmPRnRhFPQ8Vc"
+          }
+        ]
+      }
+    ],
+    "claims": [
+      {
+        "refId": "claim-1",
+        "target": "acme-inc",
+        "predicate": "Predicate here",
+        "mitigationStrategies": ["mitigationStrategy-1"],
+        "reasoning": "Reasoning here",
+        "evidence": ["evidence-1"],
+        "counterEvidence": ["counterEvidence-1"],
+        "externalReferences": [
+          {
+            "type": "issue-tracker",
+            "url": "https://alm.example.com"
+          }
+        ],
+        "signatures": [
+          {
+            "hash_algorithm": "sha-256",
+            "algorithm": "ES256",
+            "public_cert_chain": [
+              "MIIBpjCCAUygAwIBAgIUJlq9zImYoVdcurFZwr37H3aCsWowCgYIKoZIzj0EAwIw",
+              "MIIDdTCCAl2gAwIBAgILBAAAAAABFUtaw5QwDQYJKoZIhvcNAQEFBQAwVzELMAkG"
+            ],
+            "value": "tqITqhKnwt4vQcRWjc1UbRp_ds2AeYNPeXCEQFXZfPGmMEW4c1JJmPRnRhFPQ8Vc"
+          }
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "refId": "evidence-1",
+        "propertyName": "internal.com.acme.someProperty",
+        "description": "Description here",
+        "data": [
+          {
+            "name": "Name of the data",
+            "contents": {
+              "attachment": {
+                "content": "Evidence here",
+                "mediaType": "text/plain"
+              }
+            },
+            "classification": "classified",
+            "sensitiveData": ["Describe sensitive data here"]
+          }
+        ],
+        "created": "2023-04-25T00:00:00Z",
+        "expires": "2023-05-25T00:00:00Z",
+        "author": {
+          "name": "Mary"
+        },
+        "reviewer": {
+          "name": "Jane"
+        },
+        "signatures": [
+          {
+            "hash_algorithm": "sha-256",
+            "algorithm": "ES256",
+            "public_cert_chain": [
+              "MIIBpjCCAUygAwIBAgIUJlq9zImYoVdcurFZwr37H3aCsWowCgYIKoZIzj0EAwIw",
+              "MIIDdTCCAl2gAwIBAgILBAAAAAABFUtaw5QwDQYJKoZIhvcNAQEFBQAwVzELMAkG"
+            ],
+            "value": "tqITqhKnwt4vQcRWjc1UbRp_ds2AeYNPeXCEQFXZfPGmMEW4c1JJmPRnRhFPQ8Vc"
+          }
+        ]
+      },
+      {
+        "refId": "counterEvidence-1",
+        "propertyName": "internal.com.acme.someProperty",
+        "description": "Description here",
+        "data": [
+          {
+            "name": "Name of the data",
+            "contents": {
+              "attachment": {
+                "content": "Counter evidence here",
+                "mediaType": "text/plain"
+              }
+            },
+            "classification": "public",
+            "sensitiveData": ["Describe sensitive data here"]
+          }
+        ],
+        "created": "2023-04-25T00:00:00Z",
+        "expires": "2023-05-25T00:00:00Z",
+        "author": {
+          "name": "Mary"
+        },
+        "reviewer": {
+          "name": "Jane"
+        },
+        "signatures": [
+          {
+            "hash_algorithm": "sha-256",
+            "algorithm": "ES256",
+            "public_cert_chain": [
+              "MIIBpjCCAUygAwIBAgIUJlq9zImYoVdcurFZwr37H3aCsWowCgYIKoZIzj0EAwIw",
+              "MIIDdTCCAl2gAwIBAgILBAAAAAABFUtaw5QwDQYJKoZIhvcNAQEFBQAwVzELMAkG"
+            ],
+            "value": "tqITqhKnwt4vQcRWjc1UbRp_ds2AeYNPeXCEQFXZfPGmMEW4c1JJmPRnRhFPQ8Vc"
+          }
+        ]
+      },
+      {
+        "refId": "mitigationStrategy-1",
+        "propertyName": "internal.com.acme.someProperty",
+        "description": "Description here",
+        "data": [
+          {
+            "name": "Name of the data",
+            "contents": {
+              "attachment": {
+                "content": "Mitigation strategy here",
+                "mediaType": "text/plain"
+              }
+            },
+            "classification": "internal",
+            "sensitiveData": ["Describe sensitive data here"]
+          }
+        ],
+        "created": "2023-04-25T00:00:00Z",
+        "expires": "2023-05-25T00:00:00Z",
+        "author": {
+          "name": "Mary"
+        },
+        "reviewer": {
+          "name": "Jane"
+        },
+        "signatures": [
+          {
+            "hash_algorithm": "sha-256",
+            "algorithm": "ES256",
+            "public_cert_chain": [
+              "MIIBpjCCAUygAwIBAgIUJlq9zImYoVdcurFZwr37H3aCsWowCgYIKoZIzj0EAwIw",
+              "MIIDdTCCAl2gAwIBAgILBAAAAAABFUtaw5QwDQYJKoZIhvcNAQEFBQAwVzELMAkG"
+            ],
+            "value": "tqITqhKnwt4vQcRWjc1UbRp_ds2AeYNPeXCEQFXZfPGmMEW4c1JJmPRnRhFPQ8Vc"
+          }
+        ]
+      }
+    ],
+    "targets": {
+      "organizations": [
+        {
+          "refId": "acme-inc",
+          "name": "Acme Inc"
+        }
+      ]
+    },
+    "affirmation": {
+      "statement": "I certify, to the best of my knowledge, that all information is correct...",
+      "signatories": [
+        {
+          "name": "Tom",
+          "role": "CEO",
+          "signatures": [
+            {
+              "hash_algorithm": "sha-256",
+              "algorithm": "ES256",
+              "public_cert_chain": [
+                "MIIBpjCCAUygAwIBAgIUJlq9zImYoVdcurFZwr37H3aCsWowCgYIKoZIzj0EAwIw",
+                "MIIDdTCCAl2gAwIBAgILBAAAAAABFUtaw5QwDQYJKoZIhvcNAQEFBQAwVzELMAkG"
+              ],
+              "value": "tqITqhKnwt4vQcRWjc1UbRp_ds2AeYNPeXCEQFXZfPGmMEW4c1JJmPRnRhFPQ8Vc"
+            }
+          ]
+        },
+        {
+          "name": "Jerry",
+          "role": "COO",
+          "organization": {
+            "name": "Acme Inc"
+          },
+          "externalReference": {
+            "type": "electronic-signature",
+            "url": "https://example.com/coo-sig.png"
+          }
+        }
+      ],
+      "signatures": [
+        {
+          "hash_algorithm": "sha-256",
+          "algorithm": "ES256",
+          "public_cert_chain": [
+            "MIIBpjCCAUygAwIBAgIUJlq9zImYoVdcurFZwr37H3aCsWowCgYIKoZIzj0EAwIw",
+            "MIIDdTCCAl2gAwIBAgILBAAAAAABFUtaw5QwDQYJKoZIhvcNAQEFBQAwVzELMAkG"
+          ],
+          "value": "tqITqhKnwt4vQcRWjc1UbRp_ds2AeYNPeXCEQFXZfPGmMEW4c1JJmPRnRhFPQ8Vc"
+        }
+      ]
+    },
+    "signatures": [
+      {
+        "hash_algorithm": "sha-256",
+        "algorithm": "ES256",
+        "public_cert_chain": [
+          "MIIBpjCCAUygAwIBAgIUJlq9zImYoVdcurFZwr37H3aCsWowCgYIKoZIzj0EAwIw",
+          "MIIDdTCCAl2gAwIBAgILBAAAAAABFUtaw5QwDQYJKoZIhvcNAQEFBQAwVzELMAkG"
+        ],
+        "value": "tqITqhKnwt4vQcRWjc1UbRp_ds2AeYNPeXCEQFXZfPGmMEW4c1JJmPRnRhFPQ8Vc"
+      }
+    ]
+  },
+  "signatures": [
+    {
+      "hash_algorithm": "sha-256",
+      "algorithm": "ES256",
+      "public_cert_chain": [
+        "MIIBpjCCAUygAwIBAgIUJlq9zImYoVdcurFZwr37H3aCsWowCgYIKoZIzj0EAwIw",
+        "MIIDdTCCAl2gAwIBAgILBAAAAAABFUtaw5QwDQYJKoZIhvcNAQEFBQAwVzELMAkG"
+      ],
+      "value": "tqITqhKnwt4vQcRWjc1UbRp_ds2AeYNPeXCEQFXZfPGmMEW4c1JJmPRnRhFPQ8Vc"
+    }
+  ]
+}

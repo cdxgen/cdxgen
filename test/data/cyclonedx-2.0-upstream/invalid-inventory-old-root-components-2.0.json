@@ -1,0 +1,7 @@
+{
+  "specFormat": "CycloneDX",
+  "specVersion": "2.0",
+  "components": [
+    { "refId": "lib-1", "type": "library", "name": "Some Library", "version": "1.0" }
+  ]
+}

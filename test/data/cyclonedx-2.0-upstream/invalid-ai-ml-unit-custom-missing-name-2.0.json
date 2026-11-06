@@ -1,0 +1,25 @@
+{
+  "specFormat": "CycloneDX",
+  "specVersion": "2.0",
+  "serialNumber": "urn:uuid:9b6c2d1e-4f7a-4c3b-8e2d-1a5f6b7c8d03",
+  "version": 1,
+  "components": [
+    {
+      "refId": "model-1",
+      "type": "machine-learning-model",
+      "name": "acme-classifier",
+      "version": "1.0.0",
+      "measurements": [
+        {
+          "type": "elo",
+          "measure": {
+            "value": 1180,
+            "unit": {
+              "url": "https://units.example.com/elo"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

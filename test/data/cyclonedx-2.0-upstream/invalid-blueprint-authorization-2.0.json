@@ -1,0 +1,25 @@
+{
+  "specFormat": "CycloneDX",
+  "specVersion": "2.0",
+  "serialNumber": "urn:uuid:5e4d3c2b-1a09-4f8e-9d7c-6b5a4c3d2e1f",
+  "version": 1,
+  "blueprints": [
+    {
+      "refId": "bp-legacy-authz",
+      "name": "Removed authorization model",
+      "modelTypes": [
+        "data-flow"
+      ],
+      "assets": [
+        {
+          "refId": "asset-legacy-authz",
+          "type": "service",
+          "name": "Legacy service",
+          "authorization": [
+            "cbac"
+          ]
+        }
+      ]
+    }
+  ]
+}

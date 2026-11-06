@@ -1,0 +1,147 @@
+{
+  "$comment": "Model type: process. This example models a fictional loan origination process as a behavior graph. The nodes are activities drawn from the behavior taxonomy plus an exclusive gateway that branches on the credit decision; transitions carry the order and the branch guards; and blueprint actors bind the loan officer and underwriter to the steps that perform them. A branching activity graph, with actors, is the defining construct.",
+  "specFormat": "CycloneDX",
+  "specVersion": "2.0",
+  "serialNumber": "urn:uuid:b1000000-0000-4000-8000-0000000000a8",
+  "version": 1,
+  "blueprints": [
+    {
+      "refId": "bp-process",
+      "name": "Loan origination process",
+      "description": "From application intake through the credit decision to a recorded outcome.",
+      "modelTypes": [
+        "process"
+      ],
+      "actors": [
+        {
+          "refId": "act-officer",
+          "party": {
+            "roles": [
+              {
+                "role": "operator"
+              }
+            ],
+            "person": {
+              "name": "Loan officer",
+              "jobTitle": "Loan Officer"
+            }
+          },
+          "permissions": [
+            "intake-application"
+          ]
+        },
+        {
+          "refId": "act-underwriter",
+          "party": {
+            "roles": [
+              {
+                "role": "verifier"
+              }
+            ],
+            "person": {
+              "name": "Underwriter"
+            }
+          }
+        }
+      ],
+      "behaviors": {
+        "graphs": [
+          {
+            "refId": "pg-loan",
+            "name": "Loan origination",
+            "kind": "activity",
+            "trigger": "user-initiated",
+            "nodes": [
+              {
+                "refId": "n-start",
+                "kind": "initial"
+              },
+              {
+                "refId": "n-receive",
+                "kind": "activity",
+                "behavior": "data:ingestion:receivesRequest",
+                "name": "Receive application",
+                "actors": [
+                  "act-officer"
+                ]
+              },
+              {
+                "refId": "n-verify",
+                "kind": "activity",
+                "behavior": "security:authentication:authenticatesUser",
+                "name": "Verify applicant identity",
+                "actors": [
+                  "act-officer"
+                ]
+              },
+              {
+                "refId": "n-decision",
+                "kind": "gateway",
+                "gatewayKind": "exclusive",
+                "name": "Credit decision"
+              },
+              {
+                "refId": "n-approve",
+                "kind": "activity",
+                "behavior": "security:auditing:logsEvent",
+                "name": "Approve and record",
+                "actors": [
+                  "act-underwriter"
+                ]
+              },
+              {
+                "refId": "n-decline",
+                "kind": "event",
+                "name": "Decline letter sent"
+              },
+              {
+                "refId": "n-end",
+                "kind": "final"
+              }
+            ],
+            "transitions": [
+              {
+                "source": "n-start",
+                "target": "n-receive"
+              },
+              {
+                "source": "n-receive",
+                "target": "n-verify"
+              },
+              {
+                "source": "n-verify",
+                "target": "n-decision"
+              },
+              {
+                "source": "n-decision",
+                "target": "n-approve",
+                "guard": "creditScore >= 680"
+              },
+              {
+                "source": "n-decision",
+                "target": "n-decline",
+                "default": true
+              },
+              {
+                "source": "n-approve",
+                "target": "n-end"
+              },
+              {
+                "source": "n-decline",
+                "target": "n-end"
+              }
+            ]
+          }
+        ]
+      },
+      "assumptions": [
+        {
+          "refId": "asm-credit-bureau",
+          "description": "A credit score is available from an external bureau at intake.",
+          "topic": "business",
+          "validity": "verified"
+        }
+      ]
+    }
+  ]
+}

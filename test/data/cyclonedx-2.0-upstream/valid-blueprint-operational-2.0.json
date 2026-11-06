@@ -1,0 +1,157 @@
+{
+  "$comment": "Model type: operational. This example models how a fictional service team runs and supports a system in production. The operational procedure is a behavior graph: a start node, a logging activity, an exclusive gateway that escalates on severity, and a final node. Blueprint actors bind the on-call engineer and incident commander with their in-system permissions, and external references point to the human-readable runbooks.",
+  "specFormat": "CycloneDX",
+  "specVersion": "2.0",
+  "serialNumber": "urn:uuid:b1000000-0000-4000-8000-0000000000aa",
+  "version": 1,
+  "blueprints": [
+    {
+      "refId": "bp-operational",
+      "name": "Service operations and incident response",
+      "description": "On-call handling of a database alert, from acknowledgement through severity-based escalation to resolution.",
+      "modelTypes": [
+        "operational"
+      ],
+      "externalReferences": [
+        {
+          "url": "https://example.com/runbooks/database-failover",
+          "type": "documentation",
+          "comment": "Database failover runbook."
+        }
+      ],
+      "actors": [
+        {
+          "refId": "op-oncall",
+          "party": {
+            "roles": [
+              {
+                "role": "operator"
+              }
+            ],
+            "person": {
+              "name": "On-call engineer"
+            }
+          },
+          "permissions": [
+            "acknowledge-alert",
+            "execute-runbook"
+          ]
+        },
+        {
+          "refId": "op-commander",
+          "party": {
+            "roles": [
+              {
+                "role": "principal"
+              }
+            ],
+            "person": {
+              "name": "Incident commander"
+            }
+          }
+        }
+      ],
+      "assets": [
+        {
+          "refId": "op-monitor",
+          "type": "service",
+          "name": "Monitoring platform"
+        },
+        {
+          "refId": "op-pager",
+          "type": "tool",
+          "name": "Paging system"
+        }
+      ],
+      "behaviors": {
+        "graphs": [
+          {
+            "refId": "rb-failover",
+            "name": "Database failover runbook",
+            "kind": "activity",
+            "trigger": "event-driven",
+            "nodes": [
+              {
+                "refId": "n-alert",
+                "kind": "initial"
+              },
+              {
+                "refId": "n-ack",
+                "kind": "activity",
+                "behavior": "security:auditing:logsEvent",
+                "name": "Acknowledge alert",
+                "actors": [
+                  "op-oncall"
+                ],
+                "targets": [
+                  "op-monitor"
+                ]
+              },
+              {
+                "refId": "n-severity",
+                "kind": "gateway",
+                "gatewayKind": "exclusive",
+                "name": "Severity?"
+              },
+              {
+                "refId": "n-escalate",
+                "kind": "event",
+                "eventType": "on-demand",
+                "name": "Page incident commander",
+                "actors": [
+                  "op-commander"
+                ]
+              },
+              {
+                "refId": "n-monitor",
+                "kind": "event",
+                "name": "Watch dashboards"
+              },
+              {
+                "refId": "n-resolved",
+                "kind": "final",
+                "name": "Incident resolved"
+              }
+            ],
+            "transitions": [
+              {
+                "source": "n-alert",
+                "target": "n-ack"
+              },
+              {
+                "source": "n-ack",
+                "target": "n-severity"
+              },
+              {
+                "source": "n-severity",
+                "target": "n-escalate",
+                "guard": "severity == 'sev1'"
+              },
+              {
+                "source": "n-severity",
+                "target": "n-monitor",
+                "default": true
+              },
+              {
+                "source": "n-escalate",
+                "target": "n-resolved"
+              },
+              {
+                "source": "n-monitor",
+                "target": "n-resolved"
+              }
+            ]
+          }
+        ]
+      },
+      "assumptions": [
+        {
+          "refId": "asm-oncall",
+          "description": "An on-call engineer is available at all times under the follow-the-sun rota.",
+          "topic": "operational",
+          "validity": "verified"
+        }
+      ]
+    }
+  ]
+}

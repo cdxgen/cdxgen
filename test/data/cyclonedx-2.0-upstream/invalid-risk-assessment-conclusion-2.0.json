@@ -1,0 +1,19 @@
+{
+  "$schema": "https://cyclonedx.org/schema/2.0/cyclonedx-2.0.schema.json",
+  "$comment": "Invalid: pass is not a predefined assessment conclusion; use acceptable, unacceptable, inconclusive, or a custom object.",
+  "specFormat": "CycloneDX",
+  "specVersion": "2.0",
+  "risks": {
+    "assessments": [
+      {
+        "refId": "a1",
+        "type": [
+          "safety"
+        ],
+        "cadence": "triggered",
+        "timestamp": "2026-09-12T15:00:00Z",
+        "conclusion": "pass"
+      }
+    ]
+  }
+}

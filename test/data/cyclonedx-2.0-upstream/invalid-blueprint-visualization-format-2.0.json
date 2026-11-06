@@ -1,0 +1,26 @@
+{
+  "specFormat": "CycloneDX",
+  "specVersion": "2.0",
+  "serialNumber": "urn:uuid:9f8e7d6c-5b4a-4039-8271-1a2b3c4d5e6f",
+  "version": 1,
+  "blueprints": [
+    {
+      "refId": "bp-legacy",
+      "name": "Legacy visualization shape",
+      "modelTypes": [
+        "data-flow"
+      ],
+      "visualizations": [
+        {
+          "refId": "viz-legacy",
+          "name": "Old shape using removed properties",
+          "type": {
+            "type": "data-flow"
+          },
+          "format": "mermaid",
+          "content": "flowchart LR; a-->b"
+        }
+      ]
+    }
+  ]
+}

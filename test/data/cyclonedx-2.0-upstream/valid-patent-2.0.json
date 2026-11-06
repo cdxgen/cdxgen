@@ -1,0 +1,180 @@
+{
+  "$schema": "https://cyclonedx.org/schema/2.0/cyclonedx-2.0.schema.json",
+  "specFormat": "CycloneDX",
+  "specVersion": "2.0",
+  "serialNumber": "urn:uuid:123e4567-e89b-12d3-a456-426614174000",
+  "version": 1,
+  "definitions": {
+    "components": [
+      {
+        "refId": "component-1",
+        "type": "library",
+        "parties": [
+          {
+            "refId": "org-acme-inc",
+            "roles": [
+              {
+                "role": "manufacturer"
+              }
+            ],
+            "organization": {
+              "name": "Acme Inc",
+              "url": [
+                {
+                  "name": "homepage",
+                  "url": "https://example.com"
+                }
+              ]
+            }
+          }
+        ],
+        "name": "High-Efficiency Processor",
+        "version": "1.0",
+        "patentAssertions": [
+          {
+            "refId": "patent-assertion-1",
+            "assertionType": "ownership",
+            "asserter": "org-acme-inc",
+            "patentRefs": [
+              "patent-1"
+            ],
+            "notes": "Covers the core processing architecture for advanced computation."
+          },
+          {
+            "refId": "patent-assertion-2",
+            "assertionType": "license",
+            "asserter": "org-acme-inc",
+            "patentRefs": [
+              "patent-3"
+            ],
+            "notes": "Licensed for use in North America."
+          }
+        ]
+      },
+      {
+        "refId": "service-1",
+        "type": "service",
+        "name": "Data Analysis Service",
+        "patentAssertions": [
+          {
+            "refId": "patent-assertion-3",
+            "assertionType": "exclusive-rights",
+            "asserter": {
+              "name": "Partner Company",
+              "contact": [
+                {
+                  "name": "Sam Smith",
+                  "phone": "800-555-1212"
+                }
+              ]
+            },
+            "patentRefs": [
+              "patent-2"
+            ],
+            "notes": "Exclusive rights for machine learning integration."
+          }
+        ]
+      }
+    ],
+    "patents": [
+      {
+        "refId": "patent-1",
+        "patentNumber": "US1234567890",
+        "applicationNumber": "12345",
+        "jurisdiction": "US",
+        "publicationNumber": "US-12345",
+        "title": "Efficient Data Processing Algorithm",
+        "abstract": "A novel system and method for improving data processing efficiency.",
+        "filingDate": "2021-01-15",
+        "grantDate": "2022-06-01",
+        "patentExpirationDate": "2042-01-15",
+        "patentLegalStatus": "in-force",
+        "patentAssignee": [
+          {
+            "name": "Tech Innovators Inc.",
+            "url": [
+              "https://techinnovators.com"
+            ]
+          }
+        ],
+        "externalReferences": [
+          {
+            "type": "patent",
+            "url": "https://uspto.gov/patent/US12345678B1",
+            "comment": "Official USPTO page for the patent."
+          }
+        ]
+      },
+      {
+        "refId": "patent-2",
+        "patentNumber": "EU1234567890",
+        "applicationNumber": "12345",
+        "jurisdiction": "EU",
+        "priorityApplication": {
+          "applicationNumber": "US1234567890",
+          "jurisdiction": "US",
+          "filingDate": "2021-01-15"
+        },
+        "publicationNumber": "EU-12345",
+        "title": "Efficient Data Processing Algorithm",
+        "abstract": "A novel system and method for improving data processing efficiency.",
+        "filingDate": "2021-01-15",
+        "grantDate": "2022-06-01",
+        "patentExpirationDate": "2042-01-15",
+        "patentLegalStatus": "in-force",
+        "patentAssignee": [
+          {
+            "name": "Tech Innovators Inc.",
+            "url": [
+              "https://techinnovators.com"
+            ]
+          }
+        ]
+      },
+      {
+        "refId": "patent-3",
+        "patentNumber": "EP987654321A1",
+        "jurisdiction": "EP",
+        "title": "Data Processing Optimisation",
+        "abstract": "An optimised approach to data processing for scalable systems.",
+        "filingDate": "2021-02-10",
+        "grantDate": "2023-03-15",
+        "patentExpirationDate": "2043-02-10",
+        "patentLegalStatus": "in-force",
+        "patentAssignee": [
+          {
+            "name": "Jane Smith",
+            "email": "jane.smith@techinnovators.com"
+          }
+        ],
+        "externalReferences": [
+          {
+            "type": "patent",
+            "url": "https://euipo.europa.eu/ep987654321A1",
+            "comment": "Official EUIPO page for the patent."
+          }
+        ]
+      },
+      {
+        "refId": "patent-family-1",
+        "familyId": "PF-2023001",
+        "priorityApplication": {
+          "applicationNumber": "12345",
+          "jurisdiction": "US",
+          "filingDate": "2021-01-15"
+        },
+        "members": [
+          "patent-1",
+          "patent-2"
+        ],
+        "externalReferences": [
+          {
+            "type": "patent-family",
+            "url": "https://uspto.gov/patent-family-5678",
+            "comment": "Official record of the patent family."
+          }
+        ]
+      }
+    ]
+  }
+}

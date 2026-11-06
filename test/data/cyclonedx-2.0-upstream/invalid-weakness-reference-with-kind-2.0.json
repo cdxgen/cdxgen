@@ -1,0 +1,16 @@
+{
+  "specFormat": "CycloneDX",
+  "specVersion": "2.0",
+  "definitions": {
+    "weaknesses": [
+      { "refId": "weakness-502", "identifiers": [ { "scheme": "cwe", "value": "CWE-502" } ] }
+    ]
+  },
+  "vulnerabilities": [
+    {
+      "refId": "vuln-acme-deserialization",
+      "id": "ACME-2026-0001",
+      "weaknesses": [ { "ref": "weakness-502", "kind": "flaw" } ]
+    }
+  ]
+}

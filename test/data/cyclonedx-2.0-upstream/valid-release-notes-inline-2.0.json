@@ -1,0 +1,18 @@
+{
+  "specFormat": "CycloneDX",
+  "specVersion": "2.0",
+  "definitions": {
+    "components": [
+      {
+        "refId": "lib-a",
+        "type": "library",
+        "name": "Acme Library",
+        "version": "1.0.0",
+        "releaseNotes": {
+          "type": "major",
+          "title": "My new release"
+        }
+      }
+    ]
+  }
+}

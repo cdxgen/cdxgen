@@ -687,7 +687,7 @@ Rules that evaluate cryptographic assets in a CBOM for weak or deprecated algori
 | CBS-004 | critical | Outdated TLS or DTLS protocol version such as SSL, TLS 1.0, or TLS 1.1                                           |
 | CBC-003 | high     | Certificate or key SPKI SHA-256 is one of the eight intermediates Go 1.27.3/1.26.10 distrust (CVE-2026-111943)   |
 | CBC-004 | high     | Certificate issued under a Go-distrusted key, by `issuerSpkiSha256` or `authorityKeyId` match                    |
-| CBC-005 | low      | Classical-only CA certificate valid past the 2035-01-01 post-quantum cutoff (NIST IR 8547, initial public draft) |
+| CBC-005 | low      | Classical-only CA certificate valid past the 2035-01-01 post-quantum cutoff (NIST IR 8547 final, Tables 2 and 4) |
 | CBC-006 | medium   | Post-quantum public key certified with a classical signature                                                     |
 | CBC-007 | low      | Key or signature algorithm known only by its dotted OID (composite or pre-standard)                              |
 

@@ -1,0 +1,46 @@
+{
+  "$schema": "https://cyclonedx.org/schema/2.0/cyclonedx-2.0.schema.json",
+  "specFormat": "CycloneDX",
+  "specVersion": "2.0",
+  "serialNumber": "urn:uuid:3e671687-395b-41f5-a30f-a58921a69b79",
+  "version": 1,
+  "definitions": {
+    "components": [
+      {
+        "refId": "library-a",
+        "type": "library",
+        "name": "library-a",
+        "version": "1.0.0"
+      },
+      {
+        "refId": "library-b",
+        "type": "library",
+        "name": "library-b",
+        "version": "1.0.0"
+      },
+      {
+        "refId": "library-c",
+        "type": "library",
+        "name": "library-c",
+        "version": "1.0.0"
+      }
+    ]
+  },
+  "dependencies": [
+    {
+      "dependsOn": []
+    },
+    {
+      "ref": "",
+      "dependsOn": [
+        "library-a"
+      ]
+    },
+    {
+      "ref": "library-b",
+      "dependsOn": [
+        "library-c"
+      ]
+    }
+  ]
+}

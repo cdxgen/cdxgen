@@ -1,0 +1,68 @@
+{
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.7",
+  "serialNumber": "urn:uuid:8f5b3a1e-7c39-4f2a-9d6e-2b7f0c1a4e55",
+  "version": 1,
+  "metadata": {
+    "timestamp": "2026-01-01T00:00:00Z",
+    "tools": {
+      "components": [
+        {
+          "group": "@cdxgen",
+          "name": "cdxgen",
+          "version": "13.7.0",
+          "purl": "pkg:npm/%40cdxgen/cdxgen@13.7.0",
+          "type": "application",
+          "bom-ref": "pkg:npm/@cdxgen/cdxgen@13.7.0"
+        }
+      ]
+    },
+    "component": {
+      "type": "application",
+      "name": "identifier-demo",
+      "version": "1.0.0",
+      "bom-ref": "pkg:generic/identifier-demo@1.0.0",
+      "purl": "pkg:generic/identifier-demo@1.0.0"
+    }
+  },
+  "components": [
+    {
+      "type": "library",
+      "name": "openssl",
+      "version": "3.0.13",
+      "bom-ref": "pkg:generic/openssl@3.0.13",
+      "purl": "pkg:generic/openssl@3.0.13",
+      "cpe": "cpe:2.3:a:openssl:openssl:3.0.13:*:*:*:*:*:*:*",
+      "swid": {
+        "tagId": "swidgen-openssl-3.0.13",
+        "name": "openssl",
+        "version": "3.0.13"
+      },
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "88525753f79d3bec27d2fa7c66aa0b92b3aa9498dafd93d7cfa4b3780cdae313"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "src/main.c",
+      "version": "0b5e1d3a4f6c7a8b9c0d1e2f3a4b5c6d7e8f9a0b",
+      "bom-ref": "gitoid:blob:sha1:0b5e1d3a4f6c7a8b9c0d1e2f3a4b5c6d7e8f9a0b",
+      "omniborId": [
+        "gitoid:blob:sha1:0b5e1d3a4f6c7a8b9c0d1e2f3a4b5c6d7e8f9a0b"
+      ],
+      "swhid": ["swh:1:cnt:0b5e1d3a4f6c7a8b9c0d1e2f3a4b5c6d7e8f9a0b"]
+    }
+  ],
+  "dependencies": [
+    {
+      "ref": "pkg:generic/identifier-demo@1.0.0",
+      "dependsOn": [
+        "pkg:generic/openssl@3.0.13",
+        "gitoid:blob:sha1:0b5e1d3a4f6c7a8b9c0d1e2f3a4b5c6d7e8f9a0b"
+      ]
+    }
+  ]
+}

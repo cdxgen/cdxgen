@@ -1,0 +1,20 @@
+{
+  "specFormat": "CycloneDX",
+  "specVersion": "2.0",
+  "definitions": {
+    "components": [
+      {
+        "refId": "lib-fork",
+        "type": "library",
+        "name": "Library Fork",
+        "version": "2.0",
+        "pedigree": {
+          "ancestors": [
+            { "refId": "lib-a", "type": "library", "name": "Library A", "version": "1.0" }
+          ],
+          "notes": "Commentary that now belongs in an annotation."
+        }
+      }
+    ]
+  }
+}

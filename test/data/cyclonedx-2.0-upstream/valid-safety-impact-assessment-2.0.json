@@ -1,0 +1,232 @@
+{
+  "$schema": "https://cyclonedx.org/schema/2.0/cyclonedx-2.0.schema.json",
+  "$comment": "Safety impact of a change trigger on a classified context. A vulnerability in a library (the trigger) is assessed for its safety impact on the pump's therapy path (the context, which carries a software safety class). The impact is a risk, the activity is a triggered assessment with a conclusion, and the evidence is a CDXA claim backed by an FMEA excerpt plus test and hazard analysis references.",
+  "specFormat": "CycloneDX",
+  "specVersion": "2.0",
+  "serialNumber": "urn:uuid:7a2b3c4d-5e6f-4a70-8b91-c2d3e4f5a6b7",
+  "version": 1,
+  "metadata": {
+    "timestamp": "2026-09-17T09:00:00Z"
+  },
+  "definitions":{
+    "components": [
+      {
+        "refId": "comp-pump-firmware",
+        "type": "firmware",
+        "name": "acme-pump-firmware",
+        "version": "3.2.0",
+        "externalReferences": [
+          {
+            "type": "hazard-analysis",
+            "url": "https://plm.acme-medical.example/safety/RA-2026-117"
+          }
+        ]
+      },
+      {
+        "refId": "comp-globex-tls",
+        "type": "library",
+        "name": "globex-tls",
+        "version": "1.4.2"
+      }
+    ]
+  },
+  "dependencies": [
+    {
+      "ref": "comp-pump-firmware",
+      "dependsOn": [
+        "comp-globex-tls"
+      ]
+    }
+  ],
+  "blueprints": [
+    {
+      "refId": "bp-pump-deployment",
+      "name": "Infusion pump, hospital deployment",
+      "modelTypes": [
+        "data-flow"
+      ],
+      "assets": [
+        {
+          "refId": "asset-tls-path",
+          "componentRef": "comp-globex-tls",
+          "classification": {
+            "criticality": "critical",
+            "safetyIntegrityLevels": [
+              {
+                "scheme": "IEC-62304",
+                "level": "class-c"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "vulnerabilities": [
+    {
+      "refId": "vuln-globex-tls-1",
+      "id": "GLOBEX-2026-0007",
+      "description": "Certificate name confusion in the Globex TLS library.",
+      "ratings": [
+        {
+          "method": "CVSSv31",
+          "score": 7.4,
+          "severity": "high",
+          "vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:N/A:H"
+        }
+      ],
+      "analysis": {
+        "state": "not_affected",
+        "justification": "requires_configuration",
+        "detail": "The pump pins the gateway certificate, so name confusion is not reachable. Safety impact assessed separately, see the triggered assessment.",
+        "firstIssued": "2026-09-10T00:00:00Z"
+      },
+      "affects": [
+        {
+          "ref": "comp-globex-tls"
+        }
+      ]
+    }
+  ],
+  "declarations": {
+    "claims": [
+      {
+        "refId": "claim-tls-fmea",
+        "target": "asset-tls-path",
+        "predicate": "The vulnerability introduces no new hazardous failure mode on the therapy command path.",
+        "reasoning": "FMEA rows for the TLS path were re-evaluated with the vulnerability as a new cause; the existing certificate pinning control keeps the failure mode undetected-tampering at its assessed occurrence.",
+        "evidence": [
+          "evidence-fmea-excerpt"
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "refId": "evidence-fmea-excerpt",
+        "description": "FMEA excerpt for the TLS communication path, re-evaluated for GLOBEX-2026-0007.",
+        "data": [
+          {
+            "name": "FMEA-2026-117 rows 14 to 19",
+            "contents": {
+              "attachment": {
+                "mediaType": "text/plain",
+                "content": "Row 14: undetected command tampering; cause: TLS name confusion; control: certificate pinning; occurrence 2; severity 9; detection 3."
+              }
+            }
+          }
+        ],
+        "created": "2026-09-12T00:00:00Z",
+        "author": {
+          "name": "Dana Whitfield"
+        }
+      }
+    ]
+  },
+  "risks": {
+    "risks": [
+      {
+        "refId": "risk-tls-vuln-safety",
+        "name": "Vulnerability GLOBEX-2026-0007 on the therapy command path",
+        "statement": "If the certificate name confusion were exploitable on the pump, therapy commands could be tampered with, causing incorrect drug delivery.",
+        "domains": [
+          {
+            "type": "safety"
+          }
+        ],
+        "affects": [
+          "asset-tls-path",
+          "comp-pump-firmware"
+        ],
+        "relatedVulnerabilities": [
+          "vuln-globex-tls-1"
+        ],
+        "relatedClaims": [
+          "claim-tls-fmea"
+        ],
+        "inherentRisk": {
+          "likelihood": {
+            "level": "low"
+          },
+          "impacts": [
+            {
+              "level": "catastrophic",
+              "polarity": "harm",
+              "categories": [
+                "safety"
+              ],
+              "description": "Incorrect drug delivery to a patient.",
+              "riskAttributes": [
+                "integrity"
+              ]
+            }
+          ]
+        },
+        "residualRisk": {
+          "likelihood": {
+            "level": "very-low"
+          },
+          "impacts": [
+            {
+              "level": "catastrophic",
+              "polarity": "harm",
+              "categories": [
+                "safety"
+              ],
+              "riskAttributes": [
+                "integrity"
+              ]
+            }
+          ],
+          "rationale": "Certificate pinning makes the vulnerability unreachable in the deployed configuration."
+        },
+        "status": "assessed"
+      }
+    ],
+    "assessments": [
+      {
+        "refId": "assessment-2026-09-12",
+        "name": "Safety impact reassessment for GLOBEX-2026-0007",
+        "type": [
+          "safety",
+          "vulnerability"
+        ],
+        "cadence": "triggered",
+        "triggeredBy": [
+          "vuln-globex-tls-1"
+        ],
+        "timestamp": "2026-09-12T15:00:00Z",
+        "status": "approved",
+        "scope": "The pump firmware 3.2.0 therapy command path in the hospital deployment blueprint.",
+        "assessors": [
+          {
+            "roles": [
+              {
+                "role": "auditor"
+              }
+            ],
+            "organization": {
+              "name": "Acme Medical Systems"
+            }
+          }
+        ],
+        "risks": [
+          "risk-tls-vuln-safety"
+        ],
+        "conclusion": "acceptable",
+        "summary": "No new hazardous failure mode. Release 3.2.1 may proceed without a safety-driven change; the library update is scheduled for 3.3.",
+        "nextReview": "2026-12-12T00:00:00Z",
+        "externalReferences": [
+          {
+            "type": "test-report",
+            "url": "https://plm.acme-medical.example/tests/TR-2026-0412",
+            "comment": "Certificate pinning regression test against the vulnerable library version."
+          },
+          {
+            "type": "hazard-analysis",
+            "url": "https://plm.acme-medical.example/safety/RA-2026-117"
+          }
+        ]
+      }
+    ]
+  }
+}

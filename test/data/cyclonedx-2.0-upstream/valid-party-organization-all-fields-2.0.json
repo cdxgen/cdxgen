@@ -1,0 +1,168 @@
+{
+  "$schema": "https://cyclonedx.org/schema/2.0/cyclonedx-2.0.schema.json",
+  "specFormat": "CycloneDX",
+  "specVersion": "2.0",
+  "serialNumber": "urn:uuid:11111111-1111-1111-1111-111111111111",
+  "version": 1,
+  "metadata": {
+    "timestamp": "2026-05-13T00:00:00Z"
+  },
+  "inventories": [
+    {
+      "subject": {
+        "refId": "subject-1",
+        "type": "device",
+        "name": "Acme Product"
+      },
+      "components": [
+        {
+          "refId": "comp-acme-product",
+          "type": "device",
+          "name": "Acme Industrial Sensor",
+          "parties": [
+            {
+              "refId": "actor-globex-holdings",
+              "roles": [
+                {
+                  "role": "manufacturer",
+                  "order": 1
+                },
+                {
+                  "role": "supplier"
+                },
+                {
+                  "role": "publisher"
+                },
+                {
+                  "name": "Sustainability Auditor",
+                  "description": "Custom role for the internal sustainability review function that operates alongside external auditors."
+                }
+              ],
+              "organization": {
+                "name": "Globex",
+                "legalName": "Globex Holdings, Inc.",
+                "description": "Diversified manufacturer headquartered in New York with operations across North America and Europe.",
+                "logo": "https://www.globex.example.com/assets/logo.svg",
+                "foundingDate": "1989-06-15",
+                "dissolutionDate": "2099-12-31",
+                "jurisdiction": "US-DE",
+                "identifiers": [
+                  {
+                    "scheme": "lei",
+                    "schemeVersion": "ISO 17442:2020",
+                    "value": "5493001KJTIIGC8Y1R12",
+                    "issuedDate": "2018-04-12",
+                    "expirationDate": "2026-04-12",
+                    "issuer": "actor-gleif"
+                  },
+                  {
+                    "scheme": "duns",
+                    "value": "079530961"
+                  },
+                  {
+                    "scheme": "iso6523",
+                    "value": "0060:079530961",
+                    "schemeVersion": "ISO/IEC 6523-1:1998"
+                  },
+                  {
+                    "scheme": {
+                      "name": "Internal Supplier Code",
+                      "description": "Globex internal ERP supplier identifier",
+                      "url": "https://internal.globex.example.com/erp/suppliers"
+                    },
+                    "value": "SUP-00482"
+                  }
+                ],
+                "formerNames": [
+                  "Globex Industries, Inc.",
+                  "Globex Manufacturing Group"
+                ],
+                "url": [
+                  { "name": "homepage", "url": "https://www.globex.example.com" },
+                  { "name": "investor", "url": "https://investor.globex.example.com" }
+                ],
+                "addresses": [
+                  {
+                    "refId": "addr-globex-hq",
+                    "streetAddress": "Globex Tower\nFloor 42\n200 Park Avenue",
+                    "locality": "New York",
+                    "region": "New York",
+                    "postalCode": "10166",
+                    "country": "United States",
+                    "isoCode": "US-NY",
+                    "postOfficeBoxNumber": "1200",
+                    "coordinates": {
+                      "latitude": 40.7551,
+                      "longitude": -73.9756,
+                      "altitude": 12,
+                      "datum": "WGS84"
+                    }
+                  },
+                  {
+                    "refId": "addr-globex-plant",
+                    "streetAddress": "5 Industrial Parkway",
+                    "locality": "Hillsboro",
+                    "isoCode": "US-OR",
+                    "country": "United States",
+                    "coordinates": {
+                      "latitude": 45.5229,
+                      "longitude": -122.9898
+                    }
+                  }
+                ]
+              },
+              "relations": {
+                "parent": "actor-globex-parent-trust",
+                "delegatedBy": "actor-globex-board"
+              },
+              "tags": [
+                "fortune-500",
+                "iso-9001-certified",
+                "iso-14001-certified"
+              ],
+              "properties": [
+                {
+                  "name": "cdx:actor:stock-ticker",
+                  "value": "GBX"
+                },
+                {
+                  "name": "cdx:actor:industry-naics",
+                  "value": "334413"
+                }
+              ],
+              "externalReferences": [
+                {
+                  "type": "website",
+                  "url": "https://www.globex.example.com"
+                },
+                {
+                  "type": "documentation",
+                  "url": "https://www.globex.example.com/about/governance",
+                  "comment": "Corporate governance disclosures."
+                }
+              ]
+            },
+            {
+              "refId": "actor-globex-support",
+              "roles": [
+                {
+                  "role": "support-contact"
+                }
+              ],
+              "person": {
+                "name": "Jordan Reyes",
+                "email": [
+                  { "name": "work", "address": "support@globex.example.com" }
+                ],
+                "phone": [
+                  { "name": "office", "number": "+1-555-0188" }
+                ],
+                "affiliation": "actor-globex-holdings"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

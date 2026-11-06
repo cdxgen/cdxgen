@@ -113,6 +113,16 @@ Removing the last entries of a chain leaves the earlier entries valid, so a chai
 
 When a `signers` or `chain` entry is appended to a BOM that has a single `replace` signature, that signature becomes the first entry of the new array. It keeps verifying at any position of a `signers` list, and at the first position of a `chain`. To keep a document strictly JSF-conformant from the start, use the same `--mode` for the first signature too.
 
+## CycloneDX 2.0 documents (JSS)
+
+A CycloneDX 2.0 document (`specVersion` 2.0 or later, or a `specFormat` member) is signed with the JSON Signature Scheme, ITU-T X.590, instead of JSF. `cdx-sign` detects the version from the input; `cdxgen --spec-version 2.0` signs the same way when signing is configured.
+
+- **Algorithms.** RS256, RS384, RS512, PS256, PS384, PS512, ES256, ES384, ES512, Ed25519 and Ed448, each bound to its key type and curve as in the table above, with RSA keys of at least 2048 bits. HS256, HS384 and HS512 are refused (X.590 clause 6.2.2 says they should not be used), and so are the XMSS and LMS names of X.590 Table 1, which `node:crypto` does not implement. Without `-a`, `cdx-sign` picks the algorithm from the key. `cdxgen --generate-key-and-sign` uses Ed25519 unless `SBOM_SIGN_ALGORITHM` names another. Ed448 is not available under Bun, whose crypto library has no Ed448.
+- **What is covered.** Each entry covers the document, without the other entries, plus its own members except `value`, including `public_key`, `signee` and `valid_until`. The `hash_algorithm` must be an IANA-registered SHA-2 or SHA-3 name (`sha-256`, `sha-384`, `sha-512`, `sha3-256`, `sha3-384`, `sha3-512`).
+- **Public key.** Every entry carries the signer's `public_key`, so `--no-embed-public-key` is refused and `--key-id` is not used.
+- **Modes.** `replace` removes every existing JSS signature, then signs the root, the inventories, their components, the compositions and the annotations. `signers` appends a root entry, and the existing entries stay valid. Before it appends, the existing signatures must pass `cdx-verify` with the keys given in `--verify-existing-with`: at least one entry verifies, no entry that names one of those keys fails, and every countersignature verifies. `chain` adds an X.590 clause 7.2 countersignature to the only root entry. A JSS countersignature covers only the entry it countersigns, so `chain` is refused when the document has several root entries.
+- **Input.** A value that canonical JSON (JCS, IETF RFC 8785) cannot represent, such as a non-finite number or an unpaired UTF-16 surrogate, is refused.
+
 ## Operational guidance
 
 - Use **separate keys per trust domain** such as build, release, and audit.

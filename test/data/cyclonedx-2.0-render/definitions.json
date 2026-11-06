@@ -1,0 +1,182 @@
+{
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.7",
+  "serialNumber": "urn:uuid:de11e7e0-0000-4000-8000-000000000002",
+  "version": 1,
+  "metadata": {
+    "timestamp": "2026-01-01T00:00:00Z",
+    "component": {
+      "type": "application",
+      "name": "attested-app",
+      "version": "2.0.0",
+      "bom-ref": "pkg:npm/attested-app@2.0.0",
+      "purl": "pkg:npm/attested-app@2.0.0"
+    }
+  },
+  "components": [
+    {
+      "type": "library",
+      "name": "left-pad",
+      "version": "1.3.0",
+      "bom-ref": "pkg:npm/left-pad@1.3.0",
+      "purl": "pkg:npm/left-pad@1.3.0",
+      "patentAssertions": [
+        {
+          "bom-ref": "assertion-1",
+          "assertionType": "license",
+          "patentRefs": ["patent-us-1"],
+          "asserter": {
+            "bom-ref": "asserter-org",
+            "name": "Patent Holder Inc"
+          }
+        },
+        {
+          "bom-ref": "assertion-2",
+          "assertionType": "ownership",
+          "patentRefs": ["patent-us-1"],
+          "asserter": {
+            "bom-ref": "asserter-org-2",
+            "name": "Patent Holder Inc",
+            "url": ["https://patents.example.com"]
+          }
+        }
+      ]
+    }
+  ],
+  "definitions": {
+    "standards": [
+      {
+        "bom-ref": "std-example-1.0",
+        "name": "Example Security Standard",
+        "version": "1.0",
+        "description": "A two-level standard for the test.",
+        "owner": "Example Standards Body",
+        "requirements": [
+          {
+            "bom-ref": "req-1",
+            "identifier": "V1",
+            "title": "Architecture",
+            "text": "Document the architecture."
+          },
+          {
+            "bom-ref": "req-1.1",
+            "identifier": "V1.1",
+            "text": "Keep a threat model.",
+            "openCre": ["CRE:123-456"],
+            "parent": "req-1"
+          }
+        ],
+        "levels": [
+          {
+            "bom-ref": "level-1",
+            "identifier": "L1",
+            "title": "Level 1",
+            "requirements": ["req-1", "req-1.1"]
+          }
+        ],
+        "externalReferences": [
+          { "type": "website", "url": "https://standards.example.com" }
+        ],
+        "signature": { "algorithm": "ES256", "value": "c2lnbmF0dXJl" }
+      }
+    ],
+    "patents": [
+      {
+        "bom-ref": "patent-us-1",
+        "patentNumber": "US1234567",
+        "jurisdiction": "US",
+        "patentLegalStatus": "granted",
+        "patentAssignee": [
+          { "bom-ref": "assignee-org", "name": "Patent Holder Inc", "url": ["https://patents.example.com"] },
+          { "name": "Inventor Person", "email": "inventor@example.com" }
+        ]
+      },
+      {
+        "bom-ref": "family-1",
+        "familyId": "FAM-1",
+        "members": ["patent-us-1"]
+      }
+    ]
+  },
+  "declarations": {
+    "assessors": [
+      {
+        "bom-ref": "assessor-1",
+        "thirdParty": true,
+        "organization": { "bom-ref": "assessor-org", "name": "Audit Co" }
+      }
+    ],
+    "attestations": [
+      {
+        "summary": "Level 1 attestation",
+        "assessor": "assessor-1",
+        "map": [
+          {
+            "requirement": "req-1.1",
+            "claims": ["claim-1"],
+            "conformance": { "score": 0.8, "rationale": "Threat model exists." }
+          }
+        ],
+        "signature": { "algorithm": "ES256", "value": "c2lnbmF0dXJl" }
+      }
+    ],
+    "claims": [
+      {
+        "bom-ref": "claim-1",
+        "target": "pkg:npm/attested-app@2.0.0",
+        "predicate": "A threat model is kept.",
+        "evidence": ["evidence-1"]
+      }
+    ],
+    "evidence": [
+      {
+        "bom-ref": "evidence-1",
+        "propertyName": "threatModel",
+        "description": "The threat model document.",
+        "data": [
+          {
+            "name": "threat-model.md",
+            "contents": {
+              "attachment": { "contentType": "Text/Markdown", "content": "# Threat model" }
+            },
+            "classification": "internal"
+          }
+        ],
+        "created": "2026-01-01T00:00:00Z",
+        "author": { "bom-ref": "author-1", "name": "Sam Author", "email": "sam@example.com" }
+      }
+    ],
+    "targets": {
+      "organizations": [{ "name": "Attested Org" }],
+      "components": [
+        {
+          "type": "library",
+          "name": "target-lib",
+          "version": "1.0.0",
+          "bom-ref": "pkg:npm/target-lib@1.0.0"
+        }
+      ],
+      "services": [{ "bom-ref": "service-target", "name": "target-service" }]
+    },
+    "affirmation": {
+      "statement": "The claims are accurate.",
+      "signatories": [
+        {
+          "name": "Signs With JSF Only",
+          "role": "CISO",
+          "signature": { "algorithm": "ES256", "value": "c2lnbmF0dXJl" }
+        },
+        {
+          "name": "Signs Elsewhere",
+          "role": "CTO",
+          "organization": { "name": "Attested Org" },
+          "externalReference": { "type": "electronic-signature", "url": "https://sign.example.com/1" }
+        }
+      ],
+      "signature": { "algorithm": "ES256", "value": "c2lnbmF0dXJl" }
+    },
+    "signature": { "algorithm": "ES256", "value": "c2lnbmF0dXJl" }
+  },
+  "signature": { "algorithm": "ES256", "value": "c2lnbmF0dXJl" },
+  "x-unknown-root-member": true
+}

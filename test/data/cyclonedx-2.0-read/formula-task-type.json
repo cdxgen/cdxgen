@@ -1,0 +1,29 @@
+{
+  "$comment": "A subject-less 2.0 document whose definitions component has the refId 'build', and a workflow whose taskTypes also contains 'build'. The task type is not a reference, so the reader keeps the component as an SBOM component (lib/inventory/cyclonedx20Read.poku.js).",
+  "specFormat": "CycloneDX",
+  "specVersion": "2.0",
+  "serialNumber": "urn:uuid:3f0c8a2e-5b7d-4e61-9a12-6d4c8b0e7f21",
+  "version": 1,
+  "definitions": {
+    "components": [
+      {
+        "type": "library",
+        "refId": "build",
+        "name": "build-helpers",
+        "version": "1.2.0"
+      }
+    ]
+  },
+  "formulation": [
+    {
+      "refId": "formula-1",
+      "workflows": [
+        {
+          "refId": "workflow-1",
+          "uid": "workflow-uid-1",
+          "taskTypes": ["build"]
+        }
+      ]
+    }
+  ]
+}

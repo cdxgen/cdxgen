@@ -1,0 +1,37 @@
+{
+  "$schema": "https://cyclonedx.org/schema/2.0/cyclonedx-2.0.schema.json",
+  "specFormat": "CycloneDX",
+  "specVersion": "2.0",
+  "serialNumber": "urn:uuid:7dc07ac8-7fb8-4782-bf89-4762394e189d",
+  "version": 1,
+  "inventories": [
+    {
+      "subject": {
+        "refId": "my-app",
+        "type": "application",
+        "name": "My Application"
+      },
+      "components": [
+        {
+          "refId": "os",
+          "type": "operating-system",
+          "name": "Ubuntu",
+          "version": "24.04",
+          "description": "Ubuntu 24.04",
+          "isExternal": true
+        }
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "ref": "my-app",
+      "dependsOn": [
+        "os"
+      ]
+    },
+    {
+      "ref": "os"
+    }
+  ]
+}

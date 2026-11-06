@@ -1,0 +1,22 @@
+{
+  "specFormat": "CycloneDX",
+  "specVersion": "2.0",
+  "definitions": {
+    "components": [
+      { "refId": "lib-a", "type": "library", "name": "Library A", "version": "1.0" },
+      { "refId": "lib-b", "type": "library", "name": "Library B", "version": "1.0" },
+      {
+        "refId": "lib-fork",
+        "type": "library",
+        "name": "Library Fork",
+        "version": "2.0",
+        "pedigree": {
+          "ancestors": [
+            { "type": "component-choice", "operator": "XOR",
+              "components": [ { "ref": "lib-a" }, { "ref": "lib-b" } ] }
+          ]
+        }
+      }
+    ]
+  }
+}

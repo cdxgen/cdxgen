@@ -1,0 +1,51 @@
+{
+  "$schema": "https://cyclonedx.org/schema/2.0/cyclonedx-2.0.schema.json",
+  "specFormat": "CycloneDX",
+  "specVersion": "2.0",
+  "version": 1,
+  "serialNumber": "urn:uuid:1f0e9c2a-6b7d-4a3e-9c1f-0a2b3c4d5e03",
+  "definitions": {
+    "components": [
+      {
+        "refId": "comp-acme-crypto",
+        "type": "library",
+        "name": "acme-crypto",
+        "version": "3.1.0",
+        "parties": [
+          {
+            "refId": "party-acme-software",
+            "roles": [
+              {
+                "role": "author"
+              }
+            ],
+            "organization": {
+              "name": "Acme Software"
+            }
+          }
+        ],
+        "certifications": [
+          { "ref": "cert-fips-140-3" }
+        ]
+      }
+    ],
+    "certifications": [
+      {
+        "refId": "cert-fips-140-3",
+        "standard": "FIPS 140-3",
+        "identifier": "4985",
+        "level": "Level 2",
+        "issuer": "party-acme-software",
+        "issuedDate": "2025-11-20",
+        "expirationDate": "2030-11-19",
+        "jurisdiction": "US",
+        "properties": [
+          {
+            "name": "cdx:certification/module",
+            "value": "Acme Crypto FIPS Provider"
+          }
+        ]
+      }
+    ]
+  }
+}

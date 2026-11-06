@@ -1,0 +1,28 @@
+{
+  "$schema": "https://cyclonedx.org/schema/2.0/cyclonedx-2.0.schema.json",
+  "specFormat": "CycloneDX",
+  "specVersion": "2.0",
+  "serialNumber": "urn:uuid:3e671687-395b-41f5-a30f-a58921a69b79",
+  "version": 1,
+  "metadata": {
+    "timestamp": "2026-08-27T12:00:00Z"
+  },
+  "inventories": [
+    {
+      "subject": { "refId": "acme-app", "type": "application", "name": "Acme Application", "version": "1.0" },
+      "components": [
+        { "refId": "pkg:maven/acme/library@3.0", "type": "library", "name": "Acme Library", "version": "3.0" },
+        { "refId": "pkg:maven/partner/shaded-library@1.0", "type": "library", "name": "Partner Shaded Library", "version": "1.0",
+          "components": [
+            { "refId": "pkg:maven/ossproject/library@2.0", "type": "library", "name": "Some Opensource Library", "version": "2.0" }
+          ] }
+      ]
+    }
+  ],
+  "dependencies": [
+    { "ref": "acme-app", "dependsOn": [ "pkg:maven/acme/library@3.0", "pkg:maven/partner/shaded-library@1.0" ] }
+  ],
+  "compositions": [
+    { "kind": "components", "aggregate": "complete", "targets": [ "acme-app" ] }
+  ]
+}

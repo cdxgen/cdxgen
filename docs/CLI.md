@@ -625,7 +625,7 @@ cdx-convert -i bom.json -o bom.spdx.json
 cdx-convert -i bom.cdx -o bom.spdx.json
 ```
 
-`cdx-convert` supports CycloneDX 1.6 and 1.7 inputs and exports SPDX 3.0.1.
+`cdx-convert` supports CycloneDX 1.6, 1.7 and 2.0 inputs and exports SPDX 3.0.1.
 
 Pass `--to` with a CycloneDX specification version to convert between CycloneDX
 versions instead. Fields the target version does not define are listed on stderr

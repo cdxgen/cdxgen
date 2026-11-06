@@ -1,0 +1,40 @@
+{
+  "$comment": "A 1.7 document carrying cdxgen's internal 'cdx20Sections' member. Only the 2.0 reader may set it, so cdx-convert --to 2.0 must not copy the 'risks' section below into its output (lib/inventory/cyclonedx20Read.poku.js, lib/inventory/cyclonedx20Readers.poku.js).",
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.7",
+  "serialNumber": "urn:uuid:5e7a9c1b-3d5f-4b6e-8a0c-4f6b8d0e2a35",
+  "version": 1,
+  "metadata": {
+    "timestamp": "2026-01-01T00:00:00Z",
+    "component": {
+      "type": "application",
+      "bom-ref": "app",
+      "name": "app",
+      "version": "1.0.0"
+    }
+  },
+  "components": [
+    {
+      "type": "library",
+      "bom-ref": "pkg:npm/left-pad@1.3.0",
+      "name": "left-pad",
+      "version": "1.3.0",
+      "purl": "pkg:npm/left-pad@1.3.0"
+    }
+  ],
+  "dependencies": [
+    { "ref": "app", "dependsOn": ["pkg:npm/left-pad@1.3.0"] },
+    { "ref": "pkg:npm/left-pad@1.3.0", "dependsOn": [] }
+  ],
+  "cdx20Sections": {
+    "risks": {
+      "risks": [
+        {
+          "refId": "injected-risk",
+          "name": "injected",
+          "statement": "Content that must not reach a 2.0 render"
+        }
+      ]
+    }
+  }
+}

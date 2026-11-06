@@ -1,0 +1,24 @@
+{
+  "specFormat": "CycloneDX",
+  "specVersion": "2.0",
+  "serialNumber": "urn:uuid:4d3c2b1a-6e5f-4a09-9b8c-7d6e5f4a3b2c",
+  "version": 1,
+  "blueprints": [
+    {
+      "refId": "bp-renamed",
+      "name": "Renamed visualization type",
+      "modelTypes": [
+        "behavioral"
+      ],
+      "visualizations": [
+        {
+          "refId": "viz-collaboration",
+          "name": "Uses the renamed-away collaboration type",
+          "type": {
+            "type": "collaboration"
+          }
+        }
+      ]
+    }
+  ]
+}

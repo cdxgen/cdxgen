@@ -1,0 +1,59 @@
+{
+  "$schema": "https://cyclonedx.org/schema/2.0/cyclonedx-2.0.schema.json",
+  "specFormat": "CycloneDX",
+  "specVersion": "2.0",
+  "serialNumber": "urn:uuid:3e671687-395b-41f5-a30f-a58921a69b79",
+  "version": 1,
+  "definitions": {
+    "components": [
+      {
+        "type": "library",
+        "name": "acme-library",
+        "version": "1.0.0"
+      }
+    ]
+  },
+  "ext:example.org:structuredExtension": {
+    "$schema": "https://example.org/schemas/my-extension.schema.json",
+    "$comment": "$schema is required",
+    "customField": "custom value",
+    "nested": {
+      "deeply": ["anything", "goes", "here"],
+      "other-object": { "foo": 42 }
+    },
+    "some-list": ["1", 1, {"one": 1}]
+  },
+  "ext:example.com:stringValue": "a plain string extension",
+  "ext:example.com:numberValue": 42.5,
+  "ext:example.com:booleanValue": true,
+  "ext:example.com:nullValue": null,
+  "ext:example.com:sub:spaced": "foooo",
+  "ext:tools.example.io:arrayValue": [
+    "item-1",
+    23,
+    {
+      "$schema": "https://example.org/schemas/my-extension.schema.json",
+      "$comment": "$schema is required in first appearance of an array item as object",
+      "customField": "custom value",
+      "nested": {
+        "deeply": ["anything", "goes", "here"],
+        "other-object": { "foo": 42 }
+      },
+      "some-list": ["1", 1, {"one": 1}]
+    },
+    [
+      123,
+      "nested-1",
+      {
+        "$schema": "https://example.org/schemas/my-extension.schema.json",
+        "$comment": "$schema is required in first appearance of a nested array item as object",
+        "customField": "custom value",
+        "nested": {
+          "deeply": ["anything", "goes", "here"],
+          "other-object": { "foo": 42 }
+        },
+        "some-list": ["1", 1, {"one": 1}]
+      }
+    ]
+  ]
+}

@@ -19,6 +19,7 @@ import process from "node:process";
 import yargs from "yargs";
 import { hideBin } from "yargs/helpers";
 
+import { thoughtLog } from "../lib/core/logger.js";
 import { installConsoleShim, restoreConsole } from "../lib/core/ui.js";
 import {
   dirNameStr,
@@ -32,6 +33,7 @@ import {
   getNonCycloneDxErrorMessage,
   isCycloneDxBom,
 } from "../lib/inventory/bomUtils.js";
+import { formatReadLossNotice } from "../lib/inventory/cyclonedx20.js";
 import {
   importProtobomModule,
   isProtoBomPath,
@@ -323,7 +325,20 @@ try {
 writeOrPrint(output, args.reportFile);
 
 for (const e of report.validationErrors || []) {
-  console.error(`cdx-validate: ${e.stage} validation threw: ${e.message}`);
+  console.error(
+    e.stage === "read"
+      ? `cdx-validate: ${e.message}`
+      : `cdx-validate: ${e.stage} validation threw: ${e.message}`,
+  );
+}
+// The deep checks and compliance rules read the 1.x-shaped model of a 2.0
+// input; the losses name the parts of the input they never saw. stderr,
+// because stdout may carry the json or sarif report.
+if (report.readLosses?.length) {
+  console.error(formatReadLossNotice(report.readLosses));
+  for (const loss of report.readLosses) {
+    thoughtLog(`cdx-validate 2.0 loss at ${loss.pointer}: ${loss.reason}`);
+  }
 }
 
 const { shouldFail: fail, reason } = shouldFail(report, {

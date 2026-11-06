@@ -1,0 +1,152 @@
+{
+  "$schema": "https://cyclonedx.org/schema/2.0/cyclonedx-2.0.schema.json",
+  "specFormat": "CycloneDX",
+  "specVersion": "2.0",
+  "version": 1,
+  "serialNumber": "urn:uuid:1f0e9c2a-6b7d-4a3e-9c1f-0a2b3c4d5e10",
+  "definitions": {
+    "components": [
+      {
+        "refId": "comp-smco-magnet",
+        "type": "device",
+        "name": "Samarium Cobalt Magnet",
+        "version": "SM2-17-A",
+        "classification": {
+          "category": "magnetic",
+          "subcategory": "permanent-magnet",
+          "codes": [
+            {
+              "standard": "HS",
+              "value": "8505.11",
+              "description": "Permanent magnets of metal."
+            }
+          ]
+        },
+        "deviceType": "discrete",
+        "quantity": {
+          "value": 2
+        },
+        "origins": [
+          {
+            "stage": "manufactured",
+            "basis": "manufacturing cost",
+            "distribution": [
+              {
+                "isoCode": "US",
+                "percentage": 100
+              }
+            ]
+          }
+        ],
+        "components": [
+          {
+            "refId": "comp-samarium",
+            "type": "material",
+            "name": "Samarium Metal",
+            "materialForm": "ingot",
+            "quantity": {
+              "value": 12.5,
+              "unit": "g"
+            },
+            "classification": {
+              "category": "material",
+              "subcategory": "rare-earth-metal",
+              "codes": [
+                {
+                  "standard": "HS",
+                  "value": "2805.30",
+                  "description": "Rare-earth metals, scandium and yttrium."
+                }
+              ]
+            },
+            "origins": [
+              {
+                "stage": "mined",
+                "basis": "net weight",
+                "distribution": [
+                  {
+                    "isoCode": "AU",
+                    "percentage": 100
+                  }
+                ]
+              },
+              {
+                "stage": "separated",
+                "basis": "net weight",
+                "distribution": [
+                  {
+                    "isoCode": "MY",
+                    "percentage": 100
+                  }
+                ]
+              },
+              {
+                "stage": "melted",
+                "basis": "net weight",
+                "distribution": [
+                  {
+                    "isoCode": "US",
+                    "percentage": 100
+                  }
+                ]
+              }
+            ],
+            "leadTime": {
+              "value": 16,
+              "unit": "weeks"
+            }
+          }
+        ]
+      },
+      {
+        "refId": "comp-tungsten-powder",
+        "type": "material",
+        "name": "Tungsten Metal Powder",
+        "materialForm": "powder",
+        "quantity": {
+          "value": 2500,
+          "unit": "kg"
+        },
+        "parties": [
+          {
+            "refId": "org-glsm",
+            "roles": [ { "role": "supplier" } ],
+            "organization": {
+              "name": "Great Lakes Specialty Metals"
+            }
+          }
+        ],
+        "origins": [
+          {
+            "stage": "mined",
+            "basis": "net weight",
+            "distribution": [
+              {
+                "isoCode": "PT",
+                "percentage": 55
+              },
+              {
+                "isoCode": "BO",
+                "percentage": 45
+              }
+            ]
+          },
+          {
+            "stage": {
+              "name": "reduced",
+              "description": "Hydrogen reduction of ammonium paratungstate to tungsten metal powder."
+            },
+            "basis": "net weight",
+            "distribution": [
+              {
+                "isoCode": "US",
+                "percentage": 100,
+                "performedBy": "org-glsm"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "$schema": "https://cyclonedx.org/schema/2.0/cyclonedx-2.0.schema.json",
+  "specFormat": "CycloneDX",
+  "specVersion": "2.0",
+  "serialNumber": "urn:uuid:bdd25550-f1c1-4cb4-b406-0c8d05ad6382",
+  "version": 1,
+  "inventories": [
+    {
+      "subject": {
+        "refId": "my-app",
+        "type": "application",
+        "name": "My Application"
+      },
+      "components": [
+        {
+          "refId": "libcurl",
+          "type": "library",
+          "name": "libcurl",
+          "versionRange": "vers:generic/>=8.7.1|<9.0.0",
+          "description": "libcurl ^8.7.1",
+          "isExternal": true
+        }
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "ref": "my-app",
+      "dependsOn": [
+        "libcurl"
+      ]
+    },
+    {
+      "ref": "libcurl"
+    }
+  ]
+}

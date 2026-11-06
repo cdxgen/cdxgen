@@ -1,0 +1,12 @@
+{
+  "$schema": "https://cyclonedx.org/schema/2.0/cyclonedx-2.0.schema.json",
+  "specFormat": "CycloneDX",
+  "specVersion": "2.0",
+  "serialNumber": "urn:uuid:5e2c8a4d-1b9f-4c3e-a7d0-6f4b2e9c8a15",
+  "version": 1,
+  "controls": [
+    {
+      "refId": "control-unnamed"
+    }
+  ]
+}

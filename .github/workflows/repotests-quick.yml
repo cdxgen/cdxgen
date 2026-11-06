@@ -483,6 +483,29 @@ jobs:
           jq -e 'any(.annotations[]?; (.text // "") | contains("MCP-001"))' bomresults/bom-mcp-repotest.json
           jq -e 'any(.annotations[]?; (.text // "") | contains("MCP-003"))' bomresults/bom-mcp-repotest.json
         shell: bash
+      - name: repotests CycloneDX 2.0
+        if: needs.lane.outputs.docs-only != 'true'
+        run: |
+          bin/cdxgen.js test/data/cbom-js-repotest -o bomresults/bom-cdx20-crypto.json --include-crypto --evidence --deep --spec-version 2.0 --fail-on-error
+          bin/cdxgen.js -t js -t mcp test/data/mcp-repotest -o bomresults/bom-cdx20-mcp-standards.json --standard asvs-5.0 --spec-version 2.0 --fail-on-error
+          bin/cdxgen.js -t js -t github . -o bomresults/bom-cdx20-self-formulation.json --include-formulation --spec-version 2.0 --fail-on-error
+          bin/cdxgen.js -t js test/data/mcp-repotest -o bomresults/bom-cdx20-signed.json --spec-version 2.0 --generate-key-and-sign --fail-on-error
+          node bin/verify.js -i bomresults/bom-cdx20-signed.json --public-key bomresults/public.key
+          for bom in crypto mcp-standards self-formulation; do
+            jq -e '.specFormat == "CycloneDX" and .specVersion == "2.0" and (((.inventories // []) | length) + ((.definitions.components // []) | length)) >= 1 and ([.. | objects | has("bom-ref")] | any | not)' "bomresults/bom-cdx20-${bom}.json"
+            bin/validate.js -i "bomresults/bom-cdx20-${bom}.json" --fail-severity critical --report json > "bomresults/bom-cdx20-${bom}.validate.json"
+            node bin/convert.js -i "bomresults/bom-cdx20-${bom}.json" --to 1.7 -o "bomresults/bom-cdx20-${bom}-1.7.json"
+            node bin/convert.js -i "bomresults/bom-cdx20-${bom}.json" -o "bomresults/bom-cdx20-${bom}.spdx.json"
+            # Exit 3 means findings at or above --fail-severity; the check here
+            # is that a 2.0 input is read and the report is valid JSON.
+            node bin/audit.js --bom "bomresults/bom-cdx20-${bom}.json" --direct-bom-audit --report json > "bomresults/bom-cdx20-${bom}.audit.json" || test $? -eq 3
+            jq -e 'type == "object" or type == "array"' "bomresults/bom-cdx20-${bom}.audit.json"
+          done
+          jq -e '(.definitions.standards | length) >= 1 and ([.definitions.standards[] | .. | objects | has("bom-ref")] | any | not)' bomresults/bom-cdx20-mcp-standards.json
+          jq -e '(.definitions.components | length) >= 1 and (.formulation | length) >= 1 and all(.definitions.components[]; has("type"))' bomresults/bom-cdx20-self-formulation.json
+          jq -e 'any(((.inventories // [])[].components[]?), ((.definitions.components // [])[]); .cryptoProperties.assetType == "algorithm")' bomresults/bom-cdx20-crypto.json
+          jq -e '(.signatures | length) == 1 and .signatures[0].algorithm == "Ed25519"' bomresults/bom-cdx20-signed.json
+        shell: bash
       - name: repotests signed ASAR fixture
         if: needs.lane.outputs.docs-only != 'true'
         run: |

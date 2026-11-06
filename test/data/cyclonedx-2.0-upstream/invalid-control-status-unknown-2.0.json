@@ -1,0 +1,14 @@
+{
+  "$schema": "https://cyclonedx.org/schema/2.0/cyclonedx-2.0.schema.json",
+  "specFormat": "CycloneDX",
+  "specVersion": "2.0",
+  "serialNumber": "urn:uuid:3a7f1c5e-8d4b-4e2a-9b0c-7e5d3f1a6c92",
+  "version": 1,
+  "controls": [
+    {
+      "refId": "control-bad-status",
+      "name": "Control with an unknown status",
+      "status": "active"
+    }
+  ]
+}

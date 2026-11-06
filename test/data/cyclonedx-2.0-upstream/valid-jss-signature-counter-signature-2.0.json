@@ -1,0 +1,30 @@
+{
+  "$schema": "https://cyclonedx.org/schema/2.0/cyclonedx-2.0.schema.json",
+  "specFormat": "CycloneDX",
+  "specVersion": "2.0",
+  "serialNumber": "urn:uuid:1b1bff0e-fdb9-4088-8b9a-1a9f2d9006da",
+  "version": 1,
+  "definitions": {
+    "components": [
+      {
+        "type": "library",
+        "name": "my-library",
+        "version": "1.0"
+      }
+    ]
+  },
+  "signatures": [
+    {
+      "algorithm": "Ed25519",
+      "hash_algorithm": "sha-256",
+      "public_key": "MCowBQYDK2VwAyEA3w+m0qpCTTltOKoY51qHCnChbzPbf4wWyjeFil/6vNc",
+      "value": "xdHdRRy-SjXeShHrOsfoGxNH3KrXubmP87b6PPSFrkdhDyJL4eopFWWXwHYzMzlkRhuxeTpGS0lk6pakMQi0AA",
+      "signature": {
+        "algorithm": "ES256",
+        "hash_algorithm": "sha-512",
+        "public_key": "MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEDZUC7dO15S0bztGeDuG2ragDHUtsWANI06LBPtgU/OkraST3nCdxQoGofBD8FQ8TM9YWSEkL/ECjpw75LSgf/g",
+        "value": "4uHjHHC4Rkg-RLg7RJL33ISwGgFJnCJRQQiUagjlRdFZ-GuW3KQWEf_EuNzwkZLLepwxF1wuNaoHqCTo6aL4qg"
+      }
+    }
+  ]
+}

@@ -1,0 +1,58 @@
+{
+  "$schema": "https://cyclonedx.org/schema/2.0/cyclonedx-2.0.schema.json",
+  "specFormat": "CycloneDX",
+  "specVersion": "2.0",
+  "version": 1,
+  "inventories": [
+    {
+      "subject": {
+        "refId": "subject-1",
+        "type": "device",
+        "name": "Acme Product"
+      },
+      "components": [
+        {
+          "type": "device",
+          "name": "Microcontroller",
+          "parties": [
+            {
+              "refId": "party-acme-mcu",
+              "roles": [
+                {
+                  "role": "manufacturer"
+                },
+                {
+                  "role": "supplier"
+                }
+              ],
+              "organization": {
+                "legalName": "Acme Microcontrollers S.r.l.",
+                "jurisdiction": "IT-BO",
+                "identifiers": [
+                  {
+                    "scheme": "vat",
+                    "value": "IT09686720019"
+                  }
+                ],
+                "url": [
+                  { "name": "homepage", "url": "https://www.acme-mcu.example.com" }
+                ],
+                "addresses": [
+                  {
+                    "streetAddress": "Via dei Fornai 10",
+                    "locality": "Bologna",
+                    "isoCode": "IT-BO",
+                    "coordinates": {
+                      "latitude": 45.5845,
+                      "longitude": 9.2744
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
