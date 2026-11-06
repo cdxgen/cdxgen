@@ -1,0 +1,14 @@
+lib/validator/precompiled-parity.poku.js
+  h_6a4cc5cdf68def 96
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "82003ccc6f0e19800c5cba61b15842dcfb801697",
+  "prompts": {},
+  "humans": {
+    "h_6a4cc5cdf68def": {
+      "author": "Team AppThreat <cloud@appthreat.com>"
+    }
+  }
+}
