@@ -1,0 +1,19 @@
+.github/workflows/deno.yml
+  s_4435ae7db7ee1b::t_64d1fc413d306a 66-72
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "81ee98757b3b0b3959bd2a54715ecf8c3b550737",
+  "prompts": {},
+  "sessions": {
+    "s_4435ae7db7ee1b": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "42550933-1c9c-482f-8a1f-bb55d9514f4c",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
