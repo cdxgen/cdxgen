@@ -179,6 +179,13 @@ for (const configPattern of PROJECT_CONFIG_FILENAMES) {
         `Config file '${configPath}' sets '${key}', which is not an option a config file can set. Ignoring it.`,
       );
     }
+    for (const { key, pattern, reason } of sanitized.refusedPatterns) {
+      const shownPattern =
+        pattern.length > 80 ? `${pattern.slice(0, 77)}...` : pattern;
+      console.warn(
+        `\x1b[1;35mConfig file '${configPath}' sets the ${key} pattern '${shownPattern}', which ${reason}. Ignoring it. Pass the pattern on the command line if this is intentional.\x1b[0m`,
+      );
+    }
     for (const entry of sanitized.rejected) {
       console.warn(
         `\x1b[1;35mConfig file '${configPath}' sets '${entry}', which points outside the project directory. Ignoring it. Pass the option on the command line if this is intentional.\x1b[0m`,

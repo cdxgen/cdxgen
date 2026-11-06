@@ -173,7 +173,7 @@ Some options make a scan install packages or run the scanned project's own build
 The server also refuses the following requests, whatever mode it runs in:
 
 - Project types that inventory the server host rather than the scan path, such as `os`, `hbom`, `vscode-extension`, `chrome-extension`, `agentic`, and the Maven, Gradle, sbt, Cargo and Helm cache types. Start the server with `-t <type>` to allow one of them.
-- `exclude` patterns that use braces or are longer than 512 characters, since brace expansion can keep the server busy for minutes.
+- `exclude` patterns that use braces, are longer than 512 characters, or number more than 128. Every pattern is matched against every file the scan walks, and brace expansion multiplies them, so either can keep the server busy for minutes.
 - A `serverUrl` on another origin than the one the server was started with, when the request reuses the operator's API key. In secure mode such a `serverUrl` also needs `CDXGEN_ALLOWED_HOSTS`, which every redirect hop is checked against as well.
 - A `path` whose real location, after following symlinks, is outside `CDXGEN_ALLOWED_PATHS`.
 
