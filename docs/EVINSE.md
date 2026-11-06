@@ -101,6 +101,17 @@ with `.` (`@nebular/theme.NbThemeModule`). Two uses on one line are two occurren
 line-only occurrence from another source is dropped when a use site on the same line is recorded.
 Running `evinse` again over its own output gives the same occurrences.
 
+When the lock file installs more than one version of an npm package, an occurrence belongs only to
+the version the file loads. With `package-lock.json`, cdxgen follows Node.js resolution: it walks
+up from the file's directory to the first `node_modules/<name>` the lock file installs, so a copy
+nested under another package (`node_modules/debug/node_modules/ms`) is never credited with the
+project's own imports, and a workspace member's file gets the copy installed under that member.
+Where the lock file records no install locations, the file uses the version its workspace member,
+or else the project, depends on directly; if neither names one, every version keeps the
+occurrence. `evinse` keeps each slice record on the versions the input BOM's own import evidence
+gives that file, so a callsites or usages record, which names a package but not a version, does
+not spread to the other copies either.
+
 ### Reachability evidence
 
 Use `--with-reachables` when you need entry-point-to-sink style reachability signals. This is often the best trade-off for AppSec triage.

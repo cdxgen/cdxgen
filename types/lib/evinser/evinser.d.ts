@@ -235,6 +235,7 @@ export declare function analyzeProject(dbObjMap: Object, options: Object): Promi
     dataFlowSlicesFile?: undefined;
     reachablesSlicesFile?: undefined;
     semanticsSlicesFile?: undefined;
+    clearedOccurrencePurls?: undefined;
     tempDir?: undefined;
     tempDirOwned?: undefined;
     cryptoComponents?: undefined;
@@ -257,6 +258,7 @@ export declare function analyzeProject(dbObjMap: Object, options: Object): Promi
     dataFlowSlicesFile?: undefined;
     reachablesSlicesFile?: undefined;
     semanticsSlicesFile?: undefined;
+    clearedOccurrencePurls?: undefined;
     tempDir?: undefined;
     tempDirOwned?: undefined;
     aiComponents?: undefined;
@@ -277,6 +279,7 @@ export declare function analyzeProject(dbObjMap: Object, options: Object): Promi
     dataFlowSlicesFile?: undefined;
     reachablesSlicesFile?: undefined;
     semanticsSlicesFile?: undefined;
+    clearedOccurrencePurls?: undefined;
     tempDir?: undefined;
     tempDirOwned?: undefined;
     aiComponents?: undefined;
@@ -300,6 +303,7 @@ export declare function analyzeProject(dbObjMap: Object, options: Object): Promi
     purlSymbolMap: Record<string, Record<string, string>>;
     atomFile?: undefined;
     reachablesSlicesFile?: undefined;
+    clearedOccurrencePurls?: undefined;
     openapiSpecFile?: undefined;
 } | {
     componentPropertiesMap?: undefined;
@@ -312,6 +316,7 @@ export declare function analyzeProject(dbObjMap: Object, options: Object): Promi
     semanticsSlicesFile: any;
     purlLocationMap: Record<string, Set<any>>;
     purlSymbolMap: Record<string, Record<string, string>>;
+    clearedOccurrencePurls: Set<any>;
     servicesMap: {};
     dataFlowFrames: {};
     tempDir: any;

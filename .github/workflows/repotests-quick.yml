@@ -328,6 +328,23 @@ jobs:
             jq -e '[.. | objects | .properties? // empty | .[] | select(.name == "internal:LocalNodeModulesPath")] | length == 0' "$bom"
           done
         shell: bash
+      - name: repotests npm installed versions fixture
+        if: needs.lane.outputs.docs-only != 'true'
+        run: |
+          # ms 2.1.3 is hoisted for src/, ms 2.0.0 is installed under the
+          # workspace member packages/legacy: each file's use belongs to the
+          # copy it loads, in the BOM and again after evinse adds the callsites.
+          fixture=test/data/npm-version-resolution-repotest
+          bin/cdxgen.js -t js "$fixture" -o bomresults/bom-npm-version-resolution-fixture.json --fail-on-error
+          ATOM_CMD=no-such-atom bin/evinse.js -i bomresults/bom-npm-version-resolution-fixture.json -o bomresults/bom-npm-version-resolution-evinse.json -l js --usages-slices-file "$fixture/slices/usages.slices.json" --callsites-slices-file "$fixture/slices/callsites.slices.json" "$fixture"
+          for bom in bomresults/bom-npm-version-resolution-fixture.json bomresults/bom-npm-version-resolution-evinse.json; do
+            jq -e 'any(.components[]; .purl == "pkg:npm/ms@2.1.3" and .scope == "required" and ([.evidence.occurrences[].location] | unique) == ["src/index.js"])' "$bom"
+            jq -e 'any(.components[]; .purl == "pkg:npm/ms@2.0.0" and .scope == "required" and ([.evidence.occurrences[].location] | unique) == ["packages/legacy/index.js"])' "$bom"
+          done
+          jq -e 'any(.components[]; .purl == "pkg:npm/ms@2.1.3" and any(.evidence.occurrences[]; .location == "src/index.js" and .line == 8 and .offset == 9 and .symbol == "ms"))' bomresults/bom-npm-version-resolution-evinse.json
+          # ms 0.6.2 under the development dependency humanize-ms is loaded by no file
+          jq -e 'any(.components[]; .purl == "pkg:npm/ms@0.6.2" and .scope == "optional" and ((.evidence.occurrences // []) | length) == 0)' bomresults/bom-npm-version-resolution-evinse.json
+        shell: bash
       - name: repotests semver build metadata fixtures
         if: needs.lane.outputs.docs-only != 'true'
         run: |

@@ -41,4 +41,12 @@ export declare function occurrenceLocationKey(location: string, line?: number, o
  * @returns {string[]} The keys without the subsumed line-only entries
  */
 export declare function dropSubsumedOccurrenceKeys(keys: string[]): string[];
+/**
+ * The location part of an occurrence-set key: `src/a.js` for `src/a.js#3`,
+ * `src/a.js:3:14` and `src/a.js` alike.
+ *
+ * @param {string} key Key made by `occurrenceLocationKey`
+ * @returns {string} The location the key names
+ */
+export declare function occurrenceKeyLocation(key: string): string;
 //# sourceMappingURL=occurrenceKey.d.ts.map

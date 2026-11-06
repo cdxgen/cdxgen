@@ -1,0 +1,9 @@
+{
+  "name": "legacy",
+  "version": "1.0.0",
+  "private": true,
+  "main": "index.js",
+  "dependencies": {
+    "ms": "2.0.0"
+  }
+}
