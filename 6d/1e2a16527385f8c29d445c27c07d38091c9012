@@ -1,0 +1,1055 @@
+test/data/cyclonedx-2.0-upstream/valid-control-full-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-106
+test/data/cyclonedx-2.0-upstream/invalid-custom-unit-rec20-code-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-27
+test/data/cyclonedx-2.0-upstream/valid-vex-mitigating-control-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-47
+lib/inventory/cyclonedx20Readers.poku.js
+  s_ecc04ad348356d::t_e1afadb0572f71 1-976
+test/data/cyclonedx-2.0-upstream/valid-jss-signature-counter-signature-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-30
+test/data/cyclonedx-2.0-upstream/valid-metadata-distribution-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-15
+test/data/cyclonedx-2.0-render/self-scan.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-146
+test/data/cyclonedx-2.0-upstream/invalid-hardware-quantity-on-library-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-20
+test/data/cyclonedx-2.0-upstream/valid-blueprint-operational-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-157
+test/data/cyclonedx-2.0-upstream/invalid-control-status-unknown-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-14
+test/data/cyclonedx-2.0-upstream/invalid-hash-md5-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-35
+test/data/cyclonedx-2.0-upstream/invalid-copyright-evidence-missing-text-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-12
+test/data/cyclonedx-2.0-upstream/valid-blueprint-network-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-154
+types/lib/inventory/cyclonedx20Tables.d.ts
+  s_ecc04ad348356d::t_e1afadb0572f71 1-134
+bin/convert.js
+  s_ecc04ad348356d::t_e1afadb0572f71 23,27-32,41-42,49-53,71,79-84,138,142,150-198,201,203,207,209,239-263,265-308,311
+types/lib/inventory/cyclonedx20RenderHardware.d.ts
+  s_ecc04ad348356d::t_e1afadb0572f71 1-42
+types/lib/inventory/agentToolNames.d.ts
+  s_ecc04ad348356d::t_e1afadb0572f71 1-51
+test/data/cyclonedx-2.0-upstream/behavior-mockup-evidence.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-119
+test/data/cyclonedx-2.0-upstream/invalid-inventory-missing-components-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-9
+docs/CDX_SIGN.md
+  s_ecc04ad348356d::t_e1afadb0572f71 116-125
+lib/validator/precompiled-parity.poku.js
+  s_ecc04ad348356d::t_e1afadb0572f71 96,99-102,169-210,212,214,216-224,226,228-244,247,251-255,296-301,310,316,322,325
+test/data/cyclonedx-2.0-upstream/invalid-extensible-properties-array-item-nested-object-missing-schema.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-20
+test/data/cyclonedx-2.0-upstream/valid-component-mediatype-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-15
+test/data/cyclonedx-2.0-upstream/invalid-ai-ml-task-casing-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-250
+test/data/cyclonedx-2.0-upstream/valid-vulnerability-evidence-shared-occurrence-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-61
+lib/inventory/cyclonedx20Read.poku.js
+  s_ecc04ad348356d::t_e1afadb0572f71 1-810
+test/data/cyclonedx-2.0-upstream/invalid-component-choice-too-few-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-26
+lib/inventory/bomUtils.js
+  s_ecc04ad348356d::t_e1afadb0572f71 46-52,63
+bin/tracebom.poku.js
+  s_ecc04ad348356d::t_e1afadb0572f71 50-84
+  s_ecc04ad348356d::t_300f4afc2aa65f 49
+test/data/cyclonedx-2.0-upstream/invalid-composition-unknown-kind-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-11
+test/data/cyclonedx-2.0-upstream/invalid-metadata-license-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-19
+test/data/cyclonedx-2.0-upstream/invalid-pedigree-choice-group-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-22
+test/data/cyclonedx-2.0-upstream/valid-party-person-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-63
+test/data/cyclonedx-2.0-upstream/invalid-graphics-collection-reference-with-name-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-21
+test/data/cyclonedx-2.0-upstream/invalid-empty-component-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-14
+.github/workflows/repotests-quick.yml
+  s_ecc04ad348356d::t_e1afadb0572f71 486-508
+types/lib/stages/postgen/postgen.d.ts
+  s_ecc04ad348356d::t_e1afadb0572f71 4-10
+test/data/cyclonedx-2.0-upstream/invalid-risk-response-missing-strategy-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-18
+test/data/cyclonedx-2.0-render/attachments.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-158
+test/cdx20-evinse-analyze.mjs
+  s_ecc04ad348356d::t_e1afadb0572f71 1-36
+data/pqc-migration.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-239
+test/data/cyclonedx-2.0-upstream/invalid-party-missing-roles-via-component-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-28
+test/data/cyclonedx-2.0-upstream/invalid-component-evidence-assessment-technique-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-14
+lib/inventory/pqcMigration.poku.js
+  s_ecc04ad348356d::t_e1afadb0572f71 1-833
+test/data/cyclonedx-2.0-upstream/invalid-jss-signature-missing-algorithm-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-23
+test/data/cyclonedx-2.0-upstream/valid-vulnerability-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-194
+types/lib/inventory/cyclonedx20ReadSections.d.ts
+  s_ecc04ad348356d::t_e1afadb0572f71 1-45
+test/data/cyclonedx-2.0-upstream/invalid-weakness-reference-with-kind-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-16
+test/data/cyclonedx-2.0-upstream/valid-blueprint-physical-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-140
+test/data/cyclonedx-2.0-upstream/invalid-component-mediatype-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-9
+test/data/cyclonedx-2.0-upstream/valid-component-evidence-shared-technique-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-47
+test/data/cyclonedx-2.0-upstream/valid-metadata-author-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-19
+lib/inventory/cyclonedx20Parties.js
+  s_ecc04ad348356d::t_e1afadb0572f71 1-552
+docs/HBOM.md
+  s_ecc04ad348356d::t_e1afadb0572f71 275,285-320
+  s_ecc04ad348356d::t_24f5db36ce86e5 321
+test/data/cyclonedx-2.0-upstream/valid-ai-ml-model-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-409
+test/data/cyclonedx-2.0-upstream/valid-party-system-as-author-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-39
+test/data/cyclonedx-2.0-render/crypto.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-78
+docs/CBOM_CERTIFICATES.md
+  s_ecc04ad348356d::t_e1afadb0572f71 182,192-196
+  s_ecc04ad348356d::t_1612ed36df82bd 197
+test/data/cyclonedx-2.0-upstream/invalid-inventory-reference-with-name-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-17
+test/data/cyclonedx-2.0-upstream/invalid-pedigree-notes-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-20
+test/data/cyclonedx-2.0-upstream/valid-metadata-supplier-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-39
+test/data/cyclonedx-2.0-upstream/invalid-vulnerability-evidence-method-result-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-11
+bin/commands.poku.js
+  s_ecc04ad348356d::t_e1afadb0572f71 1507-1837
+test/data/cyclonedx-2.0-upstream/invalid-component-choice-bad-operator-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-27
+test/data/cyclonedx-2.0-upstream/invalid-hardware-identity-evidence-technique-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-29
+test/data/cyclonedx-2.0-upstream/valid-perspective-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-113
+test/data/cyclonedx-2.0-upstream/invalid-blueprint-authentication-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-26
+test/data/cyclonedx-2.0-upstream/valid-data-erd-relationships-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-103
+test/data/cyclonedx-2.0-upstream/valid-license-declared-concluded-mix-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-169
+test/data/cyclonedx-2.0-upstream/invalid-party-iso-code-pattern-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-38
+test/data/cyclonedx-2.0-upstream/invalid-supporting-data-hash-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-12
+lib/stages/postgen/specVersionCompat.js
+  s_ecc04ad348356d::t_e1afadb0572f71 30-31,120-122,126-130,726-728,779-841
+test/data/cyclonedx-2.0-read/formula-task-type.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-29
+types/lib/inventory/citations.d.ts
+  s_ecc04ad348356d::t_e1afadb0572f71 52-56
+test/data/cyclonedx-2.0-upstream/invalid-party-two-identities-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-36
+test/data/cyclonedx-2.0-upstream/valid-risk-damage-scenario-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-252
+test/data/cyclonedx-2.0-upstream/valid-jss-signature-thumbprint-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-24
+test/data/cyclonedx-2.0-upstream/invalid-vulnerability-occurrence-missing-location-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-22
+lib/inventory/citations.js
+  s_ecc04ad348356d::t_e1afadb0572f71 154-161,166-170,175-192
+test/data/cyclonedx-2.0-read/deep-check-exceptions.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-9
+test/data/cyclonedx-2.0-upstream/valid-patch-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-91
+types/lib/inventory/cyclonedx20Common.d.ts
+  s_ecc04ad348356d::t_e1afadb0572f71 1-102
+test/data/cyclonedx-2.0-upstream/valid-risk-ai-bias-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-115
+test/data/cyclonedx-2.0-upstream/invalid-vulnerability-evidence-technique-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-22
+test/data/cyclonedx-2.0-upstream/valid-party-capability-profile-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-49
+lib/inventory/agentToolNames.poku.js
+  s_ecc04ad348356d::t_e1afadb0572f71 1-58
+lib/inventory/citations.poku.js
+  s_ecc04ad348356d::t_e1afadb0572f71 216-266
+test/data/cyclonedx-2.0-upstream/invalid-jss-signature-invalid-timestamp-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-25
+test/data/cyclonedx-2.0-upstream/invalid-ai-ml-legacy-modelcard-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-49
+test/data/cyclonedx-2.0-upstream/invalid-threatmodel-category-taxonomy-mismatch-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-18
+test/cdx20-runtime-validate.mjs
+  s_ecc04ad348356d::t_e1afadb0572f71 1-22
+test/data/cyclonedx-2.0-upstream/invalid-metadata-distribution-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-13
+test/data/cyclonedx-2.0-upstream/invalid-control-missing-name-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-12
+test/data/cyclonedx-2.0-upstream/valid-metadata-license-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-27
+types/lib/inventory/agentBlueprint.d.ts
+  s_ecc04ad348356d::t_e1afadb0572f71 1-70
+types/lib/inventory/cyclonedx20RenderPatents.d.ts
+  s_ecc04ad348356d::t_e1afadb0572f71 1-26
+lib/helpers/jssSigner.js
+  s_ecc04ad348356d::t_e1afadb0572f71 1-1276
+test/data/cyclonedx-2.0-upstream/invalid-missing-component-type-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-15
+lib/evinser/evinser.js
+  s_ecc04ad348356d::t_e1afadb0572f71 20,76-79,312-350,370,1319,3071-3075,3097-3102,3290,3293,3334-3336
+test/data/cyclonedx-2.0-upstream/valid-blueprint-logical-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-177
+docs/CDX_VERIFY.md
+  s_ecc04ad348356d::t_e1afadb0572f71 72-81
+test/data/cyclonedx-2.0-upstream/invalid-citations-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-42
+test/data/cyclonedx-2.0-upstream/invalid-vulnerability-evidence-additional-property-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-23
+test/data/cyclonedx-2.0-upstream/invalid-license-id-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-24
+test/data/cyclonedx-2.0-upstream/valid-dependency-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-41
+test/data/cyclonedx-2.0-upstream/valid-inventory-vex-only-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-17
+test/data/cyclonedx-2.0-upstream/valid-metadata-timestamp-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-13
+test/data/cyclonedx-2.0-upstream/valid-jss-signature-custom-properties-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-26
+test/data/cyclonedx-2.0-upstream/valid-bom-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-395
+test/data/cyclonedx-2.0-upstream/valid-ai-ml-risk-integration-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-575
+lib/validator/bomValidator.poku.js
+  s_ecc04ad348356d::t_e1afadb0572f71 10-12,19-28,30,32-58
+test/data/cyclonedx-2.0-upstream/valid-component-ref-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-31
+test/data/cyclonedx-2.0-upstream/valid-component-evidence-assertion-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-40
+test/data/cyclonedx-2.0-upstream/invalid-hardware-quantity-missing-value-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-19
+test/data/cyclonedx-2.0-upstream/valid-component-data-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-32
+test/data/cyclonedx-2.0-upstream/invalid-extensible-properties-array-item-object-missing-schema.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-20
+test/data/cyclonedx-2.0-upstream/valid-properties-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-102
+test/data/cyclonedx-2.0-upstream/valid-standard-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-85
+test/data/cyclonedx-2.0-upstream/valid-component-choice-or-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-56
+lib/inventory/cyclonedx20ReadComponents.js
+  s_ecc04ad348356d::t_e1afadb0572f71 1-692
+test/data/cyclonedx-2.0-upstream/invalid-ai-ml-unit-unknown-symbol-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-23
+test/data/cyclonedx-2.0-upstream/invalid-scope-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-17
+test/data/cyclonedx-2.0-upstream/README.md
+  s_ecc04ad348356d::t_e1afadb0572f71 1-18
+bin/jssTrust.poku.js
+  s_ecc04ad348356d::t_e1afadb0572f71 1-142
+test/data/cyclonedx-2.0-upstream/valid-composition-explicit-none-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-31
+test/data/cyclonedx-2.0-upstream/valid-annotation-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-136
+lib/inventory/cyclonedx20Common.js
+  s_ecc04ad348356d::t_e1afadb0572f71 1-286
+test/data/cyclonedx-2.0-upstream/valid-blueprint-process-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-147
+test/data/cyclonedx-2.0-upstream/invalid-threatmodel-missing-bomref-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-14
+test/data/cyclonedx-2.0-upstream/valid-formulation-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-281
+test/data/cyclonedx-2.0-upstream/valid-blueprint-visualization-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-62
+test/data/cyclonedx-2.0-upstream/valid-patch-resolves-references-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-65
+types/lib/inventory/cyclonedx20ReadEvidence.d.ts
+  s_ecc04ad348356d::t_e1afadb0572f71 1-40
+test/data/cyclonedx-2.0-upstream/invalid-blueprint-relationship-type-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-35
+test/data/cyclonedx-2.0-upstream/invalid-definitions-parties-holding-reference-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-9
+test/data/cyclonedx-2.0-upstream/valid-origin-stage-lifecycle-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-135
+docs/ENV.md
+  s_ecc04ad348356d::t_e1afadb0572f71 75,78-80
+test/data/cyclonedx-2.0-upstream/invalid-cryptography-nist-quantum-security-level-6-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-20
+test/data/cyclonedx-2.0-upstream/invalid-evidence-assertion-no-party-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-12
+test/data/cyclonedx-2.0-upstream/valid-metadata-manufacturer-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-26
+test/data/cyclonedx-2.0-upstream/invalid-ai-ml-energy-unit-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-251
+test/data/cyclonedx-2.0-upstream/invalid-release-notes-reference-with-extra-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-18
+test/data/cyclonedx-2.0-upstream/invalid-hash-sha1-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-35
+data/behavior-taxonomy.schema.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-1491
+bin/verify.js
+  s_ecc04ad348356d::t_e1afadb0572f71 22,25,50,55,61,67,73,164-173,220-314
+  s_ecc04ad348356d::t_41f02b748ad091 315
+test/data/cyclonedx-2.0-upstream/valid-license-expression-with-licensing-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-64
+lib/inventory/cyclonedx20RenderEvidence.js
+  s_ecc04ad348356d::t_e1afadb0572f71 1-726
+test/data/cyclonedx-2.0-upstream/invalid-composition-aggregate-casing-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-11
+test/data/cyclonedx-2.0-upstream/valid-blueprint-authentication-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-56
+test/data/cyclonedx-2.0-upstream/valid-graphics-collection-reference-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-25
+test/data/cyclonedx-2.0-upstream/valid-saasbom-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-429
+types/lib/validator/index.d.ts
+  s_ecc04ad348356d::t_e1afadb0572f71 41-45,63,91-93
+  s_ecc04ad348356d::t_d636230bc8dc31 94
+test/data/cyclonedx-2.0-upstream/invalid-risk-damage-scenario-no-impacts-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-15
+types/lib/inventory/cyclonedx20RenderComponents.d.ts
+  s_ecc04ad348356d::t_e1afadb0572f71 1-73
+test/data/cyclonedx-2.0-upstream/invalid-inventory-missing-subject-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-11
+test/data/cyclonedx-2.0-upstream/valid-party-system-service-account-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-47
+.gitignore
+  s_ecc04ad348356d::t_e1afadb0572f71 12-13,212-215
+test/data/cyclonedx-2.0-upstream/valid-party-persona-label-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-50
+package.json
+  s_ecc04ad348356d::t_e1afadb0572f71 184
+test/data/cyclonedx-2.0-upstream/invalid-vulnerability-evidence-confidence-range-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-22
+test/data/cyclonedx-2.0-upstream/valid-safety-impact-assessment-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-232
+bin/sign.js
+  s_ecc04ad348356d::t_e1afadb0572f71 3,21-27,30,54-56,58,65,164-166,252-434,445-446,448-455
+test/data/cyclonedx-2.0-upstream/valid-vulnerability-evidence-sast-rule-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-133
+types/lib/inventory/cyclonedx20Parties.d.ts
+  s_ecc04ad348356d::t_e1afadb0572f71 1-91
+test/data/cyclonedx-2.0-upstream/invalid-patch-resolves-reference-extra-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-24
+lib/inventory/communityAiConfigParser.js
+  s_ecc04ad348356d::t_e1afadb0572f71 13,597-601,634,641
+test/data/cyclonedx-2.0-upstream/valid-vulnerability-evidence-perspectives-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-100
+lib/validator/reporters.poku.js
+  s_ecc04ad348356d::t_e1afadb0572f71 104-113
+test/data/cyclonedx-2.0-upstream/valid-cryptography-certificate-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-262
+lib/helpers/bomSigner.js
+  s_ecc04ad348356d::t_e1afadb0572f71 66-69,94-126,200,208,212,233,238,253
+test/data/cyclonedx-2.0-upstream/valid-threatmodel-simple-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-217
+lib/server/server.js
+  s_ecc04ad348356d::t_e1afadb0572f71 31-34,320-332,749-754
+  s_ecc04ad348356d::t_4f5bf8bf7d2491 30
+test/data/cyclonedx-2.0-upstream/valid-behavior-process-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-56
+types/lib/audit/index.d.ts
+  s_ecc04ad348356d::t_e1afadb0572f71 4-8,11
+test/data/cyclonedx-2.0-upstream/valid-inventory-multi-product-shared-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-46
+test/data/cyclonedx-2.0-upstream/valid-patent-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-180
+types/lib/inventory/cyclonedx20Render.d.ts
+  s_ecc04ad348356d::t_e1afadb0572f71 1-53
+types/lib/stages/postgen/specVersionCompat.d.ts
+  s_ecc04ad348356d::t_e1afadb0572f71 71-95
+test/data/cyclonedx-2.0-upstream/invalid-license-reference-with-acknowledgement-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-23
+test/data/cyclonedx-2.0-upstream/valid-component-choice-and-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-45
+test/data/cyclonedx-2.0-upstream/invalid-risk-impact-category-bias-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-24
+test/data/cyclonedx-2.0-upstream/valid-component-parties-multi-role-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-78
+test/data/cyclonedx-2.0-upstream/invalid-hash-sha512-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-35
+test/data/cyclonedx-2.0-upstream/valid-party-persona-attacker-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-35
+test/data/cyclonedx-2.0-upstream/invalid-definitions-release-notes-holding-reference-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-9
+test/data/cyclonedx-2.0-upstream/valid-component-external-with-versionRange.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-37
+test/data/cyclonedx-2.0-upstream/invalid-weakness-identifier-missing-value-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-17
+test/data/cyclonedx-2.0-upstream/invalid-hash-alg-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-35
+test/data/cyclonedx-2.0-upstream/invalid-data-profile-reference-with-name-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-20
+test/data/cyclonedx-2.0-upstream/invalid-jss-signature-modified-no-millis-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-25
+test/data/cyclonedx-2.0-upstream/invalid-blueprint-visualization-type-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-24
+test/data/cyclonedx-2.0-upstream/invalid-ai-ml-unit-custom-missing-name-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-25
+test/data/cyclonedx-2.0-upstream/invalid-composition-old-assemblies-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-12
+test/data/cyclonedx-2.0-upstream/invalid-hardware-materialform-custom-no-name-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-19
+test/data/cyclonedx-2.0-upstream/valid-party-component-as-system-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-52
+test/data/cyclonedx-2.0-upstream/valid-component-swid-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-39
+test/data/cyclonedx-2.0-upstream/valid-party-persona-end-user-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-40
+test/data/ai-agent-declared/AGENTS.md
+  s_ecc04ad348356d::t_e1afadb0572f71 1-7
+test/data/cyclonedx-2.0-upstream/invalid-properties-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-70
+test/data/cyclonedx-2.0-upstream/valid-jss-signature-public-cert-chain-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-27
+test/data/cyclonedx-2.0-upstream/valid-certification-inline-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-19
+lib/stages/postgen/postgen.poku.js
+  s_ecc04ad348356d::t_e1afadb0572f71 412-415,417,422-424,429-430,432,435-444,446-447,449-455,528-534,537-548,551-554,556,2298-2349
+  s_ecc04ad348356d::t_fab17b295b5d12 2350
+test/data/cyclonedx-2.0-upstream/hashicorp-vault-threat-model.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-1258
+lib/validator/cisaDefaultBom.poku.js
+  s_ecc04ad348356d::t_e1afadb0572f71 15,34,60-63,75,188,193-194
+lib/validator/bomValidator.js
+  s_ecc04ad348356d::t_e1afadb0572f71 58-59,62,66-68
+  s_ecc04ad348356d::t_8af1d0b8655234 69-70
+test/data/cyclonedx-2.0-upstream/invalid-jss-signature-empty-cert-chain-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-24
+test/data/cyclonedx-2.0-render/compositions.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-80
+test/data/cyclonedx-2.0-render/services.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-132
+test/data/cyclonedx-2.0-upstream/invalid-evidence-assertion-role-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-12
+test/data/cyclonedx-2.0-upstream/valid-empty-components-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-11
+test/data/cyclonedx-2.0-upstream/valid-pedigree-references-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-35
+test/data/cyclonedx-2.0-upstream/valid-control-grc-standalone-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-53
+test/data/cyclonedx-2.0-upstream/valid-metadata-tool-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-61
+test/data/cyclonedx-2.0-upstream/invalid-metadata-timestamp-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-13
+test/data/cyclonedx-2.0-upstream/valid-party-ai-agent-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-99
+test/data/cyclonedx-2.0-upstream/valid-cryptography-implementation-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-135
+test/data/cyclonedx-2.0-upstream/invalid-bomformat-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-11
+test/data/cyclonedx-2.0-upstream/invalid-refType-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-15
+test/data/cyclonedx-2.0-upstream/invalid-patch-type-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-51
+types/lib/inventory/cyclonedx20ReadCommon.d.ts
+  s_ecc04ad348356d::t_e1afadb0572f71 1-69
+test/data/cyclonedx-2.0-upstream/valid-metadata-lifecycle-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-24
+bin/repl.js
+  s_ecc04ad348356d::t_e1afadb0572f71 13,23-27,98-111,450-463,509-510,515-516,597-598,1423-1424,1451-1453,1481-1482
+test/data/cyclonedx-2.0-render/identifiers.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-68
+types/lib/inventory/cyclonedx20Derived.d.ts
+  s_ecc04ad348356d::t_e1afadb0572f71 1-74
+test/data/cyclonedx-2.0-upstream/valid-jss-signature-public-key-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-24
+test/data/cyclonedx-2.0-upstream/invalid-hardware-devicetype-custom-no-name-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-18
+lib/helpers/jssSigner.poku.js
+  s_ecc04ad348356d::t_e1afadb0572f71 1-1096
+test/data/cyclonedx-2.0-upstream/invalid-component-external-version-and-range.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-19
+test/data/cyclonedx-2.0-upstream/invalid-hardware-boardlocation-on-material-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-21
+test/data/cyclonedx-2.0-upstream/valid-service-empty-objects-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-29
+test/data/cyclonedx-2.0-upstream/invalid-weakness-cwe-value-format-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-17
+test/data/cyclonedx-2.0-upstream/valid-party-organization-with-component-supplier-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-58
+test/data/cyclonedx-2.0-upstream/valid-vulnerability-evidence-callstacks-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-106
+test/data/ai-agent-declared/mcp.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-12
+test/data/cyclonedx-2.0-upstream/invalid-party-persona-empty-label-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-41
+test/data/cyclonedx-2.0-upstream/invalid-blueprint-authorization-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-25
+test/data/cyclonedx-2.0-render/annotations.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-126
+test/data/cyclonedx-2.0-upstream/invalid-extensible-properties-object-missing-schema.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-18
+test/data/cyclonedx-2.0-upstream/valid-behavior-statemachine-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-88
+deno.json
+  s_ecc04ad348356d::t_e1afadb0572f71 84
+test/data/cyclonedx-2.0-upstream/invalid-jss-signature-no-key-material-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-23
+test/data/cyclonedx-2.0-upstream/valid-weakness-reference-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-29
+test/data/cyclonedx-2.0-upstream/valid-license-name-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-51
+lib/inventory/agentToolNames.js
+  s_ecc04ad348356d::t_e1afadb0572f71 1-145
+test/data/cyclonedx-2.0-upstream/LICENSE
+  s_ecc04ad348356d::t_e1afadb0572f71 1-201
+test/data/cyclonedx-2.0-upstream/valid-machine-learning-considerations-env-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-73
+test/data/cyclonedx-2.0-upstream/invalid-blueprint-visualization-format-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-26
+test/data/cyclonedx-2.0-upstream/valid-assembly-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-33
+test/data/cyclonedx-2.0-upstream/invalid-party-missing-roles-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-28
+lib/inventory/cyclonedx20RenderPatents.js
+  s_ecc04ad348356d::t_e1afadb0572f71 1-174
+test/data/ai-agent-declared/package.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-5
+test/data/cyclonedx-2.0-upstream/invalid-vulnerability-evidence-exploited-nondemonstrative-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-12
+test/data/cyclonedx-2.0-upstream/valid-cryptography-full-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-449
+test/data/cyclonedx-2.0-upstream/invalid-vulnerability-evidence-exploited-notdetected-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-12
+test/data/cyclonedx-2.0-upstream/valid-hardware-certification-cdxa-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-74
+test/data/cyclonedx-2.0-upstream/invalid-component-swid-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-32
+test/data/cyclonedx-2.0-upstream/valid-measurements-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-71
+test/data/cyclonedx-2.0-render/definitions.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-182
+test/data/cyclonedx-2.0-upstream/valid-external-reference-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-249
+test/data/cyclonedx-2.0-upstream/valid-vulnerability-evidence-not-affected-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-83
+lib/helpers/bomSigner.poku.js
+  s_ecc04ad348356d::t_e1afadb0572f71 10,1477-1493,1500,1510-1530
+  s_ecc04ad348356d::t_e48903b97eef1f 1531
+test/data/cyclonedx-2.0-upstream/valid-vulnerability-evidence-llm-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-94
+test/data/cyclonedx-2.0-upstream/invalid-component-ref-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-23
+test/data/cyclonedx-2.0-upstream/invalid-hardware-certification-missing-standard-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-25
+test/data/cyclonedx-2.0-upstream/invalid-vulnerability-evidence-identity-technique-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-11
+test/data/cyclonedx-2.0-upstream/invalid-behavior-flowstep-multi-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-30
+test/data/cyclonedx-2.0-render/legacy.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-157
+test/data/cyclonedx-2.0-upstream/valid-component-evidence-license-copyright-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-120
+test/data/cyclonedx-2.0-upstream/valid-hardware-material-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-152
+test/data/cyclonedx-2.0-read/stray-components.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-27
+test/data/cyclonedx-2.0-upstream/invalid-inventory-definitions-holding-reference-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-2
+test/data/cyclonedx-2.0-upstream/valid-external-reference-properties-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-32
+test/data/cyclonedx-2.0-upstream/valid-hardware-devicetype-custom-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-36
+test/data/cyclonedx-2.0-render/parties.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-127
+test/data/cyclonedx-2.0-upstream/valid-license-choice-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-52
+test/data/cyclonedx-2.0-upstream/invalid-jss-signature-type-not-jss-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-25
+test/data/cyclonedx-2.0-upstream/invalid-composition-missing-targets-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-10
+lib/inventory/cyclonedx20ReadEvidence.js
+  s_ecc04ad348356d::t_e1afadb0572f71 1-466
+test/data/cyclonedx-2.0-upstream/valid-license-expression-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-50
+test/data/cyclonedx-2.0-upstream/invalid-component-evidence-data-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-19
+test/data/cyclonedx-2.0-upstream/valid-compositions-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-89
+lib/inventory/pqcMigration.js
+  s_ecc04ad348356d::t_e1afadb0572f71 1-426
+test/data/cyclonedx-2.0-upstream/valid-tags-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-34
+test/data/cyclonedx-2.0-upstream/valid-citations-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-91
+test/data/cyclonedx-2.0-upstream/invalid-component-type-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-16
+test/data/cyclonedx-2.0-upstream/invalid-definitions-weaknesses-holding-reference-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-9
+test/data/cyclonedx-2.0-upstream/invalid-component-versionRange-non-external-explicit.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-18
+test/data/cyclonedx-2.0-upstream/invalid-party-system-empty-label-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-28
+test/data/cyclonedx-2.0-upstream/valid-minimal-viable-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-15
+test/data/cyclonedx-2.0-upstream/invalid-data-profile-reference-string-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-20
+test/data/cyclonedx-2.0-upstream/valid-control-cdxa-claim-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-34
+types/lib/inventory/cyclonedx20RenderEvidence.d.ts
+  s_ecc04ad348356d::t_e1afadb0572f71 1-110
+test/data/cyclonedx-2.0-upstream/invalid-cryptography-protocol-type-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-21
+test/data/cyclonedx-2.0-upstream/invalid-extensible-properties-item-wrong-prefix.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-19
+test/data/cyclonedx-2.0-upstream/valid-machine-learning-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-147
+test/data/cyclonedx-2.0-upstream/invalid-party-latitude-out-of-range-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-42
+test/data/cyclonedx-2.0-upstream/invalid-inventory-choice-as-subject-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-19
+test/data/cyclonedx-2.0-upstream/valid-party-organization-all-fields-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-168
+lib/inventory/hbomLoader.js
+  s_ecc04ad348356d::t_e1afadb0572f71 10-24,51-201
+types/lib/inventory/cyclonedx20RenderDefinitions.d.ts
+  s_ecc04ad348356d::t_e1afadb0572f71 1-29
+lib/validator/index.js
+  s_ecc04ad348356d::t_e1afadb0572f71 19,117-120,124-125,129,148-151,164-187,191-195,213,224-225,228,231-232,292
+test/data/cyclonedx-2.0-upstream/invalid-evidence-callstack-additional-property-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-9
+test/data/cyclonedx-2.0-upstream/invalid-jss-signature-missing-value-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-23
+test/data/cyclonedx-2.0-upstream/valid-blueprint-architecture-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-270
+test/data/cyclonedx-2.0-upstream/invalid-component-choice-optional-operator-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-27
+test/data/cyclonedx-2.0-upstream/invalid-component-service-fields-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-25
+test/data/cyclonedx-2.0-upstream/invalid-vulnerability-evidence-exploitability-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-22
+test/data/cyclonedx-2.0-upstream/invalid-definitions-certifications-holding-reference-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-9
+test/data/cyclonedx-2.0-upstream/invalid-party-reference-string-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-18
+test/data/cyclonedx-2.0-upstream/invalid-license-missing-id-and-name-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-22
+test/data/cyclonedx-2.0-upstream/valid-service-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-149
+lib/validator/index.poku.js
+  s_ecc04ad348356d::t_e1afadb0572f71 2-3,8,324-384
+  s_ecc04ad348356d::t_1a42c4341dcd3e 385
+test/data/cyclonedx-2.0-upstream/valid-blueprint-behavioral-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-137
+test/data/cyclonedx-2.0-upstream/invalid-party-bad-role-value-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-33
+test/data/cyclonedx-2.0-upstream/valid-composition-kinds-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-43
+test/data/cyclonedx-2.0-upstream/valid-evidence-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-175
+data/rules/cbom-security.yaml
+  s_ecc04ad348356d::t_e1afadb0572f71 290-292,295
+test/data/cyclonedx-2.0-upstream/invalid-inventory-old-root-components-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-7
+test/data/cyclonedx-2.0-upstream/invalid-hardware-origin-stage-custom-no-name-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-30
+test/data/cyclonedx-2.0-upstream/valid-component-external-with-version.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-37
+test/data/cyclonedx-2.0-upstream/valid-control-minimal-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-13
+test/data/cyclonedx-2.0-upstream/invalid-license-choice-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-25
+test/data/cyclonedx-2.0-upstream/valid-jss-signature-metadata-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-34
+lib/inventory/cyclonedx20.js
+  s_ecc04ad348356d::t_e1afadb0572f71 1-152
+test/data/cyclonedx-2.0-upstream/invalid-measure-unit-missing-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-22
+test/data/cyclonedx-2.0-upstream/invalid-hash-sha256-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-35
+test/data/cyclonedx-2.0-upstream/valid-jss-signature-cert-url-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-24
+lib/audit/index.js
+  s_ecc04ad348356d::t_e1afadb0572f71 34-36,129-133,136,149-163
+  s_ecc04ad348356d::t_efc180ce8c9886 33
+lib/inventory/cyclonedx20RenderSections.js
+  s_ecc04ad348356d::t_e1afadb0572f71 1-499
+docs/SERVER.md
+  s_ecc04ad348356d::t_e1afadb0572f71 179
+lib/inventory/agentBlueprint.js
+  s_ecc04ad348356d::t_e1afadb0572f71 1-193
+bin/validate.js
+  s_ecc04ad348356d::t_e1afadb0572f71 22,36,328-341
+test/data/cyclonedx-2.0-upstream/invalid-ai-ml-energy-unit-object-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-26
+test/data/cyclonedx-2.0-upstream/invalid-inventory-old-metadata-component-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-2
+test/data/cyclonedx-2.0-upstream/valid-hardware-identity-evidence-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-115
+test/data/cyclonedx-2.0-upstream/invalid-party-no-identity-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-30
+test/data/cyclonedx-2.0-upstream/valid-jss-signature-multiple-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-30
+docs/BOM_AUDIT.md
+  s_ecc04ad348356d::t_e1afadb0572f71 690
+test/data/cyclonedx-2.0-upstream/valid-license-id-with-text-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-56
+contrib/gen-validators.mjs
+  s_ecc04ad348356d::t_e1afadb0572f71 23-39,220,223-225
+  s_ecc04ad348356d::t_3cd64725113a34 226
+lib/inventory/cyclonedx20Render.js
+  s_ecc04ad348356d::t_e1afadb0572f71 1-766
+test/data/cyclonedx-2.0-upstream/invalid-hardware-classification-code-missing-standard-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-23
+test/data/cyclonedx-2.0-upstream/valid-component-identifiers-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-59
+lib/server/server.poku.js
+  s_ecc04ad348356d::t_e1afadb0572f71 17,376-427,1433-1480,1483
+  s_ecc04ad348356d::t_5faa719d32ee5e 1481-1482,1484
+test/data/cyclonedx-2.0-upstream/invalid-risk-likelihood-legacy-level-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-18
+test/data/cyclonedx-2.0-upstream/valid-inventory-single-product-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-28
+test/data/cyclonedx-2.0-upstream/invalid-evidence-detection-rule-additional-property-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-12
+lib/inventory/cyclonedx20.poku.js
+  s_ecc04ad348356d::t_e1afadb0572f71 1-2586
+test/data/cyclonedx-2.0-upstream/invalid-component-versionRange-non-external-implicit.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-17
+lib/inventory/agentBlueprint.poku.js
+  s_ecc04ad348356d::t_e1afadb0572f71 1-526
+test/data/cyclonedx-2.0-upstream/invalid-risk-assessment-conclusion-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-19
+docs/CDX_CONVERT.md
+  s_ecc04ad348356d::t_e1afadb0572f71 14-18,21-24,56,95-226,268-269
+types/lib/helpers/bomSigner.d.ts
+  s_ecc04ad348356d::t_e1afadb0572f71 9-12,15-20,29-38
+test/data/cyclonedx-2.0-upstream/invalid-inventory-reference-with-scope-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-17
+test/data/cyclonedx-2.0-upstream/invalid-party-no-identity-via-component-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-30
+test/data/cyclonedx-2.0-upstream/invalid-jss-signature-empty-signatures-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-17
+test/data/cyclonedx-2.0-upstream/invalid-component-choice-missing-operator-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-26
+test/data/cyclonedx-2.0-upstream/valid-party-system-label-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-37
+test/data/cyclonedx-2.0-upstream/valid-license-name-with-text-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-56
+lib/inventory/cyclonedx20Read.js
+  s_ecc04ad348356d::t_e1afadb0572f71 1-768
+test/data/cyclonedx-2.0-upstream/invalid-hardware-boardlocation-on-library-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-21
+test/data/cyclonedx-2.0-upstream/valid-release-notes-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-181
+bin/evinse.js
+  s_ecc04ad348356d::t_e1afadb0572f71 15,17,21,24,370-385,399-402,404
+types/lib/evinser/evinser.d.ts
+  s_ecc04ad348356d::t_e1afadb0572f71 44-74,530-534,536
+test/data/cyclonedx-2.0-upstream/invalid-license-encoding-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-30
+test/data/cyclonedx-2.0-upstream/invalid-weakness-missing-name-and-identifiers-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-15
+test/data/cyclonedx-2.0-upstream/valid-component-choice-nested-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-79
+lib/inventory/cyclonedx20ReadSections.js
+  s_ecc04ad348356d::t_e1afadb0572f71 1-599
+test/data/cyclonedx-2.0-upstream/valid-license-expression-with-text-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-58
+test/data/cyclonedx-2.0-upstream/valid-attestation-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-264
+lib/inventory/cyclonedx20Tables.js
+  s_ecc04ad348356d::t_e1afadb0572f71 1-594
+test/data/cyclonedx-2.0-upstream/behavior-mockup.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-109
+test/data/cyclonedx-2.0-upstream/invalid-cryptography-certification-level-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-20
+test/data/cyclonedx-2.0-upstream/cyclonedx-2.0-prototype.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-71
+test/data/cyclonedx-2.0-upstream/invalid-issue-type-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-51
+test/data/cyclonedx-2.0-upstream/invalid-license-evidence-both-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-12
+types/lib/inventory/cyclonedx20ReadContext.d.ts
+  s_ecc04ad348356d::t_e1afadb0572f71 1-118
+test/data/cyclonedx-2.0-upstream/invalid-dependency-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-46
+test/data/cyclonedx-2.0-upstream/invalid-vulnerability-evidence-exploit-maturity-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-11
+test/data/cyclonedx-2.0-upstream/valid-component-parties-by-reference-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-41
+test/data/cyclonedx-2.0-upstream/valid-vulnerability-evidence-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-203
+types/lib/helpers/jssSigner.d.ts
+  s_ecc04ad348356d::t_e1afadb0572f71 1-288
+test/data/cyclonedx-2.0-upstream/invalid-serialnumber-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-11
+test/data/cyclonedx-2.0-upstream/invalid-safety-integrity-level-missing-level-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-29
+bin/tracebom.js
+  s_ecc04ad348356d::t_e1afadb0572f71 16-21,347-348,350-354,356-360
+test/data/cyclonedx-2.0-upstream/invalid-composition-missing-kind-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-10
+types/lib/inventory/cyclonedx20RenderSections.d.ts
+  s_ecc04ad348356d::t_e1afadb0572f71 1-45
+lib/inventory/cyclonedx20RenderRefIds.js
+  s_ecc04ad348356d::t_e1afadb0572f71 1-314
+test/data/cyclonedx-2.0-upstream/valid-cryptography-nist-quantum-security-level-bounds-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-45
+test/data/cyclonedx-2.0-upstream/valid-definitions-parties-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-39
+lib/validator/reporters/json.js
+  s_ecc04ad348356d::t_e1afadb0572f71 18-23
+test/data/cyclonedx-2.0-upstream/invalid-component-mime-type-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-9
+test/data/cyclonedx-2.0-upstream/valid-safety-impact-behavior-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-185
+lib/cli/index.poku.js
+  s_ecc04ad348356d::t_e1afadb0572f71 634-659
+test/data/cyclonedx-2.0-upstream/invalid-party-reference-with-roles-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-18
+lib/inventory/cyclonedx20ReadContext.js
+  s_ecc04ad348356d::t_e1afadb0572f71 1-380
+test/data/cyclonedx-2.0-upstream/invalid-component-evidence-presence-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-20
+lib/cli/index.js
+  s_ecc04ad348356d::t_e1afadb0572f71 57-60,2862-2871
+  s_ecc04ad348356d::t_e3076b2eedcd16 56
+test/data/cyclonedx-2.0-upstream/valid-component-choice-in-nested-components-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-54
+types/lib/inventory/hbom.d.ts
+  s_ecc04ad348356d::t_e1afadb0572f71 52-61
+  s_ecc04ad348356d::t_fe6e3617e7bb18 51
+test/data/cyclonedx-2.0-upstream/valid-cryptography-protocol-type-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-31
+test/data/cyclonedx-2.0-upstream/valid-component-external-without-version.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-36
+test/data/cyclonedx-2.0-upstream/invalid-jss-signature-created-no-millis-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-25
+bin/cdxgen.js
+  s_ecc04ad348356d::t_e1afadb0572f71 86-90,94,99-103,460,1245-1259,1697-1789,1810-1827,2166-2169,2188-2190,2224,2245,2282,2288-2289,2332-2333,2336,2366,2378-2381,2384-2388,2396-2401,2411,2414-2433,2435,2450-2453,2507-2512,2715-2728,2767-2768,2844-2846,2848,2850-2851,2854-2855
+lib/inventory/cyclonedx20RenderComponents.js
+  s_ecc04ad348356d::t_e1afadb0572f71 1-716
+lib/inventory/cyclonedx20Derived.js
+  s_ecc04ad348356d::t_e1afadb0572f71 1-159
+test/data/cyclonedx-2.0-upstream/invalid-component-choice-additional-property-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-28
+test/data/cyclonedx-2.0-upstream/invalid-vulnerability-evidence-method-missing-technique-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-22
+test/data/cyclonedx-2.0-upstream/valid-party-system-custom-kind-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-36
+types/lib/inventory/cyclonedx20ReadComponents.d.ts
+  s_ecc04ad348356d::t_e1afadb0572f71 1-77
+test/data/cyclonedx-2.0-upstream/valid-hardware-certification-software-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-51
+types/lib/inventory/pqcMigration.d.ts
+  s_ecc04ad348356d::t_e1afadb0572f71 1-84
+test/data/cyclonedx-2.0-upstream/invalid-vulnerability-evidence-missing-confidence-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-22
+lib/inventory/cyclonedx20RenderDefinitions.js
+  s_ecc04ad348356d::t_e1afadb0572f71 1-405
+test/data/cyclonedx-2.0-upstream/invalid-vulnerability-evidence-identity-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-16
+test/data/cyclonedx-2.0-upstream/valid-extensible-properties.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-59
+test/data/cyclonedx-2.0-upstream/invalid-inventory-reference-with-nested-components-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-18
+test/data/cyclonedx-2.0-upstream/invalid-jss-signature-missing-hash-algorithm-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-23
+test/data/cyclonedx-2.0-upstream/invalid-vulnerability-evidence-rule-ruleset-type-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-12
+test/data/cyclonedx-2.0-read/internal-sections-1.7.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-40
+test/data/cyclonedx-2.0-upstream/valid-license-id-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-52
+test/data/cyclonedx-2.0-upstream/valid-blueprint-deployment-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-135
+lib/stages/postgen/postgen.js
+  s_ecc04ad348356d::t_e1afadb0572f71 34,44-47,50,555-561,631-637,641-661
+test/data/cyclonedx-2.0-upstream/invalid-evidence-callstacks-not-array-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-9
+test/data/cyclonedx-2.0-upstream/valid-party-custom-role-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-37
+lib/core/ui.stream-contract.poku.js
+  s_ecc04ad348356d::t_e1afadb0572f71 13-16,96-106,108
+test/data/cyclonedx-2.0-upstream/valid-blueprint-data-flow-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-214
+test/data/cyclonedx-2.0-upstream/valid-ai-ml-custom-unit-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-63
+test/data/cyclonedx-2.0-upstream/valid-cryptography-certificate-advanced-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-328
+test/data/cyclonedx-2.0-upstream/invalid-formulation-envVars-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-276
+docs/CUSTOM_PROPERTIES.md
+  s_ecc04ad348356d::t_e1afadb0572f71 142-143,1442-1448,1893-1895
+  s_ecc04ad348356d::t_81a5edb15ce4e5 1896
+test/data/cyclonedx-2.0-upstream/valid-release-notes-inline-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-18
+test/data/cyclonedx-2.0-upstream/valid-component-choice-xor-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-60
+test/data/cyclonedx-2.0-upstream/valid-definitions-licenses-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-45
+test/data/cyclonedx-2.0-upstream/valid-component-types-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-56
+lib/inventory/hbom.js
+  s_ecc04ad348356d::t_e1afadb0572f71 11-13,417-419,481-484,733-764,793-794,797
+test/data/cyclonedx-2.0-upstream/valid-blueprint-conceptual-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-153
+types/lib/inventory/cyclonedx20RenderRefIds.d.ts
+  s_ecc04ad348356d::t_e1afadb0572f71 1-55
+data/cyclonedx-2.0-cryptography-defs.schema.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-857
+test/data/cyclonedx-2.0-upstream/invalid-vulnerability-evidence-exploited-without-method-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-18
+lib/inventory/cyclonedx20ReadCommon.js
+  s_ecc04ad348356d::t_e1afadb0572f71 1-374
+test/data/cyclonedx-2.0-read/reverse.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-205
+test/data/cyclonedx-2.0-upstream/valid-vulnerability-evidence-hardened-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-92
+test/data/cyclonedx-2.0-upstream/invalid-definitions-licenses-holding-reference-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-9
+test/data/cyclonedx-2.0-upstream/valid-license-name-with-licensing-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-64
+lib/inventory/cyclonedx20RenderHardware.js
+  s_ecc04ad348356d::t_e1afadb0572f71 1-203
+test/data/cyclonedx-2.0-upstream/invalid-hardware-materialform-on-device-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-17
+test/data/cyclonedx-2.0-upstream/valid-weakness-kinds-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-75
+docs/AI_BOM.md
+  s_ecc04ad348356d::t_e1afadb0572f71 140-185
+lib/inventory/hbom20.poku.js
+  s_ecc04ad348356d::t_e1afadb0572f71 1-536
+docs/REPL.md
+  s_ecc04ad348356d::t_e1afadb0572f71 138,156-169
+types/lib/inventory/cyclonedx20Read.d.ts
+  s_ecc04ad348356d::t_e1afadb0572f71 1-51
+test/data/cyclonedx-2.0-upstream/invalid-composition-custom-kind-missing-name-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-13
+test/data/cyclonedx-2.0-upstream/invalid-service-data-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-22
+test/data/cyclonedx-2.0-upstream/valid-component-swid-full-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-46
+docs/CLI.md
+  s_ecc04ad348356d::t_e1afadb0572f71 628
+lib/inventory/hbom.poku.js
+  s_ecc04ad348356d::t_e1afadb0572f71 35,38-39,42,67
+test/data/cyclonedx-2.0-upstream/invalid-data-cardinality-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-34
+test/data/cyclonedx-2.0-upstream/invalid-certification-reference-with-extra-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-19
+types/lib/inventory/hbomLoader.d.ts
+  s_ecc04ad348356d::t_e1afadb0572f71 1-9,16-60
+test/helpers/cyclonedx20RefIntegrity.js
+  s_ecc04ad348356d::t_e1afadb0572f71 1-94
+docs/CDX_VALIDATE.md
+  s_ecc04ad348356d::t_e1afadb0572f71 20-29,118,159,167
+test/data/cyclonedx-2.0-upstream/valid-vulnerability-evidence-unknown-technique-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-47
+test/data/cyclonedx-2.0-upstream/valid-component-hashes-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-66
+test/data/cyclonedx-2.0-upstream/invalid-party-empty-roles-2.0.json
+  s_ecc04ad348356d::t_e1afadb0572f71 1-29
+lib/stages/postgen/specVersionCompat.poku.js
+  s_ecc04ad348356d::t_e1afadb0572f71 3,7-8,275-336
+types/lib/inventory/cyclonedx20.d.ts
+  s_ecc04ad348356d::t_e1afadb0572f71 1-99
+data/cyclonedx-2.0-bundled.schema.json
+  s_ecc04ad348356d::t_e1afadb0572f71 3,5,15-17,52-53,64-72,85-90,94-96,103-104,112,114-115,117,119-120,123-192,194-222,224-227,230,232-233,235,237-331,333-334,336-339,342-400,402,404-407,410-413,415-418,421-485,487,489-492,495-498,500-503,506-532,534-552,554,556,558-559,562,564-565,567-570,572-583,585-587,589,592-597,599-600,602,604-608,612-617,619-625,628-634,637-641,643-654,657,659,661-662,665-676,678-685,687-778,782,784-786,788,791-801,806,808-811,813,815-870,872-878,881-888,890-904,908-909,912-917,921,923-924,927-931,933-949,951-952,954,956-960,964-973,975-976,979-982,984-996,1003,1005-1008,1011-1022,1024-1037,1040,1042-1047,1051-1059,1062-1065,1067-1073,1075-1092,1094-1114,1116,1118-1120,1124,1133,1147-1150,1156,1159,1164,1169-1172,1177-1180,1185-1188,1203,1218-1219,1223-1225,1228-1229,1231-1255,1257,1259-1260,1262-1265,1267-1268,1270-1281,1283-1285,1287-1288,1290,1292-1294,1296-1372,1374,1376-1377,1379-1382,1384-1398,1400-1401,1403-1404,1406-1407,1409-1420,1422-1432,1434-1460,1464,1466-1468,1470-1471,1474-1475,1477-1622,1626,1628-1630,1632-1633,1636-1637,1639,1641-1642,1644,1646-1675,1678-1687,1689-1690,1692,1694,1696,1698-1699,1701-1702,1706-1707,1709,1711-1713,1715,1717-1718,1720-1723,1725-1728,1730-1731,1733-1734,1736-1743,1745-1746,1748-1755,1757-1764,1766-1773,1775-1782,1784-1791,1793-1800,1802,1804-1805,1807,1809,1811,1813-1814,1816-1818,1820-1827,1829-1833,1835,1837-1867,1871-1879,1883-1885,1889-1891,1894-1919,1922-1925,1933-1934,1939,1945-1948,1951,1953-1997,2001,2003-2004,2007,2009-2011,2013,2015-2017,2019,2021-2023,2027,2029-2030,2032,2036-2039,2041-2043,2045-2048,2050,2052-2053,2055-2056,2058-2079,2083-2089,2091-2092,2095-2097,2099-2193,2195-2270,2272-2312,2314,2316-2317,2319-2320,2325-2326,2330-2332,2336-2337,2339-2397,2399-2418,2420,2422-2451,2453-2454,2456,2458-2479,2483,2485-2491,2494-2495,2500-2501,2503,2505-2507,2509-2516,2518-2525,2527-2530,2532-2533,2535,2537-2538,2540-2542,2544-2551,2553-2587,2589-2601,2604,2606-2648,2650-2652,2654-2656,2658,2660,2662,2664,2666,2669,2672-2693,2695,2697-2699,2701,2703-2763,2766-2770,2772-2773,2777,2779,2781-2782,2786,2788-2789,2791-2837,2840-2858,2861,2863,2865-2867,2869,2871,2873-2874,2876-2877,2879-2880,2882-2893,2895-2896,2898,2900,2902-2909,2911-2914,2916-2919,2921-2924,2926-2929,2931,2933-2943,2947,2949-2950,2953-2956,2958-2962,2964-2967,2969-2974,2976-2978,2980-2984,2986-2990,2992-3000,3004,3006-3007,3009-3018,3021-3026,3029-3032,3034,3037-3043,3045-3083,3087-3090,3092-3095,3097-3100,3102-3132,3134-3136,3139-3140,3142-3143,3146,3148-3150,3152-3155,3157,3159-3160,3167-3177,3179-3180,3182-3185,3188,3190-3191,3193,3195-3197,3199-3202,3204-3234,3236-3254,3257,3259-3261,3263-3293,3295-3296,3299-3308,3311-3318,3320-3327,3329-3345,3349,3351-3352,3354-3355,3359-3361,3363-3366,3368-3371,3373-3376,3378,3383-3459,3461,3463,3466,3468,3470-3505,3509,3511-3512,3514-3515,3517,3519-3522,3524-3546,3548-3551,3554-3559,3561-3595,3597-3599,3602-3603,3605-3626,3629-3650,3652-3664,3666-3668,3670,3672-3738,3740-3744,3747-3751,3754-3758,3760-3772,3775-3867,3870,3872-3873,3875-3877,3879,3881-3883,3885,3887-3888,3891-3924,3926,3928-3929,3931-3933,3935,3937-3939,3941,3943-3944,3948-3965,3967,3969-3974,3977-3979,3982-3984,3986-3999,4002,4005-4006,4009-4025,4027,4029-4033,4036-4041,4043-4045,4047-4057,4060-4063,4065-4070,4072-4090,4092-4096,4099,4101-4102,4104-4106,4109-4113,4115-4134,4138,4140-4144,4147-4150,4153-4162,4165-4169,4171,4173-4174,4177-4179,4181,4184-4190,4192,4195-4201,4203-4207,4209-4227,4230-4250,4253-4255,4257,4261-4263,4265,4270-4272,4275-4276,4278-4336,4338-4342,4345-4416,4419-14013,14015-14018,14020-14128,14130-14852,14854-15084,15086-15117,15119-15134,15136-15137,15139-15141,15143-15161,15163-15164,15166-15317,15319-15345,15347-15349,15351,15353-15419,15421-15425,15430-15432,15435-15436,15438,15440-15441,15444-15451,15453-15481,15485-15641,15644-15646,15650-15651,15653-15665,15668,15670,15672,15678,15680,15682,15684,15686,15688,15690,15692,15694,15696,15698,15700,15702,15704,15708-15710,15712,15716-15718,15720,15724-15726,15728,15730,15732,15734,15736,15738,15740,15742,15744,15746,15748,15750,15752-15754,15756-15758,15760-15764,15767-15769,15771-15819,15822,15830,15832-15833,15836-15837,15839,15841,15843-15844,15846,15849-15883,15886-15891,15893-15916,15918-15925,15927-15930,15932-15936,15938-15944,15946-15947,15949-15951,15953,15956,15958,15960-15962,15966,15968-15973,15977,15979-15980,15982-16046,16048-16065,16068-16084,16091,16094,16098-16113,16115-16125,16127-16130,16132,16134,16136-16138,16140-16146,16148-16152,16155-16157,16159-16162,16164,16166-16211,16213-16217,16219-16249,16251-16253,16255-16271,16278,16280-16281,16284-16286,16288-16290,16292-16306,16308-16309,16311-16313,16315-16318,16320-16322,16324-16327,16329-16336,16340,16342-16343,16345,16347,16349-16364,16366-16369,16371-16373,16375-16404,16406-16424,16426-16441,16443-16445,16447-16460,16463,16465-16466,16468,16470,16472,16474,16476-16491,16493-16499,16501-16502,16504-16506,16508,16510-16512,16514-16520,16522-16526,16533,16535-16539,16543-16544,16546-16550,16552-16555,16557,16561-16563,16565,16567,16569,16571-16573,16575-16576,16583,16585-16589,16593-16594,16596-16599,16601,16603-16606,16610-16648,16651-16669,16672-16856,16858,16860-16863,16865-16875,16878-16896,16900-16906,16908-16913,16915-16932,16939,16941-16945,16947,16949-16953,16956-16990,16992-16996,16999-17001,17003-17005,17007-17036,17039-17040,17044-17046,17048-17050,17052-17054,17056-17058,17061-17124,17127-17135,17137,17140-17143,17145,17147-17148,17150-17153,17157-17158,17160-17183,17187-17189,17193-17198,17201,17203,17206-17226,17228-17229,17231,17233-17257,17259-17264,17266,17268-17273,17275-17354,17356,17358-17361,17364-17368,17370-17373,17375-17411,17414-17426,17429-17430,17432-17447,17451,17453-17455,17457-17463,17465-17630,17633-17635,17637-17722,17724-17725,17727-17731,17733-17737,17739-17741,17743-17746,17748-17803,17807-17821,17823-17851,17853-17854,17856-17858,17860-17867,17869-17876,17878-17884,17886-17887,17894,17896-17897,17899-17901,17903,17905-17907,17909,17912-17914,17916,17918-17920,17922,17924-17925,17927-17943,17945-17961,17963-17970,17972-17997,17999-18001,18003-18017,18020-18022,18025-18034,18037-18047,18051,18053-18055,18057-18058,18061-18063,18065-18071,18073-18075,18077-18080,18082,18084-18085,18087,18089-18096,18098-18105,18107-18114,18116,18120-18146,18148,18150-18152,18154-18155,18157-18191,18193-18196,18198-18200,18202-18292,18294-18301,18304-18305,18307-18309,18311-18312,18315-18317,18319,18321-18323,18328,18330-18332,18334-18343,18345-18346,18350,18352-18359,18361,18363-18364,18366,18368,18370,18372-18373,18375,18377,18379,18381-18382,18384-18386,18390-18441,18443,18445-18446,18449-18456,18458-18474,18478,18480-18482,18484-18485,18488-18504,18506-18510,18512,18514-18549,18553-18554,18558-18559,18561-18577,18579-18580,18582,18584,18586-18593,18595-18637,18639,18641-18667,18669,18671,18673,18675,18677,18679,18681,18683,18690,18692-18693,18695-18697,18701-18702,18706,18708,18713,18715-18718,18720-18724,18726-18727,18729,18731,18733,18735,18737,18739-18745,18749-18751,18754-18755,18757,18759-18760,18762-18764,18766,18768-18773,18776-18777,18782-18783,18788,18790-18797,18799-18806,18808-18815,18817-18824,18826-18833,18835-18842,18844,18846-18847,18850-18851,18853,18855-18856,18858-18860,18862-18878,18885,18887-18892,18895-18899,18901,18903-18905,18907-18923,18925-18927,18932,18934-18940,18942,18944-19044,19049-19051,19055,19072-19075,19128-19130,19156,19243,19247,19263-19272,19313-19316,19328,19330,19340-19342,19348-19350,19371-19375,19382-19662,19664-19667,19671,19673-19674,19680-19695,19699-19700,19702-19703,19707-19709,19712-19745,19748-19900,19902-19909,19912-19919,19922-19924,19926-19930,19933-19937,19939-19962,19964,19966-19967,19969-19976,19978-19990,19992-20031,20033,20035-20037,20039,20041-20061,20065,20067-20071,20074-20085,20090-20096,20098-20185,20188-20194,20196-20252,20255-20257
+lib/validator/generated/validate-2.0.mjs
+  s_ecc04ad348356d::t_1573c0851e8db1 9-10,12-13,15,17,20,27-29,31-58,61-248,251,253,257,270,284-285,294-299,309,315-316,320,333,349,368,386-397,412,414,417,420,424,426-427,434,438,441,444,457-458,468,472,475,477-489,491-498,500,503,510-512,515-521,524,526,529-534,537,539-540,543-550,553,555,557,560,562-569,572,574,576-581,584-586,590,592-593,600-602,604-605,607,610-614,616-617,619-623,625-626,628,631-636,638-639,641-642,645,647-654,657,659,663-668,670,673,676,678-681,683-685,688,690,692,694-695,697-704,707,709,711-716,718-719,721,725,728-731,736-738,741,743,746-749,752-756,760-763,766,768-770,773-776,779,782-784,787,789-794,796,799,807-810,814-815,821,825,828,830,842-843,845-847,849-850,854-859,862,864,868-870,873,875,879-884,886-887,889-891,893-897,900-901,907,910,913,922-927,930-931,937-938,940-941,943-945,954,956,959-961,963-964,974-977,985-997,1000-1003,1006-1008,1010-1011,1013,1016,1018-1019,1021-1028,1031,1033,1035,1038,1040-1049,1051-1052,1054,1058,1061,1068-1069,1071,1074,1079-1082,1085-1087,1090-1091,1093,1096,1099,1103,1105-1106,1113-1123,1126,1128-1129,1131-1139,1142,1144-1153,1157-1162,1164-1165,1167-1176,1180,1184-1185,1191,1193-1197,1200,1211,1215-1216,1218-1228,1230-1231,1233-1238,1243-1252,1255-1257,1262,1266,1272-1276,1279,1285-1289,1292,1294-1295,1297-1305,1309,1313,1319-1323,1326,1329,1331-1337,1339,1345-1349,1352,1355,1357-1363,1365,1370-1379,1381-1387,1390-1398,1400-1403,1408,1412,1414-1415,1417-1425,1427-1429,1432-1433,1435,1439-1449,1452,1458-1462,1465,1474-1475,1477,1481-1492,1497,1501,1504,1507,1510,1517,1519-1524,1527-1533,1535,1538,1540-1546,1548,1551,1553-1559,1561,1564,1566-1573,1578,1580-1581,1583-1591,1596,1600-1601,1604,1606-1614,1618-1619,1624,1627,1629-1634,1637,1640,1642-1650,1652-1653,1657-1658,1662-1668,1670-1673,1678-1679,1682,1685-1704,1709-1710,1713-1716,1718-1731,1733-1735,1738-1745,1747-1750,1755,1759,1761,1763-1776,1778-1780,1783-1788,1791-1799,1802,1804-1812,1816-1819,1826-1827,1830-1832,1837-1838,1841,1844,1846-1861,1867-1868,1871,1874,1890-1891,1894-1895,1897-1907,1909-1910,1912-1919,1922-1931,1934-1935,1938,1941,1943-1951,1954,1956-1962,1964,1966-1967,1969-1975,1977,1979-1980,1982-1988,1990,1992-1993,1995-2001,2003,2006-2024,2027-2032,2035-2041,2043,2045-2046,2048-2057,2061-2062,2066,2069-2072,2076-2082,2087-2088,2091,2094-2101,2103-2112,2114-2131,2134,2136-2142,2144,2147-2151,2154-2155,2157-2160,2165-2166,2169,2172,2174-2183,2185-2190,2193-2198,2201-2207,2209,2211-2212,2214-2222,2226,2229,2236-2237,2240-2242,2246-2247,2250-2252,2254-2263,2266-2285,2293,2297,2300,2302,2304,2307,2315,2317-2331,2334,2336,2340,2343,2345-2356,2359,2361,2363-2366,2368-2375,2378,2380,2383-2388,2390-2391,2393,2397-2406,2409,2411,2415-2417,2419-2420,2422,2425,2428,2430-2435,2437,2440,2444-2451,2454,2456,2459,2464-2467,2471-2472,2475-2476,2478,2481,2484,2488,2490-2491,2498,2501,2503-2536,2539-2540,2543,2545-2558,2560-2562,2565-2572,2574-2577,2582,2586-2593,2598,2602,2605,2607,2609,2612,2623-2624,2630,2632-2634,2642-2646,2648,2656-2657,2661-2662,2664-2674,2676-2677,2679-2680,2682-2692,2695-2700,2702-2708,2711-2714,2716-2722,2724,2727,2733-2735,2738-2740,2745,2749,2752,2754-2758,2770-2771,2773-2780,2782-2783,2785,2789-2791,2793-2796,2800-2810,2813,2815,2818-2827,2830-2836,2838-2841,2844-2852,2855-2880,2883-2888,2890-2896,2899,2902,2904-2912,2917,2921,2924,2931,2935-2936,2938-2946,2948-2949,2951-2955,2959-2962,2964-2979,2981-2982,2984,2986-3000,3003,3005-3006,3009-3013,3016-3017,3020,3023-3030,3033-3036,3038-3044,3046,3049,3051-3063,3065-3067,3072,3076,3082-3086,3088,3099,3101,3105,3108,3111,3114,3122-3125,3127-3128,3131-3133,3138,3142,3145,3148,3151,3158-3161,3164-3167,3170,3172,3175-3180,3182-3188,3191,3193,3196-3199,3202-3207,3210-3216,3219,3221,3223-3227,3230-3235,3238-3244,3247,3249,3251-3255,3258-3263,3268-3272,3275,3277-3278,3282-3285,3287-3288,3292-3296,3300-3303,3308-3317,3320-3321,3327-3328,3331,3333-3334,3336-3344,3346-3353,3355-3357,3360-3367,3369-3371,3378,3382,3385,3387-3392,3394,3397,3399-3404,3406,3408-3409,3411-3416,3418,3421-3433,3438-3445,3450,3454,3457,3459-3464,3467,3470,3472-3483,3486,3488,3490-3493,3495-3502,3505,3507,3510-3515,3518-3521,3524-3533,3536,3538,3542-3544,3546-3547,3549,3552,3555,3557-3564,3566-3567,3569,3571,3574,3579-3581,3583,3586,3591-3594,3597-3599,3602-3603,3605,3608,3611-3612,3615-3618,3621,3625,3628,3630-3635,3638,3641,3643-3656,3658-3659,3663-3664,3667,3669,3673-3674,3680,3684,3687-3700,3710,3714,3716-3717,3719-3724,3726,3729-3744,3746-3748,3752-3754,3758-3761,3763-3768,3770,3773-3793,3800,3804,3807,3809,3811,3814,3823-3828,3831-3832,3838-3841,3843-3844,3847-3857,3860,3862,3866-3868,3871,3873,3877-3882,3885,3887-3888,3891-3895,3898,3906-3907,3911-3912,3914-3922,3924-3925,3927-3933,3935-3939,3941-3949,3952-3957,3960-3963,3966,3968-3969,3972-3976,3979,3983-3985,3987-3995,3997-3998,4000-4008,4010-4012,4017,4021-4022,4024-4034,4036-4037,4039-4043,4046-4050,4052,4055-4063,4067-4068,4071,4073-4074,4076-4084,4087-4089,4092,4094-4095,4097-4105,4108-4109,4115,4119,4125-4129,4131,4134,4143,4147-4148,4150-4167,4170-4175,4179-4190,4193,4195-4200,4202-4209,4212,4214,4216-4222,4225-4228,4231-4240,4243,4245,4249-4251,4253-4254,4256,4259,4261-4262,4264-4271,4273-4274,4276,4278,4281,4288-4290,4292-4293,4295,4298-4301,4304-4306,4309-4312,4315,4317-4319,4322-4325,4328,4332,4334-4335,4337-4345,4349,4353,4355-4356,4358-4365,4369-4378,4385,4389,4400,4404,4407,4409-4419,4421,4424,4434-4435,4441-4442,4448-4449,4451-4452,4461-4463,4465-4467,4469-4471,4474,4476,4478-4481,4483-4484,4486,4488-4491,4494-4507,4509,4512-4516,4519,4522-4529,4532,4534,4537-4542,4545-4548,4551,4553-4557,4559-4566,4568-4569,4571,4573-4578,4581,4583,4588-4592,4594-4595,4598-4610,4612,4614,4618-4620,4623,4625,4630-4635,4638-4641,4644,4646,4648-4652,4655-4656,4659-4668,4671,4673,4675-4680,4683,4685,4690-4694,4696-4697,4700-4711,4714,4716,4722-4727,4730-4733,4736,4738,4740-4744,4747-4748,4754-4760,4762-4763,4765,4768-4773,4775-4776,4778,4782-4791,4794,4796,4800-4802,4804-4805,4807,4810,4813,4815-4822,4825,4827,4829,4831-4832,4834-4845,4848,4850,4852-4855,4858-4860,4862-4865,4867-4874,4876-4877,4879,4882-4887,4889-4890,4892,4896-4905,4908,4910,4914-4916,4918-4919,4921,4924,4926-4927,4929-4936,4938-4939,4941,4943,4945-4946,4948-4957,4960,4962,4966,4968-4969,4976-4979,4982,4984,4987-4990,4993-4995,4998-5001,5003-5004,5006,5008-5012,5014-5015,5018-5019,5022,5024-5033,5035-5036,5038,5042-5044,5047,5049,5052,5055,5057-5066,5068-5069,5071,5074-5075,5078,5083-5088,5090,5093,5098-5100,5105,5109-5110,5112,5115,5118,5122,5124-5125,5132,5134-5135,5142,5146,5149,5152,5155,5162-5164,5167,5169-5174,5178-5181,5188,5192-5194,5197,5200,5203,5213-5214,5220-5221,5227-5228,5233-5234,5237-5242,5245,5255-5257,5259,5262,5268-5272,5274,5280-5282,5284-5290,5292-5293,5295,5297-5300,5303,5305,5307-5310,5312-5319,5322,5324,5327-5332,5334-5335,5337-5338,5340-5348,5351,5353,5355,5358,5360-5367,5369-5370,5372,5374,5377,5384-5386,5389,5391,5394-5397,5400-5402,5405-5408,5411,5413-5414,5418-5421,5423-5424,5428,5431,5433-5438,5440,5446-5456,5459-5461,5464-5466,5469-5470,5476-5479,5482,5497,5501,5504,5506-5509,5512,5520-5525,5527-5532,5535-5539,5545-5546,5549,5551-5552,5554-5575,5578-5583,5585-5595,5599-5600,5603,5605-5606,5608-5614,5616,5619,5621-5626,5629,5632-5634,5638-5644,5647,5650,5653,5663-5664,5670-5671,5677-5678,5681-5685,5688-5690,5695,5705-5707,5709,5712,5718-5720,5722,5725,5731-5734,5737,5749,5753,5756,5758,5760,5763,5773-5774,5780-5781,5787-5788,5790-5794,5796-5806,5809,5811,5815-5817,5820,5822,5826-5831,5834,5836-5837,5841-5844,5847,5856,5860-5861,5863-5871,5873-5879,5881-5898,5902-5913,5916-5919,5922,5924-5926,5928-5932,5935,5939-5941,5944-5951,5953-5956,5961,5965,5968,5971,5974,5984-5985,5991-5992,6001-6004,6006-6008,6010-6011,6013,6015-6018,6020-6021,6023,6025-6028,6030-6037,6040,6042,6044-6050,6053,6055-6056,6058-6061,6063-6066,6068-6069,6071,6073,6079-6085,6087-6088,6090-6092,6102-6104,6106-6107,6109,6112-6115,6118-6120,6123-6126,6129,6131-6132,6136-6139,6141-6142,6146,6149,6151-6157,6159,6165-6171,6174-6191,6195-6197,6201,6203-6204,6206-6211,6213,6216-6223,6225,6227-6228,6230-6235,6237,6240,6242-6247,6255-6261,6263-6272,6275,6279,6282,6284-6289,6291,6294,6309,6313,6316,6318-6319,6321,6324,6331-6332,6334-6335,6338-6348,6351,6353,6357-6359,6362,6364,6368-6373,6376,6378-6379,6383-6386,6389,6393,6396,6399,6402,6411-6417,6419-6420,6425-6430,6433,6436-6443,6446,6448-6458,6464-6465,6467-6468,6471,6473-6479,6482-6492,6494,6497-6514,6517-6523,6525-6528,6531,6533-6535,6537-6541,6544,6546-6549,6551-6563,6566,6569,6571-6576,6579,6582,6584-6588,6591-6592,6595,6597-6601,6606-6608,6611-6612,6618-6619,6622,6625,6627-6632,6634,6637,6639-6651,6653-6655,6660-6661,6664,6667,6669-6674,6676,6678-6679,6693-6694,6697-6708,6710-6711,6713-6741,6746,6753-6754,6756,6759,6766,6768-6769,6776-6777,6781-6788,6790-6792,6798,6802-6803,6805-6822,6824-6825,6827-6832,6837-6845,6849-6850,6856,6860,6863,6865-6871,6873,6876,6878-6883,6892-6896,6899,6902,6904-6909,6912,6915,6917-6922,6925,6928,6930-6935,6938,6941,6952-6953,6956-6957,6959-6968,6970-6971,6973-6978,6983-6992,6995-6996,7002-7003,7006,7009,7011-7016,7019,7025-7032,7037,7041-7042,7045,7047-7052,7055,7058,7066,7070-7071,7073-7081,7083-7084,7086-7092,7096-7105,7108-7109,7115,7119,7122,7124-7129,7132,7135,7137-7142,7144,7147-7163,7167-7169,7175,7179,7182,7184-7195,7198-7199,7205,7209,7212,7214-7221,7225-7231,7233-7234,7241,7245,7258,7262,7265,7268,7271,7282-7283,7289-7290,7292-7300,7303-7305,7310,7314,7319-7333,7335,7337,7340-7345,7347-7353,7355-7372,7376-7379,7382-7385,7388-7392,7394-7395,7399-7404,7409-7414,7416,7419,7421-7426,7428,7431,7437,7441,7446-7459,7461-7462,7464,7467-7472,7474-7480,7482-7483,7485,7488-7491,7493-7499,7501-7506,7509,7511-7512,7515-7519,7522,7525-7532,7536-7543,7546,7548-7553,7555,7558,7564,7568,7574-7586,7588-7612,7615-7618,7621-7626,7629-7633,7636,7638-7639,7642-7646,7648-7649,7652-7658,7660,7663-7670,7673,7675-7680,7682,7684-7685,7691,7695,7697-7698,7700-7706,7708-7725,7727-7729,7733-7735,7738-7739,7745-7752,7755-7762,7768-7775,7780,7784-7785,7794-7798,7800,7804,7807,7810,7813,7821-7829,7831-7832,7834,7837-7842,7844-7850,7853,7855,7857-7861,7864-7869,7873-7876,7879-7882,7885-7889,7891-7892,7898,7900-7901,7906-7908,7910-7914,7918-7919,7925,7929,7931-7932,7934-7939,7941-7946,7950-7951,7954,7957,7959-7964,7967,7970,7972-7978,7980,7983,7985-7990,7992,7995-8004,8009,8011-8012,8014-8019,8021,8023-8024,8026-8033,8036,8048,8052,8055,8058,8061,8068-8072,8075-8078,8081,8083,8085-8091,8094,8096,8100-8106,8111-8113,8115-8116,8118,8121-8125,8127-8134,8136-8139,8142-8147,8149-8150,8152,8156-8163,8166,8168,8170,8173,8175-8182,8184-8192,8194-8195,8197,8199-8205,8208-8211,8214-8221,8224,8226,8228,8230-8231,8233-8238,8240,8243,8245-8254,8257,8259,8262-8263,8266-8268,8274-8276,8278-8279,8281,8283-8285,8291-8293,8295-8296,8298,8301,8303-8304,8306-8313,8316,8318,8320,8323,8325-8335,8337-8338,8340,8342-8346,8349,8351,8355-8358,8361-8363,8366,8369,8371-8376,8378,8380-8381,8383-8388,8390,8392-8393,8404-8406,8409,8411,8414-8417,8420-8424,8428-8431,8434,8436-8437,8441-8444,8447,8451-8453,8455-8464,8466-8467,8469-8473,8477-8480,8482,8485-8492,8495-8503,8512,8514,8524-8528,8536-8537,8540-8543,8545-8546,8555-8557,8559-8570,8572-8573,8575-8588,8590-8591,8593,8595,8598-8618,8620,8623,8626-8627,8630-8633,8636,8638-8641,8647-8648,8651-8680,8683-8688,8690-8700,8703-8705,8710-8711,8713-8714,8717,8719-8725,8727,8730-8748,8752-8754,8757,8759-8787,8792,8798-8801,8803-8816,8818,8821,8824,8828,8830-8831,8838,8841,8843-8848,8851,8854-8855,8864,8868-8870,8875,8879-8880,8882-8891,8893-8894,8896-8907,8911-8914,8916,8919-8928,8931-8932,8936,8938,8942,8945,8947-8952,8955,8958,8960-8972,8974-8975,8979-8986,8988-8991,8996-8997,9000,9003,9005-9011,9013,9016,9025-9026,9029-9030,9034-9041,9043-9046,9051-9052,9055-9056,9058-9070,9072-9084,9087-9092,9095-9104,9106-9109,9114-9115,9118,9121,9123-9128,9131,9134,9136-9148,9150-9151,9155-9162,9164-9166,9172-9173,9176,9179,9181-9187,9189,9191-9192,9200-9202,9205-9207,9210-9217,9219-9222,9227,9231-9232,9234-9247,9249-9250,9252-9256,9260-9263,9265,9267-9279,9282,9284,9286-9289,9291-9298,9301,9303,9305-9311,9314,9316-9317,9320-9329,9332,9334,9338-9343,9345,9348,9351,9353-9360,9363,9365,9367,9370,9376-9379,9382,9384,9386-9390,9393-9395,9398-9401,9404,9406-9407,9410-9414,9417,9420-9421,9424,9426-9435,9439-9440,9443,9446,9453,9457-9458,9460-9468,9470-9471,9473-9478,9480-9486,9489-9498,9500-9503,9507-9509,9512,9515,9517-9522,9524,9530-9536,9538-9549,9553-9564,9567-9571,9574-9575,9578-9581,9586-9587,9589-9613,9616-9617,9621-9628,9630-9632,9638-9639,9641-9670,9675-9682,9685-9698,9700,9704-9713,9715-9723,9725-9727,9730-9738,9745,9749-9750,9752-9762,9764-9765,9767-9773,9777-9785,9788-9797,9802,9804-9805,9807-9818,9822-9832,9835,9839-9840,9843,9845-9850,9853,9856,9858-9872,9876,9879-9881,9886-9887,9890,9892-9893,9895-9907,9910-9919,9923,9927-9928,9931,9933-9939,9941,9944-9961,9964-9967,9974,9978,9984-9988,9991,10003,10007,10010,10012-10014,10016,10019,10027,10029-10040,10043-10064,10069,10073,10076,10079,10082,10089,10092-10093,10097,10099-10100,10105-10113,10116-10118,10123-10124,10128,10131,10133-10138,10141,10144,10146-10151,10153,10156,10158-10180,10182-10183,10185,10187-10193,10195-10196,10198-10199,10202-10207,10209,10212,10216-10223,10225-10226,10228,10231,10235,10237-10238,10240-10247,10250,10252,10254-10261,10263-10266,10269,10271,10273,10275-10276,10278-10289,10292,10294-10300,10302-10305,10307-10310,10312,10315,10317-10319,10321-10326,10329,10331,10335,10337-10338,10342-10344,10346,10349,10354,10356-10357,10359-10361,10363-10368,10370-10373,10375,10378,10384-10388,10391-10393,10395-10429,10432-10433,10435-10438,10441,10443,10445,10447-10451,10453-10454,10456-10457,10460-10464,10471-10473,10475-10476,10478,10481-10484,10486-10491,10495-10496,10498,10501,10504,10507-10511,10514,10518-10520,10525,10528-10535,10541,10545,10548,10550,10552,10555,10565-10566,10572-10573,10579-10580,10584-10586,10589-10590,10595-10596,10598,10601,10607,10609,10612,10618-10619,10621,10623,10626,10629,10648-10649,10652-10653,10655-10670,10672-10673,10675-10681,10685-10693,10697-10698,10704,10708,10714-10718,10721,10726-10732,10734,10736-10737,10739-10745,10747,10750,10752-10761,10763-10771,10782,10793-10796,10804-10805,10807-10811,10813-10814,10818,10821-10831,10834-10835,10844-10845,10848-10888,10891-10901,10904-10907,10909-10915,10917,10920-10924,10926,10929,10932,10936,10938-10939,10946-10955,10958,10961,10964,10971,10974-10996,11005-11008,11010-11017,11020-11022,11025-11030,11032-11033,11035-11036,11038-11046,11048,11051,11056-11059,11062,11064,11066-11077,11079,11082,11086-11092,11096-11098,11101-11103,11106-11114,11118,11120,11123,11126,11130-11133,11135-11136,11140,11143,11145-11157,11161,11163,11167,11170,11172-11177,11180,11183,11185-11191,11193,11196,11198-11204,11206,11209,11211-11213,11215-11220,11223-11227,11230-11231,11234-11245,11248-11251,11254-11257,11260-11268,11270-11271,11274,11276-11277,11279-11281,11283,11286-11287,11298,11302-54038,54042-54148,54151-54153,54155-54187,54193,54197,54200,54202-54214,54216-54218,54221-54232,54237-54238,54242,54245,54247-54251,54254,54257,54259-54264,54266,54269,54271-54275,54278,54281,54283-54288,54290,54293,54295-54299,54302,54305-54312,54325,54329-54330,54332-54348,54350-54351,54353-54359,54363-54373,54376,54380-54381,54384,54386-54397,54400-54401,54405-54412,54414-54417,54422,54426,54429,54431-54435,54438-54441,54443-54452,54456,54460-54461,54464,54466-54470,54473-54476,54478-54487,54491,54495-54496,54499,54501-54510,54513-54515,54518-54519,54521,54523-54529,54531,54534,54536-54540,54543-54559,54563-54573,54576,54580-54581,54584,54586-54594,54599-54600,54604,54606-54607,54609-54617,54621,54625,54628,54634-54635,54639,54642,54656-54657,54660-54672,54674-54675,54677-54682,54685-54688,54690,54693-54702,54705-54707,54712,54716,54719,54721-54729,54733-54734,54737,54740,54742-54748,54750,54753,54755-54770,54774-54775,54778-54780,54783-54790,54792-54795,54799-54801,54804,54806-54807,54809-54821,54823-54825,54828-54835,54837-54840,54844-54846,54849,54851-54852,54854-54866,54868-54870,54873-54880,54882-54885,54889-54891,54894,54896-54897,54899-54904,54906,54909,54921,54925,54928,54930-54935,54937,54940,54951-54952,54958-54959,54961-54962,54971-54986,54990-54993,54995,54998-55000,55002-55004,55006-55007,55016-55019,55021-55026,55036-55039,55047,55050-55057,55068,55078,55080-55088,55097-55104,55107,55117-55125,55127-55129,55137,55141,55143-55144,55151,55154,55156-55164,55168-55169,55172,55174-55175,55182,55186-55187,55191-55198,55200-55202,55208-55209,55212,55218-55235,55238,55240,55242-55245,55247-55254,55257,55259,55262-55267,55270,55272,55276-55285,55288,55290,55294-55296,55299,55301,55303-55304,55307,55309-55312,55314-55316,55319,55321,55323,55325-55326,55333-55335,55337-55338,55340-55346,55349-55351,55354-55357,55360,55362-55364,55366-55370,55373,55376-55378,55382-55383,55386,55388,55392-55393,55399,55403,55409-55410,55412-55419,55422,55424,55426-55438,55441,55443,55445-55456,55460-55469,55472,55474,55478-55480,55483,55485,55488,55490-55491,55493-55500,55502-55503,55505,55507,55509-55510,55516-55519,55521-55522,55524,55527-55530,55532-55535,55538-55541,55544-55547,55550-55554,55556-55557,55561-55563,55566-55582,55587-55588,55592,55595,55597-55610,55612-55614,55618-55619,55622-55631,55636,55640,55643,55645,55647,55650,55659-55664,55667-55668,55674-55675,55677-55678,55681,55684-55697,55699-55700,55702,55704-55716,55719,55721,55723-55729,55732,55734,55738-55752,55756-55758,55760-55761,55763-55766,55769-55802,55805-55814,55816-55819,55822-55825,55828-55832,55834-55839,55845-55850,55852,55858-55863,55865,55868,55870-55876,55878,55884-55889,55891,55897-55924,55926-55933,55936,55938,55940-55946,55949,55951-55952,55954-55964,55967,55969,55973-55975,55977-55978,55980,55983,55985-55986,55988-55995,55997-55998,56000,56002,56005,56011-56014,56017,56019,56022-56025,56028-56030,56033-56036,56039,56041-56042,56046-56049,56051-56052,56056-56058,56063,56067,56073-56079,56081-56084,56087-56088,56093-56094,56098,56101-56103,56114,56118,56121,56123,56125,56128,56141-56142,56161,56167,56171,56174,56177,56180,56187-56190,56193-56282,56286-56298,56300-56301,56306-56311,56313-56314,56318-56319,56325,56329,56332,56334-56335,56337-56360,56363-56364,56366-56380,56383-56386,56388,56391-56404,56407-56543,56545-56556,56558,56561,56563-56568,56570,56573,56575-56580,56582,56585,56587-56601,56603-56605,56609-56614,56617,56619-56633,56638-56639,56642-56643,56647,56651,56658,56664,56668,56671,56673-56685,56687-56688,56692,56696,56703,56709,56713,56716,56718-56730,56732-56733,56737,56741,56748,56754,56758,56761,56763-56781,56784-56791,56793-56800,56802-56803,56805,56807-56813,56815-56816,56818-56819,56822-56831,56834,56836,56839-56842,56844-56845,56847,56850,56852-56853,56855-56865,56867,56869,56872,56878-56881,56883-56884,56886,56889-56892,56894-56903,56906,56908-56909,56912-56916,56919,56923-56925,56927-56939,56945,56948-56949,56952,56954-56972,56974-56975,56977,56979-56982,56984-56991,56993-56994,56996,56999-57004,57006-57007,57009-57022,57025,57027,57031-57038,57041,57043-57044,57046-57053,57055-57056,57058,57060,57063,57069-57072,57074-57077,57080-57083,57086-57088,57091-57094,57097,57099-57100,57103-57107,57110,57112-57115,57119-57130,57135-57136,57139-57140,57143-57152,57154-57155,57157-57162,57164,57167,57169-57174,57176,57179,57201-57203,57205-57206,57208-57221,57223-57224,57226-57231,57234-57237,57239,57242-57256,57261,57265,57271-57278,57282-57283,57286,57292-57304,57307-57309,57312-57319,57321-57324,57329,57333,57339-57343,57346,57352-57363,57365-57367,57370-57381,57386-57387,57390-57391,57397-57408,57410-57412,57415-57426,57429,57432-57433,57436,57438-57439,57450,57454-57481,57484,57486,57489-57496,57498,57503-57507,57509-57510,57513-57524,57527,57529,57532-57537,57539-57545,57548,57550,57553-57556,57559-57564,57567-57573,57576,57578,57581-57585,57587-57592,57596-57600,57603,57605-57606,57609-57613,57616,57620-57632,57635,57637-57638,57641-57646,57649-57652,57654,57657-57666,57669-57670,57674,57676,57680,57682-57693,57696,57698-57703,57706,57708-57717,57719,57721-57722,57724-57730,57732-57735,57740,57742-57743,57745-57753,57757-57758,57761,57764,57766-57771,57773,57776,57778-57783,57785,57788,57790-57801,57804-57805,57809,57813,57820,57826,57830,57833,57835-57846,57849-57850,57854,57858,57865,57871,57875,57878,57880-57886,57888,57891-57898,57901-57911,57913,57916,57918-57923,57925,57927-57928,57930-57935,57937,57940-57948,57960,57964-57965,57967-57976,57978-57979,57981-57986,57989-57992,57994,57997-58005,58008-58011,58016,58020-58021,58023-58030,58033-58036,58038-58044,58046,58049-58056,58058,58060-58061,58063-58068,58070,58072-58073,58075-58081,58083,58086,58088-58094,58096,58102-58106,58109-58110,58112,58114-58119,58121,58124,58138-58139,58142-58143,58145-58153,58155-58164,58166,58169,58174-58178,58181-58184,58188-58192,58195-58216,58220-58221,58224-58226,58231-58232,58237-58242,58245-58246,58248,58251,58254,58257-58262,58265-58268,58273-58286,58290,58292,58296,58299,58301-58306,58309-58310,58312,58314-58320,58322,58325-58332,58335-58345,58347,58350,58352-58365,58368-58384,58390,58394,58397,58399-58405,58407,58410,58412-58418,58420,58423-58432,58435-58442,58444-58445,58449-58450,58453,58455,58459-58460,58465,58467,58471,58474,58476-58487,58490-58492,58495-58502,58504-58507,58511-58513,58516,58518-58519,58534,58538,58541,58544,58547,58555,58557-58575,58578-58579,58583,58587,58594-58645,58649-58655,58658,58662,58665,58667,58669,58672,58682-58683,58689-58690,58696-58697,58702-58708,58712,58714,58724-58759,58761-58774,58776-58779,58788-58791,58793-58798,58807-58811,58819,58822-58829,58839-58840,58850,58853,58855-58857,58859-58860,58869,58872,58879,58881,58884,58889-58892,58895-58897,58900-58901,58903,58906,58909,58913,58915-58916,58923,58926,58928-58933,58936,58942-58946,58949,58952,58954-58960,58962,58968-58972,58975,58981-58984,58987,58992-58997,59000,59002,59004-59012,59014-59018,59020-59021,59025,59029,59036,59042,59046,59048-59049,59051-59063,59065-59067,59070-59077,59079-59082,59087-59088,59091,59094,59096-59112,59114,59117,59121-59124,59126-59131,59133,59136,59141-59144,59146,59149,59152,59155-59162,59164,59167,59173,59175,59178,59183,59185-59193,59195,59198,59202,59205,59211-59214,59217,59219,59222-59225,59228-59230,59233-59236,59238-59239,59241-59242,59245-59249,59251-59252,59256-59258,59261-59268,59270-59272,59276,59278,59282,59288-59291,59294,59317,59321,59324,59326-59328,59330,59333,59342-59347,59350-59351,59357-59364,59366-59376,59379,59381,59385-59387,59389-59390,59392-59401,59404-59419,59426,59430,59433,59436,59439,59446,59449-59452,59454,59458,59460-59463,59465,59474-59475,59477-59480,59482,59485,59488-59489,59491-59495,59498,59502-59514,59516-59517,59519-59524,59527-59532,59535-59544,59546-59549,59553-59554,59557-59558,59561,59563-59571,59574-59575,59579,59582,59584-59592,59596-59597,59600,59603,59605-59609,59614-59620,59624-59635,59640-59641,59644-59645,59648,59650-59680,59683,59686-59688,59690,59692-59693,59695-59701,59703,59706-59713,59716,59718-59736,59740-59741,59744,59746,59750-59751,59757,59761,59764,59766-59775,59778-59782,59784,59787,59791-59795,59797-59801,59803,59806,59810-59814,59816,59819,59822,59825-59827,59829-59832,59834,59837,59843-59845,59847-59848,59850,59853,59856-59863,59865,59868,59872,59874-59875,59877-59882,59884,59887,59891-59895,59898-59900,59903-59904,59906,59909,59912,59916,59918-59919,59926-59927,59931-59932,59935,59937,59941-59942,59948,59952,59955,59957-59959,59961-59988,59991,59994,59996-60002,60004,60007-60017,60019-60028,60030-60033,60042,60046-60048,60051-60064,60068-60069,60072,60074-60075,60077-60084,60087,60103,60107-60108,60110-60119,60121-60122,60126-60132,60134-60135,60140-60148,60151-60175,60180-60181,60184,60187,60189-60195,60197,60200,60202-60205,60207-60213,60216,60218,60220-60223,60227-60230,60232,60235,60240-60243,60245,60248,60254-60261,60263,60266,60272,60274,60277,60281-60282,60285,60287-60294,60296-60297,60299,60301,60304,60310-60311,60313,60316,60320-60324,60327-60329,60332-60333,60335,60338,60341,60345,60347-60348,60355-60388,60392,60396,60403,60409,60413,60416,60418-60427,60429-60481,60484,60487-60490,60501,60505,60508,60510-60512,60514,60517,60528-60529,60535-60536,60538-60552,60555,60557,60559-60562,60564-60571,60574,60576,60580-60584,60587,60589,60593-60602,60604-60605,60607,60611-60613,60616,60618,60621,60624,60626-60633,60636,60638,60640,60643,60650-60652,60655,60657,60660-60663,60665-60668,60671-60674,60677,60679-60681,60683-60687,60690,60693-60695,60699-60700,60703,60705,60709-60710,60716,60720,60726-60743,60746,60748,60750-60753,60755-60762,60764-60765,60767,60769-60775,60777-60778,60780-60781,60784-60793,60796,60798,60801-60804,60806-60807,60809,60812,60815,60817-60824,60827,60829,60831,60834,60841-60843,60846,60848,60851-60854,60857-60859,60862-60865,60868,60870-60872,60874-60878,60881,60885-60887,60890-60897,60899-60901,60906-60907,60911,60917-60921,60924,60930-60934,60937,60943-60947,60950,60956-60960,60963,60969-60973,60976,60982-61012,61015,61018-61019,61022,61037,61041,61044,61047,61050,61060-61061,61067-61068,61074-61075,61080-61086,61090,61092,61102-61108,61113,61116-61117,61123-61144,61147-61159,61161-61165,61167-61170,61174-61183,61186,61188,61192-61194,61196-61261,61264-61275,61281-61296,61299-61300,61304,61308,61315,61320,61322,61326,61332-61336,61338,61344-61345,61347-61353,61355,61358-61363,61366,61369,61371-61376,61379-61383,61387,61390,61392-61398,61400,61403,61405-61411,61413,61415-61416,61418-61424,61426-61430,61434,61437,61439-61445,61447-61451,61455,61458,61460-61465,61468-61471,61475-61476,61479,61481-61486,61489,61492,61494-61499,61502,61505,61518,61522,61528-61532,61535,61541-61544,61547,61563-61564,61567-61568,61570-61579,61581-61582,61584-61588,61592-61595,61600-61609,61611-61613,61619,61623,61629-61635,61640,61644,61650-61654,61657,61660,61662-61668,61670,61676-61686,61688-61689,61691,61693-61696,61698-61708,61710,61712-61718,61721-61724,61727-61736,61739,61741,61744-61747,61749-61750,61752,61755-61767,61770,61772,61774,61777,61783-61786,61788-61789,61791,61794-61797,61799-61802,61805-61808,61810-61811,61813-61815,61817-61821,61823-61824,61828,61831,61833-61838,61840,61842-61843,61845-61850,61852,61855,61857-61862,61865,61868,61870-61876,61878,61884-61888,61891,61897-61901,61904,61910-61914,61917,61923-61929,61931-61935,61937-61938,61942,61946,61953,61959,61963,61969-61975,61977-61979,61982-61983,61987,61991,61998,62004,62008,62014-62020,62022-62024,62027-62028,62032,62036,62043,62049,62053,62059-62065,62067-62076,62078-62079,62081,62083-62086,62088-62095,62098,62100,62103-62108,62111,62113,62117-62126,62129,62131,62135-62137,62139-62140,62142,62145,62148,62150-62157,62160,62162,62164,62166-62167,62174-62176,62179,62181,62184-62187,62189-62192,62195-62198,62201,62203-62204,62208-62211,62214,62217-62219,62223-62224,62227,62229,62233-62234,62240,62244,62250-62267,62269-62270,62272,62274-62277,62279-62286,62289,62291,62294-62299,62301-62302,62304-62305,62308-62317,62319-62320,62322,62325-62328,62330-62331,62333,62336,62338-62339,62341-62348,62350-62351,62353,62355,62357-62358,62365-62367,62369-62370,62372,62375-62378,62380-62383,62386-62389,62392,62394-62396,62398-62402,62405,62408-62410,62414-62415,62418,62420,62424-62425,62431,62435,62441-62446,62448-62451,62456-62457,62459,62461-62466,62468,62486,62495,62499,62502,62504-62505,62507,62510,62519-62523,62528-62529,62548,62553,62555,62559,62562,62565,62568,62576-62577,62579-62584,62587,62589,62592-62597,62599-62605,62608,62610,62613-62616,62618-62624,62627-62633,62636,62638,62641-62644,62647-62652,62655-62661,62664,62666,62669-62672,62675-62680,62683-62689,62692,62694,62697-62700,62703-62708,62711-62717,62720,62722,62725-62728,62731-62736,62739-62745,62748,62750,62753-62756,62759-62764,62767-62773,62776,62778,62781-62784,62787-62792,62795-62801,62804,62806,62809-62812,62814-62820,62831-62834,62836-62837,62839-62841,62844-62847,62849-62850,62854-62859,62862-62865,62867,62870-62875,62877,62879-62880,62882-62887,62889,62892,62894-62899,62901,62904,62906-62911,62913,62916,62918-62923,62925,62928,62930-62935,62937,62940,62942-62947,62949,62952,62954-62959,62961,62963-62964,62966-62971,62973,62976,62978-62994,62996-63001,63005-63014,63017,63021,63024,63026-63030,63033,63036,63038-63044,63046,63049-63050,63057,63061-63062,63066-63077,63081,63083,63087,63090-63091,63105,63109-63110,63112-63121,63123-63124,63126-63130,63134-63137,63139,63142-63151,63153-63155,63159,63161,63165-63168,63170-63175,63177,63180,63182-63188,63190,63193,63195-63200,63203,63206,63208-63221,63223-63224,63228-63242,63245,63249,63252,63254-63258,63261,63264,63266-63270,63273,63276,63288,63292-63304,63306-63307,63309-63314,63317-63320,63322,63325-63334,63337-63338,63344,63348,63351,63353-63360,63365,63368-63369,63372,63374-63388,63390,63392-63395,63397-63404,63407,63409-63417,63419-63420,63422-63423,63426-63435,63437-63438,63440,63443-63446,63449,63451,63454,63457,63459-63466,63469,63471,63473,63476,63483-63490,63493-63496,63499-63501,63504-63507,63510,63512-63514,63516-63520,63522-63523,63527,63530,63532-63544,63546-63547,63551-63565,63568,63572,63575,63577-63582,63585,63588-63595,63598-63601,63603-63608,63610,63613,63615-63620,63623,63626,63628-63637,63641-63643,63646,63649-63650,63662-63664,63667-63668,63670-63680,63682-63683,63685-63690,63693-63696,63698,63701-63715,63720,63724,63730-63736,63740-63742,63745,63748-63755,63758-63780,63782,63785-63790,63792-63793,63795,63799-63805,63808-63812,63817-63819,63821-63822,63824,63827-63831,63833-63840,63842-63843,63845,63848-63853,63855-63856,63858-63859,63862-63871,63874,63876,63880-63882,63884-63885,63887,63890,63893,63895-63900,63902,63905,63909,63911-63912,63914-63919,63921,63924,63929-63931,63936,63938-63939,63942-63944,63946,63949,63952,63956,63958-63959,63966,63968-63969,63971-63976,63978,63981,63983-63990,63995,63998,64000-64006,64008,64011,64013-64024,64027-64029,64032-64039,64041-64044,64049,64053,64056,64058-64064,64066,64069,64071-64084,64086-64088,64091-64098,64100-64103,64108,64112,64118-64121,64124,64137-64141,64143,64147,64150,64153,64156,64165-64170,64173-64174,64180-64181,64186-64192,64196,64198,64208-64214,64217-64223,64229-64231,64233,64236,64242-64246,64248,64254-64257,64259-64263,64268,64270-64276,64279,64281,64283-64286,64290-64298,64300,64303-64308,64310-64311,64313,64317-64326,64329,64331,64335-64337,64340-64342,64345,64348,64350-64357,64360,64362,64364,64367,64373-64376,64378-64379,64381,64384-64387,64390-64392,64395-64398,64400-64401,64403-64405,64407-64411,64414,64418-64420,64423-64434,64441,64445,64451-64455,64457,64463-64474,64476-64478,64481-64488,64490-64492,64496,64498,64502,64505,64507-64512,64514,64519-64535,64538-64545,64547-64550,64555,64559,64561,64563-64575,64578-64579,64583-64590,64592-64594,64600,64604,64610-64621,64623-64625,64628-64635,64637-64639,64644-64645,64648-64649,64655-64665,64668-64670,64673-64686,64690-64691,64694,64700-64710,64713-64715,64717-64730,64734-64736,64739,64741-64742,64744-64756,64758-64760,64763-64770,64772-64774,64779-64781,64784-64786,64788-64800,64803-64804,64808-64815,64817-64819,64824-64826,64829,64832-64849,64853-64864,64868,64870,64874,64880-64909,64913,64915,64919,64925-64940,64942,64945-64950,64952,64954-64955,64957-64969,64971-64973,64976-64983,64985-64988,64993,64997,64999-65000,65002-65014,65016-65017,65021-65032,65036,65038,65042,65045,65047-65077,65081,65083,65087,65090-65093,65098,65102-65104,65107-65118,65122,65124,65128,65134-65144,65147-65149,65152-65163,65167,65169,65173,65179-65183,65185,65191-65195,65197,65224-65226,65230-65231,65233-65249,65251-65253,65256-65273,65278-65279,65282-65283,65285-65306,65315-65328,65331,65333,65336-65341,65344-65347,65350,65352-65354,65356-65360,65363,65366-65375,65378,65380,65383-65389,65392-65398,65400-65401,65403,65406-65409,65411-65417,65421-65424,65426-65427,65429-65431,65434-65437,65439-65440,65447-65449,65453,65455-65456,65461-65466,65468-65469,65473-65474,65480,65484,65488-65491,65493-65496,65500-65506,65509-65510,65515,65517,65521,65524,65526-65528,65530-65534,65537-65544,65546-65548,65553-65555,65558,65561-65571,65575-65577,65581,65583-65584,65586-65590,65593,65595-65596,65598-65605,65608,65610-65615,65618-65619,65621-65630,65633-65638,65646,65650,65653,65656,65659,65667-65670,65672-65673,65676-65678,65682-65688,65690-65693,65698,65702,65705,65707-65710,65712,65715,65722,65724-65727,65736-65739,65742,65744-65746,65755-65759,65767,65770-65775,65784,65786-65787,65789-65794,65803,65805-65825,65829-65830,65832,65835-65836,65838,65841,65844,65848,65850-65851,65858-65875,65879-65881,65885,65887-65888,65893-65934,65936-65952,65955-65960,65963,65967,65970,65972-65974,65976-65977,65980-65981,65983-65987,65994,65998-65999,66001-66009,66011-66018,66022-66025,66030-66039,66042-66043,66049,66053-66054,66056-66063,66066,66068-66069,66071-66079,66082-66089,66091-66100,66105,66109,66112,66114-66121,66124-66138,66141,66145,66148,66150-66155,66157,66160,66162-66166,66169,66172,66184,66188,66191,66194,66197,66210-66211,66221,66225,66228,66230,66233,66243-66245,66248,66250-66251,66253-66254,66258-66284,66286-66290,66293,66296,66298-66304,66306,66309,66311-66317,66319,66322,66324-66329,66332,66335,66337-66344,66347,66349,66353,66356,66358-66363,66366-66369,66372-66374,66377,66379-66384,66386,66389,66391-66396,66398,66401,66403-66408,66410,66413,66415-66420,66422,66424-66425,66427-66432,66434,66437,66439-66443,66446,66449,66451-66455,66458,66461,66463-66467,66470,66473,66475-66479,66482,66485,66487-66491,66494,66497,66499-66503,66506,66509,66511-66515,66518,66521,66523-66527,66530,66533,66535-66539,66542,66545,66547-66551,66554,66557,66559-66563,66566,66569,66571,66573-66575,66578,66581,66583,66585-66587,66590,66593,66595-66599,66602,66605-66621
+pnpm-lock.yaml
+  s_ecc04ad348356d::t_d5b75d6a9a27f8 279-280,507-508,1530
+test/data/ai-agent-declared/.claude/agents/tooling.md
+  s_ecc04ad348356d::t_4d4fab1c86666b 1-9
+test/data/ai-agent-declared/.claude/skills/deploy/SKILL.md
+  s_ecc04ad348356d::t_dfbd953bc8e05d 1-8
+types/bin/repl.d.ts.map
+  s_ecc04ad348356d::t_864cddf8ab988b 1
+types/lib/audit/index.d.ts.map
+  s_ecc04ad348356d::t_4616ff76f56bd6 1
+types/lib/cli/index.d.ts.map
+  s_ecc04ad348356d::t_1dd0795bcb3d55 1
+types/lib/evinser/evinser.d.ts.map
+  s_ecc04ad348356d::t_9cb65c87ec2f00 1
+types/lib/helpers/bomSigner.d.ts.map
+  s_ecc04ad348356d::t_6cbf68a55ebf28 1
+types/lib/helpers/jssSigner.d.ts.map
+  s_ecc04ad348356d::t_6318f763dc6a15 1
+types/lib/inventory/agentBlueprint.d.ts.map
+  s_ecc04ad348356d::t_596625b9b460c0 1
+types/lib/inventory/agentToolNames.d.ts.map
+  s_ecc04ad348356d::t_0aa185a6926409 1
+types/lib/inventory/bomUtils.d.ts.map
+  s_ecc04ad348356d::t_10d1034708a6c4 1
+types/lib/inventory/citations.d.ts.map
+  s_ecc04ad348356d::t_60b349222f0e56 1
+types/lib/inventory/communityAiConfigParser.d.ts.map
+  s_ecc04ad348356d::t_d267bcb34053c0 1
+types/lib/inventory/cyclonedx20.d.ts.map
+  s_ecc04ad348356d::t_65e9be7db37aaf 1
+types/lib/inventory/cyclonedx20Common.d.ts.map
+  s_ecc04ad348356d::t_f89b04f6e1fe13 1
+types/lib/inventory/cyclonedx20Derived.d.ts.map
+  s_ecc04ad348356d::t_7c9f5e6ce4c63a 1
+types/lib/inventory/cyclonedx20Parties.d.ts.map
+  s_ecc04ad348356d::t_75ceb30bc77366 1
+types/lib/inventory/cyclonedx20Read.d.ts.map
+  s_ecc04ad348356d::t_2dc8bb6622a134 1
+types/lib/inventory/cyclonedx20ReadCommon.d.ts.map
+  s_ecc04ad348356d::t_f81b9195218ec2 1
+types/lib/inventory/cyclonedx20ReadComponents.d.ts.map
+  s_ecc04ad348356d::t_fce294e256669c 1
+types/lib/inventory/cyclonedx20ReadContext.d.ts.map
+  s_ecc04ad348356d::t_bfa5e577555eb3 1
+types/lib/inventory/cyclonedx20ReadEvidence.d.ts.map
+  s_ecc04ad348356d::t_02d64cece7f80e 1
+types/lib/inventory/cyclonedx20ReadSections.d.ts.map
+  s_ecc04ad348356d::t_758f5703c8c51e 1
+types/lib/inventory/cyclonedx20Render.d.ts.map
+  s_ecc04ad348356d::t_6d51964514991d 1
+types/lib/inventory/cyclonedx20RenderComponents.d.ts.map
+  s_ecc04ad348356d::t_dd680fc6cff9be 1
+types/lib/inventory/cyclonedx20RenderDefinitions.d.ts.map
+  s_ecc04ad348356d::t_4939db48b68948 1
+types/lib/inventory/cyclonedx20RenderEvidence.d.ts.map
+  s_ecc04ad348356d::t_968d9a897e6659 1
+types/lib/inventory/cyclonedx20RenderHardware.d.ts.map
+  s_ecc04ad348356d::t_6cddc70203f95f 1
+types/lib/inventory/cyclonedx20RenderPatents.d.ts.map
+  s_ecc04ad348356d::t_1b8c8a0db29712 1
+types/lib/inventory/cyclonedx20RenderRefIds.d.ts.map
+  s_ecc04ad348356d::t_41d6ef0cf6d439 1
+types/lib/inventory/cyclonedx20RenderSections.d.ts.map
+  s_ecc04ad348356d::t_deca5976188074 1
+types/lib/inventory/cyclonedx20Tables.d.ts.map
+  s_ecc04ad348356d::t_7edd192bf9aaa7 1
+types/lib/inventory/hbom.d.ts.map
+  s_ecc04ad348356d::t_53fe545b16bd4b 1
+types/lib/inventory/hbomLoader.d.ts.map
+  s_ecc04ad348356d::t_06ea277a701009 1
+types/lib/inventory/pqcMigration.d.ts.map
+  s_ecc04ad348356d::t_dac39073d6bf41 1
+types/lib/server/server.d.ts.map
+  s_ecc04ad348356d::t_b4e7be7728df58 1
+types/lib/stages/postgen/postgen.d.ts.map
+  s_ecc04ad348356d::t_8ae4d36a95787a 1
+types/lib/stages/postgen/specVersionCompat.d.ts.map
+  s_ecc04ad348356d::t_3382efcea5488e 1
+types/lib/validator/bomValidator.d.ts.map
+  s_ecc04ad348356d::t_03aa0afda13a37 1
+types/lib/validator/index.d.ts.map
+  s_ecc04ad348356d::t_f4df4db0face4d 1
+types/lib/validator/reporters/json.d.ts.map
+  s_ecc04ad348356d::t_dc529cf4c698be 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "6d1e2a16527385f8c29d445c27c07d38091c9012",
+  "prompts": {},
+  "sessions": {
+    "s_ecc04ad348356d": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_c78e3aec-0413-429c-82cc-e4cb1e45ffb7",
+        "model": "unknown"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
