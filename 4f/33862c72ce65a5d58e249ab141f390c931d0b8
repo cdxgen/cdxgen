@@ -1,0 +1,50 @@
+bin/cdxgen.js
+  h_6a4cc5cdf68def 95,97,1220-1234,2284,2287-2295,2298,2302-2305,2307-2309,2311,2591-2604
+docs/SERVER.md
+  h_6a4cc5cdf68def 177
+lib/evinser/evinser.js
+  h_6a4cc5cdf68def 3005-3009,3252-3254
+lib/inventory/cyclonedx20.js
+  h_6a4cc5cdf68def 12-13,29-31,33,35,49-55,131-136,138,140-141,143,145-170,172-178,180-206,211-212,215-266,279-286,293,296-297,309,312,315-334,337-348,352-386,388-391,393-432,434-442,444-477,479-495,497-498,500-502,504-549,551-554,590,592-594,602-607,620-777,782-783,790-791,797,802-803,809-812,816-825,828-833,841-842,851-864,880,882-883,885-889,893,900-902,908-911,913-919,921,926-928,930-933,936-940,942-975,977-989,992-999,1001-1010,1012-1104,1106-1186,1197-1200,1212-1219,1222,1231-1266,1270-1331,1334-1337,1341,1344,1347-1350,1352-1354,1356-1358,1369,1373-1415,1417-1419,1421-1424,1433-1690,1692,1722-1726,1728-1730,1732-1750,1752-1783,1785-1786,1788-1791,1794-1798,1800-1848,1850-1899,1901-1906,1908-1913,1915-1951,1954-1986,1988-1989,1991-1997,2001-2090,2092-2100,2102-2122,2124-2128,2133-2145,2164,2177-2189,2204,2218,2222,2227,2229-2235,2243-2255,2268-2269,2271-2273,2354,2361,2405,2438-2443,2469-2480,2594-2608,2950-2961
+lib/inventory/cyclonedx20.poku.js
+  h_6a4cc5cdf68def 2-9,11-12,25,30,52-65,69-186,331,345,348,350-376,378-393,411-419,757-762,764,773,777,782,857-859,861,868,870,879-1455
+lib/server/server.js
+  h_6a4cc5cdf68def 25-29,340-352
+lib/server/server.poku.js
+  h_6a4cc5cdf68def 17,353-404,1410-1461
+test/data/cyclonedx-2.0-render/annotations.json
+  h_6a4cc5cdf68def 1-126
+test/data/cyclonedx-2.0-render/compositions.json
+  h_6a4cc5cdf68def 1-80
+test/data/cyclonedx-2.0-render/identifiers.json
+  h_6a4cc5cdf68def 1-68
+test/data/cyclonedx-2.0-render/legacy.json
+  h_6a4cc5cdf68def 1-157
+test/data/cyclonedx-2.0-render/parties.json
+  h_6a4cc5cdf68def 1-127
+test/data/cyclonedx-2.0-render/services.json
+  h_6a4cc5cdf68def 1-132
+types/lib/evinser/evinser.d.ts
+  h_6a4cc5cdf68def 494-498,500
+types/lib/evinser/evinser.d.ts.map
+  h_6a4cc5cdf68def 1
+types/lib/inventory/cyclonedx20.d.ts
+  h_6a4cc5cdf68def 12-13,38-63,66-68
+types/lib/inventory/cyclonedx20.d.ts.map
+  h_6a4cc5cdf68def 1
+types/lib/server/server.d.ts.map
+  h_6a4cc5cdf68def 1
+types/lib/validator/bomValidator.d.ts.map
+  h_6a4cc5cdf68def 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "4f33862c72ce65a5d58e249ab141f390c931d0b8",
+  "prompts": {},
+  "humans": {
+    "h_6a4cc5cdf68def": {
+      "author": "Team AppThreat <cloud@appthreat.com>"
+    }
+  }
+}
