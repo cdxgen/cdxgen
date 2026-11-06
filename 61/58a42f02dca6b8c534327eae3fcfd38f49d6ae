@@ -1,0 +1,53 @@
+types/lib/core/globPatterns.d.ts
+  s_46a72bc6dd43bf::t_9f9594f62d084a 1-70
+types/lib/core/env.d.ts
+  s_1c472b30745397::t_e4f25ffd2a256c 184-189,192
+  s_1c472b30745397::t_7003d77c64a972 190-191,193
+types/lib/inventory/source.d.ts
+  s_1c472b30745397::t_e4f25ffd2a256c 13-20,24-29
+  s_1c472b30745397::t_16ef0e8893ecbb 12
+types/lib/core/fs.d.ts
+  s_1c472b30745397::t_e4f25ffd2a256c 22-25
+types/lib/core/projectConfig.d.ts
+  s_1c472b30745397::t_10af067e640564 44-46
+  s_1c472b30745397::t_e4f25ffd2a256c 5-29,34-39,57-59
+  s_46a72bc6dd43bf::t_9f9594f62d084a 40-43,50,60-64
+types/lib/core/env.d.ts.map
+  s_1c472b30745397::t_8b345c65a5da54 1
+types/lib/core/fs.d.ts.map
+  s_1c472b30745397::t_0f35cc60a127bb 1
+types/lib/core/globPatterns.d.ts.map
+  s_1c472b30745397::t_07ca70f158a4d9 1
+types/lib/core/projectConfig.d.ts.map
+  s_1c472b30745397::t_ff94ced51528eb 1
+types/lib/inventory/communityAiConfigParser.d.ts.map
+  s_1c472b30745397::t_4c62b6ea53a109 1
+types/lib/inventory/source.d.ts.map
+  s_1c472b30745397::t_d8eb6851154074 1
+types/lib/server/server.d.ts.map
+  s_1c472b30745397::t_8b6f62804f4d47 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "6158a42f02dca6b8c534327eae3fcfd38f49d6ae",
+  "prompts": {},
+  "sessions": {
+    "s_1c472b30745397": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "a1ed9237-cf62-498e-9c3c-7c11b1513c7e",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    },
+    "s_46a72bc6dd43bf": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "04568986-825d-4d0f-9051-d0646ace78cd",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}

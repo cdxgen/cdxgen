@@ -1,0 +1,74 @@
+docs/ENV.md
+  s_1c472b30745397::t_0a6893b78ea9e3 384
+docs/THREAT_MODEL.md
+  s_1c472b30745397::t_0a6893b78ea9e3 89,141,153,280,293
+lib/inventory/source.redirect.poku.js
+  s_1c472b30745397::t_7ecb7f98e42608 1-47,51-177
+  s_1c472b30745397::t_f4eb90f4991606 48-50
+docs/SERVER.md
+  s_1c472b30745397::t_0a6893b78ea9e3 151-152
+test/data/git-redirect/redirect-servers.mjs
+  s_1c472b30745397::t_9f8de2d41e38b3 1-31
+lib/inventory/source.js
+  s_1c472b30745397::t_ab7351fa8f30ee 109-141,145-150,162-169,171,175-178,197,210-221
+test/data/project-config/payload.cjs
+  s_1c472b30745397::t_63ffc6f8eec038 1-7
+test/data/project-config/Main.scala
+  s_1c472b30745397::t_63ffc6f8eec038 1-3
+docs/ADVANCED.md
+  s_46a72bc6dd43bf::t_cd9a2d413360c2 505
+lib/core/projectConfig.js
+  s_1c472b30745397::t_f4eb90f4991606 240
+  s_1c472b30745397::t_a4b37824663b7d 318-320
+  s_1c472b30745397::t_35b9be11ef021f 1,4,22-173,177,185,192-196,227-239,241-269,272-273,283-285,288-290,294-306,311-316,328-367,376,393,398-409,421
+  s_46a72bc6dd43bf::t_61ba3ae81aeb67 317
+  s_1c472b30745397::t_ed51046ca453f4 321,325,410-413,417
+lib/server/server.js
+  s_1c472b30745397::t_c58bf0f9746cb4 17
+test/data/project-config/app.csproj
+  s_1c472b30745397::t_63ffc6f8eec038 1-5
+bin/cdxgen.js
+  s_1c472b30745397::t_fb3e1530748efb 158-161,165,167-181
+lib/core/env.js
+  s_1c472b30745397::t_10d78aa60e0c76 544-549,552-569
+  s_1c472b30745397::t_7003d77c64a972 550-551
+test/data/project-config/package.json
+  s_1c472b30745397::t_63ffc6f8eec038 1-4
+lib/core/projectConfig.poku.js
+  s_1c472b30745397::t_fa4d6764305388 1-9,14-19,119-149,152-170,172-301,318-328
+  s_1c472b30745397::t_f4eb90f4991606 171,307-308
+  s_1c472b30745397::t_054ccaa9cf73b8 302-306,309-317
+lib/core/projectConfig.cli.poku.js
+  s_1c472b30745397::t_080ec4378fd221 191-192
+  s_1c472b30745397::t_5271be11e559c6 1-6,8-28,34-49,51-77,79-93,95-126,128-130,132-143,145-157,160,162,167-184,186,188-190,198-211,214,216-220
+  s_1c472b30745397::t_3a766b077ac297 7,29-33
+  s_1c472b30745397::t_27fcf644f78900 158-159,163-164,166
+  s_1c472b30745397::t_e9e2970dfe99c6 193,195-197
+  s_1c472b30745397::t_523ce1b3f360e5 50,78,212-213,215
+test/data/project-config/build.sbt
+  s_1c472b30745397::t_63ffc6f8eec038 1-3
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "170bcb320d1f4c0d74481f6d7855f65034591748",
+  "prompts": {},
+  "sessions": {
+    "s_1c472b30745397": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "a1ed9237-cf62-498e-9c3c-7c11b1513c7e",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    },
+    "s_46a72bc6dd43bf": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "04568986-825d-4d0f-9051-d0646ace78cd",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}

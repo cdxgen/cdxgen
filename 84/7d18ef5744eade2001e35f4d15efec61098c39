@@ -1,0 +1,21 @@
+lib/helpers/envcontext.js
+  s_c0804e5357f0c5::t_1669a0bf5f8d50 164-167,169-171,175
+lib/helpers/envcontextListFiles.poku.js
+  s_c0804e5357f0c5::t_4832e393b8a0cc 1-20
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "847d18ef5744eade2001e35f4d15efec61098c39",
+  "prompts": {},
+  "sessions": {
+    "s_c0804e5357f0c5": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "75227701-fd30-4fc7-8eae-71a8df8f3a1c",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
