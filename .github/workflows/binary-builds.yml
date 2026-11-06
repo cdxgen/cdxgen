@@ -63,7 +63,7 @@ jobs:
             ext: ''
           - os: darwin
             arch: arm64
-            runner: macos-14
+            runner: macos-15
             ext: ''
           - os: linux
             arch: amd64
