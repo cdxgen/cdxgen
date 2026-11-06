@@ -1,0 +1,267 @@
+bin/jssTrust.poku.js
+  s_4435ae7db7ee1b::t_0b021f16986ca8 35
+  s_4435ae7db7ee1b::t_5da0cbd21e2ba8 1-34,36-140
+  s_4435ae7db7ee1b::t_1ed49976cf75d8 141-142
+lib/inventory/cyclonedx20ReadContext.js
+  s_4435ae7db7ee1b::t_758dc0a504ccbd 16-120,122,125
+  s_4435ae7db7ee1b::t_b020ed70bd580a 121,123-124,126-130
+lib/inventory/cyclonedx20RenderRefIds.js
+  s_4435ae7db7ee1b::t_bf2934fa416cad 1-282
+  s_4435ae7db7ee1b::t_e927039db7cde1 283-314
+lib/inventory/cyclonedx20RenderDefinitions.js
+  s_4435ae7db7ee1b::t_2422c82f902c3c 1-405
+lib/inventory/cyclonedx20RenderPatents.js
+  s_4435ae7db7ee1b::t_7a173aabf9d653 1-146
+  s_4435ae7db7ee1b::t_34761b5e58979b 147-174
+lib/inventory/agentToolNames.js
+  s_4435ae7db7ee1b::t_e9da10783cb100 1-144
+  s_4435ae7db7ee1b::t_dc04063ab4e952 145
+.github/workflows/repotests-quick.yml
+  s_4435ae7db7ee1b::t_90ccbe349e68a9 469-491
+bin/cdxgen.js
+  s_4435ae7db7ee1b::t_af2b5474ba243e 1711-1712,1765,2396-2401,2415,2418-2419
+bin/convert.js
+  s_4435ae7db7ee1b::t_00d67d1c9da0b0 152-159
+bin/repl.js
+  s_4435ae7db7ee1b::t_ef3efb3f2a9b01 26,98-111,453-454,456-457,509-510,515-516,597-598,1423-1424,1451-1453,1481-1482
+bin/sign.js
+  s_4435ae7db7ee1b::t_6bb06707c7ff1c 30,294-296,305-309,317,320,330-332,342-344,444-447
+bin/validate.js
+  s_4435ae7db7ee1b::t_d834fd5d1dbd10 22,36,328-341
+bin/verify.js
+  s_4435ae7db7ee1b::t_15e464f422b866 25,165-167
+data/pqc-migration.json
+  s_4435ae7db7ee1b::t_f445840c3e298a 8-10,32-39,76-84,130-135,211,213,215-216,226-232
+docs/AI_BOM.md
+  s_4435ae7db7ee1b::t_134b02ebdd8c0d 140-150,164-166
+docs/CDX_CONVERT.md
+  s_4435ae7db7ee1b::t_302587da716094 101-107,119-130,160,163-166,172-173,189,198-205
+docs/CDX_SIGN.md
+  s_4435ae7db7ee1b::t_d251890173a126 116-125
+docs/CDX_VALIDATE.md
+  s_4435ae7db7ee1b::t_a35cf01d6d9b65 20-29,118,159,167
+docs/CDX_VERIFY.md
+  s_4435ae7db7ee1b::t_80c72ca892a471 72-81
+docs/CUSTOM_PROPERTIES.md
+  s_4435ae7db7ee1b::t_ab9ff15014f407 1893-1896
+docs/ENV.md
+  s_4435ae7db7ee1b::t_79e4ce5cd94872 75,78-80
+docs/HBOM.md
+  s_4435ae7db7ee1b::t_6bd2aa4a01afdf 304-311
+docs/REPL.md
+  s_4435ae7db7ee1b::t_a3b8cfd93b9a9e 138,156-169
+lib/audit/index.js
+  s_4435ae7db7ee1b::t_a62026bc274913 149-155
+lib/cli/index.js
+  s_4435ae7db7ee1b::t_d814681f35a7a4 56-60,2862-2871
+lib/cli/index.poku.js
+  s_4435ae7db7ee1b::t_be309cf70ac3a4 634-659
+lib/helpers/bomSigner.js
+  s_4435ae7db7ee1b::t_fbe6642bd2a2ee 66-69,91-110,112,114-118,120-123
+lib/helpers/bomSigner.poku.js
+  s_4435ae7db7ee1b::t_d5b416759c6429 10,1477-1493,1500,1510-1531
+lib/helpers/jssSigner.js
+  s_4435ae7db7ee1b::t_aee0c3481e554e 69,160,185-205,210-214,353-355,438-481,487,498-501,704,741-747,753-769,808-812,910-916,966-969,971-973,975-981
+lib/helpers/jssSigner.poku.js
+  s_4435ae7db7ee1b::t_3e4358a7898ac6 22,126-148,157-173,302-303,382-384,386-390,442,444,446-448,457-462,465,467,469-474,486-488,786-789,791-805,977-1096
+lib/inventory/agentBlueprint.js
+  s_4435ae7db7ee1b::t_d3afd1dd57acf3 16-20,41,104
+lib/inventory/agentBlueprint.poku.js
+  s_4435ae7db7ee1b::t_1a2353e6dde15c 14,27-29,32-33,41-45,106-112,131,237-280,339-350,352,356,373-397,400
+lib/inventory/agentToolNames.poku.js
+  s_4435ae7db7ee1b::t_dca0cb04df6204 1-58
+lib/inventory/citations.js
+  s_4435ae7db7ee1b::t_229f4d3f854ca2 154-161,166-170,175-192
+lib/inventory/citations.poku.js
+  s_4435ae7db7ee1b::t_cab3d4f15c4898 216-266
+lib/inventory/communityAiConfigParser.js
+  s_4435ae7db7ee1b::t_167b3223d5db1d 13,597-601,634,641
+lib/inventory/cyclonedx20.js
+  s_4435ae7db7ee1b::t_8c87e538adb12b 31,35,37,54-62,65-66,69-73,76-100
+lib/inventory/cyclonedx20.poku.js
+  s_4435ae7db7ee1b::t_1aacdcd2c32f4f 42-48,62-65,117-119,1273,1280-1282,1340-1342,1404-1417,1419,1421,1667,1675,1865-1870,2083-2100,2199-2491
+lib/inventory/cyclonedx20Common.js
+  s_4435ae7db7ee1b::t_36a896fa5e4b5c 42,124-136,199,201,205-215,223-228
+lib/inventory/cyclonedx20Derived.js
+  s_4435ae7db7ee1b::t_28a93ab2921de0 14-18,29,49-61,67-69,99-107,120,130
+lib/inventory/cyclonedx20Read.js
+  s_4435ae7db7ee1b::t_591aa52d1b44f7 8-15,27,43,60,63-64,85,131-133,143-145,147-153,182,385-390,409-441,449-450,544-550,633-638,690,710-713
+lib/inventory/cyclonedx20Read.poku.js
+  s_4435ae7db7ee1b::t_6c28478bf57fc8 7,16,21,450-463,466,470,472,474-477,480-497,501,505-510,513,515-526,646-810
+lib/inventory/cyclonedx20ReadSections.js
+  s_4435ae7db7ee1b::t_3274b5edec21b4 34-38,584-594
+lib/inventory/cyclonedx20Readers.poku.js
+  s_4435ae7db7ee1b::t_03403a808a777f 800-803,836,905-1025
+lib/inventory/cyclonedx20Render.js
+  s_4435ae7db7ee1b::t_9ee4b3b6a44c2c 13-14,31-34,39-44,54,101,177-178,180,185-191,204-243,262,280-281,293-298,300-315,317-322,324-341,343-358,515-516,519-526,530-537,543-569,580-584,599-603,611-613,626-629,675-681
+lib/inventory/cyclonedx20RenderComponents.js
+  s_4435ae7db7ee1b::t_327fb10ea609fa 28,79-84,86,100-111,119-122,126-132,134,140-157,161-162,168-202,204,221,251,356-358,367-387,404-423,524,528-532,630,632
+lib/inventory/cyclonedx20RenderEvidence.js
+  s_4435ae7db7ee1b::t_b9a4a13ac90029 13,113-115,462-532,534-538,540-543,545-560,563-574,576,579-586,588-589,591-602,604-651,653,658-721,724
+lib/inventory/cyclonedx20RenderSections.js
+  s_4435ae7db7ee1b::t_064e0d67f9f862 11,16,22,263-354,356-359,373-375,377-379,381-397,400-405,411,417,461,466,473,478-481,484-489,491-492
+lib/inventory/cyclonedx20Tables.js
+  s_4435ae7db7ee1b::t_779433c3705019 24-30
+lib/inventory/hbom20.poku.js
+  s_4435ae7db7ee1b::t_7b63457727d6e7 4,349-377,472-536
+lib/inventory/hbomLoader.js
+  s_4435ae7db7ee1b::t_175108f5c8bfd2 72,74-83,86-118
+lib/inventory/pqcMigration.js
+  s_4435ae7db7ee1b::t_502573447a62ed 22-25,32-40,61-66,113-123,131-172,186-189,212-219,223-237,256-260,279-285,287,297,302
+lib/inventory/pqcMigration.poku.js
+  s_4435ae7db7ee1b::t_c5890098be2174 180-268,364-390,530-582,706-712,715,719-774
+lib/stages/postgen/postgen.js
+  s_4435ae7db7ee1b::t_19e3d8984ce470 44-47,631-637
+lib/stages/postgen/postgen.poku.js
+  s_4435ae7db7ee1b::t_7bc4bffce9849a 2298-2350
+lib/stages/postgen/specVersionCompat.js
+  s_4435ae7db7ee1b::t_8305b1a011263e 31,726-728,781-785,789-790,792-795,798,808,816,823-825,829-830,834-840
+lib/stages/postgen/specVersionCompat.poku.js
+  s_4435ae7db7ee1b::t_354be38815a10d 3,7-8,275-336
+lib/validator/cisaDefaultBom.poku.js
+  s_4435ae7db7ee1b::t_1a9df3e12148a3 188
+lib/validator/index.js
+  s_4435ae7db7ee1b::t_a10ca283323690 19,117-120,124-125,129,148-151,164-187,191-195,213,224-225,228,231-232,292
+lib/validator/index.poku.js
+  s_4435ae7db7ee1b::t_fc45badfa09f06 2-3,8,324-385
+lib/validator/reporters.poku.js
+  s_4435ae7db7ee1b::t_a23f0c028a2c40 104-113
+lib/validator/reporters/json.js
+  s_4435ae7db7ee1b::t_175b2b12e9e99a 18-23
+test/cdx20-evinse-analyze.mjs
+  s_4435ae7db7ee1b::t_735fd60e9d8f90 1-36
+test/cdx20-runtime-validate.mjs
+  s_4435ae7db7ee1b::t_92a6b79dab74de 1-22
+test/data/ai-agent-declared/.claude/agents/tooling.md
+  s_4435ae7db7ee1b::t_bd8f0176c50fcb 3,5
+test/data/cyclonedx-2.0-read/formula-task-type.json
+  s_4435ae7db7ee1b::t_a4e23977db8f9d 1-29
+test/data/cyclonedx-2.0-read/internal-sections-1.7.json
+  s_4435ae7db7ee1b::t_f125de2fdabdd4 1-40
+test/data/cyclonedx-2.0-read/stray-components.json
+  s_4435ae7db7ee1b::t_0ff3c703ef0a09 1-27
+test/data/cyclonedx-2.0-render/attachments.json
+  s_4435ae7db7ee1b::t_b829d502e622d6 1-158
+test/data/cyclonedx-2.0-render/crypto.json
+  s_4435ae7db7ee1b::t_1a4d5c7f7eac2b 1-78
+test/data/cyclonedx-2.0-render/definitions.json
+  s_4435ae7db7ee1b::t_88ef8e1edd8346 1-182
+test/data/cyclonedx-2.0-render/self-scan.json
+  s_4435ae7db7ee1b::t_8dfe05e2de3bcb 1-146
+types/bin/repl.d.ts.map
+  s_4435ae7db7ee1b::t_6575ef08569837 1
+types/lib/audit/index.d.ts.map
+  s_4435ae7db7ee1b::t_abec26bcb8e836 1
+types/lib/cli/index.d.ts.map
+  s_4435ae7db7ee1b::t_91429edb435aab 1
+types/lib/ecosystems/pythonutils.d.ts
+  s_4435ae7db7ee1b::t_d2c73922619ab8 119
+types/lib/helpers/bomSigner.d.ts
+  s_4435ae7db7ee1b::t_bb28c10eb34f7c 9-12,15-20
+types/lib/helpers/bomSigner.d.ts.map
+  s_4435ae7db7ee1b::t_c0ea468d7f6cab 1
+types/lib/helpers/jssSigner.d.ts
+  s_4435ae7db7ee1b::t_4b75baa339f57b 73-80
+types/lib/helpers/jssSigner.d.ts.map
+  s_4435ae7db7ee1b::t_b6f9fb52b09892 1
+types/lib/inventory/agentBlueprint.d.ts
+  s_4435ae7db7ee1b::t_9b292992199979 16-20
+types/lib/inventory/agentBlueprint.d.ts.map
+  s_4435ae7db7ee1b::t_dab6e649891801 1
+types/lib/inventory/agentToolNames.d.ts
+  s_4435ae7db7ee1b::t_427e111eb7965d 1-51
+types/lib/inventory/agentToolNames.d.ts.map
+  s_4435ae7db7ee1b::t_a67c3e446866a7 1
+types/lib/inventory/citations.d.ts
+  s_4435ae7db7ee1b::t_0c52f57bf9600d 52-56
+types/lib/inventory/citations.d.ts.map
+  s_4435ae7db7ee1b::t_4a31ab7c58638c 1
+types/lib/inventory/communityAiConfigParser.d.ts.map
+  s_4435ae7db7ee1b::t_478c4776ad1c28 1
+types/lib/inventory/cyclonedx20.d.ts
+  s_4435ae7db7ee1b::t_56c7fd3191b61e 37-45,48-49
+types/lib/inventory/cyclonedx20.d.ts.map
+  s_4435ae7db7ee1b::t_f29c4434079772 1
+types/lib/inventory/cyclonedx20Common.d.ts
+  s_4435ae7db7ee1b::t_ebe0ed65a657fd 64-70,87,89
+types/lib/inventory/cyclonedx20Common.d.ts.map
+  s_4435ae7db7ee1b::t_2d660975d913d3 1
+types/lib/inventory/cyclonedx20Derived.d.ts
+  s_4435ae7db7ee1b::t_20fb23f4ae3efc 14-18,27-36
+types/lib/inventory/cyclonedx20Derived.d.ts.map
+  s_4435ae7db7ee1b::t_5cb37063398645 1
+types/lib/inventory/cyclonedx20Read.d.ts
+  s_4435ae7db7ee1b::t_9bc6ce04d9c4d1 8-15,27,33-35
+types/lib/inventory/cyclonedx20Read.d.ts.map
+  s_4435ae7db7ee1b::t_0612dbbf2805e2 1
+types/lib/inventory/cyclonedx20ReadContext.d.ts
+  s_4435ae7db7ee1b::t_d5ef0d5cf93109 13-46
+types/lib/inventory/cyclonedx20ReadContext.d.ts.map
+  s_4435ae7db7ee1b::t_eab1bafd5488a6 1
+types/lib/inventory/cyclonedx20ReadSections.d.ts.map
+  s_4435ae7db7ee1b::t_5c5c729ac77e26 1
+types/lib/inventory/cyclonedx20Render.d.ts.map
+  s_4435ae7db7ee1b::t_87fa88164b3670 1
+types/lib/inventory/cyclonedx20RenderComponents.d.ts
+  s_4435ae7db7ee1b::t_992e156f5a4cfe 8-13,15-49
+types/lib/inventory/cyclonedx20RenderComponents.d.ts.map
+  s_4435ae7db7ee1b::t_029f4f238f6401 1
+types/lib/inventory/cyclonedx20RenderDefinitions.d.ts
+  s_4435ae7db7ee1b::t_3d8ce92d875692 1-29
+types/lib/inventory/cyclonedx20RenderDefinitions.d.ts.map
+  s_4435ae7db7ee1b::t_200ce552504434 1
+types/lib/inventory/cyclonedx20RenderEvidence.d.ts
+  s_4435ae7db7ee1b::t_e65fa181bc2195 20-22,105-107
+types/lib/inventory/cyclonedx20RenderEvidence.d.ts.map
+  s_4435ae7db7ee1b::t_894bb8e21ce096 1
+types/lib/inventory/cyclonedx20RenderPatents.d.ts
+  s_4435ae7db7ee1b::t_b78c5af7efba8d 1-26
+types/lib/inventory/cyclonedx20RenderPatents.d.ts.map
+  s_4435ae7db7ee1b::t_491966b0e808db 1
+types/lib/inventory/cyclonedx20RenderRefIds.d.ts
+  s_4435ae7db7ee1b::t_4019601013c31a 1-55
+types/lib/inventory/cyclonedx20RenderRefIds.d.ts.map
+  s_4435ae7db7ee1b::t_20ea677f8ab802 1
+types/lib/inventory/cyclonedx20RenderSections.d.ts
+  s_4435ae7db7ee1b::t_e67ad144e76165 30-33
+types/lib/inventory/cyclonedx20RenderSections.d.ts.map
+  s_4435ae7db7ee1b::t_e83315184130a9 1
+types/lib/inventory/cyclonedx20Tables.d.ts
+  s_4435ae7db7ee1b::t_0814c75314d7b4 17-22
+types/lib/inventory/cyclonedx20Tables.d.ts.map
+  s_4435ae7db7ee1b::t_0d4e0f9fe0f236 1
+types/lib/inventory/hbomLoader.d.ts.map
+  s_4435ae7db7ee1b::t_9c74a8bc0e39c1 1
+types/lib/inventory/pqcMigration.d.ts
+  s_4435ae7db7ee1b::t_5912c7b58d5e6d 22-25,32-40
+types/lib/inventory/pqcMigration.d.ts.map
+  s_4435ae7db7ee1b::t_b5f37ab64117b6 1
+types/lib/stages/postgen/postgen.d.ts.map
+  s_4435ae7db7ee1b::t_64a6123be885cc 1
+types/lib/stages/postgen/specVersionCompat.d.ts
+  s_4435ae7db7ee1b::t_56348978479d2e 72-76,80-81,83,86-88,92-93
+types/lib/stages/postgen/specVersionCompat.d.ts.map
+  s_4435ae7db7ee1b::t_ae47e62bf598c3 1
+types/lib/validator/index.d.ts
+  s_4435ae7db7ee1b::t_951c567c416526 41-45,63,91-94
+types/lib/validator/index.d.ts.map
+  s_4435ae7db7ee1b::t_2f15978695e565 1
+types/lib/validator/reporters/json.d.ts.map
+  s_4435ae7db7ee1b::t_0f2906d0627830 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "4d35e4cdecb5f7870711a7577ac3cae6144eae2f",
+  "prompts": {},
+  "sessions": {
+    "s_4435ae7db7ee1b": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "42550933-1c9c-482f-8a1f-bb55d9514f4c",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
