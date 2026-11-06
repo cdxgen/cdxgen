@@ -1,0 +1,19 @@
+lib/inventory/agentBlueprint.poku.js
+  s_9452a625b7020e::t_43829bde5400e2 3,178
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "0d1bb33caec336130d14d013f006afbe6fbc6d7e",
+  "prompts": {},
+  "sessions": {
+    "s_9452a625b7020e": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_8885fbac-82ed-4e3a-8e68-8a24ba52d2d8",
+        "model": "GLM-5.3"
+      },
+      "human_author": "Team AppThreat <cloud@appthreat.com>"
+    }
+  }
+}
