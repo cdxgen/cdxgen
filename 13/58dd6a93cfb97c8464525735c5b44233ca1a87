@@ -1,0 +1,50 @@
+data/pqc-migration.json
+  h_6a4cc5cdf68def 2,5-28,32-33,36-38,41-76,79-117,120-122,125-145,148-149,151-153,156-164,166-172,175-207,209
+data/rules/cbom-security.yaml
+  h_6a4cc5cdf68def 290-292,295
+docs/BOM_AUDIT.md
+  h_6a4cc5cdf68def 690
+docs/CBOM_CERTIFICATES.md
+  h_6a4cc5cdf68def 182,192-197
+docs/CDX_CONVERT.md
+  h_6a4cc5cdf68def 140-191
+docs/CUSTOM_PROPERTIES.md
+  h_6a4cc5cdf68def 143
+lib/inventory/cyclonedx20.poku.js
+  h_6a4cc5cdf68def 1337-1357,1399-1408
+lib/inventory/cyclonedx20Derived.js
+  h_6a4cc5cdf68def 1-95
+lib/inventory/cyclonedx20Read.js
+  h_6a4cc5cdf68def 31,37-41,115-116,156,576-602,606-607,609,611,613-618
+lib/inventory/cyclonedx20Read.poku.js
+  h_6a4cc5cdf68def 136-146
+lib/inventory/cyclonedx20Render.js
+  h_6a4cc5cdf68def 21,513-518,535-541
+lib/inventory/pqcMigration.js
+  h_6a4cc5cdf68def 4-9,11-14,16-22,24-33,35-37,44-47,53-62,64-72,74-76,78-81,84-85,87-88,90-106,108-134,137-181,184-196,198-200,203-205,208-252,256-259,263,266-270,272-278,280-284,290-318,320-322,324,326-332,334,336
+lib/inventory/pqcMigration.poku.js
+  h_6a4cc5cdf68def 1,6,10-15,17-25,27,30-44,49-51,53-119,121-127,129-145,147-156,158-163,165-169,171-176,178-196,198-207,209-214,216-228,230-236,238,240-242,246-283,285-328,330-332,336-380,382,386-390,392-402,405-408,410-425,427-437,441-465,467-510,513-598
+types/lib/inventory/cyclonedx20Derived.d.ts
+  h_6a4cc5cdf68def 1-52
+types/lib/inventory/cyclonedx20Derived.d.ts.map
+  h_6a4cc5cdf68def 1
+types/lib/inventory/cyclonedx20Read.d.ts.map
+  h_6a4cc5cdf68def 1
+types/lib/inventory/cyclonedx20Render.d.ts.map
+  h_6a4cc5cdf68def 1
+types/lib/inventory/pqcMigration.d.ts
+  h_6a4cc5cdf68def 4-46,48,50-52,54-58,60-65,67-70,74
+types/lib/inventory/pqcMigration.d.ts.map
+  h_6a4cc5cdf68def 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "1358dd6a93cfb97c8464525735c5b44233ca1a87",
+  "prompts": {},
+  "humans": {
+    "h_6a4cc5cdf68def": {
+      "author": "Team AppThreat <cloud@appthreat.com>"
+    }
+  }
+}
