@@ -1,0 +1,22 @@
+types/lib/helpers/globPatterns.d.ts
+  h_0926447d100ad2 1-70
+types/lib/helpers/globPatterns.d.ts.map
+  h_0926447d100ad2 1
+types/lib/helpers/projectConfig.d.ts
+  h_0926447d100ad2 40-44,48,57-61
+types/lib/helpers/projectConfig.d.ts.map
+  h_0926447d100ad2 1
+types/lib/server/server.d.ts.map
+  h_0926447d100ad2 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "08937be9555dc7cb1bccf7f57e1b402c37bde324",
+  "prompts": {},
+  "humans": {
+    "h_0926447d100ad2": {
+      "author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
