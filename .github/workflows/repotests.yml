@@ -1963,7 +1963,13 @@ jobs:
           const sha256 = cryptoAssets.find(
             (component) => component.name === "sha-256",
           );
-          const serialized = JSON.stringify(bom);
+          // Golem evidence lands in metadata, components and dependencies;
+          // formulation holds toolchain and git metadata of the checkout.
+          const serialized = JSON.stringify({
+            components: bom.components,
+            dependencies: bom.dependencies,
+            metadata: bom.metadata,
+          });
 
           if (!validateBom(bom)) {
             throw new Error("Go data-flow Evinse BOM is not schema-valid");
