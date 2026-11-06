@@ -1,0 +1,20 @@
+lib/cli/jsBomVersionResolution.poku.js
+  s_ecc04ad348356d::t_487780270f50e5 6
+  s_ecc04ad348356d::t_8204c24e13c702 34
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "191c6295ede875a28d305cd9e1177168e40fae0e",
+  "prompts": {},
+  "sessions": {
+    "s_ecc04ad348356d": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_c78e3aec-0413-429c-82cc-e4cb1e45ffb7",
+        "model": "unknown"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
