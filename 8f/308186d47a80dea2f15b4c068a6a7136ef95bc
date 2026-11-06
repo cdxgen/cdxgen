@@ -1,0 +1,77 @@
+docs/EVINSE.md
+  s_2e023175c73838::t_e4f8fdc2df38b1 104-114
+lib/ecosystems/npmVersionResolution.poku.js
+  s_2e023175c73838::t_aad4bcff0a6cec 1-367
+  s_2e023175c73838::t_12757bdcb413e9 368-402
+.github/workflows/repotests-quick.yml
+  s_2e023175c73838::t_2fffc20116758a 331-347
+lib/ecosystems/npmVersionResolution.js
+  s_2e023175c73838::t_9f7de31e9691eb 258
+  s_2e023175c73838::t_ab5db23a9aaab6 1-257,259-301
+  s_2e023175c73838::t_4f26bb34c8dc15 302-376
+lib/cli/jsBomVersionResolution.poku.js
+  s_2e023175c73838::t_649e97a705acb8 1-54
+  s_2e023175c73838::t_8725a07f0a2c80 55-62
+lib/cli/bomAssembly.js
+  s_2e023175c73838::t_9521a6204c26c2 1254-1256
+lib/cli/jsBom.js
+  s_2e023175c73838::t_093a951d6b6809 1076,1110,1556
+lib/ecosystems/jsEvidence.js
+  s_2e023175c73838::t_728256e6adc41f 14-18,77-87,90-100,109-121,123-126,128,210-214,220-223,231,235-239,269,325-342,359-360,414-422
+lib/ecosystems/jsEvidence.poku.js
+  s_2e023175c73838::t_a9b6d1771fa8a9 148-296
+lib/evinser/evinser.js
+  s_2e023175c73838::t_5d8d98871d408c 45,1287-1298,1760-1767,1843,3039,3115-3124
+lib/evinser/evinser.poku.js
+  s_2e023175c73838::t_87195c06df399a 15,1780-1979
+lib/inventory/occurrenceKey.js
+  s_2e023175c73838::t_8a87f1b90ba738 71-90
+lib/inventory/occurrenceKey.poku.js
+  s_2e023175c73838::t_21c27d44fef813 5,110-136
+test/data/npm-version-resolution-repotest/package-lock.json
+  s_2e023175c73838::t_197dfd2fe703a8 1-75
+test/data/npm-version-resolution-repotest/package.json
+  s_2e023175c73838::t_ae227bdb966218 1-15
+test/data/npm-version-resolution-repotest/packages/legacy/index.js
+  s_2e023175c73838::t_98af489f899d90 1-3
+test/data/npm-version-resolution-repotest/packages/legacy/package.json
+  s_2e023175c73838::t_c7c6a4738d19f3 1-9
+test/data/npm-version-resolution-repotest/src/index.js
+  s_2e023175c73838::t_4d6dcfad22a500 1-9
+types/lib/cli/bomAssembly.d.ts.map
+  s_2e023175c73838::t_ff14ffbed4e330 1
+types/lib/cli/jsBom.d.ts.map
+  s_2e023175c73838::t_c7dfed1d27cf98 1
+types/lib/ecosystems/jsEvidence.d.ts
+  s_2e023175c73838::t_8789d33c8bd138 12-16,22-25,28-32
+types/lib/ecosystems/jsEvidence.d.ts.map
+  s_2e023175c73838::t_3c86ef9466a130 1
+types/lib/ecosystems/npmVersionResolution.d.ts
+  s_2e023175c73838::t_8c1293d6ed513f 1-119
+types/lib/ecosystems/npmVersionResolution.d.ts.map
+  s_2e023175c73838::t_f75d7959defb73 1
+types/lib/evinser/evinser.d.ts
+  s_2e023175c73838::t_f54b29c63967e2 238,261,282,306,319
+types/lib/evinser/evinser.d.ts.map
+  s_2e023175c73838::t_49e7e0ead28097 1
+types/lib/inventory/occurrenceKey.d.ts
+  s_2e023175c73838::t_fb4fc8a3a8ba45 44-51
+types/lib/inventory/occurrenceKey.d.ts.map
+  s_2e023175c73838::t_050dab01753fb6 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "8f308186d47a80dea2f15b4c068a6a7136ef95bc",
+  "prompts": {},
+  "sessions": {
+    "s_2e023175c73838": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "d13e296a-9b0d-46ae-b890-6e315a16d65b",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
