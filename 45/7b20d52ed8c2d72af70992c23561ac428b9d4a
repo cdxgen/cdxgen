@@ -1,0 +1,50 @@
+docs/CDX_CONVERT.md
+  h_6a4cc5cdf68def 114-125
+lib/inventory/cyclonedx20.poku.js
+  h_6a4cc5cdf68def 20,22,512-957,1175
+lib/inventory/cyclonedx20Common.js
+  h_6a4cc5cdf68def 30-31,34,36,88-109
+lib/inventory/cyclonedx20Read.js
+  h_6a4cc5cdf68def 46,55,119,138
+lib/inventory/cyclonedx20ReadComponents.js
+  h_6a4cc5cdf68def 639
+lib/inventory/cyclonedx20ReadContext.js
+  h_6a4cc5cdf68def 28-31
+lib/inventory/cyclonedx20ReadEvidence.js
+  h_6a4cc5cdf68def 9-16,27,114-123,137-190
+lib/inventory/cyclonedx20Render.js
+  h_6a4cc5cdf68def 26,367-369,372-378,384,388,402-405,407-423,487-490,605-611
+lib/inventory/cyclonedx20RenderEvidence.js
+  h_6a4cc5cdf68def 8,16,21,83-85,93-183,187-191
+types/lib/inventory/cyclonedx20Common.d.ts
+  h_6a4cc5cdf68def 17-18,21-24,45-56
+types/lib/inventory/cyclonedx20Common.d.ts.map
+  h_6a4cc5cdf68def 1
+types/lib/inventory/cyclonedx20Read.d.ts.map
+  h_6a4cc5cdf68def 1
+types/lib/inventory/cyclonedx20ReadContext.d.ts.map
+  h_6a4cc5cdf68def 1
+types/lib/inventory/cyclonedx20ReadEvidence.d.ts
+  h_6a4cc5cdf68def 8-17
+types/lib/inventory/cyclonedx20ReadEvidence.d.ts.map
+  h_6a4cc5cdf68def 1
+types/lib/inventory/cyclonedx20Render.d.ts.map
+  h_6a4cc5cdf68def 1
+types/lib/inventory/cyclonedx20RenderComponents.d.ts.map
+  h_6a4cc5cdf68def 1
+types/lib/inventory/cyclonedx20RenderEvidence.d.ts
+  h_6a4cc5cdf68def 6-35,44
+types/lib/inventory/cyclonedx20RenderEvidence.d.ts.map
+  h_6a4cc5cdf68def 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "457b20d52ed8c2d72af70992c23561ac428b9d4a",
+  "prompts": {},
+  "humans": {
+    "h_6a4cc5cdf68def": {
+      "author": "Team AppThreat <cloud@appthreat.com>"
+    }
+  }
+}
