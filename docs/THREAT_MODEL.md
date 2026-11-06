@@ -150,6 +150,7 @@ Trust boundary 5: cdxgen container ←→ container host
 - cdxgen avoids shell interpretation for these values and treats them as filtering patterns only
 - Directory-oriented excludes are additionally forwarded as literal directory names for performance where supported by Atom and astgen
 - Server deployments should validate or constrain request options at the API boundary if untrusted clients can submit scans
+- Patterns from untrusted sources pass through `boundUntrustedGlobPatterns()` in `lib/helpers/globPatterns.js`: each may be at most 512 characters, and a list may stand for at most 128 patterns after brace expansion. The server refuses a request whose `exclude` patterns use braces or break either limit. A config file in the scanned directory may use braces, but its `exclude` and `include-regex` patterns share the 128-pattern budget, and those past it are dropped with a warning
 
 **Residual risk:** Low for intended local/CI usage where the operator controls CLI arguments. Medium for wrappers or server deployments that expose pattern options to untrusted users without additional validation.
 
@@ -301,6 +302,7 @@ Trust boundary 5: cdxgen container ←→ container host
 - Spawn timeout: 20 minutes (configurable via `CDXGEN_TIMEOUT_MS`)
 - Max buffer: 100MB (configurable via `CDXGEN_MAX_BUFFER`)
 - Parsers of scanned project files avoid regular expressions whose work grows faster than the input. The CrewAI reader for `agents.py` and `tasks.py`, for example, reads each file once
+- Request `exclude` patterns may not use braces, run past 512 characters or number more than 128, since every pattern is matched against every file the scan walks
 
 **Residual risk:** Medium — no built-in rate limiting or concurrent request limits. The server is designed for trusted internal use. Deploy behind a reverse proxy for production exposure.
 
