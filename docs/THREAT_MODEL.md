@@ -150,7 +150,7 @@ The toolchain version probes for formulation also run from the temporary directo
 
 - CLI and server both use shared source validation (`validateAndRejectGitSource()`) and hardened clone behavior
 - Protocol allowlisting via `GIT_ALLOW_PROTOCOL` / `CDXGEN_GIT_ALLOW_PROTOCOL`
-- Host allowlisting via `CDXGEN_GIT_ALLOWED_HOSTS` (or `CDXGEN_SERVER_ALLOWED_HOSTS` in server mode)
+- Host allowlisting via `CDXGEN_GIT_ALLOWED_HOSTS` (or `CDXGEN_SERVER_ALLOWED_HOSTS` in server mode). While an allowlist or secure mode applies, git runs with `http.followRedirects=false`, so an allowed host cannot redirect a clone or `ls-remote` to a host the allowlist does not name
 - Temporary clone directories are removed after scan completion
 - purl resolution emits an explicit warning that registry metadata may be untrusted
 
@@ -277,6 +277,7 @@ The toolchain version probes for formulation also run from the temporary directo
   - `--template=` — prevents OS hook templates from being copied into the new repo
   - `GIT_CONFIG_NOSYSTEM=1` and `GIT_CONFIG_GLOBAL=/dev/null` in secure mode — prevents reading system/user configs including Git 2.54 `hook.<name>.command` entries
   - `GIT_TERMINAL_PROMPT=0` — prevents interactive prompts
+  - `http.followRedirects=false` while `CDXGEN_GIT_ALLOWED_HOSTS`, `CDXGEN_SERVER_ALLOWED_HOSTS` or secure mode applies, so the allowlisted host is the one git talks to
   - `--depth 1` — limits history to reduce attack surface
 - `GIT_ALLOW_PROTOCOL` defaults to `https:ssh` in secure mode
 
@@ -289,7 +290,7 @@ The toolchain version probes for formulation also run from the temporary directo
 **Mitigations:**
 
 - `CDXGEN_ALLOWED_HOSTS` restricts `cdxgenAgent` outbound connections
-- `CDXGEN_SERVER_ALLOWED_HOSTS` restricts Git clone target hosts
+- `CDXGEN_SERVER_ALLOWED_HOSTS` restricts Git clone target hosts, and git does not follow HTTP redirects while it is set
 - Server-side Dependency-Track submission host checks require exact matches or real subdomain matches for wildcard entries (for example, `*.example.com` matches `api.example.com` but not `evil-example.com`)
 - Dependency-Track submission redirects are disabled so an allowlisted host cannot bounce uploads to a different destination
 - Secure mode enforces HTTPS-only

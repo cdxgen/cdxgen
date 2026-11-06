@@ -148,6 +148,8 @@ cdxgen checks a Git URL against the host that git itself will connect to, not on
 
 To prevent SSRF and ensure the server only clones repositories from trusted sources, configure an allowlist of hostnames using `CDXGEN_GIT_ALLOWED_HOSTS` (preferred) or `CDXGEN_SERVER_ALLOWED_HOSTS` (server-mode alias).
 
+While an allowlist is set, git does not follow HTTP redirects, so an allowed host cannot send a clone to a host the list does not name. A repository that has been renamed or moved, which GitHub and GitLab serve through a redirect, has to be requested by its current URL.
+
 ```shell
 export CDXGEN_GIT_ALLOWED_HOSTS="github.com,gitlab.com"
 cdxgen --server

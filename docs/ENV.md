@@ -381,7 +381,7 @@ In secure mode (`CDXGEN_SECURE_MODE=true` or Node.js `--permission`) cdxgen rest
 | ------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | CDXGEN_ALLOWED_PATHS      | Comma-separated allow-list of local filesystem paths permitted in secure mode. Falls back to `CDXGEN_SERVER_ALLOWED_PATHS`.                                                                                            |
 | CDXGEN_GIT_ALLOW_PROTOCOL | Colon-separated list of git protocols permitted for git CLI invocations. Defaults to `https:ssh` in secure mode and `https:git:ssh` otherwise. Aliased by `GIT_ALLOW_PROTOCOL` and `CDXGEN_SERVER_GIT_ALLOW_PROTOCOL`. |
-| CDXGEN_GIT_ALLOWED_HOSTS  | Comma-separated allow-list of git hosts permitted for git URL and purl sources. Falls back to `CDXGEN_SERVER_ALLOWED_HOSTS`.                                                                                           |
+| CDXGEN_GIT_ALLOWED_HOSTS  | Comma-separated allow-list of git hosts permitted for git URL and purl sources. Falls back to `CDXGEN_SERVER_ALLOWED_HOSTS`. While either is set, git does not follow HTTP redirects. |
 | CDXGEN_GIT_HOST           | Default host assumed for git-based package references parsed from lockfiles (for example pnpm git dependencies). Defaults to `github.com`.                                                                             |
 
 ## Hugging Face
