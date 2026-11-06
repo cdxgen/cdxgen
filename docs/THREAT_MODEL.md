@@ -321,6 +321,7 @@ The toolchain version probes for formulation also run from the temporary directo
 - Server timeout: 10 minutes (configurable via `CDXGEN_SERVER_TIMEOUT_MS`)
 - Spawn timeout: 20 minutes (configurable via `CDXGEN_TIMEOUT_MS`)
 - Max buffer: 100MB (configurable via `CDXGEN_MAX_BUFFER`)
+- Parsers of scanned project files avoid regular expressions whose work grows faster than the input. The CrewAI reader for `agents.py` and `tasks.py`, for example, reads each file once
 
 **Residual risk:** Medium — no built-in rate limiting or concurrent request limits. The server is designed for trusted internal use. Deploy behind a reverse proxy for production exposure.
 
