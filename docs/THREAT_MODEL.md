@@ -84,6 +84,7 @@ Trust boundary 5: cdxgen container ←→ container host
 **Mitigations:**
 
 - Secure mode (`CDXGEN_SECURE_MODE=true`) disables automatic package installation
+- A config file (`.cdxgenrc`, `.cdxgen.json`, `.cdxgen.yml` or `.cdxgen.yaml`) in the working directory may set only the options listed in `PROJECT_CONFIG_OPTIONS` in `lib/helpers/projectConfig.js`. It cannot start the server, turn off certificate checks for Dependency-Track uploads, or enable feature flags, and every key that is not a declared option is ignored. That covers options only library callers pass, such as `dosaiCommand` and `traceCmd`, and yargs' `extends` key, which would otherwise load a module or another config file named in the file. Project types that inventory the host, such as `os`, `hbom` or `vscode-extension`, are dropped from the file's `type`
 - `safeSpawnSync` warns when `pip`/`uv install` is invoked without `--only-binary=:all:` (prevents `setup.py` execution during wheel builds)
 - `safeSpawnSync` warns when Python is invoked without `-S` flag
 - Users are advised to run in sandboxed environments for untrusted projects
@@ -119,6 +120,7 @@ Trust boundary 5: cdxgen container ←→ container host
 - `isValidDriveRoot()` prevents Unicode lookalike drive letters on Windows (CVE-2025-27210 mitigation)
 - Node.js `--permission` model (in secure mode) restricts filesystem access to explicitly allowed paths
 - `safeExistsSync` and `safeMkdirSync` check permissions before operations
+- Path options in a config file, whether spelled out or set through an alias such as `o`, must resolve inside the config's directory after symbolic links are resolved
 
 **Residual risk:** Low in secure mode, Medium in default mode.
 

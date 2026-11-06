@@ -278,6 +278,8 @@ output: bom.json
 only: org.springframework
 ```
 
+cdxgen reads the config file from the directory it runs in, which is often the project being scanned, so the file carries that project's trust. A config file may set the command-line options by their long name, in kebab-case or camelCase, or by the aliases `o`, `t`, `r`, `p`, `c` and `exclude-regex`. Any other key, including yargs' `extends`, is ignored with a warning. The options `server`, `server-host`, `server-port`, `skip-dt-tls-check`, `feature-flags` and `help` are left to the command line and `CDXGEN_` environment variables, and so are project types that inventory the host rather than the project, such as `os`, `hbom` or `vscode-extension`. Path options such as `output` must stay inside the config's directory after symbolic links are resolved. Settings such as `install-deps`, `deep` and `server-url` print a notice when a config file sets them.
+
 ### Environment variables
 
 All command line arguments can also be passed as environment variables using the "CDXGEN\_" prefix.

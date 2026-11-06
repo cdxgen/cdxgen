@@ -63,6 +63,10 @@ import {
 } from "../lib/helpers/hbom.js";
 import { TRACE_MODE, thoughtEnd, thoughtLog } from "../lib/helpers/logger.js";
 import { resolvePluginBinary } from "../lib/helpers/plugins.js";
+import {
+  PROJECT_CONFIG_FILENAMES,
+  sanitizeProjectConfig,
+} from "../lib/helpers/projectConfig.js";
 import { importProtobomModule } from "../lib/helpers/protobomLoader.js";
 import { normalizeHuggingFaceReference } from "../lib/helpers/remote/huggingface.js";
 import {
@@ -105,7 +109,6 @@ import {
   setActivityContext,
   setDryRunMode,
   shouldRunPredictiveBomAudit,
-  toCamel,
 } from "../lib/helpers/utils.js";
 import { postProcess } from "../lib/stages/postgen/postgen.js";
 import { convertCycloneDxToSpdx } from "../lib/stages/postgen/spdxConverter.js";
@@ -113,36 +116,49 @@ import { auditEnvironment } from "../lib/stages/pregen/envAudit.js";
 import { prepareEnv } from "../lib/stages/pregen/pregen.js";
 import { validateBom, validateSpdx } from "../lib/validator/bomValidator.js";
 
-// Support for config files
-const configPaths = [
-  ".cdxgenrc",
-  ".cdxgen.json",
-  ".cdxgen.yml",
-  ".cdxgen.yaml",
-];
+// Support for config files. The config file lives in the directory under
+// analysis, so it carries that directory's trust level; see
+// sanitizeProjectConfig for the boundary this applies.
 let config = {};
-for (const configPattern of configPaths) {
+for (const configPattern of PROJECT_CONFIG_FILENAMES) {
   const configPath = join(process.cwd(), configPattern);
   if (!safeExistsSync(configPath)) {
     continue;
   }
   try {
-    if (configPath.endsWith(".yml") || configPath.endsWith(".yaml")) {
-      config = _load(fs.readFileSync(configPath, "utf-8"));
-    } else {
-      config = JSON.parse(fs.readFileSync(configPath, "utf-8"));
-    }
+    const parsedConfig =
+      configPath.endsWith(".yml") || configPath.endsWith(".yaml")
+        ? _load(fs.readFileSync(configPath, "utf-8"))
+        : JSON.parse(fs.readFileSync(configPath, "utf-8"));
     if (isSecureMode || DEBUG_MODE) {
       console.log(`Config file '${configPath}' loaded successfully.`);
     }
-    const sensitiveOptions = ["server-url", "include-formulation"];
-    for (const opt of sensitiveOptions) {
-      if (config[opt] !== undefined || config[toCamel(opt)] !== undefined) {
-        const foundKey = config[opt] !== undefined ? opt : toCamel(opt);
-        console.warn(
-          `SECURE MODE: Config file sets '${foundKey}'. Verify this is intentional.`,
-        );
-      }
+    const sanitized = sanitizeProjectConfig(parsedConfig, dirname(configPath));
+    config = sanitized.config;
+    for (const key of sanitized.operatorOnly) {
+      console.warn(
+        `\x1b[1;35mConfig file '${configPath}' sets '${key}', which only the command line or a CDXGEN_ environment variable may set. Ignoring it.\x1b[0m`,
+      );
+    }
+    for (const projectType of sanitized.hostScopeTypes) {
+      console.warn(
+        `\x1b[1;35mConfig file '${configPath}' selects the project type '${projectType}', which inventories this host rather than the project. Ignoring it. Pass '-t ${projectType}' on the command line if this is intentional.\x1b[0m`,
+      );
+    }
+    for (const key of sanitized.ignored) {
+      console.warn(
+        `Config file '${configPath}' sets '${key}', which is not an option a config file can set. Ignoring it.`,
+      );
+    }
+    for (const entry of sanitized.rejected) {
+      console.warn(
+        `\x1b[1;35mConfig file '${configPath}' sets '${entry}', which points outside the project directory. Ignoring it. Pass the option on the command line if this is intentional.\x1b[0m`,
+      );
+    }
+    for (const foundKey of sanitized.announced) {
+      console.warn(
+        `Config file '${configPath}' sets '${foundKey}'. Verify this is intentional.`,
+      );
     }
   } catch (_e) {
     console.log("Invalid config file", configPath);
