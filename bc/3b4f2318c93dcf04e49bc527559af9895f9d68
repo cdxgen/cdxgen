@@ -1,0 +1,94 @@
+lib/inventory/cyclonedx20.poku.js
+  h_6a4cc5cdf68def 539-540,556-566,707-754,756,758,762-766,770-772,774-776,1115,1133,1147,1169,1199-1200
+lib/inventory/cyclonedx20Common.js
+  h_6a4cc5cdf68def 6-7,25-32,39-40,44-84
+lib/inventory/cyclonedx20Parties.js
+  h_6a4cc5cdf68def 16-27,31-33,35,42,63,89-111,146,159-166,169-171,231,269-271,288-552
+lib/inventory/cyclonedx20Read.js
+  h_6a4cc5cdf68def 4-25,28-53,56-57,60-98,101-105,112-132,134-145,150-156,158-167,170-177,179-183,185-186,188-214,216,218-235,237-241,243-252,254-298,300-302,305,308-312,314-319,322,326-329,331-340,342,345-371,374-387,389-410,412-413,415-424,426-468,470-480,482,485-503,505-507,509-510,515-526,528-542,544-551,553-555,558-571,573-574,576-577,579-580,582
+lib/inventory/cyclonedx20Read.poku.js
+  h_6a4cc5cdf68def 1-595
+lib/inventory/cyclonedx20ReadCommon.js
+  h_6a4cc5cdf68def 1-374
+lib/inventory/cyclonedx20ReadComponents.js
+  h_6a4cc5cdf68def 1-629
+lib/inventory/cyclonedx20ReadContext.js
+  h_6a4cc5cdf68def 1-261
+lib/inventory/cyclonedx20ReadEvidence.js
+  h_6a4cc5cdf68def 1-396
+lib/inventory/cyclonedx20ReadSections.js
+  h_6a4cc5cdf68def 1-584
+lib/inventory/cyclonedx20Render.js
+  h_6a4cc5cdf68def 17,27-33,49-57,132-139,147-150,157-159,169,172,184-189,191-196,200-207,214-228,272-273,275-276,416-421,424-428,440-450,454,472,505-510,519-520,526,551-554,556
+lib/inventory/cyclonedx20RenderComponents.js
+  h_6a4cc5cdf68def 14,19,154-156,298,304-322,324-327,329,374-378,400,430,439-445,463-466
+lib/inventory/cyclonedx20RenderEvidence.js
+  h_6a4cc5cdf68def 338-344
+lib/inventory/cyclonedx20RenderSections.js
+  h_6a4cc5cdf68def 1-381
+lib/inventory/cyclonedx20Tables.js
+  h_6a4cc5cdf68def 34,131,152,157,214,250,291,300-573
+lib/stages/postgen/specVersionCompat.js
+  h_6a4cc5cdf68def 30,119-121,125-129
+test/data/cyclonedx-2.0-read/reverse.json
+  h_6a4cc5cdf68def 1-205
+types/lib/inventory/cyclonedx20Common.d.ts
+  h_6a4cc5cdf68def 12-39
+types/lib/inventory/cyclonedx20Common.d.ts.map
+  h_6a4cc5cdf68def 1
+types/lib/inventory/cyclonedx20Parties.d.ts
+  h_6a4cc5cdf68def 7-13,15,24,57-87,89-90
+types/lib/inventory/cyclonedx20Parties.d.ts.map
+  h_6a4cc5cdf68def 1
+types/lib/inventory/cyclonedx20Read.d.ts
+  h_6a4cc5cdf68def 4-25,29-33
+types/lib/inventory/cyclonedx20Read.d.ts.map
+  h_6a4cc5cdf68def 1
+types/lib/inventory/cyclonedx20ReadCommon.d.ts
+  h_6a4cc5cdf68def 1-69
+types/lib/inventory/cyclonedx20ReadCommon.d.ts.map
+  h_6a4cc5cdf68def 1
+types/lib/inventory/cyclonedx20ReadComponents.d.ts
+  h_6a4cc5cdf68def 1-77
+types/lib/inventory/cyclonedx20ReadComponents.d.ts.map
+  h_6a4cc5cdf68def 1
+types/lib/inventory/cyclonedx20ReadContext.d.ts
+  h_6a4cc5cdf68def 1-84
+types/lib/inventory/cyclonedx20ReadContext.d.ts.map
+  h_6a4cc5cdf68def 1
+types/lib/inventory/cyclonedx20ReadEvidence.d.ts
+  h_6a4cc5cdf68def 1-30
+types/lib/inventory/cyclonedx20ReadEvidence.d.ts.map
+  h_6a4cc5cdf68def 1
+types/lib/inventory/cyclonedx20ReadSections.d.ts
+  h_6a4cc5cdf68def 1-45
+types/lib/inventory/cyclonedx20ReadSections.d.ts.map
+  h_6a4cc5cdf68def 1
+types/lib/inventory/cyclonedx20Render.d.ts.map
+  h_6a4cc5cdf68def 1
+types/lib/inventory/cyclonedx20RenderComponents.d.ts.map
+  h_6a4cc5cdf68def 1
+types/lib/inventory/cyclonedx20RenderEvidence.d.ts.map
+  h_6a4cc5cdf68def 1
+types/lib/inventory/cyclonedx20RenderSections.d.ts
+  h_6a4cc5cdf68def 1-43
+types/lib/inventory/cyclonedx20RenderSections.d.ts.map
+  h_6a4cc5cdf68def 1
+types/lib/inventory/cyclonedx20Tables.d.ts
+  h_6a4cc5cdf68def 24,40,44,46,53,56,59,61-119
+types/lib/inventory/cyclonedx20Tables.d.ts.map
+  h_6a4cc5cdf68def 1
+types/lib/stages/postgen/specVersionCompat.d.ts.map
+  h_6a4cc5cdf68def 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "bc3b4f2318c93dcf04e49bc527559af9895f9d68",
+  "prompts": {},
+  "humans": {
+    "h_6a4cc5cdf68def": {
+      "author": "Team AppThreat <cloud@appthreat.com>"
+    }
+  }
+}
