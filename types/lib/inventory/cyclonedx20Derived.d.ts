@@ -11,6 +11,11 @@
  * derives them again from the model, so they follow edits to the model and
  * are never declared twice. Every other carried entry is kept, first, and a
  * derived entry never replaces a carried entry with the same refId.
+ *
+ * Only cdxgen's own analysis is derived: the sections are derived only when
+ * the model's `metadata.tools` lists cdxgen with a bom-ref, the rule
+ * identityClaimContext applies to cdxgen's identity claims. Another tool's
+ * BOM converted with `cdx-convert --to 2.0` gets no derived section.
  */
 /** A risk entry renderCycloneDx20 derives (see collectPqcRisks). */
 export declare const isDerivedRisk: (risk: any) => boolean;
@@ -19,7 +24,16 @@ export declare const isDerivedBlueprint: (blueprint: any) => boolean;
 /** An agent party renderCycloneDx20 derives (see collectAgentBehaviour). */
 export declare const isDerivedAgentParty: (party: any) => boolean;
 /**
- * Derive the 2.0 sections of an internal model.
+ * Does the model's `metadata.tools` list cdxgen with a bom-ref? The same
+ * test decides whether cdxgen's identity claims are written.
+ *
+ * @param {object} internalBom The 1.x-shaped internal model
+ * @returns {boolean} True when cdxgen is a listed tool
+ */
+export declare function isCdxgenListedTool(internalBom: object): boolean;
+/**
+ * Derive the 2.0 sections of an internal model; all empty unless cdxgen is a
+ * listed tool (isCdxgenListedTool).
  *
  * @param {object} internalBom The 1.x-shaped internal model
  * @returns {{risks: object[], agentParties: object[], blueprints: object[]}}

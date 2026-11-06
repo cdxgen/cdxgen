@@ -99,7 +99,6 @@ import {
 import {
   DEPENDENCY_TRACK_CDX20_ERROR,
   getInternalBom,
-  loadBomForAnalysis,
   refreshRenderedBom,
 } from "../lib/inventory/cyclonedx20.js";
 import {
@@ -1709,6 +1708,8 @@ const signCycloneDxPayload = (jsonPayload, keyDir, target, options) => {
  * @throws {Error} When signing was requested but cannot be completed
  */
 const signJssPayload = (jsonPayload, keyDir, target, options) => {
+  // Signing a supplied key needs SBOM_SIGN_ALGORITHM (see needsBomSigning);
+  // only --generate-key-and-sign reaches here without one.
   const algorithm = readEnvironmentVariable("SBOM_SIGN_ALGORITHM") || "Ed25519";
   const sbomSignPrivateKey = readEnvironmentVariable("SBOM_SIGN_PRIVATE_KEY", {
     sensitive: true,
@@ -1761,7 +1762,7 @@ const signJssPayload = (jsonPayload, keyDir, target, options) => {
       `Signing a CycloneDX 2.0 document needs a private key: set SBOM_SIGN_PRIVATE_KEY (PEM), SBOM_SIGN_PRIVATE_KEY_BASE64, or pass --generate-key-and-sign. Algorithm in use: ${algorithm}.`,
     );
   }
-  thoughtLog(`Signing the BOM for "${target}" with JSS.`);
+  thoughtLog(`Signing the BOM for "${target}" with JSS (${algorithm}).`);
   const signedBom = signJssBom(JSON.parse(jsonPayload), {
     algorithm,
     privateKey,
@@ -2392,6 +2393,12 @@ const writeCycloneDxOutput = (jsonFile, bomJson, options) => {
           args,
           internalCycloneDxInputPath || options.output,
         );
+        // The analysis reads the in-memory 1.x model. At 2.0 that model is
+        // labelled 2.0 but is not a 2.0 document, so it is handed over
+        // directly instead of being read back from the temporary file.
+        if (bomNSData?.internalBomJson) {
+          evinseOptions.inputBomJson = bomNSData.internalBomJson;
+        }
         try {
           const dbObjMap = await evinserModule.prepareDB(evinseOptions);
           if (dbObjMap) {
@@ -2405,14 +2412,11 @@ const writeCycloneDxOutput = (jsonFile, bomJson, options) => {
             );
             // The scope filter is deferred until here so the analyzers get to
             // prove that an optional dependency is actually used. At 2.0
-            // createEvinseFile runs postProcess again and returns the
+            // createEvinseFile runs postProcess again and would return the
             // rendered 2.0 document; `returnInternalModel` asks for the 1.x
             // model instead, which becomes the internal model and is
-            // re-rendered below. loadBomForAnalysis covers a caller that
-            // still hands back a rendered document.
-            const evinseInternalBom = evinseJson
-              ? loadBomForAnalysis(evinseJson).internalBom
-              : evinseJson;
+            // re-rendered below.
+            const evinseInternalBom = evinseJson;
             if (bomNSData.internalBomJson) {
               bomNSData.internalBomJson = applyEvidenceBasedFilter(
                 evinseInternalBom,

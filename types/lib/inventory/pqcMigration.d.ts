@@ -19,18 +19,25 @@
  * 2. `cryptoProperties.oid` (rsaEncryption, id-ecPublicKey, the RSA, ECDSA,
  *    EdDSA and DSA signature OIDs, X25519/X448, DH, …).
  * 3. The component name, lower case with only letters and digits kept
- *    ("SHA-512/224" is `sha512224`), then resolveAlgorithmFamily(name).
+ *    ("SHA-512/224" is `sha512224`), then resolveAlgorithmFamily(name). A
+ *    name that resolves to a hash family but names a DSA, RSA or ECDSA
+ *    signature ("SHA256withDSA", "dsa-with-sha256", "RSA-SHA-512") is that
+ *    signature algorithm, not its digest.
  *
  * A class whose members have a key family (rsa, ff, ec) is checked against
  * the minimum key size of IR 8547 Tables 2 and 4 (112 bits of classical
  * strength: RSA and finite-field 2048, elliptic curve 224). An algorithm with
  * a known smaller key, and a public or private key asset
  * (`related-crypto-material`) whose size is smaller, is classed
- * `below-minimum-strength` instead. The key size of an algorithm comes from a
- * trailing number in its name ("RSA-1024"), its `parameterSetIdentifier`
- * when that is a plausible key size (at least 512 for rsa and ff, 160 to 571
- * for ec; a digest size such as "256" on an RSA signature is not a key size)
- * or the bit size in its curve name.
+ * `below-minimum-strength` instead. The key size of an algorithm comes from
+ * the first of these that gives a plausible key size (at least 512 for rsa
+ * and ff, 160 to 571 for ec): a trailing number in its name ("RSA-1024")
+ * unless it follows a hash token ("RSASSA-PSS-SHA-512",
+ * "sha512WithRSAEncryption-512"), an RFC 7919 group name ("ffdhe2048"), its
+ * `parameterSetIdentifier` (a digest size such as "256" on an RSA signature
+ * is not a key size) or the bit size in its curve name. A key asset is
+ * checked with its own size against the base class of its algorithm, so a
+ * 4096-bit key of an algorithm named "RSA-1024" is not reported again.
  *
  * The likelihood and impact levels are the fixed per-class rating the data
  * file records. No confidence is emitted (the rating is not a measurement)

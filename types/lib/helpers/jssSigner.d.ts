@@ -71,6 +71,14 @@ export declare const JSS_HASH_ALGORITHMS: any;
 /** JSS algorithm names this module signs and verifies. */
 export declare const JSS_SIGNATURE_ALGORITHMS: readonly (string | string[] | null)[];
 /**
+ * Whether this runtime's crypto provides Ed448. Bun links BoringSSL, which
+ * has no Ed448, so key generation and key loading fail there with an
+ * OpenSSL error; this check turns that into a clear message.
+ *
+ * @returns {boolean} true when Ed448 keys can be created
+ */
+export declare function isEd448Available(): boolean;
+/**
  * Checks that a key fits a JSS algorithm, the binding X.590 Table 1 (clause
  * 6.2.2) defines through JWA [IETF RFC 7518] sections 3.3 to 3.5 and
  * [IETF RFC 8037]: RS* need an rsa key, PS* an rsa or rsa-pss key, both of

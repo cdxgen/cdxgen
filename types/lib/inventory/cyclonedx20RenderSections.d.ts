@@ -27,8 +27,10 @@ export declare function renderAnnotations(annotations: any, stats: any): any[] |
  */
 export declare function renderCitations(citations: any, usesInventory: any, stats: any): any[] | undefined;
 /**
- * Render vulnerabilities: `bom-ref` → `refId`, `cwes` → `weaknesses` and the
- * tools object.
+ * Render vulnerabilities: `bom-ref` → `refId`, `cwes` → `weaknesses`, the
+ * tools object, credits as 2.0 organizations and contacts and the proof of
+ * concept's attachments. Members 2.0 has no field for are counted; `affects`
+ * references are resolved once every refId is known (resolveAffectsRefs).
  */
 export declare function renderVulnerabilities(vulnerabilities: any, stats: any): any[] | undefined;
 /**

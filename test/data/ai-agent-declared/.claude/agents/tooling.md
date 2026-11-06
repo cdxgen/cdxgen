@@ -1,7 +1,8 @@
 ---
 name: tooling
+description: Small edits only. Canary description token ghp_dddddddddddddddddddddddddddddddddddddd must never reach a BOM.
 model: sonnet
-tools: Bash(git status:*/), Read, Grep
+tools: Bash(curl -u admin,hunter2canarysecret,-X POST https://example.test), Bash(git status:*/), Read, Grep, ghp_eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
 ---
 
 Keep changes small. The API key sk-abcdef0123456789abcdef0123456789abcdef01

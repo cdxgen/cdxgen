@@ -5,7 +5,9 @@
     "url": "https://csrc.nist.gov/pubs/ir/8547/final"
   },
   "$excludedNote": "Not classified, because IR 8547 Tables 2 and 4 do not list them: RSAES-PKCS1 (SP 800-56B specifies RSA key transport with OAEP and KTS, not PKCS #1 v1.5 encryption) and X3DH (a Signal protocol, not an SP 800-56A scheme). Quantum-safe per IR 8547 Tables 3 and 5-8, so no risk: ML-DSA, SLH-DSA, LMS/HSS, XMSS, ML-KEM, AES, Ascon, and SHA-2/SHA-3 members with at least 128 bits of collision strength.",
-  "unclassifiedPrimitives": ["combiner"],
+  "unclassifiedPrimitives": [
+    "combiner"
+  ],
   "$unclassifiedPrimitivesNote": "NIST IR 8547 Section 3.2.1: a hybrid (composite) key-establishment scheme combines the shared secrets of its component schemes and is approved when one input comes from an approved scheme, so a combiner is not classified by the OID of one of its inputs.",
   "quantumSafeFamilies": [
     "ML-DSA",
@@ -26,6 +28,14 @@
     "rsa": 2048,
     "ff": 2048,
     "ec": 224
+  },
+  "namedGroupKeySizes": {
+    "$comment": "Finite-field groups whose name carries no separate key size: the ffdhe groups of RFC 7919, whose modulus size is the number in the name.",
+    "ffdhe2048": 2048,
+    "ffdhe3072": 3072,
+    "ffdhe4096": 4096,
+    "ffdhe6144": 6144,
+    "ffdhe8192": 8192
   },
   "classes": {
     "quantum-vulnerable-signature": {
@@ -63,7 +73,15 @@
         "1.2.840.113549.1.1.13": "rsa",
         "1.2.840.113549.1.1.14": "rsa",
         "1.2.840.113549.1.1.15": "rsa",
-        "1.2.840.113549.1.1.16": "rsa"
+        "1.2.840.113549.1.1.16": "rsa",
+        "2.16.840.1.101.3.4.3.9": "ec",
+        "2.16.840.1.101.3.4.3.10": "ec",
+        "2.16.840.1.101.3.4.3.11": "ec",
+        "2.16.840.1.101.3.4.3.12": "ec",
+        "2.16.840.1.101.3.4.3.13": "rsa",
+        "2.16.840.1.101.3.4.3.14": "rsa",
+        "2.16.840.1.101.3.4.3.15": "rsa",
+        "2.16.840.1.101.3.4.3.16": "rsa"
       },
       "names": {
         "ecdsa": "ec",
@@ -109,7 +127,12 @@
         "x25519": null,
         "x448": null,
         "rsaoaep": "rsa",
-        "rsaesoaep": "rsa"
+        "rsaesoaep": "rsa",
+        "ffdhe2048": "ff",
+        "ffdhe3072": "ff",
+        "ffdhe4096": "ff",
+        "ffdhe6144": "ff",
+        "ffdhe8192": "ff"
       }
     },
     "quantum-vulnerable-public-key": {
@@ -185,12 +208,12 @@
       }
     },
     "dsa-generation-not-approved": {
-      "source": "FIPS 186-5 (February 2023): DSA is no longer approved for digital signature generation and may be used only to verify signatures generated before; NIST IR 8547 Table 2 does not list it",
+      "source": "FIPS 186-5 (February 2023), section 4 (The Digital Signature Algorithm) and Appendix E: DSA is no longer approved for digital signature generation and may be used to verify signatures generated prior to the implementation date of FIPS 186-5; NIST IR 8547 Table 2 does not list it",
       "url": "https://csrc.nist.gov/pubs/fips/186-5/final",
-      "transition": "Not approved for signature generation; verification of existing signatures only",
+      "transition": "No longer approved for digital signature generation; may be used only to verify signatures generated prior to the implementation date of FIPS 186-5",
       "riskName": "Signature algorithm no longer approved",
-      "statement": "DSA is no longer approved for digital signature generation (FIPS 186-5) and is not among the signature algorithms NIST IR 8547 Table 2 lists for the transition.",
-      "rationale": "{algorithm} is DSA, which FIPS 186-5 no longer approves for signature generation; only verification of existing signatures remains allowed.",
+      "statement": "FIPS 186-5 no longer approves DSA for digital signature generation; DSA may be used only to verify signatures generated prior to the implementation date of FIPS 186-5 (section 4).",
+      "rationale": "{algorithm} is DSA, which FIPS 186-5 (section 4) no longer approves for digital signature generation; it may be used only to verify signatures generated prior to the implementation date of FIPS 186-5.",
       "likelihood": "high",
       "impact": "moderate",
       "families": {
@@ -200,7 +223,13 @@
         "1.2.840.10040.4.1": null,
         "1.2.840.10040.4.3": null,
         "2.16.840.1.101.3.4.3.1": null,
-        "2.16.840.1.101.3.4.3.2": null
+        "2.16.840.1.101.3.4.3.2": null,
+        "2.16.840.1.101.3.4.3.3": null,
+        "2.16.840.1.101.3.4.3.4": null,
+        "2.16.840.1.101.3.4.3.5": null,
+        "2.16.840.1.101.3.4.3.6": null,
+        "2.16.840.1.101.3.4.3.7": null,
+        "2.16.840.1.101.3.4.3.8": null
       },
       "names": {
         "dsa": null

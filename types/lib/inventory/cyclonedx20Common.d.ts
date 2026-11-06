@@ -61,6 +61,13 @@ export declare function countDrop(stats: any, label: any, count?: number): void;
  * turned into a reference, a retargeted annotation subject).
  */
 export declare function countRewrite(stats: any, label: any, count?: number): void;
+/**
+ * Count a 1.x JSF `signature` the render leaves out: it signs the 1.x
+ * serialization, so it cannot verify over the re-rendered 2.0 document, and
+ * 2.0 `signatures` hold JSS signatures
+ * (#/$defs/cyclonedx-common-2.0/$defs/signatures).
+ */
+export declare function countSignatureDrop(stats: any, path: any): void;
 /** Count every defined key of `source` that `handled` does not list. */
 export declare function countUnmapped(stats: any, prefix: any, source: any, handled: any): void;
 /** Clone the listed fields of `source` that are defined onto `target`. */
@@ -77,8 +84,9 @@ export declare function setDefined(out: any, key: any, value: any): void;
  * Convert a 1.x `environmentVars` array of {name, value} entries into the 2.0
  * map of names to values
  * (#/$defs/cyclonedx-formulation-2.0/$defs/environmentVars). Reverse for read.
+ * Entries the map cannot hold are counted when `stats` is given.
  */
-export declare function convertEnvironmentVars(value: any): any;
+export declare function convertEnvironmentVars(value: any, stats: any): any;
 /** Turn a 2.0 environmentVars map back into the 1.x {name, value} array. */
 export declare function reverseEnvironmentVars(value: any): any;
 /** Every refId string declared anywhere under the given roots. */

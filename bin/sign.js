@@ -27,6 +27,7 @@ import {
 } from "../lib/helpers/jssSigner.js";
 import {
   getNonCycloneDxErrorMessage,
+  isCycloneDx20SpecVersion,
   isCycloneDxBom,
 } from "../lib/inventory/bomUtils.js";
 import { parseStrictJson } from "../lib/parsers/strictJson.js";
@@ -290,7 +291,9 @@ function signJsfDocument(bomJson) {
 // A JSS (X.590) countersignature of the only root entry vouches for that
 // entry and its chain, so every object of the chain must verify (as for a
 // JSF chain). A new root entry covers the same content as the existing ones,
-// so at least one existing entry must verify (as for JSF signers).
+// so the existing signatures must pass the cdx-verify policy: at least one
+// entry verifies, no entry that names a given key fails, and every
+// countersignature verifies.
 function checkExistingJssSignatures(bomJson) {
   const chain = args.mode === "chain";
   const keys = (args.verifyExistingWith || []).map((keyFile) => {
@@ -299,8 +302,11 @@ function checkExistingJssSignatures(bomJson) {
     }
     return fs.readFileSync(keyFile, "utf8");
   });
-  const results = keys.length
-    ? verifyJss(bomJson, { publicKeys: keys }).results
+  const verdict = keys.length
+    ? verifyJss(bomJson, { publicKeys: keys })
+    : undefined;
+  const results = verdict
+    ? verdict.results
     : bomJson.signatures.map((entry, index) => ({
         path: `signatures[${index}]`,
         algorithm: entry?.algorithm,
@@ -308,9 +314,10 @@ function checkExistingJssSignatures(bomJson) {
         reason: "no --verify-existing-with key was given",
       }));
   const unverified = results.filter((result) => result.status !== "verified");
-  if (chain ? !unverified.length : unverified.length < results.length) {
+  if (chain ? !unverified.length : verdict?.valid) {
     return;
   }
+  const someVerified = unverified.length < results.length;
   const details = unverified.map(
     (result) =>
       `  - ${result.path} (${displayValue(result.algorithm)}): ${result.reason || "not verified"}`,
@@ -320,7 +327,9 @@ function checkExistingJssSignatures(bomJson) {
       [
         chain
           ? `Warning: countersigning a JSS signature chain with ${unverified.length} unverified signature object(s):`
-          : `Warning: appending a JSS signature although none of the ${unverified.length} existing signature object(s) verified:`,
+          : someVerified
+            ? `Warning: appending a JSS signature although ${unverified.length} existing signature object(s) failed verification:`
+            : `Warning: appending a JSS signature although none of the ${unverified.length} existing signature object(s) verified:`,
         ...details,
       ].join("\n"),
     );
@@ -330,7 +339,9 @@ function checkExistingJssSignatures(bomJson) {
     [
       chain
         ? `the countersignature would vouch for ${unverified.length} existing JSS signature object(s) that could not be verified:`
-        : `none of the ${unverified.length} existing JSS signature object(s) could be verified, so the content may have changed since it was signed:`,
+        : someVerified
+          ? "the existing JSS signatures do not pass verification, so cdx-verify would reject the signed document:"
+          : `none of the ${unverified.length} existing JSS signature object(s) could be verified, so the content may have changed since it was signed:`,
       ...details,
       "Pass --verify-existing-with <public key> for each earlier signer, or --allow-unverified-history to sign anyway.",
     ].join("\n"),
@@ -430,7 +441,10 @@ try {
 
   let signedBom = bomJson;
   if (hasPrivateKey && privateKeyContent) {
-    if (bomJson.specVersion === "2.0" || bomJson.specFormat) {
+    if (
+      isCycloneDx20SpecVersion(bomJson.specVersion) ||
+      bomJson.specFormat !== undefined
+    ) {
       // A CycloneDX 2.0 document signs with JSS (ITU-T X.590); the JSF
       // signer below is 1.x only.
       signedBom = signJssDocument(bomJson);

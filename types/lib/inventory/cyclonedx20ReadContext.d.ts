@@ -11,6 +11,40 @@
  * indexes and `~`/`/` escaped.
  */
 /**
+ * Mark `bom` as cdxgen's 1.x-shaped internal model. The mark is a
+ * non-enumerable symbol property, so it never reaches JSON output, and a
+ * copy made with JSON or structuredClone does not carry it.
+ *
+ * @param {object} bom The internal model
+ * @returns {object} The same object
+ */
+export declare function markInternalModel(bom: object): object;
+/**
+ * Whether `bom` carries the internal model mark of markInternalModel.
+ *
+ * @param {object} bom Any value
+ * @returns {boolean} True for a marked internal model
+ */
+export declare function isMarkedInternalModel(bom: object): boolean;
+export declare const MAX_READ_DEPTH = 256;
+/**
+ * Copy a parsed JSON value, leaving out every object nested deeper than
+ * `maxDepth` objects and recording its JSON pointer. Arrays do not count
+ * towards the depth, so every object entry of one array sits at the same
+ * depth and is cut with the rest; an array left empty by the cut is left out
+ * of its parent object too. Iterative, so no input depth can exhaust the
+ * call stack.
+ *
+ * @param {*} value Parsed JSON value
+ * @param {number} [maxDepth] Deepest object level kept
+ * @returns {{value: *, truncated: string[]}} The copy and the pointers of the
+ *   objects that were cut
+ */
+export declare function cloneWithDepthLimit(value: any, maxDepth?: number): {
+    value: any;
+    truncated: string[];
+};
+/**
  * A fresh reader context for one 2.0 document.
  *
  * @param {object} doc The (private, cloned) 2.0 document

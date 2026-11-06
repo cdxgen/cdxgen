@@ -98,6 +98,13 @@ A 2.0 input is read into cdxgen's 1.x-shaped internal model first. Every loss
 of that read is printed on stderr with a JSON pointer into the input, whatever
 the target:
 
+A document with a `specFormat`, or a `specVersion` of 2.0 or later, is read
+as 2.0, so a stray 1.x member such as `components` next to `inventories` is a
+loss rather than a reason to treat the input as 1.x. Objects nested deeper
+than 256 levels are cut, each with a loss. cdxgen keeps 2.0-only sections on its internal model
+under a `cdx20Sections` member; that member of a 1.x input is ignored, so it
+never reaches a `--to 2.0` output.
+
 ```text
 Reading the CycloneDX 2.0 input into cdxgen's 1.x model reported 2 loss(es); the CycloneDX 1.7 output lacks what they name:
   - /risks: 2.0-only section with no 1.x field: dropped from 1.x and SPDX output (a 2.0 render of the read model keeps it)
@@ -109,7 +116,18 @@ uses. A 1.6 or 1.7 input is sorted first, so both commands write the same
 order; values the 2.0 format has no place for are printed with their counts.
 A 2.0 input keeps its own order, and its 2.0-only sections and unchanged
 objects come back as they were; any value of the input the output still lacks
-(member order ignored) is printed.
+(member order ignored) is printed, once for each missing occurrence, so a
+dropped duplicate counts.
+
+A 2.0 formula has no member for its components, so the renderer declares
+them in `definitions.components`. In a document with an inventory subject the
+reader tells them apart from the SBOM by where they are referenced. A
+subject-less document keeps its SBOM components in `definitions.components`
+too, so each formula there names its own components in the
+`cdx:formulation:componentRefs` property, a JSON array of refIds, and the
+reader puts each listed component back into every formula that lists it. A
+formula component without a refId, or whose refId is also an SBOM component,
+cannot be told apart and stays only in the SBOM; both are counted.
 
 At 2.0, cdxgen claims only analysis it did. When the BOM's `metadata.tools`
 lists cdxgen with a `bom-ref`, each identity evidence entry it renders
@@ -139,17 +157,20 @@ the 1.x model.
 
 #### Sections cdxgen derives at 2.0
 
-Three 2.0 sections are derived from the 1.x model on every render, by
+Three 2.0 sections are derived from the 1.x model by
 `cdxgen --spec-version 2.0`, `cdx-convert --to 2.0` and `tracebom`:
 post-quantum migration risks, the parties and blueprint of declared coding
-agents, and the 2.0 members of hardware components. Derived entries have
+agents, and the 2.0 members of hardware components. The risks and the agent
+sections are cdxgen's own assessment, so they are derived only when the
+document lists cdxgen in `metadata.tools`, the same rule identity claims
+follow. Converting another tool's document adds neither. Derived entries have
 fixed refIds (`risk-pqc-<asset bom-ref>`, `party-agent-<agent bom-ref>`,
 `blueprint-declared-agents`). Reading a 2.0 document drops the derived entries
 that match what the render derives again from the read model, with no loss; a
 derived entry that no longer matches is reported as a loss and replaced. Every
 other risk, blueprint and party is kept and comes first, so a round trip never
-declares a party or blueprint twice. A 2.0 input whose crypto assets have no
-risks yet gains them on `--to 2.0`; that is an addition, not a loss.
+declares a party or blueprint twice. A cdxgen 2.0 document whose crypto assets
+have no risks yet gains them on `--to 2.0`; that is an addition, not a loss.
 
 ##### Post-quantum migration risks
 
@@ -165,7 +186,7 @@ come from NIST IR 8547 (final, October 2026) and, for DSA, FIPS 186-5:
 | `below-minimum-strength`               | IR 8547 Tables 2 and 4 list only >= 112-bit parameters         | Below the minimum strength of the currently approved parameters                              | very-high  | major    |
 | `hash-sha1`                            | IR 8547 Table 8, footnote 4                                    | Currently deprecated; disallowed in FIPS-validated modules after 2030                       | high       | moderate |
 | `symmetric-112-bit`                    | IR 8547 Section 4.1.3 and Table 8 (SHA-224, SHA-512/224, SHA3-224) | Disallowed in 2030                                                                       | medium     | moderate |
-| `dsa-generation-not-approved`          | FIPS 186-5                                                     | Not approved for signature generation; verification of existing signatures only             | high       | moderate |
+| `dsa-generation-not-approved`          | FIPS 186-5 Section 4                                           | No longer approved for signature generation; may verify signatures generated before FIPS 186-5 | high       | moderate |
 
 An algorithm asset is classified by `algorithmFamily`, then by OID
 (rsaEncryption, id-ecPublicKey, the RSA, ECDSA, EdDSA and DSA signature OIDs,
@@ -174,11 +195,14 @@ then by its name in lower case with only letters and digits kept. A
 quantum-safe family (ML-DSA, SLH-DSA, LMS, XMSS, ML-KEM, AES, Ascon, SHA-2 and
 SHA-3 at 128 bits and more, HMAC, HKDF, KMAC) gets no entry, and neither does a
 hybrid combiner (IR 8547 Section 3.2.1) or a scheme the IR does not list
-(RSAES-PKCS1, X3DH). An RSA or finite-field key under 2048 bits and an
-elliptic-curve key under 224 bits (112 bits of strength, SP 800-57 Part 1
-Table 2) is `below-minimum-strength`: an algorithm whose name, parameter set or
-curve gives the key size, and a public or private key asset whose `size` is
-smaller.
+(RSAES-PKCS1, X3DH). A signature name such as `SHA256withDSA` or
+`dsa-with-sha256` is classified by its signature algorithm, not its digest. An
+RSA or finite-field key under 2048 bits and an elliptic-curve key under 224 bits
+(112 bits of strength, SP 800-57 Part 1 Table 2) is `below-minimum-strength`:
+an algorithm whose name, RFC 7919 group (`ffdhe2048` and up), parameter set or
+curve gives the key size, and a public or private key asset whose own `size` is
+smaller. A number that follows a digest name, as in `RSASSA-PSS-SHA-512`, is the
+digest size, not the key size.
 
 Each entry has `refId`, `name`, the class `statement`, `domains`
 `[{type: "security"}]`, `affects` (the asset), `inherentRisk` with the

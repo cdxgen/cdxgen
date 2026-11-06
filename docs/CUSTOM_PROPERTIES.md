@@ -1890,6 +1890,10 @@ property is emitted that appears nowhere in this file.
 - `cdx:flatpak:runtime`
 - `cdx:flatpak:type`
 
+**`cdx:formulation:*`**
+
+- `cdx:formulation:componentRefs`: on a CycloneDX 2.0 formula of a subject-less document, a JSON array of the refIds of the `definitions.components` entries that belong to the formula. 2.0 has no formula member for them; the 2.0 reader moves the listed components back into the formula and drops the property. See [CDX_CONVERT.md](CDX_CONVERT.md#cyclonedx-20).
+
 **`cdx:github:*`**
 
 - `cdx:github:action:buildCacheDisableInput`

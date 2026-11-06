@@ -6,14 +6,18 @@ import crypto from "node:crypto";
  */
 export declare const MAX_SIGNATURE_ENTRIES = 32;
 /**
- * Members the CycloneDX 1.4 to 1.7 and 2.0 schemas define at the root of a
- * BOM. A root signature is only accepted on an object made of these members,
- * so a signed component, service, or annotation cannot pass as a signed BOM.
- * The 2.0 draft adds `inventories`, `signatures`, `risks`, `blueprints`,
- * `threats`, `controls`, `perspectives` and `profiles` at the root; the 1.x
- * members stay listed so a signed 1.x document keeps verifying.
+ * Members the CycloneDX 1.4 to 1.7 schemas define at the root of a BOM, plus
+ * `specFormat`, which an early 2.0 draft used in place of `bomFormat`. A JSF
+ * root signature is only accepted on an object made of these members, so a
+ * signed component, service, or annotation cannot pass as a signed BOM.
  */
 export declare const BOM_ROOT_MEMBERS: readonly string[];
+/**
+ * Members the CycloneDX 2.0 draft schema defines at the root of a document.
+ * A JSS root signature (lib/helpers/jssSigner.js) is only accepted on an
+ * object made of these members.
+ */
+export declare const BOM_20_ROOT_MEMBERS: readonly string[];
 /**
  * Renders a value taken from a document for a message. JSON can make any field
  * an object or array, and interpolating those directly can throw.

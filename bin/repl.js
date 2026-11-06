@@ -23,6 +23,7 @@ import { isSpdxJsonLd } from "../lib/inventory/bomUtils.js";
 import {
   formatReadLossNotice,
   loadBomForAnalysis,
+  renderCycloneDx20,
 } from "../lib/inventory/cyclonedx20.js";
 import {
   printAiBomDatasets,
@@ -94,6 +95,20 @@ if (readEnvironmentVariable("CDXGEN_NODE_OPTIONS")) {
 
 // The current sbom is stored here
 let sbom;
+// For an imported CycloneDX 2.0 document, `sbom` holds the 1.x-shaped model
+// the pivots read. `sbomIs20` says the BOM is a 2.0 one, so .validate and
+// .save work with 2.0 documents; `importedBom20` keeps the document as read
+// until .update changes the model.
+let sbomIs20 = false;
+let importedBom20;
+
+/** The current BOM as a document: the 2.0 one for a 2.0 import. */
+const getBomDocument = () => {
+  if (!sbomIs20) {
+    return sbom;
+  }
+  return importedBom20 ?? renderCycloneDx20(sbom);
+};
 const getInteractiveBom = () => toCycloneDxLikeBom(sbom);
 
 function getContainerRegistryHost(reference) {
@@ -435,8 +450,11 @@ export const importSbom = async (sbomOrPath) => {
       const importedBom = JSON.parse(readFileSync(importTarget, "utf-8"));
       // A CycloneDX 2.0 document is read into the 1.x internal model so the
       // pivots below keep working; the number of read losses is noted once.
-      const { internalBom, losses } = loadBomForAnalysis(importedBom);
+      const { internalBom, losses, specVersion } =
+        loadBomForAnalysis(importedBom);
       sbom = internalBom;
+      sbomIs20 = specVersion === "2.0" && internalBom !== importedBom;
+      importedBom20 = sbomIs20 ? importedBom : undefined;
       if (losses.length) {
         console.log(`ℹ ${formatReadLossNotice(losses)}`);
         for (const loss of losses) {
@@ -488,10 +506,14 @@ export const importSbom = async (sbomOrPath) => {
       "protobuf BOM input",
     );
     sbom = readBinary(importTarget, true);
+    sbomIs20 = false;
+    importedBom20 = undefined;
     printSummary(sbom);
   } else if (isSupportedSbomRegistryReference(importTarget)) {
     try {
       sbom = await getBomWithOras(importTarget);
+      sbomIs20 = false;
+      importedBom20 = undefined;
       if (sbom) {
         printSummary(sbom);
       } else {
@@ -572,6 +594,8 @@ cdxgenRepl.defineCommand("create", {
     });
     if (bomNSData) {
       sbom = bomNSData.bomJson;
+      sbomIs20 = false;
+      importedBom20 = undefined;
       console.log("✅ BOM imported successfully.");
       console.log("💭 Type .print to view the BOM as a table");
       console.log(
@@ -1396,7 +1420,8 @@ cdxgenRepl.defineCommand("validate", {
   help: "validate the bom using jsonschema",
   action() {
     if (sbom) {
-      validateBom(sbom).then((result) => {
+      // A 2.0 import is validated as the 2.0 document, not as the model.
+      validateBom(getBomDocument()).then((result) => {
         if (result) {
           console.log("BOM is valid!");
         }
@@ -1423,7 +1448,9 @@ cdxgenRepl.defineCommand("save", {
         this.displayPrompt();
         return;
       }
-      safeWriteSync(saveToFile, JSON.stringify(sbom, null, 2));
+      // A 2.0 import is saved as a 2.0 document rendered from the model.
+      const document = sbomIs20 ? renderCycloneDx20(sbom) : sbom;
+      safeWriteSync(saveToFile, JSON.stringify(document, null, 2));
       console.log(`BOM saved successfully to ${saveToFile}`);
     } else {
       console.log(
@@ -1451,6 +1478,8 @@ cdxgenRepl.defineCommand("update", {
       const newSbom = await expression.evaluate(sbom);
       if (newSbom && newSbom.components.length <= sbom.components.length) {
         sbom = newSbom;
+        // The model changed, so a 2.0 import is rendered again on use.
+        importedBom20 = undefined;
       }
       console.log("BOM updated successfully.");
     } else {

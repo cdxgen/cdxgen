@@ -135,7 +135,7 @@ If `bom.json` exists in the current directory, `cdxi` imports it automatically.
 | ---------------- | -------------------------------------------------------------------------------------------------------- |
 | `.create <path>` | Generate a BOM for a local path and load it into the session                                             |
 | `.import <path>` | Import a CycloneDX JSON BOM, SPDX JSON-LD BOM, or `.cdx` / `.proto` binary                               |
-| `.save [path]`   | Save the current BOM                                                                                     |
+| `.save [path]`   | Save the current BOM; an imported CycloneDX 2.0 BOM is saved as a 2.0 document rendered from the model   |
 | `.summary`       | Print a high-level BOM summary                                                                           |
 | `.aibom`         | Render an operator-friendly AI-BOM view with pedigree, datasets, licenses, and quantization explanations |
 | `.sbom`          | Print the current BOM object                                                                             |
@@ -153,20 +153,20 @@ If `bom.json` exists in the current directory, `cdxi` imports it automatically.
 
 ### Inventory views
 
-| Command           | Description                                                       |
-| ----------------- | ----------------------------------------------------------------- |
-| `.print`          | Print components as a table                                       |
-| `.tree`           | Print the dependency tree                                         |
-| `.provides`       | Print the `provides` tree                                         |
-| `.cryptos`        | Show `cryptographic-asset` components                             |
-| `.sourcecryptos`  | Show source-derived crypto algorithm components                   |
-| `.unpackagedbins` | Show executable file components not owned by OS packages          |
-| `.unpackagedlibs` | Show shared library file components not owned by OS packages      |
-| `.instrumented`   | Show dynamically instrumented libraries and verification evidence |
-| `.frameworks`     | Show framework components                                         |
-| `.licenses`       | Show license distribution                                         |
-| `.tagcloud`       | Show a text cloud from component descriptions and tags            |
-| `.validate`       | Validate the current BOM against CycloneDX JSON Schema            |
+| Command           | Description                                                                                     |
+| ----------------- | ----------------------------------------------------------------------------------------------- |
+| `.print`          | Print components as a table                                                                     |
+| `.tree`           | Print the dependency tree                                                                       |
+| `.provides`       | Print the `provides` tree                                                                       |
+| `.cryptos`        | Show `cryptographic-asset` components                                                           |
+| `.sourcecryptos`  | Show source-derived crypto algorithm components                                                 |
+| `.unpackagedbins` | Show executable file components not owned by OS packages                                        |
+| `.unpackagedlibs` | Show shared library file components not owned by OS packages                                    |
+| `.instrumented`   | Show dynamically instrumented libraries and verification evidence                               |
+| `.frameworks`     | Show framework components                                                                       |
+| `.licenses`       | Show license distribution                                                                       |
+| `.tagcloud`       | Show a text cloud from component descriptions and tags                                          |
+| `.validate`       | Validate the current BOM against CycloneDX JSON Schema; an imported 2.0 BOM is validated as 2.0 |
 
 ### Provenance and trust
 

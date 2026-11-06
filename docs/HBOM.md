@@ -301,10 +301,14 @@ From the mapper's result the renderer takes, for each hardware component:
 - identifiers such as `serial-number`, `asset-tag`, `mac-address`, `imei` and
   `model-number`, appended to the component's own identifiers (a purl stays)
   and asserted by the same party as the rest of the document's identifiers
-  (`party-cdxgen`), which is declared when referenced. They are asserted only
-  when the collector recorded `cdx:hbom:identifierPolicy` =
-  `raw-identifiers-enabled` for the run; a redacted run never
-  yields identifiers, and redacted values never become identities.
+  (`party-cdxgen`), which is declared when referenced. Per-unit identifiers
+  (serial number, asset tag, MAC address, IMEI) are asserted only when the
+  collector recorded `cdx:hbom:identifierPolicy` = `raw-identifiers-enabled`
+  for the run. A model number names the product, not the unit, so it is
+  asserted in a redacted run too. Redacted values never become identities.
+- `boardLocation` is not written: 2.0 reserves `boardLocation.designators` for
+  circuit-board reference designators, so firmware slot labels such as `DIMM3`
+  stay in the `cdx:hbom:*` properties.
 - `classification` (`category` from `cdx:hbom:hardwareClass`, and taxonomy
   `codes` as `{standard, value}` objects; anything else is dropped and
   counted).

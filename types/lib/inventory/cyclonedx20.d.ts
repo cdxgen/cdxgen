@@ -34,8 +34,19 @@ export { CDX20_INTERNAL_SECTIONS_KEY, CDXGEN_PARTY_REF_ID, DEPENDENCY_TRACK_CDX2
  * Load any CycloneDX BOM for analysis: the document as is for 1.x, the
  * internal 1.x-shaped model for 2.0.
  *
+ * A document whose specVersion is 2.0 or later, or which has a specFormat, is
+ * read as 2.0, and the reader reports stray 1.x members such as
+ * `components` as losses. A model the 2.0 reader or the 2.0 compatibility
+ * pass produced carries the internal model mark (markInternalModel) and is
+ * returned as is; cdxgen hands that model to the evidence analysis in memory
+ * (evinse's `inputBomJson`), because the mark does not survive JSON. The
+ * internal sections key is never trusted on a 1.x document: the returned
+ * copy leaves it out, so it cannot reach a 2.0 render.
+ *
  * @param {object} bomJson Parsed CycloneDX BOM
  * @returns {{internalBom: object, specVersion: string, losses: Array<{pointer: string, reason: string}>}}
+ * @throws {Error} With a short message when the 2.0 reader fails on the
+ *   document
  */
 export declare function loadBomForAnalysis(bomJson: object): {
     internalBom: object;

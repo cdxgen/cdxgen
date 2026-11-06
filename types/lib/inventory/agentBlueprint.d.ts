@@ -13,10 +13,11 @@
  *   (#/$defs/cyclonedx-party-2.0/$defs/party, role `agent`) whose `system`
  *   (#/$defs/cyclonedx-party-2.0/$defs/system) has kind `agent`, `ref` the
  *   agent component's refId, `label` its name and `permissions` the tool
- *   names its config allows. A permission is reduced to the tool name before
- *   any "(" (`Bash(git status:*)` is `Bash`), so arguments, paths and
- *   commands never reach the BOM, and names that are not plain identifiers
- *   are dropped. The list is unique and sorted.
+ *   names its config allows. The allow list is split on the commas outside
+ *   parentheses, and each entry is reduced to the tool name before any "("
+ *   (`Bash(git status:*)` is `Bash`), so arguments, paths and commands
+ *   never reach the BOM. Names that are not safe tool names are dropped
+ *   (see lib/inventory/agentToolNames.js). The list is unique and sorted.
  *
  * - one blueprint (#/$defs/cyclonedx-blueprint-2.0/$defs/blueprint,
  *   modelTypes `behavioral`) whose actors reference the agent parties and

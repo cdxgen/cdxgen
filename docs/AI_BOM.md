@@ -137,6 +137,17 @@ For AI/ML scans, the primary AI and agentic evidence is emitted under:
 
 and any discovered formulation services are also merged into top-level `services` for normal BOM consumers.
 
+### Agent tool allow lists
+
+`cdx:agent:tools` and `cdx:agent:disallowedTools` record the tools an agent
+definition allows or denies, at every spec version. The allow list is split on
+the commas outside parentheses and each entry keeps only its tool name, so the
+commands, paths and arguments an entry scopes its tool to never reach the BOM.
+An entry that had a scope is written `Name(...)`: `Read, Bash(git status:*)`
+becomes `Read,Bash(...)`. Names that are not plain tool names, such as paths or
+anything that looks like an access token, are dropped. The rules are in
+`lib/inventory/agentToolNames.js`.
+
 ### Declared coding agents at CycloneDX 2.0
 
 At `--spec-version 2.0` the declared side of coding-agent behaviour becomes
@@ -150,8 +161,9 @@ component with `cdx:agent:role` (Kiro agents, Claude subagents), or whose
   whose `ref` is the agent component, `label` its name, and `permissions` the
   tool names its config allows (`cdx:agent:tools`,
   `cdx:agent:permissionCapabilities`). Each permission is cut to the tool name
-  before any `(`, so `Bash(git status:*)` is `Bash`; names with other
-  characters are dropped; the list is unique and sorted.
+  before any `(`, so `Bash(git status:*)` is `Bash`; Kiro's `@server/tool`
+  form is kept; names with other characters, or that look like an access
+  token, are dropped; the list is unique and sorted.
 - One blueprint, `blueprint-declared-agents`, with `modelTypes: ["behavioral"]`,
   lists the agent parties as actors. Its `behaviors.instances` have
   `acknowledgment: ["declared"]` and a behavior from

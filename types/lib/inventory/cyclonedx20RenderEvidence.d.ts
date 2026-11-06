@@ -17,11 +17,9 @@ export declare const TOOL_PARTY_REF_ID_PREFIX = "party-tool-";
  * claims only analysis it did:
  *
  * - `toolRefId` is the refId of the cdxgen tool component, present only when
- *   the BOM's `metadata.tools` lists cdxgen with a `bom-ref`.
- *   findCdxgenToolBomRef (lib/inventory/citations.js) returns the first tool
- *   bom-ref containing "cdxgen", which is a cdxgen-plugins-bin helper such as
- *   `trustinspector-cdxgen` whenever one is listed first, so the tool is
- *   matched by name among the same refs. Identity evidence carries cdxgen's
+ *   the BOM's `metadata.tools` lists cdxgen with a `bom-ref` (the tool named
+ *   "cdxgen", the same match findCdxgenToolBomRef in
+ *   lib/inventory/citations.js makes). Identity evidence carries cdxgen's
  *   assertion, its tool and method results only when this is set.
  * - `assertingTool` is set only without `toolRefId`: the first other tool
  *   component with a `bom-ref` (`{refId, toolRefId, label?}`), whose party
@@ -104,8 +102,9 @@ export declare function convertComponentEvidence(evidence: any, stats: any): {
  * Convert cryptoProperties
  * (#/$defs/cyclonedx-cryptography-2.0/$defs/cryptoProperties, required
  * `[assetType]`): drop the deprecated free-text `curve` (2.0 keeps only
- * `ellipticCurve`), algorithm families and protocol types the pinned 2.0 enums
- * do not list, and move `algorithmRef` under `securedBy`.
+ * `ellipticCurve`) and the algorithm families and protocol types the pinned
+ * 2.0 enums do not list, move the deprecated 1.x reference members into
+ * `relatedCryptographicAssets`, and count every member 2.0 has no field for.
  */
 export declare function convertCryptoProperties(cryptoProperties: any, stats: any): any;
 //# sourceMappingURL=cyclonedx20RenderEvidence.d.ts.map

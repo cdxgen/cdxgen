@@ -149,7 +149,14 @@ if (!isCycloneDxBom(bomJson)) {
 }
 // A 2.0 input reads into the 1.x-shaped internal model first; the losses say
 // what of the input that model (and so any 1.x or SPDX output) cannot hold.
-const { internalBom, losses } = loadBomForAnalysis(bomJson);
+let analysis;
+try {
+  analysis = loadBomForAnalysis(bomJson);
+} catch (err) {
+  console.error(`cdx-convert: ${args.input}: ${err.message}`);
+  process.exit(1);
+}
+const { internalBom, losses } = analysis;
 const isCdx20Input =
   isCycloneDx20SpecVersion(bomJson?.specVersion) || !!bomJson?.specFormat;
 const cdxSpecVersion = isCdx20Input

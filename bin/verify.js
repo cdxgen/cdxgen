@@ -22,6 +22,7 @@ import {
 import { verifyJssBom } from "../lib/helpers/jssSigner.js";
 import {
   getNonCycloneDxErrorMessage,
+  isCycloneDx20SpecVersion,
   isCycloneDxBom,
 } from "../lib/inventory/bomUtils.js";
 import { isProtoBomPath } from "../lib/inventory/protobomLoader.js";
@@ -161,7 +162,9 @@ if (!isCycloneDxBom(bomJson)) {
   process.exit(1);
 }
 // A CycloneDX 2.0 document carries JSS signatures (ITU-T X.590).
-const isJssBom = bomJson.specVersion === "2.0" || Boolean(bomJson.specFormat);
+const isJssBom =
+  isCycloneDx20SpecVersion(bomJson.specVersion) ||
+  bomJson.specFormat !== undefined;
 if (isJssBom && args.secretKey) {
   console.log(
     "--secret-key is not supported for CycloneDX 2.0 (JSS) signatures: X.590 clause 6.2.2 says HMAC algorithms SHOULD NOT be used, and cdx-verify does not verify them. Pass the signer's --public-key instead.",

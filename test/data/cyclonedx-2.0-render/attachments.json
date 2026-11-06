@@ -1,0 +1,158 @@
+{
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.7",
+  "serialNumber": "urn:uuid:a77ac400-0000-4000-8000-000000000003",
+  "version": 1,
+  "metadata": {
+    "timestamp": "2026-01-01T00:00:00Z",
+    "component": {
+      "type": "application",
+      "name": "attached-app",
+      "version": "3.0.0",
+      "bom-ref": "pkg:npm/attached-app@3.0.0",
+      "purl": "pkg:npm/attached-app@3.0.0"
+    }
+  },
+  "components": [
+    {
+      "type": "library",
+      "name": "patched",
+      "version": "1.0.0",
+      "bom-ref": "pkg:npm/patched@1.0.0",
+      "purl": "pkg:npm/patched@1.0.0",
+      "swid": {
+        "tagId": "swidgen-patched-1.0.0",
+        "name": "patched",
+        "version": "1.0.0",
+        "tagVersion": 1,
+        "patch": false
+      },
+      "licenses": [
+        {
+          "license": {
+            "bom-ref": "license-custom",
+            "name": "Custom License",
+            "text": {
+              "contentType": "text/markdown",
+              "content": "# Custom License"
+            }
+          }
+        },
+        {
+          "license": {
+            "name": "Encoded License",
+            "text": {
+              "contentType": "text/plain; charset=utf-8",
+              "encoding": "base64",
+              "content": "TGljZW5zZQ=="
+            }
+          }
+        }
+      ],
+      "releaseNotes": {
+        "type": "patch",
+        "title": "1.0.0",
+        "notes": [
+          {
+            "locale": "en-US",
+            "text": { "contentType": "text/markdown", "content": "Fixed a bug." }
+          },
+          { "locale": "fr-FR" }
+        ]
+      },
+      "pedigree": {
+        "patches": [
+          {
+            "type": "backport",
+            "diff": {
+              "text": { "contentType": "text/x-diff", "content": "--- a\n+++ b\n" },
+              "url": "https://example.com/fix.diff"
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "services": [
+    {
+      "bom-ref": "service-notes",
+      "name": "notes-service",
+      "releaseNotes": {
+        "type": "minor",
+        "notes": [
+          { "text": { "contentType": "not a media type", "content": "Service notes." } }
+        ]
+      }
+    }
+  ],
+  "dependencies": [
+    {
+      "ref": "pkg:npm/attached-app@3.0.0",
+      "dependsOn": ["pkg:npm/patched@1.0.0", "pkg:npm/missing@0.0.1"]
+    },
+    { "ref": "pkg:npm/patched@1.0.0", "dependsOn": [] },
+    { "ref": "pkg:npm/not-declared@9.9.9", "dependsOn": ["pkg:npm/patched@1.0.0"] }
+  ],
+  "vulnerabilities": [
+    {
+      "bom-ref": "vuln-1",
+      "id": "CVE-2026-0001",
+      "source": { "name": "NVD", "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-0001" },
+      "cwes": [79],
+      "proofOfConcept": {
+        "reproductionSteps": "Send the payload.",
+        "supportingMaterial": [
+          { "contentType": "text/markdown", "content": "# Steps" },
+          { "contentType": "text/xml", "content": "<payload/>" },
+          { "contentType": "image/png", "encoding": "base64", "content": "iVBORw0KGgo=" }
+        ]
+      },
+      "credits": {
+        "organizations": [
+          { "bom-ref": "credit-org", "name": "Finder Labs", "url": ["https://finder.example.com"] }
+        ],
+        "individuals": [
+          { "bom-ref": "credit-person", "name": "Jo Finder", "email": "jo@finder.example.com" }
+        ]
+      },
+      "affects": [
+        { "ref": "pkg:npm/patched@1.0.0" },
+        { "ref": "pkg:npm/not-declared@9.9.9" },
+        { "ref": "urn:cdx:3e671687-395b-41f5-a30f-a58921a69b79/1#pkg:npm/elsewhere@1.0.0" }
+      ],
+      "signature": { "algorithm": "ES256", "value": "c2lnbmF0dXJl" }
+    },
+    {
+      "bom-ref": "vuln-2",
+      "id": "CVE-2026-0002",
+      "affects": [{ "ref": "pkg:npm/gone@1.0.0" }]
+    }
+  ],
+  "formulation": [
+    {
+      "bom-ref": "formula-env",
+      "workflows": [
+        {
+          "bom-ref": "workflow-env",
+          "uid": "env",
+          "taskTypes": ["build"],
+          "steps": [
+            {
+              "name": "build",
+              "commands": [{ "executed": "npm run build" }]
+            }
+          ],
+          "inputs": [
+            {
+              "environmentVars": [
+                { "name": "NODE_ENV", "value": "production" },
+                "CI",
+                { "name": "NODE_ENV", "value": "development" }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

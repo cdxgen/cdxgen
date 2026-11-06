@@ -14,6 +14,12 @@
  * applySpecVersionCompatibility strips the key for 1.x output.
  */
 export declare const CDX20_INTERNAL_SECTIONS_KEY = "cdx20Sections";
+/**
+ * The formula property that names, as a JSON array of refIds, the
+ * definitions components of a subject-less 2.0 document that belong to the
+ * formula (2.0 has no formula member for them).
+ */
+export declare const FORMULA_COMPONENT_REFS_PROPERTY = "cdx:formulation:componentRefs";
 /** refId of the cdxgen party declared in definitions.parties. */
 export declare const CDXGEN_PARTY_REF_ID = "party-cdxgen";
 /**

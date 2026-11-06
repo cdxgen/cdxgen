@@ -49,6 +49,11 @@ export declare function collectToolBomRefs(bomJson: Object): string[];
  * Resolve the bom-ref of the cdxgen tool component, if present. This is the
  * canonical attribution target for inventory that cdxgen collected itself.
  *
+ * The tool component named "cdxgen" wins; a bare bom-ref (legacy array-style
+ * tools) counts when it is cdxgen's own npm purl. A helper whose bom-ref only
+ * mentions cdxgen, such as a cdxgen-plugins-bin tool like trustinspector, is
+ * never the cdxgen tool.
+ *
  * @param {Object} bomJson CycloneDX BOM
  * @returns {string|undefined} bom-ref of the cdxgen tool, or undefined
  */
