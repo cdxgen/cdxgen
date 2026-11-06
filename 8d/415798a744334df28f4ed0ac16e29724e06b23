@@ -1,0 +1,21 @@
+lib/core/ui.stream-contract.poku.js
+  s_4435ae7db7ee1b::t_b063a413f5b6fe 13-16,96-106,108
+lib/inventory/cyclonedx20Read.poku.js
+  s_4435ae7db7ee1b::t_9bca06b79a38a8 786-799
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "8d415798a744334df28f4ed0ac16e29724e06b23",
+  "prompts": {},
+  "sessions": {
+    "s_4435ae7db7ee1b": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "42550933-1c9c-482f-8a1f-bb55d9514f4c",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
