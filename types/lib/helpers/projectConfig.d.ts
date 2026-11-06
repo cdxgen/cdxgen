@@ -37,12 +37,15 @@ export declare const PROJECT_CONFIG_OPTION_ALIASES: Map<string, string>;
  * such as the analyzer commands library callers pass, are dropped. Path options are confined to the config's own
  * directory - a scanned project may choose where in itself the BOM lands, but
  * not write outside it - and project types that inventory the host rather
- * than the scan path are dropped. Options that redirect data off the host or
- * widen what cdxgen does are announced on the console.
+ * than the scan path are dropped. Exclude and include patterns are kept
+ * within the bounds of boundUntrustedGlobPatterns, so a project cannot make
+ * every file match against thousands of brace-expanded patterns. Options that
+ * redirect data off the host or widen what cdxgen does are announced on the
+ * console.
  *
  * @param {Object} config parsed config file contents
  * @param {string} configDir directory the config file was read from
- * @returns {{config: Object, rejected: string[], announced: string[], ignored: string[], operatorOnly: string[], hostScopeTypes: string[]}} sanitized config and what it did
+ * @returns {{config: Object, rejected: string[], announced: string[], ignored: string[], operatorOnly: string[], hostScopeTypes: string[], refusedPatterns: {key: string, pattern: string, reason: string}[]}} sanitized config and what it did
  */
 export declare function sanitizeProjectConfig(config: Object, configDir: string): {
     config: Object;
@@ -51,5 +54,10 @@ export declare function sanitizeProjectConfig(config: Object, configDir: string)
     ignored: string[];
     operatorOnly: string[];
     hostScopeTypes: string[];
+    refusedPatterns: {
+        key: string;
+        pattern: string;
+        reason: string;
+    }[];
 };
 //# sourceMappingURL=projectConfig.d.ts.map
