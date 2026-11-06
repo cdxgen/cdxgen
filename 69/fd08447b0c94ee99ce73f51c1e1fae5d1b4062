@@ -1,0 +1,42 @@
+.gitignore
+  h_6a4cc5cdf68def 212-215
+docs/AI_BOM.md
+  h_6a4cc5cdf68def 140-173
+docs/CDX_CONVERT.md
+  h_6a4cc5cdf68def 142,144-152,190-193
+lib/inventory/agentBlueprint.js
+  h_6a4cc5cdf68def 4-10,12-19,21-29,31-33,36-45,47,51-64,70-71,75,80-86,88-92,95-96,100-113,115-120,123-157,159-170,174-177,186-194,196-198,200-203,211
+lib/inventory/agentBlueprint.poku.js
+  h_6a4cc5cdf68def 2,4-5,9,18,20-24,26-27,31,35-41,44-54,57-84,86-87,89-94,96,100,105-114,117-126,138-164,169-174,180-192,195,198-206,210,212-213,216,220-230,232-233,235-236,238,243-252,254-268,270-272,274,278-351,353-354,357-423
+lib/inventory/cyclonedx20Derived.js
+  h_6a4cc5cdf68def 4-5,7-13,18-22,33-41,46,49-54,67-69,88-102,112
+lib/inventory/cyclonedx20Read.js
+  h_6a4cc5cdf68def 39-40,586-596,616-648,653,671
+lib/inventory/cyclonedx20Render.js
+  h_6a4cc5cdf68def 513-516
+test/data/ai-agent-declared/.claude/agents/tooling.md
+  h_6a4cc5cdf68def 1-8
+test/data/ai-agent-declared/.claude/skills/deploy/SKILL.md
+  h_6a4cc5cdf68def 1-8
+types/lib/inventory/agentBlueprint.d.ts
+  h_6a4cc5cdf68def 4-10,12-19,21-29,31-33,35-38,40-53,55,57-60
+types/lib/inventory/agentBlueprint.d.ts.map
+  h_6a4cc5cdf68def 1
+types/lib/inventory/cyclonedx20Derived.d.ts
+  h_6a4cc5cdf68def 4-5,7-13,17-20,25,29-30,33-35,50
+types/lib/inventory/cyclonedx20Derived.d.ts.map
+  h_6a4cc5cdf68def 1
+types/lib/inventory/cyclonedx20Read.d.ts.map
+  h_6a4cc5cdf68def 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "69fd08447b0c94ee99ce73f51c1e1fae5d1b4062",
+  "prompts": {},
+  "humans": {
+    "h_6a4cc5cdf68def": {
+      "author": "Team AppThreat <cloud@appthreat.com>"
+    }
+  }
+}
