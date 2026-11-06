@@ -18,6 +18,8 @@ Permissions can be used to control what system resources cdxgen has access to or
 
 ## Limitations of Permissions Model
 
+Node's permission model follows symbolic links, including to paths outside `--allow-fs-write`. cdxgen therefore never writes through a symbolic link at an output path such as `bom.json`: it replaces the link with a regular file and prints a warning. Paths under `/dev` and `/proc`, such as `/dev/stdout`, are written as given.
+
 Secure mode only restricts cdxgen from performing certain activities such as package installation. If installs are turned back on with `--install-deps`, an allowed build tool evaluates the scanned project's files (build scripts, `.mvn/` configuration, MSBuild response files, SwiftPM manifests) as it normally would. It does not provide security guarantees in the presence of malicious code.
 
 ## Required permissions

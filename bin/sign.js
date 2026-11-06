@@ -10,6 +10,7 @@ import {
   readEnvironmentVariable,
   retrieveCdxgenVersion,
   safeExistsSync,
+  safeWriteSync,
 } from "../lib/ecosystems/utils.js";
 import {
   checkSignatureEntries,
@@ -257,7 +258,7 @@ try {
     });
 
     const outputPath = args.output || args.input;
-    fs.writeFileSync(outputPath, JSON.stringify(signedBom, null, null));
+    safeWriteSync(outputPath, JSON.stringify(signedBom, null, null));
 
     console.log(`Successfully signed BOM and saved to '${outputPath}'`);
     console.log(

@@ -155,16 +155,37 @@ for (const configPattern of PROJECT_CONFIG_FILENAMES) {
     continue;
   }
   try {
-    if (configPath.endsWith(".yml") || configPath.endsWith(".yaml")) {
-      config = _load(fs.readFileSync(configPath, "utf-8"));
-    } else {
-      config = JSON.parse(fs.readFileSync(configPath, "utf-8"));
-    }
+    const parsedConfig =
+      configPath.endsWith(".yml") || configPath.endsWith(".yaml")
+        ? _load(fs.readFileSync(configPath, "utf-8"))
+        : JSON.parse(fs.readFileSync(configPath, "utf-8"));
     if (isSecureMode || DEBUG_MODE) {
       console.log(`Config file '${configPath}' loaded successfully.`);
     }
-    const sanitized = sanitizeProjectConfig(config, dirname(configPath));
+    const sanitized = sanitizeProjectConfig(parsedConfig, dirname(configPath));
     config = sanitized.config;
+    for (const key of sanitized.operatorOnly) {
+      console.warn(
+        `\x1b[1;35mConfig file '${configPath}' sets '${key}', which only the command line or a CDXGEN_ environment variable may set. Ignoring it.\x1b[0m`,
+      );
+    }
+    for (const projectType of sanitized.hostScopeTypes) {
+      console.warn(
+        `\x1b[1;35mConfig file '${configPath}' selects the project type '${projectType}', which inventories this host rather than the project. Ignoring it. Pass '-t ${projectType}' on the command line if this is intentional.\x1b[0m`,
+      );
+    }
+    for (const key of sanitized.ignored) {
+      console.warn(
+        `Config file '${configPath}' sets '${key}', which is not an option a config file can set. Ignoring it.`,
+      );
+    }
+    for (const { key, pattern, reason } of sanitized.refusedPatterns) {
+      const shownPattern =
+        pattern.length > 80 ? `${pattern.slice(0, 77)}...` : pattern;
+      console.warn(
+        `\x1b[1;35mConfig file '${configPath}' sets the ${key} pattern '${shownPattern}', which ${reason}. Ignoring it. Pass the pattern on the command line if this is intentional.\x1b[0m`,
+      );
+    }
     for (const entry of sanitized.rejected) {
       console.warn(
         `\x1b[1;35mConfig file '${configPath}' sets '${entry}', which points outside the project directory. Ignoring it. Pass the option on the command line if this is intentional.\x1b[0m`,

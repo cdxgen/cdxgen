@@ -1,6 +1,5 @@
 #!/usr/bin/env node
 
-import { writeFileSync } from "node:fs";
 import { dirname } from "node:path";
 import process from "node:process";
 
@@ -13,6 +12,7 @@ import {
   retrieveCdxgenVersion,
   safeExistsSync,
   safeMkdirSync,
+  safeWriteSync,
 } from "../lib/ecosystems/utils.js";
 
 const args = yargs(hideBin(process.argv))
@@ -193,7 +193,7 @@ function writeOrPrint(output, outputPath) {
   if (!safeExistsSync(parentDir)) {
     safeMkdirSync(parentDir, { recursive: true });
   }
-  writeFileSync(outputPath, output);
+  safeWriteSync(outputPath, output);
 }
 
 (async () => {
