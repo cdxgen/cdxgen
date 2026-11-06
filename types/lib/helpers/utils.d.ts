@@ -1,3 +1,4 @@
+import { Buffer } from "node:buffer";
 import { PackageURL } from "packageurl-js";
 import { createNpmWorkspacePurl } from "./npmutils.js";
 export { createNpmWorkspacePurl };
@@ -46,7 +47,20 @@ export declare function resetRecordedActivities(): void;
  * @Boolean True if the path exists. False otherwise
  */
 export declare function safeExistsSync(filePath: string): any;
-export declare function safeWriteSync(filePath: any, data: any, options: any): undefined;
+/**
+ * Permission- and dry-run-aware wrapper around writeFileSync. Records the
+ * activity and returns undefined when blocked.
+ *
+ * The last component of the path is never followed when it is a symbolic
+ * link: the link is replaced with a regular file. Paths under /dev and /proc,
+ * such as /dev/stdout, are written through as given.
+ *
+ * @param {string} filePath File path to write.
+ * @param {string|Buffer} data Data to write.
+ * @param {Object} [options] writeFileSync options (encoding, mode, flag).
+ * @returns {void}
+ */
+export declare function safeWriteSync(filePath: string, data: string | Buffer, options?: Object): void;
 /**
  * Safely create a directory without crashing due to a lack of permissions
  *
@@ -180,6 +194,16 @@ export declare const PROJECT_TYPE_ALIASES: {
     dynamic: string[];
     "ai-provenance": string[];
 };
+/**
+ * Project types, with their aliases, that inventory the host cdxgen runs on
+ * rather than the scan path: installed packages, users, shell history, IDE
+ * and browser extensions, or the Maven, Gradle, sbt, Cargo and Helm caches in
+ * the user's home directory. Only the operator may select them; neither a
+ * server request nor a config file in the scanned directory can.
+ *
+ * @type {Set<string>}
+ */
+export declare const HOST_SCOPE_PROJECT_TYPES: Set<string>;
 export declare const PACKAGE_MANAGER_ALIASES: {
     scala: string[];
 };
