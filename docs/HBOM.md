@@ -294,8 +294,9 @@ What each `cdx:hbom:*` property means in 2.0 is owned by cdx-hbom, through its
 optional `./cdx20` export (`toCdx20HardwareComponent`). cdxgen loads it from
 the same place it loads the collector (a local `cdx-hbom` checkout next to
 cdxgen, else the installed package) and passes it to the renderer;
-`cdx-convert --to 2.0` and `tracebom` do the same. A cdx-hbom without the
-export, such as the published 0.7.0, leaves the generic conversion in place.
+`cdx-convert --to 2.0` and `tracebom` do the same. cdx-hbom 0.8.0 is the
+first release with the export; an older cdx-hbom leaves the generic conversion
+in place.
 From the mapper's result the renderer takes, for each hardware component:
 
 - identifiers such as `serial-number`, `asset-tag`, `mac-address`, `imei` and
