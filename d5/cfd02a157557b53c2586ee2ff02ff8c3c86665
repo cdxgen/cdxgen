@@ -1,0 +1,21 @@
+test/data/npm-version-resolution-repotest/slices/callsites.slices.json
+  s_2e023175c73838::t_937d4597dca109 1
+test/data/npm-version-resolution-repotest/slices/usages.slices.json
+  s_2e023175c73838::t_55854a082380de 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "d5cfd02a157557b53c2586ee2ff02ff8c3c86665",
+  "prompts": {},
+  "sessions": {
+    "s_2e023175c73838": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "d13e296a-9b0d-46ae-b890-6e315a16d65b",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
