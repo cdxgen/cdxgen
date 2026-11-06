@@ -41,12 +41,16 @@ export declare function getBranch(_configKey: any, dir: string): string | undefi
  */
 export declare function gitTreeHashes(dir: string): {};
 /**
- * Retrieves the files list from git
- * @param {string} dir repo directory
+ * Retrieves the files git tracks under a directory at HEAD. Only the
+ * directory's own subtree is listed, with names relative to it, so a scan of
+ * one directory of a larger repository does not record the rest of that
+ * repository.
  *
- * @returns Output from git config or undefined
+ * @param {string} dir directory inside a git working tree
+ *
+ * @returns {Object[]} files with their blob hash, name, OmniBOR id and SWHID
  */
-export declare function listFiles(dir: string): any[];
+export declare function listFiles(dir: string): Object[];
 /**
  * Execute a git command
  *
