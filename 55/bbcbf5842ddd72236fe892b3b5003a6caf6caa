@@ -1,0 +1,90 @@
+.gitignore
+  h_6a4cc5cdf68def 12-13
+bin/convert.js
+  h_6a4cc5cdf68def 23,30,40-41,48-52,70,82,137,141,150,152-172,174,179-180,183-190,199,231-251,253-277,280-283,286-288,296,299
+bin/evinse.js
+  h_6a4cc5cdf68def 15,17,24,370-373,376-377,379-380,399-402,404
+bin/repl.js
+  h_6a4cc5cdf68def 13,22-26,437,441-444
+bin/tracebom.poku.js
+  h_6a4cc5cdf68def 49-84
+docs/CDX_CONVERT.md
+  h_6a4cc5cdf68def 14-18,21-24,56,95-118,160-161
+docs/CLI.md
+  h_6a4cc5cdf68def 628
+lib/audit/index.js
+  h_6a4cc5cdf68def 33-36,131-132,151-152
+lib/evinser/evinser.js
+  h_6a4cc5cdf68def 75-78,311-349,369,1318,3075-3079,3257,3260
+lib/inventory/cyclonedx20.js
+  h_6a4cc5cdf68def 75-86
+lib/inventory/cyclonedx20.poku.js
+  h_6a4cc5cdf68def 930,1031-1042,1046-1102,1302,1349-1350,1353-1355
+lib/inventory/cyclonedx20Common.js
+  h_6a4cc5cdf68def 38,91-98
+lib/inventory/cyclonedx20Read.js
+  h_6a4cc5cdf68def 97,397
+lib/inventory/cyclonedx20Read.poku.js
+  h_6a4cc5cdf68def 75-79
+lib/inventory/cyclonedx20ReadComponents.js
+  h_6a4cc5cdf68def 26,49,482-485,488-544
+lib/inventory/cyclonedx20Readers.poku.js
+  h_6a4cc5cdf68def 2-9,11,17,19-24,26-29,32-61,104-105,198-199,210-218,265-271,276-279,282,284-290,292,304-307,309-314,323,330-342,344-374,380-381,383-385,389-455,457-516,522-544,547-577,579-641,643-659,662,665-668,670-679,681-682,684,686-702,705-715,717-724,726-742,744-746,748-761,763-767,769-777,779-836,839-855,858-861,863-864,867,873-894,896-898,900-918,921-931
+lib/inventory/cyclonedx20Render.js
+  h_6a4cc5cdf68def 12,262,269,330,468-471,617-620,623,641-652
+lib/inventory/cyclonedx20RenderComponents.js
+  h_6a4cc5cdf68def 27,453-467,472-474,489-495
+lib/inventory/cyclonedx20Tables.js
+  h_6a4cc5cdf68def 291-303,307
+lib/stages/postgen/specVersionCompat.js
+  h_6a4cc5cdf68def 775-826
+test/data/cyclonedx-2.0-read/deep-check-exceptions.json
+  h_6a4cc5cdf68def 1-9
+types/bin/repl.d.ts.map
+  h_6a4cc5cdf68def 1
+types/lib/audit/index.d.ts
+  h_6a4cc5cdf68def 6-7
+types/lib/audit/index.d.ts.map
+  h_6a4cc5cdf68def 1
+types/lib/evinser/evinser.d.ts
+  h_6a4cc5cdf68def 44-74
+types/lib/evinser/evinser.d.ts.map
+  h_6a4cc5cdf68def 1
+types/lib/inventory/cyclonedx20.d.ts
+  h_6a4cc5cdf68def 46-56
+types/lib/inventory/cyclonedx20.d.ts.map
+  h_6a4cc5cdf68def 1
+types/lib/inventory/cyclonedx20Common.d.ts
+  h_6a4cc5cdf68def 42-46
+types/lib/inventory/cyclonedx20Common.d.ts.map
+  h_6a4cc5cdf68def 1
+types/lib/inventory/cyclonedx20ReadComponents.d.ts.map
+  h_6a4cc5cdf68def 1
+types/lib/inventory/cyclonedx20Render.d.ts
+  h_6a4cc5cdf68def 13-16,22
+types/lib/inventory/cyclonedx20Render.d.ts.map
+  h_6a4cc5cdf68def 1
+types/lib/inventory/cyclonedx20RenderComponents.d.ts
+  h_6a4cc5cdf68def 21-23
+types/lib/inventory/cyclonedx20RenderComponents.d.ts.map
+  h_6a4cc5cdf68def 1
+types/lib/inventory/cyclonedx20Tables.d.ts
+  h_6a4cc5cdf68def 59-66
+types/lib/inventory/cyclonedx20Tables.d.ts.map
+  h_6a4cc5cdf68def 1
+types/lib/stages/postgen/specVersionCompat.d.ts
+  h_6a4cc5cdf68def 71-91
+types/lib/stages/postgen/specVersionCompat.d.ts.map
+  h_6a4cc5cdf68def 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "55bbcbf5842ddd72236fe892b3b5003a6caf6caa",
+  "prompts": {},
+  "humans": {
+    "h_6a4cc5cdf68def": {
+      "author": "Team AppThreat <cloud@appthreat.com>"
+    }
+  }
+}
