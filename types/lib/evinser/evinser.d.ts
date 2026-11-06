@@ -42,6 +42,37 @@ export declare function defaultEvidenceLanguage(dirPath: string, bomJson?: Objec
  */
 export declare function buildEvinseOptions(options: Object, args: Object, input: string): Object;
 /**
+ * Read the evinse input BOM as cdxgen's 1.x-shaped internal model. A
+ * CycloneDX 2.0 document is converted with loadBomForAnalysis; a 1.x document
+ * (or an internal model) is returned as is. When `options.inputBomJson` holds
+ * a model converted earlier, a copy of it is returned instead of reading
+ * `options.input` again, so prepareDB, analyzeProject and createEvinseFile
+ * each get their own object, as they did when each parsed the file.
+ *
+ * @param {Object} options Evinse options with `input` and optional
+ *   `inputBomJson`
+ * @returns {{bomJson: Object, losses: Array<{pointer: string, reason: string}>}}
+ *   The internal model and the losses of the 2.0 read (none when
+ *   `inputBomJson` was given)
+ */
+export declare function loadEvinseInputBom(options: Object): {
+    bomJson: Object;
+    losses: Array<{
+        pointer: string;
+        reason: string;
+    }>;
+};
+/**
+ * Print the one-line notice for the losses of reading a 2.0 evinse input,
+ * with the details in thoughtLog.
+ *
+ * @param {Array<{pointer: string, reason: string}>} losses Reader losses
+ */
+export declare function reportEvinseInputLosses(losses: Array<{
+    pointer: string;
+    reason: string;
+}>): void;
+/**
  * Function to create the db for the libraries referred in the sbom.
  *
  * @param {Object} options Command line options
@@ -491,10 +522,13 @@ export declare function indexVersionlessCrypto(cryptoGeneratePurls: Object): Obj
  * Method to create the SBOM with evidence file called evinse file.
  *
  * @param {Object} sliceArtefacts Various artefacts from the slice operation
- * @param {Object} options Command line options
- * @returns
+ * @param {Object} options Command line options. With `returnInternalModel`,
+ *   a CycloneDX 2.0 run returns the 1.x-shaped internal model instead of the
+ *   rendered document; the file written is the rendered document either way.
+ * @returns {Promise<Object>} The BOM written to the output file, or its
+ *   internal model when `returnInternalModel` is set
  */
-export declare function createEvinseFile(sliceArtefacts: Object, options: Object): Promise<any>;
+export declare function createEvinseFile(sliceArtefacts: Object, options: Object): Promise<Object>;
 /**
  * Method to convert dataflow slice into usable callstack frames
  * Implemented based on the logic proposed here - https://github.com/AppThreat/atom/blob/main/specification/docs/slices.md#data-flow-slice

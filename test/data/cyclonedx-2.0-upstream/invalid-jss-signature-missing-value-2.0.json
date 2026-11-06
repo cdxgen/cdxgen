@@ -1,0 +1,23 @@
+{
+  "$schema": "https://cyclonedx.org/schema/2.0/cyclonedx-2.0.schema.json",
+  "specFormat": "CycloneDX",
+  "specVersion": "2.0",
+  "serialNumber": "urn:uuid:1b1bff0e-fdb9-4088-8b9a-1a9f2d9006da",
+  "version": 1,
+  "definitions": {
+    "components": [
+      {
+        "type": "library",
+        "name": "my-library",
+        "version": "1.0"
+      }
+    ]
+  },
+  "signatures": [
+    {
+      "hash_algorithm": "sha-256",
+      "algorithm": "Ed25519",
+      "public_key": "MCowBQYDK2VwAyEAubMonBfU9pvIbj5RCiWQLD45Jvu6mKr+kQXjvjW8ZkU="
+    }
+  ]
+}

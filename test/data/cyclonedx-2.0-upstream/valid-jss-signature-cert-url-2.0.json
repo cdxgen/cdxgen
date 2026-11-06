@@ -1,0 +1,24 @@
+{
+  "$schema": "https://cyclonedx.org/schema/2.0/cyclonedx-2.0.schema.json",
+  "specFormat": "CycloneDX",
+  "specVersion": "2.0",
+  "serialNumber": "urn:uuid:1b1bff0e-fdb9-4088-8b9a-1a9f2d9006da",
+  "version": 1,
+  "definitions": {
+    "components": [
+      {
+        "type": "library",
+        "name": "my-library",
+        "version": "1.0"
+      }
+    ]
+  },
+  "signatures": [
+    {
+      "algorithm": "RS256",
+      "hash_algorithm": "sha-512",
+      "cert_url": "https://pki.example.com/certs/signing-cert.pem",
+      "value": "alvwh7BnBXAgYFzSaBfqRWusHjnRGpfCM_3FdWj83jAYod93WDc4vrCcPcbes_SJMMvlBG__eD6p5KHVcpFDoWb68JQux0Ou8JRUsKK8XjkRtmqPQQAOlzdRYWjKhwBLk9hGIMuqRZMV8KsFyMg6dQaraAUSyh5jB0rJehhia8FZ_hrLV6C3de9TMwMJeKu_pEpoF7OVtg9wCpNTIaw9a9YnFL7c6vsmySxEqjdXggloteJslFqtTe0mzjMZCpSu6ZFgalak7fN32JXk4yUW2qj4qTLsgvl5efo6ZLFrol7maJgYF_ly28w6f-ohcCSIVw0qTddIcfpbMCBfEGD1dA"
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "specFormat": "CycloneDX",
+  "specVersion": "2.0",
+  "serialNumber": "urn:uuid:9b6c2d1e-4f7a-4c3b-8e2d-1a5f6b7c8d13",
+  "version": 1,
+  "components": [
+    {
+      "refId": "model-1",
+      "type": "machine-learning-model",
+      "name": "acme-classifier",
+      "version": "1.0.0",
+      "measurements": [
+        {
+          "type": "latency-p50",
+          "measure": {
+            "value": 42,
+            "unit": {
+              "name": "millisecond",
+              "system": "unece-rec20",
+              "code": "millisecond"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

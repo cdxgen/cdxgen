@@ -1,0 +1,169 @@
+{
+  "$schema": "https://cyclonedx.org/schema/2.0/cyclonedx-2.0.schema.json",
+  "specFormat": "CycloneDX",
+  "specVersion": "2.0",
+  "serialNumber": "urn:uuid:df628836-6b9b-41c9-a724-b44743c54d42",
+  "version": 1,
+  "metadata": {
+    "lifecycles": [
+      {
+        "phase": "design"
+      }
+    ]
+  },
+  "definitions": {
+    "components": [
+      {
+        "type": "library",
+        "group": "com.example",
+        "name": "situation-A",
+        "version": "1",
+        "description": "Multiple licenses: declared ids/names, and a concluded expression",
+        "licenses": [
+          {
+            "license": {
+              "id": "MIT",
+              "acknowledgement": "declared"
+            }
+          },
+          {
+            "license": {
+              "id": "PostgreSQL",
+              "acknowledgement": "declared"
+            }
+          },
+          {
+            "license": {
+              "name": "Apache Software License",
+              "acknowledgement": "declared"
+            }
+          },
+          {
+            "expression": "(MIT OR PostgreSQL OR Apache-2.0)",
+            "acknowledgement": "concluded"
+          }
+        ]
+      },
+      {
+        "type": "library",
+        "group": "com.example",
+        "name": "situation-B",
+        "version": "1",
+        "description": "Multiple license expressions: one declared, one concluded",
+        "licenses": [
+          {
+            "expression": "MIT OR (GPL-3.0 OR GPL-2.0)",
+            "acknowledgement": "declared"
+          },
+          {
+            "expression": "(GPL-3.0-only AND LGPL-2.0-only)",
+            "acknowledgement": "concluded"
+          }
+        ]
+      },
+      {
+        "type": "library",
+        "group": "com.example",
+        "name": "situation-C",
+        "version": "1",
+        "description": "Multiple license: one declared expression, one concluded id",
+        "licenses": [
+          {
+            "expression": "GPL-3.0-or-later OR GPL-2.0",
+            "acknowledgement": "declared"
+          },
+          {
+            "license": {
+              "id": "GPL-3.0-only",
+              "acknowledgement": "concluded"
+            }
+          }
+        ]
+      },
+      {
+        "type": "library",
+        "group": "com.example",
+        "name": "situation-D",
+        "version": "1",
+        "description": "Multiple license with texts: one declared expression, one concluded id",
+        "licenses": [
+          {
+            "expression": "GPL-3.0-or-later OR GPL-2.0",
+            "acknowledgement": "declared",
+            "expressionDetails": [
+              {
+                "licenseIdentifier": "GPL-3.0-or-later",
+                "text": {
+                  "content": "specific GPL-3.0-or-later license text"
+                }
+              },
+              {
+                "licenseIdentifier": "GPL-2.0",
+                "text": {
+                  "content": "specific GPL-2.0 license text"
+                }
+              }
+            ]
+          },
+          {
+            "license": {
+              "id": "GPL-3.0-only",
+              "acknowledgement": "concluded",
+              "text": {
+                "content": "specific GPL-3.0-or-later license text"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "type": "library",
+        "group": "com.example",
+        "name": "situation-E",
+        "version": "1",
+        "description": "Multiple licenses with urls: declared ids/names, and a concluded expression",
+        "licenses": [
+          {
+            "license": {
+              "id": "MIT",
+              "acknowledgement": "declared",
+              "url": "https://example.com/licenses/MIT"
+            }
+          },
+          {
+            "license": {
+              "id": "PostgreSQL",
+              "acknowledgement": "declared",
+              "url": "https://example.com/licenses/PostgreSQL"
+            }
+          },
+          {
+            "license": {
+              "name": "Apache Software License",
+              "acknowledgement": "declared",
+              "url": "https://example.com/licenses/Apache-2.0"
+            }
+          },
+          {
+            "expression": "(MIT AND PostgreSQL AND Apache-2.0)",
+            "acknowledgement": "concluded",
+            "expressionDetails": [
+              {
+                "licenseIdentifier": "MIT",
+                "url": "https://example.com/licenses/MIT"
+              },
+              {
+                "licenseIdentifier": "PostgreSQL",
+                "url": "https://example.com/licenses/PostgreSQL"
+              },
+              {
+                "licenseIdentifier": "Apache-2.0",
+                "url": "https://example.com/licenses/Apache-2.0"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

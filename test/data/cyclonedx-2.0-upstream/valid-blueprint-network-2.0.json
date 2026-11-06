@@ -1,0 +1,154 @@
+{
+  "$comment": "Model type: network. This example models the segmented enterprise network of a fictional company. It is represented as a blueprint whose network zones are the segments (internet, DMZ, internal, management), whose boundaries are the firewalls that connect adjacent segments, and whose assets are the network nodes (edge firewall, core switch, web server, application server, VPN gateway, admin workstation). Flows carry the protocols permitted between segments. Network zones plus boundaries plus protocol-bearing flows are the defining constructs.",
+  "specFormat": "CycloneDX",
+  "specVersion": "2.0",
+  "serialNumber": "urn:uuid:b1000000-0000-4000-8000-0000000000a6",
+  "version": 1,
+  "blueprints": [
+    {
+      "refId": "bp-network",
+      "name": "Globex enterprise network topology",
+      "description": "Segmented network with internet, DMZ, internal, and management zones connected through firewalls.",
+      "modelTypes": [
+        "network"
+      ],
+      "zones": [
+        {
+          "refId": "net-internet",
+          "name": "Internet",
+          "type": "network"
+        },
+        {
+          "refId": "net-dmz",
+          "name": "DMZ segment",
+          "type": "network"
+        },
+        {
+          "refId": "net-internal",
+          "name": "Internal segment",
+          "type": "network"
+        },
+        {
+          "refId": "net-management",
+          "name": "Management segment",
+          "type": "network",
+          "characteristics": [
+            "out-of-band"
+          ]
+        }
+      ],
+      "boundaries": [
+        {
+          "refId": "fw-edge",
+          "name": "Edge firewall",
+          "type": "network",
+          "zones": [
+            "net-internet",
+            "net-dmz"
+          ]
+        },
+        {
+          "refId": "fw-internal",
+          "name": "Internal firewall",
+          "type": "network",
+          "zones": [
+            "net-dmz",
+            "net-internal"
+          ]
+        },
+        {
+          "refId": "fw-management",
+          "name": "Management firewall",
+          "type": "network",
+          "zones": [
+            "net-internal",
+            "net-management"
+          ]
+        }
+      ],
+      "assets": [
+        {
+          "refId": "net-asset-web",
+          "type": "endpoint",
+          "name": "Web server",
+          "zone": "net-dmz"
+        },
+        {
+          "refId": "net-asset-app",
+          "type": "endpoint",
+          "name": "Application server",
+          "zone": "net-internal"
+        },
+        {
+          "refId": "net-asset-switch",
+          "type": "network",
+          "name": "Core switch",
+          "zone": "net-internal"
+        },
+        {
+          "refId": "net-asset-vpn",
+          "type": "gateway",
+          "name": "VPN gateway",
+          "zone": "net-management"
+        },
+        {
+          "refId": "net-asset-admin",
+          "type": "device",
+          "name": "Administrator workstation",
+          "zone": "net-management"
+        }
+      ],
+      "relationships": [
+        {
+          "ref": "net-asset-web",
+          "dependsOn": [
+            "net-asset-app"
+          ]
+        }
+      ],
+      "flows": [
+        {
+          "refId": "nflow-https",
+          "name": "Public HTTPS",
+          "type": "data",
+          "source": "net-internet",
+          "destination": "net-asset-web",
+          "protocols": [
+            "https"
+          ]
+        },
+        {
+          "refId": "nflow-app",
+          "name": "Web to application",
+          "type": "data",
+          "source": "net-asset-web",
+          "destination": "net-asset-app",
+          "protocols": [
+            "tcp"
+          ]
+        },
+        {
+          "refId": "nflow-admin",
+          "name": "Administrative SSH",
+          "type": "data",
+          "source": "net-asset-admin",
+          "destination": "net-asset-app",
+          "protocols": [
+            "ssh"
+          ],
+          "authentication": [
+            "ssh"
+          ]
+        }
+      ],
+      "assumptions": [
+        {
+          "refId": "asm-default-deny",
+          "description": "Each firewall enforces default-deny with explicit allow rules.",
+          "topic": "security",
+          "validity": "verified"
+        }
+      ]
+    }
+  ]
+}

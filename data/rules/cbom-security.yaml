@@ -287,11 +287,12 @@
     }
 
 # Post-quantum OIDs (ML-DSA RFC 9881, SLH-DSA RFC 9909, ML-KEM RFC 9935) and
-# the classical-only cutoff. NIST IR 8547 (initial public draft) proposes
-# classical algorithms be disallowed after 2035.
+# the classical-only cutoff. NIST IR 8547 (final, October 2026) Tables 2 and 4
+# disallow quantum-vulnerable signature and key-establishment algorithms after
+# 2035.
 - id: CBC-005
   name: "Classical-only CA certificate valid past the post-quantum transition"
-  description: "A CA certificate whose key and signature algorithms are both classical stays valid beyond 2035-01-01, past the date NIST IR 8547 (initial public draft) proposes to disallow classical algorithms."
+  description: "A CA certificate whose key and signature algorithms are both classical stays valid beyond 2035-01-01, past the date after which NIST IR 8547 (final, October 2026, Tables 2 and 4) disallows quantum-vulnerable algorithms."
   severity: low
   category: cbom-security
   dry-run-support: full

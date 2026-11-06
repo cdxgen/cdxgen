@@ -1,0 +1,18 @@
+{
+  "specFormat": "CycloneDX",
+  "specVersion": "2.0",
+  "threats": {
+    "threats": [
+      {
+        "refId": "threat-bad-category",
+        "name": "STRIDE methodology paired with a LINDDUN category value",
+        "categories": [
+          {
+            "taxonomy": "STRIDE",
+            "category": "linkability"
+          }
+        ]
+      }
+    ]
+  }
+}

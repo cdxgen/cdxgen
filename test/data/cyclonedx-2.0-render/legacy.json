@@ -1,0 +1,157 @@
+{
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.7",
+  "serialNumber": "urn:uuid:c0ffee00-1234-4abc-9def-0123456789ab",
+  "version": 1,
+  "metadata": {
+    "timestamp": "2026-01-01T00:00:00Z",
+    "tools": [
+      {
+        "vendor": "OWASP Foundation",
+        "name": "cdxgen",
+        "version": "13.7.0",
+        "bom-ref": "pkg:npm/@cdxgen/cdxgen@13.7.0"
+      },
+      {
+        "vendor": "Example",
+        "version": "0.1"
+      }
+    ],
+    "manufacture": {
+      "name": "Deprecated Manufacture Field"
+    },
+    "component": {
+      "type": "application",
+      "name": "legacy-app",
+      "version": "1.0.0",
+      "bom-ref": "pkg:npm/legacy-app@1.0.0",
+      "purl": "pkg:npm/legacy-app@1.0.0"
+    }
+  },
+  "components": [
+    {
+      "type": "library",
+      "name": "vendored",
+      "version": "1.2.3",
+      "bom-ref": "pkg:npm/vendored@1.2.3",
+      "purl": "pkg:npm/vendored@1.2.3",
+      "modified": false,
+      "signature": {
+        "algorithm": "ES256",
+        "value": "c2lnbmF0dXJl"
+      },
+      "evidence": {
+        "licenses": [
+          {
+            "license": {
+              "id": "MIT",
+              "url": "https://opensource.org/licenses/MIT",
+              "acknowledgement": "concluded"
+            }
+          },
+          {
+            "license": {
+              "name": "Custom Vendor License",
+              "text": {
+                "content": "All rights reserved."
+              }
+            }
+          },
+          {
+            "expression": "Apache-2.0 OR MIT",
+            "acknowledgement": "declared"
+          }
+        ],
+        "copyright": [
+          {
+            "text": "Copyright 2024 Vendor"
+          }
+        ],
+        "occurrences": [
+          {
+            "location": "vendor/vendored/index.js",
+            "line": 3,
+            "additionalContext": "require('vendored')"
+          }
+        ],
+        "callstack": {
+          "frames": [
+            {
+              "module": "vendored",
+              "function": "init",
+              "line": 10
+            }
+          ]
+        }
+      },
+      "pedigree": {
+        "ancestors": [
+          {
+            "type": "library",
+            "name": "vendored-upstream",
+            "version": "1.2.0",
+            "bom-ref": "pkg:npm/vendored-upstream@1.2.0",
+            "purl": "pkg:npm/vendored-upstream@1.2.0"
+          }
+        ],
+        "notes": "Forked to fix a bug."
+      }
+    },
+    {
+      "type": "data",
+      "name": "training-config",
+      "bom-ref": "urn:data:training-config",
+      "data": [
+        {
+          "bom-ref": "urn:data:training-config:contents",
+          "type": "configuration",
+          "name": "training.yaml",
+          "description": "Hyper-parameters",
+          "classification": "internal",
+          "contents": {
+            "attachment": {
+              "contentType": "application/yaml",
+              "content": "epochs: 3"
+            },
+            "url": "https://example.com/training.yaml"
+          }
+        }
+      ]
+    },
+    {
+      "type": "cryptographic-asset",
+      "name": "KMAC256",
+      "bom-ref": "crypto/algorithm/kmac256@2.16.840.1.101.3.4.2.20",
+      "cryptoProperties": {
+        "assetType": "algorithm",
+        "oid": "2.16.840.1.101.3.4.2.20",
+        "algorithmProperties": {
+          "primitive": "mac",
+          "algorithmFamily": "KMAC",
+          "cryptoFunctions": ["tag"]
+        }
+      }
+    },
+    {
+      "type": "cryptographic-asset",
+      "name": "AES-256-GCM",
+      "bom-ref": "crypto/algorithm/aes-256-gcm@2.16.840.1.101.3.4.1.46",
+      "cryptoProperties": {
+        "assetType": "algorithm",
+        "oid": "2.16.840.1.101.3.4.1.46",
+        "algorithmProperties": {
+          "primitive": "ae",
+          "algorithmFamily": "AES",
+          "mode": "gcm",
+          "cryptoFunctions": ["encrypt", "decrypt"]
+        }
+      }
+    }
+  ],
+  "dependencies": [
+    {
+      "ref": "pkg:npm/legacy-app@1.0.0",
+      "dependsOn": ["pkg:npm/vendored@1.2.3", "urn:data:training-config"]
+    }
+  ]
+}

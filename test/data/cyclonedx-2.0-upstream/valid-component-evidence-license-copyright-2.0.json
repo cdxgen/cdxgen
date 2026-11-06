@@ -1,0 +1,120 @@
+{
+  "$schema": "https://cyclonedx.org/schema/2.0/cyclonedx-2.0.schema.json",
+  "specFormat": "CycloneDX",
+  "specVersion": "2.0",
+  "serialNumber": "urn:uuid:13671687-395b-41f5-a30f-a58921a6b001",
+  "version": 1,
+  "metadata": {
+    "timestamp": "2024-02-01T00:00:00.000Z",
+    "tools": {
+      "components": [
+        {
+          "refId": "tool-scancode",
+          "type": "application",
+          "name": "ScanCode Toolkit",
+          "version": "32.0.0"
+        }
+      ]
+    }
+  },
+  "definitions": {
+    "components": [
+      {
+        "refId": "component-acme-lib",
+        "type": "library",
+        "name": "acme-lib",
+        "version": "1.0.0",
+        "evidence": {
+          "licenses": [
+            {
+              "refId": "license-evidence-apache",
+              "license": {
+                "id": "Apache-2.0"
+              },
+              "confidence": 0.95,
+              "methods": [
+                {
+                  "technique": "content-match",
+                  "confidence": 0.95,
+                  "result": "detected",
+                  "value": "Matched 98% of the Apache-2.0 license text.",
+                  "rule": {
+                    "id": "apache-2.0",
+                    "name": "Apache License 2.0 full text",
+                    "version": "32.0.0",
+                    "ruleset": "tool-scancode"
+                  }
+                }
+              ],
+              "tools": [
+                "tool-scancode"
+              ],
+              "occurrences": [
+                {
+                  "location": "LICENSE",
+                  "line": 1
+                }
+              ],
+              "assertion": {
+                "parties": [
+                  {
+                    "party": {
+                      "roles": [ { "role": "operator" } ],
+                      "organization": { "name": "Acme Inc" }
+                    },
+                    "role": { "role": "operator" }
+                  },
+                  {
+                    "party": {
+                      "roles": [ { "role": "reviewer" } ],
+                      "person": { "name": "L. Reviewer" }
+                    },
+                    "role": { "role": "reviewer" }
+                  }
+                ]
+              },
+              "timestamp": "2024-02-01T00:00:00.000Z"
+            },
+            {
+              "expression": "Apache-2.0 OR MIT",
+              "confidence": 0.7,
+              "methods": [
+                {
+                  "technique": "manifest-analysis",
+                  "confidence": 0.7,
+                  "result": "detected",
+                  "value": "Declared in package metadata."
+                }
+              ],
+              "tools": [
+                "tool-scancode"
+              ]
+            }
+          ],
+          "copyright": [
+            {
+              "text": "Copyright 2024 Acme Inc.",
+              "confidence": 0.9,
+              "methods": [
+                {
+                  "technique": "content-match",
+                  "confidence": 0.9,
+                  "result": "detected"
+                }
+              ],
+              "tools": [
+                "tool-scancode"
+              ],
+              "occurrences": [
+                {
+                  "location": "src/main.c",
+                  "line": 2
+                }
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

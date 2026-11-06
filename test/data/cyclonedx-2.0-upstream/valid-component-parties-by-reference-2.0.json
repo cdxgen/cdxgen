@@ -1,0 +1,41 @@
+{
+  "$schema": "https://cyclonedx.org/schema/2.0/cyclonedx-2.0.schema.json",
+  "specFormat": "CycloneDX",
+  "specVersion": "2.0",
+  "version": 1,
+  "inventories": [
+    {
+      "subject": {
+        "refId": "subject-1",
+        "type": "device",
+        "name": "Product"
+      },
+      "components": [
+        {
+          "type": "device",
+          "name": "Microcontroller",
+          "parties": [
+            {
+              "refId": "party-acme-mcu",
+              "roles": [
+                {
+                  "role": "manufacturer"
+                }
+              ],
+              "organization": {
+                "legalName": "Acme Microcontrollers S.r.l."
+              }
+            }
+          ]
+        },
+        {
+          "type": "device",
+          "name": "USB-Serial Bridge",
+          "parties": [
+            { "ref": "party-acme-mcu" }
+          ]
+        }
+      ]
+    }
+  ]
+}

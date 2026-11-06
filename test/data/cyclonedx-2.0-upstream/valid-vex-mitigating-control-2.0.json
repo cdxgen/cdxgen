@@ -1,0 +1,47 @@
+{
+  "$schema": "https://cyclonedx.org/schema/2.0/cyclonedx-2.0.schema.json",
+  "specFormat": "CycloneDX",
+  "specVersion": "2.0",
+  "serialNumber": "urn:uuid:8d4f2a1b-6c3e-4b9d-a5f0-1e7c8b2d4a96",
+  "version": 1,
+  "definitions": {
+    "components": [
+      {
+        "type": "library",
+        "refId": "component-xml-parser",
+        "name": "acme-xml-parser",
+        "version": "2.4.0"
+      }
+    ]
+  },
+  "controls": [
+    {
+      "refId": "control-waf",
+      "name": "Web application firewall",
+      "category": "preventive",
+      "status": "verified",
+      "appliesTo": [
+        "component-xml-parser"
+      ]
+    }
+  ],
+  "vulnerabilities": [
+    {
+      "refId": "vuln-xxe",
+      "id": "CVE-2026-99999",
+      "analysis": {
+        "state": "not_affected",
+        "justification": "protected_by_mitigating_control",
+        "mitigatingControls": [
+          "control-waf"
+        ],
+        "detail": "External entity payloads are blocked at the perimeter before reaching the parser."
+      },
+      "affects": [
+        {
+          "ref": "component-xml-parser"
+        }
+      ]
+    }
+  ]
+}

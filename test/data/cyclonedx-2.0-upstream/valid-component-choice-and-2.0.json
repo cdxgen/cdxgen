@@ -1,0 +1,45 @@
+{
+  "$schema": "https://cyclonedx.org/schema/2.0/cyclonedx-2.0.schema.json",
+  "specFormat": "CycloneDX",
+  "specVersion": "2.0",
+  "version": 1,
+  "inventories": [
+    {
+      "subject": {
+        "refId": "rf-board",
+        "type": "device",
+        "name": "RF Front End Board"
+      },
+      "components": [
+        {
+          "type": "component-choice",
+          "name": "Transceiver and Matching Balun",
+          "description": "The transceiver and its matching balun are installed together. Selecting one without the other yields a non-functional radio.",
+          "operator": "AND",
+          "components": [
+            {
+              "type": "device",
+              "name": "2.4GHz RF Transceiver",
+              "parties": [
+                {
+                  "roles": [ { "role": "supplier" } ],
+                  "organization": { "name": "Acme RF" }
+                }
+              ]
+            },
+            {
+              "type": "device",
+              "name": "Matching Balun for 2.4GHz Transceiver",
+              "parties": [
+                {
+                  "roles": [ { "role": "supplier" } ],
+                  "organization": { "name": "Acme RF" }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

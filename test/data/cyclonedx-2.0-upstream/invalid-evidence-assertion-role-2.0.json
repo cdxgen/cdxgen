@@ -1,0 +1,12 @@
+{
+  "$schema": "https://cyclonedx.org/schema/2.0/cyclonedx-2.0.schema.json",
+  "specFormat": "CycloneDX", "specVersion": "2.0",
+  "serialNumber": "urn:uuid:ee671687-395b-41f5-a30f-a58921a69e06", "version": 1,
+  "vulnerabilities": [
+    { "refId": "v1", "id": "CVE-2024-0106",
+      "evidence": { "presence": [
+        { "confidence": 0.7,
+          "assertion": { "parties": [ { "party": { "ref": "party-x" }, "role": { "role": "supreme-leader" } } ] } }
+      ] } }
+  ]
+}

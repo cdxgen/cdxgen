@@ -1,0 +1,36 @@
+{
+  "$schema": "https://cyclonedx.org/schema/2.0/cyclonedx-2.0.schema.json",
+  "specFormat": "CycloneDX",
+  "specVersion": "2.0",
+  "version": 1,
+  "inventories": [
+    {
+      "subject": {
+        "refId": "subject-1",
+        "type": "device",
+        "name": "Factory Line 1 Controls"
+      },
+      "components": [
+        {
+          "type": "device",
+          "name": "Line 1 Press",
+          "parties": [
+            {
+              "roles": [
+                {
+                  "role": "operator"
+                }
+              ],
+              "system": {
+                "kind": {
+                  "name": "programmable-logic-controller",
+                  "description": "Industrial PLC executing ladder logic on the factory floor. Custom kind pending adoption into the predefined system-kind taxonomy."
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

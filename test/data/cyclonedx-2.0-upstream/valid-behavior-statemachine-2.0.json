@@ -1,0 +1,88 @@
+{
+  "specFormat": "CycloneDX",
+  "specVersion": "2.0",
+  "serialNumber": "urn:uuid:a1b2c3d4-0001-4abc-8def-1122334455aa",
+  "version": 1,
+  "blueprints": [
+    {
+      "refId": "bp-connection-behavioral",
+      "name": "Client connection lifecycle",
+      "modelTypes": [
+        "behavioral"
+      ],
+      "assets": [
+        {
+          "refId": "asset-client",
+          "type": "service",
+          "name": "Client application"
+        }
+      ],
+      "behaviors": {
+        "graphs": [
+          {
+            "refId": "sm-connection",
+            "name": "Connection lifecycle",
+            "kind": "state-machine",
+            "subject": "asset-client",
+            "nodes": [
+              {
+                "refId": "s-idle",
+                "kind": "initial"
+              },
+              {
+                "refId": "s-connecting",
+                "kind": "state",
+                "name": "Connecting"
+              },
+              {
+                "refId": "s-connected",
+                "kind": "state",
+                "name": "Connected"
+              },
+              {
+                "refId": "s-closed",
+                "kind": "final",
+                "name": "Closed"
+              }
+            ],
+            "transitions": [
+              {
+                "refId": "t-open",
+                "source": "s-idle",
+                "target": "s-connecting",
+                "trigger": "user-initiated"
+              },
+              {
+                "refId": "t-established",
+                "source": "s-connecting",
+                "target": "s-connected",
+                "trigger": "event-driven",
+                "guard": "handshake.complete == true"
+              },
+              {
+                "refId": "t-failed",
+                "source": "s-connecting",
+                "target": "s-idle",
+                "trigger": "event-driven",
+                "guard": "handshake.complete == false"
+              },
+              {
+                "refId": "t-reconnect",
+                "source": "s-connected",
+                "target": "s-connecting",
+                "trigger": "signal",
+                "guard": "heartbeat.lost == true"
+              },
+              {
+                "refId": "t-close",
+                "source": "s-connected",
+                "target": "s-closed",
+                "trigger": "user-initiated"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

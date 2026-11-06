@@ -1,0 +1,56 @@
+{
+  "specFormat": "CycloneDX",
+  "specVersion": "2.0",
+  "serialNumber": "urn:uuid:7c6b5a4d-3e2f-4109-8a7b-6c5d4e3f2a1b",
+  "version": 1,
+  "blueprints": [
+    {
+      "refId": "bp-auth",
+      "name": "Authentication coverage model",
+      "modelTypes": [
+        "data-flow"
+      ],
+      "assets": [
+        {
+          "refId": "asset-gateway",
+          "type": "gateway",
+          "name": "API gateway",
+          "authentication": [
+            "mtls",
+            "oauth2",
+            "session-cookie",
+            "totp",
+            "radius",
+            "scram",
+            "eap",
+            "psk",
+            "hmac",
+            "magic-link",
+            "biometric",
+            "form",
+            "pin",
+            "push",
+            {
+              "name": "proprietary-handshake",
+              "description": "Vendor-specific challenge response used by the legacy partner integration."
+            }
+          ]
+        },
+        {
+          "refId": "asset-webapp",
+          "type": "service",
+          "name": "Customer web application",
+          "authentication": [
+            "form",
+            "session-cookie"
+          ],
+          "authorization": [
+            "rbac",
+            "radac",
+            "capability"
+          ]
+        }
+      ]
+    }
+  ]
+}

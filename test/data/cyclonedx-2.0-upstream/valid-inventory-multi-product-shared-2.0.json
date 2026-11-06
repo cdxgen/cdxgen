@@ -1,0 +1,46 @@
+{
+  "$schema": "https://cyclonedx.org/schema/2.0/cyclonedx-2.0.schema.json",
+  "specFormat": "CycloneDX",
+  "specVersion": "2.0",
+  "serialNumber": "urn:uuid:3e671687-395b-41f5-a30f-a58921a69b7a",
+  "version": 1,
+  "definitions": {
+    "components": [
+      { "refId": "acme-controller", "type": "application", "name": "Acme Controller", "version": "5.0" },
+      { "refId": "pkg:generic/acme/common-runtime@4.2", "type": "library", "name": "Acme Common Runtime", "version": "4.2" },
+      { "refId": "mpn:globex/reg-5v-a", "type": "device", "name": "Globex 5V Regulator A" },
+      { "refId": "mpn:initech/reg-5v-b", "type": "device", "name": "Initech 5V Regulator B" },
+      { "refId": "acme-gateway-firmware", "type": "firmware", "name": "Acme Gateway Firmware", "version": "2.1.0",
+        "components": [ { "ref": "pkg:generic/acme/common-runtime@4.2" } ] }
+    ]
+  },
+  "inventories": [
+    {
+      "refId": "inventory-gateway",
+      "subject": { "refId": "acme-gateway", "type": "device", "name": "Acme Gateway", "version": "2.1" },
+      "components": [
+        { "refId": "mpn:globex/mcu-9000", "type": "device", "name": "Globex MCU 9000",
+          "quantity": { "value": 1 }, "boardLocation": { "designators": [ "U1" ] } },
+        { "type": "component-choice", "name": "U2 5V LDO regulator", "operator": "XOR",
+          "components": [ { "ref": "mpn:globex/reg-5v-a" }, { "ref": "mpn:initech/reg-5v-b" } ] },
+        { "ref": "acme-gateway-firmware" },
+        { "refId": "gateway-only-lib", "type": "library", "name": "Gateway Only Library", "version": "0.9", "scope": "optional" }
+      ]
+    },
+    {
+      "subject": { "ref": "acme-controller" },
+      "components": [
+        { "ref": "pkg:generic/acme/common-runtime@4.2" },
+        { "ref": "urn:cdx:f1a2b3c4-1111-4222-8333-444455556666/3#pkg:npm/ui-kit@2.0.0" }
+      ]
+    }
+  ],
+  "dependencies": [
+    { "ref": "acme-controller", "dependsOn": [ "pkg:generic/acme/common-runtime@4.2" ] },
+    { "ref": "acme-gateway-firmware", "dependsOn": [ "pkg:generic/acme/common-runtime@4.2" ] }
+  ],
+  "vulnerabilities": [
+    { "refId": "vuln-1", "id": "CVE-2026-0001",
+      "affects": [ { "ref": "acme-controller" } ] }
+  ]
+}

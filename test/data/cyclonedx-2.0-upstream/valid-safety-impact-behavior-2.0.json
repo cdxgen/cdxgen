@@ -1,0 +1,185 @@
+{
+  "$schema": "https://cyclonedx.org/schema/2.0/cyclonedx-2.0.schema.json",
+  "$comment": "A behavior as the cause of a safety impact. The dosing controller declares the safety-relevant behavior enforcesOperatingLimits from the behavior taxonomy. Runtime monitoring observes a second behavior, suppressesError, on the same controller. A threat names the observed behavior as its intent, a risk states the safety consequence for the classified asset, and a triggered assessment records the verdict. The risk names the behavior directly through relatedBehaviors and the threat through relatedThreats; the assessment is triggered by the behavior. The chain is behavior, then threat, then risk, then assessment.",
+  "specFormat": "CycloneDX",
+  "specVersion": "2.0",
+  "serialNumber": "urn:uuid:9c8d7e6f-5a4b-4c3d-8e2f-1a0b9c8d7e6f",
+  "version": 1,
+  "metadata": {
+    "timestamp": "2026-09-18T09:00:00Z"
+  },
+  "definitions":{
+    "components": [
+      {
+        "refId": "comp-dosing-controller",
+        "type": "firmware",
+        "name": "acme-dosing-controller",
+        "version": "2.7.0"
+      },
+      {
+        "refId": "comp-runtime-monitor",
+        "type": "application",
+        "name": "globex-runtime-monitor",
+        "version": "5.1.3"
+      }
+    ]
+  },
+  "blueprints": [
+    {
+      "refId": "bp-pump",
+      "name": "Infusion pump, dosing path",
+      "modelTypes": [
+        "behavioral"
+      ],
+      "assets": [
+        {
+          "refId": "asset-dosing-controller",
+          "componentRef": "comp-dosing-controller",
+          "classification": {
+            "criticality": "critical",
+            "safetyIntegrityLevels": [
+              {
+                "scheme": "IEC-62304",
+                "level": "class-c"
+              }
+            ]
+          }
+        }
+      ],
+      "behaviors": {
+        "instances": [
+          {
+            "refId": "bi-enforces-limits",
+            "behavior": "safety:operationalSafety:enforcesOperatingLimits",
+            "acknowledgment": [
+              "declared"
+            ],
+            "trigger": "continuous",
+            "actors": [
+              "asset-dosing-controller"
+            ]
+          },
+          {
+            "refId": "bi-suppresses-error",
+            "behavior": "security:errorHandling:suppressesError",
+            "acknowledgment": [
+              "observed"
+            ],
+            "trigger": "condition-based",
+            "actors": [
+              "asset-dosing-controller"
+            ],
+            "targets": [
+              "bi-enforces-limits"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "threats": {
+    "threats": [
+      {
+        "refId": "threat-silent-limit-failure",
+        "name": "Silent failure of operating limit enforcement",
+        "description": "The controller suppresses the error raised when a dose exceeds its operating limit, so the limit check can fail without an alarm.",
+        "origin": "structural",
+        "behaviors": [
+          "bi-suppresses-error"
+        ],
+        "affects": [
+          "asset-dosing-controller"
+        ]
+      }
+    ],
+    "threatScenarios": [
+      {
+        "refId": "ts-overdose-unalarmed",
+        "name": "Over-limit dose delivered without alarm",
+        "threats": [
+          "threat-silent-limit-failure"
+        ],
+        "affects": [
+          "asset-dosing-controller"
+        ]
+      }
+    ]
+  },
+  "risks": {
+    "risks": [
+      {
+        "refId": "risk-overdose",
+        "name": "Over-limit dose delivered without alarm",
+        "statement": "If the controller suppresses the operating limit error, an over-limit dose can be delivered to a patient without an alarm.",
+        "domains": [
+          {
+            "type": "safety"
+          }
+        ],
+        "affects": [
+          "asset-dosing-controller"
+        ],
+        "relatedThreats": [
+          "ts-overdose-unalarmed"
+        ],
+        "relatedBehaviors": [
+          "bi-suppresses-error"
+        ],
+        "inherentRisk": {
+          "likelihood": {
+            "level": "medium"
+          },
+          "impacts": [
+            {
+              "level": "catastrophic",
+              "polarity": "harm",
+              "categories": [
+                "safety"
+              ],
+              "description": "Patient overdose."
+            }
+          ]
+        },
+        "status": "assessed"
+      }
+    ],
+    "assessments": [
+      {
+        "refId": "assessment-2026-09-15",
+        "name": "Safety impact assessment of observed error suppression",
+        "type": [
+          "safety"
+        ],
+        "cadence": "triggered",
+        "triggeredBy": [
+          "bi-suppresses-error"
+        ],
+        "timestamp": "2026-09-15T14:00:00Z",
+        "status": "completed",
+        "assessors": [
+          {
+            "roles": [
+              {
+                "role": "auditor"
+              }
+            ],
+            "organization": {
+              "name": "Acme Medical Systems"
+            }
+          }
+        ],
+        "risks": [
+          "risk-overdose"
+        ],
+        "conclusion": "unacceptable",
+        "summary": "Observed behavior defeats a declared safety behavior on a class C context. Release blocked until the error path is restored and re-tested.",
+        "externalReferences": [
+          {
+            "type": "hazard-analysis",
+            "url": "https://plm.acme-medical.example/safety/RA-2026-131"
+          }
+        ]
+      }
+    ]
+  }
+}

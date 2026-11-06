@@ -1,0 +1,34 @@
+{
+  "specFormat": "CycloneDX",
+  "specVersion": "2.0",
+  "serialNumber": "urn:uuid:a1b2c3d4-0005-4abc-8def-1122334455ee",
+  "version": 1,
+  "blueprints": [
+    {
+      "refId": "bp-bad-cardinality",
+      "name": "Data relationship with invalid cardinality",
+      "modelTypes": [
+        "logical"
+      ],
+      "dataSets": [
+        {
+          "refId": "ds-bad",
+          "name": "Bad data set",
+          "description": "Exercises an invalid cardinality value.",
+          "dataObjects": [
+            {
+              "refId": "do-a",
+              "name": "A",
+              "relationships": [
+                {
+                  "target": "do-b",
+                  "cardinality": "1:N"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

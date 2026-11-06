@@ -1,0 +1,18 @@
+{
+  "specFormat": "CycloneDX",
+  "specVersion": "2.0",
+  "definitions": {
+    "releaseNotes": [
+      { "refId": "rn-1", "type": "major", "title": "My new release" }
+    ],
+    "components": [
+      {
+        "refId": "lib-a",
+        "type": "library",
+        "name": "Acme Library",
+        "version": "1.0.0",
+        "releaseNotes": { "ref": "rn-1", "title": "A reference shall carry only the ref" }
+      }
+    ]
+  }
+}

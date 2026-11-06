@@ -1,0 +1,73 @@
+{
+  "$schema": "https://cyclonedx.org/schema/2.0/cyclonedx-2.0.schema.json",
+  "specFormat": "CycloneDX",
+  "specVersion": "2.0",
+  "serialNumber": "urn:uuid:ed5c5ba0-2be6-4b58-ac29-01a7fd375123",
+  "version": 1,
+  "definitions": {
+    "components": [
+      {
+        "refId": "models.example.com-acme-acme-llm-7b",
+        "group": "acme",
+        "name": "acme-llm-7b",
+        "type": "machine-learning-model",
+        "parties": [
+          {
+            "roles": [ { "role": "supplier" } ],
+            "organization": { "name": "Globex" }
+          },
+          {
+            "roles": [ { "role": "publisher" } ],
+            "organization": { "name": "Acme" }
+          }
+        ],
+        "externalReferences": [
+          {
+            "type": "distribution",
+            "url": "https://models.example.com/acme/acme-llm-7b"
+          }
+        ],
+        "measurements": [
+          {
+            "activity": "training",
+            "energyProviders": [
+              {
+                "description": "Acme data-center, US-East",
+                "provider": {
+                  "roles": [ { "role": "supplier" } ],
+                  "organization": {
+                    "name": "Acme",
+                    "addresses": [
+                      {
+                        "country": "United States",
+                        "region": "New Jersey",
+                        "locality": "Newark"
+                      }
+                    ]
+                  }
+                },
+                "energySource": "natural-gas",
+                "energyProvided": {
+                  "value": 0.4,
+                  "unit": "kWh"
+                }
+              }
+            ],
+            "activityEnergyCost": {
+              "value": 0.4,
+              "unit": "kWh"
+            },
+            "co2CostEquivalent": {
+              "value": 31.22,
+              "unit": "tCO2eq"
+            },
+            "co2CostOffset": {
+              "value": 31.22,
+              "unit": "tCO2eq"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

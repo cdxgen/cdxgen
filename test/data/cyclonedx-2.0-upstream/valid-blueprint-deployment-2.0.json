@@ -1,0 +1,135 @@
+{
+  "$comment": "Model type: deployment. This example shows how a fictional SaaS checkout application is allocated to runtime and infrastructure. It is represented as a blueprint whose assets are deployment units (load balancer, container workloads, and a worker node) placed into a production deployment zone and an east geographic region. Artifact-on-node allocation and dependencies are expressed with typed relationships (contains, depends-on), the managed database and object store are data stores carrying an environment, and flows complete the topology.",
+  "specFormat": "CycloneDX",
+  "specVersion": "2.0",
+  "serialNumber": "urn:uuid:b1000000-0000-4000-8000-0000000000a5",
+  "version": 1,
+  "blueprints": [
+    {
+      "refId": "bp-deployment",
+      "name": "Acme checkout deployment topology",
+      "description": "Production deployment of the checkout workloads onto a cluster node, fronted by a load balancer, with a managed database and object storage.",
+      "modelTypes": [
+        "deployment"
+      ],
+      "zones": [
+        {
+          "refId": "zone-prod",
+          "name": "Production",
+          "type": "deployment"
+        },
+        {
+          "refId": "zone-region-east",
+          "name": "East region",
+          "type": "geographic"
+        }
+      ],
+      "assets": [
+        {
+          "refId": "asset-lb",
+          "type": "gateway",
+          "name": "Load balancer",
+          "zone": "zone-prod"
+        },
+        {
+          "refId": "asset-node",
+          "type": "infrastructure",
+          "name": "Cluster worker node",
+          "zone": "zone-prod",
+          "tags": [
+            "kubernetes-node"
+          ]
+        },
+        {
+          "refId": "asset-checkout-pod",
+          "type": "container",
+          "name": "Checkout workload",
+          "zone": "zone-prod"
+        },
+        {
+          "refId": "asset-worker-pod",
+          "type": "container",
+          "name": "Async worker workload",
+          "zone": "zone-prod"
+        }
+      ],
+      "relationships": [
+        {
+          "ref": "asset-node",
+          "contains": [
+            "asset-checkout-pod",
+            "asset-worker-pod"
+          ]
+        },
+        {
+          "ref": "asset-lb",
+          "serves": [
+            "asset-checkout-pod"
+          ]
+        },
+        {
+          "ref": "asset-checkout-pod",
+          "dependsOn": [
+            "ds-postgres"
+          ]
+        },
+        {
+          "ref": "asset-worker-pod",
+          "dependsOn": [
+            "ds-object"
+          ]
+        }
+      ],
+      "dataStores": [
+        {
+          "refId": "ds-postgres",
+          "name": "Managed PostgreSQL",
+          "type": "relational",
+          "inScope": true,
+          "environment": "production",
+          "zone": "zone-prod",
+          "location": "east region"
+        },
+        {
+          "refId": "ds-object",
+          "name": "Object storage bucket",
+          "type": "object",
+          "environment": "production",
+          "zone": "zone-prod"
+        }
+      ],
+      "flows": [
+        {
+          "refId": "dflow-ingress",
+          "name": "Inbound HTTPS",
+          "type": "data",
+          "source": "asset-lb",
+          "destination": "asset-checkout-pod",
+          "protocols": [
+            "https"
+          ],
+          "synchronous": true
+        },
+        {
+          "refId": "dflow-db",
+          "name": "Database queries",
+          "type": "data",
+          "source": "asset-checkout-pod",
+          "destination": "ds-postgres",
+          "protocols": [
+            "tcp"
+          ],
+          "synchronous": true
+        }
+      ],
+      "assumptions": [
+        {
+          "refId": "asm-autoscale",
+          "description": "The node pool autoscales horizontally under load.",
+          "topic": "performance",
+          "validity": "unverified"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,45 @@
+{
+  "$schema": "https://cyclonedx.org/schema/2.0/cyclonedx-2.0.schema.json",
+  "specFormat": "CycloneDX",
+  "specVersion": "2.0",
+  "serialNumber": "urn:uuid:3e671687-395b-41f5-a30f-a58921a69b7d",
+  "version": 1,
+  "metadata": {
+    "licenses": [
+      { "ref": "lic-cc-by" }
+    ]
+  },
+  "definitions": {
+    "licenses": [
+      {
+        "license": {
+          "refId": "lic-apache-2.0",
+          "id": "Apache-2.0",
+          "acknowledgement": "declared"
+        }
+      },
+      {
+        "license": {
+          "refId": "lic-cc-by",
+          "id": "CC-BY-4.0"
+        }
+      },
+      {
+        "expression": "MIT OR GPL-2.0-only",
+        "refId": "lic-dual",
+        "acknowledgement": "concluded"
+      }
+    ]
+  },
+  "inventories": [
+    {
+      "subject": { "refId": "acme-app", "type": "application", "name": "Acme Application", "version": "1.0" },
+      "components": [
+        { "refId": "pkg:maven/acme/library-a@1.0", "type": "library", "name": "Acme Library A", "version": "1.0",
+          "licenses": [ { "ref": "lic-apache-2.0" } ] },
+        { "refId": "pkg:maven/acme/library-b@2.0", "type": "library", "name": "Acme Library B", "version": "2.0",
+          "licenses": [ { "ref": "lic-apache-2.0" }, { "ref": "lic-dual" } ] }
+      ]
+    }
+  ]
+}

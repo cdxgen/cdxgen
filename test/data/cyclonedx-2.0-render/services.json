@@ -1,0 +1,132 @@
+{
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.7",
+  "serialNumber": "urn:uuid:3e671687-395b-41f5-a30f-a58921a69b79",
+  "version": 1,
+  "metadata": {
+    "timestamp": "2026-01-01T00:00:00Z",
+    "tools": {
+      "components": [
+        {
+          "group": "@cdxgen",
+          "name": "cdxgen",
+          "version": "13.7.0",
+          "purl": "pkg:npm/%40cdxgen/cdxgen@13.7.0",
+          "type": "application",
+          "bom-ref": "pkg:npm/@cdxgen/cdxgen@13.7.0"
+        }
+      ]
+    },
+    "component": {
+      "type": "application",
+      "name": "billing-app",
+      "version": "2.1.0",
+      "bom-ref": "pkg:npm/billing-app@2.1.0",
+      "purl": "pkg:npm/billing-app@2.1.0"
+    }
+  },
+  "components": [
+    {
+      "type": "library",
+      "name": "express",
+      "version": "4.21.2",
+      "bom-ref": "pkg:npm/express@4.21.2",
+      "purl": "pkg:npm/express@4.21.2"
+    }
+  ],
+  "services": [
+    {
+      "bom-ref": "urn:service:billing:payments-api:1",
+      "group": "billing",
+      "name": "payments-api",
+      "version": "1",
+      "description": "Charges cards for orders.",
+      "endpoints": [
+        "https://payments.example.com/v1/charge",
+        "https://payments.example.com/v1/refund"
+      ],
+      "authenticated": true,
+      "x-trust-boundary": true,
+      "trustZone": "pci",
+      "provider": {
+        "name": "Example Payments Ltd",
+        "url": ["https://payments.example.com"],
+        "contact": [
+          {
+            "name": "Payments Support",
+            "email": "support@payments.example.com",
+            "phone": "+1-555-0100"
+          }
+        ]
+      },
+      "data": [
+        {
+          "flow": "outbound",
+          "classification": "PII",
+          "name": "cardholder"
+        },
+        {
+          "flow": "inbound",
+          "classification": "public",
+          "name": "receipt",
+          "governance": {
+            "owners": [
+              {
+                "organization": {
+                  "name": "Billing Team",
+                  "url": ["https://billing.example.com"]
+                }
+              }
+            ],
+            "stewards": [
+              {
+                "contact": {
+                  "name": "Data Steward",
+                  "email": "steward@billing.example.com"
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "cdx:service:httpMethod",
+          "value": "POST"
+        }
+      ],
+      "services": [
+        {
+          "bom-ref": "urn:service:billing:fraud-check:1",
+          "name": "fraud-check",
+          "version": "1",
+          "endpoints": ["https://payments.example.com/v1/fraud"]
+        }
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "ref": "pkg:npm/billing-app@2.1.0",
+      "dependsOn": [
+        "pkg:npm/express@4.21.2",
+        "urn:service:billing:payments-api:1"
+      ]
+    },
+    {
+      "ref": "pkg:npm/express@4.21.2",
+      "dependsOn": []
+    },
+    {
+      "ref": "urn:service:billing:payments-api:1",
+      "dependsOn": ["urn:service:billing:fraud-check:1"]
+    }
+  ]
+}

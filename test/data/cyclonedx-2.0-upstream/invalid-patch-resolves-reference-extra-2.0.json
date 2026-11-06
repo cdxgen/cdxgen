@@ -1,0 +1,24 @@
+{
+  "specFormat": "CycloneDX",
+  "specVersion": "2.0",
+  "definitions": {
+    "components": [
+      {
+        "refId": "lib-patched",
+        "type": "library",
+        "name": "Acme Patched Library",
+        "version": "1.0.1",
+        "pedigree": {
+          "patches": [
+            {
+              "type": "backport",
+              "resolves": [
+                { "ref": "vuln-1", "name": "A reference shall carry only the ref" }
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

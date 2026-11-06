@@ -139,6 +139,8 @@ CycloneDX custom properties are emitted as name/value pairs, so consumers should
 | `cdx:ai:codegen:models`, `cdx:ai:codegen:agents` (et al.)                                  | Git-ai note attribution details (`-t ai-provenance`, cdx-audit)                                                                 | Model names, agent tool names, session/prompt counts, and AI-attributed line+range entry counts from git-ai notes                                                                                                                                                                                                                                                      | Surface precise AI model/agent attribution evidence from git-ai line-level notes for audit and policy review                                                                                                                                              | [Cross-cutting BOM/service/build metadata](#inventory-cross-cutting) | [5](#example-5)                                                        |
 | `cdx:ai:oversight:*`                                                                       | AI human-oversight & process-rigor (`-t ai-provenance`, cdx-audit)                                                              | Rigor score/band, verification-debt/review-coverage/self-merge (forge-only, else `unavailable`), CI-weakening events, sign-off & CODEOWNERS coverage, AI line ratio, data sources, and an evidence JSON blob                                                                                                                                                           | Detect rubber-stamping of AI-authored code, evidence meaningful human oversight (EU AI Act Art. 12/14, NIST AI RMF, ISO/IEC 42001), and drive `ai-oversight` audit rules (AIOVS-001..006)                                                                 | [Cross-cutting BOM/service/build metadata](#inventory-cross-cutting) | [5](#example-5)                                                        |
 | `cdx:service:httpMethod`                                                                   | OpenAPI/service evidence                                                                                                        | HTTP method associated with discovered service endpoints                                                                                                                                                                                                                                                                                                               | Support API exposure reviews (method-level attack surface and access-control assurance)                                                                                                                                                                   | [Cross-cutting BOM/service/build metadata](#inventory-cross-cutting) | [5](#example-5)                                                        |
+| `cdx:service:authenticated`, `cdx:service:xTrustBoundary`, `cdx:service:trustZone`         | Service fields without a CycloneDX 2.0 equivalent, carried at `--spec-version 2.0`                                              | The 1.x service members `authenticated`, `x-trust-boundary` and `trustZone`, so the mcp-server audit rules keep firing on a document read back from 2.0                                                                                                                                                | Keep the audit findings of a 2.0 round trip identical to the 1.7 run                                                                                                                       | [Cross-cutting BOM/service/build metadata](#inventory-cross-cutting) | [5](#example-5)                                                        |
+| `cdx:crypto:pqc:class`, `cdx:crypto:pqc:deprecatedAfter`, `cdx:crypto:pqc:disallowedAfter`, `cdx:crypto:pqc:disallowedIn`, `cdx:crypto:pqc:transition`, `cdx:crypto:pqc:source` | Post-quantum migration risks at `--spec-version 2.0` (#4592) | On each `risks.risks[]` entry cdxgen derives for a cryptographic asset: the class from `data/pqc-migration.json` (`quantum-vulnerable-signature`, `quantum-vulnerable-key-establishment`, `quantum-vulnerable-public-key`, `below-minimum-strength`, `hash-sha1`, `symmetric-112-bit`, `dsa-generation-not-approved`); a year only where the source states one, under the source's own wording (`deprecatedAfter` and `disallowedAfter` for "after <year>", `disallowedIn` for "in <year>"); `transition`, the source's transition in words (for SHA-1 "Currently deprecated …", which has no year); and `source`, the table or section of NIST IR 8547 (final) or FIPS 186-5 the class cites | Keep the NIST transition machine-readable on the risk without inventing a date or a confidence (owner, status and responses are organisational facts cdxgen never invents); see [CycloneDX 2.0 derived sections](CDX_CONVERT.md#post-quantum-migration-risks) | [Cross-cutting BOM/service/build metadata](#inventory-cross-cutting) | [5](#example-5) |
 
 ## Useful keys
 
@@ -1437,6 +1439,13 @@ These properties are enum values and short explanatory sentences produced by dos
 - `cdx:osquery:category`
 - `cdx:purl:sanitized_from`
 - `cdx:service:httpMethod`
+- `cdx:service:authenticated`
+- `cdx:service:xTrustBoundary`
+- `cdx:service:trustZone`
+- `cdx:crypto:pqc:class`
+- `cdx:crypto:pqc:deprecatedAfter`
+- `cdx:crypto:pqc:disallowedAfter`
+- `cdx:crypto:pqc:source`
 - `cdx:dosai:crypto:id`
 - `cdx:dosai:crypto:strength`
 - `cdx:dosai:crypto:storage`
@@ -1880,6 +1889,10 @@ property is emitted that appears nowhere in this file.
 - `cdx:flatpak:origin`
 - `cdx:flatpak:runtime`
 - `cdx:flatpak:type`
+
+**`cdx:formulation:*`**
+
+- `cdx:formulation:componentRefs`: on a CycloneDX 2.0 formula of a subject-less document, a JSON array of the refIds of the `definitions.components` entries that belong to the formula. 2.0 has no formula member for them; the 2.0 reader moves the listed components back into the formula and drops the property. See [CDX_CONVERT.md](CDX_CONVERT.md#cyclonedx-20).
 
 **`cdx:github:*`**
 

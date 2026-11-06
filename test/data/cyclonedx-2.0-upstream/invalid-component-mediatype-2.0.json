@@ -1,0 +1,9 @@
+{
+  "specFormat": "CycloneDX",
+  "specVersion": "2.0",
+  "definitions": {
+    "components": [
+      { "refId": "file-1", "type": "file", "name": "mystery.bin", "mediaType": "image" }
+    ]
+  }
+}

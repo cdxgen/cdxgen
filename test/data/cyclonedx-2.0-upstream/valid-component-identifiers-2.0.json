@@ -1,0 +1,59 @@
+{
+  "$schema": "https://cyclonedx.org/schema/2.0/cyclonedx-2.0.schema.json",
+  "specFormat": "CycloneDX",
+  "specVersion": "2.0",
+  "serialNumber": "urn:uuid:3e671687-395b-41f5-a30f-a58921a69b79",
+  "version": 1,
+  "metadata": {
+    "manufacturer": {
+      "refId": "acme-inc",
+      "name": "Acme Inc."
+    }
+  },
+  "definitions": {
+    "components": [
+      {
+        "type": "library",
+        "group": "com.acme",
+        "name": "acme-library",
+        "version": "1.0.0",
+        "identifiers": [
+          {
+            "refId": "acme-library-identity",
+            "party": "acme-inc",
+            "identities": [
+              {
+                "scheme": "purl",
+                "value": "pkg:maven/com.acme/acme-library@1.0.0"
+              },
+              {
+                "scheme": "cpe",
+                "value": "cpe:2.3:a:acme:acme-library:1.0.0:*:*:*:*:*:*:*"
+              },
+              {
+                "scheme": "swid",
+                "value": "acme.com-acme-library-1.0.0"
+              },
+              {
+                "scheme": "swhid",
+                "value": "swh:1:cnt:94a9ed024d3859793618152ea559a168bbcbb5e2"
+              },
+              {
+                "scheme": "swhid",
+                "value": "swh:1:dir:d198bc9d7a6bcf6db04f476d29314f157507d505"
+              },
+              {
+                "scheme": "omniborid",
+                "value": "gitoid:blob:sha1:261eeb9e9f8b2b4b0d119366dda99c6fd7d35c64"
+              },
+              {
+                "scheme": "omniborid",
+                "value": "gitoid:blob:sha256:9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

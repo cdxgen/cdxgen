@@ -1,0 +1,71 @@
+{
+  "$schema": "https://cyclonedx.org/schema/2.0/cyclonedx-2.0.schema.json",
+  "specFormat": "CycloneDX",
+  "specVersion": "2.0",
+  "serialNumber": "urn:uuid:9b6c2d1e-4f7a-4c3b-8e2d-1a5f6b7c8d10",
+  "version": 1,
+  "definitions": {
+    "components": [
+      {
+        "refId": "lib-1",
+        "type": "library",
+        "name": "acme-parser",
+        "version": "3.4.0"
+      },
+      {
+        "refId": "svc-1",
+        "type": "service",
+        "name": "acme-pricing-api",
+        "version": "2026.09"
+      },
+      {
+        "refId": "data-1",
+        "type": "data",
+        "name": "acme-customer-records",
+        "version": "2026-09-01"
+      },
+      {
+        "refId": "dev-1",
+        "type": "device",
+        "name": "acme-edge-gateway",
+        "version": "B",
+        "measurements": [
+          {
+            "activity": "manufacturing",
+            "activityEnergyCost": {
+              "value": 42,
+              "unit": "kWh"
+            },
+            "description": "Energy consumed to manufacture one unit, per the supplier's product carbon footprint statement."
+          }
+        ]
+      },
+      {
+        "refId": "mat-1",
+        "type": "material",
+        "name": "solder-alloy-sn96",
+        "version": "1"
+      },
+      {
+        "refId": "model-1",
+        "type": "machine-learning-model",
+        "name": "acme-summarizer",
+        "version": "2.1.0",
+        "measurements": [
+          {
+            "activity": "training",
+            "activityEnergyCost": {
+              "value": 1200,
+              "unit": "kWh"
+            },
+            "co2CostEquivalent": {
+              "value": 0.4,
+              "unit": "tCO2eq"
+            },
+            "description": "Energy consumed by the final fine-tuning run."
+          }
+        ]
+      }
+    ]
+  }
+}

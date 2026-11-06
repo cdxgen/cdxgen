@@ -1,0 +1,71 @@
+{
+  "specFormat": "CycloneDX",
+  "specVersion": "2.0",
+  "blueprints": [
+    {
+      "refId": "blueprint-1",
+      "blueprintMetadata":{
+        "timestamp": "2025-09-12T15:42:30Z",
+        "authors": [],
+        "reviewers": [],
+        "reviewDate": "2025-09-03",
+        "approvers": [],
+        "approvalDate": "2025-09-12",
+        "ordinalVersion": "1.0",
+        "lifecycles": [
+          {
+            "phase": "operations"
+          }
+        ],
+        "validityPeriod": {
+          "start": "",
+          "end": "",
+          "reviewFrequency": "P3M"
+        }
+      },
+      "modelTypes": [
+        "threat",
+        "dataFlow",
+        "logical"
+      ],
+      "methodologies": [
+        "STRIDE",
+        "LINDDUN"
+      ],
+      "perspectives": [
+        {
+          "refId": "perspective-1",
+          "type": "security",
+          "name": "",
+          "role": "Security Architect",
+          "objectives": [],
+          "concerns": [],
+          "viewpoint": ""
+          ],
+          "scope": {
+            "refId": "scope-1",
+            "name": "HashiCorp Vault",
+            "description": "HashiCorp Vault is a secrets management system that provides secure storage, access control, dynamic credentials, cryptographic operations (Transit), and secret leasing/renewal. A typical deployment consists of Vault clients (applications, CI/CD, operators) communicating over TLS with one or more Vault server nodes. Vault enforces authentication (e.g., AppRole, AWS/GCP/IAM, OIDC/JWT, Kubernetes), issues scoped tokens bound to policies, and gates all operations through its HTTP API. The server maintains an encrypted storage barrier and persists data in a backend - the integrated Storage/Raft deployment is the one in scope. Clusters are commonly configured in HA mode with an active leader and standby nodes. Core security properties include encryption at rest within the barrier, mutual TLS on all control/data paths, least-privilege policies, response wrapping, and short-lived dynamic secrets. Operational workflows cover initialization and sealing (Shamir key shares), unsealing, rotation of root keys and encryption keys, audit device configuration (e.g., file/socket/syslog), mount-by-mount secrets engine hardening, and strict network segmentation—especially between clients, Vault nodes, and the storage backend. Misconfigurations to consider include over-permissive policies, exposed Raft/Consul ports, weak auth method constraints, disabled audit logging, and long-lived tokens. This threat model involves an AWS deployment with k8s and a load balancer",
+            "$comment": "Business criticality, data sensitivity, and tier are defined on the individual assets. Exposure is not defined yet.",
+            "boundaries": [],
+            "includedComponents": [],
+            "excludedComponents": []
+
+          },
+          "visualizations": [
+
+          ],
+          "externalReferences": [
+            {
+              "type": "documentation",
+              "url": "https://developer.hashicorp.com/vault/docs"
+            },
+            {
+              "type": "vcs",
+              "url": "https://github.com/hashicorp/vault"
+            }
+          ]
+        }
+      }
+      ]
+    }

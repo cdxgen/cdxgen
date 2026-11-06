@@ -1,0 +1,251 @@
+{
+  "$schema": "https://cyclonedx.org/schema/2.0/cyclonedx-2.0.schema.json",
+  "specFormat": "CycloneDX",
+  "specVersion": "2.0",
+  "serialNumber": "urn:uuid:8b41cf82-52e6-46d5-9f45-e6c2ab4bf003",
+  "version": 1,
+  "metadata": {
+    "timestamp": "2026-08-13T12:00:00Z"
+  },
+  "components": [
+    {
+      "type": "machine-learning-model",
+      "refId": "model-1",
+      "name": "acme-summarizer",
+      "version": "2.1.0",
+      "description": "A transformer language model fine-tuned for clinical note summarization.",
+      "parties": [
+        {
+          "refId": "party-acme",
+          "roles": [
+            {
+              "role": "supplier"
+            }
+          ],
+          "organization": {
+            "name": "Acme Health AI"
+          }
+        },
+        {
+          "refId": "party-clinicians",
+          "roles": [
+            {
+              "role": "end-user"
+            }
+          ],
+          "persona": {
+            "description": "Clinicians who review generated summaries before entering them into patient records."
+          }
+        }
+      ],
+      "modelProperties": {
+        "learningTypes": [
+          "self-supervised",
+          "reinforcement-learning"
+        ],
+        "tasks": [
+          "summarization",
+          "text-generation"
+        ],
+        "architecture": {
+          "name": "acme-lm-7b",
+          "description": "Decoder-only transformer with grouped-query attention and rotary positional embeddings.",
+          "family": "transformer",
+          "features": [
+            "decoder-only",
+            "grouped-query-attention",
+            "rotary-position-embedding",
+            {
+              "name": "clinical-adapter",
+              "description": "Domain adapter layers trained on de-identified clinical text."
+            }
+          ],
+          "topology": "dense"
+        },
+        "parameterCount": 7000000000,
+        "quantization": {
+          "method": "k-quant",
+          "bits": 4,
+          "scheme": "affine",
+          "granularity": "per-group",
+          "groupSize": 128,
+          "axis": 0
+        },
+        "inputs": [
+          {
+            "name": "prompt",
+            "description": "The clinical note to summarize.",
+            "modality": "text",
+            "dataType": "string",
+            "processingStage": "pre-tokenizer",
+            "required": true,
+            "constraints": {
+              "maxLength": 32768
+            }
+          },
+          {
+            "name": "image",
+            "description": "An optional scanned document page.",
+            "modality": "image",
+            "dataType": "uint8",
+            "mimeType": "image/png",
+            "quantization": {
+              "scheme": "affine",
+              "granularity": "per-tensor",
+              "bits": 8
+            },
+            "shape": [
+              null,
+              3,
+              224,
+              224
+            ]
+          }
+        ],
+        "outputs": [
+          {
+            "name": "summary",
+            "modality": "text",
+            "dataType": "string",
+            "processingStage": "post-processing"
+          }
+        ],
+        "training": {
+          "formula": "formula-training-1",
+          "datasets": [
+            "dataset-corpus-1",
+            "urn:cdx:f08a6ccd-4dce-4759-bd84-c626675d60a7/1#openwebtext-subset"
+          ]
+        },
+        "limitations": [
+          "Summarization accuracy degrades on notes longer than the maximum context length.",
+          "The model is not intended for autonomous clinical decision making."
+        ],
+        "properties": [
+          {
+            "name": "cdx:ai-ml:model:contextWindow",
+            "value": "32768"
+          }
+        ]
+      },
+      "measurements": [
+        {
+          "type": "accuracy",
+          "benchmark": "mmlu-pro",
+          "measure": {
+            "value": 58.2,
+            "unit": "%"
+          },
+          "confidenceInterval": {
+            "lowerBound": 57.5,
+            "upperBound": 58.9
+          },
+          "graphics": [
+            {
+              "ref": "graphic-1"
+            }
+          ]
+        },
+        {
+          "type": "rouge-l",
+          "slice": "language:es",
+          "measure": {
+            "value": 41.3,
+            "unit": "%"
+          },
+          "evaluationDatasets": [
+            "dataset-corpus-1"
+          ]
+        },
+        {
+          "type": "latency",
+          "measure": {
+            "value": 127,
+            "unit": "ms"
+          },
+          "properties": [
+            {
+              "name": "percentile",
+              "value": "p95"
+            }
+          ]
+        },
+        {
+          "activity": "training",
+          "formula": "formula-training-1",
+          "energyProviders": [
+            {
+              "refId": "energy-provider-1",
+              "description": "Primary datacenter energy provider.",
+              "provider": {
+                "roles": [
+                  {
+                    "role": "supplier"
+                  }
+                ],
+                "organization": {
+                  "name": "Example Energy Cooperative"
+                }
+              },
+              "energySource": "wind",
+              "energyProvided": {
+                "value": 3200000,
+                "unit": "kWh"
+              }
+            }
+          ],
+          "activityEnergyCost": {
+            "value": 3200,
+            "unit": "MWh"
+          },
+          "co2CostEquivalent": {
+            "value": 850,
+            "unit": "tCO2eq"
+          },
+          "co2CostOffset": {
+            "value": 850,
+            "unit": "tCO2eq"
+          }
+        },
+        {
+          "activity": {
+            "name": "retrieval-indexing",
+            "description": "Nightly re-indexing of the retrieval corpus."
+          },
+          "activityEnergyCost": {
+            "value": 1200,
+            "unit": "kWh"
+          }
+        }
+      ]
+    },
+    {
+      "type": "data",
+      "refId": "dataset-corpus-1",
+      "name": "deidentified-clinical-notes",
+      "version": "2026-04",
+      "data": [
+        {
+          "type": "dataset",
+          "refId": "dataset-corpus-1-contents",
+          "name": "De-identified clinical notes",
+          "description": "Corpus of de-identified clinical notes used for fine-tuning.",
+          "classification": "restricted"
+        }
+      ]
+    }
+  ],
+  "definitions": {
+    "graphics": [
+      {
+        "refId": "graphic-1",
+        "name": "Confusion Matrix",
+        "image": {
+          "content": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg==",
+          "mediaType": "image/png",
+          "encoding": "base64"
+        }
+      }
+    ]
+  }
+}

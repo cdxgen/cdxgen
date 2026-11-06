@@ -1,0 +1,15 @@
+{
+  "$schema": "https://cyclonedx.org/schema/2.0/cyclonedx-2.0.schema.json",
+  "$comment": "Invalid: a damage scenario that carries impacts requires at least one impact.",
+  "specFormat": "CycloneDX",
+  "specVersion": "2.0",
+  "risks": {
+    "damageScenarios": [
+      {
+        "refId": "ds-1",
+        "name": "No impact given",
+        "impacts": []
+      }
+    ]
+  }
+}

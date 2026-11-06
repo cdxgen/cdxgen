@@ -49,6 +49,17 @@ export declare function normalizeHbomOptions(options?: object): object;
  */
 export declare function addHbomAnalysisProperties(bomJson: Object): Object;
 /**
+ * The 1.x-shaped model of a collector result. cdxgen asks the collector for
+ * 1.7; a collector that still answers with a CycloneDX 2.0 document (a
+ * `specFormat`, or specVersion 2.0) is read with readCycloneDx20, so the
+ * 1.x pipeline that follows never mistakes it for a 1.x BOM and loses its
+ * inventories.
+ *
+ * @param {object} collected What collectHardware returned
+ * @returns {object} The 1.x-shaped HBOM
+ */
+export declare function toInternalHbom(collected: object): object;
+/**
  * Generate an HBOM using the optional cdx-hbom package.
  *
  * @param {object} [options={}] CLI options.

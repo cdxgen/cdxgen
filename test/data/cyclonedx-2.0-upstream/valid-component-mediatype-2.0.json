@@ -1,0 +1,15 @@
+{
+  "$schema": "https://cyclonedx.org/schema/2.0/cyclonedx-2.0.schema.json",
+  "specFormat": "CycloneDX",
+  "specVersion": "2.0",
+  "serialNumber": "urn:uuid:3e671687-395b-41f5-a30f-a58921a69b7e",
+  "version": 1,
+  "definitions": {
+    "components": [
+      { "refId": "file-logo", "type": "file", "name": "logo.jpg", "mediaType": "image/jpeg" },
+      { "refId": "file-index", "type": "file", "name": "index.html", "mediaType": "text/html; charset=utf-8" },
+      { "refId": "file-form", "type": "file", "name": "form-payload.bin", "mediaType": "multipart/form-data; boundary=\"simple boundary\"; charset=utf-8" },
+      { "refId": "lib-api", "type": "library", "name": "acme-api-client", "version": "1.0", "mediaType": "application/vnd.api+json" }
+    ]
+  }
+}

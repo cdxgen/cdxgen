@@ -1,0 +1,25 @@
+{
+  "specFormat": "CycloneDX",
+  "specVersion": "2.0",
+  "definitions": {
+    "graphics": [
+      { "refId": "graphic-class-balance", "name": "Class balance", "image": { "mediaType": "image/svg+xml", "content": "<svg xmlns=\"http://www.w3.org/2000/svg\"/>" } }
+    ]
+  },
+  "inventories": [
+    {
+      "subject": { "refId": "acme-app", "type": "application", "name": "Acme Application", "version": "1.0" },
+      "components": [
+        { "refId": "acme-training-data", "type": "data", "name": "Acme Training Data", "version": "1.0",
+          "data": [
+            { "type": "dataset", "name": "Acme Training Set",
+              "graphics": { "description": "Dataset profile charts.", "collection": [
+                { "ref": "graphic-class-balance" },
+                { "ref": "urn:cdx:3e671687-395b-41f5-a30f-a58921a69b7c/1#graphic-shared-histogram" },
+                { "name": "Label distribution", "image": { "mediaType": "image/svg+xml", "content": "<svg xmlns=\"http://www.w3.org/2000/svg\"/>" } }
+              ] } }
+          ] }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "$schema": "https://cyclonedx.org/schema/2.0/cyclonedx-2.0.schema.json",
+  "specFormat": "CycloneDX",
+  "specVersion": "2.0",
+  "version": 1,
+  "serialNumber": "urn:uuid:3e671687-395b-41f5-a30f-a58921a69b7b",
+  "components": [
+    {
+      "type": "cryptographic-asset",
+      "refId": "protocol-other",
+      "name": "Unregistered protocol",
+      "cryptoProperties": {
+        "assetType": "protocol",
+        "protocolProperties": {
+          "type": "other",
+          "version": "1.0"
+        }
+      }
+    }
+  ]
+}

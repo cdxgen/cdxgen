@@ -1,0 +1,281 @@
+{
+  "$schema": "https://cyclonedx.org/schema/2.0/cyclonedx-2.0.schema.json",
+  "specFormat": "CycloneDX",
+  "specVersion": "2.0",
+  "serialNumber": "urn:uuid:3e671687-395b-41f5-a30f-a58921a69b79",
+  "version": 1,
+  "definitions": {
+    "components": [
+      {
+        "refId": "component-1",
+        "type": "platform",
+        "name": "Pipeline controller image",
+        "version": "v0.47.0"
+      },
+      {
+        "type": "library",
+        "parties": [
+          {
+            "roles": [ { "role": "publisher" } ],
+            "organization": { "name": "Acme Inc" }
+          }
+        ],
+        "group": "org.example",
+        "name": "mylibrary",
+        "version": "1.0.0"
+      }
+    ]
+  },
+  "formulation": [
+    {
+      "refId": "formula-1",
+      "workflows": [
+        {
+          "refId": "workflow-1",
+          "uid": "8edb2b08-e2c7-11ed-b5ea-0242ac120002",
+          "name": "My workflow",
+          "description": "Workflow description here",
+          "resourceReferences": [
+            {
+              "ref": "component-a"
+            }
+          ],
+          "tasks": [
+            {
+              "refId": "task-1",
+              "uid": "task-uid-1",
+              "name": "fetch-repository",
+              "description": "Description here",
+              "resourceReferences": [
+                {
+                  "ref": "component-a"
+                }
+              ],
+              "taskTypes": [
+                "clone",
+                "build"
+              ],
+              "trigger": {
+                "refId": "trigger-1",
+                "uid": "trigger-1",
+                "type": "api"
+              },
+              "steps": [
+                {
+                  "name": "My step"
+                }
+              ],
+              "inputs": [
+                {
+                  "resource": {
+                    "ref": "component-a"
+                  }
+                }
+              ],
+              "outputs": [
+                {
+                  "resource": {
+                    "ref": "component-b"
+                  }
+                }
+              ],
+              "timeStart": "2023-01-01T00:00:00+00:00",
+              "timeEnd": "2023-01-01T00:00:00+00:00",
+              "workspaces": [
+                {
+                  "refId": "workspace-1",
+                  "uid": "workspace-uid-1",
+                  "name": "workspace"
+                }
+              ],
+              "runtimeTopology": [
+                {
+                  "ref": "task-1",
+                  "dependsOn": ["task-2"]
+                }
+              ]
+            }
+          ],
+          "taskDependencies": [
+            {
+              "ref": "task-1",
+              "dependsOn": ["task-2"]
+            }
+          ],
+          "taskTypes": [
+            "clone",
+            "build"
+          ],
+          "trigger": {
+            "refId": "trigger-2",
+            "uid": "trigger-uid-2",
+            "name": "My trigger",
+            "description": "Description here",
+            "resourceReferences": [
+              {
+                "ref": "component-a"
+              }
+            ],
+            "type": "api",
+            "event": {
+              "uid": "event-1",
+              "description": "Description here",
+              "timeReceived": "2023-01-01T00:00:00+00:00",
+              "data": {
+                "mediaType": "text/plain",
+                "content": "Foo/Bar"
+              },
+              "source": {
+                "ref": "component-g"
+              },
+              "target": {
+                "ref": "component-h"
+              },
+              "properties": [
+                {
+                  "name": "Foo",
+                  "value": "Bar"
+                }
+              ]
+            },
+            "conditions": [
+              {
+                "description": "Description here",
+                "expression": "1 == 1",
+                "properties": [
+                  {
+                    "name": "Foo",
+                    "value": "Bar"
+                  }
+                ]
+              }
+            ],
+            "timeActivated": "2023-01-01T00:00:00+00:00",
+            "inputs": [
+              {
+                "resource": {
+                  "ref": "component-10"
+                },
+                "source": {
+                  "ref": "component-11"
+                },
+                "target": {
+                  "ref": "component-12"
+                }
+              }
+            ],
+            "outputs": [
+              {
+                "resource": {
+                  "ref": "component-14"
+                },
+                "type": "artifact",
+                "source": {
+                  "ref": "component-15"
+                },
+                "target": {
+                  "ref": "component-16"
+                }
+              }
+            ],
+            "properties": [
+              {
+                "name": "Foo",
+                "value": "Bar"
+              }
+            ]
+          },
+          "steps": [
+            {
+              "name": "My step",
+              "description": "Description here",
+              "commands": [
+                {
+                  "executed": "ls -las",
+                  "properties": [
+                    {
+                      "name": "Foo",
+                      "value": "Bar"
+                    }
+                  ]
+                }
+              ],
+              "properties": [
+                {
+                  "name": "Foo",
+                  "value": "Bar"
+                }
+              ]
+            }
+          ],
+          "inputs": [
+            {
+              "environmentVars": {
+                "LC_ALL": null,
+                "LANG": "en_US.UTF-8",
+                "MY_FLAG": "1",
+                "0TRUST": "true",
+                "": ""
+              }
+            }
+          ],
+          "outputs": [
+            {
+              "environmentVars": {
+                "Foo": "Bar"
+              }
+            },
+            {
+              "environmentVars": {
+                "FooBar": ""
+              }
+            }
+          ],
+          "timeStart": "2023-01-01T00:00:00+00:00",
+          "timeEnd": "2023-01-01T00:00:10+00:00",
+          "workspaces": [
+            {
+              "refId": "workspace-2",
+              "uid": "workspace-1",
+              "name": "My workspace",
+              "aliases": ["default-workspace"],
+              "description": "Description here",
+              "resourceReferences": [
+                {
+                  "ref": "component-t"
+                }
+              ],
+              "accessMode": "read-write",
+              "mountPath": "/tmp/workspace",
+              "managedDataType": "ConfigMap",
+              "volumeRequest": "requestedVolumeClaim",
+              "volume": {
+                "uid": "volume-1",
+                "name": "My volume",
+                "mode": "filesystem",
+                "path": "/",
+                "sizeAllocated": "10GB",
+                "persistent": true,
+                "remote": false
+              }
+            }
+          ],
+          "runtimeTopology": [
+            {
+              "ref": "component-s",
+              "dependsOn": [
+                "component-r"
+              ]
+            }
+          ],
+          "properties": [
+            {
+              "name": "Foo",
+              "value": "Bar"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

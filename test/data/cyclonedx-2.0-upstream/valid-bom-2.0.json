@@ -1,0 +1,395 @@
+{
+  "$schema": "https://cyclonedx.org/schema/2.0/cyclonedx-2.0.schema.json",
+  "specFormat": "CycloneDX",
+  "specVersion": "2.0",
+  "serialNumber": "urn:uuid:3e671687-395b-41f5-a30f-a58921a69b79",
+  "version": 1,
+  "metadata": {
+    "timestamp": "2020-04-13T20:20:39+00:00",
+    "tools": {
+      "components": [
+        {
+          "type": "application",
+          "parties": [
+            {
+              "roles": [ { "role": "manufacturer" } ],
+              "organization": {
+                "name": "Awesome Vendor"
+              }
+            }
+          ],
+          "name": "Awesome Tool",
+          "version": "9.1.2",
+          "hashes": [
+            {
+              "alg": "SHA-1",
+              "content": "25ed8e31b995bb927966616df2a42b979a2717f0"
+            },
+            {
+              "alg": "SHA-256",
+              "content": "a74f733635a19aefb1f73e5947cef59cd7440c6952ef0f03d09d974274cbd6df"
+            }
+          ]
+        }
+      ]
+    },
+    "authors": [
+      {
+        "name": "Samantha Wright",
+        "email": "samantha.wright@example.com",
+        "phone": "800-555-1212"
+      }
+    ],
+    "manufacturer": {
+      "refId": "acme-inc",
+      "name": "Acme, Inc.",
+      "url": [
+        "https://example.com"
+      ],
+      "contact": [
+        {
+          "name": "Acme Professional Services",
+          "email": "professional.services@example.com"
+        }
+      ]
+    }
+  },
+  "inventories": [
+    {
+      "subject": {
+        "refId": "subject-1",
+        "type": "application",
+        "parties": [
+          {
+            "roles": [ { "role": "author" } ],
+            "organization": { "name": "Acme Super Heroes" }
+          },
+          {
+            "roles": [ { "role": "supplier" } ],
+            "organization": {
+              "name": "Acme, Inc.",
+              "url": [ { "name": "homepage", "url": "https://example.com" } ]
+            }
+          },
+          {
+            "roles": [ { "role": "support-contact" } ],
+            "person": { "name": "Acme Distribution", "email": [ { "name": "support", "address": "distribution@example.com" } ] }
+          }
+        ],
+        "name": "Acme Application",
+        "version": "9.1.1",
+        "identifiers": [
+          {
+            "party": "acme-inc",
+            "identities": [
+              {
+                "scheme": "swid",
+                "value": "swidgen-242eb18a-503e-ca37-393b-cf156ef09691_9.1.1"
+              }
+            ]
+          }
+        ]
+      },
+      "components": [
+        {
+          "refId": "pkg:maven/com.acme/acme-catalina@9.0.14?packaging=jar",
+          "type": "application",
+          "parties": [
+            {
+              "roles": [ { "role": "author" } ],
+              "person": { "name": "Joane Doe et al." }
+            },
+            {
+              "roles": [ { "role": "publisher" } ],
+              "organization": { "name": "Acme Inc" }
+            }
+          ],
+          "group": "com.acme",
+          "name": "acme-catalina",
+          "version": "9.0.14",
+          "description": "Modified version of Acme Catalina",
+          "scope": "required",
+          "hashes": [
+            {
+              "alg": "MD5",
+              "content": "3942447fac867ae5cdb3229b658f4d48"
+            },
+            {
+              "alg": "SHA-1",
+              "content": "e6b1000b94e835ffd37f4c6dcbdad43f4b48a02a"
+            },
+            {
+              "alg": "SHA-256",
+              "content": "f498a8ff2dd007e29c2074f5e4b01a9a01775c3ff3aeaf6906ea503bc5791b7b"
+            },
+            {
+              "alg": "SHA-512",
+              "content": "e8f33e424f3f4ed6db76a482fde1a5298970e442c531729119e37991884bdffab4f9426b7ee11fccd074eeda0634d71697d6f88a460dce0ac8d627a29f7d1282"
+            }
+          ],
+          "licenses": [
+            {
+              "license": {
+                "id": "Apache-2.0",
+                "url": "https://www.apache.org/licenses/LICENSE-2.0.txt"
+              }
+            }
+          ],
+          "identifiers": [
+            {
+              "party": "acme-inc",
+              "identities": [
+                {
+                  "scheme": "purl",
+                  "value": "pkg:maven/com.acme/acme-catalina@9.0.14?packaging=jar"
+                }
+              ]
+            }
+          ],
+          "pedigree": {
+            "ancestors": [
+              {
+                "type": "application",
+                "parties": [
+                  {
+                    "roles": [ { "role": "author" } ],
+                    "person": { "name": "Globex Super Heroes" }
+                  },
+                  {
+                    "roles": [ { "role": "publisher" } ],
+                    "organization": { "name": "Globex" }
+                  }
+                ],
+                "group": "org.globex.catalina",
+                "name": "globex-catalina",
+                "version": "9.0.14",
+                "description": "Globex Catalina",
+                "licenses": [
+                  {
+                    "license": {
+                      "id": "Apache-2.0"
+                    }
+                  }
+                ],
+                "identifiers": [
+                  {
+                    "party": "acme-inc",
+                    "identities": [
+                      {
+                        "scheme": "purl",
+                        "value": "pkg:maven/org.globex.catalina/globex-catalina@9.0.14?packaging=jar"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "commits": [
+              {
+                "uid": "7638417db6d59f3c431d3e1f261cc637155684cd",
+                "url": "https://location/to/7638417db6d59f3c431d3e1f261cc637155684cd",
+                "author": {
+                  "timestamp": "2018-11-13T20:20:39+00:00",
+                  "name": "John Doe",
+                  "email": "john.doe@example.com"
+                },
+                "committer": {
+                  "timestamp": "2018-11-07T22:01:45Z",
+                  "name": "Jane Doe",
+                  "email": "jane.doe@example.com"
+                },
+                "message": "Initial commit"
+              }
+            ]
+          }
+        },
+        {
+          "type": "library",
+          "refId": "pkg:maven/com.example/myapplication@1.0.0?packaging=war",
+          "parties": [
+            {
+              "roles": [ { "role": "supplier" } ],
+              "organization": {
+                "name": "Example, Inc.",
+                "url": [
+                  { "name": "homepage", "url": "https://example.com" },
+                  { "name": "homepage", "url": "https://example.net" }
+                ]
+              }
+            },
+            {
+              "roles": [ { "role": "support-contact" } ],
+              "person": {
+                "name": "Example Support AMER",
+                "email": [ { "address": "support@example.com" } ],
+                "phone": [ { "number": "800-555-1212" } ]
+              }
+            },
+            {
+              "roles": [ { "role": "support-contact" } ],
+              "person": {
+                "name": "Example Support APAC",
+                "email": [ { "address": "support@apac.example.com" } ]
+              }
+            },
+            {
+              "refId": "example-2-inc",
+              "roles": [ { "role": "manufacturer" } ],
+              "organization": {
+                "name": "Example-2, Inc.",
+                "url": [
+                  { "name": "homepage", "url": "https://example.org" }
+                ]
+              }
+            },
+            {
+              "roles": [ { "role": "author" } ],
+              "person": {
+                "name": "Anthony Edward Stark",
+                "phone": [ { "number": "555-212-970-4133" } ],
+                "email": [ { "address": "ironman@example.org" } ]
+              }
+            },
+            {
+              "roles": [ { "role": "author" } ],
+              "person": {
+                "name": "Peter Benjamin Parker",
+                "email": [ { "address": "spiderman@example.org" } ]
+              }
+            }
+          ],
+          "group": "org.example",
+          "name": "mylibrary",
+          "version": "1.0.0",
+          "scope": "required",
+          "hashes": [
+            {
+              "alg": "MD5",
+              "content": "2342c2eaf1feb9a80195dbaddf2ebaa3"
+            },
+            {
+              "alg": "SHA-1",
+              "content": "68b78babe00a053f9e35ec6a2d9080f5b90122b0"
+            },
+            {
+              "alg": "SHA-256",
+              "content": "708f1f53b41f11f02d12a11b1a38d2905d47b099afc71a0f1124ef8582ec7313"
+            },
+            {
+              "alg": "SHA-512",
+              "content": "387b7ae16b9cae45f830671541539bf544202faae5aac544a93b7b0a04f5f846fa2f4e81ef3f1677e13aed7496408a441f5657ab6d54423e56bf6f38da124aef"
+            }
+          ],
+          "licenses": [
+            {
+              "expression": "EPL-2.0 OR GPL-2.0-with-classpath-exception"
+            }
+          ],
+          "copyright": "Copyright Example Inc. All rights reserved.",
+          "identifiers": [
+            {
+              "party": "example-2-inc",
+              "identities": [
+                {
+                  "scheme": "cpe",
+                  "value": "cpe:/a:example:myapplication:1.0.0"
+                },
+                {
+                  "scheme": "purl",
+                  "value": "pkg:maven/com.example/myapplication@1.0.0?packaging=war"
+                }
+              ]
+            }
+          ],
+          "externalReferences": [
+            {
+              "url": "http://example.org/docs",
+              "type": "documentation",
+              "comment": "All component versions are documented here"
+            },
+            {
+              "url": "http://example.org/security",
+              "type": "advisories"
+            }
+          ]
+        },
+        {
+          "type": "framework",
+          "parties": [
+            {
+              "roles": [ { "role": "author" } ],
+              "organization": { "name": "Example Super Heroes" }
+            }
+          ],
+          "group": "com.example",
+          "name": "myframework",
+          "version": "1.0.0",
+          "description": "Example Inc, enterprise framework",
+          "scope": "required",
+          "hashes": [
+            {
+              "alg": "MD5",
+              "content": "cfcb0b64aacd2f81c1cd546543de965a"
+            },
+            {
+              "alg": "SHA-1",
+              "content": "7fbeef2346c45d565c3341f037bce4e088af8a52"
+            },
+            {
+              "alg": "SHA-256",
+              "content": "0384db3cec55d86a6898c489fdb75a8e75fe66b26639634983d2f3c3558493d1"
+            },
+            {
+              "alg": "SHA-512",
+              "content": "854909cdb9e3ca183056837144aab6d8069b377bd66445087cc7157bf0c3f620418705dd0b83bdc2f73a508c2bdb316ca1809d75ee6972d02023a3e7dd655c79"
+            }
+          ],
+          "licenses": [
+            {
+              "license": {
+                "name": "Some random license"
+              }
+            }
+          ],
+          "identifiers": [
+            {
+              "party": "example-2-inc",
+              "identities": [
+                {
+                  "scheme": "purl",
+                  "value": "pkg:maven/com.example/myframework@1.0.0?packaging=war"
+                }
+              ]
+            }
+          ],
+          "externalReferences": [
+            {
+              "type": "website",
+              "url": "http://example.com/myframework"
+            },
+            {
+              "type": "advisories",
+              "url": "http://example.com/security"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "ref": "pkg:maven/com.acme/acme-catalina@9.0.14?packaging=jar",
+      "dependsOn": [
+        "pkg:maven/com.example/myapplication@1.0.0?packaging=war"
+      ]
+    }
+  ],
+  "annotations": [
+    {
+      "subjects": [ "pkg:maven/com.acme/acme-catalina@9.0.14?packaging=jar" ],
+      "annotator": { "organization": { "name": "Acme Super Heroes" } },
+      "timestamp": "2026-08-31T12:00:00Z",
+      "text": "Commentary here"
+    }
+  ]
+}

@@ -1,0 +1,47 @@
+{
+  "$schema": "https://cyclonedx.org/schema/2.0/cyclonedx-2.0.schema.json",
+  "specFormat": "CycloneDX",
+  "specVersion": "2.0",
+  "serialNumber": "urn:uuid:dd671687-395b-41f5-a30f-a58921a69c01",
+  "version": 1,
+  "definitions": {
+    "components": [
+      {
+        "refId": "component-acme-lib",
+        "type": "library",
+        "name": "acme-lib",
+        "version": "1.0.0",
+        "evidence": {
+          "identity": [
+            {
+              "scheme": "purl",
+              "concludedValue": "pkg:maven/com.acme/acme-lib@1.0.0",
+              "confidence": 0.9,
+              "methods": [
+                {
+                  "technique": "software-identifier",
+                  "confidence": 0.9,
+                  "value": "pkg:maven/com.acme/acme-lib@1.0.0",
+                  "description": "Matched the declared Package URL against the component coordinate."
+                },
+                {
+                  "technique": "hash-comparison",
+                  "confidence": 0.8,
+                  "value": "7c547a9d67cc7bc315c93b6e2ff8e4b6b41ae5be454ac249655ecb5ca2a85abf"
+                }
+              ]
+            }
+          ],
+          "occurrences": [
+            {
+              "location": "/opt/app/lib/acme-lib.jar",
+              "systemOwner": "platform-team",
+              "startTime": "2024-03-01T00:00:00.000Z",
+              "usageCount": 2
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

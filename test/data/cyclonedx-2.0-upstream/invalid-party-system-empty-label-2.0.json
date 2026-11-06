@@ -1,0 +1,28 @@
+{
+  "$schema": "https://cyclonedx.org/schema/2.0/cyclonedx-2.0.schema.json",
+  "specFormat": "CycloneDX",
+  "specVersion": "2.0",
+  "version": 1,
+  "inventories": [ { "subject": { "type": "application", "name": "CI-Built Application" }, "components": [
+    {
+      "type": "application",
+      "name": "Build Output",
+      "parties": [
+        {
+          "roles": [
+            {
+              "role": "author"
+            }
+          ],
+          "system": {
+            "label": "",
+            "kind": "service-account",
+            "permissions": [
+              "write-artifacts"
+            ]
+          }
+        }
+      ]
+    }
+  ] } ]
+}

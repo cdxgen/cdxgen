@@ -17,6 +17,16 @@ It combines three layers:
    from a BOM alone (for example, "SBOMs are required for new procurements")
    are surfaced as _manual-review_ items so coverage can still be tracked.
 
+A CycloneDX 2.0 document is schema-checked as the 2.0 document. The deep
+checks and the compliance rules read cdxgen's 1.x-shaped model of it (the
+model `cdx-convert` and `cdx-audit` read), so the same project gives the same
+rule results at 1.7 and at 2.0. Anything of the 2.0 document that model cannot
+hold is a read loss: `validateBomAdvanced()` returns them as `readLosses`
+(`[{ "pointer": "/risks", "reason": "…" }]`), the `json` report lists them
+under `readLosses`, and `cdx-validate` prints their count on stderr. Set `CDXGEN_THINK_MODE=true` to list them. A document nested
+deeper than 256 objects is cut at that depth, with one loss for each cut
+object.
+
 It is distributed as:
 
 - an npm entry point (`cdx-validate` — installed alongside `cdxgen`)
@@ -105,6 +115,7 @@ A stable, documented JSON schema:
   "deepValid": true,
   "signatureVerified": null,
   "signatureEntries": null,
+  "readLosses": [],
   "validationErrors": [],
   "summary": { "total": 95, "pass": 28, "fail": 2, "manual": 65, "errors": 1 },
   "benchmarks": [ { "id": "scvs-l2", "name": "OWASP SCVS Level 2", "pass": 15, "fail": 1, "manual": 46, "scorePct": 94, "controls": [ … ] } ],
@@ -145,7 +156,7 @@ A validator that throws has not produced a verdict on the BOM, so an
 exception is never folded into `schemaValid`/`deepValid` or counted as a
 failing control. When the schema or deep stage throws (for example on an
 unexpected input shape), `validateBomAdvanced()` records it in
-`validationErrors: [{ "stage": "schema" | "deep", "message": "…" }]`, and
+`validationErrors: [{ "stage": "read" | "schema" | "deep", "message": "…" }]`, and
 `summary.errors` counts how many occurred.
 
 Each reporter surfaces the list differently:
@@ -153,7 +164,7 @@ Each reporter surfaces the list differently:
 - the **console** reporter prints `Validator error during <stage> validation: <message>` lines after the summary
 - the **json** reporter includes the `validationErrors` array verbatim
 - the **sarif** reporter emits each entry as a `toolExecutionNotifications` error on the invocation, so code-scanning UIs show the tool itself had a problem
-- **cdx-validate** additionally prints every entry to stderr as `<stage> validation threw: <message>`
+- **cdx-validate** additionally prints every entry to stderr as `<stage> validation threw: <message>`, and a `read` entry (a 2.0 document the reader could not read) as its message alone
 
 If a run reports `errors > 0`, treat the corresponding stage's verdict as
 unknown rather than failed, fix or report the validator fault, and re-run.

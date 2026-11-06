@@ -1,0 +1,19 @@
+{
+  "specFormat": "CycloneDX",
+  "specVersion": "2.0",
+  "definitions": {
+    "components": [
+      { "refId": "reg-a", "type": "device", "name": "Regulator A" },
+      { "refId": "reg-b", "type": "device", "name": "Regulator B" }
+    ]
+  },
+  "inventories": [
+    {
+      "subject": { "type": "component-choice", "operator": "XOR",
+        "components": [ { "ref": "reg-a" }, { "ref": "reg-b" } ] },
+      "components": [
+        { "refId": "lib-1", "type": "library", "name": "Some Library", "version": "1.0" }
+      ]
+    }
+  ]
+}

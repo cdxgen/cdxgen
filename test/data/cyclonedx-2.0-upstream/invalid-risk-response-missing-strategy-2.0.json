@@ -1,0 +1,18 @@
+{
+  "specFormat": "CycloneDX",
+  "specVersion": "2.0",
+  "serialNumber": "urn:uuid:1b4e28ba-2fa1-11d2-883f-0016d3cca427",
+  "version": 1,
+  "risks": {
+    "risks": [
+      {
+        "refId": "risk-x",
+        "name": "Response missing strategy",
+        "statement": "A risk whose response omits the required strategy.",
+        "responses": [
+          { "refId": "resp-x", "function": "prevent" }
+        ]
+      }
+    ]
+  }
+}

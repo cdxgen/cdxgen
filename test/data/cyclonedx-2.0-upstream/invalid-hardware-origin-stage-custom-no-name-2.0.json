@@ -1,0 +1,30 @@
+{
+  "$schema": "https://cyclonedx.org/schema/2.0/cyclonedx-2.0.schema.json",
+  "specFormat": "CycloneDX",
+  "specVersion": "2.0",
+  "version": 1,
+  "serialNumber": "urn:uuid:1f0e9c2a-6b7d-4a3e-9c1f-0a2b3c4d5e14",
+  "definitions": {
+    "components": [
+      {
+        "refId": "comp-tungsten",
+        "type": "material",
+        "name": "Tungsten Metal Powder",
+        "origins": [
+          {
+            "stage": {
+              "description": "A custom origin stage missing its required name."
+            },
+            "basis": "net weight",
+            "distribution": [
+              {
+                "isoCode": "US",
+                "percentage": 100
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

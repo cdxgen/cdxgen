@@ -1,0 +1,37 @@
+{
+  "$schema": "https://cyclonedx.org/schema/2.0/cyclonedx-2.0.schema.json",
+  "specFormat": "CycloneDX",
+  "specVersion": "2.0",
+  "version": 1,
+  "inventories": [
+    {
+      "subject": {
+        "refId": "subject-1",
+        "type": "application",
+        "name": "GDPR-Subject Application"
+      },
+      "components": [
+        {
+          "type": "application",
+          "name": "Customer Records Service",
+          "parties": [
+            {
+              "roles": [
+                {
+                  "name": "Data Protection Officer",
+                  "description": "Custom role for the EU GDPR Article 37 designated officer."
+                }
+              ],
+              "person": {
+                "name": "Eve Carter",
+                "email": [
+                  { "name": "work", "address": "dpo@example.com" }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

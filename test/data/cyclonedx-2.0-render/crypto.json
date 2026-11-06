@@ -1,0 +1,78 @@
+{
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.7",
+  "serialNumber": "urn:uuid:c0c970e0-0000-4000-8000-000000000004",
+  "version": 1,
+  "metadata": {
+    "timestamp": "2026-01-01T00:00:00Z",
+    "component": {
+      "type": "application",
+      "name": "tls-app",
+      "version": "1.0.0",
+      "bom-ref": "pkg:generic/tls-app@1.0.0"
+    }
+  },
+  "components": [
+    {
+      "type": "cryptographic-asset",
+      "name": "RSA-2048",
+      "bom-ref": "crypto/algorithm/rsa-2048",
+      "cryptoProperties": {
+        "assetType": "algorithm",
+        "algorithmProperties": {
+          "primitive": "signature",
+          "parameterSetIdentifier": "2048",
+          "certificationLevel": ["fips140-3-l1"]
+        },
+        "oid": "1.2.840.113549.1.1.1"
+      }
+    },
+    {
+      "type": "cryptographic-asset",
+      "name": "server-key",
+      "bom-ref": "crypto/key/server",
+      "cryptoProperties": {
+        "assetType": "related-crypto-material",
+        "relatedCryptoMaterialProperties": {
+          "type": "public-key",
+          "algorithmRef": "crypto/algorithm/rsa-2048",
+          "size": 2048,
+          "securedBy": { "mechanism": "HSM", "algorithmRef": "crypto/algorithm/rsa-2048" }
+        }
+      }
+    },
+    {
+      "type": "cryptographic-asset",
+      "name": "server-cert",
+      "bom-ref": "crypto/certificate/server",
+      "cryptoProperties": {
+        "assetType": "certificate",
+        "certificateProperties": {
+          "subjectName": "CN=tls-app",
+          "issuerName": "CN=Example CA",
+          "signatureAlgorithmRef": "crypto/algorithm/rsa-2048",
+          "subjectPublicKeyRef": "crypto/key/server",
+          "certificateFormat": "X.509",
+          "certificateExtension": "crt"
+        }
+      }
+    },
+    {
+      "type": "cryptographic-asset",
+      "name": "IKEv2",
+      "bom-ref": "crypto/protocol/ikev2",
+      "cryptoProperties": {
+        "assetType": "protocol",
+        "protocolProperties": {
+          "type": "ikev2",
+          "version": "2",
+          "cryptoRefArray": ["crypto/algorithm/rsa-2048"],
+          "ikev2TransformTypes": {
+            "encr": ["crypto/algorithm/rsa-2048"],
+            "esn": true
+          }
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,74 @@
+{
+  "$schema": "https://cyclonedx.org/schema/2.0/cyclonedx-2.0.schema.json",
+  "specFormat": "CycloneDX",
+  "specVersion": "2.0",
+  "version": 1,
+  "serialNumber": "urn:uuid:1f0e9c2a-6b7d-4a3e-9c1f-0a2b3c4d5e02",
+  "definitions": {
+    "components": [
+      {
+        "refId": "comp-mcu-avr8-328",
+        "type": "device",
+        "name": "Acme AVR8-328",
+        "version": "Rev. E",
+        "parties": [
+          {
+            "refId": "party-acme-semi",
+            "roles": [
+              {
+                "role": "manufacturer"
+              }
+            ],
+            "organization": {
+              "name": "Acme Semiconductor"
+            }
+          },
+          {
+            "refId": "party-ridgecrest-labs",
+            "roles": [
+              {
+                "name": "certification-body"
+              }
+            ],
+            "organization": {
+              "name": "Ridgecrest Compliance Laboratories"
+            }
+          }
+        ],
+        "classification": {
+          "category": "semiconductor",
+          "subcategory": "microcontroller"
+        },
+        "deviceType": "dip",
+        "certifications": [
+          { "ref": "cert-aecq100" }
+        ]
+      }
+    ],
+    "certifications": [
+      {
+        "refId": "cert-aecq100",
+        "standard": "AEC-Q100",
+        "identifier": "RCL-2026-04471",
+        "issuer": "party-ridgecrest-labs",
+        "issuedDate": "2026-03-02",
+        "level": "Grade 1",
+        "scope": "Automotive qualification of the AVR8-328 in the 28-pin PDIP package.",
+        "jurisdiction": "US",
+        "relatedClaims": [
+          "claim-aecq100-stress"
+        ],
+        "url": "https://certs.ridgecrest.example.com/RCL-2026-04471"
+      }
+    ]
+  },
+  "declarations": {
+    "claims": [
+      {
+        "refId": "claim-aecq100-stress",
+        "target": "comp-mcu-avr8-328",
+        "predicate": "The AVR8-328 Rev. E passed AEC-Q100 Grade 1 accelerated stress testing across all test groups."
+      }
+    ]
+  }
+}

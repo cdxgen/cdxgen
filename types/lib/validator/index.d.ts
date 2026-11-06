@@ -38,6 +38,11 @@ export declare function validateGeneratedBom(bomJson: object): Promise<{
 /**
  * Run structural + compliance validation against a parsed BOM.
  *
+ * The JSON schema check and signature verification read the document as
+ * given. The deep checks and compliance rules read the 1.x-shaped model, so
+ * the same project gives the same rule results at 1.x and at 2.0; for a 2.0
+ * document `readLosses` lists what that model could not hold.
+ *
  * @param {object} bomJson Parsed CycloneDX JSON BOM.
  * @param {object} [options]
  * @param {boolean} [options.schema]            Run JSON-Schema validation (default true).
@@ -55,6 +60,7 @@ export declare function validateGeneratedBom(bomJson: object): Promise<{
  *   schemaValid: boolean,
  *   deepValid: boolean,
  *   validationErrors: Array<{ stage: string, message: string }>,
+ *   readLosses: Array<{ pointer: string, reason: string }>,
  *   signatureVerified: boolean | null,
  *   signatureDetails: object | null,
  *   signatureEntries: Array<{ index: number, algorithm: any, keyId: any, verified: boolean }> | null,
@@ -81,6 +87,10 @@ export declare function validateBomAdvanced(bomJson: object, options?: {
     validationErrors: Array<{
         stage: string;
         message: string;
+    }>;
+    readLosses: Array<{
+        pointer: string;
+        reason: string;
     }>;
     signatureVerified: boolean | null;
     signatureDetails: object | null;

@@ -1,0 +1,35 @@
+{
+  "$schema": "https://cyclonedx.org/schema/2.0/cyclonedx-2.0.schema.json",
+  "specFormat": "CycloneDX",
+  "specVersion": "2.0",
+  "serialNumber": "urn:uuid:3e671687-395b-41f5-a30f-a58921a69b7f",
+  "version": 1,
+  "definitions": {
+    "components": [
+      { "refId": "pkg:generic/ossproject/library@1.0", "type": "library", "name": "Some Opensource Library", "version": "1.0" },
+      { "refId": "pkg:generic/acme/library-fork@1.0-acme.2", "type": "library", "name": "Acme Library Fork", "version": "1.0-acme.2" }
+    ]
+  },
+  "inventories": [
+    {
+      "subject": { "refId": "acme-app", "type": "application", "name": "Acme Application", "version": "2.0" },
+      "components": [
+        {
+          "refId": "pkg:generic/acme/library-fork@1.0-acme.3",
+          "type": "library",
+          "name": "Acme Library Fork",
+          "version": "1.0-acme.3",
+          "pedigree": {
+            "ancestors": [
+              { "ref": "pkg:generic/ossproject/library@1.0" }
+            ],
+            "variants": [
+              { "ref": "pkg:generic/acme/library-fork@1.0-acme.2" },
+              { "refId": "pkg:generic/partner/library-fork@1.0-partner.1", "type": "library", "name": "Partner Library Fork", "version": "1.0-partner.1" }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

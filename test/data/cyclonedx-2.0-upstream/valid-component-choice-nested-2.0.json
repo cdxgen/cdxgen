@@ -1,0 +1,79 @@
+{
+  "$schema": "https://cyclonedx.org/schema/2.0/cyclonedx-2.0.schema.json",
+  "specFormat": "CycloneDX",
+  "specVersion": "2.0",
+  "version": 1,
+  "inventories": [
+    {
+      "subject": {
+        "refId": "radio-module",
+        "type": "device",
+        "name": "Radio Module"
+      },
+      "components": [
+        {
+          "type": "component-choice",
+          "name": "Radio Subsystem",
+          "description": "Choose exactly one radio subsystem. Each option is itself a tightly coupled group of transceiver and matching balun that must be installed together.",
+          "operator": "XOR",
+          "components": [
+            {
+              "type": "component-choice",
+              "name": "2.4GHz Radio Group",
+              "operator": "AND",
+              "components": [
+                {
+                  "type": "device",
+                  "name": "2.4GHz Transceiver",
+                  "parties": [
+                    {
+                      "roles": [ { "role": "supplier" } ],
+                      "organization": { "name": "Acme RF" }
+                    }
+                  ]
+                },
+                {
+                  "type": "device",
+                  "name": "2.4GHz Balun",
+                  "parties": [
+                    {
+                      "roles": [ { "role": "supplier" } ],
+                      "organization": { "name": "Acme RF" }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "component-choice",
+              "name": "Sub-GHz Radio Group",
+              "operator": "AND",
+              "components": [
+                {
+                  "type": "device",
+                  "name": "915MHz Transceiver",
+                  "parties": [
+                    {
+                      "roles": [ { "role": "supplier" } ],
+                      "organization": { "name": "Beta RF" }
+                    }
+                  ]
+                },
+                {
+                  "type": "device",
+                  "name": "915MHz Balun",
+                  "parties": [
+                    {
+                      "roles": [ { "role": "supplier" } ],
+                      "organization": { "name": "Beta RF" }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

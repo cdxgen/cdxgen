@@ -1,0 +1,23 @@
+{
+  "specFormat": "CycloneDX",
+  "specVersion": "2.0",
+  "definitions": {
+    "licenses": [
+      {
+        "license": {
+          "refId": "lic-apache-2.0",
+          "id": "Apache-2.0"
+        }
+      }
+    ]
+  },
+  "inventories": [
+    {
+      "subject": { "refId": "acme-app", "type": "application", "name": "Acme Application", "version": "1.0" },
+      "components": [
+        { "refId": "pkg:maven/acme/library-a@1.0", "type": "library", "name": "Acme Library A", "version": "1.0",
+          "licenses": [ { "ref": "lic-apache-2.0", "acknowledgement": "concluded" } ] }
+      ]
+    }
+  ]
+}

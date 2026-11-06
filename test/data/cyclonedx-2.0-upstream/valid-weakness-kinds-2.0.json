@@ -1,0 +1,75 @@
+{
+  "$schema": "https://cyclonedx.org/schema/2.0/cyclonedx-2.0.schema.json",
+  "specFormat": "CycloneDX",
+  "specVersion": "2.0",
+  "serialNumber": "urn:uuid:7c1f3b2e-9a4d-4c6e-8b1a-2f5d6e7a8b90",
+  "version": 1,
+  "definitions": {
+    "weaknesses": [
+      {
+        "refId": "weakness-deserialization",
+        "kind": "flaw",
+        "identifiers": [
+          { "scheme": "cwe", "schemeVersion": "4.20", "value": "CWE-502" }
+        ]
+      },
+      {
+        "refId": "weakness-lead-solder",
+        "kind": "hazard",
+        "name": "Lead content above 0.1 % in solder",
+        "identifiers": [
+          { "scheme": "ghs", "value": "H360" }
+        ]
+      },
+      {
+        "refId": "weakness-age-representation",
+        "kind": "bias",
+        "name": "Representation bias in training data",
+        "description": "Notes describing patients aged 65 and over are under-represented in the training corpus.",
+        "identifiers": [
+          { "scheme": { "name": "avid", "url": "https://avidml.org/taxonomy/" }, "value": "E0101" }
+        ],
+        "categories": [
+          { "taxonomy": "nist-sp-1270", "category": "statistical-computational" },
+          { "taxonomy": "iso-iec-tr-24027", "category": "non-representative-sampling" }
+        ]
+      },
+      {
+        "refId": "weakness-single-source",
+        "kind": "predisposing-condition",
+        "name": "Single-source supplier with weak financial stability",
+        "identifiers": [
+          { "scheme": "sot", "value": "RC-13" }
+        ],
+        "categories": [
+          { "taxonomy": "orx-cause", "category": "external" }
+        ]
+      },
+      {
+        "refId": "weakness-custom-scheme",
+        "kind": { "name": "latent-condition", "description": "A dormant organisational condition in the sense used by Reason." },
+        "name": "Unreviewed change to the release checklist",
+        "identifiers": [
+          { "scheme": { "name": "acme-weakness-registry", "url": "https://weakness.example.com/registry" }, "value": "AW-0042" }
+        ],
+        "categories": [
+          { "taxonomy": { "name": "acme-cause-model", "description": "Internal root cause model." }, "category": "process" }
+        ]
+      }
+    ]
+  },
+  "risks": {
+    "risks": [
+      {
+        "refId": "risk-single-source-outage",
+        "name": "Supply interruption from a single-source supplier",
+        "statement": "Because the only qualified supplier of the power controller is financially unstable, a supplier failure would halt production for at least one quarter.",
+        "relatedWeaknesses": [ "weakness-single-source" ],
+        "inherentRisk": {
+          "likelihood": { "level": "medium" },
+          "impacts": [ { "level": "major", "polarity": "harm", "categories": [ "operational", "financial" ] } ]
+        }
+      }
+    ]
+  }
+}

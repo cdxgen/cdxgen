@@ -6,11 +6,18 @@ import crypto from "node:crypto";
  */
 export declare const MAX_SIGNATURE_ENTRIES = 32;
 /**
- * Members the CycloneDX 1.4 to 1.7 and 2.0 schemas define at the root of a
- * BOM. A root signature is only accepted on an object made of these members,
- * so a signed component, service, or annotation cannot pass as a signed BOM.
+ * Members the CycloneDX 1.4 to 1.7 schemas define at the root of a BOM, plus
+ * `specFormat`, which an early 2.0 draft used in place of `bomFormat`. A JSF
+ * root signature is only accepted on an object made of these members, so a
+ * signed component, service, or annotation cannot pass as a signed BOM.
  */
 export declare const BOM_ROOT_MEMBERS: readonly string[];
+/**
+ * Members the CycloneDX 2.0 draft schema defines at the root of a document.
+ * A JSS root signature (lib/helpers/jssSigner.js) is only accepted on an
+ * object made of these members.
+ */
+export declare const BOM_20_ROOT_MEMBERS: readonly string[];
 /**
  * Renders a value taken from a document for a message. JSON can make any field
  * an object or array, and interpolating those directly can throw.
@@ -19,6 +26,16 @@ export declare const BOM_ROOT_MEMBERS: readonly string[];
  * @returns {string} - Printable text
  */
 export declare function displayValue(value: any): string;
+/**
+ * Deterministic JSON canonicalizer following RFC 8785 (JCS), which JSF uses to
+ * produce the signed data. Values are serialized the way JSON.stringify would
+ * see them, so an in-memory object and its parsed JSON form canonicalize
+ * identically.
+ *
+ * @param {any} value - The JSON object/value to canonicalize
+ * @returns {string|undefined} - Canonicalized JSON string, or undefined for values JSON omits
+ */
+export declare function canonicalizeJson(value: any): string | undefined;
 /**
  * Wraps shared-secret material for HMAC (HS256, HS384, HS512) signing or
  * verification.

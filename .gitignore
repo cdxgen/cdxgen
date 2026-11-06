@@ -9,6 +9,8 @@ bomresults
 # under test/repotests/ where the unit tests walk it.
 /repotests/
 *.slices.json
+# atom writes a flow summary next to its slices when evinse runs
+flowsummary-*.json
 
 # Golden test harness artifacts
 .v12-tmp/
@@ -207,4 +209,8 @@ test/data/rust-dataflow-repotest/target
 # committed fixtures. The one below is written by the securityGates e2e scan.
 /package-lock.json
 test/data/sec-npmrc-protocrash/package-lock.json
+# The AI-BOM fixtures have a package.json but no lockfile; a scan that
+# installs would write one.
+test/data/ai-agent-declared/package-lock.json
+test/data/kiro-v3-project/package-lock.json
 !test/data/tracebom-chain/bom.json

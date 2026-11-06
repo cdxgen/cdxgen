@@ -1,0 +1,149 @@
+{
+  "$schema": "https://cyclonedx.org/schema/2.0/cyclonedx-2.0.schema.json",
+  "specFormat": "CycloneDX",
+  "specVersion": "2.0",
+  "serialNumber": "urn:uuid:3e671687-395b-41f5-a30f-a58921a69b79",
+  "version": 1,
+  "definitions": {
+    "components": [
+      {
+        "refId": "pkg:maven/com.acme/stock-java-client@1.0.12",
+        "type": "library",
+        "parties": [
+          {
+            "roles": [
+              {
+                "role": "publisher"
+              }
+            ],
+            "organization": {
+              "name": "Acme Inc"
+            }
+          }
+        ],
+        "group": "com.acme",
+        "name": "stock-java-client",
+        "version": "1.0.12",
+        "hashes": [
+          {
+            "alg": "SHA-1",
+            "content": "e6b1000b94e835ffd37f4c6dcbdad43f4b48a02a"
+          }
+        ],
+        "licenses": [
+          {
+            "license": {
+              "id": "Apache-2.0"
+            }
+          }
+        ]
+      },
+      {
+        "refId": "b2a46a4b-8367-4bae-9820-95557cfe03a8",
+        "type": "service",
+        "isExternal": true,
+        "parties": [
+          {
+            "refId": "party-partner-org",
+            "roles": [
+              {
+                "role": "provider"
+              }
+            ],
+            "organization": {
+              "name": "Partner Org",
+              "url": [
+                {
+                  "name": "homepage",
+                  "url": "https://partner.org"
+                }
+              ]
+            }
+          },
+          {
+            "roles": [
+              {
+                "role": "support-contact"
+              }
+            ],
+            "person": {
+              "name": "Support",
+              "email": [
+                {
+                  "address": "support@partner.org"
+                }
+              ],
+              "phone": [
+                {
+                  "number": "800-555-1212"
+                }
+              ],
+              "affiliation": "party-partner-org"
+            }
+          }
+        ],
+        "group": "org.partner",
+        "name": "Stock ticker service",
+        "version": "2020-Q2",
+        "description": "Provides real-time stock information",
+        "endpoints": [
+          "https://partner.org/api/v1/lookup",
+          "https://partner.org/api/v1/stock"
+        ],
+        "dataProfiles": [
+          {
+            "name": "Customer PII",
+            "classification": "confidential",
+            "informationTypes": [
+              "pii"
+            ]
+          },
+          {
+            "name": "Personally Identifiable Financial Information",
+            "classification": "confidential",
+            "informationTypes": [
+              "pii",
+              "financial"
+            ]
+          },
+          {
+            "name": "Public Market Data",
+            "classification": "public"
+          },
+          {
+            "name": "Partner Data",
+            "classification": {
+              "name": "partner-restricted",
+              "description": "Data subject to the partner data-sharing agreement."
+            }
+          }
+        ],
+        "licenses": [
+          {
+            "license": {
+              "name": "Partner license"
+            }
+          }
+        ],
+        "externalReferences": [
+          {
+            "type": "website",
+            "url": "http://partner.org"
+          },
+          {
+            "type": "documentation",
+            "url": "http://api.partner.org/swagger"
+          }
+        ]
+      }
+    ]
+  },
+  "dependencies": [
+    {
+      "ref": "pkg:maven/com.acme/stock-java-client@1.0.12",
+      "dependsOn": [
+        "b2a46a4b-8367-4bae-9820-95557cfe03a8"
+      ]
+    }
+  ]
+}

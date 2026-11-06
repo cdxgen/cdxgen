@@ -1,0 +1,11 @@
+{
+  "specFormat": "CycloneDX",
+  "specVersion": "2.0",
+  "compositions": [
+    {
+      "kind": "assemblies",
+      "aggregate": "complete",
+      "targets": [ "acme-app" ]
+    }
+  ]
+}

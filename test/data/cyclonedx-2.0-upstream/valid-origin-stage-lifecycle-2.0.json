@@ -1,0 +1,135 @@
+{
+  "$schema": "https://cyclonedx.org/schema/2.0/cyclonedx-2.0.schema.json",
+  "specFormat": "CycloneDX",
+  "specVersion": "2.0",
+  "version": 1,
+  "serialNumber": "urn:uuid:1f0e9c2a-6b7d-4a3e-9c1f-0a2b3c4d5e15",
+  "definitions": {
+    "components": [
+      {
+        "refId": "comp-flight-controller",
+        "type": "device",
+        "name": "Acme Flight Controller",
+        "origins": [
+          {
+            "stage": "designed",
+            "basis": "engineering hours",
+            "distribution": [
+              {
+                "isoCode": "US",
+                "percentage": 100
+              }
+            ]
+          },
+          {
+            "stage": "manufactured",
+            "basis": "manufacturing cost",
+            "distribution": [
+              {
+                "isoCode": "TW",
+                "percentage": 100
+              }
+            ]
+          },
+          {
+            "stage": "tested",
+            "basis": "manufacturing cost",
+            "distribution": [
+              {
+                "isoCode": "MY",
+                "percentage": 100
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "refId": "comp-acme-crypto",
+        "type": "library",
+        "name": "acme-crypto",
+        "version": "3.1.0",
+        "origins": [
+          {
+            "stage": "developed",
+            "basis": "engineering hours",
+            "distribution": [
+              {
+                "isoCode": "US",
+                "percentage": 70
+              },
+              {
+                "isoCode": "DE",
+                "percentage": 30
+              }
+            ]
+          },
+          {
+            "stage": "built",
+            "basis": "build execution",
+            "distribution": [
+              {
+                "isoCode": "US",
+                "percentage": 100
+              }
+            ]
+          },
+          {
+            "stage": "maintained",
+            "basis": "engineering hours",
+            "distribution": [
+              {
+                "isoCode": "US",
+                "percentage": 80
+              },
+              {
+                "isoCode": "IN",
+                "percentage": 20
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "refId": "comp-acme-vision",
+        "type": "machine-learning-model",
+        "name": "acme-vision",
+        "version": "2.4.0",
+        "origins": [
+          {
+            "stage": "trained",
+            "basis": "compute cost",
+            "distribution": [
+              {
+                "isoCode": "US",
+                "percentage": 100
+              }
+            ]
+          }
+        ],
+        "components": [
+          {
+            "refId": "comp-vision-corpus",
+            "type": "data",
+            "name": "Vision Training Corpus",
+            "origins": [
+              {
+                "stage": "collected",
+                "basis": "record count",
+                "distribution": [
+                  {
+                    "isoCode": "US",
+                    "percentage": 60
+                  },
+                  {
+                    "isoCode": "GB",
+                    "percentage": 40
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "$schema": "https://cyclonedx.org/schema/2.0/cyclonedx-2.0.schema.json",
+  "specFormat": "CycloneDX",
+  "specVersion": "2.0",
+  "definitions": {
+    "components": [
+      {
+        "type": "cryptographic-asset",
+        "name": "SHA-256",
+        "cryptoProperties": {
+          "assetType": "algorithm",
+          "algorithmProperties": {
+            "primitive": "hash",
+            "algorithmFamily": "SHA-2"
+          }
+        }
+      },
+      {
+        "type": "cryptographic-asset",
+        "name": "MD5",
+        "cryptoProperties": {
+          "assetType": "algorithm",
+          "algorithmProperties": {
+            "primitive": "hash",
+            "algorithmFamily": "MD5",
+            "nistQuantumSecurityLevel": 0
+          }
+        }
+      },
+      {
+        "type": "cryptographic-asset",
+        "name": "ML-KEM-1024",
+        "cryptoProperties": {
+          "assetType": "algorithm",
+          "algorithmProperties": {
+            "primitive": "kem",
+            "algorithmFamily": "ML-KEM",
+            "parameterSetIdentifier": "1024",
+            "nistQuantumSecurityLevel": 5
+          }
+        }
+      }
+    ]
+  }
+}

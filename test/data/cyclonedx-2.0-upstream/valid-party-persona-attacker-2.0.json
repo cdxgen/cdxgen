@@ -1,0 +1,35 @@
+{
+  "$schema": "https://cyclonedx.org/schema/2.0/cyclonedx-2.0.schema.json",
+  "specFormat": "CycloneDX",
+  "specVersion": "2.0",
+  "version": 1,
+  "inventories": [
+    {
+      "subject": {
+        "refId": "subject-1",
+        "type": "application",
+        "name": "Threat-Modeled Product"
+      },
+      "components": [
+        {
+          "type": "application",
+          "name": "Threat-Modeled Product Frontend",
+          "parties": [
+            {
+              "roles": [
+                {
+                  "role": "attacker"
+                }
+              ],
+              "persona": {
+                "archetype": "attacker",
+                "scope": "external",
+                "assumedPosture": "unauthenticated"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

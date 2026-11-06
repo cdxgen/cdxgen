@@ -1,0 +1,15 @@
+{
+  "$schema": "https://cyclonedx.org/schema/2.0/cyclonedx-2.0.schema.json",
+  "specFormat": "CycloneDX",
+  "specVersion": "2.0",
+  "serialNumber": "urn:uuid:3e9eb9b0-9577-4116-ac17-fad73a27b572",
+  "version": 1,
+  "definitions": { "components": [
+    {
+      "type": "library",
+      "name": "example",
+      "description": "`refId` shall not start with 'urn:cdx:', because that prefix is reserved for BOM-Links",
+      "refId": "urn:cdx:3e9eb9b0-9577-4116-ac17-fad73a27b572/1#example"
+    }
+  ] }
+}

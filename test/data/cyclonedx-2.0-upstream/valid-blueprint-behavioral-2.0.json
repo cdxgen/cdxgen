@@ -1,0 +1,137 @@
+{
+  "$comment": "Model type: behavioral. This example models the payment lifecycle of a fictional point-of-sale terminal as a behavior graph of kind state-machine. The nodes are states, the transitions fire on triggers under guard conditions, and several states have more than one exit (authorizing leads to authorized or declined, authorized leads to captured or voided), which is the multi-exit shape a linear flow cannot express. Entry and transition effects reference behavior instances drawn from the taxonomy.",
+  "specFormat": "CycloneDX",
+  "specVersion": "2.0",
+  "serialNumber": "urn:uuid:b1000000-0000-4000-8000-0000000000a9",
+  "version": 1,
+  "blueprints": [
+    {
+      "refId": "bp-behavioral",
+      "name": "Point-of-sale payment lifecycle",
+      "description": "How a terminal moves a payment from idle through authorization to capture, void, or decline.",
+      "modelTypes": [
+        "behavioral"
+      ],
+      "assets": [
+        {
+          "refId": "asset-pos",
+          "type": "device",
+          "name": "Point-of-sale terminal"
+        },
+        {
+          "refId": "asset-acquirer",
+          "type": "service",
+          "name": "Acquirer gateway"
+        }
+      ],
+      "behaviors": {
+        "instances": [
+          {
+            "refId": "bi-auth",
+            "behavior": "security:authentication:authenticatesUser",
+            "trigger": "user-initiated",
+            "acknowledgment": [
+              "declared"
+            ],
+            "actors": [
+              "asset-pos"
+            ]
+          },
+          {
+            "refId": "bi-contact",
+            "behavior": "network:connection:establishesConnection",
+            "actors": [
+              "asset-pos"
+            ],
+            "targets": [
+              "asset-acquirer"
+            ]
+          },
+          {
+            "refId": "bi-log",
+            "behavior": "security:auditing:logsEvent",
+            "actors": [
+              "asset-pos"
+            ]
+          }
+        ],
+        "graphs": [
+          {
+            "refId": "sm-payment",
+            "name": "Payment lifecycle",
+            "kind": "state-machine",
+            "subject": "asset-pos",
+            "nodes": [
+              {
+                "refId": "ps-idle",
+                "kind": "initial"
+              },
+              {
+                "refId": "ps-authorizing",
+                "kind": "state",
+                "name": "Authorizing",
+                "onEntry": "bi-contact"
+              },
+              {
+                "refId": "ps-authorized",
+                "kind": "state",
+                "name": "Authorized"
+              },
+              {
+                "refId": "ps-captured",
+                "kind": "final",
+                "name": "Captured"
+              },
+              {
+                "refId": "ps-voided",
+                "kind": "final",
+                "name": "Voided"
+              },
+              {
+                "refId": "ps-declined",
+                "kind": "final",
+                "name": "Declined"
+              }
+            ],
+            "transitions": [
+              {
+                "refId": "pt-start",
+                "source": "ps-idle",
+                "target": "ps-authorizing",
+                "trigger": "user-initiated",
+                "effect": "bi-auth"
+              },
+              {
+                "refId": "pt-approve",
+                "source": "ps-authorizing",
+                "target": "ps-authorized",
+                "trigger": "event-driven",
+                "guard": "acquirer.approved == true"
+              },
+              {
+                "refId": "pt-decline",
+                "source": "ps-authorizing",
+                "target": "ps-declined",
+                "trigger": "event-driven",
+                "guard": "acquirer.approved == false"
+              },
+              {
+                "refId": "pt-capture",
+                "source": "ps-authorized",
+                "target": "ps-captured",
+                "trigger": "event-driven",
+                "effect": "bi-log"
+              },
+              {
+                "refId": "pt-void",
+                "source": "ps-authorized",
+                "target": "ps-voided",
+                "trigger": "user-initiated"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

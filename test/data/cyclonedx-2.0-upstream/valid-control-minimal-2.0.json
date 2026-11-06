@@ -1,0 +1,13 @@
+{
+  "$schema": "https://cyclonedx.org/schema/2.0/cyclonedx-2.0.schema.json",
+  "specFormat": "CycloneDX",
+  "specVersion": "2.0",
+  "serialNumber": "urn:uuid:7c0e4f3a-9d2b-4a1e-8f6c-2b5d9e7a4c10",
+  "version": 1,
+  "controls": [
+    {
+      "refId": "control-mfa",
+      "name": "Multi-factor authentication"
+    }
+  ]
+}

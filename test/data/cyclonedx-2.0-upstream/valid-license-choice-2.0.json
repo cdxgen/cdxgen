@@ -1,0 +1,52 @@
+{
+  "$schema": "https://cyclonedx.org/schema/2.0/cyclonedx-2.0.schema.json",
+  "specFormat": "CycloneDX",
+  "specVersion": "2.0",
+  "serialNumber": "urn:uuid:b1ef52c6-7cd8-43d5-9e42-5e69044bbe9e",
+  "version": 1,
+  "definitions": {
+    "components": [
+      {
+        "type": "application",
+        "parties": [
+          {
+            "roles": [ { "role": "publisher" } ],
+            "organization": { "name": "Acme Inc" }
+          }
+        ],
+        "group": "com.acme",
+        "name": "tomcat-catalina",
+        "version": "9.0.14",
+        "description": "Modified version of Apache Catalina",
+        "scope": "required",
+        "licenses": [
+          {
+            "license": {
+              "id": "Apache-2.0"
+            }
+          },
+          {
+            "expression": "EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0"
+          },
+          {
+            "license": {
+              "name": "My Own License",
+              "text": {
+                "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+              }
+            }
+          },
+          {
+            "expression": "LicenseRef-MIT-Style-2",
+            "expressionDetails": [
+              {
+                "licenseIdentifier": "LicenseRef-MIT-Style-2",
+                "url": "https://example.com/license"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,61 @@
+{
+  "$schema": "https://cyclonedx.org/schema/2.0/cyclonedx-2.0.schema.json",
+  "specFormat": "CycloneDX",
+  "specVersion": "2.0",
+  "serialNumber": "urn:uuid:3e671687-395b-41f5-a30f-a58921a69b79",
+  "version": 1,
+  "metadata": {
+    "tools": {
+      "components": [
+        {
+          "type": "application",
+          "group": "Awesome Vendor",
+          "name": "Awesome Tool",
+          "version": "9.1.2",
+          "hashes": [
+            {
+              "alg": "SHA-1",
+              "content": "25ed8e31b995bb927966616df2a42b979a2717f0"
+            },
+            {
+              "alg": "SHA-256",
+              "content": "a74f733635a19aefb1f73e5947cef59cd7440c6952ef0f03d09d974274cbd6df"
+            }
+          ]
+        },
+        {
+          "type": "service",
+          "parties": [
+            {
+              "roles": [
+                {
+                  "role": "provider"
+                }
+              ],
+              "organization": {
+                "name": "Acme Org",
+                "url": [
+                  {
+                    "name": "homepage",
+                    "url": "https://example.com"
+                  }
+                ]
+              }
+            }
+          ],
+          "group": "com.example",
+          "name": "Acme Signing Server",
+          "description": "Signs artifacts",
+          "endpoints": [
+            "https://example.com/sign",
+            "https://example.com/verify",
+            "https://example.com/tsa"
+          ]
+        }
+      ]
+    }
+  },
+  "definitions": {
+    "components": []
+  }
+}

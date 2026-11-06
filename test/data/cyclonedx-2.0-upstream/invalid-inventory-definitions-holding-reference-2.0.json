@@ -1,0 +1,2 @@
+{ "specFormat": "CycloneDX", "specVersion": "2.0",
+  "definitions": { "components": [ { "ref": "somewhere-else" } ] } }

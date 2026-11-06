@@ -1,0 +1,63 @@
+{
+  "$schema": "https://cyclonedx.org/schema/2.0/cyclonedx-2.0.schema.json",
+  "specFormat": "CycloneDX",
+  "specVersion": "2.0",
+  "version": 1,
+  "inventories": [
+    {
+      "subject": {
+        "refId": "subject-1",
+        "type": "application",
+        "name": "Acme App"
+      },
+      "components": [
+        {
+          "type": "library",
+          "name": "Some Library",
+          "parties": [
+            {
+              "refId": "actor-alice",
+              "roles": [
+                {
+                  "role": "author"
+                }
+              ],
+              "person": {
+                "name": "Alice Marie Wright",
+                "sortName": "Wright, Alice Marie",
+                "honorificPrefix": "Dr.",
+                "honorificSuffix": "PhD",
+                "jobTitle": "Principal Software Engineer",
+                "description": "Lead author of the analyzed library. Maintains the cryptography subsystem and reviews release candidates.",
+                "email": [
+                  { "name": "work", "address": "alice@example.com" }
+                ],
+                "phone": [
+                  { "name": "mobile", "number": "+1-555-0177" }
+                ],
+                "url": [
+                  {
+                    "name": "homepage",
+                    "url": "https://alice.example.com"
+                  },
+                  {
+                    "name": "github",
+                    "url": "https://github.com/alice"
+                  },
+                  {
+                    "name": "linkedin",
+                    "url": "https://www.linkedin.com/in/alice-wright"
+                  }
+                ],
+                "address": {
+                  "isoCode": "US-CA",
+                  "locality": "Mountain View"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

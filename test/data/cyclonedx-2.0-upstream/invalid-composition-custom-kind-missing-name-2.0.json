@@ -1,0 +1,13 @@
+{
+  "specFormat": "CycloneDX",
+  "specVersion": "2.0",
+  "compositions": [
+    {
+      "kind": {
+        "description": "A custom kind without the required name."
+      },
+      "aggregate": "complete",
+      "targets": [ "acme-app" ]
+    }
+  ]
+}

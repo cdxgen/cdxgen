@@ -1,0 +1,239 @@
+{
+  "$comment": "Post-quantum migration facts for cryptographic assets (cdxgen/cdxgen#4592). Each class cites the table or section its dates and members come from: NIST IR 8547 (final, October 2026), https://csrc.nist.gov/pubs/ir/8547/final, and, for DSA, FIPS 186-5. lib/inventory/pqcMigration.js classifies an asset by algorithmFamily, then OID, then normalised name (lower case, letters and digits only), and turns the class into a risks.risks[] entry. The likelihood and impact levels are cdxgen's fixed rating per class, not values from the IR; docs/CDX_CONVERT.md (CycloneDX 2.0, post-quantum migration risks) documents them, and docs/CUSTOM_PROPERTIES.md the cdx:crypto:pqc:* properties.",
+  "source": {
+    "document": "NIST IR 8547 (final, October 2026)",
+    "url": "https://csrc.nist.gov/pubs/ir/8547/final"
+  },
+  "$excludedNote": "Not classified, because IR 8547 Tables 2 and 4 do not list them: RSAES-PKCS1 (SP 800-56B specifies RSA key transport with OAEP and KTS, not PKCS #1 v1.5 encryption) and X3DH (a Signal protocol, not an SP 800-56A scheme). Quantum-safe per IR 8547 Tables 3 and 5-8, so no risk: ML-DSA, SLH-DSA, LMS/HSS, XMSS, ML-KEM, AES, Ascon, and SHA-2/SHA-3 members with at least 128 bits of collision strength.",
+  "unclassifiedPrimitives": [
+    "combiner"
+  ],
+  "$unclassifiedPrimitivesNote": "NIST IR 8547 Section 3.2.1: a hybrid (composite) key-establishment scheme combines the shared secrets of its component schemes and is approved when one input comes from an approved scheme, so a combiner is not classified by the OID of one of its inputs.",
+  "quantumSafeFamilies": [
+    "ML-DSA",
+    "SLH-DSA",
+    "LMS",
+    "XMSS",
+    "ML-KEM",
+    "AES",
+    "Ascon",
+    "SHA-2",
+    "SHA-3",
+    "HMAC",
+    "HKDF",
+    "KMAC"
+  ],
+  "minimumKeySizes": {
+    "$comment": "Smallest key size per key family with the 112 bits of classical security strength that IR 8547 Table 2 (ECDSA, RSA) and Table 4 (finite-field and elliptic-curve DH and MQV, RSA) list as the approved parameters. Key sizes for 112 bits: SP 800-57 Part 1 Rev. 5 Table 2 (RSA k = 2048, FFC L = 2048, ECC f = 224).",
+    "rsa": 2048,
+    "ff": 2048,
+    "ec": 224
+  },
+  "namedGroupKeySizes": {
+    "$comment": "Finite-field groups whose name carries no separate key size: the ffdhe groups of RFC 7919, whose modulus size is the number in the name.",
+    "ffdhe2048": 2048,
+    "ffdhe3072": 3072,
+    "ffdhe4096": 4096,
+    "ffdhe6144": 6144,
+    "ffdhe8192": 8192
+  },
+  "classes": {
+    "quantum-vulnerable-signature": {
+      "source": "NIST IR 8547 Table 2 (quantum-vulnerable digital signature algorithms): ECDSA and RSA at >= 112 bits, EdDSA at >= 128 bits of classical security strength [FIPS186]",
+      "transition": "Deprecated after 2030; disallowed after 2035",
+      "deprecatedAfter": "2030",
+      "disallowedAfter": "2035",
+      "riskName": "Post-quantum migration",
+      "statement": "This digital signature algorithm is quantum-vulnerable; NIST IR 8547 Table 2 deprecates it after 2030 and disallows it after 2035.",
+      "rationale": "{algorithm} is a quantum-vulnerable digital signature algorithm listed in NIST IR 8547 Table 2: deprecated after 2030, disallowed after 2035.",
+      "likelihood": "high",
+      "impact": "major",
+      "families": {
+        "ECDSA": "ec",
+        "EdDSA": null,
+        "RSASSA-PKCS1": "rsa",
+        "RSASSA-PSS": "rsa",
+        "RSA-X931": "rsa"
+      },
+      "oids": {
+        "1.2.840.10045.4.1": "ec",
+        "1.2.840.10045.4.3.1": "ec",
+        "1.2.840.10045.4.3.2": "ec",
+        "1.2.840.10045.4.3.3": "ec",
+        "1.2.840.10045.4.3.4": "ec",
+        "1.3.101.112": null,
+        "1.3.101.113": null,
+        "1.2.840.113549.1.1.2": "rsa",
+        "1.2.840.113549.1.1.3": "rsa",
+        "1.2.840.113549.1.1.4": "rsa",
+        "1.2.840.113549.1.1.5": "rsa",
+        "1.2.840.113549.1.1.10": "rsa",
+        "1.2.840.113549.1.1.11": "rsa",
+        "1.2.840.113549.1.1.12": "rsa",
+        "1.2.840.113549.1.1.13": "rsa",
+        "1.2.840.113549.1.1.14": "rsa",
+        "1.2.840.113549.1.1.15": "rsa",
+        "1.2.840.113549.1.1.16": "rsa",
+        "2.16.840.1.101.3.4.3.9": "ec",
+        "2.16.840.1.101.3.4.3.10": "ec",
+        "2.16.840.1.101.3.4.3.11": "ec",
+        "2.16.840.1.101.3.4.3.12": "ec",
+        "2.16.840.1.101.3.4.3.13": "rsa",
+        "2.16.840.1.101.3.4.3.14": "rsa",
+        "2.16.840.1.101.3.4.3.15": "rsa",
+        "2.16.840.1.101.3.4.3.16": "rsa"
+      },
+      "names": {
+        "ecdsa": "ec",
+        "eddsa": null,
+        "ed25519": null,
+        "ed448": null,
+        "rsapss": "rsa",
+        "rsassapss": "rsa",
+        "rsassapkcs1": "rsa"
+      }
+    },
+    "quantum-vulnerable-key-establishment": {
+      "source": "NIST IR 8547 Table 4 (quantum-vulnerable key-establishment schemes): finite-field DH and MQV, elliptic-curve DH and MQV [SP80056A] and RSA [SP80056B], at >= 112 bits of classical security strength",
+      "transition": "Deprecated after 2030; disallowed after 2035",
+      "deprecatedAfter": "2030",
+      "disallowedAfter": "2035",
+      "riskName": "Post-quantum migration",
+      "statement": "This key-establishment scheme is quantum-vulnerable; NIST IR 8547 Table 4 deprecates it after 2030 and disallows it after 2035.",
+      "rationale": "{algorithm} is a quantum-vulnerable key-establishment scheme listed in NIST IR 8547 Table 4: deprecated after 2030, disallowed after 2035.",
+      "likelihood": "high",
+      "impact": "major",
+      "families": {
+        "FFDH": "ff",
+        "MQV": "ff",
+        "ECDH": "ec",
+        "RSAES-OAEP": "rsa"
+      },
+      "oids": {
+        "1.2.840.10046.2.1": "ff",
+        "1.2.840.113549.1.3.1": "ff",
+        "1.3.132.1.12": "ec",
+        "1.3.132.1.13": "ec",
+        "1.3.101.110": null,
+        "1.3.101.111": null,
+        "1.2.840.113549.1.1.7": "rsa"
+      },
+      "names": {
+        "dh": "ff",
+        "ffdh": "ff",
+        "mqv": "ff",
+        "ecdh": "ec",
+        "ecmqv": "ec",
+        "x25519": null,
+        "x448": null,
+        "rsaoaep": "rsa",
+        "rsaesoaep": "rsa",
+        "ffdhe2048": "ff",
+        "ffdhe3072": "ff",
+        "ffdhe4096": "ff",
+        "ffdhe6144": "ff",
+        "ffdhe8192": "ff"
+      }
+    },
+    "quantum-vulnerable-public-key": {
+      "source": "NIST IR 8547 Table 2 (ECDSA, RSA [FIPS186]) and Table 4 (elliptic-curve DH and MQV [SP80056A], RSA [SP80056B]): the key algorithm alone does not say which use applies, and both tables give the same transition",
+      "transition": "Deprecated after 2030; disallowed after 2035",
+      "deprecatedAfter": "2030",
+      "disallowedAfter": "2035",
+      "riskName": "Post-quantum migration",
+      "statement": "This public-key algorithm is quantum-vulnerable whether it signs (NIST IR 8547 Table 2) or establishes keys (Table 4); both tables deprecate it after 2030 and disallow it after 2035.",
+      "rationale": "{algorithm} is a quantum-vulnerable public-key algorithm listed in NIST IR 8547 Table 2 and Table 4: deprecated after 2030, disallowed after 2035.",
+      "likelihood": "high",
+      "impact": "major",
+      "families": {},
+      "oids": {
+        "1.2.840.113549.1.1.1": "rsa",
+        "1.2.840.10045.2.1": "ec"
+      },
+      "names": {
+        "rsa": "rsa",
+        "rsaencryption": "rsa",
+        "ec": "ec",
+        "ecpublickey": "ec",
+        "idecpublickey": "ec"
+      }
+    },
+    "below-minimum-strength": {
+      "source": "NIST IR 8547 Table 2 and Table 4 list only parameters with >= 112 bits of classical security strength; key sizes per SP 800-57 Part 1 Rev. 5 Table 2",
+      "transition": "Below the minimum strength of the currently approved parameters in NIST IR 8547 Table 2 and Table 4",
+      "riskName": "Key below the approved strength",
+      "statement": "This key is below the 112 bits of classical security strength that NIST IR 8547 Tables 2 and 4 list for the currently approved quantum-vulnerable public-key algorithms.",
+      "rationale": "{algorithm} uses a {size}-bit key, below the {minimum}-bit minimum (112 bits of classical security strength) of the parameters NIST IR 8547 Table 2 and Table 4 list.",
+      "likelihood": "very-high",
+      "impact": "major"
+    },
+    "hash-sha1": {
+      "source": "NIST IR 8547 Table 8 (hash functions and XOFs), footnote 4",
+      "transition": "Currently deprecated for all remaining technical applications; disallowed for use in FIPS-validated cryptographic modules after 2030",
+      "disallowedAfter": "2030",
+      "riskName": "Deprecated hash function",
+      "statement": "SHA-1 is currently deprecated for all remaining technical applications and will be disallowed for use in FIPS-validated cryptographic modules after 2030 (NIST IR 8547 Table 8, footnote 4).",
+      "rationale": "{algorithm} is SHA-1, whose collision security strength is below 80 bits (NIST IR 8547 Table 8); it is currently deprecated and disallowed in FIPS-validated modules after 2030.",
+      "likelihood": "high",
+      "impact": "moderate",
+      "families": {
+        "SHA-1": null
+      },
+      "oids": {
+        "1.3.14.3.2.26": null
+      },
+      "names": {
+        "sha1": null
+      }
+    },
+    "symmetric-112-bit": {
+      "source": "NIST IR 8547 Section 4.1.3 and Table 8: SHA-224, SHA-512/224 and SHA3-224 have 112 bits of collision security strength",
+      "transition": "Disallowed in 2030",
+      "disallowedIn": "2030",
+      "riskName": "112-bit security strength",
+      "statement": "This algorithm provides 112 bits of security; NIST IR 8547 section 4.1.3 says NIST's symmetric standards at the 112-bit security level will be disallowed in 2030.",
+      "rationale": "{algorithm} has 112 bits of collision security strength (NIST IR 8547 Table 8); section 4.1.3 says the 112-bit symmetric standards will be disallowed in 2030.",
+      "likelihood": "medium",
+      "impact": "moderate",
+      "families": {},
+      "oids": {
+        "2.16.840.1.101.3.4.2.4": null,
+        "2.16.840.1.101.3.4.2.5": null,
+        "2.16.840.1.101.3.4.2.7": null
+      },
+      "names": {
+        "sha224": null,
+        "sha512224": null,
+        "sha3224": null
+      }
+    },
+    "dsa-generation-not-approved": {
+      "source": "FIPS 186-5 (February 2023), section 4 (The Digital Signature Algorithm) and Appendix E: DSA is no longer approved for digital signature generation and may be used to verify signatures generated prior to the implementation date of FIPS 186-5; NIST IR 8547 Table 2 does not list it",
+      "url": "https://csrc.nist.gov/pubs/fips/186-5/final",
+      "transition": "No longer approved for digital signature generation; may be used only to verify signatures generated prior to the implementation date of FIPS 186-5",
+      "riskName": "Signature algorithm no longer approved",
+      "statement": "FIPS 186-5 no longer approves DSA for digital signature generation; DSA may be used only to verify signatures generated prior to the implementation date of FIPS 186-5 (section 4).",
+      "rationale": "{algorithm} is DSA, which FIPS 186-5 (section 4) no longer approves for digital signature generation; it may be used only to verify signatures generated prior to the implementation date of FIPS 186-5.",
+      "likelihood": "high",
+      "impact": "moderate",
+      "families": {
+        "DSA": null
+      },
+      "oids": {
+        "1.2.840.10040.4.1": null,
+        "1.2.840.10040.4.3": null,
+        "2.16.840.1.101.3.4.3.1": null,
+        "2.16.840.1.101.3.4.3.2": null,
+        "2.16.840.1.101.3.4.3.3": null,
+        "2.16.840.1.101.3.4.3.4": null,
+        "2.16.840.1.101.3.4.3.5": null,
+        "2.16.840.1.101.3.4.3.6": null,
+        "2.16.840.1.101.3.4.3.7": null,
+        "2.16.840.1.101.3.4.3.8": null
+      },
+      "names": {
+        "dsa": null
+      }
+    }
+  }
+}

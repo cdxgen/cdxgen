@@ -1,0 +1,17 @@
+{
+  "specFormat": "CycloneDX",
+  "specVersion": "2.0",
+  "serialNumber": "urn:uuid:7c1f3b2e-9a4d-4c6e-8b1a-2f5d6e7a8b93",
+  "version": 1,
+  "definitions": {
+    "weaknesses": [
+      {
+        "refId": "weakness-bare-number",
+        "kind": "flaw",
+        "identifiers": [
+          { "scheme": "cwe", "value": "502" }
+        ]
+      }
+    ]
+  }
+}

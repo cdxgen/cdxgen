@@ -1,0 +1,177 @@
+{
+  "$comment": "Model type: logical. This example is a logical data model of a fictional retail bank, independent of any specific database technology. It is represented as a blueprint whose data set holds the entities (Customer, Account, Transaction, Card) as data objects with attribute-level key roles (primary, foreign, unique) and foreign-key references, and whose inter-entity associations are data relationships with cardinality. Logical application components and their typed relationships show how the structure is realised. A logical zone groups the entities.",
+  "specFormat": "CycloneDX",
+  "specVersion": "2.0",
+  "serialNumber": "urn:uuid:b1000000-0000-4000-8000-0000000000a3",
+  "version": 1,
+  "blueprints": [
+    {
+      "refId": "bp-logical",
+      "name": "Retail bank logical model",
+      "description": "Logical structure of customers, accounts, transactions, and cards, with the keys and relationships that define the data model independent of implementation.",
+      "modelTypes": [
+        "logical"
+      ],
+      "metadata": {
+        "timestamp": "2026-06-05T12:10:00Z",
+        "authors": [
+          {
+            "roles": [
+              {
+                "role": "author"
+              }
+            ],
+            "person": {
+              "name": "Priya Nair"
+            }
+          }
+        ]
+      },
+      "zones": [
+        {
+          "refId": "zone-logical-core",
+          "name": "Core banking",
+          "type": "logical"
+        }
+      ],
+      "assets": [
+        {
+          "refId": "comp-accounts",
+          "type": "component",
+          "name": "Account management component",
+          "zone": "zone-logical-core",
+          "responsibilities": [
+            "Open and close accounts",
+            "Maintain balances"
+          ]
+        },
+        {
+          "refId": "comp-payments",
+          "type": "component",
+          "name": "Payments component",
+          "zone": "zone-logical-core"
+        }
+      ],
+      "relationships": [
+        {
+          "ref": "comp-payments",
+          "dependsOn": [
+            "comp-accounts"
+          ]
+        }
+      ],
+      "dataSets": [
+        {
+          "refId": "ds-bank",
+          "name": "Core banking entities",
+          "description": "The logical entities of the core banking domain with keys and relationships.",
+          "dataObjects": [
+            {
+              "refId": "do-customer",
+              "name": "Customer",
+              "attributes": [
+                {
+                  "refId": "a-customer-id",
+                  "name": "customer_id",
+                  "key": "primary"
+                },
+                {
+                  "name": "email",
+                  "key": "unique"
+                },
+                {
+                  "name": "full_name"
+                }
+              ]
+            },
+            {
+              "refId": "do-account",
+              "name": "Account",
+              "attributes": [
+                {
+                  "refId": "a-account-id",
+                  "name": "account_id",
+                  "key": "primary"
+                },
+                {
+                  "refId": "a-account-customer",
+                  "name": "customer_id",
+                  "key": "foreign",
+                  "references": "do-customer"
+                },
+                {
+                  "name": "balance"
+                }
+              ],
+              "relationships": [
+                {
+                  "refId": "lrel-account-customer",
+                  "name": "owned by",
+                  "target": "do-customer",
+                  "cardinality": "many-to-one",
+                  "sourceAttributes": [
+                    "a-account-customer"
+                  ],
+                  "targetAttributes": [
+                    "a-customer-id"
+                  ]
+                }
+              ]
+            },
+            {
+              "refId": "do-transaction",
+              "name": "Transaction",
+              "attributes": [
+                {
+                  "refId": "a-txn-id",
+                  "name": "transaction_id",
+                  "key": "primary"
+                },
+                {
+                  "refId": "a-txn-account",
+                  "name": "account_id",
+                  "key": "foreign",
+                  "references": "do-account"
+                },
+                {
+                  "name": "amount"
+                }
+              ],
+              "relationships": [
+                {
+                  "name": "posted to",
+                  "target": "do-account",
+                  "cardinality": "many-to-one"
+                }
+              ]
+            },
+            {
+              "refId": "do-card",
+              "name": "Card",
+              "attributes": [
+                {
+                  "refId": "a-card-id",
+                  "name": "card_id",
+                  "key": "primary"
+                },
+                {
+                  "refId": "a-card-account",
+                  "name": "account_id",
+                  "key": "foreign",
+                  "references": "do-account"
+                }
+              ],
+              "relationships": [
+                {
+                  "name": "issued for",
+                  "target": "do-account",
+                  "cardinality": "many-to-one"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

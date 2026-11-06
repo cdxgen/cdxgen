@@ -1,0 +1,99 @@
+{
+  "$schema": "https://cyclonedx.org/schema/2.0/cyclonedx-2.0.schema.json",
+  "specFormat": "CycloneDX",
+  "specVersion": "2.0",
+  "serialNumber": "urn:uuid:33333333-3333-3333-3333-333333333333",
+  "version": 1,
+  "inventories": [
+    {
+      "subject": {
+        "refId": "subject-1",
+        "type": "application",
+        "name": "Acme Web Service"
+      },
+      "components": [
+        {
+          "refId": "comp-coding-agent-runtime",
+          "type": "application",
+          "name": "Acme Coding Copilot Runtime",
+          "version": "1.0.0"
+        },
+        {
+          "refId": "comp-generated-module",
+          "type": "library",
+          "name": "AI-Generated Code Module",
+          "version": "0.1.0",
+          "parties": [
+            {
+              "refId": "actor-coding-agent",
+              "roles": [
+                {
+                  "role": "agent"
+                },
+                {
+                  "role": "author"
+                },
+                {
+                  "role": "delegate"
+                }
+              ],
+              "system": {
+                "kind": "agent",
+                "ref": "comp-coding-agent-runtime",
+                "identifiers": [
+                  {
+                    "scheme": "oidc-sub",
+                    "value": "agent:acme/coding-copilot:user:alice@example.com"
+                  },
+                  {
+                    "scheme": "spiffe",
+                    "value": "spiffe://acme.example.com/agents/coding-copilot/alice"
+                  },
+                  {
+                    "scheme": "did",
+                    "value": "did:web:acme.example.com:agents:coding-copilot:alice"
+                  }
+                ],
+                "permissions": [
+                  "read-source-repository",
+                  "execute-test-suite",
+                  "propose-pull-request",
+                  "comment-on-issue"
+                ]
+              },
+              "relations": {
+                "delegatedBy": "actor-alice"
+              },
+              "tags": [
+                "ai-agent",
+                "delegated-authority",
+                "human-in-the-loop"
+              ],
+              "properties": [
+                {
+                  "name": "cdx:agent:human-in-the-loop",
+                  "value": "true"
+                },
+                {
+                  "name": "cdx:agent:requires-approval",
+                  "value": "merge-to-main"
+                },
+                {
+                  "name": "cdx:agent:session-id",
+                  "value": "sess-2026-05-12-a7b3c9"
+                }
+              ],
+              "externalReferences": [
+                {
+                  "type": "documentation",
+                  "url": "https://docs.acme.example.com/coding-copilot/operations",
+                  "comment": "Operational documentation describing the agent's behavior bounds and escalation paths."
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

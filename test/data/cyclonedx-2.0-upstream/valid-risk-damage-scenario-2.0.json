@@ -1,0 +1,252 @@
+{
+  "$schema": "https://cyclonedx.org/schema/2.0/cyclonedx-2.0.schema.json",
+  "$comment": "Damage scenario, threat scenario, and risk, in the ISO/SAE 21434 shape as carried by RDX. The damage scenario is the consequence with an impact per category; the threat scenario is the cause and names the damage scenarios it can lead to; the risk pairs the two and carries the rating. The light controller asset carries an ASIL so the safety significance of the context is explicit.",
+  "specFormat": "CycloneDX",
+  "specVersion": "2.0",
+  "serialNumber": "urn:uuid:3b4c5d6e-7f80-4a91-b2c3-d4e5f6a7b8c9",
+  "version": 1,
+  "metadata": {
+    "timestamp": "2026-09-20T10:00:00Z"
+  },
+  "definitions":{
+    "components": [
+      {
+        "refId": "comp-light-controller",
+        "type": "firmware",
+        "name": "acme-light-controller",
+        "version": "4.2.0"
+      }
+    ]
+  },
+  "blueprints": [
+    {
+      "refId": "bp-headlamp",
+      "name": "Adaptive headlamp system",
+      "modelTypes": [
+        "architecture"
+      ],
+      "assets": [
+        {
+          "refId": "asset-light-control",
+          "componentRef": "comp-light-controller",
+          "classification": {
+            "criticality": "high",
+            "safetyIntegrityLevels": [
+              {
+                "scheme": "ISO-26262",
+                "level": "asil-b"
+              }
+            ],
+            "riskAttributes": [
+              "integrity",
+              "availability"
+            ]
+          }
+        },
+        {
+          "refId": "asset-fn-glare-free",
+          "type": "function",
+          "name": "Glare-free high beam"
+        }
+      ],
+      "actors": [
+        {
+          "refId": "actor-oncoming-driver",
+          "party": {
+            "roles": [
+              {
+                "role": "subject"
+              }
+            ],
+            "persona": {
+              "archetype": {
+                "name": "road-user",
+                "description": "A person on or near the road who is exposed to the vehicle's behaviour."
+              },
+              "description": "Oncoming driver."
+            }
+          },
+          "description": "A driver of an oncoming vehicle exposed to the headlamp output."
+        }
+      ]
+    }
+  ],
+  "threats": {
+    "threats": [
+      {
+        "refId": "threat-can-spoof",
+        "name": "Spoofed light control message on the body CAN",
+        "origin": "adversarial",
+        "categories": [
+          {
+            "taxonomy": "STRIDE",
+            "category": "spoofing"
+          }
+        ],
+        "affects": [
+          "asset-light-control"
+        ]
+      }
+    ],
+    "threatScenarios": [
+      {
+        "refId": "ts-can-spoof",
+        "name": "Attacker injects light control frames from a compromised body ECU",
+        "threats": [
+          "threat-can-spoof"
+        ],
+        "attackVector": {
+          "type": "adjacent",
+          "complexity": "low",
+          "privileges": "low",
+          "userInteraction": "none"
+        },
+        "likelihood": {
+          "level": "medium",
+          "rationale": "Attack feasibility rated medium: hours of elapsed time, proficient expertise, public CAN knowledge, standard equipment.",
+          "factors": [
+            {
+              "name": "Elapsed time",
+              "type": "elapsed-time",
+              "level": "medium",
+              "description": "Hours."
+            },
+            {
+              "name": "Knowledge of the item",
+              "type": "knowledge",
+              "level": "low",
+              "description": "Public CAN protocol knowledge."
+            },
+            {
+              "name": "Equipment",
+              "type": "equipment",
+              "level": "low",
+              "description": "Standard tools."
+            }
+          ]
+        },
+        "affects": [
+          "asset-light-control"
+        ],
+        "damageScenarios": [
+          "ds-road-users-blinded"
+        ]
+      }
+    ]
+  },
+  "risks": {
+    "damageScenarios": [
+      {
+        "refId": "ds-road-users-blinded",
+        "name": "Driver or other road users blinded",
+        "description": "Incorrect headlamp operation causes loss of visibility for the driver or glare for oncoming traffic, leading to a collision.",
+        "affects": [
+          "asset-fn-glare-free",
+          "asset-light-control",
+          "actor-oncoming-driver"
+        ],
+        "impacts": [
+          {
+            "level": "catastrophic",
+            "polarity": "harm",
+            "categories": [
+              "safety"
+            ],
+            "description": "Loss of visibility at speed can cause a fatal collision. Severe on the ISO/SAE 21434 scale.",
+            "methodology": {
+              "name": "ISO/SAE 21434",
+              "description": "Clause 15.5 impact rating."
+            }
+          },
+          {
+            "level": "major",
+            "polarity": "harm",
+            "categories": [
+              "operational"
+            ],
+            "methodology": {
+              "name": "ISO/SAE 21434",
+              "description": "Clause 15.5 impact rating."
+            }
+          },
+          {
+            "level": "moderate",
+            "polarity": "harm",
+            "categories": [
+              "financial"
+            ],
+            "methodology": {
+              "name": "ISO/SAE 21434",
+              "description": "Clause 15.5 impact rating."
+            }
+          }
+        ],
+        "externalReferences": [
+          {
+            "type": "hazard-analysis",
+            "url": "https://plm.acme-automotive.example/hara/HL-2026-004"
+          }
+        ]
+      }
+    ],
+    "risks": [
+      {
+        "refId": "risk-can-spoof-blinding",
+        "name": "CAN spoofing leads to road users blinded",
+        "statement": "If an attacker injects light control frames on the body CAN, the headlamps can be driven to blind the driver or oncoming traffic.",
+        "domains": [
+          {
+            "type": "safety"
+          },
+          {
+            "type": "security"
+          }
+        ],
+        "affects": [
+          "asset-light-control"
+        ],
+        "relatedThreats": [
+          "ts-can-spoof"
+        ],
+        "relatedDamageScenarios": [
+          "ds-road-users-blinded"
+        ],
+        "inherentRisk": {
+          "likelihood": {
+            "level": "medium"
+          },
+          "impacts": [
+            {
+              "level": "catastrophic",
+              "polarity": "harm",
+              "categories": [
+                "safety"
+              ]
+            }
+          ],
+          "score": {
+            "level": "high",
+            "score": 4,
+            "methodology": {
+              "name": "ISO/SAE 21434",
+              "description": "Clause 15 risk value from impact rating and attack feasibility rating."
+            }
+          },
+          "rationale": "Medium feasibility combined with severe safety impact.",
+          "controllability": {
+            "score": 3,
+            "description": "Drivers cannot readily counter sudden loss of low beam at speed; ISO 26262 class C3."
+          }
+        },
+        "responses": [
+          {
+            "refId": "resp-can-auth",
+            "strategy": "reduce",
+            "description": "Authenticate light control frames and rate-limit diagnostic writes."
+          }
+        ],
+        "status": "assessed"
+      }
+    ]
+  }
+}

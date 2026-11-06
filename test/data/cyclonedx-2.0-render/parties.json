@@ -1,0 +1,127 @@
+{
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.7",
+  "serialNumber": "urn:uuid:5d2c9a70-1b3e-4c8f-a6d4-9e0f1b2c3d4e",
+  "version": 1,
+  "metadata": {
+    "timestamp": "2026-01-01T00:00:00Z",
+    "authors": [
+      {
+        "bom-ref": "metadata-author-1",
+        "name": "Jane Builder",
+        "email": "jane@example.com"
+      }
+    ],
+    "supplier": {
+      "bom-ref": "metadata-supplier",
+      "name": "Example Corp",
+      "url": ["https://example.com"],
+      "address": {
+        "country": "US",
+        "locality": "Springfield",
+        "streetAddress": "1 Main St"
+      },
+      "contact": [
+        {
+          "name": "Release Desk",
+          "email": "release@example.com"
+        }
+      ]
+    },
+    "tools": {
+      "components": [
+        {
+          "group": "@cdxgen",
+          "name": "cdxgen",
+          "version": "13.7.0",
+          "purl": "pkg:npm/%40cdxgen/cdxgen@13.7.0",
+          "type": "application",
+          "bom-ref": "pkg:npm/@cdxgen/cdxgen@13.7.0"
+        }
+      ]
+    },
+    "component": {
+      "type": "application",
+      "name": "model-app",
+      "version": "0.3.0",
+      "bom-ref": "pkg:pypi/model-app@0.3.0",
+      "purl": "pkg:pypi/model-app@0.3.0"
+    }
+  },
+  "components": [
+    {
+      "type": "machine-learning-model",
+      "name": "bert-base-uncased",
+      "group": "google-bert",
+      "version": "main",
+      "bom-ref": "pkg:huggingface/google-bert/bert-base-uncased@main",
+      "purl": "pkg:huggingface/google-bert/bert-base-uncased@main",
+      "supplier": {
+        "name": "google-bert",
+        "url": ["https://huggingface.co/google-bert"]
+      }
+    },
+    {
+      "type": "library",
+      "name": "requests",
+      "version": "2.32.3",
+      "bom-ref": "pkg:pypi/requests@2.32.3",
+      "purl": "pkg:pypi/requests@2.32.3",
+      "author": "Kenneth Reitz, Nate Prewitt",
+      "authors": [
+        {
+          "name": "PSF Maintainers",
+          "email": "maintainers@python.org",
+          "phone": "+1-555-0199"
+        }
+      ],
+      "publisher": "Python Software Foundation",
+      "supplier": {
+        "bom-ref": "supplier-psf",
+        "name": "Python Software Foundation"
+      }
+    },
+    {
+      "type": "device",
+      "name": "edge-gateway",
+      "version": "4",
+      "bom-ref": "urn:device:edge-gateway:4",
+      "supplier": {
+        "name": "Gateway Vendor",
+        "contact": [
+          {
+            "bom-ref": "gateway-contact",
+            "name": "Gateway Support",
+            "email": "support@gateway.example.com",
+            "phone": "+44 20 7946 0000"
+          },
+          {
+            "email": "security@gateway.example.com"
+          }
+        ]
+      },
+      "manufacturer": {
+        "name": "Gateway Factory",
+        "url": ["https://factory.example.com", "https://factory.example.com/about"],
+        "address": {
+          "bom-ref": "factory-address",
+          "country": "DE",
+          "region": "Bavaria",
+          "locality": "Munich",
+          "postalCode": "80331",
+          "streetAddress": "Industriestr. 9"
+        }
+      }
+    }
+  ],
+  "dependencies": [
+    {
+      "ref": "pkg:pypi/model-app@0.3.0",
+      "dependsOn": [
+        "pkg:huggingface/google-bert/bert-base-uncased@main",
+        "pkg:pypi/requests@2.32.3",
+        "urn:device:edge-gateway:4"
+      ]
+    }
+  ]
+}

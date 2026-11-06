@@ -1,0 +1,22 @@
+{
+  "specFormat": "CycloneDX",
+  "specVersion": "2.0",
+  "serialNumber": "urn:uuid:9b6c2d1e-4f7a-4c3b-8e2d-1a5f6b7c8d12",
+  "version": 1,
+  "components": [
+    {
+      "refId": "dev-1",
+      "type": "device",
+      "name": "acme-edge-gateway",
+      "version": "B",
+      "measurements": [
+        {
+          "activity": "manufacturing",
+          "activityEnergyCost": {
+            "value": 42
+          }
+        }
+      ]
+    }
+  ]
+}
