@@ -63,13 +63,6 @@ jobs:
         run: |
           pnpm install:frozen
           mkdir -p bomresults
-      # Fetches every deno.json import before any test runs. Otherwise the
-      # first `deno bin/cdxgen.js` a test spawns prints Deno's coloured
-      # "Download" lines to stderr, which the stream-contract test reads as
-      # cdxgen output.
-      - name: Cache deno.json imports
-        shell: bash
-        run: deno install
       - name: Deno test suite runs under the Deno runtime
         shell: bash
         run: pnpm test:deno
