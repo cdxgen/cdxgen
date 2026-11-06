@@ -1,0 +1,24 @@
+{
+  "$schema": "https://cyclonedx.org/schema/2.0/cyclonedx-2.0.schema.json",
+  "specFormat": "CycloneDX",
+  "specVersion": "2.0",
+  "serialNumber": "urn:uuid:1b1bff0e-fdb9-4088-8b9a-1a9f2d9006da",
+  "version": 1,
+  "definitions": {
+    "components": [
+      {
+        "type": "library",
+        "name": "my-library",
+        "version": "1.0"
+      }
+    ]
+  },
+  "signatures": [
+    {
+      "algorithm": "PS256",
+      "hash_algorithm": "sha-256",
+      "thumbprint": "FZOYqWfZmhGntcplga1Ozz1PbK_zBcVpiKopy12am8Q",
+      "value": "NPo5Ig1yzhKJ0HfDpW1HUKv5_NtHrB8L8cWRdGlvmf04b4I97ypmIvD0EPyaFsiV5vxedm72KIlauvNDcehx3blHe25ulaTVSYybO3LKugEIlsgafeTjiCcMTVBFUgh5zpNuqP7fldXVnUVi2qiJx4SgQQVE5awFVbpnsvPXR4AYvaNggatFOEvSVUjGHnbrtZfHCvfm9wQ12Jru5Wbubmq-8_blkWX5tetIldV2TKBru2Ocv-x4CUTfAjDSvxRCdVkMYjN0hB6xkZfFuwyV7XRDcI31T0AKdT9V5wA3teSWGBmOhVDPBJdAzVGwEQBZuVRmBO7ASPhPdHnAWPmQnQ"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "specFormat": "CycloneDX",
+  "specVersion": "2.0",
+  "definitions": {
+    "components": [
+      {
+        "refId": "alg-aes-256-gcm",
+        "type": "cryptographic-asset",
+        "name": "AES-256-GCM",
+        "cryptoProperties": {
+          "assetType": "algorithm",
+          "algorithmProperties": {
+            "primitive": "ae",
+            "certificationLevel": [ "fips140-3-l1" ]
+          }
+        }
+      }
+    ]
+  }
+}

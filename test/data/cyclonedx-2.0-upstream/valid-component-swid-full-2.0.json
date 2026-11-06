@@ -1,0 +1,46 @@
+{
+  "$schema": "https://cyclonedx.org/schema/2.0/cyclonedx-2.0.schema.json",
+  "specFormat": "CycloneDX",
+  "specVersion": "2.0",
+  "serialNumber": "urn:uuid:3e671687-395b-41f5-a30f-a58921a69b79",
+  "version": 1,
+  "metadata": {
+    "manufacturer": {
+      "refId": "acme-inc",
+      "name": "Acme Inc."
+    }
+  },
+  "definitions": {
+    "components": [
+      {
+        "type": "application",
+        "parties": [
+          {
+            "roles": [ { "role": "author" } ],
+            "organization": { "name": "Acme Super Heroes" }
+          }
+        ],
+        "name": "Acme Application",
+        "version": "9.1.1",
+        "identifiers": [
+          {
+            "party": "acme-inc",
+            "identities": [
+              {
+                "scheme": "swid",
+                "value": "swidgen-242eb18a-503e-ca37-393b-cf156ef09691_9.1.1"
+              }
+            ]
+          }
+        ],
+        "externalReferences": [
+          {
+            "type": "swid-tag",
+            "url": "https://acme.example.com/swid/acme-application-9.1.1.swidtag",
+            "comment": "ISO/IEC 19770-2 SoftwareIdentity XML document for this application."
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -179,7 +179,7 @@ first.
 | `CBC-001`/`CBC-002` | a certificate expired, or expires within 30 days. A date-only `notValidAfter` (`2026-01-31`) is valid through the end of that day in UTC; values that do not parse are skipped |
 | `CBC-003`           | a certificate or key's SPKI SHA-256 is one of the eight Go-distrusted hashes                                                                                                   |
 | `CBC-004`           | a certificate was issued under a Go-distrusted key (`issuerSpkiSha256` or `authorityKeyId` match)                                                                              |
-| `CBC-005`           | a CA certificate whose key and signature are both classical stays valid past 2035-01-01 (NIST IR 8547, initial public draft)                                                   |
+| `CBC-005`           | a CA certificate whose key and signature are both classical stays valid past 2035-01-01 (NIST IR 8547 final, Tables 2 and 4)                                                   |
 | `CBC-006`           | a post-quantum key certified with a classical signature                                                                                                                        |
 | `CBC-007`           | an algorithm named only by its dotted OID (composite or pre-standard)                                                                                                          |
 
@@ -188,6 +188,12 @@ toolchains. Bring your own deny list with
 `--bom-audit-rules-dir <dir>`: copy `data/rules/cbom-security.yaml`, append
 your SPKI hashes to the `$deny` arrays, and see
 `docs/cbom-custom-spki-denylist.yaml` for a documented example.
+
+At `--spec-version 2.0` the certificate, key and signature algorithms of these
+scans also get post-quantum migration risks in `risks.risks[]` (NIST IR 8547
+Tables 2, 4 and 8), and an RSA key under 2048 bits or an EC key under 224 bits
+gets a `below-minimum-strength` risk; see
+[CDX_CONVERT.md](CDX_CONVERT.md#post-quantum-migration-risks).
 
 The PHP counterpart is `PHP-RCE-001`/`PHP-RCE-002` (category
 `php-security`). Each source-built `php`, `php-fpm`, `php-cgi`, `phpdbg`,

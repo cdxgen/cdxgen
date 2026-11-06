@@ -1,0 +1,31 @@
+{
+  "$schema": "https://cyclonedx.org/schema/2.0/cyclonedx-2.0.schema.json",
+  "specFormat": "CycloneDX",
+  "specVersion": "2.0",
+  "serialNumber": "urn:uuid:3e671687-395b-41f5-a30f-a58921a69b82",
+  "version": 1,
+  "definitions": {
+    "components": [
+      { "refId": "alg-aes-256-gcm", "type": "cryptographic-asset", "name": "AES-256-GCM",
+        "cryptoProperties": { "assetType": "algorithm", "algorithmProperties": { "primitive": "ae" } } },
+      { "refId": "pkg:generic/acme/internal-tool@1.0", "type": "application", "name": "Acme Internal Tool", "version": "1.0" }
+    ]
+  },
+  "compositions": [
+    {
+      "kind": "certifications",
+      "aggregate": "complete",
+      "targets": [ "alg-aes-256-gcm" ]
+    },
+    {
+      "kind": "licenses",
+      "aggregate": "complete",
+      "targets": [ "pkg:generic/acme/internal-tool@1.0" ]
+    },
+    {
+      "kind": "certifications",
+      "aggregate": "unknown",
+      "targets": [ "pkg:generic/acme/internal-tool@1.0" ]
+    }
+  ]
+}

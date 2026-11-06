@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "fetch": {
+      "command": "npx",
+      "args": ["-y", "fetch-mcp", "--token", "sk-live-abcdef0123456789"],
+      "env": {
+        "DEPLOY_TOKEN": "ghp_bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+      },
+      "url": "https://mcp.example.test/fetch?token=ea4c1c2d3b"
+    }
+  }
+}

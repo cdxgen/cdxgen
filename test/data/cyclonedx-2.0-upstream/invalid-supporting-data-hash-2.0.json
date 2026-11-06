@@ -1,0 +1,12 @@
+{
+  "$schema": "https://cyclonedx.org/schema/2.0/cyclonedx-2.0.schema.json",
+  "specFormat": "CycloneDX", "specVersion": "2.0",
+  "serialNumber": "urn:uuid:ee671687-395b-41f5-a30f-a58921a69e07", "version": 1,
+  "vulnerabilities": [
+    { "refId": "v1", "id": "CVE-2024-0107",
+      "evidence": { "data": [
+        { "name": "report", "type": "report",
+          "contents": { "url": "https://example.com/r.txt", "hashes": [ { "alg": "SHA-999", "content": "abcd" } ] } }
+      ] } }
+  ]
+}

@@ -1,6 +1,13 @@
 /**
  * Filter and enhance BOM post generation.
  *
+ * At CycloneDX 2.0 the returned `bomNSData` carries two documents:
+ * `bomJson` is the rendered 2.0 document (what library users, the server and
+ * the writer see), and `internalBomJson` is the 1.x-shaped model the audit,
+ * evinse, display and SPDX-export readers use. `internalBomJson` is never
+ * serialized; `refreshRenderedBom` re-renders `bomJson` from it after any
+ * later mutation. At 1.x `internalBomJson` is unset.
+ *
  * @param {Object} bomNSData BOM with namespaces object
  * @param {Object} options CLI options
  * @param {string} [filePath] Source path used for formulation and metadata context

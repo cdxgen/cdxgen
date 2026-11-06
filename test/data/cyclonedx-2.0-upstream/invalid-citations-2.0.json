@@ -1,0 +1,42 @@
+{
+  "$schema": "https://cyclonedx.org/schema/2.0/cyclonedx-2.0.schema.json",
+  "specFormat": "CycloneDX",
+  "specVersion": "2.0",
+  "serialNumber": "urn:uuid:3e671687-395b-41f5-a30f-a58921a69b79",
+  "version": 1,
+  "metadata": {
+    "timestamp": "2025-05-01T14:23:00Z"
+  },
+  "definitions": {
+    "components": [
+      {
+        "type": "library",
+        "refId": "component-1",
+        "name": "example-lib",
+        "version": "1.2.3",
+        "licenses": [
+          {
+            "license": {
+              "id": "Apache-2.0"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "citations": [
+    {
+      "refId": "citation-1",
+      "pointers": ["/definitions/components/0/name"],
+      "timestamp": "2025-05-01T14:00:00Z",
+      "note": "Should have at least one of the following property sets: property 'attributedTo' or property 'process'"
+    },
+    {
+      "refId": "citation-1",
+      "pointers": ["/definitions/components/0/name"],
+      "expressions": ["$..[?(@.refId=='component-1')].version"],
+      "timestamp": "2025-05-01T14:00:00Z",
+      "note": "Should not have both a pointer and expression."
+    }
+  ]
+}

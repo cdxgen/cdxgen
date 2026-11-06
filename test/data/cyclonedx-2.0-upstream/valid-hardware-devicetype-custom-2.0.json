@@ -1,0 +1,36 @@
+{
+  "$schema": "https://cyclonedx.org/schema/2.0/cyclonedx-2.0.schema.json",
+  "specFormat": "CycloneDX",
+  "specVersion": "2.0",
+  "version": 1,
+  "serialNumber": "urn:uuid:1f0e9c2a-6b7d-4a3e-9c1f-0a2b3c4d5e01",
+  "definitions": {
+    "components": [
+      {
+        "refId": "comp-power-module",
+        "type": "device",
+        "name": "Acme Power Module",
+        "version": "Rev B",
+        "classification": {
+          "category": "module",
+          "subcategory": "dc-dc-converter"
+        },
+        "deviceType": {
+          "name": "lga",
+          "description": "Land grid array module package."
+        },
+        "boardLocation": {
+          "designators": [
+            "PS1"
+          ],
+          "layer": "bottom",
+          "subsystem": "power-input"
+        },
+        "leadTime": {
+          "value": 12,
+          "unit": "weeks"
+        }
+      }
+    ]
+  }
+}

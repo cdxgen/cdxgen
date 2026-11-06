@@ -1,0 +1,34 @@
+{
+  "$schema": "https://cyclonedx.org/schema/2.0/cyclonedx-2.0.schema.json",
+  "specFormat": "CycloneDX",
+  "specVersion": "2.0",
+  "serialNumber": "urn:uuid:1b1bff0e-fdb9-4088-8b9a-1a9f2d9006da",
+  "version": 1,
+  "definitions": {
+    "components": [
+      {
+        "type": "library",
+        "name": "my-library",
+        "version": "1.0"
+      }
+    ]
+  },
+  "signatures": [
+    {
+      "algorithm": "Ed25519",
+      "hash_algorithm": "sha-256",
+      "public_key": "MCowBQYDK2VwAyEA3w+m0qpCTTltOKoY51qHCnChbzPbf4wWyjeFil/6vNc",
+      "type": "jss",
+      "id": "f47ac10b-58cc-4372-a567-0e02b2c3d479",
+      "related_to": "urn:uuid:1b1bff0e-fdb9-4088-8b9a-1a9f2d9006da",
+      "related_version": "1",
+      "created": "2023-10-29T13:56:08.000Z",
+      "modified": "2023-10-29T13:56:08.000Z",
+      "revoked": false,
+      "signee": "ACME Inc.",
+      "valid_from": "2023-10-29T13:56:08Z",
+      "valid_until": "2025-10-29T13:56:08Z",
+      "value": "s7yifEmv8mQISspDsKzFSV6G6wvk9eBOO8HnxxyDtO-VSNd8KSAhyG7QA467e2jlc8HjA0RAQjyiqspaDSJdBQ"
+    }
+  ]
+}

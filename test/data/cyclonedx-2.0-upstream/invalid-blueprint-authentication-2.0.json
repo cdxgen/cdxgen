@@ -1,0 +1,26 @@
+{
+  "specFormat": "CycloneDX",
+  "specVersion": "2.0",
+  "serialNumber": "urn:uuid:1a2b3c4d-5e6f-4079-8190-2b3c4d5e6f70",
+  "version": 1,
+  "blueprints": [
+    {
+      "refId": "bp-legacy-auth",
+      "name": "Legacy authentication values",
+      "modelTypes": [
+        "data-flow"
+      ],
+      "assets": [
+        {
+          "refId": "asset-legacy",
+          "type": "service",
+          "name": "Legacy service",
+          "authentication": [
+            "mfa",
+            "mTLS"
+          ]
+        }
+      ]
+    }
+  ]
+}

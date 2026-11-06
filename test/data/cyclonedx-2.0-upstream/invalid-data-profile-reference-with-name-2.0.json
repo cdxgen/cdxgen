@@ -1,0 +1,20 @@
+{
+  "specFormat": "CycloneDX",
+  "specVersion": "2.0",
+  "definitions": {
+    "profiles": {
+      "dataProfiles": [
+        { "refId": "profile-pii", "name": "Personally Identifiable Information", "classification": "confidential" }
+      ]
+    }
+  },
+  "inventories": [
+    {
+      "subject": { "refId": "acme-app", "type": "application", "name": "Acme Application", "version": "1.0" },
+      "components": [
+        { "refId": "acme-api", "type": "service", "name": "Acme API", "version": "1.0",
+          "dataProfiles": [ { "ref": "profile-pii", "name": "Customer PII" } ] }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "specFormat": "CycloneDX",
+  "specVersion": "2.0",
+  "definitions": {
+    "parties": [
+      { "ref": "party-declared-somewhere-else" }
+    ]
+  }
+}

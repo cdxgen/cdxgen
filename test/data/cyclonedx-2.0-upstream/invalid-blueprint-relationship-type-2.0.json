@@ -1,0 +1,35 @@
+{
+  "specFormat": "CycloneDX",
+  "specVersion": "2.0",
+  "serialNumber": "urn:uuid:a1b2c3d4-0006-4abc-8def-1122334455ff",
+  "version": 1,
+  "blueprints": [
+    {
+      "refId": "bp-bad-relationship",
+      "name": "Relationship with unknown type",
+      "modelTypes": [
+        "architecture"
+      ],
+      "assets": [
+        {
+          "refId": "asset-a",
+          "type": "service",
+          "name": "Service A"
+        },
+        {
+          "refId": "asset-b",
+          "type": "service",
+          "name": "Service B"
+        }
+      ],
+      "relationships": [
+        {
+          "ref": "asset-a",
+          "uses": [
+            "asset-b"
+          ]
+        }
+      ]
+    }
+  ]
+}

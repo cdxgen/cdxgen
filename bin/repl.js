@@ -10,6 +10,7 @@ import jsonata from "jsonata";
 
 import { createBom } from "../lib/cli/index.js";
 import { readEnvironmentVariable } from "../lib/core/activity.js";
+import { thoughtLog } from "../lib/core/logger.js";
 import {
   getTmpDir,
   isDryRun,
@@ -19,6 +20,10 @@ import {
   safeWriteSync,
 } from "../lib/ecosystems/utils.js";
 import { isSpdxJsonLd } from "../lib/inventory/bomUtils.js";
+import {
+  formatReadLossNotice,
+  loadBomForAnalysis,
+} from "../lib/inventory/cyclonedx20.js";
 import {
   printAiBomDatasets,
   printAiBomInsights,
@@ -427,7 +432,17 @@ export const importSbom = async (sbomOrPath) => {
   }
   if (importTarget.endsWith(".json") && safeExistsSync(importTarget)) {
     try {
-      sbom = JSON.parse(readFileSync(importTarget, "utf-8"));
+      const importedBom = JSON.parse(readFileSync(importTarget, "utf-8"));
+      // A CycloneDX 2.0 document is read into the 1.x internal model so the
+      // pivots below keep working; the number of read losses is noted once.
+      const { internalBom, losses } = loadBomForAnalysis(importedBom);
+      sbom = internalBom;
+      if (losses.length) {
+        console.log(`ℹ ${formatReadLossNotice(losses)}`);
+        for (const loss of losses) {
+          thoughtLog(`cdxi 2.0 loss at ${loss.pointer}: ${loss.reason}`);
+        }
+      }
       let bomType = "SBOM";
       if (isSpdxJsonLd(sbom)) {
         bomType = "SPDX";

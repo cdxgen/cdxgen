@@ -1,0 +1,43 @@
+{
+  "$schema": "https://cyclonedx.org/schema/2.0/cyclonedx-2.0.schema.json",
+  "specFormat": "CycloneDX",
+  "specVersion": "2.0",
+  "serialNumber": "urn:uuid:3e671687-395b-41f5-a30f-a58921a69b81",
+  "version": 1,
+  "inventories": [
+    {
+      "subject": { "refId": "acme-app", "type": "application", "name": "Acme Application", "version": "1.0" },
+      "components": [
+        { "refId": "pkg:maven/acme/library@3.0", "type": "library", "name": "Acme Library", "version": "3.0" }
+      ]
+    }
+  ],
+  "dependencies": [
+    { "ref": "acme-app", "dependsOn": [ "pkg:maven/acme/library@3.0" ] }
+  ],
+  "compositions": [
+    {
+      "kind": "components",
+      "aggregate": "complete",
+      "targets": [ "acme-app" ]
+    },
+    {
+      "kind": "dependencies",
+      "aggregate": "incomplete-third-party-only",
+      "targets": [ "acme-app" ]
+    },
+    {
+      "kind": "vulnerabilities",
+      "aggregate": "not-specified",
+      "targets": [ "urn:cdx:3e671687-395b-41f5-a30f-a58921a69b81/1" ]
+    },
+    {
+      "kind": {
+        "name": "license-identification",
+        "description": "The license identification for each target is as complete as the aggregate states."
+      },
+      "aggregate": "incomplete-first-party-opensource-only",
+      "targets": [ "pkg:maven/acme/library@3.0" ]
+    }
+  ]
+}

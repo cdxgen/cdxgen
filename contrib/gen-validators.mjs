@@ -20,6 +20,23 @@
  * code via the keyword's `code` (codegen) interface, so the O(n²) stock
  * implementation is never linked in.
  *
+ * The 2.0 schemas under data/ come from the CycloneDX specification draft
+ * pinned for epic cdxgen/cdxgen#4589: repository CycloneDX/specification,
+ * branch 2.0-dev, commit ea8c3605829d1da13339a0790b6da73548e42a6b, files
+ * schema/2.0/cyclonedx-2.0-bundled.schema.json,
+ * schema/behavior-taxonomy.schema.json and schema/cryptography-defs.schema.json
+ * (copied verbatim; the last one is stored as
+ * data/cyclonedx-2.0-cryptography-defs.schema.json so that the 1.7 validator
+ * keeps reading the 1.7-era data/cryptography-defs.schema.json). The bundled
+ * schema's relative refs resolve to
+ * https://cyclonedx.org/schema/behavior-taxonomy.schema.json,
+ * https://cyclonedx.org/schema/cryptography-defs.schema.json and
+ * https://cyclonedx.org/schema/spdx.schema.json, which is why those are
+ * registered under exactly those ids in both this generator and
+ * compileSchemaValidator in lib/validator/bomValidator.js. When CycloneDX 2.0
+ * is ratified, refresh all three files from the release tag, update the commit
+ * named here and re-run this script.
+ *
  * Usage:
  *   node contrib/gen-validators.mjs            # generate
  *   node contrib/gen-validators.mjs --check    # fail if output differs from committed
@@ -200,8 +217,12 @@ function generateDraft2020Validator() {
     ajv.addSchema(bundled);
   };
   addBundled(
-    readJson("cryptography-defs.schema.json"),
+    readJson("cyclonedx-2.0-cryptography-defs.schema.json"),
     "https://cyclonedx.org/schema/cryptography-defs.schema.json",
+  );
+  addBundled(
+    readJson("behavior-taxonomy.schema.json"),
+    "https://cyclonedx.org/schema/behavior-taxonomy.schema.json",
   );
   addBundled(
     readJson("jsf-0.82.schema.json"),

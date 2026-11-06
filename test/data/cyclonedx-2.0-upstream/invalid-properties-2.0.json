@@ -1,0 +1,70 @@
+{
+  "$schema": "https://cyclonedx.org/schema/2.0/cyclonedx-2.0.schema.json",
+  "specFormat": "CycloneDX",
+  "specVersion": "2.0",
+  "serialNumber": "urn:uuid:bcb403ae-91fa-436e-bc93-84d1078cdeed",
+  "version": 1,
+  "metadata": {
+    "properties": [
+      {
+        "value": "missing a name"
+      },
+      {
+        "unexpected-property": "foo"
+      },
+      {}
+    ]
+  },
+  "definitions": {
+    "components": [
+      {
+        "type": "library",
+        "name": "acme-library",
+        "version": "1.0.0",
+        "licenses": [
+          {
+            "license": {
+              "id": "Apache-2.0",
+              "properties": [
+                {
+                  "value": "missing a name"
+                },
+                {
+                  "unexpected-property": "foo"
+                },
+                {}
+              ]
+            }
+          }
+        ],
+        "properties": [
+          {
+            "value": "missing a name"
+          },
+          {
+            "unexpected-property": "foo"
+          },
+          {}
+        ]
+      },
+      {
+        "refId": "b2a46a4b-8367-4bae-9820-95557cfe03a8",
+        "type": "service",
+        "group": "org.partner",
+        "name": "Stock ticker service",
+        "endpoints": [
+          "https://partner.org/api/v1/stock"
+        ],
+        "properties": [
+          {
+            "value": "missing a name"
+          },
+          {
+            "unexpected-property": "foo"
+          },
+          {}
+        ]
+      }
+    ]
+  }
+}

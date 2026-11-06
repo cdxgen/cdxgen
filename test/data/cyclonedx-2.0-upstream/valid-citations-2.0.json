@@ -1,0 +1,91 @@
+{
+  "$schema": "https://cyclonedx.org/schema/2.0/cyclonedx-2.0.schema.json",
+  "specFormat": "CycloneDX",
+  "specVersion": "2.0",
+  "serialNumber": "urn:uuid:3e671687-395b-41f5-a30f-a58921a69b79",
+  "version": 1,
+  "metadata": {
+    "timestamp": "2025-05-01T14:23:00Z",
+    "authors": [
+      {
+        "refId": "person-1",
+        "name": "Alice Example",
+        "email": "alice@example.com"
+      }
+    ]
+  },
+  "definitions": {
+    "components": [
+      {
+        "refId": "scan-tool-1",
+        "type": "application",
+        "name": "My Scan Tool"
+      },
+      {
+        "type": "library",
+        "refId": "component-1",
+        "name": "example-lib",
+        "version": "1.2.3",
+        "licenses": [
+          {
+            "license": {
+              "id": "Apache-2.0"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "citations": [
+    {
+      "refId": "citation-1",
+      "pointers": ["/definitions/components/0/name"],
+      "timestamp": "2025-05-01T14:00:00Z",
+      "attributedTo": "person-1",
+      "note": "Manually entered by Alice Example - with `attributedTo`"
+    },
+    {
+      "refId": "citation-2",
+      "pointers": ["/components/0/name"],
+      "timestamp": "2025-05-01T14:00:00Z",
+      "process": "task-license-scan",
+      "note": "Semi-manually entered by Alice Example - with `process`"
+    },
+    {
+      "refId": "citation-3",
+      "expressions": ["$..[?(@.refId=='component-1')].version"],
+      "timestamp": "2025-05-01T14:00:00Z",
+      "process": "task-license-scan",
+      "note": "Semi-manually entered by Alice Example - with `process`"
+    },
+    {
+      "refId": "citation-4",
+      "expressions": ["$.components[*].licenses[*].license.id"],
+      "timestamp": "2025-05-01T14:05:00Z",
+      "attributedTo": "scan-tool-1",
+      "process": "task-license-scan",
+      "note": "Auto-detected by license scanner tool - with both, 'attributedTo' and 'process'"
+    }
+  ],
+  "formulation": [
+    {
+      "refId": "workflow-1",
+      "workflows": [
+        {
+          "refId": "workflow-1",
+          "uid": "259bae74-5ec4-4de8-9386-c91b1f7719b8",
+          "name": "My workflow",
+          "tasks": [
+            {
+              "refId": "task-license-scan",
+              "uid": "6d75f8d6-a008-41cf-8b65-c4129fc249f9",
+              "taskTypes": ["scan"],
+              "description": "License scan of the source files using OpenSourceScanner v2.1"
+            }
+          ],
+          "taskTypes": ["scan"]
+        }
+      ]
+    }
+  ]
+}

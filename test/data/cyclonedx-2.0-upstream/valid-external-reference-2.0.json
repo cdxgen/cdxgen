@@ -1,0 +1,249 @@
+{
+  "$schema": "https://cyclonedx.org/schema/2.0/cyclonedx-2.0.schema.json",
+  "specFormat": "CycloneDX",
+  "specVersion": "2.0",
+  "serialNumber": "urn:uuid:3e671687-395b-41f5-a30f-a58921a69b79",
+  "version": 1,
+  "definitions": {
+    "components": [
+      {
+        "type": "library",
+        "parties": [
+          {
+            "roles": [ { "role": "publisher" } ],
+            "organization": { "name": "Acme Inc" }
+          }
+        ],
+        "group": "org.example",
+        "name": "mylibrary",
+        "version": "1.0.0",
+        "externalReferences": [
+          {
+            "type": "advisories",
+            "url": "https://example.org/security/feed/csaf",
+            "comment": "Security advisories from the vendor"
+          },
+          {
+            "type": "bom",
+            "url": "https://example.org/support/sbom/portal-server/1.0.0",
+            "comment": "An external SBOM that describes what this component includes",
+            "hashes": [
+              {
+                "alg": "SHA-256",
+                "content": "708f1f53b41f11f02d12a11b1a38d2905d47b099afc71a0f1124ef8582ec7313"
+              }
+            ]
+          },
+          {
+            "type": "documentation",
+            "url": "https://example.org/support/documentation/portal-server/1.0.0",
+            "comment": "Vendor provided documentation for the product"
+          }
+        ]
+      },
+      {
+        "type": "application",
+        "name": "dummy",
+        "description": "this component has all external reference types possible",
+        "externalReferences": [
+          {
+            "type": "vcs",
+            "url": "http://example.com/extref/vcs"
+          },
+          {
+            "type": "issue-tracker",
+            "url": "http://example.com/extref/issue-tracker"
+          },
+          {
+            "type": "website",
+            "url": "http://example.com/extref/website"
+          },
+          {
+            "type": "advisories",
+            "url": "http://example.com/extref/advisories"
+          },
+          {
+            "type": "bom",
+            "url": "http://example.com/extref/bom"
+          },
+          {
+            "type": "mailing-list",
+            "url": "http://example.com/extref/mailing-list"
+          },
+          {
+            "type": "social",
+            "url": "http://example.com/extref/social"
+          },
+          {
+            "type": "chat",
+            "url": "http://example.com/extref/chat"
+          },
+          {
+            "type": "documentation",
+            "url": "http://example.com/extref/documentation"
+          },
+          {
+            "type": "support",
+            "url": "http://example.com/extref/support"
+          },
+          {
+            "type": "source-distribution",
+            "url": "http://example.com/extref/source-distribution"
+          },
+          {
+            "type": "distribution",
+            "url": "http://example.com/extref/distribution"
+          },
+          {
+            "type": "distribution-intake",
+            "url": "http://example.com/extref/distribution-intake"
+          },
+          {
+            "type": "license",
+            "url": "http://example.com/extref/license"
+          },
+          {
+            "type": "build-meta",
+            "url": "http://example.com/extref/build-meta"
+          },
+          {
+            "type": "build-system",
+            "url": "http://example.com/extref/build-system"
+          },
+          {
+            "type": "release-notes",
+            "url": "http://example.com/extref/release-notes"
+          },
+          {
+            "type": "security-contact",
+            "url": "http://example.com/extref/security-contact"
+          },
+          {
+            "type": "model-card",
+            "url": "http://example.com/extref/model-card"
+          },
+          {
+            "type": "log",
+            "url": "http://example.com/extref/log"
+          },
+          {
+            "type": "configuration",
+            "url": "http://example.com/extref/configuration"
+          },
+          {
+            "type": "evidence",
+            "url": "http://example.com/extref/evidence"
+          },
+          {
+            "type": "formulation",
+            "url": "http://example.com/extref/formulation"
+          },
+          {
+            "type": "attestation",
+            "url": "http://example.com/extref/attestation"
+          },
+          {
+            "type": "threat-model",
+            "url": "http://example.com/extref/threat-model"
+          },
+          {
+            "type": "adversary-model",
+            "url": "http://example.com/extref/adversary-model"
+          },
+          {
+            "type": "risk-assessment",
+            "url": "http://example.com/extref/risk-assessment"
+          },
+          {
+            "type": "vulnerability-assertion",
+            "url": "http://example.com/extref/vulnerability-assertion"
+          },
+          {
+            "type": "exploitability-statement",
+            "url": "http://example.com/extref/exploitability-statement"
+          },
+          {
+            "type": "pentest-report",
+            "url": "http://example.com/extref/pentest-report"
+          },
+          {
+            "type": "static-analysis-report",
+            "url": "http://example.com/extref/static-analysis-report"
+          },
+          {
+            "type": "dynamic-analysis-report",
+            "url": "http://example.com/extref/dynamic-analysis-report"
+          },
+          {
+            "type": "runtime-analysis-report",
+            "url": "http://example.com/extref/runtime-analysis-report"
+          },
+          {
+            "type": "component-analysis-report",
+            "url": "http://example.com/extref/component-analysis-report"
+          },
+          {
+            "type": "maturity-report",
+            "url": "http://example.com/extref/maturity-report"
+          },
+          {
+            "type": "certification-report",
+            "url": "http://example.com/extref/certification-report"
+          },
+          {
+            "type": "quality-metrics",
+            "url": "http://example.com/extref/quality-metrics"
+          },
+          {
+            "type": "codified-infrastructure",
+            "url": "http://example.com/extref/codified-infrastructure"
+          },
+          {
+            "type": "poam",
+            "url": "http://example.com/extref/poam"
+          },
+          {
+            "type": "perspective",
+            "url": "http://example.com/extref/perspective"
+          },
+          {
+            "type": "electronic-signature",
+            "url": "http://example.com/extref/electronic-signature"
+          },
+          {
+            "type": "digital-signature",
+            "url": "http://example.com/extref/digital-signature"
+          },
+          {
+            "type": "rfc-9116",
+            "url": "http://example.com/extref/rfc-9116"
+          },
+          {
+            "type": "patent",
+            "url": "http://example.com/extref/patent"
+          },
+          {
+            "type": "patent-family",
+            "url": "http://example.com/extref/patent-family"
+          },
+          {
+            "type": "patent-assertion",
+            "url": "http://example.com/extref/patent-assertion"
+          },
+          {
+            "type": "citation",
+            "url": "http://example.com/extref/citation"
+          },
+          {
+            "type": "swid-tag",
+            "url": "http://example.com/extref/swid-tag"
+          },
+          {
+            "type": "other",
+            "url": "http://example.com/extref/other"
+          }
+        ]
+      }
+    ]
+  }
+}

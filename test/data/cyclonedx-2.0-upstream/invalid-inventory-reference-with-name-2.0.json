@@ -1,0 +1,17 @@
+{
+  "specFormat": "CycloneDX",
+  "specVersion": "2.0",
+  "definitions": {
+    "components": [
+      { "refId": "pkg:generic/acme/common-runtime@4.2", "type": "library", "name": "Acme Common Runtime", "version": "4.2" }
+    ]
+  },
+  "inventories": [
+    {
+      "subject": { "refId": "acme-app", "type": "application", "name": "Acme Application", "version": "1.0" },
+      "components": [
+        { "ref": "pkg:generic/acme/common-runtime@4.2", "name": "Acme Common Runtime" }
+      ]
+    }
+  ]
+}

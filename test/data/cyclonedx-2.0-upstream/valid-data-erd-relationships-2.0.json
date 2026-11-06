@@ -1,0 +1,103 @@
+{
+  "specFormat": "CycloneDX",
+  "specVersion": "2.0",
+  "serialNumber": "urn:uuid:a1b2c3d4-0003-4abc-8def-1122334455cc",
+  "version": 1,
+  "blueprints": [
+    {
+      "refId": "bp-core-logical",
+      "name": "Core logical and architecture model",
+      "modelTypes": [
+        "logical",
+        "architecture"
+      ],
+      "assets": [
+        {
+          "refId": "asset-customer-service",
+          "type": "service",
+          "name": "Customer service"
+        },
+        {
+          "refId": "asset-order-service",
+          "type": "service",
+          "name": "Order service"
+        }
+      ],
+      "relationships": [
+        {
+          "ref": "asset-order-service",
+          "dependsOn": [
+            "asset-customer-service"
+          ]
+        },
+        {
+          "ref": "asset-order-service",
+          "custom": [
+            {
+              "type": "invokes",
+              "targets": [
+                "asset-customer-service"
+              ],
+              "description": "A custom relationship kind for synchronous invocation."
+            }
+          ]
+        }
+      ],
+      "dataSets": [
+        {
+          "refId": "ds-core",
+          "name": "Core entities",
+          "description": "Logical data model for customers and orders.",
+          "dataObjects": [
+            {
+              "refId": "do-customer",
+              "name": "Customer",
+              "attributes": [
+                {
+                  "refId": "attr-customer-id",
+                  "name": "id",
+                  "key": "primary"
+                },
+                {
+                  "name": "email",
+                  "key": "unique"
+                }
+              ]
+            },
+            {
+              "refId": "do-order",
+              "name": "Order",
+              "attributes": [
+                {
+                  "refId": "attr-order-id",
+                  "name": "id",
+                  "key": "primary"
+                },
+                {
+                  "refId": "attr-order-customerid",
+                  "name": "customer_id",
+                  "key": "foreign",
+                  "references": "do-customer"
+                }
+              ],
+              "relationships": [
+                {
+                  "refId": "rel-order-customer",
+                  "name": "placed by",
+                  "target": "do-customer",
+                  "cardinality": "many-to-one",
+                  "sourceAttributes": [
+                    "attr-order-customerid"
+                  ],
+                  "targetAttributes": [
+                    "attr-customer-id"
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

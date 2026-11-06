@@ -1,0 +1,50 @@
+{
+  "$schema": "https://cyclonedx.org/schema/2.0/cyclonedx-2.0.schema.json",
+  "specFormat": "CycloneDX",
+  "specVersion": "2.0",
+  "version": 1,
+  "inventories": [
+    {
+      "subject": {
+        "refId": "subject-1",
+        "type": "application",
+        "name": "Payment Gateway"
+      },
+      "components": [
+        {
+          "type": "application",
+          "name": "Payment Gateway Admin Console",
+          "parties": [
+            {
+              "refId": "persona-mallory",
+              "roles": [
+                {
+                  "role": "attacker"
+                }
+              ],
+              "persona": {
+                "label": "Mallory",
+                "archetype": "insider-threat",
+                "description": "Disgruntled administrator with elevated access to the payment gateway."
+              }
+            },
+            {
+              "refId": "persona-night-operator",
+              "roles": [
+                {
+                  "role": "operator"
+                }
+              ],
+              "persona": {
+                "label": "Night Shift Operator",
+                "archetype": "administrator",
+                "scope": "internal",
+                "assumedPosture": "authenticated"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

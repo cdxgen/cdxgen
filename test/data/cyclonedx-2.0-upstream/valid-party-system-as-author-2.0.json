@@ -1,0 +1,39 @@
+{
+  "$schema": "https://cyclonedx.org/schema/2.0/cyclonedx-2.0.schema.json",
+  "specFormat": "CycloneDX",
+  "specVersion": "2.0",
+  "version": 1,
+  "inventories": [
+    {
+      "subject": {
+        "refId": "subject-1",
+        "type": "application",
+        "name": "Web Service"
+      },
+      "components": [
+        {
+          "type": "library",
+          "name": "AI-Generated Code Module",
+          "parties": [
+            {
+              "roles": [
+                {
+                  "role": "author"
+                },
+                {
+                  "role": "agent"
+                }
+              ],
+              "system": {
+                "kind": "agent"
+              },
+              "relations": {
+                "delegatedBy": "actor-alice"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

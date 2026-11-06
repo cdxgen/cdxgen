@@ -1,0 +1,20 @@
+{
+  "$schema": "https://cyclonedx.org/schema/2.0/cyclonedx-2.0.schema.json",
+  "specFormat": "CycloneDX",
+  "specVersion": "2.0",
+  "definitions": {
+    "components": [
+      {
+        "type": "cryptographic-asset",
+        "name": "algorithm",
+        "cryptoProperties": {
+          "assetType": "algorithm",
+          "algorithmProperties": {
+            "primitive": "hash",
+            "nistQuantumSecurityLevel": 6
+          }
+        }
+      }
+    ]
+  }
+}

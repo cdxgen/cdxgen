@@ -1,0 +1,19 @@
+{
+  "specFormat": "CycloneDX",
+  "specVersion": "2.0",
+  "definitions": {
+    "certifications": [
+      { "refId": "cert-1", "standard": "AEC-Q100" }
+    ],
+    "components": [
+      {
+        "refId": "mcu-1",
+        "type": "device",
+        "name": "Acme MCU",
+        "certifications": [
+          { "ref": "cert-1", "standard": "A reference shall carry only the ref" }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "$schema": "https://cyclonedx.org/schema/2.0/cyclonedx-2.0.schema.json",
+  "specFormat": "CycloneDX",
+  "specVersion": "2.0",
+  "version": 1,
+  "serialNumber": "urn:uuid:1f0e9c2a-6b7d-4a3e-9c1f-0a2b3c4d5e08",
+  "definitions": {
+    "components": [
+      {
+        "type": "device",
+        "name": "Acme AVR8-328",
+        "certifications": [
+          { "ref": "cert-missing-standard" }
+        ]
+      }
+    ],
+    "certifications": [
+      {
+        "refId": "cert-missing-standard",
+        "identifier": "RCL-2026-04471",
+        "jurisdiction": "US"
+      }
+    ]
+  }
+}

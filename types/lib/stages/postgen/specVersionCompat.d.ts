@@ -68,4 +68,25 @@ export declare function collectFieldPaths(subject: Object, prefix?: string, path
  * @returns {string[]} Sorted field paths that no longer appear
  */
 export declare function diffRemovedFieldPaths(sourceBomJson: Object, normalizedBomJson: Object): string[];
+/**
+ * Collect the leaf values of a JSON document as `path=value` strings, using
+ * the dotted, index-free paths of collectFieldPaths. Array order and
+ * repeated entries are ignored, so two documents that differ only in member
+ * order collect the same set. Empty arrays and objects count as leaves.
+ *
+ * @param {*} subject JSON value
+ * @param {string} [prefix] Path so far
+ * @param {Set<string>} [leaves] Accumulator
+ * @returns {Set<string>} `path=value` strings
+ */
+export declare function collectLeafValues(subject: any, prefix?: string, leaves?: Set<string>): Set<string>;
+/**
+ * Report the leaf values of `sourceBomJson` that `convertedBomJson` lacks,
+ * ignoring member order (see collectLeafValues).
+ *
+ * @param {Object} sourceBomJson BOM before conversion
+ * @param {Object} convertedBomJson BOM after conversion
+ * @returns {string[]} Sorted `path=value` strings missing from the output
+ */
+export declare function diffMissingLeafValues(sourceBomJson: Object, convertedBomJson: Object): string[];
 //# sourceMappingURL=specVersionCompat.d.ts.map

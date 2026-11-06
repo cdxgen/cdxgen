@@ -84,12 +84,24 @@ import {
   getOutputDirectory,
 } from "../lib/helpers/exportUtils.js";
 import {
+  generateJssKeyPair,
+  signJssBom,
+  verifyJssBom,
+} from "../lib/helpers/jssSigner.js";
+import {
   DEFAULT_CDX_SPEC_VERSION,
   getSupportedCycloneDxComponentTypes,
+  isCycloneDx20SpecVersion,
   isCycloneDxBom,
   normalizeCycloneDxComponentTypeFilter,
   toCycloneDxSpecVersionString,
 } from "../lib/inventory/bomUtils.js";
+import {
+  DEPENDENCY_TRACK_CDX20_ERROR,
+  getInternalBom,
+  loadBomForAnalysis,
+  refreshRenderedBom,
+} from "../lib/inventory/cyclonedx20.js";
 import {
   displaySelfThreatModel,
   printActivitySummary,
@@ -446,7 +458,7 @@ const args = _yargs
   .option("generate-key-and-sign", {
     type: "boolean",
     description:
-      "Generate a public/private key pair for SBOM_SIGN_ALGORITHM (RS512 by default) and then sign the generated SBOM using the JSON Signature Format (JSF).",
+      "Generate a public/private key pair for SBOM_SIGN_ALGORITHM and then sign the generated SBOM: with the JSON Signature Format (JSF, RS512 by default) at 1.x, or the JSON Signature Scheme (JSS, ITU-T X.590; Ed25519 by default) at --spec-version 2.0.",
   })
   .option("server", {
     type: "boolean",
@@ -1231,6 +1243,21 @@ try {
   console.error(error.message);
   process.exit(1);
 }
+// Dependency-Track ingests CycloneDX 1.x only. Refuse an upload (server URL
+// plus API key, the same condition the submission below uses) before
+// generating, so a long scan does not end in an upload that cannot succeed.
+// Server mode checks each request instead, since a request may choose its own
+// version.
+if (
+  !options.server &&
+  typeof options.serverUrl === "string" &&
+  options.serverUrl.length > 0 &&
+  options.apiKey &&
+  isCycloneDx20SpecVersion(options.specVersion)
+) {
+  console.error(DEPENDENCY_TRACK_CDX20_ERROR);
+  process.exit(1);
+}
 if (!options.projectType) {
   thoughtLog(
     "Ok, the user wants me to identify all the project types and generate a consolidated BOM document.",
@@ -1669,6 +1696,97 @@ const signCycloneDxPayload = (jsonPayload, keyDir, target, options) => {
 };
 
 /**
+ * Signs a CycloneDX 2.0 payload with JSS (ITU-T X.590) using the configured
+ * or generated key: the root and the nested members the draft allows (see
+ * lib/helpers/jssSigner.js). A generated key is checked against the fresh
+ * signature, as the JSF path does.
+ *
+ * @param {string} jsonPayload Serialized CycloneDX 2.0 BOM
+ * @param {string|undefined} keyDir Directory for --generate-key-and-sign keys
+ * @param {string} target Output the signed BOM is written to (for the activity log)
+ * @param {Object} options CLI options
+ * @returns {Object} Signed BOM
+ * @throws {Error} When signing was requested but cannot be completed
+ */
+const signJssPayload = (jsonPayload, keyDir, target, options) => {
+  const algorithm = readEnvironmentVariable("SBOM_SIGN_ALGORITHM") || "Ed25519";
+  const sbomSignPrivateKey = readEnvironmentVariable("SBOM_SIGN_PRIVATE_KEY", {
+    sensitive: true,
+  });
+  const sbomSignPrivateKeyBase64 = readEnvironmentVariable(
+    "SBOM_SIGN_PRIVATE_KEY_BASE64",
+    { sensitive: true },
+  );
+  let privateKey;
+  let publicKeyFile;
+  if (options.generateKeyAndSign) {
+    if (!keyDir) {
+      throw new Error(
+        "--generate-key-and-sign needs a file output (-o) to write the generated keys next to.",
+      );
+    }
+    publicKeyFile = join(keyDir, "public.key");
+    const privateKeyFile = join(keyDir, "private.key");
+    const generated = generateJssKeyPair(algorithm);
+    safeWriteSync(
+      publicKeyFile,
+      generated.publicKey.export({ type: "spki", format: "pem" }),
+    );
+    // The private key is readable by the owner only.
+    safeWriteSync(
+      privateKeyFile,
+      generated.privateKey.export({ type: "pkcs8", format: "pem" }),
+      { mode: 0o600 },
+    );
+    console.log(
+      "Created public/private key pairs for testing purposes",
+      publicKeyFile,
+      privateKeyFile,
+    );
+    privateKey = generated.privateKey;
+  } else if (sbomSignPrivateKey) {
+    if (!safeExistsSync(sbomSignPrivateKey)) {
+      throw new Error(
+        `The SBOM_SIGN_PRIVATE_KEY file '${sbomSignPrivateKey}' was not found.`,
+      );
+    }
+    recordSensitiveFileRead(sbomSignPrivateKey, {
+      label: "SBOM signing private key",
+    });
+    privateKey = fs.readFileSync(sbomSignPrivateKey);
+  } else if (sbomSignPrivateKeyBase64) {
+    privateKey = Buffer.from(sbomSignPrivateKeyBase64, "base64");
+  } else {
+    throw new Error(
+      `Signing a CycloneDX 2.0 document needs a private key: set SBOM_SIGN_PRIVATE_KEY (PEM), SBOM_SIGN_PRIVATE_KEY_BASE64, or pass --generate-key-and-sign. Algorithm in use: ${algorithm}.`,
+    );
+  }
+  thoughtLog(`Signing the BOM for "${target}" with JSS.`);
+  const signedBom = signJssBom(JSON.parse(jsonPayload), {
+    algorithm,
+    privateKey,
+  });
+  if (publicKeyFile) {
+    const verdict = verifyJssBom(signedBom, {
+      publicKey: fs.readFileSync(publicKeyFile, "utf8"),
+      requireAll: true,
+    });
+    if (!verdict.valid) {
+      throw new Error(
+        `The new JSS signature does not verify with ${publicKeyFile}.`,
+      );
+    }
+    console.log(
+      "SBOM signature is verifiable natively with the public key and the algorithm",
+      publicKeyFile,
+      algorithm,
+    );
+  }
+  recordActivity({ kind: "sign", status: "completed", target });
+  return signedBom;
+};
+
+/**
  * Signs the BOM for an output when signing is configured. A failure is
  * recorded and returned so that the caller can stop with a non-zero exit
  * instead of publishing an unsigned BOM.
@@ -1687,6 +1805,24 @@ const signForOutput = (bomJson, jsonPayload, keyDir, target, options) => {
       target,
     });
     return { bomJson, jsonPayload };
+  }
+  if (isCycloneDx20SpecVersion(bomJson?.specVersion || options?.specVersion)) {
+    // A CycloneDX 2.0 document signs with JSS (ITU-T X.590) instead of JSF.
+    try {
+      const signedBom = signJssPayload(jsonPayload, keyDir, target, options);
+      return {
+        bomJson: signedBom,
+        jsonPayload: stringifyJson(signedBom, options.jsonPretty),
+      };
+    } catch (err) {
+      recordActivity({
+        kind: "sign",
+        reason: err.message,
+        status: "failed",
+        target,
+      });
+      return { bomJson, jsonPayload, signingError: err };
+    }
   }
   try {
     const signedBom = signCycloneDxPayload(
@@ -2026,7 +2162,10 @@ const writeCycloneDxOutput = (jsonFile, bomJson, options) => {
       hasCriticalFindings,
     } = await import("../lib/stages/postgen/auditBom.js");
     thoughtLog("Let's run security audit...");
-    const postAuditFindings = await auditBom(bomNSData.bomJson, {
+    // The audit and its annotations read the 1.x-shaped model; at 2.0 the
+    // rendered document is refreshed once after the last mutation.
+    const auditInternalBom = getInternalBom(bomNSData);
+    const postAuditFindings = await auditBom(auditInternalBom, {
       ...options,
       getBomWithOras,
     });
@@ -2045,9 +2184,9 @@ const writeCycloneDxOutput = (jsonFile, bomJson, options) => {
       }
     }
     if (postAuditFindings.length && options.specVersion >= 1.4) {
-      bomNSData.bomJson.annotations = [
-        ...(bomNSData.bomJson.annotations || []),
-        ...formatAnnotations(postAuditFindings, bomNSData.bomJson),
+      auditInternalBom.annotations = [
+        ...(auditInternalBom.annotations || []),
+        ...formatAnnotations(postAuditFindings, auditInternalBom),
       ];
       thoughtLog(
         `Embedded ${postAuditFindings.length} audit findings as CycloneDX annotations`,
@@ -2081,7 +2220,7 @@ const writeCycloneDxOutput = (jsonFile, bomJson, options) => {
       const requiredAuditTargetCount = collectAuditTargets(
         [
           {
-            bomJson: bomNSData.bomJson,
+            bomJson: auditInternalBom,
             source: filePath,
           },
         ],
@@ -2102,7 +2241,7 @@ const writeCycloneDxOutput = (jsonFile, bomJson, options) => {
         predictiveReport = await runAuditFromBoms(
           [
             {
-              bomJson: bomNSData.bomJson,
+              bomJson: auditInternalBom,
               source: filePath,
             },
           ],
@@ -2139,14 +2278,14 @@ const writeCycloneDxOutput = (jsonFile, bomJson, options) => {
       }
       const predictiveAnnotations = formatPredictiveAnnotations(
         predictiveReport,
-        bomNSData.bomJson,
+        auditInternalBom,
         {
           minSeverity: options.bomAuditMinSeverity,
         },
       );
       if (predictiveAnnotations.length && options.specVersion >= 1.4) {
-        bomNSData.bomJson.annotations = [
-          ...(bomNSData.bomJson.annotations || []),
+        auditInternalBom.annotations = [
+          ...(auditInternalBom.annotations || []),
           ...predictiveAnnotations,
         ];
         thoughtLog(
@@ -2189,9 +2328,11 @@ const writeCycloneDxOutput = (jsonFile, bomJson, options) => {
         target: internalCycloneDxInputPath,
       });
     } else {
+      // Evinse reads and writes the 1.x shape, so the temp input is the
+      // internal model, not the rendered 2.0 document.
       safeWriteSync(
         internalCycloneDxInputPath,
-        stringifyJson(bomNSData.bomJson, options.jsonPretty),
+        stringifyJson(getInternalBom(bomNSData), options.jsonPretty),
       );
     }
   }
@@ -2221,7 +2362,7 @@ const writeCycloneDxOutput = (jsonFile, bomJson, options) => {
       if (!options.projectType) {
         const evidenceLanguage = evinserModule.defaultEvidenceLanguage(
           filePath,
-          bomNSData?.bomJson,
+          getInternalBom(bomNSData),
           options,
         );
         if (evidenceLanguage) {
@@ -2233,10 +2374,17 @@ const writeCycloneDxOutput = (jsonFile, bomJson, options) => {
           "Skipping the evidence analysis since the BOM lists no package in a language it supports. Pass -t to choose the language.",
         );
         if (bomNSData) {
-          bomNSData.bomJson = applyEvidenceBasedFilter(
-            bomNSData.bomJson,
+          // The filter mutates the 1.x model; the rendered 2.0 document is
+          // refreshed below, once, after this last mutation.
+          const filteredBom = applyEvidenceBasedFilter(
+            getInternalBom(bomNSData),
             options,
           );
+          if (bomNSData.internalBomJson) {
+            bomNSData.internalBomJson = filteredBom;
+          } else {
+            bomNSData.bomJson = filteredBom;
+          }
         }
       } else {
         const evinseOptions = evinserModule.buildEvinseOptions(
@@ -2253,16 +2401,34 @@ const writeCycloneDxOutput = (jsonFile, bomJson, options) => {
             );
             const evinseJson = await evinserModule.createEvinseFile(
               sliceArtefacts,
-              evinseOptions,
+              { ...evinseOptions, returnInternalModel: true },
             );
             // The scope filter is deferred until here so the analyzers get to
-            // prove that an optional dependency is actually used.
-            bomNSData.bomJson = applyEvidenceBasedFilter(evinseJson, options);
-            if (options.print && evinseJson) {
-              printOccurrences(evinseJson);
-              printCallStack(evinseJson);
+            // prove that an optional dependency is actually used. At 2.0
+            // createEvinseFile runs postProcess again and returns the
+            // rendered 2.0 document; `returnInternalModel` asks for the 1.x
+            // model instead, which becomes the internal model and is
+            // re-rendered below. loadBomForAnalysis covers a caller that
+            // still hands back a rendered document.
+            const evinseInternalBom = evinseJson
+              ? loadBomForAnalysis(evinseJson).internalBom
+              : evinseJson;
+            if (bomNSData.internalBomJson) {
+              bomNSData.internalBomJson = applyEvidenceBasedFilter(
+                evinseInternalBom,
+                options,
+              );
+            } else {
+              bomNSData.bomJson = applyEvidenceBasedFilter(
+                evinseInternalBom,
+                options,
+              );
+            }
+            if (options.print && evinseInternalBom) {
+              printOccurrences(evinseInternalBom);
+              printCallStack(evinseInternalBom);
               printReachables(sliceArtefacts);
-              printServices(evinseJson);
+              printServices(evinseInternalBom);
             }
           }
         } catch (err) {
@@ -2277,6 +2443,10 @@ const writeCycloneDxOutput = (jsonFile, bomJson, options) => {
       }
     }
   }
+  // The last post-postProcess mutation is done; at 2.0 the rendered document
+  // is refreshed from the internal model once, before validation, signing
+  // and writing. At 1.x this is a no-op.
+  refreshRenderedBom(bomNSData, options);
   // Perform automatic validation
   if (options.validate && bomNSData?.bomJson) {
     thoughtLog("Wait, let's check the generated BOM file for any issues.");
@@ -2330,7 +2500,12 @@ const writeCycloneDxOutput = (jsonFile, bomJson, options) => {
         target: "spdx",
       });
     } else {
-      bomNSData.spdxJson = convertCycloneDxToSpdx(bomNSData.bomJson, options);
+      // The SPDX converter reads the 1.x shape; at 2.0 that is the internal
+      // model.
+      bomNSData.spdxJson = convertCycloneDxToSpdx(
+        getInternalBom(bomNSData),
+        options,
+      );
       recordActivity({
         kind: "convert",
         status: "completed",
@@ -2533,6 +2708,20 @@ const writeCycloneDxOutput = (jsonFile, bomJson, options) => {
         status: "blocked",
         target: options.serverUrl,
       });
+    } else if (isCycloneDx20SpecVersion(bomNSData.bomJson?.specVersion)) {
+      // Unreachable from the CLI, which refuses this before generating; kept
+      // so a 2.0 document can never reach Dependency-Track.
+      recordActivity({
+        kind: "submit",
+        reason: DEPENDENCY_TRACK_CDX20_ERROR,
+        status: "blocked",
+        target: options.serverUrl,
+      });
+      console.error(DEPENDENCY_TRACK_CDX20_ERROR);
+      if (cleanup) {
+        cleanupSourceDir(srcDir);
+      }
+      process.exit(1);
     } else {
       try {
         recordActivity({
@@ -2571,7 +2760,8 @@ const writeCycloneDxOutput = (jsonFile, bomJson, options) => {
       try {
         const { buildPublishCollectionPayload, publishTeaCollection } =
           await import("../lib/ecosystems/tea.js");
-        const parentComponent = bomNSData.bomJson.metadata?.component || {};
+        const parentComponent =
+          getInternalBom(bomNSData).metadata?.component || {};
         const projectName =
           options.teaCollectionName ||
           parentComponent.name ||
@@ -2647,17 +2837,18 @@ const writeCycloneDxOutput = (jsonFile, bomJson, options) => {
       thoughtLog("BOM file is also available in .proto format!");
     }
   }
-  if (options.print && bomNSData.bomJson?.components) {
-    printSummary(bomNSData.bomJson);
+  if (options.print && getInternalBom(bomNSData)?.components) {
+    const printBom = getInternalBom(bomNSData);
+    printSummary(printBom);
     if (options.includeFormulation) {
-      printFormulation(bomNSData.bomJson);
+      printFormulation(printBom);
     }
-    printDependencyTree(bomNSData.bomJson);
-    printTable(bomNSData.bomJson);
+    printDependencyTree(printBom);
+    printTable(printBom);
     // CBOM related print
     if (options.includeCrypto) {
-      printTable(bomNSData.bomJson, ["cryptographic-asset"]);
-      printDependencyTree(bomNSData.bomJson, "provides");
+      printTable(printBom, ["cryptographic-asset"]);
+      printDependencyTree(printBom, "provides");
     }
   }
   if (isDryRun || DEBUG_MODE) {

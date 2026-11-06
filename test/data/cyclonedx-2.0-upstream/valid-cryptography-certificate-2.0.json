@@ -1,0 +1,262 @@
+{
+  "$schema": "https://cyclonedx.org/schema/2.0/cyclonedx-2.0.schema.json",
+  "specFormat": "CycloneDX",
+  "specVersion": "2.0",
+  "serialNumber": "urn:uuid:e8c355aa-2142-4084-a8c7-6d42c8610ba2",
+  "version": 1,
+  "metadata": {
+    "timestamp": "2024-01-09T12:00:00Z"
+  },
+  "inventories": [
+    {
+      "subject": {
+        "refId": "subject-1",
+        "type": "application",
+        "name": "my application",
+        "version": "1.0"
+      },
+      "components": [
+        {
+          "name": "google.com",
+          "type": "cryptographic-asset",
+          "refId": "c9c7ac91-2115-45e8-ae13-7d0e1dec74be",
+          "cryptoProperties": {
+            "assetType": "certificate",
+            "certificateProperties": {
+              "serialNumber": "1234567890ABCDEF",
+              "subjectName": "CN = www.google.com",
+              "issuerName": "C = US, O = Google Trust Services LLC, CN = GTS CA 1C3",
+              "notValidBefore": "2016-11-21T08:00:00Z",
+              "notValidAfter": "2017-11-22T07:59:59Z",
+              "certificateFormat": "X.509",
+              "certificateFileExtension": "crt",
+              "fingerprint": {
+                "alg": "SHA-256",
+                "content": "1e15e0fbd3ce95bde5945633ae96add551341b11e5bae7bba12e98ad84a5beb4"
+              },
+              "certificateState": [
+                {
+                  "state": "active",
+                  "reason": "Certificate is currently valid and in use"
+                }
+              ],
+              "creationDate": "2016-11-21T07:30:00Z",
+              "activationDate": "2016-11-21T08:00:00Z",
+              "relatedCryptographicAssets": [
+                {
+                  "type": "algorithm",
+                  "ref": "6b00f384-6c39-420f-91eb-94de0f7be569"
+                },
+                {
+                  "type": "publicKey",
+                  "ref": "ceb37320-8239-40e8-ab77-8798dbd98773"
+                }
+              ]
+            },
+            "oid": "2.5.4.3"
+          }
+        },
+        {
+          "name": "SHA512withRSA",
+          "type": "cryptographic-asset",
+          "refId": "6b00f384-6c39-420f-91eb-94de0f7be569",
+          "cryptoProperties": {
+            "assetType": "algorithm",
+            "algorithmProperties": {
+              "primitive": "signature",
+              "executionEnvironment": "software-plain-ram",
+              "implementationPlatform": [
+                "x86_64"
+              ],
+              "padding": "pkcs1v15",
+              "cryptoFunctions": [
+                "sign",
+                "verify"
+              ]
+            },
+            "oid": "1.2.840.113549.1.1.13"
+          }
+        },
+        {
+          "name": "RSA-2048",
+          "type": "cryptographic-asset",
+          "refId": "ceb37320-8239-40e8-ab77-8798dbd98773",
+          "cryptoProperties": {
+            "assetType": "related-crypto-material",
+            "relatedCryptoMaterialProperties": {
+              "type": "public-key",
+              "id": "2e9ef09e-dfac-4526-96b4-d02f31af1b22",
+              "state": "active",
+              "size": 2048,
+              "format": "PEM",
+              "value": "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA...\n-----END PUBLIC KEY-----",
+              "creationDate": "2016-11-21T08:00:00Z",
+              "activationDate": "2016-11-21T08:20:00Z",
+              "updateDate": "2016-11-21T08:00:00Z",
+              "expirationDate": "2017-11-22T07:59:59Z",
+              "securedBy": {
+                "mechanism": "None"
+              },
+              "fingerprint": {
+                "alg": "SHA-256",
+                "content": "a1b2c3d4e5f6789012345678901234567890abcdef1234567890abcdef123456"
+              },
+              "relatedCryptographicAssets": [
+                {
+                  "type": "algorithm",
+                  "ref": "a154af0a-0dca-4ed5-b611-2405a3a6ae47"
+                }
+              ]
+            },
+            "oid": "1.2.840.113549.1.1.1"
+          }
+        },
+        {
+          "name": "RSA-2048",
+          "type": "cryptographic-asset",
+          "refId": "a154af0a-0dca-4ed5-b611-2405a3a6ae47",
+          "cryptoProperties": {
+            "assetType": "algorithm",
+            "algorithmProperties": {
+              "primitive": "pke",
+              "algorithmFamily": "RSAES-OAEP",
+              "parameterSetIdentifier": "2048",
+              "executionEnvironment": "software-plain-ram",
+              "implementationPlatform": [
+                "x86_64"
+              ],
+              "padding": "oaep",
+              "cryptoFunctions": [
+                "encrypt",
+                "decrypt"
+              ]
+            },
+            "oid": "1.2.840.113549.1.1.1"
+          }
+        },
+        {
+          "name": "TLS 1.3 Protocol",
+          "type": "cryptographic-asset",
+          "refId": "a3553dc1-f376-43d1-89dc-87bb71981c0c",
+          "cryptoProperties": {
+            "assetType": "protocol",
+            "protocolProperties": {
+              "type": "tls",
+              "version": "1.3",
+              "cipherSuites": [
+                {
+                  "name": "TLS_AES_256_GCM_SHA384",
+                  "algorithms": [
+                    "1977d71b-8981-4292-b40d-842a019c2229",
+                    "422fa336-b401-42b7-89b8-8966aa30bca0"
+                  ],
+                  "identifiers": [
+                    "0x13,0x02"
+                  ]
+                },
+                {
+                  "name": "TLS_CHACHA20_POLY1305_SHA256",
+                  "algorithms": [
+                    "1af4fc08-5d0d-436e-8058-eeef921983d0",
+                    "6af3066b-ab66-4593-975f-d9ba2c623a89"
+                  ],
+                  "identifiers": [
+                    "0x13,0x03"
+                  ]
+                }
+              ]
+            },
+            "oid": "1.3.6.1.5.5.7.3.1"
+          }
+        },
+        {
+          "name": "AES-256-GCM",
+          "type": "cryptographic-asset",
+          "refId": "1977d71b-8981-4292-b40d-842a019c2229",
+          "cryptoProperties": {
+            "assetType": "algorithm",
+            "algorithmProperties": {
+              "primitive": "ae",
+              "algorithmFamily": "AES",
+              "parameterSetIdentifier": "256",
+              "mode": "gcm",
+              "executionEnvironment": "software-plain-ram",
+              "implementationPlatform": [
+                "x86_64"
+              ],
+              "cryptoFunctions": [
+                "encrypt",
+                "decrypt"
+              ]
+            },
+            "oid": "2.16.840.1.101.3.4.1.46"
+          }
+        },
+        {
+          "name": "SHA-384",
+          "type": "cryptographic-asset",
+          "refId": "422fa336-b401-42b7-89b8-8966aa30bca0",
+          "cryptoProperties": {
+            "assetType": "algorithm",
+            "algorithmProperties": {
+              "primitive": "hash",
+              "algorithmFamily": "SHA-2",
+              "parameterSetIdentifier": "384",
+              "executionEnvironment": "software-plain-ram",
+              "implementationPlatform": [
+                "x86_64"
+              ],
+              "cryptoFunctions": [
+                "digest"
+              ]
+            },
+            "oid": "2.16.840.1.101.3.4.2.2"
+          }
+        },
+        {
+          "name": "ChaCha20-Poly1305",
+          "type": "cryptographic-asset",
+          "refId": "1af4fc08-5d0d-436e-8058-eeef921983d0",
+          "cryptoProperties": {
+            "assetType": "algorithm",
+            "algorithmProperties": {
+              "primitive": "ae",
+              "algorithmFamily": "ChaCha20",
+              "parameterSetIdentifier": "256",
+              "executionEnvironment": "software-plain-ram",
+              "implementationPlatform": [
+                "x86_64"
+              ],
+              "cryptoFunctions": [
+                "encrypt",
+                "decrypt"
+              ]
+            },
+            "oid": "1.2.840.113549.1.9.16.3.18"
+          }
+        },
+        {
+          "name": "SHA-256",
+          "type": "cryptographic-asset",
+          "refId": "6af3066b-ab66-4593-975f-d9ba2c623a89",
+          "cryptoProperties": {
+            "assetType": "algorithm",
+            "algorithmProperties": {
+              "primitive": "hash",
+              "algorithmFamily": "SHA-2",
+              "parameterSetIdentifier": "256",
+              "executionEnvironment": "software-plain-ram",
+              "implementationPlatform": [
+                "x86_64"
+              ],
+              "cryptoFunctions": [
+                "digest"
+              ]
+            },
+            "oid": "2.16.840.1.101.3.4.2.1"
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,80 @@
+{
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.7",
+  "serialNumber": "urn:uuid:a1b2c3d4-e5f6-4a7b-8c9d-0e1f2a3b4c5d",
+  "version": 1,
+  "metadata": {
+    "timestamp": "2026-01-01T00:00:00Z",
+    "tools": {
+      "components": [
+        {
+          "group": "@cdxgen",
+          "name": "cdxgen",
+          "version": "13.7.0",
+          "type": "application",
+          "bom-ref": "pkg:npm/@cdxgen/cdxgen@13.7.0"
+        }
+      ]
+    },
+    "component": {
+      "type": "application",
+      "name": "app",
+      "version": "1.0.0",
+      "bom-ref": "pkg:npm/app@1.0.0",
+      "purl": "pkg:npm/app@1.0.0"
+    }
+  },
+  "components": [
+    {
+      "type": "library",
+      "name": "a",
+      "version": "1.0.0",
+      "bom-ref": "pkg:npm/a@1.0.0",
+      "purl": "pkg:npm/a@1.0.0"
+    },
+    {
+      "type": "library",
+      "name": "b",
+      "version": "2.0.0",
+      "bom-ref": "pkg:npm/b@2.0.0",
+      "purl": "pkg:npm/b@2.0.0"
+    }
+  ],
+  "dependencies": [
+    {
+      "ref": "pkg:npm/app@1.0.0",
+      "dependsOn": ["pkg:npm/a@1.0.0", "pkg:npm/b@2.0.0"]
+    },
+    {
+      "ref": "pkg:npm/a@1.0.0",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:npm/b@2.0.0",
+      "dependsOn": []
+    }
+  ],
+  "compositions": [
+    {
+      "bom-ref": "pkg:npm/app@1.0.0",
+      "aggregate": "incomplete"
+    },
+    {
+      "aggregate": "complete",
+      "assemblies": ["pkg:npm/app@1.0.0"]
+    },
+    {
+      "aggregate": "incomplete_first_party_only",
+      "assemblies": ["pkg:npm/a@1.0.0", "pkg:npm/b@2.0.0"],
+      "dependencies": ["pkg:npm/app@1.0.0"]
+    },
+    {
+      "aggregate": "unknown",
+      "assemblies": ["pkg:npm/missing@0.0.1"]
+    },
+    {
+      "aggregate": "not-a-1x-aggregate",
+      "assemblies": ["pkg:npm/a@1.0.0"]
+    }
+  ]
+}

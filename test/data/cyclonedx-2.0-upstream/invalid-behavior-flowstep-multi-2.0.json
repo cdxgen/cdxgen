@@ -1,0 +1,30 @@
+{
+  "specFormat": "CycloneDX",
+  "specVersion": "2.0",
+  "serialNumber": "urn:uuid:a1b2c3d4-0004-4abc-8def-1122334455dd",
+  "version": 1,
+  "blueprints": [
+    {
+      "refId": "bp-bad-node",
+      "name": "Activity node with two mutually exclusive sources",
+      "modelTypes": [
+        "process"
+      ],
+      "behaviors": {
+        "graphs": [
+          {
+            "refId": "g-bad",
+            "nodes": [
+              {
+                "refId": "n-bad",
+                "kind": "activity",
+                "behavior": "data:ingestion:receivesRequest",
+                "graph": "g-other"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

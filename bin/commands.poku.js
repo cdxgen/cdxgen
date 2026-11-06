@@ -1504,3 +1504,334 @@ describe("JSF verification refuses ambiguous or partial signatures", () => {
     assert.strictEqual(verified.status, 0, verified.stdout);
   });
 });
+
+describe("JSS (ITU-T X.590) signing and verification commands at 2.0", () => {
+  const dir = mkdtempSync(join(tmpdir(), "cdxgen-jss-cli-"));
+  process.on("exit", () => rmSync(dir, { recursive: true, force: true }));
+  const file = (name) => join(dir, name);
+  const readJson = (name) => JSON.parse(readFileSync(file(name), "utf-8"));
+  const keyPair = (name, type, options = {}) => {
+    const pair = crypto.generateKeyPairSync(type, {
+      ...options,
+      publicKeyEncoding: { type: "spki", format: "pem" },
+      privateKeyEncoding: { type: "pkcs8", format: "pem" },
+    });
+    writeFileSync(file(`${name}-public.pem`), pair.publicKey);
+    writeFileSync(file(`${name}-private.pem`), pair.privateKey);
+    return pair;
+  };
+  keyPair("alice", "ed25519");
+  keyPair("bob", "ed25519");
+  keyPair("mallory", "ed25519");
+  keyPair("p384", "ec", { namedCurve: "secp384r1" });
+  keyPair("rsa", "rsa", { modulusLength: 2048 });
+  keyPair("x25519", "x25519");
+  writeFileSync(file("hmac.secret"), crypto.randomBytes(48));
+  const bom20 = {
+    specFormat: "CycloneDX",
+    specVersion: "2.0",
+    serialNumber: "urn:uuid:3e671687-395b-41f5-a30f-a58921a69b79",
+    inventories: [
+      {
+        components: [
+          { type: "library", name: "left-pad", version: "1.3.0" },
+          { type: "library", name: "right-pad", version: "1.0.0" },
+        ],
+      },
+    ],
+  };
+  writeFileSync(file("bom20.json"), JSON.stringify(bom20));
+  const sign = (input, output, ...args) =>
+    run([binFor("sign"), "-i", file(input), "-o", file(output), ...args]);
+  const verify = (input, ...args) =>
+    run([binFor("verify"), "-i", file(input), ...args]);
+  const signWith = (input, output, key, ...args) =>
+    sign(input, output, "-k", file(`${key}-private.pem`), ...args);
+
+  it("signs with cdx-sign and verifies with the signer's --public-key", async () => {
+    const signed = await signWith("bom20.json", "alice.json", "alice");
+    assert.strictEqual(signed.status, 0, signed.stderr);
+    assert.match(signed.stdout, /Format: JSS \| Algorithm: Ed25519/);
+    const document = readJson("alice.json");
+    assert.strictEqual(document.signatures.length, 1);
+    assert.ok(document.inventories[0].components[0].signatures.length);
+    const verified = await verify(
+      "alice.json",
+      "--public-key",
+      file("alice-public.pem"),
+    );
+    assert.strictEqual(verified.status, 0, verified.stdout);
+    assert.match(verified.stdout, /JSS signature\(s\) verified successfully/);
+  });
+
+  it("refuses --secret-key for a 2.0 document", async () => {
+    await signWith("bom20.json", "mallory-secret.json", "mallory");
+    const result = await verify(
+      "mallory-secret.json",
+      "--secret-key",
+      file("hmac.secret"),
+    );
+    assert.strictEqual(result.status, 1, result.stdout);
+    assert.match(
+      result.stdout,
+      /--secret-key is not supported for CycloneDX 2\.0/,
+    );
+  });
+
+  it("does not trust the key embedded by an attacker", async () => {
+    await signWith("bom20.json", "mallory-embedded.json", "mallory");
+    const result = await verify(
+      "mallory-embedded.json",
+      "--public-key",
+      file("alice-public.pem"),
+    );
+    assert.strictEqual(result.status, 1, result.stdout);
+    assert.match(result.stdout, /BOM signature is invalid!/);
+    const noKey = await verify("mallory-embedded.json");
+    assert.strictEqual(noKey.status, 1);
+    assert.match(noKey.stdout, /Name the trusted key/);
+  });
+
+  it("uses every --public-key, not only the first", async () => {
+    await signWith("bom20.json", "bob.json", "bob");
+    const result = await verify(
+      "bob.json",
+      "--public-key",
+      file("alice-public.pem"),
+      "--public-key",
+      file("bob-public.pem"),
+    );
+    assert.strictEqual(result.status, 0, result.stdout);
+    assert.match(result.stdout, /verified with key #2/);
+  });
+
+  it("appends a signers entry that keeps the earlier signatures valid", async () => {
+    await signWith("bom20.json", "alice-signers.json", "alice");
+    const refused = await signWith(
+      "alice-signers.json",
+      "signers.json",
+      "bob",
+      "--mode",
+      "signers",
+    );
+    assert.notStrictEqual(refused.status, 0);
+    assert.match(refused.stderr, /none of the 1 existing JSS signature/);
+    const deep = await signWith(
+      "alice-signers.json",
+      "signers.json",
+      "bob",
+      "--mode",
+      "signers",
+      "--verify-existing-with",
+      file("alice-public.pem"),
+      "--sign-components",
+    );
+    assert.notStrictEqual(deep.status, 0);
+    assert.match(deep.stderr, /Cannot sign components while appending/);
+    const appended = await signWith(
+      "alice-signers.json",
+      "signers.json",
+      "bob",
+      "--mode",
+      "signers",
+      "--verify-existing-with",
+      file("alice-public.pem"),
+    );
+    assert.strictEqual(appended.status, 0, appended.stderr);
+    const document = readJson("signers.json");
+    assert.strictEqual(document.signatures.length, 2);
+    assert.deepStrictEqual(
+      document.signatures[0],
+      readJson("alice-signers.json").signatures[0],
+    );
+    assert.deepStrictEqual(
+      document.inventories,
+      readJson("alice-signers.json").inventories,
+      "nested members are not re-signed",
+    );
+    const byAlice = await verify(
+      "signers.json",
+      "--public-key",
+      file("alice-public.pem"),
+    );
+    assert.strictEqual(byAlice.status, 0, byAlice.stdout);
+    const byBob = await verify(
+      "signers.json",
+      "--public-key",
+      file("bob-public.pem"),
+      "--no-deep",
+    );
+    assert.strictEqual(byBob.status, 0, byBob.stdout);
+    const both = await verify(
+      "signers.json",
+      "--public-key",
+      file("alice-public.pem"),
+      "--public-key",
+      file("bob-public.pem"),
+      "--require-all",
+    );
+    assert.strictEqual(both.status, 0, both.stdout);
+  });
+
+  it("countersigns the only root signature in chain mode (clause 7.2)", async () => {
+    await signWith("bom20.json", "alice-chain.json", "alice");
+    const chained = await signWith(
+      "alice-chain.json",
+      "chain.json",
+      "bob",
+      "--mode",
+      "chain",
+      "--verify-existing-with",
+      file("alice-public.pem"),
+    );
+    assert.strictEqual(chained.status, 0, chained.stderr);
+    const document = readJson("chain.json");
+    assert.strictEqual(document.signatures.length, 1);
+    assert.ok(document.signatures[0].signature.value);
+    const result = await verify(
+      "chain.json",
+      "--public-key",
+      file("alice-public.pem"),
+      "--public-key",
+      file("bob-public.pem"),
+      "--require-all",
+    );
+    assert.strictEqual(result.status, 0, result.stdout);
+    assert.match(result.stdout, /signatures\[0\]\.signature countersignature/);
+    // A countersignature that names a trusted key and fails is reported.
+    const tampered = structuredClone(document);
+    tampered.signatures[0].signee = "someone else";
+    writeFileSync(file("chain-tampered.json"), JSON.stringify(tampered));
+    const bad = await verify(
+      "chain-tampered.json",
+      "--public-key",
+      file("bob-public.pem"),
+      "--no-deep",
+    );
+    assert.strictEqual(bad.status, 1, bad.stdout);
+    assert.match(bad.stdout, /countersignature \(Ed25519\) failed/);
+  });
+
+  it("refuses chain mode when the root has several signatures", async () => {
+    await signWith("bom20.json", "alice-chain2.json", "alice");
+    await signWith(
+      "alice-chain2.json",
+      "signers-chain2.json",
+      "bob",
+      "--mode",
+      "signers",
+      "--verify-existing-with",
+      file("alice-public.pem"),
+    );
+    const result = await signWith(
+      "signers-chain2.json",
+      "chain2.json",
+      "alice",
+      "--mode",
+      "chain",
+      "--verify-existing-with",
+      file("alice-public.pem"),
+    );
+    assert.notStrictEqual(result.status, 0);
+    assert.match(result.stderr, /--mode chain is not supported for JSS/);
+  });
+
+  it("warns when --mode replace drops existing signatures", async () => {
+    await signWith("bom20.json", "alice-replace.json", "alice");
+    const result = await signWith("alice-replace.json", "replaced.json", "bob");
+    assert.strictEqual(result.status, 0, result.stderr);
+    assert.match(result.stderr, /Replacing \d+ existing JSS signature/);
+    assert.strictEqual(readJson("replaced.json").signatures.length, 1);
+  });
+
+  it("derives the algorithm from the key and refuses mismatches", async () => {
+    const p384 = await signWith("bom20.json", "p384.json", "p384");
+    assert.strictEqual(p384.status, 0, p384.stderr);
+    assert.strictEqual(readJson("p384.json").signatures[0].algorithm, "ES384");
+    const rsa = await signWith("bom20.json", "rsa.json", "rsa");
+    assert.strictEqual(rsa.status, 0, rsa.stderr);
+    assert.strictEqual(readJson("rsa.json").signatures[0].algorithm, "RS256");
+    const rsaVerified = await verify(
+      "rsa.json",
+      "--public-key",
+      file("rsa-public.pem"),
+    );
+    assert.strictEqual(rsaVerified.status, 0, rsaVerified.stdout);
+    const ps = await signWith("bom20.json", "ps.json", "rsa", "-a", "PS512");
+    assert.strictEqual(ps.status, 0, ps.stderr);
+    assert.strictEqual(readJson("ps.json").signatures[0].algorithm, "PS512");
+    const mismatch = await signWith(
+      "bom20.json",
+      "mismatch.json",
+      "p384",
+      "-a",
+      "ES256",
+    );
+    assert.notStrictEqual(mismatch.status, 0);
+    assert.match(mismatch.stderr, /requires an ec \(prime256v1\) key/);
+    const unsupported = await signWith("bom20.json", "x.json", "x25519");
+    assert.notStrictEqual(unsupported.status, 0);
+    assert.match(unsupported.stderr, /No JSS algorithm supports this key/);
+  });
+
+  it("attaches the signed 2.0 BOM with --attach", async () => {
+    const blobs = [];
+    const manifestDigest = `sha256:${"a".repeat(64)}`;
+    const server = http.createServer((req, res) => {
+      const chunks = [];
+      req.on("data", (chunk) => chunks.push(chunk));
+      req.on("end", () => {
+        const url = new URL(req.url, "http://localhost");
+        if (req.method === "GET" && url.pathname === "/v2/") {
+          res.writeHead(200);
+          return res.end();
+        }
+        if (req.method === "GET" && url.pathname.includes("/manifests/")) {
+          res.writeHead(200, {
+            "content-type": "application/vnd.oci.image.manifest.v1+json",
+            "docker-content-digest": manifestDigest,
+          });
+          return res.end(JSON.stringify({ schemaVersion: 2 }));
+        }
+        if (req.method === "POST" && url.pathname.endsWith("/blobs/uploads/")) {
+          res.writeHead(202, { location: "/v2/demo/blobs/uploads/1" });
+          return res.end();
+        }
+        if (req.method === "PUT" && url.pathname.includes("/blobs/uploads/")) {
+          blobs.push(Buffer.concat(chunks).toString("utf-8"));
+          res.writeHead(201);
+          return res.end();
+        }
+        if (req.method === "PUT" && url.pathname.includes("/manifests/")) {
+          res.writeHead(201);
+          return res.end();
+        }
+        if (req.method === "GET" && url.pathname.includes("/referrers/")) {
+          res.writeHead(200, { "content-type": "application/json" });
+          return res.end(JSON.stringify({ manifests: [] }));
+        }
+        res.writeHead(404);
+        res.end();
+      });
+    });
+    await new Promise((resolve) => server.listen(0, resolve));
+    try {
+      const result = await signWith(
+        "bom20.json",
+        "attached.json",
+        "alice",
+        "--attach",
+        `localhost:${server.address().port}/demo:latest`,
+      );
+      assert.strictEqual(result.status, 0, result.stderr);
+    } finally {
+      server.close();
+    }
+    const attached = blobs
+      .filter((blob) => blob.startsWith("{") && blob.length > 2)
+      .map((blob) => JSON.parse(blob));
+    assert.strictEqual(attached.length, 1, "the BOM blob was pushed");
+    assert.deepStrictEqual(attached[0], readJson("attached.json"));
+    assert.strictEqual(attached[0].signatures[0].algorithm, "Ed25519");
+  });
+});

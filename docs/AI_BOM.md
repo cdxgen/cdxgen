@@ -137,6 +137,40 @@ For AI/ML scans, the primary AI and agentic evidence is emitted under:
 
 and any discovered formulation services are also merged into top-level `services` for normal BOM consumers.
 
+### Declared coding agents at CycloneDX 2.0
+
+At `--spec-version 2.0` the declared side of coding-agent behaviour becomes
+2.0 parties and a behavioral blueprint. Only real agent definitions count: a
+component with `cdx:agent:role` (Kiro agents, Claude subagents), or whose
+`cdx:file:kind` is `agent-definition` or `claude-subagent`. Instruction files
+(`AGENTS.md`, steering), specs, agent configs and plugins are not agents.
+
+- Each agent with a `bom-ref` becomes a party `party-agent-<bom-ref>` in
+  `definitions.parties` with the role `agent` and a `system` of kind `agent`
+  whose `ref` is the agent component, `label` its name, and `permissions` the
+  tool names its config allows (`cdx:agent:tools`,
+  `cdx:agent:permissionCapabilities`). Each permission is cut to the tool name
+  before any `(`, so `Bash(git status:*)` is `Bash`; names with other
+  characters are dropped; the list is unique and sorted.
+- One blueprint, `blueprint-declared-agents`, with `modelTypes: ["behavioral"]`,
+  lists the agent parties as actors. Its `behaviors.instances` have
+  `acknowledgment: ["declared"]` and a behavior from
+  `data/behavior-taxonomy.schema.json`: `ai:agent:invokesTool` for an agent
+  that declares tools or MCP servers, and `ai:agent:requestsUserApproval` for
+  one whose permission policy has ask rules. The inventory records how many
+  MCP servers an agent's own config names but not which, so instances have no
+  `targets`.
+
+Nothing is copied from instruction, skill or MCP files: no descriptions,
+prompts, commands, arguments, environment values or URLs. Business objectives,
+use cases and observed behaviour are out of scope. The 1.7 output is unchanged.
+Reading a 2.0 AI-BOM back and rendering it again declares each agent party and
+the blueprint once (see
+[CDX_CONVERT.md](CDX_CONVERT.md#sections-cdxgen-derives-at-20)).
+
+`-t ai` runs the community agent parsers; add `-t mcp` to also read MCP client
+configurations such as `mcp.json`.
+
 ## GGUF model inventory behavior
 
 When AI-BOM scans a local `.gguf` artifact, cdxgen now tries to model the result in three layers:

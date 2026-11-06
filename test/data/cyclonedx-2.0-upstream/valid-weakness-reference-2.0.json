@@ -1,0 +1,29 @@
+{
+  "specFormat": "CycloneDX",
+  "specVersion": "2.0",
+  "definitions": {
+    "weaknesses": [
+      { "refId": "weakness-502", "kind": "flaw", "identifiers": [ { "scheme": "cwe", "value": "CWE-502" } ] }
+    ]
+  },
+  "vulnerabilities": [
+    {
+      "refId": "vuln-acme-deserialization",
+      "id": "ACME-2026-0001",
+      "weaknesses": [ { "ref": "weakness-502" } ]
+    }
+  ],
+  "threats": {
+    "threats": [
+      {
+        "refId": "threat-remote-code-execution",
+        "name": "Remote code execution",
+        "weaknesses": [
+          { "ref": "weakness-502" },
+          { "ref": "urn:cdx:3e671687-395b-41f5-a30f-a58921a69b7c/1#weakness-shared" },
+          { "refId": "weakness-auth", "name": "Single-factor operator authentication" }
+        ]
+      }
+    ]
+  }
+}

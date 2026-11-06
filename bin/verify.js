@@ -19,6 +19,7 @@ import {
   loadVerificationKey,
   verifyBomSignatures,
 } from "../lib/helpers/bomSigner.js";
+import { verifyJssBom } from "../lib/helpers/jssSigner.js";
 import {
   getNonCycloneDxErrorMessage,
   isCycloneDxBom,
@@ -45,30 +46,30 @@ const args = _yargs
     type: "array",
     string: true,
     description:
-      "Trusted public key in PEM format. Repeat to trust several keys; a signature entry verifies when one of them verifies it.",
+      "Trusted public key in PEM format. Repeat to trust several keys; a signature entry verifies when one of them verifies it. CycloneDX 2.0 (JSS) documents need at least one: the public_key embedded in a JSS entry is never trusted on its own, and an entry whose public_key is one of these keys must verify with it.",
   })
   .option("secret-key", {
     type: "string",
     description:
-      "File holding the shared secret for HMAC (HS256, HS384, HS512) signatures. HMAC signatures are only accepted with this option.",
+      "File holding the shared secret for HMAC (HS256, HS384, HS512) signatures. HMAC signatures are only accepted with this option. Not supported for CycloneDX 2.0 (JSS) documents.",
   })
   .option("deep", {
     type: "boolean",
     default: true,
     description:
-      "Strictly verify all nested component, service, and annotation signatures against the provided keys. Pass --no-deep to verify only the root signature.",
+      "Strictly verify all nested component, service, and annotation signatures against the provided keys (at 2.0: inventories, their components, compositions, and annotations). Pass --no-deep to verify only the root signature.",
   })
   .option("require-all", {
     type: "boolean",
     default: false,
     description:
-      "Require every entry of a signers or chain signature to verify with one of the keys, instead of at least one.",
+      "Require every entry of a signers or chain signature to verify with one of the keys, instead of at least one. At 2.0 every JSS signature object, countersignatures included, must verify with one of the keys, and every key must verify a root signature object.",
   })
   .option("allow-nested-only", {
     type: "boolean",
     default: false,
     description:
-      "Accept a BOM without a root signature when every component, service, and annotation carries a signature that verifies. No signature then covers the other members of the BOM.",
+      "Accept a BOM without a root signature when every component, service, and annotation carries a signature that verifies (at 2.0: every inventory, inventory component, composition, and annotation). No signature then covers the other members of the BOM.",
   })
   .completion("completion", "Generate bash/zsh completion")
   .epilogue("for documentation, visit https://cdxgen.github.io/cdxgen")
@@ -159,6 +160,14 @@ if (!isCycloneDxBom(bomJson)) {
   console.log(getNonCycloneDxErrorMessage(bomJson, "cdx-verify"));
   process.exit(1);
 }
+// A CycloneDX 2.0 document carries JSS signatures (ITU-T X.590).
+const isJssBom = bomJson.specVersion === "2.0" || Boolean(bomJson.specFormat);
+if (isJssBom && args.secretKey) {
+  console.log(
+    "--secret-key is not supported for CycloneDX 2.0 (JSS) signatures: X.590 clause 6.2.2 says HMAC algorithms SHOULD NOT be used, and cdx-verify does not verify them. Pass the signer's --public-key instead.",
+  );
+  process.exit(1);
+}
 
 const verificationKeys = [];
 for (const keyFile of args.secretKey ? [args.secretKey] : publicKeyFiles) {
@@ -203,6 +212,102 @@ function printRejections(node) {
       );
     }
   }
+}
+
+function describeJssResult(result) {
+  const role = result.depth > 0 ? "countersignature" : "signature";
+  return `${result.path} ${role} (${displayValue(result.algorithm)})`;
+}
+
+function printJssResults(results, prefix = "") {
+  for (const result of results) {
+    if (result.status === "verified") {
+      console.log(
+        `  ✓ ${prefix}${describeJssResult(result)} verified with key #${result.keyIndex + 1}: ${publicKeyFiles[result.keyIndex]}`,
+      );
+    } else {
+      console.log(
+        `  - ${prefix}${describeJssResult(result)} ${result.status}: ${result.reason || "not verified"}`,
+      );
+    }
+  }
+}
+
+if (isJssBom) {
+  // JSS verification (X.590 clause 8.1, countersignatures clause 7.2) with
+  // the trusted --public-key values only (clause 8.1.3 "fetch it from a
+  // trusted source"); the same --deep, --require-all and
+  // --allow-nested-only policy as the JSF path below.
+  let jssReport;
+  try {
+    jssReport = verifyJssBom(bomJson, {
+      publicKeys: verificationKeys,
+      deep: args.deep,
+      requireAll: args.requireAll,
+      allowNestedOnly: args.allowNestedOnly,
+    });
+  } catch (error) {
+    console.log(`JSS verification failed: ${error.message}`);
+    process.exit(1);
+  }
+  for (const error of jssReport.errors) {
+    console.log(error);
+  }
+  if (args.requireAll && jssReport.root) {
+    jssReport.root.keysMatched.forEach((matched, index) => {
+      if (!matched) {
+        console.log(`  - key #${index + 1}: ${publicKeyFiles[index]}`);
+      }
+    });
+  }
+  if (jssReport.root) {
+    console.log(
+      jssReport.root.valid
+        ? "BOM JSS signatures:"
+        : "BOM signature is invalid!",
+    );
+    for (const reason of jssReport.root.reasons) {
+      console.log(`  - ${reason}`);
+    }
+    printJssResults(jssReport.root.results);
+  } else if (!args.allowNestedOnly) {
+    console.log(
+      "Pass --allow-nested-only to accept a BOM whose inventories, components, compositions, and annotations are all signed.",
+    );
+  }
+  const invalidNested = jssReport.nested.filter((item) => !item.valid);
+  for (const item of invalidNested) {
+    console.log(`${item.path} signature is invalid!`);
+    for (const reason of item.reasons) {
+      console.log(`  - ${reason}`);
+    }
+    printJssResults(item.results);
+  }
+  if (invalidNested.length) {
+    console.log("One or more nested signatures are invalid!");
+    if (jssReport.root?.valid) {
+      console.log(
+        "The root signature verifies with this key. Nested signatures belong to the party that created them, so pass --no-deep to verify only the root signature with this key.",
+      );
+    }
+  }
+  if (!jssReport.valid) {
+    process.exit(1);
+  }
+  const unverified = [
+    ...jssReport.results,
+    ...jssReport.nested.flatMap((item) => item.results),
+  ].filter((result) => result.status !== "verified");
+  if (unverified.length) {
+    console.log(
+      `Warning: ${unverified.length} JSS signature object(s) did not verify with the given key(s). Pass --require-all to fail in that case.`,
+    );
+  }
+  if (!jssReport.root) {
+    console.log(`✓ ${jssReport.nested.length} nested signature(s) are valid!`);
+  }
+  console.log("JSS signature(s) verified successfully.");
+  process.exit(0);
 }
 
 const report = verifyBomSignatures(bomJson, verificationKeys, {

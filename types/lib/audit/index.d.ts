@@ -1,10 +1,14 @@
 /** Default predictive audit category list applied when none are explicitly requested. */
 export declare const DEFAULT_AUDIT_CATEGORIES: string[];
 /**
- * Read and validate a CycloneDX BOM file.
+ * Read and validate a CycloneDX BOM file. A CycloneDX 2.0 document is read
+ * into cdxgen's internal 1.x-shaped model, so the audit rules keep reading
+ * `components`, `bom-ref` and `metadata.component`; the number of losses
+ * the read reported is printed once on stderr, with the details in
+ * thoughtLog.
  *
  * @param {string} bomPath BOM file path
- * @returns {object} parsed CycloneDX BOM
+ * @returns {object} parsed CycloneDX BOM in the 1.x shape
  */
 export declare function loadBomFile(bomPath: string): object;
 /**

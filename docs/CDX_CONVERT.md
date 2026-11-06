@@ -11,15 +11,17 @@ via the `binary-builds` workflow.
 
 `cdx-convert` supports two conversion paths, selected with `--to`:
 
-| `--to`              | Input spec versions | Output                             |
-| ------------------- | ------------------- | ---------------------------------- |
-| `spdx` (default)    | `1.6`, `1.7`        | SPDX `3.0.1` JSON-LD               |
-| a CycloneDX version | any cdxgen supports | CycloneDX at the requested version |
+| `--to`                    | Input spec versions   | Output                             |
+| ------------------------- | --------------------- | ---------------------------------- |
+| `spdx` (default)          | `1.6`, `1.7`, `2.0`   | SPDX `3.0.1` JSON-LD               |
+| `2.0`                     | `1.6`, `1.7`, `2.0`   | CycloneDX `2.0`                    |
+| another CycloneDX version | any cdxgen supports   | CycloneDX at the requested version |
 
 Input is CycloneDX JSON or protobuf (`.cdx`, `.cdx.bin`, `.proto`) with
-`bomFormat: "CycloneDX"`. If the input is not CycloneDX, the command fails with
-a clear error. For the SPDX path, a `specVersion` other than `1.6` or `1.7`
-also fails.
+`bomFormat: "CycloneDX"`, or a CycloneDX 2.0 JSON document (`specFormat`). If
+the input is not CycloneDX, the command fails with a clear error. For the SPDX
+path and for `--to 2.0`, a `specVersion` other than `1.6`, `1.7` or `2.0` also
+fails; convert an older BOM with `--to 1.7` first.
 
 ## Quick start
 
@@ -51,6 +53,7 @@ cdx-convert -i bom.json --to 1.6 -o bom-1_6.cdx
 | `-o, --output`                 | see below  | Output file path.                          |
 | `--to`                         | `spdx`     | `spdx`, or a CycloneDX spec version.       |
 | `--validate` / `--no-validate` | on         | Validate the converted output.             |
+| `--fail-on-loss`               | off        | Exit 2 without writing when data is lost.  |
 | `--json-pretty`                | off        | Pretty-print JSON output.                  |
 
 `-o` defaults to `<input>.spdx.json` for the SPDX path, and to
@@ -88,6 +91,114 @@ Converting to CycloneDX 1.6 dropped 5 field path(s) that version does not define
   - citations.attributedTo
   ...
 ```
+
+### CycloneDX 2.0
+
+A 2.0 input is read into cdxgen's 1.x-shaped internal model first. Every loss
+of that read is printed on stderr with a JSON pointer into the input, whatever
+the target:
+
+```text
+Reading the CycloneDX 2.0 input into cdxgen's 1.x model reported 2 loss(es); the CycloneDX 1.7 output lacks what they name:
+  - /risks: 2.0-only section with no 1.x field: dropped from 1.x and SPDX output (a 2.0 render of the read model keeps it)
+  - /inventories/0/components/0/quantity: component.quantity has no 1.x field
+```
+
+`--to 2.0` renders the document with the renderer `cdxgen --spec-version 2.0`
+uses. A 1.6 or 1.7 input is sorted first, so both commands write the same
+order; values the 2.0 format has no place for are printed with their counts.
+A 2.0 input keeps its own order, and its 2.0-only sections and unchanged
+objects come back as they were; any value of the input the output still lacks
+(member order ignored) is printed.
+
+At 2.0, cdxgen claims only analysis it did. When the BOM's `metadata.tools`
+lists cdxgen with a `bom-ref`, each identity evidence entry it renders
+(`evidence.identity[]`) is attributed to the `party-cdxgen` party with the
+`asserter` role, `tools` names the helper recorded on the entry or else the
+cdxgen tool, and a method that names its matched value gets
+`result: "detected"`. For another tool's BOM, such as a syft 1.x BOM, the
+entry gets none of these; its own `tools` are kept. Either way `timestamp` is
+the BOM's own, and no confidence is added.
+
+Every 2.0 identifier group (`identifiers[]`) needs an asserting party. It is
+`party-cdxgen` when cdxgen is the listed tool. When `metadata.tools` lists
+other tools but not cdxgen, it is a party for the first tool component with a
+`bom-ref`: refId `party-tool-<tool bom-ref>`, the `asserter` role, and a system
+identity of kind `automation` labelled with the tool name and pointing at the
+tool. When the BOM lists no tool, cdxgen, as the converting tool, asserts the
+identifiers it wrote. Each such party is declared once, and only when the
+document references it.
+
+1.x has none of these members, so reading a 2.0 document strips them. When
+they are what the 2.0 render derives again from the read model, the read
+reports no loss and the derived party is not kept in the model. An identity
+entry or identifier another party asserts is reported as a loss for 1.x
+output. A `--to 2.0` conversion restores it unchanged as long as its 1.x
+fields are unchanged. If those fields change, the entry is rendered again from
+the 1.x model.
+
+#### Sections cdxgen derives at 2.0
+
+Three 2.0 sections are derived from the 1.x model on every render, by
+`cdxgen --spec-version 2.0`, `cdx-convert --to 2.0` and `tracebom`:
+post-quantum migration risks, the parties and blueprint of declared coding
+agents, and the 2.0 members of hardware components. Derived entries have
+fixed refIds (`risk-pqc-<asset bom-ref>`, `party-agent-<agent bom-ref>`,
+`blueprint-declared-agents`). Reading a 2.0 document drops the derived entries
+that match what the render derives again from the read model, with no loss; a
+derived entry that no longer matches is reported as a loss and replaced. Every
+other risk, blueprint and party is kept and comes first, so a round trip never
+declares a party or blueprint twice. A 2.0 input whose crypto assets have no
+risks yet gains them on `--to 2.0`; that is an addition, not a loss.
+
+##### Post-quantum migration risks
+
+`risks.risks[]` gets one entry per cryptographic asset with a `bom-ref` that
+falls into a class of `data/pqc-migration.json`. The classes and their members
+come from NIST IR 8547 (final, October 2026) and, for DSA, FIPS 186-5:
+
+| Class                                  | Source                                                         | Transition the source states                                                                 | Likelihood | Impact   |
+| -------------------------------------- | -------------------------------------------------------------- | -------------------------------------------------------------------------------------------- | ---------- | -------- |
+| `quantum-vulnerable-signature`         | IR 8547 Table 2: ECDSA, EdDSA, RSA [FIPS186]                   | Deprecated after 2030; disallowed after 2035                                                 | high       | major    |
+| `quantum-vulnerable-key-establishment` | IR 8547 Table 4: finite-field and EC DH and MQV, RSA [SP80056B] | Deprecated after 2030; disallowed after 2035                                                 | high       | major    |
+| `quantum-vulnerable-public-key`        | IR 8547 Tables 2 and 4 (rsaEncryption, id-ecPublicKey)         | Deprecated after 2030; disallowed after 2035                                                 | high       | major    |
+| `below-minimum-strength`               | IR 8547 Tables 2 and 4 list only >= 112-bit parameters         | Below the minimum strength of the currently approved parameters                              | very-high  | major    |
+| `hash-sha1`                            | IR 8547 Table 8, footnote 4                                    | Currently deprecated; disallowed in FIPS-validated modules after 2030                       | high       | moderate |
+| `symmetric-112-bit`                    | IR 8547 Section 4.1.3 and Table 8 (SHA-224, SHA-512/224, SHA3-224) | Disallowed in 2030                                                                       | medium     | moderate |
+| `dsa-generation-not-approved`          | FIPS 186-5                                                     | Not approved for signature generation; verification of existing signatures only             | high       | moderate |
+
+An algorithm asset is classified by `algorithmFamily`, then by OID
+(rsaEncryption, id-ecPublicKey, the RSA, ECDSA, EdDSA and DSA signature OIDs,
+X25519 and X448, X9.42 and PKCS #3 DH, SHA-1, SHA-224, SHA-512/224, SHA3-224),
+then by its name in lower case with only letters and digits kept. A
+quantum-safe family (ML-DSA, SLH-DSA, LMS, XMSS, ML-KEM, AES, Ascon, SHA-2 and
+SHA-3 at 128 bits and more, HMAC, HKDF, KMAC) gets no entry, and neither does a
+hybrid combiner (IR 8547 Section 3.2.1) or a scheme the IR does not list
+(RSAES-PKCS1, X3DH). An RSA or finite-field key under 2048 bits and an
+elliptic-curve key under 224 bits (112 bits of strength, SP 800-57 Part 1
+Table 2) is `below-minimum-strength`: an algorithm whose name, parameter set or
+curve gives the key size, and a public or private key asset whose `size` is
+smaller.
+
+Each entry has `refId`, `name`, the class `statement`, `domains`
+`[{type: "security"}]`, `affects` (the asset), `inherentRisk` with the
+likelihood and impact levels above and the class rationale, the `cdx:crypto:pqc:*`
+properties (see [CUSTOM_PROPERTIES.md](CUSTOM_PROPERTIES.md)) and the source
+document as an external reference. The levels are cdxgen's fixed rating per
+class. No `confidence`, owner, status or response is emitted.
+
+##### Declared coding agents
+
+See [AI_BOM.md](AI_BOM.md#declared-coding-agents-at-cyclonedx-20).
+
+##### Hardware components
+
+See [HBOM.md](HBOM.md#cyclonedx-20-output).
+
+`--fail-on-loss` exits 2, before writing, when a 1.x or SPDX target lacks
+something the read losses name, when the 2.0 render drops a value or a 2.0
+to 2.0 conversion lacks one, or when a CycloneDX version conversion drops a
+field path.
 
 Output is schema-validated unless `--no-validate` is passed. cdxgen bundles
 CycloneDX schemas for `1.6`, `1.7`, and `2.0`; converting to any other version
@@ -130,8 +241,8 @@ SPDX mapping behavior includes:
 ## Limitations
 
 - input must be CycloneDX JSON or protobuf, not XML
-- the SPDX path accepts only CycloneDX `1.6` and `1.7` input, and its output
-  target is fixed to SPDX `3.0.1`
+- the SPDX path accepts only CycloneDX `1.6`, `1.7` and `2.0` input, and its
+  output target is fixed to SPDX `3.0.1`
 - a CycloneDX downgrade is lossy by nature; keep the source BOM if you need the
   dropped fields
 - protobuf output requires the optional `@cdxgen/cdx-proto` dependency

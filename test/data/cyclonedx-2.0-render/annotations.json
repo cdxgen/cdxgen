@@ -1,0 +1,126 @@
+{
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.7",
+  "serialNumber": "urn:uuid:0f9e8d7c-6b5a-4c3d-8e2f-1a0b9c8d7e6f",
+  "version": 1,
+  "metadata": {
+    "timestamp": "2026-01-01T00:00:00Z",
+    "tools": {
+      "components": [
+        {
+          "group": "@cdxgen",
+          "name": "cdxgen",
+          "version": "13.7.0",
+          "purl": "pkg:npm/%40cdxgen/cdxgen@13.7.0",
+          "type": "application",
+          "bom-ref": "pkg:npm/@cdxgen/cdxgen@13.7.0"
+        }
+      ],
+      "services": [
+        {
+          "bom-ref": "urn:service:scanner:remote-audit:1",
+          "name": "remote-audit",
+          "version": "1",
+          "endpoints": ["https://audit.example.com/api"]
+        }
+      ]
+    },
+    "component": {
+      "type": "application",
+      "name": "annotated-app",
+      "version": "1.0.0",
+      "bom-ref": "pkg:npm/annotated-app@1.0.0",
+      "purl": "pkg:npm/annotated-app@1.0.0"
+    }
+  },
+  "components": [
+    {
+      "type": "library",
+      "name": "lodash",
+      "version": "4.17.21",
+      "bom-ref": "pkg:npm/lodash@4.17.21",
+      "purl": "pkg:npm/lodash@4.17.21"
+    }
+  ],
+  "dependencies": [
+    {
+      "ref": "pkg:npm/annotated-app@1.0.0",
+      "dependsOn": ["pkg:npm/lodash@4.17.21"]
+    }
+  ],
+  "annotations": [
+    {
+      "bom-ref": "annotation-summary",
+      "subjects": ["urn:uuid:0f9e8d7c-6b5a-4c3d-8e2f-1a0b9c8d7e6f"],
+      "annotator": {
+        "component": {
+          "group": "@cdxgen",
+          "name": "cdxgen",
+          "version": "13.7.0",
+          "purl": "pkg:npm/%40cdxgen/cdxgen@13.7.0",
+          "type": "application",
+          "bom-ref": "pkg:npm/@cdxgen/cdxgen@13.7.0"
+        }
+      },
+      "timestamp": "2026-01-01T00:00:00Z",
+      "text": "This Software Bill-of-Materials (SBOM) document was created by cdxgen."
+    },
+    {
+      "subjects": ["pkg:npm/lodash@4.17.21", "pkg:npm/not-declared@0.0.1"],
+      "annotator": {
+        "service": {
+          "bom-ref": "urn:service:scanner:remote-audit:1",
+          "name": "remote-audit",
+          "version": "1"
+        }
+      },
+      "timestamp": "2026-01-01T00:00:00Z",
+      "text": "Audited by the remote audit service."
+    },
+    {
+      "subjects": ["pkg:npm/annotated-app@1.0.0"],
+      "annotator": {
+        "service": {
+          "bom-ref": "urn:service:reviewer:inline:1",
+          "name": "inline-reviewer",
+          "endpoints": ["https://review.example.com"]
+        }
+      },
+      "timestamp": "2026-01-01T00:00:00Z",
+      "text": "Reviewed by a service declared only here."
+    },
+    {
+      "subjects": [
+        "urn:cdx:0f9e8d7c-6b5a-4c3d-8e2f-1a0b9c8d7e6f/1#pkg:npm/lodash@4.17.21"
+      ],
+      "annotator": {
+        "organization": {
+          "bom-ref": "annotator-org",
+          "name": "Example Security Team",
+          "url": ["https://security.example.com"],
+          "contact": [
+            {
+              "bom-ref": "annotator-org-contact",
+              "name": "Triage",
+              "email": "triage@security.example.com"
+            }
+          ]
+        }
+      },
+      "timestamp": "2026-01-01T00:00:00Z",
+      "text": "External link subject stays as is."
+    },
+    {
+      "subjects": ["pkg:npm/lodash@4.17.21"],
+      "annotator": {
+        "individual": {
+          "bom-ref": "annotator-person",
+          "name": "Alex Reviewer",
+          "email": "alex@example.com"
+        }
+      },
+      "timestamp": "2026-01-01T00:00:00Z",
+      "text": "Reviewed by hand."
+    }
+  ]
+}

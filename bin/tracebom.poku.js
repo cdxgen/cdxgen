@@ -47,6 +47,42 @@ describe("tracebom CLI", () => {
     unlinkSync(tmpFile);
   });
 
+  it("--spec-version 2.0 writes a valid CycloneDX 2.0 document", async () => {
+    const tempDir = mkdtempSync(join(tmpdir(), "cdxgen-tracebom-20-"));
+    const tmpFile = join(tempDir, "bom-2.0.json");
+    try {
+      const { status, stderr } = await execNode([
+        binPath,
+        "--cmd",
+        "echo hello",
+        "--spec-version",
+        "2.0",
+        "--output",
+        tmpFile,
+      ]);
+      assert.strictEqual(status, 0, stderr);
+      const bom = JSON.parse(readFileSync(tmpFile, "utf-8"));
+      // Rendered by the same renderCycloneDx20 postProcess uses: no 1.x
+      // root members, and the document passes the 2.0 schema and the deep
+      // checks.
+      assert.strictEqual(bom.specFormat, "CycloneDX");
+      assert.strictEqual(bom.specVersion, "2.0");
+      assert.ok(!Object.hasOwn(bom, "bomFormat"));
+      assert.ok(!Object.hasOwn(bom, "components"));
+      const { default: validate20 } = await import(
+        "../lib/validator/generated/validate-2.0.mjs"
+      );
+      assert.ok(
+        validate20(bom),
+        JSON.stringify(validate20.errors?.slice(0, 3)),
+      );
+      const { validateBom } = await import("../lib/validator/bomValidator.js");
+      assert.ok(await validateBom(bom));
+    } finally {
+      rmSync(tempDir, { recursive: true, force: true });
+    }
+  });
+
   it("custom sandbox options are accepted", async () => {
     const tmpFile = join(process.cwd(), "tmp-tracebom-sandbox.json");
     const { status } = await execNode([

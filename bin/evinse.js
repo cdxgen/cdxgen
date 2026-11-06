@@ -12,12 +12,16 @@ import { safeExistsSync } from "../lib/ecosystems/utils.js";
 import {
   analyzeProject,
   createEvinseFile,
+  loadEvinseInputBom,
   prepareDB,
+  reportEvinseInputLosses,
 } from "../lib/evinser/evinser.js";
 import {
   getNonCycloneDxErrorMessage,
+  isCycloneDx20SpecVersion,
   isCycloneDxBom,
 } from "../lib/inventory/bomUtils.js";
+import { loadBomForAnalysis } from "../lib/inventory/cyclonedx20.js";
 import {
   printCallStack,
   printOccurrences,
@@ -363,6 +367,22 @@ function ensureCycloneDxInput(inputFile) {
   }
 }
 ensureCycloneDxInput(args.input);
+// A CycloneDX 2.0 input is read into the 1.x internal model once, here. The
+// model goes to prepareDB, analyzeProject and createEvinseFile as
+// `inputBomJson`, so the analysis works on the 1.x shape, and the evinser's
+// postProcess pass writes the result back at 2.0.
+if (safeExistsSync(args.input)) {
+  try {
+    const { bomJson: inputBom, losses } = loadEvinseInputBom(args);
+    if (isCycloneDx20SpecVersion(inputBom?.specVersion)) {
+      args.specVersion = "2.0";
+      args.inputBomJson = inputBom;
+      reportEvinseInputLosses(losses);
+    }
+  } catch {
+    // ensureCycloneDxInput already reported the parse failure.
+  }
+}
 (async () => {
   // First, prepare the database by cataloging jars and other libraries
   const dbObjMap = await prepareDB(args);
@@ -376,10 +396,12 @@ ensureCycloneDxInput(args.input);
       process.exit(1);
     }
     if (args.print) {
-      printOccurrences(bomJson);
-      printCallStack(bomJson);
+      // The print helpers walk the 1.x shape; a 2.0 result is read back.
+      const printBom = loadBomForAnalysis(bomJson).internalBom;
+      printOccurrences(printBom);
+      printCallStack(printBom);
       printReachables(sliceArtefacts);
-      printServices(bomJson);
+      printServices(printBom);
     }
   }
 })();

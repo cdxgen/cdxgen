@@ -1,0 +1,1258 @@
+{
+    "$schema": "https://github.com/OWASP/www-project-threat-model-library/blob/v1.0.1/threat-model.schema.json",
+    "version": "1.0",
+    "scope": {
+        "title": "HashiCorp Vault",
+        "description": "HashiCorp Vault is a secrets management system that provides secure storage, access control, dynamic credentials, cryptographic operations (Transit), and secret leasing/renewal. A typical deployment consists of Vault clients (applications, CI/CD, operators) communicating over TLS with one or more Vault server nodes. Vault enforces authentication (e.g., AppRole, AWS/GCP/IAM, OIDC/JWT, Kubernetes), issues scoped tokens bound to policies, and gates all operations through its HTTP API. The server maintains an encrypted storage barrier and persists data in a backend - the integrated Storage/Raft deployment is the one in scope. Clusters are commonly configured in HA mode with an active leader and standby nodes. Core security properties include encryption at rest within the barrier, mutual TLS on all control/data paths, least-privilege policies, response wrapping, and short-lived dynamic secrets. Operational workflows cover initialization and sealing (Shamir key shares), unsealing, rotation of root keys and encryption keys, audit device configuration (e.g., file/socket/syslog), mount-by-mount secrets engine hardening, and strict network segmentation—especially between clients, Vault nodes, and the storage backend. Misconfigurations to consider include over-permissive policies, exposed Raft/Consul ports, weak auth method constraints, disabled audit logging, and long-lived tokens. This threat model involves an AWS deployment with k8s and a load balancer",
+        "business_criticality": "high",
+        "data_sensitivity": [
+            "biz",
+            "cred",
+            "pii"
+        ],
+        "exposure": "internal",
+        "tier": "mission_critical"
+    },
+    "description": "Enterprise secrets management and cryptographic services for applications and operators.",
+    "frozen": false,
+    "release_docs_link": "https://developer.hashicorp.com/vault/docs",
+    "reviewed_at": "2025-09-03",
+    "repo_link": "https://github.com/hashicorp/vault",
+    "diagrams": [
+        {
+            "title": "AWS Deployment with K8s and a load balancer","type": "mermaid",
+            "source": "flowchart LR; AU[\"App User\"]; DEV[\"Developer\"]; PE[\"Platform Engineer\"]; APP1[\"Client Application (App 1)\"]; CLI[\"Vault CLI / API Client\"]; subgraph VPC[\"Internal AWS VPC\"]; direction LR; VPN[\"VPN Gateway (AWS SSO)\"]; LB[\"AWS Load Balancer\"]; subgraph EKS[\"EKS Cluster\"]; direction TB; APISERVER[\"Kubernetes API Server\"]; subgraph NS[\"K8s Namespace: vault\"]; direction LR; SVC[\"K8s Service: vault-internal\"]; SVC_EP[\"Service Endpoint\"]; subgraph VAULT[\"Vault HA Deployment (StatefulSet)\"]; direction LR; V1[\"Vault Pod 1 (Active)\"]; V2[\"Vault Pod 2 (Standby)\"]; V3[\"Vault Pod 3 (Standby)\"]; API[\"Vault API (:8200)\"]; AUTH[\"Vault Auth Methods\"]; SE[\"Vault Secret Engines\"]; AUDDEV[\"Vault Audit Devices\"]; subgraph RAFT[\"Integrated Storage (Raft :8201 mTLS)\"]; R1[\"Raft Peer (Pod 1)\"]; R2[\"Raft Peer (Pod 2)\"]; R3[\"Raft Peer (Pod 3)\"]; end; end; end; end; KMS[\"Vault Auto-Unseal (Cloud KMS)\"]; end; AU -->|Login/API| APP1; APP1 -- \"TLS :8200\" --> LB; DEV -->|\"VPN + AWS SSO\"| VPN; PE -->|\"VPN + AWS SSO\"| VPN; DEV -->|\"Uses Vault CLI\"| CLI; PE -->|\"Uses Vault CLI\"| CLI; CLI -->|\"Tunnel via VPN\"| VPN; VPN -->|\"Forward to VPC\"| LB; CLI -- \"TLS :8200 (via VPN)\" --> LB; VPN -. \"kubectl (AWS SSO)\" .-> APISERVER; LB -->|\"TLS :8200\"| SVC_EP; SVC_EP --> V1; SVC_EP --> V2; SVC_EP --> V3; V1 --- API; V2 --- API; V3 --- API; API --> AUTH; API --> SE; API --> AUDDEV; V1 --- R1; V2 --- R2; V3 --- R3; R1 <-->|\"Raft :8201 mTLS\"| R2; R1 <-->|\"Raft :8201 mTLS\"| R3; R2 <-->|\"Raft :8201 mTLS\"| R3; VAULT -. \"Auto-Unseal\" .-> KMS;"
+        }
+    ],
+    "trust_zones": [
+        {
+            "symbolic_name": "public",
+            "title": "Public Internet Zone",
+            "description": "External clients and actors including applications, CI/CD pipelines, and operators that connect to Vault over TLS (8200)."
+        },
+        {
+            "symbolic_name": "aws-vpc",
+            "title": "Internal AWS VPC",
+            "description": "Private AWS VPC hosting the EKS cluster and load balancer. Provides network isolation and segmentation for Vault components."
+        },
+        {
+            "symbolic_name": "eks-cluster",
+            "title": "EKS Cluster Zone",
+            "description": "Amazon EKS cluster providing the orchestration environment for Vault pods and services."
+        },
+        {
+            "symbolic_name": "k8s-namespace-vault",
+            "title": "Vault Kubernetes Namespace",
+            "description": "Dedicated Kubernetes namespace (`vault`) that contains the Vault StatefulSet, Service, and Raft integrated storage peers."
+        }
+    ],
+    "trust_boundaries": [
+        {
+            "trust_zone_a": "public-internet",
+            "trust_zone_b": "aws-vpc",
+            "access_control_methods": [
+                "acl",
+                "rbac"
+            ],
+            "authentication_methods": [
+                "public_key",
+                "token",
+                "sso"
+
+            ]
+        },
+        {
+            "trust_zone_a": "aws-vpc",
+            "trust_zone_b": "eks-cluster",
+            "access_control_methods": [
+                "rbac",
+                "acl"
+            ],
+            "authentication_methods": [
+                "public_key"
+            ]
+        },
+        {
+            "trust_zone_a": "eks-cluster",
+            "trust_zone_b": "k8s-namespace-vault",
+            "access_control_methods": [
+                "rbac",
+                "acl",
+                "mac"
+            ],
+            "authentication_methods": [
+                "token"
+            ]
+        }
+    ],
+    "actors": [
+        {
+            "symbolic_name": "platform-engineer",
+            "title": "Platform Engineer",
+            "description": "Responsible for deploying, operating, and maintaining the Vault cluster. Manages HA configuration, upgrades, storage backends, and operational tasks like initialization, unseal, and monitoring.",
+            "type": "engineer",
+            "permissions": "Deploy and upgrade Vault; configure Raft or Consul storage; perform initialization and unseal operations; enable/disable auth and secrets engines; monitor health and performance.",
+            "trust_zone": "aws-vpc"
+        },
+        {
+            "symbolic_name": "developer",
+            "title": "Application Developer",
+            "description": "A developer who builds and maintains applications that consume secrets from Vault. In this scenario, developers also have access to the Kubernetes cluster where Vault is deployed, as well as Vault audit logs. This gives them significant power to access, modify, and observe secret-related operations.",
+            "type": "engineer",
+            "permissions": "Push and retrieve secrets; configure application roles for development; read Vault audit logs; access the Kubernetes cluster including the Vault namespace, which may allow tampering with Vault pods, services, or Raft storage.",
+            "trust_zone": "aws-vpc"
+        },
+
+        {
+            "symbolic_name": "app-user",
+            "title": "End User of Client Application",
+            "description": "An end user (internal employee or external customer) who interacts with an application that relies on Vault for secrets management or cryptographic operations.",
+            "type": "user",
+            "permissions": "Indirect access to Vault-protected resources through the client application; cannot interact with Vault directly.",
+            "trust_zone": "public"
+        }
+    ],
+    "components": [
+        {
+            "symbolic_name": "client-app-1",
+            "title": "Client Application (App 1)",
+            "description": "External application that end users interact with. Relies on Vault for secrets or cryptographic operations.",
+            "trust_zone": "public-internet"
+        },
+        {
+            "symbolic_name": "vpn-gateway",
+            "title": "VPN Gateway",
+            "description": "Provides secure entry for engineers and developers into the AWS VPC hosting Vault.",
+            "trust_zone": "aws-vpc"
+        },
+        {
+            "symbolic_name": "aws-lb",
+            "title": "AWS Load Balancer",
+            "description": "DMZ load balancer that forwards client requests over TLS to the Vault Kubernetes Service endpoint.",
+            "trust_zone": "aws-vpc",
+            "repo_link": "https://github.com/hashicorp/vault"
+        },
+        {
+            "symbolic_name": "eks-cluster",
+            "title": "Amazon EKS Cluster",
+            "description": "Managed Kubernetes control plane and worker nodes that run the Vault namespace.",
+            "trust_zone": "eks-cluster"
+        },
+        {
+            "symbolic_name": "k8s-service-vault-internal",
+            "title": "Kubernetes Service: vault-internal",
+            "description": "Cluster-internal service endpoint that routes traffic from the AWS Load Balancer to Vault pods.",
+            "trust_zone": "k8s-namespace-vault"
+        },
+        {
+            "symbolic_name": "vault-ha-statefulset",
+            "title": "Vault HA Deployment (StatefulSet)",
+            "description": "Vault pods (1 active leader, 2 standbys) running in high availability mode and exposing the Vault API.",
+            "trust_zone": "k8s-namespace-vault"
+        },
+        {
+            "symbolic_name": "vault-auth-methods",
+            "title": "Vault Authentication Methods",
+            "description": "Pluggable authentication backends (e.g., AppRole, Kubernetes, AWS IAM, OIDC) that validate identities and issue scoped Vault tokens.",
+            "trust_zone": "k8s-namespace-vault",
+            "repo_link": "https://github.com/hashicorp/vault"
+        },
+        {
+            "symbolic_name": "vault-secret-engines",
+            "title": "Vault Secret Engines",
+            "description": "Pluggable backends for secrets management and cryptographic operations, including KV, PKI, Transit, Database, and dynamic secrets engines.",
+            "trust_zone": "k8s-namespace-vault",
+            "repo_link": "https://github.com/hashicorp/vault"
+        },
+        {
+            "symbolic_name": "vault-audit-devices",
+            "title": "Vault Audit Devices",
+            "description": "Configured audit sinks (file, syslog, socket, etc.) that record all requests and responses for security and compliance monitoring.",
+            "trust_zone": "k8s-namespace-vault",
+            "repo_link": "https://github.com/hashicorp/vault"
+        },
+        {
+            "symbolic_name": "vault-cli",
+            "title": "Vault CLI / API Client",
+            "description": "The Vault command-line interface and HTTP API used by engineers and automation tools to interact with Vault.",
+            "trust_zone": "public-internet-client-zone",
+            "repo_link": "https://github.com/hashicorp/vault"
+        },
+        {
+            "symbolic_name": "vault-auto-unseal",
+            "title": "Vault Auto-Unseal (Cloud KMS Integration)",
+            "description": "Integration with external Key Management Services (AWS KMS, GCP KMS, Azure Key Vault) to automate the unseal process.",
+            "trust_zone": "aws-vpc",
+            "repo_link": "https://github.com/hashicorp/vault"
+        },
+        {
+            "symbolic_name": "vault-api",
+            "title": "Vault API",
+            "description": "The HTTP API exposed by Vault pods on port 8200. Provides entry points to authentication methods, secret engines, and application endpoints.",
+            "trust_zone": "k8s-namespace-vault",
+            "repo_link": "https://github.com/hashicorp/vault"
+        }
+    ],
+    "data_stores": [
+        {
+            "symbolic_name": "vault-raft-storage",
+            "title": "Vault Integrated Storage (Raft)",
+            "description": "Embedded Raft storage peers that persist encrypted Vault data. Provides replication and consensus across Vault pods.",
+            "type": "key_value",
+            "vendor": "HashiCorp",
+            "product": "Vault Raft Storage",
+            "trust_zone": "k8s-namespace-vault"
+        },
+        {
+            "symbolic_name": "vault-audit-logs",
+            "title": "Vault Audit Logs",
+            "description": "Audit device output streams (file, syslog, socket) that contain records of every Vault request and response for compliance and monitoring.",
+            "type": "object",
+            "vendor": "HashiCorp",
+            "product": "Vault Audit Devices",
+            "trust_zone": "k8s-namespace-vault"
+        },
+        {
+            "symbolic_name": "cloud-kms",
+            "title": "Cloud KMS for Auto-Unseal",
+            "description": "External Key Management Service used by Vault for auto-unseal operations and master key encryption.",
+            "type": "key_value",
+            "vendor": "AWS",
+            "product": "AWS KMS",
+            "trust_zone": "aws-vpc"
+        }
+    ],
+    "data_sets": [
+        {
+            "symbolic_name": "vault-secrets",
+            "title": "Vault Stored Secrets",
+            "description": "Static and dynamic secrets stored and managed within Vault, including credentials, API keys, and tokens. Encrypted at rest within the Raft storage backend.",
+            "placements": [
+                {
+                    "data_store": "vault-raft-storage",
+                    "encrypted": true
+                }
+            ],
+            "record_count": 5000,
+            "data_sensitivity": [
+                "cred",
+                "pii",
+                "biz"
+            ],
+            "access_control_methods": [
+                "rbac",
+                "acl"
+            ]
+        },
+        {
+            "symbolic_name": "vault-audit-records",
+            "title": "Vault Audit Log Records",
+            "description": "Detailed records of Vault API requests and responses, containing metadata on who accessed what, when, and how.",
+            "placements": [
+                {
+                    "data_store": "vault-audit-logs",
+                    "encrypted": false
+                }
+            ],
+            "record_count": 1000000,
+            "data_sensitivity": [
+                "biz",
+                "pii"
+            ],
+            "access_control_methods": [
+                "rbac",
+                "acl"
+            ]
+        },
+        {
+            "symbolic_name": "vault-unseal-keys",
+            "title": "Vault Master Key and Unseal Keys",
+            "description": "Key shares or cloud KMS-encrypted master keys used for unsealing Vault and securing the root of trust.",
+            "placements": [
+                {
+                    "data_store": "cloud-kms",
+                    "encrypted": true
+                }
+            ],
+            "record_count": 5,
+            "data_sensitivity": [
+                "cred"
+            ],
+            "access_control_methods": [
+                "acl",
+                "rbac"
+            ]
+        }
+    ],
+    "data_flows": [
+        {
+            "symbolic_name": "developer-to-cli",
+            "title": "Developer to Vault CLI",
+            "description": "Developer issues commands to the local Vault CLI binary, which acts as the client interface to Vault.",
+            "source": {
+                "type": "actor",
+                "object": "developer"
+            },
+            "destination": {
+                "type": "component",
+                "object": "vault-cli"
+            },
+            "has_sensitive_data": false,
+            "encrypted": false
+        },
+        {
+            "symbolic_name": "platform-engineer-to-cli",
+            "title": "Platform Engineer to Vault CLI",
+            "description": "Platform Engineer issues commands to the local Vault CLI binary for managing Vault operations and configurations.",
+            "source": {
+                "type": "actor",
+                "object": "platform-engineer"
+            },
+            "destination": {
+                "type": "component",
+                "object": "vault-cli"
+            },
+            "has_sensitive_data": false,
+            "encrypted": false
+        },
+        {
+            "symbolic_name": "app-user-to-client-app",
+            "title": "App User to Client Application",
+            "description": "An end user interacts with the client-facing application, which relies on Vault for secrets or cryptographic operations.",
+            "source": {
+                "type": "actor",
+                "object": "app-user"
+            },
+            "destination": {
+                "type": "component",
+                "object": "client-app-1"
+            },
+            "has_sensitive_data": true,
+            "encrypted": true
+        },
+        {
+            "symbolic_name": "client-app-to-aws-lb",
+            "title": "Client Application to AWS Load Balancer",
+            "description": "Client Application (App 1) sends requests to Vault via the AWS Load Balancer over TLS 8200.",
+            "source": {
+                "type": "component",
+                "object": "client-app-1"
+            },
+            "destination": {
+                "type": "component",
+                "object": "aws-lb"
+            },
+            "has_sensitive_data": true,
+            "encrypted": true
+        },
+        {
+            "symbolic_name": "cli-to-vpn",
+            "title": "Vault CLI to VPN Gateway",
+            "description": "Vault CLI tunnels traffic through the VPN Gateway, which enforces AWS SSO before allowing access into the VPC.",
+            "source": {
+                "type": "component",
+                "object": "vault-cli"
+            },
+            "destination": {
+                "type": "component",
+                "object": "vpn-gateway"
+            },
+            "has_sensitive_data": true,
+            "encrypted": true
+        },
+        {
+            "symbolic_name": "vpn-to-aws-lb",
+            "title": "VPN Gateway to AWS Load Balancer",
+            "description": "VPN Gateway forwards authenticated engineer traffic (AWS SSO) into the VPC, delivering Vault CLI/API requests to the AWS Load Balancer over TLS 8200.",
+            "source": {
+                "type": "component",
+                "object": "vpn-gateway"
+            },
+            "destination": {
+                "type": "component",
+                "object": "aws-lb"
+            },
+            "has_sensitive_data": true,
+            "encrypted": true
+        },
+        {
+            "symbolic_name": "aws-lb-to-eks",
+            "title": "AWS Load Balancer to EKS Cluster",
+            "description": "The Load Balancer forwards TLS :8200 traffic into the EKS cluster.",
+            "source": {
+                "type": "component",
+                "object": "aws-lb"
+            },
+            "destination": {
+                "type": "component",
+                "object": "eks-cluster"
+            },
+            "has_sensitive_data": true,
+            "encrypted": true
+        },
+        {
+            "symbolic_name": "k8s-service-to-vault-ha",
+            "title": "Kubernetes Service to Vault HA StatefulSet",
+            "description": "The Service load balances requests to Vault pods.",
+            "source": {
+                "type": "component",
+                "object": "k8s-service-vault-internal"
+            },
+            "destination": {
+                "type": "component",
+                "object": "vault-ha-statefulset"
+            },
+            "has_sensitive_data": true,
+            "encrypted": true
+        },
+        {
+            "symbolic_name": "eks-cluster-to-k8s-service",
+            "title": "EKS Cluster to Kubernetes Service (vault-internal)",
+            "description": "EKS networking routes traffic internally to the cluster Service endpoint for Vault.",
+            "source": {
+                "type": "component",
+                "object": "eks-cluster"
+            },
+            "destination": {
+                "type": "component",
+                "object": "k8s-service-vault-internal"
+            },
+            "has_sensitive_data": true,
+            "encrypted": true
+        },
+        {
+            "symbolic_name": "vault-ha-to-vault-api",
+            "title": "Vault Pod to Vault API",
+            "description": "Requests arriving at a Vault pod are handled by the Vault API listener on :8200.",
+            "source": {
+                "type": "component",
+                "object": "vault-ha-statefulset"
+            },
+            "destination": {
+                "type": "component",
+                "object": "vault-api"
+            },
+            "has_sensitive_data": true,
+            "encrypted": true
+        },
+        {
+            "symbolic_name": "vault-api-to-auth",
+            "title": "Vault API to Auth Methods",
+            "description": "Login requests (/auth/*) dispatched to configured authentication backends.",
+            "source": {
+                "type": "component",
+                "object": "vault-api"
+            },
+            "destination": {
+                "type": "component",
+                "object": "vault-auth-methods"
+            },
+            "has_sensitive_data": true,
+            "encrypted": true
+        },
+        {
+            "symbolic_name": "vault-api-to-secrets",
+            "title": "Vault API to Secret Engines",
+            "description": "Secret read/write and cryptographic operations routed to secrets engines.",
+            "source": {
+                "type": "component",
+                "object": "vault-api"
+            },
+            "destination": {
+                "type": "component",
+                "object": "vault-secret-engines"
+            },
+            "has_sensitive_data": true,
+            "encrypted": true
+        },
+        {
+            "symbolic_name": "vault-api-to-audit",
+            "title": "Vault API to Audit Devices",
+            "description": "Vault writes request/response metadata to audit devices (file/syslog/socket).",
+            "source": {
+                "type": "component",
+                "object": "vault-api"
+            },
+            "destination": {
+                "type": "component",
+                "object": "vault-audit-devices"
+            },
+            "has_sensitive_data": true,
+            "encrypted": true
+        },
+        {
+            "symbolic_name": "vault-core-to-raft",
+            "title": "Vault Core to Raft Storage",
+            "description": "Vault Core persists encrypted state via the storage barrier into Integrated Storage (Raft).",
+            "source": {
+                "type": "component",
+                "object": "vault-ha-statefulset"
+            },
+            "destination": {
+                "type": "data_store",
+                "object": "vault-raft-storage"
+            },
+            "has_sensitive_data": true,
+            "encrypted": true
+        },
+        {
+            "symbolic_name": "vault-ha-to-auto-unseal",
+            "title": "Vault to Auto-Unseal Integration",
+            "description": "Vault contacts the Cloud KMS integration to decrypt master key material during startup/unseal.",
+            "source": {
+                "type": "component",
+                "object": "vault-ha-statefulset"
+            },
+            "destination": {
+                "type": "component",
+                "object": "vault-auto-unseal"
+            },
+            "has_sensitive_data": true,
+            "encrypted": true
+        },
+        {
+            "symbolic_name": "audit-devices-to-audit-logs",
+            "title": "Vault Audit Devices to Audit Logs",
+            "description": "Audit devices append structured records to the audit log store.",
+            "source": {
+                "type": "component",
+                "object": "vault-audit-devices"
+            },
+            "destination": {
+                "type": "data_store",
+                "object": "vault-audit-logs"
+            },
+            "has_sensitive_data": true,
+            "encrypted": true
+        },
+        {
+            "symbolic_name": "auto-unseal-to-cloud-kms",
+            "title": "Auto-Unseal to Cloud KMS",
+            "description": "Auto-unseal integration calls Cloud KMS to decrypt the master key material.",
+            "source": {
+                "type": "component",
+                "object": "vault-auto-unseal"
+            },
+            "destination": {
+                "type": "data_store",
+                "object": "cloud-kms"
+            },
+            "has_sensitive_data": true,
+            "encrypted": true
+        },
+        {
+            "symbolic_name": "developer-to-vpn",
+            "title": "Developer to VPN (AWS SSO)",
+            "description": "Developer authenticates to the VPN using AWS SSO before accessing internal cluster resources.",
+            "source": {
+                "type": "actor",
+                "object": "developer"
+            },
+            "destination": {
+                "type": "component",
+                "object": "vpn-gateway"
+            },
+            "has_sensitive_data": false,
+            "encrypted": true
+        },
+        {
+            "symbolic_name": "platform-engineer-to-vpn",
+            "title": "Platform Engineer to VPN (AWS SSO)",
+            "description": "Platform Engineer authenticates to the VPN using AWS SSO before accessing internal cluster resources.",
+            "source": {
+                "type": "actor",
+                "object": "platform-engineer"
+            },
+            "destination": {
+                "type": "component",
+                "object": "vpn-gateway"
+            },
+            "has_sensitive_data": false,
+            "encrypted": true
+        },
+        {
+            "symbolic_name": "vault-audit-devices-to-audit-logs",
+            "title": "Vault Audit Devices to Audit Logs",
+            "description": "Vault pods (audit devices) write structured audit records to the audit log store (file/syslog/socket).",
+            "source": {
+                "type": "component",
+                "object": "vault-audit-devices"
+            },
+            "destination": {
+                "type": "data_store",
+                "object": "vault-audit-logs"
+            },
+            "has_sensitive_data": true,
+            "encrypted": true
+        },
+        {
+            "symbolic_name": "insider-read-audit-logs-developer",
+            "title": "Developer reads Vault Audit Logs",
+            "description": "Developer reads audit records directly from the audit log store via kubectl exec/logs or mounted volumes inside the Vault pod.",
+            "source": {
+                "type": "data_store",
+                "object": "vault-audit-logs"
+            },
+            "destination": {
+                "type": "actor",
+                "object": "developer"
+            },
+            "has_sensitive_data": true,
+            "encrypted": true
+        },
+        {
+            "symbolic_name": "insider-read-audit-logs-platform-engineer",
+            "title": "Platform Engineer reads Vault Audit Logs",
+            "description": "Platform Engineer reads audit records directly from the audit log store via kubectl exec/logs or mounted volumes inside the Vault pod.",
+            "source": {
+                "type": "data_store",
+                "object": "vault-audit-logs"
+            },
+            "destination": {
+                "type": "actor",
+                "object": "platform-engineer"
+            },
+            "has_sensitive_data": true,
+            "encrypted": true
+        },
+        {
+            "symbolic_name": "insider-read-raft-storage",
+            "title": "Developer reads Raft Storage",
+            "description": "Developer with kubectl exec access copies or reads Raft storage files from the Vault pod filesystem. Data remains barrier-encrypted at rest, but access enables exfiltration or tampering.",
+            "source": {
+                "type": "data_store",
+                "object": "vault-raft-storage"
+            },
+            "destination": {
+                "type": "actor",
+                "object": "developer"
+            },
+            "has_sensitive_data": true,
+            "encrypted": true
+        },
+        {
+            "symbolic_name": "insider-read-raft-storage-platform-engineer",
+            "title": "Platform Engineer reads Raft Storage",
+            "description": "Platform Engineer with kubectl exec access copies or reads Raft storage files from the Vault pod filesystem. Data remains barrier-encrypted at rest, but access enables exfiltration or tampering.",
+            "source": {
+                "type": "data_store",
+                "object": "vault-raft-storage"
+            },
+            "destination": {
+                "type": "actor",
+                "object": "platform-engineer"
+            },
+            "has_sensitive_data": true,
+            "encrypted": true
+        }
+    ],
+    "assumptions": [
+        {
+            "description": "All communication between clients, load balancers, Kubernetes services, and Vault pods occurs over TLS (8200).",
+            "validity": "confirmed"
+        },
+        {
+            "description": "Vault Raft storage is encrypted at rest by the Vault barrier, and requires master key material (from KMS or Shamir unseal) for decryption.",
+            "validity": "confirmed"
+        },
+        {
+            "description": "Vault pods run inside a dedicated Kubernetes namespace with RBAC, NetworkPolicies, and IAM roles scoped to the namespace.",
+            "validity": "confirmed"
+        },
+        {
+            "description": "VPN gateway enforces AWS SSO authentication for Developers and Platform Engineers before they can access the AWS VPC and EKS cluster.",
+            "validity": "confirmed"
+        },
+        {
+            "description": "Cloud KMS (AWS KMS) keys used for auto-unseal are properly scoped and only accessible by Vault service accounts.",
+            "validity": "confirmed"
+        },
+        {
+            "description": "Audit devices are configured and cannot be disabled without privileged administrator actions.",
+            "validity": "confirmed"
+        },
+        {
+            "description": "Developers and Platform Engineers with kubectl access could bypass the Vault API to access logs and storage directly, introducing insider risk.",
+            "validity": "confirmed"
+        },
+        {
+            "description": "Raft replication between Vault pods uses mutual TLS on port 8201 with certificate pinning/verification.",
+            "validity": "confirmed"
+        },
+        {
+            "description": "VPN Gateway enforces AWS SSO (MFA) for Developers and Platform Engineers before access to the VPC and EKS control plane.",
+            "validity": "confirmed"
+        },
+        {
+            "description": "EKS API access requires VPN + SSO and is logged; direct Internet access to the cluster or nodes is blocked.",
+            "validity": "confirmed"
+        }
+    ],
+    "threat_personas": [
+        {
+            "symbolic_name": "darius",
+            "title": "Darius the Compromised / Malicious Developer",
+            "description": "An insider developer whose account or workstation is compromised (or who has turned malicious). Has kubectl access to the EKS cluster and can read Vault audit logs and pod files. Could exfiltrate secrets, tamper with Raft storage, or disable/modify logging.",
+            "is_person": true,
+            "skill_level": "engineer",
+            "access_level": "admin",
+            "malicious_intent": true,
+            "applicability_to_org": "high"
+        },
+        {
+            "symbolic_name": "sofia",
+            "title": "Sofia the Rogue Platform Engineer",
+            "description": "An insider with elevated privileges over Vault’s deployment, networking, and storage backends. Capable of modifying StatefulSets, Service configurations, or intercepting API traffic.",
+            "is_person": true,
+            "skill_level": "expert_engineer",
+            "access_level": "admin",
+            "malicious_intent": true,
+            "applicability_to_org": "low"
+        },
+        {
+            "symbolic_name": "li-wei",
+            "title": "Li Wei the External Attacker",
+            "description": "An attacker on the public Internet attempting to exploit misconfigurations, weak authentication methods, or exposed APIs to gain unauthorized access to Vault.",
+            "is_person": true,
+            "skill_level": "script_kid",
+            "access_level": "user",
+            "malicious_intent": true,
+            "applicability_to_org": "maximal"
+        },
+        {
+            "symbolic_name": "giovanni",
+            "title": "Giovanni the Curious Administrator",
+            "description": "A well-meaning but overcurious administrator who inspects Vault audit logs or Raft storage beyond their intended duties, creating insider risk without direct malicious intent.",
+            "is_person": true,
+            "skill_level": "insider",
+            "access_level": "admin",
+            "malicious_intent": false,
+            "applicability_to_org": "maximal"
+        },
+        {
+            "symbolic_name": "alejandra",
+            "title": "Alejandra the OC-Sponsored Operator",
+            "description": "An operator working on behalf of organized crime (ransomware/credential resale). Skilled at exploiting exposed services, social engineering, and purchasing insider access; targets Vault to harvest credentials and secrets for monetization.",
+            "is_person": true,
+            "skill_level": "oc_sponsored",
+            "access_level": "user",
+            "malicious_intent": true,
+            "applicability_to_org": "high"
+        }
+    ],
+    "threats": [
+        {
+            "symbolic_name": "insider-exfiltrate-secrets-via-kubectl",
+            "title": "Insider exfiltrates secrets and configuration via kubectl (pod exec / file copy)",
+            "description": "A developer or platform engineer with kubectl access execs into Vault pods or mounts pod volumes to read Raft storage files and configuration, allowing exfiltration of encrypted state and metadata which can be used for offline attacks or tampering.",
+            "threat_persona": "darius",
+            "event": "unauthorized data exfiltration / tampering",
+            "sources": [
+                "adversary"
+            ],
+            "attack_mechanisms": [
+                {
+                    "capec_id": 122,
+                    "capec_title": "Privilege Abuse"
+                }
+            ],
+            "weaknesses": [
+                {
+                    "cwe_id": 284,
+                    "cwe_title": "Improper Access Control"
+                },
+                {
+                    "cwe_id": 200,
+                    "cwe_title": "Exposure of Sensitive Information to an Unauthorized Actor"
+                },
+                {   
+                    "cwe_id": 522,
+                    "cwe_title": "Insufficiently Protected Credentials"
+                }
+            ]
+        },
+        {
+            "symbolic_name": "insider-read-tamper-audit-logs",
+            "title": "Insider reads or tampers with audit logs",
+            "description": "An actor with cluster access directly reads Vault audit files or streams pod logs (kubectl logs). They can exfiltrate sensitive audit trails, or delete/modify logs to remove traces of malicious activity.",
+            "threat_persona": "darius",
+            "event": "information disclosure / evidence tampering",
+            "sources": [
+                "adversary"
+            ],
+            "attack_mechanisms": [
+                {
+                    "capec_id": 122,
+                    "capec_title": "Privilege Abuse"
+                }
+            ],
+            "weaknesses": [
+                {
+                    "cwe_id": 200,
+                    "cwe_title": "Exposure of Sensitive Information to an Unauthorized Actor"
+                }
+            ]
+        },
+        {
+            "symbolic_name": "rogue-platform-tamper-ha-config",
+            "title": "Rogue platform engineer tampers with Vault deployment to cause DoS or capture secrets",
+            "description": "A platform engineer modifies StatefulSet, Service, or network rules (or injects sidecars) to disrupt Vault availability (DoS), redirect traffic to a malicious endpoint, or capture secrets in transit.",
+            "threat_persona": "sofia",
+            "event": "denial of service / credential capture / traffic interception",
+            "sources": [
+                "adversary"
+            ],
+            "attack_mechanisms": [
+                {
+                    "capec_id": 210,
+                    "capec_title": "Abuse Existing Functionality"
+                }
+            ],
+            "weaknesses": [
+                {
+                    "cwe_id": 732,
+                    "cwe_title": "Incorrect Permission Assignment for Critical Resource"
+                },
+                {
+                    "cwe_id": 269,
+                    "cwe_title": "Improper Privilege Management"
+                }
+            ]
+        },
+        {
+            "symbolic_name": "compromised-workload-abuse-auth",
+            "title": "Compromised workload abuses auth (Kubernetes/AppRole/IAM) to exfiltrate secrets and access various services with these secrets",
+            "description": "A compromised application or CI job uses stolen credentials, stolen service account tokens, or abused auth bindings to obtain Vault tokens, then reads secrets or requests dynamic credentials beyond its intended scope.",
+            "threat_persona": "li-wei",
+            "event": "unauthorized secret access",
+            "sources": [
+                "adversary"
+            ],
+            "attack_mechanisms": [
+                {
+                    "capec_id": 555,
+                    "capec_title": "Remote Services with Stolen Credentials"
+                }
+            ],
+            "weaknesses": [
+                {
+                    "cwe_id": 287,
+                    "cwe_title": "Improper Authentication"
+                },
+                {
+                    "cwe_id": 285,
+                    "cwe_title": "Improper Authorization"
+                },
+                {   
+                    "cwe_id": 522,
+                    "cwe_title": "Insufficiently Protected Credentials"
+                }
+            ]
+        },
+        {
+            "symbolic_name": "exposed-raft-port-remote-attack",
+            "title": "Exposed Raft/consensus ports allow remote access to storage",
+            "description": "If Raft ports (8201) or the pod network are exposed outside the cluster/VPC, an attacker could discover services, attempt to join/replicate, extract data, or cause cluster instability.",
+            "threat_persona": "li-wei",
+            "event": "confidentiality breach / data exfiltration / cluster compromise",
+            "sources": [
+                "adversary"
+            ],
+            "attack_mechanisms": [
+                {
+                    "capec_id": 310,
+                    "capec_title": "Scanning for Vulnerable Software"
+                }
+            ],
+            "weaknesses": [
+                {
+                    "cwe_id": 200,
+                    "cwe_title": "Exposure of Sensitive Information to an Unauthorized Actor"
+                }
+            ]
+        },
+        {
+            "symbolic_name": "lb-tls-mitm-or-termination-misconfig",
+            "title": "TLS termination/misconfiguration at Load Balancer leads to MITM or credential leak",
+            "description": "If the AWS Load Balancer is misconfigured (terminates TLS without re-encrypting, or uses an untrusted certificate), an attacker or compromised LB control plane could intercept or tamper with Vault API traffic.",
+            "threat_persona": "alejandra",
+            "event": "man-in-the-middle / data interception",
+            "sources": [
+                "adversary"
+            ],
+            "attack_mechanisms": [
+                {
+                    "capec_id": 117,
+                    "capec_title": "Interception"
+                }
+            ],
+            "weaknesses": [
+                {
+                    "cwe_id": 295,
+                    "cwe_title": "Improper Certificate Validation"
+                }
+            ]
+        },
+        {
+            "symbolic_name": "vault-availability-failure",
+            "title": "Loss of availability of secret material due to failure",
+            "description": "Failures in cluster nodes, Raft replication, or storage can cause Vault to become unavailable, preventing applications from retrieving secrets or performing cryptographic operations.",
+            "threat_persona": "sofia",
+            "event": "denial of service / loss of availability",
+            "sources": [
+                "failure"
+            ],
+            "attack_mechanisms": [
+                {
+                    "capec_id": 125,
+                    "capec_title": "Flooding"
+                }
+            ],
+            "weaknesses": [
+                {
+                    "cwe_id": 400,
+                    "cwe_title": "Uncontrolled Resource Consumption"
+                },
+                {
+                    "cwe_id": 664,
+                    "cwe_title": "Improper Control of a Resource Through its Lifetime"
+                }
+            ]
+        },
+        {
+            "symbolic_name": "misconfigured-policies-excess-privilege",
+            "title": "Over-permissive Vault policies allow lateral movement or secret theft",
+            "description": "Misconfigured Vault policies or overly-broad role bindings grant principals capabilities they don't need (e.g., wildcard admin policies), enabling actors to list/read secrets or create tokens for escalation.",
+            "threat_persona": "giovanni",
+            "event": "unauthorized access / privilege escalation",
+            "sources": [
+                "human_error"
+            ],
+            "attack_mechanisms": [
+                {
+                    "capec_id": 212,
+                    "capec_title": "Abuse existing Functionality"
+                }
+            ],
+            "weaknesses": [
+                {
+                    "cwe_id": 285,
+                    "cwe_title": "Improper Authorization"
+                }
+            ]
+        }
+    ],
+    "controls": [
+        {
+            "symbolic_name": "restrict-k8s-rbac",
+            "title": "Restrict Kubernetes RBAC for developers and engineers",
+            "description": "Limit Kubernetes RoleBindings/ClusterRoleBindings so that developers and engineers cannot exec into Vault pods, read pod volumes, or access Raft storage directly. Only platform engineers should have restricted administrative access under break-glass conditions.",
+            "threats": [
+                "insider-exfiltrate-secrets-via-kubectl",
+                "insider-read-tamper-audit-logs",
+                "rogue-platform-tamper-ha-config"
+            ],
+            "trust_boundary": {
+                "trust_zone_a": "eks-cluster",
+                "trust_zone_b": "k8s-namespace-vault"
+            },
+            "status": "suggested",
+            "priority": "high"
+        },
+        {
+            "symbolic_name": "pod-security-policies",
+            "title": "Apply Pod Security Standards / OPA Gatekeeper",
+            "description": "Use Kubernetes Pod Security Standards (restricted profile) or OPA/Gatekeeper policies to prevent privileged containers and block direct volume mounts that would expose Raft data to kubectl exec or copy commands.",
+            "threats": [
+                "insider-exfiltrate-secrets-via-kubectl"
+            ],
+            "status": "suggested",
+            "priority": "high"
+        },
+        {
+            "symbolic_name": "audit-kubectl-commands",
+            "title": "Audit kubectl exec and cp usage",
+            "description": "Enable Kubernetes audit logging to track all kubectl exec and copy commands. Send logs to a SIEM for real-time detection of suspicious access attempts.",
+            "threats": [
+                "insider-exfiltrate-secrets-via-kubectl",
+                "insider-read-tamper-audit-logs"
+                
+            ],
+            "status": "suggested",
+            "priority": "medium"
+        },
+        {
+            "symbolic_name": "vault-multiple-audit-devices",
+            "title": "Configure multiple Vault audit devices",
+            "description": "Enable at least two Vault audit devices (e.g., file and syslog). Even if one sink is tampered with or deleted, other sinks continue to capture activity.",
+            "threats": [
+                "insider-read-tamper-audit-logs",
+                "compromised-workload-abuse-auth"
+            ],
+            "status": "suggested",
+            "priority": "high"
+        },
+        {
+            "symbolic_name": "immutable-storage-for-audit",
+            "title": "Store Vault audit logs in immutable storage",
+            "description": "Use append-only storage (e.g., WORM S3 buckets or immutable syslog servers) for Vault audit logs so they cannot be deleted or modified retroactively.",
+            "threats": [
+                "insider-read-tamper-audit-logs",
+                "compromised-workload-abuse-auth"
+            ],
+            "status": "suggested",
+            "priority": "high"
+        },
+        {
+            "symbolic_name": "deployment-change-control",
+            "title": "Require change control for Vault deployment manifests",
+            "description": "Enforce code review and approval workflows (e.g., GitOps, Infrastructure as Code pipelines) for changes to Vault StatefulSets, Services, and ConfigMaps. Prevent direct kubectl edits in production.",
+            "threats": [
+                "rogue-platform-tamper-ha-config"
+            ],
+            "status": "suggested",
+            "priority": "high"
+        },
+        {
+            "symbolic_name": "k8s-admission-controls",
+            "title": "Apply Kubernetes admission controls for Vault workloads",
+            "description": "Use admission controllers (OPA Gatekeeper, Kyverno) to enforce security policies on Vault pods (no sidecars, no privilege escalation, no host networking) and reject unauthorized changes.",
+            "threats": [
+                "rogue-platform-tamper-ha-config"
+            ],
+            "status": "suggested",
+            "priority": "medium"
+        },
+        {
+            "symbolic_name": "monitor-k8s-config-changes",
+            "title": "Monitor and alert on Kubernetes configuration changes",
+            "description": "Enable auditing of Kubernetes API server for changes to StatefulSets, Services, and ConfigMaps in the Vault namespace. Send to SIEM for alerting on unexpected changes.",
+            "threats": [
+                "rogue-platform-tamper-ha-config"
+            ],
+            "trust_boundary": {
+                "trust_zone_a": "eks-cluster",
+                "trust_zone_b": "k8s-namespace-vault"
+            },
+            "status": "suggested",
+            "priority": "medium"
+        },
+        {
+            "symbolic_name": "constrain-auth-methods",
+            "title": "Constrain Vault authentication methods",
+            "description": "Configure Vault auth methods (AppRole, Kubernetes, IAM) with least privilege. Require role bindings to be tightly scoped (limited CIDRs, bounded service accounts, short-lived tokens).",
+            "threats": [
+                "compromised-workload-abuse-auth"
+            ],
+            "status": "suggested",
+            "priority": "high"
+        },
+        {
+            "symbolic_name": "short-lived-tokens",
+            "title": "Use short-lived Vault tokens and dynamic secrets",
+            "description": "Configure Vault roles and policies to issue ephemeral tokens and dynamic credentials that automatically expire, limiting impact of stolen tokens.",
+            "threats": [
+                "compromised-workload-abuse-auth"
+            ],
+            "trust_boundary": {
+                "trust_zone_a": "k8s-namespace-vault",
+                "trust_zone_b": "k8s-namespace-vault"
+            },
+            "status": "suggested",
+            "priority": "high"
+        },
+        {
+            "symbolic_name": "bind-secrets-to-identity",
+            "title": "Bind secrets tightly to workload identity",
+            "description": "Restrict Vault roles to specific Kubernetes service accounts, IAM roles, or AppRoles. Enforce identity binding so compromised workloads cannot escalate or impersonate others.",
+            "threats": [
+                "compromised-workload-abuse-auth"
+            ],
+            "status": "suggested",
+            "priority": "medium"
+        },
+        {
+            "symbolic_name": "restrict-raft-network-access",
+            "title": "Restrict Raft port access to Vault cluster nodes only",
+            "description": "Use Kubernetes NetworkPolicies and AWS Security Groups to restrict port 8201 so only Vault pods can communicate with each other. Block all external or client access to Raft traffic.",
+            "threats": [
+                "exposed-raft-port-remote-attack"
+            ],
+            "status": "active",
+            "priority": "critical"
+        },
+        {
+            "symbolic_name": "raft-mtls-cert-validation",
+            "title": "Enforce mutual TLS for Raft replication",
+            "description": "Require Vault nodes to authenticate Raft peers with mTLS certificates. Configure strict certificate validation and rotation to prevent unauthorized Raft peers from joining the cluster.",
+            "threats": [
+                "exposed-raft-port-remote-attack"
+            ],
+            "status": "suggested",
+            "priority": "high"
+        },
+        {
+            "symbolic_name": "monitor-raft-consensus-health",
+            "title": "Monitor Raft consensus health",
+            "description": "Enable monitoring and alerting on Raft replication status, quorum health, and node membership changes. Detect anomalies that may indicate tampering or external Raft join attempts.",
+            "threats": [
+                "exposed-raft-port-remote-attack",
+                "vault-availability-failure"
+            ],
+            "status": "suggested",
+            "priority": "medium"
+        },
+        {
+            "symbolic_name": "end-to-end-strong-tls",
+            "title": "Enforce end-to-end TLS from clients to Vault pods. Enforce TLS versions (1.2+), secure cipher suites, and valid CA-signed certificates. Disable weak ciphers and enforce certificate pinning where possible.",
+            "description": "Configure the AWS Load Balancer for TCP passthrough (no TLS termination), or ensure re-encryption is used with trusted server certificates so traffic is encrypted all the way to Vault pods.",
+            "threats": [
+                "lb-tls-mitm-or-termination-misconfig"
+            ],
+            "status": "active",
+            "priority": "critical"
+        },
+        {
+            "symbolic_name": "monitor-lb-config",
+            "title": "Monitor and alert on Load Balancer TLS configuration changes",
+            "description": "Continuously check AWS Load Balancer TLS configuration (e.g., via AWS Config or Security Hub). Alert if TLS termination is enabled unexpectedly or insecure parameters are set.",
+            "threats": [
+                "lb-tls-mitm-or-termination-misconfig"
+            ],
+            "status": "suggested",
+            "priority": "medium"
+        },
+        {
+            "symbolic_name": "multi-az-deployment",
+            "title": "Deploy Vault cluster across multiple Availability Zones",
+            "description": "Distribute Vault pods and Raft peers across multiple AWS Availability Zones to ensure quorum and service availability during AZ-level outages.",
+            "threats": [
+                "vault-availability-failure"
+            ],
+            "status": "suggested",
+            "priority": "medium"
+        },
+        {
+            "symbolic_name": "raft-backup-snapshots",
+            "title": "Enable automated Raft snapshots and backup",
+            "description": "Configure regular Raft snapshots and store them securely outside the Vault cluster (e.g., S3 with encryption) to recover state in case of catastrophic failure.",
+            "threats": [
+                "vault-availability-failure"
+            ],
+            "status": "suggested",
+            "priority": "critical"
+        },
+        {
+            "symbolic_name": "auto-unseal-ha",
+            "title": "Use redundant Cloud KMS for auto-unseal",
+            "description": "Configure Vault auto-unseal with multiple KMS providers (or highly available KMS setup) to avoid dependency on a single point of failure.",
+            "threats": [
+                "vault-availability-failure"
+            ],
+            "status": "suggested",
+            "priority": "medium"
+        },
+        {
+            "symbolic_name": "health-checks-and-restarts",
+            "title": "Enable health checks and automated restarts for Vault pods",
+            "description": "Configure Kubernetes liveness/readiness probes for Vault pods and enable automated restart policies to recover from node/pod failures quickly.",
+            "threats": [
+                "vault-availability-failure"
+            ],
+            "status": "active",
+            "priority": "high"
+        },
+        {
+            "symbolic_name": "policy-review-process",
+            "title": "Implement Vault policy review and approval workflow",
+            "description": "Establish a mandatory peer-review or automated validation process for Vault policies before deployment. Reject policies that include wildcards or grant admin-level capabilities unnecessarily.",
+            "threats": [
+                "misconfigured-policies-excess-privilege"
+            ],
+            "status": "suggested",
+            "priority": "medium"
+        },
+        {
+            "symbolic_name": "least-privilege-defaults",
+            "title": "Adopt least-privilege defaults for Vault roles",
+            "description": "Use policy templates and default role definitions that start with no privileges. Require explicit justification and approval for each added capability.",
+            "threats": [
+                "misconfigured-policies-excess-privilege"
+            ],
+            "trust_boundary": {
+                "trust_zone_a": "k8s-namespace-vault",
+                "trust_zone_b": "k8s-namespace-vault"
+            },
+            "status": "suggested",
+            "priority": "high"
+        },
+        {
+            "symbolic_name": "policy-linter",
+            "title": "Automated linting of Vault policies",
+            "description": "Introduce static analysis (policy linter) to detect dangerous constructs in Vault policies (e.g., wildcards, overly broad paths, admin capabilities) before deployment.",
+            "threats": [
+                "misconfigured-policies-excess-privilege"
+            ],
+            "status": "suggested",
+            "priority": "low"
+        }
+    ],
+    "risks": [
+        {
+            "symbolic_name": "insider-abuse-of-kubernetes-access",
+            "title": "Insider abuse of Kubernetes access to exfiltrate or tamper with secrets",
+            "description": "Developers or platform engineers with kubectl access may exec into Vault pods, read Raft storage files, or tamper with Vault audit logs, leading to loss of confidentiality and accountability.",
+            "threats": [
+                "insider-exfiltrate-secrets-via-kubectl",
+                "insider-read-tamper-audit-logs",
+                "rogue-platform-tamper-ha-config"
+            ],
+            "likelihood": "possible",
+            "impact": "severe",
+            "impact_description": "Could result in full compromise of Vault data, bypassing of audit logs, and erosion of operational trust.",
+            "score": 15,
+            "level": "high"
+        },
+        {
+            "symbolic_name": "workload-auth-abuse",
+            "title": "Compromised workloads abusing Vault authentication",
+            "description": "A compromised workload (application, CI/CD job) can abuse Kubernetes, AppRole, or IAM auth to escalate privileges and extract secrets beyond intended scope.",
+            "threats": [
+                "compromised-workload-abuse-auth",
+                "misconfigured-policies-excess-privilege"
+            ],
+            "likelihood": "unlikely",
+            "impact": "severe",
+            "impact_description": "Widespread credential exposure or lateral movement into other systems and services.",
+            "score": 10,
+            "level": "medium"
+        },
+        {
+            "symbolic_name": "network-exposure-and-mitm",
+            "title": "Network exposure or misconfiguration leading to interception or Raft compromise",
+            "description": "If Raft ports (8201) are exposed or TLS is misconfigured at the load balancer, attackers could eavesdrop, tamper with traffic, or attempt to join the Raft cluster.",
+            "threats": [
+                "exposed-raft-port-remote-attack",
+                "lb-tls-mitm-or-termination-misconfig"
+            ],
+            "likelihood": "rare",
+            "impact": "severe",
+            "impact_description": "Interception of secrets or compromise of Vault cluster integrity.",
+            "score": 5,
+            "level": "medium"
+        },
+        {
+            "symbolic_name": "vault-availability-risk",
+            "title": "Loss of Vault availability",
+            "description": "Failures in Raft consensus, node crashes, or dependency outages (e.g., KMS auto-unseal) could make Vault unavailable, preventing applications from retrieving secrets.",
+            "threats": [
+                "vault-availability-failure"
+            ],
+            "likelihood": "unlikely",
+            "impact": "major",
+            "impact_description": "Applications relying on Vault could experience outages and service disruption.",
+            "score": 10,
+            "level": "high"
+        }
+    ]
+}

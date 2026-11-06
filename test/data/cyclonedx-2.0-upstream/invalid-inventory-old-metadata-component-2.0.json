@@ -1,0 +1,2 @@
+{ "specFormat": "CycloneDX", "specVersion": "2.0",
+  "metadata": { "component": { "refId": "a", "type": "application", "name": "A" } } }

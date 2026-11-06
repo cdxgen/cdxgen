@@ -1,0 +1,52 @@
+{
+  "$schema": "https://cyclonedx.org/schema/2.0/cyclonedx-2.0.schema.json",
+  "specFormat": "CycloneDX",
+  "specVersion": "2.0",
+  "serialNumber": "urn:uuid:3e671687-395b-41f5-a30f-a58921a69b79",
+  "version": 1,
+  "definitions": {
+    "components": [
+      {
+        "type": "application",
+        "parties": [
+          {
+            "roles": [ { "role": "publisher" } ],
+            "organization": { "name": "Acme Inc" }
+          }
+        ],
+        "group": "com.acme",
+        "name": "tomcat-catalina",
+        "version": "9.0.14",
+        "description": "Modified version of Apache Catalina",
+        "scope": "required",
+        "hashes": [
+          {
+            "alg": "MD5",
+            "content": "3942447fac867ae5cdb3229b658f4d48"
+          },
+          {
+            "alg": "SHA-1",
+            "content": "e6b1000b94e835ffd37f4c6dcbdad43f4b48a02a"
+          },
+          {
+            "alg": "SHA-256",
+            "content": "f498a8ff2dd007e29c2074f5e4b01a9a01775c3ff3aeaf6906ea503bc5791b7b"
+          },
+          {
+            "alg": "SHA-512",
+            "content": "e8f33e424f3f4ed6db76a482fde1a5298970e442c531729119e37991884bdffab4f9426b7ee11fccd074eeda0634d71697d6f88a460dce0ac8d627a29f7d1282"
+          }
+        ],
+        "licenses": [
+          {
+            "license": {
+              "id": "Apache-2.0",
+              "acknowledgement": "declared",
+              "refId": "my-license"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

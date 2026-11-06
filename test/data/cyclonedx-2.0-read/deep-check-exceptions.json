@@ -1,0 +1,9 @@
+{
+  "$comment": "Upstream valid 2.0 documents whose 1.7 conversion is schema-valid but fails cdxgen's deep checks (validateMetadata, validatePurls, validateRefs, validateProps) for content the source document itself has. Read by cyclonedx20Read.poku.js and cyclonedx20Readers.poku.js; change an entry only with a reason.",
+  "valid-bom-2.0.json": "the document's own maven purls carry a packaging qualifier validatePurls rejects",
+  "valid-composition-explicit-none-2.0.json": "an algorithm asset without an oid, which validateProps requires",
+  "valid-cryptography-certificate-2.0.json": "a certificate asset without algorithmProperties, which validateProps requires",
+  "valid-cryptography-certificate-advanced-2.0.json": "certificate assets without algorithmProperties, which validateProps requires",
+  "valid-cryptography-full-2.0.json": "a certificate asset without algorithmProperties, which validateProps requires",
+  "valid-cryptography-nist-quantum-security-level-bounds-2.0.json": "algorithm assets without an oid, which validateProps requires"
+}

@@ -13,7 +13,12 @@ import {
   retrieveCdxgenVersion,
   safeWriteSync,
 } from "../lib/ecosystems/utils.js";
-import { DEFAULT_CDX_SPEC_VERSION } from "../lib/inventory/bomUtils.js";
+import {
+  DEFAULT_CDX_SPEC_VERSION,
+  isCycloneDx20SpecVersion,
+} from "../lib/inventory/bomUtils.js";
+import { renderCycloneDx20 } from "../lib/inventory/cyclonedx20.js";
+import { hardwareRenderContext } from "../lib/inventory/hbomLoader.js";
 import { applySpecVersionCompatibility } from "../lib/stages/postgen/specVersionCompat.js";
 
 const _yargs = yargs(hideBin(process.argv));
@@ -339,10 +344,20 @@ const options = {
     process.exit(1);
   }
   // tracebom skips postProcess, so the downgrade to an older --spec-version
-  // (for example dropping the 1.7 algorithmFamily of traced crypto) runs here.
+  // (for example dropping the 1.7 algorithmFamily of traced crypto) runs here,
+  // and a 2.0 target renders the document with the postgen renderer.
   applySpecVersionCompatibility(bomJson, options);
+  const serviceCount = bomJson?.services?.length || 0;
+  const componentCount = bomJson?.components?.length || 0;
+  const outputBomJson = isCycloneDx20SpecVersion(options.specVersion)
+    ? renderCycloneDx20(bomJson, await hardwareRenderContext(bomJson))
+    : bomJson;
 
-  const jsonPayload = JSON.stringify(bomJson, null, DEBUG_MODE ? 2 : null);
+  const jsonPayload = JSON.stringify(
+    outputBomJson,
+    null,
+    DEBUG_MODE ? 2 : null,
+  );
 
   if (args.print) {
     // The document is the payload, so it bypasses the console shim.
@@ -350,9 +365,6 @@ const options = {
   }
 
   safeWriteSync(options.output, jsonPayload);
-
-  const serviceCount = bomJson?.services?.length || 0;
-  const componentCount = bomJson?.components?.length || 0;
   const summaryParts = [
     `SBOM written to ${options.output}`,
     `${componentCount} component(s)`,

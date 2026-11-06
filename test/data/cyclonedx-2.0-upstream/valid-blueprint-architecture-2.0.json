@@ -1,0 +1,270 @@
+{
+  "$comment": "Model type: architecture. This example models the architecture of a fictional online retail platform. It is represented as a blueprint whose assets are the major services (storefront, gateway, catalogue, order, payment) and data stores, grouped into logical zones for the presentation, application, and data tiers. Static structure is expressed with typed relationships (serves, depends-on), runtime exchanges with flows that carry protocols and authentication, and each service exposes typed interfaces. Ownership, scope, a requirement reference, and a compliance assumption complete the view.",
+  "specFormat": "CycloneDX",
+  "specVersion": "2.0",
+  "serialNumber": "urn:uuid:b1000000-0000-4000-8000-0000000000a1",
+  "version": 1,
+  "blueprints": [
+    {
+      "refId": "bp-architecture",
+      "name": "Acme online retail platform architecture",
+      "description": "Architecture view of the Acme storefront, showing the major services, their interfaces, and the relationships and exchanges between them across the presentation, application, and data tiers.",
+      "modelTypes": [
+        "architecture"
+      ],
+      "metadata": {
+        "timestamp": "2026-06-05T12:00:00Z",
+        "authors": [
+          {
+            "roles": [
+              {
+                "role": "author"
+              }
+            ],
+            "person": {
+              "name": "Dana Lee",
+              "jobTitle": "Principal Architect"
+            }
+          }
+        ]
+      },
+      "scope": {
+        "name": "Storefront and checkout",
+        "description": "Customer-facing browsing and checkout, excluding back-office fulfilment.",
+        "includedComponents": [
+          "asset-storefront",
+          "asset-order"
+        ]
+      },
+      "zones": [
+        {
+          "refId": "zone-presentation",
+          "name": "Presentation tier",
+          "type": "logical",
+          "characteristics": [
+            "public-facing"
+          ]
+        },
+        {
+          "refId": "zone-application",
+          "name": "Application tier",
+          "type": "logical"
+        },
+        {
+          "refId": "zone-data",
+          "name": "Data tier",
+          "type": "data",
+          "constraints": [
+            "No direct ingress from the presentation tier"
+          ]
+        }
+      ],
+      "assets": [
+        {
+          "refId": "asset-storefront",
+          "type": "service",
+          "name": "Storefront web application",
+          "description": "Renders the catalogue and shopping cart for customers.",
+          "zone": "zone-presentation",
+          "classification": {
+            "criticality": "high"
+          },
+          "tags": [
+            "customer-facing"
+          ],
+          "responsibilities": [
+            "Render product pages",
+            "Manage the shopping cart"
+          ],
+          "interfaces": [
+            {
+              "name": "Storefront API",
+              "type": "rest",
+              "operations": [
+                "browseCatalogue",
+                "addToCart"
+              ]
+            }
+          ],
+          "ownership": [
+            {
+              "roles": [
+                {
+                  "role": "owner"
+                }
+              ],
+              "organization": {
+                "name": "Acme Storefront Team"
+              }
+            }
+          ]
+        },
+        {
+          "refId": "asset-gateway",
+          "type": "gateway",
+          "name": "API gateway",
+          "zone": "zone-application",
+          "interfaces": [
+            {
+              "name": "Edge API",
+              "type": "rest"
+            }
+          ]
+        },
+        {
+          "refId": "asset-catalog",
+          "type": "service",
+          "name": "Catalogue service",
+          "zone": "zone-application",
+          "interfaces": [
+            {
+              "name": "Catalogue gRPC",
+              "type": "grpc",
+              "operations": [
+                "GetProduct",
+                "ListProducts"
+              ]
+            }
+          ]
+        },
+        {
+          "refId": "asset-order",
+          "type": "service",
+          "name": "Order service",
+          "zone": "zone-application",
+          "classification": {
+            "criticality": "critical"
+          }
+        },
+        {
+          "refId": "asset-payment",
+          "type": "service",
+          "name": "Payment service",
+          "zone": "zone-application",
+          "classification": {
+            "criticality": "critical"
+          },
+          "interfaces": [
+            {
+              "name": "Payment API",
+              "type": "rest",
+              "authentication": [
+                "mtls"
+              ]
+            }
+          ]
+        },
+        {
+          "refId": "asset-catalog-db",
+          "type": "data-store",
+          "name": "Catalogue database",
+          "zone": "zone-data"
+        },
+        {
+          "refId": "asset-order-db",
+          "type": "data-store",
+          "name": "Order database",
+          "zone": "zone-data",
+          "classification": {
+            "criticality": "critical"
+          }
+        }
+      ],
+      "relationships": [
+        {
+          "ref": "asset-gateway",
+          "serves": [
+            "asset-catalog",
+            "asset-order"
+          ]
+        },
+        {
+          "ref": "asset-order",
+          "dependsOn": [
+            "asset-payment",
+            "asset-order-db"
+          ]
+        },
+        {
+          "ref": "asset-storefront",
+          "dependsOn": [
+            "asset-gateway"
+          ]
+        },
+        {
+          "ref": "asset-catalog",
+          "dependsOn": [
+            "asset-catalog-db"
+          ]
+        }
+      ],
+      "flows": [
+        {
+          "refId": "flow-browse",
+          "name": "Browse catalogue",
+          "type": "data",
+          "source": "asset-storefront",
+          "destination": "asset-gateway",
+          "synchronous": true,
+          "protocols": [
+            "https"
+          ]
+        },
+        {
+          "refId": "flow-order",
+          "name": "Place order",
+          "type": "data",
+          "source": "asset-gateway",
+          "destination": "asset-order",
+          "synchronous": true,
+          "protocols": [
+            "https"
+          ]
+        },
+        {
+          "refId": "flow-pay",
+          "name": "Authorize payment",
+          "type": "data",
+          "source": "asset-order",
+          "destination": "asset-payment",
+          "synchronous": true,
+          "protocols": [
+            "https"
+          ],
+          "authentication": [
+            "mtls"
+          ]
+        }
+      ],
+      "useCases": [
+        {
+          "assets": [
+            "asset-order",
+            "asset-payment"
+          ],
+          "requirements": [
+            "req-checkout"
+          ]
+        }
+      ],
+      "assumptions": [
+        {
+          "refId": "asm-pci",
+          "description": "The payment service is operated within a PCI DSS compliant environment.",
+          "topic": "compliance",
+          "validity": "verified"
+        }
+      ]
+    }
+  ],
+  "definitions": {
+    "requirements": [
+      {
+        "refId": "req-checkout",
+        "id": "REQ-CHK-001",
+        "name": "Checkout completes within three seconds",
+        "priority": "high"
+      }
+    ]
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "specFormat": "CycloneDX",
+  "specVersion": "2.0",
+  "serialNumber": "urn:uuid:3f2504e0-4f89-41d3-9a0c-0305e82c3301",
+  "version": 1,
+  "risks": {
+    "risks": [
+      {
+        "refId": "risk-model-bias",
+        "name": "Disparate loan approval rates",
+        "statement": "The credit model may approve loans at materially different rates across demographic groups.",
+        "inherentRisk": {
+          "impacts": [
+            {
+              "level": "major",
+              "polarity": "harm",
+              "categories": [ "bias" ]
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

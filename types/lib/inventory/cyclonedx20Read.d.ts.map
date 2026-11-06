@@ -1,0 +1,1 @@
+{"version":3,"file":"cyclonedx20Read.d.ts","sourceRoot":"","sources":["../../../lib/inventory/cyclonedx20Read.js"],"names":[],"mappings":"AAAA;;;;;;;;;;;;;;;;;;;;;;;;;GAyBG;AA8FH;;;;;;;;;;GAUG;AACH,wBAAgB,eAAe,CAAC,KAAK,EAH1B,MAG0B,GAFxB;IAAC,WAAW,EAAE,MAAM,CAAC;IAAC,MAAM,EAAE,KAAK,CAAC;QAAC,OAAO,EAAE,MAAM,CAAC;QAAC,MAAM,EAAE,MAAM,CAAA;KAAC,CAAC,CAAA;CAAC,CAkCnF"}

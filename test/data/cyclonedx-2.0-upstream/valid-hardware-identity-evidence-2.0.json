@@ -1,0 +1,115 @@
+{
+  "$schema": "https://cyclonedx.org/schema/2.0/cyclonedx-2.0.schema.json",
+  "specFormat": "CycloneDX",
+  "specVersion": "2.0",
+  "version": 1,
+  "serialNumber": "urn:uuid:1f0e9c2a-6b7d-4a3e-9c1f-0a2b3c4d5e04",
+  "definitions": {
+    "components": [
+      {
+        "refId": "comp-mcu-suspect-lot",
+        "type": "device",
+        "name": "Acme AVR8-328",
+        "version": "Rev. E",
+        "parties": [
+          {
+            "refId": "party-acme-semi",
+            "roles": [
+              {
+                "role": "manufacturer"
+              }
+            ],
+            "organization": {
+              "name": "Acme Semiconductor"
+            }
+          },
+          {
+            "refId": "party-veriparts",
+            "roles": [
+              {
+                "name": "test-laboratory"
+              }
+            ],
+            "organization": {
+              "name": "VeriParts Component Testing"
+            }
+          }
+        ],
+        "identifiers": [
+          {
+            "party": "party-acme-semi",
+            "identities": [
+              {
+                "scheme": "mpn",
+                "value": "AVR8-328-PU"
+              },
+              {
+                "scheme": "serial-number",
+                "value": "SN-2409-118842"
+              }
+            ]
+          }
+        ],
+        "classification": {
+          "category": "semiconductor",
+          "subcategory": "microcontroller"
+        },
+        "deviceType": "dip",
+        "boardLocation": {
+          "designators": [
+            "U5"
+          ],
+          "layer": "top",
+          "subsystem": "main-mcu"
+        },
+        "evidence": {
+          "identity": [
+            {
+              "scheme": "mpn",
+              "concludedValue": "AVR8-328-PU",
+              "confidence": 0.95,
+              "timestamp": "2026-07-18T14:30:00Z",
+              "assertion": {
+                "parties": [
+                  {
+                    "party": { "ref": "party-veriparts" }
+                  }
+                ]
+              },
+              "methods": [
+                {
+                  "technique": "visual-inspection",
+                  "confidence": 0.9,
+                  "value": "Laser-etched marking AVR8-328-PU, date code 2409, manufacturer logo present and correctly aligned.",
+                  "externalReferences": [
+                    {
+                      "type": "evidence",
+                      "url": "https://lab.veriparts.example.com/reports/SN-2409-118842/top-marking.jpg",
+                      "comment": "Photograph of the package top marking."
+                    }
+                  ]
+                },
+                {
+                  "technique": "x-ray-inspection",
+                  "confidence": 0.85,
+                  "description": "Die dimensions, lead frame geometry, and wire bonding consistent with the manufacturer reference sample.",
+                  "externalReferences": [
+                    {
+                      "type": "evidence",
+                      "url": "https://lab.veriparts.example.com/reports/SN-2409-118842/xray-plate.png"
+                    }
+                  ]
+                },
+                {
+                  "technique": "electrical-testing",
+                  "confidence": 0.8,
+                  "description": "Supply current and oscillator startup within datasheet limits at 25 degrees Celsius."
+                }
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

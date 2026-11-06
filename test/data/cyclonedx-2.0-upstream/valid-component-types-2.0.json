@@ -1,0 +1,56 @@
+{
+  "$schema": "https://cyclonedx.org/schema/2.0/cyclonedx-2.0.schema.json",
+  "specFormat": "CycloneDX",
+  "specVersion": "2.0",
+  "serialNumber": "urn:uuid:3e671687-395b-41f5-a30f-a58921a69b79",
+  "version": 1,
+  "definitions": {
+    "components": [
+      {
+        "type": "application",
+        "name": "application-a",
+        "version": "1.0"
+      },
+      {
+        "type": "library",
+        "name": "library-a",
+        "version": "1.0"
+      },
+      {
+        "type": "framework",
+        "name": "framework-a",
+        "version": "1.0"
+      },
+      {
+        "type": "container",
+        "name": "container-a",
+        "version": "1.0"
+      },
+      {
+        "type": "operating-system",
+        "name": "operating-system-a",
+        "version": "1.0"
+      },
+      {
+        "type": "firmware",
+        "name": "firmware-a",
+        "version": "1.0"
+      },
+      {
+        "type": "device",
+        "name": "device-a",
+        "version": "1.0"
+      },
+      {
+        "type": "file",
+        "name": "file-a",
+        "version": "1.0"
+      },
+      {
+        "type": "data",
+        "name": "data-a",
+        "version": "1.0"
+      }
+    ]
+  }
+}

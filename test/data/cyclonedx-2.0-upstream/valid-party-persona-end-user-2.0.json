@@ -1,0 +1,40 @@
+{
+  "$schema": "https://cyclonedx.org/schema/2.0/cyclonedx-2.0.schema.json",
+  "specFormat": "CycloneDX",
+  "specVersion": "2.0",
+  "version": 1,
+  "inventories": [
+    {
+      "subject": {
+        "refId": "subject-1",
+        "type": "application",
+        "name": "Mobile Banking App"
+      },
+      "components": [
+        {
+          "type": "application",
+          "name": "Mobile Banking App Frontend",
+          "parties": [
+            {
+              "roles": [
+                {
+                  "role": "end-user"
+                }
+              ],
+              "persona": {
+                "archetype": "end-user",
+                "scope": "external",
+                "assumedPosture": "authenticated",
+                "permissions": [
+                  "view-account",
+                  "initiate-payment",
+                  "update-profile"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

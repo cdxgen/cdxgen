@@ -1,0 +1,34 @@
+{
+  "$schema": "https://cyclonedx.org/schema/2.0/cyclonedx-2.0.schema.json",
+  "specFormat": "CycloneDX",
+  "specVersion": "2.0",
+  "serialNumber": "urn:uuid:4b9e7d2f-3a1c-4e6b-8c5d-9f2a6e1b7c34",
+  "version": 1,
+  "controls": [
+    {
+      "refId": "control-encryption-at-rest",
+      "name": "Encryption at rest",
+      "category": "preventive",
+      "status": "verified"
+    },
+    {
+      "refId": "control-key-rotation",
+      "name": "Automated key rotation",
+      "category": "preventive",
+      "status": "planned"
+    }
+  ],
+  "declarations": {
+    "claims": [
+      {
+        "refId": "claim-encryption-at-rest",
+        "target": "control-encryption-at-rest",
+        "predicate": "All customer data volumes are encrypted at rest.",
+        "mitigationStrategies": [
+          "control-key-rotation"
+        ],
+        "reasoning": "Storage configuration exports show encryption enabled for all volumes. Key rotation is planned to address key-age findings in the evidence."
+      }
+    ]
+  }
+}
