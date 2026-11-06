@@ -1,0 +1,64 @@
+bin/convert.js
+  h_6a4cc5cdf68def 32,246-251
+bin/tracebom.js
+  h_6a4cc5cdf68def 21,353
+docs/HBOM.md
+  h_6a4cc5cdf68def 275,285-316
+lib/inventory/cyclonedx20.js
+  h_6a4cc5cdf68def 10-15,102-104,106,119-122
+lib/inventory/cyclonedx20.poku.js
+  h_6a4cc5cdf68def 18
+lib/inventory/cyclonedx20Render.js
+  h_6a4cc5cdf68def 423-428,434,440-445,581,584-585
+lib/inventory/cyclonedx20RenderComponents.js
+  h_6a4cc5cdf68def 27,411
+lib/inventory/cyclonedx20RenderHardware.js
+  h_6a4cc5cdf68def 1-203
+lib/inventory/hbom.js
+  h_6a4cc5cdf68def 11,13,417,481-484,733-764,793-794,797
+lib/inventory/hbom.poku.js
+  h_6a4cc5cdf68def 67
+lib/inventory/hbom20.poku.js
+  h_6a4cc5cdf68def 1-2,5,8,13,15,17-22,24-27,38,41,49,53-54,57-63,68-129,139-142,144-164,167-176,178-247,249-285,287-290,292-355,358-381,400-401,413-414,423-427
+lib/inventory/hbomLoader.js
+  h_6a4cc5cdf68def 10-24,51-162
+lib/stages/postgen/postgen.js
+  h_6a4cc5cdf68def 44,47,635-637,646,648-651
+test/helpers/cyclonedx20RefIntegrity.js
+  h_6a4cc5cdf68def 1-94
+types/lib/inventory/cyclonedx20.d.ts
+  h_6a4cc5cdf68def 10-15,72-74,76,83
+types/lib/inventory/cyclonedx20.d.ts.map
+  h_6a4cc5cdf68def 1
+types/lib/inventory/cyclonedx20Render.d.ts
+  h_6a4cc5cdf68def 13-18,24-30,49,52
+types/lib/inventory/cyclonedx20Render.d.ts.map
+  h_6a4cc5cdf68def 1
+types/lib/inventory/cyclonedx20RenderComponents.d.ts.map
+  h_6a4cc5cdf68def 1
+types/lib/inventory/cyclonedx20RenderHardware.d.ts
+  h_6a4cc5cdf68def 1-42
+types/lib/inventory/cyclonedx20RenderHardware.d.ts.map
+  h_6a4cc5cdf68def 1
+types/lib/inventory/hbom.d.ts
+  h_6a4cc5cdf68def 51-61
+types/lib/inventory/hbom.d.ts.map
+  h_6a4cc5cdf68def 1
+types/lib/inventory/hbomLoader.d.ts
+  h_6a4cc5cdf68def 1-9,16-60
+types/lib/inventory/hbomLoader.d.ts.map
+  h_6a4cc5cdf68def 1
+types/lib/stages/postgen/postgen.d.ts.map
+  h_6a4cc5cdf68def 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "1effcbeeffb29e8ea5fc91db31841c48a9141c7c",
+  "prompts": {},
+  "humans": {
+    "h_6a4cc5cdf68def": {
+      "author": "Team AppThreat <cloud@appthreat.com>"
+    }
+  }
+}
