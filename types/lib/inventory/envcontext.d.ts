@@ -33,7 +33,8 @@ export declare function getOriginUrl(dir: string): string | undefined;
  * @param {string} configKey Git config key
  * @param {string} dir repo directory
  *
- * @returns Output from git config or undefined
+ * @returns {string|undefined} The branch name, or undefined when git fails,
+ * for example when the directory is not a git working tree or has no commit
  */
 export declare function getBranch(_configKey: any, dir: string): string | undefined;
 /**
@@ -51,7 +52,9 @@ export declare function gitTreeHashes(dir: string): {};
  *
  * @param {string} dir directory inside a git working tree
  *
- * @returns {Object[]} files with their blob hash, name, OmniBOR id and SWHID
+ * @returns {Object[]} files with their blob hash, name, OmniBOR id and SWHID;
+ * empty when git fails, for example when the directory is not a git working
+ * tree or has no commit
  */
 export declare function listFiles(dir: string): Object[];
 /**
@@ -60,7 +63,10 @@ export declare function listFiles(dir: string): Object[];
  * @param {string} dir Repo directory
  * @param {Array} args arguments to git command
  *
- * @returns Output from the git command
+ * @returns {string|undefined} git's standard output, or undefined when git
+ * could not run or exited with a non-zero status. Text git writes to standard
+ * error, including warnings of a successful command, is never part of the
+ * result.
  */
 export declare function execGitCommand(dir: string, args: any[]): string | undefined;
 /**
