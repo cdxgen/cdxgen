@@ -1,0 +1,61 @@
+lib/inventory/ciParsers/githubActionsLock.poku.js
+  s_97a89fc55137e7::t_b95b83f92d7e32 2-29,32-90,96-276,278-364,368-431,436-470,487,493-710,717-743,749-789,794-802
+  s_97a89fc55137e7::t_26b1a00434bc54 1
+  s_97a89fc55137e7::t_70fddaca7a734a 471-486,488-492
+  s_97a89fc55137e7::t_7e15e34734f87a 30-31,91-95,277,365-367,432-435,711-716,744-748,790-793
+types/lib/inventory/ciParsers/githubActionsLock.d.ts
+  s_97a89fc55137e7::t_3eb4008cb21ee5 1-98
+lib/inventory/ciParsers/githubActionsLock.js
+  s_97a89fc55137e7::t_70b97363cf2218 1-69,71-434,436-560,562-709,717-796
+  s_97a89fc55137e7::t_afe45a20d2e2d1 70
+  s_97a89fc55137e7::t_aa94af010ed28a 710-716
+  s_97a89fc55137e7::t_7e15e34734f87a 435,561
+test/data/actions-lock/invalid-broken-yaml/.github/workflows/actions.lock
+  s_97a89fc55137e7::t_c4e9326c1dfdce 1-8
+test/data/actions-lock/invalid-duplicate-key/.github/workflows/actions.lock
+  s_97a89fc55137e7::t_e13eb6615c313d 1-18
+test/data/actions-lock/invalid-future-version/.github/workflows/actions.lock
+  s_97a89fc55137e7::t_4e280152d06fb1 1-13
+test/data/actions-lock/invalid-hostname-in-v0.0.2/.github/workflows/actions.lock
+  s_97a89fc55137e7::t_37aeeb67358934 1-14
+test/data/actions-lock/invalid-malformed-digest/.github/workflows/actions.lock
+  s_97a89fc55137e7::t_52a522c12060a9 1-19
+test/data/actions-lock/invalid-missing-uses-dep/.github/workflows/actions.lock
+  s_97a89fc55137e7::t_ce5fd24423dce6 1-15
+test/data/actions-lock/invalid-ref-with-at/.github/workflows/actions.lock
+  s_97a89fc55137e7::t_2a4849c659fc5b 1-13
+test/data/actions-lock/invalid-subpath-key/.github/workflows/actions.lock
+  s_97a89fc55137e7::t_e4b839762cc2d6 1-13
+test/data/actions-lock/invalid-unknown-field/.github/workflows/actions.lock
+  s_97a89fc55137e7::t_45648af8a1c3d6 1-14
+test/data/actions-lock/invalid-uses-cycle/.github/workflows/actions.lock
+  s_97a89fc55137e7::t_e742ab9fb466a1 1-23
+test/data/actions-lock/valid-sha256/.github/workflows/actions.lock
+  s_97a89fc55137e7::t_c1889926ad9a7c 1-13
+test/data/actions-lock/valid-transitive-uses/.github/workflows/actions.lock
+  s_97a89fc55137e7::t_f56d3ca01be114 1-30
+test/data/actions-lock/valid-v0.0.1/.github/workflows/actions.lock
+  s_97a89fc55137e7::t_2117d5228e6b1f 1-19
+test/data/actions-lock/valid-v0.0.2/.github/workflows/actions.lock
+  s_97a89fc55137e7::t_86d4935e983be4 1-19
+test/data/actions-lock/valid-v0.0.3/.github/workflows/actions.lock
+  s_97a89fc55137e7::t_172996c3b2d82e 1-27
+types/lib/inventory/ciParsers/githubActionsLock.d.ts.map
+  s_97a89fc55137e7::t_02d063c444108e 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "4811d6430489cdbe0c475886a05951cc7cbe3b72",
+  "prompts": {},
+  "sessions": {
+    "s_97a89fc55137e7": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_ada64a27-f0b3-4b6f-aec3-76098d59dcd3",
+        "model": "unknown"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
