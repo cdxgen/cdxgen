@@ -1,0 +1,30 @@
+lib/core/processTree.js
+  s_c0a35375201d6f::t_3838fcfaf0bf3d 119,121-129
+  s_c0a35375201d6f::t_d27a60505689c0 78-79,82,87-93,95
+  s_c0a35375201d6f::t_2c58dd6ae78309 27-44,60
+  s_c0a35375201d6f::t_83b3023678c1cf 59,61
+lib/core/processTree.poku.js
+  s_c0a35375201d6f::t_b4563decf80f6a 5,27-34
+lib/inventory/atomUtils.poku.js
+  s_c0a35375201d6f::t_65511d32c02e13 816,818-822
+types/lib/core/processTree.d.ts
+  s_c0a35375201d6f::t_0ae29191c09c87 15-22,37-39
+types/lib/core/processTree.d.ts.map
+  s_c0a35375201d6f::t_300cc7a4039268 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "a69dbc009fb5638c026cfaedc242c58689c7339e",
+  "prompts": {},
+  "sessions": {
+    "s_c0a35375201d6f": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "5f00c797-e5af-4785-a04d-0e13721fca01",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
