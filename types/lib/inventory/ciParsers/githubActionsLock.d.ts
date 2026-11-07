@@ -14,8 +14,11 @@ export type ActionsLockDependency = {
      */
     repo: string;
     /**
-     * Ref with its case preserved. For a v0.0.1 entry this
-     * is the tag, else the branch.
+     * Ref the commit was resolved from, with its case
+     * preserved. For a v0.0.1 entry this is the tag, else the branch. It can
+     * differ from the ref in the pin key: the key keeps the ref the workflow
+     * wrote (for example `v4`) while this field records the resolved one (for
+     * example `v4.3.1`).
      */
     ref: string;
     /**
