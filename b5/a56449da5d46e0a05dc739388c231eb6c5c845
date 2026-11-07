@@ -1,0 +1,21 @@
+lib/inventory/envcontext_git.poku.js
+  s_c0a35375201d6f::t_232b1dad418d5a 80
+lib/inventory/formulationParsers.poku.js
+  s_c0a35375201d6f::t_757d4d5c6155a6 15,739
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "b5a56449da5d46e0a05dc739388c231eb6c5c845",
+  "prompts": {},
+  "sessions": {
+    "s_c0a35375201d6f": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "5f00c797-e5af-4785-a04d-0e13721fca01",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
