@@ -1,0 +1,81 @@
+ci/images/alpine/Dockerfile.java27
+  s_13a513fe5c779c::t_2b69be917e486d 2
+ci/images/alpine/Dockerfile.php8.4
+  s_13a513fe5c779c::t_b9b0fce427a5f2 2
+.github/workflows/license-policy.yml
+  s_13a513fe5c779c::t_c1a5cd02b04b73 31
+.github/workflows/lint.yml
+  s_13a513fe5c779c::t_c1a5cd02b04b73 35,56
+.github/workflows/test-nodejs-nightly.yml
+  s_13a513fe5c779c::t_1bdb9cf67db399 25
+.github/workflows/python-atom-tests.yml
+  s_13a513fe5c779c::t_1bdb9cf67db399 39
+.github/workflows/image-build.yml
+  s_13a513fe5c779c::t_c1a5cd02b04b73 180,417,648,692,738,784,826,872,914,978,989,1088,1099
+.github/workflows/java-reachables-test.yml
+  s_13a513fe5c779c::t_c1a5cd02b04b73 39,47
+  s_13a513fe5c779c::t_1bdb9cf67db399 96,103,109,127,139,142,170
+ci/images/debian/Dockerfile.php8.3
+  s_13a513fe5c779c::t_b9b0fce427a5f2 2
+.github/workflows/binary-builds.yml
+  s_13a513fe5c779c::t_c1a5cd02b04b73 138,153,397
+.github/workflows/deno.yml
+  s_13a513fe5c779c::t_c1a5cd02b04b73 52
+.github/workflows/codeql.yml
+  s_13a513fe5c779c::t_c1a5cd02b04b73 44,60
+ci/images/alpine/Dockerfile.php8.5
+  s_13a513fe5c779c::t_b9b0fce427a5f2 2
+.github/workflows/bun.yml
+  s_13a513fe5c779c::t_c1a5cd02b04b73 48
+.github/workflows/repotests.yml
+  s_13a513fe5c779c::t_1bdb9cf67db399 112,1412,1536,1618,1672,1880,2051,2208,2345,2426,2560
+ci/images/debian/Dockerfile.swift6
+  s_13a513fe5c779c::t_2b69be917e486d 2
+ci/images/temurin/Dockerfile.java8
+  s_13a513fe5c779c::t_2b69be917e486d 2
+.github/workflows/npm-release.yml
+  s_13a513fe5c779c::t_c1a5cd02b04b73 49,106,150,191,200,232,284,325,341,359,417,449,503,546
+  s_13a513fe5c779c::t_1bdb9cf67db399 748,848,1011
+ci/images/opensuse/Dockerfile.rolling
+  s_13a513fe5c779c::t_b9b0fce427a5f2 2
+.github/workflows/hbom-artifacts.yml
+  s_13a513fe5c779c::t_c1a5cd02b04b73 28
+.github/workflows/repotests-quick.yml
+  s_13a513fe5c779c::t_1bdb9cf67db399 92,608
+.github/workflows/copilot-setup-steps.yml
+  s_13a513fe5c779c::t_c1a5cd02b04b73 29
+.github/workflows/nodejs.yml
+  s_13a513fe5c779c::t_c1a5cd02b04b73 116,159,167,227,237,261,282,336,345,431
+ci/images/alpine/Dockerfile.php8.3
+  s_13a513fe5c779c::t_b9b0fce427a5f2 2
+ci/images/alpine/Dockerfile.dotnet10
+  s_13a513fe5c779c::t_2b69be917e486d 2
+ci/images/temurin/Dockerfile.java27
+  s_13a513fe5c779c::t_2b69be917e486d 2
+ci/images/debian/Dockerfile.php8.5
+  s_13a513fe5c779c::t_b9b0fce427a5f2 2
+.github/workflows/wslc-test.yml
+  s_13a513fe5c779c::t_1bdb9cf67db399 34
+.github/workflows/dockertests.yml
+  s_13a513fe5c779c::t_c1a5cd02b04b73 46,126,149,173,201,230
+ci/images/alpine/Dockerfile.dotnet9
+  s_13a513fe5c779c::t_2b69be917e486d 2
+ci/images/debian/Dockerfile.php8.4
+  s_13a513fe5c779c::t_b9b0fce427a5f2 2
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "86fe188a6eee31b8b8bd6d110ada391b73e941a8",
+  "prompts": {},
+  "sessions": {
+    "s_13a513fe5c779c": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_e059c10b-a7d5-42d1-92b7-5bb6645182d6",
+        "model": "GLM-5.3"
+      },
+      "human_author": "Team AppThreat <cloud@appthreat.com>"
+    }
+  }
+}
