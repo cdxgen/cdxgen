@@ -13,6 +13,14 @@
  */
 export declare function formatDuration(ms: number): string;
 /**
+ * A UTC instant as a DMTF datetime, the form WQL compares CIM_DATETIME
+ * properties such as Win32_Process.CreationDate against.
+ *
+ * @param {number} ms Epoch milliseconds
+ * @returns {string} The instant as `yyyymmddHHMMSS.mmmmmm+000`
+ */
+export declare function toDmtfUtc(ms: number): string;
+/**
  * Stop the descendants a timed-out run left behind on Windows.
  *
  * The spawn timeout terminates only the process cdxgen spawned, and Windows
@@ -26,7 +34,9 @@ export declare function formatDuration(ms: number): string;
  * process, whose children would otherwise look like the run's. Elsewhere this
  * does nothing: an orphan is re-parented and can no longer be told apart.
  * It returns once the stopped processes have exited, or after ten seconds,
- * so the caller can remove files the run left half-written.
+ * so the caller can remove files the run left half-written. When the
+ * snapshot itself fails or runs past its time limit it warns and returns an
+ * empty list, since processes may then still be running.
  *
  * @param {number|undefined} rootPid pid of the process cdxgen spawned
  * @param {number} startedAt Epoch milliseconds at which the run started
