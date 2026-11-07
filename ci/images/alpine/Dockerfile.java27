@@ -1,5 +1,5 @@
 # Base-image
-FROM eclipse-temurin:27_35-jdk-alpine@sha256:63c4f0092cb994c7a8c0446aace33a2de3763128fcc68c211d7ad3577c75b59f AS base
+FROM eclipse-temurin:27_35-jdk-alpine@sha256:8b32b7f44f8752d9aaa0a58d2fb8d679aa719083f8f0c2d9bd90eb35f2fc149d AS base
 
 ARG ALPINE_REPO
 ARG GRADLE_9

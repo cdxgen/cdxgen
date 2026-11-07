@@ -36,7 +36,7 @@ jobs:
         with:
           persist-credentials: false
       - name: Set up JDK ${{ matrix.java-version }}
-        uses: actions/setup-java@b843ebf9b913146b38da2eaa7aeddf76074ae1ad  # v6.1.0
+        uses: actions/setup-java@77dd5b2ce225ea11469928ac317850245a74ae78  # v6.2.0
         with:
           distribution: 'temurin'
           java-version: ${{ matrix.java-version }}
@@ -44,7 +44,7 @@ jobs:
         if: runner.environment == 'github-hosted'
         run: node ci/maven-central-mirror.js
       - name: Setup pnpm
-        uses: pnpm/action-setup@ea17c68df8912ef543352723c149a84f56e3d413  # v6.1.0
+        uses: pnpm/action-setup@73e46992e05b19abd31f2f3c20e0e7370d762115  # v6.1.1
       - name: Use Node.js
         uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1  # v7.1.0
         with:
@@ -93,20 +93,20 @@ jobs:
 #        os: ["ubuntu-24.04"]
 #    runs-on: ${{ matrix.os }}
 #    steps:
-#      - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+#      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 #        with:
 #          persist-credentials: false
 #      - name: setup paths
 #        run: |
 #          mkdir -p repotests
 #          mkdir -p rubyresults
-#      - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+#      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 #        with:
 #          persist-credentials: false
 #          repository: 'bionomia/bionomia'
 #          path: 'repotests/bionomia'
 #          ref: '5ada8b5f4a5f68561a7195e2badc2f744dc4676e'
-#      - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+#      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 #        with:
 #          persist-credentials: false
 #          repository: 'OWASP/railsgoat'
@@ -124,7 +124,7 @@ jobs:
 #          cd repotests/railsgoat
 #          docker run --rm -v /tmp:/tmp -v $(pwd):/app:rw -t ghcr.io/cdxgen/cdxgen-debian-ruby26:v13 -r /app -o /app/bom.json -t ruby --profile research
 #          cp bom.json *.slices.json $GITHUB_WORKSPACE/rubyresults/railsgoat
-#      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+#      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
 #        with:
 #          name: rubyresults
 #          path: rubyresults
@@ -136,10 +136,10 @@ jobs:
 #        os: ["ubuntu-24.04"]
 #    runs-on: ${{ matrix.os }}
 #    steps:
-#      - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+#      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 #        with:
 #          persist-credentials: false
-#      - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+#      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 #        with:
 #          persist-credentials: false
 #          repository: 'playframework/play-samples'
@@ -167,7 +167,7 @@ jobs:
 #          cd repotests/play-samples/play-scala-starter-example
 #          docker run --rm -v /tmp:/tmp -v $(pwd):/app:rw -t ghcr.io/cdxgen/cdxgen-temurin-java21:v13 -r /app -o /app/bom.json -t scala --profile research
 #          cp *.json $GITHUB_WORKSPACE/scalaresults/play-scala-starter-example
-#      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+#      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
 #        with:
 #          name: scalaresults
 #          path: scalaresults
