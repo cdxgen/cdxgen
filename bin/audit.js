@@ -235,10 +235,13 @@ function writeOrPrint(output, outputPath) {
       report: args.report,
     });
     writeOrPrint(finalized.output, reportFile);
-    process.exit(finalized.exitCode);
+    // exitCode instead of process.exit lets a piped stdout write drain before
+    // the process ends, and the finally block below still runs.
+    process.exitCode = finalized.exitCode;
   } catch (error) {
     console.error(error.message);
-    process.exit(1);
+    // exitCode instead of process.exit lets pending stderr output drain.
+    process.exitCode = 1;
   } finally {
     progressTracker.stop();
   }
