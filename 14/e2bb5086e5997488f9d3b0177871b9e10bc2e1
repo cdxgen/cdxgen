@@ -1,0 +1,29 @@
+types/lib/inventory/ciParsers/githubActionsLock.d.ts
+  s_b06b536d4df10a::t_c144859582a167 17-21
+lib/inventory/ciParsers/githubActionsLock.js
+  s_b06b536d4df10a::t_a23b2eab933754 77-81,263-264,266,269-272,274,295-325,368-370,374-376,557-558,619-624,661
+  s_b06b536d4df10a::t_e8873e9b331fab 589-592
+  s_b06b536d4df10a::t_c9726953cdacd1 593-594
+lib/inventory/ciParsers/githubActionsLock.poku.js
+  s_b06b536d4df10a::t_adb80272945d47 495-538,622-659,664
+  s_b06b536d4df10a::t_c144859582a167 660-663
+  s_b06b536d4df10a::t_9ca0ed2d4e2654 665
+types/lib/inventory/ciParsers/githubActionsLock.d.ts.map
+  s_b06b536d4df10a::t_90fed08ee62b7c 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "14e2bb5086e5997488f9d3b0177871b9e10bc2e1",
+  "prompts": {},
+  "sessions": {
+    "s_b06b536d4df10a": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "2a97d963-bc94-429e-8bd5-b830898477b9",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
