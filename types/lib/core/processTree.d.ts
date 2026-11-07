@@ -28,10 +28,11 @@ export declare function toDmtfUtc(ms: number): string;
  * workers, or the build hosts a .NET analyzer starts keep running while still
  * pointing at the dead process's pid. `taskkill /T` on that pid finds nothing,
  * because the root is already gone. The live descendants are therefore found
- * by parent pid in a process snapshot and stopped, limited to processes
- * created after the run started. The root's own children must also predate
- * its end: once the root is gone its pid can be handed to an unrelated
- * process, whose children would otherwise look like the run's. Elsewhere this
+ * by parent pid in a PowerShell process snapshot, limited to processes
+ * created after the run started, and stopped from Node.js. The root's own
+ * children must also predate its end: once the root is gone its pid can be
+ * handed to an unrelated process, whose children would otherwise look like
+ * the run's. Elsewhere this
  * does nothing: an orphan is re-parented and can no longer be told apart.
  * It returns once the stopped processes have exited, or after ten seconds,
  * so the caller can remove files the run left half-written. When the
