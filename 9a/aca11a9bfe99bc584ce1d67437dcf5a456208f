@@ -1,0 +1,22 @@
+bin/auditPipe.poku.js
+  s_c1e9b18813a858::t_26d004bb69b984 10,37-41
+  s_c1e9b18813a858::t_8a24314e704984 1-9,11-36,42-93
+bin/audit.js
+  s_c1e9b18813a858::t_d7c2c2b2175e69 238-240,243-244
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "9aaca11a9bfe99bc584ce1d67437dcf5a456208f",
+  "prompts": {},
+  "sessions": {
+    "s_c1e9b18813a858": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_dwf-dwfrun-9a3ece87-ace4-4f90-beb8-1cbf84d09441-actor_1_1",
+        "model": "GLM-5.3-Flash"
+      },
+      "human_author": "Team AppThreat <cloud@appthreat.com>"
+    }
+  }
+}
