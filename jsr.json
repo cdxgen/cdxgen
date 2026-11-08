@@ -2,7 +2,7 @@
   "name": "@cdxgen/cdxgen",
   "version": "13.8.0",
   "exports": "./lib/cli/index.js",
-  "include": ["*.js", "lib/**", "bin/**", "data/**", "types/**"],
+  "include": ["*.js", "lib/**", "bin/**", "data/**"],
   "exclude": [
     "test/",
     "docs/",
@@ -23,6 +23,8 @@
     "uv.lock",
     "**/*.poku.js",
     "**/*.d.ts.map",
-    "lib/third-party/arborist/CHANGELOG.md"
+    "lib/third-party/arborist/CHANGELOG.md",
+    "lib/validator/generated/",
+    "types/"
   ]
 }

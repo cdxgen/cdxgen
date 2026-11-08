@@ -29,6 +29,9 @@
     "**/*.d.ts.map",
     "lib/third-party/arborist/CHANGELOG.md"
   ],
+  "publish": {
+    "exclude": ["lib/validator/generated/", "types/"]
+  },
   "compile": {
     "include": ["data", "package.json"]
   },
