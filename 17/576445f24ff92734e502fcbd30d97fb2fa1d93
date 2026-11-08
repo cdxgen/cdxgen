@@ -1,0 +1,28 @@
+.github/workflows/deno.yml
+  s_dc6b7684a1e3fa::t_7061fa8ac9f4ff 8,12,17,27,31,36,72-74
+contrib/check-jsr-size.js
+  s_dc6b7684a1e3fa::t_f747b26b98ac63 1-93
+.github/workflows/npm-release.yml
+  s_dc6b7684a1e3fa::t_e365a53a0c62e4 71-73,88
+  s_dc6b7684a1e3fa::t_7061fa8ac9f4ff 74-87
+jsr.json
+  s_dc6b7684a1e3fa::t_790d5b1e92a4aa 5,26-28
+deno.json
+  s_dc6b7684a1e3fa::t_790d5b1e92a4aa 32-34
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "17576445f24ff92734e502fcbd30d97fb2fa1d93",
+  "prompts": {},
+  "sessions": {
+    "s_dc6b7684a1e3fa": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6f20430d-be37-419a-a1b8-911c73c269bf",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
