@@ -5,13 +5,16 @@ on:
     paths:
       - '.github/workflows/deno.yml'
       - 'bin/**'
+      - 'contrib/check-jsr-size.js'
       - 'data/**'
       - 'deno.json'
       - 'index.cjs'
+      - 'jsr.json'
       - 'lib/**'
       - 'package.json'
       - 'test/deno/**'
       - 'test/data/**'
+      - 'types/**'
   push:
     branches:
       - master
@@ -21,13 +24,16 @@ on:
     paths:
       - '.github/workflows/deno.yml'
       - 'bin/**'
+      - 'contrib/check-jsr-size.js'
       - 'data/**'
       - 'deno.json'
       - 'index.cjs'
+      - 'jsr.json'
       - 'lib/**'
       - 'package.json'
       - 'test/deno/**'
       - 'test/data/**'
+      - 'types/**'
   workflow_dispatch:
 
 concurrency:
@@ -63,6 +69,9 @@ jobs:
         run: |
           pnpm install:frozen
           mkdir -p bomresults
+      - name: JSR package stays under the registry size limit
+        if: runner.os == 'Linux'
+        run: node contrib/check-jsr-size.js --top 10
       - name: Deno test suite runs under the Deno runtime
         shell: bash
         run: pnpm test:deno

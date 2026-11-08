@@ -1,5 +1,5 @@
 {
   "name": "cdxgen",
-  "version": "13.7.0",
+  "version": "13.8.0",
   "description": "OWASP cdxgen toolkit for coding agents: generate, enrich, audit, sign, validate, convert, and explore CycloneDX BOMs (SBOM, CBOM, HBOM, OBOM, SaaSBOM, AI-BOM, VDR) across source code, containers, live hosts, and hardware."
 }

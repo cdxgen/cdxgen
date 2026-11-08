@@ -57,17 +57,6 @@ jobs:
           # carrying `_authToken`, and a credential in that file competes with
           # the OIDC exchange that trusted publishing depends on. The package
           # is published to the default registry, which is npmjs.
-      - name: Release npm package
-        # Trusted publishing: npm exchanges the Actions OIDC token (id-token:
-        # write, above) for a short-lived publish token, so no NODE_AUTH_TOKEN
-        # is set here. The trusted publisher is registered against
-        # @cdxgen/cdxgen for this repository and this workflow filename; both
-        # have to keep matching or the registry answers 404 with no
-        # explanation of which field is wrong.
-        if: startsWith(github.ref, 'refs/tags/')
-        run: |
-          pnpm install:frozen
-          NPM_CONFIG_PROVENANCE=true pnpm publish --access=public --no-git-checks
       - name: Setup deno
         # `npx jsr publish` bundles its own pinned Deno (0.14.x ships
         # v2.6.7), which predates the minimumDependencyAge config that
@@ -79,6 +68,24 @@ jobs:
         uses: denoland/setup-deno@22d081ff2d3a40755e97629de92e3bcbfa7cf2ed  # v2.0.5
         with:
           deno-version: v2.x
+      - name: Install dependencies
+        if: startsWith(github.ref, 'refs/tags/')
+        run: pnpm install:frozen
+      - name: JSR package size check
+        # JSR rejects a package over 20 MiB only at upload time. Checking
+        # before the npm publish keeps an oversized package from leaving npm
+        # and JSR on different versions.
+        if: startsWith(github.ref, 'refs/tags/')
+        run: node contrib/check-jsr-size.js --top 10
+      - name: Release npm package
+        # Trusted publishing: npm exchanges the Actions OIDC token (id-token:
+        # write, above) for a short-lived publish token, so no NODE_AUTH_TOKEN
+        # is set here. The trusted publisher is registered against
+        # @cdxgen/cdxgen for this repository and this workflow filename; both
+        # have to keep matching or the registry answers 404 with no
+        # explanation of which field is wrong.
+        if: startsWith(github.ref, 'refs/tags/')
+        run: NPM_CONFIG_PROVENANCE=true pnpm publish --access=public --no-git-checks
       - name: jsr publish
         # JSR verifies the repository claim on the same OIDC token. A failure
         # here leaves npm and JSR on different versions, so it fails the job

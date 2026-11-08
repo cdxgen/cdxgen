@@ -1,6 +1,6 @@
 {
   "name": "@cdxgen/cdxgen",
-  "version": "13.7.0",
+  "version": "13.8.0",
   "exports": "./lib/cli/index.js",
   "compilerOptions": {
     "lib": ["deno.window"],
@@ -29,6 +29,9 @@
     "**/*.d.ts.map",
     "lib/third-party/arborist/CHANGELOG.md"
   ],
+  "publish": {
+    "exclude": ["lib/validator/generated/", "types/"]
+  },
   "compile": {
     "include": ["data", "package.json"]
   },
