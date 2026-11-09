@@ -123,6 +123,15 @@ export declare function isPathExcludedByGlobPatterns(filePath: string, patterns?
  */
 export declare function filterAtomSlicesByExcludePatterns(sliceData: object | any[], patterns?: string[]): object | any[];
 /**
+ * The parsa binary of the installed cdxgen-plugins-bin package, for astgen's
+ * native type maps (ASTGEN_NATIVE_BIN). A user who sets ASTGEN_NATIVE_BIN
+ * keeps it: atom inherits the environment, so nothing is added, and
+ * ASTGEN_TYPES=ts6 still turns the native engine off inside astgen.
+ *
+ * @returns {string|undefined} Path to the bundled parsa binary, when present.
+ */
+export declare function resolveAstgenNativeBin(): string | undefined;
+/**
  * Build additional environment variables for Atom from cdxgen CLI options.
  *
  * @param {Object} options CLI options
