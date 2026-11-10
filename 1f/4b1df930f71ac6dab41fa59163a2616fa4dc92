@@ -1,0 +1,66 @@
+ci/Dockerfile-bun
+  s_4f1697abdf354d::t_5744bd596fefce 110-119
+deno.json
+  s_4f1697abdf354d::t_2ecc274ca39fb1 110
+.github/scripts/build-standalone.ps1
+  s_4f1697abdf354d::t_64daa687c1f2a3 296-339
+  s_4f1697abdf354d::t_93094cd6c87e5d 689-693
+  s_4f1697abdf354d::t_7b8930c44bf86a 648-652
+ci/Dockerfile-deno
+  s_4f1697abdf354d::t_6980ed5d0d5e83 113-125
+package.json
+  s_4f1697abdf354d::t_52342afba9817c 182
+README.md
+  s_4f1697abdf354d::t_c23ca56ff850a6 186
+  s_4f1697abdf354d::t_081ee91ea2de40 339-340
+.github/workflows/repotests.yml
+  s_4f1697abdf354d::t_b0ca6c48355d21 541-550
+.github/scripts/build-standalone.sh
+  s_4f1697abdf354d::t_c9343e7487d90b 430-492
+  s_4f1697abdf354d::t_66664ff0259267 922-930
+  s_4f1697abdf354d::t_00061635fccfdb 865-874
+MIGRATING-TO-V13.md
+  s_4f1697abdf354d::t_610ce18aff7443 519-530
+ci/images/README.md
+  s_4f1697abdf354d::t_fe2273dd667774 40-43
+ci/images/alpine/Dockerfile.php8.3
+  s_4f1697abdf354d::t_ca0dbb459b984d 82
+ci/images/alpine/Dockerfile.php8.4
+  s_4f1697abdf354d::t_4d17da6f94347b 82
+ci/images/alpine/Dockerfile.php8.5
+  s_4f1697abdf354d::t_fc6b274fa23801 82
+ci/images/alpine/Dockerfile.ruby3.3
+  s_4f1697abdf354d::t_270e9eaf5cfea3 66
+ci/images/alpine/Dockerfile.ruby3.4
+  s_4f1697abdf354d::t_bba4d5ea4d5144 66
+ci/images/alpine/Dockerfile.ruby4
+  s_4f1697abdf354d::t_85995836c27781 66
+ci/images/debian/Dockerfile.php8.3
+  s_4f1697abdf354d::t_e5c83feffb0c95 96
+ci/images/debian/Dockerfile.php8.4
+  s_4f1697abdf354d::t_ef23b6447f8a79 96
+ci/images/debian/Dockerfile.php8.5
+  s_4f1697abdf354d::t_e79b9729d107fc 96
+ci/images/debian/Dockerfile.ruby3.4
+  s_4f1697abdf354d::t_342c4f35d740d7 83
+ci/images/debian/Dockerfile.ruby4
+  s_4f1697abdf354d::t_301f5a4c3d6ec6 83
+pnpm-lock.yaml
+  s_4f1697abdf354d::t_c68857420bcf3c 273-274,375-376,395-424,450-454,467-470,1328-1329,1445,1448,1451-1458,1482-1499,1524-1528,1550-1555,2335
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "1f4b1df930f71ac6dab41fa59163a2616fa4dc92",
+  "prompts": {},
+  "sessions": {
+    "s_4f1697abdf354d": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_fee8a95d-477a-4096-bf68-3065f5769b12",
+        "model": "GLM-5.3-Flash"
+      },
+      "human_author": "Team AppThreat <cloud@appthreat.com>"
+    }
+  }
+}
