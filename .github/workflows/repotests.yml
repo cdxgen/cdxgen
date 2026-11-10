@@ -538,6 +538,16 @@ jobs:
           FETCH_LICENSE=false bin/cdxgen.js -t js --no-recurse -o bomresults/bom-ts-evidence.json --evidence --usages-slices-file bomresults/ts-usages.slices.json repotests/shiftleft-ts-example
           jq -e 'any(.components[]; .name == "express" and ((.evidence.occurrences // []) | length) > 0)' bomresults/bom-ts-evidence.json
           jq -e '[(.objectSlices // [])[] | select(.fullName and .fullName != "<empty>")] | length >= 20' bomresults/ts-usages.slices.json
+          # astgen records the engine that wrote the JavaScript type maps in
+          # astgen_manifest.jsonl next to the ASTs atom cached under .chen/astgen
+          # in the scanned repository. Native type maps through the parsa binary
+          # are the default of atom-parsetools 2.0.0: assert the request reached
+          # astgen on every platform, and that the parsa engine ran on linux x64,
+          # the one platform here whose optional platform package installs.
+          jq -s -e 'any(.[]; .kind == "types" and .requested == "native")' repotests/shiftleft-ts-example/.chen/astgen/*/astgen_manifest.jsonl
+          if [ "$(uname -s)" = "Linux" ] && [ "$(uname -m)" = "x86_64" ]; then
+            jq -s -e 'any(.[]; .kind == "types" and .engine == "native" and ((.binary // "") | contains("@appthreat/parsa-linux-x64")))' repotests/shiftleft-ts-example/.chen/astgen/*/astgen_manifest.jsonl
+          fi
         shell: bash
       - name: repotests tracebom
         run: |

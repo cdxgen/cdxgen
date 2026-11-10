@@ -110,6 +110,19 @@ RUN set -e; \
     && grep -q "\[atom\] check native.*-> true" /tmp/atom-resolve.log \
     && rm -f /tmp/atom-resolve.log \
     && astgen --version \
+    # atom-parsetools 2.0.0 writes the JavaScript and TypeScript type maps with
+    # its parsa Go binary, shipped as the optional @appthreat/parsa-<os>-<cpu>
+    # platform package that deno installs alongside. Type maps fall back to
+    # TypeScript 6 wherever the binary is missing, so assert it landed and that
+    # astgen actually used it. Until deno's minimum dependency age policy (24
+    # hours by default) admits a freshly published atom-parsetools, the bare
+    # specifier here keeps resolving the previous release, which has no parsa
+    # package and fails this check.
+    && mkdir -p /tmp/astgen-smoke/src \
+    && printf 'export function greet(name: string): string {\n  return `hello ${name}`;\n}\n' > /tmp/astgen-smoke/src/index.ts \
+    && astgen -i /tmp/astgen-smoke -o /tmp/astgen-smoke-out \
+    && grep -q '"engine":"native"' /tmp/astgen-smoke-out/astgen_manifest.jsonl \
+    && rm -rf /tmp/astgen-smoke /tmp/astgen-smoke-out \
     && python${PYTHON_VERSION} --version \
     && python${PYTHON_VERSION} -m pip install --no-cache-dir --upgrade setuptools wheel pip virtualenv \
     && python${PYTHON_VERSION} -m pip install --no-cache-dir --upgrade pipenv poetry blint atom-tools uv --target /opt/pypi \
