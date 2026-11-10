@@ -1,0 +1,21 @@
+.github/workflows/repotests.yml
+  s_5cd029f45a1e60::t_997bdf9b5a4ff1 541-545
+ci/Dockerfile-deno
+  s_5cd029f45a1e60::t_df426883d26699 117
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "715733876237c43b30c81995d289b365e6c71b55",
+  "prompts": {},
+  "sessions": {
+    "s_5cd029f45a1e60": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "e079e2e8-a788-4e76-b1b7-d7aa050730b0",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
