@@ -37,7 +37,10 @@ RUN chmod a-w -R /opt
   `rbastgen --help && atom-tools --help`, run with the same `PATH` the published
   `cdxgen` stage exposes). The ruby images at 3.3 and below omit `rbastgen` from their
   smoke tests: atom's ruby frontend only runs on ruby 3.4.x and 4.0.x, so the binary
-  reports a missing runtime on the older images.
+  reports a missing runtime on the older images. The php and ruby smoke tests also run
+  `astgen --version` and look for the installed `@appthreat/parsa-linux-*` binary:
+  astgen writes the JavaScript and TypeScript type maps with that binary by default
+  (atom-parsetools 2.0.0), and a missing one would silently fall back to TypeScript 6.
 - [`common/install-sourcekitten.sh`](./common/install-sourcekitten.sh) — builds the pinned,
   sha256-verified SourceKitten release with the image's own Swift toolchain, installs
   only the binary to `/usr/local/bin/sourcekitten`, and checks that it can load SourceKit.

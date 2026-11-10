@@ -293,6 +293,50 @@ function Get-AtomPayloadKindForPackage {
   }
 }
 
+# See resolve_parsa_package_name in build-standalone.sh: atom-parsetools 2.0.0
+# ships parsa as six @appthreat/parsa-<os>-<cpu> packages with npm's own os and
+# cpu words and no libc variant. Returns $null for a target outside the six,
+# where astgen falls back to TypeScript 6 for types.
+function Resolve-ParsaPackageName {
+  $targetOs = if ($env:TARGET_OS) { $env:TARGET_OS } else { "windows" }
+  $targetArch = if ($env:TARGET_ARCH) { $env:TARGET_ARCH } else {
+    if ([System.Runtime.InteropServices.RuntimeInformation]::ProcessArchitecture -eq [System.Runtime.InteropServices.Architecture]::Arm64) { "arm64" } else { "amd64" }
+  }
+  $os = if ($targetOs -eq "windows") { "win32" } else { $targetOs }
+  $cpu = if ($targetArch -eq "amd64") { "x64" } else { $targetArch }
+  $packageName = "@appthreat/parsa-$os-$cpu"
+  $knownPackages = @(
+    "@appthreat/parsa-linux-x64",
+    "@appthreat/parsa-linux-arm64",
+    "@appthreat/parsa-darwin-x64",
+    "@appthreat/parsa-darwin-arm64",
+    "@appthreat/parsa-win32-x64",
+    "@appthreat/parsa-win32-arm64"
+  )
+  if ($packageName -notin $knownPackages) {
+    Write-Host "No parsa platform package for $os/$cpu; astgen falls back to TypeScript 6 there."
+    return $null
+  }
+  return $packageName
+}
+
+# See assert_parsa_payload_present in build-standalone.sh: a missing parsa
+# binary would not fail the build anywhere else, since astgen silently falls
+# back to TypeScript 6 in the shipped binary.
+function Assert-ParsaPayloadPresent {
+  param(
+    [Parameter(Mandatory = $true)]
+    [string]$StagingDir,
+    [Parameter(Mandatory = $true)]
+    [string]$PackageName
+  )
+  $payloadPath = Join-Path $StagingDir "node_modules/$PackageName/bin/parsa.exe"
+  if (-not (Test-Path $payloadPath)) {
+    throw "Standalone parsa payload missing: $payloadPath. astgen would fall back to TypeScript 6 in the shipped binary."
+  }
+  Write-Host "Standalone parsa payload present: $payloadPath."
+}
+
 function Assert-AtomPayloadPresent {
   param(
     [Parameter(Mandatory = $true)]
@@ -601,6 +645,11 @@ function Invoke-ProfilePruningAndPreflight {
       } else {
         Write-Host "No atom platform package for this target; keeping @appthreat/atom-jar."
       }
+      $fullParsaPkg = Resolve-ParsaPackageName
+      if ($fullParsaPkg) {
+        Assert-PackagePresent -StagingDir $StagingDir -PackageName $fullParsaPkg
+        Assert-ParsaPayloadPresent -StagingDir $StagingDir -PackageName $fullParsaPkg
+      }
     }
     "audit" {
       Assert-PackagePresent -StagingDir $StagingDir -PackageName "jsonata"
@@ -637,6 +686,11 @@ function Invoke-ProfilePruningAndPreflight {
       Assert-PackagePresent -StagingDir $StagingDir -PackageName $atomPkg
       Assert-AtomPayloadPresent -StagingDir $StagingDir -PackageName $atomPkg
       Remove-RedundantAtomJar -StagingDir $StagingDir -PackageName $atomPkg
+      $parsaPkg = Resolve-ParsaPackageName
+      if ($parsaPkg) {
+        Assert-PackagePresent -StagingDir $StagingDir -PackageName $parsaPkg
+        Assert-ParsaPayloadPresent -StagingDir $StagingDir -PackageName $parsaPkg
+      }
       Remove-PlatformPlugins -StagingDir $StagingDir
       Assert-PackageAbsent -StagingDir $StagingDir -PackageName "@cdxgen/cdx-hbom"
       Assert-PackageAbsent -StagingDir $StagingDir -PackageName "jsonata"

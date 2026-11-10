@@ -538,6 +538,11 @@ jobs:
           FETCH_LICENSE=false bin/cdxgen.js -t js --no-recurse -o bomresults/bom-ts-evidence.json --evidence --usages-slices-file bomresults/ts-usages.slices.json repotests/shiftleft-ts-example
           jq -e 'any(.components[]; .name == "express" and ((.evidence.occurrences // []) | length) > 0)' bomresults/bom-ts-evidence.json
           jq -e '[(.objectSlices // [])[] | select(.fullName and .fullName != "<empty>")] | length >= 20' bomresults/ts-usages.slices.json
+          # astgen appends a record to astgen_manifest.jsonl beside the ASTs that
+          # atom caches under .chen/astgen in the scanned repository, naming the
+          # engine that wrote the JavaScript type maps. Every runner in this
+          # matrix has a parsa platform package, so the engine must be native.
+          jq -s -e 'any(.[]; .kind == "types" and .engine == "native" and ((.binary // "") | test("parsa-(linux|darwin|win32)-(x64|arm64)")))' repotests/shiftleft-ts-example/.chen/astgen/*/astgen_manifest.jsonl
         shell: bash
       - name: repotests tracebom
         run: |

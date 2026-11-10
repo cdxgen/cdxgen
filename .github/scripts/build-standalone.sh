@@ -427,6 +427,69 @@ atom_payload_kind_for_package() {
   esac
 }
 
+# Resolve the parsa platform sub-package for the build target. atom-parsetools
+# 2.0.0 ships parsa, the Go binary behind its native JavaScript and TypeScript
+# type maps, as six @appthreat/parsa-<os>-<cpu> packages carried as its
+# optional dependencies. The names use npm's own os and cpu words (win32, not
+# windows; x64, not amd64) and there is no libc variant: the Linux packages
+# serve glibc and musl builds alike. Prints the package name, or exits 1 for a
+# target outside the six, where astgen falls back to TypeScript 6 for types.
+resolve_parsa_package_name() {
+  node --input-type=module <<'NODE'
+    const normalizeOs = (value) => {
+      const osValue = value || process.platform;
+      if (osValue === "win32" || osValue === "windows") return "win32";
+      return osValue;
+    };
+    const normalizeCpu = (value) => {
+      const archValue = value || process.arch;
+      if (archValue === "amd64") return "x64";
+      return archValue;
+    };
+    const targetOs = normalizeOs(process.env.TARGET_OS);
+    const targetCpu = normalizeCpu(process.env.TARGET_ARCH);
+    const packageName = `@appthreat/parsa-${targetOs}-${targetCpu}`;
+    const knownPackages = [
+      "@appthreat/parsa-linux-x64",
+      "@appthreat/parsa-linux-arm64",
+      "@appthreat/parsa-darwin-x64",
+      "@appthreat/parsa-darwin-arm64",
+      "@appthreat/parsa-win32-x64",
+      "@appthreat/parsa-win32-arm64",
+    ];
+    if (!knownPackages.includes(packageName)) {
+      console.error(
+        `No parsa platform package for ${targetOs}/${targetCpu}; astgen falls back to TypeScript 6 there.`,
+      );
+      process.exit(1);
+    }
+    console.log(packageName);
+NODE
+}
+
+# Assert that the parsa binary of the platform sub-package actually exists in
+# the staging tree and is executable, like assert_atom_payload_present does for
+# the atom payload. A missing package would not fail the build anywhere else:
+# astgen silently falls back to TypeScript 6 in the shipped binary.
+assert_parsa_payload_present() {
+  local staging_dir="$1"
+  local package_name="$2"
+  local exe_name="parsa"
+  if [[ "$(normalized_target_os)" == "windows" ]]; then
+    exe_name="parsa.exe"
+  fi
+  local payload_path="$staging_dir/node_modules/${package_name}/bin/${exe_name}"
+  if [[ ! -e "$payload_path" ]]; then
+    echo "Standalone parsa payload missing: $payload_path. astgen would fall back to TypeScript 6 in the shipped binary." >&2
+    exit 1
+  fi
+  if [[ "$(normalized_target_os)" != "windows" ]] && [[ ! -x "$payload_path" ]]; then
+    echo "Standalone parsa binary is not executable: $payload_path" >&2
+    exit 1
+  fi
+  echo "Standalone parsa payload present: $payload_path."
+}
+
 # Assert that the atom sub-package payload actually exists in the staging tree.
 # A payload-less dispatcher (the atom 3 failure mode under --no-optional) would
 # otherwise pass assert_package_present while failing at runtime. On POSIX native
@@ -799,6 +862,16 @@ apply_profile_pruning_and_preflight() {
       else
         echo "No atom platform package for this target; keeping @appthreat/atom-jar."
       fi
+      # The parsa payload makes the shipped binary's JavaScript and TypeScript
+      # type maps native; without it astgen quietly falls back to TypeScript 6.
+      # resolve_parsa_package_name logs the fallback itself for a target with
+      # no package.
+      local full_parsa_pkg=""
+      full_parsa_pkg="$(resolve_parsa_package_name)" || true
+      if [[ -n "$full_parsa_pkg" ]]; then
+        assert_package_present "$staging_dir" "$full_parsa_pkg"
+        assert_parsa_payload_present "$staging_dir" "$full_parsa_pkg"
+      fi
       ;;
     audit)
       assert_package_present "$staging_dir" jsonata
@@ -846,6 +919,15 @@ apply_profile_pruning_and_preflight() {
       assert_package_present "$staging_dir" "$atom_pkg"
       assert_atom_payload_present "$staging_dir" "$atom_pkg"
       remove_redundant_atom_jar "$staging_dir" "$atom_pkg"
+      # Same for the parsa payload of atom-parsetools. A target outside the six
+      # platform packages must not fail the build: astgen falls back to
+      # TypeScript 6 there, which resolve_parsa_package_name logs.
+      local parsa_pkg=""
+      parsa_pkg="$(resolve_parsa_package_name)" || true
+      if [[ -n "$parsa_pkg" ]]; then
+        assert_package_present "$staging_dir" "$parsa_pkg"
+        assert_parsa_payload_present "$staging_dir" "$parsa_pkg"
+      fi
       remove_platform_plugins "$staging_dir"
       assert_package_absent "$staging_dir" @cdxgen/cdx-hbom
       assert_package_absent "$staging_dir" jsonata

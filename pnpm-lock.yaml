@@ -270,8 +270,8 @@ importers:
         specifier: 3.2.1
         version: 3.2.1
       '@appthreat/atom-parsetools':
-        specifier: 1.10.6
-        version: 1.10.6
+        specifier: 2.0.0
+        version: 2.0.0
       '@bufbuild/protobuf':
         specifier: 2.16.0
         version: 2.16.0
@@ -372,8 +372,8 @@ packages:
     os: [linux]
     libc: [glibc]
 
-  '@appthreat/atom-parsetools@1.10.6':
-    resolution: {integrity: sha512-nYrXJAIMH/ryR14oPOmKfPCg4NyJnEvKCejVLCT05z3NlparsiOfrTqlEPlvch3cibVaaBVy/WIFwtR3jCes6A==, tarball: https://registry.npmjs.org/@appthreat/atom-parsetools/-/atom-parsetools-1.10.6.tgz}
+  '@appthreat/atom-parsetools@2.0.0':
+    resolution: {integrity: sha512-a66GsM9tqJ73mcwU2yw980bE3QcAuY5Y2QG2tkiY7YukfTsW0UXikfLYIHoBTLByIU78F6i2ielnqjIBAZsa/Q==, tarball: https://registry.npmjs.org/@appthreat/atom-parsetools/-/atom-parsetools-2.0.0.tgz}
     engines: {node: '>=22.0.0'}
     hasBin: true
 
@@ -391,6 +391,36 @@ packages:
     resolution: {integrity: sha512-ELgeM5n38kGL60SAO3cAWhT3+w2TbNYYJgY/a5Upue6fs39a2duWaG4szmNEoz39qpa0ff8NCRvkuH2JbbHuYw==, tarball: https://registry.npmjs.org/@appthreat/atom/-/atom-3.2.1.tgz}
     engines: {node: '>=18'}
     hasBin: true
+
+  '@appthreat/parsa-darwin-arm64@2.0.0':
+    resolution: {integrity: sha512-EKX75UGVMC3LwrCVs8RKFxQksmofyUmcr24UtI1WRSe+yjRXfXPXHfm7aE+ZJdRnlh2RtCQMnVf+3gEdmQh9Nw==, tarball: https://registry.npmjs.org/@appthreat/parsa-darwin-arm64/-/parsa-darwin-arm64-2.0.0.tgz}
+    cpu: [arm64]
+    os: [darwin]
+
+  '@appthreat/parsa-darwin-x64@2.0.0':
+    resolution: {integrity: sha512-mcWz3eDRbMl3ULJZANB6w5KKNd+riO3UHP1Y8TLKG1AiJiVBEkd/OKzoD7eZTaQM7lGfBS+eE7ODxGumScO06w==, tarball: https://registry.npmjs.org/@appthreat/parsa-darwin-x64/-/parsa-darwin-x64-2.0.0.tgz}
+    cpu: [x64]
+    os: [darwin]
+
+  '@appthreat/parsa-linux-arm64@2.0.0':
+    resolution: {integrity: sha512-DFsrqnz9UeFmUg6oBfi2OJQO4dqUk2aosnYeZtMU3jUfviugBYgJ5WQQ0pn2ULCpD0jGp+i/SIjQXJ3cgTmg3g==, tarball: https://registry.npmjs.org/@appthreat/parsa-linux-arm64/-/parsa-linux-arm64-2.0.0.tgz}
+    cpu: [arm64]
+    os: [linux]
+
+  '@appthreat/parsa-linux-x64@2.0.0':
+    resolution: {integrity: sha512-1u+Amxo1I8MVmncIQZWotWSD6xTkVzrhP7FeugFMQoEaMUtwiZPNkNwfFR8AY86kpTgaWbfhhTtZrXncMl11cA==, tarball: https://registry.npmjs.org/@appthreat/parsa-linux-x64/-/parsa-linux-x64-2.0.0.tgz}
+    cpu: [x64]
+    os: [linux]
+
+  '@appthreat/parsa-win32-arm64@2.0.0':
+    resolution: {integrity: sha512-k5NB4P7emiGwfQl+84lZhNZkZc/qUf4Qu53dCtFK9pr/WPIT4vyy3SiIRauj3xrSgCZpYTXsRw7NjPpk8d/pCA==, tarball: https://registry.npmjs.org/@appthreat/parsa-win32-arm64/-/parsa-win32-arm64-2.0.0.tgz}
+    cpu: [arm64]
+    os: [win32]
+
+  '@appthreat/parsa-win32-x64@2.0.0':
+    resolution: {integrity: sha512-274ThHWS1gIE8UjWDsiAgeKnRabjJu5H+V8FXeSz0pLHdz/O30NDCIV29YYCVhN41TTGwDDd4GkU/yEUZdBYDg==, tarball: https://registry.npmjs.org/@appthreat/parsa-win32-x64/-/parsa-win32-x64-2.0.0.tgz}
+    cpu: [x64]
+    os: [win32]
 
   '@babel/code-frame@8.0.6':
     resolution: {integrity: sha512-uMHhvmDmwFiLuiozaoRYTZHqMFuu3fem/X9JY78lohAuLoh8LSGGC8JqUzo2cVuBsBxkjMZNk56CE7ock8Xxkw==, tarball: https://registry.npmjs.org/@babel/code-frame/-/code-frame-8.0.6.tgz}
@@ -417,6 +447,11 @@ packages:
     engines: {node: ^22.18.0 || >=24.11.0}
     hasBin: true
 
+  '@babel/parser@8.1.0':
+    resolution: {integrity: sha512-fpqZYAC+Tthr19JbEKxXhCGutvfm/+roMe+ULrgUKI+GVyzkQiTMTSheORcWIAzW8T3Oo3W5UavWSvAWmsp7fA==, tarball: https://registry.npmjs.org/@babel/parser/-/parser-8.1.0.tgz}
+    engines: {node: ^22.18.0 || >=24.11.0}
+    hasBin: true
+
   '@babel/template@8.0.0':
     resolution: {integrity: sha512-eAD0QW/AlbamBbw0FeGiwasbCVPq5ncW0HNVyLP3B9czqLyh4gvw+5JTSNt6le9+ziAU7mqDZsKTHf3jTb4chQ==, tarball: https://registry.npmjs.org/@babel/template/-/template-8.0.0.tgz}
     engines: {node: ^22.18.0 || >=24.11.0}
@@ -427,6 +462,10 @@ packages:
 
   '@babel/types@8.0.10':
     resolution: {integrity: sha512-KV8Y+teoRsmXeEPS4sCJY1kwV+hcPzHP1qQqgCxrjKOehLdBaxpsFBfoJ8MXWFV80y6Jw56+TM95wR0Per8dYw==, tarball: https://registry.npmjs.org/@babel/types/-/types-8.0.10.tgz}
+    engines: {node: ^22.18.0 || >=24.11.0}
+
+  '@babel/types@8.1.0':
+    resolution: {integrity: sha512-8V8aSTDx012YPmDQF30vrokyxVFdRAU2YBS2VzrnfLAGkP8floVnjckwgFcD0Jrvf6GWMSRdCrYVsk3tyMwZRg==, tarball: https://registry.npmjs.org/@babel/types/-/types-8.1.0.tgz}
     engines: {node: ^22.18.0 || >=24.11.0}
 
   '@biomejs/biome@2.6.4':
@@ -1286,8 +1325,8 @@ packages:
     resolution: {integrity: sha512-yDPMNjp4WyfYBkHnjIRLfca1i6KMyGCtsVgoKe/z1+6vukgaENdgGBZt+ZmKPc4gavvEZ5OgHfHdrazhgNyG7w==, tarball: https://registry.npmjs.org/strip-ansi/-/strip-ansi-7.2.0.tgz}
     engines: {node: '>=12'}
 
-  svelte@5.57.0:
-    resolution: {integrity: sha512-NdbDn7fl4be1ViUG0oq/lvG6OZy3oENolV2ONjiqqsfVoeAfzaQAKUcEX3MrQod/Bebv1PgwET9rfXhgn9s4Kg==, tarball: https://registry.npmjs.org/svelte/-/svelte-5.57.0.tgz}
+  svelte@5.57.3:
+    resolution: {integrity: sha512-5mAftM3SoDV9X0zdF386F9p2pv8iKOwi/KfBS1XnBAkVCKFzVOLHUoa8iGWAt4buoicLmyWVRpuuD5wplXOQsg==, tarball: https://registry.npmjs.org/svelte/-/svelte-5.57.3.tgz}
     engines: {node: '>=18'}
 
   tar@7.5.22:
@@ -1403,13 +1442,20 @@ snapshots:
   '@appthreat/atom-linux-arm64@3.2.1':
     optional: true
 
-  '@appthreat/atom-parsetools@1.10.6':
+  '@appthreat/atom-parsetools@2.0.0':
     dependencies:
       '@appthreat/atom-common': 1.1.0
-      '@babel/parser': 8.0.10
+      '@babel/parser': 8.1.0
       '@typescript/typescript6': 6.0.2
       hermes-parser: 0.37.0
-      svelte: 5.57.0
+      svelte: 5.57.3
+    optionalDependencies:
+      '@appthreat/parsa-darwin-arm64': 2.0.0
+      '@appthreat/parsa-darwin-x64': 2.0.0
+      '@appthreat/parsa-linux-arm64': 2.0.0
+      '@appthreat/parsa-linux-x64': 2.0.0
+      '@appthreat/parsa-win32-arm64': 2.0.0
+      '@appthreat/parsa-win32-x64': 2.0.0
     transitivePeerDependencies:
       - '@typescript-eslint/types'
     optional: true
@@ -1431,6 +1477,24 @@ snapshots:
       '@appthreat/atom-linux-arm64-musl': 3.2.1
       '@appthreat/atom-windows-amd64': 3.2.1
       '@appthreat/atom-windows-arm64': 3.2.1
+    optional: true
+
+  '@appthreat/parsa-darwin-arm64@2.0.0':
+    optional: true
+
+  '@appthreat/parsa-darwin-x64@2.0.0':
+    optional: true
+
+  '@appthreat/parsa-linux-arm64@2.0.0':
+    optional: true
+
+  '@appthreat/parsa-linux-x64@2.0.0':
+    optional: true
+
+  '@appthreat/parsa-win32-arm64@2.0.0':
+    optional: true
+
+  '@appthreat/parsa-win32-x64@2.0.0':
     optional: true
 
   '@babel/code-frame@8.0.6':
@@ -1457,6 +1521,11 @@ snapshots:
     dependencies:
       '@babel/types': 8.0.10
 
+  '@babel/parser@8.1.0':
+    dependencies:
+      '@babel/types': 8.1.0
+    optional: true
+
   '@babel/template@8.0.0':
     dependencies:
       '@babel/code-frame': 8.0.6
@@ -1477,6 +1546,12 @@ snapshots:
     dependencies:
       '@babel/helper-string-parser': 8.0.8
       '@babel/helper-validator-identifier': 8.0.6
+
+  '@babel/types@8.1.0':
+    dependencies:
+      '@babel/helper-string-parser': 8.0.8
+      '@babel/helper-validator-identifier': 8.0.6
+    optional: true
 
   '@biomejs/biome@2.6.4':
     optionalDependencies:
@@ -2257,7 +2332,7 @@ snapshots:
     dependencies:
       ansi-regex: 6.3.0
 
-  svelte@5.57.0:
+  svelte@5.57.3:
     dependencies:
       '@jridgewell/remapping': 2.3.5
       '@jridgewell/sourcemap-codec': 1.6.0

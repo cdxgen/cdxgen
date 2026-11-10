@@ -107,6 +107,16 @@ RUN set -e; \
     && grep -q "\[atom\] check native.*-> true" /tmp/atom-resolve.log \
     && rm -f /tmp/atom-resolve.log \
     && astgen --version \
+    # atom-parsetools 2.0.0 writes the JavaScript and TypeScript type maps with
+    # its parsa Go binary, shipped as the optional @appthreat/parsa-<os>-<cpu>
+    # platform package that bun installs alongside. Type maps fall back to
+    # TypeScript 6 wherever the binary is missing, so assert it landed and that
+    # astgen actually used it.
+    && mkdir -p /tmp/astgen-smoke/src \
+    && printf 'export function greet(name: string): string {\n  return `hello ${name}`;\n}\n' > /tmp/astgen-smoke/src/index.ts \
+    && astgen -i /tmp/astgen-smoke -o /tmp/astgen-smoke-out \
+    && grep -q '"engine":"native"' /tmp/astgen-smoke-out/astgen_manifest.jsonl \
+    && rm -rf /tmp/astgen-smoke /tmp/astgen-smoke-out \
     && curl -s "https://get.sdkman.io" | bash \
     && echo -e "sdkman_auto_answer=true\nsdkman_selfupdate_feature=false\nsdkman_auto_env=true" >> $HOME/.sdkman/etc/config \
     && source "$HOME/.sdkman/bin/sdkman-init.sh" \

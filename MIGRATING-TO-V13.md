@@ -516,6 +516,18 @@ already declares and places on `PATH`. Plain `npm i -g @cdxgen/cdxgen` installs
 it automatically. If you previously relied on the old jar distribution bundling
 these frontends, ensure `@appthreat/atom-parsetools` is installed.
 
+From atom-parsetools 2.0.0, `astgen` writes the JavaScript and TypeScript type
+maps with its `parsa` binary by default. The binary type checks with TypeScript
+7's checker and is about four times faster than the TypeScript 6 path it
+replaces. It ships as one of six `@appthreat/parsa-<os>-<cpu>` platform packages
+listed as optional dependencies, so a plain install brings the one matching the
+host, and an install with `--omit=optional` (or pnpm's `--no-optional`) keeps
+the TypeScript 6 fallback. Whatever engine ran, astgen records it in
+`astgen_manifest.jsonl` beside its output. astgen's own settings, including
+`ASTGEN_TYPES`, `ASTGEN_NATIVE_BIN`, and `ASTGEN_NATIVE_MEMORY_MB`, are
+documented in [atom-parsetools' ASTGEN.md](https://github.com/AppThreat/atom-parsetools/blob/main/docs/ASTGEN.md);
+cdxgen neither reads nor sets them.
+
 ### PHP `php-parse` handling
 
 The atom 3 dispatcher clobbers `PHP_PARSER_BIN` with a path that does not exist

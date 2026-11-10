@@ -63,7 +63,7 @@ ARG PIP_CONFIG
 ARG RUBYGEMS_REPO
 
 ENV NODE_COMPILE_CACHE="/opt/cdxgen-node-cache"
-ENV CDXGEN_SMOKE_TESTS="atom-tools --help"
+ENV CDXGEN_SMOKE_TESTS="astgen --version && find /opt/cdxgen/node_modules -path '*@appthreat/parsa-linux-*/bin/parsa' -type f | grep -q parsa && atom-tools --help"
 
 COPY . /opt/cdxgen
 COPY ci/images/common/ /tmp/common/
