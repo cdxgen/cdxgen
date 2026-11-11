@@ -211,9 +211,8 @@ run_atom_smoke_test() {
   fi
 
   # Each binary's run starts without the AST cache (.chen) the previous
-  # binary's run left in the fixture: a replayed cached unit carries no
-  # names or positions, which leaves the deep C/C++ scans of cbom and saasbom
-  # with nothing to report.
+  # binary's run left in the fixture, so every binary is checked parsing the
+  # sources itself rather than replaying another binary's cache.
   rm -rf "$ATOM_SMOKE_FIXTURE/.chen"
   rm -f "$smoke_out"
   if ! "./$output" -t c "$ATOM_SMOKE_FIXTURE" -o "$smoke_out" --fail-on-error; then

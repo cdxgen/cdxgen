@@ -642,14 +642,13 @@ jobs:
       - name: repotests Vulnerable-Web-Application
         run: |
           bin/cdxgen.js -t php repotests/Vulnerable-Web-Application -o bomresults/bom-php-1.json --fail-on-error
-          # The research profile slices the whole tree, vendor/ included (about
-          # 11,800 PHP files). atom batches PHP through phpastgen and
-          # atom-parsetools parses vendor trees a chunk of files per
-          # interpreter, but both still drive a php interpreter, so php is the
-          # only runner requirement worth checking.
+          # The research profile slices a tree of about 11,800 PHP files, all
+          # but 28 of them under the checked-in vendor/. atom treats vendor/ as
+          # dependency code, so the usages slice holds only the project's own
+          # files and none from vendor/; the run needs php on the runner.
           if command -v php > /dev/null; then
             bin/cdxgen.js -t php --no-recurse repotests/Vulnerable-Web-Application -o bomresults/bom-php-2.json --fail-on-error --profile research --usages-slices-file bomresults/php-usages.slices.json
-            jq -e '[(.objectSlices // [])[] | select((.fileName // "") | test("(^|[/\\\\])vendor[/\\\\]"))] | length > 1000' bomresults/php-usages.slices.json
+            jq -e '[(.objectSlices // [])[] | (.fileName // "")] | length > 0 and all(test("(^|[/\\\\])vendor[/\\\\]") | not)' bomresults/php-usages.slices.json
           else
             echo "Skipping the php research profile: it needs php on the runner."
           fi
