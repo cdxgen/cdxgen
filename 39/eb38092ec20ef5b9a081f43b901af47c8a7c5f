@@ -1,0 +1,37 @@
+ci/images/Dockerfile.dotnet8
+  s_513818695e7d85::t_8ff8c312b7df63 2
+ci/images/ubuntu/Dockerfile.dotnet10
+  s_513818695e7d85::t_e73b30528bd1f6 2
+ci/images/opensuse/Dockerfile.rolling
+  s_513818695e7d85::t_8bd235ec677055 4
+ci/images/ubuntu/Dockerfile.dotnet11
+  s_513818695e7d85::t_3f9830629d25f0 2
+ci/images/alpine/Dockerfile.dotnet9
+  s_513818695e7d85::t_eb8e96b2df4277 2
+ci/images/debian/Dockerfile.dotnet8
+  s_513818695e7d85::t_2be010dd340075 2
+ci/images/alpine/Dockerfile.dotnet11
+  s_513818695e7d85::t_e63ecb0bb38816 2
+ci/images/alpine/Dockerfile.dotnet10
+  s_513818695e7d85::t_5e5858347dd161 2
+ci/images/debian/Dockerfile.dotnet9
+  s_513818695e7d85::t_65deb886f7c04e 2
+ci/images/Dockerfile.dotnet9
+  s_513818695e7d85::t_89ea8f291177a0 2
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "39eb38092ec20ef5b9a081f43b901af47c8a7c5f",
+  "prompts": {},
+  "sessions": {
+    "s_513818695e7d85": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_46acb65f-1e62-417d-891f-878fa0bfe62e",
+        "model": "unknown"
+      },
+      "human_author": "Team AppThreat <cloud@appthreat.com>"
+    }
+  }
+}
