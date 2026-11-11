@@ -1,0 +1,28 @@
+lib/evinser/callsites.poku.js
+  s_e0fb6d4d5e084d::t_9d0f05e0f05734 867-892
+lib/evinser/evinser.js
+  s_e0fb6d4d5e084d::t_c6d5a4daca6c04 4244,4261-4263
+  s_e0fb6d4d5e084d::t_eda86769763092 1952-1965,2052-2068
+  s_e0fb6d4d5e084d::t_9580dd6acfaeff 3921-3932,3935-3937,3940-3954,3986-4016,4029,4032,4037-4043,4045-4046,4048-4050,4052,4054
+  s_e0fb6d4d5e084d::t_689dd4c1e97376 4149-4153,4170,4227,4229-4243,4273,4282-4284,4286-4290,4346
+types/lib/evinser/evinser.d.ts
+  s_e0fb6d4d5e084d::t_36add55f8c25ea 366-382,396-413
+types/lib/evinser/evinser.d.ts.map
+  s_e0fb6d4d5e084d::t_618f8fa469d78a 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "e6a19baed6dffe7228bc634edd4c850179f00443",
+  "prompts": {},
+  "sessions": {
+    "s_e0fb6d4d5e084d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "06e4857c-fb8c-4fa8-b823-49c581ab0978",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}

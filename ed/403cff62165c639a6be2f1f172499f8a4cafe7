@@ -1,0 +1,40 @@
+lib/evinser/evinser.js
+  s_b73dedb11985a0::t_a29eea7c93c8f6 3991,3998-4002,4004,4007
+  s_b73dedb11985a0::t_3581921f8a707b 4199-4203
+  s_b73dedb11985a0::t_b5e459be446445 4011,4029,4031,4033-4040
+  s_b73dedb11985a0::t_0bcd79a7f5b139 4226
+  s_b73dedb11985a0::t_619e3d565c3979 4155-4184
+  s_b73dedb11985a0::t_9313dbd6e321b4 4227-4230
+  s_b73dedb11985a0::t_73dd62bccbb582 4048,4068-4075
+lib/evinser/evinser.poku.js
+  s_b73dedb11985a0::t_9313dbd6e321b4 1999-2000,2069,2071
+docs/EVINSE.md
+  s_b73dedb11985a0::t_f4d5b4ba72eb50 70
+  s_b73dedb11985a0::t_1b4b5e4fd3123e 105-117
+lib/evinser/callsites.poku.js
+  s_b73dedb11985a0::t_0e12cf64b3447a 739-765,769-779,792-803,814-816
+  s_b73dedb11985a0::t_669a74141b0aed 267-268
+  s_b73dedb11985a0::t_52ad14067b1c84 766-768,804-805
+  s_b73dedb11985a0::t_9313dbd6e321b4 780-791,806-813
+  s_b73dedb11985a0::t_43c3e11f994b32 256-261,263-265
+test/data/evinse-python-repotest/requirements.txt
+  s_b73dedb11985a0::t_6d7372f11319ab 1
+test/data/evinse-python-repotest/app.py
+  s_b73dedb11985a0::t_8850eb7d13036f 4-5,19-23
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "ed403cff62165c639a6be2f1f172499f8a4cafe7",
+  "prompts": {},
+  "sessions": {
+    "s_b73dedb11985a0": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_bfff09a5-26c7-443a-99a0-c1d6c8b6f60e",
+        "model": "unknown"
+      },
+      "human_author": null
+    }
+  }
+}

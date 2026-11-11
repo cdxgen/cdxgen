@@ -1,0 +1,27 @@
+types/lib/evinser/evinser.d.ts
+  s_b73dedb11985a0::t_9606fbab1408ab 164,266,290,312,339,349,366-368,610-642
+.github/workflows/repotests.yml
+  s_b73dedb11985a0::t_f4f704dbc13a41 1889-1915
+types/lib/inventory/atomUtils.d.ts
+  s_b73dedb11985a0::t_9606fbab1408ab 53-58,94-105,110-113
+types/lib/evinser/evinser.d.ts.map
+  s_b73dedb11985a0::t_e909e2be3df45c 1
+types/lib/inventory/atomUtils.d.ts.map
+  s_b73dedb11985a0::t_77710bd036ffd6 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "f37092b101b4db3369e6c95d2551ba0ea00bbbb7",
+  "prompts": {},
+  "sessions": {
+    "s_b73dedb11985a0": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_bfff09a5-26c7-443a-99a0-c1d6c8b6f60e",
+        "model": "unknown"
+      },
+      "human_author": "Team AppThreat <cloud@appthreat.com>"
+    }
+  }
+}
