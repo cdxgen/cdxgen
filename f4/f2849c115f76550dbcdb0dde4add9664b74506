@@ -1,0 +1,30 @@
+ci/Dockerfile
+  s_45f23de313285d::t_cf71da429136a7 156-162
+.github/workflows/repotests.yml
+  s_45f23de313285d::t_463dad3064c9b8 477
+ci/Dockerfile-bun
+  s_45f23de313285d::t_afeae644c42626 170-176
+ci/Dockerfile-deno
+  s_45f23de313285d::t_85d17e2255ad38 184-190
+ci/images/common/install-dosai.sh
+  s_45f23de313285d::t_97ca95b5e84911 48,52,56,60
+  s_45f23de313285d::t_e526a6346c17a4 22
+  s_45f23de313285d::t_75eb67df0471d5 13
+  s_45f23de313285d::t_7b358798b2a7fc 30
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "f4f2849c115f76550dbcdb0dde4add9664b74506",
+  "prompts": {},
+  "sessions": {
+    "s_45f23de313285d": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_3b536a2c-32ea-41f4-89d9-937039b83424",
+        "model": "unknown"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
