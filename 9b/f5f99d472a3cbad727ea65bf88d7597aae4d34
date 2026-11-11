@@ -1,0 +1,19 @@
+types/lib/inventory/certificates.d.ts.map
+  s_e0fb6d4d5e084d::t_6e6cf484979b33 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "9bf5f99d472a3cbad727ea65bf88d7597aae4d34",
+  "prompts": {},
+  "sessions": {
+    "s_e0fb6d4d5e084d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "06e4857c-fb8c-4fa8-b823-49c581ab0978",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
