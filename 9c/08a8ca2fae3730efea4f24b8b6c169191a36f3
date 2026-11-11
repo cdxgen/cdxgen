@@ -1,0 +1,19 @@
+.github/workflows/repotests.yml
+  s_e0fb6d4d5e084d::t_4c1a2f33fb4fd6 1895-1896,1898-1903
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "9c08a8ca2fae3730efea4f24b8b6c169191a36f3",
+  "prompts": {},
+  "sessions": {
+    "s_e0fb6d4d5e084d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "06e4857c-fb8c-4fa8-b823-49c581ab0978",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
