@@ -97,7 +97,7 @@ RUN set -e; \
     # Install atom and the atom-parsetools commands (astgen, phpastgen,
     # rbastgen, scalasem) globally so `cdxgen --profile research` and `--deep`
     # (which rely on atom via evinse) work inside the bun image.
-    # atom 3 ships a dispatcher plus per-platform optional sub-packages; assert
+    # atom ships a dispatcher plus per-platform optional sub-packages; assert
     # the resolver actually finds the native payload rather than silently
     # falling back to the jar kind. If bun fails to install the libc-matched
     # sub-package, add it explicitly, e.g.

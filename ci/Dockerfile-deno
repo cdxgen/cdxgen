@@ -102,7 +102,7 @@ RUN set -e; \
     && deno install -g --allow-read --allow-env --allow-run --allow-sys=uid,systemMemoryInfo,gid,homedir --allow-write -n phpastgen "npm:@appthreat/atom-parsetools/phpastgen" \
     && deno install -g --allow-read --allow-env --allow-run --allow-sys=uid,systemMemoryInfo,gid,homedir --allow-write -n rbastgen "npm:@appthreat/atom-parsetools/rbastgen" \
     && deno install -g --allow-read --allow-env --allow-run --allow-sys=uid,systemMemoryInfo,gid,homedir --allow-write -n scalasem "npm:@appthreat/atom-parsetools/scalasem" \
-    # atom 3 ships a dispatcher plus per-platform optional sub-packages; assert
+    # atom ships a dispatcher plus per-platform optional sub-packages; assert
     # the resolver finds the native payload rather than silently falling back to
     # the jar kind. If deno does not install the libc-matched sub-package, add it
     # explicitly, e.g. deno install -g -n atom-linux npm:@appthreat/atom-linux-amd64

@@ -267,8 +267,8 @@ importers:
         version: 7.0.2
     optionalDependencies:
       '@appthreat/atom':
-        specifier: 3.2.1
-        version: 3.2.1
+        specifier: 4.0.0
+        version: 4.0.0
       '@appthreat/atom-parsetools':
         specifier: 2.0.0
         version: 2.0.0
@@ -335,39 +335,39 @@ packages:
   '@appthreat/atom-common@1.1.0':
     resolution: {integrity: sha512-vGZpJdy9e0l83o8XwDAsQUDpkMVzR4DLb7mbi5npu8Nz/R+2m5oyHlpBGuLYBKm5+KkjTInXP9eNTcMa0Mn3Uw==, tarball: https://registry.npmjs.org/@appthreat/atom-common/-/atom-common-1.1.0.tgz}
 
-  '@appthreat/atom-darwin-amd64@3.2.1':
-    resolution: {integrity: sha512-M9gmoeKczUi5agXP9TN/SCrrr0p/uMSZ15bwz3zL80OQcwzCp6db7OJ6Zl15sx8E0stUXGFD1uS4yYtUjzaipQ==, tarball: https://registry.npmjs.org/@appthreat/atom-darwin-amd64/-/atom-darwin-amd64-3.2.1.tgz}
+  '@appthreat/atom-darwin-amd64@4.0.0':
+    resolution: {integrity: sha512-8zQiyp2J8ZFHssSFzIdGcAZw9K6sQhdAd00K8LYVPrSystJFMCmfiVNhg6uECIuhIcx3PIS0sOT4sf+x5usJLg==, tarball: https://registry.npmjs.org/@appthreat/atom-darwin-amd64/-/atom-darwin-amd64-4.0.0.tgz}
     cpu: [x64]
     os: [darwin]
 
-  '@appthreat/atom-darwin-arm64@3.2.1':
-    resolution: {integrity: sha512-0+A/eKXfWbM57oIheAfx0FCqPfFKwkZbbDqJ9WiflvcApKoK9GyTP/VOCSNDUb1fiM0HiDIsM+0PscHNeCcI+Q==, tarball: https://registry.npmjs.org/@appthreat/atom-darwin-arm64/-/atom-darwin-arm64-3.2.1.tgz}
+  '@appthreat/atom-darwin-arm64@4.0.0':
+    resolution: {integrity: sha512-tZ0rqyX1caoYfs08C3KvT0ghwgdDx7sUcEEfBdU/touT3sYjvopO6q7JyxhASADDy+vCGVjzEO31drKUlqoqQg==, tarball: https://registry.npmjs.org/@appthreat/atom-darwin-arm64/-/atom-darwin-arm64-4.0.0.tgz}
     cpu: [arm64]
     os: [darwin]
 
-  '@appthreat/atom-jar@3.2.1':
-    resolution: {integrity: sha512-6pxqirXCHUwkyFerHRwqJnqyMHA2fd9uq848SmYXGWOpLNuK62Ivb4PIqgy425tRl/khGDnpIcFwDoO4a9Dqig==, tarball: https://registry.npmjs.org/@appthreat/atom-jar/-/atom-jar-3.2.1.tgz}
+  '@appthreat/atom-jar@4.0.0':
+    resolution: {integrity: sha512-CoSs5FRshwJsUZztHNSbKC3bgUhEcGXR/W3Jcy36AlP6XaAGiQpPvnageqqiys5K5F9MURmhmzGpLQa90nWweQ==, tarball: https://registry.npmjs.org/@appthreat/atom-jar/-/atom-jar-4.0.0.tgz}
 
-  '@appthreat/atom-linux-amd64-musl@3.2.1':
-    resolution: {integrity: sha512-zx023wggDG0ctCTitzWcB9V+dDhA6HKfiqFZ0S1TmLy56PM+j1JskPfiNCxHFQJJoB39IXqsXvSiyjCEd2+F3A==, tarball: https://registry.npmjs.org/@appthreat/atom-linux-amd64-musl/-/atom-linux-amd64-musl-3.2.1.tgz}
+  '@appthreat/atom-linux-amd64-musl@4.0.0':
+    resolution: {integrity: sha512-TSkCtrjYdLPdR3KQjGxj5g8/MzC78Yb/iWYJ378R9oLDgGiikHtCw+2NespFyXovoCE8IXxHhD4LccXOWGAa9A==, tarball: https://registry.npmjs.org/@appthreat/atom-linux-amd64-musl/-/atom-linux-amd64-musl-4.0.0.tgz}
     cpu: [x64]
     os: [linux]
     libc: [musl]
 
-  '@appthreat/atom-linux-amd64@3.2.1':
-    resolution: {integrity: sha512-7I0h93/O6+G8+OOJswQsNuDEIH/vhNrNSjGfd4tr5mOVqEk2fmHy6BrzqlrcOIxGK+u4NCecc9mTTtamXtM0Vw==, tarball: https://registry.npmjs.org/@appthreat/atom-linux-amd64/-/atom-linux-amd64-3.2.1.tgz}
+  '@appthreat/atom-linux-amd64@4.0.0':
+    resolution: {integrity: sha512-JPqpnq5NrB2OsfDlDuucmBSjFPTlIRAKF2u+bTJ7WMPvYsOy0ueuzR0Z8at2tYoBkyeRgBDvth3tWeQfo12I3g==, tarball: https://registry.npmjs.org/@appthreat/atom-linux-amd64/-/atom-linux-amd64-4.0.0.tgz}
     cpu: [x64]
     os: [linux]
     libc: [glibc]
 
-  '@appthreat/atom-linux-arm64-musl@3.2.1':
-    resolution: {integrity: sha512-fjyXoRdgEekkxBAm0avo+h8X7bEPXIYJjL8Tcvji7ch93jYCM3kIGGpqhRcMKZNPYp1TmR2JEemeEtjXp2TSGg==, tarball: https://registry.npmjs.org/@appthreat/atom-linux-arm64-musl/-/atom-linux-arm64-musl-3.2.1.tgz}
+  '@appthreat/atom-linux-arm64-musl@4.0.0':
+    resolution: {integrity: sha512-SAKdFmlE7AGWY60RrEjpaB1pHWFxdqHQfk9mLURKBwW9JA42I4f9uS0yf9eAOaFGSqNTNUTa3nZt2w37PIP4IA==, tarball: https://registry.npmjs.org/@appthreat/atom-linux-arm64-musl/-/atom-linux-arm64-musl-4.0.0.tgz}
     cpu: [arm64]
     os: [linux]
     libc: [musl]
 
-  '@appthreat/atom-linux-arm64@3.2.1':
-    resolution: {integrity: sha512-iZN4lhe9PbAccsu6fQtZY3Vv2Qgw6j+4Iq5ok/SuwhOeTlfNHt9VgcAiBADIHhAEUjB+Xvvcds9PuRXxshW1Og==, tarball: https://registry.npmjs.org/@appthreat/atom-linux-arm64/-/atom-linux-arm64-3.2.1.tgz}
+  '@appthreat/atom-linux-arm64@4.0.0':
+    resolution: {integrity: sha512-c/CycbMG3Am3n8VGEUul3LUbr9CqtDfdr4hsPT8bT9VtBAT/fQzDWowU/63UPF8qfiUCSC+cdL0QqqF0iREFbA==, tarball: https://registry.npmjs.org/@appthreat/atom-linux-arm64/-/atom-linux-arm64-4.0.0.tgz}
     cpu: [arm64]
     os: [linux]
     libc: [glibc]
@@ -377,18 +377,18 @@ packages:
     engines: {node: '>=22.0.0'}
     hasBin: true
 
-  '@appthreat/atom-windows-amd64@3.2.1':
-    resolution: {integrity: sha512-P21F2/Qlfm3o1rrKYm9hMwh/88s8bhRp/BKZ7Gb28bsnl92O8KIJTAWnU5WMG54IvjZIZGB1e2do1TVBpZnQMQ==, tarball: https://registry.npmjs.org/@appthreat/atom-windows-amd64/-/atom-windows-amd64-3.2.1.tgz}
+  '@appthreat/atom-windows-amd64@4.0.0':
+    resolution: {integrity: sha512-EfqHEKi1G1aO5UfVvlESkROos0Bi9jjuxY6F7ZipDrJ1VzjKMN5Z5pzTs0SiCMkYYAU6JLvZw2UslTDgRqfdXg==, tarball: https://registry.npmjs.org/@appthreat/atom-windows-amd64/-/atom-windows-amd64-4.0.0.tgz}
     cpu: [x64]
     os: [win32]
 
-  '@appthreat/atom-windows-arm64@3.2.1':
-    resolution: {integrity: sha512-q+7SyOY3l4x26+WpffEwJGlbeU0BZ+gPDLkl6NXGVivJlMcbo5t9hFUxM1QpDJv6N9w5+EgmoTiLCD6Ajy0toA==, tarball: https://registry.npmjs.org/@appthreat/atom-windows-arm64/-/atom-windows-arm64-3.2.1.tgz}
+  '@appthreat/atom-windows-arm64@4.0.0':
+    resolution: {integrity: sha512-YYPc/g9THiDBz5PSl09Ftwa8Ukdh8LGg2L/6c7aah9puze6udZoHcU48n6IL9gcrdmCsWs9qN2wbF7O7xewEag==, tarball: https://registry.npmjs.org/@appthreat/atom-windows-arm64/-/atom-windows-arm64-4.0.0.tgz}
     cpu: [arm64]
     os: [win32]
 
-  '@appthreat/atom@3.2.1':
-    resolution: {integrity: sha512-ELgeM5n38kGL60SAO3cAWhT3+w2TbNYYJgY/a5Upue6fs39a2duWaG4szmNEoz39qpa0ff8NCRvkuH2JbbHuYw==, tarball: https://registry.npmjs.org/@appthreat/atom/-/atom-3.2.1.tgz}
+  '@appthreat/atom@4.0.0':
+    resolution: {integrity: sha512-HM05bymzGE+7WdDaUWlzPi5zOy6Out4aSBXpUoa2GLeXtvX3ogI6uiMIVzPYHH/nNEZ0oEjZh8HYlfXa5mPLFA==, tarball: https://registry.npmjs.org/@appthreat/atom/-/atom-4.0.0.tgz}
     engines: {node: '>=18'}
     hasBin: true
 
@@ -1421,25 +1421,25 @@ snapshots:
   '@appthreat/atom-common@1.1.0':
     optional: true
 
-  '@appthreat/atom-darwin-amd64@3.2.1':
+  '@appthreat/atom-darwin-amd64@4.0.0':
     optional: true
 
-  '@appthreat/atom-darwin-arm64@3.2.1':
+  '@appthreat/atom-darwin-arm64@4.0.0':
     optional: true
 
-  '@appthreat/atom-jar@3.2.1':
+  '@appthreat/atom-jar@4.0.0':
     optional: true
 
-  '@appthreat/atom-linux-amd64-musl@3.2.1':
+  '@appthreat/atom-linux-amd64-musl@4.0.0':
     optional: true
 
-  '@appthreat/atom-linux-amd64@3.2.1':
+  '@appthreat/atom-linux-amd64@4.0.0':
     optional: true
 
-  '@appthreat/atom-linux-arm64-musl@3.2.1':
+  '@appthreat/atom-linux-arm64-musl@4.0.0':
     optional: true
 
-  '@appthreat/atom-linux-arm64@3.2.1':
+  '@appthreat/atom-linux-arm64@4.0.0':
     optional: true
 
   '@appthreat/atom-parsetools@2.0.0':
@@ -1460,23 +1460,23 @@ snapshots:
       - '@typescript-eslint/types'
     optional: true
 
-  '@appthreat/atom-windows-amd64@3.2.1':
+  '@appthreat/atom-windows-amd64@4.0.0':
     optional: true
 
-  '@appthreat/atom-windows-arm64@3.2.1':
+  '@appthreat/atom-windows-arm64@4.0.0':
     optional: true
 
-  '@appthreat/atom@3.2.1':
+  '@appthreat/atom@4.0.0':
     optionalDependencies:
-      '@appthreat/atom-darwin-amd64': 3.2.1
-      '@appthreat/atom-darwin-arm64': 3.2.1
-      '@appthreat/atom-jar': 3.2.1
-      '@appthreat/atom-linux-amd64': 3.2.1
-      '@appthreat/atom-linux-amd64-musl': 3.2.1
-      '@appthreat/atom-linux-arm64': 3.2.1
-      '@appthreat/atom-linux-arm64-musl': 3.2.1
-      '@appthreat/atom-windows-amd64': 3.2.1
-      '@appthreat/atom-windows-arm64': 3.2.1
+      '@appthreat/atom-darwin-amd64': 4.0.0
+      '@appthreat/atom-darwin-arm64': 4.0.0
+      '@appthreat/atom-jar': 4.0.0
+      '@appthreat/atom-linux-amd64': 4.0.0
+      '@appthreat/atom-linux-amd64-musl': 4.0.0
+      '@appthreat/atom-linux-arm64': 4.0.0
+      '@appthreat/atom-linux-arm64-musl': 4.0.0
+      '@appthreat/atom-windows-amd64': 4.0.0
+      '@appthreat/atom-windows-arm64': 4.0.0
     optional: true
 
   '@appthreat/parsa-darwin-arm64@2.0.0':

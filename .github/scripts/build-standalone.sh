@@ -211,9 +211,8 @@ run_atom_smoke_test() {
   fi
 
   # Each binary's run starts without the AST cache (.chen) the previous
-  # binary's run left in the fixture: atom 3 replays a cached unit without
-  # names or positions, which leaves the deep C/C++ scans of cbom and saasbom
-  # with nothing to report.
+  # binary's run left in the fixture, so every binary is checked parsing the
+  # sources itself rather than replaying another binary's cache.
   rm -rf "$ATOM_SMOKE_FIXTURE/.chen"
   rm -f "$smoke_out"
   if ! "./$output" -t c "$ATOM_SMOKE_FIXTURE" -o "$smoke_out" --fail-on-error; then
@@ -298,7 +297,7 @@ promote_optional_dependencies() {
     // Everything still sitting in optionalDependencies is, by definition, not
     // wanted by this profile. Drop it rather than relying on `--no-optional`:
     // that flag also refuses to resolve the optional dependencies *of* a
-    // promoted package, and atom 3 keeps its per-platform payload exactly
+    // promoted package, and atom keeps its per-platform payload exactly
     // there, so `--no-optional` fails the install with
     // ERR_PNPM_LOCKFILE_MISSING_DEPENDENCY. With the unwanted entries gone the
     // install can run with optional resolution enabled, which is also what lets
@@ -369,7 +368,7 @@ resolve_safer_exec_package_name() {
 NODE
 }
 
-# Resolve the atom 3 platform sub-package for the build target. Mirrors
+# Resolve the atom platform sub-package for the build target. Mirrors
 # resolve_platform_plugin_package_name in shape and atom's own
 # resolveAtomProvider in mapping. Used by the atom-analysis verification block
 # to assert the payload sub-package and its contents are present.
@@ -491,7 +490,7 @@ assert_parsa_payload_present() {
 }
 
 # Assert that the atom sub-package payload actually exists in the staging tree.
-# A payload-less dispatcher (the atom 3 failure mode under --no-optional) would
+# A payload-less dispatcher (the failure mode under --no-optional) would
 # otherwise pass assert_package_present while failing at runtime. On POSIX native
 # targets the binary must also be executable (caxa must preserve the mode bit).
 assert_atom_payload_present() {
@@ -669,7 +668,7 @@ install_profile_dependencies() {
         selected_optional_packages=(@cdxgen/cdx-hbom)
         ;;
       atom-analysis)
-        # atom 3's payload is a per-platform sub-package of @appthreat/atom.
+        # atom's payload is a per-platform sub-package of @appthreat/atom.
         # It is not named here: with optional resolution enabled, pnpm picks the
         # one matching the build target's os/cpu/libc on its own. The payload is
         # then asserted explicitly below, since a missing one is silent.
