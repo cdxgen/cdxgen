@@ -67,6 +67,7 @@ evinse -i bom.json -o bom.evinse.json -l java --with-data-flow .
 | `--with-reachables`              | off                      | Enable reachability-based slicing                                                                                    |
 | `--profile`                      | `generic`                | Use `research` to enable dosai data-flow and crypto analysis for .NET projects                                       |
 | `--usages-slices-file`           | `usages.slices.json`     | Reuse an existing usages slice file                                                                                  |
+| `--callsites-slices-file`        | none                     | Reuse an existing callsites slice file; one is written for every language atom covers when the usages slice is generated |
 | `--data-flow-slices-file`        | `data-flow.slices.json`  | Reuse an existing data-flow slice file                                                                               |
 | `--reachables-slices-file`       | `reachables.slices.json` | Reuse an existing reachables slice file and its `_1.json`, `_2.json`, ... chunks                                     |
 | `--semantics-slices-file`        | `semantics.slices.json`  | Reuse an existing semantics slice file                                                                               |
@@ -100,6 +101,19 @@ names one. An occurrence that comes from atom's `callsites` slice is one use sit
 with `.` (`@nebular/theme.NbThemeModule`). Two uses on one line are two occurrences, and a
 line-only occurrence from another source is dropped when a use site on the same line is recorded.
 Running `evinse` again over its own output gives the same occurrences.
+
+Occurrence evidence is read from the two slices atom writes in one run:
+
+- The `callsites` slice is the source of the use-site occurrences for every language atom covers:
+  JavaScript and TypeScript, Python, Java source and JVM bytecode (jar, class directories, DEX,
+  APK), PHP, Ruby and C and C++. One slice record is one occurrence of the component its module
+  resolves to. Attribution prefers the record's own `purl` when atom filled one, then the import or
+  namespace claims of the BOM's components, then, for a standard-library record, the BOM's single
+  runtime component. A record nothing claims gives no occurrence; `evinse` logs how many records
+  each rule attributed.
+- The `usages` slice still provides the services and endpoints (SaaSBOM), the user-defined types
+  that filter the data-flow evidence, and the C and C++ include attribution. It also provides
+  occurrences of its own, on lines where the callsites slice has none.
 
 When the lock file installs more than one version of an npm package, an occurrence belongs only to
 the version the file loads. With `package-lock.json`, cdxgen follows Node.js resolution: it walks
