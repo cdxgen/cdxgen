@@ -1,0 +1,26 @@
+docs/ENV.md
+  s_e0fb6d4d5e084d::t_adb81d43a13065 284
+  s_e0fb6d4d5e084d::t_8dd0f154655353 289,292-293,296-297
+.github/workflows/repotests.yml
+  s_e0fb6d4d5e084d::t_613a21f8f59bca 645-648,651
+.github/scripts/build-standalone.sh
+  s_e0fb6d4d5e084d::t_5a797c48a2f68c 214-215
+lib/inventory/atomUtils.poku.js
+  s_e0fb6d4d5e084d::t_15f2c9006a5883 403-436
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "2b9ac7c17299100425e47ec571ef604d10044163",
+  "prompts": {},
+  "sessions": {
+    "s_e0fb6d4d5e084d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "06e4857c-fb8c-4fa8-b823-49c581ab0978",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
