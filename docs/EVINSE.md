@@ -113,7 +113,12 @@ Occurrence evidence is read from the two slices atom writes in one run:
   each rule attributed.
 - The `usages` slice still provides the services and endpoints (SaaSBOM), the user-defined types
   that filter the data-flow evidence, and the C and C++ include attribution. It also provides
-  occurrences of its own, on lines where the callsites slice has none.
+  occurrences of its own: the callsites occurrences are added to the usages ones rather than
+  replacing them, and a use site both slices found is counted once. Measured projects lost
+  evidence when the usages occurrences were dropped (on java-sec-code the dom4j jars and on
+  juice-shop 265 of 6790 occurrences came only from the usages slice), so no language takes its
+  occurrences from the callsites slice alone yet; a language switches once its callsites evidence
+  is known to keep the coverage the usages slice adds.
 
 When the lock file installs more than one version of an npm package, an occurrence belongs only to
 the version the file loads. With `package-lock.json`, cdxgen follows Node.js resolution: it walks
