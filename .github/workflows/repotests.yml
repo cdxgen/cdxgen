@@ -474,9 +474,33 @@ jobs:
         if: runner.os != 'Windows' && matrix.os != 'macos-15'
       - uses: actions/setup-dotnet@a98b56852c35b8e3190ac28c8c2271da59106c68  # v6.0.0
         with:
-          dotnet-version: '10.0.x'
+          dotnet-version: '11.0.x'
           cache: false
-        if: matrix.os != 'self-hosted-ubuntu'
+        env:
+          # The self-hosted runner user cannot create the default
+          # /usr/share/dotnet, so install into the runner tool cache there;
+          # the empty string keeps the platform default elsewhere
+          DOTNET_INSTALL_DIR: ${{ matrix.os == 'self-hosted-ubuntu' && format('{0}/dotnet', runner.tool_cache) || '' }}
+        if: runner.os != 'Windows'
+      - name: Setup dotnet 11 SDK
+        # setup-dotnet extracts the Windows SDK archive with tar, and the
+        # msys2 tar that the Ruby toolchain puts first in PATH reads C:\ as a
+        # remote host, so install the official zip from the CDN instead
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          $meta = Invoke-RestMethod 'https://builds.dotnet.microsoft.com/dotnet/release-metadata/11.0/releases.json'
+          $release = $meta.releases | Where-Object { $_.sdks } | Select-Object -First 1
+          $sdk = $release.sdks | Select-Object -First 1
+          $asset = $sdk.files | Where-Object { $_.rid -eq 'win-x64' -and $_.name -like '*.zip' } | Select-Object -First 1
+          $dest = "$env:RUNNER_TOOL_CACHE\dotnet"
+          $zip = "$env:RUNNER_TEMP\dotnet-sdk-win-x64.zip"
+          Invoke-WebRequest -Uri $asset.url -OutFile $zip
+          Expand-Archive -Path $zip -DestinationPath $dest -Force
+          Add-Content $env:GITHUB_PATH $dest
+          Add-Content $env:GITHUB_ENV "DOTNET_ROOT=$dest"
+          Write-Host "Installed $($sdk.version)"
+          & "$dest\dotnet.exe" --list-sdks
       - name: setup rbenv
         run: |
           git clone https://github.com/rbenv/rbenv.git --depth=1 ~/.rbenv

@@ -153,6 +153,13 @@ RUN set -e; \
 COPY ci/images/common/install-sourcekitten.sh /tmp/install-sourcekitten.sh
 RUN sh /tmp/install-sourcekitten.sh && rm /tmp/install-sourcekitten.sh
 
+# dosai for .NET evidence. This image ships the .NET 10 SDK while the
+# framework-dependent dosai in cdxgen-plugins-bin needs a .NET 11 runtime,
+# so it runs the self-contained -full build instead.
+ENV DOSAI_CMD=/opt/dosai/dosai
+COPY ci/images/common/install-dosai.sh /tmp/install-dosai.sh
+RUN sh /tmp/install-dosai.sh && rm /tmp/install-dosai.sh
+
 FROM base AS cdxgen
 
 LABEL maintainer="cyclonedx" \
