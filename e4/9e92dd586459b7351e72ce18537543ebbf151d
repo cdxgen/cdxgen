@@ -1,0 +1,25 @@
+deno.json
+  s_fbf294528fc626::t_f0a93a1a9001ed 108
+docs/OBOM_MACOS_TROUBLESHOOTING.md
+  s_fbf294528fc626::t_bdb4bd02fdcbe4 7
+package.json
+  s_fbf294528fc626::t_fbf6aad83a890e 186-196
+pnpm-lock.yaml
+  s_fbf294528fc626::t_72dc0f89bb2b5b 285-286,288-289,291-292,294-295,297-298,300-301,303-304,306-307,309-310,312-313,315-316,560-561,565-566,570-571,576-577,582-583,588-589,594-595,600-601,606-607,611-612,616-617,1615,1618,1621,1624,1627,1630,1633,1636,1639,1642,1645
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "e49e92dd586459b7351e72ce18537543ebbf151d",
+  "prompts": {},
+  "sessions": {
+    "s_fbf294528fc626": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "898da1c7-6c18-4985-b8b1-cf21b057aab2",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
