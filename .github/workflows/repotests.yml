@@ -1886,6 +1886,33 @@ jobs:
           bin/cdxgen.js -t python test/data/evinse-python-repotest -o bomresults/bom-python-evinse.json --fail-on-error
           node bin/evinse.js -i bomresults/bom-python-evinse.json -o bomresults/bom-python.evinse.json -l python --with-reachables --usages-slices-file bomresults/python-usages.slices.json test/data/evinse-python-repotest
           assert_slices python bomresults/python-usages.slices.json 6
+
+          # Occurrences from the callsites slice for a language other than
+          # JavaScript. The fixture imports requests; the deep scan attaches
+          # the module names the pypi attribution matches against, and an
+          # occurrence the callsites slice seeds carries the use site's
+          # column as `offset`, which the usages attribution never writes.
+          python3 -m venv bomresults/python-venv
+          bomresults/python-venv/bin/pip install --quiet requests
+          PYTHON_CMD="$PWD/bomresults/python-venv/bin/python" bin/cdxgen.js -t python --deep test/data/evinse-python-repotest -o bomresults/bom-python-callsites.json --fail-on-error
+          node bin/evinse.js -i bomresults/bom-python-callsites.json -o bomresults/bom-python-callsites.evinse.json -l python --callsites-slices-file bomresults/python-callsites.slices.json test/data/evinse-python-repotest
+          node -e '
+            const { readFileSync } = require("node:fs");
+            const slice = JSON.parse(readFileSync("bomresults/python-callsites.slices.json", "utf8"));
+            const records = (slice.callsites || []).filter((r) => r.module === "requests");
+            if (!records.length) {
+              console.error("python: the callsites slice holds no requests record; atom produced nothing.");
+              process.exit(1);
+            }
+            const bom = JSON.parse(readFileSync("bomresults/bom-python-callsites.evinse.json", "utf8"));
+            const requests = (bom.components || []).find((c) => c.name === "requests");
+            const offsetOccurrences = (requests?.evidence?.occurrences || []).filter((o) => o.offset !== undefined);
+            if (!offsetOccurrences.length) {
+              console.error("python: no requests occurrence carries an offset, so none came from the callsites slice.");
+              process.exit(1);
+            }
+            console.log(`python: ${records.length} requests callsites record(s), ${offsetOccurrences.length} use-site occurrence(s) with an offset.`);
+          '
         shell: bash
 
   go-dataflow-fixture-hosted:

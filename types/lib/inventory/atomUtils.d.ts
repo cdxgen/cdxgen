@@ -50,10 +50,12 @@ export declare function splitAtomCommand(command: string): [string, string | und
  */
 export declare function atomCompileCommandsArgs(src: string, language: string, options?: Object): string[];
 /**
- * The `--bom-file` a reachables slice takes package purls from: the BOM evinse
- * annotates. atom would otherwise only find a BOM saved as `bom.json` inside
- * the scanned directory, so a BOM written anywhere else gave every reachable
- * flow no purl.
+ * The `--bom-file` an atom run takes package purls from: the BOM evinse
+ * annotates. Reachable flows read the purls of the artifacts in a flow, and a
+ * callsites record reads the purl of the package it uses, so the usages run
+ * that also writes the callsites slice takes the BOM as well. atom would
+ * otherwise only find a BOM saved as `bom.json` inside the scanned directory,
+ * so a BOM written anywhere else gave every reachable flow no purl.
  *
  * @param {string} sliceType atom slice command
  * @param {Object} options CLI options, for `input`
@@ -90,11 +92,25 @@ export declare function globPatternsToAtomIgnoreRegex(patterns?: string[]): stri
  */
 export declare function isPathExcludedByGlobPatterns(filePath: string, patterns?: string[]): boolean;
 /**
+ * The slices-file options an evidence run writes, for the write-permission
+ * checks of secure mode.
+ *
+ * The usages atom run writes the callsites slice as well (one atom build for
+ * both slices), and the semantics slice joins for swift and scala, whose
+ * evidence reads semantics slices.
+ *
+ * @param {Object} options CLI options, for the project type
+ * @returns {string[]} Option names whose slices files an evidence run creates
+ */
+export declare function evidenceSlicesFileOptions(options?: Object): string[];
+/**
  * Remove atom-slice entries whose source file matches the given glob exclude
  * patterns, preserving the original slice structure otherwise.
  *
- * Filters `objectSlices`, `userDefinedTypes`, `reachables`, and reachable
- * `paths`/`graph` nodes/edges that reference excluded files.
+ * Filters `objectSlices`, `userDefinedTypes`, `callsites`, `reachables`, and
+ * reachable `paths`/`graph` nodes/edges that reference excluded files. A
+ * callsites record names its file as `file`, spelled with either path
+ * separator.
  *
  * @param {object|Array} sliceData Atom slice data object or array.
  * @param {string[]} [patterns=[]] Glob exclude patterns.

@@ -161,7 +161,7 @@ export declare function sliceFileOption(sliceType: string): string;
  * @param {string} filePath Path to the source file, jar, or project directory to slice
  * @param {string} [sliceType="usages"] Slice type: `usages`, `data-flow`, `reachables`, or `semantics`
  * @param {object} [options={}] CLI options controlling slice generation
- * @returns {Promise<Object>} Result map with `slicesFile`, `atomFile`, `openapiSpecFile`, `semanticsSlicesFile`, `tempDir`, and `tempDirOwned`
+ * @returns {Promise<Object>} Result map with `slicesFile`, `callsitesSlicesFile`, `atomFile`, `openapiSpecFile`, `semanticsSlicesFile`, `tempDir`, and `tempDirOwned`
  */
 export declare function createSlice(purlOrLanguages: string | string[], filePath: string, sliceType?: string, options?: object): Promise<Object>;
 /**
@@ -263,6 +263,7 @@ export declare function analyzeProject(dbObjMap: Object, options: Object): Promi
     workspaceComponent?: undefined;
     atomFile?: undefined;
     usagesSlicesFile?: undefined;
+    callsitesSlicesFile?: undefined;
     dataFlowSlicesFile?: undefined;
     reachablesSlicesFile?: undefined;
     semanticsSlicesFile?: undefined;
@@ -286,6 +287,7 @@ export declare function analyzeProject(dbObjMap: Object, options: Object): Promi
     workspaceComponent?: undefined;
     atomFile?: undefined;
     usagesSlicesFile?: undefined;
+    callsitesSlicesFile?: undefined;
     dataFlowSlicesFile?: undefined;
     reachablesSlicesFile?: undefined;
     semanticsSlicesFile?: undefined;
@@ -307,6 +309,7 @@ export declare function analyzeProject(dbObjMap: Object, options: Object): Promi
     purlSymbolMap: Record<string, Record<string, string>>;
     atomFile?: undefined;
     usagesSlicesFile?: undefined;
+    callsitesSlicesFile?: undefined;
     dataFlowSlicesFile?: undefined;
     reachablesSlicesFile?: undefined;
     semanticsSlicesFile?: undefined;
@@ -333,6 +336,7 @@ export declare function analyzeProject(dbObjMap: Object, options: Object): Promi
     cryptoGeneratePurls: {};
     purlSymbolMap: Record<string, Record<string, string>>;
     atomFile?: undefined;
+    callsitesSlicesFile?: undefined;
     reachablesSlicesFile?: undefined;
     clearedOccurrencePurls?: undefined;
     openapiSpecFile?: undefined;
@@ -342,6 +346,7 @@ export declare function analyzeProject(dbObjMap: Object, options: Object): Promi
     workspaceComponent?: undefined;
     atomFile: any;
     usagesSlicesFile: any;
+    callsitesSlicesFile: any;
     dataFlowSlicesFile: any;
     reachablesSlicesFile: any;
     semanticsSlicesFile: any;
@@ -358,40 +363,9 @@ export declare function analyzeProject(dbObjMap: Object, options: Object): Promi
     cryptoGeneratePurls: {};
     openapiSpecFile: any;
 }>;
-/**
- * Parse atom object slices into usages, user-defined types, services, and purl-location evidence.
- *
- * Iterates over the `objectSlices` and `userDefinedTypes` of an atom usage slice,
- * delegating to {@link parseSliceUsages} to record purl locations and imports.
- * Services are detected first from an OpenAPI spec (when present) and then from
- * usage slices or user-defined types as fallbacks.
- *
- * @param {string} language Application language
- * @param {Object} usageSlice Parsed atom usage slice object
- * @param {Object} dbObjMap DB models handle containing Namespaces and Usages models
- * @param {Object} [servicesMap={}] Map populated with detected service definitions
- * @param {Object<string, Set>} [purlLocationMap={}] Map populated with purl -> source locations
- * @param {Object<string, string[]>} [purlImportsMap={}] Map populated with purl -> imported modules
- * @param {string} [openapiSpecFile=undefined] Optional path to an OpenAPI spec used for service detection
- * @returns {Promise<Object>} Map with `purlLocationMap`, `servicesMap`, and `userDefinedTypesMap`
- */
-/**
- * Attribute the include slices of a C/C++ usages report to the BOM
- * components that provide the files they resolved to: each header's imported
- * symbols (the functions the including file calls that it declares), and the
- * include directive's location. Reports from atom releases that do not name
- * the resolved file attribute nothing.
- *
- * @param {Object} usageSlice Parsed usages report
- * @param {Object[]} components Components of the input BOM
- * @param {string} dirPath Source directory
- * @param {Object} options CLI options
- * @returns {{symbols: Map<string, Set<string>>, locations: Map<string, Set<string>>}}
- *   Imported symbols and include locations (`file#line`) by purl
- */
-export declare function attributeCIncludes(usageSlice: Object, components: Object[], dirPath: string, options?: Object): {
-    symbols: Map<string, Set<string>>;
-    locations: Map<string, Set<string>>;
+export declare function attributeCIncludes(usageSlice: any, components: any, dirPath: any, options?: {}): {
+    symbols: Map<any, any>;
+    locations: Map<any, any>;
 };
 /**
  * Seed the C/C++ imports from the include slices of a usages report (see
@@ -633,4 +607,37 @@ export declare function attributeJsModules(ausage: Object, fileName: string, pur
  * @param {Object} [purlSymbolMap] purl -> occurrence key -> symbol, filled in place
  */
 export declare function attributeJsCallsites(callsitesSlice: Object, purlImportsMap: Object, purlLocationMap: Object, purlSymbolMap?: Object): void;
+/**
+ * Attribute a callsites slice's records to the components providing their
+ * modules.
+ *
+ * atom writes callsites for every language it reads, so evinse reads the slice
+ * for every language, too. Each record of `{"callsites": [...]}` is one
+ * external use site carrying its own file, line and column; a record is an
+ * occurrence of every purl attributed to it. The attribution order is the
+ * record's `purl` when it names a component of the BOM (atom fills it where
+ * it is unambiguous), then the ecosystem rule, then, for a `builtin` record,
+ * the BOM's single runtime or standard-library component. A record nothing
+ * attributes is counted but produces no occurrence.
+ *
+ * The ecosystem rules: npm through the package of the module specifier
+ * (`jsPackageOfModule`, every purl of the package); pypi, composer and gem
+ * through the import or namespace claims of the input BOM's components, by
+ * longest prefix; maven through the namespaces the evidence database holds
+ * for the BOM's jars; C and C++ through the include resolver. JavaScript keeps
+ * `attributeJsCallsites` and its own version resolution, since atom leaves the
+ * purl out for npm packages installed in several versions.
+ *
+ * @param {Object} callsitesSlice callsites slice with a `callsites` array
+ * @param {string} language Application language
+ * @param {Object[]} components Components of the input BOM
+ * @param {Object} purlImportsMap purl -> imported modules and symbols
+ * @param {Object} purlLocationMap purl -> Set of occurrence keys
+ * @param {Object} purlSymbolMap purl -> occurrence key -> symbol, filled in place
+ * @param {Object} dbObjMap DB models handle, for the maven namespaces
+ * @param {string} dirPath Project directory
+ * @param {Object} options CLI options
+ * @returns {Promise<Object>} Counts of the records attributed by each rule
+ */
+export declare function attributeCallsites(callsitesSlice: Object, language: string, components: Object[], purlImportsMap: Object, purlLocationMap: Object, purlSymbolMap: Object, dbObjMap: Object, dirPath: string, options?: Object): Promise<Object>;
 //# sourceMappingURL=evinser.d.ts.map
