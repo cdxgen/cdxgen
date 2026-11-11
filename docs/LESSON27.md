@@ -297,7 +297,7 @@ cdxgen addresses this in two ways:
    no C or C++ source, header or module file outside `node_modules` and dot
    directories.
 
-   With atom 4 and later each include's usages slice names the file it
+   Each include's usages slice names the file it
    resolved to (`resolvedPath`) and the functions the including file calls
    that the header declares (`importedSymbols`, with function bodies parsed).
    The resolved file then attributes the header exactly: to the project
@@ -309,17 +309,14 @@ cdxgen addresses this in two ways:
    to the OS package that owns the file (`dpkg-query -S`, `rpm -qf`,
    `apk info -W`, or the Homebrew Cellar). The imported symbols become the
    component's `internal:ImportedSymbols`, and `evinse -l c` uses them to
-   attach occurrence evidence for the calls. With an older atom, headers are
-   attributed by name as before.
+   attach occurrence evidence for the calls.
 
 When the project has a JSON compilation database, atom parses each file with
 the include paths, macros and language its build uses instead of guessing them.
 cdxgen looks for `compile_commands.json` in the scan root, then in the same
 build directories as `CMakeCache.txt` (next to the `--cmake-cache` file, the
 presets' build directories, then the conventional ones), and passes the first
-it finds to atom (`--frontend-args compile-commands=<path>`)
-when the installed atom lists that key in `atom --frontend-args-keys -l c`
-(atom 4.0 and later). An older atom is run with its usual arguments.
+it finds to atom (`--frontend-args compile-commands=<path>`).
 `--compile-commands <file|dir>` names a database
 explicitly, for an out-of-tree build. CMake writes the database with
 `-DCMAKE_EXPORT_COMPILE_COMMANDS=ON`, Meson always does, and `bear -- make`

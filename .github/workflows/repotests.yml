@@ -1814,8 +1814,9 @@ jobs:
           set -e
           # In-repo fixtures exercising the atom frontends that previously had
           # no evinse CI coverage. PHP is the one that would regress silently:
-          # it depends on cdxgen bypassing the dispatcher's PHP_PARSER_BIN
-          # clobber, so a broken bypass shows up here as zero slices.
+          # it needs the PHP_PARSER_BIN and PHP_ASTGEN_BIN values cdxgen
+          # forwards to reach the frontend, so a resolution that stops working
+          # shows up here as zero slices.
           #
           # Ruby is deliberately absent: atom's Ruby frontend requires Ruby
           # 4.0.x and this runner ships 3.x, so it emits zero slices and any

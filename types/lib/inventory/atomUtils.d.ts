@@ -40,27 +40,8 @@ export declare function findCompileCommands(src: string, options?: Object): stri
  */
 export declare function splitAtomCommand(command: string): [string, string | undefined];
 /**
- * The `--frontend-args` keys the installed atom accepts for a language, as
- * `atom --frontend-args-keys -l <language>` lists them. Asked once per atom
- * command and language. An atom that cannot list them (a release without
- * `--frontend-args`, or one that fails to start) accepts none.
- *
- * @param {string} language atom `-l` value
- * @returns {Set<string>} Supported keys
- */
-export declare function atomFrontendArgKeys(language: string): Set<string>;
-/**
- * The options the installed atom accepts, as `atom --help` lists them. Asked
- * once per atom command. An atom that fails to start accepts none.
- *
- * @returns {Set<string>} Supported options, such as `--bom-file`
- */
-export declare function atomOptions(): Set<string>;
-/**
  * The `--frontend-args` atom takes for a C/C++ language: the project's
- * compilation database, when there is one and the installed atom reads it
- * (atom 4 and later). An older atom is given the arguments it has always
- * been given, and parses the sources without the database.
+ * compilation database, when there is one.
  *
  * @param {string} src Project scan root
  * @param {string} language atom `-l` value
@@ -72,8 +53,7 @@ export declare function atomCompileCommandsArgs(src: string, language: string, o
  * The `--bom-file` a reachables slice takes package purls from: the BOM evinse
  * annotates. atom would otherwise only find a BOM saved as `bom.json` inside
  * the scanned directory, so a BOM written anywhere else gave every reachable
- * flow no purl. An atom without `--bom-file` is given the arguments it has
- * always been given, and still reads a `bom.json` in the scanned directory.
+ * flow no purl.
  *
  * @param {string} sliceType atom slice command
  * @param {Object} options CLI options, for `input`
@@ -90,10 +70,9 @@ export declare function atomBomFileArgs(sliceType: string, options?: Object): st
  *
  * @param {string} language atom `-l` value
  * @param {Object} options CLI options
- * @returns {string[]|undefined} Arguments to add to the atom command, or
- *   undefined when the installed atom cannot be told to leave the build alone
+ * @returns {string[]} Arguments to add to the atom command
  */
-export declare function atomBuildToolArgs(language: string, options?: Object): string[] | undefined;
+export declare function atomBuildToolArgs(language: string, options?: Object): string[];
 /**
  * Convert cdxgen's glob-style exclude patterns to a Scala/Java regex string.
  *
@@ -197,19 +176,17 @@ export declare function atomCommandKind(command: string, platformKind: "native" 
 /**
  * Locate the `php-parse` binary that the PHP frontend needs.
  *
- * atom 3's dispatcher unconditionally sets `PHP_PARSER_BIN=<ATOM_HOME>/bin/php-parse`,
- * which for a native sub-package does not exist and also clobbers a caller-set
- * value. cdxgen therefore resolves the real location and forwards it through the
- * child env (see `buildAtomCommandEnv`); `executeAtom` then spawns the
- * native binary directly for PHP so the dispatcher cannot clobber it (see
- * `resolveDirectAtomBinaryPath`). Resolution order:
+ * atom reads the parser's location from the `PHP_PARSER_BIN` env var, and
+ * cdxgen forwards the value it resolves here through the child env (see
+ * `buildAtomCommandEnv`) so the parser bundled with the installed
+ * atom-parsetools is used without relying on where atom looks by default, and
+ * so an operator can point the frontend at another parser. Resolution order:
  *   1. explicit `PHP_PARSER_BIN` env var (operators / container images)
  *   2. `@appthreat/atom-parsetools/plugins/bin/php-parse` under cdxgen's own
  *      node_modules, then under `GLOBAL_NODE_MODULES_PATH` for global installs
  *
- * Returns `undefined` when neither is found, in which case PHP analysis runs
- * through the dispatcher unchanged (and fails on native platforms until atom
- * fixes the clobber).
+ * Returns `undefined` when neither is found, in which case atom falls back to
+ * its own lookup.
  *
  * @returns {string|undefined}
  */
@@ -221,12 +198,12 @@ export declare function resolvePhpParseBin(): string | undefined;
  * `php-parse` (forwarded as `PHP_PARSER_BIN`) is the per-file parser: atom
  * starts a php interpreter for every `.php` file, which on windows turns a
  * vendored PHP project (thousands of files under `vendor/`) into an hours-long
- * run that no timeout can rescue. `phpastgen` answers the `--parser-info`
- * capability probe, so atom's batch path engages, and atom-parsetools 1.9 and
- * later parse the whole tree, vendor included, with a few interpreters that
- * each take a chunk of files. It is a Node script, so the frontend launches it
- * with `node` rather than `php`; an atom that does not know `PHP_ASTGEN_BIN`
- * simply ignores it and keeps today's per-file behaviour. Resolution order:
+ * run that no timeout can rescue. atom reads the batch generator's location
+ * from the `PHP_ASTGEN_BIN` env var, and cdxgen forwards the value it resolves
+ * here through the child env (see `buildAtomCommandEnv`), so the whole tree,
+ * vendor included, is parsed with a few interpreters that each take a chunk of
+ * files. It is a Node script, so the frontend launches it with `node` rather
+ * than `php`. Resolution order:
  *   1. explicit `PHP_ASTGEN_BIN` env var (operators / container images)
  *   2. `@appthreat/atom-parsetools/phpastgen.js` under cdxgen's own
  *      node_modules, then under `GLOBAL_NODE_MODULES_PATH` for global installs
@@ -244,16 +221,12 @@ export declare function resolvePhpAstgenBin(): string | undefined;
  */
 export declare function parsetoolsFile(...segments: string[]): string | undefined;
 /**
- * Resolve the atom native binary path directly, bypassing the dispatcher.
+ * Locate the atom native binary of the platform sub-package, the file the
+ * dispatcher itself would run.
  *
- * This is required for the PHP frontend: the dispatcher clobbers
- * `PHP_PARSER_BIN` with a path that does not exist on native platforms, and
- * atom 3.0.x crashes in `defaultPhpParserBin` parsing that bogus value before
- * any `--frontend-args php-parser-bin=` override is consulted. Spawning the
- * native binary directly lets cdxgen control the child env, so the correct
- * `PHP_PARSER_BIN` reaches atom. Returns `undefined` when the provider is the
- * jar kind or the native binary cannot be located (in which case the dispatcher
- * is used as-is).
+ * Used to tell a native install from a jar install without starting atom (see
+ * `atomProviderKind`). Returns `undefined` when the provider is the jar kind
+ * or the native binary cannot be located.
  *
  * @returns {string|undefined}
  */
@@ -321,21 +294,19 @@ export declare function reapAtomProcessTree(rootPid: number | undefined, started
 /**
  * Whether an atom run ended because it ran out of time.
  *
- * The dispatcher reports its own limit with status 124. cdxgen's spawn timeout
- * shows up as `ETIMEDOUT`. A dispatcher older than the status code stops atom
- * with SIGTERM and passes on how the runtime ended: 1, or the runtime's own
- * exit on SIGTERM (143) or SIGKILL (137), which is what atom 3.1 reports. Those
- * statuses at or past the limit count as well, unless atom's own output shows
- * it failed for another reason first (an exhausted heap, a crash), which
- * deserves its own diagnosis. Missing one leaves the half-written atom behind,
- * and the next slice of the run fails to load it.
+ * The dispatcher stops atom at its limit and exits with status 124, and
+ * cdxgen's own spawn timeout, the last resort that kills the dispatcher
+ * itself, shows up as `ETIMEDOUT`. A run stopped by a signal ends with a
+ * status of 128 plus the signal number or a null status; this function leaves
+ * those alone, and the non-zero exit handling in `executeAtom` reports them as
+ * failures rather than letting them pass for a successful run. Missing a
+ * timeout leaves the half-written atom behind, and the next slice of the run
+ * fails to load it.
  *
  * @param {Object} result spawnSync result
- * @param {number} elapsedMs How long the run took
- * @param {number} atomTimeoutMs atom's time limit
  * @returns {boolean} true when the run hit a time limit
  */
-export declare function atomRunTimedOut(result: Object, elapsedMs: number, atomTimeoutMs: number): boolean;
+export declare function atomRunTimedOut(result: Object): boolean;
 /**
  * Execute the atom tool against a source directory or file with the given arguments.
  *

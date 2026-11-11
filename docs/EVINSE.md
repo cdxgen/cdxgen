@@ -1,6 +1,6 @@
 # evinse — Add evidence and SaaSBOM context to an SBOM
 
-`evinse` enriches an existing CycloneDX BOM with evidence such as occurrences, call stacks, reachability, and service metadata.
+`evinse` enriches an existing CycloneDX BOM with evidence such as occurrences, call stacks, reachability, and service metadata. Source evidence needs atom 4.0.0 or later, which cdxgen installs as an optional dependency.
 
 It is the right tool when you already have a BOM and want to answer questions such as:
 
@@ -38,7 +38,7 @@ evinse -i bom.json -o bom.evinse.json -l java --with-data-flow .
 | `-i, --input`                    | `bom.json`               | Input CycloneDX BOM                                                                                                  |
 | `-o, --output`                   | `bom.evinse.json`        | Output enriched BOM                                                                                                  |
 | `-l, --language`                 | `java`                   | Source language                                                                                                      |
-| `--compile-commands`             | autodetected             | C/C++ `compile_commands.json` (or its directory) for atom 4.0+; see [LESSON27.md](LESSON27.md)                       |
+| `--compile-commands`             | autodetected             | C/C++ `compile_commands.json` (or its directory) passed to atom; see [LESSON27.md](LESSON27.md)                       |
 | `--golem-command`                | `GOLEM_CMD`              | Use a specific `golem` binary for Go Evinse                                                                          |
 | `--golem-callgraph`              | `static` / `none`        | Go call graph mode: `none`, `static`, `cha`, `rta`, or `vta`                                                         |
 | `--golem-dataflow`               | `none` / `all`           | Go data-flow mode: `none`, `security`, `crypto`, or `all`                                                            |

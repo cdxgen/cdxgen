@@ -115,7 +115,7 @@ If the project is very large, read [Scanning Large and Complex Projects](MONOREP
 
 ### Evidence or research scans that hit the time limit
 
-Source analysis with atom (`--evidence`, `--deep`, `--profile research`) is bounded like every other external command. When atom runs out of time, cdxgen prints `atom did not finish within ... and was stopped`, and the BOM carries whatever evidence the other slices produced. atom's dispatcher stops atom at that limit, so atom does not keep running after cdxgen exits. From atom 4.0.0, atom's helper processes are stopped with it, and atom also stops by itself when cdxgen is killed.
+Source analysis with atom (`--evidence`, `--deep`, `--profile research`) is bounded like every other external command. When atom runs out of time, cdxgen prints `atom did not finish within ... and was stopped`, and the BOM carries whatever evidence the other slices produced. atom's dispatcher stops atom at that limit, so atom does not keep running after cdxgen exits. atom's helper processes are stopped with it, and atom also stops by itself when cdxgen is killed.
 
 To give atom alone more time without lengthening the limit for build tools and package managers, set `ATOM_TIMEOUT` in milliseconds:
 
