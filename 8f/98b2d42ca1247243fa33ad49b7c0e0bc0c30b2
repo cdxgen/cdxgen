@@ -1,0 +1,47 @@
+.github/workflows/repotests.yml
+  s_5c5d0ae5c9cd4a::t_52c692095162c5 646-650,654
+  s_5c5d0ae5c9cd4a::t_d7a99bde1443b7 1815,1820
+ci/Dockerfile-deno
+  s_5c5d0ae5c9cd4a::t_cbe96008c37311 105
+.github/scripts/build-standalone.sh
+  s_5c5d0ae5c9cd4a::t_70b09f120a12b0 494
+  s_5c5d0ae5c9cd4a::t_de4c7f5b9ee64a 672
+  s_5c5d0ae5c9cd4a::t_d1359ecd008b09 372
+  s_5c5d0ae5c9cd4a::t_9509e6f883dac8 301
+  s_5c5d0ae5c9cd4a::t_594e5ef3c67894 214
+deno.json
+  s_5c5d0ae5c9cd4a::t_bf5b7dccdada02 86
+lib/inventory/atomUtils.js
+  s_5c5d0ae5c9cd4a::t_716c842f0e8e66 1263,1267
+  s_5c5d0ae5c9cd4a::t_6886167d20f84a 62
+.github/workflows/binary-builds.yml
+  s_5c5d0ae5c9cd4a::t_75eb6a881df39b 90
+package.json
+  s_5c5d0ae5c9cd4a::t_8254f32641f8fa 181
+docs/ENV.md
+  s_5c5d0ae5c9cd4a::t_8764ad8a5541b0 289
+  s_5c5d0ae5c9cd4a::t_7c70a56097c458 284
+.github/scripts/build-standalone.ps1
+  s_5c5d0ae5c9cd4a::t_15556392ab7730 257
+  s_5c5d0ae5c9cd4a::t_5a0eeb28a3ecc1 540
+ci/Dockerfile-bun
+  s_5c5d0ae5c9cd4a::t_12ee50f8a31201 100
+pnpm-lock.yaml
+  s_5c5d0ae5c9cd4a::t_f2ec2beaf67f83 270-271,338-339,343-344,348-349,351-352,357-358,363-364,369-370,380-381,385-386,390-391,1424,1427,1430,1433,1436,1439,1442,1463,1466,1469,1471-1479
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "8f98b2d42ca1247243fa33ad49b7c0e0bc0c30b2",
+  "prompts": {},
+  "sessions": {
+    "s_5c5d0ae5c9cd4a": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_1a674570-808e-47cb-8890-e5a0049edf56",
+        "model": "unknown"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
