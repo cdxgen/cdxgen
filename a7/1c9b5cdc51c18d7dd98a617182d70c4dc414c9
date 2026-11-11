@@ -1,0 +1,24 @@
+lib/evinser/callsites.poku.js
+  s_e0fb6d4d5e084d::t_5ae8479882968f 893-948
+lib/evinser/evinser.js
+  s_e0fb6d4d5e084d::t_99a632d9d7ccc4 3987-4005,4241-4243,4296
+  s_e0fb6d4d5e084d::t_69a2bb785377b9 3986
+types/lib/evinser/evinser.d.ts.map
+  s_e0fb6d4d5e084d::t_d09bd7f51049a9 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "a71c9b5cdc51c18d7dd98a617182d70c4dc414c9",
+  "prompts": {},
+  "sessions": {
+    "s_e0fb6d4d5e084d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "06e4857c-fb8c-4fa8-b823-49c581ab0978",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
