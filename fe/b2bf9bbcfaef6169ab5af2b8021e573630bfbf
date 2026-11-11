@@ -1,0 +1,33 @@
+bin/cdxgen.js
+  s_b73dedb11985a0::t_76f9fc7232d197 1497
+  s_b73dedb11985a0::t_f25b5d6755af47 91
+lib/evinser/callsites.poku.js
+  s_b73dedb11985a0::t_b650e2357dc525 556-562
+  s_b73dedb11985a0::t_f25b5d6755af47 512-532,537-540,626-628,697-699,711-727,729-735
+  s_b73dedb11985a0::t_c95fd73ec2be10 501-511,533-536,541-555,563-583,585-625,629-696,700-710,728,736
+  s_b73dedb11985a0::t_ffc02f63d52fc8 7,584
+lib/evinser/evinser.js
+  s_b73dedb11985a0::t_f52212390dc377 3115
+  s_b73dedb11985a0::t_5ccf974b047b19 3294
+lib/inventory/atomUtils.js
+  s_b73dedb11985a0::t_f25b5d6755af47 700-701
+  s_b73dedb11985a0::t_6f46dcd06eb115 669-672,699,702
+  s_b73dedb11985a0::t_67bb6e281cfef1 642-664,703
+  s_b73dedb11985a0::t_f96e1f0d3db534 641
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "feb2bf9bbcfaef6169ab5af2b8021e573630bfbf",
+  "prompts": {},
+  "sessions": {
+    "s_b73dedb11985a0": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_bfff09a5-26c7-443a-99a0-c1d6c8b6f60e",
+        "model": "unknown"
+      },
+      "human_author": "Team AppThreat <cloud@appthreat.com>"
+    }
+  }
+}
