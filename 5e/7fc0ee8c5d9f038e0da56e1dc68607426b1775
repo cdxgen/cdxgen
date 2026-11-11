@@ -1,0 +1,21 @@
+lib/evinser/evinser.js
+  s_b73dedb11985a0::t_16b9f9f4fe436e 1693-1697,1699
+lib/evinser/callsites.poku.js
+  s_b73dedb11985a0::t_5e869466e3c4a1 1-7,823-866
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "5e7fc0ee8c5d9f038e0da56e1dc68607426b1775",
+  "prompts": {},
+  "sessions": {
+    "s_b73dedb11985a0": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_bfff09a5-26c7-443a-99a0-c1d6c8b6f60e",
+        "model": "unknown"
+      },
+      "human_author": "Team AppThreat <cloud@appthreat.com>"
+    }
+  }
+}

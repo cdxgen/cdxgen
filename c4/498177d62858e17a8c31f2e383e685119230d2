@@ -1,0 +1,26 @@
+lib/evinser/evinser.js
+  s_b73dedb11985a0::t_9c1787d07b7071 3908-4050,4053-4063,4069-4083,4091-4094,4103-4105,4107-4117,4125-4167,4169-4178,4183-4196,4198-4202,4204-4217,4219-4239,4241-4262
+  s_b73dedb11985a0::t_f620c6fd903597 1945-1978,2001-2004
+  s_b73dedb11985a0::t_867391641c2152 4240
+  s_b73dedb11985a0::t_e095688d00049e 4218
+  s_b73dedb11985a0::t_74bf5dde2d4022 777-780,1694-1695,4051-4052,4197,4203
+  s_b73dedb11985a0::t_145f14e77e494e 4179-4182
+lib/evinser/callsites.poku.js
+  s_b73dedb11985a0::t_74bf5dde2d4022 1-500
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "c4498177d62858e17a8c31f2e383e685119230d2",
+  "prompts": {},
+  "sessions": {
+    "s_b73dedb11985a0": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_bfff09a5-26c7-443a-99a0-c1d6c8b6f60e",
+        "model": "unknown"
+      },
+      "human_author": "Team AppThreat <cloud@appthreat.com>"
+    }
+  }
+}
