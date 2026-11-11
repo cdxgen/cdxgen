@@ -88,6 +88,7 @@ import {
   signJssBom,
   verifyJssBom,
 } from "../lib/helpers/jssSigner.js";
+import { evidenceSlicesFileOptions } from "../lib/inventory/atomUtils.js";
 import {
   DEFAULT_CDX_SPEC_VERSION,
   getSupportedCycloneDxComponentTypes,
@@ -1493,15 +1494,7 @@ const checkPermissions = (filePath, options) => {
     );
   }
   if (!isDryRun && options.evidence) {
-    const slicesFilesKeys = [
-      "deps-slices-file",
-      "usages-slices-file",
-      "reachables-slices-file",
-    ];
-    if (options?.type?.includes("swift") || options?.type?.includes("scala")) {
-      slicesFilesKeys.push("semantics-slices-file");
-    }
-    for (const sf of slicesFilesKeys) {
+    for (const sf of evidenceSlicesFileOptions(options)) {
       let issueFound = false;
       if (!process.permission.has("fs.write", options[sf])) {
         console.log(
