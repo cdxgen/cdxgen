@@ -4,7 +4,7 @@ This guide covers common issues when generating an OBOM on macOS with `cdxgen -t
 
 ## What changed with osquery 5.24.0
 
-cdxgen-plugins-bin 4.2.0 bundles osquery `5.24.0`. On macOS it brings:
+cdxgen-plugins-bin 4.2.0 bundled osquery `5.24.0`, and 4.3.0 moves to `5.24.1`, a security and bug fix release that keeps the tables below. On macOS, 5.24.0 brought:
 
 - `macports_packages`: the active ports under `/opt/local`, as `pkg:macports/<name>@<version>_<revision>` components
 - `ai_agent_skills`: the SKILL.md packages installed for each user under `~/.claude/skills`, `~/.agents/skills`, `~/.codex/skills`, `~/.cursor/skills` and `~/.copilot/skills`, and through Claude Code plugins. They are `file` components with the same `cdx:skill:*` properties as the `ai-skill` project scan, the SHA-256 of the SKILL.md as their hash, and no purl
