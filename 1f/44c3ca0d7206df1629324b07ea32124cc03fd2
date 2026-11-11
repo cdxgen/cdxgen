@@ -1,0 +1,60 @@
+lib/inventory/atomUtils.poku.js
+  s_5c5d0ae5c9cd4a::t_dcfe8211ab33fc 898-899,901,905,910-914
+  s_5c5d0ae5c9cd4a::t_bbb8aa2bad8674 1247-1248
+  s_5c5d0ae5c9cd4a::t_ab4e30cc4287dd 1001-1004,1006-1047,1049-1050
+  s_5c5d0ae5c9cd4a::t_79681cf75ba6b0 1152,1154,1158-1165,1167-1189,1202,1206,1229,1242,1246,1254
+  s_5c5d0ae5c9cd4a::t_91a52ee718600f 647-648,650,653-657,659-660
+  s_5c5d0ae5c9cd4a::t_7e79a710df2b6f 915-916
+.github/workflows/repotests.yml
+  s_5c5d0ae5c9cd4a::t_1f316ce2dc9ab3 1817-1819
+lib/inventory/atomUtils.js
+  s_5c5d0ae5c9cd4a::t_f1b6f8e4fe82ed 266,302,313
+  s_5c5d0ae5c9cd4a::t_575559f8aa2b32 1391
+  s_5c5d0ae5c9cd4a::t_4e18f726fc61ff 225
+  s_5c5d0ae5c9cd4a::t_34a48a8c507827 1429
+  s_5c5d0ae5c9cd4a::t_38af6e01c5f89e 1474-1477
+  s_5c5d0ae5c9cd4a::t_6e5f038863ad0d 1512-1514
+  s_5c5d0ae5c9cd4a::t_9f70fa93bf7caa 1339-1346,1351-1355
+  s_5c5d0ae5c9cd4a::t_905220fb4e5723 745-750
+  s_5c5d0ae5c9cd4a::t_f11b6644aacafa 1116-1123
+  s_5c5d0ae5c9cd4a::t_2017e926df78da 1046-1047,1049-1051
+  s_5c5d0ae5c9cd4a::t_ec6c341de37df5 998-1003
+  s_5c5d0ae5c9cd4a::t_79cc05b6223907 970-974,979-980
+docs/EVINSE.md
+  s_5c5d0ae5c9cd4a::t_72c15c4b6a81f6 41
+  s_5c5d0ae5c9cd4a::t_66151a80c55605 3
+docs/LESSON27.md
+  s_5c5d0ae5c9cd4a::t_6fc5871e1f6358 319
+  s_5c5d0ae5c9cd4a::t_c4a3a8aa05787a 312
+  s_5c5d0ae5c9cd4a::t_c06814df84676d 300
+types/lib/inventory/atomUtils.d.ts
+  s_5c5d0ae5c9cd4a::t_b20fd49dda5479 44,56,73,75,179-183,188-189,201-206,224-225,227-229,297-304,309
+docs/ENV.md
+  s_5c5d0ae5c9cd4a::t_3dda948e02eb2c 292
+  s_5c5d0ae5c9cd4a::t_7ca3b51d8505f7 293
+  s_5c5d0ae5c9cd4a::t_cc6763010db84a 309
+docs/TROUBLESHOOTING.md
+  s_5c5d0ae5c9cd4a::t_bc7b62c08f2b2e 118
+types/lib/ecosystems/kosi.d.ts.map
+  s_5c5d0ae5c9cd4a::t_1161efe357d821 1
+types/lib/evinser/evinser.d.ts.map
+  s_5c5d0ae5c9cd4a::t_83e31ae0bc3bc0 1
+types/lib/inventory/atomUtils.d.ts.map
+  s_5c5d0ae5c9cd4a::t_91e75027ee4596 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "1f44c3ca0d7206df1629324b07ea32124cc03fd2",
+  "prompts": {},
+  "sessions": {
+    "s_5c5d0ae5c9cd4a": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_1a674570-808e-47cb-8890-e5a0049edf56",
+        "model": "unknown"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
