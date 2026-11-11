@@ -1,0 +1,36 @@
+lib/evinser/callsites.poku.js
+  s_b73dedb11985a0::t_52ad14067b1c84 766-768,794-795
+  s_b73dedb11985a0::t_669a74141b0aed 267-268
+  s_b73dedb11985a0::t_0e12cf64b3447a 739-765,769-793,796-800
+  s_b73dedb11985a0::t_43c3e11f994b32 256-261,263-265
+docs/EVINSE.md
+  s_b73dedb11985a0::t_1b4b5e4fd3123e 105-117
+  s_b73dedb11985a0::t_f4d5b4ba72eb50 70
+test/data/evinse-python-repotest/app.py
+  s_b73dedb11985a0::t_8850eb7d13036f 4-5,19-23
+test/data/evinse-python-repotest/requirements.txt
+  s_b73dedb11985a0::t_6d7372f11319ab 1
+lib/evinser/evinser.js
+  s_b73dedb11985a0::t_0bcd79a7f5b139 4226-4227
+  s_b73dedb11985a0::t_b5e459be446445 4011,4029,4031,4033-4040
+  s_b73dedb11985a0::t_3581921f8a707b 4199-4203
+  s_b73dedb11985a0::t_73dd62bccbb582 4048,4068-4075
+  s_b73dedb11985a0::t_619e3d565c3979 4155-4184
+  s_b73dedb11985a0::t_a29eea7c93c8f6 3991,3998-4002,4004,4007
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "02f446c1369a85e0336e71741d932beb8cedb0f5",
+  "prompts": {},
+  "sessions": {
+    "s_b73dedb11985a0": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_bfff09a5-26c7-443a-99a0-c1d6c8b6f60e",
+        "model": "unknown"
+      },
+      "human_author": "Team AppThreat <cloud@appthreat.com>"
+    }
+  }
+}
