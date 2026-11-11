@@ -254,7 +254,7 @@ function Promote-OptionalDependencies {
   # Everything still in optionalDependencies is not wanted by this profile.
   # Dropping it here is what lets the install run with optional resolution
   # enabled; see the comment in promote_optional_dependencies in
-  # build-standalone.sh for why `--no-optional` cannot be used with atom 3.
+  # build-standalone.sh for why `--no-optional` cannot be used with atom.
   $packageJson.Remove("optionalDependencies")
   $packageJson | ConvertTo-Json -Depth 20 | Set-Content -Path $packageJsonFile -Encoding utf8
 }
@@ -537,7 +537,7 @@ function Install-ProfileDependencies {
       "proto-reader" { $selectedOptionalPackages = @("@cdxgen/cdx-proto", "@bufbuild/protobuf") }
       "hbom-runtime" { $selectedOptionalPackages = @("@cdxgen/cdx-hbom", "@cdxgen/cdx-proto", "@bufbuild/protobuf", (Resolve-PlatformPluginPackageName)) }
       "hbom-slim" { $selectedOptionalPackages = @("@cdxgen/cdx-hbom") }
-      # atom 3's payload is a per-platform sub-package of @appthreat/atom, not
+      # atom's payload is a per-platform sub-package of @appthreat/atom, not
       # named here: pnpm picks the one matching the target's os/cpu/libc once
       # optional resolution is enabled. Asserted explicitly below. Kept in step
       # with build-standalone.sh.

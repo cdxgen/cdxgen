@@ -643,21 +643,15 @@ jobs:
         run: |
           bin/cdxgen.js -t php repotests/Vulnerable-Web-Application -o bomresults/bom-php-1.json --fail-on-error
           # The research profile slices the whole tree, vendor/ included (about
-          # 11,800 PHP files). That needs php, an atom that batches PHP through
-          # phpastgen (atom 4) and an atom-parsetools that parses vendor trees
-          # a chunk of files per interpreter (1.9). atom 3 starts a php process
-          # per file and runs out of time on every OS (cdxgen issue #4436).
-          if command -v php > /dev/null && node -e '
-            const version = (name) =>
-              require(`./node_modules/${name}/package.json`).version.split(".").map(Number);
-            const [atomMajor] = version("@appthreat/atom");
-            const [major, minor] = version("@appthreat/atom-parsetools");
-            process.exit(atomMajor >= 4 && (major > 1 || minor >= 9) ? 0 : 1);
-          '; then
+          # 11,800 PHP files). atom batches PHP through phpastgen and
+          # atom-parsetools parses vendor trees a chunk of files per
+          # interpreter, but both still drive a php interpreter, so php is the
+          # only runner requirement worth checking.
+          if command -v php > /dev/null; then
             bin/cdxgen.js -t php --no-recurse repotests/Vulnerable-Web-Application -o bomresults/bom-php-2.json --fail-on-error --profile research --usages-slices-file bomresults/php-usages.slices.json
             jq -e '[(.objectSlices // [])[] | select((.fileName // "") | test("(^|[/\\\\])vendor[/\\\\]"))] | length > 1000' bomresults/php-usages.slices.json
           else
-            echo "Skipping the php research profile: it needs php, atom 4 and atom-parsetools 1.9."
+            echo "Skipping the php research profile: it needs php on the runner."
           fi
         shell: bash
         env:
@@ -1818,12 +1812,12 @@ jobs:
       - name: repotests evinse language coverage (python, php, c)
         run: |
           set -e
-          # In-repo fixtures exercising the atom 3 frontends that previously had
+          # In-repo fixtures exercising the atom frontends that previously had
           # no evinse CI coverage. PHP is the one that would regress silently:
           # it depends on cdxgen bypassing the dispatcher's PHP_PARSER_BIN
           # clobber, so a broken bypass shows up here as zero slices.
           #
-          # Ruby is deliberately absent: atom 3's Ruby frontend requires Ruby
+          # Ruby is deliberately absent: atom's Ruby frontend requires Ruby
           # 4.0.x and this runner ships 3.x, so it emits zero slices and any
           # assertion here would be ceremonial. Ruby coverage belongs in the
           # ruby4 container image job.

@@ -178,7 +178,7 @@
     "typescript": "^7.0.2"
   },
   "optionalDependencies": {
-    "@appthreat/atom": "3.2.1",
+    "@appthreat/atom": "4.0.0",
     "@appthreat/atom-parsetools": "2.0.0",
     "@bufbuild/protobuf": "2.16.0",
     "@cdxgen/cdx-hbom": "0.8.0",

@@ -87,7 +87,7 @@ jobs:
             ext: .exe
           # Set musl configurations
           - os: linux
-            # bookworm, not bullseye: the atom 3 linux-gnu native images are
+            # bookworm, not bullseye: the atom linux-gnu native images are
             # linked against GLIBC_2.34, which bullseye (2.31) does not provide,
             # so the bundled atom payload cannot start there.
             image: php:8.4-bookworm@sha256:496b5e02fe9fe44fcfb715023b931048111dc4e0bc719789d83c906be9f04b05

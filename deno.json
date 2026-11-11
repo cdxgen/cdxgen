@@ -83,7 +83,7 @@
     "parse-conflict-json": "npm:parse-conflict-json@6.0.0",
     "treeverse": "npm:treeverse@3.0.0",
     "walk-up-path": "npm:walk-up-path@4.0.0",
-    "@appthreat/atom": "npm:@appthreat/atom@3.2.1",
+    "@appthreat/atom": "npm:@appthreat/atom@4.0.0",
     "@cdxgen/cdx-hbom": "npm:@cdxgen/cdx-hbom@0.8.0",
     "@cdxgen/cdx-proto": "npm:@cdxgen/cdx-proto@2.3.0",
     "@bufbuild/protobuf": "npm:@bufbuild/protobuf@2.16.0",
