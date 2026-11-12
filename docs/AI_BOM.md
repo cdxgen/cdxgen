@@ -239,6 +239,7 @@ The remote parser now preserves several important relationships:
 - model-card datasets become reusable `type: "data"` components plus dependency edges
 - Space `models[]` and `datasets[]` metadata become related components plus dependency edges from the Space application
 - model lineage from `base_model`, `base_models`, and `finetuned_from` is normalized into `pedigree.ancestors[]`
+- base models are looked up with the Hugging Face token only while the lineage stays in the namespace of the requested repository; a base model in any other namespace, and everything below it, is looked up anonymously, so a private repository there appears by name only
 
 ### Standard Hugging Face → CycloneDX mappings
 
