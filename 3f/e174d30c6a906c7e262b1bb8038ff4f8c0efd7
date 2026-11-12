@@ -1,0 +1,31 @@
+lib/inventory/cmakeBuildDirs.poku.js
+  s_8376465eb88a0d::t_463ff1bf8dbecc 183-188
+docs/LESSON27.md
+  s_8376465eb88a0d::t_147587ef8aefe8 227-233
+lib/ecosystems/cmakeResolver.js
+  s_8376465eb88a0d::t_c4ee83313a5ba7 13-21,61
+lib/ecosystems/cmakeResolver.poku.js
+  s_8376465eb88a0d::t_0a8ba3a6234cf4 14,76-92
+lib/ecosystems/cppBuildContext.js
+  s_8376465eb88a0d::t_be22dc102b1087 14-15,29,254-291,297-299,310-316,319-321,432,441,450-453,456-461,472
+lib/ecosystems/cppBuildContext.poku.js
+  s_8376465eb88a0d::t_d535fde7b73f96 7,12,38-55,67,168,385-456,488-572
+lib/inventory/cmakeBuildDirs.js
+  s_8376465eb88a0d::t_bc9158924e6d6c 19,53-54,62-65
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "3fe174d30c6a906c7e262b1bb8038ff4f8c0efd7",
+  "prompts": {},
+  "sessions": {
+    "s_8376465eb88a0d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6b944f10-f38a-4491-8809-d36fec51aaa5",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
