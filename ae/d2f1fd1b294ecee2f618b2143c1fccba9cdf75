@@ -1,0 +1,23 @@
+lib/ecosystems/pythonutils.poku.js
+  s_8376465eb88a0d::t_88540e0c9a39ab 555,561-562,564-592
+  s_8376465eb88a0d::t_179ce71e45ac1b 10,13
+  s_8376465eb88a0d::t_0d28f2e0bdc280 546-554,556-560,563
+lib/ecosystems/pythonutils.js
+  s_8376465eb88a0d::t_89055bf3a510b2 370-373,376,378,383,386-390
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "aed2f1fd1b294ecee2f618b2143c1fccba9cdf75",
+  "prompts": {},
+  "sessions": {
+    "s_8376465eb88a0d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6b944f10-f38a-4491-8809-d36fec51aaa5",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
