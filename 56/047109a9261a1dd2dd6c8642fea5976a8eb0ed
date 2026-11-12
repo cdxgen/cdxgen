@@ -1,0 +1,26 @@
+lib/ecosystems/parsers-python.poku.js
+  s_8376465eb88a0d::t_ca51e45ab597f7 660-678
+lib/ecosystems/pythonutils.poku.js
+  s_8376465eb88a0d::t_64a59523de89d8 730,734,741,750,754,762,766,769-771,776-777,818-819,821-861
+  s_8376465eb88a0d::t_79887ee6ae9fea 27,725-729,731-733,735-740,742-749,751-753,755-761,763-765,767-768,772-775,778-817,820,862-863
+lib/ecosystems/parsers-python.js
+  s_8376465eb88a0d::t_11bc2956a1b783 1820-1824
+lib/ecosystems/pythonutils.js
+  s_8376465eb88a0d::t_2022f5064ac2f3 1381-1436,1531-1532,1539,1542
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "56047109a9261a1dd2dd6c8642fea5976a8eb0ed",
+  "prompts": {},
+  "sessions": {
+    "s_8376465eb88a0d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6b944f10-f38a-4491-8809-d36fec51aaa5",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
