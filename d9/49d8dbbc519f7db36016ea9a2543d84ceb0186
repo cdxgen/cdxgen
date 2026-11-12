@@ -1,0 +1,22 @@
+lib/core/outputLink.cli.poku.js
+  s_ca25ed78b45d39::t_fb02e75aeae311 101-105
+  s_ca25ed78b45d39::t_e7d2beb9d7ef86 100
+.github/workflows/nodejs.yml
+  s_ca25ed78b45d39::t_740b78ca50e798 137-157
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "d949d8dbbc519f7db36016ea9a2543d84ceb0186",
+  "prompts": {},
+  "sessions": {
+    "s_ca25ed78b45d39": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "4626026c-dae9-43e1-99a2-84c8cc48d6f2",
+        "model": "claude-sonnet-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
