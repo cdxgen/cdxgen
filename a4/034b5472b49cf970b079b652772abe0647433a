@@ -1,0 +1,43 @@
+docs/MCP.md
+  s_8376465eb88a0d::t_75cbe95475afcb 227
+lib/inventory/agentFormulationParser.js
+  s_8376465eb88a0d::t_0fb1f9e6427f3a 1,4,38-40,74-76,82-96,207-209,214,218-223
+lib/inventory/agentFormulationParser.poku.js
+  s_8376465eb88a0d::t_e8a388b6625a2c 27-29,65-67,102-113,117-120,125-127,131,144,158-160
+lib/inventory/aiInventory.js
+  s_8376465eb88a0d::t_c4f7daf6d47edb 346-349
+lib/inventory/aiInventory.poku.js
+  s_8376465eb88a0d::t_816d7a23728213 1-7,212-298
+lib/inventory/aiOversightCollector.js
+  s_8376465eb88a0d::t_dc12d7562cb0eb 3,149-151,153-154,166-167
+lib/inventory/communityAiConfigParser.js
+  s_8376465eb88a0d::t_8e71113bbc6765 1,6,103-135,249,252-256,258-259,263-265,267,494,996,998,1024-1025,1767-1769,1774-1775,1785-1786,1805,1809-1814
+lib/inventory/communityAiConfigParser.poku.js
+  s_8376465eb88a0d::t_9c5a125616925d 45-47,109-111,163-165,251-253,477-479
+lib/inventory/mcpConfigParser.js
+  s_8376465eb88a0d::t_e3990d82a0b0b1 3,47-48,802-803,805,810,814-819
+lib/inventory/mcpConfigParser.poku.js
+  s_8376465eb88a0d::t_d72eebbaeb2a3d 35-37,89-91,155-157,198-200,247-249,280-282,326-328,375-377
+lib/inventory/mcpServerManifest.js
+  s_8376465eb88a0d::t_3f51d2c53ec78e 3,11-12,319-320,322,327,331-336
+lib/inventory/mcpbBundle.js
+  s_8376465eb88a0d::t_42b08f7c4d6263 1,6,60-61,64,67,70-75,400-401,403,408,411
+lib/inventory/mcpbBundle.poku.js
+  s_8376465eb88a0d::t_f453805193bb12 1-7,211-255
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "a4034b5472b49cf970b079b652772abe0647433a",
+  "prompts": {},
+  "sessions": {
+    "s_8376465eb88a0d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6b944f10-f38a-4491-8809-d36fec51aaa5",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
