@@ -224,10 +224,13 @@ answer: gcc, clang, apple-clang, msvc, clang-cl, nvcc, icx, icc, nvhpc, or a
 compiler built on the EDG front end (its banner mentions the Edison Design
 Group; such a component carries `cdx:cpp:frontend=edg`). Only a driver named
 like one of these compilers is run, and only when it is found on the `PATH` or
-named by an absolute path outside the project: a compilation database can come
-with the code it describes, so a compiler inside the project is never run. In
-secure mode no compiler is run, and only an explicit `--compile-commands` is
-read.
+named by an absolute path in one of the `PATH`'s directories: a compilation
+database can come with the code it describes, so a compiler inside the project,
+or elsewhere in the checkout a scanned directory belongs to, is never run. A
+compiler outside those directories, such as a cross compiler under `/opt`, is
+recognised from CMake's description when the build tree has one, and otherwise
+recorded by name. In secure mode no compiler is run, and only an explicit
+`--compile-commands` is read.
 
 The project component carries the security-hardening options the build uses:
 `cdx:cpp:hardening:fortifySource`, `stackProtector`, `pie`, `relro`,
