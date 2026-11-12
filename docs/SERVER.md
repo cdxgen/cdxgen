@@ -142,7 +142,7 @@ cdxgen --server
 
 _(Note: SCP-style SSH URLs like `git@github.com:repo.git` are fully supported, automatically normalized, and validated securely)._
 
-cdxgen checks a Git URL against the host that git itself will connect to, not only the host that the JavaScript URL parser reports. URLs that the two read differently are rejected with `400 Invalid URL Format`. This covers backslashes (`https://allowed.com\@other.com/repo`), whitespace and control characters, a `?` or `#` before the first slash (`ssh://allowed.com#@other.com/repo`), more than one `@` in the authority, percent-encoded or numeric hosts, and `git@host/path` forms that git treats as local paths.
+cdxgen checks a Git URL against the host that git itself will connect to, not only the host that the JavaScript URL parser reports. URLs that the two read differently are rejected with `400 Invalid URL Format`. This covers backslashes (`https://allowed.com\@other.com/repo`), whitespace and control characters, a `?` or `#` before the first slash (`ssh://allowed.com#@other.com/repo`), more than one `@` in the authority, percent-encoded or numeric hosts, `git@host/path` forms that git treats as local paths, and ssh or git remotes with `@[` in the path (`ssh://allowed.com/x@[other.com]/repo`), which git reads as the host.
 
 ### 2. Restricting Allowed Hosts
 
