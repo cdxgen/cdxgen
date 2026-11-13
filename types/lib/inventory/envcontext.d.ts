@@ -54,7 +54,8 @@ export declare function gitTreeHashes(dir: string): {};
  *
  * @returns {Object[]} files with their blob hash, name, OmniBOR id and SWHID;
  * empty when git fails, for example when the directory is not a git working
- * tree or has no commit
+ * tree or has no commit. A listing longer than MAX_GIT_FILE_LIST_BYTES is
+ * cut there.
  */
 export declare function listFiles(dir: string): Object[];
 /**
@@ -62,13 +63,21 @@ export declare function listFiles(dir: string): Object[];
  *
  * @param {string} dir Repo directory
  * @param {Array} args arguments to git command
+ * @param {Object} [options] output limits
+ * @param {number} [options.maxBuffer] most bytes of standard output to read,
+ * MAX_GIT_OUTPUT_BYTES unless given
+ * @param {Function} [options.onTruncated] called when the output reached
+ * maxBuffer; with it, the output read so far is returned instead of undefined
  *
  * @returns {string|undefined} git's standard output, or undefined when git
- * could not run or exited with a non-zero status. Text git writes to standard
- * error, including warnings of a successful command, is never part of the
- * result.
+ * could not run, exited with a non-zero status or printed more than maxBuffer
+ * without onTruncated. Text git writes to standard error, including warnings
+ * of a successful command, is never part of the result.
  */
-export declare function execGitCommand(dir: string, args: any[]): string | undefined;
+export declare function execGitCommand(dir: string, args: any[], options?: {
+    maxBuffer?: number;
+    onTruncated?: Function;
+}): string | undefined;
 /**
  * Retrieves the author names and emails from the git commit log
  *
@@ -342,6 +351,20 @@ export declare function getOrInstallNvmTool(toolVersion: string): string;
  * @returns {Boolean} true if rbenv is available. false otherwise.
  */
 export declare function isRbenvAvailable(): boolean;
+/**
+ * Validates a Ruby version name before it is handed to rbenv, joined below
+ * `$RBENV_ROOT/versions`, or used as a `docker.io/ruby` image tag. Accepts the
+ * names MRI releases use, such as `3.3.6`, `3.4.0-preview1`, `2.6.0-dev` or
+ * `1.8.7-p374`: the name must be a single token that starts with a digit and
+ * contains only digits, ascii letters, dots, hyphens and plus signs, with
+ * every separator followed by an alphanumeric character. A path separator,
+ * `..`, whitespace or a leading `-` never matches, so the value can neither
+ * name a file for `rbenv install` nor walk out of the versions directory.
+ *
+ * @param {string} rubyVersion Candidate Ruby version name
+ * @returns {boolean} True when the name is safe to pass to rbenv
+ */
+export declare function isValidRubyVersionName(rubyVersion: string): boolean;
 /**
  * Returns the rbenv binary directory for the given Ruby version.
  * Respects the `RBENV_ROOT` environment variable when set; otherwise falls back

@@ -79,6 +79,8 @@ export declare function conanPackageOf(file: string, conan2: Object[]): {
  *   `vcpkg_installed`
  * @param {function(string): boolean} [context.isFirstPartyHeader] Whether a
  *   file is the project's own
+ * @param {boolean} [context.hostDevPackages=true] Whether a file may be
+ *   attributed to a package of this host's Conan cache or operating system
  * @returns {function(Iterable<string>): Object|undefined} Given the resolved
  *   files, `{kind: "first-party"}`, `{kind: "component", component}`,
  *   `{kind: "vcpkg", port, version, triplet}`, `{kind: "conan", name,

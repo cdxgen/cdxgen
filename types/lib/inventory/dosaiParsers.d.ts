@@ -9,14 +9,42 @@
  */
 export declare function normalizeDosaiPurlKey(purl: string): string | undefined;
 /**
+ * The evidence budget of one dosai report, for {@link addDosaiSetValue}.
+ *
+ * @param {number} [reportBytes] Size of the report file in bytes
+ * @returns {{remaining: number, dropped: number}} Characters still allowed,
+ *   and the number of values left out so far
+ */
+export declare function createDosaiEvidenceBudget(reportBytes?: number): {
+    remaining: number;
+    dropped: number;
+};
+/**
+ * Warn when a dosai report named more evidence than its budget allowed.
+ *
+ * @param {{dropped: number}|undefined} budget Budget from {@link createDosaiEvidenceBudget}
+ * @param {string} [reportFile] Report the evidence came from, for the message
+ * @returns {void}
+ */
+export declare function warnDosaiEvidenceBudget(budget: {
+    dropped: number;
+} | undefined, reportFile?: string): void;
+/**
  * Append a value to the Set stored under a key in a map, creating the Set when absent.
  *
  * @param {Object} map Map of key to Set of values, mutated in place
  * @param {string} key Map key (usually a purl)
- * @param {string} value Value to add; no-op when key or value is falsy
+ * @param {string} value Value to add; no-op when key or value is falsy, or
+ *   when the value is longer than MAX_DOSAI_VALUE_LENGTH
+ * @param {{remaining: number, dropped: number}} [budget] Evidence budget of
+ *   the report, from {@link createDosaiEvidenceBudget}; a new value that does
+ *   not fit is left out and counted
  * @returns {void}
  */
-export declare function addDosaiSetValue(map: Object, key: string, value: string): void;
+export declare function addDosaiSetValue(map: Object, key: string, value: string, budget?: {
+    remaining: number;
+    dropped: number;
+}): void;
 /**
  * Format a `file#line` location string from a dosai node or location item.
  *
@@ -79,7 +107,8 @@ export declare function buildDosaiPurlAliasMap(components?: Object[], options?: 
  * package ship the same DLLs): the only one, else the one whose project
  * directory is nearest the record's location.
  *
- * @param {Iterable<string>} purls Candidate component purls
+ * @param {Iterable<string>} purls Candidate component purls, a collection that is
+ *        not changed once passed
  * @param {Map<string, string>} purlAliasMap Alias map built by buildDosaiPurlAliasMap
  * @param {string} [location] Source location of the dosai record (`path` or `path#line`)
  * @returns {string|undefined} The component purl, or undefined when it cannot be told

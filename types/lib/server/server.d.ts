@@ -38,6 +38,16 @@ export declare function validateRequestOptions(reqOptions: Object, operatorOptio
  */
 export declare function getQueryParams(req: Object): Object;
 /**
+ * Serialize the BOM response body before any status line is written, so a
+ * failure (for example a BOM larger than the maximum string length) can still
+ * be answered with an error status.
+ *
+ * @param {Object|string|undefined} responseBomJson BOM object or pre-rendered string
+ * @returns {string|undefined} Serialized body, an empty string when there is no
+ *   BOM, or undefined when serialization fails
+ */
+export declare function serializeBomResponse(responseBomJson: Object | string | undefined): string | undefined;
+/**
  * Configure timeout and keepAlive values on the cdxgen HTTP server.
  *
  * @param {import("node:http").Server} cdxgenServer HTTP server instance to configure

@@ -76,6 +76,46 @@ Gradle example:
 export GRADLE_ARGS="--configuration runtimeClasspath"
 ```
 
+## Symbolic links in the scanned tree
+
+A project directory may come from someone else, so cdxgen treats every file it
+reads from it as untrusted. A file read from the scanned tree must resolve
+inside the directory the scan started from, must be a regular file, and is
+read only up to a size cap. A symbolic link that stays inside the tree is
+followed: `CLAUDE.md -> AGENTS.md`, `requirements.txt -> requirements/base.txt`,
+pnpm's links into `node_modules/.pnpm` and a Hugging Face snapshot that links
+into `../../blobs` all work. A link that leads out of the tree is not followed,
+and the file behind it is skipped as if it were absent. The path is walked one
+name at a time from the scan root, and a link is followed only when its target,
+as written, stays inside the root, so cdxgen never looks up a host path on the
+way and a BOM cannot tell whether such a path exists. A device, a FIFO or a
+procfs file reached through a link is never read.
+
+This covers the CI configurations (Jenkins, GitHub Actions, GitLab CI,
+CircleCI, Azure Pipelines) and the README scan of the formulation section,
+the Cargo, pyproject and build-script reads of the Rust formulation, the make,
+CMake, `go.mod`, pip requirements and .NET build files of the formulation
+section, vendored C headers of `-sys` crates, the JVM wrapper and build files, local parent poms
+and reactor modules, installed `package.json` files under `--deep` and in the
+lockfile-less `node_modules` fallback, pnpm `link:` and `file:` values,
+requirements files, the Zig `zig-pkg` tree, Go licence notices under
+`vendor/`, Terraform's lock file and `.terraform` directory, the C and C++ build
+files (`CMakeCache.txt`, CMake presets and compiler files, FetchContent
+scripts, `.gitmodules`, `compile_commands.json`, vcpkg lists, vendored licence
+and version files and the headers counted as the project's own), and the
+`-t ai` source, model card and config reads.
+
+Some layouts legitimately link out of the tree: a monorepo whose
+`node_modules` or `vendor/` is a link to a shared directory, a pnpm global
+virtual store (`enableGlobalVirtualStore`), a `.terraform` directory kept on
+another volume, or a CMake build directory outside the source tree. cdxgen does
+not follow those links. Scan the real directory instead, for example the
+directory that holds both the project and the shared `node_modules`, or move
+the build tree inside the project. For CMake, `--cmake-cache <file>` still
+names a `CMakeCache.txt` outside the project when secure mode is off. A single
+file given as the scan path, such as `cdxgen -t ai model.gguf`, is read
+wherever its own link leads.
+
 ## Filtering components
 
 cdxgen can filter the components and the dependency tree before writing to a BOM json file. Three kinds of filters are allowed:
@@ -209,6 +249,8 @@ cdxgen discovers embedded SBOMs in installed distributions (`site-packages/<dist
 
 The embedded data is untrusted third-party input: cdxgen bounds its size (documents larger than 5 MiB are skipped), never follows references out of it, validates the shape before merging, and skips an invalid document with a warning rather than failing the run.
 
+The same 5 MiB bound applies to every metadata file cdxgen reads out of an archive without extracting it, such as a wheel's `METADATA` or a `.nupkg` package's `.nuspec`. The bound counts the bytes that actually come out of the decompressor, not the size the archive declares, so an entry that inflates past it is skipped.
+
 ## TEA — Transparency Exchange API
 
 The [Transparency Exchange API](https://github.com/CycloneDX/transparency-exchange-api) (ECMA TC54 TG1) is a standard for exchanging transparency artefacts (SBOMs, VEX, attestations) between systems. The consumer API is the current conformance base (spec version 0.4.0); the publisher API exists as a **draft recommendation** in `spec/publisher/` and is subject to change.
@@ -221,7 +263,9 @@ cdxgen -t js /path/to/repo --tea-fetch urn:tei:uuid:cdxgen.github.io:d4d9f54a-ab
 
 cdxgen resolves the TEI via `/.well-known/tea` discovery (HTTPS only, per the spec), selects the endpoint with the highest matching API version and priority, resolves the TEI to a product release, downloads the latest Collection's BOM artifacts, and merges the upstream components into the generated BOM. Fetched components are tagged `cdx:tea:source` / `cdx:tea:collection` and carry a CycloneDX 1.7 citation. The merge uses the same rule as PEP 770: the upstream document is a stronger assertion than cdxgen's inference, so it wins on conflict and the conflict is recorded rather than discarded. A fetch failure only warns — the locally generated BOM stands.
 
-Every checksum a Collection declares must match, and an artifact whose checksums all use algorithms this client cannot compute is rejected rather than merged unverified: remote content whose integrity was asserted and then not checked is worse than fetching nothing. An artifact that declares no checksum at all is a publisher decision, and is merged with a warning. Documents over 5 MiB are skipped, as with PEP 770.
+Every checksum a Collection declares must match, and an artifact whose checksums all use algorithms this client cannot compute is rejected rather than merged unverified: remote content whose integrity was asserted and then not checked is worse than fetching nothing. An artifact that declares no checksum at all is a publisher decision, and is merged with a warning. Documents over 5 MiB are skipped, as with PEP 770. At most 32 BOM documents are downloaded from one Collection, and at most 100,000 components and dependencies are merged from them; further documents are skipped with a warning. The `cdx:tea:source` label is the artifact URL without its query and fragment when that fits in 256 characters, and the artifact name otherwise.
+
+The TEA token (`--tea-token` or `TEA_TOKEN`) goes only to the origin of the TEA server that the TEI's domain advertises in its `/.well-known/tea` document. The well-known document itself is public and is requested without the token. The discovery request, and the Collection and artifact requests, carry the token only when their URL has that origin: a server that only the discovery response names, and an artifact that a Collection places on another host, are contacted without it. When `--tea-fetch` comes from a config file in the working directory rather than the command line or `CDXGEN_TEA_FETCH`, no request of the fetch carries the token, because the TEI then comes from the scanned project.
 
 ### Publishing (`--tea-publish`)
 
@@ -236,7 +280,7 @@ cdxgen -t js /path/to/repo -o bom.json \
 The generated BOM is published as a TEA Artifact in a Collection via the draft publisher API's `POST /collection`. Collection versioning is owned by the server: publish the first collection with the default `--tea-reason INITIAL_RELEASE`, and subsequent updates with `ARTIFACT_UPDATED`, `ARTIFACT_ADDED`, `ARTIFACT_REMOVED`, or `VEX_UPDATED`; the server increments the collection version.
 
 - The BOM is written locally **before** the publish attempt, so a publish failure never costs you your SBOM; the failure is reported and cdxgen exits with status `3` (distinct from other errors).
-- Credentials (`--tea-token` or `TEA_TOKEN`) are sent only as an `Authorization: Bearer` header, are never logged, and never reach the BOM.
+- Credentials (`--tea-token` or `TEA_TOKEN`) are sent only as an `Authorization: Bearer` header, are never logged, and never reach the BOM. When `--tea-publish` comes from a config file in the working directory, the publish request is sent without the token.
 - `--tea-artifact-url` must be reachable by the TEA server; by default cdxgen uses the local output path, which most servers cannot fetch.
 
 ## Go Evinse data-flow and crypto-flow evidence
@@ -502,7 +546,7 @@ output: bom.json
 only: org.springframework
 ```
 
-cdxgen reads the config file from the directory it runs in, which is often the project being scanned, so the file carries that project's trust. A config file may set the command-line options by their long name, in kebab-case or camelCase, or by the aliases `o`, `t`, `r`, `p`, `c`, `q` and `exclude-regex`. Any other key, including yargs' `extends`, is ignored with a warning. The options `scalasem-command`, `server`, `server-host`, `server-port`, `skip-dt-tls-check`, `feature-flags` and `help` are left to the command line and `CDXGEN_` environment variables, and so are project types that inventory the host rather than the project, such as `os`, `hbom` or `vscode-extension`. Path options such as `output` must stay inside the config's directory after symbolic links are resolved. Each `exclude` or `include-regex` pattern may be at most 512 characters long, and together they may stand for at most 128 patterns once brace expressions such as `{test,tests}` or `{1..9}` are expanded, because every expanded pattern is matched against every file. Patterns past that limit are dropped with a warning, in the order they appear, and braces whose expansion depends on the rest of the pattern, such as `{a}` or an unclosed `{`, count as over the limit. It cannot turn installs on when `--no-install-deps` is on the command line, or in secure mode unless `--install-deps` is passed there. An `introspect: true` or `profile: introspect` in the file still produces the introspection report, but does not let the project's build tools run while installs are off. Settings such as `install-deps`, `introspect`, `deep` and `server-url` print a notice when a config file sets them.
+cdxgen reads the config file from the directory it runs in, which is often the project being scanned, so the file carries that project's trust. A config file may set the command-line options by their long name, in kebab-case or camelCase, or by the aliases `o`, `t`, `r`, `p`, `c`, `q` and `exclude-regex`. Any other key, including yargs' `extends`, is ignored with a warning. The options `evidence`, the `*-slices-file` options (`deps-slices-file`, `usages-slices-file`, `callsites-slices-file`, `data-flow-slices-file`, `reachables-slices-file` and `semantics-slices-file`), `scalasem-command`, `server`, `server-host`, `server-port`, `skip-dt-tls-check`, `feature-flags`, `generate-key-and-sign` and `help` are left to the command line and `CDXGEN_` environment variables, and so are project types that inventory the host rather than the project, such as `os`, `hbom` or `vscode-extension`. A `profile` or `technique` taken from the file does not turn on evidence collection (the `research`, `threat-modeling`, `introspect` and `ml-deep` profiles and the `source-code-analysis` technique do when the operator chooses them), and the `operational` profile taken from the file does not add the `os` project type. A project type in the file must be one cdxgen knows by exactly that name, as listed in [PROJECT_TYPES.md](PROJECT_TYPES.md); any other, including a differently capitalized name such as `Java`, is ignored with a warning. Path options such as `output` must stay inside the config's directory after symbolic links are resolved. Each `exclude` or `include-regex` pattern may be at most 512 characters long, and together they may stand for at most 128 patterns once brace expressions such as `{test,tests}` or `{1..9}` are expanded, because every expanded pattern is matched against every file. Patterns past that limit are dropped with a warning, in the order they appear, and braces whose expansion depends on the rest of the pattern, such as `{a}` or an unclosed `{`, count as over the limit. It cannot turn installs on when `--no-install-deps` is on the command line, or in secure mode unless `--install-deps` is passed there. An `introspect: true` or `profile: introspect` in the file still produces the introspection report, but does not let the project's build tools run while installs are off. When `--bom-audit` or `CDXGEN_BOM_AUDIT` turns the BOM audit on, the file's `profile` and `bom-audit-*` settings are ignored with a warning, because a profile such as `ml-tiny` strips the component properties the audit rules read and the `bom-audit-*` options narrow what it checks. In secure mode the file's `bom-audit` and `bom-audit-*` settings are always ignored. Settings such as `install-deps`, `introspect`, `deep`, `server-url`, `type`, `exclude`, `exclude-type` and `license-policy` print a notice when a config file sets them.
 
 ### Environment variables
 
@@ -806,7 +850,7 @@ cdxgen --author "OWASP Foundation" --author "Apache Foundation" -t java ...
 
 ## metadata.tools records the tools that ran
 
-Besides cdxgen itself, the BOM's `metadata.tools.components` names every external helper and build tool this run started, such as the bundled plugin helpers (trivy, osquery, dosai, sourcekitten, golem) and the build tools cdxgen ran or provisioned (mvn, gradle, sbt, pnpm). A binary that is missing or whose spawn was blocked is not listed, and neither are wrapper shells or the Node.js runtime. Bundled helpers are reported with the version and identity of the `cdxgen-plugins-bin` package that ships them; the JVM build tools cdxgen provisions carry the version it resolved; other tools carry a version only when cdxgen already knew it, since cdxgen never runs a tool just to learn its version. The executed tools follow any tools passed in by the caller, sorted by name, and cdxgen comes last. A run that started nothing external keeps the tools block exactly as before. For spec version 1.4 output the entries appear in the legacy `tools` array instead. In server mode the list is reset between scans, but scans that overlap in time share it.
+Besides cdxgen itself, the BOM's `metadata.tools.components` names every external helper and build tool this run started, such as the bundled plugin helpers (trivy, osquery, dosai, sourcekitten, golem) and the build tools cdxgen ran or provisioned (mvn, gradle, sbt, pnpm). A binary that is missing or whose spawn was blocked is not listed, and neither are wrapper shells or the Node.js runtime. Bundled helpers are reported with the version and identity of the `cdxgen-plugins-bin` package that ships them, and only the helper names cdxgen knows (cargo-auditable, cdxrs, cdxui, dosai, golem, kosi, osquery, rusi, sourcekitten, trivy and trustinspector) are looked up in the plugins manifest, so a manifest entry cannot change what is reported for git or a build tool; the JVM build tools cdxgen provisions carry the version it resolved; other tools carry a version only when cdxgen already knew it, since cdxgen never runs a tool just to learn its version. The executed tools follow any tools passed in by the caller, sorted by name, and cdxgen comes last. A run that started nothing external keeps the tools block exactly as before. For spec version 1.4 output the entries appear in the legacy `tools` array instead. In server mode the list is reset between scans, but scans that overlap in time share it.
 
 ## Generate bash/zsh command completions
 
@@ -1048,9 +1092,10 @@ When `--server-url` is set, the notice names the server the formulation will be 
 
 Formulation is not what satisfies the generation context element of the CISA 2026 minimum elements: `CISA-MIN-004` reads `metadata.lifecycles`, which cdxgen fills without formulation.
 
-- git metadata such as files in the tree, origin url, branch, and CI environment variables (a URL in an environment value keeps only its scheme, host and path; userinfo, query string and fragment are removed)
+- git metadata such as files in the tree, origin url, branch, and build environment variables. Variables whose names start with `GIT_`, `ANDROID_`, `DENO_`, `DOTNET_`, `JAVA_`, `SDKMAN_`, `CARGO_`, `CONDA_`, `RUST`, `GEM_`, `SCALA_`, `MAVEN_` or `GRADLE_` are listed. A value is recorded only for names that hold a location or a version (names ending in `_HOME`, `_PATH`, `_ROOT` or `_VERSION`) and for `GIT_BRANCH`, `GIT_COMMIT`, `GIT_LOCAL_BRANCH`, `GIT_PREVIOUS_COMMIT`, `GIT_PREVIOUS_SUCCESSFUL_COMMIT`, `GIT_DEPTH`, `GIT_STRATEGY`, `RUSTUP_TOOLCHAIN`, `CONDA_DEFAULT_ENV`, `CONDA_SHLVL`, `DENO_DIR` and `DOTNET_ROOT`, and only when neither the name nor the value looks like a credential. Every other variable, such as `MAVEN_OPTS`, `GRADLE_OPTS` or a Jenkins `credentials()` variable, appears as its name alone (a plain string in `environmentVars`). A URL in a recorded value keeps only its scheme, host and path; userinfo, query string and fragment are removed
+- CI workflows from GitHub Actions, GitLab CI, Jenkins, CircleCI and Azure Pipelines files. Names, conditions, commands and properties copied from these files, and from any other formulation parser, go through the same sanitizer as other BOM properties: URLs lose their userinfo, query string and fragment, and recognised token shapes read `[redacted]`. Commands, step names and `*:command` properties also lose credential values passed as literal arguments: the value after flags such as `--password`, `--token`, `--api-key` or `--secret` (spaced or after `=`), `-D` and `-P` properties with such names, curl's `-u user:password`, the `-p` of `docker login` and other registry clients, a password attached to `-p` of the MySQL clients, `Authorization:` and similar header values, and `NAME=value` assignments whose name marks a credential each read `[redacted]`, while the executable and the other arguments stay. A value that is a variable reference such as `$TOKEN` or `${{ secrets.TOKEN }}` is kept. A Jenkins `when` block is recorded as its directive names only (`cdx:jenkins:stage:when`, for example `anyOf,branch,environment`). Credentials in shapes these checks do not recognise are kept, so review the section before sharing a BOM built from pipelines that hold credentials
 - build tools versions (Java, Python, Node.js, gcc, dotnet, rustc, Go, Ruby, RubyGems, Bundler, PHP and Composer)
-- build inputs cdxgen can read without running a build: `Cargo.toml` (build dependencies, build-script capabilities), make and CMake files (target, include and variable names), `go.mod` (module, toolchain), pip requirements and constraints files, and .NET `project.assets.json` restore output and `.csproj` files. Go binaries are read by the binary/OBOM path through the bounded buildinfo reader, not by formulation. Build files larger than 2 MB (32 MB for `project.assets.json`) are skipped without being read, lines longer than 4096 characters are ignored, and the file search honours `--exclude`. Each build-input component records its file relative to the scanned directory; a build file that is a symlink, or resolves outside that directory, is not read. OS inventories (`-t os` and the `obom` command) skip this discovery and the CI and README scans, because their path is usually a home directory or `/` rather than a project.
+- build inputs cdxgen can read without running a build: `Cargo.toml` (build dependencies, build-script capabilities), make and CMake files (target, include and variable names), `go.mod` (module, toolchain), pip requirements and constraints files, and .NET `project.assets.json` restore output and `.csproj` files. Go binaries are read by the binary/OBOM path through the bounded buildinfo reader, not by formulation. Build files larger than 2 MB (32 MB for `project.assets.json`) are skipped without being read, lines longer than 4096 characters are ignored, and the file search honours `--exclude`. Each build-input component records its file relative to the scanned directory. A build file that is a symbolic link is read when the link stays inside that directory and skipped when it leads out of it, as described in [Symbolic links in the scanned tree](#symbolic-links-in-the-scanned-tree). OS inventories (`-t os` and the `obom` command) skip this discovery and the CI and README scans, because their path is usually a home directory or `/` rather than a project.
 
 The `Node.js` component carries `pkg:generic/node@<version>` and `cpe:2.3:a:nodejs:node.js:<version>`, without a `bom-ref`, like the other toolchains. Each library the running Node.js reports (`process.versions`) is a nested component with `cdx:node:linkage`, `bundled` or `shared`: Homebrew and distro builds link brotli, OpenSSL, zlib and others as shared libraries, so their versions are the shared libraries' and updating Node.js alone does not update them. The `brotli` entry also carries `cdx:brotli:c:blockSwitchFix`, read from the decoder the runtime actually uses (the node binary, or the shared `libbrotlidec`), because `process.versions.brotli` stays `1.2.0` after the CVE-2026-111497 fix.
 

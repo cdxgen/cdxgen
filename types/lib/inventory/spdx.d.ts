@@ -47,9 +47,11 @@ export declare function addLicenseText(pkg: any, l: any, licenseContent: any): v
 /**
  * Read the file from the given path to the license text object and includes
  * content-type attribute, if not default. Returns the license text object.
+ * Only a regular file of at most MAX_LICENSE_TEXT_BYTES is read, since the
+ * text is stored on every component that names the license.
  */
 export declare function readLicenseText(licenseFilepath: any, licenseContentType: any): {
-    content: any;
+    content: string;
 } | null;
 /**
  * Method to find the spdx license id from name

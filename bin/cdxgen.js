@@ -14,7 +14,6 @@ import {
 } from "node:path";
 import process from "node:process";
 
-import { parse as _load } from "yaml";
 import yargs from "yargs";
 import { hideBin } from "yargs/helpers";
 
@@ -23,7 +22,11 @@ import {
   applyAdvancedOptions as applyAdvancedOptionsImpl,
   applyOperatorToolingChoice,
   buildOptionsFromArgs,
+  configFileSelections,
+  dropConfigAuditOverrides,
+  findInTreeSlicesFiles,
   isUserProvided,
+  markConfigFileTeaTargets,
   validateSpecVersion,
 } from "../lib/cli/cliOptions.js";
 import { createBom, submitBom } from "../lib/cli/index.js";
@@ -33,6 +36,7 @@ import {
   INTROSPECTION_FAILURE_EXIT_CODE,
   isDeferredFailOnError,
 } from "../lib/core/deferredExit.js";
+import { safeMkdtempSync } from "../lib/core/fs.js";
 import { TRACE_MODE, thoughtEnd, thoughtLog } from "../lib/core/logger.js";
 import { resolveSourcePathArgument } from "../lib/core/pluginRun.js";
 import {
@@ -45,6 +49,7 @@ import {
   installConsoleShim,
   restoreConsole,
 } from "../lib/core/ui.js";
+import { parse as _load } from "../lib/core/yaml.js";
 import { fetchPomXmlAsJson } from "../lib/ecosystems/ecosystems.js";
 import { normalizeHuggingFaceReference } from "../lib/ecosystems/remote/huggingface.js";
 import {
@@ -97,6 +102,7 @@ import {
   normalizeCycloneDxComponentTypeFilter,
   toCycloneDxSpecVersionString,
 } from "../lib/inventory/bomUtils.js";
+import { getCiParseFailures } from "../lib/inventory/ciParsers/common.js";
 import {
   DEPENDENCY_TRACK_CDX20_ERROR,
   getInternalBom,
@@ -176,6 +182,14 @@ for (const configPattern of PROJECT_CONFIG_FILENAMES) {
     }
     const sanitized = sanitizeProjectConfig(parsedConfig, dirname(configPath));
     config = sanitized.config;
+    for (const key of dropConfigAuditOverrides(config, {
+      env: launchEnv,
+      isSecureMode: isSecureModeActive(),
+    })) {
+      console.warn(
+        `\x1b[1;35mConfig file '${configPath}' sets '${key}', which would change the BOM audit that --bom-audit, CDXGEN_BOM_AUDIT or secure mode controls. Ignoring it. Pass the option on the command line if this is intentional.\x1b[0m`,
+      );
+    }
     for (const key of sanitized.operatorOnly) {
       console.warn(
         `\x1b[1;35mConfig file '${configPath}' sets '${key}', which only the command line or a CDXGEN_ environment variable may set. Ignoring it.\x1b[0m`,
@@ -184,6 +198,11 @@ for (const configPattern of PROJECT_CONFIG_FILENAMES) {
     for (const projectType of sanitized.hostScopeTypes) {
       console.warn(
         `\x1b[1;35mConfig file '${configPath}' selects the project type '${projectType}', which inventories this host rather than the project. Ignoring it. Pass '-t ${projectType}' on the command line if this is intentional.\x1b[0m`,
+      );
+    }
+    for (const projectType of sanitized.unknownTypes) {
+      console.warn(
+        `\x1b[1;35mConfig file '${configPath}' selects the project type '${projectType}', which cdxgen does not know by that name. Ignoring it. Project types are matched case-sensitively; see docs/PROJECT_TYPES.md.\x1b[0m`,
       );
     }
     for (const key of sanitized.ignored) {
@@ -1156,6 +1175,7 @@ const { options, warnings: phase3Warnings } = buildOptionsFromArgs(args, {
   isDryRun,
   isSecureMode,
   projectConfig: config,
+  env: launchEnv,
 });
 // Exit status reserved for the introspection CI gate: the BOM was generated
 // and written, but its introspection score missed the configured threshold.
@@ -1331,6 +1351,7 @@ const isHbomOnlyInvocation = isHbomOnlyProjectTypes(options.projectType);
 const advancedWarnings = applyAdvancedOptionsImpl(options, {
   isSecureMode: isSecureModeActive(),
   invokedCommandName,
+  ...configFileSelections(config, { env: launchEnv }),
 });
 // The config file comes from the working directory, usually the scanned
 // project, so whether the project's own code may run stays the operator's
@@ -1340,6 +1361,14 @@ applyOperatorToolingChoice(options, {
   isSecureMode: isSecureModeActive(),
   projectConfig: config,
 });
+for (const teaOption of markConfigFileTeaTargets(options, {
+  env: launchEnv,
+  projectConfig: config,
+})) {
+  console.warn(
+    `\x1b[1;35mThe config file sets '${teaOption}', so its TEA requests are sent without the TEA token. Pass '--${teaOption}' on the command line to send the token.\x1b[0m`,
+  );
+}
 if (options?.technique && Array.isArray(options.technique)) {
   if (options.technique.length === 1) {
     thoughtLog(
@@ -2036,6 +2065,19 @@ const writeCycloneDxOutput = (jsonFile, bomJson, options) => {
     cleanup = true;
   }
   setActivityContext({ sourcePath: srcDir });
+  // A slices file that exists before generation came with the scanned tree,
+  // so secure mode writes this run's slices to a directory of its own.
+  let inTreeSlicesDir;
+  for (const { option, path: plantedPath } of findInTreeSlicesFiles(options, {
+    scanPath: srcDir,
+    isSecureMode: isSecureModeActive(),
+  })) {
+    inTreeSlicesDir ??= safeMkdtempSync(join(getTmpDir(), "cdxgen-slices-"));
+    options[option] = join(inTreeSlicesDir, basename(plantedPath));
+    console.warn(
+      `\x1b[1;35mSecure mode: not reusing the slices file '${plantedPath}' found in the scanned directory. This run writes its own to '${options[option]}'.\x1b[0m`,
+    );
+  }
   if (!hasHbomProjectType(options.projectType)) {
     const prepPhase = defaultUi.phase("Preparing environment");
     try {
@@ -2185,6 +2227,25 @@ const writeCycloneDxOutput = (jsonFile, bomJson, options) => {
       thoughtLog(
         `Embedded ${postAuditFindings.length} audit findings as CycloneDX annotations`,
       );
+    }
+    // A CI file that could not be parsed was never audited, so secure mode
+    // does not let the audit pass over it.
+    const ciParseFailures = getCiParseFailures();
+    if (isSecureMode && ciParseFailures.length) {
+      const failedFiles = [...new Set(ciParseFailures.map((f) => f.file))];
+      console.error(
+        `\nSecure mode: ${failedFiles.length} CI configuration file(s) could not be parsed, so the BOM audit did not check them.`,
+      );
+      for (const failedFile of failedFiles.slice(0, 20)) {
+        console.error(`  ${failedFile}`);
+      }
+      console.error(
+        "Fix or remove these files, or run without secure mode to proceed.",
+      );
+      if (cleanup) {
+        cleanupSourceDir(srcDir);
+      }
+      process.exit(1);
     }
     if (isSecureMode && hasCriticalFindings(postAuditFindings, options)) {
       console.error("\nSecure mode: Critical audit findings detected.");

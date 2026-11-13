@@ -10,7 +10,9 @@
  * are being fetched. Their directories are built from a module path and
  * version read from modules.txt or go.sum, so a path or version the Go
  * toolchain would reject, such as one with a `..` element, is not looked up:
- * Go never writes such a directory, and joining it could leave the tree.
+ * Go never writes such a directory, and joining it could leave the tree. A
+ * directory inside the project that a link leads out of it is skipped, and a
+ * notice larger than 1 MiB is not read.
  *
  * @param {string} name Full module path
  * @param {string} [version] Module version, for the module cache layout
@@ -20,16 +22,23 @@
  * @param {string} [options.vendorPath] The path the module is vendored under,
  *   when it differs from `name`: Go vendors a replaced module under the path
  *   it replaces
- * @returns {{fileName: string, text: string}[]} The notices, in file name
- *   order; empty when none is held locally
+ * @param {Map<string, Object>} [options.noticeDirs] The directories whose
+ *   notices this scan has read, by real path, with the module each was read
+ *   for. Replace directives and vendored links can lead any number of modules
+ *   to one directory; only the first module gets its notices as they are, and
+ *   the others get them marked `shared`, so their text is embedded once
+ * @returns {{fileName: string, text: string, shared?: boolean}[]} The
+ *   notices, in file name order; empty when none is held locally
  */
 export declare function readLocalGoLicenses(name: string, version?: string, options?: {
     dir?: string;
     projectRoot?: string;
     vendorPath?: string;
+    noticeDirs?: Map<string, Object>;
 }): {
     fileName: string;
     text: string;
+    shared?: boolean;
 }[];
 /**
  * The text of the first licence notice {@link readLocalGoLicenses} finds.
@@ -101,9 +110,15 @@ export declare function parseGoModData(goModData: string, gosumMap: Object): Obj
  *
  * @param {string} txtFile Path to the modules.txt file
  * @param {Object} gosumMap Map of "module@version" keys to sha256 hash values from go.sum
+ * @param {Object} [options] Options
+ * @param {Map<string, Object>} [options.noticeDirs] The licence notice
+ *   directories this scan has read, shared with the other Go parsers of the
+ *   scan (see {@link readLocalGoLicenses})
  * @returns {Promise<Object[]>} List of Go package component objects with evidence
  */
-export declare function parseGoModulesTxt(txtFile: string, gosumMap: Object): Promise<Object[]>;
+export declare function parseGoModulesTxt(txtFile: string, gosumMap: Object, options?: {
+    noticeDirs?: Map<string, Object>;
+}): Promise<Object[]>;
 /**
  * Parse go list output
  *
@@ -123,11 +138,15 @@ export declare function parseGoModulesTxt(txtFile: string, gosumMap: Object): Pr
  * @param {Object} [options] Options
  * @param {string} [options.mainModuleDir] Directory `go list` ran in, whose
  *   main module is the parent component
+ * @param {Map<string, Object>} [options.noticeDirs] The licence notice
+ *   directories this scan has read, shared with the other Go parsers of the
+ *   scan (see {@link readLocalGoLicenses})
  * @returns Object with parent component, list of packages, and the other main
  *   modules of a workspace
  */
 export declare function parseGoListDep(rawOutput: string, gosumMap: Object, options?: {
     mainModuleDir?: string;
+    noticeDirs?: Map<string, Object>;
 }): Promise<{
     parentComponent: {};
     pkgList: Object[];

@@ -57,6 +57,8 @@ evinse -l go
 
 The integration keeps source evidence compact. It records file names, line numbers, categories, counts, symbol kinds, scopes, and module identity. It does not copy raw environment values, command output, generated file contents, or embedded secrets into the BOM.
 
+golem reports every file by its absolute path on the scanning host. The evidence names a file below the analyzed directory relative to it (`cmd/main.go`), a file of another module, such as a dependency in the module cache, as `<module path>@<version>/<path in the module>`, and any other file, such as one of the standard library, by its base name. Occurrence locations, call-stack frames and `cdx:golem:crypto:sourceLocation` follow the same rule, so two scans of one commit on different hosts name the same files.
+
 ## CLI options
 
 These options are accepted by `evinse` when `--language go` or `--language golang` is used.

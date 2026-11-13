@@ -114,11 +114,18 @@ Prints `cdxrs <version>` (e.g., `cdxrs 3.0.0`).
 
 ### `cdxrs schema-version`
 
-Prints supported spec versions as JSON:
+Prints supported spec versions, and in newer builds the optional behaviours
+the binary supports, as JSON:
 
 ```json
-{ "supportedSpecVersions": ["1.6", "1.7"] }
+{
+  "supportedSpecVersions": ["1.6", "1.7"],
+  "capabilities": ["fetch-github-token"]
+}
 ```
+
+A build without the `capabilities` array has none. cdxgen reads it through
+`cdxrsCapabilities()` before it relies on any of them.
 
 ## Adding a new subcommand
 
@@ -214,27 +221,92 @@ transports, and callers do not choose between them:
 | Plain JSON requests only, binary available              | `cdxrs fetch` subprocess |
 | Any request with `responseType: "text"` or `"buffer"`   | JS pool (`cdxgenAgent`)  |
 | Any request carrying its own `headers`                  | JS pool                  |
+| A GitHub request cdxgen composed, cdxrs takes the token | `cdxrs fetch` subprocess |
+| Any other request to a GitHub host                      | JS pool                  |
 | No binary, or `CDXGEN_RS_DISABLE=fetch`, or `--no-rust` | JS pool                  |
 
-The protocol carries a URL, an `accept` value and an opaque `authRealm`, and
-types a result body as JSON. Two kinds of request therefore have no faithful
-representation in it:
+The protocol carries a URL, an `accept` value, an opaque `authRealm` and, for
+GitHub lookups cdxgen composed itself, a `githubToken`, and types a result body
+as JSON. These requests therefore stay on the pool:
 
 - a non-JSON `responseType`, because the envelope has nowhere to put HTML.
   Rather than parse HTML as JSON and record a failure, the batch goes to the
   pool, which passes `responseType` straight to the agent. Maven POMs, the
   pkg.go.dev pages behind `getGoPkgLicense`/`getGoPkgVCSUrl`, and CocoaPods
   podspecs rely on this;
-- request-specific `headers`, because cdxrs derives its own `Authorization`
-  from `GITHUB_TOKEN` and would silently drop any other credential, turning an
+- request-specific `headers`, because the envelope has no field for them and
+  cdxrs would send the request without the credential, turning an
   authenticated lookup into an anonymous one. `forgeEnricher` relies on this to
-  carry `--forge-token` and `GITLAB_TOKEN`.
+  carry `--forge-token` and `GITLAB_TOKEN`;
+- any GitHub host (`github.com`, `api.github.com` and `*.github.com`), except
+  a lookup cdxgen composed itself when the bundled cdxrs takes a per-request
+  token (see [GitHub token](#github-token)).
 
 The pool applies the same global and per-host concurrency and rate policy, so
 the batching win is unchanged; only the on-disk cache below is skipped.
 
 Within the pool, a credential the caller attached to a request wins over the
-ambient `GITHUB_TOKEN`. The ambient token is a fallback, never an override.
+ambient `GITHUB_TOKEN`. The ambient token is a fallback, never an override,
+and only a request whose caller composed the URL from the GitHub API base and
+set `ambientGitHubAuth: true` receives it. Many batch URLs come from the
+scanned project (a lockfile's `resolved` URL, an `.npmrc` scope registry), and
+naming a GitHub host must not let such a URL borrow the operator's token.
+
+### GitHub token
+
+Whether a request may carry `GITHUB_TOKEN` is decided per request on the JS
+side, never by host name, and cdxrs never finds the token in its environment:
+`runCdxrs()`, the version probe and the capability probe all start the child
+without `GITHUB_TOKEN`.
+
+A request is a composed GitHub lookup when its caller set
+`ambientGitHubAuth: true` (today only `prefetchRepoLicenses()`, which builds the
+licence URL from the GitHub API base) and its URL is
+`https://api.github.com/repos/<owner>/<repo>` or that path followed by
+`/license`, with plain owner and repository names (letters, digits, `.`, `_`
+and `-`), the default port, and no userinfo, query or fragment.
+`isComposedGitHubApiRequest()` in `lib/inventory/fetchBatch.js` makes that
+check. A lockfile's `resolved` URL, an `.npmrc` scope registry or any other
+URL read from the scanned project never sets the flag, so it never carries the
+token on either transport.
+
+cdxrs builds that accept the token list `fetch-github-token` in the
+`capabilities` array printed by `cdxrs schema-version`. `cdxrsCapabilities()`
+runs that probe once per binary and remembers the answer. With such a build, a
+batch of composed lookups goes to `cdxrs fetch`, and each request carries the
+token in its own `githubToken` field on stdin:
+
+```json
+{
+  "requests": [
+    {
+      "id": "https://api.github.com/repos/acme/lib/license",
+      "url": "https://api.github.com/repos/acme/lib/license",
+      "authRealm": "github-auth:https://api.github.com/repos/acme/lib",
+      "githubToken": "<GITHUB_TOKEN>"
+    }
+  ]
+}
+```
+
+cdxrs sends the token as `Authorization: Bearer` with that request alone, and
+only when the URL is https on the default port to `github.com` or
+`api.github.com`. It never writes the token to its cache or its logs, never
+coalesces a token-bearing request with an anonymous one, and gives
+`api.github.com` its authenticated budget for that run. The envelope is never
+spilled to a temporary file while it carries a token: a payload over the stdin
+limit falls back to the JS pool instead. When GitHub answers 403 or 429 with no
+requests remaining, the result carries `quotaExhausted: true` and, when GitHub
+said, `retryAfterSecs`, and cdxgen pauses the GitHub API exactly as it does
+for the pool.
+
+With an older cdxrs, which lists no capabilities, every GitHub request stays on
+the JS pool. cdxrs from cdxgen-plugins-bin 4.3.x reads no credential at all,
+and older helpers attached `GITHUB_TOKEN` to `github.com` and `api.github.com`
+by host name, which removing the variable from the child's environment keeps
+from happening in a cdxgen run.
+
+### Chunking
 
 A batch routed to `cdxrs fetch` is sent in runs of at most 250 URLs, one run
 at a time so each host still sees a single rate gate. The envelope has to
@@ -281,6 +353,7 @@ resolved, the cache is disabled — it never falls back to the working directory
 ```js
 import {
   cdxrsAvailable,
+  cdxrsCapabilities,
   runCdxrs,
   cdxrsDisabled,
   CDXRS_FALLBACK,
@@ -289,12 +362,16 @@ import {
 // Check if the binary is present and version-compatible
 const { available, version, reason } = cdxrsAvailable("info");
 
+// Optional behaviours the binary lists in `cdxrs schema-version`
+const takesToken = cdxrsCapabilities("fetch").has("fetch-github-token");
+
 // Run a subcommand (async). Normal case: pass in-memory BOM data as `content`,
 // which is written to the child's stdin with `--input -`.
 const result = await runCdxrs("info", {
   content: bomJsonString, // fed over stdin
   args: [], // extra CLI args
   timeoutMs: 30_000, // default 30s
+  secretContent: false, // true: never spill the content to a temp file
 });
 
 // Alternative, when the BOM is already a file on disk:
@@ -326,6 +403,7 @@ sentinel (`{ ok: false, reason: "..." }`). The caller takes the JS path.
 | CDXGEN_RS_DISABLE      | `disabled`              |
 | Spawn error            | `spawn-error`           |
 | Unknown subcommand     | `unknown-subcommand`    |
+| Secret input too large | `stdin-too-large`       |
 
 The bridge kills the **process group** on timeout (`process.kill(-pid,
 "SIGKILL")`) so a hung child cannot outlive the parent. It also kills the

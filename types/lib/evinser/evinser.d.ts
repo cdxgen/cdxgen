@@ -459,6 +459,8 @@ export declare function isFilterableType(language: string, userDefinedTypesMap: 
  *
  * Parses the JSON spec and, for every operation under `paths`, records a
  * service entry keyed by the URL pattern and HTTP method into `servicesMap`.
+ * Only the operation fields of a path item are read, so a spec yields at most
+ * one service per path and method however many other keys a path item has.
  *
  * @param {string} _language Application language (unused; reserved for future use)
  * @param {string} openapiSpecFile Path to the OpenAPI JSON spec file
@@ -574,7 +576,22 @@ export declare function collectReachableFrames(_language: string, reachablesSlic
     cryptoGeneratePurls: {};
 };
 /**
+ * Reduce a list of stacks to the few framePicker can still pick from when it
+ * is later given them after other stacks: the best ranked one, and as many
+ * more as a synthesized stack needs for its frames. framePicker() of any
+ * stacks followed by the result picks what it picks when given all of
+ * dfFrames after them, so stacks that many components share are ranked once
+ * instead of once per component.
+ *
+ * @param {Array} dfFrames Data flow frames
+ * @returns {Array[]} Ranked stacks, at most MAX_SYNTHESIZED_FRAMES of them,
+ *   or the first stack when none is usable
+ */
+export declare function framePickerCandidates(dfFrames: any[]): any[][];
+/**
  * Method to pick a callstack frame as an evidence. This method is required since CycloneDX 1.5 accepts only a single frame as evidence.
+ * A stack keeps at most MAX_STACK_FRAMES distinct frames, from the head of
+ * the flow.
  *
  * @param {Array} dfFrames Data flow frames
  * @returns

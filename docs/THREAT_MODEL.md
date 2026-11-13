@@ -86,7 +86,7 @@ Trust boundary 5: cdxgen container ←→ container host
 - Secure mode (`CDXGEN_SECURE_MODE=true`, the `cdxgen-secure` command and image) turns installs off by default
 - With installs off, cdxgen does not run the scanned project's own build tooling (see the next section) and parses manifests and lock files instead
 - A config file in the working directory, a profile or a lifecycle cannot turn installs back on when the operator turned them off, and in secure mode only `--install-deps` on the command line or `CDXGEN_INSTALL_DEPS=true` can
-- A config file (`.cdxgenrc`, `.cdxgen.json`, `.cdxgen.yml` or `.cdxgen.yaml`) in the working directory may set only the options listed in `PROJECT_CONFIG_OPTIONS` in `lib/core/projectConfig.js`. It cannot choose an executable (`--scalasem-command`), start the server, turn off certificate checks for Dependency-Track uploads, or enable feature flags, and every key that is not a declared option is ignored. That covers options only library callers pass, such as `dosaiCommand` and `traceCmd`, and yargs' `extends` key, which would otherwise load a module or another config file named in the file. Project types that inventory the host, such as `os`, `hbom` or `vscode-extension`, are dropped from the file's `type`
+- A config file (`.cdxgenrc`, `.cdxgen.json`, `.cdxgen.yml` or `.cdxgen.yaml`) in the working directory may set only the options listed in `PROJECT_CONFIG_OPTIONS` in `lib/core/projectConfig.js`. It cannot choose an executable (`--scalasem-command`), start the server, turn off certificate checks for Dependency-Track uploads, or enable feature flags, and every key that is not a declared option is ignored. That covers options only library callers pass, such as `dosaiCommand` and `traceCmd`, and yargs' `extends` key, which would otherwise load a module or another config file named in the file. Project types that inventory the host, such as `os`, `hbom` or `vscode-extension`, and names cdxgen does not know as project types are dropped from the file's `type`. The file cannot turn on evidence collection, which hands project-named values to atom, either with `evidence` or through a profile or technique, and its `operational` profile does not add the `os` type. It cannot name a slices file either, since cdxgen reads an existing one back as the project's evidence, and a license policy it names is announced
 - `safeSpawnSync` warns when `pip`/`uv install` is invoked without `--only-binary=:all:` (prevents `setup.py` execution during wheel builds)
 - `safeSpawnSync` warns when Python is invoked without `-S` flag
 - Users are advised to run in sandboxed environments for untrusted projects
@@ -98,7 +98,7 @@ Trust boundary 5: cdxgen container ←→ container host
 - Leiningen (`lein deps :tree-data`)
 - `poetry export` and `pdm export`
 - `dotnet msbuild` property evaluation
-- SwiftPM: `swift package dump-package`, `show-dependencies`, `resolve` and the evidence build; compiler plugin flags read from an existing `.build` directory are dropped
+- SwiftPM: `swift package dump-package`, `show-dependencies`, `resolve` and the evidence build; compiler plugin flags, `-vfsoverlay` and `-sdk` read from an existing `.build` directory are dropped (on macOS the SDK path implies a plugin directory and plugin server), and the host toolchain's SDK is used instead
 - CocoaPods: `pod ipc podfile-json` and `pod ipc spec` on Ruby podspecs (JSON podspecs are read directly)
 - Rust: `cargo check` and rusi under `--deep` or `--evidence`; `cargo metadata` runs from the temporary directory with `--offline`, so the project's `.cargo/config.toml` and `rust-toolchain.toml` do not apply
 - Ruby: `bundle exec` for gem module names
@@ -135,6 +135,7 @@ The toolchain version probes for formulation also run from the temporary directo
 **Mitigations:**
 
 - `hasDangerousUnicode()` detects bidirectional control characters, zero-width characters, and other obfuscation
+- `cdx-verify`, `cdx-sign`, `cdx-validate`, the `cdx-audit` progress line and license policy errors write control characters and U+2028/U+2029 taken from a document, a package name or a path as `\uXXXX` escapes, so a crafted BOM cannot move the cursor or rewrite what the terminal shows
 - `isValidDriveRoot()` prevents Unicode lookalike drive letters on Windows (CVE-2025-27210 mitigation)
 - Node.js `--permission` model (in secure mode) restricts filesystem access to explicitly allowed paths
 - `safeExistsSync` and `safeMkdirSync` check permissions before operations
@@ -197,6 +198,7 @@ The toolchain version probes for formulation also run from the temporary directo
 - Optional helper package versions are pinned in `package.json`, and the companion repository generates post-build metadata/SBOMs for shipped binaries
 - `plugins-manifest.json` is treated as data only: cdxgen does not execute commands, paths, or scripts from the manifest
 - Manifest ingestion is constrained to the real `plugins-manifest.json` file under `CDXGEN_PLUGINS_DIR`, requires a regular file, enforces a size bound, and sanitizes accepted fields before merging them into `metadata.tools`
+- Only the names of the helpers `cdxgen-plugins-bin` ships are looked up in the manifest when `metadata.tools` is built, so a manifest entry named after another executed tool, such as `git` or `pnpm`, is ignored.
 - Docker/rootfs tests assert non-cdxgen tool identity evidence and container/rootfs result parity, making silent helper-behavior drift easier to detect in CI
 - macOS osquery execution uses one-shot shell mode with the persistent database disabled, reducing the need for helper-managed state under privileged host paths such as `/var/osquery`
 
@@ -449,9 +451,11 @@ The toolchain version probes for formulation also run from the temporary directo
 - Warning when `--include-formulation` is used with `--server-url` (formulation may contain emails and secrets)
 - In secure mode, using `--include-formulation` with `--server-url` calls `process.exit(1)` after the warning, preventing automatic upload of formulation data
 - `auditEnvironment` detects and warns about credential-like environment variables
+- Output from package managers and build tools (npm, pip, uv, poetry, Maven, Gradle, cargo, docker and the other tools cdxgen runs) is redacted before it is printed: URLs lose their userinfo and query string, URL path segments that look like access tokens (as in `https://host/<token>/simple/`) read `***`, and the value of any environment variable whose name marks a credential (names ending in `_TOKEN`, `_PASSWORD`, `_SECRET`, `_KEY`, `_AUTH`, `_PAT`, `_PSW`, `_PWD` and the like, and index URL variables such as `PIP_INDEX_URL` and `UV_INDEX_URL`) reads `***` wherever it appears. Values shorter than 8 characters are not replaced. A spawn error is printed as its name and message only
 - Secret-bearing BOM metadata values are sanitized before emission in AI/MCP inventory and Chrome extension metadata flows:
-  - URLs and URIs drop userinfo, query strings, and fragments
+  - URLs and URIs of any scheme (`https://`, `postgres://`, `jdbc:mysql://` and the like) drop userinfo, query strings, and fragments, also inside free text; a URL template such as `https://host/users/{id}` keeps its braces as written
   - inline credential patterns are redacted
+  - component `externalReferences` built from scanned manifests and metadata (a Python `METADATA` `Home-page:`, a `package.json` `repository` or `bugs` URL, a download URL) drop their userinfo (an SSH `git@` user is kept), their query string, and a fragment that holds `=` or a token shape; a fragment naming a git ref such as `#v1.2.0` is kept
   - raw command strings are reduced to safer summaries such as the executable name
   - dangerous structured keys such as `__proto__`, `constructor`, and `prototype` are removed before JSON serialization
   - Hugging Face widget examples, gated-access forms, and GGUF tokenizer/chat-template payloads are reduced to bounded derivatives instead of being copied verbatim into BOM properties

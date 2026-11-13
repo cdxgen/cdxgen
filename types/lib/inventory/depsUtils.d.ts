@@ -45,6 +45,31 @@ export declare function propagateRequiredScopeFromDependencies(components?: Obje
  */
 export declare function markTypeOnlyDependenciesOptional(components?: Object[], dependencies?: Object[]): Object[];
 /**
+ * Append an entry to a list unless an entry with the same key is already in
+ * it. The keys of each list are kept in an index, so the check costs the same
+ * however long the list grows, where scanning the list per append would be
+ * quadratic. The list must only be changed by appending: a list whose length
+ * differs from the last call, because other code appended to it, is indexed
+ * again.
+ *
+ * @param {Object[]} list List to append to, changed in place
+ * @param {(entry: Object) => string} keyOf Key of an entry
+ * @param {Object} entry Entry to append
+ * @returns {boolean} true when the entry was appended
+ */
+export declare function appendUnique(list: Object[], keyOf: (entry: Object) => string, entry: Object): boolean;
+/**
+ * Append a `{ name, value }` property unless the same name and value pair is
+ * already in the list. Empty values are not appended. The check goes through
+ * `appendUnique()`, so it does not scan the list on every call.
+ *
+ * @param {Object[]} properties Property list, changed in place
+ * @param {string} name Property name
+ * @param {*} value Property value, converted to a string
+ * @returns {void}
+ */
+export declare function appendUniqueProperty(properties: Object[], name: string, value: any): void;
+/**
  * Merge CycloneDX services using bom-ref or group/name/version identity.
  *
  * @param {Object[]|Object} services Existing service list

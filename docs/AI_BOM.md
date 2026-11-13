@@ -58,6 +58,13 @@ contributes its `steering/*.md`, `settings/cli.json`,
 `settings/permissions.yaml`, and `hooks/*.json`; a plain documentation
 `steering/` folder yields nothing.
 
+Paths are recorded relative to the scanned directory. An MCP config file, an
+MCP Registry `server.json` or an agent instruction file is a `file` component
+with the bom-ref `file:<relative path>` (for example `file:.mcp.json`), and the
+services found in it, including LangGraph graph services, carry the same
+relative path in `internal:SrcFile`, so two scans of the same commit in
+different directories produce the same references.
+
 For Hugging Face model repositories, cdxgen uses Hugging Face Package-URL `pkg:huggingface/<namespace>/<name>@<revision>` identifiers when a compliant model repository reference is available.
 
 When model cards reference Hugging Face datasets, cdxgen also keeps those dataset links stable by emitting reusable dataset component references with explicit Hugging Face purls alongside inline dataset summaries where appropriate.
@@ -239,6 +246,7 @@ The remote parser now preserves several important relationships:
 - model-card datasets become reusable `type: "data"` components plus dependency edges
 - Space `models[]` and `datasets[]` metadata become related components plus dependency edges from the Space application
 - model lineage from `base_model`, `base_models`, and `finetuned_from` is normalized into `pedigree.ancestors[]`
+- base models are looked up with the Hugging Face token only while the lineage stays in the namespace of the requested repository; a base model in any other namespace, and everything below it, is looked up anonymously, so a private repository there appears by name only
 
 ### Standard Hugging Face → CycloneDX mappings
 

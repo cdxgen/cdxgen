@@ -9,7 +9,9 @@
 export declare const getDirs: (dirPath: string, dirName: string, hidden?: boolean, recurse?: boolean) => string[];
 /**
  * Recursively walk `srcpath` and return all subdirectory paths whose basename
- * matches `dirName` (the root path is included when it matches).
+ * matches `dirName` (the root path is included when it matches). The walk does
+ * not descend into a match: every returned directory is scanned recursively,
+ * so a match nested inside another one would only repeat that scan.
  *
  * @param {string} srcpath Root directory to start the walk from.
  * @param {string} dirName Basename that a directory must end with to be kept.
@@ -19,6 +21,9 @@ export declare const getOnlyDirs: (srcpath: string, dirName: string) => string[]
 /**
  * Walk a directory tree once and collect all subdirectories whose basename
  * matches any of the target names. Returns a map from name to array of paths.
+ * A directory that lies inside a match of the same name is not collected:
+ * every returned directory is scanned recursively, so a nested match would
+ * only repeat that scan.
  *
  * Replaces multiple {@link getOnlyDirs} calls that each walk the same tree.
  *

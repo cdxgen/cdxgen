@@ -11,8 +11,8 @@
  *
  * Layer 3: this module reads the build tree and may run a compiler (only
  * `--version`, only outside secure mode, only a GCC, Clang, MSVC, Intel,
- * NVIDIA or EDG driver found on the PATH or named by an absolute path outside
- * the project).
+ * NVIDIA or EDG driver outside the project that is found on the PATH or named
+ * by an absolute path in one of the PATH's directories).
  */
 /**
  * The empty build context, for scans that are not of a source tree.
@@ -21,10 +21,14 @@
  */
 export declare function emptyCppBuildContext(): Object;
 /**
- * The executable a driver names, when it may be run: an absolute path, or a
- * command found on the PATH, that is a file outside the project. A relative
- * path, or anything inside the project tree, is never run, since a
- * compilation database can come with the code it describes.
+ * The executable a driver names, when it may be run: a command found on the
+ * PATH, or an absolute path to a file in one of the PATH's directories, that
+ * is outside the project. A relative path, any other absolute path, or
+ * anything inside the project tree is never run. A compilation database can
+ * come with the code it describes, and that code is not confined to the scan
+ * root: the rest of a checkout whose subdirectory is scanned can be named by
+ * an absolute path too. Only absolute PATH entries count, since a relative
+ * one depends on the working directory.
  */
 export declare function trustedCompilerPath(driver: any, root: any): any;
 /**

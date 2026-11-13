@@ -18,7 +18,8 @@ export declare function getSwiftPackageMetadata(pkgList: Object[]): Promise<Obje
  *
  * Packages a public registry cannot hold are skipped: the project itself,
  * workspace and link members, file and git sources, and scopes served by
- * another registry. See {@link npmLookupRegistry}. A package whose licence,
+ * another registry. See {@link npmLookupRegistry}. A registry document whose
+ * `name` is not the package asked for is ignored. A package whose licence,
  * description and repository the project or lockfile already supplied is left
  * alone as well: the registry answers only what is still missing, and never
  * overwrites a licence that is already set. The registry's licence is read
@@ -175,7 +176,8 @@ export declare function mergeExternalReferences(component: object, references: A
 /**
  * Method to construct a GitHub API url for the given repo metadata
  * @param {Object} repoMetadata Repo metadata with group and name
- * @return {String|undefined} github api url (or undefined - if not enough data)
+ * @return {String|undefined} github api url (or undefined - if not enough data,
+ *   or if the group or name is not a plain GitHub owner or repository name)
  */
 export declare function repoMetadataToGitHubApiUrl(repoMetadata: Object): string | undefined;
 /**

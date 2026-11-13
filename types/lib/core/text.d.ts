@@ -13,6 +13,15 @@ declare const ANSI_REGEX: RegExp;
 /** Regex matching Unicode combining mark characters (the `\p{Mark}` category). */
 declare const COMBINING_MARK_REGEX: RegExp;
 /**
+ * Write the control and line-break characters of untrusted text (Unicode Cc,
+ * U+2028 and U+2029) as JSON `\u` escapes, so that printing it to a terminal
+ * cannot move the cursor, rewrite a line, or start a new one.
+ *
+ * @param {string} input Text taken from a document or another untrusted source
+ * @returns {string} The text with control characters escaped
+ */
+export declare const escapeControlCharacters: (input: string) => string;
+/**
  * Strip ANSI escape sequences from a string.
  *
  * @param {string} input Input possibly containing ANSI escapes

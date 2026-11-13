@@ -36,7 +36,8 @@ export declare function parseCmakePresets(text: string): {
  * @param {string} value String to expand
  * @param {Object} context Macro values; `env` (preset environment, a plain
  *   object) and `penv` (a function reading the process environment) are
- *   optional
+ *   optional. `work`, when given, is a `{remaining}` budget the expansion is
+ *   charged to; once it is spent, strings are returned as written.
  * @returns {string} Expanded string
  */
 export declare function expandPresetMacros(value: string, context?: Object): string;
@@ -45,11 +46,17 @@ export declare function expandPresetMacros(value: string, context?: Object): str
  *
  * @param {*} condition Condition object (or boolean, or null)
  * @param {function(string): string} expand Macro expander for the preset
+ * @param {{remaining: number}} [work] Budget charged one unit per condition
+ *   and list item; once it is spent, the condition is not decided
+ * @param {number} [depth] Nesting depth of `condition`
  * @returns {boolean|undefined} `undefined` when the condition cannot be
  *   decided here: `matches`/`notMatches` take a regular expression from the
- *   repository, which is not run
+ *   repository, which is not run, and a condition nested too deeply or past
+ *   the work budget is not decided either
  */
-export declare function evaluatePresetCondition(condition: any, expand: Function): boolean | undefined;
+export declare function evaluatePresetCondition(condition: any, expand: Function, work?: {
+    remaining: number;
+}, depth?: number): boolean | undefined;
 /**
  * Resolve the configure presets of a set of presets documents.
  *

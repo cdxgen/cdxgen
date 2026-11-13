@@ -26,6 +26,13 @@ export declare function detectColima(): any;
  */
 export declare function detectRancherDesktop(): any;
 /**
+ * The overall deadline for a container daemon image pull, from
+ * `CDXGEN_DOCKER_PULL_TIMEOUT_MS`, in milliseconds. Defaults to 30 minutes.
+ *
+ * @returns {number} Deadline in milliseconds
+ */
+export declare function dockerPullTimeoutMs(): number;
+/**
  * Establish (or reuse) a `got` client connected to the local Docker or Podman
  * daemon. Tries multiple socket / URL candidates in order: the default Docker
  * socket, the rootless Docker socket, the Windows TCP endpoint, the rootless
@@ -79,13 +86,15 @@ export declare const isImageReference: (fullImageName: string) => boolean;
  * or a Kubernetes spec, may be pulled and inventoried. The name comes from the
  * scanned project, so a local archive path would read files outside the
  * allowed paths and a registry outside CDXGEN_ALLOWED_HOSTS would bypass the
- * host allowlist.
+ * host allowlist. A well-formed reference such as "opt/app", "backend" or
+ * "backup.tar" is also a path relative to the working directory, and createBom
+ * looks at the filesystem before it treats its argument as an image, so a name
+ * that exists locally is not followed either.
  *
  * @param {string} fullImageName Image name from the manifest
- * @param {Object} [imageObj] Result of parseImageName for the same name
  * @returns {boolean} true when the image may be followed
  */
-export declare const isFollowableManifestImage: (fullImageName: string, imageObj?: Object) => boolean;
+export declare const isFollowableManifestImage: (fullImageName: string) => boolean;
 /**
  * Parse image name
  *

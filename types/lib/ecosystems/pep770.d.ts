@@ -26,10 +26,14 @@ export declare function collectEmbeddedSboms({ metadataFiles, whlFiles, }?: {
  *
  * Underscore-prefixed to signal that it is not part of the public API.
  *
- * @type {{ MAX_EMBEDDED_SBOM_BYTES: number, parseEmbeddedSbom: Function, rebaseDependencies: Function, pypiBomRef: Function, distNameVersionFromMetadata: Function }}
+ * @type {{ MAX_EMBEDDED_SBOM_BYTES: number, MAX_EMBEDDED_ELEMENTS: number, MAX_EMBEDDED_ELEMENTS_PER_DISTRIBUTION: number, buildEmbeddedCitation: Function, distInfoStem: Function, parseEmbeddedSbom: Function, rebaseDependencies: Function, pypiBomRef: Function, distNameVersionFromMetadata: Function }}
  */
 export declare const _internals: {
     MAX_EMBEDDED_SBOM_BYTES: number;
+    MAX_EMBEDDED_ELEMENTS: number;
+    MAX_EMBEDDED_ELEMENTS_PER_DISTRIBUTION: number;
+    buildEmbeddedCitation: Function;
+    distInfoStem: Function;
     parseEmbeddedSbom: Function;
     rebaseDependencies: Function;
     pypiBomRef: Function;

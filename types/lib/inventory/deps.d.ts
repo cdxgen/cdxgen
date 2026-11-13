@@ -145,15 +145,19 @@ export declare function readEmbeddedJarMetadata(jarFile: string, coordinates: {
     manifestLicenses?: string[];
 } | undefined>;
 /**
- * Method to read a single file entry from a zip file
+ * Read the first file entry of a zip archive whose name ends with
+ * `filePattern`. The archive is untrusted input: an entry that declares more
+ * than `maxEntryBytes`, or that inflates to more, is not returned.
  *
  * @param {string} zipFile Zip file to read
  * @param {string} filePattern File pattern
  * @param {string} contentEncoding Encoding. Defaults to utf-8
+ * @param {number} [maxEntryBytes] Uncompressed size bound of the entry.
+ *   Defaults to 5 MiB
  *
  * @returns {Promise<string|undefined>} File contents
  */
-export declare function readZipEntry(zipFile: string, filePattern: string, contentEncoding?: string): Promise<string | undefined>;
+export declare function readZipEntry(zipFile: string, filePattern: string, contentEncoding?: string, maxEntryBytes?: number): Promise<string | undefined>;
 /**
  * Read every zip entry whose name contains `pathFragment`. Unlike
  * `readZipEntry`, which returns the first matching entry, this enumerates all
@@ -161,20 +165,27 @@ export declare function readZipEntry(zipFile: string, filePattern: string, conte
  * documents under `<dist>.dist-info/sboms/`, in a directory whose name is
  * prefixed by the distribution stem and so is not known in advance.
  *
- * Entries larger than `maxEntryBytes` are skipped without being decompressed,
- * because a wheel is untrusted input and its declared sizes are the only cheap
- * defence against an archive that expands without bound.
+ * Entries that declare more than `maxEntryBytes` are skipped without being
+ * decompressed, and entries that inflate to more are abandoned at the limit,
+ * because a wheel is untrusted input and may expand without bound. Every
+ * entry read is held until the walk is over, and a repetitive entry deflates
+ * to a few kilobytes, so the number of entries is not limited by the size of
+ * the archive either: the walk stops once the entries read come to more than
+ * `maxTotalBytes`.
  *
  * @param {string} zipFile Path to a zip archive (e.g. a wheel)
  * @param {string} pathFragment Substring an entry name must contain
  * @param {Object} [opts] Options
  * @param {string} [opts.contentEncoding] Text encoding. Defaults to utf-8
  * @param {number} [opts.maxEntryBytes] Per-entry uncompressed size bound
+ * @param {number} [opts.maxTotalBytes] Bound on the uncompressed size of all
+ *   the entries read. Defaults to four times `maxEntryBytes`
  * @returns {Promise<Array<{name: string, data: string}>>} Matching entries
  */
-export declare function readZipEntriesMatching(zipFile: string, pathFragment: string, { contentEncoding, maxEntryBytes }?: {
+export declare function readZipEntriesMatching(zipFile: string, pathFragment: string, { contentEncoding, maxEntryBytes, maxTotalBytes, }?: {
     contentEncoding?: string;
     maxEntryBytes?: number;
+    maxTotalBytes?: number;
 }): Promise<Array<{
     name: string;
     data: string;
@@ -195,7 +206,8 @@ export declare function getJarClasses(jarFile: string): Promise<any>;
  * Each inner jar is unpacked to a temporary file, so in dry run mode, which
  * blocks those writes, an aar yields no classes. An inner jar that declares
  * more than `maxInnerJarBytes` uncompressed is skipped without being
- * decompressed, because the whole entry is held in memory while it is copied.
+ * decompressed, and one that inflates to more is abandoned at the limit,
+ * because the whole entry is held in memory while it is copied.
  *
  * @param {string} aarFile Aar file to read
  * @param {Object} [opts] Options

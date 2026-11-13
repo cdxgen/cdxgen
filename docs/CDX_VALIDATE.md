@@ -76,7 +76,7 @@ cdx-validate -i bom.json -r json --fail-severity medium
 | `--public-key`                             | —          | PEM file. When set, verify the BOM signature for JSON or OCI BOM input. Local protobuf input is not signature-verifiable yet. |
 | `--secret-key`                             | —          | Shared secret file for `HS256`, `HS384`, and `HS512` signatures. HMAC signatures are only accepted with this option.          |
 | `--no-nested-signatures`                   | off        | Verify only the root signature, for a co-signer's key. By default nested signatures are verified too.                         |
-| `--require-signature`                      | with a key | Exit 4 if verification fails. On whenever `--public-key` or `--secret-key` is given; `--no-require-signature` only reports.   |
+| `--require-signature`                      | with a key | Exit 4 if verification fails, 1 without a key. On whenever a key is given; `--no-require-signature` only reports.             |
 | `--strict`                                 | off        | Exit 2 when schema / deep validation fails.                                                                                   |
 
 ### Exit codes
@@ -91,7 +91,7 @@ cdx-validate -i bom.json -r json --fail-severity medium
 
 > **Note:** Local protobuf BOM input (`.cdx`, `.cdx.bin`, `.proto`) is supported for structure, deep, and compliance validation. JSF signature verification still requires the source JSON BOM because `cdx-proto` does not currently preserve signature blocks in protobuf form.
 
-Signature verification follows [`cdx-verify`](CDX_VERIFY.md#verification-behavior): the BOM needs a root signature, its root must be a CycloneDX BOM root, and the BOM must be UTF-8 and must not repeat a member name, hold a number an IEEE 754 double cannot represent exactly, or hold an unpaired surrogate escape. An empty `--public-key` or `--secret-key` path, or an empty key file, is a configuration error (exit 1). When the root signature verifies but some of its `signers` or `chain` entries do not, `cdx-validate` prints a warning naming them, and the `json` report lists every entry under `signatureEntries`.
+Signature verification follows [`cdx-verify`](CDX_VERIFY.md#verification-behavior): the BOM needs a root signature, its root must be a CycloneDX BOM root, and the BOM must be UTF-8 and must not repeat a member name, hold a number an IEEE 754 double cannot represent exactly, or hold an unpaired surrogate escape. An empty `--public-key` or `--secret-key` path, an empty key file, or `--require-signature` without a key to verify with, is a configuration error (exit 1). When the root signature verifies but some of its `signers` or `chain` entries do not, `cdx-validate` prints a warning naming them, and the `json` report lists every entry under `signatureEntries`.
 
 ---
 

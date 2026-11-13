@@ -56,4 +56,39 @@ export declare function tagSbomComponents(components: Object[], properties: Arra
     name: string;
     value: string;
 }>): Object[];
+/**
+ * Create a bound on the components and dependencies a caller keeps from
+ * third-party SBOM documents. One document is bounded by its size, but
+ * nothing bounds how many documents a wheel, a directory of installed
+ * distributions or a TEA Collection supplies, and every component kept stays
+ * in memory until the BOM is written.
+ *
+ * @param {number} max Most components and dependencies to accept
+ * @param {string} scope What the bound covers, for the warning
+ * @returns {{max: number, used: number, scope: string}} The budget
+ */
+export declare function createSbomElementBudget(max: number, scope: string): {
+    max: number;
+    used: number;
+    scope: string;
+};
+/**
+ * Charge the components and dependencies of a parsed document to budgets
+ * made by {@link createSbomElementBudget}. The document is charged to all of
+ * them, or, when it would take any of them past its bound, to none, and the
+ * caller skips it.
+ *
+ * @param {{components: Object[], dependencies: Object[]}} parsed Document from `parseSbomDocument`
+ * @param {Array<{max: number, used: number, scope: string}>} budgets Budgets to charge
+ * @param {string} source Provenance label used in the warning
+ * @returns {boolean} true when the document fits every budget
+ */
+export declare function chargeSbomElementBudgets(parsed: {
+    components: Object[];
+    dependencies: Object[];
+}, budgets: Array<{
+    max: number;
+    used: number;
+    scope: string;
+}>, source: string): boolean;
 //# sourceMappingURL=sbomDocument.d.ts.map

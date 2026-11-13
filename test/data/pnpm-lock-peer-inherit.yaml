@@ -1,0 +1,83 @@
+lockfileVersion: '9.0'
+
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
+importers:
+
+  .:
+    dependencies:
+      a:
+        specifier: 1.0.0
+        version: 1.0.0
+      b:
+        specifier: 1.0.0
+        version: 1.0.0
+      c:
+        specifier: 1.0.0
+        version: 1.0.0
+
+packages:
+
+  a@1.0.0:
+    resolution: {integrity: sha512-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa}
+
+  b@1.0.0:
+    resolution: {integrity: sha512-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb}
+
+  c@1.0.0:
+    resolution: {integrity: sha512-cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc}
+
+  hub@1.0.0:
+    resolution: {integrity: sha512-hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh}
+    peerDependencies:
+      peer: '*'
+
+  peer@1.0.0:
+    resolution: {integrity: sha512-pppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp}
+
+  peer@1.0.1:
+    resolution: {integrity: sha512-qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq}
+
+  extra@1.0.0:
+    resolution: {integrity: sha512-eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee}
+
+  shared@1.0.0:
+    resolution: {integrity: sha512-ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss}
+
+snapshots:
+
+  a@1.0.0:
+    dependencies:
+      hub: 1.0.0(peer@1.0.0)
+
+  b@1.0.0:
+    dependencies:
+      hub: 1.0.0(peer@1.0.1)
+
+  c@1.0.0:
+    dependencies:
+      hub: 1.0.0
+
+  hub@1.0.0:
+    dependencies:
+      shared: 1.0.0
+
+  # A peer variant without a dependency list of its own inherits the list
+  # of its base entry hub@1.0.0
+  hub@1.0.0(peer@1.0.0): {}
+
+  # A peer variant with its own list contributes it to the same component
+  hub@1.0.0(peer@1.0.1):
+    dependencies:
+      extra: 1.0.0
+      peer: 1.0.1
+
+  peer@1.0.0: {}
+
+  peer@1.0.1: {}
+
+  extra@1.0.0: {}
+
+  shared@1.0.0: {}

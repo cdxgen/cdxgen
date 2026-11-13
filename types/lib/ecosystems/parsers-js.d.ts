@@ -10,12 +10,26 @@ import { Buffer } from "node:buffer";
  * @param {Object} [options] Options
  * @param {boolean} [options.fetchMetadata=true] When false, skip the npm
  *   registry round so that a caller can make one round for many manifests.
+ * @param {string} [options.scanRoot] When set, the file is read only when it
+ *   resolves inside this directory, is a regular file and is no larger than
+ *   MAX_PACKAGE_JSON_BYTES.
  * @returns {Promise<Array<object>>} Parsed component list, enriched with npm
  *   registry metadata when available and not in simple mode.
  */
 export declare function parsePkgJson(pkgJsonFile: string, simple?: boolean, securityProps?: boolean, options?: {
     fetchMetadata?: boolean;
+    scanRoot?: string;
 }): Promise<Array<object>>;
+/**
+ * parsePkgJson() in simple mode, once per file and run, for readers that only
+ * look up a manifest's name, version or descriptive fields. Lock entries and
+ * importers of a scanned tree can name one manifest many times. The returned
+ * list is shared between callers and must not be modified.
+ *
+ * @param {string} pkgJsonFile Path to the package.json file.
+ * @returns {Promise<Array<object>>} Parsed component list
+ */
+export declare function parseLocalPkgJsonOnce(pkgJsonFile: string): Promise<Array<object>>;
 /**
  * Hash a root `.npm-extension` file exactly as npm does: ssri sha512 over
  * `npm-extension:v1:<format>\n` followed by the raw file bytes. Mirrors
@@ -115,9 +129,11 @@ export declare function stripPnpmPeerSuffix(version: string): string;
  *   the directory of the importer that declares the dependency. Without it the
  *   path is tried against the working directory, which only works when cdxgen
  *   runs from the lock file's directory.
+ * @param {string} [projectRoot] Directory a linked package.json must
+ *   resolve inside, links included. Without it any path is read.
  * @returns {Promise<string|undefined>} The resolved published version.
  */
-export declare function getVersionNumPnpm(depPkg: string | object, relativePath: string): Promise<string | undefined>;
+export declare function getVersionNumPnpm(depPkg: string | object, relativePath: string, projectRoot?: string): Promise<string | undefined>;
 /**
  * Resolve a pnpm dependency to its PURL string.
  *
@@ -130,9 +146,11 @@ export declare function getVersionNumPnpm(depPkg: string | object, relativePath:
  * @param {string} relativePath Relative path for resolution
  * @param {string} githubServerHost GitHub server host
  * @param {object} [npmrcConfig={}] npmrc configuration
+ * @param {string} [projectRoot] Directory a linked package.json must resolve
+ *   inside
  * @returns {Promise<string>} Decoded PURL string
  */
-export declare function getPnpmDepPurl(depPkg: string | object, packageName: string, gitPkgRefs: object, relativePath: string, githubServerHost: string, npmrcConfig?: object): Promise<string>;
+export declare function getPnpmDepPurl(depPkg: string | object, packageName: string, gitPkgRefs: object, relativePath: string, githubServerHost: string, npmrcConfig?: object, projectRoot?: string): Promise<string>;
 /**
  * Parse pnpm workspace file
  *

@@ -1,3 +1,13 @@
+/**
+ * Remove the slashes at the end of a workspace pattern from the scanned
+ * pnpm-workspace.yaml. The scan from the end keeps the trim linear, where the
+ * equivalent `\/+$` pattern retries from every slash of a long run that does
+ * not end the string.
+ *
+ * @param {string} pattern Workspace pattern
+ * @returns {string} The pattern without trailing slashes
+ */
+export declare const stripTrailingSlashes: (pattern: string) => string;
 export declare function getDirectAiInventoryType(path: any, options: any): string | undefined;
 /**
  * Main Node.js/npm BOM generator. Parses manifests, lockfiles, and import
@@ -11,7 +21,9 @@ export declare function getDirectAiInventoryType(path: any, options: any): strin
 export declare function createNodejsBom(path: string, options: object): Promise<object>;
 /**
  * Regex matching `.wasm` import paths in analyzer output, including optional
- * query/fragment suffixes.
+ * query/fragment suffixes. The suffix uses `[\s\S]` rather than `.` so that a
+ * specifier containing a line break cannot make the match restart at every
+ * `?` or `#`, which would take quadratic time.
  *
  * @type {RegExp}
  */

@@ -72,7 +72,9 @@ export declare function createJarBom(path: string, options: Object): Object;
  * the application rather than a pure aggregator.
  *
  * Falls back to the regex-based {@link discoverSbtProjects} heuristic when the
- * sbt invocation fails or yields nothing useful.
+ * sbt invocation fails or yields nothing useful. When sbt cannot be started at
+ * all, no ids are returned: each one would only be retried against the same
+ * missing tool.
  *
  * @param {string} basePath Directory of the sbt build
  * @param {string} sbtCmd sbt executable

@@ -8,12 +8,14 @@
  */
 export declare function hasTerraformConfiguration(scanPath: string, options?: Object): boolean;
 /**
- * Parse a `.terraform.lock.hcl` file.
+ * Parse a `.terraform.lock.hcl` file. The file is read only when it resolves
+ * inside scanRoot, is a regular file and is no larger than 4 MiB.
  *
  * @param {string} lockFile Path to the lock file
+ * @param {string} [scanRoot] Scan root; the lock file's directory when absent
  * @returns {{ pkgList: object[] }} Provider components
  */
-export declare function parseTerraformLockFile(lockFile: string): {
+export declare function parseTerraformLockFile(lockFile: string, scanRoot?: string): {
     pkgList: object[];
 };
 /**

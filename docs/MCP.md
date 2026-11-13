@@ -224,6 +224,7 @@ HTTP MCP endpoints should be authenticated, Origin-validated, and pinned to trus
 - dynamically generated tool names, endpoints, or capability objects may be missed
 - provider/model detection is best-effort and only records explicit literals
 - stdio servers are inventoried, but HTTP-centric auth rules intentionally focus on network-exposed servers
+- MCP configs, registry manifests, MCPB bundles, agent instruction files and the community agent, rule and skill files are read only when they are regular files of at most 4 MiB inside the scanned directory. A symbolic link is not followed, even one that stays inside the project, so a `CLAUDE.md` that links to `AGENTS.md` is inventoried once, as `AGENTS.md`, and a skill's `scripts`, `references` or `assets` folder counts only when it is a real directory
 
 ## Gap analysis: server pinning, transport, and composition
 

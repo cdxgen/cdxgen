@@ -44,10 +44,10 @@ export declare const determineParentComponent: (options: object) => object | und
 /**
  * Builds the tool components for the external helpers and build tools this
  * run executed, from the run-scoped registry (issue #598). Bundled plugin
- * helpers are enriched with the manifest component of the plugin package that
- * ships them, so the plugin package's version and identity travel with the
- * helper. Empty when the run spawned nothing external, which keeps such BOMs
- * byte-identical to the previous behaviour.
+ * helpers, and only those, are enriched with the manifest component of the
+ * plugin package that ships them, so the plugin package's version and
+ * identity travel with the helper. Empty when the run spawned nothing
+ * external, which keeps such BOMs byte-identical to the previous behaviour.
  *
  * @returns {object[]} Sorted CycloneDX tool components
  */

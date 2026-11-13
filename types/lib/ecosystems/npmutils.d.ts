@@ -78,6 +78,15 @@ export declare function createNpmWorkspacePurl(packageName: string, version: str
  */
 export declare function findMatchingNpmWorkspace(workspacePackages: string[] | undefined, packageName: string): string | undefined;
 /**
+ * Index npm workspace PURLs by package name, for callers that look up many
+ * names in the same member list. The first member with a name wins and
+ * non-npm or unparsable entries are skipped, as in findMatchingNpmWorkspace().
+ *
+ * @param {string[] | undefined} workspacePackages Array of workspace package PURLs
+ * @returns {Map<string, string>} Package name to its workspace package PURL
+ */
+export declare function indexNpmWorkspacesByName(workspacePackages: string[] | undefined): Map<string, string>;
+/**
  * Classifies an npm dependency specifier by source type.
  *
  * @param {string | undefined | null} spec npm dependency specifier
@@ -116,11 +125,17 @@ export declare function resolveNpmLicense(pkgData: object): string | object | an
  * Hydrates sparse npm package metadata from the installed package.json in deep mode.
  * Existing metadata on the Arborist node wins over on-disk values.
  *
+ * The installed package.json is read only when it resolves inside projectRoot
+ * (the root of the Arborist tree when not given), is a regular file and is no
+ * larger than MAX_INSTALLED_PACKAGE_JSON_BYTES, so a node_modules entry that
+ * links out of the project adds nothing.
+ *
  * @param {object} node Arborist node
  * @param {object} [options={}] CLI options
+ * @param {string} [projectRoot] Directory the package.json must resolve inside
  * @returns {{ nodePackage: object, diskPkg: object | undefined, packageJsonPath: string | undefined }} Hydrated package metadata and the source package.json context
  */
-export declare function hydrateNpmNodePackage(node: object, options?: object): {
+export declare function hydrateNpmNodePackage(node: object, options?: object, projectRoot?: string): {
     nodePackage: object;
     diskPkg: object | undefined;
     packageJsonPath: string | undefined;

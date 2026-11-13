@@ -16,13 +16,15 @@
  *
  * @param {string} nimbleFile Path to the `.nimble` file
  * @param {string} [nimbleLockFile] Path to `nimble.lock`, if present
- * @returns {{ pkgList: object[], dependencies: object[], parentComponent: object, rootInputs?: string[] }}
+ * @returns {{ pkgList: object[], dependencies: object[], parentComponent: object, rootInputs?: string[], lockEntries: number }}
+ *   `lockEntries` counts the package records the lock holds
  */
 export declare function parseNimProject(nimbleFile: string, nimbleLockFile?: string): {
     pkgList: object[];
     dependencies: object[];
     parentComponent: object;
     rootInputs?: string[];
+    lockEntries: number;
 };
 /**
  * Read the assignments and requirements of a `.nimble` file.

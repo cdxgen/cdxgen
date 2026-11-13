@@ -36,7 +36,8 @@ export declare function cdxrsDisabled(subcommand: string): boolean;
 export declare function cdxrsBinaryPath(): string | undefined;
 /**
  * Check whether cdxrs may be used for a subcommand: it must not be disabled,
- * the binary must be present, and its major version must match.
+ * the binary must be present, the run's policies must allow starting it (see
+ * `cdxrsMayStart`), and its major version must match.
  *
  * The disable check comes first and is deliberate. Callers gate on this function
  * to decide between the Rust and JS paths, so it has to honour
@@ -52,6 +53,21 @@ export declare function cdxrsAvailable(subcommand?: string): {
     version?: string;
     reason?: string;
 };
+/**
+ * Optional behaviours the cdxrs binary advertises in the `capabilities` list
+ * of `cdxrs schema-version`, such as `fetch-github-token`. A binary that
+ * predates the list, or that cannot be used at all, has none. The answer is
+ * remembered per binary path for the rest of the run.
+ *
+ * @param {string} [subcommand] Subcommand the capability belongs to, checked
+ *   with {@link cdxrsAvailable} first.
+ * @returns {Set<string>} Capability names.
+ */
+export declare function cdxrsCapabilities(subcommand?: string): Set<string>;
+/**
+ * Forget the remembered capabilities, for tests that swap the binary.
+ */
+export declare function resetCdxrsCapabilities(): void;
 /**
  * Spawn the cdxrs binary, collect stdout/stderr, enforce a timeout, and
  * kill the process group if the child hangs.
@@ -79,6 +95,9 @@ export declare function cdxrsAvailable(subcommand?: string): {
  *   requires `content`.
  * @param {string[]} [opts.args] Extra arguments to pass.
  * @param {number} [opts.timeoutMs] Timeout in milliseconds.
+ * @param {boolean} [opts.secretContent] The content carries a credential, so
+ *   it is never spilled to a temp file; above the stdin limit the call falls
+ *   back instead.
  * @returns {Promise<{ok: boolean, stdout: string, exitCode: number|null, reason?: string}>}
  */
 export declare function runCdxrs(subcommand: string, opts?: {
@@ -86,6 +105,7 @@ export declare function runCdxrs(subcommand: string, opts?: {
     input?: string;
     args?: string[];
     timeoutMs?: number;
+    secretContent?: boolean;
 }): Promise<{
     ok: boolean;
     stdout: string;

@@ -223,11 +223,15 @@ export declare function isDefaultGemspecPath(gemspecFile: string): boolean;
  * @param {boolean} [options.noFetch] Read the gemspec for the fields it holds
  *   without asking the registry about the gem. The local cache enricher uses
  *   this, since the caller is responsible for the registry round.
+ * @param {boolean} [options.textOnly] Read nothing but `gemspecData`: neither
+ *   the version file the gemspec requires nor its bindir is looked up next to
+ *   `gemspecFile`, which then only names the gemspec in the evidence.
  */
 export declare function parseGemspecData(gemspecData: string, gemspecFile: string, options?: {
     lockedVersions?: Record<string, string>;
     projectGemspec?: boolean;
     noFetch?: boolean;
+    textOnly?: boolean;
 }): Promise<any[]>;
 /**
  * Method to parse Gemfile.lock

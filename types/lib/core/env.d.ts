@@ -266,6 +266,10 @@ export declare function isPackageManagerAllowed(name: string, conflictingManager
 /**
  * Function to parse a list of environment variables to identify the paths containing executable binaries
  *
+ * Both lists come from the scanned image, so each PATH entry is expanded in
+ * one pass that looks up only the variables it names, entries longer than
+ * PATH_MAX are ignored, and at most MAX_PATH_ENTRIES paths are returned.
+ *
  * @param envValues {Array[String]} Environment variables list
  * @returns {Array[String]} Binary Paths identified from the environment variables
  */

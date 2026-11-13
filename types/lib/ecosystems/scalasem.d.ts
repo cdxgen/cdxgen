@@ -1,6 +1,7 @@
+import { appendUniqueProperty } from "../inventory/depsUtils.js";
 export declare const JDK_OWNER_PREFIXES: string[];
 export declare const SCALA_STDLIB_ARTIFACTS: Set<string>;
-export declare function appendUniqueProperty(properties: any, name: any, value: any): void;
+export { appendUniqueProperty };
 export declare function addPropertyValue(map: any, key: any, name: any, value: any): void;
 export declare function addSetValue(map: any, key: any, value: any): void;
 /**
@@ -105,6 +106,7 @@ export declare class ScalaJoinIndex {
     namespacesByPurl: Map<any, any>;
     projectClasses: Set<any>;
     projectPackages: Set<any>;
+    narrowed: WeakMap<WeakKey, any>;
     constructor();
     hasNamespaces(purl: any): boolean;
     /**
@@ -164,7 +166,7 @@ export declare class ScalaJoinIndex {
      * which one served the call cannot be told from the source, or the single
      * package owner when no jar lists the class.
      */
-    lookupAll(symbol: any, platform: any, allowedPurls: any): any[];
+    lookupAll(symbol: any, platform: any, allowedPurls: any): any;
     /**
      * Narrow candidate owners to what the referencing file can use. A module
      * compiles against its own classpath: a library on it wins, and a library
@@ -172,8 +174,16 @@ export declare class ScalaJoinIndex {
      * module's classpath stays a candidate, since the report cannot list every
      * jar (a locally published snapshot, say). The file's platform then picks
      * among the JVM, Scala.js and Scala Native variants of one library.
+     *
+     * The answer depends only on the owner set, the module and the platform, so
+     * it is computed once for each and shared: callers only read it. Modules
+     * with an empty classpath, and those whose classpath holds none of the
+     * owners, all narrow an owner set alike and share one answer, since a
+     * repository can declare any number of modules.
      */
-    narrow(candidates: any, platform: any, allowedPurls: any): any[];
+    narrow(candidates: any, platform: any, allowedPurls: any): any;
+    /** The filter behind narrow(), without its cache. */
+    narrowOwners(candidates: any, platform: any, allowedPurls: any): any[];
 }
 /**
  * Whether a report key names a source file entry. The schema keys file
@@ -207,7 +217,7 @@ export declare function componentCoordinateIndex(components?: any[]): {
  * @returns {{component: Object, exact: boolean}|undefined} The component, and
  *   whether its version is the one on the classpath.
  */
-export declare function matchClasspathEntry(entry: any, coordinateIndex: any, platform: any): {
+export declare function matchClasspathEntry(entry: any, coordinateIndex: any): {
     component: Object;
     exact: boolean;
 } | undefined;

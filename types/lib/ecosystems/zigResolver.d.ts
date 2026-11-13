@@ -58,13 +58,35 @@ export declare function getZigGlobalCacheDir(): string | null;
  *
  * @param {string} rootZonFile Absolute path to the root `build.zig.zon`
  * @param {string} projectRoot The project scan root
- * @param {object} [_options] CLI options (reserved for future use)
+ * @param {object} [options] CLI options (reserved for future use)
  * @returns {Promise<{ pkgList: object[], dependencies: object[], parentComponent: object, unresolvedCount: number }>}
  */
-export declare function resolveZigGraph(rootZonFile: string, projectRoot: string, _options?: object): Promise<{
+export declare function resolveZigGraph(rootZonFile: string, projectRoot: string, options?: object): Promise<{
     pkgList: object[];
     dependencies: object[];
     parentComponent: object;
+    unresolvedCount: number;
+}>;
+/**
+ * Walk the Zig dependency graphs of several root `build.zig.zon` files, such
+ * as the members of a workspace, over one set of memo tables, so a dependency
+ * the roots share is read and walked once.
+ *
+ * Each hash is walked once, and every component that names it gets the
+ * dependencies found there; two hashes that give one bom-ref (one name and
+ * version, pinned to different commits) both add theirs. A hash named under
+ * more than MAX_REFS_PER_HASH bom-refs (field names or URLs) resolves to the
+ * first one from then on, since every further alias would copy all its edges.
+ *
+ * @param {string[]} rootZonFiles Absolute paths of the root manifests
+ * @param {string} projectRoot The project scan root
+ * @param {object} [_options] CLI options (reserved for future use)
+ * @returns {Promise<{ pkgList: object[], dependencies: object[], parentComponents: object[], unresolvedCount: number }>}
+ */
+export declare function resolveZigGraphs(rootZonFiles: string[], projectRoot: string, _options?: object): Promise<{
+    pkgList: object[];
+    dependencies: object[];
+    parentComponents: object[];
     unresolvedCount: number;
 }>;
 //# sourceMappingURL=zigResolver.d.ts.map

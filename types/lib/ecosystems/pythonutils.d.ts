@@ -45,9 +45,12 @@ export declare function projectModuleNames(src: string): Set<string>;
  *
  * @param {string} src Path to the project being analysed
  * @param {string} name Imported top-level module name
+ * @param {Map<string, boolean>} [listedDirs] Whether a directory holds python
+ *   sources, keyed by its real path. A caller that checks many names passes
+ *   one map, so a directory reached under several names is listed once.
  * @returns {boolean} `true` if the project supplies this module itself
  */
-export declare function isFirstPartyModule(src: string, name: string): boolean;
+export declare function isFirstPartyModule(src: string, name: string, listedDirs?: Map<string, boolean>): boolean;
 /**
  * Whether a directory holds Python sources for atom to parse.
  *
@@ -113,6 +116,32 @@ export declare function getPoetryInstallArgs(pyprojectFile: string): string[];
  * @returns {Object} List of packages from the virtual env
  */
 export declare function getPipFrozenTree(basePath: string, reqOrSetupFile: string, tempVenvDir: string, parentComponent: Object, projectRoot: any, getTreeWithPluginFn: any): Object;
+/**
+ * Requirement to hand to `pip install` for a component, or undefined when the
+ * component must not be installed.
+ *
+ * Name and version come from scanned content (METADATA files, wheels, lock
+ * files), so pip must only ever see them as a named requirement: `-r` would be
+ * an option, `./dir` a local project, `name @ url` a direct reference and an
+ * existing file of the same name in the scanned directory an archive to build.
+ *
+ * @param {Object} apkg Component with name, version and properties
+ * @param {string} basePath Directory pip is run from
+ * @returns {string|undefined} Requirement such as `requests==2.32.0`
+ */
+export declare function pipRequirementForComponent(apkg: Object, basePath: string): string | undefined;
+/**
+ * Resolve the relative paths in extra pip arguments, such as those of
+ * `PIP_INSTALL_ARGS`, against a directory, so they keep their meaning when
+ * pip runs from another working directory. Only the values of options that
+ * take a local path are changed, in both the `--option value` and
+ * `--option=value` forms; URLs and absolute paths are kept.
+ *
+ * @param {string[]} args Extra pip arguments
+ * @param {string} baseDir Directory the paths are relative to
+ * @returns {string[]} The arguments with relative paths made absolute
+ */
+export declare function resolvePipArgPaths(args: string[], baseDir: string): string[];
 export declare function getPipTreeForPackages(basePath: any, pkgList: any, tempVenvDir: any, parentComponent: any, getTreeWithPluginFn: any): {
     failedPkgList?: undefined;
     rootList?: undefined;

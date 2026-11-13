@@ -81,6 +81,99 @@ export declare function applyOperatorToolingChoice(options: object, context?: {
     env?: object;
 }): void;
 /**
+ * Tell which of the options that expand into others the config file chose.
+ * A profile or technique the operator did not give on the command line or
+ * through its CDXGEN_* environment variable, but the config file sets, came
+ * from the config file.
+ *
+ * @param {object} projectConfig Sanitized config file contents
+ * @param {object} [context]
+ * @param {string[]} [context.argv] Raw command-line arguments
+ * @param {object} [context.env] Environment variables
+ * @returns {{profileFromConfigFile: boolean, techniqueFromConfigFile: boolean}}
+ */
+export declare function configFileSelections(projectConfig: object, context?: {
+    argv?: string[];
+    env?: object;
+}): {
+    profileFromConfigFile: boolean;
+    techniqueFromConfigFile: boolean;
+};
+/**
+ * Mark the TEA servers that a config file named. The TEA token belongs to the
+ * operator, while a config file is read from the working directory, usually
+ * the scanned project, so a TEI to fetch or a server to publish to that only
+ * the config file names is contacted without the token.
+ *
+ * **Mutates `options` in place.**
+ *
+ * @param {object} options The options object
+ * @param {object} [context]
+ * @param {object} [context.projectConfig] Sanitized config file contents
+ * @param {string[]} [context.argv] Raw command-line arguments
+ * @param {object} [context.env] Environment variables
+ * @returns {string[]} The TEA options whose requests go without the token
+ */
+export declare function markConfigFileTeaTargets(options: object, context?: {
+    projectConfig?: object;
+    argv?: string[];
+    env?: object;
+}): string[];
+/**
+ * The options naming a slices file that atom, dosai and the other analyzers
+ * write, and that a later step of the same run, or of a later run, reads back
+ * as the project's evidence.
+ */
+export declare const SLICES_FILE_OPTIONS: string[];
+/**
+ * Find the slices files that already exist inside the scanned directory. A
+ * run writes its slices files during generation, so one that exists before
+ * it starts came with the scanned tree, and in secure mode it is not read
+ * back as the project's evidence. A relative path is checked against both
+ * the working directory and the scan path, since analyzers resolve it
+ * against either.
+ *
+ * @param {object} options The options object
+ * @param {object} context
+ * @param {string} context.scanPath Directory being scanned
+ * @param {string} [context.cwd] Working directory, process.cwd() when absent
+ * @param {boolean} [context.isSecureMode] Whether cdxgen runs in secure mode
+ * @returns {{option: string, path: string}[]} The slices files found, by
+ *   option, empty outside secure mode
+ */
+export declare function findInTreeSlicesFiles(options: object, context: {
+    scanPath: string;
+    cwd?: string;
+    isSecureMode?: boolean;
+}): {
+    option: string;
+    path: string;
+}[];
+/**
+ * Keep a config file from changing how an audit the operator asked for runs.
+ * The config file is read from the working directory, usually the scanned
+ * project, while the operator turns the audit on with --bom-audit or
+ * CDXGEN_BOM_AUDIT. A profile can cancel the audit or strip the component
+ * properties its rules read, and the bom-audit-* options narrow what it
+ * checks, so neither is taken from the config file in that case. In secure
+ * mode, where the audit gates the run, no bom-audit option, `bom-audit`
+ * itself included, is taken from the config file.
+ *
+ * **Mutates `projectConfig` in place.**
+ *
+ * @param {object} projectConfig Sanitized config file contents
+ * @param {object} [context]
+ * @param {string[]} [context.argv] Raw command-line arguments
+ * @param {object} [context.env] Environment variables
+ * @param {boolean} [context.isSecureMode] Whether cdxgen runs in secure mode
+ * @returns {string[]} The config keys that were removed
+ */
+export declare function dropConfigAuditOverrides(projectConfig: object, context?: {
+    argv?: string[];
+    env?: object;
+    isSecureMode?: boolean;
+}): string[];
+/**
  * Combine the custom metadata properties of every source (discussion 4391):
  * the `--metadata-property` flag, the CDXGEN_METADATA_PROPERTY and
  * CDXGEN_METADATA_PROPERTIES environment variables, and a config file's
@@ -186,11 +279,18 @@ export declare function applyPostConstructionOverrides(options: object, context:
  * @param {boolean} [context.isSecureMode]  Whether cdxgen runs in secure mode
  * @param {string} [context.invokedCommandName] Binary name (e.g. "cbom"),
  *                                              which can turn on formulation
+ * @param {boolean} [context.profileFromConfigFile] The profile came from a
+ *   config file, so it neither turns on evidence nor adds a project type
+ *   that inventories the host
+ * @param {boolean} [context.techniqueFromConfigFile] The technique came from
+ *   a config file, so it does not turn on evidence
  * @returns {OptionsWarning[]} Warnings for the caller
  */
 export declare function applyAdvancedOptions(options: object, context?: {
     isSecureMode?: boolean;
     invokedCommandName?: string;
+    profileFromConfigFile?: boolean;
+    techniqueFromConfigFile?: boolean;
 }): OptionsWarning[];
 /**
  * Build the complete `options` object from parsed CLI arguments.
@@ -220,6 +320,9 @@ export declare function applyAdvancedOptions(options: object, context?: {
  *                                             with the other sources'
  * @param {string[]} [context.argv]            Raw command-line arguments,
  *                                             process.argv when absent
+ * @param {object} [context.env]               The environment the operator
+ *                                             launched cdxgen with,
+ *                                             process.env when absent
  * @returns {{ options: object, warnings: OptionsWarning[] }}
  */
 export declare function buildOptionsFromArgs(args: object, context: {
@@ -231,6 +334,7 @@ export declare function buildOptionsFromArgs(args: object, context: {
     isSecureMode?: boolean;
     projectConfig?: object;
     argv?: string[];
+    env?: object;
 }): {
     options: object;
     warnings: OptionsWarning[];

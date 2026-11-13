@@ -7,6 +7,7 @@ import process from "node:process";
 import yargs from "yargs";
 import { hideBin } from "yargs/helpers";
 
+import { escapeControlCharacters } from "../lib/core/text.js";
 import {
   readEnvironmentVariable,
   retrieveCdxgenVersion,
@@ -234,7 +235,9 @@ function checkExistingSignatures(bomJson) {
           ? `Warning: appending to a chain with ${unverified.length} unverified entry(s):`
           : `Warning: appending a signers entry although none of the ${unverified.length} existing entry(s) verified:`,
         ...details,
-      ].join("\n"),
+      ]
+        .map((line) => escapeControlCharacters(line))
+        .join("\n"),
     );
     return;
   }
@@ -331,7 +334,9 @@ function checkExistingJssSignatures(bomJson) {
             ? `Warning: appending a JSS signature although ${unverified.length} existing signature object(s) failed verification:`
             : `Warning: appending a JSS signature although none of the ${unverified.length} existing signature object(s) verified:`,
         ...details,
-      ].join("\n"),
+      ]
+        .map((line) => escapeControlCharacters(line))
+        .join("\n"),
     );
     return;
   }
@@ -435,7 +440,9 @@ function signJssDocument(bomJson) {
 try {
   const bomJson = parseStrictJson(fs.readFileSync(args.input));
   if (!isCycloneDxBom(bomJson)) {
-    console.error(getNonCycloneDxErrorMessage(bomJson, "cdx-sign"));
+    console.error(
+      escapeControlCharacters(getNonCycloneDxErrorMessage(bomJson, "cdx-sign")),
+    );
     process.exit(1);
   }
 
@@ -471,6 +478,9 @@ try {
     await attachBomNative(args.attach, signedBom);
   }
 } catch (error) {
-  console.error("SBOM signing failed:", error.message);
+  console.error(
+    "SBOM signing failed:",
+    escapeControlCharacters(String(error?.message)),
+  );
   process.exit(1);
 }

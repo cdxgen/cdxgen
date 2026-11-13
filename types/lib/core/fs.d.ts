@@ -114,6 +114,15 @@ export declare const temporaryFiles: Set<any>;
 /** Set accumulating every executable command spawned via safeSpawnSync. */
 export declare const commandsExecuted: Set<any>;
 /**
+ * Check a command against the CDXGEN_ALLOWED_COMMANDS allowlist. Every command
+ * is allowed when no allowlist is configured.
+ *
+ * @param {string} command The executable, exactly as it is passed to spawn
+ * @param {string} [allowedCommandsEnv] Comma-separated allowlist; defaults to CDXGEN_ALLOWED_COMMANDS
+ * @returns {boolean} True when the command may be started
+ */
+export declare function isAllowedCommand(command: string, allowedCommandsEnv?: string): boolean;
+/**
  * Quote one argument of a shell command line that is built as a single
  * string. The shell flag exists so cmd.exe can resolve bare command names,
  * `.cmd` shims and scripts, and every argument is data (paths, flags) that
@@ -156,6 +165,16 @@ export declare function shellQuoteArgument(arg: string, forWindows?: boolean): s
  * @returns {string} The command line the shell will run
  */
 export declare function joinShellCommand(command: string, args: string[] | undefined, rawShellArgs?: boolean): string;
+/**
+ * Copy an environment into an object without a prototype. Node.js builds a
+ * child's environment with for...in, which also lists properties inherited
+ * from Object.prototype, so a child must be handed such a copy to receive
+ * only the variables that are really set.
+ *
+ * @param {Object} [env] Environment to copy, process.env by default
+ * @returns {Object} Null-prototype copy holding the own properties of env
+ */
+export declare function ownEnvironment(env?: Object): Object;
 /**
  * Safe wrapper around spawnSync that enforces permission checks, injects default
  * options (maxBuffer, encoding, timeout), warns about unsafe Python and pip/uv

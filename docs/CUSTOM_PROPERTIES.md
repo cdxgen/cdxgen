@@ -215,7 +215,7 @@ These are the highest-leverage keys for first-pass policy authoring.
 | `cdx:ai:quantizationMethod`                      | Non-GGUF quantization method (gptq/awq/exl2/bitsandbytes) distinct from the container format        | Warning / triage |
 | `cdx:ai:unsafeDeserialization`                   | Flags pickle-based model artifacts (.bin/.pt/.pth/.ckpt) that execute code on load                  | Hard deny        |
 | `cdx:safetensors:tensorCount`                    | Number of tensors declared in a safetensors header                                                  | Informational    |
-| `cdx:safetensors:dtypes`                         | Distinct tensor dtypes declared in a safetensors header                                             | Informational    |
+| `cdx:safetensors:dtypes`                         | Distinct tensor dtype names (up to 32) declared in a safetensors header                             | Informational    |
 | `cdx:agentic:tool`                               | Identifies the discovered agentic CLI tool (kiro-cli, zcode, opencode, claude-code, ...)            | Warning / triage |
 | `cdx:agentic:model`                              | Model an agent definition selects (from a tool's agent config)                                      | Warning / triage |
 | `cdx:agentic:home`                               | Records the tool's discovered per-user home directory                                               | Informational    |
@@ -261,7 +261,7 @@ These are the highest-leverage keys for first-pass policy authoring.
 | `cdx:agentic:trustedWorkspaceCount`              | Number of Kiro workspace permission files that declare `workspaceTrusted: true`                     | Warning / triage |
 | `cdx:agentic:workspaceWithAllowRuleCount`        | Number of Kiro workspace permission files that carry at least one allow rule                        | Warning / triage |
 | `cdx:langgraph:graphEntryPoint`                  | Carries the configured graph entrypoint from `langgraph.json`                                       | Warning / triage |
-| `cdx:crewai:tools`                               | Captures configured CrewAI tool lists or references                                                 | Warning / triage |
+| `cdx:crewai:tools`                               | Captures configured CrewAI tool lists or references, without tool constructor arguments             | Warning / triage |
 | `cdx:agent:credentialExposure`                   | Flags inline secret patterns in AI agent instructions                                               | Hard deny        |
 | `cdx:agent:reviewNeeded`                         | One-bit reviewer cue for hidden Unicode, undeclared MCP refs, or risky exposure                     | Warning / triage |
 | `cdx:ai:codegen:detected`                        | Boolean cue that AI/LLM/agent authorship signals were found in the project                          | Warning / triage |
@@ -360,8 +360,8 @@ The grouped lists below remain the authoritative inventory. The compact tables, 
 - **GitHub action trust tags:** `cdx:actions:isOfficial`, `cdx:actions:isVerified`
 - **GitLab CI:** `cdx:gitlab:config`, `cdx:gitlab:job:environment`, `cdx:gitlab:job:image`, `cdx:gitlab:job:name`, `cdx:gitlab:job:needs`, `cdx:gitlab:job:services`, `cdx:gitlab:job:stage`, `cdx:gitlab:stages`
 - **Azure Pipelines:** `cdx:azure:config`, `cdx:azure:job:environment`, `cdx:azure:job:name`, `cdx:azure:job:pool:vmImage`, `cdx:azure:pool:vmImage`, `cdx:azure:stage:condition`, `cdx:azure:stage:dependsOn`, `cdx:azure:stage:name`, `cdx:azure:trigger:branches`
-- **CircleCI:** `cdx:circleci:config`, `cdx:circleci:executor:name`, `cdx:circleci:job:branch:only`, `cdx:circleci:job:name`, `cdx:circleci:job:requires`, `cdx:circleci:orb:alias`, `cdx:circleci:workflow:name`
-- **Jenkins:** `cdx:jenkins:agent`, `cdx:jenkins:agent:image`, `cdx:jenkins:file`, `cdx:jenkins:stage:name`, `cdx:jenkins:stage:parallel`, `cdx:jenkins:stage:when`
+- **CircleCI:** `cdx:circleci:config`, `cdx:circleci:executor:name`, `cdx:circleci:job:branch:only`, `cdx:circleci:job:name`, `cdx:circleci:job:requires`, `cdx:circleci:job:stepsOmitted` (`true` on a workflow job entry whose copy of the job's steps was left out: every entry carries its own copy, and one config file may contribute at most 32 characters of serialized steps per byte of the file, or 4 MiB when that is more), `cdx:circleci:orb:alias`, `cdx:circleci:workflow:name`
+- **Jenkins:** `cdx:jenkins:agent`, `cdx:jenkins:agent:image`, `cdx:jenkins:file`, `cdx:jenkins:stage:name`, `cdx:jenkins:stage:parallel`, `cdx:jenkins:stage:when` (the directive names of the stage's `when` block, comma-separated, such as `anyOf,branch,environment`; conditions and their arguments are not recorded)
 
 #### Decision-oriented sub-groups
 
@@ -508,13 +508,15 @@ The grouped lists below remain the authoritative inventory. The compact tables, 
 - **Vendored code:** `cdx:vendored`, `cdx:vendored:path`, `cdx:vendored:licenseFile`, `cdx:vendored:versionSource` (the file the version was read from: the library's own version header, such as brotli's `c/common/version.h` or `zlib.h`, which also sets the component's CPE, or its `CMakeLists.txt` `project(... VERSION ...)`)
 - **C/C++ build context:** `cdx:cpp:compiler:family`, `cdx:cpp:compiler:drivers`, `cdx:cpp:compiler:identifiedBy`, `cdx:cpp:compiler:languages`, `cdx:cpp:compiler:units`, `cdx:cpp:frontend`, `cdx:cpp:compileCommands:units`, `cdx:cpp:hardening:<setting>`, `cdx:cpp:hardening:<setting>:units`, `cdx:cpp:hardening:source`
 - **C/C++ (Meson WrapDB):** `cdx:meson:wrapdb:wrap`, `cdx:meson:wrapdb:latestVersion`, and from the project's own `subprojects/*.wrap`: `cdx:meson:wrap` (the wrap that provides the dependency), `cdx:meson:wrap:versionSource` (`wrapdb_version`, `directory` or `revision`) and `cdx:meson:wrap:revision` (the WrapDB packaging revision after the upstream version)
-- **Build inputs (formulation):** `cdx:build:tool` (the tool a formulation build-input component describes: `make`, `cmake`, `go`, `pip` or `nuget`), `cdx:make:targetCount`, `cdx:make:targets` (single-token rule targets after backslash continuations are joined; `define ... endef` bodies, special targets such as `.PHONY`, pattern rules, multi-target rules and absolute, drive or `..` paths are left out), `cdx:make:includes` (include paths relative to the make file; absolute POSIX, Windows drive, UNC and home-relative paths and paths with a `..` segment are dropped because they describe the machine or the tree around the project), `cdx:make:variables` (names only, including `export`, `override`, `private` and `define` variables; values stay out because flags can carry machine-specific paths or tokens), `cdx:make:usesDocker` (a recorded target name mentions docker; recipes are not read), `cdx:cmake:minimumVersion`, `cdx:cmake:languages` (the arguments after `LANGUAGES`, or before the first keyword in `project(name C CXX)`; commands are matched case-insensitively and comments are ignored), `cdx:cmake:executableCount`, `cdx:cmake:libraryCount`, `cdx:go:module`, `cdx:go:version`, `cdx:go:toolchain`, `cdx:go:requireCount` (single-line `require` directives and the lines of `require ( ... )` blocks; `replace`, `exclude` and `retract` lines are not counted), `cdx:go:indirectCount` (requirements marked `// indirect`), `cdx:pip:requirementCount` (requirement lines, including `-e` editable installs, without comments and option lines such as `--index-url`), `cdx:pip:pinCount` (requirements pinned exactly with `==` or `===`, without wildcards or ranges; editable installs and direct references such as `name @ https://...` are never pins), `cdx:pip:unpinnedCount` (requirements that are not exact pins, such as `certifi>=2024.2.2`), `cdx:pip:hasHashes` (also set when pip-compile writes `--hash` on backslash continuation lines), `cdx:pip:kind` (`requirements` or `constraints`), `cdx:nuget:assetsVersion` (only a string or number), `cdx:nuget:frameworks` (at most 25), `cdx:nuget:libraryCount`, `cdx:nuget:targetCount`, `cdx:msbuild:sdk`, `cdx:msbuild:targetFrameworks`, `cdx:msbuild:outputType`, `cdx:msbuild:version`, `cdx:msbuild:packageReferenceCount`
+- **Build inputs (formulation):** `cdx:build:tool` (the tool a formulation build-input component describes: `make`, `cmake`, `go`, `pip` or `nuget`), `cdx:make:targetCount`, `cdx:make:targets` (single-token rule targets after backslash continuations are joined; `define ... endef` bodies, special targets such as `.PHONY`, pattern rules, multi-target rules and absolute, drive or `..` paths are left out), `cdx:make:includes` (include paths relative to the make file; absolute POSIX, Windows drive, UNC and home-relative paths and paths with a `..` segment are dropped because they describe the machine or the tree around the project, and so are function calls such as `$(shell ...)`, words that are not file names and trailing comments), `cdx:make:variables` (names only, including `export`, `override`, `private` and `define` variables; values stay out because flags can carry machine-specific paths or tokens), `cdx:make:usesDocker` (a recorded target name mentions docker; recipes are not read), `cdx:cmake:minimumVersion`, `cdx:cmake:languages` (the arguments after `LANGUAGES`, or before the first keyword in `project(name C CXX)`; commands are matched case-insensitively and comments are ignored), `cdx:cmake:executableCount`, `cdx:cmake:libraryCount`, `cdx:go:module`, `cdx:go:version`, `cdx:go:toolchain`, `cdx:go:requireCount` (single-line `require` directives and the lines of `require ( ... )` blocks; `replace`, `exclude` and `retract` lines are not counted), `cdx:go:indirectCount` (requirements marked `// indirect`), `cdx:pip:requirementCount` (requirement lines, including `-e` editable installs, without comments and option lines such as `--index-url`), `cdx:pip:pinCount` (requirements pinned exactly with `==` or `===`, without wildcards or ranges; editable installs and direct references such as `name @ https://...` are never pins), `cdx:pip:unpinnedCount` (requirements that are not exact pins, such as `certifi>=2024.2.2`), `cdx:pip:hasHashes` (also set when pip-compile writes `--hash` on backslash continuation lines), `cdx:pip:kind` (`requirements` or `constraints`), `cdx:nuget:assetsVersion` (only a string or number), `cdx:nuget:frameworks` (at most 25), `cdx:nuget:libraryCount`, `cdx:nuget:targetCount`, `cdx:msbuild:sdk`, `cdx:msbuild:targetFrameworks`, `cdx:msbuild:outputType`, `cdx:msbuild:version`, `cdx:msbuild:packageReferenceCount`
 - **xmake:** `cdx:xmake:configurations`
 - **Unregistered purl types:** `cdx:purl:proposedType`
 - **Swift:** `cdx:swift:localCheckoutPath`, `cdx:swift:packageName`
-- **CocoaPods:** `cdx:pods:PodName`, `cdx:pods:Subspec`, `cdx:pods:podspecLocation`, `cdx:pods:projectDir`
+- **CocoaPods:** `cdx:pods:PodName`, `cdx:pods:Subspec`, `cdx:pods:podspecLocation`, `cdx:pods:projectDir` (`cdx:pods:podspecLocation` built from a web `:git` source leaves out the URL's userinfo and query string)
 - **Dart pub:** `cdx:pub:registry`
 - **Deno:** `cdx:deno:source`, `cdx:deno:jsrKey`, `cdx:deno:integrity`
+
+Deno components take their description, licence and repository from an installed `package.json` when one matches the locked version. The description is cut to 4096 characters, a licence value longer than that or a list of more than 8 licences is cut or left out, and a repository URL longer than 4096 characters is left out.
 
 #### Decision-oriented sub-groups
 
@@ -966,6 +968,8 @@ The grouped lists below remain the authoritative inventory. The compact tables, 
 | `cdx:flatpak:type`                            | component                                        | string                           | `app`, `runtime`                                                                                                                                                                                                                                      | On a flatpak found by an OBOM                                                                                                                                                                                                                                                                                                                                                                 | Tells applications from the runtimes they share                                                                                                                                                                                                                                                       | Context only                                                                                                               |
 | `cdx:flatpak:runtime`                         | component                                        | string                           | `org.gnome.Platform/x86_64/48`                                                                                                                                                                                                                        | On a flatpak application found by an OBOM: the runtime it runs on                                                                                                                                                                                                                                                                                                                             | Links an application to the runtime whose libraries it uses                                                                                                                                                                                                                                           | Context only                                                                                                               |
 
+A JavaScript file referenced by a lifecycle hook that is larger than 4 MiB is not parsed. It is reported with the `oversized-file` value in `cdx:npm:lifecycleObfuscationIndicators`, so size alone does not keep a script out of review.
+
 #### High-value combinations
 
 - `cdx:npm:hasInstallScript=true` + `cdx:npm:isRegistryDependency=false`
@@ -1066,7 +1070,7 @@ The built-in BOM audit categories `golem-security`, `golem-performance`, and `go
 
 | Property                          | Meaning                                                            |
 | --------------------------------- | ------------------------------------------------------------------ |
-| `cdx:golem:crypto:sourceLocation` | Source file, line, and column where the crypto asset was detected. |
+| `cdx:golem:crypto:sourceLocation` | Source file, line, and column where the crypto asset was detected. The file is named relative to the analyzed directory, as `<module path>@<version>/<path>` for a file of another module, or by its base name otherwise. |
 | `cdx:golem:crypto:strength`       | Conservative strength classification from Golem.                   |
 | `cdx:golem:crypto:symbol`         | Safe symbol name associated with the crypto asset.                 |
 | `cdx:golem:crypto:usageScope`     | Usage scope associated with the crypto asset.                      |
@@ -2274,7 +2278,7 @@ annotation text exactly the way `cdx:audit:*` findings are:
 
 **`cdx:npm:*`**
 
-- `cdx:npm:manifestSource`
+- `cdx:npm:manifestSource` (the non-registry specs, such as git or tarball URLs, that manifests used for the package; a URL loses its userinfo, query string and any fragment that holds `=` or a token shape)
 - `cdx:npm:manifestSourceType`
 
 **`cdx:nuget:*`**
@@ -2322,6 +2326,8 @@ annotation text exactly the way `cdx:audit:*` findings are:
 - `cdx:sbt:failedProjects`
 
 **`cdx:service:*`**
+
+Container and rootfs scans turn the systemd unit files and init scripts that OS packages own into services. A file listed by several packages becomes one service; each owning package appears as a `cdx:service:packageRef` and `cdx:service:packageName` pair and as a dependency of the service. Unit files and init scripts larger than 1 MiB, or reached through a symbolic link, are not read, at most 64 properties are taken from one file, and the description and each property value are cut to 1024 characters.
 
 - `cdx:service:DefaultStart`
 - `cdx:service:Provides`

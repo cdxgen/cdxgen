@@ -8,7 +8,9 @@
  * @type {Object}
  * @property {string} id Unique parser identifier ("community-ai-config")
  * @property {string[]} patterns File path patterns this parser handles
- * @property {Function} parse Parse matched files into components and services
+ * @property {Function} parse Parse matched files into components and
+ *   services. The optional third argument carries `rootDir`, the scanned
+ *   root every read file must stay inside.
  */
 export declare const communityAiConfigParser: Object;
 //# sourceMappingURL=communityAiConfigParser.d.ts.map

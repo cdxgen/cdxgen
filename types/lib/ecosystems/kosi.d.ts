@@ -22,9 +22,10 @@ export declare function kosiDisabled(): any;
  * Orchestrates the kosi runs over src and returns the parsed reports: one
  * `all` pass (every slice kind, dependency tier) and one `reachable` pass
  * (call-graph reachability from the roots). The analysis is read-only and
- * offline: kosi never executes the project's build. A classpath.txt beside
- * the sources (the documented build-tool report) is passed through when
- * present.
+ * offline: kosi never executes the project's build. The jars that a
+ * classpath.txt beside the sources (the documented build-tool report), an
+ * Eclipse .classpath or a libs/ directory name are passed on when they
+ * resolve into the project or into the local Maven and Gradle caches.
  *
  * @param {string} src Directory to analyze.
  * @param {Object} options Configuration options.

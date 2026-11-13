@@ -1,9 +1,9 @@
 /**
  * Normalize a string into a safe MCP reference token.
  *
- * NFKC-normalizes, lowercases, collapses separator runs, strips leading and
- * trailing punctuation, and truncates to 128 characters, falling back to
- * `unknown` for empty or dot-only results.
+ * Reads the first 256 characters, NFKC-normalizes, lowercases, collapses
+ * separator runs, strips leading and trailing punctuation, and truncates to
+ * 128 characters, falling back to `unknown` for empty or dot-only results.
  *
  * @param {string} value Raw token value
  * @returns {string} Sanitized reference token
