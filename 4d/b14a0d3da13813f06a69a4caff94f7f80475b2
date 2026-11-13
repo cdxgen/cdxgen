@@ -1,0 +1,38 @@
+lib/core/fs.js
+  s_2e3025829bed21::t_8ffefc312df11c 1097
+  s_2e3025829bed21::t_ca0ae30c7428c2 1045
+  s_2e3025829bed21::t_5f7c21f002fb1d 924-927,937-942,944,949,951-1002,1004-1013,1020-1044,1046-1086,1088-1096,1098-1105,1107-1113
+  s_2e3025829bed21::t_807b1fd4b4cd72 1363-1366,1370-1372
+  s_2e3025829bed21::t_f82553401076df 1003,1014-1019
+  s_2e3025829bed21::t_1c5d975a70c53e 1087
+  s_2e3025829bed21::t_39bf11e04b9c76 943,947
+  s_2e3025829bed21::t_a217f100b08e8d 48-51
+  s_2e3025829bed21::t_c68580be29607a 928-936,945-946,948,950
+  s_2e3025829bed21::t_598e86717b21ff 1106
+lib/inventory/cdxrs.js
+  s_2e3025829bed21::t_4a495da7fdf73d 240-243
+  s_2e3025829bed21::t_d2466f2f0a6702 18,31
+  s_2e3025829bed21::t_466dead43fbbe2 286-288
+lib/core/fs.poku.js
+  s_2e3025829bed21::t_a85a84f8e8adce 636
+  s_2e3025829bed21::t_1ffbb3e7152e84 587-620,622-635,637-649,656-695
+  s_2e3025829bed21::t_b47aa6c6cf4781 1
+  s_2e3025829bed21::t_e06d8eed73992b 650-655
+  s_2e3025829bed21::t_6a4954a7408fa5 621
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "4db14a0d3da13813f06a69a4caff94f7f80475b2",
+  "prompts": {},
+  "sessions": {
+    "s_2e3025829bed21": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_dwf-dwfrun-8a43f588-0928-478e-90ba-a877d2a1b5f4-actor_1_1",
+        "model": "GLM-5.3"
+      },
+      "human_author": "Team AppThreat <cloud@appthreat.com>"
+    }
+  }
+}
