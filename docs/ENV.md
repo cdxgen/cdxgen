@@ -389,9 +389,9 @@ Used when resolving Hugging Face models, datasets, and spaces into AI-BOM compon
 | CDXGEN_HUGGINGFACE_CACHE_MAX_ENTRIES | Maximum number of entries retained in the in-memory Hugging Face response cache. Default: `256`.                                                                                    |
 | CDXGEN_HUGGINGFACE_CACHE_TTL_MS      | Time-to-live for entries in the Hugging Face response cache, in milliseconds. Default: `300000` (5 minutes).                                                                        |
 | CDXGEN_HUGGINGFACE_REMOTE            | Set to `true` to enable remote Hugging Face metadata resolution. Equivalent to the `--ai-huggingface-remote` / `--resolve-huggingface-remote` flags.                                |
-| HF_TOKEN                             | Bearer token for the Hugging Face Hub API, sent as an `Authorization` header and never logged. Read after `HUGGING_FACE_HUB_TOKEN`; the first non-empty value among the three wins. |
-| HUGGING_FACE_HUB_TOKEN               | Alias for `HF_TOKEN`, consulted first.                                                                                                                                              |
-| HUGGINGFACE_TOKEN                    | Alias for `HF_TOKEN`, consulted after `HUGGING_FACE_HUB_TOKEN`.                                                                                                                     |
+| HF_TOKEN                             | Bearer token for the Hugging Face Hub API, sent as an `Authorization` header and never logged. Consulted first; the first non-empty value among the three wins.                     |
+| HUGGING_FACE_HUB_TOKEN               | Alias for `HF_TOKEN`, consulted after `HF_TOKEN`.                                                                                                                                   |
+| HUGGINGFACE_TOKEN                    | Alias for `HF_TOKEN`, consulted last, after `HUGGING_FACE_HUB_TOKEN`.                                                                                                               |
 
 ## Validation
 
