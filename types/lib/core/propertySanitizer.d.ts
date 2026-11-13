@@ -3,6 +3,12 @@
  * userinfo before `@`, the query string and the fragment. Any scheme is
  * handled, such as `sparse+https://`, `ssh://` or `jdbc:postgresql://`.
  *
+ * A network-path reference (RFC 3986 section 4.2) has no scheme, as in
+ * `--registry=//user:password@host/npm/`. Two slashes are read as one when
+ * they start the text or follow white space, `=`, a quote, `(`, `,` or `<`,
+ * and the userinfo before `@` holds a `:`. A comment such as `// see
+ * user@example.com` or a bare `//name@host` is left as written.
+ *
  * A userinfo or query may hold `;`, `,`, quotes and other characters that
  * also separate the items of a list, so none of them ends a URL early. The
  * authority and path of a URL end at white space, `?`, `#` or the scheme of
@@ -114,8 +120,10 @@ export declare function redactCommandCredentials(value: unknown): string;
  * string, and a fragment that holds `=` or a token shape. A fragment naming
  * a git ref, as in `git+https://host/repo.git#v1.2.0`, is kept. The URL is
  * not otherwise rewritten, so a value without credentials comes back as it
- * was. A value without `://` is returned unchanged, except that an scp-like
- * `user:password@host:path` loses its userinfo.
+ * was. A network-path reference such as `//user:password@host/path` is
+ * handled like a URL with a scheme. Any other value without `://` is
+ * returned unchanged, except that an scp-like `user:password@host:path`
+ * loses its userinfo.
  *
  * @param {unknown} value URL text
  * @returns {string} The URL without credentials
