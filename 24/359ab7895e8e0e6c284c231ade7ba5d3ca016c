@@ -1,0 +1,27 @@
+lib/cli/jsBom.js
+  s_8376465eb88a0d::t_00f0d1cff475a7 806-813
+lib/ecosystems/parsers-js.js
+  s_8376465eb88a0d::t_173e516803911d 26,3246-3277,3298-3314,3352-3356
+lib/ecosystems/parsers-js.poku.js
+  s_8376465eb88a0d::t_a9b9a5cda29f0d 34,1334-1374
+lib/ecosystems/parsers-python.js
+  s_8376465eb88a0d::t_d8966cdd283b19 11,434-445
+lib/ecosystems/parsers-python.poku.js
+  s_8376465eb88a0d::t_69a994c0b71677 746-768
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "24359ab7895e8e0e6c284c231ade7ba5d3ca016c",
+  "prompts": {},
+  "sessions": {
+    "s_8376465eb88a0d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6b944f10-f38a-4491-8809-d36fec51aaa5",
+        "model": "unknown"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
