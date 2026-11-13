@@ -1,0 +1,25 @@
+docs/ADVANCED.md
+  s_8376465eb88a0d::t_331b29a2ca1d79 813
+docs/THREAT_MODEL.md
+  s_8376465eb88a0d::t_a7a4a43630f50e 200
+lib/cli/bomAssembly.js
+  s_8376465eb88a0d::t_5ac5fc2dc7af69 297-314,318-321,330-335,341-343
+lib/cli/bomAssembly.poku.js
+  s_8376465eb88a0d::t_42efb23ed45bbb 3,5,1230-1264
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "7bd2e26d359e1a1367e32a4dbe1e6615d110ed21",
+  "prompts": {},
+  "sessions": {
+    "s_8376465eb88a0d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6b944f10-f38a-4491-8809-d36fec51aaa5",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
