@@ -1,0 +1,23 @@
+lib/ecosystems/scalasem-edge-cases.poku.js
+  s_8376465eb88a0d::t_6139b3e59836bc 423-449,459,480,523
+lib/ecosystems/scalasem.js
+  s_8376465eb88a0d::t_79c9b6acdc5c19 1231-1236,1241-1253,1255-1258,1260-1267,1270-1273,1286,1289,1404,1421-1422,1427-1428,1430,1459,1832
+lib/ecosystems/scalasem.poku.js
+  s_8376465eb88a0d::t_3fd045d4d30a8d 505-506,509-513,518,521,523-527,531-535,540,637
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "981e48623aec6040937b519cb274d1834d8c728b",
+  "prompts": {},
+  "sessions": {
+    "s_8376465eb88a0d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6b944f10-f38a-4491-8809-d36fec51aaa5",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
