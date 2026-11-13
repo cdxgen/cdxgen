@@ -1,4 +1,20 @@
 /**
+ * Whether atom may paste a value into a shell command line as it is. Paths
+ * and names of the scanned project are not trusted input: they come from its
+ * config file and its directory names.
+ *
+ * @param {string} value Path, file name or option value handed to atom
+ * @returns {boolean} true when no shell would interpret any part of the value
+ */
+export declare function isAtomShellSafe(value: string): boolean;
+/**
+ * Whether atom would start its Ruby frontend for the given atom arguments.
+ *
+ * @param {string[]} args Arguments passed to atom
+ * @returns {boolean} true when the `-l` value names a Ruby language
+ */
+export declare function isAtomRubyRun(args: string[]): boolean;
+/**
  * Convert cdxgen's glob-style exclude patterns to a Scala/Java regex string.
  *
  * @param {string[]} patterns Glob patterns from cdxgen's `--exclude` option
