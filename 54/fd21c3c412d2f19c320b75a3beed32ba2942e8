@@ -1,0 +1,21 @@
+lib/helpers/asarutils.js
+  s_8376465eb88a0d::t_265cb76f1e12bf 5-6,13-21,107-113,117-119,222-225,1470-1522,1529-1532,1536-1543,1549-1561,1568,1593,1595-1599,1616,1629-1630
+lib/helpers/asarutils.poku.js
+  s_8376465eb88a0d::t_d18bddc1caa851 415-501
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "54fd21c3c412d2f19c320b75a3beed32ba2942e8",
+  "prompts": {},
+  "sessions": {
+    "s_8376465eb88a0d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6b944f10-f38a-4491-8809-d36fec51aaa5",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
