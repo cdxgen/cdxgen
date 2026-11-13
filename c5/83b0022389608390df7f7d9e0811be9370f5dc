@@ -1,0 +1,21 @@
+types/lib/inventory/cryptoAlgorithmFamily.d.ts.map
+  s_5ee2555f05d1f7::t_f63b2c150a78da 1
+types/lib/inventory/tracedCrypto.d.ts.map
+  s_5ee2555f05d1f7::t_fd80bfa7e3a219 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "c583b0022389608390df7f7d9e0811be9370f5dc",
+  "prompts": {},
+  "sessions": {
+    "s_5ee2555f05d1f7": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_9da79e36-b7bc-42b4-b2ba-dc6087186e2e",
+        "model": "GLM-5.3"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
