@@ -18,7 +18,8 @@ export declare const PROJECT_CONFIG_OPTIONS: Set<string>;
  * CDXGEN_* environment variable. They start a listener, turn off certificate
  * checks on the operator's own upload, opt into experimental tool
  * installation, or end the run without a BOM. A config file that sets one is
- * told so and ignored.
+ * told so and ignored. Evidence collection hands project-named values to
+ * atom and its helpers, so it is not the scanned project's to choose either.
  */
 export declare const OPERATOR_ONLY_OPTIONS: Set<string>;
 /**

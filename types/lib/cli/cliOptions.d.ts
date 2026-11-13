@@ -96,6 +96,25 @@ export declare function applyPostConstructionOverrides(options: object, context:
     isDryRun?: boolean;
 }): OptionsWarning[];
 /**
+ * Tell which of the options that expand into others the config file chose.
+ * A profile or technique the operator did not give on the command line or
+ * through its CDXGEN_* environment variable, but the config file sets, came
+ * from the config file.
+ *
+ * @param {object} projectConfig Sanitized config file contents
+ * @param {object} [context]
+ * @param {string[]} [context.argv] Raw command-line arguments
+ * @param {object} [context.env] Environment variables
+ * @returns {{profileFromConfigFile: boolean, techniqueFromConfigFile: boolean}}
+ */
+export declare function configFileSelections(projectConfig: object, context?: {
+    argv?: string[];
+    env?: object;
+}): {
+    profileFromConfigFile: boolean;
+    techniqueFromConfigFile: boolean;
+};
+/**
  * Apply advanced option expansion based on `profile`, `lifecycle`, and
  * `technique` settings. This is the extracted form of the
  * `applyAdvancedOptions()` function that was previously inline in
@@ -111,10 +130,16 @@ export declare function applyPostConstructionOverrides(options: object, context:
  * @param {object} options    The options object
  * @param {object} [context]
  * @param {boolean} [context.isSecureMode]  Whether cdxgen runs in secure mode
+ * @param {boolean} [context.profileFromConfigFile] The profile came from a
+ *   config file, so it does not turn on evidence
+ * @param {boolean} [context.techniqueFromConfigFile] The technique came from
+ *   a config file, so it does not turn on evidence
  * @returns {OptionsWarning[]} Warnings for the caller
  */
 export declare function applyAdvancedOptions(options: object, context?: {
     isSecureMode?: boolean;
+    profileFromConfigFile?: boolean;
+    techniqueFromConfigFile?: boolean;
 }): OptionsWarning[];
 /**
  * Build the complete `options` object from parsed CLI arguments.
@@ -139,6 +164,9 @@ export declare function applyAdvancedOptions(options: object, context?: {
  *                                             passed `--spec-version`
  * @param {boolean} [context.isDryRun=false]   Dry-run mode
  * @param {boolean} [context.isSecureMode]     Secure mode
+ * @param {object} [context.projectConfig]     Sanitized config file contents
+ * @param {string[]} [context.argv]            Raw command-line arguments
+ * @param {object} [context.env]               Environment variables
  * @returns {{ options: object, warnings: OptionsWarning[] }}
  */
 export declare function buildOptionsFromArgs(args: object, context: {
@@ -148,6 +176,9 @@ export declare function buildOptionsFromArgs(args: object, context: {
     userSetSpecVersion: boolean;
     isDryRun?: boolean;
     isSecureMode?: boolean;
+    projectConfig?: object;
+    argv?: string[];
+    env?: object;
 }): {
     options: object;
     warnings: OptionsWarning[];

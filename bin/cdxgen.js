@@ -21,6 +21,7 @@ import { hideBin } from "yargs/helpers";
 import {
   applyAdvancedOptions as applyAdvancedOptionsImpl,
   buildOptionsFromArgs,
+  configFileSelections,
   isUserProvided,
 } from "../lib/cli/cliOptions.js";
 import { createBom, submitBom } from "../lib/cli/index.js";
@@ -828,6 +829,7 @@ const { options, warnings: phase3Warnings } = buildOptionsFromArgs(args, {
   userSetSpecVersion,
   isDryRun,
   isSecureMode,
+  projectConfig: config,
 });
 const cliActivityProjectType = Array.isArray(options.projectType)
   ? options.projectType.join(",")
@@ -931,6 +933,7 @@ if (options.lifecycle) {
 const isHbomOnlyInvocation = isHbomOnlyProjectTypes(options.projectType);
 const advancedWarnings = applyAdvancedOptionsImpl(options, {
   isSecureMode,
+  ...configFileSelections(config),
 });
 if (options?.technique && Array.isArray(options.technique)) {
   if (options.technique.length === 1) {
