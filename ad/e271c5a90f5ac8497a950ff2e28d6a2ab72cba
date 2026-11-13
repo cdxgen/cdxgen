@@ -1,0 +1,25 @@
+lib/ecosystems/cppBuildContext.js
+  s_8376465eb88a0d::t_f232a9cf8d5d96 129,132-139
+lib/ecosystems/cppBuildContext.poku.js
+  s_8376465eb88a0d::t_9e8196844b8f86 483-506
+lib/parsers/cmakePresets.js
+  s_8376465eb88a0d::t_9aacc7e4dcddd9 18-30,33,38-53,108-109,113-126,158-165,205-207,210-211,213-218,225-239,242-247,267-276,284-290,303-308,360-368,376-381,386,388,394-401,403-407,410-420,427-453,459-545,550-551,562,568,576-578,580-583,591,625
+lib/parsers/cmakePresets.poku.js
+  s_8376465eb88a0d::t_ccc78255f19447 370-493
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "ade271c5a90f5ac8497a950ff2e28d6a2ab72cba",
+  "prompts": {},
+  "sessions": {
+    "s_8376465eb88a0d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6b944f10-f38a-4491-8809-d36fec51aaa5",
+        "model": "unknown"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}

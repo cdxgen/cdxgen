@@ -1,0 +1,27 @@
+lib/ecosystems/cppBuildContext.js
+  s_8376465eb88a0d::t_604b8111b24e81 45-46,634,637,641,646-647
+lib/ecosystems/cppIncludeResolver.js
+  s_8376465eb88a0d::t_50dd5577a9644c 22-26,220-222,226-228,259-261
+lib/ecosystems/vendoredCode.js
+  s_8376465eb88a0d::t_247fb513b7609e 13,305,312,329,332,390
+lib/inventory/cmakeBuildDirs.js
+  s_8376465eb88a0d::t_c631beddc5be0d 23,69-101
+lib/inventory/cmakeBuildDirs.poku.js
+  s_8376465eb88a0d::t_da1da5cae7b771 11-12,193-208
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "daf7a5aa05257aa42fd278a0020927610f24e2cf",
+  "prompts": {},
+  "sessions": {
+    "s_8376465eb88a0d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6b944f10-f38a-4491-8809-d36fec51aaa5",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}

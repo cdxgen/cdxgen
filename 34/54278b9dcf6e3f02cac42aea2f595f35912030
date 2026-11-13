@@ -1,0 +1,37 @@
+docs/LESSON27.md
+  s_8376465eb88a0d::t_cd00a56a5a6e47 171-175
+lib/cli/nativeBom.js
+  s_8376465eb88a0d::t_48376fb25abde0 1817
+lib/ecosystems/cmakeResolver.js
+  s_8376465eb88a0d::t_04ccb7a8d3ba4c 8,12,29-32,222-247,249-282,284-290,294,301-327,329-334,340,342-344,346-347,349-352,354-368,370
+lib/ecosystems/cmakeResolver.poku.js
+  s_8376465eb88a0d::t_f547c91378a523 1-12,21,23,55-80,84-92,95-104,107,109-115,121-203,205-264,266-268
+lib/inventory/envcontext.js
+  s_8376465eb88a0d::t_d0f300062d7994 91-96,2165-2166,2171
+lib/inventory/envcontext_git.poku.js
+  s_8376465eb88a0d::t_0e65e5c86e2abc 2-8,16,116-128,134-174,176-177
+lib/ecosystems/cppBuildContext.js
+  s_8376465eb88a0d::t_8247bac044976b 668,670-677
+lib/ecosystems/cppBuildContext.poku.js
+  s_8376465eb88a0d::t_e3c92db963c82c 12,344-369
+lib/ecosystems/cppEvidence.js
+  s_8376465eb88a0d::t_1614900592076e 9,27-30,693-712,733-734
+lib/ecosystems/cppEvidence.poku.js
+  s_8376465eb88a0d::t_748d768713ae3e 7,93-137
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "3454278b9dcf6e3f02cac42aea2f595f35912030",
+  "prompts": {},
+  "sessions": {
+    "s_8376465eb88a0d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6b944f10-f38a-4491-8809-d36fec51aaa5",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
