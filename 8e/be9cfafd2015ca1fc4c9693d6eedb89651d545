@@ -1,0 +1,21 @@
+lib/ecosystems/scalacliutils.js
+  s_8376465eb88a0d::t_7ad91938007fff 126-130
+lib/ecosystems/scalacliutils.poku.js
+  s_8376465eb88a0d::t_f7a3c6a87e1961 241-279
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "8ebe9cfafd2015ca1fc4c9693d6eedb89651d545",
+  "prompts": {},
+  "sessions": {
+    "s_8376465eb88a0d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6b944f10-f38a-4491-8809-d36fec51aaa5",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}

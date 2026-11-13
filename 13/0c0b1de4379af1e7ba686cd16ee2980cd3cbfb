@@ -1,0 +1,21 @@
+lib/ecosystems/chromextutils.js
+  s_8376465eb88a0d::t_97b51cfc307b34 582-584,1001
+lib/ecosystems/chromextutils.poku.js
+  s_8376465eb88a0d::t_2cada14849967d 212-240
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "130c0b1de4379af1e7ba686cd16ee2980cd3cbfb",
+  "prompts": {},
+  "sessions": {
+    "s_8376465eb88a0d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6b944f10-f38a-4491-8809-d36fec51aaa5",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}

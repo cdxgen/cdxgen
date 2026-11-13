@@ -1,0 +1,29 @@
+lib/core/lockPaths.js
+  s_8376465eb88a0d::t_158e92687b1269 1,40-68
+lib/core/lockPaths.poku.js
+  s_8376465eb88a0d::t_6a21bf1efbca21 1-2,4,8-11,62-108
+lib/ecosystems/jsEvidence.js
+  s_8376465eb88a0d::t_47b58f41c8e247 12,158,160,167-168,173-179
+lib/ecosystems/jsEvidence.poku.js
+  s_8376465eb88a0d::t_1256148b56a559 1-7,10,16-18,439-472
+lib/ecosystems/parsers-js.js
+  s_8376465eb88a0d::t_7166a9260636a5 26-29,1036-1040,1242-1251,3364-3369
+lib/ecosystems/parsers-js.poku.js
+  s_8376465eb88a0d::t_34a9e46e09b846 10,52-54,2974-3080
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "0b1cf338611cfb64e126477975d95b741ec2942a",
+  "prompts": {},
+  "sessions": {
+    "s_8376465eb88a0d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6b944f10-f38a-4491-8809-d36fec51aaa5",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}

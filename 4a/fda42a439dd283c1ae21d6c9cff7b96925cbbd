@@ -1,0 +1,29 @@
+docs/LESSON27.md
+  s_8376465eb88a0d::t_cd00a56a5a6e47 171-175
+lib/cli/nativeBom.js
+  s_8376465eb88a0d::t_48376fb25abde0 1817
+lib/ecosystems/cmakeResolver.js
+  s_8376465eb88a0d::t_04ccb7a8d3ba4c 8,12,29-32,222-247,249-282,284-290,294,301-327,329-334,340,342-344,346-347,349-352,354-368,370
+lib/ecosystems/cmakeResolver.poku.js
+  s_8376465eb88a0d::t_f547c91378a523 1-12,21,23,55-80,84-92,95-104,107,109-263
+lib/inventory/envcontext.js
+  s_8376465eb88a0d::t_d0f300062d7994 91-96,2165-2166,2171
+lib/inventory/envcontext_git.poku.js
+  s_8376465eb88a0d::t_0e65e5c86e2abc 2-8,16,116-172
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "4afda42a439dd283c1ae21d6c9cff7b96925cbbd",
+  "prompts": {},
+  "sessions": {
+    "s_8376465eb88a0d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6b944f10-f38a-4491-8809-d36fec51aaa5",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}

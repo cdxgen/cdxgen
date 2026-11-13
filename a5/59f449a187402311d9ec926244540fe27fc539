@@ -1,0 +1,34 @@
+lib/core/propertySanitizer.js
+  s_8376465eb88a0d::t_21f6772c9bee8f 244-245
+  s_8376465eb88a0d::t_1b163e55e7896d 1043
+  s_8376465eb88a0d::t_356618375e9efc 302-303
+  s_8376465eb88a0d::t_dfc742dc3c6b31 116-208,214-216,238,304,306,329,1044
+  s_8376465eb88a0d::t_3a7dea668e2bd3 318-320
+  s_8376465eb88a0d::t_d8a5fd99d2e3b1 217-219,239,246-248,305,321,323,328,1045-1046,1053-1055,1064
+docs/ADVANCED.md
+  s_8376465eb88a0d::t_4584ee778f991d 1096
+lib/core/propertySanitizer.poku.js
+  s_8376465eb88a0d::t_48fb749d4cb6d3 9,77-99,260-308
+types/lib/core/propertySanitizer.d.ts
+  s_8376465eb88a0d::t_50a4c09b5a88fe 6-11,123-126
+types/lib/core/propertySanitizer.d.ts.map
+  s_8376465eb88a0d::t_53578ba2b6a5a0 1
+types/lib/ecosystems/cmakeResolver.d.ts.map
+  s_8376465eb88a0d::t_d0bcbc380f2828 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "a559f449a187402311d9ec926244540fe27fc539",
+  "prompts": {},
+  "sessions": {
+    "s_8376465eb88a0d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6b944f10-f38a-4491-8809-d36fec51aaa5",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}

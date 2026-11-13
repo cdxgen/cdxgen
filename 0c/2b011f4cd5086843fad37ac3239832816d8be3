@@ -1,0 +1,21 @@
+docs/ADVANCED.md
+  s_8376465eb88a0d::t_347d8538faa069 79-117
+lib/cli/managedBom.poku.js
+  s_8376465eb88a0d::t_8e645a5d1fa715 3761
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "0c2b011f4cd5086843fad37ac3239832816d8be3",
+  "prompts": {},
+  "sessions": {
+    "s_8376465eb88a0d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6b944f10-f38a-4491-8809-d36fec51aaa5",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}

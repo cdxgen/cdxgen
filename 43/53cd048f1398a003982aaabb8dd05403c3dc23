@@ -1,0 +1,85 @@
+lib/cli/managedBom.js
+  s_8376465eb88a0d::t_d29ec28840195c 2257,2399-2400
+lib/cli/nativeBom.js
+  s_8376465eb88a0d::t_456696464b0746 424-426,430-432,523
+lib/core/compare.js
+  s_8376465eb88a0d::t_646cbe0bbe470e 1-22
+lib/core/compare.poku.js
+  s_8376465eb88a0d::t_1215451d0b7945 1-30
+lib/core/lockPaths.js
+  s_8376465eb88a0d::t_0a6a49f07d2873 1,40-69
+lib/core/lockPaths.poku.js
+  s_8376465eb88a0d::t_a1820faf69c1c2 1-2,7-10,61-114
+lib/ecosystems/cppBuildContext.js
+  s_8376465eb88a0d::t_7a4b4318c219ef 40,460
+lib/ecosystems/goLargeInputs.poku.js
+  s_8376465eb88a0d::t_146234c764fc31 1-76
+lib/ecosystems/goSharedNotices.poku.js
+  s_8376465eb88a0d::t_2bcad0d6c280eb 1-132
+lib/ecosystems/golem.js
+  s_8376465eb88a0d::t_10d1fcbc8b4b9a 6,1974-1975
+lib/ecosystems/kosi.js
+  s_8376465eb88a0d::t_8f36fc01cc4a0f 7,1459-1460
+lib/ecosystems/parsers-dotnet.js
+  s_8376465eb88a0d::t_2246c57dca3dc1 17,191-195,198,204-208,310-311,314-318,321-322,330-339,725-729,741-744,753-759,762-766,772-773,777-778,782-785,939-947,999-1011,1188,1201,1214,1639-1658,1673-1675,1709-1712,1742-1752,1760
+lib/ecosystems/parsers-dotnet.poku.js
+  s_8376465eb88a0d::t_290f1bc8dd3ca2 6,552-574,583-613,806-859,1354-1393,1749-1811,1859-1863
+lib/ecosystems/parsers-go.js
+  s_8376465eb88a0d::t_740a2fbbf8d48d 10,273-279,316,318-320,328-397,448-451,455-458,460-461,467-475,477,485,574,730,1006-1009,1012,1036,1058,1130-1132,1167,1192,1199-1205,1263,1375,1430-1441,1443-1448,1480-1481,1524,1608,1618,1644,1649,1670
+lib/ecosystems/parsers-go.poku.js
+  s_8376465eb88a0d::t_119ced305c8bf8 1368-1416
+lib/ecosystems/parsers-rust.js
+  s_8376465eb88a0d::t_5451356f5f90d4 220-241,446-453,624-652,685-689,911-915,958,1140,1237-1241,1243,1327,1439,1483-1488,1724-1729,2014,2254-2256
+lib/ecosystems/parsers-rust.poku.js
+  s_8376465eb88a0d::t_8532288af68761 324-350,807-844,956-1037,1227-1251,1411-1471
+lib/ecosystems/parsers-terraform.js
+  s_8376465eb88a0d::t_8d4363e6c232c0 568-575,631,634-635,637-639,641,696-700,904-919,930,937-940,964,973,977-978,980-981,983-988,991,1377,1379-1381,1385-1389,1514-1518,1555-1578,1583,1597,1600,1665-1677,1689-1693,1716,1718-1719,1721-1724,1726-1728,1734,1736,1738,1742-1743,1745-1764
+lib/ecosystems/parsers-terraform.poku.js
+  s_8376465eb88a0d::t_6d56ba8d00dcee 941-1143
+lib/ecosystems/pylockutils.js
+  s_8376465eb88a0d::t_62092bbaca7d09 4,316,428-429,469
+lib/ecosystems/rusi.js
+  s_8376465eb88a0d::t_ec41a2befd12ac 5,984-985
+lib/ecosystems/scalasem-edge-cases.poku.js
+  s_8376465eb88a0d::t_bae059242c6b67 563-598
+lib/ecosystems/scalasem.js
+  s_8376465eb88a0d::t_e5289c6b3f9248 14,1199-1205,1212-1226,1228-1243,1246,1248,1250-1262,1959-1960
+lib/ecosystems/tea.js
+  s_8376465eb88a0d::t_36ae56b8b18356 17-18,89-103
+lib/ecosystems/tea.poku.js
+  s_8376465eb88a0d::t_51c0d0f7224b6d 173-193
+lib/evinser/evinser.js
+  s_8376465eb88a0d::t_52c7f2148bb993 10,1478
+lib/inventory/cbomutils.js
+  s_8376465eb88a0d::t_6fd9af696a8be2 4,484-485,597-598
+lib/inventory/cmakeBuildDirs.js
+  s_8376465eb88a0d::t_85a650a9d9ef81 22,240-241
+lib/inventory/dosai.poku.js
+  s_8376465eb88a0d::t_e4131561b51dc1 2088-2153
+lib/inventory/dosaiParsers.js
+  s_8376465eb88a0d::t_fb7e8f5ccc857f 15,302,306,316-317,320,327-332,358
+lib/inventory/dotnetRuntime.js
+  s_8376465eb88a0d::t_b4de9a32dc7840 39-44,89,91,94-103
+lib/inventory/dotnetRuntime.poku.js
+  s_8376465eb88a0d::t_1e97c71dad204d 92-118
+lib/inventory/scalaDedupe.js
+  s_8376465eb88a0d::t_ab97c6c07fd16e 233-240,242-249,252,254-261,264,273-278
+lib/inventory/scalaDedupe.poku.js
+  s_8376465eb88a0d::t_a21c72560ae30c 398-412
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "4353cd048f1398a003982aaabb8dd05403c3dc23",
+  "prompts": {},
+  "sessions": {
+    "s_8376465eb88a0d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6b944f10-f38a-4491-8809-d36fec51aaa5",
+        "model": "unknown"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}

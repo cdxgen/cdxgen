@@ -1,0 +1,25 @@
+lib/cli/managedBom.js
+  s_8376465eb88a0d::t_f6c727ff6260ba 1583-1587,1603-1604,1606-1607,1621-1630,2366-2368,2380-2381,2384-2390
+lib/cli/managedBom.poku.js
+  s_8376465eb88a0d::t_76ae2b64a46db8 3749-3854
+lib/cli/nativeBom.js
+  s_8376465eb88a0d::t_4d072849fde086 1187-1189,1196-1197,1205-1206,1214-1215,1218-1224
+lib/cli/nativeBom.poku.js
+  s_8376465eb88a0d::t_8446df574ea90a 1848-1896
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "ec5db2bafabc98f3b4b56f8107e028c141740b60",
+  "prompts": {},
+  "sessions": {
+    "s_8376465eb88a0d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6b944f10-f38a-4491-8809-d36fec51aaa5",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}

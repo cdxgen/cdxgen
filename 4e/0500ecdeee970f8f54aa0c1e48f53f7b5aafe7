@@ -1,0 +1,31 @@
+lib/ecosystems/golem.js
+  s_8376465eb88a0d::t_9613e25c378d21 23
+lib/ecosystems/remote/huggingface.js
+  s_8376465eb88a0d::t_38ac9e98ff339a 17
+lib/ecosystems/rusi.js
+  s_8376465eb88a0d::t_69555d0416ca87 20
+lib/ecosystems/scalasem.js
+  s_8376465eb88a0d::t_4a69816b1c5de6 38,80
+lib/evinser/evinser.js
+  s_8376465eb88a0d::t_2467829eb9746b 84
+lib/inventory/depsUtils.js
+  s_8376465eb88a0d::t_029d3c914c0583 383-402
+lib/inventory/depsUtils.poku.js
+  s_8376465eb88a0d::t_f10ee4b5e19408 5,799-822
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "4e0500ecdeee970f8f54aa0c1e48f53f7b5aafe7",
+  "prompts": {},
+  "sessions": {
+    "s_8376465eb88a0d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6b944f10-f38a-4491-8809-d36fec51aaa5",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}

@@ -1,0 +1,21 @@
+lib/managers/binary.js
+  s_8376465eb88a0d::t_8c566032ea3f1b 1724-1745
+lib/managers/binary.poku.js
+  s_8376465eb88a0d::t_da3c5a88d7cfaf 2398-2423
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "302fc06ad8d4a15165c9ca1567d973262120f0fa",
+  "prompts": {},
+  "sessions": {
+    "s_8376465eb88a0d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6b944f10-f38a-4491-8809-d36fec51aaa5",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}

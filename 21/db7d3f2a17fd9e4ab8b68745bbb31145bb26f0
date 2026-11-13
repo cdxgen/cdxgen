@@ -1,0 +1,23 @@
+lib/ecosystems/parsers-js.js
+  s_8376465eb88a0d::t_d8d9cb2667147e 4013-4029,4073-4078,4354-4358
+lib/ecosystems/parsers-js.poku.js
+  s_8376465eb88a0d::t_0e063e06ef5933 1851-1911
+test/data/pnpm-lock-peer-inherit.yaml
+  s_8376465eb88a0d::t_d3518860d73e3d 1-83
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "21db7d3f2a17fd9e4ab8b68745bbb31145bb26f0",
+  "prompts": {},
+  "sessions": {
+    "s_8376465eb88a0d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6b944f10-f38a-4491-8809-d36fec51aaa5",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}

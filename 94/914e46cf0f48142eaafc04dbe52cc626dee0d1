@@ -1,0 +1,21 @@
+lib/ecosystems/cmakeResolver.poku.js
+  s_8376465eb88a0d::t_85ab6fd3836ccf 116-120,204,265
+lib/inventory/envcontext_git.poku.js
+  s_8376465eb88a0d::t_7a8f3a8011640d 129-133,175
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "94914e46cf0f48142eaafc04dbe52cc626dee0d1",
+  "prompts": {},
+  "sessions": {
+    "s_8376465eb88a0d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6b944f10-f38a-4491-8809-d36fec51aaa5",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}

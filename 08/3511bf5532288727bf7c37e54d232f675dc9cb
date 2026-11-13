@@ -1,0 +1,23 @@
+lib/cli/index.js
+  s_8376465eb88a0d::t_638f3d7983f693 452,454,507-513,576,584,588,645,647
+lib/managers/docker.js
+  s_8376465eb88a0d::t_ffe08b80f30cc5 2858-2882,2884-2899,2906-2910
+lib/managers/docker.poku.js
+  s_8376465eb88a0d::t_2712530c9fbb83 3168-3248
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "083511bf5532288727bf7c37e54d232f675dc9cb",
+  "prompts": {},
+  "sessions": {
+    "s_8376465eb88a0d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6b944f10-f38a-4491-8809-d36fec51aaa5",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}

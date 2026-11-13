@@ -1,0 +1,23 @@
+lib/cli/managedBom.js
+  s_8376465eb88a0d::t_ba63422be876dd 2392-2393
+lib/ecosystems/parsers-dotnet.js
+  s_8376465eb88a0d::t_cd3f026e15d6c9 725-729,741-744,753-759,762-766,772-773,777-778,782-785
+lib/ecosystems/parsers-dotnet.poku.js
+  s_8376465eb88a0d::t_6d2c4d7784e361 552-574,583-613
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "de6f01344bc330bb9c21c45293701d04dd0feda3",
+  "prompts": {},
+  "sessions": {
+    "s_8376465eb88a0d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6b944f10-f38a-4491-8809-d36fec51aaa5",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}

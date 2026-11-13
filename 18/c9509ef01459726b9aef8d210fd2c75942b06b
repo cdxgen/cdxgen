@@ -1,0 +1,23 @@
+docs/ADVANCED.md
+  s_8376465eb88a0d::t_cb5e6fc7b159ba 96-98,1098
+lib/inventory/ecosystemFormulationParsers.js
+  s_8376465eb88a0d::t_26fcb03a3cd0eb 3,54-56,64
+lib/inventory/ecosystemFormulationParsers.poku.js
+  s_8376465eb88a0d::t_e87336aea2b792 515-540
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "18c9509ef01459726b9aef8d210fd2c75942b06b",
+  "prompts": {},
+  "sessions": {
+    "s_8376465eb88a0d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6b944f10-f38a-4491-8809-d36fec51aaa5",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}

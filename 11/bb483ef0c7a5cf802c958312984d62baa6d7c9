@@ -1,0 +1,21 @@
+lib/inventory/osPackageResolver.js
+  s_8376465eb88a0d::t_3866abf5caa552 530-535,540-541,562
+lib/inventory/osPackageResolver.poku.js
+  s_8376465eb88a0d::t_874e208636619c 304-319
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "11bb483ef0c7a5cf802c958312984d62baa6d7c9",
+  "prompts": {},
+  "sessions": {
+    "s_8376465eb88a0d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6b944f10-f38a-4491-8809-d36fec51aaa5",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}

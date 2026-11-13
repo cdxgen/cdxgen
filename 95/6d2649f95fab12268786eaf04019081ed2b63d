@@ -1,0 +1,25 @@
+docs/SERVER.md
+  s_8376465eb88a0d::t_ad59706e4d35ce 145
+lib/inventory/source.js
+  s_8376465eb88a0d::t_94083e1106632e 798-800,810,818-822,833-838
+lib/server/server.poku.js
+  s_8376465eb88a0d::t_d788533323a7ee 1041-1042
+test/data/git-remote-differentials.json
+  s_8376465eb88a0d::t_51c3c48908c81e 64-79,148-149
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "956d2649f95fab12268786eaf04019081ed2b63d",
+  "prompts": {},
+  "sessions": {
+    "s_8376465eb88a0d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6b944f10-f38a-4491-8809-d36fec51aaa5",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}

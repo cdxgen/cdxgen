@@ -1,0 +1,25 @@
+lib/ecosystems/parsers-python.js
+  s_8376465eb88a0d::t_98c17c5006f75f 730-733,989
+lib/ecosystems/parsers-python.poku.js
+  s_8376465eb88a0d::t_0d0f8f3a7d87f8 2532-2598
+lib/ecosystems/pylockutils.js
+  s_8376465eb88a0d::t_dd2bff1083ca4b 4-9,95,97-98,115,117-118,188,197,252-255,432-442,450,458
+lib/ecosystems/pylockutils.poku.js
+  s_8376465eb88a0d::t_873301b0efaece 8,56-130
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "3833f9f74af3d897c97228f30d505a3f38ae4fc5",
+  "prompts": {},
+  "sessions": {
+    "s_8376465eb88a0d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6b944f10-f38a-4491-8809-d36fec51aaa5",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}

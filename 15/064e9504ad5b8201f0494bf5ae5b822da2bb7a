@@ -1,0 +1,23 @@
+lib/ecosystems/goLargeInputs.poku.js
+  s_8376465eb88a0d::t_7b1286cb896331 1-58
+lib/ecosystems/parsers-go.js
+  s_8376465eb88a0d::t_ddfc581b35867d 1374,1429-1435,1437-1447,1479-1480,1523,1607,1617,1643,1648
+lib/ecosystems/parsers-go.poku.js
+  s_8376465eb88a0d::t_85bd2032874fc0 1368-1416
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "15064e9504ad5b8201f0494bf5ae5b822da2bb7a",
+  "prompts": {},
+  "sessions": {
+    "s_8376465eb88a0d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6b944f10-f38a-4491-8809-d36fec51aaa5",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}

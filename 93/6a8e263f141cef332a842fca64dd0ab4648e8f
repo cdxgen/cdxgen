@@ -1,0 +1,23 @@
+lib/inventory/dynamic.js
+  s_8376465eb88a0d::t_02b23582130549 104-107,109-110,114,116-123,181
+lib/inventory/dynamic.poku.js
+  s_8376465eb88a0d::t_aee9711f99097d 468-498
+lib/inventory/traceRunner.js
+  s_8376465eb88a0d::t_e7330e4aef46e2 168-189,563,577
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "936a8e263f141cef332a842fca64dd0ab4648e8f",
+  "prompts": {},
+  "sessions": {
+    "s_8376465eb88a0d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6b944f10-f38a-4491-8809-d36fec51aaa5",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}

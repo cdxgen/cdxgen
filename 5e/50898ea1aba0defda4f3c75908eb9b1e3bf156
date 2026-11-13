@@ -1,0 +1,19 @@
+lib/stages/pregen/pregen.poku.js
+  s_8376465eb88a0d::t_d642a5202c89ee 1425-1426,1521-1523,1526,1529,1537-1541,1558,1563,1570,1575
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "5e50898ea1aba0defda4f3c75908eb9b1e3bf156",
+  "prompts": {},
+  "sessions": {
+    "s_8376465eb88a0d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6b944f10-f38a-4491-8809-d36fec51aaa5",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}

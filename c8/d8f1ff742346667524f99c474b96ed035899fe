@@ -1,0 +1,23 @@
+docs/THREAT_MODEL.md
+  s_8376465eb88a0d::t_41ff0da9da21a8 101
+lib/evinser/swiftsem.js
+  s_8376465eb88a0d::t_f7c423e5c448b3 154-155,158,177,593-596,599-600,613-614,617,620,647-649,2359,2383
+lib/evinser/swiftsem.poku.js
+  s_8376465eb88a0d::t_bd47e24d489dae 1120-1121,1128-1132,1304-1305,1307,1310,1319-1324,1344-1345
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "c8d8f1ff742346667524f99c474b96ed035899fe",
+  "prompts": {},
+  "sessions": {
+    "s_8376465eb88a0d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6b944f10-f38a-4491-8809-d36fec51aaa5",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}

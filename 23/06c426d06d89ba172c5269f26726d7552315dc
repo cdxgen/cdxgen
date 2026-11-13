@@ -1,0 +1,21 @@
+lib/ecosystems/caxa.js
+  s_8376465eb88a0d::t_281248b4caac76 18-22,75-79
+lib/ecosystems/caxa.poku.js
+  s_8376465eb88a0d::t_d3b00aa3732ca9 57-74
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "2306c426d06d89ba172c5269f26726d7552315dc",
+  "prompts": {},
+  "sessions": {
+    "s_8376465eb88a0d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6b944f10-f38a-4491-8809-d36fec51aaa5",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}

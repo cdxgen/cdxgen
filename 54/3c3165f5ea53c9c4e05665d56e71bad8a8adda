@@ -1,0 +1,27 @@
+bin/cdxgen.js
+  s_8376465eb88a0d::t_744ec53ee0494a 27,39,2064-2076
+docs/EVINSE.md
+  s_8376465eb88a0d::t_ed6163e47c0650 213-220
+docs/PERMISSIONS.md
+  s_8376465eb88a0d::t_febe063d685221 17
+lib/cli/cliOptions.js
+  s_8376465eb88a0d::t_b30b6c350a4b26 14-15,19,302-379
+lib/cli/cliOptions.poku.js
+  s_8376465eb88a0d::t_2f25c7b98f274d 1-4,17,2061-2101
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "543c3165f5ea53c9c4e05665d56e71bad8a8adda",
+  "prompts": {},
+  "sessions": {
+    "s_8376465eb88a0d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6b944f10-f38a-4491-8809-d36fec51aaa5",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}

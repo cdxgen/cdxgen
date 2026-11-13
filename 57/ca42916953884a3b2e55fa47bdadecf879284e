@@ -1,0 +1,23 @@
+lib/ecosystems/parsers-js.poku.js
+  s_8376465eb88a0d::t_7b740816a07cb1 3167-3183
+lib/ecosystems/parsers-terraform.poku.js
+  s_8376465eb88a0d::t_d03551b75130e2 1149-1151,1153
+lib/inventory/analyzer.poku.js
+  s_8376465eb88a0d::t_a11773fb1cef48 292-295,306-307
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "57ca42916953884a3b2e55fa47bdadecf879284e",
+  "prompts": {},
+  "sessions": {
+    "s_8376465eb88a0d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6b944f10-f38a-4491-8809-d36fec51aaa5",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}

@@ -1,0 +1,39 @@
+lib/ecosystems/parsers-jvm.js
+  s_7d724ea76adc3c::t_67a321dd64cefa 773-775
+  s_8376465eb88a0d::t_296773f09e72cf 801-808
+  s_02e96a1dfa972c::t_ee3aae14658831 809-811
+lib/ecosystems/parsers-jvm.poku.js
+  s_8376465eb88a0d::t_2e4c2476d3c00f 209-229
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "cc3547fab5e737191bf336c97ea87363fd9ad8b9",
+  "prompts": {},
+  "sessions": {
+    "s_02e96a1dfa972c": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_050eae436ffeO6ePr46ViE6Ave",
+        "model": "glm-5.2"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    },
+    "s_7d724ea76adc3c": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "2a0b9959-84de-46e0-a87e-11e7f1e7f1e3",
+        "model": "claude-opus-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    },
+    "s_8376465eb88a0d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6b944f10-f38a-4491-8809-d36fec51aaa5",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": null
+    }
+  }
+}

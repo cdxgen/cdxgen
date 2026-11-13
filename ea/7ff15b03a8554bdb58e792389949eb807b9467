@@ -1,0 +1,145 @@
+bin/sign.js
+  s_1846f821068a7f::t_fe453833f3a05c 10,238-240,337-339,443-445,481-484
+bin/terminalEscapes.poku.js
+  s_1846f821068a7f::t_89838758c69f4f 1-36
+bin/validate.js
+  s_1846f821068a7f::t_440ff8e0f336cb 23,181-183,203-205,291-295,338,346-350,357-359,373-375,396
+docs/ADVANCED.md
+  s_1846f821068a7f::t_50fefd49e84cb5 1055-1056
+docs/AI_BOM.md
+  s_1846f821068a7f::t_4d78ba0e919cf3 61-67
+docs/CUSTOM_PROPERTIES.md
+  s_1846f821068a7f::t_b2d9fa265e3518 364,515,2281
+docs/ENV.md
+  s_1846f821068a7f::t_6ccb93869f1a94 222,243
+docs/THREAT_MODEL.md
+  s_1846f821068a7f::t_1def697874fc77 138,454,456,458
+lib/audit/progress.js
+  s_1846f821068a7f::t_54ea5fe74369f1 4,16-19
+lib/audit/progress.poku.js
+  s_1846f821068a7f::t_9058f86fc12f21 34-44
+lib/cli/bomAssembly.js
+  s_1846f821068a7f::t_fee4d24c15b342 4-12,30,1013-1015,1018-1022,2050-2054
+lib/cli/bomAssembly.poku.js
+  s_1846f821068a7f::t_9fb548e2a5da91 17,1267-1296
+lib/cli/jvmBom.js
+  s_1846f821068a7f::t_265d70926483df 37,1206,1209,2067-2070,2262-2265,2384-2387,2441-2444,2726-2729,3012-3015,3049-3052,3129-3132
+lib/cli/managedBom.js
+  s_1846f821068a7f::t_4fe92f4a973866 43,1274-1277,1287-1290,1316,1319,1321,1570-1573,2109,2111
+lib/cli/nativeBom.js
+  s_1846f821068a7f::t_53fc7da653f1cc 30,328,331,508,511,565,573,861-864,1114-1117,2073-2076,2141-2144,2564
+lib/core/outputRedaction.js
+  s_1846f821068a7f::t_aed46d693de3ff 1-125
+lib/core/outputRedaction.poku.js
+  s_1846f821068a7f::t_f54cbd65473dc0 1-71
+lib/core/pluginRun.js
+  s_1846f821068a7f::t_42217c787eab1a 12,174-177
+lib/core/propertySanitizer.js
+  s_1846f821068a7f::t_2998cfca196434 27,41-54,77-115,125-129,192-193,204-206,252-342,345-347,349-351,356,561-566,595-974
+lib/core/propertySanitizer.poku.js
+  s_1846f821068a7f::t_ff7780bb1186a6 6,9,255-350
+lib/ecosystems/ecosystems.js
+  s_1846f821068a7f::t_cfbb759b1d7b88 288-318,396-399,517-518,583,611-619
+lib/ecosystems/ecosystems.poku.js
+  s_1846f821068a7f::t_955696fbe80870 1375,1390
+lib/ecosystems/gradleutils.js
+  s_1846f821068a7f::t_edc313e975d302 26,658-661
+lib/ecosystems/kosi.js
+  s_1846f821068a7f::t_d9dffc8bb11561 18,306-309
+lib/ecosystems/npmRegistrySkips.poku.js
+  s_1846f821068a7f::t_1deac17bdc8c2f 21,27,254-319
+lib/ecosystems/npmutils.js
+  s_1846f821068a7f::t_12b48d4025540d 8,338-341,598,602,733,735
+lib/ecosystems/npmutils.poku.js
+  s_1846f821068a7f::t_d08d63ba348618 241-269
+lib/ecosystems/parsers-js.js
+  s_1846f821068a7f::t_0cc0c294151299 30,1301-1302,1305,1309
+lib/ecosystems/parsers-js.poku.js
+  s_1846f821068a7f::t_67efb411cb142e 5591-5650
+lib/ecosystems/parsers-misc.js
+  s_1846f821068a7f::t_6c0cd2726507ce 32,38,3591-3593,3848,3851
+lib/ecosystems/parsersCocoaLocalPodspecs.poku.js
+  s_1846f821068a7f::t_cb08e361b42254 238,242-246,267-270
+lib/ecosystems/prefetchMemo.poku.js
+  s_1846f821068a7f::t_1162e1a3c625ce 30
+lib/ecosystems/pythonutils.js
+  s_1846f821068a7f::t_430264bc6754ad 7,23-30,955,978,981,1092,1131-1133,1135,1188,1456-1510,1580-1581,1583-1588,1610-1622,1624-1640,1643,1645,1655,1657,1661,1663,1668-1671
+lib/ecosystems/pythonutils.poku.js
+  s_1846f821068a7f::t_d0d43b1d477932 13,28,865-954
+lib/ecosystems/rubyutils.js
+  s_1846f821068a7f::t_c0cf3c57be4b79 23,1497
+lib/ecosystems/scalasem.js
+  s_1846f821068a7f::t_062523d6a615f4 27,589-592
+lib/inventory/agentFormulationParser.js
+  s_1846f821068a7f::t_aff6e1b3eb6e1a 9,287-292,425,432
+lib/inventory/aiInventory.poku.js
+  s_1846f821068a7f::t_fa19cd314fc2dd 789-847
+lib/inventory/atomUtils.js
+  s_1846f821068a7f::t_b6fd4620b729f1 37,1673,1676
+lib/inventory/ciParsers/common.js
+  s_1846f821068a7f::t_da25a0a4fe346c 2,85-88,100-101,108-110,134-136
+lib/inventory/ciParsers/jenkins.js
+  s_1846f821068a7f::t_de74bc81781804 4,12-68,162-163,166,175-176
+lib/inventory/ciParsers/jenkins.poku.js
+  s_1846f821068a7f::t_043834f5f00ce7 131,236,246-293
+lib/inventory/communityAiConfigParser.js
+  s_1846f821068a7f::t_68f64116004992 13,1249,1297,1901-1907
+lib/inventory/deps.js
+  s_8376465eb88a0d::t_ea0465d4fb1c2e 22,169-172
+lib/inventory/dosai.js
+  s_1846f821068a7f::t_0a4b6179be9458 34,1471-1474
+lib/inventory/envcontext.js
+  s_1846f821068a7f::t_ff840690153372 47,1402,1405,1495,1498,1538,1541,1722,1725,1802,1805,1886,1889,2028,2031,2088,2091
+lib/inventory/formulationParsers.js
+  s_1846f821068a7f::t_ac13c5beb73a8b 181-182,200-238,565-572,575-578
+lib/inventory/formulationParsers.poku.js
+  s_1846f821068a7f::t_7d8a307b1e7e04 723-724,726,729-734,747,751,755,758-761,763,767,786-837,880
+lib/inventory/licenseEnhancer.js
+  s_1846f821068a7f::t_79f50b20e1f22b 5,111-113
+lib/inventory/licenseEnhancer.poku.js
+  s_1846f821068a7f::t_77be170269be8c 11,407-423
+lib/inventory/mcpConfigParser.js
+  s_1846f821068a7f::t_ce8f424b47ec19 9,730-736,795,838-843,848,864
+lib/inventory/mcpServerManifest.js
+  s_1846f821068a7f::t_44d6c6a752af9b 8,276,285,317,363-368,388,404
+lib/inventory/source.js
+  s_1846f821068a7f::t_90781c9959bb97 971
+lib/inventory/traceRunner.js
+  s_1846f821068a7f::t_7c1ce4a07c81bc 14,453-456
+lib/managers/binary.js
+  s_1846f821068a7f::t_608c2769830b61 43,597-600,1023-1026,2114-2117,3844-3847,3918-3921,3962-3965
+lib/managers/docker.js
+  s_1846f821068a7f::t_71f50a64045d0b 46,1447,1460,1471,2480-2483,2855-2858
+lib/managers/piptree.js
+  s_1846f821068a7f::t_f632941f6a85d9 18,256-259
+lib/stages/postgen/introspection/formulationEvidence.js
+  s_1846f821068a7f::t_ab85867fc786bb 321-324
+lib/stages/postgen/introspection/formulationEvidence.poku.js
+  s_1846f821068a7f::t_ae84af9b19e088 129,281
+lib/stages/pregen/pregen.js
+  s_1846f821068a7f::t_92fe3932150489 30,1531,1534
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "ea7ff15b03a8554bdb58e792389949eb807b9467",
+  "prompts": {},
+  "sessions": {
+    "s_1846f821068a7f": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_30c45490-22f6-4ee2-98ab-7dcf58d25deb",
+        "model": "unknown"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    },
+    "s_8376465eb88a0d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6b944f10-f38a-4491-8809-d36fec51aaa5",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}

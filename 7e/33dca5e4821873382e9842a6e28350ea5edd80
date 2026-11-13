@@ -1,0 +1,27 @@
+docs/ADVANCED.md
+  s_8376465eb88a0d::t_4cddeee9728bf8 1053
+lib/inventory/formulationParsers.js
+  s_8376465eb88a0d::t_2ce7bfd2718b6b 169-170,188-226,548-555,558-561
+lib/inventory/formulationParsers.poku.js
+  s_8376465eb88a0d::t_c0ba57ce7258a9 723-724,726,729-734,747,751,755,758-761,763,767,786-837,880
+lib/stages/postgen/introspection/formulationEvidence.js
+  s_8376465eb88a0d::t_51e9ba8511911d 321-324
+lib/stages/postgen/introspection/formulationEvidence.poku.js
+  s_8376465eb88a0d::t_0fecad4107cb29 129,281
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "7e33dca5e4821873382e9842a6e28350ea5edd80",
+  "prompts": {},
+  "sessions": {
+    "s_8376465eb88a0d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6b944f10-f38a-4491-8809-d36fec51aaa5",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}

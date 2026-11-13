@@ -1,0 +1,25 @@
+lib/inventory/communityAiConfigParser.js
+  s_8376465eb88a0d::t_2e960274ed1e17 105-111,443-445,1227-1248,1258-1270,1288,1291-1292,1294,1324-1326,1367
+lib/inventory/communityAiConfigParser.poku.js
+  s_8376465eb88a0d::t_b09770fd573160 832-928
+lib/inventory/unicodeScan.js
+  s_8376465eb88a0d::t_a870229de40978 103-106,108-111
+lib/inventory/unicodeScan.poku.js
+  s_8376465eb88a0d::t_e01c87501f5e93 45-67
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "50dd47f21baacddd63901d44d1039cb423992cd4",
+  "prompts": {},
+  "sessions": {
+    "s_8376465eb88a0d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6b944f10-f38a-4491-8809-d36fec51aaa5",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}

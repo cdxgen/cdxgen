@@ -1,0 +1,45 @@
+bin/cdxgen.js
+  s_8376465eb88a0d::t_c836b2e172c8f3 105,185-188,190,2231-2249
+docs/ADVANCED.md
+  s_8376465eb88a0d::t_ff42be852dedae 507
+docs/BOM_AUDIT.md
+  s_8376465eb88a0d::t_cec8a877978104 127,994
+lib/cli/cliOptions.js
+  s_8376465eb88a0d::t_3beb895e977e85 386-388,396,400-405,410-412,416
+lib/cli/cliOptions.poku.js
+  s_8376465eb88a0d::t_2f78520039de85 1917-1932
+lib/ecosystems/parsers-misc.js
+  s_8376465eb88a0d::t_1e11f8175be298 41,877
+lib/inventory/ciParsers/azurePipelines.js
+  s_8376465eb88a0d::t_20d29a2572f497 6-10,43-44,297
+lib/inventory/ciParsers/circleCi.js
+  s_8376465eb88a0d::t_6700546843c364 6-10,79-80,341
+lib/inventory/ciParsers/common.js
+  s_8376465eb88a0d::t_cfc1249638c256 5-47
+lib/inventory/ciParsers/githubActions.js
+  s_8376465eb88a0d::t_7a0e86f0d91b22 10-14,1862-1863,2455
+lib/inventory/ciParsers/githubActions.poku.js
+  s_8376465eb88a0d::t_a9c511215ddcb6 8,349-399
+lib/inventory/ciParsers/gitlabCi.js
+  s_8376465eb88a0d::t_4ab871c5794a19 6-10,38-39,223
+lib/inventory/ciParsers/jenkins.js
+  s_8376465eb88a0d::t_853f6490582eff 5-9,182
+lib/inventory/formulationParsers.js
+  s_8376465eb88a0d::t_95251ded63008a 17-20,134-142,476-480
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "29d9a5b69f43c235fe3e4f66da4bcb56477cecdd",
+  "prompts": {},
+  "sessions": {
+    "s_8376465eb88a0d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6b944f10-f38a-4491-8809-d36fec51aaa5",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}

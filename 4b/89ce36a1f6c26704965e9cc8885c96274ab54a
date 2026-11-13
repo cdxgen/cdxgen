@@ -1,0 +1,25 @@
+lib/ecosystems/scalacliutils.js
+  s_8376465eb88a0d::t_14ba85aae4294a 15-18
+lib/ecosystems/scalacliutils.poku.js
+  s_8376465eb88a0d::t_0443c876d8bdf0 1-4,179-198
+lib/parsers/ollama.js
+  s_8376465eb88a0d::t_de6d935e197c68 60-62,64
+lib/parsers/ollama.poku.js
+  s_8376465eb88a0d::t_31a6b3f3ff51a9 46-59
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "4b89ce36a1f6c26704965e9cc8885c96274ab54a",
+  "prompts": {},
+  "sessions": {
+    "s_8376465eb88a0d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6b944f10-f38a-4491-8809-d36fec51aaa5",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}

@@ -1,0 +1,21 @@
+lib/managers/containerutils.js
+  s_8376465eb88a0d::t_d90dc967b7ad05 2,65-67,74-76,99-101,115-116,119-120,122-124,129,132-134
+lib/managers/containerutils.poku.js
+  s_8376465eb88a0d::t_fb627a0e1a41df 70-97
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "58ccad13514373ca4e934239a8e2277ef9c108f4",
+  "prompts": {},
+  "sessions": {
+    "s_8376465eb88a0d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6b944f10-f38a-4491-8809-d36fec51aaa5",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}

@@ -1,0 +1,21 @@
+lib/inventory/aiCollector.js
+  s_8376465eb88a0d::t_86bb28180bbeb0 470-475,477-488,492-496,503-526,534-561,2003
+lib/inventory/aiCollector.poku.js
+  s_8376465eb88a0d::t_086398e48c5dc0 1561-1606
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "1b7dd6610bfa88bd108795d04d47441a21f3b7a9",
+  "prompts": {},
+  "sessions": {
+    "s_8376465eb88a0d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6b944f10-f38a-4491-8809-d36fec51aaa5",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}

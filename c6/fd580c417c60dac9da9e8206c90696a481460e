@@ -1,0 +1,47 @@
+lib/core/compare.js
+  s_8376465eb88a0d::t_8d82ab0ba49ab6 1-22
+lib/core/compare.poku.js
+  s_8376465eb88a0d::t_6386aaa21b47aa 1-30
+lib/ecosystems/cppBuildContext.js
+  s_8376465eb88a0d::t_7170a9296d3cba 40,460
+lib/ecosystems/goLargeInputs.poku.js
+  s_8376465eb88a0d::t_dd1642654809f3 7,59-76
+lib/ecosystems/golem.js
+  s_8376465eb88a0d::t_e93c1300f35081 6,1868-1869
+lib/ecosystems/kosi.js
+  s_8376465eb88a0d::t_4e067e9fca018a 6,1275-1276
+lib/ecosystems/parsers-go.js
+  s_8376465eb88a0d::t_0504b1cb7b95eb 10,574,730,1263,1670
+lib/ecosystems/pylockutils.js
+  s_8376465eb88a0d::t_ad9edce3194977 3-4,305,393-394,424
+lib/ecosystems/rusi.js
+  s_8376465eb88a0d::t_d0b39f5fb3bcb1 5,984-985
+lib/ecosystems/scalasem.js
+  s_8376465eb88a0d::t_e8fa88eb0a9931 14,1887-1888
+lib/ecosystems/tea.js
+  s_8376465eb88a0d::t_9b81584f1a7953 17-18,86-100
+lib/ecosystems/tea.poku.js
+  s_8376465eb88a0d::t_590deda5b6bfe9 172-192
+lib/evinser/evinser.js
+  s_8376465eb88a0d::t_583d7c4ac176f1 10,1444
+lib/inventory/cbomutils.js
+  s_8376465eb88a0d::t_f012fd84aa1c21 4,484-485,597-598
+lib/inventory/cmakeBuildDirs.js
+  s_8376465eb88a0d::t_415f7617d9a5d2 22,240-241
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "c6fd580c417c60dac9da9e8206c90696a481460e",
+  "prompts": {},
+  "sessions": {
+    "s_8376465eb88a0d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6b944f10-f38a-4491-8809-d36fec51aaa5",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}

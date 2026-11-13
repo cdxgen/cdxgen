@@ -1,0 +1,33 @@
+lib/cli/jsBom.js
+  s_8376465eb88a0d::t_53bf95c17f82e4 14,1544-1545,1550,1557
+lib/cli/jsBom.poku.js
+  s_8376465eb88a0d::t_569ea171de9426 7,1669-1709
+lib/core/lockPaths.js
+  s_8376465eb88a0d::t_01b93e9264b18a 85-114
+lib/core/lockPaths.poku.js
+  s_8376465eb88a0d::t_e185bed90d7518 10,168-187
+lib/ecosystems/npmutils.js
+  s_8376465eb88a0d::t_8df730673af1e8 1,7,403-405,410-414,417,420-424,440-448
+lib/ecosystems/npmutils.poku.js
+  s_8376465eb88a0d::t_9ca24dcf9a4235 1-11,22,432-470
+lib/ecosystems/parsers-js.js
+  s_8376465eb88a0d::t_77526fa0b1b13f 22,28,494-496,508-510,523-532,534,1009-1011,1043-1044,1137,3136-3137,3140,3151-3157,3160,3165,3209-3210,3220,3240,3993,4021,4045,4166,4184,4204,4530-4534
+lib/ecosystems/parsers-js.poku.js
+  s_8376465eb88a0d::t_4cf22a6f7a961c 97-132
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "dd8b51d7d07f77f4771c4d5aa972863510d09435",
+  "prompts": {},
+  "sessions": {
+    "s_8376465eb88a0d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6b944f10-f38a-4491-8809-d36fec51aaa5",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}

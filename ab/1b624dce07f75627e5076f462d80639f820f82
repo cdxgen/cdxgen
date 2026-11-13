@@ -1,0 +1,39 @@
+lib/core/propertySanitizer.js
+  s_8376465eb88a0d::t_c5630149418eb3 158-199
+lib/core/propertySanitizer.poku.js
+  s_8376465eb88a0d::t_f4627904b257ee 6,50-76
+lib/ecosystems/golem.js
+  s_8376465eb88a0d::t_59549923c8479b 20,2211-2213,2220
+lib/inventory/agentFormulationParser.js
+  s_8376465eb88a0d::t_4f9470555414c7 5-8,41-44,151-173,175-181,234,334-337,350,355
+lib/inventory/agentFormulationParser.poku.js
+  s_8376465eb88a0d::t_8410f23ee86a0e 45-88
+lib/inventory/aiCollector.js
+  s_8376465eb88a0d::t_13d872b2460210 6,344
+lib/inventory/analyzer.js
+  s_8376465eb88a0d::t_a8697b87f171f2 18,5460
+lib/inventory/mcpConfigParser.js
+  s_8376465eb88a0d::t_ca07d30b496b6b 5,544
+lib/inventory/mcpConfigParser.poku.js
+  s_8376465eb88a0d::t_9251c821845b76 227-258
+lib/inventory/mcpServerManifest.js
+  s_8376465eb88a0d::t_11f2a4f23556a1 4-7,256
+lib/inventory/mcpServerManifest.poku.js
+  s_8376465eb88a0d::t_14ec3a2bb060a2 127-158
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "ab1b624dce07f75627e5076f462d80639f820f82",
+  "prompts": {},
+  "sessions": {
+    "s_8376465eb88a0d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6b944f10-f38a-4491-8809-d36fec51aaa5",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}

@@ -1,0 +1,31 @@
+bin/cdxgen.js
+  s_8376465eb88a0d::t_0953e67d885ce6 28,1358-1365
+docs/ADVANCED.md
+  s_8376465eb88a0d::t_58452cc39cb999 226,241
+docs/ENV.md
+  s_8376465eb88a0d::t_4547b2a80b29d5 416
+lib/cli/cliOptions.js
+  s_8376465eb88a0d::t_c9961815c678ec 267-299
+lib/cli/cliOptions.poku.js
+  s_8376465eb88a0d::t_bfecbb719bbc50 14,2020-2055
+lib/ecosystems/tea.js
+  s_8376465eb88a0d::t_22eac9613598d6 179-193,201-222,238-239,247-248,258-262,265,284,286-290,310,323-324,333,336-340,442,446-447,486-489,599-604,738,746
+lib/ecosystems/tea.poku.js
+  s_8376465eb88a0d::t_bbf74ee1b8d2b9 474-560,590-605
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "d627137175498a64cb791a2e22b309584d087545",
+  "prompts": {},
+  "sessions": {
+    "s_8376465eb88a0d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6b944f10-f38a-4491-8809-d36fec51aaa5",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}

@@ -1,0 +1,25 @@
+docs/ALLOWED_HOSTS_AND_COMMANDS.md
+  s_8376465eb88a0d::t_bb693b12903fae 44-45
+lib/core/fs.js
+  s_8376465eb88a0d::t_5b98bb2849007b 599-608
+lib/inventory/cdxrs.js
+  s_8376465eb88a0d::t_c5013e1048a268 24-34,141-142,161-163,179-194,198-201,206,301-308
+lib/inventory/cdxrs.poku.js
+  s_8376465eb88a0d::t_93aaa2cfe751ff 14,275-333
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "bb1471473e88a39a219e0a5c521502f330e25452",
+  "prompts": {},
+  "sessions": {
+    "s_8376465eb88a0d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6b944f10-f38a-4491-8809-d36fec51aaa5",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}

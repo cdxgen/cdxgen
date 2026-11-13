@@ -1,0 +1,21 @@
+lib/inventory/depsUtils.js
+  s_8376465eb88a0d::t_2010feea8ff0db 25-29
+lib/inventory/depsUtils.poku.js
+  s_8376465eb88a0d::t_781ee60c9c87ef 1143-1160
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "ebfc708caae8caeed7f6615cac5f2e6e8c5fe3fe",
+  "prompts": {},
+  "sessions": {
+    "s_8376465eb88a0d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6b944f10-f38a-4491-8809-d36fec51aaa5",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}

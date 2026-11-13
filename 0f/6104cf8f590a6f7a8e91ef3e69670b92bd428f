@@ -1,0 +1,29 @@
+lib/core/streamZip.js
+  s_8376465eb88a0d::t_980e1c59205d25 1-59
+lib/core/streamZip.poku.js
+  s_8376465eb88a0d::t_17dd7d18cd6959 1-65
+lib/ecosystems/ecosystems.js
+  s_8376465eb88a0d::t_f5506e7968faa4 53,3110,3112,3127-3128,3187,3189,3199-3200
+lib/helpers/vsixutils.js
+  s_8376465eb88a0d::t_4357da4d691f30 24,1370,1390,1471,1532
+lib/helpers/vsixutils.poku.js
+  s_8376465eb88a0d::t_aa7cb190a49612 47-48,50-52,73
+lib/inventory/deps.js
+  s_8376465eb88a0d::t_e61d798a4e38bd 22,881,950,970,972,1003-1004,1035,1072,1086,1088,1151-1152,1182,1223
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "0f6104cf8f590a6f7a8e91ef3e69670b92bd428f",
+  "prompts": {},
+  "sessions": {
+    "s_8376465eb88a0d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6b944f10-f38a-4491-8809-d36fec51aaa5",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}

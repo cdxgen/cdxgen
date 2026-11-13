@@ -1,0 +1,483 @@
+types/lib/audit/index.d.ts.map
+  s_8376465eb88a0d::t_75ef4502c44da7 1
+types/lib/audit/progress.d.ts.map
+  s_8376465eb88a0d::t_449dae8435f271 1
+types/lib/audit/targets.d.ts.map
+  s_8376465eb88a0d::t_faf30de9350782 1
+types/lib/cli/bomAssembly.d.ts
+  s_8376465eb88a0d::t_c208a1105e75d7 47-50
+types/lib/cli/bomAssembly.d.ts.map
+  s_8376465eb88a0d::t_9ca509e4bed470 1
+types/lib/cli/cliOptions.d.ts
+  s_8376465eb88a0d::t_e44b09e4a713d7 83-175,282-286,292-293,323-325,337
+types/lib/cli/cliOptions.d.ts.map
+  s_8376465eb88a0d::t_5528d4b2942ff0 1
+types/lib/cli/index.d.ts.map
+  s_8376465eb88a0d::t_f594850ffcca44 1
+types/lib/cli/jsBom.d.ts
+  s_8376465eb88a0d::t_0beb8f2ac92a45 1-10,24-26
+types/lib/cli/jsBom.d.ts.map
+  s_8376465eb88a0d::t_b9578a6f1077ce 1
+types/lib/cli/jvmBom.d.ts
+  s_8376465eb88a0d::t_f54d5222b092bb 75-77
+types/lib/cli/jvmBom.d.ts.map
+  s_8376465eb88a0d::t_56655a7c381a1f 1
+types/lib/cli/managedBom.d.ts.map
+  s_8376465eb88a0d::t_d245f9cbd2a8de 1
+types/lib/cli/nativeBom.d.ts.map
+  s_8376465eb88a0d::t_6d69205e011ca8 1
+types/lib/core/activity.d.ts.map
+  s_8376465eb88a0d::t_6522ff0c88f31c 1
+types/lib/core/boundedFile.d.ts
+  s_8376465eb88a0d::t_8728150b09c6d1 9-18,26-27,31,43-73,76,94-95,101,106
+types/lib/core/boundedFile.d.ts.map
+  s_8376465eb88a0d::t_9effedbb1ec481 1
+types/lib/core/compare.d.ts
+  s_8376465eb88a0d::t_5d14b10cdbcad4 1-16
+types/lib/core/compare.d.ts.map
+  s_8376465eb88a0d::t_6439e6e5866d9e 1
+types/lib/core/env.d.ts
+  s_8376465eb88a0d::t_6b6a698b90228e 269-272
+types/lib/core/env.d.ts.map
+  s_8376465eb88a0d::t_f7eb9ab5977d73 1
+types/lib/core/fs.d.ts
+  s_8376465eb88a0d::t_4e65f5b3f4a3bf 116-124,168-177
+types/lib/core/fs.d.ts.map
+  s_8376465eb88a0d::t_418e59254d94a8 1
+types/lib/core/lockPaths.d.ts
+  s_8376465eb88a0d::t_6307153db1bbce 19-58
+types/lib/core/lockPaths.d.ts.map
+  s_8376465eb88a0d::t_1519024fb761ae 1
+types/lib/core/outputRedaction.d.ts
+  s_8376465eb88a0d::t_de5d837bb625b9 1-23
+types/lib/core/outputRedaction.d.ts.map
+  s_8376465eb88a0d::t_261b9b774676e3 1
+types/lib/core/pluginRun.d.ts.map
+  s_8376465eb88a0d::t_604166c6093747 1
+types/lib/core/projectConfig.d.ts
+  s_8376465eb88a0d::t_1ef1715ef33837 20-24,43-44,54,64
+types/lib/core/projectConfig.d.ts.map
+  s_8376465eb88a0d::t_a238a00bb60eaa 1
+types/lib/core/propertySanitizer.d.ts
+  s_8376465eb88a0d::t_f246ec34c18c67 1-21,29-37,45-58,93-123
+types/lib/core/propertySanitizer.d.ts.map
+  s_8376465eb88a0d::t_ac7496d38492ff 1
+types/lib/core/streamZip.d.ts
+  s_8376465eb88a0d::t_4d79cd9d135929 1-23
+types/lib/core/streamZip.d.ts.map
+  s_8376465eb88a0d::t_da3fb4088a2a00 1
+types/lib/core/text.d.ts
+  s_8376465eb88a0d::t_29d544405c8009 15-23
+types/lib/core/text.d.ts.map
+  s_8376465eb88a0d::t_b1c4ebb57ce3d6 1
+types/lib/core/yaml.d.ts
+  s_8376465eb88a0d::t_e6eb0b07b2a477 1-29
+types/lib/core/yaml.d.ts.map
+  s_8376465eb88a0d::t_448b6c6c712e37 1
+types/lib/ecosystems/asarutils.d.ts.map
+  s_8376465eb88a0d::t_fc6fb706a60885 1
+types/lib/ecosystems/bunutils.d.ts.map
+  s_8376465eb88a0d::t_db14a70fcda171 1
+types/lib/ecosystems/caxa.d.ts.map
+  s_8376465eb88a0d::t_1377fb180ca67c 1
+types/lib/ecosystems/chromextutils.d.ts.map
+  s_8376465eb88a0d::t_e65459f53ffd57 1
+types/lib/ecosystems/cmakeResolver.d.ts
+  s_8376465eb88a0d::t_e0f9fadff0f338 8,39-50,99-111,115,121,124,126-128,130-131,133,135-136
+types/lib/ecosystems/cmakeResolver.d.ts.map
+  s_8376465eb88a0d::t_29017129ed3160 1
+types/lib/ecosystems/cppBuildContext.d.ts
+  s_8376465eb88a0d::t_e309b9cb99f47b 14-15,24-31
+types/lib/ecosystems/cppBuildContext.d.ts.map
+  s_8376465eb88a0d::t_974980efe76b77 1
+types/lib/ecosystems/cppEvidence.d.ts.map
+  s_8376465eb88a0d::t_2b5d71c292d7d9 1
+types/lib/ecosystems/cppIncludeResolver.d.ts
+  s_8376465eb88a0d::t_f0a1b4d7fe3846 82-83
+types/lib/ecosystems/cppIncludeResolver.d.ts.map
+  s_8376465eb88a0d::t_505e897d18d2a4 1
+types/lib/ecosystems/denoutils.d.ts.map
+  s_8376465eb88a0d::t_fabc40ed0f95a8 1
+types/lib/ecosystems/ecosystems.d.ts
+  s_8376465eb88a0d::t_626924898780a0 21-22,179-180
+types/lib/ecosystems/ecosystems.d.ts.map
+  s_8376465eb88a0d::t_26a66af5f8ee15 1
+types/lib/ecosystems/gemHostProbe.d.ts.map
+  s_8376465eb88a0d::t_917105f73b0832 1
+types/lib/ecosystems/golem.d.ts.map
+  s_8376465eb88a0d::t_2dc46c239fe2f5 1
+types/lib/ecosystems/gradleutils.d.ts.map
+  s_8376465eb88a0d::t_8d334ef3b96c36 1
+types/lib/ecosystems/jsEvidence.d.ts
+  s_8376465eb88a0d::t_ac61fc2af9740f 1-12
+types/lib/ecosystems/jsEvidence.d.ts.map
+  s_8376465eb88a0d::t_ff6523aa1c87bc 1
+types/lib/ecosystems/kosi.d.ts
+  s_8376465eb88a0d::t_3d6445a4d5193e 25-28
+types/lib/ecosystems/kosi.d.ts.map
+  s_8376465eb88a0d::t_2e730729b17271 1
+types/lib/ecosystems/npmutils.d.ts
+  s_8376465eb88a0d::t_77d54b724c0646 80-88,128-132,135,138
+types/lib/ecosystems/npmutils.d.ts.map
+  s_8376465eb88a0d::t_de2408c27ee205 1
+types/lib/ecosystems/parsers-crystal.d.ts.map
+  s_8376465eb88a0d::t_9022a6efeec5b2 1
+types/lib/ecosystems/parsers-dotnet.d.ts
+  s_8376465eb88a0d::t_69a676fdd0d6ce 60-64,67,113-114,177-180
+types/lib/ecosystems/parsers-dotnet.d.ts.map
+  s_8376465eb88a0d::t_c4dbfb562643d1 1
+types/lib/ecosystems/parsers-elm.d.ts.map
+  s_8376465eb88a0d::t_3b8e3042eb936b 1
+types/lib/ecosystems/parsers-go.d.ts
+  s_8376465eb88a0d::t_6c49ff38fb2928 13-15,25-31,37,41,113-116,119-121,141-143,149
+types/lib/ecosystems/parsers-go.d.ts.map
+  s_8376465eb88a0d::t_ed04077b2d357e 1
+types/lib/ecosystems/parsers-js.d.ts
+  s_8376465eb88a0d::t_dec8339f1c31ec 13-15,21,23-32,132-133,136,149-150,153
+types/lib/ecosystems/parsers-js.d.ts.map
+  s_8376465eb88a0d::t_da659d1da2991f 1
+types/lib/ecosystems/parsers-jvm.d.ts
+  s_8376465eb88a0d::t_9be618d6830b97 42-43
+types/lib/ecosystems/parsers-jvm.d.ts.map
+  s_8376465eb88a0d::t_4d4002f107808e 1
+types/lib/ecosystems/parsers-lua.d.ts
+  s_8376465eb88a0d::t_b57ff76ad86330 30-31,34
+types/lib/ecosystems/parsers-lua.d.ts.map
+  s_8376465eb88a0d::t_b5fb644f73168b 1
+types/lib/ecosystems/parsers-misc.d.ts
+  s_8376465eb88a0d::t_bfd5bc317c37bf 117-118,121,393-396
+types/lib/ecosystems/parsers-misc.d.ts.map
+  s_8376465eb88a0d::t_3262b018c0f002 1
+types/lib/ecosystems/parsers-nim.d.ts
+  s_8376465eb88a0d::t_d38212be8189e3 19-20,27
+types/lib/ecosystems/parsers-nim.d.ts.map
+  s_8376465eb88a0d::t_eab25ad226d8c7 1
+types/lib/ecosystems/parsers-opam.d.ts.map
+  s_8376465eb88a0d::t_ed871ae9a88f04 1
+types/lib/ecosystems/parsers-python.d.ts
+  s_8376465eb88a0d::t_f5507338d6942e 105-110,114-115
+types/lib/ecosystems/parsers-python.d.ts.map
+  s_8376465eb88a0d::t_c3ffe443fd4f86 1
+types/lib/ecosystems/parsers-rust.d.ts.map
+  s_8376465eb88a0d::t_1166439d7555ea 1
+types/lib/ecosystems/parsers-stack.d.ts.map
+  s_8376465eb88a0d::t_20f3a581c51892 1
+types/lib/ecosystems/parsers-terraform.d.ts
+  s_8376465eb88a0d::t_a7d2e617c6dc98 11-12,15,18
+types/lib/ecosystems/parsers-terraform.d.ts.map
+  s_8376465eb88a0d::t_93548d9b1990d8 1
+types/lib/ecosystems/pep770.d.ts
+  s_8376465eb88a0d::t_9dd3ea25570d97 29,33-36
+types/lib/ecosystems/pep770.d.ts.map
+  s_8376465eb88a0d::t_760947d7549002 1
+types/lib/ecosystems/pylockutils.d.ts
+  s_8376465eb88a0d::t_40743ac83898b8 53
+types/lib/ecosystems/pylockutils.d.ts.map
+  s_8376465eb88a0d::t_891adb91d0cf8c 1
+types/lib/ecosystems/pythonutils.d.ts
+  s_8376465eb88a0d::t_c6c919b40d8da3 48-50,53,119-144
+types/lib/ecosystems/pythonutils.d.ts.map
+  s_8376465eb88a0d::t_f3290b201956f9 1
+types/lib/ecosystems/registryProvenance.d.ts.map
+  s_8376465eb88a0d::t_fbd355a9812444 1
+types/lib/ecosystems/remote/huggingface.d.ts.map
+  s_8376465eb88a0d::t_6b070dae3d3af7 1
+types/lib/ecosystems/rubyutils.d.ts
+  s_8376465eb88a0d::t_6b5bf53e53831e 226-228,234
+types/lib/ecosystems/rubyutils.d.ts.map
+  s_8376465eb88a0d::t_9320c63be45706 1
+types/lib/ecosystems/rusi.d.ts.map
+  s_8376465eb88a0d::t_c43bd13c056de0 1
+types/lib/ecosystems/sbtutils.d.ts.map
+  s_8376465eb88a0d::t_2d37aaf94e0e61 1
+types/lib/ecosystems/scalacliutils.d.ts.map
+  s_8376465eb88a0d::t_fa239ad80f36c7 1
+types/lib/ecosystems/scalasem.d.ts
+  s_8376465eb88a0d::t_1ae08632fccfbf 1,4,109,169,177-182,184-186,220
+types/lib/ecosystems/scalasem.d.ts.map
+  s_8376465eb88a0d::t_023e3d64834623 1
+types/lib/ecosystems/tea.d.ts
+  s_8376465eb88a0d::t_da36781655bf01 40-41,51-55,58,66,77-78,81,87,95-98,101-102,105
+types/lib/ecosystems/tea.d.ts.map
+  s_8376465eb88a0d::t_ffa6863e980d50 1
+types/lib/ecosystems/vendoredCode.d.ts.map
+  s_8376465eb88a0d::t_8a939353d46621 1
+types/lib/ecosystems/zigResolver.d.ts
+  s_8376465eb88a0d::t_e54ec3f9435aaf 61,64,70-91
+types/lib/ecosystems/zigResolver.d.ts.map
+  s_8376465eb88a0d::t_ba7973c520401e 1
+types/lib/evinser/db.d.ts.map
+  s_8376465eb88a0d::t_75d401a69e1ef2 1
+types/lib/evinser/evinser.d.ts
+  s_8376465eb88a0d::t_65403f96377447 462-463,578-590,593-594
+types/lib/evinser/evinser.d.ts.map
+  s_8376465eb88a0d::t_a7c22c91f2c871 1
+types/lib/evinser/swiftsem.d.ts
+  s_8376465eb88a0d::t_a89a35c51155f1 22-23,26,115-116,119,122
+types/lib/evinser/swiftsem.d.ts.map
+  s_8376465eb88a0d::t_e12c1fa903f591 1
+types/lib/helpers/agenticToolutils.d.ts.map
+  s_8376465eb88a0d::t_22d938b07fbdf9 1
+types/lib/helpers/bomSigner.d.ts
+  s_8376465eb88a0d::t_de09a03b323141 23-25
+types/lib/helpers/bomSigner.d.ts.map
+  s_8376465eb88a0d::t_e29b395b8bf41c 1
+types/lib/helpers/vsixutils.d.ts
+  s_8376465eb88a0d::t_d86cd8a45933e7 105-106,111,284,347-348
+types/lib/helpers/vsixutils.d.ts.map
+  s_8376465eb88a0d::t_fc0af8d957390d 1
+types/lib/inventory/agentFormulationParser.d.ts
+  s_8376465eb88a0d::t_35dd78af33918e 3-5,10
+types/lib/inventory/agentFormulationParser.d.ts.map
+  s_8376465eb88a0d::t_df115d63f07cc8 1
+types/lib/inventory/aiCollector.d.ts.map
+  s_8376465eb88a0d::t_78a87ae72fd533 1
+types/lib/inventory/aiInventory.d.ts.map
+  s_8376465eb88a0d::t_6af27354c01f33 1
+types/lib/inventory/aiOversightCollector.d.ts.map
+  s_8376465eb88a0d::t_27ab08d4ba7244 1
+types/lib/inventory/analyzer.d.ts
+  s_8376465eb88a0d::t_b48d37e83cb41a 46-48
+types/lib/inventory/analyzer.d.ts.map
+  s_8376465eb88a0d::t_8d2ecc061b63b8 1
+types/lib/inventory/atomUtils.d.ts
+  s_8376465eb88a0d::t_caf5be5172ebce 6-14,74-86,93-96,100-113,115,385-387
+types/lib/inventory/atomUtils.d.ts.map
+  s_8376465eb88a0d::t_236c28806c95c9 1
+types/lib/inventory/cacheCommands.d.ts.map
+  s_8376465eb88a0d::t_7a89aeb4aadb30 1
+types/lib/inventory/cbomutils.d.ts.map
+  s_8376465eb88a0d::t_7fe310d54d1c5f 1
+types/lib/inventory/cdxrs.d.ts
+  s_8376465eb88a0d::t_ed5a0a73def066 39-40,56-70,98-100,108
+types/lib/inventory/cdxrs.d.ts.map
+  s_8376465eb88a0d::t_d2fdd40365579c 1
+types/lib/inventory/certificates.d.ts
+  s_8376465eb88a0d::t_7fa05bdf117430 130-133,156,186-196
+types/lib/inventory/certificates.d.ts.map
+  s_8376465eb88a0d::t_ecb482c22fbcec 1
+types/lib/inventory/ciParsers/azurePipelines.d.ts
+  s_8376465eb88a0d::t_2f23f358ec49dc 8,17,20-22
+types/lib/inventory/ciParsers/azurePipelines.d.ts.map
+  s_8376465eb88a0d::t_bed3ea120d3c95 1
+types/lib/inventory/ciParsers/circleCi.d.ts
+  s_8376465eb88a0d::t_e33500eb9122eb 8,17,20-22
+types/lib/inventory/ciParsers/circleCi.d.ts.map
+  s_8376465eb88a0d::t_8e83f35f7b8795 1
+types/lib/inventory/ciParsers/common.d.ts
+  s_8376465eb88a0d::t_94f4ae691f8cae 1-45,56-69
+types/lib/inventory/ciParsers/common.d.ts.map
+  s_8376465eb88a0d::t_43742363c9a5ce 1
+types/lib/inventory/ciParsers/githubActions.d.ts
+  s_8376465eb88a0d::t_1c06981b9f63ed 6-7,10,21,30,33-35
+types/lib/inventory/ciParsers/githubActions.d.ts.map
+  s_8376465eb88a0d::t_6c0e63ae72d20b 1
+types/lib/inventory/ciParsers/githubActionsLock.d.ts.map
+  s_8376465eb88a0d::t_59080b1ceb60d8 1
+types/lib/inventory/ciParsers/gitlabCi.d.ts
+  s_8376465eb88a0d::t_f6b1d11a2f4856 7,16,19-21
+types/lib/inventory/ciParsers/gitlabCi.d.ts.map
+  s_8376465eb88a0d::t_1cd48b5fb0835d 1
+types/lib/inventory/ciParsers/jenkins.d.ts
+  s_8376465eb88a0d::t_728a36ac143e54 7,16,19-21
+types/lib/inventory/ciParsers/jenkins.d.ts.map
+  s_8376465eb88a0d::t_f6d58191fa1ff1 1
+types/lib/inventory/cmakeBuildDirs.d.ts
+  s_8376465eb88a0d::t_093aef32ef56b8 9-10,17-35,45-46
+types/lib/inventory/cmakeBuildDirs.d.ts.map
+  s_8376465eb88a0d::t_7a7aa7514f7145 1
+types/lib/inventory/communityAiConfigParser.d.ts
+  s_8376465eb88a0d::t_5d4278f0bf9b6e 11-13
+types/lib/inventory/communityAiConfigParser.d.ts.map
+  s_8376465eb88a0d::t_338a5e8720c573 1
+types/lib/inventory/deps.d.ts
+  s_8376465eb88a0d::t_5834b327a901b2 148-150,155-156,160,168-174,181-182,185,188,209-210
+types/lib/inventory/deps.d.ts.map
+  s_8376465eb88a0d::t_12bd711b3e36cf 1
+types/lib/inventory/depsUtils.d.ts
+  s_8376465eb88a0d::t_85318d7adb7441 47-71
+types/lib/inventory/depsUtils.d.ts.map
+  s_8376465eb88a0d::t_9deb75e8751516 1
+types/lib/inventory/dosai.d.ts
+  s_8376465eb88a0d::t_5930ac07c81c4f 393-395,400-401
+types/lib/inventory/dosai.d.ts.map
+  s_8376465eb88a0d::t_d139ec9e1d0d71 1
+types/lib/inventory/dosaiParsers.d.ts
+  s_8376465eb88a0d::t_ccbec6d0789964 11-31,37-41,44-47,110-111
+types/lib/inventory/dosaiParsers.d.ts.map
+  s_8376465eb88a0d::t_ed170386ba8fac 1
+types/lib/inventory/dotnetRuntime.d.ts.map
+  s_8376465eb88a0d::t_342551ed247b52 1
+types/lib/inventory/dynamic.d.ts
+  s_8376465eb88a0d::t_f4db12b01a7720 11-22
+types/lib/inventory/dynamic.d.ts.map
+  s_8376465eb88a0d::t_9ab6a245c3e069 1
+types/lib/inventory/ecosystemFormulationParsers.d.ts.map
+  s_8376465eb88a0d::t_38bf4ce3d3517f 1
+types/lib/inventory/envcontext.d.ts
+  s_8376465eb88a0d::t_27f163f92c4705 57-58,66-70,73-75,77-80,354-367
+types/lib/inventory/envcontext.d.ts.map
+  s_8376465eb88a0d::t_af86a5b2fc4f8e 1
+types/lib/inventory/evidenceUtils.d.ts.map
+  s_8376465eb88a0d::t_be01a39cbb058e 1
+types/lib/inventory/fetchBatch.d.ts
+  s_8376465eb88a0d::t_1fe715744ad79c 83-98,136-140,153
+types/lib/inventory/fetchBatch.d.ts.map
+  s_8376465eb88a0d::t_9d5567078458fe 1
+types/lib/inventory/formulationParsers.d.ts.map
+  s_8376465eb88a0d::t_548d39d861a7be 1
+types/lib/inventory/hostRuntimeProbe.d.ts
+  s_8376465eb88a0d::t_8553e9cccbf29b 3-35,45-46
+types/lib/inventory/hostRuntimeProbe.d.ts.map
+  s_8376465eb88a0d::t_af22ddf5638bd3 1
+types/lib/inventory/jsonLike.d.ts.map
+  s_8376465eb88a0d::t_1cdc692ff87c57 1
+types/lib/inventory/jvmLocalRepos.d.ts
+  s_8376465eb88a0d::t_8b23cd4c8e2c4e 13-15,18-20
+types/lib/inventory/jvmLocalRepos.d.ts.map
+  s_8376465eb88a0d::t_81c8d38f3b6b68 1
+types/lib/inventory/jvmToolEnv.d.ts.map
+  s_8376465eb88a0d::t_77b9607f8aacc4 1
+types/lib/inventory/licenseEnhancer.d.ts.map
+  s_8376465eb88a0d::t_3e0d5d907c10bb 1
+types/lib/inventory/mcpConfigParser.d.ts
+  s_8376465eb88a0d::t_6d2183d2e7f9d4 8-9,11,16-18
+types/lib/inventory/mcpConfigParser.d.ts.map
+  s_8376465eb88a0d::t_a93019faa1c9ea 1
+types/lib/inventory/mcpDiscovery.d.ts
+  s_8376465eb88a0d::t_774350b4b99307 4-6
+types/lib/inventory/mcpDiscovery.d.ts.map
+  s_8376465eb88a0d::t_26cf81d84d9a35 1
+types/lib/inventory/mcpServerManifest.d.ts
+  s_8376465eb88a0d::t_186d4a18f0e136 7-8,10,15-17
+types/lib/inventory/mcpServerManifest.d.ts.map
+  s_8376465eb88a0d::t_7a540fbf0d7fac 1
+types/lib/inventory/mcpbBundle.d.ts
+  s_8376465eb88a0d::t_f570361c353a4b 1-10,18-19,21,26-28
+types/lib/inventory/mcpbBundle.d.ts.map
+  s_8376465eb88a0d::t_cc20f3bf6190e7 1
+types/lib/inventory/nodeHostProbe.d.ts.map
+  s_8376465eb88a0d::t_3d568cee585486 1
+types/lib/inventory/osPackageResolver.d.ts
+  s_8376465eb88a0d::t_ec13996de0e176 63-64
+types/lib/inventory/osPackageResolver.d.ts.map
+  s_8376465eb88a0d::t_ecdd07c674a3ff 1
+types/lib/inventory/osinfo.d.ts
+  s_8376465eb88a0d::t_26d242ed06d684 172
+types/lib/inventory/osinfo.d.ts.map
+  s_8376465eb88a0d::t_8dab2d7347e61b 1
+types/lib/inventory/phpBuildInfo.d.ts.map
+  s_8376465eb88a0d::t_f739de8918986b 1
+types/lib/inventory/phpHostProbe.d.ts.map
+  s_8376465eb88a0d::t_15fc103da98cf0 1
+types/lib/inventory/plugins.d.ts.map
+  s_8376465eb88a0d::t_d731344c6f41ec 1
+types/lib/inventory/rubyBuildInfo.d.ts
+  s_8376465eb88a0d::t_1bcd30761595d7 88-89,92,100-101,104,110-113,118
+types/lib/inventory/rubyBuildInfo.d.ts.map
+  s_8376465eb88a0d::t_ed86b70511bb52 1
+types/lib/inventory/rubyHostProbe.d.ts
+  s_8376465eb88a0d::t_86ba715f05b48f 12-13,16
+types/lib/inventory/rubyHostProbe.d.ts.map
+  s_8376465eb88a0d::t_c69a7bb9138d0e 1
+types/lib/inventory/rustFormulationParser.d.ts.map
+  s_8376465eb88a0d::t_444563ea21792d 1
+types/lib/inventory/sbomDocument.d.ts
+  s_8376465eb88a0d::t_e83d41a60f0b0b 59-93
+types/lib/inventory/sbomDocument.d.ts.map
+  s_8376465eb88a0d::t_6d3aaedc1efe0e 1
+types/lib/inventory/scalaDedupe.d.ts.map
+  s_8376465eb88a0d::t_e4efcd7113cd9c 1
+types/lib/inventory/source.d.ts
+  s_8376465eb88a0d::t_e356eee2c08edf 116-118,134
+types/lib/inventory/source.d.ts.map
+  s_8376465eb88a0d::t_06fa87c5310188 1
+types/lib/inventory/spdx.d.ts
+  s_8376465eb88a0d::t_f01901d24080d3 50-51,54
+types/lib/inventory/spdx.d.ts.map
+  s_8376465eb88a0d::t_9063f4bfa937ae 1
+types/lib/inventory/traceRunner.d.ts
+  s_8376465eb88a0d::t_18a524f3406d77 62-63,103-115
+types/lib/inventory/traceRunner.d.ts.map
+  s_8376465eb88a0d::t_a95b85be06347d 1
+types/lib/inventory/unicodeScan.d.ts.map
+  s_8376465eb88a0d::t_080972d9c4274c 1
+types/lib/managers/binary.d.ts
+  s_8376465eb88a0d::t_b547d9901d599d 128-135
+types/lib/managers/binary.d.ts.map
+  s_8376465eb88a0d::t_f50b027e89abc7 1
+types/lib/managers/containerutils.d.ts
+  s_8376465eb88a0d::t_3bb6d75e2feeeb 12-14,24-26
+types/lib/managers/containerutils.d.ts.map
+  s_8376465eb88a0d::t_fdbb8919a0d848 1
+types/lib/managers/docker.d.ts
+  s_8376465eb88a0d::t_2b1501415331e9 28-34,89-92,97
+types/lib/managers/docker.d.ts.map
+  s_8376465eb88a0d::t_7e99ce52d68ae8 1
+types/lib/managers/dockerConnection.d.ts.map
+  s_8376465eb88a0d::t_f8901092bf308b 1
+types/lib/managers/oci.d.ts
+  s_8376465eb88a0d::t_9d737d0e64673d 6-9,13
+types/lib/managers/oci.d.ts.map
+  s_8376465eb88a0d::t_ff7fa81d7a1c30 1
+types/lib/managers/piptree.d.ts.map
+  s_8376465eb88a0d::t_6e1f1ac3e91bcd 1
+types/lib/parsers/cmakeCache.d.ts
+  s_8376465eb88a0d::t_c6e9f1a62f3570 47-48
+types/lib/parsers/cmakeCache.d.ts.map
+  s_8376465eb88a0d::t_aad31aafa2ef19 1
+types/lib/parsers/cmakePresets.d.ts
+  s_8376465eb88a0d::t_a171b339f5a642 39-40,49-51,54-55,57-59
+types/lib/parsers/cmakePresets.d.ts.map
+  s_8376465eb88a0d::t_08cf2907c0218f 1
+types/lib/parsers/compileCommands.d.ts
+  s_8376465eb88a0d::t_643f3dc9a6a480 62-66,68-71
+types/lib/parsers/compileCommands.d.ts.map
+  s_8376465eb88a0d::t_2d1f63e203a917 1
+types/lib/parsers/huggingfaceManifest.d.ts.map
+  s_8376465eb88a0d::t_8ab5b51fb2d605 1
+types/lib/parsers/huggingfaceUtils.d.ts.map
+  s_8376465eb88a0d::t_a18eee0817c179 1
+types/lib/parsers/largeJson.d.ts
+  s_8376465eb88a0d::t_3992a930325ad9 57-58
+types/lib/parsers/largeJson.d.ts.map
+  s_8376465eb88a0d::t_de166abae324eb 1
+types/lib/parsers/ollama.d.ts.map
+  s_8376465eb88a0d::t_ab2123e1640271 1
+types/lib/parsers/safetensors.d.ts.map
+  s_8376465eb88a0d::t_9b60ec4de08664 1
+types/lib/parsers/strictJson.d.ts.map
+  s_8376465eb88a0d::t_d532432eec4f20 1
+types/lib/server/server.d.ts
+  s_8376465eb88a0d::t_4922a9a884c92f 40-49
+types/lib/server/server.d.ts.map
+  s_8376465eb88a0d::t_ba7179a5ec9fea 1
+types/lib/stages/postgen/introspection/formulationEvidence.d.ts.map
+  s_8376465eb88a0d::t_b64bad3fa525a1 1
+types/lib/stages/postgen/postgen.d.ts.map
+  s_8376465eb88a0d::t_168195595554fc 1
+types/lib/stages/pregen/envAudit.d.ts.map
+  s_8376465eb88a0d::t_1ef889f1c4016b 1
+types/lib/stages/pregen/pregen.d.ts.map
+  s_8376465eb88a0d::t_ee807942c2d393 1
+types/lib/validator/index.d.ts
+  s_8376465eb88a0d::t_233b5d9958adf3 115
+types/lib/validator/index.d.ts.map
+  s_8376465eb88a0d::t_2a43288add1dc8 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "4cb380524ba1398ae99a28ff02f9b74bae751d74",
+  "prompts": {},
+  "sessions": {
+    "s_8376465eb88a0d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6b944f10-f38a-4491-8809-d36fec51aaa5",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}

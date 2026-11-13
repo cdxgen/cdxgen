@@ -1,0 +1,21 @@
+lib/inventory/spdx.js
+  s_8376465eb88a0d::t_7bb0052740beb7 5,29-31,278-284,325-326,329-332
+lib/inventory/spdx.poku.js
+  s_8376465eb88a0d::t_7cf8a875be3543 1-5,9,299-338
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "f74bd493f9a55792384697a748aa4a241512e7d1",
+  "prompts": {},
+  "sessions": {
+    "s_8376465eb88a0d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6b944f10-f38a-4491-8809-d36fec51aaa5",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}

@@ -1,0 +1,25 @@
+lib/inventory/osinfo.js
+  s_8376465eb88a0d::t_7a0bafdf184de9 177-180,187
+lib/inventory/osinfo.poku.js
+  s_8376465eb88a0d::t_bda18a336cb080 11,381-414
+lib/managers/binary.js
+  s_8376465eb88a0d::t_ed8d91f7b890b6 1050-1058
+lib/managers/binary.poku.js
+  s_8376465eb88a0d::t_ca8476875f74c3 795-849
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "dc6934be6e44394ba329b3f822416e11361c7f13",
+  "prompts": {},
+  "sessions": {
+    "s_8376465eb88a0d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6b944f10-f38a-4491-8809-d36fec51aaa5",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}

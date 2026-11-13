@@ -1,0 +1,21 @@
+lib/ecosystems/bunutils.js
+  s_8376465eb88a0d::t_45226f752d99af 9,118-154,241-245,274-276
+lib/ecosystems/bunutils.poku.js
+  s_8376465eb88a0d::t_8b455adb765d8a 1-4,388-462
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "a1e5b352ff95b45b0ce6f3a156f10bc910151b78",
+  "prompts": {},
+  "sessions": {
+    "s_8376465eb88a0d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6b944f10-f38a-4491-8809-d36fec51aaa5",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
