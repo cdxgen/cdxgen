@@ -215,7 +215,7 @@ These are the highest-leverage keys for first-pass policy authoring.
 | `cdx:ai:quantizationMethod`                      | Non-GGUF quantization method (gptq/awq/exl2/bitsandbytes) distinct from the container format        | Warning / triage |
 | `cdx:ai:unsafeDeserialization`                   | Flags pickle-based model artifacts (.bin/.pt/.pth/.ckpt) that execute code on load                  | Hard deny        |
 | `cdx:safetensors:tensorCount`                    | Number of tensors declared in a safetensors header                                                  | Informational    |
-| `cdx:safetensors:dtypes`                         | Distinct tensor dtypes declared in a safetensors header                                             | Informational    |
+| `cdx:safetensors:dtypes`                         | Distinct tensor dtype names (up to 32) declared in a safetensors header                             | Informational    |
 | `cdx:agentic:tool`                               | Identifies the discovered agentic CLI tool (kiro-cli, zcode, opencode, claude-code, ...)            | Warning / triage |
 | `cdx:agentic:model`                              | Model an agent definition selects (from a tool's agent config)                                      | Warning / triage |
 | `cdx:agentic:home`                               | Records the tool's discovered per-user home directory                                               | Informational    |
