@@ -1193,6 +1193,12 @@ describe("JSF verification refuses ambiguous or partial signatures", () => {
     );
     assert.strictEqual(reportOnly.status, 0, reportOnly.stderr);
     assert.match(reportOnly.stderr, /signature verification failed/);
+    const noKey = await validate(
+      "validate-tampered.json",
+      "--require-signature",
+    );
+    assert.strictEqual(noKey.status, 1, noKey.stderr);
+    assert.match(noKey.stderr, /--require-signature needs the trusted key/);
     const untouched = await validate(
       "validate.json",
       "--public-key",

@@ -103,7 +103,7 @@ passing nor failing. Do not fold it into either bucket.
 | `--report, -r`        | `sarif` and other formats                                          |
 | `--report-file, -o`   | Write the report to a file                                          |
 | `--public-key`        | Verify the JSF signature during validation                          |
-| `--require-signature` | Fail validation when no signature is present                        |
+| `--require-signature` | Fail unless the signature verifies; needs a key, exit 1 without one |
 | `--platform`          | Platform-specific validation behaviour                              |
 
 ### Release-gate pattern
