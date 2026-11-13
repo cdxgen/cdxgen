@@ -1,0 +1,19 @@
+lib/helpers/projectConfig.cli.poku.js
+  s_8376465eb88a0d::t_fe2ebf210a9222 102,105
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "f1ba2b2d5fea44ff8eaf2682a78f8abab7d2a599",
+  "prompts": {},
+  "sessions": {
+    "s_8376465eb88a0d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6b944f10-f38a-4491-8809-d36fec51aaa5",
+        "model": "unknown"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
