@@ -1,0 +1,21 @@
+lib/ecosystems/parsers-terraform.js
+  s_8376465eb88a0d::t_8a908d30e8633f 904-919,930,937-940,964,973,977-978,980-981,983-988,991
+lib/ecosystems/parsers-terraform.poku.js
+  s_8376465eb88a0d::t_571ce45e847297 1096-1142
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "49fc515ab06cbd9748d36ea8b5975b870110fc77",
+  "prompts": {},
+  "sessions": {
+    "s_8376465eb88a0d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6b944f10-f38a-4491-8809-d36fec51aaa5",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
