@@ -96,15 +96,15 @@ appears on one side only. The per-ecosystem coverage today:
 | java      | 9       | Maven, Gradle and sbt fallbacks and command failures, the jar heuristic, and Maven skipped with installs off                           |
 | generic   | 9       | Binary and OS package inventory, the Brotli decoder probe's caps, build rate limits, secure mode, host allow-list, dry-run, offline and rate-limit policy |
 | python    | 7       | The generic lockfile and pyproject entries, per-manager uv/poetry/pdm/pipenv variants, and poetry/pdm export skipped with installs off |
-| npm       | 7       | Missing lockfile, missing `node_modules`, unparseable or old lockfiles, lockfile entries whose paths escape the project, git dependencies, and the Node.js host probe's unreadable package databases |
+| npm       | 8       | Missing lockfile, missing `node_modules`, unparseable or old lockfiles, lockfile entries whose paths escape the project, git dependencies, and the Node.js host probe's unreadable package databases and exhausted name budget |
 | csharp    | 5       | The .NET SDK unavailable, msbuild skipped with installs off, and dosai reports that could not be kept whole                            |
 | clojure   | 3       | lein and the Clojure CLI unavailable, and lein skipped with installs off                                                               |
 | swift     | 3       | Toolchain and `swift package resolve` failures, and SwiftPM skipped with installs off                                                  |
 | cocoa     | 3       | cocoapods unavailable, and the Podfile or Ruby podspecs not evaluated with installs off                                                |
 | rust      | 3       | `rust.cargo-lock-missing` (manifest-only parse), `rust.toolchain.missing` (cargo could not run) and `rust.cargo-metadata-unavailable`  |
-| ruby      | 3       | host build-requirements gaps, and the Ruby host probe's unreadable package databases                                                 |
+| ruby      | 4       | host build-requirements gaps, and the Ruby host probe's unreadable package databases and exhausted name budget                       |
 | go        | 2       | `go.toolchain.missing` (the go executable could not run) and `go.mod-only-fallback` (the manual `go.mod` parse)                        |
-| php       | 4       | `php.no-lockfile`, `php.composer.missing`, `php.host-probe.package-db-unreadable` and `php.composer.platform-unattributed`             |
+| php       | 5       | `php.no-lockfile`, `php.composer.missing`, `php.host-probe.package-db-unreadable`, `php.host-probe.budget-exhausted` and `php.composer.platform-unattributed` |
 | dart      | 1       | `dart.pub-get-needed`: `pubspec.yaml` parsed without `pubspec.lock`                                                                    |
 | elixir    | 1       | `elixir.deps-not-fetched`: `mix.exs` without `mix.lock`                                                                                |
 | haskell   | 1       | `haskell.freeze-missing`: no `cabal.project.freeze`                                                                                    |
