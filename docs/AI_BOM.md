@@ -58,6 +58,13 @@ contributes its `steering/*.md`, `settings/cli.json`,
 `settings/permissions.yaml`, and `hooks/*.json`; a plain documentation
 `steering/` folder yields nothing.
 
+Paths are recorded relative to the scanned directory. An MCP config file, an
+MCP Registry `server.json` or an agent instruction file is a `file` component
+with the bom-ref `file:<relative path>` (for example `file:.mcp.json`), and the
+services found in it, including LangGraph graph services, carry the same
+relative path in `internal:SrcFile`, so two scans of the same commit in
+different directories produce the same references.
+
 For Hugging Face model repositories, cdxgen uses Hugging Face Package-URL `pkg:huggingface/<namespace>/<name>@<revision>` identifiers when a compliant model repository reference is available.
 
 When model cards reference Hugging Face datasets, cdxgen also keeps those dataset links stable by emitting reusable dataset component references with explicit Hugging Face purls alongside inline dataset summaries where appropriate.
