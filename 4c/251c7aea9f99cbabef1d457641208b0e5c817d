@@ -1,0 +1,21 @@
+lib/helpers/vsixutils.ide.poku.js
+  s_8376465eb88a0d::t_4035edc0015646 14,510-594
+lib/helpers/vsixutils.js
+  s_8376465eb88a0d::t_40594dad396ef8 1407-1440,1466,1485
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "4c251c7aea9f99cbabef1d457641208b0e5c817d",
+  "prompts": {},
+  "sessions": {
+    "s_8376465eb88a0d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6b944f10-f38a-4491-8809-d36fec51aaa5",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
