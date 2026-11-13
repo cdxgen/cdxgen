@@ -1,0 +1,23 @@
+lib/cli/nativeBom.js
+  s_8376465eb88a0d::t_3be631c5961086 424-426,430-432,523
+lib/ecosystems/goSharedNotices.poku.js
+  s_8376465eb88a0d::t_2643c55d7fa368 1-132
+lib/ecosystems/parsers-go.js
+  s_8376465eb88a0d::t_8f8b707e40ea20 272-278,315,317-319,327-396,447-450,454-457,459-460,466-474,476,484,1005-1008,1011,1035,1057,1129-1131,1166,1191,1198-1204
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "064e885a31b4b43b8317c0262657c8cd81ebf61c",
+  "prompts": {},
+  "sessions": {
+    "s_8376465eb88a0d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6b944f10-f38a-4491-8809-d36fec51aaa5",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
