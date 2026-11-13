@@ -1,0 +1,19 @@
+lib/core/fs.spawn-env.poku.js
+  s_790aedb3119d39::t_361d5f47d446e6 124-126
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "319f2b59ba2783b4b37a3f2d3aaed689250e3b7d",
+  "prompts": {},
+  "sessions": {
+    "s_790aedb3119d39": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_ad434648-2a8a-4978-84cb-207d4726798d",
+        "model": "GLM-5.3"
+      },
+      "human_author": "Team AppThreat <cloud@appthreat.com>"
+    }
+  }
+}
