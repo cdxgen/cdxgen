@@ -1,0 +1,18 @@
+lib/inventory/cryptoAlgorithmFamily.js
+  h_0926447d100ad2 64-75
+lib/inventory/cryptoAlgorithmFamily.poku.js
+  h_0926447d100ad2 49-82
+lib/inventory/pqcMigration.poku.js
+  h_0926447d100ad2 10,336-354
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "758266bfd3015a93e4a76cfe1d1e8768d7b7948a",
+  "prompts": {},
+  "humans": {
+    "h_0926447d100ad2": {
+      "author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
