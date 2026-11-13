@@ -14,7 +14,6 @@ import {
 } from "node:path";
 import process from "node:process";
 
-import { parse as _load } from "yaml";
 import yargs from "yargs";
 import { hideBin } from "yargs/helpers";
 
@@ -46,6 +45,7 @@ import {
   installConsoleShim,
   restoreConsole,
 } from "../lib/core/ui.js";
+import { parse as _load } from "../lib/core/yaml.js";
 import { fetchPomXmlAsJson } from "../lib/ecosystems/ecosystems.js";
 import { normalizeHuggingFaceReference } from "../lib/ecosystems/remote/huggingface.js";
 import {
