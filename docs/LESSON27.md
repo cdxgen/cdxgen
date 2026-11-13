@@ -168,8 +168,11 @@ From the cache and surrounding files it recovers:
   `<name>-populate-gitclone.cmake` script for the `GIT_REPOSITORY` and `GIT_TAG`.
   These become components tagged `cdx:cmake:depKind=fetch` and
   `cdx:cmake:resolvedVia=gitclone-script`.
-- **Git submodules**, via `git submodule status --recursive` combined with
-  `.gitmodules`. These become components tagged
+- **Git submodules**, via the gitlinks in the index (`git ls-files --stage`)
+  and each checked-out submodule's own commit and tags, combined with
+  `.gitmodules`. `git submodule status` is not run, since it can make git run
+  a filter command from the scanned repository's config. These become
+  components tagged
   `cdx:cmake:depKind=submodule`. An uninitialised submodule is flagged with
   `cdx:cmake:uninitialised=true`, which is the normal case for shallow CI
   clones; the version degrades to the commit SHA.
