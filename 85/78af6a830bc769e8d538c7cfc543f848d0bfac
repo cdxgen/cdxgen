@@ -1,0 +1,25 @@
+lib/inventory/envcontext.js
+  s_8376465eb88a0d::t_582098730225d3 1491-1516,1544-1550,1598-1606,1737-1739
+lib/inventory/envcontext.poku.js
+  s_8376465eb88a0d::t_cd684071f044ad 37,545-617
+lib/stages/pregen/pregen.js
+  s_8376465eb88a0d::t_0ca2a20fc2f0ad 53,1766-1776,1778-1779
+lib/stages/pregen/pregen.poku.js
+  s_8376465eb88a0d::t_828716c5dc8031 1517-1575
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "8578af6a830bc769e8d538c7cfc543f848d0bfac",
+  "prompts": {},
+  "sessions": {
+    "s_8376465eb88a0d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6b944f10-f38a-4491-8809-d36fec51aaa5",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
