@@ -1,0 +1,24 @@
+lib/helpers/vsixutils.ide.poku.js
+  s_8376465eb88a0d::t_f3bff11f68de41 1019-1021,1023,1028,1045,1049,1051-1083
+  s_8376465eb88a0d::t_4029e15df6b1f3 1017-1018,1022,1024-1027,1029-1044,1046-1048,1050
+docs/PROJECT_TYPES.md
+  s_8376465eb88a0d::t_933e3aa6012abf 120
+lib/helpers/vsixutils.js
+  s_8376465eb88a0d::t_7969615e907702 577-581,583-586,610-611,616-621,625-630,688-690,695-697,705,1826,2043-2044,2130-2137,2145
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "04e31598a102d03ff2e8d53d68b2a1cc2de8c49f",
+  "prompts": {},
+  "sessions": {
+    "s_8376465eb88a0d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6b944f10-f38a-4491-8809-d36fec51aaa5",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
