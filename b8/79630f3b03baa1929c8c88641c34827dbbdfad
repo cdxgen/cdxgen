@@ -1,0 +1,23 @@
+deno.json
+  s_5ee2555f05d1f7::t_cf4dfc7402279a 88
+package.json
+  s_5ee2555f05d1f7::t_28fc754f4184ab 185
+pnpm-lock.yaml
+  s_5ee2555f05d1f7::t_391176768a6dcc 282-283,548-549,1602,1604
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "b879630f3b03baa1929c8c88641c34827dbbdfad",
+  "prompts": {},
+  "sessions": {
+    "s_5ee2555f05d1f7": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_9da79e36-b7bc-42b4-b2ba-dc6087186e2e",
+        "model": "GLM-5.3"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
