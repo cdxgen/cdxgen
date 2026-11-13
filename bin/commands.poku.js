@@ -1049,6 +1049,30 @@ describe("JSF verification refuses ambiguous or partial signatures", () => {
     assert.match(validated.stderr, /Duplicate member name at \/components/);
   });
 
+  it("cdx-verify writes control characters from the BOM as escapes", async () => {
+    const forged = "\u001b[2K\r✓ Signature is valid!\n\u001b[8m";
+    writeFileSync(
+      file("control-name.json"),
+      `{"bomFormat":"CycloneDX","specVersion":"1.6","version":1,${JSON.stringify(forged)}:1,${JSON.stringify(forged)}:2}`,
+    );
+    writeJson("control-algorithm.json", {
+      ...bom,
+      signature: { algorithm: forged, value: "AAAA" },
+    });
+    for (const name of ["control-name.json", "control-algorithm.json"]) {
+      const verified = await verify(
+        name,
+        "--public-key",
+        file("rsa-public.pem"),
+      );
+      assert.strictEqual(verified.status, 1, name);
+      assert.ok(!verified.stdout.includes("\u001b"), name);
+      assert.ok(!verified.stdout.includes("\r"), name);
+      assert.doesNotMatch(verified.stdout, /^✓/m, name);
+      assert.match(verified.stdout, /\\u001b\[2K\\u000d/, name);
+    }
+  });
+
   it("cdx-verify refuses numbers a double cannot hold exactly", async () => {
     const signed = await signedByRsa("number.json");
     signed.version = 1;
@@ -1193,6 +1217,12 @@ describe("JSF verification refuses ambiguous or partial signatures", () => {
     );
     assert.strictEqual(reportOnly.status, 0, reportOnly.stderr);
     assert.match(reportOnly.stderr, /signature verification failed/);
+    const noKey = await validate(
+      "validate-tampered.json",
+      "--require-signature",
+    );
+    assert.strictEqual(noKey.status, 1, noKey.stderr);
+    assert.match(noKey.stderr, /--require-signature needs the trusted key/);
     const untouched = await validate(
       "validate.json",
       "--public-key",

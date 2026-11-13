@@ -8,6 +8,7 @@ import yargs from "yargs";
 import { hideBin } from "yargs/helpers";
 
 import { readEnvironmentVariable } from "../lib/core/activity.js";
+import { escapeControlCharacters } from "../lib/core/text.js";
 import {
   dirNameStr,
   retrieveCdxgenVersion,
@@ -105,10 +106,17 @@ if (readEnvironmentVariable("CDXGEN_NODE_OPTIONS")) {
   process.env.NODE_OPTIONS = `${process.env.NODE_OPTIONS || ""} ${process.env.CDXGEN_NODE_OPTIONS}`;
 }
 
+// The messages below quote text from the BOM, such as member names, key ids
+// and algorithm names. cdx-verify prints no colour, so every control
+// character is written as an escape and cannot rewrite what the terminal shows.
+function printLine(message) {
+  console.log(escapeControlCharacters(String(message)));
+}
+
 async function getBom(args) {
   if (safeExistsSync(args.input)) {
     if (isProtoBomPath(args.input)) {
-      console.log(
+      printLine(
         "cdx-verify: protobuf BOM input does not currently preserve JSF signature blocks. Verify signatures against the source JSON BOM instead.",
       );
       process.exit(1);
@@ -116,7 +124,7 @@ async function getBom(args) {
     try {
       return parseStrictJson(fs.readFileSync(args.input));
     } catch (error) {
-      console.log(`Failed to parse '${args.input}': ${error.message}`);
+      printLine(`Failed to parse '${args.input}': ${error.message}`);
       process.exit(1);
     }
   }
@@ -130,7 +138,7 @@ async function getBom(args) {
         checkBytes: parseStrictJson,
       });
     } catch (error) {
-      console.log(
+      printLine(
         `Failed to parse the BOM attached to '${args.input}': ${error.message}`,
       );
       process.exit(1);
@@ -141,11 +149,11 @@ async function getBom(args) {
 
 const publicKeyFiles = args.publicKey || [];
 if (publicKeyFiles.length && args.secretKey) {
-  console.log("Use either --public-key or --secret-key, not both.");
+  printLine("Use either --public-key or --secret-key, not both.");
   process.exit(1);
 }
 if (!publicKeyFiles.length && !args.secretKey) {
-  console.log(
+  printLine(
     "Name the trusted key with --public-key <file>, or --secret-key <file> for HMAC signatures.",
   );
   process.exit(1);
@@ -154,11 +162,11 @@ if (!publicKeyFiles.length && !args.secretKey) {
 const bomJson = await getBom(args);
 
 if (!bomJson) {
-  console.log(`${args.input} is invalid!`);
+  printLine(`${args.input} is invalid!`);
   process.exit(1);
 }
 if (!isCycloneDxBom(bomJson)) {
-  console.log(getNonCycloneDxErrorMessage(bomJson, "cdx-verify"));
+  printLine(getNonCycloneDxErrorMessage(bomJson, "cdx-verify"));
   process.exit(1);
 }
 // A CycloneDX 2.0 document carries JSS signatures (ITU-T X.590).
@@ -166,7 +174,7 @@ const isJssBom =
   isCycloneDx20SpecVersion(bomJson.specVersion) ||
   bomJson.specFormat !== undefined;
 if (isJssBom && args.secretKey) {
-  console.log(
+  printLine(
     "--secret-key is not supported for CycloneDX 2.0 (JSS) signatures: X.590 clause 6.2.2 says HMAC algorithms SHOULD NOT be used, and cdx-verify does not verify them. Pass the signer's --public-key instead.",
   );
   process.exit(1);
@@ -175,7 +183,7 @@ if (isJssBom && args.secretKey) {
 const verificationKeys = [];
 for (const keyFile of args.secretKey ? [args.secretKey] : publicKeyFiles) {
   if (!safeExistsSync(keyFile)) {
-    console.log(
+    printLine(
       args.secretKey
         ? `Shared secret '${keyFile}' for signature verification is missing!`
         : `Public key '${keyFile}' for signature verification is missing!`,
@@ -189,7 +197,7 @@ for (const keyFile of args.secretKey ? [args.secretKey] : publicKeyFiles) {
         : loadVerificationKey(fs.readFileSync(keyFile, "utf8")),
     );
   } catch (error) {
-    console.log(`Unable to use '${keyFile}': ${error.message}`);
+    printLine(`Unable to use '${keyFile}': ${error.message}`);
     process.exit(1);
   }
 }
@@ -206,11 +214,11 @@ function describeEntry(node, entry) {
 
 function printRejections(node) {
   for (const reason of node.reasons) {
-    console.log(`  - ${reason}`);
+    printLine(`  - ${reason}`);
   }
   for (const entry of node.entries) {
     for (const reason of entry.reasons) {
-      console.log(
+      printLine(
         `  - ${node.form === "single" ? "" : `${node.form}[${entry.index}]: `}${reason}`,
       );
     }
@@ -225,11 +233,11 @@ function describeJssResult(result) {
 function printJssResults(results, prefix = "") {
   for (const result of results) {
     if (result.status === "verified") {
-      console.log(
+      printLine(
         `  ✓ ${prefix}${describeJssResult(result)} verified with key #${result.keyIndex + 1}: ${publicKeyFiles[result.keyIndex]}`,
       );
     } else {
-      console.log(
+      printLine(
         `  - ${prefix}${describeJssResult(result)} ${result.status}: ${result.reason || "not verified"}`,
       );
     }
@@ -250,46 +258,46 @@ if (isJssBom) {
       allowNestedOnly: args.allowNestedOnly,
     });
   } catch (error) {
-    console.log(`JSS verification failed: ${error.message}`);
+    printLine(`JSS verification failed: ${error.message}`);
     process.exit(1);
   }
   for (const error of jssReport.errors) {
-    console.log(error);
+    printLine(error);
   }
   if (args.requireAll && jssReport.root) {
     jssReport.root.keysMatched.forEach((matched, index) => {
       if (!matched) {
-        console.log(`  - key #${index + 1}: ${publicKeyFiles[index]}`);
+        printLine(`  - key #${index + 1}: ${publicKeyFiles[index]}`);
       }
     });
   }
   if (jssReport.root) {
-    console.log(
+    printLine(
       jssReport.root.valid
         ? "BOM JSS signatures:"
         : "BOM signature is invalid!",
     );
     for (const reason of jssReport.root.reasons) {
-      console.log(`  - ${reason}`);
+      printLine(`  - ${reason}`);
     }
     printJssResults(jssReport.root.results);
   } else if (!args.allowNestedOnly) {
-    console.log(
+    printLine(
       "Pass --allow-nested-only to accept a BOM whose inventories, components, compositions, and annotations are all signed.",
     );
   }
   const invalidNested = jssReport.nested.filter((item) => !item.valid);
   for (const item of invalidNested) {
-    console.log(`${item.path} signature is invalid!`);
+    printLine(`${item.path} signature is invalid!`);
     for (const reason of item.reasons) {
-      console.log(`  - ${reason}`);
+      printLine(`  - ${reason}`);
     }
     printJssResults(item.results);
   }
   if (invalidNested.length) {
-    console.log("One or more nested signatures are invalid!");
+    printLine("One or more nested signatures are invalid!");
     if (jssReport.root?.valid) {
-      console.log(
+      printLine(
         "The root signature verifies with this key. Nested signatures belong to the party that created them, so pass --no-deep to verify only the root signature with this key.",
       );
     }
@@ -302,14 +310,14 @@ if (isJssBom) {
     ...jssReport.nested.flatMap((item) => item.results),
   ].filter((result) => result.status !== "verified");
   if (unverified.length) {
-    console.log(
+    printLine(
       `Warning: ${unverified.length} JSS signature object(s) did not verify with the given key(s). Pass --require-all to fail in that case.`,
     );
   }
   if (!jssReport.root) {
-    console.log(`✓ ${jssReport.nested.length} nested signature(s) are valid!`);
+    printLine(`✓ ${jssReport.nested.length} nested signature(s) are valid!`);
   }
-  console.log("JSS signature(s) verified successfully.");
+  printLine("JSS signature(s) verified successfully.");
   process.exit(0);
 }
 
@@ -320,45 +328,45 @@ const report = verifyBomSignatures(bomJson, verificationKeys, {
 });
 
 for (const error of report.errors) {
-  console.log(error);
+  printLine(error);
 }
 const keyFiles = args.secretKey ? [args.secretKey] : publicKeyFiles;
 if (args.requireAll && report.root?.form) {
   report.root.keysMatched.forEach((matched, index) => {
     if (!matched) {
-      console.log(`  - key #${index + 1}: ${keyFiles[index]}`);
+      printLine(`  - key #${index + 1}: ${keyFiles[index]}`);
     }
   });
 }
 const invalidNested = report.nested.filter((item) => !item.verified);
 for (const item of invalidNested) {
-  console.log(`${item.label} signature is invalid!`);
+  printLine(`${item.label} signature is invalid!`);
   printRejections(item);
 }
 if (invalidNested.length) {
-  console.log("One or more nested signatures are invalid!");
+  printLine("One or more nested signatures are invalid!");
   if (report.root?.verified) {
-    console.log(
+    printLine(
       "The root signature verifies with this key. Nested signatures belong to the party that created them, so pass --no-deep to verify only the root signature with this key.",
     );
   }
 }
 if (report.root && !report.root.verified) {
-  console.log("BOM signature is invalid!");
+  printLine("BOM signature is invalid!");
   printRejections(report.root);
   if (!report.root.reasons.length && !report.root.match) {
-    console.log(
+    printLine(
       "If this BOM was signed with cdxgen 13.2.0 or earlier, re-sign it with this version of cdx-sign.",
     );
   }
 }
 if (!report.root && !bomJson.signature && !args.allowNestedOnly) {
-  console.log(
+  printLine(
     "Pass --allow-nested-only to accept a BOM whose components, services, and annotations are all signed.",
   );
 }
 for (const notice of report.notices) {
-  console.log(`Note: ${notice}`);
+  printLine(`Note: ${notice}`);
 }
 if (!report.verified) {
   process.exit(1);
@@ -369,20 +377,20 @@ if (report.root) {
   const identifier = rootMatch.keyId
     ? `KeyId: '${displayValue(rootMatch.keyId)}'`
     : `Algorithm: '${rootMatch.algorithm}'`;
-  console.log(`✓ Signature is valid! (Matched ${identifier})`);
+  printLine(`✓ Signature is valid! (Matched ${identifier})`);
   const unverified = report.root.entries.filter((entry) => !entry.verified);
   if (unverified.length) {
-    console.log(
+    printLine(
       `Warning: ${unverified.length} of ${report.root.entries.length} ${report.root.form} entries did not verify with the given key(s). Pass --require-all to fail in that case.`,
     );
     for (const entry of unverified) {
-      console.log(
+      printLine(
         `  - ${describeEntry(report.root, entry)}: ${entry.reasons[0] || "not verified"}`,
       );
     }
   }
 } else {
-  console.log(`✓ ${report.nested.length} nested signature(s) are valid!`);
+  printLine(`✓ ${report.nested.length} nested signature(s) are valid!`);
 }
 const MAX_LISTED_ENTRIES = 10;
 const unverifiedNested = report.nested.flatMap((item) =>
@@ -394,13 +402,13 @@ const unverifiedNested = report.nested.flatMap((item) =>
     ),
 );
 if (unverifiedNested.length) {
-  console.log(
+  printLine(
     `Warning: ${unverifiedNested.length} nested signature entries did not verify with the given key(s). Pass --require-all to fail in that case.`,
   );
   for (const line of unverifiedNested.slice(0, MAX_LISTED_ENTRIES)) {
-    console.log(`  - ${line}`);
+    printLine(`  - ${line}`);
   }
   if (unverifiedNested.length > MAX_LISTED_ENTRIES) {
-    console.log(`  - and ${unverifiedNested.length - MAX_LISTED_ENTRIES} more`);
+    printLine(`  - and ${unverifiedNested.length - MAX_LISTED_ENTRIES} more`);
   }
 }

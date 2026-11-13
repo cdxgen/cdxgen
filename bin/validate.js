@@ -132,7 +132,7 @@ const args = _yargs
   .option("require-signature", {
     type: "boolean",
     description:
-      "Exit non-zero (4) when signature verification fails. On by default when --public-key or --secret-key is given; pass --no-require-signature to only report the result.",
+      "Exit non-zero (4) when signature verification fails. Needs --public-key or --secret-key, and is on by default when one is given; pass --no-require-signature to only report the result.",
   })
   .option("strict", {
     type: "boolean",
@@ -260,6 +260,14 @@ function isLocalProtoBomInput(input) {
 
 const keyGiven = args.publicKey !== undefined || args.secretKey !== undefined;
 const requireSignature = args.requireSignature ?? keyGiven;
+if (requireSignature && !keyGiven) {
+  // Without a trusted key nothing is verified, so the requirement could never
+  // be met; refuse to run rather than silently pass, as cdx-verify does.
+  console.error(
+    "cdx-validate: --require-signature needs the trusted key. Name it with --public-key <file>, or --secret-key <file> for HMAC signatures.",
+  );
+  process.exit(1);
+}
 const { bomJson, strictError } = await loadBom(
   args.input,
   args.platform,
@@ -344,7 +352,7 @@ if (report.readLosses?.length) {
 const { shouldFail: fail, reason } = shouldFail(report, {
   failSeverity: args.failSeverity,
   strict: args.strict,
-  requireSignature: Boolean(requireSignature && verificationRequested),
+  requireSignature,
 });
 
 if (report.signatureVerified === false && verificationRequested) {
