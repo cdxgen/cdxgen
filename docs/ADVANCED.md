@@ -223,7 +223,7 @@ cdxgen resolves the TEI via `/.well-known/tea` discovery (HTTPS only, per the sp
 
 Every checksum a Collection declares must match, and an artifact whose checksums all use algorithms this client cannot compute is rejected rather than merged unverified: remote content whose integrity was asserted and then not checked is worse than fetching nothing. An artifact that declares no checksum at all is a publisher decision, and is merged with a warning. Documents over 5 MiB are skipped, as with PEP 770.
 
-The TEA token (`--tea-token` or `TEA_TOKEN`) is sent to the discovery and Collection endpoints, and to an artifact only when its URL has the same origin as the TEA server that served the Collection. A Collection can name an artifact on any host, so an artifact hosted elsewhere is downloaded without the token.
+The TEA token (`--tea-token` or `TEA_TOKEN`) goes only to the origin of the TEA server that the TEI's domain advertises in its `/.well-known/tea` document. The well-known document itself is public and is requested without the token. The discovery request, and the Collection and artifact requests, carry the token only when their URL has that origin: a server that only the discovery response names, and an artifact that a Collection places on another host, are contacted without it. When `--tea-fetch` comes from a config file in the working directory rather than the command line or `CDXGEN_TEA_FETCH`, no request of the fetch carries the token, because the TEI then comes from the scanned project.
 
 ### Publishing (`--tea-publish`)
 
@@ -238,7 +238,7 @@ cdxgen -t js /path/to/repo -o bom.json \
 The generated BOM is published as a TEA Artifact in a Collection via the draft publisher API's `POST /collection`. Collection versioning is owned by the server: publish the first collection with the default `--tea-reason INITIAL_RELEASE`, and subsequent updates with `ARTIFACT_UPDATED`, `ARTIFACT_ADDED`, `ARTIFACT_REMOVED`, or `VEX_UPDATED`; the server increments the collection version.
 
 - The BOM is written locally **before** the publish attempt, so a publish failure never costs you your SBOM; the failure is reported and cdxgen exits with status `3` (distinct from other errors).
-- Credentials (`--tea-token` or `TEA_TOKEN`) are sent only as an `Authorization: Bearer` header, are never logged, and never reach the BOM.
+- Credentials (`--tea-token` or `TEA_TOKEN`) are sent only as an `Authorization: Bearer` header, are never logged, and never reach the BOM. When `--tea-publish` comes from a config file in the working directory, the publish request is sent without the token.
 - `--tea-artifact-url` must be reachable by the TEA server; by default cdxgen uses the local output path, which most servers cannot fetch.
 
 ## Go Evinse data-flow and crypto-flow evidence

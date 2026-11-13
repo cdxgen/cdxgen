@@ -413,7 +413,7 @@ Used when resolving Hugging Face models, datasets, and spaces into AI-BOM compon
 | CDXGEN_EXPERIMENTAL_MCP_PINNING | Set to `true` to enable the experimental MCP server pinning and composition enrichment, which marks MCP packages as `pinned` or `unpinned` and records transport and composition properties. |
 | CDXGEN_FETCH_PKG_METADATA       | Set to `true` or `1` to fetch registry package metadata (provenance, trusted-publishing signals) for enrichment, independent of `FETCH_LICENSE`. Set automatically while `--bom-audit` runs. |
 | CDXGEN_SERVER_URL               | Dependency-Track (or other submission) server URL. Overrides the `--server-url` flag when set, and surfaces a configuration risk warning when present in the environment.                    |
-| TEA_TOKEN                       | Bearer token for Transparency Exchange API (TEA) requests. Sent only as an `Authorization` header and never logged or written to the BOM. Equivalent to the `--tea-token` flag.              |
+| TEA_TOKEN                       | Bearer token for Transparency Exchange API (TEA) requests. Sent only as an `Authorization` header, only to the TEA server origin the TEI's domain advertises (or the `--tea-publish` server), never to a TEI or publish target taken from a config file, and never logged or written to the BOM. Equivalent to the `--tea-token` flag. See [ADVANCED.md](ADVANCED.md#fetching-upstream-sboms---tea-fetch). |
 
 ## Proxy and Network Configuration
 

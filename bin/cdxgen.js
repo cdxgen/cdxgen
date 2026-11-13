@@ -25,6 +25,7 @@ import {
   configFileSelections,
   dropConfigAuditOverrides,
   isUserProvided,
+  markConfigFileTeaTargets,
   validateSpecVersion,
 } from "../lib/cli/cliOptions.js";
 import { createBom, submitBom } from "../lib/cli/index.js";
@@ -1354,6 +1355,14 @@ applyOperatorToolingChoice(options, {
   isSecureMode: isSecureModeActive(),
   projectConfig: config,
 });
+for (const teaOption of markConfigFileTeaTargets(options, {
+  env: launchEnv,
+  projectConfig: config,
+})) {
+  console.warn(
+    `\x1b[1;35mThe config file sets '${teaOption}', so its TEA requests are sent without the TEA token. Pass '--${teaOption}' on the command line to send the token.\x1b[0m`,
+  );
+}
 if (options?.technique && Array.isArray(options.technique)) {
   if (options.technique.length === 1) {
     thoughtLog(
