@@ -451,7 +451,7 @@ The toolchain version probes for formulation also run from the temporary directo
 - `auditEnvironment` detects and warns about credential-like environment variables
 - Output from package managers and build tools (npm, pip, uv, poetry, Maven, Gradle, cargo, docker and the other tools cdxgen runs) is redacted before it is printed: URLs lose their userinfo and query string, URL path segments that look like access tokens (as in `https://host/<token>/simple/`) read `***`, and the value of any environment variable whose name marks a credential (names ending in `_TOKEN`, `_PASSWORD`, `_SECRET`, `_KEY`, `_AUTH`, `_PAT`, `_PSW`, `_PWD` and the like, and index URL variables such as `PIP_INDEX_URL` and `UV_INDEX_URL`) reads `***` wherever it appears. Values shorter than 8 characters are not replaced. A spawn error is printed as its name and message only
 - Secret-bearing BOM metadata values are sanitized before emission in AI/MCP inventory and Chrome extension metadata flows:
-  - URLs and URIs drop userinfo, query strings, and fragments
+  - URLs and URIs of any scheme (`https://`, `postgres://`, `jdbc:mysql://` and the like) drop userinfo, query strings, and fragments, also inside free text; a URL template such as `https://host/users/{id}` keeps its braces as written
   - inline credential patterns are redacted
   - raw command strings are reduced to safer summaries such as the executable name
   - dangerous structured keys such as `__proto__`, `constructor`, and `prototype` are removed before JSON serialization
