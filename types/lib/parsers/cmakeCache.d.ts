@@ -44,7 +44,8 @@ export declare function parseFindPackageVersion(value: string): string | null;
  * Harvests the root project, every project directory, FetchContent sources, and
  * the resolved versions of `find_package` lookups. `<name>_VERSION` is **not**
  * present in the cache for subprojects, so fetched/submodule versions must be
- * resolved from git or the gitclone script instead.
+ * resolved from git or the gitclone script instead. A `find_package` version
+ * longer than 128 characters is not one and is dropped.
  *
  * @param {Map<string, {type: string, value: string}>} map Output of {@link parseCmakeCache}
  * @returns {{ rootProject: {name?: string, version?: string} | null, projects: Map<string, {version?: string, sourceDir?: string, binaryDir?: string, isTopLevel?: boolean, kind: string}>, findPackages: Map<string, string>, fetchContentBase?: string }}

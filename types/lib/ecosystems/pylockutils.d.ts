@@ -50,6 +50,7 @@ export declare function collectPyLockFileComponents(pkg: object, lockFile: strin
 export declare function isDefaultPypiRegistry(indexUrl: string): boolean;
 /**
  * Normalize a pylock package index URL for comparison and reporting.
+ * Credentials, query and fragment are dropped, so the result is safe to emit.
  *
  * @param {string} indexUrl package index URL
  * @returns {string|undefined} normalized registry URL

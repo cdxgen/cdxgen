@@ -102,11 +102,13 @@ export declare function identifyIdeFromExtensionsDir(extensionsDir: string): {
  * fork does for the VS Code release it is based on.
  *
  * @param {string} appDir Folder holding `product.json`
+ * @param {string} [rootDir] Folder both files must stay under, read without
+ *   following symlinks
  * @returns {Object|undefined} `{ version, vscodeVersion, commit, quality,
  *   nameLong, dataFolderName, serverDataFolderName, appDir }`, or undefined
  *   when there is no product.json
  */
-export declare function readIdeProductInfo(appDir: string): Object | undefined;
+export declare function readIdeProductInfo(appDir: string, rootDir?: string): Object | undefined;
 /**
  * Find the installed editor (or remote server) for an extensions folder and
  * read its identity.
@@ -279,7 +281,7 @@ export declare function describeExtensionEntryFiles(extDir: string, capabilities
  * @param {Object} [installRecord] Entry for the folder from extensions.json
  * @param {Object} [options] Parse options
  * @param {boolean} [options.nameOnly] Read only the folder name, as a root
- *   scan does for a symlinked folder
+ *   scan or a scan of a folder given as a path does for a symlinked folder
  * @returns {Object|undefined} CycloneDX component object or undefined
  */
 export declare function parseInstalledExtensionDir(extDir: string, ideName?: string, installRecord?: Object, options?: {
@@ -342,7 +344,8 @@ export declare function toIdeComponent(ide: {
  * @param {Array<{id?: string, name?: string, kind?: string, dir: string, home?: string, only?: string, probeApps?: boolean}>} ideDirs
  *   Extensions folders, as returned by discoverIdeExtensionDirs. `only` limits
  *   a folder to one extension; `home` and `probeApps` say where the editor's
- *   own version is looked up (see findIdeProductInfo)
+ *   own version is looked up (see findIdeProductInfo), and a folder with
+ *   `probeApps: false` reads only the names of its symlinked extension folders
  * @param {Object} [options] Collection options
  * @param {boolean} [options.includeIdeComponents=true] Emit a component for
  *   each editor and link it to its extensions

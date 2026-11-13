@@ -5,7 +5,7 @@
  *
  * This module owns every subprocess invocation and every filesystem read
  * outside the scan root. It reads `CMakeCache.txt`, `.gitmodules`, the
- * FetchContent gitclone scripts, and `git submodule status` output, then
+ * FetchContent gitclone scripts, and the submodule gitlinks in the index, then
  * returns repo-relative facts the lifecycle can attach to components.
  */
 import { GIT_COMMAND } from "../inventory/envcontext.js";
@@ -36,6 +36,18 @@ export declare function detectCmakeBuildDir(path: string, options: Object): {
     cacheFile: string;
     buildDir: string;
 } | null;
+/**
+ * Read a detected `CMakeCache.txt`. The file must resolve inside its build
+ * directory, which is inside the project unless --cmake-cache named it, must
+ * be a regular file and must be no larger than 16 MiB.
+ *
+ * @param {{ cacheFile: string, buildDir: string }} detected Detected cache
+ * @returns {string|undefined} The text, or undefined
+ */
+export declare function readCmakeCacheText(detected: {
+    cacheFile: string;
+    buildDir: string;
+}): string | undefined;
 /**
  * Read and resolve the CMakeCache facts for a project.
  *
@@ -84,43 +96,44 @@ export declare function parseGitcloneScript(text: string): {
     tag: string | null;
 };
 /**
- * Collect submodule pin data via a single `git submodule status --recursive`.
+ * Collect submodule pin data from the gitlinks (mode 160000) in the index,
+ * with the prefixes and names `git submodule status` would show: ` ` for a
+ * checked-out submodule at the recorded commit, `+` for one at another
+ * commit (whose commit is reported), `-` for one that is not checked out and
+ * `U` for a conflicted entry.
  *
- * Each output line is `<prefix><sha> <path> (<describe>)` where prefix is
- * ` ` (ok), `-` (uninitialised), `+` (out of sync), `U` (conflict).
- * Uninitialised submodules (the normal case for `--depth 1` clones and CI)
- * have no populated working tree, so `describe` is absent; the version
+ * `git submodule status` itself is not run, because it compares work-tree
+ * files with the index and hashes a racily clean file again through the
+ * `filter.<name>.clean` command the scanned repository's own config names,
+ * which no `-c` override in `execGitCommand` can disable. Only the index
+ * (`git ls-files --stage`) and a submodule's refs and objects (`git
+ * rev-parse`, `git describe`) are read. Uninitialised submodules (the normal
+ * case for `--depth 1` clones and CI) have no describe, so the version
  * degrades to the commit SHA.
  *
- * Falls back to `git ls-tree HEAD <path>` (gitlink, mode 160000) when the
- * submodule machinery is unavailable.
- *
  * @param {string} path Repo directory
- * @returns {Map<string, { sha: string, describe: string|null, prefix: string }>} Path → pin data
+ * @returns {Map<string, { sha: string, describe: string|null, prefix: string, path: string }>} Path → pin data
  */
 export declare function collectSubmoduleStatus(path: string): Map<string, {
     sha: string;
     describe: string | null;
     prefix: string;
+    path: string;
 }>;
 /**
- * Parse a single `git submodule status` output line.
+ * Parse the gitlinks out of `git ls-files --stage -z` output.
  *
- * The status prefix is optional here. `git` writes a space for a submodule that
- * matches the recorded commit, and the command output arrives trimmed, so that
- * space is absent from the first line. The prefixes that carry meaning — `-`
- * uninitialised, `+` out of sync, `U` conflicted — are not whitespace and
- * always survive, so a line that opens with the SHA is in sync.
+ * Each NUL-terminated record is `<mode> <sha> <stage>\t<path>`. Only entries
+ * of mode `160000` are submodule pins. A path with a stage-0 entry is
+ * resolved; one with only conflict stages (1 to 3) is marked conflicted.
  *
- * @param {string} line Raw status line
- * @returns {{ sha: string, describe: string|null, prefix: string, path: string } | null}
+ * @param {string|undefined} output Raw command output
+ * @returns {Map<string, { sha: string, conflicted: boolean }>} Path → pinned commit
  */
-export declare function parseSubmoduleStatusLine(line: string): {
+export declare function parseIndexGitlinks(output: string | undefined): Map<string, {
     sha: string;
-    describe: string | null;
-    prefix: string;
-    path: string;
-} | null;
+    conflicted: boolean;
+}>;
 /**
  * Build the complete CMake/submodule resolution for a project.
  *

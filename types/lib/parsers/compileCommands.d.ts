@@ -59,9 +59,16 @@ export declare function unitLanguage(args: string[], file: string): string;
  *
  * @param {string[]} args Arguments, compiler first
  * @param {string} directory The entry's working directory
- * @returns {string[]} Directories, in command order
+ * @param {{chars: number, known: Map<string, string>}} [budget] Shared by the
+ *   entries of a database: the characters still to be worked out, and the
+ *   directories already worked out, which cost nothing when stated again
+ * @returns {string[]} Directories, in command order. Those longer than a path
+ *   can be, or beyond the budget, are left out
  */
-export declare function includeDirectories(args: string[], directory: string): string[];
+export declare function includeDirectories(args: string[], directory: string, budget?: {
+    chars: number;
+    known: Map<string, string>;
+}): string[];
 /**
  * The security-hardening settings an argument list turns on or off. Later
  * options override earlier ones, as they do for the compiler.

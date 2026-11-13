@@ -27,10 +27,11 @@ export declare function parseRockspecFile(rockspecFile: string): {
  * Parse a `luarocks.lock` file.
  *
  * @param {string} lockFile Path to `luarocks.lock`
- * @param {string} [rockspecFile] Path to the rockspec, to mark direct deps
+ * @param {string|string[]} [rockspecFile] Path to the rockspec, or to every
+ *   rockspec sharing the lock, to mark direct deps
  * @returns {{ pkgList: object[], parentComponent: object }}
  */
-export declare function parseLuaRocksLock(lockFile: string, rockspecFile?: string): {
+export declare function parseLuaRocksLock(lockFile: string, rockspecFile?: string | string[]): {
     pkgList: object[];
     parentComponent: object;
 };

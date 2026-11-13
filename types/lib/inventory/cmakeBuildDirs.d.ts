@@ -6,13 +6,33 @@
  * places in the same order.
  */
 /**
- * Whether `child` is `parent` or inside it.
+ * Whether `child` is `parent` or inside it. Only a whole `..` segment leaves
+ * the parent: an entry named `..name` is inside it.
  *
  * @param {string} child Path to test
  * @param {string} parent Directory
  * @returns {boolean}
  */
 export declare function isInsideDir(child: string, parent: string): boolean;
+/**
+ * The key `findEnclosingDir` looks a directory up by: its resolved path,
+ * lower-cased on Windows, where paths compare without regard to case.
+ *
+ * @param {string} dir Directory
+ * @returns {string}
+ */
+export declare function dirKey(dir: string): string;
+/**
+ * The deepest of the given directories that `child` is or is inside. Walks
+ * up from `child`, so a lookup costs the depth of the path rather than the
+ * number of directories: the lists come from the scanned project, and so
+ * does the number of paths looked up.
+ *
+ * @param {string} child Path to test
+ * @param {Set<string>|Map<string, *>} dirs Directories, keyed by `dirKey`
+ * @returns {string|undefined} The key of the directory, if any
+ */
+export declare function findEnclosingDir(child: string, dirs: Set<string> | Map<string, any>): string | undefined;
 /**
  * CMake's `${hostSystemName}` for this host.
  *
@@ -22,8 +42,8 @@ export declare function hostSystemName(): string;
 /**
  * Read a project's presets documents: `CMakePresets.json` and
  * `CMakeUserPresets.json`, each followed by the files it includes (schema
- * version 4 and later). In secure mode an include outside the project is not
- * read.
+ * version 4 and later). An include outside the project, or one that a link
+ * leads out of it, is not read.
  *
  * @param {string} root Project source directory
  * @returns {Array<{file: string, fileDir: string, document: Object}>}

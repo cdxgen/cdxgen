@@ -112,7 +112,7 @@ export declare function validateBomAdvanced(bomJson: object, options?: {
  * @param {object} opts
  * @param {string} [opts.failSeverity] Severity level at or above which failing findings are considered a failure (default "high").
  * @param {boolean} [opts.strict]      When true, failing on any `fail` status regardless of severity, and a failing schema/deep validation also counts.
- * @param {boolean} [opts.requireSignature] Require a valid signature when verification was requested.
+ * @param {boolean} [opts.requireSignature] Require a verified signature; a report that verified nothing (no key given) fails too.
  * @returns {{ shouldFail: boolean, reason: string | null }}
  */
 export declare function shouldFail(report: object, opts?: {

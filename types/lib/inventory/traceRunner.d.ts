@@ -59,8 +59,8 @@ export declare function resolveSaferExecBinary(): string | undefined;
  * @param {string} [options.protectHome] - Home isolation: read-only, tmpfs, or off (Linux)
  * @returns {Promise<{libPaths: string[], httpAccessEntries: Object[], cryptoEntries?: Object[], cryptoComponents?: Object[], cryptoResult?: Object, egressEntries?: Object[], dryRunSummary?: Object}>} Collected libraries, HTTP URLs, crypto observations, proxy egress decisions, and the dry-run summary
  * @throws {Error} When the @cdxgen/safer-exec tracing runtime is not installed
- *   (for example after pruning it from a standalone payload), since the traced
- *   command could never run and the BOM would silently be empty
+ *   (for example after pruning it from a standalone payload), or when the
+ *   trace itself fails, since the BOM would otherwise silently be empty
  */
 export declare function executeAndTrace(commandStr: string, workingDir?: string, options?: {
     readPaths?: string[];
@@ -100,6 +100,19 @@ export declare function executeAndTrace(commandStr: string, workingDir?: string,
     egressEntries?: Object[];
     dryRunSummary?: Object;
 }>;
+/**
+ * A write sink for runPipe() that keeps at most about `limit` bytes of what is
+ * written to it: the first and the last half, since the engine prints its
+ * set-up warnings first and the error that stopped the run last. Everything
+ * in between, which is the traced command's own output, is dropped.
+ *
+ * @param {number} limit Most bytes to keep
+ * @returns {{write: (chunk: Buffer|string) => boolean, text: () => string}} The sink, and the text it kept
+ */
+export declare function headAndTailSink(limit: number): {
+    write: (chunk: Buffer | string) => boolean;
+    text: () => string;
+};
 /**
  * Picks the safer-exec engine's own lines out of the stderr it shares with the
  * traced command. Warnings start with "safer-exec: warning:"; when the engine

@@ -54,7 +54,8 @@ export declare function readJsonRange(filePath: string, range: {
 /**
  * Parse a JSON file of any size. A file that fits in one string is decoded
  * with JSON.parse, and a larger one is streamed through readJsonRange, so the
- * result is the same either way.
+ * result is the same either way. Only a regular file is read, and never past
+ * the size its open descriptor reports.
  *
  * @param {string} filePath JSON file
  * @param {Object} [spec] What to keep, as for readJsonRange

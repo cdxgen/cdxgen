@@ -1,4 +1,16 @@
 /**
+ * Module specifier in the form that may be written to a BOM. A module loaded
+ * by URL (deno, browser ES modules, wasm) can carry userinfo or a signed query
+ * string, neither of which may reach the BOM, so a URL with an authority,
+ * protocol-relative ones included, loses both and its fragment. Anything else,
+ * such as a bare package name or a Windows path, is returned as it is.
+ *
+ * @param {string} specifier Module specifier found in the sources.
+ * @returns {string|undefined} The specifier, a URL without userinfo, query and
+ *   fragment, or undefined for a URL that cannot be parsed.
+ */
+export declare function bomSafeSpecifier(specifier: string): string | undefined;
+/**
  * Attach JS/TS import and export usage evidence to matching package components.
  *
  * For each component, resolves its module aliases (including the deno jsr

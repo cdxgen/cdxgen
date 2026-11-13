@@ -127,7 +127,10 @@ export declare function certRecordFromObservedChainEntry(entry: object, context?
  * Pairwise issuer linking over records parsed in one collection
  * (`certRecordFromDer` output). A verified edge needs the signature to check;
  * an uncheckable signature over chained names and key identifiers goes to
- * issuersUnverified. Capped at ISSUER_LINK_LIMIT certificates.
+ * issuersUnverified. A certificate seen more than once is linked once and
+ * its other sightings get the same result. Capped at ISSUER_LINK_LIMIT
+ * certificates and ISSUER_VERIFY_LIMIT signature checks; past either cap the
+ * remaining records stay unlinked.
  *
  * @param {object[]} records records from certRecordFromDer
  */
@@ -150,6 +153,7 @@ export declare function containerRelativePath(location: string, root?: string): 
  */
 export declare class CertificateCollector {
     recordsBySha: Map<any, any>;
+    locationsBySha: Map<any, any>;
     pins: any[];
     constructor();
     addRecord(record: any): void;
@@ -179,6 +183,17 @@ export declare class CertificateCollector {
  * @returns {string} file path without the secret key fragment
  */
 export declare function srcFileOfLocation(location: string): string;
+/**
+ * Index built certificate components by occurrence location, so a keystore
+ * file can be linked to the certificates it holds with one lookup. A scan of
+ * every component per keystore would be quadratic in a root filesystem made
+ * of thousands of one-certificate keystore files.
+ *
+ * @param {object[]} components built components, certificates included
+ * @param {(location: string) => string} [normalizeLocation] location normaliser, applied to every occurrence
+ * @returns {Map<string, string[]>} sorted certificate bom-refs per location
+ */
+export declare function certificateRefsByLocation(components: object[], normalizeLocation?: (location: string) => string): Map<string, string[]>;
 /**
  * Merge already-built certificate/public-key components that describe the
  * same asset (same bom-ref), unioning occurrences and properties. Used at the

@@ -9,6 +9,18 @@
  */
 export declare function librarySubpath(libPath: string): string | null;
 /**
+ * The largest library file that is hashed.
+ *
+ * @type {number}
+ */
+export declare const MAX_TRACED_LIBRARY_BYTES: number;
+/**
+ * The most bytes hashed for all the libraries of one trace together.
+ *
+ * @type {number}
+ */
+export declare const MAX_TRACED_LIBRARIES_TOTAL_BYTES: number;
+/**
  * Builds a flat list of CycloneDX component objects and services by executing
  * the given command and inspecting which shared libraries it loads at runtime
  * and which HTTP URLs it accesses.

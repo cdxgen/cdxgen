@@ -60,7 +60,8 @@ export declare const MAX_NATIVE_EXTENSIONS: number;
  * Collect native extension modules under a root file system that the library
  * collector does not see, leaving out paths a package database owns and paths
  * already collected. Symlinks are not followed, so a link pointing out of the
- * root is never listed.
+ * root is never listed, and the search stops MAX_NATIVE_EXTENSION_DEPTH
+ * levels below the root.
  *
  * @param {string} basePath extracted root file system
  * @param {string[]} [excludePaths] root-relative paths to leave out

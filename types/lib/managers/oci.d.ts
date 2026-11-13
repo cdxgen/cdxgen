@@ -3,13 +3,14 @@
  *
  * A registry's 401 response names the realm, so a hostile registry picks the
  * URL cdxgen will call. Credentials picked up for the registry must therefore
- * only be attached when the realm resolves to the same host and port; public
- * delegating realms (docker.io to auth.docker.io) are still usable, just
- * anonymously.
+ * only be attached when the realm has the same origin (scheme, host and
+ * port); an http:// realm on the registry's host would otherwise receive them
+ * without TLS. Public delegating realms (docker.io to auth.docker.io) are
+ * still usable, just anonymously.
  *
  * @param {string} registry Registry host, optionally with a port
  * @param {URL} realmUrl Parsed realm URL from the WWW-Authenticate header
- * @returns {boolean} true when host and port match the registry
+ * @returns {boolean} true when scheme, host and port match the registry
  */
 export declare function isSameRegistryHost(registry: string, realmUrl: URL): boolean;
 /**

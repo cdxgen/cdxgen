@@ -39,7 +39,8 @@ export declare function parsePomWithLocalParents(pomFile: string, rootDir: strin
  * A module entry names a directory relative to its pom, sometimes a direct
  * path to a pom file. Entries that are absolute, or that climb out of the
  * aggregator's directory, are ignored: the scan never listed them, and the
- * walk must not follow a pom's pointers outside its own tree.
+ * walk must not follow a pom's pointers outside its own tree, nor a link that
+ * leads a module out of it.
  *
  * @param {string} rootPom Path of the aggregator pom.
  * @returns {Set<string>} Pom files of the reactor, excluding the aggregator.

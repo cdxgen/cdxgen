@@ -20,7 +20,9 @@ export declare const BOM_ROOT_MEMBERS: readonly string[];
 export declare const BOM_20_ROOT_MEMBERS: readonly string[];
 /**
  * Renders a value taken from a document for a message. JSON can make any field
- * an object or array, and interpolating those directly can throw.
+ * an object or array, and interpolating those directly can throw. Control and
+ * line-break characters in the value are written as `\u` escapes, so printing
+ * the message cannot rewrite the terminal line or start a new one.
  *
  * @param {any} value - Value to render
  * @returns {string} - Printable text

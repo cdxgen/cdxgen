@@ -9,9 +9,11 @@ export declare const HOME_PARENTS: {
  *
  * @param {string} base absolute directory the pattern hangs off
  * @param {string} pattern `/`-separated relative pattern
+ * @param {boolean} [followLinks=true] false to match a `*` segment only with
+ *   a directory that is not a symbolic link
  * @returns {string[]} existing directories, at most MAX_EXPANDED_DIRECTORIES
  */
-export declare function expandDirectories(base: string, pattern: string): string[];
+export declare function expandDirectories(base: string, pattern: string, followLinks?: boolean): string[];
 /**
  * The home directories of a host: /root and /home/* on Linux, /Users/* on
  * macOS.

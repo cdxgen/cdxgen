@@ -169,6 +169,7 @@ export declare const OS_DISTRO_QUALIFIER_ALIAS: {
  *
  * @param {string} qualifier - distro qualifier value
  * @returns {boolean} true when the value contains only purl-safe characters
+ *   and is at most 128 characters long
  */
 export declare function isCleanDistroQualifier(qualifier: string): boolean;
 /**

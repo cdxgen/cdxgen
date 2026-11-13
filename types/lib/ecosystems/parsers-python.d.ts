@@ -102,9 +102,17 @@ export declare function markerExcludesCPython(marker: string): boolean;
  * @param {Object[]} [options.installedMetadata] Components parsed from the
  *   installed `*.dist-info/METADATA` files of this machine, which answer
  *   before PyPI is asked
+ * @param {Map<string, Object>} [options.pyProjectCache] pyproject.toml files
+ *   already parsed, shared by the lock files of one scan so that each
+ *   manifest is parsed once
+ * @param {Map<string, string[]>} [options.workspaceFilesCache] Workspace
+ *   member pyproject.toml files already found, keyed by the member pattern
+ *   joined to the lock file directory, shared the same way
  */
 export declare function parsePyLockData(lockData: string, lockFile: string, pyProjectFile: string, options?: {
     installedMetadata?: Object[];
+    pyProjectCache?: Map<string, Object>;
+    workspaceFilesCache?: Map<string, string[]>;
 }): Promise<{
     pkgList: any[];
     dependenciesList: any[];

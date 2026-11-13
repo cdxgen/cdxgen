@@ -37,7 +37,8 @@ export declare function selectTeaEndpoint(endpoints: Object[], supported?: strin
 } | null;
 /**
  * Discover TEA endpoints for a domain via `https://<domain>/.well-known/tea`.
- * The well-known document must conform to the TEA Well-Known schema.
+ * The well-known document must conform to the TEA Well-Known schema, and is
+ * requested without the TEA token.
  *
  * @param {string} domain Domain name from the TEI
  * @param {Object} [options] CLI options
@@ -47,9 +48,14 @@ export declare function discoverTeaEndpoints(domain: string, options?: Object): 
 /**
  * Resolve a TEI to a product release UUID and a selected TEA server.
  *
+ * The TEA token goes only to the server the TEI's domain advertises in its
+ * well-known document, returned as `tokenServerUrl`. A server that only the
+ * discovery response names is used without the token unless it has the same
+ * origin.
+ *
  * @param {string} tei TEI URN string
  * @param {Object} [options] CLI options
- * @returns {Promise<{productReleaseUuid: string, server: {url: string, version: string}}|null>}
+ * @returns {Promise<{productReleaseUuid: string, server: {url: string, version: string}, tokenServerUrl: string}|null>}
  */
 export declare function resolveTei(tei: string, options?: Object): Promise<{
     productReleaseUuid: string;
@@ -57,6 +63,7 @@ export declare function resolveTei(tei: string, options?: Object): Promise<{
         url: string;
         version: string;
     };
+    tokenServerUrl: string;
 } | null>;
 /**
  * Fetch the latest TEA Collection for a product (or component) release.
@@ -67,14 +74,17 @@ export declare function resolveTei(tei: string, options?: Object): Promise<{
  * @param {string} input.releaseUuid Product or component release UUID
  * @param {string} [input.scope] `productRelease` (default) or `componentRelease`
  * @param {Object} [input.options] CLI options
+ * @param {string} [input.tokenServerUrl] Root URL of the TEA server that may
+ *   receive the token. Defaults to `rootUrl`.
  * @returns {Promise<Object|null>} TEA Collection object
  */
-export declare function fetchLatestCollection({ rootUrl, version, releaseUuid, scope, options, }?: {
+export declare function fetchLatestCollection({ rootUrl, version, releaseUuid, scope, options, tokenServerUrl, }?: {
     rootUrl: string;
     version: string;
     releaseUuid: string;
     scope?: string;
     options?: Object;
+    tokenServerUrl?: string;
 }): Promise<Object | null>;
 /**
  * Download the BOM artifacts of a TEA Collection and verify their checksums.
@@ -82,11 +92,17 @@ export declare function fetchLatestCollection({ rootUrl, version, releaseUuid, s
  * downloaded; other formats (XML, signatures) are skipped. A checksum mismatch
  * rejects the artifact rather than merging untrusted content.
  *
+ * The Collection names the artifact URLs, and they can point at any host, so
+ * the TEA token goes only to an artifact on the same origin as the TEA server
+ * that may receive it. Any other artifact is downloaded without it.
+ *
  * @param {Object} collection TEA Collection object
  * @param {Object} [options] CLI options
+ * @param {string} [serverUrl] Root URL of the TEA server that may receive the
+ *   token. Without it no artifact request carries the token.
  * @returns {Promise<Array<{name: string, url: string, content: string, format: Object}>>}
  */
-export declare function fetchBomArtifacts(collection: Object, options?: Object): Promise<Array<{
+export declare function fetchBomArtifacts(collection: Object, options?: Object, serverUrl?: string): Promise<Array<{
     name: string;
     url: string;
     content: string;

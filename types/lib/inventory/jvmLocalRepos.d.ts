@@ -10,9 +10,14 @@ export declare function resetJvmLocalRepoCaches(): void;
  * Read `<localRepository>` from a Maven settings file.
  *
  * @param {string} settingsFile Path to settings.xml.
+ * @param {Object} [opts]
+ * @param {boolean} [opts.expandEnv] Whether `${env.NAME}` is expanded. Pass
+ *   false for a file the scanned project named, so the reference stays as text.
  * @returns {string|undefined} Absolute local repository path.
  */
-export declare function localRepositoryFromSettings(settingsFile: string): string | undefined;
+export declare function localRepositoryFromSettings(settingsFile: string, { expandEnv }?: {
+    expandEnv?: boolean;
+}): string | undefined;
 /**
  * Pull the values cdxgen needs out of a Maven argument list: the
  * `maven.repo.local` system property and the user settings file.

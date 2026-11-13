@@ -390,10 +390,15 @@ export declare function applyDosaiReachabilityEvidence(methodsSlice: Object, com
  * @param {Object} [options] Options
  * @param {string} [options.srcPath] Directory dosai analyzed; a package the BOM holds in several
  *        versions is matched by the project of the record's file
+ * @param {number} [options.reportBytes] Size of the report file, which bounds the evidence
+ *        the report may add (see createDosaiEvidenceBudget)
+ * @param {string} [options.reportFile] Report file, named when evidence is left out
  * @returns {Object} Object with purlLocationMap, purlModulesMap, and purlMethodsMap keyed by purl
  */
 export declare function collectDosaiPurlEvidence(methodsSlice: Object, components?: Object[], options?: {
     srcPath?: string;
+    reportBytes?: number;
+    reportFile?: string;
 }): Object;
 /**
  * Extract data-flow call frames per component purl from a dosai data-flow result.

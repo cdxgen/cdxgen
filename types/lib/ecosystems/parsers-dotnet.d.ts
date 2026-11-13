@@ -57,9 +57,14 @@ export declare function resolveInstalledNugetVersion(range: string, installedVer
  *
  * @param {string} manifestFile Manifest path
  * @param {string} [projectPath] Project file the manifest names, when it does
+ * @param {string} [scanRoot] Directory being scanned. The manifest is scanned
+ *        content, so a project it places outside this directory, or reached
+ *        through a symlink leading out of it, is neither looked up on disk
+ *        nor used: whether such a path exists on the host is not the BOM's
+ *        to tell.
  * @returns {string} Project directory
  */
-export declare function dotnetManifestProjectDir(manifestFile: string, projectPath?: string): string;
+export declare function dotnetManifestProjectDir(manifestFile: string, projectPath?: string, scanRoot?: string): string;
 /**
  * The path, on this machine, of the project file a project.assets.json belongs to.
  *
@@ -105,7 +110,8 @@ export declare function indexPropsProperties(propsFiles?: string[]): {
  *
  * @param {string} projFile Project file
  * @param {{byDir: Object, treeWide: Object}} propsIndex Index built by {@link indexPropsProperties}
- * @returns {Object} Map of property name to candidate values
+ * @returns {Object} Map of property name to candidate values, looked up on
+ *          demand in the index rather than copied from it
  */
 export declare function projectPropertyCandidates(projFile: string, propsIndex?: {
     byDir: Object;
@@ -168,7 +174,10 @@ export declare function parseDirectoryPackagesProps(propsFile: string): Object;
  *
  * @param {String} projFile Path to a .csproj like project file
  * @param {Object} cache Optional per-scan cache keyed by props file path, so that a
- *        repository with many projects parses each props file once
+ *        repository with many projects parses each props file once. The directories
+ *        walked for it are remembered as well, so that the projects of a scan check
+ *        each directory once between them rather than each walking up to the
+ *        file-system root again when no props file exists.
  *
  * @returns {Object} Map of lowercased package id to version. Empty when the project
  *          does not use central package management.

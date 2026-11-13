@@ -113,7 +113,9 @@ export declare function validateAndRejectGitSource(filePath: string): Object | n
  * it before splitting off the host, and reads a leading "[...]" as the host.
  * OpenSSH takes the host after the last "@". So a "?" or "#" before the first
  * slash, a second "@", brackets in the user name, or a percent sign in an
- * ssh:// or git:// authority make the host ambiguous.
+ * ssh:// or git:// authority make the host ambiguous. git also searches the
+ * whole remote, path included, for "@[" and then takes the bracketed text as
+ * the host, so "@[" after the authority makes it ambiguous too.
  *
  * @param {string} remote Git URL or SCP-like address
  * @returns {string|undefined} lower-cased host, or undefined when it is ambiguous
@@ -129,6 +131,7 @@ export declare function getGitRemoteHost(remote: string): string | undefined;
  * @returns {string|undefined} Output with credentials replaced by ***
  */
 export declare function redactGitOutput(text: string | undefined, repoUrl: string | undefined): string | undefined;
+export { redactPackageManagerOutput } from "../core/outputRedaction.js";
 /**
  * Clone a git repository into a temporary directory.
  *

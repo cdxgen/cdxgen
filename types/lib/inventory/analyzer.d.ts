@@ -43,7 +43,9 @@ export declare const findJSImportsExports: (src: any, deep: any) => Promise<{
 }>;
 /**
  * Detect suspicious obfuscation, execution, and network indicators in a single
- * JavaScript/TypeScript source file using Babel AST analysis.
+ * JavaScript/TypeScript source file using Babel AST analysis. A file larger
+ * than 4 MiB is not parsed and yields only the `oversized-file` obfuscation
+ * indicator.
  *
  * @param {string} filePath Source file path
  * @returns {{executionIndicators: string[], indicators: string[], networkIndicators: string[], obfuscationIndicators: string[]}}

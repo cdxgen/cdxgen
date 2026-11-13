@@ -85,10 +85,11 @@ export declare function rubyInstallPrefix(absPath: string): string | undefined;
 /**
  * The rbconfig.rb files an install prefix holds, at most a few levels down:
  * <prefix>/lib/ruby/<abi>/<arch>/rbconfig.rb, and the Debian layout
- * <prefix>/lib/<triplet>/ruby/<abi>/rbconfig.rb.
+ * <prefix>/lib/<triplet>/ruby/<abi>/rbconfig.rb. No name below the prefix
+ * may be a symbolic link.
  *
  * @param {string} prefix install prefix
- * @returns {string[]} absolute paths
+ * @returns {string[]} absolute paths, at most MAX_RBCONFIG_FILES
  */
 export declare function findRbConfigFiles(prefix: string): string[];
 /**
@@ -96,19 +97,25 @@ export declare function findRbConfigFiles(prefix: string): string[];
  *
  * @param {string} absPath absolute path of a ruby binary or libruby
  * @param {string|undefined} rootDir extracted root
+ * @param {string} [linkFreeBase] directory from which no name on the way to
+ *   the file may be a symbolic link
  * @returns {ReturnType<typeof parseRubyDescription>}
  */
-export declare function readRubyDescription(absPath: string, rootDir: string | undefined): ReturnType<typeof parseRubyDescription>;
+export declare function readRubyDescription(absPath: string, rootDir: string | undefined, linkFreeBase?: string): ReturnType<typeof parseRubyDescription>;
 /**
  * Read the Ruby build version of a ruby binary or libruby.
  *
  * @param {string} absPath absolute path of the candidate
  * @param {string|undefined} rootDir extracted root, when the file came from one
+ * @param {Map<string, Object>} [cache] what the scan has read so far, by
+ *   install prefix. A scan passes one map for all its candidates under one
+ *   root, so the rbconfig.rb and libruby files of a prefix are read once
+ *   rather than once for every Ruby-named file in it.
  * @returns {{version: string, source: string, patchlevel?: string,
  *   abi?: string, arch?: string}|undefined} source is `rbconfig`, `binary`
  *   or `soname`
  */
-export declare function readRubyBuildVersion(absPath: string, rootDir: string | undefined): {
+export declare function readRubyBuildVersion(absPath: string, rootDir: string | undefined, cache?: Map<string, Object>): {
     version: string;
     source: string;
     patchlevel?: string;

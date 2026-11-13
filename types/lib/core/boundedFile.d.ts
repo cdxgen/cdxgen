@@ -7,16 +7,28 @@
  */
 export declare const MAX_MARKER_SCAN_BYTES: number;
 /**
+ * Whether no name between base and path is a symbolic link: the real path of
+ * path is the real path of base followed by the names that lead from base to
+ * path. A link that leads back to the same place still counts as a link.
+ *
+ * @param {string} base directory the path hangs off
+ * @param {string} path path below base
+ * @returns {boolean} false as well when either cannot be resolved
+ */
+export declare function isReachedWithoutLinks(base: string, path: string): boolean;
+/**
  * Open a path only when it is a regular file that does not resolve outside
  * rootDir. lstat runs first so a FIFO is rejected without opening it (an open
  * on a FIFO blocks until a writer appears) and a symlink is never followed.
  *
  * @param {string} absPath absolute path
  * @param {string|undefined} rootDir extracted root the path must stay under
+ * @param {string} [linkFreeBase] directory from which no name on the way to
+ *   the file may be a symbolic link, checked against the file that was opened
  * @returns {{fd: number, size: number}|undefined} an open descriptor the
  *   caller closes, or undefined
  */
-export declare function openRegularFile(absPath: string, rootDir: string | undefined): {
+export declare function openRegularFile(absPath: string, rootDir: string | undefined, linkFreeBase?: string): {
     fd: number;
     size: number;
 } | undefined;
@@ -28,9 +40,40 @@ export declare function openRegularFile(absPath: string, rootDir: string | undef
  * @param {string} absPath absolute path
  * @param {number} maxBytes largest size read
  * @param {string|undefined} [rootDir] root the path must stay under
+ * @param {string} [linkFreeBase] directory from which no name on the way to
+ *   the file may be a symbolic link
  * @returns {string|undefined} the text, or undefined
  */
-export declare function readRegularTextFile(absPath: string, maxBytes: number, rootDir?: string | undefined): string | undefined;
+export declare function readRegularTextFile(absPath: string, maxBytes: number, rootDir?: string | undefined, linkFreeBase?: string): string | undefined;
+/**
+ * The real path of a file below scanRoot, when the file exists and every
+ * name on the way to it resolves inside the real scanRoot. The path is walked
+ * one name at a time from the root: a symbolic link is followed only when its
+ * target, as written, stays inside the root, and a `..` that would leave the
+ * root ends the walk. No link target outside the root is looked up, so the
+ * answer never tells whether a host path exists. Only a path written outside
+ * the root has its own ancestors resolved, to match a root reached through a
+ * link above it.
+ *
+ * @param {string} absPath path of the file; a relative path is taken from
+ *   the working directory, as the fs functions take it
+ * @param {string} scanRoot directory the scan was started from
+ * @returns {string|undefined} the real path, or undefined
+ */
+export declare function realPathWithin(absPath: string, scanRoot: string): string | undefined;
+/**
+ * Read a text file found in a scanned tree. The file must resolve inside
+ * scanRoot (a symbolic link that stays inside the tree is followed, one that
+ * leads out of it is not), must be a regular file, and must be no larger than
+ * maxBytes. Without a scan root the file's own directory is the root, so only
+ * a link to a sibling is followed.
+ *
+ * @param {string} absPath path of the file
+ * @param {number} maxBytes largest size read
+ * @param {string} [scanRoot] directory the scan was started from
+ * @returns {string|undefined} the text, or undefined
+ */
+export declare function readScanFileText(absPath: string, maxBytes: number, scanRoot?: string): string | undefined;
 /**
  * Find byte markers in a file with bounded chunked reads.
  *
@@ -48,16 +91,19 @@ export declare function readRegularTextFile(absPath: string, maxBytes: number, r
  * @param {number} [options.contextBytes=64] bytes kept after each hit
  * @param {number} [options.beforeBytes=1] bytes kept before each hit
  * @param {number} [options.maxHits=16] hits kept per marker
+ * @param {string} [options.linkFreeBase] directory from which no name on the
+ *   way to the file may be a symbolic link
  * @returns {{hits: {before: Buffer, after: Buffer, offset: number}[][], size: number, skipped?: string}|undefined}
  *   hits per marker, in marker order, and the file size; `skipped` is
  *   `too-large` when the file is over the cap and was not read. Undefined when
  *   the file cannot be opened.
  */
-export declare function scanFileMarkers(absPath: string, rootDir: string | undefined, markers: Buffer[], { maxBytes, contextBytes, beforeBytes, maxHits, }?: {
+export declare function scanFileMarkers(absPath: string, rootDir: string | undefined, markers: Buffer[], { maxBytes, contextBytes, beforeBytes, maxHits, linkFreeBase, }?: {
     maxBytes?: number;
     contextBytes?: number;
     beforeBytes?: number;
     maxHits?: number;
+    linkFreeBase?: string;
 }): {
     hits: {
         before: Buffer;

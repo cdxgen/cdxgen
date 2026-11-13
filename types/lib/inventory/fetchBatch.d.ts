@@ -81,6 +81,22 @@ export declare function lastBatchStats(): Object | null;
  */
 export declare function batchFetchAvailable(): boolean;
 /**
+ * Whether a request is a GitHub API lookup cdxgen composed itself: it opted
+ * in with `ambientGitHubAuth`, and its URL is
+ * `https://api.github.com/repos/<owner>/<repo>` or that path followed by
+ * `/license`, with plain owner and repository names, the default port, and
+ * no userinfo, query or fragment, written exactly as the URL parser would
+ * write it. Only such a request is handed to cdxrs with
+ * a token, so a URL taken from the scanned project never carries one.
+ *
+ * @param {{url?: string, ambientGitHubAuth?: boolean}} request
+ * @returns {boolean}
+ */
+export declare function isComposedGitHubApiRequest(request: {
+    url?: string;
+    ambientGitHubAuth?: boolean;
+}): boolean;
+/**
  * Reset the memoized availability probe and the JS batcher's in-flight map.
  * Tests only.
  */
@@ -117,8 +133,11 @@ export type BatchEntry = {
  * keyed by URL with the same entry shape, so callers do not know — and do not
  * need to know — which one ran.
  *
- * @param {Array<{url: string, accept?: string, authRealm?: string, responseType?: ("json"|"text"|"buffer"), headers?: Object}>} requests
- *   URLs to fetch. Duplicates are fine; they are coalesced.
+ * @param {Array<{url: string, accept?: string, authRealm?: string, responseType?: ("json"|"text"|"buffer"), headers?: Object, ambientGitHubAuth?: boolean}>} requests
+ *   URLs to fetch. Duplicates are fine; they are coalesced. Set
+ *   `ambientGitHubAuth` only on a URL cdxgen composed itself from the GitHub
+ *   API base, never on one taken from the scanned project: it lets the
+ *   request carry `GITHUB_TOKEN`.
  * @param {Object} [options]
  * @param {number} [options.timeoutMs] Override the Rust batch timeout.
  * @returns {Promise<Map<string, BatchEntry>>} Map keyed by URL. Empty when
@@ -131,6 +150,7 @@ export declare function prefetchJson(requests: Array<{
     authRealm?: string;
     responseType?: ("json" | "text" | "buffer");
     headers?: Object;
+    ambientGitHubAuth?: boolean;
 }>, options?: {
     timeoutMs?: number;
 }): Promise<Map<string, BatchEntry>>;

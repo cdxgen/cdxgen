@@ -19,9 +19,11 @@ export declare function isTestOrAggregateModule(moduleName: string): boolean;
  * `paths.runtimeResourcePath` is `<toolchain>/usr/lib/swift` for every
  * toolchain layout (Xcode, `.xctoolchain` bundles, swiftly, Linux tarballs),
  * so it names the toolchain that actually compiles the project.
+ * `paths.sdkPath` is the SDK the driver selected, on macOS through `SDKROOT`
+ * or `xcrun`; it is absent when no SDK applies, as on Linux.
  *
  * @param {Object} targetInfo Parsed `-print-target-info` output
- * @returns {undefined|Object} `{ compilerVersion, triple, runtimeResourcePath, toolchainDir }`
+ * @returns {undefined|Object} `{ compilerVersion, triple, runtimeResourcePath, sdkPath, toolchainDir }`
  */
 export declare function parseSwiftTargetInfo(targetInfo: Object): undefined | Object;
 /**
@@ -110,12 +112,14 @@ export declare function sanitizeSwiftModuleArgs(tokens: Array<string>): Array<st
  * Remove the arguments that would make SourceKit load code named by the
  * project. A `.build` directory that cdxgen did not create is project content,
  * so the compiler arguments read from it are cleaned this way whenever the
- * project's own tooling may not run.
+ * project's own tooling may not run. The project's SDK is replaced with the
+ * SDK of the host toolchain when one is known, and dropped otherwise.
  *
  * @param {Array<String>} args Sanitized compiler arguments
+ * @param {String} [sdkPath] Host SDK that takes the place of the project's
  * @returns {Array<String>} Arguments without plugin and clang pass-through flags
  */
-export declare function withoutSwiftPluginArgs(args: Array<string>): Array<string>;
+export declare function withoutSwiftPluginArgs(args: Array<string>, sdkPath?: string): Array<string>;
 /**
  * Extract the per-module compiler invocations printed by a verbose swift
  * build.

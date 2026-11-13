@@ -4,6 +4,15 @@
  */
 export declare const ATOM_NATIVE_PACKAGES: Set<string>;
 /**
+ * Whether atom may paste a value into a shell command line as it is. Paths
+ * and names of the scanned project are not trusted input: they come from its
+ * config file and its directory names.
+ *
+ * @param {string} value Path, file name or option value handed to atom
+ * @returns {boolean} true when no shell would interpret any part of the value
+ */
+export declare function isAtomShellSafe(value: string): boolean;
+/**
  * Locate the JSON compilation database (`compile_commands.json`) of a C/C++
  * project, which lets atom parse each file with the include paths, macros and
  * language its build uses.
@@ -63,18 +72,47 @@ export declare function atomCompileCommandsArgs(src: string, language: string, o
  */
 export declare function atomBomFileArgs(sliceType: string, options?: Object): string[];
 /**
+ * The `--config` that keeps atom from reading its configuration out of the
+ * tree it analyses. Without one, atom loads `atom.json`, `.atom/atom.json` or
+ * `.atom/config.json` from its input directory and applies the
+ * `frontend.<language>` values in it as frontend options, some of which its
+ * frontends paste into a shell command line (`astgen-out` for JavaScript,
+ * `exclude-regex` for Ruby) or run as a program (`php-parser-bin` for PHP).
+ * An empty file that cdxgen owns leaves every option at its default, and atom
+ * stops when the file cannot be read.
+ *
+ * @returns {string[]} Arguments to add to the atom command
+ */
+export declare function atomConfigArgs(): string[];
+/**
  * The arguments that stop atom's Java frontend from running the scanned
  * project's build. In its default delombok mode, atom runs
  * `mvn dependency:build-classpath` inside a Maven project, which loads the
  * project's `.mvn` configuration and build extensions, so delombok and
  * dependency fetching are turned off whenever the project's own tooling may
- * not run.
+ * not run. atom's Scala frontend runs scalasem, which builds the project and
+ * cannot be told not to, so that frontend is not run at all then. atom
+ * matches `-l` in any case and under more names than cdxgen's project types,
+ * so the frontend is recognised the way atom recognises it.
  *
  * @param {string} language atom `-l` value
  * @param {Object} options CLI options
- * @returns {string[]} Arguments to add to the atom command
+ * @returns {string[]|undefined} Arguments to add to the atom command, or
+ *   undefined when atom must not be run for this language
  */
-export declare function atomBuildToolArgs(language: string, options?: Object): string[];
+export declare function atomBuildToolArgs(language: string, options?: Object): string[] | undefined;
+/**
+ * Whether the atom that getAtomCommand() starts accepts `--no-build-tools`.
+ * Only the atom bundled in cdxgen's node_modules has a version cdxgen can
+ * read; an atom named by ATOM_CMD or ATOM_HOME is treated as older.
+ *
+ * @returns {boolean} True when the bundled atom is 4.0.1 or newer
+ */
+export declare function atomSupportsNoBuildTools(): boolean;
+/**
+ * Forget the cached atom version check. For tests.
+ */
+export declare function resetAtomNoBuildToolsSupport(): void;
 /**
  * Convert cdxgen's glob-style exclude patterns to a Scala/Java regex string.
  *
@@ -344,7 +382,9 @@ export declare function executeAtom(src: string, args: string[], extra_env?: Obj
  * `<base>_1.json`, `<base>_2.json` and so on. Chunks are taken until the first
  * gap. A chunk older than the base file was left by an earlier run with more
  * flows (atom before 4.0.0 did not remove those), so it ends the sequence
- * instead of being merged.
+ * instead of being merged. atom writes every chunk as a regular file with a
+ * single name, so a symbolic or hard link ends the sequence as well: it would
+ * have the flows of the file it names read once more for every link.
  *
  * @param {string} slicesFile Path of the base reachables slices file
  * @returns {string[]} Chunk file paths, in order

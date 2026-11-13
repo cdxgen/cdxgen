@@ -114,9 +114,11 @@ export declare function parseMixLockData(mixData: string): Object[];
  * workflow-level metadata (triggers, concurrency, write permissions).
  *
  * @param {string} f Path to the GitHub Actions workflow YAML file
+ * @param {string} [rootDir] Scanned project root. The workflow path is
+ * recorded relative to it.
  * @returns {Object[]} List of action component objects with purl, properties, and evidence
  */
-export declare function parseGitHubWorkflowData(f: string): Object[];
+export declare function parseGitHubWorkflowData(f: string, rootDir?: string): Object[];
 /**
  * Parse Google Cloud Build YAML data and extract container image steps as packages.
  *
@@ -388,6 +390,10 @@ export declare function readMesonWraps(subprojectsDir: string): Map<string, {
     source: string;
     revision?: string;
 }>;
+/**
+ * Discard the wraps read in this run. Tests only.
+ */
+export declare function resetMesonWrapsCache(): void;
 /**
  * Parse a CMake-like build file (CMakeLists.txt, meson.build, etc.) and extract the
  * parent component and list of dependency packages.

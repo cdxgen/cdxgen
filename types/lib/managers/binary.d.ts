@@ -126,6 +126,14 @@ export declare function parseOrganizationalContact(value: string): {
     email?: string;
 } | undefined;
 /**
+ * Merge package-owned services that share a bom-ref into one service whose
+ * properties are the union of theirs, first occurrence first.
+ *
+ * @param {Object[]} services Services, possibly sharing bom-refs
+ * @returns {Object[]} One service per bom-ref
+ */
+export declare function dedupeServices(services: Object[]): Object[];
+/**
  * Collect the dependency edges trivy recorded for one OS package component.
  *
  * Trivy keys its `dependencies` by its own bom-refs, which may leave the `+` of
