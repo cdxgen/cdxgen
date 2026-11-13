@@ -1,0 +1,25 @@
+lib/cli/jsBom.js
+  s_8376465eb88a0d::t_9a22e72be30786 908-911,975-976,981-982,985-991,1003-1004,1044-1045,1047-1048,1051-1057,1258-1259,1320-1321,1345-1347,1350-1356,1363-1364,1420-1421,1424-1427,1430-1432,1435-1437,1444-1445,1518-1519,1522-1525,1528-1530,1533-1535
+lib/cli/jsBom.poku.js
+  s_8376465eb88a0d::t_5b6825f6805fdf 1526-1575
+lib/cli/managedBom.js
+  s_8376465eb88a0d::t_e8f87d87355ec4 477-480,503-504,514-515,518,534-536,601-608
+lib/cli/managedBom.poku.js
+  s_8376465eb88a0d::t_b971119b1dfe2b 3695-3748
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "d19889e0e9ab797c523745c3a8e793a147ab22da",
+  "prompts": {},
+  "sessions": {
+    "s_8376465eb88a0d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6b944f10-f38a-4491-8809-d36fec51aaa5",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
