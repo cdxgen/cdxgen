@@ -1,0 +1,51 @@
+lib/core/fs.poku.js
+  s_790aedb3119d39::t_ff09c828978e70 588-590
+  s_2e3025829bed21::t_b47aa6c6cf4781 1
+  s_2e3025829bed21::t_1ffbb3e7152e84 587
+lib/core/fs.js
+  s_2e3025829bed21::t_c68580be29607a 928-936,945-946,948,950
+  s_2e3025829bed21::t_8ffefc312df11c 1104
+  s_790aedb3119d39::t_67557de24a98c7 1013-1018
+  s_2e3025829bed21::t_5f7c21f002fb1d 924-927,937-942,944,949,951-1002,1004-1012,1025-1049,1051-1072,1076-1080,1082-1093,1095-1103,1105-1112,1114-1120
+  s_790aedb3119d39::t_cb924ebdd91fca 1073-1075,1081
+  s_2e3025829bed21::t_598e86717b21ff 1113
+  s_2e3025829bed21::t_807b1fd4b4cd72 1370-1373,1377-1379
+  s_2e3025829bed21::t_f82553401076df 1003,1019-1024
+  s_2e3025829bed21::t_ca0ae30c7428c2 1050
+  s_2e3025829bed21::t_39bf11e04b9c76 943,947
+  s_2e3025829bed21::t_1c5d975a70c53e 1094
+  s_2e3025829bed21::t_a217f100b08e8d 48-51
+test/fixtures/cdxrs-fakes/fake-capable.js
+  s_790aedb3119d39::t_1d4d85bd21fbad 3-6,10,13
+lib/inventory/cdxrs.js
+  s_790aedb3119d39::t_48af34a77af479 29
+  s_790aedb3119d39::t_d7e96a072a3bb7 216-241
+  s_790aedb3119d39::t_8c93b71491bf4f 266-268,270
+  s_790aedb3119d39::t_76335707c9ba34 312,314
+lib/core/fs.spawn-env.poku.js
+  s_790aedb3119d39::t_1654855b553613 1-121
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "f0acf1582488ba058b6c9ae8ef4582ba220b2064",
+  "prompts": {},
+  "sessions": {
+    "s_2e3025829bed21": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_dwf-dwfrun-8a43f588-0928-478e-90ba-a877d2a1b5f4-actor_1_1",
+        "model": "GLM-5.3"
+      },
+      "human_author": "Team AppThreat <cloud@appthreat.com>"
+    },
+    "s_790aedb3119d39": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_ad434648-2a8a-4978-84cb-207d4726798d",
+        "model": "GLM-5.3"
+      },
+      "human_author": null
+    }
+  }
+}
