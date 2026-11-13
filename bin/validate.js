@@ -20,6 +20,7 @@ import yargs from "yargs";
 import { hideBin } from "yargs/helpers";
 
 import { thoughtLog } from "../lib/core/logger.js";
+import { escapeControlCharacters } from "../lib/core/text.js";
 import { installConsoleShim, restoreConsole } from "../lib/core/ui.js";
 import {
   dirNameStr,
@@ -177,7 +178,9 @@ async function loadBom(input, platform, strict, requireSignature) {
       }
       return { bomJson };
     } catch (err) {
-      console.error(`Failed to parse ${input}: ${err.message}`);
+      console.error(
+        escapeControlCharacters(`Failed to parse ${input}: ${err.message}`),
+      );
       process.exit(1);
     }
   }
@@ -197,7 +200,9 @@ async function loadBom(input, platform, strict, requireSignature) {
     } catch (err) {
       if (requireSignature) {
         console.error(
-          `cdx-validate: signature verification failed — the attached BOM cannot be verified: ${err.message}`,
+          escapeControlCharacters(
+            `cdx-validate: signature verification failed — the attached BOM cannot be verified: ${err.message}`,
+          ),
         );
         process.exit(4);
       }
@@ -283,7 +288,11 @@ const secretKey = loadKeyFile(args.secretKey, "Shared secret");
 const verificationRequested = keyGiven;
 const inputIsLocalProtoBom = isLocalProtoBomInput(args.input);
 if (!isCycloneDxBom(bomJson)) {
-  console.error(getNonCycloneDxErrorMessage(bomJson, "cdx-validate"));
+  console.error(
+    escapeControlCharacters(
+      getNonCycloneDxErrorMessage(bomJson, "cdx-validate"),
+    ),
+  );
   process.exit(1);
 }
 
@@ -326,7 +335,7 @@ try {
     pretty: true,
   });
 } catch (err) {
-  console.error(err.message);
+  console.error(escapeControlCharacters(err.message));
   process.exit(1);
 }
 
@@ -334,16 +343,20 @@ writeOrPrint(output, args.reportFile);
 
 for (const e of report.validationErrors || []) {
   console.error(
-    e.stage === "read"
-      ? `cdx-validate: ${e.message}`
-      : `cdx-validate: ${e.stage} validation threw: ${e.message}`,
+    escapeControlCharacters(
+      e.stage === "read"
+        ? `cdx-validate: ${e.message}`
+        : `cdx-validate: ${e.stage} validation threw: ${e.message}`,
+    ),
   );
 }
 // The deep checks and compliance rules read the 1.x-shaped model of a 2.0
 // input; the losses name the parts of the input they never saw. stderr,
 // because stdout may carry the json or sarif report.
 if (report.readLosses?.length) {
-  console.error(formatReadLossNotice(report.readLosses));
+  console.error(
+    escapeControlCharacters(formatReadLossNotice(report.readLosses)),
+  );
   for (const loss of report.readLosses) {
     thoughtLog(`cdx-validate 2.0 loss at ${loss.pointer}: ${loss.reason}`);
   }
@@ -357,7 +370,9 @@ const { shouldFail: fail, reason } = shouldFail(report, {
 
 if (report.signatureVerified === false && verificationRequested) {
   console.error(
-    `cdx-validate: signature verification failed — ${report.signatureDetails?.error || "no matching key"}.`,
+    escapeControlCharacters(
+      `cdx-validate: signature verification failed — ${report.signatureDetails?.error || "no matching key"}.`,
+    ),
   );
   if (requireSignature) {
     process.exit(4);
@@ -378,7 +393,7 @@ if (args.strict && report.schemaValid === false) {
 }
 
 if (fail) {
-  console.error(`cdx-validate: ${reason}`);
+  console.error(escapeControlCharacters(`cdx-validate: ${reason}`));
   process.exit(3);
 }
 

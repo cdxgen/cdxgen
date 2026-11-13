@@ -135,6 +135,7 @@ The toolchain version probes for formulation also run from the temporary directo
 **Mitigations:**
 
 - `hasDangerousUnicode()` detects bidirectional control characters, zero-width characters, and other obfuscation
+- `cdx-verify`, `cdx-sign`, `cdx-validate`, the `cdx-audit` progress line and license policy errors write control characters and U+2028/U+2029 taken from a document, a package name or a path as `\uXXXX` escapes, so a crafted BOM cannot move the cursor or rewrite what the terminal shows
 - `isValidDriveRoot()` prevents Unicode lookalike drive letters on Windows (CVE-2025-27210 mitigation)
 - Node.js `--permission` model (in secure mode) restricts filesystem access to explicitly allowed paths
 - `safeExistsSync` and `safeMkdirSync` check permissions before operations
