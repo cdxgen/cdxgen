@@ -197,6 +197,7 @@ The toolchain version probes for formulation also run from the temporary directo
 - Optional helper package versions are pinned in `package.json`, and the companion repository generates post-build metadata/SBOMs for shipped binaries
 - `plugins-manifest.json` is treated as data only: cdxgen does not execute commands, paths, or scripts from the manifest
 - Manifest ingestion is constrained to the real `plugins-manifest.json` file under `CDXGEN_PLUGINS_DIR`, requires a regular file, enforces a size bound, and sanitizes accepted fields before merging them into `metadata.tools`
+- Only the names of the helpers `cdxgen-plugins-bin` ships are looked up in the manifest when `metadata.tools` is built, so a manifest entry named after another executed tool, such as `git` or `pnpm`, is ignored.
 - Docker/rootfs tests assert non-cdxgen tool identity evidence and container/rootfs result parity, making silent helper-behavior drift easier to detect in CI
 - macOS osquery execution uses one-shot shell mode with the persistent database disabled, reducing the need for helper-managed state under privileged host paths such as `/var/osquery`
 
