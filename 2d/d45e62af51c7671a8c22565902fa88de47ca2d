@@ -1,0 +1,22 @@
+lib/cli/managedBom.js
+  h_0926447d100ad2 1459-1462,1464
+lib/cli/managedBom.poku.js
+  h_0926447d100ad2 3438-3459
+lib/cli/multiXBomSteps.poku.js
+  h_0926447d100ad2 3-6,440-478
+lib/ecosystems/vendoredCode.js
+  h_0926447d100ad2 21-30,32-36
+lib/ecosystems/vendoredCode.poku.js
+  h_0926447d100ad2 150-173
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "2dd45e62af51c7671a8c22565902fa88de47ca2d",
+  "prompts": {},
+  "humans": {
+    "h_0926447d100ad2": {
+      "author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
