@@ -1,0 +1,21 @@
+lib/inventory/sbomDocument.js
+  s_8376465eb88a0d::t_dc4adebea69b12 10-18,45-308,408
+lib/inventory/sbomDocument.poku.js
+  s_8376465eb88a0d::t_4f7155d4438e2a 101-257
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "fbb3794520aee065b470f88c2d29711a6e44eacd",
+  "prompts": {},
+  "sessions": {
+    "s_8376465eb88a0d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6b944f10-f38a-4491-8809-d36fec51aaa5",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
