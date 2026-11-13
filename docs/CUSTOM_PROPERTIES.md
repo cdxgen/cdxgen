@@ -261,7 +261,7 @@ These are the highest-leverage keys for first-pass policy authoring.
 | `cdx:agentic:trustedWorkspaceCount`              | Number of Kiro workspace permission files that declare `workspaceTrusted: true`                     | Warning / triage |
 | `cdx:agentic:workspaceWithAllowRuleCount`        | Number of Kiro workspace permission files that carry at least one allow rule                        | Warning / triage |
 | `cdx:langgraph:graphEntryPoint`                  | Carries the configured graph entrypoint from `langgraph.json`                                       | Warning / triage |
-| `cdx:crewai:tools`                               | Captures configured CrewAI tool lists or references                                                 | Warning / triage |
+| `cdx:crewai:tools`                               | Captures configured CrewAI tool lists or references, without tool constructor arguments             | Warning / triage |
 | `cdx:agent:credentialExposure`                   | Flags inline secret patterns in AI agent instructions                                               | Hard deny        |
 | `cdx:agent:reviewNeeded`                         | One-bit reviewer cue for hidden Unicode, undeclared MCP refs, or risky exposure                     | Warning / triage |
 | `cdx:ai:codegen:detected`                        | Boolean cue that AI/LLM/agent authorship signals were found in the project                          | Warning / triage |
