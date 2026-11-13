@@ -22,6 +22,7 @@ import {
   applyAdvancedOptions as applyAdvancedOptionsImpl,
   applyOperatorToolingChoice,
   buildOptionsFromArgs,
+  configFileSelections,
   dropConfigAuditOverrides,
   isUserProvided,
   validateSpecVersion,
@@ -190,6 +191,11 @@ for (const configPattern of PROJECT_CONFIG_FILENAMES) {
     for (const projectType of sanitized.hostScopeTypes) {
       console.warn(
         `\x1b[1;35mConfig file '${configPath}' selects the project type '${projectType}', which inventories this host rather than the project. Ignoring it. Pass '-t ${projectType}' on the command line if this is intentional.\x1b[0m`,
+      );
+    }
+    for (const projectType of sanitized.unknownTypes) {
+      console.warn(
+        `\x1b[1;35mConfig file '${configPath}' selects the project type '${projectType}', which cdxgen does not know by that name. Ignoring it. Project types are matched case-sensitively; see docs/PROJECT_TYPES.md.\x1b[0m`,
       );
     }
     for (const key of sanitized.ignored) {
@@ -1162,6 +1168,7 @@ const { options, warnings: phase3Warnings } = buildOptionsFromArgs(args, {
   isDryRun,
   isSecureMode,
   projectConfig: config,
+  env: launchEnv,
 });
 // Exit status reserved for the introspection CI gate: the BOM was generated
 // and written, but its introspection score missed the configured threshold.
@@ -1337,6 +1344,7 @@ const isHbomOnlyInvocation = isHbomOnlyProjectTypes(options.projectType);
 const advancedWarnings = applyAdvancedOptionsImpl(options, {
   isSecureMode: isSecureModeActive(),
   invokedCommandName,
+  ...configFileSelections(config, { env: launchEnv }),
 });
 // The config file comes from the working directory, usually the scanned
 // project, so whether the project's own code may run stays the operator's
