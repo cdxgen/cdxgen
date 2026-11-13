@@ -85,7 +85,7 @@
     "walk-up-path": "npm:walk-up-path@4.0.0",
     "@appthreat/atom": "npm:@appthreat/atom@4.0.2",
     "@cdxgen/cdx-hbom": "npm:@cdxgen/cdx-hbom@0.8.0",
-    "@cdxgen/cdx-proto": "npm:@cdxgen/cdx-proto@2.3.0",
+    "@cdxgen/cdx-proto": "npm:@cdxgen/cdx-proto@2.3.1",
     "@bufbuild/protobuf": "npm:@bufbuild/protobuf@2.17.0",
     "@babel/parser": "npm:@babel/parser@8.0.10",
     "@babel/traverse": "npm:@babel/traverse@8.0.10",
