@@ -210,6 +210,14 @@ For .NET projects, `evinse` uses the bundled `dosai` helper from `@cdxgen/cdxgen
   patterns or by an older cdxgen release can ignore your current excludes;
   delete the file to force a fresh analysis. Pass `--usages-slices-file` to
   prefer your own slice; it is used as given, whatever its age.
+- In secure mode, `cdxgen` never reuses a slices file that already exists
+  inside the scanned directory, whether it is the default `deps.slices.json` or
+  `semantics.slices.json` or one named with a `--*-slices-file` option. Such a
+  file came with the scanned tree, not from this run, so cdxgen warns and
+  writes the run's own slices to a new temporary directory instead. A slices
+  file outside the scanned directory is reused as before. The standalone
+  `evinse` command is not affected, since it exists to reuse the slices an
+  earlier `cdxgen` run wrote.
 - A `--deep` run that does not run evidence or crypto analysis writes a trimmed
   methods report: dosai is invoked with `--sections` naming the sections cdxgen
   reads, and `Metadata.OmittedSections` in the file names what was left out.
