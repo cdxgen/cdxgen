@@ -1,0 +1,31 @@
+docs/CDXRS_PROTOCOL.md
+  s_8376465eb88a0d::t_d7bc4256e016f1 117-118,121-124,127-129,224-225,228-230,241-243,255-310,356,365-367,374,406
+docs/ENV.md
+  s_8376465eb88a0d::t_264a4e47975595 50,335
+lib/inventory/cdxrs.js
+  s_8376465eb88a0d::t_168e44f99bf08d 195-268,283,327-329,338,409-415,464-467
+lib/inventory/cdxrs.poku.js
+  s_8376465eb88a0d::t_220dab466c80da 16,18,264-308
+lib/inventory/fetchBatch.js
+  s_8376465eb88a0d::t_c3aa62637a9da0 53,445-525,533,694-700,718-720,722,725-728,880,882-883,888-893,901,946-958,969-982
+lib/inventory/fetchBatch.routing.poku.js
+  s_8376465eb88a0d::t_b009b409f13c53 265-479
+test/fixtures/cdxrs-fakes/fake-capable.js
+  s_8376465eb88a0d::t_3fce7324a281eb 1-31
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "8e8569c91fab916d9e09b0aad6274e0bca74d9bc",
+  "prompts": {},
+  "sessions": {
+    "s_8376465eb88a0d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6b944f10-f38a-4491-8809-d36fec51aaa5",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
