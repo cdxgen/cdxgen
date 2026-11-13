@@ -179,7 +179,7 @@ The server also refuses the following requests, whatever mode it runs in:
 - A `path` longer than 4096 characters, which is answered with `400 Path Too Long` before any allowlist check. A `path` that passes the allowlist but does not exist is answered with `404 Path Not Found` instead of an empty BOM.
 - A Dependency-Track upload (`serverUrl` with `apiKey`) at `specVersion` 2.0. Dependency-Track does not ingest the CycloneDX 2.0 draft, so the server answers `400` with the error `Unsupported Spec Version For Dependency-Track` before scanning. The CLI refuses `--server-url` with `--api-key` at `--spec-version 2.0` the same way, before generating. Use `specVersion` 1.7 for uploads.
 
-`failOnError` never applies to server requests, so a failing scan returns an error to its client instead of stopping the server. A git clone that fails answers `500` with an `Unable to clone repository` error instead of an empty BOM. Repositories are cloned with `core.symlinks=false`, so a link in a cloned repository is checked out as a plain file and cannot point the scan at files on the server.
+`failOnError` never applies to server requests, so a failing scan returns an error to its client instead of stopping the server. A git clone that fails answers `500` with an `Unable to clone repository` error instead of an empty BOM. The BOM is serialized before the status line is sent, so a BOM that cannot be serialized (for example one larger than the JavaScript engine's maximum string length) answers `500` with an `Unable to serialize SBOM` error instead of leaving the request open. Repositories are cloned with `core.symlinks=false`, so a link in a cloned repository is checked out as a plain file and cannot point the scan at files on the server.
 
 ## Health endpoint
 
