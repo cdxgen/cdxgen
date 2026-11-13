@@ -2323,6 +2323,8 @@ annotation text exactly the way `cdx:audit:*` findings are:
 
 **`cdx:service:*`**
 
+Container and rootfs scans turn the systemd unit files and init scripts that OS packages own into services. A file listed by several packages becomes one service; each owning package appears as a `cdx:service:packageRef` and `cdx:service:packageName` pair and as a dependency of the service. Unit files and init scripts larger than 1 MiB, or reached through a symbolic link, are not read, at most 64 properties are taken from one file, and the description and each property value are cut to 1024 characters.
+
 - `cdx:service:DefaultStart`
 - `cdx:service:Provides`
 - `cdx:service:RequiredStart`
