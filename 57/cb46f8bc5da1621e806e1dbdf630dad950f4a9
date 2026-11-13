@@ -1,0 +1,23 @@
+lib/inventory/plugins.js
+  s_8376465eb88a0d::t_9978971ad75e3f 343-348
+lib/inventory/plugins.poku.js
+  s_8376465eb88a0d::t_51c70a8601e426 257-292
+lib/managers/binary.js
+  s_8376465eb88a0d::t_b3d13459122986 351
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "57cb46f8bc5da1621e806e1dbdf630dad950f4a9",
+  "prompts": {},
+  "sessions": {
+    "s_8376465eb88a0d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6b944f10-f38a-4491-8809-d36fec51aaa5",
+        "model": "unknown"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
