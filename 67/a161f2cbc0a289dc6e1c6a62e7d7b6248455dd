@@ -1,0 +1,31 @@
+docs/AI_BOM.md
+  s_8376465eb88a0d::t_d765ad1d51716c 61-67
+lib/cli/bomAssembly.js
+  s_8376465eb88a0d::t_0a89da0c5c6ac1 4-12,2026-2030
+lib/inventory/agentFormulationParser.js
+  s_8376465eb88a0d::t_f0190b5467d59e 9,287-292,425,432
+lib/inventory/aiInventory.poku.js
+  s_8376465eb88a0d::t_bab14354e43b2c 789-847
+lib/inventory/communityAiConfigParser.js
+  s_8376465eb88a0d::t_c0a7fb5a1d99c1 13,1249,1297,1901-1907
+lib/inventory/mcpConfigParser.js
+  s_8376465eb88a0d::t_2fd2f7289c87a6 9,730-736,795,838-843,848,864
+lib/inventory/mcpServerManifest.js
+  s_8376465eb88a0d::t_9d9d0362f03e54 8,276,285,317,363-368,388,404
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "67a161f2cbc0a289dc6e1c6a62e7d7b6248455dd",
+  "prompts": {},
+  "sessions": {
+    "s_8376465eb88a0d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6b944f10-f38a-4491-8809-d36fec51aaa5",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
