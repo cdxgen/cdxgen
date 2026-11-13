@@ -24,6 +24,7 @@ import {
   buildOptionsFromArgs,
   configFileSelections,
   dropConfigAuditOverrides,
+  findInTreeSlicesFiles,
   isUserProvided,
   markConfigFileTeaTargets,
   validateSpecVersion,
@@ -35,6 +36,7 @@ import {
   INTROSPECTION_FAILURE_EXIT_CODE,
   isDeferredFailOnError,
 } from "../lib/core/deferredExit.js";
+import { safeMkdtempSync } from "../lib/core/fs.js";
 import { TRACE_MODE, thoughtEnd, thoughtLog } from "../lib/core/logger.js";
 import { resolveSourcePathArgument } from "../lib/core/pluginRun.js";
 import {
@@ -2059,6 +2061,19 @@ const writeCycloneDxOutput = (jsonFile, bomJson, options) => {
     cleanup = true;
   }
   setActivityContext({ sourcePath: srcDir });
+  // A slices file that exists before generation came with the scanned tree,
+  // so secure mode writes this run's slices to a directory of its own.
+  let inTreeSlicesDir;
+  for (const { option, path: plantedPath } of findInTreeSlicesFiles(options, {
+    scanPath: srcDir,
+    isSecureMode: isSecureModeActive(),
+  })) {
+    inTreeSlicesDir ??= safeMkdtempSync(join(getTmpDir(), "cdxgen-slices-"));
+    options[option] = join(inTreeSlicesDir, basename(plantedPath));
+    console.warn(
+      `\x1b[1;35mSecure mode: not reusing the slices file '${plantedPath}' found in the scanned directory. This run writes its own to '${options[option]}'.\x1b[0m`,
+    );
+  }
   if (!hasHbomProjectType(options.projectType)) {
     const prepPhase = defaultUi.phase("Preparing environment");
     try {
