@@ -135,6 +135,7 @@ The toolchain version probes for formulation also run from the temporary directo
 **Mitigations:**
 
 - `hasDangerousUnicode()` detects bidirectional control characters, zero-width characters, and other obfuscation
+- `cdx-verify`, `cdx-sign`, `cdx-validate`, the `cdx-audit` progress line and license policy errors write control characters and U+2028/U+2029 taken from a document, a package name or a path as `\uXXXX` escapes, so a crafted BOM cannot move the cursor or rewrite what the terminal shows
 - `isValidDriveRoot()` prevents Unicode lookalike drive letters on Windows (CVE-2025-27210 mitigation)
 - Node.js `--permission` model (in secure mode) restricts filesystem access to explicitly allowed paths
 - `safeExistsSync` and `safeMkdirSync` check permissions before operations
@@ -450,9 +451,11 @@ The toolchain version probes for formulation also run from the temporary directo
 - Warning when `--include-formulation` is used with `--server-url` (formulation may contain emails and secrets)
 - In secure mode, using `--include-formulation` with `--server-url` calls `process.exit(1)` after the warning, preventing automatic upload of formulation data
 - `auditEnvironment` detects and warns about credential-like environment variables
+- Output from package managers and build tools (npm, pip, uv, poetry, Maven, Gradle, cargo, docker and the other tools cdxgen runs) is redacted before it is printed: URLs lose their userinfo and query string, URL path segments that look like access tokens (as in `https://host/<token>/simple/`) read `***`, and the value of any environment variable whose name marks a credential (names ending in `_TOKEN`, `_PASSWORD`, `_SECRET`, `_KEY`, `_AUTH`, `_PAT`, `_PSW`, `_PWD` and the like, and index URL variables such as `PIP_INDEX_URL` and `UV_INDEX_URL`) reads `***` wherever it appears. Values shorter than 8 characters are not replaced. A spawn error is printed as its name and message only
 - Secret-bearing BOM metadata values are sanitized before emission in AI/MCP inventory and Chrome extension metadata flows:
-  - URLs and URIs drop userinfo, query strings, and fragments
+  - URLs and URIs of any scheme (`https://`, `postgres://`, `jdbc:mysql://` and the like) drop userinfo, query strings, and fragments, also inside free text; a URL template such as `https://host/users/{id}` keeps its braces as written
   - inline credential patterns are redacted
+  - component `externalReferences` built from scanned manifests and metadata (a Python `METADATA` `Home-page:`, a `package.json` `repository` or `bugs` URL, a download URL) drop their userinfo (an SSH `git@` user is kept), their query string, and a fragment that holds `=` or a token shape; a fragment naming a git ref such as `#v1.2.0` is kept
   - raw command strings are reduced to safer summaries such as the executable name
   - dangerous structured keys such as `__proto__`, `constructor`, and `prototype` are removed before JSON serialization
   - Hugging Face widget examples, gated-access forms, and GGUF tokenizer/chat-template payloads are reduced to bounded derivatives instead of being copied verbatim into BOM properties

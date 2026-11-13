@@ -361,7 +361,7 @@ The grouped lists below remain the authoritative inventory. The compact tables, 
 - **GitLab CI:** `cdx:gitlab:config`, `cdx:gitlab:job:environment`, `cdx:gitlab:job:image`, `cdx:gitlab:job:name`, `cdx:gitlab:job:needs`, `cdx:gitlab:job:services`, `cdx:gitlab:job:stage`, `cdx:gitlab:stages`
 - **Azure Pipelines:** `cdx:azure:config`, `cdx:azure:job:environment`, `cdx:azure:job:name`, `cdx:azure:job:pool:vmImage`, `cdx:azure:pool:vmImage`, `cdx:azure:stage:condition`, `cdx:azure:stage:dependsOn`, `cdx:azure:stage:name`, `cdx:azure:trigger:branches`
 - **CircleCI:** `cdx:circleci:config`, `cdx:circleci:executor:name`, `cdx:circleci:job:branch:only`, `cdx:circleci:job:name`, `cdx:circleci:job:requires`, `cdx:circleci:job:stepsOmitted` (`true` on a workflow job entry whose copy of the job's steps was left out: every entry carries its own copy, and one config file may contribute at most 32 characters of serialized steps per byte of the file, or 4 MiB when that is more), `cdx:circleci:orb:alias`, `cdx:circleci:workflow:name`
-- **Jenkins:** `cdx:jenkins:agent`, `cdx:jenkins:agent:image`, `cdx:jenkins:file`, `cdx:jenkins:stage:name`, `cdx:jenkins:stage:parallel`, `cdx:jenkins:stage:when`
+- **Jenkins:** `cdx:jenkins:agent`, `cdx:jenkins:agent:image`, `cdx:jenkins:file`, `cdx:jenkins:stage:name`, `cdx:jenkins:stage:parallel`, `cdx:jenkins:stage:when` (the directive names of the stage's `when` block, comma-separated, such as `anyOf,branch,environment`; conditions and their arguments are not recorded)
 
 #### Decision-oriented sub-groups
 
@@ -512,7 +512,7 @@ The grouped lists below remain the authoritative inventory. The compact tables, 
 - **xmake:** `cdx:xmake:configurations`
 - **Unregistered purl types:** `cdx:purl:proposedType`
 - **Swift:** `cdx:swift:localCheckoutPath`, `cdx:swift:packageName`
-- **CocoaPods:** `cdx:pods:PodName`, `cdx:pods:Subspec`, `cdx:pods:podspecLocation`, `cdx:pods:projectDir`
+- **CocoaPods:** `cdx:pods:PodName`, `cdx:pods:Subspec`, `cdx:pods:podspecLocation`, `cdx:pods:projectDir` (`cdx:pods:podspecLocation` built from a web `:git` source leaves out the URL's userinfo and query string)
 - **Dart pub:** `cdx:pub:registry`
 - **Deno:** `cdx:deno:source`, `cdx:deno:jsrKey`, `cdx:deno:integrity`
 
@@ -2278,7 +2278,7 @@ annotation text exactly the way `cdx:audit:*` findings are:
 
 **`cdx:npm:*`**
 
-- `cdx:npm:manifestSource`
+- `cdx:npm:manifestSource` (the non-registry specs, such as git or tarball URLs, that manifests used for the package; a URL loses its userinfo, query string and any fragment that holds `=` or a token shape)
 - `cdx:npm:manifestSourceType`
 
 **`cdx:nuget:*`**
