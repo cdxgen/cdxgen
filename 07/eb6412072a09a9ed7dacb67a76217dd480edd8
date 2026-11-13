@@ -1,0 +1,24 @@
+lib/inventory/pqcMigration.poku.js
+  s_0b6b1fa39e4884::t_9bc8ee0610344a 355-371,373-376
+  s_0b6b1fa39e4884::t_1734a3a389396a 372
+lib/inventory/cryptoAlgorithmFamily.poku.js
+  s_0b6b1fa39e4884::t_997124d89a80c2 83-121
+lib/inventory/cryptoAlgorithmFamily.js
+  s_0b6b1fa39e4884::t_ae7d662052a2b3 58-72
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "07eb6412072a09a9ed7dacb67a76217dd480edd8",
+  "prompts": {},
+  "sessions": {
+    "s_0b6b1fa39e4884": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_e01f8ace-7140-4a8e-bac4-2d4d394064e9",
+        "model": "unknown"
+      },
+      "human_author": "Team AppThreat <cloud@appthreat.com>"
+    }
+  }
+}
