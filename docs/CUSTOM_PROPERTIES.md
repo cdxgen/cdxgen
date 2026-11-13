@@ -215,7 +215,7 @@ These are the highest-leverage keys for first-pass policy authoring.
 | `cdx:ai:quantizationMethod`                      | Non-GGUF quantization method (gptq/awq/exl2/bitsandbytes) distinct from the container format        | Warning / triage |
 | `cdx:ai:unsafeDeserialization`                   | Flags pickle-based model artifacts (.bin/.pt/.pth/.ckpt) that execute code on load                  | Hard deny        |
 | `cdx:safetensors:tensorCount`                    | Number of tensors declared in a safetensors header                                                  | Informational    |
-| `cdx:safetensors:dtypes`                         | Distinct tensor dtypes declared in a safetensors header                                             | Informational    |
+| `cdx:safetensors:dtypes`                         | Distinct tensor dtype names (up to 32) declared in a safetensors header                             | Informational    |
 | `cdx:agentic:tool`                               | Identifies the discovered agentic CLI tool (kiro-cli, zcode, opencode, claude-code, ...)            | Warning / triage |
 | `cdx:agentic:model`                              | Model an agent definition selects (from a tool's agent config)                                      | Warning / triage |
 | `cdx:agentic:home`                               | Records the tool's discovered per-user home directory                                               | Informational    |
@@ -261,7 +261,7 @@ These are the highest-leverage keys for first-pass policy authoring.
 | `cdx:agentic:trustedWorkspaceCount`              | Number of Kiro workspace permission files that declare `workspaceTrusted: true`                     | Warning / triage |
 | `cdx:agentic:workspaceWithAllowRuleCount`        | Number of Kiro workspace permission files that carry at least one allow rule                        | Warning / triage |
 | `cdx:langgraph:graphEntryPoint`                  | Carries the configured graph entrypoint from `langgraph.json`                                       | Warning / triage |
-| `cdx:crewai:tools`                               | Captures configured CrewAI tool lists or references                                                 | Warning / triage |
+| `cdx:crewai:tools`                               | Captures configured CrewAI tool lists or references, without tool constructor arguments             | Warning / triage |
 | `cdx:agent:credentialExposure`                   | Flags inline secret patterns in AI agent instructions                                               | Hard deny        |
 | `cdx:agent:reviewNeeded`                         | One-bit reviewer cue for hidden Unicode, undeclared MCP refs, or risky exposure                     | Warning / triage |
 | `cdx:ai:codegen:detected`                        | Boolean cue that AI/LLM/agent authorship signals were found in the project                          | Warning / triage |

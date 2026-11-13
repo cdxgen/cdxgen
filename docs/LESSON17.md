@@ -69,7 +69,8 @@ Labels are normalized to one of three compliance alerts:
 
 > Tip: use stems the normalizer recognizes. `prohibited` and `rejected` map to
 > `error`; the literal word `denied` does **not** (it lacks the `deny` stem), so
-> prefer `prohibited`.
+> prefer `prohibited`. A label that matches no stem is kept as written, cut to
+> 64 characters, and a label that is not text is ignored.
 
 The result is emitted as a `cdx:license:complianceAlert` property on each license
 and rolled up to the component (the worst alert across its licenses wins).
