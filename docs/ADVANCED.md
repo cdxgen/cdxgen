@@ -223,6 +223,8 @@ cdxgen resolves the TEI via `/.well-known/tea` discovery (HTTPS only, per the sp
 
 Every checksum a Collection declares must match, and an artifact whose checksums all use algorithms this client cannot compute is rejected rather than merged unverified: remote content whose integrity was asserted and then not checked is worse than fetching nothing. An artifact that declares no checksum at all is a publisher decision, and is merged with a warning. Documents over 5 MiB are skipped, as with PEP 770.
 
+The TEA token (`--tea-token` or `TEA_TOKEN`) is sent to the discovery and Collection endpoints, and to an artifact only when its URL has the same origin as the TEA server that served the Collection. A Collection can name an artifact on any host, so an artifact hosted elsewhere is downloaded without the token.
+
 ### Publishing (`--tea-publish`)
 
 ```bash

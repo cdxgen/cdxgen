@@ -214,6 +214,7 @@ transports, and callers do not choose between them:
 | Plain JSON requests only, binary available              | `cdxrs fetch` subprocess |
 | Any request with `responseType: "text"` or `"buffer"`   | JS pool (`cdxgenAgent`)  |
 | Any request carrying its own `headers`                  | JS pool                  |
+| Any request to a GitHub host                            | JS pool                  |
 | No binary, or `CDXGEN_RS_DISABLE=fetch`, or `--no-rust` | JS pool                  |
 
 The protocol carries a URL, an `accept` value and an opaque `authRealm`, and
@@ -225,16 +226,25 @@ representation in it:
   pool, which passes `responseType` straight to the agent. Maven POMs, the
   pkg.go.dev pages behind `getGoPkgLicense`/`getGoPkgVCSUrl`, and CocoaPods
   podspecs rely on this;
-- request-specific `headers`, because cdxrs derives its own `Authorization`
-  from `GITHUB_TOKEN` and would silently drop any other credential, turning an
+- request-specific `headers`, because the envelope has no field for them and
+  cdxrs would send the request without the credential, turning an
   authenticated lookup into an anonymous one. `forgeEnricher` relies on this to
-  carry `--forge-token` and `GITLAB_TOKEN`.
+  carry `--forge-token` and `GITLAB_TOKEN`;
+- any GitHub host (`github.com`, `api.github.com` and `*.github.com`). Whether
+  a request may carry `GITHUB_TOKEN` is decided per request on the JS side, and
+  cdxrs never receives the token: `runCdxrs()` removes `GITHUB_TOKEN` from the
+  child's environment, so the helper's own rule, which sends the token to
+  `github.com` and `api.github.com` by host name, never applies in a cdxgen run.
 
 The pool applies the same global and per-host concurrency and rate policy, so
 the batching win is unchanged; only the on-disk cache below is skipped.
 
 Within the pool, a credential the caller attached to a request wins over the
-ambient `GITHUB_TOKEN`. The ambient token is a fallback, never an override.
+ambient `GITHUB_TOKEN`. The ambient token is a fallback, never an override,
+and only a request whose caller composed the URL from the GitHub API base and
+set `ambientGitHubAuth: true` receives it. Many batch URLs come from the
+scanned project (a lockfile's `resolved` URL, an `.npmrc` scope registry), and
+naming a GitHub host must not let such a URL borrow the operator's token.
 
 A batch routed to `cdxrs fetch` is sent in runs of at most 250 URLs, one run
 at a time so each host still sees a single rate gate. The envelope has to
