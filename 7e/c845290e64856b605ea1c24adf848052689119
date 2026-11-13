@@ -1,0 +1,37 @@
+types/lib/cli/cliOptions.d.ts
+  s_8376465eb88a0d::t_2b4e870e8fda80 98-116,133-136,141-142,167-169,179-181
+types/lib/cli/cliOptions.d.ts.map
+  s_8376465eb88a0d::t_9748158e0579c5 1
+types/lib/evinser/evinser.d.ts.map
+  s_8376465eb88a0d::t_a9be67bab6bcf0 1
+types/lib/helpers/asarutils.d.ts.map
+  s_8376465eb88a0d::t_4b542d0a6f3d4c 1
+types/lib/helpers/atomUtils.d.ts
+  s_8376465eb88a0d::t_7e0f5c4154a562 1-16
+types/lib/helpers/atomUtils.d.ts.map
+  s_8376465eb88a0d::t_c0b6d70497a978 1
+types/lib/helpers/projectConfig.d.ts
+  s_8376465eb88a0d::t_f0e7ce9df5fe55 21-22
+types/lib/helpers/projectConfig.d.ts.map
+  s_8376465eb88a0d::t_f4b04723d16233 1
+types/lib/helpers/utils.d.ts.map
+  s_8376465eb88a0d::t_0a1396df73589c 1
+lib/helpers/projectConfig.cli.poku.js
+  s_8376465eb88a0d::t_fe2ebf210a9222 102,105
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "7ec845290e64856b605ea1c24adf848052689119",
+  "prompts": {},
+  "sessions": {
+    "s_8376465eb88a0d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6b944f10-f38a-4491-8809-d36fec51aaa5",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
