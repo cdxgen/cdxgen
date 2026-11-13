@@ -1386,6 +1386,30 @@
     },
     "docs": "https://cyclonedx.github.io/cdxgen/#/PROJECT_TYPES?id=php"
   },
+  "php.host-probe.budget-exhausted": {
+    "ecosystem": "php",
+    "kind": "evidence.degraded",
+    "impact": "components",
+    "title": "The PHP host probe stopped at its budget of runtime-named entries, so a PHP after that was not looked at",
+    "targetTier": null,
+    "actions": [
+      {
+        "kind": "config",
+        "command": "Look for directories that hold many entries named like php binaries, or many links to one file, remove the ones that are not real installs, and run the scan again"
+      },
+      {
+        "kind": "rerun"
+      }
+    ],
+    "verify": {
+      "rules": [],
+      "expectTier": null,
+      "eventsCleared": [
+        "php.host-probe.budget-exhausted"
+      ]
+    },
+    "docs": "https://cyclonedx.github.io/cdxgen/#/PROJECT_TYPES?id=php"
+  },
   "ruby.host-probe.package-db-unreadable": {
     "ecosystem": "ruby",
     "kind": "evidence.degraded",
@@ -1410,6 +1434,30 @@
     },
     "docs": "https://cyclonedx.github.io/cdxgen/#/PROJECT_TYPES?id=ruby"
   },
+  "ruby.host-probe.budget-exhausted": {
+    "ecosystem": "ruby",
+    "kind": "evidence.degraded",
+    "impact": "components",
+    "title": "The Ruby host probe stopped at its budget of runtime-named entries, so a Ruby after that was not looked at",
+    "targetTier": null,
+    "actions": [
+      {
+        "kind": "config",
+        "command": "Look for directories that hold many entries named like ruby binaries, or many links to one file, remove the ones that are not real installs, and run the scan again"
+      },
+      {
+        "kind": "rerun"
+      }
+    ],
+    "verify": {
+      "rules": [],
+      "expectTier": null,
+      "eventsCleared": [
+        "ruby.host-probe.budget-exhausted"
+      ]
+    },
+    "docs": "https://cyclonedx.github.io/cdxgen/#/PROJECT_TYPES?id=ruby"
+  },
   "npm.host-probe.package-db-unreadable": {
     "ecosystem": "npm",
     "kind": "evidence.degraded",
@@ -1430,6 +1478,30 @@
       "expectTier": null,
       "eventsCleared": [
         "npm.host-probe.package-db-unreadable"
+      ]
+    },
+    "docs": "https://cyclonedx.github.io/cdxgen/#/OBOM_LESSONS"
+  },
+  "npm.host-probe.budget-exhausted": {
+    "ecosystem": "npm",
+    "kind": "evidence.degraded",
+    "impact": "components",
+    "title": "The Node.js host probe stopped at its budget of runtime-named entries, so a Node.js after that was not looked at",
+    "targetTier": null,
+    "actions": [
+      {
+        "kind": "config",
+        "command": "Look for directories that hold many entries named like node binaries, or many links to one file, remove the ones that are not real installs, and run the scan again"
+      },
+      {
+        "kind": "rerun"
+      }
+    ],
+    "verify": {
+      "rules": [],
+      "expectTier": null,
+      "eventsCleared": [
+        "npm.host-probe.budget-exhausted"
       ]
     },
     "docs": "https://cyclonedx.github.io/cdxgen/#/OBOM_LESSONS"
