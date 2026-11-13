@@ -1,0 +1,25 @@
+lib/inventory/rubyBuildInfo.js
+  s_8376465eb88a0d::t_26197c2af0ac6d 29,44-45,297-306,346,362,364-366,378-383,457-473,479-482,487,490-499,502-506,519-522,524
+lib/inventory/rubyBuildInfo.poku.js
+  s_8376465eb88a0d::t_67b4f6704cc001 406-452
+lib/inventory/rubyHostProbe.js
+  s_8376465eb88a0d::t_b099a6ac39e1f2 186-187,205
+lib/managers/binary.js
+  s_8376465eb88a0d::t_aec0f186905cf2 4003,4022
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "d6bd6ad44351cf46b4377d5436325d2f5fd36982",
+  "prompts": {},
+  "sessions": {
+    "s_8376465eb88a0d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6b944f10-f38a-4491-8809-d36fec51aaa5",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
