@@ -102,6 +102,7 @@ import {
   normalizeCycloneDxComponentTypeFilter,
   toCycloneDxSpecVersionString,
 } from "../lib/inventory/bomUtils.js";
+import { getCiParseFailures } from "../lib/inventory/ciParsers/common.js";
 import {
   DEPENDENCY_TRACK_CDX20_ERROR,
   getInternalBom,
@@ -181,9 +182,12 @@ for (const configPattern of PROJECT_CONFIG_FILENAMES) {
     }
     const sanitized = sanitizeProjectConfig(parsedConfig, dirname(configPath));
     config = sanitized.config;
-    for (const key of dropConfigAuditOverrides(config, { env: launchEnv })) {
+    for (const key of dropConfigAuditOverrides(config, {
+      env: launchEnv,
+      isSecureMode: isSecureModeActive(),
+    })) {
       console.warn(
-        `\x1b[1;35mConfig file '${configPath}' sets '${key}', which would change the BOM audit that --bom-audit or CDXGEN_BOM_AUDIT asked for. Ignoring it. Pass the option on the command line if this is intentional.\x1b[0m`,
+        `\x1b[1;35mConfig file '${configPath}' sets '${key}', which would change the BOM audit that --bom-audit, CDXGEN_BOM_AUDIT or secure mode controls. Ignoring it. Pass the option on the command line if this is intentional.\x1b[0m`,
       );
     }
     for (const key of sanitized.operatorOnly) {
@@ -2223,6 +2227,25 @@ const writeCycloneDxOutput = (jsonFile, bomJson, options) => {
       thoughtLog(
         `Embedded ${postAuditFindings.length} audit findings as CycloneDX annotations`,
       );
+    }
+    // A CI file that could not be parsed was never audited, so secure mode
+    // does not let the audit pass over it.
+    const ciParseFailures = getCiParseFailures();
+    if (isSecureMode && ciParseFailures.length) {
+      const failedFiles = [...new Set(ciParseFailures.map((f) => f.file))];
+      console.error(
+        `\nSecure mode: ${failedFiles.length} CI configuration file(s) could not be parsed, so the BOM audit did not check them.`,
+      );
+      for (const failedFile of failedFiles.slice(0, 20)) {
+        console.error(`  ${failedFile}`);
+      }
+      console.error(
+        "Fix or remove these files, or run without secure mode to proceed.",
+      );
+      if (cleanup) {
+        cleanupSourceDir(srcDir);
+      }
+      process.exit(1);
     }
     if (isSecureMode && hasCriticalFindings(postAuditFindings, options)) {
       console.error("\nSecure mode: Critical audit findings detected.");

@@ -124,7 +124,7 @@ The audit runs as a post-processing step after BOM generation:
 1. **Load rules** — Built-in rules from `data/rules/` are loaded first. If `--bom-audit-rules-dir` is specified, user rules are merged in.
 2. **Evaluate** — Each rule's JSONata `condition` expression is evaluated against the full BOM. Matching components or workflows become findings.
 3. **Report** — Findings are printed to the console with severity icons and optionally embedded as CycloneDX annotations in the output BOM.
-4. **Gate** — In secure mode (`CDXGEN_SECURE_MODE=true`), findings at or above `--bom-audit-fail-severity` cause a non-zero exit code.
+4. **Gate** — In secure mode (`CDXGEN_SECURE_MODE=true`), findings at or above `--bom-audit-fail-severity` cause a non-zero exit code. So does a CI configuration file (GitHub Actions, GitLab CI, Jenkins, CircleCI or Azure Pipelines) that cdxgen found but could not parse, because the audit never saw its contents; cdxgen lists those files before it exits. In secure mode the `bom-audit` and `bom-audit-*` settings of a config file in the working directory are ignored with a warning, so only the command line and `CDXGEN_` environment variables shape the audit.
 
 ```
 ┌──────────────────────┐
@@ -991,4 +991,4 @@ Registry-visible provenance such as trusted publishing, provenance URLs, and ver
     CDXGEN_SECURE_MODE: "true"
 ```
 
-In secure mode, any finding at or above `--bom-audit-fail-severity` causes a non-zero exit code, failing the pipeline step.
+In secure mode, any finding at or above `--bom-audit-fail-severity` causes a non-zero exit code, failing the pipeline step, and so does a CI configuration file that cdxgen could not parse.
