@@ -76,6 +76,45 @@ Gradle example:
 export GRADLE_ARGS="--configuration runtimeClasspath"
 ```
 
+## Symbolic links in the scanned tree
+
+A project directory may come from someone else, so cdxgen treats every file it
+reads from it as untrusted. A file read from the scanned tree must resolve
+inside the directory the scan started from, must be a regular file, and is
+read only up to a size cap. A symbolic link that stays inside the tree is
+followed: `CLAUDE.md -> AGENTS.md`, `requirements.txt -> requirements/base.txt`,
+pnpm's links into `node_modules/.pnpm` and a Hugging Face snapshot that links
+into `../../blobs` all work. A link that leads out of the tree is not followed,
+and the file behind it is skipped as if it were absent. The path is walked one
+name at a time from the scan root, and a link is followed only when its target,
+as written, stays inside the root, so cdxgen never looks up a host path on the
+way and a BOM cannot tell whether such a path exists. A device, a FIFO or a
+procfs file reached through a link is never read.
+
+This covers the CI configurations (Jenkins, GitHub Actions, GitLab CI,
+CircleCI, Azure Pipelines) and the README scan of the formulation section,
+the Cargo, pyproject and build-script reads of the Rust formulation, vendored
+C headers of `-sys` crates, the JVM wrapper and build files, local parent poms
+and reactor modules, installed `package.json` files under `--deep` and in the
+lockfile-less `node_modules` fallback, pnpm `link:` and `file:` values,
+requirements files, the Zig `zig-pkg` tree, Go licence notices under
+`vendor/`, Terraform's lock file and `.terraform` directory, the C and C++ build
+files (`CMakeCache.txt`, CMake presets and compiler files, FetchContent
+scripts, `.gitmodules`, `compile_commands.json`, vcpkg lists, vendored licence
+and version files and the headers counted as the project's own), and the
+`-t ai` source, model card and config reads.
+
+Some layouts legitimately link out of the tree: a monorepo whose
+`node_modules` or `vendor/` is a link to a shared directory, a pnpm global
+virtual store (`enableGlobalVirtualStore`), a `.terraform` directory kept on
+another volume, or a CMake build directory outside the source tree. cdxgen does
+not follow those links. Scan the real directory instead, for example the
+directory that holds both the project and the shared `node_modules`, or move
+the build tree inside the project. For CMake, `--cmake-cache <file>` still
+names a `CMakeCache.txt` outside the project when secure mode is off. A single
+file given as the scan path, such as `cdxgen -t ai model.gguf`, is read
+wherever its own link leads.
+
 ## Filtering components
 
 cdxgen can filter the components and the dependency tree before writing to a BOM json file. Three kinds of filters are allowed:
