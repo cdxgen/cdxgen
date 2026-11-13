@@ -209,6 +209,8 @@ cdxgen discovers embedded SBOMs in installed distributions (`site-packages/<dist
 
 The embedded data is untrusted third-party input: cdxgen bounds its size (documents larger than 5 MiB are skipped), never follows references out of it, validates the shape before merging, and skips an invalid document with a warning rather than failing the run.
 
+The same 5 MiB bound applies to every metadata file cdxgen reads out of an archive without extracting it, such as a wheel's `METADATA` or a `.nupkg` package's `.nuspec`. The bound counts the bytes that actually come out of the decompressor, not the size the archive declares, so an entry that inflates past it is skipped.
+
 ## TEA — Transparency Exchange API
 
 The [Transparency Exchange API](https://github.com/CycloneDX/transparency-exchange-api) (ECMA TC54 TG1) is a standard for exchanging transparency artefacts (SBOMs, VEX, attestations) between systems. The consumer API is the current conformance base (spec version 0.4.0); the publisher API exists as a **draft recommendation** in `spec/publisher/` and is subject to change.
