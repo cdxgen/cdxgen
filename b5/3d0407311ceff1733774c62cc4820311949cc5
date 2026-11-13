@@ -1,0 +1,21 @@
+lib/inventory/hostRuntimeProbe.js
+  s_8376465eb88a0d::t_441a56eb57efe9 49-52,340-341,344,354-355,357-369,374-380
+lib/inventory/rubyHostProbe.poku.js
+  s_8376465eb88a0d::t_73b4a80d7491d4 221-251
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "b53d0407311ceff1733774c62cc4820311949cc5",
+  "prompts": {},
+  "sessions": {
+    "s_8376465eb88a0d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6b944f10-f38a-4491-8809-d36fec51aaa5",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
