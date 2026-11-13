@@ -1,0 +1,23 @@
+docs/CUSTOM_PROPERTIES.md
+  s_8376465eb88a0d::t_983bc7b60f47d1 511
+lib/inventory/ecosystemFormulationParsers.js
+  s_8376465eb88a0d::t_c07d017fdd8162 188-232,323-325
+lib/inventory/ecosystemFormulationParsers.poku.js
+  s_8376465eb88a0d::t_c8d5b478283a8f 186-214
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "73ce88b4562352e51f830ada014db9a07f2f1103",
+  "prompts": {},
+  "sessions": {
+    "s_8376465eb88a0d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6b944f10-f38a-4491-8809-d36fec51aaa5",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
