@@ -23,6 +23,7 @@ import {
   applyAdvancedOptions as applyAdvancedOptionsImpl,
   applyOperatorToolingChoice,
   buildOptionsFromArgs,
+  dropConfigAuditOverrides,
   isUserProvided,
   validateSpecVersion,
 } from "../lib/cli/cliOptions.js";
@@ -176,6 +177,11 @@ for (const configPattern of PROJECT_CONFIG_FILENAMES) {
     }
     const sanitized = sanitizeProjectConfig(parsedConfig, dirname(configPath));
     config = sanitized.config;
+    for (const key of dropConfigAuditOverrides(config, { env: launchEnv })) {
+      console.warn(
+        `\x1b[1;35mConfig file '${configPath}' sets '${key}', which would change the BOM audit that --bom-audit or CDXGEN_BOM_AUDIT asked for. Ignoring it. Pass the option on the command line if this is intentional.\x1b[0m`,
+      );
+    }
     for (const key of sanitized.operatorOnly) {
       console.warn(
         `\x1b[1;35mConfig file '${configPath}' sets '${key}', which only the command line or a CDXGEN_ environment variable may set. Ignoring it.\x1b[0m`,

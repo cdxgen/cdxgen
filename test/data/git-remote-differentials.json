@@ -62,6 +62,22 @@
       "reason": "bracketed host in the user name on git://"
     },
     {
+      "remote": "ssh://company-private-git.com/x@[attacker.example]:2222/x.git",
+      "reason": "git searches the whole remote for @[ and takes the bracketed text as the host, so ssh is run against company-private-git.com/x@attacker.example"
+    },
+    {
+      "remote": "git+ssh://git@company-private-git.com/@[attacker.example]/x.git",
+      "reason": "@[ in the path of the git+ssh alias with a user name"
+    },
+    {
+      "remote": "ssh://company-private-git.com/x%40%5Battacker.example%5D/x.git",
+      "reason": "percent-encoded @[ in the path, decoded by git before it looks for @["
+    },
+    {
+      "remote": "git@company-private-git.com:x@[attacker.example]:org/repo.git",
+      "reason": "@[ in the path of an SCP-like address"
+    },
+    {
       "remote": "file://company-private-git.com/etc/passwd",
       "reason": "git reads file:// URLs from the local disk whatever host they name"
     },
@@ -129,6 +145,7 @@
     "git+ssh://git@company-private-git.com/org/repo.git",
     "git://company-private-git.com/org/repo.git",
     "git@company-private-git.com:org/repo.git",
-    "git@company-private-git.com:org/repo:name.git"
+    "git@company-private-git.com:org/repo:name.git",
+    "https://company-private-git.com/org/x@[y]/repo.git"
   ]
 }

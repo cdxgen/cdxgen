@@ -350,7 +350,7 @@ components:
           description: Additional glob pattern(s) to ignore
         includeCrypto:
           type: boolean
-          description: Include crypto libraries as components.
+          description: Include crypto libraries as components. With formulation on, the crypto packages, certificates and keys of the server host are inventoried only when the server was started with --include-crypto.
           default: false
         standard:
           type: string
