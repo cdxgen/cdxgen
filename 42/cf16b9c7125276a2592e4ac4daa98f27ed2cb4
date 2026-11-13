@@ -1,0 +1,21 @@
+lib/parsers/cmakeCache.js
+  s_8376465eb88a0d::t_934ca357a3a64e 16-21,105-106,179-182
+lib/parsers/cmakeCache.poku.js
+  s_8376465eb88a0d::t_37a37a364b9745 92-102
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "42cf16b9c7125276a2592e4ac4daa98f27ed2cb4",
+  "prompts": {},
+  "sessions": {
+    "s_8376465eb88a0d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6b944f10-f38a-4491-8809-d36fec51aaa5",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
