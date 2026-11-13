@@ -1,0 +1,27 @@
+docs/ENV.md
+  s_8376465eb88a0d::t_e2671bacee5cd0 221
+lib/ecosystems/ecosystems.js
+  s_8376465eb88a0d::t_2f07bb1a4fc5c4 288-318,396-399,517-518,583,611-619
+lib/ecosystems/ecosystems.poku.js
+  s_8376465eb88a0d::t_4d6ca480052d1c 1375,1390
+lib/ecosystems/npmRegistrySkips.poku.js
+  s_8376465eb88a0d::t_f55d2d56084374 21,27,254-319
+lib/ecosystems/prefetchMemo.poku.js
+  s_8376465eb88a0d::t_268792b705db3f 30
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "03193d7ee52cefb0427b20cd00a470f120f87697",
+  "prompts": {},
+  "sessions": {
+    "s_8376465eb88a0d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6b944f10-f38a-4491-8809-d36fec51aaa5",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
