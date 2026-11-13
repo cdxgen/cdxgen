@@ -1,0 +1,25 @@
+lib/inventory/cyclonedx20.poku.js
+  s_8376465eb88a0d::t_446fc6cce84352 19,214-217,253-264
+lib/inventory/cyclonedx20Read.poku.js
+  s_8376465eb88a0d::t_01d954378d2a88 8,406-411,413-422
+lib/inventory/envcontext.poku.js
+  s_8376465eb88a0d::t_df58c77d52cc26 16,44-55,59-75
+test/helpers/gitFixture.js
+  s_8376465eb88a0d::t_97bda1ccc4df60 1-93
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "3cf79a677f5e24c37a47c12400a2e19952aa73f5",
+  "prompts": {},
+  "sessions": {
+    "s_8376465eb88a0d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6b944f10-f38a-4491-8809-d36fec51aaa5",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
