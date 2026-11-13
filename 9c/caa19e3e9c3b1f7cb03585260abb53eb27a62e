@@ -1,0 +1,79 @@
+docs/LESSON27.md
+  s_8376465eb88a0d::t_8b9a70557cc3f9 171-175,230-236
+docs/SERVER.md
+  s_8376465eb88a0d::t_6fea68582fd5aa 175
+lib/cli/nativeBom.js
+  s_8376465eb88a0d::t_01c585cf224f24 136,1823,1838-1844,1847,1872-1874,1876-1878,2992-2993,2996-3008,3012-3016,3400-3401,3414-3422,3425,3427-3429,3472-3475,3477-3479,3481-3483,3485,3487-3498,3503,3505-3507
+lib/cli/nativeBom.poku.js
+  s_8376465eb88a0d::t_a6ff33d5b59a34 391-488,1702-1732
+lib/ecosystems/cmakeResolver.js
+  s_8376465eb88a0d::t_af8d0abb5ef336 8,12-21,29-32,64,222-276,278-282,284-290,294,301-327,329-334,340,342-344,346-347,349-352,354-368,370
+lib/ecosystems/cmakeResolver.poku.js
+  s_8376465eb88a0d::t_caf01a5a05e3db 1-12,21,23,26,55-80,84-105,107,109-276,278,281-284
+lib/ecosystems/cppBuildContext.js
+  s_8376465eb88a0d::t_8a1d4309904a7a 14-15,29,46-47,130,133-140,260-297,303-305,316-322,325-327,438,447,456-459,462-467,478,638,641,645,650-651,675,677-684
+lib/ecosystems/cppBuildContext.poku.js
+  s_8376465eb88a0d::t_e120eb71c69266 7,12,38-55,67,168,344-369,411-506,538-622
+lib/ecosystems/cppEvidence.js
+  s_8376465eb88a0d::t_35c0c9b2dbdd68 9,27-30,155-157,159,163-174,176-202,424-432,435,438-439,539,622,627-644,646-650,748-767,788-789,814,818,894,904,910,915
+lib/ecosystems/cppEvidence.poku.js
+  s_8376465eb88a0d::t_f6f4cef02fefc2 7,93-137,336-470,706-747
+lib/ecosystems/cppIncludeResolver.js
+  s_8376465eb88a0d::t_88ecd77ba08d5e 22-26,212-213,222-224,228-230,261-263,273-277
+lib/ecosystems/cppIncludeResolver.poku.js
+  s_8376465eb88a0d::t_48c40610554029 293-328
+lib/ecosystems/parsers-lua.js
+  s_8376465eb88a0d::t_020a48241e6cb4 59-60,69,71-72,87
+lib/ecosystems/parsers-lua.poku.js
+  s_8376465eb88a0d::t_064512dd9b12a3 1-4,70-96
+lib/ecosystems/parsers-nim.js
+  s_8376465eb88a0d::t_46ca21a46853dd 25-26,64,66,83,127-133
+lib/ecosystems/parsers-nim.poku.js
+  s_8376465eb88a0d::t_1707966465ef05 1-4,78-103
+lib/ecosystems/vendoredCode.js
+  s_8376465eb88a0d::t_285d919c0c76a6 13,305,312,329,332,390
+lib/ecosystems/zigResolver.js
+  s_8376465eb88a0d::t_6a7a493d57aafe 255-260,313,316-347,356-365,386-398,403-404,406,409-412,418-449,469-487,498
+lib/ecosystems/zigResolver.poku.js
+  s_8376465eb88a0d::t_01f4cfbfa1c35a 1-2,11,288-403
+lib/inventory/cmakeBuildDirs.js
+  s_8376465eb88a0d::t_eeba169f1ecb1b 9,19,23,25,56-57,65-101,114-118
+lib/inventory/cmakeBuildDirs.poku.js
+  s_8376465eb88a0d::t_65cf2808e6ddb1 2-8,17-18,94-133,231-252
+lib/inventory/envcontext.js
+  s_8376465eb88a0d::t_c07f14e6ee5cef 91-96,2302-2303,2309
+lib/inventory/envcontext_git.poku.js
+  s_8376465eb88a0d::t_be0bc389eeaf8d 2-8,16,168-229
+lib/parsers/cmakeCache.js
+  s_8376465eb88a0d::t_d235bc15f1faa3 16-21,105-106,179-182
+lib/parsers/cmakeCache.poku.js
+  s_8376465eb88a0d::t_414d3462aaedea 92-102
+lib/parsers/cmakePresets.js
+  s_8376465eb88a0d::t_55d2149c175561 18-30,33,38-56,108-109,113-126,138-140,145-152,158-165,205-207,210-211,213-218,225-229,232-247,267-276,284-290,303-308,360-368,376-381,386,388,394-407,409-417,420,427-453,459-545,550-551,562,568,576-578,580-583,591,625
+lib/parsers/cmakePresets.poku.js
+  s_8376465eb88a0d::t_b7c13e5d7c8c93 105-117,370-493
+lib/parsers/compileCommands.js
+  s_8376465eb88a0d::t_3f8d1de28166b2 27-36,300-304,306-310,318-334,382-386,499,525
+lib/parsers/compileCommands.poku.js
+  s_8376465eb88a0d::t_22f7183c0fefdb 146-167,171-177,288-297
+lib/server/server.js
+  s_8376465eb88a0d::t_51c979bd2c2302 17,205-210
+lib/server/server.poku.js
+  s_8376465eb88a0d::t_cc463500e727bc 246-280
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "9ccaa19e3e9c3b1f7cb03585260abb53eb27a62e",
+  "prompts": {},
+  "sessions": {
+    "s_8376465eb88a0d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6b944f10-f38a-4491-8809-d36fec51aaa5",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
