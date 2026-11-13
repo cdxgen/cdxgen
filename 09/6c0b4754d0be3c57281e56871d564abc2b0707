@@ -1,0 +1,25 @@
+lib/inventory/aiCollector.js
+  s_8376465eb88a0d::t_1429252195347c 393-402,404-412,414-431,433-449,451,453
+lib/inventory/aiCollector.poku.js
+  s_8376465eb88a0d::t_ce66aa75162574 114-157
+lib/inventory/analyzer.js
+  s_8376465eb88a0d::t_cb4d274a5d4496 5529-5532,5550-5664,5682-5698,5701-5703,5706-5710,5716,5719-5729,5735,5737-5739,5742,5761,5776,5790-5793,5805-5812,5893-5902,5904,5925-5928,5960-5964,5976
+lib/inventory/analyzer.poku.js
+  s_8376465eb88a0d::t_2f4fd00e225526 1640-1690
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "096c0b4754d0be3c57281e56871d564abc2b0707",
+  "prompts": {},
+  "sessions": {
+    "s_8376465eb88a0d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6b944f10-f38a-4491-8809-d36fec51aaa5",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
