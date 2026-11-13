@@ -1,0 +1,27 @@
+deno.json
+  s_8376465eb88a0d::t_13e05b34cb5b84 3
+jsr.json
+  s_8376465eb88a0d::t_988a103863418a 3
+package.json
+  s_8376465eb88a0d::t_3c111ccc370e14 3
+pyproject.toml
+  s_8376465eb88a0d::t_6d2575134a5659 3
+uv.lock
+  s_8376465eb88a0d::t_5700da10329dd2 186
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "9ea7788072ad766023cd4266bb019dd0306286a3",
+  "prompts": {},
+  "sessions": {
+    "s_8376465eb88a0d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6b944f10-f38a-4491-8809-d36fec51aaa5",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
