@@ -512,7 +512,7 @@ The grouped lists below remain the authoritative inventory. The compact tables, 
 - **xmake:** `cdx:xmake:configurations`
 - **Unregistered purl types:** `cdx:purl:proposedType`
 - **Swift:** `cdx:swift:localCheckoutPath`, `cdx:swift:packageName`
-- **CocoaPods:** `cdx:pods:PodName`, `cdx:pods:Subspec`, `cdx:pods:podspecLocation`, `cdx:pods:projectDir`
+- **CocoaPods:** `cdx:pods:PodName`, `cdx:pods:Subspec`, `cdx:pods:podspecLocation`, `cdx:pods:projectDir` (`cdx:pods:podspecLocation` built from a web `:git` source leaves out the URL's userinfo and query string)
 - **Dart pub:** `cdx:pub:registry`
 - **Deno:** `cdx:deno:source`, `cdx:deno:jsrKey`, `cdx:deno:integrity`
 
@@ -2274,7 +2274,7 @@ annotation text exactly the way `cdx:audit:*` findings are:
 
 **`cdx:npm:*`**
 
-- `cdx:npm:manifestSource`
+- `cdx:npm:manifestSource` (the non-registry specs, such as git or tarball URLs, that manifests used for the package; a URL loses its userinfo, query string and any fragment that holds `=` or a token shape)
 - `cdx:npm:manifestSourceType`
 
 **`cdx:nuget:*`**
