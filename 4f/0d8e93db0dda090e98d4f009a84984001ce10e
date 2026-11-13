@@ -1,0 +1,33 @@
+lib/ecosystems/parsers-js.js
+  s_8376465eb88a0d::t_595c5dd6e6d4a6 30,1301-1302,1305,1309
+lib/ecosystems/parsers-js.poku.js
+  s_8376465eb88a0d::t_81f6d37d55f43a 5591-5650
+docs/CUSTOM_PROPERTIES.md
+  s_8376465eb88a0d::t_8be37adda8c532 515,2277
+lib/ecosystems/npmutils.js
+  s_8376465eb88a0d::t_48cfc1236ddb93 8,338-341,598,602,733,735
+lib/ecosystems/parsers-misc.js
+  s_8376465eb88a0d::t_9fe7821372d1a2 38,3589-3591
+lib/ecosystems/npmutils.poku.js
+  s_8376465eb88a0d::t_fb2d032531a82f 241-269
+lib/core/propertySanitizer.js
+  s_8376465eb88a0d::t_f6cc763f9401c8 930-931,948-961
+lib/ecosystems/parsersCocoaLocalPodspecs.poku.js
+  s_8376465eb88a0d::t_e217ea2f7264e6 238,242-246,267-270
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "4f0d8e93db0dda090e98d4f009a84984001ce10e",
+  "prompts": {},
+  "sessions": {
+    "s_8376465eb88a0d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6b944f10-f38a-4491-8809-d36fec51aaa5",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
