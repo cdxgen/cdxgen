@@ -1,0 +1,37 @@
+lib/helpers/atomUtils.poku.js
+  s_8376465eb88a0d::t_aa5c48a366bcaa 9-10,140-200
+lib/helpers/utils.js
+  s_8376465eb88a0d::t_cd6fc13dd68fc3 58-62,18940-18947
+lib/helpers/utils.poku.js
+  s_d9970f25c9b86d::t_835936415aa46d 37,13039-13065
+lib/evinser/evinser.poku.js
+  s_d9970f25c9b86d::t_dbc884c9a3a844 1-3,5,7,132-178
+lib/helpers/atomUtils.js
+  s_8376465eb88a0d::t_3d425ded6a451f 1,4-46,457-472,475
+lib/evinser/evinser.js
+  s_8376465eb88a0d::t_ae80624b7cc58b 10,369-374,377-395,435-436
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "a740e6d97d8feccbe7f2cd8e70455ac3738fa1c2",
+  "prompts": {},
+  "sessions": {
+    "s_8376465eb88a0d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6b944f10-f38a-4491-8809-d36fec51aaa5",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    },
+    "s_d9970f25c9b86d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "fb62339d-55a7-4fe1-9b30-ef926f0ce9bd",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
