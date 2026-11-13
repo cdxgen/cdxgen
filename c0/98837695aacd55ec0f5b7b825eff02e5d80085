@@ -1,0 +1,21 @@
+types/lib/cli/managedBom.d.ts.map
+  s_5ee2555f05d1f7::t_c38abed5c7060c 1
+types/lib/ecosystems/vendoredCode.d.ts.map
+  s_5ee2555f05d1f7::t_efea6551a316b5 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "c098837695aacd55ec0f5b7b825eff02e5d80085",
+  "prompts": {},
+  "sessions": {
+    "s_5ee2555f05d1f7": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_9da79e36-b7bc-42b4-b2ba-dc6087186e2e",
+        "model": "GLM-5.3"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
