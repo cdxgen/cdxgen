@@ -1,0 +1,19 @@
+lib/ecosystems/parsersCocoaLocalPodspecs.poku.js
+  s_8376465eb88a0d::t_08601a31966f23 220-221,223-231,239-241,295,298,300
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "88be2f8c98cba4978e9eb6c8c2ee3a1f4801b6d3",
+  "prompts": {},
+  "sessions": {
+    "s_8376465eb88a0d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6b944f10-f38a-4491-8809-d36fec51aaa5",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
