@@ -331,7 +331,7 @@ jobs:
             type=semver,pattern={{version}},value=${{ github.event.inputs.tag || github.ref_name }},enable=${{ startsWith(env.REF, 'refs/tags/v') }}
             type=semver,pattern=v{{major}}.{{minor}},value=${{ github.event.inputs.tag || github.ref_name }},enable=${{ startsWith(env.REF, 'refs/tags/v') }}
             type=semver,pattern=v{{major}},value=${{ github.event.inputs.tag || github.ref_name }},enable=${{ startsWith(env.REF, 'refs/tags/v') }}
-            type=raw,value=latest,enable=${{ github.event_name == 'push' || github.event.inputs.latest == 'true' }}
+            type=raw,value=latest,enable=${{ github.event.inputs.latest == 'true' }}
             type=raw,value=master,enable=${{ env.REF == 'refs/heads/master' }}
       - name: Merge and push manifest
         uses: int128/docker-manifest-create-action@a118e9fe12455375d4810aa318c20e6dba77288e  # v2.29.0
@@ -542,7 +542,7 @@ jobs:
             type=semver,pattern={{version}},value=${{ github.event.inputs.tag || github.ref_name }},enable=${{ startsWith(env.REF, 'refs/tags/v') }}
             type=semver,pattern=v{{major}}.{{minor}},value=${{ github.event.inputs.tag || github.ref_name }},enable=${{ startsWith(env.REF, 'refs/tags/v') }}
             type=semver,pattern=v{{major}},value=${{ github.event.inputs.tag || github.ref_name }},enable=${{ startsWith(env.REF, 'refs/tags/v') }}
-            type=raw,value=latest,enable=${{ github.event_name == 'push' || github.event.inputs.latest == 'true' }}
+            type=raw,value=latest,enable=${{ github.event.inputs.latest == 'true' }}
             type=raw,value=master,enable=${{ env.REF == 'refs/heads/master' }}
       - name: Merge and push manifest
         uses: int128/docker-manifest-create-action@a118e9fe12455375d4810aa318c20e6dba77288e  # v2.29.0
@@ -734,7 +734,7 @@ jobs:
             type=semver,pattern={{version}},value=${{ github.event.inputs.tag || github.ref_name }},enable=${{ startsWith(env.REF, 'refs/tags/v') }}
             type=semver,pattern=v{{major}}.{{minor}},value=${{ github.event.inputs.tag || github.ref_name }},enable=${{ startsWith(env.REF, 'refs/tags/v') }}
             type=semver,pattern=v{{major}},value=${{ github.event.inputs.tag || github.ref_name }},enable=${{ startsWith(env.REF, 'refs/tags/v') }}
-            type=raw,value=latest,enable=${{ github.event_name == 'push' || github.event.inputs.latest == 'true' }}
+            type=raw,value=latest,enable=${{ github.event.inputs.latest == 'true' }}
             type=raw,value=master,enable=${{ env.REF == 'refs/heads/master' }}
       - name: Merge and push manifest
         uses: int128/docker-manifest-create-action@a118e9fe12455375d4810aa318c20e6dba77288e  # v2.29.0
@@ -824,7 +824,7 @@ jobs:
             type=semver,pattern={{version}},value=${{ github.event.inputs.tag || github.ref_name }},enable=${{ startsWith(env.REF, 'refs/tags/v') }}
             type=semver,pattern=v{{major}}.{{minor}},value=${{ github.event.inputs.tag || github.ref_name }},enable=${{ startsWith(env.REF, 'refs/tags/v') }}
             type=semver,pattern=v{{major}},value=${{ github.event.inputs.tag || github.ref_name }},enable=${{ startsWith(env.REF, 'refs/tags/v') }}
-            type=raw,value=latest,enable=${{ github.event_name == 'push' || github.event.inputs.latest == 'true' }}
+            type=raw,value=latest,enable=${{ github.event.inputs.latest == 'true' }}
             type=raw,value=master,enable=${{ env.REF == 'refs/heads/master' }}
       - name: Build and push Docker images
         uses: docker/build-push-action@c3c9e263c25d99ce0380d002d59b67737d91b0dc  # v7.4.0
@@ -983,7 +983,7 @@ jobs:
             type=semver,pattern={{version}},value=${{ github.event.inputs.tag || github.ref_name }},enable=${{ startsWith(env.REF, 'refs/tags/v') }}
             type=semver,pattern=v{{major}}.{{minor}},value=${{ github.event.inputs.tag || github.ref_name }},enable=${{ startsWith(env.REF, 'refs/tags/v') }}
             type=semver,pattern=v{{major}},value=${{ github.event.inputs.tag || github.ref_name }},enable=${{ startsWith(env.REF, 'refs/tags/v') }}
-            type=raw,value=latest,enable=${{ github.event_name == 'push' || github.event.inputs.latest == 'true' }}
+            type=raw,value=latest,enable=${{ github.event.inputs.latest == 'true' }}
             type=raw,value=master,enable=${{ env.REF == 'refs/heads/master' }}
       - name: Merge and push manifest
         uses: int128/docker-manifest-create-action@a118e9fe12455375d4810aa318c20e6dba77288e  # v2.29.0
