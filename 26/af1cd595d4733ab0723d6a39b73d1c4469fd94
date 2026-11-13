@@ -1,0 +1,23 @@
+package.json
+  s_790aedb3119d39::t_2a60aec85ed235 186-196
+deno.json
+  s_790aedb3119d39::t_2a60aec85ed235 108
+pnpm-lock.yaml
+  s_790aedb3119d39::t_711e85a94514a0 285-286,288-289,291-292,294-295,297-298,300-301,303-304,306-307,309-310,312-313,315-316,557-558,562-563,567-568,573-574,579-580,585-586,591-592,597-598,603-604,608-609,613-614,1609,1612,1615,1618,1621,1624,1627,1630,1633,1636,1639
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "26af1cd595d4733ab0723d6a39b73d1c4469fd94",
+  "prompts": {},
+  "sessions": {
+    "s_790aedb3119d39": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_ad434648-2a8a-4978-84cb-207d4726798d",
+        "model": "GLM-5.3"
+      },
+      "human_author": "Team AppThreat <cloud@appthreat.com>"
+    }
+  }
+}
