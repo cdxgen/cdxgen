@@ -1,0 +1,57 @@
+bin/cdxgen.js
+  s_8376465eb88a0d::t_0cf3a2f229dbf9 48
+lib/cli/nativeBom.js
+  s_8376465eb88a0d::t_c0fcf978fd088b 35
+lib/core/yaml.js
+  s_8376465eb88a0d::t_2ba3616cbcde6c 1-43
+lib/core/yaml.poku.js
+  s_8376465eb88a0d::t_21c205f76efb15 1-108
+lib/ecosystems/parsers-crystal.js
+  s_8376465eb88a0d::t_a2330ad5758f11 3
+lib/ecosystems/parsers-js.js
+  s_8376465eb88a0d::t_158127f5e24a67 31
+lib/ecosystems/parsers-misc.js
+  s_8376465eb88a0d::t_88d31fec42eacc 40
+lib/ecosystems/parsers-python.js
+  s_8376465eb88a0d::t_8413c95242818c 14
+lib/ecosystems/parsers-stack.js
+  s_8376465eb88a0d::t_43c829f16ece36 3
+lib/helpers/agenticToolutils.js
+  s_8376465eb88a0d::t_fc03e1c1c698a7 12
+lib/inventory/certificates.js
+  s_8376465eb88a0d::t_e61ba09fc5603a 13
+lib/inventory/ciParsers/azurePipelines.js
+  s_8376465eb88a0d::t_1c2b00edf5bf45 4
+lib/inventory/ciParsers/circleCi.js
+  s_8376465eb88a0d::t_5d34ca266a7b26 4
+lib/inventory/ciParsers/githubActions.js
+  s_8376465eb88a0d::t_0a4ada848ee009 7
+lib/inventory/ciParsers/githubActionsLock.js
+  s_8376465eb88a0d::t_793783dfb57e76 24
+lib/inventory/ciParsers/gitlabCi.js
+  s_8376465eb88a0d::t_4b8eeaccd6a523 4
+lib/inventory/communityAiConfigParser.js
+  s_8376465eb88a0d::t_4ac3ba09ec8a8b 6
+lib/inventory/licenseEnhancer.js
+  s_8376465eb88a0d::t_db3852e8370768 5
+lib/parsers/huggingfaceManifest.js
+  s_8376465eb88a0d::t_3aaefe14dbc4fa 8,240
+lib/stages/postgen/ruleEngine.js
+  s_8376465eb88a0d::t_64c99dec798a97 12
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "a6e41331c9a3a9d634ed46dffa9bbcbe3f8ba3d5",
+  "prompts": {},
+  "sessions": {
+    "s_8376465eb88a0d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6b944f10-f38a-4491-8809-d36fec51aaa5",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
