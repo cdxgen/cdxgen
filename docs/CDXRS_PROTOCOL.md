@@ -233,8 +233,10 @@ representation in it:
 - any GitHub host (`github.com`, `api.github.com` and `*.github.com`). Whether
   a request may carry `GITHUB_TOKEN` is decided per request on the JS side, and
   cdxrs never receives the token: `runCdxrs()` removes `GITHUB_TOKEN` from the
-  child's environment, so the helper's own rule, which sends the token to
-  `github.com` and `api.github.com` by host name, never applies in a cdxgen run.
+  child's environment. cdxrs from cdxgen-plugins-bin 4.3.x on reads no
+  credential from its environment at all; older helpers attached
+  `GITHUB_TOKEN` to `github.com` and `api.github.com` by host name, which the
+  removal above keeps from happening in a cdxgen run.
 
 The pool applies the same global and per-host concurrency and rate policy, so
 the batching win is unchanged; only the on-disk cache below is skipped.
