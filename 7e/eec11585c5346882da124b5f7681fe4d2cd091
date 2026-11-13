@@ -1,0 +1,23 @@
+docs/ADVANCED.md
+  s_8376465eb88a0d::t_8250d10fe87a4b 226
+lib/ecosystems/tea.js
+  s_8376465eb88a0d::t_246a1f48fea0a7 578
+lib/ecosystems/tea.poku.js
+  s_8376465eb88a0d::t_6f284e8198a318 354-358,375-377,382
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "7eeec11585c5346882da124b5f7681fe4d2cd091",
+  "prompts": {},
+  "sessions": {
+    "s_8376465eb88a0d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6b944f10-f38a-4491-8809-d36fec51aaa5",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
