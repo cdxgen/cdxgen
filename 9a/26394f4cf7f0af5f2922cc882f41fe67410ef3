@@ -1,0 +1,29 @@
+lib/ecosystems/kosi.js
+  s_8376465eb88a0d::t_06a6c2094b520c 14,291,296-303,308,957-959
+lib/ecosystems/kosi.poku.js
+  s_8376465eb88a0d::t_f35ec79c8d5ea1 369-395
+lib/inventory/depsUtils.js
+  s_8376465eb88a0d::t_de6894aae3cdac 353-382
+lib/inventory/depsUtils.poku.js
+  s_8376465eb88a0d::t_b742872665f956 4,771-797
+lib/inventory/dosai.js
+  s_8376465eb88a0d::t_ac01703dabda4d 52,144-149,154,2433-2435
+lib/inventory/dosai.poku.js
+  s_8376465eb88a0d::t_814a9458673cfd 605-628
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "9a26394f4cf7f0af5f2922cc882f41fe67410ef3",
+  "prompts": {},
+  "sessions": {
+    "s_8376465eb88a0d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6b944f10-f38a-4491-8809-d36fec51aaa5",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
