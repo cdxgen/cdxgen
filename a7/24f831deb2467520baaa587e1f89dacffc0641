@@ -1,0 +1,77 @@
+docs/ADVANCED.md
+  s_8376465eb88a0d::t_f55664af5bcceb 1054
+docs/CUSTOM_PROPERTIES.md
+  s_8376465eb88a0d::t_7aa1892301d95f 363,511
+lib/cli/managedBom.js
+  s_8376465eb88a0d::t_7d0d1ae50a791e 1055
+lib/core/propertySanitizer.js
+  s_8376465eb88a0d::t_877b8d09ce2355 17,39-150,172,181,200,291-302
+lib/core/propertySanitizer.poku.js
+  s_8376465eb88a0d::t_666a04435abd1c 9,69,150,155-253
+lib/ecosystems/parsers-misc.js
+  s_8376465eb88a0d::t_d31b05f25d7078 865-866,869-877
+lib/ecosystems/parsers-misc.poku.js
+  s_8376465eb88a0d::t_ec7bebec9b4ed2 708-734
+lib/inventory/certificates.js
+  s_8376465eb88a0d::t_5314cc5304f594 13-14,128-132,136-140,352,1269-1272,1281-1299,1302-1304,1312-1320,1332,1338-1345,1349-1357,1392,1540-1542,1545,1548,1559-1561,1822-1825,1835-1842,1948,1955-1957
+lib/inventory/certificates.poku.js
+  s_8376465eb88a0d::t_3ab07c9c5a02af 176-215,456-498,578-608,654-693
+lib/inventory/ciParsers/azurePipelines.js
+  s_8376465eb88a0d::t_f48f4bd61255d2 6-7,14-15,18-19,82,267,277,280,286-303,306,312
+lib/inventory/ciParsers/azurePipelines.poku.js
+  s_8376465eb88a0d::t_7346dd9cd236e8 1-2,255-303
+lib/inventory/ciParsers/circleCi.js
+  s_8376465eb88a0d::t_b6935780eec6af 6-43,50-51,54-55,114,135,149-157,209-228,249,260-265,294,311,321,324,330-347,350,356
+lib/inventory/ciParsers/circleCi.poku.js
+  s_8376465eb88a0d::t_379c5b6757e613 1-2,232-344
+lib/inventory/ciParsers/common.js
+  s_8376465eb88a0d::t_0eeb25961525f8 1-5,30-104
+lib/inventory/ciParsers/githubActions.js
+  s_8376465eb88a0d::t_91a976ac367086 8,10,1721,1772,1837-1838,1842,1888-1891,1893,1906-1909,2017,2033-2041,2070,2220,2373,2414,2423,2433,2436,2441,2443-2482
+lib/inventory/ciParsers/githubActions.poku.js
+  s_8376465eb88a0d::t_f8214ac6abf9d5 235-376,401-468,2130-2189
+lib/inventory/ciParsers/gitlabCi.js
+  s_8376465eb88a0d::t_b68f383834804f 6-7,14-15,18-19,172-175,192,202,205,212-232,235-241
+lib/inventory/ciParsers/gitlabCi.poku.js
+  s_8376465eb88a0d::t_170cdc2aa05914 1-2,249-274
+lib/inventory/ciParsers/jenkins.js
+  s_8376465eb88a0d::t_83735f4e211eb9 4-5,15-16,19-20,52,152,162,165,171-188,191,197
+lib/inventory/ciParsers/jenkins.poku.js
+  s_8376465eb88a0d::t_af26c94418a8d1 1-2,199-248
+lib/inventory/ecosystemFormulationParsers.js
+  s_8376465eb88a0d::t_3b11d7b1ef458d 188-232,323-325
+lib/inventory/ecosystemFormulationParsers.poku.js
+  s_8376465eb88a0d::t_a30adc0461669c 186-214
+lib/inventory/envcontext.js
+  s_8376465eb88a0d::t_6e082d9d8560ad 193-202,211-216,218-221,247-248,252-258,260-268,293-297,300-302,304,317-318,394-400,480-515,523-524,1203-1204,1208,1210,1226-1228,1236,1267-1274,2183-2184,2195,2297-2308,2321-2324,2471-2481
+lib/inventory/envcontext.poku.js
+  s_8376465eb88a0d::t_cf47d6dd507030 732-827
+lib/inventory/envcontext_git.poku.js
+  s_8376465eb88a0d::t_f7d12bab288866 2,11,13,111-160
+lib/inventory/formulationParsers.js
+  s_8376465eb88a0d::t_7f64d41de4e230 10-13,17,48-49,212-213,217-238,240-243,245-263,265,440-441,451-457,467-470,472-473,475-476,478-479,481-482,503-507,509
+lib/inventory/formulationParsers.poku.js
+  s_8376465eb88a0d::t_368aeccc5967d6 397-400,620-673,729-735,759-773,775,789-947
+lib/inventory/rustFormulationParser.js
+  s_8376465eb88a0d::t_6e3ca134b73158 198-200
+lib/stages/pregen/envAudit.js
+  s_8376465eb88a0d::t_517c4d09846d16 53-54,56
+lib/stages/pregen/envAudit.poku.js
+  s_8376465eb88a0d::t_c00bad63647afd 455-469
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "a724f831deb2467520baaa587e1f89dacffc0641",
+  "prompts": {},
+  "sessions": {
+    "s_8376465eb88a0d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6b944f10-f38a-4491-8809-d36fec51aaa5",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
