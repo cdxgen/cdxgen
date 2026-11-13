@@ -98,7 +98,7 @@ Trust boundary 5: cdxgen container ←→ container host
 - Leiningen (`lein deps :tree-data`)
 - `poetry export` and `pdm export`
 - `dotnet msbuild` property evaluation
-- SwiftPM: `swift package dump-package`, `show-dependencies`, `resolve` and the evidence build; compiler plugin flags read from an existing `.build` directory are dropped
+- SwiftPM: `swift package dump-package`, `show-dependencies`, `resolve` and the evidence build; compiler plugin flags, `-vfsoverlay` and `-sdk` read from an existing `.build` directory are dropped (on macOS the SDK path implies a plugin directory and plugin server), and the host toolchain's SDK is used instead
 - CocoaPods: `pod ipc podfile-json` and `pod ipc spec` on Ruby podspecs (JSON podspecs are read directly)
 - Rust: `cargo check` and rusi under `--deep` or `--evidence`; `cargo metadata` runs from the temporary directory with `--offline`, so the project's `.cargo/config.toml` and `rust-toolchain.toml` do not apply
 - Ruby: `bundle exec` for gem module names

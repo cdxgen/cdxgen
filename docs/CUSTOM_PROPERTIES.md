@@ -1066,7 +1066,7 @@ The built-in BOM audit categories `golem-security`, `golem-performance`, and `go
 
 | Property                          | Meaning                                                            |
 | --------------------------------- | ------------------------------------------------------------------ |
-| `cdx:golem:crypto:sourceLocation` | Source file, line, and column where the crypto asset was detected. |
+| `cdx:golem:crypto:sourceLocation` | Source file, line, and column where the crypto asset was detected. The file is named relative to the analyzed directory, as `<module path>@<version>/<path>` for a file of another module, or by its base name otherwise. |
 | `cdx:golem:crypto:strength`       | Conservative strength classification from Golem.                   |
 | `cdx:golem:crypto:symbol`         | Safe symbol name associated with the crypto asset.                 |
 | `cdx:golem:crypto:usageScope`     | Usage scope associated with the crypto asset.                      |
