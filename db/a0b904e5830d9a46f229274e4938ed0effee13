@@ -1,0 +1,25 @@
+bin/cdxgen.js
+  s_8376465eb88a0d::t_7451321f9eb992 26,180-184
+docs/ADVANCED.md
+  s_8376465eb88a0d::t_e4354cc4a50b88 505
+lib/cli/cliOptions.js
+  s_8376465eb88a0d::t_b3c04c271a4f6a 243-281,772-773
+lib/cli/cliOptions.poku.js
+  s_8376465eb88a0d::t_6893305f402692 11,515,522-531,1886-1920
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "dba0b904e5830d9a46f229274e4938ed0effee13",
+  "prompts": {},
+  "sessions": {
+    "s_8376465eb88a0d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6b944f10-f38a-4491-8809-d36fec51aaa5",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
