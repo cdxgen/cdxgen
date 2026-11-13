@@ -449,6 +449,7 @@ The toolchain version probes for formulation also run from the temporary directo
 - Warning when `--include-formulation` is used with `--server-url` (formulation may contain emails and secrets)
 - In secure mode, using `--include-formulation` with `--server-url` calls `process.exit(1)` after the warning, preventing automatic upload of formulation data
 - `auditEnvironment` detects and warns about credential-like environment variables
+- Output from package managers and build tools (npm, pip, uv, poetry, Maven, Gradle, cargo, docker and the other tools cdxgen runs) is redacted before it is printed: URLs lose their userinfo and query string, URL path segments that look like access tokens (as in `https://host/<token>/simple/`) read `***`, and the value of any environment variable whose name marks a credential (names ending in `_TOKEN`, `_PASSWORD`, `_SECRET`, `_KEY`, `_AUTH`, `_PAT`, `_PSW`, `_PWD` and the like, and index URL variables such as `PIP_INDEX_URL` and `UV_INDEX_URL`) reads `***` wherever it appears. Values shorter than 8 characters are not replaced. A spawn error is printed as its name and message only
 - Secret-bearing BOM metadata values are sanitized before emission in AI/MCP inventory and Chrome extension metadata flows:
   - URLs and URIs drop userinfo, query strings, and fragments
   - inline credential patterns are redacted
