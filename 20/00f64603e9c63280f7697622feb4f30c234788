@@ -1,0 +1,21 @@
+.github/workflows/build-images.yml
+  s_8376465eb88a0d::t_e6e6472d551f83 258
+.github/workflows/npm-release.yml
+  s_8376465eb88a0d::t_d39306657a5b57 334,545,737,827,986
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "2000f64603e9c63280f7697622feb4f30c234788",
+  "prompts": {},
+  "sessions": {
+    "s_8376465eb88a0d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6b944f10-f38a-4491-8809-d36fec51aaa5",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
