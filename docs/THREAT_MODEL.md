@@ -453,6 +453,7 @@ The toolchain version probes for formulation also run from the temporary directo
 - Secret-bearing BOM metadata values are sanitized before emission in AI/MCP inventory and Chrome extension metadata flows:
   - URLs and URIs of any scheme (`https://`, `postgres://`, `jdbc:mysql://` and the like) drop userinfo, query strings, and fragments, also inside free text; a URL template such as `https://host/users/{id}` keeps its braces as written
   - inline credential patterns are redacted
+  - component `externalReferences` built from scanned manifests and metadata (a Python `METADATA` `Home-page:`, a `package.json` `repository` or `bugs` URL, a download URL) drop their userinfo (an SSH `git@` user is kept), their query string, and a fragment that holds `=` or a token shape; a fragment naming a git ref such as `#v1.2.0` is kept
   - raw command strings are reduced to safer summaries such as the executable name
   - dangerous structured keys such as `__proto__`, `constructor`, and `prototype` are removed before JSON serialization
   - Hugging Face widget examples, gated-access forms, and GGUF tokenizer/chat-template payloads are reduced to bounded derivatives instead of being copied verbatim into BOM properties
