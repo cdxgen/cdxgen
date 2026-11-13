@@ -7,153 +7,153 @@ importers:
     configDependencies: {}
     packageManagerDependencies:
       pnpm:
-        specifier: 12.16.1
-        version: 12.16.1
+        specifier: 12.18.0
+        version: 12.18.0
 
 packages:
 
-  '@pnpm/exe.android-arm64@12.16.1':
-    resolution: {integrity: sha512-PKf78Ew+i0CBYf0Xc+eMcqQiqyBT+u8XCVg1F5roc98/6wWfdYlWhrUMmEBiKWaJ3JqHxrtt8l1NwZ7qfJt2/Q==}
+  '@pnpm/exe.android-arm64@12.18.0':
+    resolution: {integrity: sha512-fOF6IwgvnUKEmVedGqiAsNPfN2Ry8GvaqzSQOiF3RJFbpBfPKO/6YT54s1GjToyYinRxw9preHHPe4y2N3SzhA==}
     cpu: [arm64]
     os: [android]
 
-  '@pnpm/exe.android-x64@12.16.1':
-    resolution: {integrity: sha512-xdu7gMbB98pdvhwMeA6612Of515FDlRUtfA/1f7nWPZfPLnEdSRBO2u+1N0XBtQ/ennhPH/lrxB1gC6gnR/cdg==}
+  '@pnpm/exe.android-x64@12.18.0':
+    resolution: {integrity: sha512-6OiolnaCsB3/GcJ9XNrenbUH3zFHRJ+5QynrMUUEyThbgnnCzWxa199hpQlOmxN4rAXuYQ0IYgWFNUZxyzg31Q==}
     cpu: [x64]
     os: [android]
 
-  '@pnpm/exe.darwin-arm64@12.16.1':
-    resolution: {integrity: sha512-pVbmIIbhixiLvADLu1WA3TaW8FZy/D72R1De27WbbFx8/2mxvnsTyFVm4fO9kjpjMY7RzJd48CiQ96p8fO3ebQ==}
+  '@pnpm/exe.darwin-arm64@12.18.0':
+    resolution: {integrity: sha512-zkq+4YzVIX39ETYLyC3W7LY7MpHEU/J3nRhHl4i2yPld2Cf2+rEKRh3ejJ4AmaQ77HHJLCktY4Z3jq0fpcxFXg==}
     cpu: [arm64]
     os: [darwin]
 
-  '@pnpm/exe.darwin-x64@12.16.1':
-    resolution: {integrity: sha512-xZvQBFqcZjO7vFKTK3XsJpqY6lnBL9EWSLCzVUPq3kZ94+D96gwJCa76xxGNK8Cj32f4eeM91Qg+yNRR4sRpDw==}
+  '@pnpm/exe.darwin-x64@12.18.0':
+    resolution: {integrity: sha512-qMsL9qx92unOTa6hgkfiTJv8ceZaTx0IQg7InhYDVX2ZrTECujaVEEVypnJK5m3eGUsP1KD7Y4qIgleCwfRsYw==}
     cpu: [x64]
     os: [darwin]
 
-  '@pnpm/exe.freebsd-x64@12.16.1':
-    resolution: {integrity: sha512-zTtunfi9mBhRXiXEJYfwiJj0tk7MgTSfqDSRh+Az9FZ9THazVIiQiVNS8jpcsftDOqu7LKNffQdjmgwHDThfUg==}
+  '@pnpm/exe.freebsd-x64@12.18.0':
+    resolution: {integrity: sha512-/9vy/4ms52cU4MjZ5NhHd6N2d9L9W0kARf5/ff2tweAHu0VeUzs/0qp/7ZHFuddm2Wa/m0AKQoPum9AVUCqKsw==}
     cpu: [x64]
     os: [freebsd]
 
-  '@pnpm/exe.linux-arm64-musl@12.16.1':
-    resolution: {integrity: sha512-BJ3mOmcmQgcUo92Ee/WfEOt1pRiv3y2MMAkhEiYHd85UiPpHTfFhv+SpCbALmfExzXk3UlaRtMYwHlkQymc4VA==}
+  '@pnpm/exe.linux-arm64-musl@12.18.0':
+    resolution: {integrity: sha512-Vp+TIMPPyackVCXkOdEKH/RmAn/r07EcIyrgZYQK7VrkksqZOie0GnWIx+85mPqeFEYCRtXIZAFJ9L4ceTndDg==}
     cpu: [arm64]
     os: [linux]
     libc: [musl]
 
-  '@pnpm/exe.linux-arm64@12.16.1':
-    resolution: {integrity: sha512-JaRd5gNxwdNGBBkrZFt8bknrK4YmHVJBW0JMhUQ0fJ0dEYp6C2GT9ExaCqOO8EwYEyqM+jpKgJIK+8WFaJy3ew==}
+  '@pnpm/exe.linux-arm64@12.18.0':
+    resolution: {integrity: sha512-2dpyVBCHT+FfpuQh9i+7MXAqNWYLCvD5vYr5p6Eimxoga8USLnjbUgyj72AOrO0hjc5ri3TEFP3jiyBHjkSZpQ==}
     cpu: [arm64]
     os: [linux]
     libc: [glibc]
 
-  '@pnpm/exe.linux-ppc64@12.16.1':
-    resolution: {integrity: sha512-FnSV0Jv40S1cMv7vFNWwvu0X567Lec4L4HCRead3CFcD6zQDNbGw81s8N5bcKPahtPD9ApVuhsbmFCx4rw6RMw==}
+  '@pnpm/exe.linux-ppc64@12.18.0':
+    resolution: {integrity: sha512-BBOOOfNJ2QwIIya3eKqOjiN4WNTszfRz7HCvw9XggcT7+ftMjNP8XJ/GfW+ltCBeUFR9d8WBVsr2m/NLjX2CZQ==}
     cpu: [ppc64]
     os: [linux]
     libc: [glibc]
 
-  '@pnpm/exe.linux-riscv64@12.16.1':
-    resolution: {integrity: sha512-C1Sww4FN5IttD4atRRhAKmQtSGWVp04ZAKNxO8pfu2bkRPwOW+7v+2DH1Xs1W+kZYYpO86BYDvUcadefF+AgaQ==}
+  '@pnpm/exe.linux-riscv64@12.18.0':
+    resolution: {integrity: sha512-7kMN77xSOYJX8GPSH5RbNAc5oM61LMmcSUukDDUwllnZPXm8GRPskCNsTWy8SCw01Kr1FB+5SwGNMiTdiziLNQ==}
     cpu: [riscv64]
     os: [linux]
     libc: [glibc]
 
-  '@pnpm/exe.linux-s390x@12.16.1':
-    resolution: {integrity: sha512-kn2fautsTcxIMODoovQVqZyfpDRdNgGkoeVqNdrKqbeBBvrEl+fXLkmZiq5xDht1LMr4sYiCNcsMfNMT6JPFmg==}
+  '@pnpm/exe.linux-s390x@12.18.0':
+    resolution: {integrity: sha512-htuSCpEcmDzhKoJqXbPkvfr176dBHU0QIF5mWcRiqxRXAB/1JoYiMYotfjWpk+ztgpB9qlx4XnWlLFAf7gzc6g==}
     cpu: [s390x]
     os: [linux]
     libc: [glibc]
 
-  '@pnpm/exe.linux-x64-musl@12.16.1':
-    resolution: {integrity: sha512-PM6ccHCOe/O9SsTflTJTYWfwogJZa6EmUvpnwZgiPguJBddh20wDQKgxUPXf48rDsPm9vMsIij0uHswwwbXL8g==}
+  '@pnpm/exe.linux-x64-musl@12.18.0':
+    resolution: {integrity: sha512-Uj+vzfIQ62kDP10x36yHZIXVs5ohdNtiPYwn5FhCLlNScHPo0OAI+ShGDtLofiBXKE7umu71Jmjm7N8a8zVcDw==}
     cpu: [x64]
     os: [linux]
     libc: [musl]
 
-  '@pnpm/exe.linux-x64@12.16.1':
-    resolution: {integrity: sha512-RK//8ZLcXGW8A2k8bQOXZDBN1Qu92zN4dYnG1bzj1zoQ1fkZ6jNzZ1AvXtsfGVma795CJtvoaF5bLXf4l/FIUw==}
+  '@pnpm/exe.linux-x64@12.18.0':
+    resolution: {integrity: sha512-OJ+X2wcraldCwj75pCIerWARQSRpdfj0eBTs/2ODyhfeW46ylOnjTIE/GKra6Mn6E72/gBmXS8igrUioa+F9fQ==}
     cpu: [x64]
     os: [linux]
     libc: [glibc]
 
-  '@pnpm/exe.win32-arm64@12.16.1':
-    resolution: {integrity: sha512-Ox3kNNVxtGw6pK7SVejmeOUgHhUTZgAM7NQQ6cU7frPw3ix9+j7d2MGbRg3fyEFAaKWq8ZAZLTQGcDyLnAu+qA==}
+  '@pnpm/exe.win32-arm64@12.18.0':
+    resolution: {integrity: sha512-wEY6jiACGcbhhi5yD59doHqNTndS7AaujaPmtWAu1DKkHru2hy5fJ9yUGecW72Ypaw2/I3BEprfMOopap2NQtw==}
     cpu: [arm64]
     os: [win32]
 
-  '@pnpm/exe.win32-x64@12.16.1':
-    resolution: {integrity: sha512-k+FhRJ0ttphFoFIVB1Sk4v76YJAulafmA/Ly57cysesUhhIzVlApeOShUz0jXubKx317TThlEfpQrukldnqORA==}
+  '@pnpm/exe.win32-x64@12.18.0':
+    resolution: {integrity: sha512-5FJkghO7RLRkQpWxeVEygW9XsmnNuxzPfXbgwFWCHsFyFhpDn/vOdL88ToQEM0Kt5igdW5s6U0/IDH8Dvkt3pg==}
     cpu: [x64]
     os: [win32]
 
-  pnpm@12.16.1:
-    resolution: {integrity: sha512-CR0d7nknV1Zhsl2rPCrjHK/BxU1rce1qZgDPDByxBDSkR+rhQBXxsj4ua+3u1535SpMuIWTSgyKA3OP7MvZW0Q==}
+  pnpm@12.18.0:
+    resolution: {integrity: sha512-nXiC1dyCFH7PxOBiqjSDTgrQKWcQoYN6ERWuASEn02txCeMhrBWYod0KZVl2gbHpmRfhLtDXSerpEYeUM2O+sw==}
     engines: {node: '>=18'}
     hasBin: true
 
 snapshots:
 
-  '@pnpm/exe.android-arm64@12.16.1':
+  '@pnpm/exe.android-arm64@12.18.0':
     optional: true
 
-  '@pnpm/exe.android-x64@12.16.1':
+  '@pnpm/exe.android-x64@12.18.0':
     optional: true
 
-  '@pnpm/exe.darwin-arm64@12.16.1':
+  '@pnpm/exe.darwin-arm64@12.18.0':
     optional: true
 
-  '@pnpm/exe.darwin-x64@12.16.1':
+  '@pnpm/exe.darwin-x64@12.18.0':
     optional: true
 
-  '@pnpm/exe.freebsd-x64@12.16.1':
+  '@pnpm/exe.freebsd-x64@12.18.0':
     optional: true
 
-  '@pnpm/exe.linux-arm64-musl@12.16.1':
+  '@pnpm/exe.linux-arm64-musl@12.18.0':
     optional: true
 
-  '@pnpm/exe.linux-arm64@12.16.1':
+  '@pnpm/exe.linux-arm64@12.18.0':
     optional: true
 
-  '@pnpm/exe.linux-ppc64@12.16.1':
+  '@pnpm/exe.linux-ppc64@12.18.0':
     optional: true
 
-  '@pnpm/exe.linux-riscv64@12.16.1':
+  '@pnpm/exe.linux-riscv64@12.18.0':
     optional: true
 
-  '@pnpm/exe.linux-s390x@12.16.1':
+  '@pnpm/exe.linux-s390x@12.18.0':
     optional: true
 
-  '@pnpm/exe.linux-x64-musl@12.16.1':
+  '@pnpm/exe.linux-x64-musl@12.18.0':
     optional: true
 
-  '@pnpm/exe.linux-x64@12.16.1':
+  '@pnpm/exe.linux-x64@12.18.0':
     optional: true
 
-  '@pnpm/exe.win32-arm64@12.16.1':
+  '@pnpm/exe.win32-arm64@12.18.0':
     optional: true
 
-  '@pnpm/exe.win32-x64@12.16.1':
+  '@pnpm/exe.win32-x64@12.18.0':
     optional: true
 
-  pnpm@12.16.1:
+  pnpm@12.18.0:
     optionalDependencies:
-      '@pnpm/exe.android-arm64': 12.16.1
-      '@pnpm/exe.android-x64': 12.16.1
-      '@pnpm/exe.darwin-arm64': 12.16.1
-      '@pnpm/exe.darwin-x64': 12.16.1
-      '@pnpm/exe.freebsd-x64': 12.16.1
-      '@pnpm/exe.linux-arm64': 12.16.1
-      '@pnpm/exe.linux-arm64-musl': 12.16.1
-      '@pnpm/exe.linux-ppc64': 12.16.1
-      '@pnpm/exe.linux-riscv64': 12.16.1
-      '@pnpm/exe.linux-s390x': 12.16.1
-      '@pnpm/exe.linux-x64': 12.16.1
-      '@pnpm/exe.linux-x64-musl': 12.16.1
-      '@pnpm/exe.win32-arm64': 12.16.1
-      '@pnpm/exe.win32-x64': 12.16.1
+      '@pnpm/exe.android-arm64': 12.18.0
+      '@pnpm/exe.android-x64': 12.18.0
+      '@pnpm/exe.darwin-arm64': 12.18.0
+      '@pnpm/exe.darwin-x64': 12.18.0
+      '@pnpm/exe.freebsd-x64': 12.18.0
+      '@pnpm/exe.linux-arm64': 12.18.0
+      '@pnpm/exe.linux-arm64-musl': 12.18.0
+      '@pnpm/exe.linux-ppc64': 12.18.0
+      '@pnpm/exe.linux-riscv64': 12.18.0
+      '@pnpm/exe.linux-s390x': 12.18.0
+      '@pnpm/exe.linux-x64': 12.18.0
+      '@pnpm/exe.linux-x64-musl': 12.18.0
+      '@pnpm/exe.win32-arm64': 12.18.0
+      '@pnpm/exe.win32-x64': 12.18.0
 
 ---
 lockfileVersion: '9.0'
@@ -211,8 +211,8 @@ importers:
         specifier: 1.2.2
         version: 1.2.2
       glob:
-        specifier: 14.0.3
-        version: 14.0.3
+        specifier: 14.0.4
+        version: 14.0.4
       node-stream-zip:
         specifier: 1.16.0
         version: 1.16.0
@@ -223,8 +223,8 @@ importers:
         specifier: 6.0.0
         version: 6.0.0
       semver:
-        specifier: 7.8.5
-        version: 7.8.5
+        specifier: 7.8.6
+        version: 7.8.6
       smol-toml:
         specifier: 1.9.1
         version: 1.9.1
@@ -238,8 +238,8 @@ importers:
         specifier: 3.0.0
         version: 3.0.0
       undici:
-        specifier: 8.12.3
-        version: 8.12.3
+        specifier: 8.12.4
+        version: 8.12.4
       walk-up-path:
         specifier: 4.0.0
         version: 4.0.0
@@ -251,8 +251,8 @@ importers:
         version: 18.2.0
     devDependencies:
       '@biomejs/biome':
-        specifier: 2.6.4
-        version: 2.6.4
+        specifier: 2.6.6
+        version: 2.6.6
       esmock:
         specifier: 3.0.0
         version: 3.0.0
@@ -267,14 +267,14 @@ importers:
         version: 7.0.2
     optionalDependencies:
       '@appthreat/atom':
-        specifier: 4.0.0
-        version: 4.0.0
+        specifier: 4.0.2
+        version: 4.0.2
       '@appthreat/atom-parsetools':
         specifier: 2.0.0
         version: 2.0.0
       '@bufbuild/protobuf':
-        specifier: 2.16.0
-        version: 2.16.0
+        specifier: 2.17.0
+        version: 2.17.0
       '@cdxgen/cdx-hbom':
         specifier: 0.8.0
         version: 0.8.0
@@ -315,8 +315,8 @@ importers:
         specifier: 4.3.0
         version: 4.3.0
       '@cdxgen/safer-exec':
-        specifier: 1.2.1
-        version: 1.2.1
+        specifier: 1.3.0
+        version: 1.3.0
       body-parser:
         specifier: 2.4.0
         version: 2.4.0
@@ -335,39 +335,39 @@ packages:
   '@appthreat/atom-common@1.1.0':
     resolution: {integrity: sha512-vGZpJdy9e0l83o8XwDAsQUDpkMVzR4DLb7mbi5npu8Nz/R+2m5oyHlpBGuLYBKm5+KkjTInXP9eNTcMa0Mn3Uw==, tarball: https://registry.npmjs.org/@appthreat/atom-common/-/atom-common-1.1.0.tgz}
 
-  '@appthreat/atom-darwin-amd64@4.0.0':
-    resolution: {integrity: sha512-8zQiyp2J8ZFHssSFzIdGcAZw9K6sQhdAd00K8LYVPrSystJFMCmfiVNhg6uECIuhIcx3PIS0sOT4sf+x5usJLg==, tarball: https://registry.npmjs.org/@appthreat/atom-darwin-amd64/-/atom-darwin-amd64-4.0.0.tgz}
+  '@appthreat/atom-darwin-amd64@4.0.2':
+    resolution: {integrity: sha512-ndxPe9HDomyD7IEnlpAgKK2JULOQeHLJ8F6wdrdAOyifzHA3p/B74N8Ku/XF5enfpXiu1LvMrJuMdjDWOtHA5g==, tarball: https://registry.npmjs.org/@appthreat/atom-darwin-amd64/-/atom-darwin-amd64-4.0.2.tgz}
     cpu: [x64]
     os: [darwin]
 
-  '@appthreat/atom-darwin-arm64@4.0.0':
-    resolution: {integrity: sha512-tZ0rqyX1caoYfs08C3KvT0ghwgdDx7sUcEEfBdU/touT3sYjvopO6q7JyxhASADDy+vCGVjzEO31drKUlqoqQg==, tarball: https://registry.npmjs.org/@appthreat/atom-darwin-arm64/-/atom-darwin-arm64-4.0.0.tgz}
+  '@appthreat/atom-darwin-arm64@4.0.2':
+    resolution: {integrity: sha512-xPTGeoikjNU80/M0CuZ5qOHoewXB1DgutkPqMqz/2mq3nJgVrRW9cGi60p3zOyfgs531E1v6i4pdb9byCYsXag==, tarball: https://registry.npmjs.org/@appthreat/atom-darwin-arm64/-/atom-darwin-arm64-4.0.2.tgz}
     cpu: [arm64]
     os: [darwin]
 
-  '@appthreat/atom-jar@4.0.0':
-    resolution: {integrity: sha512-CoSs5FRshwJsUZztHNSbKC3bgUhEcGXR/W3Jcy36AlP6XaAGiQpPvnageqqiys5K5F9MURmhmzGpLQa90nWweQ==, tarball: https://registry.npmjs.org/@appthreat/atom-jar/-/atom-jar-4.0.0.tgz}
+  '@appthreat/atom-jar@4.0.2':
+    resolution: {integrity: sha512-dTbqSz71bC1SQI3nkrsS4y51++VpNcNqdjSBN5pTc9AQz+kJQz5LQwi/YocsePy3swP1qRQvY3CoBHhROrSM4Q==, tarball: https://registry.npmjs.org/@appthreat/atom-jar/-/atom-jar-4.0.2.tgz}
 
-  '@appthreat/atom-linux-amd64-musl@4.0.0':
-    resolution: {integrity: sha512-TSkCtrjYdLPdR3KQjGxj5g8/MzC78Yb/iWYJ378R9oLDgGiikHtCw+2NespFyXovoCE8IXxHhD4LccXOWGAa9A==, tarball: https://registry.npmjs.org/@appthreat/atom-linux-amd64-musl/-/atom-linux-amd64-musl-4.0.0.tgz}
+  '@appthreat/atom-linux-amd64-musl@4.0.2':
+    resolution: {integrity: sha512-fLRjiBKTLuqkQoeWQrE9K66Mc/B7qmRpgqv6f6oO0bP+vQKDF/qnY2sgNoLL5L2frokOs1uR0NI6B02bih9yLQ==, tarball: https://registry.npmjs.org/@appthreat/atom-linux-amd64-musl/-/atom-linux-amd64-musl-4.0.2.tgz}
     cpu: [x64]
     os: [linux]
     libc: [musl]
 
-  '@appthreat/atom-linux-amd64@4.0.0':
-    resolution: {integrity: sha512-JPqpnq5NrB2OsfDlDuucmBSjFPTlIRAKF2u+bTJ7WMPvYsOy0ueuzR0Z8at2tYoBkyeRgBDvth3tWeQfo12I3g==, tarball: https://registry.npmjs.org/@appthreat/atom-linux-amd64/-/atom-linux-amd64-4.0.0.tgz}
+  '@appthreat/atom-linux-amd64@4.0.2':
+    resolution: {integrity: sha512-zfGlsGy+PvCxc75klkdsix66UjX5I6siRRVc/RV74j1eMREd3dzzAO//+2V/xY2HAaXzWyl1GE0jkKpxn95NRA==, tarball: https://registry.npmjs.org/@appthreat/atom-linux-amd64/-/atom-linux-amd64-4.0.2.tgz}
     cpu: [x64]
     os: [linux]
     libc: [glibc]
 
-  '@appthreat/atom-linux-arm64-musl@4.0.0':
-    resolution: {integrity: sha512-SAKdFmlE7AGWY60RrEjpaB1pHWFxdqHQfk9mLURKBwW9JA42I4f9uS0yf9eAOaFGSqNTNUTa3nZt2w37PIP4IA==, tarball: https://registry.npmjs.org/@appthreat/atom-linux-arm64-musl/-/atom-linux-arm64-musl-4.0.0.tgz}
+  '@appthreat/atom-linux-arm64-musl@4.0.2':
+    resolution: {integrity: sha512-Y8vlkSb5EYnriAbyySVxxcInA0Nx9wc6bF+RN7Y0a554nMD2oqsrQuYIGpl3IpOdpxwg1rdi0WFznF3OefxmgA==, tarball: https://registry.npmjs.org/@appthreat/atom-linux-arm64-musl/-/atom-linux-arm64-musl-4.0.2.tgz}
     cpu: [arm64]
     os: [linux]
     libc: [musl]
 
-  '@appthreat/atom-linux-arm64@4.0.0':
-    resolution: {integrity: sha512-c/CycbMG3Am3n8VGEUul3LUbr9CqtDfdr4hsPT8bT9VtBAT/fQzDWowU/63UPF8qfiUCSC+cdL0QqqF0iREFbA==, tarball: https://registry.npmjs.org/@appthreat/atom-linux-arm64/-/atom-linux-arm64-4.0.0.tgz}
+  '@appthreat/atom-linux-arm64@4.0.2':
+    resolution: {integrity: sha512-uVCt8V7ljvqZzuxxVHonYh2nr64NHe9mVozLKuWqdcOSDM3l4aNrSdI9BJKc5N2MzcyHoe8K0yWWtaZSN+0X+w==, tarball: https://registry.npmjs.org/@appthreat/atom-linux-arm64/-/atom-linux-arm64-4.0.2.tgz}
     cpu: [arm64]
     os: [linux]
     libc: [glibc]
@@ -377,18 +377,18 @@ packages:
     engines: {node: '>=22.0.0'}
     hasBin: true
 
-  '@appthreat/atom-windows-amd64@4.0.0':
-    resolution: {integrity: sha512-EfqHEKi1G1aO5UfVvlESkROos0Bi9jjuxY6F7ZipDrJ1VzjKMN5Z5pzTs0SiCMkYYAU6JLvZw2UslTDgRqfdXg==, tarball: https://registry.npmjs.org/@appthreat/atom-windows-amd64/-/atom-windows-amd64-4.0.0.tgz}
+  '@appthreat/atom-windows-amd64@4.0.2':
+    resolution: {integrity: sha512-Wx22wLqt2y2Q0mD5l80+WPnYUEckksedDcOshif66m8F8Gj5u7yMYG9VMHcTMRqipp8W3wgD6RA/VaeuX+6TKw==, tarball: https://registry.npmjs.org/@appthreat/atom-windows-amd64/-/atom-windows-amd64-4.0.2.tgz}
     cpu: [x64]
     os: [win32]
 
-  '@appthreat/atom-windows-arm64@4.0.0':
-    resolution: {integrity: sha512-YYPc/g9THiDBz5PSl09Ftwa8Ukdh8LGg2L/6c7aah9puze6udZoHcU48n6IL9gcrdmCsWs9qN2wbF7O7xewEag==, tarball: https://registry.npmjs.org/@appthreat/atom-windows-arm64/-/atom-windows-arm64-4.0.0.tgz}
+  '@appthreat/atom-windows-arm64@4.0.2':
+    resolution: {integrity: sha512-yJhTbQWKgdTG5aD77tApNpEqcCu5BL14WSkTg9BL6iCN+B0jGqbbpYitTLVc4Sbd/0Y+UXGPowNRhWfUOrsMjA==, tarball: https://registry.npmjs.org/@appthreat/atom-windows-arm64/-/atom-windows-arm64-4.0.2.tgz}
     cpu: [arm64]
     os: [win32]
 
-  '@appthreat/atom@4.0.0':
-    resolution: {integrity: sha512-HM05bymzGE+7WdDaUWlzPi5zOy6Out4aSBXpUoa2GLeXtvX3ogI6uiMIVzPYHH/nNEZ0oEjZh8HYlfXa5mPLFA==, tarball: https://registry.npmjs.org/@appthreat/atom/-/atom-4.0.0.tgz}
+  '@appthreat/atom@4.0.2':
+    resolution: {integrity: sha512-dPbSqB+jxNOqX2k5dLdY/9urH9W4DgsdtP2zcuhdfVToSOCPw8G2s/9+d0lHSNTy6WYC8jhcGItj7pxI05WScg==, tarball: https://registry.npmjs.org/@appthreat/atom/-/atom-4.0.2.tgz}
     engines: {node: '>=18'}
     hasBin: true
 
@@ -468,71 +468,71 @@ packages:
     resolution: {integrity: sha512-8V8aSTDx012YPmDQF30vrokyxVFdRAU2YBS2VzrnfLAGkP8floVnjckwgFcD0Jrvf6GWMSRdCrYVsk3tyMwZRg==, tarball: https://registry.npmjs.org/@babel/types/-/types-8.1.0.tgz}
     engines: {node: ^22.18.0 || >=24.11.0}
 
-  '@biomejs/biome@2.6.4':
-    resolution: {integrity: sha512-8sKKwaNW4ot22awZ3lBjwWLHnUFXgXnrBPYS2gNlBAXRbDC++7kqjK2H7dR/FgCDtPvO1xfKpgEhJkGxAKYkxA==, tarball: https://registry.npmjs.org/@biomejs/biome/-/biome-2.6.4.tgz}
+  '@biomejs/biome@2.6.6':
+    resolution: {integrity: sha512-NCgVJRyrU1+hsW1ILNaRqNAb9fRL4n49bwyef+wjVJQ488/bXbp0BfnNqTTExkiNQT3ugkgYKR1vK8NxsjlNSQ==, tarball: https://registry.npmjs.org/@biomejs/biome/-/biome-2.6.6.tgz}
     engines: {node: '>=14.21.3'}
     hasBin: true
 
-  '@biomejs/cli-android-arm64@2.6.4':
-    resolution: {integrity: sha512-jwrwigP4tBcHxzuV8izioX/BOUhJL/4e2rNSOE5nCjBkVC018LQAQUGiH+CNkFYvLtQ1dcZo5/xXERmaAGc7JQ==, tarball: https://registry.npmjs.org/@biomejs/cli-android-arm64/-/cli-android-arm64-2.6.4.tgz}
+  '@biomejs/cli-android-arm64@2.6.6':
+    resolution: {integrity: sha512-bicnqNNxEX7pjkDQaptYvPRIWDfgXJLl/Ok7iZjC+F1AhfReor3FSS7SgPYnOvUy/jf++5U/KYN4T8OKH5rrNA==, tarball: https://registry.npmjs.org/@biomejs/cli-android-arm64/-/cli-android-arm64-2.6.6.tgz}
     engines: {node: '>=14.21.3'}
     cpu: [arm64]
     os: [android]
 
-  '@biomejs/cli-android-x64@2.6.4':
-    resolution: {integrity: sha512-HdGInPJ4nZFwHxzvEtcp2nmSBtUyJrurmtIK43upFckuS3+ZqVM05HtsxQWnqGsuy/pxckIAjyKWlEKRlBXUyA==, tarball: https://registry.npmjs.org/@biomejs/cli-android-x64/-/cli-android-x64-2.6.4.tgz}
+  '@biomejs/cli-android-x64@2.6.6':
+    resolution: {integrity: sha512-N443kDSElF4kDMKjarsL+ymj/ewLA5R9VAdawA7fJ7pwgN3JVDZp0K+xhKBglH8EwsKi2+K8xC6WxXSkgziFfw==, tarball: https://registry.npmjs.org/@biomejs/cli-android-x64/-/cli-android-x64-2.6.6.tgz}
     engines: {node: '>=14.21.3'}
     cpu: [x64]
     os: [android]
 
-  '@biomejs/cli-darwin-arm64@2.6.4':
-    resolution: {integrity: sha512-0VvcUz46wbg59Q4TZ59KkIjDJrxEyu4Eoe79+F4SChxoWe+W7AEyIp6F5r72C9+p6MsB6dIovnZt1D30lGM3XA==, tarball: https://registry.npmjs.org/@biomejs/cli-darwin-arm64/-/cli-darwin-arm64-2.6.4.tgz}
+  '@biomejs/cli-darwin-arm64@2.6.6':
+    resolution: {integrity: sha512-/vSAqWx3by3p8w5ew+HVJDgguuaTK3U6Fb5gk/oDUH21iWOopm3gOlhT6tZfy5mTaM5R4CVc3uFWkxBtEDrKyw==, tarball: https://registry.npmjs.org/@biomejs/cli-darwin-arm64/-/cli-darwin-arm64-2.6.6.tgz}
     engines: {node: '>=14.21.3'}
     cpu: [arm64]
     os: [darwin]
 
-  '@biomejs/cli-darwin-x64@2.6.4':
-    resolution: {integrity: sha512-fxmvkF81srlS3DiMyfm+aG3J0eG+6/BjaxRyjy57KbLSafnq0PO+hHfVWmtH2ty0S7nm6yDXBRwySfFeaRJKRQ==, tarball: https://registry.npmjs.org/@biomejs/cli-darwin-x64/-/cli-darwin-x64-2.6.4.tgz}
+  '@biomejs/cli-darwin-x64@2.6.6':
+    resolution: {integrity: sha512-lLdOAJKbrAoDs+3GvTyVmMW345D9IhrIE3GgoL2eeHwO1boN4VhrSlALtFYsP0p+Jy4udUp4bTguij0qjKrH8w==, tarball: https://registry.npmjs.org/@biomejs/cli-darwin-x64/-/cli-darwin-x64-2.6.6.tgz}
     engines: {node: '>=14.21.3'}
     cpu: [x64]
     os: [darwin]
 
-  '@biomejs/cli-linux-arm64-musl@2.6.4':
-    resolution: {integrity: sha512-31ZaH/MHqPX+O+evRwRrCHQ8W5/9adY+/eMytGGWZnRx1T41QsWIF09+/WujynLBhWZUxNGS5CtsWLwgOFTAyg==, tarball: https://registry.npmjs.org/@biomejs/cli-linux-arm64-musl/-/cli-linux-arm64-musl-2.6.4.tgz}
+  '@biomejs/cli-linux-arm64-musl@2.6.6':
+    resolution: {integrity: sha512-rw2Vsoi/WZGDyRjMXx9KZH9zsHe79LIzkdWHkLqsIkeKZm6qiGxtiIApxn7cmJSoEPaSvHaH5pRj1FhTcyL/XA==, tarball: https://registry.npmjs.org/@biomejs/cli-linux-arm64-musl/-/cli-linux-arm64-musl-2.6.6.tgz}
     engines: {node: '>=14.21.3'}
     cpu: [arm64]
     os: [linux]
     libc: [musl]
 
-  '@biomejs/cli-linux-arm64@2.6.4':
-    resolution: {integrity: sha512-6+bK1Y/evmIUiJr7auertuMbiaYVicJhqA1bZyL47lCMWugv8l0gFQCqvR/gN1vZMHYm+HwoTKgeMxdNFCoQTg==, tarball: https://registry.npmjs.org/@biomejs/cli-linux-arm64/-/cli-linux-arm64-2.6.4.tgz}
+  '@biomejs/cli-linux-arm64@2.6.6':
+    resolution: {integrity: sha512-UzJdUCg9dbEGpZOuZRyehEPrnwKjx9z4Um7sWLG5x6txu7UjeWdJZuBXVGlyAdD39w2Hx0nZeK1jKC4NFUTCNQ==, tarball: https://registry.npmjs.org/@biomejs/cli-linux-arm64/-/cli-linux-arm64-2.6.6.tgz}
     engines: {node: '>=14.21.3'}
     cpu: [arm64]
     os: [linux]
     libc: [glibc]
 
-  '@biomejs/cli-linux-x64-musl@2.6.4':
-    resolution: {integrity: sha512-bomSa2XdQAGGj6Cwdm4M13qE+lN9+AOlW8KtI4hdyVyRRF/Z71qPAi95T4wtdZK0QpBbkTW8hgbZZCwPi4xzIw==, tarball: https://registry.npmjs.org/@biomejs/cli-linux-x64-musl/-/cli-linux-x64-musl-2.6.4.tgz}
+  '@biomejs/cli-linux-x64-musl@2.6.6':
+    resolution: {integrity: sha512-DiKejs+GnFbOVQsBnukUpiB+T13tqUDFGwwjsTq51vatAsaflzFzVD0BOgjVUGRrqKgE0K0Xf+wNtkcmdN2chw==, tarball: https://registry.npmjs.org/@biomejs/cli-linux-x64-musl/-/cli-linux-x64-musl-2.6.6.tgz}
     engines: {node: '>=14.21.3'}
     cpu: [x64]
     os: [linux]
     libc: [musl]
 
-  '@biomejs/cli-linux-x64@2.6.4':
-    resolution: {integrity: sha512-tbFZMdL6dP/ws4edXxYG9WhvaVa1ZDzL4G5DzahnWW7Psib9H+VTdyU4XXVxpJk5j/nYZroSbvSNyYlpW3yCIw==, tarball: https://registry.npmjs.org/@biomejs/cli-linux-x64/-/cli-linux-x64-2.6.4.tgz}
+  '@biomejs/cli-linux-x64@2.6.6':
+    resolution: {integrity: sha512-l8/aPXc1cz8VpUyd4hb5Pm5zx+X3voQBks4aLYbp5pC8KSchuHyvqDfY5xax39qCHomI/2xn6NKEot+zebG38g==, tarball: https://registry.npmjs.org/@biomejs/cli-linux-x64/-/cli-linux-x64-2.6.6.tgz}
     engines: {node: '>=14.21.3'}
     cpu: [x64]
     os: [linux]
     libc: [glibc]
 
-  '@biomejs/cli-win32-arm64@2.6.4':
-    resolution: {integrity: sha512-eCsqt8Ma3eVap+oyJCDnJZH60SIU464B66n3y38EUTJdM1T/HfZol1FJC9vb+sHToX0ix8XzqPcwJnOzyAJz0g==, tarball: https://registry.npmjs.org/@biomejs/cli-win32-arm64/-/cli-win32-arm64-2.6.4.tgz}
+  '@biomejs/cli-win32-arm64@2.6.6':
+    resolution: {integrity: sha512-DjVXwQAQeHrO1JEZAEus54k40Tnh4glyU3VFLcDBKwoz0xnxCEnqw6TCMXoujcQMQynWd3AY8bLrbR1o0XNqow==, tarball: https://registry.npmjs.org/@biomejs/cli-win32-arm64/-/cli-win32-arm64-2.6.6.tgz}
     engines: {node: '>=14.21.3'}
     cpu: [arm64]
     os: [win32]
 
-  '@biomejs/cli-win32-x64@2.6.4':
-    resolution: {integrity: sha512-pYsMy5AThiHFOZAsngg8qN4PurM6nInKBhVX7sbj3eNpRQqo1Hb0MgCwPL7VqVMrmcEEMj9Ks3qbkallR65e8g==, tarball: https://registry.npmjs.org/@biomejs/cli-win32-x64/-/cli-win32-x64-2.6.4.tgz}
+  '@biomejs/cli-win32-x64@2.6.6':
+    resolution: {integrity: sha512-B7KMG26A4I9lAuxwBGMmiVcjMGAeJRoz+pzFt9brRvOAsIrgOu8ptJld5rUWui6tM1uiJwxeJhhDPuAiZtxXdw==, tarball: https://registry.npmjs.org/@biomejs/cli-win32-x64/-/cli-win32-x64-2.6.6.tgz}
     engines: {node: '>=14.21.3'}
     cpu: [x64]
     os: [win32]
@@ -540,8 +540,8 @@ packages:
   '@bufbuild/protobuf@2.15.0':
     resolution: {integrity: sha512-DAheWUkVr/SJTWCc+lg9dhY0eN4SaWlf4+bG1KzHeXbnqt0AfB/NX0Z+VunGlM1ki1B4zVvye27MpKh/svySUA==, tarball: https://registry.npmjs.org/@bufbuild/protobuf/-/protobuf-2.15.0.tgz}
 
-  '@bufbuild/protobuf@2.16.0':
-    resolution: {integrity: sha512-FWa0sPlqYGJgpTs6OxBRcL/AW4JT0OIO+W1ajerluoTVh8CV0B7XM1qsNCRgnkSCkRCgOICKHRQlY17jrsm0+Q==, tarball: https://registry.npmjs.org/@bufbuild/protobuf/-/protobuf-2.16.0.tgz}
+  '@bufbuild/protobuf@2.17.0':
+    resolution: {integrity: sha512-hcPkSz6D7MiTU/5VBBhK+kxaYDoOdQ6yJRFJ3kS8Nydp+VZXfg1vrpABKPNod8bXMufsVCmiUJVIKFzCzta4uw==, tarball: https://registry.npmjs.org/@bufbuild/protobuf/-/protobuf-2.17.0.tgz}
 
   '@cdxgen/cdx-hbom@0.8.0':
     resolution: {integrity: sha512-9QL+PBULytvZBtYvGsxiYfV7Ej2Uxli5Gg4/eikVALaVv5DzOdP4mr2Zrad2a4MHEIHwRBMdKGOVS1/sHE/HFA==, tarball: https://registry.npmjs.org/@cdxgen/cdx-hbom/-/cdx-hbom-0.8.0.tgz}
@@ -616,38 +616,38 @@ packages:
   '@cdxgen/cdxgen-plugins-bin@4.3.0':
     resolution: {integrity: sha512-T1gUyvB8+Luaxb5xM8shIj++/ZONSssaOhN/B6lUONWwcMBtsVj+1e8OsyDd1seSuRNGYZH27GYNvTuvY1IV1g==, tarball: https://registry.npmjs.org/@cdxgen/cdxgen-plugins-bin/-/cdxgen-plugins-bin-4.3.0.tgz}
 
-  '@cdxgen/safer-exec-darwin-amd64@1.2.1':
-    resolution: {integrity: sha512-znOjuI6NnkmKFWwhAc9HyIrt3bEgEctNtrEhdeibjpwgOE0lkp+UBanUK+pnHemRfMMqSPhvoaRNKcNOrFNncQ==, tarball: https://registry.npmjs.org/@cdxgen/safer-exec-darwin-amd64/-/safer-exec-darwin-amd64-1.2.1.tgz}
+  '@cdxgen/safer-exec-darwin-amd64@1.3.0':
+    resolution: {integrity: sha512-g0Ur2WFpiLbJJH+MFh5qq2DKxN+oYD62lXcRDLGMyhAnkNjk8XgCT8BxgI1gqkis1NpnU5Xsju052UWAQmtaiQ==, tarball: https://registry.npmjs.org/@cdxgen/safer-exec-darwin-amd64/-/safer-exec-darwin-amd64-1.3.0.tgz}
     cpu: [x64]
     os: [darwin]
 
-  '@cdxgen/safer-exec-darwin-arm64@1.2.1':
-    resolution: {integrity: sha512-obEvXkWkDdU1KCFsw2YE/50akRGZ2GOi0mHNwoB0HurBqY4vSYO6FWXo366yPyPiOM5guFOdCSJFRXvdnNjzrw==, tarball: https://registry.npmjs.org/@cdxgen/safer-exec-darwin-arm64/-/safer-exec-darwin-arm64-1.2.1.tgz}
+  '@cdxgen/safer-exec-darwin-arm64@1.3.0':
+    resolution: {integrity: sha512-VaeeA619I4d3KldNVDUqqb9jWwDmFYWKoQe8wgYL4oicUWhDvZ7znFg629BG//ePhEZIIlVgHDbpJbghENGmrA==, tarball: https://registry.npmjs.org/@cdxgen/safer-exec-darwin-arm64/-/safer-exec-darwin-arm64-1.3.0.tgz}
     cpu: [arm64]
     os: [darwin]
 
-  '@cdxgen/safer-exec-linux-amd64@1.2.1':
-    resolution: {integrity: sha512-3CqfFggJmo75eHjiaOm6uDLql9zIEuG8fPZRl3EzFEMFGXZkGBDXq+2NqiDacrdHN1P4DYUC30DZtl+HTW7mcg==, tarball: https://registry.npmjs.org/@cdxgen/safer-exec-linux-amd64/-/safer-exec-linux-amd64-1.2.1.tgz}
+  '@cdxgen/safer-exec-linux-amd64@1.3.0':
+    resolution: {integrity: sha512-PI4WPqHFDIwLoLeZdijrJH4YBQNWaovSUJ0DuTsmwPXIROx9Or2xt49R2rJwg4//L+ggByPmzXJMqQ3Ho62Ahg==, tarball: https://registry.npmjs.org/@cdxgen/safer-exec-linux-amd64/-/safer-exec-linux-amd64-1.3.0.tgz}
     cpu: [x64]
     os: [linux]
 
-  '@cdxgen/safer-exec-linux-arm64@1.2.1':
-    resolution: {integrity: sha512-HrWf8kEV/3Izim02o1AUncTCmDsmNeZfnB/rXRHxZadpWhyhCmiw5ZRXJoZVkLtlWxcgu7GXmwzv10qMHGHGgA==, tarball: https://registry.npmjs.org/@cdxgen/safer-exec-linux-arm64/-/safer-exec-linux-arm64-1.2.1.tgz}
+  '@cdxgen/safer-exec-linux-arm64@1.3.0':
+    resolution: {integrity: sha512-ZJ+ObS30Hek54nnnQxF06OlBt1t1jYjiixK6YfVCvLvd4HW4eCyWSOLDv2nUAzPAn7n8nOMiS7VczgQO4pT7SQ==, tarball: https://registry.npmjs.org/@cdxgen/safer-exec-linux-arm64/-/safer-exec-linux-arm64-1.3.0.tgz}
     cpu: [arm64]
     os: [linux]
 
-  '@cdxgen/safer-exec-windows-amd64@1.2.1':
-    resolution: {integrity: sha512-drqA7qiYBaeZsm89wA4/9Qe4+xoV6lCaN/IABNlX/MMO7VORQRAn9Tl8ZW16Hc1nJfNLuVQzCF8dmQIS3tRnZA==, tarball: https://registry.npmjs.org/@cdxgen/safer-exec-windows-amd64/-/safer-exec-windows-amd64-1.2.1.tgz}
+  '@cdxgen/safer-exec-windows-amd64@1.3.0':
+    resolution: {integrity: sha512-k6miYPVkzCtoCafa4G5+CF1FLj4R/prqPkaD5UWuQ7d+zbRhb1iTMs8/Y0Er3bjpe9k3i/M+CkbWrf6vgY3FpA==, tarball: https://registry.npmjs.org/@cdxgen/safer-exec-windows-amd64/-/safer-exec-windows-amd64-1.3.0.tgz}
     cpu: [x64]
     os: [win32]
 
-  '@cdxgen/safer-exec-windows-arm64@1.2.1':
-    resolution: {integrity: sha512-iDqo/MYWhTJ92xG2+Vv0bQ5qBndheqdmzrAttZo/L5MOqIXwaKOgF9i0kMoAnvS637ExrqNRxBqpXmPAeTounw==, tarball: https://registry.npmjs.org/@cdxgen/safer-exec-windows-arm64/-/safer-exec-windows-arm64-1.2.1.tgz}
+  '@cdxgen/safer-exec-windows-arm64@1.3.0':
+    resolution: {integrity: sha512-PDCpt2vlQwFhES7HUe7EVvZrLkabPlmj/sYNu/kxuF3h6n/9MNLOkctzO9YSJ1v1SyTsHPQ+L7RgS3VY8kNJtQ==, tarball: https://registry.npmjs.org/@cdxgen/safer-exec-windows-arm64/-/safer-exec-windows-arm64-1.3.0.tgz}
     cpu: [arm64]
     os: [win32]
 
-  '@cdxgen/safer-exec@1.2.1':
-    resolution: {integrity: sha512-Hpy8xQYjdVPcQcXwMCDyMFv9fLLtDIO3uADI/eQm2+aROf6Rxo9qIGYHXGT9ii1K/pEZx3L4ne0099zYguf+RA==, tarball: https://registry.npmjs.org/@cdxgen/safer-exec/-/safer-exec-1.2.1.tgz}
+  '@cdxgen/safer-exec@1.3.0':
+    resolution: {integrity: sha512-uvonF+53iP1/5VuPGM4vvHAODtdwBrtDSOfY1nMV0YDo+fNnrZaFFhfpy7SrmTwsygrYdxW3EuD5YFtRN/yjIQ==, tarball: https://registry.npmjs.org/@cdxgen/safer-exec/-/safer-exec-1.3.0.tgz}
     engines: {node: '>=20.0.0'}
     hasBin: true
 
@@ -659,8 +659,8 @@ packages:
     resolution: {integrity: sha512-wgm9Ehl2jpeqP3zw/7mo3kRHFp5MEDhqAdwy1fTGkHAwnkGOVsgpvQhL8B5n1qlb01jV3n/bI0ZfZp5lWA1k4w==, tarball: https://registry.npmjs.org/@isaacs/fs-minipass/-/fs-minipass-4.0.1.tgz}
     engines: {node: '>=18.0.0'}
 
-  '@isaacs/nonrecursive-glob-match@1.0.3':
-    resolution: {integrity: sha512-SI7kyKHq4XXDRozw+r9GlRZkia1ZkFrpLW98r2IC2Bpr8YkFGE3fvjzmxCG0x78A++69HmDNrDvSMYBZmHGpKA==, tarball: https://registry.npmjs.org/@isaacs/nonrecursive-glob-match/-/nonrecursive-glob-match-1.0.3.tgz}
+  '@isaacs/nonrecursive-glob-match@1.1.0':
+    resolution: {integrity: sha512-GPm/Dbvk5RLmhRnxXIa7nTpK0xtl4E0wj0MslsuNiJ1FIROU+2+9lgUC/dgF7Ey4QCWhfEsgxilMRMCdHPfDfw==, tarball: https://registry.npmjs.org/@isaacs/nonrecursive-glob-match/-/nonrecursive-glob-match-1.1.0.tgz}
 
   '@isaacs/string-locale-compare@1.1.0':
     resolution: {integrity: sha512-SQ7Kzhh9+D+ZW9MA0zkYv3VXhIDNx+LzM6EJ+/65I3QY+enU6Itte7E5XX7EWrqLW2FN4n06GWzBnPoC3th2aQ==, tarball: https://registry.npmjs.org/@isaacs/string-locale-compare/-/string-locale-compare-1.1.0.tgz}
@@ -1057,8 +1057,8 @@ packages:
     resolution: {integrity: sha512-Wjlyrolmm8uDpm/ogGyXZXb1Z+Ca2B8NbJwqBVg0axK9GbBeoS7yGV6vjXnYdGm6X53iehEuxxbyiKp8QmN4Vw==, tarball: https://registry.npmjs.org/glob/-/glob-13.0.6.tgz}
     engines: {node: 18 || 20 || >=22}
 
-  glob@14.0.3:
-    resolution: {integrity: sha512-A1vjIwC3qpdCso45Iw127gnp7sPhqgY8lUQhDrArIs+GbmfaaVPFuoyy7WyLT9EPZCRZ7j7aLdwUhQmHWesEow==, tarball: https://registry.npmjs.org/glob/-/glob-14.0.3.tgz}
+  glob@14.0.4:
+    resolution: {integrity: sha512-mMiwNKoJZ4HAIRVJxotO6LsNRReA30gQwP9E2/p94tfLv+jygCNpKDjhhSL6OLY6LE371EZm5EAf7RpYuUqlsw==, tarball: https://registry.npmjs.org/glob/-/glob-14.0.4.tgz}
     engines: {node: 18 || 20 || >=22}
 
   gopd@1.2.0:
@@ -1160,9 +1160,9 @@ packages:
     resolution: {integrity: sha512-vpLQEs+VLCr1nU0BXS07maYoFwlDAH0gngQuuttxIwutDFEMHq2blX+8vpgxDdK3J1PwjCJiep77OitTZ4Ll1A==, tarball: https://registry.npmjs.org/minimatch/-/minimatch-10.2.6.tgz}
     engines: {node: 18 || 20 || >=22}
 
-  minimatch@11.0.3:
-    resolution: {integrity: sha512-iny/40PEGkNJQ5/Pv6z3nm6FbRAby32GeZRjCUJk2WnNDbgPSTcdI+DDvLqsgBdD4cD5sMtMheqPPnehCCa8Nw==, tarball: https://registry.npmjs.org/minimatch/-/minimatch-11.0.3.tgz}
-    engines: {node: 18 || 20 || >=22}
+  minimatch@11.0.5:
+    resolution: {integrity: sha512-snPlVppFcYWfLLFQGhDxUyBcHNtMlWmn3jtj7pEaO+DP8pqL0IvAzXhMYmn1z9ASNtgmwLBdFxSf4tMUB0OTKA==, tarball: https://registry.npmjs.org/minimatch/-/minimatch-11.0.5.tgz}
+    engines: {node: 20 || >=22}
 
   minipass@7.1.3:
     resolution: {integrity: sha512-tEBHqDnIoM/1rXME1zgka9g6Q2lcoCkxHLuc7ODJ5BxbP5d4c2Z5cGgtXAku59200Cx7diuHTOYfSBD8n6mm8A==, tarball: https://registry.npmjs.org/minipass/-/minipass-7.1.3.tgz}
@@ -1261,8 +1261,8 @@ packages:
   safer-buffer@2.1.2:
     resolution: {integrity: sha512-YZo3K82SD7Riyi0E1EQPojLz7kpepnSQI9IyPbHHg1XXXevb5dJI7tpyN2ADxGcQbHG7vcyRHk0cbwqcQriUtg==, tarball: https://registry.npmjs.org/safer-buffer/-/safer-buffer-2.1.2.tgz}
 
-  semver@7.8.5:
-    resolution: {integrity: sha512-Y7/KDsb8LjooZpwaqGyulO6DQlksgCncchHGk+sZIY4SBvUocMBEFH5Ur1fI4dV+Jvl0w6cjvucaIi40puRioA==, tarball: https://registry.npmjs.org/semver/-/semver-7.8.5.tgz}
+  semver@7.8.6:
+    resolution: {integrity: sha512-9lpSSU4Mly3mrtruwLs1eLK6+gzbzqeBFwRNjIjE+9LuDpWdYctrQlQ3ej1Ilgi7gknpsTRnPoLP8DpCHqHIJw==, tarball: https://registry.npmjs.org/semver/-/semver-7.8.6.tgz}
     engines: {node: '>=10'}
     hasBin: true
 
@@ -1359,8 +1359,8 @@ packages:
     engines: {node: '>=16.20.0'}
     hasBin: true
 
-  undici@8.12.3:
-    resolution: {integrity: sha512-+fdndUTwBP86cVjihTp21hZHo7d6oj1c/47XPA3lL8mM0XHs+C4EkcjmgRsFnFk2f/UONGDy9ItBItmXsLOQHw==, tarball: https://registry.npmjs.org/undici/-/undici-8.12.3.tgz}
+  undici@8.12.4:
+    resolution: {integrity: sha512-8Mx+uNKKER2bA4AdtedkqRbwUCIJFr2nJckXRe5yrDqzePqwLP7VNcctN8/XdmDSbF7mS+jJKIszlL+vbam1VA==, tarball: https://registry.npmjs.org/undici/-/undici-8.12.4.tgz}
     engines: {node: '>=22.19.0'}
 
   unpipe@1.0.0:
@@ -1421,25 +1421,25 @@ snapshots:
   '@appthreat/atom-common@1.1.0':
     optional: true
 
-  '@appthreat/atom-darwin-amd64@4.0.0':
+  '@appthreat/atom-darwin-amd64@4.0.2':
     optional: true
 
-  '@appthreat/atom-darwin-arm64@4.0.0':
+  '@appthreat/atom-darwin-arm64@4.0.2':
     optional: true
 
-  '@appthreat/atom-jar@4.0.0':
+  '@appthreat/atom-jar@4.0.2':
     optional: true
 
-  '@appthreat/atom-linux-amd64-musl@4.0.0':
+  '@appthreat/atom-linux-amd64-musl@4.0.2':
     optional: true
 
-  '@appthreat/atom-linux-amd64@4.0.0':
+  '@appthreat/atom-linux-amd64@4.0.2':
     optional: true
 
-  '@appthreat/atom-linux-arm64-musl@4.0.0':
+  '@appthreat/atom-linux-arm64-musl@4.0.2':
     optional: true
 
-  '@appthreat/atom-linux-arm64@4.0.0':
+  '@appthreat/atom-linux-arm64@4.0.2':
     optional: true
 
   '@appthreat/atom-parsetools@2.0.0':
@@ -1460,23 +1460,23 @@ snapshots:
       - '@typescript-eslint/types'
     optional: true
 
-  '@appthreat/atom-windows-amd64@4.0.0':
+  '@appthreat/atom-windows-amd64@4.0.2':
     optional: true
 
-  '@appthreat/atom-windows-arm64@4.0.0':
+  '@appthreat/atom-windows-arm64@4.0.2':
     optional: true
 
-  '@appthreat/atom@4.0.0':
+  '@appthreat/atom@4.0.2':
     optionalDependencies:
-      '@appthreat/atom-darwin-amd64': 4.0.0
-      '@appthreat/atom-darwin-arm64': 4.0.0
-      '@appthreat/atom-jar': 4.0.0
-      '@appthreat/atom-linux-amd64': 4.0.0
-      '@appthreat/atom-linux-amd64-musl': 4.0.0
-      '@appthreat/atom-linux-arm64': 4.0.0
-      '@appthreat/atom-linux-arm64-musl': 4.0.0
-      '@appthreat/atom-windows-amd64': 4.0.0
-      '@appthreat/atom-windows-arm64': 4.0.0
+      '@appthreat/atom-darwin-amd64': 4.0.2
+      '@appthreat/atom-darwin-arm64': 4.0.2
+      '@appthreat/atom-jar': 4.0.2
+      '@appthreat/atom-linux-amd64': 4.0.2
+      '@appthreat/atom-linux-amd64-musl': 4.0.2
+      '@appthreat/atom-linux-arm64': 4.0.2
+      '@appthreat/atom-linux-arm64-musl': 4.0.2
+      '@appthreat/atom-windows-amd64': 4.0.2
+      '@appthreat/atom-windows-arm64': 4.0.2
     optional: true
 
   '@appthreat/parsa-darwin-arm64@2.0.0':
@@ -1553,53 +1553,53 @@ snapshots:
       '@babel/helper-validator-identifier': 8.0.6
     optional: true
 
-  '@biomejs/biome@2.6.4':
+  '@biomejs/biome@2.6.6':
     optionalDependencies:
-      '@biomejs/cli-android-arm64': 2.6.4
-      '@biomejs/cli-android-x64': 2.6.4
-      '@biomejs/cli-darwin-arm64': 2.6.4
-      '@biomejs/cli-darwin-x64': 2.6.4
-      '@biomejs/cli-linux-arm64': 2.6.4
-      '@biomejs/cli-linux-arm64-musl': 2.6.4
-      '@biomejs/cli-linux-x64': 2.6.4
-      '@biomejs/cli-linux-x64-musl': 2.6.4
-      '@biomejs/cli-win32-arm64': 2.6.4
-      '@biomejs/cli-win32-x64': 2.6.4
+      '@biomejs/cli-android-arm64': 2.6.6
+      '@biomejs/cli-android-x64': 2.6.6
+      '@biomejs/cli-darwin-arm64': 2.6.6
+      '@biomejs/cli-darwin-x64': 2.6.6
+      '@biomejs/cli-linux-arm64': 2.6.6
+      '@biomejs/cli-linux-arm64-musl': 2.6.6
+      '@biomejs/cli-linux-x64': 2.6.6
+      '@biomejs/cli-linux-x64-musl': 2.6.6
+      '@biomejs/cli-win32-arm64': 2.6.6
+      '@biomejs/cli-win32-x64': 2.6.6
 
-  '@biomejs/cli-android-arm64@2.6.4':
+  '@biomejs/cli-android-arm64@2.6.6':
     optional: true
 
-  '@biomejs/cli-android-x64@2.6.4':
+  '@biomejs/cli-android-x64@2.6.6':
     optional: true
 
-  '@biomejs/cli-darwin-arm64@2.6.4':
+  '@biomejs/cli-darwin-arm64@2.6.6':
     optional: true
 
-  '@biomejs/cli-darwin-x64@2.6.4':
+  '@biomejs/cli-darwin-x64@2.6.6':
     optional: true
 
-  '@biomejs/cli-linux-arm64-musl@2.6.4':
+  '@biomejs/cli-linux-arm64-musl@2.6.6':
     optional: true
 
-  '@biomejs/cli-linux-arm64@2.6.4':
+  '@biomejs/cli-linux-arm64@2.6.6':
     optional: true
 
-  '@biomejs/cli-linux-x64-musl@2.6.4':
+  '@biomejs/cli-linux-x64-musl@2.6.6':
     optional: true
 
-  '@biomejs/cli-linux-x64@2.6.4':
+  '@biomejs/cli-linux-x64@2.6.6':
     optional: true
 
-  '@biomejs/cli-win32-arm64@2.6.4':
+  '@biomejs/cli-win32-arm64@2.6.6':
     optional: true
 
-  '@biomejs/cli-win32-x64@2.6.4':
+  '@biomejs/cli-win32-x64@2.6.6':
     optional: true
 
   '@bufbuild/protobuf@2.15.0':
     optional: true
 
-  '@bufbuild/protobuf@2.16.0':
+  '@bufbuild/protobuf@2.17.0':
     optional: true
 
   '@cdxgen/cdx-hbom@0.8.0':
@@ -1645,32 +1645,32 @@ snapshots:
   '@cdxgen/cdxgen-plugins-bin@4.3.0':
     optional: true
 
-  '@cdxgen/safer-exec-darwin-amd64@1.2.1':
+  '@cdxgen/safer-exec-darwin-amd64@1.3.0':
     optional: true
 
-  '@cdxgen/safer-exec-darwin-arm64@1.2.1':
+  '@cdxgen/safer-exec-darwin-arm64@1.3.0':
     optional: true
 
-  '@cdxgen/safer-exec-linux-amd64@1.2.1':
+  '@cdxgen/safer-exec-linux-amd64@1.3.0':
     optional: true
 
-  '@cdxgen/safer-exec-linux-arm64@1.2.1':
+  '@cdxgen/safer-exec-linux-arm64@1.3.0':
     optional: true
 
-  '@cdxgen/safer-exec-windows-amd64@1.2.1':
+  '@cdxgen/safer-exec-windows-amd64@1.3.0':
     optional: true
 
-  '@cdxgen/safer-exec-windows-arm64@1.2.1':
+  '@cdxgen/safer-exec-windows-arm64@1.3.0':
     optional: true
 
-  '@cdxgen/safer-exec@1.2.1':
+  '@cdxgen/safer-exec@1.3.0':
     optionalDependencies:
-      '@cdxgen/safer-exec-darwin-amd64': 1.2.1
-      '@cdxgen/safer-exec-darwin-arm64': 1.2.1
-      '@cdxgen/safer-exec-linux-amd64': 1.2.1
-      '@cdxgen/safer-exec-linux-arm64': 1.2.1
-      '@cdxgen/safer-exec-windows-amd64': 1.2.1
-      '@cdxgen/safer-exec-windows-arm64': 1.2.1
+      '@cdxgen/safer-exec-darwin-amd64': 1.3.0
+      '@cdxgen/safer-exec-darwin-arm64': 1.3.0
+      '@cdxgen/safer-exec-linux-amd64': 1.3.0
+      '@cdxgen/safer-exec-linux-arm64': 1.3.0
+      '@cdxgen/safer-exec-windows-amd64': 1.3.0
+      '@cdxgen/safer-exec-windows-arm64': 1.3.0
     optional: true
 
   '@gar/promise-retry@1.0.3': {}
@@ -1679,7 +1679,7 @@ snapshots:
     dependencies:
       minipass: 7.1.3
 
-  '@isaacs/nonrecursive-glob-match@1.0.3': {}
+  '@isaacs/nonrecursive-glob-match@1.1.0': {}
 
   '@isaacs/string-locale-compare@1.1.0': {}
 
@@ -1711,7 +1711,7 @@ snapshots:
 
   '@npmcli/fs@6.0.0':
     dependencies:
-      semver: 7.8.5
+      semver: 7.8.6
 
   '@npmcli/git@8.0.0':
     dependencies:
@@ -1721,7 +1721,7 @@ snapshots:
       lru-cache: 11.5.2
       npm-pick-manifest: 12.0.0
       proc-log: 7.0.0
-      semver: 7.8.5
+      semver: 7.8.6
       which: 7.0.0
 
   '@npmcli/map-workspaces@6.0.0':
@@ -1740,7 +1740,7 @@ snapshots:
       hosted-git-info: 10.1.1
       json-parse-even-better-errors: 6.0.0
       proc-log: 7.0.0
-      semver: 7.8.5
+      semver: 7.8.6
       spdx-expression-parse: 4.0.0
 
   '@npmcli/promise-spawn@10.0.0':
@@ -2054,9 +2054,9 @@ snapshots:
       minipass: 7.1.3
       path-scurry: 2.0.2
 
-  glob@14.0.3:
+  glob@14.0.4:
     dependencies:
-      minimatch: 11.0.3
+      minimatch: 11.0.5
       minipass: 7.1.3
       path-scurry: 3.0.0
 
@@ -2152,9 +2152,9 @@ snapshots:
     dependencies:
       brace-expansion: 5.0.12
 
-  minimatch@11.0.3:
+  minimatch@11.0.5:
     dependencies:
-      '@isaacs/nonrecursive-glob-match': 1.0.3
+      '@isaacs/nonrecursive-glob-match': 1.1.0
       brace-expansion: 5.0.12
 
   minipass@7.1.3: {}
@@ -2176,7 +2176,7 @@ snapshots:
 
   npm-install-checks@9.0.0:
     dependencies:
-      semver: 7.8.5
+      semver: 7.8.6
 
   npm-normalize-package-bin@6.0.0: {}
 
@@ -2184,7 +2184,7 @@ snapshots:
     dependencies:
       hosted-git-info: 10.1.1
       proc-log: 7.0.0
-      semver: 7.8.5
+      semver: 7.8.6
       validate-npm-package-name: 8.0.0
 
   npm-pick-manifest@12.0.0:
@@ -2192,7 +2192,7 @@ snapshots:
       npm-install-checks: 9.0.0
       npm-normalize-package-bin: 6.0.0
       npm-package-arg: 14.0.0
-      semver: 7.8.5
+      semver: 7.8.6
 
   object-inspect@1.13.4:
     optional: true
@@ -2252,7 +2252,7 @@ snapshots:
   safer-buffer@2.1.2:
     optional: true
 
-  semver@7.8.5: {}
+  semver@7.8.6: {}
 
   setprototypeof@1.2.0:
     optional: true
@@ -2401,7 +2401,7 @@ snapshots:
       '@typescript/typescript-win32-arm64': 7.0.2
       '@typescript/typescript-win32-x64': 7.0.2
 
-  undici@8.12.3: {}
+  undici@8.12.4: {}
 
   unpipe@1.0.0:
     optional: true
