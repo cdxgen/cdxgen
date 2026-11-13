@@ -360,7 +360,7 @@ The grouped lists below remain the authoritative inventory. The compact tables, 
 - **GitHub action trust tags:** `cdx:actions:isOfficial`, `cdx:actions:isVerified`
 - **GitLab CI:** `cdx:gitlab:config`, `cdx:gitlab:job:environment`, `cdx:gitlab:job:image`, `cdx:gitlab:job:name`, `cdx:gitlab:job:needs`, `cdx:gitlab:job:services`, `cdx:gitlab:job:stage`, `cdx:gitlab:stages`
 - **Azure Pipelines:** `cdx:azure:config`, `cdx:azure:job:environment`, `cdx:azure:job:name`, `cdx:azure:job:pool:vmImage`, `cdx:azure:pool:vmImage`, `cdx:azure:stage:condition`, `cdx:azure:stage:dependsOn`, `cdx:azure:stage:name`, `cdx:azure:trigger:branches`
-- **CircleCI:** `cdx:circleci:config`, `cdx:circleci:executor:name`, `cdx:circleci:job:branch:only`, `cdx:circleci:job:name`, `cdx:circleci:job:requires`, `cdx:circleci:orb:alias`, `cdx:circleci:workflow:name`
+- **CircleCI:** `cdx:circleci:config`, `cdx:circleci:executor:name`, `cdx:circleci:job:branch:only`, `cdx:circleci:job:name`, `cdx:circleci:job:requires`, `cdx:circleci:job:stepsOmitted` (`true` on a workflow job entry whose copy of the job's steps was left out: every entry carries its own copy, and one config file may contribute at most 32 characters of serialized steps per byte of the file, or 4 MiB when that is more), `cdx:circleci:orb:alias`, `cdx:circleci:workflow:name`
 - **Jenkins:** `cdx:jenkins:agent`, `cdx:jenkins:agent:image`, `cdx:jenkins:file`, `cdx:jenkins:stage:name`, `cdx:jenkins:stage:parallel`, `cdx:jenkins:stage:when`
 
 #### Decision-oriented sub-groups
