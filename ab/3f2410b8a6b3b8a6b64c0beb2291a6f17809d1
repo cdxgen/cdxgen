@@ -1,0 +1,23 @@
+docs/CUSTOM_PROPERTIES.md
+  s_8376465eb88a0d::t_dfa7d557193511 363
+lib/inventory/ciParsers/circleCi.js
+  s_8376465eb88a0d::t_7d7aa82cdbdf74 8-43,145-153,205-224,256-261
+lib/inventory/ciParsers/circleCi.poku.js
+  s_8376465eb88a0d::t_04bb9034bb2ca5 276-344
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "ab3f2410b8a6b3b8a6b64c0beb2291a6f17809d1",
+  "prompts": {},
+  "sessions": {
+    "s_8376465eb88a0d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6b944f10-f38a-4491-8809-d36fec51aaa5",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
