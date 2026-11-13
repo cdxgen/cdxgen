@@ -1,0 +1,83 @@
+lib/audit/index.poku.js
+  s_8376465eb88a0d::t_f7a78a88a31dec 1758,1789
+lib/audit/targets.poku.js
+  s_8376465eb88a0d::t_5c7a1c716e181e 185
+lib/cli/jsBom.poku.js
+  s_8376465eb88a0d::t_3a6617399586b1 1335,1551
+lib/core/compare.poku.js
+  s_8376465eb88a0d::t_2acc7e1542a57f 17
+lib/core/propertySanitizer.poku.js
+  s_8376465eb88a0d::t_1477779212ed0a 232,303-305
+lib/ecosystems/goLargeInputs.poku.js
+  s_8376465eb88a0d::t_16ae355943ff0d 9-10,12,56
+lib/ecosystems/jsEvidence.poku.js
+  s_8376465eb88a0d::t_5171bde3c0b62b 312
+lib/ecosystems/kosi.poku.js
+  s_8376465eb88a0d::t_b04fe1289d3b6a 412,989
+lib/ecosystems/parsers-dotnet.poku.js
+  s_8376465eb88a0d::t_aa78f9fa4985d0 807-809
+lib/ecosystems/parsers-elm.poku.js
+  s_8376465eb88a0d::t_79922c72d3b587 195
+lib/ecosystems/parsers-js.poku.js
+  s_8376465eb88a0d::t_e4f2f320e2b200 1952-1953,2668
+lib/ecosystems/parsers-misc.poku.js
+  s_8376465eb88a0d::t_479c9b0e38da8d 2695-2697,2990-2991,3004-3006
+lib/ecosystems/parsers-opam.poku.js
+  s_8376465eb88a0d::t_ed8a13eb8ee760 94-96,136-138
+lib/ecosystems/parsers-python.poku.js
+  s_8376465eb88a0d::t_e4ccca1448435c 2207,2401
+lib/ecosystems/parsers-rust.poku.js
+  s_8376465eb88a0d::t_8659a02ee09fa3 327-328,341
+lib/ecosystems/parsers-terraform.poku.js
+  s_8376465eb88a0d::t_c234525e63cb73 1001,1031,1097,1108,1121-1122,1131,1139
+lib/ecosystems/pep770.poku.js
+  s_8376465eb88a0d::t_77c02c94263ddd 180,188
+lib/ecosystems/registryProvenance.poku.js
+  s_8376465eb88a0d::t_cb8594fb3f7bd7 317,346,400-401,410,430,462,490
+lib/ecosystems/rubyutils.poku.js
+  s_8376465eb88a0d::t_9a443be6471f5f 2061
+lib/ecosystems/scalacliutils.poku.js
+  s_8376465eb88a0d::t_5cbecb3fb9f795 180
+lib/ecosystems/scalasem-edge-cases.poku.js
+  s_8376465eb88a0d::t_c7c43fa71ba541 423,564
+lib/ecosystems/tea.poku.js
+  s_8376465eb88a0d::t_0197ee361e306d 174
+lib/inventory/aiCollector.poku.js
+  s_8376465eb88a0d::t_3752c19f749b6a 122-124,131
+lib/inventory/analyzer.poku.js
+  s_8376465eb88a0d::t_fcd50d13b7c226 1724-1725
+lib/inventory/atomUtils.poku.js
+  s_8376465eb88a0d::t_180f254b39705a 103-104
+lib/inventory/certificates.poku.js
+  s_8376465eb88a0d::t_575ebbee309820 456
+lib/inventory/depsUtils.poku.js
+  s_8376465eb88a0d::t_854a166c594f6d 909
+lib/inventory/dosai.poku.js
+  s_8376465eb88a0d::t_d1488f19e4dc5b 606
+lib/inventory/dotnetRuntime.poku.js
+  s_8376465eb88a0d::t_a150c4bac28a40 93
+lib/inventory/sbomDocument.poku.js
+  s_8376465eb88a0d::t_bd386d604fa021 241
+lib/managers/binary.poku.js
+  s_8376465eb88a0d::t_6a4f25f2cb01a9 1668
+lib/managers/docker.poku.js
+  s_8376465eb88a0d::t_d951b8b20720ff 3229
+lib/parsers/cmakePresets.poku.js
+  s_8376465eb88a0d::t_6f82fd0621feaf 111,114,382
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "2eb7478eaec62e8a0097e864d41de78d39187ea5",
+  "prompts": {},
+  "sessions": {
+    "s_8376465eb88a0d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6b944f10-f38a-4491-8809-d36fec51aaa5",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
