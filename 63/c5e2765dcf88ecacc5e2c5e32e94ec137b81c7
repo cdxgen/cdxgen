@@ -1,0 +1,21 @@
+lib/ecosystems/jsEvidence.js
+  s_8376465eb88a0d::t_536700d631977a 24-28,369-373,453-455
+lib/ecosystems/jsEvidence.poku.js
+  s_8376465eb88a0d::t_56efe4c2210ad9 157-187
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "63c5e2765dcf88ecacc5e2c5e32e94ec137b81c7",
+  "prompts": {},
+  "sessions": {
+    "s_8376465eb88a0d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6b944f10-f38a-4491-8809-d36fec51aaa5",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
