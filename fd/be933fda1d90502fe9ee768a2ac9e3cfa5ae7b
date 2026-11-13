@@ -1,0 +1,25 @@
+lib/ecosystems/parsers-rust.js
+  s_8376465eb88a0d::t_821cdc74bbec49 8,2090-2092,2158-2165
+lib/ecosystems/parsers-rust.poku.js
+  s_8376465eb88a0d::t_e01400380ed5b0 6,1622-1647
+lib/inventory/formulationParsers.poku.js
+  s_8376465eb88a0d::t_ee0867230c5305 349-396
+lib/inventory/rustFormulationParser.js
+  s_8376465eb88a0d::t_c3d2482c313ad6 3,6-16,81,142-149,278,282-284
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "fdbe933fda1d90502fe9ee768a2ac9e3cfa5ae7b",
+  "prompts": {},
+  "sessions": {
+    "s_8376465eb88a0d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6b944f10-f38a-4491-8809-d36fec51aaa5",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
