@@ -1,0 +1,68 @@
+{
+  "arch": "arm64",
+  "build": "py312hff34920_0",
+  "build_number": 0,
+  "build_string": "py312hff34920_0",
+  "channel": "conda-forge",
+  "constrains": [
+    "numpy-base <0a0"
+  ],
+  "depends": [
+    "python",
+    "libcxx >=21",
+    "__osx >=11.0",
+    "python_abi 3.12.* *_cp312",
+    "libcblas >=3.9.0,<4.0a0",
+    "liblapack >=3.9.0,<4.0a0",
+    "libblas >=3.9.0,<4.0a0"
+  ],
+  "extracted_package_dir": "/private/tmp/conda-1809/mamba-root/pkgs/https/conda.anaconda.org/conda-forge/osx-arm64/numpy-2.5.4-py312hff34920_0",
+  "files": [
+    "bin/f2py",
+    "bin/numpy-config",
+    "lib/python3.12/site-packages/numpy/__config__.py"
+  ],
+  "fn": "numpy-2.5.4-py312hff34920_0.conda",
+  "license": "BSD-3-Clause",
+  "link": {
+    "source": "/private/tmp/conda-1809/mamba-root/pkgs/https/conda.anaconda.org/conda-forge/osx-arm64/numpy-2.5.4-py312hff34920_0",
+    "type": 1
+  },
+  "md5": "f1c8bb69dfcbbdd01e7ea79c8ae31934",
+  "name": "numpy",
+  "package_tarball_full_path": "/private/tmp/conda-1809/mamba-root/pkgs/https/conda.anaconda.org/conda-forge/osx-arm64/numpy-2.5.4-py312hff34920_0.tar.bz2",
+  "paths_data": {
+    "paths": [
+      {
+        "_path": "bin/f2py",
+        "path_type": "hardlink",
+        "sha256": "e0747d5bbfac503840ec575a7d4fcb136c3b86695398a6bf0fe72300d5ef8f73",
+        "sha256_in_prefix": "019dbb663ec99f0884074a65e8368b41db7e1a82ea4f242ca0d8e00da47fe2a8",
+        "size_in_bytes": 414
+      },
+      {
+        "_path": "bin/numpy-config",
+        "path_type": "hardlink",
+        "sha256": "d4f4f1821f6ea19f17d2e38a0e6087558d4ced42db3bd3056b4735e96e13387d",
+        "sha256_in_prefix": "45de02679e40268aa123032cc1569ce78ad24ba38f1260d5553e91df8ba74985",
+        "size_in_bytes": 414
+      },
+      {
+        "_path": "lib/python3.12/site-packages/numpy/__config__.py",
+        "path_type": "hardlink",
+        "sha256": "b4620d54c16e2e2eef492151d96ecf15fb0917cde2c1de9d0470e28ad55f9ada",
+        "sha256_in_prefix": "74d05f49d5c175c8c2d0d0e97a10adad7bc15f0b3e4715f23acd7a708ffb20b0",
+        "size_in_bytes": 12453
+      }
+    ],
+    "paths_version": 1
+  },
+  "platform": "osx",
+  "requested_spec": "numpy",
+  "sha256": "7a72f5345e7e9f2ed8385986de8d96e321301726dfd6c1a7d0a0d2106ccf204b",
+  "size": 7122982,
+  "subdir": "osx-arm64",
+  "timestamp": 1791675320,
+  "url": "https://conda.anaconda.org/conda-forge/osx-arm64/numpy-2.5.4-py312hff34920_0.conda",
+  "version": "2.5.4"
+}

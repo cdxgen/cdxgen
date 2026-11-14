@@ -1,0 +1,62 @@
+{
+  "arch": null,
+  "build": "pyhd8ed1ab_0",
+  "build_number": 0,
+  "build_string": "pyhd8ed1ab_0",
+  "channel": "conda-forge",
+  "constrains": [],
+  "depends": [
+    "packaging >=24.0",
+    "python >=3.10"
+  ],
+  "extracted_package_dir": "/private/tmp/conda-1809/mamba-root/pkgs/https/conda.anaconda.org/conda-forge/noarch/wheel-0.48.0-pyhd8ed1ab_0",
+  "files": [
+    "lib/python3.12/site-packages/wheel-0.48.0.dist-info/METADATA",
+    "lib/python3.12/site-packages/wheel-0.48.0.dist-info/RECORD",
+    "lib/python3.12/site-packages/wheel-0.48.0.dist-info/WHEEL"
+  ],
+  "fn": "wheel-0.48.0-pyhd8ed1ab_0.conda",
+  "license": "MIT",
+  "link": {
+    "source": "/private/tmp/conda-1809/mamba-root/pkgs/https/conda.anaconda.org/conda-forge/noarch/wheel-0.48.0-pyhd8ed1ab_0",
+    "type": 1
+  },
+  "md5": "9a2124517bfd5d792e0f7b86eefdfeb8",
+  "name": "wheel",
+  "noarch": "python",
+  "package_tarball_full_path": "/private/tmp/conda-1809/mamba-root/pkgs/https/conda.anaconda.org/conda-forge/noarch/wheel-0.48.0-pyhd8ed1ab_0.tar.bz2",
+  "paths_data": {
+    "paths": [
+      {
+        "_path": "lib/python3.12/site-packages/wheel-0.48.0.dist-info/METADATA",
+        "path_type": "hardlink",
+        "sha256": "5d85a45b9a417b20e8f9051106b89fc2e24aa3e8ad6055f0f1e4153f015c91e3",
+        "sha256_in_prefix": "5d85a45b9a417b20e8f9051106b89fc2e24aa3e8ad6055f0f1e4153f015c91e3",
+        "size_in_bytes": 2282
+      },
+      {
+        "_path": "lib/python3.12/site-packages/wheel-0.48.0.dist-info/RECORD",
+        "path_type": "hardlink",
+        "sha256": "ec113dc809e0b7c7cb0a5a86b665b17dd7ba5d624b92af3f0cc663754e8d6619",
+        "sha256_in_prefix": "ec113dc809e0b7c7cb0a5a86b665b17dd7ba5d624b92af3f0cc663754e8d6619",
+        "size_in_bytes": 1651
+      },
+      {
+        "_path": "lib/python3.12/site-packages/wheel-0.48.0.dist-info/WHEEL",
+        "path_type": "hardlink",
+        "sha256": "1b68144734c4b66791f27add5d425f3620775585718a03d0f9b110ba3a4d88db",
+        "sha256_in_prefix": "1b68144734c4b66791f27add5d425f3620775585718a03d0f9b110ba3a4d88db",
+        "size_in_bytes": 82
+      }
+    ],
+    "paths_version": 1
+  },
+  "platform": null,
+  "requested_spec": "",
+  "sha256": "ba64b29b6d418024cb565081a1799262cb2780d2534ff4c14f76aa858c4286cd",
+  "size": 34528,
+  "subdir": "noarch",
+  "timestamp": 1786613220,
+  "url": "https://conda.anaconda.org/conda-forge/noarch/wheel-0.48.0-pyhd8ed1ab_0.conda",
+  "version": "0.48.0"
+}

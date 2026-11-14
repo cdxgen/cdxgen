@@ -1,0 +1,18 @@
+{
+  "build": "py312ha1d0cf0_0",
+  "build_number": 0,
+  "channel": "https://conda.anaconda.org/bioconda",
+  "constrains": [],
+  "depends": [
+    "python >=3.12"
+  ],
+  "fn": "biopython-1.83-py312ha1d0cf0_0.conda",
+  "license": "MIT",
+  "md5": "00000000000000000000000000000002",
+  "name": "biopython",
+  "sha256": "0000000000000000000000000000000000000000000000000000000000000002",
+  "size": 2750000,
+  "subdir": "osx-arm64",
+  "url": "https://conda.anaconda.org/bioconda/osx-arm64/biopython-1.83-py312ha1d0cf0_0.conda",
+  "version": "1.83"
+}

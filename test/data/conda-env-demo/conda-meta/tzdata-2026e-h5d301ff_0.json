@@ -1,0 +1,57 @@
+{
+  "build": "h5d301ff_0",
+  "build_number": 0,
+  "build_string": "h5d301ff_0",
+  "channel": "conda-forge",
+  "constrains": [],
+  "depends": [],
+  "extracted_package_dir": "/private/tmp/conda-1809/mamba-root/pkgs/https/conda.anaconda.org/conda-forge/noarch/tzdata-2026e-h5d301ff_0",
+  "files": [
+    "share/zoneinfo/Africa/Abidjan",
+    "share/zoneinfo/Africa/Accra",
+    "share/zoneinfo/Africa/Addis_Ababa"
+  ],
+  "fn": "tzdata-2026e-h5d301ff_0.conda",
+  "license": "LicenseRef-Public-Domain",
+  "link": {
+    "source": "/private/tmp/conda-1809/mamba-root/pkgs/https/conda.anaconda.org/conda-forge/noarch/tzdata-2026e-h5d301ff_0",
+    "type": 1
+  },
+  "md5": "abccc3810d2b97e570dee487f2b46e38",
+  "name": "tzdata",
+  "noarch": "generic",
+  "package_tarball_full_path": "/private/tmp/conda-1809/mamba-root/pkgs/https/conda.anaconda.org/conda-forge/noarch/tzdata-2026e-h5d301ff_0.tar.bz2",
+  "paths_data": {
+    "paths": [
+      {
+        "_path": "share/zoneinfo/Africa/Abidjan",
+        "path_type": "hardlink",
+        "sha256": "f3e7fcaa0e9840ff4169d3567d8fb5926644848f4963d7acf92320843c5d486e",
+        "sha256_in_prefix": "f3e7fcaa0e9840ff4169d3567d8fb5926644848f4963d7acf92320843c5d486e",
+        "size_in_bytes": 130
+      },
+      {
+        "_path": "share/zoneinfo/Africa/Accra",
+        "path_type": "hardlink",
+        "sha256": "f3e7fcaa0e9840ff4169d3567d8fb5926644848f4963d7acf92320843c5d486e",
+        "sha256_in_prefix": "f3e7fcaa0e9840ff4169d3567d8fb5926644848f4963d7acf92320843c5d486e",
+        "size_in_bytes": 130
+      },
+      {
+        "_path": "share/zoneinfo/Africa/Addis_Ababa",
+        "path_type": "hardlink",
+        "sha256": "0783854f52c33ada6b6d2a5d867662f0ae8e15238d2fce7b9ada4f4d319eb466",
+        "sha256_in_prefix": "0783854f52c33ada6b6d2a5d867662f0ae8e15238d2fce7b9ada4f4d319eb466",
+        "size_in_bytes": 191
+      }
+    ],
+    "paths_version": 1
+  },
+  "requested_spec": "",
+  "sha256": "2b7ca858879f183ce2dcc65b300f48a0133d5430550f35b23d80d405a0788dbf",
+  "size": 119208,
+  "subdir": "noarch",
+  "timestamp": 1792758382,
+  "url": "https://conda.anaconda.org/conda-forge/noarch/tzdata-2026e-h5d301ff_0.conda",
+  "version": "2026e"
+}

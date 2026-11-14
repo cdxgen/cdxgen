@@ -1,0 +1,72 @@
+{
+  "arch": "arm64",
+  "build": "hd05a0c4_0_cpython",
+  "build_number": 0,
+  "build_string": "hd05a0c4_0_cpython",
+  "channel": "conda-forge",
+  "constrains": [
+    "python_abi 3.12.* *_cp312"
+  ],
+  "depends": [
+    "__osx >=11.0",
+    "bzip2 >=1.0.8,<2.0a0",
+    "libexpat >=2.8.5,<3.0a0",
+    "libffi >=3.7.0,<3.8.0a0",
+    "liblzma >=5.8.3,<6.0a0",
+    "libpython 3.12.16 h0677fcb_0_cpython",
+    "libsqlite >=3.54.1,<4.0a0",
+    "libzlib >=1.3.2,<2.0a0",
+    "ncurses >=6.6,<7.0a0",
+    "openssl >=3.5.9,<4.0a0",
+    "readline >=8.3,<9.0a0",
+    "tk >=8.6.13,<8.7.0a0",
+    "tzdata"
+  ],
+  "extracted_package_dir": "/private/tmp/conda-1809/mamba-root/pkgs/https/conda.anaconda.org/conda-forge/osx-arm64/python-3.12.16-hd05a0c4_0_cpython",
+  "files": [
+    "bin/2to3",
+    "bin/2to3-3.12",
+    "bin/idle3"
+  ],
+  "fn": "python-3.12.16-hd05a0c4_0_cpython.conda",
+  "license": "Python-2.0",
+  "link": {
+    "source": "/private/tmp/conda-1809/mamba-root/pkgs/https/conda.anaconda.org/conda-forge/osx-arm64/python-3.12.16-hd05a0c4_0_cpython",
+    "type": 1
+  },
+  "md5": "f368ebd7a850ac640059edb82313e86f",
+  "name": "python",
+  "package_tarball_full_path": "/private/tmp/conda-1809/mamba-root/pkgs/https/conda.anaconda.org/conda-forge/osx-arm64/python-3.12.16-hd05a0c4_0_cpython.tar.bz2",
+  "paths_data": {
+    "paths": [
+      {
+        "_path": "bin/2to3",
+        "path_type": "softlink",
+        "sha256_in_prefix": "628ef5b711c2f96d066fc21dad032c644e6b14e9b324bd2f7a08c1ccea0d3bf6",
+        "size_in_bytes": 347
+      },
+      {
+        "_path": "bin/2to3-3.12",
+        "path_type": "hardlink",
+        "sha256": "72853eed6d441f68be6880e9fe1baa9f382fad86cb8ebe5300ab61290182ef01",
+        "sha256_in_prefix": "628ef5b711c2f96d066fc21dad032c644e6b14e9b324bd2f7a08c1ccea0d3bf6",
+        "size_in_bytes": 347
+      },
+      {
+        "_path": "bin/idle3",
+        "path_type": "softlink",
+        "sha256_in_prefix": "1d220bfa30721fbfa399f9f1c4dd7901f12b7e4a909e1acc35743b556a149b62",
+        "size_in_bytes": 345
+      }
+    ],
+    "paths_version": 1
+  },
+  "platform": "osx",
+  "requested_spec": "python=3.12",
+  "sha256": "23d06f02f64e6c768fce624cf369a92544a49e9cee29d3ee6762058474c912c2",
+  "size": 11668532,
+  "subdir": "osx-arm64",
+  "timestamp": 1793014636,
+  "url": "https://conda.anaconda.org/conda-forge/osx-arm64/python-3.12.16-hd05a0c4_0_cpython.conda",
+  "version": "3.12.16"
+}
