@@ -1,0 +1,22 @@
+lib/stages/postgen/postgen.poku.js
+  s_dd7702c6c0912b::t_ebfc14e5ec3de3 492-517,523-534
+  s_dd7702c6c0912b::t_e178fe037856fd 518-522
+lib/stages/postgen/postgen.js
+  s_dd7702c6c0912b::t_1359070c8e45be 650-653,655
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "3e76b50f2d4c5486fbb8707ee655e731e32687ff",
+  "prompts": {},
+  "sessions": {
+    "s_dd7702c6c0912b": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_dwf-dwfrun-c31ef326-78ab-4359-806f-1c547903774d-actor_1_1",
+        "model": "GLM-5.3"
+      },
+      "human_author": "Team AppThreat <cloud@appthreat.com>"
+    }
+  }
+}
