@@ -1,0 +1,25 @@
+ci/Dockerfile-deno
+  s_4c9b4ea583153a::t_b3a7c8d2212b9a 124-126
+lib/inventory/ciParsers/githubActions.poku.js
+  s_4c9b4ea583153a::t_7aca393cf7ad4b 431-435
+  s_4c9b4ea583153a::t_ba073fec54e915 430
+  s_4c9b4ea583153a::t_950e3b5bde6841 6
+ci/Dockerfile-bun
+  s_4c9b4ea583153a::t_c79da6baf548ac 121-123
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "1a40d297cfb1c8f7b69156c01e8b5bb7fca5f9c9",
+  "prompts": {},
+  "sessions": {
+    "s_4c9b4ea583153a": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_987f17d5-6e9b-41e4-909f-e4f5bbd111b9",
+        "model": "GLM-5.3-Flash"
+      },
+      "human_author": null
+    }
+  }
+}
