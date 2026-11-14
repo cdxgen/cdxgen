@@ -1,0 +1,64 @@
+version: 6
+environments:
+  default:
+    channels:
+    - url: https://conda.anaconda.org/conda-forge/
+    indexes:
+    - https://pypi.org/simple
+    packages:
+      linux-64:
+      - conda: https://conda.anaconda.org/conda-forge/linux-64/python-flatbuffers-1.0-py312_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/noarch/packaging-24.2-pyh99b14a1_1.conda
+      - pypi: https://files.pythonhosted.org/packages/f9/9b/335f6762c79auh4a875xg/requests-2.32.3-py3-none-any.whl
+  lint:
+    channels:
+    - url: https://conda.anaconda.org/conda-forge/
+    packages:
+      linux-64:
+      - conda: https://conda.anaconda.org/conda-forge/linux-64/zlib-1.3.2-h25fd6f3_3.tar.bz2
+packages:
+- conda: https://conda.anaconda.org/conda-forge/linux-64/python-flatbuffers-1.0-py312_0.conda
+  sha256: a374b1a5ec1b7e0e5c1ad2e0a3c2fbd6f6c4b0d0e5a1b8e3f2d4a5c6b7d8e9f0
+  md5: 6f9db67e42a5a1d3f0f8d94b0b5f0e18
+  depends:
+  - python >=3.12
+  license: Apache-2.0
+  purls:
+  - pkg:pypi/flatbuffers?source=compressed-mapping
+  size: 123456
+  timestamp: 1730000000000
+- conda: https://conda.anaconda.org/conda-forge/noarch/packaging-24.2-pyh99b14a1_1.conda
+  sha256: bc18d1d7c9a6a3ad2e0b5f8d94b0b5f0e18a2c3d4e5f60718293a4b5c6d7e8f9
+  md5: 4f9db67e42a5a1d3f0f8d94b0b5f0e18
+  depends: []
+  license: Apache-2.0 OR BSD-2-Clause
+  purls: []
+  size: 89123
+  timestamp: 1728000000000
+- conda: https://conda.anaconda.org/conda-forge/linux-64/zlib-1.3.2-h25fd6f3_3.tar.bz2
+  sha256: cd4c18a1b7c9a6a3ad2e0b5f8d94b0b5f0e18a2c3d4e5f60718293a4b5c6d7e8
+  md5: 3f9db67e42a5a1d3f0f8d94b0b5f0e18
+  depends: []
+  license: Zlib
+  purls: []
+  size: 78912
+  timestamp: 1710000000000
+- conda: https://conda.anaconda.org/conda-forge/noarch/ca-certificates-2024.8.30-hbdfd922_0.conda
+  sha256: dea4c18a1b7c9a6a3ad2e0b5f8d94b0b5f0e18a2c3d4e5f60718293a4b5c6d7e
+  md5: 2f9db67e42a5a1d3f0f8d94b0b5f0e18
+  license: ISC
+  purls: []
+  size: 45678
+  timestamp: 1725000000000
+- conda_source: ./local-source-package
+  version: 0.1.0
+  build: pyhbf21f9e8_0
+  subdir: noarch
+  noarch: python
+  depends:
+  - python
+- pypi: https://files.pythonhosted.org/packages/f9/9b/335f6762c79auh4a875xg/requests-2.32.3-py3-none-any.whl
+  name: requests
+  version: 2.32.3
+  sha256: efb1b7c9a6a3ad2e0b5f8d94b0b5f0e18a2c3d4e5f60718293a4b5c6d7e8f9a0
+  requires_python: '>=3.8'
