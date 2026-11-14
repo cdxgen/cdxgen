@@ -1,0 +1,23 @@
+ci/Dockerfile-deno
+  s_4c9b4ea583153a::t_78f9873fa29b15 119-121
+  s_4c9b4ea583153a::t_b3a7c8d2212b9a 124-126
+ci/Dockerfile-bun
+  s_4c9b4ea583153a::t_e6713ff20b9d33 116-118
+  s_4c9b4ea583153a::t_c79da6baf548ac 121-123
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "28c29806625484c63c1e88ab5973e74a07646ed9",
+  "prompts": {},
+  "sessions": {
+    "s_4c9b4ea583153a": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_987f17d5-6e9b-41e4-909f-e4f5bbd111b9",
+        "model": "GLM-5.3-Flash"
+      },
+      "human_author": "Team AppThreat <cloud@appthreat.com>"
+    }
+  }
+}
