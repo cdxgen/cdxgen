@@ -1,0 +1,50 @@
+lib/ecosystems/parsers-rust.js
+  s_ded6113c20877d::t_dc0d5805224b54 1160-1186
+  s_ded6113c20877d::t_d65f2268915e22 1159
+lib/cli/nativeBom.js
+  s_ded6113c20877d::t_7e2af34320f6da 1099-1100
+  s_ded6113c20877d::t_b3de6b4875e5a3 126
+  s_ded6113c20877d::t_e48ac35203cbd7 1040-1048,1052-1080,1085-1098,1101-1149
+  s_ded6113c20877d::t_98b95827996eb5 1049-1051
+  s_ded6113c20877d::t_5fcfc2c0db6396 94
+  s_ded6113c20877d::t_329fbb25ea852c 1081-1084
+  s_ded6113c20877d::t_f851a41e726e5b 1258-1264
+lib/ecosystems/parsers-rust.poku.js
+  s_ded6113c20877d::t_39024fa010e3b1 137-139
+  s_ded6113c20877d::t_fedaf895c3dd46 133-136,141-151
+  s_ded6113c20877d::t_72757f57ca3b26 17
+  s_ded6113c20877d::t_92e1749c100157 140
+.github/workflows/repotests.yml
+  s_ded6113c20877d::t_dc95a328f14c40 471-472
+  s_ded6113c20877d::t_53d18b68ae4e2f 796-803,806
+lib/ecosystems/parsers-misc.poku.js
+  s_ded6113c20877d::t_458fc36a725d78 12
+  s_ded6113c20877d::t_7d2e8bd4622de3 2729-2732,2735-2737
+  s_ded6113c20877d::t_23d5cf31a44de9 18
+  s_ded6113c20877d::t_1441386280446e 2492-2532,2544-2656,2664-2728,2733-2734,2738-2776
+  s_ded6113c20877d::t_1b77b3f32ba663 2533-2543
+  s_ded6113c20877d::t_637f1da7bbc663 2657-2663
+docs/PROJECT_TYPES.md
+  s_ded6113c20877d::t_7b61f8703b9c52 109
+lib/ecosystems/parsers-misc.js
+  s_ded6113c20877d::t_b3122e54d7e866 3436-3550,3553-3555,3557,3559,3562-3566,3568-3573,3575-3576,3578,3583-3699,3701
+  s_ded6113c20877d::t_a3ca2ab579b926 3
+  s_ded6113c20877d::t_2ad8974cadefbe 3700
+  s_ded6113c20877d::t_d7650808c91cfc 3702
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "ced43cb12673e0610032ef3ae24660d09968fabf",
+  "prompts": {},
+  "sessions": {
+    "s_ded6113c20877d": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_dwf-dwfrun-0f0dc877-bc10-458a-9981-93a6f3e98e02-actor_1_1",
+        "model": "GLM-5.3"
+      },
+      "human_author": "Team AppThreat <cloud@appthreat.com>"
+    }
+  }
+}
