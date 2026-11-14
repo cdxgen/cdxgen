@@ -113,6 +113,9 @@ RUN set -e; \
     # TypeScript 6 wherever the binary is missing, so assert it landed and that
     # astgen actually used it.
     && mkdir -p /tmp/astgen-smoke/src \
+    # astgen picks the JavaScript pipeline only when the scanned directory
+    # carries a package manifest, so the fixture ships a minimal package.json.
+    && printf '{"name":"astgen-smoke","version":"1.0.0"}\n' > /tmp/astgen-smoke/package.json \
     && printf 'export function greet(name: string): string {\n  return `hello ${name}`;\n}\n' > /tmp/astgen-smoke/src/index.ts \
     && astgen -i /tmp/astgen-smoke -o /tmp/astgen-smoke-out \
     && grep -q '"engine":"native"' /tmp/astgen-smoke-out/astgen_manifest.jsonl \
