@@ -1,0 +1,19 @@
+lib/core/fs.js
+  s_4c9b4ea583153a::t_d9f8b9a9a8ecbd 1414,1417-1423
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "b7d522469f3a1814bf5f8e82f74e3c7ec85eb534",
+  "prompts": {},
+  "sessions": {
+    "s_4c9b4ea583153a": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_987f17d5-6e9b-41e4-909f-e4f5bbd111b9",
+        "model": "GLM-5.3-Flash"
+      },
+      "human_author": "Team AppThreat <cloud@appthreat.com>"
+    }
+  }
+}
