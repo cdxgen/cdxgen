@@ -1,0 +1,66 @@
+.github/workflows/repotests.yml
+  s_ded6113c20877d::t_53d18b68ae4e2f 796-803,806
+  s_ded6113c20877d::t_dc95a328f14c40 471-472
+lib/ecosystems/parsers-misc.js
+  s_ded6113c20877d::t_2ad8974cadefbe 3700
+  s_ded6113c20877d::t_a3ca2ab579b926 3
+  s_ded6113c20877d::t_b3122e54d7e866 3436-3550,3553-3555,3557,3559,3562-3566,3568-3573,3575-3576,3578,3583-3699,3701
+  s_ded6113c20877d::t_d7650808c91cfc 3702
+lib/cli/nativeBom.js
+  s_ded6113c20877d::t_e48ac35203cbd7 1067-1075,1079-1083,1087-1088,1096-1101,1108-1121,1126-1139,1142-1190
+  s_790aedb3119d39::t_bdea86e4ba98a4 823-828
+  s_ded6113c20877d::t_98b95827996eb5 1076-1078
+  s_ded6113c20877d::t_5fcfc2c0db6396 94
+  s_ded6113c20877d::t_329fbb25ea852c 1122-1125
+  s_ded6113c20877d::t_7e2af34320f6da 1140-1141
+  s_ded6113c20877d::t_f851a41e726e5b 1299-1300,1306-1307,1315
+  s_790aedb3119d39::t_4b44ebffb5ef8e 1301-1305,1308-1314
+  s_790aedb3119d39::t_26bbb48d6fa48f 1400
+  s_ded6113c20877d::t_b3de6b4875e5a3 126
+  s_790aedb3119d39::t_6a215f0b72cd6d 901-903,911,929-934,952
+  s_790aedb3119d39::t_93696f71f36b80 1084-1086,1089-1095,1102-1107
+  s_790aedb3119d39::t_f2514cd41168d2 817-820,834-841,870,875,885
+lib/ecosystems/parsers-misc.poku.js
+  s_ded6113c20877d::t_1441386280446e 2492-2512,2514-2518,2545-2557,2559-2608,2610-2633,2635-2671,2679-2681,2683-2743,2748-2749,2753-2755,2757-2788,2790-2791
+  s_790aedb3119d39::t_3a833001ce9032 2519-2544
+  s_790aedb3119d39::t_710a160a6fab3a 2513,2609,2634,2682,2756,2789
+  s_ded6113c20877d::t_1b77b3f32ba663 2558
+  s_ded6113c20877d::t_458fc36a725d78 12
+  s_ded6113c20877d::t_637f1da7bbc663 2672-2678
+  s_ded6113c20877d::t_7d2e8bd4622de3 2744-2747,2750-2752
+  s_ded6113c20877d::t_23d5cf31a44de9 18
+docs/PROJECT_TYPES.md
+  s_790aedb3119d39::t_6b81ffb9bcb09d 109
+lib/ecosystems/parsers-rust.js
+  s_ded6113c20877d::t_d65f2268915e22 1159
+  s_ded6113c20877d::t_dc0d5805224b54 1160-1186
+lib/ecosystems/parsers-rust.poku.js
+  s_ded6113c20877d::t_fedaf895c3dd46 133-136,141-151
+  s_ded6113c20877d::t_92e1749c100157 140
+  s_ded6113c20877d::t_72757f57ca3b26 17
+  s_ded6113c20877d::t_39024fa010e3b1 137-139
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "96a1e77a0c9b2c1a8a2445144e03fa513ec0cc9c",
+  "prompts": {},
+  "sessions": {
+    "s_790aedb3119d39": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_ad434648-2a8a-4978-84cb-207d4726798d",
+        "model": "GLM-5.3"
+      },
+      "human_author": null
+    },
+    "s_ded6113c20877d": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_dwf-dwfrun-0f0dc877-bc10-458a-9981-93a6f3e98e02-actor_1_1",
+        "model": "GLM-5.3"
+      },
+      "human_author": "Team AppThreat <cloud@appthreat.com>"
+    }
+  }
+}
