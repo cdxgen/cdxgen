@@ -1,0 +1,111 @@
+test/data/pixi-lock-v6/pixi.lock
+  s_1ab02b5d8469a0::t_e5517414123aaf 1-64
+lib/cli/managedBom.js
+  s_1ab02b5d8469a0::t_c6fde6ad3bdb4e 502-530,534-535,815
+  s_1ab02b5d8469a0::t_254f638e651262 82,87-88
+  s_1ab02b5d8469a0::t_db1768e97f579e 297
+  s_1ab02b5d8469a0::t_6639f8ceb891c8 369-388
+  s_790aedb3119d39::t_18a2cdb4b63ac7 533
+  s_1ab02b5d8469a0::t_918a69672394cd 11
+  s_790aedb3119d39::t_90e1e01db2af16 83
+  s_790aedb3119d39::t_98aebbc50051cb 531
+  s_790aedb3119d39::t_35c263fcbedbd5 532
+  s_1ab02b5d8469a0::t_55439f9f66261d 795-802,805-806,813-814
+.github/workflows/repotests.yml
+  s_1ab02b5d8469a0::t_ce51818cdfc4b9 593
+test/data/conda-env-demo/conda-meta/wheel-0.48.0-pyhd8ed1ab_0.json
+  s_1ab02b5d8469a0::t_9997fbfdc05350 1-62
+test/data/environment-docs-example.yml
+  s_1ab02b5d8469a0::t_b3e4f61dea5251 1-16
+test/data/conda-env-demo/conda-meta/biopython-1.83-py312ha1d0cf0_0.json
+  s_1ab02b5d8469a0::t_98810be9ee64af 1-3,5-18
+  s_1ab02b5d8469a0::t_d2586f3330e128 4
+test/data/conda-env-demo/conda-meta/numpy-2.5.4-py312hff34920_0.json
+  s_1ab02b5d8469a0::t_9997fbfdc05350 1-68
+lib/ecosystems/parsers-python.js
+  s_1ab02b5d8469a0::t_9039e5a902e54c 2614-2620,2649-2658,2662-2686,2690-2714,2718,2720-2745,2748-2823,2827-2839,2848,2850,2853,2857-2863,2866-2881,2884-2910,2912-2916,2918,2920-2922,2924-2928,2930,2932-2935,2937-2941,2944-2946
+  s_1ab02b5d8469a0::t_6d8d015e8bc626 2424
+  s_1ab02b5d8469a0::t_3cce88e3286206 2
+  s_790aedb3119d39::t_9f031c999e0311 2447-2453
+  s_1ab02b5d8469a0::t_f068c5e779af23 3266-3268,3271-3273
+  s_1ab02b5d8469a0::t_3726410e98b115 2998
+  s_1ab02b5d8469a0::t_dc83231ea11f47 2659-2661
+  s_1ab02b5d8469a0::t_20867358d7e3a7 2687-2689,2715-2717,2746-2747,3007-3011,3104-3110,3113-3117,3145-3148,3397-3399
+  s_1ab02b5d8469a0::t_cc3e8ce7cba28e 2390-2423,2425-2446,2454-2462,2464-2467,2469-2471,2473-2488,2490-2497,2505-2518,2520-2541,2543-2544,2546-2559,2561-2564,2569-2574,2576-2577,2579-2583,2589-2590,2592,2595-2610
+  s_790aedb3119d39::t_430ef505952231 2498-2504
+  s_1ab02b5d8469a0::t_c88eb61932c903 2919,2923,2949
+  s_1ab02b5d8469a0::t_2496d17d4923fb 2824-2826
+  s_02e96a1dfa972c::t_8c13351af2b42e 2611-2612
+  s_790aedb3119d39::t_6184c072f15119 3197-3246
+  s_7d724ea76adc3c::t_67a321dd64cefa 2519,2542,2545
+  s_790aedb3119d39::t_2de42b1aaadfe7 2584-2588
+  s_1ab02b5d8469a0::t_a44036657f282a 3277
+  s_790aedb3119d39::t_58e72726a1c136 3292
+  s_1ab02b5d8469a0::t_834291097d72af 3088-3089
+  s_790aedb3119d39::t_c6355e587cb22a 3287-3289
+  s_1ab02b5d8469a0::t_545f729a8a3027 2374-2376,2378-2389
+  s_1ab02b5d8469a0::t_ca4843a77041da 2489,2719,3065
+  s_1ab02b5d8469a0::t_e3e1d1c8c753af 2613,2963-2997,2999-3006,3012-3064,3066-3087,3090-3103,3111-3112,3118-3144,3149-3194,3196,3247-3265,3269-3270,3274-3276,3278-3286,3290-3291,3293-3396,3400-3415
+  s_1ab02b5d8469a0::t_036fde15baaa39 16-17
+  s_1ab02b5d8469a0::t_9986e4e7d4f943 3195
+docs/CUSTOM_PROPERTIES.md
+  s_1ab02b5d8469a0::t_56c66c2ebb6d34 476
+  s_1ab02b5d8469a0::t_6de7487b10c099 74
+  s_1ab02b5d8469a0::t_9df13fdafbb4d2 527
+test/data/conda-env-demo/conda-meta/python-3.12.16-hd05a0c4_0_cpython.json
+  s_1ab02b5d8469a0::t_9997fbfdc05350 1-72
+lib/ecosystems/ecosystems.js
+  s_1ab02b5d8469a0::t_b87f3f5d6a8c33 1490-1495
+test/data/pixi-lock-v7/pixi.lock
+  s_1ab02b5d8469a0::t_99e8776da0beed 1-494
+lib/ecosystems/condaPurl.poku.js
+  s_1ab02b5d8469a0::t_49f537f2b41e1b 349-352
+  s_790aedb3119d39::t_22a1961a784388 11
+  s_1ab02b5d8469a0::t_20867358d7e3a7 3,29-34,38-43,65-70,111,120-121,124-130,183-187,193-196,198-202,207-209,216-218,287-291,299,321-325,327-329,344-346,366-383,463-466,482-483,487-490
+  s_1ab02b5d8469a0::t_0c3ccc4869ef9a 1-2,4-10,12-28,35-37,44-64,71-107,110,123,131-182,188-192,197,203-206,210-215,219-286,292-298,300-320,326,330-343,347-348,353-365,384-462,467-481,484-486,491-515
+  s_790aedb3119d39::t_73c6c149ba63b0 108-109,112-119,122
+  s_790aedb3119d39::t_18a2cdb4b63ac7 516-566,572-626
+  s_790aedb3119d39::t_ab2759367835cf 567-571
+test/data/conda-env-demo/conda-meta/tzdata-2026e-h5d301ff_0.json
+  s_1ab02b5d8469a0::t_9997fbfdc05350 1-57
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "31c13b74e3c5d740b12abe2df1852c04c83c980c",
+  "prompts": {},
+  "sessions": {
+    "s_02e96a1dfa972c": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_050eae436ffeO6ePr46ViE6Ave",
+        "model": "glm-5.2"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    },
+    "s_1ab02b5d8469a0": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_dwf-dwfrun-d11e888e-eb85-4ed7-96dd-14d0eb1d6990-actor_1_1",
+        "model": "GLM-5.3"
+      },
+      "human_author": "Team AppThreat <cloud@appthreat.com>"
+    },
+    "s_790aedb3119d39": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_ad434648-2a8a-4978-84cb-207d4726798d",
+        "model": "GLM-5.3"
+      },
+      "human_author": null
+    },
+    "s_7d724ea76adc3c": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "2a0b9959-84de-46e0-a87e-11e7f1e7f1e3",
+        "model": "claude-opus-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
