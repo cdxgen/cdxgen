@@ -468,6 +468,8 @@ jobs:
           ref: 'a4dacad118005a082f3b1544056896d99f3f22d8'
       - name: Install Rust v1.98.0
         run: rustup toolchain install 1.98.0 || true
+      - name: Install Rust v1.100.0
+        run: rustup toolchain install 1.100.0 || true
       - name: setup sdkman
         run: |
           curl -s "https://get.sdkman.io" | bash
@@ -791,8 +793,17 @@ jobs:
           cargo generate-lockfile --manifest-path repotests/rs-validator/validator/Cargo.toml
           bin/cdxgen.js -r -t rust repotests/rs-validator -o bomresults/bom-rs-validator.json --fail-on-error
           bin/cdxgen.js -r -t rust repotests/rs-axum -o bomresults/bom-rs-axum.json --fail-on-error
+          # The validator workspace pulls the hyphenated proc-macro2 crate
+          # through validator_derive, so a deep scan under Rust 1.100 proves
+          # the dep-info files of its new build directory layout are read and
+          # keyed by package name. RUSTUP_TOOLCHAIN pins every cargo call
+          # cdxgen makes, including the cargo check that writes the dep-info.
+          RUSTUP_TOOLCHAIN=1.100.0 bin/cdxgen.js -r -t rust repotests/rs-validator --deep -o bomresults/bom-rs-validator-deep.json
+          jq -e 'any(.components[]; .name == "proc-macro2" and ((.components // []) | length) > 0)' bomresults/bom-rs-validator-deep.json
+          jq -e 'any(.components[]; .name == "unicode-ident" and ((.components // []) | length) > 0)' bomresults/bom-rs-validator-deep.json
           rm -rf repotests/rs-rust repotests/rs-cargo repotests/rs-validator repotests/rs-axum || true
           rustup toolchain uninstall 1.98.0 || true
+          rustup toolchain uninstall 1.100.0 || true
         shell: bash
         env:
           CDXGEN_THINK_MODE: true
