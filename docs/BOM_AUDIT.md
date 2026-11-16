@@ -279,7 +279,7 @@ cdx-audit --bom bom.evinse.json --direct-bom-audit --categories golem
 | GOLEM-SEC-010  | golem-security    | high     | Go component sets InsecureSkipVerify together with custom verification |
 | GOLEM-SEC-011  | golem-security    | low      | Go component appends an embedded PEM bundle to an x509 pool            |
 | GOLEM-SEC-012  | golem-security    | high     | Go component carries cgo build inputs the patched toolchains refuse    |
-| GOLEM-SEC-013  | golem-security    | medium   | Go analysis ran with cgo on an unpatched toolchain or with CGO allow overrides |
+| GOLEM-SEC-013  | golem-security    | medium   | Go analysis ran with cgo enabled on an unpatched toolchain or with CGO allow overrides |
 | GOLEM-SEC-004  | golem-security    | low      | Go module uses a local replacement in analyzed source                  |
 | GOLEM-PERF-001 | golem-performance | low      | Go project crosses a native code boundary                              |
 | GOLEM-PERF-002 | golem-performance | low      | Go project relies on generated or embedded build inputs                |

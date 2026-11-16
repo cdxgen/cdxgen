@@ -341,17 +341,17 @@
 
 - id: GOLEM-SEC-013
   name: "Go analysis ran with cgo enabled on an unpatched toolchain or with CGO allow overrides"
-  description: "The golem load ran with CGO_ENABLED on a toolchain that predates the go1.26.11 and go1.27.4 cgo flag checks, or the environment carried a CGO_*_ALLOW or CGO_*FLAGS variable. Either widens what #cgo directives may pass to the host C compiler for every package in the build."
+  description: "The golem load ran with cgo enabled, and either the toolchain predates the go1.26.11 and go1.27.4 cgo flag checks or the environment carried a CGO_*_ALLOW or CGO_*FLAGS variable. Either widens what #cgo directives may pass to the host C compiler for every package in the build. With cgo disabled the C compiler never runs, so neither condition matters."
   severity: medium
   category: golem-security
   dry-run-support: full
   condition: |
     metadata.component[
-      (
-        $prop($, 'cdx:golem:cgoMode') = 'enabled'
-        and $prop($, 'cdx:golem:cgoToolchainPatched') = 'false'
+      $prop($, 'cdx:golem:cgoMode') = 'enabled'
+      and (
+        $prop($, 'cdx:golem:cgoToolchainPatched') = 'false'
+        or $prop($, 'cdx:golem:cgoEnvOverrideNames') != null
       )
-      or $prop($, 'cdx:golem:cgoEnvOverrideNames') != null
     ]
   location: |
     { "bomRef": $."bom-ref", "component": name }
