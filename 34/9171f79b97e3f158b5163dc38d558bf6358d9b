@@ -1,0 +1,25 @@
+types/lib/ecosystems/golem.d.ts
+  s_0e34e16b6c9ad2::t_a66772584ff4cb 17-33
+types/lib/ecosystems/golem.d.ts.map
+  s_0e34e16b6c9ad2::t_775b50859a897f 1
+types/lib/inventory/goBuildInfo.d.ts
+  s_0e34e16b6c9ad2::t_9d48bc1cf73fa7 10-47
+types/lib/inventory/goBuildInfo.d.ts.map
+  s_0e34e16b6c9ad2::t_e0d897292ae088 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "349171f79b97e3f158b5163dc38d558bf6358d9b",
+  "prompts": {},
+  "sessions": {
+    "s_0e34e16b6c9ad2": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "4e2522b4-2584-4dbf-98b0-7a09eb05d6d7",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
