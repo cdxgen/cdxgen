@@ -1,0 +1,39 @@
+docs/CUSTOM_PROPERTIES.md
+  s_c56bc1abad1598::t_0d511c78845c0a 483
+lib/cli/nativeBom.poku.js
+  s_c56bc1abad1598::t_ac1272cc8deb10 242-249
+  s_c56bc1abad1598::t_934d2c875c2740 342-343
+  s_c56bc1abad1598::t_fa6482609bc382 319-322
+  s_c56bc1abad1598::t_6f2832430a2c3c 326-341,344-446
+  s_c56bc1abad1598::t_00cbb496b708d3 280,289-295
+  s_c56bc1abad1598::t_f2aa444d025679 447-451
+docs/PROJECT_TYPES.md
+  s_c56bc1abad1598::t_ea482da8d68a6b 102
+docs/OBOM_LESSONS.md
+  s_c56bc1abad1598::t_7d8fc9dfafd8fa 217-255
+data/remediations.json
+  s_c56bc1abad1598::t_48b1561198f09f 1781-1828
+docs/ADVANCED.md
+  s_c56bc1abad1598::t_707b7bb8a522c5 1104-1105
+docs/INTROSPECTION.md
+  s_c56bc1abad1598::t_6b1567f8077d12 106
+lib/inventory/depsUtils.poku.js
+  s_c56bc1abad1598::t_387451867e41af 500-504
+  s_c56bc1abad1598::t_e12bf8c9118bc6 475-499,505-507
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "9a1e1b1ed40c313fa951bda07ad6f2273c6eb65a",
+  "prompts": {},
+  "sessions": {
+    "s_c56bc1abad1598": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_3e0169e0-1b76-44f8-a9a4-fd85bc716d5f",
+        "model": "GLM-5.3-Flash"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
