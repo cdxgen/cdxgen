@@ -100,6 +100,16 @@ run_cdxgen_image_inventory_tests() {
   assert_container_file_inventory_bom "$archive_bom"
   assert_container_inventory_has_unpackaged_binaries "$archive_bom"
   assert_same_container_file_inventory_signature "$image_bom" "$archive_bom"
+
+  # The image ships /usr/local/go; its VERSION file names the toolchain the
+  # BOM has to carry. A variant without Go asserts nothing here.
+  local go_version
+  go_version="$(docker run --rm --entrypoint cat "$image_ref" /usr/local/go/VERSION 2>/dev/null || true)"
+  if [ -n "$go_version" ]; then
+    go_version="${go_version#go}"
+    assert_go_toolchain_bom "$image_bom" "$go_version"
+    assert_go_toolchain_bom "$archive_bom" "$go_version"
+  fi
 }
 
 run_docker_tests() {
