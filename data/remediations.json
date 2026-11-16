@@ -1778,5 +1778,53 @@
       ]
     },
     "docs": "https://cyclonedx.github.io/cdxgen/#/ENV"
+  },
+  "go.host-probe.package-db-unreadable": {
+    "ecosystem": "go",
+    "kind": "evidence.degraded",
+    "impact": "components",
+    "title": "A package database could not be read in full, so the Go toolchains no package owns on this host were not identified",
+    "targetTier": null,
+    "actions": [
+      {
+        "kind": "config",
+        "command": "Run cdxgen as a user that can read the package databases (for example with sudo), so Go launchers can be matched to the packages that own them"
+      },
+      {
+        "kind": "rerun"
+      }
+    ],
+    "verify": {
+      "rules": [],
+      "expectTier": null,
+      "eventsCleared": [
+        "go.host-probe.package-db-unreadable"
+      ]
+    },
+    "docs": "https://cyclonedx.github.io/cdxgen/#/PROJECT_TYPES?id=go"
+  },
+  "go.host-probe.budget-exhausted": {
+    "ecosystem": "go",
+    "kind": "evidence.degraded",
+    "impact": "components",
+    "title": "The Go host probe stopped at its budget of toolchain-named entries, so a Go toolchain after that was not looked at",
+    "targetTier": null,
+    "actions": [
+      {
+        "kind": "config",
+        "command": "Look for directories that hold many entries named like go launchers, or many links to one file, remove the ones that are not real installs, and run the scan again"
+      },
+      {
+        "kind": "rerun"
+      }
+    ],
+    "verify": {
+      "rules": [],
+      "expectTier": null,
+      "eventsCleared": [
+        "go.host-probe.budget-exhausted"
+      ]
+    },
+    "docs": "https://cyclonedx.github.io/cdxgen/#/PROJECT_TYPES?id=go"
   }
 }

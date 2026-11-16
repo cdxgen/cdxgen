@@ -44,3 +44,90 @@
       "buildVersion": $prop($, 'cdx:go:buildVersion'),
       "srcFile": $prop($, 'internal:SrcFile')
     }
+
+- id: GO-CGO-001
+  name: "Go binary built with cgo by a toolchain that predates the cgo flag checks"
+  description: "The binary's buildinfo records CGO_ENABLED=1 and a toolchain older than go1.26.11 or go1.27.4. The binary itself is not exploitable through this; the concern is provenance: the build that produced it let the dependencies' #cgo directives, .syso files and pkg-config lines run the C compiler and linker on the build machine with flags those dependencies chose (CVE-2026-97033 through CVE-2026-97043), so the artifact comes from a build host that untrusted build inputs could reach. Release candidates of newer lines already carry the fixes."
+  severity: medium
+  category: go-security
+  dry-run-support: full
+  condition: |
+    components[
+      type = 'file'
+      and $prop($, 'cdx:go:cgoEnabled') = 'true'
+      and $hasProp($, 'cdx:go:buildVersion')
+      and (
+        $prop($, 'cdx:go:buildVersion') = 'unknown-pre-1.18'
+        or (
+          $m := $match($prop($, 'cdx:go:buildVersion'), /^go(\d+)\.(\d+)(?:\.(\d+))?/);
+          $m != null
+          and $number($m.groups[0]) = 1
+          and (
+            $number($m.groups[1]) < 26
+            or (
+              $number($m.groups[1]) = 26
+              and ($m.groups[2] != null ? $number($m.groups[2]) : 0) < 11
+            )
+            or (
+              $number($m.groups[1]) = 27
+              and ($m.groups[2] != null ? $number($m.groups[2]) : 0) < 4
+            )
+          )
+        )
+      )
+    ]
+  location: |
+    {
+      "bomRef": $firstNonEmpty($."bom-ref", bom.serialNumber)
+    }
+  message: "Go binary '{{ name }}' was built with cgo by {{ $prop($, 'cdx:go:buildVersion') }}, which predates the cgo flag checks fixed in go1.26.11 and go1.27.4"
+  mitigation: "Rebuild with go1.26.11, go1.27.4 or newer so dependency #cgo inputs cannot run commands on the build host, and treat artifacts from the older build as produced on a host untrusted build inputs could reach."
+  evidence: |
+    {
+      "buildVersion": $prop($, 'cdx:go:buildVersion'),
+      "cgoEnabled": $prop($, 'cdx:go:cgoEnabled'),
+      "cgoEnvFlagNames": $prop($, 'cdx:go:cgoEnvFlagNames'),
+      "srcFile": $prop($, 'internal:SrcFile')
+    }
+
+- id: GO-HTTP-001
+  name: "Go binary predates the net/http MaxBytesReader fix"
+  description: "Go links its standard library statically, so a binary keeps the net/http behaviour of the toolchain it was built with. Releases before go1.26.11 and go1.27.4 lack the fix for CVE-2026-97054, a panic in HTTP/1 servers that read request bodies through MaxBytesReader or MaxBytesHandler. The rule cannot tell whether the binary serves HTTP at all; it fires on the toolchain version alone."
+  severity: low
+  category: go-security
+  dry-run-support: full
+  condition: |
+    components[
+      type = 'file'
+      and $hasProp($, 'cdx:go:buildVersion')
+      and (
+        $prop($, 'cdx:go:buildVersion') = 'unknown-pre-1.18'
+        or (
+          $m := $match($prop($, 'cdx:go:buildVersion'), /^go(\d+)\.(\d+)(?:\.(\d+))?/);
+          $m != null
+          and $number($m.groups[0]) = 1
+          and (
+            $number($m.groups[1]) < 26
+            or (
+              $number($m.groups[1]) = 26
+              and ($m.groups[2] != null ? $number($m.groups[2]) : 0) < 11
+            )
+            or (
+              $number($m.groups[1]) = 27
+              and ($m.groups[2] != null ? $number($m.groups[2]) : 0) < 4
+            )
+          )
+        )
+      )
+    ]
+  location: |
+    {
+      "bomRef": $firstNonEmpty($."bom-ref", bom.serialNumber)
+    }
+  message: "Go binary '{{ name }}' was built with {{ $prop($, 'cdx:go:buildVersion') }}, which predates the CVE-2026-97054 net/http MaxBytesReader fix"
+  mitigation: "Rebuild with go1.26.11, go1.27.4 or newer, or confirm the binary never serves HTTP/1 with MaxBytesReader or MaxBytesHandler."
+  evidence: |
+    {
+      "buildVersion": $prop($, 'cdx:go:buildVersion'),
+      "srcFile": $prop($, 'internal:SrcFile')
+    }

@@ -278,6 +278,8 @@ cdx-audit --bom bom.evinse.json --direct-bom-audit --categories golem
 | GOLEM-SEC-009  | golem-security    | medium   | Go component installs a custom certificate verification callback       |
 | GOLEM-SEC-010  | golem-security    | high     | Go component sets InsecureSkipVerify together with custom verification |
 | GOLEM-SEC-011  | golem-security    | low      | Go component appends an embedded PEM bundle to an x509 pool            |
+| GOLEM-SEC-012  | golem-security    | high     | Go component carries cgo build inputs the patched toolchains refuse    |
+| GOLEM-SEC-013  | golem-security    | medium   | Go analysis ran with cgo enabled on an unpatched toolchain or with CGO allow overrides |
 | GOLEM-SEC-004  | golem-security    | low      | Go module uses a local replacement in analyzed source                  |
 | GOLEM-PERF-001 | golem-performance | low      | Go project crosses a native code boundary                              |
 | GOLEM-PERF-002 | golem-performance | low      | Go project relies on generated or embedded build inputs                |
@@ -285,8 +287,9 @@ cdx-audit --bom bom.evinse.json --direct-bom-audit --categories golem
 | GOLEM-COMP-001 | golem-compliance  | low      | Go module appears private or workspace-local                           |
 | GOLEM-COMP-002 | golem-compliance  | medium   | Vendored Go module lacks license-file evidence                         |
 | GOLEM-COMP-003 | golem-compliance  | low      | Go module graph uses exclude directives                                |
+| GOLEM-COMP-004 | golem-compliance  | low      | cgo packages were seen only textually, so call-graph and data-flow evidence is missing |
 
-These rules use properties such as `cdx:golem:securitySignalSeverity`, `cdx:golem:usageScopes`, `cdx:golem:cryptoDataFlow`, `cdx:golem:cryptoFinding`, `cdx:golem:localReplacement`, `cdx:golem:privateModuleCandidate`, `cdx:golem:vendored`, `cdx:golem:licenseFileCount`, `cdx:golem:nativeArtifactCount`, `cdx:golem:goGenerateCount`, `cdx:golem:goEmbedCount`, `cdx:golem:dataFlowTruncated`, and `cdx:golem:goModExcludeCount`.
+These rules use properties such as `cdx:golem:securitySignalSeverity`, `cdx:golem:usageScopes`, `cdx:golem:cryptoDataFlow`, `cdx:golem:cryptoFinding`, `cdx:golem:localReplacement`, `cdx:golem:privateModuleCandidate`, `cdx:golem:vendored`, `cdx:golem:licenseFileCount`, `cdx:golem:nativeArtifactCount`, `cdx:golem:goGenerateCount`, `cdx:golem:goEmbedCount`, `cdx:golem:dataFlowTruncated`, and `cdx:golem:goModExcludeCount`. The cgo rules use `cdx:golem:cgo:riskCategories`, `cdx:golem:cgo:riskyFlags`, `cdx:golem:cgoMode`, `cdx:golem:cgoToolchainPatched`, `cdx:golem:cgoEnvOverrideNames` and `cdx:golem:cgoUnloadedPackageCount`.
 
 Typical reviewer actions:
 
@@ -703,6 +706,8 @@ Rules for Go binaries in container and rootfs BOMs.
 | Rule       | Severity | Description                                                                                                                                                                            |
 | ---------- | -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | GO-TLS-001 | high     | Go binary built with a toolchain lacking the CVE-2026-111943 distrust list (before go1.26.10, go1.27.0–go1.27.2, and all older lines; release candidates of newer lines carry the fix) |
+| GO-CGO-001 | medium   | Go binary built with cgo by a toolchain predating the cgo flag checks (before go1.26.11, go1.27.0–go1.27.3, and all older lines): a provenance concern, not a binary exploit |
+| GO-HTTP-001 | low     | Go binary predates the CVE-2026-97054 net/http MaxBytesReader fix (same version floors); the rule cannot tell whether the binary serves HTTP |
 
 Custom SPKI deny lists are documented with an example in
 `docs/cbom-custom-spki-denylist.yaml`, loaded via `--bom-audit-rules-dir`.

@@ -272,16 +272,25 @@ function getGolemComponents(bom) {
 }
 
 function getGolemHotspotComponents(bom) {
-  return getGolemComponents(bom).filter(
-    (component) =>
+  return getGolemComponents(bom).filter((component) => {
+    const cgoRiskCategories = getPropertyValue(
+      component,
+      "cdx:golem:cgo:riskCategories",
+    );
+    return (
       Boolean(
         getPropertyValue(component, "cdx:golem:securitySignalSeverity"),
       ) ||
       getPropertyValue(component, "cdx:golem:localReplacement") === "true" ||
       getPropertyValue(component, "cdx:golem:privateModuleCandidate") ===
         "true" ||
-      getPropertyValue(component, "cdx:golem:vendored") === "true",
-  );
+      getPropertyValue(component, "cdx:golem:vendored") === "true" ||
+      // A cgo risk category beyond the informational module-path one means
+      // the component's build inputs are refused, escape the package, sit in
+      // hand-written compiler directives, or are not valid objects.
+      (Boolean(cgoRiskCategories) && cgoRiskCategories !== "module-path")
+    );
+  });
 }
 
 function getGolemCoverageComponents(bom) {

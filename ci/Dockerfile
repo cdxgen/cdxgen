@@ -14,7 +14,7 @@ ARG MAVEN_VERSION=3.10.0
 # broker does not serve gradle 9.7.1+ yet (404 on the download redirect).
 ARG GRADLE_VERSION=9.7.0
 # renovate: datasource=golang-version depName=golang
-ARG GO_VERSION=1.27.1
+ARG GO_VERSION=1.27.4
 # renovate: datasource=node-version depName=node
 ARG NODE_VERSION=26.12.1
 ARG RUBY_VERSION=4.0.7

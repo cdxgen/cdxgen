@@ -236,3 +236,28 @@ assert_node_brotli_bom() {
     return 1
   }
 }
+
+# The cdxgen image ships /usr/local/go: the installed toolchain is a platform
+# component with the NVD CPE, read from the VERSION file of its GOROOT, and
+# the bin/go launcher beside it carries the same version.
+assert_go_toolchain_bom() {
+  local bom_file="$1"
+  local version="$2"
+  jq -e --arg version "$version" '
+    any(.components[]?;
+      .purl == "pkg:generic/go@\($version)"
+      and .type == "platform"
+      and .cpe == "cpe:2.3:a:golang:go:\($version):*:*:*:*:*:*:*")
+  ' "$bom_file" >/dev/null || {
+    echo "Expected a pkg:generic/go@$version platform component in $bom_file"
+    return 1
+  }
+  jq -e --arg version "$version" '
+    any(.components[]?;
+      .type == "file" and .name == "go"
+      and any((.properties // [])[]; .name == "cdx:go:toolchainVersion" and .value == $version))
+  ' "$bom_file" >/dev/null || {
+    echo "Expected the go launcher in $bom_file to carry cdx:go:toolchainVersion=$version"
+    return 1
+  }
+}

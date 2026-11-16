@@ -51,6 +51,7 @@ evinse -i bom.json -o bom.evinse.json -l java --with-data-flow .
 | `--golem-patterns`               | `./...`                  | Comma-separated Go package patterns                                                                                  |
 | `--golem-tags`                   | none                     | Comma-separated Go build tags                                                                                        |
 | `--golem-tests`                  | off                      | Include Go test variants in Golem analysis                                                                           |
+| `--golem-cgo`                    | off                      | Load Go packages with cgo enabled, which runs the host C compiler with flags taken from the analysed code            |
 | `--rusi-command`                 | `RUSI_CMD`               | Use a specific `rusi` binary for Rust Evinse                                                                         |
 | `--rusi-mode`                    | `analyze`                | Rusi analysis mode. analyze or cryptos                                                                               |
 | `--rusi-backend`                 | `stable`                 | Rusi analysis backend. stable or compiler                                                                            |

@@ -81,8 +81,15 @@ These options are accepted by `evinse` when `--language go` or `--language golan
 | `--golem-patterns`                               | `./...`                       | Comma-separated Go package patterns passed to Golem.                                                                      |
 | `--golem-tags`                                   | none                          | Comma-separated Go build tags.                                                                                            |
 | `--golem-tests`                                  | `false`                       | Include Go test variants in package loading and evidence.                                                                 |
+| `--golem-cgo`                                    | `false`                       | Load Go packages with cgo enabled, which runs the host C compiler with flags taken from the analysed code.                |
 
 Recommended defaults for CI are `--golem-callgraph static` for ordinary occurrence/call graph evidence and `--deep` or `--with-data-flow --golem-dataflow crypto` for bounded data-flow review. cdxgen automatically lowers the main call graph to `none` when data-flow is enabled unless you request another supported mode, because data-flow already performs its own SSA-backed pass.
+
+## cgo evidence and the host C compiler
+
+By default golem loads packages with `CGO_ENABLED=0`, and cdxgen drops every `CGO_*_ALLOW` variable from the child's environment, because compiling a cgo preamble runs the host C compiler with flags the analysed repository chooses through `#cgo` directives, `.syso` files and `pkg-config` lines. The fixes for the flag checks are go1.26.11 and go1.27.4; older toolchains turn several of those inputs into commands run on the scanning host.
+
+The Go/C boundary stays visible either way: golem reads the files that import "C" textually, and the BOM carries `cdx:golem:cgoMode`, the toolchain and its patch state, the risky flag names and risk categories per module, and the counts. `--golem-cgo` switches the load to `CGO_ENABLED=1` for the compiled view (call graphs and taint flows through cgo packages); when the report then says the toolchain is unpatched, cdxgen prints one warning. Note that `CGO_CFLAGS_ALLOW`-style variables re-open refused flags for every package in a build, and flags set in `CGO_CFLAGS` itself are never checked at all.
 
 ## Call graph modes
 

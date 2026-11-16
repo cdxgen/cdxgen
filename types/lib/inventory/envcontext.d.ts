@@ -180,16 +180,19 @@ export declare function collectRustInfo(dir: string): {
     description: string;
 } | undefined;
 /**
- * Collect go version
+ * Collect the Go toolchain on the PATH.
+ *
+ * `go version` prints one line, `go version go1.27.4 darwin/arm64`, sometimes
+ * with a marker such as `X:boringcrypto` after the version. The parsed
+ * version names the toolchain in the formulation, with the NVD CPE
+ * `cpe:2.3:a:golang:go` and the identity `pkg:generic/go`; the raw banner is
+ * kept as the description. A probe that ran without printing a parsable
+ * banner, such as the output of a development build, records a probe failure.
  *
  * @param {string} dir Working directory
  * @returns Object containing go details
  */
-export declare function collectGoInfo(dir: string): {
-    type: string;
-    name: string;
-    version: string;
-} | undefined;
+export declare function collectGoInfo(dir: string): Object | undefined;
 /**
  * Collect swift version
  *
@@ -303,6 +306,13 @@ export declare function runSwiftCommand(dir: string, args: any[]): string | unde
  * @returns {Object[]} Array of toolchain component objects; empty when nothing is detected
  */
 export declare function collectEnvInfo(dir: string, options?: Object): Object[];
+/**
+ * Longest a toolchain version probe may run. A `--version` call answers in
+ * well under a second; a tool that sets itself up on first use, such as
+ * dotnet or gem in a fresh home directory, or one that waits on a prompt,
+ * must not hold up a scan for the general spawn timeout.
+ */
+export declare const VERSION_PROBE_TIMEOUT_MS = 60000;
 /**
  * Method to check if sdkman is available.
  */

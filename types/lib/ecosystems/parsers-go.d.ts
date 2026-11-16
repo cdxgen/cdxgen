@@ -98,6 +98,19 @@ export declare function getGoPkgComponent(group: string, name: string, version: 
  */
 export declare function parseGoModData(goModData: string, gosumMap: Object): Object;
 /**
+ * Read the `go` and `toolchain` directives of a go.mod. `go list` names
+ * neither in its module rows, so the path that runs `go list` reads the file
+ * of the project it ran in.
+ *
+ * @param {String} goModData Contents of go.mod file
+ * @returns {{go: (string|undefined), toolchain: (string|undefined)}} the
+ *   directive values as go.mod spells them, with the `go` prefix
+ */
+export declare function parseGoModDirectives(goModData: string): {
+    go: (string | undefined);
+    toolchain: (string | undefined);
+};
+/**
  * Parses a Go modules text file (e.g. vendor/modules.txt) and returns a list of
  * Go package components. Cross-references the go.sum map for integrity hashes and
  * sets scope and confidence based on hash availability.
