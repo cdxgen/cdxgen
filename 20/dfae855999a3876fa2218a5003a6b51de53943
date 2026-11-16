@@ -1,0 +1,21 @@
+lib/inventory/goToolchain.js
+  s_0e34e16b6c9ad2::t_35c61fe2983b78 172-173,177-178,182,185-191
+lib/inventory/goToolchain.poku.js
+  s_0e34e16b6c9ad2::t_8286bb571e2b3c 146,150-156
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "20dfae855999a3876fa2218a5003a6b51de53943",
+  "prompts": {},
+  "sessions": {
+    "s_0e34e16b6c9ad2": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "4e2522b4-2584-4dbf-98b0-7a09eb05d6d7",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
