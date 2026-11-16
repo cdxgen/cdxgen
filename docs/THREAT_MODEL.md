@@ -225,7 +225,7 @@ The toolchain version probes for formulation also run from the temporary directo
 
 - HBOM collection defaults to unprivileged mode and relies first on `/proc`, `/sys`, and other low-risk local sources where possible
 - `--privileged` is explicit opt-in and only enables the documented permission-sensitive command paths exposed by `@cdxgen/cdx-hbom`
-- `@cdxgen/cdx-hbom` 0.4.0 records missing-command and permission-denied diagnostics directly in the BOM root and collector trace instead of silently hiding partial evidence gaps
+- `@cdxgen/cdx-hbom` (since 0.4.0) records missing-command and permission-denied diagnostics directly in the BOM root and collector trace instead of silently hiding partial evidence gaps
 - cdxgen derives compact `cdx:hbom:analysis:*` summary properties and exposes `hbom diagnostics` so operators can distinguish "install a package" from "rerun with --privileged" without guessing
 - In secure mode, cdxgen reuses the HBOM dry-run declaration as a preflight plan and aborts live HBOM collection when the declared commands fall outside `CDXGEN_ALLOWED_COMMANDS` or the declared local paths fall outside `CDXGEN_ALLOWED_PATHS`; for `@cdxgen/cdx-hbom` this also covers explicit `sudo -n` retry paths declared for permission-sensitive commands
 - The Linux privileged path uses non-interactive `sudo -n`, avoiding interactive password prompts that would otherwise encourage ad hoc operator workarounds
@@ -302,18 +302,6 @@ The toolchain version probes for formulation also run from the temporary directo
 
 **Residual risk:** Medium — build tools invoked by cdxgen make their own HTTP requests that are not controlled by `CDXGEN_ALLOWED_HOSTS`.
 
-#### T2.6 — Registry metadata poisoning for purl requests
-
-**Threat:** A purl request resolves through registry metadata (`repository`, `homepage`, or similar fields) to attacker-controlled repositories.
-
-**Mitigations:**
-
-- purl-to-repository resolution is restricted to known ecosystems and then validated with git protocol + host allowlists
-- Host allowlists can block unexpected repository hosts even when metadata is poisoned
-- cdxgen logs warnings when using registry-derived repository URLs
-
-**Residual risk:** Medium — poisoned metadata can still redirect scans if allowlists are broad or unset.
-
 #### T2.4 — Denial of service
 
 **Threat:** A client sends many concurrent requests, very large bodies, or requests for enormous projects to exhaust server resources.
@@ -341,6 +329,18 @@ The toolchain version probes for formulation also run from the temporary directo
 
 **Residual risk:** High if exposed without access controls. Low in intended deployment behind a reverse proxy.
 
+#### T2.6 — Registry metadata poisoning for purl requests
+
+**Threat:** A purl request resolves through registry metadata (`repository`, `homepage`, or similar fields) to attacker-controlled repositories.
+
+**Mitigations:**
+
+- purl-to-repository resolution is restricted to known ecosystems and then validated with git protocol + host allowlists
+- Host allowlists can block unexpected repository hosts even when metadata is poisoned
+- cdxgen logs warnings when using registry-derived repository URLs
+
+**Residual risk:** Medium — poisoned metadata can still redirect scans if allowlists are broad or unset.
+
 ### 3. Dependencies
 
 #### T3.1 — Compromised npm dependency
@@ -350,7 +350,7 @@ The toolchain version probes for formulation also run from the temporary directo
 **Mitigations:**
 
 - `pnpm-lock.yaml` provides reproducible installs with integrity hashes
-- `pnpm.onlyBuiltDependencies` restricts which packages can run install scripts
+- `onlyBuiltDependencies` in `pnpm-workspace.yaml` restricts which packages can run install scripts
 - Renovate provides automated dependency updates with CI testing
 - CodeQL scanning runs on the codebase
 - npm provenance attestation on published packages
@@ -507,7 +507,7 @@ The toolchain version probes for formulation also run from the temporary directo
 
 - `@cdxgen/safer-exec` implements kernel-level namespace isolation, Landlock network confinement, and cgroup v2 resource limits on Linux, Seatbelt sandboxing on macOS, and a Microsoft eXecution Container (BaseContainer with Windows Filtering Platform rules and a job object) on Windows 11.
 - Tracing is locked down using LD_AUDIT / DYLD_INSERT_LIBRARIES mechanism enforced securely by the sandbox boundary. On Windows DLL loads come from an ETW session the engine runs outside the container, which the low-privilege workload cannot stop.
-- safer-exec 1.1 sends audit entries and results to the engine over a pipe the workload does not inherit, so a traced command cannot forge components, services, or diff entries by printing look-alike lines. On Linux, `lib-load` entries still come from a helper inside the workload and can be forged.
+- since 1.1, safer-exec sends audit entries and results to the engine over a pipe the workload does not inherit, so a traced command cannot forge components, services, or diff entries by printing look-alike lines. On Linux, `lib-load` entries still come from a helper inside the workload and can be forged.
 - Configurable sandbox limits (`--max-memory`, `--max-cpu`, `--max-processes`, `--timeout`, `--disable-network`, `--read-paths`, `--write-paths`, `--strict`, `--sanitize-env`, `--diff`, `--block-fork`, `--trace-exec`, `--allow-exec`, `--block-exec`, `--allow-host`, `--allow-port`, `--allow-url`) allow operators to restrict the traced process.
 
 **Residual risk:** On Windows, `--private-tmp` and `--protect-home` hold only while no granted path reaches the host's temp directory or the user profile; safer-exec reports a grant that does, and `--strict` refuses the run. `--block-interpreters` has no effect on Windows (tracebom warns). TLS parameters recorded through `--proxy-egress` are what each handshake claimed; a command talking to a server it controls can make them say anything, so treat traced crypto assets as an inventory rather than proof.
