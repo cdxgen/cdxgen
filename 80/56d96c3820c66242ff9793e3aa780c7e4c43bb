@@ -1,0 +1,41 @@
+docs/EVINSE.md
+  s_5ae344e6b6bab9::t_1a185fe717ca06 54
+bin/repl.js
+  s_5ae344e6b6bab9::t_9594b226b7f4ed 275-280,287-293
+lib/ecosystems/golem.js
+  s_5ae344e6b6bab9::t_abdaa55a835f6b 1108-1112
+docs/CUSTOM_PROPERTIES.md
+  s_5ae344e6b6bab9::t_801e80e772f9be 484-485,1051-1055,2486
+docs/LESSON14.md
+  s_5ae344e6b6bab9::t_63ae639ec728ab 59-64
+docs/BOM_AUDIT.md
+  s_5ae344e6b6bab9::t_8c15482f408d5a 709-710
+  s_5ae344e6b6bab9::t_1a185fe717ca06 281-282,290,292
+lib/ecosystems/golem.poku.js
+  s_5ae344e6b6bab9::t_abdaa55a835f6b 2135
+docs/GO_EVINSE_GOLEM.md
+  s_5ae344e6b6bab9::t_350a8da8e4ef59 93
+  s_5ae344e6b6bab9::t_1a185fe717ca06 84,88-92
+lib/inventory/goBuildInfo.poku.js
+  s_5ae344e6b6bab9::t_abdaa55a835f6b 239-244,342
+lib/inventory/goBuildInfo.js
+  s_5ae344e6b6bab9::t_abdaa55a835f6b 289-290
+docs/GO_EVINSE_GOLEM_THREAT_MODEL.md
+  s_5ae344e6b6bab9::t_63ae639ec728ab 35-36
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "8056d96c3820c66242ff9793e3aa780c7e4c43bb",
+  "prompts": {},
+  "sessions": {
+    "s_5ae344e6b6bab9": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_51e3c837-2993-4607-9eb9-fd5852bb5a3b",
+        "model": "GLM-5.3"
+      },
+      "human_author": null
+    }
+  }
+}
