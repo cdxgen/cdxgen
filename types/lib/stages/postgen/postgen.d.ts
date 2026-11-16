@@ -20,10 +20,12 @@ export declare function postProcess(bomNSData: Object, options: Object, filePath
  *
  * @param {Object} bomJson BOM JSON Object
  * @param {Object} options CLI options
+ * @param {string} [filePath] Directory that was scanned, used to make source
+ * file paths relative
  *
  * @returns {Object} Filtered BOM JSON
  */
-export declare function applyMetadata(bomJson: Object, options: Object): Object;
+export declare function applyMetadata(bomJson: Object, options: Object, filePath?: string): Object;
 /**
  * Apply definitions.standards based on options
  *
