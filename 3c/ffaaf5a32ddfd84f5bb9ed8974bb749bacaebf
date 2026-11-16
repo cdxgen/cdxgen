@@ -1,0 +1,65 @@
+.agents/skills/sbom-fidelity-loop/SKILL.md
+  s_0e34e16b6c9ad2::t_08711629e15aa1 26
+agent-plugin/skills/sbom-fidelity-loop/SKILL.md
+  s_0e34e16b6c9ad2::t_68f6ed18626a0c 26
+ci/assertions.sh
+  s_0e34e16b6c9ad2::t_2b8c803d2eee4a 239-263
+ci/dockertests.sh
+  s_0e34e16b6c9ad2::t_294b48be48d126 103-112
+data/remediations.json
+  s_0e34e16b6c9ad2::t_aa184675975bab 1781-1828
+docs/ADVANCED.md
+  s_0e34e16b6c9ad2::t_dbb8e15485c513 1104-1105
+docs/CUSTOM_PROPERTIES.md
+  s_0e34e16b6c9ad2::t_44651fae134873 483
+docs/INTROSPECTION.md
+  s_0e34e16b6c9ad2::t_571b715dc662f5 106
+docs/OBOM_LESSONS.md
+  s_0e34e16b6c9ad2::t_f17faf9400d22b 217-255
+docs/PROJECT_TYPES.md
+  s_0e34e16b6c9ad2::t_e931b2be09dc27 102
+lib/cli/index.js
+  s_0e34e16b6c9ad2::t_df876ce5502447 100,369-375
+lib/cli/nativeBom.js
+  s_0e34e16b6c9ad2::t_bf8007f2c11da6 16,37,75,144,146-149,250-356,564-568,640-661,683-684,792-793,823-828,898-902
+lib/cli/nativeBom.poku.js
+  s_0e34e16b6c9ad2::t_363df3651f3b51 242-249,280,289-295,319-322,326-451
+lib/ecosystems/parsers-go.js
+  s_0e34e16b6c9ad2::t_031c3943e4a13c 748-787,846-854,857-866,1287-1291,1294,1302-1307
+lib/ecosystems/parsers-go.poku.js
+  s_0e34e16b6c9ad2::t_5deba0c35b4b0d 8,59,72,109-113,374,387,604,617,643,705,721,1424-1445
+lib/inventory/depsUtils.poku.js
+  s_0e34e16b6c9ad2::t_25d8a9a4f4a708 475-507
+lib/inventory/envcontext.js
+  s_0e34e16b6c9ad2::t_c3bebbc3326d07 50,56-59,737-744,751-759,762-769,1217
+lib/inventory/envcontext.poku.js
+  s_0e34e16b6c9ad2::t_eaca601d22df8b 220,222-229,254-258
+lib/inventory/goHostProbe.js
+  s_0e34e16b6c9ad2::t_8cb3fb785a870b 1-170
+lib/inventory/goHostProbe.poku.js
+  s_0e34e16b6c9ad2::t_50c129c7e1f9f0 1-356
+lib/inventory/goToolchain.js
+  s_0e34e16b6c9ad2::t_e321c2bcc3ebb8 1-296
+lib/inventory/goToolchain.poku.js
+  s_0e34e16b6c9ad2::t_b5fc25d760ca55 1-286
+lib/managers/binary.js
+  s_0e34e16b6c9ad2::t_466d4016238e30 17,71-78,1542-1556,4001-4002,4004,4079-4080,4083,4096-4245
+lib/managers/binary.poku.js
+  s_0e34e16b6c9ad2::t_2d8ab629b1dd7c 799-1001
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "3cffaaf5a32ddfd84f5bb9ed8974bb749bacaebf",
+  "prompts": {},
+  "sessions": {
+    "s_0e34e16b6c9ad2": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "4e2522b4-2584-4dbf-98b0-7a09eb05d6d7",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
