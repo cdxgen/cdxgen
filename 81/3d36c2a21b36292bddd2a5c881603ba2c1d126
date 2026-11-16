@@ -1,0 +1,33 @@
+ci/images/alpine/Dockerfile.golang1.26
+  s_5ae344e6b6bab9::t_913449fef4b43c 2
+ci/Dockerfile-ppc64
+  s_5ae344e6b6bab9::t_f1fa2f8ea4414a 22
+ci/Dockerfile-deno
+  s_5ae344e6b6bab9::t_f1fa2f8ea4414a 28
+ci/Dockerfile-bun
+  s_5ae344e6b6bab9::t_f1fa2f8ea4414a 28
+ci/images/alpine/Dockerfile.golang1.27
+  s_5ae344e6b6bab9::t_913449fef4b43c 2
+ci/images/debian/Dockerfile.golang1.26
+  s_5ae344e6b6bab9::t_913449fef4b43c 2
+ci/Dockerfile
+  s_5ae344e6b6bab9::t_f1fa2f8ea4414a 17
+ci/images/debian/Dockerfile.golang1.27
+  s_5ae344e6b6bab9::t_913449fef4b43c 2
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "813d36c2a21b36292bddd2a5c881603ba2c1d126",
+  "prompts": {},
+  "sessions": {
+    "s_5ae344e6b6bab9": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_51e3c837-2993-4607-9eb9-fd5852bb5a3b",
+        "model": "GLM-5.3"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
