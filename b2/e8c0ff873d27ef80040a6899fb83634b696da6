@@ -1,0 +1,20 @@
+lib/ecosystems/parsers-go.poku.js
+  s_c56bc1abad1598::t_d1a046d68c1fe8 8
+  s_c56bc1abad1598::t_ad242703509220 1424-1445
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "b2e8c0ff873d27ef80040a6899fb83634b696da6",
+  "prompts": {},
+  "sessions": {
+    "s_c56bc1abad1598": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_3e0169e0-1b76-44f8-a9a4-fd85bc716d5f",
+        "model": "GLM-5.3-Flash"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
