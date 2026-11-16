@@ -1,0 +1,29 @@
+lib/cli/nativeBom.poku.js
+  s_fe3389c03a17f4::t_9c48e5a8b56c0f 454-485,487-512
+  s_fe3389c03a17f4::t_e9668984052715 12,31,486
+lib/stages/postgen/postgen.js
+  s_fe3389c03a17f4::t_e9668984052715 826,844-848,865
+  s_fe3389c03a17f4::t_d398265a14b07b 96-103
+  s_fe3389c03a17f4::t_cee0449472989d 2
+  s_fe3389c03a17f4::t_3de57024c80552 84-87,91,109,591,797-798,802
+types/lib/stages/postgen/postgen.d.ts
+  s_fe3389c03a17f4::t_b8a76663f7ff10 23-24,28
+types/lib/stages/postgen/postgen.d.ts.map
+  s_fe3389c03a17f4::t_bc72520a2edaca 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "c7d9d5f5c45aba292484b94c87916a78148e8ecf",
+  "prompts": {},
+  "sessions": {
+    "s_fe3389c03a17f4": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "a56ee14e-4b8e-4214-b436-a8a978b77f2e",
+        "model": "claude-sonnet-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
