@@ -1,0 +1,34 @@
+lib/inventory/goToolchain.poku.js
+  s_c56bc1abad1598::t_bc95d4860c39fc 1-11,13-43,45-60,69-77,79-202,207-258,285-286
+  s_c56bc1abad1598::t_ad1eeee25c1fad 12,44,61-68,78,203-206
+  s_c56bc1abad1598::t_ce5b09a8335abf 259-284
+lib/inventory/envcontext.js
+  s_c56bc1abad1598::t_8891d1d54acb8c 50,56-59
+  s_c56bc1abad1598::t_e6d4884bbcf8f8 1217
+  s_c56bc1abad1598::t_917509c9296bf6 737-744,751-759,762-769
+lib/inventory/goToolchain.js
+  s_c56bc1abad1598::t_b3a31bb071da70 1-19,21-45,51-64,69-81,96-97,99-288
+  s_c56bc1abad1598::t_4aeea2f967e6e1 87
+  s_c56bc1abad1598::t_72bd745ab68071 46-50
+  s_c56bc1abad1598::t_781394847cc2e3 65-68,82-86,88-95,98
+  s_c56bc1abad1598::t_734a0445feb8cb 20
+lib/inventory/envcontext.poku.js
+  s_c56bc1abad1598::t_a26e8568440787 220,222-229
+  s_c56bc1abad1598::t_8455fe01780d59 254-258
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "3212626690cd809f5178374a3e97ca932a60b51c",
+  "prompts": {},
+  "sessions": {
+    "s_c56bc1abad1598": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_3e0169e0-1b76-44f8-a9a4-fd85bc716d5f",
+        "model": "GLM-5.3-Flash"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
