@@ -1,0 +1,34 @@
+lib/inventory/goHostProbe.js
+  s_c56bc1abad1598::t_0d35edcab361e8 1-33,41-44,48-52,54-66,69-70,73-78,80-90,103-122,124-170
+  s_c56bc1abad1598::t_ab9f5e18bca859 34-40
+  s_c56bc1abad1598::t_baad326729d34e 45-47,53,67-68,71-72,79,91-102,123
+lib/inventory/goToolchain.js
+  s_c56bc1abad1598::t_c5b783a7b40b9c 29-36
+lib/cli/index.js
+  s_c56bc1abad1598::t_ab9f5e18bca859 100
+  s_c56bc1abad1598::t_77b9da95173eb5 369-375
+lib/inventory/goHostProbe.poku.js
+  s_c56bc1abad1598::t_75b76785a6e157 155,158-160,162-165
+  s_c56bc1abad1598::t_f424e317b5c046 342-343,349
+  s_c56bc1abad1598::t_5dbfd4b72e023d 41,43
+  s_c56bc1abad1598::t_ab9f5e18bca859 17,200,333-338,350-352
+  s_c56bc1abad1598::t_1d7bdb4fbf212d 1-8,34
+  s_c56bc1abad1598::t_fc1670c7368dd4 331-332,339
+  s_c56bc1abad1598::t_7c48189ca111f4 9-16,18-33,35-40,42,44-154,156-157,161,166-199,201-330,340-341,344-348,353-356
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "7829a6950c82788194e14505e64de906e0defb50",
+  "prompts": {},
+  "sessions": {
+    "s_c56bc1abad1598": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_3e0169e0-1b76-44f8-a9a4-fd85bc716d5f",
+        "model": "GLM-5.3-Flash"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
