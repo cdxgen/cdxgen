@@ -307,3 +307,82 @@
       "finding": $prop($, 'cdx:golem:cryptoFinding'),
       "severity": $prop($, 'cdx:golem:cryptoFindingSeverity')
     }
+
+- id: GOLEM-SEC-012
+  name: "Go component carries cgo build inputs the patched toolchains refuse"
+  description: "Golem classified a #cgo flag in the refused-by-go1.27.4 category, a //go:cgo_* directive in hand-written source, or a .syso file whose header is not an object or archive. These inputs reach the host C compiler and linker whenever the package is built or analysed with cgo enabled."
+  severity: high
+  category: golem-security
+  dry-run-support: full
+  condition: |
+    $append(
+      components[
+        $listContains($prop($, 'cdx:golem:cgo:riskCategories'), 'refused-by-go1.27.4')
+        or $listContains($prop($, 'cdx:golem:cgo:riskCategories'), 'cgo-directive-in-source')
+        or $number($firstNonEmpty($prop($, 'cdx:golem:cgo:sysoInvalidCount'), '0')) > 0
+      ],
+      metadata.component[
+        $listContains($prop($, 'cdx:golem:cgo:riskCategories'), 'refused-by-go1.27.4')
+        or $listContains($prop($, 'cdx:golem:cgo:riskCategories'), 'cgo-directive-in-source')
+        or $number($firstNonEmpty($prop($, 'cdx:golem:cgo:sysoInvalidCount'), '0')) > 0
+      ]
+    )
+  location: |
+    { "bomRef": $."bom-ref", "purl": purl }
+  message: "Go component '{{ name }}' carries cgo build inputs Golem flagged: flags {{ $prop($, 'cdx:golem:cgo:riskyFlags') }}, categories {{ $prop($, 'cdx:golem:cgo:riskCategories') }}"
+  mitigation: "Treat the package as able to run code on any machine that builds it with a Go toolchain older than go1.26.11 or go1.27.4, or with any CGO_*_ALLOW variable set. Build with a patched toolchain, remove the flagged inputs, or vendor a fixed version of the dependency"
+  evidence: |
+    {
+      "riskyFlags": $prop($, 'cdx:golem:cgo:riskyFlags'),
+      "riskCategories": $prop($, 'cdx:golem:cgo:riskCategories'),
+      "directiveCount": $prop($, 'cdx:golem:cgo:directiveCount'),
+      "sysoInvalidCount": $prop($, 'cdx:golem:cgo:sysoInvalidCount')
+    }
+
+- id: GOLEM-SEC-013
+  name: "Go analysis ran with cgo enabled on an unpatched toolchain or with CGO allow overrides"
+  description: "The golem load ran with CGO_ENABLED on a toolchain that predates the go1.26.11 and go1.27.4 cgo flag checks, or the environment carried a CGO_*_ALLOW or CGO_*FLAGS variable. Either widens what #cgo directives may pass to the host C compiler for every package in the build."
+  severity: medium
+  category: golem-security
+  dry-run-support: full
+  condition: |
+    metadata.component[
+      (
+        $prop($, 'cdx:golem:cgoMode') = 'enabled'
+        and $prop($, 'cdx:golem:cgoToolchainPatched') = 'false'
+      )
+      or $prop($, 'cdx:golem:cgoEnvOverrideNames') != null
+    ]
+  location: |
+    { "bomRef": $."bom-ref", "component": name }
+  message: "Go analysis of '{{ name }}' ran with cgo enabled on {{ $prop($, 'cdx:golem:cgoToolchainVersion') }} or with CGO allow overrides present: {{ $prop($, 'cdx:golem:cgoEnvOverrideNames') }}"
+  mitigation: "Run the analysis with a Go toolchain of go1.26.11 or go1.27.4 and newer, unset the CGO_*_ALLOW and CGO_*FLAGS variables, or accept that the analysed repository's #cgo inputs can run commands on the scanning host"
+  evidence: |
+    {
+      "cgoMode": $prop($, 'cdx:golem:cgoMode'),
+      "toolchainVersion": $prop($, 'cdx:golem:cgoToolchainVersion'),
+      "toolchainPatched": $prop($, 'cdx:golem:cgoToolchainPatched'),
+      "envOverrideNames": $prop($, 'cdx:golem:cgoEnvOverrideNames')
+    }
+
+- id: GOLEM-COMP-004
+  name: "cgo packages were seen only textually, so call-graph and data-flow evidence is missing"
+  description: "The golem load ran with cgo disabled (the default), and one or more packages that import C were recorded by reading their source rather than loading them. Their call graphs and taint flows were not analysed."
+  severity: low
+  category: golem-compliance
+  dry-run-support: full
+  condition: |
+    metadata.component[
+      $prop($, 'cdx:golem:cgoMode') = 'disabled'
+      and $number($firstNonEmpty($prop($, 'cdx:golem:cgoUnloadedPackageCount'), '0')) > 0
+    ]
+  location: |
+    { "bomRef": $."bom-ref", "component": name }
+  message: "Go analysis of '{{ name }}' saw {{ $prop($, 'cdx:golem:cgoUnloadedPackageCount') }} cgo package(s) only textually"
+  mitigation: "Re-run with --golem-cgo to load cgo packages through the toolchain when the compiled view is worth running the host C compiler with flags taken from the analysed code; the directive and risk evidence above is complete either way"
+  evidence: |
+    {
+      "cgoMode": $prop($, 'cdx:golem:cgoMode'),
+      "unloadedPackageCount": $prop($, 'cdx:golem:cgoUnloadedPackageCount'),
+      "cgoDirectiveCount": $prop($, 'cdx:golem:cgoDirectiveCount')
+    }
