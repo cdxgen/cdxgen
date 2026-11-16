@@ -86,6 +86,12 @@
     "component": {
       "bom-ref": "pkg:golang/cdxgen-test/gosmoke",
       "name": "cdxgen-test/gosmoke",
+      "properties": [
+        {
+          "name": "cdx:go:goDirective",
+          "value": "1.21"
+        }
+      ],
       "purl": "pkg:golang/cdxgen-test/gosmoke",
       "type": "application"
     },
