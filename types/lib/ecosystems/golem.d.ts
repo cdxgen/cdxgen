@@ -15,6 +15,23 @@ export declare function isGolemGoLanguage(language: string): boolean;
  */
 export declare function readGolemJsonFile(jsonFile: string): object | undefined;
 /**
+ * The environment the golem child runs in.
+ *
+ * By default the analysis must not let the analysed repository drive the host
+ * C compiler: a package's `#cgo` directives, `.syso` files and pkg-config
+ * lines choose the compiler's flags, and on a Go toolchain older than
+ * go1.26.11 / go1.27.4 that is command execution on the scanning host. The
+ * environment pins CGO_ENABLED=0, which every golem release honours, and
+ * drops the CGO_*_ALLOW variables because each of them re-opens what the
+ * patched toolchain refuses for every package in the build. With
+ * `options.golemCgo` the analyst asked for the compiled view, so the
+ * environment states CGO_ENABLED=1 instead and the rest is inherited.
+ *
+ * @param {object} [options={}] Evinse options.
+ * @returns {object} The child process environment for the golem invocation.
+ */
+export declare function golemSpawnEnv(options?: object): object;
+/**
  * Invoke the golem analyzer binary over a source directory to produce a JSON report.
  *
  * Assembles the analyze invocation (callgraph mode, data-flow mode, patterns,
