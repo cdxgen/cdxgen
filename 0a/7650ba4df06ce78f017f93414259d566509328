@@ -1,0 +1,21 @@
+.agents/skills/sbom-fidelity-loop/SKILL.md
+  s_c56bc1abad1598::t_14ab452b1d30fa 26
+agent-plugin/skills/sbom-fidelity-loop/SKILL.md
+  s_c56bc1abad1598::t_8f7fb1c0ac91a2 26
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "0a7650ba4df06ce78f017f93414259d566509328",
+  "prompts": {},
+  "sessions": {
+    "s_c56bc1abad1598": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_3e0169e0-1b76-44f8-a9a4-fd85bc716d5f",
+        "model": "GLM-5.3-Flash"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
