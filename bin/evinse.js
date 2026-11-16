@@ -187,6 +187,12 @@ const args = yargs(hideBin(process.argv))
     default: false,
     type: "boolean",
   })
+  .option("golem-cgo", {
+    description:
+      "Let golem load Go packages with cgo enabled, which runs the host C compiler with flags taken from the analysed code. Off by default; a Go toolchain older than go1.26.11 or go1.27.4 turns #cgo directives into commands run on the scanning host.",
+    default: false,
+    type: "boolean",
+  })
   .option("rusi-command", {
     description: "Use a specific rusi binary for Rust Evinse analysis.",
     default: readEnvironmentVariable("RUSI_CMD"),
