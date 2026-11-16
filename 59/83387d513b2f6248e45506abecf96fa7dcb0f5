@@ -1,0 +1,19 @@
+data/rules/go-binaries.yaml
+  s_5ae344e6b6bab9::t_e423ef476280ba 47-133
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "5983387d513b2f6248e45506abecf96fa7dcb0f5",
+  "prompts": {},
+  "sessions": {
+    "s_5ae344e6b6bab9": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_51e3c837-2993-4607-9eb9-fd5852bb5a3b",
+        "model": "GLM-5.3"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
