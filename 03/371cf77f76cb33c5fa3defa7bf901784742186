@@ -1,0 +1,28 @@
+lib/ecosystems/golem.poku.js
+  s_5ae344e6b6bab9::t_d13ed5157ed172 1981-2008,2013-2169
+  s_5ae344e6b6bab9::t_fe581137f4855c 2009-2012
+bin/evinse.js
+  s_5ae344e6b6bab9::t_4449348fda64c2 190-195
+lib/ecosystems/golem.js
+  s_5ae344e6b6bab9::t_a96a0114351414 4,2027-2039
+  s_5ae344e6b6bab9::t_56bd3e536917e4 1108
+  s_5ae344e6b6bab9::t_456e8a2e4a6172 1897-1924
+  s_5ae344e6b6bab9::t_6406b0e91b257f 1980
+  s_5ae344e6b6bab9::t_23583f2dec5880 1056-1107,1109-1190,1896,2120-2121
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "03371cf77f76cb33c5fa3defa7bf901784742186",
+  "prompts": {},
+  "sessions": {
+    "s_5ae344e6b6bab9": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_51e3c837-2993-4607-9eb9-fd5852bb5a3b",
+        "model": "GLM-5.3"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
