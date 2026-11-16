@@ -1,0 +1,42 @@
+ci/assertions.sh
+  s_c56bc1abad1598::t_38f0f638967921 239-263
+ci/dockertests.sh
+  s_c56bc1abad1598::t_003b3190dda01b 103-112
+lib/managers/binary.js
+  s_c56bc1abad1598::t_4f2e4b24e9081f 4001-4002,4004,4047-4048,4051,4064-4172,4181-4182,4184-4209
+  s_c56bc1abad1598::t_a8e976a7c6e56b 71-78
+  s_c56bc1abad1598::t_98b7de629f2317 4173-4180,4183
+  s_c56bc1abad1598::t_2002d094a91fe5 17
+  s_c56bc1abad1598::t_9f9ba6c599f9ac 1542-1556
+  s_12c66afdba1c1b::t_60739f3cf92640 4210
+lib/managers/binary.poku.js
+  s_c56bc1abad1598::t_c3e3417a107b84 799-866,871-889,892-904,918-919,921-923,925-980
+  s_c56bc1abad1598::t_a8b50ce5bc7268 867-870
+  s_c56bc1abad1598::t_cc1268cac89425 924
+  s_c56bc1abad1598::t_ebca694066b5ee 890,905-917,920
+  s_c56bc1abad1598::t_95e76363f97bef 891
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "2f1da0855bf24fd7e1127557a57d1adb4009237e",
+  "prompts": {},
+  "sessions": {
+    "s_12c66afdba1c1b": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_50fbe17e-c4e4-4823-8ac9-5873e47fa27a",
+        "model": "GLM-5.3"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    },
+    "s_c56bc1abad1598": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_3e0169e0-1b76-44f8-a9a4-fd85bc716d5f",
+        "model": "GLM-5.3-Flash"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
