@@ -1,0 +1,53 @@
+lib/ecosystems/parsers-go.poku.js
+  s_c56bc1abad1598::t_a0d9de906505ad 59,72
+  s_c56bc1abad1598::t_17aa829e62106c 374,387,604,617
+  s_c56bc1abad1598::t_963c02781d2248 109-113
+  s_c56bc1abad1598::t_9e672eb5efc6db 643
+  s_c56bc1abad1598::t_22b680cf00b9fe 705,721
+lib/cli/nativeBom.js
+  s_c56bc1abad1598::t_7e071b5f12e2d9 250-270,273-280,282-329,331-352
+  s_c56bc1abad1598::t_6520026c58bf0a 16
+  s_c56bc1abad1598::t_17da71f74f4052 330,353
+  s_c56bc1abad1598::t_80f4bd93fc62dc 563-567
+  s_c56bc1abad1598::t_f71bb1298dd851 639-654
+  s_c56bc1abad1598::t_89458f484d3144 786-787
+  s_c56bc1abad1598::t_ad1eeee25c1fad 892-896
+  s_c56bc1abad1598::t_e91e05419a4ff8 677-678
+  s_c56bc1abad1598::t_83a60cc993b0e8 817-820,822
+  s_c56bc1abad1598::t_49a383882d84bc 821
+  s_c56bc1abad1598::t_1552d3246ce07a 74
+  s_c56bc1abad1598::t_281202b516d37e 271-272,281
+  s_c56bc1abad1598::t_17bf5ab048ccaf 143,145-148
+  s_5ae344e6b6bab9::t_3873c4e8886c4a 249,354-355,655
+lib/ecosystems/parsers-go.js
+  s_c56bc1abad1598::t_ad1eeee25c1fad 848-854,857-861
+  s_c56bc1abad1598::t_30ee8531103330 773-787
+  s_c56bc1abad1598::t_eb7b058330a73b 1287-1291,1294,1302-1307
+  s_c56bc1abad1598::t_ff7b9c0c35652f 846-847,862-866
+  s_c56bc1abad1598::t_e3784d0e1dc9cc 749-772
+  s_c56bc1abad1598::t_3fc939a492becc 748
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "b6ea7a3084380f35153cf33a698ae82c7d6e187f",
+  "prompts": {},
+  "sessions": {
+    "s_5ae344e6b6bab9": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_51e3c837-2993-4607-9eb9-fd5852bb5a3b",
+        "model": "GLM-5.3"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    },
+    "s_c56bc1abad1598": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_3e0169e0-1b76-44f8-a9a4-fd85bc716d5f",
+        "model": "GLM-5.3-Flash"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
