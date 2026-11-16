@@ -1,0 +1,39 @@
+types/lib/cli/nativeBom.d.ts.map
+  s_0e34e16b6c9ad2::t_d4d69839524d82 1
+types/lib/ecosystems/golem.d.ts.map
+  s_0e34e16b6c9ad2::t_658ed9cf7680f4 1
+types/lib/ecosystems/parsers-go.d.ts
+  s_0e34e16b6c9ad2::t_8cd2241048acf3 100-112
+types/lib/ecosystems/parsers-go.d.ts.map
+  s_0e34e16b6c9ad2::t_41ba0b0abc3a9d 1
+types/lib/inventory/envcontext.d.ts
+  s_0e34e16b6c9ad2::t_87bb6f0ef21436 183-190,195,309-315
+types/lib/inventory/envcontext.d.ts.map
+  s_0e34e16b6c9ad2::t_6df63790f5206d 1
+types/lib/inventory/goHostProbe.d.ts
+  s_0e34e16b6c9ad2::t_8544f72c755eca 1-14
+types/lib/inventory/goHostProbe.d.ts.map
+  s_0e34e16b6c9ad2::t_26d61655f94c25 1
+types/lib/inventory/goToolchain.d.ts
+  s_0e34e16b6c9ad2::t_1a6cc2e0801c83 1-151
+types/lib/inventory/goToolchain.d.ts.map
+  s_0e34e16b6c9ad2::t_641015bc2955c6 1
+types/lib/managers/binary.d.ts.map
+  s_0e34e16b6c9ad2::t_88011b9c757571 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "1400e11896cc643ec6cfff3d646d658ba36e3408",
+  "prompts": {},
+  "sessions": {
+    "s_0e34e16b6c9ad2": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "4e2522b4-2584-4dbf-98b0-7a09eb05d6d7",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
