@@ -1,0 +1,20 @@
+lib/cli/nativeBom.js
+  s_c56bc1abad1598::t_161a6ae3894d83 644-646,657-659
+  s_c56bc1abad1598::t_070def5d5c6039 37
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "baf99f9d7d72674af6f410f026b05cefacd51a86",
+  "prompts": {},
+  "sessions": {
+    "s_c56bc1abad1598": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_3e0169e0-1b76-44f8-a9a4-fd85bc716d5f",
+        "model": "GLM-5.3-Flash"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
