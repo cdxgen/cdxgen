@@ -1,0 +1,33 @@
+docs/GO_EVINSE_GOLEM_THREAT_MODEL.md
+  s_5ae344e6b6bab9::t_63ae639ec728ab 35-36
+docs/GO_EVINSE_GOLEM.md
+  s_5ae344e6b6bab9::t_1a185fe717ca06 84,88-92
+  s_5ae344e6b6bab9::t_350a8da8e4ef59 93
+docs/EVINSE.md
+  s_5ae344e6b6bab9::t_1a185fe717ca06 54
+bin/repl.js
+  s_5ae344e6b6bab9::t_9594b226b7f4ed 275-280,287-293
+docs/CUSTOM_PROPERTIES.md
+  s_5ae344e6b6bab9::t_801e80e772f9be 484-485,1051-1055,2486
+docs/BOM_AUDIT.md
+  s_5ae344e6b6bab9::t_1a185fe717ca06 281-282,290,292
+  s_5ae344e6b6bab9::t_8c15482f408d5a 709-710
+docs/LESSON14.md
+  s_5ae344e6b6bab9::t_63ae639ec728ab 59-64
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "856c4ff0e268af0380e881ed05733c58aef80145",
+  "prompts": {},
+  "sessions": {
+    "s_5ae344e6b6bab9": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_51e3c837-2993-4607-9eb9-fd5852bb5a3b",
+        "model": "GLM-5.3"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
