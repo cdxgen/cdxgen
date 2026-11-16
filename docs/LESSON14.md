@@ -56,6 +56,12 @@ If you need test package variants:
 evinse -i bom.json -o bom.evinse.json -l go --golem-tests /absolute/path/to/go/project
 ```
 
+By default Golem loads packages with cgo off, so `#cgo` directives in the analysed code never reach the host C compiler, and the Go/C boundary is still reported from a textual read. If your review needs the compiled view of cgo packages (call graphs and taint flows through them), and the host runs go1.26.11 or go1.27.4 and newer, opt in:
+
+```bash
+evinse -i bom.json -o bom.evinse.json -l go --golem-cgo /absolute/path/to/go/project
+```
+
 ## Step 2b: Add data-flow and crypto-flow evidence
 
 For deeper AppSec review, enable Golem data-flow. `--deep` is the shortest form and applies cdxgen's performance safeguards automatically:

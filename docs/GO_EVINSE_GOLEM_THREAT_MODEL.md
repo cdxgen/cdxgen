@@ -32,6 +32,8 @@ BOM consumers, cdx-audit, cdxi, policy engines
 
 The main boundary is between untrusted project input and trusted review output. A Go repository can contain unusual build tags, generated files, vendored code, replacement directives, cgo files, and embedded asset declarations. Golem reads and classifies those signals but must not execute `go:generate` commands or copy sensitive file contents into the report.
 
+Compiling a cgo preamble is the one place a load leaves the Go toolchain: the C compiler and linker run with flags the analysed repository chooses through `#cgo` directives, `.syso` files and `pkg-config` lines. cdxgen therefore runs golem with `CGO_ENABLED=0` and without the `CGO_*_ALLOW` variables (each of which re-opens refused flags for every package in the build) unless `--golem-cgo` is given; when golem's report then says the toolchain predates the go1.26.11/go1.27.4 cgo flag checks, cdxgen prints one warning. The cgo evidence itself is collected by reading source textually in every mode, so the report names the directives, flag names and risk categories without compiling anything, and no flag value, path or environment value is copied into the BOM.
+
 ## Threats and controls
 
 | Threat                                                                | How Golem helps                                                                                                 | Remaining reviewer responsibility                                                                                                                   |
