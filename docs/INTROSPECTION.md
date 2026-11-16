@@ -103,7 +103,7 @@ appears on one side only. The per-ecosystem coverage today:
 | cocoa     | 3       | cocoapods unavailable, and the Podfile or Ruby podspecs not evaluated with installs off                                                |
 | rust      | 3       | `rust.cargo-lock-missing` (manifest-only parse), `rust.toolchain.missing` (cargo could not run) and `rust.cargo-metadata-unavailable`  |
 | ruby      | 4       | host build-requirements gaps, and the Ruby host probe's unreadable package databases and exhausted name budget                       |
-| go        | 2       | `go.toolchain.missing` (the go executable could not run) and `go.mod-only-fallback` (the manual `go.mod` parse)                        |
+| go        | 4       | `go.toolchain.missing` (the go executable could not run), `go.mod-only-fallback` (the manual `go.mod` parse), and the Go host probe's unreadable package databases (`go.host-probe.package-db-unreadable`) and exhausted name budget (`go.host-probe.budget-exhausted`) |
 | php       | 5       | `php.no-lockfile`, `php.composer.missing`, `php.host-probe.package-db-unreadable`, `php.host-probe.budget-exhausted` and `php.composer.platform-unattributed` |
 | dart      | 1       | `dart.pub-get-needed`: `pubspec.yaml` parsed without `pubspec.lock`                                                                    |
 | elixir    | 1       | `elixir.deps-not-fetched`: `mix.exs` without `mix.lock`                                                                                |
