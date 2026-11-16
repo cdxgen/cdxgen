@@ -1,0 +1,27 @@
+lib/inventory/goBuildInfo.poku.js
+  s_5ae344e6b6bab9::t_299f2a50adf8bc 236-237,239-241,278-283
+  s_5ae344e6b6bab9::t_8559becb0a17a2 8-13,233-235,238,242-277,284-368
+  s_5ae344e6b6bab9::t_980c301da6985a 369
+lib/inventory/goBuildInfo.js
+  s_5ae344e6b6bab9::t_d41871e29ce8a4 91-98,101-105,107,141-146,148-158,174-311
+  s_5ae344e6b6bab9::t_17cd8fd3a56836 24-27,44-48,65,87
+lib/managers/binary.js
+  s_5ae344e6b6bab9::t_8e583d27255e25 3991-3993
+  s_5ae344e6b6bab9::t_d96217f6be15af 68,4016,4019,4027-4055
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "88bbbdef0711b0d165625fcc21198b74abc8f1be",
+  "prompts": {},
+  "sessions": {
+    "s_5ae344e6b6bab9": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_51e3c837-2993-4607-9eb9-fd5852bb5a3b",
+        "model": "GLM-5.3"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
