@@ -113,6 +113,15 @@ run_cdxgen_image_inventory_tests() {
     assert_go_toolchain_bom "$image_bom" "$go_version"
     assert_go_toolchain_bom "$archive_bom" "$go_version"
   fi
+
+  # The sdkman JDK of the image is named by the release file next to its
+  # bin/java. A variant without a JDK asserts nothing here.
+  local java_version
+  java_version="$(docker run --rm --entrypoint sh "$image_ref" -c 'sed -n "s/^JAVA_VERSION=\"\(.*\)\"$/\1/p" /opt/.sdkman/candidates/java/current/release' 2>/dev/null)" || java_version=""
+  if [ -n "$java_version" ]; then
+    assert_jdk_bom "$image_bom" "$java_version"
+    assert_jdk_bom "$archive_bom" "$java_version"
+  fi
 }
 
 run_docker_tests() {
