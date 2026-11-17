@@ -1,0 +1,25 @@
+lib/inventory/jvmToolVersion.poku.js
+  s_5c57a1b8950199::t_ecd51bcd20a982 3,91,94-105,110
+  s_5c57a1b8950199::t_e083ad712d9b55 111-112
+lib/inventory/jvmToolVersion.js
+  s_5c57a1b8950199::t_ecd51bcd20a982 10-13,30,32,220-222
+  s_5c57a1b8950199::t_6578b29164c440 15,155-192
+lib/inventory/envcontext.js
+  s_5c57a1b8950199::t_562e43bee8faba 1462-1470
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "8971be0d6be4e68fc9b03ec6d18536aba23c5b90",
+  "prompts": {},
+  "sessions": {
+    "s_5c57a1b8950199": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "42c6d682-1b06-4ba7-a2ae-3dfa61d3d814",
+        "model": "claude-sonnet-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
