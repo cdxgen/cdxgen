@@ -1,0 +1,34 @@
+lib/managers/binary.js
+  s_5c57a1b8950199::t_d97f6e0ec0120a 1566-1570
+lib/inventory/jdkHostProbe.js
+  s_5c57a1b8950199::t_d97f6e0ec0120a 169-179,207
+lib/inventory/jdkRootfs.js
+  s_5c57a1b8950199::t_d97f6e0ec0120a 42-48,170-173,181,205-212
+  s_5c57a1b8950199::t_818ff9c9cd8dc0 213
+agent-plugin/skills/sbom-fidelity-loop/SKILL.md
+  s_5c57a1b8950199::t_181cef1c34f472 26
+lib/inventory/jdkRootfs.poku.js
+  s_5c57a1b8950199::t_1d609d65f0618e 119-145
+.agents/skills/sbom-fidelity-loop/SKILL.md
+  s_5c57a1b8950199::t_181cef1c34f472 26
+ci/dockertests.sh
+  s_5c57a1b8950199::t_6ac10b0cf36fae 120
+lib/inventory/jdkHostProbe.poku.js
+  s_5c57a1b8950199::t_1d609d65f0618e 91-97
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "8ce2a98591c6a2d822cc70af4449f61f0e635918",
+  "prompts": {},
+  "sessions": {
+    "s_5c57a1b8950199": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "42c6d682-1b06-4ba7-a2ae-3dfa61d3d814",
+        "model": "claude-sonnet-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
