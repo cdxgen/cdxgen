@@ -16,10 +16,13 @@ lib/inventory/envcontext.poku.js
   s_5c57a1b8950199::t_ddc712f3aca181 216,222-229,262,285,452,490,525,743-745,758
 lib/inventory/jdkRootfs.js
   s_5c57a1b8950199::t_acbb410a74449f 1-41,49-169,174-180,182-204,214-232
+  s_5c57a1b8950199::t_d97f6e0ec0120a 42-48,170-173,181,205-212
 lib/managers/binary.js
   s_5c57a1b8950199::t_acbb410a74449f 80,1558-1565,1571-1577
+  s_5c57a1b8950199::t_d97f6e0ec0120a 1566-1570
 lib/inventory/jdkRootfs.poku.js
   s_5c57a1b8950199::t_b9af7fed289bc3 1-118,146
+  s_5c57a1b8950199::t_1d609d65f0618e 119-145
 lib/managers/binary.poku.js
   s_5c57a1b8950199::t_4bf4b3e6329ec3 1002-1038,1057-1078,1083-1103
   s_5c57a1b8950199::t_d45e9f933d2db2 1039-1056
@@ -41,9 +44,15 @@ docs/OBOM_LESSONS.md
 lib/inventory/jdkHostProbe.js
   s_5c57a1b8950199::t_21cf4c5033be9f 1-168,180-206,208-229,233-237,239-282
   s_5c57a1b8950199::t_fd99c5b27ebd01 230-232,238
+  s_5c57a1b8950199::t_d97f6e0ec0120a 169-179,207
 lib/inventory/jdkHostProbe.poku.js
   s_5c57a1b8950199::t_4df22fd20c5f7f 3,124
   s_5c57a1b8950199::t_8b340e77c38ee1 1-2,4-90,98-123,125-220
+  s_5c57a1b8950199::t_1d609d65f0618e 91-97
+.agents/skills/sbom-fidelity-loop/SKILL.md
+  s_5c57a1b8950199::t_181cef1c34f472 26
+agent-plugin/skills/sbom-fidelity-loop/SKILL.md
+  s_5c57a1b8950199::t_181cef1c34f472 26
 ---
 {
   "schema_version": "authorship/3.0.0",
