@@ -1,0 +1,123 @@
+ci/Dockerfile-deno
+  s_5c57a1b8950199::t_9b65e43f2d329e 62
+ci/images/alpine/Dockerfile.java24
+  s_5c57a1b8950199::t_9b65e43f2d329e 4-8
+lib/inventory/atomUtils.poku.js
+  s_5c57a1b8950199::t_bf6f3bfc2ae432 1607-1621
+  s_5c57a1b8950199::t_82b60c4e0b6601 51
+ci/Dockerfile-ppc64
+  s_5c57a1b8950199::t_9b65e43f2d329e 3-7
+ci/images/Dockerfile.dotnet9
+  s_5c57a1b8950199::t_9b65e43f2d329e 4-8
+ci/images/debian/Dockerfile.php8.5
+  s_5c57a1b8950199::t_9b65e43f2d329e 4-8
+ci/images/Dockerfile.ruby2.5
+  s_5c57a1b8950199::t_9b65e43f2d329e 4-8
+ci/images/opensuse/Dockerfile.python3.10
+  s_5c57a1b8950199::t_9b65e43f2d329e 4-8
+ci/images/temurin/Dockerfile.java24
+  s_5c57a1b8950199::t_9b65e43f2d329e 26
+lib/inventory/java4shell.poku.js
+  s_5c57a1b8950199::t_0a9aaad535bebc 1-88
+ci/images/debian/Dockerfile.ruby4
+  s_5c57a1b8950199::t_9b65e43f2d329e 4-8
+ci/images/alpine/Dockerfile.php8.3
+  s_5c57a1b8950199::t_9b65e43f2d329e 4-8
+ci/images/debian/Dockerfile.php8.4
+  s_5c57a1b8950199::t_9b65e43f2d329e 4-8
+ci/images/Dockerfile.python3.13
+  s_5c57a1b8950199::t_9b65e43f2d329e 4-8
+ci/images/opensuse/Dockerfile.rolling
+  s_5c57a1b8950199::t_9b65e43f2d329e 4-8
+ci/images/alpine/Dockerfile.java25
+  s_5c57a1b8950199::t_9b65e43f2d329e 4-8
+ci/images/debian/Dockerfile.node24
+  s_5c57a1b8950199::t_9b65e43f2d329e 4-8
+ci/Dockerfile-bun
+  s_5c57a1b8950199::t_9b65e43f2d329e 57
+ci/images/alpine/Dockerfile.ruby4
+  s_5c57a1b8950199::t_9b65e43f2d329e 4-8
+ci/images/debian/Dockerfile.ruby2.6
+  s_5c57a1b8950199::t_9b65e43f2d329e 23
+ci/images/alpine/Dockerfile.java26
+  s_5c57a1b8950199::t_9b65e43f2d329e 4-8
+ci/images/debian/Dockerfile.ruby3.4
+  s_5c57a1b8950199::t_9b65e43f2d329e 4-8
+ci/images/alpine/Dockerfile.java27
+  s_5c57a1b8950199::t_9b65e43f2d329e 4-8
+ci/images/Dockerfile.python3.12
+  s_5c57a1b8950199::t_9b65e43f2d329e 4-8
+ci/images/alpine/Dockerfile.php8.5
+  s_5c57a1b8950199::t_9b65e43f2d329e 4-8
+ci/images/temurin/Dockerfile.java21
+  s_5c57a1b8950199::t_9b65e43f2d329e 26
+ci/images/alpine/Dockerfile.java21
+  s_5c57a1b8950199::t_9b65e43f2d329e 4-8
+lib/inventory/envcontext.js
+  s_5c57a1b8950199::t_0a9aaad535bebc 66,598
+ci/Dockerfile
+  s_5c57a1b8950199::t_9b65e43f2d329e 21
+ci/images/alpine/Dockerfile.node25
+  s_5c57a1b8950199::t_9b65e43f2d329e 4-8
+ci/images/Dockerfile.python3.6
+  s_5c57a1b8950199::t_9b65e43f2d329e 4-8
+ci/images/alpine/Dockerfile.php8.4
+  s_5c57a1b8950199::t_9b65e43f2d329e 4-8
+ci/images/opensuse/Dockerfile.python3.9
+  s_5c57a1b8950199::t_9b65e43f2d329e 4-8
+ci/images/alpine/Dockerfile.ruby3.3
+  s_5c57a1b8950199::t_9b65e43f2d329e 4-8
+ci/images/alpine/Dockerfile.node24
+  s_5c57a1b8950199::t_9b65e43f2d329e 4-8
+ci/images/Dockerfile.java11
+  s_5c57a1b8950199::t_9b65e43f2d329e 4-8
+ci/images/alpine/Dockerfile.ruby3.4
+  s_5c57a1b8950199::t_9b65e43f2d329e 4-8
+ci/images/debian/Dockerfile.node26
+  s_5c57a1b8950199::t_9b65e43f2d329e 4-8
+ci/images/Dockerfile.python3.11
+  s_5c57a1b8950199::t_9b65e43f2d329e 4-8
+ci/images/temurin/Dockerfile.java25
+  s_5c57a1b8950199::t_9b65e43f2d329e 26
+ci/images/temurin/Dockerfile.java26
+  s_5c57a1b8950199::t_9b65e43f2d329e 26
+ci/images/Dockerfile.dotnet8
+  s_5c57a1b8950199::t_9b65e43f2d329e 4-8
+ci/images/Dockerfile.java17
+  s_5c57a1b8950199::t_9b65e43f2d329e 6-10
+ci/images/temurin/Dockerfile.java8
+  s_5c57a1b8950199::t_9b65e43f2d329e 25
+ci/images/temurin/Dockerfile.java27
+  s_5c57a1b8950199::t_9b65e43f2d329e 26
+lib/inventory/java4shell.js
+  s_5c57a1b8950199::t_0a9aaad535bebc 1-129
+ci/images/debian/Dockerfile.php8.3
+  s_5c57a1b8950199::t_9b65e43f2d329e 4-8
+lib/inventory/atomUtils.js
+  s_5c57a1b8950199::t_bf6f3bfc2ae432 1452-1472,1479-1480,1492
+  s_5c57a1b8950199::t_a854c8838eddec 1451
+ci/images/debian/Dockerfile.ruby3.3
+  s_5c57a1b8950199::t_9b65e43f2d329e 4-8
+ci/images/alpine/Dockerfile.node26
+  s_5c57a1b8950199::t_9b65e43f2d329e 4-8
+docs/ADVANCED.md
+  s_5c57a1b8950199::t_7f737139ba05bd 925-941
+docs/THREAT_MODEL.md
+  s_5c57a1b8950199::t_058d9a018bb64c 128
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "f9c48b1f9d4723b008e820cbce236be85e4e91bd",
+  "prompts": {},
+  "sessions": {
+    "s_5c57a1b8950199": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "42c6d682-1b06-4ba7-a2ae-3dfa61d3d814",
+        "model": "claude-sonnet-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
