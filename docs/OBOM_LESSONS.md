@@ -214,7 +214,7 @@ jq -r '.components[] | select(.name=="resolv") | [.purl, (.evidence.occurrences 
 4. Gems are read from the `specifications` directory of each gem home: the distro and `gem install` homes (`/usr/lib/ruby/gems/*`, `/usr/share/gems`, Debian's `/usr/share/rubygems-integration/*` and `/usr/lib/*/rubygems-integration/*`, `/var/lib/gems/*`, `/usr/local/lib/ruby/gems/*`), each version manager's install, and `~/.gem/ruby/*`. Only regular gemspec files are read, each under a size cap, and nothing next to them (an installed gemspec spells out its version and executables, so a `version.rb` or `bin` beside it is never opened), so a link to a device or to a private directory left in a user's gem home cannot stall a root scan or reach its BOM. Default gems carry `cdx:gem:defaultGem`, and a gem a package database lists carries `cdx:os:installedBy` with that package's purl. rpm is asked about the paths in chunks. Each gem is one component with an occurrence per gem home.
 5. A package database that cannot be read leaves ownership unknown and records `ruby.host-probe.package-db-unreadable`.
 6. No scan follows a symbolic link below a home directory, whoever runs it, for gem homes and for Ruby and Node.js installs alike: a link a user left there would resolve with the scan's rights, and whether it resolves would tell the user whether a directory exists. A version manager's alias such as `3.3 -> 3.3.6` is therefore skipped, and the install it names is read under its own name. A home directory kept in a dotfiles repository and linked into place (`~/.rbenv -> ~/dotfiles/rbenv`) is not read; scan as that user with the real directory in place, or point the version manager at a real directory. A gemspec in a home is checked again when it is opened. Below `/opt` and `/usr/local`, where directories may belong to accounts other than root, a link is followed only while its target stays inside `/opt` or `/usr/local` respectively, so Homebrew's links into its `Cellar` still work and a link to a private directory does not. Below an install prefix, `rbconfig.rb` and libruby are never read through a symbolic link, and PHP's `include/php/main/php_version.h` only through links that stay inside the prefix, whoever runs the scan, which also covers `-t rootfs` and image scans.
-7. Each probe reads at most four runtime-named entries per file it may keep. When a directory full of such names, or of links to one file, uses that budget up, the probe stops and records `ruby.host-probe.budget-exhausted`, `npm.host-probe.budget-exhausted`, `php.host-probe.budget-exhausted` or `go.host-probe.budget-exhausted` when introspection is on, so a short list is not mistaken for a complete one.
+7. Each probe reads at most four runtime-named entries per file it may keep. When a directory full of such names, or of links to one file, uses that budget up, the probe stops and records `ruby.host-probe.budget-exhausted`, `npm.host-probe.budget-exhausted`, `php.host-probe.budget-exhausted`, `go.host-probe.budget-exhausted` or `java.host-probe.budget-exhausted` when introspection is on, so a short list is not mistaken for a complete one.
 
 ## 12c) Go toolchains
 
@@ -253,6 +253,31 @@ jq -r '.components[] | select(.type=="file" and .name=="go")
    `go.host-probe.package-db-unreadable`; a directory full of launcher-named
    entries that uses the budget up records `go.host-probe.budget-exhausted`,
    like the other probes.
+
+### JDKs
+
+1. `probeHostJdk()` in `lib/inventory/jdkHostProbe.js` follows the Go probe.
+   A JDK that sdkman, IntelliJ (`~/.jdks`), asdf, mise, Gradle's toolchain
+   downloads, a macOS installer (`/Library/Java/JavaVirtualMachines`), a
+   Windows installer (`Program Files\Eclipse Adoptium`, `Java`, `Microsoft`,
+   `Amazon Corretto`, `Zulu`, `BellSoft`) or a tarball under `/opt` or
+   `/usr/local` left behind is invisible to the osquery package tables.
+2. Candidates are the `bin/java` launchers of a fixed set of directories and
+   of the sdk trees in each home; the Windows probe reads no home directory,
+   and no link in a home is followed. A JDK a package database owns (dpkg,
+   rpm, apk, Homebrew's Cellar, Chocolatey, the Windows Installer) is left to
+   that package.
+3. What no package owns is read without being run: the `release` file of the
+   home above the launcher names the vendor, version and build. The result
+   is a `platform` component named `java` with the vendor's CPE and
+   `pkg:generic/<vendor>-jdk@<version>+<build>`, and the launcher is a `file`
+   component with `cdx:java:version` and `cdx:java:vendor`.
+4. The listening-port and process rows of a java launcher that osquery
+   reports with the version `0` take the version of the JDK found at the
+   row's path. A row whose JDK the probe did not see keeps version `0`.
+5. A package database that cannot be read records
+   `java.host-probe.package-db-unreadable`, and a directory that uses the
+   name budget up records `java.host-probe.budget-exhausted`.
 
 ## 13) Package identity: the same package, the same purl
 
