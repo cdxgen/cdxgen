@@ -1,0 +1,21 @@
+lib/inventory/jdkHostProbe.js
+  s_5c57a1b8950199::t_fcaa1b3463b2e1 328-331,364-375
+lib/inventory/jdkHostProbe.poku.js
+  s_5c57a1b8950199::t_c04eeb7be0fc3a 276,282,284-289
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "7475a5c3f1bae11f1f3e9d7384dc11fbee5c7e24",
+  "prompts": {},
+  "sessions": {
+    "s_5c57a1b8950199": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "42c6d682-1b06-4ba7-a2ae-3dfa61d3d814",
+        "model": "claude-sonnet-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
