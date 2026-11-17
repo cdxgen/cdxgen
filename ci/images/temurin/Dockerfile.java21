@@ -23,7 +23,7 @@ ENV CDXGEN_IN_CONTAINER=true \
     GRADLE_HOME="/opt/.sdkman/candidates/gradle/${GRADLE_VERSION}" \
     GRADLE_OPTS="-Dorg.gradle.daemon=false" \
     GRADLE_VERSION=$GRADLE_VERSION \
-    JAVA_TOOL_OPTIONS="-Dfile.encoding=UTF-8" \
+    JAVA_TOOL_OPTIONS="-Dfile.encoding=UTF-8 -XX:+IgnoreUnrecognizedVMOptions -XX:-UseBASE64Intrinsics" \
     MAVEN_HOME="/opt/.sdkman/candidates/maven/${MAVEN_VERSION}" \
     MAVEN_VERSION=$MAVEN_VERSION \
     NODE_COMPILE_CACHE="/opt/cdxgen-node-cache" \
