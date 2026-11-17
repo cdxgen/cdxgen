@@ -37,6 +37,17 @@ Only Claude Code has these parts of the plugin:
 - the `SessionStart` hook that warns when `cdxgen` is missing or older than the plugin, and the optional lockfile reminder hook
 - the `userConfig` options (Dependency-Track URL, TEA endpoint, default spec version, preferred runtime), which Claude Code asks for when the plugin is enabled and substitutes into the skills as `${user_config.KEY}`
 
+### claude.ai plugin directory
+
+The manifest carries what a listing needs: `icon`, `documentationUrl`,
+`supportUrl` and `privacyPolicyUrl`, with the privacy note in the plugin README
+behind the policy link. The project does not maintain a listing: submitting
+through the directory portal needs a paid claude.ai plan with Owner rights, and
+paid directory listings are out of scope here. The first save in the portal also
+freezes the icon the listing shows. Anyone with such a plan can submit the
+plugin as it stands, because `claude plugin validate --strict` already passes
+for the plugin and for the marketplace.
+
 ## Codex
 
 Install from the terminal:
@@ -50,7 +61,7 @@ Codex reads `.agents/plugins/marketplace.json` in the repository. The Codex app 
 
 Invoke a skill by naming it with a dollar sign, for example `$sbom-generate`, or describe the task and let Codex choose. The `$name` form is from the Codex documentation and has not been tried with this plugin.
 
-Codex ignores the hooks, the `bom-reviewer` agent and `userConfig`. The skills then read `${user_config.KEY}` as plain text and fall back to their defaults. The plugin directory still contains a `hooks/` folder, and OpenAI's public plugin directory does not accept plugins with lifecycle hooks, so the project has not submitted the plugin there.
+Codex ignores the hooks, the `bom-reviewer` agent and `userConfig`. The skills then read `${user_config.KEY}` as plain text and fall back to their defaults. The plugin directory still contains a `hooks/` folder, and OpenAI's public plugin directory does not accept plugins with lifecycle hooks, so the project has not submitted the plugin there. The [submission page](https://developers.openai.com/plugins/deploy/submission) accepts skills-only plugins, so a listing would not have to wait for the cdxgen MCP server that [#4656](https://github.com/cdxgen/cdxgen/issues/4656) tracks. Whether OpenAI's checks accept a package that ships a `hooks/` folder for Claude Code while `plugin.json` declares an empty `extensions.com.openai.hooks` list has not been tested.
 
 ## GitHub Copilot CLI and app
 

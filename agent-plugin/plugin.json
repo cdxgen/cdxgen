@@ -26,5 +26,10 @@
     "obom",
     "aibom",
     "scrm"
-  ]
+  ],
+  "extensions": {
+    "com.openai": {
+      "hooks": []
+    }
+  }
 }

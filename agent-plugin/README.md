@@ -9,7 +9,8 @@ secrets on your behalf.
 The folder is an [Agent Plugins](https://agent-plugins.org) package (`plugin.json`,
 `skills/`) that also carries a Claude Code manifest. It is meant for Claude Code,
 OpenAI Codex, the GitHub Copilot CLI and app, Cursor, Gemini CLI, Kiro and
-opencode. Only Claude Code and Codex have been tried so far; the
+opencode. Claude Code and Codex have been tried, and opencode has been
+checked as far as listing the skills; the
 [installation guide](https://cdxgen.github.io/cdxgen/#/AGENT_PLUGINS) says what
 was tested in each client.
 
@@ -48,7 +49,7 @@ npm i -g @cdxgen/cdxgen
 | ----------- | ----------------------------------------------------------------- |
 | Node.js     | >= 24                                                             |
 | Java        | Only on jar-based atom triples (darwin-amd64, windows-arm64, linux-arm64-musl): >= 23 |
-| Container   | `ghcr.io/cdxgen/cdxgen:master` — build tools preinstalled         |
+| Container   | `ghcr.io/cdxgen/cdxgen:master` (build tools preinstalled)         |
 
 Optional enrichment: `@cdxgen/cdxgen-plugins-bin` (Trivy, osquery, `golem`,
 `trustinspector`) and `@cdxgen/cdx-hbom` (hardware collection).
@@ -140,6 +141,30 @@ Atom's Java failure mode is called out wherever it applies: on the jar-based
 triples (darwin-amd64, windows-arm64, linux-arm64-musl), Java below 23 makes
 C/C++/Python/CBOM scans freeze or return thin BOMs rather than erroring.
 Native-binary platforms need no JDK at all.
+
+## Privacy
+
+The plugin ships instructions and two local hooks, and nothing else that runs.
+The `SessionStart` hook reads your `PATH` and the version from the
+`package.json` next to the `cdxgen` binary. When you turn the lockfile reminder
+on, the stale-SBOM hook never opens the files being edited; it writes a small
+marker file per session, named after the session id and listing the paths of
+the files it has already reminded about, into the plugin's data directory, so
+it reminds you once per file and session. No hook, and no other file in the
+plugin, sends anything over the network.
+
+Scans run through the cdxgen CLI you install, not through the plugin, so data
+leaves your machine only when the agent runs a cdxgen command, or when you ask
+for an upload. Uploads go only to the Dependency-Track or TEA server you name,
+and the `dependency-track-upload` skill confirms the destination with you
+before it sends anything. The plugin never asks for, prints or writes an API
+key or token: the `${user_config}` options are non-secret URLs and choices, and
+the skills point credentials at your own shell environment (`CDXGEN_*`,
+`TEA_TOKEN`) instead.
+
+This note covers the plugin only. It does not cover the cdxgen releases you
+install alongside it, or the model provider your agent talks to; those have
+their own policies.
 
 ## Development
 

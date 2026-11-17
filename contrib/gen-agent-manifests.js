@@ -82,13 +82,22 @@ const TARGETS = [
   },
   {
     // The Agent Plugins schema is closed, so nothing but the schema fields
-    // is written.
+    // is written, plus the extensions block below. Codex discovers
+    // hooks/hooks.json by default, and plugins with lifecycle hooks are not
+    // eligible for its public plugin directory, so the manifest declares an
+    // empty hooks list. The page documents only that an explicit hooks value
+    // replaces default-file discovery, not what an empty array does; if
+    // Codex ignores the empty list, it keeps discovering hooks/hooks.json
+    // as it does today.
+    // https://developers.openai.com/codex/plugins/build
+    // https://developers.openai.com/plugins/deploy/submission
     file: "agent-plugin/plugin.json",
     build: (shared) =>
-      withOrder(["$schema", ...PLUGIN_FIELDS], {
+      withOrder(["$schema", ...PLUGIN_FIELDS, "extensions"], {
         $schema: AGENT_PLUGINS_SCHEMA_URL,
         name: PLUGIN_NAME,
         ...shared,
+        extensions: { "com.openai": { hooks: [] } },
       }),
   },
   {
