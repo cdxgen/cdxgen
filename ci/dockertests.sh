@@ -90,6 +90,9 @@ run_cdxgen_image_inventory_tests() {
   archive_path="$TEST_TMP_DIR/${safe_image_name}.tar"
 
   docker pull "$image_ref"
+  # The published images have to reach every tool cdxgen execs as a non-root
+  # user, so catch toolchains left in the root user's home directory as well.
+  docker run --rm --user 1000:1000 --cap-drop=ALL -e HOME=/tmp "$image_ref" --version
   bin/cdxgen.js "$image_ref" -p -t docker -o "$image_bom" --fail-on-error
   assert_container_file_inventory_bom "$image_bom"
   assert_container_inventory_has_unpackaged_binaries "$image_bom"

@@ -20,11 +20,14 @@ ARG SDKMAN_URL=https://api.sdkman.io/2
 ENV ATOM_CMD=/usr/local/bin/atom \
     ATOM_RUBY_VERSION=$ATOM_RUBY_VERSION \
     BUNDLE_SILENCE_ROOT_WARNING=true \
-    JAVA_HOME="/opt/java/${JAVA_VERSION}" \
+    JAVA_HOME="/opt/.sdkman/candidates/java/${JAVA_VERSION}" \
     JAVA_VERSION=$JAVA_VERSION \
-    NVM_DIR="/root/.nvm" \
-    PYTHONPATH=/opt/pypi
-ENV PATH=${PATH}:/usr/local/bin:/root/.local/bin:/root/.rbenv/bin:${NVM_DIR}/versions/node/v${NODE_VERSION}/bin
+    NVM_DIR="/opt/.nvm" \
+    PYTHONPATH=/opt/pypi \
+    RBENV_ROOT=/opt/.rbenv \
+    SDKMAN_CANDIDATES_DIR=/opt/.sdkman/candidates \
+    SDKMAN_DIR=/opt/.sdkman
+ENV PATH=${PATH}:/usr/local/bin:/opt/.rbenv/bin:/opt/.rbenv/versions/${ATOM_RUBY_VERSION}/bin:${NVM_DIR}/versions/node/v${NODE_VERSION}/bin
 
 COPY ci/images/debian/install.sh /tmp/
 
@@ -93,7 +96,7 @@ RUN sh /tmp/common/cdxgen-build.sh
 FROM base AS cdxgen
 
 ARG ATOM_RUBY_VERSION=4.0.7
-ENV ATOM_RUBY_HOME=/root/.rbenv/versions/${ATOM_RUBY_VERSION} \
+ENV ATOM_RUBY_HOME=/opt/.rbenv/versions/${ATOM_RUBY_VERSION} \
     CDXGEN_GEM_HOME="/tmp/gems" \
     CDXGEN_IN_CONTAINER=true \
     NODE_COMPILE_CACHE="/opt/cdxgen-node-cache" \

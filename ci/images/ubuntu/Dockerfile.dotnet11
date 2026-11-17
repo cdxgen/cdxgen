@@ -19,9 +19,9 @@ ENV DOTNET_CLI_TELEMETRY_OPTOUT=1 \
     DOTNET_RUNNING_IN_CONTAINER=true \
     DOTNET_USE_POLLING_FILE_WATCHER=false \
     NUGET_XMLDOC_MODE=skip \
-    NVM_DIR="/root/.nvm" \
+    NVM_DIR="/opt/.nvm" \
     PYTHONPATH=/opt/pypi
-ENV PATH=${PATH}:/usr/local/bin:/root/.local/bin:${NVM_DIR}/versions/node/v${NODE_VERSION}/bin
+ENV PATH=${PATH}:/usr/local/bin:${NVM_DIR}/versions/node/v${NODE_VERSION}/bin
 
 COPY ci/images/debian/install.sh /tmp/
 
@@ -68,6 +68,7 @@ RUN set -e; \
       python3 \
       python3-dev \
       python3-pip \
+ && mkdir -p /opt/.nvm \
  && chmod +x /tmp/install.sh \
  && /tmp/install.sh \
  && rm /tmp/install.sh \

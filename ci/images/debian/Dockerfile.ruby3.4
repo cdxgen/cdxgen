@@ -17,11 +17,13 @@ ARG SDKMAN_URL=https://api.sdkman.io/2
 
 ENV ATOM_CMD=/usr/local/bin/atom \
     BUNDLE_SILENCE_ROOT_WARNING=true \
-    JAVA_HOME="/opt/java/${JAVA_VERSION}" \
+    JAVA_HOME="/opt/.sdkman/candidates/java/${JAVA_VERSION}" \
     JAVA_VERSION=$JAVA_VERSION \
-    NVM_DIR="/root/.nvm" \
-    PYTHONPATH=/opt/pypi
-ENV PATH=${PATH}:/usr/local/bin:/root/.local/bin:/root/.rbenv/bin:${NVM_DIR}/versions/node/v${NODE_VERSION}/bin
+    NVM_DIR="/opt/.nvm" \
+    PYTHONPATH=/opt/pypi \
+    SDKMAN_CANDIDATES_DIR=/opt/.sdkman/candidates \
+    SDKMAN_DIR=/opt/.sdkman
+ENV PATH=${PATH}:/usr/local/bin:${NVM_DIR}/versions/node/v${NODE_VERSION}/bin
 
 COPY ci/images/debian/install.sh /tmp/
 

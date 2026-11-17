@@ -7,7 +7,7 @@ ARG NPM_REPO
 ARG PIP_CONFIG
 
 ENV PYTHONPATH=/opt/pypi
-ENV PATH=${PATH}:/usr/local/bin:/root/.local/bin
+ENV PATH=${PATH}:/usr/local/bin
 
 COPY ci/images/common/mirrors.sh /tmp/common/mirrors.sh
 

@@ -5,6 +5,8 @@ on:
     paths:
       - ci/images/**/Dockerfile.*
       - ci/images/common/**
+      - ci/Dockerfile-bun
+      - ci/Dockerfile-deno
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
@@ -35,7 +37,14 @@ jobs:
               .filter(file => file.status !== 'removed')
               .map(file => file.filename);
 
-            const files = new Set(changed.filter(f => /^ci\/images\/.*\/?Dockerfile.*$/.test(f)));
+            // ci/Dockerfile-bun and ci/Dockerfile-deno publish from the repo
+            // root instead of a distro directory. ci/Dockerfile-ppc64 is not
+            // built on PRs: powerpc builds are not practical on the PR
+            // runners.
+            const files = new Set(changed.filter(f =>
+              /^ci\/images\/.*\/?Dockerfile.*$/.test(f) ||
+              /^ci\/Dockerfile-(bun|deno)$/.test(f)
+            ));
 
             // The shared scripts under ci/images/common/ are baked into every
             // image that sources them, so a change there builds one
@@ -87,10 +96,36 @@ jobs:
           VALUE
           EOF
       - name: Build image
+        if: matrix.imagefile != 'ci/Dockerfile-bun' && matrix.imagefile != 'ci/Dockerfile-deno'
         uses: ./.github/actions/build-docker-image
         with:
           dockerfile: ${{ matrix.imagefile }}
           docker-args: |
             ${{ steps.versions.outputs.docker-args }}
+          # PRs push nothing; loading the image into the local daemon lets the
+          # smoke test below run it.
+          output: type=docker
           platforms: linux/${{ matrix.platform }}
+          tags: cdxgen/pr-smoke:${{ matrix.platform }}
           target: ${{ matrix.imagefile == 'ci/images/al10/Dockerfile.ruby-builder' && 'ruby-builder' || 'cdxgen' }}
+      # ci/Dockerfile-bun and ci/Dockerfile-deno are single-stage Dockerfiles
+      # without a cdxgen stage to target, and build-docker-image always passes
+      # a target, so build them directly the way npm-release.yml publishes
+      # them. Their versions are pinned inside the Dockerfiles, so the
+      # .versions build args do not apply.
+      - name: Build bun and deno image
+        if: matrix.imagefile == 'ci/Dockerfile-bun' || matrix.imagefile == 'ci/Dockerfile-deno'
+        uses: docker/build-push-action@c3c9e263c25d99ce0380d002d59b67737d91b0dc # v7.4.0
+        with:
+          context: .
+          file: ${{ matrix.imagefile }}
+          outputs: type=docker
+          platforms: linux/${{ matrix.platform }}
+          tags: cdxgen/pr-smoke:${{ matrix.platform }}
+      # Every build-time toolchain must sit under /opt so the image works for
+      # non-root users too; a toolchain left under /root fails this run and
+      # with it the pull request. The ruby-builder target has no cdxgen.
+      - name: Smoke test image as non-root
+        if: matrix.imagefile != 'ci/images/al10/Dockerfile.ruby-builder'
+        run: |
+          docker run --rm --user 1000:1000 --cap-drop=ALL -e HOME=/tmp cdxgen/pr-smoke:${{ matrix.platform }} --version
