@@ -1,0 +1,19 @@
+docs/AGENT_PLUGINS.md
+  s_f06ccd987c76fa::t_d0506f0b34aaf9 53
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "d7630769d175becf272d3ce1a84cbd09b1bddeea",
+  "prompts": {},
+  "sessions": {
+    "s_f06ccd987c76fa": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_dwf-dwfrun-0ee38fcb-25b6-4135-a15a-0952ead9b41c-actor_7_1",
+        "model": "GLM-5.3-Flash"
+      },
+      "human_author": "Team AppThreat <cloud@appthreat.com>"
+    }
+  }
+}
