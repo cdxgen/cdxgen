@@ -1,0 +1,25 @@
+lib/inventory/evidenceUtils.js
+  s_5c57a1b8950199::t_feeebcb273d344 644-645
+lib/inventory/osqueryTransform.js
+  s_5c57a1b8950199::t_feeebcb273d344 97-101,103,105
+lib/inventory/evidenceUtils.poku.js
+  s_5c57a1b8950199::t_4a7f0cca98d14a 2097
+  s_5c57a1b8950199::t_344e9e9b8af89e 1963,2090-2091,2139-2140,2180,2184
+  s_5c57a1b8950199::t_22fb829a322a6b 1902-1930
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "7c6eb3e1e8c595e1b62d485eb5b42f09180b33d3",
+  "prompts": {},
+  "sessions": {
+    "s_5c57a1b8950199": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "42c6d682-1b06-4ba7-a2ae-3dfa61d3d814",
+        "model": "claude-sonnet-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
