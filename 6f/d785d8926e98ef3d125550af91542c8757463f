@@ -1,0 +1,32 @@
+agent-plugin/README.md
+  s_f06ccd987c76fa::t_0709dca78d928f 150-154
+  s_f06ccd987c76fa::t_2bcf51620912a2 52
+  s_f06ccd987c76fa::t_45fc4da96090ab 12-13
+  s_186ce7c3a8a0c0::t_b22614a8f6f832 145-147,155-168
+  s_f06ccd987c76fa::t_f0ef59ba665de2 148
+  s_f06ccd987c76fa::t_b34dde7a5df558 149
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "6fd785d8926e98ef3d125550af91542c8757463f",
+  "prompts": {},
+  "sessions": {
+    "s_186ce7c3a8a0c0": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_dwf-dwfrun-0ee38fcb-25b6-4135-a15a-0952ead9b41c-actor_4_2",
+        "model": "GLM-5.3-Flash"
+      },
+      "human_author": "Team AppThreat <cloud@appthreat.com>"
+    },
+    "s_f06ccd987c76fa": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_dwf-dwfrun-0ee38fcb-25b6-4135-a15a-0952ead9b41c-actor_7_1",
+        "model": "GLM-5.3-Flash"
+      },
+      "human_author": "Team AppThreat <cloud@appthreat.com>"
+    }
+  }
+}
