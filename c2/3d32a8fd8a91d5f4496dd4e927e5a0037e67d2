@@ -1,0 +1,31 @@
+contrib/gen-agent-manifests.js
+  s_f06ccd987c76fa::t_6c7b66fb1143e2 93
+  s_e37aa194b543de::t_b46939f860dce9 85-87,92,96,100
+  s_f06ccd987c76fa::t_38f35af63d98c0 88-91
+agent-plugin/plugin.json
+  s_e37aa194b543de::t_18eb1f11201994 29-34
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "c23d32a8fd8a91d5f4496dd4e927e5a0037e67d2",
+  "prompts": {},
+  "sessions": {
+    "s_e37aa194b543de": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_dwf-dwfrun-0ee38fcb-25b6-4135-a15a-0952ead9b41c-actor_4_1",
+        "model": "GLM-5.3-Flash"
+      },
+      "human_author": "Team AppThreat <cloud@appthreat.com>"
+    },
+    "s_f06ccd987c76fa": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_dwf-dwfrun-0ee38fcb-25b6-4135-a15a-0952ead9b41c-actor_7_1",
+        "model": "GLM-5.3-Flash"
+      },
+      "human_author": "Team AppThreat <cloud@appthreat.com>"
+    }
+  }
+}
