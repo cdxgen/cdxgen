@@ -358,6 +358,10 @@ Rules that only apply when a host BOM contains both hardware inventory and runti
 | HMX-003 | medium   | A merged host view contains zero strict HBOM ↔ OBOM topology links                          |
 | HMX-004 | high     | A mounted storage device with explicit runtime evidence is reporting degraded health        |
 | HMX-005 | high     | An explicit HBOM Secure Boot trust anchor matches revoked runtime certificate evidence      |
+| HMX-006 | critical | A HotSpot JDK affected by Java4Shell (CVE-2026-114938) runs on a CPU with AVX-512 VBMI      |
+| HMX-007 | medium   | An affected HotSpot JDK runs on a host whose HBOM lists no CPU features                     |
+
+HMX-006 and HMX-007 read `cdx:java:base64IntrinsicExposure`, which cdxgen computes in JavaScript for each JDK component from its version and VM: `exposed` for a HotSpot JDK from 17.0.6 on, `not-affected` for older JDKs and for OpenJ9 or Semeru, and `mitigated` when every process of a probed JDK runs with `-XX:-UseBASE64Intrinsics` or `-XX:UseAVX=0`, `1` or `2`. The bound is open-ended; fixed builds go into `JAVA4SHELL_FIXED_VERSIONS` in `lib/inventory/java4shell.js` once vendors publish them. The CPU side is `cdx:hbom:cpuFeatures` of the processor component (`avx512f`, `avx512bw`, `avx512vbmi` and `bmi2` must all be listed). Both rules run with `cdxgen -t hbom --include-runtime --bom-audit`.
 
 These rules are intentionally conservative. They rely on derived `cdx:hostview:*` properties produced only from exact, evidence-backed joins such as interface-name equality, driver-module equality, storage device-node or mount-path equality, logical-drive identifiers, and explicit Secure Boot certificate identifiers. They do **not** infer links from fuzzy naming similarity.
 
