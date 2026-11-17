@@ -13,11 +13,11 @@ ARG NVM_VERSION=${NVM:-v0.40.8}
 ARG PIP_CONFIG
 
 ENV CARGO_HOME=/usr/local/cargo \
-    NVM_DIR="/root/.nvm" \
+    NVM_DIR="/opt/.nvm" \
     PYTHONPATH=/opt/pypi \
     RUST_BACKTRACE=1 \
     RUSTUP_HOME=/usr/local/rustup
-ENV PATH=${PATH}:/usr/local/bin:/root/.local/bin:${CARGO_HOME}/bin:${NVM_DIR}/versions/node/v${NODE_VERSION}/bin
+ENV PATH=${PATH}:/usr/local/bin:${CARGO_HOME}/bin:${NVM_DIR}/versions/node/v${NODE_VERSION}/bin
 
 COPY ci/images/debian/install.sh /tmp/
 
@@ -45,6 +45,7 @@ RUN set -e; \
       python3-pip \
       pkg-config \
  && chmod +x /tmp/install.sh \
+ && mkdir -p /opt/.nvm \
  && /tmp/install.sh \
  && rm /tmp/install.sh \
  && pip install \

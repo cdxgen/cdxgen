@@ -17,7 +17,7 @@ ENV CC=gcc \
     LANG=en_US.UTF-8 \
     LANGUAGE=en_US.UTF-8 \
     LC_ALL=en_US.UTF-8 \
-    NVM_DIR="/root/.nvm" \
+    NVM_DIR="/opt/.nvm" \
     PYTHONPATH=/opt/pypi \
     npm_config_python=/usr/bin/python3.9
 ENV PATH=${PATH}:/usr/local/bin:${NVM_DIR}/versions/node/v${NODE_VERSION}/bin:${PYTHONPATH}/bin
@@ -98,6 +98,7 @@ RUN set -e; \
         pipenv \
         poetry \
         uv \
+ && mkdir -p /opt/.nvm \
  && curl -o- $GITHUB_RAW_URL/nvm-sh/nvm/$NVM_VERSION/install.sh | bash \
  && source ${NVM_DIR}/nvm.sh \
  && nvm install ${NODE_VERSION} \

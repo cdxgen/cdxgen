@@ -19,27 +19,27 @@ ARG SBT_VERSION=1.13.0
 ARG SDKMAN_URL=https://api.sdkman.io/2
 
 ENV CDXGEN_IN_CONTAINER=true \
-    GRADLE_HOME="/root/.sdkman/candidates/gradle/${GRADLE_VERSION}" \
+    GRADLE_HOME="/opt/.sdkman/candidates/gradle/${GRADLE_VERSION}" \
     GRADLE_OPTS="-Dorg.gradle.daemon=false" \
     GRADLE_VERSION=$GRADLE_VERSION \
     JAVA_TOOL_OPTIONS="-Dfile.encoding=UTF-8" \
-    MAVEN_HOME="/root/.sdkman/candidates/maven/${MAVEN_VERSION}" \
+    MAVEN_HOME="/opt/.sdkman/candidates/maven/${MAVEN_VERSION}" \
     MAVEN_VERSION=$MAVEN_VERSION \
     NODE_COMPILE_CACHE="/opt/cdxgen-node-cache" \
     NODE_VERSION=$NODE_VERSION \
-    NVM_DIR="/root/.nvm" \
+    NVM_DIR="/opt/.nvm" \
     PYTHON_CMD=/usr/bin/python$PYTHON_VERSION \
     PYTHON_VERSION=$PYTHON_VERSION \
     PYTHONIOENCODING="utf-8" \
     PYTHONPATH=/opt/pypi \
     PYTHONUNBUFFERED=1 \
-    SBT_HOME="/root/.sdkman/candidates/sbt/${SBT_VERSION}" \
+    SBT_HOME="/opt/.sdkman/candidates/sbt/${SBT_VERSION}" \
     SBT_VERSION=$SBT_VERSION \
-    SDKMAN_CANDIDATES_DIR=/root/.sdkman/candidates \
-    SDKMAN_DIR=/root/.sdkman \
+    SDKMAN_CANDIDATES_DIR=/opt/.sdkman/candidates \
+    SDKMAN_DIR=/opt/.sdkman \
     TMPDIR=/tmp \
     npm_config_build_from_source=true
-ENV PATH=${PATH}:/usr/local/bin/:/root/.local/bin:${NVM_DIR}/versions/node/v${NODE_VERSION}/bin:${MAVEN_HOME}/bin:${GRADLE_HOME}/bin:${SBT_HOME}/bin:${PYTHONPATH}/bin
+ENV PATH=${PATH}:/usr/local/bin/:${NVM_DIR}/versions/node/v${NODE_VERSION}/bin:${MAVEN_HOME}/bin:${GRADLE_HOME}/bin:${SBT_HOME}/bin:${PYTHONPATH}/bin
 
 COPY ci/images/common/mirrors.sh /tmp/common/mirrors.sh
 
@@ -98,6 +98,7 @@ RUN set -e; \
       --upgrade \
         atom-tools \
         pipenv \
+ && mkdir -p /opt/.nvm \
  && curl -o- $GITHUB_RAW_URL/nvm-sh/nvm/$NVM_VERSION/install.sh | bash \
  && source ${NVM_DIR}/nvm.sh \
  && nvm install ${NODE_VERSION} \
@@ -106,11 +107,11 @@ RUN set -e; \
  && SDKMAN_BROKER_API="$SDKMAN_URL/broker" \
  && SDKMAN_CANDIDATES_API="$SDKMAN_URL" \
  && printf "sdkman_auto_answer=true\nsdkman_selfupdate_feature=false\nsdkman_auto_env=true\nsdkman_curl_connect_timeout=20\nsdkman_curl_max_time=0" \
-      >> $HOME/.sdkman/etc/config \
- && source "$HOME/.sdkman/bin/sdkman-init.sh" \
- && sdk install maven $MAVEN_VERSION \
- && sdk install gradle $GRADLE_VERSION \
- && sdk install sbt $SBT_VERSION \
+      >> /opt/.sdkman/etc/config \
+ && source "/opt/.sdkman/bin/sdkman-init.sh" \
+ && sdk install maven $MAVEN_VERSION /opt/.sdkman/candidates/maven \
+ && sdk install gradle $GRADLE_VERSION /opt/.sdkman/candidates/gradle \
+ && sdk install sbt $SBT_VERSION /opt/.sdkman/candidates/sbt \
  && useradd -ms /bin/bash cyclonedx \
  && npm install -g npm \
  && npm install -g node-gyp corepack \

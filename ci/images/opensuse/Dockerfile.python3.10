@@ -21,7 +21,7 @@ ENV CC=gcc \
     LANG=en_US.UTF-8 \
     LANGUAGE=en_US.UTF-8 \
     LC_ALL=en_US.UTF-8 \
-    NVM_DIR="/root/.nvm" \
+    NVM_DIR="/opt/.nvm" \
     PYTHONPATH=/opt/pypi \
     npm_config_python=/usr/bin/python3.10
 ENV PATH=${PATH}:/usr/local/bin:${NVM_DIR}/versions/node/v${NODE_VERSION}/bin:${PYTHONPATH}/bin:${GOPATH}/bin:/usr/local/go/bin
@@ -108,6 +108,7 @@ RUN set -e; \
  && tar -C /usr/local -xzf go${GO_VERSION}.linux-${GOBIN_VERSION}.tar.gz \
  && rm go${GO_VERSION}.linux-${GOBIN_VERSION}.tar.gz \
  && go telemetry off \
+ && mkdir -p /opt/.nvm \
  && curl -o- $GITHUB_RAW_URL/nvm-sh/nvm/$NVM_VERSION/install.sh | bash \
  && source ${NVM_DIR}/nvm.sh \
  && nvm install ${NODE_VERSION} \

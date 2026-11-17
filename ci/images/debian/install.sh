@@ -10,9 +10,11 @@ if [ "$(printf '%s\n%s\n' "$glibc_version" "$required_version" | sort -V | head 
 fi
 
 if [ x"${ATOM_RUBY_VERSION}" != "x" ]; then
-  git clone https://github.com/rbenv/rbenv.git --depth=1 ~/.rbenv
-  echo 'export PATH="/root/.rbenv/bin:$PATH"' >> ~/.bashrc
-  echo 'eval "$(/root/.rbenv/bin/rbenv init - bash)"' >> ~/.bashrc
+  export RBENV_ROOT=/opt/.rbenv
+  git clone https://github.com/rbenv/rbenv.git --depth=1 "$RBENV_ROOT"
+  echo "export RBENV_ROOT=${RBENV_ROOT}" >> ~/.bashrc
+  echo "export PATH=\"${RBENV_ROOT}/bin:\$PATH\"" >> ~/.bashrc
+  echo "eval \"\$(${RBENV_ROOT}/bin/rbenv init - bash)\"" >> ~/.bashrc
   source ~/.bashrc
   mkdir -p "$(rbenv root)/plugins"
   git clone https://github.com/rbenv/ruby-build.git --depth=1 "$(rbenv root)/plugins/ruby-build"
@@ -40,18 +42,17 @@ if [ x"${SKIP_ATOM}" != "xyes" ]; then
 fi
 
 if [ x"${JAVA_VERSION}" != "x" ]; then
+  export SDKMAN_DIR=${SDKMAN_DIR:-/opt/.sdkman}
   curl -L "https://get.sdkman.io" | bash
   SDKMAN_BROKER_API="${SDKMAN_URL}/broker"
   SDKMAN_CANDIDATES_API="${SDKMAN_URL}"
-  chmod +x /root/.sdkman/bin/sdkman-init.sh
-  source $HOME/.sdkman/bin/sdkman-init.sh
-  printf "sdkman_auto_answer=true\nsdkman_selfupdate_feature=false\nsdkman_auto_env=true\nsdkman_curl_connect_timeout=20\nsdkman_curl_max_time=0" >> $HOME/.sdkman/etc/config
-  sdk install java ${JAVA_VERSION}
+  chmod +x "${SDKMAN_DIR}"/bin/sdkman-init.sh
+  source "${SDKMAN_DIR}"/bin/sdkman-init.sh
+  printf "sdkman_auto_answer=true\nsdkman_selfupdate_feature=false\nsdkman_auto_env=true\nsdkman_curl_connect_timeout=20\nsdkman_curl_max_time=0" >> "${SDKMAN_DIR}/etc/config"
+  sdk install java ${JAVA_VERSION} "${SDKMAN_DIR}/candidates/java"
   if [ x"${MAVEN_VERSION}" != "x" ]; then
-    sdk install maven ${MAVEN_VERSION}
+    sdk install maven ${MAVEN_VERSION} "${SDKMAN_DIR}/candidates/maven"
   fi
-  mv /root/.sdkman/candidates/* /opt/
-  rm -rf /root/.sdkman
 fi
 
 if [ x"${SKIP_PYTHON}" != "xyes" ]; then
@@ -61,9 +62,11 @@ if [ x"${SKIP_PYTHON}" != "xyes" ]; then
 fi
 
 if [ x"${SKIP_NODEJS}" != "xyes" ]; then
+  export NVM_DIR=${NVM_DIR:-/opt/.nvm}
+  mkdir -p "${NVM_DIR}"
   curl -o- $GITHUB_RAW_URL/nvm-sh/nvm/$NVM_VERSION/install.sh | bash
-  chmod +x /root/.nvm/nvm.sh
-  source /root/.nvm/nvm.sh
+  chmod +x "${NVM_DIR}/nvm.sh"
+  source "${NVM_DIR}/nvm.sh"
   nvm install ${NODE_VERSION}
   npm install --global corepack@latest
 fi

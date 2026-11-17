@@ -6,7 +6,7 @@ ARG NODEJS_DIST_URL
 ARG NPM_REPO
 ARG PIP_CONFIG
 
-ENV PATH=${PATH}:/usr/local/bin:/root/.local/bin \
+ENV PATH=${PATH}:/usr/local/bin \
     PYTHONPATH=/opt/pypi
 
 COPY ci/images/common/mirrors.sh /tmp/common/mirrors.sh

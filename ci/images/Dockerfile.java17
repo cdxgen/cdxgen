@@ -14,16 +14,18 @@ ARG SBT_VERSION=1.13.0
 ARG SDKMAN_URL=https://api.sdkman.io/2
 ARG SUSE_REPO
 
-ENV GRADLE_HOME="/opt/gradle/${GRADLE_VERSION}" \
+ENV GRADLE_HOME="/opt/.sdkman/candidates/gradle/${GRADLE_VERSION}" \
     GRADLE_OPTS="-Dorg.gradle.daemon=false" \
     GRADLE_VERSION=$GRADLE_VERSION \
     LANG=en_US.UTF-8 \
     LANGUAGE=en_US.UTF-8 \
     LC_ALL=en_US.UTF-8 \
-    MAVEN_HOME="/opt/maven/${MAVEN_VERSION}" \
+    MAVEN_HOME="/opt/.sdkman/candidates/maven/${MAVEN_VERSION}" \
     MAVEN_VERSION=$MAVEN_VERSION \
-    SBT_HOME="/opt/sbt/${SBT_VERSION}" \
-    SBT_VERSION=$SBT_VERSION
+    SBT_HOME="/opt/.sdkman/candidates/sbt/${SBT_VERSION}" \
+    SBT_VERSION=$SBT_VERSION \
+    SDKMAN_CANDIDATES_DIR=/opt/.sdkman/candidates \
+    SDKMAN_DIR=/opt/.sdkman
 ENV PATH=${PATH}:/usr/local/bin:${MAVEN_HOME}/bin:${GRADLE_HOME}/bin:${SBT_HOME}/bin
 
 RUN set -e; \
@@ -75,12 +77,11 @@ RUN set -e; \
  && SDKMAN_BROKER_API="$SDKMAN_URL/broker" \
  && SDKMAN_CANDIDATES_API="$SDKMAN_URL" \
  && printf "sdkman_auto_answer=true\nsdkman_selfupdate_feature=false\nsdkman_auto_env=true\nsdkman_curl_connect_timeout=20\nsdkman_curl_max_time=0" \
-      >> $HOME/.sdkman/etc/config \
- && source "$HOME/.sdkman/bin/sdkman-init.sh" \
- && sdk install maven $MAVEN_VERSION \
- && sdk install gradle $GRADLE_VERSION \
- && sdk install sbt $SBT_VERSION \
- && mv /root/.sdkman/candidates/* /opt/ \
+      >> /opt/.sdkman/etc/config \
+ && source "/opt/.sdkman/bin/sdkman-init.sh" \
+ && sdk install maven $MAVEN_VERSION /opt/.sdkman/candidates/maven \
+ && sdk install gradle $GRADLE_VERSION /opt/.sdkman/candidates/gradle \
+ && sdk install sbt $SBT_VERSION /opt/.sdkman/candidates/sbt \
  && curl -L --output /usr/bin/bazel \
       $GITHUB_URL/bazelbuild/bazelisk/releases/latest/download/bazelisk-linux-${GOBIN_VERSION} \
  && chmod +x /usr/bin/bazel \
@@ -106,7 +107,7 @@ ARG SCALA_VERSION=3.6.4
 ARG SDKMAN_URL=https://api.sdkman.io/2
 
 ENV PYTHONPATH=/opt/pypi \
-    SCALA_HOME="/opt/scala/${SCALA_VERSION}" \
+    SCALA_HOME="/opt/.sdkman/candidates/scala/${SCALA_VERSION}" \
     SCALA_VERSION=$SCALA_VERSION \
     npm_config_python=/usr/bin/python3.11
 ENV PATH=${PATH}:${PYTHONPATH}/bin:${SCALA_HOME}/bin
@@ -118,8 +119,8 @@ RUN set -e; \
     fi; \
     SDKMAN_BROKER_API="$SDKMAN_URL/broker" \
  && SDKMAN_CANDIDATES_API="$SDKMAN_URL" \
- && source "$HOME/.sdkman/bin/sdkman-init.sh" \
- && sdk install scala $SCALA_VERSION \
+ && source "/opt/.sdkman/bin/sdkman-init.sh" \
+ && sdk install scala $SCALA_VERSION /opt/.sdkman/candidates/scala \
  && pip install \
       --no-cache-dir \
       --target ${PYTHONPATH} \

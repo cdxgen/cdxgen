@@ -1,3 +1,9 @@
+# syntax=docker/dockerfile:1
+# check=skip=SecretsUsedInArgOrEnv
+# The Swift signing key fingerprint is a public value published on swift.org,
+# not a secret, so the build check that rejects ARG and ENV names matching
+# SWIFT_SIGNING_KEY is skipped for this Dockerfile.
+
 # Base-image
 FROM debian:12.15@sha256:268fb24c39bca92d326dd83ea3abebe4a3f7751c804ffef23bb6d857dd343ff8 AS base
 
@@ -18,14 +24,14 @@ ARG SWIFT_URL=https://download.swift.org
 ARG SWIFT_VERSION=swift-6.4.0-RELEASE
 ARG SWIFT_WEBROOT=https://download.swift.org
 
-ENV NVM_DIR="/root/.nvm" \
+ENV NVM_DIR="/opt/.nvm" \
     PYTHONPATH=/opt/pypi \
     SWIFT_BRANCH=$SWIFT_BRANCH \
     SWIFT_PLATFORM=$SWIFT_PLATFORM \
     SWIFT_SIGNING_KEY=$SWIFT_SIGNING_KEY \
     SWIFT_VERSION=$SWIFT_VERSION \
     SWIFT_WEBROOT=$SWIFT_WEBROOT
-ENV PATH=${PATH}:/usr/local/bin:/root/.local/bin:${NVM_DIR}/versions/node/v${NODE_VERSION}/bin
+ENV PATH=${PATH}:/usr/local/bin:${NVM_DIR}/versions/node/v${NODE_VERSION}/bin
 
 COPY ci/images/debian/install.sh /tmp/
 
@@ -91,6 +97,7 @@ RUN set -e; \
  && rm -rf "$GNUPGHOME" swift.tar.gz.sig swift.tar.gz \
  && swift --version \
  && chmod +x /tmp/install.sh \
+ && mkdir -p /opt/.nvm \
  && /tmp/install.sh \
  && rm /tmp/install.sh \
  && pip install \

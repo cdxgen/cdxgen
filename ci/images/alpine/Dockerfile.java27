@@ -12,7 +12,7 @@ ENV GRADLE_HOME=/opt/gradle \
     GRADLE_VERSION=$GRADLE_VERSION \
     PYTHONPATH=/opt/pypi
 
-ENV PATH=${PATH}:/usr/local/bin:/root/.local/bin:${GRADLE_HOME}/bin
+ENV PATH=${PATH}:/usr/local/bin:${GRADLE_HOME}/bin
 
 COPY ci/images/common/mirrors.sh ci/images/common/install-gradle.sh /tmp/common/
 

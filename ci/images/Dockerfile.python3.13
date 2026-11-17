@@ -18,15 +18,17 @@ ARG SDKMAN_URL=https://api.sdkman.io/2
 ARG SUSE_REPO
 
 ENV CFLAGS="-fcommon" \
-    JAVA_HOME="/opt/java/${JAVA_VERSION}" \
+    JAVA_HOME="/opt/.sdkman/candidates/java/${JAVA_VERSION}" \
     JAVA_VERSION=$JAVA_VERSION \
     LANG=en_US.UTF-8 \
     LANGUAGE=en_US.UTF-8 \
     LC_ALL=en_US.UTF-8 \
-    MAVEN_HOME="/opt/maven/${MAVEN_VERSION}" \
+    MAVEN_HOME="/opt/.sdkman/candidates/maven/${MAVEN_VERSION}" \
     MAVEN_VERSION=$MAVEN_VERSION \
-    NVM_DIR="/root/.nvm" \
-    PYTHONPATH=/opt/pypi
+    NVM_DIR="/opt/.nvm" \
+    PYTHONPATH=/opt/pypi \
+    SDKMAN_CANDIDATES_DIR=/opt/.sdkman/candidates \
+    SDKMAN_DIR=/opt/.sdkman
 ENV PATH=${PATH}:/usr/local/bin:${PYTHONPATH}/bin:${NVM_DIR}/versions/node/v${NODE_VERSION}/bin:${JAVA_HOME}/bin:${MAVEN_HOME}/bin:/usr/lib/mit/bin
 
 RUN set -e; \
@@ -98,12 +100,10 @@ RUN set -e; \
  && SDKMAN_BROKER_API="$SDKMAN_URL/broker" \
  && SDKMAN_CANDIDATES_API="$SDKMAN_URL" \
  && printf "sdkman_auto_answer=true\nsdkman_selfupdate_feature=false\nsdkman_auto_env=true\nsdkman_curl_connect_timeout=20\nsdkman_curl_max_time=0" \
-      >> $HOME/.sdkman/etc/config \
- && source "$HOME/.sdkman/bin/sdkman-init.sh" \
- && sdk install java $JAVA_VERSION \
- && sdk install maven $MAVEN_VERSION \
- && mv /root/.sdkman/candidates/* /opt/ \
- && rm -rf /root/.sdkman \
+      >> /opt/.sdkman/etc/config \
+ && source "/opt/.sdkman/bin/sdkman-init.sh" \
+ && sdk install java $JAVA_VERSION /opt/.sdkman/candidates/java \
+ && sdk install maven $MAVEN_VERSION /opt/.sdkman/candidates/maven \
  && python3 -m pip install \
       --no-cache-dir \
       --upgrade \
@@ -114,6 +114,7 @@ RUN set -e; \
       --target ${PYTHONPATH} \
       --upgrade \
         atom-tools \
+ && mkdir -p /opt/.nvm \
  && curl -o- $GITHUB_RAW_URL/nvm-sh/nvm/$NVM_VERSION/install.sh | bash \
  && source ${NVM_DIR}/nvm.sh \
  && nvm install ${NODE_VERSION} \
