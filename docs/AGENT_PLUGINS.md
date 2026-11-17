@@ -37,6 +37,17 @@ Only Claude Code has these parts of the plugin:
 - the `SessionStart` hook that warns when `cdxgen` is missing or older than the plugin, and the optional lockfile reminder hook
 - the `userConfig` options (Dependency-Track URL, TEA endpoint, default spec version, preferred runtime), which Claude Code asks for when the plugin is enabled and substitutes into the skills as `${user_config.KEY}`
 
+### claude.ai plugin directory
+
+The manifest carries what a listing needs: `icon`, `documentationUrl`,
+`supportUrl` and `privacyPolicyUrl`, with the privacy note in the plugin README
+behind the policy link. The project does not maintain a listing: submitting
+through the directory portal needs a paid claude.ai plan with Owner rights, and
+paid directory listings are out of scope here. The first save in the portal also
+freezes the icon the listing shows. Anyone with such a plan can submit the
+plugin as it stands, because `claude plugin validate --strict` already passes
+for the plugin and for the marketplace.
+
 ## Codex
 
 Install from the terminal:
