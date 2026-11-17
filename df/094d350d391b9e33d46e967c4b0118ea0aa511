@@ -1,0 +1,301 @@
+ci/images/Dockerfile.java17
+  s_34339c7fcc852f::t_9cfd022aafd1e3 80-84
+  s_34339c7fcc852f::t_4781c2c53a5d38 122-123
+  s_34339c7fcc852f::t_f3e4644dd6ea10 110
+  s_34339c7fcc852f::t_b48a2e292a25f7 17,23,25-28
+ci/images/temurin/Dockerfile.java27
+  s_75973c6ae5cf18::t_51ae8d64b83bcf 37
+  s_75973c6ae5cf18::t_93d05f299aa2bf 113-117
+  s_75973c6ae5cf18::t_4f92f2afb50b7c 45
+  s_75973c6ae5cf18::t_948fa599ec6da3 104
+  s_75973c6ae5cf18::t_9b8bd9aa89029f 23
+  s_75973c6ae5cf18::t_d0b20f22053de3 31
+  s_75973c6ae5cf18::t_32fa7c4fcc85fd 39
+  s_75973c6ae5cf18::t_8103c69ca63f34 123-124
+  s_75973c6ae5cf18::t_5c820af48ca444 27
+  s_75973c6ae5cf18::t_96523b0a93ffc8 41-42
+ci/dockertests.sh
+  s_936d147fe7b992::t_8901fdb254a577 93,95
+  s_83958ed903e405::t_6caddf2edae16f 94
+ci/images/debian/Dockerfile.dotnet9
+  s_365566e27a3575::t_bb9b65927302c7 22,24
+ci/images/debian/Dockerfile.python3.15
+  s_365566e27a3575::t_f229a4b9b0dfdb 16,18
+ci/images/debian/Dockerfile.golang1.23
+  s_5dd11b70f9ecf0::t_f39f6139cef4ec 44
+  s_5dd11b70f9ecf0::t_38b953575cc558 16,18
+ci/images/opensuse/Dockerfile.python3.9
+  s_9a2ab5984a8d05::t_58afe2d77a3ca1 20
+  s_9a2ab5984a8d05::t_cb273529e4da43 101
+ci/images/debian/Dockerfile.golang1.25
+  s_5dd11b70f9ecf0::t_67120b2ce7a555 16,18
+  s_5dd11b70f9ecf0::t_b8db56e28dd8e9 44
+.github/workflows/build-image.yml
+  s_936d147fe7b992::t_b8f9009dd960f5 8-9
+  s_936d147fe7b992::t_bb549b61e9639d 40-47
+  s_936d147fe7b992::t_9a60e035168fa2 99,105-107,109,111-131
+ci/images/Dockerfile.python3.11
+  s_34339c7fcc852f::t_662c7431862f1f 109-112
+  s_34339c7fcc852f::t_e0ab550fd4ffd4 133
+  s_34339c7fcc852f::t_22254463fa10dd 26,31,33,35-36
+ci/images/Dockerfile.python3.6
+  s_34339c7fcc852f::t_fd7b8360624f6f 20,25,27-30,32
+  s_34339c7fcc852f::t_c160d9eb520119 92-95,104,108
+ci/images/debian/Dockerfile.ruby3.4
+  s_365566e27a3575::t_287eb1c273ac9d 20,22-26
+ci/images/opensuse/Dockerfile.rolling
+  s_9a2ab5984a8d05::t_a5227bdd7a8eac 33
+  s_9a2ab5984a8d05::t_cebdcce95cd094 41
+  s_9a2ab5984a8d05::t_45c434de5e9277 45-48
+  s_9a2ab5984a8d05::t_dd3f2fab02bb50 38
+  s_9a2ab5984a8d05::t_79b4c5fe304ca1 43
+  s_9a2ab5984a8d05::t_fb087ec7a54a93 150
+  s_9a2ab5984a8d05::t_e66635cefc8ccb 123-125,128-129,131-132
+ci/images/temurin/Dockerfile.java8
+  s_75973c6ae5cf18::t_7ded7cb020ee97 101
+  s_75973c6ae5cf18::t_c0b7b28f4e9ed9 110-114
+  s_75973c6ae5cf18::t_b413a1f4d5df4a 30
+  s_75973c6ae5cf18::t_a2577a2b895d86 26
+  s_75973c6ae5cf18::t_4c291a11d1210f 38-39
+  s_75973c6ae5cf18::t_44645479998455 42
+  s_75973c6ae5cf18::t_40239c570363fb 36
+  s_75973c6ae5cf18::t_1f00f400d4deeb 22
+ci/Dockerfile-deno
+  s_83958ed903e405::t_c1a6db80499918 2
+  s_83958ed903e405::t_e93e4cebcd8678 1
+  s_9a0cf122d14188::t_dc077c4d74164e 63
+  s_9a0cf122d14188::t_4121551841c03b 50-53,55
+  s_83958ed903e405::t_d7557bbdd3a7e9 3-5
+  s_9a0cf122d14188::t_2d7b83610f9d98 145-151
+  s_9a0cf122d14188::t_7e52c4ead273ae 107
+  s_9a0cf122d14188::t_55a142ac50b9f5 73-74,77-82
+ci/images/debian/Dockerfile.php8.3
+  s_365566e27a3575::t_707a0fd197f4ef 18,20-24
+ci/images/temurin/Dockerfile.java25
+  s_75973c6ae5cf18::t_dfd68ac622837e 39
+  s_75973c6ae5cf18::t_b9e55902dc3571 104
+  s_75973c6ae5cf18::t_628674903a18af 37
+  s_75973c6ae5cf18::t_083b052041dbfe 45
+  s_75973c6ae5cf18::t_242fbdffb6ca57 23
+  s_75973c6ae5cf18::t_a2cd246725cf4f 41-42
+  s_75973c6ae5cf18::t_e042b74fbedf43 113-118
+  s_75973c6ae5cf18::t_057d7d92be6742 31
+  s_75973c6ae5cf18::t_79184448ebc340 27
+ci/images/debian/install.sh
+  s_d94df2e55b28e2::t_6e2264fce41040 66,68-69
+  s_5dd11b70f9ecf0::t_1ecb212470c245 45
+  s_d94df2e55b28e2::t_0831667bb1f901 15-17
+  s_5dd11b70f9ecf0::t_cf0391020897dc 13-14
+  s_d94df2e55b28e2::t_6b49fd8a1b7fba 49-52,54
+  s_5dd11b70f9ecf0::t_d91bf2e4f604d4 65
+ci/images/debian/Dockerfile.python3.14
+  s_365566e27a3575::t_05765d88b78498 16,18
+ci/images/alpine/Dockerfile.java24
+  s_9a2ab5984a8d05::t_209f7d79cfcf90 9
+ci/images/temurin/Dockerfile.java21
+  s_75973c6ae5cf18::t_79278ebaf96560 39
+  s_75973c6ae5cf18::t_323b7adb4ffe08 41-42
+  s_75973c6ae5cf18::t_14bc532823c96e 31
+  s_75973c6ae5cf18::t_9c2594c0391691 23
+  s_75973c6ae5cf18::t_4c4b350162ed47 104
+  s_75973c6ae5cf18::t_39bed20744c232 27
+  s_75973c6ae5cf18::t_1b3809a5de41a5 113-118
+  s_75973c6ae5cf18::t_b8119fb6f7d8c9 45
+  s_75973c6ae5cf18::t_7a63ef6691bf26 37
+ci/images/debian/Dockerfile.php8.5
+  s_365566e27a3575::t_12734f4d40e728 18,20-24
+ci/images/debian/Dockerfile.node24
+  s_365566e27a3575::t_b45261b31508f3 10
+ci/images/Dockerfile.python3.13
+  s_34339c7fcc852f::t_b23b370659b8a2 21,26,28-31
+  s_34339c7fcc852f::t_d20df25cf959df 103-106
+  s_34339c7fcc852f::t_501821feeef810 117
+ci/images/debian/Dockerfile.swift6
+  s_83958ed903e405::t_5165a3a735d152 1
+  s_5dd11b70f9ecf0::t_da02e8ff12f150 100
+  s_83958ed903e405::t_483381471c1a5a 3-6
+  s_5dd11b70f9ecf0::t_03e882271d282b 34
+  s_5dd11b70f9ecf0::t_a1588cd277d791 27
+  s_83958ed903e405::t_20c5843e130a60 2
+ci/images/Dockerfile.ruby2.5
+  s_34339c7fcc852f::t_2fd43fad0218b0 12,20,24
+  s_34339c7fcc852f::t_9309b8374fa34a 87-89
+ci/images/debian/Dockerfile.golang1.26
+  s_5dd11b70f9ecf0::t_fe3950b1e9ac9c 16,18
+  s_5dd11b70f9ecf0::t_594005cb9b1780 44
+ci/images/alpine/Dockerfile.java26
+  s_9a2ab5984a8d05::t_c7c9846a72f4b7 9
+ci/images/temurin/Dockerfile.java24
+  s_75973c6ae5cf18::t_bd6e2f76818692 41-42
+  s_75973c6ae5cf18::t_27e73ec85818b9 45
+  s_75973c6ae5cf18::t_8bbbb7fdf50914 37
+  s_75973c6ae5cf18::t_dc3063cb850f01 23
+  s_75973c6ae5cf18::t_a78e67df5920ed 27
+  s_75973c6ae5cf18::t_34ab0239aa4043 31
+  s_75973c6ae5cf18::t_46a7b4da79fb4f 113-118
+  s_75973c6ae5cf18::t_af2690dc5936fa 104
+  s_75973c6ae5cf18::t_acf2c6b4975909 39
+ci/images/debian/Dockerfile.ruby4
+  s_365566e27a3575::t_3b412c492d10ab 20,22-26
+ci/images/opensuse/Dockerfile.python3.10
+  s_9a2ab5984a8d05::t_964289d1aa5639 24
+  s_9a2ab5984a8d05::t_b9cb2ce666c256 111
+ci/images/ubuntu/Dockerfile.dotnet11
+  s_9a2ab5984a8d05::t_e39fc05d403bf7 24
+  s_9a2ab5984a8d05::t_33bc645eea340b 22
+  s_9a2ab5984a8d05::t_36dab541073c03 71
+ci/images/alpine/Dockerfile.java25
+  s_9a2ab5984a8d05::t_1e811cb1ddaa4b 9
+ci/images/Dockerfile.python3.12
+  s_34339c7fcc852f::t_594d6c6521c797 22,27,29-33
+  s_34339c7fcc852f::t_ef64c21ff0b4b4 104-107,117,124
+ci/images/debian/Dockerfile.node26
+  s_365566e27a3575::t_e2b30f816500c5 10
+ci/Dockerfile-ppc64
+  s_d94df2e55b28e2::t_1cb895a661d7b9 39-40
+  s_9a0cf122d14188::t_58854697c6e1f7 41-43
+  s_9a0cf122d14188::t_8aec3b0cb28e19 50,52-56
+  s_9a0cf122d14188::t_9ccf8a221b04df 92
+  s_9a0cf122d14188::t_2c28c25c25907c 98-102
+ci/images/debian/Dockerfile.elixir1
+  s_5dd11b70f9ecf0::t_99a0acebeffc5c 15,17
+  s_5dd11b70f9ecf0::t_84eb6efb8d6c28 42
+ci/images/alpine/Dockerfile.java21
+  s_9a2ab5984a8d05::t_f0c930b8c6e066 9
+ci/images/debian/Dockerfile.ruby2.6
+  s_365566e27a3575::t_aa88c3f63ffd36 22,25,27-29,31
+  s_365566e27a3575::t_b3d9a9a42c718a 98
+ci/images/Dockerfile.java11
+  s_34339c7fcc852f::t_073c7b6cca25ef 21,28,30-31,33-34
+  s_34339c7fcc852f::t_eda48adf7a24d9 90-94
+  s_34339c7fcc852f::t_9009dde62325b7 99
+ci/images/debian/Dockerfile.php8.4
+  s_365566e27a3575::t_117e7b184b3be3 18,20-24
+ci/images/debian/Dockerfile.golang1.24
+  s_5dd11b70f9ecf0::t_bc68faa2c6e4e3 16,18
+  s_5dd11b70f9ecf0::t_142a718126ef13 44
+ci/images/al10/Dockerfile.ruby-builder
+  s_9a2ab5984a8d05::t_8adc238f26e59b 18
+ci/images/debian/Dockerfile.python3.13
+  s_365566e27a3575::t_659da57ad9b91c 16,18
+ci/images/debian/Dockerfile.golang1.27
+  s_5dd11b70f9ecf0::t_f2bf9b2b9954d2 44
+  s_5dd11b70f9ecf0::t_c6d02d24551b75 16,18
+ci/images/alpine/Dockerfile.java27
+  s_9a2ab5984a8d05::t_2a9a92afdee7b0 15
+ci/images/debian/Dockerfile.dart3
+  s_5dd11b70f9ecf0::t_7b92bbc9afc0ae 15,17
+  s_5dd11b70f9ecf0::t_bb058f465d87f9 42
+ci/images/debian/Dockerfile.rust1
+  s_5dd11b70f9ecf0::t_2a4350cce7d8f9 16,20
+  s_5dd11b70f9ecf0::t_d0fc4600e1c861 48
+ci/images/debian/Dockerfile.python3.12
+  s_365566e27a3575::t_fb35a01a038407 16,18
+ci/images/debian/Dockerfile.ruby3.3
+  s_365566e27a3575::t_ffdcfa9ec7187b 99
+  s_365566e27a3575::t_33bf54ef37525d 23,25-30
+ci/images/debian/Dockerfile.dotnet8
+  s_365566e27a3575::t_da0cf869089b8f 22,24
+ci/Dockerfile-bun
+  s_83958ed903e405::t_72535e0162d728 3-5
+  s_9a0cf122d14188::t_7fff4dde552b0a 68-74
+  s_9a0cf122d14188::t_89a03a18fe0845 104
+  s_83958ed903e405::t_cae2a184d87965 2
+  s_9a0cf122d14188::t_00fe485232a05a 135-140
+  s_83958ed903e405::t_3f60400cc46af9 1
+  s_9a0cf122d14188::t_d648c4dbe72d27 48-51
+ci/images/temurin/Dockerfile.java26
+  s_75973c6ae5cf18::t_532a501bd4ea52 113-118
+  s_75973c6ae5cf18::t_a134e79b582f34 23
+  s_75973c6ae5cf18::t_8669570043c97b 27
+  s_75973c6ae5cf18::t_ff35d0cfbf15f4 37
+  s_75973c6ae5cf18::t_93cd497886c37e 45
+  s_75973c6ae5cf18::t_eaea3a6d36e527 41-42
+  s_75973c6ae5cf18::t_15d74b717ea416 31
+  s_75973c6ae5cf18::t_89bccd8c4e6212 39
+  s_75973c6ae5cf18::t_34fd5a521da621 104
+ci/images/ubuntu/Dockerfile.dotnet10
+  s_9a2ab5984a8d05::t_f1027f29796383 22
+  s_9a2ab5984a8d05::t_6a873fb91b430a 24
+  s_9a2ab5984a8d05::t_5438004cc885da 71
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "df094d350d391b9e33d46e967c4b0118ea0aa511",
+  "prompts": {},
+  "sessions": {
+    "s_34339c7fcc852f": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_dwf-dwfrun-47cc7c1c-2292-4db8-ba02-9f7ded565f5f-actor_1_4",
+        "model": "GLM-5.3-Flash"
+      },
+      "human_author": "Team AppThreat <cloud@appthreat.com>"
+    },
+    "s_365566e27a3575": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_dwf-dwfrun-47cc7c1c-2292-4db8-ba02-9f7ded565f5f-actor_1_2",
+        "model": "GLM-5.3-Flash"
+      },
+      "human_author": "Team AppThreat <cloud@appthreat.com>"
+    },
+    "s_5dd11b70f9ecf0": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_dwf-dwfrun-47cc7c1c-2292-4db8-ba02-9f7ded565f5f-actor_1_1",
+        "model": "GLM-5.3-Flash"
+      },
+      "human_author": "Team AppThreat <cloud@appthreat.com>"
+    },
+    "s_75973c6ae5cf18": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_dwf-dwfrun-47cc7c1c-2292-4db8-ba02-9f7ded565f5f-actor_1_3",
+        "model": "GLM-5.3-Flash"
+      },
+      "human_author": "Team AppThreat <cloud@appthreat.com>"
+    },
+    "s_83958ed903e405": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_dwf-dwfrun-47cc7c1c-2292-4db8-ba02-9f7ded565f5f-actor_2_1",
+        "model": "GLM-5.3-Flash"
+      },
+      "human_author": "Team AppThreat <cloud@appthreat.com>"
+    },
+    "s_936d147fe7b992": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_dwf-dwfrun-47cc7c1c-2292-4db8-ba02-9f7ded565f5f-actor_1_7",
+        "model": "GLM-5.3-Flash"
+      },
+      "human_author": "Team AppThreat <cloud@appthreat.com>"
+    },
+    "s_9a0cf122d14188": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_dwf-dwfrun-47cc7c1c-2292-4db8-ba02-9f7ded565f5f-actor_1_6",
+        "model": "GLM-5.3-Flash"
+      },
+      "human_author": "Team AppThreat <cloud@appthreat.com>"
+    },
+    "s_9a2ab5984a8d05": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_dwf-dwfrun-47cc7c1c-2292-4db8-ba02-9f7ded565f5f-actor_1_5",
+        "model": "GLM-5.3-Flash"
+      },
+      "human_author": "Team AppThreat <cloud@appthreat.com>"
+    },
+    "s_d94df2e55b28e2": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_e28512ce-0812-4dba-98f7-77c61df8a93f",
+        "model": "GLM-5.3"
+      },
+      "human_author": "Team AppThreat <cloud@appthreat.com>"
+    }
+  }
+}
