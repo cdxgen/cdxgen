@@ -26,6 +26,10 @@
     "aibom",
     "scrm"
   ],
+  "documentationUrl": "https://cdxgen.github.io/cdxgen",
+  "supportUrl": "https://github.com/cdxgen/cdxgen/issues",
+  "privacyPolicyUrl": "https://github.com/cdxgen/cdxgen/blob/master/agent-plugin/README.md#privacy",
+  "icon": "./.claude-plugin/icon.png",
   "userConfig": {
     "lockfile_reminder": {
       "type": "boolean",
