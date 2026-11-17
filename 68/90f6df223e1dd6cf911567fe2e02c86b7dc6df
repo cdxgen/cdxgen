@@ -1,0 +1,22 @@
+.github/workflows/image-build.yml
+  s_d94df2e55b28e2::t_beda72f0cefd72 845-853
+  s_d94df2e55b28e2::t_a8174db4608117 791-802
+ci/Dockerfile-deno
+  s_d94df2e55b28e2::t_9a3397aca1c1b5 79
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "6890f6df223e1dd6cf911567fe2e02c86b7dc6df",
+  "prompts": {},
+  "sessions": {
+    "s_d94df2e55b28e2": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_e28512ce-0812-4dba-98f7-77c61df8a93f",
+        "model": "GLM-5.3"
+      },
+      "human_author": "Team AppThreat <cloud@appthreat.com>"
+    }
+  }
+}
