@@ -2133,6 +2133,15 @@ const writeCycloneDxOutput = (jsonFile, bomJson, options) => {
       process.env.CDXGEN_FETCH_PKG_METADATA = originalFetchPackageMetadata;
     }
   }
+  if (bomNSData?.exportFailure) {
+    console.error(
+      `cdxgen failed to generate a BOM: ${bomNSData.exportFailure}.`,
+    );
+    if (cleanup) {
+      cleanupSourceDir(srcDir);
+    }
+    process.exit(1);
+  }
   if (bomNSData?.bomJson) {
     thoughtLog(
       "Tweaking the generated BOM data with useful annotations and properties.",
