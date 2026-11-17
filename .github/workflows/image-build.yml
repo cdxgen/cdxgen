@@ -788,6 +788,18 @@ jobs:
           sources: |
             ${{ needs.build-amd64.outputs.cdxgen-master-image-uri }}
             ${{ needs.prepare.outputs.build-arm == 'true' && needs.build-arm64.outputs.cdxgen-master-image-uri || '' }}
+      # The published image must reach every tool cdxgen execs for a non-root
+      # user; a toolchain left in the root user's home directory fails this
+      # run and with it the build.
+      - name: Smoke test the published image as non-root - master branch
+        if: ${{ startsWith(github.ref, 'refs/heads/') }}
+        shell: bash
+        env:
+          IMAGE_TAGS: ${{ steps.resolve_cdxgen_master_tags.outputs.value }}
+        run: |
+          image_tag="$(head -n1 <<<"$IMAGE_TAGS")"
+          docker pull "$image_tag"
+          docker run --rm --user 1000:1000 --cap-drop=ALL -e HOME=/tmp "$image_tag" --version
 
       - name: Extract metadata for cdxgen image - tags
         if: ${{ startsWith(github.ref, 'refs/tags/') }}
@@ -830,6 +842,15 @@ jobs:
           sources: |
             ${{ needs.build-amd64.outputs.cdxgen-tag-image-uri }}
             ${{ needs.prepare.outputs.build-arm == 'true' && needs.build-arm64.outputs.cdxgen-tag-image-uri || '' }}
+      - name: Smoke test the published image as non-root - release tags
+        if: ${{ startsWith(github.ref, 'refs/tags/') }}
+        shell: bash
+        env:
+          IMAGE_TAGS: ${{ steps.resolve_cdxgen_tag_tags.outputs.value }}
+        run: |
+          image_tag="$(head -n1 <<<"$IMAGE_TAGS")"
+          docker pull "$image_tag"
+          docker run --rm --user 1000:1000 --cap-drop=ALL -e HOME=/tmp "$image_tag" --version
 
       - name: Extract metadata for slim cdxgen image - master branch
         if: ${{ needs.prepare.outputs.slim == 'true' && startsWith(github.ref, 'refs/heads/') }}

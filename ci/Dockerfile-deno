@@ -76,6 +76,7 @@ ENV GOPATH=/opt/app-root/go \
     DOTNET_CLI_TELEMETRY_OPTOUT=1 \
     RBENV_ROOT=/opt/.rbenv \
     DENO_INSTALL=/opt/.deno \
+    DENO_INSTALL_ROOT=/opt/.deno \
     DENO_DIR=/opt/.cache/deno \
     CARGO_HOME=/opt/.cargo \
     RUSTUP_HOME=/opt/.rustup
