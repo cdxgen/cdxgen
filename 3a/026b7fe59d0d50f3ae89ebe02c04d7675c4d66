@@ -1,0 +1,26 @@
+bin/cdxgen.js
+  s_5c57a1b8950199::t_8db5b41644f5f5 2136-2144
+lib/managers/docker.js
+  s_5c57a1b8950199::t_8db5b41644f5f5 2413-2445,2588-2591
+lib/managers/docker.poku.js
+  s_5c57a1b8950199::t_973ec8257e730a 21,3752-3781
+  s_5c57a1b8950199::t_dfdba2e215a8bc 3782
+lib/cli/index.js
+  s_5c57a1b8950199::t_8db5b41644f5f5 2595-2596
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "3a026b7fe59d0d50f3ae89ebe02c04d7675c4d66",
+  "prompts": {},
+  "sessions": {
+    "s_5c57a1b8950199": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "42c6d682-1b06-4ba7-a2ae-3dfa61d3d814",
+        "model": "claude-sonnet-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}

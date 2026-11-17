@@ -1,0 +1,91 @@
+lib/inventory/envcontext.js
+  s_5c57a1b8950199::t_9108ed673b4580 60-64,532-577,581-584,589-600
+lib/inventory/jdkIdentity.poku.js
+  s_5c57a1b8950199::t_4d47fbd5ba264d 1-4,6-35,42-107,113-209
+  s_5c57a1b8950199::t_71f8b2fc5bf0b5 5
+docs/CUSTOM_PROPERTIES.md
+  s_5c57a1b8950199::t_97aa4a2bfd947b 2492
+lib/inventory/jdkIdentity.js
+  s_5c57a1b8950199::t_e3823cb1e9ed2f 1-226,228-229,231-244,247-251,253-255,264-368,370-486
+  s_5c57a1b8950199::t_5f3973662fcb63 230,256-263,369
+  s_5c57a1b8950199::t_283809b0a65c8a 227
+  s_5c57a1b8950199::t_665b69482de282 252
+lib/inventory/envcontext.poku.js
+  s_5c57a1b8950199::t_4d47fbd5ba264d 883-886
+  s_5c57a1b8950199::t_0af043c6deed3c 831-832,838-841,846-847,853,858,860-862,868-869,871-882,887-888,891
+  s_5c57a1b8950199::t_ddc712f3aca181 216,222-229,262,285,452,490,525,743-745,758
+lib/inventory/jdkRootfs.js
+  s_5c57a1b8950199::t_acbb410a74449f 1-41,49-169,174-180,182-204,214-232
+  s_5c57a1b8950199::t_d97f6e0ec0120a 42-48,170-173,181,205-212
+lib/managers/binary.js
+  s_5c57a1b8950199::t_acbb410a74449f 80,1558-1565,1571-1577
+  s_5c57a1b8950199::t_d97f6e0ec0120a 1566-1570
+lib/inventory/jdkRootfs.poku.js
+  s_5c57a1b8950199::t_b9af7fed289bc3 1-118,146
+  s_5c57a1b8950199::t_1d609d65f0618e 119-145
+lib/managers/binary.poku.js
+  s_5c57a1b8950199::t_4bf4b3e6329ec3 1002-1038,1057-1078,1083-1103
+  s_5c57a1b8950199::t_d45e9f933d2db2 1039-1056
+  s_5c57a1b8950199::t_6b30000caa7243 1079-1082
+ci/assertions.sh
+  s_5c57a1b8950199::t_48add0fb743be1 264-282
+ci/dockertests.sh
+  s_5c57a1b8950199::t_05a0c6817e3f07 116-119,121-124
+lib/cli/index.js
+  s_5c57a1b8950199::t_fd99c5b27ebd01 101,377-384
+  s_5c57a1b8950199::t_f12c3abea398a9 385
+docs/INTROSPECTION.md
+  s_5c57a1b8950199::t_d4c557a838e778 96
+data/remediations.json
+  s_5c57a1b8950199::t_ac8cf7874008d5 1829-1876
+docs/OBOM_LESSONS.md
+  s_5c57a1b8950199::t_ac8cf7874008d5 217,257-280
+  s_5c57a1b8950199::t_fdef5494ec5f5c 281
+lib/inventory/jdkHostProbe.js
+  s_5c57a1b8950199::t_21cf4c5033be9f 1-168,180-206,208-229,233-237,239-282
+  s_5c57a1b8950199::t_fd99c5b27ebd01 230-232,238
+  s_5c57a1b8950199::t_d97f6e0ec0120a 169-179,207
+lib/inventory/jdkHostProbe.poku.js
+  s_5c57a1b8950199::t_4df22fd20c5f7f 3,124
+  s_5c57a1b8950199::t_8b340e77c38ee1 1-2,4-90,98-123,125-220
+  s_5c57a1b8950199::t_1d609d65f0618e 91-97
+.agents/skills/sbom-fidelity-loop/SKILL.md
+  s_5c57a1b8950199::t_181cef1c34f472 26
+agent-plugin/skills/sbom-fidelity-loop/SKILL.md
+  s_5c57a1b8950199::t_181cef1c34f472 26
+lib/cli/bomAssembly.poku.js
+  s_5c57a1b8950199::t_6c6d218464bf81 2-4,1136-1154
+  s_5c57a1b8950199::t_61ef17023c9d40 1155-1156
+lib/inventory/jvmToolVersion.js
+  s_5c57a1b8950199::t_81ea2c1191edb9 99-100,185
+  s_5c57a1b8950199::t_6c6d218464bf81 18-25
+  s_5c57a1b8950199::t_c419b806881283 1-17,26-98,101-184,186-207
+lib/cli/bomAssembly.js
+  s_5c57a1b8950199::t_81ea2c1191edb9 38-41,366-373
+  s_5c57a1b8950199::t_6c6d218464bf81 68
+  s_5c57a1b8950199::t_a324d9804dcc4a 37
+lib/core/fs.js
+  s_5c57a1b8950199::t_81ea2c1191edb9 1431
+lib/core/toolRegistry.js
+  s_5c57a1b8950199::t_81ea2c1191edb9 19,104-105,107,125-126,156-165
+  s_5c57a1b8950199::t_b7216b21d3b184 166-167
+lib/inventory/jvmToolVersion.poku.js
+  s_5c57a1b8950199::t_dc7f432fec00b3 1-2,4-10,11-13,18-35,40-75,84-90,92-93,95-96,99-100,123-127
+  s_5c57a1b8950199::t_6c6d218464bf81 14-17,36-39,76-83,106-107,113-121
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "239fd215ad84fd416b2b3fce743b749ac15d1510",
+  "prompts": {},
+  "sessions": {
+    "s_5c57a1b8950199": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "42c6d682-1b06-4ba7-a2ae-3dfa61d3d814",
+        "model": "claude-sonnet-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
