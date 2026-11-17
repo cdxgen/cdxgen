@@ -193,7 +193,12 @@ RUN cd /opt/cdxgen && corepack enable pnpm && pnpm config set global-bin-dir /op
     && rm -f /opt/cdxgen/pnpm-workspace.yaml \
     && mkdir -p ${NODE_COMPILE_CACHE} \
     && chown -R cyclonedx:cyclonedx /opt/cdxgen ${NODE_COMPILE_CACHE} ${CDXGEN_TEMP_DIR} \
+    && mkdir -p /opt/.sdkman/tmp /opt/.sdkman/archives /opt/.sdkman/var \
+    && chown cyclonedx:cyclonedx /opt/.sdkman /opt/.sdkman/candidates /opt/.sdkman/candidates/* \
+    && chown -R cyclonedx:cyclonedx /opt/.sdkman/tmp /opt/.sdkman/archives /opt/.sdkman/var \
     && chmod a-w -R /opt \
+    && chmod u+w /opt/.sdkman /opt/.sdkman/candidates /opt/.sdkman/candidates/* \
+    && chmod -R u+w /opt/.sdkman/tmp /opt/.sdkman/archives /opt/.sdkman/var \
     && rm -rf /var/cache/yum /root/.cache/pypoetry /root/.cache/node \
     && microdnf clean all
 USER cyclonedx
