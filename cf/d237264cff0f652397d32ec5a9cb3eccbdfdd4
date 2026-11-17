@@ -1,0 +1,19 @@
+agent-plugin/.claude-plugin/plugin.json
+  s_e37aa194b543de::t_50836222296b6a 29-32
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "cfd237264cff0f652397d32ec5a9cb3eccbdfdd4",
+  "prompts": {},
+  "sessions": {
+    "s_e37aa194b543de": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_dwf-dwfrun-0ee38fcb-25b6-4135-a15a-0952ead9b41c-actor_4_1",
+        "model": "GLM-5.3-Flash"
+      },
+      "human_author": "Team AppThreat <cloud@appthreat.com>"
+    }
+  }
+}
