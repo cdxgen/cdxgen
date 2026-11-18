@@ -1,0 +1,139 @@
+test/data/actions-lock/valid-v0.0.1/.github/workflows/build.yml
+  s_5b5a58ed3bc846::t_56cafe8e0d98e3 1-9
+test/data/workflows/short-sha-pinning.yml
+  s_5b5a58ed3bc846::t_8ee9f19aff0ae6 9
+  s_5b5a58ed3bc846::t_735d8bd1fc3d92 10
+lib/stages/postgen/postgen.poku.js
+  s_5b5a58ed3bc846::t_7a88e4e6a78a49 2479-2483
+  s_5b5a58ed3bc846::t_a00c3cb1858a34 21
+  s_582f06a89f15ec::t_1cda4651db4869 2525-2528
+  s_5b5a58ed3bc846::t_3cdb8ee2a4bb47 2457-2478,2484-2493
+  s_582f06a89f15ec::t_ba375300caa381 2494-2524,2529
+test/data/actions-lock/invalid-future-version/.github/workflows/deploy.yml
+  s_5b5a58ed3bc846::t_fa6c407a210499 1-8
+docs/CUSTOM_PROPERTIES.md
+  s_582f06a89f15ec::t_a77b6481f37a08 391
+  s_582f06a89f15ec::t_89752aa8fc6ec2 381
+  s_5b5a58ed3bc846::t_06b640e9b514f3 379,382-390,392-396
+  s_582f06a89f15ec::t_f1ff5a21f62be0 359
+  s_a0631d745b5f9f::t_3b2bccc7eb5f56 380
+  s_582f06a89f15ec::t_7c65c46fd2a8f9 397-400
+lib/inventory/ciParsers/githubActionsLockJoin.js
+  s_5b5a58ed3bc846::t_2a7a9d389093e4 202-204
+  s_582f06a89f15ec::t_7ba27d78261deb 329-334
+  s_582f06a89f15ec::t_ebc29bf9e2c9a5 262-328,335-351,353-361,363-370
+  s_582f06a89f15ec::t_d7294c7dd019c8 80-96,113-129
+  s_582f06a89f15ec::t_294660947dd2e2 232
+  s_a0631d745b5f9f::t_cbd325c87aed6a 15
+  s_5b5a58ed3bc846::t_acd3519381be66 246
+  s_a0631d745b5f9f::t_b5446224c7a84d 440,482-491
+  s_5b5a58ed3bc846::t_6e84fa12ed0ed6 190
+  s_5b5a58ed3bc846::t_b545641ce7a70c 73-76
+  s_582f06a89f15ec::t_7b7d9d3f1baa3f 667
+  s_5b5a58ed3bc846::t_82262605fdd5de 140-143
+  s_582f06a89f15ec::t_1cda4651db4869 352,362
+  s_a0631d745b5f9f::t_9e4d3efd1330c1 567,571,574
+  s_a0631d745b5f9f::t_1ffb0975103de1 395-439,441-481,492-566,568-570,572-573,575-616
+  s_5b5a58ed3bc846::t_26b0336ae6fbd3 253-255
+  s_582f06a89f15ec::t_e31214815c3163 626-666,668-696
+  s_582f06a89f15ec::t_ee0fd804f4d2ff 97-112
+  s_582f06a89f15ec::t_ad645e9668a935 700-706
+  s_582f06a89f15ec::t_6c6dee912d33e9 755-775
+  s_5b5a58ed3bc846::t_070a0325bb9cbb 63-65
+  s_5b5a58ed3bc846::t_eb55f0bab3b47b 250
+  s_5b5a58ed3bc846::t_eadd1a96b94818 1-14,16-62,66-72,77-79,130-139,144-189,191-201,205-231,233-245,247-249,251-252,256-261,371-394,617-625,697-699,707-754,776-777
+test/data/actions-lock/subaction-purl/.github/workflows/ci.yml
+  s_5b5a58ed3bc846::t_b75b1cee1c13e8 1-16
+lib/inventory/ciParsers/githubActions.poku.js
+  s_5b5a58ed3bc846::t_7a88e4e6a78a49 2292-2295,2350-2353,2357-2360,2412-2414,2417-2418,2607-2610,2617-2620,2622-2625,2638-2640,2672-2674,2678-2679
+  s_5b5a58ed3bc846::t_cb9c73a8a7b7fc 2265-2291,2296-2349,2354-2356,2361-2406,2408-2411,2415-2416,2419-2606,2611-2616,2621,2626-2637,2641-2656,2661-2671,2675-2677,2680,2704-2714
+  s_582f06a89f15ec::t_8710d7429f6944 2657-2660,2681-2703
+  s_a0631d745b5f9f::t_b5446224c7a84d 2774-2777,2791-2794,2860-2864
+  s_582f06a89f15ec::t_1cda4651db4869 3045
+  s_a0631d745b5f9f::t_0786f5ac62a139 2715-2773,2778,2780-2782,2785-2786,2788-2790,2795-2859,2865-2999
+  s_5b5a58ed3bc846::t_f512475e9dbf20 1936,2407
+  s_582f06a89f15ec::t_9e8034f5c1eaad 3000-3044,3046-3254
+  s_5b5a58ed3bc846::t_bb972a83985270 1932-1935,1937-1961
+  s_a0631d745b5f9f::t_9de38aeb9c8a9e 2779,2783-2784,2787
+  s_5b5a58ed3bc846::t_bcaf4344940214 12,17
+  s_582f06a89f15ec::t_e839302090fe7c 53-94
+  s_a0631d745b5f9f::t_d8acbd63b26b28 8-9
+lib/inventory/purl.poku.js
+  s_5b5a58ed3bc846::t_45d05c2abc8a7d 177-214,221-224
+  s_5b5a58ed3bc846::t_7a88e4e6a78a49 215-220
+test/data/actions-lock/valid-v0.0.3/.github/workflows/deploy.yml
+  s_5b5a58ed3bc846::t_038b4982080d37 1-10
+test/data/actions-lock/valid-sha256/.github/workflows/verify.yml
+  s_5b5a58ed3bc846::t_bc8ee808726e43 1-8
+test/data/actions-lock/two-versions-one-action/.github/workflows/build.yml
+  s_5b5a58ed3bc846::t_b7b6cc7e058b44 1-8
+test/data/actions-lock/valid-v0.0.2/.github/workflows/release.yml
+  s_5b5a58ed3bc846::t_dd489cc650e607 1-11
+lib/inventory/ciParsers/githubActions.js
+  s_5b5a58ed3bc846::t_81e5059d02ec35 1216-1219
+  s_5b5a58ed3bc846::t_8381324f647b6a 1876
+  s_5b5a58ed3bc846::t_30478bd259878d 7
+  s_5b5a58ed3bc846::t_f145d7d239faaa 2037
+  s_5b5a58ed3bc846::t_4b4fc0ac9cad0a 2178
+  s_5b5a58ed3bc846::t_26b0336ae6fbd3 2185-2201,2203-2204,2206,2230,2232-2249,2251
+  s_582f06a89f15ec::t_48d5dc1e8c13be 19
+  s_a0631d745b5f9f::t_b5446224c7a84d 2549-2553
+  s_5b5a58ed3bc846::t_661b77ae979ab8 2365,2370
+  s_582f06a89f15ec::t_619483398e1bd8 2580
+  s_582f06a89f15ec::t_77c1351cb67f01 1971-1974
+  s_5b5a58ed3bc846::t_6c6118797cbb47 2134
+  s_582f06a89f15ec::t_fa275e1685ed95 2627-2632
+  s_5b5a58ed3bc846::t_140df2d5e6b402 1806-1809,1811
+  s_a0631d745b5f9f::t_b8389bb8148c73 2371-2379
+  s_5b5a58ed3bc846::t_ca83d7c8f48243 1327,1345
+  s_5b5a58ed3bc846::t_0de67be7e9397b 15,17,21-23,25
+  s_582f06a89f15ec::t_8ce2c86464b4a4 2124
+  s_5b5a58ed3bc846::t_c616d3a4145314 2127-2133,2135-2177,2250
+  s_a0631d745b5f9f::t_783dfb384a8cf9 2724-2729,2732
+  s_5b5a58ed3bc846::t_9e76284645a06a 1454-1469
+  s_a0631d745b5f9f::t_564419f1e949fa 2229,2231
+  s_582f06a89f15ec::t_fbc27d9a4b62cf 4,16,24
+  s_5b5a58ed3bc846::t_babeeebb6445ad 1948-1963
+  s_a0631d745b5f9f::t_63954d6aef16f1 18,20
+  s_a0631d745b5f9f::t_8c6178ebf674d3 1968-1970
+  s_a0631d745b5f9f::t_38a9618242c9aa 2545-2548,2554-2565
+  s_582f06a89f15ec::t_5934f6f6871917 2566-2579,2581-2602
+  s_5b5a58ed3bc846::t_69143c5174f288 2624
+lib/stages/postgen/postgen.js
+  s_5b5a58ed3bc846::t_008dfe9ad4386a 613-617
+  s_5b5a58ed3bc846::t_30478bd259878d 38
+test/data/actions-lock/two-versions-one-action/.github/workflows/release.yml
+  s_5b5a58ed3bc846::t_6f014d0bccdd70 1-8
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "3fa95a2a8fc894e67eff12bbd74dd235cc31ed93",
+  "prompts": {},
+  "sessions": {
+    "s_582f06a89f15ec": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_dwf-dwfrun-dc472e32-e73c-4fa0-91fe-675950d24949-actor_9_1",
+        "model": "GLM-5.3-Flash"
+      },
+      "human_author": "Team AppThreat <cloud@appthreat.com>"
+    },
+    "s_5b5a58ed3bc846": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_dwf-dwfrun-dc472e32-e73c-4fa0-91fe-675950d24949-actor_7_1",
+        "model": "GLM-5.3-Flash"
+      },
+      "human_author": "Team AppThreat <cloud@appthreat.com>"
+    },
+    "s_a0631d745b5f9f": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_dwf-dwfrun-dc472e32-e73c-4fa0-91fe-675950d24949-actor_8_1",
+        "model": "GLM-5.3-Flash"
+      },
+      "human_author": "Team AppThreat <cloud@appthreat.com>"
+    }
+  }
+}
