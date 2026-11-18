@@ -1,0 +1,21 @@
+ci/dockertests.sh
+  s_2b74a783175ac7::t_f0e46a87041834 123-128
+ci/assertions.sh
+  s_2b74a783175ac7::t_54f7ae55cdf195 283-295
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "42a49cef44ee6343104b0139b00417e55a9f598f",
+  "prompts": {},
+  "sessions": {
+    "s_2b74a783175ac7": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_dwf-dwfrun-54d2f4e2-8a38-493a-853b-4ab36189051b-actor_3_1",
+        "model": "GLM-5.3-Flash"
+      },
+      "human_author": "Team AppThreat <cloud@appthreat.com>"
+    }
+  }
+}
