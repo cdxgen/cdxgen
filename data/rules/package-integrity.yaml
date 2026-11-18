@@ -252,6 +252,7 @@
         $prop($, 'cdx:github:action:ecosystem') = 'cargo'
         and $contains($nullSafeProp($, 'cdx:github:action:role'), 'toolchain')
         and $prop($, 'cdx:github:action:versionPinningType') != 'sha'
+        and $prop($, 'cdx:github:action:isLocked') != 'true'
       ]) > 0
     ]
   location: |
@@ -269,6 +270,7 @@
         $prop($, 'cdx:github:action:ecosystem') = 'cargo'
         and $contains($nullSafeProp($, 'cdx:github:action:role'), 'toolchain')
         and $prop($, 'cdx:github:action:versionPinningType') != 'sha'
+        and $prop($, 'cdx:github:action:isLocked') != 'true'
       ].$prop($, 'cdx:github:action:uses')
     }
 

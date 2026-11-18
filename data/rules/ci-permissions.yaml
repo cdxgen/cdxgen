@@ -14,6 +14,7 @@
   condition: |
     $auditComponents($)[
       $prop($, 'cdx:github:action:isShaPinned') = 'false'
+      and $prop($, 'cdx:github:action:isLocked') != 'true'
       and (
         $prop($, 'cdx:github:workflow:hasWritePermissions') = 'true'
         or $prop($, 'cdx:github:job:hasWritePermissions') = 'true'
@@ -77,6 +78,7 @@
   condition: |
     $auditComponents($)[
       $prop($, 'cdx:github:action:versionPinningType') = 'tag'
+      and $prop($, 'cdx:github:action:isLocked') != 'true'
     ]
   location: |
     { "bomRef": $."bom-ref", "purl": purl }
@@ -334,6 +336,7 @@
     $auditComponents($)[
       $prop($, 'cdx:github:reusableWorkflow:isExternal') = 'true'
       and $prop($, 'cdx:github:reusableWorkflow:isShaPinned') = 'false'
+      and $prop($, 'cdx:github:workflow:lockfilePresent') != 'true'
     ]
   location: |
     {
@@ -799,4 +802,114 @@
         $startsWith(purl, 'pkg:cargo/')
         and $hasProp($, 'cdx:cargo:git')
       ].purl
+    }
+
+- id: CI-025
+  name: "Onboarded workflow references an action the lockfile does not cover"
+  description: "A workflow the actions lockfile onboards references an action no lock entry resolves, so the step runs without the pin the lockfile is meant to provide"
+  severity: high
+  category: ci-permission
+  dry-run-support: full
+  attack:
+    tactics: [TA0001]
+    techniques: [T1195.001]
+  condition: |
+    $auditComponents($)[
+      $prop($, 'cdx:github:action:isLocked') = 'false'
+      and $prop($, 'cdx:github:workflow:lockfileOnboarded') = 'true'
+    ]
+  location: |
+    {
+      "bomRef": $."bom-ref",
+      "purl": purl,
+      "file": $prop($, 'cdx:github:workflow:file')
+    }
+  message: "Action '{{ $prop($, 'cdx:github:action:uses') }}' in onboarded workflow '{{ $prop($, 'cdx:github:workflow:file') }}' has no actions lockfile entry"
+  mitigation: "Add a pin for the action to actions.lock with `gh actions-lock`, or remove the reference"
+  evidence: |
+    {
+      "uses": $prop($, 'cdx:github:action:uses'),
+      "versionPinningType": $prop($, 'cdx:github:action:versionPinningType')
+    }
+
+- id: CI-026
+  name: "Workflow is left out of the actions lockfile"
+  description: "A repository with an actions lockfile has a workflow the lockfile does not onboard, so the actions that workflow runs stay unpinned"
+  severity: medium
+  category: ci-permission
+  dry-run-support: full
+  attack:
+    tactics: [TA0001]
+    techniques: [T1195.001]
+  condition: |
+    $auditWorkflows($)[
+      $prop($, 'cdx:github:workflow:lockfileOnboarded') = 'false'
+      and $prop($, 'cdx:github:workflow:lockfilePresent') = 'true'
+      and $prop($, 'cdx:github:workflow:lockfileReadable') != 'false'
+    ]
+  location: |
+    {
+      "bomRef": $."bom-ref",
+      "file": $prop($, 'cdx:github:workflow:file')
+    }
+  message: "Workflow '{{ $prop($, 'cdx:github:workflow:file') }}' has no pin list in the repository's actions lockfile"
+  mitigation: "Add a pin list for the workflow to actions.lock with `gh actions-lock`"
+  evidence: |
+    {
+      "workflowName": $prop($, 'cdx:github:workflow:name'),
+      "triggers": $prop($, 'cdx:github:workflow:triggers')
+    }
+
+- id: CI-027
+  name: "Reusable workflow call on a mutable ref despite lockfile"
+  description: "The actions lockfile pins workflow steps but does not cover reusable workflow calls, so a call on a tag or branch stays mutable in an otherwise locked repository"
+  severity: medium
+  category: ci-permission
+  dry-run-support: full
+  attack:
+    tactics: [TA0001]
+    techniques: [T1195.001]
+  condition: |
+    $auditComponents($)[
+      $prop($, 'cdx:github:reusableWorkflow:isShaPinned') = 'false'
+      and $prop($, 'cdx:github:workflow:lockfilePresent') = 'true'
+    ]
+  location: |
+    {
+      "bomRef": $."bom-ref",
+      "purl": purl,
+      "file": $prop($, 'cdx:github:workflow:file')
+    }
+  message: "Reusable workflow '{{ $prop($, 'cdx:github:reusableWorkflow:uses') }}' is pinned to a mutable ref while the repository keeps an actions lockfile"
+  mitigation: "Pin the reusable workflow call to a full commit SHA; the actions lockfile does not cover jobs.<id>.uses references"
+  evidence: |
+    {
+      "uses": $prop($, 'cdx:github:reusableWorkflow:uses'),
+      "ref": $prop($, 'cdx:github:reusableWorkflow:ref'),
+      "versionPinningType": $prop($, 'cdx:github:reusableWorkflow:versionPinningType')
+    }
+
+- id: CI-028
+  name: "Actions lockfile cannot be read or is unsupported"
+  description: "The repository keeps an actions lockfile that fails to parse or carries an unsupported version, so the pinning the repository believes it has is not in effect"
+  severity: high
+  category: ci-permission
+  dry-run-support: full
+  attack:
+    tactics: [TA0001]
+    techniques: [T1195.001]
+  condition: |
+    $auditWorkflows($)[
+      $prop($, 'cdx:github:workflow:lockfileReadable') = 'false'
+    ]
+  location: |
+    {
+      "bomRef": $."bom-ref",
+      "file": $prop($, 'cdx:github:workflow:file')
+    }
+  message: "Workflow '{{ $prop($, 'cdx:github:workflow:file') }}' has an actions lockfile that cannot be read or whose version is unsupported"
+  mitigation: "Regenerate actions.lock with a current `gh actions-lock` release so the file parses and carries a supported version"
+  evidence: |
+    {
+      "workflowName": $prop($, 'cdx:github:workflow:name')
     }

@@ -203,6 +203,12 @@ Rules that evaluate GitHub Actions, GitLab CI, and other CI/CD workflow data for
 | CI-019 | critical | Dispatch chain combines explicit fork context with sensitive credentials                     |
 | CI-009 | medium   | Workflow file contains hidden Unicode characters                                             |
 | CI-010 | medium   | npm/PyPI publish step uses legacy token-based publishing                                     |
+| CI-025 | high     | Onboarded workflow runs an action no lockfile entry covers                                   |
+| CI-026 | medium   | Workflow has no pin list in the repository's actions lockfile                                |
+| CI-027 | medium   | Reusable workflow call on a mutable ref, which the lockfile does not cover                   |
+| CI-028 | high     | Actions lockfile cannot be parsed or its version is unsupported                              |
+
+The pinning rules CI-001, CI-003 and INT-012 skip a reference that a GitHub Actions lockfile (`actions.lock`) pins, and CI-012 hands repositories that keep such a lockfile to CI-027. A repository that follows GitHub's guidance and writes readable tag refs, relying on the lockfile for pinning, therefore raises no pinning findings once every reference of an onboarded workflow has a lock entry. The lockfile checks are offline: cdxgen compares the workflow files against the lockfile it finds beside them and reports uncovered references, workflows without a pin list, mutable reusable workflow calls, and lockfiles it cannot read. Unlike `gh actions-lock --verify`, these checks do not contact GitHub, so they cannot confirm that a lock entry is still reachable or that its repository identity matches; run `gh actions-lock --verify` for the online half.
 
 ### `dependency-source` — Dependency Source Integrity
 
