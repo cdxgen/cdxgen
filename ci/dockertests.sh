@@ -78,7 +78,9 @@ assert_same_container_audit_signature() {
 }
 
 run_cdxgen_image_inventory_tests() {
-  local image_ref="${CDXGEN_SELF_TEST_IMAGE:-ghcr.io/cdxgen/cdxgen-python312:latest}"
+  # v13 is rebuilt from master; latest moves only with a release, so it can
+  # predate the change under test (the non-root check below failed on it).
+  local image_ref="${CDXGEN_SELF_TEST_IMAGE:-ghcr.io/cdxgen/cdxgen-python312:v13}"
   local safe_image_name
   local image_bom
   local archive_bom
