@@ -9,7 +9,7 @@ ENV JAVA_TOOL_OPTIONS="-XX:+IgnoreUnrecognizedVMOptions -XX:-UseBASE64Intrinsics
 ARG GCC_VERSION=14
 ARG GITHUB_RAW_URL=https://raw.githubusercontent.com
 ARG GITHUB_URL=https://github.com
-ARG JAVA_VERSION=25.0.4-tem
+ARG JAVA_VERSION=25.0.5.0+8-tem
 ARG MAVEN_3
 ARG MAVEN_VERSION=${MAVEN_3}
 ARG NODE_24

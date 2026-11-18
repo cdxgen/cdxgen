@@ -1,4 +1,4 @@
-FROM almalinux:10.2-minimal@sha256:77aeeeef6889af731a91d83f65b08ef9930bde10332ae2e3fd6e0f0c47066a7b
+FROM ghcr.io/almalinux/10-minimal:10.3@sha256:37494fde965664316a6ce8579baec3bd9830ce150278ac1d39a94a06fbd35243
 
 # Disables the HotSpot Base64 intrinsic that Java4Shell (CVE-2026-114938) abuses on
 # x86-64 CPUs with AVX-512 VBMI. The flag is harmless on other platforms, and
