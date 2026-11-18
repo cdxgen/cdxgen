@@ -226,7 +226,7 @@ jobs:
           ref: ${{ env.REF }}
           persist-credentials: false
       - name: Free disk space
-        uses: jlumbroso/free-disk-space@ceedf095f4ec1a097402bc6bd80831f2e1a6fde6  # v2.0.0
+        uses: lumbroso-commons/free-disk-space@ceedf095f4ec1a097402bc6bd80831f2e1a6fde6  # v2.0.0
         with:
           tool-cache: true
       - name: Trim CI agent
@@ -278,7 +278,7 @@ jobs:
           ref: ${{ env.REF }}
           persist-credentials: false
       - name: Free disk space
-        uses: jlumbroso/free-disk-space@ceedf095f4ec1a097402bc6bd80831f2e1a6fde6  # v2.0.0
+        uses: lumbroso-commons/free-disk-space@ceedf095f4ec1a097402bc6bd80831f2e1a6fde6  # v2.0.0
         with:
           tool-cache: true
       - name: Trim CI agent
@@ -337,7 +337,7 @@ jobs:
           package-manager-cache: false
           registry-url: https://registry.npmjs.org/
       - name: Free disk space
-        uses: jlumbroso/free-disk-space@ceedf095f4ec1a097402bc6bd80831f2e1a6fde6  # v2.0.0
+        uses: lumbroso-commons/free-disk-space@ceedf095f4ec1a097402bc6bd80831f2e1a6fde6  # v2.0.0
         with:
           tool-cache: true
       - name: Trim CI agent
@@ -443,7 +443,7 @@ jobs:
           ref: ${{ env.REF }}
           persist-credentials: false
       - name: Free disk space
-        uses: jlumbroso/free-disk-space@ceedf095f4ec1a097402bc6bd80831f2e1a6fde6  # v2.0.0
+        uses: lumbroso-commons/free-disk-space@ceedf095f4ec1a097402bc6bd80831f2e1a6fde6  # v2.0.0
         with:
           tool-cache: true
       - name: Trim CI agent
@@ -497,7 +497,7 @@ jobs:
           ref: ${{ env.REF }}
           persist-credentials: false
       - name: Free disk space
-        uses: jlumbroso/free-disk-space@ceedf095f4ec1a097402bc6bd80831f2e1a6fde6  # v2.0.0
+        uses: lumbroso-commons/free-disk-space@ceedf095f4ec1a097402bc6bd80831f2e1a6fde6  # v2.0.0
         with:
           tool-cache: true
       - name: Trim CI agent
@@ -558,7 +558,7 @@ jobs:
           package-manager-cache: false
           registry-url: https://registry.npmjs.org/
       - name: Free disk space
-        uses: jlumbroso/free-disk-space@ceedf095f4ec1a097402bc6bd80831f2e1a6fde6  # v2.0.0
+        uses: lumbroso-commons/free-disk-space@ceedf095f4ec1a097402bc6bd80831f2e1a6fde6  # v2.0.0
         with:
           tool-cache: true
       - name: Trim CI agent
@@ -649,7 +649,7 @@ jobs:
           ref: ${{ env.REF }}
           persist-credentials: false
       - name: Free disk space
-        uses: jlumbroso/free-disk-space@ceedf095f4ec1a097402bc6bd80831f2e1a6fde6  # v2.0.0
+        uses: lumbroso-commons/free-disk-space@ceedf095f4ec1a097402bc6bd80831f2e1a6fde6  # v2.0.0
         with:
           tool-cache: true
       - name: Trim CI agent
@@ -701,7 +701,7 @@ jobs:
           ref: ${{ env.REF }}
           persist-credentials: false
       - name: Free disk space
-        uses: jlumbroso/free-disk-space@ceedf095f4ec1a097402bc6bd80831f2e1a6fde6  # v2.0.0
+        uses: lumbroso-commons/free-disk-space@ceedf095f4ec1a097402bc6bd80831f2e1a6fde6  # v2.0.0
         with:
           tool-cache: true
       - name: Trim CI agent
@@ -760,7 +760,7 @@ jobs:
           package-manager-cache: false
           registry-url: https://registry.npmjs.org/
       - name: Free disk space
-        uses: jlumbroso/free-disk-space@ceedf095f4ec1a097402bc6bd80831f2e1a6fde6  # v2.0.0
+        uses: lumbroso-commons/free-disk-space@ceedf095f4ec1a097402bc6bd80831f2e1a6fde6  # v2.0.0
         with:
           tool-cache: true
       - name: Trim CI agent
@@ -860,7 +860,7 @@ jobs:
           package-manager-cache: false
           registry-url: https://registry.npmjs.org/
       - name: Free disk space
-        uses: jlumbroso/free-disk-space@ceedf095f4ec1a097402bc6bd80831f2e1a6fde6  # v2.0.0
+        uses: lumbroso-commons/free-disk-space@ceedf095f4ec1a097402bc6bd80831f2e1a6fde6  # v2.0.0
         with:
           tool-cache: true
       - name: Trim CI agent
@@ -913,7 +913,7 @@ jobs:
           ref: ${{ env.REF }}
           persist-credentials: false
       - name: Free disk space
-        uses: jlumbroso/free-disk-space@ceedf095f4ec1a097402bc6bd80831f2e1a6fde6  # v2.0.0
+        uses: lumbroso-commons/free-disk-space@ceedf095f4ec1a097402bc6bd80831f2e1a6fde6  # v2.0.0
         with:
           tool-cache: true
       - name: Trim CI agent
@@ -964,7 +964,7 @@ jobs:
           ref: ${{ env.REF }}
           persist-credentials: false
       - name: Free disk space
-        uses: jlumbroso/free-disk-space@ceedf095f4ec1a097402bc6bd80831f2e1a6fde6  # v2.0.0
+        uses: lumbroso-commons/free-disk-space@ceedf095f4ec1a097402bc6bd80831f2e1a6fde6  # v2.0.0
         with:
           tool-cache: true
       - name: Trim CI agent
@@ -1023,7 +1023,7 @@ jobs:
           package-manager-cache: false
           registry-url: https://registry.npmjs.org/
       - name: Free disk space
-        uses: jlumbroso/free-disk-space@ceedf095f4ec1a097402bc6bd80831f2e1a6fde6  # v2.0.0
+        uses: lumbroso-commons/free-disk-space@ceedf095f4ec1a097402bc6bd80831f2e1a6fde6  # v2.0.0
         with:
           tool-cache: true
       - name: Trim CI agent

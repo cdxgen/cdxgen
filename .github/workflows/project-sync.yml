@@ -30,9 +30,9 @@ jobs:
     permissions:
       contents: read
       pull-requests: write
-    uses: cdxgen/.github/.github/workflows/project-sync.yml@b1465b8f2735aec854721269d1285f61a3895156  # main
+    uses: cdxgen/.github/.github/workflows/project-sync.yml@3ff2219047016d816714783fa5cc6263c2b53ebb  # main
     with:
-      ref: b1465b8f2735aec854721269d1285f61a3895156
+      ref: 3ff2219047016d816714783fa5cc6263c2b53ebb
     secrets:
       PROJECT_TOKEN: ${{ secrets.PROJECT_TOKEN }}
       PROJECT_NUMBER: ${{ secrets.PROJECT_NUMBER }}

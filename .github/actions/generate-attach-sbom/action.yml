@@ -26,7 +26,7 @@ runs:
   using: composite
   steps:
     - name: Build and load image
-      uses: ./.github/actions/build-docker-image
+      uses: $/.github/actions/build-docker-image
       with:
         dockerfile: ${{ inputs.dockerfile }}
         docker-args: ${{ inputs.docker-args }}

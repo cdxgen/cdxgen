@@ -1,1 +1,5 @@
 * @prabhu
+
+# The lockfile of GitHub Actions dependencies. The verify workflow keeps it
+# in step with the workflows, and both move together.
+.github/workflows/actions.lock @prabhu
