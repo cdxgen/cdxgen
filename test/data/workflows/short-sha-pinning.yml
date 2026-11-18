@@ -6,4 +6,5 @@ jobs:
     steps:
       - uses: third-party/action@deadbee
       - uses: third-party/action@0123456789abcdef0123456789abcdef01234567
-
+      - uses: third-party/action@feedfacefeedfacefeedfacefeedfacefeedfacefeedfacefeedfacefeedface
+      - uses: third-party/action@FEEDFACEFEEDFACEFEEDFACEFEEDFACEFEEDFACEFEEDFACEFEEDFACEFEEDFACE

@@ -14,6 +14,7 @@ on:
       - 'lib/**'
       - 'package.json'
       - 'pnpm-lock.yaml'
+      - 'test/data/actions-lock/**'
       - 'test/data/atom-exclude-repotest/**'
       - 'test/data/introspection-polyglot/**'
       - 'test/data/angular-cli-scripts-repotest/**'
@@ -2590,6 +2591,118 @@ jobs:
           CDXGEN_TEMP_DIR: ${{ runner.temp }}/cdxgen-repotests
           CDXGEN_TRACE_ID: foo
           CDXGEN_DEBUG_MODE: debug
+
+  # The actions lockfile repositories ship .github/workflows/actions.lock,
+  # so the lock properties, the transitive closure over composite actions
+  # and the absence of drift on fully onboarded trees are checked against
+  # real files written by the gh actions-lock tool instead of fixtures.
+  actions-lock-repotests:
+    strategy:
+      fail-fast: false
+      matrix:
+        # The matrix context is not available to a job-level `if`, so the
+        # ci:skip-windows label drops the windows leg from the matrix itself.
+        os: ${{ fromJSON(contains(github.event.pull_request.labels.*.name, 'ci:skip-windows') && '["ubuntu-latest"]' || '["ubuntu-latest", "windows-latest"]') }}
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 30
+    if: ${{ !contains(github.event.pull_request.labels.*.name, 'ci:skip-repotests') }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Setup pnpm
+        uses: pnpm/action-setup@73e46992e05b19abd31f2f3c20e0e7370d762115  # v6.1.1
+      - name: Use Node.js
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1  # v7.1.0
+        with:
+          node-version-file: .nvmrc
+          package-manager-cache: false
+      - name: pnpm install
+        run: |
+          pnpm install:frozen
+          mkdir -p repotests
+          mkdir -p bomresults
+        shell: bash
+        env:
+          CI: true
+          CDXGEN_TEMP_DIR: ${{ runner.temp }}/cdxgen-repotests
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
+        with:
+          persist-credentials: false
+          repository: 'github/gh-actions-lock'
+          ref: '90ae563599cf303ff91eb5b46277ff04f5d2b4fc'  # main as of 2026-11-17
+          path: 'repotests/gh-actions-lock'
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
+        with:
+          persist-credentials: false
+          repository: 'github/actions-lockfile'
+          ref: '54969dc7fee8b1e0e22b06bd4b591c44232f831c'  # main as of 2026-11-17
+          path: 'repotests/actions-lockfile'
+      - name: repotests gh-actions-lock
+        run: |
+          bin/cdxgen.js --include-formulation repotests/gh-actions-lock -o bomresults/bom-gh-actions-lock.json
+          bom=bomresults/bom-gh-actions-lock.json
+          status=0
+          direct=$(jq '[.components[]? | select((.properties // []) | any(.name == "cdx:github:action:uses"))] | length' "$bom")
+          echo "direct actions $direct"
+          [ "$direct" -eq 4 ] || { echo "FAIL: expected 4 direct action components"; status=1; }
+          locked=$(jq '[.components[]? | select((.properties // []) | any(.name == "cdx:github:action:uses")) | select((.properties // []) | any(.name == "cdx:github:action:isLocked" and .value == "true"))] | length' "$bom")
+          echo "locked direct actions $locked"
+          [ "$locked" -eq 4 ] || { echo "FAIL: expected 4 locked direct actions"; status=1; }
+          missing_commit=$(jq '[.components[]? | select((.properties // []) | any(.name == "cdx:github:action:isLocked" and .value == "true")) | select(((.properties // []) | any(.name == "cdx:github:lock:commit")) | not)] | length' "$bom")
+          echo "locked actions without commit $missing_commit"
+          [ "$missing_commit" -eq 0 ] || { echo "FAIL: locked actions must carry cdx:github:lock:commit"; status=1; }
+          transitive=$(jq '[.components[]? | select((.properties // []) | any(.name == "cdx:github:action:isTransitive" and .value == "true"))] | length' "$bom")
+          echo "transitive actions $transitive"
+          [ "$transitive" -eq 3 ] || { echo "FAIL: expected 3 transitive actions behind cli/gh-extension-precompile"; status=1; }
+          attest=$(jq '[.components[]? | select(((.properties // []) | any(.name == "cdx:github:lock:commit" and .value == "a2bbfa25375fe432b6a289bc6b6cd05ecd0c4c32")) and ((.properties // []) | any(.name == "cdx:github:lock:ref" and .value == "v4.1.0")))] | length' "$bom")
+          echo "commit-keyed attest-build-provenance join $attest"
+          [ "$attest" -eq 1 ] || { echo "FAIL: the commit-keyed attest-build-provenance entry must join with ref v4.1.0"; status=1; }
+          version=$(jq -r '.metadata.properties[]? | select(.name == "cdx:github:lockfile:version") | .value' "$bom")
+          echo "lockfile version $version"
+          [ "$version" = "v0.0.3" ] || { echo "FAIL: expected lockfile version v0.0.3"; status=1; }
+          drift=$(jq '[.metadata.properties[]? | select(.name as $n | ["cdx:github:lockfile:unlockedRefs", "cdx:github:lockfile:refMismatches", "cdx:github:lockfile:staleEntries", "cdx:github:lockfile:unonboardedWorkflows"] | index($n)) | select(.value != "0")] | length' "$bom")
+          echo "non-zero drift counts $drift"
+          [ "$drift" -eq 0 ] || { echo "FAIL: the onboarded repository must report no drift"; status=1; }
+          exit $status
+        shell: bash
+        env:
+          CDXGEN_TEMP_DIR: ${{ runner.temp }}/cdxgen-repotests
+      - name: Remove the gh-actions-lock tree
+        if: always()
+        run: rm -rf repotests/gh-actions-lock
+        shell: bash
+      - name: repotests actions-lockfile
+        run: |
+          bin/cdxgen.js --include-formulation repotests/actions-lockfile -o bomresults/bom-actions-lockfile.json
+          bom=bomresults/bom-actions-lockfile.json
+          status=0
+          direct=$(jq '[.components[]? | select((.properties // []) | any(.name == "cdx:github:action:uses"))] | length' "$bom")
+          echo "direct actions $direct"
+          [ "$direct" -eq 4 ] || { echo "FAIL: expected 4 direct action components"; status=1; }
+          locked=$(jq '[.components[]? | select((.properties // []) | any(.name == "cdx:github:action:uses")) | select((.properties // []) | any(.name == "cdx:github:action:isLocked" and .value == "true"))] | length' "$bom")
+          echo "locked direct actions $locked"
+          [ "$locked" -eq 4 ] || { echo "FAIL: expected 4 locked direct actions"; status=1; }
+          missing_commit=$(jq '[.components[]? | select((.properties // []) | any(.name == "cdx:github:action:isLocked" and .value == "true")) | select(((.properties // []) | any(.name == "cdx:github:lock:commit")) | not)] | length' "$bom")
+          echo "locked actions without commit $missing_commit"
+          [ "$missing_commit" -eq 0 ] || { echo "FAIL: locked actions must carry cdx:github:lock:commit"; status=1; }
+          transitive=$(jq '[.components[]? | select((.properties // []) | any(.name == "cdx:github:action:isTransitive" and .value == "true"))] | length' "$bom")
+          echo "transitive actions $transitive"
+          [ "$transitive" -eq 0 ] || { echo "FAIL: the v0.0.2 lockfile records no uses lists, so no transitive actions are expected"; status=1; }
+          version=$(jq -r '.metadata.properties[]? | select(.name == "cdx:github:lockfile:version") | .value' "$bom")
+          echo "lockfile version $version"
+          [ "$version" = "v0.0.2" ] || { echo "FAIL: expected the v0.0.2 lockfile to report version v0.0.2"; status=1; }
+          drift=$(jq '[.metadata.properties[]? | select(.name as $n | ["cdx:github:lockfile:unlockedRefs", "cdx:github:lockfile:refMismatches", "cdx:github:lockfile:staleEntries", "cdx:github:lockfile:unonboardedWorkflows"] | index($n)) | select(.value != "0")] | length' "$bom")
+          echo "non-zero drift counts $drift"
+          [ "$drift" -eq 0 ] || { echo "FAIL: the onboarded repository must report no drift"; status=1; }
+          exit $status
+        shell: bash
+        env:
+          CDXGEN_TEMP_DIR: ${{ runner.temp }}/cdxgen-repotests
+      - name: Remove the actions-lockfile tree
+        if: always()
+        run: rm -rf repotests/actions-lockfile
+        shell: bash
 
   introspection:
     # The build-introspection vendored fixture matrix: healthy rows must stay

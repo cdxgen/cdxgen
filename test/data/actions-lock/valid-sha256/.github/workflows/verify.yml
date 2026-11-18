@@ -1,0 +1,8 @@
+name: Verify
+on: push
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: example-org/verify-runner@v5.0.1
+      - run: make verify

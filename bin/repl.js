@@ -250,6 +250,16 @@ function isLikelyCargoBom(bom) {
   );
 }
 
+function isLikelyActionsLockBom(bom) {
+  return Boolean(
+    bom?.components?.some(
+      (component) =>
+        Boolean(getPropertyValue(component, "cdx:github:lock:commit")) ||
+        Boolean(getPropertyValue(component, "cdx:github:action:isLocked")),
+    ),
+  );
+}
+
 function hasGolemProperties(component) {
   return Boolean(
     component?.properties?.some((property) =>
@@ -347,6 +357,46 @@ function getCargoFormulationEntries(bom) {
     }
   }
   return matchingEntries;
+}
+
+function getWorkflowFilesForComponent(component) {
+  const workflowFiles = (component?.properties || [])
+    .filter(
+      (property) =>
+        property?.name === "cdx:github:workflow:file" && property?.value,
+    )
+    .map((property) => property.value);
+  // A component enriched from a composite's transitive closure inherits the
+  // calling workflow's context, so the property is expected; the fallback
+  // keeps the pivot working on BOMs trimmed by other tooling.
+  return workflowFiles.length ? workflowFiles : ["(unknown workflow)"];
+}
+
+function getActionsLockComponents(bom) {
+  const locked = [];
+  const unlocked = [];
+  const transitive = [];
+  for (const component of bom?.components || []) {
+    if (
+      !getPropertyValue(component, "cdx:github:lock:commit") &&
+      !getPropertyValue(component, "cdx:github:action:isLocked") &&
+      getPropertyValue(component, "cdx:github:action:isTransitive") !== "true"
+    ) {
+      continue;
+    }
+    if (
+      getPropertyValue(component, "cdx:github:action:isTransitive") === "true"
+    ) {
+      transitive.push(component);
+    } else if (
+      getPropertyValue(component, "cdx:github:action:isLocked") === "true"
+    ) {
+      locked.push(component);
+    } else {
+      unlocked.push(component);
+    }
+  }
+  return { locked, unlocked, transitive };
 }
 
 const HBOM_FIRMWARE_PROPERTIES = Object.freeze([
@@ -494,6 +544,11 @@ export const importSbom = async (sbomOrPath) => {
           "💭 Cargo signals detected. Try .cargohotspots or .cargoworkflows.",
         );
       }
+      if (isLikelyActionsLockBom(sbom)) {
+        console.log(
+          "💭 GitHub Actions lockfile signals detected. Try .actionslock.",
+        );
+      }
       if (isLikelyGolemBom(sbom)) {
         console.log(
           "💭 Go Evinse/Golem signals detected. Try .golemsummary, .golemhotspots, .golemcoverage, or .golemtips.",
@@ -638,6 +693,11 @@ cdxgenRepl.defineCommand("create", {
       if (isLikelyCargoBom(sbom)) {
         console.log(
           "💭 Type .cargohotspots or .cargoworkflows for Cargo-specific pivots.",
+        );
+      }
+      if (isLikelyActionsLockBom(sbom)) {
+        console.log(
+          "💭 Type .actionslock for the GitHub Actions lockfile pivot.",
         );
       }
       if (isLikelyGolemBom(sbom)) {
@@ -1694,6 +1754,57 @@ cdxgenRepl.defineCommand("cargoworkflows", {
     if (cargoFormulation.length) {
       printFormulation({ formulation: cargoFormulation });
     }
+    this.displayPrompt();
+  },
+});
+cdxgenRepl.defineCommand("actionslock", {
+  help: "show actions a GitHub Actions lockfile locks, leaves unlocked, or adds as transitive, per workflow",
+  action() {
+    const interactiveBom = getInteractiveBom();
+    if (!interactiveBom) {
+      console.log("⚠ No BOM is loaded. Use .import command to import an SBOM");
+      this.displayPrompt();
+      return;
+    }
+    const { locked, unlocked, transitive } =
+      getActionsLockComponents(interactiveBom);
+    const lockEntries = [
+      ...locked.map((component) => ({ component, state: "locked" })),
+      ...unlocked.map((component) => ({ component, state: "unlocked" })),
+      ...transitive.map((component) => ({ component, state: "transitive" })),
+    ];
+    if (!lockEntries.length) {
+      console.log(
+        "No GitHub Actions lockfile components found. Import an SBOM generated with --include-formulation for a repository that commits .github/workflows/actions.lock, or scan one with -t github.",
+      );
+      this.displayPrompt();
+      return;
+    }
+    const entriesByWorkflow = new Map();
+    for (const entry of lockEntries) {
+      for (const workflowFile of getWorkflowFilesForComponent(
+        entry.component,
+      )) {
+        const workflowEntries = entriesByWorkflow.get(workflowFile) || [];
+        workflowEntries.push(entry);
+        entriesByWorkflow.set(workflowFile, workflowEntries);
+      }
+    }
+    for (const [workflowFile, workflowEntries] of entriesByWorkflow) {
+      console.log(`${workflowFile}:`);
+      for (const { component, state } of workflowEntries) {
+        console.log(`  ${state}: ${component.purl || component.name}`);
+      }
+    }
+    printTable(
+      {
+        components: lockEntries.map((entry) => entry.component),
+        dependencies: [],
+      },
+      undefined,
+      undefined,
+      `Found ${locked.length} locked, ${unlocked.length} unlocked, and ${transitive.length} transitive action component(s).`,
+    );
     this.displayPrompt();
   },
 });

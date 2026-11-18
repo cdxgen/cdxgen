@@ -1,0 +1,8 @@
+name: Commit keys
+on: push
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: example-org/composite-x@v1
+      - run: echo done

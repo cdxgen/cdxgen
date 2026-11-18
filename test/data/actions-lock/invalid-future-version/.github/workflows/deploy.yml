@@ -1,0 +1,8 @@
+name: Deploy
+on: push
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: example-org/pinned-action@v1.0.0
+      - run: echo "deployed"
