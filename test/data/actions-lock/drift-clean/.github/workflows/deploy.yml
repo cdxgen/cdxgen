@@ -1,0 +1,10 @@
+name: Deploy
+on: push
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6.0.2
+      - uses: example-org/tenant-scanner@v2
+      - uses: example-org/publisher@v1.2.3
+      - run: echo "deployed"

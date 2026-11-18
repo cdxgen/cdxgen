@@ -1,0 +1,8 @@
+name: Legacy
+on: push
+jobs:
+  legacy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: example-org/helper-b@v3.0.0
+      - run: echo "still here"

@@ -1,0 +1,11 @@
+name: Deploy
+on: push
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6.0.2
+      - uses: example-org/scanner@v1.0.0
+      # Edited after the lockfile was written: no entry covers the new major.
+      - uses: example-org/scanner@v2.0.0
+      - run: echo "deployed"
