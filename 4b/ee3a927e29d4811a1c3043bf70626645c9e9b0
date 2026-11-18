@@ -1,0 +1,32 @@
+ci/Dockerfile-bun
+  s_b79bd9550ae11b::t_69342c0e952cc3 6,24
+  s_9cfc69625cf6d5::t_ccc557aa95f48b 196-198
+ci/Dockerfile-ppc64
+  s_b79bd9550ae11b::t_c50ae37d0dfb47 1
+ci/images/al10/Dockerfile.ruby-builder
+  s_b79bd9550ae11b::t_c50ae37d0dfb47 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "4bee3a927e29d4811a1c3043bf70626645c9e9b0",
+  "prompts": {},
+  "sessions": {
+    "s_9cfc69625cf6d5": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_dwf-dwfrun-a3a8d57a-0353-4059-bb9e-865e80c6e114-actor_3_1",
+        "model": "GLM-5.3-Flash"
+      },
+      "human_author": "Team AppThreat <cloud@appthreat.com>"
+    },
+    "s_b79bd9550ae11b": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_dwf-dwfrun-a3a8d57a-0353-4059-bb9e-865e80c6e114-actor_6_1",
+        "model": "GLM-5.3-Flash"
+      },
+      "human_author": "Team AppThreat <cloud@appthreat.com>"
+    }
+  }
+}
