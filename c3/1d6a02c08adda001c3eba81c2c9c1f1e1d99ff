@@ -1,0 +1,21 @@
+lib/inventory/ciParsers/githubActions.poku.js
+  s_8cbdd9e5002975::t_dad68ba25cfd85 2272-2300,2303-2357
+  s_8cbdd9e5002975::t_f9ff248545150b 1-8,2301-2302
+  s_8cbdd9e5002975::t_92b73ad208ca1a 2358-2360
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "c31d6a02c08adda001c3eba81c2c9c1f1e1d99ff",
+  "prompts": {},
+  "sessions": {
+    "s_8cbdd9e5002975": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_6069faca-92d9-4572-89fa-ecc8c90e7b25",
+        "model": "GLM-5.3"
+      },
+      "human_author": "Team AppThreat <cloud@appthreat.com>"
+    }
+  }
+}
