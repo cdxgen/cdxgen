@@ -2,10 +2,7 @@ name: "CodeQL Advanced"
 
 on:
   pull_request:
-    paths:
-      - '.github/actions/**'
-      - '.github/workflows/**'
-      - '**.js'
+  merge_group:
   push:
     branches:
       - master
