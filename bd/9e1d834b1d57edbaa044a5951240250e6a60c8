@@ -1,0 +1,41 @@
+test/data/actions-lock/valid-transitive-uses/.github/workflows/ci.yml
+  s_a0631d745b5f9f::t_bcd574ea0a0fad 1-8
+lib/ecosystems/parsers-misc.js
+  s_a0631d745b5f9f::t_b7c6d33e5a0271 862-898,912
+  s_a0631d745b5f9f::t_517673b1018591 861
+test/data/actions-lock/transitive-shared-composite/.github/workflows/build.yml
+  s_a0631d745b5f9f::t_95b2152a6aece0 1-8
+test/data/actions-lock/transitive-commit-keys/.github/workflows/ci.yml
+  s_a0631d745b5f9f::t_5a0eb84dfff8be 1-8
+test/data/actions-lock/transitive-shared-composite/.github/workflows/release.yml
+  s_a0631d745b5f9f::t_228ca1cab0b9dd 1-8
+lib/cli/managedBom.js
+  s_a0631d745b5f9f::t_6025ec40b9f6e3 1130,1136-1137,1141-1143,1145-1154,1158
+  s_a0631d745b5f9f::t_f73e05461eef94 77
+test/data/actions-lock/transitive-commit-keys/.github/workflows/actions.lock
+  s_96a96fbd5cf706::t_68ad326a62e14c 1-20
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "bd9e1d834b1d57edbaa044a5951240250e6a60c8",
+  "prompts": {},
+  "sessions": {
+    "s_96a96fbd5cf706": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_dwf-dwfrun-606fc2c7-ae28-46f4-8e6d-a7c192c90f51-actor_2_1",
+        "model": "GLM-5.3-Flash"
+      },
+      "human_author": "Team AppThreat <cloud@appthreat.com>"
+    },
+    "s_a0631d745b5f9f": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_dwf-dwfrun-dc472e32-e73c-4fa0-91fe-675950d24949-actor_8_1",
+        "model": "GLM-5.3-Flash"
+      },
+      "human_author": "Team AppThreat <cloud@appthreat.com>"
+    }
+  }
+}
