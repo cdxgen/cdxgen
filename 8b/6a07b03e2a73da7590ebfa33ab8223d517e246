@@ -1,0 +1,28 @@
+lib/parsers/terraformConfig.poku.js
+  s_8cbdd9e5002975::t_cfd028089ebc7a 566-568
+lib/core/globPatterns.poku.js
+  s_8cbdd9e5002975::t_507563850fb8f8 66-68
+  s_8cbdd9e5002975::t_128781c8807ac0 149-151
+lib/ecosystems/parsers-python.poku.js
+  s_8cbdd9e5002975::t_ea14c16d1ffa50 2108-2111,2113
+lib/parsers/npmrc.poku.js
+  s_8cbdd9e5002975::t_a5ef2a9aeff7c5 309-310,312
+lib/parsers/email.poku.js
+  s_8cbdd9e5002975::t_e33276ea1b3da0 98-100
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "8b6a07b03e2a73da7590ebfa33ab8223d517e246",
+  "prompts": {},
+  "sessions": {
+    "s_8cbdd9e5002975": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_6069faca-92d9-4572-89fa-ecc8c90e7b25",
+        "model": "GLM-5.3"
+      },
+      "human_author": "Team AppThreat <cloud@appthreat.com>"
+    }
+  }
+}
