@@ -308,6 +308,17 @@ export declare function getAtomCommand(): any;
  */
 export declare function atomMaxHeapBytes(): number | undefined;
 /**
+ * Add a heap ceiling to a JAVA_TOOL_OPTIONS value. The images set the
+ * variable (file encoding, the Base64 intrinsic workaround), so an existing
+ * value is the usual case and has to keep the ceiling out of its way: it is
+ * kept as it is, with `-Xmx` appended, unless it already sets a heap size.
+ *
+ * @param {string|undefined} existing current value of JAVA_TOOL_OPTIONS
+ * @param {number} maxHeap heap ceiling in bytes
+ * @returns {string} the value to use
+ */
+export declare function withHeapCeiling(existing: string | undefined, maxHeap: number): string;
+/**
  * Compute how long atom may run, and how long cdxgen waits for it.
  *
  * cdxgen's spawn timeout kills only the process cdxgen started, and for atom

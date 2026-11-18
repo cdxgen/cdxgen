@@ -20,7 +20,7 @@ ARG SDKMAN_URL=https://api.sdkman.io/2
 ENV ATOM_RUBY_VERSION=$ATOM_RUBY_VERSION \
     BUNDLE_SILENCE_ROOT_WARNING=true \
     JAVA_HOME="/opt/.sdkman/candidates/java/${JAVA_VERSION}" \
-    JAVA_TOOL_OPTIONS="-Dfile.encoding=UTF-8" \
+    JAVA_TOOL_OPTIONS="-Dfile.encoding=UTF-8 -XX:+IgnoreUnrecognizedVMOptions -XX:-UseBASE64Intrinsics" \
     JAVA_VERSION=$JAVA_VERSION \
     NVM_DIR="/opt/.nvm" \
     PYTHONPATH=/opt/pypi \

@@ -1,6 +1,11 @@
 # Base-image
 FROM node:24.22.1-trixie@sha256:f1e034976f948cf212ef1f659c12e5dd58ac7eab947831813e81a62401ca38be AS base
 
+# Disables the HotSpot Base64 intrinsic that Java4Shell (CVE-2026-114938) abuses on
+# x86-64 CPUs with AVX-512 VBMI. The flag is harmless on other platforms, and
+# -XX:+IgnoreUnrecognizedVMOptions lets JDK 8 start with it.
+ENV JAVA_TOOL_OPTIONS="-XX:+IgnoreUnrecognizedVMOptions -XX:-UseBASE64Intrinsics"
+
 ARG DEBIAN_REPO
 ARG NODEJS_DIST_URL
 ARG NPM_REPO

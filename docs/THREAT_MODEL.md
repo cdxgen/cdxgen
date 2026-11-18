@@ -125,6 +125,7 @@ The toolchain version probes for formulation also run from the temporary directo
   - Running as root outside containers
   - Proxy interception variables
 - Findings are reported with severity ratings and remediation guidance
+- The container images that bundle a JDK set `JAVA_TOOL_OPTIONS` to `-XX:+IgnoreUnrecognizedVMOptions -XX:-UseBASE64Intrinsics`, which turns off the HotSpot Base64 intrinsic that Java4Shell (CVE-2026-114938) overflows on x86-64 CPUs with AVX-512 VBMI. The JVM tools cdxgen runs on a scanned project (Maven, Gradle, sbt) can be pointed at an attacker's repository server by a `pom.xml`, `settings.xml` or build script, which is the client-side shape of that defect. Hosts that run cdxgen outside the images get a one-line warning when the JDK is 17.0.6 or later, the CPU has AVX-512 VBMI and no `-XX:-UseBASE64Intrinsics` is set. The workaround and its limits are described in `docs/ADVANCED.md`.
 
 **Residual risk:** Medium — `auditEnvironment` is pattern-based and may not catch novel obfuscation. An attacker who can set environment variables often already has significant access.
 

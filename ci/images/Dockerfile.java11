@@ -1,6 +1,11 @@
 # Base-image
 FROM registry.suse.com/bci/openjdk-devel:11.0.25.0@sha256:c50031180f882462fad08e63b78899a5427982dd89a4eb8bac14ea66d090ef7c AS base
 
+# Disables the HotSpot Base64 intrinsic that Java4Shell (CVE-2026-114938) abuses on
+# x86-64 CPUs with AVX-512 VBMI. The flag is harmless on other platforms, and
+# -XX:+IgnoreUnrecognizedVMOptions lets JDK 8 start with it.
+ENV JAVA_TOOL_OPTIONS="-XX:+IgnoreUnrecognizedVMOptions -XX:-UseBASE64Intrinsics"
+
 ARG GITHUB_RAW_URL=https://raw.githubusercontent.com
 ARG GITHUB_URL=https://github.com
 ARG GRADLE_8

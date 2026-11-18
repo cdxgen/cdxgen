@@ -261,3 +261,22 @@ assert_go_toolchain_bom() {
     return 1
   }
 }
+
+# The sdkman JDK of the cdxgen image is no package's file: the release file
+# next to bin/java names it, and the BOM carries it as a platform component
+# with the vendor, build and home in cdx:java properties and no CPE.
+assert_jdk_bom() {
+  local bom_file="$1"
+  local version="$2"
+  jq -e --arg version "$version" '
+    any(.components[]?;
+      .type == "platform" and .name == "java" and .version == $version
+      and (.purl | startswith("pkg:generic/"))
+      and (has("cpe") | not)
+      and any((.properties // [])[]; .name == "cdx:java:vendor")
+      and any((.properties // [])[]; .name == "cdx:java:home"))
+  ' "$bom_file" >/dev/null || {
+    echo "Expected a java platform component with version $version in $bom_file"
+    return 1
+  }
+}

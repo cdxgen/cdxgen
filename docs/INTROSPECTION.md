@@ -93,7 +93,7 @@ appears on one side only. The per-ecosystem coverage today:
 
 | Ecosystem | Entries | Produced by                                                                                                                            |
 | --------- | ------- | -------------------------------------------------------------------------------------------------------------------------------------- |
-| java      | 9       | Maven, Gradle and sbt fallbacks and command failures, the jar heuristic, and Maven skipped with installs off                           |
+| java      | 13      | Maven, Gradle and sbt fallbacks and command failures, the jar heuristic, Maven skipped with installs off, and the JDK host probe's unreadable package databases (`java.host-probe.package-db-unreadable`) and exhausted name budget (`java.host-probe.budget-exhausted`) |
 | generic   | 9       | Binary and OS package inventory, the Brotli decoder probe's caps, build rate limits, secure mode, host allow-list, dry-run, offline and rate-limit policy |
 | python    | 7       | The generic lockfile and pyproject entries, per-manager uv/poetry/pdm/pipenv variants, and poetry/pdm export skipped with installs off |
 | npm       | 8       | Missing lockfile, missing `node_modules`, unparseable or old lockfiles, lockfile entries whose paths escape the project, git dependencies, and the Node.js host probe's unreadable package databases and exhausted name budget |

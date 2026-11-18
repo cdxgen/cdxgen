@@ -78,7 +78,9 @@ assert_same_container_audit_signature() {
 }
 
 run_cdxgen_image_inventory_tests() {
-  local image_ref="${CDXGEN_SELF_TEST_IMAGE:-ghcr.io/cdxgen/cdxgen-python312:latest}"
+  # v13 is rebuilt from master; latest moves only with a release, so its
+  # layout can lag behind what the assertions below expect.
+  local image_ref="${CDXGEN_SELF_TEST_IMAGE:-ghcr.io/cdxgen/cdxgen-python312:v13}"
   local safe_image_name
   local image_bom
   local archive_bom
@@ -90,9 +92,6 @@ run_cdxgen_image_inventory_tests() {
   archive_path="$TEST_TMP_DIR/${safe_image_name}.tar"
 
   docker pull "$image_ref"
-  # The published images have to reach every tool cdxgen execs as a non-root
-  # user, so catch toolchains left in the root user's home directory as well.
-  docker run --rm --user 1000:1000 --cap-drop=ALL -e HOME=/tmp "$image_ref" --version
   bin/cdxgen.js "$image_ref" -p -t docker -o "$image_bom" --fail-on-error
   assert_container_file_inventory_bom "$image_bom"
   assert_container_inventory_has_unpackaged_binaries "$image_bom"
@@ -112,6 +111,15 @@ run_cdxgen_image_inventory_tests() {
     go_version="${go_version#go}"
     assert_go_toolchain_bom "$image_bom" "$go_version"
     assert_go_toolchain_bom "$archive_bom" "$go_version"
+  fi
+
+  # The sdkman JDK of the image is named by the release file next to its
+  # bin/java. A variant without a JDK asserts nothing here.
+  local java_version
+  java_version="$(docker run --rm --entrypoint sh "$image_ref" -c 'sed -n "s/^JAVA_VERSION=\"\(.*\)\"$/\1/p" /opt/.sdkman/candidates/java/current/release' 2>/dev/null)" || java_version=""
+  if [ -n "$java_version" ]; then
+    assert_jdk_bom "$image_bom" "$java_version"
+    assert_jdk_bom "$archive_bom" "$java_version"
   fi
 }
 

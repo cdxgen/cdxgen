@@ -66,6 +66,10 @@ and one ruby image per distro family, which between them exercise every branch o
 `mirrors.sh` and both `cdxgen-build.sh` paths. The full matrix runs on the nightly
 schedule and on pushes to `release/**` and tags.
 
+## JAVA_TOOL_OPTIONS in the images
+
+Every image that installs a JDK sets `JAVA_TOOL_OPTIONS` with `-XX:+IgnoreUnrecognizedVMOptions -XX:-UseBASE64Intrinsics`, which turns off the HotSpot Base64 intrinsic of Java4Shell (CVE-2026-114938), and the images that already set the variable keep their other values. No base image sets `JAVA_TOOL_OPTIONS` today, so each Dockerfile defines it outright. If a base image starts setting it, extend the base image's value in the Dockerfile instead of replacing it, and keep the two flags.
+
 ## Custom Container Images
 
 Below table summarizes all available container image versions. These images include additional language-specific build tools and development libraries to enable automatic restore and build operations.
