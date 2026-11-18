@@ -1,0 +1,19 @@
+ci/images/temurin/Dockerfile.java8
+  s_9cfc69625cf6d5::t_2feb033b5bffe4 2
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "cb80541700a4827e55498ab0689dbdf64202d058",
+  "prompts": {},
+  "sessions": {
+    "s_9cfc69625cf6d5": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_dwf-dwfrun-a3a8d57a-0353-4059-bb9e-865e80c6e114-actor_3_1",
+        "model": "GLM-5.3-Flash"
+      },
+      "human_author": "Team AppThreat <cloud@appthreat.com>"
+    }
+  }
+}
