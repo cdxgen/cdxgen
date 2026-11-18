@@ -1,0 +1,25 @@
+types/lib/cli/index.d.ts
+  s_5490fb11340be9::t_fc43d7b498a3cb 73-82
+  s_5490fb11340be9::t_c2ce3badfa0539 72
+lib/cli/index.js
+  s_5490fb11340be9::t_9fa86b57a210e6 1941-1962
+  s_5490fb11340be9::t_2559ff43298005 1940
+types/lib/cli/index.d.ts.map
+  s_5490fb11340be9::t_4ec4898d93d8a0 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "b9350c7df053534a28cd819ba5aeb002f96f0d3d",
+  "prompts": {},
+  "sessions": {
+    "s_5490fb11340be9": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "0e50b2e1-f765-432c-a7e8-2535fae2dc58",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
