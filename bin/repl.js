@@ -378,8 +378,8 @@ function getActionsLockComponents(bom) {
   const transitive = [];
   for (const component of bom?.components || []) {
     if (
-      !Boolean(getPropertyValue(component, "cdx:github:lock:commit")) &&
-      !Boolean(getPropertyValue(component, "cdx:github:action:isLocked")) &&
+      !getPropertyValue(component, "cdx:github:lock:commit") &&
+      !getPropertyValue(component, "cdx:github:action:isLocked") &&
       getPropertyValue(component, "cdx:github:action:isTransitive") !== "true"
     ) {
       continue;
