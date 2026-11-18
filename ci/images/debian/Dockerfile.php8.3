@@ -1,6 +1,11 @@
 # Base-image
 FROM php:8.3.36-bookworm@sha256:cdb77e306d6bb99db40e513fbe036ecc6c53b575cbcb7e581387845fef26d755 AS base
 
+# Disables the HotSpot Base64 intrinsic that Java4Shell (CVE-2026-114938) abuses on
+# x86-64 CPUs with AVX-512 VBMI. The flag is harmless on other platforms, and
+# -XX:+IgnoreUnrecognizedVMOptions lets JDK 8 start with it.
+ENV JAVA_TOOL_OPTIONS="-XX:+IgnoreUnrecognizedVMOptions -XX:-UseBASE64Intrinsics"
+
 ARG COMPOSER_URL=https://getcomposer.org
 ARG DEBIAN_REPO
 ARG GITHUB_RAW_URL=https://raw.githubusercontent.com

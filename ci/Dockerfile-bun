@@ -46,7 +46,7 @@ ENV GOPATH=/opt/app-root/go \
     PYTHONUNBUFFERED=1 \
     PYTHONIOENCODING="utf-8" \
     COMPOSER_ALLOW_SUPERUSER=1 \
-    JAVA_TOOL_OPTIONS="-Dfile.encoding=UTF-8 --enable-native-access=ALL-UNNAMED" \
+    JAVA_TOOL_OPTIONS="-Dfile.encoding=UTF-8 --enable-native-access=ALL-UNNAMED -XX:+IgnoreUnrecognizedVMOptions -XX:-UseBASE64Intrinsics" \
     SWIFT_SIGNING_KEY=$SWIFT_SIGNING_KEY \
     SWIFT_PLATFORM=$SWIFT_PLATFORM \
     SWIFT_BRANCH=$SWIFT_BRANCH \

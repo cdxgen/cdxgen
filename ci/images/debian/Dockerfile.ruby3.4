@@ -1,6 +1,11 @@
 # Base-image
 FROM ruby:3.4.11-slim-trixie@sha256:5b53e16f47e05acae56897d0f96b9d03dcb4563276e71c96415bf7777c9ba207 AS base
 
+# Disables the HotSpot Base64 intrinsic that Java4Shell (CVE-2026-114938) abuses on
+# x86-64 CPUs with AVX-512 VBMI. The flag is harmless on other platforms, and
+# -XX:+IgnoreUnrecognizedVMOptions lets JDK 8 start with it.
+ENV JAVA_TOOL_OPTIONS="-XX:+IgnoreUnrecognizedVMOptions -XX:-UseBASE64Intrinsics"
+
 ARG DEBIAN_REPO
 ARG GITHUB_RAW_URL=https://raw.githubusercontent.com
 ARG GITHUB_URL=https://github.com

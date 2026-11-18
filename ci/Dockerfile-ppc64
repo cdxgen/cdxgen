@@ -1,5 +1,10 @@
 FROM almalinux:10.2-minimal@sha256:77aeeeef6889af731a91d83f65b08ef9930bde10332ae2e3fd6e0f0c47066a7b
 
+# Disables the HotSpot Base64 intrinsic that Java4Shell (CVE-2026-114938) abuses on
+# x86-64 CPUs with AVX-512 VBMI. The flag is harmless on other platforms, and
+# -XX:+IgnoreUnrecognizedVMOptions lets JDK 8 start with it.
+ENV JAVA_TOOL_OPTIONS="-XX:+IgnoreUnrecognizedVMOptions -XX:-UseBASE64Intrinsics"
+
 LABEL maintainer="cyclonedx" \
       org.opencontainers.image.authors="Prabhu Subramanian <prabhu@appthreat.com>" \
       org.opencontainers.image.source="https://github.com/cdxgen/cdxgen" \
