@@ -93,6 +93,51 @@ jobs:
         if: startsWith(github.ref, 'refs/tags/')
         run: |
           deno publish --allow-dirty
+
+  source-sbom:
+    # The release ships a source SBOM next to the OCI image SBOMs, generated
+    # with the github project type so the BOM carries the repository's own
+    # Actions supply chain: the workflows and every action reference joined
+    # against .github/workflows/actions.lock.
+    if: github.repository == 'cdxgen/cdxgen' && startsWith(github.ref, 'refs/tags/')
+    runs-on: ubuntu-latest
+    needs: [pkg]
+    permissions:
+      contents: write  # attaches the source SBOM to the release
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
+        with:
+          ref: ${{ env.REF }}
+          persist-credentials: false
+      - name: Setup pnpm
+        uses: pnpm/action-setup@73e46992e05b19abd31f2f3c20e0e7370d762115  # v6.1.1
+      - name: Use Node.js
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1  # v7.1.0
+        with:
+          node-version-file: .nvmrc
+          package-manager-cache: false
+      - name: Generate and sign the source sbom
+        run: |
+          pnpm install:frozen
+          node bin/cdxgen.js -t npm -t github -o cdxgen-source.cdx.json "$GITHUB_WORKSPACE"
+          node bin/sign.js -i cdxgen-source.cdx.json
+        env:
+          CDXGEN_TEMP_DIR: ${{ runner.temp }}/cdxgen-sboms
+          SBOM_SIGN_ALGORITHM: RS512
+          SBOM_SIGN_PRIVATE_KEY_BASE64: ${{ secrets.SBOM_SIGN_PRIVATE_KEY }}
+      - name: Attach the source sbom to the release
+        # Best effort, matching the OCI SBOM mirroring: a rejected release
+        # upload must not fail the rebuild.
+        continue-on-error: true
+        uses: softprops/action-gh-release@8a0cd651e5b2365bd640854a3fa5dfc70e4875f3  # v3.0.4
+        if: startsWith(env.REF, 'refs/tags/')
+        with:
+          tag_name: ${{ github.event.inputs.tag || github.ref_name }}
+          files: |
+            cdxgen-source.cdx.json
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
   containers-ruby-builder-amd64:
     if: github.repository == 'cdxgen/cdxgen'
     runs-on: 'ubuntu-24.04'
