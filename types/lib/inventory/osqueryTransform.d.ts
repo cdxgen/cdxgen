@@ -35,9 +35,15 @@ export declare function deriveOsQueryDescription(res: Object): string;
  * Sanitize an identity string for use in component names and references.
  *
  * @param {string} value Raw identity value
- * @returns {string} Value with spaces mapped to `+`, `:`/`%` mapped to `-`, and `@`/brace delimiters trimmed
+ * @param {Object} [options]
+ * @param {boolean} [options.keepSpaces=false] Keep spaces, as a component name
+ *   does: the real name of `7-Zip 26.02 (x64)` is not `7-Zip+26.02+(x64)`, and
+ *   a purl encodes its own spaces
+ * @returns {string} Value with spaces mapped to `+` (unless kept), `:`/`%` mapped to `-`, and `@`/brace delimiters trimmed
  */
-export declare function sanitizeOsQueryIdentity(value: string): string;
+export declare function sanitizeOsQueryIdentity(value: string, { keepSpaces }?: {
+    keepSpaces?: boolean;
+}): string;
 /**
  * Sanitize a value for safe use inside a `bom-ref`.
  *

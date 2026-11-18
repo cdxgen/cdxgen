@@ -93,6 +93,17 @@ export declare function createHBom(_path: string, options: Object): Promise<Obje
  * @returns {Promise<Object>} Promise resolving to BOM object
  */
 /**
+ * Remove the temporary directory an image or archive export created
+ * (`docker-images-*` under the temporary directory), with every layer in it.
+ * The sub-paths the multi-type scan removes are only part of it, and a
+ * 1.5 GB image export used to stay behind for every scan. A directory the
+ * user named, such as an OCI directory scanned in place, is never removed,
+ * and debug mode keeps the export for inspection.
+ *
+ * @param {Object|undefined} exportData result of exportImage or exportArchive
+ */
+export declare function removeImageExport(exportData: Object | undefined): void;
+/**
  * Generate a BOM for one path, letting a deferred fail-on-error abort return
  * the empty BOM the flag promises rather than unwinding past the reports.
  *
