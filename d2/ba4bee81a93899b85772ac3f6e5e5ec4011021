@@ -1,0 +1,35 @@
+.cursor-plugin/marketplace.json
+  s_8cbdd9e5002975::t_e0c718733602c3 9,16
+deno.json
+  s_8cbdd9e5002975::t_724eb92e833892 3
+pyproject.toml
+  s_8cbdd9e5002975::t_0644a10743d760 3
+agent-plugin/.claude-plugin/plugin.json
+  s_8cbdd9e5002975::t_e0c718733602c3 4
+agent-plugin/gemini-extension.json
+  s_8cbdd9e5002975::t_e0c718733602c3 3
+README.md
+  s_8cbdd9e5002975::t_037dcdb0c300fc 221,235,249,274
+jsr.json
+  s_8cbdd9e5002975::t_8003ed2d3a8c6b 3
+agent-plugin/plugin.json
+  s_8cbdd9e5002975::t_e0c718733602c3 5
+package.json
+  s_8cbdd9e5002975::t_a45a4f54dfd1e7 3
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "d2ba4bee81a93899b85772ac3f6e5e5ec4011021",
+  "prompts": {},
+  "sessions": {
+    "s_8cbdd9e5002975": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_6069faca-92d9-4572-89fa-ecc8c90e7b25",
+        "model": "GLM-5.3"
+      },
+      "human_author": "Team AppThreat <cloud@appthreat.com>"
+    }
+  }
+}
