@@ -1,0 +1,40 @@
+data/rules/ci-permissions.yaml
+  s_56bdc86f8ccaf2::t_c4414e2f3c9105 339
+  s_56bdc86f8ccaf2::t_a5a1cc27238d9c 17
+  s_56bdc86f8ccaf2::t_db2a344eb4df92 806-915
+  s_56bdc86f8ccaf2::t_9b088f786013f4 81
+lib/stages/postgen/auditBom.poku.js
+  s_56bdc86f8ccaf2::t_7da475dfe3fd86 2412-2420,2425-2469
+  s_56bdc86f8ccaf2::t_df60fcc4aa152e 2991-2996,3059-3064
+  s_56bdc86f8ccaf2::t_827324bb5b7164 216,525-526,2470,3262-3345
+  s_56bdc86f8ccaf2::t_9e7126feb36831 2954-2990,2997,2999-3002,3007-3058,3065,3067-3070,3075-3106,3108-3261
+  s_56bdc86f8ccaf2::t_794ee6ec0e5a0f 1,2421-2424,3003-3006,3071-3074,3107
+  s_56bdc86f8ccaf2::t_5cf8602cb192dd 204-209
+  s_56bdc86f8ccaf2::t_a7df5450491c0a 3066
+  s_56bdc86f8ccaf2::t_dbf7ce11cdb2f1 2998
+  s_56bdc86f8ccaf2::t_13688af56925c0 198-203,210-214
+  s_56bdc86f8ccaf2::t_9c126716f95a6d 448-524
+  s_56bdc86f8ccaf2::t_f4ca82d4b9e888 43-51
+  s_56bdc86f8ccaf2::t_d954a0c748adee 215,217-219,527,2471,3346
+docs/BOM_AUDIT.md
+  s_56bdc86f8ccaf2::t_169116fa9738a7 206,208-211
+  s_56bdc86f8ccaf2::t_171d5c440a1b44 207
+data/rules/package-integrity.yaml
+  s_56bdc86f8ccaf2::t_d7b0a3e1c4d4c9 255,273
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "057d5ab02867e5232d1ba90f53ea3b5802de1cdc",
+  "prompts": {},
+  "sessions": {
+    "s_56bdc86f8ccaf2": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_dwf-dwfrun-dc472e32-e73c-4fa0-91fe-675950d24949-actor_10_1",
+        "model": "GLM-5.3-Flash"
+      },
+      "human_author": "Team AppThreat <cloud@appthreat.com>"
+    }
+  }
+}
