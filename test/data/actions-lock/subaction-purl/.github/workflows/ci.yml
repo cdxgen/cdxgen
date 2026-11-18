@@ -1,0 +1,16 @@
+name: CI
+on: push
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/cache/save@v4
+        with:
+          path: node_modules
+          key: node-modules
+      - uses: actions/cache/restore@v4
+        with:
+          path: node_modules
+          key: node-modules
+      - uses: example-org/leaf@v1.0.0
+      - run: npm test

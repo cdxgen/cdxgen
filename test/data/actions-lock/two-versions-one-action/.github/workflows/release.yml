@@ -1,0 +1,8 @@
+name: Release
+on: push
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: example-org/tool@v2.0.0
+      - run: make release
