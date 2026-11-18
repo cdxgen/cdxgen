@@ -2,14 +2,7 @@ name: Biome
 
 on:
   pull_request:
-    paths:
-      - '.github/workflows/lint.yml'
-      - '**.cjs'
-      - '**.js'
-      - '**.json'
-      - '!contrib/**'
-      - '!data/**'
-      - '!test/**'
+  merge_group:
   push:
     branches:
       - master
