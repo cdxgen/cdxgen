@@ -199,7 +199,7 @@
 
 - id: HMX-007
   name: "HotSpot JDK affected by the C2 Base64 intrinsic overflow runs on a CPU whose features are unknown"
-  description: "A HotSpot JDK from 17.0.6 on is affected by CVE-2026-114938 (Java4Shell) on CPUs with AVX-512 VBMI. The host view carries no CPU feature list (cdx:hbom:cpuFeatures), so the host cannot be called safe. Treat it as unknown until the feature flags are collected."
+  description: "A HotSpot JDK from 17.0.6 on is affected by CVE-2026-114938 (Java4Shell) on CPUs with AVX-512 VBMI. The host view carries no CPU feature list (cdx:hbom:cpuFeatures), so the host cannot be called safe. Treat it as unknown until the feature flags are collected. A processor that reports an arm64 or aarch64 architecture is not affected and is not unknown."
   severity: medium
   category: host-topology
   dry-run-support: partial
@@ -208,7 +208,10 @@
       $prop($, 'cdx:java:base64IntrinsicExposure') = 'exposed'
       and $count($$.components[
         $prop($, 'cdx:hbom:hardwareClass') = 'processor'
-        and $count($propList($, 'cdx:hbom:cpuFeatures')) > 0
+        and (
+          $count($propList($, 'cdx:hbom:cpuFeatures')) > 0
+          or $lowercase($safeStr($prop($, 'cdx:hbom:architecture'))) in ['arm64', 'aarch64']
+        )
       ]) = 0
     ]
   location: |
