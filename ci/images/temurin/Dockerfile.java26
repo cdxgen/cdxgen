@@ -1,5 +1,5 @@
 # Base-image
-FROM eclipse-temurin:26.0.2_10-jdk-ubi10-minimal@sha256:f56240b2ed3c53fe937e6d60aa84bb0ee87b529bce0e4c5df101f85d20e378c4 AS base
+FROM eclipse-temurin:26.0.2.1_1-jdk-ubi10-minimal@sha256:09b6e2c1ff8a9fa2aaf2fddd7e7ea130a40300f643160254aeddb97b0a2490f9 AS base
 
 ARG GITHUB_RAW_URL=https://raw.githubusercontent.com
 ARG GRADLE_8
@@ -23,7 +23,7 @@ ENV CDXGEN_IN_CONTAINER=true \
     GRADLE_HOME="/root/.sdkman/candidates/gradle/${GRADLE_VERSION}" \
     GRADLE_OPTS="-Dorg.gradle.daemon=false" \
     GRADLE_VERSION=$GRADLE_VERSION \
-    JAVA_TOOL_OPTIONS="-Dfile.encoding=UTF-8" \
+    JAVA_TOOL_OPTIONS="-Dfile.encoding=UTF-8 -XX:+IgnoreUnrecognizedVMOptions -XX:-UseBASE64Intrinsics" \
     MAVEN_HOME="/root/.sdkman/candidates/maven/${MAVEN_VERSION}" \
     MAVEN_VERSION=$MAVEN_VERSION \
     NODE_COMPILE_CACHE="/opt/cdxgen-node-cache" \

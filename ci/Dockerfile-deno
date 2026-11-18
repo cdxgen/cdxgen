@@ -16,7 +16,7 @@ ARG SWIFT_PLATFORM=ubi9
 ARG SWIFT_BRANCH=swift-6.3.3-release
 ARG SWIFT_VERSION=swift-6.3.3-RELEASE
 ARG SWIFT_WEBROOT=https://download.swift.org
-ARG JAVA_VERSION=25.0.4-tem
+ARG JAVA_VERSION=25.0.5.0+8-tem
 ARG SBT_VERSION=1.12.15
 # renovate: datasource=maven lookupName=org.apache.maven:maven
 ARG MAVEN_VERSION=3.9.16
@@ -46,7 +46,7 @@ ENV GOPATH=/opt/app-root/go \
     PYTHONUNBUFFERED=1 \
     PYTHONIOENCODING="utf-8" \
     COMPOSER_ALLOW_SUPERUSER=1 \
-    JAVA_TOOL_OPTIONS="-Dfile.encoding=UTF-8 --enable-native-access=ALL-UNNAMED" \
+    JAVA_TOOL_OPTIONS="-Dfile.encoding=UTF-8 --enable-native-access=ALL-UNNAMED -XX:+IgnoreUnrecognizedVMOptions -XX:-UseBASE64Intrinsics" \
     GLOBAL_NODE_MODULES_PATH=/root/.cache/deno/npm/registry.npmjs.org \
     CDXGEN_PLUGINS_DIR=/root/.cache/deno/npm/registry.npmjs.org/@cdxgen/cdxgen-plugins-bin/2.5.1/plugins \
     SWIFT_SIGNING_KEY=$SWIFT_SIGNING_KEY \

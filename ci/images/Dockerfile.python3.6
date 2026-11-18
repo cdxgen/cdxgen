@@ -1,10 +1,15 @@
 # Base-image
 FROM registry.suse.com/bci/python:3.6.15@sha256:819fb36691971a8b9d8c6bd4a7e781a815f94d161c032b857a41dbbaeff926c3 AS base
 
+# Disables the HotSpot Base64 intrinsic that Java4Shell (CVE-2026-114938) abuses on
+# x86-64 CPUs with AVX-512 VBMI. The flag is harmless on other platforms, and
+# -XX:+IgnoreUnrecognizedVMOptions lets JDK 8 start with it.
+ENV JAVA_TOOL_OPTIONS="-XX:+IgnoreUnrecognizedVMOptions -XX:-UseBASE64Intrinsics"
+
 ARG GCC_VERSION=14
 ARG GITHUB_RAW_URL=https://raw.githubusercontent.com
 ARG GITHUB_URL=https://github.com
-ARG JAVA_VERSION=21.0.12-tem
+ARG JAVA_VERSION=21.0.13.0+9-tem
 ARG MAVEN_3
 ARG MAVEN_VERSION=${MAVEN_3}
 ARG NODE_20

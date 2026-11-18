@@ -1,4 +1,4 @@
-FROM almalinux:10.2-minimal@sha256:77aeeeef6889af731a91d83f65b08ef9930bde10332ae2e3fd6e0f0c47066a7b
+FROM almalinux:10.3-minimal@sha256:61a5d87b6ef31f1db8ac1a6f24fe99bc90e93ecc1234c56a61fc5caf980d8a3b
 
 LABEL maintainer="cyclonedx" \
       org.opencontainers.image.authors="Prabhu Subramanian <prabhu@appthreat.com>" \
@@ -16,7 +16,7 @@ ARG SWIFT_PLATFORM=ubi9
 ARG SWIFT_BRANCH=swift-6.3.3-release
 ARG SWIFT_VERSION=swift-6.3.3-RELEASE
 ARG SWIFT_WEBROOT=https://download.swift.org
-ARG JAVA_VERSION=25.0.4-tem
+ARG JAVA_VERSION=25.0.5.0+8-tem
 ARG SBT_VERSION=1.12.15
 # renovate: datasource=maven lookupName=org.apache.maven:maven
 ARG MAVEN_VERSION=3.9.16
@@ -41,7 +41,7 @@ ENV GOPATH=/opt/app-root/go \
     PYTHONUNBUFFERED=1 \
     PYTHONIOENCODING="utf-8" \
     COMPOSER_ALLOW_SUPERUSER=1 \
-    JAVA_TOOL_OPTIONS="-Dfile.encoding=UTF-8 --enable-native-access=ALL-UNNAMED" \
+    JAVA_TOOL_OPTIONS="-Dfile.encoding=UTF-8 --enable-native-access=ALL-UNNAMED -XX:+IgnoreUnrecognizedVMOptions -XX:-UseBASE64Intrinsics" \
     SWIFT_SIGNING_KEY=$SWIFT_SIGNING_KEY \
     SWIFT_PLATFORM=$SWIFT_PLATFORM \
     SWIFT_BRANCH=$SWIFT_BRANCH \
