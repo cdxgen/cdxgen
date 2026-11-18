@@ -1,0 +1,26 @@
+lib/managers/docker.js
+  s_5c57a1b8950199::t_60a8da65990f38 2592-2595
+lib/cli/index.poku.js
+  s_5c57a1b8950199::t_3abdc9c58dac8c 2319-2346
+  s_5c57a1b8950199::t_946ba1b66778e1 35,2347-2349
+lib/cli/index.js
+  s_5c57a1b8950199::t_2e67b30ba2339d 2502-2523,2716-2723
+  s_5c57a1b8950199::t_60a8da65990f38 9
+  s_5c57a1b8950199::t_457bd090cc9637 2501
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "ff30167bad0cd02855234eb50eb9a0537343f775",
+  "prompts": {},
+  "sessions": {
+    "s_5c57a1b8950199": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "42c6d682-1b06-4ba7-a2ae-3dfa61d3d814",
+        "model": "claude-sonnet-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
