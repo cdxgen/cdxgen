@@ -1,0 +1,19 @@
+lib/inventory/ciParsers/githubActions.js
+  s_8cbdd9e5002975::t_d594f750d15e2e 1941-1947
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "bff18dc9cb0e185e6f147275407ac56e47c0c04d",
+  "prompts": {},
+  "sessions": {
+    "s_8cbdd9e5002975": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_6069faca-92d9-4572-89fa-ecc8c90e7b25",
+        "model": "GLM-5.3"
+      },
+      "human_author": "Team AppThreat <cloud@appthreat.com>"
+    }
+  }
+}
