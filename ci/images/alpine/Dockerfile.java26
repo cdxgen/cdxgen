@@ -1,5 +1,10 @@
 # Base-image
-FROM eclipse-temurin:26.0.2_10-jdk-alpine@sha256:8b7a8c567ddf2ea80020d175f83879ebedc0cc631040a5d4dc6a12a0cb8ec5e6 AS base
+FROM eclipse-temurin:26.0.2.1_1-jdk-alpine@sha256:7cc9b8649a735f80bb5216e135306c4b9ab428db2893d770c4516f469fa08623 AS base
+
+# Disables the HotSpot Base64 intrinsic that Java4Shell (CVE-2026-114938) abuses on
+# x86-64 CPUs with AVX-512 VBMI. The flag is harmless on other platforms, and
+# -XX:+IgnoreUnrecognizedVMOptions lets JDK 8 start with it.
+ENV JAVA_TOOL_OPTIONS="-XX:+IgnoreUnrecognizedVMOptions -XX:-UseBASE64Intrinsics"
 
 ARG ALPINE_REPO
 ARG NODEJS_DIST_URL

@@ -5,7 +5,7 @@ ARG ATOM_RUBY_VERSION=4.0.7
 ARG DEBIAN_REPO
 ARG GITHUB_RAW_URL=https://raw.githubusercontent.com
 ARG GITHUB_URL=https://github.com
-ARG JAVA_VERSION=21.0.12-tem
+ARG JAVA_VERSION=21.0.13.0+9-tem
 ARG NODE_20
 ARG NODE_VERSION=${NODE_20}
 ARG NODEJS_DIST_URL
@@ -20,7 +20,7 @@ ARG SDKMAN_URL=https://api.sdkman.io/2
 ENV ATOM_RUBY_VERSION=$ATOM_RUBY_VERSION \
     BUNDLE_SILENCE_ROOT_WARNING=true \
     JAVA_HOME="/opt/java/${JAVA_VERSION}" \
-    JAVA_TOOL_OPTIONS="-Dfile.encoding=UTF-8" \
+    JAVA_TOOL_OPTIONS="-Dfile.encoding=UTF-8 -XX:+IgnoreUnrecognizedVMOptions -XX:-UseBASE64Intrinsics" \
     JAVA_VERSION=$JAVA_VERSION \
     NVM_DIR="/root/.nvm" \
     PYTHONPATH=/opt/pypi \
