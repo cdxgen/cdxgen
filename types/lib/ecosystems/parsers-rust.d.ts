@@ -18,6 +18,17 @@
  */
 export declare function parseCargoTomlData(cargoTomlFile: string, simple?: boolean, pkgFilesMap?: Object, context?: {}): any[];
 /**
+ * The package names a Cargo.lock file records, in file order. Dep-info
+ * collection filters the build directory against this set, so artefacts an
+ * earlier build of a different lock file left behind cannot attach files to
+ * packages the current one no longer has.
+ *
+ * @param {String} cargoLockFile A path to a Cargo.lock file
+ *
+ * @returns {Array<string>} Package names, empty when the file cannot be read
+ */
+export declare function cargoLockPackageNames(cargoLockFile: string): Array<string>;
+/**
  * Parse a Cargo.lock file to find components within the Rust project.
  *
  * @param {String} cargoLockFile A path to a Cargo.lock file. The Cargo.lock-file path may be used as information for extended attributes, such as manifest based evidence.

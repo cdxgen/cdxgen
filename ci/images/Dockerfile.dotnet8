@@ -1,6 +1,11 @@
 # Base-image
 FROM registry.suse.com/bci/dotnet-sdk:8.0.33@sha256:a3607c8da43f1af12a03de6115aff7bd33f1d8646d27ff6b6e89e103b9ab0e1a AS base
 
+# Disables the HotSpot Base64 intrinsic that Java4Shell (CVE-2026-114938) abuses on
+# x86-64 CPUs with AVX-512 VBMI. The flag is harmless on other platforms, and
+# -XX:+IgnoreUnrecognizedVMOptions lets JDK 8 start with it.
+ENV JAVA_TOOL_OPTIONS="-XX:+IgnoreUnrecognizedVMOptions -XX:-UseBASE64Intrinsics"
+
 ARG GITHUB_URL=https://github.com
 ARG NODEJS_DIST_URL
 ARG NPM_REPO

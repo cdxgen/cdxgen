@@ -5,8 +5,12 @@
  *
  * @param {string} name Tool name as invoked (a bare name or a path)
  * @param {string|undefined} version Version when cheaply known
+ * @param {{cwd: (string|undefined)}} [invocation] Where it was run, kept so a
+ *   later stage can find a version from the executable or its wrapper
  */
-export declare function recordExecutedTool(name: string, version: string | undefined): void;
+export declare function recordExecutedTool(name: string, version: string | undefined, invocation?: {
+    cwd: (string | undefined);
+}): void;
 /**
  * Remember the version a stage already resolved for a tool, such as the JVM
  * build tool pregen provisioned. The version shows in `metadata.tools` only if
@@ -16,6 +20,17 @@ export declare function recordExecutedTool(name: string, version: string | undef
  * @param {string} version Resolved version
  */
 export declare function recordToolVersion(name: string, version: string): void;
+/**
+ * How a recorded tool was first invoked: the command as written and the
+ * directory it ran in.
+ *
+ * @param {string} name Tool name as recorded
+ * @returns {{command: string, cwd: (string|undefined)}|undefined}
+ */
+export declare function getExecutedToolInvocation(name: string): {
+    command: string;
+    cwd: (string | undefined);
+} | undefined;
 /**
  * Snapshot of the tools recorded so far, sorted by name so the assembled
  * `metadata.tools` diff stays stable between runs.

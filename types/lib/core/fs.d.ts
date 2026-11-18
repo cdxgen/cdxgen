@@ -176,6 +176,38 @@ export declare function joinShellCommand(command: string, args: string[] | undef
  */
 export declare function ownEnvironment(env?: Object): Object;
 /**
+ * Start a synchronous child whose environment is exactly the one passed in
+ * the options, and return a Node-shaped spawnSync result.
+ *
+ * Deno's node:child_process spawnSync merges the parent environment under
+ * the env option instead of replacing it, so a child started there with a
+ * reduced environment still receives every dropped variable
+ * (denoland/deno#27343, unfixed as of Deno 2.9). Deno.Command with
+ * clearEnv replaces the environment the way Node always has, so under Deno
+ * this helper starts the child that way; under every other runtime it
+ * delegates to spawnSync, whose env option already replaces.
+ *
+ * Two spawnSync features have no outputSync equivalent, and this helper
+ * cannot honour them: outputSync runs the child to completion however
+ * timeout and maxBuffer are set, and it cannot write to a piped stdin, so a
+ * caller feeding the child input must stay on the compat spawn. A
+ * synchronous child nobody feeds reads an immediately closed stdin either
+ * way, which is why every stdin mode but "inherit" maps to the null device.
+ *
+ * A caller that asks for a shell together with separate arguments gets the
+ * metacharacter refusal safeSpawnSync applies, on every runtime: the
+ * arguments are folded into one line here, and such a refusal is the only
+ * way to keep a quoted argument from becoming a second command.
+ *
+ * @param {string} command The executable to spawn
+ * @param {string[]} [args] Arguments to pass to the command
+ * @param {Object} [options] Options as spawnSync accepts them (cwd, env,
+ *   stdio, encoding, timeout, shell); input is not supported here
+ * @returns {Object} spawnSync result object with status, stdout, stderr and
+ *   error fields
+ */
+export declare function denoClearEnvSpawnSync(command: string, args?: string[], options?: Object): Object;
+/**
  * Safe wrapper around spawnSync that enforces permission checks, injects default
  * options (maxBuffer, encoding, timeout), warns about unsafe Python and pip/uv
  * invocations, and records every executed command in the commandsExecuted set.

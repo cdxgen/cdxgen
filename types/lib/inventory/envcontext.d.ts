@@ -105,19 +105,14 @@ export declare function gitLogTrailers(dir: string, maxCount?: number): Array<{
 /**
  * Collect Java version and installed modules
  *
+ * The component names the JDK that runs: its clean version, the vendor, the
+ * build and the home in `cdx:java:*` properties, a
+ * `pkg:generic` identity (see jdkIdentity.js).
+ *
  * @param {string} dir Working directory
  * @returns Object containing the java details
  */
-export declare function collectJavaInfo(dir: string): {
-    type: string;
-    name: string;
-    version: string;
-    description: string;
-    properties: {
-        name: string;
-        value: string;
-    }[];
-} | undefined;
+export declare function collectJavaInfo(dir: string): Object | undefined;
 /**
  * Collect dotnet version
  *
@@ -331,14 +326,30 @@ export declare function isNvmAvailable(): boolean;
  */
 export declare function isSdkmanToolAvailable(toolType: string, toolName: string): boolean;
 /**
+ * Prepare a per-user sdkman overlay, for a sdkman installation the current
+ * user cannot write to, such as the read-only /opt/.sdkman of the cdxgen
+ * image. The overlay links sdkman's own bin, src, ext and etc directories,
+ * copies its small `var` directory, and holds its own candidates, tmp and
+ * archives, so `sdk install` writes only there and the installed candidates
+ * under the original stay read-only.
+ *
+ * @param {string} sdkmanDir The sdkman installation, with bin/sdkman-init.sh
+ * @param {string[]} locations Directories to try for the overlay, in order
+ * @returns {string|undefined} The overlay directory, or undefined when
+ *   sdkman is missing or no location can be written
+ */
+export declare function prepareSdkmanOverlay(sdkmanDir: string, locations: string[]): string | undefined;
+/**
  * Method to install and use a given sdkman tool.
  *
  * @param {String} toolType Tool type such as java, gradle, maven etc.
  * @param {String} toolName Tool name with version. Eg: 22.0.2-tem
+ * @param {String} [dir] Working directory the active java is probed in when
+ *   the install fails
  *
  * @returns {Boolean} true if the tool is available. false otherwise.
  */
-export declare function installSdkmanTool(toolType: string, toolName: string): boolean;
+export declare function installSdkmanTool(toolType: string, toolName: string, dir?: string): boolean;
 /**
  * Method to check if a given nvm tool is installed and available.
  *

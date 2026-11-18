@@ -922,6 +922,23 @@ cdxgen -t java26
 
 [sdkman](https://sdkman.io) must be installed and setup for these arguments to work.
 
+### Java4Shell and the container images
+
+Java4Shell (CVE-2026-114938) is a heap overflow in the HotSpot C2 Base64 decode intrinsic on x86-64 CPUs with AVX-512 VBMI. It affects OpenJDK 17.0.6 and later from any vendor, and ARM64 is not affected. cdxgen itself is Node.js, but the images bundle JDKs and cdxgen runs Maven, Gradle and sbt on the code it scans. Every cdxgen image that installs a JDK therefore sets `JAVA_TOOL_OPTIONS` to include `-XX:+IgnoreUnrecognizedVMOptions -XX:-UseBASE64Intrinsics`, next to the values the image already carried (`-Dfile.encoding=UTF-8`, and `--enable-native-access=ALL-UNNAMED` in the bun and deno images). The first flag lets JDK 8 start, because it does not know the second. Both are harmless on ARM64 and ppc64le. The flags stay until every pinned JDK is a build that fixes the defect.
+
+Outside the images, set the same variable for the JVMs cdxgen starts, and stop any Gradle daemon that is already running so that it picks up the new value:
+
+```shell
+export JAVA_TOOL_OPTIONS="${JAVA_TOOL_OPTIONS} -XX:+IgnoreUnrecognizedVMOptions -XX:-UseBASE64Intrinsics"
+gradle --stop
+```
+
+On a Linux x86-64 host whose `/proc/cpuinfo` lists `avx512f`, `avx512bw`, `avx512vbmi` and `bmi2`, cdxgen prints a one-line warning when the JDK it runs is 17.0.6 or later and none of `JAVA_TOOL_OPTIONS`, `JDK_JAVA_OPTIONS` and `_JAVA_OPTIONS` contains `-XX:-UseBASE64Intrinsics`. cdxgen only warns; it does not add JVM flags to your own builds. To check an image, `java -XX:+PrintFlagsFinal -version | grep UseBASE64Intrinsics` should report `false`.
+
+### sdkman and non-root users in the images
+
+In `ghcr.io/cdxgen/cdxgen`, everything under `/opt`, including the sdkman candidates, is read-only for the `cyclonedx` user. That is deliberate: project build scripts run as that user and cannot replace the bundled JDK and build tools. A type such as `-t java17` still works for a JDK the image does not carry. When the sdkman candidates directory is not writable, cdxgen installs the JDK into a per-user overlay: a directory under `~/.cdxgen/sdkman` (or under the temporary directory when the home is not writable, or at `CDXGEN_SDKMAN_OVERLAY_DIR`) that links sdkman's own scripts and keeps its own candidates, tmp and archives. `JAVA_HOME` and the `PATH` then name the JDK in the overlay, and the bundled candidates stay read-only. The overlay needs network access to sdkman's servers and a home or temporary directory that the user can write to, so a container run with a read-only root file system and no writable temporary directory cannot install extra JDKs. In that case, or when the install fails for another reason, cdxgen prints what sdkman reported, names the JDK that stays active, and records the requested and the used version as a `tool.mismatch` event in the tool ledger. Use an image that bundles the JDK you need (`ghcr.io/cdxgen/cdxgen-java17:v13`, or one of the Temurin images) instead.
+
 ### Pinning JVM build tools
 
 The JVM build tools themselves can be pinned the same way by appending an sdkman version to the tool type. cdxgen installs exactly that version with sdkman, sets `MAVEN_HOME`/`GRADLE_HOME`/`SBT_HOME` plus the matching command variables, and uses it for dependency resolution — overriding any wrapper scripts the project may contain.

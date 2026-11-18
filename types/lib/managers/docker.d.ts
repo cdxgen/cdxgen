@@ -162,6 +162,18 @@ export declare const exportArchive: (fullImageName: any, options?: {}) => Promis
  */
 export declare const extractFromManifest: (manifestFile: string, localData: Object, tempDir: string, allLayersExplodedDir: string, options: Object) => Promise<Object>;
 /**
+ * A hint for an image the engine could not export: an image pulled for
+ * another platform than the host's, such as `docker pull --platform
+ * linux/amd64` on an arm64 Mac, has its layers only for that platform, and
+ * the export of the host's platform finds no manifest.
+ *
+ * @param {Object|undefined} localData inspect data of the image
+ * @param {string} imageName image reference as given
+ * @returns {string} the hint, or an empty string when the image is for the
+ *   host's platform or the platform is unknown
+ */
+export declare function containerExportHint(localData: Object | undefined, imageName: string): string;
+/**
  * Method to export a container image by using the export feature in docker or podman service.
  * Returns the location of the layers with additional packages related metadata
  */

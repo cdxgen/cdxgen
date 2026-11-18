@@ -18,7 +18,7 @@ ARG GO_VERSION=1.27.4
 # renovate: datasource=node-version depName=node
 ARG NODE_VERSION=26.12.1
 ARG RUBY_VERSION=4.0.7
-ARG JAVA_TOOL_OPTIONS="-Dfile.encoding=UTF-8"
+ARG JAVA_TOOL_OPTIONS="-Dfile.encoding=UTF-8 -XX:+IgnoreUnrecognizedVMOptions -XX:-UseBASE64Intrinsics"
 ARG SCALA_VERSION=3.9.0
 # pecl.php.net no longer answers the release lookup `pecl install timezonedb`
 # relies on (rest/r/timezonedb/allreleases2.xml is a 404), so the release

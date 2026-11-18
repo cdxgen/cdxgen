@@ -162,21 +162,179 @@ export declare function parseReqEnvMarkers(markersStr: string): Array<Object>;
  */
 export declare function parseSetupPyFile(setupPyData: Object): Promise<Object[]>;
 /**
- * Method to parse pixi.lock data
+ * Split a conda artifact filename into the name, version, build string and
+ * package type it encodes.
+ *
+ * A conda filename is `<name>-<version>-<build>.<conda|tar.bz2>`, and both the
+ * name and the build string can contain hyphens
+ * (`python-flatbuffers-1.0-py312_0.conda`,
+ * `python-3.12.7-h9e4cc4f_0_cpython.conda`). The version is the only part
+ * that always starts with a digit, so the name ends at the first hyphen
+ * followed by a digit, the version at the next hyphen, and whatever follows
+ * is the build. rattler derives the same three fields this way when a pixi.lock
+ * location has to stand in for the name, version and build fields a v6 or v7
+ * lock no longer writes.
+ *
+ * @param {string} filename Artifact filename, e.g. `numpy-2.5.4-py315h39cfc7d_0.conda`
+ * @returns {{name: string, version: string, build: string|undefined, type: string|undefined}|undefined}
+ *   The parsed fields, or undefined when the filename is not a conda artifact
+ */
+export declare function parseCondaArtifactFilename(filename: string): {
+    name: string;
+    version: string;
+    build: string | undefined;
+    type: string | undefined;
+} | undefined;
+/**
+ * Derive the conda channel name and platform subdir a package location
+ * carries. The location is a repository url in every lock and conda-meta
+ * record cdxgen reads; pixi.lock v7 also allows file paths, which encode
+ * neither field.
+ *
+ * The channel qualifier holds the canonical channel name (conda-forge, main),
+ * never the host: `conda.anaconda.org/<channel>/...` keeps the channel in its
+ * path, and `repo.anaconda.com/pkgs/<channel>/...` after the `pkgs` prefix.
+ * The subdir is the path segment before the filename, `noarch` included.
+ *
+ * @param {string} location Package url from a lock file or conda-meta record
+ * @returns {{channel: string|undefined, subdir: string|undefined}} The derived
+ *   fields; both undefined when the location carries neither
+ */
+export declare function condaChannelAndSubdir(location: string): {
+    channel: string | undefined;
+    subdir: string | undefined;
+};
+/**
+ * Build a canonical conda purl from the fields the purl-spec conda type
+ * defines: a required name, an optional version, and the optional `build`,
+ * `channel`, `subdir` and `type` qualifiers. The build string stays a
+ * qualifier and out of the version, matching the canonical purl-spec example
+ * (`pkg:conda/absl-py@0.4.1?build=py36h06a4308_0&channel=main&subdir=linux-64&type=tar.bz2`)
+ * and ecosystem practice (conda's conda-sboms plugin, pixi-sbom). The conda
+ * type defines no name normalisation of its own, so names are kept as written.
+ *
+ * @param {{name: string, version?: string, build?: string, channel?: string, subdir?: string, type?: string}} fields
+ * @returns {string|null} Canonical purl, or null when the parts are invalid
+ */
+export declare function condaPurl(fields?: {
+    name: string;
+    version?: string;
+    build?: string;
+    channel?: string;
+    subdir?: string;
+    type?: string;
+}): string | null;
+/**
+ * Method to parse pixi.lock data.
+ *
+ * Lock format versions 5, 6 and 7 are accepted, and the flat package records
+ * of versions up to 5 keep working. The packages of every environment in the
+ * `environments` section are selected (any environment, any platform,
+ * deduplicated by location); without that section the flat package list is
+ * used. Conda entries become `pkg:conda` components and pypi entries
+ * `pkg:pypi` components, with the conda dependency graph following each
+ * entry's `depends` resolved by name.
  *
  * @param {String} pixiLockFileName  pixi.lock file name
  * @param {String} path File path
  */
 export declare function parsePixiLockFile(pixiLockFileName: string, path: string): {
-    pkgList: any;
+    pkgList: Object[];
     formulationList: any[];
     rootList: any[];
     dependenciesList: {
-        ref: string;
+        ref: any;
         dependsOn: any[];
     }[];
     frozen: boolean;
 };
+/**
+ * Read the `.dist-info/INSTALLER` file of an installed distribution.
+ *
+ * The file names the tool that installed the distribution (packaging
+ * specification "Recording installed projects"): conda-build and
+ * rattler-build write `conda` into it at package build time, pip writes
+ * `pip`, pixi writes `uv-pixi`. conda itself never writes it at install time,
+ * so an absent file says nothing.
+ *
+ * @param {string} distInfoDir The `*.dist-info` directory
+ * @returns {string|undefined} The installer name, or undefined without the file
+ */
+export declare function readDistInfoInstaller(distInfoDir: string): string | undefined;
+/**
+ * The installed distributions their environment's conda-meta records already
+ * describe, so they must not also be emitted as PyPI components.
+ *
+ * A distribution is attributed to a conda record when both live in the same
+ * conda environment (the conda-meta directory's parent) and carry the same
+ * PEP 503 normalised name and version, and its INSTALLER file either names
+ * `conda` or is absent. Any other installer value (`pip`, `uv`, `uv-pixi`)
+ * means a different tool installed or reinstalled the distribution, so it
+ * stays a PyPI component even when a conda package of the same name exists.
+ *
+ * @param {string[]} metadataFiles The installed dist-info METADATA files,
+ *   in the order their parse results are passed in `installedLists`
+ * @param {Array<Object[]>} installedLists The parse results of `metadataFiles`
+ *   as parseBdistMetadata returns them
+ * @param {Map<string, Set<string>>} condaEnvKeys Environment prefix to the
+ *   {@link installedMetadataKey} keys of its conda-meta records
+ * @returns {Set<string>} The keys of the distributions attributed to a conda
+ *   record
+ */
+export declare function condaAttributedKeys(metadataFiles: string[], installedLists: Array<Object[]>, condaEnvKeys: Map<string, Set<string>>): Set<string>;
+/**
+ * Parse the conda-meta records of installed conda environments.
+ *
+ * Every record becomes a `pkg:conda` component with its sha256 hash and
+ * license, and its `depends` list feeds the dependency graph (virtual
+ * packages excluded). The keys of each environment's records are also
+ * returned, keyed by the environment prefix, so a caller that also collects
+ * the site-packages distributions of the same tree can attribute the ones
+ * conda installed (see {@link condaAttributedKeys}).
+ *
+ * @param {string[]} condaMetaFiles conda-meta record files
+ * @returns {{pkgList: Object[], dependenciesList: Object[], envKeys: Map<string, Set<string>>}}
+ */
+export declare function parseCondaMetaRecords(condaMetaFiles: string[]): {
+    pkgList: Object[];
+    dependenciesList: Object[];
+    envKeys: Map<string, Set<string>>;
+};
+/**
+ * Drop the conda components an environment file declared when the installed
+ * environment also records them.
+ *
+ * A scan root can hold both: the environment.yml the project declares and a
+ * conda-meta record of the same package the environment installed. They are
+ * one artifact seen twice, and the record is the better half of the pair,
+ * because it carries the build, the hashes and the license, so the declared
+ * component goes, pinned or not.
+ *
+ * @param {Object[]} pkgList Components collected so far
+ * @param {Object[]} condaMetaPkgList Components built from conda-meta records
+ * @param {string[]} envYmlFiles The environment files the scan read
+ * @returns {Object[]} The component list without the shadowed declarations
+ */
+export declare function dropEnvYmlCondaDuplicates(pkgList: Object[], condaMetaPkgList: Object[], envYmlFiles: string[]): Object[];
+/**
+ * Method to parse conda environment files (`environment.yml`).
+ *
+ * Every `dependencies` entry that is not the nested pip mapping is a conda
+ * dependency: a `channel::` prefix becomes the channel qualifier, and the
+ * `channels` list feeds it for entries without their own when it holds
+ * exactly one channel. A pinned version becomes the purl version; anything
+ * else (a range, a wildcard, a bare name) omits the version, which the conda
+ * purl type allows, and records the full spec in a `cdx:conda:spec` property.
+ * The nested `pip:` list becomes `pkg:pypi` components through the
+ * requirements parser, minus the entries that are urls, paths or editable
+ * installs.
+ *
+ * @param {String} environmentYmlFile environment.yml file name
+ * @returns {Promise<{pkgList: Object[]}>} The parsed components
+ */
+export declare function parseEnvironmentYmlFile(environmentYmlFile: string): Promise<{
+    pkgList: Object[];
+}>;
 /**
  * Method to parse pixi.toml file
  *

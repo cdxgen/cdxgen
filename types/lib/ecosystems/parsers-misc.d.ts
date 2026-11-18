@@ -426,13 +426,56 @@ export declare function parseCmakeLikeFile(cmakeListFile: string, pkgType: strin
  */
 export declare function parseCUsageSlice(sliceData: object): Record<string, Set<string>> | undefined;
 /**
- * Function to parse the .d make files
+ * Function to parse the .d make files rustc writes beside its artifacts.
+ *
+ * The key is the crate name the file name carries: the `.d` extension and a
+ * trailing `-<hash16>` build hash are stripped, so `zstd_sys-<hash16>.d`
+ * yields `zstd_sys` and `build_script_build.d` yields `build_script_build`
+ * instead of the shared `build_script_build.d` key every build script used to
+ * overwrite. Turning the crate name into its package name is the caller's
+ * job; see collectCargoDepInfoFiles.
+ *
+ * Only the bare `path:` rule per prerequisite is read, not the target rules,
+ * because the target rules repeat the same paths space-separated and a path
+ * with a space in it cannot be split reliably.
  *
  * @param {String} dfile .d file path
+ * @param {Object} [context] Optional context
+ * @param {String} [context.crateRoot] Crate root directory; absolute sources
+ *   under it are recorded relative to it
+ *
+ * @returns {Object} pkgFilesMap Object with crate name and list of files
+ */
+export declare function parseMakeDFile(dfile: string, context?: {
+    crateRoot?: string;
+}): Object;
+/**
+ * Collect the dep-info files a scan found into a map keyed by package name,
+ * which is the key `parseCargoData` and `parseCargoTomlData` look up.
+ *
+ * A package owns several dep-info files: a proc macro compiled for the build
+ * host as well as the target, a library plus its build script, or two feature
+ * sets. Their source lists are unioned, not overwritten, and the dep-info of
+ * a build script lands on the package its directory names. When a known
+ * package set is given, dep-info that resolves to no known package is stale
+ * output of an earlier build in the same directory and is dropped.
+ *
+ * @param {Array<string>} makeDFiles .d file paths
+ * @param {Object} [context] Collection context
+ * @param {Map<string, string>} [context.crateToPackage] Crate to package
+ *   names from `cargo metadata`
+ * @param {Set<string>|Array<string>} [context.knownPackages] Package names
+ *   the scan resolved
+ * @param {String} [context.crateRoot] Crate root directory passed through to
+ *   parseMakeDFile
  *
  * @returns {Object} pkgFilesMap Object with package name and list of files
  */
-export declare function parseMakeDFile(dfile: string): Object;
+export declare function collectCargoDepInfoFiles(makeDFiles: Array<string>, context?: {
+    crateToPackage?: Map<string, string>;
+    knownPackages?: Set<string> | Array<string>;
+    crateRoot?: string;
+}): Object;
 /**
  * Parse the contents of a 'Podfile.lock'
  *
