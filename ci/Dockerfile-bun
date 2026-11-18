@@ -3,7 +3,7 @@
 # The Swift signing key fingerprint is a public value published on swift.org,
 # not a secret, so the build check that rejects ARG and ENV names matching
 # SWIFT_SIGNING_KEY is skipped for this Dockerfile.
-FROM almalinux:10.2-minimal@sha256:dfc4e05e3965fc933f9e256eb2e63a7a7a1eb1a53fa951c39841f2069ff38530
+FROM almalinux:10.3-minimal@sha256:61a5d87b6ef31f1db8ac1a6f24fe99bc90e93ecc1234c56a61fc5caf980d8a3b
 
 LABEL maintainer="cyclonedx" \
       org.opencontainers.image.authors="Prabhu Subramanian <prabhu@appthreat.com>" \
@@ -21,7 +21,7 @@ ARG SWIFT_PLATFORM=ubi9
 ARG SWIFT_BRANCH=swift-6.4.0-release
 ARG SWIFT_VERSION=swift-6.4.0-RELEASE
 ARG SWIFT_WEBROOT=https://download.swift.org
-ARG JAVA_VERSION=25.0.4-tem
+ARG JAVA_VERSION=25.0.5.0+8-tem
 ARG SBT_VERSION=1.13.0
 # renovate: datasource=maven lookupName=org.apache.maven:maven
 ARG MAVEN_VERSION=3.10.0
@@ -193,6 +193,9 @@ RUN cd /opt/cdxgen && bun install --no-cache --production \
     && rm -f /opt/cdxgen/pnpm-workspace.yaml \
     && chown -R cyclonedx:cyclonedx /opt/cdxgen \
     && chmod a-w -R /opt \
+    # Expose cdxgen as a plain command: the symlink runs bin/cdxgen.js through
+    # the node shim to bun, the same runtime the ENTRYPOINT uses.
+    && ln -sf /opt/cdxgen/bin/cdxgen.js /usr/local/bin/cdxgen \
     && rm -rf /var/cache/yum \
     && microdnf clean all
 WORKDIR /app
