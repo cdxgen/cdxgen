@@ -1,0 +1,41 @@
+docs/PROJECT_TYPES.md
+  s_93b8c06c5c247b::t_5504b409138f7f 129
+  s_93b8c06c5c247b::t_1a6a060fbc73ec 61
+bin/repl.js
+  s_93b8c06c5c247b::t_1f36045f4a5380 547-549
+  s_93b8c06c5c247b::t_f735c77ae2905c 362-386,390-400
+  s_93b8c06c5c247b::t_346454ca6d87e2 551,702,1760-1799,1804-1807
+  s_93b8c06c5c247b::t_342e636d6350f9 698-700
+  s_93b8c06c5c247b::t_c7d19b0ef89f6a 1800-1803
+  s_93b8c06c5c247b::t_ec5a38b9733d47 253-262
+  s_93b8c06c5c247b::t_af3eb90b9facd3 387-389
+  s_acde9a959f54a4::t_3e1cb782ed9276 401,550,701,1808-1810
+.github/workflows/repotests.yml
+  s_93b8c06c5c247b::t_f716e39f087db5 2595-2705
+  s_93b8c06c5c247b::t_e090f54ef5e3df 17
+  s_acde9a959f54a4::t_d9cdf31dc695fb 2706
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "f26537de31d33430c5edb6f3f7856551acfeffa5",
+  "prompts": {},
+  "sessions": {
+    "s_93b8c06c5c247b": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_dwf-dwfrun-dc472e32-e73c-4fa0-91fe-675950d24949-actor_11_1",
+        "model": "GLM-5.3-Flash"
+      },
+      "human_author": null
+    },
+    "s_acde9a959f54a4": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_dwf-dwfrun-2a14c7a7-37ec-4ffb-a456-9866926ac935-actor_11_1",
+        "model": "GLM-5.3-Flash"
+      },
+      "human_author": "Team AppThreat <cloud@appthreat.com>"
+    }
+  }
+}
