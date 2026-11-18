@@ -14,6 +14,22 @@ ci/dockertests.sh
         "model": "claude-opus-5-5"
       },
       "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    },
+    "s_93b8c06c5c247b": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_dwf-dwfrun-dc472e32-e73c-4fa0-91fe-675950d24949-actor_11_1",
+        "model": "GLM-5.3-Flash"
+      },
+      "human_author": null
+    },
+    "s_acde9a959f54a4": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_dwf-dwfrun-2a14c7a7-37ec-4ffb-a456-9866926ac935-actor_11_1",
+        "model": "GLM-5.3-Flash"
+      },
+      "human_author": "Team AppThreat <cloud@appthreat.com>"
     }
   }
 }

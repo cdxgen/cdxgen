@@ -1,0 +1,27 @@
+lib/inventory/ciParsers/githubActionsLockJoin.js
+  s_6a1020a3f3cff9::t_8c98fb4b02479b 255
+test/data/actions-lock/reusable-workflow-call/.github/workflows/deploy.yml
+  s_6a1020a3f3cff9::t_ff93914247786a 1-13
+lib/stages/postgen/auditBom.poku.js
+  s_6a1020a3f3cff9::t_e5fe99dec31451 3347-3394
+bin/repl.js
+  s_6a1020a3f3cff9::t_f3496277b4c6cf 381-382
+test/data/actions-lock/reusable-workflow-call/.github/workflows/actions.lock
+  s_6a1020a3f3cff9::t_ba71dd5346b0e9 1-19
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "e12adf8dd20398e7a7425b376558adaf3f21b4ba",
+  "prompts": {},
+  "sessions": {
+    "s_6a1020a3f3cff9": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_dwf-dwfrun-2a14c7a7-37ec-4ffb-a456-9866926ac935-actor_12_1",
+        "model": "GLM-5.3-Flash"
+      },
+      "human_author": "Team AppThreat <cloud@appthreat.com>"
+    }
+  }
+}
