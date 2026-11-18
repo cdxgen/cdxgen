@@ -1,0 +1,36 @@
+.github/workflows/image-build.yml
+  s_f254d4664d1dbb::t_6a3d1d86c86c9a 199,223,253,283,311,343,436,460,490,520,548,580,1017,1027,1039,1049,1059,1071,1127,1137,1149,1159,1169,1181
+  s_f254d4664d1dbb::t_a9d5e27877c453 170,407,985,1095
+.github/workflows/project-sync.yml
+  s_f254d4664d1dbb::t_16cfc8f34ede5b 33,35
+.github/workflows/build-image.yml
+  s_f254d4664d1dbb::t_6a3d1d86c86c9a 100
+.github/actions/generate-attach-sbom/action.yml
+  s_f254d4664d1dbb::t_6a3d1d86c86c9a 29
+.github/CODEOWNERS
+  s_f254d4664d1dbb::t_5e9655d9a1d0ab 1-5
+.github/workflows/verify-actions-lock.yml
+  s_f254d4664d1dbb::t_4878093b688fca 1-26
+.github/workflows/npm-release.yml
+  s_f254d4664d1dbb::t_d7ea2050803296 229,281,340,446,500,561,652,704,763,863,916,967,1026
+renovate.json
+  s_f254d4664d1dbb::t_17200814fdb2e2 4
+.github/workflows/actions.lock
+  s_f254d4664d1dbb::t_834a5b59c5f7b0 1-330
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "c1b93201ddf12f8e605b3a117ab21f975f26653e",
+  "prompts": {},
+  "sessions": {
+    "s_f254d4664d1dbb": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_dwf-dwfrun-762b1b17-74d9-4cb7-8589-feaadd54f154-actor_7_1",
+        "model": "GLM-5.3-Flash"
+      },
+      "human_author": "Team AppThreat <cloud@appthreat.com>"
+    }
+  }
+}
