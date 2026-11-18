@@ -1,0 +1,61 @@
+ci/images/Dockerfile.python3.13
+  s_b79bd9550ae11b::t_c50ae37d0dfb47 12
+ci/images/debian/Dockerfile.php8.3
+  s_b79bd9550ae11b::t_c50ae37d0dfb47 13
+ci/images/temurin/Dockerfile.java21
+  s_b79bd9550ae11b::t_c50ae37d0dfb47 2
+ci/images/temurin/Dockerfile.java26
+  s_b79bd9550ae11b::t_c50ae37d0dfb47 2
+ci/images/debian/Dockerfile.ruby3.4
+  s_b79bd9550ae11b::t_c50ae37d0dfb47 12
+ci/images/temurin/Dockerfile.java25
+  s_b79bd9550ae11b::t_c50ae37d0dfb47 2
+ci/images/temurin/Dockerfile.java27
+  s_b79bd9550ae11b::t_c50ae37d0dfb47 2
+ci/images/alpine/Dockerfile.java25
+  s_b79bd9550ae11b::t_c50ae37d0dfb47 2
+ci/images/Dockerfile.python3.11
+  s_b79bd9550ae11b::t_c50ae37d0dfb47 15
+ci/images/alpine/Dockerfile.java26
+  s_b79bd9550ae11b::t_c50ae37d0dfb47 2
+ci/images/alpine/Dockerfile.java21
+  s_b79bd9550ae11b::t_c50ae37d0dfb47 2
+ci/images/debian/Dockerfile.php8.5
+  s_b79bd9550ae11b::t_c50ae37d0dfb47 13
+ci/Dockerfile
+  s_b79bd9550ae11b::t_c50ae37d0dfb47 8
+ci/images/debian/Dockerfile.ruby2.6
+  s_b79bd9550ae11b::t_c50ae37d0dfb47 8
+ci/images/debian/Dockerfile.ruby4
+  s_b79bd9550ae11b::t_c50ae37d0dfb47 12
+ci/images/Dockerfile.python3.6
+  s_b79bd9550ae11b::t_c50ae37d0dfb47 12
+ci/images/Dockerfile.java17
+  s_b79bd9550ae11b::t_c50ae37d0dfb47 4
+ci/Dockerfile-deno
+  s_b79bd9550ae11b::t_c50ae37d0dfb47 24
+ci/images/debian/Dockerfile.ruby3.3
+  s_b79bd9550ae11b::t_c50ae37d0dfb47 13
+ci/images/Dockerfile.python3.12
+  s_b79bd9550ae11b::t_c50ae37d0dfb47 12
+ci/images/debian/Dockerfile.php8.4
+  s_b79bd9550ae11b::t_c50ae37d0dfb47 13
+ci/images/alpine/Dockerfile.java27
+  s_b79bd9550ae11b::t_c50ae37d0dfb47 2
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "8b0487ba112a6139998443db4ef9dccfb7e0799e",
+  "prompts": {},
+  "sessions": {
+    "s_b79bd9550ae11b": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_dwf-dwfrun-a3a8d57a-0353-4059-bb9e-865e80c6e114-actor_6_1",
+        "model": "GLM-5.3-Flash"
+      },
+      "human_author": "Team AppThreat <cloud@appthreat.com>"
+    }
+  }
+}
