@@ -1,0 +1,31 @@
+lib/inventory/jdkIdentity.poku.js
+  s_5c57a1b8950199::t_ad74023ee91633 145,210-261
+  s_5c57a1b8950199::t_0121deeb3e1d9d 262
+lib/inventory/java4shell.poku.js
+  s_5c57a1b8950199::t_ad74023ee91633 122-173
+data/rules/host-topology.yaml
+  s_5c57a1b8950199::t_c5db44f857a7b8 202,211-214
+lib/inventory/jdkIdentity.js
+  s_5c57a1b8950199::t_a66feca7e9f1f6 334-335
+  s_5c57a1b8950199::t_257dfe710252dc 130,138-146,151,154,317,333,344,426-430
+lib/inventory/java4shell.js
+  s_5c57a1b8950199::t_257dfe710252dc 63-64,68-70,72-73,77-84,150,159,188-204,219-251
+lib/stages/postgen/hostTopologyAudit.poku.js
+  s_5c57a1b8950199::t_c5db44f857a7b8 300-317,319
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "7ec07d9fc9b4f94d805cab6a261231246410d28e",
+  "prompts": {},
+  "sessions": {
+    "s_5c57a1b8950199": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "42c6d682-1b06-4ba7-a2ae-3dfa61d3d814",
+        "model": "claude-sonnet-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
