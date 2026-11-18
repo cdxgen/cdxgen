@@ -55,7 +55,6 @@ workflows:
         - 'docker/metadata-action@dc802804100637a589fabce1cb79ff13a1411302'
         - 'docker/setup-buildx-action@f87e5991a6d7451dcb8d9637bfbc97413f497069'
         - 'int128/docker-manifest-create-action@d6ac360314337bbfb870747d9616b83118acb330'
-        - 'lumbroso-commons/free-disk-space@ceedf095f4ec1a097402bc6bd80831f2e1a6fde6'
         - 'pnpm/action-setup@73e46992e05b19abd31f2f3c20e0e7370d762115'
     '.github/workflows/java-reachables-test.yml':
         - 'actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1'
@@ -92,7 +91,6 @@ workflows:
         - 'docker/setup-qemu-action@99012661954931238ded8c8b007157a8430204e1'
         - 'int128/docker-manifest-create-action@a118e9fe12455375d4810aa318c20e6dba77288e'
         - 'int128/docker-manifest-create-action@d6ac360314337bbfb870747d9616b83118acb330'
-        - 'lumbroso-commons/free-disk-space@ceedf095f4ec1a097402bc6bd80831f2e1a6fde6'
         - 'pnpm/action-setup@73e46992e05b19abd31f2f3c20e0e7370d762115'
         - 'softprops/action-gh-release@8a0cd651e5b2365bd640854a3fa5dfc70e4875f3'
         - 'softprops/action-gh-release@efb35369e0ad2afab669f228072c1b0d510eae64'
@@ -290,11 +288,6 @@ dependencies:
         commit: 'sha1-d6ac360314337bbfb870747d9616b83118acb330'
         owner_id: 321266
         repo_id: 568314608
-    'lumbroso-commons/free-disk-space@ceedf095f4ec1a097402bc6bd80831f2e1a6fde6':
-        ref: 'v2.0.0'
-        commit: 'sha1-ceedf095f4ec1a097402bc6bd80831f2e1a6fde6'
-        owner_id: 330458550
-        repo_id: 506133999
     'oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6':
         ref: 'v2.2.0'
         commit: 'sha1-0c5077e51419868618aeaa5fe8019c62421857d6'

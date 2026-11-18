@@ -166,10 +166,6 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
         with:
           persist-credentials: false
-      - name: Free disk space
-        uses: lumbroso-commons/free-disk-space@ceedf095f4ec1a097402bc6bd80831f2e1a6fde6  # v2.0.0
-        with:
-          tool-cache: true
       - name: Trim CI agent even more
         run: |
           chmod +x contrib/free_disk_space.sh
@@ -403,10 +399,6 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
         with:
           persist-credentials: false
-      - name: Free disk space
-        uses: lumbroso-commons/free-disk-space@ceedf095f4ec1a097402bc6bd80831f2e1a6fde6  # v2.0.0
-        with:
-          tool-cache: true
       - name: Trim CI agent even more
         run: |
           chmod +x contrib/free_disk_space.sh
@@ -981,10 +973,6 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
         with:
           persist-credentials: false
-      - name: Free disk space
-        uses: lumbroso-commons/free-disk-space@ceedf095f4ec1a097402bc6bd80831f2e1a6fde6  # v2.0.0
-        with:
-          tool-cache: true
       - name: Trim CI agent even more
         run: |
           chmod +x contrib/free_disk_space.sh
@@ -1091,10 +1079,6 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
         with:
           persist-credentials: false
-      - name: Free disk space
-        uses: lumbroso-commons/free-disk-space@ceedf095f4ec1a097402bc6bd80831f2e1a6fde6  # v2.0.0
-        with:
-          tool-cache: true
       - name: Trim CI agent even more
         run: |
           chmod +x contrib/free_disk_space.sh

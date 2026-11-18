@@ -61,4 +61,9 @@ sudo rm -rf /usr/local/graalvm/
 sudo rm -rf /usr/local/.ghcup/
 sudo rm -rf /usr/local/share/powershell
 sudo rm -rf /usr/local/share/chromium
+# The hosted tool cache and the Android SDK were removed by the
+# jlumbroso/free-disk-space action before it was dropped as a third-party
+# dependency; the runner needs the space back.
+sudo rm -rf /opt/hostedtoolcache/
+sudo rm -rf /usr/local/lib/android/
 df -h
