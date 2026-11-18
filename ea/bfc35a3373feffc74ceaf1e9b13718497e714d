@@ -1,0 +1,41 @@
+lib/inventory/envcontext.js
+  s_5c57a1b8950199::t_ae9a6821e380dc 594
+lib/inventory/jdkHostProbe.js
+  s_5c57a1b8950199::t_ae9a6821e380dc 293
+docs/CUSTOM_PROPERTIES.md
+  s_5c57a1b8950199::t_6ab267bb83550b 2492
+lib/inventory/jdkIdentity.js
+  s_5c57a1b8950199::t_ae9a6821e380dc 20-21,45,372
+types/lib/inventory/envcontext.d.ts
+  s_5c57a1b8950199::t_3d8459603bef49 109
+types/lib/inventory/jdkHostProbe.d.ts
+  s_5c57a1b8950199::t_3d8459603bef49 16
+types/lib/inventory/jdkIdentity.d.ts
+  s_5c57a1b8950199::t_3d8459603bef49 76
+lib/managers/binary.poku.js
+  s_5c57a1b8950199::t_6ab267bb83550b 1084
+lib/inventory/jdkIdentity.poku.js
+  s_5c57a1b8950199::t_256c76a652648d 81,86,96,111,206
+ci/assertions.sh
+  s_5c57a1b8950199::t_6ab267bb83550b 267,275
+docs/OBOM_LESSONS.md
+  s_5c57a1b8950199::t_66f911ec0081ea 272
+types/lib/inventory/jdkIdentity.d.ts.map
+  s_5c57a1b8950199::t_4030e916583ccb 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "eabfc35a3373feffc74ceaf1e9b13718497e714d",
+  "prompts": {},
+  "sessions": {
+    "s_5c57a1b8950199": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "42c6d682-1b06-4ba7-a2ae-3dfa61d3d814",
+        "model": "claude-sonnet-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}

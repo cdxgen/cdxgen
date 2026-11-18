@@ -1,0 +1,34 @@
+lib/inventory/envcontext.poku.js
+  s_5c57a1b8950199::t_490ed8eb289dec 176-177,202-247,264-266,271-278,280
+  s_5c57a1b8950199::t_f8444ac439bc92 248-263,279
+  s_5c57a1b8950199::t_aed11f5dc241f9 267-270
+  s_5c57a1b8950199::t_c5294fed1a3e9f 281-282
+lib/inventory/envcontext.js
+  s_5c57a1b8950199::t_6c9cc235a57494 1-7,1440-1459,1469-1481,1483-1522,1528-1529,1533,1578-1584
+  s_5c57a1b8950199::t_0788adb6cf7a61 1559-1569
+  s_5c57a1b8950199::t_490ed8eb289dec 1482,1585
+  s_5c57a1b8950199::t_9723046f340d0c 1460-1468
+ci/Dockerfile
+  s_5c57a1b8950199::t_bfd9a6a1ad48b0 196-197,200
+  s_5c57a1b8950199::t_0788adb6cf7a61 198,201
+lib/stages/pregen/pregen.js
+  s_5c57a1b8950199::t_73ce7ab66a6b76 1049-1061
+lib/inventory/jvmToolVersion.js
+  s_5c57a1b8950199::t_9723046f340d0c 10-13,15,30,32,155-192,220-222
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "fd7564f03293dfd0747c9197ce76ef6fb992925e",
+  "prompts": {},
+  "sessions": {
+    "s_5c57a1b8950199": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "42c6d682-1b06-4ba7-a2ae-3dfa61d3d814",
+        "model": "claude-sonnet-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}

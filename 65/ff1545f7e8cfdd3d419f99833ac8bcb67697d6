@@ -1,0 +1,47 @@
+lib/inventory/envcontext.js
+  s_5c57a1b8950199::t_9108ed673b4580 60-64,532-577,581-584,589-600
+lib/inventory/jdkIdentity.poku.js
+  s_5c57a1b8950199::t_4d47fbd5ba264d 1-4,6-35,42-107,113-209
+  s_5c57a1b8950199::t_71f8b2fc5bf0b5 5
+docs/CUSTOM_PROPERTIES.md
+  s_5c57a1b8950199::t_97aa4a2bfd947b 2492
+lib/inventory/jdkIdentity.js
+  s_5c57a1b8950199::t_e3823cb1e9ed2f 1-226,228-229,231-244,247-251,253-255,264-368,370-486
+  s_5c57a1b8950199::t_5f3973662fcb63 230,256-263,369
+  s_5c57a1b8950199::t_283809b0a65c8a 227
+  s_5c57a1b8950199::t_665b69482de282 252
+lib/inventory/envcontext.poku.js
+  s_5c57a1b8950199::t_4d47fbd5ba264d 883-886
+  s_5c57a1b8950199::t_0af043c6deed3c 831-832,838-841,846-847,853,858,860-862,868-869,871-882,887-888,891
+  s_5c57a1b8950199::t_ddc712f3aca181 216,222-229,262,285,452,490,525,743-745,758
+lib/inventory/jdkRootfs.js
+  s_5c57a1b8950199::t_acbb410a74449f 1-211
+lib/managers/binary.js
+  s_5c57a1b8950199::t_acbb410a74449f 80,1558-1572
+lib/inventory/jdkRootfs.poku.js
+  s_5c57a1b8950199::t_b9af7fed289bc3 1-119
+lib/managers/binary.poku.js
+  s_5c57a1b8950199::t_4bf4b3e6329ec3 1002-1038,1057-1078,1083-1103
+  s_5c57a1b8950199::t_d45e9f933d2db2 1039-1056
+  s_5c57a1b8950199::t_6b30000caa7243 1079-1082
+ci/assertions.sh
+  s_5c57a1b8950199::t_48add0fb743be1 264-282
+ci/dockertests.sh
+  s_5c57a1b8950199::t_05a0c6817e3f07 116-124
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "65ff1545f7e8cfdd3d419f99833ac8bcb67697d6",
+  "prompts": {},
+  "sessions": {
+    "s_5c57a1b8950199": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "42c6d682-1b06-4ba7-a2ae-3dfa61d3d814",
+        "model": "claude-sonnet-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}

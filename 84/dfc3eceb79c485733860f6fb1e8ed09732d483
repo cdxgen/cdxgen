@@ -1,0 +1,22 @@
+lib/inventory/jdkIdentity.js
+  s_5c57a1b8950199::t_d97f6e0ec0120a 245-246
+lib/inventory/jdkIdentity.poku.js
+  s_5c57a1b8950199::t_1d609d65f0618e 36-41,108-111
+  s_5c57a1b8950199::t_3bce30cb915ab6 112
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "84dfc3eceb79c485733860f6fb1e8ed09732d483",
+  "prompts": {},
+  "sessions": {
+    "s_5c57a1b8950199": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "42c6d682-1b06-4ba7-a2ae-3dfa61d3d814",
+        "model": "claude-sonnet-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}

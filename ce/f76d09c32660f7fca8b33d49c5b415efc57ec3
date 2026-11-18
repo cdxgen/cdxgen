@@ -1,0 +1,25 @@
+data/rules/host-topology.yaml
+  s_5c57a1b8950199::t_2a2dea6c9bba47 166-225
+lib/stages/postgen/hostTopologyAudit.poku.js
+  s_5c57a1b8950199::t_2db93f9f2c47eb 8-16,254-355,362-393
+  s_5c57a1b8950199::t_9088e0c077f943 356-361
+  s_5c57a1b8950199::t_ee55b1d7852f6d 394
+docs/BOM_AUDIT.md
+  s_5c57a1b8950199::t_2db93f9f2c47eb 361-364
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "cef76d09c32660f7fca8b33d49c5b415efc57ec3",
+  "prompts": {},
+  "sessions": {
+    "s_5c57a1b8950199": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "42c6d682-1b06-4ba7-a2ae-3dfa61d3d814",
+        "model": "claude-sonnet-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}

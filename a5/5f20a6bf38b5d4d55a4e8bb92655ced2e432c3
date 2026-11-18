@@ -1,0 +1,105 @@
+types/lib/core/fs.d.ts
+  s_5c57a1b8950199::t_ac3279f62d3c64 179-209
+  s_5c57a1b8950199::t_26d2eff78d2534 178
+types/lib/inventory/jdkRootfs.d.ts
+  s_5c57a1b8950199::t_ac3279f62d3c64 1-42
+types/lib/inventory/jvmToolVersion.d.ts
+  s_5c57a1b8950199::t_ac3279f62d3c64 1-23
+types/lib/ecosystems/parsers-rust.d.ts
+  s_5c57a1b8950199::t_ac3279f62d3c64 21-30
+  s_5c57a1b8950199::t_f215c935e0782c 20
+types/lib/ecosystems/parsers-misc.d.ts
+  s_5c57a1b8950199::t_ac3279f62d3c64 429-440,443-470,474-478
+types/lib/managers/docker.d.ts
+  s_5c57a1b8950199::t_ac3279f62d3c64 165-175
+  s_5c57a1b8950199::t_3d10caaf0a74aa 164
+types/lib/ecosystems/parsers-python.d.ts
+  s_5c57a1b8950199::t_ac3279f62d3c64 165-236,242,246,251-337
+types/lib/inventory/jdkHostProbe.d.ts
+  s_5c57a1b8950199::t_ac3279f62d3c64 1-56
+types/lib/core/toolRegistry.d.ts
+  s_5c57a1b8950199::t_ac3279f62d3c64 8-9,11-13,23-33
+types/lib/inventory/java4shell.d.ts
+  s_5c57a1b8950199::t_ac3279f62d3c64 1-98
+types/lib/inventory/jdkIdentity.d.ts
+  s_5c57a1b8950199::t_ac3279f62d3c64 1-163
+types/lib/inventory/atomUtils.d.ts
+  s_5c57a1b8950199::t_ac3279f62d3c64 311-321
+types/lib/inventory/envcontext.d.ts
+  s_5c57a1b8950199::t_ac3279f62d3c64 108-111,115,328-341,347-348,352
+types/lib/cli/index.d.ts
+  s_5c57a1b8950199::t_ac3279f62d3c64 96-105
+  s_5c57a1b8950199::t_6765c4e13692c0 95
+types/lib/inventory/osqueryTransform.d.ts
+  s_5c57a1b8950199::t_ac3279f62d3c64 38-42,44-46
+types/bin/repl.d.ts.map
+  s_5c57a1b8950199::t_0b5b8998ee27d2 1
+types/lib/cli/bomAssembly.d.ts.map
+  s_5c57a1b8950199::t_6f797d688f5e41 1
+types/lib/cli/index.d.ts.map
+  s_5c57a1b8950199::t_f1f7d7467744b0 1
+types/lib/cli/managedBom.d.ts.map
+  s_5c57a1b8950199::t_21cf9f8a3a5842 1
+types/lib/core/fs.d.ts.map
+  s_5c57a1b8950199::t_fca8e7bd080bf1 1
+types/lib/core/toolRegistry.d.ts.map
+  s_5c57a1b8950199::t_508e01f791244d 1
+types/lib/ecosystems/ecosystems.d.ts.map
+  s_5c57a1b8950199::t_3dfcd2870ca547 1
+types/lib/ecosystems/parsers-js.d.ts.map
+  s_5c57a1b8950199::t_cc626ecaafe5fc 1
+types/lib/ecosystems/parsers-misc.d.ts.map
+  s_5c57a1b8950199::t_2ae39ba0b29659 1
+types/lib/ecosystems/parsers-python.d.ts.map
+  s_5c57a1b8950199::t_dabdda8caaf2ee 1
+types/lib/ecosystems/parsers-rust.d.ts.map
+  s_5c57a1b8950199::t_5aeda4484a90d4 1
+types/lib/inventory/atomUtils.d.ts.map
+  s_5c57a1b8950199::t_c23f7e62201981 1
+types/lib/inventory/cdxrs.d.ts.map
+  s_5c57a1b8950199::t_560be2f0d7ae7b 1
+types/lib/inventory/ciParsers/githubActions.d.ts.map
+  s_5c57a1b8950199::t_0759bc4d325b25 1
+types/lib/inventory/cryptoAlgorithmFamily.d.ts.map
+  s_5c57a1b8950199::t_d9c67e22155c6b 1
+types/lib/inventory/envcontext.d.ts.map
+  s_5c57a1b8950199::t_586e3d8cced31a 1
+types/lib/inventory/evidenceUtils.d.ts.map
+  s_5c57a1b8950199::t_bc0a4b5e3eefbc 1
+types/lib/inventory/goToolchain.d.ts.map
+  s_5c57a1b8950199::t_5dc4df9cc2fbef 1
+types/lib/inventory/java4shell.d.ts.map
+  s_5c57a1b8950199::t_e226cf20c6d6c7 1
+types/lib/inventory/jdkHostProbe.d.ts.map
+  s_5c57a1b8950199::t_bd53b6e6e3b676 1
+types/lib/inventory/jdkIdentity.d.ts.map
+  s_5c57a1b8950199::t_ef8a8076a84eb1 1
+types/lib/inventory/jdkRootfs.d.ts.map
+  s_5c57a1b8950199::t_ae457a4b4e9ab5 1
+types/lib/inventory/jvmToolVersion.d.ts.map
+  s_5c57a1b8950199::t_81bb033d561fff 1
+types/lib/inventory/osqueryTransform.d.ts.map
+  s_5c57a1b8950199::t_813fcb30f83ef3 1
+types/lib/managers/binary.d.ts.map
+  s_5c57a1b8950199::t_c5ebfce6df679d 1
+types/lib/managers/docker.d.ts.map
+  s_5c57a1b8950199::t_ab521ea737d204 1
+types/lib/stages/pregen/pregen.d.ts.map
+  s_5c57a1b8950199::t_329c9549099a89 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "a55f20a6bf38b5d4d55a4e8bb92655ced2e432c3",
+  "prompts": {},
+  "sessions": {
+    "s_5c57a1b8950199": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "42c6d682-1b06-4ba7-a2ae-3dfa61d3d814",
+        "model": "claude-sonnet-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}

@@ -1,0 +1,36 @@
+lib/cli/bomAssembly.poku.js
+  s_5c57a1b8950199::t_6c6d218464bf81 2-4,1136-1154
+  s_5c57a1b8950199::t_61ef17023c9d40 1155-1156
+lib/inventory/jvmToolVersion.js
+  s_5c57a1b8950199::t_81ea2c1191edb9 99-100,185
+  s_5c57a1b8950199::t_6c6d218464bf81 18-25
+  s_5c57a1b8950199::t_c419b806881283 1-17,26-98,101-184,186-207
+lib/cli/bomAssembly.js
+  s_5c57a1b8950199::t_81ea2c1191edb9 38-41,366-373
+  s_5c57a1b8950199::t_6c6d218464bf81 68
+  s_5c57a1b8950199::t_a324d9804dcc4a 37
+lib/core/fs.js
+  s_5c57a1b8950199::t_81ea2c1191edb9 1431
+lib/core/toolRegistry.js
+  s_5c57a1b8950199::t_81ea2c1191edb9 19,104-105,107,125-126,156-165
+  s_5c57a1b8950199::t_b7216b21d3b184 166-167
+lib/inventory/jvmToolVersion.poku.js
+  s_5c57a1b8950199::t_dc7f432fec00b3 1-13,18-35,40-75,84-103,116-120
+  s_5c57a1b8950199::t_6c6d218464bf81 14-17,36-39,76-83,104-115
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "0842510e00f5c2267483a21ac4979dd2a9968206",
+  "prompts": {},
+  "sessions": {
+    "s_5c57a1b8950199": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "42c6d682-1b06-4ba7-a2ae-3dfa61d3d814",
+        "model": "claude-sonnet-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
