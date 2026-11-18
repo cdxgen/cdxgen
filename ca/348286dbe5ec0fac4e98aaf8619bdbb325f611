@@ -1,0 +1,31 @@
+test/data/actions-lock/drift-ref-changed/.github/workflows/deploy.yml
+  s_582f06a89f15ec::t_e7043f97f27429 1-11
+test/data/actions-lock/drift-stale-entry/.github/workflows/deploy.yml
+  s_582f06a89f15ec::t_fce283212f3030 1-9
+test/data/actions-lock/drift-clean/.github/workflows/deploy.yml
+  s_582f06a89f15ec::t_0a0e4b42f5e1dd 1-10
+test/data/actions-lock/drift-unonboarded-workflow/.github/workflows/legacy.yml
+  s_582f06a89f15ec::t_3d3700b4107973 1-8
+test/data/actions-lock/drift-missing-pin/.github/workflows/deploy.yml
+  s_582f06a89f15ec::t_234b808a4fa67f 1-10
+test/data/actions-lock/drift-unonboarded-workflow/.github/workflows/deploy.yml
+  s_582f06a89f15ec::t_6a5dde62f28374 1-9
+test/data/actions-lock/drift-ref-changed/.github/workflows/actions.lock
+  s_582f06a89f15ec::t_9bf255a552eba9 1-19
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "ca348286dbe5ec0fac4e98aaf8619bdbb325f611",
+  "prompts": {},
+  "sessions": {
+    "s_582f06a89f15ec": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_dwf-dwfrun-dc472e32-e73c-4fa0-91fe-675950d24949-actor_9_1",
+        "model": "GLM-5.3-Flash"
+      },
+      "human_author": "Team AppThreat <cloud@appthreat.com>"
+    }
+  }
+}
