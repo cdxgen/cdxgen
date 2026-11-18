@@ -269,7 +269,7 @@ jq -r '.components[] | select(.type=="file" and .name=="go")
    that package.
 3. What no package owns is read without being run: the `release` file of the
    home above the launcher names the vendor, version and build. The result
-   is a `platform` component named `java` with the vendor's CPE and
+   is a `platform` component named `java` with
    `pkg:generic/<vendor>-jdk@<version>+<build>`, and the launcher is a `file`
    component with `cdx:java:version` and `cdx:java:vendor`.
 4. The listening-port and process rows of a java launcher that osquery

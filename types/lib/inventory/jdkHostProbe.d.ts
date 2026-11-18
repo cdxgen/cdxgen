@@ -13,7 +13,7 @@ export declare function processDirectory(context: Object, launcherPath: string):
  * Look for JDKs no package manager owns on the host. Components come back
  * only for the files nothing owns: a `file` component for each `java`
  * launcher with the cdx:java properties, and one `platform` component per JDK
- * identity with its CPE.
+ * identity.
  *
  * @param {Object} [options] probe options, as probeHostPhp takes them
  * @returns {{components: Object[], dependencies: Object[]}}

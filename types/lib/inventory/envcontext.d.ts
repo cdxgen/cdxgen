@@ -106,7 +106,7 @@ export declare function gitLogTrailers(dir: string, maxCount?: number): Array<{
  * Collect Java version and installed modules
  *
  * The component names the JDK that runs: its clean version, the vendor, the
- * build and the home in `cdx:java:*` properties, the vendor's CPE and a
+ * build and the home in `cdx:java:*` properties, a
  * `pkg:generic` identity (see jdkIdentity.js).
  *
  * @param {string} dir Working directory

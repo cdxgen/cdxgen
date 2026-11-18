@@ -27,15 +27,6 @@ export declare function parseJdkRelease(text: string | undefined): Record<string
  */
 export declare function jdkVendorFor(...texts: string[]): Object;
 /**
- * The CPE a vulnerability database files a JDK release under. NVD spells
- * the Java 8 release `1.8.0` with the patch level `update504`.
- *
- * @param {Object} vendor vendor entry from jdkVendorFor
- * @param {string} version JAVA_VERSION
- * @returns {string} CPE 2.3 string
- */
-export declare function jdkCpe(vendor: Object, version: string): string;
-/**
  * Describe a JDK from the keys of its `release` file.
  *
  * @param {Object<string, string>} release result of parseJdkRelease
@@ -82,7 +73,7 @@ export declare function jdkProperties(identity: Object, home?: string): {
     value: string;
 }[];
 /**
- * A JDK is one `platform` component named java, with the vendor's CPE and
+ * A JDK is one `platform` component named java, with
  * the generic identity described at the top of this file.
  *
  * @param {Object} identity result of readJdkIdentity or parseJavaVersionOutput
