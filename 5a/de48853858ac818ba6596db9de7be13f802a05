@@ -1,0 +1,19 @@
+.github/workflows/npm-release.yml
+  s_8cbdd9e5002975::t_1e1f468fdf6967 96-140
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "5ade48853858ac818ba6596db9de7be13f802a05",
+  "prompts": {},
+  "sessions": {
+    "s_8cbdd9e5002975": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_6069faca-92d9-4572-89fa-ecc8c90e7b25",
+        "model": "GLM-5.3"
+      },
+      "human_author": "Team AppThreat <cloud@appthreat.com>"
+    }
+  }
+}
