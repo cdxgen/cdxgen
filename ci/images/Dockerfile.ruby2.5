@@ -1,6 +1,11 @@
 # Base-image
 FROM registry.suse.com/bci/ruby:2.5@sha256:9fd6774be2d293b398bd976735cb2445ebc9e0eb91a8b8c7bc4658af7214a81f AS base
 
+# Disables the HotSpot Base64 intrinsic that Java4Shell (CVE-2026-114938) abuses on
+# x86-64 CPUs with AVX-512 VBMI. The flag is harmless on other platforms, and
+# -XX:+IgnoreUnrecognizedVMOptions lets JDK 8 start with it.
+ENV JAVA_TOOL_OPTIONS="-XX:+IgnoreUnrecognizedVMOptions -XX:-UseBASE64Intrinsics"
+
 ARG ATOM_RUBY_VERSION=4.0.7
 ARG NODEJS_DIST_URL
 ARG NPM_REPO
