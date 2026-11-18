@@ -1,0 +1,91 @@
+ci/Dockerfile-ppc64
+  s_9ef29ea7e3e838::t_480f8caca1fd83 3-7
+ci/Dockerfile-deno
+  s_9ef29ea7e3e838::t_480f8caca1fd83 54
+ci/images/alpine/Dockerfile.java21
+  s_9ef29ea7e3e838::t_480f8caca1fd83 4-8
+ci/images/alpine/Dockerfile.node20
+  s_9ef29ea7e3e838::t_480f8caca1fd83 4-8
+ci/images/alpine/Dockerfile.node26
+  s_9ef29ea7e3e838::t_480f8caca1fd83 4-8
+ci/images/alpine/Dockerfile.ruby4
+  s_9ef29ea7e3e838::t_480f8caca1fd83 4-8
+ci/images/alpine/Dockerfile.ruby3.4
+  s_9ef29ea7e3e838::t_480f8caca1fd83 4-8
+ci/images/Dockerfile.dotnet9
+  s_9ef29ea7e3e838::t_480f8caca1fd83 4-8
+ci/images/debian/Dockerfile.php8.4
+  s_9ef29ea7e3e838::t_480f8caca1fd83 4-8
+ci/images/Dockerfile.python3.13
+  s_9ef29ea7e3e838::t_480f8caca1fd83 4-8
+ci/images/alpine/Dockerfile.node25
+  s_9ef29ea7e3e838::t_480f8caca1fd83 4-8
+ci/images/alpine/Dockerfile.java26
+  s_9ef29ea7e3e838::t_480f8caca1fd83 4-8
+ci/images/opensuse/Dockerfile.python3.10
+  s_9ef29ea7e3e838::t_480f8caca1fd83 4-8
+ci/images/alpine/Dockerfile.node24
+  s_9ef29ea7e3e838::t_480f8caca1fd83 4-8
+ci/images/alpine/Dockerfile.php8.4
+  s_9ef29ea7e3e838::t_480f8caca1fd83 4-8
+ci/images/debian/Dockerfile.php8.3
+  s_9ef29ea7e3e838::t_480f8caca1fd83 4-8
+ci/images/Dockerfile.python3.12
+  s_9ef29ea7e3e838::t_480f8caca1fd83 4-8
+ci/images/Dockerfile.python3.6
+  s_9ef29ea7e3e838::t_480f8caca1fd83 4-8
+ci/images/Dockerfile.ruby2.5
+  s_9ef29ea7e3e838::t_480f8caca1fd83 4-8
+ci/images/alpine/Dockerfile.php8.5
+  s_9ef29ea7e3e838::t_480f8caca1fd83 4-8
+ci/images/opensuse/Dockerfile.python3.9
+  s_9ef29ea7e3e838::t_480f8caca1fd83 4-8
+ci/images/temurin/Dockerfile.java21
+  s_9ef29ea7e3e838::t_480f8caca1fd83 26
+ci/images/Dockerfile.python3.11
+  s_9ef29ea7e3e838::t_480f8caca1fd83 4-8
+ci/Dockerfile-bun
+  s_9ef29ea7e3e838::t_480f8caca1fd83 49
+ci/images/alpine/Dockerfile.java24
+  s_9ef29ea7e3e838::t_480f8caca1fd83 4-8
+ci/images/Dockerfile.dotnet8
+  s_9ef29ea7e3e838::t_480f8caca1fd83 4-8
+ci/images/Dockerfile.java17
+  s_9ef29ea7e3e838::t_480f8caca1fd83 6-10
+ci/images/temurin/Dockerfile.java24
+  s_9ef29ea7e3e838::t_480f8caca1fd83 26
+ci/images/temurin/Dockerfile.java26
+  s_9ef29ea7e3e838::t_480f8caca1fd83 26
+ci/images/debian/Dockerfile.ruby4
+  s_9ef29ea7e3e838::t_480f8caca1fd83 4-8
+ci/images/debian/Dockerfile.ruby2.6
+  s_9ef29ea7e3e838::t_480f8caca1fd83 23
+ci/images/debian/Dockerfile.ruby3.4
+  s_9ef29ea7e3e838::t_480f8caca1fd83 4-8
+ci/images/debian/Dockerfile.ruby3.3
+  s_9ef29ea7e3e838::t_480f8caca1fd83 4-8
+ci/Dockerfile
+  s_9ef29ea7e3e838::t_480f8caca1fd83 19
+ci/images/debian/Dockerfile.php8.5
+  s_9ef29ea7e3e838::t_480f8caca1fd83 4-8
+ci/images/Dockerfile.java11
+  s_9ef29ea7e3e838::t_480f8caca1fd83 4-8
+ci/images/temurin/Dockerfile.java8
+  s_9ef29ea7e3e838::t_480f8caca1fd83 25
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "df342f0b37db5bc02b78bdd2f9637464530780b0",
+  "prompts": {},
+  "sessions": {
+    "s_9ef29ea7e3e838": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_dwf-dwfrun-a3a8d57a-0353-4059-bb9e-865e80c6e114-actor_7_1",
+        "model": "GLM-5.3-Flash"
+      },
+      "human_author": "Team AppThreat <cloud@appthreat.com>"
+    }
+  }
+}
