@@ -97,7 +97,7 @@ jobs:
           EOF
       - name: Build image
         if: matrix.imagefile != 'ci/Dockerfile-bun' && matrix.imagefile != 'ci/Dockerfile-deno'
-        uses: ./.github/actions/build-docker-image
+        uses: $/.github/actions/build-docker-image
         with:
           dockerfile: ${{ matrix.imagefile }}
           docker-args: |

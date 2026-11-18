@@ -1,0 +1,26 @@
+name: Verify actions lock
+
+# Verifies that .github/workflows/actions.lock matches the workflows and
+# that every locked pin still verifies upstream. The shared reusable
+# workflow is called at a pinned commit of cdxgen/.github, since a lockfile
+# does not cover reusable workflow calls, and the check is required for
+# pull requests. See
+# https://docs.github.com/en/actions/concepts/security/workflow-dependency-lockfiles
+on:
+  pull_request:
+    paths:
+      - .github/workflows/**
+      - '**/action.y*ml'
+  push:
+    branches:
+      - master
+    paths:
+      - .github/workflows/**
+      - '**/action.y*ml'
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    uses: cdxgen/.github/.github/workflows/verify-actions-lock.yml@3ff2219047016d816714783fa5cc6263c2b53ebb  # main
