@@ -1,4 +1,4 @@
-FROM ghcr.io/almalinux/10-minimal:10.2@sha256:8ba381e5f1fab2b0f9561007ea8211567a0ab0b43ae27c8946f2a79095d2a13f AS ruby-builder
+FROM ghcr.io/almalinux/10-minimal:10.3@sha256:37494fde965664316a6ce8579baec3bd9830ce150278ac1d39a94a06fbd35243 AS ruby-builder
 
 LABEL maintainer="cyclonedx" \
       org.opencontainers.image.authors="Prabhu Subramanian <prabhu@appthreat.com>" \

@@ -280,3 +280,16 @@ assert_jdk_bom() {
     return 1
   }
 }
+
+# The cdxgen images ship JAVA_TOOL_OPTIONS with -XX:-UseBASE64Intrinsics to
+# turn off the HotSpot Base64 intrinsic that Java4Shell (CVE-2026-114938)
+# abuses on x86-64 CPUs with AVX-512 VBMI, and PrintFlagsFinal must report
+# the flag as false for that mitigation to be real.
+assert_base64_intrinsic_disabled() {
+  local flags="$1"
+  echo "$flags" | grep -q "UseBASE64Intrinsics[[:space:]]*=[[:space:]]*false" || {
+    echo "Expected UseBASE64Intrinsics=false among the reported JVM flags"
+    echo "flags=$flags"
+    return 1
+  }
+}

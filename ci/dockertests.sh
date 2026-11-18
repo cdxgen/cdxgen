@@ -120,6 +120,12 @@ run_cdxgen_image_inventory_tests() {
   if [ -n "$java_version" ]; then
     assert_jdk_bom "$image_bom" "$java_version"
     assert_jdk_bom "$archive_bom" "$java_version"
+    # JAVA_TOOL_OPTIONS in these images disables the HotSpot Base64 intrinsic
+    # that Java4Shell (CVE-2026-114938) abuses; the JVM has to report the
+    # flag as off, not merely carry the environment variable.
+    local base64_flags
+    base64_flags="$(docker run --rm --entrypoint sh "$image_ref" -c 'java -XX:+PrintFlagsFinal -version 2>/dev/null | grep UseBASE64Intrinsics' 2>/dev/null)" || base64_flags=""
+    assert_base64_intrinsic_disabled "$base64_flags"
   fi
 }
 
