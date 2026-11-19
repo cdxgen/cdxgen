@@ -1,0 +1,21 @@
+lib/ecosystems/kosi.js
+  s_000e4234adb03e::t_3e151e8c94b58f 21-24,1401-1441,1459-1464,1471,1474,1500-1503
+lib/ecosystems/kosi.poku.js
+  s_000e4234adb03e::t_89cf5994eb9d16 777-840
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "b7e0303adcd5581ba0bc007a9de0a96ee842fef9",
+  "prompts": {},
+  "sessions": {
+    "s_000e4234adb03e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "02037648-4bba-493b-a180-b7ddf3261a96",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
