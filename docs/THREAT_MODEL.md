@@ -283,6 +283,7 @@ The toolchain version probes for formulation also run from the temporary directo
   - `GIT_CONFIG_NOSYSTEM=1` and `GIT_CONFIG_GLOBAL=/dev/null` in secure mode — prevents reading system/user configs including Git 2.54 `hook.<name>.command` entries
   - `GIT_TERMINAL_PROMPT=0` — prevents interactive prompts
   - `http.followRedirects=false` while `CDXGEN_GIT_ALLOWED_HOSTS`, `CDXGEN_SERVER_ALLOWED_HOSTS` or secure mode applies, so the allowlisted host is the one git talks to
+  - `-c credential.helper=` when the URL carries a password, so the credential helpers of the account do not save one client's token and answer with it for another client's request
   - `--depth 1` — limits history to reduce attack surface
 - `GIT_ALLOW_PROTOCOL` defaults to `https:ssh` in secure mode
 
