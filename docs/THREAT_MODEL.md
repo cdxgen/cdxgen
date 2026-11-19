@@ -459,6 +459,7 @@ The toolchain version probes for formulation also run from the temporary directo
   - component `externalReferences` built from scanned manifests and metadata (a Python `METADATA` `Home-page:`, a `package.json` `repository` or `bugs` URL, a download URL) drop their userinfo (an SSH `git@` user is kept), their query string, and a fragment that holds `=` or a token shape; a fragment naming a git ref such as `#v1.2.0` is kept
   - raw command strings are reduced to safer summaries such as the executable name
   - dangerous structured keys such as `__proto__`, `constructor`, and `prototype` are removed before JSON serialization
+  - the `Exec*` lines, other settings and description of package-owned systemd units and init scripts, the apt and yum repository URLs and descriptions of a container or rootfs scan, and the command line, environment and URL columns of osquery rows have credential arguments redacted and URL credentials removed; the container image environment is reported as variable names and the image command as the base name of its executable
   - Hugging Face widget examples, gated-access forms, and GGUF tokenizer/chat-template payloads are reduced to bounded derivatives instead of being copied verbatim into BOM properties
 
 **Residual risk:** Medium — SBOMs inherently contain metadata about the project. Users should review SBOMs before sharing, especially when formulation data is included.
