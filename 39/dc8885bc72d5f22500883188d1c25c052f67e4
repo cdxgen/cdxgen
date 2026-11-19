@@ -1,0 +1,27 @@
+docs/CUSTOM_PROPERTIES.md
+  s_000e4234adb03e::t_f149703ecc8036 538
+lib/cli/bomAssembly.js
+  s_000e4234adb03e::t_381d46933c2eec 30-33,532-534,1492
+lib/cli/bomAssembly.poku.js
+  s_000e4234adb03e::t_7a330a94acc504 121-149
+lib/core/propertySanitizer.js
+  s_000e4234adb03e::t_f56276b0fc1a74 1091-1126
+lib/core/propertySanitizer.poku.js
+  s_000e4234adb03e::t_98db46ece98dcf 12,101-137
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "39dc8885bc72d5f22500883188d1c25c052f67e4",
+  "prompts": {},
+  "sessions": {
+    "s_000e4234adb03e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "02037648-4bba-493b-a180-b7ddf3261a96",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
