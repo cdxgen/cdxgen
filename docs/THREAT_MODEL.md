@@ -315,6 +315,7 @@ The toolchain version probes for formulation also run from the temporary directo
 - Max buffer: 100MB (configurable via `CDXGEN_MAX_BUFFER`)
 - Parsers of scanned project files avoid regular expressions whose work grows faster than the input. The CrewAI reader for `agents.py` and `tasks.py`, for example, reads each file once
 - Request `exclude` patterns may not use braces, run past 512 characters or number more than 128, since every pattern is matched against every file the scan walks
+- Request `type` and `excludeType` lists may not number more than 1024 entries, since both are read for every ecosystem of every scanned path
 
 **Residual risk:** Medium — no built-in rate limiting or concurrent request limits. The server is designed for trusted internal use. Deploy behind a reverse proxy for production exposure.
 
