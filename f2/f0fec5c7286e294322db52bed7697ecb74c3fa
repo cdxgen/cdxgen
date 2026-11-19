@@ -1,0 +1,38 @@
+lib/inventory/ciParsers/gitlabCi.poku.js
+  s_9ce5c52d95266b::t_971e5895fec201 13-34,297-328,331
+  s_9ce5c52d95266b::t_d4e2202d84603d 329-330,332
+lib/inventory/ciParsers/circleCi.poku.js
+  s_9ce5c52d95266b::t_971e5895fec201 13-34,367-400,403
+  s_9ce5c52d95266b::t_1236cd4e3ab2a2 401-402,404
+lib/inventory/ciParsers/gitlabCi.js
+  s_9ce5c52d95266b::t_50742bfe142c3f 10-11,14-29,83-84,92,115,118-121,127-130,138,146,153,164,168,172,188-193
+lib/inventory/ciParsers/githubActions.poku.js
+  s_9ce5c52d95266b::t_990c30242ffdb9 278-448
+lib/inventory/ciParsers/circleCi.js
+  s_9ce5c52d95266b::t_ca5db5d314917c 10-11,132-134,193,204
+lib/inventory/ciParsers/azurePipelines.poku.js
+  s_9ce5c52d95266b::t_971e5895fec201 13-34,326-364,367
+  s_9ce5c52d95266b::t_c1527cbd0ab42a 365-366,368
+lib/inventory/ciParsers/common.js
+  s_9ce5c52d95266b::t_4e7153d4323fdf 76-112
+lib/inventory/ciParsers/githubActions.js
+  s_9ce5c52d95266b::t_4e7153d4323fdf 14-15,408-411,414,480-481,490-492,494-501,503,505-506,1252,1922-1923,2000,2003-2006,2008,2055,2074,2089-2091,2129-2131,2265,2268,2287-2288,2291,2632
+lib/inventory/ciParsers/azurePipelines.js
+  s_9ce5c52d95266b::t_50742bfe142c3f 10-11,91,103-105,109,124-127,129,134-137,153-154,157,161-162,165,167,172,194-195,198-201,225-228,237-242
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "f2f0fec5c7286e294322db52bed7697ecb74c3fa",
+  "prompts": {},
+  "sessions": {
+    "s_9ce5c52d95266b": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6e78131c-2a1a-4cac-a4a8-d925b565090c",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}

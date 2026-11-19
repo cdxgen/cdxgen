@@ -1,0 +1,27 @@
+types/lib/inventory/ciParsers/common.d.ts
+  s_9ce5c52d95266b::t_8ed5180e9753d8 46-65
+types/lib/inventory/ciParsers/azurePipelines.d.ts.map
+  s_9ce5c52d95266b::t_8100f7080a37bf 1
+types/lib/inventory/ciParsers/common.d.ts.map
+  s_9ce5c52d95266b::t_a16f61c488ebfd 1
+types/lib/inventory/ciParsers/githubActions.d.ts.map
+  s_9ce5c52d95266b::t_bf670e7d051f17 1
+types/lib/inventory/ciParsers/gitlabCi.d.ts.map
+  s_9ce5c52d95266b::t_b69b85b7cdf4fb 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "ce19fb8a735ff7459d7c898eb81e2a95d6bdfcc4",
+  "prompts": {},
+  "sessions": {
+    "s_9ce5c52d95266b": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6e78131c-2a1a-4cac-a4a8-d925b565090c",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
