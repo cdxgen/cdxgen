@@ -1,0 +1,29 @@
+lib/inventory/cbomutils.js
+  s_000e4234adb03e::t_264032b0bb27bf 9,196-201,205,212-215,240,243,248-249,253-257,353
+lib/inventory/cbomutils.poku.js
+  s_000e4234adb03e::t_3fa7c96fbca96e 85-112
+lib/inventory/rubyBuildInfo.js
+  s_000e4234adb03e::t_ba51d3e1a881ec 34,885
+lib/inventory/rubyBuildInfo.poku.js
+  s_000e4234adb03e::t_d88238f3cd2a40 616-638
+lib/parsers/huggingfaceManifest.js
+  s_000e4234adb03e::t_c468cb85953da9 71-74,85-98,101-102
+lib/parsers/huggingfaceManifest.poku.js
+  s_000e4234adb03e::t_f6ba05c1925ed9 161-182
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "5a8d2481ac2c9e3daf5255a2788bea728fbf6f27",
+  "prompts": {},
+  "sessions": {
+    "s_000e4234adb03e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "02037648-4bba-493b-a180-b7ddf3261a96",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
