@@ -1,0 +1,33 @@
+lib/cli/jsBom.poku.js
+  s_000e4234adb03e::t_5db9943ef28ac1 1352-1419
+lib/parsers/npmrc.js
+  s_000e4234adb03e::t_1edf318bdfc754 1-2,22-28,35-113
+lib/parsers/npmrc.poku.js
+  s_000e4234adb03e::t_f2924ebdc5fbc9 3-8,558-603
+lib/cli/jsBom.js
+  s_5add6be69dba3c::t_5e067c6a6761b7 110,618-624,671
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "8cf7256546be140197a5b7b83acce96a87379837",
+  "prompts": {},
+  "sessions": {
+    "s_000e4234adb03e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "02037648-4bba-493b-a180-b7ddf3261a96",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    },
+    "s_5add6be69dba3c": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "agent-a171ba67b43a1c9c1",
+        "model": "unknown"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
