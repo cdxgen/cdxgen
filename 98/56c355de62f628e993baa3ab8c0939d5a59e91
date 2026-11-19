@@ -1,0 +1,21 @@
+lib/ecosystems/ecosystems.js
+  s_000e4234adb03e::t_882c09cadde50a 1044-1103,1189,1203-1207
+lib/ecosystems/mavenRepeatedCoordinates.poku.js
+  s_000e4234adb03e::t_014ad300417025 1-111
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "9856c355de62f628e993baa3ab8c0939d5a59e91",
+  "prompts": {},
+  "sessions": {
+    "s_000e4234adb03e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "02037648-4bba-493b-a180-b7ddf3261a96",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
