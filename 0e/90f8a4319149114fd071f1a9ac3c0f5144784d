@@ -1,0 +1,21 @@
+bin/cdxgen.js
+  s_000e4234adb03e::t_efc0477d1878ee 141,2006-2011
+bin/commands.poku.js
+  s_000e4234adb03e::t_b363c853d3ade3 4,9,840-897
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "0e90f8a4319149114fd071f1a9ac3c0f5144784d",
+  "prompts": {},
+  "sessions": {
+    "s_000e4234adb03e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "02037648-4bba-493b-a180-b7ddf3261a96",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
