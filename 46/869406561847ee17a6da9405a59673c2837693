@@ -1,0 +1,21 @@
+docs/SCALA_EVINSE.md
+  s_000e4234adb03e::t_226d25c8d5429c 112-113,126
+docs/THREAT_MODEL.md
+  s_000e4234adb03e::t_86010d0dc740b3 97
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "46869406561847ee17a6da9405a59673c2837693",
+  "prompts": {},
+  "sessions": {
+    "s_000e4234adb03e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "02037648-4bba-493b-a180-b7ddf3261a96",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
