@@ -1,0 +1,25 @@
+lib/core/propertySanitizer.js
+  s_000e4234adb03e::t_2636f2ebb729ae 476-543,605-607
+lib/core/propertySanitizer.poku.js
+  s_000e4234adb03e::t_e884e4d39d1589 62-89
+lib/inventory/mcpConfigParser.js
+  s_000e4234adb03e::t_eaf5d0af015c90 330-332
+lib/inventory/mcpConfigParser.poku.js
+  s_000e4234adb03e::t_04fa6216709ebe 170-199
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "f9b5efe1ebe853aacea69b43103b77a9df9419fe",
+  "prompts": {},
+  "sessions": {
+    "s_000e4234adb03e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "02037648-4bba-493b-a180-b7ddf3261a96",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
