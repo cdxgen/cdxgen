@@ -1,0 +1,21 @@
+lib/ecosystems/vendoredCode.js
+  s_000e4234adb03e::t_b65cf21b445051 9,183-194,209-211,244-245
+lib/ecosystems/vendoredCode.poku.js
+  s_000e4234adb03e::t_53089c455a59fb 218-254
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "602af57b4a362d795915c3104f52d69897591cb8",
+  "prompts": {},
+  "sessions": {
+    "s_000e4234adb03e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "02037648-4bba-493b-a180-b7ddf3261a96",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
