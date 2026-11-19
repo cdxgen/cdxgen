@@ -1,0 +1,25 @@
+lib/cli/nativeBom.js
+  s_000e4234adb03e::t_8fc3c5298f1134 432,434-435,438
+lib/cli/nativeBom.poku.js
+  s_000e4234adb03e::t_c5981569e64161 55,58,63,74,83,162-195
+lib/ecosystems/parsers-go.js
+  s_000e4234adb03e::t_ff32372a9b7a92 1832-1837
+lib/ecosystems/parsers-go.poku.js
+  s_000e4234adb03e::t_050c4f5c98c21e 1229-1255
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "057e69e4a290a0c23629f12214a1badc48f987f8",
+  "prompts": {},
+  "sessions": {
+    "s_000e4234adb03e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "02037648-4bba-493b-a180-b7ddf3261a96",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
