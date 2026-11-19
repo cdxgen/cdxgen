@@ -1,0 +1,21 @@
+lib/evinser/swiftsem.js
+  s_000e4234adb03e::t_5d07fb2cfffd7e 9,1911-1924,1932-1933,1938-1944,1946-1950,2085,2101-2107,2162-2173,2175,2177-2180,2182
+lib/evinser/swiftsem.poku.js
+  s_000e4234adb03e::t_cd52bad344a87c 746-797,852-930
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "2cd9def17127971d0a2be3412ffdbfac087c23da",
+  "prompts": {},
+  "sessions": {
+    "s_000e4234adb03e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "02037648-4bba-493b-a180-b7ddf3261a96",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
