@@ -64,6 +64,8 @@ Arguments can be passed either via the query string or as a JSON body. The follo
 | includeCrypto        | Include crypto libraries as components. Useful for generating CBOM. With formulation on, the crypto packages, certificates and keys of the server host are inventoried only when the server was started with `--include-crypto`. [boolean] [default: false]                                                                           |
 | standard             | The list of standards which may consist of regulations, industry or organizational-specific standards, maturity models, best practices, or any other requirements which can be evaluated against or attested to. Choices are asvs-4.0.3, bsimm-v13, masvs-2.0.0, nist_ssdf-1.1,pcissc-secure-slc-1.1, scvs-1.0.0, ssaf-DRAFT-2023-11. |
 
+> **Note:** The `--*-slices-file` options the server was started with, including their defaults, do not apply to requests. Every scan writes its atom and dosai slices to a temporary directory of its own, so no request starts from the slices of another.
+
 ## Ways to use server mode
 
 ### Scanning a local path
