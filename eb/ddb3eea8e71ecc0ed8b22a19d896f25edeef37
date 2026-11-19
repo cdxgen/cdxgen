@@ -1,0 +1,21 @@
+lib/inventory/communityAiConfigParser.js
+  s_000e4234adb03e::t_907299e58498c1 181-184,186
+lib/inventory/communityAiConfigParser.poku.js
+  s_000e4234adb03e::t_a1382e1689373b 690-720
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "ebddb3eea8e71ecc0ed8b22a19d896f25edeef37",
+  "prompts": {},
+  "sessions": {
+    "s_000e4234adb03e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "02037648-4bba-493b-a180-b7ddf3261a96",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
