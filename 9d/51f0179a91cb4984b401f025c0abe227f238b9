@@ -1,0 +1,21 @@
+lib/managers/piptree.js
+  s_000e4234adb03e::t_6ea744d1d70f5a 242-246,248
+lib/managers/piptree.poku.js
+  s_000e4234adb03e::t_7d9fbba3a2ad71 45-81
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "9d51f0179a91cb4984b401f025c0abe227f238b9",
+  "prompts": {},
+  "sessions": {
+    "s_000e4234adb03e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "02037648-4bba-493b-a180-b7ddf3261a96",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
