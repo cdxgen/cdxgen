@@ -1,0 +1,29 @@
+lib/cli/securityGates.e2e.poku.js
+  s_000e4234adb03e::t_9af8c91af9128d 16,25,296-435
+lib/cli/jsBom.js
+  s_141c0d3b8c20ad::t_4bc68f255d683c 125-154,753
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "1f8e13d39f4eda4c0a1564e939b85bc4751f8cf8",
+  "prompts": {},
+  "sessions": {
+    "s_000e4234adb03e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "02037648-4bba-493b-a180-b7ddf3261a96",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    },
+    "s_141c0d3b8c20ad": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "agent-a3c88dafdb7880c7d",
+        "model": "unknown"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
