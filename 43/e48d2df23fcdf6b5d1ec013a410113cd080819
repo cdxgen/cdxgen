@@ -1,0 +1,21 @@
+lib/audit/targets.js
+  s_000e4234adb03e::t_8ff3bb54083f5c 443-446,468-471,512,514-516
+lib/audit/targets.poku.js
+  s_000e4234adb03e::t_12c04d3fb2c9a0 973-1045
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "43e48d2df23fcdf6b5d1ec013a410113cd080819",
+  "prompts": {},
+  "sessions": {
+    "s_000e4234adb03e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "02037648-4bba-493b-a180-b7ddf3261a96",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
