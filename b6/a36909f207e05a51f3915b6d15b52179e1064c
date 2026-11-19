@@ -1,0 +1,29 @@
+bin/cdxgen.js
+  s_000e4234adb03e::t_ca83c82ec783d2 222
+docs/ADVANCED.md
+  s_000e4234adb03e::t_8c329ef804e3f1 549
+docs/THREAT_MODEL.md
+  s_000e4234adb03e::t_7716fd262ac9a1 143
+lib/core/projectConfig.cli.poku.js
+  s_000e4234adb03e::t_123c7ef95a3f02 9,221-250
+lib/core/projectConfig.js
+  s_000e4234adb03e::t_d21e0aeb3c4611 288-292,301-303
+lib/core/projectConfig.poku.js
+  s_000e4234adb03e::t_7e46a47c1d86ec 369-416
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "b6a36909f207e05a51f3915b6d15b52179e1064c",
+  "prompts": {},
+  "sessions": {
+    "s_000e4234adb03e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "02037648-4bba-493b-a180-b7ddf3261a96",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
