@@ -1354,10 +1354,12 @@ const advancedWarnings = applyAdvancedOptionsImpl(options, {
   ...configFileSelections(config, { env: launchEnv }),
 });
 // The config file comes from the working directory, usually the scanned
-// project, so whether the project's own code may run stays the operator's
-// choice from the command line and environment.
+// project, so whether the project's own code may run, and whether formulation
+// queries this host's crypto material, stays the operator's choice from the
+// command line and environment.
 applyOperatorToolingChoice(options, {
   env: launchEnv,
+  invokedCommandName,
   isSecureMode: isSecureModeActive(),
   projectConfig: config,
 });
