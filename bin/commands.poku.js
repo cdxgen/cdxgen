@@ -1,10 +1,12 @@
 import { execFileSync, spawn } from "node:child_process";
 import crypto from "node:crypto";
 import {
+  existsSync,
   mkdirSync,
   mkdtempSync,
   readFileSync,
   rmSync,
+  symlinkSync,
   writeFileSync,
 } from "node:fs";
 import http from "node:http";
@@ -832,6 +834,64 @@ describe("JSF signing and verification commands", () => {
       const sent = JSON.parse(uploaded.slice(start, end + 1));
       assert.strictEqual(sent.signature.algorithm, "RS256");
     });
+  });
+});
+
+describe("cdxgen path allowlist", () => {
+  it("refuses a scan path that leaves CDXGEN_ALLOWED_PATHS through a link", async () => {
+    const allowed = join(workDir, "allowed");
+    const outside = join(workDir, "outside");
+    for (const project of [
+      join(allowed, "project"),
+      join(outside, "project"),
+    ]) {
+      mkdirSync(project, { recursive: true });
+      writeFileSync(
+        join(project, "package.json"),
+        JSON.stringify({ name: "demo", version: "1.0.0", dependencies: {} }),
+      );
+    }
+    // Junctions need no extra privileges on Windows and act as directory
+    // symlinks elsewhere.
+    symlinkSync(outside, join(allowed, "link-out"), "junction");
+    const cdxgen = (sourcePath, output) =>
+      run(
+        [
+          binFor("cdxgen"),
+          "-t",
+          "js",
+          sourcePath,
+          "--no-banner",
+          "--no-install-deps",
+          "-o",
+          output,
+        ],
+        {
+          env: {
+            ...process.env,
+            FETCH_LICENSE: "false",
+            CDXGEN_ALLOWED_PATHS: allowed,
+          },
+        },
+      );
+
+    const inside = await cdxgen(
+      join(allowed, "project"),
+      join(allowed, "inside.json"),
+    );
+    assert.strictEqual(inside.status, 0, inside.stderr);
+    assert.ok(existsSync(join(allowed, "inside.json")));
+
+    for (const sourcePath of [
+      join(outside, "project"),
+      join(allowed, "link-out"),
+      join(allowed, "link-out", "project"),
+    ]) {
+      const refused = await cdxgen(sourcePath, join(allowed, "refused.json"));
+      assert.strictEqual(refused.status, 1, sourcePath);
+      assert.match(refused.stderr, /Path is not allowed as per/);
+      assert.ok(!existsSync(join(allowed, "refused.json")), sourcePath);
+    }
   });
 });
 

@@ -138,6 +138,7 @@ import {
   getSourceLabel,
   gitClone,
   isAllowedPath,
+  isAllowedRealPath,
   isAllowedWinPath,
   maybePurlSource,
   maybeRemotePath,
@@ -2002,7 +2003,12 @@ const writeCycloneDxOutput = (jsonFile, bomJson, options) => {
     );
     process.exit(1);
   }
-  if (!maybeRemotePath(sourcePath) && !isAllowedPath(resolve(sourcePath))) {
+  // Check where a symlinked path really points as well, as the server does, so
+  // a link inside an allowed directory cannot take the scan outside it.
+  if (
+    !maybeRemotePath(sourcePath) &&
+    (!isAllowedPath(resolve(sourcePath)) || !isAllowedRealPath(sourcePath))
+  ) {
     console.error(
       "Path is not allowed as per CDXGEN_ALLOWED_PATHS/CDXGEN_SERVER_ALLOWED_PATHS.",
     );
