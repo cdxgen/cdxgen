@@ -1,0 +1,25 @@
+lib/cli/nativeBom.js
+  s_000e4234adb03e::t_059f49a628609f 1061,1070,1199,1487-1492,1499-1500,1549-1550,1571
+lib/cli/nativeBom.poku.js
+  s_000e4234adb03e::t_36806faa85670a 9,974-1070
+lib/ecosystems/parsers-rust.js
+  s_000e4234adb03e::t_b3b3b776aa74a5 1,11,39-141,306-312,316-327,329,339-340,401,414,419,432-449,455,457-464,466-473,483-493,498-508,510-514,518-574,596-597,674-677,703,718-721,788-791,816,1141-1147,1194-1198,1214,1375,1502-1509,1597-1601,1615,1708,1900-1903,2154-2160,2181-2184,2198-2203,2207-2211
+lib/ecosystems/parsers-rust.poku.js
+  s_000e4234adb03e::t_6d39e7b8ad4dee 16,806-868,1332-1415,1872-2015
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "825564abc7b6d67169ae8b3af4326e2302463cfd",
+  "prompts": {},
+  "sessions": {
+    "s_000e4234adb03e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "02037648-4bba-493b-a180-b7ddf3261a96",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
