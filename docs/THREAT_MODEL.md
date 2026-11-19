@@ -182,6 +182,8 @@ The toolchain version probes for formulation also run from the temporary directo
 
 - Native ASAR parsing validates header structure before walking entries
 - Entry names containing path separators or traversal markers are rejected during header validation
+- Header validation caps the summed length of all entry paths relative to the header size, so nested long directory names cannot expand a small archive into gigabytes of path text
+- The packed entries of a header may not claim more bytes than the archive stores, so entries cannot alias one data region to multiply the work of a scan
 - Archive inventory records both declared integrity metadata and computed SHA-256 hashes for file components
 - `.asar.unpacked` extraction only writes within a temp directory created through safe wrappers
 - `--dry-run` still blocks temp extraction even for ASAR scans, while allowing in-memory header and file-content analysis
