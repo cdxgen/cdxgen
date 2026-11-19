@@ -455,6 +455,8 @@ The grouped lists below remain the authoritative inventory. The compact tables, 
 | `cdx:circleci:orb:alias`                              | step                 | string         | `node/default`                                     | When CircleCI orbs are used                                                                                              | Third-party execution surface and trust boundary                                                | Warning / triage |
 | `cdx:jenkins:agent:image`                             | stage                | string         | `maven:3.9-eclipse-temurin-21`                     | When Jenkins stages use Docker agents                                                                                    | Useful for runtime provenance and image policy gates                                            | Warning / triage |
 
+Workflow-, stage- and job-level text that is repeated on every child task or component (for example `cdx:github:workflow:triggers`, `cdx:github:job:if`, `cdx:azure:stage:condition` or an inherited `cdx:gitlab:job:image`) is shortened to 512 characters followed by `…`. Boolean flags are derived from the complete text, and the GitHub workflow object keeps its names and lists complete.
+
 #### High-value combinations
 
 - `cdx:github:action:isShaPinned=false` + `cdx:github:workflow:hasWritePermissions=true`
