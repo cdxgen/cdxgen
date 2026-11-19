@@ -1,0 +1,39 @@
+docs/THREAT_MODEL.md
+  s_000e4234adb03e::t_e6bdb021608c58 145
+lib/core/fs.js
+  s_000e4234adb03e::t_77ce1ec7612905 287-334
+lib/core/fs.poku.js
+  s_000e4234adb03e::t_30dd2028c4d078 25,366-406
+lib/ecosystems/golem.js
+  s_000e4234adb03e::t_e1792fca3c9bf0 14,2036-2037,2054-2060,2065-2073
+lib/ecosystems/golem.poku.js
+  s_000e4234adb03e::t_46340008735962 3,9,1060-1069,1074-1127
+lib/ecosystems/rusi.js
+  s_000e4234adb03e::t_b8c22e49430769 12,898-904,909-917
+lib/ecosystems/rusi.poku.js
+  s_000e4234adb03e::t_89e7ac000ef6ae 3,9,642-651,656-712
+lib/inventory/atomUtils.js
+  s_000e4234adb03e::t_bc3f5688f76ae1 33,1655-1663
+lib/inventory/atomUtils.poku.js
+  s_000e4234adb03e::t_b4eccbcde974b6 4,520-574
+lib/inventory/dosai.js
+  s_000e4234adb03e::t_720065ce9c59ad 28,1387-1393
+lib/inventory/dosai.poku.js
+  s_000e4234adb03e::t_a2232a6de5b018 3,9,1230-1271
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "a61e034f14d43b86a09bdb7cd0ae708d6f607a95",
+  "prompts": {},
+  "sessions": {
+    "s_000e4234adb03e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "02037648-4bba-493b-a180-b7ddf3261a96",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
