@@ -54,6 +54,9 @@ file names the release that wrote it.
   - A jar answers for the classes it ships and the packages it ships classes in
     directly, never for the parents of those packages. A file joins only libraries on
     its own module's classpath.
+  - A classpath jar is read only when it lies, symbolic links resolved, in the project
+    or in the Coursier, Ivy, Maven or Gradle cache of the user running cdxgen. A jar
+    anywhere else is not opened, and its component joins through the other two sources.
   - The JDK has no component, and neither do the project's own classes. A `javax.`
     symbol joins a library only through a class the library ships.
   - The Scala runtime (`scala-library`, `scala3-library` and the Scala.js and Scala
