@@ -125,6 +125,48 @@ describe("bin commands over a CycloneDX document", () => {
     }
   });
 
+  it("cdx-validate leaves document values out of the schema errors", async () => {
+    const scriptLine =
+      'curl -H "Authorization: Bearer 0123456789abcdef" https://user:hunter2@example.com';
+    const badBom = join(workDir, "schema-invalid-command.json");
+    writeFileSync(
+      badBom,
+      JSON.stringify({
+        bomFormat: "CycloneDX",
+        specVersion: "1.6",
+        version: 1,
+        formulation: [
+          {
+            workflows: [
+              {
+                "bom-ref": "workflow",
+                uid: "workflow",
+                taskTypes: ["build"],
+                steps: [{ commands: [{ executed: [scriptLine] }] }],
+              },
+            ],
+          },
+        ],
+      }),
+    );
+    const { stdout, stderr } = await run([
+      binFor("validate"),
+      "-i",
+      badBom,
+      "-r",
+      "json",
+      "--benchmark",
+      "none",
+    ]);
+    assert.strictEqual(JSON.parse(stdout).schemaValid, false);
+    assert.ok(
+      stderr.includes("/formulation/0/workflows/0/steps/0/commands/0/executed"),
+    );
+    assert.ok(stderr.includes("must be string"));
+    assert.ok(!(stdout + stderr).includes("hunter2"));
+    assert.ok(!(stdout + stderr).includes("0123456789abcdef"));
+  });
+
   it("cdx-validate runs the deep validators once and reports a passing schema", async () => {
     const badBom = join(workDir, "deep-invalid.json");
     writeFileSync(

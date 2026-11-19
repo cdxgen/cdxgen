@@ -2,7 +2,7 @@
 
 AI-BOM in cdxgen is the CycloneDX-first workflow for cataloging AI usage, model references, prompt/config artifacts, MCP surfaces, and AI-specific BOM audit findings from one scan.
 
-When `--include-formulation` is enabled, cdxgen emits this AI and agentic inventory in the standard CycloneDX `formulation[]` section, so downstream tools can consume it as formal CycloneDX formulation data instead of only as ad-hoc top-level enrichment.
+cdxgen writes this AI and agentic inventory to the top-level `components[]` and `services[]` of the BOM. The `ai-agent`, `ai-inventory` and `ai-bom` audit rule categories read the agent files from there, and from `formulation[].components` in BOMs written by earlier releases.
 
 ## What AI-BOM covers
 

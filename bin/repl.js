@@ -11,7 +11,6 @@ import jsonata from "jsonata";
 import { applyOperatorToolingChoice } from "../lib/cli/cliOptions.js";
 import { createBom } from "../lib/cli/index.js";
 import { readEnvironmentVariable } from "../lib/core/activity.js";
-import { thoughtLog } from "../lib/core/logger.js";
 import { isSecureModeActive } from "../lib/core/projectTooling.js";
 import {
   getTmpDir,
@@ -26,6 +25,7 @@ import {
   formatReadLossNotice,
   loadBomForAnalysis,
   renderCycloneDx20,
+  thoughtLogReadLosses,
 } from "../lib/inventory/cyclonedx20.js";
 import {
   printAiBomDatasets,
@@ -518,9 +518,7 @@ export const importSbom = async (sbomOrPath) => {
       importedBom20 = sbomIs20 ? importedBom : undefined;
       if (losses.length) {
         console.log(`ℹ ${formatReadLossNotice(losses)}`);
-        for (const loss of losses) {
-          thoughtLog(`cdxi 2.0 loss at ${loss.pointer}: ${loss.reason}`);
-        }
+        thoughtLogReadLosses("cdxi", losses);
       }
       let bomType = "SBOM";
       if (isSpdxJsonLd(sbom)) {

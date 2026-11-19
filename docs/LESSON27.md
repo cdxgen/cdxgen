@@ -210,9 +210,14 @@ chains (the first parent wins), hidden templates, `cacheVariables` and
 `environment` merged key by key, and the macros `${sourceDir}`,
 `${sourceParentDir}`, `${sourceDirName}`, `${presetName}`, `${generator}`,
 `${hostSystemName}`, `${fileDir}`, `${dollar}`, `${pathListSep}`, `$env{}` and
-`$penv{}`. `condition` objects are evaluated for the host cdxgen runs on;
-`matches` conditions are not, since their regular expressions come from the
-repository. Each visible configure preset becomes a formulation component
+`$penv{}`. Of cdxgen's own environment the last two read only `HOME`,
+`USERPROFILE`, `TMPDIR`, `TEMP`, `TMP`, `CC`, `CXX`, `CMAKE_BUILD_TYPE`,
+`CMAKE_GENERATOR`, `CMAKE_TOOLCHAIN_FILE`, `VCPKG_ROOT`,
+`VCPKG_INSTALLATION_ROOT` and `VCPKG_DEFAULT_TRIPLET`; the macro of any other
+variable stays as written, so a repository cannot copy a token from the
+environment into the BOM. `condition` objects are evaluated for the host cdxgen
+runs on; `matches` conditions are not, since their regular expressions come
+from the repository. Each visible configure preset becomes a formulation component
 (`type: data`) with its generator, build directory, build type, compilers,
 toolchain file (a vcpkg toolchain is flagged with `cdx:cmake:preset:vcpkg`)
 and the hardening options its flag variables set. Its build directory is where
@@ -233,7 +238,10 @@ or elsewhere in the checkout a scanned directory belongs to, is never run. A
 compiler outside those directories, such as a cross compiler under `/opt`, is
 recognised from CMake's description when the build tree has one, and otherwise
 recorded by name. In secure mode no compiler is run, and only an explicit
-`--compile-commands` is read.
+`--compile-commands` is read: one given on the command line or as
+`CDXGEN_COMPILE_COMMANDS`. A config file in the working directory can come with
+the code as well, so a `compile-commands` it sets is ignored there with a
+warning.
 
 The project component carries the security-hardening options the build uses:
 `cdx:cpp:hardening:fortifySource`, `stackProtector`, `pie`, `relro`,
@@ -295,7 +303,7 @@ cdxgen addresses this in two ways:
    a `Filename` identity method. Imported symbols are recorded under
    `internal:ImportedSymbols`. A header that is the project's own is not a component: one found under the
    project root, its `include/` or `src/` directory, or an include directory of
-   the project's compilation database, outside the source directories of its
+   the project's compilation database (the first 1024 are searched), outside the source directories of its
    fetched, submodule and vendored dependencies. A C standard library or POSIX
    header (`stdio.h`, `sys/mman.h`, `unistd.h`, ...) is a component only when an
    OS package provides it. Unless a usages slice is reused, neither atom nor
