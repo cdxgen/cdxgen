@@ -1,0 +1,25 @@
+docs/ENV.md
+  s_000e4234adb03e::t_0da39ca0111aaa 24
+lib/ecosystems/zigResolver.js
+  s_000e4234adb03e::t_10ec97ce7d76ac 198-200
+lib/managers/docker.js
+  s_000e4234adb03e::t_d5de52d5fb3c3e 7,20,1772-1864,1874-1875,1879-1883,1888-1917,1957-1958,2121-2123,2132,2142,2160,2173,2254-2280,2332,2366-2369,2371,2376-2377,2379-2383,2391-2400,2405-2408,2425-2427,2438,2469-2471,2473-2478,2488,2490-2491,2501-2511,2516-2526
+lib/managers/docker.poku.js
+  s_000e4234adb03e::t_4a70e195cc6647 3,14,19,3196-3334,3623-3624,3641-3642,3664-3667,3738-3784,3854-3895
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "c7fd39869abd2afbe623b0376dc24bb8b06e30bc",
+  "prompts": {},
+  "sessions": {
+    "s_000e4234adb03e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "02037648-4bba-493b-a180-b7ddf3261a96",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
