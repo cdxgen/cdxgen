@@ -1,0 +1,23 @@
+lib/ecosystems/ecosystems.js
+  s_000e4234adb03e::t_819da6d3a2c965 719-724,1614-1616,2558-2560,2764,2766-2767,4172-4175
+lib/inventory/source.js
+  s_000e4234adb03e::t_3e186be333907a 1499-1515,1653-1655,1659-1661,1668,1670-1672,1674-1675,1684,1686-1687,1702,1704-1705
+lib/inventory/source.poku.js
+  s_000e4234adb03e::t_91f9cdb7a6dcf4 537-604
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "992f0e203362df957f4f08e891b6855d677f4d27",
+  "prompts": {},
+  "sessions": {
+    "s_000e4234adb03e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "02037648-4bba-493b-a180-b7ddf3261a96",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
