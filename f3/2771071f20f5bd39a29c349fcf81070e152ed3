@@ -1,0 +1,21 @@
+lib/core/toml.js
+  s_000e4234adb03e::t_3d4810e63aaace 14,67-71,74,77-89
+lib/core/toml.poku.js
+  s_000e4234adb03e::t_5daf752447cad5 1-39
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "f32771071f20f5bd39a29c349fcf81070e152ed3",
+  "prompts": {},
+  "sessions": {
+    "s_000e4234adb03e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "02037648-4bba-493b-a180-b7ddf3261a96",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
