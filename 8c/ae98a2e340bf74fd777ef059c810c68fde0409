@@ -1,0 +1,21 @@
+lib/inventory/ciParsers/githubActions.js
+  s_000e4234adb03e::t_5fb378ed15a8c5 94-107,758,769-771,847-934,937-944,963,968-991,2080,2155,2282-2286,2471-2472,2623,2627,2669
+lib/inventory/ciParsers/githubActions.poku.js
+  s_000e4234adb03e::t_fea342e346e605 1976-2120
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "8cae98a2e340bf74fd777ef059c810c68fde0409",
+  "prompts": {},
+  "sessions": {
+    "s_000e4234adb03e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "02037648-4bba-493b-a180-b7ddf3261a96",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
