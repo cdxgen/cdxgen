@@ -1,0 +1,29 @@
+lib/ecosystems/cppBuildContext.js
+  s_000e4234adb03e::t_e7781575c21c14 67-69,259,308
+lib/ecosystems/cppBuildContext.poku.js
+  s_000e4234adb03e::t_e456c09093fc5f 289-322,627-630
+lib/ecosystems/cppIncludeResolver.js
+  s_000e4234adb03e::t_2635fa8a62ea31 64-68,84-86,97
+lib/ecosystems/cppIncludeResolver.poku.js
+  s_000e4234adb03e::t_6735ec24bea8ca 63-87
+lib/parsers/gitmodules.js
+  s_000e4234adb03e::t_ad0880ee328df2 23-29,68-70
+lib/parsers/gitmodules.poku.js
+  s_000e4234adb03e::t_f09772601d3793 51-68
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "9b939830115b8f92ede0dd4c3be404fcb0d9042f",
+  "prompts": {},
+  "sessions": {
+    "s_000e4234adb03e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "02037648-4bba-493b-a180-b7ddf3261a96",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
