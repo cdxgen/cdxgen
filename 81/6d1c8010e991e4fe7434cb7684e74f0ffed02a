@@ -1,0 +1,29 @@
+lib/core/rootfsLinks.js
+  s_000e4234adb03e::t_36d6a4c5b35adb 1-144
+lib/core/rootfsLinks.poku.js
+  s_000e4234adb03e::t_df6c994e0e047f 1-119
+lib/inventory/osPackageResolver.js
+  s_000e4234adb03e::t_4a7bc10449d8c3 14,370-400,427-429,436,444-449,459,468,547-551,553-555,563,572,629-640,650-661,700-702,707
+lib/inventory/osPackageResolver.poku.js
+  s_000e4234adb03e::t_2a287d3c3a554d 663-724
+lib/managers/binary.js
+  s_000e4234adb03e::t_da67754067b986 53-58,2043,2089,2945,3054-3056,3063,3076-3078,4141,4223,4383,4440,4483,4533-4536,4647,4664-4666,4688
+lib/managers/binary.poku.js
+  s_000e4234adb03e::t_35a45698b6e9a8 413-470
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "816d1c8010e991e4fe7434cb7684e74f0ffed02a",
+  "prompts": {},
+  "sessions": {
+    "s_000e4234adb03e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "02037648-4bba-493b-a180-b7ddf3261a96",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
