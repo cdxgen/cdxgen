@@ -101,7 +101,11 @@ the target:
 A document with a `specFormat`, or a `specVersion` of 2.0 or later, is read
 as 2.0, so a stray 1.x member such as `components` next to `inventories` is a
 loss rather than a reason to treat the input as 1.x. Objects nested deeper
-than 256 levels are cut, each with a loss. cdxgen keeps 2.0-only sections on its internal model
+than 256 levels are cut, each with a loss. A component reference is read as a
+copy of the component it names, and a party, license, release notes or weakness
+reference as a copy of its declaration; once those copies add up to four times
+the size of the document (or to about 1 MB, for a smaller document), further
+references are left out, each with a loss. cdxgen keeps 2.0-only sections on its internal model
 under a `cdx20Sections` member; that member of a 1.x input is ignored, so it
 never reaches a `--to 2.0` output.
 
