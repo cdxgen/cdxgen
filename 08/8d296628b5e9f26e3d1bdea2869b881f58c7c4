@@ -1,0 +1,21 @@
+lib/parsers/safetensors.js
+  s_000e4234adb03e::t_50e2bf83daea70 3-4,11-18,52-57,68,104-107
+lib/parsers/safetensors.poku.js
+  s_000e4234adb03e::t_2ff41a03c747d9 17-20,97-141
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "088d296628b5e9f26e3d1bdea2869b881f58c7c4",
+  "prompts": {},
+  "sessions": {
+    "s_000e4234adb03e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "02037648-4bba-493b-a180-b7ddf3261a96",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
