@@ -1,0 +1,21 @@
+lib/ecosystems/parsers-bazel.js
+  s_000e4234adb03e::t_4637b1f87f5ded 1,4-12,67-71,174-180,845-852,865,868,876,887-893,904-908,915-918,921,924-927,937,941-944,951-985
+lib/ecosystems/parsers-bazel.poku.js
+  s_000e4234adb03e::t_fa1f71db1558e7 1-7,14-18,87-195
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "82d177b21005f1411e92678749f4a321a7ca66e1",
+  "prompts": {},
+  "sessions": {
+    "s_000e4234adb03e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "02037648-4bba-493b-a180-b7ddf3261a96",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
