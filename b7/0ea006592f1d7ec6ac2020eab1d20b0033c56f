@@ -1,0 +1,21 @@
+lib/cli/jvmBom.js
+  s_000e4234adb03e::t_97b417a341147c 793-806,1038-1046,1403-1405
+lib/cli/jvmBom.poku.js
+  s_000e4234adb03e::t_2a361eeecf5539 12,20,986-1099
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "b70ea006592f1d7ec6ac2020eab1d20b0033c56f",
+  "prompts": {},
+  "sessions": {
+    "s_000e4234adb03e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "02037648-4bba-493b-a180-b7ddf3261a96",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
