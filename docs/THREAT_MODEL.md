@@ -171,7 +171,7 @@ The toolchain version probes for formulation also run from the temporary directo
 - cdxgen avoids shell interpretation for these values and treats them as filtering patterns only
 - Directory-oriented excludes are additionally forwarded as literal directory names for performance where supported by Atom and astgen
 - Server deployments should validate or constrain request options at the API boundary if untrusted clients can submit scans
-- Patterns from untrusted sources pass through `boundUntrustedGlobPatterns()` in `lib/core/globPatterns.js`: each may be at most 512 characters, and a list may stand for at most 128 patterns after brace expansion. The server refuses a request whose `exclude` patterns use braces or break either limit. A config file in the scanned directory may use braces, but its `exclude` and `include-regex` patterns share the 128-pattern budget, and those past it are dropped with a warning
+- Patterns from untrusted sources pass through `boundUntrustedGlobPatterns()` in `lib/core/globPatterns.js`: each may be at most 512 characters, and a list may stand for at most 128 patterns after brace expansion, with a comma separated pattern counted once for each entry the evidence filters read from it. The server refuses a request whose `exclude` patterns use braces or break either limit. A config file in the scanned directory may use braces, but its `exclude` and `include-regex` patterns share the 128-pattern budget, and those past it are dropped with a warning
 
 **Residual risk:** Low for intended local/CI usage where the operator controls CLI arguments. Medium for wrappers or server deployments that expose pattern options to untrusted users without additional validation.
 
