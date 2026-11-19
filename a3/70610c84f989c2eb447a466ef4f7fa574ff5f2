@@ -1,0 +1,121 @@
+docs/ADVANCED.md
+  s_000e4234adb03e::t_298bc98063d546 754
+docs/ENV.md
+  s_000e4234adb03e::t_37302ce63a0a01 41-42
+docs/THREAT_MODEL.md
+  s_000e4234adb03e::t_8856475f101c33 147
+lib/cli/cliOptions.js
+  s_000e4234adb03e::t_f09d3f562e72c2 896-898
+lib/cli/cliOptions.poku.js
+  s_000e4234adb03e::t_954ca99f4e673e 415-425
+lib/cli/jvmBom.js
+  s_000e4234adb03e::t_99252a108f7502 2,127,223-226,264-276,294-298,799-812,1044-1052,1409-1411
+lib/cli/jvmBom.poku.js
+  s_000e4234adb03e::t_7985783ba36a65 12,20,1009-1122
+lib/cli/managedBom.js
+  s_000e4234adb03e::t_eb91d3842318ee 1214-1221,1223-1227,1231-1233,1236-1240
+lib/cli/managedBom.poku.js
+  s_000e4234adb03e::t_49cb463d860a74 6,2950-2990
+lib/cli/sbtDeepCache.poku.js
+  s_000e4234adb03e::t_4d70f9d775b9ca 6,10,81-86,182-207
+lib/core/detachedString.js
+  s_000e4234adb03e::t_abd1f5c9d2de58 1-38
+lib/core/detachedString.poku.js
+  s_000e4234adb03e::t_61e96f1d179a62 1-48
+lib/core/fs.js
+  s_000e4234adb03e::t_5185f4801014ff 9,11,13,29,576-631,699-791
+lib/core/fs.poku.js
+  s_000e4234adb03e::t_9df63531148c0b 3,13,19,22,26-30,33-34,36,452-526,722-874
+lib/ecosystems/caxa.js
+  s_000e4234adb03e::t_d2cb6d28c8114f 139-149,364-365,370-374,447-450,453-456,520
+lib/ecosystems/caxa.poku.js
+  s_000e4234adb03e::t_3a2185316c81b9 1-7,105,347-431
+lib/ecosystems/denoutils.js
+  s_000e4234adb03e::t_4e261ffb49b649 27,535-536,560-564
+lib/ecosystems/denoutils.poku.js
+  s_000e4234adb03e::t_15193291d05340 616-652
+lib/ecosystems/ecosystems.js
+  s_000e4234adb03e::t_b8a2569610965b 15,23,33-34,52,83-91,162-164,245-249,251-252,255,258,260,570-571,573,849-858,1014-1015,1036-1048,1066,1069,1073-1132,1218,1232-1236,1320,1388-1389,1392-1395,1473-1475,1550-1554,1563-1575,1592,1690-1706,1788-1791,2015-2018,2055-2063,2312,2453-2455,2457-2460,2493-2499,2501,2503,2880-2883,3235-3238,3429-3430,3454,3528,3531,3533,3764-3769,4074-4077,4370-4372
+lib/ecosystems/ecosystems.poku.js
+  s_000e4234adb03e::t_519b062d138148 1-3,1009-1047,1134-1154,1430-1461
+lib/ecosystems/githubQuota.poku.js
+  s_000e4234adb03e::t_524d829f46ad38 137-221
+lib/ecosystems/gradleutils.js
+  s_000e4234adb03e::t_d6b2e358595661 2,24-29,92,114,402-408,581-590,626-631,646-651,661,672,685-688,873,999-1002,2036,2250,2273
+lib/ecosystems/gradleutils.poku.js
+  s_000e4234adb03e::t_b5da5001c87b8b 6,894-914,1305-1427,1604-1638,2283-2298,2690-2701
+lib/ecosystems/jarEmbeddedMetadata.poku.js
+  s_000e4234adb03e::t_93527c17590bda 37-41,67-72,78-79,99-105,124-127,181-189,217-253
+lib/ecosystems/mavenRepeatedCoordinates.poku.js
+  s_000e4234adb03e::t_30cd007af90966 1-111
+lib/ecosystems/npmRegistrySkips.poku.js
+  s_000e4234adb03e::t_38e10b267c48f4 175-206
+lib/ecosystems/parsers-jvm.js
+  s_000e4234adb03e::t_9372a7f5a9543a 19,1209-1212,1407-1433,1467
+lib/ecosystems/parsers-jvm.poku.js
+  s_000e4234adb03e::t_eda98cb908eeff 373-401,487-522
+lib/ecosystems/registryPathSteering.poku.js
+  s_000e4234adb03e::t_f6b4eb82f09b97 1-157
+lib/ecosystems/rubyutils.js
+  s_000e4234adb03e::t_fef6df80b71823 34,1205-1210,1217,1301,1325
+lib/ecosystems/sbtutils.js
+  s_000e4234adb03e::t_900587d1d3fffd 254-272,290-291,302,330
+lib/ecosystems/sbtutils.poku.js
+  s_000e4234adb03e::t_4ddc8f3256be8a 269-280
+lib/helpers/vsixutils.js
+  s_000e4234adb03e::t_2229802c932ee9 15,1375
+lib/inventory/buildToolRateLimit.js
+  s_000e4234adb03e::t_c447bf345f0800 154-155,179-180
+lib/inventory/buildToolRateLimit.poku.js
+  s_000e4234adb03e::t_7a44ea5dfd1f62 120-152
+lib/inventory/deps.js
+  s_000e4234adb03e::t_afaae536f6b1ea 8,16,32,54-72,234-257,283-284,313-321,323-325,593,601,693-695,1238-1298,1303-1309,1313-1319,1329-1335,1351-1355
+lib/inventory/deps.poku.js
+  s_000e4234adb03e::t_b21c98dc1f09c4 18,20,30,244-323,786-877
+lib/inventory/depsUtils.js
+  s_000e4234adb03e::t_b3388c3e8476cc 816-821
+lib/inventory/depsUtils.poku.js
+  s_000e4234adb03e::t_b1ee514783a8f5 893-906
+lib/inventory/jarClassNameBudget.poku.js
+  s_000e4234adb03e::t_f8c6123924317e 1-79
+lib/inventory/jvmLocalRepos.js
+  s_000e4234adb03e::t_627d8cfe680dfd 466-482,491-513,527-532,629-634
+lib/inventory/jvmLocalRepos.poku.js
+  s_000e4234adb03e::t_48f22939a9ec04 10,15,18,50-72,157-174
+lib/inventory/mavenCentralMirror.js
+  s_000e4234adb03e::t_df9ffc181a19c8 1,134-138,282
+lib/inventory/mavenCentralMirror.poku.js
+  s_000e4234adb03e::t_e1f5348c89e9e0 179-207
+lib/inventory/mcpbBundle.js
+  s_000e4234adb03e::t_31e210661acb4c 7,414-416
+lib/inventory/mcpbBundle.poku.js
+  s_000e4234adb03e::t_bfd90e11fce61c 420-448
+lib/inventory/registrySegments.js
+  s_000e4234adb03e::t_980c1a99ce9ac5 1-144
+lib/inventory/registrySegments.poku.js
+  s_000e4234adb03e::t_96b854d39e3bb3 1-126
+lib/inventory/source.js
+  s_000e4234adb03e::t_352de340222e65 37-46,1720-1753,1769-1774,1962-1964
+lib/inventory/source.poku.js
+  s_000e4234adb03e::t_6f65ff0b83819a 176-287,680-682,688-692,697-700
+lib/stages/postgen/postgen.js
+  s_000e4234adb03e::t_b87da485fd16c9 80-82,96-101
+lib/stages/postgen/postgen.poku.js
+  s_000e4234adb03e::t_680b72847f0762 2256-2307
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "a370610c84f989c2eb447a466ef4f7fa574ff5f2",
+  "prompts": {},
+  "sessions": {
+    "s_000e4234adb03e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "02037648-4bba-493b-a180-b7ddf3261a96",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
