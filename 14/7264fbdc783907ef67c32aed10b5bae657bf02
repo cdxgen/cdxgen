@@ -1,0 +1,21 @@
+lib/core/fs.js
+  s_000e4234adb03e::t_7e08b2489683a3 1501-1504
+lib/core/fs.poku.js
+  s_000e4234adb03e::t_e517629ca7172c 108-168
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "147264fbdc783907ef67c32aed10b5bae657bf02",
+  "prompts": {},
+  "sessions": {
+    "s_000e4234adb03e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "02037648-4bba-493b-a180-b7ddf3261a96",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
