@@ -44,6 +44,7 @@ import {
   sanitizeProjectConfig,
 } from "../lib/core/projectConfig.js";
 import { isSecureModeActive } from "../lib/core/projectTooling.js";
+import { escapeControlCharacters } from "../lib/core/text.js";
 import {
   ui as defaultUi,
   installConsoleShim,
@@ -169,6 +170,9 @@ const launchEnv = { ...process.env };
 let config = {};
 for (const configPattern of PROJECT_CONFIG_FILENAMES) {
   const configPath = join(process.cwd(), configPattern);
+  // Values from the file, and the path of the directory it is in, are written
+  // to the terminal as text.
+  const shownConfigPath = escapeControlCharacters(configPath);
   if (!safeExistsSync(configPath)) {
     continue;
   }
@@ -178,7 +182,7 @@ for (const configPattern of PROJECT_CONFIG_FILENAMES) {
         ? _load(fs.readFileSync(configPath, "utf-8"))
         : JSON.parse(fs.readFileSync(configPath, "utf-8"));
     if (isSecureMode || DEBUG_MODE) {
-      console.log(`Config file '${configPath}' loaded successfully.`);
+      console.log(`Config file '${shownConfigPath}' loaded successfully.`);
     }
     const sanitized = sanitizeProjectConfig(parsedConfig, dirname(configPath));
     config = sanitized.config;
@@ -187,49 +191,49 @@ for (const configPattern of PROJECT_CONFIG_FILENAMES) {
       isSecureMode: isSecureModeActive(),
     })) {
       console.warn(
-        `\x1b[1;35mConfig file '${configPath}' sets '${key}', which would change the BOM audit that --bom-audit, CDXGEN_BOM_AUDIT or secure mode controls. Ignoring it. Pass the option on the command line if this is intentional.\x1b[0m`,
+        `\x1b[1;35mConfig file '${shownConfigPath}' sets '${escapeControlCharacters(key)}', which would change the BOM audit that --bom-audit, CDXGEN_BOM_AUDIT or secure mode controls. Ignoring it. Pass the option on the command line if this is intentional.\x1b[0m`,
       );
     }
     for (const key of sanitized.operatorOnly) {
       console.warn(
-        `\x1b[1;35mConfig file '${configPath}' sets '${key}', which only the command line or a CDXGEN_ environment variable may set. Ignoring it.\x1b[0m`,
+        `\x1b[1;35mConfig file '${shownConfigPath}' sets '${escapeControlCharacters(key)}', which only the command line or a CDXGEN_ environment variable may set. Ignoring it.\x1b[0m`,
       );
     }
     for (const projectType of sanitized.hostScopeTypes) {
       console.warn(
-        `\x1b[1;35mConfig file '${configPath}' selects the project type '${projectType}', which inventories this host rather than the project. Ignoring it. Pass '-t ${projectType}' on the command line if this is intentional.\x1b[0m`,
+        `\x1b[1;35mConfig file '${shownConfigPath}' selects the project type '${escapeControlCharacters(projectType)}', which inventories this host rather than the project. Ignoring it. Pass '-t ${escapeControlCharacters(projectType)}' on the command line if this is intentional.\x1b[0m`,
       );
     }
     for (const projectType of sanitized.unknownTypes) {
       console.warn(
-        `\x1b[1;35mConfig file '${configPath}' selects the project type '${projectType}', which cdxgen does not know by that name. Ignoring it. Project types are matched case-sensitively; see docs/PROJECT_TYPES.md.\x1b[0m`,
+        `\x1b[1;35mConfig file '${shownConfigPath}' selects the project type '${escapeControlCharacters(projectType)}', which cdxgen does not know by that name. Ignoring it. Project types are matched case-sensitively; see docs/PROJECT_TYPES.md.\x1b[0m`,
       );
     }
     for (const key of sanitized.ignored) {
       console.warn(
-        `Config file '${configPath}' sets '${key}', which is not an option a config file can set. Ignoring it.`,
+        `Config file '${shownConfigPath}' sets '${escapeControlCharacters(key)}', which is not an option a config file can set. Ignoring it.`,
       );
     }
     for (const { key, pattern, reason } of sanitized.refusedPatterns) {
       const shownPattern =
         pattern.length > 80 ? `${pattern.slice(0, 77)}...` : pattern;
       console.warn(
-        `\x1b[1;35mConfig file '${configPath}' sets the ${key} pattern '${shownPattern}', which ${reason}. Ignoring it. Pass the pattern on the command line if this is intentional.\x1b[0m`,
+        `\x1b[1;35mConfig file '${shownConfigPath}' sets the ${escapeControlCharacters(key)} pattern '${escapeControlCharacters(shownPattern)}', which ${reason}. Ignoring it. Pass the pattern on the command line if this is intentional.\x1b[0m`,
       );
     }
     for (const entry of sanitized.rejected) {
       console.warn(
-        `\x1b[1;35mConfig file '${configPath}' sets '${entry}', which points outside the project directory. Ignoring it. Pass the option on the command line if this is intentional.\x1b[0m`,
+        `\x1b[1;35mConfig file '${shownConfigPath}' sets '${escapeControlCharacters(entry)}', which points outside the project directory. Ignoring it. Pass the option on the command line if this is intentional.\x1b[0m`,
       );
     }
     for (const foundKey of sanitized.announced) {
       console.warn(
-        `Config file '${configPath}' sets '${foundKey}'. Verify this is intentional.`,
+        `Config file '${shownConfigPath}' sets '${escapeControlCharacters(foundKey)}'. Verify this is intentional.`,
       );
     }
     for (const propertyName of sanitized.reservedProperties) {
       console.warn(
-        `\x1b[1;35mConfig file '${configPath}' sets the metadata property '${propertyName}', whose namespace cdxgen reserves for its own findings. Ignoring it. Pass the property with --metadata-property if this is intentional.\x1b[0m`,
+        `\x1b[1;35mConfig file '${shownConfigPath}' sets the metadata property '${escapeControlCharacters(propertyName)}', whose namespace cdxgen reserves for its own findings. Ignoring it. Pass the property with --metadata-property if this is intentional.\x1b[0m`,
       );
     }
   } catch (_e) {
