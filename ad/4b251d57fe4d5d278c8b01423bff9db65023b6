@@ -1,0 +1,25 @@
+lib/ecosystems/pythonutils.js
+  s_000e4234adb03e::t_2e837283ce12b6 1-7,15,368-434,468,532-534,541
+lib/ecosystems/pythonutils.poku.js
+  s_000e4234adb03e::t_5835290069d07e 599-669
+lib/inventory/dosai.js
+  s_000e4234adb03e::t_e29994dad5417e 4,838-840
+lib/inventory/dosai.poku.js
+  s_000e4234adb03e::t_e0995397952727 8,2714-2742
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "ad4b251d57fe4d5d278c8b01423bff9db65023b6",
+  "prompts": {},
+  "sessions": {
+    "s_000e4234adb03e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "02037648-4bba-493b-a180-b7ddf3261a96",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
