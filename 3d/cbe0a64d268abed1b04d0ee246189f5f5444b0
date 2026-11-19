@@ -1,0 +1,25 @@
+lib/inventory/analyzer.js
+  s_000e4234adb03e::t_41bea2da1e98ae 3242-3243,3245-3253
+lib/inventory/analyzer.poku.js
+  s_000e4234adb03e::t_0aff981fae1136 2282-2305
+lib/inventory/svelteUtils.js
+  s_000e4234adb03e::t_2caffe78b02d9f 383-404,422-428,436-442
+lib/inventory/svelteUtils.poku.js
+  s_000e4234adb03e::t_875a5ae13eca8a 327-371
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "3dcbe0a64d268abed1b04d0ee246189f5f5444b0",
+  "prompts": {},
+  "sessions": {
+    "s_000e4234adb03e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "02037648-4bba-493b-a180-b7ddf3261a96",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
