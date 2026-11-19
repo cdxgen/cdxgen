@@ -1,0 +1,21 @@
+lib/ecosystems/rubyutils.js
+  s_000e4234adb03e::t_a86ad515674194 427-430,433-436
+lib/ecosystems/rubyutils.poku.js
+  s_000e4234adb03e::t_b05640006c7885 1481-1499
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "b5995f235e9bc388d6d469d12dfca661109c9273",
+  "prompts": {},
+  "sessions": {
+    "s_000e4234adb03e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "02037648-4bba-493b-a180-b7ddf3261a96",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
