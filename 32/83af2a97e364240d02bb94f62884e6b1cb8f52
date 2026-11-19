@@ -1,0 +1,97 @@
+docs/ADVANCED.md
+  s_000e4234adb03e::t_c485d5b67cc6a9 551
+docs/BOM_AUDIT.md
+  s_000e4234adb03e::t_35faa5180ac995 158
+docs/ENV.md
+  s_000e4234adb03e::t_df4782cea9b379 419
+docs/LESSON12.md
+  s_000e4234adb03e::t_d5c35c28456eda 21
+docs/LESSON27.md
+  s_000e4234adb03e::t_281b2e90a9313b 306
+docs/THREAT_MODEL.md
+  s_000e4234adb03e::t_bfbb38d34762c2 93-94
+lib/cli/asar.poku.js
+  s_000e4234adb03e::t_f11b662f1444f1 10,75-78,89,116-155,189-208,254,262,269,338,346,353,450-455
+lib/cli/jsBom.js
+  s_000e4234adb03e::t_abdafa0947bed6 115,2179-2183,2378
+lib/core/projectConfig.cli.poku.js
+  s_000e4234adb03e::t_8e8e52cdbf82bd 241-281
+lib/core/projectConfig.js
+  s_000e4234adb03e::t_0ecff3510d4024 148-150,153
+lib/core/projectConfig.poku.js
+  s_000e4234adb03e::t_be2cf2e5e6d557 150-151,166-167
+lib/core/rootfsLinks.js
+  s_000e4234adb03e::t_86e396e7d39120 1-144
+lib/core/rootfsLinks.poku.js
+  s_000e4234adb03e::t_0f88c7143378d4 1-119
+lib/ecosystems/asarutils.js
+  s_000e4234adb03e::t_1f855a79fa900e 1172,1287,1319-1321,1335,1363-1365,1381-1388,1487
+lib/ecosystems/asarutils.poku.js
+  s_000e4234adb03e::t_6151905ae4c7fb 169-173
+lib/ecosystems/chromextutils.poku.js
+  s_000e4234adb03e::t_113bbb72c0031e 242-279
+lib/ecosystems/cppBuildContext.js
+  s_000e4234adb03e::t_ee36a3416d7fdb 72
+lib/ecosystems/cppBuildContext.poku.js
+  s_000e4234adb03e::t_89d73a7eca103b 415,428
+lib/ecosystems/ecosystems.js
+  s_000e4234adb03e::t_55c0dfbe14f439 23,2018-2044,2084-2089,2091-2095,2097-2099,2101,2193
+lib/ecosystems/ecosystems.poku.js
+  s_000e4234adb03e::t_7d42e601ea595c 1048-1087
+lib/ecosystems/npmVersionResolution.js
+  s_000e4234adb03e::t_11d0b0919145ba 243-246,249-263,289
+lib/ecosystems/npmVersionResolution.poku.js
+  s_000e4234adb03e::t_19312319d30249 1,3,222-260
+lib/ecosystems/parsers-dotnet.js
+  s_000e4234adb03e::t_85cd9a5a6177ac 24,47-81,595,789-791,880,1522,1929-1930,1961,2037,2153,2158,2221,2292,2350
+lib/ecosystems/parsers-dotnet.poku.js
+  s_000e4234adb03e::t_60acb38d6ca01e 990-1019
+lib/ecosystems/parsers-js.js
+  s_000e4234adb03e::t_e026efec73cf18 4005-4023,4031-4033,4055-4066
+lib/ecosystems/parsers-js.poku.js
+  s_000e4234adb03e::t_784689e165beb5 1873-1923
+lib/ecosystems/parsers-misc.js
+  s_000e4234adb03e::t_f65dff45be1656 425-427,812-820
+lib/ecosystems/parsers-misc.poku.js
+  s_000e4234adb03e::t_effa6724653f48 14,1581-1612
+lib/ecosystems/parsers-terraform.js
+  s_000e4234adb03e::t_59a1137607eb59 389-398,401-404,569,574-580,584,597-601,1286-1289
+lib/ecosystems/parsers-terraform.poku.js
+  s_000e4234adb03e::t_a2e6c1d1f2101c 13,793-845
+lib/ecosystems/pythonutils.js
+  s_000e4234adb03e::t_90d4f1fa5a5d8c 7,971-1149,1174,1402-1416
+lib/ecosystems/pythonutils.poku.js
+  s_000e4234adb03e::t_bed4c2b6bc03e7 31,911-1041
+lib/inventory/osPackageResolver.js
+  s_000e4234adb03e::t_27f2813ada0b97 14,370-400,427-429,436,444-449,459,468,547-551,553-555,563,572,629-640,650-661,700-702,707
+lib/inventory/osPackageResolver.poku.js
+  s_000e4234adb03e::t_cbb6cb2b419016 663-724
+lib/managers/binary.js
+  s_000e4234adb03e::t_0dfb768a4bec82 53-58,2043,2089,2945,3054-3056,3063,3076-3078,4141,4223,4383,4440,4483,4533-4536,4647,4664-4666,4688
+lib/managers/binary.poku.js
+  s_000e4234adb03e::t_2ea245b54bd4be 413-470
+lib/managers/oci.js
+  s_000e4234adb03e::t_95317e0d227e20 347,354-356,368-374,386,397-403,413,417-420,449,461,469,481,495,505,526,567-569
+lib/managers/oci.poku.js
+  s_000e4234adb03e::t_2e5ba1f172d31d 99-141
+lib/stages/postgen/ruleEngine.js
+  s_000e4234adb03e::t_549ba48ab72764 12-13,261-265,308-310,317-319,322,330-335,344,347,352-355,359-363,419-422,424,427-428,432-434
+lib/stages/postgen/ruleEngine.poku.js
+  s_000e4234adb03e::t_dc7bf593a50af3 1,108,115-159,162-181
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "3283af2a97e364240d02bb94f62884e6b1cb8f52",
+  "prompts": {},
+  "sessions": {
+    "s_000e4234adb03e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "02037648-4bba-493b-a180-b7ddf3261a96",
+        "model": "unknown"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
