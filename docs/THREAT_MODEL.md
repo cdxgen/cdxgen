@@ -313,6 +313,7 @@ The toolchain version probes for formulation also run from the temporary directo
 - Server timeout: 10 minutes (configurable via `CDXGEN_SERVER_TIMEOUT_MS`)
 - Spawn timeout: 20 minutes (configurable via `CDXGEN_TIMEOUT_MS`)
 - Max buffer: 100MB (configurable via `CDXGEN_MAX_BUFFER`)
+- Git checkout ceiling: the tree of a cloned repository is measured before any file is written, and the repository is not checked out above 1 GiB or 200000 files and directories (configurable via `CDXGEN_GIT_MAX_CHECKOUT_BYTES` and `CDXGEN_GIT_MAX_CHECKOUT_FILES`)
 - Parsers of scanned project files avoid regular expressions whose work grows faster than the input. The CrewAI reader for `agents.py` and `tasks.py`, for example, reads each file once
 - Request `exclude` patterns may not use braces, run past 512 characters or number more than 128, since every pattern is matched against every file the scan walks
 
