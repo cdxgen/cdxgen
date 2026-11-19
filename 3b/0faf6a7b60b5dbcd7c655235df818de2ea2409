@@ -1,0 +1,29 @@
+docs/CUSTOM_PROPERTIES.md
+  s_000e4234adb03e::t_d035acc2a2cf18 540
+docs/THREAT_MODEL.md
+  s_000e4234adb03e::t_3609b276aa37d1 472,474,476
+lib/cli/bomAssembly.poku.js
+  s_000e4234adb03e::t_61a105ba42310b 1464-1508
+lib/core/propertySanitizer.js
+  s_000e4234adb03e::t_4107cabcda90c0 222-375,466-480,512,548-556,1346-1351,1355-1356
+lib/core/propertySanitizer.poku.js
+  s_000e4234adb03e::t_b1cc472adb971e 13,601-803
+lib/ecosystems/terraformRegistry.js
+  s_000e4234adb03e::t_021bb715be3cd1 304-305
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "3b0faf6a7b60b5dbcd7c655235df818de2ea2409",
+  "prompts": {},
+  "sessions": {
+    "s_000e4234adb03e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "02037648-4bba-493b-a180-b7ddf3261a96",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
