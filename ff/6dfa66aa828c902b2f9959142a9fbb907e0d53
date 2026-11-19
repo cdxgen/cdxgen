@@ -1,0 +1,21 @@
+lib/core/propertySanitizer.js
+  s_000e4234adb03e::t_c73b652235d75b 24,573-576,579
+lib/core/propertySanitizer.poku.js
+  s_000e4234adb03e::t_1c0c307f27fb25 90-142
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "ff6dfa66aa828c902b2f9959142a9fbb907e0d53",
+  "prompts": {},
+  "sessions": {
+    "s_000e4234adb03e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "02037648-4bba-493b-a180-b7ddf3261a96",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
