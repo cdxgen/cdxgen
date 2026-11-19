@@ -210,9 +210,14 @@ chains (the first parent wins), hidden templates, `cacheVariables` and
 `environment` merged key by key, and the macros `${sourceDir}`,
 `${sourceParentDir}`, `${sourceDirName}`, `${presetName}`, `${generator}`,
 `${hostSystemName}`, `${fileDir}`, `${dollar}`, `${pathListSep}`, `$env{}` and
-`$penv{}`. `condition` objects are evaluated for the host cdxgen runs on;
-`matches` conditions are not, since their regular expressions come from the
-repository. Each visible configure preset becomes a formulation component
+`$penv{}`. Of cdxgen's own environment the last two read only `HOME`,
+`USERPROFILE`, `TMPDIR`, `TEMP`, `TMP`, `CC`, `CXX`, `CMAKE_BUILD_TYPE`,
+`CMAKE_GENERATOR`, `CMAKE_TOOLCHAIN_FILE`, `VCPKG_ROOT`,
+`VCPKG_INSTALLATION_ROOT` and `VCPKG_DEFAULT_TRIPLET`; the macro of any other
+variable stays as written, so a repository cannot copy a token from the
+environment into the BOM. `condition` objects are evaluated for the host cdxgen
+runs on; `matches` conditions are not, since their regular expressions come
+from the repository. Each visible configure preset becomes a formulation component
 (`type: data`) with its generator, build directory, build type, compilers,
 toolchain file (a vcpkg toolchain is flagged with `cdx:cmake:preset:vcpkg`)
 and the hardening options its flag variables set. Its build directory is where
