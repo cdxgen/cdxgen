@@ -1,0 +1,21 @@
+lib/core/yaml.js
+  s_000e4234adb03e::t_20575823a2c91d 12-22,34-92,99-100,103-106,114-115,118-124
+lib/core/yaml.poku.js
+  s_000e4234adb03e::t_b1d33fdcc70f59 35-112
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "13541440b62fae264b53751d345069055d768b7c",
+  "prompts": {},
+  "sessions": {
+    "s_000e4234adb03e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "02037648-4bba-493b-a180-b7ddf3261a96",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
