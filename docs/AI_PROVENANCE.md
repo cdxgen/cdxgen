@@ -212,7 +212,7 @@ fixed precision; review-dependent metrics render `unavailable` when no forge dat
 - `batchSizeMedian` — median lines changed per AI commit (context).
 - `revertHotfixRate` — reverts/hotfixes touching AI-authored work.
 - `ciWeakeningEvents` — count of AI commits that delete tests or add quality-gate suppressions (`--no-verify`, `continue-on-error: true`, `|| true` in CI/build scripts).
-- `signoffCoverage` — AI commits carrying a DCO `Signed-off-by` and/or verified signature.
+- `signoffCoverage` — AI commits carrying a DCO `Signed-off-by` and/or verified signature. OpenPGP and SSH signatures are verified with the local `gpg` and `ssh-keygen`; X.509 (S/MIME, gitsign) signatures are not verified, because `gpgsm` would contact the revocation URL named in the signer's certificate.
 - `codeownersCoverage` — fraction of AI-touched paths covered by CODEOWNERS (`unavailable` when no CODEOWNERS file).
 - `aiLineRatio` — AI-authored lines ÷ total (precise from git-ai notes, else heuristic).
 - `score` — aggregate 0.00–1.00 rigor score (transparent weighted mean over the available signals; `ciWeakeningEvents` applies an additional hard penalty).
