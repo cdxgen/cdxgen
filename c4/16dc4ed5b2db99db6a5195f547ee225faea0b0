@@ -1,0 +1,23 @@
+docs/ENV.md
+  s_000e4234adb03e::t_8b2e18facb7470 134
+lib/managers/oci.js
+  s_000e4234adb03e::t_5e94ab501d3650 229-242
+lib/managers/oci.poku.js
+  s_000e4234adb03e::t_fe014ec7481fb4 7,9-12,446-447,488-492,500-501,540-584
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "c416dc4ed5b2db99db6a5195f547ee225faea0b0",
+  "prompts": {},
+  "sessions": {
+    "s_000e4234adb03e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "02037648-4bba-493b-a180-b7ddf3261a96",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
