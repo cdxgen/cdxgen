@@ -1,0 +1,23 @@
+docs/AI_PROVENANCE.md
+  s_000e4234adb03e::t_29456abb29e3ad 215
+lib/inventory/envcontext.js
+  s_000e4234adb03e::t_953dfaccba98e0 106-113,136
+lib/inventory/envcontext_git.poku.js
+  s_000e4234adb03e::t_dc4270f4eb652c 3,11,250-308
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "119b58413bc98bc08b928677cb71e22f47c388b6",
+  "prompts": {},
+  "sessions": {
+    "s_000e4234adb03e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "02037648-4bba-493b-a180-b7ddf3261a96",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
