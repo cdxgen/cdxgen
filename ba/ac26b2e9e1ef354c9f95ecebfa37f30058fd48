@@ -1,0 +1,21 @@
+lib/ecosystems/zigResolver.js
+  s_000e4234adb03e::t_37ec0c7e9e046b 142-145,149,163-169,254,303,313
+lib/ecosystems/zigResolver.poku.js
+  s_000e4234adb03e::t_5251dc67e53952 231-273
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "baac26b2e9e1ef354c9f95ecebfa37f30058fd48",
+  "prompts": {},
+  "sessions": {
+    "s_000e4234adb03e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "02037648-4bba-493b-a180-b7ddf3261a96",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
