@@ -38,7 +38,7 @@ import { sortBomCollections } from "../lib/stages/postgen/sortBom.js";
 import { convertCycloneDxToSpdx } from "../lib/stages/postgen/spdxConverter.js";
 import {
   applySpecVersionCompatibility,
-  diffMissingLeafValues,
+  diffMissingLeafPaths,
   diffRemovedFieldPaths,
 } from "../lib/stages/postgen/specVersionCompat.js";
 import { validateBom, validateSpdx } from "../lib/validator/bomValidator.js";
@@ -49,8 +49,6 @@ const VALIDATABLE_SPEC_VERSIONS = new Set(["1.6", "1.7", "2.0"]);
 // The 2.0 renderer reads the 1.x model of these versions; older input has
 // shapes it does not convert (a 1.5 tools array, a single identity object).
 const CDX20_SOURCE_SPEC_VERSIONS = new Set(["1.6", "1.7", "2.0"]);
-// Longest value printed for a missing 2.0 leaf; the comparison uses all of it.
-const MAX_PRINTED_LEAF_LENGTH = 160;
 
 const _yargs = yargs(hideBin(process.argv));
 
@@ -274,17 +272,22 @@ if (isSpdxTarget) {
     if (isCdx20Input) {
       // The read model carries 2.0-only content for 2.0 output, so a 2.0 to
       // 2.0 conversion loses only what is missing from the output.
-      const missing = diffMissingLeafValues(bomJson, convertedBomJson);
-      if (missing.length) {
+      // Only the field paths are printed, with their counts: a dropped value
+      // may be a URL with credentials, a command line or an environment
+      // value, and it must not reach the log.
+      const missing = diffMissingLeafPaths(bomJson, convertedBomJson);
+      const missingCount = [...missing.values()].reduce(
+        (sum, count) => sum + count,
+        0,
+      );
+      if (missingCount) {
         console.warn(
-          `The CycloneDX 2.0 output lacks ${missing.length} value(s) of the input (member order ignored):`,
+          `The CycloneDX 2.0 output lacks ${missingCount} value(s) of the input (member order ignored):`,
         );
-        for (const leaf of missing) {
-          console.warn(
-            `  - ${leaf.length > MAX_PRINTED_LEAF_LENGTH ? `${leaf.slice(0, MAX_PRINTED_LEAF_LENGTH)}…` : leaf}`,
-          );
+        for (const [path, count] of missing) {
+          console.warn(`  - ${path} ×${count}`);
         }
-        lostCount += missing.length;
+        lostCount += missingCount;
       }
     }
   } else {

@@ -116,8 +116,9 @@ uses. A 1.6 or 1.7 input is sorted first, so both commands write the same
 order; values the 2.0 format has no place for are printed with their counts.
 A 2.0 input keeps its own order, and its 2.0-only sections and unchanged
 objects come back as they were; any value of the input the output still lacks
-(member order ignored) is printed, once for each missing occurrence, so a
-dropped duplicate counts.
+(member order ignored) is reported as its field path with the number of
+missing occurrences, so a dropped duplicate counts. The values themselves are
+not printed.
 
 A 2.0 formula has no member for its components, so the renderer declares
 them in `definitions.components`. In a document with an inventory subject the
