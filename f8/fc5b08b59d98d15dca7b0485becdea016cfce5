@@ -1,0 +1,21 @@
+lib/managers/dockerConnection.js
+  s_000e4234adb03e::t_817d216bd151a0 2,150-157,160-165
+lib/managers/dockerConnection.poku.js
+  s_000e4234adb03e::t_d70b993325da02 6-7,25-67,108-125,141,254-325
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "f8fc5b08b59d98d15dca7b0485becdea016cfce5",
+  "prompts": {},
+  "sessions": {
+    "s_000e4234adb03e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "02037648-4bba-493b-a180-b7ddf3261a96",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
