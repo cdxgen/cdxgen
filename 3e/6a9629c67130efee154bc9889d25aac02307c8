@@ -1,0 +1,25 @@
+docs/EVINSE.md
+  s_000e4234adb03e::t_69e60223bba070 280
+docs/SCALA_EVINSE.md
+  s_000e4234adb03e::t_e32f3cb84c2a5a 158-162
+lib/ecosystems/scalasem.js
+  s_000e4234adb03e::t_7824f17bc0547c 2,163-165,167-173,179,185-187,200
+lib/ecosystems/scalasem.poku.js
+  s_000e4234adb03e::t_a06307a1807b27 15,133-147
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "3e6a9629c67130efee154bc9889d25aac02307c8",
+  "prompts": {},
+  "sessions": {
+    "s_000e4234adb03e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "02037648-4bba-493b-a180-b7ddf3261a96",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
