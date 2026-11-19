@@ -1,0 +1,21 @@
+lib/inventory/analyzer.js
+  s_000e4234adb03e::t_909dcd509bee16 276-335,354-356,359,370,380,386,388
+lib/inventory/analyzer.poku.js
+  s_000e4234adb03e::t_3fef74374c7660 141-159
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "71f14891ab5daaf50d4b3fe0a9d89fa2ae796de9",
+  "prompts": {},
+  "sessions": {
+    "s_000e4234adb03e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "02037648-4bba-493b-a180-b7ddf3261a96",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
