@@ -1,0 +1,21 @@
+lib/ecosystems/golem.js
+  s_000e4234adb03e::t_2993ed9db5b7da 201-206
+lib/ecosystems/golem.poku.js
+  s_000e4234adb03e::t_99d91f8488682f 312-335
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "ca1f397df862c1dc6d12695ded3cbeb092e18b2a",
+  "prompts": {},
+  "sessions": {
+    "s_000e4234adb03e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "02037648-4bba-493b-a180-b7ddf3261a96",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
