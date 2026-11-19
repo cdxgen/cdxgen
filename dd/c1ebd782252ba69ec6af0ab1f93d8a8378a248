@@ -1,0 +1,25 @@
+lib/inventory/purl.js
+  s_000e4234adb03e::t_33f6ae665613e6 38-71,81-83,372-376,480-484
+lib/inventory/purl.poku.js
+  s_000e4234adb03e::t_4ea16f052c81c4 12,169-181
+lib/inventory/source.js
+  s_000e4234adb03e::t_025134a6473c78 36,1587-1589
+lib/validator/bomValidator.js
+  s_000e4234adb03e::t_9557987e52b80f 18-22,662-664
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "ddc1ebd782252ba69ec6af0ab1f93d8a8378a248",
+  "prompts": {},
+  "sessions": {
+    "s_000e4234adb03e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "02037648-4bba-493b-a180-b7ddf3261a96",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
