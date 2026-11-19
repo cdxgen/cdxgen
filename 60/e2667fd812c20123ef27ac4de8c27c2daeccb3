@@ -1,0 +1,21 @@
+lib/ecosystems/ecosystems.js
+  s_000e4234adb03e::t_1ee44812087cbe 150-152,2255,2396-2398,2400-2403,2432-2438,2440,2442
+lib/ecosystems/githubQuota.poku.js
+  s_000e4234adb03e::t_c40f44964600a2 137-221
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "60e2667fd812c20123ef27ac4de8c27c2daeccb3",
+  "prompts": {},
+  "sessions": {
+    "s_000e4234adb03e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "02037648-4bba-493b-a180-b7ddf3261a96",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
