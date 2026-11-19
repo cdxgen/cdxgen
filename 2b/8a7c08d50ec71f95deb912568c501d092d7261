@@ -1,0 +1,21 @@
+lib/ecosystems/parsers-misc.js
+  s_000e4234adb03e::t_ac50d609c96bc7 81-90,800-807
+lib/ecosystems/parsers-misc.poku.js
+  s_000e4234adb03e::t_9d16b639b37375 1715-1734
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "2b8a7c08d50ec71f95deb912568c501d092d7261",
+  "prompts": {},
+  "sessions": {
+    "s_000e4234adb03e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "02037648-4bba-493b-a180-b7ddf3261a96",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
