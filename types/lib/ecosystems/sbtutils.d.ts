@@ -72,7 +72,8 @@ export declare function resetSbtResolutionCaches(): void;
  *
  * Looks up the Coursier registry URL for the coordinate and, when the jar is
  * present in the local Coursier cache, computes MD5/SHA-1/SHA-256/SHA-512
- * digests. Results are memoized per coordinate.
+ * digests. Results are memoized per coordinate, and every call returns its
+ * own copy.
  *
  * @param {string} group Maven groupId.
  * @param {string} name Maven artifactId.

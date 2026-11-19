@@ -24,6 +24,7 @@ import {
   buildOptionsFromArgs,
   configFileSelections,
   dropConfigAuditOverrides,
+  dropConfigFileServerUrl,
   findInTreeSlicesFiles,
   isUserProvided,
   markConfigFileTeaTargets,
@@ -44,6 +45,8 @@ import {
   sanitizeProjectConfig,
 } from "../lib/core/projectConfig.js";
 import { isSecureModeActive } from "../lib/core/projectTooling.js";
+import { sanitizeBomUrl } from "../lib/core/propertySanitizer.js";
+import { escapeControlCharacters } from "../lib/core/text.js";
 import {
   ui as defaultUi,
   installConsoleShim,
@@ -134,8 +137,11 @@ import { importProtobomModule } from "../lib/inventory/protobomLoader.js";
 import {
   cleanupSourceDir,
   findGitRefForPurlVersion,
+  getSourceBaseName,
+  getSourceLabel,
   gitClone,
   isAllowedPath,
+  isAllowedRealPath,
   isAllowedWinPath,
   maybePurlSource,
   maybeRemotePath,
@@ -143,6 +149,7 @@ import {
   resolveGitUrlFromPurl,
   resolvePurlSourceDirectory,
   sanitizeRemoteUrlForLogs,
+  splitSourcePaths,
   validateAndRejectGitSource,
   validatePurlSource,
 } from "../lib/inventory/source.js";
@@ -169,6 +176,9 @@ const launchEnv = { ...process.env };
 let config = {};
 for (const configPattern of PROJECT_CONFIG_FILENAMES) {
   const configPath = join(process.cwd(), configPattern);
+  // Values from the file, and the path of the directory it is in, are written
+  // to the terminal as text.
+  const shownConfigPath = escapeControlCharacters(configPath);
   if (!safeExistsSync(configPath)) {
     continue;
   }
@@ -178,7 +188,7 @@ for (const configPattern of PROJECT_CONFIG_FILENAMES) {
         ? _load(fs.readFileSync(configPath, "utf-8"))
         : JSON.parse(fs.readFileSync(configPath, "utf-8"));
     if (isSecureMode || DEBUG_MODE) {
-      console.log(`Config file '${configPath}' loaded successfully.`);
+      console.log(`Config file '${shownConfigPath}' loaded successfully.`);
     }
     const sanitized = sanitizeProjectConfig(parsedConfig, dirname(configPath));
     config = sanitized.config;
@@ -187,49 +197,49 @@ for (const configPattern of PROJECT_CONFIG_FILENAMES) {
       isSecureMode: isSecureModeActive(),
     })) {
       console.warn(
-        `\x1b[1;35mConfig file '${configPath}' sets '${key}', which would change the BOM audit that --bom-audit, CDXGEN_BOM_AUDIT or secure mode controls. Ignoring it. Pass the option on the command line if this is intentional.\x1b[0m`,
+        `\x1b[1;35mConfig file '${shownConfigPath}' sets '${escapeControlCharacters(key)}', which would change the BOM audit that --bom-audit, CDXGEN_BOM_AUDIT or secure mode controls. Ignoring it. Pass the option on the command line if this is intentional.\x1b[0m`,
       );
     }
     for (const key of sanitized.operatorOnly) {
       console.warn(
-        `\x1b[1;35mConfig file '${configPath}' sets '${key}', which only the command line or a CDXGEN_ environment variable may set. Ignoring it.\x1b[0m`,
+        `\x1b[1;35mConfig file '${shownConfigPath}' sets '${escapeControlCharacters(key)}', which only the command line or a CDXGEN_ environment variable may set. Ignoring it.\x1b[0m`,
       );
     }
     for (const projectType of sanitized.hostScopeTypes) {
       console.warn(
-        `\x1b[1;35mConfig file '${configPath}' selects the project type '${projectType}', which inventories this host rather than the project. Ignoring it. Pass '-t ${projectType}' on the command line if this is intentional.\x1b[0m`,
+        `\x1b[1;35mConfig file '${shownConfigPath}' selects the project type '${escapeControlCharacters(projectType)}', which inventories this host rather than the project. Ignoring it. Pass '-t ${escapeControlCharacters(projectType)}' on the command line if this is intentional.\x1b[0m`,
       );
     }
     for (const projectType of sanitized.unknownTypes) {
       console.warn(
-        `\x1b[1;35mConfig file '${configPath}' selects the project type '${projectType}', which cdxgen does not know by that name. Ignoring it. Project types are matched case-sensitively; see docs/PROJECT_TYPES.md.\x1b[0m`,
+        `\x1b[1;35mConfig file '${shownConfigPath}' selects the project type '${escapeControlCharacters(projectType)}', which cdxgen does not know by that name. Ignoring it. Project types are matched case-sensitively; see docs/PROJECT_TYPES.md.\x1b[0m`,
       );
     }
     for (const key of sanitized.ignored) {
       console.warn(
-        `Config file '${configPath}' sets '${key}', which is not an option a config file can set. Ignoring it.`,
+        `Config file '${shownConfigPath}' sets '${escapeControlCharacters(key)}', which is not an option a config file can set. Ignoring it.`,
       );
     }
     for (const { key, pattern, reason } of sanitized.refusedPatterns) {
       const shownPattern =
         pattern.length > 80 ? `${pattern.slice(0, 77)}...` : pattern;
       console.warn(
-        `\x1b[1;35mConfig file '${configPath}' sets the ${key} pattern '${shownPattern}', which ${reason}. Ignoring it. Pass the pattern on the command line if this is intentional.\x1b[0m`,
+        `\x1b[1;35mConfig file '${shownConfigPath}' sets the ${escapeControlCharacters(key)} pattern '${escapeControlCharacters(shownPattern)}', which ${reason}. Ignoring it. Pass the pattern on the command line if this is intentional.\x1b[0m`,
       );
     }
     for (const entry of sanitized.rejected) {
       console.warn(
-        `\x1b[1;35mConfig file '${configPath}' sets '${entry}', which points outside the project directory. Ignoring it. Pass the option on the command line if this is intentional.\x1b[0m`,
+        `\x1b[1;35mConfig file '${shownConfigPath}' sets '${escapeControlCharacters(entry)}', which points outside the project directory or has a '..' segment. Ignoring it. Pass the option on the command line if this is intentional.\x1b[0m`,
       );
     }
     for (const foundKey of sanitized.announced) {
       console.warn(
-        `Config file '${configPath}' sets '${foundKey}'. Verify this is intentional.`,
+        `Config file '${shownConfigPath}' sets '${escapeControlCharacters(foundKey)}'. Verify this is intentional.`,
       );
     }
     for (const propertyName of sanitized.reservedProperties) {
       console.warn(
-        `\x1b[1;35mConfig file '${configPath}' sets the metadata property '${propertyName}', whose namespace cdxgen reserves for its own findings. Ignoring it. Pass the property with --metadata-property if this is intentional.\x1b[0m`,
+        `\x1b[1;35mConfig file '${shownConfigPath}' sets the metadata property '${escapeControlCharacters(propertyName)}', whose namespace cdxgen reserves for its own findings. Ignoring it. Pass the property with --metadata-property if this is intentional.\x1b[0m`,
       );
     }
   } catch (_e) {
@@ -1035,6 +1045,34 @@ if (args.bomAuditIncludeTrusted && args.bomAuditOnlyTrusted) {
   process.exit(1);
 }
 
+/**
+ * The words that start this cdxgen again: the runtime, whatever it needs to
+ * run a script, and the script. Deno runs a script only through its run
+ * subcommand, and the new process gets exactly the permissions this one was
+ * given in full, so the interface it starts cannot widen them.
+ *
+ * @returns {string[]} Command parts, without empty entries
+ */
+function selfCommandParts() {
+  const parts = [process.argv[0]];
+  const permissions = globalThis.Deno?.permissions;
+  if (isDeno && typeof permissions?.querySync === "function") {
+    parts.push("run");
+    for (const name of ["read", "write", "env", "run", "net", "sys", "ffi"]) {
+      try {
+        const status = permissions.querySync({ name });
+        if (status.state === "granted" && !status.partial) {
+          parts.push(`--allow-${name}`);
+        }
+      } catch (_err) {
+        // A permission this Deno does not know is left out.
+      }
+    }
+  }
+  parts.push(process.argv[1]);
+  return parts.filter(Boolean);
+}
+
 if (args.tui && !readEnvironmentVariable("CI")) {
   const cdxuiPath = resolvePluginBinary("cdxui");
   if (!cdxuiPath) {
@@ -1042,9 +1080,16 @@ if (args.tui && !readEnvironmentVariable("CI")) {
       "The terminal user interface requires the cdxui plugin binary, which is not installed for this platform.\nInstall @cdxgen/cdxgen-plugins-bin, or set CDXUI_CMD to a cdxui binary, then retry. Continuing without the interface.",
     );
   } else {
-    const cdxgenArgs = process.argv
-      .slice(2)
-      .filter((a) => a !== "--tui" && !a.startsWith("--tui="));
+    // The cdxgen that cdxui starts must not open the interface again. It is
+    // told so with --no-tui, because dropping --tui leaves a CDXGEN_TUI it
+    // inherits in force. --no-tui comes first, so a `--` among the operator's
+    // arguments does not turn it into a path.
+    const cdxgenArgs = [
+      "--no-tui",
+      ...process.argv
+        .slice(2)
+        .filter((a) => a !== "--tui" && !a.startsWith("--tui=")),
+    ];
     // Arguments cross the process boundary separated by the unit separator
     // rather than by spaces: a scan path may legitimately contain a space, and
     // re-splitting on whitespace would silently turn it into two paths.
@@ -1054,7 +1099,7 @@ if (args.tui && !readEnvironmentVariable("CI")) {
         ...process.env,
         CDXGEN_CMD:
           readEnvironmentVariable("CDXGEN_CMD") ||
-          [process.argv[0], process.argv[1]].filter(Boolean).join("\x1f") ||
+          selfCommandParts().join("\x1f") ||
           "cdxgen",
         CDXGEN_ARGS: cdxgenArgs.join("\x1f"),
       },
@@ -1114,14 +1159,19 @@ if (!sourceInputIsRemoteOrPurl && args._?.[0]) {
     args._[0] = filePath;
   }
 }
+// Activity records and messages name a git URL or purl source without its
+// credentials; the raw value is kept for resolving and cloning.
+const sourcePathForLogs = getSourceLabel(filePath);
 if (!args.projectName) {
   if (filePath !== ".") {
-    args.projectName = basename(filePath);
+    args.projectName = getSourceBaseName(filePath);
   } else {
     args.projectName = basename(resolve(filePath));
   }
 }
-thoughtLog(`Let's try to generate a CycloneDX BOM for the path '${filePath}'`);
+thoughtLog(
+  `Let's try to generate a CycloneDX BOM for the path '${sourcePathForLogs}'`,
+);
 if (
   !sourceInputIsRemoteOrPurl &&
   (filePath.includes(" ") || filePath.includes("\r") || filePath.includes("\n"))
@@ -1207,7 +1257,7 @@ const cliActivityProjectType = Array.isArray(options.projectType)
   : options.projectType;
 const cliActivityContext = {
   projectType: cliActivityProjectType,
-  sourcePath: filePath,
+  sourcePath: sourcePathForLogs,
 };
 setDryRunMode(options.dryRun);
 setActivityContext(cliActivityContext);
@@ -1262,6 +1312,18 @@ try {
 } catch (error) {
   console.error(error.message);
   process.exit(1);
+}
+// The config file comes from the working directory, usually the scanned
+// project, so a server it names does not receive the operator's API key.
+if (
+  dropConfigFileServerUrl(options, {
+    env: launchEnv,
+    projectConfig: config,
+  })
+) {
+  console.warn(
+    "\x1b[1;35mThe config file sets 'server-url', but the API key comes from the command line or the environment. Ignoring 'server-url', so the key is not sent to a server the scanned project chose. Pass '--server-url' on the command line to send the BOM there.\x1b[0m",
+  );
 }
 // Dependency-Track ingests CycloneDX 1.x only. Refuse an upload (server URL
 // plus API key, the same condition the submission below uses) before
@@ -1354,13 +1416,19 @@ const advancedWarnings = applyAdvancedOptionsImpl(options, {
   ...configFileSelections(config, { env: launchEnv }),
 });
 // The config file comes from the working directory, usually the scanned
-// project, so whether the project's own code may run stays the operator's
-// choice from the command line and environment.
-applyOperatorToolingChoice(options, {
+// project, so whether the project's own code may run, and whether formulation
+// queries this host's crypto material, stays the operator's choice from the
+// command line and environment.
+for (const dropped of applyOperatorToolingChoice(options, {
   env: launchEnv,
+  invokedCommandName,
   isSecureMode: isSecureModeActive(),
   projectConfig: config,
-});
+})) {
+  console.warn(
+    `\x1b[1;35mThe config file sets '${dropped}', which secure mode takes only from the command line or the environment. Ignoring it. Pass '--${dropped}' on the command line if this is intentional.\x1b[0m`,
+  );
+}
 for (const teaOption of markConfigFileTeaTargets(options, {
   env: launchEnv,
   projectConfig: config,
@@ -1414,12 +1482,12 @@ if (options.bomAudit && !options.bomAuditCategories) {
 
 setActivityContext({
   projectType: "environment",
-  sourcePath: filePath,
+  sourcePath: sourcePathForLogs,
 });
 const envAuditFindings = auditEnvironment(process.env, options);
 setActivityContext(cliActivityContext);
 if (options.envAudit) {
-  displaySelfThreatModel(filePath, config, options, envAuditFindings);
+  displaySelfThreatModel(sourcePathForLogs, config, options, envAuditFindings);
 }
 
 /**
@@ -1938,7 +2006,7 @@ const writeCycloneDxOutput = (jsonFile, bomJson, options) => {
       kind: "read",
       reason: "Dry run mode blocks direct Hugging Face metadata resolution.",
       status: "blocked",
-      target: sourcePath,
+      target: getSourceLabel(sourcePath),
     });
     console.warn("Dry run mode skips direct Hugging Face metadata resolution.");
     printActivitySummary(options.activityReport);
@@ -1950,7 +2018,7 @@ const writeCycloneDxOutput = (jsonFile, bomJson, options) => {
       reason:
         "Dry run mode blocks package-url source resolution and repository cloning.",
       status: "blocked",
-      target: sourcePath,
+      target: getSourceLabel(sourcePath),
     });
     console.warn("Dry run mode skips purl source resolution.");
     printActivitySummary(options.activityReport);
@@ -1972,7 +2040,7 @@ const writeCycloneDxOutput = (jsonFile, bomJson, options) => {
       process.exit(1);
     }
     console.warn(
-      `${PURL_REGISTRY_LOOKUP_WARNING} Registry: ${purlResolution.registry}, purl type: ${purlResolution.type}, resolved URL: ${sanitizeRemoteUrlForLogs(purlResolution.repoUrl)}`,
+      `${PURL_REGISTRY_LOOKUP_WARNING} Registry: ${sanitizeRemoteUrlForLogs(purlResolution.registry)}, purl type: ${purlResolution.type}, resolved URL: ${sanitizeRemoteUrlForLogs(purlResolution.repoUrl)}`,
     );
     sourcePath = purlResolution.repoUrl;
   }
@@ -1988,13 +2056,29 @@ const writeCycloneDxOutput = (jsonFile, bomJson, options) => {
     );
     process.exit(1);
   }
-  if (!maybeRemotePath(sourcePath) && !isAllowedPath(resolve(sourcePath))) {
+  // A comma-separated list names several directories, and every entry has to
+  // pass the allowlist. Check where a symlinked path really points as well,
+  // as the server does, so a link inside an allowed directory cannot take the
+  // scan outside it.
+  const localSourcePaths =
+    maybeRemotePath(sourcePath) || maybePurlSource(sourcePath)
+      ? [sourcePath]
+      : splitSourcePaths(sourcePath);
+  if (
+    !maybeRemotePath(sourcePath) &&
+    localSourcePaths.some(
+      (entry) => !isAllowedPath(resolve(entry)) || !isAllowedRealPath(entry),
+    )
+  ) {
     console.error(
       "Path is not allowed as per CDXGEN_ALLOWED_PATHS/CDXGEN_SERVER_ALLOWED_PATHS.",
     );
     process.exit(1);
   }
-  if (!maybeRemotePath(sourcePath) && !isAllowedWinPath(resolve(sourcePath))) {
+  if (
+    !maybeRemotePath(sourcePath) &&
+    localSourcePaths.some((entry) => !isAllowedWinPath(resolve(entry)))
+  ) {
     console.error("Path is not allowed on this platform.");
     process.exit(1);
   }
@@ -2020,6 +2104,20 @@ const writeCycloneDxOutput = (jsonFile, bomJson, options) => {
     return;
   }
   let srcDir = sourcePath;
+  // Entries of a comma-separated list that exist; they are scanned together
+  let scanTarget;
+  if (localSourcePaths.length > 1) {
+    const existing = localSourcePaths.filter((entry) => safeExistsSync(entry));
+    for (const entry of localSourcePaths) {
+      if (!existing.includes(entry)) {
+        console.warn(`Skipping '${entry}', which does not exist.`);
+      }
+    }
+    if (existing.length) {
+      srcDir = existing[0];
+      scanTarget = existing.length > 1 ? existing : undefined;
+    }
+  }
   let cleanup = false;
   let gitRef = options.gitBranch;
   if (maybeRemotePath(sourcePath) && !directHuggingFaceSource) {
@@ -2028,7 +2126,7 @@ const writeCycloneDxOutput = (jsonFile, bomJson, options) => {
         kind: "clone",
         reason: "Dry run mode blocks cloning git URL sources.",
         status: "blocked",
-        target: sourcePath,
+        target: getSourceLabel(sourcePath),
       });
       console.warn("Dry run mode skips remote git source cloning.");
       printActivitySummary(options.activityReport);
@@ -2081,7 +2179,9 @@ const writeCycloneDxOutput = (jsonFile, bomJson, options) => {
   if (!hasHbomProjectType(options.projectType)) {
     const prepPhase = defaultUi.phase("Preparing environment");
     try {
-      prepareEnv(srcDir, options);
+      for (const entry of scanTarget || [srcDir]) {
+        prepareEnv(entry, options);
+      }
       prepPhase.succeed("");
     } catch (err) {
       if (isDeferredFailOnError(err)) {
@@ -2119,7 +2219,7 @@ const writeCycloneDxOutput = (jsonFile, bomJson, options) => {
   let bomNSData;
   const bomPhase = defaultUi.phase("Generating BOM");
   try {
-    bomNSData = (await createBom(srcDir, options)) || {};
+    bomNSData = (await createBom(scanTarget || srcDir, options)) || {};
     bomPhase.succeed(
       `${bomNSData?.bomJson?.components?.length || 0} components`,
     );
@@ -2159,8 +2259,10 @@ const writeCycloneDxOutput = (jsonFile, bomJson, options) => {
   if (isAiProvenanceGeneration && bomNSData?.bomJson) {
     const { ensureAiProvenanceProperties, ensureAiOversightProperties } =
       await import("../lib/stages/postgen/auditBom.js");
-    ensureAiProvenanceProperties(bomNSData.bomJson, options);
-    await ensureAiOversightProperties(bomNSData.bomJson, options);
+    // Name the scanned directory, or the collectors fall back to process.cwd().
+    const aiProvenanceOptions = { ...options, path: srcDir };
+    ensureAiProvenanceProperties(bomNSData.bomJson, aiProvenanceOptions);
+    await ensureAiOversightProperties(bomNSData.bomJson, aiProvenanceOptions);
   }
   // TEA upstream SBOM fetch runs BEFORE post-processing so the "upstream wins"
   // merge and the provenance citations flow through the normal pipeline.
@@ -2213,6 +2315,7 @@ const writeCycloneDxOutput = (jsonFile, bomJson, options) => {
     const postAuditFindings = await auditBom(auditInternalBom, {
       ...options,
       getBomWithOras,
+      path: srcDir,
     });
     if (postAuditFindings.length) {
       formatConsoleOutput(postAuditFindings);
@@ -2380,7 +2483,7 @@ const writeCycloneDxOutput = (jsonFile, bomJson, options) => {
     if (!internalCycloneDxInputPath) {
       internalCycloneDxInputPath = join(
         getTmpDir(),
-        `cdxgen-${Date.now()}-${basename(filePath)}.cdx.json`,
+        `cdxgen-${Date.now()}-${basename(srcDir)}.cdx.json`,
       );
     }
     if (isDryRun) {
@@ -2418,14 +2521,17 @@ const writeCycloneDxOutput = (jsonFile, bomJson, options) => {
       if (!options.evinseOutput) {
         options.evinseOutput = options.output;
       }
+      // The evidence step works on the directory that was scanned. For a git
+      // URL or purl source that is the clone, not the command-line argument,
+      // which names no directory and can carry credentials.
       setActivityContext({
         projectType: "evinse",
-        sourcePath: filePath,
+        sourcePath: srcDir,
       });
       const evinserModule = await import("../lib/evinser/evinser.js");
       if (!options.projectType) {
         const evidenceLanguage = evinserModule.defaultEvidenceLanguage(
-          filePath,
+          srcDir,
           getInternalBom(bomNSData),
           options,
         );
@@ -2453,7 +2559,7 @@ const writeCycloneDxOutput = (jsonFile, bomJson, options) => {
       } else {
         const evinseOptions = evinserModule.buildEvinseOptions(
           options,
-          args,
+          { ...args, _: [srcDir] },
           internalCycloneDxInputPath || options.output,
         );
         // The analysis reads the in-memory 1.x model. At 2.0 that model is
@@ -2681,7 +2787,7 @@ const writeCycloneDxOutput = (jsonFile, bomJson, options) => {
       bomNSData.bomJson = result.bomJson;
       console.log(result.jsonPayload);
     } else {
-      console.log("Unable to produce BOM for", filePath);
+      console.log("Unable to produce BOM for", sourcePathForLogs);
       console.log("Try running the command with -t <type> or -r argument");
     }
   }
@@ -2752,7 +2858,8 @@ const writeCycloneDxOutput = (jsonFile, bomJson, options) => {
       try {
         serverHostname = new URL(options.serverUrl).hostname;
       } catch (err) {
-        console.log("Invalid Dependency-Track server URL", err);
+        // The error carries the URL it could not parse, credentials included.
+        console.log("Invalid Dependency-Track server URL", err.message);
         process.exit(1);
       }
       if (!isAllowedHttpHost(serverHostname)) {
@@ -2760,7 +2867,7 @@ const writeCycloneDxOutput = (jsonFile, bomJson, options) => {
           kind: "submit",
           reason: "The URL host is not allowed as per the allowlist.",
           status: "blocked",
-          target: options.serverUrl,
+          target: sanitizeBomUrl(options.serverUrl),
         });
         console.log(
           `Dependency-Track server host '${serverHostname}' is not allowed by CDXGEN_ALLOWED_HOSTS.`,
@@ -2773,7 +2880,7 @@ const writeCycloneDxOutput = (jsonFile, bomJson, options) => {
         kind: "submit",
         reason: "Dry run mode skips remote BOM submission.",
         status: "blocked",
-        target: options.serverUrl,
+        target: sanitizeBomUrl(options.serverUrl),
       });
     } else if (isCycloneDx20SpecVersion(bomNSData.bomJson?.specVersion)) {
       // Unreachable from the CLI, which refuses this before generating; kept
@@ -2782,7 +2889,7 @@ const writeCycloneDxOutput = (jsonFile, bomJson, options) => {
         kind: "submit",
         reason: DEPENDENCY_TRACK_CDX20_ERROR,
         status: "blocked",
-        target: options.serverUrl,
+        target: sanitizeBomUrl(options.serverUrl),
       });
       console.error(DEPENDENCY_TRACK_CDX20_ERROR);
       if (cleanup) {
@@ -2794,7 +2901,7 @@ const writeCycloneDxOutput = (jsonFile, bomJson, options) => {
         recordActivity({
           kind: "submit",
           status: "completed",
-          target: options.serverUrl,
+          target: sanitizeBomUrl(options.serverUrl),
         });
         await submitBom(options, bomNSData.bomJson);
       } catch (err) {
@@ -2821,7 +2928,7 @@ const writeCycloneDxOutput = (jsonFile, bomJson, options) => {
         kind: "submit",
         reason: "Dry run mode skips TEA collection publishing.",
         status: "blocked",
-        target: options.teaPublish,
+        target: sanitizeBomUrl(options.teaPublish),
       });
     } else {
       try {
@@ -2861,14 +2968,14 @@ const writeCycloneDxOutput = (jsonFile, bomJson, options) => {
         recordActivity({
           kind: "submit",
           status: "completed",
-          target: options.teaPublish,
+          target: sanitizeBomUrl(options.teaPublish),
         });
         console.log(
-          `cdxgen: published TEA collection to ${options.teaPublish} (collection version ${result.body?.version ?? "assigned by server"}).`,
+          `cdxgen: published TEA collection to ${sanitizeBomUrl(options.teaPublish)} (collection version ${result.body?.version ?? "assigned by server"}).`,
         );
       } catch (err) {
         console.error(
-          `cdxgen: failed to publish TEA collection to ${options.teaPublish}: ${err?.message || err}. The local BOM was written regardless.`,
+          `cdxgen: failed to publish TEA collection to ${sanitizeBomUrl(options.teaPublish)}: ${err?.message || err}. The local BOM was written regardless.`,
         );
         process.exit(3);
       }

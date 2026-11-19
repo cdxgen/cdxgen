@@ -27,6 +27,13 @@ under `readLosses`, and `cdx-validate` prints their count on stderr. Set `CDXGEN
 deeper than 256 objects is cut at that depth, with one loss for each cut
 object.
 
+A pointer repeats every member name above the value it names, so the `json`
+report and the thought log list, in order, only the losses whose pointers and
+reasons fit into 1 MiB of text together. A loss is listed whole or not at
+all, so every listed pointer resolves in the document. `readLossCount` in the
+`json` report, the count on stderr and `validateBomAdvanced()` cover every
+loss.
+
 It is distributed as:
 
 - an npm entry point (`cdx-validate` — installed alongside `cdxgen`)
@@ -116,6 +123,7 @@ A stable, documented JSON schema:
   "signatureVerified": null,
   "signatureEntries": null,
   "readLosses": [],
+  "readLossCount": 0,
   "validationErrors": [],
   "summary": { "total": 95, "pass": 28, "fail": 2, "manual": 65, "errors": 1 },
   "benchmarks": [ { "id": "scvs-l2", "name": "OWASP SCVS Level 2", "pass": 15, "fail": 1, "manual": 46, "scorePct": 94, "controls": [ … ] } ],

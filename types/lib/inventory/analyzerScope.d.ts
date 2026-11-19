@@ -7,13 +7,15 @@
  */
 export declare const toResolvedValueArray: (value: any) => any[];
 /**
- * Build a stable dedup key string for a resolved value, prefixing the type so
- * that distinct types never collide.
+ * Build a stable dedup key for a resolved value. Primitives and small objects
+ * are keyed by a string that is prefixed with the type so that distinct types
+ * never collide. Larger objects are their own key, because the size of their
+ * serialized form is not bounded by the size of the source.
  *
  * @param {*} value Resolved value to key.
- * @returns {string} Stable dedup key (e.g. "string:abc", "object:{...}").
+ * @returns {string|object} Stable dedup key (e.g. "string:abc", "object:{...}", or the object itself).
  */
-export declare const resolvedValueKey: (value: any) => string;
+export declare const resolvedValueKey: (value: any) => string | object;
 /**
  * Merge one or more scalar/array resolved values into a single deduplicated
  * value, returning a scalar when only one unique value remains.
@@ -92,7 +94,38 @@ export declare const resolveStaticValue: (astNode: object, staticValueByName: Ma
  */
 export declare const deriveStaticNarrowingsFromSwitchCase: (switchCaseNode: object, switchStatementNode: object, staticValueByName: Map<string, any>, getLiteralStringValue: (node: object) => (string | undefined), getMemberExpressionPropertyName: (node: object) => (string | undefined)) => Map<string, any> | undefined;
 /**
- * Build a name-to-value map for a Babel path by starting from the provided
+ * Name-to-value lookup that layers the narrowings of one Babel path over the
+ * shared map of known static values. Reads fall through to the shared map, so
+ * creating a scope costs only its own narrowings rather than a copy of every
+ * known value. Offers the `has`/`get`/`set` subset of `Map` that static
+ * resolution uses.
+ */
+declare class ScopedStaticValues {
+    staticValueByName: Map<string, any>;
+    narrowedValueByName: Map<any, any>;
+    /**
+     * @param {Map<string, *>} staticValueByName Shared map of identifier name to known static value. Never modified.
+     */
+    constructor(staticValueByName: Map<string, any>);
+    /**
+     * @param {string} identifierName Identifier name to look up.
+     * @returns {boolean} True when a narrowed or shared value is known.
+     */
+    has(identifierName: string): boolean;
+    /**
+     * @param {string} identifierName Identifier name to look up.
+     * @returns {*} The narrowed value when one exists, otherwise the shared value.
+     */
+    get(identifierName: string): any;
+    /**
+     * @param {string} identifierName Identifier name to narrow.
+     * @param {*} value Narrowed value, visible to this scope only.
+     * @returns {ScopedStaticValues} This lookup.
+     */
+    set(identifierName: string, value: any): ScopedStaticValues;
+}
+/**
+ * Build a name-to-value lookup for a Babel path by starting from the provided
  * static values and applying narrowing derived from ancestor if-statements
  * and switch-cases.
  *
@@ -100,7 +133,8 @@ export declare const deriveStaticNarrowingsFromSwitchCase: (switchCaseNode: obje
  * @param {Map<string, *>} staticValueByName Initial map of identifier name to known static value.
  * @param {(node: object) => (string|undefined)} getLiteralStringValue Function to extract a literal string from an AST node.
  * @param {(node: object) => (string|undefined)} getMemberExpressionPropertyName Function to extract the property name from a member-expression node.
- * @returns {Map<string, *>} Scoped name-to-value map including ancestor narrowings.
+ * @returns {ScopedStaticValues} Scoped name-to-value lookup including ancestor narrowings.
  */
-export declare const getScopedStaticValueByName: (path: object, staticValueByName: Map<string, any>, getLiteralStringValue: (node: object) => (string | undefined), getMemberExpressionPropertyName: (node: object) => (string | undefined)) => Map<string, any>;
+export declare const getScopedStaticValueByName: (path: object, staticValueByName: Map<string, any>, getLiteralStringValue: (node: object) => (string | undefined), getMemberExpressionPropertyName: (node: object) => (string | undefined)) => ScopedStaticValues;
+export {};
 //# sourceMappingURL=analyzerScope.d.ts.map

@@ -28,13 +28,14 @@ export declare function parseCmakeCommands(text: string): {
  * Replace `${VAR}` references with the values of simple `set()` calls. A
  * reference to an unknown variable is left in place, so callers can tell a
  * resolved value from an unresolved one. Expansion stops at the previous
- * round once the text would exceed 64 KiB.
+ * round once the text would exceed `maxLength`, 64 KiB by default.
  *
  * @param {string} value Argument text
  * @param {Map<string,string>} variables Known variable values
+ * @param {number} [maxLength] Upper bound on the expanded text
  * @returns {string} The expanded text
  */
-export declare function expandCmakeVariables(value: string, variables: Map<string, string>): string;
+export declare function expandCmakeVariables(value: string, variables: Map<string, string>, maxLength?: number): string;
 /**
  * The variables a file sets to a single value: `set(FOO_VERSION 1.2.3)` and
  * `set(FOO_VERSION "1.2.3" CACHE STRING "...")`. Later definitions win.

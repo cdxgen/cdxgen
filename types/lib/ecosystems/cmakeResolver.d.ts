@@ -201,14 +201,17 @@ export declare function collapseCmakeVersions(pkgList: Object[]): Object[];
  */
 export declare function preferFetchedCmakeDependencies(pkgList: Object[]): Object[];
 /**
- * Drop the components scraped from CMake files for a dependency the build tree
- * has resolved: the gitclone script names the repository and tag that were
+ * Drop the components scraped from CMake files for the dependencies the build
+ * tree has resolved: the gitclone script names the repository and tag that were
  * really checked out, so its component replaces the declared one.
  *
+ * The scanned project decides how many dependencies and components there are,
+ * so the list is walked once for all the names rather than once per name.
+ *
  * @param {Object[]} pkgList Components collected so far
- * @param {string} name Name of the resolved dependency
- * @returns {Object[]} The components without the scraped entries for `name`
+ * @param {Iterable<string>} names Names of the resolved dependencies
+ * @returns {Object[]} The components without the scraped entries for `names`
  */
-export declare function withoutScrapedFetchDependency(pkgList: Object[], name: string): Object[];
+export declare function withoutScrapedFetchDependency(pkgList: Object[], names: Iterable<string>): Object[];
 export { GIT_COMMAND, toRepoRelative };
 //# sourceMappingURL=cmakeResolver.d.ts.map

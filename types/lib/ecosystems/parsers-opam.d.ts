@@ -19,13 +19,13 @@
  * Parse an `.opam.locked` (or plain `.opam`) file.
  *
  * @param {string} opamLockedFile Path to the opam file
- * @returns {{ pkgList: object[], pins: Array<{name: string, url: string}> }}
+ * @returns {{ pkgList: object[], pins: Array<{name: string, url: string|undefined}> }}
  */
 export declare function parseOpamLockedFile(opamLockedFile: string): {
     pkgList: object[];
     pins: Array<{
         name: string;
-        url: string;
+        url: string | undefined;
     }>;
 };
 //# sourceMappingURL=parsers-opam.d.ts.map

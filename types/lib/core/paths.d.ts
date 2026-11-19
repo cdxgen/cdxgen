@@ -34,6 +34,17 @@ export declare function isValidDriveRoot(root: string): boolean;
  */
 export declare function toCamel(str: string): string;
 /**
+ * Remove every trailing `/` from a path, glob pattern or URL.
+ *
+ * This is a loop and not `replace(/\/+$/, "")` because the regular expression
+ * is retried from every slash of a run that does not end the string, so its
+ * time grows with the square of the length of that run.
+ *
+ * @param {string} value Text that may end with one or more slashes
+ * @returns {string} The text without its trailing slashes
+ */
+export declare function stripTrailingSlashes(value: string): string;
+/**
  * Rewrite an absolute path under the user's home directory to a `~`-relative
  * form so the emitted BOM does not carry the local username.
  *

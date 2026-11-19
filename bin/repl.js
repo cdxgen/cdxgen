@@ -8,9 +8,10 @@ import repl from "node:repl";
 
 import jsonata from "jsonata";
 
+import { applyOperatorToolingChoice } from "../lib/cli/cliOptions.js";
 import { createBom } from "../lib/cli/index.js";
 import { readEnvironmentVariable } from "../lib/core/activity.js";
-import { thoughtLog } from "../lib/core/logger.js";
+import { isSecureModeActive } from "../lib/core/projectTooling.js";
 import {
   getTmpDir,
   isDryRun,
@@ -24,6 +25,7 @@ import {
   formatReadLossNotice,
   loadBomForAnalysis,
   renderCycloneDx20,
+  thoughtLogReadLosses,
 } from "../lib/inventory/cyclonedx20.js";
 import {
   printAiBomDatasets,
@@ -516,9 +518,7 @@ export const importSbom = async (sbomOrPath) => {
       importedBom20 = sbomIs20 ? importedBom : undefined;
       if (losses.length) {
         console.log(`ℹ ${formatReadLossNotice(losses)}`);
-        for (const loss of losses) {
-          thoughtLog(`cdxi 2.0 loss at ${loss.pointer}: ${loss.reason}`);
-        }
+        thoughtLogReadLosses("cdxi", losses);
       }
       let bomType = "SBOM";
       if (isSpdxJsonLd(sbom)) {
@@ -633,6 +633,17 @@ if (process.argv.length > 2) {
 }
 
 const cdxgenRepl = repl.start(options);
+// A command that takes a while, such as .create, can end after the input has
+// closed, for example when the commands were piped in. Node.js ignores a prompt
+// on a closed interface and Deno throws, so the prompt is shown only while the
+// interface is open.
+const displayReplPrompt = cdxgenRepl.displayPrompt;
+cdxgenRepl.displayPrompt = function (...promptArgs) {
+  if (this.closed) {
+    return;
+  }
+  return displayReplPrompt.apply(this, promptArgs);
+};
 if (historyFile) {
   cdxgenRepl.setupHistory(
     readEnvironmentVariable("CDXGEN_REPL_HISTORY") || historyFile,
@@ -651,11 +662,19 @@ cdxgenRepl.defineCommand("create", {
     this.clearBufferedCommand();
     const tempDir = safeMkdtempSync(join(getTmpDir(), "cdxgen-repl-"));
     const bomFile = join(tempDir, "bom.json");
-    const bomNSData = await createBom(sbomOrPath, {
+    const createOptions = {
       multiProject: true,
-      installDeps: true,
+      installDeps: !isDryRun,
       output: bomFile,
+    };
+    // Installs follow the same rule as the cdxgen command: off in secure mode
+    // unless CDXGEN_INSTALL_DEPS=true, and off with CDXGEN_INSTALL_DEPS=false.
+    // cdxi has no options of its own, so only the environment is read.
+    applyOperatorToolingChoice(createOptions, {
+      argv: [],
+      isSecureMode: isSecureModeActive(),
     });
+    const bomNSData = await createBom(sbomOrPath, createOptions);
     if (bomNSData) {
       sbom = bomNSData.bomJson;
       sbomIs20 = false;

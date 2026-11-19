@@ -15,6 +15,19 @@
  */
 export declare function isInsideDir(child: string, parent: string): boolean;
 /**
+ * Whether a resolved path is on another machine than the project. On Windows
+ * a UNC path (`\\host\share\...`) names a host, and looking at it makes
+ * the system connect to that host and sign in as the user; a device path
+ * (`\\?\...`, `\\.\...`) is treated alike. The share the project itself
+ * is on is not another machine. Never true on POSIX, where a resolved path
+ * starts with `/`.
+ *
+ * @param {string} abs Resolved path
+ * @param {string} sourceDir Resolved project source directory
+ * @returns {boolean}
+ */
+export declare function isOnAnotherHost(abs: string, sourceDir: string): boolean;
+/**
  * The key `findEnclosingDir` looks a directory up by: its resolved path,
  * lower-cased on Windows, where paths compare without regard to case.
  *
@@ -43,7 +56,8 @@ export declare function hostSystemName(): string;
  * Read a project's presets documents: `CMakePresets.json` and
  * `CMakeUserPresets.json`, each followed by the files it includes (schema
  * version 4 and later). An include outside the project, or one that a link
- * leads out of it, is not read.
+ * leads out of it, is not read. A file is read once, however many names it is
+ * included under.
  *
  * @param {string} root Project source directory
  * @returns {Array<{file: string, fileDir: string, document: Object}>}

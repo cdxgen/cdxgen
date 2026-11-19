@@ -61,7 +61,7 @@ For Go projects, run `evinse -l go --deep` or `evinse -l go --with-data-flow --g
 
 > **Note:** `cdxgen` supports reading both OCI Referrers and BuildKit `in-toto` attestations natively. When working with container images, you can directly pass the OCI image reference to tools like `cdx-validate` and `cdx-verify` to automatically fetch and evaluate attached SBOMs.
 
-> **Note:** `--bom-audit` automatically enables `--include-formulation` to collect CI/CD workflow data. For AI/ML scans, this also emits the discovered AI and agentic inventory in the formal CycloneDX `formulation[]` section. The formulation section may include sensitive data such as emails and environment details. Always review the generated SBOM before distribution.
+> **Note:** `--bom-audit` automatically enables `--include-formulation` to collect CI/CD workflow data. For AI/ML scans, the discovered AI and agentic inventory is written to the top-level `components[]` and `services[]`. The formulation section may include sensitive data such as emails and environment details. Always review the generated SBOM before distribution.
 
 ## Dry-run mode
 
@@ -155,7 +155,7 @@ The audit runs as a post-processing step after BOM generation:
 | Option                        | Type    | Default | Description                                                                                                                                                               |
 | ----------------------------- | ------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `--bom-audit`                 | boolean | `false` | Enable post-generation security audit                                                                                                                                     |
-| `--bom-audit-rules-dir`       | string  | —       | Directory containing additional YAML rule files (merged with built-in rules)                                                                                              |
+| `--bom-audit-rules-dir`       | string  | —       | Directory containing additional YAML rule files (merged with built-in rules). Only the command line or `CDXGEN_BOM_AUDIT_RULES_DIR` may set it; a config file in the scanned tree is ignored with a warning                                                                                            |
 | `--bom-audit-categories`      | string  | all     | Comma-separated list of rule categories to enable. Unknown categories are rejected, and aliases such as `ai-inventory` and `hbom` expand to their built-in category sets. |
 | `--bom-audit-min-severity`    | string  | `low`   | Minimum severity to report: `low`, `medium`, `high`                                                                                                                       |
 | `--bom-audit-fail-severity`   | string  | `high`  | Severity level at or above which findings cause secure mode failure (e.g., `medium` fails on medium, high, and critical)                                                  |
@@ -801,6 +801,8 @@ Rules are YAML files placed in a directory and loaded via `--bom-audit-rules-dir
   description: "Long description" # Optional: detailed explanation
   severity: high # Required: critical, high, medium, or low
   category: my-category # Required: grouping for --bom-audit-categories
+  variables: # Optional: JSONata expressions evaluated once against the BOM and bound as $name
+    scripted: components[$prop($, 'cdx:npm:hasInstallScript') = 'true']
   condition: | # Required: JSONata expression returning matches
     components[
       $prop($, 'cdx:npm:hasInstallScript') = 'true'
@@ -890,6 +892,24 @@ condition: |
   $auditWorkflows($)[
     $nullSafeProp($, 'cdx:github:workflow:triggers') ~> $contains('pull_request_target')
   ]
+```
+
+#### Correlate matches with the rest of the BOM
+
+The predicate of a `condition` runs for every component, and `message`, `location` and `evidence` run for every finding. A BOM-wide lookup placed in any of them, such as `$count($$.components[...])`, is repeated each time, so its cost grows with the square of the BOM size. Put such lookups in `variables` instead. Each entry is evaluated once against the full BOM, in order, and is available as `$name` to the later entries and to every other expression of the rule. Keep the lists copied into `evidence` short, because every finding carries its own copy.
+
+```yaml
+variables:
+  gitPackages: |
+    components[$startsWith(purl, 'pkg:cargo/') and $hasProp($, 'cdx:cargo:git')]
+  gitPackagePurls: |
+    $gitPackages[[0..24]].purl
+condition: |
+  $count($gitPackages) > 0 ? $auditComponents($)[
+    $prop($, 'cdx:github:action:disablesBuildCache') = 'true'
+  ]
+evidence: |
+  { "matchingPackageCount": $count($gitPackages), "matchingPackages": $gitPackagePurls }
 ```
 
 ### ATT&CK metadata in outputs

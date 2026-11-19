@@ -1,4 +1,17 @@
 /**
+ * Reduce the query string of a URL to the parameters that name what the URL
+ * points at, such as NuGet's `api-version`, a git `ref` or Go's `go-get`.
+ * Credentials never pass: a parameter that is not on the list of safe names
+ * is dropped, a value that is not plain text or that holds a token shape is
+ * dropped, and a query with a signing or secret parameter (`sig`,
+ * `X-Amz-Signature`, `token`, an SAS `sv`, ...) is removed whole. Parameters
+ * that stay keep their order and spelling.
+ *
+ * @param {unknown} query Query string, without the leading `?`
+ * @returns {string} The safe parameters joined with `&`, empty when none stay
+ */
+export declare function sanitizeUrlQuery(query: unknown): string;
+/**
  * Remove the parts of every URL in a text that can carry a credential: the
  * userinfo before `@`, the query string and the fragment. Any scheme is
  * handled, such as `sparse+https://`, `ssh://` or `jdbc:postgresql://`.
@@ -129,4 +142,23 @@ export declare function redactCommandCredentials(value: unknown): string;
  * @returns {string} The URL without credentials
  */
 export declare function sanitizeBomReferenceUrl(value: unknown): string;
+/**
+ * Remove credentials from the URL values of component properties that a
+ * parser copied from a scanned manifest or lock file, such as
+ * `cdx:gem:remote`, `cdx:cargo:sourceUrl` or `cdx:pypi:manifestSource`.
+ *
+ * A value that is a URL, or a comma or space separated list of them, goes
+ * through `sanitizeBomReferenceUrl`. Structured (JSON) values and values
+ * without `://` come back as they were.
+ *
+ * @param {Array<{name: string, value: unknown}>} properties Component properties
+ * @returns {Array<{name: string, value: unknown}>} The properties, copied only where a value changes
+ */
+export declare function sanitizeUrlProperties(properties: Array<{
+    name: string;
+    value: unknown;
+}>): Array<{
+    name: string;
+    value: unknown;
+}>;
 //# sourceMappingURL=propertySanitizer.d.ts.map

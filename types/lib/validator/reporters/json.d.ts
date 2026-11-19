@@ -1,6 +1,6 @@
 /**
  * JSON reporter — emits a stable, documented structure for programmatic use.
- * No dependencies.
+ * No external dependencies.
  */
 /**
  * @param {object} report Output of validateBomAdvanced().

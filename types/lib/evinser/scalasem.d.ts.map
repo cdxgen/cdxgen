@@ -1,1 +1,1 @@
-{"version":3,"file":"scalasem.d.ts","sourceRoot":"","sources":["../../../lib/evinser/scalasem.js"],"names":[],"mappings":"AAyBA;;;;;;;;;;GAUG;AACH,wBAAgB,iBAAiB,CAAC,UAAU,EAJjC,MAAM,EAI2B,EAAE,cAAc,EAHjD,MAGiD,GAF/C;IAAE,eAAe,2BAA0B;CAAE,CAkCzD"}
+{"version":3,"file":"scalasem.d.ts","sourceRoot":"","sources":["../../../lib/evinser/scalasem.js"],"names":[],"mappings":"AAmCA;;;;;;;;;;;;;;;;;GAiBG;AACH,wBAAgB,iBAAiB,CAC/B,UAAU,EAND,MAAM,EAML,EACV,cAAc,EANL,MAMK,EACd,UAAU,AANT,CACA,EADQ,MAMO,GALL;IAAE,eAAe,2BAA0B;CAAE,CAoEzD"}

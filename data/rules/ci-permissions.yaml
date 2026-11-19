@@ -677,11 +677,9 @@
   attack:
     tactics: [TA0001]
     techniques: [T1195.001]
-  condition: |
-    $auditComponents($)[
-      $prop($, 'cdx:github:action:disablesBuildCache') = 'true'
-      and $prop($, 'cdx:github:action:buildCacheEcosystem') = 'npm'
-      and $count($$.components[
+  variables:
+    matchingPackages: |
+      components[
         $startsWith(purl, 'pkg:npm/')
         and (
           $contains($lowercase($nullSafeProp($, 'cdx:npm:manifestSourceType')), 'git')
@@ -695,7 +693,13 @@
             or $startsWith($lowercase(url), 'https://')
           )
         ]) > 0
-      ]) > 0
+      ]
+    matchingPackagePurls: |
+      $matchingPackages[[0..24]].purl
+  condition: |
+    $count($matchingPackages) > 0 ? $auditComponents($)[
+      $prop($, 'cdx:github:action:disablesBuildCache') = 'true'
+      and $prop($, 'cdx:github:action:buildCacheEcosystem') = 'npm'
     ]
   location: |
     {
@@ -709,21 +713,8 @@
     {
       "cacheDisableInput": $prop($, 'cdx:github:action:buildCacheDisableInput'),
       "cacheDisableValue": $prop($, 'cdx:github:action:buildCacheDisableValue'),
-      "matchingPackages": $$.components[
-        $startsWith(purl, 'pkg:npm/')
-        and (
-          $contains($lowercase($nullSafeProp($, 'cdx:npm:manifestSourceType')), 'git')
-          or $contains($lowercase($nullSafeProp($, 'cdx:npm:manifestSourceType')), 'url')
-        )
-        and $count(externalReferences[
-          type = 'distribution'
-          and (
-            $startsWith($lowercase(url), 'git+')
-            or $startsWith($lowercase(url), 'http://')
-            or $startsWith($lowercase(url), 'https://')
-          )
-        ]) > 0
-      ].purl
+      "matchingPackageCount": $count($matchingPackages),
+      "matchingPackages": $matchingPackagePurls
     }
 
 - id: CI-023
@@ -735,17 +726,21 @@
   attack:
     tactics: [TA0001]
     techniques: [T1195.001]
-  condition: |
-    $auditComponents($)[
-      $prop($, 'cdx:github:action:disablesBuildCache') = 'true'
-      and $prop($, 'cdx:github:action:buildCacheEcosystem') = 'pypi'
-      and $count($$.components[
+  variables:
+    matchingPackages: |
+      components[
         $startsWith(purl, 'pkg:pypi/')
         and (
           $contains($lowercase($nullSafeProp($, 'cdx:pypi:manifestSourceType')), 'git')
           or $contains($lowercase($nullSafeProp($, 'cdx:pypi:manifestSourceType')), 'url')
         )
-      ]) > 0
+      ]
+    matchingPackagePurls: |
+      $matchingPackages[[0..24]].purl
+  condition: |
+    $count($matchingPackages) > 0 ? $auditComponents($)[
+      $prop($, 'cdx:github:action:disablesBuildCache') = 'true'
+      and $prop($, 'cdx:github:action:buildCacheEcosystem') = 'pypi'
     ]
   location: |
     {
@@ -759,13 +754,8 @@
     {
       "cacheDisableInput": $prop($, 'cdx:github:action:buildCacheDisableInput'),
       "cacheDisableValue": $prop($, 'cdx:github:action:buildCacheDisableValue'),
-      "matchingPackages": $$.components[
-        $startsWith(purl, 'pkg:pypi/')
-        and (
-          $contains($lowercase($nullSafeProp($, 'cdx:pypi:manifestSourceType')), 'git')
-          or $contains($lowercase($nullSafeProp($, 'cdx:pypi:manifestSourceType')), 'url')
-        )
-      ].purl
+      "matchingPackageCount": $count($matchingPackages),
+      "matchingPackages": $matchingPackagePurls
     }
 
 - id: CI-024
@@ -777,14 +767,18 @@
   attack:
     tactics: [TA0001]
     techniques: [T1195.001]
-  condition: |
-    $auditComponents($)[
-      $prop($, 'cdx:github:action:disablesBuildCache') = 'true'
-      and $prop($, 'cdx:github:action:buildCacheEcosystem') = 'cargo'
-      and $count($$.components[
+  variables:
+    matchingPackages: |
+      components[
         $startsWith(purl, 'pkg:cargo/')
         and $hasProp($, 'cdx:cargo:git')
-      ]) > 0
+      ]
+    matchingPackagePurls: |
+      $matchingPackages[[0..24]].purl
+  condition: |
+    $count($matchingPackages) > 0 ? $auditComponents($)[
+      $prop($, 'cdx:github:action:disablesBuildCache') = 'true'
+      and $prop($, 'cdx:github:action:buildCacheEcosystem') = 'cargo'
     ]
   location: |
     {
@@ -798,10 +792,8 @@
     {
       "cacheDisableInput": $prop($, 'cdx:github:action:buildCacheDisableInput'),
       "cacheDisableValue": $prop($, 'cdx:github:action:buildCacheDisableValue'),
-      "matchingPackages": $$.components[
-        $startsWith(purl, 'pkg:cargo/')
-        and $hasProp($, 'cdx:cargo:git')
-      ].purl
+      "matchingPackageCount": $count($matchingPackages),
+      "matchingPackages": $matchingPackagePurls
     }
 
 - id: CI-025

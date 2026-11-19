@@ -6,6 +6,11 @@ import crypto from "node:crypto";
  */
 export declare const MAX_SIGNATURE_ENTRIES = 32;
 /**
+ * Deepest position, counted in members from the root of the BOM, to which the
+ * search for signed components and services below the top-level lists goes.
+ */
+export declare const MAX_SIGNED_ELEMENT_DEPTH = 32;
+/**
  * Members the CycloneDX 1.4 to 1.7 schemas define at the root of a BOM, plus
  * `specFormat`, which an early 2.0 draft used in place of `bomFormat`. A JSF
  * root signature is only accepted on an object made of these members, so a
@@ -70,6 +75,26 @@ export declare function loadVerificationKey(key: string | Buffer | Object | cryp
 export declare function generateSigningKeyPair(algorithm: string): {
     publicKey: string;
     privateKey: string;
+};
+/**
+ * Lists the signed components and services of a BOM wherever the CycloneDX
+ * schemas nest them: in the top-level lists, inside another component or
+ * service, and in the metadata, formulation, vulnerabilities, annotations,
+ * declarations, definitions and inventories. The walk keeps its own stack, so
+ * a deeply nested document cannot exhaust the call stack.
+ *
+ * @param {Object} bom - CycloneDX BOM Object
+ * @param {function(Object): boolean} isSigned - Tells whether an element carries a signature
+ * @returns {{ found: Array<{ path: string, item: Object }>, tooDeep: number }}
+ *   Each signed element with its path in the BOM; `tooDeep` counts the signed
+ *   elements below MAX_SIGNED_ELEMENT_DEPTH, which are not listed
+ */
+export declare function signedElements(bom: Object, isSigned: Function): {
+    found: Array<{
+        path: string;
+        item: Object;
+    }>;
+    tooDeep: number;
 };
 /**
  * Applies JSF signatures to the BOM and, optionally, its components, services,
@@ -147,7 +172,9 @@ export declare function verifyNode(node: Object, publicKey: string | Buffer | Ob
  *
  * A BOM without a root signature fails unless `allowNestedOnly` is set. Then
  * every component, service, and annotation must carry a signature that
- * verifies, and `notices` lists the members that no signature covers.
+ * verifies, and `notices` lists the members that no signature covers. The
+ * every-key rule of `requireAll` then applies to each of these signatures,
+ * because no root signature shows that every key signed the BOM.
  *
  * Parse untrusted BOM text with `parseStrictJson()` from
  * `lib/parsers/strictJson.js` before calling this function, so that the
@@ -158,7 +185,7 @@ export declare function verifyNode(node: Object, publicKey: string | Buffer | Ob
  * @param {Object} [options]
  * @param {boolean} [options.deep] - Also verify nested signatures (default true)
  * @param {boolean} [options.allowNestedOnly] - Accept a BOM without a root signature when every nested element is signed
- * @param {boolean} [options.requireAll] - Require every entry of each signature to verify, and every key to verify an entry of the root signature
+ * @param {boolean} [options.requireAll] - Require every entry of each signature to verify, and every key to verify an entry of the root signature (without a root signature, of every nested signature)
  * @returns {{ verified: boolean, errors: string[], notices: string[], root: Object|null, nested: Object[] }}
  *   `root` and each `nested` item hold `label`, `form`, `verified`, `match` (the first verified entry),
  *   `reasons` (why the signature could not be read), `entries` (`index`, `algorithm`, `keyId`, `verified`, `reasons`),

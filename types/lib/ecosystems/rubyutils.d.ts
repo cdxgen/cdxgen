@@ -157,11 +157,16 @@ export declare function parseBundleConfig(configFile: string): object;
  * @param {object} options Options
  * @param {string} options.gemHome GEM_HOME to read installed gemspecs from
  * @param {string} options.compactIndexCacheDir Bundler compact index cache directory
+ * @param {object} [options.localCache] An object the caller creates once and
+ *   passes to every call that reads the same gem home and compact index cache,
+ *   such as one call per lockfile of a scan. The directory listings and the
+ *   parsed files are kept in it, so each is read once instead of once per call.
  * @returns {Promise<Array>} The enriched package list
  */
 export declare function enrichGemsFromLocalCache(pkgList: any[], options?: {
     gemHome: string;
     compactIndexCacheDir: string;
+    localCache?: object;
 }): Promise<any[]>;
 /**
  * Method to query rubygems api for gems details
@@ -252,10 +257,13 @@ export declare function parseGemspecData(gemspecData: string, gemspecFile: strin
  * @param {object} [options] Options
  * @param {string} [options.gemHome] GEM_HOME to read installed gemspecs from
  * @param {string} [options.compactIndexCacheDir] Bundler compact index cache
+ * @param {object} [options.localCache] What the lockfiles of one scan share of
+ *   the gem home and the compact index cache, see enrichGemsFromLocalCache
  */
 export declare function parseGemfileLockData(gemLockData: object, lockFile: string, options?: {
     gemHome?: string;
     compactIndexCacheDir?: string;
+    localCache?: object;
 }): Promise<any[] | {
     pkgList: any[];
     dependenciesList: {

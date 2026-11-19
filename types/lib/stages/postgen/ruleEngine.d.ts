@@ -11,9 +11,10 @@ export declare function loadRules(rulesDir: any): Promise<any[]>;
  * Evaluate a single rule against the BOM using JSONata
  * @param {Object} rule - Parsed rule object
  * @param {Object} bomJson - Full CycloneDX BOM object
+ * @param {Object} [baseOptions] - Helpers for the rules, such as `getBomWithOras`
  * @returns {Promise<Array>} Array of matched findings
  */
-export declare function evaluateRule(rule: Object, bomJson: Object, options?: {}): Promise<any[]>;
+export declare function evaluateRule(rule: Object, bomJson: Object, baseOptions?: Object): Promise<any[]>;
 /**
  * Evaluate all rules against a BOM
  */

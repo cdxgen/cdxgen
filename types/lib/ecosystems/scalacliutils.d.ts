@@ -28,8 +28,11 @@ export declare function scalaCliComponent(dep: Object, project: Object, sourceFi
 /**
  * Map a jar path of the Coursier cache to its Maven coordinates.
  *
- * Only the https cache layout with a well-known repository path segment is
- * parsed; anything else returns null rather than guessing a group id.
+ * Coursier stores a download as `<cache>/v1/<protocol>/[<user>@]<host>/<path>`.
+ * Only the repository path below the host directory is read, so directories
+ * of the machine above the cache and the host directory never become the
+ * group. A jar outside such a layout, or one without a well-known repository
+ * path segment, returns null rather than guessing a group id.
  *
  * @param {string} jarPath Path of a jar in the Coursier cache
  * @returns {{ group: string, name: string, version: string }|null} The coordinates

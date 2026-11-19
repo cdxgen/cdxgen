@@ -33,7 +33,9 @@ export declare function formatOccurrenceEvidence(occurrence: Object): string;
  */
 export declare function extractToolRefs(tools: Object[] | Object, predicate: Function): string[];
 /**
- * Attach evidence.identity.tools references to the supplied subjects.
+ * Attach evidence.identity.tools references to the supplied subjects. Only
+ * the first MAX_IDENTITY_TOOL_REFS references are considered, and of those
+ * only strings of up to MAX_IDENTITY_TOOL_REF_LENGTH characters are attached.
  *
  * @param {Object|Object[]} subjects Component or service objects
  * @param {string[]} toolRefs Tool bom-refs

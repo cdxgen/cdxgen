@@ -1,13 +1,4 @@
-/**
- * Remove the slashes at the end of a workspace pattern from the scanned
- * pnpm-workspace.yaml. The scan from the end keeps the trim linear, where the
- * equivalent `\/+$` pattern retries from every slash of a long run that does
- * not end the string.
- *
- * @param {string} pattern Workspace pattern
- * @returns {string} The pattern without trailing slashes
- */
-export declare const stripTrailingSlashes: (pattern: string) => string;
+import { stripTrailingSlashes } from "../core/paths.js";
 export declare function getDirectAiInventoryType(path: any, options: any): string | undefined;
 /**
  * Main Node.js/npm BOM generator. Parses manifests, lockfiles, and import
@@ -111,4 +102,5 @@ export declare function analyzeExtensionDir(extDir: string, options: Object): Pr
  * @param {string} [onlyEntry] Analyze only this extension folder
  */
 export declare function analyzeInstalledExtensionDirs(extensionsDir: string, options: Object, pkgList: Object[], dependencies: Object[], onlyEntry?: string): Promise<void>;
+export { stripTrailingSlashes };
 //# sourceMappingURL=jsBom.d.ts.map

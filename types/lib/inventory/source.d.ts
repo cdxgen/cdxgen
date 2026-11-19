@@ -22,10 +22,14 @@ export declare function gitRedirectsRefused(): boolean;
  * Execute git with hardened defaults.
  *
  * Every call runs with command-scope settings that keep the repository from
- * running fsmonitor hooks or being opened as a bare repository. While a git
+ * running fsmonitor hooks, being opened as a bare repository or having its
+ * commit signatures verified by a program it names. While a git
  * host allowlist or secure mode applies, git also refuses HTTP redirects, so
  * an allowed host cannot send a clone or ls-remote to a host the allowlist
- * does not name.
+ * does not name. A remote that carries its own password is used without the
+ * account's credential helpers: git hands a URL password that worked to the
+ * helpers, which would save it and offer it to every later command for that
+ * host, such as the clone for another client of the server.
  *
  * @param {string[]} args git arguments
  * @param {Object} options command options
@@ -39,6 +43,22 @@ export declare function hardenedGitCommand(args: string[], options?: {
     cwd: string | undefined;
     noRepository: boolean | undefined;
 }): Object;
+/**
+ * Execute git with the hardened defaults of hardenedGitCommand without
+ * blocking the event loop. A long-running process such as the server uses this
+ * for the operations that wait on a remote, which would otherwise stop it from
+ * answering anyone until the remote is done.
+ *
+ * @param {string[]} args git arguments
+ * @param {Object} options command options, as for hardenedGitCommand
+ * @param {string|undefined} options.cwd working directory
+ * @param {boolean|undefined} options.noRepository run outside any repository
+ * @returns {Promise<Object>} spawn result
+ */
+export declare function hardenedGitCommandAsync(args: string[], options?: {
+    cwd: string | undefined;
+    noRepository: boolean | undefined;
+}): Promise<Object>;
 /**
  * Build CycloneDX release notes from git tags and commits.
  *
@@ -122,9 +142,10 @@ export declare function validateAndRejectGitSource(filePath: string): Object | n
  */
 export declare function getGitRemoteHost(remote: string): string | undefined;
 /**
- * Remove credentials from git output before it is logged. Every URL in the
- * text loses its user name and password, which git copies into its error
- * messages from the remote it was given.
+ * Remove credentials from git output before it is logged or reported. Every
+ * URL in the text loses its user name and password, which git copies into its
+ * error messages from the remote it was given, and its query string and
+ * fragment, which can hold access tokens and signatures.
  *
  * @param {string|undefined} text Output of a git command
  * @param {string|undefined} repoUrl Remote the command was given
@@ -132,6 +153,30 @@ export declare function getGitRemoteHost(remote: string): string | undefined;
  */
 export declare function redactGitOutput(text: string | undefined, repoUrl: string | undefined): string | undefined;
 export { redactPackageManagerOutput } from "../core/outputRedaction.js";
+/**
+ * Check out the files of a repository that was cloned with --no-checkout,
+ * unless the checkout is larger than cdxgen accepts.
+ *
+ * git stores a blob or a tree once however often a tree names it, so the
+ * size of the pack a remote sends says nothing about the size of the
+ * checkout: a pack of 2 kB can stand for terabytes of files. The tree is
+ * therefore measured before any of it is written. The listing has one line
+ * for every file and every directory the tree names, so a tree that is
+ * costly to walk is also long to list, and one whose listing outgrows the
+ * spawn buffer is refused as well, which bounds the measuring. The files are
+ * then written as the blobs hold them, because keyword expansion, re-encoding
+ * and end-of-line conversion asked for by the repository's .gitattributes
+ * would make them many times larger than what was measured.
+ *
+ * @param {string} cloneDir directory of a clone made with --no-checkout
+ * @param {Object} [options]
+ * @param {boolean} [options.forServer] apply the default ceilings, as for a request to the server
+ * @returns {Object} spawn-like result; status is 0 when the files are checked
+ *   out or the repository has no commit, otherwise stderr says why not
+ */
+export declare function checkoutClonedRepository(cloneDir: string, options?: {
+    forServer?: boolean;
+}): Object;
 /**
  * Clone a git repository into a temporary directory.
  *
@@ -141,12 +186,54 @@ export { redactPackageManagerOutput } from "../core/outputRedaction.js";
  */
 export declare function gitClone(repoUrl: string, branch?: string | string[] | null): string;
 /**
- * Sanitize remote URL for logging.
+ * Clone a git repository into a temporary directory without blocking the
+ * event loop while the remote is answering.
+ *
+ * @param {string} repoUrl Repository URL
+ * @param {string|string[]|null} branch Branch name
+ * @returns {Promise<string>} cloned directory path
+ */
+export declare function gitCloneAsync(repoUrl: string, branch?: string | string[] | null): Promise<string>;
+/**
+ * Sanitize remote URL for logs, audit reports and BOM annotations. The user
+ * name and password are masked, and the query string and fragment, which can
+ * hold access tokens and signatures, are dropped.
  *
  * @param {string|undefined} remoteUrl Repository URL
  * @returns {string|undefined} sanitized URL
  */
 export declare function sanitizeRemoteUrlForLogs(remoteUrl: string | undefined): string | undefined;
+/**
+ * Split a comma-separated list of local scan paths into its entries. A string
+ * that names an existing path is one path, whatever characters it holds.
+ *
+ * @param {string} sourcePath Path or comma-separated paths
+ * @returns {string[]} The entries, never empty
+ */
+export declare function splitSourcePaths(sourcePath: string): string[];
+/**
+ * Name a source for logs, activity records and default names. A git URL or
+ * purl can hold a credential in its user info, query string or fragment (in a
+ * purl, the qualifiers such as a percent-encoded `vcs_url`, and the subpath),
+ * so those parts are left out. A local path is returned unchanged.
+ *
+ * @param {string} source Local path, git URL or purl
+ * @returns {string} The source without user info, query string and fragment
+ */
+export declare function getSourceLabel(source: string): string;
+/**
+ * Name a source after its last path segment, for the default project name and
+ * for files named after the source. The name is written to the BOM and sent to
+ * Dependency-Track, so it comes from the source without credentials.
+ *
+ * A purl with an unencoded `vcs_url` is named after the repository, as the
+ * last segment of the whole argument is. The URL is taken without its user
+ * info, query string and fragment.
+ *
+ * @param {string} source Local path, git URL or purl
+ * @returns {string} Last path segment of the source
+ */
+export declare function getSourceBaseName(source: string): string;
 /**
  * Find a matching git ref for a package version.
  *
@@ -155,6 +242,15 @@ export declare function sanitizeRemoteUrlForLogs(remoteUrl: string | undefined):
  * @returns {string|undefined} matching tag or branch reference
  */
 export declare function findGitRefForPurlVersion(repoUrl: string, purlResolution: Object | undefined): string | undefined;
+/**
+ * Find a matching git ref for a package version without blocking the event
+ * loop while the remote is answering.
+ *
+ * @param {string} repoUrl Repository URL
+ * @param {Object|undefined} purlResolution purl resolution metadata
+ * @returns {Promise<string|undefined>} matching tag or branch reference
+ */
+export declare function findGitRefForPurlVersionAsync(repoUrl: string, purlResolution: Object | undefined): Promise<string | undefined>;
 /**
  * Find the best source directory for purl-based npm monorepo scans.
  *

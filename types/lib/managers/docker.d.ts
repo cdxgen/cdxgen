@@ -127,6 +127,10 @@ export declare const getImage: (fullImageName: any) => Promise<any>;
 export type TarReadEntryLike = {
     path: string;
 };
+export type ExtractBudget = {
+    maxBytes: number;
+    usedBytes: number;
+};
 /**
  * Extract a container image tar archive into a destination directory.
  * Applies path sanitisation, ownership/permission preservation settings, and
@@ -136,10 +140,12 @@ export type TarReadEntryLike = {
  * @param {string} fullImageName Path to the source tar archive
  * @param {string} dir Destination directory to extract into
  * @param {Object} options CLI options (uses `options.failOnError`)
+ * @param {ExtractBudget} [budget] Budget of the image the archive belongs to.
+ *   Defaults to one derived from the size of the archive
  * @returns {Promise<boolean>} `true` on success, `false` when the archive is
  *   empty or a non-fatal error was encountered
  */
-export declare const extractTar: (fullImageName: string, dir: string, options: Object) => Promise<boolean>;
+export declare const extractTar: (fullImageName: string, dir: string, options: Object, budget?: ExtractBudget) => Promise<boolean>;
 /**
  * Method to export a container image archive.
  * Returns the location of the layers with additional packages related metadata
@@ -156,11 +162,14 @@ export declare const exportArchive: (fullImageName: any, options?: {}) => Promis
  * @param {string} tempDir Temporary directory that holds the unpacked image
  * @param {string} allLayersExplodedDir Directory where all layers are merged
  * @param {Object} options CLI options (uses `options.failOnError`)
+ * @param {ExtractBudget} [budget] Budget of the archive the image was
+ *   unpacked from, shared by its layers. Defaults to one derived from the
+ *   size of the layers in `tempDir`
  * @returns {Promise<Object>} Export data object containing `manifest`,
  *   `allLayersDir`, `allLayersExplodedDir`, `lastLayerConfig`,
  *   `lastWorkingDir`, `binPaths`, and `pkgPathList`
  */
-export declare const extractFromManifest: (manifestFile: string, localData: Object, tempDir: string, allLayersExplodedDir: string, options: Object) => Promise<Object>;
+export declare const extractFromManifest: (manifestFile: string, localData: Object, tempDir: string, allLayersExplodedDir: string, options: Object, budget?: ExtractBudget) => Promise<Object>;
 /**
  * A hint for an image the engine could not export: an image pulled for
  * another platform than the host's, such as `docker pull --platform

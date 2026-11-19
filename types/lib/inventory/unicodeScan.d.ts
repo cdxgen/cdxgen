@@ -1,5 +1,6 @@
 /**
  * Find dangerous Unicode characters and return their details.
+ * At most MAX_MATCHES_PER_KIND matches are returned for each kind.
  *
  * @param {string} text string to inspect
  * @returns {{ char: string, codePoint: string, index: number, kind: string }[]} matches

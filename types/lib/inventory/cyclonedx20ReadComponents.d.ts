@@ -26,7 +26,9 @@ export declare function reverseService(ctx: object, component: object, pointer: 
 /**
  * Resolve a componentEntry (component, componentReference or
  * component-choice) to a concrete component. A reference resolves against
- * every declared component; a choice keeps its first resolvable member.
+ * every declared component, while the document's budget for copies of
+ * referenced components lasts (REFERENCED_SIZE_FACTOR); a choice keeps its
+ * first resolvable member.
  *
  * @param {object} ctx Reader context (with `componentIndex`)
  * @param {object} entry 2.0 componentEntry

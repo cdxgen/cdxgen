@@ -54,6 +54,9 @@ export declare function applySpecVersionCompatibility(bomJson: Object, options: 
  * versions — `evidence.identity` reads the same whether it holds one object or
  * an array of them.
  *
+ * A path of more than 1024 characters is cut to its first 256 and a digest of
+ * the whole path, and the paths below it continue from that shortened form.
+ *
  * @param {Object} subject BOM or BOM fragment
  * @param {string} [prefix] Path accumulated so far
  * @param {Set<string>} [paths] Accumulator
@@ -73,7 +76,8 @@ export declare function diffRemovedFieldPaths(sourceBomJson: Object, normalizedB
  * the dotted, index-free paths of collectFieldPaths. Array order is ignored,
  * so two documents that differ only in member order give the same counts,
  * but a repeated entry counts once per occurrence. Empty arrays and objects
- * count as leaves.
+ * count as leaves. A path or a leaf of more than 1024 characters is cut to
+ * its first 256 and a digest of the whole, as in collectFieldPaths.
  *
  * @param {*} subject JSON value
  * @param {string} [prefix] Path so far
@@ -93,4 +97,16 @@ export declare function collectLeafValues(subject: any, prefix?: string, leaves?
  *   repeated per missing occurrence
  */
 export declare function diffMissingLeafValues(sourceBomJson: Object, convertedBomJson: Object): string[];
+/**
+ * Count, by field path, the leaf values of `sourceBomJson` that
+ * `convertedBomJson` lacks: what diffMissingLeafValues reports, without the
+ * values. A report that goes to a log uses this one, since a dropped value
+ * may be a URL with credentials, a command line or an environment value.
+ *
+ * @param {Object} sourceBomJson BOM before conversion
+ * @param {Object} convertedBomJson BOM after conversion
+ * @returns {Map<string, number>} Missing occurrences for each field path,
+ *   in path order
+ */
+export declare function diffMissingLeafPaths(sourceBomJson: Object, convertedBomJson: Object): Map<string, number>;
 //# sourceMappingURL=specVersionCompat.d.ts.map

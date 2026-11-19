@@ -18,6 +18,7 @@ What this adds on top of a normal package-only BOM:
 - `type=file` components for archived entries with archive-relative paths
 - nested archive identities such as `outer.asar#/nested/core.asar#/src/main.js`
 - SHA-256 hashes and evidence locations for each archived file entry
+- archive identities relative to the scanned directory (the file name for an archive named on the command line), so no path of the scanning machine reaches the BOM; the `bom-ref` of a file entry adds the first 12 hex digits of the SHA-256 of the archive header, as in `file:dist/app.asar@0123456789ab#/main.js`, so two archives at the same relative path below different scan roots stay apart
 - declared-versus-computed ASAR integrity verification
 - Electron `Info.plist` signing metadata verification for the ASAR header hash scope
 - JavaScript capability summaries for file I/O, network, hardware, child-process, eval/code generation, dynamic fetch, and dynamic import

@@ -23,6 +23,10 @@
  *   is lost and references to the refId keep resolving to the first
  *   declaration.
  *
+ * A repeat is compared with the first MAX_REFID_VARIANTS differing
+ * declarations of its refId only; one that repeats a later declaration is
+ * kept under a new refId as well.
+ *
  * @param {Array<{section: string, value: *}>} roots Rendered sections, the
  *   definitions root marked with `section: "definitions"`
  * @param {object} stats Render counters

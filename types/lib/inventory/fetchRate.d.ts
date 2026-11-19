@@ -106,6 +106,8 @@ export declare class RateLimiter {
     externalDelay(delayMs: number): void;
     /** @returns {number} How many times this host asked us to slow down. */
     get externalDelayCount(): number;
+    /** @returns {boolean} Whether the gate is open, so the next caller would not wait. */
+    get isOpen(): boolean;
 }
 /**
  * Create a counting semaphore with a FIFO wait queue. Used both for the global

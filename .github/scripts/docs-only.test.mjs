@@ -65,7 +65,7 @@ describe("classify", () => {
     ]) {
       const result = classify(["docs/LESSON1.md", other], never);
       assert.equal(result.docsOnly, false, other);
-      assert.match(result.reason, new RegExp(other.replace(/[.]/g, "\\.")));
+      assert.match(result.reason, new RegExp(other.replace(/[\\.]/g, "\\$&")));
     }
   });
 

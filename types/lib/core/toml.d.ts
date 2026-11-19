@@ -13,8 +13,14 @@
 /**
  * Parse a TOML document into plain objects.
  *
+ * smol-toml quotes the failing line and its neighbours in both the message
+ * and the `codeblock` of its error. Callers log that error, and manifests and
+ * lock files hold credentialed URLs, so only the reason and the position leave
+ * this function.
+ *
  * @param {string} text TOML source
  * @returns {Object} parsed document whose tables use `Object.prototype`
+ * @throws {SyntaxError} when the text is not a valid document
  */
 export declare function parseToml(text: string): Object;
 //# sourceMappingURL=toml.d.ts.map

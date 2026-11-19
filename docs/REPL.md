@@ -261,7 +261,7 @@ Set `CDXGEN_REPL_HISTORY` to override the history file location.
 
 ## Security notes
 
-- `.create` can invoke the same dependency-resolution paths as `cdxgen`; treat untrusted source trees with the same caution you would use for CLI scans.
+- `.create` can invoke the same dependency-resolution paths as `cdxgen`; treat untrusted source trees with the same caution you would use for CLI scans. It follows the same install rule as well: installs, and with them the scanned project's own build tooling, are off in secure mode (`CDXGEN_SECURE_MODE=true` or Node.js `--permission`) and in dry-run mode. `cdxi` has no `--install-deps` option, so set `CDXGEN_INSTALL_DEPS=false` to turn installs off for a session, or `CDXGEN_INSTALL_DEPS=true` to turn them back on in secure mode.
 - `.query` and `.update` execute JSONata expressions against the loaded BOM. They are powerful and intended for trusted interactive use.
 - Imported audit annotations may contain repository URLs, workflow file paths, and remediation notes. Review before sharing screenshots or session logs.
 

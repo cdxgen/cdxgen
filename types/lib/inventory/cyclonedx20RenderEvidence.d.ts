@@ -9,7 +9,9 @@
  * (#/$defs/cyclonedx-common-2.0/$defs/refIdType: non-empty and not starting
  * with the BOM-Link intro `urn:cdx:`), whatever the tool's own refId is, so
  * the tool refId is appended unchanged and the party refId stays readable and
- * deterministic.
+ * deterministic. The party refId is written on every component's identifiers,
+ * so when it would be too long to repeat, the SHA-256 of the tool refId is
+ * appended instead (see derivedRefId).
  */
 export declare const TOOL_PARTY_REF_ID_PREFIX = "party-tool-";
 /**
@@ -71,7 +73,8 @@ export declare function derivedPartyDeclarations(claims: object, declared: Set<s
  * (#/$defs/cyclonedx-component-2.0/$defs/componentIdentityEvidence). When
  * cdxgen is the listed tool (#4591), the entry is cdxgen's attributed claim:
  * `tools` names the helper recorded on the entry or, failing that, the cdxgen
- * tool; `assertion` credits the cdxgen party as asserter
+ * tool (unless its refId is too long to repeat on every entry, see
+ * MAX_REPEATED_REF_ID_LENGTH); `assertion` credits the cdxgen party as asserter
  * (#/$defs/cyclonedx-evidence-2.0/$defs/assertion); and a method with a
  * matched value has the result `detected`. For another tool's BOM cdxgen did
  * not do that analysis, so none of these is added; the entry's own `tools`

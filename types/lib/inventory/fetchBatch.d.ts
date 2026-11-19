@@ -189,10 +189,12 @@ export declare function recordPolicyDegradationFromError(err: Error): void;
  * two independent gates that each allow one per second.
  *
  * The per-host semaphore and limiter are module state, so this shares one gate
- * per host for the life of the process.
+ * per host for the life of the process. Between runs a gate that has opened is
+ * forgotten, and the host's next request makes a new one.
  *
  * A host paused by its circuit breaker fails at once with a 429-shaped error,
- * and a 429 from a breaker host pauses it.
+ * and a 429 from a breaker host pauses it. A host name longer than DNS allows
+ * fails at once too, and no request is made.
  *
  * With `deferGate`, `issue` receives request options carrying a
  * `beforeNetwork` hook and must pass them to `cdxgenAgent`. The rate limiter

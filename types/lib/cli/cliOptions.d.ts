@@ -62,7 +62,17 @@ export declare function operatorOptionChoice(option: string, { argv, env, boolea
  * disabled them, and secure mode keeps installs off unless the operator
  * passes --install-deps. Introspection keeps the project's build tools
  * running with installs off, which is likewise the operator's decision, so
- * introspection asked for only by the config file does not do that.
+ * introspection asked for only by the config file does not do that. Secure
+ * mode uses a C/C++ compilation database only when the operator names one,
+ * since a database can come with the code it describes; yargs resolves the
+ * option from the config file as well, so a `compile-commands` that does not
+ * come from the command line or the environment is dropped there.
+ *
+ * Querying the scanning host is the operator's decision too. With crypto
+ * collection on, an explicit --include-formulation adds the host's crypto
+ * libraries, certificates, authorized keys and keychain items (see
+ * addFormulationSection), so formulation or crypto collection asked for only
+ * by the config file is marked like formulation no flag asked for.
  *
  * **Mutates `options` in place.**
  *
@@ -70,16 +80,19 @@ export declare function operatorOptionChoice(option: string, { argv, env, boolea
  * @param {object} [context]
  * @param {object} [context.projectConfig] Sanitized config file contents
  * @param {boolean} [context.isSecureMode] Whether cdxgen runs in secure mode
+ * @param {string} [context.invokedCommandName] Binary name (e.g. "cbom"),
+ *                                              which can turn on crypto
  * @param {string[]} [context.argv] Raw command-line arguments
  * @param {object} [context.env] Environment variables
- * @returns {void}
+ * @returns {string[]} The options that were dropped
  */
 export declare function applyOperatorToolingChoice(options: object, context?: {
     projectConfig?: object;
     isSecureMode?: boolean;
+    invokedCommandName?: string;
     argv?: string[];
     env?: object;
-}): void;
+}): string[];
 /**
  * Tell which of the options that expand into others the config file chose.
  * A profile or technique the operator did not give on the command line or
@@ -120,11 +133,41 @@ export declare function markConfigFileTeaTargets(options: object, context?: {
     env?: object;
 }): string[];
 /**
+ * Keep the operator's Dependency-Track API key for a server the operator
+ * named. A config file is read from the working directory, usually the
+ * scanned project, and yargs resolves `server-url` and `api-key` on their
+ * own, so a `server-url` that only the config file names would be paired with
+ * an API key from the command line or the environment. It is dropped
+ * instead, unless the API key is the one the same file supplies.
+ *
+ * **Mutates `options` in place.**
+ *
+ * @param {object} options The options object
+ * @param {object} [context]
+ * @param {object} [context.projectConfig] Sanitized config file contents
+ * @param {string[]} [context.argv] Raw command-line arguments
+ * @param {object} [context.env] Environment variables
+ * @returns {boolean} true when the config file's server-url was dropped
+ */
+export declare function dropConfigFileServerUrl(options: object, context?: {
+    projectConfig?: object;
+    argv?: string[];
+    env?: object;
+}): boolean;
+/**
  * The options naming a slices file that atom, dosai and the other analyzers
  * write, and that a later step of the same run, or of a later run, reads back
  * as the project's evidence.
  */
 export declare const SLICES_FILE_OPTIONS: string[];
+/**
+ * Yargs defaults of the slice file options that carry one. A value equal to
+ * its default need not have been passed by the operator, so only the other
+ * values are named when the arguments of a container or OS scan are ignored.
+ *
+ * @type {Object<string, string>}
+ */
+export declare const SLICES_FILE_DEFAULTS: Record<string, string>;
 /**
  * Find the slices files that already exist inside the scanned directory. A
  * run writes its slices files during generation, so one that exists before

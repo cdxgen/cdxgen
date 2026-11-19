@@ -70,6 +70,50 @@ describe("cdx-sign and cdx-verify trust decisions at CycloneDX 2.0", () => {
     assert.match(result.stdout, /countersignature/u);
   });
 
+  it("rejects a countersignature chain that is too long to check", () => {
+    // The builder's entry, then a copy of it with 32 forged countersignatures.
+    const fake = structuredClone(signed);
+    const copy = structuredClone(signed.signatures[0]);
+    let last = copy;
+    for (let count = 0; count < 32; count++) {
+      last.signature = {
+        hash_algorithm: "sha-256",
+        algorithm: "Ed25519",
+        signee: "Release approver",
+        thumbprint: "c2hhLTI1Ng",
+        value: "AAAA",
+      };
+      last = last.signature;
+    }
+    fake.signatures.push(copy);
+    writeFileSync(file("fake-approvals.json"), JSON.stringify(fake));
+    const verified = run([
+      binFor("verify"),
+      "-i",
+      file("fake-approvals.json"),
+      "--public-key",
+      file("builder-public.pem"),
+    ]);
+    assert.strictEqual(verified.status, 1, verified.stdout);
+    assert.match(verified.stdout, /signatures\[1\].*at most 32/u);
+    const cosigned = run([
+      binFor("sign"),
+      "-i",
+      file("fake-approvals.json"),
+      "-o",
+      file("fake-approvals-cosigned.json"),
+      "-k",
+      file("auditor-private.pem"),
+      "--mode",
+      "signers",
+      "--verify-existing-with",
+      file("builder-public.pem"),
+    ]);
+    assert.notStrictEqual(cosigned.status, 0, cosigned.stdout);
+    assert.match(cosigned.stderr, /cdx-verify would reject/u);
+    assert.throws(() => readFileSync(file("fake-approvals-cosigned.json")));
+  });
+
   it("accepts a real countersignature once the countersigner's key is given", () => {
     const approved = countersignJss(signed, {
       algorithm: "Ed25519",

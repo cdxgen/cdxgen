@@ -106,6 +106,17 @@ export declare function isPoetry2Project(pyprojectFile: string): boolean;
  */
 export declare function getPoetryInstallArgs(pyprojectFile: string): string[];
 /**
+ * Say why pip must not be run for the project in secure mode: it would build
+ * the project directory, a local path or a source archive, which runs the
+ * build backend of the scanned code.
+ *
+ * @param {string} reqOrSetupFile Requirements, setup.py or pyproject.toml file
+ * @param {string} basePath Scanned directory
+ * @param {string} [projectRoot] Directory pip is run from
+ * @returns {string|undefined} Reason, or undefined when the install is safe
+ */
+export declare function secureModePipBuildReason(reqOrSetupFile: string, basePath: string, projectRoot?: string): string | undefined;
+/**
  * Execute pip freeze by creating a virtual env in a temp directory and construct the dependency tree
  *
  * @param {string} basePath Base path

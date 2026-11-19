@@ -1,5 +1,5 @@
-import { MAX_BROTLI_PROBE_BYTES, MAX_BROTLI_PROBES, readBrotliDecoder } from "../core/brotliProbe.js";
-export { MAX_BROTLI_PROBE_BYTES, MAX_BROTLI_PROBES, readBrotliDecoder };
+import { MAX_BROTLI_PROBE_BYTES, MAX_BROTLI_PROBES, probeBrotliDecoder, readBrotliDecoder } from "../core/brotliProbe.js";
+export { MAX_BROTLI_PROBE_BYTES, MAX_BROTLI_PROBES, probeBrotliDecoder, readBrotliDecoder, };
 /**
  * The properties a file component carries once it has been probed: the fix
  * state of each decoder found in it, or why it could not be read.

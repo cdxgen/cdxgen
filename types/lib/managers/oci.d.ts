@@ -1,15 +1,15 @@
 /**
- * Check whether a token realm URL belongs to the registry itself.
+ * Check whether a URL named by a registry response belongs to the registry
+ * itself.
  *
- * A registry's 401 response names the realm, so a hostile registry picks the
- * URL cdxgen will call. Credentials picked up for the registry must therefore
- * only be attached when the realm has the same origin (scheme, host and
- * port); an http:// realm on the registry's host would otherwise receive them
- * without TLS. Public delegating realms (docker.io to auth.docker.io) are
- * still usable, just anonymously.
+ * A registry's 401 response names the token realm and its 202 response names
+ * the blob upload location, so a hostile registry picks the URL cdxgen will
+ * call. Credentials picked up for the registry must therefore only be attached
+ * when that URL resolves to the same scheme, host and port; public delegating
+ * realms (docker.io to auth.docker.io) are still usable, just anonymously.
  *
  * @param {string} registry Registry host, optionally with a port
- * @param {URL} realmUrl Parsed realm URL from the WWW-Authenticate header
+ * @param {URL} realmUrl Parsed URL from the WWW-Authenticate or Location header
  * @returns {boolean} true when scheme, host and port match the registry
  */
 export declare function isSameRegistryHost(registry: string, realmUrl: URL): boolean;
@@ -20,10 +20,13 @@ export declare function isSameRegistryHost(registry: string, realmUrl: URL): boo
  * @param {string} image OCI image reference (e.g. `"registry.example.com/org/app:tag"`)
  * @param {string} [platform] OCI platform string (e.g. `"linux/amd64"`); no-op for JS implementation
  * @param {Object} [options]
+ * @param {boolean} [options.reportErrors] Throw on a transport error, a timeout, an HTTP 5xx or a 429 instead of answering `undefined`, so a caller can tell a registry that did not answer from one that holds no SBOM
  * @param {function(Buffer): void} [options.checkBytes] Called with the raw bytes of the BOM layer that is about to be returned. An error it throws is rethrown, and no other referrer is tried.
  * @returns {Promise<Object|undefined>} Parsed CycloneDX BOM JSON object, or `undefined` if not found
  */
-export declare function getBomWithOras(image: string, _platform?: undefined, options?: Object): Promise<Object | undefined>;
+export declare function getBomWithOras(image: string, _platform?: undefined, options?: {
+    reportErrors?: boolean;
+}): Promise<Object | undefined>;
 /**
  * Attach a CycloneDX BOM to an OCI image using the OCI 1.1 artifact manifest
  * API, pushing the BOM as a blob and linking it via the referrers API (with a

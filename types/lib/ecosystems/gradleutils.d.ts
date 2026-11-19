@@ -132,11 +132,13 @@ export declare function hasGradleInvocationFailure(): boolean;
  * @param {Object} context Call-site facts.
  * @param {string} [context.command] The redacted command that was attempted.
  * @param {string} [context.gradleVersion] The gradle version in play, when the caller knows it.
+ * @param {string} [context.outputExcerpt] The output to keep as the excerpt, when the invocation's stdout must not be stored. Defaults to the combined output.
  * @returns {void}
  */
 export declare function recordGradleInvocationFailure(result: Object, context?: {
     command?: string;
     gradleVersion?: string;
+    outputExcerpt?: string;
 }): void;
 /**
  * Read the properties of every project the dependency reports name that

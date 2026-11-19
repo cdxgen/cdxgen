@@ -39,7 +39,8 @@ export declare function splitWindowsCommand(command: string): string[];
 export declare function compilerFamilyOfName(driver: string): string;
 /**
  * The argument list of a database entry, with any compiler launcher
- * (`ccache`, `sccache`, ...) removed so the first argument is the compiler.
+ * (`ccache`, `sccache`, ...) and any environment assignment (`NAME=value`)
+ * in front of the compiler removed, so the first argument is the compiler.
  *
  * @param {Object} entry Database entry
  * @returns {string[]} Arguments

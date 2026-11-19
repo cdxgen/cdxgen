@@ -64,14 +64,16 @@ export declare function localCargoMetadataEnabled(): boolean;
  */
 export declare function getCargoRegistryDir(): string;
 /**
- * Read everything the local registry knows about one crate version.
+ * Read everything the local registry knows about one crate version. The answer
+ * is memoized for the run and shared between callers, so it must not be
+ * changed.
  *
  * @param {string} name Crate name.
  * @param {string} version Exact version.
- * @returns {CargoCacheMetadata|undefined} Metadata, or undefined when neither
- *   local source has this crate.
+ * @returns {Promise<CargoCacheMetadata|undefined>} Metadata, or undefined when
+ *   neither local source has this crate.
  */
-export declare function readCargoCacheMetadata(name: string, version: string): CargoCacheMetadata | undefined;
+export declare function readCargoCacheMetadata(name: string, version: string): Promise<CargoCacheMetadata | undefined>;
 /**
  * The manifest values of a `.crate` archive, read without extracting it.
  *

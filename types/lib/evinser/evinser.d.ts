@@ -254,7 +254,7 @@ export declare function collectGoServices(golemReport: object | null | undefined
  */
 export declare function analyzeProject(dbObjMap: Object, options: Object): Promise<Object | {
     purlLocationMap: Record<string, Set<any>>;
-    servicesMap: {};
+    servicesMap: any;
     dataFlowFrames: {};
     userDefinedTypesMap: {};
     purlSymbolMap: Record<string, Record<string, string>>;
@@ -281,7 +281,7 @@ export declare function analyzeProject(dbObjMap: Object, options: Object): Promi
     metadataProperties: any;
     cryptoComponents: any;
     cryptoGeneratePurls: any;
-    servicesMap: {};
+    servicesMap: any;
     userDefinedTypesMap: {};
     purlSymbolMap: Record<string, Record<string, string>>;
     workspaceComponent?: undefined;
@@ -303,7 +303,7 @@ export declare function analyzeProject(dbObjMap: Object, options: Object): Promi
     metadataProperties: any[];
     cryptoComponents: any[];
     cryptoGeneratePurls: {};
-    servicesMap: {};
+    servicesMap: any;
     userDefinedTypesMap: {};
     workspaceComponent: Object | undefined;
     purlSymbolMap: Record<string, Record<string, string>>;
@@ -326,7 +326,7 @@ export declare function analyzeProject(dbObjMap: Object, options: Object): Promi
     dataFlowSlicesFile: any;
     semanticsSlicesFile: any;
     purlLocationMap: Record<string, Set<any>>;
-    servicesMap: {};
+    servicesMap: any;
     dataFlowFrames: {};
     tempDir: any;
     tempDirOwned: any;
@@ -353,7 +353,7 @@ export declare function analyzeProject(dbObjMap: Object, options: Object): Promi
     purlLocationMap: Record<string, Set<any>>;
     purlSymbolMap: Record<string, Record<string, string>>;
     clearedOccurrencePurls: Set<any>;
-    servicesMap: {};
+    servicesMap: any;
     dataFlowFrames: {};
     tempDir: any;
     tempDirOwned: any;
@@ -435,12 +435,17 @@ export declare function parseSliceUsages(language: string, userDefinedTypesMap: 
  * Slices without `moduleReferences` (created by older cdxgen versions) fall
  * back to matching symbol names.
  *
+ * A slice keys its files by their absolute path on the host that created it.
+ * Occurrences name them relative to the project directory, like every other
+ * evidence source, so that no path of the scanning machine reaches the BOM.
+ *
  * @param {String} language Project language.
  * @param {Array} components Components from the input SBOM
  * @param {Object} semanticsSlice Semantic slice data
+ * @param {String} [projectPath] Project directory, for slices that do not record their `projectPath`
  * @returns {Object} Parsed metadata
  */
-export declare function parseSemanticSlices(_language: any, components: any[], semanticsSlice: Object): Object;
+export declare function parseSemanticSlices(_language: any, components: any[], semanticsSlice: Object, projectPath?: string): Object;
 /**
  * Decide whether a type name should be ignored during slice analysis.
  *

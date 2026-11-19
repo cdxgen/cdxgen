@@ -200,8 +200,12 @@ export declare function hasNpmBinCommandEvidence(allImports: object, pkg: object
 export declare function toOrganizationalEntity(entity: Object): Object | undefined;
 /**
  * Given the specified package, create a CycloneDX component and add it to the list.
+ *
+ * @param {(prefix: string, exactName?: string) => string[]} [findImportNames]
+ *   Search from `indexModuleNames(allImports)`. A caller that adds many
+ *   packages passes one, so that the imports are indexed once, not per package.
  */
-export declare function addComponent(options: any, allImports: any, pkg: any, ptype: any, compMap: any, isRootPkg?: boolean): void;
+export declare function addComponent(options: any, allImports: any, pkg: any, ptype: any, compMap: any, isRootPkg?: boolean, findImportNames?: (prefix: string, exactName?: string) => string[]): void;
 /**
  * If the author has described the module as a 'framework', the take their
  * word for it, otherwise, identify the module as a 'library'.

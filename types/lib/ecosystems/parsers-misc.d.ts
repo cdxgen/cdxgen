@@ -33,9 +33,10 @@ export declare function parseHelmYamlData(helmData: string): Object[];
  * @param {Object|Array|string} keyValueObj The object, array, or string node to inspect
  * @param {Object[]} pkgList Accumulator array that receives {image} and {service} entries
  * @param {string[]} imgList Accumulator array of image name strings already seen
+ * @param {WeakSet<Object>} [visited] Nodes that were already walked
  * @returns {string[]} The updated imgList
  */
-export declare function recurseImageNameLookup(keyValueObj: Object | any[] | string, pkgList: Object[], imgList: string[]): string[];
+export declare function recurseImageNameLookup(keyValueObj: Object | any[] | string, pkgList: Object[], imgList: string[], visited?: WeakSet<Object>): string[];
 /**
  * Parses the contents of a Dockerfile or Containerfile and returns a list of
  * base image objects referenced by FROM instructions, substituting ARG default

@@ -121,6 +121,15 @@ export declare function resetAtomNoBuildToolsSupport(): void;
  */
 export declare function globPatternsToAtomIgnoreRegex(patterns?: string[]): string | undefined;
 /**
+ * Build the test that tells whether a file path is excluded by the given
+ * atom-style glob exclude patterns. The patterns are read once, so a caller
+ * that tests many paths against one list should build the test once.
+ *
+ * @param {string[]} [patterns=[]] Glob exclude patterns.
+ * @returns {function(string): boolean} Test that is true for an excluded path.
+ */
+export declare function createGlobExcludeMatcher(patterns?: string[]): Function;
+/**
  * Determine whether a file path is excluded by the given atom-style glob
  * exclude patterns.
  *
