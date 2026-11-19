@@ -1,0 +1,21 @@
+lib/ecosystems/dotnetutils.poku.js
+  s_000e4234adb03e::t_705a4038624537 431-462
+lib/ecosystems/dotnetutils.js
+  s_000e4234adb03e::t_1f37fffd8f11d5 1-7,23-27,98-102
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "6ec1835253548399c73126c3b0862af9b3a73d3a",
+  "prompts": {},
+  "sessions": {
+    "s_000e4234adb03e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "02037648-4bba-493b-a180-b7ddf3261a96",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
