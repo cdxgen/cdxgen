@@ -1,0 +1,31 @@
+docs/SCALA_EVINSE.md
+  s_000e4234adb03e::t_f98aa3efcb4656 57-59
+lib/ecosystems/scalasem.js
+  s_000e4234adb03e::t_e80a541ff07bb8 40-45,1469-1498,1501-1504,1526,1541-1550,1553
+lib/ecosystems/scalasem.poku.js
+  s_000e4234adb03e::t_0679128990c418 8,815,842,887-1004,1221,1232-1236
+lib/inventory/deps.js
+  s_000e4234adb03e::t_7a7d33d2827f17 3-9,1222-1223
+lib/inventory/deps.poku.js
+  s_000e4234adb03e::t_cbe4c2e0047ad9 13,16,776-807
+lib/inventory/jvmLocalRepos.js
+  s_000e4234adb03e::t_56255728e2abce 382-400
+lib/inventory/jvmLocalRepos.poku.js
+  s_000e4234adb03e::t_082430e4359f5d 14,36,157-167
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "021b7c620758ed1c68ae18cae6fa046d94776f59",
+  "prompts": {},
+  "sessions": {
+    "s_000e4234adb03e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "02037648-4bba-493b-a180-b7ddf3261a96",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
