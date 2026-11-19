@@ -1,0 +1,71 @@
+docs/ENV.md
+  s_000e4234adb03e::t_8cfd5f064a3391 25,135
+docs/THREAT_MODEL.md
+  s_000e4234adb03e::t_d71422868b0223 471
+lib/cli/bomAssembly.js
+  s_000e4234adb03e::t_6dca48ad8bd012 592-612,824,920,950
+lib/cli/bomAssembly.poku.js
+  s_000e4234adb03e::t_6ef2b910f9cb6b 1463-1492
+lib/cli/index.js
+  s_000e4234adb03e::t_91fa897f722543 2606-2611
+lib/cli/index.poku.js
+  s_000e4234adb03e::t_5927b98361b262 10,1371-1418
+lib/core/activity.poku.js
+  s_000e4234adb03e::t_eac88900bf2ada 1126-1158,1254-1321
+lib/core/brotliProbe.js
+  s_000e4234adb03e::t_67d1c5972a1797 115-117,121-127,129,145,148-151,188-205
+lib/core/brotliProbe.poku.js
+  s_000e4234adb03e::t_8850500106616e 7,282-316
+lib/ecosystems/zigResolver.js
+  s_000e4234adb03e::t_82b319603f6f78 207-209
+lib/inventory/brotliDecoder.js
+  s_000e4234adb03e::t_c2d1c74a105168 8,13-18
+lib/inventory/evidenceUtils.js
+  s_000e4234adb03e::t_be46884fb7d2d4 9-13,557-607,678-679,681-682,841
+lib/inventory/evidenceUtils.poku.js
+  s_000e4234adb03e::t_51ce7ca322a079 2819-2865
+lib/inventory/osPackageResolver.js
+  s_000e4234adb03e::t_8f514646d351e5 1-2,4,266-364,368-370,388,390-391,401-403,463-468,502-504,535-542,544-545,548,554-555,558-567,571-576,616-643,645-649,661-667,670-678
+lib/inventory/osPackageResolver.poku.js
+  s_000e4234adb03e::t_6b6a7723add272 1-9,11,18,20,267-345,411-537
+lib/managers/binary.js
+  s_000e4234adb03e::t_0d84661c5bdc95 15,48-52,60,108,166,2048-2052,2601-2603,2605,2654-2662,2669-2674,2812,2817,2822-2827,2891-2895,2960,2979,3040,3046-3056,3059,3061,3284-3296,3305,3316-3319,3472-3477,3481-3489,3566-3575,3581-3583,4533-4537,4623-4642,4644,4646
+lib/managers/binary.poku.js
+  s_000e4234adb03e::t_a9f499e7883bcc 4,270-319,364-543,1779-1895,3873-3944,4010-4108,4655-4877
+lib/managers/containerutils.js
+  s_000e4234adb03e::t_974741d4c2ac03 1,37-39,58
+lib/managers/containerutils.poku.js
+  s_000e4234adb03e::t_4c7f152add122f 1-7,104-129
+lib/managers/docker.js
+  s_000e4234adb03e::t_5deec2a41ac144 7-8,18,22,1006-1018,1125,1425-1429,1431,1775-1867,1877-1878,1882-1886,1891-1920,1960-1961,2004-2008,2010,2018-2020,2124-2126,2135,2145,2163,2176,2232-2247,2273-2299,2351,2385-2388,2390,2395-2396,2398-2402,2410-2419,2424-2427,2444-2446,2457,2488-2490,2492-2497,2507,2509-2510,2520-2530,2535-2545,2602,2605,2611-2615,2927-2946,2953-2965,3044-3046,3061-3063,3110-3112
+lib/managers/docker.poku.js
+  s_000e4234adb03e::t_a4ba02cd5a1bac 3,14,19,884-926,3108-3155,3196-3378,3667-3668,3685-3686,3708-3711,3782-3828,3898-3939,4152-4225
+lib/managers/dockerConnection.js
+  s_000e4234adb03e::t_16ed6d27df50c3 2,150-157,160-165
+lib/managers/dockerConnection.poku.js
+  s_000e4234adb03e::t_ed3a023f0f3d54 6-7,25-67,108-125,141,254-325
+lib/managers/oci.js
+  s_000e4234adb03e::t_ce7698873f6df6 9,82-85,87-88,103-108,110,117-123,125-126,128,132,138,161-167,233-246,250-251,253-257,260,495-497,499,501-503,507,510,589-598
+lib/managers/oci.poku.js
+  s_000e4234adb03e::t_afa1e8d6dbd2ff 7,9-12,393-466,520-521,562-566,574-575,614-877
+lib/managers/piptree.js
+  s_000e4234adb03e::t_6e82b926ab59cf 10,25,28,68-80,89-92,95-96,100,106-109,125-130,173,186,191-199,207,220-223,225,228-233,244,281-285,287,301-310
+lib/managers/piptree.poku.js
+  s_000e4234adb03e::t_23b78cf48dba9a 1-3,10-16,55-386
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "14e6a53383489f5adb59954322df04cce5b02d8a",
+  "prompts": {},
+  "sessions": {
+    "s_000e4234adb03e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "02037648-4bba-493b-a180-b7ddf3261a96",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
