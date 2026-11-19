@@ -322,6 +322,7 @@ The toolchain version probes for formulation also run from the temporary directo
 - Remote git operations: the server runs `git clone` and `git ls-remote` without blocking its event loop, so a git host that accepts the connection and then stays silent does not stop other requests or `/health` from being answered. Each is stopped after 5 minutes in server mode (configurable via `CDXGEN_GIT_TIMEOUT_MS`, which also applies to the command line), and an HTTP peer that stays below 1000 bytes a second for a minute is dropped, together with the helper processes git started
 - Parsers of scanned project files avoid regular expressions whose work grows faster than the input. The CrewAI reader for `agents.py` and `tasks.py`, for example, reads each file once
 - Request `exclude` patterns may not use braces, run past 512 characters or number more than 128, since every pattern is matched against every file the scan walks
+- A request's `filter` and `only` lists may each hold at most 128 terms, since every term is searched for in every component of the BOM. A config file in the scanned directory is held to the same limit, and the terms past it are dropped with a warning
 
 **Residual risk:** Medium — no built-in rate limiting or concurrent request limits. The server is designed for trusted internal use. Deploy behind a reverse proxy for production exposure.
 
