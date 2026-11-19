@@ -265,6 +265,8 @@ cdxgen resolves the TEI via `/.well-known/tea` discovery (HTTPS only, per the sp
 
 Every checksum a Collection declares must match, and an artifact whose checksums all use algorithms this client cannot compute is rejected rather than merged unverified: remote content whose integrity was asserted and then not checked is worse than fetching nothing. An artifact that declares no checksum at all is a publisher decision, and is merged with a warning. Documents over 5 MiB are skipped, as with PEP 770. At most 32 BOM documents are downloaded from one Collection, and at most 100,000 components and dependencies are merged from them; further documents are skipped with a warning. The `cdx:tea:source` label is the artifact URL without its query and fragment when that fits in 256 characters, and the artifact name otherwise.
 
+A download URL may be pre-signed or carry userinfo. Warnings, `cdx:tea:source` and the citation name the artifact by scheme, host and path only.
+
 The TEA token (`--tea-token` or `TEA_TOKEN`) goes only to the origin of the TEA server that the TEI's domain advertises in its `/.well-known/tea` document. The well-known document itself is public and is requested without the token. The discovery request, and the Collection and artifact requests, carry the token only when their URL has that origin: a server that only the discovery response names, and an artifact that a Collection places on another host, are contacted without it. When `--tea-fetch` comes from a config file in the working directory rather than the command line or `CDXGEN_TEA_FETCH`, no request of the fetch carries the token, because the TEI then comes from the scanned project.
 
 ### Publishing (`--tea-publish`)
