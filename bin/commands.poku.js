@@ -838,6 +838,59 @@ describe("JSF signing and verification commands", () => {
 });
 
 describe("cdxgen path allowlist", () => {
+  it("checks every entry of a comma-separated scan path", async () => {
+    const root = join(workDir, "comma-allowlist");
+    const allowed = join(root, "allowed");
+    const outside = join(root, "outside");
+    const dirs = [join(allowed, "one"), join(allowed, "two"), outside];
+    for (const dir of dirs) {
+      mkdirSync(dir, { recursive: true });
+      writeFileSync(
+        join(dir, "package.json"),
+        JSON.stringify({ name: "demo", version: "1.0.0", dependencies: {} }),
+      );
+    }
+    const cdxgen = (sourcePath, output) =>
+      run(
+        [
+          binFor("cdxgen"),
+          "-t",
+          "js",
+          sourcePath,
+          "--no-banner",
+          "--no-install-deps",
+          "-o",
+          output,
+        ],
+        {
+          env: {
+            ...process.env,
+            FETCH_LICENSE: "false",
+            CDXGEN_ALLOWED_PATHS: allowed,
+          },
+        },
+      );
+    const refused = await cdxgen(
+      `${dirs[0]},${outside}`,
+      join(allowed, "refused.json"),
+    );
+    assert.strictEqual(refused.status, 1, refused.stderr);
+    assert.match(refused.stderr, /Path is not allowed as per/);
+    assert.ok(!existsSync(join(allowed, "refused.json")));
+    const both = await cdxgen(
+      `${dirs[0]},${dirs[1]}`,
+      join(allowed, "both.json"),
+    );
+    assert.strictEqual(both.status, 0, both.stderr);
+    assert.ok(existsSync(join(allowed, "both.json")));
+    const missing = await cdxgen(
+      `${dirs[0]},${join(allowed, "missing")}`,
+      join(allowed, "missing.json"),
+    );
+    assert.strictEqual(missing.status, 0, missing.stderr);
+    assert.match(`${missing.stdout}${missing.stderr}`, /does not exist/);
+  });
+
   it("refuses a scan path that leaves CDXGEN_ALLOWED_PATHS through a link", async () => {
     const allowed = join(workDir, "allowed");
     const outside = join(workDir, "outside");
