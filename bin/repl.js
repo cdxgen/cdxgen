@@ -633,6 +633,17 @@ if (process.argv.length > 2) {
 }
 
 const cdxgenRepl = repl.start(options);
+// A command that takes a while, such as .create, can end after the input has
+// closed, for example when the commands were piped in. Node.js ignores a prompt
+// on a closed interface and Deno throws, so the prompt is shown only while the
+// interface is open.
+const displayReplPrompt = cdxgenRepl.displayPrompt;
+cdxgenRepl.displayPrompt = function (...promptArgs) {
+  if (this.closed) {
+    return;
+  }
+  return displayReplPrompt.apply(this, promptArgs);
+};
 if (historyFile) {
   cdxgenRepl.setupHistory(
     readEnvironmentVariable("CDXGEN_REPL_HISTORY") || historyFile,
