@@ -1834,6 +1834,40 @@ describe("JSS (ITU-T X.590) signing and verification commands at 2.0", () => {
     assert.strictEqual(readJson("replaced.json").signatures.length, 1);
   });
 
+  it("cdx-sign refuses a nested member shaped like a BOM", async () => {
+    // Signed on its own, such a member would carry a signature that
+    // cdx-verify accepts as a root signature once the member is cut out.
+    const { serialNumber, ...bomShaped } = bom20;
+    writeFileSync(
+      file("bom-shaped-annotation.json"),
+      JSON.stringify({ ...bom20, annotations: [bomShaped] }),
+    );
+    const refused = await signWith(
+      "bom-shaped-annotation.json",
+      "bom-shaped-annotation.json",
+      "alice",
+    );
+    assert.notStrictEqual(refused.status, 0);
+    assert.match(
+      refused.stderr,
+      /Cannot sign annotations\[0\]: it carries specFormat, specVersion, which only the root of a BOM may hold/,
+    );
+    assert.strictEqual(
+      readJson("bom-shaped-annotation.json").signatures,
+      undefined,
+    );
+    const rootOnly = await signWith(
+      "bom-shaped-annotation.json",
+      "bom-shaped-root-only.json",
+      "alice",
+      "--no-sign-annotations",
+    );
+    assert.strictEqual(rootOnly.status, 0, rootOnly.stderr);
+    const document = readJson("bom-shaped-root-only.json");
+    assert.strictEqual(document.signatures.length, 1);
+    assert.strictEqual(document.annotations[0].signatures, undefined);
+  });
+
   it("derives the algorithm from the key and refuses mismatches", async () => {
     const p384 = await signWith("bom20.json", "p384.json", "p384");
     assert.strictEqual(p384.status, 0, p384.stderr);
