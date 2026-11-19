@@ -1,0 +1,19 @@
+lib/cli/index.poku.js
+  s_8bf531d441928a::t_319d39584897d0 1653-1655
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "9020fc296be6b83cdd124c6b678f06114912cb99",
+  "prompts": {},
+  "sessions": {
+    "s_8bf531d441928a": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "52048f93-72ee-4a3d-a58c-dd328ee0eb8b",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
