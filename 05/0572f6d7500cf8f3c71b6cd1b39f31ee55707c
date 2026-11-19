@@ -1,0 +1,21 @@
+lib/inventory/mavenCentralMirror.js
+  s_000e4234adb03e::t_1e8fa328c8d648 1,134-138,282
+lib/inventory/mavenCentralMirror.poku.js
+  s_000e4234adb03e::t_cf616bad4b2652 179-207
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "050572f6d7500cf8f3c71b6cd1b39f31ee55707c",
+  "prompts": {},
+  "sessions": {
+    "s_000e4234adb03e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "02037648-4bba-493b-a180-b7ddf3261a96",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
