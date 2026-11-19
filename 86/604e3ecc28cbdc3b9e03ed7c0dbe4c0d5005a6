@@ -1,0 +1,21 @@
+lib/inventory/unicodeScan.js
+  s_000e4234adb03e::t_71736c4d81bd03 1-2,8-12,20-25,70
+lib/inventory/unicodeScan.poku.js
+  s_000e4234adb03e::t_67b482a184c147 18-29,71,77-89
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "86604e3ecc28cbdc3b9e03ed7c0dbe4c0d5005a6",
+  "prompts": {},
+  "sessions": {
+    "s_000e4234adb03e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "02037648-4bba-493b-a180-b7ddf3261a96",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
