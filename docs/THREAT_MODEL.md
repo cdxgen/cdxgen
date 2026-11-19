@@ -142,6 +142,7 @@ The toolchain version probes for formulation also run from the temporary directo
 - `safeExistsSync` and `safeMkdirSync` check permissions before operations
 - Path options in a config file, whether spelled out or set through an alias such as `o`, must resolve inside the config's directory after symbolic links are resolved
 - `safeWriteSync()` does not write through a symbolic link in the last component of the path. A link such as a `bom.json` committed to the scanned repository is replaced with a regular file, and the open uses `O_NOFOLLOW` where the platform has it. Node's permission model follows such links to paths outside its grants, so this also applies in secure mode. Paths under `/dev` and `/proc`, such as `/dev/stdout`, are written as given, and links in parent directories are still followed
+- `safeChmodSync()` changes the mode of regular files only and does nothing in a dry run. A `gradlew`, `mvnw` or `mill` committed to the scanned repository as a symbolic link is not made executable, so the file or directory it points at keeps its mode; the mode is set through a descriptor opened with `O_NOFOLLOW` where the platform has it
 
 **Residual risk:** Low in secure mode, Medium in default mode.
 
