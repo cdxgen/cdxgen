@@ -72,7 +72,7 @@ jobs:
           VALUE
           EOF
       - name: Build image
-        uses: ./.github/actions/build-docker-image
+        uses: $/.github/actions/build-docker-image
         with:
           dockerfile: ${{ matrix.imagefile }}
           docker-args: |
