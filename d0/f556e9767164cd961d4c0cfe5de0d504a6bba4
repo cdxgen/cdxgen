@@ -1,0 +1,35 @@
+lib/audit/index.js
+  s_8bf531d441928a::t_319d39584897d0 268-270
+docs/CDX_AUDIT.md
+  s_8bf531d441928a::t_319d39584897d0 200
+lib/stages/postgen/auditBom.poku.js
+  s_8bf531d441928a::t_067090bfc9a6dd 5,7992-8043
+  s_8bf531d441928a::t_4c78c66d3b340d 8044
+bin/auditPipe.poku.js
+  s_8bf531d441928a::t_1c9c1fd94acba8 8,20-37,41,66,82,100
+  s_8bf531d441928a::t_319d39584897d0 17-19,67
+bin/audit.js
+  s_8bf531d441928a::t_319d39584897d0 29
+lib/audit/index.poku.js
+  s_8bf531d441928a::t_319d39584897d0 362,428
+  s_8bf531d441928a::t_ed60890b0ede5d 470
+lib/stages/postgen/auditBom.js
+  s_8bf531d441928a::t_319d39584897d0 193-208,227-228,267-268
+  s_8bf531d441928a::t_544ddcc3fc7319 192
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "d0f556e9767164cd961d4c0cfe5de0d504a6bba4",
+  "prompts": {},
+  "sessions": {
+    "s_8bf531d441928a": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "52048f93-72ee-4a3d-a58c-dd328ee0eb8b",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": null
+    }
+  }
+}
