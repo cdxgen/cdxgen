@@ -1,0 +1,23 @@
+docs/ENV.md
+  s_000e4234adb03e::t_8fb881b1692288 265
+lib/ecosystems/rubyGemHostApiKey.poku.js
+  s_000e4234adb03e::t_a43feb90155d4c 1-125
+lib/ecosystems/rubyutils.js
+  s_000e4234adb03e::t_17b6cb876c7598 1167-1192,1213,1216-1217,1262,1287,1306,1321,1328,1341
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "8afd8a8a56c4f7d31c9d43f7d6bf12fbc7be39d9",
+  "prompts": {},
+  "sessions": {
+    "s_000e4234adb03e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "02037648-4bba-493b-a180-b7ddf3261a96",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
