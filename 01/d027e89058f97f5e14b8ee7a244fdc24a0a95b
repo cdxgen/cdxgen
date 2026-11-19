@@ -1,0 +1,37 @@
+lib/ecosystems/denoutils.js
+  s_000e4234adb03e::t_c786c6f6c764b9 23,531-532,556-560
+lib/ecosystems/denoutils.poku.js
+  s_000e4234adb03e::t_5158bdd52e8e04 578-614
+lib/ecosystems/ecosystems.js
+  s_000e4234adb03e::t_de65682a9b8735 83-91,244-248,250-251,254,257,259,569-570,572,1305,1373-1374,1377-1380,1458-1460,1675-1691,1772-1775,2859-2862,3213-3216,4050-4053,4344-4346
+lib/ecosystems/npmRegistrySkips.poku.js
+  s_000e4234adb03e::t_612f7aa6e9f4fe 175-206
+lib/ecosystems/registryPathSteering.poku.js
+  s_000e4234adb03e::t_acd19c0c32fbd8 1-157
+lib/ecosystems/rubyutils.js
+  s_000e4234adb03e::t_450d21c7fa5c26 34,1134-1139,1146,1214,1238
+lib/inventory/registrySegments.js
+  s_000e4234adb03e::t_4ebd8638a10dc2 1-144
+lib/inventory/registrySegments.poku.js
+  s_000e4234adb03e::t_f82597bef6105a 1-126
+lib/inventory/source.js
+  s_000e4234adb03e::t_54a1886d2575ae 35-44,1470-1503,1519-1524,1709-1711
+lib/inventory/source.poku.js
+  s_000e4234adb03e::t_189d8636262ac6 119-230
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "01d027e89058f97f5e14b8ee7a244fdc24a0a95b",
+  "prompts": {},
+  "sessions": {
+    "s_000e4234adb03e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "02037648-4bba-493b-a180-b7ddf3261a96",
+        "model": "unknown"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
