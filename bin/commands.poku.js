@@ -1,10 +1,12 @@
 import { execFileSync, spawn } from "node:child_process";
 import crypto from "node:crypto";
 import {
+  existsSync,
   mkdirSync,
   mkdtempSync,
   readFileSync,
   rmSync,
+  symlinkSync,
   writeFileSync,
 } from "node:fs";
 import http from "node:http";
@@ -877,6 +879,117 @@ describe("JSF signing and verification commands", () => {
   });
 });
 
+describe("cdxgen path allowlist", () => {
+  it("checks every entry of a comma-separated scan path", async () => {
+    const root = join(workDir, "comma-allowlist");
+    const allowed = join(root, "allowed");
+    const outside = join(root, "outside");
+    const dirs = [join(allowed, "one"), join(allowed, "two"), outside];
+    for (const dir of dirs) {
+      mkdirSync(dir, { recursive: true });
+      writeFileSync(
+        join(dir, "package.json"),
+        JSON.stringify({ name: "demo", version: "1.0.0", dependencies: {} }),
+      );
+    }
+    const cdxgen = (sourcePath, output) =>
+      run(
+        [
+          binFor("cdxgen"),
+          "-t",
+          "js",
+          sourcePath,
+          "--no-banner",
+          "--no-install-deps",
+          "-o",
+          output,
+        ],
+        {
+          env: {
+            ...process.env,
+            FETCH_LICENSE: "false",
+            CDXGEN_ALLOWED_PATHS: allowed,
+          },
+        },
+      );
+    const refused = await cdxgen(
+      `${dirs[0]},${outside}`,
+      join(allowed, "refused.json"),
+    );
+    assert.strictEqual(refused.status, 1, refused.stderr);
+    assert.match(refused.stderr, /Path is not allowed as per/);
+    assert.ok(!existsSync(join(allowed, "refused.json")));
+    const both = await cdxgen(
+      `${dirs[0]},${dirs[1]}`,
+      join(allowed, "both.json"),
+    );
+    assert.strictEqual(both.status, 0, both.stderr);
+    assert.ok(existsSync(join(allowed, "both.json")));
+    const missing = await cdxgen(
+      `${dirs[0]},${join(allowed, "missing")}`,
+      join(allowed, "missing.json"),
+    );
+    assert.strictEqual(missing.status, 0, missing.stderr);
+    assert.match(`${missing.stdout}${missing.stderr}`, /does not exist/);
+  });
+
+  it("refuses a scan path that leaves CDXGEN_ALLOWED_PATHS through a link", async () => {
+    const allowed = join(workDir, "allowed");
+    const outside = join(workDir, "outside");
+    for (const project of [
+      join(allowed, "project"),
+      join(outside, "project"),
+    ]) {
+      mkdirSync(project, { recursive: true });
+      writeFileSync(
+        join(project, "package.json"),
+        JSON.stringify({ name: "demo", version: "1.0.0", dependencies: {} }),
+      );
+    }
+    // Junctions need no extra privileges on Windows and act as directory
+    // symlinks elsewhere.
+    symlinkSync(outside, join(allowed, "link-out"), "junction");
+    const cdxgen = (sourcePath, output) =>
+      run(
+        [
+          binFor("cdxgen"),
+          "-t",
+          "js",
+          sourcePath,
+          "--no-banner",
+          "--no-install-deps",
+          "-o",
+          output,
+        ],
+        {
+          env: {
+            ...process.env,
+            FETCH_LICENSE: "false",
+            CDXGEN_ALLOWED_PATHS: allowed,
+          },
+        },
+      );
+
+    const inside = await cdxgen(
+      join(allowed, "project"),
+      join(allowed, "inside.json"),
+    );
+    assert.strictEqual(inside.status, 0, inside.stderr);
+    assert.ok(existsSync(join(allowed, "inside.json")));
+
+    for (const sourcePath of [
+      join(outside, "project"),
+      join(allowed, "link-out"),
+      join(allowed, "link-out", "project"),
+    ]) {
+      const refused = await cdxgen(sourcePath, join(allowed, "refused.json"));
+      assert.strictEqual(refused.status, 1, sourcePath);
+      assert.match(refused.stderr, /Path is not allowed as per/);
+      assert.ok(!existsSync(join(allowed, "refused.json")), sourcePath);
+    }
+  });
+});
+
 describe("JSF verification refuses ambiguous or partial signatures", () => {
   const dir = mkdtempSync(join(tmpdir(), "cdxgen-jsf-hardening-"));
   process.on("exit", () => rmSync(dir, { recursive: true, force: true }));
@@ -1362,6 +1475,95 @@ describe("JSF verification refuses ambiguous or partial signatures", () => {
     );
   });
 
+  it("cdx-sign does not co-sign a BOM whose root signature was removed", async () => {
+    const signed = await signedByRsa("cosign-rootless.json");
+    assert.ok(signed.components[0].signature);
+    delete signed.signature;
+    signed.components[0].version = "9.9.9";
+    writeJson("cosign-rootless.json", signed);
+    // Nested signatures do not cover the rest of the BOM.
+    const metadata = await signedByRsa("cosign-rootless-metadata.json");
+    delete metadata.signature;
+    metadata.metadata = { timestamp: "2031-01-01T00:00:00Z" };
+    writeJson("cosign-rootless-metadata.json", metadata);
+    // An attacker who removes the root signature can remove the others too.
+    const unsigned = structuredClone(signed);
+    delete unsigned.components[0].signature;
+    writeJson("cosign-unsigned.json", unsigned);
+    const cosign = (input, ...args) =>
+      run([
+        binFor("sign"),
+        "-i",
+        file(input),
+        "-k",
+        file("ed25519-private.pem"),
+        "-a",
+        "Ed25519",
+        ...args,
+      ]);
+    const checked = ["--verify-existing-with", file("rsa-public.pem")];
+
+    for (const mode of ["signers", "chain"]) {
+      for (const [input, extra] of [
+        ["cosign-rootless.json", []],
+        ["cosign-rootless.json", ["--no-sign-components"]],
+        ["cosign-rootless-metadata.json", []],
+      ]) {
+        const before = readFileSync(file(input), "utf-8");
+        const refused = await cosign(
+          input,
+          "--mode",
+          mode,
+          ...checked,
+          ...extra,
+        );
+        assert.notStrictEqual(refused.status, 0, `${mode} ${input} ${extra}`);
+        assert.match(refused.stderr, /the BOM has no root signature/);
+        assert.strictEqual(readFileSync(file(input), "utf-8"), before);
+      }
+      const refused = await cosign(
+        "cosign-unsigned.json",
+        "--mode",
+        mode,
+        ...checked,
+      );
+      assert.notStrictEqual(refused.status, 0, mode);
+      assert.match(
+        refused.stderr,
+        /the BOM has no signature to check with --verify-existing-with/,
+      );
+    }
+
+    const noKey = await cosign("cosign-rootless.json", "--mode", "signers");
+    assert.notStrictEqual(noKey.status, 0);
+    assert.match(noKey.stderr, /the BOM has no root signature/);
+
+    const first = await cosign(
+      "cosign-unsigned.json",
+      "-o",
+      file("cosign-first.json"),
+      "--mode",
+      "signers",
+    );
+    assert.strictEqual(first.status, 0, first.stderr);
+    assert.strictEqual(
+      readJson("cosign-first.json").signature.signers.length,
+      1,
+    );
+
+    const allowed = await cosign(
+      "cosign-rootless.json",
+      "--mode",
+      "signers",
+      "--allow-unverified-history",
+    );
+    assert.strictEqual(allowed.status, 0, allowed.stderr);
+    assert.match(
+      allowed.stderr,
+      /Warning: adding a signers signature although the BOM has no root signature/,
+    );
+  });
+
   it("cdx-verify accepts the BOMs signed by cdxgen 13.3.0", async () => {
     const fixtures = join(process.cwd(), "test", "data", "jsf");
     const check = async (name, ...args) => {
@@ -1803,6 +2005,133 @@ describe("JSS (ITU-T X.590) signing and verification commands at 2.0", () => {
       "--require-all",
     );
     assert.strictEqual(both.status, 0, both.stdout);
+  });
+
+  it("refuses history that could not be checked", async () => {
+    await signWith(
+      "bom20.json",
+      "alice-unchecked.json",
+      "alice",
+      "--no-sign-components",
+    );
+    const signed = readFileSync(file("alice-unchecked.json"), "utf-8");
+    // verifyJss() reports no result for an object it cannot canonicalize
+    // (here a member nested deeper than the canonicalizer recurses) or for
+    // one with more signature entries than it checks.
+    const depth = 100000;
+    writeFileSync(
+      file("unchecked-deep.json"),
+      `${signed.slice(0, signed.lastIndexOf("}"))},"properties":${'{"a":'.repeat(depth)}1${"}".repeat(depth)}}`,
+    );
+    const many = JSON.parse(signed);
+    many.signatures = Array(33).fill(many.signatures[0]);
+    writeFileSync(file("unchecked-many.json"), JSON.stringify(many));
+    const append = (input, mode) =>
+      signWith(
+        input,
+        "unchecked-out.json",
+        "bob",
+        "--mode",
+        mode,
+        "--verify-existing-with",
+        file("alice-public.pem"),
+      );
+    for (const mode of ["chain", "signers"]) {
+      const refused = await append("unchecked-deep.json", mode);
+      assert.notStrictEqual(refused.status, 0, mode);
+      assert.match(
+        refused.stderr,
+        /signatures\[0\] \(Ed25519\): Maximum call stack size exceeded/,
+        mode,
+      );
+    }
+    const refused = await append("unchecked-many.json", "signers");
+    assert.notStrictEqual(refused.status, 0);
+    assert.match(
+      refused.stderr,
+      /signatures\[32\] \(Ed25519\): The signatures list has 33 entries/,
+    );
+  });
+
+  it("does not co-sign a BOM whose root signatures were removed", async () => {
+    await signWith("bom20.json", "alice-rootless.json", "alice");
+    const document = readJson("alice-rootless.json");
+    assert.ok(document.inventories[0].components[0].signatures.length);
+    document.inventories[0].components[0].version = "6.6.6";
+    const inputs = {
+      "rootless.json": { ...document, signatures: undefined },
+      "rootless-empty.json": { ...document, signatures: [] },
+      // An attacker who removes the root signatures can remove the others too.
+      "rootless-unsigned.json": { ...bom20 },
+    };
+    for (const [name, value] of Object.entries(inputs)) {
+      writeFileSync(file(name), JSON.stringify(value));
+    }
+    const checked = ["--verify-existing-with", file("alice-public.pem")];
+
+    for (const mode of ["signers", "chain"]) {
+      for (const [input, extra, reason] of [
+        ["rootless.json", [], /the BOM has no root signature/],
+        [
+          "rootless.json",
+          ["--no-sign-components"],
+          /the BOM has no root signature/,
+        ],
+        ["rootless-empty.json", [], /the BOM has no root signature/],
+        [
+          "rootless-unsigned.json",
+          [],
+          /the BOM has no signature to check with --verify-existing-with/,
+        ],
+      ]) {
+        const refused = await signWith(
+          input,
+          "rootless-out.json",
+          "bob",
+          "--mode",
+          mode,
+          ...checked,
+          ...extra,
+        );
+        assert.notStrictEqual(refused.status, 0, `${mode} ${input} ${extra}`);
+        assert.match(refused.stderr, reason);
+        assert.throws(() => readFileSync(file("rootless-out.json")));
+      }
+    }
+
+    const noKey = await signWith(
+      "rootless.json",
+      "rootless-out.json",
+      "bob",
+      "--mode",
+      "signers",
+    );
+    assert.notStrictEqual(noKey.status, 0);
+    assert.match(noKey.stderr, /the BOM has no root signature/);
+
+    const first = await signWith(
+      "rootless-unsigned.json",
+      "rootless-first.json",
+      "bob",
+      "--mode",
+      "chain",
+    );
+    assert.strictEqual(first.status, 0, first.stderr);
+    assert.match(first.stdout, /chain \(first signature\)/);
+
+    const allowed = await signWith(
+      "rootless.json",
+      "rootless-out.json",
+      "bob",
+      "--mode",
+      "signers",
+      "--allow-unverified-history",
+    );
+    assert.strictEqual(allowed.status, 0, allowed.stderr);
+    assert.match(
+      allowed.stderr,
+      /Warning: adding a signers signature although the BOM has no root signature/,
+    );
   });
 
   it("countersigns the only root signature in chain mode (clause 7.2)", async () => {

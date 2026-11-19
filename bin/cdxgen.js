@@ -137,8 +137,11 @@ import { importProtobomModule } from "../lib/inventory/protobomLoader.js";
 import {
   cleanupSourceDir,
   findGitRefForPurlVersion,
+  getSourceBaseName,
+  getSourceLabel,
   gitClone,
   isAllowedPath,
+  isAllowedRealPath,
   isAllowedWinPath,
   maybePurlSource,
   maybeRemotePath,
@@ -146,6 +149,7 @@ import {
   resolveGitUrlFromPurl,
   resolvePurlSourceDirectory,
   sanitizeRemoteUrlForLogs,
+  splitSourcePaths,
   validateAndRejectGitSource,
   validatePurlSource,
 } from "../lib/inventory/source.js";
@@ -1048,9 +1052,16 @@ if (args.tui && !readEnvironmentVariable("CI")) {
       "The terminal user interface requires the cdxui plugin binary, which is not installed for this platform.\nInstall @cdxgen/cdxgen-plugins-bin, or set CDXUI_CMD to a cdxui binary, then retry. Continuing without the interface.",
     );
   } else {
-    const cdxgenArgs = process.argv
-      .slice(2)
-      .filter((a) => a !== "--tui" && !a.startsWith("--tui="));
+    // The cdxgen that cdxui starts must not open the interface again. It is
+    // told so with --no-tui, because dropping --tui leaves a CDXGEN_TUI it
+    // inherits in force. --no-tui comes first, so a `--` among the operator's
+    // arguments does not turn it into a path.
+    const cdxgenArgs = [
+      "--no-tui",
+      ...process.argv
+        .slice(2)
+        .filter((a) => a !== "--tui" && !a.startsWith("--tui=")),
+    ];
     // Arguments cross the process boundary separated by the unit separator
     // rather than by spaces: a scan path may legitimately contain a space, and
     // re-splitting on whitespace would silently turn it into two paths.
@@ -1120,14 +1131,19 @@ if (!sourceInputIsRemoteOrPurl && args._?.[0]) {
     args._[0] = filePath;
   }
 }
+// Activity records and messages name a git URL or purl source without its
+// credentials; the raw value is kept for resolving and cloning.
+const sourcePathForLogs = getSourceLabel(filePath);
 if (!args.projectName) {
   if (filePath !== ".") {
-    args.projectName = basename(filePath);
+    args.projectName = getSourceBaseName(filePath);
   } else {
     args.projectName = basename(resolve(filePath));
   }
 }
-thoughtLog(`Let's try to generate a CycloneDX BOM for the path '${filePath}'`);
+thoughtLog(
+  `Let's try to generate a CycloneDX BOM for the path '${sourcePathForLogs}'`,
+);
 if (
   !sourceInputIsRemoteOrPurl &&
   (filePath.includes(" ") || filePath.includes("\r") || filePath.includes("\n"))
@@ -1213,7 +1229,7 @@ const cliActivityProjectType = Array.isArray(options.projectType)
   : options.projectType;
 const cliActivityContext = {
   projectType: cliActivityProjectType,
-  sourcePath: filePath,
+  sourcePath: sourcePathForLogs,
 };
 setDryRunMode(options.dryRun);
 setActivityContext(cliActivityContext);
@@ -1438,12 +1454,12 @@ if (options.bomAudit && !options.bomAuditCategories) {
 
 setActivityContext({
   projectType: "environment",
-  sourcePath: filePath,
+  sourcePath: sourcePathForLogs,
 });
 const envAuditFindings = auditEnvironment(process.env, options);
 setActivityContext(cliActivityContext);
 if (options.envAudit) {
-  displaySelfThreatModel(filePath, config, options, envAuditFindings);
+  displaySelfThreatModel(sourcePathForLogs, config, options, envAuditFindings);
 }
 
 /**
@@ -1962,7 +1978,7 @@ const writeCycloneDxOutput = (jsonFile, bomJson, options) => {
       kind: "read",
       reason: "Dry run mode blocks direct Hugging Face metadata resolution.",
       status: "blocked",
-      target: sourcePath,
+      target: getSourceLabel(sourcePath),
     });
     console.warn("Dry run mode skips direct Hugging Face metadata resolution.");
     printActivitySummary(options.activityReport);
@@ -1974,7 +1990,7 @@ const writeCycloneDxOutput = (jsonFile, bomJson, options) => {
       reason:
         "Dry run mode blocks package-url source resolution and repository cloning.",
       status: "blocked",
-      target: sourcePath,
+      target: getSourceLabel(sourcePath),
     });
     console.warn("Dry run mode skips purl source resolution.");
     printActivitySummary(options.activityReport);
@@ -2012,13 +2028,29 @@ const writeCycloneDxOutput = (jsonFile, bomJson, options) => {
     );
     process.exit(1);
   }
-  if (!maybeRemotePath(sourcePath) && !isAllowedPath(resolve(sourcePath))) {
+  // A comma-separated list names several directories, and every entry has to
+  // pass the allowlist. Check where a symlinked path really points as well,
+  // as the server does, so a link inside an allowed directory cannot take the
+  // scan outside it.
+  const localSourcePaths =
+    maybeRemotePath(sourcePath) || maybePurlSource(sourcePath)
+      ? [sourcePath]
+      : splitSourcePaths(sourcePath);
+  if (
+    !maybeRemotePath(sourcePath) &&
+    localSourcePaths.some(
+      (entry) => !isAllowedPath(resolve(entry)) || !isAllowedRealPath(entry),
+    )
+  ) {
     console.error(
       "Path is not allowed as per CDXGEN_ALLOWED_PATHS/CDXGEN_SERVER_ALLOWED_PATHS.",
     );
     process.exit(1);
   }
-  if (!maybeRemotePath(sourcePath) && !isAllowedWinPath(resolve(sourcePath))) {
+  if (
+    !maybeRemotePath(sourcePath) &&
+    localSourcePaths.some((entry) => !isAllowedWinPath(resolve(entry)))
+  ) {
     console.error("Path is not allowed on this platform.");
     process.exit(1);
   }
@@ -2044,6 +2076,20 @@ const writeCycloneDxOutput = (jsonFile, bomJson, options) => {
     return;
   }
   let srcDir = sourcePath;
+  // Entries of a comma-separated list that exist; they are scanned together
+  let scanTarget;
+  if (localSourcePaths.length > 1) {
+    const existing = localSourcePaths.filter((entry) => safeExistsSync(entry));
+    for (const entry of localSourcePaths) {
+      if (!existing.includes(entry)) {
+        console.warn(`Skipping '${entry}', which does not exist.`);
+      }
+    }
+    if (existing.length) {
+      srcDir = existing[0];
+      scanTarget = existing.length > 1 ? existing : undefined;
+    }
+  }
   let cleanup = false;
   let gitRef = options.gitBranch;
   if (maybeRemotePath(sourcePath) && !directHuggingFaceSource) {
@@ -2052,7 +2098,7 @@ const writeCycloneDxOutput = (jsonFile, bomJson, options) => {
         kind: "clone",
         reason: "Dry run mode blocks cloning git URL sources.",
         status: "blocked",
-        target: sourcePath,
+        target: getSourceLabel(sourcePath),
       });
       console.warn("Dry run mode skips remote git source cloning.");
       printActivitySummary(options.activityReport);
@@ -2105,7 +2151,9 @@ const writeCycloneDxOutput = (jsonFile, bomJson, options) => {
   if (!hasHbomProjectType(options.projectType)) {
     const prepPhase = defaultUi.phase("Preparing environment");
     try {
-      prepareEnv(srcDir, options);
+      for (const entry of scanTarget || [srcDir]) {
+        prepareEnv(entry, options);
+      }
       prepPhase.succeed("");
     } catch (err) {
       if (isDeferredFailOnError(err)) {
@@ -2143,7 +2191,7 @@ const writeCycloneDxOutput = (jsonFile, bomJson, options) => {
   let bomNSData;
   const bomPhase = defaultUi.phase("Generating BOM");
   try {
-    bomNSData = (await createBom(srcDir, options)) || {};
+    bomNSData = (await createBom(scanTarget || srcDir, options)) || {};
     bomPhase.succeed(
       `${bomNSData?.bomJson?.components?.length || 0} components`,
     );
@@ -2407,7 +2455,7 @@ const writeCycloneDxOutput = (jsonFile, bomJson, options) => {
     if (!internalCycloneDxInputPath) {
       internalCycloneDxInputPath = join(
         getTmpDir(),
-        `cdxgen-${Date.now()}-${basename(filePath)}.cdx.json`,
+        `cdxgen-${Date.now()}-${basename(srcDir)}.cdx.json`,
       );
     }
     if (isDryRun) {
@@ -2445,14 +2493,17 @@ const writeCycloneDxOutput = (jsonFile, bomJson, options) => {
       if (!options.evinseOutput) {
         options.evinseOutput = options.output;
       }
+      // The evidence step works on the directory that was scanned. For a git
+      // URL or purl source that is the clone, not the command-line argument,
+      // which names no directory and can carry credentials.
       setActivityContext({
         projectType: "evinse",
-        sourcePath: filePath,
+        sourcePath: srcDir,
       });
       const evinserModule = await import("../lib/evinser/evinser.js");
       if (!options.projectType) {
         const evidenceLanguage = evinserModule.defaultEvidenceLanguage(
-          filePath,
+          srcDir,
           getInternalBom(bomNSData),
           options,
         );
@@ -2480,7 +2531,7 @@ const writeCycloneDxOutput = (jsonFile, bomJson, options) => {
       } else {
         const evinseOptions = evinserModule.buildEvinseOptions(
           options,
-          args,
+          { ...args, _: [srcDir] },
           internalCycloneDxInputPath || options.output,
         );
         // The analysis reads the in-memory 1.x model. At 2.0 that model is
@@ -2708,7 +2759,7 @@ const writeCycloneDxOutput = (jsonFile, bomJson, options) => {
       bomNSData.bomJson = result.bomJson;
       console.log(result.jsonPayload);
     } else {
-      console.log("Unable to produce BOM for", filePath);
+      console.log("Unable to produce BOM for", sourcePathForLogs);
       console.log("Try running the command with -t <type> or -r argument");
     }
   }
