@@ -1,0 +1,21 @@
+lib/ecosystems/parsers-dotnet.js
+  s_000e4234adb03e::t_8994ac9b8ec32f 1723-1725
+lib/ecosystems/parsers-dotnet.poku.js
+  s_000e4234adb03e::t_c859b571bd5475 2157-2183
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "e8b35c5ed930f477b1699af98b1b1344fa6f5e44",
+  "prompts": {},
+  "sessions": {
+    "s_000e4234adb03e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "02037648-4bba-493b-a180-b7ddf3261a96",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
