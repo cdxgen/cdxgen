@@ -144,6 +144,7 @@ The toolchain version probes for formulation also run from the temporary directo
 - `safeExistsSync` and `safeMkdirSync` check permissions before operations
 - Path options in a config file, whether spelled out or set through an alias such as `o`, must resolve inside the config's directory after symbolic links are resolved. A value with a `..` segment is refused, because the file system follows a link before it takes the parent
 - `safeWriteSync()` does not write through a symbolic link in the last component of the path. A link such as a `bom.json` committed to the scanned repository is replaced with a regular file, and the open uses `O_NOFOLLOW` where the platform has it. Node's permission model follows such links to paths outside its grants, so this also applies in secure mode. Paths under `/dev` and `/proc`, such as `/dev/stdout`, are written as given, and links in parent directories are still followed
+- The evidence analyzers do not write through such a link either. golem and rusi write their report into a temporary directory of the run, and cdxgen copies it to the `--semantics-slices-file` path with `safeWriteSync()`. atom and dosai keep their atom and slices files next to the BOM or in the scanned directory for reuse, so cdxgen removes a symbolic link found at those paths right before the tool runs (`safeRemoveOutputLinkSync()`). Working files a tool names itself, such as atom's `.chen` cache, are not covered
 
 **Residual risk:** Low in secure mode, Medium in default mode.
 
