@@ -1,0 +1,45 @@
+lib/cli/cliOptions.js
+  s_8cbdd9e5002975::t_6c4bfdf2e4d89d 18,316-337,1095-1125
+lib/cli/cliOptions.poku.js
+  s_8cbdd9e5002975::t_b06e0743a6c7d3 976-1049
+lib/cli/index.poku.js
+  s_8cbdd9e5002975::t_bcafa2454333e7 1520-1568
+lib/cli/managedBom.js
+  s_8cbdd9e5002975::t_a19598642ccb19 30,933-937
+lib/core/env.js
+  s_8cbdd9e5002975::t_ff29fdf763c4c4 751-793
+lib/core/env.poku.js
+  s_8cbdd9e5002975::t_e8f1028afdb0c6 80,449-489
+lib/ecosystems/cppEvidence.js
+  s_8cbdd9e5002975::t_27d4d60e36280d 23,519-525
+lib/ecosystems/cppEvidence.poku.js
+  s_8cbdd9e5002975::t_18d7f8cc25673b 653-702
+lib/ecosystems/pythonutils.js
+  s_8cbdd9e5002975::t_f29f0311fc6994 22-26,525-531
+lib/ecosystems/pythonutils.poku.js
+  s_8cbdd9e5002975::t_2a1a75b458f727 1054-1096
+lib/evinser/evinseOptions.poku.js
+  s_8cbdd9e5002975::t_256e4da996f765 79-135
+lib/evinser/evinser.js
+  s_8cbdd9e5002975::t_ce5cc2c07a3b7c 11,264-267,666-672
+lib/inventory/atomUtils.js
+  s_8cbdd9e5002975::t_cd68575b1b3927 28,1924-1929
+lib/inventory/atomUtils.poku.js
+  s_8cbdd9e5002975::t_279c592cc3dac2 626-653
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "7201426c3e601e3aa4a2ff571c6876953519eb9b",
+  "prompts": {},
+  "sessions": {
+    "s_8cbdd9e5002975": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_6069faca-92d9-4572-89fa-ecc8c90e7b25",
+        "model": "GLM-5.3"
+      },
+      "human_author": "Team AppThreat <cloud@appthreat.com>"
+    }
+  }
+}
