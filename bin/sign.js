@@ -306,20 +306,29 @@ function checkExistingJssSignatures(bomJson) {
     return fs.readFileSync(keyFile, "utf8");
   });
   const verdict = keys.length
-    ? verifyJss(bomJson, { publicKeys: keys })
+    ? verifyJss(bomJson, { publicKeys: keys, requireAll: chain })
     : undefined;
-  const results = verdict
+  if (verdict?.valid) {
+    return;
+  }
+  // verifyJss() gives up on an object it cannot check (one it cannot
+  // canonicalize, or one with too many signature objects) with valid: false,
+  // a reason, and no result for the entries it did not reach. So a verdict
+  // without an unverified result means that no entry was verified, not that
+  // every entry was.
+  const results = verdict?.results.some(
+    (result) => result.status !== "verified",
+  )
     ? verdict.results
     : bomJson.signatures.map((entry, index) => ({
         path: `signatures[${index}]`,
         algorithm: entry?.algorithm,
         status: "untrusted",
-        reason: "no --verify-existing-with key was given",
+        reason: verdict
+          ? verdict.reasons.join(" ")
+          : "no --verify-existing-with key was given",
       }));
   const unverified = results.filter((result) => result.status !== "verified");
-  if (chain ? !unverified.length : verdict?.valid) {
-    return;
-  }
   const someVerified = unverified.length < results.length;
   const details = unverified.map(
     (result) =>

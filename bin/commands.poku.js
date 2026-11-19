@@ -1763,6 +1763,52 @@ describe("JSS (ITU-T X.590) signing and verification commands at 2.0", () => {
     assert.strictEqual(both.status, 0, both.stdout);
   });
 
+  it("refuses history that could not be checked", async () => {
+    await signWith(
+      "bom20.json",
+      "alice-unchecked.json",
+      "alice",
+      "--no-sign-components",
+    );
+    const signed = readFileSync(file("alice-unchecked.json"), "utf-8");
+    // verifyJss() reports no result for an object it cannot canonicalize
+    // (here a member nested deeper than the canonicalizer recurses) or for
+    // one with more signature entries than it checks.
+    const depth = 100000;
+    writeFileSync(
+      file("unchecked-deep.json"),
+      `${signed.slice(0, signed.lastIndexOf("}"))},"properties":${'{"a":'.repeat(depth)}1${"}".repeat(depth)}}`,
+    );
+    const many = JSON.parse(signed);
+    many.signatures = Array(33).fill(many.signatures[0]);
+    writeFileSync(file("unchecked-many.json"), JSON.stringify(many));
+    const append = (input, mode) =>
+      signWith(
+        input,
+        "unchecked-out.json",
+        "bob",
+        "--mode",
+        mode,
+        "--verify-existing-with",
+        file("alice-public.pem"),
+      );
+    for (const mode of ["chain", "signers"]) {
+      const refused = await append("unchecked-deep.json", mode);
+      assert.notStrictEqual(refused.status, 0, mode);
+      assert.match(
+        refused.stderr,
+        /signatures\[0\] \(Ed25519\): Maximum call stack size exceeded/,
+        mode,
+      );
+    }
+    const refused = await append("unchecked-many.json", "signers");
+    assert.notStrictEqual(refused.status, 0);
+    assert.match(
+      refused.stderr,
+      /signatures\[32\] \(Ed25519\): The signatures list has 33 entries/,
+    );
+  });
+
   it("countersigns the only root signature in chain mode (clause 7.2)", async () => {
     await signWith("bom20.json", "alice-chain.json", "alice");
     const chained = await signWith(
