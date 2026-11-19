@@ -1,0 +1,21 @@
+lib/ecosystems/parsers-zig.js
+  s_000e4234adb03e::t_963df1a204b9aa 40-42,45,53,653-655,657-659
+lib/ecosystems/parsers-zig.poku.js
+  s_000e4234adb03e::t_f522098c3d0f5f 69-76
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "4c68c40bce7b7d2cdcafd1956a1b48b2917cbadb",
+  "prompts": {},
+  "sessions": {
+    "s_000e4234adb03e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "02037648-4bba-493b-a180-b7ddf3261a96",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
