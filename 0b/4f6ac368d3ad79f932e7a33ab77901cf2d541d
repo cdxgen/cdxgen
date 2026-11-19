@@ -1,0 +1,19 @@
+lib/helpers/envcontext_git.poku.js
+  s_520f1073775e0d::t_7a1364efcfe607 449-457
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "0b4f6ac368d3ad79f932e7a33ab77901cf2d541d",
+  "prompts": {},
+  "sessions": {
+    "s_520f1073775e0d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "agent-ace9faa2a6557c4ff",
+        "model": "unknown"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
