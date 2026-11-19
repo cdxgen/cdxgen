@@ -1,0 +1,29 @@
+lib/cli/jsBom.js
+  s_000e4234adb03e::t_6196d8e99fb406 24,1074-1076
+lib/cli/managedBom.js
+  s_000e4234adb03e::t_284ddaff928921 48,737,1039
+lib/cli/toolingGateSecureMode.poku.js
+  s_000e4234adb03e::t_5ec9a5f3dcb2ef 13-16,18,20,22,130-228
+lib/core/projectTooling.js
+  s_000e4234adb03e::t_e829ca802a0c3d 28-46,64,70
+lib/core/projectTooling.poku.js
+  s_000e4234adb03e::t_ecc7c6e5052f8c 18,81-125
+lib/stages/pregen/pregen.js
+  s_000e4234adb03e::t_12ea52bc59077d 32-35,1504
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "2b064afdcc1c5894a93e49bb296105e90f0988a8",
+  "prompts": {},
+  "sessions": {
+    "s_000e4234adb03e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "02037648-4bba-493b-a180-b7ddf3261a96",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
