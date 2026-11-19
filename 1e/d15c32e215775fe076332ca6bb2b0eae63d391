@@ -1,0 +1,33 @@
+docs/CUSTOM_PROPERTIES.md
+  s_000e4234adb03e::t_ddc610f25102b1 458-459
+lib/inventory/ciParsers/azurePipelines.js
+  s_000e4234adb03e::t_bcac4f2130a1cd 6,125-126,128-130,133,153,157
+lib/inventory/ciParsers/azurePipelines.poku.js
+  s_000e4234adb03e::t_3e069f6f9cd5f1 267-298
+lib/inventory/ciParsers/common.js
+  s_000e4234adb03e::t_b28c590412e180 2,10-40
+lib/inventory/ciParsers/githubActions.js
+  s_000e4234adb03e::t_0f809b788c2775 10,402-404,406,796,1472-1484,1497,1516,1519-1520,1544,1548-1551,1577,1587,1593,1599,1605,1611,1617,1683,1687-1690,2098-2099,2171,2180,2226,2238,2241,2281,2284,2336,2338,2341,2408,2410,2413,2515-2517,2589,2591,2671
+lib/inventory/ciParsers/githubActions.poku.js
+  s_000e4234adb03e::t_b9b2d5031021fa 757-833,2180-2187
+lib/inventory/ciParsers/gitlabCi.js
+  s_000e4234adb03e::t_ded863932a741b 6,87-90
+lib/inventory/ciParsers/gitlabCi.poku.js
+  s_000e4234adb03e::t_c90ace7549fa09 261-290
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "1ed15c32e215775fe076332ca6bb2b0eae63d391",
+  "prompts": {},
+  "sessions": {
+    "s_000e4234adb03e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "02037648-4bba-493b-a180-b7ddf3261a96",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
