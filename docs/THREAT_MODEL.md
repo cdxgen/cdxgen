@@ -285,6 +285,7 @@ The toolchain version probes for formulation also run from the temporary directo
   - `GIT_CONFIG_NOSYSTEM=1` and `GIT_CONFIG_GLOBAL=/dev/null` in secure mode — prevents reading system/user configs including Git 2.54 `hook.<name>.command` entries
   - `GIT_TERMINAL_PROMPT=0` — prevents interactive prompts
   - `http.followRedirects=false` while `CDXGEN_GIT_ALLOWED_HOSTS`, `CDXGEN_SERVER_ALLOWED_HOSTS` or secure mode applies, so the allowlisted host is the one git talks to
+  - `-c credential.helper=` when the URL carries a password, so the credential helpers of the account do not save one client's token and answer with it for another client's request
   - `--depth 1` — limits history to reduce attack surface
 - `GIT_ALLOW_PROTOCOL` defaults to `https:ssh` in secure mode
 
@@ -315,6 +316,7 @@ The toolchain version probes for formulation also run from the temporary directo
 - Server timeout: 10 minutes (configurable via `CDXGEN_SERVER_TIMEOUT_MS`)
 - Spawn timeout: 20 minutes (configurable via `CDXGEN_TIMEOUT_MS`)
 - Max buffer: 100MB (configurable via `CDXGEN_MAX_BUFFER`)
+- Remote git operations: the server runs `git clone` and `git ls-remote` without blocking its event loop, so a git host that accepts the connection and then stays silent does not stop other requests or `/health` from being answered. Each is stopped after 5 minutes in server mode (configurable via `CDXGEN_GIT_TIMEOUT_MS`, which also applies to the command line), and an HTTP peer that stays below 1000 bytes a second for a minute is dropped, together with the helper processes git started
 - Parsers of scanned project files avoid regular expressions whose work grows faster than the input. The CrewAI reader for `agents.py` and `tasks.py`, for example, reads each file once
 - Request `exclude` patterns may not use braces, run past 512 characters or number more than 128, since every pattern is matched against every file the scan walks
 

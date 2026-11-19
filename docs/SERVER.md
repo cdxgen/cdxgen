@@ -103,6 +103,8 @@ curl "http://127.0.0.1:9090/sbom?url=https://${GITHUB_TOKEN}@github.com/some/rep
 
 > **Security note:** URL-based credentials can still leak through process lists, logs, proxies, and shell history. Restrict server access, prefer short-lived credentials, and avoid exposing the cdxgen server directly to untrusted networks.
 
+A password in the URL (`user:token@`) is used for that request only. For such a URL git runs without the credential helpers of the server account, so a helper like `store` or `cache` does not save the token and offer it to later requests for the same host. A URL without a password still gets what the helpers of the server account have saved.
+
 You can POST the arguments.
 
 ```bash

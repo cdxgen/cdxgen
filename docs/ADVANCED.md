@@ -1051,7 +1051,8 @@ cdxgen then sends Maven Central to Google's mirror for itself and for every JVM 
 Every registry request cdxgen makes, batched or not, waits behind one rate gate per host. Within a run:
 
 - a request that keeps failing with a server error or HTTP 429 is retried with back-off, honouring `Retry-After`, and then left alone for the rest of that pass;
-- a host that answers HTTP 429 to three requests is not contacted for ten minutes, or for as long as `Retry-After` asks, and cdxgen prints one warning;
+- a host that answers HTTP 429 to three requests is not contacted for ten minutes, or for as long as `Retry-After` asks up to an hour, and cdxgen prints one warning. The pause ends with the run, except for Maven Central and the GitHub API, whose limits apply to this machine whichever run asked;
+- a request and its retries are given two minutes. A `Retry-After` that ends later is not waited out: the request fails, and the host is paused at once (for at most an hour, as above);
 - a document that answered 404 or 410 is not asked for again;
 - when GitHub's API reports that its rate limit is used up, it is not called again until the reset time it gives. Set `GITHUB_TOKEN` to raise the limit from 60 to 5,000 requests an hour.
 
