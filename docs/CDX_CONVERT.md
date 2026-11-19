@@ -151,6 +151,16 @@ tool. When the BOM lists no tool, cdxgen, as the converting tool, asserts the
 identifiers it wrote. Each such party is declared once, and only when the
 document references it.
 
+A refId the renderer derives and then repeats is at most 256 characters long,
+because a `bom-ref` has no length limit and the refId is written once for each
+element that names it. Past that length, `party-tool-<tool bom-ref>` and the
+inventory's `inventory-<subject bom-ref>` end in the SHA-256 of the `bom-ref`
+instead, and a cdxgen tool with a longer `bom-ref` is named by the
+`party-cdxgen` party only, not in the `tools` of each identity entry. An
+inventory read from 2.0 keeps its own refId whatever its length; when it is
+longer, an annotation subject that names the document's serial number is
+dropped and counted rather than retargeted to the inventory.
+
 1.x has none of these members, so reading a 2.0 document strips them. When
 they are what the 2.0 render derives again from the read model, the read
 reports no loss and the derived party is not kept in the model. An identity
