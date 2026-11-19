@@ -2172,8 +2172,10 @@ const writeCycloneDxOutput = (jsonFile, bomJson, options) => {
   if (isAiProvenanceGeneration && bomNSData?.bomJson) {
     const { ensureAiProvenanceProperties, ensureAiOversightProperties } =
       await import("../lib/stages/postgen/auditBom.js");
-    ensureAiProvenanceProperties(bomNSData.bomJson, options);
-    await ensureAiOversightProperties(bomNSData.bomJson, options);
+    // Name the scanned directory, or the collectors fall back to process.cwd().
+    const aiProvenanceOptions = { ...options, path: srcDir };
+    ensureAiProvenanceProperties(bomNSData.bomJson, aiProvenanceOptions);
+    await ensureAiOversightProperties(bomNSData.bomJson, aiProvenanceOptions);
   }
   // TEA upstream SBOM fetch runs BEFORE post-processing so the "upstream wins"
   // merge and the provenance citations flow through the normal pipeline.
@@ -2226,6 +2228,7 @@ const writeCycloneDxOutput = (jsonFile, bomJson, options) => {
     const postAuditFindings = await auditBom(auditInternalBom, {
       ...options,
       getBomWithOras,
+      path: srcDir,
     });
     if (postAuditFindings.length) {
       formatConsoleOutput(postAuditFindings);
