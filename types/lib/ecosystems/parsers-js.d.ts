@@ -1,5 +1,27 @@
 import { Buffer } from "node:buffer";
 /**
+ * Whether a package.json path is the manifest at the root of an installed
+ * package. The directory holding the manifest must be node_modules/<name> or
+ * node_modules/@<scope>/<name>, at any nesting depth, which also covers a
+ * nested node_modules/a/node_modules/b layout and pnpm's
+ * node_modules/.pnpm/<pkg>@<ver>/node_modules/<name> virtual store. Manifests
+ * deeper inside a package directory return false; these subpath manifests,
+ * which packages such as dom-helpers and styled-components ship for deep
+ * imports, are not installable packages of their own. Dot directories such as
+ * node_modules/.bin and the .pnpm store itself never count as package roots.
+ *
+ * @param {string} filePath Path to a package.json file, POSIX or Windows
+ * @returns {boolean} true when the manifest sits at an installed package root
+ */
+export declare function isInstalledPackageManifest(filePath: string): boolean;
+/**
+ * Whether a path runs through any node_modules directory, at any depth.
+ *
+ * @param {string} filePath Path to a file, POSIX or Windows
+ * @returns {boolean} true when some segment of the path is node_modules
+ */
+export declare function isInsideNodeModulesDir(filePath: string): boolean;
+/**
  * Parse a package.json file into CycloneDX component objects.
  *
  * @param {string} pkgJsonFile Path to the package.json file.
