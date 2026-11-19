@@ -1,0 +1,23 @@
+lib/cli/nativeBom.js
+  s_000e4234adb03e::t_9a1ed12abafc6b 2086-2089
+lib/ecosystems/cmakeResolver.js
+  s_000e4234adb03e::t_abdf45d306c199 745-746,749-751,753-754,756-765,769
+lib/ecosystems/cmakeResolver.poku.js
+  s_000e4234adb03e::t_7a1c888d358b6e 491,494-512
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "c19b3c609b8542593657c7e6de824a7d95d916ae",
+  "prompts": {},
+  "sessions": {
+    "s_000e4234adb03e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "02037648-4bba-493b-a180-b7ddf3261a96",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
