@@ -1,0 +1,31 @@
+contrib/gen-validators.mjs
+  s_000e4234adb03e::t_a8ea18e69876fc 57,157-159
+lib/validator/bomValidator.js
+  s_000e4234adb03e::t_c6364fcf17143f 20,285-287
+lib/validator/bomValidator.poku.js
+  s_000e4234adb03e::t_6e6c9fc5de1f72 313-374
+lib/validator/generated/runtime.mjs
+  s_000e4234adb03e::t_d1968730e54637 19-21
+lib/validator/precompiled-parity.poku.js
+  s_000e4234adb03e::t_e6f445a1bc5417 22,35-38,325-337,358-359
+lib/validator/uniqueItems.js
+  s_000e4234adb03e::t_aba112aa00103b 1-81
+lib/validator/uniqueItems.poku.js
+  s_000e4234adb03e::t_5cc32d4064cd73 1-100
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "a0bd33b1c915962a9893eb1b84c8536701cb9cd9",
+  "prompts": {},
+  "sessions": {
+    "s_000e4234adb03e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "02037648-4bba-493b-a180-b7ddf3261a96",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
