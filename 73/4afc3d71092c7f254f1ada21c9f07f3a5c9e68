@@ -1,0 +1,27 @@
+docs/ADVANCED.md
+  s_000e4234adb03e::t_0aaede86d48ccf 250
+lib/inventory/sbomDocument.js
+  s_000e4234adb03e::t_b9fe934953f57e 373-374,421-436
+lib/inventory/sbomDocument.poku.js
+  s_000e4234adb03e::t_b4333342976891 293-329
+lib/inventory/spdxUtils.js
+  s_000e4234adb03e::t_72ee6b77b57939 16-21,53-59,61-62,64,66-69,85-100,115-116
+lib/inventory/spdxUtils.poku.js
+  s_000e4234adb03e::t_72104a44a0be3c 70-120
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "734afc3d71092c7f254f1ada21c9f07f3a5c9e68",
+  "prompts": {},
+  "sessions": {
+    "s_000e4234adb03e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "02037648-4bba-493b-a180-b7ddf3261a96",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
