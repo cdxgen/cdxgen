@@ -1,0 +1,23 @@
+docs/ENV.md
+  s_000e4234adb03e::t_9c6e968daef63a 419
+lib/stages/postgen/ruleEngine.js
+  s_000e4234adb03e::t_2a0637946a6c10 12-13,261-265,308-310,317-319,322,330-335,344,347,353,357-361,417-420,422,425-426,430-432
+lib/stages/postgen/ruleEngine.poku.js
+  s_000e4234adb03e::t_bdc71d5ff0c32e 1,108,115-158,160-168
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "d60fb650e5af5b7c519d589fab66292bcf24a69c",
+  "prompts": {},
+  "sessions": {
+    "s_000e4234adb03e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "02037648-4bba-493b-a180-b7ddf3261a96",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
