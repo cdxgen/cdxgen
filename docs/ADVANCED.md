@@ -749,7 +749,7 @@ evinse -i bom.json -o bom.evinse.json --usages-slices-file usages.json --reachab
 ## Generate SBOM from maven or gradle cache
 
 There could be Java applications with complex dependency requirements. Or you might be interested in cataloging your Maven or gradle cache.
-A bonus of this mode is that the resulting SBOM would have a property called `internal:Namespaces` with a list of class names belonging to each jar.
+A bonus of this mode is that the resulting SBOM would have a property called `internal:Namespaces` with a list of class names belonging to each jar. An entry name longer than 4096 characters is not listed, and the names kept stop at 16 MiB for one jar and at 128 MiB for one run, with a warning.
 
 Android libraries published as `.aar` files are read too. Their class names come from `classes.jar` and every jar under `libs/` inside the `.aar`, and the hashes are those of the `.aar` file itself. Each inner jar is copied to a temporary file to be read, so a dry run lists no class names for an `.aar`.
 
