@@ -219,7 +219,7 @@ for (const configPattern of PROJECT_CONFIG_FILENAMES) {
     }
     for (const entry of sanitized.rejected) {
       console.warn(
-        `\x1b[1;35mConfig file '${configPath}' sets '${entry}', which points outside the project directory. Ignoring it. Pass the option on the command line if this is intentional.\x1b[0m`,
+        `\x1b[1;35mConfig file '${configPath}' sets '${entry}', which points outside the project directory or has a '..' segment. Ignoring it. Pass the option on the command line if this is intentional.\x1b[0m`,
       );
     }
     for (const foundKey of sanitized.announced) {
