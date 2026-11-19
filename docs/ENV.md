@@ -304,12 +304,15 @@ cdxgen and `evinse` invoke [atom](https://github.com/AppThreat/atom) for source-
 | `CDXGEN_SCALASEM_MAX_OCCURRENCES` | Occurrences kept per component from the Scala report. Default 200; the Scala runtime is capped at one per file regardless.                                                                                                                                                                                                                                                 |
 | `ATOM_SLICE_DEPTH`                | Override the data-flow slice depth (default 7).                                                                                                                                                                                                                                                                                                                            |
 
-atom caches parsed ASTs in a `.chen` directory inside the analysed source tree.
-A cache left behind by an interrupted or failed run makes the next run fail
-(typically with an `overflowdb.SchemaViolationException`), and the failure looks
-like a frontend bug rather than a stale cache. Delete `.chen` from the source
-tree before re-running when a previously working project starts failing.
-cdxgen's own file searches skip `.chen`.
+Left to itself, atom caches parsed ASTs in a `.chen` directory inside the
+analysed source tree. That directory is part of the scanned content: atom writes
+a cache entry through a link it finds there, to a file outside the tree, and
+replays the entries it finds there. cdxgen and `evinse` therefore run atom with
+`--cache none`, which reads and writes nothing in `.chen`; the atom file is
+still reused from one slice to the next. An `ATOM_CMD` naming an atom that does
+not take `--cache` fails on the option. A `.chen` left in a source tree by an
+earlier cdxgen release, or by running atom directly, is no longer used and can
+be deleted. cdxgen's own file searches skip `.chen`.
 
 ### sbt
 
