@@ -109,14 +109,8 @@ build file:
   the ones the normal build writes.
 
 With `--no-install-deps` cdxgen passes `--no-build`, so no build tool runs at all and
-only what a previous build left on disk is read. It also sets `SCALASEM_NO_INSTALL=true`,
-so a TASTy inspector the host caches lack is not downloaded and the compiler that reads
-TASTy comes from the host's Coursier and Maven caches alone. A Mill build names its
-compiler jars in its `out/` directory, which is part of the scanned project, so for such
-a build cdxgen also sets `SCALASEM_COMPILER=none` and `SCALASEM_SEMANTICDB=always`: no
-JVM starts, the facts come from the SemanticDB a previous build left, and a module
-without it is reported as `semanticdb-missing`. Everywhere else
-`SCALASEM_SEMANTICDB=never` turns the SemanticDB reader off.
+only what a previous build left on disk is read. `SCALASEM_SEMANTICDB=never` turns the
+SemanticDB reader off.
 
 ## Options
 
@@ -129,7 +123,7 @@ without it is reported as `semanticdb-missing`. Everywhere else
 | `CDXGEN_SCALASEM_TIMEOUT`         | Milliseconds a scalasem run may take, its builds included. Default 20 minutes.                     |
 | `CDXGEN_SCALASEM_MAX_OCCURRENCES` | Occurrences kept per component. Default 200.                                                       |
 | `--scalasem-include-tests`        | Include test sources, tagged `test` in `cdx:scalasem:usageScopes`. Ignored with `--required-only`. |
-| `--no-install-deps`               | No build tool starts and nothing is downloaded; a Mill build is read from SemanticDB alone.        |
+| `--no-install-deps`               | Passes `--no-build`: no sbt, Mill, Maven or scala-cli process starts.                              |
 
 scalasem stops the builds it started when its time is up, and then itself; cdxgen's own
 timeout, a little later, only backs it up.
