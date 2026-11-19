@@ -1,0 +1,35 @@
+docs/ADVANCED.md
+  s_000e4234adb03e::t_9a529a47d6dede 549
+docs/SERVER.md
+  s_000e4234adb03e::t_6af4b772a966da 176
+docs/THREAT_MODEL.md
+  s_000e4234adb03e::t_0aaef12ef6f59f 173
+lib/core/globPatterns.js
+  s_000e4234adb03e::t_bb606d2f4b55ff 1-2,9-36,39-42,80-89,188-240,245,251-253,265,296-298,306-312
+lib/core/globPatterns.poku.js
+  s_000e4234adb03e::t_6cf0b74b805173 5,47-77,145-233
+lib/core/projectConfig.js
+  s_000e4234adb03e::t_0f09c58a5eb3ed 485
+lib/core/projectConfig.poku.js
+  s_000e4234adb03e::t_9a9877d099240d 448-463
+lib/server/server.js
+  s_000e4234adb03e::t_23d5493e1c0fef 282,291
+lib/server/server.poku.js
+  s_000e4234adb03e::t_95a111e18ca855 385-395
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "c74190578e5fe23a6c97a2a0abc85b12fdbd2046",
+  "prompts": {},
+  "sessions": {
+    "s_000e4234adb03e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "02037648-4bba-493b-a180-b7ddf3261a96",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
