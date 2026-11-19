@@ -1,0 +1,29 @@
+lib/cli/jvmBom.js
+  s_000e4234adb03e::t_81a90d2b526947 1031
+lib/cli/managedBom.js
+  s_000e4234adb03e::t_a1c6a85c454db2 759-763
+lib/ecosystems/asarutils.js
+  s_000e4234adb03e::t_4d7e0a8e0b6764 1748-1749
+lib/ecosystems/ecosystems.js
+  s_000e4234adb03e::t_76e82b5ef92372 3571
+lib/ecosystems/parsers-python.js
+  s_000e4234adb03e::t_f35167928757a9 495,3525
+lib/helpers/vsixutils.js
+  s_000e4234adb03e::t_221a18424b85b2 1388,1529
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "4e3db0c6dc96762dbcb4908c96413299abc3970a",
+  "prompts": {},
+  "sessions": {
+    "s_000e4234adb03e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "02037648-4bba-493b-a180-b7ddf3261a96",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
