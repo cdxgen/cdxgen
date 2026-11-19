@@ -107,6 +107,23 @@ export declare function parseCabalData(cabalData: string): Object[];
  */
 export declare function parseMixLockData(mixData: string): Object[];
 /**
+ * Parses a GitHub Actions workflow YAML file and returns its action components
+ * together with the dependency edges the workflow parser recorded, which for a
+ * workflow joined to an actions lockfile are the edges from each direct action
+ * to the transitive actions its composites call. Components pass the same
+ * filter as `parseGitHubWorkflowData`.
+ *
+ * @param {string} f Path to the GitHub Actions workflow YAML file
+ * @param {string} [rootDir] Scanned project root. The workflow path is
+ * recorded relative to it.
+ * @returns {{ components: Object[], dependencies: Object[] }} Action components
+ * with purl, properties and evidence, plus the workflow's dependency edges
+ */
+export declare function parseGitHubWorkflowDataWithEdges(f: string, rootDir?: string): {
+    components: Object[];
+    dependencies: Object[];
+};
+/**
  * Parses a GitHub Actions workflow YAML file and returns a list of action
  * components for each step that uses an external action (steps with a "uses"
  * field). Each component captures the action name, group, version/commit SHA,

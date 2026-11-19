@@ -44,6 +44,26 @@ export declare const MAX_CI_FILE_BYTES: number;
  */
 export declare function readCiFile(f: string, rootDir?: string): string;
 /**
+ * Turn a scalar read from a CI YAML file into the string a CycloneDX
+ * property, name or description must hold. YAML reads an unquoted `2024`,
+ * `1.0` or `true` as a number or boolean, and schema validation then
+ * rejects the BOM. Missing and empty values, and mappings, which have no
+ * scalar form, give undefined.
+ *
+ * @param {*} value Raw value from the parsed YAML
+ * @returns {string|undefined} The string form, or undefined when there is none
+ */
+export declare function toScalarString(value: any): string | undefined;
+/**
+ * Turn a YAML scalar or a sequence of scalars into a list of strings, as
+ * toScalarString() does for each element. Elements without a scalar form are
+ * dropped.
+ *
+ * @param {*} value A scalar, an array, or anything else
+ * @returns {string[]} The string forms, possibly empty
+ */
+export declare function toScalarStringList(value: any): string[];
+/**
  * Ensure all step objects in the array are unique (CycloneDX `uniqueItems: true`).
  *
  * Identical steps are disambiguated by appending a ` (N)` counter to the step name.
