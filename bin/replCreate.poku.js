@@ -45,6 +45,11 @@ const SCRUBBED_ENV = new Set([
   "Path",
 ]);
 
+// Deno runs a script only through its run subcommand, with permissions.
+function runtimeArgs(script) {
+  return globalThis.Deno ? ["run", "--allow-all", script] : [script];
+}
+
 /**
  * Run `.create` on a Maven project in a cdxi session, with a stand-in mvn
  * first on PATH.
@@ -68,6 +73,11 @@ function createInRepl(extraEnv) {
     for (const [name, value] of Object.entries(process.env)) {
       if (!name.startsWith("CDXGEN_") && !SCRUBBED_ENV.has(name)) {
         env[name] = value;
+      } else if (globalThis.Deno) {
+        // Deno merges the env option of spawnSync into its own environment
+        // instead of replacing it, so a variable left out would still reach
+        // the child. An empty value hides it.
+        env[name] = "";
       }
     }
     env.PATH = [toolDir, process.env.PATH ?? process.env.Path]
@@ -83,7 +93,7 @@ function createInRepl(extraEnv) {
       env.CDXGEN_IN_CONTAINER = "true";
     }
     mkdirSync(env.CDXGEN_TEMP_DIR);
-    const result = spawnSync(process.execPath, [replEntry], {
+    const result = spawnSync(process.execPath, runtimeArgs(replEntry), {
       cwd: root,
       encoding: "utf-8",
       env: { ...env, ...extraEnv },
