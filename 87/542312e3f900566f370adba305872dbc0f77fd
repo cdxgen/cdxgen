@@ -1,0 +1,23 @@
+lib/ecosystems/rusi.js
+  s_000e4234adb03e::t_389b5ab73ed068 96-118,122-123,126,131-132,135-136,138,143-189,197-201,203,205,208-213,225-231,563,589,1016,1019-1023,1026,1041
+lib/ecosystems/rusi.poku.js
+  s_000e4234adb03e::t_78c26b7fb58856 24,360-487
+lib/evinser/evinser.js
+  s_000e4234adb03e::t_76d38b16b09575 1439-1443
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "87542312e3f900566f370adba305872dbc0f77fd",
+  "prompts": {},
+  "sessions": {
+    "s_000e4234adb03e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "02037648-4bba-493b-a180-b7ddf3261a96",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
