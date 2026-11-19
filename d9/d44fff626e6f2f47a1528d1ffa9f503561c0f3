@@ -1,0 +1,25 @@
+docs/CDXRS_PROTOCOL.md
+  s_000e4234adb03e::t_605620871bd719 311-316
+lib/inventory/fetchBatch.credentials.poku.js
+  s_000e4234adb03e::t_a679da176f1b66 1-149
+lib/inventory/fetchBatch.js
+  s_000e4234adb03e::t_6e43c7c71713d5 632-633,1065-1089
+lib/inventory/fetchDiskCache.js
+  s_000e4234adb03e::t_17e70a694386e9 27-29
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "d9d44fff626e6f2f47a1528d1ffa9f503561c0f3",
+  "prompts": {},
+  "sessions": {
+    "s_000e4234adb03e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "02037648-4bba-493b-a180-b7ddf3261a96",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
