@@ -1,0 +1,21 @@
+lib/stages/postgen/spdxConverter.js
+  s_000e4234adb03e::t_576a2d0e36b57c 1-2,9-11,173-179,183,185
+lib/stages/postgen/spdxConverter.poku.js
+  s_000e4234adb03e::t_b3fb56657144e7 407-441
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "5e65a0a204505ad0409f80343457d6eeba248937",
+  "prompts": {},
+  "sessions": {
+    "s_000e4234adb03e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "02037648-4bba-493b-a180-b7ddf3261a96",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
