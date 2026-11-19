@@ -1,0 +1,49 @@
+lib/core/propertySanitizer.js
+  s_000e4234adb03e::t_4e2914f8a25525 314-319
+lib/ecosystems/remote/huggingface.js
+  s_000e4234adb03e::t_af47a263cec208 9,18,414-417,422-424,823-824,848,860,920-921,1111,1175-1176
+lib/ecosystems/remote/huggingface.poku.js
+  s_000e4234adb03e::t_31ca070a49c056 655-669
+lib/inventory/aiCollector.js
+  s_000e4234adb03e::t_2f45ca8f0a7797 16,764,949,1005,1096
+lib/inventory/aiCollector.poku.js
+  s_000e4234adb03e::t_e2fe9403b1b097 2088-2137
+lib/inventory/aiModelVariants.js
+  s_000e4234adb03e::t_f320761abdf2d2 1-2,66-67,99
+lib/inventory/aiModelVariants.poku.js
+  s_000e4234adb03e::t_d24a36f069d451 28-50
+lib/inventory/communityAiConfigParser.js
+  s_000e4234adb03e::t_5ffff9aad2ae89 6,408,419,538-539,546,548-550,606,614,1247
+lib/inventory/mcpDiscovery.js
+  s_000e4234adb03e::t_c4efb819723fbd 1-2,48
+lib/inventory/mcpServerManifest.js
+  s_000e4234adb03e::t_97b47c6021d7f1 8,69,89-91,98-100,104,146-148,151-153,213-215,241,315
+lib/inventory/mcpServerManifest.poku.js
+  s_000e4234adb03e::t_a170bf3905a96e 1,298-344
+lib/parsers/gguf.js
+  s_000e4234adb03e::t_de659b878a6141 70-72,198,263-267,281
+lib/parsers/gguf.poku.js
+  s_000e4234adb03e::t_4c6d2224ddb224 197-235
+lib/parsers/huggingfaceManifest.js
+  s_000e4234adb03e::t_3313c1d0f8be1a 8,69,94-100,126,454,524-525,527,544
+lib/parsers/huggingfaceManifest.poku.js
+  s_000e4234adb03e::t_5da9e9922e0a19 206-226
+lib/parsers/huggingfaceUtils.js
+  s_000e4234adb03e::t_ebf9129b1b93ca 7,270,410-414,417-418,422-425,539,541,545-547
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "1fe9bfe660f45e2688a79340ca4a63bf4757fde2",
+  "prompts": {},
+  "sessions": {
+    "s_000e4234adb03e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "02037648-4bba-493b-a180-b7ddf3261a96",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
