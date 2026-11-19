@@ -1,0 +1,57 @@
+lib/core/paths.js
+  s_000e4234adb03e::t_493e897bdbff96 72-89
+lib/core/paths.poku.js
+  s_000e4234adb03e::t_0f63b1e9975a15 1-31
+lib/ecosystems/npmVersionResolution.js
+  s_000e4234adb03e::t_e5c4c973a1dd81 14,139
+lib/ecosystems/npmVersionResolution.poku.js
+  s_000e4234adb03e::t_f3ac9d8e8fbad6 164-217
+lib/ecosystems/parsers-elm.js
+  s_000e4234adb03e::t_6404a6d0cccbea 10,637
+lib/ecosystems/parsers-misc.js
+  s_000e4234adb03e::t_63a07657fccd6c 34,2234,3506,3583
+lib/ecosystems/parsers-python.js
+  s_000e4234adb03e::t_ab8d2fbfff1441 12,2528
+lib/ecosystems/parsers-rust.js
+  s_000e4234adb03e::t_76077120f4d26e 12,1597
+lib/ecosystems/remote/huggingface.js
+  s_000e4234adb03e::t_eaec04eeab61fc 7,250
+lib/ecosystems/terraformRegistry.js
+  s_000e4234adb03e::t_27b316a87e6e42 2,78,80-82,84-85
+lib/evinser/evinser.js
+  s_000e4234adb03e::t_4954af5f7eb589 22,2552
+lib/evinser/swiftsem.js
+  s_000e4234adb03e::t_b86583c443c56a 23,2191-2193
+lib/helpers/remote/dependency-track.js
+  s_000e4234adb03e::t_bb182955fe2f0c 5,34
+lib/inventory/analyzer.js
+  s_000e4234adb03e::t_85d905afaf757f 11,3243-3247
+lib/inventory/jdkHostProbe.js
+  s_000e4234adb03e::t_962404b77c6b13 29,396
+lib/inventory/osPackageResolver.js
+  s_000e4234adb03e::t_0e666b9b1f410b 9,643
+lib/inventory/rubyBuildInfo.js
+  s_000e4234adb03e::t_0b22a4f0993840 34,955-957,993
+lib/managers/binary.js
+  s_000e4234adb03e::t_2722137bccdb51 46,2041,2818
+lib/managers/docker.js
+  s_000e4234adb03e::t_5eb6fed666190f 47,2681
+lib/parsers/huggingfaceUtils.js
+  s_000e4234adb03e::t_ad7a4cbc96ed72 3,83-85,241-243
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "1ea89384d5b7ddd3ddf08f4c96934eac36d30496",
+  "prompts": {},
+  "sessions": {
+    "s_000e4234adb03e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "02037648-4bba-493b-a180-b7ddf3261a96",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
