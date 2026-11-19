@@ -1,0 +1,23 @@
+docs/LESSON27.md
+  s_000e4234adb03e::t_e9d3fa65085757 213-220
+lib/inventory/cmakeBuildDirs.js
+  s_000e4234adb03e::t_297b5a6654f3a4 41-66,146-158,172-173,182-183,193-199,207-211,219,249
+lib/inventory/cmakeBuildDirs.poku.js
+  s_000e4234adb03e::t_840c5e82e533d3 81-128,180-248
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "113ef59df66e029187aaa133fac17cf5d3379441",
+  "prompts": {},
+  "sessions": {
+    "s_000e4234adb03e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "02037648-4bba-493b-a180-b7ddf3261a96",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
