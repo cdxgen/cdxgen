@@ -1,0 +1,29 @@
+lib/cli/managedBom.js
+  s_000e4234adb03e::t_4289e71fb1371c 561
+lib/ecosystems/parsers-python.js
+  s_000e4234adb03e::t_a04928ec708945 1247-1249,1391-1393,1395
+lib/ecosystems/parsers-python.poku.js
+  s_000e4234adb03e::t_0d9812c140cf16 1933-2020
+test/repotests/uv-workspace-smoke/expected/default-multi.json
+  s_000e4234adb03e::t_1c8c30b00dbd93 63,67,71,75,79,995,999,1003,1007,1011,1077,1081,1085,1089,1093,1147,1151,1209,1213,1217,1309
+test/repotests/uv-workspace-smoke/expected/python-js.json
+  s_000e4234adb03e::t_f09328ebf12ba1 63,67,71,75,79,995,999,1003,1007,1011,1077,1081,1085,1089,1093,1147,1151,1209,1213,1217,1309
+test/repotests/uv-workspace-smoke/expected/python.json
+  s_000e4234adb03e::t_0b725d060b3f57 63,67,71,75,79,995,999,1003,1007,1011,1077,1081,1085,1089,1093,1147,1151,1209,1213,1217,1309
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "e44f13829ebc42522ef2a7cc6b7a28b636d651a1",
+  "prompts": {},
+  "sessions": {
+    "s_000e4234adb03e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "02037648-4bba-493b-a180-b7ddf3261a96",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
