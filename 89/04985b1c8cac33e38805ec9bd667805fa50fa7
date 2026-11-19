@@ -1,0 +1,127 @@
+bin/commands.poku.js
+  s_000e4234adb03e::t_30c827c76414cd 126-167
+bin/convert.js
+  s_000e4234adb03e::t_ec8cfbd3e3b038 29,173-174,185-186,189-193
+bin/repl.js
+  s_000e4234adb03e::t_f9dfa359f82d61 26,519
+bin/validate.js
+  s_000e4234adb03e::t_0776daa1be545b 36-39,362
+contrib/gen-validators.mjs
+  s_000e4234adb03e::t_c400bb9017b04e 57,157-159
+docs/ADVANCED.md
+  s_000e4234adb03e::t_7f46ad42969eec 1054-1055
+docs/CDXRS_PROTOCOL.md
+  s_000e4234adb03e::t_381f9b835de5a8 311-316,337-345
+docs/CDX_CONVERT.md
+  s_000e4234adb03e::t_9a56a5d3b2ded5 97-102
+docs/CDX_VALIDATE.md
+  s_000e4234adb03e::t_c5505fbb6b7f38 30-36,126
+docs/ENV.md
+  s_000e4234adb03e::t_237ba6b1fb474f 18
+docs/SERVER.md
+  s_000e4234adb03e::t_f90ff2b945ca73 106-107
+docs/THREAT_MODEL.md
+  s_000e4234adb03e::t_a3a701e8a8b84e 288,319
+lib/audit/index.js
+  s_000e4234adb03e::t_143a008c223995 36,52,164,1382,1973
+lib/audit/index.poku.js
+  s_000e4234adb03e::t_251f7d6c827b06 2365-2420
+lib/core/fs.js
+  s_000e4234adb03e::t_9171c662e593d8 2,1169-1329,1575-1606
+lib/core/fs.poku.js
+  s_000e4234adb03e::t_b6275512b6a34d 25,592-704
+lib/core/httpClient.js
+  s_000e4234adb03e::t_ab508572b3a2e4 281-314,322-325,329-330,340-343,348,350,355,362-369
+lib/core/httpClient.poku.js
+  s_000e4234adb03e::t_a2a108eb72af46 82-105,287-317
+lib/core/projectConfig.js
+  s_000e4234adb03e::t_1a0f7f05972771 1,263-269,271-273,276,281-294,328-330
+lib/core/projectConfig.poku.js
+  s_000e4234adb03e::t_677833a440e9df 1,11,15,440-495
+lib/ecosystems/ecosystems.js
+  s_000e4234adb03e::t_c86c9e0cd154e6 719-724,1614-1616,2558-2560,2764,2766-2767,4172-4175
+lib/evinser/evinser.js
+  s_000e4234adb03e::t_db784b8424034a 81,339
+lib/inventory/cyclonedx20.js
+  s_000e4234adb03e::t_60f2bef2515bec 31,117-167
+lib/inventory/cyclonedx20Readers.poku.js
+  s_000e4234adb03e::t_2776badb84206d 3,6,23,25,709-813
+lib/inventory/envcontext.js
+  s_000e4234adb03e::t_09fe94d19108ed 109-110,134-135
+lib/inventory/fetchBatch.batch.poku.js
+  s_000e4234adb03e::t_1a431ce34858a2 22,25,29,32,157-203,344-383
+lib/inventory/fetchBatch.credentials.poku.js
+  s_000e4234adb03e::t_0e8018a7205015 1-149
+lib/inventory/fetchBatch.hosts.poku.js
+  s_000e4234adb03e::t_84076dc360aecc 1-108
+lib/inventory/fetchBatch.js
+  s_000e4234adb03e::t_3fb628e8384868 57,61,93-100,126-132,163-169,181-203,336-352,416,418,689-690,772-779,795-797,973,977,990-995,1139-1163,1270-1272,1298,1336-1345,1347-1354,1496-1498,1513,1536-1538,1540,1557,1572-1573,1576-1577,1596-1598,1603-1604,1606,1628
+lib/inventory/fetchBatch.misses.poku.js
+  s_000e4234adb03e::t_b5bebffd05fd15 19,40-43,114-129
+lib/inventory/fetchBatch.routing.poku.js
+  s_000e4234adb03e::t_de10761ff41fb7 138-196,380-384,387
+lib/inventory/fetchBatch.securemode.poku.js
+  s_000e4234adb03e::t_bf7df3edd40505 13-18,20-22,72-128
+lib/inventory/fetchDiskCache.js
+  s_000e4234adb03e::t_1ede54ef2dfb5b 27-29,76-81,272-294,309,413,426,431-445,534-535,548-550,553-555,634-639,645-646,652
+lib/inventory/fetchDiskCache.poku.js
+  s_000e4234adb03e::t_0d737a7c5c63f6 8,11-12,17-18,31-36,58-75,92,237-304
+lib/inventory/fetchRate.js
+  s_000e4234adb03e::t_f0346684e7b46a 287-291
+lib/inventory/fetchRate.poku.js
+  s_000e4234adb03e::t_f4fd3ae8052ccc 249-263
+lib/inventory/purl.js
+  s_000e4234adb03e::t_b7552b6645fdeb 38-71,81-83,372-376,480-484
+lib/inventory/purl.poku.js
+  s_000e4234adb03e::t_d454b2b11404a1 12,169-181
+lib/inventory/source.credentials.poku.js
+  s_000e4234adb03e::t_abe8f1fe9f8802 1-142
+lib/inventory/source.js
+  s_000e4234adb03e::t_c97f4dd1398038 22,24,36,59-63,149-169,174-175,178-181,192-235,237-238,244-251,256-261,289-314,326,328,696-702,704-705,708,713-726,756-758,760-764,1083-1086,1100-1151,1164-1179,1235-1241,1243-1246,1250-1252,1267-1268,1271-1276,1288-1303,1330-1346,1365,1570-1586,1601-1603,1727-1729,1733-1735,1742,1744-1746,1748-1749,1758,1760-1761,1776,1778-1779
+lib/inventory/source.poku.js
+  s_000e4234adb03e::t_2d0b7519731da0 86-142,537-604,1250-1322
+lib/inventory/source.signature.poku.js
+  s_000e4234adb03e::t_3df9f688135969 1-129
+lib/inventory/source.timeout.poku.js
+  s_000e4234adb03e::t_c6efc3bc392ece 1-95
+lib/server/server.js
+  s_000e4234adb03e::t_8d05f4ba0a4c71 39,41,730-733,741
+lib/server/server.poku.js
+  s_000e4234adb03e::t_330a178347f6f4 1,343-402,1694,1696
+lib/server/serverGitStall.poku.js
+  s_000e4234adb03e::t_c423cf35cb9c3c 1-109
+lib/validator/bomValidator.js
+  s_000e4234adb03e::t_ad27d17b14da9e 18-22,24,253-265,289-291,300,340,662-664
+lib/validator/bomValidator.poku.js
+  s_000e4234adb03e::t_e40180d11f4703 313-374
+lib/validator/generated/runtime.mjs
+  s_000e4234adb03e::t_786905f7d3aa53 19-21
+lib/validator/precompiled-parity.poku.js
+  s_000e4234adb03e::t_53d0d75b826774 22,35-38,325-337,358-359
+lib/validator/reporters.poku.js
+  s_000e4234adb03e::t_8048416484c4bc 3,115-139
+lib/validator/reporters/json.js
+  s_000e4234adb03e::t_c8177336d8b831 3,6-7,21-23,27
+lib/validator/uniqueItems.js
+  s_000e4234adb03e::t_87e4fe3228aebe 1-81
+lib/validator/uniqueItems.poku.js
+  s_000e4234adb03e::t_b8549d1cd89a12 1-100
+test/data/git-credentials/private-host.mjs
+  s_000e4234adb03e::t_83ccdb670b4c0c 1-31
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "8904985b1c8cac33e38805ec9bd667805fa50fa7",
+  "prompts": {},
+  "sessions": {
+    "s_000e4234adb03e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "02037648-4bba-493b-a180-b7ddf3261a96",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
