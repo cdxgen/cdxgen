@@ -1,0 +1,21 @@
+lib/parsers/xml.js
+  s_000e4234adb03e::t_f10d3265aa083b 480-483,486-491
+lib/parsers/xml.poku.js
+  s_000e4234adb03e::t_850488c9d0292a 180-217
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "2ef3f17221e1c9d2bb7f96702b39eaeb36eb5a36",
+  "prompts": {},
+  "sessions": {
+    "s_000e4234adb03e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "02037648-4bba-493b-a180-b7ddf3261a96",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
