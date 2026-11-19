@@ -1,0 +1,31 @@
+docs/ENV.md
+  s_000e4234adb03e::t_1e0c7900793b6d 386
+docs/THREAT_MODEL.md
+  s_000e4234adb03e::t_8c1b0fbf491a3f 455
+lib/inventory/envcontext.js
+  s_000e4234adb03e::t_6d5aef17e6a9c3 5-6,13-20,68,71,117-118,145-146,214-215,336,351,374-651
+lib/inventory/envcontext.poku.js
+  s_000e4234adb03e::t_307e2685a93af8 871-886,922
+lib/inventory/envcontext_git.poku.js
+  s_000e4234adb03e::t_8b2572574ce0fc 9,18-19,22,30,445-872
+lib/inventory/source.js
+  s_000e4234adb03e::t_65adaba25a3b01 29,177-179,334-336,350
+lib/inventory/source.poku.js
+  s_000e4234adb03e::t_ead909ac9ee2d7 809-811,850-852,985-987,1028-1030,1121-1169
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "80f632e1ef283ecc453b04199e5df980036be09d",
+  "prompts": {},
+  "sessions": {
+    "s_000e4234adb03e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "02037648-4bba-493b-a180-b7ddf3261a96",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
