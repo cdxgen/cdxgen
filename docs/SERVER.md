@@ -165,6 +165,8 @@ cdxgen --server
 curl "http://127.0.0.1:9090/sbom?path=/mnt/work/vulnerable-aws-koa-app&multiProject=true&type=js"
 ```
 
+A .NET scan looks for `Directory.Packages.props` in the directories above the scanned one, the way MSBuild does. With allowed paths set, that search ends at the first directory they do not cover, so list the repository root when the versions of a scanned subdirectory come from a props file kept there.
+
 ### 4. Request options cannot widen the operator's settings
 
 Some options make a scan install packages or run the scanned project's own build, which executes code from the scanned repository. For example, `deep=true` makes Rust scans run `cargo check`, which runs the project's `build.rs`. When the server runs in secure mode, or was started with `--no-install-deps`, a request can turn `installDeps` and `deep` off but cannot turn them on. Only a literal `false` from the request changes them. Profiles that imply `deep`, such as `appsec` and `research`, are limited the same way. Start the server with `--deep` or `--install-deps` if every request should be allowed to use them.
