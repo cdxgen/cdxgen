@@ -134,6 +134,8 @@ import { importProtobomModule } from "../lib/inventory/protobomLoader.js";
 import {
   cleanupSourceDir,
   findGitRefForPurlVersion,
+  getSourceBaseName,
+  getSourceLabel,
   gitClone,
   isAllowedPath,
   isAllowedWinPath,
@@ -1121,14 +1123,19 @@ if (!sourceInputIsRemoteOrPurl && args._?.[0]) {
     args._[0] = filePath;
   }
 }
+// Activity records and messages name a git URL or purl source without its
+// credentials; the raw value is kept for resolving and cloning.
+const sourcePathForLogs = getSourceLabel(filePath);
 if (!args.projectName) {
   if (filePath !== ".") {
-    args.projectName = basename(filePath);
+    args.projectName = getSourceBaseName(filePath);
   } else {
     args.projectName = basename(resolve(filePath));
   }
 }
-thoughtLog(`Let's try to generate a CycloneDX BOM for the path '${filePath}'`);
+thoughtLog(
+  `Let's try to generate a CycloneDX BOM for the path '${sourcePathForLogs}'`,
+);
 if (
   !sourceInputIsRemoteOrPurl &&
   (filePath.includes(" ") || filePath.includes("\r") || filePath.includes("\n"))
@@ -1214,7 +1221,7 @@ const cliActivityProjectType = Array.isArray(options.projectType)
   : options.projectType;
 const cliActivityContext = {
   projectType: cliActivityProjectType,
-  sourcePath: filePath,
+  sourcePath: sourcePathForLogs,
 };
 setDryRunMode(options.dryRun);
 setActivityContext(cliActivityContext);
@@ -1421,12 +1428,12 @@ if (options.bomAudit && !options.bomAuditCategories) {
 
 setActivityContext({
   projectType: "environment",
-  sourcePath: filePath,
+  sourcePath: sourcePathForLogs,
 });
 const envAuditFindings = auditEnvironment(process.env, options);
 setActivityContext(cliActivityContext);
 if (options.envAudit) {
-  displaySelfThreatModel(filePath, config, options, envAuditFindings);
+  displaySelfThreatModel(sourcePathForLogs, config, options, envAuditFindings);
 }
 
 /**
@@ -1945,7 +1952,7 @@ const writeCycloneDxOutput = (jsonFile, bomJson, options) => {
       kind: "read",
       reason: "Dry run mode blocks direct Hugging Face metadata resolution.",
       status: "blocked",
-      target: sourcePath,
+      target: getSourceLabel(sourcePath),
     });
     console.warn("Dry run mode skips direct Hugging Face metadata resolution.");
     printActivitySummary(options.activityReport);
@@ -1957,7 +1964,7 @@ const writeCycloneDxOutput = (jsonFile, bomJson, options) => {
       reason:
         "Dry run mode blocks package-url source resolution and repository cloning.",
       status: "blocked",
-      target: sourcePath,
+      target: getSourceLabel(sourcePath),
     });
     console.warn("Dry run mode skips purl source resolution.");
     printActivitySummary(options.activityReport);
@@ -2035,7 +2042,7 @@ const writeCycloneDxOutput = (jsonFile, bomJson, options) => {
         kind: "clone",
         reason: "Dry run mode blocks cloning git URL sources.",
         status: "blocked",
-        target: sourcePath,
+        target: getSourceLabel(sourcePath),
       });
       console.warn("Dry run mode skips remote git source cloning.");
       printActivitySummary(options.activityReport);
@@ -2387,7 +2394,7 @@ const writeCycloneDxOutput = (jsonFile, bomJson, options) => {
     if (!internalCycloneDxInputPath) {
       internalCycloneDxInputPath = join(
         getTmpDir(),
-        `cdxgen-${Date.now()}-${basename(filePath)}.cdx.json`,
+        `cdxgen-${Date.now()}-${getSourceBaseName(filePath)}.cdx.json`,
       );
     }
     if (isDryRun) {
@@ -2427,7 +2434,7 @@ const writeCycloneDxOutput = (jsonFile, bomJson, options) => {
       }
       setActivityContext({
         projectType: "evinse",
-        sourcePath: filePath,
+        sourcePath: sourcePathForLogs,
       });
       const evinserModule = await import("../lib/evinser/evinser.js");
       if (!options.projectType) {
@@ -2688,7 +2695,7 @@ const writeCycloneDxOutput = (jsonFile, bomJson, options) => {
       bomNSData.bomJson = result.bomJson;
       console.log(result.jsonPayload);
     } else {
-      console.log("Unable to produce BOM for", filePath);
+      console.log("Unable to produce BOM for", sourcePathForLogs);
       console.log("Try running the command with -t <type> or -r argument");
     }
   }
