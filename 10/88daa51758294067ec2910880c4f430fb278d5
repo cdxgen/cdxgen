@@ -1,0 +1,21 @@
+lib/stages/postgen/postgen.js
+  s_000e4234adb03e::t_343efc793fff03 1031-1033,1039-1044
+lib/stages/postgen/postgen.poku.js
+  s_000e4234adb03e::t_3e5e0f38e285d8 2437-2476
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "1088daa51758294067ec2910880c4f430fb278d5",
+  "prompts": {},
+  "sessions": {
+    "s_000e4234adb03e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "02037648-4bba-493b-a180-b7ddf3261a96",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
