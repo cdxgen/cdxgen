@@ -1,0 +1,21 @@
+lib/parsers/htmlExtract.js
+  s_000e4234adb03e::t_f7ca0c82b7351e 203-206,209-212
+lib/parsers/htmlExtract.poku.js
+  s_000e4234adb03e::t_3fd9361d7a7f5a 199-210,299-308
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "a860539cecab4217a75f86762b77411accb11fa0",
+  "prompts": {},
+  "sessions": {
+    "s_000e4234adb03e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "02037648-4bba-493b-a180-b7ddf3261a96",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
