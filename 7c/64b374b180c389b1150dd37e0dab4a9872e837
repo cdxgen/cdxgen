@@ -1,0 +1,29 @@
+lib/cli/nativeBom.js
+  s_000e4234adb03e::t_1bfd13a038f0cf 3000-3008
+lib/ecosystems/parsers-js.js
+  s_000e4234adb03e::t_9db002e26deb90 3452-3460
+lib/ecosystems/parsers-misc.js
+  s_000e4234adb03e::t_af420ed575bacd 121-130,975-983
+lib/ecosystems/parsers-misc.poku.js
+  s_000e4234adb03e::t_e5fc25b53853fb 710,729-730,1502-1503,1505,1508
+lib/ecosystems/parsers-python.js
+  s_000e4234adb03e::t_22b375a5c21719 2930-2944
+lib/ecosystems/parsers-python.poku.js
+  s_000e4234adb03e::t_b8c3b75534c6c7 1112-1130
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "7c64b374b180c389b1150dd37e0dab4a9872e837",
+  "prompts": {},
+  "sessions": {
+    "s_000e4234adb03e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "02037648-4bba-493b-a180-b7ddf3261a96",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
