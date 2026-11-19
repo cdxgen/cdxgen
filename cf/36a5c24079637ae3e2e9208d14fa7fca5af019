@@ -1,0 +1,25 @@
+data/rules/ai-agent-governance.yaml
+  s_000e4234adb03e::t_de99c792acf7ef 23,70,116,165,207,253
+docs/AI_BOM.md
+  s_000e4234adb03e::t_4f5046ab6c3df5 5
+docs/BOM_AUDIT.md
+  s_000e4234adb03e::t_673773978fcaa8 64
+lib/stages/postgen/auditBom.poku.js
+  s_000e4234adb03e::t_4c2b00d0ae6bdf 9,1923-1976
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "cf36a5c24079637ae3e2e9208d14fa7fca5af019",
+  "prompts": {},
+  "sessions": {
+    "s_000e4234adb03e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "02037648-4bba-493b-a180-b7ddf3261a96",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
