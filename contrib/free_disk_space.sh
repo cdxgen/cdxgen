@@ -61,9 +61,21 @@ sudo rm -rf /usr/local/graalvm/
 sudo rm -rf /usr/local/.ghcup/
 sudo rm -rf /usr/local/share/powershell
 sudo rm -rf /usr/local/share/chromium
-# The hosted tool cache and the Android SDK were removed by the
-# jlumbroso/free-disk-space action before it was dropped as a third-party
-# dependency; the runner needs the space back.
-sudo rm -rf /opt/hostedtoolcache/
+# Remove the hosted tool cache and the Android SDK for the space they hold.
+# A job may already have installed tools into the tool cache with
+# setup-java, setup-sbt, setup-node and similar actions before this script
+# runs, so every tool directory named by an environment variable or a PATH
+# entry is kept.
+if [ -d /opt/hostedtoolcache ]; then
+  tools_in_use=$(env | tr ':=' '\n\n' | grep '^/opt/hostedtoolcache/' | cut -d/ -f4 | sort -u || true)
+  for tool_dir in /opt/hostedtoolcache/*/; do
+    tool_name=$(basename "$tool_dir")
+    if printf '%s\n' "$tools_in_use" | grep -qxF "$tool_name"; then
+      echo "Keeping $tool_dir, which this job uses"
+      continue
+    fi
+    sudo rm -rf "$tool_dir"
+  done
+fi
 sudo rm -rf /usr/local/lib/android/
 df -h
