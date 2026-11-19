@@ -64,6 +64,8 @@ Arguments can be passed either via the query string or as a JSON body. The follo
 | includeCrypto        | Include crypto libraries as components. Useful for generating CBOM. With formulation on, the crypto packages, certificates and keys of the server host are inventoried only when the server was started with `--include-crypto`. [boolean] [default: false]                                                                           |
 | standard             | The list of standards which may consist of regulations, industry or organizational-specific standards, maturity models, best practices, or any other requirements which can be evaluated against or attested to. Choices are asvs-4.0.3, bsimm-v13, masvs-2.0.0, nist_ssdf-1.1,pcissc-secure-slc-1.1, scvs-1.0.0, ssaf-DRAFT-2023-11. |
 
+> **Note:** The `--*-slices-file` options the server was started with, including their defaults, do not apply to requests. Every scan writes its atom and dosai slices to a temporary directory of its own, so no request starts from the slices of another.
+
 ## Ways to use server mode
 
 ### Scanning a local path
@@ -100,6 +102,8 @@ curl "http://127.0.0.1:9090/sbom?url=https://${GITHUB_TOKEN}@github.com/some/rep
 ```
 
 > **Security note:** URL-based credentials can still leak through process lists, logs, proxies, and shell history. Restrict server access, prefer short-lived credentials, and avoid exposing the cdxgen server directly to untrusted networks.
+
+A password in the URL (`user:token@`) is used for that request only. For such a URL git runs without the credential helpers of the server account, so a helper like `store` or `cache` does not save the token and offer it to later requests for the same host. A URL without a password still gets what the helpers of the server account have saved.
 
 You can POST the arguments.
 
@@ -173,7 +177,7 @@ The server also refuses the following requests, whatever mode it runs in:
 
 - Project types that inventory the server host rather than the scan path, such as `os`, `hbom`, `vscode-extension`, `chrome-extension`, `agentic`, and the Maven, Gradle, sbt, Cargo and Helm cache types. Start the server with `-t <type>` to allow one of them.
 - For the same reason, a C/C++ scan does not map the headers it finds to the development packages installed on the server host (through osquery, `dpkg` or `rpm`) or to the server user's Conan cache unless the server was started with a C/C++ type such as `-t c`. The rest of the C/C++ scan is unaffected.
-- `exclude` patterns that use braces, are longer than 512 characters, or number more than 128. Every pattern is matched against every file the scan walks, and brace expansion multiplies them, so either can keep the server busy for minutes.
+- `exclude` patterns that use braces, are longer than 512 characters, or number more than 128. A pattern with commas counts once for each comma separated entry, because the evidence filters read it as a list. Every pattern is matched against every file the scan walks, and brace expansion multiplies them, so either can keep the server busy for minutes. A pattern with `..` segments after `**` counts as the most patterns glob can split it into, a number that doubles with every further `**` or `..`, so a pattern that repeats `**/../a/` a few times is refused as well.
 - A `filter` or `only` list of more than 128 terms. Every term is searched for in every component of the BOM.
 - A `serverUrl` on another origin than the one the server was started with, when the request reuses the operator's API key. In secure mode such a `serverUrl` also needs `CDXGEN_ALLOWED_HOSTS`, which every redirect hop is checked against as well.
 - A `path`, or a `file://` git `url` when `file` is in `CDXGEN_GIT_ALLOW_PROTOCOL`, whose real location, after following symlinks, is outside `CDXGEN_ALLOWED_PATHS`. For a `file://` URL this covers every location git opens for it (`<path>/.git`, `<path>`, `<path>.git/.git` and `<path>.git`) and the target of a `.git` file, and a URL that holds `?` or `#` is refused, because git reads both as part of the path. git also follows links kept inside a repository's own git directory, such as alternates, so allowing `file` means trusting what the allowed directories hold.

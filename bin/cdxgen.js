@@ -24,6 +24,7 @@ import {
   buildOptionsFromArgs,
   configFileSelections,
   dropConfigAuditOverrides,
+  dropConfigFileServerUrl,
   findInTreeSlicesFiles,
   isUserProvided,
   markConfigFileTeaTargets,
@@ -44,6 +45,7 @@ import {
   sanitizeProjectConfig,
 } from "../lib/core/projectConfig.js";
 import { isSecureModeActive } from "../lib/core/projectTooling.js";
+import { sanitizeBomUrl } from "../lib/core/propertySanitizer.js";
 import { escapeControlCharacters } from "../lib/core/text.js";
 import {
   ui as defaultUi,
@@ -223,7 +225,7 @@ for (const configPattern of PROJECT_CONFIG_FILENAMES) {
     }
     for (const entry of sanitized.rejected) {
       console.warn(
-        `\x1b[1;35mConfig file '${shownConfigPath}' sets '${escapeControlCharacters(entry)}', which points outside the project directory. Ignoring it. Pass the option on the command line if this is intentional.\x1b[0m`,
+        `\x1b[1;35mConfig file '${shownConfigPath}' sets '${escapeControlCharacters(entry)}', which points outside the project directory or has a '..' segment. Ignoring it. Pass the option on the command line if this is intentional.\x1b[0m`,
       );
     }
     for (const foundKey of sanitized.announced) {
@@ -1267,6 +1269,18 @@ try {
   console.error(error.message);
   process.exit(1);
 }
+// The config file comes from the working directory, usually the scanned
+// project, so a server it names does not receive the operator's API key.
+if (
+  dropConfigFileServerUrl(options, {
+    env: launchEnv,
+    projectConfig: config,
+  })
+) {
+  console.warn(
+    "\x1b[1;35mThe config file sets 'server-url', but the API key comes from the command line or the environment. Ignoring 'server-url', so the key is not sent to a server the scanned project chose. Pass '--server-url' on the command line to send the BOM there.\x1b[0m",
+  );
+}
 // Dependency-Track ingests CycloneDX 1.x only. Refuse an upload (server URL
 // plus API key, the same condition the submission below uses) before
 // generating, so a long scan does not end in an upload that cannot succeed.
@@ -1360,11 +1374,15 @@ const advancedWarnings = applyAdvancedOptionsImpl(options, {
 // The config file comes from the working directory, usually the scanned
 // project, so whether the project's own code may run stays the operator's
 // choice from the command line and environment.
-applyOperatorToolingChoice(options, {
+for (const dropped of applyOperatorToolingChoice(options, {
   env: launchEnv,
   isSecureMode: isSecureModeActive(),
   projectConfig: config,
-});
+})) {
+  console.warn(
+    `\x1b[1;35mThe config file sets '${dropped}', which secure mode takes only from the command line or the environment. Ignoring it. Pass '--${dropped}' on the command line if this is intentional.\x1b[0m`,
+  );
+}
 for (const teaOption of markConfigFileTeaTargets(options, {
   env: launchEnv,
   projectConfig: config,
@@ -2163,8 +2181,10 @@ const writeCycloneDxOutput = (jsonFile, bomJson, options) => {
   if (isAiProvenanceGeneration && bomNSData?.bomJson) {
     const { ensureAiProvenanceProperties, ensureAiOversightProperties } =
       await import("../lib/stages/postgen/auditBom.js");
-    ensureAiProvenanceProperties(bomNSData.bomJson, options);
-    await ensureAiOversightProperties(bomNSData.bomJson, options);
+    // Name the scanned directory, or the collectors fall back to process.cwd().
+    const aiProvenanceOptions = { ...options, path: srcDir };
+    ensureAiProvenanceProperties(bomNSData.bomJson, aiProvenanceOptions);
+    await ensureAiOversightProperties(bomNSData.bomJson, aiProvenanceOptions);
   }
   // TEA upstream SBOM fetch runs BEFORE post-processing so the "upstream wins"
   // merge and the provenance citations flow through the normal pipeline.
@@ -2217,6 +2237,7 @@ const writeCycloneDxOutput = (jsonFile, bomJson, options) => {
     const postAuditFindings = await auditBom(auditInternalBom, {
       ...options,
       getBomWithOras,
+      path: srcDir,
     });
     if (postAuditFindings.length) {
       formatConsoleOutput(postAuditFindings);
@@ -2756,7 +2777,8 @@ const writeCycloneDxOutput = (jsonFile, bomJson, options) => {
       try {
         serverHostname = new URL(options.serverUrl).hostname;
       } catch (err) {
-        console.log("Invalid Dependency-Track server URL", err);
+        // The error carries the URL it could not parse, credentials included.
+        console.log("Invalid Dependency-Track server URL", err.message);
         process.exit(1);
       }
       if (!isAllowedHttpHost(serverHostname)) {
@@ -2764,7 +2786,7 @@ const writeCycloneDxOutput = (jsonFile, bomJson, options) => {
           kind: "submit",
           reason: "The URL host is not allowed as per the allowlist.",
           status: "blocked",
-          target: options.serverUrl,
+          target: sanitizeBomUrl(options.serverUrl),
         });
         console.log(
           `Dependency-Track server host '${serverHostname}' is not allowed by CDXGEN_ALLOWED_HOSTS.`,
@@ -2777,7 +2799,7 @@ const writeCycloneDxOutput = (jsonFile, bomJson, options) => {
         kind: "submit",
         reason: "Dry run mode skips remote BOM submission.",
         status: "blocked",
-        target: options.serverUrl,
+        target: sanitizeBomUrl(options.serverUrl),
       });
     } else if (isCycloneDx20SpecVersion(bomNSData.bomJson?.specVersion)) {
       // Unreachable from the CLI, which refuses this before generating; kept
@@ -2786,7 +2808,7 @@ const writeCycloneDxOutput = (jsonFile, bomJson, options) => {
         kind: "submit",
         reason: DEPENDENCY_TRACK_CDX20_ERROR,
         status: "blocked",
-        target: options.serverUrl,
+        target: sanitizeBomUrl(options.serverUrl),
       });
       console.error(DEPENDENCY_TRACK_CDX20_ERROR);
       if (cleanup) {
@@ -2798,7 +2820,7 @@ const writeCycloneDxOutput = (jsonFile, bomJson, options) => {
         recordActivity({
           kind: "submit",
           status: "completed",
-          target: options.serverUrl,
+          target: sanitizeBomUrl(options.serverUrl),
         });
         await submitBom(options, bomNSData.bomJson);
       } catch (err) {
@@ -2825,7 +2847,7 @@ const writeCycloneDxOutput = (jsonFile, bomJson, options) => {
         kind: "submit",
         reason: "Dry run mode skips TEA collection publishing.",
         status: "blocked",
-        target: options.teaPublish,
+        target: sanitizeBomUrl(options.teaPublish),
       });
     } else {
       try {
@@ -2865,14 +2887,14 @@ const writeCycloneDxOutput = (jsonFile, bomJson, options) => {
         recordActivity({
           kind: "submit",
           status: "completed",
-          target: options.teaPublish,
+          target: sanitizeBomUrl(options.teaPublish),
         });
         console.log(
-          `cdxgen: published TEA collection to ${options.teaPublish} (collection version ${result.body?.version ?? "assigned by server"}).`,
+          `cdxgen: published TEA collection to ${sanitizeBomUrl(options.teaPublish)} (collection version ${result.body?.version ?? "assigned by server"}).`,
         );
       } catch (err) {
         console.error(
-          `cdxgen: failed to publish TEA collection to ${options.teaPublish}: ${err?.message || err}. The local BOM was written regardless.`,
+          `cdxgen: failed to publish TEA collection to ${sanitizeBomUrl(options.teaPublish)}: ${err?.message || err}. The local BOM was written regardless.`,
         );
         process.exit(3);
       }

@@ -86,8 +86,10 @@ Trust boundary 5: cdxgen container ←→ container host
 - Secure mode (`CDXGEN_SECURE_MODE=true`, the `cdxgen-secure` command and image) turns installs off by default
 - With installs off, cdxgen does not run the scanned project's own build tooling (see the next section) and parses manifests and lock files instead
 - A config file in the working directory, a profile or a lifecycle cannot turn installs back on when the operator turned them off, and in secure mode only `--install-deps` on the command line or `CDXGEN_INSTALL_DEPS=true` can
+- In secure mode a C/C++ compilation database is read only when the operator names one with `--compile-commands` or `CDXGEN_COMPILE_COMMANDS`. A `compile-commands` set by a config file in the working directory is ignored with a warning, since the file can come with the code just as the database can
 - A config file (`.cdxgenrc`, `.cdxgen.json`, `.cdxgen.yml` or `.cdxgen.yaml`) in the working directory may set only the options listed in `PROJECT_CONFIG_OPTIONS` in `lib/core/projectConfig.js`. It cannot choose an executable (`--scalasem-command`), start the server, turn off certificate checks for Dependency-Track uploads, or enable feature flags, and every key that is not a declared option is ignored. That covers options only library callers pass, such as `dosaiCommand` and `traceCmd`, and yargs' `extends` key, which would otherwise load a module or another config file named in the file. Project types that inventory the host, such as `os`, `hbom` or `vscode-extension`, and names cdxgen does not know as project types are dropped from the file's `type`. The file cannot turn on evidence collection, which hands project-named values to atom, either with `evidence` or through a profile or technique, and its `operational` profile does not add the `os` type. It cannot name a slices file either, since cdxgen reads an existing one back as the project's evidence, and a license policy it names is announced
-- `safeSpawnSync` warns when `pip`/`uv install` is invoked without `--only-binary=:all:` (prevents `setup.py` execution during wheel builds)
+- A `server-url` that only the config file names is ignored, with a warning, when the Dependency-Track API key comes from the command line or the environment (`--api-key` or `CDXGEN_API_KEY`), so the operator's key does not reach a server the scanned project chose
+- `safeSpawnSync` warns when `pip`/`uv install` is invoked without `--only-binary=:all:` (prevents `setup.py` execution during wheel builds). The flag applies to requirements looked up in an index. pip builds a project directory, archive, URL or editable requirement named on its command line whatever the flag says, so with `--install-deps` in secure mode a `pyproject.toml` or `setup.py` project can still run its build backend, and a requirements file can switch the flag off with its own options
 - `safeSpawnSync` warns when Python is invoked without `-S` flag
 - Users are advised to run in sandboxed environments for untrusted projects
 
@@ -140,7 +142,7 @@ The toolchain version probes for formulation also run from the temporary directo
 - `isValidDriveRoot()` prevents Unicode lookalike drive letters on Windows (CVE-2025-27210 mitigation)
 - Node.js `--permission` model (in secure mode) restricts filesystem access to explicitly allowed paths
 - `safeExistsSync` and `safeMkdirSync` check permissions before operations
-- Path options in a config file, whether spelled out or set through an alias such as `o`, must resolve inside the config's directory after symbolic links are resolved
+- Path options in a config file, whether spelled out or set through an alias such as `o`, must resolve inside the config's directory after symbolic links are resolved. A value with a `..` segment is refused, because the file system follows a link before it takes the parent
 - `safeWriteSync()` does not write through a symbolic link in the last component of the path. A link such as a `bom.json` committed to the scanned repository is replaced with a regular file, and the open uses `O_NOFOLLOW` where the platform has it. Node's permission model follows such links to paths outside its grants, so this also applies in secure mode. Paths under `/dev` and `/proc`, such as `/dev/stdout`, are written as given, and links in parent directories are still followed
 
 **Residual risk:** Low in secure mode, Medium in default mode.
@@ -170,7 +172,7 @@ The toolchain version probes for formulation also run from the temporary directo
 - cdxgen avoids shell interpretation for these values and treats them as filtering patterns only
 - Directory-oriented excludes are additionally forwarded as literal directory names for performance where supported by Atom and astgen
 - Server deployments should validate or constrain request options at the API boundary if untrusted clients can submit scans
-- Patterns from untrusted sources pass through `boundUntrustedGlobPatterns()` in `lib/core/globPatterns.js`: each may be at most 512 characters, and a list may stand for at most 128 patterns after brace expansion. The server refuses a request whose `exclude` patterns use braces or break either limit. A config file in the scanned directory may use braces, but its `exclude` and `include-regex` patterns share the 128-pattern budget, and those past it are dropped with a warning
+- Patterns from untrusted sources pass through `boundUntrustedGlobPatterns()` in `lib/core/globPatterns.js`: each may be at most 512 characters, and a list may stand for at most 128 patterns after brace expansion and after glob has split the `..` segments from the `**` segments before them, with a comma separated pattern counted once for each entry the evidence filters read from it. The server refuses a request whose `exclude` patterns use braces or break either limit. A config file in the scanned directory may use braces, but its `exclude` and `include-regex` patterns share the 128-pattern budget, and those past it are dropped with a warning
 
 **Residual risk:** Low for intended local/CI usage where the operator controls CLI arguments. Medium for wrappers or server deployments that expose pattern options to untrusted users without additional validation.
 
@@ -283,6 +285,7 @@ The toolchain version probes for formulation also run from the temporary directo
   - `GIT_CONFIG_NOSYSTEM=1` and `GIT_CONFIG_GLOBAL=/dev/null` in secure mode — prevents reading system/user configs including Git 2.54 `hook.<name>.command` entries
   - `GIT_TERMINAL_PROMPT=0` — prevents interactive prompts
   - `http.followRedirects=false` while `CDXGEN_GIT_ALLOWED_HOSTS`, `CDXGEN_SERVER_ALLOWED_HOSTS` or secure mode applies, so the allowlisted host is the one git talks to
+  - `-c credential.helper=` when the URL carries a password, so the credential helpers of the account do not save one client's token and answer with it for another client's request
   - `--depth 1` — limits history to reduce attack surface
 - `GIT_ALLOW_PROTOCOL` defaults to `https:ssh` in secure mode
 
@@ -313,6 +316,7 @@ The toolchain version probes for formulation also run from the temporary directo
 - Server timeout: 10 minutes (configurable via `CDXGEN_SERVER_TIMEOUT_MS`)
 - Spawn timeout: 20 minutes (configurable via `CDXGEN_TIMEOUT_MS`)
 - Max buffer: 100MB (configurable via `CDXGEN_MAX_BUFFER`)
+- Remote git operations: the server runs `git clone` and `git ls-remote` without blocking its event loop, so a git host that accepts the connection and then stays silent does not stop other requests or `/health` from being answered. Each is stopped after 5 minutes in server mode (configurable via `CDXGEN_GIT_TIMEOUT_MS`, which also applies to the command line), and an HTTP peer that stays below 1000 bytes a second for a minute is dropped, together with the helper processes git started
 - Parsers of scanned project files avoid regular expressions whose work grows faster than the input. The CrewAI reader for `agents.py` and `tasks.py`, for example, reads each file once
 - Request `exclude` patterns may not use braces, run past 512 characters or number more than 128, since every pattern is matched against every file the scan walks
 - A request's `filter` and `only` lists may each hold at most 128 terms, since every term is searched for in every component of the BOM. A config file in the scanned directory is held to the same limit, and the terms past it are dropped with a warning
