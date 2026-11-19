@@ -19,7 +19,6 @@ import process from "node:process";
 import yargs from "yargs";
 import { hideBin } from "yargs/helpers";
 
-import { thoughtLog } from "../lib/core/logger.js";
 import { escapeControlCharacters } from "../lib/core/text.js";
 import { installConsoleShim, restoreConsole } from "../lib/core/ui.js";
 import {
@@ -34,7 +33,10 @@ import {
   getNonCycloneDxErrorMessage,
   isCycloneDxBom,
 } from "../lib/inventory/bomUtils.js";
-import { formatReadLossNotice } from "../lib/inventory/cyclonedx20.js";
+import {
+  formatReadLossNotice,
+  thoughtLogReadLosses,
+} from "../lib/inventory/cyclonedx20.js";
 import {
   importProtobomModule,
   isProtoBomPath,
@@ -357,9 +359,7 @@ if (report.readLosses?.length) {
   console.error(
     escapeControlCharacters(formatReadLossNotice(report.readLosses)),
   );
-  for (const loss of report.readLosses) {
-    thoughtLog(`cdx-validate 2.0 loss at ${loss.pointer}: ${loss.reason}`);
-  }
+  thoughtLogReadLosses("cdx-validate", report.readLosses);
 }
 
 const { shouldFail: fail, reason } = shouldFail(report, {

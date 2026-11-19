@@ -54,6 +54,7 @@ import { fileURLToPath } from "node:url";
 import { createRequire } from "node:module";
 
 import { isValidIdnEmail } from "../lib/parsers/email.js";
+import { canonicalize } from "../lib/validator/uniqueItems.js";
 
 const require = createRequire(import.meta.url);
 const Ajv = require("ajv");
@@ -78,19 +79,6 @@ const AJV_OPTIONS = {
     esm: true,
   },
 };
-
-function canonicalize(value) {
-  if (value === null || typeof value !== "object") {
-    return typeof value === "string"
-      ? `s${value.length}:${value}`
-      : `${typeof value}:${value}`;
-  }
-  if (Array.isArray(value)) {
-    return `[${value.map(canonicalize).join(",")}]`;
-  }
-  const keys = Object.keys(value).sort();
-  return `{${keys.map((key) => `s${key.length}:${key}=${canonicalize(value[key])}`).join(",")}}`;
-}
 
 /**
  * Replace ajv's built-in uniqueItems keyword with a linear-time Set-based
@@ -166,18 +154,9 @@ export const cdxgenFormats = {
   "idn-email": isValidIdnEmail,
 };
 
-export function canonicalize(value) {
-  if (value === null || typeof value !== "object") {
-    return typeof value === "string"
-      ? \`s\${value.length}:\${value}\`
-      : \`\${typeof value}:\${value}\`;
-  }
-  if (Array.isArray(value)) {
-    return \`[\${value.map(canonicalize).join(",")}]\`;
-  }
-  const keys = Object.keys(value).sort();
-  return \`{\${keys.map((key) => \`s\${key.length}:\${key}=\${canonicalize(value[key])}\`).join(",")}}\`;
-}
+// The serialisation is hand-written and shared with the runtime-compiled
+// validators of bomValidator.js, which must work without this directory.
+export { canonicalize } from "../uniqueItems.js";
 `;
 }
 

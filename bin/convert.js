@@ -26,6 +26,7 @@ import {
 } from "../lib/inventory/bomUtils.js";
 import {
   CDX20_INTERNAL_SECTIONS_KEY,
+  listReadLosses,
   loadBomForAnalysis,
   renderCycloneDx20WithReport,
 } from "../lib/inventory/cyclonedx20.js";
@@ -169,8 +170,8 @@ if (isCdx20Target && !CDX20_SOURCE_SPEC_VERSIONS.has(cdxSpecVersion)) {
   process.exit(1);
 }
 
-// Every loss is printed, whatever the target; --fail-on-loss counts the ones
-// the output really lacks.
+// The losses are printed, whatever the target, as listReadLosses bounds them;
+// --fail-on-loss counts the ones the output really lacks.
 let lostCount = 0;
 if (losses.length) {
   const targetLabel = isSpdxTarget
@@ -181,8 +182,14 @@ if (losses.length) {
   console.warn(
     `Reading the CycloneDX 2.0 input into cdxgen's 1.x model reported ${losses.length} loss(es); ${targetLabel}:`,
   );
-  for (const loss of losses) {
+  const listedLosses = listReadLosses(losses);
+  for (const loss of listedLosses) {
     console.warn(`  - ${loss.pointer || "(root)"}: ${loss.reason}`);
+  }
+  if (listedLosses.length < losses.length) {
+    console.warn(
+      `  … and ${losses.length - listedLosses.length} more, not listed`,
+    );
   }
   if (!isCdx20Target) {
     lostCount += losses.length;

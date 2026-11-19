@@ -277,7 +277,7 @@ Scala projects carry their dependencies through the JVM BOM path (`-t sbt`, `-t 
 - Occurrences, crypto assets, services and call stacks come straight from the scalasem report, with source file and line. Components are joined through the dependency classpath the report records, the `internal:Namespaces` properties and the jar namespace map, so the join also works for builds that report no namespaces. Components emitted from sbt, Mill and scala-cli builds name their artifacts the same way: the Scala binary suffix (`_3`, `_2.13`) is stripped and the version it carried is recorded in `cdx:scala:compilerVersion`, which is what vulnerability matching needs.
 - A version 1 semantics slice is still read when the files it lists exist in this project: its used types join onto the report evidence instead of replacing it.
 - Usages and reachables slices the user passes are read as for any other language, and the routes of a `--openapi-spec-file` merge with the report's into one service each.
-- An absolute `--semantics-slices-file` is used as given, and a report is reused only when it is a version 2 report of the same project directory that is not older than the input SBOM.
+- A `--semantics-slices-file` other than the default name is used as given, a relative one from the working directory, and a report is reused only when it is a version 2 report of the same project directory that is not older than the input SBOM.
 - A failed or degraded run is never silent: the reason is printed once and recorded as `cdx:scalasem:diagnostic` properties, and `--fail-on-error` claims the exit status when evidence is missing.
 
 ## Practical guidance
