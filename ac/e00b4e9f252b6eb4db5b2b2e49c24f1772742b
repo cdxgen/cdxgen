@@ -1,0 +1,25 @@
+lib/inventory/agentFormulationParser.js
+  s_000e4234adb03e::t_5eb28564304d77 41-50,263,440-446,450,456-460
+lib/inventory/agentFormulationParser.poku.js
+  s_000e4234adb03e::t_277745bf29ce70 218-339
+lib/inventory/aiCollector.js
+  s_000e4234adb03e::t_09fbc3ad127661 1942-1946
+lib/inventory/aiCollector.poku.js
+  s_000e4234adb03e::t_cdcb319eb2555e 1645-1661
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "ace00b4e9f252b6eb4db5b2b2e49c24f1772742b",
+  "prompts": {},
+  "sessions": {
+    "s_000e4234adb03e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "02037648-4bba-493b-a180-b7ddf3261a96",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
