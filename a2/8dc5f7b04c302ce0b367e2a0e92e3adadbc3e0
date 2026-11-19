@@ -1,0 +1,29 @@
+lib/cli/jsBom.poku.js
+  s_000e4234adb03e::t_2bf15956141bc5 1575-1624
+lib/cli/jsBom.js
+  s_146444299d4218::t_15dd52201c6c02 568-570,574,610
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "a28dc5f7b04c302ce0b367e2a0e92e3adadbc3e0",
+  "prompts": {},
+  "sessions": {
+    "s_000e4234adb03e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "02037648-4bba-493b-a180-b7ddf3261a96",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    },
+    "s_146444299d4218": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "agent-aef95e53445190be3",
+        "model": "unknown"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
