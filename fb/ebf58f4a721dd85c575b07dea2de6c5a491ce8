@@ -1,0 +1,21 @@
+lib/evinser/swiftsem.js
+  s_000e4234adb03e::t_c2f1cebab9a29b 803-805,2442,2444-2447
+lib/evinser/swiftsem.poku.js
+  s_000e4234adb03e::t_2c227648c178e9 19,822-874
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "fbebf58f4a721dd85c575b07dea2de6c5a491ce8",
+  "prompts": {},
+  "sessions": {
+    "s_000e4234adb03e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "02037648-4bba-493b-a180-b7ddf3261a96",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
