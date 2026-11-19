@@ -1,0 +1,21 @@
+bin/commands.poku.js
+  s_000e4234adb03e::t_cfa11be1821661 1766-1811
+bin/sign.js
+  s_000e4234adb03e::t_dee140d340e714 309,311-321,327-329
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "36923392ff36840884a8b9426561b1b16c260791",
+  "prompts": {},
+  "sessions": {
+    "s_000e4234adb03e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "02037648-4bba-493b-a180-b7ddf3261a96",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
