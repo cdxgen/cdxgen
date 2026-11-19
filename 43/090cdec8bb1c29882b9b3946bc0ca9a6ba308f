@@ -1,0 +1,31 @@
+lib/helpers/source.signature.poku.js
+  s_000e4234adb03e::t_e240d77681b365 1-129
+lib/helpers/envcontext.js
+  s_520f1073775e0d::t_1e002b69e6e4f6 48-49,68-69
+lib/helpers/source.js
+  s_520f1073775e0d::t_c701bfdb5dbbdb 128-129,149-156
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "43090cdec8bb1c29882b9b3946bc0ca9a6ba308f",
+  "prompts": {},
+  "sessions": {
+    "s_000e4234adb03e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "02037648-4bba-493b-a180-b7ddf3261a96",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    },
+    "s_520f1073775e0d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "agent-ace9faa2a6557c4ff",
+        "model": "unknown"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
