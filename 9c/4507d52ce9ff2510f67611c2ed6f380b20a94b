@@ -1,0 +1,21 @@
+lib/evinser/evinser.js
+  s_000e4234adb03e::t_bbd7d40c0b17cd 2143-2150
+lib/evinser/evinser.poku.js
+  s_000e4234adb03e::t_30f839119507bc 1,38,144-193
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "9c4507d52ce9ff2510f67611c2ed6f380b20a94b",
+  "prompts": {},
+  "sessions": {
+    "s_000e4234adb03e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "02037648-4bba-493b-a180-b7ddf3261a96",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
