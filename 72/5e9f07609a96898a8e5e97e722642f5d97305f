@@ -1,0 +1,25 @@
+docs/ADVANCED.md
+  s_000e4234adb03e::t_ad50b5e0c08268 250
+lib/ecosystems/pep770.poku.js
+  s_000e4234adb03e::t_18f35230654afe 259-285
+lib/inventory/sbomDocument.js
+  s_000e4234adb03e::t_4f1c1657a7d531 22,330-363,367-369,445
+lib/inventory/sbomDocument.poku.js
+  s_000e4234adb03e::t_6745f71b818131 58-92
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "725e9f07609a96898a8e5e97e722642f5d97305f",
+  "prompts": {},
+  "sessions": {
+    "s_000e4234adb03e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "02037648-4bba-493b-a180-b7ddf3261a96",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
