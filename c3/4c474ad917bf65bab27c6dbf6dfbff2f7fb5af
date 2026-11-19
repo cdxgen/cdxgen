@@ -1,0 +1,27 @@
+docs/LESSON12.md
+  s_000e4234adb03e::t_94e253011d0a81 21
+lib/cli/asar.poku.js
+  s_000e4234adb03e::t_6913c40e12544c 10,75-78,89,116-155,189-208,254,262,269,338,346,353,450-455
+lib/cli/jsBom.js
+  s_000e4234adb03e::t_dd9ba3cc03218b 107,2084-2088,2283
+lib/ecosystems/asarutils.js
+  s_000e4234adb03e::t_2c9d250500f122 1172,1287,1319-1321,1335,1363-1365,1381-1388,1487
+lib/ecosystems/asarutils.poku.js
+  s_000e4234adb03e::t_1e50c4db4fd081 169-173
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "c34c474ad917bf65bab27c6dbf6dfbff2f7fb5af",
+  "prompts": {},
+  "sessions": {
+    "s_000e4234adb03e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "02037648-4bba-493b-a180-b7ddf3261a96",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
