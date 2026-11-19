@@ -1,0 +1,25 @@
+lib/cli/managedBom.js
+  s_000e4234adb03e::t_c69caa11f0c106 1689-1691,1705-1708,1942
+lib/ecosystems/caxa.js
+  s_000e4234adb03e::t_1f841eb5edd0f9 417-418,425
+lib/ecosystems/rubyutils.js
+  s_000e4234adb03e::t_fbe2f0a4dd77cb 872-875,885-886,891-903,906,908-919,922,926-932,986-1010,1012-1019,1026,1047,1057,2240-2241
+lib/ecosystems/rubyutils.poku.js
+  s_000e4234adb03e::t_4187e911884a46 2005-2152
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "cd7bb2b715bd569b49ca78f25aff9240eb8a67bd",
+  "prompts": {},
+  "sessions": {
+    "s_000e4234adb03e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "02037648-4bba-493b-a180-b7ddf3261a96",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
