@@ -1,0 +1,29 @@
+.github/scripts/docs-only.test.mjs
+  s_000e4234adb03e::t_431271b94b15a4 68
+lib/cli/bomAssembly.js
+  s_000e4234adb03e::t_b9b2a93d47e6e6 980-985
+lib/cli/index.js
+  s_000e4234adb03e::t_6c126c6fc67bfd 248-255,2653,2680
+lib/evinser/evinser.js
+  s_000e4234adb03e::t_979f3f99e978e1 3225
+lib/inventory/depsUtils.js
+  s_000e4234adb03e::t_f33a8cc64ceaab 739-743
+lib/managers/oci.js
+  s_000e4234adb03e::t_fa6dd7682b5b69 240-242
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "70d34fa00df7127f287f0b62cf78a907231db07d",
+  "prompts": {},
+  "sessions": {
+    "s_000e4234adb03e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "02037648-4bba-493b-a180-b7ddf3261a96",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
