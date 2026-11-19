@@ -1,0 +1,39 @@
+bin/convert.js
+  s_000e4234adb03e::t_16364864b7dade 29,173-174,185-186,189-193
+bin/repl.js
+  s_000e4234adb03e::t_eb56c5d75c6439 26,519
+bin/validate.js
+  s_000e4234adb03e::t_6883c007b56825 36-39,362
+docs/CDX_CONVERT.md
+  s_000e4234adb03e::t_dfc9fb4c93a8a6 97-102
+docs/CDX_VALIDATE.md
+  s_000e4234adb03e::t_035768a632ade2 30-36,126
+lib/audit/index.js
+  s_000e4234adb03e::t_f4f36398d492fe 36,164
+lib/evinser/evinser.js
+  s_000e4234adb03e::t_040e3b5bdadc82 81,339
+lib/inventory/cyclonedx20.js
+  s_000e4234adb03e::t_abea3870468967 31,117-167
+lib/inventory/cyclonedx20Readers.poku.js
+  s_000e4234adb03e::t_9e0bd6d6bbbf9a 3,6,23,25,709-813
+lib/validator/reporters.poku.js
+  s_000e4234adb03e::t_1ada6e6ab1a859 3,115-139
+lib/validator/reporters/json.js
+  s_000e4234adb03e::t_e9212d9edcef8d 3,6-7,21-23,27
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "cbaf1bbf3a2f0b99adb2aac7bc45df9d377bb461",
+  "prompts": {},
+  "sessions": {
+    "s_000e4234adb03e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "02037648-4bba-493b-a180-b7ddf3261a96",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
