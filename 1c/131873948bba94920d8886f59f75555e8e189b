@@ -1,0 +1,21 @@
+lib/parsers/gitmodules.js
+  s_000e4234adb03e::t_35fee1c9f7391f 164-173,196-198
+lib/parsers/gitmodules.poku.js
+  s_000e4234adb03e::t_b7ae7abe39f4cf 100-132
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "1c131873948bba94920d8886f59f75555e8e189b",
+  "prompts": {},
+  "sessions": {
+    "s_000e4234adb03e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "02037648-4bba-493b-a180-b7ddf3261a96",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
