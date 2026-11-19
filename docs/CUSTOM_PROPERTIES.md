@@ -279,7 +279,7 @@ These are the highest-leverage keys for first-pass policy authoring.
 | `cdx:ai:oversight:selfMergeRate`                 | Fraction of AI PRs merged/approved by their own author (`unavailable` without forge data)           | Warning / triage |
 | `cdx:ai:oversight:ciWeakeningEvents`             | Count of AI commits that delete tests or add quality-gate suppressions (`--no-verify`, `\|\| true`) | Warning / triage |
 | `cdx:ai:oversight:signoffCoverage`               | Fraction of AI commits carrying a DCO `Signed-off-by` and/or verified signature                     | Warning / triage |
-| `cdx:ai:oversight:codeownersCoverage`            | Fraction of AI-touched paths covered by CODEOWNERS (`unavailable` when no CODEOWNERS file)          | Warning / triage |
+| `cdx:ai:oversight:codeownersCoverage`            | Fraction of AI-touched paths covered by CODEOWNERS (`unavailable` if absent or too costly to check) | Warning / triage |
 | `cdx:ai:oversight:revertHotfixRate`              | Rate of reverts/hotfixes touching AI-authored work                                                  | Warning / triage |
 | `cdx:ai:oversight:batchSizeMedian`               | Median lines changed per AI commit (review-compression context)                                     | Context only     |
 | `cdx:ai:oversight:aiLineRatio`                   | AI-authored lines ÷ total (precise from git-ai notes, else heuristic)                               | Context only     |

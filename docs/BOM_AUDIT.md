@@ -61,7 +61,7 @@ For Go projects, run `evinse -l go --deep` or `evinse -l go --with-data-flow --g
 
 > **Note:** `cdxgen` supports reading both OCI Referrers and BuildKit `in-toto` attestations natively. When working with container images, you can directly pass the OCI image reference to tools like `cdx-validate` and `cdx-verify` to automatically fetch and evaluate attached SBOMs.
 
-> **Note:** `--bom-audit` automatically enables `--include-formulation` to collect CI/CD workflow data. For AI/ML scans, this also emits the discovered AI and agentic inventory in the formal CycloneDX `formulation[]` section. The formulation section may include sensitive data such as emails and environment details. Always review the generated SBOM before distribution.
+> **Note:** `--bom-audit` automatically enables `--include-formulation` to collect CI/CD workflow data. For AI/ML scans, the discovered AI and agentic inventory is written to the top-level `components[]` and `services[]`. The formulation section may include sensitive data such as emails and environment details. Always review the generated SBOM before distribution.
 
 ## Dry-run mode
 

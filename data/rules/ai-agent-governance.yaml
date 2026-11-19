@@ -20,7 +20,7 @@
     nist-ssdf:
       - "Review and protect build and automation instructions"
   condition: |
-    formulation.components[
+    $auditComponents($)[
       $prop($, 'cdx:agent:inventorySource') = 'agent-file'
       and $prop($, 'cdx:file:hasHiddenUnicode') = 'true'
     ]
@@ -67,7 +67,7 @@
     nist-ssdf:
       - "Review externally reachable AI and automation interfaces"
   condition: |
-    formulation.components[
+    $auditComponents($)[
       $prop($, 'cdx:agent:inventorySource') = 'agent-file'
       and $prop($, 'cdx:agent:hasPublicMcpEndpoint') = 'true'
       and $nullSafeProp($, 'cdx:agent:authHints') = ''
@@ -115,7 +115,7 @@
   condition: |
     $count(components[$prop($, 'cdx:mcp:package') = 'true']) = 0
     and $count($auditServices($)[$nullSafeProp($, 'cdx:mcp:inventorySource') = 'source-code-analysis']) = 0
-    ? formulation.components[
+    ? $auditComponents($)[
       $prop($, 'cdx:agent:inventorySource') = 'agent-file'
       and $prop($, 'cdx:agent:hasMcpReferences') = 'true'
     ]
@@ -162,7 +162,7 @@
     nist-ssdf:
       - "Review externally reachable development interfaces"
   condition: |
-    formulation.components[
+    $auditComponents($)[
       $prop($, 'cdx:agent:inventorySource') = 'agent-file'
       and $prop($, 'cdx:agent:hasTunnelReference') = 'true'
     ]
@@ -204,7 +204,7 @@
     nist-ssdf:
       - "Verify provenance of third-party AI integrations"
   condition: |
-    formulation.components[
+    $auditComponents($)[
       $prop($, 'cdx:agent:inventorySource') = 'agent-file'
       and $prop($, 'cdx:agent:hasNonOfficialMcpReference') = 'true'
     ]
@@ -250,7 +250,7 @@
     nist-ssdf:
       - "Protect secrets used by AI automation and developer tooling"
   condition: |
-    formulation.components[
+    $auditComponents($)[
       $prop($, 'cdx:agent:inventorySource') = 'agent-file'
       and $prop($, 'cdx:agent:credentialExposure') = 'true'
     ]
