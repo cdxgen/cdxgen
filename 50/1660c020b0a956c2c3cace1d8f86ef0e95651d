@@ -1,0 +1,21 @@
+lib/ecosystems/denoutils.js
+  s_000e4234adb03e::t_d4d9d1b3a47c81 732-735,776,795-798
+lib/ecosystems/denoutils.poku.js
+  s_000e4234adb03e::t_47ca30426d4df2 281-318
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "501660c020b0a956c2c3cace1d8f86ef0e95651d",
+  "prompts": {},
+  "sessions": {
+    "s_000e4234adb03e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "02037648-4bba-493b-a180-b7ddf3261a96",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
