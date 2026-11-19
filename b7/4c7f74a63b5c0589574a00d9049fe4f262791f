@@ -1,0 +1,25 @@
+bin/commands.poku.js
+  s_000e4234adb03e::t_c4fe6e65bf8cb8 1837-1870
+docs/CDX_SIGN.md
+  s_000e4234adb03e::t_796d3e8ff4d9f5 124
+lib/helpers/jssSigner.js
+  s_000e4234adb03e::t_83f18c3fd40e1e 1080-1084,1090,1109-1123
+lib/helpers/jssSigner.poku.js
+  s_000e4234adb03e::t_1a675f580e5197 977-1012
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "b74c7f74a63b5c0589574a00d9049fe4f262791f",
+  "prompts": {},
+  "sessions": {
+    "s_000e4234adb03e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "02037648-4bba-493b-a180-b7ddf3261a96",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
