@@ -142,6 +142,7 @@ The toolchain version probes for formulation also run from the temporary directo
 - `safeExistsSync` and `safeMkdirSync` check permissions before operations
 - Path options in a config file, whether spelled out or set through an alias such as `o`, must resolve inside the config's directory after symbolic links are resolved
 - `safeWriteSync()` does not write through a symbolic link in the last component of the path. A link such as a `bom.json` committed to the scanned repository is replaced with a regular file, and the open uses `O_NOFOLLOW` where the platform has it. Node's permission model follows such links to paths outside its grants, so this also applies in secure mode. The standard streams and descriptor paths (`/dev/stdout`, `/dev/stderr`, `/dev/fd/<n>`, `/proc/self/fd/<n>`) are written as given. Other paths under `/dev` and `/proc`, such as `/dev/shm/...` and `/proc/self/cwd/...`, get no exception. Links in parent directories are still followed
+- `safeCopyFileSync()` treats a symbolic link in the last component of its destination the same way. A link committed under a name cdxgen copies to, such as the `project/plugins.sbt.cdxgen` backup made before running sbt, is replaced with a regular file created with `COPYFILE_EXCL`, so neither the content nor the mode of the source reaches the file the link pointed at
 
 **Residual risk:** Low in secure mode, Medium in default mode.
 
