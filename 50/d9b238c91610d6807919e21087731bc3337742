@@ -1,0 +1,27 @@
+lib/cli/index.js
+  s_000e4234adb03e::t_fe461a95133621 293,4401-4407,5426-5436,5681
+lib/cli/index.poku.js
+  s_000e4234adb03e::t_49f4ae34c8f3e6 3659-3750
+lib/helpers/projectTooling.js
+  s_000e4234adb03e::t_155d0e39345be6 1-32
+lib/helpers/projectTooling.poku.js
+  s_000e4234adb03e::t_0832cac43711ff 1-74
+lib/stages/pregen/pregen.js
+  s_000e4234adb03e::t_15ec4d6834933d 20,242
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "50d9b238c91610d6807919e21087731bc3337742",
+  "prompts": {},
+  "sessions": {
+    "s_000e4234adb03e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "02037648-4bba-493b-a180-b7ddf3261a96",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
