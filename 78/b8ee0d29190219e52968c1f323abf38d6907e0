@@ -1,0 +1,21 @@
+lib/ecosystems/npmVersionResolution.js
+  s_000e4234adb03e::t_447b2f33e1c4cc 243-246,249-263,289
+lib/ecosystems/npmVersionResolution.poku.js
+  s_000e4234adb03e::t_daf53c2635bf66 1,3,222-260
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "78b8ee0d29190219e52968c1f323abf38d6907e0",
+  "prompts": {},
+  "sessions": {
+    "s_000e4234adb03e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "02037648-4bba-493b-a180-b7ddf3261a96",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
