@@ -1,4 +1,14 @@
 /**
+ * Perform one scan with an empty set of rate limited tools of its own. A rate
+ * limit the scan meets stops its own build tool and no other scan's, and a
+ * scan alongside it that meets one does not stop this scan's.
+ *
+ * @template T
+ * @param {() => T} scan The scan, synchronous or asynchronous
+ * @returns {T} What the scan returns
+ */
+export declare function runWithBuildToolRateLimits<T>(scan: () => T): T;
+/**
  * Whether a tool's combined output names a rate limit from its repository.
  * The answer text is treated as untrusted: only fixed substrings are looked
  * for, nothing from the output is kept.
@@ -29,10 +39,13 @@ export declare function isBuildToolRateLimited(tool: string): boolean;
  * @param {Object} [context] Call-site facts for the degradation event.
  * @param {string} [context.command] The redacted command that was attempted.
  * @param {number} [context.exitCode] The invocation's exit status.
+ * @param {string} [context.outputExcerpt] The output to keep as the excerpt,
+ *   when part of the output read must not be stored. Defaults to the output.
  * @returns {boolean} True when this output names a rate limit.
  */
 export declare function noteBuildToolRateLimit(tool: string, output: string | undefined, context?: {
     command?: string;
     exitCode?: number;
+    outputExcerpt?: string;
 }): boolean;
 //# sourceMappingURL=buildToolRateLimit.d.ts.map

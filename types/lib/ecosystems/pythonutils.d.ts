@@ -143,9 +143,9 @@ export declare function pipRequirementForComponent(apkg: Object, basePath: strin
  */
 export declare function resolvePipArgPaths(args: string[], baseDir: string): string[];
 export declare function getPipTreeForPackages(basePath: any, pkgList: any, tempVenvDir: any, parentComponent: any, getTreeWithPluginFn: any): {
-    failedPkgList?: undefined;
     rootList?: undefined;
     dependenciesList?: undefined;
+    failedPkgList?: undefined;
 } | {
     failedPkgList: any[];
     rootList: {

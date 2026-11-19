@@ -20,8 +20,8 @@ export declare function safeIsExecutableSync(filePath: string): boolean;
  * activity and returns undefined when blocked.
  *
  * The last component of the path is never followed when it is a symbolic
- * link: the link is replaced with a regular file. Paths under /dev and /proc,
- * such as /dev/stdout, are written through as given.
+ * link: the link is replaced with a regular file. The standard streams and
+ * descriptor paths, such as /dev/stdout, are written through as given.
  *
  * @param {string} filePath File path to write.
  * @param {string|Buffer} data Data to write.
@@ -29,6 +29,20 @@ export declare function safeIsExecutableSync(filePath: string): boolean;
  * @returns {void}
  */
 export declare function safeWriteSync(filePath: string, data: string | Buffer, options?: Object): void;
+/**
+ * Remove a symbolic link from a path that an external tool is about to write.
+ * safeWriteSync() keeps cdxgen's own writes from following such a link, but a
+ * tool that is handed the path on its command line opens the file itself and
+ * would write to the file the link points at. Call this right before the tool
+ * runs. The standard streams and descriptor paths are left as given, and nothing is removed
+ * in dry-run mode, where the tool does not run either.
+ *
+ * @param {string} filePath Output path handed to the tool.
+ * @returns {boolean} False when the path could not be checked or a symbolic
+ *   link there could not be removed, in which case the tool must not be given
+ *   the path.
+ */
+export declare function safeRemoveOutputLinkSync(filePath: string): boolean;
 /**
  * Permission- and dry-run-aware write of a sequence of chunks, for content too
  * large to join into one string first. The chunks go to a temporary file next
@@ -91,12 +105,35 @@ export declare function safeUnlinkSync(filePath: string): void;
  * Dry-run-aware wrapper around copyFileSync. Records the activity and returns
  * undefined when blocked.
  *
+ * The last component of the destination is never followed when it is a
+ * symbolic link: the link is replaced with a regular file. The standard
+ * streams and descriptor paths are copied to as given.
+ *
  * @param {string} src Source file path.
  * @param {string} dest Destination file path.
  * @param {number} [mode] Optional copy mode bitmask.
  * @returns {void}
  */
 export declare function safeCopyFileSync(src: string, dest: string, mode?: number): void;
+/**
+ * Dry-run-aware wrapper around chmodSync for a file found in a scanned tree,
+ * such as a build wrapper that needs its execute bit. Records the activity
+ * and returns undefined when blocked.
+ *
+ * Only a regular file gets the mode. chmodSync follows symbolic links, so a
+ * link committed to a scanned repository under a name cdxgen makes
+ * executable, such as gradlew, would pass the mode on to the file or
+ * directory it points at. The mode is set through a descriptor opened with
+ * O_NOFOLLOW where the platform has it, so a link that appears after the
+ * check makes the call fail rather than follow it. Links in the parent
+ * directories are followed as usual. Node.js disables fchmod under the
+ * permission model, so there the call throws and the mode stays as it was.
+ *
+ * @param {string} filePath File path to change the mode of.
+ * @param {number} mode File mode, such as 0o775.
+ * @returns {boolean|undefined} True when the mode was set, false when the path is not a regular file.
+ */
+export declare function safeChmodSync(filePath: string, mode: number): boolean | undefined;
 /**
  * Run an archive extractor under dry-run/debug activity tracing. In dry-run
  * mode the extraction is recorded as blocked and resolves false without running.
@@ -109,6 +146,34 @@ export declare function safeCopyFileSync(src: string, dest: string, mode?: numbe
  * @returns {Promise<boolean>} True when extraction succeeded, false when blocked by dry-run.
  */
 export declare function safeExtractArchive(sourcePath: string, targetPath: string, extractor: () => Promise<any>, kind?: string, options?: Object): Promise<boolean>;
+/**
+ * The number of bytes a zip archive may unpack to. The archive is untrusted
+ * input and a small one can declare any amount of data, so the allowance
+ * follows the size of the file. Archives found inside it are extracted against
+ * the same budget, or every level of nesting would multiply it again.
+ *
+ * @param {string} zipFile Path to the zip archive.
+ * @returns {{remainingBytes: number}} Budget for {@link extractZipWithinBudget}.
+ */
+export declare function createUnzipBudget(zipFile: string): {
+    remainingBytes: number;
+};
+/**
+ * Extract every entry of a zip archive, as `zip.extract(null, targetPath)`
+ * does, but never write more than the budget allows. An archive whose entries
+ * declare more than that is refused before anything is written. The declared
+ * sizes are the archive's own claim, so the bytes written are counted as well.
+ * A write that fails, as on a full disk, rejects like any other error.
+ *
+ * @param {Object} zip Open `StreamZip.async` instance for the archive.
+ * @param {string} zipFile Path to the zip archive.
+ * @param {string} targetPath Directory to extract into.
+ * @param {{remainingBytes: number}} [budget] Budget shared with the enclosing archive. Defaults to one for this archive.
+ * @returns {Promise<void>}
+ */
+export declare function extractZipWithinBudget(zip: Object, zipFile: string, targetPath: string, budget?: {
+    remainingBytes: number;
+}): Promise<void>;
 /** Set of temporary file paths written by cdxgen that are removed on process exit. */
 export declare const temporaryFiles: Set<any>;
 /** Set accumulating every executable command spawned via safeSpawnSync. */
@@ -218,6 +283,18 @@ export declare function denoClearEnvSpawnSync(command: string, args?: string[], 
  * @returns {Object} spawnSync result object with status, stdout, stderr, and error fields
  */
 export declare function safeSpawnSync(command: string, args: string[], options: Object): Object;
+/**
+ * Asynchronous counterpart of safeSpawnSync for commands that wait on a remote
+ * peer: the same checks, defaults and records, without holding the event loop
+ * while the command runs. stdout and stderr are always captured and the
+ * command gets no input.
+ *
+ * @param {string} command The executable to spawn
+ * @param {string[]} args Arguments to pass to the command
+ * @param {Object} options Options as for safeSpawnSync (e.g. cwd, env, shell, timeout)
+ * @returns {Promise<Object>} Resolves with a result object shaped like that of safeSpawnSync
+ */
+export declare function safeSpawn(command: string, args: string[], options: Object): Promise<Object>;
 /** Default spawn timeout in milliseconds (20 minutes), overridable via CDXGEN_TIMEOUT_MS. */
 export declare const TIMEOUT_MS: number;
 /** Default maxBuffer size for spawned process stdout/stderr (100 MB), overridable via CDXGEN_MAX_BUFFER. */
@@ -225,13 +302,19 @@ export declare const MAX_BUFFER: number;
 /**
  * Method to get files matching a pattern
  *
+ * A match that a symbolic link, or a `..` or absolute path in the pattern,
+ * places outside the directory searched is left out.
+ *
  * @param {string} dirPath Root directory for search
  * @param {string} pattern Glob pattern (eg: *.gradle)
  * @param {Object} options CLI options
+ * @param {string} [rootDir] Directory the matches must resolve inside, for a
+ *   dirPath that was named by the scanned project. Defaults to dirPath, or to
+ *   the exploded image that holds it.
  *
  * @returns {Array[string]} List of matched files
  */
-export declare function getAllFiles(dirPath: string, pattern: string, options?: Object): any;
+export declare function getAllFiles(dirPath: string, pattern: string, options?: Object, rootDir?: string): any;
 /**
  * Confine directory-walk caching to one subtree, or switch it off.
  *
@@ -247,16 +330,36 @@ export declare function setDirWalkCacheRoot(rootDir: string | undefined): void;
  */
 export declare function clearFileDiscoveryCache(): void;
 /**
+ * Bound the symbolic links a glob walk goes through.
+ *
+ * `follow: false` only keeps `**` from walking on through the symbolic links
+ * it meets. Every other segment of a pattern, a `*` or a name, goes through
+ * the link it matches. Links that lead back into the tree then let a pattern
+ * of n segments reach a directory along 2^n paths: two links to `.` and a
+ * workspace member pattern of `*` segments are enough, and so are two
+ * directories that each hold a link to `..`. A walk with the returned options
+ * goes through at most one link on any path below the directory it starts
+ * from. That keeps a workspace member that is a link, and bounds the paths of
+ * a walk by the links in the tree rather than by the length of the pattern.
+ * Use it for every walk whose pattern comes from scanned content.
+ *
+ * @param {object} globOptions Options of the glob call, including `cwd` and any `ignore` patterns
+ * @returns {object} The options to pass to glob instead
+ */
+export declare function linkBoundedGlobOptions(globOptions: object): object;
+/**
  * Method to get files matching a pattern
  *
  * @param {string} dirPath Root directory for search
  * @param {string} pattern Glob pattern (eg: *.gradle)
  * @param {Boolean} includeDot whether hidden files can be included.
  * @param {Array} ignoreList Directory patterns to ignore
+ * @param {string} [rootDir] Directory the matches must resolve inside once
+ *   symbolic links are followed. Defaults to dirPath.
  *
  * @returns {Array[string]} List of matched files
  */
-export declare function getAllFilesWithIgnore(dirPath: string, pattern: string, includeDot: boolean, ignoreList: any[]): any;
+export declare function getAllFilesWithIgnore(dirPath: string, pattern: string, includeDot: boolean, ignoreList: any[], rootDir?: string): any;
 /**
  * Return the current timestamp in YYYY-MM-DDTHH:MM:SSZ format.
  *

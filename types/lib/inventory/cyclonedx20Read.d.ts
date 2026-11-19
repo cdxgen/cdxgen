@@ -8,7 +8,8 @@
  * 0. An entry whose refId a formula lists in its
  *    `cdx:formulation:componentRefs` property (a JSON array of refIds, which
  *    renderCycloneDx20 writes for a subject-less document) is a component of
- *    every formula that lists it.
+ *    every formula that lists it. Of entries that repeat a refId, only the
+ *    first is; the others are components of the first such formula alone.
  * 1. An entry whose refId a formula references (a `ref` member, such as a
  *    resource reference, anywhere in its tree) is a component of the first
  *    such formula. Other strings that happen to equal the refId, such as a
@@ -31,7 +32,9 @@
 /**
  * Read a 2.0 document into the internal 1.x-shaped model. Never throws on a
  * schema-valid 2.0 document. Objects nested deeper than MAX_READ_DEPTH are
- * left out, each with a loss. The returned model carries the internal model
+ * left out, each with a loss, and so are componentReferences once the copies
+ * made for them exceed the budget of the document (REFERENCED_SIZE_FACTOR).
+ * The returned model carries the internal model
  * mark (markInternalModel), which loadBomForAnalysis checks. Every member the reader sees but cannot carry
  * into 1.x is reported in `losses` as `{pointer, reason}`, where `pointer` is
  * an RFC 6901 JSON pointer into the input. Objects whose 1.x form would not

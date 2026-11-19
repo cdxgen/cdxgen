@@ -47,8 +47,8 @@ export declare function runGolemAnalysis(src: string, outputFile: string, option
 /**
  * Orchestrate a full golem run: execute the analyzer, read the report, and clean up.
  *
- * When `options.semanticsSlicesFile` is set the report is persisted there;
- * otherwise it is written to a temporary directory that is removed after parsing.
+ * golem writes the report to a temporary directory that is removed after
+ * parsing. When `options.semanticsSlicesFile` is set a copy is persisted there.
  *
  * @param {string} src Source directory to analyze.
  * @param {object} [options={}] Options forwarded to {@link runGolemAnalysis}.
@@ -141,9 +141,10 @@ export declare function sanitizeGolemEndpointUrl(value: string): string | undefi
  * hosts the source calls into services of `kind: "external"`; those carry
  * `x-trust-boundary: true`, since a host the application calls sits outside
  * its own trust boundary, and their URLs are sanitised before they become
- * endpoints. Every endpoint is percent-encoded to an RFC 3986 reference. The
- * map is keyed by the golem service id, which is unique per server, while
- * `name` carries the display name.
+ * endpoints. Route paths lose the same secrets, as golem lists some outbound
+ * calls as routes too. Every endpoint is percent-encoded to an RFC 3986
+ * reference. The map is keyed by the golem service id, which is unique per
+ * server, while `name` carries the display name.
  *
  * HTTP methods are lower-cased to match the property values the OpenAPI flow
  * emits, so a consumer grouping by `cdx:service:httpMethod` sees one value

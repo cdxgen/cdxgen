@@ -109,6 +109,13 @@ export declare function _setRuntimeBrotliVerdict(verdict: boolean | undefined): 
  */
 export declare function runtimeBrotliDecoderIsPatched(runtime?: Object): boolean;
 /**
+ * Ceiling on the decoded size of one compressed response body. It is the limit
+ * `cdxrs fetch` applies to a body by default (`--max-body-bytes`), so both
+ * transports refuse the same documents; the largest npm packuments, tens of
+ * MB, fit.
+ */
+export declare const MAX_DECODED_BODY_BYTES: number;
+/**
  * Override the response cache bounds. Returns the previous bounds so tests can
  * restore them. Not part of the public API.
  *

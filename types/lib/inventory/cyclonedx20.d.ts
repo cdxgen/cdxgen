@@ -67,6 +67,34 @@ export declare function formatReadLossNotice(losses: Array<{
     pointer: string;
     reason: string;
 }>): string;
+export declare const MAX_LISTED_READ_LOSS_CHARS: number;
+/**
+ * The part of the losses of reading a 2.0 document that a report or a log
+ * lists: in order, every loss whose pointer and reason still fit into
+ * MAX_LISTED_READ_LOSS_CHARS. A loss is listed whole or not at all, so a
+ * listed pointer always resolves in the input.
+ *
+ * @param {Array<{pointer: string, reason: string}>} losses Reader losses
+ * @returns {Array<{pointer: string, reason: string}>} The listed losses
+ */
+export declare function listReadLosses(losses: Array<{
+    pointer: string;
+    reason: string;
+}>): Array<{
+    pointer: string;
+    reason: string;
+}>;
+/**
+ * List the losses of reading a 2.0 document in the thought log, as
+ * listReadLosses bounds them, with the number of losses left out.
+ *
+ * @param {string} tool The command reading the document, for the line prefix
+ * @param {Array<{pointer: string, reason: string}>} losses Reader losses
+ */
+export declare function thoughtLogReadLosses(tool: string, losses: Array<{
+    pointer: string;
+    reason: string;
+}>): void;
 /**
  * Return the 1.x-shaped model of a generation run. At 1.x the rendered BOM is
  * the internal model, so this always yields something readers can walk.

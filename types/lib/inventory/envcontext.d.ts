@@ -59,20 +59,45 @@ export declare function gitTreeHashes(dir: string): {};
  */
 export declare function listFiles(dir: string): Object[];
 /**
+ * Whether git finds a repository from a directory that is the directory's own.
+ *
+ * Which repository git reads is decided by files of the tree under analysis,
+ * which is untrusted: a `.git` file or symbolic link, `commondir`,
+ * `core.worktree`, `objects/info/alternates` and symbolic links below `.git`
+ * can each name a path anywhere on the host, and the metadata of whatever
+ * repository lives there would end up in the BOM. A repository is therefore
+ * read only when it is the `.git` directory of the working tree around the
+ * directory, or the git directory of a linked worktree or submodule that names
+ * that working tree in return, and when it refers to nothing outside itself.
+ *
+ * Reference and shared clones, a separate git directory and links that leave
+ * `.git` are legitimate layouts that fail this test. The operator, who knows
+ * where the tree came from, accepts them with
+ * CDXGEN_GIT_ALLOW_EXTERNAL_GITDIR=true. A project config file cannot.
+ *
+ * The answer is not remembered: a caller may scan the same path again after
+ * its content has changed.
+ *
+ * @param {string} dir Directory git is about to run in
+ * @param {boolean} [topLevelOnly] Also require the directory to be the top of
+ * the working tree, which is where git opens the repository of a submodule
+ *
+ * @returns {boolean} false when git finds no repository from the directory, or
+ * one that is not the directory's own
+ */
+export declare function isOwnGitRepository(dir: string, topLevelOnly?: boolean): boolean;
+/**
  * Execute a git command
  *
  * @param {string} dir Repo directory
  * @param {Array} args arguments to git command
- * @param {Object} [options] output limits
- * @param {number} [options.maxBuffer] most bytes of standard output to read,
- * MAX_GIT_OUTPUT_BYTES unless given
- * @param {Function} [options.onTruncated] called when the output reached
- * maxBuffer; with it, the output read so far is returned instead of undefined
+ * @param {{maxBuffer?: number, onTruncated?: Function}} [options] Output limit and truncation callback
  *
  * @returns {string|undefined} git's standard output, or undefined when git
- * could not run, exited with a non-zero status or printed more than maxBuffer
- * without onTruncated. Text git writes to standard error, including warnings
- * of a successful command, is never part of the result.
+ * could not run, exited with a non-zero status, or has no repository to read
+ * that is the directory's own (see isOwnGitRepository). Text git writes to
+ * standard error, including warnings of a successful command, is never part
+ * of the result.
  */
 export declare function execGitCommand(dir: string, args: any[], options?: {
     maxBuffer?: number;

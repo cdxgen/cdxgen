@@ -17,7 +17,8 @@ export declare const PROJECT_CONFIG_OPTIONS: Set<string>;
  * Options only the operator may set, on the command line or through a
  * CDXGEN_* environment variable. They choose an executable, start a listener,
  * turn off certificate checks on the operator's own upload, opt into
- * experimental tool installation, sign the BOM with a generated key in place
+ * experimental tool installation, hand the terminal to the interactive
+ * interface, sign the BOM with a generated key in place
  * of the operator's, or end the run without a BOM. Evidence collection hands
  * project-named values to atom and its helpers, and a slices file is read
  * back as the project's evidence, so neither is the scanned project's to
@@ -43,7 +44,9 @@ export declare const PROJECT_CONFIG_OPTION_ALIASES: Map<string, string>;
  * than the scan path, or that cdxgen does not know by the name given, are
  * dropped. Exclude and include patterns are kept
  * within the bounds of boundUntrustedGlobPatterns, so a project cannot make
- * every file match against thousands of brace-expanded patterns. Options that
+ * every file match against thousands of brace-expanded patterns, and filter
+ * and only lists to UNTRUSTED_FILTER_TERM_LIMIT terms, since every term is
+ * searched for in every component. Options that
  * redirect data off the host or widen what cdxgen does are announced on the
  * console. A project may describe itself with custom metadata properties, but
  * not in the namespaces cdxgen reserves for the facts it establishes, so a

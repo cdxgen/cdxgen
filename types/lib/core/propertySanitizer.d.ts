@@ -129,4 +129,23 @@ export declare function redactCommandCredentials(value: unknown): string;
  * @returns {string} The URL without credentials
  */
 export declare function sanitizeBomReferenceUrl(value: unknown): string;
+/**
+ * Remove credentials from the URL values of component properties that a
+ * parser copied from a scanned manifest or lock file, such as
+ * `cdx:gem:remote`, `cdx:cargo:sourceUrl` or `cdx:pypi:manifestSource`.
+ *
+ * A value that is a URL, or a comma or space separated list of them, goes
+ * through `sanitizeBomReferenceUrl`. Structured (JSON) values and values
+ * without `://` come back as they were.
+ *
+ * @param {Array<{name: string, value: unknown}>} properties Component properties
+ * @returns {Array<{name: string, value: unknown}>} The properties, copied only where a value changes
+ */
+export declare function sanitizeUrlProperties(properties: Array<{
+    name: string;
+    value: unknown;
+}>): Array<{
+    name: string;
+    value: unknown;
+}>;
 //# sourceMappingURL=propertySanitizer.d.ts.map

@@ -7,10 +7,14 @@ export declare const MAX_SBOM_DOCUMENT_BYTES: number;
 /**
  * Parse a third-party SBOM document into components and dependencies.
  *
+ * Properties in the `cdx:` and `internal:` namespaces are removed from the
+ * components: those names are cdxgen's to assert, not the document's.
+ *
  * Returns null — never throws — when the document is too large, is not JSON, is
  * not a recognised SBOM shape, or carries nothing worth merging. Every rejection
  * is reported once, naming the source, so a skipped document is visible rather
- * than silent.
+ * than silent. An SPDX 3.x document is also refused when its relationships
+ * resolve to more than four times as much reference text as the document holds.
  *
  * @param {string} text Raw document text
  * @param {Object} [input] Parse inputs

@@ -10,6 +10,28 @@ export declare const isNonEmptyString: (value: any) => boolean;
 export declare const clone: (value: any) => any;
 export declare const isBomLink: (value: any) => boolean;
 /**
+ * The longest refId the renderer repeats where the input does not name it:
+ * the inventory for a serial-number annotation subject, the asserting party
+ * of every component's identifiers, the cdxgen tool of every identity entry.
+ * A `bom-ref` has no length limit and such a refId is written once per
+ * element, so a longer one would multiply into a document many times the
+ * size of its input.
+ */
+export declare const MAX_REPEATED_REF_ID_LENGTH = 256;
+/** True for a refId the renderer may repeat (see MAX_REPEATED_REF_ID_LENGTH). */
+export declare const isRepeatableRefId: (refId: any) => boolean;
+/**
+ * The refId of an element the renderer derives from a 1.x `bom-ref`:
+ * `<prefix><bom-ref>`, readable and deterministic. When that is too long to
+ * repeat (see MAX_REPEATED_REF_ID_LENGTH), the `bom-ref` is replaced by its
+ * SHA-256, which is as deterministic and keeps the refId short.
+ *
+ * @param {string} prefix Prefix of the derived refId
+ * @param {string} bomRef The 1.x `bom-ref` it is derived from
+ * @returns {string} The derived refId
+ */
+export declare function derivedRefId(prefix: string, bomRef: string): string;
+/**
  * A fresh, empty set of render counters.
  *
  * @param {object} [shadows] 2.0 originals kept by readCycloneDx20 (see

@@ -59,7 +59,8 @@ export declare function enhanceBom(bom: object, opts?: object): object;
  * Walks every component license in a BOM and returns the entries that violate
  * the supplied compliance policy (alert `error`, or `warning` when
  * `includeWarnings` is set). Recurses into nested components and the metadata
- * component.
+ * component. The component identity carried by each violation is limited to
+ * MAX_VIOLATION_IDENTITY_LENGTH characters per field.
  *
  * @param {object} bom CycloneDX BOM
  * @param {object} policy Parsed policy object (see loadPolicy)

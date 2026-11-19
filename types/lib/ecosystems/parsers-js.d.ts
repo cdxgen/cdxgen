@@ -230,8 +230,9 @@ export declare function isPnpmBootDocument(docObj: Object): boolean;
  * @param {Object} _workspaceDirectDeps Direct dependencies of each workspace
  * @param {Object} depsWorkspaceRefs Workspace references for each dependency
  * @param {string} projectRoot Root path used to relativize pnpm-lock evidence paths
+ * @param {Object<string, string>} npmrcConfig Merged npmrc configuration. Loaded from projectRoot, or the lockfile directory, when omitted
  */
-export declare function parsePnpmLock(pnpmLock: string, parentComponent?: Object, workspacePackages?: any, workspaceSrcFiles?: Object, _workspaceDirectDeps?: Object, depsWorkspaceRefs?: Object, projectRoot?: string): Promise<{}>;
+export declare function parsePnpmLock(pnpmLock: string, parentComponent?: Object, workspacePackages?: any, workspaceSrcFiles?: Object, _workspaceDirectDeps?: Object, depsWorkspaceRefs?: Object, projectRoot?: string, npmrcConfig?: Record<string, string>): Promise<{}>;
 /**
  * Parse bower json file
  *

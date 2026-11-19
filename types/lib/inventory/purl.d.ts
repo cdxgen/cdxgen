@@ -26,6 +26,22 @@ export declare const REGISTERED_PURL_TYPES: Set<string>;
  */
 export declare function purlTypeIsRegistered(type: string): boolean;
 /**
+ * Longest run of "/" a purl may contain before cdx-purl is asked to parse it.
+ * cdx-purl trims trailing slashes of the path and subpath with a pattern that
+ * takes time quadratic in such a run, and the purl is often supplied by a
+ * scanned project, a BOM or a server client. A valid purl has no repeated
+ * slash at all, so the limit is generous.
+ */
+export declare const MAX_PURL_SLASH_RUN = 64;
+/**
+ * Report whether a string has a run of "/" longer than
+ * {@link MAX_PURL_SLASH_RUN}.
+ *
+ * @param {string} purlString Purl string to inspect
+ * @returns {boolean} `true` when the run is too long to hand to cdx-purl
+ */
+export declare function hasExcessiveSlashRun(purlString: string): boolean;
+/**
  * Report whether a purl string uses a type that cdx-purl has registered rules
  * for. Purls that fail to parse are treated as unregistered rather than
  * throwing, because the caller is vetting untrusted output.
@@ -83,6 +99,13 @@ export declare function tryBuildPurl(parts: object): string | null;
  */
 export declare function npmPurl(pkgName: string, version?: string): string;
 /**
+ * Longest text read as a NuGet version or version range: the limit CycloneDX
+ * sets for a component version. One resolved version or MSBuild property can
+ * serve every reference that leaves its own version open, and each of them
+ * builds a purl and a bom-ref from it, so the text has to be bounded.
+ */
+export declare const MAX_NUGET_VERSION_LENGTH = 1024;
+/**
  * Detect whether a version string is a concrete version or an MSBuild
  * expression / NuGet range that names no single version.
  *
@@ -90,7 +113,8 @@ export declare function npmPurl(pkgName: string, version?: string): string;
  * `$(TargetFSharpCoreVersion)` is an MSBuild property that only a build
  * evaluates, `1.0-*` is a floating range, and `[1.0,2.0)` is an interval.
  * None of them is a version, so none can be encoded into a purl — the result
- * would parse but identify no package.
+ * would parse but identify no package. Neither is a text longer than
+ * {@link MAX_NUGET_VERSION_LENGTH} characters.
  *
  * Callers resolve such a version from a manifest that pins one (paket.lock,
  * packages.lock.json, project.assets.json, Directory.Packages.props). This

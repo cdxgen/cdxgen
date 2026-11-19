@@ -29,10 +29,13 @@ export declare function scalasemDisabled(options?: Object): boolean;
  */
 export declare function resolveScalasemCommand(): string | undefined;
 /**
- * Where the scalasem report is persisted. An absolute --semantics-slices-file
- * keeps its directory; anything else lands in the evinse output directory, the
- * same rule the atom slice writer follows. Without either there is nowhere to
- * keep it, and the report lives only as long as the run.
+ * Where the scalasem report is persisted. A --semantics-slices-file the user
+ * named is used as given, relative to the working directory like every other
+ * slices file; the default name lands in the evinse output directory, the same
+ * rule the atom slice writer follows. A named file is never moved to the
+ * output directory: a project config file may name one, and is held to paths
+ * inside the project. Without a named file or an output there is nowhere to
+ * keep the report, and it lives only as long as the run.
  *
  * @param {Object} options CLI options carrying `output` and `semanticsSlicesFile`.
  * @returns {string|undefined} Absolute report path.
@@ -57,11 +60,12 @@ export declare function isV1SemanticsSlice(parsed: Object): boolean;
  * and --fail-on-error claims the exit status. A version 1 slice of this
  * project, at the path the user named or at the report path, is returned
  * separately and never overwritten; the fresh report then goes to a
- * temporary file.
+ * temporary file. Its keys were checked against `projectDir`, which is
+ * returned so that they are published as paths below it.
  *
  * @param {string} src Project directory.
  * @param {Object} options CLI options.
- * @returns {Object|undefined} `{ report, reportFile, v1Slice, metadataProperties }`,
+ * @returns {Object|undefined} `{ report, reportFile, v1Slice, metadataProperties, projectDir }`,
  *   or undefined when the analyzer is disabled.
  */
 export declare function analyzeScalaProject(src: string, options?: Object): Object | undefined;
@@ -244,7 +248,10 @@ export declare function jarPathCoordinates(entry: Object): {
 }[];
 /**
  * Build the symbol index from the three sources, reading each classpath jar
- * once, and only for components that carry no namespaces yet.
+ * once, and only for components that carry no namespaces yet. A jar is read
+ * at its real path, and only when that lies in the project or in one of the
+ * user's artifact caches: the report's path may name any file through `..`
+ * or a symbolic link, and the names in it would reach the BOM.
  *
  * @param {Object} report Parsed scalasem report.
  * @param {Object[]} components BOM components.

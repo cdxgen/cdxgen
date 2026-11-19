@@ -1,1 +1,1 @@
-{"version":3,"file":"spdxUtils.d.ts","sourceRoot":"","sources":["../../../lib/inventory/spdxUtils.js"],"names":[],"mappings":"AAwCA;;;;;;;;;GASG;AACH,eAAO,MAAM,kBAAkB,YAHpB,MAAM,KACJ,MA0DZ,CAAC"}
+{"version":3,"file":"spdxUtils.d.ts","sourceRoot":"","sources":["../../../lib/inventory/spdxUtils.js"],"names":[],"mappings":"AA6CA;;;;;;;;;;;;;;;;;;;GAmBG;AACH,eAAO,MAAM,kBAAkB,YANpB,MAAM,6BAEd;IAAyB,oBAAoB,AAA7C,CACA,EADQ,MAAM,CACd;CAAA,KAAU,MA4EZ,CAAC"}

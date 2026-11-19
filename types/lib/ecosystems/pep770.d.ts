@@ -11,11 +11,14 @@
  * @param {Object} input Discovery inputs
  * @param {string[]} [input.metadataFiles] Installed `*.dist-info/METADATA` paths
  * @param {string[]} [input.whlFiles] Wheel file paths
+ * @param {number} [input.maxDocumentBytes] Total text of embedded documents to
+ *   parse, however many distributions carry them
  * @returns {Promise<{components: Object[], dependencies: Object[], citations: Object[]}>}
  */
-export declare function collectEmbeddedSboms({ metadataFiles, whlFiles, }?: {
+export declare function collectEmbeddedSboms({ metadataFiles, whlFiles, maxDocumentBytes, }?: {
     metadataFiles?: string[];
     whlFiles?: string[];
+    maxDocumentBytes?: number;
 }): Promise<{
     components: Object[];
     dependencies: Object[];

@@ -98,6 +98,8 @@ export declare function classifyNpmManifestSource(spec: string | undefined | nul
 } | undefined;
 /**
  * Collects unique manifest-declared npm dependency sources from incoming edges.
+ * A source longer than `MAX_MANIFEST_SOURCE_LENGTH` characters is cut to that
+ * length. Its type is decided from the whole spec and is always reported.
  *
  * @param {object} node Arborist node
  * @returns {{ type: string, value: string }[]} Unique manifest source entries
@@ -141,9 +143,32 @@ export declare function hydrateNpmNodePackage(node: object, options?: object, pr
     packageJsonPath: string | undefined;
 };
 /**
- * Helper to check if a package is imported only for TypeScript types.
+ * Index the keys of an analyzer imports or exports map, to list the keys that
+ * start with a prefix.
+ *
+ * The keys are sorted once and a search is a binary search, so that looking up
+ * every package of a lock file does not walk every module the sources name
+ * once per package. The index holds the keys the map has when it is built:
+ * build one after the map is complete, and share it between the packages.
+ *
+ * @param {Object} moduleMap Analyzer map keyed by module name
+ * @returns {(prefix: string, exactName?: string) => string[]} Search taking a
+ *   prefix and, optionally, a key to list as well when the map has it. It
+ *   returns the matching keys in the order of the map.
  */
-export declare function isPkgTypeOnlyImport(allImports: any, group: any, name: any): boolean;
+export declare function indexModuleNames(moduleMap: Object): (prefix: string, exactName?: string) => string[];
+/**
+ * Helper to check if a package is imported only for TypeScript types.
+ *
+ * @param {Object} allImports Analyzer imports map
+ * @param {string} group Package group
+ * @param {string} name Package name
+ * @param {(prefix: string, exactName?: string) => string[]} [findImportNames]
+ *   Search from `indexModuleNames(allImports)`. A caller that checks many
+ *   packages passes one, so that the imports are indexed once, not per package.
+ * @returns {boolean} True when every import of the package is type-only
+ */
+export declare function isPkgTypeOnlyImport(allImports: Object, group: string, name: string, findImportNames?: (prefix: string, exactName?: string) => string[]): boolean;
 /**
  * Normalize a pnpm lockfile package key by stripping the leading "/@"
  * separator and any parenthetical peer-dependency suffix.

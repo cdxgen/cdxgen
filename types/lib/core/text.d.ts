@@ -22,6 +22,22 @@ declare const COMBINING_MARK_REGEX: RegExp;
  */
 export declare const escapeControlCharacters: (input: string) => string;
 /**
+ * Prepare text for a terminal while keeping the colour and style sequences
+ * cdxgen writes itself. Newlines and tabs pass through (CRLF becomes a
+ * newline), every other control character, including each escape that does not
+ * open an SGR sequence, is written as a `\u` escape, and every line that still
+ * holds an escape ends with a reset so that a style or conceal sequence cannot
+ * reach the next line or table cell.
+ *
+ * Text that quotes a document or a scanned name should be passed through
+ * {@link escapeControlCharacters} where it enters a message: this function
+ * cannot tell cdxgen's own colours from the ones inside such a value.
+ *
+ * @param {string} input Text about to be written to a terminal
+ * @returns {string} Text that cannot move the cursor or erase what is shown
+ */
+export declare const sanitizeTerminalText: (input: string) => string;
+/**
  * Strip ANSI escape sequences from a string.
  *
  * @param {string} input Input possibly containing ANSI escapes

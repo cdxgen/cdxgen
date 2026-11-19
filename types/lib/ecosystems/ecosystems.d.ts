@@ -75,9 +75,10 @@ export declare function getMvnMetadata(pkgList: any[], jarNSMapping?: Object, fo
  * @param {String} name
  * @param {String} version
  *
- * @return {String} fullUrl
+ * @return {String|undefined} fullUrl, or undefined when a coordinate is not a
+ *   single path segment
  */
-export declare function composePomXmlUrl({ urlPrefix, group, name, version }: string): string;
+export declare function composePomXmlUrl({ urlPrefix, group, name, version }: string): string | undefined;
 /**
  * Method to fetch pom.xml data and parse it to JSON, merged with its parents.
  *

@@ -108,11 +108,15 @@ export declare function markerExcludesCPython(marker: string): boolean;
  * @param {Map<string, string[]>} [options.workspaceFilesCache] Workspace
  *   member pyproject.toml files already found, keyed by the member pattern
  *   joined to the lock file directory, shared the same way
+ * @param {string} [options.projectRoot] Directory being scanned, which the
+ *   workspace manifests are named relative to. Defaults to the directory of
+ *   the lock file
  */
 export declare function parsePyLockData(lockData: string, lockFile: string, pyProjectFile: string, options?: {
     installedMetadata?: Object[];
     pyProjectCache?: Map<string, Object>;
     workspaceFilesCache?: Map<string, string[]>;
+    projectRoot?: string;
 }): Promise<{
     pkgList: any[];
     dependenciesList: any[];

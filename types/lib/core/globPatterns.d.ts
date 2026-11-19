@@ -5,11 +5,18 @@
 export declare const UNTRUSTED_GLOB_PATTERN_MAX_LENGTH = 512;
 /**
  * Most patterns a list of untrusted exclude or include patterns may stand
- * for once brace expressions are expanded. Every expanded pattern is matched
- * against every file the scan walks, so the total, not the length of the
- * list as written, is what decides the cost.
+ * for once brace expressions and comma separated lists are expanded and glob
+ * has split the `..` segments from the `**` segments before them. Every
+ * expanded pattern is matched against every file the scan walks, so the
+ * total, not the length of the list as written, is what decides the cost.
  */
 export declare const UNTRUSTED_GLOB_EXPANSION_BUDGET = 128;
+/**
+ * Terms a filter or only list from an untrusted source may hold. Every term is
+ * searched for in the purl, and for filter in every property, of every
+ * component.
+ */
+export declare const UNTRUSTED_FILTER_TERM_LIMIT = 128;
 /**
  * Count, from above, how many patterns a glob's brace expressions expand to,
  * following the brace-expansion package that minimatch uses:
@@ -39,15 +46,30 @@ export declare const UNTRUSTED_GLOB_EXPANSION_BUDGET = 128;
  */
 export declare function globBraceExpansionCount(pattern: string, cap?: number): number;
 /**
+ * Split an exclude pattern into the patterns the evidence filters read from
+ * it. File discovery hands a pattern to glob as written, but the atom and
+ * dosai exclude filters read a pattern with a comma and no brace as a comma
+ * separated list. boundUntrustedGlobPatterns counts with this function too,
+ * so a list is charged for every pattern it becomes.
+ *
+ * @param {string} pattern glob pattern, or comma separated glob patterns
+ * @returns {string[]} the patterns, trimmed, without the empty ones
+ */
+export declare function splitGlobPatternList(pattern: string): string[];
+/**
  * Split exclude or include patterns from an untrusted source into the ones
  * cdxgen uses and the ones it refuses. Patterns are taken in order while
  * they fit the expansion budget, so a list cannot multiply the work of a
- * scan by brace expansion or sheer number.
+ * scan by brace expansion, comma separated lists, `..` segments after `**`,
+ * or sheer number.
  *
  * @param {unknown} patterns a pattern, a list of patterns, or nothing
  * @param {Object} [options] bound options
  * @param {boolean} [options.allowBraces=true] refuse every pattern with a
  *   brace when false
+ * @param {boolean} [options.keepInTree=false] refuse a pattern that is
+ *   absolute or has a `..` segment, for patterns that select files inside
+ *   the directory being scanned
  * @param {number} [options.budget] expanded patterns allowed in all
  * @param {number} [options.used=0] expanded patterns earlier lists have
  *   already taken from the budget
@@ -55,8 +77,9 @@ export declare function globBraceExpansionCount(pattern: string, cap?: number): 
  *   the patterns to use, the ones refused with the reason, and the expanded
  *   patterns the accepted ones use
  */
-export declare function boundUntrustedGlobPatterns(patterns: unknown, { allowBraces, budget, used, }?: {
+export declare function boundUntrustedGlobPatterns(patterns: unknown, { allowBraces, keepInTree, budget, used, }?: {
     allowBraces?: boolean;
+    keepInTree?: boolean;
     budget?: number;
     used?: number;
 }): {

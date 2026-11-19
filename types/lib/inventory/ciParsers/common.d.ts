@@ -1,4 +1,13 @@
 /**
+ * Shorten parent-level text before it is repeated on every child. Lists and
+ * maps found where the CI system expects text are serialised first.
+ *
+ * @param {*} value Text, or the list or map found in its place
+ * @returns {*} The text, cut to 512 characters and followed by an ellipsis
+ *   when it is longer. Other scalars are returned unchanged.
+ */
+export declare function boundSharedText(value: any): any;
+/**
  * Record a CI file that a parser could not analyse, so that a BOM audit can
  * tell an empty result from a file it never read. A secure-mode audit fails
  * on any recorded file.

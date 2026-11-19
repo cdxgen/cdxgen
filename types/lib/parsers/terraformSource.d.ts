@@ -22,6 +22,12 @@
 export declare const TERRAFORM_REGISTRY_HOST = "registry.terraform.io";
 export declare const OPENTOFU_REGISTRY_HOST = "registry.opentofu.org";
 /**
+ * Longest version constraint that is classified or repeated on module
+ * components. Genuine constraints are a few dozen characters, and the
+ * CycloneDX schema caps a component version at the same length.
+ */
+export declare const MAX_VERSION_CONSTRAINT_LENGTH = 1024;
+/**
  * Parse a module `source` argument into a classified descriptor.
  *
  * @param {string} source Module source string as written in the configuration

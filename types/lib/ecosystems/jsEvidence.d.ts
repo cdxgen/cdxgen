@@ -26,6 +26,11 @@ export declare function bomSafeSpecifier(specifier: string): string | undefined;
  * `createNpmVersionChooser`), so a copy nested under another package is not
  * credited with, or promoted to required by, the project's own imports.
  *
+ * Every component an import is evidence for is scoped by it, but no more than
+ * MAX_COMPONENTS_PER_IMPORT_NAME of them carry its occurrences and modules
+ * (see `takesEvidenceOf`), so the evidence grows with the sources and the
+ * lock files, not with their product.
+ *
  * @param {Array<object>} pkgList Package components to enrich.
  * @param {object} allImports Map of import specifier to usage evidence objects.
  * @param {object} allExports Map of export specifier to export evidence objects.

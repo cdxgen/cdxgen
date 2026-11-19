@@ -21,6 +21,7 @@ export declare function applyNugetVersion(pkg: Object, version?: string): Object
  * Compare two NuGet versions: up to four numeric release parts (missing parts
  * read as 0), then the prerelease label, with a release sorting after its own
  * prereleases. Build metadata after `+` is ignored, as NuGet ignores it.
+ * Only the first MAX_COMPARED_VERSION_LENGTH characters of a version are read.
  *
  * @param {string} a Version
  * @param {string} b Version
@@ -172,17 +173,25 @@ export declare function parseDirectoryPackagesProps(propsFile: string): Object;
  * directory cdxgen was invoked with. The walk therefore deliberately continues past
  * the scan root rather than stopping at it.
  *
+ * Above the scan root the walk is still bound by the allowed paths
+ * (CDXGEN_ALLOWED_PATHS / CDXGEN_SERVER_ALLOWED_PATHS): it ends at the first
+ * directory they do not cover, so a scan of an allowed directory returns no
+ * versions from a props file the operator kept out of reach. The scanned tree
+ * itself is always read, as a cloned repository is not in that list.
+ *
  * @param {String} projFile Path to a .csproj like project file
  * @param {Object} cache Optional per-scan cache keyed by props file path, so that a
  *        repository with many projects parses each props file once. The directories
  *        walked for it are remembered as well, so that the projects of a scan check
  *        each directory once between them rather than each walking up to the
  *        file-system root again when no props file exists.
+ * @param {String} [scanRoot] Directory being scanned. Defaults to the directory
+ *        of the project file.
  *
  * @returns {Object} Map of lowercased package id to version. Empty when the project
  *          does not use central package management.
  */
-export declare function getCentralPackageVersions(projFile: string, cache?: Object): Object;
+export declare function getCentralPackageVersions(projFile: string, cache?: Object, scanRoot?: string): Object;
 /**
  * Method to find all text nodes in PropertyGroup elements in .props files.
  *

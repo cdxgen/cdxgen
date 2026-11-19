@@ -41,11 +41,15 @@ export declare function rewriteExtractedArchivePaths(subject: Object | any[], ex
  * BOM references and evidence for nested ASAR recursion
  * @param {number} [options.specVersion] CycloneDX spec version used to choose
  * compatible component types
+ * @param {Map<string, Object|null>} [options.asarPlistCache] Per-scan cache of
+ * the ElectronAsarIntegrity table of each Electron Info.plist, keyed by path, shared across the archives
+ * of one bundle
  * @returns {Promise<Object>} Parsed archive analysis result
  */
 export declare function parseAsarArchive(archivePath: string, options?: {
     asarVirtualPath?: string;
     specVersion?: number;
+    asarPlistCache?: Map<string, Object | null>;
 }): Promise<Object>;
 /**
  * Synchronously extracts an Electron ASAR archive to a temporary directory.

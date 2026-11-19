@@ -32,9 +32,12 @@
  * built from the `url`.
  *
  * @param {string} zonFile Path to `build.zig.zon`
+ * @param {string} [sourceLabel] Path or label used in `internal:SrcFile`
+ *   evidence. When omitted, `zonFile` is used. A manifest read from outside
+ *   the scan root needs a label, so that its host path stays out of the BOM.
  * @returns {{ pkgList: object[], parentComponent: object }} parsed packages
  */
-export declare function parseBuildZigZon(zonFile: string): {
+export declare function parseBuildZigZon(zonFile: string, sourceLabel?: string): {
     pkgList: object[];
     parentComponent: object;
 };

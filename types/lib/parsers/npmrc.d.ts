@@ -7,6 +7,28 @@
  */
 export declare const DEFAULT_NPMRC_BLOCKLIST: Set<string>;
 /**
+ * The names npm may read a .npmrc key as. npm unquotes a key (a double-quoted
+ * key is JSON-decoded), cuts an unquoted one at an unescaped `;` or `#`,
+ * resolves backslash escapes and expands `${NAME}` and `${NAME?}` from the
+ * environment, so the text before `=` is not always the key that applies. A
+ * `${NAME}` is expanded both from the environment and to nothing, because an
+ * unset optional variable is empty.
+ *
+ * @param {string} rawKey Key as written before the `=`
+ * @param {Object} [env] Environment used to expand variables, defaulting to
+ *   the process environment
+ * @returns {string[]} Candidate key names, the raw key first
+ */
+export declare function npmrcKeyCandidates(rawKey: string, env?: Object): string[];
+/**
+ * Whether a .npmrc key names a setting on DEFAULT_NPMRC_BLOCKLIST under any
+ * spelling npm accepts. A registry or scope prefix before the key is ignored.
+ *
+ * @param {string} key Key as returned by parseNpmrc
+ * @returns {boolean} true when npm may read the key as a blocked setting
+ */
+export declare function isBlockedNpmrcKey(key: string): boolean;
+/**
  * Parse .npmrc content into a plain key-value object.
  *
  * Keys that collide with JavaScript object internals are skipped: assigning

@@ -244,8 +244,9 @@ export declare function recordDegradation(remediationId: string, fields?: Partia
 export declare function getLedgerEvents(): LedgerEvent[];
 /**
  * Clear the in-memory buffer and the truncation state. Intended for tests; a
- * production run never resets its own ledger. The sidecar file is append-only
- * and is not touched.
+ * production run never resets its own ledger, and a process that performs
+ * several has it emptied between them by the run reset below. The sidecar
+ * file is append-only and is not touched.
  *
  * @returns {void}
  */

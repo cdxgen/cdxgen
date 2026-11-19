@@ -82,12 +82,33 @@ export declare function gradleCacheRoots(): string[];
  */
 export declare function coursierCacheDir(): string | undefined;
 /**
+ * The Ivy directories of the user: the cache sbt older than 1.3 resolves into
+ * (SBT_CACHE_DIR when set, otherwise `~/.ivy2/cache`) and `~/.ivy2/local`,
+ * where `publishLocal` puts the artifacts of other builds.
+ *
+ * @returns {string[]} Absolute paths. Not filtered for existence.
+ */
+export declare function ivyRepositoryRoots(): string[];
+/**
  * Convert a Coursier repository prefix into the repository URL it caches.
  *
  * @param {string[]} parts Prefix segments relative to the cache root.
  * @returns {string|null} Repository URL.
  */
 export declare function coursierPrefixToUrl(parts: string[]): string | null;
+/**
+ * Whether Maven coordinates name a directory of their own below a repository
+ * root. The coordinates come from the scanned project and are joined onto
+ * the root, where an empty group segment is dropped and `.` and `..` are
+ * followed: `org..example` and `./name` would find the artifact of
+ * `org.example:name`, and `../..` a directory outside the repository.
+ *
+ * @param {string} group Maven groupId.
+ * @param {string} name Maven artifactId.
+ * @param {string} version Version.
+ * @returns {boolean} True when every part is a plain path segment.
+ */
+export declare function isMavenCoordinatePath(group: string, name: string, version: string): boolean;
 /**
  * Locate a Maven coordinate's directory in the Coursier cache. Coursier
  * leaves an empty version directory behind in every repository it asked and

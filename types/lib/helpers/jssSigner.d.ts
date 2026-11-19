@@ -223,11 +223,17 @@ export declare function removeJssSignatures(bom20: object): {
  * a BOM that already carries root signatures is refused unless
  * `allowInvalidatingSignatures` is set.
  *
+ * A nested member that carries `bomFormat`, `specFormat` or `specVersion` is
+ * refused before anything is signed: its signature has the same form as a
+ * root signature, so the member could be cut out and presented as a BOM the
+ * signer signed.
+ *
  * @param {object} bom20 - Rendered CycloneDX 2.0 document
  * @param {object} options - Passed to {@link signJss}
  * @param {boolean} [options.deep] - Also sign nested members (default true)
  * @param {boolean} [options.allowInvalidatingSignatures] - Sign nested members even though existing root signatures will no longer verify
  * @returns {object} The signed document
+ * @throws {Error} When a nested member to sign carries BOM identity members
  */
 export declare function signJssBom(bom20: object, options?: {
     deep?: boolean;
@@ -247,7 +253,8 @@ export declare function signJssBom(bom20: object, options?: {
  *   every-key rule) and carries none of `bomFormat`, `specFormat`,
  *   `specVersion`;
  * - a BOM without root signatures fails unless `allowNestedOnly` is set;
- *   then `deep` must be on and every nested member must be signed.
+ *   then `deep` must be on and every nested member must be signed, and with
+ *   `requireAll` the every-key rule applies to each nested member.
  *
  * @param {object} bom20 - Signed CycloneDX 2.0 document
  * @param {object} options - Trust options passed to {@link verifyJss}

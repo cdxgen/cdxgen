@@ -1,15 +1,15 @@
 /**
- * Check whether a token realm URL belongs to the registry itself.
+ * Check whether a URL named by a registry response belongs to the registry
+ * itself.
  *
- * A registry's 401 response names the realm, so a hostile registry picks the
- * URL cdxgen will call. Credentials picked up for the registry must therefore
- * only be attached when the realm has the same origin (scheme, host and
- * port); an http:// realm on the registry's host would otherwise receive them
- * without TLS. Public delegating realms (docker.io to auth.docker.io) are
- * still usable, just anonymously.
+ * A registry's 401 response names the token realm and its 202 response names
+ * the blob upload location, so a hostile registry picks the URL cdxgen will
+ * call. Credentials picked up for the registry must therefore only be attached
+ * when that URL resolves to the same scheme, host and port; public delegating
+ * realms (docker.io to auth.docker.io) are still usable, just anonymously.
  *
  * @param {string} registry Registry host, optionally with a port
- * @param {URL} realmUrl Parsed realm URL from the WWW-Authenticate header
+ * @param {URL} realmUrl Parsed URL from the WWW-Authenticate or Location header
  * @returns {boolean} true when scheme, host and port match the registry
  */
 export declare function isSameRegistryHost(registry: string, realmUrl: URL): boolean;

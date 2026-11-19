@@ -24,7 +24,9 @@
  * hours when the TTL is 0, under a key of its own that cdxrs never reads.
  *
  * Requests that carry their own headers, such as a registry token, are never
- * cached here, and nothing is read or written during a dry run, for a host
+ * cached here. The ambient `GITHUB_TOKEN`, which the transports attach on their
+ * own, reaches the auth realm as a digest, so its answers are kept for that
+ * token alone. Nothing is read or written during a dry run, for a host
  * outside `CDXGEN_ALLOWED_HOSTS`, or over plain HTTP in secure mode, so the
  * cache never answers a request the policy would have refused. The directory
  * is cdxgen's own, and its files are written as cdxrs writes them, without an
@@ -107,6 +109,20 @@ export declare function diskCacheable(request: {
     headers?: Object;
     responseType?: string;
 }): boolean;
+/**
+ * Whether a host name can name a directory of its own below the fetch cache.
+ *
+ * Entries live in `<cacheDir>/cdxrs-fetch/<host>/`, and both the JS pool and
+ * cdxrs sweep that directory for expired files before reading from it. The
+ * host therefore has to be a single path segment that stays there. `.` and
+ * `..` are valid URL hosts (`http://../x`, `http://%2e%2e/x`) and are not:
+ * they name the fetch directory itself and the cache root above it, where
+ * other programs' files may live.
+ *
+ * @param {string|null|undefined} host Hostname as `URL.hostname` reports it.
+ * @returns {boolean}
+ */
+export declare function isCacheHostDirName(host: string | null | undefined): boolean;
 export type DiskCacheLookup = {
     /**
      * `fresh` and `miss` are
@@ -131,6 +147,17 @@ export type DiskCacheLookup = {
  * @returns {DiskCacheLookup}
  */
 export declare function diskCacheGet(key: DiskCacheKey): DiskCacheLookup;
+/**
+ * Count bytes added to the cache, and run the byte-ceiling pass when one is
+ * due. The JS pool counts its own writes here. `fetchBatch.js` counts what a
+ * `cdxrs fetch` run may have added: every such run is a process of its own
+ * that paces its passes from zero, so runs that each stay below the slack
+ * never enforce the ceiling themselves.
+ *
+ * @param {number} bytes Bytes added, or an estimate of them.
+ * @returns {void}
+ */
+export declare function diskCacheNoteWritten(bytes: number): void;
 /**
  * Store a successful response.
  *
@@ -161,7 +188,8 @@ export declare function diskCachePutMiss(key: DiskCacheKey, status: number): voi
  */
 export declare function diskCacheRefresh(key: DiskCacheKey, entry: DiskCacheEntry, headers?: Object): void;
 /**
- * Forget which host directories were swept. Tests only.
+ * Forget which host directories were swept, and have a byte-ceiling pass due
+ * again, as in a new process. Tests only.
  *
  * @returns {void}
  */

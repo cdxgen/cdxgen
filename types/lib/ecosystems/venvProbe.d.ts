@@ -2,13 +2,21 @@
  * Find the virtual environments and pyenv interpreters under the fixed
  * places of a root.
  *
+ * An environment below a home directory is reached through no symbolic link
+ * below that home, whoever runs the scan: a link a user leaves there would be
+ * resolved with the scan's rights. One below /opt or /usr/local is reached
+ * through links only while they stay inside that directory. Each environment
+ * records the rule as `within` or `confine`.
+ *
  * @param {string} rootPath root directory
  * @param {string} platform `linux` or `darwin`
- * @returns {{path: string, kind: string}[]} environments, at most MAX_ENVIRONMENTS
+ * @returns {{path: string, kind: string, within?: string, confine?: string}[]} environments, at most MAX_ENVIRONMENTS
  */
 export declare function findPythonEnvironments(rootPath: string, platform: string): {
     path: string;
     kind: string;
+    within?: string;
+    confine?: string;
 }[];
 /**
  * Inventory the packages installed in the virtual environments and pyenv

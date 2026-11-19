@@ -27,6 +27,34 @@ export declare function markInternalModel(bom: object): object;
  */
 export declare function isMarkedInternalModel(bom: object): boolean;
 export declare const MAX_READ_DEPTH = 256;
+export declare const MIN_REFERENCED_SIZE: number;
+export declare const REFERENCED_SIZE_FACTOR = 4;
+/**
+ * The approximate size of a parsed JSON value: one per value, plus the
+ * length of every string and member name. Iterative, so no input depth can
+ * exhaust the call stack.
+ *
+ * @param {*} value Parsed JSON value
+ * @returns {number} The size
+ */
+export declare function jsonSize(value: any): number;
+/**
+ * Charge one more copy of `declared` to the document's budget for copies of
+ * what the document declares once and names elsewhere.
+ *
+ * @param {object} ctx Reader context
+ * @param {*} declared The parsed JSON value that is copied
+ * @returns {boolean} False when the copy no longer fits, and so must be left out
+ */
+export declare function takeReferenceCopy(ctx: object, declared: any): boolean;
+/**
+ * Map refId → index of its first declaration in a definitions list, so a
+ * reference is one lookup instead of a search of the list.
+ *
+ * @param {Array|undefined} list A definitions list
+ * @returns {Map<string, number>} Index of the first entry with each refId
+ */
+export declare function indexByRefId(list: any[] | undefined): Map<string, number>;
 /**
  * Copy a parsed JSON value, leaving out every object nested deeper than
  * `maxDepth` objects and recording its JSON pointer. Arrays do not count

@@ -29,6 +29,9 @@ export declare function getOSPackageForFile(afile: string, osPkgsList: Object[])
 /**
  * Collect all executable files from the given list of binary paths
  *
+ * The image is walked once for all the paths, which createDirMatcher() reads
+ * as directory names.
+ *
  * @param basePath Base directory
  * @param binPaths {Array[String]} Paths containing potential binaries
  * @param excludePaths {Array[String]} Container-relative paths that should be excluded from the result set
@@ -50,6 +53,15 @@ export declare function collectExecutables(basePath: any, binPaths: any, exclude
  * @return {Array[String]} List of executables
  */
 export declare function collectSharedLibs(basePath: any, libPaths: any, ldConf: string, ldConfDirPattern: string, excludePaths?: any, extraLibGlobs?: any): any;
+/**
+ * Identify the file a path leads to. Symbolic and hard links to one file share
+ * its device and inode; the real path stands in where the platform reports
+ * neither.
+ *
+ * @param {string} filePath Path to the file, which may be a link
+ * @returns {string} Key that is the same for every name of the file
+ */
+export declare function fileIdentity(filePath: string): string;
 /**
  * The most native extension candidates one scan returns.
  *

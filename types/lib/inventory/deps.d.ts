@@ -194,10 +194,21 @@ export declare function readZipEntriesMatching(zipFile: string, pathFragment: st
  * Method to get the classes and relevant sources in a jar file
  *
  * @param {string} jarFile Jar file to read
+ * @param {Object} [opts] Options
+ * @param {number} [opts.maxClassNameLength] Longest entry name listed.
+ *   Defaults to 4096 characters.
+ * @param {number} [opts.maxClassNamesLength] Total length of the names listed
+ *   for this jar. Defaults to 16 MiB.
+ * @param {number} [opts.maxRunClassNamesLength] Total length of the names
+ *   listed for all jars of the run. Defaults to 128 MiB.
  *
  * @returns List of classes and sources matching certain known patterns
  */
-export declare function getJarClasses(jarFile: string): Promise<any>;
+export declare function getJarClasses(jarFile: string, opts?: {
+    maxClassNameLength?: number;
+    maxClassNamesLength?: number;
+    maxRunClassNamesLength?: number;
+}): Promise<any[]>;
 /**
  * Method to get the classes of an Android library. An `.aar` keeps its code
  * in `classes.jar` at its root and any number of further jars under `libs/`,

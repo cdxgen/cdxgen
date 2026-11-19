@@ -61,10 +61,14 @@ export declare function compactAlgorithmName(name: string): string;
  * @param {object} component A component with cryptoProperties
  * @param {Map<string, object>} [algorithmsByRef] Components by bom-ref, to
  *   resolve a key's `algorithmRef`
+ * @param {Map<object, object|undefined>} [baseClasses] The base class of each
+ *   algorithm a key referred to so far. Pass the same map for every asset of
+ *   one BOM so that an algorithm is classified once, however many keys refer
+ *   to it
  * @returns {{className: string, keyFamily?: string, keySize?: number, minimumKeySize?: number}|undefined}
  *   The class, or undefined when the asset is quantum-safe or unclassified
  */
-export declare function classifyPqcCryptoAsset(component: object, algorithmsByRef?: Map<string, object>): {
+export declare function classifyPqcCryptoAsset(component: object, algorithmsByRef?: Map<string, object>, baseClasses?: Map<object, object | undefined>): {
     className: string;
     keyFamily?: string;
     keySize?: number;

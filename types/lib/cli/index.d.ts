@@ -51,7 +51,7 @@ export declare function summarizePurlTypes(components: object[]): string;
  * OCI/container inventory, per-path scans, formulation accumulation, and
  * parent-component reconciliation.
  *
- * @param {string|string[]} pathList Comma-separated string or array of paths
+ * @param {string|string[]} pathList Path or array of paths
  * @param {object} options CLI options
  * @returns {Promise<object>} Promise resolving to a deduplicated BOM namespace
  *   data object (components, dependencies, bomJson, parentComponent, etc.)
