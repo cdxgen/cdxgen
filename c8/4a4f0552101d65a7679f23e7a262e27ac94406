@@ -1,0 +1,25 @@
+bin/commands.poku.js
+  s_000e4234adb03e::t_4b8931b35510dd 1383-1471,1901-1981
+bin/sign.js
+  s_000e4234adb03e::t_e58f562ab1e2a2 199-222,230-239,453-457
+docs/CDX_SIGN.md
+  s_000e4234adb03e::t_9a75f058b3ec63 116-119,127
+docs/THREAT_MODEL.md
+  s_000e4234adb03e::t_d87a2d73a1bfcb 489
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "c84a4f0552101d65a7679f23e7a262e27ac94406",
+  "prompts": {},
+  "sessions": {
+    "s_000e4234adb03e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "02037648-4bba-493b-a180-b7ddf3261a96",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
