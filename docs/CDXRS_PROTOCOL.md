@@ -308,6 +308,12 @@ from happening in a cdxgen run.
 
 ### Chunking
 
+Both transports attach the ambient token after the caller has built its request,
+and only to a request that sets `ambientGitHubAuth`. `prefetchJson` adds a digest
+of the token to the `authRealm` of such a request. The realm is part of the cache key on both sides: an answer
+obtained with a token is served only to a run holding the same token, and an
+anonymous answer only to an anonymous run.
+
 A batch routed to `cdxrs fetch` is sent in runs of at most 250 URLs, one run
 at a time so each host still sees a single rate gate. The envelope has to
 become one JavaScript string, and a large pnpm workspace fetching full npm
