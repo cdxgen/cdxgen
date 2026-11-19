@@ -1,0 +1,23 @@
+lib/ecosystems/parsers-dotnet.js
+  s_000e4234adb03e::t_24bfde10fe51ae 20-25,30-45,557,839,990,1418-1423,1746-1747,1817,1823,1845-1848,1853-1854,1916,1924,1930,1938-1939,2046,2051,2114,2160-2162,2185,2220-2225,2243,2258
+lib/ecosystems/parsers-dotnet.poku.js
+  s_000e4234adb03e::t_e02e08daafbcbe 854-977
+lib/inventory/purl.js
+  s_000e4234adb03e::t_78ea1ac3981351 144-151,160-161,179-182
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "9f4fb0fa9aac870d9ff45950ae7c00cb07125c9f",
+  "prompts": {},
+  "sessions": {
+    "s_000e4234adb03e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "02037648-4bba-493b-a180-b7ddf3261a96",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
