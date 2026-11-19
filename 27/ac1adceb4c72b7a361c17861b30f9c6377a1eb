@@ -1,0 +1,29 @@
+lib/core/buildLedger.js
+  s_000e4234adb03e::t_d5690baacd4769 327-329,334,340,345
+lib/core/buildLedger.poku.js
+  s_000e4234adb03e::t_6a071cb27dd5f5 37,610-637
+lib/inventory/toolRequirements.js
+  s_000e4234adb03e::t_256fbd3aeea7cd 19-27,839-843
+lib/inventory/toolRequirements.poku.js
+  s_000e4234adb03e::t_f6c42b1bee6ab3 350-369
+lib/stages/postgen/postgen.js
+  s_000e4234adb03e::t_d8f2b4a579bb29 191-193,195,228-235,238
+lib/stages/postgen/postgen.poku.js
+  s_000e4234adb03e::t_49cee7340ed961 1606-1650
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "27ac1adceb4c72b7a361c17861b30f9c6377a1eb",
+  "prompts": {},
+  "sessions": {
+    "s_000e4234adb03e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "02037648-4bba-493b-a180-b7ddf3261a96",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
