@@ -8,9 +8,11 @@ import repl from "node:repl";
 
 import jsonata from "jsonata";
 
+import { applyOperatorToolingChoice } from "../lib/cli/cliOptions.js";
 import { createBom } from "../lib/cli/index.js";
 import { readEnvironmentVariable } from "../lib/core/activity.js";
 import { thoughtLog } from "../lib/core/logger.js";
+import { isSecureModeActive } from "../lib/core/projectTooling.js";
 import {
   getTmpDir,
   isDryRun,
@@ -651,11 +653,19 @@ cdxgenRepl.defineCommand("create", {
     this.clearBufferedCommand();
     const tempDir = safeMkdtempSync(join(getTmpDir(), "cdxgen-repl-"));
     const bomFile = join(tempDir, "bom.json");
-    const bomNSData = await createBom(sbomOrPath, {
+    const createOptions = {
       multiProject: true,
-      installDeps: true,
+      installDeps: !isDryRun,
       output: bomFile,
+    };
+    // Installs follow the same rule as the cdxgen command: off in secure mode
+    // unless CDXGEN_INSTALL_DEPS=true, and off with CDXGEN_INSTALL_DEPS=false.
+    // cdxi has no options of its own, so only the environment is read.
+    applyOperatorToolingChoice(createOptions, {
+      argv: [],
+      isSecureMode: isSecureModeActive(),
     });
+    const bomNSData = await createBom(sbomOrPath, createOptions);
     if (bomNSData) {
       sbom = bomNSData.bomJson;
       sbomIs20 = false;
