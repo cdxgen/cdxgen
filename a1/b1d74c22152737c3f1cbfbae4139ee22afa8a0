@@ -1,0 +1,21 @@
+lib/cli/containerSpecToolingGate.poku.js
+  s_000e4234adb03e::t_690e097d078cf7 1-133
+lib/cli/index.js
+  s_000e4234adb03e::t_d7153e70db8301 693,700
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "a1b1d74c22152737c3f1cbfbae4139ee22afa8a0",
+  "prompts": {},
+  "sessions": {
+    "s_000e4234adb03e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "02037648-4bba-493b-a180-b7ddf3261a96",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
