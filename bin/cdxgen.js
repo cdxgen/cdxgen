@@ -1370,11 +1370,15 @@ const advancedWarnings = applyAdvancedOptionsImpl(options, {
 // The config file comes from the working directory, usually the scanned
 // project, so whether the project's own code may run stays the operator's
 // choice from the command line and environment.
-applyOperatorToolingChoice(options, {
+for (const dropped of applyOperatorToolingChoice(options, {
   env: launchEnv,
   isSecureMode: isSecureModeActive(),
   projectConfig: config,
-});
+})) {
+  console.warn(
+    `\x1b[1;35mThe config file sets '${dropped}', which secure mode takes only from the command line or the environment. Ignoring it. Pass '--${dropped}' on the command line if this is intentional.\x1b[0m`,
+  );
+}
 for (const teaOption of markConfigFileTeaTargets(options, {
   env: launchEnv,
   projectConfig: config,

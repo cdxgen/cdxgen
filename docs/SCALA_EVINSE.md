@@ -173,6 +173,10 @@ Slices the user passes are still read: a version 1 semantics slice whose files e
 this project, usages and reachables slices as for any other language, and an OpenAPI
 spec, whose routes merge with the report's into one service each.
 
+The occurrence location of a version 1 slice entry is its key, as a path below the
+project directory; the entry's `sourceFile` text is not published. The locations one
+slice adds are limited to 8 MiB of text in total, and cdxgen warns when it leaves some out.
+
 ## OpenAPI for Scala
 
 cdxgen no longer writes a `scala-openapi.json`. Inbound endpoints arrive as services in

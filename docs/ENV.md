@@ -262,7 +262,7 @@ When `CDXGEN_PLUGINS_DIR` points at a packaged plugins directory, cdxgen also lo
 | BUNDLE_WITHOUT                 | Colon separated bundler groups that were excluded at install time. cdxgen warns when this is set, since the excluded gems are missing from the BOM. Also read from the project's `.bundle/config`.                                                                |
 | BUNDLE_USER_CACHE              | Bundler user cache directory. Default: `~/.bundle/cache`. cdxgen reads the compact index cache below it to enrich gems offline.                                                                                                                                   |
 | CDXGEN_COMPACT_INDEX_CACHE_DIR | Override the bundler compact index cache directory. Default: `$BUNDLE_USER_CACHE/compact_index`. Set this to an empty non-existent path to disable the offline enrichment.                                                                                        |
-| GEM_HOST_API_KEY               | API key sent as the `Authorization` header when querying rubygems.org. Useful for private gem servers and for higher rate limits.                                                                                                                                 |
+| GEM_HOST_API_KEY               | API key sent as the `Authorization` header when querying rubygems.org. Useful for private gem servers and for higher rate limits. When any of `RUBYGEMS_V1_URL`, `RUBYGEMS_V1_VERSIONS_URL` or `RUBYGEMS_V2_URL` is set, the key is sent only to the servers those variables name; an endpoint left at its rubygems.org default is then queried without it. |
 | GEM_PATH                       | Alternative gems directory, used as a fallback for `CDXGEN_GEM_HOME`.                                                                                                                                                                                             |
 | RUBYGEMS_V1_URL                | Override the rubygems v1 gems API. Default: https://rubygems.org/api/v1/gems/                                                                                                                                                                                     |
 | RUBYGEMS_V1_VERSIONS_URL       | Override the rubygems v1 versions API, used to fetch every version and platform of a gem in a single request. Default: https://rubygems.org/api/v1/versions/                                                                                                      |
@@ -304,12 +304,15 @@ cdxgen and `evinse` invoke [atom](https://github.com/AppThreat/atom) for source-
 | `CDXGEN_SCALASEM_MAX_OCCURRENCES` | Occurrences kept per component from the Scala report. Default 200; the Scala runtime is capped at one per file regardless.                                                                                                                                                                                                                                                 |
 | `ATOM_SLICE_DEPTH`                | Override the data-flow slice depth (default 7).                                                                                                                                                                                                                                                                                                                            |
 
-atom caches parsed ASTs in a `.chen` directory inside the analysed source tree.
-A cache left behind by an interrupted or failed run makes the next run fail
-(typically with an `overflowdb.SchemaViolationException`), and the failure looks
-like a frontend bug rather than a stale cache. Delete `.chen` from the source
-tree before re-running when a previously working project starts failing.
-cdxgen's own file searches skip `.chen`.
+Left to itself, atom caches parsed ASTs in a `.chen` directory inside the
+analysed source tree. That directory is part of the scanned content: atom writes
+a cache entry through a link it finds there, to a file outside the tree, and
+replays the entries it finds there. cdxgen and `evinse` therefore run atom with
+`--cache none`, which reads and writes nothing in `.chen`; the atom file is
+still reused from one slice to the next. An `ATOM_CMD` naming an atom that does
+not take `--cache` fails on the option. A `.chen` left in a source tree by an
+earlier cdxgen release, or by running atom directly, is no longer used and can
+be deleted. cdxgen's own file searches skip `.chen`.
 
 ### sbt
 
