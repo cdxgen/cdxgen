@@ -1,0 +1,21 @@
+lib/ecosystems/rusi.js
+  s_000e4234adb03e::t_090c677f650543 250-284,290-294,296
+lib/ecosystems/rusi.poku.js
+  s_000e4234adb03e::t_8ba5196bfaf5b7 488-582
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "dc8ad686f7a010bf83e431bff7a111a4323151cd",
+  "prompts": {},
+  "sessions": {
+    "s_000e4234adb03e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "02037648-4bba-493b-a180-b7ddf3261a96",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
