@@ -94,7 +94,7 @@ Trust boundary 5: cdxgen container ←→ container host
 **Which tools run with installs off:** installs are off in secure mode unless `--install-deps` is passed, with the `cdxgen-secure` command, with `--no-install-deps`, with `--lifecycle pre-build`, with `--profile ml-tiny`, in dry-run mode and for container scans. cdxgen then skips:
 
 - Maven, including the project's `mvnw`, the `--evidence` jar collection and atom's Maven class path step (evinse passes `delombok-mode=no-delombok` to atom)
-- Gradle, sbt and Mill build evaluation and their wrappers, scala-cli and scalasem builds
+- Gradle, sbt and Mill build evaluation and their wrappers, scala-cli and scalasem builds; scalasem downloads no TASTy inspector, and reads a Mill build from SemanticDB rather than with the compiler jars its `out` directory names
 - Leiningen (`lein deps :tree-data`)
 - `poetry export` and `pdm export`
 - `dotnet msbuild` property evaluation
