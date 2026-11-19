@@ -1,0 +1,23 @@
+lib/cli/bomAssembly.js
+  s_000e4234adb03e::t_c4c6911ac68ab1 697-699,949-951,953-955,958-963
+lib/cli/bomAssembly.poku.js
+  s_000e4234adb03e::t_3aea522bb59847 1129-1169
+lib/cli/index.js
+  s_000e4234adb03e::t_77615df92c9402 1491
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "fa0e1cfa3690a6106e52ee6fa48c1470311753ac",
+  "prompts": {},
+  "sessions": {
+    "s_000e4234adb03e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "02037648-4bba-493b-a180-b7ddf3261a96",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
