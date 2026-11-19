@@ -1,0 +1,22 @@
+lib/cli/index.poku.js
+  s_8bf531d441928a::t_d24345a6643f31 1651-1652
+lib/stages/postgen/auditBom.poku.js
+  s_8bf531d441928a::t_2af7322ad25e99 1-2
+  s_8bf531d441928a::t_66a071be1b4111 8038-8047
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "ccda126c75a078845f16098a9cb5aed7b646b6ad",
+  "prompts": {},
+  "sessions": {
+    "s_8bf531d441928a": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "52048f93-72ee-4a3d-a58c-dd328ee0eb8b",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
