@@ -1,0 +1,37 @@
+lib/core/uniqueFiles.js
+  s_000e4234adb03e::t_fee1abb97c74ed 1-48
+lib/core/uniqueFiles.poku.js
+  s_000e4234adb03e::t_b9c36a426788e6 1-61
+lib/inventory/ciParsers/azurePipelines.js
+  s_000e4234adb03e::t_bd954547910ba8 3,310
+lib/inventory/ciParsers/circleCi.js
+  s_000e4234adb03e::t_6ddf65742604d4 3,334
+lib/inventory/ciParsers/githubActions.js
+  s_000e4234adb03e::t_b7d8d7adc9758b 5,2885
+lib/inventory/ciParsers/gitlabCi.js
+  s_000e4234adb03e::t_56ac5a11b99a60 3,248
+lib/inventory/ciParsers/jenkins.js
+  s_000e4234adb03e::t_ec5f08ce241e9e 4,234
+lib/inventory/ciParsers/jenkins.poku.js
+  s_000e4234adb03e::t_06d7b19323b2f5 1-8,301-335
+lib/inventory/formulationParsers.js
+  s_000e4234adb03e::t_b636aa6f165bb4 13,57
+lib/inventory/formulationParsers.poku.js
+  s_000e4234adb03e::t_2cf4e271c1e058 4,85-117
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "153ddf35df6e1b06f480569133d6edd2c720e7a3",
+  "prompts": {},
+  "sessions": {
+    "s_000e4234adb03e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "02037648-4bba-493b-a180-b7ddf3261a96",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
