@@ -1,0 +1,23 @@
+docs/CUSTOM_PROPERTIES.md
+  s_000e4234adb03e::t_3fa5ae05046fe0 1529
+lib/inventory/dosai.js
+  s_000e4234adb03e::t_a15a819a340941 235-258,2484,2683,2687
+lib/inventory/dosai.poku.js
+  s_000e4234adb03e::t_ff9b48b8f63efa 376-438
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "11d335376b5f8a9423168973653bbcdbbb7cd4d5",
+  "prompts": {},
+  "sessions": {
+    "s_000e4234adb03e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "02037648-4bba-493b-a180-b7ddf3261a96",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
