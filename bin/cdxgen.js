@@ -2400,7 +2400,7 @@ const writeCycloneDxOutput = (jsonFile, bomJson, options) => {
     if (!internalCycloneDxInputPath) {
       internalCycloneDxInputPath = join(
         getTmpDir(),
-        `cdxgen-${Date.now()}-${getSourceBaseName(filePath)}.cdx.json`,
+        `cdxgen-${Date.now()}-${basename(srcDir)}.cdx.json`,
       );
     }
     if (isDryRun) {
@@ -2438,14 +2438,17 @@ const writeCycloneDxOutput = (jsonFile, bomJson, options) => {
       if (!options.evinseOutput) {
         options.evinseOutput = options.output;
       }
+      // The evidence step works on the directory that was scanned. For a git
+      // URL or purl source that is the clone, not the command-line argument,
+      // which names no directory and can carry credentials.
       setActivityContext({
         projectType: "evinse",
-        sourcePath: sourcePathForLogs,
+        sourcePath: srcDir,
       });
       const evinserModule = await import("../lib/evinser/evinser.js");
       if (!options.projectType) {
         const evidenceLanguage = evinserModule.defaultEvidenceLanguage(
-          filePath,
+          srcDir,
           getInternalBom(bomNSData),
           options,
         );
@@ -2473,7 +2476,7 @@ const writeCycloneDxOutput = (jsonFile, bomJson, options) => {
       } else {
         const evinseOptions = evinserModule.buildEvinseOptions(
           options,
-          args,
+          { ...args, _: [srcDir] },
           internalCycloneDxInputPath || options.output,
         );
         // The analysis reads the in-memory 1.x model. At 2.0 that model is
