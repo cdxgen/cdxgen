@@ -155,9 +155,11 @@ nothing to enable beyond the caps.
 ## Reports and slices
 
 The report is written to the `--semantics-slices-file` path: an absolute path as given,
-a file name in the directory of the output BOM. Without an output BOM there is nowhere
-to keep it, and the report lives only as long as the run. A kept report records the
-settings of the run that made it (whether the build ran, whether tests were included).
+a relative one from the working directory. When the option is left at its default, the
+report is `semantics.slices.json` in the directory of the output BOM; without an output
+BOM there is then nowhere to keep it, and the report lives only as long as the run. A kept
+report records the settings of the run that made it (whether the build ran, whether tests
+were included).
 
 A report at that path is reused instead of running scalasem again when all of these hold:
 
