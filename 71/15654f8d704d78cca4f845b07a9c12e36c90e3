@@ -1,0 +1,23 @@
+docs/ADVANCED.md
+  s_000e4234adb03e::t_7d912bda379acf 1054-1055
+lib/inventory/fetchBatch.js
+  s_000e4234adb03e::t_1466a798d05a46 154-160,172-180,313-329,393,395,1311
+lib/inventory/fetchBatch.misses.poku.js
+  s_000e4234adb03e::t_62944ba0dfe634 19,40-43,114-129
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "7115654f8d704d78cca4f845b07a9c12e36c90e3",
+  "prompts": {},
+  "sessions": {
+    "s_000e4234adb03e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "02037648-4bba-493b-a180-b7ddf3261a96",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
