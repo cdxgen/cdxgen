@@ -407,7 +407,7 @@ Used when resolving Hugging Face models, datasets, and spaces into AI-BOM compon
 | Variable                     | Description                                                                                                                                                                                              |
 | ---------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | CDXGEN_OCI_TIMEOUT_MS        | Per-request timeout, in milliseconds, for OCI registry probes (manifest, token, referrers, and blob lookups), including those issued from JSONata rules. Capped at `300000`. Default: `8000`.            |
-| CDXGEN_SBOM_PROBE_TIMEOUT_MS | Timeout, in milliseconds, for registry SBOM lookups performed inside JSONata rules (`$hasSbom` / `$hasSignedSbom`). An unresolved probe fails closed and is treated as "no SBOM found". Default: `2500`. |
+| CDXGEN_SBOM_PROBE_TIMEOUT_MS | Timeout, in milliseconds, for registry SBOM lookups performed inside JSONata rules (`$hasSbom` / `$hasSignedSbom`). An unresolved probe fails closed and is treated as "no SBOM found". Up to eight lookups run at the same time, and all lookups of one rule evaluation share a 3500 ms budget: images still waiting when it is spent are treated the same way. Default: `2500`. |
 
 ## Audit and submission
 
