@@ -113,11 +113,11 @@
     nist-ssdf:
       - "Maintain complete third-party and runtime dependency inventory"
   condition: |
-    formulation.components[
+    $count(components[$prop($, 'cdx:mcp:package') = 'true']) = 0
+    and $count($auditServices($)[$nullSafeProp($, 'cdx:mcp:inventorySource') = 'source-code-analysis']) = 0
+    ? formulation.components[
       $prop($, 'cdx:agent:inventorySource') = 'agent-file'
       and $prop($, 'cdx:agent:hasMcpReferences') = 'true'
-      and $count($$.components[$prop($, 'cdx:mcp:package') = 'true']) = 0
-      and $count($auditServices($$)[$nullSafeProp($, 'cdx:mcp:inventorySource') = 'source-code-analysis']) = 0
     ]
   location: |
     {
@@ -294,7 +294,7 @@
     nist-ssdf:
       - "Review build and release instructions before distribution"
   condition: |
-    components[
+    $count(metadata.lifecycles[phase = 'build' or phase = 'post-build']) > 0 ? components[
       (
         $prop($, 'cdx:agent:inventorySource') = 'agent-file'
         or $prop($, 'cdx:agent:inventorySource') = 'community-config'
@@ -306,7 +306,6 @@
         or $prop($, 'cdx:file:kind') = 'copilot-setup-workflow'
         or $prop($, 'cdx:file:kind') = 'ai-agent-file'
       )
-      and $count($$.metadata.lifecycles[phase = 'build' or phase = 'post-build']) > 0
     ]
   location: |
     {
