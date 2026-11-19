@@ -1,0 +1,23 @@
+docs/GO_EVINSE_GOLEM.md
+  s_000e4234adb03e::t_451bde69e43763 116
+lib/ecosystems/golem.js
+  s_000e4234adb03e::t_5182c487b616f7 2224-2225,2562,2570,2583,2586-2587,2589,2592-2601
+lib/ecosystems/golem.poku.js
+  s_000e4234adb03e::t_041c984d7ebd2c 1981-2038
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "3b35ffc748d7d1b893185ef17f11a3828654c31f",
+  "prompts": {},
+  "sessions": {
+    "s_000e4234adb03e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "02037648-4bba-493b-a180-b7ddf3261a96",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
