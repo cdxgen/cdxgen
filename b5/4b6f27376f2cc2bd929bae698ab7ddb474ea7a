@@ -1,0 +1,23 @@
+docs/THREAT_MODEL.md
+  s_000e4234adb03e::t_a3ad31c4fcfd9c 93
+lib/ecosystems/pythonutils.js
+  s_000e4234adb03e::t_4f692bb0bd5cb7 7,971-1149,1174,1402-1416
+lib/ecosystems/pythonutils.poku.js
+  s_000e4234adb03e::t_a713066727c52c 31,911-1041
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "b54b6f27376f2cc2bd929bae698ab7ddb474ea7a",
+  "prompts": {},
+  "sessions": {
+    "s_000e4234adb03e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "02037648-4bba-493b-a180-b7ddf3261a96",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
