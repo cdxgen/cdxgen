@@ -1,0 +1,23 @@
+docs/OBOM_LESSONS.md
+  s_000e4234adb03e::t_be9d96da65ff40 192
+lib/ecosystems/venvProbe.js
+  s_000e4234adb03e::t_47017ef7fa8468 20-21,23-26,95-100,102-103,112-114,126-128,137-142,145,148,162,164-168,172-173,175,181,185,193,203-204,206,208-210,216,223-226,229-234,272,279
+lib/ecosystems/venvProbe.poku.js
+  s_000e4234adb03e::t_61b8c082341191 1-7,10,165-263
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "c6550f29f7987d7830e029a5275b92f06ff0dead",
+  "prompts": {},
+  "sessions": {
+    "s_000e4234adb03e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "02037648-4bba-493b-a180-b7ddf3261a96",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
