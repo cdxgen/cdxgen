@@ -1996,7 +1996,7 @@ const writeCycloneDxOutput = (jsonFile, bomJson, options) => {
       process.exit(1);
     }
     console.warn(
-      `${PURL_REGISTRY_LOOKUP_WARNING} Registry: ${purlResolution.registry}, purl type: ${purlResolution.type}, resolved URL: ${sanitizeRemoteUrlForLogs(purlResolution.repoUrl)}`,
+      `${PURL_REGISTRY_LOOKUP_WARNING} Registry: ${sanitizeRemoteUrlForLogs(purlResolution.registry)}, purl type: ${purlResolution.type}, resolved URL: ${sanitizeRemoteUrlForLogs(purlResolution.repoUrl)}`,
     );
     sourcePath = purlResolution.repoUrl;
   }

@@ -264,8 +264,15 @@ if (isJssBom) {
   for (const error of jssReport.errors) {
     printLine(error);
   }
-  if (args.requireAll && jssReport.root) {
-    jssReport.root.keysMatched.forEach((matched, index) => {
+  // The every-key rule applies to the root signatures, or to each nested
+  // member of a BOM that --allow-nested-only accepts without them.
+  const everyKeyMember =
+    jssReport.root ??
+    (args.allowNestedOnly
+      ? jssReport.nested.find((item) => !item.keysMatched.every(Boolean))
+      : undefined);
+  if (args.requireAll && everyKeyMember) {
+    everyKeyMember.keysMatched.forEach((matched, index) => {
       if (!matched) {
         printLine(`  - key #${index + 1}: ${publicKeyFiles[index]}`);
       }
@@ -331,8 +338,17 @@ for (const error of report.errors) {
   printLine(error);
 }
 const keyFiles = args.secretKey ? [args.secretKey] : publicKeyFiles;
-if (args.requireAll && report.root?.form) {
-  report.root.keysMatched.forEach((matched, index) => {
+// The every-key rule applies to the root signature, or to each nested
+// signature of a BOM that --allow-nested-only accepts without one.
+const everyKeyNode =
+  report.root ??
+  (args.allowNestedOnly
+    ? report.nested.find(
+        (item) => item.form && !item.keysMatched.every(Boolean),
+      )
+    : undefined);
+if (args.requireAll && everyKeyNode?.form) {
+  everyKeyNode.keysMatched.forEach((matched, index) => {
     if (!matched) {
       printLine(`  - key #${index + 1}: ${keyFiles[index]}`);
     }

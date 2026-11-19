@@ -1466,6 +1466,36 @@ describe("JSF verification refuses ambiguous or partial signatures", () => {
     assert.match(strict.stdout, /key #2: .*ed25519-public\.pem/);
   });
 
+  it("cdx-verify --require-all keeps requiring every signer when the root signature was removed", async () => {
+    const stripped = await signedByRsa("require-all-nested.json");
+    delete stripped.signature;
+    writeJson("require-all-nested-only.json", stripped);
+    const strict = await verify(
+      "require-all-nested-only.json",
+      "--public-key",
+      file("rsa-public.pem"),
+      "--public-key",
+      file("ed25519-public.pem"),
+      "--require-all",
+      "--allow-nested-only",
+    );
+    assert.strictEqual(strict.status, 1, strict.stdout);
+    assert.match(
+      strict.stdout,
+      /1 of 1 nested signatures are missing a key, starting with components\[0\] 'left-pad', where no entry verifies with key #2/,
+    );
+    assert.match(strict.stdout, /key #2: .*ed25519-public\.pem/);
+    const signer = await verify(
+      "require-all-nested-only.json",
+      "--public-key",
+      file("rsa-public.pem"),
+      "--require-all",
+      "--allow-nested-only",
+    );
+    assert.strictEqual(signer.status, 0, signer.stdout);
+    assert.match(signer.stdout, /✓ 1 nested signature\(s\) are valid!/);
+  });
+
   it("cdx-verify warns about nested signature entries that did not verify", async () => {
     const signed = await signedByRsa("nested-warn.json", "--mode", "signers");
     delete signed.signature;
@@ -1677,6 +1707,36 @@ describe("JSS (ITU-T X.590) signing and verification commands at 2.0", () => {
     assert.match(result.stdout, /verified with key #2/);
   });
 
+  it("--require-all keeps requiring every signer when the root signatures were removed", async () => {
+    await signWith("bom20.json", "alice-nested.json", "alice");
+    const { signatures: _removed, ...stripped } = readJson("alice-nested.json");
+    writeFileSync(file("alice-nested-only.json"), JSON.stringify(stripped));
+    const strict = await verify(
+      "alice-nested-only.json",
+      "--public-key",
+      file("alice-public.pem"),
+      "--public-key",
+      file("bob-public.pem"),
+      "--require-all",
+      "--allow-nested-only",
+    );
+    assert.strictEqual(strict.status, 1, strict.stdout);
+    assert.match(
+      strict.stdout,
+      /3 of 3 signed nested members are missing a key, starting with inventories\[0\], where no signature verifies with key #2/,
+    );
+    assert.match(strict.stdout, /key #2: .*bob-public\.pem/);
+    const signer = await verify(
+      "alice-nested-only.json",
+      "--public-key",
+      file("alice-public.pem"),
+      "--require-all",
+      "--allow-nested-only",
+    );
+    assert.strictEqual(signer.status, 0, signer.stdout);
+    assert.match(signer.stdout, /✓ 3 nested signature\(s\) are valid!/);
+  });
+
   it("appends a signers entry that keeps the earlier signatures valid", async () => {
     await signWith("bom20.json", "alice-signers.json", "alice");
     const refused = await signWith(
@@ -1814,6 +1874,40 @@ describe("JSS (ITU-T X.590) signing and verification commands at 2.0", () => {
     assert.strictEqual(result.status, 0, result.stderr);
     assert.match(result.stderr, /Replacing \d+ existing JSS signature/);
     assert.strictEqual(readJson("replaced.json").signatures.length, 1);
+  });
+
+  it("cdx-sign refuses a nested member shaped like a BOM", async () => {
+    // Signed on its own, such a member would carry a signature that
+    // cdx-verify accepts as a root signature once the member is cut out.
+    const { serialNumber, ...bomShaped } = bom20;
+    writeFileSync(
+      file("bom-shaped-annotation.json"),
+      JSON.stringify({ ...bom20, annotations: [bomShaped] }),
+    );
+    const refused = await signWith(
+      "bom-shaped-annotation.json",
+      "bom-shaped-annotation.json",
+      "alice",
+    );
+    assert.notStrictEqual(refused.status, 0);
+    assert.match(
+      refused.stderr,
+      /Cannot sign annotations\[0\]: it carries specFormat, specVersion, which only the root of a BOM may hold/,
+    );
+    assert.strictEqual(
+      readJson("bom-shaped-annotation.json").signatures,
+      undefined,
+    );
+    const rootOnly = await signWith(
+      "bom-shaped-annotation.json",
+      "bom-shaped-root-only.json",
+      "alice",
+      "--no-sign-annotations",
+    );
+    assert.strictEqual(rootOnly.status, 0, rootOnly.stderr);
+    const document = readJson("bom-shaped-root-only.json");
+    assert.strictEqual(document.signatures.length, 1);
+    assert.strictEqual(document.annotations[0].signatures, undefined);
   });
 
   it("derives the algorithm from the key and refuses mismatches", async () => {

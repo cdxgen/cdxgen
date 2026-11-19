@@ -104,7 +104,11 @@ count in the first line and `--fail-on-loss` cover every loss.
 A document with a `specFormat`, or a `specVersion` of 2.0 or later, is read
 as 2.0, so a stray 1.x member such as `components` next to `inventories` is a
 loss rather than a reason to treat the input as 1.x. Objects nested deeper
-than 256 levels are cut, each with a loss. cdxgen keeps 2.0-only sections on its internal model
+than 256 levels are cut, each with a loss. A component reference is read as a
+copy of the component it names, and a party, license, release notes or weakness
+reference as a copy of its declaration; once those copies add up to four times
+the size of the document (or to about 1 MB, for a smaller document), further
+references are left out, each with a loss. cdxgen keeps 2.0-only sections on its internal model
 under a `cdx20Sections` member; that member of a 1.x input is ignored, so it
 never reaches a `--to 2.0` output.
 
@@ -149,6 +153,16 @@ identity of kind `automation` labelled with the tool name and pointing at the
 tool. When the BOM lists no tool, cdxgen, as the converting tool, asserts the
 identifiers it wrote. Each such party is declared once, and only when the
 document references it.
+
+A refId the renderer derives and then repeats is at most 256 characters long,
+because a `bom-ref` has no length limit and the refId is written once for each
+element that names it. Past that length, `party-tool-<tool bom-ref>` and the
+inventory's `inventory-<subject bom-ref>` end in the SHA-256 of the `bom-ref`
+instead, and a cdxgen tool with a longer `bom-ref` is named by the
+`party-cdxgen` party only, not in the `tools` of each identity entry. An
+inventory read from 2.0 keeps its own refId whatever its length; when it is
+longer, an annotation subject that names the document's serial number is
+dropped and counted rather than retargeted to the inventory.
 
 1.x has none of these members, so reading a 2.0 document strips them. When
 they are what the 2.0 render derives again from the read model, the read
