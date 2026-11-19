@@ -1,0 +1,21 @@
+lib/inventory/licenseEnhancer.poku.js
+  s_000e4234adb03e::t_7db83635e51001 315-372
+lib/inventory/licenseEnhancer.js
+  s_000e4234adb03e::t_6272f9636442bd 914-935,940-941,963-969,975-977
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "4f9d84a3c824f61a79c5d5deb4d85f8d1f526d65",
+  "prompts": {},
+  "sessions": {
+    "s_000e4234adb03e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "02037648-4bba-493b-a180-b7ddf3261a96",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
