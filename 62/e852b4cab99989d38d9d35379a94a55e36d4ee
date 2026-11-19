@@ -1,0 +1,25 @@
+lib/inventory/forgeEnricher.js
+  s_000e4234adb03e::t_4c15dbcb0311e0 5,61-66,68-69,71-75,78,81-85,92-106,110-111,116-117
+lib/inventory/forgeEnricher.poku.js
+  s_000e4234adb03e::t_79ac45f6f9fd8e 172-233
+lib/inventory/source.js
+  s_000e4234adb03e::t_ab46559fe09d57 356
+lib/inventory/source.poku.js
+  s_000e4234adb03e::t_9cb0904bb6a23a 784-822
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "62e852b4cab99989d38d9d35379a94a55e36d4ee",
+  "prompts": {},
+  "sessions": {
+    "s_000e4234adb03e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "02037648-4bba-493b-a180-b7ddf3261a96",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
