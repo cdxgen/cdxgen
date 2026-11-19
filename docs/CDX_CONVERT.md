@@ -94,9 +94,12 @@ Converting to CycloneDX 1.6 dropped 5 field path(s) that version does not define
 
 ### CycloneDX 2.0
 
-A 2.0 input is read into cdxgen's 1.x-shaped internal model first. Every loss
-of that read is printed on stderr with a JSON pointer into the input, whatever
-the target:
+A 2.0 input is read into cdxgen's 1.x-shaped internal model first. The losses
+of that read are printed on stderr, each with a JSON pointer into the input,
+whatever the target. A pointer repeats every member name above the value it
+names, so only the losses whose pointers and reasons fit into 1 MiB of text
+together are listed, in order, and a last line gives the number left out; the
+count in the first line and `--fail-on-loss` cover every loss.
 
 A document with a `specFormat`, or a `specVersion` of 2.0 or later, is read
 as 2.0, so a stray 1.x member such as `components` next to `inventories` is a

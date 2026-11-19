@@ -244,16 +244,20 @@
   severity: medium
   category: package-integrity
   dry-run-support: full
-  condition: |
-    formulation.components[
-      $prop($, 'cdx:rust:buildTool') = 'cargo'
-      and $prop($, 'cdx:cargo:hasNativeBuild') = 'true'
-      and $count($$.components[
+  variables:
+    toolchainActions: |
+      components[
         $prop($, 'cdx:github:action:ecosystem') = 'cargo'
         and $contains($nullSafeProp($, 'cdx:github:action:role'), 'toolchain')
         and $prop($, 'cdx:github:action:versionPinningType') != 'sha'
         and $prop($, 'cdx:github:action:isLocked') != 'true'
-      ]) > 0
+      ]
+    toolchainActionUses: |
+      $toolchainActions[[0..24]].$prop($, 'cdx:github:action:uses')
+  condition: |
+    $count($toolchainActions) > 0 ? formulation.components[
+      $prop($, 'cdx:rust:buildTool') = 'cargo'
+      and $prop($, 'cdx:cargo:hasNativeBuild') = 'true'
     ]
   location: |
     {
@@ -266,12 +270,8 @@
     {
       "buildScript": $prop($, 'cdx:cargo:buildScript'),
       "buildScriptCapabilities": $prop($, 'cdx:cargo:buildScriptCapabilities'),
-      "toolchainActions": $$.components[
-        $prop($, 'cdx:github:action:ecosystem') = 'cargo'
-        and $contains($nullSafeProp($, 'cdx:github:action:role'), 'toolchain')
-        and $prop($, 'cdx:github:action:versionPinningType') != 'sha'
-        and $prop($, 'cdx:github:action:isLocked') != 'true'
-      ].$prop($, 'cdx:github:action:uses')
+      "toolchainActionCount": $count($toolchainActions),
+      "toolchainActions": $toolchainActionUses
     }
 
 - id: INT-013
@@ -280,16 +280,9 @@
   severity: medium
   category: package-integrity
   dry-run-support: full
-  condition: |
-    formulation.components[
-      $prop($, 'cdx:rust:buildTool') = 'cargo'
-      and $prop($, 'cdx:cargo:hasNativeBuild') = 'true'
-      and (
-        $contains($nullSafeProp($, 'cdx:cargo:buildScriptCapabilities'), 'process-execution')
-        or $contains($nullSafeProp($, 'cdx:cargo:buildScriptCapabilities'), 'network-access')
-        or $contains($nullSafeProp($, 'cdx:cargo:nativeBuildIndicators'), '-sys')
-      )
-      and $count($$.components[
+  variables:
+    cargoSteps: |
+      components[
         $prop($, 'cdx:github:step:usesCargo') = 'true'
         and (
           $contains($nullSafeProp($, 'cdx:github:step:cargoSubcommands'), 'build')
@@ -297,7 +290,18 @@
           or $contains($nullSafeProp($, 'cdx:github:step:cargoSubcommands'), 'package')
           or $contains($nullSafeProp($, 'cdx:github:step:cargoSubcommands'), 'publish')
         )
-      ]) > 0
+      ]
+    cargoStepCommands: |
+      $cargoSteps[[0..24]].$prop($, 'cdx:github:step:command')
+  condition: |
+    $count($cargoSteps) > 0 ? formulation.components[
+      $prop($, 'cdx:rust:buildTool') = 'cargo'
+      and $prop($, 'cdx:cargo:hasNativeBuild') = 'true'
+      and (
+        $contains($nullSafeProp($, 'cdx:cargo:buildScriptCapabilities'), 'process-execution')
+        or $contains($nullSafeProp($, 'cdx:cargo:buildScriptCapabilities'), 'network-access')
+        or $contains($nullSafeProp($, 'cdx:cargo:nativeBuildIndicators'), '-sys')
+      )
     ]
   location: |
     {
@@ -310,15 +314,8 @@
     {
       "buildScriptCapabilities": $prop($, 'cdx:cargo:buildScriptCapabilities'),
       "nativeBuildIndicators": $prop($, 'cdx:cargo:nativeBuildIndicators'),
-      "cargoCommands": $$.components[
-        $prop($, 'cdx:github:step:usesCargo') = 'true'
-        and (
-          $contains($nullSafeProp($, 'cdx:github:step:cargoSubcommands'), 'build')
-          or $contains($nullSafeProp($, 'cdx:github:step:cargoSubcommands'), 'test')
-          or $contains($nullSafeProp($, 'cdx:github:step:cargoSubcommands'), 'package')
-          or $contains($nullSafeProp($, 'cdx:github:step:cargoSubcommands'), 'publish')
-        )
-      ].$prop($, 'cdx:github:step:command')
+      "cargoCommandCount": $count($cargoSteps),
+      "cargoCommands": $cargoStepCommands
     }
 
 - id: INT-014

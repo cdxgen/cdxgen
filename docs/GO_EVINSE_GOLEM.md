@@ -113,7 +113,7 @@ Golem rolls the routes it finds into a `services[]` section — one service per 
 
 Golem also rolls the outbound hosts the source calls into services of `kind: "external"`. Those are egress dependencies: they carry `x-trust-boundary: true`, the `cdx:golem:service:kind` property distinguishes them from servers, and their endpoints name full URLs.
 
-Outbound URLs are treated as untrusted before they become endpoints. cdxgen keeps the scheme, host, and path, and drops userinfo, the query string, the fragment, and `;name=value` path parameters such as `;jsessionid=` or `;token=`. Webhook and bot URLs that authenticate by their path alone keep only their route: a Slack webhook becomes `https://hooks.slack.com/services`, and Discord, Microsoft Teams, Zapier, IFTTT, and Telegram bot URLs are cut the same way. A path segment that holds a recognisable token, such as a `ghp_` GitHub token, ends the path there.
+Outbound URLs are treated as untrusted before they become endpoints. cdxgen keeps the scheme, host, and path, and drops userinfo, the query string, the fragment, and `;name=value` path parameters such as `;jsessionid=` or `;token=`. Webhook and bot URLs that authenticate by their path alone keep only their route: a Slack webhook becomes `https://hooks.slack.com/services`, and Discord, Microsoft Teams, Zapier, IFTTT, and Telegram bot URLs are cut the same way. Any other path on one of these hosts is dropped, so only the host remains, and so is a path that spells a route in a form the host would also accept (escaped, with doubled slashes or with a different case). A path segment that holds a recognisable token, such as a `ghp_` GitHub token, ends the path there.
 
 Route paths are normalised to the placeholder spelling OpenAPI uses:
 

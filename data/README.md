@@ -177,6 +177,7 @@ Each rule is a YAML list item. These fields matter most.
 | `severity`        | yes      | risk level such as `critical`, `high`, `medium`, `low`, `info`                                                        |
 | `category`        | yes      | thematic category that usually aligns with the file grouping                                                          |
 | `dry-run-support` | yes      | whether the rule can work on dry-run style BOMs                                                                       |
+| `variables`       | no       | map of names to JSONata expressions, each evaluated once against the BOM and bound as `$name` in the other fields     |
 | `condition`       | yes      | JSONata expression that selects matching components                                                                   |
 | `location`        | yes      | JSONata expression that builds a location object for the match                                                        |
 | `message`         | yes      | rendered finding text, including placeholders                                                                         |
