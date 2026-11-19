@@ -1,0 +1,25 @@
+lib/managers/oci.js
+  s_000e4234adb03e::t_77b87983c64280 347,354-356,368-374,386,397-403,413,417-420,449,461,469,481,495,505,526,567-569
+lib/managers/oci.poku.js
+  s_000e4234adb03e::t_9b289cf31ba5d7 99-141
+lib/stages/postgen/ruleEngine.js
+  s_000e4234adb03e::t_b8c05bf75ac714 352-354
+lib/stages/postgen/ruleEngine.poku.js
+  s_000e4234adb03e::t_bad0caa3f9b52b 153-165
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "79945989bbcd0ccbdc7216eb73ba1ea5e9659fee",
+  "prompts": {},
+  "sessions": {
+    "s_000e4234adb03e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "02037648-4bba-493b-a180-b7ddf3261a96",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
