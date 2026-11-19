@@ -1,0 +1,25 @@
+lib/core/fs.js
+  s_000e4234adb03e::t_33d944fc0c1dd5 28,1655-1724,1746-1758
+lib/core/fs.poku.js
+  s_000e4234adb03e::t_69a1361c04b480 281-334
+lib/ecosystems/parsers-rust.js
+  s_000e4234adb03e::t_01f0ff2cd45b73 10,330,335
+lib/inventory/osPackageResolver.js
+  s_000e4234adb03e::t_4cc80414377013 7-11,427-437
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "47247e1b7392d57ed82b3fc9b58797f283e27be8",
+  "prompts": {},
+  "sessions": {
+    "s_000e4234adb03e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "02037648-4bba-493b-a180-b7ddf3261a96",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
