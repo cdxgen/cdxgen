@@ -1,0 +1,21 @@
+bin/cdxgen.js
+  s_000e4234adb03e::t_66d114f00819ef 2403,2441-2443,2446,2451,2479
+lib/evinser/evidenceSource.cli.poku.js
+  s_000e4234adb03e::t_a1c458e2452b90 1-155
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "6c4f1b91d2c0f6c13fa17fb2a321da43dbbe0162",
+  "prompts": {},
+  "sessions": {
+    "s_000e4234adb03e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "02037648-4bba-493b-a180-b7ddf3261a96",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
