@@ -1,0 +1,29 @@
+docs/ADVANCED.md
+  s_000e4234adb03e::t_803db9ddbd9897 551
+docs/BOM_AUDIT.md
+  s_000e4234adb03e::t_da7bafc695569b 158
+docs/THREAT_MODEL.md
+  s_000e4234adb03e::t_cfa60d59d111c6 92
+lib/core/projectConfig.cli.poku.js
+  s_000e4234adb03e::t_11dfa6591d3ce7 241-281
+lib/core/projectConfig.js
+  s_000e4234adb03e::t_ee058d3bbda64f 148-150,153
+lib/core/projectConfig.poku.js
+  s_000e4234adb03e::t_0dbcc50152c036 150-151,166-167
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "9b52e1761b24d4668bfc10f8c22621c3ed847cc1",
+  "prompts": {},
+  "sessions": {
+    "s_000e4234adb03e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "02037648-4bba-493b-a180-b7ddf3261a96",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
