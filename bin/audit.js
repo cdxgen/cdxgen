@@ -26,7 +26,7 @@ const args = yargs(hideBin(process.argv))
   })
   .option("workspace-dir", {
     description:
-      "Optional directory to reuse git clones for purl-to-source enrichment.",
+      "Optional directory to reuse git clones for purl-to-source enrichment. With --direct-bom-audit, the git history under this directory is also read for AI provenance.",
     type: "string",
   })
   .option("reports-dir", {

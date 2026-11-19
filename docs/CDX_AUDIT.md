@@ -197,7 +197,7 @@ CDXGEN_THINK_MODE=true cdx-audit --bom bom.json --max-targets 10
 | `--bom`                       | Path to a single CycloneDX JSON BOM                                                                  |
 | `--bom-dir`                   | Directory containing CycloneDX JSON BOMs                                                             |
 | `--direct-bom-audit`          | Evaluate the supplied BOM(s) directly with the BOM audit rule engine                                 |
-| `--workspace-dir`             | Reuse git clones and cached child SBOMs between runs                                                 |
+| `--workspace-dir`             | Reuse git clones and cached child SBOMs between runs; also the only git repository a direct audit reads for AI provenance |
 | `--reports-dir`               | Persist generated child SBOMs and per-target findings                                                |
 | `--rules-dir`                 | Merge additional YAML rules into direct BOM audit and predictive child-SBOM evaluation               |
 | `--report`                    | Output format: `console`, `json`, or `sarif`                                                         |
