@@ -233,7 +233,10 @@ or elsewhere in the checkout a scanned directory belongs to, is never run. A
 compiler outside those directories, such as a cross compiler under `/opt`, is
 recognised from CMake's description when the build tree has one, and otherwise
 recorded by name. In secure mode no compiler is run, and only an explicit
-`--compile-commands` is read.
+`--compile-commands` is read: one given on the command line or as
+`CDXGEN_COMPILE_COMMANDS`. A config file in the working directory can come with
+the code as well, so a `compile-commands` it sets is ignored there with a
+warning.
 
 The project component carries the security-hardening options the build uses:
 `cdx:cpp:hardening:fortifySource`, `stackProtector`, `pie`, `relro`,
