@@ -1,0 +1,21 @@
+lib/parsers/compileCommands.js
+  s_000e4234adb03e::t_a81983d3297702 207-208,227-238,245
+lib/parsers/compileCommands.poku.js
+  s_000e4234adb03e::t_608bfdec1b5443 69-91
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "15c6edcaaefc505bd2a1d9db67bbb4629b8e707c",
+  "prompts": {},
+  "sessions": {
+    "s_000e4234adb03e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "02037648-4bba-493b-a180-b7ddf3261a96",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
