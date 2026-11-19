@@ -1,0 +1,25 @@
+lib/audit/index.js
+  s_000e4234adb03e::t_ca76b2aa64b4b5 51,1383,1973
+lib/audit/index.poku.js
+  s_000e4234adb03e::t_34bdbd70bdf33d 2365-2420
+lib/inventory/source.js
+  s_000e4234adb03e::t_199b421d883402 1069-1072,1086-1137,1236-1238,1253-1254,1257-1262
+lib/inventory/source.poku.js
+  s_000e4234adb03e::t_f0e228817ea8aa 1250-1322
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "895b7b1a79bdca385d4d1a6cd385b1c164da9e41",
+  "prompts": {},
+  "sessions": {
+    "s_000e4234adb03e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "02037648-4bba-493b-a180-b7ddf3261a96",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
