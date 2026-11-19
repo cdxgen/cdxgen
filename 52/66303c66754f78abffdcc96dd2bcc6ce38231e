@@ -1,0 +1,21 @@
+lib/inventory/dosai.poku.js
+  s_000e4234adb03e::t_d10f8197777705 2337-2372
+lib/inventory/dosaiParsers.js
+  s_000e4234adb03e::t_c6bbbf54ce42b3 212-226,234-237,257-260,441-444,519-523,599-603
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "5266303c66754f78abffdcc96dd2bcc6ce38231e",
+  "prompts": {},
+  "sessions": {
+    "s_000e4234adb03e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "02037648-4bba-493b-a180-b7ddf3261a96",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
