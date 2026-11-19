@@ -87,7 +87,7 @@ Prefer the action on GitHub-hosted runners. The Codex documentation says the act
 
 ## Not covered
 
-The GitHub Copilot cloud agent has no recipe yet. It needs the cdxgen MCP server that [#4656](https://github.com/cdxgen/cdxgen/issues/4656) tracks, and a recipe will follow that work.
+The GitHub Copilot cloud agent has no recipe.
 
 ## Adapting a recipe
 

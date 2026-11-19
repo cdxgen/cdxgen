@@ -61,7 +61,7 @@ Codex reads `.agents/plugins/marketplace.json` in the repository. The Codex app 
 
 Invoke a skill by naming it with a dollar sign, for example `$sbom-generate`, or describe the task and let Codex choose. The `$name` form is from the Codex documentation and has not been tried with this plugin.
 
-Codex ignores the hooks, the `bom-reviewer` agent and `userConfig`. The skills then read `${user_config.KEY}` as plain text and fall back to their defaults. The plugin directory still contains a `hooks/` folder, and OpenAI's public plugin directory does not accept plugins with lifecycle hooks, so the project has not submitted the plugin there. The [submission page](https://developers.openai.com/plugins/deploy/submission) accepts skills-only plugins, so a listing would not have to wait for the cdxgen MCP server that [#4656](https://github.com/cdxgen/cdxgen/issues/4656) tracks. Whether OpenAI's checks accept a package that ships a `hooks/` folder for Claude Code while `plugin.json` declares an empty `extensions.com.openai.hooks` list has not been tested.
+Codex ignores the hooks, the `bom-reviewer` agent and `userConfig`. The skills then read `${user_config.KEY}` as plain text and fall back to their defaults.
 
 ## GitHub Copilot CLI and app
 
