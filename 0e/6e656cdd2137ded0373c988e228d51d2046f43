@@ -1,0 +1,33 @@
+docs/CDX_CONVERT.md
+  s_000e4234adb03e::t_d71ab4e8d594be 104-108
+lib/inventory/cyclonedx20Parties.js
+  s_000e4234adb03e::t_364cf476346a7a 23,381-388,526-535
+lib/inventory/cyclonedx20Read.js
+  s_000e4234adb03e::t_bedf14cd2cd128 69,134-136,295-308,590-593,595-600
+lib/inventory/cyclonedx20Read.poku.js
+  s_000e4234adb03e::t_0e36918d53cd55 22-27,913-1085
+lib/inventory/cyclonedx20ReadCommon.js
+  s_000e4234adb03e::t_0bbc78af34337f 20,215-222,300,302-309
+lib/inventory/cyclonedx20ReadComponents.js
+  s_000e4234adb03e::t_bde39722160149 32,40,196-204,571-573,595-606
+lib/inventory/cyclonedx20ReadContext.js
+  s_000e4234adb03e::t_5ac0efd8706487 54-136,231-237,240-241
+lib/inventory/cyclonedx20ReadSections.js
+  s_000e4234adb03e::t_bf78744ac02a5c 32,122-131,178-189,271,281-288
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "0e6e656cdd2137ded0373c988e228d51d2046f43",
+  "prompts": {},
+  "sessions": {
+    "s_000e4234adb03e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "02037648-4bba-493b-a180-b7ddf3261a96",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
