@@ -1,0 +1,39 @@
+lib/cli/managedBom.js
+  s_000e4234adb03e::t_607b32b0df1999 2721-2726
+lib/ecosystems/golem.js
+  s_000e4234adb03e::t_3d90ae066f26cc 2608-2619
+lib/ecosystems/golem.poku.js
+  s_000e4234adb03e::t_e3a650708d37b0 1728-1741
+lib/ecosystems/kosi.js
+  s_000e4234adb03e::t_c471e6d537411b 1211-1221
+lib/ecosystems/kosi.poku.js
+  s_000e4234adb03e::t_51229bca1b63fd 459-470
+lib/ecosystems/scalasem.js
+  s_000e4234adb03e::t_45b5eb69237032 3098-3109
+lib/ecosystems/scalasem.poku.js
+  s_000e4234adb03e::t_44ca2c3bcaee74 1601-1624
+lib/evinser/evinser.js
+  s_000e4234adb03e::t_85f7a7c7b6ec76 1109-1110,1269,1361-1362
+lib/evinser/scalasem.poku.js
+  s_000e4234adb03e::t_9c36f9c1c630fb 317-329
+lib/inventory/dosai.js
+  s_000e4234adb03e::t_61fd67b9be49ef 2348-2350,2352-2360,2532
+lib/inventory/dosai.poku.js
+  s_000e4234adb03e::t_983bd885f0478b 628-664
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "de8a288a573214ba3b74195e095a42d2e72629f0",
+  "prompts": {},
+  "sessions": {
+    "s_000e4234adb03e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "02037648-4bba-493b-a180-b7ddf3261a96",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
