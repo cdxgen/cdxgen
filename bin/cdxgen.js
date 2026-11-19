@@ -24,6 +24,7 @@ import {
   buildOptionsFromArgs,
   configFileSelections,
   dropConfigAuditOverrides,
+  dropConfigFileServerUrl,
   findInTreeSlicesFiles,
   isUserProvided,
   markConfigFileTeaTargets,
@@ -1262,6 +1263,18 @@ try {
 } catch (error) {
   console.error(error.message);
   process.exit(1);
+}
+// The config file comes from the working directory, usually the scanned
+// project, so a server it names does not receive the operator's API key.
+if (
+  dropConfigFileServerUrl(options, {
+    env: launchEnv,
+    projectConfig: config,
+  })
+) {
+  console.warn(
+    "\x1b[1;35mThe config file sets 'server-url', but the API key comes from the command line or the environment. Ignoring 'server-url', so the key is not sent to a server the scanned project chose. Pass '--server-url' on the command line to send the BOM there.\x1b[0m",
+  );
 }
 // Dependency-Track ingests CycloneDX 1.x only. Refuse an upload (server URL
 // plus API key, the same condition the submission below uses) before
