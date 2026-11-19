@@ -1,0 +1,21 @@
+bin/commands.poku.js
+  s_000e4234adb03e::t_4e1ab4d4f28a6b 126-167
+lib/validator/bomValidator.js
+  s_000e4234adb03e::t_a9fc28e2d41f82 269-281,314,354
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "075ffe24e5591fec2e195e1939b5cbb81277611b",
+  "prompts": {},
+  "sessions": {
+    "s_000e4234adb03e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "02037648-4bba-493b-a180-b7ddf3261a96",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
