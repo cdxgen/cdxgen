@@ -1,0 +1,21 @@
+lib/ecosystems/parsers-jvm.js
+  s_000e4234adb03e::t_59315f1e9e2c5b 19,1209-1212,1407-1433,1467
+lib/ecosystems/parsers-jvm.poku.js
+  s_000e4234adb03e::t_e8cf400138c9cc 373-401,487-522
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "ca601e3457d3967d03809e72c3c8ea5151424aac",
+  "prompts": {},
+  "sessions": {
+    "s_000e4234adb03e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "02037648-4bba-493b-a180-b7ddf3261a96",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
