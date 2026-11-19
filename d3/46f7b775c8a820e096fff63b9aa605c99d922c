@@ -1,0 +1,21 @@
+lib/inventory/traceRunner.js
+  s_000e4234adb03e::t_3e9d0687d17493 511-513,517
+lib/inventory/traceRunner.poku.js
+  s_000e4234adb03e::t_6b610271ed818b 275-335
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "d346f7b775c8a820e096fff63b9aa605c99d922c",
+  "prompts": {},
+  "sessions": {
+    "s_000e4234adb03e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "02037648-4bba-493b-a180-b7ddf3261a96",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
