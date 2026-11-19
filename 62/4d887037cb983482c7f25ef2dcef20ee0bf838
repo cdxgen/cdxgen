@@ -1,0 +1,21 @@
+lib/ecosystems/parsers-js.js
+  s_000e4234adb03e::t_fef3637dc18377 1998-1999,2002,2068-2107
+lib/ecosystems/parsers-js.poku.js
+  s_000e4234adb03e::t_4e2cf7829ad86f 4719-4732
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "624d887037cb983482c7f25ef2dcef20ee0bf838",
+  "prompts": {},
+  "sessions": {
+    "s_000e4234adb03e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "02037648-4bba-493b-a180-b7ddf3261a96",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
