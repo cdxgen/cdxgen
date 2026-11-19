@@ -1,0 +1,21 @@
+lib/ecosystems/pep770.js
+  s_000e4234adb03e::t_662cb3019d7832 19,51-55,165-166,170,257,272,283-287,323-328,354
+lib/ecosystems/pep770.poku.js
+  s_000e4234adb03e::t_211ea4587e0109 61-111,239-250
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "2a4979c52c19fec4ccf37b8ca148eb7c4c23bf17",
+  "prompts": {},
+  "sessions": {
+    "s_000e4234adb03e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "02037648-4bba-493b-a180-b7ddf3261a96",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
