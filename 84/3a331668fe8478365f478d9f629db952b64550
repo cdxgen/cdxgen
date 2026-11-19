@@ -1,0 +1,29 @@
+lib/inventory/fetchBatch.hosts.poku.js
+  s_000e4234adb03e::t_d094ad55109114 1-108
+lib/inventory/fetchBatch.js
+  s_000e4234adb03e::t_8f8c72429c5c9b 126-132,192-205,1513,1572-1573,1576-1577,1596-1598
+lib/inventory/fetchDiskCache.js
+  s_000e4234adb03e::t_0c316f0b7af057 534-535,548-550,553-555
+lib/inventory/fetchDiskCache.poku.js
+  s_000e4234adb03e::t_2c38ac72334982 32,287-304
+lib/inventory/fetchRate.js
+  s_000e4234adb03e::t_9b7b3c1eaf8ded 287-291
+lib/inventory/fetchRate.poku.js
+  s_000e4234adb03e::t_a86b1162d41709 249-263
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "843a331668fe8478365f478d9f629db952b64550",
+  "prompts": {},
+  "sessions": {
+    "s_000e4234adb03e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "02037648-4bba-493b-a180-b7ddf3261a96",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
