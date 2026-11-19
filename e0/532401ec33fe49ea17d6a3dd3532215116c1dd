@@ -1,0 +1,25 @@
+lib/core/httpClient.js
+  s_000e4234adb03e::t_4e71bb0df79380 10,251
+lib/core/runtimeReport.js
+  s_000e4234adb03e::t_f2917f71e1c93c 1-34
+lib/core/runtimeReport.poku.js
+  s_000e4234adb03e::t_caff3ace896112 1-80
+lib/inventory/envcontext.js
+  s_000e4234adb03e::t_de13c1eaeaebf8 69,1058-1060,3209,3258
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "e0532401ec33fe49ea17d6a3dd3532215116c1dd",
+  "prompts": {},
+  "sessions": {
+    "s_000e4234adb03e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "02037648-4bba-493b-a180-b7ddf3261a96",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
