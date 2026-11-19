@@ -196,6 +196,30 @@ function describeEntry(result) {
     : `entry ${result.index}`;
 }
 
+// Only a root signature covers the BOM as a whole, and whoever can change the
+// BOM can remove it. Without one, a signers or chain entry is a first
+// signature: the keys given in --verify-existing-with have no entry to verify,
+// and signatures of nested elements cover neither the rest of the BOM nor
+// which elements it lists. So a BOM without a root signature is signed in
+// these modes only when nothing points to an earlier signer.
+function checkMissingRootSignature(nestedSigned) {
+  if (!nestedSigned && !args.verifyExistingWith?.length) {
+    return;
+  }
+  const reason = nestedSigned
+    ? "the BOM has no root signature, and the signatures of its nested elements do not cover the BOM as a whole"
+    : "the BOM has no signature to check with --verify-existing-with";
+  if (args.allowUnverifiedHistory) {
+    console.warn(
+      `Warning: adding a ${args.mode} signature although ${reason}.`,
+    );
+    return;
+  }
+  throw new Error(
+    `${reason}, so nothing shows that the content is what an earlier signer signed. Pass --allow-unverified-history to sign anyway.`,
+  );
+}
+
 // A new chain entry covers every earlier entry, so the signer vouches for that
 // history, and every entry must verify. A new signers entry covers the same
 // content as the existing entries, so at least one must verify to show the
@@ -203,9 +227,18 @@ function describeEntry(result) {
 function checkExistingSignatures(bomJson) {
   const existing = bomJson.signature;
   const otherForm = args.mode === "chain" ? "signers" : "chain";
+  if (args.mode !== "replace" && existing === undefined) {
+    checkMissingRootSignature(
+      ["components", "services", "annotations"].some(
+        (field) =>
+          Array.isArray(bomJson[field]) &&
+          bomJson[field].some((item) => item?.signature !== undefined),
+      ),
+    );
+    return;
+  }
   if (
     args.mode === "replace" ||
-    existing === undefined ||
     (existing !== null &&
       typeof existing === "object" &&
       Object.hasOwn(existing, otherForm))
@@ -417,6 +450,11 @@ function signJssDocument(bomJson) {
       );
     }
     checkExistingJssSignatures(bomJson);
+  } else if (args.mode !== "replace") {
+    // The root has no entries here, so this counts those of nested members.
+    checkMissingRootSignature(
+      removeJssSignatures({ ...bomJson, signatures: [] }).removed > 0,
+    );
   }
   // At 2.0 the nested members (inventories, their components, compositions
   // and annotations) are signed together; any --no-sign-* signs the root

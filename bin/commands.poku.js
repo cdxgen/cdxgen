@@ -1380,6 +1380,95 @@ describe("JSF verification refuses ambiguous or partial signatures", () => {
     );
   });
 
+  it("cdx-sign does not co-sign a BOM whose root signature was removed", async () => {
+    const signed = await signedByRsa("cosign-rootless.json");
+    assert.ok(signed.components[0].signature);
+    delete signed.signature;
+    signed.components[0].version = "9.9.9";
+    writeJson("cosign-rootless.json", signed);
+    // Nested signatures do not cover the rest of the BOM.
+    const metadata = await signedByRsa("cosign-rootless-metadata.json");
+    delete metadata.signature;
+    metadata.metadata = { timestamp: "2031-01-01T00:00:00Z" };
+    writeJson("cosign-rootless-metadata.json", metadata);
+    // An attacker who removes the root signature can remove the others too.
+    const unsigned = structuredClone(signed);
+    delete unsigned.components[0].signature;
+    writeJson("cosign-unsigned.json", unsigned);
+    const cosign = (input, ...args) =>
+      run([
+        binFor("sign"),
+        "-i",
+        file(input),
+        "-k",
+        file("ed25519-private.pem"),
+        "-a",
+        "Ed25519",
+        ...args,
+      ]);
+    const checked = ["--verify-existing-with", file("rsa-public.pem")];
+
+    for (const mode of ["signers", "chain"]) {
+      for (const [input, extra] of [
+        ["cosign-rootless.json", []],
+        ["cosign-rootless.json", ["--no-sign-components"]],
+        ["cosign-rootless-metadata.json", []],
+      ]) {
+        const before = readFileSync(file(input), "utf-8");
+        const refused = await cosign(
+          input,
+          "--mode",
+          mode,
+          ...checked,
+          ...extra,
+        );
+        assert.notStrictEqual(refused.status, 0, `${mode} ${input} ${extra}`);
+        assert.match(refused.stderr, /the BOM has no root signature/);
+        assert.strictEqual(readFileSync(file(input), "utf-8"), before);
+      }
+      const refused = await cosign(
+        "cosign-unsigned.json",
+        "--mode",
+        mode,
+        ...checked,
+      );
+      assert.notStrictEqual(refused.status, 0, mode);
+      assert.match(
+        refused.stderr,
+        /the BOM has no signature to check with --verify-existing-with/,
+      );
+    }
+
+    const noKey = await cosign("cosign-rootless.json", "--mode", "signers");
+    assert.notStrictEqual(noKey.status, 0);
+    assert.match(noKey.stderr, /the BOM has no root signature/);
+
+    const first = await cosign(
+      "cosign-unsigned.json",
+      "-o",
+      file("cosign-first.json"),
+      "--mode",
+      "signers",
+    );
+    assert.strictEqual(first.status, 0, first.stderr);
+    assert.strictEqual(
+      readJson("cosign-first.json").signature.signers.length,
+      1,
+    );
+
+    const allowed = await cosign(
+      "cosign-rootless.json",
+      "--mode",
+      "signers",
+      "--allow-unverified-history",
+    );
+    assert.strictEqual(allowed.status, 0, allowed.stderr);
+    assert.match(
+      allowed.stderr,
+      /Warning: adding a signers signature although the BOM has no root signature/,
+    );
+  });
+
   it("cdx-verify accepts the BOMs signed by cdxgen 13.3.0", async () => {
     const fixtures = join(process.cwd(), "test", "data", "jsf");
     const check = async (name, ...args) => {
@@ -1806,6 +1895,87 @@ describe("JSS (ITU-T X.590) signing and verification commands at 2.0", () => {
     assert.match(
       refused.stderr,
       /signatures\[32\] \(Ed25519\): The signatures list has 33 entries/,
+    );
+  });
+
+  it("does not co-sign a BOM whose root signatures were removed", async () => {
+    await signWith("bom20.json", "alice-rootless.json", "alice");
+    const document = readJson("alice-rootless.json");
+    assert.ok(document.inventories[0].components[0].signatures.length);
+    document.inventories[0].components[0].version = "6.6.6";
+    const inputs = {
+      "rootless.json": { ...document, signatures: undefined },
+      "rootless-empty.json": { ...document, signatures: [] },
+      // An attacker who removes the root signatures can remove the others too.
+      "rootless-unsigned.json": { ...bom20 },
+    };
+    for (const [name, value] of Object.entries(inputs)) {
+      writeFileSync(file(name), JSON.stringify(value));
+    }
+    const checked = ["--verify-existing-with", file("alice-public.pem")];
+
+    for (const mode of ["signers", "chain"]) {
+      for (const [input, extra, reason] of [
+        ["rootless.json", [], /the BOM has no root signature/],
+        [
+          "rootless.json",
+          ["--no-sign-components"],
+          /the BOM has no root signature/,
+        ],
+        ["rootless-empty.json", [], /the BOM has no root signature/],
+        [
+          "rootless-unsigned.json",
+          [],
+          /the BOM has no signature to check with --verify-existing-with/,
+        ],
+      ]) {
+        const refused = await signWith(
+          input,
+          "rootless-out.json",
+          "bob",
+          "--mode",
+          mode,
+          ...checked,
+          ...extra,
+        );
+        assert.notStrictEqual(refused.status, 0, `${mode} ${input} ${extra}`);
+        assert.match(refused.stderr, reason);
+        assert.throws(() => readFileSync(file("rootless-out.json")));
+      }
+    }
+
+    const noKey = await signWith(
+      "rootless.json",
+      "rootless-out.json",
+      "bob",
+      "--mode",
+      "signers",
+    );
+    assert.notStrictEqual(noKey.status, 0);
+    assert.match(noKey.stderr, /the BOM has no root signature/);
+
+    const first = await signWith(
+      "rootless-unsigned.json",
+      "rootless-first.json",
+      "bob",
+      "--mode",
+      "chain",
+    );
+    assert.strictEqual(first.status, 0, first.stderr);
+    assert.match(first.stdout, /chain \(first signature\)/);
+
+    const allowed = await signWith(
+      "rootless.json",
+      "rootless-out.json",
+      "bob",
+      "--mode",
+      "signers",
+      "--allow-unverified-history",
+    );
+    assert.strictEqual(allowed.status, 0, allowed.stderr);
+    assert.match(
+      allowed.stderr,
+      /Warning: adding a signers signature although the BOM has no root signature/,
     );
   });
 
