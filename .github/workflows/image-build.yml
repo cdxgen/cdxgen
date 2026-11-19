@@ -166,7 +166,7 @@ jobs:
         with:
           persist-credentials: false
       - name: Free disk space
-        uses: jlumbroso/free-disk-space@ceedf095f4ec1a097402bc6bd80831f2e1a6fde6  # v2.0.0
+        uses: lumbroso-commons/free-disk-space@ceedf095f4ec1a097402bc6bd80831f2e1a6fde6
         with:
           tool-cache: true
       - name: Trim CI agent even more
@@ -195,7 +195,7 @@ jobs:
             org.opencontainers.image.vendor=CycloneDX
       - name: Build base image (amd64)
         id: build_base
-        uses: ./.github/actions/build-docker-image
+        uses: $/.github/actions/build-docker-image
         with:
           dockerfile: ${{ needs.prepare.outputs.dockerfile }}
           docker-args: ${{ needs.prepare.outputs.docker-args }}
@@ -219,7 +219,7 @@ jobs:
       - name: Build slim base image (amd64)
         if: ${{ needs.prepare.outputs.slim == 'true' }}
         id: build_slim_base
-        uses: ./.github/actions/build-docker-image
+        uses: $/.github/actions/build-docker-image
         with:
           dockerfile: ${{ needs.prepare.outputs.dockerfile }}
           docker-args: |
@@ -249,7 +249,7 @@ jobs:
       - name: Build cdxgen image - master branch (amd64)
         if: ${{ startsWith(github.ref, 'refs/heads/') }}
         id: build_cdxgen_master
-        uses: ./.github/actions/build-docker-image
+        uses: $/.github/actions/build-docker-image
         with:
           dockerfile: ${{ needs.prepare.outputs.dockerfile }}
           docker-args: ${{ needs.prepare.outputs.docker-args }}
@@ -279,7 +279,7 @@ jobs:
       - name: Build cdxgen image - tags (amd64)
         if: ${{ startsWith(github.ref, 'refs/tags/') }}
         id: build_cdxgen_tag
-        uses: ./.github/actions/build-docker-image
+        uses: $/.github/actions/build-docker-image
         with:
           dockerfile: ${{ needs.prepare.outputs.dockerfile }}
           docker-args: ${{ needs.prepare.outputs.docker-args }}
@@ -307,7 +307,7 @@ jobs:
       - name: Build slim cdxgen image - master branch (amd64)
         if: ${{ needs.prepare.outputs.slim == 'true' && startsWith(github.ref, 'refs/heads/') }}
         id: build_slim_cdxgen_master
-        uses: ./.github/actions/build-docker-image
+        uses: $/.github/actions/build-docker-image
         with:
           dockerfile: ${{ needs.prepare.outputs.dockerfile }}
           docker-args: |
@@ -339,7 +339,7 @@ jobs:
       - name: Build slim cdxgen image - tags (amd64)
         if: ${{ needs.prepare.outputs.slim == 'true' && startsWith(github.ref, 'refs/tags/') }}
         id: build_slim_cdxgen_tag
-        uses: ./.github/actions/build-docker-image
+        uses: $/.github/actions/build-docker-image
         with:
           dockerfile: ${{ needs.prepare.outputs.dockerfile }}
           docker-args: |
@@ -403,7 +403,7 @@ jobs:
         with:
           persist-credentials: false
       - name: Free disk space
-        uses: jlumbroso/free-disk-space@ceedf095f4ec1a097402bc6bd80831f2e1a6fde6  # v2.0.0
+        uses: lumbroso-commons/free-disk-space@ceedf095f4ec1a097402bc6bd80831f2e1a6fde6
         with:
           tool-cache: true
       - name: Trim CI agent even more
@@ -432,7 +432,7 @@ jobs:
             org.opencontainers.image.vendor=CycloneDX
       - name: Build base image (arm64)
         id: build_base
-        uses: ./.github/actions/build-docker-image
+        uses: $/.github/actions/build-docker-image
         with:
           dockerfile: ${{ needs.prepare.outputs.dockerfile }}
           docker-args: ${{ needs.prepare.outputs.docker-args }}
@@ -456,7 +456,7 @@ jobs:
       - name: Build slim base image (arm64)
         if: ${{ needs.prepare.outputs.slim == 'true' }}
         id: build_slim_base
-        uses: ./.github/actions/build-docker-image
+        uses: $/.github/actions/build-docker-image
         with:
           dockerfile: ${{ needs.prepare.outputs.dockerfile }}
           docker-args: |
@@ -486,7 +486,7 @@ jobs:
       - name: Build cdxgen image - master branch (arm64)
         if: ${{ startsWith(github.ref, 'refs/heads/') }}
         id: build_cdxgen_master
-        uses: ./.github/actions/build-docker-image
+        uses: $/.github/actions/build-docker-image
         with:
           dockerfile: ${{ needs.prepare.outputs.dockerfile }}
           docker-args: ${{ needs.prepare.outputs.docker-args }}
@@ -516,7 +516,7 @@ jobs:
       - name: Build cdxgen image - tags (arm64)
         if: ${{ startsWith(github.ref, 'refs/tags/') }}
         id: build_cdxgen_tag
-        uses: ./.github/actions/build-docker-image
+        uses: $/.github/actions/build-docker-image
         with:
           dockerfile: ${{ needs.prepare.outputs.dockerfile }}
           docker-args: ${{ needs.prepare.outputs.docker-args }}
@@ -544,7 +544,7 @@ jobs:
       - name: Build slim cdxgen image - master branch (arm64)
         if: ${{ needs.prepare.outputs.slim == 'true' && startsWith(github.ref, 'refs/heads/') }}
         id: build_slim_cdxgen_master
-        uses: ./.github/actions/build-docker-image
+        uses: $/.github/actions/build-docker-image
         with:
           dockerfile: ${{ needs.prepare.outputs.dockerfile }}
           docker-args: |
@@ -576,7 +576,7 @@ jobs:
       - name: Build slim cdxgen image - tags (arm64)
         if: ${{ needs.prepare.outputs.slim == 'true' && startsWith(github.ref, 'refs/tags/') }}
         id: build_slim_cdxgen_tag
-        uses: ./.github/actions/build-docker-image
+        uses: $/.github/actions/build-docker-image
         with:
           dockerfile: ${{ needs.prepare.outputs.dockerfile }}
           docker-args: |
@@ -960,7 +960,7 @@ jobs:
         with:
           persist-credentials: false
       - name: Free disk space
-        uses: jlumbroso/free-disk-space@ceedf095f4ec1a097402bc6bd80831f2e1a6fde6  # v2.0.0
+        uses: lumbroso-commons/free-disk-space@ceedf095f4ec1a097402bc6bd80831f2e1a6fde6
         with:
           tool-cache: true
       - name: Trim CI agent even more
@@ -992,7 +992,7 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Generate and attach SBOM for base image (amd64)
-        uses: ./.github/actions/generate-attach-sbom
+        uses: $/.github/actions/generate-attach-sbom
         with:
           dockerfile: ${{ needs.prepare.outputs.dockerfile }}
           docker-args: ${{ needs.prepare.outputs.docker-args }}
@@ -1002,7 +1002,7 @@ jobs:
           target: base
       - name: Generate and attach SBOM for slim base image (amd64)
         if: ${{ needs.prepare.outputs.slim == 'true' }}
-        uses: ./.github/actions/generate-attach-sbom
+        uses: $/.github/actions/generate-attach-sbom
         with:
           dockerfile: ${{ needs.prepare.outputs.dockerfile }}
           docker-args: |
@@ -1014,7 +1014,7 @@ jobs:
           target: base-slim
       - name: Generate and attach SBOM for cdxgen image - master branch (amd64)
         if: ${{ startsWith(github.ref, 'refs/heads/') }}
-        uses: ./.github/actions/generate-attach-sbom
+        uses: $/.github/actions/generate-attach-sbom
         with:
           dockerfile: ${{ needs.prepare.outputs.dockerfile }}
           docker-args: ${{ needs.prepare.outputs.docker-args }}
@@ -1024,7 +1024,7 @@ jobs:
           target: cdxgen
       - name: Generate and attach SBOM for cdxgen image - release tags (amd64)
         if: ${{ startsWith(github.ref, 'refs/tags/') }}
-        uses: ./.github/actions/generate-attach-sbom
+        uses: $/.github/actions/generate-attach-sbom
         with:
           dockerfile: ${{ needs.prepare.outputs.dockerfile }}
           docker-args: ${{ needs.prepare.outputs.docker-args }}
@@ -1034,7 +1034,7 @@ jobs:
           target: cdxgen
       - name: Generate and attach SBOM for slim cdxgen image - master branch (amd64)
         if: ${{ needs.prepare.outputs.slim == 'true' && startsWith(github.ref, 'refs/heads/') }}
-        uses: ./.github/actions/generate-attach-sbom
+        uses: $/.github/actions/generate-attach-sbom
         with:
           dockerfile: ${{ needs.prepare.outputs.dockerfile }}
           docker-args: |
@@ -1046,7 +1046,7 @@ jobs:
           target: cdxgen
       - name: Generate and attach SBOM for slim cdxgen image - release tags (amd64)
         if: ${{ needs.prepare.outputs.slim == 'true' && startsWith(github.ref, 'refs/tags/') }}
-        uses: ./.github/actions/generate-attach-sbom
+        uses: $/.github/actions/generate-attach-sbom
         with:
           dockerfile: ${{ needs.prepare.outputs.dockerfile }}
           docker-args: |
@@ -1070,7 +1070,7 @@ jobs:
         with:
           persist-credentials: false
       - name: Free disk space
-        uses: jlumbroso/free-disk-space@ceedf095f4ec1a097402bc6bd80831f2e1a6fde6  # v2.0.0
+        uses: lumbroso-commons/free-disk-space@ceedf095f4ec1a097402bc6bd80831f2e1a6fde6
         with:
           tool-cache: true
       - name: Trim CI agent even more
@@ -1102,7 +1102,7 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Generate and attach SBOM for base image (arm64)
-        uses: ./.github/actions/generate-attach-sbom
+        uses: $/.github/actions/generate-attach-sbom
         with:
           dockerfile: ${{ needs.prepare.outputs.dockerfile }}
           docker-args: ${{ needs.prepare.outputs.docker-args }}
@@ -1112,7 +1112,7 @@ jobs:
           target: base
       - name: Generate and attach SBOM for slim base image (arm64)
         if: ${{ needs.prepare.outputs.slim == 'true' }}
-        uses: ./.github/actions/generate-attach-sbom
+        uses: $/.github/actions/generate-attach-sbom
         with:
           dockerfile: ${{ needs.prepare.outputs.dockerfile }}
           docker-args: |
@@ -1124,7 +1124,7 @@ jobs:
           target: base-slim
       - name: Generate and attach SBOM for cdxgen image - master branch (arm64)
         if: ${{ startsWith(github.ref, 'refs/heads/') }}
-        uses: ./.github/actions/generate-attach-sbom
+        uses: $/.github/actions/generate-attach-sbom
         with:
           dockerfile: ${{ needs.prepare.outputs.dockerfile }}
           docker-args: ${{ needs.prepare.outputs.docker-args }}
@@ -1134,7 +1134,7 @@ jobs:
           target: cdxgen
       - name: Generate and attach SBOM for cdxgen image - release tags (arm64)
         if: ${{ startsWith(github.ref, 'refs/tags/') }}
-        uses: ./.github/actions/generate-attach-sbom
+        uses: $/.github/actions/generate-attach-sbom
         with:
           dockerfile: ${{ needs.prepare.outputs.dockerfile }}
           docker-args: ${{ needs.prepare.outputs.docker-args }}
@@ -1144,7 +1144,7 @@ jobs:
           target: cdxgen
       - name: Generate and attach SBOM for slim cdxgen image - master branch (arm64)
         if: ${{ needs.prepare.outputs.slim == 'true' && startsWith(github.ref, 'refs/heads/') }}
-        uses: ./.github/actions/generate-attach-sbom
+        uses: $/.github/actions/generate-attach-sbom
         with:
           dockerfile: ${{ needs.prepare.outputs.dockerfile }}
           docker-args: |
@@ -1156,7 +1156,7 @@ jobs:
           target: cdxgen
       - name: Generate and attach SBOM for slim cdxgen image - release tags (arm64)
         if: ${{ needs.prepare.outputs.slim == 'true' && startsWith(github.ref, 'refs/tags/') }}
-        uses: ./.github/actions/generate-attach-sbom
+        uses: $/.github/actions/generate-attach-sbom
         with:
           dockerfile: ${{ needs.prepare.outputs.dockerfile }}
           docker-args: |

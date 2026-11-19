@@ -13,7 +13,8 @@ export declare function gitRedirectsRefused(): boolean;
  * Execute git with hardened defaults.
  *
  * Every call runs with command-scope settings that keep the repository from
- * running fsmonitor hooks or being opened as a bare repository. While a git
+ * running fsmonitor hooks, being opened as a bare repository or having its
+ * commit signatures verified by a program it names. While a git
  * host allowlist or secure mode applies, git also refuses HTTP redirects, so
  * an allowed host cannot send a clone or ls-remote to a host the allowlist
  * does not name.

@@ -36,6 +36,7 @@ import {
   getUnpackagedExecutableComponents,
   getUnpackagedSharedLibraryComponents,
 } from "../lib/helpers/inventoryStats.js";
+import { isSecureModeActive } from "../lib/helpers/projectTooling.js";
 import {
   importProtobomModule,
   isProtoBomPath,
@@ -544,9 +545,11 @@ cdxgenRepl.defineCommand("create", {
     this.clearBufferedCommand();
     const tempDir = safeMkdtempSync(join(getTmpDir(), "cdxgen-repl-"));
     const bomFile = join(tempDir, "bom.json");
+    // Installs follow the rule of the cdxgen command: they are off in secure
+    // mode and in dry-run mode.
     const bomNSData = await createBom(sbomOrPath, {
       multiProject: true,
-      installDeps: true,
+      installDeps: !isDryRun && !isSecureModeActive(),
       output: bomFile,
     });
     if (bomNSData) {
