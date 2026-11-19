@@ -45,6 +45,7 @@ import {
   sanitizeProjectConfig,
 } from "../lib/core/projectConfig.js";
 import { isSecureModeActive } from "../lib/core/projectTooling.js";
+import { sanitizeBomUrl } from "../lib/core/propertySanitizer.js";
 import {
   ui as defaultUi,
   installConsoleShim,
@@ -2768,7 +2769,8 @@ const writeCycloneDxOutput = (jsonFile, bomJson, options) => {
       try {
         serverHostname = new URL(options.serverUrl).hostname;
       } catch (err) {
-        console.log("Invalid Dependency-Track server URL", err);
+        // The error carries the URL it could not parse, credentials included.
+        console.log("Invalid Dependency-Track server URL", err.message);
         process.exit(1);
       }
       if (!isAllowedHttpHost(serverHostname)) {
@@ -2776,7 +2778,7 @@ const writeCycloneDxOutput = (jsonFile, bomJson, options) => {
           kind: "submit",
           reason: "The URL host is not allowed as per the allowlist.",
           status: "blocked",
-          target: options.serverUrl,
+          target: sanitizeBomUrl(options.serverUrl),
         });
         console.log(
           `Dependency-Track server host '${serverHostname}' is not allowed by CDXGEN_ALLOWED_HOSTS.`,
@@ -2789,7 +2791,7 @@ const writeCycloneDxOutput = (jsonFile, bomJson, options) => {
         kind: "submit",
         reason: "Dry run mode skips remote BOM submission.",
         status: "blocked",
-        target: options.serverUrl,
+        target: sanitizeBomUrl(options.serverUrl),
       });
     } else if (isCycloneDx20SpecVersion(bomNSData.bomJson?.specVersion)) {
       // Unreachable from the CLI, which refuses this before generating; kept
@@ -2798,7 +2800,7 @@ const writeCycloneDxOutput = (jsonFile, bomJson, options) => {
         kind: "submit",
         reason: DEPENDENCY_TRACK_CDX20_ERROR,
         status: "blocked",
-        target: options.serverUrl,
+        target: sanitizeBomUrl(options.serverUrl),
       });
       console.error(DEPENDENCY_TRACK_CDX20_ERROR);
       if (cleanup) {
@@ -2810,7 +2812,7 @@ const writeCycloneDxOutput = (jsonFile, bomJson, options) => {
         recordActivity({
           kind: "submit",
           status: "completed",
-          target: options.serverUrl,
+          target: sanitizeBomUrl(options.serverUrl),
         });
         await submitBom(options, bomNSData.bomJson);
       } catch (err) {
@@ -2837,7 +2839,7 @@ const writeCycloneDxOutput = (jsonFile, bomJson, options) => {
         kind: "submit",
         reason: "Dry run mode skips TEA collection publishing.",
         status: "blocked",
-        target: options.teaPublish,
+        target: sanitizeBomUrl(options.teaPublish),
       });
     } else {
       try {
@@ -2877,14 +2879,14 @@ const writeCycloneDxOutput = (jsonFile, bomJson, options) => {
         recordActivity({
           kind: "submit",
           status: "completed",
-          target: options.teaPublish,
+          target: sanitizeBomUrl(options.teaPublish),
         });
         console.log(
-          `cdxgen: published TEA collection to ${options.teaPublish} (collection version ${result.body?.version ?? "assigned by server"}).`,
+          `cdxgen: published TEA collection to ${sanitizeBomUrl(options.teaPublish)} (collection version ${result.body?.version ?? "assigned by server"}).`,
         );
       } catch (err) {
         console.error(
-          `cdxgen: failed to publish TEA collection to ${options.teaPublish}: ${err?.message || err}. The local BOM was written regardless.`,
+          `cdxgen: failed to publish TEA collection to ${sanitizeBomUrl(options.teaPublish)}: ${err?.message || err}. The local BOM was written regardless.`,
         );
         process.exit(3);
       }
