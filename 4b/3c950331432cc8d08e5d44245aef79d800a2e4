@@ -1,0 +1,27 @@
+lib/managers/binary.js
+  s_000e4234adb03e::t_c867a607381581 15,2041-2045,3011-3021,3503-3512,3518-3520
+lib/core/activity.poku.js
+  s_000e4234adb03e::t_bffdf422e66160 1126-1158,1254-1321
+lib/managers/binary.poku.js
+  s_000e4234adb03e::t_1734e1922b6792 269-318,3640-3738
+lib/inventory/osPackageResolver.poku.js
+  s_000e4234adb03e::t_286c6cf550ec9c 1-9,11,18,20,267-345,411-537
+lib/inventory/osPackageResolver.js
+  s_000e4234adb03e::t_04d433ecbaed01 1-2,4,265-363,367-369,387,389-390,400-402,462-467,501-503,534-541,543-544,547,553-554,557-566,570-575,615-635,637-641,653-659,662-670
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "4b3c950331432cc8d08e5d44245aef79d800a2e4",
+  "prompts": {},
+  "sessions": {
+    "s_000e4234adb03e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "02037648-4bba-493b-a180-b7ddf3261a96",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
