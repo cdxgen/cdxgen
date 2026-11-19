@@ -1045,6 +1045,34 @@ if (args.bomAuditIncludeTrusted && args.bomAuditOnlyTrusted) {
   process.exit(1);
 }
 
+/**
+ * The words that start this cdxgen again: the runtime, whatever it needs to
+ * run a script, and the script. Deno runs a script only through its run
+ * subcommand, and the new process gets exactly the permissions this one was
+ * given in full, so the interface it starts cannot widen them.
+ *
+ * @returns {string[]} Command parts, without empty entries
+ */
+function selfCommandParts() {
+  const parts = [process.argv[0]];
+  const permissions = globalThis.Deno?.permissions;
+  if (isDeno && typeof permissions?.querySync === "function") {
+    parts.push("run");
+    for (const name of ["read", "write", "env", "run", "net", "sys", "ffi"]) {
+      try {
+        const status = permissions.querySync({ name });
+        if (status.state === "granted" && !status.partial) {
+          parts.push(`--allow-${name}`);
+        }
+      } catch (_err) {
+        // A permission this Deno does not know is left out.
+      }
+    }
+  }
+  parts.push(process.argv[1]);
+  return parts.filter(Boolean);
+}
+
 if (args.tui && !readEnvironmentVariable("CI")) {
   const cdxuiPath = resolvePluginBinary("cdxui");
   if (!cdxuiPath) {
@@ -1071,7 +1099,7 @@ if (args.tui && !readEnvironmentVariable("CI")) {
         ...process.env,
         CDXGEN_CMD:
           readEnvironmentVariable("CDXGEN_CMD") ||
-          [process.argv[0], process.argv[1]].filter(Boolean).join("\x1f") ||
+          selfCommandParts().join("\x1f") ||
           "cdxgen",
         CDXGEN_ARGS: cdxgenArgs.join("\x1f"),
       },
