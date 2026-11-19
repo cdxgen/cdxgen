@@ -1042,9 +1042,16 @@ if (args.tui && !readEnvironmentVariable("CI")) {
       "The terminal user interface requires the cdxui plugin binary, which is not installed for this platform.\nInstall @cdxgen/cdxgen-plugins-bin, or set CDXUI_CMD to a cdxui binary, then retry. Continuing without the interface.",
     );
   } else {
-    const cdxgenArgs = process.argv
-      .slice(2)
-      .filter((a) => a !== "--tui" && !a.startsWith("--tui="));
+    // The cdxgen that cdxui starts must not open the interface again. It is
+    // told so with --no-tui, because dropping --tui leaves a CDXGEN_TUI it
+    // inherits in force. --no-tui comes first, so a `--` among the operator's
+    // arguments does not turn it into a path.
+    const cdxgenArgs = [
+      "--no-tui",
+      ...process.argv
+        .slice(2)
+        .filter((a) => a !== "--tui" && !a.startsWith("--tui=")),
+    ];
     // Arguments cross the process boundary separated by the unit separator
     // rather than by spaces: a scan path may legitimately contain a space, and
     // re-splitting on whitespace would silently turn it into two paths.
