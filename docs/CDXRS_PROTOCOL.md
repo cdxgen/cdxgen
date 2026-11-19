@@ -334,9 +334,15 @@ ceiling (default 256 MB).
 
 Enforcing the ceiling means walking the whole cache, so it is not done on every
 write: a run may add an eighth of the ceiling (at least 8 MB) before a pass is
-due. A cache can therefore sit that much over the ceiling between passes, and
-one left oversized by a run that exited early is reclaimed by the next run that
-writes enough, or immediately by `cdxgen cache clear`.
+due. A cache can therefore sit that much over the ceiling between passes.
+
+A run counts only what it wrote itself, so runs that each add less than that
+would never make a pass, whatever earlier runs left behind. cdxgen therefore
+keeps a count of its own, of what its `cdxrs fetch` runs and its JS pool add,
+and makes the pass itself: at the first write of every cdxgen process, and
+again whenever an eighth of the ceiling has been added since. A cache left
+oversized by an earlier process is reclaimed by the next one that writes to
+it, or immediately by `cdxgen cache clear`.
 
 Entries are not fsynced. Every byte in the cache is re-derivable from the
 network and atomicity comes from `rename`, so a torn entry left by a crash is
