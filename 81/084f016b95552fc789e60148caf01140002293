@@ -1,0 +1,27 @@
+.github/actions/generate-attach-sbom/action.yml
+  s_000e4234adb03e::t_feb5398712c91b 29
+.github/workflows/actions.lock
+  s_000e4234adb03e::t_9e66625a9c0167 1-321
+.github/workflows/build-image.yml
+  s_000e4234adb03e::t_bb3591e05a0da3 75
+.github/workflows/image-build.yml
+  s_000e4234adb03e::t_45c55eeb3de163 169,198,222,252,282,310,342,406,435,459,489,519,547,579,963,995,1005,1017,1027,1037,1049,1073,1105,1115,1127,1137,1147,1159
+.github/workflows/npm-release.yml
+  s_000e4234adb03e::t_eac108de61e142 200,252,311,407,461,522,603,655,714,800,853,904,963
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "81084f016b95552fc789e60148caf01140002293",
+  "prompts": {},
+  "sessions": {
+    "s_000e4234adb03e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "02037648-4bba-493b-a180-b7ddf3261a96",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
