@@ -60,23 +60,23 @@
         },
         {
           "name": "internal:workspaceSrcFile",
-          "value": "$ROOT/packages/lib-a/pyproject.toml"
+          "value": "packages/lib-a/pyproject.toml"
         },
         {
           "name": "internal:workspaceSrcFile",
-          "value": "$ROOT/packages/lib-a/pyproject.toml"
+          "value": "packages/lib-a/pyproject.toml"
         },
         {
           "name": "internal:workspaceSrcFile",
-          "value": "$ROOT/packages/lib-a/pyproject.toml"
+          "value": "packages/lib-a/pyproject.toml"
         },
         {
           "name": "internal:workspaceSrcFile",
-          "value": "$ROOT/packages/lib-a/pyproject.toml"
+          "value": "packages/lib-a/pyproject.toml"
         },
         {
           "name": "internal:workspaceSrcFile",
-          "value": "$ROOT/packages/lib-a/pyproject.toml"
+          "value": "packages/lib-a/pyproject.toml"
         }
       ],
       "purl": "pkg:pypi/certifi@2026.7.22",
@@ -992,23 +992,23 @@
         },
         {
           "name": "internal:workspaceSrcFile",
-          "value": "$ROOT/packages/lib-a/pyproject.toml"
+          "value": "packages/lib-a/pyproject.toml"
         },
         {
           "name": "internal:workspaceSrcFile",
-          "value": "$ROOT/packages/lib-a/pyproject.toml"
+          "value": "packages/lib-a/pyproject.toml"
         },
         {
           "name": "internal:workspaceSrcFile",
-          "value": "$ROOT/packages/lib-a/pyproject.toml"
+          "value": "packages/lib-a/pyproject.toml"
         },
         {
           "name": "internal:workspaceSrcFile",
-          "value": "$ROOT/packages/lib-a/pyproject.toml"
+          "value": "packages/lib-a/pyproject.toml"
         },
         {
           "name": "internal:workspaceSrcFile",
-          "value": "$ROOT/packages/lib-a/pyproject.toml"
+          "value": "packages/lib-a/pyproject.toml"
         }
       ],
       "purl": "pkg:pypi/charset-normalizer@3.5.2",
@@ -1074,23 +1074,23 @@
         },
         {
           "name": "internal:workspaceSrcFile",
-          "value": "$ROOT/packages/lib-a/pyproject.toml"
+          "value": "packages/lib-a/pyproject.toml"
         },
         {
           "name": "internal:workspaceSrcFile",
-          "value": "$ROOT/packages/lib-a/pyproject.toml"
+          "value": "packages/lib-a/pyproject.toml"
         },
         {
           "name": "internal:workspaceSrcFile",
-          "value": "$ROOT/packages/lib-a/pyproject.toml"
+          "value": "packages/lib-a/pyproject.toml"
         },
         {
           "name": "internal:workspaceSrcFile",
-          "value": "$ROOT/packages/lib-a/pyproject.toml"
+          "value": "packages/lib-a/pyproject.toml"
         },
         {
           "name": "internal:workspaceSrcFile",
-          "value": "$ROOT/packages/lib-a/pyproject.toml"
+          "value": "packages/lib-a/pyproject.toml"
         }
       ],
       "purl": "pkg:pypi/idna@3.20",
@@ -1144,11 +1144,11 @@
         },
         {
           "name": "internal:workspaceSrcFile",
-          "value": "$ROOT/packages/lib-a/pyproject.toml"
+          "value": "packages/lib-a/pyproject.toml"
         },
         {
           "name": "internal:workspaceSrcFile",
-          "value": "$ROOT/packages/lib-a/pyproject.toml"
+          "value": "packages/lib-a/pyproject.toml"
         }
       ],
       "purl": "pkg:pypi/requests@2.32.5",
@@ -1206,15 +1206,15 @@
         },
         {
           "name": "internal:workspaceSrcFile",
-          "value": "$ROOT/packages/lib-a/pyproject.toml"
+          "value": "packages/lib-a/pyproject.toml"
         },
         {
           "name": "internal:workspaceSrcFile",
-          "value": "$ROOT/packages/lib-a/pyproject.toml"
+          "value": "packages/lib-a/pyproject.toml"
         },
         {
           "name": "internal:workspaceSrcFile",
-          "value": "$ROOT/packages/lib-a/pyproject.toml"
+          "value": "packages/lib-a/pyproject.toml"
         }
       ],
       "purl": "pkg:pypi/requests@2.34.2",
@@ -1306,7 +1306,7 @@
         },
         {
           "name": "internal:workspaceSrcFile",
-          "value": "$ROOT/packages/lib-a/pyproject.toml"
+          "value": "packages/lib-a/pyproject.toml"
         }
       ],
       "purl": "pkg:pypi/urllib3@2.8.0",

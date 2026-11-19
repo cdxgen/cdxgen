@@ -143,12 +143,16 @@
   severity: high
   category: host-topology
   dry-run-support: partial
+  variables:
+    revokedCertificates: |
+      components[
+        $prop($, 'cdx:osquery:category') = 'secureboot_certificates'
+        and $number($firstNonEmpty($prop($, 'revoked'), '0')) > 0
+      ]
   condition: |
-    components[
-      $prop($, 'cdx:osquery:category') = 'secureboot_certificates'
-      and $number($firstNonEmpty($prop($, 'revoked'), '0')) > 0
-      and $number($firstNonEmpty($prop($$.metadata.component, 'cdx:hostview:secureboot_certificates:count'), '0')) > 0
-    ]
+    $count($revokedCertificates) > 0
+    and $number($firstNonEmpty($prop(metadata.component, 'cdx:hostview:secureboot_certificates:count'), '0')) > 0
+    ? $revokedCertificates
   location: |
     {
       "bomRef": $firstNonEmpty($."bom-ref", bom.serialNumber)
@@ -158,10 +162,7 @@
   evidence: |
     {
       "linkedSecureBootCertificateCount": $prop($, 'cdx:hostview:secureboot_certificates:count'),
-      "revokedCertificateCount": $count(bom.components[
-        $prop($, 'cdx:osquery:category') = 'secureboot_certificates'
-        and $number($firstNonEmpty($prop($, 'revoked'), '0')) > 0
-      ])
+      "revokedCertificateCount": $count($revokedCertificates)
     }
 
 - id: HMX-006
@@ -170,16 +171,19 @@
   severity: critical
   category: host-topology
   dry-run-support: partial
-  condition: |
-    components[
-      $prop($, 'cdx:java:base64IntrinsicExposure') = 'exposed'
-      and $count($$.components[
-        $prop($, 'cdx:hbom:hardwareClass') = 'processor'
-        and $listContains($propList($, 'cdx:hbom:cpuFeatures'), 'avx512f')
+  variables:
+    processors: |
+      components[$prop($, 'cdx:hbom:hardwareClass') = 'processor']
+    vulnerableProcessors: |
+      $processors[
+        $listContains($propList($, 'cdx:hbom:cpuFeatures'), 'avx512f')
         and $listContains($propList($, 'cdx:hbom:cpuFeatures'), 'avx512bw')
         and $listContains($propList($, 'cdx:hbom:cpuFeatures'), 'avx512vbmi')
         and $listContains($propList($, 'cdx:hbom:cpuFeatures'), 'bmi2')
-      ]) > 0
+      ]
+  condition: |
+    $count($vulnerableProcessors) > 0 ? components[
+      $prop($, 'cdx:java:base64IntrinsicExposure') = 'exposed'
     ]
   location: |
     {
@@ -194,7 +198,7 @@
       "build": $prop($, 'cdx:java:build'),
       "home": $prop($, 'cdx:java:home'),
       "vm": $prop($, 'cdx:java:vm'),
-      "processor": $$.components[$prop($, 'cdx:hbom:hardwareClass') = 'processor'][0].name
+      "processor": $processors[0].name
     }
 
 - id: HMX-007
@@ -203,16 +207,18 @@
   severity: medium
   category: host-topology
   dry-run-support: partial
-  condition: |
-    components[
-      $prop($, 'cdx:java:base64IntrinsicExposure') = 'exposed'
-      and $count($$.components[
+  variables:
+    knownProcessors: |
+      components[
         $prop($, 'cdx:hbom:hardwareClass') = 'processor'
         and (
           $count($propList($, 'cdx:hbom:cpuFeatures')) > 0
           or $lowercase($safeStr($prop($, 'cdx:hbom:architecture'))) in ['arm64', 'aarch64']
         )
-      ]) = 0
+      ]
+  condition: |
+    $count($knownProcessors) = 0 ? components[
+      $prop($, 'cdx:java:base64IntrinsicExposure') = 'exposed'
     ]
   location: |
     {
