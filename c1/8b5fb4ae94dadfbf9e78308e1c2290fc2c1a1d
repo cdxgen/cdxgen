@@ -1,0 +1,25 @@
+bin/cdxgen.js
+  s_000e4234adb03e::t_262934f19a0fed 137-138,1126-1128,1131,1136-1138,1224,1431,1436,1955,1967,2045,2397,2437,2698
+lib/inventory/source.cli.poku.js
+  s_000e4234adb03e::t_4490e1d8f566be 1-56
+lib/inventory/source.js
+  s_000e4234adb03e::t_21649f3c2946e4 1069-1106
+lib/inventory/source.poku.js
+  s_000e4234adb03e::t_534c38e1fce0da 1107-1151
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "c18b5fb4ae94dadfbf9e78308e1c2290fc2c1a1d",
+  "prompts": {},
+  "sessions": {
+    "s_000e4234adb03e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "02037648-4bba-493b-a180-b7ddf3261a96",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
