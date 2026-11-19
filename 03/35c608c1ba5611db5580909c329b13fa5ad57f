@@ -1,0 +1,21 @@
+lib/inventory/pqcMigration.js
+  s_000e4234adb03e::t_21d8a5fff7a82a 290,296-306,326-329,333-337,343,376,384-388
+lib/inventory/pqcMigration.poku.js
+  s_000e4234adb03e::t_c59de5a4bea152 544-568
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "0335c608c1ba5611db5580909c329b13fa5ad57f",
+  "prompts": {},
+  "sessions": {
+    "s_000e4234adb03e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "02037648-4bba-493b-a180-b7ddf3261a96",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
