@@ -38,7 +38,9 @@ export declare function rewriteExtractedArchivePaths(subject: Object | any[], ex
  * @param {string} archivePath Absolute or relative path to an ASAR archive
  * @param {Object} [options={}] Parse options
  * @param {string} [options.asarVirtualPath] Virtual archive identity to use in
- * BOM references and evidence for nested ASAR recursion
+ * BOM references and evidence, such as a path relative to the scanned
+ * directory or a chained identity for nested ASAR recursion. Defaults to the
+ * archive file name, so the host directory never becomes part of the BOM
  * @param {number} [options.specVersion] CycloneDX spec version used to choose
  * compatible component types
  * @param {Map<string, Object|null>} [options.asarPlistCache] Per-scan cache of

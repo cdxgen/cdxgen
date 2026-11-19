@@ -1,4 +1,17 @@
 /**
+ * Reduce the query string of a URL to the parameters that name what the URL
+ * points at, such as NuGet's `api-version`, a git `ref` or Go's `go-get`.
+ * Credentials never pass: a parameter that is not on the list of safe names
+ * is dropped, a value that is not plain text or that holds a token shape is
+ * dropped, and a query with a signing or secret parameter (`sig`,
+ * `X-Amz-Signature`, `token`, an SAS `sv`, ...) is removed whole. Parameters
+ * that stay keep their order and spelling.
+ *
+ * @param {unknown} query Query string, without the leading `?`
+ * @returns {string} The safe parameters joined with `&`, empty when none stay
+ */
+export declare function sanitizeUrlQuery(query: unknown): string;
+/**
  * Remove the parts of every URL in a text that can carry a credential: the
  * userinfo before `@`, the query string and the fragment. Any scheme is
  * handled, such as `sparse+https://`, `ssh://` or `jdbc:postgresql://`.

@@ -22,7 +22,9 @@ export declare const PROJECT_CONFIG_OPTIONS: Set<string>;
  * of the operator's, or end the run without a BOM. Evidence collection hands
  * project-named values to atom and its helpers, and a slices file is read
  * back as the project's evidence, so neither is the scanned project's to
- * choose either. A config file that sets one is told so and ignored.
+ * choose either. A directory of BOM audit rules is operator-only too: its
+ * JSONata conditions run synchronously, so a project that names one could keep
+ * the scan busy. A config file that sets one is told so and ignored.
  */
 export declare const OPERATOR_ONLY_OPTIONS: Set<string>;
 /**

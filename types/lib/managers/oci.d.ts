@@ -20,10 +20,13 @@ export declare function isSameRegistryHost(registry: string, realmUrl: URL): boo
  * @param {string} image OCI image reference (e.g. `"registry.example.com/org/app:tag"`)
  * @param {string} [platform] OCI platform string (e.g. `"linux/amd64"`); no-op for JS implementation
  * @param {Object} [options]
+ * @param {boolean} [options.reportErrors] Throw on a transport error, a timeout, an HTTP 5xx or a 429 instead of answering `undefined`, so a caller can tell a registry that did not answer from one that holds no SBOM
  * @param {function(Buffer): void} [options.checkBytes] Called with the raw bytes of the BOM layer that is about to be returned. An error it throws is rethrown, and no other referrer is tried.
  * @returns {Promise<Object|undefined>} Parsed CycloneDX BOM JSON object, or `undefined` if not found
  */
-export declare function getBomWithOras(image: string, _platform?: undefined, options?: Object): Promise<Object | undefined>;
+export declare function getBomWithOras(image: string, _platform?: undefined, options?: {
+    reportErrors?: boolean;
+}): Promise<Object | undefined>;
 /**
  * Attach a CycloneDX BOM to an OCI image using the OCI 1.1 artifact manifest
  * API, pushing the BOM as a blob and linking it via the referrers API (with a

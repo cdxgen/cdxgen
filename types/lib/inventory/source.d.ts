@@ -226,6 +226,10 @@ export declare function getSourceLabel(source: string): string;
  * for files named after the source. The name is written to the BOM and sent to
  * Dependency-Track, so it comes from the source without credentials.
  *
+ * A purl with an unencoded `vcs_url` is named after the repository, as the
+ * last segment of the whole argument is. The URL is taken without its user
+ * info, query string and fragment.
+ *
  * @param {string} source Local path, git URL or purl
  * @returns {string} Last path segment of the source
  */
