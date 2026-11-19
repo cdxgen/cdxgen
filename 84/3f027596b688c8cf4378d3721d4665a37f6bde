@@ -1,0 +1,19 @@
+lib/inventory/fetchRate.poku.js
+  s_39bf1aceb20865::t_e740a498535784 251-253,257-268
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "843f027596b688c8cf4378d3721d4665a37f6bde",
+  "prompts": {},
+  "sessions": {
+    "s_39bf1aceb20865": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "eaa7ef65-98d5-4369-918c-1c99f4bbfd1f",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
