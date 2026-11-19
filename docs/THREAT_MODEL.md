@@ -428,6 +428,7 @@ Trust boundary 5: cdxgen container ←→ container host
 - `thoughtLog` performs limited log normalization (for example, replacing the literal `'.'` with `'<project dir>'`), but logs may still include direct or absolute paths
 - Warning when `--include-formulation` is used with `--server-url` (formulation may contain emails and secrets)
 - In secure mode, using `--include-formulation` with `--server-url` calls `process.exit(1)` after the warning, preventing automatic upload of formulation data
+- Git metadata (formulation and release notes) is read only from the scanned directory's own repository. A `.git` file or symbolic link, `commondir`, `core.worktree`, `objects/info/alternates`, symbolic links below `.git` and `include.path` cannot point git at another repository of the host: cdxgen prints a warning and leaves the metadata out. Linked worktrees and submodules keep working because their git directory names the working tree in return. Only the operator can accept other layouts, with `CDXGEN_GIT_ALLOW_EXTERNAL_GITDIR=true`; a project config file cannot
 - `auditEnvironment` detects and warns about credential-like environment variables
 - Secret-bearing BOM metadata values are sanitized before emission in AI/MCP inventory and Chrome extension metadata flows:
   - URLs and URIs drop userinfo, query strings, and fragments
