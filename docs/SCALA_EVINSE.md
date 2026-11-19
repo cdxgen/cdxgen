@@ -54,6 +54,9 @@ file names the release that wrote it.
   - A jar answers for the classes it ships and the packages it ships classes in
     directly, never for the parents of those packages. A file joins only libraries on
     its own module's classpath.
+  - A classpath jar is read only when it lies, symbolic links resolved, in the project
+    or in the Coursier, Ivy, Maven or Gradle cache of the user running cdxgen. A jar
+    anywhere else is not opened, and its component joins through the other two sources.
   - The JDK has no component, and neither do the project's own classes. A `javax.`
     symbol joins a library only through a class the library ships.
   - The Scala runtime (`scala-library`, `scala3-library` and the Scala.js and Scala
@@ -152,9 +155,11 @@ nothing to enable beyond the caps.
 ## Reports and slices
 
 The report is written to the `--semantics-slices-file` path: an absolute path as given,
-a file name in the directory of the output BOM. Without an output BOM there is nowhere
-to keep it, and the report lives only as long as the run. A kept report records the
-settings of the run that made it (whether the build ran, whether tests were included).
+a relative one from the working directory. When the option is left at its default, the
+report is `semantics.slices.json` in the directory of the output BOM; without an output
+BOM there is then nowhere to keep it, and the report lives only as long as the run. A kept
+report records the settings of the run that made it (whether the build ran, whether tests
+were included).
 
 A report at that path is reused instead of running scalasem again when all of these hold:
 
@@ -172,6 +177,10 @@ A run that produces no usable report leaves the file at that path as it was.
 Slices the user passes are still read: a version 1 semantics slice whose files exist in
 this project, usages and reachables slices as for any other language, and an OpenAPI
 spec, whose routes merge with the report's into one service each.
+
+The occurrence location of a version 1 slice entry is its key, as a path below the
+project directory; the entry's `sourceFile` text is not published. The locations one
+slice adds are limited to 8 MiB of text in total, and cdxgen warns when it leaves some out.
 
 ## OpenAPI for Scala
 

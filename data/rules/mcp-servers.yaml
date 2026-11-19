@@ -369,9 +369,8 @@
     nist-ssdf:
       - "Review configured AI control surfaces before release"
   condition: |
-    components[
+    $count(metadata.lifecycles[phase = 'build' or phase = 'post-build']) > 0 ? components[
       $prop($, 'cdx:file:kind') = 'mcp-config'
-      and $count($$.metadata.lifecycles[phase = 'build' or phase = 'post-build']) > 0
     ]
   location: |
     {
