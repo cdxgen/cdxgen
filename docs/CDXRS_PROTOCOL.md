@@ -325,6 +325,39 @@ pool. A run that fails for any other reason falls back to the JS pool without
 affecting the other runs. `lastBatchStats()` reports the whole batch: counts
 and elapsed time add up across runs, and peak concurrency is the widest run.
 
+### Failed results
+
+A result that is not `ok` carries the HTTP `status` when the server answered.
+A 4xx other than 429 is final, and the caller sees it as the same error
+`cdxgenAgent.get` would throw. A 5xx or 429 has already been retried inside
+cdxrs and is passed on as an error too. A result with no status, such as a
+timeout or a connection reset, is worth one more try, so `prefetchedResponse()`
+returns nothing and the caller fetches the URL itself through `cdxgenAgent`.
+
+cdxrs from cdxgen-plugins-bin 4.4.0 also refuses a body for its size: one past
+the per-body cap, one whose gzip expansion passes 100 times the bytes
+received, and any that would take the run past its `--max-total-bytes` budget
+(512 MiB by default). Such a result has no status and carries `refused: true`:
+
+```json
+{
+  "id": "https://registry.npmjs.org/huge",
+  "ok": false,
+  "error": "batch decoded-body budget exhausted",
+  "refused": true,
+  "fromCache": false
+}
+```
+
+The JS agent would only fetch the same body again, with its own per-body cap
+and ratio check but no budget across the batch, so cdxgen treats a refused
+result as definite and never retries it. `prefetchedResponse()` throws an
+error with code `ERR_RESPONSE_BODY_TOO_LARGE`, the code `cdxgenAgent` gives an
+oversized body, and the caller's existing `catch` handles it. A refusal is not
+remembered as a missing document, so a later batch in the same run asks cdxrs
+again. Older cdxrs builds never send the field, and their status-less failures
+are retried as before.
+
 ## Metadata cache
 
 `cdxrs fetch` writes an on-disk conditional cache under
