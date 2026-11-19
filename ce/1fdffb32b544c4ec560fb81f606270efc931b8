@@ -1,0 +1,147 @@
+bin/cdxgen.js
+  s_000e4234adb03e::t_635bfe60a8e832 140-141,144,152,1055-1064,1134-1136,1139,1144-1146,1232,1457,1462,1981,1993,2031-2044,2050-2053,2079-2092,2101,2154-2156,2194,2458,2496-2498,2501,2506,2534,2762
+bin/commands.poku.js
+  s_000e4234adb03e::t_bfb4b6db1cf0fe 4,9,882-992,1478-1566,2010-2136
+bin/convert.js
+  s_000e4234adb03e::t_ceac970947634c 42,282-290,292,294-295,297
+bin/repl.js
+  s_000e4234adb03e::t_ac0a6493702473 11,14,654,656,658-664,666
+bin/replCreate.poku.js
+  s_000e4234adb03e::t_534e7caa7c296c 1-149
+bin/sign.js
+  s_000e4234adb03e::t_81d079ceb04ab7 199-222,230-239,342,344-354,360-362,453-457
+docs/ADVANCED.md
+  s_000e4234adb03e::t_65b577c2ef792e 551
+docs/CDX_CONVERT.md
+  s_000e4234adb03e::t_21ca57214900a7 126-128
+docs/CDX_SIGN.md
+  s_000e4234adb03e::t_fe1a35b11702b4 116-119,127
+docs/ENV.md
+  s_000e4234adb03e::t_e52a90ac006929 18,24
+docs/PERMISSIONS.md
+  s_000e4234adb03e::t_a240826edbe3f7 21
+docs/REPL.md
+  s_000e4234adb03e::t_f3a5c821679492 264
+docs/SERVER.md
+  s_000e4234adb03e::t_77aa09bc7d9b69 182-183
+docs/THREAT_MODEL.md
+  s_000e4234adb03e::t_013311b4cb2f89 90,146-148,330,505
+lib/cli/containerSpecToolingGate.poku.js
+  s_000e4234adb03e::t_755db5819b7ef9 1-133
+lib/cli/index.js
+  s_000e4234adb03e::t_38cc44ed03f39a 693,700,906,965-967,969,1716-1719,1729-1731,1734,1738-1747,2562-2565
+lib/cli/index.poku.js
+  s_000e4234adb03e::t_1692e2d10d2031 1121-1156
+lib/cli/jsBom.js
+  s_000e4234adb03e::t_1f353c81d2dd1e 1242-1243,1251
+lib/cli/jsBom.poku.js
+  s_000e4234adb03e::t_c299411dea42a1 1696-1764
+lib/cli/jvmBom.js
+  s_000e4234adb03e::t_56a2c9ff527769 2378-2382,2387,2396,2399,2403-2408
+lib/cli/jvmBom.poku.js
+  s_000e4234adb03e::t_5583ac25762c29 268-334
+lib/cli/managedBom.poku.js
+  s_000e4234adb03e::t_a02297440f0066 3027-3068
+lib/cli/multiXBomSteps.poku.js
+  s_000e4234adb03e::t_e5d65a8a49fbb7 30,75-78,392-448
+lib/cli/nativeBom.js
+  s_000e4234adb03e::t_069e62a4e44d3a 3189-3192,3198-3205,3207-3210
+lib/cli/nativeBom.poku.js
+  s_000e4234adb03e::t_91e08a6c91ba44 693-755
+lib/core/activity.js
+  s_000e4234adb03e::t_e9207b2ff8bbf7 821-833,849,881
+lib/core/activity.poku.js
+  s_000e4234adb03e::t_e35a5bee9f82ef 127-141
+lib/core/buildLedger.js
+  s_000e4234adb03e::t_98d901d902ecb1 46,248-255,261-264,268,328-330,335,341,346,749-751,760-777
+lib/core/buildLedger.poku.js
+  s_000e4234adb03e::t_10fad2a2b1fc86 37,40,380-409,603-668
+lib/core/env.js
+  s_000e4234adb03e::t_c8b0ef21abad58 663-667,670-678,710-716,719,722,726-727,731-732,734-735
+lib/core/env.poku.js
+  s_000e4234adb03e::t_60971f358f94d7 490-509
+lib/core/fs.js
+  s_000e4234adb03e::t_6f7e7feea1f86b 19,28,32,48,50,169-174,176-177,181-185,187-188,190,194-208,250,296-297,324,336,577-615,620-623,639-647,1894-1923,1927-1929,1933-1935,1939-1944,1964,1970,1979,1984-1987,2054-2060,2071-2264,2274-2275,2284,2291-2309
+lib/core/fs.poku.js
+  s_000e4234adb03e::t_e19a18916f67cd 2,4,6-7,12,15,32,43,130-190,295-589,652-658,821-829,831-857,863-898,900-912,914-958,961-978,981,985-989,995-996,998-1008
+lib/core/httpClient.js
+  s_000e4234adb03e::t_540183b97247ef 72,91,97-111,968
+lib/core/httpClient.poku.js
+  s_000e4234adb03e::t_0fd8fd32a9ce6a 6,458-460,465-472,626-629,633-636
+lib/core/projectConfig.cli.poku.js
+  s_000e4234adb03e::t_9124b4d465faf3 3,8,241-289
+lib/core/projectConfig.js
+  s_000e4234adb03e::t_4e96d9afe3f386 144-145,166
+lib/core/projectConfig.poku.js
+  s_000e4234adb03e::t_549d714c9388c5 159,172
+lib/ecosystems/chromextutils.js
+  s_000e4234adb03e::t_255191d3864d43 11,29-30,33-35
+lib/ecosystems/chromextutils.poku.js
+  s_000e4234adb03e::t_1fd54ebc4664f4 14,491-523,564
+lib/ecosystems/gradleutils.js
+  s_000e4234adb03e::t_0c0be837423093 34,756-757
+lib/ecosystems/gradleutils.poku.js
+  s_000e4234adb03e::t_073b3480639ef4 18,32,1300-1318
+lib/ecosystems/parsers-rust.js
+  s_000e4234adb03e::t_d4120289516971 10,489-497
+lib/evinser/evidenceSource.cli.poku.js
+  s_000e4234adb03e::t_2cac78629a4284 1-155
+lib/inventory/cyclonedx20Parties.js
+  s_000e4234adb03e::t_a2d5a6c227365b 377
+lib/inventory/cyclonedx20Read.poku.js
+  s_000e4234adb03e::t_79e504805b93ac 205-257
+lib/inventory/cyclonedx20ReadCommon.js
+  s_000e4234adb03e::t_c914912fbeffb8 228,315
+lib/inventory/cyclonedx20ReadComponents.js
+  s_000e4234adb03e::t_5492afb55a75bd 591
+lib/inventory/cyclonedx20ReadSections.js
+  s_000e4234adb03e::t_90f250a01e6c6b 273
+lib/inventory/cyclonedx20Readers.poku.js
+  s_000e4234adb03e::t_0bd8e0af411392 854,860-861
+lib/inventory/osPackageResolver.js
+  s_000e4234adb03e::t_366ff4e0d56ce5 7-11,550-563
+lib/inventory/source.cli.poku.js
+  s_000e4234adb03e::t_61134cfe3a9996 1-56
+lib/inventory/source.js
+  s_000e4234adb03e::t_c9086ac0f7cac8 1454-1513
+lib/inventory/source.poku.js
+  s_000e4234adb03e::t_ea920a83113aa0 1470-1531
+lib/inventory/toolRequirements.js
+  s_000e4234adb03e::t_d4b586c5a1bff3 19-27,852-856
+lib/inventory/toolRequirements.poku.js
+  s_000e4234adb03e::t_6bc9f5b2c29438 370-389
+lib/managers/docker.js
+  s_000e4234adb03e::t_a77537898c414f 2096-2108,2205,2212-2213,2771,2858-2869
+lib/managers/docker.poku.js
+  s_000e4234adb03e::t_18a25c00109b9a 6,2973-3009
+lib/server/server.js
+  s_000e4234adb03e::t_069eddb1e93e4c 53,110-113,217-221,311-330,546-548,726,846-848,850-855,867,877-881,891-895
+lib/server/server.poku.js
+  s_000e4234adb03e::t_3acee079292120 128-142,537-569
+lib/server/serverLedger.poku.js
+  s_000e4234adb03e::t_1aaf556bbdf0e8 1-116
+lib/stages/postgen/postgen.js
+  s_000e4234adb03e::t_84fe970ef1495f 200-202,204,237-244,247
+lib/stages/postgen/postgen.poku.js
+  s_000e4234adb03e::t_11ab4d305881b3 1638-1682
+lib/stages/postgen/specVersionCompat.js
+  s_000e4234adb03e::t_764c8d9b007a8f 813-815,818-819,821,824,827,829,834,837,840,843,846,848-867,892-917
+lib/stages/postgen/specVersionCompat.poku.js
+  s_000e4234adb03e::t_d11990c56d436b 8,368-417
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "ce1fdffb32b544c4ec560fb81f606270efc931b8",
+  "prompts": {},
+  "sessions": {
+    "s_000e4234adb03e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "02037648-4bba-493b-a180-b7ddf3261a96",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
