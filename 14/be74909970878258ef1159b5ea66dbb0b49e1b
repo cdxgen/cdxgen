@@ -1,0 +1,21 @@
+lib/inventory/cyclonedx20Read.js
+  s_000e4234adb03e::t_0a38ec9ac0d2c0 11-12,386-392,394-396,445-464,472-476
+lib/inventory/cyclonedx20Read.poku.js
+  s_000e4234adb03e::t_d5c06510158f49 688-772
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "14be74909970878258ef1159b5ea66dbb0b49e1b",
+  "prompts": {},
+  "sessions": {
+    "s_000e4234adb03e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "02037648-4bba-493b-a180-b7ddf3261a96",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
