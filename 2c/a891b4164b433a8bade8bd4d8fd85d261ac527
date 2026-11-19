@@ -1,0 +1,27 @@
+docs/CDX_CONVERT.md
+  s_000e4234adb03e::t_ce3d5c7c37584f 154-163
+lib/inventory/cyclonedx20.poku.js
+  s_000e4234adb03e::t_32376e7e3bb35b 669-721,1141-1158,2201-2286
+lib/inventory/cyclonedx20Common.js
+  s_000e4234adb03e::t_95efbfe72f6c62 25-55
+lib/inventory/cyclonedx20Render.js
+  s_000e4234adb03e::t_6573ac67038d01 16,20,137-139,370-373,383
+lib/inventory/cyclonedx20RenderEvidence.js
+  s_000e4234adb03e::t_6858b742693860 15,18-19,107-109,152,160-165,227-228,267
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "2ca891b4164b433a8bade8bd4d8fd85d261ac527",
+  "prompts": {},
+  "sessions": {
+    "s_000e4234adb03e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "02037648-4bba-493b-a180-b7ddf3261a96",
+        "model": "unknown"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
