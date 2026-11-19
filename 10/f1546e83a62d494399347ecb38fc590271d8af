@@ -1,0 +1,21 @@
+lib/inventory/source.timeout.poku.js
+  s_000e4234adb03e::t_069955d23791ac 40-45
+lib/server/serverGitStall.poku.js
+  s_000e4234adb03e::t_947cc6206a33ee 44-45
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "10f1546e83a62d494399347ecb38fc590271d8af",
+  "prompts": {},
+  "sessions": {
+    "s_000e4234adb03e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "02037648-4bba-493b-a180-b7ddf3261a96",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
