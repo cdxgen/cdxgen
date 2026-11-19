@@ -1,0 +1,51 @@
+types/bin/repl.d.ts.map
+  s_000e4234adb03e::t_085e0135045202 1
+types/bin/replCreate.poku.d.ts
+  s_000e4234adb03e::t_53375725378a47 1-2
+types/bin/replCreate.poku.d.ts.map
+  s_000e4234adb03e::t_9a46f8dc8cd237 1
+types/lib/cli/index.d.ts.map
+  s_000e4234adb03e::t_c0af045bd36d09 1
+types/lib/helpers/envcontext.d.ts
+  s_000e4234adb03e::t_d03974f585cbae 54-86,93-94
+types/lib/helpers/envcontext.d.ts.map
+  s_000e4234adb03e::t_ef8995a27d3b1a 1
+types/lib/helpers/projectTooling.d.ts
+  s_000e4234adb03e::t_40865f42893692 1-22
+types/lib/helpers/projectTooling.d.ts.map
+  s_000e4234adb03e::t_b21aa216f2d072 1
+types/lib/helpers/source.d.ts
+  s_000e4234adb03e::t_443ceae7bf59f1 16-17
+types/lib/helpers/source.d.ts.map
+  s_000e4234adb03e::t_43053b892d1d61 1
+types/lib/helpers/utils.d.ts.map
+  s_000e4234adb03e::t_2da1bea701a8a5 1
+types/lib/managers/piptree.d.ts.map
+  s_000e4234adb03e::t_e5c2189df14e6f 1
+types/lib/parsers/npmrc.d.ts
+  s_000e4234adb03e::t_b6732f741de688 1-7,9-93,118-135
+types/lib/parsers/npmrc.d.ts.map
+  s_000e4234adb03e::t_9e7a49111bacbf 1
+types/lib/stages/pregen/pregen.d.ts.map
+  s_000e4234adb03e::t_3b67c930d33403 1
+types/test/helpers/standInTool.d.ts
+  s_000e4234adb03e::t_e3132c339ae62b 1-24
+types/test/helpers/standInTool.d.ts.map
+  s_000e4234adb03e::t_95df1a2bb18e72 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "06580199639a5b47d1f4d1b1cd6fbda357b61588",
+  "prompts": {},
+  "sessions": {
+    "s_000e4234adb03e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "02037648-4bba-493b-a180-b7ddf3261a96",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
