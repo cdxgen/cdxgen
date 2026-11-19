@@ -1,0 +1,21 @@
+lib/parsers/htmlExtract.js
+  s_000e4234adb03e::t_6b54e9f4330776 75-79,84
+lib/parsers/htmlExtract.poku.js
+  s_000e4234adb03e::t_375c5af5f51ace 52-70
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "ac6a43d1e5f02ece9be1558c65f37f701e49257b",
+  "prompts": {},
+  "sessions": {
+    "s_000e4234adb03e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "02037648-4bba-493b-a180-b7ddf3261a96",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
