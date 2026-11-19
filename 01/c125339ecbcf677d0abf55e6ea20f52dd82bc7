@@ -1,0 +1,25 @@
+lib/ecosystems/gradleutils.js
+  s_000e4234adb03e::t_39c5be30c6c8a8 641-646,656,667,680-683,868,994-997
+lib/ecosystems/gradleutils.poku.js
+  s_000e4234adb03e::t_378ba863d0026d 1269-1391
+lib/inventory/buildToolRateLimit.js
+  s_000e4234adb03e::t_d0873a41d12175 118-119,143-144
+lib/inventory/buildToolRateLimit.poku.js
+  s_000e4234adb03e::t_dcb062ecf6778e 119-151
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "01c125339ecbcf677d0abf55e6ea20f52dd82bc7",
+  "prompts": {},
+  "sessions": {
+    "s_000e4234adb03e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "02037648-4bba-493b-a180-b7ddf3261a96",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
