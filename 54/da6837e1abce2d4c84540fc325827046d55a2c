@@ -1,0 +1,23 @@
+docs/LESSON27.md
+  s_000e4234adb03e::t_b8f9d1fc3cdeb3 306
+lib/ecosystems/cppBuildContext.js
+  s_000e4234adb03e::t_ee28c1f308ccfc 72
+lib/ecosystems/cppBuildContext.poku.js
+  s_000e4234adb03e::t_19ae7f265fbd4e 415,428
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "54da6837e1abce2d4c84540fc325827046d55a2c",
+  "prompts": {},
+  "sessions": {
+    "s_000e4234adb03e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "02037648-4bba-493b-a180-b7ddf3261a96",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
