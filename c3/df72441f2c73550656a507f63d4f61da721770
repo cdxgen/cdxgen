@@ -1,0 +1,29 @@
+lib/cli/bomAssembly.js
+  s_000e4234adb03e::t_d65a0558c9dc81 43,1050-1051,1054-1062,1065-1073,1169-1172,1240-1243,1252,1325-1328,1331-1335,1340,1550-1560
+lib/cli/bomAssembly.poku.js
+  s_000e4234adb03e::t_f9e74ba90d178d 465-536
+lib/ecosystems/jsEvidence.js
+  s_000e4234adb03e::t_4e38caebb2b3d7 15-19,106-109,277-280,318-319,330-334,401-404,414
+lib/ecosystems/jsEvidence.poku.js
+  s_000e4234adb03e::t_d2f8a23ea5be56 126-199
+lib/ecosystems/npmutils.js
+  s_000e4234adb03e::t_52aafc0c426169 468-511,514-521,523,536,538-539
+lib/ecosystems/npmutils.poku.js
+  s_000e4234adb03e::t_325475669c8920 23,25,333-411
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "c3df72441f2c73550656a507f63d4f61da721770",
+  "prompts": {},
+  "sessions": {
+    "s_000e4234adb03e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "02037648-4bba-493b-a180-b7ddf3261a96",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
