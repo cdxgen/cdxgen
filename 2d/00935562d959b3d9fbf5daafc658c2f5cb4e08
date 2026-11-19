@@ -1,0 +1,23 @@
+lib/cli/jsBom.js
+  s_000e4234adb03e::t_389ed76040f125 120,208-210
+lib/parsers/npmrc.js
+  s_000e4234adb03e::t_985333a56785a8 1-3,356-401
+lib/parsers/npmrc.poku.js
+  s_000e4234adb03e::t_9e8b052ef0baed 1-4,8,399-445,904-950
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "2d00935562d959b3d9fbf5daafc658c2f5cb4e08",
+  "prompts": {},
+  "sessions": {
+    "s_000e4234adb03e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "02037648-4bba-493b-a180-b7ddf3261a96",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
