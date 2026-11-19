@@ -1,0 +1,25 @@
+lib/inventory/buildToolRateLimit.js
+  s_000e4234adb03e::t_013f7c3aab7194 1-2,69-70,74-107,110,138,163
+lib/inventory/buildToolRateLimit.poku.js
+  s_000e4234adb03e::t_c1dd634cbd6cfe 13,153-196
+lib/server/server.js
+  s_000e4234adb03e::t_2b8ebbf5c5a2f7 35,464-468,582,911-917
+lib/server/serverRateLimitScope.poku.js
+  s_000e4234adb03e::t_3abcf1ce1e13e1 1-122
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "c85da822dacb95f631b85c00e0edca2c84b541e9",
+  "prompts": {},
+  "sessions": {
+    "s_000e4234adb03e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "02037648-4bba-493b-a180-b7ddf3261a96",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
