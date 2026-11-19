@@ -24,6 +24,7 @@ import {
   buildOptionsFromArgs,
   configFileSelections,
   dropConfigAuditOverrides,
+  dropConfigFileServerUrl,
   findInTreeSlicesFiles,
   isUserProvided,
   markConfigFileTeaTargets,
@@ -44,6 +45,8 @@ import {
   sanitizeProjectConfig,
 } from "../lib/core/projectConfig.js";
 import { isSecureModeActive } from "../lib/core/projectTooling.js";
+import { sanitizeBomUrl } from "../lib/core/propertySanitizer.js";
+import { escapeControlCharacters } from "../lib/core/text.js";
 import {
   ui as defaultUi,
   installConsoleShim,
@@ -169,6 +172,9 @@ const launchEnv = { ...process.env };
 let config = {};
 for (const configPattern of PROJECT_CONFIG_FILENAMES) {
   const configPath = join(process.cwd(), configPattern);
+  // Values from the file, and the path of the directory it is in, are written
+  // to the terminal as text.
+  const shownConfigPath = escapeControlCharacters(configPath);
   if (!safeExistsSync(configPath)) {
     continue;
   }
@@ -178,7 +184,7 @@ for (const configPattern of PROJECT_CONFIG_FILENAMES) {
         ? _load(fs.readFileSync(configPath, "utf-8"))
         : JSON.parse(fs.readFileSync(configPath, "utf-8"));
     if (isSecureMode || DEBUG_MODE) {
-      console.log(`Config file '${configPath}' loaded successfully.`);
+      console.log(`Config file '${shownConfigPath}' loaded successfully.`);
     }
     const sanitized = sanitizeProjectConfig(parsedConfig, dirname(configPath));
     config = sanitized.config;
@@ -187,49 +193,49 @@ for (const configPattern of PROJECT_CONFIG_FILENAMES) {
       isSecureMode: isSecureModeActive(),
     })) {
       console.warn(
-        `\x1b[1;35mConfig file '${configPath}' sets '${key}', which would change the BOM audit that --bom-audit, CDXGEN_BOM_AUDIT or secure mode controls. Ignoring it. Pass the option on the command line if this is intentional.\x1b[0m`,
+        `\x1b[1;35mConfig file '${shownConfigPath}' sets '${escapeControlCharacters(key)}', which would change the BOM audit that --bom-audit, CDXGEN_BOM_AUDIT or secure mode controls. Ignoring it. Pass the option on the command line if this is intentional.\x1b[0m`,
       );
     }
     for (const key of sanitized.operatorOnly) {
       console.warn(
-        `\x1b[1;35mConfig file '${configPath}' sets '${key}', which only the command line or a CDXGEN_ environment variable may set. Ignoring it.\x1b[0m`,
+        `\x1b[1;35mConfig file '${shownConfigPath}' sets '${escapeControlCharacters(key)}', which only the command line or a CDXGEN_ environment variable may set. Ignoring it.\x1b[0m`,
       );
     }
     for (const projectType of sanitized.hostScopeTypes) {
       console.warn(
-        `\x1b[1;35mConfig file '${configPath}' selects the project type '${projectType}', which inventories this host rather than the project. Ignoring it. Pass '-t ${projectType}' on the command line if this is intentional.\x1b[0m`,
+        `\x1b[1;35mConfig file '${shownConfigPath}' selects the project type '${escapeControlCharacters(projectType)}', which inventories this host rather than the project. Ignoring it. Pass '-t ${escapeControlCharacters(projectType)}' on the command line if this is intentional.\x1b[0m`,
       );
     }
     for (const projectType of sanitized.unknownTypes) {
       console.warn(
-        `\x1b[1;35mConfig file '${configPath}' selects the project type '${projectType}', which cdxgen does not know by that name. Ignoring it. Project types are matched case-sensitively; see docs/PROJECT_TYPES.md.\x1b[0m`,
+        `\x1b[1;35mConfig file '${shownConfigPath}' selects the project type '${escapeControlCharacters(projectType)}', which cdxgen does not know by that name. Ignoring it. Project types are matched case-sensitively; see docs/PROJECT_TYPES.md.\x1b[0m`,
       );
     }
     for (const key of sanitized.ignored) {
       console.warn(
-        `Config file '${configPath}' sets '${key}', which is not an option a config file can set. Ignoring it.`,
+        `Config file '${shownConfigPath}' sets '${escapeControlCharacters(key)}', which is not an option a config file can set. Ignoring it.`,
       );
     }
     for (const { key, pattern, reason } of sanitized.refusedPatterns) {
       const shownPattern =
         pattern.length > 80 ? `${pattern.slice(0, 77)}...` : pattern;
       console.warn(
-        `\x1b[1;35mConfig file '${configPath}' sets the ${key} pattern '${shownPattern}', which ${reason}. Ignoring it. Pass the pattern on the command line if this is intentional.\x1b[0m`,
+        `\x1b[1;35mConfig file '${shownConfigPath}' sets the ${escapeControlCharacters(key)} pattern '${escapeControlCharacters(shownPattern)}', which ${reason}. Ignoring it. Pass the pattern on the command line if this is intentional.\x1b[0m`,
       );
     }
     for (const entry of sanitized.rejected) {
       console.warn(
-        `\x1b[1;35mConfig file '${configPath}' sets '${entry}', which points outside the project directory. Ignoring it. Pass the option on the command line if this is intentional.\x1b[0m`,
+        `\x1b[1;35mConfig file '${shownConfigPath}' sets '${escapeControlCharacters(entry)}', which points outside the project directory or has a '..' segment. Ignoring it. Pass the option on the command line if this is intentional.\x1b[0m`,
       );
     }
     for (const foundKey of sanitized.announced) {
       console.warn(
-        `Config file '${configPath}' sets '${foundKey}'. Verify this is intentional.`,
+        `Config file '${shownConfigPath}' sets '${escapeControlCharacters(foundKey)}'. Verify this is intentional.`,
       );
     }
     for (const propertyName of sanitized.reservedProperties) {
       console.warn(
-        `\x1b[1;35mConfig file '${configPath}' sets the metadata property '${propertyName}', whose namespace cdxgen reserves for its own findings. Ignoring it. Pass the property with --metadata-property if this is intentional.\x1b[0m`,
+        `\x1b[1;35mConfig file '${shownConfigPath}' sets the metadata property '${escapeControlCharacters(propertyName)}', whose namespace cdxgen reserves for its own findings. Ignoring it. Pass the property with --metadata-property if this is intentional.\x1b[0m`,
       );
     }
   } catch (_e) {
@@ -1263,6 +1269,18 @@ try {
   console.error(error.message);
   process.exit(1);
 }
+// The config file comes from the working directory, usually the scanned
+// project, so a server it names does not receive the operator's API key.
+if (
+  dropConfigFileServerUrl(options, {
+    env: launchEnv,
+    projectConfig: config,
+  })
+) {
+  console.warn(
+    "\x1b[1;35mThe config file sets 'server-url', but the API key comes from the command line or the environment. Ignoring 'server-url', so the key is not sent to a server the scanned project chose. Pass '--server-url' on the command line to send the BOM there.\x1b[0m",
+  );
+}
 // Dependency-Track ingests CycloneDX 1.x only. Refuse an upload (server URL
 // plus API key, the same condition the submission below uses) before
 // generating, so a long scan does not end in an upload that cannot succeed.
@@ -1357,12 +1375,16 @@ const advancedWarnings = applyAdvancedOptionsImpl(options, {
 // project, so whether the project's own code may run, and whether formulation
 // queries this host's crypto material, stays the operator's choice from the
 // command line and environment.
-applyOperatorToolingChoice(options, {
+for (const dropped of applyOperatorToolingChoice(options, {
   env: launchEnv,
   invokedCommandName,
   isSecureMode: isSecureModeActive(),
   projectConfig: config,
-});
+})) {
+  console.warn(
+    `\x1b[1;35mThe config file sets '${dropped}', which secure mode takes only from the command line or the environment. Ignoring it. Pass '--${dropped}' on the command line if this is intentional.\x1b[0m`,
+  );
+}
 for (const teaOption of markConfigFileTeaTargets(options, {
   env: launchEnv,
   projectConfig: config,
@@ -2161,8 +2183,10 @@ const writeCycloneDxOutput = (jsonFile, bomJson, options) => {
   if (isAiProvenanceGeneration && bomNSData?.bomJson) {
     const { ensureAiProvenanceProperties, ensureAiOversightProperties } =
       await import("../lib/stages/postgen/auditBom.js");
-    ensureAiProvenanceProperties(bomNSData.bomJson, options);
-    await ensureAiOversightProperties(bomNSData.bomJson, options);
+    // Name the scanned directory, or the collectors fall back to process.cwd().
+    const aiProvenanceOptions = { ...options, path: srcDir };
+    ensureAiProvenanceProperties(bomNSData.bomJson, aiProvenanceOptions);
+    await ensureAiOversightProperties(bomNSData.bomJson, aiProvenanceOptions);
   }
   // TEA upstream SBOM fetch runs BEFORE post-processing so the "upstream wins"
   // merge and the provenance citations flow through the normal pipeline.
@@ -2215,6 +2239,7 @@ const writeCycloneDxOutput = (jsonFile, bomJson, options) => {
     const postAuditFindings = await auditBom(auditInternalBom, {
       ...options,
       getBomWithOras,
+      path: srcDir,
     });
     if (postAuditFindings.length) {
       formatConsoleOutput(postAuditFindings);
@@ -2754,7 +2779,8 @@ const writeCycloneDxOutput = (jsonFile, bomJson, options) => {
       try {
         serverHostname = new URL(options.serverUrl).hostname;
       } catch (err) {
-        console.log("Invalid Dependency-Track server URL", err);
+        // The error carries the URL it could not parse, credentials included.
+        console.log("Invalid Dependency-Track server URL", err.message);
         process.exit(1);
       }
       if (!isAllowedHttpHost(serverHostname)) {
@@ -2762,7 +2788,7 @@ const writeCycloneDxOutput = (jsonFile, bomJson, options) => {
           kind: "submit",
           reason: "The URL host is not allowed as per the allowlist.",
           status: "blocked",
-          target: options.serverUrl,
+          target: sanitizeBomUrl(options.serverUrl),
         });
         console.log(
           `Dependency-Track server host '${serverHostname}' is not allowed by CDXGEN_ALLOWED_HOSTS.`,
@@ -2775,7 +2801,7 @@ const writeCycloneDxOutput = (jsonFile, bomJson, options) => {
         kind: "submit",
         reason: "Dry run mode skips remote BOM submission.",
         status: "blocked",
-        target: options.serverUrl,
+        target: sanitizeBomUrl(options.serverUrl),
       });
     } else if (isCycloneDx20SpecVersion(bomNSData.bomJson?.specVersion)) {
       // Unreachable from the CLI, which refuses this before generating; kept
@@ -2784,7 +2810,7 @@ const writeCycloneDxOutput = (jsonFile, bomJson, options) => {
         kind: "submit",
         reason: DEPENDENCY_TRACK_CDX20_ERROR,
         status: "blocked",
-        target: options.serverUrl,
+        target: sanitizeBomUrl(options.serverUrl),
       });
       console.error(DEPENDENCY_TRACK_CDX20_ERROR);
       if (cleanup) {
@@ -2796,7 +2822,7 @@ const writeCycloneDxOutput = (jsonFile, bomJson, options) => {
         recordActivity({
           kind: "submit",
           status: "completed",
-          target: options.serverUrl,
+          target: sanitizeBomUrl(options.serverUrl),
         });
         await submitBom(options, bomNSData.bomJson);
       } catch (err) {
@@ -2823,7 +2849,7 @@ const writeCycloneDxOutput = (jsonFile, bomJson, options) => {
         kind: "submit",
         reason: "Dry run mode skips TEA collection publishing.",
         status: "blocked",
-        target: options.teaPublish,
+        target: sanitizeBomUrl(options.teaPublish),
       });
     } else {
       try {
@@ -2863,14 +2889,14 @@ const writeCycloneDxOutput = (jsonFile, bomJson, options) => {
         recordActivity({
           kind: "submit",
           status: "completed",
-          target: options.teaPublish,
+          target: sanitizeBomUrl(options.teaPublish),
         });
         console.log(
-          `cdxgen: published TEA collection to ${options.teaPublish} (collection version ${result.body?.version ?? "assigned by server"}).`,
+          `cdxgen: published TEA collection to ${sanitizeBomUrl(options.teaPublish)} (collection version ${result.body?.version ?? "assigned by server"}).`,
         );
       } catch (err) {
         console.error(
-          `cdxgen: failed to publish TEA collection to ${options.teaPublish}: ${err?.message || err}. The local BOM was written regardless.`,
+          `cdxgen: failed to publish TEA collection to ${sanitizeBomUrl(options.teaPublish)}: ${err?.message || err}. The local BOM was written regardless.`,
         );
         process.exit(3);
       }
