@@ -1,0 +1,23 @@
+lib/inventory/licenseEnhancer.poku.js
+  s_000e4234adb03e::t_d3f0e6037c3bfc 67-79
+lib/inventory/spdxExpression.js
+  s_000e4234adb03e::t_958e84f6a57364 470-473,486-489,492-495,503,510-511,517-518
+lib/inventory/spdxExpression.poku.js
+  s_000e4234adb03e::t_b345f78ccec743 9,126-155
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "bd67ea271fb1f9c4e8082f5a86aa5ab0efcf4ae1",
+  "prompts": {},
+  "sessions": {
+    "s_000e4234adb03e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "02037648-4bba-493b-a180-b7ddf3261a96",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
