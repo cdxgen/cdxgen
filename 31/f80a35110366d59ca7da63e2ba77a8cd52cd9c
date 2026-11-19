@@ -1,0 +1,21 @@
+lib/inventory/mcpConfigParser.js
+  s_000e4234adb03e::t_3cf2cfd62c21ad 8,237-238,289-290,329-342,345-347,349-350,355-367,381,386-389,626,740-741
+lib/inventory/mcpConfigParser.poku.js
+  s_000e4234adb03e::t_6dd6dd4110a0a2 432-543
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "31f80a35110366d59ca7da63e2ba77a8cd52cd9c",
+  "prompts": {},
+  "sessions": {
+    "s_000e4234adb03e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "02037648-4bba-493b-a180-b7ddf3261a96",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
