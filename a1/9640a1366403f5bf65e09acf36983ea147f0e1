@@ -1,0 +1,21 @@
+lib/core/activity.js
+  s_000e4234adb03e::t_9f1db087144f15 821-833,849,881
+lib/core/activity.poku.js
+  s_000e4234adb03e::t_86319f2c6dbdc4 127-141
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "a19640a1366403f5bf65e09acf36983ea147f0e1",
+  "prompts": {},
+  "sessions": {
+    "s_000e4234adb03e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "02037648-4bba-493b-a180-b7ddf3261a96",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
