@@ -303,7 +303,7 @@ cdxgen addresses this in two ways:
    a `Filename` identity method. Imported symbols are recorded under
    `internal:ImportedSymbols`. A header that is the project's own is not a component: one found under the
    project root, its `include/` or `src/` directory, or an include directory of
-   the project's compilation database, outside the source directories of its
+   the project's compilation database (the first 1024 are searched), outside the source directories of its
    fetched, submodule and vendored dependencies. A C standard library or POSIX
    header (`stdio.h`, `sys/mman.h`, `unistd.h`, ...) is a component only when an
    OS package provides it. Unless a usages slice is reused, neither atom nor
