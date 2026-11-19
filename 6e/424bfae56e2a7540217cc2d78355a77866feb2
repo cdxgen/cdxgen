@@ -1,0 +1,25 @@
+bin/cdxgen.js
+  s_000e4234adb03e::t_a573afa71f0b43 2175-2178,2231
+lib/audit/index.js
+  s_000e4234adb03e::t_bcc765c7928670 1881,2104
+lib/server/server.js
+  s_000e4234adb03e::t_ff61d8af4edc3f 818-826
+lib/server/server.poku.js
+  s_000e4234adb03e::t_43fe560f1725e7 1829-1895
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "6e424bfae56e2a7540217cc2d78355a77866feb2",
+  "prompts": {},
+  "sessions": {
+    "s_000e4234adb03e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "02037648-4bba-493b-a180-b7ddf3261a96",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
