@@ -247,7 +247,7 @@ cdxgen discovers embedded SBOMs in installed distributions (`site-packages/<dist
 - Ecosystems cdxgen does not otherwise handle (C libraries, `generic` purls) are passed through faithfully.
 - Each embedded component carries `cdx:embeddedSbom:source` (the distribution name) and `cdx:embeddedSbom:format` (`cyclonedx-1.5`, `spdx-2.3`, …), and a CycloneDX 1.7 citation attributes them to the distribution component that declared them, naming PEP 770 as the provenance.
 
-The embedded data is untrusted third-party input: cdxgen bounds its size (documents larger than 5 MiB are skipped), never follows references out of it, validates the shape before merging, and skips an invalid document with a warning rather than failing the run.
+The embedded data is untrusted third-party input: cdxgen bounds its size (documents larger than 5 MiB are skipped), never follows references out of it, validates the shape before merging, and skips an invalid document with a warning rather than failing the run. Properties the document supplies in the `cdx:` and `internal:` namespaces are dropped from its components: those names record what cdxgen itself observed, and `--bom-audit` reads them as such. The same applies to documents fetched over TEA.
 
 The same 5 MiB bound applies to every metadata file cdxgen reads out of an archive without extracting it, such as a wheel's `METADATA` or a `.nupkg` package's `.nuspec`. The bound counts the bytes that actually come out of the decompressor, not the size the archive declares, so an entry that inflates past it is skipped.
 
