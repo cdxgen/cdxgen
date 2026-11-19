@@ -1,0 +1,23 @@
+lib/ecosystems/npmutils.js
+  s_000e4234adb03e::t_3d7ff6a2da76a5 311-316,319-320,328,343-352,357
+lib/ecosystems/npmutils.poku.js
+  s_000e4234adb03e::t_85f597e9478b1b 282-298
+lib/ecosystems/parsers-js.poku.js
+  s_000e4234adb03e::t_658c11f76920f6 1292-1347
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "422d5f2aa67061dbf1fe6f0e215c995285b222f2",
+  "prompts": {},
+  "sessions": {
+    "s_000e4234adb03e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "02037648-4bba-493b-a180-b7ddf3261a96",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
