@@ -1,0 +1,19 @@
+lib/inventory/dosaiParsers.js
+  s_000e4234adb03e::t_9104ae55b800b3 450-453,531-538,540,543-544,549,553-554
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "ef9123a23e6958d3a6be8b5fb0f11712a8f51b20",
+  "prompts": {},
+  "sessions": {
+    "s_000e4234adb03e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "02037648-4bba-493b-a180-b7ddf3261a96",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
