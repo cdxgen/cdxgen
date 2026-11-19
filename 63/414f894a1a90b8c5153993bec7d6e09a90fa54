@@ -1,0 +1,21 @@
+types/lib/audit/index.d.ts.map
+  s_8bf531d441928a::t_e970e539574b12 1
+types/lib/stages/postgen/auditBom.d.ts.map
+  s_8bf531d441928a::t_adfe85379d0bfc 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "63414f894a1a90b8c5153993bec7d6e09a90fa54",
+  "prompts": {},
+  "sessions": {
+    "s_8bf531d441928a": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "52048f93-72ee-4a3d-a58c-dd328ee0eb8b",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
