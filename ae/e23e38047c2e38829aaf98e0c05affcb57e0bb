@@ -1,0 +1,27 @@
+lib/ecosystems/ecosystems.js
+  s_000e4234adb03e::t_46a2cd224d5cb0 94,2304-2308
+lib/ecosystems/terraformRegistry.js
+  s_000e4234adb03e::t_ac2df74c79118e 9,34-42,122-135,137-177,180-192,254-293,296,298-299,301-327,337,340-341,343-344
+lib/ecosystems/terraformRegistry.poku.js
+  s_000e4234adb03e::t_fbc2cba5557580 62-73,171-199,348-454
+lib/inventory/spdx.js
+  s_000e4234adb03e::t_8556b82075426c 65-82
+lib/inventory/spdx.poku.js
+  s_000e4234adb03e::t_913480cdb32a34 9-13,26-49
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "aee23e38047c2e38829aaf98e0c05affcb57e0bb",
+  "prompts": {},
+  "sessions": {
+    "s_000e4234adb03e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "02037648-4bba-493b-a180-b7ddf3261a96",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
