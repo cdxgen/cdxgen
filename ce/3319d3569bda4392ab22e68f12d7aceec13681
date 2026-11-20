@@ -1,0 +1,25 @@
+ci/images/temurin/Dockerfile.java8
+  s_090ed08c65c99e::t_e7b8fc800c08fd 2
+ci/images/Dockerfile.python3.13
+  s_090ed08c65c99e::t_e7b8fc800c08fd 12
+ci/images/Dockerfile.python3.11
+  s_090ed08c65c99e::t_e7b8fc800c08fd 15
+ci/images/Dockerfile.python3.12
+  s_090ed08c65c99e::t_e7b8fc800c08fd 12
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "ce3319d3569bda4392ab22e68f12d7aceec13681",
+  "prompts": {},
+  "sessions": {
+    "s_090ed08c65c99e": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_477f08a6-53de-4438-8b02-85b424bd438f",
+        "model": "unknown"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
