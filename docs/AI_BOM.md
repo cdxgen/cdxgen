@@ -295,11 +295,39 @@ format-appropriate metadata without loading tensors or executing model code:
 
 - **GGUF** — full metadata parse (architecture, quantization, tokenizer signals, base-model
   pedigree). See the GGUF section below.
-- **safetensors** — reads the JSON header to summarize tensor count, dtypes, and parameter
-  totals (`cdx:safetensors:*`), and derives a quantization method when present.
-- **ONNX** — the protobuf header is read by offset (without loading the graph) to record the exporter, its version, the IR version, and the operator sets as `cdx:onnx:*` properties.
+- **safetensors** — reads and validates the JSON header: the tensors must tile the byte buffer without holes or overlaps, each byte range must match its dtype and shape, and the file size must equal the header plus the buffer. A scalar tensor counts as one element. The file component gets `cdx:safetensors:*` properties (tensor count, dtypes, parameter count, the `__metadata__.format` token and a count of metadata keys, never their values). A quantization method is derived when present. A `<stem>.safetensors.index.json` is compared with the shards on disk, and the model records `cdx:safetensors:missingShardCount` and `cdx:safetensors:unexpectedShardCount`.
+- **ONNX** — the protobuf header is read by offset (without loading the graph) and must be a plausible `ModelProto`: known fields use their schema wire types, `ir_version` is between 1 and 64, and an `opset_import` or a `graph` is present. The file component records the exporter, its version, the IR version, the domain and the operator sets as `cdx:onnx:*` properties (the default operator set is labelled `ai.onnx`), plus the number of `metadata_props` and the names of a few allowlisted keys, never their values. Exports named with a transformers.js or Optimum data-type suffix (`_quantized`, `_fp16`, `_int8`, `_uint8`, `_q4`, `_q4f16`, `_bnb4`) record it as `cdx:ai:artifactVariant`. External data files beside the model (`<name>.onnx_data`, `<name>.onnx.data`, `<name>.onnx.data_N`) become file components that the ONNX file depends on. The graph is not walked, so an external-data `location` that has no matching sibling file is not reported.
 - **PyTorch pickle** (`.bin`/`.pt`/`.pth`/`.ckpt`) — inventoried and flagged with
   `cdx:ai:unsafeDeserialization=true` because loading a pickle checkpoint executes code.
+
+### Models and artifact files
+
+A model and the files that hold its weights are separate components. The
+`machine-learning-model` component carries logical facts: `cdx:ai:artifactFormat`
+(once per format the model is available in), a single `cdx:ai:confidence`, a
+single `cdx:ai:parameterCount` when the artifacts agree, the provider, the family
+and the quantization. Everything read from a file header (`cdx:onnx:*`,
+`cdx:safetensors:*` apart from the shard counts) sits on the `file` component of
+that file, together with a SHA-256 hash.
+
+Two artifacts belong to one model only when there is evidence for it: the same
+Hugging Face identity from a `config.json` `_name_or_path` beside the file (for a
+file in an `onnx/` directory, beside that directory, inside the scan root), or
+the same directory and de-sharded stem. Otherwise each artifact is its own model
+whose group carries its relative directory (`local/a`, giving the purl
+`pkg:generic/local/a/model`), so same-named files in different directories stay
+apart. `cdx:ai:confidence` keeps the highest value
+seen, and when two artifacts give different parameter counts the model keeps none
+and each file keeps its own.
+
+Every local model format (GGUF, safetensors, ONNX and PyTorch pickle) uses one
+dependency direction: the model depends on its artifact files, and an ONNX file
+depends on its external data files. The root component therefore depends on
+models, never directly on their files.
+
+A file whose header does not validate gets no model. It stays in the BOM as a
+`file` component tagged `unparsed` with `cdx:ai:confidence=low`. Files up to 4 GiB
+are hashed in chunks; larger files are listed without a hash.
 
 Non-GGUF quantization methods (GPTQ, AWQ, EXL2, bitsandbytes, and similar) are recorded as
 `cdx:ai:quantizationMethod`, separate from the container format and the GGUF encoding.

@@ -101,6 +101,7 @@ When reviewing a Hugging Face-derived component, pay special attention to:
 - record quantization and context-window sizing for large local models before rollout
 - verify whether gated-access prompts, Hub popularity, or hosted-inference hints change your release review or approval path
 - prefer safetensors over pickle checkpoints, and treat any `cdx:ai:unsafeDeserialization=true` model artifact as untrusted until its provenance is verified
+- read ONNX and safetensors facts on the `file` components (`cdx:onnx:*`, `cdx:safetensors:*`, SHA-256 hash), not on the model, and treat an `unparsed` model file or a non-zero `cdx:safetensors:missingShardCount` as a checkpoint that needs a second look before release
 - plan migration away from MCP features deprecated by the 2026-07-28 specification (legacy SSE transport, dynamic client registration, sampling, logging, roots) and review MCPB bundles that inject secret configuration as environment variables
 
 ## Related docs
