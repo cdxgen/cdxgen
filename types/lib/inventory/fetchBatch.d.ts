@@ -116,9 +116,15 @@ export type BatchEntry = {
     status?: number;
     /**
      * True when the status is a final answer (a 4xx
-     * other than 429) and re-requesting it in JS would be pointless.
+     * other than 429), or the body was refused, and re-requesting it in JS would
+     * be pointless.
      */
     definite?: boolean;
+    /**
+     * True when cdxrs refused the body for its size,
+     * its gzip expansion ratio or the batch-wide byte budget.
+     */
+    refused?: boolean;
     /**
      * Response headers of a failed request, when the
      * JS pool made it. cdxrs reports no headers.
@@ -237,8 +243,10 @@ export declare function gatedGet(url: string, options?: Object): Promise<Object>
  * @throws {Error} When the server answered with an error status, so that the
  *   caller's existing `catch` treats it exactly as it treats a failed
  *   `cdxgenAgent.get`. A 5xx or a 429 is the answer after the batch's own
- *   retries, and asking once more at once would only add to the load. Only a
- *   transport failure, with no status, is left to the caller to retry.
+ *   retries, and asking once more at once would only add to the load. A body
+ *   cdxrs refused for its size throws too, with the code the JS agent gives
+ *   an oversized body. Only a transport failure, with no status, is left to
+ *   the caller to retry.
  */
 export declare function prefetchedResponse(prefetched: Map<string, BatchEntry>, url: string): {
     body: any;
