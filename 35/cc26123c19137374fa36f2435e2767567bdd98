@@ -1,0 +1,29 @@
+docs/CUSTOM_PROPERTIES.md
+  s_a3879d67fe1b26::t_4c49b7d41c1200 138,220-236,1391,1430
+lib/stages/postgen/auditBom.poku.js
+  s_a3879d67fe1b26::t_803a820cbd2ab4 2316,2321,2323-2341,2345-2346
+data/rules/ai-bom.yaml
+  s_a3879d67fe1b26::t_1fd87b088aa102 345
+  s_a3879d67fe1b26::t_d5af470c4dd73f 315,331,339
+docs/AI_BOM.md
+  s_a3879d67fe1b26::t_4c49b7d41c1200 298-299,303-329
+  s_a3879d67fe1b26::t_a5b401f4d35829 330
+docs/LESSON15.md
+  s_a3879d67fe1b26::t_0734f3c0d3c1ec 104
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "35cc26123c19137374fa36f2435e2767567bdd98",
+  "prompts": {},
+  "sessions": {
+    "s_a3879d67fe1b26": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "c717d25e-82d3-467e-9dbd-8195d51eddbc",
+        "model": "claude-sonnet-5-5"
+      },
+      "human_author": null
+    }
+  }
+}
