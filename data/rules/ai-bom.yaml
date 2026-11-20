@@ -312,7 +312,7 @@
     }
 
 - id: AIS-004
-  name: "ONNX model artifact lacks exporter provenance"
+  name: "ONNX model artifact file lacks exporter provenance"
   description: "ONNX files record the exporting framework and opset versions in their protobuf header. An artifact without this metadata cannot be traced to the toolchain that produced it, which weakens provenance review and can hide compatibility or security-relevant export settings."
   severity: low
   category: ai-governance
@@ -328,7 +328,7 @@
       - "Govern"
   condition: |
     components[
-      type = 'machine-learning-model'
+      type = 'file'
       and $prop($, 'cdx:ai:artifactFormat') = 'onnx'
       and $not($hasProp($, 'cdx:onnx:producer'))
     ]
@@ -336,11 +336,11 @@
     {
       "bomRef": $."bom-ref"
     }
-  message: "ONNX model artifact '{{ name }}' carries no exporter provenance"
+  message: "ONNX model file '{{ name }}' carries no exporter provenance"
   mitigation: "Re-export the model with a producer that records framework and opset metadata, or record the exporter and opset versions as component properties so the artifact remains traceable."
   evidence: |
     {
       "artifactFormat": $prop($, 'cdx:ai:artifactFormat'),
       "source": $prop($, 'cdx:ai:source'),
-      "modelId": $prop($, 'cdx:ai:modelId')
+      "irVersion": $prop($, 'cdx:onnx:irVersion')
     }
