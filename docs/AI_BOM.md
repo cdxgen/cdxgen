@@ -296,7 +296,7 @@ format-appropriate metadata without loading tensors or executing model code:
 - **GGUF** — full metadata parse (architecture, quantization, tokenizer signals, base-model
   pedigree). See the GGUF section below.
 - **safetensors** — reads and validates the JSON header: the tensors must tile the byte buffer without holes or overlaps, each byte range must match its dtype and shape, and the file size must equal the header plus the buffer. A scalar tensor counts as one element. The file component gets `cdx:safetensors:*` properties (tensor count, dtypes, parameter count, the `__metadata__.format` token and a count of metadata keys, never their values). A quantization method is derived when present. A `<stem>.safetensors.index.json` is compared with the shards on disk, and the model records `cdx:safetensors:missingShardCount` and `cdx:safetensors:unexpectedShardCount`.
-- **ONNX** — the protobuf header is read by offset (without loading the graph) and must be a plausible `ModelProto`: known fields use their schema wire types, `ir_version` is between 1 and 64, and an `opset_import` or a `graph` is present. The file component records the exporter, its version, the IR version, the domain and the operator sets as `cdx:onnx:*` properties (the default operator set is labelled `ai.onnx`), plus the number of `metadata_props` and the names of a few allowlisted keys, never their values. External data files beside the model (`<name>.onnx_data`, `<name>.onnx.data`, `<name>.onnx.data_N`) become file components that the ONNX file depends on. The graph is not walked, so an external-data `location` that has no matching sibling file is not reported.
+- **ONNX** — the protobuf header is read by offset (without loading the graph) and must be a plausible `ModelProto`: known fields use their schema wire types, `ir_version` is between 1 and 64, and an `opset_import` or a `graph` is present. The file component records the exporter, its version, the IR version, the domain and the operator sets as `cdx:onnx:*` properties (the default operator set is labelled `ai.onnx`), plus the number of `metadata_props` and the names of a few allowlisted keys, never their values. Exports named with a transformers.js or Optimum data-type suffix (`_quantized`, `_fp16`, `_int8`, `_uint8`, `_q4`, `_q4f16`, `_bnb4`) record it as `cdx:ai:artifactVariant`. External data files beside the model (`<name>.onnx_data`, `<name>.onnx.data`, `<name>.onnx.data_N`) become file components that the ONNX file depends on. The graph is not walked, so an external-data `location` that has no matching sibling file is not reported.
 - **PyTorch pickle** (`.bin`/`.pt`/`.pth`/`.ckpt`) — inventoried and flagged with
   `cdx:ai:unsafeDeserialization=true` because loading a pickle checkpoint executes code.
 
@@ -313,9 +313,10 @@ that file, together with a SHA-256 hash.
 Two artifacts belong to one model only when there is evidence for it: the same
 Hugging Face identity from a `config.json` `_name_or_path` beside the file (for a
 file in an `onnx/` directory, beside that directory, inside the scan root), or
-the same directory and de-sharded stem. Otherwise each artifact is its own model,
-named and referenced by its relative directory (`a/model`), so same-named files
-in different directories stay apart. `cdx:ai:confidence` keeps the highest value
+the same directory and de-sharded stem. Otherwise each artifact is its own model
+whose group carries its relative directory (`local/a`, giving the purl
+`pkg:generic/local/a/model`), so same-named files in different directories stay
+apart. `cdx:ai:confidence` keeps the highest value
 seen, and when two artifacts give different parameter counts the model keeps none
 and each file keeps its own.
 
