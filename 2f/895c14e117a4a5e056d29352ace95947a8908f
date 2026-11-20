@@ -1,0 +1,27 @@
+types/lib/inventory/aiCollector.d.ts.map
+  s_8f4eb4652356ac::t_78affe72fa86c9 1
+types/lib/parsers/onnx.d.ts
+  s_8f4eb4652356ac::t_043870695956d6 2-3,5-13,20,23-27,33,39-41
+types/lib/parsers/onnx.d.ts.map
+  s_8f4eb4652356ac::t_2482ea017e5c79 1
+types/lib/parsers/safetensors.d.ts
+  s_8f4eb4652356ac::t_6f9befb4b8a8be 2-5,7-19,24-25,29-32,36-37,41-42
+types/lib/parsers/safetensors.d.ts.map
+  s_8f4eb4652356ac::t_0d12fba046fd49 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "2f895c14e117a4a5e056d29352ace95947a8908f",
+  "prompts": {},
+  "sessions": {
+    "s_8f4eb4652356ac": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "24aaf74f-db5e-4681-a23e-b8dcd4bf2ff9",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
