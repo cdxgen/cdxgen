@@ -1,0 +1,19 @@
+lib/inventory/aiInventory.poku.js
+  s_a3879d67fe1b26::t_a8b4b0080fa263 506-507
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "e324bd8b9f8b43872449e3df0636bc5b2cc4ad81",
+  "prompts": {},
+  "sessions": {
+    "s_a3879d67fe1b26": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "c717d25e-82d3-467e-9dbd-8195d51eddbc",
+        "model": "claude-sonnet-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
