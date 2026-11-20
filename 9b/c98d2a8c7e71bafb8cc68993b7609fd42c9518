@@ -1,0 +1,27 @@
+lib/stages/pregen/pregen.poku.js
+  s_090ed08c65c99e::t_dc099da32472ae 548
+  s_090ed08c65c99e::t_717a3c8ef4acb4 50
+  s_090ed08c65c99e::t_ff9b08b4257a7e 1394
+lib/inventory/envcontext.js
+  s_090ed08c65c99e::t_7207e097adb75b 193-199,202,206-210
+docs/ENV.md
+  s_090ed08c65c99e::t_4e9e7f55ce49bf 62
+  s_090ed08c65c99e::t_f855897ac673d1 66
+  s_090ed08c65c99e::t_6753c7fa8cfaf3 67
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "9bc98d2a8c7e71bafb8cc68993b7609fd42c9518",
+  "prompts": {},
+  "sessions": {
+    "s_090ed08c65c99e": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_477f08a6-53de-4438-8b02-85b424bd438f",
+        "model": "unknown"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
