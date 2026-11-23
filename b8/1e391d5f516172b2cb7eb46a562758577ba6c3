@@ -1,0 +1,23 @@
+lib/ecosystems/jsEvidence.poku.js
+  s_5c501678fb6ca0::t_b677268c84871d 414-433
+lib/ecosystems/npmutils.js
+  s_5c501678fb6ca0::t_19c4a91d8ccc74 565-571
+types/lib/ecosystems/npmutils.d.ts.map
+  s_5c501678fb6ca0::t_272f6dfeca4f51 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "b81e391d5f516172b2cb7eb46a562758577ba6c3",
+  "prompts": {},
+  "sessions": {
+    "s_5c501678fb6ca0": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_c8dd696d-7afa-4e4a-995e-b70e51bdd46e",
+        "model": "GLM-5.3"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
