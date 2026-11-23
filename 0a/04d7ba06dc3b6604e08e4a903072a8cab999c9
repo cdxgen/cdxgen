@@ -1,0 +1,41 @@
+lib/ecosystems/npmutils.js
+  s_5c501678fb6ca0::t_90abe30fc4a163 96-114
+  s_5c501678fb6ca0::t_e5004bd3eaaf83 95
+lib/ecosystems/npmutils.poku.js
+  s_5c501678fb6ca0::t_d6965345ec09f7 63-84
+  s_5c501678fb6ca0::t_dc81b51c7394dd 25
+  s_5c501678fb6ca0::t_e5f08011d38baa 85-86
+types/lib/ecosystems/npmutils.d.ts
+  s_5c501678fb6ca0::t_bc206eaebdfa8a 23-35
+  s_5c501678fb6ca0::t_db0800efd44f37 22
+lib/cli/bomAssembly.js
+  s_5c501678fb6ca0::t_b62172d2722516 47,1389-1393
+lib/ecosystems/jsEvidence.poku.js
+  s_5c501678fb6ca0::t_b62172d2722516 444-524
+lib/ecosystems/jsEvidence.js
+  s_5c501678fb6ca0::t_b62172d2722516 17,193-198,508-511
+lib/cli/bomAssembly.poku.js
+  s_5c501678fb6ca0::t_b62172d2722516 551-584
+types/lib/cli/bomAssembly.d.ts.map
+  s_5c501678fb6ca0::t_d4ddeb15dfffcf 1
+types/lib/ecosystems/jsEvidence.d.ts.map
+  s_5c501678fb6ca0::t_76237bc94cc648 1
+types/lib/ecosystems/npmutils.d.ts.map
+  s_5c501678fb6ca0::t_486f97ea0db074 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "0a04d7ba06dc3b6604e08e4a903072a8cab999c9",
+  "prompts": {},
+  "sessions": {
+    "s_5c501678fb6ca0": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_c8dd696d-7afa-4e4a-995e-b70e51bdd46e",
+        "model": "GLM-5.3"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
