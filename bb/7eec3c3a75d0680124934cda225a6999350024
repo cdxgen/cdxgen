@@ -1,0 +1,23 @@
+bin/cdxgen.js
+  s_1087ee9131e711::t_9d514257d94bc6 2532-2538,2545,2548,2567
+lib/evinser/evinser.js
+  s_1087ee9131e711::t_1e72c083d53dd3 191-208
+lib/evinser/evinser.poku.js
+  s_1087ee9131e711::t_c4ba1cb13b186f 33,3015-3028
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "bb7eec3c3a75d0680124934cda225a6999350024",
+  "prompts": {},
+  "sessions": {
+    "s_1087ee9131e711": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "4ae819df-8088-44e6-9f9a-5fcc6582ca1c",
+        "model": "claude-sonnet-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
