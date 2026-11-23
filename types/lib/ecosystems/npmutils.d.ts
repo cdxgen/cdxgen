@@ -20,6 +20,20 @@ export declare function setNpmOptionalProperty(pkg: object): void;
  */
 export declare function setNpmPeerProperty(pkg: object): void;
 /**
+ * Whether an npm component was declared as an optional dependency, which npm
+ * installs best effort and may leave out on a platform it does not fit.
+ *
+ * Usage evidence records where such a package is reached from, but it is not
+ * proof that the package ships with the project: only one platform build of a
+ * native umbrella is ever installed, and the manifest said optional. Usage
+ * evidence must therefore not promote the component to the required scope
+ * (discussion 4070).
+ *
+ * @param {object} pkg Component object to inspect
+ * @returns {boolean} True when the component carries cdx:npm:package:optional
+ */
+export declare function isNpmOptionalDependency(pkg: object): boolean;
+/**
  * Marks an npm component as imported only for its TypeScript types.
  *
  * @param {object} pkg Component object to annotate

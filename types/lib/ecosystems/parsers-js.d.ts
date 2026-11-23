@@ -202,9 +202,11 @@ export declare function findPnpmPackagePath(baseDir: string, packageName: string
  *
  * @param {Array} pkgList Package list to enhance
  * @param {string} lockFilePath Path to the pnpm-lock.yaml file
+ * @param {object} [pnpmLockKeys] Raw lock file keys each package was read
+ *        from, peers included, keyed by {@link pnpmPkgLookupKey}
  * @returns {Array} Enhanced package list
  */
-export declare function pnpmMetadata(pkgList: any[], lockFilePath: string): any[];
+export declare function pnpmMetadata(pkgList: any[], lockFilePath: string, pnpmLockKeys?: object): any[];
 /**
  * Resolve a pnpm dependency value that is an alias pointing at another lock entry
  * rather than a plain version.

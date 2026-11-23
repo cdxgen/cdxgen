@@ -850,6 +850,7 @@ jobs:
           import { existsSync, readFileSync } from "node:fs";
           import { join } from "node:path";
 
+          import { usageOccurrences } from "./lib/inventory/evidenceUtils.js";
           import { resolveCdxgenPlugins } from "./lib/inventory/plugins.js";
           import { validateBom } from "./lib/validator/bomValidator.js";
 
@@ -866,11 +867,13 @@ jobs:
           );
           const services = bom.services || [];
           const components = bom.components || [];
+          // Declaration occurrences, the manifests an unused component is
+          // declared by, are no proof that dosai observed the component.
           const occurrenceComponents = components.filter(
-            (component) => (component.evidence?.occurrences || []).length > 0,
+            (component) => usageOccurrences(component).length > 0,
           );
           const dllOccurrences = occurrenceComponents.flatMap((component) =>
-            (component.evidence?.occurrences || []).filter((occurrence) =>
+            usageOccurrences(component).filter((occurrence) =>
               String(occurrence.location || "").toLowerCase().endsWith(".dll"),
             ),
           );
@@ -977,6 +980,7 @@ jobs:
           import { existsSync, readFileSync } from "node:fs";
           import { join } from "node:path";
 
+          import { usageOccurrences } from "./lib/inventory/evidenceUtils.js";
           import { resolveCdxgenPlugins } from "./lib/inventory/plugins.js";
 
           // dosai ships in the optional plugins-bin package, so the stale
@@ -999,10 +1003,10 @@ jobs:
                 "pkg:nuget/Newtonsoft.Json@",
               ),
             );
-            const occurrences = newtonsoft?.evidence?.occurrences || [];
+            const occurrences = usageOccurrences(newtonsoft);
             if (occurrences.length) {
               throw new Error(
-                `Expected no occurrences for the removed Newtonsoft.Json call sites after the edit, found ${occurrences.length}: ${JSON.stringify(occurrences)}`,
+                `Expected no use-site occurrences for the removed Newtonsoft.Json call sites after the edit, found ${occurrences.length}: ${JSON.stringify(occurrences)}`,
               );
             }
           }

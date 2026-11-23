@@ -130,7 +130,9 @@ Where the lock file records no install locations, the file uses the version its 
 or else the project, depends on directly; if neither names one, every version keeps the
 occurrence. `evinse` keeps each slice record on the versions the input BOM's own import evidence
 gives that file, so a callsites or usages record, which names a package but not a version, does
-not spread to the other copies either.
+not spread to the other copies either. A declaration occurrence, which names the manifest a
+component without observed usage is declared by rather than a use site, seeds nothing: the
+post-processing of the evinse output writes it back for the components the slices left alone.
 
 ### Reachability evidence
 
