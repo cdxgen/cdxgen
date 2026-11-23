@@ -1,0 +1,55 @@
+types/lib/evinser/evinser.d.ts.map
+  s_5c501678fb6ca0::t_e902bc9c52622c 1
+lib/evinser/evinser.poku.js
+  s_5c501678fb6ca0::t_88d846ad07033c 668-700,705-707
+  s_5c501678fb6ca0::t_9f15333dd23f8c 701-704
+lib/stages/postgen/postgen.js
+  s_5c501678fb6ca0::t_6bd98e589c3e39 1255-1258,1264
+  s_5c501678fb6ca0::t_9f15333dd23f8c 1300
+  s_5c501678fb6ca0::t_0af753547d7cd4 50-54
+  s_5c501678fb6ca0::t_a8407463960b4c 615-621
+lib/stages/postgen/postgen.poku.js
+  s_5c501678fb6ca0::t_c25c3a1ab105dc 26-28
+  s_5c501678fb6ca0::t_45463b440d5cf8 25,2331
+  s_5c501678fb6ca0::t_9f15333dd23f8c 2228-2230
+  s_5c501678fb6ca0::t_fbf00ff5401ac6 2184-2227,2231-2330
+types/lib/stages/postgen/postgen.d.ts.map
+  s_5c501678fb6ca0::t_c9150b27ab87ef 1
+lib/evinser/evinser.js
+  s_5c501678fb6ca0::t_2a58f17b387545 107-109
+  s_5c501678fb6ca0::t_ba0f4e931ddea7 1005-1034
+  s_5c501678fb6ca0::t_fddb3a4731aa42 106
+.github/workflows/repotests.yml
+  s_5c501678fb6ca0::t_6daf835f7b2731 853
+  s_5c501678fb6ca0::t_a51fd1f65cc0f9 1003,1006
+types/lib/inventory/evidenceUtils.d.ts
+  s_5c501678fb6ca0::t_bc206eaebdfa8a 1-39
+types/lib/inventory/evidenceUtils.d.ts.map
+  s_5c501678fb6ca0::t_feeab841b4059b 1
+docs/CUSTOM_PROPERTIES.md
+  s_5c501678fb6ca0::t_a0a9b740b85051 522,705,892
+lib/inventory/evidenceUtils.js
+  s_5c501678fb6ca0::t_9f15333dd23f8c 108-109
+  s_5c501678fb6ca0::t_2a6905550350f9 55-107,110-125,130-245
+  s_5c501678fb6ca0::t_1da142cdaa119d 126-129
+.github/workflows/repotests-quick.yml
+  s_5c501678fb6ca0::t_9bd1df87a31eac 345-347
+  s_5c501678fb6ca0::t_48a250bb651378 252
+  s_5c501678fb6ca0::t_273b00b7d1ef7b 308
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "ba358494fa2548f9d5bcd1d0a9bbd7db36ae3fb1",
+  "prompts": {},
+  "sessions": {
+    "s_5c501678fb6ca0": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_c8dd696d-7afa-4e4a-995e-b70e51bdd46e",
+        "model": "GLM-5.3"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
