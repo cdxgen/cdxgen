@@ -1,0 +1,29 @@
+lib/inventory/formulationParsers.js
+  s_1087ee9131e711::t_358c493b8440f2 25,361-366
+lib/inventory/formulationParsers.poku.js
+  s_fe578a6c9c51d0::t_917b5410f20cac 1161-1203
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "f782a2ed69ecaf8e0fb9b49ba8774667fd744e68",
+  "prompts": {},
+  "sessions": {
+    "s_1087ee9131e711": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "4ae819df-8088-44e6-9f9a-5fcc6582ca1c",
+        "model": "claude-sonnet-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    },
+    "s_fe578a6c9c51d0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "1263418f-f4b0-4e74-91c8-18f9057618b4",
+        "model": "claude-sonnet-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
