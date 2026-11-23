@@ -1,0 +1,19 @@
+lib/ecosystems/rusi.poku.js
+  s_1087ee9131e711::t_2dbdb25206f82c 1139-1140,1160
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "0282cd69d9bd1ded0868a2fe1ec2698bdaa29bdc",
+  "prompts": {},
+  "sessions": {
+    "s_1087ee9131e711": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "4ae819df-8088-44e6-9f9a-5fcc6582ca1c",
+        "model": "claude-sonnet-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
