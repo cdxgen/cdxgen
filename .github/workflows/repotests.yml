@@ -850,6 +850,7 @@ jobs:
           import { existsSync, readFileSync } from "node:fs";
           import { join } from "node:path";
 
+          import { usageOccurrences } from "./lib/inventory/evidenceUtils.js";
           import { resolveCdxgenPlugins } from "./lib/inventory/plugins.js";
           import { validateBom } from "./lib/validator/bomValidator.js";
 
@@ -999,10 +1000,10 @@ jobs:
                 "pkg:nuget/Newtonsoft.Json@",
               ),
             );
-            const occurrences = newtonsoft?.evidence?.occurrences || [];
+            const occurrences = usageOccurrences(newtonsoft);
             if (occurrences.length) {
               throw new Error(
-                `Expected no occurrences for the removed Newtonsoft.Json call sites after the edit, found ${occurrences.length}: ${JSON.stringify(occurrences)}`,
+                `Expected no use-site occurrences for the removed Newtonsoft.Json call sites after the edit, found ${occurrences.length}: ${JSON.stringify(occurrences)}`,
               );
             }
           }

@@ -1,3 +1,42 @@
+export declare const FILENAME_LABEL = "Filename ";
+export declare const DECLARATION_OCCURRENCES_PROPERTY = "cdx:evidence:occurrences:declaration";
+/**
+ * Locations a component's declaration-occurrence property names.
+ *
+ * @param {Object} component Component with optional declaration property
+ * @returns {Set<string>} The declared locations, empty when the component
+ *   carries no declaration occurrences
+ */
+export declare function declarationOccurrenceLocations(component: Object): Set<string>;
+/**
+ * The occurrences of a component that name use sites in the analyzed sources,
+ * which are all of them unless the component carries the declaration property.
+ *
+ * @param {Object} component Component with optional occurrence evidence
+ * @returns {Object[]} Occurrences that are not declaration sites
+ */
+export declare function usageOccurrences(component: Object): Object[];
+/**
+ * Give the components no analyzer observed in the sources the manifests that
+ * declare them as their occurrence evidence, marked as declaration sites with
+ * {@link DECLARATION_OCCURRENCES_PROPERTY}.
+ *
+ * One rule for every ecosystem (discussion 4565): a consumer that reads
+ * occurrences gets a location to point at for a declared component nothing
+ * imports - a native NuGet asset, a CSS-only or CLI-only npm dependency -
+ * while a component with observed usage keeps its use sites unchanged. A
+ * component whose usage arrives later (the evinse pass, a re-run) drops the
+ * filler, so the occurrences keep meaning use sites wherever there are any.
+ *
+ * The pass fills the gaps of a usage analysis: a BOM in which no component
+ * carries usage evidence - the manifest-only scans - states nothing about
+ * usage and keeps its shape. A file component is skipped, since its SrcFile is
+ * the artifact itself rather than a declaration.
+ *
+ * @param {Object[]} components BOM components, sub-components included; changed in place
+ * @returns {void}
+ */
+export declare function addDeclarationOccurrences(components: Object[]): void;
 /**
  * Build a CycloneDX occurrence evidence object from a location string.
  *
