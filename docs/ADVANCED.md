@@ -60,6 +60,8 @@ Brace expansion is supported. `{openshift,kubernetes}-maven-plugin` in the below
 --exclude "**/quickstarts/**" --exclude "**/{openshift,kubernetes}-maven-plugin/**"
 ```
 
+A pattern is matched against each path relative to the scanned directory, and it is anchored at that directory. It is not matched against the working directory the command runs in, and a leading `./` makes it match nothing. When scanning `/work/app`, the file `/work/app/src/test/a.js` is `src/test/a.js` for matching. `*` matches within one path segment, so `src/*/test/**` excludes `src/lib/test/a.js` but not `src/lib/deep/test/a.js`. A trailing `**` matches everything below a directory at any depth, and a leading `**/` lets the pattern match at any depth: `test/**` excludes only the top-level `test` directory, while `**/test/**` also excludes `src/test` and `src/lib/test`. Use a leading `**/` whenever the same directory name occurs in nested places. The patterns apply to every part of the document that reads the tree: the component lists, the formulation section (including its git file list), the source evidence and cryptography inventory, and the container manifest notes. A manifest outside the excluded tree that names a file inside it, such as a `docker-compose.yml` whose `build.dockerfile` points into an excluded directory, is still read, but the excluded build file is not reported.
+
 ### Excluding packages using package manager configuration
 
 Some package managers support filtering dependencies. For example, maven `dependency:tree` command supports [filtering](https://maven.apache.org/plugins/maven-dependency-plugin/examples/filtering-the-dependency-tree.html). It is possible to use some of the existing [environment variables](./ENV.md) to utilize these features.

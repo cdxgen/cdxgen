@@ -149,6 +149,16 @@ carries a `shapedBy` field naming the detection behind the command, so a
 reviewer can tell a correct detection from a default; an action without
 `shapedBy` names the ecosystem's plain default executable.
 
+The Reproduce command and the re-scan commands repeat the `--exclude` and
+`--exclude-type` values of the scan, so a BOM whose component set depends on
+the excludes can be rebuilt from the report. When a container manifest names an
+image that could not be pulled or exported, the markdown report adds a warning
+under "Warnings about this report" and the JSON `observations[]` carries an
+`evidence.degraded` entry for the `container` ecosystem; the verdict does not
+score those images, so the warning is the record that the container inventory
+is smaller than the manifests describe. The same count is printed on the
+console at the end of the manifest scan.
+
 ## Re-scanning a foreign BOM
 
 Introspection can also grade a BOM nobody generated in this run —
