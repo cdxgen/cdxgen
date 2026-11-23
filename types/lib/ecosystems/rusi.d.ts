@@ -34,19 +34,56 @@ export declare function isRusiRustLanguage(language: string): boolean;
  */
 export declare function readRusiJsonFile(jsonFile: string): Object | undefined;
 /**
- * The directory rusi should analyze. rusi runs `cargo metadata` in the
- * directory it is given, so a repository whose only `Cargo.toml` sits in a
- * subdirectory needs that subdirectory. The scanned directory itself is used
- * when it holds a `Cargo.toml`. Otherwise the crate nearest to it is used,
- * with ties settled by path; `target` directories and the `--exclude`
- * patterns are skipped. When no crate is found the scanned directory is
- * returned, so rusi reports its own error for it.
+ * Choose the directory rusi analyzes, and name the crates it leaves out.
+ *
+ * rusi runs `cargo metadata` in the directory it is given, so a repository
+ * whose only `Cargo.toml` sits in a subdirectory needs that subdirectory. The
+ * scanned directory is used when it holds a `Cargo.toml`. Otherwise a nested
+ * Cargo workspace root is used (the nearest one), and failing that the crate
+ * nearest to the scanned directory, with ties settled by path. `target`
+ * directories and the `--exclude` patterns are skipped. One rusi run covers
+ * one cargo project, so crates outside the chosen directory are returned in
+ * `skipped`, relative to the scanned directory. When no crate is found the
+ * scanned directory is returned, so rusi reports its own error for it.
  *
  * @param {string} dir The scanned directory.
  * @param {Object} [options] CLI options; `options.exclude` is honoured.
- * @returns {string} The directory to pass to rusi.
+ * @returns {{dir: string, skipped: string[]}} The directory to pass to rusi
+ * and the crates that analysis does not cover
+ */
+export declare function selectCargoProject(dir: string, options?: Object): {
+    dir: string;
+    skipped: string[];
+};
+/**
+ * The directory rusi should analyze for a scanned directory, as chosen by
+ * {@link selectCargoProject}.
+ *
+ * @param {string} dir The scanned directory.
+ * @param {Object} [options] CLI options; `options.exclude` is honoured.
+ * @returns {string} The directory to pass to rusi
  */
 export declare function resolveCargoProjectDir(dir: string, options?: Object): string;
+/**"],
+  });
+  const crateDirs = manifests
+    .map((manifest) => dirname(manifest))
+    .sort(
+      (a, b) =>
+        relative(dir, a).split(sep).length -
+          relative(dir, b).split(sep).length || compareCodeUnits(a, b),
+    );
+  if (!crateDirs.length) {
+    return dir;
+  }
+  if (crateDirs.length > 1) {
+    console.warn(
+      `${dir} has no Cargo.toml of its own and holds ${crateDirs.length} crates, so rusi analyzes ${relative(dir, crateDirs[0])}.`,
+    );
+  }
+  return crateDirs[0];
+}
+
 /**
  * Invokes the rusi binary to analyze a codebase.
  *
