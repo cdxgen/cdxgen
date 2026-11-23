@@ -204,6 +204,13 @@ test/data/package-json/legacy-licenses/node_modules/**
 test/data/js-pnpm-metadata-repotest/node_modules/**
 !test/data/js-pnpm-metadata-repotest/node_modules/**/
 !test/data/js-pnpm-metadata-repotest/node_modules/**/package.json
+# The pnpm peer-store fixture ships the virtual-store manifests of every
+# directory-name shape pnpm writes: plain, peer-suffixed, cut and hashed.
+# Only the package.json files are committed.
+!test/data/js-pnpm-peer-store-repotest/node_modules/
+test/data/js-pnpm-peer-store-repotest/node_modules/**
+!test/data/js-pnpm-peer-store-repotest/node_modules/**/
+!test/data/js-pnpm-peer-store-repotest/node_modules/**/package.json
 test/data/rust-dataflow-repotest/target
 # Only the repository's own lockfile: package-lock.json files under test/ are
 # committed fixtures. The one below is written by the securityGates e2e scan.
