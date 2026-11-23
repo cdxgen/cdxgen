@@ -11,6 +11,10 @@ export declare function declarationOccurrenceLocations(component: Object): Set<s
 /**
  * The occurrences of a component that name use sites in the analyzed sources,
  * which are all of them unless the component carries the declaration property.
+ * An occurrence at a declared location that carries a line, an offset or a
+ * symbol is still a use site: a declaration occurrence carries none of them,
+ * so this shape is a place inside the declaring file, such as a call in a
+ * setup.py the analyzers also read.
  *
  * @param {Object} component Component with optional occurrence evidence
  * @returns {Object[]} Occurrences that are not declaration sites
@@ -31,7 +35,8 @@ export declare function usageOccurrences(component: Object): Object[];
  * The pass fills the gaps of a usage analysis: a BOM in which no component
  * carries usage evidence - the manifest-only scans - states nothing about
  * usage and keeps its shape. A file component is skipped, since its SrcFile is
- * the artifact itself rather than a declaration.
+ * the artifact itself rather than a declaration, and so is an application
+ * component, which is the project's own code rather than a dependency.
  *
  * @param {Object[]} components BOM components, sub-components included; changed in place
  * @returns {void}
