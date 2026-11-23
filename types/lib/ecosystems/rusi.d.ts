@@ -64,26 +64,17 @@ export declare function selectCargoProject(dir: string, options?: Object): {
  * @returns {string} The directory to pass to rusi
  */
 export declare function resolveCargoProjectDir(dir: string, options?: Object): string;
-/**"],
-  });
-  const crateDirs = manifests
-    .map((manifest) => dirname(manifest))
-    .sort(
-      (a, b) =>
-        relative(dir, a).split(sep).length -
-          relative(dir, b).split(sep).length || compareCodeUnits(a, b),
-    );
-  if (!crateDirs.length) {
-    return dir;
-  }
-  if (crateDirs.length > 1) {
-    console.warn(
-      `${dir} has no Cargo.toml of its own and holds ${crateDirs.length} crates, so rusi analyzes ${relative(dir, crateDirs[0])}.`,
-    );
-  }
-  return crateDirs[0];
-}
-
+/**
+ * Whether the installed rusi can analyze every crate below a directory in one
+ * report (`--discover`, with `--exclude`). The answer comes from the help text
+ * of the subcommand, so it follows the binary and not a version number, and it
+ * is remembered per executable.
+ *
+ * @param {string} executable Path of the rusi binary
+ * @param {string} mode `analyze` or `cryptos`
+ * @returns {boolean} True when `--discover` is documented
+ */
+export declare function rusiSupportsMultiDir(executable: string, mode?: string): boolean;
 /**
  * Invokes the rusi binary to analyze a codebase.
  *
