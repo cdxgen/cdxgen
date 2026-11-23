@@ -1,0 +1,31 @@
+lib/inventory/analyzer.js
+  s_521ad8e421d1a2::t_3594965370ec49 4878
+lib/inventory/cbomutils.js
+  s_1087ee9131e711::t_2434c0e1a630b2 388-392
+lib/inventory/cbomutils.poku.js
+  s_1087ee9131e711::t_904b7333f34670 1,113-137
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "4059d22f36a9000784ab51a5144da262227ef657",
+  "prompts": {},
+  "sessions": {
+    "s_1087ee9131e711": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "4ae819df-8088-44e6-9f9a-5fcc6582ca1c",
+        "model": "claude-sonnet-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    },
+    "s_521ad8e421d1a2": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "3d879692-e9c2-4325-bd9c-f554823f9e9a",
+        "model": "claude-sonnet-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
