@@ -1,0 +1,25 @@
+lib/cli/containerSpecManifests.poku.js
+  s_1087ee9131e711::t_81dd495bebe77d 53-81
+lib/cli/index.js
+  s_1087ee9131e711::t_8fc696792d9bc9 21-26,515,722-731,746-750
+lib/stages/postgen/introspection/report.js
+  s_1087ee9131e711::t_3a5f3442637a31 764-774
+lib/stages/postgen/introspection/report.poku.js
+  s_1087ee9131e711::t_2683c7ae950d60 307-336
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "10d744b5bbc66f917927689de4e1030e0353fafd",
+  "prompts": {},
+  "sessions": {
+    "s_1087ee9131e711": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "4ae819df-8088-44e6-9f9a-5fcc6582ca1c",
+        "model": "claude-sonnet-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
