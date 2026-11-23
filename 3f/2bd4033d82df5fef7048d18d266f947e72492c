@@ -1,0 +1,64 @@
+lib/ecosystems/parsers-js.js
+  s_79cad49cabb0ad::t_7741cfb3e466f5 4428-4431
+  s_79cad49cabb0ad::t_e6d395a72f27d8 3736-3738,3752-3754
+  s_79cad49cabb0ad::t_76d6ab88a38141 3803-3807,3819-3821
+  s_79cad49cabb0ad::t_ad0675e3bf2ff6 5068-5078
+  s_79cad49cabb0ad::t_a0406e7185830d 3604-3735,3739-3751,3755-3762,3775-3778,3785-3786,3799,3802,3808-3811,3813-3814,3816-3818,3822-3827,3835,3838-3851,3853-3864,3867-3868,3893,3905
+  s_79cad49cabb0ad::t_4902d5a3b9fbf6 3988-3989
+  s_79cad49cabb0ad::t_f74193d395d4b8 2
+  s_79cad49cabb0ad::t_607997c8428122 3906-3917,3923-3924,3927,3946
+  s_79cad49cabb0ad::t_762440cdff14c5 3828-3834
+  s_79cad49cabb0ad::t_8a283bce9eb15d 3865-3866
+  s_79cad49cabb0ad::t_7fa05474a050cc 5608
+lib/cli/jsBomPnpmPeerStore.poku.js
+  s_79cad49cabb0ad::t_5a7c1ebd7e6e9c 1-30,32-61,63,65-67,69,75-76
+  s_79cad49cabb0ad::t_8a283bce9eb15d 31,62
+  s_79cad49cabb0ad::t_8c71de1b19c951 64,68,70-74
+lib/ecosystems/parsers-js.poku.js
+  s_79cad49cabb0ad::t_8a283bce9eb15d 3707-3711,3716-3722,3775-3784,3879-3896,3917-3922
+  s_79cad49cabb0ad::t_7f511547ad6a9f 2
+  s_79cad49cabb0ad::t_91190da35793a1 3392-3427
+  s_79cad49cabb0ad::t_20eb2cf1a3e08a 3569-3706,3712-3715,3723-3774,3785-3878,3897-3916,3923-3930
+test/data/js-pnpm-peer-store-repotest/package.json
+  s_79cad49cabb0ad::t_b6eb28c99b65fd 15
+  s_79cad49cabb0ad::t_7d24a1355c546e 1-9,13-14,16-17
+  s_79cad49cabb0ad::t_a434d8202503f1 10-12
+.gitignore
+  s_79cad49cabb0ad::t_9d088a4fe2a3ed 207-213
+test/data/js-pnpm-peer-store-repotest/node_modules/.pnpm/@typescript-eslint+parser@8_420272f5f6b2e5f1fe2536ca54abbb8b/node_modules/@typescript-eslint/parser/package.json
+  s_79cad49cabb0ad::t_b911a481c6fd3a 1-6
+test/data/js-pnpm-peer-store-repotest/node_modules/.pnpm/@typescript-eslint+typescript-est_th2nd3vas434ijxrlxbyzhrty4/node_modules/@typescript-eslint/typescript-estree/package.json
+  s_79cad49cabb0ad::t_1c1d406a9636a4 1-6
+test/data/js-pnpm-peer-store-repotest/node_modules/.pnpm/JSONSteam@1.0.0_533d3b11e9111b7a24f914844c021ddf/node_modules/JSONSteam/package.json
+  s_79cad49cabb0ad::t_3c550c612629a5 1-6
+test/data/js-pnpm-peer-store-repotest/node_modules/.pnpm/ajv-keywords@5.1.0_ajv@8.20.0/node_modules/ajv-keywords/package.json
+  s_79cad49cabb0ad::t_d71aa253bc5c82 1-6
+test/data/js-pnpm-peer-store-repotest/node_modules/.pnpm/ajv@8.20.0/node_modules/ajv/package.json
+  s_79cad49cabb0ad::t_a726bf4473bcf6 1-6
+test/data/js-pnpm-peer-store-repotest/node_modules/.pnpm/eslint@9.39.5_supports-color@7.2.0/node_modules/eslint/package.json
+  s_79cad49cabb0ad::t_1adab4f1df4705 1-6
+test/data/js-pnpm-peer-store-repotest/node_modules/.pnpm/schema-utils_86e0b994f33d9a0c0179239992d8e3a6/node_modules/schema-utils/package.json
+  s_79cad49cabb0ad::t_443ac49d51287b 1-6
+test/data/js-pnpm-peer-store-repotest/node_modules/.pnpm/supports-color@7.2.0/node_modules/supports-color/package.json
+  s_79cad49cabb0ad::t_e094806f1de6a9 1-6
+test/data/js-pnpm-peer-store-repotest/node_modules/.pnpm/typescript@5.6.3/node_modules/typescript/package.json
+  s_79cad49cabb0ad::t_a6c5d42e692e95 1-6
+test/data/js-pnpm-peer-store-repotest/pnpm-lock.yaml
+  s_79cad49cabb0ad::t_ce08f23fe77be6 1-98
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "3f2bd4033d82df5fef7048d18d266f947e72492c",
+  "prompts": {},
+  "sessions": {
+    "s_79cad49cabb0ad": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_8c66fb33-ffe2-4798-87f1-76ae9d15f06e",
+        "model": "GLM-5.3"
+      },
+      "human_author": "Team AppThreat <cloud@appthreat.com>"
+    }
+  }
+}
