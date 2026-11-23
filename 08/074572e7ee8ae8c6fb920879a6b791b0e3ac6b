@@ -1,0 +1,53 @@
+docs/ADVANCED.md
+  s_1087ee9131e711::t_f84cdf97111681 63
+lib/cli/index.js
+  s_1087ee9131e711::t_a13049efbbebff 509-511
+lib/ecosystems/rusi.js
+  s_1087ee9131e711::t_3816c1c94a4176 7,949-950
+lib/ecosystems/rusi.poku.js
+  s_1087ee9131e711::t_6330617fff6f27 1041
+lib/evinser/evinser.poku.js
+  s_1087ee9131e711::t_c36da8b6710bf3 3023
+lib/inventory/formulationParsers.js
+  s_1087ee9131e711::t_2b4a6098470868 14
+lib/stages/postgen/introspection/report.poku.js
+  s_1087ee9131e711::t_fa76ea21edacac 318-319
+types/lib/cli/index.d.ts.map
+  s_1087ee9131e711::t_59c2f15c1510f5 1
+types/lib/ecosystems/rusi.d.ts
+  s_1087ee9131e711::t_b6ed90af80ffcb 36-49
+types/lib/ecosystems/rusi.d.ts.map
+  s_1087ee9131e711::t_a0944c997bcae3 1
+types/lib/evinser/evinser.d.ts
+  s_1087ee9131e711::t_68a52b49cf38c8 13-23
+types/lib/evinser/evinser.d.ts.map
+  s_1087ee9131e711::t_e78f4483c3fa0b 1
+types/lib/inventory/analyzer.d.ts
+  s_1087ee9131e711::t_eb92d425e4ed4a 115,118
+types/lib/inventory/analyzer.d.ts.map
+  s_1087ee9131e711::t_2e4c7285e47c43 1
+types/lib/inventory/cbomutils.d.ts.map
+  s_1087ee9131e711::t_98167d4229d03a 1
+types/lib/inventory/formulationParsers.d.ts.map
+  s_1087ee9131e711::t_52706c8a69ac20 1
+types/lib/stages/postgen/introspection/report.d.ts.map
+  s_1087ee9131e711::t_64f09159920ab8 1
+types/lib/stages/postgen/postgen.d.ts.map
+  s_1087ee9131e711::t_69b375e0f5f18c 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "08074572e7ee8ae8c6fb920879a6b791b0e3ac6b",
+  "prompts": {},
+  "sessions": {
+    "s_1087ee9131e711": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "4ae819df-8088-44e6-9f9a-5fcc6582ca1c",
+        "model": "claude-sonnet-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
