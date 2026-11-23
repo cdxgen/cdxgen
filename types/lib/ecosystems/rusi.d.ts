@@ -34,6 +34,20 @@ export declare function isRusiRustLanguage(language: string): boolean;
  */
 export declare function readRusiJsonFile(jsonFile: string): Object | undefined;
 /**
+ * The directory rusi should analyze. rusi runs `cargo metadata` in the
+ * directory it is given, so a repository whose only `Cargo.toml` sits in a
+ * subdirectory needs that subdirectory. The scanned directory itself is used
+ * when it holds a `Cargo.toml`. Otherwise the crate nearest to it is used,
+ * with ties settled by path; `target` directories and the `--exclude`
+ * patterns are skipped. When no crate is found the scanned directory is
+ * returned, so rusi reports its own error for it.
+ *
+ * @param {string} dir The scanned directory.
+ * @param {Object} [options] CLI options; `options.exclude` is honoured.
+ * @returns {string} The directory to pass to rusi.
+ */
+export declare function resolveCargoProjectDir(dir: string, options?: Object): string;
+/**
  * Invokes the rusi binary to analyze a codebase.
  *
  * @param {string} src Directory to analyze.
