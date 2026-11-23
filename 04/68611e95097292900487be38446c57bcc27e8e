@@ -1,0 +1,25 @@
+docs/ADVANCED.md
+  s_1087ee9131e711::t_f1640b9071bffc 63-64
+docs/CUSTOM_PROPERTIES.md
+  s_1087ee9131e711::t_0e91a42063db0b 531
+docs/INTROSPECTION.md
+  s_1087ee9131e711::t_c2852e53f5650f 152-161
+docs/PROJECT_TYPES.md
+  s_1087ee9131e711::t_bd78c264c6404e 100
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "0468611e95097292900487be38446c57bcc27e8e",
+  "prompts": {},
+  "sessions": {
+    "s_1087ee9131e711": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "4ae819df-8088-44e6-9f9a-5fcc6582ca1c",
+        "model": "claude-sonnet-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
