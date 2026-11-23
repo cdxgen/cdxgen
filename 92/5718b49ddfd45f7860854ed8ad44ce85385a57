@@ -1,0 +1,47 @@
+lib/cli/bomAssembly.poku.js
+  s_5c501678fb6ca0::t_bbc69404130494 501,532-550
+  s_5c501678fb6ca0::t_df7d084da428bf 551
+lib/inventory/analyzer.js
+  s_5c501678fb6ca0::t_f5c0e59a12a2e0 326-335
+types/lib/ecosystems/parsers-js.d.ts
+  s_5c501678fb6ca0::t_bc206eaebdfa8a 205-206,209
+lib/cli/bomAssembly.js
+  s_5c501678fb6ca0::t_94c1406f2e1498 1371-1372,1375-1379
+  s_5c501678fb6ca0::t_6d1f4f3aa8a517 1367-1370,1373-1374,1380-1381
+lib/ecosystems/jsEvidence.poku.js
+  s_5c501678fb6ca0::t_38dfe065d3d94e 367-386,393-444
+  s_5c501678fb6ca0::t_514f2f4119ed70 387-392
+  s_5c501678fb6ca0::t_e9ce39c6060d99 600,602,614
+lib/ecosystems/jsEvidence.js
+  s_5c501678fb6ca0::t_9128e64b0a1c4a 362-363,369-373,377-379
+  s_5c501678fb6ca0::t_f81a2e94d5ec36 364-368,374-376
+lib/inventory/analyzer.poku.js
+  s_5c501678fb6ca0::t_df58cd189cb955 2456-2464,2466-2512
+  s_5c501678fb6ca0::t_9f15333dd23f8c 2465
+types/lib/cli/bomAssembly.d.ts.map
+  s_5c501678fb6ca0::t_c00c477bc4902b 1
+types/lib/ecosystems/jsEvidence.d.ts.map
+  s_5c501678fb6ca0::t_062fd30b3133ae 1
+types/lib/ecosystems/parsers-js.d.ts.map
+  s_5c501678fb6ca0::t_d25ac8a844d567 1
+types/lib/inventory/analyzer.d.ts.map
+  s_5c501678fb6ca0::t_550de9eeba9b9c 1
+types/lib/inventory/envcontext.d.ts.map
+  s_5c501678fb6ca0::t_dc1969772eede9 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "925718b49ddfd45f7860854ed8ad44ce85385a57",
+  "prompts": {},
+  "sessions": {
+    "s_5c501678fb6ca0": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_c8dd696d-7afa-4e4a-995e-b70e51bdd46e",
+        "model": "GLM-5.3"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
