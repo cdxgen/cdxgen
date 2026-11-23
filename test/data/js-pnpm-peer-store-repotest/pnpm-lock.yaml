@@ -1,0 +1,98 @@
+lockfileVersion: '9.0'
+
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
+importers:
+
+  .:
+    dependencies:
+      JSONSteam:
+        specifier: 1.0.0
+        version: 1.0.0
+      ajv:
+        specifier: 8.20.0
+        version: 8.20.0
+      ajv-keywords:
+        specifier: 5.1.0
+        version: 5.1.0(ajv@8.20.0)
+      eslint:
+        specifier: 9.39.5
+        version: 9.39.5(supports-color@7.2.0)
+      supports-color:
+        specifier: 7.2.0
+        version: 7.2.0
+      typescript:
+        specifier: 5.6.3
+        version: 5.6.3
+      '@typescript-eslint/parser':
+        specifier: 8.46.0
+        version: 8.46.0(eslint@9.39.5(supports-color@7.2.0))(supports-color@7.2.0)(typescript@5.6.3)
+      '@typescript-eslint/typescript-estree':
+        specifier: 8.46.0
+        version: 8.46.0(supports-color@7.2.0)(typescript@5.6.3)
+      schema-utils:
+        specifier: 4.3.0
+        version: 4.3.0(ajv@8.20.0)(ajv-keywords@5.1.0)
+
+packages:
+
+  JSONSteam@1.0.0:
+    resolution: {integrity: sha512-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa==}
+
+  ajv@8.20.0:
+    resolution: {integrity: sha512-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb==}
+
+  ajv-keywords@5.1.0:
+    resolution: {integrity: sha512-ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc==}
+
+  eslint@9.39.5:
+    resolution: {integrity: sha512-4444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444==}
+
+  schema-utils@4.3.0:
+    resolution: {integrity: sha512-11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111==}
+
+  supports-color@7.2.0:
+    resolution: {integrity: sha512-5555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555==}
+
+  typescript@5.6.3:
+    resolution: {integrity: sha512-fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff==}
+
+  '@typescript-eslint/parser@8.46.0':
+    resolution: {integrity: sha512-ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd==}
+
+  '@typescript-eslint/typescript-estree@8.46.0':
+    resolution: {integrity: sha512-eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee==}
+
+snapshots:
+
+  JSONSteam@1.0.0: {}
+
+  ajv@8.20.0: {}
+
+  ajv-keywords@5.1.0(ajv@8.20.0):
+    dependencies:
+      ajv: 8.20.0
+
+  eslint@9.39.5(supports-color@7.2.0):
+    dependencies:
+      supports-color: 7.2.0
+      typescript: 5.6.3
+
+  schema-utils@4.3.0(ajv@8.20.0)(ajv-keywords@5.1.0):
+    dependencies:
+      ajv: 8.20.0
+      ajv-keywords: 5.1.0(ajv@8.20.0)
+
+  supports-color@7.2.0: {}
+
+  typescript@5.6.3: {}
+
+  '@typescript-eslint/parser@8.46.0(eslint@9.39.5(supports-color@7.2.0))(supports-color@7.2.0)(typescript@5.6.3)':
+    dependencies:
+      typescript: 5.6.3
+
+  '@typescript-eslint/typescript-estree@8.46.0(supports-color@7.2.0)(typescript@5.6.3)':
+    dependencies:
+      typescript: 5.6.3
