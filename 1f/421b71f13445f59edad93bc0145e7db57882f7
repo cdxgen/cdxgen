@@ -1,0 +1,25 @@
+lib/ecosystems/rusi.js
+  s_91734a5ab3e2d9::t_9d5f6f1fb88d01 1010-1029,1032,1064-1072,1089-1094
+lib/ecosystems/rusi.poku.js
+  s_91734a5ab3e2d9::t_e06e9c1e5f98cc 1171-1280
+types/lib/ecosystems/rusi.d.ts
+  s_91734a5ab3e2d9::t_013dfe644f28dd 67-77
+types/lib/ecosystems/rusi.d.ts.map
+  s_91734a5ab3e2d9::t_e8d1676ec4a9f7 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "1f421b71f13445f59edad93bc0145e7db57882f7",
+  "prompts": {},
+  "sessions": {
+    "s_91734a5ab3e2d9": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "02994b15-7315-4472-b3a5-d9ba54fdc77d",
+        "model": "claude-sonnet-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
