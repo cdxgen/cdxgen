@@ -1,0 +1,38 @@
+.github/workflows/repotests.yml
+  s_5c501678fb6ca0::t_1b89d8ab1676f0 870-871,873,876
+  s_5c501678fb6ca0::t_c0c382827af796 983
+lib/inventory/evidenceUtils.js
+  s_5c501678fb6ca0::t_734ad42e22d187 126-128
+  s_5c501678fb6ca0::t_35b7792a3e31f9 185-186
+  s_5c501678fb6ca0::t_64fe0164aab03c 162-164
+  s_5c501678fb6ca0::t_93cd33f9fcec31 96-99,105-107,110,112,114-118
+  s_5c501678fb6ca0::t_dc66423460db18 217-220
+lib/stages/postgen/postgen.poku.js
+  s_5c501678fb6ca0::t_01819b65f29d17 2309-2311,2348-2351
+  s_5c501678fb6ca0::t_f10684836fcdd4 2298-2308,2312-2347,2352-2355
+types/lib/inventory/evidenceUtils.d.ts
+  s_5c501678fb6ca0::t_01819b65f29d17 14-17,38-39
+lib/evinser/evinser.js
+  s_5c501678fb6ca0::t_ece891c2f854cb 108
+  s_5c501678fb6ca0::t_e7f2921ffc7cb0 1009
+types/lib/evinser/evinser.d.ts.map
+  s_5c501678fb6ca0::t_35a98176ad118f 1
+types/lib/inventory/evidenceUtils.d.ts.map
+  s_5c501678fb6ca0::t_3d6f3405abfdc7 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "7a4434f3bdd7901629cd76039dd94bb8a8fefdb7",
+  "prompts": {},
+  "sessions": {
+    "s_5c501678fb6ca0": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_c8dd696d-7afa-4e4a-995e-b70e51bdd46e",
+        "model": "GLM-5.3"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
