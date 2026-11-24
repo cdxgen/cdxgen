@@ -1,0 +1,35 @@
+.github/workflows/bun.yml
+  s_f6d960a9f76417::t_24996048d83b1d 36-41
+.github/workflows/deno.yml
+  s_f6d960a9f76417::t_125f60397a8392 46-51
+.github/workflows/nodejs.yml
+  s_f6d960a9f76417::t_ccee94437ecc92 43-48
+contrib/cassette-metadata-tests.js
+  s_f6d960a9f76417::t_fcf1eae4058656 26-29
+lib/ecosystems/ecosystems.batch.poku.js
+  s_f6d960a9f76417::t_af86ce001dc310 108-110,158-160
+lib/ecosystems/mavenMetadata.poku.js
+  s_f6d960a9f76417::t_7ddb3333eaf713 30
+lib/ecosystems/scalaPublishedArtifact.poku.js
+  s_f6d960a9f76417::t_4575a4ff76521d 32
+lib/inventory/source.poku.js
+  s_f6d960a9f76417::t_6d2b1202496a05 426-435,437-456,458-461,463-467,469-491
+test/helpers/introspection-e2e.js
+  s_f6d960a9f76417::t_a98b2c39c3932e 27,30-35,45-67,512,514,519
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "7f65ce503fd74e0923a88aa6a068600c069ff3fd",
+  "prompts": {},
+  "sessions": {
+    "s_f6d960a9f76417": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "42f27ed7-ece4-4562-ad06-cb646b54d063",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
