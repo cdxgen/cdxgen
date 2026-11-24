@@ -1,0 +1,57 @@
+package.json
+  s_2096c3eed2e65b::t_b8b271629e0dc3 172-173
+lib/validator/formats.js
+  s_2096c3eed2e65b::t_1fab314a1e86be 1-137,140-208,212-284,290-384
+  s_2096c3eed2e65b::t_d30e31974ec5dd 138-139,209-211,285-289
+lib/validator/generated/validate-1.7.mjs
+  s_2096c3eed2e65b::t_b8b271629e0dc3 3,14,479,944,967,2530,2618,4545,8637,8660,9026,9049,9072,9095,9118,9489,9512,9535,9558,13074,14958,14981,15004,15027,15457,15480,16341,16655,18352,19693,19716,20332,20355,21527,21730,21753,21776,22350,24043,24066
+lib/validator/generated/validate-spdx-export.mjs
+  s_2096c3eed2e65b::t_b8b271629e0dc3 1-31658
+lib/validator/generated/runtime.mjs
+  s_2096c3eed2e65b::t_b8b271629e0dc3 7-13,15-16,18-20,24-25
+  s_2096c3eed2e65b::t_76c54714c82f7d 26
+lib/validator/bomValidator.js
+  s_2096c3eed2e65b::t_a43824d3c7bdc8 2,23,49-70,76-81,83-84,161,177-188,239-242,249-251,267-275,280,282-293,297
+lib/validator/generated/validate-1.6.mjs
+  s_2096c3eed2e65b::t_b8b271629e0dc3 3,14,477,1198,1221,1932,2020,3867,7420,7443,7638,7661,7684,7707,10693,12539,12562,12585,12608,13038,13061,13922,14236,15933,17274,17297,17913,17936,20617,20640
+lib/validator/bomValidator.poku.js
+  s_2096c3eed2e65b::t_6adc971ec64397 123,152,155,176,179-181,183
+  s_2096c3eed2e65b::t_16a7ae556c7dbd 148,178
+contrib/gen-validators.mjs
+  s_2096c3eed2e65b::t_4d1fffafa9b5ba 12-19,50,60-64,72-79,145-147,162-168,170-171,173-175,179-181,206,241-253,276-278
+  s_2096c3eed2e65b::t_33a2cc9e4ab141 279
+lib/validator/precompiled-parity.poku.js
+  s_2096c3eed2e65b::t_0e2ec0bb0e6304 487-488,520-524
+  s_2096c3eed2e65b::t_d30e31974ec5dd 22,353-358,361-400,432-486,489-519,525-570
+  s_2096c3eed2e65b::t_18bb45574ccda8 571
+docs/ENV.md
+  s_2096c3eed2e65b::t_38c31818b87fa5 412
+lib/validator/generated/validate-2.0.mjs
+  s_2096c3eed2e65b::t_a76ab3396b5172 3,487,1149,1172,1588,1611,6810,7749,7772,9827,9915,11821,12027,12050,12970,13285,13705,18858,18881,19199,19222,19245,19268,19291,19752,19775,19798,19821,21066,21089,25616,26454,28118,30034,31225,31248,31271,31294,31606,31629,39983,41658,42408,42682,44086,44393,45380,46607,46630,47189,47212,48609,48632,51341,51558,51581,51604,54361,54441,54476,54561,54584,63626,65561
+pnpm-lock.yaml
+  s_2096c3eed2e65b::t_e1f0765816b776 247-252
+types/lib/stages/postgen/introspection/report.d.ts.map
+  s_2096c3eed2e65b::t_d4af6e1056acb8 1
+types/lib/validator/bomValidator.d.ts.map
+  s_2096c3eed2e65b::t_c45ec4cce4c61c 1
+types/lib/validator/formats.d.ts
+  s_2096c3eed2e65b::t_9b485c3d258e85 1-49
+types/lib/validator/formats.d.ts.map
+  s_2096c3eed2e65b::t_ea45e97f1643c8 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "9968ccff8d953f64a470aa72380f244011e941c0",
+  "prompts": {},
+  "sessions": {
+    "s_2096c3eed2e65b": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "ec40cc10-ad3b-4572-9c16-6febc5320952",
+        "model": "claude-sonnet-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
