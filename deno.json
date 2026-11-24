@@ -89,8 +89,6 @@
     "@bufbuild/protobuf": "npm:@bufbuild/protobuf@2.17.0",
     "@babel/parser": "npm:@babel/parser@8.0.10",
     "@babel/traverse": "npm:@babel/traverse@8.0.10",
-    "ajv": "npm:ajv@8.20.0",
-    "ajv-formats": "npm:ajv-formats@3.0.1",
     "edn-data": "npm:edn-data@1.2.2",
     "glob": "npm:glob@14.0.4",
     "node-stream-zip": "npm:node-stream-zip@1.16.0",

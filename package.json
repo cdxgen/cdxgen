@@ -152,8 +152,6 @@
     "@npmcli/map-workspaces": "6.0.0",
     "@npmcli/name-from-folder": "5.0.0",
     "@npmcli/package-json": "8.0.0",
-    "ajv": "8.20.0",
-    "ajv-formats": "3.0.1",
     "common-ancestor-path": "2.0.0",
     "edn-data": "1.2.2",
     "glob": "14.0.4",
@@ -172,6 +170,8 @@
   },
   "devDependencies": {
     "@biomejs/biome": "2.6.6",
+    "ajv": "8.20.0",
+    "ajv-formats": "3.0.1",
     "esmock": "3.0.0",
     "poku": "4.5.0",
     "sinon": "22.1.0",

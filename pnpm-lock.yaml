@@ -198,12 +198,6 @@ importers:
       '@npmcli/package-json':
         specifier: 8.0.0
         version: 8.0.0
-      ajv:
-        specifier: 8.20.0
-        version: 8.20.0
-      ajv-formats:
-        specifier: 3.0.1
-        version: 3.0.1(ajv@8.20.0)
       common-ancestor-path:
         specifier: 2.0.0
         version: 2.0.0
@@ -253,6 +247,12 @@ importers:
       '@biomejs/biome':
         specifier: 2.6.6
         version: 2.6.6
+      ajv:
+        specifier: 8.20.0
+        version: 8.20.0
+      ajv-formats:
+        specifier: 3.0.1
+        version: 3.0.1(ajv@8.20.0)
       esmock:
         specifier: 3.0.0
         version: 3.0.0
