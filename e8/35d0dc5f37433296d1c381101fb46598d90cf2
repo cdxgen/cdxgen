@@ -1,0 +1,65 @@
+lib/ecosystems/parsers-js.js
+  s_2096c3eed2e65b::t_6e3c44b73accbb 932,939,942-945
+  s_2096c3eed2e65b::t_fa94c7bfb174c1 27
+lib/core/integrity.poku.js
+  s_2096c3eed2e65b::t_6e3c44b73accbb 51
+  s_2096c3eed2e65b::t_53e62f08fd5db2 1-50,52-96
+lib/cli/bomAssembly.js
+  s_2096c3eed2e65b::t_fa94c7bfb174c1 29
+  s_2096c3eed2e65b::t_6e3c44b73accbb 1731,1734-1743
+lib/ecosystems/utils.poku.js
+  s_2096c3eed2e65b::t_cac6ad6628d681 8
+  s_2096c3eed2e65b::t_b451999990c5e2 35,37,40-41,45,48,55,58,62
+  s_2096c3eed2e65b::t_1ec23babf4a830 7
+lib/third-party/arborist/lib/package-extensions.js
+  s_2096c3eed2e65b::t_6e3c44b73accbb 220
+  s_2096c3eed2e65b::t_d08fc392a55904 3
+lib/core/integrity.js
+  s_2096c3eed2e65b::t_53e62f08fd5db2 1-83
+lib/ecosystems/parsers-js.poku.js
+  s_2096c3eed2e65b::t_b451999990c5e2 5858-5861
+types/lib/cli/bomAssembly.d.ts.map
+  s_2096c3eed2e65b::t_f23732bbd9c710 1
+types/lib/core/integrity.d.ts
+  s_2096c3eed2e65b::t_1661866d366970 1-22
+types/lib/core/integrity.d.ts.map
+  s_2096c3eed2e65b::t_8a4fbc424e7289 1
+types/lib/ecosystems/parsers-js.d.ts
+  s_2096c3eed2e65b::t_222f43171a7188 56,63
+types/lib/ecosystems/parsers-js.d.ts.map
+  s_2096c3eed2e65b::t_ace720b82c48ed 1
+types/lib/third-party/arborist/lib/package-extensions.d.ts
+  s_2096c3eed2e65b::t_8cee92f5fe98b5 8,18
+types/lib/third-party/arborist/lib/package-extensions.d.ts.map
+  s_2096c3eed2e65b::t_67cbf28bf23a1f 1
+docs/LESSON21.md
+  s_2096c3eed2e65b::t_fc455c0a246704 149
+.github/scripts/build-standalone.ps1
+  s_2096c3eed2e65b::t_7d18da4af0dbf7 537-538,544-545
+docs/CLI.md
+  s_2096c3eed2e65b::t_fc455c0a246704 294
+README.md
+  s_2096c3eed2e65b::t_fc455c0a246704 186
+.github/scripts/build-standalone.sh
+  s_2096c3eed2e65b::t_7d18da4af0dbf7 657
+contrib/arborist-manifest.json
+  s_2096c3eed2e65b::t_400577a25ae83f 26
+contrib/arborist-patches/package-extensions-integrity.patch
+  s_2096c3eed2e65b::t_400577a25ae83f 1-17
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "e835d0dc5f37433296d1c381101fb46598d90cf2",
+  "prompts": {},
+  "sessions": {
+    "s_2096c3eed2e65b": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "ec40cc10-ad3b-4572-9c16-6febc5320952",
+        "model": "claude-sonnet-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
