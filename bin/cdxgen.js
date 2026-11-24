@@ -2529,17 +2529,23 @@ const writeCycloneDxOutput = (jsonFile, bomJson, options) => {
         sourcePath: srcDir,
       });
       const evinserModule = await import("../lib/evinser/evinser.js");
-      if (!options.projectType) {
+      // A container or manifest type such as universal names no language an
+      // analyzer reads, so the BOM decides the language as it does when no
+      // type was given.
+      let evidenceProjectType = evinserModule.evidenceProjectTypes(
+        options.projectType,
+      );
+      if (!evidenceProjectType) {
         const evidenceLanguage = evinserModule.defaultEvidenceLanguage(
           srcDir,
           getInternalBom(bomNSData),
           options,
         );
         if (evidenceLanguage) {
-          options.projectType = [evidenceLanguage];
+          evidenceProjectType = [evidenceLanguage];
         }
       }
-      if (!options.projectType) {
+      if (!evidenceProjectType) {
         console.log(
           "Skipping the evidence analysis since the BOM lists no package in a language it supports. Pass -t to choose the language.",
         );
@@ -2558,7 +2564,7 @@ const writeCycloneDxOutput = (jsonFile, bomJson, options) => {
         }
       } else {
         const evinseOptions = evinserModule.buildEvinseOptions(
-          options,
+          { ...options, projectType: evidenceProjectType },
           { ...args, _: [srcDir] },
           internalCycloneDxInputPath || options.output,
         );

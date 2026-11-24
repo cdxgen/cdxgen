@@ -112,10 +112,10 @@ export declare const analyzeJsCryptoFile: (filePath: string) => {
  * libraries) across all JavaScript/TypeScript files found.
  *
  * @param {string} src Path to the source directory to scan.
- * @param {boolean} [deep=false] When true, includes node_modules and nested directories.
+ * @param {boolean|Object} [deep=false] When true, includes node_modules and nested directories. An object `{ deep, exclude, noIgnore }` also names the exclude patterns.
  * @returns {Promise<{algorithms: Object[], libraries: string[]}>} Aggregated crypto inventory (empty arrays when no files are found).
  */
-export declare const detectJsCryptoInventory: (src: string, deep?: boolean) => Promise<{
+export declare const detectJsCryptoInventory: (src: string, deep?: boolean | Object) => Promise<{
     algorithms: Object[];
     libraries: string[];
 }>;

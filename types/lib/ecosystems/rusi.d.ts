@@ -34,6 +34,48 @@ export declare function isRusiRustLanguage(language: string): boolean;
  */
 export declare function readRusiJsonFile(jsonFile: string): Object | undefined;
 /**
+ * Choose the directory rusi analyzes, and name the crates it leaves out.
+ *
+ * rusi runs `cargo metadata` in the directory it is given, so a repository
+ * whose only `Cargo.toml` sits in a subdirectory needs that subdirectory. The
+ * scanned directory is used when it holds a `Cargo.toml`. Otherwise a nested
+ * Cargo workspace root is used (the nearest one), and failing that the crate
+ * nearest to the scanned directory, with ties settled by path. `target`
+ * directories and the `--exclude` patterns are skipped. One rusi run covers
+ * one cargo project, so crates outside the chosen directory are returned in
+ * `skipped`, relative to the scanned directory. When no crate is found the
+ * scanned directory is returned, so rusi reports its own error for it.
+ *
+ * @param {string} dir The scanned directory.
+ * @param {Object} [options] CLI options; `options.exclude` is honoured.
+ * @returns {{dir: string, skipped: string[]}} The directory to pass to rusi
+ * and the crates that analysis does not cover
+ */
+export declare function selectCargoProject(dir: string, options?: Object): {
+    dir: string;
+    skipped: string[];
+};
+/**
+ * The directory rusi should analyze for a scanned directory, as chosen by
+ * {@link selectCargoProject}.
+ *
+ * @param {string} dir The scanned directory.
+ * @param {Object} [options] CLI options; `options.exclude` is honoured.
+ * @returns {string} The directory to pass to rusi
+ */
+export declare function resolveCargoProjectDir(dir: string, options?: Object): string;
+/**
+ * Whether the installed rusi can analyze every crate below a directory in one
+ * report (`--discover`, with `--exclude`). The answer comes from the help text
+ * of the subcommand, so it follows the binary and not a version number, and it
+ * is remembered per executable.
+ *
+ * @param {string} executable Path of the rusi binary
+ * @param {string} mode `analyze` or `cryptos`
+ * @returns {boolean} True when `--discover` is documented
+ */
+export declare function rusiSupportsMultiDir(executable: string, mode?: string): boolean;
+/**
  * Invokes the rusi binary to analyze a codebase.
  *
  * @param {string} src Directory to analyze.

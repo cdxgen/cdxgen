@@ -11,6 +11,17 @@
  */
 export declare function mergeAnalyzerMetadataProperties(component: Object, metadataProperties?: Object[]): void;
 /**
+ * The project types of a run that an evidence analyzer can read. The
+ * `universal` type and its container and manifest aliases (dockerfile,
+ * kubernetes, tekton and the like) describe the files a scan looks at, not a
+ * language, so atom has no frontend for them.
+ *
+ * @param {string[]|undefined} projectType Project types of the run
+ * @returns {string[]|undefined} The types left once those are removed, or
+ * `undefined` when none is left, so the BOM decides the language
+ */
+export declare function evidenceProjectTypes(projectType: string[] | undefined): string[] | undefined;
+/**
  * The evidence language of a `cdxgen --evidence` run that names no project
  * type.
  *
