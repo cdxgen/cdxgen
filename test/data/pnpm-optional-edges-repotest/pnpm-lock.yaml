@@ -1,0 +1,71 @@
+lockfileVersion: '9.0'
+
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
+importers:
+
+  .:
+    dependencies:
+      '@acme/squeeze':
+        specifier: 1.0.0
+        version: 1.0.0
+    optionalDependencies:
+      body-reader:
+        specifier: 2.0.0
+        version: 2.0.0
+    peerDependencies:
+      host-lib:
+        specifier: 1.0.0
+        version: 1.0.0
+
+  packages/legacy:
+    dependencies:
+      body-reader:
+        specifier: 1.0.0
+        version: 1.0.0
+
+  packages/web:
+    optionalDependencies:
+      '@acme/squeeze':
+        specifier: 2.0.0
+        version: 2.0.0
+    peerDependencies:
+      ui-peer:
+        specifier: 3.0.0
+        version: 3.0.0
+
+packages:
+
+  '@acme/squeeze@1.0.0':
+    resolution: {integrity: sha512-ZvVB9mLtRpTAmlzgYi5U5waknUGfztKZOW75pgYBH0IQxxqcpqOW7HMHVeex9jQc6wHThNCBL/JutaDwXbzEIw==}
+
+  '@acme/squeeze@2.0.0':
+    resolution: {integrity: sha512-pil8cF+6NweFRIZ8DUNHWThkWcXtIW8MFTTpiV8lDiWo/Is/PB0xEXAle7gDgoau50EzrfvgORESV4HF8sZGZw==}
+
+  body-reader@1.0.0:
+    resolution: {integrity: sha512-EBB1fGVSppGJhCamdcm2RarW+sEJDGmKlbXuFZTAcAmfg4s6Gtiihaaps82/4uAUTwSwd5kpc1MwBweS8o4dxA==}
+
+  body-reader@2.0.0:
+    resolution: {integrity: sha512-AL5VuqMjl+++gNTDYyGcwgIutUV58uJTm5rcISyIlA9hsMbGtOkefxRqDem2fh9ksPOPxCTXrWDvTVkZNf1bbA==}
+
+  host-lib@1.0.0:
+    resolution: {integrity: sha512-xbDN7QwHLcdF7pyqLouCjVlH2jjYbvIVPYMRQfAbsvBWEykZP4R3B9M8ILd4+/pgTG0U9xckbIE2U+aAaqvLww==}
+
+  ui-peer@3.0.0:
+    resolution: {integrity: sha512-yiIOzstSZNla4TRBVZVO9ktKSNFZocyenwocwKOznOsytendQXb8m7dWESjYvrttAFj6HADitbKz/ZkvN7kl9A==}
+
+snapshots:
+
+  '@acme/squeeze@1.0.0': {}
+
+  '@acme/squeeze@2.0.0': {}
+
+  body-reader@1.0.0: {}
+
+  body-reader@2.0.0: {}
+
+  host-lib@1.0.0: {}
+
+  ui-peer@3.0.0: {}

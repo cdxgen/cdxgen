@@ -654,13 +654,12 @@ install_profile_dependencies() {
         selected_optional_packages=(jsonata)
         ;;
       proto-reader)
-        selected_optional_packages=(@cdxgen/cdx-proto @bufbuild/protobuf)
+        selected_optional_packages=(@cdxgen/cdx-proto)
         ;;
       hbom-runtime)
         selected_optional_packages=(
           @cdxgen/cdx-hbom
           @cdxgen/cdx-proto
-          @bufbuild/protobuf
           "$(resolve_platform_plugin_package_name)"
         )
         ;;
@@ -676,13 +675,11 @@ install_profile_dependencies() {
           @appthreat/atom
           @appthreat/atom-parsetools
           @cdxgen/cdx-proto
-          @bufbuild/protobuf
         )
         ;;
       os-runtime)
         selected_optional_packages=(
           @cdxgen/cdx-proto
-          @bufbuild/protobuf
           "$(resolve_platform_plugin_package_name)"
         )
         ;;

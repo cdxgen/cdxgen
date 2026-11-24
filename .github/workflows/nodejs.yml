@@ -40,6 +40,12 @@ concurrency:
 # https://docs.github.com/en/actions/writing-workflows/choosing-what-your-workflow-does/controlling-permissions-for-github_token
 permissions: {}
 
+# Gradle and Maven fetch from Google's mirror of Maven Central. Maven Central
+# answers the shared runners with HTTP 429, which fails the JVM tests for a
+# reason unrelated to the change under test.
+env:
+  MAVEN_CENTRAL_MIRROR: "true"
+
 jobs:
   read-node-versions:
     runs-on: 'ubuntu-latest'

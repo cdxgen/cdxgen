@@ -5,7 +5,7 @@ declare const parseSelector: (key: any) => {
 };
 declare const rangeMatches: (range: any, version: any) => any;
 declare const canonicalStringify: (val: any) => any;
-declare const canonicalHash: (packageExtensions: any) => any;
+declare const canonicalHash: (packageExtensions: any) => string;
 declare class PackageExtensions {
     raw: any;
     present: boolean;
@@ -15,7 +15,7 @@ declare class PackageExtensions {
         range: string | null;
         ext: any;
     }[];
-    hash: any;
+    hash: string | null;
     constructor(raw: any);
     wouldMatch(name: any, version: any): boolean;
     match(name: any, version: any): {

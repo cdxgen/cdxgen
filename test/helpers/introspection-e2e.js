@@ -24,8 +24,14 @@ import {
   rmSync,
 } from "node:fs";
 import { homedir, tmpdir as osTmpdir } from "node:os";
-import { dirname, join } from "node:path";
+import { basename, dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
+
+import {
+  gradleMirrorInitScriptArgs,
+  mavenMirrorSettingsArgs,
+  mavenWrapperMirrorEnv,
+} from "../../lib/inventory/mavenCentralMirror.js";
 
 /** Repository root, resolved once from this file's location. */
 export const repoRoot = join(
@@ -35,6 +41,29 @@ export const repoRoot = join(
 );
 
 const CDXGEN_BIN = join(repoRoot, "bin", "cdxgen.js");
+
+const MAVEN_TOOLS = new Set(["mvn", "mvn.cmd", "mvnw", "mvnw.cmd"]);
+const GRADLE_TOOLS = new Set(["gradle", "gradle.bat", "gradlew", "gradlew.bat"]);
+
+/**
+ * Arguments and environment that point a report's Maven or Gradle build action
+ * at the Maven Central mirror named by MAVEN_CENTRAL_MIRROR, the same way
+ * cdxgen points the build tools it runs itself. Nothing is added when the
+ * variable is unset.
+ *
+ * @param {string} tool Executable the action runs
+ * @returns {{args: string[], env: Object}} Extra arguments and environment
+ */
+function buildToolMirror(tool) {
+  const name = basename(`${tool}`);
+  if (MAVEN_TOOLS.has(name)) {
+    return { args: mavenMirrorSettingsArgs(), env: mavenWrapperMirrorEnv() };
+  }
+  if (GRADLE_TOOLS.has(name)) {
+    return { args: gradleMirrorInitScriptArgs(), env: {} };
+  }
+  return { args: [], env: {} };
+}
 
 /** Introspection variables that must never leak between harness runs. */
 const INTROSPECTION_ENV_VARS = ["CDXGEN_INTROSPECT", "CDXGEN_INTROSPECT_LEDGER"];
@@ -480,13 +509,14 @@ export async function applyRemediationActions(entry, context) {
         );
       }
       const [tool, ...args] = `${action.command}`.split(" ").filter(Boolean);
+      const mirror = buildToolMirror(tool);
       const result = await runQueued(() =>
-        spawnSync(tool, args, {
+        spawnSync(tool, [...args, ...mirror.args], {
           cwd: projectDir,
           encoding: "utf-8",
           timeout: 600000,
           shell: process.platform === "win32",
-          env: { ...process.env, ...env },
+          env: { ...process.env, ...env, ...mirror.env },
         }),
       );
       if (result.status !== 0) {

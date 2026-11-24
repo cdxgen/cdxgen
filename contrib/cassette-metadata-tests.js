@@ -23,6 +23,10 @@ import { startReplay, CassetteMissError } from "./cassette.js";
 const REPO_ROOT = path.resolve(import.meta.dirname, "..");
 const CASSETTES_DIR = path.join(REPO_ROOT, "test", "repotests", "_cassettes");
 
+// The cassettes were recorded against Maven Central, so the requests must not
+// be moved to a mirror.
+delete process.env.MAVEN_CENTRAL_MIRROR;
+
 let passed = 0;
 let failed = 0;
 

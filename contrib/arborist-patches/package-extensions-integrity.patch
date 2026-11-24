@@ -1,0 +1,17 @@
+TARGET: lib/package-extensions.js
+REASON: ssri is used for one sha512 digest of a string.  cdxgen computes that
+  with node:crypto through lib/core/integrity.js, so the package does not have
+  to be installed.  The output is the same `sha512-<base64>` string.
+
+---
+SEARCH:
+import ssri from "ssri";
+REPLACE:
+import { integrityOf } from "../../../core/integrity.js";
+---
+SEARCH:
+  ssri
+    .fromData(canonicalStringify(packageExtensions), { algorithms: ["sha512"] })
+    .toString();
+REPLACE:
+  integrityOf(canonicalStringify(packageExtensions), "sha512");

@@ -152,8 +152,6 @@
     "@npmcli/map-workspaces": "6.0.0",
     "@npmcli/name-from-folder": "5.0.0",
     "@npmcli/package-json": "8.0.0",
-    "ajv": "8.20.0",
-    "ajv-formats": "3.0.1",
     "common-ancestor-path": "2.0.0",
     "edn-data": "1.2.2",
     "glob": "14.0.4",
@@ -162,7 +160,6 @@
     "parse-conflict-json": "6.0.0",
     "semver": "7.8.6",
     "smol-toml": "1.9.1",
-    "ssri": "14.0.0",
     "tar": "7.5.22",
     "treeverse": "3.0.0",
     "undici": "8.12.4",
@@ -172,6 +169,8 @@
   },
   "devDependencies": {
     "@biomejs/biome": "2.6.6",
+    "ajv": "8.20.0",
+    "ajv-formats": "3.0.1",
     "esmock": "3.0.0",
     "poku": "4.5.0",
     "sinon": "22.1.0",
@@ -180,7 +179,6 @@
   "optionalDependencies": {
     "@appthreat/atom": "4.0.2",
     "@appthreat/atom-parsetools": "2.0.0",
-    "@bufbuild/protobuf": "2.17.0",
     "@cdxgen/cdx-hbom": "0.8.0",
     "@cdxgen/cdx-proto": "2.3.1",
     "@cdxgen/cdxgen-plugins-bin": "4.3.1",
