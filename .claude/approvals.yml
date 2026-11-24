@@ -1,0 +1,62 @@
+# Claude Approvals policy for cdxgen.
+#
+# Documentation, tests and the non-gating contrib scripts are enforced:
+# Claude approves them once its review passes. Everything else, which is
+# the source code and the files that build, test, release or instruct
+# agents, is observed only, so the check reports what it would decide and
+# Claude does not approve. A pull request that mixes both kinds is never
+# approved by Claude, because no enforced rule covers its source files.
+version: 1
+locals:
+  approve_after_review:
+    verdict: { claude: comments, seats: 1 }
+    override:
+      - { if: "claude/code_review = pass", verdict: { claude: approves, seats: 0 } }
+rules:
+  - purpose: "Source code and every file not listed below is observed: the check reports, and Claude does not approve."
+    paths: ["**"]
+    mode: observe
+    verdict: { claude: comments, seats: 1 }
+    override:
+      - { if: "claude/code_review = pass", verdict: { claude: approves, seats: 1 } }
+
+  - purpose: "Documentation is approved by Claude once its review passes. Agent and review instructions are not documentation."
+    paths:
+      - "docs/**"
+      - "**/*.md"
+      - "!**/AGENTS.md"
+      - "!**/CLAUDE.md"
+      - "!**/REVIEW.md"
+      - "!.github/**"
+      - "!.claude/**"
+      - "!.agents/**"
+    use: ["@approve_after_review"]
+
+  - purpose: "Tests and fixtures are approved by Claude once its review passes. The test environment file is not."
+    paths:
+      - "test/**"
+      - "lib/**/*.poku.js"
+      - "!test/poku.env"
+    use: ["@approve_after_review"]
+
+  - purpose: "Contrib scripts are approved by Claude once its review passes, except the scripts and data that CI runs as gates."
+    paths:
+      - "contrib/**"
+      - "!contrib/check-*.js"
+      - "!contrib/golden-runner.js"
+      - "!contrib/mutation-tests.js"
+      - "!contrib/shuffle-tests.js"
+      - "!contrib/cassette-metadata-tests.js"
+      - "!contrib/fetch-parity-test.js"
+      - "!contrib/rs-disable-golden-test.js"
+      - "!contrib/alt-runtime-tests.js"
+      - "!contrib/gen-validators.mjs"
+      - "!contrib/sbom-diff.js"
+      - "!contrib/sbom-normalize.js"
+      - "!contrib/vendor-arborist.mjs"
+      - "!contrib/arborist-manifest.json"
+      - "!contrib/arborist-patches/**"
+      - "!contrib/license-policy.yml"
+      - "!contrib/bom-signer/**"
+      - "!contrib/free_disk_space.sh"
+    use: ["@approve_after_review"]
