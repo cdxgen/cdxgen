@@ -1,0 +1,65 @@
+lib/ecosystems/jsEvidence.js
+  s_f6d960a9f76417::t_d14027ae112510 354
+lib/ecosystems/npmVersionResolution.js
+  s_f6d960a9f76417::t_6cd3383875bb15 107-144,148-153,155,158,165,168,170-171,175,177-179,279
+  s_f6d960a9f76417::t_ccfca7f3cf4cb0 10
+  s_f6d960a9f76417::t_d4809a0c5e27be 180,251,276
+lib/ecosystems/npmVersionResolution.poku.js
+  s_f6d960a9f76417::t_52f8257e1c2252 193-252
+lib/ecosystems/parsers-js.js
+  s_f6d960a9f76417::t_a7ce8ed7b32620 4870-4871,4876,4878-4879,4881-4882,4885-4889
+  s_f6d960a9f76417::t_1ee9eef4ca1590 4673-4676,4678,4680-4681,4687,4695
+lib/cli/jsBom.poku.js
+  s_f6d960a9f76417::t_916cc2db86f0c9 2225-2231
+  s_2096c3eed2e65b::t_d5e93270a59a5c 2209-2224,2232-2266
+test/data/pnpm-optional-edges-repotest/index.js
+  s_f6d960a9f76417::t_beda9865e15ecb 1-3
+test/data/pnpm-optional-edges-repotest/package.json
+  s_f6d960a9f76417::t_2446e96ae6d3ae 1-14
+test/data/pnpm-optional-edges-repotest/packages/legacy/index.js
+  s_f6d960a9f76417::t_d3c1d2eb7383fe 1-3
+test/data/pnpm-optional-edges-repotest/packages/legacy/package.json
+  s_f6d960a9f76417::t_1ef9020f39c184 1-8
+test/data/pnpm-optional-edges-repotest/packages/web/package.json
+  s_f6d960a9f76417::t_ee63e219407d1d 1-11
+test/data/pnpm-optional-edges-repotest/packages/web/server.js
+  s_f6d960a9f76417::t_09512550708b57 1-3
+test/data/pnpm-optional-edges-repotest/pnpm-lock.yaml
+  s_f6d960a9f76417::t_bb22aa5062a822 1-71
+test/data/pnpm-optional-edges-repotest/pnpm-workspace.yaml
+  s_f6d960a9f76417::t_f6d664e3eeccc2 1-2
+types/lib/ecosystems/jsEvidence.d.ts.map
+  s_f6d960a9f76417::t_4703a627e51564 1
+types/lib/ecosystems/npmVersionResolution.d.ts
+  s_f6d960a9f76417::t_3285bf314c3881 49-54,56,59,62,91,98
+types/lib/ecosystems/npmVersionResolution.d.ts.map
+  s_f6d960a9f76417::t_7e7d81b7a56b39 1
+types/lib/ecosystems/parsers-js.d.ts.map
+  s_f6d960a9f76417::t_ae7d6820572395 1
+types/lib/stages/postgen/introspection/report.d.ts.map
+  s_f6d960a9f76417::t_300f1d575e4e7d 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "a7f7f4c3f1a9a60afbd979a875b477718d9acbec",
+  "prompts": {},
+  "sessions": {
+    "s_2096c3eed2e65b": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "ec40cc10-ad3b-4572-9c16-6febc5320952",
+        "model": "claude-sonnet-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    },
+    "s_f6d960a9f76417": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "42f27ed7-ece4-4562-ad06-cb646b54d063",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
