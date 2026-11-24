@@ -53,14 +53,14 @@ export declare function parsePkgJson(pkgJsonFile: string, simple?: boolean, secu
  */
 export declare function parseLocalPkgJsonOnce(pkgJsonFile: string): Promise<Array<object>>;
 /**
- * Hash a root `.npm-extension` file exactly as npm does: ssri sha512 over
+ * Hash a root `.npm-extension` file exactly as npm does: a sha512 integrity string over
  * `npm-extension:v1:<format>\n` followed by the raw file bytes. Mirrors
  * `hashFile` in the vendored arborist's upstream npm-extension.js so the value
  * is comparable to what npm writes into the lockfile as `npmExtensionHash`.
  *
  * @param {string} format Either "mjs" or "cjs"
  * @param {Buffer} bytes Raw file contents
- * @returns {string} ssri integrity string
+ * @returns {string} Integrity string (`sha512-<base64>`)
  */
 export declare function hashNpmExtensionFile(format: string, bytes: Buffer): string;
 /**
