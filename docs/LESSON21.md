@@ -146,7 +146,7 @@ cdx-convert -i bom.json --to 1.7 -o bom-as-proto.cdx
 
 When the output path ends in a protobuf extension, the converter writes binary
 protobuf. When it ends in `.json`, it writes JSON. Protobuf support requires
-the optional `@cdxgen/cdx-proto` and `@bufbuild/protobuf` dependencies. If
+the optional `@cdxgen/cdx-proto` dependency, which installs `@bufbuild/protobuf`. If
 they are missing, the error message tells you exactly what to install.
 
 ## Step 4: Validating the converted output

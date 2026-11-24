@@ -534,15 +534,15 @@ function Install-ProfileDependencies {
   } else {
     switch ($Profile) {
       "audit" { $selectedOptionalPackages = @("jsonata") }
-      "proto-reader" { $selectedOptionalPackages = @("@cdxgen/cdx-proto", "@bufbuild/protobuf") }
-      "hbom-runtime" { $selectedOptionalPackages = @("@cdxgen/cdx-hbom", "@cdxgen/cdx-proto", "@bufbuild/protobuf", (Resolve-PlatformPluginPackageName)) }
+      "proto-reader" { $selectedOptionalPackages = @("@cdxgen/cdx-proto") }
+      "hbom-runtime" { $selectedOptionalPackages = @("@cdxgen/cdx-hbom", "@cdxgen/cdx-proto", (Resolve-PlatformPluginPackageName)) }
       "hbom-slim" { $selectedOptionalPackages = @("@cdxgen/cdx-hbom") }
       # atom's payload is a per-platform sub-package of @appthreat/atom, not
       # named here: pnpm picks the one matching the target's os/cpu/libc once
       # optional resolution is enabled. Asserted explicitly below. Kept in step
       # with build-standalone.sh.
-      "atom-analysis" { $selectedOptionalPackages = @("@appthreat/atom", "@appthreat/atom-parsetools", "@cdxgen/cdx-proto", "@bufbuild/protobuf") }
-      "os-runtime" { $selectedOptionalPackages = @("@cdxgen/cdx-proto", "@bufbuild/protobuf", (Resolve-PlatformPluginPackageName)) }
+      "atom-analysis" { $selectedOptionalPackages = @("@appthreat/atom", "@appthreat/atom-parsetools", "@cdxgen/cdx-proto") }
+      "os-runtime" { $selectedOptionalPackages = @("@cdxgen/cdx-proto", (Resolve-PlatformPluginPackageName)) }
       "trace-runtime" { $selectedOptionalPackages = @("@cdxgen/cdx-proto", (Resolve-SaferExecPackageName)) }
       { $_ -in @("no-optional", "json-signature") } { }
       default { throw "Unknown standalone dependency profile: $Profile" }
