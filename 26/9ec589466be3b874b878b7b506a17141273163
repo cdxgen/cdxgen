@@ -1,0 +1,21 @@
+contrib/arborist-manifest.json
+  s_2096c3eed2e65b::t_400577a25ae83f 26
+contrib/arborist-patches/package-extensions-integrity.patch
+  s_2096c3eed2e65b::t_400577a25ae83f 1-17
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "269ec589466be3b874b878b7b506a17141273163",
+  "prompts": {},
+  "sessions": {
+    "s_2096c3eed2e65b": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "ec40cc10-ad3b-4572-9c16-6febc5320952",
+        "model": "claude-sonnet-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
