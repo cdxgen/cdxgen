@@ -1,0 +1,27 @@
+docs/LESSON21.md
+  s_2096c3eed2e65b::t_fc455c0a246704 149
+.github/scripts/build-standalone.ps1
+  s_2096c3eed2e65b::t_7d18da4af0dbf7 537-538,544-545
+docs/CLI.md
+  s_2096c3eed2e65b::t_fc455c0a246704 294
+README.md
+  s_2096c3eed2e65b::t_fc455c0a246704 186
+.github/scripts/build-standalone.sh
+  s_2096c3eed2e65b::t_7d18da4af0dbf7 657
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "a4d6304958d66ac5df517cc05e554457ec9017d9",
+  "prompts": {},
+  "sessions": {
+    "s_2096c3eed2e65b": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "ec40cc10-ad3b-4572-9c16-6febc5320952",
+        "model": "claude-sonnet-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
