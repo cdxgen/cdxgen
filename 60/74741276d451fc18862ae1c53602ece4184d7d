@@ -1,0 +1,19 @@
+.github/workflows/nodejs.yml
+  s_dd234644e03c78::t_c88b8a0566d7dd 263-264,271
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "6074741276d451fc18862ae1c53602ece4184d7d",
+  "prompts": {},
+  "sessions": {
+    "s_dd234644e03c78": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "02d27eec-eb02-4500-ba47-8bf0a69ec44b",
+        "model": "claude-sonnet-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
