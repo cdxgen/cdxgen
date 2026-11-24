@@ -1,0 +1,14 @@
+{
+  "name": "optional-edges-root",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "@acme/squeeze": "1.0.0"
+  },
+  "optionalDependencies": {
+    "body-reader": "2.0.0"
+  },
+  "peerDependencies": {
+    "host-lib": "1.0.0"
+  }
+}

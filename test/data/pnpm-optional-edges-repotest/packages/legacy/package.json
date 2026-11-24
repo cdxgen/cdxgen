@@ -1,0 +1,8 @@
+{
+  "name": "@repo/legacy",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "body-reader": "1.0.0"
+  }
+}

@@ -46,18 +46,20 @@ export declare function directDependencyRefs(dependencies: Array<{
 /**
  * The direct dependencies that apply to a project file, nearest first.
  *
- * A file inside an npm workspace member (a component with
- * `cdx:npm:isWorkspace=true` and its directory in `cdx:npm:resolvedPath`,
- * relative to the project) depends first on what that member declares, then
- * on what the project root declares, since Node.js finds the root's hoisted
- * copies from inside a member too. Any other file depends on the root's.
+ * A file inside a workspace member (see `workspaceMemberDirectory`) depends
+ * first on what that member declares, then on what the project root declares,
+ * since Node.js finds the root's hoisted copies from inside a member too. Any
+ * other file depends on the root's. A member listed among the roots does not
+ * lend its declarations to the root: a file outside the member cannot load a
+ * package that only the member declares.
  *
- * @param {Object[]} components Components or package list
+ * @param {Object[]} components Components or package list, workspace members included
  * @param {Object[]} dependencies Dependency tree
  * @param {string[]} rootRefs bom-refs of the project and the sub-components it lists
+ * @param {string} [srcDir] Directory the project's file names are relative to
  * @returns {function(string): Set<string>[]} Lookup from a file name, relative to the project, to sets of bom-refs
  */
-export declare function createDirectDependencyLookup(components: Object[], dependencies: Object[], rootRefs: string[]): Function;
+export declare function createDirectDependencyLookup(components: Object[], dependencies: Object[], rootRefs: string[], srcDir?: string): Function;
 /**
  * bom-refs of a parent component and the sub-components it lists, which are
  * the roots whose direct dependencies a project's own files use.
@@ -86,12 +88,14 @@ export declare function projectRootRefs(parentComponent: Object): string[];
  * @param {string} [context.srcDir] Directory the file names are relative to
  * @param {Object[]} [context.dependencies] Dependency tree
  * @param {string[]} [context.rootRefs] bom-refs of the project and the sub-components it lists
+ * @param {Object[]} [context.members] Sub-components of the project, such as pnpm workspace members, that are not in `pkgList`
  * @returns {{isAmbiguous: function(Object): boolean, allows: function(Object, string): boolean}} Chooser
  */
 export declare function createNpmVersionChooser(pkgList: Object[], context?: {
     srcDir?: string;
     dependencies?: Object[];
     rootRefs?: string[];
+    members?: Object[];
 }): {
     isAmbiguous: Function;
     (Object: any): boolean;
