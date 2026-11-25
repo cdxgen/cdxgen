@@ -1,0 +1,30 @@
+lockfileVersion: '9.0'
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+importers:
+  .:
+    dependencies:
+      '@angular/compiler-cli':
+        specifier: 21.2.26
+        version: 21.2.26(typescript@5.9.3)
+    devDependencies:
+      typescript:
+        specifier: ~5.9.2
+        version: 5.9.3
+packages:
+  '@angular/compiler-cli@21.2.26':
+    resolution: {integrity: sha512-AAAA}
+    peerDependencies:
+      typescript: '>=5.9 <6.1'
+    peerDependenciesMeta:
+      typescript:
+        optional: true
+  typescript@5.9.3:
+    resolution: {integrity: sha512-BBBB}
+    hasBin: true
+snapshots:
+  '@angular/compiler-cli@21.2.26(typescript@5.9.3)':
+    optionalDependencies:
+      typescript: 5.9.3
+  typescript@5.9.3: {}
