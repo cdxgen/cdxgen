@@ -1,0 +1,27 @@
+lib/ecosystems/parsers-js.js
+  s_00c16a898aef45::t_247a996cc2ca46 5604-5609
+  s_00c16a898aef45::t_1d3d6f4913421e 4669-4673,4857,4859-4860,4862-4863,4866-4868
+test/data/pnpm-lock-dev-optional-peer-member.yaml
+  s_00c16a898aef45::t_a6a68435cba7d4 1-31
+test/data/pnpm-lock-dev-optional-peer.yaml
+  s_00c16a898aef45::t_a6a68435cba7d4 1-30
+lib/ecosystems/parsers-js.poku.js
+  s_00c16a898aef45::t_de83e10b9aea59 7042,7045-7048
+  s_00c16a898aef45::t_a6a68435cba7d4 7039-7041,7043-7044,7049-7064
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "b56a94aea2dfb0a6aa67d4ea435b51d94b6abe07",
+  "prompts": {},
+  "sessions": {
+    "s_00c16a898aef45": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "4a5e80e9-3b1c-4b04-a5af-824e31aa244b",
+        "model": "claude-sonnet-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
