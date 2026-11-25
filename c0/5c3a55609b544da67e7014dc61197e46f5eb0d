@@ -1,0 +1,39 @@
+lib/ecosystems/parsers-python.poku.js
+  s_f91bf042821859::t_c6beb1c76c07a3 1389-1494
+test/data/pyproject-poetry-dotted-names.toml
+  s_f91bf042821859::t_b486abce8a55e6 1-13,17-19
+  s_f91bf042821859::t_dd69854f6abec5 14-16
+lib/ecosystems/parsers-python.js
+  s_f91bf042821859::t_70a2a7e3adb03f 1712-1719
+  s_f91bf042821859::t_54dd3d164314df 168-172
+  s_f91bf042821859::t_5ca19d175256bc 1779-1781
+  s_f91bf042821859::t_ea3162d6d4fc0c 1841-1845
+  s_f91bf042821859::t_b136a6bc68c19b 918-926
+  s_f91bf042821859::t_52ab0c7c570d10 1819,1849,1859
+  s_f91bf042821859::t_2c2a580e6db92c 1934-1935
+  s_f91bf042821859::t_ee7c03307cc1e7 1625-1626,1629
+test/data/poetry-dotted-names.lock
+  s_f91bf042821859::t_b666ebd9ecea68 1-511
+test/data/pylock-dotted-names.toml
+  s_f91bf042821859::t_b6fee323d2d781 1-312
+test/data/pyproject-dotted-names.toml
+  s_f91bf042821859::t_21f4649c5d4aa4 1-15
+test/data/uv-dotted-names.lock
+  s_f91bf042821859::t_245bcc1a0d06a1 1-382
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "c05c3a55609b544da67e7014dc61197e46f5eb0d",
+  "prompts": {},
+  "sessions": {
+    "s_f91bf042821859": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_df355dd3-6ac9-4294-ab5b-c97e668b347d",
+        "model": "GLM-5.3"
+      },
+      "human_author": "Team AppThreat <cloud@appthreat.com>"
+    }
+  }
+}
