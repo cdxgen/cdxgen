@@ -1,0 +1,148 @@
+{
+ "name": "semver",
+ "dist-tags": {
+  "legacy": "5.7.3",
+  "latest": "7.8.6",
+  "latest-6": "6.3.2"
+ },
+ "maintainers": [
+  {
+   "name": "saquibkhan",
+   "email": "saquibkhan@github.com"
+  },
+  {
+   "name": "npm-cli-ops",
+   "email": "npm-cli+bot@github.com"
+  },
+  {
+   "name": "reggi",
+   "email": "reggi@github.com"
+  },
+  {
+   "name": "martinrrm",
+   "email": "martin.ruiz.mares@gmail.com"
+  }
+ ],
+ "time": {
+  "created": "2011-02-12T00:20:25.690Z",
+  "modified": "2026-11-02T19:47:44.481Z",
+  "7.3.5": "2021-03-23T01:37:52.803Z",
+  "7.7.2": "2025-05-12T17:02:28.372Z"
+ },
+ "versions": {
+  "7.3.5": {
+   "name": "semver",
+   "version": "7.3.5",
+   "_npmUser": {
+    "name": "isaacs",
+    "email": "i@izs.me"
+   },
+   "maintainers": [
+    {
+     "name": "gar",
+     "email": "gar+npm@danger.computer"
+    },
+    {
+     "name": "isaacs",
+     "email": "i@izs.me"
+    },
+    {
+     "name": "darcyclarke",
+     "email": "darcy@darcyclarke.me"
+    },
+    {
+     "name": "ruyadorno",
+     "email": "ruyadorno@hotmail.com"
+    },
+    {
+     "name": "nlf",
+     "email": "quitlahok@gmail.com"
+    }
+   ],
+   "engines": {
+    "node": ">=10"
+   },
+   "scripts": {},
+   "bin": {
+    "semver": "bin/semver.js"
+   },
+   "deprecated": null,
+   "dist": {
+    "integrity": "sha512-PoeGJYh8HK4BTO/a9Tf6ZG3veo/A7ZVsYrSA6J8ny9nb3B1VrpkuN+z9OE5wfE5p6H4LchYZsegiQgbJD94ZFQ==",
+    "shasum": "0b621c879348d8998e4b0e4be94b3f12e6018ef7",
+    "fileCount": 52,
+    "unpackedSize": 88244,
+    "signatures": [
+     {
+      "sig": "MEQCICf1SCGs/6eJ/YJWwFg5D9R304s2M8H1dJUw4qylFVfvAiAwlCGfYUtl6WoRINHJAsXpttA/BrqOeTmPFzsTPvIrwA==",
+      "keyid": "SHA256:jl3bwswu80PjjokCgh0o2w5c2U4LhQAE57gj9cz1kzA"
+     }
+    ]
+   }
+  },
+  "7.7.2": {
+   "name": "semver",
+   "version": "7.7.2",
+   "_npmUser": {
+    "name": "npm-cli-ops",
+    "email": "npm-cli+bot@github.com"
+   },
+   "maintainers": [
+    {
+     "name": "fritzy",
+     "email": "fritzy@github.com"
+    },
+    {
+     "name": "gar",
+     "email": "gar+npm@danger.computer"
+    },
+    {
+     "name": "saquibkhan",
+     "email": "saquibkhan@github.com"
+    },
+    {
+     "name": "npm-cli-ops",
+     "email": "npm-cli+bot@github.com"
+    },
+    {
+     "name": "reggi",
+     "email": "reggi@github.com"
+    },
+    {
+     "name": "hashtagchris",
+     "email": "hashtagchris@github.com"
+    },
+    {
+     "name": "owlstronaut",
+     "email": "owlstronaut@github.com"
+    }
+   ],
+   "engines": {
+    "node": ">=10"
+   },
+   "scripts": {},
+   "bin": {
+    "semver": "bin/semver.js"
+   },
+   "deprecated": null,
+   "dist": {
+    "integrity": "sha512-RF0Fw+rO5AMf9MAyaRXI4AV0Ulj5lMHqVxxdSgiVbixSCXoEmmX/jk0CuJw4+3SqroYO9VoUh+HcuJivvtJemA==",
+    "shasum": "67d99fdcd35cec21e6f8b87a7fd515a33f982b58",
+    "fileCount": 52,
+    "unpackedSize": 97420,
+    "attestations": {
+     "url": "https://registry.npmjs.org/-/npm/v1/attestations/semver@7.7.2",
+     "provenance": {
+      "predicateType": "https://slsa.dev/provenance/v1"
+     }
+    },
+    "signatures": [
+     {
+      "sig": "MEQCIBWgpqrE5Kqf9YKjIum5n0B6fPDkhrQ2Uf5DKmopfaS5AiBcu38UXAKlgwXKCiOnWMjRjjo4YSVB/6f2YaHE284k7g==",
+      "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+     }
+    ]
+   }
+  }
+ }
+}
