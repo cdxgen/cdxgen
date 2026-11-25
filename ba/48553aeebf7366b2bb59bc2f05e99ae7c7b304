@@ -1,0 +1,41 @@
+lib/inventory/analyzer.js
+  s_f91bf042821859::t_4d2c5f640d6d57 4238-4241
+  s_f91bf042821859::t_3b027c99b191f5 4761-4768,4775-4781
+lib/inventory/cbomutils.poku.js
+  s_f91bf042821859::t_3297890b831739 138-191,196-296,298-335,344,346-352,357-358,360-367
+  s_f91bf042821859::t_945aa664a07dd9 192-195,353-356
+  s_f91bf042821859::t_bd330f00f77004 297,359
+  s_f91bf042821859::t_144f78e64214dd 336-343,345
+docs/ADVANCED.md
+  s_f91bf042821859::t_b5ec3b698de233 1323-1341
+data/crypto-oid.json
+  s_f91bf042821859::t_49a31af1ab20c0 550-553
+  s_f91bf042821859::t_6b036ef80f488b 1766-1769
+lib/inventory/cbomutils.js
+  s_f91bf042821859::t_82d89294cec2de 148-149,151-152,158-168,170
+  s_f91bf042821859::t_ef9668f070ec59 129-147,150,153-157,169,171-212
+  s_f91bf042821859::t_0802736209857b 530,543,546-552,558,562,567-571,575,579
+  s_f91bf042821859::t_a7ba0bd4523436 669
+  s_f91bf042821859::t_0817979bef5dfb 4
+  s_f91bf042821859::t_de0b353a092cc6 225-226
+  s_f91bf042821859::t_5274d469fc17ab 607,627-631
+  s_f91bf042821859::t_d9bdeb6538f19c 254-304
+lib/inventory/analyzer.poku.js
+  s_f91bf042821859::t_4f59b9dc520938 1406-1445
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "ba48553aeebf7366b2bb59bc2f05e99ae7c7b304",
+  "prompts": {},
+  "sessions": {
+    "s_f91bf042821859": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_df355dd3-6ac9-4294-ab5b-c97e668b347d",
+        "model": "GLM-5.3"
+      },
+      "human_author": "Team AppThreat <cloud@appthreat.com>"
+    }
+  }
+}
