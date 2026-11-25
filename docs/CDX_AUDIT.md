@@ -211,6 +211,9 @@ CDXGEN_THINK_MODE=true cdx-audit --bom bom.json --max-targets 10
 | `--only-trusted`              | Restrict analysis to trusted-publishing-backed targets                                               |
 | `--prioritize-direct-runtime` | Keep direct runtime dependencies ahead of less actionable targets (enabled by default)               |
 | `--allowlist-file`            | Add a JSON array or newline-delimited purl-prefix allowlist on top of the built-in well-known filter |
+| `--private-namespace`         | Comma-separated private package name or namespace prefixes; a public-registry package matching one is reported as a dependency-confusion finding (INT-017 to INT-019) in direct mode and on predictive child SBOMs |
+| `--offline`                   | Run without any network access. Direct mode skips registry OCI probes and AI provenance collection; predictive mode plans its targets and reports every one as skipped with the reason |
+| `--time-budget-minutes`       | Predictive mode stops starting new targets once this budget is spent; targets it did not start are reported as skipped and the summary names the exhausted budget |
 | `--license-policy`            | Path to a license compliance policy YAML file (see below)                                            |
 
 ## License compliance auditing
@@ -340,7 +343,7 @@ When nothing crosses the configured threshold, the console output uses the empty
 
 Best for automation and secondary reporting pipelines.
 
-Use `--report json` when you want stable machine-readable results for dashboards, ticket enrichment, or internal triage workflows.
+Use `--report json` when you want stable machine-readable results for dashboards, ticket enrichment, or internal triage workflows. Both modes write a `version` field for the report shape (currently `1`), beside `tool.name` and `tool.version`, so a consumer can parse against it. Every finding carries `ruleId`, `severity`, and a `location` with the `purl` and `bom-ref` of the component it names. In predictive mode the summary also names what cut the audit short: `targetCapTruncated` when `--max-targets` left targets unanalyzed, `offline: true` for an offline run, and `timeBudgetExhausted` when `--time-budget-minutes` stopped the queue; targets that never ran appear as `status: "skipped"` results with the reason.
 
 ### SARIF output
 
@@ -428,6 +431,19 @@ Correlated sender → receiver edges are preserved in the console summary, SARIF
 - suspicious process or network behavior in package `__init__.py`
 
 The Python coverage is intentionally triage-oriented rather than full static analysis.
+
+### Registry metadata and package hygiene
+
+When the BOM carries the registry properties cdxgen collects (or in predictive mode, after cdx-audit enriches the input BOMs), the `package-integrity` pack reports:
+
+- a requested version the npm, PyPI or crates.io registry does not list (INT-020 to INT-022)
+- a package first published inside a one-year quarantine window (INT-023 to INT-025)
+- a package whose newest release is more than six years old (INT-026 to INT-028)
+- an npm package that ships native platform binaries (INT-029)
+
+### Private namespaces and dependency confusion
+
+Pass `--private-namespace` with your organisation's package name or namespace prefixes. A component whose full name starts with one of them and resolves from the public npm registry, PyPI or crates.io is reported by INT-017, INT-018 or INT-019. Prefixes match by prefix, so `myorg` matches the npm scope `@myorg` as well as a PyPI or Cargo name that starts with `myorg`. The check works in direct BOM audit mode and on predictive child SBOMs, and needs no network.
 
 ### Provenance and publisher context
 

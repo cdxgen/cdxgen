@@ -1,6 +1,11 @@
 /** Default predictive audit category list applied when none are explicitly requested. */
 export declare const DEFAULT_AUDIT_CATEGORIES: string[];
 /**
+ * Version of the JSON report shape both audit modes write. Consumers parse
+ * against this number; a shape change raises it.
+ */
+export declare const AUDIT_REPORT_VERSION = 1;
+/**
  * Read and validate a CycloneDX BOM file. A CycloneDX 2.0 document is read
  * into cdxgen's internal 1.x-shaped model, so the audit rules keep reading
  * `components`, `bom-ref` and `metadata.component`; the number of losses

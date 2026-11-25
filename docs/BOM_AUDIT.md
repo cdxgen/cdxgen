@@ -250,6 +250,21 @@ Rules that detect deprecated, yanked, tampered, or suspicious packages.
 | INT-014 | high     | Collider package is missing a valid wrap hash integrity pin               |
 | INT-015 | low      | Ruby gem compiles native extensions at install time                       |
 | INT-016 | high     | Gradle verification metadata disagrees with the artifact digest           |
+| INT-017 | high     | Private npm package name resolves from the public registry                |
+| INT-018 | high     | Private PyPI package name resolves from the public index                  |
+| INT-019 | high     | Private Cargo crate name resolves from crates.io                          |
+| INT-020 | high     | npm version the registry does not list                                    |
+| INT-021 | high     | PyPI version the index does not list                                      |
+| INT-022 | high     | Cargo version crates.io does not list                                     |
+| INT-023 | low      | npm package first published inside the one-year quarantine window         |
+| INT-024 | low      | PyPI package first published inside the one-year quarantine window        |
+| INT-025 | low      | Cargo crate first published inside the one-year quarantine window         |
+| INT-026 | low      | npm package without any release in six years                              |
+| INT-027 | low      | PyPI package without any release in six years                             |
+| INT-028 | low      | Cargo crate without any release in six years                              |
+| INT-029 | medium   | npm package ships native platform binaries                                |
+
+The private-namespace rules INT-017 to INT-019 fire when `cdx-audit --private-namespace` (or the matching `bomAuditPrivateNamespace` audit option) names a prefix a component's name starts with; see [CDX_AUDIT.md](CDX_AUDIT.md). INT-020 to INT-029 read the registry metadata properties cdxgen collects on components; they evaluate only where a BOM carries those properties, which needs one registry fetch at generation or audit time.
 
 ### Advanced predictive heuristics
 

@@ -84,6 +84,19 @@ selection, on top of the built-in allowlist),
 `--rules-dir` for custom rules, and `--introspect` for a per-BOM build-fidelity
 verdict inferred from BOM structure alone.
 
+Two more flags bound the run. `--offline` plans the predictive queue and
+reports every target as skipped with that reason (it also drops the registry
+OCI probes and AI provenance collection of a direct audit), so an offline run
+never looks like a clean one. `--time-budget-minutes` stops starting new
+targets once the budget is spent and marks the rest skipped; the JSON summary
+names `offline`, `timeBudgetExhausted` and `targetCapTruncated` so a consumer
+can tell a cut-short audit from a complete one.
+
+`--private-namespace` takes comma-separated private package name or namespace
+prefixes. A public-registry package whose name starts with one of them is a
+dependency-confusion finding (INT-017 to INT-019 for npm, PyPI and Cargo),
+both in `--direct-bom-audit` mode and on predictive child SBOMs.
+
 ### How the queue is ordered
 
 Queue order is explainable. When trimmed, it prioritizes:

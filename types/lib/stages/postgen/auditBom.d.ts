@@ -57,6 +57,25 @@ export declare function ensureAiProvenanceProperties(bomJson: Object, options?: 
  */
 export declare function ensureAiOversightProperties(bomJson: Object, options?: Object): Promise<void>;
 /**
+ * Mark the components whose name a caller has declared private.
+ *
+ * A private namespace or name prefix that shows up on a public registry is
+ * the classic dependency-confusion setup: the build resolves the public
+ * package because the private registry holds no copy. Components of the
+ * npm, PyPI and Cargo purl types whose full name starts with one of the
+ * configured prefixes carry a `cdx:<eco>:privateNamespace` property whose
+ * value is the matched prefix, and the INT-017 to INT-019 rules report them.
+ *
+ * The prefixes match by prefix only, exactly as dep-scan's audit matched
+ * them: `myorg` matches both the npm scope `@myorg` and a PyPI name that
+ * starts with `myorg`.
+ *
+ * @param {Object} bomJson CycloneDX BOM (mutated in place)
+ * @param {Object} options audit options with bomAuditPrivateNamespace
+ * @returns {number} count of components marked
+ */
+export declare function applyPrivateNamespaceProperties(bomJson: Object, options?: Object): number;
+/**
  * Audit BOM formulation section using JSONata-powered rule engine
  * @param {Object} bomJson - Generated CycloneDX BOM
  * @param {Object} options - CLI options
