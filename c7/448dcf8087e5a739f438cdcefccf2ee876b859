@@ -1,0 +1,19 @@
+lib/ecosystems/parsers-misc.poku.js
+  s_f91bf042821859::t_4284d04c58b28a 115-128
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "c7448dcf8087e5a739f438cdcefccf2ee876b859",
+  "prompts": {},
+  "sessions": {
+    "s_f91bf042821859": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_df355dd3-6ac9-4294-ab5b-c97e668b347d",
+        "model": "GLM-5.3"
+      },
+      "human_author": "Team AppThreat <cloud@appthreat.com>"
+    }
+  }
+}
