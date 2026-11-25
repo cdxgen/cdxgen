@@ -1,0 +1,24 @@
+lib/ecosystems/dotnetutils.js
+  s_f91bf042821859::t_5b5e12cefeb38d 3-5,9-156,179,206-210,219,227
+lib/ecosystems/parsers-dotnet.js
+  s_f91bf042821859::t_15a30c6040bc83 1598-1604
+lib/ecosystems/dotnetutils.poku.js
+  s_f91bf042821859::t_3e81824ebac5e2 542-544
+  s_f91bf042821859::t_bcaa9a1a8e7127 463-541,545-553
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "e8f823e2cbcb97da03fd5b6240e5fec773fea373",
+  "prompts": {},
+  "sessions": {
+    "s_f91bf042821859": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_df355dd3-6ac9-4294-ab5b-c97e668b347d",
+        "model": "GLM-5.3"
+      },
+      "human_author": "Team AppThreat <cloud@appthreat.com>"
+    }
+  }
+}
