@@ -1,0 +1,23 @@
+lib/ecosystems/parsers-rust.poku.js
+  s_f91bf042821859::t_a8ee04cd0cde33 371-509
+lib/ecosystems/parsers-rust.js
+  s_f91bf042821859::t_9b3c3211d03bde 272-286,295-298
+  s_f91bf042821859::t_7755cf919b9a27 1789-1840
+  s_f91bf042821859::t_d3cc5a66f066fa 271
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "d04af232bea0034c38773953f363610b9af5cd9c",
+  "prompts": {},
+  "sessions": {
+    "s_f91bf042821859": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_df355dd3-6ac9-4294-ab5b-c97e668b347d",
+        "model": "GLM-5.3"
+      },
+      "human_author": "Team AppThreat <cloud@appthreat.com>"
+    }
+  }
+}
