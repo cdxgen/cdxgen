@@ -1,0 +1,22 @@
+lib/ecosystems/parsers-misc.js
+  s_f91bf042821859::t_187ce6d965ce38 4075-4095
+lib/ecosystems/parsersCocoaLocalPodspecs.poku.js
+  s_f91bf042821859::t_1ec486f8602cec 390-457,462-503
+  s_f91bf042821859::t_5be7f65b32066f 458-461
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "adbe04085899cb516d4539ba21e295371555ae62",
+  "prompts": {},
+  "sessions": {
+    "s_f91bf042821859": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_df355dd3-6ac9-4294-ab5b-c97e668b347d",
+        "model": "GLM-5.3"
+      },
+      "human_author": "Team AppThreat <cloud@appthreat.com>"
+    }
+  }
+}
