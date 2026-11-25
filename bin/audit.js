@@ -121,6 +121,22 @@ const args = yargs(hideBin(process.argv))
       "Optional JSON array or newline-delimited file of purl prefixes to exclude from predictive audit target selection in addition to the built-in well-known allowlist.",
     type: "string",
   })
+  .option("private-namespace", {
+    description:
+      "Comma-separated private package namespace or name prefixes. A public-registry package whose name starts with one of them is reported as a dependency-confusion finding, in direct BOM audit mode and on predictive child SBOMs. Applies to npm scopes, PyPI and Cargo names.",
+    type: "string",
+  })
+  .option("offline", {
+    default: false,
+    description:
+      "Run without any network access. Direct BOM audit mode skips registry OCI probes and AI provenance detection; predictive mode plans its targets and reports every target as skipped with the reason.",
+    type: "boolean",
+  })
+  .option("time-budget-minutes", {
+    description:
+      "Predictive mode stops starting new targets once this budget is spent; the targets it did not start are reported as skipped and the summary names the exhausted budget.",
+    type: "number",
+  })
   .option("skip-default-branch-recheck", {
     default: false,
     description:
@@ -213,13 +229,16 @@ function writeOrPrint(output, outputPath) {
       licensePolicy: args.licensePolicy,
       maxTargets: args.maxTargets,
       minSeverity: args.minSeverity,
+      offline: args.offline === true,
       onProgress: progressTracker.onProgress,
       prioritizeDirectRuntime: args.prioritizeDirectRuntime,
+      privateNamespace: splitCsv(args.privateNamespace),
       report: args.report,
       reportsDir: args.reportsDir,
       rulesDir: args.rulesDir,
       scope: args.scope === "required" ? "required" : undefined,
       skipDefaultBranchRecheck: args.skipDefaultBranchRecheck,
+      timeBudgetMinutes: args.timeBudgetMinutes,
       trusted: args.onlyTrusted
         ? "only"
         : args.includeTrusted
