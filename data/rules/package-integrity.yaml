@@ -727,9 +727,9 @@
   category: package-integrity
   dry-run-support: no
   # A `bin` entry is not one of these: it names a script the package runs,
-  # and most command-line tools are plain JavaScript. The platform and build
-  # properties are recorded from a project's own manifest by the parser and
-  # for every published version by the registry lookup.
+  # and most command-line tools are plain JavaScript. The platform, build and
+  # optionalDependencies properties are recorded from a project's own manifest
+  # by the parser and for every published version by the registry lookup.
   condition: |
     components[
       $hasProp($, 'cdx:npm:os')
@@ -737,6 +737,7 @@
       or $hasProp($, 'cdx:npm:cpu')
       or $prop($, 'cdx:npm:gypfile') = 'true'
       or $hasProp($, 'cdx:npm:binaryHost')
+      or $hasProp($, 'cdx:npm:platformOptionalDependencies')
     ]
   location: |
     { "bomRef": $."bom-ref", "purl": purl }
@@ -748,5 +749,6 @@
       "libcs": $prop($, 'cdx:npm:libc'),
       "architectures": $prop($, 'cdx:npm:cpu'),
       "gypfile": $prop($, 'cdx:npm:gypfile'),
-      "binaryHost": $prop($, 'cdx:npm:binaryHost')
+      "binaryHost": $prop($, 'cdx:npm:binaryHost'),
+      "platformOptionalDependencies": $prop($, 'cdx:npm:platformOptionalDependencies')
     }
