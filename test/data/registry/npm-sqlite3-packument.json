@@ -1,0 +1,26 @@
+{
+ "name": "sqlite3",
+ "dist-tags": {
+  "latest": "5.1.7"
+ },
+ "time": {
+  "created": "2011-02-24T15:45:51.936Z",
+  "modified": "2026-03-12T15:28:29.587Z",
+  "5.1.7": "2024-01-05T08:48:16.555Z"
+ },
+ "versions": {
+  "5.1.7": {
+   "name": "sqlite3",
+   "version": "5.1.7",
+   "binary": {
+    "napi_versions": [
+     3,
+     6
+    ]
+   },
+   "scripts": {
+    "install": "prebuild-install -r napi || node-gyp rebuild"
+   }
+  }
+ }
+}

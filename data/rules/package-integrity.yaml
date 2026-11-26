@@ -737,6 +737,7 @@
       or $hasProp($, 'cdx:npm:cpu')
       or $prop($, 'cdx:npm:gypfile') = 'true'
       or $hasProp($, 'cdx:npm:binaryHost')
+      or $hasProp($, 'cdx:npm:binaryDownload')
       or $hasProp($, 'cdx:npm:platformOptionalDependencies')
     ]
   location: |
@@ -750,5 +751,6 @@
       "architectures": $prop($, 'cdx:npm:cpu'),
       "gypfile": $prop($, 'cdx:npm:gypfile'),
       "binaryHost": $prop($, 'cdx:npm:binaryHost'),
+      "binaryDownload": $prop($, 'cdx:npm:binaryDownload'),
       "platformOptionalDependencies": $prop($, 'cdx:npm:platformOptionalDependencies')
     }
