@@ -1,0 +1,70 @@
+lib/audit/registryRules.poku.js
+  s_7318da1b9edd46::t_023490608c7165 1-260,263
+  s_7318da1b9edd46::t_afd16bfcd5dac8 261-262,264-271
+agent-plugin/skills/bom-audit/SKILL.md
+  s_7318da1b9edd46::t_919ef38adce203 95-98
+data/rules/package-integrity.yaml
+  s_7318da1b9edd46::t_6838c7881038f5 88,92-96,107,111-137,544,548-549,610,635,660,675-679,685-686,690,694,710,733,748-751,772-773,787-788
+docs/BOM_AUDIT.md
+  s_7318da1b9edd46::t_b51b5f64e59dcb 265,267,269,856
+docs/CDX_AUDIT.md
+  s_7318da1b9edd46::t_dacf230eea2c2e 442-445,447-448,450
+docs/CUSTOM_PROPERTIES.md
+  s_7318da1b9edd46::t_f006f6e954c52e 516,571,612-613,617-618,622-624,662,664,667-668,725-726,811-812,816-817,821-823,866,868,871-872,933-934
+lib/audit/targets.js
+  s_7318da1b9edd46::t_a28fcc1972e1ec 349,353,356-357,384,395,397,405,812-814,816-818
+lib/ecosystems/cratesMetadata.poku.js
+  s_7318da1b9edd46::t_63cd626bef9843 74-83
+lib/ecosystems/ecosystems.js
+  s_7318da1b9edd46::t_5b55605315e594 120,527-547,694-698,700-702,1767-1807,1811-1818,1821-1823,1825,1833-1834,1838-1853,1855,1897-1945,1948-1955,2112-2114,2116-2118,3230-3243
+lib/ecosystems/registryProvenance.js
+  s_7318da1b9edd46::t_a7c0981f38b16e 49-71,593-598,600,611,618-623,627-688,696-711,713-714,722,725-728,745,760,795,800-811,859-873,875-877,893-899,916-920,1054-1124,1128-1142,1144-1146,1149-1153,1155-1183,1254,1266,1284,1287-1299,1304-1307,1313,1315,1318-1319,1323-1329,1538,1548
+lib/ecosystems/registryProvenance.poku.js
+  s_7318da1b9edd46::t_318132cdecf915 7,11,1351-1687
+lib/stages/postgen/auditBom.poku.js
+  s_7318da1b9edd46::t_791e4408672be2 5707,5709,5713,8427,8469,8485-8534,8561-8564,8640,8646-8650,8664-8696
+lib/stages/postgen/ruleEngine.js
+  s_7318da1b9edd46::t_0b0499bca5b854 535-539,678-699
+test/data/registry/npm-better-sqlite3-packument.json
+  s_7318da1b9edd46::t_13394395590e33 1-240
+test/data/registry/npm-bufferutil-packument.json
+  s_7318da1b9edd46::t_c8f9cbadb5faf0 1-97
+test/data/registry/npm-event-stream-packument.json
+  s_7318da1b9edd46::t_f2508ec3adb225 1-197
+test/data/registry/npm-left-pad-packument.json
+  s_7318da1b9edd46::t_618b86566b11f3 1-59
+test/data/registry/pypi-attrs-21.1.0-version.json
+  s_7318da1b9edd46::t_719e6b1ea50d7d 1-152
+test/data/registry/pypi-requests-2.31.0-version.json
+  s_7318da1b9edd46::t_3f0d3c23c8c39d 1-226
+types/lib/audit/targets.d.ts.map
+  s_7318da1b9edd46::t_8206c02699dd1e 1
+types/lib/ecosystems/ecosystems.d.ts
+  s_7318da1b9edd46::t_6d071a8cf12e05 134-141,144-146,148-150
+types/lib/ecosystems/ecosystems.d.ts.map
+  s_7318da1b9edd46::t_25d0a6229bc2dc 1
+types/lib/ecosystems/registryProvenance.d.ts
+  s_7318da1b9edd46::t_2f1403c1f93b26 1-44,48-62,64-66,69-72
+types/lib/ecosystems/registryProvenance.d.ts.map
+  s_7318da1b9edd46::t_48c08bae84906c 1
+types/lib/stages/postgen/ruleEngine.d.ts
+  s_7318da1b9edd46::t_6ea0fe8ab1000a 1-8
+types/lib/stages/postgen/ruleEngine.d.ts.map
+  s_7318da1b9edd46::t_a21d9fa18882fc 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "d1e0bf8672adbfe6cf554234e12f06933f0743e2",
+  "prompts": {},
+  "sessions": {
+    "s_7318da1b9edd46": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "ec4cd02e-10f8-411b-a4d1-40ff6af5049b",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
