@@ -259,7 +259,7 @@ Rules that detect deprecated, yanked, tampered, or suspicious packages.
 | INT-023 | low      | npm package first published inside the one-year quarantine window         |
 | INT-024 | low      | PyPI package first published inside the one-year quarantine window        |
 | INT-025 | low      | Cargo crate first published inside the one-year quarantine window         |
-| INT-026 | low      | npm package without any release in six years                              |
+| INT-026 | low      | npm package without any release in six years (reads `cdx:npm:latestPublishTime`; a BOM generated before that property existed carries only `cdx:npm:lastModifiedTime` and is not reported until its registry metadata is fetched again) |
 | INT-027 | low      | PyPI package without any release in six years                             |
 | INT-028 | low      | Cargo crate without any release in six years                              |
 | INT-029 | low      | npm version ships or builds native code (platform constraint, node-gyp, an install script running node-gyp, node-gyp-build, prebuild-install or node-pre-gyp, a node-pre-gyp binary, platform packages in optionalDependencies) |

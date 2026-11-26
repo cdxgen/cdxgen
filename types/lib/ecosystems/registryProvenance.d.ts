@@ -1,14 +1,4 @@
 /**
- * A registry timestamp as an ISO 8601 UTC string, or undefined when it cannot
- * be read. The rules compare these values as times, and one value in another
- * spelling must not stop them for the whole BOM. A date and time without a
- * zone is UTC, as PyPI's legacy `upload_time` is.
- *
- * @param {unknown} value timestamp from a registry document
- * @returns {string | undefined} ISO 8601 timestamp
- */
-export declare function isoTimestamp(value: unknown): string | undefined;
-/**
  * Extract advanced npm provenance and publishing properties from registry metadata.
  *
  * @param {object} packument npm packument body
