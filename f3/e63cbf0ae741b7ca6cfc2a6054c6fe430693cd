@@ -1,0 +1,28 @@
+docs/CDX_AUDIT.md
+  s_7318da1b9edd46::t_6026b537ec9779 347
+lib/audit/index.poku.js
+  s_7318da1b9edd46::t_48bad3f39888c4 3767-3780
+lib/audit/index.js
+  s_7318da1b9edd46::t_48bad3f39888c4 3097-3098
+lib/audit/targets.js
+  s_7318da1b9edd46::t_484a68ec466406 13-17,351-352,354,566-567,867-869,904,910
+  s_7318da1b9edd46::t_fdba230d12eb79 561-564
+lib/audit/targets.poku.js
+  s_7318da1b9edd46::t_fdba230d12eb79 1013-1039,1678-1710
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "f3e63cbf0ae741b7ca6cfc2a6054c6fe430693cd",
+  "prompts": {},
+  "sessions": {
+    "s_7318da1b9edd46": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "ec4cd02e-10f8-411b-a4d1-40ff6af5049b",
+        "model": "unknown"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
