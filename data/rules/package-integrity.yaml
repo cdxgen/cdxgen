@@ -85,19 +85,18 @@
 
 - id: INT-005
   name: "npm deprecated package"
-  description: "npm packages marked as deprecated may have known vulnerabilities or unmaintained code. The version in use carries the deprecation, or the newest release does, which is how npm maintainers retire a package"
+  description: "npm packages marked as deprecated may have known vulnerabilities or unmaintained code. The version in use carries the deprecation"
   severity: low
   category: package-integrity
   dry-run-support: partial
-  # cdxgen records a deprecation in three spellings, one per parser: the
-  # installed tree writes the notice to cdx:npm:deprecated, the lockfile
-  # parsers and the registry lookup write it to cdx:npm:deprecation_notice,
-  # and the registry lookup names a newest-release-only deprecation
-  # separately. None writes the literal "true", so existence is the test.
+  # cdxgen records a deprecation in two spellings, one per parser: the
+  # installed tree writes the notice to cdx:npm:deprecated, and the lockfile
+  # parsers and the registry lookup write it to cdx:npm:deprecation_notice.
+  # None writes the literal "true", so existence is the test. A deprecation
+  # of the newest release alone is INT-031.
   condition: |
     components[
       $hasProp($, 'cdx:npm:deprecation_notice')
-      or $hasProp($, 'cdx:npm:latest_deprecation_notice')
       or (
         $hasProp($, 'cdx:npm:deprecated')
         and $prop($, 'cdx:npm:deprecated') != 'false'
@@ -105,11 +104,37 @@
     ]
   location: |
     { "bomRef": $."bom-ref", "purl": purl }
-  message: "npm package '{{ name }}@{{ version }}' is deprecated: {{ $hasProp($, 'cdx:npm:deprecation_notice') ? $prop($, 'cdx:npm:deprecation_notice') : $hasProp($, 'cdx:npm:deprecated') ? $prop($, 'cdx:npm:deprecated') : $prop($, 'cdx:npm:latest_deprecation_notice') }}"
+  message: "npm package '{{ name }}@{{ version }}' is deprecated: {{ $hasProp($, 'cdx:npm:deprecation_notice') ? $prop($, 'cdx:npm:deprecation_notice') : $prop($, 'cdx:npm:deprecated') }}"
   mitigation: "Migrate to a maintained alternative package"
   evidence: |
     {
-      "deprecationNotice": $hasProp($, 'cdx:npm:deprecation_notice') ? $prop($, 'cdx:npm:deprecation_notice') : $prop($, 'cdx:npm:deprecated'),
+      "deprecationNotice": $hasProp($, 'cdx:npm:deprecation_notice') ? $prop($, 'cdx:npm:deprecation_notice') : $prop($, 'cdx:npm:deprecated')
+    }
+
+- id: INT-031
+  name: "npm package whose newest release is deprecated"
+  description: >-
+    The version in use is not deprecated, but the package's newest release
+    is. npm maintainers retire a package by deprecating its latest version,
+    and DefinitelyTyped deprecates the stub it publishes once a package ships
+    its own types, so the package is heading out of maintenance even though
+    nothing about the installed version has changed.
+  severity: low
+  category: package-integrity
+  dry-run-support: no
+  condition: |
+    components[
+      $hasProp($, 'cdx:npm:latest_deprecation_notice')
+      and $not($hasProp($, 'cdx:npm:deprecation_notice'))
+      and $not($hasProp($, 'cdx:npm:deprecated') and $prop($, 'cdx:npm:deprecated') != 'false')
+    ]
+  location: |
+    { "bomRef": $."bom-ref", "purl": purl }
+  message: "npm package '{{ name }}@{{ version }}' is not deprecated, but its newest release {{ $prop($, 'cdx:npm:latest_deprecated_version') }} is: {{ $prop($, 'cdx:npm:latest_deprecation_notice') }}"
+  mitigation: "Read the deprecation notice of the newest release and plan the move it names before the version in use stops receiving fixes"
+  evidence: |
+    {
+      "latestDeprecatedVersion": $prop($, 'cdx:npm:latest_deprecated_version'),
       "latestDeprecationNotice": $prop($, 'cdx:npm:latest_deprecation_notice')
     }
 
@@ -516,11 +541,12 @@
     ]
   location: |
     { "bomRef": $."bom-ref", "purl": purl }
-  message: "npm package '{{ name }}@{{ version }}' is not in the registry's version list"
+  message: "npm package '{{ name }}@{{ version }}' {{ $prop($, 'cdx:npm:versionUnpublished') = 'true' ? 'was published and then unpublished from the registry' : 'is not in the version list the registry serves' }}"
   mitigation: "Find out why the version disappeared (yanked, deleted, or never published) and pin the requirement to a version the registry serves"
   evidence: |
     {
-      "versionCount": $prop($, 'cdx:npm:versionCount')
+      "versionCount": $prop($, 'cdx:npm:versionCount'),
+      "unpublished": $prop($, 'cdx:npm:versionUnpublished')
     }
 
 - id: INT-021
@@ -581,7 +607,7 @@
   condition: |
     components[
       $hasProp($, 'cdx:npm:packageCreatedTime')
-      and $toMillis($prop($, 'cdx:npm:packageCreatedTime')) > ($toMillis($now()) - 31536000000)
+      and $timeMillis($prop($, 'cdx:npm:packageCreatedTime')) > ($toMillis($now()) - 31536000000)
     ]
   location: |
     { "bomRef": $."bom-ref", "purl": purl }
@@ -606,7 +632,7 @@
   condition: |
     components[
       $hasProp($, 'cdx:pypi:packageCreatedTime')
-      and $toMillis($prop($, 'cdx:pypi:packageCreatedTime')) > ($toMillis($now()) - 31536000000)
+      and $timeMillis($prop($, 'cdx:pypi:packageCreatedTime')) > ($toMillis($now()) - 31536000000)
     ]
   location: |
     { "bomRef": $."bom-ref", "purl": purl }
@@ -631,7 +657,7 @@
   condition: |
     components[
       $hasProp($, 'cdx:cargo:packageCreatedTime')
-      and $toMillis($prop($, 'cdx:cargo:packageCreatedTime')) > ($toMillis($now()) - 31536000000)
+      and $timeMillis($prop($, 'cdx:cargo:packageCreatedTime')) > ($toMillis($now()) - 31536000000)
     ]
   location: |
     { "bomRef": $."bom-ref", "purl": purl }
@@ -646,24 +672,26 @@
 - id: INT-026
   name: "npm package without any release in six years"
   description: >-
-    The registry has not heard from the package in over six years: the
-    latest release, and every other signal the registry offers, stopped
-    updating. Unmaintained packages accumulate unresolved vulnerabilities and
-    their published artifacts may no longer match the source anyone can read.
+    The newest release on the registry is more than six years old.
+    Unmaintained packages accumulate unresolved vulnerabilities and their
+    published artifacts may no longer match the source anyone can read. The
+    packument's own modification time is not used: a deprecation, a dist-tag
+    or an owner change moves it without any new code being released.
   severity: low
   category: package-integrity
   dry-run-support: no
   condition: |
     components[
-      $hasProp($, 'cdx:npm:lastModifiedTime')
-      and $toMillis($prop($, 'cdx:npm:lastModifiedTime')) < ($toMillis($now()) - 189216000000)
+      $hasProp($, 'cdx:npm:latestPublishTime')
+      and $timeMillis($prop($, 'cdx:npm:latestPublishTime')) < ($toMillis($now()) - 189216000000)
     ]
   location: |
     { "bomRef": $."bom-ref", "purl": purl }
-  message: "npm package '{{ name }}' has had no registry activity since {{ $prop($, 'cdx:npm:lastModifiedTime') }}"
+  message: "npm package '{{ name }}' has had no release since {{ $prop($, 'cdx:npm:latestPublishTime') }}"
   mitigation: "Plan a migration to a maintained alternative, or adopt the package into your own maintenance"
   evidence: |
     {
+      "latestPublishTime": $prop($, 'cdx:npm:latestPublishTime'),
       "lastModifiedTime": $prop($, 'cdx:npm:lastModifiedTime')
     }
 
@@ -679,7 +707,7 @@
   condition: |
     components[
       $hasProp($, 'cdx:pypi:latestPublishTime')
-      and $toMillis($prop($, 'cdx:pypi:latestPublishTime')) < ($toMillis($now()) - 189216000000)
+      and $timeMillis($prop($, 'cdx:pypi:latestPublishTime')) < ($toMillis($now()) - 189216000000)
     ]
   location: |
     { "bomRef": $."bom-ref", "purl": purl }
@@ -702,7 +730,7 @@
   condition: |
     components[
       $hasProp($, 'cdx:cargo:latestPublishTime')
-      and $toMillis($prop($, 'cdx:cargo:latestPublishTime')) < ($toMillis($now()) - 189216000000)
+      and $timeMillis($prop($, 'cdx:cargo:latestPublishTime')) < ($toMillis($now()) - 189216000000)
     ]
   location: |
     { "bomRef": $."bom-ref", "purl": purl }
@@ -717,8 +745,10 @@
   name: "npm package ships native platform binaries"
   description: >-
     The version carries native code: it is published for named platforms (an
-    os, cpu or libc constraint), builds with node-gyp from a binding.gyp, or
-    names a host it downloads a prebuilt binary from at install time.
+    os, cpu or libc constraint), builds with node-gyp from a binding.gyp, runs
+    node-gyp, node-gyp-build, prebuild-install or node-pre-gyp from its
+    install script, or names a host it downloads a prebuilt binary from at
+    install time.
     Compiled artifacts cannot be read the way source can, and a hijacked
     binary distribution reaches every platform the package ships for. It is
     a property of many widely used packages, so the finding is triage
@@ -739,6 +769,8 @@
       or $hasProp($, 'cdx:npm:binaryHost')
       or $hasProp($, 'cdx:npm:binaryDownload')
       or $hasProp($, 'cdx:npm:platformOptionalDependencies')
+      or $hasProp($, 'cdx:npm:nativeBuildTool')
+      or $prop($, 'cdx:npm:native_addon') = 'true'
     ]
   location: |
     { "bomRef": $."bom-ref", "purl": purl }
@@ -752,5 +784,6 @@
       "gypfile": $prop($, 'cdx:npm:gypfile'),
       "binaryHost": $prop($, 'cdx:npm:binaryHost'),
       "binaryDownload": $prop($, 'cdx:npm:binaryDownload'),
-      "platformOptionalDependencies": $prop($, 'cdx:npm:platformOptionalDependencies')
+      "platformOptionalDependencies": $prop($, 'cdx:npm:platformOptionalDependencies'),
+      "nativeBuildTool": $prop($, 'cdx:npm:nativeBuildTool')
     }

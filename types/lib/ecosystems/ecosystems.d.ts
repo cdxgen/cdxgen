@@ -131,10 +131,23 @@ export declare function guessPypiMatchingVersion(versionsList: any[], versionSpe
 /**
  * Method to retrieve metadata for python packages by querying pypi
  *
+ * A pinned package is looked up at its version document
+ * (`/pypi/<name>/<version>/json`), which says whether the release was yanked.
+ * When that document is not found, the project document is read to tell a
+ * version the index does not hold (`cdx:pypi:versionMissing`) from a name it
+ * does not hold, which is left unmarked. With `fetchReleaseHistory`, the
+ * project document is read for every package as well, once per name, for the
+ * package's age and newest release.
+ *
  * @param {Array} pkgList Package list
  * @param {Boolean} fetchDepsInfo Fetch dependencies info from pypi
+ * @param {Object} [options] Options
+ * @param {boolean} [options.fetchReleaseHistory=false] Also read each
+ *   project's release history
  */
-export declare function getPyMetadata(pkgList: any[], fetchDepsInfo: boolean): Promise<any[]>;
+export declare function getPyMetadata(pkgList: any[], fetchDepsInfo: boolean, options?: {
+    fetchReleaseHistory?: boolean;
+}): Promise<any[]>;
 /**
  * Method to parse bdist_wheel metadata (dist-info/METADATA)
  *

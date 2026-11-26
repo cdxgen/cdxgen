@@ -1,0 +1,59 @@
+{
+  "name": "left-pad",
+  "dist-tags": {
+    "latest": "1.3.0"
+  },
+  "time": {
+    "created": "2014-03-14T09:09:20.762Z",
+    "modified": "2026-11-18T13:37:02.787Z",
+    "0.0.0": "2014-03-14T09:09:20.762Z",
+    "0.0.1": "2014-08-14T03:31:03.146Z",
+    "0.0.2": "2014-08-15T07:13:09.056Z",
+    "0.0.4": "2015-05-20T04:04:04.473Z",
+    "1.0.0": "2016-03-22T21:42:18.002Z",
+    "0.0.9": "2016-03-22T21:51:19.774Z",
+    "0.0.3": "2016-03-22T21:51:19.774Z",
+    "1.0.1": "2016-03-23T00:00:19.758Z",
+    "1.0.2": "2016-04-13T16:59:21.924Z",
+    "1.1.0": "2016-05-01T11:06:11.595Z",
+    "1.1.1": "2016-07-08T11:25:40.531Z",
+    "1.1.2": "2016-09-24T10:25:01.998Z",
+    "1.1.3": "2016-10-01T08:01:07.703Z",
+    "1.2.0": "2017-11-17T05:48:38.934Z",
+    "1.3.0": "2018-04-09T01:10:45.796Z"
+  },
+  "versions": {
+    "1.3.0": {
+      "name": "left-pad",
+      "version": "1.3.0",
+      "scripts": {
+        "test": "node test",
+        "bench": "node perf/perf.js"
+      },
+      "deprecated": "use String.prototype.padStart()",
+      "dist": {
+        "integrity": "sha512-XI5MPzVNApjAyhQzphX8BkmKsKUxD4LdyK24iZeQGinBN9yTQT3bFlCBy/aVx2HrNcqQGsdot8ghrjyrvMCoEA==",
+        "shasum": "5b8a3a7765dfe001261dde915589e782f8c94d1e",
+        "tarball": "https://registry.npmjs.org/left-pad/-/left-pad-1.3.0.tgz"
+      },
+      "_npmUser": {
+        "name": "stevemao",
+        "email": "maochenyan@gmail.com"
+      },
+      "maintainers": [
+        {
+          "name": "sebmck",
+          "email": "sebmck@gmail.com"
+        },
+        {
+          "name": "stevemao",
+          "email": "maochenyan@gmail.com"
+        },
+        {
+          "name": "westlac",
+          "email": "cameron.westland@autodesk.com"
+        }
+      ]
+    }
+  }
+}

@@ -1,4 +1,12 @@
 /**
+ * Epoch milliseconds of an ISO 8601 date or date-time, or undefined when the
+ * value is not one. A date and time without a zone is read as UTC.
+ *
+ * @param {unknown} value timestamp
+ * @returns {number | undefined} epoch milliseconds
+ */
+export declare function parseTimeMillis(value: unknown): number | undefined;
+/**
  * Parse a certificate notValidAfter value.
  *
  * @param {*} value timestamp or date-only string
