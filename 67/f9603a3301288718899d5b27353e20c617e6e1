@@ -1,0 +1,41 @@
+lib/ecosystems/registryProvenance.js
+  s_8c7c9bd4e9d139::t_79917ac4a4e665 917-927
+  s_8c7c9bd4e9d139::t_3873e59b01fb96 1150-1158
+  s_8c7c9bd4e9d139::t_49ccae1667d2c9 677-682
+  s_1713225a3bc1ee::t_1374f53a1b6921 915-916,1148-1149
+lib/ecosystems/registryProvenance.poku.js
+  s_8c7c9bd4e9d139::t_1a795064e68c51 1-3
+  s_8c7c9bd4e9d139::t_7a33603c1d04e4 1009-1011
+  s_8c7c9bd4e9d139::t_ebf5abcae8ad77 1006-1008
+  s_8c7c9bd4e9d139::t_e2818c8e3b564c 1012-1014
+test/data/registry/cargo-serde.json
+  s_8c7c9bd4e9d139::t_dbde1efbe2cbb8 1-52
+test/data/registry/npm-semver-packument.json
+  s_8c7c9bd4e9d139::t_0623af3e841fe3 1-148
+test/data/registry/pypi-requests.json
+  s_8c7c9bd4e9d139::t_e2cc5f1a5f295d 1-35
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "67f9603a3301288718899d5b27353e20c617e6e1",
+  "prompts": {},
+  "sessions": {
+    "s_1713225a3bc1ee": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_381088a8-962a-49b5-94f2-d6ee00d987ec",
+        "model": "GLM-5.3"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    },
+    "s_8c7c9bd4e9d139": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_9dbe5ca6-7bed-4f18-b047-b71e9f4c565f",
+        "model": "GLM-5.3"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}

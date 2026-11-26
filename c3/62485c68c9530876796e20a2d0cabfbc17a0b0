@@ -1,0 +1,48 @@
+docs/BOM_AUDIT.md
+  s_8c7c9bd4e9d139::t_021f5fc7ab8c0c 265-266
+  s_8c7c9bd4e9d139::t_63e275d9cbfba0 268
+lib/stages/postgen/auditBom.poku.js
+  s_8c7c9bd4e9d139::t_20246ade3d87cf 8472-8477,8499-8502,8562-8566,8592-8595,8609
+  s_8c7c9bd4e9d139::t_2f07e06a70097f 5707,5709,5713,8462,8466,8468,8489-8498,8503-8561,8567-8591,8596-8604,8606-8608
+test/data/registry/npm-types-component-emitter-packument.json
+  s_8c7c9bd4e9d139::t_a79f4eea340cf6 1-23
+types/lib/ecosystems/registryProvenance.d.ts.map
+  s_8c7c9bd4e9d139::t_c7f04ce2aeaa72 1
+lib/ecosystems/registryProvenance.js
+  s_8c7c9bd4e9d139::t_f8d5ba2806eb47 565-568,572-573,732-755
+  s_8c7c9bd4e9d139::t_e6d02d3efcded5 30-36,38-40,574-580,584-593,720-731,756-757,990-991,1000-1009
+  s_8c7c9bd4e9d139::t_20246ade3d87cf 37,569-571
+  s_8c7c9bd4e9d139::t_6785afc03d4692 992-999
+  s_8c7c9bd4e9d139::t_3741daa7c09304 1348-1354
+types/lib/ecosystems/registryProvenance.d.ts
+  s_8c7c9bd4e9d139::t_20246ade3d87cf 1
+lib/ecosystems/registryProvenance.poku.js
+  s_8c7c9bd4e9d139::t_a45d3f6626b300 1129-1286
+data/rules/package-integrity.yaml
+  s_8c7c9bd4e9d139::t_ccafc6d36ad738 245-246
+  s_8c7c9bd4e9d139::t_f8d5ba2806eb47 711-715,719-722,729,741
+  s_8c7c9bd4e9d139::t_bb3cb6731e6d6d 108,112
+  s_8c7c9bd4e9d139::t_9efe0def51e31c 88,92-96,99-104,113,227-244
+test/data/registry/pypi-attrs.json
+  s_8c7c9bd4e9d139::t_1d5e01a9b1aadd 1-21
+test/data/registry/cargo-anyhow.json
+  s_8c7c9bd4e9d139::t_77a272fb3a31b2 1-21
+docs/CUSTOM_PROPERTIES.md
+  s_8c7c9bd4e9d139::t_102bb3ceeb3a4e 516-517,615-616,660-661,802-803,852-853
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "c362485c68c9530876796e20a2d0cabfbc17a0b0",
+  "prompts": {},
+  "sessions": {
+    "s_8c7c9bd4e9d139": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_9dbe5ca6-7bed-4f18-b047-b71e9f4c565f",
+        "model": "GLM-5.3"
+      },
+      "human_author": null
+    }
+  }
+}
