@@ -547,6 +547,10 @@
     "oid": "1.3.6.1.4.1.3029.1.2.1.2",
     "description": "cryptlib public-key algorithm"
   },
+  "scrypt": {
+    "oid": "1.3.6.1.4.1.11591.4.11",
+    "description": "The scrypt password-based key derivation function (RFC 7914)"
+  },
   "gnuDigestAlgorithm": {
     "oid": "1.3.6.1.4.1.11591.12",
     "description": "GNU digest algorithm"
@@ -1758,6 +1762,10 @@
   "prime256v1": {
     "oid": "1.2.840.10045.3.1.7",
     "description": "ANSI x9.62 example curves."
+  },
+  "ecPublicKey": {
+    "oid": "1.2.840.10045.2.1",
+    "description": "ANSI x9.62 elliptic curve public key algorithm (RFC 5480)"
   },
   "c2pnb176w1": {
     "oid": "1.2.840.10045.3.0.4",

@@ -2,6 +2,61 @@
   "bomFormat": "CycloneDX",
   "components": [
     {
+      "bom-ref": "cryptographic-asset:aes256-GCM:",
+      "cryptoProperties": {
+        "algorithmProperties": {
+          "algorithmFamily": "AES"
+        },
+        "assetType": "algorithm",
+        "oid": "2.16.840.1.101.3.4.1.46"
+      },
+      "description": "NIST Algorithm",
+      "evidence": {
+        "identity": [
+          {
+            "concludedValue": "aes256-GCM",
+            "confidence": 1,
+            "field": "name",
+            "methods": [
+              {
+                "confidence": 1,
+                "technique": "source-code-analysis",
+                "value": "src/crypto.js#16"
+              }
+            ]
+          }
+        ],
+        "occurrences": [
+          {
+            "additionalContext": "cipher",
+            "line": 16,
+            "location": "src/crypto.js",
+            "symbol": "node:crypto.createCipheriv"
+          }
+        ]
+      },
+      "name": "aes256-GCM",
+      "properties": [
+        {
+          "name": "cdx:crypto:primitive",
+          "value": "cipher"
+        },
+        {
+          "name": "cdx:crypto:sourceLocation",
+          "value": "src/crypto.js:16:15"
+        },
+        {
+          "name": "cdx:crypto:sourceType",
+          "value": "js-ast:node:crypto.createCipheriv"
+        },
+        {
+          "name": "internal:SrcFile",
+          "value": "$ROOT/src/crypto.js"
+        }
+      ],
+      "type": "cryptographic-asset"
+    },
+    {
       "bom-ref": "cryptographic-asset:sha-256:",
       "cryptoProperties": {
         "algorithmProperties": {

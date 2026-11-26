@@ -1320,6 +1320,26 @@ Losing a cryptographic fact to satisfy an enum is the wrong trade. An unmappable
 curve is still a curve worth recording, so it degrades to the older field rather
 than disappearing.
 
+#### Parameter sets and the names Node.js reports
+
+A generated key states its parameters at the call site, and cdxgen writes them
+into the component. `generateKeyPairSync("rsa", { modulusLength: 2048 })` sets
+`parameterSetIdentifier` to `"2048"`, and `generateKeyPairSync("ec", {
+namedCurve: "prime256v1" })` emits an `ecPublicKey` component whose
+`ellipticCurve` (or the deprecated `curve` below 1.7) carries the curve. The
+modulus length and the curve are part of the component identity, so RSA-2048
+and RSA-4096 are two components, not one. A key length that the algorithm name
+already states, such as the 256 of `aes256-GCM`, adds nothing.
+
+The source analysis also accepts the names Node.js actually takes, which come
+from OpenSSL: `aes-256-gcm` and `id-aes256-GCM` map to the table's
+`aes256-GCM`, `chacha20-poly1305` maps to `chaCha20Poly1305`, and `RSA-SHA256`
+maps to `sha256WithRSAEncryption` (`sha1WithRSAEncryption` maps to
+`sha1-with-rsa-signature`, the table's name for the same OID). A detection
+whose name still maps to no OID is skipped rather than emitted without an OID.
+Every skipped name is logged with its source location, and a debug run
+(`CDXGEN_DEBUG_MODE=debug`) sums the distinct skipped names up in one warning.
+
 #### Downgrading below 1.7
 
 `algorithmFamily` and `ellipticCurve` are 1.7 additions. With
