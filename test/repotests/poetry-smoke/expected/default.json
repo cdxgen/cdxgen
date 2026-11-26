@@ -2821,7 +2821,8 @@
     {
       "dependsOn": [
         "pkg:pypi/exceptiongroup@1.3.1",
-        "pkg:pypi/idna@3.18"
+        "pkg:pypi/idna@3.18",
+        "pkg:pypi/typing-extensions@4.16.0"
       ],
       "ref": "pkg:pypi/anyio@4.14.2"
     },
@@ -2842,6 +2843,7 @@
         "pkg:pypi/colorama@0.4.6",
         "pkg:pypi/importlib-metadata@9.0.0",
         "pkg:pypi/packaging@26.2",
+        "pkg:pypi/pyproject-hooks@1.2.0",
         "pkg:pypi/tomli@2.4.1"
       ],
       "ref": "pkg:pypi/build@1.5.0"
@@ -2917,6 +2919,7 @@
     },
     {
       "dependsOn": [
+        "pkg:pypi/typing-extensions@4.16.0",
         "pkg:pypi/urllib3@2.7.0"
       ],
       "ref": "pkg:pypi/dulwich@1.2.12"
@@ -2995,11 +2998,15 @@
       "ref": "pkg:pypi/jaraco-classes@3.4.0"
     },
     {
-      "dependsOn": [],
+      "dependsOn": [
+        "pkg:pypi/backports-tarfile@1.2.0"
+      ],
       "ref": "pkg:pypi/jaraco-context@6.1.2"
     },
     {
-      "dependsOn": [],
+      "dependsOn": [
+        "pkg:pypi/more-itertools@11.1.0"
+      ],
       "ref": "pkg:pypi/jaraco-functools@4.6.0"
     },
     {
@@ -3008,6 +3015,10 @@
     },
     {
       "dependsOn": [
+        "pkg:pypi/importlib-metadata@9.0.0",
+        "pkg:pypi/jaraco-classes@3.4.0",
+        "pkg:pypi/jaraco-context@6.1.2",
+        "pkg:pypi/jaraco-functools@4.6.0",
         "pkg:pypi/jeepney@0.9.0",
         "pkg:pypi/pywin32-ctypes@0.2.3",
         "pkg:pypi/secretstorage@3.5.0"
@@ -3034,8 +3045,10 @@
       "dependsOn": [
         "pkg:pypi/ast-serialize@0.6.0",
         "pkg:pypi/librt@0.13.0",
+        "pkg:pypi/mypy-extensions@1.1.0",
         "pkg:pypi/pathspec@1.1.1",
-        "pkg:pypi/tomli@2.4.1"
+        "pkg:pypi/tomli@2.4.1",
+        "pkg:pypi/typing-extensions@4.16.0"
       ],
       "ref": "pkg:pypi/mypy@2.3.0"
     },
@@ -3057,6 +3070,7 @@
     },
     {
       "dependsOn": [
+        "pkg:pypi/backports-zstd@1.6.0",
         "pkg:pypi/httpx@0.28.1"
       ],
       "ref": "pkg:pypi/pbs-installer@2026.7.18"
@@ -3177,6 +3191,7 @@
     {
       "dependsOn": [
         "pkg:pypi/certifi@2026.6.17",
+        "pkg:pypi/charset-normalizer@3.4.9",
         "pkg:pypi/idna@3.18",
         "pkg:pypi/urllib3@2.7.0"
       ],

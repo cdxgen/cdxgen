@@ -1,0 +1,19 @@
+[project]
+name = "demo-app"
+version = "0.1.0"
+requires-python = ">=3.11"
+dependencies = [
+  "requests (==2.32.3)",
+  "ruamel.yaml (==0.18.6)",
+  "zope.interface (==7.2)",
+]
+
+[tool.poetry]
+package-mode = false
+
+[tool.poetry.dependencies]
+python = ">=3.11"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "8.3.5"
+"zope.testing" = "5.1"
