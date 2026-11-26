@@ -1,6 +1,29 @@
 /** Default predictive audit category list applied when none are explicitly requested. */
 export declare const DEFAULT_AUDIT_CATEGORIES: string[];
 /**
+ * Version of the JSON report shape both audit modes write. Consumers parse
+ * against this number; a shape change raises it.
+ */
+export declare const AUDIT_REPORT_VERSION = 1;
+/**
+ * Read a list option given once as comma-separated text or several times.
+ * yargs hands a repeated string option over as an array, so both shapes are
+ * accepted and flattened.
+ *
+ * @param {string | string[] | undefined} value option value
+ * @returns {string[] | undefined} the non-empty entries, or undefined
+ */
+export declare function splitCliList(value: string | string[] | undefined): string[] | undefined;
+/**
+ * Check a `--time-budget-minutes` value. A repeated option arrives as an
+ * array, and an unreadable one as NaN.
+ *
+ * @param {unknown} value option value
+ * @returns {string | undefined} the usage error, or undefined when the value
+ *   is absent or a positive number of minutes
+ */
+export declare function timeBudgetUsageError(value: unknown): string | undefined;
+/**
  * Read and validate a CycloneDX BOM file. A CycloneDX 2.0 document is read
  * into cdxgen's internal 1.x-shaped model, so the audit rules keep reading
  * `components`, `bom-ref` and `metadata.component`; the number of losses

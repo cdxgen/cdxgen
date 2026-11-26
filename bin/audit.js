@@ -6,7 +6,12 @@ import process from "node:process";
 import yargs from "yargs";
 import { hideBin } from "yargs/helpers";
 
-import { finalizeAuditReport, runAudit } from "../lib/audit/index.js";
+import {
+  finalizeAuditReport,
+  runAudit,
+  splitCliList,
+  timeBudgetUsageError,
+} from "../lib/audit/index.js";
 import { createProgressTracker } from "../lib/audit/progress.js";
 import {
   retrieveCdxgenVersion,
@@ -121,6 +126,28 @@ const args = yargs(hideBin(process.argv))
       "Optional JSON array or newline-delimited file of purl prefixes to exclude from predictive audit target selection in addition to the built-in well-known allowlist.",
     type: "string",
   })
+  .option("private-namespace", {
+    description:
+      "Comma-separated private package namespaces or name prefixes; repeat the option to add more. An npm scope (@acme, or acme for a scoped package) matches that scope exactly; other names match exactly or at a -, _, . or / boundary, PyPI names after PEP 503 normalisation and Cargo names with _ read as -. In direct BOM audit mode the public registry is asked about each matching name and one it holds is reported as a dependency-confusion finding. Predictive mode only marks the matching components and counts them in its summary; it does not ask the public registries, so it reports no finding for them.",
+    type: "string",
+  })
+  .option("fetch-registry-metadata", {
+    default: false,
+    description:
+      "Direct BOM audit mode: look the BOM's npm, PyPI and Cargo components up in their registries before the rules run, so the rules that read registry metadata (deprecation, yanked releases, missing versions, package age) can evaluate a BOM generated without it. Makes network requests; ignored with --offline.",
+    type: "boolean",
+  })
+  .option("offline", {
+    default: false,
+    description:
+      "Run without any network access. Direct BOM audit mode skips the registry lookups, the OCI registry probes and the forge API requests of AI oversight, and still reads the local git history for AI provenance; predictive mode plans its targets and reports every target as skipped with the reason.",
+    type: "boolean",
+  })
+  .option("time-budget-minutes", {
+    description:
+      "Stop starting new work once this many minutes have passed since the run began. The clock covers the registry lookups too. Predictive mode reports the targets it did not start as skipped and skips default-branch rechecks; direct BOM audit mode skips the remaining registry and public-registry lookups. The summary sets timeBudgetExhausted and counts what was cut.",
+    type: "number",
+  })
   .option("skip-default-branch-recheck", {
     default: false,
     description:
@@ -152,6 +179,10 @@ const args = yargs(hideBin(process.argv))
         "Use either --include-trusted or --only-trusted, not both.",
       );
     }
+    const timeBudgetError = timeBudgetUsageError(argv.timeBudgetMinutes);
+    if (timeBudgetError) {
+      throw new Error(timeBudgetError);
+    }
     return true;
   })
   .completion("completion", "Generate bash/zsh completion")
@@ -160,22 +191,6 @@ const args = yargs(hideBin(process.argv))
   .version(retrieveCdxgenVersion())
   .help()
   .wrap(Math.min(120, yargs().terminalWidth())).argv;
-
-/**
- * Split a CSV option into a normalized string array.
- *
- * @param {string | undefined} value CSV string
- * @returns {string[] | undefined} parsed values
- */
-function splitCsv(value) {
-  if (!value) {
-    return undefined;
-  }
-  return value
-    .split(",")
-    .map((entry) => entry.trim())
-    .filter(Boolean);
-}
 
 /**
  * Print or write rendered report output.
@@ -206,20 +221,24 @@ function writeOrPrint(output, outputPath) {
       allowlistFile: args.allowlistFile,
       bom: args.bom,
       bomDir: args.bomDir,
-      categories: splitCsv(args.categories),
+      categories: splitCliList(args.categories),
       directBomAudit: args.directBomAudit,
       failSeverity: args.failSeverity,
+      fetchRegistryMetadata: args.fetchRegistryMetadata === true,
       introspect: args.introspect === true,
       licensePolicy: args.licensePolicy,
       maxTargets: args.maxTargets,
       minSeverity: args.minSeverity,
+      offline: args.offline === true,
       onProgress: progressTracker.onProgress,
       prioritizeDirectRuntime: args.prioritizeDirectRuntime,
+      privateNamespace: splitCliList(args.privateNamespace),
       report: args.report,
       reportsDir: args.reportsDir,
       rulesDir: args.rulesDir,
       scope: args.scope === "required" ? "required" : undefined,
       skipDefaultBranchRecheck: args.skipDefaultBranchRecheck,
+      timeBudgetMinutes: args.timeBudgetMinutes,
       trusted: args.onlyTrusted
         ? "only"
         : args.includeTrusted

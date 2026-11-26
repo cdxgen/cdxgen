@@ -1,0 +1,21 @@
+{
+ "info": {
+  "name": "attrs",
+  "version": "26.1.0"
+ },
+ "releases": {
+  "21.1.0": [
+   {
+    "upload_time_iso_8601": "2021-05-06T08:26:59.426069Z",
+    "yanked": true,
+    "yanked_reason": "Installable but not importable on Python 3.4."
+   }
+  ],
+  "22.1.0": [
+   {
+    "upload_time_iso_8601": "2022-07-28T13:20:27.076261Z",
+    "yanked": false
+   }
+  ]
+ }
+}

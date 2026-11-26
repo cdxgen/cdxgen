@@ -10,17 +10,100 @@ declare const SUPPORTED_PURL_TYPES: Set<string>;
  */
 export declare function isRequiredComponentScope(scope: string | undefined): boolean;
 /**
+ * Ask the public registries whether the names marked as private exist there.
+ *
+ * A private name the public registry holds is the dependency-confusion
+ * setup: a resolver that finds no private copy falls back to whatever public
+ * package claims the name. Each marked component of a BOM is asked about
+ * once per name, and the answer is recorded on it as
+ * `cdx:<type>:publicRegistry`: `true` when the public registry holds the
+ * name, `false` when it answered that it does not, and no property when it
+ * did not answer (a transport failure, another error status, or offline
+ * mode, when nothing is asked at all). The rules that report the confusion
+ * fire on `true` alone, so an unanswered name is never reported as taken and
+ * never passes as free: the returned counts state how many were unanswered.
+ *
+ * @param {{ source: string, bomJson: object }[]} inputBoms loaded input BOMs whose
+ *   components already carry the private-namespace mark
+ * @param {{ deadline?: number, offline?: boolean }} [options] `offline`, or a
+ *   `deadline` (epoch milliseconds) already passed, asks nothing
+ * @returns {Promise<{ matched: number, onPublicRegistry: number, notOnPublicRegistry: number, unknown: number }>} the counts
+ */
+export declare function checkPrivateNamesOnPublicRegistry(inputBoms: {
+    source: string;
+    bomJson: object;
+}[], { deadline, offline }?: {
+    deadline?: number;
+    offline?: boolean;
+}): Promise<{
+    matched: number;
+    onPublicRegistry: number;
+    notOnPublicRegistry: number;
+    unknown: number;
+}>;
+/**
+ * Count what a direct audit can ask the registries about a BOM, and how many
+ * of those components a registry has answered.
+ *
+ * A component is eligible when its purl is one the lookups read (npm, PyPI,
+ * Cargo) and names a version. It is answered when it carries a property only
+ * a registry lookup writes; the rest were never looked up, are served from a
+ * private index the public registry does not hold, or the lookup failed, and
+ * the report says how many they are instead of letting the rules that read
+ * registry metadata pass over them in silence.
+ *
+ * Two kinds of npm, PyPI or Cargo component are not eligible and are counted
+ * apart, so that `withoutMetadata` of zero is never read as everything
+ * assessed: `unparseable` purls, and purls that name no version
+ * (`withoutVersion`). `skippedByTimeBudget` counts the eligible components a
+ * spent time budget left without a lookup; they are among `withoutMetadata`.
+ *
+ * @param {object} bomJson CycloneDX BOM
+ * @param {{ skippedByTimeBudget?: Set<object> }} [options] the components the
+ *   enrichment did not reach
+ * @returns {{ components: number, eligible: number, answered: number, withoutMetadata: number, unparseable: number, withoutVersion: number, skippedByTimeBudget: number }} the counts
+ */
+export declare function registryCoverage(bomJson: object, options?: {
+    skippedByTimeBudget?: Set<object>;
+}): {
+    components: number;
+    eligible: number;
+    answered: number;
+    withoutMetadata: number;
+    unparseable: number;
+    withoutVersion: number;
+    skippedByTimeBudget: number;
+};
+/**
  * Enrich input BOM components with registry provenance/trusted-publishing
  * metadata so audit target filtering can exclude trusted packages even when the
  * input BOM was generated without --bom-audit.
  *
+ * With `forDirectAudit`, the properties the direct audit's registry rules read
+ * (package age, release recency, version presence, deprecation, yank, native
+ * code) are copied back as well, and a component that already carries
+ * trusted-publishing properties is looked up too.
+ *
+ * With a `deadline` (epoch milliseconds), the lookups run in chunks and stop
+ * once it passes; the components left without a lookup are returned.
+ *
  * @param {{ source: string, bomJson: object }[]} inputBoms loaded input BOMs
- * @returns {Promise<void>}
+ * @param {{ deadline?: number, forDirectAudit?: boolean }} [options] what to
+ *   copy back, and when to stop
+ * @returns {Promise<{ lookedUp: number, skippedByTimeBudget: Set<object> }>}
+ *   how many distinct package versions were looked up, and the components a
+ *   spent time budget left without a lookup
  */
 export declare function enrichInputBomsWithRegistryMetadata(inputBoms: {
     source: string;
     bomJson: object;
-}[]): Promise<void>;
+}[], { deadline, forDirectAudit }?: {
+    deadline?: number;
+    forDirectAudit?: boolean;
+}): Promise<{
+    lookedUp: number;
+    skippedByTimeBudget: Set<object>;
+}>;
 /**
  * Normalize package names for safe matching and grouping.
  *

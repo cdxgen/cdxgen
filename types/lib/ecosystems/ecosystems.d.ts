@@ -131,10 +131,23 @@ export declare function guessPypiMatchingVersion(versionsList: any[], versionSpe
 /**
  * Method to retrieve metadata for python packages by querying pypi
  *
+ * A pinned package is looked up at its version document
+ * (`/pypi/<name>/<version>/json`), which says whether the release was yanked.
+ * When that document is not found, the project document is read to tell a
+ * version the index does not hold (`cdx:pypi:versionMissing`) from a name it
+ * does not hold, which is left unmarked. With `fetchReleaseHistory`, the
+ * project document is read for every package as well, once per name, for the
+ * package's age and newest release.
+ *
  * @param {Array} pkgList Package list
  * @param {Boolean} fetchDepsInfo Fetch dependencies info from pypi
+ * @param {Object} [options] Options
+ * @param {boolean} [options.fetchReleaseHistory=false] Also read each
+ *   project's release history
  */
-export declare function getPyMetadata(pkgList: any[], fetchDepsInfo: boolean): Promise<any[]>;
+export declare function getPyMetadata(pkgList: any[], fetchDepsInfo: boolean, options?: {
+    fetchReleaseHistory?: boolean;
+}): Promise<any[]>;
 /**
  * Method to parse bdist_wheel metadata (dist-info/METADATA)
  *
@@ -280,7 +293,9 @@ export declare function getGoPkgVCSUrl(group: string, name: string, version?: st
  * publisher-drift and release-cadence signals — the predictive audit does —
  * passes `preferLocalCache: false` and takes the slower registry path. That is
  * also the only caller that needs the crate's owners, so the `/owners` request
- * is made for it alone.
+ * is made for it alone; a caller that takes the registry path for the
+ * metadata alone passes `fetchOwners: false` and halves its crates.io
+ * requests.
  *
  * Crates a public registry cannot hold are skipped: the project itself, path
  * and git crates, and crates from an alternate registry. See
@@ -290,9 +305,12 @@ export declare function getGoPkgVCSUrl(group: string, name: string, version?: st
  * @param {Object} [options] Options
  * @param {boolean} [options.preferLocalCache=true] Answer from the local Cargo
  *   registry where it can, and query crates.io only for the rest.
+ * @param {boolean} [options.fetchOwners=true] On the registry path, also fetch
+ *   the crate's owners listing, a second request per crate.
  */
 export declare function getCratesMetadata(pkgList: any[], options?: {
     preferLocalCache?: boolean;
+    fetchOwners?: boolean;
 }): Promise<any[]>;
 /**
  * Method to retrieve metadata for dart packages by querying pub.dev

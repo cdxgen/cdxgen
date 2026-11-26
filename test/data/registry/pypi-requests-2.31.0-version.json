@@ -1,0 +1,226 @@
+{
+  "info": {
+    "author": "Kenneth Reitz",
+    "author_email": "me@kennethreitz.org",
+    "bugtrack_url": null,
+    "classifiers": [
+      "Development Status :: 5 - Production/Stable",
+      "Environment :: Web Environment",
+      "Intended Audience :: Developers",
+      "License :: OSI Approved :: Apache Software License",
+      "Natural Language :: English",
+      "Operating System :: OS Independent",
+      "Programming Language :: Python",
+      "Programming Language :: Python :: 3",
+      "Programming Language :: Python :: 3 :: Only",
+      "Programming Language :: Python :: 3.10",
+      "Programming Language :: Python :: 3.11",
+      "Programming Language :: Python :: 3.7",
+      "Programming Language :: Python :: 3.8",
+      "Programming Language :: Python :: 3.9",
+      "Programming Language :: Python :: Implementation :: CPython",
+      "Programming Language :: Python :: Implementation :: PyPy",
+      "Topic :: Internet :: WWW/HTTP",
+      "Topic :: Software Development :: Libraries"
+    ],
+    "description": "",
+    "description_content_type": "text/markdown",
+    "docs_url": null,
+    "download_url": "",
+    "downloads": {
+      "last_day": -1,
+      "last_month": -1,
+      "last_week": -1
+    },
+    "dynamic": null,
+    "home_page": "https://requests.readthedocs.io",
+    "keywords": "",
+    "license": "Apache 2.0",
+    "license_expression": null,
+    "license_files": null,
+    "maintainer": "",
+    "maintainer_email": "",
+    "name": "requests",
+    "package_url": "https://pypi.org/project/requests/",
+    "platform": null,
+    "project_url": "https://pypi.org/project/requests/",
+    "project_urls": {
+      "Documentation": "https://requests.readthedocs.io",
+      "Homepage": "https://requests.readthedocs.io",
+      "Source": "https://github.com/psf/requests"
+    },
+    "provides_extra": null,
+    "release_url": "https://pypi.org/project/requests/2.31.0/",
+    "requires_dist": [
+      "charset-normalizer (<4,>=2)",
+      "idna (<4,>=2.5)",
+      "urllib3 (<3,>=1.21.1)",
+      "certifi (>=2017.4.17)",
+      "PySocks (!=1.5.7,>=1.5.6) ; extra == 'socks'",
+      "chardet (<6,>=3.0.2) ; extra == 'use_chardet_on_py3'"
+    ],
+    "requires_python": ">=3.7",
+    "summary": "Python HTTP for Humans.",
+    "version": "2.31.0",
+    "yanked": false,
+    "yanked_reason": null
+  },
+  "last_serial": 37059094,
+  "ownership": {
+    "organization": null,
+    "roles": [
+      {
+        "role": "Owner",
+        "user": "Lukasa"
+      },
+      {
+        "role": "Owner",
+        "user": "graffatcolmingov"
+      },
+      {
+        "role": "Owner",
+        "user": "nateprewitt"
+      }
+    ]
+  },
+  "urls": [
+    {
+      "comment_text": "",
+      "core-metadata": {
+        "sha256": "7823e890e9db6f415138badf9744791290ef76e7ec6fd09a3789e8247fffe782"
+      },
+      "digests": {
+        "blake2b_256": "708e0e2d847013cb52cd35b38c009bb167a1a26b2ce6cd6965bf26b47bc0bf44",
+        "md5": "0cb4b772a1a652cf3d170a6c42a69098",
+        "sha256": "58cd2187c01e70e6e26505bca751777aa9f2ee0b7f4300988b709f44e013003f"
+      },
+      "downloads": -1,
+      "filename": "requests-2.31.0-py3-none-any.whl",
+      "has_sig": false,
+      "md5_digest": "0cb4b772a1a652cf3d170a6c42a69098",
+      "packagetype": "bdist_wheel",
+      "python_version": "py3",
+      "requires_python": ">=3.7",
+      "size": 62574,
+      "upload_time": "2023-05-22T15:12:42",
+      "upload_time_iso_8601": "2023-05-22T15:12:42.313790Z",
+      "url": "https://files.pythonhosted.org/packages/70/8e/0e2d847013cb52cd35b38c009bb167a1a26b2ce6cd6965bf26b47bc0bf44/requests-2.31.0-py3-none-any.whl",
+      "yanked": false,
+      "yanked_reason": null
+    },
+    {
+      "comment_text": "",
+      "core-metadata": false,
+      "digests": {
+        "blake2b_256": "9dbe10918a2eac4ae9f02f6cfe6414b7a155ccd8f7f9d4380d62fd5b955065c3",
+        "md5": "941e175c276cd7d39d098092c56679a4",
+        "sha256": "942c5a758f98d790eaed1a29cb6eefc7ffb0d1cf7af05c3d2791656dbd6ad1e1"
+      },
+      "downloads": -1,
+      "filename": "requests-2.31.0.tar.gz",
+      "has_sig": false,
+      "md5_digest": "941e175c276cd7d39d098092c56679a4",
+      "packagetype": "sdist",
+      "python_version": "source",
+      "requires_python": ">=3.7",
+      "size": 110794,
+      "upload_time": "2023-05-22T15:12:44",
+      "upload_time_iso_8601": "2023-05-22T15:12:44.175995Z",
+      "url": "https://files.pythonhosted.org/packages/9d/be/10918a2eac4ae9f02f6cfe6414b7a155ccd8f7f9d4380d62fd5b955065c3/requests-2.31.0.tar.gz",
+      "yanked": false,
+      "yanked_reason": null
+    }
+  ],
+  "vulnerabilities": [
+    {
+      "aliases": [
+        "CVE-2024-35195",
+        "PYSEC-2026-1873"
+      ],
+      "details": "When using a `requests.Session`, if the first request to a given origin is made with `verify=False`, TLS certificate verification may remain disabled for all subsequent requests to that origin, even if `verify=True` is explicitly specified later.\n\nThis occurs because the underlying connection is reused from the session's connection pool, causing the initial TLS verification setting to persist for the lifetime of the pooled connection. As a result, applications may unintentionally send requests without certificate verification, leading to potential man-in-the-middle attacks and compromised confidentiality or integrity.\n\nThis behavior affects versions of `requests` prior to 2.32.0.",
+      "fixed_in": [
+        "2.32.0"
+      ],
+      "id": "GHSA-9wx4-h78v-vm56",
+      "link": "https://osv.dev/vulnerability/GHSA-9wx4-h78v-vm56",
+      "source": "osv",
+      "summary": null,
+      "withdrawn": null
+    },
+    {
+      "aliases": [
+        "CVE-2024-47081",
+        "PYSEC-2026-1872"
+      ],
+      "details": "### Impact\n\nDue to a URL parsing issue, Requests releases prior to 2.32.4 may leak .netrc credentials to third parties for specific maliciously-crafted URLs.\n\n### Workarounds\nFor older versions of Requests, use of the .netrc file can be disabled with `trust_env=False` on your Requests Session ([docs](https://requests.readthedocs.io/en/latest/api/#requests.Session.trust_env)).\n\n### References\nhttps://github.com/psf/requests/pull/6965\nhttps://seclists.org/fulldisclosure/2025/Jun/2",
+      "fixed_in": [
+        "2.32.4"
+      ],
+      "id": "GHSA-9hjg-9r4m-mvj7",
+      "link": "https://osv.dev/vulnerability/GHSA-9hjg-9r4m-mvj7",
+      "source": "osv",
+      "summary": null,
+      "withdrawn": null
+    },
+    {
+      "aliases": [
+        "CVE-2026-25645",
+        "PYSEC-2026-2275"
+      ],
+      "details": "### Impact\nThe `requests.utils.extract_zipped_paths()` utility function uses a predictable filename when extracting files from zip archives into the system temporary directory. If the target file already exists, it is reused without validation. A local attacker with write access to the temp directory could pre-create a malicious file that would be loaded in place of the legitimate one.\n\n### Affected usages\n**Standard usage of the Requests library is not affected by this vulnerability.** Only applications that call `extract_zipped_paths()` directly are impacted.\n\n### Remediation\nUpgrade to at least Requests 2.33.0, where the library now extracts files to a non-deterministic location.\n\nIf developers are unable to upgrade, they can set `TMPDIR` in their environment to a directory with restricted write access.",
+      "fixed_in": [
+        "2.33.0"
+      ],
+      "id": "GHSA-gc5v-m9x4-r6x2",
+      "link": "https://osv.dev/vulnerability/GHSA-gc5v-m9x4-r6x2",
+      "source": "osv",
+      "summary": null,
+      "withdrawn": null
+    },
+    {
+      "aliases": [
+        "CVE-2024-35195",
+        "GHSA-9wx4-h78v-vm56"
+      ],
+      "details": "When using a `requests.Session`, if the first request to a given origin is made with `verify=False`, TLS certificate verification may remain disabled for all subsequent requests to that origin, even if `verify=True` is explicitly specified later.\n\nThis occurs because the underlying connection is reused from the session's connection pool, causing the initial TLS verification setting to persist for the lifetime of the pooled connection. As a result, applications may unintentionally send requests without certificate verification, leading to potential man-in-the-middle attacks and compromised confidentiality or integrity.\n\nThis behavior affects versions of `requests` prior to 2.32.0.",
+      "fixed_in": [
+        "2.32.0"
+      ],
+      "id": "PYSEC-2026-1873",
+      "link": "https://osv.dev/vulnerability/PYSEC-2026-1873",
+      "source": "osv",
+      "summary": null,
+      "withdrawn": null
+    },
+    {
+      "aliases": [
+        "CVE-2024-47081",
+        "GHSA-9hjg-9r4m-mvj7"
+      ],
+      "details": "### Impact\n\nDue to a URL parsing issue, Requests releases prior to 2.32.4 may leak .netrc credentials to third parties for specific maliciously-crafted URLs.\n\n### Workarounds\nFor older versions of Requests, use of the .netrc file can be disabled with `trust_env=False` on your Requests Session ([docs](https://requests.readthedocs.io/en/latest/api/#requests.Session.trust_env)).\n\n### References\nhttps://github.com/psf/requests/pull/6965\nhttps://seclists.org/fulldisclosure/2025/Jun/2",
+      "fixed_in": [
+        "2.32.4"
+      ],
+      "id": "PYSEC-2026-1872",
+      "link": "https://osv.dev/vulnerability/PYSEC-2026-1872",
+      "source": "osv",
+      "summary": null,
+      "withdrawn": null
+    },
+    {
+      "aliases": [
+        "CVE-2026-25645",
+        "GHSA-gc5v-m9x4-r6x2"
+      ],
+      "details": "Requests is a HTTP library. Prior to version 2.33.0, the `requests.utils.extract_zipped_paths()` utility function uses a predictable filename when extracting files from zip archives into the system temporary directory. If the target file already exists, it is reused without validation. A local attacker with write access to the temp directory could pre-create a malicious file that would be loaded in place of the legitimate one. Standard usage of the Requests library is not affected by this vulnerability. Only applications that call `extract_zipped_paths()` directly are impacted. Starting in version 2.33.0, the library extracts files to a non-deterministic location. If developers are unable to upgrade, they can set `TMPDIR` in their environment to a directory with restricted write access.",
+      "fixed_in": [
+        "2.33.0"
+      ],
+      "id": "PYSEC-2026-2275",
+      "link": "https://osv.dev/vulnerability/PYSEC-2026-2275",
+      "source": "osv",
+      "summary": null,
+      "withdrawn": null
+    }
+  ]
+}

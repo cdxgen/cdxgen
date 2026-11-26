@@ -211,6 +211,10 @@ CDXGEN_THINK_MODE=true cdx-audit --bom bom.json --max-targets 10
 | `--only-trusted`              | Restrict analysis to trusted-publishing-backed targets                                               |
 | `--prioritize-direct-runtime` | Keep direct runtime dependencies ahead of less actionable targets (enabled by default)               |
 | `--allowlist-file`            | Add a JSON array or newline-delimited purl-prefix allowlist on top of the built-in well-known filter |
+| `--private-namespace`         | Comma-separated private package namespaces or name prefixes; repeat the option to add more. An npm scope (`@acme`, or `acme` for a scoped package) matches that scope exactly; other names match exactly or at a `-`, `_`, `.` or `/` boundary (PyPI after PEP 503 normalisation, Cargo with `_` read as `-`). In direct mode the public registry is asked about each matching name, and one it holds is reported as a dependency-confusion finding (INT-017 to INT-019). Predictive mode only marks the matching components and counts them in `summary.privateNamespace`; it reports no finding for them |
+| `--fetch-registry-metadata`   | Direct BOM audit mode: look the BOM's npm, PyPI and Cargo components up in their registries before the rules run, so the registry metadata rules can evaluate a BOM generated without it. Makes network requests; ignored with `--offline` |
+| `--offline`                   | Run without any network access. Direct mode skips the registry lookups, the OCI registry probes and the forge API requests of AI oversight, and still reads the local git history for AI provenance; predictive mode plans its targets and reports every one as skipped with the reason |
+| `--time-budget-minutes`       | Stop starting new work once this many minutes have passed since the run began, registry lookups included. Predictive mode reports the targets it did not start as skipped and skips default-branch rechecks; direct mode skips the remaining registry and public-registry lookups. The summary sets `timeBudgetExhausted` and counts what was cut. Takes one positive number; a repeated, zero, negative or unreadable value is a usage error |
 | `--license-policy`            | Path to a license compliance policy YAML file (see below)                                            |
 
 ## License compliance auditing
@@ -340,7 +344,9 @@ When nothing crosses the configured threshold, the console output uses the empty
 
 Best for automation and secondary reporting pipelines.
 
-Use `--report json` when you want stable machine-readable results for dashboards, ticket enrichment, or internal triage workflows.
+Use `--report json` when you want stable machine-readable results for dashboards, ticket enrichment, or internal triage workflows. Both modes write a `version` field for the report shape (currently `1`), beside `tool.name` and `tool.version`, so a consumer can parse against it. Every finding carries `ruleId`, `severity`, and a `location` with the `purl` and `bom-ref` of the component it names. In predictive mode the summary also names what cut the audit short: `targetCapTruncated` when `--max-targets` left targets unanalyzed, `offline: true` for an offline run (a dry run sets `predictiveDryRun` as well), and `timeBudgetExhausted` when `--time-budget-minutes` cut the run, with `registryLookupsSkippedByTimeBudget`, `targetsSkippedByTimeBudget` and `defaultBranchRechecksSkippedByTimeBudget` counting where; targets that never ran appear as `status: "skipped"` results with the reason. A full, dry-run, offline or budget-cut predictive report has the same shape: `groupedResults` groups the skipped targets as it groups audited ones, `--reports-dir` receives the aggregate report (except in a dry run, which writes no file and names none), and the progress listener sees `run:start` and `run:finish`. With `--private-namespace`, `summary.privateNamespace` counts the matching input components (`matched`) and says `publicRegistry: "not-checked"`: predictive mode does not ask the public registries, so run a direct audit for INT-017 to INT-019.
+
+In direct mode each result carries a `coverage` block for the registry metadata rules (deprecation, yanked releases, missing versions, package age). `registryMetadata` says whether the lookups ran: `fetched` with `--fetch-registry-metadata`, `partial-time-budget` when `--time-budget-minutes` stopped them part way, `offline` when `--offline` stopped them, `not-requested` otherwise. `eligible` counts the npm, PyPI and Cargo components whose purl parses and names a version, `answered` the ones a registry answered for, and `withoutMetadata` the rest: never looked up, cut by the time budget (`skippedByTimeBudget` counts those), served from an index the public registry does not hold, or failed in the lookup. Two kinds of npm, PyPI and Cargo component are not eligible at all and are counted apart: `unparseable` purls and purls with no version (`withoutVersion`). The registry metadata rules do not assess any of these components, so read a clean run with `withoutMetadata`, `unparseable` or `withoutVersion` above zero, or with `registryMetadata` other than `fetched`, as not assessed rather than as clean. The summary sets `timeBudgetExhausted` when the budget cut a lookup.
 
 ### SARIF output
 
@@ -428,6 +434,32 @@ Correlated sender → receiver edges are preserved in the console summary, SARIF
 - suspicious process or network behavior in package `__init__.py`
 
 The Python coverage is intentionally triage-oriented rather than full static analysis.
+
+### Registry metadata and package hygiene
+
+The `package-integrity` pack reports, where the BOM carries the properties:
+
+- a deprecated npm package version in use (INT-005). cdxgen records the notice under `cdx:npm:deprecation_notice` (lockfile parsers and the registry lookup) or `cdx:npm:deprecated` (an installed tree)
+- an npm package whose newest release is deprecated while the version in use is not (INT-031, low), which is how maintainers retire a package; the message names that release (`cdx:npm:latest_deprecated_version`)
+- a yanked PyPI release in use (INT-030) and a yanked Cargo crate in use (INT-010). PyPI's version document states the yank in `info.yanked`
+- a requested version the npm, PyPI or crates.io registry does not list (INT-020 to INT-022). npm keeps the publish time of an unpublished version, and INT-020 says so for one (`cdx:npm:versionUnpublished`); build metadata (`7.3.5+build.1`) is dropped before the lookup. PyPI versions are compared in their canonical PEP 440 form, so `1.0` and `1.0.0` are the same release, and a version is missing only when the version document answers 404 while the project exists
+- a package first published inside a one-year quarantine window (INT-023 to INT-025)
+- a package whose newest release is more than six years old (INT-026 to INT-028). For npm this is the newest release time, not the packument's modification time
+- an npm version that ships or builds native code: an `os`, `cpu` or `libc` constraint, a node-gyp build, an install or preinstall script that runs node-gyp, node-gyp-build, prebuild-install or node-pre-gyp (bufferutil, better-sqlite3), a `binary` (node-pre-gyp) declaration with or without a download host, or platform packages it lists in its optionalDependencies, which is how rollup and esbuild ship theirs (INT-029). A `bin` entry does not count; it names a script the package runs
+
+Two sources write these properties. The parsers record them for a project's own manifest. For dependencies, only the registry states them, so pass `--fetch-registry-metadata` in direct mode (predictive mode always looks them up) or generate the BOM with cdxgen's package metadata fetch on. For PyPI, the package's age and newest release are only in the project document (`/pypi/<name>/json`), which cdx-audit reads once per name in a direct audit with `--fetch-registry-metadata`; a BOM generated by cdxgen carries the yank but not those times. The result's `coverage` block says how many components the registries answered for. The lookup is one request per npm package and two per PyPI package (the version and the project document, the latter once per name), made concurrently. crates.io admits one request per second and a direct audit makes one per crate, so a hundred Cargo components take about a minute and forty seconds; the predictive audit also fetches each crate's owners, which doubles that. `--time-budget-minutes` bounds the wait.
+
+### Private namespaces and dependency confusion
+
+Pass `--private-namespace` with your organisation's package namespaces or name prefixes, comma-separated or with the option repeated. Every component whose registry name a prefix names is marked, and in direct BOM audit mode cdx-audit then asks the public npm registry, the Python Package Index or crates.io whether it holds that name, one request per name. INT-017, INT-018 or INT-019 report a marked component only when the public registry holds its name: a private package that resolves from its own index and is not published publicly is the intended state, and is no finding. The name is read from the component's purl, or from its group and name when the purl does not parse, and a prefix names it as follows:
+
+- npm: a prefix that names a scope (`@acme`) matches that scope exactly, and a bare prefix (`acme`) matches the scope `@acme` too, never `@acmecorp`. A bare prefix also matches an unscoped name that is the prefix or continues it after `-`, `_`, `.` or `/`, so `acme` marks the public `acme-client`; pass `@acme` to mark only the scope. `@acme/internal-` matches scoped names that start with it.
+- PyPI: both sides are compared after PEP 503 normalisation, at a separator boundary, so `acme` marks `acme_internal.utils` and `Acme-Tools` but not `acmecorp`.
+- Cargo: both sides are compared with `_` read as `-`, at a separator boundary.
+
+The public registries are asked directly, whatever registry the other lookups are configured to use, because the question is whether the public one holds the name. A second check replaces the recorded `cdx:<type>:publicRegistry` answer rather than adding another.
+
+The result's `coverage.privateNamespace` block counts the marked components (`matched`), the ones the public registry holds (`onPublicRegistry`), the ones it does not (`notOnPublicRegistry`) and the ones it did not answer about (`unknown`), and `publicRegistry` says whether the registries were asked (`checked`) or not (`offline`). Under `--offline`, or once `--time-budget-minutes` is spent (`publicRegistry: "time-budget"`), nothing is asked and every marked component is `unknown`, so the check assessed none of them. In predictive mode the child SBOMs are marked but not asked about, and `summary.privateNamespace` counts the matching input components with `publicRegistry: "not-checked"`.
 
 ### Provenance and publisher context
 

@@ -250,6 +250,23 @@ Rules that detect deprecated, yanked, tampered, or suspicious packages.
 | INT-014 | high     | Collider package is missing a valid wrap hash integrity pin               |
 | INT-015 | low      | Ruby gem compiles native extensions at install time                       |
 | INT-016 | high     | Gradle verification metadata disagrees with the artifact digest           |
+| INT-017 | high     | Private npm package name resolves from the public registry                |
+| INT-018 | high     | Private PyPI package name resolves from the public index                  |
+| INT-019 | high     | Private Cargo crate name resolves from crates.io                          |
+| INT-020 | high     | npm version the registry does not list                                    |
+| INT-021 | high     | PyPI version the index does not list                                      |
+| INT-022 | high     | Cargo version crates.io does not list                                     |
+| INT-023 | low      | npm package first published inside the one-year quarantine window         |
+| INT-024 | low      | PyPI package first published inside the one-year quarantine window        |
+| INT-025 | low      | Cargo crate first published inside the one-year quarantine window         |
+| INT-026 | low      | npm package without any release in six years (reads `cdx:npm:latestPublishTime`; a BOM generated before that property existed carries only `cdx:npm:lastModifiedTime` and is not reported until its registry metadata is fetched again) |
+| INT-027 | low      | PyPI package without any release in six years                             |
+| INT-028 | low      | Cargo crate without any release in six years                              |
+| INT-029 | low      | npm version ships or builds native code (platform constraint, node-gyp, an install script running node-gyp, node-gyp-build, prebuild-install or node-pre-gyp, a node-pre-gyp binary, platform packages in optionalDependencies) |
+| INT-030 | high     | PyPI release in use has been yanked                                       |
+| INT-031 | low      | npm package whose newest release is deprecated while the version in use is not |
+
+The private-namespace rules INT-017 to INT-019 fire when `cdx-audit --private-namespace` (or the matching `bomAuditPrivateNamespace` audit option) names a component and the public registry holds that name. An npm scope prefix (`@acme`, or `acme` for a scoped package) matches that scope exactly; other names match exactly or at a `-`, `_`, `.` or `/` boundary, PyPI names after PEP 503 normalisation and Cargo names with `_` read as `-`, so `acme` marks `acme-client` and `acme_utils` but never `acmecorp` or `@acmecorp/x`: `cdx-audit` marks the matching components and, in direct BOM audit mode, asks the public registry about each name, recording the answer as `cdx:<type>:publicRegistry`; see [CDX_AUDIT.md](CDX_AUDIT.md). INT-005 reports the deprecation of the version in use; INT-031 reports a deprecation of the newest release alone, naming that release. INT-026 reads the newest release time (`cdx:npm:latestPublishTime`), not the packument's modification time, which a deprecation or a dist-tag change moves. The time rules INT-023 to INT-028 read their timestamps through `$timeMillis`, so a value they cannot read skips that component instead of stopping the rule for the whole BOM. INT-005, INT-010, INT-020 to INT-031 read registry metadata properties; they evaluate only where a BOM carries them, which takes one registry fetch at generation time or at audit time (`cdx-audit --fetch-registry-metadata` in direct mode; the predictive mode always looks them up). INT-029 does not count a `bin` entry, which names a script rather than native code.
 
 ### Advanced predictive heuristics
 
@@ -836,6 +853,7 @@ The rule engine registers custom functions for working with CycloneDX properties
 | `$safeStr(val)`               | Guarantees a trimmed string return. Converts null/undefined to "" . Ideal for regex matching and template interpolation.                        | `$match($safeStr($prop($, 'cdx:npm:versionSpecifiers')), /^\^/)`                           |
 | `$propValues(obj, name)`      | Returns every value of a repeatable property (such as `cdx:crypto:sourceType`) as an array.                                                     | `'observed-tls' in $propValues($, 'cdx:crypto:sourceType')`                                |
 | `$certEndMillis(val)`         | Certificate end of validity in epoch milliseconds. A date-only value is valid through the end of that UTC day; unparseable values give nothing. | `$certEndMillis(cryptoProperties.certificateProperties.notValidAfter) < $toMillis($now())` |
+| `$timeMillis(val)`            | An ISO 8601 date or date-time in epoch milliseconds; a date and time without a zone is UTC. Unlike `$toMillis`, a value it cannot read gives nothing instead of an error, so the rule skips that component only. | `$timeMillis($prop($, 'cdx:npm:latestPublishTime')) < $toMillis($now())` |
 | `$startsWith(str, prefix)`    | String prefix check                                                                                                                             | `$startsWith(purl, 'pkg:nix/')`                                                            |
 | `$endsWith(str, suffix)`      | String suffix check                                                                                                                             | `$endsWith(name, '-beta')`                                                                 |
 | `$arrayContains(arr, value)`  | Check array membership                                                                                                                          | `$arrayContains(tags, 'deprecated')`                                                       |

@@ -1,0 +1,23 @@
+{
+ "name": "@types/component-emitter",
+ "dist-tags": {
+  "latest": "2.0.0"
+ },
+ "time": {
+  "created": "2016-08-02T15:49:36.608Z",
+  "modified": "2026-09-02T02:16:53.753Z",
+  "1.2.13": "2023-10-18T00:13:20.464Z",
+  "2.0.0": "2026-09-02T02:16:53.548Z"
+ },
+ "versions": {
+  "1.2.13": {
+   "name": "@types/component-emitter",
+   "version": "1.2.13"
+  },
+  "2.0.0": {
+   "name": "@types/component-emitter",
+   "version": "2.0.0",
+   "deprecated": "This is a stub types definition. component-emitter provides its own type definitions, so you do not need this installed."
+  }
+ }
+}

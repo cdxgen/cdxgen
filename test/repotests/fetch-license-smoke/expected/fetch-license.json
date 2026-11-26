@@ -52,6 +52,10 @@
           "value": "3333333333333333333333333333333333333333"
         },
         {
+          "name": "cdx:npm:latestPublishTime",
+          "value": "2021-06-15T12:00:00.000Z"
+        },
+        {
           "name": "cdx:npm:maintainerSet",
           "value": "widgeteer, widgeteer@example.invalid"
         },
@@ -149,6 +153,10 @@
         {
           "name": "cdx:npm:artifactShasum",
           "value": "2222222222222222222222222222222222222222"
+        },
+        {
+          "name": "cdx:npm:latestPublishTime",
+          "value": "2018-03-06T18:14:35.000Z"
         },
         {
           "name": "cdx:npm:maintainerOverlapCount",
@@ -268,6 +276,10 @@
         {
           "name": "cdx:npm:artifactShasum",
           "value": "4444444444444444444444444444444444444444"
+        },
+        {
+          "name": "cdx:npm:latestPublishTime",
+          "value": "2019-04-04T00:00:00.000Z"
         },
         {
           "name": "cdx:npm:maintainerSetCount",

@@ -85,21 +85,57 @@
 
 - id: INT-005
   name: "npm deprecated package"
-  description: "npm packages marked as deprecated may have known vulnerabilities or unmaintained code"
+  description: "npm packages marked as deprecated may have known vulnerabilities or unmaintained code. The version in use carries the deprecation"
   severity: low
   category: package-integrity
   dry-run-support: partial
+  # cdxgen records a deprecation in two spellings, one per parser: the
+  # installed tree writes the notice to cdx:npm:deprecated, and the lockfile
+  # parsers and the registry lookup write it to cdx:npm:deprecation_notice.
+  # None writes the literal "true", so existence is the test. A deprecation
+  # of the newest release alone is INT-031.
   condition: |
     components[
-      $prop($, 'cdx:npm:deprecated') = 'true'
+      $hasProp($, 'cdx:npm:deprecation_notice')
+      or (
+        $hasProp($, 'cdx:npm:deprecated')
+        and $prop($, 'cdx:npm:deprecated') != 'false'
+      )
     ]
   location: |
     { "bomRef": $."bom-ref", "purl": purl }
-  message: "npm package '{{ name }}@{{ version }}' is deprecated: {{ $prop($, 'cdx:npm:deprecation_notice') }}"
+  message: "npm package '{{ name }}@{{ version }}' is deprecated: {{ $hasProp($, 'cdx:npm:deprecation_notice') ? $prop($, 'cdx:npm:deprecation_notice') : $prop($, 'cdx:npm:deprecated') }}"
   mitigation: "Migrate to a maintained alternative package"
   evidence: |
     {
-      "deprecationNotice": $prop($, 'cdx:npm:deprecation_notice')
+      "deprecationNotice": $hasProp($, 'cdx:npm:deprecation_notice') ? $prop($, 'cdx:npm:deprecation_notice') : $prop($, 'cdx:npm:deprecated')
+    }
+
+- id: INT-031
+  name: "npm package whose newest release is deprecated"
+  description: >-
+    The version in use is not deprecated, but the package's newest release
+    is. npm maintainers retire a package by deprecating its latest version,
+    and DefinitelyTyped deprecates the stub it publishes once a package ships
+    its own types, so the package is heading out of maintenance even though
+    nothing about the installed version has changed.
+  severity: low
+  category: package-integrity
+  dry-run-support: no
+  condition: |
+    components[
+      $hasProp($, 'cdx:npm:latest_deprecation_notice')
+      and $not($hasProp($, 'cdx:npm:deprecation_notice'))
+      and $not($hasProp($, 'cdx:npm:deprecated') and $prop($, 'cdx:npm:deprecated') != 'false')
+    ]
+  location: |
+    { "bomRef": $."bom-ref", "purl": purl }
+  message: "npm package '{{ name }}@{{ version }}' is not deprecated, but its newest release {{ $prop($, 'cdx:npm:latest_deprecated_version') }} is: {{ $prop($, 'cdx:npm:latest_deprecation_notice') }}"
+  mitigation: "Read the deprecation notice of the newest release and plan the move it names before the version in use stops receiving fixes"
+  evidence: |
+    {
+      "latestDeprecatedVersion": $prop($, 'cdx:npm:latest_deprecated_version'),
+      "latestDeprecationNotice": $prop($, 'cdx:npm:latest_deprecation_notice')
     }
 
 - id: INT-006
@@ -211,6 +247,26 @@
       "priorPublisher": $prop($, 'cdx:cargo:priorPublisher'),
       "publishTime": $prop($, 'cdx:cargo:publishTime'),
       "releaseGapDays": $prop($, 'cdx:cargo:releaseGapDays')
+    }
+
+- id: INT-030
+  name: "Yanked PyPI release in dependency tree"
+  description: "Releases yanked from the Python Package Index were withdrawn by their maintainers, usually for a security, correctness or build problem. The index keeps them downloadable, so a lockfile still installs them"
+  severity: high
+  category: package-integrity
+  dry-run-support: no
+  condition: |
+    components[
+      $prop($, 'cdx:pypi:yanked') = 'true'
+    ]
+  location: |
+    { "bomRef": $."bom-ref", "purl": purl }
+  message: "PyPI release '{{ name }}@{{ version }}' has been yanked"
+  mitigation: "Upgrade to a release that is not yanked and read the yank reason before choosing one"
+  evidence: |
+    {
+      "yankedReason": $prop($, 'cdx:pypi:yanked_reason'),
+      "publishTime": $prop($, 'cdx:pypi:publishTime')
     }
 
 - id: INT-011
@@ -388,4 +444,346 @@
     {
       "verificationMethods": $prop($, 'cdx:gradle:verificationMethods'),
       "pgpKeyIds": $prop($, 'cdx:gradle:pgpKeyIds')
+    }
+
+- id: INT-017
+  name: "Private npm package name on the public registry"
+  description: >-
+    A component whose name starts with a namespace or prefix the caller
+    declared private is published on the public npm registry. An install
+    that finds no private copy falls back to whatever public package claims
+    the name, which is how dependency confusion compromises builds.
+  severity: high
+  category: package-integrity
+  dry-run-support: full
+  # Only a name the public registry holds is the confusion setup. A private
+  # package that resolves from its own index and is not on the public one is
+  # the intended state, and a name the public registry did not answer about
+  # is not reported as taken.
+  condition: |
+    components[
+      $hasProp($, 'cdx:npm:privateNamespace')
+      and $prop($, 'cdx:npm:publicRegistry') = 'true'
+    ]
+  location: |
+    { "bomRef": $."bom-ref", "purl": purl }
+  message: "npm package '{{ name }}@{{ version }}' matches the private namespace '{{ $prop($, 'cdx:npm:privateNamespace') }}', and the public npm registry holds that name"
+  mitigation: "Publish a placeholder under the name in your private registry, or reserve the name publicly, so a build can never silently resolve the public package"
+  evidence: |
+    {
+      "matchedPrefix": $prop($, 'cdx:npm:privateNamespace'),
+      "onPublicRegistry": $prop($, 'cdx:npm:publicRegistry')
+    }
+
+- id: INT-018
+  name: "Private PyPI package name on the public index"
+  description: >-
+    A component whose name starts with a namespace or prefix the caller
+    declared private is published on the public Python Package Index. An
+    install that finds no private copy falls back to whatever public package
+    claims the name, which is how dependency confusion compromises builds.
+  severity: high
+  category: package-integrity
+  dry-run-support: full
+  condition: |
+    components[
+      $hasProp($, 'cdx:pypi:privateNamespace')
+      and $prop($, 'cdx:pypi:publicRegistry') = 'true'
+    ]
+  location: |
+    { "bomRef": $."bom-ref", "purl": purl }
+  message: "PyPI package '{{ name }}@{{ version }}' matches the private namespace '{{ $prop($, 'cdx:pypi:privateNamespace') }}', and the public Python Package Index holds that name"
+  mitigation: "Register the name on the public index and keep it unmaintained, or publish a placeholder, so a build can never silently resolve the public package"
+  evidence: |
+    {
+      "matchedPrefix": $prop($, 'cdx:pypi:privateNamespace'),
+      "onPublicRegistry": $prop($, 'cdx:pypi:publicRegistry')
+    }
+
+- id: INT-019
+  name: "Private Cargo crate name on crates.io"
+  description: >-
+    A component whose name starts with a namespace or prefix the caller
+    declared private is published on crates.io. A build that finds no
+    private copy falls back to whatever public crate claims the name, which
+    is how dependency confusion compromises builds.
+  severity: high
+  category: package-integrity
+  dry-run-support: full
+  condition: |
+    components[
+      $hasProp($, 'cdx:cargo:privateNamespace')
+      and $prop($, 'cdx:cargo:publicRegistry') = 'true'
+    ]
+  location: |
+    { "bomRef": $."bom-ref", "purl": purl }
+  message: "Cargo crate '{{ name }}@{{ version }}' matches the private namespace '{{ $prop($, 'cdx:cargo:privateNamespace') }}', and the public crates.io registry holds that name"
+  mitigation: "Publish a placeholder crate for the name on crates.io, or route the dependency through a vendored or patched source, so a build can never silently resolve the public crate"
+  evidence: |
+    {
+      "matchedPrefix": $prop($, 'cdx:cargo:privateNamespace'),
+      "onPublicRegistry": $prop($, 'cdx:cargo:publicRegistry')
+    }
+
+- id: INT-020
+  name: "npm version the registry does not list"
+  description: >-
+    The manifest names a version the public registry never published or has
+    since removed. The requirement is unsatisfiable as written, so installs
+    either fail or silently resolve something else, and a removed version is
+    the usual aftermath of a compromised or yanked release.
+  severity: high
+  category: package-integrity
+  dry-run-support: no
+  condition: |
+    components[
+      $prop($, 'cdx:npm:versionMissing') = 'true'
+    ]
+  location: |
+    { "bomRef": $."bom-ref", "purl": purl }
+  message: "npm package '{{ name }}@{{ version }}' {{ $prop($, 'cdx:npm:versionUnpublished') = 'true' ? 'was published and then unpublished from the registry' : 'is not in the version list the registry serves' }}"
+  mitigation: "Find out why the version disappeared (yanked, deleted, or never published) and pin the requirement to a version the registry serves"
+  evidence: |
+    {
+      "versionCount": $prop($, 'cdx:npm:versionCount'),
+      "unpublished": $prop($, 'cdx:npm:versionUnpublished')
+    }
+
+- id: INT-021
+  name: "PyPI version the index does not list"
+  description: >-
+    The manifest names a version the Python Package Index never published or
+    has since removed. The requirement is unsatisfiable as written, so
+    installs either fail or silently resolve something else.
+  severity: high
+  category: package-integrity
+  dry-run-support: no
+  condition: |
+    components[
+      $prop($, 'cdx:pypi:versionMissing') = 'true'
+    ]
+  location: |
+    { "bomRef": $."bom-ref", "purl": purl }
+  message: "PyPI package '{{ name }}@{{ version }}' is not in the index's release list"
+  mitigation: "Find out why the release disappeared (yanked or never published) and pin the requirement to a version the index serves"
+  evidence: |
+    {
+      "versionCount": $prop($, 'cdx:pypi:versionCount')
+    }
+
+- id: INT-022
+  name: "Cargo version crates.io does not list"
+  description: >-
+    The manifest names a crate version crates.io never published or has since
+    removed. A yanked crate stays downloadable through a lockfile, but a
+    deleted or never-published version cannot be verified at all.
+  severity: high
+  category: package-integrity
+  dry-run-support: no
+  condition: |
+    components[
+      $prop($, 'cdx:cargo:versionMissing') = 'true'
+    ]
+  location: |
+    { "bomRef": $."bom-ref", "purl": purl }
+  message: "Cargo crate '{{ name }}@{{ version }}' is not in crates.io's version list"
+  mitigation: "Find out why the version disappeared (yanked, deleted, or never published) and pin the requirement to a version crates.io serves"
+  evidence: |
+    {
+      "versionCount": $prop($, 'cdx:cargo:versionCount')
+    }
+
+- id: INT-023
+  name: "npm package first published inside the quarantine window"
+  description: >-
+    The package appeared on the registry within the last year. Fresh packages
+    are where impersonation and typosquatting land first, and a compromised
+    release usually publishes days before it is pulled, so treat new
+    dependencies as unproven until they have aged through a quarantine
+    period.
+  severity: low
+  category: package-integrity
+  dry-run-support: no
+  condition: |
+    components[
+      $hasProp($, 'cdx:npm:packageCreatedTime')
+      and $timeMillis($prop($, 'cdx:npm:packageCreatedTime')) > ($toMillis($now()) - 31536000000)
+    ]
+  location: |
+    { "bomRef": $."bom-ref", "purl": purl }
+  message: "npm package '{{ name }}' was first published on {{ $prop($, 'cdx:npm:packageCreatedTime') }}, inside the one-year quarantine window"
+  mitigation: "Let the package age, or review its source and provenance before adopting it as a dependency"
+  evidence: |
+    {
+      "packageCreatedTime": $prop($, 'cdx:npm:packageCreatedTime'),
+      "versionCount": $prop($, 'cdx:npm:versionCount')
+    }
+
+- id: INT-024
+  name: "PyPI package first published inside the quarantine window"
+  description: >-
+    The package appeared on the index within the last year. Fresh packages
+    are where impersonation and typosquatting land first, so treat new
+    dependencies as unproven until they have aged through a quarantine
+    period.
+  severity: low
+  category: package-integrity
+  dry-run-support: no
+  condition: |
+    components[
+      $hasProp($, 'cdx:pypi:packageCreatedTime')
+      and $timeMillis($prop($, 'cdx:pypi:packageCreatedTime')) > ($toMillis($now()) - 31536000000)
+    ]
+  location: |
+    { "bomRef": $."bom-ref", "purl": purl }
+  message: "PyPI package '{{ name }}' was first published on {{ $prop($, 'cdx:pypi:packageCreatedTime') }}, inside the one-year quarantine window"
+  mitigation: "Let the package age, or review its source and provenance before adopting it as a dependency"
+  evidence: |
+    {
+      "packageCreatedTime": $prop($, 'cdx:pypi:packageCreatedTime'),
+      "versionCount": $prop($, 'cdx:pypi:versionCount')
+    }
+
+- id: INT-025
+  name: "Cargo crate first published inside the quarantine window"
+  description: >-
+    The crate appeared on crates.io within the last year. Fresh crates are
+    where impersonation and typosquatting land first, so treat new
+    dependencies as unproven until they have aged through a quarantine
+    period.
+  severity: low
+  category: package-integrity
+  dry-run-support: no
+  condition: |
+    components[
+      $hasProp($, 'cdx:cargo:packageCreatedTime')
+      and $timeMillis($prop($, 'cdx:cargo:packageCreatedTime')) > ($toMillis($now()) - 31536000000)
+    ]
+  location: |
+    { "bomRef": $."bom-ref", "purl": purl }
+  message: "Cargo crate '{{ name }}' was first published on {{ $prop($, 'cdx:cargo:packageCreatedTime') }}, inside the one-year quarantine window"
+  mitigation: "Let the crate age, or review its source and provenance before adopting it as a dependency"
+  evidence: |
+    {
+      "packageCreatedTime": $prop($, 'cdx:cargo:packageCreatedTime'),
+      "versionCount": $prop($, 'cdx:cargo:versionCount')
+    }
+
+- id: INT-026
+  name: "npm package without any release in six years"
+  description: >-
+    The newest release on the registry is more than six years old.
+    Unmaintained packages accumulate unresolved vulnerabilities and their
+    published artifacts may no longer match the source anyone can read. The
+    packument's own modification time is not used: a deprecation, a dist-tag
+    or an owner change moves it without any new code being released.
+  severity: low
+  category: package-integrity
+  dry-run-support: no
+  condition: |
+    components[
+      $hasProp($, 'cdx:npm:latestPublishTime')
+      and $timeMillis($prop($, 'cdx:npm:latestPublishTime')) < ($toMillis($now()) - 189216000000)
+    ]
+  location: |
+    { "bomRef": $."bom-ref", "purl": purl }
+  message: "npm package '{{ name }}' has had no release since {{ $prop($, 'cdx:npm:latestPublishTime') }}"
+  mitigation: "Plan a migration to a maintained alternative, or adopt the package into your own maintenance"
+  evidence: |
+    {
+      "latestPublishTime": $prop($, 'cdx:npm:latestPublishTime'),
+      "lastModifiedTime": $prop($, 'cdx:npm:lastModifiedTime')
+    }
+
+- id: INT-027
+  name: "PyPI package without any release in six years"
+  description: >-
+    The newest release on the index is more than six years old. Unmaintained
+    packages accumulate unresolved vulnerabilities and their published
+    artifacts may no longer match the source anyone can read.
+  severity: low
+  category: package-integrity
+  dry-run-support: no
+  condition: |
+    components[
+      $hasProp($, 'cdx:pypi:latestPublishTime')
+      and $timeMillis($prop($, 'cdx:pypi:latestPublishTime')) < ($toMillis($now()) - 189216000000)
+    ]
+  location: |
+    { "bomRef": $."bom-ref", "purl": purl }
+  message: "PyPI package '{{ name }}' has had no release since {{ $prop($, 'cdx:pypi:latestPublishTime') }}"
+  mitigation: "Plan a migration to a maintained alternative, or adopt the package into your own maintenance"
+  evidence: |
+    {
+      "latestPublishTime": $prop($, 'cdx:pypi:latestPublishTime')
+    }
+
+- id: INT-028
+  name: "Cargo crate without any release in six years"
+  description: >-
+    The newest release on crates.io is more than six years old. Unmaintained
+    crates accumulate unresolved vulnerabilities and their published
+    artifacts may no longer match the source anyone can read.
+  severity: low
+  category: package-integrity
+  dry-run-support: no
+  condition: |
+    components[
+      $hasProp($, 'cdx:cargo:latestPublishTime')
+      and $timeMillis($prop($, 'cdx:cargo:latestPublishTime')) < ($toMillis($now()) - 189216000000)
+    ]
+  location: |
+    { "bomRef": $."bom-ref", "purl": purl }
+  message: "Cargo crate '{{ name }}' has had no release since {{ $prop($, 'cdx:cargo:latestPublishTime') }}"
+  mitigation: "Plan a migration to a maintained alternative, or adopt the crate into your own maintenance"
+  evidence: |
+    {
+      "latestPublishTime": $prop($, 'cdx:cargo:latestPublishTime')
+    }
+
+- id: INT-029
+  name: "npm package ships native platform binaries"
+  description: >-
+    The version carries native code: it is published for named platforms (an
+    os, cpu or libc constraint), builds with node-gyp from a binding.gyp, runs
+    node-gyp, node-gyp-build, prebuild-install or node-pre-gyp from its
+    install script, or names a host it downloads a prebuilt binary from at
+    install time.
+    Compiled artifacts cannot be read the way source can, and a hijacked
+    binary distribution reaches every platform the package ships for. It is
+    a property of many widely used packages, so the finding is triage
+    context about where compiled code enters the tree.
+  severity: low
+  category: package-integrity
+  dry-run-support: no
+  # A `bin` entry is not one of these: it names a script the package runs,
+  # and most command-line tools are plain JavaScript. The platform, build and
+  # optionalDependencies properties are recorded from a project's own manifest
+  # by the parser and for every published version by the registry lookup.
+  condition: |
+    components[
+      $hasProp($, 'cdx:npm:os')
+      or $hasProp($, 'cdx:npm:libc')
+      or $hasProp($, 'cdx:npm:cpu')
+      or $prop($, 'cdx:npm:gypfile') = 'true'
+      or $hasProp($, 'cdx:npm:binaryHost')
+      or $hasProp($, 'cdx:npm:binaryDownload')
+      or $hasProp($, 'cdx:npm:platformOptionalDependencies')
+      or $hasProp($, 'cdx:npm:nativeBuildTool')
+      or $prop($, 'cdx:npm:native_addon') = 'true'
+    ]
+  location: |
+    { "bomRef": $."bom-ref", "purl": purl }
+  message: "npm package '{{ name }}@{{ version }}' ships native or platform-specific binaries"
+  mitigation: "Review where the binaries come from and how they are built, and prefer packages that build from source on install"
+  evidence: |
+    {
+      "operatingSystems": $prop($, 'cdx:npm:os'),
+      "libcs": $prop($, 'cdx:npm:libc'),
+      "architectures": $prop($, 'cdx:npm:cpu'),
+      "gypfile": $prop($, 'cdx:npm:gypfile'),
+      "binaryHost": $prop($, 'cdx:npm:binaryHost'),
+      "binaryDownload": $prop($, 'cdx:npm:binaryDownload'),
+      "platformOptionalDependencies": $prop($, 'cdx:npm:platformOptionalDependencies'),
+      "nativeBuildTool": $prop($, 'cdx:npm:nativeBuildTool')
     }
