@@ -2078,5 +2078,245 @@
   "sm2sign_with_sm3": {
     "oid": "1.2.156.10197.1.501",
     "description": "Chinese Cryptography Standardization Technology Committee (CCSTC)"
+  },
+  "id-ecDH": {
+    "oid": "1.3.132.1.12",
+    "description": "Elliptic curve Diffie-Hellman key agreement (SEC 1, RFC 5480)"
+  },
+  "dhKeyAgreement": {
+    "oid": "1.2.840.113549.1.3.1",
+    "description": "PKCS #3 Diffie-Hellman key agreement"
+  },
+  "sha-512/224": {
+    "oid": "2.16.840.1.101.3.4.2.5",
+    "description": "NIST Algorithm"
+  },
+  "sha-512/256": {
+    "oid": "2.16.840.1.101.3.4.2.6",
+    "description": "NIST Algorithm"
+  },
+  "id-rsassa-pkcs1-v1_5-with-sha3-224": {
+    "oid": "2.16.840.1.101.3.4.3.13",
+    "description": "NIST Algorithm"
+  },
+  "id-rsassa-pkcs1-v1_5-with-sha3-256": {
+    "oid": "2.16.840.1.101.3.4.3.14",
+    "description": "NIST Algorithm"
+  },
+  "id-rsassa-pkcs1-v1_5-with-sha3-384": {
+    "oid": "2.16.840.1.101.3.4.3.15",
+    "description": "NIST Algorithm"
+  },
+  "id-rsassa-pkcs1-v1_5-with-sha3-512": {
+    "oid": "2.16.840.1.101.3.4.3.16",
+    "description": "NIST Algorithm"
+  },
+  "sha512-224WithRSAEncryption": {
+    "oid": "1.2.840.113549.1.1.15",
+    "description": "SHA-512/224 with RSA encryption (RFC 8017)"
+  },
+  "sha512-256WithRSAEncryption": {
+    "oid": "1.2.840.113549.1.1.16",
+    "description": "SHA-512/256 with RSA encryption (RFC 8017)"
+  },
+  "sha1WithRSA": {
+    "oid": "1.3.14.3.2.29",
+    "description": "SHA-1 with RSA signature (OIW)"
+  },
+  "des-EDE": {
+    "oid": "1.3.14.3.2.17",
+    "description": "Two-key triple DES in ECB mode (OIW)"
+  },
+  "aes128-XTS": {
+    "oid": "1.3.111.2.1619.0.1.1",
+    "description": "AES-128 in XTS mode (IEEE 1619)"
+  },
+  "aes256-XTS": {
+    "oid": "1.3.111.2.1619.0.1.2",
+    "description": "AES-256 in XTS mode (IEEE 1619)"
+  },
+  "blake2b512": {
+    "oid": "1.3.6.1.4.1.1722.12.2.1.16",
+    "description": "BLAKE2b with a 512-bit digest (RFC 7693)"
+  },
+  "blake2s256": {
+    "oid": "1.3.6.1.4.1.1722.12.2.2.8",
+    "description": "BLAKE2s with a 256-bit digest (RFC 7693)"
+  },
+  "sm3": {
+    "oid": "1.2.156.10197.1.401",
+    "description": "SM3 cryptographic hash (GM/T 0004-2012)"
+  },
+  "sm3WithRSAEncryption": {
+    "oid": "1.2.156.10197.1.504",
+    "description": "SM3 with RSA encryption (GM/T 0006-2012)"
+  },
+  "sm4-cbc": {
+    "oid": "1.2.156.10197.1.104.2",
+    "description": "SM4 in CBC mode (GM/T 0006-2012)"
+  },
+  "sm4-ofb": {
+    "oid": "1.2.156.10197.1.104.3",
+    "description": "SM4 in OFB mode (GM/T 0006-2012)"
+  },
+  "sm4-cfb": {
+    "oid": "1.2.156.10197.1.104.4",
+    "description": "SM4 in CFB mode (GM/T 0006-2012)"
+  },
+  "sm4-ctr": {
+    "oid": "1.2.156.10197.1.104.7",
+    "description": "SM4 in CTR mode (GM/T 0006-2012)"
+  },
+  "sm4-gcm": {
+    "oid": "1.2.156.10197.1.104.8",
+    "description": "SM4 in GCM mode (GM/T 0006-2012)"
+  },
+  "sm4-ccm": {
+    "oid": "1.2.156.10197.1.104.9",
+    "description": "SM4 in CCM mode (GM/T 0006-2012)"
+  },
+  "sm4-xts": {
+    "oid": "1.2.156.10197.1.104.10",
+    "description": "SM4 in XTS mode (GM/T 0006-2012)"
+  },
+  "camellia128-cbc": {
+    "oid": "1.2.392.200011.61.1.1.1.2",
+    "description": "Camellia-128 in CBC mode (RFC 3657)"
+  },
+  "camellia128-ecb": {
+    "oid": "0.3.4401.5.3.1.9.1",
+    "description": "Camellia-128 in ECB mode (NTT)"
+  },
+  "camellia128-ofb": {
+    "oid": "0.3.4401.5.3.1.9.3",
+    "description": "Camellia-128 in OFB mode (NTT)"
+  },
+  "camellia128-cfb": {
+    "oid": "0.3.4401.5.3.1.9.4",
+    "description": "Camellia-128 in CFB mode (NTT)"
+  },
+  "camellia128-gcm": {
+    "oid": "0.3.4401.5.3.1.9.6",
+    "description": "Camellia-128 in GCM mode (NTT)"
+  },
+  "camellia128-ccm": {
+    "oid": "0.3.4401.5.3.1.9.7",
+    "description": "Camellia-128 in CCM mode (NTT)"
+  },
+  "camellia128-ctr": {
+    "oid": "0.3.4401.5.3.1.9.9",
+    "description": "Camellia-128 in CTR mode (NTT)"
+  },
+  "camellia192-cbc": {
+    "oid": "1.2.392.200011.61.1.1.1.3",
+    "description": "Camellia-192 in CBC mode (RFC 3657)"
+  },
+  "camellia192-ecb": {
+    "oid": "0.3.4401.5.3.1.9.21",
+    "description": "Camellia-192 in ECB mode (NTT)"
+  },
+  "camellia192-ofb": {
+    "oid": "0.3.4401.5.3.1.9.23",
+    "description": "Camellia-192 in OFB mode (NTT)"
+  },
+  "camellia192-cfb": {
+    "oid": "0.3.4401.5.3.1.9.24",
+    "description": "Camellia-192 in CFB mode (NTT)"
+  },
+  "camellia192-gcm": {
+    "oid": "0.3.4401.5.3.1.9.26",
+    "description": "Camellia-192 in GCM mode (NTT)"
+  },
+  "camellia192-ccm": {
+    "oid": "0.3.4401.5.3.1.9.27",
+    "description": "Camellia-192 in CCM mode (NTT)"
+  },
+  "camellia192-ctr": {
+    "oid": "0.3.4401.5.3.1.9.29",
+    "description": "Camellia-192 in CTR mode (NTT)"
+  },
+  "camellia256-cbc": {
+    "oid": "1.2.392.200011.61.1.1.1.4",
+    "description": "Camellia-256 in CBC mode (RFC 3657)"
+  },
+  "camellia256-ecb": {
+    "oid": "0.3.4401.5.3.1.9.41",
+    "description": "Camellia-256 in ECB mode (NTT)"
+  },
+  "camellia256-ofb": {
+    "oid": "0.3.4401.5.3.1.9.43",
+    "description": "Camellia-256 in OFB mode (NTT)"
+  },
+  "camellia256-cfb": {
+    "oid": "0.3.4401.5.3.1.9.44",
+    "description": "Camellia-256 in CFB mode (NTT)"
+  },
+  "camellia256-gcm": {
+    "oid": "0.3.4401.5.3.1.9.46",
+    "description": "Camellia-256 in GCM mode (NTT)"
+  },
+  "camellia256-ccm": {
+    "oid": "0.3.4401.5.3.1.9.47",
+    "description": "Camellia-256 in CCM mode (NTT)"
+  },
+  "camellia256-ctr": {
+    "oid": "0.3.4401.5.3.1.9.49",
+    "description": "Camellia-256 in CTR mode (NTT)"
+  },
+  "dsaWithSha384": {
+    "oid": "2.16.840.1.101.3.4.3.3",
+    "description": "DSA with SHA-384 (NIST Algorithm)"
+  },
+  "dsaWithSha512": {
+    "oid": "2.16.840.1.101.3.4.3.4",
+    "description": "DSA with SHA-512 (NIST Algorithm)"
+  },
+  "id-dsa-with-sha3-224": {
+    "oid": "2.16.840.1.101.3.4.3.5",
+    "description": "NIST Algorithm"
+  },
+  "id-ecdsa-with-sha3-224": {
+    "oid": "2.16.840.1.101.3.4.3.9",
+    "description": "NIST Algorithm"
+  },
+  "id-hmacWithSHA3-224": {
+    "oid": "2.16.840.1.101.3.4.2.13",
+    "description": "NIST Algorithm"
+  },
+  "id-dsa-with-sha3-256": {
+    "oid": "2.16.840.1.101.3.4.3.6",
+    "description": "NIST Algorithm"
+  },
+  "id-ecdsa-with-sha3-256": {
+    "oid": "2.16.840.1.101.3.4.3.10",
+    "description": "NIST Algorithm"
+  },
+  "id-hmacWithSHA3-256": {
+    "oid": "2.16.840.1.101.3.4.2.14",
+    "description": "NIST Algorithm"
+  },
+  "id-dsa-with-sha3-384": {
+    "oid": "2.16.840.1.101.3.4.3.7",
+    "description": "NIST Algorithm"
+  },
+  "id-ecdsa-with-sha3-384": {
+    "oid": "2.16.840.1.101.3.4.3.11",
+    "description": "NIST Algorithm"
+  },
+  "id-hmacWithSHA3-384": {
+    "oid": "2.16.840.1.101.3.4.2.15",
+    "description": "NIST Algorithm"
+  },
+  "id-dsa-with-sha3-512": {
+    "oid": "2.16.840.1.101.3.4.3.8",
+    "description": "NIST Algorithm"
+  },
+  "id-ecdsa-with-sha3-512": {
+    "oid": "2.16.840.1.101.3.4.3.12",
+    "description": "NIST Algorithm"
+  },
+  "id-hmacWithSHA3-512": {
+    "oid": "2.16.840.1.101.3.4.2.16",
+    "description": "NIST Algorithm"
   }
 }
