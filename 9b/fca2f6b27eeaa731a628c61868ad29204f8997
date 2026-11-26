@@ -1,0 +1,39 @@
+data/rules/package-integrity.yaml
+  s_8c7c9bd4e9d139::t_da269a0c1eecc4 740,754
+docs/BOM_AUDIT.md
+  s_8c7c9bd4e9d139::t_cc6784c3921350 265
+docs/CDX_AUDIT.md
+  s_8c7c9bd4e9d139::t_455479c3ae4b08 447
+docs/CUSTOM_PROPERTIES.md
+  s_8c7c9bd4e9d139::t_5e626f400e65c7 516,618,811
+lib/audit/targets.js
+  s_8c7c9bd4e9d139::t_9b05f871e6642f 359,386
+lib/ecosystems/registryProvenance.js
+  s_8c7c9bd4e9d139::t_07cad43920eb67 781-786
+lib/ecosystems/registryProvenance.poku.js
+  s_8c7c9bd4e9d139::t_b8cd7ac08044f4 1228-1260
+lib/stages/postgen/auditBom.poku.js
+  s_8c7c9bd4e9d139::t_5ae2e22d9e22ed 8509-8510
+test/data/registry/npm-sqlite3-packument.json
+  s_8c7c9bd4e9d139::t_290da90369d494 1-26
+types/lib/audit/targets.d.ts.map
+  s_8c7c9bd4e9d139::t_eaf3363c4f7a62 1
+types/lib/ecosystems/registryProvenance.d.ts.map
+  s_8c7c9bd4e9d139::t_e5aa1b402e2c4a 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "9bfca2f6b27eeaa731a628c61868ad29204f8997",
+  "prompts": {},
+  "sessions": {
+    "s_8c7c9bd4e9d139": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_9dbe5ca6-7bed-4f18-b047-b71e9f4c565f",
+        "model": "GLM-5.3"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
