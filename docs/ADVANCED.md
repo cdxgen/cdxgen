@@ -1320,6 +1320,54 @@ Losing a cryptographic fact to satisfy an enum is the wrong trade. An unmappable
 curve is still a curve worth recording, so it degrades to the older field rather
 than disappearing.
 
+#### Parameter sets and the names Node.js reports
+
+A generated key states its parameters at the call site, and cdxgen writes them
+into the component. `generateKeyPairSync("rsa", { modulusLength: 2048 })` sets
+`parameterSetIdentifier` to `"2048"`, and `generateKeyPairSync("ec", {
+namedCurve: "prime256v1" })` emits an `ecPublicKey` component whose
+`ellipticCurve` (or the deprecated `curve` below 1.7) carries the curve.
+`createECDH(curve)` and WebCrypto `ECDH` keys become `id-ecDH` (RFC 5480) with
+their curve, and `createDiffieHellman(2048)` or `getDiffieHellman("modp14")`
+becomes `dhKeyAgreement` (PKCS #3) with the prime length or group as its
+parameter set. The modulus length, group and curve are part of the component
+identity, so RSA-2048 and RSA-4096 are two components, not one. A key length
+that the algorithm name already states, such as the 256 of `aes256-GCM`, adds
+nothing.
+
+The source analysis accepts the names Node.js takes, which come from OpenSSL.
+They map to the name in `data/crypto-oid.json` that carries the OID the OpenSSL
+object registry or the NIST algorithm registry assigns: `aes-256-gcm` and
+`id-aes256-GCM` to `aes256-GCM`, `aes128` (OpenSSL's alias for `aes-128-cbc`)
+to `aes128-CBC`, `des3` to `des-EDE3-CBC`, `camellia-128-cbc` to
+`camellia128-cbc`, `RSA-SHA256` to `sha256WithRSAEncryption`, `RSA-SHA3-256` to
+`id-rsassa-pkcs1-v1_5-with-sha3-256`, `sha2-512/256` to `sha-512/256`, and so
+on for ARIA, SM3, SM4, BLAKE2, AES-XTS and the other spellings. WebCrypto
+algorithm objects map with their hash and key length: `{ name: "ECDSA" }` with a
+curve is an `ecPublicKey`, with `hash: "SHA-384"` it is `ecdsaWithSHA384`, and
+`RSA-OAEP`, `RSA-PSS`, `RSASSA-PKCS1-v1_5`, `HMAC`, `HKDF` and `AES-KW` follow
+the same pattern. jsonwebtoken calls contribute the names in `algorithm` and
+`algorithms`, and a `jwt.sign` call that names no algorithm records HS256,
+the library's default, with the source type `jsonwebtoken.sign:default`.
+
+A name passed to a crypto call through a function parameter is read from the
+calls of that function in the same file, so `const pick = (name) =>
+crypto.createHash(name); pick("sha384")` records SHA-384 at the `createHash`
+call. When the name comes from the environment (`process.env`,
+`import.meta.env` or `Deno.env`), directly or through a variable, the
+component carries `cdx:crypto:runtimeConfigurable=true`: the algorithm
+recorded is the fallback in the code, and the one used at run time may differ.
+
+Several names have no OID in any registry and are skipped rather than emitted
+without one: AES in CTR, CFB1, CFB8, CBC-CTS, OCB, SIV and GCM-SIV modes, the
+inverse key wraps, ChaCha20 without Poly1305, Keccak, cSHAKE, SHA-256/192,
+`md5-sha1`, and HMAC or HKDF without a hash. A WebCrypto `AES-GCM` call that
+states no key length cannot be told apart from AES-128-GCM and AES-256-GCM, and
+`diffieHellman({ privateKey, publicKey })` takes its algorithm from the key
+objects, so both are skipped as well. Every skipped name is logged with its
+source location, and a debug run (`CDXGEN_DEBUG_MODE=debug`) sums the distinct
+skipped names up in one warning.
+
 #### Downgrading below 1.7
 
 `algorithmFamily` and `ellipticCurve` are 1.7 additions. With
