@@ -1,0 +1,34 @@
+lib/ecosystems/cratesMetadata.poku.js
+  s_8c7c9bd4e9d139::t_28c3fb5675a947 93-94
+  s_8c7c9bd4e9d139::t_510cc57ab73b30 111
+  s_8c7c9bd4e9d139::t_4981af789f2cd6 41,43
+  s_8c7c9bd4e9d139::t_9831a1fcc4cc6c 90-92,95-110,112
+lib/audit/targets.js
+  s_8c7c9bd4e9d139::t_4981af789f2cd6 782-784,786-789
+types/lib/ecosystems/ecosystems.d.ts
+  s_8c7c9bd4e9d139::t_510cc57ab73b30 283-285,295-296,300
+lib/ecosystems/ecosystems.js
+  s_8c7c9bd4e9d139::t_4981af789f2cd6 2951-2953,2963-2964,2979
+docs/CDX_AUDIT.md
+  s_8c7c9bd4e9d139::t_5975b7a2478581 449
+types/lib/audit/targets.d.ts.map
+  s_8c7c9bd4e9d139::t_6babf4932a717a 1
+types/lib/ecosystems/ecosystems.d.ts.map
+  s_8c7c9bd4e9d139::t_cac1dfd8aa357d 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "65a0154274fb7c826b2ae81a9911794bad48b05c",
+  "prompts": {},
+  "sessions": {
+    "s_8c7c9bd4e9d139": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_9dbe5ca6-7bed-4f18-b047-b71e9f4c565f",
+        "model": "GLM-5.3"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
