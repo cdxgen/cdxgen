@@ -1,0 +1,67 @@
+lib/ecosystems/parsers-rust.js
+  s_7318da1b9edd46::t_593b4439c7b30f 1060-1093,1149,1280-1281,1303
+lib/stages/postgen/ruleEngine.poku.js
+  s_7318da1b9edd46::t_9ed6edd82a810c 1-2,6,186-220
+  s_7318da1b9edd46::t_35f639e1705798 221-222
+docs/BOM_AUDIT.md
+  s_7318da1b9edd46::t_0c00dd89abaa0d 262
+lib/ecosystems/ecosystems.js
+  s_7318da1b9edd46::t_5a789028fe32ee 405-411,419-434
+  s_7318da1b9edd46::t_91a21886cfdff7 1907-1914,1955-1962
+  s_7318da1b9edd46::t_593b4439c7b30f 3093-3119,3278-3283
+docs/CUSTOM_PROPERTIES.md
+  s_7318da1b9edd46::t_b7ac789ad68d6f 613,662,664,726,812,866,868,934
+lib/ecosystems/parsers-rust.poku.js
+  s_7318da1b9edd46::t_700d3365ccbe04 510,512-513,515-525,527-529,533-543
+  s_7318da1b9edd46::t_0c520e1a06cf48 511,514,526,530-532
+lib/audit/registryRules.poku.js
+  s_7318da1b9edd46::t_b7ac789ad68d6f 191
+  s_7318da1b9edd46::t_47e3cbfd58f275 122-124
+lib/audit/targets.js
+  s_7318da1b9edd46::t_593b4439c7b30f 745-747
+  s_7318da1b9edd46::t_28ff71c9a9514e 748-751
+lib/ecosystems/pypiMetadata.poku.js
+  s_7318da1b9edd46::t_bec08bb16c00e4 36-42,94-97,99-100,102-104,106,108-109,111-116,122
+  s_7318da1b9edd46::t_ffedf3f612c072 98,101
+  s_7318da1b9edd46::t_91a21886cfdff7 85-89
+  s_7318da1b9edd46::t_2842ff6b33893b 117-121
+lib/ecosystems/registryProvenance.js
+  s_7318da1b9edd46::t_59369aec7b314a 579,581-584
+  s_7318da1b9edd46::t_b7ac789ad68d6f 777,782,1266,1295,1520,1530
+lib/ecosystems/cratesMetadata.poku.js
+  s_7318da1b9edd46::t_47e3cbfd58f275 74-87
+lib/ecosystems/registryProvenance.poku.js
+  s_7318da1b9edd46::t_59369aec7b314a 1673-1686,1690-1691
+  s_7318da1b9edd46::t_9ed6edd82a810c 1408-1427
+  s_7318da1b9edd46::t_b7ac789ad68d6f 1436,1440
+lib/ecosystems/npmRegistrySkips.poku.js
+  s_7318da1b9edd46::t_5c4121bd014c64 152-189
+test/repotests/fetch-license-smoke/expected/fetch-license.json
+  s_7318da1b9edd46::t_cc03d4b06a47ea 54-57,157-160,280-283
+types/lib/audit/index.d.ts.map
+  s_7318da1b9edd46::t_92a5441dcfd481 1
+types/lib/audit/targets.d.ts.map
+  s_7318da1b9edd46::t_6d631eea8a6468 1
+types/lib/ecosystems/ecosystems.d.ts.map
+  s_7318da1b9edd46::t_fe512284d01dbf 1
+types/lib/ecosystems/parsers-rust.d.ts.map
+  s_7318da1b9edd46::t_7ef3758c6319aa 1
+types/lib/ecosystems/registryProvenance.d.ts.map
+  s_7318da1b9edd46::t_4499acd5671d6f 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "ba906f029a2d237509ddf43ea8809ec9b4007f5b",
+  "prompts": {},
+  "sessions": {
+    "s_7318da1b9edd46": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "ec4cd02e-10f8-411b-a4d1-40ff6af5049b",
+        "model": "unknown"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
