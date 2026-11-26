@@ -280,7 +280,9 @@ export declare function getGoPkgVCSUrl(group: string, name: string, version?: st
  * publisher-drift and release-cadence signals — the predictive audit does —
  * passes `preferLocalCache: false` and takes the slower registry path. That is
  * also the only caller that needs the crate's owners, so the `/owners` request
- * is made for it alone.
+ * is made for it alone; a caller that takes the registry path for the
+ * metadata alone passes `fetchOwners: false` and halves its crates.io
+ * requests.
  *
  * Crates a public registry cannot hold are skipped: the project itself, path
  * and git crates, and crates from an alternate registry. See
@@ -290,9 +292,12 @@ export declare function getGoPkgVCSUrl(group: string, name: string, version?: st
  * @param {Object} [options] Options
  * @param {boolean} [options.preferLocalCache=true] Answer from the local Cargo
  *   registry where it can, and query crates.io only for the rest.
+ * @param {boolean} [options.fetchOwners=true] On the registry path, also fetch
+ *   the crate's owners listing, a second request per crate.
  */
 export declare function getCratesMetadata(pkgList: any[], options?: {
     preferLocalCache?: boolean;
+    fetchOwners?: boolean;
 }): Promise<any[]>;
 /**
  * Method to retrieve metadata for dart packages by querying pub.dev

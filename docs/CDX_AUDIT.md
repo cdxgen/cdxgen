@@ -446,7 +446,7 @@ The `package-integrity` pack reports, where the BOM carries the properties:
 - a package whose newest release is more than six years old (INT-026 to INT-028)
 - an npm version that ships or builds native code: an `os`, `cpu` or `libc` constraint, a node-gyp build, or a host a prebuilt binary is downloaded from (INT-029). A `bin` entry does not count; it names a script the package runs
 
-Two sources write these properties. The parsers record them for a project's own manifest. For dependencies, only the registry states them, so pass `--fetch-registry-metadata` in direct mode (predictive mode always looks them up) or generate the BOM with cdxgen's package metadata fetch on. The result's `coverage` block says how many components the registries answered for.
+Two sources write these properties. The parsers record them for a project's own manifest. For dependencies, only the registry states them, so pass `--fetch-registry-metadata` in direct mode (predictive mode always looks them up) or generate the BOM with cdxgen's package metadata fetch on. The result's `coverage` block says how many components the registries answered for. The lookup is one request per npm and PyPI package; crates.io admits one request per second, so it takes about a minute for every hundred Cargo components.
 
 ### Private namespaces and dependency confusion
 
