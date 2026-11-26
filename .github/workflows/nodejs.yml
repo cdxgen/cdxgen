@@ -271,10 +271,12 @@ jobs:
       - name: check sbom for vulns
         if: github.ref == 'refs/heads/master'
         run: |
-          node bin/cdxgen.js -t js -t php -t jar -t ruby -t github -o $(pwd)/reports/sbom-build.cdx.json --include-formulation --export-proto --proto-bin-file $(pwd)/reports/sbom-build.cdx.proto --exclude "**/test/**" $(pwd)
+          # The BOM directory holds only the BOMs. dep-scan writes its reports
+          # to a directory of their own so they are never read back as BOMs.
+          node bin/cdxgen.js -t js -t php -t jar -t ruby -t github -o $(pwd)/boms/sbom-build.cdx.json --include-formulation --export-proto --proto-bin-file $(pwd)/boms/sbom-build.cdx.proto --exclude "**/test/**" $(pwd)
           docker pull ghcr.io/cdxgen/cdxgen:master
-          node bin/cdxgen.js -t docker -o $(pwd)/reports/sbom-container-js.cdx.json ghcr.io/cdxgen/cdxgen:master
-          depscan scan $(pwd)/reports --target-kind bom-dir --reports-dir $(pwd)/reports --reachability-analyzer SemanticReachability --explain
+          node bin/cdxgen.js -t docker -o $(pwd)/boms/sbom-container-js.cdx.json ghcr.io/cdxgen/cdxgen:master
+          depscan scan $(pwd)/boms --target-kind bom-dir --reports-dir $(pwd)/depscan-reports --reachability-analyzer SemanticReachability --explain
         env:
           COLUMNS: 140
           JAVA_TOOL_OPTIONS: "-XX:UseSVE=0 -Dfile.encoding=UTF-8"
