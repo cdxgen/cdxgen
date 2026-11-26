@@ -10,17 +10,44 @@ declare const SUPPORTED_PURL_TYPES: Set<string>;
  */
 export declare function isRequiredComponentScope(scope: string | undefined): boolean;
 /**
+ * Count what a direct audit can ask the registries about a BOM, and how many
+ * of those components a registry has answered.
+ *
+ * A component is eligible when its purl is one the lookups read (npm, PyPI,
+ * Cargo) and names a version. It is answered when it carries a property only
+ * a registry lookup writes; the rest were never looked up, are served from a
+ * private index the public registry does not hold, or the lookup failed, and
+ * the report says how many they are instead of letting the rules that read
+ * registry metadata pass over them in silence.
+ *
+ * @param {object} bomJson CycloneDX BOM
+ * @returns {{ components: number, eligible: number, answered: number, withoutMetadata: number }} the counts
+ */
+export declare function registryCoverage(bomJson: object): {
+    components: number;
+    eligible: number;
+    answered: number;
+    withoutMetadata: number;
+};
+/**
  * Enrich input BOM components with registry provenance/trusted-publishing
  * metadata so audit target filtering can exclude trusted packages even when the
  * input BOM was generated without --bom-audit.
  *
+ * With `forDirectAudit`, the properties the direct audit's registry rules read
+ * (package age, release recency, version presence, deprecation, yank) are
+ * copied back as well.
+ *
  * @param {{ source: string, bomJson: object }[]} inputBoms loaded input BOMs
+ * @param {{ forDirectAudit?: boolean }} [options] what to copy back
  * @returns {Promise<void>}
  */
 export declare function enrichInputBomsWithRegistryMetadata(inputBoms: {
     source: string;
     bomJson: object;
-}[]): Promise<void>;
+}[], { forDirectAudit }?: {
+    forDirectAudit?: boolean;
+}): Promise<void>;
 /**
  * Normalize package names for safe matching and grouping.
  *

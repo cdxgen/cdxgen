@@ -92,6 +92,16 @@ targets once the budget is spent and marks the rest skipped; the JSON summary
 names `offline`, `timeBudgetExhausted` and `targetCapTruncated` so a consumer
 can tell a cut-short audit from a complete one.
 
+The registry metadata rules (a deprecated npm package INT-005, a yanked PyPI
+release INT-030, a missing version INT-020 to INT-022, package age INT-023 to
+INT-028, native binaries INT-029) need properties only a registry lookup
+writes for dependencies. In `--direct-bom-audit` mode pass
+`--fetch-registry-metadata` so cdx-audit looks them up first (it makes network
+requests and is ignored with `--offline`), then read each result's `coverage`
+block: `registryMetadata` says whether the lookups ran, and `withoutMetadata`
+counts the components no registry answered for, which those rules did not
+assess.
+
 `--private-namespace` takes comma-separated private package name or namespace
 prefixes. A public-registry package whose name starts with one of them is a
 dependency-confusion finding (INT-017 to INT-019 for npm, PyPI and Cargo),

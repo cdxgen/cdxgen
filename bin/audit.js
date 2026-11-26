@@ -126,6 +126,12 @@ const args = yargs(hideBin(process.argv))
       "Comma-separated private package namespace or name prefixes. A public-registry package whose name starts with one of them is reported as a dependency-confusion finding, in direct BOM audit mode and on predictive child SBOMs. Applies to npm scopes, PyPI and Cargo names.",
     type: "string",
   })
+  .option("fetch-registry-metadata", {
+    default: false,
+    description:
+      "Direct BOM audit mode: look the BOM's npm, PyPI and Cargo components up in their registries before the rules run, so the rules that read registry metadata (deprecation, yanked releases, missing versions, package age) can evaluate a BOM generated without it. Makes network requests; ignored with --offline.",
+    type: "boolean",
+  })
   .option("offline", {
     default: false,
     description:
@@ -225,6 +231,7 @@ function writeOrPrint(output, outputPath) {
       categories: splitCsv(args.categories),
       directBomAudit: args.directBomAudit,
       failSeverity: args.failSeverity,
+      fetchRegistryMetadata: args.fetchRegistryMetadata === true,
       introspect: args.introspect === true,
       licensePolicy: args.licensePolicy,
       maxTargets: args.maxTargets,

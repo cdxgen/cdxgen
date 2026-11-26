@@ -212,6 +212,7 @@ CDXGEN_THINK_MODE=true cdx-audit --bom bom.json --max-targets 10
 | `--prioritize-direct-runtime` | Keep direct runtime dependencies ahead of less actionable targets (enabled by default)               |
 | `--allowlist-file`            | Add a JSON array or newline-delimited purl-prefix allowlist on top of the built-in well-known filter |
 | `--private-namespace`         | Comma-separated private package name or namespace prefixes; a public-registry package matching one is reported as a dependency-confusion finding (INT-017 to INT-019) in direct mode and on predictive child SBOMs |
+| `--fetch-registry-metadata`   | Direct BOM audit mode: look the BOM's npm, PyPI and Cargo components up in their registries before the rules run, so the registry metadata rules can evaluate a BOM generated without it. Makes network requests; ignored with `--offline` |
 | `--offline`                   | Run without any network access. Direct mode skips registry OCI probes and AI provenance collection; predictive mode plans its targets and reports every one as skipped with the reason |
 | `--time-budget-minutes`       | Predictive mode stops starting new targets once this budget is spent; targets it did not start are reported as skipped and the summary names the exhausted budget |
 | `--license-policy`            | Path to a license compliance policy YAML file (see below)                                            |
@@ -345,6 +346,8 @@ Best for automation and secondary reporting pipelines.
 
 Use `--report json` when you want stable machine-readable results for dashboards, ticket enrichment, or internal triage workflows. Both modes write a `version` field for the report shape (currently `1`), beside `tool.name` and `tool.version`, so a consumer can parse against it. Every finding carries `ruleId`, `severity`, and a `location` with the `purl` and `bom-ref` of the component it names. In predictive mode the summary also names what cut the audit short: `targetCapTruncated` when `--max-targets` left targets unanalyzed, `offline: true` for an offline run, and `timeBudgetExhausted` when `--time-budget-minutes` stopped the queue; targets that never ran appear as `status: "skipped"` results with the reason.
 
+In direct mode each result carries a `coverage` block for the registry metadata rules (deprecation, yanked releases, missing versions, package age). `registryMetadata` says whether the lookups ran: `fetched` with `--fetch-registry-metadata`, `offline` when `--offline` stopped them, `not-requested` otherwise. `eligible` counts the npm, PyPI and Cargo components that name a version, `answered` the ones a registry answered for, and `withoutMetadata` the rest: never looked up, served from an index the public registry does not hold, or failed in the lookup. The registry metadata rules do not assess those components, so read a clean run with `withoutMetadata` above zero, or with `registryMetadata` other than `fetched`, as not assessed rather than as clean.
+
 ### SARIF output
 
 Best for code scanning platforms and centralized review queues.
@@ -434,12 +437,16 @@ The Python coverage is intentionally triage-oriented rather than full static ana
 
 ### Registry metadata and package hygiene
 
-When the BOM carries the registry properties cdxgen collects (or in predictive mode, after cdx-audit enriches the input BOMs), the `package-integrity` pack reports:
+The `package-integrity` pack reports, where the BOM carries the properties:
 
+- a deprecated npm package: the version in use is deprecated, or the newest release is (INT-005). cdxgen records the notice under `cdx:npm:deprecation_notice` (lockfile parsers and the registry lookup) or `cdx:npm:deprecated` (an installed tree); a newest-release-only deprecation is `cdx:npm:latest_deprecation_notice`
+- a yanked PyPI release in use (INT-030) and a yanked Cargo crate in use (INT-010)
 - a requested version the npm, PyPI or crates.io registry does not list (INT-020 to INT-022)
 - a package first published inside a one-year quarantine window (INT-023 to INT-025)
 - a package whose newest release is more than six years old (INT-026 to INT-028)
-- an npm package that ships native platform binaries (INT-029)
+- an npm version that ships or builds native code: an `os`, `cpu` or `libc` constraint, a node-gyp build, or a host a prebuilt binary is downloaded from (INT-029). A `bin` entry does not count; it names a script the package runs
+
+Two sources write these properties. The parsers record them for a project's own manifest. For dependencies, only the registry states them, so pass `--fetch-registry-metadata` in direct mode (predictive mode always looks them up) or generate the BOM with cdxgen's package metadata fetch on. The result's `coverage` block says how many components the registries answered for.
 
 ### Private namespaces and dependency confusion
 

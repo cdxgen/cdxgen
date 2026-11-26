@@ -66,9 +66,8 @@ export declare function ensureAiOversightProperties(bomJson: Object, options?: O
  * configured prefixes carry a `cdx:<eco>:privateNamespace` property whose
  * value is the matched prefix, and the INT-017 to INT-019 rules report them.
  *
- * The prefixes match by prefix only, exactly as dep-scan's audit matched
- * them: `myorg` matches both the npm scope `@myorg` and a PyPI name that
- * starts with `myorg`.
+ * The prefixes match by prefix only: `myorg` matches both the npm scope
+ * `@myorg` and a PyPI or Cargo name that starts with `myorg`.
  *
  * @param {Object} bomJson CycloneDX BOM (mutated in place)
  * @param {Object} options audit options with bomAuditPrivateNamespace
