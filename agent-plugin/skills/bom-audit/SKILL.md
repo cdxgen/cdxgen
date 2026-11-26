@@ -103,9 +103,14 @@ counts the components no registry answered for, which those rules did not
 assess.
 
 `--private-namespace` takes comma-separated private package name or namespace
-prefixes. A public-registry package whose name starts with one of them is a
-dependency-confusion finding (INT-017 to INT-019 for npm, PyPI and Cargo),
-both in `--direct-bom-audit` mode and on predictive child SBOMs.
+prefixes. In `--direct-bom-audit` mode cdx-audit asks the public npm registry,
+the Python Package Index or crates.io whether each matching name is published
+there, one request per name. A name the public registry holds is a
+dependency-confusion finding (INT-017 to INT-019 for npm, PyPI and Cargo); a
+private package that is not published publicly is the intended state. Read
+`coverage.privateNamespace` beside the findings: under `--offline` nothing is
+asked and every matching component counts as `unknown`, so the check assessed
+none of them.
 
 ### How the queue is ordered
 

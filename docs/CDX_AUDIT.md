@@ -450,7 +450,9 @@ Two sources write these properties. The parsers record them for a project's own 
 
 ### Private namespaces and dependency confusion
 
-Pass `--private-namespace` with your organisation's package name or namespace prefixes. A component whose full name starts with one of them and resolves from the public npm registry, PyPI or crates.io is reported by INT-017, INT-018 or INT-019. Prefixes match by prefix, so `myorg` matches the npm scope `@myorg` as well as a PyPI or Cargo name that starts with `myorg`. The check works in direct BOM audit mode and on predictive child SBOMs, and needs no network.
+Pass `--private-namespace` with your organisation's package name or namespace prefixes. Every component whose full name starts with one of them is marked, and in direct BOM audit mode cdx-audit then asks the public npm registry, the Python Package Index or crates.io whether it holds that name, one request per name. INT-017, INT-018 or INT-019 report a marked component only when the public registry holds its name: a private package that resolves from its own index and is not published publicly is the intended state, and is no finding. Prefixes match by prefix, so `myorg` matches the npm scope `@myorg` as well as a PyPI or Cargo name that starts with `myorg`. The public registries are asked directly, whatever registry the other lookups are configured to use, because the question is whether the public one holds the name.
+
+The result's `coverage.privateNamespace` block counts the marked components (`matched`), the ones the public registry holds (`onPublicRegistry`), the ones it does not (`notOnPublicRegistry`) and the ones it did not answer about (`unknown`), and `publicRegistry` says whether the registries were asked (`checked`) or not (`offline`). Under `--offline` nothing is asked and every marked component is `unknown`, so the check assessed none of them. In predictive mode the child SBOMs are marked but not asked about.
 
 ### Provenance and publisher context
 

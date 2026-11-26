@@ -10,6 +10,36 @@ declare const SUPPORTED_PURL_TYPES: Set<string>;
  */
 export declare function isRequiredComponentScope(scope: string | undefined): boolean;
 /**
+ * Ask the public registries whether the names marked as private exist there.
+ *
+ * A private name the public registry holds is the dependency-confusion
+ * setup: a resolver that finds no private copy falls back to whatever public
+ * package claims the name. Each marked component of a BOM is asked about
+ * once per name, and the answer is recorded on it as
+ * `cdx:<type>:publicRegistry`: `true` when the public registry holds the
+ * name, `false` when it answered that it does not, and no property when it
+ * did not answer (a transport failure, another error status, or offline
+ * mode, when nothing is asked at all). The rules that report the confusion
+ * fire on `true` alone, so an unanswered name is never reported as taken and
+ * never passes as free: the returned counts state how many were unanswered.
+ *
+ * @param {{ source: string, bomJson: object }[]} inputBoms loaded input BOMs whose
+ *   components already carry the private-namespace mark
+ * @param {{ offline?: boolean }} [options] `offline` asks nothing
+ * @returns {Promise<{ matched: number, onPublicRegistry: number, notOnPublicRegistry: number, unknown: number }>} the counts
+ */
+export declare function checkPrivateNamesOnPublicRegistry(inputBoms: {
+    source: string;
+    bomJson: object;
+}[], { offline }?: {
+    offline?: boolean;
+}): Promise<{
+    matched: number;
+    onPublicRegistry: number;
+    notOnPublicRegistry: number;
+    unknown: number;
+}>;
+/**
  * Count what a direct audit can ask the registries about a BOM, and how many
  * of those components a registry has answered.
  *

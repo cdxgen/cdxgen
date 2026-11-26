@@ -425,31 +425,36 @@
   name: "Private npm package name on the public registry"
   description: >-
     A component whose name starts with a namespace or prefix the caller
-    declared private resolves against the public npm registry. An install
+    declared private is published on the public npm registry. An install
     that finds no private copy falls back to whatever public package claims
     the name, which is how dependency confusion compromises builds.
   severity: high
   category: package-integrity
   dry-run-support: full
+  # Only a name the public registry holds is the confusion setup. A private
+  # package that resolves from its own index and is not on the public one is
+  # the intended state, and a name the public registry did not answer about
+  # is not reported as taken.
   condition: |
     components[
       $hasProp($, 'cdx:npm:privateNamespace')
+      and $prop($, 'cdx:npm:publicRegistry') = 'true'
     ]
   location: |
     { "bomRef": $."bom-ref", "purl": purl }
-  message: "npm package '{{ name }}@{{ version }}' matches the private namespace '{{ $prop($, 'cdx:npm:privateNamespace') }}' but resolves from the public registry"
+  message: "npm package '{{ name }}@{{ version }}' matches the private namespace '{{ $prop($, 'cdx:npm:privateNamespace') }}', and the public npm registry holds that name"
   mitigation: "Publish a placeholder under the name in your private registry, or reserve the name publicly, so a build can never silently resolve the public package"
   evidence: |
     {
       "matchedPrefix": $prop($, 'cdx:npm:privateNamespace'),
-      "registry": $prop($, 'cdx:npm:manifestSourceType')
+      "onPublicRegistry": $prop($, 'cdx:npm:publicRegistry')
     }
 
 - id: INT-018
   name: "Private PyPI package name on the public index"
   description: >-
     A component whose name starts with a namespace or prefix the caller
-    declared private resolves against the public Python Package Index. An
+    declared private is published on the public Python Package Index. An
     install that finds no private copy falls back to whatever public package
     claims the name, which is how dependency confusion compromises builds.
   severity: high
@@ -458,22 +463,23 @@
   condition: |
     components[
       $hasProp($, 'cdx:pypi:privateNamespace')
+      and $prop($, 'cdx:pypi:publicRegistry') = 'true'
     ]
   location: |
     { "bomRef": $."bom-ref", "purl": purl }
-  message: "PyPI package '{{ name }}@{{ version }}' matches the private namespace '{{ $prop($, 'cdx:pypi:privateNamespace') }}' but resolves from the public index"
+  message: "PyPI package '{{ name }}@{{ version }}' matches the private namespace '{{ $prop($, 'cdx:pypi:privateNamespace') }}', and the public Python Package Index holds that name"
   mitigation: "Register the name on the public index and keep it unmaintained, or publish a placeholder, so a build can never silently resolve the public package"
   evidence: |
     {
       "matchedPrefix": $prop($, 'cdx:pypi:privateNamespace'),
-      "registry": $prop($, 'cdx:pypi:registry')
+      "onPublicRegistry": $prop($, 'cdx:pypi:publicRegistry')
     }
 
 - id: INT-019
   name: "Private Cargo crate name on crates.io"
   description: >-
     A component whose name starts with a namespace or prefix the caller
-    declared private resolves against crates.io. A build that finds no
+    declared private is published on crates.io. A build that finds no
     private copy falls back to whatever public crate claims the name, which
     is how dependency confusion compromises builds.
   severity: high
@@ -482,14 +488,16 @@
   condition: |
     components[
       $hasProp($, 'cdx:cargo:privateNamespace')
+      and $prop($, 'cdx:cargo:publicRegistry') = 'true'
     ]
   location: |
     { "bomRef": $."bom-ref", "purl": purl }
-  message: "Cargo crate '{{ name }}@{{ version }}' matches the private namespace '{{ $prop($, 'cdx:cargo:privateNamespace') }}' but resolves from crates.io"
+  message: "Cargo crate '{{ name }}@{{ version }}' matches the private namespace '{{ $prop($, 'cdx:cargo:privateNamespace') }}', and the public crates.io registry holds that name"
   mitigation: "Publish a placeholder crate for the name on crates.io, or route the dependency through a vendored or patched source, so a build can never silently resolve the public crate"
   evidence: |
     {
-      "matchedPrefix": $prop($, 'cdx:cargo:privateNamespace')
+      "matchedPrefix": $prop($, 'cdx:cargo:privateNamespace'),
+      "onPublicRegistry": $prop($, 'cdx:cargo:publicRegistry')
     }
 
 - id: INT-020

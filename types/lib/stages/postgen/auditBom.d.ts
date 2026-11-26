@@ -64,7 +64,9 @@ export declare function ensureAiOversightProperties(bomJson: Object, options?: O
  * package because the private registry holds no copy. Components of the
  * npm, PyPI and Cargo purl types whose full name starts with one of the
  * configured prefixes carry a `cdx:<eco>:privateNamespace` property whose
- * value is the matched prefix, and the INT-017 to INT-019 rules report them.
+ * value is the matched prefix. The INT-017 to INT-019 rules report a marked
+ * component only once the public registry has said it holds the name
+ * (`cdx:<eco>:publicRegistry`), which this function does not ask about.
  *
  * The prefixes match by prefix only: `myorg` matches both the npm scope
  * `@myorg` and a PyPI or Cargo name that starts with `myorg`.
