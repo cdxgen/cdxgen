@@ -262,7 +262,7 @@ Rules that detect deprecated, yanked, tampered, or suspicious packages.
 | INT-026 | low      | npm package without any release in six years                              |
 | INT-027 | low      | PyPI package without any release in six years                             |
 | INT-028 | low      | Cargo crate without any release in six years                              |
-| INT-029 | medium   | npm version ships or builds native code (platform constraint, node-gyp, binary download host) |
+| INT-029 | low      | npm version ships or builds native code (platform constraint, node-gyp, binary download host) |
 | INT-030 | high     | PyPI release in use has been yanked                                       |
 
 The private-namespace rules INT-017 to INT-019 fire when `cdx-audit --private-namespace` (or the matching `bomAuditPrivateNamespace` audit option) names a prefix a component's name starts with and the public registry holds that name: `cdx-audit` marks the matching components and, in direct BOM audit mode, asks the public registry about each name, recording the answer as `cdx:<type>:publicRegistry`; see [CDX_AUDIT.md](CDX_AUDIT.md). INT-005, INT-010, INT-020 to INT-030 read registry metadata properties; they evaluate only where a BOM carries them, which takes one registry fetch at generation time or at audit time (`cdx-audit --fetch-registry-metadata` in direct mode; the predictive mode always looks them up). INT-029 does not count a `bin` entry, which names a script rather than native code.

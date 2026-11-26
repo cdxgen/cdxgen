@@ -65,8 +65,9 @@ export declare function registryCoverage(bomJson: object): {
  * input BOM was generated without --bom-audit.
  *
  * With `forDirectAudit`, the properties the direct audit's registry rules read
- * (package age, release recency, version presence, deprecation, yank) are
- * copied back as well.
+ * (package age, release recency, version presence, deprecation, yank, native
+ * code) are copied back as well, and a component that already carries
+ * trusted-publishing properties is looked up too.
  *
  * @param {{ source: string, bomJson: object }[]} inputBoms loaded input BOMs
  * @param {{ forDirectAudit?: boolean }} [options] what to copy back

@@ -720,8 +720,10 @@
     os, cpu or libc constraint), builds with node-gyp from a binding.gyp, or
     names a host it downloads a prebuilt binary from at install time.
     Compiled artifacts cannot be read the way source can, and a hijacked
-    binary distribution reaches every platform the package ships for.
-  severity: medium
+    binary distribution reaches every platform the package ships for. It is
+    a property of many widely used packages, so the finding is triage
+    context about where compiled code enters the tree.
+  severity: low
   category: package-integrity
   dry-run-support: no
   # A `bin` entry is not one of these: it names a script the package runs,
