@@ -27,6 +27,9 @@ export declare function parseGitLabUrl(url: string): string | null;
  *
  * @param {string} dir Root directory of the repository
  * @param {Array<Object>} aiCommits List of AI commit objects
+ * With `options.offline`, nothing is requested and the result is empty, as
+ * it is without a token.
+ *
  * @param {Object} options Options containing forgeToken or env context
  * @returns {Promise<Object>} Object containing reviews list and authoritative flags
  */

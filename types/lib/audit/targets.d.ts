@@ -25,13 +25,15 @@ export declare function isRequiredComponentScope(scope: string | undefined): boo
  *
  * @param {{ source: string, bomJson: object }[]} inputBoms loaded input BOMs whose
  *   components already carry the private-namespace mark
- * @param {{ offline?: boolean }} [options] `offline` asks nothing
+ * @param {{ deadline?: number, offline?: boolean }} [options] `offline`, or a
+ *   `deadline` (epoch milliseconds) already passed, asks nothing
  * @returns {Promise<{ matched: number, onPublicRegistry: number, notOnPublicRegistry: number, unknown: number }>} the counts
  */
 export declare function checkPrivateNamesOnPublicRegistry(inputBoms: {
     source: string;
     bomJson: object;
-}[], { offline }?: {
+}[], { deadline, offline }?: {
+    deadline?: number;
     offline?: boolean;
 }): Promise<{
     matched: number;
@@ -50,14 +52,27 @@ export declare function checkPrivateNamesOnPublicRegistry(inputBoms: {
  * the report says how many they are instead of letting the rules that read
  * registry metadata pass over them in silence.
  *
+ * Two kinds of npm, PyPI or Cargo component are not eligible and are counted
+ * apart, so that `withoutMetadata` of zero is never read as everything
+ * assessed: `unparseable` purls, and purls that name no version
+ * (`withoutVersion`). `skippedByTimeBudget` counts the eligible components a
+ * spent time budget left without a lookup; they are among `withoutMetadata`.
+ *
  * @param {object} bomJson CycloneDX BOM
- * @returns {{ components: number, eligible: number, answered: number, withoutMetadata: number }} the counts
+ * @param {{ skippedByTimeBudget?: Set<object> }} [options] the components the
+ *   enrichment did not reach
+ * @returns {{ components: number, eligible: number, answered: number, withoutMetadata: number, unparseable: number, withoutVersion: number, skippedByTimeBudget: number }} the counts
  */
-export declare function registryCoverage(bomJson: object): {
+export declare function registryCoverage(bomJson: object, options?: {
+    skippedByTimeBudget?: Set<object>;
+}): {
     components: number;
     eligible: number;
     answered: number;
     withoutMetadata: number;
+    unparseable: number;
+    withoutVersion: number;
+    skippedByTimeBudget: number;
 };
 /**
  * Enrich input BOM components with registry provenance/trusted-publishing
@@ -69,16 +84,26 @@ export declare function registryCoverage(bomJson: object): {
  * code) are copied back as well, and a component that already carries
  * trusted-publishing properties is looked up too.
  *
+ * With a `deadline` (epoch milliseconds), the lookups run in chunks and stop
+ * once it passes; the components left without a lookup are returned.
+ *
  * @param {{ source: string, bomJson: object }[]} inputBoms loaded input BOMs
- * @param {{ forDirectAudit?: boolean }} [options] what to copy back
- * @returns {Promise<void>}
+ * @param {{ deadline?: number, forDirectAudit?: boolean }} [options] what to
+ *   copy back, and when to stop
+ * @returns {Promise<{ lookedUp: number, skippedByTimeBudget: Set<object> }>}
+ *   how many distinct package versions were looked up, and the components a
+ *   spent time budget left without a lookup
  */
 export declare function enrichInputBomsWithRegistryMetadata(inputBoms: {
     source: string;
     bomJson: object;
-}[], { forDirectAudit }?: {
+}[], { deadline, forDirectAudit }?: {
+    deadline?: number;
     forDirectAudit?: boolean;
-}): Promise<void>;
+}): Promise<{
+    lookedUp: number;
+    skippedByTimeBudget: Set<object>;
+}>;
 /**
  * Normalize package names for safe matching and grouping.
  *

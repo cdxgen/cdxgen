@@ -6,7 +6,12 @@ import process from "node:process";
 import yargs from "yargs";
 import { hideBin } from "yargs/helpers";
 
-import { finalizeAuditReport, runAudit } from "../lib/audit/index.js";
+import {
+  finalizeAuditReport,
+  runAudit,
+  splitCliList,
+  timeBudgetUsageError,
+} from "../lib/audit/index.js";
 import { createProgressTracker } from "../lib/audit/progress.js";
 import {
   retrieveCdxgenVersion,
@@ -123,7 +128,7 @@ const args = yargs(hideBin(process.argv))
   })
   .option("private-namespace", {
     description:
-      "Comma-separated private package namespace or name prefixes. A public-registry package whose name starts with one of them is reported as a dependency-confusion finding, in direct BOM audit mode and on predictive child SBOMs. Applies to npm scopes, PyPI and Cargo names.",
+      "Comma-separated private package namespaces or name prefixes; repeat the option to add more. An npm scope (@acme, or acme for a scoped package) matches that scope exactly; other names match exactly or at a -, _, . or / boundary, PyPI names after PEP 503 normalisation and Cargo names with _ read as -. In direct BOM audit mode the public registry is asked about each matching name and one it holds is reported as a dependency-confusion finding. Predictive mode only marks the matching components and counts them in its summary; it does not ask the public registries, so it reports no finding for them.",
     type: "string",
   })
   .option("fetch-registry-metadata", {
@@ -135,12 +140,12 @@ const args = yargs(hideBin(process.argv))
   .option("offline", {
     default: false,
     description:
-      "Run without any network access. Direct BOM audit mode skips registry OCI probes and AI provenance detection; predictive mode plans its targets and reports every target as skipped with the reason.",
+      "Run without any network access. Direct BOM audit mode skips the registry lookups, the OCI registry probes and the forge API requests of AI oversight, and still reads the local git history for AI provenance; predictive mode plans its targets and reports every target as skipped with the reason.",
     type: "boolean",
   })
   .option("time-budget-minutes", {
     description:
-      "Predictive mode stops starting new targets once this budget is spent; the targets it did not start are reported as skipped and the summary names the exhausted budget.",
+      "Stop starting new work once this many minutes have passed since the run began. The clock covers the registry lookups too. Predictive mode reports the targets it did not start as skipped and skips default-branch rechecks; direct BOM audit mode skips the remaining registry and public-registry lookups. The summary sets timeBudgetExhausted and counts what was cut.",
     type: "number",
   })
   .option("skip-default-branch-recheck", {
@@ -174,6 +179,10 @@ const args = yargs(hideBin(process.argv))
         "Use either --include-trusted or --only-trusted, not both.",
       );
     }
+    const timeBudgetError = timeBudgetUsageError(argv.timeBudgetMinutes);
+    if (timeBudgetError) {
+      throw new Error(timeBudgetError);
+    }
     return true;
   })
   .completion("completion", "Generate bash/zsh completion")
@@ -182,22 +191,6 @@ const args = yargs(hideBin(process.argv))
   .version(retrieveCdxgenVersion())
   .help()
   .wrap(Math.min(120, yargs().terminalWidth())).argv;
-
-/**
- * Split a CSV option into a normalized string array.
- *
- * @param {string | undefined} value CSV string
- * @returns {string[] | undefined} parsed values
- */
-function splitCsv(value) {
-  if (!value) {
-    return undefined;
-  }
-  return value
-    .split(",")
-    .map((entry) => entry.trim())
-    .filter(Boolean);
-}
 
 /**
  * Print or write rendered report output.
@@ -228,7 +221,7 @@ function writeOrPrint(output, outputPath) {
       allowlistFile: args.allowlistFile,
       bom: args.bom,
       bomDir: args.bomDir,
-      categories: splitCsv(args.categories),
+      categories: splitCliList(args.categories),
       directBomAudit: args.directBomAudit,
       failSeverity: args.failSeverity,
       fetchRegistryMetadata: args.fetchRegistryMetadata === true,
@@ -239,7 +232,7 @@ function writeOrPrint(output, outputPath) {
       offline: args.offline === true,
       onProgress: progressTracker.onProgress,
       prioritizeDirectRuntime: args.prioritizeDirectRuntime,
-      privateNamespace: splitCsv(args.privateNamespace),
+      privateNamespace: splitCliList(args.privateNamespace),
       report: args.report,
       reportsDir: args.reportsDir,
       rulesDir: args.rulesDir,

@@ -57,19 +57,59 @@ export declare function ensureAiProvenanceProperties(bomJson: Object, options?: 
  */
 export declare function ensureAiOversightProperties(bomJson: Object, options?: Object): Promise<void>;
 /**
+ * The name a public registry knows a component by, read from its purl and,
+ * when the purl does not parse, from its group and name.
+ *
+ * An npm scope always carries its `@` (`@acme`), whichever spelling the purl
+ * or the group used. Only npm, PyPI and Cargo components have one.
+ *
+ * @param {Object} component CycloneDX component
+ * @returns {{ type: string, scope: string | undefined, name: string, fullName: string } | undefined}
+ *   the registry name, or undefined for another type or no name
+ */
+export declare function componentRegistryName(component: Object): {
+    type: string;
+    scope: string | undefined;
+    name: string;
+    fullName: string;
+} | undefined;
+/**
+ * Whether a configured private namespace or name prefix names a component.
+ *
+ * - npm: a prefix that names a scope (`@acme`) matches that scope exactly,
+ *   and so does a bare prefix (`acme`) for a scoped package. A prefix with a
+ *   scope and a name part (`@acme/internal-`) matches the full name at a
+ *   separator boundary. A bare prefix matches an unscoped name exactly or at
+ *   a separator boundary (`-`, `_`, `.`, `/`): `acme` matches `acme` and
+ *   `acme-client`, never `acmecorp` or `@acmecorp/x`.
+ * - PyPI: both sides are compared after PEP 503 normalisation, at a
+ *   separator boundary: `acme` matches `acme_internal` and `Acme.Tools`.
+ * - Cargo: both sides are compared with `_` read as `-`, at a separator
+ *   boundary, as crates.io compares names.
+ *
+ * @param {string} prefix configured prefix
+ * @param {{ type: string, scope?: string, name: string, fullName: string }} registryName
+ *   see {@link componentRegistryName}
+ * @returns {boolean} whether the prefix names the component
+ */
+export declare function matchesPrivateNamespace(prefix: string, registryName: {
+    type: string;
+    scope?: string;
+    name: string;
+    fullName: string;
+}): boolean;
+/**
  * Mark the components whose name a caller has declared private.
  *
  * A private namespace or name prefix that shows up on a public registry is
  * the classic dependency-confusion setup: the build resolves the public
  * package because the private registry holds no copy. Components of the
- * npm, PyPI and Cargo purl types whose full name starts with one of the
- * configured prefixes carry a `cdx:<eco>:privateNamespace` property whose
- * value is the matched prefix. The INT-017 to INT-019 rules report a marked
- * component only once the public registry has said it holds the name
- * (`cdx:<eco>:publicRegistry`), which this function does not ask about.
- *
- * The prefixes match by prefix only: `myorg` matches both the npm scope
- * `@myorg` and a PyPI or Cargo name that starts with `myorg`.
+ * npm, PyPI and Cargo purl types whose registry name a configured prefix
+ * names (see {@link matchesPrivateNamespace}) carry a
+ * `cdx:<eco>:privateNamespace` property whose value is the matched prefix.
+ * The INT-017 to INT-019 rules report a marked component only once the
+ * public registry has said it holds the name (`cdx:<eco>:publicRegistry`),
+ * which this function does not ask about.
  *
  * @param {Object} bomJson CycloneDX BOM (mutated in place)
  * @param {Object} options audit options with bomAuditPrivateNamespace

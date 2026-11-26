@@ -85,12 +85,15 @@ selection, on top of the built-in allowlist),
 verdict inferred from BOM structure alone.
 
 Two more flags bound the run. `--offline` plans the predictive queue and
-reports every target as skipped with that reason (it also drops the registry
-OCI probes and AI provenance collection of a direct audit), so an offline run
-never looks like a clean one. `--time-budget-minutes` stops starting new
-targets once the budget is spent and marks the rest skipped; the JSON summary
-names `offline`, `timeBudgetExhausted` and `targetCapTruncated` so a consumer
-can tell a cut-short audit from a complete one.
+reports every target as skipped with that reason (in a direct audit it drops
+the registry lookups, the OCI registry probes and the forge API requests of AI
+oversight, and still reads the local git history), so an offline run never
+looks like a clean one. `--time-budget-minutes` takes one positive number and
+starts the clock when the run begins, registry lookups included; once it is
+spent no new target, lookup or default-branch recheck starts. The JSON summary
+names `offline`, `timeBudgetExhausted` (with counts of what it cut) and
+`targetCapTruncated` so a consumer can tell a cut-short audit from a complete
+one.
 
 The registry metadata rules (a deprecated npm package version INT-005, a
 deprecated newest npm release INT-031, a yanked PyPI release INT-030, a missing
@@ -99,19 +102,26 @@ INT-029) need properties only a registry lookup
 writes for dependencies. In `--direct-bom-audit` mode pass
 `--fetch-registry-metadata` so cdx-audit looks them up first (it makes network
 requests and is ignored with `--offline`), then read each result's `coverage`
-block: `registryMetadata` says whether the lookups ran, and `withoutMetadata`
-counts the components no registry answered for, which those rules did not
-assess.
+block: `registryMetadata` says whether the lookups ran, `withoutMetadata`
+counts the components no registry answered for, and `unparseable` and
+`withoutVersion` count the npm, PyPI and Cargo components that could not be
+looked up at all. The rules did not assess any of those.
 
-`--private-namespace` takes comma-separated private package name or namespace
-prefixes. In `--direct-bom-audit` mode cdx-audit asks the public npm registry,
-the Python Package Index or crates.io whether each matching name is published
-there, one request per name. A name the public registry holds is a
-dependency-confusion finding (INT-017 to INT-019 for npm, PyPI and Cargo); a
-private package that is not published publicly is the intended state. Read
-`coverage.privateNamespace` beside the findings: under `--offline` nothing is
-asked and every matching component counts as `unknown`, so the check assessed
-none of them.
+`--private-namespace` takes private package namespaces or name prefixes,
+comma-separated or with the option repeated. An npm scope (`@acme`, or `acme`
+for a scoped package) matches that scope exactly; other names match exactly or
+at a `-`, `_`, `.` or `/` boundary (PyPI after PEP 503 normalisation, Cargo
+with `_` read as `-`), so a bare `acme` also marks the public `acme-client`;
+pass `@acme` to mark only the npm scope. In `--direct-bom-audit` mode
+cdx-audit asks the public npm registry, the Python Package Index or crates.io
+whether each matching name is published there, one request per name. A name
+the public registry holds is a dependency-confusion finding (INT-017 to INT-019
+for npm, PyPI and Cargo); a private package that is not published publicly is
+the intended state. Read `coverage.privateNamespace` beside the findings:
+under `--offline` nothing is asked and every matching component counts as
+`unknown`, so the check assessed none of them. Predictive mode only marks and
+counts the matching components (`summary.privateNamespace`, `publicRegistry:
+"not-checked"`) and reports no finding for them.
 
 ### How the queue is ordered
 
