@@ -1,0 +1,40 @@
+lib/ecosystems/registryProvenance.poku.js
+  s_8c7c9bd4e9d139::t_d90f7276df594f 1199-1216,1224-1227
+  s_8c7c9bd4e9d139::t_fcd813081c15e5 1217-1223
+lib/stages/postgen/auditBom.poku.js
+  s_8c7c9bd4e9d139::t_d90f7276df594f 8501-8508
+data/rules/package-integrity.yaml
+  s_8c7c9bd4e9d139::t_30f70613b57f45 730-732,740,752-753
+docs/BOM_AUDIT.md
+  s_8c7c9bd4e9d139::t_7b7542194d3522 265
+docs/CDX_AUDIT.md
+  s_8c7c9bd4e9d139::t_16715046f82d4c 447
+docs/CUSTOM_PROPERTIES.md
+  s_8c7c9bd4e9d139::t_9d95e3f2ce8c9a 516,618,810
+lib/audit/targets.js
+  s_8c7c9bd4e9d139::t_e3f203e551b1ee 359,385
+lib/ecosystems/registryProvenance.js
+  s_8c7c9bd4e9d139::t_c6c352ced534f2 574-604,789-794
+test/data/registry/npm-rollup-packument.json
+  s_8c7c9bd4e9d139::t_a2d259a12e31fa 1-46
+types/lib/audit/targets.d.ts.map
+  s_8c7c9bd4e9d139::t_3b47decdf099ec 1
+types/lib/ecosystems/registryProvenance.d.ts.map
+  s_8c7c9bd4e9d139::t_cd0dbe047ff81e 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "fe13464bd6f0ae0e7cbc77e3cd63e9eec0de3f27",
+  "prompts": {},
+  "sessions": {
+    "s_8c7c9bd4e9d139": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_9dbe5ca6-7bed-4f18-b047-b71e9f4c565f",
+        "model": "GLM-5.3"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
