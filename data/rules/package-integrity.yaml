@@ -85,21 +85,32 @@
 
 - id: INT-005
   name: "npm deprecated package"
-  description: "npm packages marked as deprecated may have known vulnerabilities or unmaintained code"
+  description: "npm packages marked as deprecated may have known vulnerabilities or unmaintained code. The version in use carries the deprecation, or the newest release does, which is how npm maintainers retire a package"
   severity: low
   category: package-integrity
   dry-run-support: partial
+  # cdxgen records a deprecation in three spellings, one per parser: the
+  # installed tree writes the notice to cdx:npm:deprecated, the lockfile
+  # parsers and the registry lookup write it to cdx:npm:deprecation_notice,
+  # and the registry lookup names a newest-release-only deprecation
+  # separately. None writes the literal "true", so existence is the test.
   condition: |
     components[
-      $prop($, 'cdx:npm:deprecated') = 'true'
+      $hasProp($, 'cdx:npm:deprecation_notice')
+      or $hasProp($, 'cdx:npm:latest_deprecation_notice')
+      or (
+        $hasProp($, 'cdx:npm:deprecated')
+        and $prop($, 'cdx:npm:deprecated') != 'false'
+      )
     ]
   location: |
     { "bomRef": $."bom-ref", "purl": purl }
-  message: "npm package '{{ name }}@{{ version }}' is deprecated: {{ $prop($, 'cdx:npm:deprecation_notice') }}"
+  message: "npm package '{{ name }}@{{ version }}' is deprecated: {{ $hasProp($, 'cdx:npm:deprecation_notice') ? $prop($, 'cdx:npm:deprecation_notice') : $hasProp($, 'cdx:npm:deprecated') ? $prop($, 'cdx:npm:deprecated') : $prop($, 'cdx:npm:latest_deprecation_notice') }}"
   mitigation: "Migrate to a maintained alternative package"
   evidence: |
     {
-      "deprecationNotice": $prop($, 'cdx:npm:deprecation_notice')
+      "deprecationNotice": $hasProp($, 'cdx:npm:deprecation_notice') ? $prop($, 'cdx:npm:deprecation_notice') : $prop($, 'cdx:npm:deprecated'),
+      "latestDeprecationNotice": $prop($, 'cdx:npm:latest_deprecation_notice')
     }
 
 - id: INT-006
@@ -211,6 +222,26 @@
       "priorPublisher": $prop($, 'cdx:cargo:priorPublisher'),
       "publishTime": $prop($, 'cdx:cargo:publishTime'),
       "releaseGapDays": $prop($, 'cdx:cargo:releaseGapDays')
+    }
+
+- id: INT-030
+  name: "Yanked PyPI release in dependency tree"
+  description: "Releases yanked from the Python Package Index were withdrawn by their maintainers, usually for a security, correctness or build problem. The index keeps them downloadable, so a lockfile still installs them"
+  severity: high
+  category: package-integrity
+  dry-run-support: no
+  condition: |
+    components[
+      $prop($, 'cdx:pypi:yanked') = 'true'
+    ]
+  location: |
+    { "bomRef": $."bom-ref", "purl": purl }
+  message: "PyPI release '{{ name }}@{{ version }}' has been yanked"
+  mitigation: "Upgrade to a release that is not yanked and read the yank reason before choosing one"
+  evidence: |
+    {
+      "yankedReason": $prop($, 'cdx:pypi:yanked_reason'),
+      "publishTime": $prop($, 'cdx:pypi:publishTime')
     }
 
 - id: INT-011
@@ -677,22 +708,25 @@
 - id: INT-029
   name: "npm package ships native platform binaries"
   description: >-
-    The package carries native code: platform-specific prebuilt binaries for
-    named operating systems, ABIs or libcs, a node-gyp build, or a declared
-    binary download. Compiled artifacts cannot be read the way source can,
-    and a hijacked binary distribution reaches every platform the package
-    ships for.
+    The version carries native code: it is published for named platforms (an
+    os, cpu or libc constraint), builds with node-gyp from a binding.gyp, or
+    names a host it downloads a prebuilt binary from at install time.
+    Compiled artifacts cannot be read the way source can, and a hijacked
+    binary distribution reaches every platform the package ships for.
   severity: medium
   category: package-integrity
   dry-run-support: no
+  # A `bin` entry is not one of these: it names a script the package runs,
+  # and most command-line tools are plain JavaScript. The platform and build
+  # properties are recorded from a project's own manifest by the parser and
+  # for every published version by the registry lookup.
   condition: |
     components[
       $hasProp($, 'cdx:npm:os')
       or $hasProp($, 'cdx:npm:libc')
       or $hasProp($, 'cdx:npm:cpu')
       or $prop($, 'cdx:npm:gypfile') = 'true'
-      or $prop($, 'cdx:npm:native_addon') = 'true'
-      or $prop($, 'cdx:npm:has_binary') = 'true'
+      or $hasProp($, 'cdx:npm:binaryHost')
     ]
   location: |
     { "bomRef": $."bom-ref", "purl": purl }
@@ -704,5 +738,5 @@
       "libcs": $prop($, 'cdx:npm:libc'),
       "architectures": $prop($, 'cdx:npm:cpu'),
       "gypfile": $prop($, 'cdx:npm:gypfile'),
-      "nativeAddon": $prop($, 'cdx:npm:native_addon')
+      "binaryHost": $prop($, 'cdx:npm:binaryHost')
     }

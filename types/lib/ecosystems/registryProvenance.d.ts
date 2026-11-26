@@ -1,11 +1,4 @@
-/**
- * Extract advanced npm provenance and publishing properties from registry metadata.
- *
- * @param {object} packument npm packument body
- * @param {string | undefined} version package version
- * @returns {object[]} custom properties
- */
-export declare function collectNpmRegistryProvenanceProperties(packument: object, version: string | undefined): object[];
+export declare function collectNpmRegistryProvenanceProperties(packument: any, version: any): any[];
 /**
  * Extract advanced PyPI provenance and publishing properties from registry metadata.
  *
