@@ -349,7 +349,7 @@ export declare function normalizeCargoIntegrity(integrity: string): string | und
  *
  * @return pkgList Package list
  */
-export declare function extractJarArchive(jarFile: string, tempDir: string, jarNSMapping?: object): Promise<any[]>;
+export declare function extractJarArchive(jarFile: string, tempDir: string, jarNSMapping?: object, embeddedSboms?: null): Promise<any[]>;
 /**
  * Method to retrieve metadata for nuget packages
  *
