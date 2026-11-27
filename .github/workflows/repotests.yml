@@ -424,6 +424,12 @@ jobs:
           path: 'repotests/quarkus-quickstarts'
           ref: 'a13c0b8aa0882e3310caf19874cede140ebfdd7a'  # 3.17.3 as of 2026-10-29
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
+        with:
+          persist-credentials: false
+          repository: 'quarkusio/quarkus-quickstarts'
+          path: 'repotests/quarkus-quickstarts-4'
+          ref: '28076cfc10b3c179a92157dc98580550b1dfbed7'  # 4.0.1 as of 2026-11-27
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
         if: matrix.os != 'windows-latest'
         with:
           persist-credentials: false
@@ -551,6 +557,15 @@ jobs:
         run: |
           bin/cdxgen.js -r -t quarkus repotests/quarkus-quickstarts -o bomresults/bom-quarkus-quickstarts-quarkus.json --no-recurse --fail-on-error
           rm -rf repotests/quarkus-quickstarts || true
+        shell: bash
+      - name: repotests quarkus-quickstarts 4.0.1
+        run: |
+          # Quarkus 4 moved to Jackson 3 under the tools.jackson group. The
+          # assertion fails the job when the Jackson 3 identity is lost, for
+          # example to the Jackson 2 vendor alias.
+          bin/cdxgen.js -r -t quarkus repotests/quarkus-quickstarts-4 -o bomresults/bom-quarkus-quickstarts-4-quarkus.json --no-recurse --fail-on-error
+          jq -e 'any(.components[]; (.purl // "") | test("^pkg:maven/tools\\.jackson\\.core/jackson-databind@3"))' bomresults/bom-quarkus-quickstarts-4-quarkus.json
+          rm -rf repotests/quarkus-quickstarts-4 || true
         shell: bash
       - name: repotests evidence
         run: |
