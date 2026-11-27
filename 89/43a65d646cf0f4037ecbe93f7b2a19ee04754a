@@ -1,0 +1,21 @@
+package.json
+  s_f34168046b7f83::t_f60a311d05ff5c 184-194
+deno.json
+  s_f34168046b7f83::t_f60a311d05ff5c 104
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "8943a65d646cf0f4037ecbe93f7b2a19ee04754a",
+  "prompts": {},
+  "sessions": {
+    "s_f34168046b7f83": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_e2c32675-8f97-42ee-95cd-ffbb48f381f0",
+        "model": "GLM-5.3-Flash"
+      },
+      "human_author": "Team AppThreat <cloud@appthreat.com>"
+    }
+  }
+}
