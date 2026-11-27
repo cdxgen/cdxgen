@@ -1,0 +1,27 @@
+types/lib/inventory/embeddedSbom.d.ts
+  s_46405df206f0e6::t_56bd9723f102a3 1-33
+types/lib/ecosystems/ecosystems.d.ts
+  s_46405df206f0e6::t_56bd9723f102a3 352
+types/lib/cli/jvmBom.d.ts.map
+  s_46405df206f0e6::t_344f3bdd3d93c6 1
+types/lib/ecosystems/ecosystems.d.ts.map
+  s_46405df206f0e6::t_afd713cbf348f7 1
+types/lib/inventory/embeddedSbom.d.ts.map
+  s_46405df206f0e6::t_c1514b170db731 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "096dc3cedeee32f9e4cab1beb7bec5518f5c8513",
+  "prompts": {},
+  "sessions": {
+    "s_46405df206f0e6": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "bf0dde8c-ab83-43a1-81fb-905ace87e766",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}

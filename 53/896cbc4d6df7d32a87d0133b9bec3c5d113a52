@@ -1,0 +1,54 @@
+lib/ecosystems/parsers-misc.js
+  s_eb71cc7e0fa62b::t_ebcd34e43eed09 3163,3172-3179
+  s_eb71cc7e0fa62b::t_aa157baef943f5 3467-3473,3477-3485,3490
+  s_e1aeffa773f1f5::t_9d1f6f5da94f56 2744-2745,3170-3171,3474-3476
+  s_eb71cc7e0fa62b::t_5c2947a02bfcfa 3291-3294,3317,3335-3342
+  s_eb71cc7e0fa62b::t_3c17b7cdb688de 2752-2756
+  s_eb71cc7e0fa62b::t_014955c5015640 2742-2743,2746-2751,2757-2761
+test/data/cmakes/find-library-empty-names.cmake
+  s_eb71cc7e0fa62b::t_3fb17905e8ea64 1-3
+test/data/cmakes/find-dependency-mwe.cmake
+  s_eb71cc7e0fa62b::t_3fb17905e8ea64 1-3,5
+  s_e1aeffa773f1f5::t_9d1f6f5da94f56 4
+lib/ecosystems/parsers-misc.poku.js
+  s_eb71cc7e0fa62b::t_0c747c2ec37811 2542-2567,2569-2592
+  s_e1aeffa773f1f5::t_9d1f6f5da94f56 2568
+  s_eb71cc7e0fa62b::t_34af04701eaeba 14
+test/data/cmakes/sundials-config.cmake
+  s_eb71cc7e0fa62b::t_3fb17905e8ea64 4-12
+  s_e1aeffa773f1f5::t_9d1f6f5da94f56 1-3
+types/lib/ecosystems/parsers-misc.d.ts.map
+  s_55994c560e73d0::t_b403fd72b46add 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "53896cbc4d6df7d32a87d0133b9bec3c5d113a52",
+  "prompts": {},
+  "sessions": {
+    "s_55994c560e73d0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "06deb818-1b96-49f7-a969-412e3a0859ce",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    },
+    "s_e1aeffa773f1f5": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "e1177d81-eaa0-4b99-97d4-e1b063cd97bc",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": null
+    },
+    "s_eb71cc7e0fa62b": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_a2752571-2c91-437b-b17b-8f10bf49f3c7",
+        "model": "GLM-5.3"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}

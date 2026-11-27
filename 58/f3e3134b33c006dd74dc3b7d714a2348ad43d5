@@ -1,0 +1,23 @@
+lib/audit/index.js
+  s_8c7c9bd4e9d139::t_16166a080315a1 370-372
+types/lib/audit/index.d.ts.map
+  s_8c7c9bd4e9d139::t_52a39b1e06e910 1
+types/lib/stages/postgen/auditBom.d.ts.map
+  s_8c7c9bd4e9d139::t_132b325bb5b45d 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "58f3e3134b33c006dd74dc3b7d714a2348ad43d5",
+  "prompts": {},
+  "sessions": {
+    "s_8c7c9bd4e9d139": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_9dbe5ca6-7bed-4f18-b047-b71e9f4c565f",
+        "model": "GLM-5.3"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}

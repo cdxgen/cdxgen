@@ -1,0 +1,52 @@
+docs/CUSTOM_PROPERTIES.md
+  s_8c7c9bd4e9d139::t_89a96bb72a144b 516-517,521
+  s_8c7c9bd4e9d139::t_4ea4122493caf0 571,614-615,655-657,797-798,843-845
+types/lib/stages/postgen/auditBom.d.ts
+  s_8c7c9bd4e9d139::t_7992ed9f72aa42 60-77
+  s_8c7c9bd4e9d139::t_4b3d8ab8637960 59
+docs/CDX_AUDIT.md
+  s_8c7c9bd4e9d139::t_8e47ff703505e8 214-216
+  s_8c7c9bd4e9d139::t_f640f7bf41f0a5 346,435-446
+  s_8c7c9bd4e9d139::t_0a52b7fd1d190b 447
+lib/audit/index.poku.js
+  s_8c7c9bd4e9d139::t_e385a1b3fc3892 3132-3133,3135-3136,3220-3223,3255-3258
+agent-plugin/skills/bom-audit/SKILL.md
+  s_8c7c9bd4e9d139::t_7e311d6874a53c 87-99
+types/lib/audit/index.d.ts
+  s_8c7c9bd4e9d139::t_7992ed9f72aa42 4-7
+  s_8c7c9bd4e9d139::t_d14001aeec29b8 3
+lib/stages/postgen/auditBom.js
+  s_8c7c9bd4e9d139::t_e385a1b3fc3892 347
+lib/ecosystems/registryProvenance.poku.js
+  s_8c7c9bd4e9d139::t_e385a1b3fc3892 1001-1004,1010-1017,1019-1026,1030-1037,1041-1048,1061-1068,1072-1075,1079-1086,1099-1107,1111-1114,1118-1126
+docs/BOM_AUDIT.md
+  s_8c7c9bd4e9d139::t_a5be9c6680e41b 253-267
+lib/audit/index.js
+  s_8c7c9bd4e9d139::t_e385a1b3fc3892 2795-2796
+lib/stages/postgen/auditBom.poku.js
+  s_8c7c9bd4e9d139::t_e385a1b3fc3892 8297-8308,8397-8400,8416-8419,8427-8429,8477-8480
+types/lib/audit/index.d.ts.map
+  s_8c7c9bd4e9d139::t_b608b59eb06092 1
+types/lib/ecosystems/parsers-js.d.ts.map
+  s_8c7c9bd4e9d139::t_05100aaf075985 1
+types/lib/ecosystems/registryProvenance.d.ts.map
+  s_8c7c9bd4e9d139::t_c7f04ce2aeaa72 1
+types/lib/stages/postgen/auditBom.d.ts.map
+  s_8c7c9bd4e9d139::t_a23799d30ebe88 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "ebf6a32761c73ce1e095fb26c15f41136221ca13",
+  "prompts": {},
+  "sessions": {
+    "s_8c7c9bd4e9d139": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_9dbe5ca6-7bed-4f18-b047-b71e9f4c565f",
+        "model": "GLM-5.3"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}

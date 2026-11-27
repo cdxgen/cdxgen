@@ -1,0 +1,50 @@
+lib/audit/targets.poku.js
+  s_8c7c9bd4e9d139::t_20246ade3d87cf 1055-1058,1111-1116,1131-1134,1167-1172,1198-1208,1222-1230
+  s_8c7c9bd4e9d139::t_5cfcb8b5d95299 13,1048-1054,1059-1110,1117-1130,1135-1166,1173-1197,1209-1221,1231-1238
+types/lib/stages/postgen/auditBom.d.ts
+  s_8c7c9bd4e9d139::t_cf08ef8048b049 69-70
+lib/stages/postgen/auditBom.js
+  s_8c7c9bd4e9d139::t_06b7698d0dbfb3 304-305
+bin/audit.js
+  s_8c7c9bd4e9d139::t_53532a15f2971c 129-134,234
+agent-plugin/skills/bom-audit/SKILL.md
+  s_8c7c9bd4e9d139::t_021f5fc7ab8c0c 95-104
+docs/CDX_AUDIT.md
+  s_8c7c9bd4e9d139::t_021f5fc7ab8c0c 215,349-350,440,442-443,447-449
+types/lib/audit/targets.d.ts
+  s_8c7c9bd4e9d139::t_20246ade3d87cf 13-31,37-40,42,48-50
+  s_8c7c9bd4e9d139::t_09cd3ec104ecc7 12
+lib/audit/targets.js
+  s_8c7c9bd4e9d139::t_20246ade3d87cf 408
+  s_8c7c9bd4e9d139::t_d53076a7defe1f 353-357,564-565,632-638,641
+  s_8c7c9bd4e9d139::t_afc409f234e5f8 340-352,358-400,407,412-461,546-549,551,554-557,642
+lib/audit/index.poku.js
+  s_8c7c9bd4e9d139::t_63dc36cfe2a658 483-549,554-601
+  s_8c7c9bd4e9d139::t_20246ade3d87cf 550-553
+lib/audit/index.js
+  s_8c7c9bd4e9d139::t_53532a15f2971c 84,300-315,331-334
+docs/BOM_AUDIT.md
+  s_8c7c9bd4e9d139::t_9aa5118f9217f7 268
+types/lib/audit/index.d.ts.map
+  s_8c7c9bd4e9d139::t_53012422220956 1
+types/lib/audit/targets.d.ts.map
+  s_8c7c9bd4e9d139::t_7d4ebd4b4b17e9 1
+types/lib/stages/postgen/auditBom.d.ts.map
+  s_8c7c9bd4e9d139::t_9276e413368c03 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "3a5cb67d93d9c278d358955adbca28c2a70ee097",
+  "prompts": {},
+  "sessions": {
+    "s_8c7c9bd4e9d139": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_9dbe5ca6-7bed-4f18-b047-b71e9f4c565f",
+        "model": "GLM-5.3"
+      },
+      "human_author": null
+    }
+  }
+}

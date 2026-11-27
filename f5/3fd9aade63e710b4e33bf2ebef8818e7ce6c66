@@ -1,0 +1,19 @@
+lib/ecosystems/parsers-misc.js
+  s_55994c560e73d0::t_66a3c0ad7ce393 868-870
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "f53fd9aade63e710b4e33bf2ebef8818e7ce6c66",
+  "prompts": {},
+  "sessions": {
+    "s_55994c560e73d0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "06deb818-1b96-49f7-a969-412e3a0859ce",
+        "model": "unknown"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}

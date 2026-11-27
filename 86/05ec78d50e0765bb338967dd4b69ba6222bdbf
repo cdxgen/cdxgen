@@ -1,0 +1,32 @@
+lib/audit/targets.js
+  s_8c7c9bd4e9d139::t_5310d70eb8cd51 709-711,738-745
+lib/stages/postgen/auditBom.poku.js
+  s_8c7c9bd4e9d139::t_52e5e94a145589 8510
+lib/audit/targets.poku.js
+  s_8c7c9bd4e9d139::t_5310d70eb8cd51 1103-1143,1145-1160
+  s_8c7c9bd4e9d139::t_0926e74a7c09f6 1144
+data/rules/package-integrity.yaml
+  s_8c7c9bd4e9d139::t_507f842572bcf5 723-726
+docs/BOM_AUDIT.md
+  s_8c7c9bd4e9d139::t_46ff436a9577f0 265
+types/lib/audit/targets.d.ts
+  s_8c7c9bd4e9d139::t_10b72ff2c9058f 68-70
+types/lib/audit/targets.d.ts.map
+  s_8c7c9bd4e9d139::t_d8057b6ce57384 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "8605ec78d50e0765bb338967dd4b69ba6222bdbf",
+  "prompts": {},
+  "sessions": {
+    "s_8c7c9bd4e9d139": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_9dbe5ca6-7bed-4f18-b047-b71e9f4c565f",
+        "model": "GLM-5.3"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}

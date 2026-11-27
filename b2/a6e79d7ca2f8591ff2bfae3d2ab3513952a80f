@@ -1,0 +1,24 @@
+lib/ecosystems/ecosystems.js
+  s_7318da1b9edd46::t_6903dde9ba31e6 430-434
+  s_7318da1b9edd46::t_97792f3b9b32ce 435-448
+lib/ecosystems/npmRegistrySkips.poku.js
+  s_7318da1b9edd46::t_f0f5fcd7087445 190-208
+types/lib/ecosystems/ecosystems.d.ts.map
+  s_7318da1b9edd46::t_cbbb7436fed49e 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "b2a6e79d7ca2f8591ff2bfae3d2ab3513952a80f",
+  "prompts": {},
+  "sessions": {
+    "s_7318da1b9edd46": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "ec4cd02e-10f8-411b-a4d1-40ff6af5049b",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}

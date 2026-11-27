@@ -1,0 +1,27 @@
+lib/ecosystems/ecosystems.js
+  s_c708015f1facf9::t_cc79d41814e842 4078-4081
+lib/ecosystems/jarGroupAlias.poku.js
+  s_c708015f1facf9::t_cc79d41814e842 155-158
+lib/inventory/embeddedSbom.poku.js
+  s_c708015f1facf9::t_cc79d41814e842 1-7,91-94,105-108
+lib/cli/jvmBomQuarkusSboms.poku.js
+  s_c708015f1facf9::t_cc79d41814e842 238
+lib/cli/jvmBom.poku.js
+  s_c708015f1facf9::t_9c462d8a60367d 1155-1158,1163-1165,1177
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "6ea2ef2e7d6b9dd7605b2690dc12bd56d609c2af",
+  "prompts": {},
+  "sessions": {
+    "s_c708015f1facf9": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_522cb6c8-5246-4e6e-81a7-dfbc51bb2bf5",
+        "model": "GLM-5.3"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}

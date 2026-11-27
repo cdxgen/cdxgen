@@ -1,0 +1,59 @@
+agent-plugin/skills/bom-audit/SKILL.md
+  s_7318da1b9edd46::t_bca149e1d186f0 88-96,105-124
+bin/audit.js
+  s_7318da1b9edd46::t_c6de0a994710ff 9-14,131,143,148,182-185,224,235
+docs/BOM_AUDIT.md
+  s_7318da1b9edd46::t_b0a833c5d754c9 269
+docs/CDX_AUDIT.md
+  s_7318da1b9edd46::t_8d5f03e83c3bc5 214,216-217,347,349,450,454,456-462
+docs/CUSTOM_PROPERTIES.md
+  s_7318da1b9edd46::t_292e7ce1f1647f 615,665,727,814,869,935
+lib/audit/index.js
+  s_7318da1b9edd46::t_5c8fce12fc9bb6 64,67,107-169,333,347-349,368,374,380,382-383,386-389,391,406-420,437,440,501-505,2318,2322-2327,2830-2834,2837,2839-2843,2856-2867,2869-2874,2881,2886-2888,2895,2899-2901,2916,2931,2947,2961,2975-3034,3037,3050-3052,3061-3085,3088-3096,3121-3122,3131
+lib/audit/index.poku.js
+  s_7318da1b9edd46::t_29ce64552c0dec 29-30,540-541,543,550-553,596,608-693,2703-2826,3588,3687-3692,3695-3698,3713,3715-3716,3728-3815
+lib/audit/targets.js
+  s_7318da1b9edd46::t_129d72698c2722 15,342-349,455-463,489-490,495,522-526,576-579,611-616,618-620,622,628-630,632-648,652-654,661,673-675,768-770,772-776,780,834,840,846-868,878-886,890-894,924
+lib/audit/targets.poku.js
+  s_7318da1b9edd46::t_69eabc23105098 975-1012,1314-1316,1328-1330,1338-1340,1576-1650
+lib/inventory/forgeEnricher.js
+  s_7318da1b9edd46::t_8073d9b55d568e 125-127,136-138
+lib/inventory/forgeEnricher.poku.js
+  s_7318da1b9edd46::t_077714f3878e3a 263-284
+lib/stages/postgen/auditBom.js
+  s_7318da1b9edd46::t_d6c42a714c7ae1 8-9,297-404,411-416,425-426,433-434,437-438,443
+lib/stages/postgen/auditBom.poku.js
+  s_7318da1b9edd46::t_a28652786459d8 22,8255-8342
+types/lib/audit/index.d.ts
+  s_7318da1b9edd46::t_20f63010c57a19 8-25
+types/lib/audit/index.d.ts.map
+  s_7318da1b9edd46::t_f4bd37c4da8a92 1
+types/lib/audit/targets.d.ts
+  s_7318da1b9edd46::t_fdffba62008b0f 28-29,35-36,55-60,62-64,66-68,73-75,87-89,91-95,100-101,103-106
+types/lib/audit/targets.d.ts.map
+  s_7318da1b9edd46::t_2d368f0abfb8fa 1
+types/lib/inventory/forgeEnricher.d.ts
+  s_7318da1b9edd46::t_90b2d83276862e 30-32
+types/lib/inventory/forgeEnricher.d.ts.map
+  s_7318da1b9edd46::t_513d0ea4c5bc86 1
+types/lib/stages/postgen/auditBom.d.ts
+  s_7318da1b9edd46::t_e56b1a346fa1f0 59-100,107-112
+types/lib/stages/postgen/auditBom.d.ts.map
+  s_7318da1b9edd46::t_11b3c076d9d2a1 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "ed41e419b0cb02750bb8db596931eb5bd1f4d374",
+  "prompts": {},
+  "sessions": {
+    "s_7318da1b9edd46": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "ec4cd02e-10f8-411b-a4d1-40ff6af5049b",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}

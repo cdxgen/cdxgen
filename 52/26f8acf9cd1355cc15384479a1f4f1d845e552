@@ -1,0 +1,23 @@
+lib/cli/jvmBomQuarkusSboms.poku.js
+  s_c708015f1facf9::t_8e953fae325fbe 1-25,32-162,164-168,172-175,179-192,194-196,198-225,227-239,241-249
+  s_c708015f1facf9::t_bee49cd6978cba 163,169-171,176-178,197,226
+  s_c708015f1facf9::t_c3f67840674f66 193
+  s_c708015f1facf9::t_e00f77aac49ef0 240
+  s_c708015f1facf9::t_5e31fd97fb3c62 26-31
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "5226f8acf9cd1355cc15384479a1f4f1d845e552",
+  "prompts": {},
+  "sessions": {
+    "s_c708015f1facf9": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_522cb6c8-5246-4e6e-81a7-dfbc51bb2bf5",
+        "model": "GLM-5.3"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}

@@ -1,0 +1,32 @@
+lib/ecosystems/parsers-misc.js
+  s_eb71cc7e0fa62b::t_aa157baef943f5 3468-3487,3492
+  s_eb71cc7e0fa62b::t_3c17b7cdb688de 2753-2757
+  s_eb71cc7e0fa62b::t_ebcd34e43eed09 3164,3171-3180
+  s_eb71cc7e0fa62b::t_5c2947a02bfcfa 3292-3295,3318,3336-3343
+  s_eb71cc7e0fa62b::t_014955c5015640 2742-2752,2758-2762
+lib/ecosystems/parsers-misc.poku.js
+  s_eb71cc7e0fa62b::t_34af04701eaeba 14
+  s_eb71cc7e0fa62b::t_0c747c2ec37811 2542-2592
+test/data/cmakes/find-library-empty-names.cmake
+  s_eb71cc7e0fa62b::t_3fb17905e8ea64 1-3
+test/data/cmakes/sundials-config.cmake
+  s_eb71cc7e0fa62b::t_3fb17905e8ea64 1-12
+test/data/cmakes/find-dependency-mwe.cmake
+  s_eb71cc7e0fa62b::t_3fb17905e8ea64 1-6
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "85a3e914c4a66a11f9f15a579f6675be21a3af17",
+  "prompts": {},
+  "sessions": {
+    "s_eb71cc7e0fa62b": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_a2752571-2c91-437b-b17b-8f10bf49f3c7",
+        "model": "GLM-5.3"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}

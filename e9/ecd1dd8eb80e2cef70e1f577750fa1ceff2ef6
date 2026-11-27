@@ -1,0 +1,36 @@
+lib/audit/index.js
+  s_8c7c9bd4e9d139::t_e7823dbca0a0d1 96-101,265-267,276,307-309,397,1926,2150,2691,2753-2800,2807-2812,2843-2867,2902,2905-2914
+  s_8c7c9bd4e9d139::t_d167ec80429420 2801-2805
+lib/stages/postgen/auditBom.js
+  s_8c7c9bd4e9d139::t_e7823dbca0a0d1 29-36,294-343,345-353,355-374,395-397
+  s_8c7c9bd4e9d139::t_d9bfc51693751a 344,354,375-376
+data/rules/package-integrity.yaml
+  s_8c7c9bd4e9d139::t_e7823dbca0a0d1 392-708
+lib/stages/postgen/auditBom.poku.js
+  s_8c7c9bd4e9d139::t_2619c112f22881 5713
+  s_8c7c9bd4e9d139::t_eb1136645e3229 8253-8469
+  s_8c7c9bd4e9d139::t_0b958e7dc9503c 5706-5707,5709
+bin/audit.js
+  s_8c7c9bd4e9d139::t_e7823dbca0a0d1 124-139,232,235,241
+lib/audit/index.poku.js
+  s_8c7c9bd4e9d139::t_a081d5291e7015 364,431,474
+  s_8c7c9bd4e9d139::t_ed8bb0587531ba 3131-3132,3134
+  s_8c7c9bd4e9d139::t_056e758036e9b5 3217-3222
+  s_8c7c9bd4e9d139::t_f56b46d466c75e 3081-3130,3133,3135-3216,3223-3256
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "e9ecd1dd8eb80e2cef70e1f577750fa1ceff2ef6",
+  "prompts": {},
+  "sessions": {
+    "s_8c7c9bd4e9d139": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_9dbe5ca6-7bed-4f18-b047-b71e9f4c565f",
+        "model": "GLM-5.3"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}

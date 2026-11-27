@@ -1,0 +1,34 @@
+docs/ADVANCED.md
+  s_55994c560e73d0::t_77ce94a02f3c14 1323-1341
+  s_55994c560e73d0::t_afe263081afeae 1342
+lib/inventory/analyzer.js
+  s_55994c560e73d0::t_d605674aa14927 4237-4238,4771-4772
+  s_55994c560e73d0::t_77ce94a02f3c14 4240-4243,4769-4770,4773
+lib/inventory/cbomutils.js
+  s_55994c560e73d0::t_77ce94a02f3c14 4,200,243,247-248,250-251,260,262-264,268,271-273,275,277-283,285-289,528,531-535,537,543,547,556,560,564,612-616,654
+  s_55994c560e73d0::t_f88dd9867e5df0 70-137,197-199,213-215,244-246,249,252-259,261,536,552-555
+  s_55994c560e73d0::t_b909b73e7b93a8 265-267,269-270,274,276,284,515,592
+lib/inventory/analyzer.poku.js
+  s_55994c560e73d0::t_77ce94a02f3c14 1406-1445
+data/crypto-oid.json
+  s_55994c560e73d0::t_77ce94a02f3c14 550-553,1766-1769
+lib/inventory/cbomutils.poku.js
+  s_55994c560e73d0::t_a117a6fcceaf62 219-222,238,242-275
+  s_55994c560e73d0::t_77ce94a02f3c14 138-218,223-237,239-241,276-398
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "2477630c3530484fa8a827f911126b1f6cf264d0",
+  "prompts": {},
+  "sessions": {
+    "s_55994c560e73d0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "06deb818-1b96-49f7-a969-412e3a0859ce",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
