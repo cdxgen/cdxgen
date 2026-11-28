@@ -95,6 +95,16 @@ RUN set -e; \
  && update-alternatives --install /usr/bin/python python /usr/bin/python3.10 10 \
  && update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.10 10 \
  && mkdir ${PYTHONPATH} \
+# The pip shipped in the BCI base image vendors a truststore that runs a wrap_bio
+# check at import time. The python310 3.10.22 package from Tumbleweed raises
+# ValueError (check_hostname requires server_hostname) in that check, so every
+# pip install crashes before it can upgrade itself, and the python310-pip
+# package is no longer in the Tumbleweed repositories to upgrade with zypper.
+# get-pip.py embeds a current pip wheel and installs it without using the
+# installed pip. pip 25.1 stopped running the failing check on CPython.
+ && curl -sSLo /tmp/get-pip.py https://bootstrap.pypa.io/get-pip.py \
+ && python /tmp/get-pip.py --no-cache-dir \
+ && rm -f /tmp/get-pip.py \
  && python -m pip install \
       --no-cache-dir \
       --upgrade \
