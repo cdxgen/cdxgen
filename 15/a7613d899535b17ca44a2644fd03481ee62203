@@ -1,0 +1,20 @@
+ci/images/opensuse/Dockerfile.python3.10
+  s_8cfcde7a83b1ff::t_d2a5cbdebac20d 98-104
+  s_8cfcde7a83b1ff::t_7688e9c3ee203f 105-107
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "15a7613d899535b17ca44a2644fd03481ee62203",
+  "prompts": {},
+  "sessions": {
+    "s_8cfcde7a83b1ff": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "sess_d1a64f7c-9a74-4391-828f-f41627cda833",
+        "model": "unknown"
+      },
+      "human_author": "Prabhu Subramanian <prabhu@appthreat.com>"
+    }
+  }
+}
